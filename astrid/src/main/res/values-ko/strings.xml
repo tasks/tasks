@@ -1,35 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<!-- ================================================== general terms == -->
-	<!-- People Editing Activity -->
-	<!-- slide 18b/ 25e/ 27c: task sharing dialog: assigned hint -->
 	<string name="actfm_person_hint">연락처나 이메일</string>
-	<!-- task sharing dialog: shared with hint -->
 	<string name="actfm_person_or_tag_hint">연락처나 공유목록</string>
-	<!-- toast on transmit success -->
-	<!-- can\'t rename or delete shared tag message -->
-	<!-- warning before deleting a list you\'re the owner of -->
 	<string name="actfm_tag_operation_owner_delete">당신은 이 공유 목록의 소유자입니다! 이 목록을 삭제하면, 공유한 모든 구성원의 해당 목록을 삭제합니다. 계속하시겠습니까?</string>
-	<!-- slide 29a: menu item to take a picture -->
 	<string name="actfm_picture_camera">사진 찍기</string>
-	<!-- slide 29b: menu item to select from gallery -->
 	<string name="actfm_picture_gallery">갤러리에서 가져오기</string>
-	<!-- menu item to clear picture selection -->
 	<string name="actfm_picture_clear">사진 제거하기</string>
-	<!-- filter list activity: refresh tags -->
-	<!-- Title for prompt after sharing a task -->
 	<string name="actfm_view_task_title">일정을 열람할까요?</string>
-	<!-- Text for prompt after sharing a task -->
 	<string name="actfm_view_task_text">%s 님에게 일정을 보냈습니다! 현재 자신의 일정을 보고 있습니다. 당신이 할당한 이 일정과 다른 일정을 보시겠습니까?</string>
-	<!-- Ok button for task view prompt -->
 	<string name="actfm_view_task_ok">할당 일정 보기</string>
-	<!-- Cancel button for task view prompt -->
 	<string name="actfm_view_task_cancel">머무르기</string>
-	<!-- slide 13a: Title for the "My Shared Tasks" filter -->
 	<string name="actfm_my_shared_tasks_title">나의 공유 일정</string>
-	<!-- Empty list for the "My Shared Tasks" filter -->
 	<string name="actfm_my_shared_tasks_empty">미공유 일정</string>
-	<!-- =====================  Friendship connections -->
 	<string name="actfm_friendship_pending">%s 님에게 친구 요청을 보냈습니다!</string>
 	<string name="actfm_friendship_blocked">%s 님을 차단했습니다.</string>
 	<string name="actfm_friendship_ignored">%s 를 무시했습니다.</string>
@@ -38,78 +20,38 @@
 	<string name="actfm_friendship_no_status">공개일정을 공유하고 활동내역을 보려면 %s 에 연결하세요!</string>
 	<string name="actfm_friendship_connect">친구 추가하기</string>
 	<string name="actfm_friendship_accept">승인</string>
-	<!-- ================================================== TagViewActivity == -->
-	<!-- Tag View Activity: Add Comment hint -->
 	<string name="TVA_add_comment">댓글 쓰기...</string>
-	<!-- Tag View Activity: task comment ($1 - user name, $2 - task title) -->
-	<!-- Tabs for Tag view -->
 	<string-array name="TVA_tabs">
-	<!-- Tab for showing tasks -->
 		<item>일정</item>
-	<!-- Tab for showing comments & updates -->
 		<item>활동 내역</item>
-	<!-- Tab for showing setting -->
 		<item>목록 설정</item>
 	</string-array>
-	<!-- Tag View Menu: refresh -->
 	<string name="actfm_TVA_menu_refresh">새로고침</string>
-	<!-- Tag Settings: tag name label -->
 	<string name="actfm_TVA_tag_label">목록</string>
-	<!-- Tag Settings: tag owner label -->
-	<!-- Tag Settings: tag owner value when there is no owner -->
-	<!-- Tag Settings: tag picture -->
 	<string name="actfm_TVA_tag_picture">목록 사진</string>
-	<!-- slide 25c/28b: Tag Settings: silence notifications label -->
 	<string name="actfm_TVA_silence_label">알림 끄기</string>
-	<!-- Tag Settings: list icon label -->
-	<!-- slide 25b/27d: Tag Settings: list description label -->
 	<string name="actfm_TVA_tag_description_label">설명</string>
-	<!-- slide 28a: Tag Settings: list settings label -->
 	<string name="actfm_TVA_tag_settings_label">설정</string>
-	<!-- slide 25b: Tag Settings: list description hint -->
 	<string name="actfm_TVA_tag_description_hint">여기에 설명을 입력하세요</string>
-	<!-- slide 25d: Tag Settings: list name hint -->
 	<string name="actfm_TVA_tag_name_hint">목록 이름을 입력하세요</string>
-	<!-- ============================================ edit people dialog == -->
-	<!-- task sharing dialog: window title -->
-	<!-- task sharing dialog: save button -->
-	<!-- task sharing dialog: assigned label -->
-	<!-- task sharing dialog: custom email assignment -->
-	<!-- task sharing dialog: assigned hint -->
-	<!-- task sharing dialog: message hint -->
-	<!-- task sharing dialog: message hint -->
-	<!-- task sharing dialog: # of e-mails sent (%s => # people plural string) -->
-	<!-- task sharing dialog: edit people settings saved -->
-	<!-- task sharing dialog: invalid email (%s => email) -->
 	<string name="actfm_EPA_invalid_email">무효한 이메일: %s</string>
-	<!-- task sharing dialog: tag not found (%s => tag) -->
 	<string name="actfm_EPA_add_person_to_list_title">할당한 일정</string>
 	<string name="actfm_EPA_add_person_to_list">%1$s 를 이 목록에 공유하지 않았습니다. %2$s 를 이 목록에 추가할까요?</string>
 	<string name="actfm_EPA_add_person_to_list_ok">목록에 추가하기</string>
 	<string name="actfm_EPA_add_person_to_list_cancel">추가하지 않기</string>
 	<string name="actfm_list_owner">(소유자)</string>
-	<!-- ========================================= sharing login activity == -->
-	<!-- share login: Username / Email -->
-	<!-- share login: Google Auth title -->
 	<string name="actfm_GAA_title">사용하려는 구글 계정을 선택해 주십시오:</string>
-	<!-- ================================================ Featured Lists -->
 	<string name="actfm_feat_list_clone">목록 복사하기</string>
 	<string name="actfm_feat_list_suffix">(복사)</string>
 	<string name="actfm_feat_list_cloning">복사중...</string>
 	<string name="actfm_feat_list_clone_success">성공!</string>
 	<string name="actfm_feat_list_task_clone_success">일정 복사 완료</string>
 	<string name="actfm_feat_list_clone_empty">복사할 일정 없음</string>
-	<!-- ================================================ Synchronization == -->
-	<!-- Preferences Title: Act.fm -->
 	<string name="actfm_APr_header">Tasks.com</string>
 	<string name="actfm_https_title">HTTPS 사용하기</string>
-	<!-- title for notification tray after synchronizing -->
-	<!-- text for notification when comments are received -->
-	<!-- account types -->
 	<string name="actfm_account_type">계정 유형</string>
 	<string name="actfm_inapp_billing">프리미엄으로 업그레이드하기</string>
 	<string name="actfm_inapp_billing_summary">파일 첨부, 음성 백업, 프리미엄 지원 등</string>
-	<!-- Sync upgrade messages -->
 	<string name="actfm_tag_not_authorized_title">권한이 없습니다</string>
 	<string name="actfm_tag_not_authorized_body">더 이상 목록 %s 를 열람할 수 있는 권한이 없습니다 (권한을 삭제한 것 같습니다). 같은 이름의 새 목록을 생성하시겠습니까?</string>
 	<string name="actfm_tag_not_authorized_new_list">새 목록 만들기</string>
@@ -118,155 +60,74 @@
 	<string name="EPr_reset_sync_state">동기화 초기화</string>
 	<string name="EPr_reset_sync_state_summary">동기화 에러를 해결하기 위해 몇가지 로컬 자료를 초기화합니다</string>
 	<string name="EPr_reset_sync_state_detailed">동기화 에러를 해결하기 위해, 다음 동기화 때 당신의 일정과 목록은 Tasks.com 상에 존재하는 미러로 변경될 것입니다. 계속하시겠습니까?</string>
-	<!-- Resources for built-in timers plug-in -->
-	<!-- Task Edit Activity: Container Label -->
 	<string name="alarm_ACS_label">알람</string>
-	<!-- Task Edit Activity: Add New Alarm -->
 	<string name="alarm_ACS_button">알람 추가</string>
 	<string-array name="reminders_alarm">
-	<!-- reminders related to alarm -->
 		<item>알람!</item>
 	</string-array>
-	<!-- Resources for built-in backup plug-in -->
-	<!-- ================================================= BackupPreferences == -->
-	<!-- slide 33c/48d: Backup Preferences Title -->
 	<string name="backup_BPr_header">백업</string>
-	<!-- slide 48e/50c: Backup: Status Header -->
 	<string name="backup_BPr_group_status">상태</string>
-	<!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->
 	<string name="backup_status_success">최근 백업:\n%s</string>
-	<!-- Backup Status: last error failed. Keep it short! -->
 	<string name="backup_status_failed">마지막 백업 실패함</string>
-	<!-- Backup Status: error subtitle -->
 	<string name="backup_status_failed_subtitle">(오류 내용을 보려면 누르세요)</string>
-	<!-- slide 48a: Backup Status: never backed up -->
 	<string name="backup_status_never">백업한 적이 없습니다!</string>
-	<!-- slide 48f/ 50e: Backup Options Group Label -->
 	<string name="backup_BPr_group_options">설정</string>
-	<!-- slide 48b: Preference: Automatic Backup Title -->
 	<string name="backup_BPr_auto_title">자동 백업</string>
-	<!-- Preference: Automatic Backup Description (when disabled) -->
 	<string name="backup_BPr_auto_disabled">자동으로 백업하지 않습니다</string>
-	<!-- slide 48g: Preference: Automatic Backup Description (when enabled) -->
 	<string name="backup_BPr_auto_enabled">매일 백업합니다</string>
-	<!-- Preference screen restoring Tasks Help -->
-	<!-- Preference screen Restoring Tasks Help Dialog Text-->
-	<!-- ================================================= BackupActivity == -->
-	<!-- slide 48c: backup activity label -->
 	<string name="backup_BAc_label">백업 관리</string>
-	<!-- backup activity title -->
 	<string name="backup_BAc_title">백업 관리하기</string>
-	<!-- backup activity import button -->
 	<string name="backup_BAc_import">일정 가져오기</string>
-	<!-- backup activity export button -->
 	<string name="backup_BAc_export">일정 내보내기</string>
-	<!-- ============================================== Importer / Exporter == -->
-	<!-- Message displayed when error occurs -->
 	<string name="backup_TXI_error">가져오기 오류</string>
 	<string name="export_toast">%1$s 를 %2$s 로 백업함.</string>
 	<string name="export_toast_no_tasks">내보낼 일정 없음.</string>
-	<!-- Progress Dialog Title for exporting -->
 	<string name="export_progress_title">내보내는 중...</string>
-	<!-- Backup: Title of Import Summary Dialog -->
 	<string name="import_summary_title">간편 복원</string>
-	<!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
 	<string name="import_summary_message">파일 %1$s: %2$s 개의 일정 포함.\n\n
 %3$s 개 가져오기 성공,\n
 %4$s 개 이미 존재,\n
 %5$s 개 에러 발생\n</string>
-	<!-- Progress Dialog Title for importing -->
 	<string name="import_progress_title">가져오는 중...</string>
-	<!-- Progress Dialog text for import reading task (%d -> task number)-->
 	<string name="import_progress_read">일정 %d 읽는 중...</string>
-	<!-- Backup: Dialog when unable to open a file -->
-	<!-- Backup: Dialog when unable to open SD card folder (%s => folder) -->
 	<string name="DLG_error_sdcard">폴더에 접근 불가: %s</string>
-	<!-- Backup: Dialog when unable to open SD card in general -->
 	<string name="DLG_error_sdcard_general">SD 카드에 접근할 수 없습니다!</string>
-	<!-- Backup: File Selector dialog for import -->
 	<string name="import_file_prompt">복원할 파일을 선택하세요</string>
-	<!-- ================================================== AndroidManifest == -->
-	<!-- slide 32k: Application Name (shown on home screen & in launcher) -->
 	<string name="app_name">아스트리드 일정</string>
-	<!-- permission title for READ_TASKS -->
 	<string name="read_permission_label">아스트리드 권한</string>
-	<!-- permission description for READ_TASKS -->
 	<string name="read_permission_desc">일정 읽기, 일정 필터 보기</string>
-	<!-- permission title for READ_TASKS -->
 	<string name="write_permission_label">아스트리드 권한</string>
-	<!-- permission description for READ_TASKS -->
 	<string name="write_permission_desc">새 일정 생성하기, 기존 일정 편집하기</string>
-	<!-- ================================================== Generic Dialogs == -->
-	<!-- question for deleting tasks -->
 	<string name="DLG_delete_this_task_question">이 일정을 삭제할까요?</string>
-	<!-- question for deleting items (%s => item name) -->
 	<string name="DLG_delete_this_item_question">이 항목을 삭제할까요: %s?</string>
-	<!-- Progress dialog shown when upgrading -->
 	<string name="DLG_upgrading">일정 업그레이드 중...</string>
-	<!-- Title for dialog selecting a time (hours and minutes) -->
 	<string name="DLG_hour_minutes">시간 (시 : 분)</string>
-	<!-- Button for accepting EULA -->
 	<string name="DLG_accept">동의합니다</string>
-	<!-- Button for declining EULA -->
 	<string name="DLG_decline">거절합니다</string>
-	<!-- EULA title -->
 	<string name="DLG_eula_title">Tasks 사용 약관</string>
-	<!-- Dialog - loading -->
 	<string name="DLG_loading">불러오는 중...</string>
-	<!-- Dialog - dismiss -->
-	<!-- slide 20d -->
 	<string name="DLG_ok">확인</string>
-	<!-- slide 36g -->
 	<string name="DLG_cancel">취소</string>
 	<string name="DLG_undo">실행 취소</string>
-	<!-- =============================================================== UI == -->
-	<!-- Label for DateButtons with no value -->
 	<string name="WID_dateButtonUnset">누르세요</string>
-	<!-- String formatter for DateButtons ($D => date, $T => time) -->
-	<!-- String formatter for Disable button -->
-	<!--  ============================================================= notes -->
-	<!-- Note Exposer -->
-	<!-- Note Exposer / Comments -->
-	<!-- EditNoteActivity - no comments -->
 	<string name="ENA_no_comments">아직 활동내역이 없음</string>
-	<!-- EditNoteActivity - no username for comment -->
 	<string name="ENA_no_user">누군가</string>
-	<!-- EditNoteActivity - refresh comments -->
 	<string name="ENA_refresh_comments">댓글 새로고침</string>
-	<!-- ================================================= TaskListActivity == -->
-	<!-- slide 8b: Task List: Displayed instead of list when no items present -->
 	<string name="TLA_no_items">일정이 없네요!\n추가할까요?</string>
-	<!-- Task List: Displayed instead of list when no items present in people view (%s-> person\'s name) -->
 	<string name="TLA_no_items_person">%s 님은 당신과 공유한 일정이 없습니다</string>
-	<!-- Menu: Adjust Sort and Hidden Task Settings -->
 	<string name="TLA_menu_sort">정렬</string>
-	<!-- Menu: Sync Now -->
 	<string name="TLA_menu_sync">지금 동기화</string>
-	<!-- Menu: Search -->
 	<string name="TLA_menu_search">검색</string>
-	<!-- Menu: Tasks -->
 	<string name="TLA_menu_lists">목록</string>
-	<!-- Menu: Friends -->
 	<string name="TLA_menu_friends">사람들</string>
-	<!-- Menu: Featured Lists -->
 	<string name="TLA_menu_featured_lists">기능 목록</string>
-	<!-- Menu: Suggestions -->
 	<string name="TLA_menu_suggestions">제안</string>
-	<!-- Menu: Tutorial -->
-	<!-- Menu: Settings -->
 	<string name="TLA_menu_settings">설정</string>
-	<!-- slide 30b: Menu: Support -->
 	<string name="TLA_menu_support">지원</string>
-	<!-- Search Label-->
-	<!-- Window title for displaying Custom Filter -->
 	<string name="TLA_custom">사용자 설정</string>
-	<!-- slide 8d: Quick Add Edit Box Hint-->
 	<string name="TLA_quick_add_hint">일정 추가하기</string>
-	<!-- Quick Add Edit Box Hint for assigning (%s -> name)-->
 	<string name="TLA_quick_add_hint_assign">%s 님의 일정 추가하기</string>
-	<!-- Notification Volumne notification-->
 	<string name="TLA_notification_volume_low">알림를 껐습니다. 아스트리드 알림 소리를 들을 수 없습니다!</string>
-	<!-- Notifications disabled warning -->
 	<string name="TLA_notification_disabled">Tasks 알림을 사용하지 않습니다! 어떤 알림도 받을 수 없을 것입니다.</string>
 	<string-array name="TLA_filters">
 		<item>실행중</item>
@@ -276,16 +137,11 @@
 		<item>마침</item>
 		<item>숨김</item>
 	</string-array>
-	<!-- Title for confirmation dialog after quick add markup -->
 	<string name="TLA_quickadd_confirm_title">\"%s\" 라고 말했습니다</string>
-	<!-- Text for speech bubble in dialog after quick add markup -->
-	<!-- First string is task title, second is due date, third is priority -->
 	<string name="TLA_quickadd_confirm_speech_bubble">기한이 %2$s 인 일정 \"%1$s\" 을 %3$s 에 만들었습니다</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">%s</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">더 이상 확인을 하지 않습니다</string>
-	<!-- Title for alert on new repeating task. %s-> task title -->
 	<string name="TLA_repeat_scheduled_title">새 반복 일정 %s</string>
-	<!-- Speech bubble for when a new repeating task scheduled. %s->repeat interval -->
 	<string name="TLA_repeat_scheduled_speech_bubble">이 일정을 %s마다 알려 주겠습니다.</string>
 	<string-array name="TLA_priority_strings">
 		<item>최우선 순위</item>
@@ -293,135 +149,66 @@
 		<item>보통 순위</item>
 		<item>낮은 순위</item>
 	</string-array>
-	<!-- slide 22a -->
 	<string name="TLA_all_activity">모든 활동내역</string>
-	<!-- ====================================================== TaskAdapter == -->
-	<!-- Format string to indicate task is hidden (%s => task name) -->
 	<string name="TAd_hiddenFormat">%s [숨김]</string>
-	<!-- Format string to indicate task is deleted (%s => task name) -->
 	<string name="TAd_deletedFormat">%s [지움]</string>
-	<!-- Displayed when adapter is flung (scrolled quickly) -->
-	<!-- slide 22b: indicates task was completed. %s => date or time ago -->
 	<string name="TAd_completed">일정 완료\n%s</string>
-	<!-- slide 15a: Action Button: edit task -->
 	<string name="TAd_actionEditTask">편집</string>
-	<!-- Context Item: edit task -->
 	<string name="TAd_contextEditTask">일정 편집하기</string>
-	<!-- Context Item: copy task -->
 	<string name="TAd_contextCopyTask">일정 복사하기</string>
-	<!-- Context Item: delete task -->
 	<string name="TAd_contextDeleteTask">일정 지우기</string>
-	<!-- Context Item: undelete task -->
 	<string name="TAd_contextUndeleteTask">일정 복구하기</string>
-	<!-- Context Item: purge task -->
 	<string name="TAd_contextPurgeTask">일정 비우기</string>
-	<!-- ============================================== SortSelectionDialog == -->
-	<!-- slide 23h:  Hidden: title -->
 	<string name="SSD_hidden_title">숨긴 일정</string>
-	<!-- Hidden Task Selection: show completed tasks -->
 	<string name="SSD_completed">완료한 일정 보기</string>
-	<!-- Hidden Task Selection: show hidden tasks -->
 	<string name="SSD_hidden">숨긴 일정 보기</string>
-	<!-- Hidden Task Selection: show deleted tasks -->
 	<string name="SSD_deleted">지운 일정 보기</string>
-	<!-- Sort Selection: drag with subtasks -->
 	<string name="SSD_sort_drag">수동 정렬 (하위일정 포함)</string>
-	<!-- slide 23b: Sort Selection: smart sort -->
 	<string name="SSD_sort_auto">Tasks 스마트 정렬</string>
-	<!-- slide 23e: Sort Selection: sort by alpha -->
 	<string name="SSD_sort_alpha">제목 순서</string>
-	<!-- slide 23c: Sort Selection: sort by due date -->
 	<string name="SSD_sort_due">마감일 순서</string>
-	<!-- slide 23d: Sort Selection: sort by importance -->
 	<string name="SSD_sort_importance">우선순위 순서로</string>
-	<!-- slide 23f: Sort Selection: sort by modified date -->
 	<string name="SSD_sort_modified">최종 수정일 순서</string>
-	<!-- slide 23g: Sort Selection: reverse -->
 	<string name="SSD_sort_reverse">역순 정렬</string>
-	<!-- slide 23j: Sort Button: sort temporarily -->
 	<string name="SSD_save_temp">한번 정렬</string>
-	<!-- slide 23i: Sort Button: sort permanently -->
 	<string name="SSD_save_always">항상 정렬</string>
-	<!-- =============================================== FilterListActivity == -->
-	<!-- Tasks Filter Shortcut -->
 	<string name="FSA_label">목록이나 필터</string>
-	<!-- Filter List Activity Title -->
-	<!-- Displayed when loading filters -->
-	<!-- Context Menu: Create Shortcut -->
 	<string name="FLA_context_shortcut">바탕화면에 바로가기 만들기</string>
-	<!-- Menu: Search -->
-	<!-- Menu: Help -->
-	<!-- slide 28c: Create Shortcut Dialog Title -->
 	<string name="FLA_shortcut_dialog_title">바탕화면에 바로가기 만들기</string>
-	<!-- Create Shortcut Dialog (asks to name shortcut) -->
 	<string name="FLA_shortcut_dialog">바로가기 이름:</string>
-	<!-- Search Hint-->
 	<string name="FLA_search_hint">일정 검색하기</string>
-	<!-- Search Filter name (%s => query) -->
 	<string name="FLA_search_filter">\'%s\' 검색 중</string>
-	<!-- Toast: created shortcut (%s => label) -->
 	<string name="FLA_toast_onCreateShortcut">바로가기 생성: %s</string>
-	<!-- Menu: new filter -->
 	<string name="FLA_new_filter">새 필터</string>
-	<!-- slide 10e: Button: new list -->
 	<string name="FLA_new_list">새 목록</string>
-	<!-- Alert when creating a shortcut without selecting a filter -->
 	<string name="FLA_no_filter_selected">필터를 선택하지 않았습니다! 필터나 목록을 선택하세요.</string>
-	<!-- ================================================= TaskEditActivity == -->
-	<!-- Title when editing a task (%s => task title) -->
-	<!-- Title when creating a new task -->
-	<!-- Task title label -->
-	<!-- Task when label -->
 	<string name="TEA_when_header_label">언제</string>
-	<!-- Task title hint (displayed when edit box is empty) -->
 	<string name="TEA_title_hint">일정 이름</string>
-	<!-- Task importance label -->
 	<string name="TEA_importance_label">우선순위</string>
-	<!-- Task due date hint -->
 	<string name="TEA_deadline_hint">마감일 설정</string>
-	<!-- Task urgency specific time checkbox -->
 	<string name="TEA_urgency_specific_time">특정한 시간에?</string>
-	<!-- Task urgency specific time title when specific time false -->
 	<string name="TEA_urgency_none">없음</string>
-	<!-- Task hide until label -->
 	<string name="TEA_hideUntil_label">숨기기 기간:</string>
-	<!-- Task hide until label -->
 	<string name="TEA_hideUntil_display">%s 까지 숨기기</string>
-	<!-- Task hide until toast -->
 	<string name="TEA_hideUntil_message">%s 까지 일정을 숨깁니다</string>
-	<!-- Task editing data being loaded label -->
 	<string-array name="TEA_loading">
 		<item>불러오는 중...</item>
 	</string-array>
-	<!-- slide 16c: Task note label -->
 	<string name="TEA_note_label">설명</string>
-	<!-- slide 16c: Task note label -->
 	<string name="TEA_notes_empty">설명</string>
-	<!-- Task note hint -->
 	<string name="TEA_notes_hint">일정 내용을 입력하세요</string>
-	<!-- Estimated time label -->
 	<string name="TEA_estimatedDuration_label">일정 완료 예상 시간은?</string>
-	<!-- Elapsed time label -->
 	<string name="TEA_elapsedDuration_label">일정에 이미 소모한 시간</string>
-	<!-- Menu: Save -->
 	<string name="TEA_menu_save">변경사항 저장</string>
-	<!-- Menu: Don\'t Save -->
 	<string name="TEA_menu_discard">저장하지 않음</string>
-	<!-- Menu: Task comments -->
 	<string name="TEA_menu_refresh_comments">댓글 새로고침</string>
 	<string name="TEA_menu_comments">댓글</string>
-	<!-- Toast: task saved with deadline (%s => preposition + time units) -->
 	<string name="TEA_onTaskSave_due">일정 저장: 마감일 %s</string>
-	<!-- Toast: task saved without deadlines -->
 	<string name="TEA_onTaskSave_notDue">일정을 저장했습니다</string>
-	<!-- Toast: task was not saved -->
-	<!-- Toast: task was deleted -->
-	<!-- slide 15b: Task edit tab: activity -->
 	<string name="TEA_tab_activity">활동 내역</string>
 	<string name="TEA_timer_est">동부표준시 %s</string>
 	<string name="TEA_timer_elap">경과 시간: %s</string>
 	<string-array name="TEA_urgency">
-	<!-- slide 19: urgency: labels for edit page. item #4 -> auto filled -->
 		<item>기한 없음</item>
 		<item>특정한 날짜</item>
 		<item>오늘</item>
@@ -433,7 +220,6 @@
 	</string-array>
 	<string name="TEA_no_time">시한 없음</string>
 	<string-array name="TEA_hideUntil">
-	<!-- hideUntil: labels for edit page. -->
 		<item>사용안함</item>
 		<item>마감일</item>
 		<item>마감 시간</item>
@@ -441,65 +227,33 @@
 		<item>마감 일주일 전</item>
 		<item>특정한 요일/시간</item>
 	</string-array>
-	<!-- Task edit control set descriptors -->
-	<!-- slide 9c/ 35a -->
 	<string name="TEA_control_when">언제</string>
-	<!-- slide 16a/35c -->
 	<string name="TEA_control_importance">우선순위</string>
-	<!-- slide 16b/35d -->
 	<string name="TEA_control_lists">목록</string>
-	<!-- slide 16c/35e -->
 	<string name="TEA_control_notes">설명</string>
 	<string name="TEA_control_files">파일</string>
-	<!-- slide 16e / slide 35g-->
 	<string name="TEA_control_reminders">일정 알림</string>
-	<!-- slide 16f -->
 	<string name="TEA_control_timer">타이머 조절</string>
 	<string name="TEA_control_hidden_section">----항상 숨김----</string>
 	<string name="hide_until_prompt">내 목록에 표시</string>
-	<!-- Add Ons tab when no add-ons found -->
-	<!-- Add Ons button -->
-	<!-- More row -->
-	<!-- slide 15c: Text when no activity to show -->
 	<string name="TEA_no_activity">활동내역 없음</string>
-	<!-- Text to load more activity -->
 	<string name="TEA_load_more">더 불러오기...</string>
-	<!-- When controls dialog -->
 	<string name="TEA_when_dialog_title">마감일이 언제입니까?</string>
 	<string name="TEA_new_task">새 일정</string>
-	<!-- ============================================= IntroductionActivity == -->
-	<!-- slide 1a: Introduction Window title -->
-	<!-- Button to agree to EULA -->
-	<!-- Button to disagree with EULA -->
-	<!-- ===================================================== MissedCallActivity == -->
-	<!-- Missed call: return call (%1$s -> caller, %2$s -> time of call)-->
 	<string name="MCA_title">%1$s\n받은 시간: %2$s</string>
-	<!-- Missed call: return call -->
 	<string name="MCA_return_call">지금 전화하기</string>
-	<!-- Missed call: return call -->
 	<string name="MCA_add_task">나중에 전화하기</string>
-	<!-- Missed call: return call -->
 	<string name="MCA_ignore">무시하기</string>
-	<!-- Missed call: dialog to ignore all missed calls title -->
 	<string name="MCA_ignore_title">모든 부재중 전화를 무시할까요?</string>
-	<!-- Missed call: dialog to ignore all missed calls body -->
 	<string name="MCA_ignore_body">부재중 전화를 몇 번 무시했습니다. 아스트리드의 부재중 전화 알림을 중지할까요?</string>
-	<!-- Missed call: dialog to ignore all missed calls ignore all button -->
 	<string name="MCA_ignore_all">모든 전화 무시하기</string>
-	<!-- Missed call: dialog to ignore all missed calls ignore just this button -->
 	<string name="MCA_ignore_this">이 전화만 무시하기</string>
-	<!-- Missed call: preference title -->
 	<string name="MCA_missed_calls_pref_title">부재중 전화 처리</string>
-	<!-- slide 49c: Missed call: preference description -->
 	<string name="MCA_missed_calls_pref_desc_enabled">아스트리드는 부재중 전화를 알려주고 회신할 수 있도록 알려줍니다</string>
 	<string name="MCA_missed_calls_pref_desc_disabled">아스트리드는 부재중 전화에 대해서 알리지 않습니다</string>
-	<!-- Missed call: task title with name (%1$s -> name, %2$s -> number)-->
 	<string name="MCA_task_title_name">%1$s 님에게 %2$s 에 다시 연락하세요</string>
-	<!-- Missed call: task title no name (%s -> number)-->
 	<string name="MCA_task_title_no_name">%s 님에게 다시 연락하세요</string>
-	<!-- Missed call: schedule dialog title (%s -> name or number)-->
 	<string name="MCA_schedule_dialog_title">%s 님에게 다시 연락하세요...</string>
-	<!-- Missed call speech bubble options -->
 	<string-array name="MCA_dialog_speech_options">
 		<item>그렇게 유명하다니 좋으시겠네요!</item>
 		<item>예이! 바로 당신같은 사람!</item>
@@ -508,112 +262,59 @@
 		<item>할 수 있어요!</item>
 		<item>항상 문자를 보낼 수 있잖아요...</item>
 	</string-array>
-	<!-- ======================================= Calendar reminder activity == -->
-	<!-- Calendar remindeer ignore button -->
 	<string name="CRA_ignore">무시하기</string>
-	<!-- Calendar event -->
 	<string name="CRA_title">모임 목록이 필요하세요?</string>
-	<!-- Calendar reminder: dialog to ignore all missed calls title -->
 	<string name="CRA_ignore_title">모든 달력 이벤트를 무시할까요?</string>
-	<!-- Calendar reminder: dialog to ignore all missed calls body -->
 	<string name="CRA_ignore_body">몇몇의 달력 이벤트를 무시했습니다. 아스트리드가 그것을 물어보는 것을 중단할까요?</string>
-	<!-- Calendar reminder: dialog to ignore all missed calls ignore all button -->
 	<string name="CRA_ignore_all">모든 이벤트 무시하기</string>
-	<!-- Calendar reminder: dialog to ignore all missed calls ignore just this button -->
 	<string name="CRA_ignore_this">이 이벤트만 무시하기</string>
-	<!-- Calendar reminder: astrid speech bubble when event starting (%s -> event name) -->
 	<string name="CRA_speech_bubble_start">%s 가 곧 시작될 것 같습니다. 활동 아이템 목록을 만들까요?</string>
-	<!-- Calendar reminder: astrid speech bubble when event ending (%s -> event name) -->
 	<string name="CRA_speech_bubble_end">%s 를 방금 마치신 것 같습니다. 활동 아이템 목록을 만들까요?</string>
-	<!-- Calendar reminder: create list button -->
 	<string name="CRA_create_list">목록 만들기</string>
-	<!-- Calendar reminder: postpone button -->
 	<string name="CRA_postpone">연기하기</string>
-	<!-- Calendar reminder: list exists dialog title -->
 	<string name="CRA_list_exists_title">목록이 이미 있습니다</string>
-	<!-- Calendar reminder: list exists dialog body (%s -> list name)-->
 	<string name="CRA_list_exists_body">%s 이름의 목록이 이미 있습니다. 이 이벤트를 위해 새로운 목록을 만들까요?</string>
-	<!-- Calendar reminder: list exists dialog create new button -->
 	<string name="CRA_create_new">새 목록 만들기</string>
-	<!-- Calendar reminder: list exists dialog use existing button -->
 	<string name="CRA_use_existing">기존 목록 사용</string>
-	<!-- Calendar remindr: created list (%s -> list name) -->
 	<string name="CRA_created_list_dialog">%s 목록을 만들었습니다.</string>
-	<!-- Calendar reminder: one attendee (%s -> attendee name or email) -->
 	<string name="CRA_one_attendee">%s 님이 참석 중입니다.</string>
-	<!-- Calendar reminder: two attendees (%s -> attendee name or email) -->
 	<string name="CRA_two_attendees">%1$s 님과 %2$s 님이 참석 중입니다.</string>
-	<!-- Calendar reminder: many attendees (%s -> attendee name or email, %3$d -> how many other people) -->
 	<string name="CRA_many_attendees">%1$s, %2$s, %3$d 님과 다른 분들이 참석 중입니다.</string>
-	<!-- Calendar reminder: invitation prompt -->
 	<string name="CRA_invitation_prompt">초대할까요?</string>
-	<!-- Calendar reminder: preference title -->
 	<string name="CRA_calendar_reminders_pref_title">달력 도우미</string>
-	<!-- Calendar reminder: pref description disabled -->
 	<string name="CRA_calendar_reminders_pref_desc_disabled">아스트리드는 다가오는 달력 이벤트를 알리지 않을 것입니다.</string>
-	<!-- Calendar reminder: pref description enabled -->
 	<string name="CRA_calendar_reminders_pref_desc_enabled">아스트리드는 다가오는 달력 이벤트를 알리고 당신이 준비하도록 할 것입니다</string>
-	<!-- Calendar reminder: share list title -->
 	<string name="CRA_share_list_title">목록을 공유할까요?</string>
 	<string name="CRA_invite_attendees">참석자 초대하기</string>
 	<string name="CRA_more_options">추가 설정</string>
 	<string name="CRA_dont_invite">아니요 괜찮습니다</string>
-	<!-- Calendar reminder: share list title when no other attendees exist-->
 	<string name="CRA_list_created_title">목록을 만들었습니다!</string>
-	<!-- Calendar reminder: default new list name (%s -> event title) -->
 	<string name="CRA_default_list_name">활동 아이템: %s</string>
-	<!-- ===================================================== HelpActivity == -->
-	<!-- Help: Button to get support from our website -->
-	<!-- ==================================================== UpdateService == -->
-	<!-- Changelog Window Title -->
 	<string name="UpS_changelog_title">Tasks 의 새로운 기능</string>
-	<!-- Updates Window Title -->
 	<string name="UpS_updates_title">최신 아스트리드 뉴스</string>
-	<!-- ================================================== EditPreferences == -->
-	<!-- slide 31g: Preference Window Title -->
 	<string name="EPr_title">설정</string>
-	<!-- slide 46a -->
 	<string name="EPr_deactivated">비활성화됨</string>
-	<!-- slide 30i: Preference Category: Appearance Title -->
 	<string name="EPr_appearance_header">보기 설정</string>
-	<!-- Preference Category: Appearance Summary -->
 	<string name="EPr_appearance_summary">테마, 위젯, 일정 표시줄, 화면 편집</string>
-	<!-- slide 34a: Preference: Task List Font Size Title -->
 	<string name="EPr_fontSize_title">일정 목록 크기</string>
-	<!-- Preference: Filters to show pref screen title -->
 	<string name="EPr_filters_to_show_title">표시할 필터</string>
-	<!-- slide 32a: Preference: Show confirmation for smart reminders -->
 	<string name="EPr_showSmartConfirmation_title">스마트 알림시 확인하기</string>
-	<!-- slide 34g: Preference: Task List Font Size Description -->
 	<string name="EPr_fontSize_desc">주 목록 페이지 폰트 크기</string>
-	<!-- Preferemce: Show task edit confirmation toasts -->
-	<!-- slide 34c: Preference: Task List Show Notes -->
 	<string name="EPr_showNotes_title">일정에 설명 보기</string>
-	<!-- Edit screen preference category -->
 	<string name="EPr_edit_screen_options">화면 설정 편집하기</string>
-	<!-- slide 30e: Preference: Beast mode (auto-expand edit page) -->
 	<string name="EPr_beastMode_title">화면 정렬 순서 편집하기</string>
 	<string name="EPr_beastMode_shortcut">사용자 정의</string>
 	<string name="EPr_time_increment">5분 증가</string>
 	<string name="EPr_use_date_shortcuts">날짜를 짧게 사용하기</string>
 	<string name="EPr_show_timer_shortcut">타이머 바로가기 보기</string>
-	<!-- slide 35h -->
 	<string name="EPr_beastMode_desc">일정 편집화면 레이아웃 설정하기</string>
-	<!-- slide 35j -->
 	<string name="EPr_beastMode_reset">기본값으로 초기화하기</string>
 	<string name="EPr_beastMode_hint">각 줄의 왼쪽 손잡이를 끌어서 일정 편집 화면을 사용자 정의하기</string>
-	<!-- slide 34i: Preference: Task List Show Notes Description (disabled) -->
 	<string name="EPr_showNotes_desc_disabled">설명은 일정 편집 화면에서 수정할 수 있습니다.</string>
-	<!-- Preference: Task List Show Notes Description (enabled) -->
 	<string name="EPr_showNotes_desc_enabled">설명을 항상 표시합니다</string>
-	<!-- slide 34e: Preferences: Use legacy importance and checkbox style -->
-	<!-- slide 34k-->
-	<!-- slide 34b: Preferences: Wrap task titles to two lines -->
 	<string name="EPr_fullTask_title">전체 일정 제목 보기</string>
 	<string name="EPr_fullTask_desc_enabled">전체 일정 제목을 표시합니다</string>
-	<!-- slide 34h -->
 	<string name="EPr_fullTask_desc_disabled">일정 제목의 첫 두 줄을 표시합니다</string>
-	<!-- Preferences: task row style -->
 	<string-array name="EPr_task_row_styles">
 		<item>원래대로</item>
 		<item>간단히</item>
@@ -624,50 +325,30 @@
 		<item>제목을 한 줄로 줄이고 날짜와 목록을 그 아래에 출력</item>
 		<item>제목을 한줄에만</item>
 	</string-array>
-	<!-- task row style title (%s -> style) -->
 	<string name="EPr_task_row_style_title">가로줄 스타일: %s</string>
-	<!-- Preference: custom filters enabled -->
 	<string name="EPr_use_filters_title">필터 사용하기</string>
 	<string name="EPr_use_filters_subtitle">사용자 필터를 만들어 봅시다</string>
-	<!-- Preference: simple input box style -->
 	<string name="EPr_show_quickadd_controls">고급 빠른추가 조정</string>
-	<!-- Preference: don\'t show plus button until input present -->
 	<string name="EPr_hide_plus_button">플러스 버튼 감추기</string>
-	<!-- Preference: menu items -->
 	<string name="EPr_menu_items">메뉴 항목</string>
-	<!-- Preference: list view -->
 	<string name="EPr_list_view">목록 보기</string>
-	<!-- Preference: task edit comments -->
 	<string name="EPr_show_task_edit_comments">일정 편집에서 댓글 보기</string>
-	<!-- slide 30f/ 36f: Preference: Theme -->
 	<string name="EPr_theme_title">색상 테마</string>
-	<!-- Preference: Theme Description (%s => value) -->
 	<string name="EPr_theme_desc">현재: %s</string>
-	<!-- Preference: Theme Description (android 1.6) -->
 	<string name="EPr_theme_desc_unsupported">설정은 안드로이드 2.0 이상이 필요합니다</string>
-	<!-- slide 32h/ 37b -->
 	<string name="EPr_theme_widget_title">위젯 테마</string>
-	<!-- slide 30d/ 34f: Preference screen: all task row settings -->
 	<string name="EPr_taskRowPrefs_title">일정 표시줄 보기 설정</string>
-	<!-- Preferences: calendar event start time -->
 	<string name="EPr_cal_end_or_start_at_due_time">달력 이벤트 시간</string>
 	<string name="EPr_cal_end_at_due_time">설정한 시간에 달력 이벤트 종료</string>
 	<string name="EPr_cal_start_at_due_time">설정한 시간에 달력 이벤트 시작</string>
 	<string name="EPr_force_phone_layout">스마트폰의 레이아웃 사용하기</string>
-	<!-- Configurations -->
 	<string name="EPr_configurations_title">환경 설정하기</string>
 	<string name="EPr_config_default">기본값</string>
 	<string name="EPr_config_lite">아스트리드 라이트</string>
-	<!-- Dialog title when setting preference configuration -->
 	<string name="EPr_config_dialog_title">환경을 설정할까요?</string>
-	<!-- Dialog prompt when setting preference configuration (%s -> name of configuration)-->
 	<string name="EPr_config_dialog_text">설정을 %s 환경으로 초기화할까요?</string>
-	<!-- default configuration name for the above dialog -->
 	<string name="EPr_config_dialog_default_id">기본값</string>
-	<!-- Preference title for showing save and cancel buttons in task edit page -->
 	<string name="EPr_show_save_and_cancel">저장과 취소 보이기</string>
-	<!-- Swipe between lists -->
-	<!-- Preference: swipe between lists performance -->
 	<string name="EPr_swipe_lists_performance_title">목록간 스와이프 이동하기</string>
 	<string-array name="EPr_swipe_lists_performance_mode">
 		<item>스와이프 사용안함</item>
@@ -676,7 +357,6 @@
 		<item>높은 성능</item>
 	</string-array>
 	<string-array name="EPr_swipe_lists_performance_desc">
-	<!-- slide 49a -->
 		<item>목록 간 스와이프 이동 사용안함</item>
 		<item>느린 성능</item>
 		<item>기본 설정</item>
@@ -685,30 +365,20 @@
 	<string name="swipe_lists_helper_title">목록간 스와이프 이동하기</string>
 	<string name="swipe_lists_helper_header">목록간 빠른 이동하려면 좌우로 스와이프 이동하기</string>
 	<string name="swipe_lists_helper_subtitle">설정에 있는 설정 변경하기 -&gt; 모양</string>
-	<!-- Format string for displaying the currently selected preference. $1 is name of selected mode, $2 is description -->
 	<string-array name="EPr_default_reminders_mode">
-	<!-- reminders duration: labels for "Task Defaults" preference item. -->
 		<item>@string/TEA_reminder_mode_once</item>
 		<item>@string/TEA_reminder_mode_five</item>
 		<item>@string/TEA_reminder_mode_nonstop</item>
 	</string-array>
 	<string-array name="EPr_themes">
-	<!-- theme_settings: labels for Theme preference menu -->
-	<!-- slide 36a-->
 		<item>낮 - 파란색</item>
-	<!-- slide 36b -->
 		<item>낮 - 빨간색</item>
-	<!-- slide 36b -->
 		<item>하늘색</item>
-	<!-- slide 36c -->
 		<item>밤</item>
-	<!-- slide 36d -->
 		<item>투명하게 (흰색 본문)</item>
-	<!-- slide 36e -->
 		<item>투명 (검은색 텍스트)</item>
 	</string-array>
 	<string-array name="EPr_themes_widget">
-	<!-- slide 32i / 37a-->
 		<item>어플과 동일하게</item>
 		<item>낮 - 파란색</item>
 		<item>낮 - 빨간색</item>
@@ -718,65 +388,40 @@
 		<item>투명하게 (검은색 본문)</item>
 		<item>오래된 스타일</item>
 	</string-array>
-	<!-- ========================================== Task Management Settings == -->
-	<!-- slide 33a/47c: Preference Screen Header: Old Task Management -->
 	<string name="EPr_manage_header">오래된 일정 관리하기</string>
-	<!-- slide 47d -->
 	<string name="EPr_manage_delete_completed">완료한 일정 지우기</string>
 	<string name="EPr_manage_delete_completed_message">완료한 일정을 모두 삭제하시겠습니까?</string>
-	<!-- slide 47a -->
 	<string name="EPr_manage_delete_completed_summary">삭제한 일정은 하나씩 삭제를 취소할 수 있습니다</string>
 	<string name="EPr_manage_delete_completed_status">%d 일정을 삭제했습니다!</string>
-	<!-- slide 47e -->
 	<string name="EPr_manage_purge_deleted">삭제한 일정을 비우기</string>
 	<string name="EPr_manage_purge_deleted_message">삭제한 일정을 모두 비울까요?\n\n비운 일정은 다시 살릴 수 없습니다!</string>
 	<string name="EPr_manage_purge_deleted_status">%d 일정을 비웠습니다!</string>
-	<!-- slide 47b-->
 	<string name="EPr_manage_purge_deleted_summary">주의! 비운 일정은 백업 파일 없이 복구할 수 없습니다!</string>
-	<!-- slide 47h-->
 	<string name="EPr_manage_clear_all">모든 자료 삭제하기</string>
 	<string name="EPr_manage_clear_all_message">아스트리드의 모든 일정과 설정을 삭제할까요?\n\n경고: 되돌릴 수 없음!</string>
-	<!-- slide 47f -->
 	<string name="EPr_manage_delete_completed_gcal">완료한 일정의 달력 이벤트를 삭제하기</string>
 	<string name="EPr_manage_delete_completed_gcal_message">완료한 일정의 모든 이벤트를 정말 삭제할까요?</string>
 	<string name="EPr_manage_delete_completed_gcal_summary"/>
 	<string name="EPr_manage_delete_completed_gcal_status">%d 달력 이벤트를 삭제했습니다!</string>
-	<!-- slide 47g-->
 	<string name="EPr_manage_delete_all_gcal">일정의 모든 달력 이벤트 삭제하기</string>
 	<string name="EPr_manage_delete_all_gcal_message">일정의 모든 이벤트를 정말 삭제할까요?</string>
 	<string name="EPr_manage_delete_all_gcal_summary"/>
 	<string name="EPr_manage_delete_all_gcal_status">%d 달력 이벤트를 삭제했습니다!</string>
-	<!-- ==================================================== AddOnActivity == -->
-	<!-- Add Ons Activity Title -->
 	<string name="AOA_title">확장기능</string>
-	<!-- Add-on Activity: author for internal authors  -->
 	<string name="AOA_internal_author">아스트리드 팀</string>
-	<!-- Add-on Activity: installed add-ons tab -->
 	<string name="AOA_tab_installed">설치된 항목</string>
-	<!-- Add-on Activity - available add-ons tab -->
 	<string name="AOA_tab_available">추가 가능</string>
-	<!-- Add-on Activity - free add-ons label -->
 	<string name="AOA_free">무료</string>
-	<!-- Add-on Activity - menu item to visit add-on website -->
-	<!-- Add-on Activity - menu item to visit android market -->
-	<!-- Add-on Activity - when list is empty -->
 	<string name="AOA_no_addons">목록이 없습니다!</string>
 	<string name="AOA_ppack_title">Tasks 파워 팩</string>
 	<string name="AOA_ppack_description">아스트리드를 지원하고 파워 팩(4x2, 4x4 위젯, 음성입력)으로 일을 좀 더 효율적으로 하세요. 오늘 사용해 보세요!</string>
 	<string name="AOA_locale_title">아스트리드 위치 플러그인</string>
 	<string name="AOA_locale_description">아스트리드에서 위치 앱을 사용합니다. 위치 앱에서 설정한 필터 조건에 따라 알림을 보내줍니다. 위치 서비스를 사용합니다.</string>
-	<!-- ====================================================== TasksWidget == -->
-	<!-- Widget text when loading tasks -->
 	<string name="TWi_loading">로드 중…</string>
-	<!-- Widget configuration activity title: select a filter -->
 	<string name="WCA_title">열람할 일정 선택...</string>
-	<!-- ============================================================= About == -->
-	<!-- slide 30h: Title of "About" option in settings -->
 	<string name="p_about">아스트리드 정보</string>
-	<!-- About text (%s => current version)-->
 	<string name="p_about_text">현재 버전: %s\n\n
 아스트리드는 오픈소스이며 Todoroo, Inc가 관리하고 있습니다.</string>
-	<!-- ============================================================= Misc == -->
 	<string name="feedback_positive_title">평가할까요?</string>
 	<string name="feedback_positive_body">도움이 되었다니 기쁘네요! 평가를 위해 잠시 시간을 내주실래요?</string>
 	<string name="feedback_negative_title">피드백을 남길까요?</string>
@@ -786,11 +431,9 @@
 	<string name="feedback_negative_button">피드백 남기기</string>
 	<string name="feedback_not_now">지금은 안 됨</string>
 	<string name="feedback_banner_text">당신에게 아스트리드는 어땠습니까?</string>
-	<!-- Displayed when task killer found. %s => name of the application -->
 	<string name="task_killer_help">프로세스(%s)를 강제종료할 수 있는 앱을 사용하고 있는 것 같습니다! 
 가능하면 강제종료되지 않도록 제외목록에 포함시켜 주시기바랍니다. 
 강제종료시 일정이 완료되어도 알려줄 수 없습니다.\n</string>
-	<!-- Task killer dialog ok button -->
 	<string name="task_killer_help_ok">아스트리드를 강제로 종료하지 않습니다!</string>
 	<string name="DB_corrupted_title">손상된 데이터베이스</string>
 	<string name="DB_corrupted_body">데이터베이스가 손상된 것 같습니다. 이 에러 메시지가 주기적으로 나타나면, 
@@ -798,127 +441,67 @@
 아스트리드의 백업에서 당신의 일정을 복구하시기 바랍니다. 
 (설정-&gt;동기화 &amp; 백업-&gt;백업-&gt;일정 불러오기)</string>
 	<string name="market_unavailable">이 기기에서 마켓을 사용할 수 없습니다.</string>
-	<!-- slide 32g: Preference Category: Defaults Title -->
 	<string name="EPr_defaults_header">새 일정 기본값</string>
 	<string name="EPr_defaults_summary">우선순위, 마감일, 달력에 추가하기</string>
-	<!-- slide 41f:  Preference: Default Urgency Title -->
 	<string name="EPr_default_urgency_title">기본 중요도</string>
-	<!-- Preference: Default Urgency Description (%s => setting) -->
 	<string name="EPr_default_urgency_desc">현재: %s</string>
-	<!-- slide 40a: Preference: Default Importance Title -->
 	<string name="EPr_default_importance_title">기본 우선순위</string>
-	<!-- Preference: Default Importance Description (%s => setting) -->
 	<string name="EPr_default_importance_desc">현재: %s</string>
-	<!-- slide 42e: Preference: Default Hide Until Title -->
 	<string name="EPr_default_hideUntil_title">기본 숨기기 기간:</string>
-	<!-- Preference: Default Hide Until Description (%s => setting) -->
 	<string name="EPr_default_hideUntil_desc">현재: %s</string>
-	<!-- slide 43e: Preference: Default Reminders Title -->
 	<string name="EPr_default_reminders_title">기본 알림</string>
-	<!-- Preference: Default Reminders Description (%s => setting) -->
 	<string name="EPr_default_reminders_desc">현재: %s</string>
-	<!-- slide 19a/46c: Preference: Default Add To Calendar Title -->
 	<string name="EPr_default_addtocalendar_title">달력에 추가하기 (기본값)</string>
-	<!-- Preference: Default Add To Calendar Setting Description (disabled) -->
 	<string name="EPr_default_addtocalendar_desc_disabled">새 일정은 구글 달력에 이벤트를 만들지 않을 것입니다</string>
-	<!-- Preference: Default Add To Calendar Setting Description (%s => setting) -->
 	<string name="EPr_default_addtocalendar_desc">새 일정을 달력에 추가합니다: \"%s\"</string>
-	<!-- slide 45d: Reminder Mode Preference: Default Reminders Duration -->
 	<string name="EPr_default_reminders_mode_title">기본 벨소리/진동 형식</string>
-	<!-- Preference: Default Reminders Description (%s => setting) -->
 	<string name="EPr_default_reminders_mode_desc">현재: %s</string>
 	<string-array name="EPr_default_importance">
-	<!-- importance: labels for "Task Defaults" preference item. -->
-	<!-- slide 40b -->
 		<item>!!! (최우선)</item>
 		<item>!!</item>
 		<item>!</item>
-	<!-- slide 40c -->
 		<item>o (낮음)</item>
 	</string-array>
 	<string-array name="EPr_default_urgency">
-	<!-- urgency: labels for "Task Defaults" preference item. -->
-	<!-- slide 41a-->
 		<item>기한 없음</item>
-	<!-- slide 41b -->
 		<item>오늘</item>
-	<!-- slide 41c-->
 		<item>내일</item>
-	<!-- slide 41d -->
 		<item>모레</item>
-	<!-- slide 41e -->
 		<item>다음 주</item>
 	</string-array>
 	<string-array name="EPr_default_hideUntil">
-	<!-- hideUntil: labels for "Task Defaults" preference item. -->
-	<!-- slide 42a -->
 		<item>숨기지 않기</item>
-	<!-- slide 42b -->
 		<item>일정 마감일입니다</item>
-	<!-- slide 42c -->
 		<item>마감일 하루 전</item>
-	<!-- slide 42d-->
 		<item>마감일 1주일 전</item>
 	</string-array>
 	<string-array name="EPr_default_reminders">
-	<!-- reminders: labels for "Task Defaults" preference item. -->
-	<!-- slide 43a -->
 		<item>기한 알림 없음</item>
-	<!-- slide 43b -->
 		<item>완료일에</item>
-	<!-- slide 43c -->
 		<item>마감일 이후</item>
-	<!-- slide 43d -->
 		<item>마감일이나 그 이후</item>
 	</string-array>
 	<string-array name="EPr_default_addtocalendar">
-	<!-- addtocalendar: labels for "Task Defaults" preference item. -->
 		<item>@string/EPr_deactivated</item>
 	</string-array>
-	<!-- Resources for built-in filter plug-in -->
-	<!-- ================================================= Filter Exposer == -->
-	<!-- Active Tasks Filter -->
 	<string name="BFE_Active">나의 일정</string>
-	<!-- Search Filter -->
-	<!-- slide 10b: Recently Modified -->
 	<string name="BFE_Recent">최근에 수정한 일정</string>
-	<!-- slide 10c: I\'ve assigned -->
 	<string name="BFE_Assigned">내가 할당한 일정</string>
-	<!-- Build Your Own Filter -->
-	<!-- Saved Filters Header -->
-	<!-- Saved Filters Context Menu: delete -->
 	<string name="BFE_Saved_delete">필터 삭제</string>
-	<!-- =========================================== CustomFilterActivity == -->
-	<!-- slide 30e: Filter Name edit box hint (if user types here, filter will be saved) -->
 	<string name="CFA_filterName_hint">저장할 필터 이름을 정하세요...</string>
-	<!-- Filter Name default for copied filters (%s => old filter name) -->
-	<!-- slide 30a: Filter Starting Universe: all tasks -->
 	<string name="CFA_universe_all">실행중인 일정</string>
-	<!-- Filter Criteria Type: add (at the begging of title of the criteria) -->
 	<string name="CFA_type_add">또는</string>
-	<!-- Filter Criteria Type: subtract (at the begging of title of the criteria) -->
 	<string name="CFA_type_subtract">제외</string>
-	<!-- Filter Criteria Type: intersect (at the begging of title of the criteria) -->
 	<string name="CFA_type_intersect">또한</string>
-	<!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
 	<string name="CFA_context_chain">%s 은 기준이 있습니다</string>
-	<!-- Filter Criteria Context Menu: delete -->
 	<string name="CFA_context_delete">가로줄 삭제</string>
-	<!-- slide 30b: Filter Screen Help Text -->
 	<string name="CFA_help">추가로 설정하려면 항목에서 길게 누르기</string>
-	<!-- slide 30c: Filter Button: add new -->
 	<string name="CFA_button_add">기준 추가</string>
-	<!-- slide 30f: Filter Button: view without saving -->
 	<string name="CFA_button_view">보기</string>
-	<!-- Filter Button: save & view filter -->
 	<string name="CFA_button_save">저장 &amp; 보기</string>
-	<!-- =========================================== CustomFilterCriteria == -->
-	<!-- Criteria: due by X - display text (? -> user input) -->
 	<string name="CFC_dueBefore_text">마감일: ?</string>
-	<!-- Criteria: due by X - name of criteria -->
 	<string name="CFC_dueBefore_name">마감일...</string>
 	<string-array name="CFC_dueBefore_entries">
-	<!-- Criteria: due by X - options -->
 		<item>마감일 없음</item>
 		<item>어제</item>
 		<item>오늘</item>
@@ -927,106 +510,51 @@
 		<item>다음 주</item>
 		<item>다음 달</item>
 	</string-array>
-	<!-- Criteria: importance - display text (? -> user input)-->
 	<string name="CFC_importance_text">최소 우선순위?</string>
-	<!-- Criteria: importance - name of criteria -->
 	<string name="CFC_importance_name">우선순위...</string>
-	<!-- Criteria: tag - display text (? -> user input) -->
 	<string name="CFC_tag_text">목록: ?</string>
-	<!-- Criteria: tag - name of criteria -->
 	<string name="CFC_tag_name">목록...</string>
-	<!-- Criteria: tag_contains - name of criteria -->
 	<string name="CFC_tag_contains_name">목록이름이 다음을 포함...</string>
-	<!-- Criteria: tag_contains - text (? -> user input) -->
 	<string name="CFC_tag_contains_text">목록이름이 다음을 포함: ?</string>
-	<!-- Criteria: title_contains - name of criteria -->
 	<string name="CFC_title_contains_name">제목이 다음을 포함...</string>
-	<!-- Criteria: title_contains - text (? -> user input) -->
 	<string name="CFC_title_contains_text">제목이 다음을 포함: ?</string>
-	<!-- Resources for built-in tag plug-in -->
-	<!-- =============================================== Task Edit Controls == -->
-	<!-- Error message for adding to calendar  -->
 	<string name="gcal_TEA_error">달력에 일정 추가 실패!</string>
-	<!-- Label for adding task to calendar -->
-	<!-- slide 21c: Label for adding task to calendar -->
 	<string name="gcal_TEA_addToCalendar_label">달력에 일정 추가하기</string>
-	<!-- Label when calendar event already exists -->
 	<string name="gcal_TEA_showCalendar_label">달력 이벤트 열기</string>
-	<!-- Toast when unable to open calendar event -->
-	<!-- Toast when calendar event updated because task changed -->
 	<string name="gcal_TEA_calendar_updated">달력 이벤트도 업데이트했습니다!</string>
-	<!-- No calendar label (don\'t add option) -->
 	<string name="gcal_TEA_nocal">추가하지 않기</string>
 	<string name="gcal_TEA_none_selected">달력에?</string>
 	<string name="gcal_TEA_has_event">달력 이벤트</string>
-	<!-- ======================================================== Calendars == -->
-	<!-- Calendar event name when task is completed (%s => task title) -->
 	<string name="gcal_completed_title">%s (완료)</string>
-	<!-- System Default Calendar (displayed if we can\'t figure out calendars)  -->
 	<string name="gcal_GCP_default">기본 달력</string>
-	<!-- ============================================================= UI == -->
-	<!-- filters header: GTasks -->
 	<string name="gtasks_FEx_header">구글 일정 (Goodle Tasks)</string>
-	<!-- filter category for GTasks lists -->
-	<!-- filter title for GTasks lists (%s => list name) -->
 	<string name="gtasks_FEx_title">구글 일정: %s</string>
-	<!-- dialog prompt for creating a new gtasks list -->
 	<string name="gtasks_FEx_creating_list">목록 만들기...</string>
-	<!-- dialog prompt for creating a new gtasks list -->
 	<string name="gtasks_FEx_create_list_dialog">새 목록 이름:</string>
-	<!-- error to show when list creation fails -->
 	<string name="gtasks_FEx_create_list_error">새 목록을 만드는 중 에러가 발생했습니다</string>
-	<!-- short help title for Gtasks -->
 	<string name="CFC_gtasks_list_text">목록에: ?</string>
 	<string name="CFC_gtasks_list_name">GTasks 목록에...</string>
-	<!-- Message while clearing completed tasks -->
 	<string name="gtasks_GTA_clearing">완료한 일정을 삭제하는 중...</string>
-	<!-- Label for clear completed menu item -->
 	<string name="gtasks_GTA_clear_completed">삭제 완료</string>
-	<!-- ============================================ GtasksLoginActivity == -->
-	<!-- Activity Title: Gtasks Login -->
 	<string name="gtasks_GLA_noaccounts">동기화 가능한 구글 계정이 없음</string>
-	<!-- Sign In Button -->
-	<!-- E-mail Address Label -->
-	<!-- Password Label -->
-	<!--  Authenticating toast -->
 	<string name="gtasks_GLA_authenticating">인증 중...</string>
-	<!-- Google Apps for Domain checkbox -->
-	<!-- Error Message when fields aren\'t filled out -->
-	<!-- Error Message when we receive a HTTP 401 Unauthorized -->
 	<string name="gtasks_GLA_errorAuth">인증 오류! 휴대폰 계정 관리자의 사용자명과 비밀번호를 확인해 주세요</string>
-	<!-- Error Message when we receive an IO Exception -->
 	<string name="gtasks_GLA_errorIOAuth">죄송합니다, 구글 서버와 통신하는 데 문제가 있습니다. 잠시 후 다시 시도하세요.</string>
-	<!-- ============================================== GtasksPreferences == -->
-	<!-- GTasks Preferences Title -->
 	<string name="gtasks_GPr_header">구글 일정</string>
-	<!-- ================================================ Synchronization == -->
-	<!-- title for notification tray when synchronizing -->
-	<!-- Error Message when we receive a HTTP 503 error -->
 	<string name="gtasks_error_backend">구글 일정 API는 베타 상태이고 에러가 발생했습니다. 이 서비스는 중단될 수 있으니 나중에 다시 시도하세요.</string>
-	<!-- Error for account not found -->
 	<string name="gtasks_error_accountNotFound">%s 계정을 찾을 수 없습니다 - 로그아웃하고 구글 일정 설정에서 다시 로그인해 보세요.</string>
-	<!-- Error when ping after refreshing token fails -->
 	<string name="gtasks_error_authRefresh">구글 일정으로 인증할 수 없습니다. 계정 비밀번호를 확인하거나 나중에 다시 시도해 보세요.</string>
-	<!-- Error when account manager returns no auth token or throws exception -->
 	<string name="gtasks_error_accountManager">휴대폰 계정 관리자에서 에러가 발생했습니다. 로그아웃 후 구글 일정 설정에서 다시 로그인 해 주세요.</string>
-	<!-- Error when authorization error happens in background sync -->
 	<string name="gtasks_error_background_sync_auth">백그라운드에서 인증 에러가 발생했습니다. 아스트리드가 실행중일 때 동기화를 시작해 보세요.</string>
 	<string name="gtasks_import_progress">구글 일정 가져오는 중...</string>
 	<string name="gtasks_import_add_to_shared_list">%1$s 목록을 타인과 공유 중입니다! %2$s 일정을 이 목록에 추가할까요?</string>
 	<string name="gtasks_import_dlg_title">구글 일정 가져오기</string>
 	<string name="gtasks_import_add_task_ok">일정 추가하기</string>
 	<string name="gtasks_import_add_task_cancel">일정 추가하지 않기</string>
-	<!-- Resources for built-in locale plug-in -->
-	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">아스트리드 필터 경고</string>
-	<!-- Locale Window Help -->
 	<string name="locale_edit_intro">다음 필터에 맞는 일정이 있을 때 
 아스트리드가 당신에게 알려 드립니다:</string>
-	<!-- Locale Window Filter Picker UI -->
-	<!-- Locale Window Interval Label -->
 	<string name="locale_interval_label">알림을 다음에 한정:</string>
-	<!-- Locale Window Interval Values -->
 	<string-array name="locale_interval">
 		<item>한 시간마다 한 번</item>
 		<item>여섯 시간마다 한 번</item>
@@ -1035,52 +563,28 @@
 		<item>3일마다 한 번</item>
 		<item>일주일에 한 번</item>
 	</string-array>
-	<!-- Locale Notification text -->
 	<string name="locale_notification">$NUM 개의 일정이 일치합니다: $FILTER</string>
-	<!-- Locale Plugin was not found, it is required -->
 	<string name="locale_plugin_required">아스트리드 위치 플러그인을 설치하세요!</string>
-	<!-- ====================== Plugin Boilerplate ========================= -->
-	<!-- replacement string for task edit "Notes" when using OpenCRX -->
 	<string name="opencrx_TEA_notes">댓글 쓰기</string>
 	<string name="opencrx_creator_input_hint">작성자</string>
 	<string name="opencrx_contact_input_hint">할당된 사람</string>
-	<!-- ==================================================== Preferences == -->
-	<!-- creator title for tasks that are not synchronized -->
 	<string name="opencrx_no_creator">(싱크 중지)</string>
-	<!-- preference title for default creator -->
 	<string name="opencrx_PPr_defaultcreator_title">기본 활동내역 작성자</string>
-	<!--  OpenCRX host and segment group name -->
 	<string name="opencrx_group">OpenCRX 서버</string>
-	<!--  preference description for OpenCRX host -->
 	<string name="opencrx_host_title">호스트</string>
-	<!--  dialog title for OpenCRX host -->
 	<string name="opencrx_host_dialog_title">OpenCRX 호스트</string>
-	<!--  example for OpenCRX host -->
 	<string name="opencrx_host_summary">예: <i>mydomain.com</i></string>
-	<!--  preference description for OpenCRX segment -->
 	<string name="opencrx_segment_title">세그먼트</string>
-	<!--  dialog title for OpenCRX segment -->
 	<string name="opencrx_segment_dialog_title">동기화된 세그먼트</string>
-	<!--  example for OpenCRX segment -->
 	<string name="opencrx_segment_summary">예: <i>표준</i></string>
-	<!--  default value for OpenCRX segment -->
 	<string name="opencrx_segment_default">표준</string>
-	<!--  preference description for OpenCRX provider -->
 	<string name="opencrx_provider_title">공급자</string>
-	<!--  dialog title for OpenCRX provider -->
 	<string name="opencrx_provider_dialog_title">OpenCRX 자료 공급자</string>
-	<!--  example for OpenCRX provider -->
 	<string name="opencrx_provider_summary">예: <i>CRX</i></string>
-	<!--  default value for OpenCRX provider -->
 	<string name="opencrx_provider_default">CRX</string>
-	<!-- ================================================ labels for layout-elements == -->
-	<!-- label for task-assignment spinner on taskeditactivity -->
 	<string name="opencrx_TEA_task_assign_label">이 일정을 다음 사람에게 할당:</string>
-	<!-- label for dashboard-assignment spinner on taskeditactivity -->
 	<string name="opencrx_TEA_creator_assign_label">이 일정을 다음 생성자에게 할당:</string>
 	<string name="opencrx_TEA_opencrx_title">OpenCRX 조절</string>
-	<!-- ================================================== EditPreferences == -->
-	<!-- slide 32j: Preference Category: Power Pack -->
 	<string name="EPr_powerpack_header">프리미엄과 기타 설정</string>
 	<string name="EPr_powerpack_summary">부재중 전화 알림, 음성 입력과 기타 설정</string>
 	<string name="speech_err_network">네트워크 에러! 음성인식이 동작하려면 네트워크 연결이 필요합니다.</string>
@@ -1120,30 +624,17 @@
 	<string name="file_dir_dialog_ok">이 디렉토리 사용</string>
 	<string name="file_dir_dialog_default">기본값으로 초기화</string>
 	<string name="p_files_dir">프리미엄 다운로드 디렉토리</string>
-	<!-- Description for file download directory preference. %s -> chosen directory -->
 	<string name="p_files_dir_desc">일정 첨부 파일 저장됨: %s</string>
 	<string name="p_files_dir_desc_default">기본 디렉토리</string>
-	<!-- in app billing -->
 	<string name="premium_speech_bubble_2">1년 사용권 구매시 25%% 할인!</string>
-	<!-- Resources for built-in reminders plug-in -->
-	<!-- =============================================== task edit activity == -->
-	<!-- Task Edit: Reminder group label -->
 	<string name="TEA_reminders_group_label">알림 설정</string>
-	<!-- Task Edit: Reminder header label -->
 	<string name="TEA_reminder_label">알려주세요:</string>
-	<!-- Task Edit: Reminder @ deadline -->
 	<string name="TEA_reminder_due">일정 마감일에</string>
-	<!-- Task Edit: Reminder after deadline -->
 	<string name="TEA_reminder_overdue">일정 마감일이 지났을 때</string>
-	<!-- Task Edit: Reminder at random times (%s => time plural)-->
 	<string name="TEA_reminder_randomly">무작위로 한 번</string>
-	<!-- Task Edit: Reminder alarm clock label -->
 	<string name="TEA_reminder_alarm_label">소리/진동 선택:</string>
-	<!--  slide 45a: Task Edit: Reminder mode: ring once -->
 	<string name="TEA_reminder_mode_once">한 번</string>
-	<!-- slide 45b: Task Edit: Reminder mode: ring five times -->
 	<string name="TEA_reminder_mode_five">다섯 번</string>
-	<!-- slide 45c: Task Edit: Reminder mode: ring nonstop -->
 	<string name="TEA_reminder_mode_nonstop">알람을 직접 끌 때까지</string>
 	<string name="TEA_reminder_when">언제</string>
 	<string name="TEA_reminder_due_short">마감</string>
@@ -1152,7 +643,6 @@
 	<string name="TEA_reminder_display_one">%s를 알려주세요</string>
 	<string name="TEA_reminder_display_multiple">%s 알리기</string>
 	<string-array name="TEA_reminder_random">
-	<!-- random reminder choices for task edit page. -->
 		<item>한 시간</item>
 		<item>하루</item>
 		<item>일주일</item>
@@ -1160,29 +650,19 @@
 		<item>한달</item>
 		<item>두달</item>
 	</string-array>
-	<!-- ==================================================== notifications == -->
-	<!-- Name of filter when viewing a reminder -->
 	<string name="rmd_NoA_filter">알림!</string>
-	<!-- Reminder: Task was already done -->
 	<string name="rmd_NoA_done">완료</string>
-	<!-- Reminder: Snooze button (remind again later) -->
 	<string name="rmd_NoA_snooze">알림 잠시 미루기</string>
-	<!-- Reminder: Completed Toast -->
 	<string name="rmd_NoA_completed_toast">완료를 축하합니다!</string>
-	<!-- Prefix for reminder dialog title -->
 	<string name="rmd_NoA_dlg_title">알림:</string>
-	<!-- ==================================================== user reengagement == -->
-	<!-- Titles for user reengagement notifications -->
 	<string-array name="rmd_reengage_notif_titles">
 		<item>아스트리드 노트</item>
-	<!-- %s -> first name -->
 		<item>%s 의 메모.</item>
 		<item>당신의 아스트리드 요약</item>
 		<item>아스트리드 알림</item>
 	</string-array>
 	<string name="rmd_reengage_name_default">당신</string>
 	<string name="rmd_reengage_add_tasks">일정 추가하기</string>
-	<!-- Speech bubble options for astrid in reengagement notifs -->
 	<string-array name="rmd_reengage_dialog_options">
 		<item>당신의 할일 목록을 줄일 시간이에요!</item>
 		<item>친애하는 당신, 몇가지 일정이 당신의 손길을 기다려요!</item>
@@ -1192,7 +672,6 @@
 		<item>너 끝내준다! 시작할 준비 됐지?</item>
 		<item>내가 생각하기에 일을 마치기에 좋은 날인 듯!</item>
 	</string-array>
-	<!-- Speech bubble options for astrid in reengagement notifs when no tasks present -->
 	<string-array name="rmd_reengage_dialog_empty_options">
 		<item>조직적이고 싶지 않니?</item>
 		<item>나 아스트리드! 네 일을 돕기 위해 내가 여기 있노라!</item>
@@ -1201,94 +680,50 @@
 		<item>일을 더 확실히 마치고 싶지? 나도 그래!</item>
 		<item>너를 알게 되서 기쁘다!</item>
 	</string-array>
-	<!-- ============================================= reminder preferences == -->
-	<!-- slide 33d: Reminder Preference Screen Title -->
 	<string name="rmd_EPr_alerts_header">알림 설정</string>
 	<string name="rmd_EPr_alerts_summary">알람 꺼짐 시간, 스누즈 설정, 알람 지속 레벨</string>
-	<!-- Reminder Preference: Reminders Enabled Title -->
 	<string name="rmd_EPr_enabled_title">알림을 사용할까요?</string>
-	<!-- Reminder Preference Reminders Enabled Description (true) -->
 	<string name="rmd_EPr_enabled_desc_true">Tasks 알림을 사용합니다 (이것이 보통)</string>
-	<!-- Reminder Preference Reminders Enabled Description (false) -->
 	<string name="rmd_EPr_enabled_desc_false">Tasks 알림을 사용하지 않습니다</string>
-	<!-- Reminder Preference: Quiet Hours Start Title -->
 	<string name="rmd_EPr_quiet_hours_start_title">알림 꺼짐 시작 시간</string>
-	<!-- Reminder Preference: Quiet Hours Start Description (%s => time set) -->
 	<string name="rmd_EPr_quiet_hours_start_desc">%s 후에는 알림을 끕니다. (진동은 알람 설정의 진동 설정을 따릅니다)</string>
-	<!-- Reminder Preference: Quiet Hours Start/End Description (disabled) -->
 	<string name="rmd_EPr_quiet_hours_desc_none">알림 꺼짐을 사용하지 않습니다</string>
-	<!-- Reminder Preference: Quiet Hours End Title -->
 	<string name="rmd_EPr_quiet_hours_end_title">알림 꺼짐 종료 시간</string>
-	<!-- Reminder Preference: Quiet Hours End Description (%s => time set) -->
 	<string name="rmd_EPr_quiet_hours_end_desc">%s 부터 알림 기능이 켜집니다</string>
-	<!-- Reminder Preference: Default Reminder Title -->
 	<string name="rmd_EPr_rmd_time_title">기본 알림 설정</string>
-	<!-- Reminder Preference: Default Reminder Description (%s => time set) -->
 	<string name="rmd_EPr_rmd_time_desc">마감일이 없는 일정 알림은 %s 에 나타날 것입니다.</string>
-	<!-- Reminder Preference: Notification Ringtone Title -->
 	<string name="rmd_EPr_ringtone_title">알림 벨소리</string>
-	<!-- Reminder Preference: Notification Ringtone Description (when custom tone is set) -->
 	<string name="rmd_EPr_ringtone_desc_custom">사용자 벨소리가 설정되었습니다</string>
-	<!-- Reminder Preference: Notification Ringtone Description (when silence is set) -->
 	<string name="rmd_EPr_ringtone_desc_silent">벨소리가 나지 않도록 설정되었습니다</string>
-	<!-- Reminder Preference: Notification Ringtone Description (when custom tone is not set) -->
 	<string name="rmd_EPr_ringtone_desc_default">기본 벨소리가 사용됩니다</string>
-	<!-- Reminder Preference: Notification Persistence Title -->
 	<string name="rmd_EPr_persistent_title">알림 지속 시간</string>
-	<!-- Reminder Preference: Notification Persistence Description (true) -->
 	<string name="rmd_EPr_persistent_desc_true">알림은 반드시 개별적으로 봐야 지워집니다.</string>
-	<!-- Reminder Preference: Notification Persistence Description (false) -->
 	<string name="rmd_EPr_persistent_desc_false">\"모두 지우기\" 버튼으로 알림을 일괄삭제합니다.</string>
-	<!-- Reminder Preference: Notification Icon Title -->
-	<!-- Reminder Preference: Notification Icon Description -->
-	<!-- Reminder Preference: Max Volume for Multiple-Ring reminders Title -->
 	<string name="rmd_EPr_multiple_maxvolume_title">다중-링 알림의 최대 볼륨</string>
-	<!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (true) -->
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">아스트리드는 다중-링 알림을 최대 볼륨으로 출력합니다</string>
-	<!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (false) -->
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">아스트리드에서 소리 크기는 시스템 설정을 따릅니다.</string>
-	<!-- Reminder Preference: Vibrate Title -->
 	<string name="rmd_EPr_vibrate_title">알림시 진동</string>
-	<!-- Reminder Preference: Vibrate Description (true) -->
 	<string name="rmd_EPr_vibrate_desc_true">알림시 진동합니다.</string>
-	<!-- Reminder Preference: Vibrate Description (false) -->
 	<string name="rmd_EPr_vibrate_desc_false">알림시 진동하지 않습니다.</string>
-	<!-- Reminder Preference: Nagging Title -->
 	<string name="rmd_EPr_nagging_title">아스트리드 격려 문구</string>
-	<!-- Reminder Preference: Nagging Description (true) -->
 	<string name="rmd_EPr_nagging_desc_true">아스트리드에서 알림시에 격려 문구를 보여줍니다</string>
-	<!-- Reminder Preference: Nagging Description (false) -->
 	<string name="rmd_EPr_nagging_desc_false">아스트리드에서 어떤 격려 문구도 보여주지 않습니다</string>
-	<!-- Reminder Preference: Snooze Dialog Title -->
 	<string name="rmd_EPr_snooze_dialog_title">알림 지연 HH:MM</string>
-	<!-- Reminder Preference: Snooze Dialog Description (true) -->
 	<string name="rmd_EPr_snooze_dialog_desc_true">새 지연 시간을 선택하여 알림 연기 (HH:MM)</string>
-	<!-- Reminder Preference: Nagging Description (false) -->
 	<string name="rmd_EPr_snooze_dialog_desc_false">미룰 날짜/시간을 선택하여 알림 연기</string>
-	<!-- slide 44g: Reminder Preference: Default Reminders Title -->
 	<string name="rmd_EPr_defaultRemind_title">랜덤 알림</string>
-	<!-- Reminder Preference: Default Reminders Setting (disabled) -->
 	<string name="rmd_EPr_defaultRemind_desc_disabled">새 일정은 무작위로 알리지 않습니다</string>
-	<!-- Reminder Preference: Default Reminders Setting (%s => setting) -->
 	<string name="rmd_EPr_defaultRemind_desc">새 일정을 무작위로 알려 줍니다: %s</string>
-	<!-- slide 39a: Defaults Title -->
 	<string-array name="EPr_reminder_random">
-	<!-- slide 44a: Reminder Preference: random reminder choices for preference page. -->
 		<item>사용안함</item>
-	<!-- slide 44b -->
 		<item>매시간</item>
-	<!-- slide 44c -->
 		<item>매일</item>
-	<!-- slide 44d-->
 		<item>매주</item>
-	<!-- slide 44e-->
 		<item>격주로</item>
-	<!-- slide 44f -->
 		<item>매달</item>
 		<item>격월로</item>
 	</string-array>
 	<string-array name="EPr_quiet_hours_start">
-	<!-- Reminder Preference: quiet_hours_start: options for preference menu. Translate but don\'t change the times!. -->
 		<item>사용안함</item>
 		<item>오후 8시</item>
 		<item>오후 9시</item>
@@ -1316,7 +751,6 @@
 		<item>오후 7시</item>
 	</string-array>
 	<string-array name="EPr_quiet_hours_end">
-	<!-- Reminder Preference: quiet_hours_end: options for preference menu. Translate but don\'t change the times! -->
 		<item>오전 9시</item>
 		<item>오전 10시</item>
 		<item>오전 11시</item>
@@ -1343,7 +777,6 @@
 		<item>오전 8시</item>
 	</string-array>
 	<string-array name="EPr_rmd_time">
-	<!-- Reminder Preference: rmd_time: options for preference menu. Translate but don\'t change the times! -->
 		<item>오전 9시</item>
 		<item>오전 10시</item>
 		<item>오전 11시</item>
@@ -1369,12 +802,10 @@
 		<item>오전 7시</item>
 		<item>오전 8시</item>
 	</string-array>
-	<!-- =============================================== random reminders == -->
 	<string name="reminders_social">이 사람들은 당신만 믿고 있어!</string>
 	<string name="reminders_social_one">%s님이 당신을 의지하고 있습니다!</string>
 	<string name="reminders_social_multiple">%1$s, %2$s 님 등이 당신을 의지하고 있습니다!</string>
 	<string-array name="reminders">
-	<!-- reminders: Make these < 20 chars so the task name is displayed -->
 		<item>거기 안녕! 시간 좀 있어?</item>
 		<item>잠깐 볼 수 있을까?</item>
 		<item>잠깐 시간 좀 낼 수 있을까?</item>
@@ -1389,7 +820,6 @@
 		<item>일하기 좋은 날:</item>
 	</string-array>
 	<string-array name="reminders_due">
-	<!-- reminders related to task due date -->
 		<item>일할 시간이야!</item>
 		<item>마감일이에요!</item>
 		<item>시작할 준비 됐어?</item>
@@ -1401,7 +831,6 @@
 		<item>한가해? 좀 하라구:</item>
 	</string-array>
 	<string-array name="reminders_snooze">
-	<!-- reminders related to snooze -->
 		<item>지금 게으름은 안돼!</item>
 		<item>낮잠 시간 끝났어요!</item>
 		<item>낮잠은 그만 자!</item>
@@ -1409,7 +838,6 @@
 		<item>더 이상 미루지 말라구!</item>
 	</string-array>
 	<string-array name="reminder_responses">
-	<!-- responses to reminder: Tasks says...  (user should answer yes or no)  -->
 		<item>네가 할 일이 있어!</item>
 		<item>이거 끝내버릴 준비 됐어?</item>
 		<item>왜 이 일을 끝내버리지 않는 거지?</item>
@@ -1439,7 +867,6 @@
 		<item>네가 나를 무시할 때마다 내 속이 썩어간다.</item>
 	</string-array>
 	<string-array name="postpone_nags">
-	<!-- Tasks\'s nagging when user clicks postpone -->
 		<item>네가 할일을 미루는 사람이라는 게 사실이 아니라고 말해줘!</item>
 		<item>나이가 들어가는 것은 게으를 수가 없잖아?</item>
 		<item>어딘가에서 누군가가 네가 이 일을 마치길 기다리고 있다구!</item>
@@ -1455,23 +882,14 @@
 		<item>지난번에도 그렇게 변명하지 않았니?</item>
 		<item>그렇게 하면 네가 네 삶을 계획하고 준비하는 걸 도와줄 수가 없어...</item>
 	</string-array>
-	<!-- Resources for built-in repeat plug-in -->
-	<!-- repeating plugin name -->
 	<string name="repeat_plugin">일정 반복하기</string>
-	<!-- repeating plugin description -->
 	<string name="repeat_plugin_desc">일정 반복 허락</string>
-	<!-- slide 20a: checkbox for turning on/off repeats -->
 	<string name="repeat_enabled">반복 설정</string>
-	<!-- slide 20b: button for "every x" part of repeat (%d -> repeat value)  -->
 	<string name="repeat_every">매 %d</string>
-	<!-- hint when opening repeat interval -->
 	<string name="repeat_interval_prompt">반복 주기</string>
-	<!-- slide 19b-->
 	<string name="repeat_never">반복하지 않기</string>
-	<!-- slide 20f-->
 	<string name="repeat_dont">반복하지 않기</string>
 	<string-array name="repeat_interval_short">
-	<!-- repeat interval (days,weeks,months,hours,minutes,years) -->
 		<item>일</item>
 		<item>주</item>
 		<item>월</item>
@@ -1480,7 +898,6 @@
 		<item>년</item>
 	</string-array>
 	<string-array name="repeat_interval">
-	<!-- slide 20e: repeat interval (days,weeks,months,hours,minutes,years) -->
 		<item>일마다</item>
 		<item>주마다</item>
 		<item>월마다</item>
@@ -1508,128 +925,65 @@
 	<string name="repeat_until_title">다음까지 반복하기...</string>
 	<string name="repeat_keep_going">계속하기</string>
 	<string-array name="repeat_type">
-	<!-- slide 20c: repeat type (date to repeat from) -->
 		<item>마감일로부터</item>
-	<!-- slide 20c -->
 		<item>완료일로부터</item>
 	</string-array>
-	<!-- task detail weekly by day ($I -> interval, i.e. 1 week, $D -> days, i.e. Monday, Tuesday) -->
 	<string name="repeat_detail_byday">$I on $D</string>
-	<!-- task detail for repeat from due date (%s -> interval) -->
 	<string name="repeat_detail_duedate">매 %s</string>
-	<!-- task detail for repeat until a specific date (%1$s -> interval, %2$s -> finish date)-->
 	<string name="repeat_detail_duedate_until">매 %1$s 마다\n%2$s 까지</string>
-	<!-- task detail for repeat from completion date (%s -> interval) -->
 	<string name="repeat_detail_completion">완료 후 %s</string>
-	<!-- text for button when repeating task indefinitely -->
 	<string name="repeat_forever">영원히 반복하기</string>
-	<!-- text for button when repeating task until specified date (%s -> date string) -->
 	<string name="repeat_until">%s 까지 반복</string>
-	<!-- text for confirmation dialog after repeating a task (%s -> task title)-->
 	<string name="repeat_rescheduling_dialog_title">\"%s\" 일정 변경하기</string>
-	<!-- text for confirmation dialog after repeating a task for the last time (%s -> task title)-->
 	<string name="repeat_rescheduling_dialog_title_last_time">반복 일정 \"%s\" 을 완료했습니다</string>
-	<!-- text for when a repeating task was rescheduled (%1$s -> encouragment string, %2$s -> old due date, %3$s -> new due date)-->
 	<string name="repeat_rescheduling_dialog_bubble">%1$s 이 반복 일정을 %2$s 에서 %3$s 로 변경했습니다</string>
-	<!-- text for when a repeating task was rescheduled but didn\'t have a due date yet, (%1$s -> encouragement string, %2$s -> new due date) -->
 	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s 이 반복 일정을 %2$s 로 변경했습니다</string>
-	<!-- text for when a repeating task was rescheduled for the last time (%1$s -> repeat end date, %2$s -> encouragement string)-->
 	<string name="repeat_rescheduling_dialog_bubble_last_time">이 반복 일정은 %1$s 까지였는데 지금 다 끝냈습니다. %2$s</string>
 	<string-array name="repeat_encouragement">
-	<!-- Encouragement in rescheduling dialog bubble -->
 		<item>잘했어!</item>
 		<item>와... 네가 정말 자랑스러워!</item>
 		<item>네가 결실을 맺는 것이 좋아!</item>
 		<item>무언가 완료 체크를 하면 기분이 좋지 않니?</item>
 	</string-array>
 	<string-array name="repeat_encouragement_last_time">
-	<!-- Encouragement in rescheduling dialog bubble -->
 		<item>훌륭해!</item>
 		<item>네가 자랑스럽다!</item>
 		<item>네가 열매를 많이 맺으면 나는 기뻐!</item>
 	</string-array>
-	<!-- Subtasks Help Introduction -->
 	<string name="subtasks_help_title">Tasks에서 정렬하고 들여쓰기</string>
 	<string name="subtasks_help_1">일정을 옮기려면 길게 누릅니다</string>
 	<string name="subtasks_help_2">재배열하려면 수직으로 드래그합니다</string>
 	<string name="subtasks_help_3">들여쓰기하려면 수평으로 드래그합니다</string>
-	<!-- Resources for built-in tag plug-in -->
-	<!-- =============================================== Task Edit Controls == -->
-	<!-- Tags label -->
 	<string name="TEA_tags_label">목록</string>
-	<!-- Tags label long version -->
 	<string name="TEA_tags_label_long">목록에 추가하기</string>
-	<!-- Tags hint -->
 	<string name="TEA_tag_hint">새 목록</string>
-	<!-- Tags dropdown -->
-	<!-- =============================================== Task List Controls == -->
-	<!-- menu item for tags -->
-	<!-- ========================================================== Extras == -->
-	<!-- Context Item: show tag -->
-	<!-- slide 25a: Dialog: new list -->
 	<string name="tag_new_list">새 목록</string>
-	<!-- Dialog: list saved -->
-	<!-- Dialog: task created without title -->
 	<string name="tag_no_title_error">이 목록의 이름을 먼저 입력하세요!</string>
-	<!-- ========================================================== Filters == -->
-	<!-- filter button to add tag -->
 	<string name="tag_FEx_add_new">새로 만들기</string>
-	<!-- filter header for tags -->
 	<string name="tag_FEx_header">목록</string>
-	<!-- filter header for tags user created -->
-	<!-- filter header for tags, shared with user -->
-	<!-- filter header for tags which have no active tasks -->
-	<!-- slide 10d: filter for untagged tasks -->
 	<string name="tag_FEx_untagged">미분류 일정</string>
-	<!-- slide 27a: %s => tag name -->
-	<!-- context menu option to rename a tag -->
 	<string name="tag_cm_rename">목록 이름 바꾸기</string>
-	<!-- context menu option to delete a tag -->
 	<string name="tag_cm_delete">목록 지우기</string>
-	<!-- context menu option to leave a shared list -->
 	<string name="tag_cm_leave">목록 탈퇴하기</string>
-	<!-- Dialog to confirm deletion of a tag (%s -> the name of the list to be deleted) -->
 	<string name="DLG_delete_this_tag_question">이 목록을 삭제할까요: %s? (일정은 삭제 안됨)</string>
-	<!-- Dialog to confirm leaving a shared tag (%s -> the name of the shared list to leave) -->
 	<string name="DLG_leave_this_shared_tag_question">이 공유 목록을 탈퇴할까요: %s? (일정은 삭제 안됨)</string>
-	<!-- Dialog to rename tag -->
 	<string name="DLG_rename_this_tag_header">목록 %s 의 이름을 바꾸기:</string>
-	<!-- Toast notification that no changes have been made -->
 	<string name="TEA_no_tags_modified">변경 사항이 없습니다</string>
-	<!-- Toast notification that a tag has been deleted (%1$s - list name, %2$d - # tasks) -->
 	<string name="TEA_tags_deleted">삭제한 목록 %1$s 은 %2$d 일정에 영향을 미칩니다</string>
-	<!-- Toast notification that a shared tag has been left (%1$s - list name, %2$d - # tasks) -->
 	<string name="TEA_tags_left">탈퇴한 공유 목록 %1$s 은 %2$d 일정에 영향을 미칩니다</string>
-	<!-- Toast notification that a tag has been renamed (%1$s - old name, %2$s - new name, %3$d - # tasks) -->
 	<string name="TEA_tags_renamed">%3$d 일정의 %1$s 의 이름을 %2$s 로 변경했습니다</string>
-	<!-- Header for tag settings -->
 	<string name="tag_settings_title">목록 설정</string>
-	<!-- Header for tag activity -->
 	<string name="tag_updates_title">활동내역: %s</string>
-	<!-- Delete button for tag settings -->
 	<string name="tag_delete_button">목록 삭제하기</string>
-	<!-- slide 28d: Leave button for tag settings -->
 	<string name="tag_leave_button">이 목록 탈퇴하기</string>
-	<!-- Resources for built-in timers plug-in -->
-	<!-- Task List: Start Timer button -->
-	<!-- Task List: Stop Timer button -->
-	<!-- Android Notification Title (%s => # tasks) -->
 	<string name="TPl_notification">%s 동안 타이머 작동함!</string>
-	<!-- Filter Header for Timer plugin -->
-	<!-- Filter for Timed Tasks -->
 	<string name="TFE_workingOn">기한이 정해진 일정</string>
-	<!-- Title for TEA -->
 	<string name="TEA_timer_controls">타이머</string>
-	<!-- Edit Notes: create comment for when timer is started -->
 	<string name="TEA_timer_comment_started">이 일정 시작:</string>
-	<!-- Edit Notes: create comment for when timer is stopped -->
 	<string name="TEA_timer_comment_stopped">이 일정 중지:</string>
-	<!-- Edit Notes: comment to notify how long was spent on task -->
 	<string name="TEA_timer_comment_spent">소요 시간:</string>
-	<!-- Update string from activity codes %1$s - user, %2$s - target name, %3$s - message, %4$s - other_user-->
 	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
     Please do not translate this part of the string. -->
-	<!-- These are still in use -->
 	<string name="update_string_default_comment">%1$s의 댓글: %3$s</string>
 	<string name="update_string_task_comment">$link_task 의 %1$s: %3$s</string>
 	<string name="update_string_tag_comment">%2$s의 %1$s: %3$s</string>
@@ -1688,33 +1042,20 @@
 	<string name="history_repeat_from_completion">완료 후</string>
 	<string name="history_acknowledged">%s 를 열람했습니다</string>
 	<string name="history_default">%1$s 를 %2$s 로 변경했습니다</string>
-	<!-- Voice Add Prompt Text -->
 	<string name="voice_create_prompt">일정을 만들려면 말하세요</string>
 	<string name="voice_edit_title_prompt">일정 제목을 말하세요</string>
 	<string name="voice_edit_note_prompt">일정의 내용을 말하세요</string>
-	<!-- Preference: Task List recognition-service is not installed, but available -->
 	<string name="EPr_voiceInputInstall_dlg">음성입력이 설치되어 있지 않습니다. 마켓에 가서 지금 설치할까요?</string>
-	<!-- Preference: Task List recognition-service is not available for this system -->
 	<string name="EPr_voiceInputUnavailable_dlg">당신의 기기에서 음성입력을 사용할 수 없습니다. 안드로이드 2.1 이상으로 업데이트하세요.</string>
-	<!-- Preference: Market is not available for this system -->
 	<string name="EPr_marketUnavailable_dlg">이 시스템에서 아직 마켓을 사용할 수 없습니다. 다른 곳에서 음성 검색을 다운로드하세요.</string>
-	<!-- slide 38d:  Preference: Task List Show Voice-button if recognition-service is available -->
 	<string name="EPr_voiceInputEnabled_title">음성 입력</string>
-	<!-- slide 38a: Preference: voice button description (true) -->
 	<string name="EPr_voiceInputEnabled_desc_enabled">일정 목록 페이지에 음성 입력 버튼을 출력합니다</string>
-	<!-- Preference: voice button description (false) -->
 	<string name="EPr_voiceInputEnabled_desc_disabled">일정 목록 페이지에서 음성 입력 버튼을 숨깁니다</string>
-	<!-- slide 38e: Preference: Task List Voice-button directly creates tasks -->
 	<string name="EPr_voiceInputCreatesTask_title">일정을 직접 만들기</string>
-	<!-- Preference: Task List Voice-creation description (true) -->
 	<string name="EPr_voiceInputCreatesTask_desc_enabled">음성 입력으로 일정을 자동으로 만듭니다</string>
-	<!-- slide 38b: Preference: Task List Voice-creation description (false) -->
 	<string name="EPr_voiceInputCreatesTask_desc_disabled">음성 입력이 끝난 후에 일정 제목을 편집할 수 있습니다</string>
-	<!-- slide 38f: Preference: Voice reminders if TTS-service is available -->
 	<string name="EPr_voiceRemindersEnabled_title">음성 알림</string>
-	<!-- Preference: Voice reminders description (true) -->
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">일정 알림기간 동안 일정 이름을 직접 말해 줍니다</string>
-	<!-- slide 38c: Preference: Voice reminders description (false) -->
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">일정 알림기간 동안 벨소리를 울려줍니다</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>

@@ -1,171 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<!-- ==================================================== Generic Units == -->
 	<plurals name="DUt_years">
-	<!-- plurals: years -->
 		<item quantity="one">1 年</item>
-	<!-- plurals: years -->
 		<item quantity="other">%d 年</item>
 	</plurals>
 	<plurals name="DUt_months">
-	<!-- plurals: months -->
 		<item quantity="one">1 个月</item>
-	<!-- plurals: months -->
 		<item quantity="other">%d 个月</item>
 	</plurals>
 	<plurals name="DUt_weeks">
-	<!-- plurals: days -->
 		<item quantity="one">1 周</item>
-	<!-- plurals: days -->
 		<item quantity="other">%d 周</item>
 	</plurals>
 	<plurals name="DUt_days">
-	<!-- plurals: days -->
 		<item quantity="one">1 天</item>
-	<!-- plurals: days -->
 		<item quantity="other">%d 天</item>
 	</plurals>
 	<plurals name="DUt_weekdays">
-	<!-- plurals: days -->
 		<item quantity="one">1 个任务天</item>
-	<!-- plurals: days -->
 		<item quantity="other">%d 个任务天</item>
 	</plurals>
 	<plurals name="DUt_hours">
-	<!-- plurals: hours -->
 		<item quantity="one">1 小时</item>
-	<!-- plurals: hours -->
 		<item quantity="other">%d 小时</item>
 	</plurals>
 	<plurals name="DUt_minutes">
-	<!-- plurals: minutes -->
 		<item quantity="one">1 分钟</item>
-	<!-- plurals: minutes -->
 		<item quantity="other">%d 分钟</item>
 	</plurals>
 	<plurals name="DUt_seconds">
-	<!-- plurals: seconds -->
 		<item quantity="one">1 秒</item>
-	<!-- plurals: seconds -->
 		<item quantity="other">%d 秒</item>
 	</plurals>
 	<plurals name="DUt_hoursShort">
-	<!-- plurals: hours (abbreviated) -->
 		<item quantity="one">1 小时</item>
-	<!-- plurals: hours (abbreviated) -->
 		<item quantity="other">%d 小时</item>
 	</plurals>
 	<plurals name="DUt_minutesShort">
-	<!-- plurals: minutes (abbreviated) -->
 		<item quantity="one">1 分钟</item>
-	<!-- plurals: minutes (abbreviated) -->
 		<item quantity="other">%d 分钟</item>
 	</plurals>
 	<plurals name="DUt_secondsShort">
-	<!-- plurals: seconds (abbreviated) -->
 		<item quantity="one">1 秒</item>
-	<!-- plurals: seconds (abbreviated) -->
 		<item quantity="other">%d 秒</item>
 	</plurals>
 	<plurals name="Ntasks">
-	<!-- plurals: tasks -->
 		<item quantity="one">1 个任务</item>
-	<!-- plurals: tasks -->
 		<item quantity="other">%d 个任务</item>
 	</plurals>
 	<plurals name="Npeople">
-	<!-- plurals: people -->
 		<item quantity="one">一个人</item>
-	<!-- plurals: people -->
 		<item quantity="other">%d 个人</item>
 	</plurals>
-	<!-- slide 10a, 12c: today -->
 	<string name="today">今天</string>
-	<!-- tomorrow -->
 	<string name="tomorrow">明天</string>
-	<!-- yesterday -->
 	<string name="yesterday">昨天</string>
-	<!-- slide 12c: tomorrow, abbreviated -->
 	<string name="tmrw">明天</string>
-	<!-- slide 12c: yesterday, abbreviated -->
 	<string name="yest">昨天</string>
-	<!-- ================================================== Generic Dialogs == -->
-	<!-- confirmation dialog title -->
 	<string name="DLG_confirm_title">确认?</string>
-	<!-- question dialog title -->
 	<string name="DLG_question_title">问题：</string>
-	<!-- information dialog title -->
 	<string name="DLG_information_title">信息</string>
-	<!-- error dialog title -->
 	<string name="DLG_error_title">错误！</string>
-	<!-- general dialog close-->
 	<string name="DLG_close">关闭</string>
-	<!-- error dialog (%s => error message)-->
 	<string name="DLG_error">糟糕，发生错误！状况是:\n\n%s</string>
-	<!-- error dialog (no message indicated)-->
 	<string name="DLG_error_generic">糟糕，发生错误！</string>
-	<!-- Progress dialog shown when doing something slow -->
 	<string name="DLG_wait">请稍候...</string>
-	<!-- ====================================================== SyncProvider == -->
-	<!-- Sync Notification: message when sync service active -->
 	<string name="SyP_progress">任务同步中...</string>
-	<!-- Sync Notification: toast when sync activated from activity -->
 	<string name="SyP_progress_toast">正在同步中...</string>
-	<!-- Sync Label: used in menu to denote synchronization -->
 	<string name="SyP_label">同步和备份</string>
-	<!-- Sync Label: used in menu to denote synchronization -->
 	<string name="Sync_now_label">Sync now</string>
-	<!-- Sync label subtitle -->
 	<string name="SyP_summary">谷歌任务，已存数据，本地备份</string>
-	<!-- Error msg when io exception  -->
 	<string name="SyP_ioerror">连接错误！请检查您的因特网连接。</string>
-	<!-- ================================================== SyncPreferences == -->
-	<!-- Status Group Label -->
 	<string name="sync_SPr_group_status">状态</string>
-	<!-- Sync status subtitle, %s-> status message -->
 	<string name="sync_SPr_status_subtitle">状态：%s</string>
-	<!-- Sync Status: log in -->
 	<string name="sync_status_loggedout">未登陆</string>
-	<!-- Status: ongoing -->
 	<string name="sync_status_ongoing">同步中...</string>
-	<!-- Sync Status: success status (%s -> last sync date). Keep it short!-->
 	<string name="sync_status_success">上次同步：\n%s</string>
-	<!-- Sync Status: failure status (%s -> last attempted sync date) -->
 	<string name="sync_status_failed">失败：%s</string>
-	<!-- Sync Status: error status (%s -> last sync date) -->
 	<string name="sync_status_errors">同步 w/ 错误： %s 上次同步日期</string>
-	<!-- Sync Status: error subtitle (%s -> last successful sync date) -->
 	<string name="sync_status_failed_subtitle">上次成功同步：%s</string>
-	<!-- Sync Status: never sync\'d -->
 	<string name="sync_status_never">未同步过！</string>
-	<!-- Options Group Label -->
 	<string name="sync_SPr_group_options">选项</string>
-	<!-- Preference: Synchronization Interval Title -->
 	<string name="sync_SPr_interval_title">后台同步</string>
-	<!-- Preference: Synchronization Interval Description (when disabled) -->
 	<string name="sync_SPr_interval_desc_disabled">后台同步已关闭</string>
-	<!-- Preference: Synchronization Interval Description (%s => setting) -->
 	<string name="sync_SPr_interval_desc">目前同步间隔：%s</string>
-	<!-- Actions Group Label  -->
 	<string name="sync_SPr_group_actions">动作</string>
-	<!-- Synchronize Now Button -->
 	<string name="sync_SPr_sync">现在同步</string>
-	<!-- Sync: Last error -->
 	<string name="sync_SPr_last_error">状态报告</string>
-	<!-- Sync: last error click for more -->
 	<string name="sync_SPr_last_error_subtitle">点击给 Tasks 团队发送报告</string>
-	<!-- Sync: send error report button -->
 	<string name="sync_SPr_send_report">发送报告</string>
-	<!-- Sync: Clear Data Title -->
 	<string name="sync_SPr_forget">登出</string>
-	<!-- Sync: Clear Data Description -->
 	<string name="sync_SPr_forget_description">清除所有同步资料</string>
-	<!-- confirmation dialog for sync log out -->
 	<string name="sync_forget_confirm">登出/清除同步资料?</string>
-	<!-- Sync error: network connectivity problems. %s-> name of sync service-->
 	<string name="sync_error_offline">在最近与 %s 同步时网络连接发生问题。请重试。</string>
 	<string-array name="sync_SPr_interval_entries">
-	<!-- sync_SPr_interval_entries: Synchronization Intervals -->
 		<item>停用</item>
 		<item>每15分钟</item>
 		<item>每30分钟</item>

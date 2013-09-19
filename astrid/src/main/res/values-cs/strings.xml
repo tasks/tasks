@@ -1,35 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<!-- ================================================== general terms == -->
-	<!-- People Editing Activity -->
-	<!-- slide 18b/ 25e/ 27c: task sharing dialog: assigned hint -->
 	<string name="actfm_person_hint">Kontakt nebo email</string>
-	<!-- task sharing dialog: shared with hint -->
 	<string name="actfm_person_or_tag_hint">Kontakt nebo Sdílený list</string>
-	<!-- toast on transmit success -->
-	<!-- can\'t rename or delete shared tag message -->
-	<!-- warning before deleting a list you\'re the owner of -->
 	<string name="actfm_tag_operation_owner_delete">Jste vlastníkem tohoto sdíleného seznamu! Pokud ho smažete, smaže se i u všech členů seznamu. Chcete skutečně pokračovat?</string>
-	<!-- slide 29a: menu item to take a picture -->
 	<string name="actfm_picture_camera">Vyfoť obrázek</string>
-	<!-- slide 29b: menu item to select from gallery -->
 	<string name="actfm_picture_gallery">Vybrat obrázek z galerie</string>
-	<!-- menu item to clear picture selection -->
 	<string name="actfm_picture_clear">Odebrat obrázek</string>
-	<!-- filter list activity: refresh tags -->
-	<!-- Title for prompt after sharing a task -->
 	<string name="actfm_view_task_title">Zobrazit úkol?</string>
-	<!-- Text for prompt after sharing a task -->
 	<string name="actfm_view_task_text">%s se stal novým vlastníkem úkolu! Teď si prohlížíte vlastní úkoly. Chcete vidět úkoly, které jste delegoval(a)?</string>
-	<!-- Ok button for task view prompt -->
 	<string name="actfm_view_task_ok">Delegované</string>
-	<!-- Cancel button for task view prompt -->
 	<string name="actfm_view_task_cancel">Vlastní</string>
-	<!-- slide 13a: Title for the "My Shared Tasks" filter -->
 	<string name="actfm_my_shared_tasks_title">Moje sdílené úkoly</string>
-	<!-- Empty list for the "My Shared Tasks" filter -->
 	<string name="actfm_my_shared_tasks_empty">Žádné sdílené úkoly</string>
-	<!-- =====================  Friendship connections -->
 	<string name="actfm_friendship_pending">You\'ve sent a friend request to %s!</string>
 	<string name="actfm_friendship_blocked">You\'ve blocked %s.</string>
 	<string name="actfm_friendship_ignored">You\'ve ignored %s.</string>
@@ -38,78 +20,38 @@
 	<string name="actfm_friendship_no_status">Connect with %s to share and see activity on public tasks!</string>
 	<string name="actfm_friendship_connect">Add friend</string>
 	<string name="actfm_friendship_accept">Potvrdit</string>
-	<!-- ================================================== TagViewActivity == -->
-	<!-- Tag View Activity: Add Comment hint -->
 	<string name="TVA_add_comment">Přidej comment...</string>
-	<!-- Tag View Activity: task comment ($1 - user name, $2 - task title) -->
-	<!-- Tabs for Tag view -->
 	<string-array name="TVA_tabs">
-	<!-- Tab for showing tasks -->
 		<item>Úkoly</item>
-	<!-- Tab for showing comments & updates -->
 		<item>Činnost</item>
-	<!-- Tab for showing setting -->
 		<item>Nastavení listu</item>
 	</string-array>
-	<!-- Tag View Menu: refresh -->
 	<string name="actfm_TVA_menu_refresh">Obnovit</string>
-	<!-- Tag Settings: tag name label -->
 	<string name="actfm_TVA_tag_label">Název listu:</string>
-	<!-- Tag Settings: tag owner label -->
-	<!-- Tag Settings: tag owner value when there is no owner -->
-	<!-- Tag Settings: tag picture -->
 	<string name="actfm_TVA_tag_picture">Obrázek listu</string>
-	<!-- slide 25c/28b: Tag Settings: silence notifications label -->
 	<string name="actfm_TVA_silence_label">Tichá upozornění</string>
-	<!-- Tag Settings: list icon label -->
-	<!-- slide 25b/27d: Tag Settings: list description label -->
 	<string name="actfm_TVA_tag_description_label">Popis</string>
-	<!-- slide 28a: Tag Settings: list settings label -->
 	<string name="actfm_TVA_tag_settings_label">Nastavení</string>
-	<!-- slide 25b: Tag Settings: list description hint -->
 	<string name="actfm_TVA_tag_description_hint">Zde zadejte popis</string>
-	<!-- slide 25d: Tag Settings: list name hint -->
 	<string name="actfm_TVA_tag_name_hint">Název seznamu</string>
-	<!-- ============================================ edit people dialog == -->
-	<!-- task sharing dialog: window title -->
-	<!-- task sharing dialog: save button -->
-	<!-- task sharing dialog: assigned label -->
-	<!-- task sharing dialog: custom email assignment -->
-	<!-- task sharing dialog: assigned hint -->
-	<!-- task sharing dialog: message hint -->
-	<!-- task sharing dialog: message hint -->
-	<!-- task sharing dialog: # of e-mails sent (%s => # people plural string) -->
-	<!-- task sharing dialog: edit people settings saved -->
-	<!-- task sharing dialog: invalid email (%s => email) -->
 	<string name="actfm_EPA_invalid_email">Špatný E-mail: %s</string>
-	<!-- task sharing dialog: tag not found (%s => tag) -->
 	<string name="actfm_EPA_add_person_to_list_title">Task assigned</string>
 	<string name="actfm_EPA_add_person_to_list">%1$s is not shared on this list. Would you like to add %2$s to this list?</string>
 	<string name="actfm_EPA_add_person_to_list_ok">Add to list</string>
 	<string name="actfm_EPA_add_person_to_list_cancel">Don\'t add</string>
 	<string name="actfm_list_owner">(owner)</string>
-	<!-- ========================================= sharing login activity == -->
-	<!-- share login: Username / Email -->
-	<!-- share login: Google Auth title -->
 	<string name="actfm_GAA_title">Vyberte, který účet Google chcete použít:</string>
-	<!-- ================================================ Featured Lists -->
 	<string name="actfm_feat_list_clone">Copy list</string>
 	<string name="actfm_feat_list_suffix">(Copy)</string>
 	<string name="actfm_feat_list_cloning">Copying...</string>
 	<string name="actfm_feat_list_clone_success">Povedlo se!</string>
 	<string name="actfm_feat_list_task_clone_success">Úkol zkopírován</string>
 	<string name="actfm_feat_list_clone_empty">No tasks to copy</string>
-	<!-- ================================================ Synchronization == -->
-	<!-- Preferences Title: Act.fm -->
 	<string name="actfm_APr_header">Tasks.com</string>
 	<string name="actfm_https_title">Použít HTTPS</string>
-	<!-- title for notification tray after synchronizing -->
-	<!-- text for notification when comments are received -->
-	<!-- account types -->
 	<string name="actfm_account_type">Account type</string>
 	<string name="actfm_inapp_billing">Upgrade to Premium</string>
 	<string name="actfm_inapp_billing_summary">Attach files, voice backups, premium support &amp; more</string>
-	<!-- Sync upgrade messages -->
 	<string name="actfm_tag_not_authorized_title">Not authorized</string>
 	<string name="actfm_tag_not_authorized_body">You are no longer authorized to view list %s (you may have been removed). Would you like to create a new list with the same name?</string>
 	<string name="actfm_tag_not_authorized_new_list">Create new list</string>
@@ -118,152 +60,71 @@
 	<string name="EPr_reset_sync_state">Reset sync</string>
 	<string name="EPr_reset_sync_state_summary">Resets some local data to help resolve sync errors</string>
 	<string name="EPr_reset_sync_state_detailed">The next time you sync, your tasks and lists will be changed to mirror what exists on Tasks.com, which may help resolve sync errors. Do you wish to continue?</string>
-	<!-- Resources for built-in timers plug-in -->
-	<!-- Task Edit Activity: Container Label -->
 	<string name="alarm_ACS_label">Alarmy</string>
-	<!-- Task Edit Activity: Add New Alarm -->
 	<string name="alarm_ACS_button">Přidat alarm</string>
 	<string-array name="reminders_alarm">
-	<!-- reminders related to alarm -->
 		<item>Budík!</item>
 	</string-array>
-	<!-- Resources for built-in backup plug-in -->
-	<!-- ================================================= BackupPreferences == -->
-	<!-- slide 33c/48d: Backup Preferences Title -->
 	<string name="backup_BPr_header">Zálohy</string>
-	<!-- slide 48e/50c: Backup: Status Header -->
 	<string name="backup_BPr_group_status">Stav</string>
-	<!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->
 	<string name="backup_status_success">Předchozí:\n%s</string>
-	<!-- Backup Status: last error failed. Keep it short! -->
 	<string name="backup_status_failed">Předchozí zálohování selhalo</string>
-	<!-- Backup Status: error subtitle -->
 	<string name="backup_status_failed_subtitle">klikněte pro zobrazení chyby</string>
-	<!-- slide 48a: Backup Status: never backed up -->
 	<string name="backup_status_never">Nikdy nezálohováno!</string>
-	<!-- slide 48f/ 50e: Backup Options Group Label -->
-	<string name="backup_BPr_group_options">Možnosti</string>
-	<!-- slide 48b: Preference: Automatic Backup Title -->
+	<string name="backup_BPr_group_options">Nastavení</string>
 	<string name="backup_BPr_auto_title">Automatické zálohování</string>
-	<!-- Preference: Automatic Backup Description (when disabled) -->
 	<string name="backup_BPr_auto_disabled">Automatické zálohování je zakázáno</string>
-	<!-- slide 48g: Preference: Automatic Backup Description (when enabled) -->
 	<string name="backup_BPr_auto_enabled">Zálohování se bude provádět denně</string>
-	<!-- Preference screen restoring Tasks Help -->
-	<!-- Preference screen Restoring Tasks Help Dialog Text-->
-	<!-- ================================================= BackupActivity == -->
-	<!-- slide 48c: backup activity label -->
 	<string name="backup_BAc_label">Spravovat zálohy</string>
-	<!-- backup activity title -->
 	<string name="backup_BAc_title">Spravovat tvé zálohy</string>
-	<!-- backup activity import button -->
 	<string name="backup_BAc_import">Importovat úkoly</string>
-	<!-- backup activity export button -->
 	<string name="backup_BAc_export">Exportovat úkoly</string>
-	<!-- ============================================== Importer / Exporter == -->
-	<!-- Message displayed when error occurs -->
 	<string name="backup_TXI_error">Chyba v importu</string>
 	<string name="export_toast">Zálohovány %1$s do %2$s.</string>
 	<string name="export_toast_no_tasks">Žádné úkoly pro export.</string>
-	<!-- Progress Dialog Title for exporting -->
 	<string name="export_progress_title">Exportuji...</string>
-	<!-- Backup: Title of Import Summary Dialog -->
 	<string name="import_summary_title">Souhrn obnovy</string>
-	<!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
 	<string name="import_summary_message">Soubor %1$s obsahuje %2$s.\n\n %3$s importováno,\n %4$s již existuje\n %5$s je chybných\n</string>
-	<!-- Progress Dialog Title for importing -->
 	<string name="import_progress_title">Probíhá import...</string>
-	<!-- Progress Dialog text for import reading task (%d -> task number)-->
 	<string name="import_progress_read">Načítávání úkolu %d...</string>
-	<!-- Backup: Dialog when unable to open a file -->
-	<!-- Backup: Dialog when unable to open SD card folder (%s => folder) -->
 	<string name="DLG_error_sdcard">Chyba v přístupu k adresáři: %s</string>
-	<!-- Backup: Dialog when unable to open SD card in general -->
 	<string name="DLG_error_sdcard_general">Chyba v přístupu k SD kartě!</string>
-	<!-- Backup: File Selector dialog for import -->
 	<string name="import_file_prompt">Zvolte soubor k obnově</string>
-	<!-- ================================================== AndroidManifest == -->
-	<!-- slide 32k: Application Name (shown on home screen & in launcher) -->
 	<string name="app_name">Tasks Úkoly</string>
-	<!-- permission title for READ_TASKS -->
 	<string name="read_permission_label">Tasks Práva</string>
-	<!-- permission description for READ_TASKS -->
 	<string name="read_permission_desc">zobrazit úkoly, zobrazit filtry úkolů</string>
-	<!-- permission title for READ_TASKS -->
 	<string name="write_permission_label">Tasks Práva</string>
-	<!-- permission description for READ_TASKS -->
 	<string name="write_permission_desc">vytvořit nové úkoly, upravit existující úkoly</string>
-	<!-- ================================================== Generic Dialogs == -->
-	<!-- question for deleting tasks -->
 	<string name="DLG_delete_this_task_question">Smazat tento úkol?</string>
-	<!-- question for deleting items (%s => item name) -->
 	<string name="DLG_delete_this_item_question">Smazat tuto položku: %s?</string>
-	<!-- Progress dialog shown when upgrading -->
 	<string name="DLG_upgrading">Obnovování vašich úkolů...</string>
-	<!-- Title for dialog selecting a time (hours and minutes) -->
 	<string name="DLG_hour_minutes">Čas (hodin : minut)</string>
-	<!-- Button for accepting EULA -->
 	<string name="DLG_accept">Souhlasím</string>
-	<!-- Button for declining EULA -->
 	<string name="DLG_decline">Odmítám</string>
-	<!-- EULA title -->
 	<string name="DLG_eula_title">Podmínky užívání programu Tasks</string>
-	<!-- Dialog - loading -->
 	<string name="DLG_loading">Nahrávám...</string>
-	<!-- Dialog - dismiss -->
-	<!-- slide 20d -->
 	<string name="DLG_ok">OK</string>
-	<!-- slide 36g -->
 	<string name="DLG_cancel">Storno</string>
 	<string name="DLG_undo">Vrátit změny</string>
-	<!-- =============================================================== UI == -->
-	<!-- Label for DateButtons with no value -->
 	<string name="WID_dateButtonUnset">Klikni pro nastavení</string>
-	<!-- String formatter for DateButtons ($D => date, $T => time) -->
-	<!-- String formatter for Disable button -->
-	<!--  ============================================================= notes -->
-	<!-- Note Exposer -->
-	<!-- Note Exposer / Comments -->
-	<!-- EditNoteActivity - no comments -->
 	<string name="ENA_no_comments">Nic k zobrazení</string>
-	<!-- EditNoteActivity - no username for comment -->
 	<string name="ENA_no_user">Kdosi</string>
-	<!-- EditNoteActivity - refresh comments -->
 	<string name="ENA_refresh_comments">Obnovit komentáře</string>
-	<!-- ================================================= TaskListActivity == -->
-	<!-- slide 8b: Task List: Displayed instead of list when no items present -->
 	<string name="TLA_no_items">Žádné úkoly!</string>
-	<!-- Task List: Displayed instead of list when no items present in people view (%s-> person\'s name) -->
 	<string name="TLA_no_items_person">%s s vámi\nnesdílí žádné úkoly</string>
-	<!-- Menu: Adjust Sort and Hidden Task Settings -->
 	<string name="TLA_menu_sort">Třídit &amp; skryté</string>
-	<!-- Menu: Sync Now -->
 	<string name="TLA_menu_sync">Sychronizovat</string>
-	<!-- Menu: Search -->
 	<string name="TLA_menu_search">Hledat</string>
-	<!-- Menu: Tasks -->
 	<string name="TLA_menu_lists">Seznamy</string>
-	<!-- Menu: Friends -->
 	<string name="TLA_menu_friends">Lidé</string>
-	<!-- Menu: Featured Lists -->
 	<string name="TLA_menu_featured_lists">Featured Lists</string>
-	<!-- Menu: Suggestions -->
 	<string name="TLA_menu_suggestions">Návrhy</string>
-	<!-- Menu: Tutorial -->
-	<!-- Menu: Settings -->
 	<string name="TLA_menu_settings">Settings</string>
-	<!-- slide 30b: Menu: Support -->
 	<string name="TLA_menu_support">Podpora</string>
-	<!-- Search Label-->
-	<!-- Window title for displaying Custom Filter -->
 	<string name="TLA_custom">Vlastní</string>
-	<!-- slide 8d: Quick Add Edit Box Hint-->
 	<string name="TLA_quick_add_hint">Přidat úkol</string>
-	<!-- Quick Add Edit Box Hint for assigning (%s -> name)-->
 	<string name="TLA_quick_add_hint_assign">Add something for %s</string>
-	<!-- Notification Volumne notification-->
 	<string name="TLA_notification_volume_low">Upozornění jsou ztlumena. Neuslyšíte Tasks!</string>
-	<!-- Notifications disabled warning -->
 	<string name="TLA_notification_disabled">Upomínky Tasks jsou vypnuté! Nedostanete žádná upozornění</string>
 	<string-array name="TLA_filters">
 		<item>Aktivní</item>
@@ -273,16 +134,11 @@
 		<item>Hotovo</item>
 		<item>Skryté</item>
 	</string-array>
-	<!-- Title for confirmation dialog after quick add markup -->
 	<string name="TLA_quickadd_confirm_title">You said, \"%s\"</string>
-	<!-- Text for speech bubble in dialog after quick add markup -->
-	<!-- First string is task title, second is due date, third is priority -->
 	<string name="TLA_quickadd_confirm_speech_bubble">Vytvořila jsem úkol s názvem \"%1$s\", %3$s priorita, do %2$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">for %s</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">Nezobrazovat budoucí potvrzení</string>
-	<!-- Title for alert on new repeating task. %s-> task title -->
 	<string name="TLA_repeat_scheduled_title">Nový opakující se úkol %s</string>
-	<!-- Speech bubble for when a new repeating task scheduled. %s->repeat interval -->
 	<string name="TLA_repeat_scheduled_speech_bubble">Připomenu Ti to %s.</string>
 	<string-array name="TLA_priority_strings">
 		<item>nejvyšší důležitost</item>
@@ -290,135 +146,66 @@
 		<item>střední důležitost</item>
 		<item>nízká důležitost</item>
 	</string-array>
-	<!-- slide 22a -->
 	<string name="TLA_all_activity">All Activity</string>
-	<!-- ====================================================== TaskAdapter == -->
-	<!-- Format string to indicate task is hidden (%s => task name) -->
 	<string name="TAd_hiddenFormat">%s [skrytý]</string>
-	<!-- Format string to indicate task is deleted (%s => task name) -->
 	<string name="TAd_deletedFormat">%s [smazán]</string>
-	<!-- Displayed when adapter is flung (scrolled quickly) -->
-	<!-- slide 22b: indicates task was completed. %s => date or time ago -->
 	<string name="TAd_completed">Dokončeno\n%s</string>
-	<!-- slide 15a: Action Button: edit task -->
 	<string name="TAd_actionEditTask">Upravit</string>
-	<!-- Context Item: edit task -->
 	<string name="TAd_contextEditTask">Upravit úkol</string>
-	<!-- Context Item: copy task -->
 	<string name="TAd_contextCopyTask">Kopírovat úkol</string>
-	<!-- Context Item: delete task -->
 	<string name="TAd_contextDeleteTask">Delete Task</string>
-	<!-- Context Item: undelete task -->
 	<string name="TAd_contextUndeleteTask">Obnovit úkol</string>
-	<!-- Context Item: purge task -->
 	<string name="TAd_contextPurgeTask">Smazat úkol</string>
-	<!-- ============================================== SortSelectionDialog == -->
-	<!-- slide 23h:  Hidden: title -->
 	<string name="SSD_hidden_title">Skryté úkoly</string>
-	<!-- Hidden Task Selection: show completed tasks -->
 	<string name="SSD_completed">Ukázat dokončené úkoly</string>
-	<!-- Hidden Task Selection: show hidden tasks -->
 	<string name="SSD_hidden">Ukázat skryté úkoly</string>
-	<!-- Hidden Task Selection: show deleted tasks -->
 	<string name="SSD_deleted">Ukázat smazané úkoly</string>
-	<!-- Sort Selection: drag with subtasks -->
 	<string name="SSD_sort_drag">Manual order with subtasks</string>
-	<!-- slide 23b: Sort Selection: smart sort -->
 	<string name="SSD_sort_auto">Tasks-chytré třídění</string>
-	<!-- slide 23e: Sort Selection: sort by alpha -->
 	<string name="SSD_sort_alpha">Podle názvu</string>
-	<!-- slide 23c: Sort Selection: sort by due date -->
 	<string name="SSD_sort_due">Podle data ukončení</string>
-	<!-- slide 23d: Sort Selection: sort by importance -->
 	<string name="SSD_sort_importance">Podle důležitosti</string>
-	<!-- slide 23f: Sort Selection: sort by modified date -->
 	<string name="SSD_sort_modified">Podle naposled upraveného</string>
-	<!-- slide 23g: Sort Selection: reverse -->
 	<string name="SSD_sort_reverse">Obrácené třídění</string>
-	<!-- slide 23j: Sort Button: sort temporarily -->
 	<string name="SSD_save_temp">Pouze jednou</string>
-	<!-- slide 23i: Sort Button: sort permanently -->
 	<string name="SSD_save_always">Vždy</string>
-	<!-- =============================================== FilterListActivity == -->
-	<!-- Tasks Filter Shortcut -->
 	<string name="FSA_label">Seznam nebo filtr Tasks</string>
-	<!-- Filter List Activity Title -->
-	<!-- Displayed when loading filters -->
-	<!-- Context Menu: Create Shortcut -->
 	<string name="FLA_context_shortcut">Vytvořit zástupce na ploše</string>
-	<!-- Menu: Search -->
-	<!-- Menu: Help -->
-	<!-- slide 28c: Create Shortcut Dialog Title -->
 	<string name="FLA_shortcut_dialog_title">Vytvořit zástupce</string>
-	<!-- Create Shortcut Dialog (asks to name shortcut) -->
 	<string name="FLA_shortcut_dialog">Název zástupce:</string>
-	<!-- Search Hint-->
 	<string name="FLA_search_hint">Hledat úkoly</string>
-	<!-- Search Filter name (%s => query) -->
 	<string name="FLA_search_filter">Souhlasející \'%s\'</string>
-	<!-- Toast: created shortcut (%s => label) -->
 	<string name="FLA_toast_onCreateShortcut">Vytvořen zástupce: %s</string>
-	<!-- Menu: new filter -->
 	<string name="FLA_new_filter">Nový Filtr</string>
-	<!-- slide 10e: Button: new list -->
 	<string name="FLA_new_list">Nový seznam</string>
-	<!-- Alert when creating a shortcut without selecting a filter -->
 	<string name="FLA_no_filter_selected">Není vybrán žádný filtr! Vyberte prosím filtr nebo seznam.</string>
-	<!-- ================================================= TaskEditActivity == -->
-	<!-- Title when editing a task (%s => task title) -->
-	<!-- Title when creating a new task -->
-	<!-- Task title label -->
-	<!-- Task when label -->
 	<string name="TEA_when_header_label">Kdy</string>
-	<!-- Task title hint (displayed when edit box is empty) -->
 	<string name="TEA_title_hint">Souhrn úkolu</string>
-	<!-- Task importance label -->
 	<string name="TEA_importance_label">Důležitost</string>
-	<!-- Task due date hint -->
 	<string name="TEA_deadline_hint">Set due date</string>
-	<!-- Task urgency specific time checkbox -->
 	<string name="TEA_urgency_specific_time">V přesně daný čas?</string>
-	<!-- Task urgency specific time title when specific time false -->
 	<string name="TEA_urgency_none">Žádný</string>
-	<!-- Task hide until label -->
 	<string name="TEA_hideUntil_label">Zobrazit úkol</string>
-	<!-- Task hide until label -->
 	<string name="TEA_hideUntil_display">Hide until %s</string>
-	<!-- Task hide until toast -->
 	<string name="TEA_hideUntil_message">Úkol bude skrytý až do %s</string>
-	<!-- Task editing data being loaded label -->
 	<string-array name="TEA_loading">
 		<item>Nahrávám...</item>
 	</string-array>
-	<!-- slide 16c: Task note label -->
 	<string name="TEA_note_label">Poznámky</string>
-	<!-- slide 16c: Task note label -->
 	<string name="TEA_notes_empty">Description...</string>
-	<!-- Task note hint -->
 	<string name="TEA_notes_hint">Poznámky k úkolu...</string>
-	<!-- Estimated time label -->
 	<string name="TEA_estimatedDuration_label">Kolik času asi zabere?</string>
-	<!-- Elapsed time label -->
 	<string name="TEA_elapsedDuration_label">Jak dlouho už na úkolu pracujete</string>
-	<!-- Menu: Save -->
 	<string name="TEA_menu_save">Uložit změny</string>
-	<!-- Menu: Don\'t Save -->
 	<string name="TEA_menu_discard">Neukládat</string>
-	<!-- Menu: Task comments -->
 	<string name="TEA_menu_refresh_comments">Refresh comments</string>
 	<string name="TEA_menu_comments">Komentáře</string>
-	<!-- Toast: task saved with deadline (%s => preposition + time units) -->
 	<string name="TEA_onTaskSave_due">Úkol uložen: termín je %s</string>
-	<!-- Toast: task saved without deadlines -->
 	<string name="TEA_onTaskSave_notDue">Úkol uložen</string>
-	<!-- Toast: task was not saved -->
-	<!-- Toast: task was deleted -->
-	<!-- slide 15b: Task edit tab: activity -->
 	<string name="TEA_tab_activity">Činnost</string>
 	<string name="TEA_timer_est">Est. %s</string>
 	<string name="TEA_timer_elap">Elapsed %s</string>
 	<string-array name="TEA_urgency">
-	<!-- slide 19: urgency: labels for edit page. item #4 -> auto filled -->
 		<item>Bez termínu</item>
 		<item>Určitý den</item>
 		<item>Dnes</item>
@@ -430,7 +217,6 @@
 	</string-array>
 	<string name="TEA_no_time">Bez času</string>
 	<string-array name="TEA_hideUntil">
-	<!-- hideUntil: labels for edit page. -->
 		<item>Vždy</item>
 		<item>Do termínu</item>
 		<item>Due time</item>
@@ -438,65 +224,33 @@
 		<item>Týden před ukončením</item>
 		<item>Určitý den/čas</item>
 	</string-array>
-	<!-- Task edit control set descriptors -->
-	<!-- slide 9c/ 35a -->
 	<string name="TEA_control_when">Kdy</string>
-	<!-- slide 16a/35c -->
 	<string name="TEA_control_importance">Důležitost</string>
-	<!-- slide 16b/35d -->
 	<string name="TEA_control_lists">Seznamy</string>
-	<!-- slide 16c/35e -->
 	<string name="TEA_control_notes">Poznámky</string>
 	<string name="TEA_control_files">Soubory</string>
-	<!-- slide 16e / slide 35g-->
 	<string name="TEA_control_reminders">Upomínky</string>
-	<!-- slide 16f -->
 	<string name="TEA_control_timer">Timer Controls</string>
 	<string name="TEA_control_hidden_section">-----Vždy skrývat----</string>
 	<string name="hide_until_prompt">Zobrazit v mém seznamu</string>
-	<!-- Add Ons tab when no add-ons found -->
-	<!-- Add Ons button -->
-	<!-- More row -->
-	<!-- slide 15c: Text when no activity to show -->
 	<string name="TEA_no_activity">Není co zobrazit</string>
-	<!-- Text to load more activity -->
 	<string name="TEA_load_more">Více...</string>
-	<!-- When controls dialog -->
 	<string name="TEA_when_dialog_title">Kdy je termín?</string>
 	<string name="TEA_new_task">Nový úkol</string>
-	<!-- ============================================= IntroductionActivity == -->
-	<!-- slide 1a: Introduction Window title -->
-	<!-- Button to agree to EULA -->
-	<!-- Button to disagree with EULA -->
-	<!-- ===================================================== MissedCallActivity == -->
-	<!-- Missed call: return call (%1$s -> caller, %2$s -> time of call)-->
 	<string name="MCA_title">V %2$s volal\n%1$s</string>
-	<!-- Missed call: return call -->
 	<string name="MCA_return_call">Hned zavolat</string>
-	<!-- Missed call: return call -->
 	<string name="MCA_add_task">Zavolat později</string>
-	<!-- Missed call: return call -->
 	<string name="MCA_ignore">Ignorovat</string>
-	<!-- Missed call: dialog to ignore all missed calls title -->
 	<string name="MCA_ignore_title">Ignorovat všechny zmeškané hovory?</string>
-	<!-- Missed call: dialog to ignore all missed calls body -->
 	<string name="MCA_ignore_body">Ignoroval jste několik zmeškaných hovorů. Má Tasks ignorovat všechny?</string>
-	<!-- Missed call: dialog to ignore all missed calls ignore all button -->
 	<string name="MCA_ignore_all">Ignorovat vše</string>
-	<!-- Missed call: dialog to ignore all missed calls ignore just this button -->
 	<string name="MCA_ignore_this">Ignorovat pouze tento</string>
-	<!-- Missed call: preference title -->
 	<string name="MCA_missed_calls_pref_title">Field missed calls</string>
-	<!-- slide 49c: Missed call: preference description -->
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks Vás upozorní na zmeškané hovory a připomene Vám, abyste zavolal zpět</string>
 	<string name="MCA_missed_calls_pref_desc_disabled">Tasks Vás nebude upozorňovat na zmeškané hovory</string>
-	<!-- Missed call: task title with name (%1$s -> name, %2$s -> number)-->
 	<string name="MCA_task_title_name">Zavolat %1$s zpět v %2$s</string>
-	<!-- Missed call: task title no name (%s -> number)-->
 	<string name="MCA_task_title_no_name">Zavolat %s zpět</string>
-	<!-- Missed call: schedule dialog title (%s -> name or number)-->
 	<string name="MCA_schedule_dialog_title">Zavolat %s zpět...</string>
-	<!-- Missed call speech bubble options -->
 	<string-array name="MCA_dialog_speech_options">
 		<item>To musí být super, být tak oblíbený!</item>
 		<item>Lidí Vás mají rádi! Jů!</item>
@@ -505,112 +259,59 @@
 		<item>To zvládnete!</item>
 		<item>SMS můžete poslat vždycky...</item>
 	</string-array>
-	<!-- ======================================= Calendar reminder activity == -->
-	<!-- Calendar remindeer ignore button -->
 	<string name="CRA_ignore">Ignore</string>
-	<!-- Calendar event -->
 	<string name="CRA_title">Need a meeting list?</string>
-	<!-- Calendar reminder: dialog to ignore all missed calls title -->
 	<string name="CRA_ignore_title">Ignore all calendar events?</string>
-	<!-- Calendar reminder: dialog to ignore all missed calls body -->
 	<string name="CRA_ignore_body">You\'ve ignored several calendar events. Should Tasks stop asking you about them?</string>
-	<!-- Calendar reminder: dialog to ignore all missed calls ignore all button -->
 	<string name="CRA_ignore_all">Ignore all events</string>
-	<!-- Calendar reminder: dialog to ignore all missed calls ignore just this button -->
 	<string name="CRA_ignore_this">Ignore this event only</string>
-	<!-- Calendar reminder: astrid speech bubble when event starting (%s -> event name) -->
 	<string name="CRA_speech_bubble_start">Looks like %s is starting soon. Want to create a list for action items?</string>
-	<!-- Calendar reminder: astrid speech bubble when event ending (%s -> event name) -->
 	<string name="CRA_speech_bubble_end">Looks like you just finished with %s. Want to create a list for action items?</string>
-	<!-- Calendar reminder: create list button -->
 	<string name="CRA_create_list">Create list</string>
-	<!-- Calendar reminder: postpone button -->
 	<string name="CRA_postpone">Maybe afterwards</string>
-	<!-- Calendar reminder: list exists dialog title -->
 	<string name="CRA_list_exists_title">List already exists</string>
-	<!-- Calendar reminder: list exists dialog body (%s -> list name)-->
 	<string name="CRA_list_exists_body">A list named %s already exists. Do you want to use the existing list or create a new one for this event?</string>
-	<!-- Calendar reminder: list exists dialog create new button -->
 	<string name="CRA_create_new">Create new</string>
-	<!-- Calendar reminder: list exists dialog use existing button -->
 	<string name="CRA_use_existing">Use existing</string>
-	<!-- Calendar remindr: created list (%s -> list name) -->
 	<string name="CRA_created_list_dialog">I created a list %s.</string>
-	<!-- Calendar reminder: one attendee (%s -> attendee name or email) -->
 	<string name="CRA_one_attendee">%s is attending.</string>
-	<!-- Calendar reminder: two attendees (%s -> attendee name or email) -->
 	<string name="CRA_two_attendees">%1$s and %2$s are attending.</string>
-	<!-- Calendar reminder: many attendees (%s -> attendee name or email, %3$d -> how many other people) -->
 	<string name="CRA_many_attendees">%1$s, %2$s, and %3$d others are attending.</string>
-	<!-- Calendar reminder: invitation prompt -->
 	<string name="CRA_invitation_prompt">Want to invite them?</string>
-	<!-- Calendar reminder: preference title -->
 	<string name="CRA_calendar_reminders_pref_title">Calendar assistant</string>
-	<!-- Calendar reminder: pref description disabled -->
 	<string name="CRA_calendar_reminders_pref_desc_disabled">Tasks will not remind you about upcoming calendar events</string>
-	<!-- Calendar reminder: pref description enabled -->
 	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks will remind you about upcoming calendar events and prompt you to prepare for them</string>
-	<!-- Calendar reminder: share list title -->
 	<string name="CRA_share_list_title">Share the list?</string>
 	<string name="CRA_invite_attendees">Invite attendees</string>
 	<string name="CRA_more_options">More options</string>
 	<string name="CRA_dont_invite">No thank you</string>
-	<!-- Calendar reminder: share list title when no other attendees exist-->
 	<string name="CRA_list_created_title">List created!</string>
-	<!-- Calendar reminder: default new list name (%s -> event title) -->
 	<string name="CRA_default_list_name">Action Items: %s</string>
-	<!-- ===================================================== HelpActivity == -->
-	<!-- Help: Button to get support from our website -->
-	<!-- ==================================================== UpdateService == -->
-	<!-- Changelog Window Title -->
 	<string name="UpS_changelog_title">Co je nového v Tasks?</string>
-	<!-- Updates Window Title -->
 	<string name="UpS_updates_title">Poslední \"Tasks\" novinky</string>
-	<!-- ================================================== EditPreferences == -->
-	<!-- slide 31g: Preference Window Title -->
 	<string name="EPr_title">Tasks: Vlastnosti</string>
-	<!-- slide 46a -->
 	<string name="EPr_deactivated">deactivated</string>
-	<!-- slide 30i: Preference Category: Appearance Title -->
 	<string name="EPr_appearance_header">Vzhled</string>
-	<!-- Preference Category: Appearance Summary -->
 	<string name="EPr_appearance_summary">Themes, widgets, task rows, edit screen</string>
-	<!-- slide 34a: Preference: Task List Font Size Title -->
 	<string name="EPr_fontSize_title">Velikost seznamu úkolů</string>
-	<!-- Preference: Filters to show pref screen title -->
 	<string name="EPr_filters_to_show_title">Filters to show</string>
-	<!-- slide 32a: Preference: Show confirmation for smart reminders -->
 	<string name="EPr_showSmartConfirmation_title">Zobrazovat potvrzení chytrých upomínek</string>
-	<!-- slide 34g: Preference: Task List Font Size Description -->
 	<string name="EPr_fontSize_desc">Velikost písma na hlavní straně seznamu</string>
-	<!-- Preferemce: Show task edit confirmation toasts -->
-	<!-- slide 34c: Preference: Task List Show Notes -->
 	<string name="EPr_showNotes_title">Zobrazit poznámky v úkolu</string>
-	<!-- Edit screen preference category -->
 	<string name="EPr_edit_screen_options">Edit screen options</string>
-	<!-- slide 30e: Preference: Beast mode (auto-expand edit page) -->
 	<string name="EPr_beastMode_title">Edit screen order</string>
 	<string name="EPr_beastMode_shortcut">Customize</string>
 	<string name="EPr_time_increment">5 minute increments</string>
 	<string name="EPr_use_date_shortcuts">Use date shortcuts</string>
 	<string name="EPr_show_timer_shortcut">Show timer shortcut</string>
-	<!-- slide 35h -->
 	<string name="EPr_beastMode_desc">Customize the layout of the task edit screen</string>
-	<!-- slide 35j -->
 	<string name="EPr_beastMode_reset">Obnovit výchozí hodnoty</string>
 	<string name="EPr_beastMode_hint">Customize your task edit screen by dragging the left handle on each row</string>
-	<!-- slide 34i: Preference: Task List Show Notes Description (disabled) -->
 	<string name="EPr_showNotes_desc_disabled">Poznámky budou zobrazeny v liště rychlého přístupu</string>
-	<!-- Preference: Task List Show Notes Description (enabled) -->
 	<string name="EPr_showNotes_desc_enabled">Poznámky budou vždy zobrazeny</string>
-	<!-- slide 34e: Preferences: Use legacy importance and checkbox style -->
-	<!-- slide 34k-->
-	<!-- slide 34b: Preferences: Wrap task titles to two lines -->
 	<string name="EPr_fullTask_title">Zobrazit úplný název úkolu</string>
 	<string name="EPr_fullTask_desc_enabled">Zobrazí se úplný název úkolu</string>
-	<!-- slide 34h -->
 	<string name="EPr_fullTask_desc_disabled">Zobrazí se první dva řádky názvu úkolu</string>
-	<!-- Preferences: task row style -->
 	<string-array name="EPr_task_row_styles">
 		<item>Original</item>
 		<item>Simple</item>
@@ -621,50 +322,30 @@
 		<item>Truncate title to one line with date and lists below</item>
 		<item>Single line title only</item>
 	</string-array>
-	<!-- task row style title (%s -> style) -->
 	<string name="EPr_task_row_style_title">Row style: %s</string>
-	<!-- Preference: custom filters enabled -->
 	<string name="EPr_use_filters_title">Use filters</string>
 	<string name="EPr_use_filters_subtitle">Lets you create custom filters</string>
-	<!-- Preference: simple input box style -->
 	<string name="EPr_show_quickadd_controls">Advanced quickadd controls</string>
-	<!-- Preference: don\'t show plus button until input present -->
 	<string name="EPr_hide_plus_button">Hide plus button</string>
-	<!-- Preference: menu items -->
 	<string name="EPr_menu_items">Menu items</string>
-	<!-- Preference: list view -->
 	<string name="EPr_list_view">List view</string>
-	<!-- Preference: task edit comments -->
 	<string name="EPr_show_task_edit_comments">Show comments in task edit</string>
-	<!-- slide 30f/ 36f: Preference: Theme -->
 	<string name="EPr_theme_title">Barevný motiv</string>
-	<!-- Preference: Theme Description (%s => value) -->
 	<string name="EPr_theme_desc">Aktuální: %s</string>
-	<!-- Preference: Theme Description (android 1.6) -->
 	<string name="EPr_theme_desc_unsupported">Nastavení vyžaduje Android 2.0+</string>
-	<!-- slide 32h/ 37b -->
 	<string name="EPr_theme_widget_title">Widget theme</string>
-	<!-- slide 30d/ 34f: Preference screen: all task row settings -->
 	<string name="EPr_taskRowPrefs_title">Vzhled řádku úkolu</string>
-	<!-- Preferences: calendar event start time -->
 	<string name="EPr_cal_end_or_start_at_due_time">Čas události v kalendáři</string>
 	<string name="EPr_cal_end_at_due_time">Událost v kalendáři končí splněním úkolu</string>
 	<string name="EPr_cal_start_at_due_time">Událost v kalendáři začíná splněním úkolu</string>
 	<string name="EPr_force_phone_layout">Use phone layout</string>
-	<!-- Configurations -->
 	<string name="EPr_configurations_title">Set configuration</string>
 	<string name="EPr_config_default">Default</string>
 	<string name="EPr_config_lite">Tasks Lite</string>
-	<!-- Dialog title when setting preference configuration -->
 	<string name="EPr_config_dialog_title">Set configuration?</string>
-	<!-- Dialog prompt when setting preference configuration (%s -> name of configuration)-->
 	<string name="EPr_config_dialog_text">Reset preferences to the %s configuration?</string>
-	<!-- default configuration name for the above dialog -->
 	<string name="EPr_config_dialog_default_id">default</string>
-	<!-- Preference title for showing save and cancel buttons in task edit page -->
 	<string name="EPr_show_save_and_cancel">Show save and cancel </string>
-	<!-- Swipe between lists -->
-	<!-- Preference: swipe between lists performance -->
 	<string name="EPr_swipe_lists_performance_title">Swipe between lists</string>
 	<string-array name="EPr_swipe_lists_performance_mode">
 		<item>No swipe</item>
@@ -673,7 +354,6 @@
 		<item>Vysoký Výkon</item>
 	</string-array>
 	<string-array name="EPr_swipe_lists_performance_desc">
-	<!-- slide 49a -->
 		<item>Swipe between lists is disabled</item>
 		<item>Nižší výkon</item>
 		<item>Default setting</item>
@@ -682,30 +362,20 @@
 	<string name="swipe_lists_helper_title">Swipe between lists</string>
 	<string name="swipe_lists_helper_header">Swipe left or right to quickly move between lists</string>
 	<string name="swipe_lists_helper_subtitle">Change settings in Settings -&gt; Appearance</string>
-	<!-- Format string for displaying the currently selected preference. $1 is name of selected mode, $2 is description -->
 	<string-array name="EPr_default_reminders_mode">
-	<!-- reminders duration: labels for "Task Defaults" preference item. -->
 		<item>@string/TEA_reminder_mode_once</item>
 		<item>@string/TEA_reminder_mode_five</item>
 		<item>@string/TEA_reminder_mode_nonstop</item>
 	</string-array>
 	<string-array name="EPr_themes">
-	<!-- theme_settings: labels for Theme preference menu -->
-	<!-- slide 36a-->
 		<item>Den - Modrá</item>
-	<!-- slide 36b -->
 		<item>Den - Červená</item>
-	<!-- slide 36b -->
 		<item>Sky blue</item>
-	<!-- slide 36c -->
 		<item>Noc</item>
-	<!-- slide 36d -->
 		<item>Průhledné (Bílý text)</item>
-	<!-- slide 36e -->
 		<item>Průhledné (Tmavý text)</item>
 	</string-array>
 	<string-array name="EPr_themes_widget">
-	<!-- slide 32i / 37a-->
 		<item>Same as app</item>
 		<item>Den - Modrá</item>
 		<item>Den - Červená</item>
@@ -715,64 +385,39 @@
 		<item>Průhledné (Tmavý text)</item>
 		<item>Starý styl</item>
 	</string-array>
-	<!-- ========================================== Task Management Settings == -->
-	<!-- slide 33a/47c: Preference Screen Header: Old Task Management -->
 	<string name="EPr_manage_header">Spravovat staré úkoly</string>
-	<!-- slide 47d -->
 	<string name="EPr_manage_delete_completed">Odstranit dokončené úkoly</string>
 	<string name="EPr_manage_delete_completed_message">Opravdu chcete odstranit všechny dokončené úkoly?</string>
-	<!-- slide 47a -->
 	<string name="EPr_manage_delete_completed_summary">Odstraněné úkoly mohou být jeden po jednom obnoveny</string>
 	<string name="EPr_manage_delete_completed_status">Odstraněno %d úkolů!</string>
-	<!-- slide 47e -->
 	<string name="EPr_manage_purge_deleted">Vymazat smazané úkoly</string>
 	<string name="EPr_manage_purge_deleted_message">Opravdu chcete vymazat vaše smazané úkoly?\n\nTyto úkoly budou vymazány navždy!</string>
 	<string name="EPr_manage_purge_deleted_status">Vymyzáno %d úkolů!</string>
-	<!-- slide 47b-->
 	<string name="EPr_manage_purge_deleted_summary">Pozor! Vymazané úkoly nemohou být obnoveny bez souboru zálohy!</string>
-	<!-- slide 47h-->
 	<string name="EPr_manage_clear_all">Smazat vše</string>
 	<string name="EPr_manage_clear_all_message">Smazat všechny úkoly a nastavení Tasks?\n\nPozor: nelze vzít zpět!</string>
-	<!-- slide 47f -->
 	<string name="EPr_manage_delete_completed_gcal">Smazat události v kalendáři pro hotové úkoly</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Opravdu chcete smazat všechny události pro dokončené úkoly?</string>
 	<string name="EPr_manage_delete_completed_gcal_summary"/>
 	<string name="EPr_manage_delete_completed_gcal_status">Smazáno %d událostí z kalendáře!</string>
-	<!-- slide 47g-->
 	<string name="EPr_manage_delete_all_gcal">Delete all calendar events for tasks</string>
 	<string name="EPr_manage_delete_all_gcal_message">Do you really want to delete all your events for tasks?</string>
 	<string name="EPr_manage_delete_all_gcal_summary"/>
 	<string name="EPr_manage_delete_all_gcal_status">Deleted %d calendar events!</string>
-	<!-- ==================================================== AddOnActivity == -->
-	<!-- Add Ons Activity Title -->
 	<string name="AOA_title">Doplňky</string>
-	<!-- Add-on Activity: author for internal authors  -->
 	<string name="AOA_internal_author">Tasks tým</string>
-	<!-- Add-on Activity: installed add-ons tab -->
 	<string name="AOA_tab_installed">Nainstalováno</string>
-	<!-- Add-on Activity - available add-ons tab -->
 	<string name="AOA_tab_available">K dispozici</string>
-	<!-- Add-on Activity - free add-ons label -->
 	<string name="AOA_free">Zdarma</string>
-	<!-- Add-on Activity - menu item to visit add-on website -->
-	<!-- Add-on Activity - menu item to visit android market -->
-	<!-- Add-on Activity - when list is empty -->
 	<string name="AOA_no_addons">Prázdný seznam!</string>
 	<string name="AOA_ppack_title">Power Pack</string>
 	<string name="AOA_ppack_description">Support Tasks and get more productive with the Power Pack. 4x2 and 4x4 widgets and voice integration. Power up today!</string>
 	<string name="AOA_locale_title">Tasks Locale Plugin</string>
 	<string name="AOA_locale_description">Allows Tasks to make use of the Locale application to send you notifications based on filter conditions. Requires Locale.</string>
-	<!-- ====================================================== TasksWidget == -->
-	<!-- Widget text when loading tasks -->
 	<string name="TWi_loading">Nahrávám...</string>
-	<!-- Widget configuration activity title: select a filter -->
 	<string name="WCA_title">Označte úkol pro zobrazení...</string>
-	<!-- ============================================================= About == -->
-	<!-- slide 30h: Title of "About" option in settings -->
 	<string name="p_about">O Tasks</string>
-	<!-- About text (%s => current version)-->
 	<string name="p_about_text">Současná verze: %s\n\n Tasks je open-source a je vytvořena Todoroo, Inc.</string>
-	<!-- ============================================================= Misc == -->
 	<string name="feedback_positive_title">Rate Tasks?</string>
 	<string name="feedback_positive_body">Glad I\'m helpful! Got a moment to help us with a 5-star rating?</string>
 	<string name="feedback_negative_title">Leave feedback?</string>
@@ -782,9 +427,7 @@
 	<string name="feedback_negative_button">Leave feedback</string>
 	<string name="feedback_not_now">Not now</string>
 	<string name="feedback_banner_text">How\'s Tasks working for you?</string>
-	<!-- Displayed when task killer found. %s => name of the application -->
 	<string name="task_killer_help">Vypadá to, že používate aplikaci, která ukončuje programy(%s)! Pokud můžete, přidejte Tasks do vyjímek, aby nebyla ukončována. Jinak se může stát, že vás nebude upozorňovat na úkoly.\n</string>
-	<!-- Task killer dialog ok button -->
 	<string name="task_killer_help_ok">Neukončím Tasks!</string>
 	<string name="DB_corrupted_title">Poškozená databáze</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
@@ -792,127 +435,67 @@
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
       your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
 	<string name="market_unavailable">Unfortunately the market is not available for your system.</string>
-	<!-- slide 32g: Preference Category: Defaults Title -->
 	<string name="EPr_defaults_header">Výchozí nastavení nového úkolu</string>
 	<string name="EPr_defaults_summary">Priority, due date, add to calendar</string>
-	<!-- slide 41f:  Preference: Default Urgency Title -->
 	<string name="EPr_default_urgency_title">Default deadline</string>
-	<!-- Preference: Default Urgency Description (%s => setting) -->
 	<string name="EPr_default_urgency_desc">Aktuální: %s</string>
-	<!-- slide 40a: Preference: Default Importance Title -->
 	<string name="EPr_default_importance_title">Výchozí důležitost</string>
-	<!-- Preference: Default Importance Description (%s => setting) -->
 	<string name="EPr_default_importance_desc">Aktuální: %s</string>
-	<!-- slide 42e: Preference: Default Hide Until Title -->
 	<string name="EPr_default_hideUntil_title">Výchozí Skrýt do</string>
-	<!-- Preference: Default Hide Until Description (%s => setting) -->
 	<string name="EPr_default_hideUntil_desc">Aktuální: %s</string>
-	<!-- slide 43e: Preference: Default Reminders Title -->
 	<string name="EPr_default_reminders_title">Výchozí připomenutí</string>
-	<!-- Preference: Default Reminders Description (%s => setting) -->
 	<string name="EPr_default_reminders_desc">Aktuální: %s</string>
-	<!-- slide 19a/46c: Preference: Default Add To Calendar Title -->
 	<string name="EPr_default_addtocalendar_title">Default add to calendar</string>
-	<!-- Preference: Default Add To Calendar Setting Description (disabled) -->
 	<string name="EPr_default_addtocalendar_desc_disabled">Nový úkol nevytvoří událost v Kalendáři Google</string>
-	<!-- Preference: Default Add To Calendar Setting Description (%s => setting) -->
 	<string name="EPr_default_addtocalendar_desc">Nové úkoly se vloží do kalendáře: \"%s\"</string>
-	<!-- slide 45d: Reminder Mode Preference: Default Reminders Duration -->
 	<string name="EPr_default_reminders_mode_title">Default ring/vibrate type</string>
-	<!-- Preference: Default Reminders Description (%s => setting) -->
 	<string name="EPr_default_reminders_mode_desc">Aktuální: %s</string>
 	<string-array name="EPr_default_importance">
-	<!-- importance: labels for "Task Defaults" preference item. -->
-	<!-- slide 40b -->
 		<item>!!! (Nejvyšší)</item>
 		<item>!!</item>
 		<item>!</item>
-	<!-- slide 40c -->
 		<item>o (Nejnižší)</item>
 	</string-array>
 	<string-array name="EPr_default_urgency">
-	<!-- urgency: labels for "Task Defaults" preference item. -->
-	<!-- slide 41a-->
 		<item>Žádný termín</item>
-	<!-- slide 41b -->
 		<item>Dnes</item>
-	<!-- slide 41c-->
 		<item>Zítra</item>
-	<!-- slide 41d -->
 		<item>Pozítří</item>
-	<!-- slide 41e -->
 		<item>Příští týden</item>
 	</string-array>
 	<string-array name="EPr_default_hideUntil">
-	<!-- hideUntil: labels for "Task Defaults" preference item. -->
-	<!-- slide 42a -->
 		<item>Neskrývat</item>
-	<!-- slide 42b -->
 		<item>Nastal termín úkolu</item>
-	<!-- slide 42c -->
 		<item>Den před ukončením</item>
-	<!-- slide 42d-->
 		<item>Týden před ukončením</item>
 	</string-array>
 	<string-array name="EPr_default_reminders">
-	<!-- reminders: labels for "Task Defaults" preference item. -->
-	<!-- slide 43a -->
 		<item>Žádné upomínky v termínu</item>
-	<!-- slide 43b -->
 		<item>V termínu</item>
-	<!-- slide 43c -->
 		<item>Po termínu</item>
-	<!-- slide 43d -->
 		<item>V termínu nebo po něm</item>
 	</string-array>
 	<string-array name="EPr_default_addtocalendar">
-	<!-- addtocalendar: labels for "Task Defaults" preference item. -->
 		<item>@string/EPr_deactivated</item>
 	</string-array>
-	<!-- Resources for built-in filter plug-in -->
-	<!-- ================================================= Filter Exposer == -->
-	<!-- Active Tasks Filter -->
 	<string name="BFE_Active">Aktivní úkoly</string>
-	<!-- Search Filter -->
-	<!-- slide 10b: Recently Modified -->
 	<string name="BFE_Recent">Nedávno upravené</string>
-	<!-- slide 10c: I\'ve assigned -->
 	<string name="BFE_Assigned">Přidělil jsem</string>
-	<!-- Build Your Own Filter -->
-	<!-- Saved Filters Header -->
-	<!-- Saved Filters Context Menu: delete -->
 	<string name="BFE_Saved_delete">Smazat filtr</string>
-	<!-- =========================================== CustomFilterActivity == -->
-	<!-- slide 30e: Filter Name edit box hint (if user types here, filter will be saved) -->
 	<string name="CFA_filterName_hint">Pojmenujte tento filtr pro jeho uložení</string>
-	<!-- Filter Name default for copied filters (%s => old filter name) -->
-	<!-- slide 30a: Filter Starting Universe: all tasks -->
 	<string name="CFA_universe_all">Aktivní úkoly</string>
-	<!-- Filter Criteria Type: add (at the begging of title of the criteria) -->
 	<string name="CFA_type_add">nebo</string>
-	<!-- Filter Criteria Type: subtract (at the begging of title of the criteria) -->
 	<string name="CFA_type_subtract">ne</string>
-	<!-- Filter Criteria Type: intersect (at the begging of title of the criteria) -->
 	<string name="CFA_type_intersect">také</string>
-	<!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
 	<string name="CFA_context_chain">%s má kritéria</string>
-	<!-- Filter Criteria Context Menu: delete -->
 	<string name="CFA_context_delete">Odstranit řádek</string>
-	<!-- slide 30b: Filter Screen Help Text -->
 	<string name="CFA_help">Zde můžete vytvořit vlastní filtry. Tlačítkem níže přidejte kritéria. Krátkým, nebo dlouhým stiskem je upravíte. Poté zvolte \"Zobrazit\"!</string>
-	<!-- slide 30c: Filter Button: add new -->
 	<string name="CFA_button_add">Přidat podmínku</string>
-	<!-- slide 30f: Filter Button: view without saving -->
 	<string name="CFA_button_view">Zobrazit</string>
-	<!-- Filter Button: save & view filter -->
 	<string name="CFA_button_save">Uložit &amp; Zobrazit</string>
-	<!-- =========================================== CustomFilterCriteria == -->
-	<!-- Criteria: due by X - display text (? -> user input) -->
 	<string name="CFC_dueBefore_text">Podle termínu: ?</string>
-	<!-- Criteria: due by X - name of criteria -->
 	<string name="CFC_dueBefore_name">Podle termínu...</string>
 	<string-array name="CFC_dueBefore_entries">
-	<!-- Criteria: due by X - options -->
 		<item>Žádný termín</item>
 		<item>Včera</item>
 		<item>Dnes</item>
@@ -921,105 +504,50 @@
 		<item>Příští týden</item>
 		<item>Příští měsíc</item>
 	</string-array>
-	<!-- Criteria: importance - display text (? -> user input)-->
 	<string name="CFC_importance_text">Alespoň důležitost?</string>
-	<!-- Criteria: importance - name of criteria -->
 	<string name="CFC_importance_name">Důležitost...</string>
-	<!-- Criteria: tag - display text (? -> user input) -->
 	<string name="CFC_tag_text">Seznam: ?</string>
-	<!-- Criteria: tag - name of criteria -->
 	<string name="CFC_tag_name">Seznam...</string>
-	<!-- Criteria: tag_contains - name of criteria -->
 	<string name="CFC_tag_contains_name">Jméno seznamu obsahuje...</string>
-	<!-- Criteria: tag_contains - text (? -> user input) -->
 	<string name="CFC_tag_contains_text">Jméno seznamu obsahuje: ?</string>
-	<!-- Criteria: title_contains - name of criteria -->
 	<string name="CFC_title_contains_name">Název obsahuje...</string>
-	<!-- Criteria: title_contains - text (? -> user input) -->
 	<string name="CFC_title_contains_text">Obsahuje název: ?</string>
-	<!-- Resources for built-in tag plug-in -->
-	<!-- =============================================== Task Edit Controls == -->
-	<!-- Error message for adding to calendar  -->
 	<string name="gcal_TEA_error">Chyba při přidávání úkolu do kalendáře!</string>
-	<!-- Label for adding task to calendar -->
-	<!-- slide 21c: Label for adding task to calendar -->
 	<string name="gcal_TEA_addToCalendar_label">Vytvořit událost kalendáře</string>
-	<!-- Label when calendar event already exists -->
 	<string name="gcal_TEA_showCalendar_label">Otevřít událost v kalendáři</string>
-	<!-- Toast when unable to open calendar event -->
-	<!-- Toast when calendar event updated because task changed -->
 	<string name="gcal_TEA_calendar_updated">Událost kalendáře také aktualizována!</string>
-	<!-- No calendar label (don\'t add option) -->
 	<string name="gcal_TEA_nocal">Nepřidávat</string>
 	<string name="gcal_TEA_none_selected">Přidat do kal.</string>
 	<string name="gcal_TEA_has_event">Událost v kal.</string>
-	<!-- ======================================================== Calendars == -->
-	<!-- Calendar event name when task is completed (%s => task title) -->
 	<string name="gcal_completed_title">%s (dokončeno)</string>
-	<!-- System Default Calendar (displayed if we can\'t figure out calendars)  -->
 	<string name="gcal_GCP_default">Výchozí kalendář</string>
-	<!-- ============================================================= UI == -->
-	<!-- filters header: GTasks -->
 	<string name="gtasks_FEx_header">Google úkoly</string>
-	<!-- filter category for GTasks lists -->
-	<!-- filter title for GTasks lists (%s => list name) -->
 	<string name="gtasks_FEx_title">Google úkoly: %s</string>
-	<!-- dialog prompt for creating a new gtasks list -->
 	<string name="gtasks_FEx_creating_list">Vytvářím seznam...</string>
-	<!-- dialog prompt for creating a new gtasks list -->
 	<string name="gtasks_FEx_create_list_dialog">Nové jméno seznamu:</string>
-	<!-- error to show when list creation fails -->
 	<string name="gtasks_FEx_create_list_error">Chyba při vytváření nového seznamu</string>
-	<!-- short help title for Gtasks -->
 	<string name="CFC_gtasks_list_text">V seznamu: ?</string>
 	<string name="CFC_gtasks_list_name">V seznamu Google úkolů</string>
-	<!-- Message while clearing completed tasks -->
 	<string name="gtasks_GTA_clearing">Mažu hotové úkoly...</string>
-	<!-- Label for clear completed menu item -->
 	<string name="gtasks_GTA_clear_completed">Smazat hotové</string>
-	<!-- ============================================ GtasksLoginActivity == -->
-	<!-- Activity Title: Gtasks Login -->
 	<string name="gtasks_GLA_noaccounts">Žádný dostupný účet Google pro synchronizaci</string>
-	<!-- Sign In Button -->
-	<!-- E-mail Address Label -->
-	<!-- Password Label -->
-	<!--  Authenticating toast -->
 	<string name="gtasks_GLA_authenticating">Ověřuje se...</string>
-	<!-- Google Apps for Domain checkbox -->
-	<!-- Error Message when fields aren\'t filled out -->
-	<!-- Error Message when we receive a HTTP 401 Unauthorized -->
 	<string name="gtasks_GLA_errorAuth">Chyba při autentifikaci! Zkontrolujte prosím uživatelské jméno/heslo ve správci hesel svého mobilu</string>
-	<!-- Error Message when we receive an IO Exception -->
 	<string name="gtasks_GLA_errorIOAuth">Nastali problémy při komunikaci se servery Google. Zkuste to prosím později.</string>
-	<!-- ============================================== GtasksPreferences == -->
-	<!-- GTasks Preferences Title -->
 	<string name="gtasks_GPr_header">Google Úkoly (Beta!)</string>
-	<!-- ================================================ Synchronization == -->
-	<!-- title for notification tray when synchronizing -->
-	<!-- Error Message when we receive a HTTP 503 error -->
 	<string name="gtasks_error_backend">V API služby Google Task (které je ve stadiu beta) byla v něm zjištěna chyba. Služba může být nedostupná, zkuste to později znovu.</string>
-	<!-- Error for account not found -->
 	<string name="gtasks_error_accountNotFound">Účet %s nebyl nalezen -- přes nastavení Google Tasks se odhlašte a znovu přihlaste.</string>
-	<!-- Error when ping after refreshing token fails -->
 	<string name="gtasks_error_authRefresh">Nelze se přihlásit ke Google Tasks. Zkontrolujte prosím heslo ke svému účtu, nebo se zkuste znovu přihlásit.</string>
-	<!-- Error when account manager returns no auth token or throws exception -->
 	<string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
-	<!-- Error when authorization error happens in background sync -->
 	<string name="gtasks_error_background_sync_auth">Error authenticating in background. Please try initiating a sync while Tasks is running.</string>
 	<string name="gtasks_import_progress">Importing Google Tasks...</string>
 	<string name="gtasks_import_add_to_shared_list">The list %1$s is shared with others! Do you still want to add the task %2$s to it?</string>
 	<string name="gtasks_import_dlg_title">Google Tasks Import</string>
 	<string name="gtasks_import_add_task_ok">Add task</string>
 	<string name="gtasks_import_add_task_cancel">Don\'t add task</string>
-	<!-- Resources for built-in locale plug-in -->
-	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Tasks Upozornění filtrů</string>
-	<!-- Locale Window Help -->
 	<string name="locale_edit_intro">Tasks Ti pošle upozornění, když budeš mít úkoly v následujícím filtru:</string>
-	<!-- Locale Window Filter Picker UI -->
-	<!-- Locale Window Interval Label -->
 	<string name="locale_interval_label">Omezit upozornění na:</string>
-	<!-- Locale Window Interval Values -->
 	<string-array name="locale_interval">
 		<item>jednou za hodinu</item>
 		<item>jednou za šest hodin</item>
@@ -1028,52 +556,28 @@
 		<item>jednou za tři dny</item>
 		<item>jednou týdně</item>
 	</string-array>
-	<!-- Locale Notification text -->
 	<string name="locale_notification">Máš $NUM se značkou $FILTER</string>
-	<!-- Locale Plugin was not found, it is required -->
 	<string name="locale_plugin_required">Prosím nainstalujte zásuvný modul Tasks Locale!</string>
-	<!-- ====================== Plugin Boilerplate ========================= -->
-	<!-- replacement string for task edit "Notes" when using OpenCRX -->
 	<string name="opencrx_TEA_notes">Přidat komentář</string>
 	<string name="opencrx_creator_input_hint">Autor</string>
 	<string name="opencrx_contact_input_hint">Assigned to</string>
-	<!-- ==================================================== Preferences == -->
-	<!-- creator title for tasks that are not synchronized -->
 	<string name="opencrx_no_creator">(Nesynchronizovat)</string>
-	<!-- preference title for default creator -->
 	<string name="opencrx_PPr_defaultcreator_title">Default ActivityCreator</string>
-	<!--  OpenCRX host and segment group name -->
 	<string name="opencrx_group">OpenCRX server</string>
-	<!--  preference description for OpenCRX host -->
 	<string name="opencrx_host_title">Host</string>
-	<!--  dialog title for OpenCRX host -->
 	<string name="opencrx_host_dialog_title">OpenCRX host</string>
-	<!--  example for OpenCRX host -->
 	<string name="opencrx_host_summary">\"Např.: \"<i>domena.cz</i></string>
-	<!--  preference description for OpenCRX segment -->
 	<string name="opencrx_segment_title">Segment</string>
-	<!--  dialog title for OpenCRX segment -->
 	<string name="opencrx_segment_dialog_title">Synchronized segment</string>
-	<!--  example for OpenCRX segment -->
 	<string name="opencrx_segment_summary">\"Např.: \"<i>Standard</i></string>
-	<!--  default value for OpenCRX segment -->
 	<string name="opencrx_segment_default">Standard</string>
-	<!--  preference description for OpenCRX provider -->
 	<string name="opencrx_provider_title">Poskytovatel</string>
-	<!--  dialog title for OpenCRX provider -->
 	<string name="opencrx_provider_dialog_title">OpenCRX data provider</string>
-	<!--  example for OpenCRX provider -->
 	<string name="opencrx_provider_summary">\"Např.: \"<i>CRX</i></string>
-	<!--  default value for OpenCRX provider -->
 	<string name="opencrx_provider_default">CRX</string>
-	<!-- ================================================ labels for layout-elements == -->
-	<!-- label for task-assignment spinner on taskeditactivity -->
 	<string name="opencrx_TEA_task_assign_label">Přiřadit úkol k této osobě:</string>
-	<!-- label for dashboard-assignment spinner on taskeditactivity -->
 	<string name="opencrx_TEA_creator_assign_label">Assign this task to this creator:</string>
 	<string name="opencrx_TEA_opencrx_title">OpenCRX Controls</string>
-	<!-- ================================================== EditPreferences == -->
-	<!-- slide 32j: Preference Category: Power Pack -->
 	<string name="EPr_powerpack_header">Advanced settings</string>
 	<string name="EPr_powerpack_summary">Missed call reminders, voice input and miscellaneous settings</string>
 	<string name="speech_err_network">Chyba sítě! Rozpoznávání řeči vyžaduje funkční síťové připojení.</string>
@@ -1113,30 +617,17 @@
 	<string name="file_dir_dialog_ok">Use this directory</string>
 	<string name="file_dir_dialog_default">Reset to default</string>
 	<string name="p_files_dir">Premium downloads directory</string>
-	<!-- Description for file download directory preference. %s -> chosen directory -->
 	<string name="p_files_dir_desc">Task attachments saved to: %s</string>
 	<string name="p_files_dir_desc_default">Default directory</string>
-	<!-- in app billing -->
 	<string name="premium_speech_bubble_2">Order one year and save 25%!</string>
-	<!-- Resources for built-in reminders plug-in -->
-	<!-- =============================================== task edit activity == -->
-	<!-- Task Edit: Reminder group label -->
 	<string name="TEA_reminders_group_label">Upomínky</string>
-	<!-- Task Edit: Reminder header label -->
 	<string name="TEA_reminder_label">Upozorni mě...</string>
-	<!-- Task Edit: Reminder @ deadline -->
 	<string name="TEA_reminder_due">Při termínu</string>
-	<!-- Task Edit: Reminder after deadline -->
 	<string name="TEA_reminder_overdue">Úkol po termínu</string>
-	<!-- Task Edit: Reminder at random times (%s => time plural)-->
 	<string name="TEA_reminder_randomly">Jednou náhodně</string>
-	<!-- Task Edit: Reminder alarm clock label -->
 	<string name="TEA_reminder_alarm_label">Typ vyzvánění/vybrací:</string>
-	<!--  slide 45a: Task Edit: Reminder mode: ring once -->
 	<string name="TEA_reminder_mode_once">Vyzvánět jednou</string>
-	<!-- slide 45b: Task Edit: Reminder mode: ring five times -->
 	<string name="TEA_reminder_mode_five">Pět zazvonění</string>
-	<!-- slide 45c: Task Edit: Reminder mode: ring nonstop -->
 	<string name="TEA_reminder_mode_nonstop">Vyzvánět dokud nezruším Alarm</string>
 	<string name="TEA_reminder_when">when</string>
 	<string name="TEA_reminder_due_short">due</string>
@@ -1145,7 +636,6 @@
 	<string name="TEA_reminder_display_one">Remind me %s</string>
 	<string name="TEA_reminder_display_multiple">Remind %s</string>
 	<string-array name="TEA_reminder_random">
-	<!-- random reminder choices for task edit page. -->
 		<item>an hour</item>
 		<item>a day</item>
 		<item>a week</item>
@@ -1153,29 +643,19 @@
 		<item>a month</item>
 		<item>in two months</item>
 	</string-array>
-	<!-- ==================================================== notifications == -->
-	<!-- Name of filter when viewing a reminder -->
 	<string name="rmd_NoA_filter">Připomínka!</string>
-	<!-- Reminder: Task was already done -->
 	<string name="rmd_NoA_done">Dokončeno!</string>
-	<!-- Reminder: Snooze button (remind again later) -->
 	<string name="rmd_NoA_snooze">Později...</string>
-	<!-- Reminder: Completed Toast -->
 	<string name="rmd_NoA_completed_toast">Hotovo! Gratuluji!</string>
-	<!-- Prefix for reminder dialog title -->
 	<string name="rmd_NoA_dlg_title">Reminder:</string>
-	<!-- ==================================================== user reengagement == -->
-	<!-- Titles for user reengagement notifications -->
 	<string-array name="rmd_reengage_notif_titles">
 		<item>A note from Tasks</item>
-	<!-- %s -> first name -->
 		<item>Memo for %s.</item>
 		<item>Your Tasks digest</item>
 		<item>Reminders from Tasks</item>
 	</string-array>
 	<string name="rmd_reengage_name_default">you</string>
 	<string name="rmd_reengage_add_tasks">Add a task</string>
-	<!-- Speech bubble options for astrid in reengagement notifs -->
 	<string-array name="rmd_reengage_dialog_options">
 		<item>Time to shorten your to-do list!</item>
 		<item>Dear sir or madam, some tasks await your inspection!</item>
@@ -1185,7 +665,6 @@
 		<item>You look fabulous! Ready to get started?</item>
 		<item>A lovely day for getting some work done, I think!</item>
 	</string-array>
-	<!-- Speech bubble options for astrid in reengagement notifs when no tasks present -->
 	<string-array name="rmd_reengage_dialog_empty_options">
 		<item>Don\'t you want to get organized?</item>
 		<item>I\'m Tasks! I\'m here to help you do more!</item>
@@ -1194,94 +673,50 @@
 		<item>You\'re serious about getting more done? So am I!</item>
 		<item>Pleasure to make your acquaintance!</item>
 	</string-array>
-	<!-- ============================================= reminder preferences == -->
-	<!-- slide 33d: Reminder Preference Screen Title -->
 	<string name="rmd_EPr_alerts_header">Nastavení upozornění</string>
 	<string name="rmd_EPr_alerts_summary">Quiet hours, snooze options, persistence level</string>
-	<!-- Reminder Preference: Reminders Enabled Title -->
 	<string name="rmd_EPr_enabled_title">Reminders enabled?</string>
-	<!-- Reminder Preference Reminders Enabled Description (true) -->
 	<string name="rmd_EPr_enabled_desc_true">Reminders are enabled (this is normal)</string>
-	<!-- Reminder Preference Reminders Enabled Description (false) -->
 	<string name="rmd_EPr_enabled_desc_false">Reminders will never appear on your phone</string>
-	<!-- Reminder Preference: Quiet Hours Start Title -->
 	<string name="rmd_EPr_quiet_hours_start_title">Nerušit od</string>
-	<!-- Reminder Preference: Quiet Hours Start Description (%s => time set) -->
 	<string name="rmd_EPr_quiet_hours_start_desc">Notifications will be silent after %s.\nNote: vibrations are controlled by the \"Vibrate on alert\" setting</string>
-	<!-- Reminder Preference: Quiet Hours Start/End Description (disabled) -->
 	<string name="rmd_EPr_quiet_hours_desc_none">Tichý režim zakázán</string>
-	<!-- Reminder Preference: Quiet Hours End Title -->
 	<string name="rmd_EPr_quiet_hours_end_title">Nerušit do</string>
-	<!-- Reminder Preference: Quiet Hours End Description (%s => time set) -->
 	<string name="rmd_EPr_quiet_hours_end_desc">Notifications will stop being silent starting at %s</string>
-	<!-- Reminder Preference: Default Reminder Title -->
 	<string name="rmd_EPr_rmd_time_title">Default reminder</string>
-	<!-- Reminder Preference: Default Reminder Description (%s => time set) -->
 	<string name="rmd_EPr_rmd_time_desc">Notifications for tasks without due times will appear at %s</string>
-	<!-- Reminder Preference: Notification Ringtone Title -->
 	<string name="rmd_EPr_ringtone_title">Zvuk upozornění</string>
-	<!-- Reminder Preference: Notification Ringtone Description (when custom tone is set) -->
 	<string name="rmd_EPr_ringtone_desc_custom">Vlastní vyzvánění bylo nastaveno</string>
-	<!-- Reminder Preference: Notification Ringtone Description (when silence is set) -->
 	<string name="rmd_EPr_ringtone_desc_silent">Vyzvánění ztišeno</string>
-	<!-- Reminder Preference: Notification Ringtone Description (when custom tone is not set) -->
 	<string name="rmd_EPr_ringtone_desc_default">Bude použito výchozí vyzvánění</string>
-	<!-- Reminder Preference: Notification Persistence Title -->
 	<string name="rmd_EPr_persistent_title">Trvání upozornění</string>
-	<!-- Reminder Preference: Notification Persistence Description (true) -->
 	<string name="rmd_EPr_persistent_desc_true">Pro smazání musí být upozornění zobrazeno každé zvlášť</string>
-	<!-- Reminder Preference: Notification Persistence Description (false) -->
 	<string name="rmd_EPr_persistent_desc_false">Upozornění mohou být smazána s tlačítkem \"Smazat vše\"</string>
-	<!-- Reminder Preference: Notification Icon Title -->
-	<!-- Reminder Preference: Notification Icon Description -->
-	<!-- Reminder Preference: Max Volume for Multiple-Ring reminders Title -->
 	<string name="rmd_EPr_multiple_maxvolume_title">Max volume for multiple-ring reminders</string>
-	<!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (true) -->
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks will max out the volume for multiple-ring reminders</string>
-	<!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (false) -->
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks will use the system setting for the volume</string>
-	<!-- Reminder Preference: Vibrate Title -->
 	<string name="rmd_EPr_vibrate_title">Vibruj při upozornění</string>
-	<!-- Reminder Preference: Vibrate Description (true) -->
 	<string name="rmd_EPr_vibrate_desc_true">Tasks bude vibrovat při odesílání upozornění</string>
-	<!-- Reminder Preference: Vibrate Description (false) -->
 	<string name="rmd_EPr_vibrate_desc_false">Tasks nebude vibrovat při odesílání upozornění</string>
-	<!-- Reminder Preference: Nagging Title -->
 	<string name="rmd_EPr_nagging_title">Tasks encouragements</string>
-	<!-- Reminder Preference: Nagging Description (true) -->
 	<string name="rmd_EPr_nagging_desc_true">Tasks bude vypisovat povzbuzující zprávy během upozornění</string>
-	<!-- Reminder Preference: Nagging Description (false) -->
 	<string name="rmd_EPr_nagging_desc_false">Tasks will not give you any encouragement messages</string>
-	<!-- Reminder Preference: Snooze Dialog Title -->
 	<string name="rmd_EPr_snooze_dialog_title">Snooze dialog HH:MM</string>
-	<!-- Reminder Preference: Snooze Dialog Description (true) -->
 	<string name="rmd_EPr_snooze_dialog_desc_true">Snooze by selecting new snooze time (HH:MM)</string>
-	<!-- Reminder Preference: Nagging Description (false) -->
 	<string name="rmd_EPr_snooze_dialog_desc_false">Snooze by selecting # days/hours to snooze</string>
-	<!-- slide 44g: Reminder Preference: Default Reminders Title -->
 	<string name="rmd_EPr_defaultRemind_title">Náhodná upozornění</string>
-	<!-- Reminder Preference: Default Reminders Setting (disabled) -->
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Nové úkoly nebudou mít náhodné upozornění</string>
-	<!-- Reminder Preference: Default Reminders Setting (%s => setting) -->
 	<string name="rmd_EPr_defaultRemind_desc">Na nové úkoly bude upozorňováno náhodně: %s</string>
-	<!-- slide 39a: Defaults Title -->
 	<string-array name="EPr_reminder_random">
-	<!-- slide 44a: Reminder Preference: random reminder choices for preference page. -->
 		<item>zakázáno</item>
-	<!-- slide 44b -->
 		<item>každou hodinu</item>
-	<!-- slide 44c -->
 		<item>denně</item>
-	<!-- slide 44d-->
 		<item>týdně</item>
-	<!-- slide 44e-->
 		<item>každých ctrnáct dní</item>
-	<!-- slide 44f -->
 		<item>měsíčně</item>
 		<item>každý druhý měsíc</item>
 	</string-array>
 	<string-array name="EPr_quiet_hours_start">
-	<!-- Reminder Preference: quiet_hours_start: options for preference menu. Translate but don\'t change the times!. -->
 		<item>zakázáno</item>
 		<item>20:00</item>
 		<item>21:00</item>
@@ -1309,7 +744,6 @@
 		<item>19:00</item>
 	</string-array>
 	<string-array name="EPr_quiet_hours_end">
-	<!-- Reminder Preference: quiet_hours_end: options for preference menu. Translate but don\'t change the times! -->
 		<item>9:00</item>
 		<item>10:00</item>
 		<item>11:00</item>
@@ -1336,7 +770,6 @@
 		<item>8:00</item>
 	</string-array>
 	<string-array name="EPr_rmd_time">
-	<!-- Reminder Preference: rmd_time: options for preference menu. Translate but don\'t change the times! -->
 		<item>9:00</item>
 		<item>10:00</item>
 		<item>11:00</item>
@@ -1362,12 +795,10 @@
 		<item>7:00</item>
 		<item>8:00</item>
 	</string-array>
-	<!-- =============================================== random reminders == -->
 	<string name="reminders_social">These people are counting on you!</string>
 	<string name="reminders_social_one">%s is counting on you!</string>
 	<string name="reminders_social_multiple">%1$s, %2$s, and others are counting on you!</string>
 	<string-array name="reminders">
-	<!-- reminders: Make these < 20 chars so the task name is displayed -->
 		<item>Ahoj! Máš chvíli?</item>
 		<item>Můžu Tě na chvíli vidět?</item>
 		<item>Máš pár minut?</item>
@@ -1382,7 +813,6 @@
 		<item>Je skvělý den na</item>
 	</string-array>
 	<string-array name="reminders_due">
-	<!-- reminders related to task due date -->
 		<item>Čas na práci!</item>
 		<item>Čas dokončení úkolu je zde!</item>
 		<item>Připraven/a začít?</item>
@@ -1394,7 +824,6 @@
 		<item>Jsi volný? Čas na</item>
 	</string-array>
 	<string-array name="reminders_snooze">
-	<!-- reminders related to snooze -->
 		<item>Nebuď ted líná/ý</item>
 		<item>Čas spaní vypršel!</item>
 		<item>Už zádné spaní!</item>
@@ -1402,7 +831,6 @@
 		<item>Už žádné odkládání!</item>
 	</string-array>
 	<string-array name="reminder_responses">
-	<!-- responses to reminder: Tasks says...  (user should answer yes or no)  -->
 		<item>Mám pro Tebe něco!</item>
 		<item>Ready to put this in the past?</item>
 		<item>Proč tohle nedokončís?</item>
@@ -1432,7 +860,6 @@
 		<item>I die a little every time you ignore me.</item>
 	</string-array>
 	<string-array name="postpone_nags">
-	<!-- Tasks\'s nagging when user clicks postpone -->
 		<item>Prosím řekni mi, že není pravda, že jsi prokrastinátor!</item>
 		<item>Doesn\'t being lazy get old sometimes?</item>
 		<item>Někdo někde čeká až tohle dokončíš!</item>
@@ -1448,23 +875,14 @@
 		<item>Nepoužil jsi stejnou omluvu i posledně?</item>
 		<item>Nemůžu Ti pomoci organizovat tvůj život, když tohle děláš...</item>
 	</string-array>
-	<!-- Resources for built-in repeat plug-in -->
-	<!-- repeating plugin name -->
 	<string name="repeat_plugin">Opakování úkolů</string>
-	<!-- repeating plugin description -->
 	<string name="repeat_plugin_desc">Povolit opakování úkolů</string>
-	<!-- slide 20a: checkbox for turning on/off repeats -->
 	<string name="repeat_enabled">Opakování</string>
-	<!-- slide 20b: button for "every x" part of repeat (%d -> repeat value)  -->
 	<string name="repeat_every">Každý %d</string>
-	<!-- hint when opening repeat interval -->
 	<string name="repeat_interval_prompt">Opakovací interval</string>
-	<!-- slide 19b-->
 	<string name="repeat_never">Not repeating</string>
-	<!-- slide 20f-->
 	<string name="repeat_dont">Don\'t repeat</string>
 	<string-array name="repeat_interval_short">
-	<!-- repeat interval (days,weeks,months,hours,minutes,years) -->
 		<item>d</item>
 		<item>wk</item>
 		<item>mo</item>
@@ -1473,7 +891,6 @@
 		<item>yr</item>
 	</string-array>
 	<string-array name="repeat_interval">
-	<!-- slide 20e: repeat interval (days,weeks,months,hours,minutes,years) -->
 		<item>Dnů</item>
 		<item>Týdnů</item>
 		<item>Měsíců</item>
@@ -1501,128 +918,65 @@
 	<string name="repeat_until_title">Repeat until...</string>
 	<string name="repeat_keep_going">Keep going</string>
 	<string-array name="repeat_type">
-	<!-- slide 20c: repeat type (date to repeat from) -->
 		<item>od data splnění</item>
-	<!-- slide 20c -->
 		<item>od data dokončení</item>
 	</string-array>
-	<!-- task detail weekly by day ($I -> interval, i.e. 1 week, $D -> days, i.e. Monday, Tuesday) -->
 	<string name="repeat_detail_byday">$I na $D</string>
-	<!-- task detail for repeat from due date (%s -> interval) -->
 	<string name="repeat_detail_duedate">Každý %s</string>
-	<!-- task detail for repeat until a specific date (%1$s -> interval, %2$s -> finish date)-->
 	<string name="repeat_detail_duedate_until">Every %1$s\nuntil %2$s</string>
-	<!-- task detail for repeat from completion date (%s -> interval) -->
 	<string name="repeat_detail_completion">%s po dokončení</string>
-	<!-- text for button when repeating task indefinitely -->
 	<string name="repeat_forever">Repeat forever</string>
-	<!-- text for button when repeating task until specified date (%s -> date string) -->
 	<string name="repeat_until">Repeat until %s</string>
-	<!-- text for confirmation dialog after repeating a task (%s -> task title)-->
 	<string name="repeat_rescheduling_dialog_title">Rescheduling task \"%s\"</string>
-	<!-- text for confirmation dialog after repeating a task for the last time (%s -> task title)-->
 	<string name="repeat_rescheduling_dialog_title_last_time">Completed repeating task \"%s\"</string>
-	<!-- text for when a repeating task was rescheduled (%1$s -> encouragment string, %2$s -> old due date, %3$s -> new due date)-->
 	<string name="repeat_rescheduling_dialog_bubble">%1$s I\'ve rescheduled this repeating task from %2$s to %3$s</string>
-	<!-- text for when a repeating task was rescheduled but didn\'t have a due date yet, (%1$s -> encouragement string, %2$s -> new due date) -->
 	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s I\'ve rescheduled this repeating task to %2$s</string>
-	<!-- text for when a repeating task was rescheduled for the last time (%1$s -> repeat end date, %2$s -> encouragement string)-->
 	<string name="repeat_rescheduling_dialog_bubble_last_time">You had this repeating until %1$s, and now you\'re all done. %2$s</string>
 	<string-array name="repeat_encouragement">
-	<!-- Encouragement in rescheduling dialog bubble -->
 		<item>Good job!</item>
 		<item>Wow… I\'m so proud of you!</item>
 		<item>I love when you\'re productive!</item>
 		<item>Doesn\'t it feel good to check something off?</item>
 	</string-array>
 	<string-array name="repeat_encouragement_last_time">
-	<!-- Encouragement in rescheduling dialog bubble -->
 		<item>Good job!</item>
 		<item>I\'m so proud of you!</item>
 		<item>I love when you\'re productive!</item>
 	</string-array>
-	<!-- Subtasks Help Introduction -->
 	<string name="subtasks_help_title">Sort and Indent</string>
 	<string name="subtasks_help_1">Tap and hold to move a task</string>
 	<string name="subtasks_help_2">Drag vertically to rearrange</string>
 	<string name="subtasks_help_3">Drag horizontally to indent</string>
-	<!-- Resources for built-in tag plug-in -->
-	<!-- =============================================== Task Edit Controls == -->
-	<!-- Tags label -->
 	<string name="TEA_tags_label">Seznamy</string>
-	<!-- Tags label long version -->
 	<string name="TEA_tags_label_long">Add to lists</string>
-	<!-- Tags hint -->
 	<string name="TEA_tag_hint">New list</string>
-	<!-- Tags dropdown -->
-	<!-- =============================================== Task List Controls == -->
-	<!-- menu item for tags -->
-	<!-- ========================================================== Extras == -->
-	<!-- Context Item: show tag -->
-	<!-- slide 25a: Dialog: new list -->
 	<string name="tag_new_list">New List</string>
-	<!-- Dialog: list saved -->
-	<!-- Dialog: task created without title -->
 	<string name="tag_no_title_error">Please enter a name for this list first!</string>
-	<!-- ========================================================== Filters == -->
-	<!-- filter button to add tag -->
 	<string name="tag_FEx_add_new">New</string>
-	<!-- filter header for tags -->
 	<string name="tag_FEx_header">Seznamy</string>
-	<!-- filter header for tags user created -->
-	<!-- filter header for tags, shared with user -->
-	<!-- filter header for tags which have no active tasks -->
-	<!-- slide 10d: filter for untagged tasks -->
 	<string name="tag_FEx_untagged">Uncategorized</string>
-	<!-- slide 27a: %s => tag name -->
-	<!-- context menu option to rename a tag -->
 	<string name="tag_cm_rename">Rename List</string>
-	<!-- context menu option to delete a tag -->
 	<string name="tag_cm_delete">Delete List</string>
-	<!-- context menu option to leave a shared list -->
 	<string name="tag_cm_leave">Leave List</string>
-	<!-- Dialog to confirm deletion of a tag (%s -> the name of the list to be deleted) -->
 	<string name="DLG_delete_this_tag_question">Delete this list: %s? (No tasks will be deleted.)</string>
-	<!-- Dialog to confirm leaving a shared tag (%s -> the name of the shared list to leave) -->
 	<string name="DLG_leave_this_shared_tag_question">Leave this shared list: %s? (No tasks will be deleted.)</string>
-	<!-- Dialog to rename tag -->
 	<string name="DLG_rename_this_tag_header">Rename the list %s to:</string>
-	<!-- Toast notification that no changes have been made -->
 	<string name="TEA_no_tags_modified">Nebyly provedeny žádné změny.</string>
-	<!-- Toast notification that a tag has been deleted (%1$s - list name, %2$d - # tasks) -->
 	<string name="TEA_tags_deleted">List %1$s was deleted, affecting %2$d tasks</string>
-	<!-- Toast notification that a shared tag has been left (%1$s - list name, %2$d - # tasks) -->
 	<string name="TEA_tags_left">You left shared list %1$s, affecting %2$d tasks</string>
-	<!-- Toast notification that a tag has been renamed (%1$s - old name, %2$s - new name, %3$d - # tasks) -->
 	<string name="TEA_tags_renamed">Renamed %1$s with %2$s for %3$d tasks</string>
-	<!-- Header for tag settings -->
 	<string name="tag_settings_title">Settings:</string>
-	<!-- Header for tag activity -->
 	<string name="tag_updates_title">Activity: %s</string>
-	<!-- Delete button for tag settings -->
 	<string name="tag_delete_button">Delete list</string>
-	<!-- slide 28d: Leave button for tag settings -->
 	<string name="tag_leave_button">Leave this list</string>
-	<!-- Resources for built-in timers plug-in -->
-	<!-- Task List: Start Timer button -->
-	<!-- Task List: Stop Timer button -->
-	<!-- Android Notification Title (%s => # tasks) -->
 	<string name="TPl_notification">Aktivní časovače pro %s!</string>
-	<!-- Filter Header for Timer plugin -->
-	<!-- Filter for Timed Tasks -->
 	<string name="TFE_workingOn">Úkol je časován</string>
-	<!-- Title for TEA -->
 	<string name="TEA_timer_controls">Timer</string>
-	<!-- Edit Notes: create comment for when timer is started -->
 	<string name="TEA_timer_comment_started">started this task:</string>
-	<!-- Edit Notes: create comment for when timer is stopped -->
 	<string name="TEA_timer_comment_stopped">stopped doing this task:</string>
-	<!-- Edit Notes: comment to notify how long was spent on task -->
 	<string name="TEA_timer_comment_spent">Time spent:</string>
-	<!-- Update string from activity codes %1$s - user, %2$s - target name, %3$s - message, %4$s - other_user-->
 	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
     Please do not translate this part of the string. -->
-	<!-- These are still in use -->
 	<string name="update_string_default_comment">%1$s commented: %3$s</string>
 	<string name="update_string_task_comment">%1$s on $link_task: %3$s</string>
 	<string name="update_string_tag_comment">%1$s on %2$s: %3$s</string>
@@ -1681,33 +1035,20 @@
 	<string name="history_repeat_from_completion">after completion</string>
 	<string name="history_acknowledged">viewed %s</string>
 	<string name="history_default">changed %1$s to %2$s</string>
-	<!-- Voice Add Prompt Text -->
 	<string name="voice_create_prompt">Mluvte pro vytvoření úkolu</string>
 	<string name="voice_edit_title_prompt">Speak to set task title</string>
 	<string name="voice_edit_note_prompt">Speak to set task description</string>
-	<!-- Preference: Task List recognition-service is not installed, but available -->
 	<string name="EPr_voiceInputInstall_dlg">Voice-input is not installed.\nDo you want to go to the market and install it?</string>
-	<!-- Preference: Task List recognition-service is not available for this system -->
 	<string name="EPr_voiceInputUnavailable_dlg">Unfortunately voice-input is not available for your system.\nIf possible, please update Android to 2.1 or later.</string>
-	<!-- Preference: Market is not available for this system -->
 	<string name="EPr_marketUnavailable_dlg">Unfortunately the market is not available for your system.\nIf possible, try downloading voice search from another source.</string>
-	<!-- slide 38d:  Preference: Task List Show Voice-button if recognition-service is available -->
 	<string name="EPr_voiceInputEnabled_title">Voice input</string>
-	<!-- slide 38a: Preference: voice button description (true) -->
 	<string name="EPr_voiceInputEnabled_desc_enabled">Voice input button will be displayed in task list page</string>
-	<!-- Preference: voice button description (false) -->
 	<string name="EPr_voiceInputEnabled_desc_disabled">Voice input button will be hidden on task list page</string>
-	<!-- slide 38e: Preference: Task List Voice-button directly creates tasks -->
 	<string name="EPr_voiceInputCreatesTask_title">Directly create tasks</string>
-	<!-- Preference: Task List Voice-creation description (true) -->
 	<string name="EPr_voiceInputCreatesTask_desc_enabled">Tasks will automatically be created from voice input</string>
-	<!-- slide 38b: Preference: Task List Voice-creation description (false) -->
 	<string name="EPr_voiceInputCreatesTask_desc_disabled">You can edit the task title after voice input finishes</string>
-	<!-- slide 38f: Preference: Voice reminders if TTS-service is available -->
 	<string name="EPr_voiceRemindersEnabled_title">Voice reminders</string>
-	<!-- Preference: Voice reminders description (true) -->
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks will speak task names during task reminders</string>
-	<!-- slide 38c: Preference: Voice reminders description (false) -->
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks will sound a ringtone during task reminders</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>

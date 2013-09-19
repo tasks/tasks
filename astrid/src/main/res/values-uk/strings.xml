@@ -1,35 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<!-- ================================================== general terms == -->
-	<!-- People Editing Activity -->
-	<!-- slide 18b/ 25e/ 27c: task sharing dialog: assigned hint -->
 	<string name="actfm_person_hint">Контакт або емейл</string>
-	<!-- task sharing dialog: shared with hint -->
 	<string name="actfm_person_or_tag_hint">Контакт або Спільний список</string>
-	<!-- toast on transmit success -->
-	<!-- can\'t rename or delete shared tag message -->
-	<!-- warning before deleting a list you\'re the owner of -->
 	<string name="actfm_tag_operation_owner_delete">Ви власник цього спільного списку! Якщо ви його видалите, він буде видалений для усіх користувачів. Ви певні, що хочете продовжити?</string>
-	<!-- slide 29a: menu item to take a picture -->
 	<string name="actfm_picture_camera">Зробити знімок</string>
-	<!-- slide 29b: menu item to select from gallery -->
 	<string name="actfm_picture_gallery">Завантажити з Галереї</string>
-	<!-- menu item to clear picture selection -->
 	<string name="actfm_picture_clear">Очистити</string>
-	<!-- filter list activity: refresh tags -->
-	<!-- Title for prompt after sharing a task -->
 	<string name="actfm_view_task_title">Ознайомитися із Завданням?</string>
-	<!-- Text for prompt after sharing a task -->
 	<string name="actfm_view_task_text">Завдання було відправлена​о %s! Зараз ви переглядаєте ваші власні завдання. Хочете переглянути це та інші завдання призначені вам?</string>
-	<!-- Ok button for task view prompt -->
 	<string name="actfm_view_task_ok">Подивитись призначені</string>
-	<!-- Cancel button for task view prompt -->
 	<string name="actfm_view_task_cancel">Залишитись тут</string>
-	<!-- slide 13a: Title for the "My Shared Tasks" filter -->
 	<string name="actfm_my_shared_tasks_title">Мої Спільні Завдання</string>
-	<!-- Empty list for the "My Shared Tasks" filter -->
 	<string name="actfm_my_shared_tasks_empty">Немає спільних завдань</string>
-	<!-- =====================  Friendship connections -->
 	<string name="actfm_friendship_pending">Ви відправили запит на дружбу %s!</string>
 	<string name="actfm_friendship_blocked">Користувач %s заблокований</string>
 	<string name="actfm_friendship_ignored">Ви проігнорували %s.</string>
@@ -38,235 +20,114 @@
 	<string name="actfm_friendship_no_status">Зв’яжіться з  %s для спільного користування та перегляду публічних завдань!</string>
 	<string name="actfm_friendship_connect">Додати друга</string>
 	<string name="actfm_friendship_accept">Прийняти</string>
-	<!-- ================================================== TagViewActivity == -->
-	<!-- Tag View Activity: Add Comment hint -->
 	<string name="TVA_add_comment">Додати коментар</string>
-	<!-- Tag View Activity: task comment ($1 - user name, $2 - task title) -->
-	<!-- Tabs for Tag view -->
 	<string-array name="TVA_tabs">
-	<!-- Tab for showing tasks -->
 		<item>Завдання</item>
-	<!-- Tab for showing comments & updates -->
 		<item>Активність</item>
-	<!-- Tab for showing setting -->
 		<item>Налаштування списку</item>
 	</string-array>
-	<!-- Tag View Menu: refresh -->
 	<string name="actfm_TVA_menu_refresh">Оновити</string>
-	<!-- Tag Settings: tag name label -->
 	<string name="actfm_TVA_tag_label">Список</string>
-	<!-- Tag Settings: tag owner label -->
-	<!-- Tag Settings: tag owner value when there is no owner -->
-	<!-- Tag Settings: tag picture -->
 	<string name="actfm_TVA_tag_picture">Зображення Списку</string>
-	<!-- slide 25c/28b: Tag Settings: silence notifications label -->
 	<string name="actfm_TVA_silence_label">Заглушити нагадування</string>
-	<!-- Tag Settings: list icon label -->
-	<!-- slide 25b/27d: Tag Settings: list description label -->
 	<string name="actfm_TVA_tag_description_label">Опис</string>
-	<!-- slide 28a: Tag Settings: list settings label -->
 	<string name="actfm_TVA_tag_settings_label">Налаштування</string>
-	<!-- slide 25b: Tag Settings: list description hint -->
 	<string name="actfm_TVA_tag_description_hint">Введіть опис </string>
-	<!-- slide 25d: Tag Settings: list name hint -->
 	<string name="actfm_TVA_tag_name_hint">Введіть назву списку</string>
-	<!-- ============================================ edit people dialog == -->
-	<!-- task sharing dialog: window title -->
-	<!-- task sharing dialog: save button -->
-	<!-- task sharing dialog: assigned label -->
-	<!-- task sharing dialog: custom email assignment -->
-	<!-- task sharing dialog: assigned hint -->
-	<!-- task sharing dialog: message hint -->
-	<!-- task sharing dialog: message hint -->
-	<!-- task sharing dialog: # of e-mails sent (%s => # people plural string) -->
-	<!-- task sharing dialog: edit people settings saved -->
-	<!-- task sharing dialog: invalid email (%s => email) -->
 	<string name="actfm_EPA_invalid_email">E-mail не дійсний: %s</string>
-	<!-- task sharing dialog: tag not found (%s => tag) -->
 	<string name="actfm_EPA_add_person_to_list_title">Завдання призначено</string>
 	<string name="actfm_EPA_add_person_to_list">%1$s не в цьому списку. Ви хочете додати %2$s до списку?</string>
 	<string name="actfm_EPA_add_person_to_list_ok">Додати до списку</string>
 	<string name="actfm_EPA_add_person_to_list_cancel">Не додавати</string>
 	<string name="actfm_list_owner">(власник)</string>
-	<!-- ========================================= sharing login activity == -->
-	<!-- share login: Username / Email -->
-	<!-- share login: Google Auth title -->
 	<string name="actfm_GAA_title">Виберіть обліковий запис Google для використання:</string>
-	<!-- ================================================ Featured Lists -->
 	<string name="actfm_feat_list_clone">Копіювати список</string>
 	<string name="actfm_feat_list_suffix">(Копіювати)</string>
 	<string name="actfm_feat_list_cloning">Копіювання...</string>
 	<string name="actfm_feat_list_clone_success">Успішно!</string>
 	<string name="actfm_feat_list_task_clone_success">Завдання скопійовано!</string>
 	<string name="actfm_feat_list_clone_empty">Жодного завдання для копіювання</string>
-	<!-- ================================================ Synchronization == -->
-	<!-- Preferences Title: Act.fm -->
 	<string name="actfm_APr_header">Tasks.com</string>
 	<string name="actfm_https_title">Використовувати HTTPS</string>
-	<!-- title for notification tray after synchronizing -->
-	<!-- text for notification when comments are received -->
-	<!-- account types -->
 	<string name="actfm_account_type">Тип облікового запису</string>
 	<string name="actfm_inapp_billing">Покращити до преміум</string>
 	<string name="actfm_inapp_billing_summary">Прикріпити файли, голосові резервні копії, преміальна підтримка та інше</string>
-	<!-- Sync upgrade messages -->
 	<string name="actfm_tag_not_authorized_title">Не авторизований</string>
 	<string name="actfm_tag_not_authorized_body">Ви більше не авторизовані для перегляду списку %s (ви, можливо, були видалені). Хотіли б ви створити новий список з тим же ім\'ям?</string>
 	<string name="actfm_tag_not_authorized_new_list">Створити новий список</string>
 	<string name="actfm_tag_not_authorized_leave_list">Покинути список</string>
-	<string name="actfm_sync_ongoing">Процес синхронізації</string>
+	<string name="actfm_sync_ongoing">Синхронізація в процесі...</string>
 	<string name="EPr_reset_sync_state">Скинути синхронізацію</string>
 	<string name="EPr_reset_sync_state_summary">Скидання деяких локальних даних, щоб допомогти вирішити помилоки синхронізації</string>
 	<string name="EPr_reset_sync_state_detailed">Наступного разу при синхронізації ваших завдань і списків буде змінена, щоб відобразити те, що існує на Tasks.com, які можуть допомогти вирішити помилки синхронізації. Ви хочете продовжити?</string>
-	<!-- Resources for built-in timers plug-in -->
-	<!-- Task Edit Activity: Container Label -->
 	<string name="alarm_ACS_label">Сигнали</string>
-	<!-- Task Edit Activity: Add New Alarm -->
 	<string name="alarm_ACS_button">Додати сигнал</string>
 	<string-array name="reminders_alarm">
-	<!-- reminders related to alarm -->
 		<item>Нагадування!</item>
 	</string-array>
-	<!-- Resources for built-in backup plug-in -->
-	<!-- ================================================= BackupPreferences == -->
-	<!-- slide 33c/48d: Backup Preferences Title -->
 	<string name="backup_BPr_header">Резервні копії</string>
-	<!-- slide 48e/50c: Backup: Status Header -->
 	<string name="backup_BPr_group_status">Статус</string>
-	<!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->
 	<string name="backup_status_success">Остання резервна копія:\n%s</string>
-	<!-- Backup Status: last error failed. Keep it short! -->
 	<string name="backup_status_failed">Створення останньої резервної копії не вдалось</string>
-	<!-- Backup Status: error subtitle -->
 	<string name="backup_status_failed_subtitle">(торкніться щоб подивитись помилку)</string>
-	<!-- slide 48a: Backup Status: never backed up -->
 	<string name="backup_status_never">Резервна копія не створена!</string>
-	<!-- slide 48f/ 50e: Backup Options Group Label -->
 	<string name="backup_BPr_group_options">Налаштування</string>
-	<!-- slide 48b: Preference: Automatic Backup Title -->
 	<string name="backup_BPr_auto_title">Автоматичне резервне копіювання</string>
-	<!-- Preference: Automatic Backup Description (when disabled) -->
 	<string name="backup_BPr_auto_disabled">Автоматичне резервне копіювання заборонене</string>
-	<!-- slide 48g: Preference: Automatic Backup Description (when enabled) -->
 	<string name="backup_BPr_auto_enabled">Резервне копіювання буде здійснюватись щоденно</string>
-	<!-- Preference screen restoring Tasks Help -->
-	<!-- Preference screen Restoring Tasks Help Dialog Text-->
-	<!-- ================================================= BackupActivity == -->
-	<!-- slide 48c: backup activity label -->
 	<string name="backup_BAc_label">Управління резервними копіями</string>
-	<!-- backup activity title -->
 	<string name="backup_BAc_title">Керуйте своїми резервними копіями</string>
-	<!-- backup activity import button -->
 	<string name="backup_BAc_import">Імпортувати завдання</string>
-	<!-- backup activity export button -->
 	<string name="backup_BAc_export">Експорт завдань</string>
-	<!-- ============================================== Importer / Exporter == -->
-	<!-- Message displayed when error occurs -->
 	<string name="backup_TXI_error">Помилка імпорту</string>
 	<string name="export_toast">Резервні копії %1$s для %2$s.</string>
 	<string name="export_toast_no_tasks">Відсутні завдання для експорту.</string>
-	<!-- Progress Dialog Title for exporting -->
 	<string name="export_progress_title">Експортування</string>
-	<!-- Backup: Title of Import Summary Dialog -->
 	<string name="import_summary_title">Відновити підсумок</string>
-	<!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
 	<string name="import_summary_message">Файл %1$s містяться %2$s.\n\n
 %3$s імпортовані,\n
 %4$s вже існують\n
 %5$s були помилки\n</string>
-	<!-- Progress Dialog Title for importing -->
 	<string name="import_progress_title">Імпортування...</string>
-	<!-- Progress Dialog text for import reading task (%d -> task number)-->
 	<string name="import_progress_read">Читання завдання %d...</string>
-	<!-- Backup: Dialog when unable to open a file -->
-	<!-- Backup: Dialog when unable to open SD card folder (%s => folder) -->
 	<string name="DLG_error_sdcard">Немає доступу до папки: %s</string>
-	<!-- Backup: Dialog when unable to open SD card in general -->
 	<string name="DLG_error_sdcard_general">Немає доступу до карти SD!</string>
-	<!-- Backup: File Selector dialog for import -->
 	<string name="import_file_prompt">Виберіть файл для відновлення</string>
-	<!-- ================================================== AndroidManifest == -->
-	<!-- slide 32k: Application Name (shown on home screen & in launcher) -->
 	<string name="app_name">Завдання</string>
-	<!-- permission title for READ_TASKS -->
 	<string name="read_permission_label">Tasks Permission</string>
-	<!-- permission description for READ_TASKS -->
 	<string name="read_permission_desc">читання і відображення фільтрів завдань</string>
-	<!-- permission title for READ_TASKS -->
 	<string name="write_permission_label">Tasks Permission</string>
-	<!-- permission description for READ_TASKS -->
 	<string name="write_permission_desc">створення нових завдань, редагування існуючих завдань</string>
-	<!-- ================================================== Generic Dialogs == -->
-	<!-- question for deleting tasks -->
 	<string name="DLG_delete_this_task_question">Видалити цю задачу?</string>
-	<!-- question for deleting items (%s => item name) -->
 	<string name="DLG_delete_this_item_question">Видалити цей пункт: %s?</string>
-	<!-- Progress dialog shown when upgrading -->
 	<string name="DLG_upgrading">Оновлення ваших завдань...</string>
-	<!-- Title for dialog selecting a time (hours and minutes) -->
 	<string name="DLG_hour_minutes">Час (години : хвилини)</string>
-	<!-- Button for accepting EULA -->
 	<string name="DLG_accept">Приймаю</string>
-	<!-- Button for declining EULA -->
 	<string name="DLG_decline">Відхиляю</string>
-	<!-- EULA title -->
 	<string name="DLG_eula_title">Умови використання</string>
-	<!-- Dialog - loading -->
 	<string name="DLG_loading">Завантаження...</string>
-	<!-- Dialog - dismiss -->
-	<!-- slide 20d -->
 	<string name="DLG_ok">Так</string>
-	<!-- slide 36g -->
 	<string name="DLG_cancel">Відміна</string>
 	<string name="DLG_undo">Відмінити</string>
-	<!-- =============================================================== UI == -->
-	<!-- Label for DateButtons with no value -->
-	<string name="WID_dateButtonUnset">Click to set</string>
-	<!-- String formatter for DateButtons ($D => date, $T => time) -->
-	<!-- String formatter for Disable button -->
-	<!--  ============================================================= notes -->
-	<!-- Note Exposer -->
-	<!-- Note Exposer / Comments -->
-	<!-- EditNoteActivity - no comments -->
+	<string name="WID_dateButtonUnset">Натисніть для установки</string>
 	<string name="ENA_no_comments">Активність поки відсутня</string>
-	<!-- EditNoteActivity - no username for comment -->
 	<string name="ENA_no_user">Хтось</string>
-	<!-- EditNoteActivity - refresh comments -->
 	<string name="ENA_refresh_comments">Оновити коментарі</string>
-	<!-- ================================================= TaskListActivity == -->
-	<!-- slide 8b: Task List: Displayed instead of list when no items present -->
 	<string name="TLA_no_items">У Вас немає завдань! \n Бажаєте щось додати?</string>
-	<!-- Task List: Displayed instead of list when no items present in people view (%s-> person\'s name) -->
 	<string name="TLA_no_items_person">У %s немає \nспільних з Вами завдань</string>
-	<!-- Menu: Adjust Sort and Hidden Task Settings -->
 	<string name="TLA_menu_sort">Сортувати</string>
-	<!-- Menu: Sync Now -->
 	<string name="TLA_menu_sync">Синхронізувати зараз</string>
-	<!-- Menu: Search -->
 	<string name="TLA_menu_search">Пошук</string>
-	<!-- Menu: Tasks -->
 	<string name="TLA_menu_lists">Списки</string>
-	<!-- Menu: Friends -->
 	<string name="TLA_menu_friends">Люди</string>
-	<!-- Menu: Featured Lists -->
 	<string name="TLA_menu_featured_lists">Особливі списки</string>
-	<!-- Menu: Suggestions -->
 	<string name="TLA_menu_suggestions">Пропозиції</string>
-	<!-- Menu: Tutorial -->
-	<!-- Menu: Settings -->
 	<string name="TLA_menu_settings">Налаштування</string>
-	<!-- slide 30b: Menu: Support -->
 	<string name="TLA_menu_support">Підтримка</string>
-	<!-- Search Label-->
-	<!-- Window title for displaying Custom Filter -->
 	<string name="TLA_custom">Користувальницький</string>
-	<!-- slide 8d: Quick Add Edit Box Hint-->
 	<string name="TLA_quick_add_hint">Додати завдання</string>
-	<!-- Quick Add Edit Box Hint for assigning (%s -> name)-->
 	<string name="TLA_quick_add_hint_assign">Додати щось для  %s</string>
-	<!-- Notification Volumne notification-->
 	<string name="TLA_notification_volume_low">Сповіщення приглушені. Ви не зможете почути Tasks!</string>
-	<!-- Notifications disabled warning -->
 	<string name="TLA_notification_disabled">Нагадування відключені! Ви не будете отримувати нагадування</string>
 	<string-array name="TLA_filters">
 		<item>Активний</item>
@@ -276,16 +137,11 @@
 		<item>Виконано</item>
 		<item>Прихований</item>
 	</string-array>
-	<!-- Title for confirmation dialog after quick add markup -->
 	<string name="TLA_quickadd_confirm_title">Ти сказав, \\"%s\\"</string>
-	<!-- Text for speech bubble in dialog after quick add markup -->
-	<!-- First string is task title, second is due date, third is priority -->
 	<string name="TLA_quickadd_confirm_speech_bubble">Я створив задачу названу  \"%1$s\" %2$s на %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">для %s</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">Не показувати майбутніх підтверджень</string>
-	<!-- Title for alert on new repeating task. %s-> task title -->
 	<string name="TLA_repeat_scheduled_title">Нове повторюване завдання %s</string>
-	<!-- Speech bubble for when a new repeating task scheduled. %s->repeat interval -->
 	<string name="TLA_repeat_scheduled_speech_bubble">Я нагадаю вам про це %s.</string>
 	<string-array name="TLA_priority_strings">
 		<item>Найвищий пріоритет</item>
@@ -293,135 +149,66 @@
 		<item>середній пріоритет</item>
 		<item>низький пріоритет</item>
 	</string-array>
-	<!-- slide 22a -->
 	<string name="TLA_all_activity">Вся діяльність</string>
-	<!-- ====================================================== TaskAdapter == -->
-	<!-- Format string to indicate task is hidden (%s => task name) -->
 	<string name="TAd_hiddenFormat">%s [приховано]</string>
-	<!-- Format string to indicate task is deleted (%s => task name) -->
 	<string name="TAd_deletedFormat">%s [видалено]</string>
-	<!-- Displayed when adapter is flung (scrolled quickly) -->
-	<!-- slide 22b: indicates task was completed. %s => date or time ago -->
 	<string name="TAd_completed">Завершено\n%s</string>
-	<!-- slide 15a: Action Button: edit task -->
 	<string name="TAd_actionEditTask">Редагувати</string>
-	<!-- Context Item: edit task -->
 	<string name="TAd_contextEditTask">Редагувати завдання</string>
-	<!-- Context Item: copy task -->
 	<string name="TAd_contextCopyTask">Копіювати завдання</string>
-	<!-- Context Item: delete task -->
 	<string name="TAd_contextDeleteTask">Видалити завдання</string>
-	<!-- Context Item: undelete task -->
 	<string name="TAd_contextUndeleteTask">Відмінити видалення завдання</string>
-	<!-- Context Item: purge task -->
 	<string name="TAd_contextPurgeTask">Очитстити завдання</string>
-	<!-- ============================================== SortSelectionDialog == -->
-	<!-- slide 23h:  Hidden: title -->
 	<string name="SSD_hidden_title">Приховані завдання</string>
-	<!-- Hidden Task Selection: show completed tasks -->
 	<string name="SSD_completed">Показати завершені завдання</string>
-	<!-- Hidden Task Selection: show hidden tasks -->
 	<string name="SSD_hidden">Показати приховані завдання</string>
-	<!-- Hidden Task Selection: show deleted tasks -->
 	<string name="SSD_deleted">Показати видалені завдання</string>
-	<!-- Sort Selection: drag with subtasks -->
-	<string name="SSD_sort_drag">Ручний порядок з підзадачами</string>
-	<!-- slide 23b: Sort Selection: smart sort -->
+	<string name="SSD_sort_drag">Manual order with subtasks</string>
 	<string name="SSD_sort_auto">Розумне сортування</string>
-	<!-- slide 23e: Sort Selection: sort by alpha -->
 	<string name="SSD_sort_alpha">За заголовком</string>
-	<!-- slide 23c: Sort Selection: sort by due date -->
 	<string name="SSD_sort_due">За кінцевою датою</string>
-	<!-- slide 23d: Sort Selection: sort by importance -->
 	<string name="SSD_sort_importance">За пріоритетом</string>
-	<!-- slide 23f: Sort Selection: sort by modified date -->
 	<string name="SSD_sort_modified">За останньою модифікованою</string>
-	<!-- slide 23g: Sort Selection: reverse -->
 	<string name="SSD_sort_reverse">Обернений порядок сортування</string>
-	<!-- slide 23j: Sort Button: sort temporarily -->
 	<string name="SSD_save_temp">Тільки раз</string>
-	<!-- slide 23i: Sort Button: sort permanently -->
 	<string name="SSD_save_always">Завжди</string>
-	<!-- =============================================== FilterListActivity == -->
-	<!-- Tasks Filter Shortcut -->
 	<string name="FSA_label">List or Filter</string>
-	<!-- Filter List Activity Title -->
-	<!-- Displayed when loading filters -->
-	<!-- Context Menu: Create Shortcut -->
 	<string name="FLA_context_shortcut">Створити ярлик на стільниці</string>
-	<!-- Menu: Search -->
-	<!-- Menu: Help -->
-	<!-- slide 28c: Create Shortcut Dialog Title -->
 	<string name="FLA_shortcut_dialog_title">Створити ярлик на стільниці</string>
-	<!-- Create Shortcut Dialog (asks to name shortcut) -->
 	<string name="FLA_shortcut_dialog">Ім’я ярлика:</string>
-	<!-- Search Hint-->
 	<string name="FLA_search_hint">Пошук завдань</string>
-	<!-- Search Filter name (%s => query) -->
 	<string name="FLA_search_filter">Matching \'%s\'</string>
-	<!-- Toast: created shortcut (%s => label) -->
 	<string name="FLA_toast_onCreateShortcut">Створений Ярлик: %s</string>
-	<!-- Menu: new filter -->
 	<string name="FLA_new_filter">Новий фільтр</string>
-	<!-- slide 10e: Button: new list -->
 	<string name="FLA_new_list">Новий список</string>
-	<!-- Alert when creating a shortcut without selecting a filter -->
 	<string name="FLA_no_filter_selected">Не вибраний жодний фільтр! Будь ласка, виберіть фільтр або список.</string>
-	<!-- ================================================= TaskEditActivity == -->
-	<!-- Title when editing a task (%s => task title) -->
-	<!-- Title when creating a new task -->
-	<!-- Task title label -->
-	<!-- Task when label -->
 	<string name="TEA_when_header_label">Коли</string>
-	<!-- Task title hint (displayed when edit box is empty) -->
 	<string name="TEA_title_hint">Ім\'я завдання</string>
-	<!-- Task importance label -->
 	<string name="TEA_importance_label">Пріоритет</string>
-	<!-- Task due date hint -->
 	<string name="TEA_deadline_hint">Встановити кінцеву дату</string>
-	<!-- Task urgency specific time checkbox -->
 	<string name="TEA_urgency_specific_time">At specific time?</string>
-	<!-- Task urgency specific time title when specific time false -->
 	<string name="TEA_urgency_none">Немає</string>
-	<!-- Task hide until label -->
 	<string name="TEA_hideUntil_label">Hide until</string>
-	<!-- Task hide until label -->
 	<string name="TEA_hideUntil_display">Hide until %s</string>
-	<!-- Task hide until toast -->
 	<string name="TEA_hideUntil_message">Завдання буде приховане до %s</string>
-	<!-- Task editing data being loaded label -->
 	<string-array name="TEA_loading">
 		<item>Завантаження...</item>
 	</string-array>
-	<!-- slide 16c: Task note label -->
 	<string name="TEA_note_label">Опис</string>
-	<!-- slide 16c: Task note label -->
 	<string name="TEA_notes_empty">Опис</string>
-	<!-- Task note hint -->
 	<string name="TEA_notes_hint">Ввести опис завдання...</string>
-	<!-- Estimated time label -->
 	<string name="TEA_estimatedDuration_label">Як довго це триватиме?</string>
-	<!-- Elapsed time label -->
 	<string name="TEA_elapsedDuration_label">Час вже потрачео</string>
-	<!-- Menu: Save -->
 	<string name="TEA_menu_save">Зберегти зміни</string>
-	<!-- Menu: Don\'t Save -->
 	<string name="TEA_menu_discard">Не зберігати зміни</string>
-	<!-- Menu: Task comments -->
 	<string name="TEA_menu_refresh_comments">Оновити коментарі</string>
 	<string name="TEA_menu_comments">Коментарі</string>
-	<!-- Toast: task saved with deadline (%s => preposition + time units) -->
 	<string name="TEA_onTaskSave_due">Завдання збережено: завдяки %s</string>
-	<!-- Toast: task saved without deadlines -->
 	<string name="TEA_onTaskSave_notDue">Завдання збережено</string>
-	<!-- Toast: task was not saved -->
-	<!-- Toast: task was deleted -->
-	<!-- slide 15b: Task edit tab: activity -->
 	<string name="TEA_tab_activity">Активність</string>
 	<string name="TEA_timer_est">Est. %s</string>
 	<string name="TEA_timer_elap">Час, що минув %s</string>
 	<string-array name="TEA_urgency">
-	<!-- slide 19: urgency: labels for edit page. item #4 -> auto filled -->
 		<item>Немає дати</item>
 		<item>Вказати день</item>
 		<item>Сьогодні</item>
@@ -433,7 +220,6 @@
 	</string-array>
 	<string name="TEA_no_time">Без часу</string>
 	<string-array name="TEA_hideUntil">
-	<!-- hideUntil: labels for edit page. -->
 		<item>Ніколи</item>
 		<item>до дати</item>
 		<item>до часу</item>
@@ -441,65 +227,33 @@
 		<item>за тиждень до</item>
 		<item>Вказати день/час</item>
 	</string-array>
-	<!-- Task edit control set descriptors -->
-	<!-- slide 9c/ 35a -->
 	<string name="TEA_control_when">Коли</string>
-	<!-- slide 16a/35c -->
 	<string name="TEA_control_importance">Пріоритет</string>
-	<!-- slide 16b/35d -->
 	<string name="TEA_control_lists">Списки</string>
-	<!-- slide 16c/35e -->
 	<string name="TEA_control_notes">Опис</string>
 	<string name="TEA_control_files">Файли</string>
-	<!-- slide 16e / slide 35g-->
 	<string name="TEA_control_reminders">Нагадування</string>
-	<!-- slide 16f -->
 	<string name="TEA_control_timer">Таймер Управління</string>
 	<string name="TEA_control_hidden_section">----Hide Always----</string>
 	<string name="hide_until_prompt">Показувати в мому списку</string>
-	<!-- Add Ons tab when no add-ons found -->
-	<!-- Add Ons button -->
-	<!-- More row -->
-	<!-- slide 15c: Text when no activity to show -->
 	<string name="TEA_no_activity">Активність відсутня</string>
-	<!-- Text to load more activity -->
 	<string name="TEA_load_more">Завантажити більше...</string>
-	<!-- When controls dialog -->
 	<string name="TEA_when_dialog_title">Коли це потрібно виконати?</string>
 	<string name="TEA_new_task">Нове завдання</string>
-	<!-- ============================================= IntroductionActivity == -->
-	<!-- slide 1a: Introduction Window title -->
-	<!-- Button to agree to EULA -->
-	<!-- Button to disagree with EULA -->
-	<!-- ===================================================== MissedCallActivity == -->
-	<!-- Missed call: return call (%1$s -> caller, %2$s -> time of call)-->
 	<string name="MCA_title">%1$s\nтелефонував о %2$s</string>
-	<!-- Missed call: return call -->
 	<string name="MCA_return_call">Зателефонувати зараз</string>
-	<!-- Missed call: return call -->
 	<string name="MCA_add_task">Зателефонувати пізніше</string>
-	<!-- Missed call: return call -->
 	<string name="MCA_ignore">Ігнорувати</string>
-	<!-- Missed call: dialog to ignore all missed calls title -->
 	<string name="MCA_ignore_title">Ігнорувати всі пропущені дзвіники?</string>
-	<!-- Missed call: dialog to ignore all missed calls body -->
 	<string name="MCA_ignore_body">You\'ve ignored several missed calls. Should Tasks stop asking you about them?</string>
-	<!-- Missed call: dialog to ignore all missed calls ignore all button -->
 	<string name="MCA_ignore_all">Ігнорувати всі дзвінки</string>
-	<!-- Missed call: dialog to ignore all missed calls ignore just this button -->
 	<string name="MCA_ignore_this">Ігнорувати лише цей дзвінок</string>
-	<!-- Missed call: preference title -->
 	<string name="MCA_missed_calls_pref_title">Область пропущених викликів</string>
-	<!-- slide 49c: Missed call: preference description -->
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks will notify you about missed calls and offer to remind you to call back</string>
 	<string name="MCA_missed_calls_pref_desc_disabled">Tasks will not notify you about missed calls</string>
-	<!-- Missed call: task title with name (%1$s -> name, %2$s -> number)-->
 	<string name="MCA_task_title_name">Перетелефонувати  %1$s о %2$s</string>
-	<!-- Missed call: task title no name (%s -> number)-->
 	<string name="MCA_task_title_no_name">Перетелефонувати %s </string>
-	<!-- Missed call: schedule dialog title (%s -> name or number)-->
 	<string name="MCA_schedule_dialog_title">Перетелефонувати  %s через...</string>
-	<!-- Missed call speech bubble options -->
 	<string-array name="MCA_dialog_speech_options">
 		<item>It must be nice to be so popular!</item>
 		<item>Yay! People like you!</item>
@@ -508,112 +262,59 @@
 		<item>Ти зможеш це!</item>
 		<item>You can always send a text...</item>
 	</string-array>
-	<!-- ======================================= Calendar reminder activity == -->
-	<!-- Calendar remindeer ignore button -->
 	<string name="CRA_ignore">Ігнорувати</string>
-	<!-- Calendar event -->
 	<string name="CRA_title">Потрібен список для зустрічі?</string>
-	<!-- Calendar reminder: dialog to ignore all missed calls title -->
 	<string name="CRA_ignore_title">Ігнорувати всі події календаря?</string>
-	<!-- Calendar reminder: dialog to ignore all missed calls body -->
 	<string name="CRA_ignore_body">You\'ve ignored several calendar events. Should Tasks stop asking you about them?</string>
-	<!-- Calendar reminder: dialog to ignore all missed calls ignore all button -->
 	<string name="CRA_ignore_all">Ігнорувати всі події</string>
-	<!-- Calendar reminder: dialog to ignore all missed calls ignore just this button -->
 	<string name="CRA_ignore_this">Ігнорувати лише цю подію</string>
-	<!-- Calendar reminder: astrid speech bubble when event starting (%s -> event name) -->
 	<string name="CRA_speech_bubble_start">Схоже невдовзі розпочнеться %s. Бажаєте створити список дій?</string>
-	<!-- Calendar reminder: astrid speech bubble when event ending (%s -> event name) -->
 	<string name="CRA_speech_bubble_end">Схоже Ви щойно закінчили %s. Бажаєте створити список дій?</string>
-	<!-- Calendar reminder: create list button -->
 	<string name="CRA_create_list">Створити список</string>
-	<!-- Calendar reminder: postpone button -->
 	<string name="CRA_postpone">Може згодом </string>
-	<!-- Calendar reminder: list exists dialog title -->
 	<string name="CRA_list_exists_title">Список вже існує</string>
-	<!-- Calendar reminder: list exists dialog body (%s -> list name)-->
 	<string name="CRA_list_exists_body">Список %s вже існує. Бажаєте використовувати наявний список для цієї події, чи сторити новий?</string>
-	<!-- Calendar reminder: list exists dialog create new button -->
 	<string name="CRA_create_new">Створити новий</string>
-	<!-- Calendar reminder: list exists dialog use existing button -->
 	<string name="CRA_use_existing">Використати наявний</string>
-	<!-- Calendar remindr: created list (%s -> list name) -->
 	<string name="CRA_created_list_dialog">Я створив список %s.</string>
-	<!-- Calendar reminder: one attendee (%s -> attendee name or email) -->
 	<string name="CRA_one_attendee">%s бере участь.</string>
-	<!-- Calendar reminder: two attendees (%s -> attendee name or email) -->
 	<string name="CRA_two_attendees">%1$s та %2$s беруть участь.</string>
-	<!-- Calendar reminder: many attendees (%s -> attendee name or email, %3$d -> how many other people) -->
 	<string name="CRA_many_attendees">%1$s, %2$s, та %3$d інших беруть участь.</string>
-	<!-- Calendar reminder: invitation prompt -->
 	<string name="CRA_invitation_prompt">Хочете їх запросити?</string>
-	<!-- Calendar reminder: preference title -->
 	<string name="CRA_calendar_reminders_pref_title">Calendar assistant</string>
-	<!-- Calendar reminder: pref description disabled -->
 	<string name="CRA_calendar_reminders_pref_desc_disabled">Tasks will not remind you about upcoming calendar events</string>
-	<!-- Calendar reminder: pref description enabled -->
 	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks will remind you about upcoming calendar events and prompt you to prepare for them</string>
-	<!-- Calendar reminder: share list title -->
 	<string name="CRA_share_list_title">Поділитись цим списком?</string>
 	<string name="CRA_invite_attendees">Запросити прийняти участь</string>
 	<string name="CRA_more_options">Більше варіантів</string>
 	<string name="CRA_dont_invite">Ні, дякую</string>
-	<!-- Calendar reminder: share list title when no other attendees exist-->
 	<string name="CRA_list_created_title">Список створений!</string>
-	<!-- Calendar reminder: default new list name (%s -> event title) -->
 	<string name="CRA_default_list_name">Список дій: %s</string>
-	<!-- ===================================================== HelpActivity == -->
-	<!-- Help: Button to get support from our website -->
-	<!-- ==================================================== UpdateService == -->
-	<!-- Changelog Window Title -->
 	<string name="UpS_changelog_title">Що нового?</string>
-	<!-- Updates Window Title -->
 	<string name="UpS_updates_title">Latest Tasks News</string>
-	<!-- ================================================== EditPreferences == -->
-	<!-- slide 31g: Preference Window Title -->
 	<string name="EPr_title">Налаштування</string>
-	<!-- slide 46a -->
 	<string name="EPr_deactivated">деактивовані</string>
-	<!-- slide 30i: Preference Category: Appearance Title -->
 	<string name="EPr_appearance_header">Зовнішній вигляд</string>
-	<!-- Preference Category: Appearance Summary -->
 	<string name="EPr_appearance_summary">Теми, віджети, завдання рядків, екран редагування</string>
-	<!-- slide 34a: Preference: Task List Font Size Title -->
 	<string name="EPr_fontSize_title">Розмір списку завдань</string>
-	<!-- Preference: Filters to show pref screen title -->
-	<string name="EPr_filters_to_show_title">Filters to show</string>
-	<!-- slide 32a: Preference: Show confirmation for smart reminders -->
+	<string name="EPr_filters_to_show_title">Показати фільтри</string>
 	<string name="EPr_showSmartConfirmation_title">Показати підтвердження для розумного нагадування</string>
-	<!-- slide 34g: Preference: Task List Font Size Description -->
 	<string name="EPr_fontSize_desc">Розмір шрифта на головній сторінці оголошень</string>
-	<!-- Preferemce: Show task edit confirmation toasts -->
-	<!-- slide 34c: Preference: Task List Show Notes -->
 	<string name="EPr_showNotes_title">Show description in task</string>
-	<!-- Edit screen preference category -->
-	<string name="EPr_edit_screen_options">Edit screen options</string>
-	<!-- slide 30e: Preference: Beast mode (auto-expand edit page) -->
-	<string name="EPr_beastMode_title">Edit screen order</string>
+	<string name="EPr_edit_screen_options">Редагувати налаштування екрану</string>
+	<string name="EPr_beastMode_title">Редагувати порядок екранів</string>
 	<string name="EPr_beastMode_shortcut">Customize</string>
-	<string name="EPr_time_increment">5 minute increments</string>
-	<string name="EPr_use_date_shortcuts">Use date shortcuts</string>
-	<string name="EPr_show_timer_shortcut">Show timer shortcut</string>
-	<!-- slide 35h -->
+	<string name="EPr_time_increment">Крок 5 хвилин</string>
+	<string name="EPr_use_date_shortcuts">Використовувати ярлики дат</string>
+	<string name="EPr_show_timer_shortcut">Показати ярлик таймера</string>
 	<string name="EPr_beastMode_desc">Налаштувати зовнішній вигляд екрану редагування завдань</string>
-	<!-- slide 35j -->
-	<string name="EPr_beastMode_reset">Відновити значення за замовчуванням</string>
-	<string name="EPr_beastMode_hint">Customize your task edit screen by dragging the left handle on each row</string>
-	<!-- slide 34i: Preference: Task List Show Notes Description (disabled) -->
-	<string name="EPr_showNotes_desc_disabled">Description will be accessible from the task edit screen</string>
-	<!-- Preference: Task List Show Notes Description (enabled) -->
+	<string name="EPr_beastMode_reset">Налаштування за замовчуванням</string>
+	<string name="EPr_beastMode_hint">Налаштуйте Ваш екран редагування нотатки перетягуванням лівої частини рядків</string>
+	<string name="EPr_showNotes_desc_disabled">Опис буде доступно на екрані редагування завдання</string>
 	<string name="EPr_showNotes_desc_enabled">Description will always be displayed</string>
-	<!-- slide 34e: Preferences: Use legacy importance and checkbox style -->
-	<!-- slide 34k-->
-	<!-- slide 34b: Preferences: Wrap task titles to two lines -->
 	<string name="EPr_fullTask_title">Show full task title</string>
 	<string name="EPr_fullTask_desc_enabled">Full task title will be shown</string>
-	<!-- slide 34h -->
 	<string name="EPr_fullTask_desc_disabled">First two lines of task title will be shown</string>
-	<!-- Preferences: task row style -->
 	<string-array name="EPr_task_row_styles">
 		<item>Оригінальний</item>
 		<item>Простий</item>
@@ -624,91 +325,60 @@
 		<item>Truncate title to one line with date and lists below</item>
 		<item>Single line title only</item>
 	</string-array>
-	<!-- task row style title (%s -> style) -->
 	<string name="EPr_task_row_style_title">Row style: %s</string>
-	<!-- Preference: custom filters enabled -->
-	<string name="EPr_use_filters_title">Use filters</string>
-	<string name="EPr_use_filters_subtitle">Lets you create custom filters</string>
-	<!-- Preference: simple input box style -->
+	<string name="EPr_use_filters_title">Використовувати фільтри</string>
+	<string name="EPr_use_filters_subtitle">Дозволяє створювати власні фільтри</string>
 	<string name="EPr_show_quickadd_controls">Advanced quickadd controls</string>
-	<!-- Preference: don\'t show plus button until input present -->
-	<string name="EPr_hide_plus_button">Hide plus button</string>
-	<!-- Preference: menu items -->
+	<string name="EPr_hide_plus_button">Прибрати кнопку плюс</string>
 	<string name="EPr_menu_items">Menu items</string>
-	<!-- Preference: list view -->
-	<string name="EPr_list_view">List view</string>
-	<!-- Preference: task edit comments -->
-	<string name="EPr_show_task_edit_comments">Show comments in task edit</string>
-	<!-- slide 30f/ 36f: Preference: Theme -->
+	<string name="EPr_list_view">Вигляд списку</string>
+	<string name="EPr_show_task_edit_comments">Показувати коментарі в редакторі завдання</string>
 	<string name="EPr_theme_title">Color theme</string>
-	<!-- Preference: Theme Description (%s => value) -->
 	<string name="EPr_theme_desc">Currently: %s</string>
-	<!-- Preference: Theme Description (android 1.6) -->
 	<string name="EPr_theme_desc_unsupported">Setting requires Android 2.0+</string>
-	<!-- slide 32h/ 37b -->
 	<string name="EPr_theme_widget_title">Widget theme</string>
-	<!-- slide 30d/ 34f: Preference screen: all task row settings -->
-	<string name="EPr_taskRowPrefs_title">Task row appearance</string>
-	<!-- Preferences: calendar event start time -->
+	<string name="EPr_taskRowPrefs_title">Зовнішній вигляд завдань у списку</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Calendar event time</string>
 	<string name="EPr_cal_end_at_due_time">End calendar events at due time</string>
 	<string name="EPr_cal_start_at_due_time">Start calendar events at due time</string>
 	<string name="EPr_force_phone_layout">Use phone layout</string>
-	<!-- Configurations -->
 	<string name="EPr_configurations_title">Set configuration</string>
 	<string name="EPr_config_default">Стандартно</string>
 	<string name="EPr_config_lite">Tasks Lite</string>
-	<!-- Dialog title when setting preference configuration -->
 	<string name="EPr_config_dialog_title">Set configuration?</string>
-	<!-- Dialog prompt when setting preference configuration (%s -> name of configuration)-->
 	<string name="EPr_config_dialog_text">Reset preferences to the %s configuration?</string>
-	<!-- default configuration name for the above dialog -->
 	<string name="EPr_config_dialog_default_id">типовий</string>
-	<!-- Preference title for showing save and cancel buttons in task edit page -->
-	<string name="EPr_show_save_and_cancel">Show save and cancel </string>
-	<!-- Swipe between lists -->
-	<!-- Preference: swipe between lists performance -->
-	<string name="EPr_swipe_lists_performance_title">Swipe between lists</string>
+	<string name="EPr_show_save_and_cancel">Показати зберегти і скасувати</string>
+	<string name="EPr_swipe_lists_performance_title">Свайп між списками</string>
 	<string-array name="EPr_swipe_lists_performance_mode">
-		<item>No swipe</item>
+		<item>без свайпу</item>
 		<item>Conserve Memory</item>
 		<item>Normal Performance</item>
 		<item>High Performance</item>
 	</string-array>
 	<string-array name="EPr_swipe_lists_performance_desc">
-	<!-- slide 49a -->
-		<item>Swipe between lists is disabled</item>
+		<item>Свайп між списками вимкнений</item>
 		<item>Slower performance</item>
 		<item>Default setting</item>
 		<item>Uses more system resources</item>
 	</string-array>
-	<string name="swipe_lists_helper_title">Swipe between lists</string>
-	<string name="swipe_lists_helper_header">Swipe left or right to quickly move between lists</string>
+	<string name="swipe_lists_helper_title">Свайп між списками</string>
+	<string name="swipe_lists_helper_header">Свайп вліво або вправо щоб швидко перемикати списки</string>
 	<string name="swipe_lists_helper_subtitle">Change settings in Settings -&gt; Appearance</string>
-	<!-- Format string for displaying the currently selected preference. $1 is name of selected mode, $2 is description -->
 	<string-array name="EPr_default_reminders_mode">
-	<!-- reminders duration: labels for "Task Defaults" preference item. -->
 		<item>@string/TEA_reminder_mode_once</item>
 		<item>@string/TEA_reminder_mode_five</item>
 		<item>@string/TEA_reminder_mode_nonstop</item>
 	</string-array>
 	<string-array name="EPr_themes">
-	<!-- theme_settings: labels for Theme preference menu -->
-	<!-- slide 36a-->
 		<item>Day - Blue</item>
-	<!-- slide 36b -->
 		<item>Day - Red</item>
-	<!-- slide 36b -->
 		<item>Sky blue</item>
-	<!-- slide 36c -->
 		<item>Night</item>
-	<!-- slide 36d -->
 		<item>Transparent (white text)</item>
-	<!-- slide 36e -->
 		<item>Transparent (black text)</item>
 	</string-array>
 	<string-array name="EPr_themes_widget">
-	<!-- slide 32i / 37a-->
 		<item>Same as app</item>
 		<item>Day - Blue</item>
 		<item>Day - Red</item>
@@ -718,66 +388,41 @@
 		<item>Transparent (black text)</item>
 		<item>Old Style</item>
 	</string-array>
-	<!-- ========================================== Task Management Settings == -->
-	<!-- slide 33a/47c: Preference Screen Header: Old Task Management -->
 	<string name="EPr_manage_header">Manage old tasks</string>
-	<!-- slide 47d -->
 	<string name="EPr_manage_delete_completed">Delete completed tasks</string>
 	<string name="EPr_manage_delete_completed_message">Do you really want to delete all your completed tasks?</string>
-	<!-- slide 47a -->
 	<string name="EPr_manage_delete_completed_summary">Deleted tasks can be undeleted one-by-one</string>
 	<string name="EPr_manage_delete_completed_status">Deleted %d tasks!</string>
-	<!-- slide 47e -->
 	<string name="EPr_manage_purge_deleted">Purge deleted tasks</string>
 	<string name="EPr_manage_purge_deleted_message">Do you really want to purge all your deleted tasks?\n\nThese tasks will be gone forever!</string>
 	<string name="EPr_manage_purge_deleted_status">Purged %d tasks!</string>
-	<!-- slide 47b-->
 	<string name="EPr_manage_purge_deleted_summary">Caution! Purged tasks can\'t be recovered without backup file!</string>
-	<!-- slide 47h-->
 	<string name="EPr_manage_clear_all">Очистити всі данні</string>
 	<string name="EPr_manage_clear_all_message">Delete all tasks and settings in Tasks?\n\nWarning: can\'t be undone!</string>
-	<!-- slide 47f -->
 	<string name="EPr_manage_delete_completed_gcal">Delete calendar events for completed tasks</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Do you really want to delete all your events for completed tasks?</string>
 	<string name="EPr_manage_delete_completed_gcal_summary"/>
 	<string name="EPr_manage_delete_completed_gcal_status">Deleted %d calendar events!</string>
-	<!-- slide 47g-->
 	<string name="EPr_manage_delete_all_gcal">Delete all calendar events for tasks</string>
 	<string name="EPr_manage_delete_all_gcal_message">Do you really want to delete all your events for tasks?</string>
 	<string name="EPr_manage_delete_all_gcal_summary"/>
 	<string name="EPr_manage_delete_all_gcal_status">Deleted %d calendar events!</string>
-	<!-- ==================================================== AddOnActivity == -->
-	<!-- Add Ons Activity Title -->
 	<string name="AOA_title">Add-ons</string>
-	<!-- Add-on Activity: author for internal authors  -->
 	<string name="AOA_internal_author">Tasks Team</string>
-	<!-- Add-on Activity: installed add-ons tab -->
 	<string name="AOA_tab_installed">Installed</string>
-	<!-- Add-on Activity - available add-ons tab -->
 	<string name="AOA_tab_available">Доступні</string>
-	<!-- Add-on Activity - free add-ons label -->
 	<string name="AOA_free">Вільний</string>
-	<!-- Add-on Activity - menu item to visit add-on website -->
-	<!-- Add-on Activity - menu item to visit android market -->
-	<!-- Add-on Activity - when list is empty -->
 	<string name="AOA_no_addons">Пустий список!</string>
 	<string name="AOA_ppack_title">Power Pack</string>
 	<string name="AOA_ppack_description">Support Tasks and get more productive with the Power Pack. 4x2 and 4x4 widgets and voice integration. Power up today!</string>
 	<string name="AOA_locale_title">Tasks Locale Plugin</string>
 	<string name="AOA_locale_description">Allows Tasks to make use of the Locale application to send you notifications based on filter conditions. Requires Locale.</string>
-	<!-- ====================================================== TasksWidget == -->
-	<!-- Widget text when loading tasks -->
 	<string name="TWi_loading">Loading...</string>
-	<!-- Widget configuration activity title: select a filter -->
 	<string name="WCA_title">Select tasks to view...</string>
-	<!-- ============================================================= About == -->
-	<!-- slide 30h: Title of "About" option in settings -->
 	<string name="p_about">About Tasks</string>
-	<!-- About text (%s => current version)-->
 	<string name="p_about_text">Current version: %s\n\n
 
 Tasks is open-source and proudly maintained by Todoroo, Inc.</string>
-	<!-- ============================================================= Misc == -->
 	<string name="feedback_positive_title">Rate Tasks?</string>
 	<string name="feedback_positive_body">Glad I\'m helpful! Got a moment to help us with a 5-star rating?</string>
 	<string name="feedback_negative_title">Leave feedback?</string>
@@ -787,11 +432,9 @@ Tasks is open-source and proudly maintained by Todoroo, Inc.</string>
 	<string name="feedback_negative_button">Leave feedback</string>
 	<string name="feedback_not_now">Not now</string>
 	<string name="feedback_banner_text">How\'s Tasks working for you?</string>
-	<!-- Displayed when task killer found. %s => name of the application -->
 	<string name="task_killer_help">It looks like you are using an app that can kill processes (%s)! If you can,
 add Tasks to the exclusion list so it doesn\'t get killed. Otherwise,
 Tasks might not let you know when your tasks are due.\n</string>
-	<!-- Task killer dialog ok button -->
 	<string name="task_killer_help_ok">I Won\'t Kill Tasks!</string>
 	<string name="DB_corrupted_title">Corrupted Database</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
@@ -799,235 +442,120 @@ Tasks might not let you know when your tasks are due.\n</string>
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
       your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
 	<string name="market_unavailable">Unfortunately the market is not available for your system.</string>
-	<!-- slide 32g: Preference Category: Defaults Title -->
 	<string name="EPr_defaults_header">New task defaults</string>
 	<string name="EPr_defaults_summary">Priority, due date, add to calendar</string>
-	<!-- slide 41f:  Preference: Default Urgency Title -->
 	<string name="EPr_default_urgency_title">Default deadline</string>
-	<!-- Preference: Default Urgency Description (%s => setting) -->
 	<string name="EPr_default_urgency_desc">Currently: %s</string>
-	<!-- slide 40a: Preference: Default Importance Title -->
 	<string name="EPr_default_importance_title">Default priority</string>
-	<!-- Preference: Default Importance Description (%s => setting) -->
 	<string name="EPr_default_importance_desc">Currently: %s</string>
-	<!-- slide 42e: Preference: Default Hide Until Title -->
 	<string name="EPr_default_hideUntil_title">Default hide until</string>
-	<!-- Preference: Default Hide Until Description (%s => setting) -->
 	<string name="EPr_default_hideUntil_desc">Currently: %s</string>
-	<!-- slide 43e: Preference: Default Reminders Title -->
 	<string name="EPr_default_reminders_title">Default reminders</string>
-	<!-- Preference: Default Reminders Description (%s => setting) -->
 	<string name="EPr_default_reminders_desc">Currently: %s</string>
-	<!-- slide 19a/46c: Preference: Default Add To Calendar Title -->
 	<string name="EPr_default_addtocalendar_title">Default add to calendar</string>
-	<!-- Preference: Default Add To Calendar Setting Description (disabled) -->
 	<string name="EPr_default_addtocalendar_desc_disabled">New tasks will not create an event in the Google Calendar</string>
-	<!-- Preference: Default Add To Calendar Setting Description (%s => setting) -->
 	<string name="EPr_default_addtocalendar_desc">New tasks will be in the calendar: \"%s\"</string>
-	<!-- slide 45d: Reminder Mode Preference: Default Reminders Duration -->
 	<string name="EPr_default_reminders_mode_title">Default ring/vibrate type</string>
-	<!-- Preference: Default Reminders Description (%s => setting) -->
 	<string name="EPr_default_reminders_mode_desc">Currently: %s</string>
 	<string-array name="EPr_default_importance">
-	<!-- importance: labels for "Task Defaults" preference item. -->
-	<!-- slide 40b -->
 		<item>!!! (Highest)</item>
 		<item>!!</item>
 		<item>!</item>
-	<!-- slide 40c -->
 		<item>o (Lowest)</item>
 	</string-array>
 	<string-array name="EPr_default_urgency">
-	<!-- urgency: labels for "Task Defaults" preference item. -->
-	<!-- slide 41a-->
 		<item>No deadline</item>
-	<!-- slide 41b -->
 		<item>Сьогодні</item>
-	<!-- slide 41c-->
 		<item>Завтра</item>
-	<!-- slide 41d -->
 		<item>Day after tomorrow</item>
-	<!-- slide 41e -->
 		<item>Next week</item>
 	</string-array>
 	<string-array name="EPr_default_hideUntil">
-	<!-- hideUntil: labels for "Task Defaults" preference item. -->
-	<!-- slide 42a -->
 		<item>Don\'t hide</item>
-	<!-- slide 42b -->
 		<item>Task is due</item>
-	<!-- slide 42c -->
 		<item>Day before due</item>
-	<!-- slide 42d-->
 		<item>Week before due</item>
 	</string-array>
 	<string-array name="EPr_default_reminders">
-	<!-- reminders: labels for "Task Defaults" preference item. -->
-	<!-- slide 43a -->
 		<item>No deadline reminders</item>
-	<!-- slide 43b -->
 		<item>At deadline</item>
-	<!-- slide 43c -->
 		<item>When overdue</item>
-	<!-- slide 43d -->
 		<item>At deadline or overdue</item>
 	</string-array>
 	<string-array name="EPr_default_addtocalendar">
-	<!-- addtocalendar: labels for "Task Defaults" preference item. -->
 		<item>@string/EPr_deactivated</item>
 	</string-array>
-	<!-- Resources for built-in filter plug-in -->
-	<!-- ================================================= Filter Exposer == -->
-	<!-- Active Tasks Filter -->
 	<string name="BFE_Active">My Tasks</string>
-	<!-- Search Filter -->
-	<!-- slide 10b: Recently Modified -->
 	<string name="BFE_Recent">Recently Modified</string>
-	<!-- slide 10c: I\'ve assigned -->
 	<string name="BFE_Assigned">I\'ve Assigned</string>
-	<!-- Build Your Own Filter -->
-	<!-- Saved Filters Header -->
-	<!-- Saved Filters Context Menu: delete -->
 	<string name="BFE_Saved_delete">Delete Filter</string>
-	<!-- =========================================== CustomFilterActivity == -->
-	<!-- slide 30e: Filter Name edit box hint (if user types here, filter will be saved) -->
-	<string name="CFA_filterName_hint">Name this filter to save it...</string>
-	<!-- Filter Name default for copied filters (%s => old filter name) -->
-	<!-- slide 30a: Filter Starting Universe: all tasks -->
+	<string name="CFA_filterName_hint">Задайте ім\'я фільтра для його збереження ...</string>
 	<string name="CFA_universe_all">Active Tasks</string>
-	<!-- Filter Criteria Type: add (at the begging of title of the criteria) -->
 	<string name="CFA_type_add">або</string>
-	<!-- Filter Criteria Type: subtract (at the begging of title of the criteria) -->
 	<string name="CFA_type_subtract">not</string>
-	<!-- Filter Criteria Type: intersect (at the begging of title of the criteria) -->
 	<string name="CFA_type_intersect">також</string>
-	<!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
 	<string name="CFA_context_chain">%s has criteria</string>
-	<!-- Filter Criteria Context Menu: delete -->
 	<string name="CFA_context_delete">Delete Row</string>
-	<!-- slide 30b: Filter Screen Help Text -->
 	<string name="CFA_help">Long press on items for additional options</string>
-	<!-- slide 30c: Filter Button: add new -->
 	<string name="CFA_button_add">Add Criteria</string>
-	<!-- slide 30f: Filter Button: view without saving -->
 	<string name="CFA_button_view">Вигляд</string>
-	<!-- Filter Button: save & view filter -->
-	<string name="CFA_button_save">Save &amp; View</string>
-	<!-- =========================================== CustomFilterCriteria == -->
-	<!-- Criteria: due by X - display text (? -> user input) -->
+	<string name="CFA_button_save">Зберегти і подивитись</string>
 	<string name="CFC_dueBefore_text">Due By: ?</string>
-	<!-- Criteria: due by X - name of criteria -->
 	<string name="CFC_dueBefore_name">Due By...</string>
 	<string-array name="CFC_dueBefore_entries">
-	<!-- Criteria: due by X - options -->
 		<item>No Due Date</item>
 		<item>Вчора</item>
-		<item>Сьогодні</item>
+		<item>Today</item>
 		<item>Завтра</item>
 		<item>Післязавтра</item>
 		<item>Наступного тижня</item>
 		<item>Наступного місяця</item>
 	</string-array>
-	<!-- Criteria: importance - display text (? -> user input)-->
 	<string name="CFC_importance_text">Priority at least ?</string>
-	<!-- Criteria: importance - name of criteria -->
 	<string name="CFC_importance_name">Пріоритет</string>
-	<!-- Criteria: tag - display text (? -> user input) -->
 	<string name="CFC_tag_text">List: ?</string>
-	<!-- Criteria: tag - name of criteria -->
 	<string name="CFC_tag_name">List...</string>
-	<!-- Criteria: tag_contains - name of criteria -->
 	<string name="CFC_tag_contains_name">List name contains...</string>
-	<!-- Criteria: tag_contains - text (? -> user input) -->
 	<string name="CFC_tag_contains_text">List name contains: ?</string>
-	<!-- Criteria: title_contains - name of criteria -->
 	<string name="CFC_title_contains_name">Title contains...</string>
-	<!-- Criteria: title_contains - text (? -> user input) -->
 	<string name="CFC_title_contains_text">Title contains: ?</string>
-	<!-- Resources for built-in tag plug-in -->
-	<!-- =============================================== Task Edit Controls == -->
-	<!-- Error message for adding to calendar  -->
 	<string name="gcal_TEA_error">Error adding task to calendar!</string>
-	<!-- Label for adding task to calendar -->
-	<!-- slide 21c: Label for adding task to calendar -->
 	<string name="gcal_TEA_addToCalendar_label">Додати до календаря</string>
-	<!-- Label when calendar event already exists -->
 	<string name="gcal_TEA_showCalendar_label">Відкрити календарну подію</string>
-	<!-- Toast when unable to open calendar event -->
-	<!-- Toast when calendar event updated because task changed -->
 	<string name="gcal_TEA_calendar_updated">Calendar event also updated!</string>
-	<!-- No calendar label (don\'t add option) -->
 	<string name="gcal_TEA_nocal">Не додавати</string>
 	<string name="gcal_TEA_none_selected">До календаря?</string>
 	<string name="gcal_TEA_has_event">Кал. подія</string>
-	<!-- ======================================================== Calendars == -->
-	<!-- Calendar event name when task is completed (%s => task title) -->
 	<string name="gcal_completed_title">%s (завершено)</string>
-	<!-- System Default Calendar (displayed if we can\'t figure out calendars)  -->
 	<string name="gcal_GCP_default">Default Calendar</string>
-	<!-- ============================================================= UI == -->
-	<!-- filters header: GTasks -->
 	<string name="gtasks_FEx_header">Google Tasks</string>
-	<!-- filter category for GTasks lists -->
-	<!-- filter title for GTasks lists (%s => list name) -->
 	<string name="gtasks_FEx_title">Google Tasks: %s</string>
-	<!-- dialog prompt for creating a new gtasks list -->
 	<string name="gtasks_FEx_creating_list">Створення списку...</string>
-	<!-- dialog prompt for creating a new gtasks list -->
 	<string name="gtasks_FEx_create_list_dialog">Нове ім\'я списку:</string>
-	<!-- error to show when list creation fails -->
 	<string name="gtasks_FEx_create_list_error">Помилка створення нового списку</string>
-	<!-- short help title for Gtasks -->
 	<string name="CFC_gtasks_list_text">В списку: ?</string>
 	<string name="CFC_gtasks_list_name">In GTasks List...</string>
-	<!-- Message while clearing completed tasks -->
 	<string name="gtasks_GTA_clearing">Очищення виконаних завдань</string>
-	<!-- Label for clear completed menu item -->
 	<string name="gtasks_GTA_clear_completed">Очистити завершені</string>
-	<!-- ============================================ GtasksLoginActivity == -->
-	<!-- Activity Title: Gtasks Login -->
 	<string name="gtasks_GLA_noaccounts">No available Google accounts to sync with.</string>
-	<!-- Sign In Button -->
-	<!-- E-mail Address Label -->
-	<!-- Password Label -->
-	<!--  Authenticating toast -->
 	<string name="gtasks_GLA_authenticating">Автентифікація...</string>
-	<!-- Google Apps for Domain checkbox -->
-	<!-- Error Message when fields aren\'t filled out -->
-	<!-- Error Message when we receive a HTTP 401 Unauthorized -->
 	<string name="gtasks_GLA_errorAuth">Error authenticating! Please check your username and password in your phone\'s account manager</string>
-	<!-- Error Message when we receive an IO Exception -->
 	<string name="gtasks_GLA_errorIOAuth">Sorry, we had trouble communicating with Google servers. Please try again later.</string>
-	<!-- ============================================== GtasksPreferences == -->
-	<!-- GTasks Preferences Title -->
 	<string name="gtasks_GPr_header">Google Tasks</string>
-	<!-- ================================================ Synchronization == -->
-	<!-- title for notification tray when synchronizing -->
-	<!-- Error Message when we receive a HTTP 503 error -->
 	<string name="gtasks_error_backend">Google\'s Task API is in beta and has encountered an error. The service may be down, please try again later.</string>
-	<!-- Error for account not found -->
 	<string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
-	<!-- Error when ping after refreshing token fails -->
 	<string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
-	<!-- Error when account manager returns no auth token or throws exception -->
 	<string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
-	<!-- Error when authorization error happens in background sync -->
 	<string name="gtasks_error_background_sync_auth">Error authenticating in background. Please try initiating a sync while Tasks is running.</string>
 	<string name="gtasks_import_progress">Importing Google Tasks...</string>
 	<string name="gtasks_import_add_to_shared_list">The list %1$s is shared with others! Do you still want to add the task %2$s to it?</string>
 	<string name="gtasks_import_dlg_title">Google Tasks Import</string>
 	<string name="gtasks_import_add_task_ok">Додати завдання</string>
 	<string name="gtasks_import_add_task_cancel">Не додавати завдання</string>
-	<!-- Resources for built-in locale plug-in -->
-	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Tasks Filter Alert</string>
-	<!-- Locale Window Help -->
 	<string name="locale_edit_intro">Tasks will send you a reminder                                                                                                                                             
       when you have any tasks in the following filter:</string>
-	<!-- Locale Window Filter Picker UI -->
-	<!-- Locale Window Interval Label -->
 	<string name="locale_interval_label">Limit notifications to:</string>
-	<!-- Locale Window Interval Values -->
 	<string-array name="locale_interval">
 		<item>раз на годину</item>
 		<item>кожні 6 годин</item>
@@ -1036,57 +564,36 @@ Tasks might not let you know when your tasks are due.\n</string>
 		<item>раз на 3 дні</item>
 		<item>раз в тиждень</item>
 	</string-array>
-	<!-- Locale Notification text -->
 	<string name="locale_notification">You have $NUM matching: $FILTER</string>
-	<!-- Locale Plugin was not found, it is required -->
 	<string name="locale_plugin_required">Please install the Tasks Locale plugin!</string>
-	<!-- ====================== Plugin Boilerplate ========================= -->
-	<!-- replacement string for task edit "Notes" when using OpenCRX -->
 	<string name="opencrx_TEA_notes">Add a Comment</string>
 	<string name="opencrx_creator_input_hint">Creator</string>
 	<string name="opencrx_contact_input_hint">Assigned to</string>
-	<!-- ==================================================== Preferences == -->
-	<!-- creator title for tasks that are not synchronized -->
 	<string name="opencrx_no_creator">(Do Not Synchronize)</string>
-	<!-- preference title for default creator -->
 	<string name="opencrx_PPr_defaultcreator_title">Default ActivityCreator</string>
-	<!--  OpenCRX host and segment group name -->
 	<string name="opencrx_group">OpenCRX server</string>
-	<!--  preference description for OpenCRX host -->
 	<string name="opencrx_host_title">Хост</string>
-	<!--  dialog title for OpenCRX host -->
 	<string name="opencrx_host_dialog_title">OpenCRX host</string>
-	<!--  example for OpenCRX host -->
 	<string name="opencrx_host_summary">For example: <i>mydomain.com</i></string>
-	<!--  preference description for OpenCRX segment -->
 	<string name="opencrx_segment_title">Segment</string>
-	<!--  dialog title for OpenCRX segment -->
 	<string name="opencrx_segment_dialog_title">Synchronized segment</string>
-	<!--  example for OpenCRX segment -->
 	<string name="opencrx_segment_summary">For example: <i>Standard</i></string>
-	<!--  default value for OpenCRX segment -->
 	<string name="opencrx_segment_default">Standard</string>
-	<!--  preference description for OpenCRX provider -->
 	<string name="opencrx_provider_title">Provider</string>
-	<!--  dialog title for OpenCRX provider -->
 	<string name="opencrx_provider_dialog_title">OpenCRX data provider</string>
-	<!--  example for OpenCRX provider -->
 	<string name="opencrx_provider_summary">For example: <i>CRX</i></string>
-	<!--  default value for OpenCRX provider -->
 	<string name="opencrx_provider_default">CRX</string>
-	<!-- ================================================ labels for layout-elements == -->
-	<!-- label for task-assignment spinner on taskeditactivity -->
 	<string name="opencrx_TEA_task_assign_label">Assign this task to this person:</string>
-	<!-- label for dashboard-assignment spinner on taskeditactivity -->
 	<string name="opencrx_TEA_creator_assign_label">Assign this task to this creator:</string>
 	<string name="opencrx_TEA_opencrx_title">OpenCRX Controls</string>
-	<!-- ================================================== EditPreferences == -->
-	<!-- slide 32j: Preference Category: Power Pack -->
 	<string name="EPr_powerpack_header">Advanced settings</string>
-	<string name="EPr_powerpack_summary">Missed call reminders, voice input and miscellaneous settings</string>
+	<string name="EPr_powerpack_summary">Нагадування про пропущені дзвінки, голосове введення та інші установки</string>
 	<string name="speech_err_network">Network error! Speech recognition requires a network connection to work.</string>
 	<string name="speech_err_no_match">Sorry, I couldn\'t understand that! Please try again.</string>
 	<string name="speech_err_default">Sorry, speech recognition encountered an error. Please try again.</string>
+	<string name="premium_attach_file">Attach a file</string>
+	<string name="premium_record_audio">Record a note</string>
+	<string name="premium_remove_file_confirm">Are you sure? Cannot be undone</string>
 	<string name="audio_recording_title">Recording Audio</string>
 	<string name="audio_stop_recording">Stop Recording</string>
 	<string name="audio_speak_now">Speak Now!</string>
@@ -1114,32 +621,21 @@ Tasks might not let you know when your tasks are due.\n</string>
 	<string name="file_err_memory">Image is too large to fit in memory</string>
 	<string name="file_err_copy">Error copying file for attachment</string>
 	<string name="file_err_download">Error downloading file</string>
-	<string name="file_err_no_directory">Whoops! Looks like the files directory doesn\'t exist. Please choose a directory to save files to in the preferences.</string>
+	<string name="file_err_no_directory">Упс! Схоже, папка для зберігання файлів не існує. Будь ласка, вкажіть папку для зберігання файлів в Налаштуваннях.</string>
 	<string name="file_dir_dialog_ok">Use this directory</string>
 	<string name="file_dir_dialog_default">Reset to default</string>
 	<string name="p_files_dir">Premium downloads directory</string>
-	<!-- Description for file download directory preference. %s -> chosen directory -->
-	<string name="p_files_dir_desc">Task attachments saved to: %s</string>
+	<string name="p_files_dir_desc">Прикріплення до задачі збережені в: %s</string>
 	<string name="p_files_dir_desc_default">Default directory</string>
-	<!-- Resources for built-in reminders plug-in -->
-	<!-- =============================================== task edit activity == -->
-	<!-- Task Edit: Reminder group label -->
+	<string name="premium_speech_bubble_2">Підпишіться на рік і заощаджуйте 25%%!</string>
 	<string name="TEA_reminders_group_label">Reminder settings</string>
-	<!-- Task Edit: Reminder header label -->
 	<string name="TEA_reminder_label">Remind me</string>
-	<!-- Task Edit: Reminder @ deadline -->
 	<string name="TEA_reminder_due">When task is due</string>
-	<!-- Task Edit: Reminder after deadline -->
 	<string name="TEA_reminder_overdue">When task is overdue</string>
-	<!-- Task Edit: Reminder at random times (%s => time plural)-->
 	<string name="TEA_reminder_randomly">Randomly once</string>
-	<!-- Task Edit: Reminder alarm clock label -->
 	<string name="TEA_reminder_alarm_label">Ring/vibrate type</string>
-	<!--  slide 45a: Task Edit: Reminder mode: ring once -->
 	<string name="TEA_reminder_mode_once">Тільки раз</string>
-	<!-- slide 45b: Task Edit: Reminder mode: ring five times -->
 	<string name="TEA_reminder_mode_five">5 раз</string>
-	<!-- slide 45c: Task Edit: Reminder mode: ring nonstop -->
 	<string name="TEA_reminder_mode_nonstop">Until I dismiss alarm</string>
 	<string name="TEA_reminder_when">коли</string>
 	<string name="TEA_reminder_due_short">due</string>
@@ -1148,7 +644,6 @@ Tasks might not let you know when your tasks are due.\n</string>
 	<string name="TEA_reminder_display_one">Remind me %s</string>
 	<string name="TEA_reminder_display_multiple">Remind %s</string>
 	<string-array name="TEA_reminder_random">
-	<!-- random reminder choices for task edit page. -->
 		<item>година</item>
 		<item>день</item>
 		<item>тиждень</item>
@@ -1156,29 +651,19 @@ Tasks might not let you know when your tasks are due.\n</string>
 		<item>місяць</item>
 		<item>на проязі 2-х місяців</item>
 	</string-array>
-	<!-- ==================================================== notifications == -->
-	<!-- Name of filter when viewing a reminder -->
 	<string name="rmd_NoA_filter">Reminder!</string>
-	<!-- Reminder: Task was already done -->
 	<string name="rmd_NoA_done">Complete</string>
-	<!-- Reminder: Snooze button (remind again later) -->
 	<string name="rmd_NoA_snooze">Відкласти</string>
-	<!-- Reminder: Completed Toast -->
 	<string name="rmd_NoA_completed_toast">Congratulations on finishing!</string>
-	<!-- Prefix for reminder dialog title -->
 	<string name="rmd_NoA_dlg_title">Reminder:</string>
-	<!-- ==================================================== user reengagement == -->
-	<!-- Titles for user reengagement notifications -->
 	<string-array name="rmd_reengage_notif_titles">
 		<item>A note from Tasks</item>
-	<!-- %s -> first name -->
 		<item>Memo for %s.</item>
 		<item>Your Tasks digest</item>
 		<item>Reminders from Tasks</item>
 	</string-array>
 	<string name="rmd_reengage_name_default">ти</string>
 	<string name="rmd_reengage_add_tasks">Додати завдання</string>
-	<!-- Speech bubble options for astrid in reengagement notifs -->
 	<string-array name="rmd_reengage_dialog_options">
 		<item>Time to shorten your to-do list!</item>
 		<item>Dear sir or madam, some tasks await your inspection!</item>
@@ -1188,7 +673,6 @@ Tasks might not let you know when your tasks are due.\n</string>
 		<item>You look fabulous! Ready to get started?</item>
 		<item>A lovely day for getting some work done, I think!</item>
 	</string-array>
-	<!-- Speech bubble options for astrid in reengagement notifs when no tasks present -->
 	<string-array name="rmd_reengage_dialog_empty_options">
 		<item>Don\'t you want to get organized?</item>
 		<item>I\'m Tasks! I\'m here to help you do more!</item>
@@ -1197,94 +681,50 @@ Tasks might not let you know when your tasks are due.\n</string>
 		<item>You\'re serious about getting more done? So am I!</item>
 		<item>Pleasure to make your acquaintance!</item>
 	</string-array>
-	<!-- ============================================= reminder preferences == -->
-	<!-- slide 33d: Reminder Preference Screen Title -->
 	<string name="rmd_EPr_alerts_header">Reminder settings</string>
 	<string name="rmd_EPr_alerts_summary">Quiet hours, snooze options, persistence level</string>
-	<!-- Reminder Preference: Reminders Enabled Title -->
 	<string name="rmd_EPr_enabled_title">Reminders enabled?</string>
-	<!-- Reminder Preference Reminders Enabled Description (true) -->
 	<string name="rmd_EPr_enabled_desc_true">Reminders are enabled (this is normal)</string>
-	<!-- Reminder Preference Reminders Enabled Description (false) -->
 	<string name="rmd_EPr_enabled_desc_false">Reminders will never appear on your phone</string>
-	<!-- Reminder Preference: Quiet Hours Start Title -->
 	<string name="rmd_EPr_quiet_hours_start_title">Quiet hours start</string>
-	<!-- Reminder Preference: Quiet Hours Start Description (%s => time set) -->
-	<string name="rmd_EPr_quiet_hours_start_desc">Notifications will be silent after %s.\nNote: vibrations are controlled by the \"Vibrate on alert\" setting</string>
-	<!-- Reminder Preference: Quiet Hours Start/End Description (disabled) -->
+	<string name="rmd_EPr_quiet_hours_start_desc">Notifications will be silent after %s.\nNote: vibrations are controlled by the "Vibrate on alert" setting</string>
 	<string name="rmd_EPr_quiet_hours_desc_none">Quiet hours is disabled</string>
-	<!-- Reminder Preference: Quiet Hours End Title -->
 	<string name="rmd_EPr_quiet_hours_end_title">Quiet hours end</string>
-	<!-- Reminder Preference: Quiet Hours End Description (%s => time set) -->
 	<string name="rmd_EPr_quiet_hours_end_desc">Notifications will stop being silent starting at %s</string>
-	<!-- Reminder Preference: Default Reminder Title -->
 	<string name="rmd_EPr_rmd_time_title">Default reminder</string>
-	<!-- Reminder Preference: Default Reminder Description (%s => time set) -->
 	<string name="rmd_EPr_rmd_time_desc">Notifications for tasks without due times will appear at %s</string>
-	<!-- Reminder Preference: Notification Ringtone Title -->
 	<string name="rmd_EPr_ringtone_title">Notification ringtone</string>
-	<!-- Reminder Preference: Notification Ringtone Description (when custom tone is set) -->
 	<string name="rmd_EPr_ringtone_desc_custom">Custom ringtone has been set</string>
-	<!-- Reminder Preference: Notification Ringtone Description (when silence is set) -->
 	<string name="rmd_EPr_ringtone_desc_silent">Ringtone set to silent</string>
-	<!-- Reminder Preference: Notification Ringtone Description (when custom tone is not set) -->
 	<string name="rmd_EPr_ringtone_desc_default">Default ringtone will be used</string>
-	<!-- Reminder Preference: Notification Persistence Title -->
 	<string name="rmd_EPr_persistent_title">Notification persistence</string>
-	<!-- Reminder Preference: Notification Persistence Description (true) -->
 	<string name="rmd_EPr_persistent_desc_true">Notifications must be viewed individually to be cleared</string>
-	<!-- Reminder Preference: Notification Persistence Description (false) -->
 	<string name="rmd_EPr_persistent_desc_false">Notifications can be cleared with \"Clear All\" button</string>
-	<!-- Reminder Preference: Notification Icon Title -->
-	<!-- Reminder Preference: Notification Icon Description -->
-	<!-- Reminder Preference: Max Volume for Multiple-Ring reminders Title -->
 	<string name="rmd_EPr_multiple_maxvolume_title">Max volume for multiple-ring reminders</string>
-	<!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (true) -->
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks will max out the volume for multiple-ring reminders</string>
-	<!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (false) -->
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks will use the system setting for the volume</string>
-	<!-- Reminder Preference: Vibrate Title -->
 	<string name="rmd_EPr_vibrate_title">Vibrate on alert</string>
-	<!-- Reminder Preference: Vibrate Description (true) -->
 	<string name="rmd_EPr_vibrate_desc_true">Tasks will vibrate when sending notifications</string>
-	<!-- Reminder Preference: Vibrate Description (false) -->
 	<string name="rmd_EPr_vibrate_desc_false">Tasks will not vibrate when sending notifications</string>
-	<!-- Reminder Preference: Nagging Title -->
 	<string name="rmd_EPr_nagging_title">Tasks encouragements</string>
-	<!-- Reminder Preference: Nagging Description (true) -->
 	<string name="rmd_EPr_nagging_desc_true">Tasks will show up to give you an encouragement during reminders</string>
-	<!-- Reminder Preference: Nagging Description (false) -->
 	<string name="rmd_EPr_nagging_desc_false">Tasks will not give you any encouragement messages</string>
-	<!-- Reminder Preference: Snooze Dialog Title -->
 	<string name="rmd_EPr_snooze_dialog_title">Snooze dialog HH:MM</string>
-	<!-- Reminder Preference: Snooze Dialog Description (true) -->
 	<string name="rmd_EPr_snooze_dialog_desc_true">Snooze by selecting new snooze time (HH:MM)</string>
-	<!-- Reminder Preference: Nagging Description (false) -->
 	<string name="rmd_EPr_snooze_dialog_desc_false">Snooze by selecting # days/hours to snooze</string>
-	<!-- slide 44g: Reminder Preference: Default Reminders Title -->
 	<string name="rmd_EPr_defaultRemind_title">Random reminders</string>
-	<!-- Reminder Preference: Default Reminders Setting (disabled) -->
 	<string name="rmd_EPr_defaultRemind_desc_disabled">New tasks will have no random reminders</string>
-	<!-- Reminder Preference: Default Reminders Setting (%s => setting) -->
 	<string name="rmd_EPr_defaultRemind_desc">New tasks will remind randomly: %s</string>
-	<!-- slide 39a: Defaults Title -->
 	<string-array name="EPr_reminder_random">
-	<!-- slide 44a: Reminder Preference: random reminder choices for preference page. -->
 		<item>disabled</item>
-	<!-- slide 44b -->
 		<item>щогодинно</item>
-	<!-- slide 44c -->
 		<item>щоденно</item>
-	<!-- slide 44d-->
 		<item>щотижня</item>
-	<!-- slide 44e-->
 		<item>два рази на тиждень</item>
-	<!-- slide 44f -->
 		<item>щомісяця</item>
 		<item>два рази на місяць</item>
 	</string-array>
 	<string-array name="EPr_quiet_hours_start">
-	<!-- Reminder Preference: quiet_hours_start: options for preference menu. Translate but don\'t change the times!. -->
 		<item>disabled</item>
 		<item>8 PM</item>
 		<item>9 PM</item>
@@ -1312,7 +752,6 @@ Tasks might not let you know when your tasks are due.\n</string>
 		<item>7 PM</item>
 	</string-array>
 	<string-array name="EPr_quiet_hours_end">
-	<!-- Reminder Preference: quiet_hours_end: options for preference menu. Translate but don\'t change the times! -->
 		<item>9 AM</item>
 		<item>10 AM</item>
 		<item>11 AM</item>
@@ -1339,7 +778,6 @@ Tasks might not let you know when your tasks are due.\n</string>
 		<item>8 AM</item>
 	</string-array>
 	<string-array name="EPr_rmd_time">
-	<!-- Reminder Preference: rmd_time: options for preference menu. Translate but don\'t change the times! -->
 		<item>9 AM</item>
 		<item>10 AM</item>
 		<item>11 AM</item>
@@ -1365,12 +803,10 @@ Tasks might not let you know when your tasks are due.\n</string>
 		<item>7 AM</item>
 		<item>8 AM</item>
 	</string-array>
-	<!-- =============================================== random reminders == -->
 	<string name="reminders_social">These people are counting on you!</string>
 	<string name="reminders_social_one">%s is counting on you!</string>
 	<string name="reminders_social_multiple">%1$s, %2$s, and others are counting on you!</string>
 	<string-array name="reminders">
-	<!-- reminders: Make these < 20 chars so the task name is displayed -->
 		<item>Привіт! маєш хвилинку?</item>
 		<item>Можу я подивитися на секунду?</item>
 		<item>Маєш пару хвилин?</item>
@@ -1385,7 +821,6 @@ Tasks might not let you know when your tasks are due.\n</string>
 		<item>It\'s a great day to</item>
 	</string-array>
 	<string-array name="reminders_due">
-	<!-- reminders related to task due date -->
 		<item>Time to work!</item>
 		<item>Due date is here!</item>
 		<item>Ready to start?</item>
@@ -1397,7 +832,6 @@ Tasks might not let you know when your tasks are due.\n</string>
 		<item>You free? Time to</item>
 	</string-array>
 	<string-array name="reminders_snooze">
-	<!-- reminders related to snooze -->
 		<item>Don\'t be lazy now!</item>
 		<item>Snooze time is up!</item>
 		<item>No more snoozing!</item>
@@ -1405,7 +839,6 @@ Tasks might not let you know when your tasks are due.\n</string>
 		<item>No more postponing!</item>
 	</string-array>
 	<string-array name="reminder_responses">
-	<!-- responses to reminder: Tasks says...  (user should answer yes or no)  -->
 		<item>I\'ve got something for you!</item>
 		<item>Ready to put this in the past?</item>
 		<item>Why don\'t you get this done?</item>
@@ -1435,7 +868,6 @@ Tasks might not let you know when your tasks are due.\n</string>
 		<item>I die a little every time you ignore me.</item>
 	</string-array>
 	<string-array name="postpone_nags">
-	<!-- Tasks\'s nagging when user clicks postpone -->
 		<item>Please tell me it isn\'t true that you\'re a procrastinator!</item>
 		<item>Doesn\'t being lazy get old sometimes?</item>
 		<item>Somewhere, someone is depending on you to finish this!</item>
@@ -1451,23 +883,14 @@ Tasks might not let you know when your tasks are due.\n</string>
 		<item>Didn\'t you make that excuse last time?</item>
 		<item>I can\'t help you organize your life if you do that...</item>
 	</string-array>
-	<!-- Resources for built-in repeat plug-in -->
-	<!-- repeating plugin name -->
 	<string name="repeat_plugin">Repeating Tasks</string>
-	<!-- repeating plugin description -->
 	<string name="repeat_plugin_desc">Allows tasks to repeat</string>
-	<!-- slide 20a: checkbox for turning on/off repeats -->
 	<string name="repeat_enabled">Repeats</string>
-	<!-- slide 20b: button for "every x" part of repeat (%d -> repeat value)  -->
 	<string name="repeat_every">Every %d</string>
-	<!-- hint when opening repeat interval -->
 	<string name="repeat_interval_prompt">Repeat interval</string>
-	<!-- slide 19b-->
 	<string name="repeat_never">Not repeating</string>
-	<!-- slide 20f-->
 	<string name="repeat_dont">Don\'t repeat</string>
 	<string-array name="repeat_interval_short">
-	<!-- repeat interval (days,weeks,months,hours,minutes,years) -->
 		<item>д.</item>
 		<item>тиж.</item>
 		<item>м.</item>
@@ -1476,7 +899,6 @@ Tasks might not let you know when your tasks are due.\n</string>
 		<item>р.</item>
 	</string-array>
 	<string-array name="repeat_interval">
-	<!-- slide 20e: repeat interval (days,weeks,months,hours,minutes,years) -->
 		<item>Day(s)</item>
 		<item>Week(s)</item>
 		<item>Month(s)</item>
@@ -1504,128 +926,65 @@ Tasks might not let you know when your tasks are due.\n</string>
 	<string name="repeat_until_title">Repeat until...</string>
 	<string name="repeat_keep_going">Keep going</string>
 	<string-array name="repeat_type">
-	<!-- slide 20c: repeat type (date to repeat from) -->
 		<item>from due date</item>
-	<!-- slide 20c -->
 		<item>from completion date</item>
 	</string-array>
-	<!-- task detail weekly by day ($I -> interval, i.e. 1 week, $D -> days, i.e. Monday, Tuesday) -->
 	<string name="repeat_detail_byday">$I on $D</string>
-	<!-- task detail for repeat from due date (%s -> interval) -->
 	<string name="repeat_detail_duedate">Every %s</string>
-	<!-- task detail for repeat until a specific date (%1$s -> interval, %2$s -> finish date)-->
 	<string name="repeat_detail_duedate_until">Every %1$s\nuntil %2$s</string>
-	<!-- task detail for repeat from completion date (%s -> interval) -->
 	<string name="repeat_detail_completion">%s after completion</string>
-	<!-- text for button when repeating task indefinitely -->
 	<string name="repeat_forever">Повторювати завжди</string>
-	<!-- text for button when repeating task until specified date (%s -> date string) -->
 	<string name="repeat_until">Повторювати до %s</string>
-	<!-- text for confirmation dialog after repeating a task (%s -> task title)-->
 	<string name="repeat_rescheduling_dialog_title">Rescheduling task \"%s\"</string>
-	<!-- text for confirmation dialog after repeating a task for the last time (%s -> task title)-->
 	<string name="repeat_rescheduling_dialog_title_last_time">Completed repeating task \"%s\"</string>
-	<!-- text for when a repeating task was rescheduled (%1$s -> encouragment string, %2$s -> old due date, %3$s -> new due date)-->
 	<string name="repeat_rescheduling_dialog_bubble">%1$s I\'ve rescheduled this repeating task from %2$s to %3$s</string>
-	<!-- text for when a repeating task was rescheduled but didn\'t have a due date yet, (%1$s -> encouragement string, %2$s -> new due date) -->
 	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s I\'ve rescheduled this repeating task to %2$s</string>
-	<!-- text for when a repeating task was rescheduled for the last time (%1$s -> repeat end date, %2$s -> encouragement string)-->
 	<string name="repeat_rescheduling_dialog_bubble_last_time">You had this repeating until %1$s, and now you\'re all done. %2$s</string>
 	<string-array name="repeat_encouragement">
-	<!-- Encouragement in rescheduling dialog bubble -->
 		<item>Good job!</item>
 		<item>Wow… I\'m so proud of you!</item>
 		<item>I love when you\'re productive!</item>
 		<item>Doesn\'t it feel good to check something off?</item>
 	</string-array>
 	<string-array name="repeat_encouragement_last_time">
-	<!-- Encouragement in rescheduling dialog bubble -->
 		<item>Good job!</item>
 		<item>I\'m so proud of you!</item>
 		<item>I love when you\'re productive!</item>
 	</string-array>
-	<!-- Subtasks Help Introduction -->
 	<string name="subtasks_help_title">Sort and Indent</string>
 	<string name="subtasks_help_1">Tap and hold to move a task</string>
 	<string name="subtasks_help_2">Drag vertically to rearrange</string>
 	<string name="subtasks_help_3">Drag horizontally to indent</string>
-	<!-- Resources for built-in tag plug-in -->
-	<!-- =============================================== Task Edit Controls == -->
-	<!-- Tags label -->
 	<string name="TEA_tags_label">Списки</string>
-	<!-- Tags label long version -->
 	<string name="TEA_tags_label_long">Додати до списку</string>
-	<!-- Tags hint -->
 	<string name="TEA_tag_hint">Новий список</string>
-	<!-- Tags dropdown -->
-	<!-- =============================================== Task List Controls == -->
-	<!-- menu item for tags -->
-	<!-- ========================================================== Extras == -->
-	<!-- Context Item: show tag -->
-	<!-- slide 25a: Dialog: new list -->
 	<string name="tag_new_list">Новий список</string>
-	<!-- Dialog: list saved -->
-	<!-- Dialog: task created without title -->
 	<string name="tag_no_title_error">Please enter a name for this list first!</string>
-	<!-- ========================================================== Filters == -->
-	<!-- filter button to add tag -->
 	<string name="tag_FEx_add_new">Новий</string>
-	<!-- filter header for tags -->
 	<string name="tag_FEx_header">Списки</string>
-	<!-- filter header for tags user created -->
-	<!-- filter header for tags, shared with user -->
-	<!-- filter header for tags which have no active tasks -->
-	<!-- slide 10d: filter for untagged tasks -->
 	<string name="tag_FEx_untagged">Без категорії</string>
-	<!-- slide 27a: %s => tag name -->
-	<!-- context menu option to rename a tag -->
 	<string name="tag_cm_rename">Переіменувати список</string>
-	<!-- context menu option to delete a tag -->
 	<string name="tag_cm_delete">Видалити список</string>
-	<!-- context menu option to leave a shared list -->
 	<string name="tag_cm_leave">Покинути список</string>
-	<!-- Dialog to confirm deletion of a tag (%s -> the name of the list to be deleted) -->
 	<string name="DLG_delete_this_tag_question">Delete this list: %s? (No tasks will be deleted.)</string>
-	<!-- Dialog to confirm leaving a shared tag (%s -> the name of the shared list to leave) -->
 	<string name="DLG_leave_this_shared_tag_question">Leave this shared list: %s? (No tasks will be deleted.)</string>
-	<!-- Dialog to rename tag -->
 	<string name="DLG_rename_this_tag_header">Rename the list %s to:</string>
-	<!-- Toast notification that no changes have been made -->
 	<string name="TEA_no_tags_modified">No changes made</string>
-	<!-- Toast notification that a tag has been deleted (%1$s - list name, %2$d - # tasks) -->
 	<string name="TEA_tags_deleted">List %1$s was deleted, affecting %2$d tasks</string>
-	<!-- Toast notification that a shared tag has been left (%1$s - list name, %2$d - # tasks) -->
 	<string name="TEA_tags_left">You left shared list %1$s, affecting %2$d tasks</string>
-	<!-- Toast notification that a tag has been renamed (%1$s - old name, %2$s - new name, %3$d - # tasks) -->
 	<string name="TEA_tags_renamed">Renamed %1$s with %2$s for %3$d tasks</string>
-	<!-- Header for tag settings -->
 	<string name="tag_settings_title">List Settings</string>
-	<!-- Header for tag activity -->
 	<string name="tag_updates_title">Activity: %s</string>
-	<!-- Delete button for tag settings -->
 	<string name="tag_delete_button">Delete list</string>
-	<!-- slide 28d: Leave button for tag settings -->
 	<string name="tag_leave_button">Leave this list</string>
-	<!-- Resources for built-in timers plug-in -->
-	<!-- Task List: Start Timer button -->
-	<!-- Task List: Stop Timer button -->
-	<!-- Android Notification Title (%s => # tasks) -->
-	<string name="TPl_notification">Timers Active for %s!</string>
-	<!-- Filter Header for Timer plugin -->
-	<!-- Filter for Timed Tasks -->
+	<string name="TPl_notification">Для %s діють таймери!</string>
 	<string name="TFE_workingOn">Tasks Being Timed</string>
-	<!-- Title for TEA -->
-	<string name="TEA_timer_controls">Timer</string>
-	<!-- Edit Notes: create comment for when timer is started -->
+	<string name="TEA_timer_controls">Таймер</string>
 	<string name="TEA_timer_comment_started">started this task:</string>
-	<!-- Edit Notes: create comment for when timer is stopped -->
 	<string name="TEA_timer_comment_stopped">stopped doing this task:</string>
-	<!-- Edit Notes: comment to notify how long was spent on task -->
 	<string name="TEA_timer_comment_spent">Time spent:</string>
-	<!-- Update string from activity codes %1$s - user, %2$s - target name, %3$s - message, %4$s - other_user-->
 	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
     Please do not translate this part of the string. -->
-	<!-- These are still in use -->
 	<string name="update_string_default_comment">%1$s commented: %3$s</string>
 	<string name="update_string_task_comment">%1$s on $link_task: %3$s</string>
 	<string name="update_string_tag_comment">%1$s on %2$s: %3$s</string>
@@ -1684,33 +1043,20 @@ Tasks might not let you know when your tasks are due.\n</string>
 	<string name="history_repeat_from_completion">after completion</string>
 	<string name="history_acknowledged">viewed %s</string>
 	<string name="history_default">changed %1$s to %2$s</string>
-	<!-- Voice Add Prompt Text -->
 	<string name="voice_create_prompt">Speak to create a task</string>
 	<string name="voice_edit_title_prompt">Speak to set task title</string>
 	<string name="voice_edit_note_prompt">Speak to set task description</string>
-	<!-- Preference: Task List recognition-service is not installed, but available -->
-	<string name="EPr_voiceInputInstall_dlg">Voice-input is not installed.\nDo you want to go to the market and install it?</string>
-	<!-- Preference: Task List recognition-service is not available for this system -->
+	<string name="EPr_voiceInputInstall_dlg">Голосове введення не встановлено. \n Хочете перейти на Market і встановити?</string>
 	<string name="EPr_voiceInputUnavailable_dlg">Unfortunately voice-input is not available for your system.\nIf possible, please update Android to 2.1 or later.</string>
-	<!-- Preference: Market is not available for this system -->
 	<string name="EPr_marketUnavailable_dlg">Unfortunately the market is not available for your system.\nIf possible, try downloading voice search from another source.</string>
-	<!-- slide 38d:  Preference: Task List Show Voice-button if recognition-service is available -->
-	<string name="EPr_voiceInputEnabled_title">Voice input</string>
-	<!-- slide 38a: Preference: voice button description (true) -->
-	<string name="EPr_voiceInputEnabled_desc_enabled">Voice input button will be displayed in task list page</string>
-	<!-- Preference: voice button description (false) -->
-	<string name="EPr_voiceInputEnabled_desc_disabled">Voice input button will be hidden on task list page</string>
-	<!-- slide 38e: Preference: Task List Voice-button directly creates tasks -->
+	<string name="EPr_voiceInputEnabled_title">Голосове введення</string>
+	<string name="EPr_voiceInputEnabled_desc_enabled">Кнопку голосового введення буде відображено на сторінці списку завдань</string>
+	<string name="EPr_voiceInputEnabled_desc_disabled">Кнопка голосового введення буде приховано на сторінці списку завдань</string>
 	<string name="EPr_voiceInputCreatesTask_title">Directly create tasks</string>
-	<!-- Preference: Task List Voice-creation description (true) -->
-	<string name="EPr_voiceInputCreatesTask_desc_enabled">Tasks will automatically be created from voice input</string>
-	<!-- slide 38b: Preference: Task List Voice-creation description (false) -->
-	<string name="EPr_voiceInputCreatesTask_desc_disabled">You can edit the task title after voice input finishes</string>
-	<!-- slide 38f: Preference: Voice reminders if TTS-service is available -->
-	<string name="EPr_voiceRemindersEnabled_title">Voice reminders</string>
-	<!-- Preference: Voice reminders description (true) -->
+	<string name="EPr_voiceInputCreatesTask_desc_enabled">Завдання будуть автоматично створені за допомогою голосового введення</string>
+	<string name="EPr_voiceInputCreatesTask_desc_disabled">Ви зможете редагувати заголовок після завершення голосового введення</string>
+	<string name="EPr_voiceRemindersEnabled_title">Голосові нагадування</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks will speak task names during task reminders</string>
-	<!-- slide 38c: Preference: Voice reminders description (false) -->
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks will sound a ringtone during task reminders</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>

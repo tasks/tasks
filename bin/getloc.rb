@@ -38,6 +38,7 @@ def export(tmp_files, lang, src_files_block)
       %x(curl --form file=@#{f} --user "#{@user}:#{@password}" https://api.getlocalization.com/#{PROJECT_NAME}/api/update-master/)
     end
   else
+      raise "dont do this if you already exported your translations"
     lang_tmp = astrid_code_to_getloc_code(lang)
     tmp_files.each do |f|
       puts "Updating language file #{f}"
@@ -84,6 +85,7 @@ def import(tmp_files, lang, dst_files_block)
       name = File.basename(tmp_files[i])
       %x(curl --user "#{@user}:#{@password}" https://api.getlocalization.com/#{PROJECT_NAME}/api/translations/file/#{name}/#{lang_tmp}/ -o #{tmp_files[i]})
       %x(sed -i '' "s/\\([^\\\\\\]\\)'/\\1\\\\\\'/g" #{tmp_files[i]})
+      `sed -i '' '/\s*<!--.*-->\s*$/d' #{tmp_files[i]}` # strip comments
       puts "Moving #{tmp_files[i]} to #{dst_files[i]}"
       %x(mv #{tmp_files[i]} #{dst_files[i]})
     end
