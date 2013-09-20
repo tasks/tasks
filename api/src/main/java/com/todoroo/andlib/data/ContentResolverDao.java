@@ -133,9 +133,6 @@ public class ContentResolverDao<TYPE extends AbstractModel> {
     /**
      * Returns object corresponding to the given identifier
      *
-     * @param database
-     * @param table
-     *            name of table
      * @param properties
      *            properties to read
      * @param id

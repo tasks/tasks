@@ -185,7 +185,7 @@ public class ReminderControlSet extends PopupControlSet {
         boolean appendedWhen = false;
         if ((value & Task.NOTIFY_AT_DEADLINE) > 0) {
             if (reminderCount > 0) {
-                reminderString.append(" & "); //$NON-NLS-1$
+                reminderString.append(", "); //$NON-NLS-1$
             }
 
             reminderString.append(activity.getString(R.string.TEA_reminder_when)).append(" "); //$NON-NLS-1$
@@ -196,7 +196,7 @@ public class ReminderControlSet extends PopupControlSet {
 
         if ((value & Task.NOTIFY_AFTER_DEADLINE) > 0 && reminderCount < 2) {
             if (reminderCount > 0) {
-                reminderString.append(" & "); //$NON-NLS-1$
+                reminderString.append(", "); //$NON-NLS-1$
             }
 
             if (!appendedWhen) {

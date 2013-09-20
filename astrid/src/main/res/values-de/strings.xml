@@ -2280,7 +2280,7 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
   <!-- slide 45c: Task Edit: Reminder mode: ring nonstop -->  
   <string name="TEA_reminder_mode_nonstop">Bis ich den Alarm abschalte</string>
   
-  <string name="TEA_reminder_when">when</string>
+  <string name="TEA_reminder_when">wenn</string>
   
   <string name="TEA_reminder_due_short">fällig</string>
 
