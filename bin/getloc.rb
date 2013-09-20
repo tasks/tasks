@@ -1,4 +1,7 @@
 #!/usr/bin/env ruby
+$:.unshift File.dirname(__FILE__)
+require 'clean_translations'
+
 # Script for invoking the GetLocalization tools
 # IMPORTANT: Right now, must be invoked from the project's root directory.
 # Usage: ./bin/getloc.rb [cmd] [lang]
@@ -89,6 +92,7 @@ def import(tmp_files, lang, dst_files_block)
       puts "Moving #{tmp_files[i]} to #{dst_files[i]}"
       %x(mv #{tmp_files[i]} #{dst_files[i]})
     end
+    remove_untranslated_strings *dst_files
   end
 
 end
