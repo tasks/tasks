@@ -26,11 +26,6 @@
 	<string name="actfm_friendship_connect">Добавить друга</string>
 	<string name="actfm_friendship_accept">Принять</string>
 	<string name="TVA_add_comment">Добавить комментарий...</string>
-	<string-array name="TVA_tabs">
-		<item>Задачи</item>
-		<item>Действия</item>
-		<item>Настройки списка</item>
-	</string-array>
 	<string name="actfm_TVA_menu_refresh">Обновить</string>
 	<string name="actfm_TVA_tag_label">Список</string>
 	<string name="actfm_TVA_tag_picture">Укажите фото:</string>
@@ -127,14 +122,6 @@
 	<string name="TLA_quick_add_hint_assign">Добавить что-нибудь для %s</string>
 	<string name="TLA_notification_volume_low">Звуковые извещения заглушены. Вы не услышите Tasks!</string>
 	<string name="TLA_notification_disabled">Напоминания Tasks отключены! Вы не будете получать никаких напоминаний</string>
-	<string-array name="TLA_filters">
-		<item>Активные</item>
-		<item>Сегодня</item>
-		<item>Скоро</item>
-		<item>Просроченные</item>
-		<item>Готово</item>
-		<item>Скрытые</item>
-	</string-array>
 	<string name="TLA_quickadd_confirm_title">Вы сказали, \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Я создал задачу \"%1$s\" %2$s в %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">для %s</string>
@@ -170,7 +157,6 @@
 	<string name="SSD_sort_reverse">В обратном порядке</string>
 	<string name="SSD_save_temp">Только один раз</string>
 	<string name="SSD_save_always">Всегда</string>
-	<string name="FSA_label">Список или Фильтр Tasks</string>
 	<string name="FLA_context_shortcut">Создать ярлык на рабочем столе…</string>
 	<string name="FLA_shortcut_dialog_title">Создать ярлык</string>
 	<string name="FLA_shortcut_dialog">Имя ярлыка:</string>
@@ -187,9 +173,6 @@
 	<string name="TEA_urgency_none">Пусто</string>
 	<string name="TEA_hideUntil_label">Скрыть до</string>
 	<string name="TEA_hideUntil_message">Задача будет скрыта до %s</string>
-	<string-array name="TEA_loading">
-		<item>Загрузка...</item>
-	</string-array>
 	<string name="TEA_note_label">Описание</string>
 	<string name="TEA_notes_hint">Введите описание задачи...</string>
 	<string name="TEA_estimatedDuration_label">Как долго это продлится?</string>
@@ -338,18 +321,6 @@
 	<string name="EPr_config_dialog_default_id">По умолчанию</string>
 	<string name="EPr_show_save_and_cancel">Показать сохранить и отменить</string>
 	<string name="EPr_swipe_lists_performance_title">Свайп между списками</string>
-	<string-array name="EPr_swipe_lists_performance_mode">
-		<item>Нет свайпа</item>
-		<item>Беречь память</item>
-		<item>Нормальная производительность</item>
-		<item>Высокая производительность</item>
-	</string-array>
-	<string-array name="EPr_swipe_lists_performance_desc">
-		<item>Свайп между списками выключен</item>
-		<item>Меньшая производительность</item>
-		<item>Настройка по умолчанию</item>
-		<item>Использовать больше системных ресурсов</item>
-	</string-array>
 	<string name="swipe_lists_helper_title">Свайп между списками</string>
 	<string name="swipe_lists_helper_header">Свайп влево или вправо чтобы быстро переключать списки</string>
 	<string name="swipe_lists_helper_subtitle">Измените настройки в Параметры -&gt; Интерфейс</string>
@@ -818,22 +789,6 @@
 		<item>Только если вы уже сделали это, вы можете пойти на улицу и поиграть.</item>
 		<item>Время пришло. Вы не можете откладывать неизбежное.</item>
 		<item>Я будто умираю каждый раз, когда Вы забываете обо мне.</item>
-	</string-array>
-	<string-array name="postpone_nags">
-		<item>Но признайса, ты ведь не любишь откладывать?</item>
-		<item>Даже быть ленивым иногда надоедает!</item>
-		<item>А ведь где-нибудь кто-то надеется, что ты завершишь это!</item>
-		<item>Когда ты выбираешь отложить, ты ведь думаешь \'я сделаю это\', да?</item>
-		<item>Ты ведь больше не будешь откладывать?</item>
-		<item>Просто закончи это сегодня и я никому не скажу!</item>
-		<item>Зачем откладывать, когда ты можешь… мм… не откладывать!</item>
-		<item>Я надеюсь, ты завершишь это когда-нибудь?</item>
-		<item>Я считаю, ты замечателен! Как насчёт не сбавлять темп?</item>
-		<item>Ты сможешь добиться цели, если сделаешь это?</item>
-		<item>Отложить, отложить, отложить… Когда же ты изменишься?</item>
-		<item>С меня достаточно извинений! Просто сделай это!</item>
-		<item>Разве ты за это не извинялся в прошлый раз?</item>
-		<item>Я ничем не смогу помочь, если ты так поступаешь…</item>
 	</string-array>
 	<string name="repeat_plugin">Повторяющиеся задачи</string>
 	<string name="repeat_plugin_desc">Позволяет задачам повторяться</string>

@@ -64,6 +64,7 @@
 	<string name="yest">Hier</string>
 	<string name="DLG_confirm_title">Confirmer ?</string>
 	<string name="DLG_question_title">Question :</string>
+	<string name="DLG_information_title">Informations</string>
 	<string name="DLG_error_title">Erreur !</string>
 	<string name="DLG_close">Fermer</string>
 	<string name="DLG_error">Oups, une erreur est survenue ! Voici ce qu\'il s\'est passé :\n\n%s</string>
@@ -72,6 +73,7 @@
 	<string name="SyP_progress">Synchronisation de vos tâches...</string>
 	<string name="SyP_progress_toast">Synchronisation...</string>
 	<string name="SyP_label">Synchronisation</string>
+	<string name="Sync_now_label">Synchroniser maintenant</string>
 	<string name="SyP_summary">Tâches Google, données enregistrées, sauvegarde locale</string>
 	<string name="SyP_ioerror">Erreur de connexion ! Veuillez vérifier votre connexion Internet.</string>
 	<string name="sync_SPr_group_status">Statut</string>

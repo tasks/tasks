@@ -25,11 +25,6 @@
 	<string name="actfm_friendship_connect">新增好友</string>
 	<string name="actfm_friendship_accept">接受</string>
 	<string name="TVA_add_comment">添加評論</string>
-	<string-array name="TVA_tabs">
-		<item>工作</item>
-		<item>活動</item>
-		<item>清單設定</item>
-	</string-array>
 	<string name="actfm_TVA_menu_refresh">重新整理</string>
 	<string name="actfm_TVA_tag_label">列表名稱：</string>
 	<string name="actfm_TVA_tag_picture">清單圖片</string>
@@ -120,14 +115,6 @@
 	<string name="TLA_quick_add_hint_assign">為 %s 增加任務工作</string>
 	<string name="TLA_notification_volume_low">已靜音。你不會再聽到了！</string>
 	<string name="TLA_notification_disabled">Tasks提醒功能被關閉，你不會收到任何提醒。</string>
-	<string-array name="TLA_filters">
-		<item>激活</item>
-		<item>今天</item>
-		<item>馬上</item>
-		<item>延遲</item>
-		<item>完成</item>
-		<item>編輯工作</item>
-	</string-array>
 	<string name="TLA_quickadd_confirm_title">你說: \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">我建立的「%1$s」%3$s 將於 %2$s 到期</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">為 %s</string>
@@ -161,7 +148,6 @@
 	<string name="SSD_sort_reverse">反向排序</string>
 	<string name="SSD_save_temp">僅一次</string>
 	<string name="SSD_save_always">總是</string>
-	<string name="FSA_label">Tasks 列表或過濾器</string>
 	<string name="FLA_context_shortcut">在桌面建立捷徑</string>
 	<string name="FLA_shortcut_dialog_title">建立捷徑</string>
 	<string name="FLA_shortcut_dialog">捷徑名稱</string>
@@ -175,9 +161,6 @@
 	<string name="TEA_urgency_specific_time">指定時間?</string>
 	<string name="TEA_urgency_none">無</string>
 	<string name="TEA_hideUntil_message">任務工作將會被隱藏，直到 %s</string>
-	<string-array name="TEA_loading">
-		<item>載入中...</item>
-	</string-array>
 	<string name="TEA_note_label">描述</string>
 	<string name="TEA_estimatedDuration_label">要花多久時間?</string>
 	<string name="TEA_elapsedDuration_label">已經用掉的時間</string>
@@ -294,18 +277,6 @@
 	<string name="EPr_taskRowPrefs_title">任務工作欄</string>
 	<string name="EPr_force_phone_layout">使用手機佈局</string>
 	<string name="EPr_swipe_lists_performance_title">在列表間滑動</string>
-	<string-array name="EPr_swipe_lists_performance_mode">
-		<item>不使用滑動屏幕</item>
-		<item>節約內存</item>
-		<item>標準性能</item>
-		<item>高效性能</item>
-	</string-array>
-	<string-array name="EPr_swipe_lists_performance_desc">
-		<item>滑動屏幕切換列表已被禁用</item>
-		<item>較低速性能</item>
-		<item>默認設置</item>
-		<item>使用更多系統資源</item>
-	</string-array>
 	<string name="swipe_lists_helper_title">在列表間滑動</string>
 	<string name="swipe_lists_helper_header">在列表間向左或向右快速滑動</string>
 	<string name="swipe_lists_helper_subtitle">在設置-&amp;gt外觀中修改選項</string>
@@ -758,22 +729,6 @@
 		<item>要是您已經做完這件事，您就可以到外面玩了。</item>
 		<item>是時候了。要做的事情總是要做的。</item>
 		<item>您每次不理我，我都被折磨得死去活來的。</item>
-	</string-array>
-	<string-array name="postpone_nags">
-		<item>別告訴我事實上你是會拖延的人!</item>
-		<item>有時懶散會使人變老!</item>
-		<item>有些人正在哪裡等你完成這件事呢!</item>
-		<item>當你說要延期時,是表示你正在做是嗎?</item>
-		<item>這是您最後一次延期對吧?</item>
-		<item>今天完成我不會告訴任何人!</item>
-		<item>您可以完成時為何需要延期?別延期!</item>
-		<item>我可以假設你有潛力完成?</item>
-		<item>我覺得您很棒!何不把這完成?</item>
-		<item>假如您做了將會達到您的目標?</item>
-		<item>老是延期,何時才會改變?</item>
-		<item>受夠藉口了! 快點做!</item>
-		<item>上次你用過這藉口吧?</item>
-		<item>假如你這樣,我無法協助你...</item>
 	</string-array>
 	<string name="repeat_plugin">重複工作</string>
 	<string name="repeat_plugin_desc">允許工作重複</string>

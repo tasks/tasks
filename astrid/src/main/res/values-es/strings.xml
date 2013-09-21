@@ -26,11 +26,6 @@
 	<string name="actfm_friendship_connect">Añadir amigo</string>
 	<string name="actfm_friendship_accept">Aceptar</string>
 	<string name="TVA_add_comment">Agregue un comentario...</string>
-	<string-array name="TVA_tabs">
-		<item>Tareas</item>
-		<item>Actividad</item>
-		<item>Configuración de lista</item>
-	</string-array>
 	<string name="actfm_TVA_menu_refresh">Actualizar</string>
 	<string name="actfm_TVA_tag_label">Lista</string>
 	<string name="actfm_TVA_tag_picture">Imagen de lista</string>
@@ -131,14 +126,6 @@
 	<string name="TLA_quick_add_hint_assign">Agregar algo para %s</string>
 	<string name="TLA_notification_volume_low">Las notificaciones están silenciadas. ¡No podrá oír Tasks!</string>
 	<string name="TLA_notification_disabled">¡Los recordatorios de Tasks están deshabilitados! No recibirás ningún recordatorio</string>
-	<string-array name="TLA_filters">
-		<item>Activo</item>
-		<item>Hoy</item>
-		<item>Próximamente</item>
-		<item>Tarde</item>
-		<item>Terminado</item>
-		<item>Oculto</item>
-	</string-array>
 	<string name="TLA_quickadd_confirm_title">Dijiste, \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">He creado una tarea llamada \"%1$s\" %2$s con prioridad %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">para %s</string>
@@ -174,7 +161,6 @@
 	<string name="SSD_sort_reverse">Invertir Orden</string>
 	<string name="SSD_save_temp">Sólo una vez</string>
 	<string name="SSD_save_always">Siempre</string>
-	<string name="FSA_label">Lista Tasks o Filtro</string>
 	<string name="FLA_context_shortcut">Crear enlace en escritorio</string>
 	<string name="FLA_shortcut_dialog_title">Crear acceso directo</string>
 	<string name="FLA_shortcut_dialog">Nombre del acceso directo:</string>
@@ -193,9 +179,6 @@
 	<string name="TEA_hideUntil_label">Ocultar hasta</string>
 	<string name="TEA_hideUntil_display">Ocultar hasta %s</string>
 	<string name="TEA_hideUntil_message">La tarea estara oculta hasta %s</string>
-	<string-array name="TEA_loading">
-		<item>Cargando…</item>
-	</string-array>
 	<string name="TEA_note_label">Descripción</string>
 	<string name="TEA_notes_empty">Descripción...</string>
 	<string name="TEA_notes_hint">Introducir descripción de la tarea...</string>
@@ -340,18 +323,6 @@
 	<string name="EPr_config_dialog_title">¿Definir configuración?</string>
 	<string name="EPr_config_dialog_default_id">predeterminado</string>
 	<string name="EPr_swipe_lists_performance_title">Deslizar entre las listas</string>
-	<string-array name="EPr_swipe_lists_performance_mode">
-		<item>Sin deslizar</item>
-		<item>Conservar memoria</item>
-		<item>Rendimiento Normal</item>
-		<item>Rendimiento Alto</item>
-	</string-array>
-	<string-array name="EPr_swipe_lists_performance_desc">
-		<item>Deslizarse entre las listas esta deshabilitado</item>
-		<item>Rendimiento bajo</item>
-		<item>Configuración predeterminada</item>
-		<item>Utiliza más recursos del sistema</item>
-	</string-array>
 	<string name="swipe_lists_helper_title">Deslizar entre listas</string>
 	<string name="swipe_lists_helper_header">Deslizar a izquierda o derecha para moverse rápidamente entre listas</string>
 	<string name="swipe_lists_helper_subtitle">Cambiar configuración en Ajustes -&gt; Apariencia</string>
@@ -813,22 +784,6 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 		<item>Si ya has terminado, puedes salir fuera a jugar.</item>
 		<item>¡Ya es hora! No puedes posponer lo inevitable.</item>
 		<item>Muero un poco cada vez que me ignoras.</item>
-	</string-array>
-	<string-array name="postpone_nags">
-		<item>Por favor, dime que no es cierto que eres un indeciso!</item>
-		<item>No ser perezoso tiene sus recompensas</item>
-		<item>¡En algún lugar, alguien está esperando a que lo finalices!</item>
-		<item>¿Cuando dice posponer... realmente quiere decir \'lo estoy haciendo\'? ¿es verdad?</item>
-		<item>¿Esta es la última vez que pospone esto? ¿verdad?</item>
-		<item>Hoy sólo finalicé esto. ¡No se lo diré a nadie!</item>
-		<item>¿Por qué posponer cuando puede... no posponer!</item>
-		<item>¿Supongo que terminará esto en algún momento?</item>
-		<item>Pienso que eres fenomenal! ¿Qué hay de no demorar esto?</item>
-		<item>¿Será capaz de alcanzar sus metas si hace eso?</item>
-		<item>Posponer, posponer, posponer. ¡Cuándo va a cambiar!</item>
-		<item>¡Ya tengo suficientes excusas! ¡Hágalo de una vez!</item>
-		<item>¿Esa no fue la excusa que usó la última vez?</item>
-		<item>No puedo ayudarlo a organizar su vida si hace esto...</item>
 	</string-array>
 	<string name="repeat_plugin">Tareas recurrentes</string>
 	<string name="repeat_plugin_desc">Permitir que las tareas se repitan</string>

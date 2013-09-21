@@ -26,11 +26,6 @@
 	<string name="actfm_friendship_connect">Додати друга</string>
 	<string name="actfm_friendship_accept">Прийняти</string>
 	<string name="TVA_add_comment">Додати коментар</string>
-	<string-array name="TVA_tabs">
-		<item>Завдання</item>
-		<item>Активність</item>
-		<item>Налаштування списку</item>
-	</string-array>
 	<string name="actfm_TVA_menu_refresh">Оновити</string>
 	<string name="actfm_TVA_tag_label">Список</string>
 	<string name="actfm_TVA_tag_picture">Зображення Списку</string>
@@ -131,14 +126,6 @@
 	<string name="TLA_quick_add_hint_assign">Додати щось для  %s</string>
 	<string name="TLA_notification_volume_low">Сповіщення приглушені. Ви не зможете почути Tasks!</string>
 	<string name="TLA_notification_disabled">Нагадування відключені! Ви не будете отримувати нагадування</string>
-	<string-array name="TLA_filters">
-		<item>Активний</item>
-		<item>Сьогодні</item>
-		<item>Незабаром</item>
-		<item>Пізніше</item>
-		<item>Виконано</item>
-		<item>Прихований</item>
-	</string-array>
 	<string name="TLA_quickadd_confirm_title">Ти сказав, \\"%s\\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Я створив задачу названу  \"%1$s\" %2$s на %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">для %s</string>
@@ -187,9 +174,6 @@
 	<string name="TEA_deadline_hint">Встановити кінцеву дату</string>
 	<string name="TEA_urgency_none">Немає</string>
 	<string name="TEA_hideUntil_message">Завдання буде приховане до %s</string>
-	<string-array name="TEA_loading">
-		<item>Завантаження...</item>
-	</string-array>
 	<string name="TEA_note_label">Опис</string>
 	<string name="TEA_notes_empty">Опис</string>
 	<string name="TEA_notes_hint">Ввести опис завдання...</string>
@@ -310,18 +294,6 @@
 	<string name="EPr_config_dialog_default_id">типовий</string>
 	<string name="EPr_show_save_and_cancel">Показати зберегти і скасувати</string>
 	<string name="EPr_swipe_lists_performance_title">Свайп між списками</string>
-	<string-array name="EPr_swipe_lists_performance_mode">
-		<item>без свайпу</item>
-		<item>Conserve Memory</item>
-		<item>Normal Performance</item>
-		<item>High Performance</item>
-	</string-array>
-	<string-array name="EPr_swipe_lists_performance_desc">
-		<item>Свайп між списками вимкнений</item>
-		<item>Slower performance</item>
-		<item>Default setting</item>
-		<item>Uses more system resources</item>
-	</string-array>
 	<string name="swipe_lists_helper_title">Свайп між списками</string>
 	<string name="swipe_lists_helper_header">Свайп вліво або вправо щоб швидко перемикати списки</string>
 	<string name="EPr_manage_clear_all">Очистити всі данні</string>
@@ -350,7 +322,7 @@ Tasks might not let you know when your tasks are due.\n</string>
 	<string-array name="CFC_dueBefore_entries">
 		<item>No Due Date</item>
 		<item>Вчора</item>
-		<item>Today</item>
+		<item>Сьогодні</item>
 		<item>Завтра</item>
 		<item>Післязавтра</item>
 		<item>Наступного тижня</item>

@@ -131,15 +131,6 @@
   <!-- Notifications disabled warning -->
   <string name="TLA_notification_disabled">Reminders are disabled! You will not receive any reminders</string>
   
-  <string-array name="TLA_filters">
-      <item>Active</item>
-      <item>Today</item>
-      <item>Soon</item>
-      <item>Late</item>
-      <item>Done</item>
-      <item>Hidden</item>      
-  </string-array>
-  
   <!-- Title for confirmation dialog after quick add markup -->
   <string name="TLA_quickadd_confirm_title">You said, \"%s\"</string>
   
@@ -313,9 +304,6 @@
   
   <!-- Task hide until toast -->
   <string name="TEA_hideUntil_message">Task will be hidden until %s</string>
-  
-  <!-- Task editing data being loaded label -->
-  <string-array name="TEA_loading"><item>Loading...</item></string-array>
   
   <!-- slide 16c: Task note label -->
   <string name="TEA_note_label">Description</string>
@@ -722,21 +710,6 @@
   <!-- Preference: swipe between lists performance -->
   <string name="EPr_swipe_lists_performance_title">Swipe between lists</string>
   
-  <string-array name="EPr_swipe_lists_performance_mode">
-      <item>No swipe</item>
-      <item>Conserve Memory</item>
-      <item>Normal Performance</item>
-      <item>High Performance</item>
-  </string-array>
-  
-  <string-array name="EPr_swipe_lists_performance_desc">
-  <!-- slide 49a -->
-      <item>Swipe between lists is disabled</item>
-      <item>Slower performance</item>
-      <item>Default setting</item>
-      <item>Uses more system resources</item>
-  </string-array>
-    
   <string name="swipe_lists_helper_title">Swipe between lists</string>
   <string name="swipe_lists_helper_header">Swipe left or right to quickly move between lists</string>
   <string name="swipe_lists_helper_subtitle">Change settings in Settings -> Appearance</string>

@@ -72,16 +72,6 @@
 
   <!-- Tag View Activity: task comment ($1 - user name, $2 - task title) -->    
   
-  <!-- Tabs for Tag view -->
-  <string-array name="TVA_tabs">
-    <!-- Tab for showing tasks -->
-    <item>Tasks</item>
-    <!-- Tab for showing comments & updates -->
-    <item>Activity</item>
-    <!-- Tab for showing setting -->
-    <item>List Settings</item>
-  </string-array>
-  
   <!-- Tag View Menu: refresh -->
   <string name="actfm_TVA_menu_refresh">Refresh</string>
 

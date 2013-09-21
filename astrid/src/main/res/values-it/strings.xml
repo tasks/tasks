@@ -25,11 +25,6 @@
 	<string name="actfm_friendship_connect">Aggiungi amico</string>
 	<string name="actfm_friendship_accept">Accetta</string>
 	<string name="TVA_add_comment">Aggiungi un commento...</string>
-	<string-array name="TVA_tabs">
-		<item>Attività</item>
-		<item>attività</item>
-		<item>Impostazioni Lista</item>
-	</string-array>
 	<string name="actfm_TVA_menu_refresh">Aggiorna</string>
 	<string name="actfm_TVA_tag_label">Lista</string>
 	<string name="actfm_TVA_tag_picture">Elenco Immagini</string>
@@ -119,14 +114,6 @@
 	<string name="TLA_quick_add_hint_assign">Aggiungi qualcosa per %s</string>
 	<string name="TLA_notification_volume_low">Le notifiche sono mutate. Non dovresti essere più in grado di sentire Tasks!</string>
 	<string name="TLA_notification_disabled">I promemoria di Tasks sono disabilitati! Non riceverai nessun promemoria</string>
-	<string-array name="TLA_filters">
-		<item>Attivo</item>
-		<item>Oggi</item>
-		<item>Tra poco</item>
-		<item>Tardi</item>
-		<item>Completata</item>
-		<item>Nascosto</item>
-	</string-array>
 	<string name="TLA_quickadd_confirm_title">Hai detto, \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Ho creato un\'attività chiamata \"%1$s\" %2$s con %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">per %s</string>
@@ -160,7 +147,6 @@
 	<string name="SSD_sort_reverse">Inverti Ordinamento</string>
 	<string name="SSD_save_temp">Solo una Volta</string>
 	<string name="SSD_save_always">Sempre</string>
-	<string name="FSA_label">Lista Tasks o Filtra</string>
 	<string name="FLA_context_shortcut">Crea collegamento sul Desktop</string>
 	<string name="FLA_shortcut_dialog_title">Crea scorciatoia</string>
 	<string name="FLA_shortcut_dialog">Nome della scorciatoia:</string>
@@ -175,9 +161,6 @@
 	<string name="TEA_urgency_specific_time">In un orario specifico?</string>
 	<string name="TEA_urgency_none">Nessuna</string>
 	<string name="TEA_hideUntil_message">L\'attività verrà nascosta fino a: %s</string>
-	<string-array name="TEA_loading">
-		<item>Caricamento...</item>
-	</string-array>
 	<string name="TEA_note_label">Descrizione</string>
 	<string name="TEA_estimatedDuration_label">Quanto tempo impiegherà?</string>
 	<string name="TEA_elapsedDuration_label">Tempo già speso per l\'attività</string>
@@ -294,18 +277,6 @@
 	<string name="EPr_taskRowPrefs_title">Aspetto della riga dei task</string>
 	<string name="EPr_force_phone_layout">Usa il layout del telefono</string>
 	<string name="EPr_swipe_lists_performance_title">Scorri tra le liste</string>
-	<string-array name="EPr_swipe_lists_performance_mode">
-		<item>No scorrimento</item>
-		<item>Conserva Memoria</item>
-		<item>Prestazione Normale</item>
-		<item>Alte Prestazioni</item>
-	</string-array>
-	<string-array name="EPr_swipe_lists_performance_desc">
-		<item>Scorrimento tra liste disabilitato</item>
-		<item>Prestazioni lente</item>
-		<item>Impostazione predefinita</item>
-		<item>Usa più risorse di sistema</item>
-	</string-array>
 	<string name="swipe_lists_helper_title">Scorri tra le liste</string>
 	<string name="swipe_lists_helper_header">Scorri a destra o a sinistra per muoverti rapidamente fra le liste</string>
 	<string name="swipe_lists_helper_subtitle">Modifica le impostazioni in Impostazioni -&gt; Aspetto</string>
@@ -703,22 +674,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 		<item>Se solo tu avessi già finito, allora potresti uscire e giocare.</item>
 		<item>E\' il momento. Non puoi evitare l\'inevitabile.</item>
 		<item>Muoio un po\' ogni volta che mi ignori.</item>
-	</string-array>
-	<string-array name="postpone_nags">
-		<item>Non dirmi che sei uno che continua a posticipare!</item>
-		<item>Non essere pigro fa invecchiare qualche volta?</item>
-		<item>Da qualche parte, qualcuno dipende da te nel finire ciò!</item>
-		<item>Quando hai detto \"rimando\", volevi dire \"lo sto facendo\", giusto?</item>
-		<item>Questa è l\'ultima volta che rimandi ciò, giusto?</item>
-		<item>Finiscilo oggi, non lo ripeterò più!</item>
-		<item>Perché rimandare quando puoi uhm... non rimandare!</item>
-		<item>Potrai finire questo eventualmente, presumo?</item>
-		<item>Penso che tu sia veramente grande! Che ne dici di non mettere questa via?</item>
-		<item>Sarai in grado di raggiungere i tuoi obiettivi se fai ciò?</item>
-		<item>Rimandare, rimandare, rimandare. Quando cambierai!</item>
-		<item>Ne ho avuto abbastanza con le tue scuse! Basta farlo già!</item>
-		<item>Non ti sei scusato allo stesso modo l\'ultima volta?</item>
-		<item>Non posso aiutarti ad organizzare la tua vita se lo fai ...</item>
 	</string-array>
 	<string name="repeat_plugin">Attività ricorrente</string>
 	<string name="repeat_plugin_desc">Permette di ripetere le attività</string>

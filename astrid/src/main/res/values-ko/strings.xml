@@ -26,11 +26,6 @@
 	<string name="actfm_friendship_connect">친구 추가하기</string>
 	<string name="actfm_friendship_accept">승인</string>
 	<string name="TVA_add_comment">댓글 쓰기...</string>
-	<string-array name="TVA_tabs">
-		<item>일정</item>
-		<item>활동 내역</item>
-		<item>목록 설정</item>
-	</string-array>
 	<string name="actfm_TVA_menu_refresh">새로고침</string>
 	<string name="actfm_TVA_tag_label">목록</string>
 	<string name="actfm_TVA_tag_picture">목록 사진</string>
@@ -133,14 +128,6 @@
 	<string name="TLA_quick_add_hint_assign">%s 님의 일정 추가하기</string>
 	<string name="TLA_notification_volume_low">알림를 껐습니다. 아스트리드 알림 소리를 들을 수 없습니다!</string>
 	<string name="TLA_notification_disabled">Tasks 알림을 사용하지 않습니다! 어떤 알림도 받을 수 없을 것입니다.</string>
-	<string-array name="TLA_filters">
-		<item>실행중</item>
-		<item>오늘</item>
-		<item>곧</item>
-		<item>지연</item>
-		<item>마침</item>
-		<item>숨김</item>
-	</string-array>
 	<string name="TLA_quickadd_confirm_title">\"%s\" 라고 말했습니다</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">기한이 %2$s 인 일정 \"%1$s\" 을 %3$s 에 만들었습니다</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">%s</string>
@@ -176,7 +163,6 @@
 	<string name="SSD_sort_reverse">역순 정렬</string>
 	<string name="SSD_save_temp">한번 정렬</string>
 	<string name="SSD_save_always">항상 정렬</string>
-	<string name="FSA_label">목록이나 필터</string>
 	<string name="FLA_context_shortcut">바탕화면에 바로가기 만들기</string>
 	<string name="FLA_shortcut_dialog_title">바탕화면에 바로가기 만들기</string>
 	<string name="FLA_shortcut_dialog">바로가기 이름:</string>
@@ -195,9 +181,6 @@
 	<string name="TEA_hideUntil_label">숨기기 기간:</string>
 	<string name="TEA_hideUntil_display">%s 까지 숨기기</string>
 	<string name="TEA_hideUntil_message">%s 까지 일정을 숨깁니다</string>
-	<string-array name="TEA_loading">
-		<item>불러오는 중...</item>
-	</string-array>
 	<string name="TEA_note_label">설명</string>
 	<string name="TEA_notes_empty">설명</string>
 	<string name="TEA_notes_hint">일정 내용을 입력하세요</string>
@@ -354,18 +337,6 @@
 	<string name="EPr_config_dialog_default_id">기본값</string>
 	<string name="EPr_show_save_and_cancel">저장과 취소 보이기</string>
 	<string name="EPr_swipe_lists_performance_title">목록간 스와이프 이동하기</string>
-	<string-array name="EPr_swipe_lists_performance_mode">
-		<item>스와이프 사용안함</item>
-		<item>메모리 보존하기</item>
-		<item>보통 성능</item>
-		<item>높은 성능</item>
-	</string-array>
-	<string-array name="EPr_swipe_lists_performance_desc">
-		<item>목록 간 스와이프 이동 사용안함</item>
-		<item>느린 성능</item>
-		<item>기본 설정</item>
-		<item>더 많은 시스템 자원을 사용</item>
-	</string-array>
 	<string name="swipe_lists_helper_title">목록간 스와이프 이동하기</string>
 	<string name="swipe_lists_helper_header">목록간 빠른 이동하려면 좌우로 스와이프 이동하기</string>
 	<string name="swipe_lists_helper_subtitle">설정에 있는 설정 변경하기 -&gt; 모양</string>
@@ -858,22 +829,6 @@
 		<item>이 일을 마치기만 하면, 나가서 놀 수 있어.</item>
 		<item>시간이 됐네. 불가피한 일은 미룰 수 없는 거야.</item>
 		<item>네가 나를 무시할 때마다 내 속이 썩어간다.</item>
-	</string-array>
-	<string-array name="postpone_nags">
-		<item>네가 할일을 미루는 사람이라는 게 사실이 아니라고 말해줘!</item>
-		<item>나이가 들어가는 것은 게으를 수가 없잖아?</item>
-		<item>어딘가에서 누군가가 네가 이 일을 마치길 기다리고 있다구!</item>
-		<item>네가 미룬다고 말했지만, 사실은 이걸 하고 있다는 거지, 맞지?</item>
-		<item>이게 마지막으로 미루는 거지? 응?</item>
-		<item>이걸 오늘 마치면, 더 이상 얘기 안할께!</item>
-		<item>할수 있을 때 왜 미루니.. 제발 미루지 마!</item>
-		<item>결국에는 이거 다 할거지? 맞지?</item>
-		<item>넌 정말 대단하다고 생각해! 이거 미루지 않는 게 어때?</item>
-		<item>그렇게 하면 네 목표를 이룰 수 있겠어?</item>
-		<item>미루고, 미루고, 또 미루고, 언제 바뀔래!</item>
-		<item>변명은 충분히 들었어! 벌써 다 했어야지!</item>
-		<item>지난번에도 그렇게 변명하지 않았니?</item>
-		<item>그렇게 하면 네가 네 삶을 계획하고 준비하는 걸 도와줄 수가 없어...</item>
 	</string-array>
 	<string name="repeat_plugin">일정 반복하기</string>
 	<string name="repeat_plugin_desc">일정 반복 허락</string>

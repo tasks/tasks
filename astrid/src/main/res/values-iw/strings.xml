@@ -26,11 +26,6 @@
 	<string name="actfm_friendship_connect">הוסף חבר</string>
 	<string name="actfm_friendship_accept">אני מאשר</string>
 	<string name="TVA_add_comment">הוסף הערה</string>
-	<string-array name="TVA_tabs">
-		<item>משימות</item>
-		<item>פעילות</item>
-		<item>הגדרות רשימה</item>
-	</string-array>
 	<string name="actfm_TVA_menu_refresh">רַעְנֵן</string>
 	<string name="actfm_TVA_tag_label">רשימה</string>
 	<string name="actfm_TVA_tag_picture">תמונת רשימה</string>
@@ -123,14 +118,6 @@
 	<string name="TLA_quick_add_hint_assign">משהו לעשות %s תן ל</string>
 	<string name="TLA_notification_volume_low">ההתראות מוחרשות. לא תשמע את אסטריד יותר!</string>
 	<string name="TLA_notification_disabled">התזכורות של אסטריד מושתקות! לא תקבל תזכורות נוספות</string>
-	<string-array name="TLA_filters">
-		<item>פעיל</item>
-		<item>היום</item>
-		<item>בקרוב</item>
-		<item>באיחור</item>
-		<item>בוצע</item>
-		<item>מוסתר</item>
-	</string-array>
 	<string name="TLA_quickadd_confirm_title">אמרת ״%s״</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">\"יצרתי את המשימה \'%1$s\' עם תאריך יעד \'%2$s\'  בעדיפות \'%3$s\'\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">לתאריך יעד %s</string>
@@ -166,7 +153,6 @@
 	<string name="SSD_sort_reverse">מיון בסדר הפוך</string>
 	<string name="SSD_save_temp">רק הפעם</string>
 	<string name="SSD_save_always">תמיד</string>
-	<string name="FSA_label">רשימת משימות או מַסְנֵן</string>
 	<string name="FLA_context_shortcut">יצירת קיצור על שולחן העבודה</string>
 	<string name="FLA_shortcut_dialog_title">יצירת קיצור על שולחן העבודה</string>
 	<string name="FLA_shortcut_dialog">שם הקיצור:</string>
@@ -182,9 +168,6 @@
 	<string name="TEA_urgency_none">ללא</string>
 	<string name="TEA_hideUntil_label">הסתרה עד</string>
 	<string name="TEA_hideUntil_message">המשימה תוסתר עד %s</string>
-	<string-array name="TEA_loading">
-		<item>טוענת...</item>
-	</string-array>
 	<string name="TEA_note_label">תיאור</string>
 	<string name="TEA_notes_hint">הזן את תיאור המשימה...</string>
 	<string name="TEA_estimatedDuration_label">כמה זמן תיקח המשימה?</string>
@@ -334,18 +317,6 @@
 	<string name="EPr_config_dialog_text">שחזר את כל ההעדפות לקונפיגורציה %s?</string>
 	<string name="EPr_config_dialog_default_id">מחדל</string>
 	<string name="EPr_swipe_lists_performance_title">עִלְעוּל בין רשימות</string>
-	<string-array name="EPr_swipe_lists_performance_mode">
-		<item>ללא עִלְעוּל</item>
-		<item>חיסכון בזיכרון</item>
-		<item>ביצועים רגילים</item>
-		<item>ביצועים גבוהים</item>
-	</string-array>
-	<string-array name="EPr_swipe_lists_performance_desc">
-		<item>עִלְעוּל בין רשימות מופסק</item>
-		<item>ביצועים נמוכים</item>
-		<item>הגדרות ברירת מחדל</item>
-		<item>השתמש ביותר משאבי מערכת</item>
-	</string-array>
 	<string name="swipe_lists_helper_title">עִלְעוּל בין רשימות</string>
 	<string name="swipe_lists_helper_header">עִלְעוּל ימינה ושמאלה למעבר מהיר בין רשימות</string>
 	<string name="swipe_lists_helper_subtitle">שנה הגדרות תחת הגדרות&gt;חזות</string>
@@ -817,22 +788,6 @@
 		<item>אם היית גומר את זה, יכולת ללכת ולעשות חיים.</item>
 		<item>זה הזמן. אי אפשר לדחות עוד ועוד.</item>
 		<item>אני נעלבת בכל פעם שאתה מתעלם ממני.</item>
-	</string-array>
-	<string-array name="postpone_nags">
-		<item>מי שדוחה משימות, הוא פשוט טיפוס דוחה!</item>
-		<item>אתה לא מתעייף מלהיות עצלן כל כך?</item>
-		<item>איפשהו, מישהו תלוי בכך שתגמור את המשימה הזו!</item>
-		<item>כשאמרת לדחות, מה שהתכוונת באמת היה «אני עושה זאת» נכון?</item>
-		<item>זו הפעם האחרונה שאתה דוחה את זה, נכון?</item>
-		<item>רק תגמור את זה היום, ואני מבטיחה לא לספר לאף אחד על ההזנחות שלך!</item>
-		<item>למה לדחות, כאשר אפשר, אההם... פשוט לא לדחות!</item>
-		<item>מה יהיה? בכלל תגמור את זה פעם?</item>
-		<item>אתה בחור כל כך נחמד! מה דעתך פשוט לא לדחות?</item>
-		<item>אתה בטוח שתוכל להשיג את מטרותיך אם תדחה זאת?</item>
-		<item>דוחה, דוחה, דוחה... מתי תשתנה?</item>
-		<item>נמאס לי מהתירוצים שלך! פשוט עשה זאת ודי!</item>
-		<item>זה לא היה בדיוק אותו התירוץ בו השתמש בפעם הקודמת שדחית ?</item>
-		<item>אני ממש לא יכולה לעזור לך לארגן את החיים שלך, אם תעשה זאת...</item>
 	</string-array>
 	<string name="repeat_plugin">משימות חוזרות</string>
 	<string name="repeat_plugin_desc">אפשר למשימות לחזור</string>

@@ -26,11 +26,6 @@
 	<string name="actfm_friendship_connect">Lägg till vän</string>
 	<string name="actfm_friendship_accept">Godkänn</string>
 	<string name="TVA_add_comment">Lägg till en kommentar...</string>
-	<string-array name="TVA_tabs">
-		<item>Uppgifter</item>
-		<item>Aktivitet</item>
-		<item>Listinställningar</item>
-	</string-array>
 	<string name="actfm_TVA_menu_refresh">Uppdatera</string>
 	<string name="actfm_TVA_tag_label">Lista</string>
 	<string name="actfm_TVA_tag_picture">Listbild</string>
@@ -116,14 +111,6 @@
 	<string name="TLA_quick_add_hint_assign">Lägg till något för %s</string>
 	<string name="TLA_notification_volume_low">Påminnelseljudet är avstängt! Du kommer inte att höra Tasks!</string>
 	<string name="TLA_notification_disabled">Påminnelserna från Tasks är avstängda! Du kommer inte att få några påminnelser</string>
-	<string-array name="TLA_filters">
-		<item>Aktiv</item>
-		<item>Today</item>
-		<item>Snart</item>
-		<item>Sent</item>
-		<item>Klar</item>
-		<item>Dold</item>
-	</string-array>
 	<string name="TLA_quickadd_confirm_title">Du sa: \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Jag skapade en uppgift med namnet \"%1$s\" %2$s med %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">för %s</string>
@@ -159,7 +146,6 @@
 	<string name="SSD_sort_reverse">Omvänd sortering</string>
 	<string name="SSD_save_temp">Bara en gång</string>
 	<string name="SSD_save_always">Alltid</string>
-	<string name="FSA_label">Lista eller filter i Tasks</string>
 	<string name="FLA_context_shortcut">Skapa genväg på skrivbordet</string>
 	<string name="FLA_shortcut_dialog_title">Skapa genväg</string>
 	<string name="FLA_shortcut_dialog">Genvägens namn:</string>
@@ -175,9 +161,6 @@
 	<string name="TEA_urgency_none">Ingen</string>
 	<string name="TEA_hideUntil_label">Dölj tills</string>
 	<string name="TEA_hideUntil_message">Uppgiften är dold fram till %s</string>
-	<string-array name="TEA_loading">
-		<item>Laddar...</item>
-	</string-array>
 	<string name="TEA_note_label">Beskrivning</string>
 	<string name="TEA_notes_hint">Ange uppgiftsbeskrivning...</string>
 	<string name="TEA_estimatedDuration_label">Hur lång tid kommer det att ta?</string>
@@ -300,18 +283,6 @@
 	<string name="EPr_taskRowPrefs_title">Utseende på uppgiftsraden</string>
 	<string name="EPr_force_phone_layout">Använd telefonutseende</string>
 	<string name="EPr_swipe_lists_performance_title">Svep för att växla mellan listor</string>
-	<string-array name="EPr_swipe_lists_performance_mode">
-		<item>No swipe</item>
-		<item>Spara minne</item>
-		<item>Vanlig prestanda</item>
-		<item>Hög prestanda</item>
-	</string-array>
-	<string-array name="EPr_swipe_lists_performance_desc">
-		<item>Swipe between lists is disabled</item>
-		<item>Trögare prestanda</item>
-		<item>Standardinställning</item>
-		<item>Använder mer systemresurser</item>
-	</string-array>
 	<string name="swipe_lists_helper_title">Gör en svepande rörelse för att byta lista</string>
 	<string name="swipe_lists_helper_header">Gör en svepande rörelse åt vänster eller höger för att snabbt växla mellan listor</string>
 	<string name="swipe_lists_helper_subtitle">Ändra inställningar i Inställningar -&gt; Utseende</string>
@@ -742,22 +713,6 @@ och återställer dina aktuella uppgifter från en backup
 		<item>Om du bara hade varit klar med det här redan, kunde du ha gått ut och lekt.</item>
 		<item>Det är dags. Du kan inte skjuta upp det ofrånkomliga.</item>
 		<item>Jag dör en smula varje gång du ignorerar mig.</item>
-	</string-array>
-	<string-array name="postpone_nags">
-		<item>Snälla, säg mig inte att du är en som förhalar!</item>
-		<item>Blir du inte trött på att vara lat ibland?</item>
-		<item>Någonstans är någon beroende av att du avslutar detta!</item>
-		<item>När du sade \"skjut upp\", så menade du faktiskt \"nu gör jag detta\", eller hur?</item>
-		<item>Det här är sista gången du skjuter upp detta, eller hur?</item>
-		<item>Bara gör det här färdigt idag, jag skvallrar inte!</item>
-		<item>Varför skjuta upp när du kan eh... inte skjuta upp!</item>
-		<item>Förr eller senare avslutar du detta, antar jag?</item>
-		<item>Jag tycker du är verkligen suverän! Vad sägs att du inte skjuter upp detta?</item>
-		<item>Kommer du att kunna uppnå dina mål om du gör sådär?</item>
-		<item>Skjut upp, skjut upp, skjut upp. När ska du förändra dig!</item>
-		<item>Jag har fått nog av dina bortförklaringar! Bara gör det!</item>
-		<item>Kom du inte med den där bortförklaringen förra gången?</item>
-		<item>Jag kan inte hjälpa dig med att organisera ditt liv om du gör det...</item>
 	</string-array>
 	<string name="repeat_plugin">Upprepande uppgifter</string>
 	<string name="repeat_plugin_desc">Tillåt upprepande uppgifter</string>

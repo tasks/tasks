@@ -19,11 +19,6 @@
 	<string name="actfm_my_shared_tasks_empty">共有タスクがありません</string>
 	<string name="actfm_friendship_accept">受け入れる</string>
 	<string name="TVA_add_comment">コメントする</string>
-	<string-array name="TVA_tabs">
-		<item>タスク</item>
-		<item>活動</item>
-		<item>リストの設定</item>
-	</string-array>
 	<string name="actfm_TVA_menu_refresh">更新</string>
 	<string name="actfm_TVA_tag_label">リスト</string>
 	<string name="actfm_TVA_tag_picture">リスト写真</string>
@@ -94,14 +89,6 @@
 	<string name="TLA_menu_support">サポート</string>
 	<string name="TLA_custom">カスタムフィルタ</string>
 	<string name="TLA_quick_add_hint">タスクを追加する</string>
-	<string-array name="TLA_filters">
-		<item>Active</item>
-		<item>Today</item>
-		<item>すぐに</item>
-		<item>遅延</item>
-		<item>完了</item>
-		<item>非表示</item>
-	</string-array>
 	<string-array name="TLA_priority_strings">
 		<item>最優先</item>
 		<item>優先度高</item>
@@ -139,9 +126,6 @@
 	<string name="TEA_importance_label">優先順位</string>
 	<string name="TEA_urgency_specific_time">時刻を設定する</string>
 	<string name="TEA_urgency_none">なし</string>
-	<string-array name="TEA_loading">
-		<item>読み込んでいます・・・</item>
-	</string-array>
 	<string name="TEA_note_label">概要</string>
 	<string name="TEA_estimatedDuration_label">所要時間は?</string>
 	<string name="TEA_elapsedDuration_label">既にタスクに費やした時間</string>

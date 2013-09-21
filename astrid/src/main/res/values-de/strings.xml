@@ -26,11 +26,6 @@
 	<string name="actfm_friendship_connect">Freund hinzufügen</string>
 	<string name="actfm_friendship_accept">Zustimmen</string>
 	<string name="TVA_add_comment">Kommentar hinzufügen …</string>
-	<string-array name="TVA_tabs">
-		<item>Aufgaben</item>
-		<item>Aktivität</item>
-		<item>Listeneinstellungen</item>
-	</string-array>
 	<string name="actfm_TVA_menu_refresh">Aktualisieren</string>
 	<string name="actfm_TVA_tag_label">Liste</string>
 	<string name="actfm_TVA_tag_picture">Listenbild</string>
@@ -124,14 +119,6 @@
 	<string name="TLA_quick_add_hint_assign">Etwas hinzufügen für %s</string>
 	<string name="TLA_notification_volume_low">Erinnerungen sind stummgeschaltet. Du wirst Tasks nicht hören!</string>
 	<string name="TLA_notification_disabled">Taskss Erinnerungen sind ausgeschaltet! Du wirst keine Erinnerungen mehr erhalten!</string>
-	<string-array name="TLA_filters">
-		<item>Aktiviert</item>
-		<item>Heute</item>
-		<item>Bald</item>
-		<item>Verspätet</item>
-		<item>Erledigt</item>
-		<item>Unsichtbar</item>
-	</string-array>
 	<string name="TLA_quickadd_confirm_title">Sie sagten: \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Ich habe die Aufgabe \"%1$s\" %2$s mit %3$s angelegt</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">für %s</string>
@@ -167,7 +154,6 @@
 	<string name="SSD_sort_reverse">Umgekehrte Sortierung</string>
 	<string name="SSD_save_temp">Nur einmal</string>
 	<string name="SSD_save_always">Immer</string>
-	<string name="FSA_label">Taskss Liste oder Filter</string>
 	<string name="FLA_context_shortcut">Verknüpfung auf dem Desktop erstellen</string>
 	<string name="FLA_shortcut_dialog_title">Desktop Verküpfung erstellen</string>
 	<string name="FLA_shortcut_dialog">Name der Verknüpfung</string>
@@ -186,9 +172,6 @@
 	<string name="TEA_hideUntil_label">Verbergen bis</string>
 	<string name="TEA_hideUntil_display">Verbergen bis %s</string>
 	<string name="TEA_hideUntil_message">Aufgabe wird bis %s versteckt</string>
-	<string-array name="TEA_loading">
-		<item>Ladevorgang …</item>
-	</string-array>
 	<string name="TEA_note_label">Beschreibung</string>
 	<string name="TEA_notes_empty">Beschreibung ...</string>
 	<string name="TEA_notes_hint">Aufgabenbeschreibung eingeben ...</string>
@@ -338,18 +321,6 @@
 	<string name="EPr_config_dialog_default_id">Standard</string>
 	<string name="EPr_show_save_and_cancel">Zeige speichern und abbrechen</string>
 	<string name="EPr_swipe_lists_performance_title">Zum Wechseln der Listen \"wischen\"</string>
-	<string-array name="EPr_swipe_lists_performance_mode">
-		<item>Kein Schieben</item>
-		<item>Minimale Speichernutzung</item>
-		<item>Normale Performance</item>
-		<item>Beste Performance</item>
-	</string-array>
-	<string-array name="EPr_swipe_lists_performance_desc">
-		<item>Schieben zwischen den Listen ist Deaktiviert</item>
-		<item>Geringere Performance</item>
-		<item>Standardeinstellung</item>
-		<item>Hat höhere Leistungsanforderungen</item>
-	</string-array>
 	<string name="swipe_lists_helper_title">Zum Wechseln der Listen wischen</string>
 	<string name="swipe_lists_helper_header">Zieh nach links oder rechts, um schnell zwischen Listen zu wechseln</string>
 	<string name="swipe_lists_helper_subtitle">Ändere die Einstellungen unter Einstellungen -&gt; Erscheinungsbild</string>
@@ -829,22 +800,6 @@
 		<item>Wenn du es endlich gemacht hättest, könntest du rausgehen und spielen.</item>
 		<item>Its time. You cant put off the inevitable.</item>
 		<item>Es kränkt mich immer ein bisschen, wenn du mich ignorierst.</item>
-	</string-array>
-	<string-array name="postpone_nags">
-		<item>Beweise bitte dass du kein Zauderer bist!</item>
-		<item>Ist Faulenzen nicht langweilig?</item>
-		<item>Irgendwo gibt es jemanden der auf dich wartet!</item>
-		<item>Als du Aufschieben sagtest, meintest du \"Bin gerade dabei\", oder?</item>
-		<item>Das ist aber das letzte Mal, dass du es aufschiebst, oder?</item>
-		<item>Mach\'s einfach heute fertig. Ich verrate es auch niemanden!</item>
-		<item>Was du heute kannst besorgen, dass verschiebe nicht auf morgen!</item>
-		<item>Ich gehe einfach mal davon aus, dass du es am Ende doch erledigen wirst</item>
-		<item>Du bist großartig! Wie wäre es das nicht zu verschieben?</item>
-		<item>Kannst du deine Ziele erreichen, wenn du das tust?</item>
-		<item>Später, später, später. Wann wirst du dich ändern?</item>
-		<item>Genug der Ausreden! Tu es jetzt!</item>
-		<item>Hab ich die Entschuldigung nicht schon letztes mal gehört?</item>
-		<item>Ich kann dir nicht helfen dein Leben zu organisieren, wenn du das tust...</item>
 	</string-array>
 	<string name="repeat_plugin">Wiederkehrende Aufgaben</string>
 	<string name="repeat_plugin_desc">Aufgaben erlauben sich zu wiederholen</string>

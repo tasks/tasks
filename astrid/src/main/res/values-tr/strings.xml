@@ -25,11 +25,6 @@
 	<string name="actfm_friendship_connect">Arkadaş ekle</string>
 	<string name="actfm_friendship_accept">Kabul Et</string>
 	<string name="TVA_add_comment">Yorum Gir</string>
-	<string-array name="TVA_tabs">
-		<item>Görevler</item>
-		<item>Etkinlik</item>
-		<item>Liste Ayarları</item>
-	</string-array>
 	<string name="actfm_TVA_menu_refresh">Yenile</string>
 	<string name="actfm_TVA_tag_label">Liste İsmi:</string>
 	<string name="actfm_TVA_tag_picture">Liste Resmi</string>
@@ -117,14 +112,6 @@
 	<string name="TLA_quick_add_hint_assign">%s için bir şey ekle</string>
 	<string name="TLA_notification_volume_low">Uyarılar susturuldu. Tasks \'i duyamayacaksın!</string>
 	<string name="TLA_notification_disabled">Tasks hatırlatıcıları devre dışı. Hatırlatma almayacaksınız.</string>
-	<string-array name="TLA_filters">
-		<item>Etkin</item>
-		<item>Bugün</item>
-		<item>Yakında</item>
-		<item>Daha sonra</item>
-		<item>Yapıldı</item>
-		<item>Gizli</item>
-	</string-array>
 	<string name="TLA_quickadd_confirm_title">Dediniz ki, \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Bir görev oluşturdum; \"%1$s\" tarih; %2$s öncelik; %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">%s için</string>
@@ -158,7 +145,6 @@
 	<string name="SSD_sort_reverse">Sıralamayı Tersine Çevir</string>
 	<string name="SSD_save_temp">Bir Kereye Mahsus</string>
 	<string name="SSD_save_always">Her zaman</string>
-	<string name="FSA_label">Tasks Listesi ya da Süzgeci</string>
 	<string name="FLA_context_shortcut">Masaüstünde Kısayol Oluştur</string>
 	<string name="FLA_shortcut_dialog_title">Kısayol Oluştur</string>
 	<string name="FLA_shortcut_dialog">Kısayol adı:</string>
@@ -172,9 +158,6 @@
 	<string name="TEA_urgency_specific_time">Belirli bir zamanda?</string>
 	<string name="TEA_urgency_none">Hiçbiri</string>
 	<string name="TEA_hideUntil_message">Görev %s\'e kadar gizli kalacak</string>
-	<string-array name="TEA_loading">
-		<item>Yükleniyor...</item>
-	</string-array>
 	<string name="TEA_note_label">Açıklama</string>
 	<string name="TEA_estimatedDuration_label">Ne kadar sürecek?</string>
 	<string name="TEA_elapsedDuration_label">Görev üzerinde çalışılan zaman</string>
@@ -284,18 +267,6 @@
 	<string name="EPr_taskRowPrefs_title">Görev Sırası Görünümü</string>
 	<string name="EPr_force_phone_layout">Telefon yerleşimini kullan</string>
 	<string name="EPr_swipe_lists_performance_title">Listeler arası sürükleme</string>
-	<string-array name="EPr_swipe_lists_performance_mode">
-		<item>Sürükleme yok</item>
-		<item>Bellek Koruma</item>
-		<item>Normal Başarım</item>
-		<item>Yüksek Başarım</item>
-	</string-array>
-	<string-array name="EPr_swipe_lists_performance_desc">
-		<item>Listeler arası sürükleme etkisiz</item>
-		<item>Düşük başarım</item>
-		<item>Öntanımlı ayar</item>
-		<item>Daha çok sistem kaynağı kullan</item>
-	</string-array>
 	<string name="swipe_lists_helper_title">Listeler arası sürükleme</string>
 	<string name="swipe_lists_helper_header">Listelerde hızlı gezinme için sağa ya da sola kaydır</string>
 	<string name="swipe_lists_helper_subtitle">Ayarlar -&gt; Görünüm içinden ayarları değiştir</string>
@@ -745,22 +716,6 @@
 		<item>Bunu yapmış olsaydın şimdi dışarıda geziyor olabilirdin.</item>
 		<item>Tam zamanı. Kaçınılmaz olayı geciktiremezsin.</item>
 		<item>Beni her görmezden geldiğinde biraz daha ölüyorum.</item>
-	</string-array>
-	<string-array name="postpone_nags">
-		<item>Sakın bana iş öteleyen biri olduğunu söyleme!</item>
-		<item>Tembellikten de bazen sıkılmıyor musun?</item>
-		<item>Bir yerde birileri şunu halletmeni bekliyor..</item>
-		<item>Ertelerim derken aslında \"şimdi yapıcam\" demek istedin di mi?</item>
-		<item>Bu son erteleyişin değil mi?</item>
-		<item>Bunu bugün bitirirsen, kimseye söylemem!</item>
-		<item>Bitirmek dururken neden erteleyesin ki?</item>
-		<item>Yok bugün yapıcam yok yarın yapıcam. Hadi?</item>
-		<item>Bence harika gidiyosun. Şimdi yapmaya ne dersin?</item>
-		<item>Öyle yaparsan hedeflerine erişebilecek misin?</item>
-		<item>Sonra, sonra, sonra.. Ne zaman değişeceksin?</item>
-		<item>Bahanelerinden sıkıldım! Yap artık!</item>
-		<item>Son seferinde de bahanen yok muydu?</item>
-		<item>Bunu yapmaya devam edersen hayatını organize edemem</item>
 	</string-array>
 	<string name="repeat_plugin">Tekrarlanan Görevler</string>
 	<string name="repeat_plugin_desc">Görevlerin tekrarlanmasına izin ver</string>

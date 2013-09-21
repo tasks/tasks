@@ -26,11 +26,6 @@
 	<string name="actfm_friendship_connect">Dodaj znajomego</string>
 	<string name="actfm_friendship_accept">Akceptuj</string>
 	<string name="TVA_add_comment">Dodaj komentarz...</string>
-	<string-array name="TVA_tabs">
-		<item>Zadania</item>
-		<item>Aktywność</item>
-		<item>Ustawienia listy</item>
-	</string-array>
 	<string name="actfm_TVA_menu_refresh">Odśwież</string>
 	<string name="actfm_TVA_tag_label">Lista</string>
 	<string name="actfm_TVA_tag_picture">Obrazek listy</string>
@@ -126,14 +121,6 @@
 	<string name="TLA_quick_add_hint_assign">Dodaj coś do %s</string>
 	<string name="TLA_notification_volume_low">Powiadomienia są wyciszone. Nie będziesz w stanie usłyszeć Tasks!</string>
 	<string name="TLA_notification_disabled">Powiadomienia są wyłączone! Nie otrzymasz żadnych powiadomień</string>
-	<string-array name="TLA_filters">
-		<item>Aktywne</item>
-		<item>Dzisiaj</item>
-		<item>Wkrótce</item>
-		<item>Spóźnione</item>
-		<item>Ukończone</item>
-		<item>Ukryte</item>
-	</string-array>
 	<string name="TLA_quickadd_confirm_title">Powiedziałeś, \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Stworzyłem\\-am zadanie o nazwie \"%1$s\" %2$s at %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">dla %s</string>
@@ -169,7 +156,6 @@
 	<string name="SSD_sort_reverse">Odwrotna kolejność</string>
 	<string name="SSD_save_temp">Tylko teraz</string>
 	<string name="SSD_save_always">Zawsze</string>
-	<string name="FSA_label">Lista Tasks lub filtr</string>
 	<string name="FLA_context_shortcut">Utwórz skrót na pulpicie</string>
 	<string name="FLA_shortcut_dialog_title">Utwórz skrót</string>
 	<string name="FLA_shortcut_dialog">Nazwa skrótu:</string>
@@ -186,9 +172,6 @@
 	<string name="TEA_urgency_none">Brak</string>
 	<string name="TEA_hideUntil_label">Ukrywanie</string>
 	<string name="TEA_hideUntil_message">Zadanie będzie ukryte do %s</string>
-	<string-array name="TEA_loading">
-		<item>Ładowanie...</item>
-	</string-array>
 	<string name="TEA_note_label">Opis</string>
 	<string name="TEA_notes_empty">Opis...</string>
 	<string name="TEA_notes_hint">Podaj opis zadania...</string>
@@ -339,18 +322,6 @@
 	<string name="EPr_config_dialog_default_id">domyślny</string>
 	<string name="EPr_show_save_and_cancel">Pokaż przyciski zapisz i anuluj</string>
 	<string name="EPr_swipe_lists_performance_title">Przejedź pomiędzy listami</string>
-	<string-array name="EPr_swipe_lists_performance_mode">
-		<item>Bez przeciągania</item>
-		<item>Oszczędzaj pamięć</item>
-		<item>Normalna wydajność</item>
-		<item>Wysoka wydajność</item>
-	</string-array>
-	<string-array name="EPr_swipe_lists_performance_desc">
-		<item>Przeciąganie pomiędzy listami jest wyłączone</item>
-		<item>Mniejsza wydajność</item>
-		<item>Ustawienia domylne</item>
-		<item>Używa więcej zasobów systemu</item>
-	</string-array>
 	<string name="swipe_lists_helper_title">Przeciągaj pomiędzy listami</string>
 	<string name="swipe_lists_helper_header">Przeciągnij w lewo lub prawo aby szybko przełączyć się między listami</string>
 	<string name="swipe_lists_helper_subtitle">Zmień ustawienia w Ustawienia -&amp;gl; Wygląd</string>
@@ -826,22 +797,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 		<item>Gdybyś tylko się tym zajął, mógłbyś wyjść na dwór się pobawić.</item>
 		<item>Nadszedł czas. Nie odwleczesz nieuniknionego.</item>
 		<item>Mała część mnie umiera za każdym razem, gdy mnie ignorujesz.</item>
-	</string-array>
-	<string-array name="postpone_nags">
-		<item>Proszę powiedz, że to nie prawda, że jesteś takim leniem!</item>
-		<item>Bycie leniem nigdy Ci się nie nudzi?</item>
-		<item>Ktoś, gdzieś liczy na Ciebie, że uporasz sobie z tym zadaniem!</item>
-		<item>Mówiąc \"później\" masz na myśli \"teraz\", prawda?</item>
-		<item>To jest ostatni raz, gdy odkładasz to na później, dobrze?</item>
-		<item>Po prostu skończ to dziś, nikomu nie powiem!</item>
-		<item>Po co odkładać na później kiedy możesz um... nie odkładać!</item>
-		<item>Zakładam, że jest szansa, że skończysz to dziś?</item>
-		<item>Myślę, że jesteś naprawdę cool! A co powiesz na nie odkładanie tego na później?</item>
-		<item>Osiągniesz swoje cele, jeśli to zrobisz?</item>
-		<item>Odkładanie, odkładanie, odkładanie... kiedy Ty się wreszcie zmienisz?!</item>
-		<item>Mam dość Twoich wymówek! Zrób to tu i teraz!</item>
-		<item>Czy wcześniej nie słyszałem tej samej wymówki?</item>
-		<item>Nie pomogę Ci w organizowaniu sobie życia, jeśli to zrobisz...</item>
 	</string-array>
 	<string name="repeat_plugin">Powtarzanie zadań</string>
 	<string name="repeat_plugin_desc">Zewzwól zadaniom na powtarzanie</string>

@@ -26,11 +26,6 @@
 	<string name="actfm_friendship_connect">Vriend toevoegen</string>
 	<string name="actfm_friendship_accept">Accepteer</string>
 	<string name="TVA_add_comment">Voeg een opmerking toe</string>
-	<string-array name="TVA_tabs">
-		<item>Taken</item>
-		<item>Activiteit</item>
-		<item>Lijst Voorkeuren</item>
-	</string-array>
 	<string name="actfm_TVA_menu_refresh">Vernieuwen</string>
 	<string name="actfm_TVA_tag_label">Lijst</string>
 	<string name="actfm_TVA_tag_picture">Lijst afbeelding:</string>
@@ -127,14 +122,6 @@
 	<string name="TLA_quick_add_hint_assign">Voeg iets toe voor %s</string>
 	<string name="TLA_notification_volume_low">Meldingsgeluid uitgeschakeld. U kunt Tasks niet horen!</string>
 	<string name="TLA_notification_disabled">Tasks herinneringen zijn uitgeschakeld! Je ontvangt geen herinneringen.</string>
-	<string-array name="TLA_filters">
-		<item>Actief</item>
-		<item>Vandaag</item>
-		<item>Binnenkort</item>
-		<item>Te Laat</item>
-		<item>Gedaan</item>
-		<item>Verborgen</item>
-	</string-array>
 	<string name="TLA_quickadd_confirm_title">Jij zei, \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Ik heb een taak gemaakt genaamd \"%1$s\" %2$s op %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">voor %s</string>
@@ -170,7 +157,6 @@
 	<string name="SSD_sort_reverse">Omgekeerd sorteren</string>
 	<string name="SSD_save_temp">Eenmalig</string>
 	<string name="SSD_save_always">Altijd</string>
-	<string name="FSA_label">Tasks Lijst of Filter</string>
 	<string name="FLA_context_shortcut">Snelkoppeling op bureaublad maken</string>
 	<string name="FLA_shortcut_dialog_title">Snelkoppeling maken</string>
 	<string name="FLA_shortcut_dialog">Naam snelkoppeling:</string>
@@ -189,9 +175,6 @@
 	<string name="TEA_hideUntil_label">Verbergen tot</string>
 	<string name="TEA_hideUntil_display">Verberg tot %s</string>
 	<string name="TEA_hideUntil_message">Taak is verborgen tot %s</string>
-	<string-array name="TEA_loading">
-		<item>Laden…</item>
-	</string-array>
 	<string name="TEA_note_label">Omschrijving</string>
 	<string name="TEA_notes_empty">Omschrijving</string>
 	<string name="TEA_notes_hint">Voer taakomschrijving in</string>
@@ -346,18 +329,6 @@
 	<string name="EPr_config_dialog_default_id">standaard</string>
 	<string name="EPr_show_save_and_cancel">Toon opslaan en annuleren</string>
 	<string name="EPr_swipe_lists_performance_title">Swipe tussen lijsten</string>
-	<string-array name="EPr_swipe_lists_performance_mode">
-		<item>Geen swipe</item>
-		<item>Spaar geheugen</item>
-		<item>Normale snelheid</item>
-		<item>Hoge Prestatie</item>
-	</string-array>
-	<string-array name="EPr_swipe_lists_performance_desc">
-		<item>Swipe tussen lijsten is uitgeschakeld</item>
-		<item>Langzamere prestaties</item>
-		<item>Standaardinstelling</item>
-		<item>Gebruikt meer systeemgeheugen</item>
-	</string-array>
 	<string name="swipe_lists_helper_title">Swipe tussen lijsten</string>
 	<string name="swipe_lists_helper_header">Swipe links of rechts om snel lijsten te verplaatsen</string>
 	<string name="swipe_lists_helper_subtitle">Verander instellingen in Instellingen --&gt; Uiterlijk</string>
@@ -837,22 +808,6 @@
 		<item>Als je dit nu al gedaan had kon je nu buiten spelen!</item>
 		<item>Het is tijd. Je kan het niet eeuwig blijven uitstellen.</item>
 		<item>Telkens als je me negeert, sterft een klein stukje van mij.</item>
-	</string-array>
-	<string-array name="postpone_nags">
-		<item>Hee, je bent toch geen slakkie!?</item>
-		<item>Ik word zo moe van uitstellen...</item>
-		<item>Maak je onsterfelijk, doe dit!</item>
-		<item>Toen je zei \'Snooze\' bedoelde je dat je er mee bezig was, toch?</item>
-		<item>Dit is de laatste keer dat je dit uitstelt, oké?</item>
-		<item>Pssst, ik wil niks zeggen maar....</item>
-		<item>Waarom uitstellen? Gewoon doen!</item>
-		<item>Straks? Wie zei straks? Nu bedoel je!</item>
-		<item>Ik vind je geweldig! Dit kun je vast ook:</item>
-		<item>Bereik je doel, maak dit af!</item>
-		<item>Van uitstel komt afstel. Wanneer leer je nou eens?</item>
-		<item>Ik heb genoeg van je smoesjes! Doe het nu maar gewoon!</item>
-		<item>Gebruikte je die smoes vorige keer niet al?</item>
-		<item>Ik kan je niet helpen als je me blijft negeren...</item>
 	</string-array>
 	<string name="repeat_plugin">Herhalende taken</string>
 	<string name="repeat_plugin_desc">Herhalende taken toestaan</string>

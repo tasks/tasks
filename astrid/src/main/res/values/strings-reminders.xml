@@ -370,22 +370,4 @@
       <item>It\'s time. You can\'t put off the inevitable.</item>
       <item>I die a little every time you ignore me.</item>
   </string-array>
-
-  <string-array name="postpone_nags">
-      <!-- Tasks's nagging when user clicks postpone -->
-      <item>Please tell me it isn\'t true that you\'re a procrastinator!</item>
-      <item>Doesn\'t being lazy get old sometimes?</item>
-      <item>Somewhere, someone is depending on you to finish this!</item>
-      <item>When you said postpone, you really meant \'I\'m doing this\', right?</item>
-      <item>This is the last time you postpone this, right?</item>
-      <item>Just finish this today, I won\'t tell anyone!</item>
-      <item>Why postpone when you can um... not postpone!</item>
-      <item>You\'ll finish this eventually, I presume?</item>
-      <item>I think you\'re really great! How about not putting this off?</item>
-      <item>Will you be able to achieve your goals if you do that?</item>
-      <item>Postpone, postpone, postpone. When will you change!</item>
-      <item>I\'ve had enough with your excuses! Just do it already!</item>
-      <item>Didn\'t you make that excuse last time?</item>
-      <item>I can\'t help you organize your life if you do that...</item>
-  </string-array>
 </resources>

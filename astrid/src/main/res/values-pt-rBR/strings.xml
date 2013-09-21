@@ -26,11 +26,6 @@
 	<string name="actfm_friendship_connect">Adicionar amigo</string>
 	<string name="actfm_friendship_accept">Aceitar</string>
 	<string name="TVA_add_comment">Comentar...</string>
-	<string-array name="TVA_tabs">
-		<item>Tarefas</item>
-		<item>Atividades</item>
-		<item>Configurações</item>
-	</string-array>
 	<string name="actfm_TVA_menu_refresh">Atualizar</string>
 	<string name="actfm_TVA_tag_label">Lista</string>
 	<string name="actfm_TVA_tag_picture">Imagem da lista</string>
@@ -120,14 +115,6 @@
 	<string name="TLA_quick_add_hint_assign">Adicione alguma coisa para %s</string>
 	<string name="TLA_notification_volume_low">As notificações estão silenciadas. Você não ouvirá o Tasks!</string>
 	<string name="TLA_notification_disabled">Os lembretes estão desligados! Você não receberá nenhum lembrete</string>
-	<string-array name="TLA_filters">
-		<item>Ativo</item>
-		<item>Hoje</item>
-		<item>Em breve</item>
-		<item>Atrasado</item>
-		<item>Feito</item>
-		<item>Oculta</item>
-	</string-array>
 	<string name="TLA_quickadd_confirm_title">Você disse, \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Eu criei uma tarefa chamada \"%1$s\" %2$s em %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">para %s</string>
@@ -161,7 +148,6 @@
 	<string name="SSD_sort_reverse">Ordenação reversa</string>
 	<string name="SSD_save_temp">Somente uma vez</string>
 	<string name="SSD_save_always">Sempre</string>
-	<string name="FSA_label">Lista ou Filtro Tasks</string>
 	<string name="FLA_context_shortcut">Criar atalho no desktop</string>
 	<string name="FLA_shortcut_dialog_title">Criar atalho</string>
 	<string name="FLA_shortcut_dialog">Nome do atalho</string>
@@ -176,9 +162,6 @@
 	<string name="TEA_urgency_specific_time">Num horário específico?</string>
 	<string name="TEA_urgency_none">Nenhum</string>
 	<string name="TEA_hideUntil_message">A Tarefa ficará oculta até %s</string>
-	<string-array name="TEA_loading">
-		<item>Carregando...</item>
-	</string-array>
 	<string name="TEA_note_label">Descrição</string>
 	<string name="TEA_estimatedDuration_label">Quanto tempo isto vai levar?</string>
 	<string name="TEA_elapsedDuration_label">Tempo já gasto na tarefa</string>
@@ -296,18 +279,6 @@
 	<string name="EPr_taskRowPrefs_title">Aparência da Tarefa</string>
 	<string name="EPr_force_phone_layout">Usar layout do telefone</string>
 	<string name="EPr_swipe_lists_performance_title">Navegar entre as listas</string>
-	<string-array name="EPr_swipe_lists_performance_mode">
-		<item>Não navegar</item>
-		<item>Conservação de memória</item>
-		<item>Performance normal</item>
-		<item>Alta performance</item>
-	</string-array>
-	<string-array name="EPr_swipe_lists_performance_desc">
-		<item>Navegação entre listas está desabilitada</item>
-		<item>Baixa performance</item>
-		<item>Configuração padrão</item>
-		<item>Usa mais recursos do sistema</item>
-	</string-array>
 	<string name="swipe_lists_helper_title">Navegar entre as listas</string>
 	<string name="swipe_lists_helper_header">Deslizar para a esquerda ou direita para mover-se rapidamente entre listas</string>
 	<string name="swipe_lists_helper_subtitle">Alterar configurações em Configurações -&gt; Aparência</string>
@@ -709,22 +680,6 @@
 		<item>Se você terminar isto, pode ir lá fora brincar :-)</item>
 		<item>É agora. Você não pode adiar o inevitável.</item>
 		<item>Eu morro um pouquinho cada vez que você me ignora.</item>
-	</string-array>
-	<string-array name="postpone_nags">
-		<item>Não me diga que você vive adiando as coisas!</item>
-		<item>Ser preguiçoso(a) não fica cansativo de vez em quando?</item>
-		<item>Em algum lugar, alguém está dependendo de você para terminar isso!</item>
-		<item>Quando você disse adiar, você realmente quis dizer \'Vou fazer isso agora\', certo?</item>
-		<item>Essa é a última vez que você adia isso, certo?</item>
-		<item>Termina isso hoje, eu não vou contar para ninguém!</item>
-		<item>Porque adiar se você pode, hmm... não adiar!</item>
-		<item>Suponho que vai terminar isso algum dia, certo?</item>
-		<item>Eu acho que você é realmente ótimo! Que tal não deixar isso de lado?</item>
-		<item>Você vai alcançar seus objetivos se você fizer isso?</item>
-		<item>Adiar, adiar, adiar. Quando você vai mudar!</item>
-		<item>Já estou cheio das suas desculpas! Faça isso agora!</item>
-		<item>Você não inventou essa desculpa na última vez?</item>
-		<item>Eu não vou poder ajudar você a organizar a sua vida se você fizer isso...</item>
 	</string-array>
 	<string name="repeat_plugin">Tarefas recorrentes</string>
 	<string name="repeat_plugin_desc">Permitir tarefas recorrentes</string>

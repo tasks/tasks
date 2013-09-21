@@ -9,11 +9,11 @@
 	<string name="actfm_person_or_tag_hint">Contact ou liste partagée</string>
 	<string name="actfm_tag_operation_owner_delete">Vous êtes le propriétaire de cette liste partagée ! Si vous la supprimez, elle sera aussi détruite pour tous les autres membres. Êtes-vous sûr de vouloir continuer ?</string>
 	<string name="actfm_picture_camera">Prendre une photo</string>
-	<string name="actfm_picture_gallery">Choisir depuis la bibliothèque</string>
+	<string name="actfm_picture_gallery">Choisir depuis la galerie</string>
 	<string name="actfm_picture_clear">Supprimer l\'image</string>
 	<string name="actfm_view_task_title">Voir la tâche ?</string>
 	<string name="actfm_view_task_text">La tâche a été envoyée à %s ! Vous voyez actuellement vos propres tâches. Voulez-vous également voir celle-ci et les autres tâches que vous avez envoyées ?</string>
-	<string name="actfm_view_task_ok">Vue assignée</string>
+	<string name="actfm_view_task_ok">Voir les tâches attribués</string>
 	<string name="actfm_view_task_cancel">Rester ici</string>
 	<string name="actfm_my_shared_tasks_title">Mes tâches partagées</string>
 	<string name="actfm_my_shared_tasks_empty">Aucune tâche partagée</string>
@@ -26,11 +26,6 @@
 	<string name="actfm_friendship_connect">Ajoutez un ami</string>
 	<string name="actfm_friendship_accept">Accepter</string>
 	<string name="TVA_add_comment">Ajouter un commentaire</string>
-	<string-array name="TVA_tabs">
-		<item>Tâches</item>
-		<item>Activité</item>
-		<item>Options de la liste</item>
-	</string-array>
 	<string name="actfm_TVA_menu_refresh">Mettre à jour</string>
 	<string name="actfm_TVA_tag_label">Nom de la liste :</string>
 	<string name="actfm_TVA_tag_picture">Liste des Images</string>
@@ -38,11 +33,12 @@
 	<string name="actfm_TVA_tag_settings_label">Paramètres</string>
 	<string name="actfm_TVA_tag_description_hint">Entrez une description ici</string>
 	<string name="actfm_TVA_tag_name_hint">Entrez un nom de liste</string>
-	<string name="actfm_EPA_invalid_email">E-mail incorrecte : %s</string>
+	<string name="actfm_EPA_invalid_email">E-mail incorrect : %s</string>
 	<string name="actfm_EPA_add_person_to_list_title">Tâche assignée</string>
 	<string name="actfm_EPA_add_person_to_list">%1$s n\'est pas partagé dans cette liste. Souhaitez-vous ajouter %2$s à cette liste ? </string>
 	<string name="actfm_EPA_add_person_to_list_ok">Ajouter à la liste</string>
 	<string name="actfm_EPA_add_person_to_list_cancel">Ne pas ajouter</string>
+	<string name="actfm_list_owner">(propriétaire)</string>
 	<string name="actfm_GAA_title">Sélectionnez le compte Google que vous voulez utiliser :</string>
 	<string name="actfm_feat_list_clone">Copier la liste</string>
 	<string name="actfm_feat_list_suffix">(Copier)</string>
@@ -53,9 +49,15 @@
 	<string name="actfm_https_title">Utiliser HTTPS</string>
 	<string name="actfm_account_type">Type de compte</string>
 	<string name="actfm_inapp_billing">Passer en premium</string>
-	<string name="actfm_inapp_billing_summary">Attachez des fichiers, faites des sauvegardes vocales, bénéficiez du support premium et bien plus</string>
+	<string name="actfm_inapp_billing_summary">Ajoutez des fichiers, faites des sauvegardes vocales, bénéficiez du support premium et bien plus</string>
+	<string name="actfm_tag_not_authorized_title">Non autorisé</string>
+	<string name="actfm_tag_not_authorized_body">Vous n\'êtes plus autorisé à voir les listes %s (vous avez peut-être été supprimé). Voulez-vous créer une nouvelle liste avec le même nom?</string>
 	<string name="actfm_tag_not_authorized_new_list">Créer une nouvelle liste</string>
+	<string name="actfm_tag_not_authorized_leave_list">Quitter la liste</string>
 	<string name="actfm_sync_ongoing">Synchronisation en cours...</string>
+	<string name="EPr_reset_sync_state">Réinitialiser la synchronisation</string>
+	<string name="EPr_reset_sync_state_summary">Réinitialiser certaines données locales pour aider à la résolution de problème de synchronisation</string>
+	<string name="EPr_reset_sync_state_detailed">A la prochaine synchronisation, vos tâches et listes seront modifiées pour refléter ce qui existe sur Tasks.com, ce qui pourrait aider à résoudre des erreurs de synchronisation. Voulez-vous continuer?</string>
 	<string name="alarm_ACS_label">Alarmes</string>
 	<string name="alarm_ACS_button">Ajouter une alarme</string>
 	<string-array name="reminders_alarm">
@@ -66,7 +68,7 @@
 	<string name="backup_status_success">Dernière sauvegarde : \n%s</string>
 	<string name="backup_status_failed">La dernière sauvegarde a échoué</string>
 	<string name="backup_status_failed_subtitle">(appuyer pour afficher l\'erreur)</string>
-	<string name="backup_status_never">Jamais sauvegardé !</string>
+	<string name="backup_status_never">Aucune sauvegarde !</string>
 	<string name="backup_BPr_auto_title">Sauvegardes automatiques</string>
 	<string name="backup_BPr_auto_disabled">Sauvegardes automatiques désactivées</string>
 	<string name="backup_BPr_auto_enabled">Une sauvegarde sera effectuée quotidiennement.</string>
@@ -76,7 +78,7 @@
 	<string name="backup_BAc_export">Exporter des tâches</string>
 	<string name="backup_TXI_error">Erreur d\'importation</string>
 	<string name="export_toast">Sauvegardé %1$s dans %2$s.</string>
-	<string name="export_toast_no_tasks">Pas de tâche à exporter</string>
+	<string name="export_toast_no_tasks">Pas de tâches à exporter</string>
 	<string name="export_progress_title">Exportation en cours…</string>
 	<string name="import_summary_title">Résumé de la restoration</string>
 	<string name="import_summary_message">Le fichier %1$s contenait %2$s.\n\n %3$s importées,\n %4$s existent déjà\n %5$s avaient des erreurs\n</string>
@@ -104,7 +106,7 @@
 	<string name="ENA_no_comments">Rien à afficher</string>
 	<string name="ENA_no_user">Quelqu\'un</string>
 	<string name="ENA_refresh_comments">Mettre à jour les commentaires</string>
-	<string name="TLA_no_items">Aucune tâche !</string>
+	<string name="TLA_no_items">Aucune tâche ! n Voulez vous en créer une ?</string>
 	<string name="TLA_no_items_person">%s n\'a aucune tâche partagée avec vous</string>
 	<string name="TLA_menu_sort">Trier</string>
 	<string name="TLA_menu_sync">Synchroniser maintenant</string>
@@ -119,14 +121,6 @@
 	<string name="TLA_quick_add_hint_assign">Ajouter quelque chose pour %s</string>
 	<string name="TLA_notification_volume_low">Les notifications sont désactivées. Vous ne pourrez plus entendre Tasks !</string>
 	<string name="TLA_notification_disabled">Les rappels d\'Tasks sont désactivés ! Vous ne recevrez plus de rappels</string>
-	<string-array name="TLA_filters">
-		<item>Actif</item>
-		<item>Aujourd\'hui</item>
-		<item>Bientôt</item>
-		<item>Plus tard</item>
-		<item>Fnalizado</item>
-		<item>Masqué</item>
-	</string-array>
 	<string name="TLA_quickadd_confirm_title">Vous avez dit \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">J\'ai créé une tâche appelée \"%1$s\" %2$s à %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">pour %s</string>
@@ -162,7 +156,6 @@
 	<string name="SSD_sort_reverse">Tri inversé</string>
 	<string name="SSD_save_temp">Une fois seulement</string>
 	<string name="SSD_save_always">Toujours</string>
-	<string name="FSA_label">Liste ou filtre Tasks</string>
 	<string name="FLA_context_shortcut">Créer un raccourci sur le bureau</string>
 	<string name="FLA_shortcut_dialog_title">Créer un raccourci</string>
 	<string name="FLA_shortcut_dialog">Nom du raccourci :</string>
@@ -173,24 +166,28 @@
 	<string name="FLA_new_list">Nouvelle liste</string>
 	<string name="FLA_no_filter_selected">Aucun filtre sélectionné ! Veuillez sélectionner un filtre ou une liste.</string>
 	<string name="TEA_when_header_label">Quand</string>
+	<string name="TEA_title_hint">Nom de la tâche</string>
 	<string name="TEA_importance_label">Priorité</string>
+	<string name="TEA_deadline_hint">Définir une date d\'échéance</string>
 	<string name="TEA_urgency_specific_time">À une heure précise ?</string>
 	<string name="TEA_urgency_none">Aucune</string>
+	<string name="TEA_hideUntil_label">Masquer jusqu\'à</string>
+	<string name="TEA_hideUntil_display">Masquer jusqu\'à %s</string>
 	<string name="TEA_hideUntil_message">La tâche sera masquée jusqu\'à %s</string>
-	<string-array name="TEA_loading">
-		<item>Chargement…</item>
-	</string-array>
 	<string name="TEA_notes_hint">Décrire la tâche</string>
 	<string name="TEA_estimatedDuration_label">Combien de temps cela va-t-il prendre ?</string>
 	<string name="TEA_elapsedDuration_label">Temps déjà passé sur la tâche</string>
 	<string name="TEA_menu_save">Sauvegarder les modifications</string>
 	<string name="TEA_menu_discard">Ne pas enregistrer</string>
+	<string name="TEA_menu_refresh_comments">Mettre à jour les commentaires</string>
 	<string name="TEA_menu_comments">Commentaires</string>
 	<string name="TEA_onTaskSave_due">Tâche enregistrée : prévue dans %s</string>
 	<string name="TEA_onTaskSave_notDue">Tâche enregistrée</string>
 	<string name="TEA_tab_activity">Activité</string>
+	<string name="TEA_timer_est">Restant %s</string>
+	<string name="TEA_timer_elap">Passé %s</string>
 	<string-array name="TEA_urgency">
-		<item>No date</item>
+		<item>Sans date</item>
 		<item>Un jour particulier</item>
 		<item>Aujourd\'hui</item>
 		<item>Demain</item>
@@ -203,14 +200,15 @@
 	<string-array name="TEA_hideUntil">
 		<item>Jamais</item>
 		<item>Date d\'échéance</item>
-		<item>Due time</item>
-		<item>Day before due</item>
-		<item>Week before due</item>
+		<item>Date d\'échéance</item>
+		<item>Jour avant échéance</item>
+		<item>Semaine avant échéance</item>
 		<item>Jour/horaire spécifique</item>
 	</string-array>
 	<string name="TEA_control_when">Quand</string>
 	<string name="TEA_control_importance">Priorité</string>
 	<string name="TEA_control_lists">Listes</string>
+	<string name="TEA_control_notes">Description..</string>
 	<string name="TEA_control_files">Fichiers</string>
 	<string name="TEA_control_reminders">Rappels</string>
 	<string name="TEA_control_timer">Contrôle de rappel</string>
@@ -277,37 +275,59 @@
 	<string name="EPr_appearance_header">Apparence</string>
 	<string name="EPr_appearance_summary">Thèmes, gadgets, ligne de tâche, écran d\'édition</string>
 	<string name="EPr_fontSize_title">Taillede la liste de tâche</string>
+	<string name="EPr_filters_to_show_title">Filtres à afficher</string>
 	<string name="EPr_showSmartConfirmation_title">Montrer une confirmation pour les rappels intelligents</string>
 	<string name="EPr_fontSize_desc">Taille de la police pour la page principale des listes</string>
+	<string name="EPr_showNotes_title">Afficher la description dans la tâche</string>
+	<string name="EPr_edit_screen_options">Edition des options d\'affichage</string>
+	<string name="EPr_beastMode_title">Edition de l\'ordre d\'affichage</string>
+	<string name="EPr_beastMode_shortcut">Personnaliser</string>
+	<string name="EPr_time_increment">Incrément de 5 minutes</string>
+	<string name="EPr_use_date_shortcuts">Utiliser les raccourcis de données</string>
+	<string name="EPr_show_timer_shortcut">Afficher le raccourci de minuterie</string>
 	<string name="EPr_beastMode_desc">Personnaliser la disposition de l\'écran d\'édition de tâche</string>
 	<string name="EPr_beastMode_reset">Rétablir les valeurs par défaut</string>
+	<string name="EPr_beastMode_hint">Personnalisez votre écran d\'ajout de tâche en faisant glisser chaque ligne vers la gauche</string>
+	<string name="EPr_showNotes_desc_disabled">La description sera accessible depuis l\'écran d\'édition de tâche</string>
+	<string name="EPr_showNotes_desc_enabled">La description sera toujours affichée</string>
 	<string name="EPr_fullTask_title">Voir le titre complet de la tâche</string>
 	<string name="EPr_fullTask_desc_enabled">Le titre entier de la tâche sera montré</string>
 	<string name="EPr_fullTask_desc_disabled">Les deux premières lignes du titre de la tâche seront montrées</string>
+	<string-array name="EPr_task_row_styles">
+		<item>Original</item>
+		<item>Simple</item>
+		<item>Titre seulement</item>
+	</string-array>
 	<string-array name="EPr_task_row_style_descriptions">
 		<item>Tronquer le titre en deux lignes avec la date sur la droite</item>
 		<item>Tronquer le titre en une ligne avec la date et les listes en dessous</item>
-		<item>Single line title only</item>
+		<item>Titre sur une seule ligne</item>
 	</string-array>
+	<string name="EPr_task_row_style_title">Style de ligne : %s</string>
+	<string name="EPr_use_filters_title">Utiliser des filtres</string>
+	<string name="EPr_use_filters_subtitle">Permet la création de filtres personnalisés</string>
+	<string name="EPr_show_quickadd_controls">Contrôles d\'ajouts rapides avancés</string>
+	<string name="EPr_hide_plus_button">Masquer le bouton \"+\"</string>
+	<string name="EPr_menu_items">Eléments de menu</string>
+	<string name="EPr_list_view">Vue sous forme de liste</string>
+	<string name="EPr_show_task_edit_comments">Afficher les commentaires dans l\'édition de tâches</string>
 	<string name="EPr_theme_title">Thème de couleur</string>
 	<string name="EPr_theme_desc">Actuellement : %s</string>
 	<string name="EPr_theme_desc_unsupported">Ce paramètre requiert Android 2.0+.</string>
 	<string name="EPr_theme_widget_title">Thème de gadget</string>
 	<string name="EPr_taskRowPrefs_title">Style des lignes de tâche</string>
+	<string name="EPr_cal_end_or_start_at_due_time">Heure de l\'évenement dans le calendrier</string>
+	<string name="EPr_cal_end_at_due_time">Terminer les événements dans le calendrier à l\'échéance</string>
+	<string name="EPr_cal_start_at_due_time">Commencer les événements dans le calendrier à l\'échéance</string>
 	<string name="EPr_force_phone_layout">Utiliser la mise en page du téléphone</string>
+	<string name="EPr_configurations_title">Configurer</string>
+	<string name="EPr_config_default">Par défaut</string>
+	<string name="EPr_config_lite">Tâches allégées</string>
+	<string name="EPr_config_dialog_title">Configurer?</string>
+	<string name="EPr_config_dialog_text">Réinitialiser les préférences de la configuration %s?</string>
+	<string name="EPr_config_dialog_default_id">Par défaut</string>
+	<string name="EPr_show_save_and_cancel">Afficher enregistrer et annuler</string>
 	<string name="EPr_swipe_lists_performance_title">Glisser entre les listes.</string>
-	<string-array name="EPr_swipe_lists_performance_mode">
-		<item>Aucun glissement</item>
-		<item>Conserve la mémoire</item>
-		<item>Performance normale</item>
-		<item>Haute Performance</item>
-	</string-array>
-	<string-array name="EPr_swipe_lists_performance_desc">
-		<item>Le passage d\'une liste à l\'autre est désactivé</item>
-		<item>Performance plus lente</item>
-		<item>Paramètre par défaut</item>
-		<item>Utilise d\'avantage de ressource système</item>
-	</string-array>
 	<string name="swipe_lists_helper_title">Glisser entre les listes.</string>
 	<string name="swipe_lists_helper_header">\"Glissez  vers la gauche ou la droite pour passer rapidement d\'une liste à l\'autre\"</string>
 	<string name="swipe_lists_helper_subtitle">Changez les préférences dans Préférences -&gt; Apparence</string>
@@ -315,18 +335,18 @@
 		<item>Jour - Bleu</item>
 		<item>Jour - Rouge</item>
 		<item>Bleu ciel</item>
-		<item>Night</item>
-		<item>Transparent (white text)</item>
+		<item>Nuit</item>
+		<item>Transparent (texte en blanc)</item>
 		<item>Transparent (Texte Noir)</item>
 	</string-array>
 	<string-array name="EPr_themes_widget">
 		<item>Même que l\'application</item>
 		<item>Jour - Bleu</item>
 		<item>Jour - Rouge</item>
-		<item>Sky blue</item>
-		<item>Night</item>
-		<item>Transparent (white text)</item>
-		<item>Transparent (black text)</item>
+		<item>Bleu ciel</item>
+		<item>Nuit</item>
+		<item>Transparent (texte en blanc)</item>
+		<item>Transparent (texte en noir)</item>
 		<item>Ancien Style</item>
 	</string-array>
 	<string name="EPr_manage_header">Gérer les anciennes tâches</string>
@@ -360,14 +380,25 @@
 	<string name="WCA_title">Sélectionnez les tâches à afficher…</string>
 	<string name="p_about">À propos d\'Tasks</string>
 	<string name="p_about_text">Version actuelle : %s\n\n Tasks est un logiciel libre maintenu fièrement par Todoroo, Inc.</string>
+	<string name="feedback_positive_title">Evaluer Tasks ?</string>
+	<string name="feedback_positive_body">Content de savoir que je suis utile ! Prenez un instant pour nous donner 5 étoiles </string>
+	<string name="feedback_negative_title">Laisser un avis?</string>
+	<string name="feedback_negative_body">Désolé de voir que vous avez des problèmes</string>
+	<string name="feedback_activity_error">Oups ! Nous n\'avons pas pu lancer la section commentaires -- ce n\'est peut-être pas disponible sur votre appareil</string>
+	<string name="feedback_positive_button">Evaluer Tasks</string>
+	<string name="feedback_negative_button">Laisser un avis</string>
+	<string name="feedback_not_now">Plus tard</string>
+	<string name="feedback_banner_text">Comment fonctionne Tasks pour vous?</string>
 	<string name="task_killer_help">Il semble que vous utilisiez un logiciel capable de fermer les processus (%s) ! Si vous pouvez, ajoutez Tasks à la liste d\'exception afin qu\'il ne soit pas fermé. Sinon, Tasks ne pourra probablement pas vous avertir lorsque vos tâches seront dues.\n</string>
 	<string name="task_killer_help_ok">Je n\'éliminerai pas Tasks !</string>
 	<string name="DB_corrupted_title">Base de donnée corrompue</string>
 	<string name="DB_corrupted_body">Oh oh ! On dirait que vous avez une base de données corrompues. Si vous voyez souvent cette erreur, nous vous suggérons d\'effacer toutes vos données (Paramètres-&gt;Synchronisation et sauvegarde-&gt;Gérer les anciennes tâches-&gt;Effacer toutes les données) et restaurer vos tâches d\'une sauvegarde (Paramètres-&gt;Synchronisation et sauvegarde-&gt;Sauvegarde-&gt;Importer des tâches) dans Tasks</string>
 	<string name="market_unavailable">Malheureusement le Play Store n\'est pas disponible sur votre système</string>
 	<string name="EPr_defaults_header">Valeurs par défaut pour une nouvelle tâche</string>
+	<string name="EPr_defaults_summary">Priorité, date d\'échéance, ajouter au calendrier</string>
 	<string name="EPr_default_urgency_title">Échéance par défaut</string>
 	<string name="EPr_default_urgency_desc">Actuellement : %s</string>
+	<string name="EPr_default_importance_title">Priorité par défaut</string>
 	<string name="EPr_default_importance_desc">Actuellement : %s</string>
 	<string name="EPr_default_hideUntil_title">Masquer par défaut jusqu\'à</string>
 	<string name="EPr_default_hideUntil_desc">Actuellement : %s</string>
@@ -414,6 +445,7 @@
 	<string name="CFA_type_intersect">aussi</string>
 	<string name="CFA_context_chain">%s comme critère</string>
 	<string name="CFA_context_delete">Supprimer la ligne</string>
+	<string name="CFA_help">Appuyer longuement pour des options additionnelles</string>
 	<string name="CFA_button_add">Ajouter un critère</string>
 	<string name="CFA_button_view">Affichage</string>
 	<string name="CFA_button_save">Sauver &amp; Voir</string>
@@ -428,6 +460,8 @@
 		<item>Semaine prochaine</item>
 		<item>Mois suivant</item>
 	</string-array>
+	<string name="CFC_importance_text">Priorité au dernier ?</string>
+	<string name="CFC_importance_name">Priorité...</string>
 	<string name="CFC_tag_text">Liste : ?</string>
 	<string name="CFC_tag_name">Liste...</string>
 	<string name="CFC_tag_contains_name">Nom de liste contient...</string>
@@ -439,9 +473,12 @@
 	<string name="gcal_TEA_showCalendar_label">Ouvrir l\'événement de l\'agenda</string>
 	<string name="gcal_TEA_calendar_updated">Événement du calendrier également mis à jour</string>
 	<string name="gcal_TEA_nocal">Ne pas ajouter</string>
+	<string name="gcal_TEA_none_selected">Ajouter au calendrier?</string>
 	<string name="gcal_TEA_has_event">Evènement d\'appel</string>
 	<string name="gcal_completed_title">%s (complété)</string>
 	<string name="gcal_GCP_default">Agenda par défaut</string>
+	<string name="gtasks_FEx_header">Google Tâches</string>
+	<string name="gtasks_FEx_title">Google Tâches : %s</string>
 	<string name="gtasks_FEx_creating_list">Création de la liste...</string>
 	<string name="gtasks_FEx_create_list_dialog">Nom de la nouvelle liste :</string>
 	<string name="gtasks_FEx_create_list_error">Impossible de créer une nouvelle liste</string>
@@ -459,6 +496,10 @@
 	<string name="gtasks_error_authRefresh">Impossible de s\'authentifier avec Google Tasks. Veuillez vérifier votre mot de passe ou essayez plus tard.</string>
 	<string name="gtasks_error_accountManager">Une erreur est apparue dans le gestionnaire de comptes de votre téléphone. Veuillez vous deconnecter de votre compte Google Task puis vous reconnecter.</string>
 	<string name="gtasks_error_background_sync_auth">\"Erreur d\'authentification en arrière plan.  Réessayez de vous synchroniser quand Tasks est lancé.\"</string>
+	<string name="gtasks_import_progress">Importer les tâches de Google Tâches...</string>
+	<string name="gtasks_import_add_to_shared_list">La liste %1$s est partagée avec d\'autres utilisateurs! Voulez-vous quand même ajouter la tâche %2$s à celle-ci?</string>
+	<string name="gtasks_import_dlg_title">Importer des tâches depuis Google</string>
+	<string name="gtasks_import_add_task_ok">Ajout d\'une tâche</string>
 	<string name="gtasks_import_add_task_cancel">Ne pas ajouter de tâche </string>
 	<string name="locale_edit_alerts_title">Filtre d\'alertes Tasks</string>
 	<string name="locale_edit_intro">Tasks vous enverra un rappel si vous avez des tâches dans le filtre suivant :</string>
@@ -531,6 +572,7 @@
 	<string name="p_files_dir_desc">Les fichiers joints des tâches sont sauvegardés vers : %s</string>
 	<string name="p_files_dir_desc_default">Dossier par défaut</string>
 	<string name="premium_speech_bubble_2">Commandez pour un an et économisez 25%%!</string>
+	<string name="TEA_reminders_group_label">Paramètres de rappel</string>
 	<string name="TEA_reminder_label">Rappel moi :</string>
 	<string name="TEA_reminder_due">... lorsque la tâche est échue</string>
 	<string name="TEA_reminder_overdue">... lorsque la tâche est en retard</string>
@@ -539,6 +581,12 @@
 	<string name="TEA_reminder_mode_once">Une fois</string>
 	<string name="TEA_reminder_mode_five">Cinq fois</string>
 	<string name="TEA_reminder_mode_nonstop">Jusqu\'à ce que j\'annule l\'alarme</string>
+	<string name="TEA_reminder_when">Quand</string>
+	<string name="TEA_reminder_due_short">prévu</string>
+	<string name="TEA_reminder_overdue_short">en retard</string>
+	<string name="TEA_reminder_randomly_short">Aléatoirement</string>
+	<string name="TEA_reminder_display_one">Me rappeler %s</string>
+	<string name="TEA_reminder_display_multiple">Rappel %s</string>
 	<string-array name="TEA_reminder_random">
 		<item>Une heure</item>
 		<item>Un jour</item>
@@ -700,6 +748,8 @@
 		<item>8 h</item>
 	</string-array>
 	<string name="reminders_social">Ces personnes comptent sur vous !</string>
+	<string name="reminders_social_one">%s compte sur vous !</string>
+	<string name="reminders_social_multiple">%1$s, %2$s, et d\'autres comptent sur vous !</string>
 	<string-array name="reminders">
 		<item>Salut ! Tu as une seconde ?</item>
 		<item>Je peux te voir une seconde ?</item>
@@ -761,27 +811,12 @@
 		<item>C\'est l\'heure. Vous ne pouvez pas repousser l\'inévitable</item>
 		<item>À chaque fois que vous m\'ignorez, je meurs un peu.</item>
 	</string-array>
-	<string-array name="postpone_nags">
-		<item>Ne me dis pas que tu procrastines !</item>
-		<item>Être feignant ne devient pas démodé des fois ?</item>
-		<item>Quelque part quelqu\'un compte sur toi pour finir ça !</item>
-		<item>Quand tu as dis \"je repousse\", tu voulais dire \'je le fais\", c\'est ça ?</item>
-		<item>C\'est la dernière fois que tu repousses, n\'est-ce pas ?</item>
-		<item>Finissez-le simplement aujourd\'hui, je ne le dirai à personne !</item>
-		<item>Pourquoi remettre au lendemain... ce qu\'on peut faire tout de suite ?</item>
-		<item>Tu finiras ça un jour, je suppose ?</item>
-		<item>Je te trouve extraordinaire. Et si tu ne repoussais pas ça à plus tard ?</item>
-		<item>Seras-tu en mesure d\'atteindre tes objectifs si tu fais cela ?</item>
-		<item>Repousser, repousser, repousser. Mais quand changeras-tu ?</item>
-		<item>J\'en ai assez de vos excuses ! Faites-le simplement !</item>
-		<item>Ne serai-ce pas la même excuse que la dernière fois ?</item>
-		<item>Je ne peux pas t\'aider à organiser ta vie si tu fais ça...</item>
-	</string-array>
 	<string name="repeat_plugin">Répétition de tâches</string>
 	<string name="repeat_plugin_desc">Permet aux tâches d\'être répétées</string>
 	<string name="repeat_enabled">Répétitions</string>
 	<string name="repeat_every">Tous les %d</string>
 	<string name="repeat_interval_prompt">Interval de répétition</string>
+	<string name="repeat_never">Une fois seulement</string>
 	<string name="repeat_dont">Ne pas répéter</string>
 	<string-array name="repeat_interval_short">
 		<item>j</item>
@@ -854,6 +889,7 @@
 	<string name="tag_no_title_error">Veuillez d\'abord entrer un nom pour cette liste.</string>
 	<string name="tag_FEx_add_new">Nouveau</string>
 	<string name="tag_FEx_header">Listes</string>
+	<string name="tag_FEx_untagged">Non classé</string>
 	<string name="tag_cm_rename">Renommer la liste</string>
 	<string name="tag_cm_delete">Supprimer la liste</string>
 	<string name="tag_cm_leave">Quitter la liste</string>
@@ -876,11 +912,63 @@
 	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
     Please do not translate this part of the string. -->
 	<string name="update_string_default_comment">%1$s a commenté : %3$s</string>
+	<string name="update_string_task_comment">%1$s sur $link_task: %3$Taw94mwdPH6z9cbs</string>
+	<string name="update_string_tag_comment">%1$s sur %2$s: %3$s</string>
 	<string name="update_string_user_self">Vous</string>
+	<string name="history_yourself">vous-même</string>
 	<string name="history_you">vous</string>
+	<string name="history_a_deleted_user">(un utilisateur supprimé)</string>
 	<string name="history_this_list">cette liste</string>
 	<string name="history_this_task">cette tâche</string>
+	<string name="history_tag_added">%1$s ajouté à %2$s</string>
+	<string name="history_tag_removed">%1$s supprimé de %2$s</string>
+	<string name="history_attach_added">%1$s joint à %2$s</string>
+	<string name="history_attach_removed">%1$s supprimé de %2$s</string>
+	<string name="history_left_list">%s abandonné</string>
+	<string name="history_deleted">%s supprimé</string>
+	<string name="history_undeleted">non supprimé %s</string>
+	<string name="history_completed">%s complété</string>
+	<string name="history_uncompleted">non complété %s</string>
+	<string name="history_importance_changed">la priorité de %1$s a été changée de %2$s à %3$s</string>
+	<string name="history_title_changed">la titre de %1$s a été changé de %2$s à %3$s</string>
+	<string name="history_title_set">donner le titre de %1$s à %2$s </string>
+	<string name="history_name_changed">la nom a été changé de %1$s à %2$s</string>
+	<string name="history_name_set">nommer  %2$s</string>
+	<string name="history_description_changed">la description a été changée de %1$s à %2$s</string>
+	<string name="history_description_set">appliquer la description à %2$s</string>
+	<string name="history_made_public">%s est rendu publique</string>
+	<string name="history_made_private">%s est privé</string>
+	<string name="history_silenced">%s est silencieux</string>
+	<string name="history_unsilenced">%s n\'est pas silencieux</string>
+	<string name="history_favorited">%s est favori</string>
+	<string name="history_unfavorited">%s n\'est pas favori</string>
+	<string name="history_changed_list_picture">changer l\'image de cette liste</string>
+	<string name="history_added_description_characters">les caractères de %1$d ont été ajoutés à la description de %2$s</string>
+	<string name="history_removed_description">la description %s a été supprimée</string>
+	<string name="history_removed_description_characters">les caractères de %1$d ont été supprimés de la description de %2$s</string>
+	<string name="history_updated_description">la description de %s a été mise à jour</string>
+	<string name="history_changed_list_owner">la liste des propriétaires à été changée en %s</string>
+	<string name="history_created_this_list">cette liste a été créée</string>
+	<string name="history_unassigned">%s non attribué</string>
+	<string name="history_claimed">%s demandé</string>
+	<string name="history_assigned_to">%1$s assigné à %2$s</string>
+	<string name="history_created_for">%1$s créé pour %2$s</string>
+	<string name="history_created">%s créé</string>
+	<string name="history_changed_due_date">la date d\'échéance de %1$s a été changée de %2$s à %3$s</string>
+	<string name="history_set_due_date">Définir la date d\'échéance de %1$s à %2$s</string>
+	<string name="history_removed_due_date">date d\'échéance de %s supprimée</string>
+	<string name="history_completed_repeating_task">%1$s complété (maintenant attendue sur %2$s)</string>
+	<string name="history_added_user">%1$s ajoutée à %2$s</string>
+	<string name="history_removed_user">%1$s supprimé de %2$s</string>
+	<string name="history_changed_repeat">%1$s changé, répété sur %2$s</string>
+	<string name="history_removed_repeat">répétition %s supprimée</string>
+	<string name="history_shared_with">%1$s partagée avec %2$s</string>
+	<string name="history_unshared_with">%1$s non partagée avec %2$s</string>
 	<string name="history_repeat_every">Chaque %s</string>
+	<string name="history_repeat_on">sur %s</string>
+	<string name="history_repeat_from_completion">après achèvement</string>
+	<string name="history_acknowledged">%s vu</string>
+	<string name="history_default">%1$s changé en %2$s</string>
 	<string name="voice_create_prompt">Parlez pour créer une nouvelle tâche</string>
 	<string name="voice_edit_title_prompt">Parlez pour définir un titre</string>
 	<string name="voice_edit_note_prompt">Parlez pour définir les notes de la tâche</string>
