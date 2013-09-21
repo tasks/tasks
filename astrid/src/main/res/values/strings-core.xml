@@ -242,7 +242,7 @@
   <!-- =============================================== FilterListActivity == -->
   
   <!-- Tasks Filter Shortcut -->    
-  <string name="FSA_label">List or Filter</string>
+  <string name="FSA_label">Tasks List or Filter</string>
 
   <!-- Filter List Activity Title -->    
   

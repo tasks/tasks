@@ -7,14 +7,14 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget"
-    android:layout_width="wrap_content"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@android:color/transparent">
 
     <LinearLayout 
         android:id="@+id/widget_header"
-        android:layout_width="200dip"
+        android:layout_width="fill_parent"
         android:layout_height="39dip"
         android:orientation="horizontal"
         android:padding="3dp"

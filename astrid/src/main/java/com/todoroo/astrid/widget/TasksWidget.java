@@ -56,6 +56,8 @@ import com.todoroo.astrid.utility.Constants;
 
 public class TasksWidget extends AppWidgetProvider {
 
+    private static final int NUM_VISIBLE_TASKS = 25;
+
     public static final int THEME_LEGACY = -1;
 
     public static long suppressUpdateFlag = 0; // Timestamp--don't update widgets if this flag is non-zero and now() is within 5 minutes
@@ -174,7 +176,7 @@ public class TasksWidget extends AppWidgetProvider {
 
             RemoteViews views = getThemedRemoteViews(context);
 
-            int numberOfTasks = getNumberOfTasks();
+            int numberOfTasks = NUM_VISIBLE_TASKS;
 
             TodorooCursor<Task> cursor = null;
             Filter filter = null;
@@ -372,20 +374,6 @@ public class TasksWidget extends AppWidgetProvider {
             views.setTextColor(R.id.widget_title, titleColor);
             views.setInt(R.id.widget_button, "setImageResource", buttonDrawable);
             return views;
-        }
-
-        private int getNumberOfTasks() {
-            Display display = ((WindowManager) this.getSystemService(
-                    Context.WINDOW_SERVICE)).getDefaultDisplay();
-
-            DisplayMetrics metrics = new DisplayMetrics();
-            display.getMetrics(metrics);
-
-            if(metrics.density <= 0.75) {
-                return 4;
-            } else {
-                return 5;
-            }
         }
 
         private Filter getFilter(Context context, int widgetId) {

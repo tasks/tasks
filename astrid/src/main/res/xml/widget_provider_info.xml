@@ -9,5 +9,8 @@
     android:configure="com.todoroo.astrid.widget.TasksWidget$ConfigActivity"
     android:minWidth="142dip"
     android:minHeight="142dip"
+    android:minResizeWidth="142dip"
+    android:minResizeHeight="142dip"
     android:updatePeriodMillis="86400000"
-    android:initialLayout="@layout/widget_loading" />
+    android:initialLayout="@layout/widget_loading"
+    android:resizeMode="horizontal|vertical"/>
