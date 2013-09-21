@@ -5,58 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<plurals name="DUt_years">
-		<item quantity="one">1 Year</item>
-		<item quantity="other">%d Years</item>
-	</plurals>
-	<plurals name="DUt_months">
-		<item quantity="one">1 Month</item>
-		<item quantity="other">%d Months</item>
-	</plurals>
-	<plurals name="DUt_weeks">
-		<item quantity="one">1 Week</item>
-		<item quantity="other">%d Weeks</item>
-	</plurals>
-	<plurals name="DUt_days">
-		<item quantity="one">1 Day</item>
-		<item quantity="other">%d Days</item>
-	</plurals>
-	<plurals name="DUt_weekdays">
-		<item quantity="one">1 Weekday</item>
-		<item quantity="other">%d Weekdays</item>
-	</plurals>
-	<plurals name="DUt_hours">
-		<item quantity="one">1 Hour</item>
-		<item quantity="other">%d Hours</item>
-	</plurals>
-	<plurals name="DUt_minutes">
-		<item quantity="one">1 Minute</item>
-		<item quantity="other">%d Minutes</item>
-	</plurals>
-	<plurals name="DUt_seconds">
-		<item quantity="one">1 Second</item>
-		<item quantity="other">%d Seconds</item>
-	</plurals>
-	<plurals name="DUt_hoursShort">
-		<item quantity="one">1 Hr</item>
-		<item quantity="other">%d Hrs</item>
-	</plurals>
-	<plurals name="DUt_minutesShort">
-		<item quantity="one">1 Min</item>
-		<item quantity="other">%d Min</item>
-	</plurals>
-	<plurals name="DUt_secondsShort">
-		<item quantity="one">1 Sec</item>
-		<item quantity="other">%d Sec</item>
-	</plurals>
-	<plurals name="Ntasks">
-		<item quantity="one">1 task</item>
-		<item quantity="other">%d tasks</item>
-	</plurals>
-	<plurals name="Npeople">
-		<item quantity="one">1 person</item>
-		<item quantity="other">%d people</item>
-	</plurals>
 	<string name="today">Сьогодні</string>
 	<string name="tomorrow">Завтра</string>
 	<string name="yesterday">Вчора</string>
@@ -90,16 +38,4 @@
 	<string name="sync_SPr_group_actions">Дії</string>
 	<string name="sync_SPr_sync">Синхронізувати зараз</string>
 	<string name="sync_SPr_forget">Вийти</string>
-	<string-array name="sync_SPr_interval_entries">
-		<item>disable</item>
-		<item>every fifteen minutes</item>
-		<item>every thirty minutes</item>
-		<item>every hour</item>
-		<item>every three hours</item>
-		<item>every six hours</item>
-		<item>every twelve hours</item>
-		<item>every day</item>
-		<item>every three days</item>
-		<item>every week</item>
-	</string-array>
 </resources>

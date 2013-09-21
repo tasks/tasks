@@ -369,11 +369,6 @@
 	<string name="swipe_lists_helper_title">목록간 스와이프 이동하기</string>
 	<string name="swipe_lists_helper_header">목록간 빠른 이동하려면 좌우로 스와이프 이동하기</string>
 	<string name="swipe_lists_helper_subtitle">설정에 있는 설정 변경하기 -&gt; 모양</string>
-	<string-array name="EPr_default_reminders_mode">
-		<item>@string/TEA_reminder_mode_once</item>
-		<item>@string/TEA_reminder_mode_five</item>
-		<item>@string/TEA_reminder_mode_nonstop</item>
-	</string-array>
 	<string-array name="EPr_themes">
 		<item>낮 - 파란색</item>
 		<item>낮 - 빨간색</item>
@@ -482,9 +477,6 @@
 		<item>완료일에</item>
 		<item>마감일 이후</item>
 		<item>마감일이나 그 이후</item>
-	</string-array>
-	<string-array name="EPr_default_addtocalendar">
-		<item>@string/EPr_deactivated</item>
 	</string-array>
 	<string name="BFE_Active">나의 일정</string>
 	<string name="BFE_Recent">최근에 수정한 일정</string>

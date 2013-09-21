@@ -66,9 +66,6 @@
 	<string name="EPr_reset_sync_state_detailed">Bei der nächsten Synchronisation werden deine Aufgaben und Listen denjenigen auf Tasks.com angeglichen. Das behebt Synchronisationsfehler. Möchtest du damit beginen?</string>
 	<string name="alarm_ACS_label">Alarme</string>
 	<string name="alarm_ACS_button">Einen Alarm hinzufügen</string>
-	<string-array name="reminders_alarm">
-		<item>Alarm!</item>
-	</string-array>
 	<string name="backup_status_success">Letzte Datensicherung:\n%s</string>
 	<string name="backup_status_failed">Letzte Datensicherung gescheitert</string>
 	<string name="backup_status_failed_subtitle">(Anklicken, um Fehler anzuzeigen)</string>
@@ -463,9 +460,6 @@
 		<item>Wenn überfällig</item>
 		<item>Am Stichtag oder überfällig</item>
 	</string-array>
-	<string-array name="EPr_default_addtocalendar">
-		<item>@string/EPr_deactivated</item>
-	</string-array>
 	<string name="BFE_Active">Meine Aufgaben</string>
 	<string name="BFE_Recent">Kürzlich bearbeitet</string>
 	<string name="BFE_Assigned">Ich habe zugeordnet</string>
@@ -608,6 +602,7 @@
 	<string name="TEA_reminder_mode_once">Einmal</string>
 	<string name="TEA_reminder_mode_five">Fünfmal</string>
 	<string name="TEA_reminder_mode_nonstop">Bis ich den Alarm abschalte</string>
+	<string name="TEA_reminder_when">wenn</string>
 	<string name="TEA_reminder_due_short">fällig</string>
 	<string name="TEA_reminder_overdue_short">überfällig</string>
 	<string name="TEA_reminder_randomly_short">zufällig</string>

@@ -300,11 +300,6 @@
 		<item>Простий</item>
 		<item>Title only</item>
 	</string-array>
-	<string-array name="EPr_task_row_style_descriptions">
-		<item>Truncate title to two lines with date on right</item>
-		<item>Truncate title to one line with date and lists below</item>
-		<item>Single line title only</item>
-	</string-array>
 	<string name="EPr_use_filters_title">Використовувати фільтри</string>
 	<string name="EPr_use_filters_subtitle">Дозволяє створювати власні фільтри</string>
 	<string name="EPr_hide_plus_button">Прибрати кнопку плюс</string>
@@ -329,29 +324,6 @@
 	</string-array>
 	<string name="swipe_lists_helper_title">Свайп між списками</string>
 	<string name="swipe_lists_helper_header">Свайп вліво або вправо щоб швидко перемикати списки</string>
-	<string-array name="EPr_default_reminders_mode">
-		<item>@string/TEA_reminder_mode_once</item>
-		<item>@string/TEA_reminder_mode_five</item>
-		<item>@string/TEA_reminder_mode_nonstop</item>
-	</string-array>
-	<string-array name="EPr_themes">
-		<item>Day - Blue</item>
-		<item>Day - Red</item>
-		<item>Sky blue</item>
-		<item>Night</item>
-		<item>Transparent (white text)</item>
-		<item>Transparent (black text)</item>
-	</string-array>
-	<string-array name="EPr_themes_widget">
-		<item>Same as app</item>
-		<item>Day - Blue</item>
-		<item>Day - Red</item>
-		<item>Sky blue</item>
-		<item>Night</item>
-		<item>Transparent (white text)</item>
-		<item>Transparent (black text)</item>
-		<item>Old Style</item>
-	</string-array>
 	<string name="EPr_manage_clear_all">Очистити всі данні</string>
 	<string name="AOA_tab_available">Доступні</string>
 	<string name="AOA_free">Вільний</string>
@@ -363,33 +335,12 @@ Tasks might not let you know when your tasks are due.\n</string>
       If you see this error regularly, we suggest you clear all
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
       your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
-	<string-array name="EPr_default_importance">
-		<item>!!! (Highest)</item>
-		<item>!!</item>
-		<item>!</item>
-		<item>o (Lowest)</item>
-	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>No deadline</item>
 		<item>Сьогодні</item>
 		<item>Завтра</item>
 		<item>Day after tomorrow</item>
 		<item>Next week</item>
-	</string-array>
-	<string-array name="EPr_default_hideUntil">
-		<item>Don\'t hide</item>
-		<item>Task is due</item>
-		<item>Day before due</item>
-		<item>Week before due</item>
-	</string-array>
-	<string-array name="EPr_default_reminders">
-		<item>No deadline reminders</item>
-		<item>At deadline</item>
-		<item>When overdue</item>
-		<item>At deadline or overdue</item>
-	</string-array>
-	<string-array name="EPr_default_addtocalendar">
-		<item>@string/EPr_deactivated</item>
 	</string-array>
 	<string name="CFA_filterName_hint">Задайте ім\'я фільтра для його збереження ...</string>
 	<string name="CFA_type_add">або</string>
@@ -453,31 +404,8 @@ Tasks might not let you know when your tasks are due.\n</string>
 		<item>на проязі 2-х місяців</item>
 	</string-array>
 	<string name="rmd_NoA_snooze">Відкласти</string>
-	<string-array name="rmd_reengage_notif_titles">
-		<item>A note from Tasks</item>
-		<item>Memo for %s.</item>
-		<item>Your Tasks digest</item>
-		<item>Reminders from Tasks</item>
-	</string-array>
 	<string name="rmd_reengage_name_default">ти</string>
 	<string name="rmd_reengage_add_tasks">Додати завдання</string>
-	<string-array name="rmd_reengage_dialog_options">
-		<item>Time to shorten your to-do list!</item>
-		<item>Dear sir or madam, some tasks await your inspection!</item>
-		<item>Hi there, could you take a look at these?</item>
-		<item>I\'ve got some tasks with your name on them!</item>
-		<item>A fresh batch of tasks for you today!</item>
-		<item>You look fabulous! Ready to get started?</item>
-		<item>A lovely day for getting some work done, I think!</item>
-	</string-array>
-	<string-array name="rmd_reengage_dialog_empty_options">
-		<item>Don\'t you want to get organized?</item>
-		<item>I\'m Tasks! I\'m here to help you do more!</item>
-		<item>You look busy! Let me take some of those tasks off of your plate.</item>
-		<item>I can help you keep track of all of the details in your life.</item>
-		<item>You\'re serious about getting more done? So am I!</item>
-		<item>Pleasure to make your acquaintance!</item>
-	</string-array>
 	<string-array name="EPr_reminder_random">
 		<item>disabled</item>
 		<item>щогодинно</item>
@@ -486,85 +414,6 @@ Tasks might not let you know when your tasks are due.\n</string>
 		<item>два рази на тиждень</item>
 		<item>щомісяця</item>
 		<item>два рази на місяць</item>
-	</string-array>
-	<string-array name="EPr_quiet_hours_start">
-		<item>disabled</item>
-		<item>8 PM</item>
-		<item>9 PM</item>
-		<item>10 PM</item>
-		<item>11 PM</item>
-		<item>12 AM</item>
-		<item>1 AM</item>
-		<item>2 AM</item>
-		<item>3 AM</item>
-		<item>4 AM</item>
-		<item>5 AM</item>
-		<item>6 AM</item>
-		<item>7 AM</item>
-		<item>8 AM</item>
-		<item>9 AM</item>
-		<item>10 AM</item>
-		<item>11 AM</item>
-		<item>12 PM</item>
-		<item>1 PM</item>
-		<item>2 PM</item>
-		<item>3 PM</item>
-		<item>4 PM</item>
-		<item>5 PM</item>
-		<item>6 PM</item>
-		<item>7 PM</item>
-	</string-array>
-	<string-array name="EPr_quiet_hours_end">
-		<item>9 AM</item>
-		<item>10 AM</item>
-		<item>11 AM</item>
-		<item>12 PM</item>
-		<item>1 PM</item>
-		<item>2 PM</item>
-		<item>3 PM</item>
-		<item>4 PM</item>
-		<item>5 PM</item>
-		<item>6 PM</item>
-		<item>7 PM</item>
-		<item>8 PM</item>
-		<item>9 PM</item>
-		<item>10 PM</item>
-		<item>11 PM</item>
-		<item>12 AM</item>
-		<item>1 AM</item>
-		<item>2 AM</item>
-		<item>3 AM</item>
-		<item>4 AM</item>
-		<item>5 AM</item>
-		<item>6 AM</item>
-		<item>7 AM</item>
-		<item>8 AM</item>
-	</string-array>
-	<string-array name="EPr_rmd_time">
-		<item>9 AM</item>
-		<item>10 AM</item>
-		<item>11 AM</item>
-		<item>12 PM</item>
-		<item>1 PM</item>
-		<item>2 PM</item>
-		<item>3 PM</item>
-		<item>4 PM</item>
-		<item>5 PM</item>
-		<item>6 PM</item>
-		<item>7 PM</item>
-		<item>8 PM</item>
-		<item>9 PM</item>
-		<item>10 PM</item>
-		<item>11 PM</item>
-		<item>12 AM</item>
-		<item>1 AM</item>
-		<item>2 AM</item>
-		<item>3 AM</item>
-		<item>4 AM</item>
-		<item>5 AM</item>
-		<item>6 AM</item>
-		<item>7 AM</item>
-		<item>8 AM</item>
 	</string-array>
 	<string-array name="reminders">
 		<item>Привіт! маєш хвилинку?</item>
@@ -580,69 +429,6 @@ Tasks might not let you know when your tasks are due.\n</string>
 		<item>A minute of your time?</item>
 		<item>It\'s a great day to</item>
 	</string-array>
-	<string-array name="reminders_due">
-		<item>Time to work!</item>
-		<item>Due date is here!</item>
-		<item>Ready to start?</item>
-		<item>You said you would do:</item>
-		<item>You\'re supposed to start:</item>
-		<item>Time to start:</item>
-		<item>It\'s time!</item>
-		<item>Excuse me! Time for</item>
-		<item>You free? Time to</item>
-	</string-array>
-	<string-array name="reminders_snooze">
-		<item>Don\'t be lazy now!</item>
-		<item>Snooze time is up!</item>
-		<item>No more snoozing!</item>
-		<item>Now are you ready?</item>
-		<item>No more postponing!</item>
-	</string-array>
-	<string-array name="reminder_responses">
-		<item>I\'ve got something for you!</item>
-		<item>Ready to put this in the past?</item>
-		<item>Why don\'t you get this done?</item>
-		<item>How about it? Ready tiger?</item>
-		<item>Ready to do this?</item>
-		<item>Can you handle this?</item>
-		<item>You can be happy! Just finish this!</item>
-		<item>I promise you\'ll feel better if you finish this!</item>
-		<item>Won\'t you do this today?</item>
-		<item>Please finish this, I\'m sick of it!</item>
-		<item>Can you finish this? Yes you can!</item>
-		<item>Are you ever going to do this?</item>
-		<item>Feel good about yourself! Let\'s go!</item>
-		<item>I\'m so proud of you! Lets get it done!</item>
-		<item>A little snack after you finish this?</item>
-		<item>Just this one task? Please?</item>
-		<item>Time to shorten your todo list!</item>
-		<item>Are you on Team Order or Team Chaos? Team Order! Let\'s go!</item>
-		<item>Have I mentioned you are awesome recently? Keep it up!</item>
-		<item>A task a day keeps the clutter away... Goodbye clutter!</item>
-		<item>How do you do it?  Wow, I\'m impressed!</item>
-		<item>You can\'t just get by on your good looks. Let\'s get to it!</item>
-		<item>Lovely weather for a job like this, isn\'t it?</item>
-		<item>A spot of tea while you work on this?</item>
-		<item>If only you had already done this, then you could go outside and play.</item>
-		<item>It\'s time. You can\'t put off the inevitable.</item>
-		<item>I die a little every time you ignore me.</item>
-	</string-array>
-	<string-array name="postpone_nags">
-		<item>Please tell me it isn\'t true that you\'re a procrastinator!</item>
-		<item>Doesn\'t being lazy get old sometimes?</item>
-		<item>Somewhere, someone is depending on you to finish this!</item>
-		<item>When you said postpone, you really meant \'I\'m doing this\', right?</item>
-		<item>This is the last time you postpone this, right?</item>
-		<item>Just finish this today, I won\'t tell anyone!</item>
-		<item>Why postpone when you can um... not postpone!</item>
-		<item>You\'ll finish this eventually, I presume?</item>
-		<item>I think you\'re really great! How about not putting this off?</item>
-		<item>Will you be able to achieve your goals if you do that?</item>
-		<item>Postpone, postpone, postpone. When will you change!</item>
-		<item>I\'ve had enough with your excuses! Just do it already!</item>
-		<item>Didn\'t you make that excuse last time?</item>
-		<item>I can\'t help you organize your life if you do that...</item>
-	</string-array>
 	<string-array name="repeat_interval_short">
 		<item>д.</item>
 		<item>тиж.</item>
@@ -650,14 +436,6 @@ Tasks might not let you know when your tasks are due.\n</string>
 		<item>год.</item>
 		<item>хв.</item>
 		<item>р.</item>
-	</string-array>
-	<string-array name="repeat_interval">
-		<item>Day(s)</item>
-		<item>Week(s)</item>
-		<item>Month(s)</item>
-		<item>Hour(s)</item>
-		<item>Minute(s)</item>
-		<item>Year(s)</item>
 	</string-array>
 	<string name="repeat_days">днів</string>
 	<string name="repeat_weeks">тижнів</string>
@@ -673,23 +451,8 @@ Tasks might not let you know when your tasks are due.\n</string>
 		<item>In Two Weeks</item>
 		<item>Next Month</item>
 	</string-array>
-	<string-array name="repeat_type">
-		<item>from due date</item>
-		<item>from completion date</item>
-	</string-array>
 	<string name="repeat_forever">Повторювати завжди</string>
 	<string name="repeat_until">Повторювати до %s</string>
-	<string-array name="repeat_encouragement">
-		<item>Good job!</item>
-		<item>Wow… I\'m so proud of you!</item>
-		<item>I love when you\'re productive!</item>
-		<item>Doesn\'t it feel good to check something off?</item>
-	</string-array>
-	<string-array name="repeat_encouragement_last_time">
-		<item>Good job!</item>
-		<item>I\'m so proud of you!</item>
-		<item>I love when you\'re productive!</item>
-	</string-array>
 	<string name="TEA_tags_label">Списки</string>
 	<string name="TEA_tags_label_long">Додати до списку</string>
 	<string name="TEA_tag_hint">Новий список</string>

@@ -349,11 +349,6 @@
 	<string name="swipe_lists_helper_title">עִלְעוּל בין רשימות</string>
 	<string name="swipe_lists_helper_header">עִלְעוּל ימינה ושמאלה למעבר מהיר בין רשימות</string>
 	<string name="swipe_lists_helper_subtitle">שנה הגדרות תחת הגדרות&gt;חזות</string>
-	<string-array name="EPr_default_reminders_mode">
-		<item>@string/TEA_reminder_mode_once</item>
-		<item>@string/TEA_reminder_mode_five</item>
-		<item>@string/TEA_reminder_mode_nonstop</item>
-	</string-array>
 	<string-array name="EPr_themes">
 		<item>יום - כחול</item>
 		<item>יום - אדום</item>
@@ -452,9 +447,6 @@
 		<item>במועד הסף</item>
 		<item>אחרי מועד היעד</item>
 		<item>במועד היעד או לאחריו</item>
-	</string-array>
-	<string-array name="EPr_default_addtocalendar">
-		<item>@string/EPr_deactivated</item>
 	</string-array>
 	<string name="BFE_Active">המשימות שלי</string>
 	<string name="BFE_Recent">עודכנו לאחרונה</string>

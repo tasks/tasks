@@ -282,11 +282,6 @@
 	<string name="EPr_fullTask_title">Visualizza titolo completo dell\'attività</string>
 	<string name="EPr_fullTask_desc_enabled">Sarà mostrato il titolo completo</string>
 	<string name="EPr_fullTask_desc_disabled">Saranno mostrate le prime due righe del titolo dell\'attività</string>
-	<string-array name="EPr_task_row_styles">
-		<item>Original</item>
-		<item>Simple</item>
-		<item>Title only</item>
-	</string-array>
 	<string-array name="EPr_task_row_style_descriptions">
 		<item>Riduci il titolo a due righe con la data a destra</item>
 		<item>Riduci il titolo a una riga con la data e gli elenchi sotto</item>
@@ -314,11 +309,6 @@
 	<string name="swipe_lists_helper_title">Scorri tra le liste</string>
 	<string name="swipe_lists_helper_header">Scorri a destra o a sinistra per muoverti rapidamente fra le liste</string>
 	<string name="swipe_lists_helper_subtitle">Modifica le impostazioni in Impostazioni -&gt; Aspetto</string>
-	<string-array name="EPr_default_reminders_mode">
-		<item>@string/TEA_reminder_mode_once</item>
-		<item>@string/TEA_reminder_mode_five</item>
-		<item>@string/TEA_reminder_mode_nonstop</item>
-	</string-array>
 	<string-array name="EPr_themes">
 		<item>Giorno - Blu</item>
 		<item>Giorno - Rosso</item>
@@ -412,9 +402,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 		<item>Alla scadenza</item>
 		<item>Quando è scaduta</item>
 		<item>Alla scadenza o quando scaduto</item>
-	</string-array>
-	<string-array name="EPr_default_addtocalendar">
-		<item>@string/EPr_deactivated</item>
 	</string-array>
 	<string name="BFE_Active">Le mie attività</string>
 	<string name="BFE_Recent">Modificate di recente</string>
@@ -655,58 +642,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 		<item>6 PM</item>
 		<item>7 PM</item>
 	</string-array>
-	<string-array name="EPr_quiet_hours_end">
-		<item>9 AM</item>
-		<item>10 AM</item>
-		<item>11 AM</item>
-		<item>12 PM</item>
-		<item>1 PM</item>
-		<item>2 PM</item>
-		<item>3 PM</item>
-		<item>4 PM</item>
-		<item>5 PM</item>
-		<item>6 PM</item>
-		<item>7 PM</item>
-		<item>8 PM</item>
-		<item>9 PM</item>
-		<item>10 PM</item>
-		<item>11 PM</item>
-		<item>12 AM</item>
-		<item>1 AM</item>
-		<item>2 AM</item>
-		<item>3 AM</item>
-		<item>4 AM</item>
-		<item>5 AM</item>
-		<item>6 AM</item>
-		<item>7 AM</item>
-		<item>8 AM</item>
-	</string-array>
-	<string-array name="EPr_rmd_time">
-		<item>9 AM</item>
-		<item>10 AM</item>
-		<item>11 AM</item>
-		<item>12 PM</item>
-		<item>1 PM</item>
-		<item>2 PM</item>
-		<item>3 PM</item>
-		<item>4 PM</item>
-		<item>5 PM</item>
-		<item>6 PM</item>
-		<item>7 PM</item>
-		<item>8 PM</item>
-		<item>9 PM</item>
-		<item>10 PM</item>
-		<item>11 PM</item>
-		<item>12 AM</item>
-		<item>1 AM</item>
-		<item>2 AM</item>
-		<item>3 AM</item>
-		<item>4 AM</item>
-		<item>5 AM</item>
-		<item>6 AM</item>
-		<item>7 AM</item>
-		<item>8 AM</item>
-	</string-array>
 	<string name="reminders_social">Questa gente conta su di te!</string>
 	<string-array name="reminders">
 		<item>Ciao! Hai un secondo?</item>
@@ -791,14 +726,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="repeat_every">Ogni %d</string>
 	<string name="repeat_interval_prompt">Intervallo di ripetizione</string>
 	<string name="repeat_dont">Non ripetere</string>
-	<string-array name="repeat_interval_short">
-		<item>d</item>
-		<item>wk</item>
-		<item>mo</item>
-		<item>hr</item>
-		<item>min</item>
-		<item>yr</item>
-	</string-array>
 	<string-array name="repeat_interval">
 		<item>Giorno(i)</item>
 		<item>Settimana(e)</item>
@@ -836,17 +763,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="repeat_rescheduling_dialog_bubble">%1$s Ho ri-pianificato questa attività ricorrente da %2$s a %3$s</string>
 	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s Ho ri-pianificato questa attività ricorrente a %2$s</string>
 	<string name="repeat_rescheduling_dialog_bubble_last_time">Avevi questa ricorrenza fino %1$s, ed ora hai fatto tutto. %2$s</string>
-	<string-array name="repeat_encouragement">
-		<item>Good job!</item>
-		<item>Wow… I\'m so proud of you!</item>
-		<item>I love when you\'re productive!</item>
-		<item>Doesn\'t it feel good to check something off?</item>
-	</string-array>
-	<string-array name="repeat_encouragement_last_time">
-		<item>Good job!</item>
-		<item>I\'m so proud of you!</item>
-		<item>I love when you\'re productive!</item>
-	</string-array>
 	<string name="subtasks_help_title">Ordina e Indenta in Tasks</string>
 	<string name="subtasks_help_1">Tocca e tieni premuto per spostare un\'attività</string>
 	<string name="subtasks_help_2">Trascina verticalmente per riordinare</string>

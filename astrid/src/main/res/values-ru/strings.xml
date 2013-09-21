@@ -353,11 +353,6 @@
 	<string name="swipe_lists_helper_title">Свайп между списками</string>
 	<string name="swipe_lists_helper_header">Свайп влево или вправо чтобы быстро переключать списки</string>
 	<string name="swipe_lists_helper_subtitle">Измените настройки в Параметры -&gt; Интерфейс</string>
-	<string-array name="EPr_default_reminders_mode">
-		<item>@string/TEA_reminder_mode_once</item>
-		<item>@string/TEA_reminder_mode_five</item>
-		<item>@string/TEA_reminder_mode_nonstop</item>
-	</string-array>
 	<string-array name="EPr_themes">
 		<item>День - Синий</item>
 		<item>День - Красный</item>
@@ -454,9 +449,6 @@
 		<item>В срок</item>
 		<item>Когда просрочена</item>
 		<item>Вовремя или просрочена</item>
-	</string-array>
-	<string-array name="EPr_default_addtocalendar">
-		<item>@string/EPr_deactivated</item>
 	</string-array>
 	<string name="BFE_Active">Мои задания</string>
 	<string name="BFE_Recent">Недавно изменённые</string>

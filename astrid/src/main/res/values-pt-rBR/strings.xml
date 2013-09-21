@@ -284,11 +284,6 @@
 	<string name="EPr_fullTask_title">Exibir título completo</string>
 	<string name="EPr_fullTask_desc_enabled">O título completo será exibido</string>
 	<string name="EPr_fullTask_desc_disabled">Somente as primeiras duas linhas serão exibidas</string>
-	<string-array name="EPr_task_row_styles">
-		<item>Original</item>
-		<item>Simple</item>
-		<item>Title only</item>
-	</string-array>
 	<string-array name="EPr_task_row_style_descriptions">
 		<item>Truncar título para duas linhas com data à direita</item>
 		<item>Truncar título para uma única linha com data e lista abaixo</item>
@@ -316,11 +311,6 @@
 	<string name="swipe_lists_helper_title">Navegar entre as listas</string>
 	<string name="swipe_lists_helper_header">Deslizar para a esquerda ou direita para mover-se rapidamente entre listas</string>
 	<string name="swipe_lists_helper_subtitle">Alterar configurações em Configurações -&gt; Aparência</string>
-	<string-array name="EPr_default_reminders_mode">
-		<item>@string/TEA_reminder_mode_once</item>
-		<item>@string/TEA_reminder_mode_five</item>
-		<item>@string/TEA_reminder_mode_nonstop</item>
-	</string-array>
 	<string-array name="EPr_themes">
 		<item>Dia - Azul</item>
 		<item>Dia - Vermelho</item>
@@ -412,9 +402,6 @@
 		<item>No vencimento</item>
 		<item>Quando vencida</item>
 		<item>No prazo ou vencidas</item>
-	</string-array>
-	<string-array name="EPr_default_addtocalendar">
-		<item>@string/EPr_deactivated</item>
 	</string-array>
 	<string name="BFE_Active">Minhas Tarefas</string>
 	<string name="BFE_Recent">Modificadas recentemente</string>
@@ -660,58 +647,6 @@
 		<item>5 PM</item>
 		<item>6 PM</item>
 		<item>7 PM</item>
-	</string-array>
-	<string-array name="EPr_quiet_hours_end">
-		<item>9 AM</item>
-		<item>10 AM</item>
-		<item>11 AM</item>
-		<item>12 PM</item>
-		<item>1 PM</item>
-		<item>2 PM</item>
-		<item>3 PM</item>
-		<item>4 PM</item>
-		<item>5 PM</item>
-		<item>6 PM</item>
-		<item>7 PM</item>
-		<item>8 PM</item>
-		<item>9 PM</item>
-		<item>10 PM</item>
-		<item>11 PM</item>
-		<item>12 AM</item>
-		<item>1 AM</item>
-		<item>2 AM</item>
-		<item>3 AM</item>
-		<item>4 AM</item>
-		<item>5 AM</item>
-		<item>6 AM</item>
-		<item>7 AM</item>
-		<item>8 AM</item>
-	</string-array>
-	<string-array name="EPr_rmd_time">
-		<item>9 AM</item>
-		<item>10 AM</item>
-		<item>11 AM</item>
-		<item>12 PM</item>
-		<item>1 PM</item>
-		<item>2 PM</item>
-		<item>3 PM</item>
-		<item>4 PM</item>
-		<item>5 PM</item>
-		<item>6 PM</item>
-		<item>7 PM</item>
-		<item>8 PM</item>
-		<item>9 PM</item>
-		<item>10 PM</item>
-		<item>11 PM</item>
-		<item>12 AM</item>
-		<item>1 AM</item>
-		<item>2 AM</item>
-		<item>3 AM</item>
-		<item>4 AM</item>
-		<item>5 AM</item>
-		<item>6 AM</item>
-		<item>7 AM</item>
-		<item>8 AM</item>
 	</string-array>
 	<string name="reminders_social">Estas pessoas estão a contar consigo!</string>
 	<string-array name="reminders">

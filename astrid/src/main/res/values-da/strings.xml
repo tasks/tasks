@@ -1,251 +1,179 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-  <string name="actfm_person_hint">Kontaktperson eller email</string>
-  <string name="actfm_person_or_tag_hint">Kontaktperson eller delt liste</string>
-  <string name="actfm_tag_operation_owner_delete">Du er ejeren af dette delte nøgleord! Hvis du sletter det, bliver det slettet for alle liste medlemmer. Er du sikker på du vil fortsætte?</string>
-  <string name="actfm_picture_camera">Tag et billede</string>
-  <string name="actfm_picture_gallery">Vælg fra galleri</string>
-  <string name="actfm_picture_clear">Ryd markering</string>
-  <string name="actfm_view_task_title">Vis opgave?</string>
-  <string name="actfm_view_task_text">Opgaven blev sendt til %s! Du ser lige nu dine egne opgaver. Vil du se disse og andre opgaver, du har tildelt?</string>
-  <string name="actfm_view_task_ok">Vis tildelte</string>
-  <string name="actfm_view_task_cancel">Bliv her</string>
-  <string name="actfm_my_shared_tasks_title">Mine delte opgaver</string>
-  <string name="actfm_my_shared_tasks_empty">Ingen delte opgaver</string>
-  <string name="TVA_add_comment">Tilføj en kommentar</string>
-  <string-array name="TVA_tabs">
-    <item>Opgaver</item>
-    <item>Aktivitet</item>
-    <item>Listeindstillinger</item>
-  </string-array>
-  <string name="actfm_TVA_filtered_by_assign">%s\'s opgaver. Tryk for alle</string>
-  <string name="actfm_TVA_filter_by_unassigned">Ufordelte opgaver. Tryk for alle</string>
-  <string name="actfm_TVA_no_members_alert">Privat: tryk for at redigere eller dele listen</string>
-  <string name="actfm_TVA_menu_refresh">Opdater</string>
-  <string name="actfm_TVA_tag_label">Listenavn</string>
-  <string name="actfm_TVA_members_label">Delt med</string>
-  <string name="actfm_TVA_tag_picture">Liste billede</string>
-  <string name="actfm_EPA_intro">Brug Tasks til at dele indkøbssedler, festplaner eller projektplaner og følg løbende med i, hvornår folk får afsluttet opgaver!</string>
-  <string name="actfm_EPA_assign_me">Mig</string>
-  <string name="actfm_EPA_unassigned">Hvem som helst</string>
-  <string name="actfm_EPA_share_with">Del med:</string>
-  <string name="actfm_EPA_collaborators_header">Del med venner</string>
-  <string name="actfm_EPA_message_body">Hjælp mig med at få opgaven færdig!</string>
-  <string name="actfm_EPA_invalid_email">Forkert emailadresse: %s</string>
-  <string name="actfm_ALA_title">Velkommen til Tasks.com</string>
-  <string name="actfm_ALA_email_label">E-mail</string>
-  <string name="actfm_ALA_password_label">Adgangskode</string>
-  <string name="actfm_ALA_signup_title">Opret ny brugerkonto</string>
-  <string name="actfm_ALA_login_title">Login på Tasks.com</string>
-  <string name="actfm_OLA_prompt">Forbind venligst til Google:</string>
-  <string name="actfm_https_title">Brug HTTPS</string>
-  <string name="actfm_https_enabled">HTTPS aktiveret (langsommere)</string>
-  <string name="actfm_https_disabled">HTTPS deaktiveret (hurtigere)</string>
-  <string name="alarm_ACS_label">Alarmer</string>
-  <string name="alarm_ACS_button">Tilføj en alarm</string>
-  <string-array name="reminders_alarm">
-    <item>Alarm!</item>
-  </string-array>
-  <string name="backup_BPr_header">Backup</string>
-  <string name="backup_status_success">Sidste sikkerhedskopi:\n%s</string>
-  <string name="backup_status_failed">Seneste backup fejlede</string>
-  <string name="backup_status_failed_subtitle">(tryk for at vise fejl)</string>
-  <string name="backup_status_never">Har aldrig taget backup!</string>
-  <string name="backup_BPr_group_options">Indstillinger</string>
-  <string name="backup_BPr_auto_title">Automatisk backup</string>
-  <string name="backup_BPr_auto_disabled">Automatisk backup deaktiveret</string>
-  <string name="backup_BPr_auto_enabled">Backup vil ske dagligt</string>
-  <string name="backup_BAc_label">Håndter sikkerhedskopier</string>
-  <string name="backup_BAc_title">Håndter dine sikkerhedskopier</string>
-  <string name="backup_BAc_import">Importér opgaver</string>
-  <string name="backup_BAc_export">Eksportér opgaver</string>
-  <string name="backup_TXI_error">Importfejl</string>
-  <string name="export_toast">Sikkerhedskopierede %1$s til %2$s.</string>
-  <string name="export_toast_no_tasks">Ingen opgaver at eksportere</string>
-  <string name="export_progress_title">Eksporterer...</string>
-  <string name="import_summary_title">Opsummering af gendannelse</string>
-  <string name="import_summary_message">Filen %1$s indeholdt %2$s.\n\n %3$s importeret,\n %4$s findes allerede\n %5$s indeholdt fejl\n</string>
-  <string name="import_progress_title">Importerer...</string>
-  <string name="import_progress_read">Læser opgave %d...</string>
-  <string name="DLG_error_sdcard">Kan ikke få adgang til mappen: %s</string>
-  <string name="DLG_error_sdcard_general">Kan ikke få adgang til dig SD-kort!</string>
-  <string name="import_file_prompt">Vælg en fil for at gendanne</string>
-  <string name="app_name">Tasks Opgaver</string>
-  <string name="read_permission_label">Tasks Tilladelser</string>
-  <string name="read_permission_desc">læs opgaver, vis opgavefiltre</string>
-  <string name="write_permission_label">Tasks Tilladelser</string>
-  <string name="write_permission_desc">opret nye opgaver, rediger eksisterende opgaver</string>
-  <string name="DLG_delete_this_task_question">Slet denne opgave?</string>
-  <string name="DLG_delete_this_item_question">Slet dette element: %s?</string>
-  <string name="DLG_upgrading">Opgraderer dine opgaver...</string>
-  <string name="DLG_hour_minutes">Tid (timer : minutter)</string>
-  <string name="DLG_please_update">Tasks bør opdateres til den seneste version på Android Market! Gør venligst dette før du fortsætter, eller vent nogle få sekunder.</string>
-  <string name="DLG_accept">Jeg accepterer</string>
-  <string name="DLG_decline">Jeg accepterer ikke</string>
-  <string name="DLG_eula_title">Tasks Brugsbetingelser</string>
-  <string name="DLG_loading">Indlæser...</string>
-  <string name="WID_dateButtonUnset">Tryk for at indstille</string>
-  <string name="TLA_menu_sort">Sorter &amp; skjulte</string>
-  <string name="TLA_menu_settings">Opsætning</string>
-  <string name="TLA_custom">Tilpasset</string>
-  <string-array name="TLA_filters">
-    <item>Active</item>
-    <item>I dag</item>
-    <item>Soon</item>
-    <item>Late</item>
-    <item>Færdig</item>
-    <item>Hidden</item>
-  </string-array>
-  <string-array name="TLA_priority_strings">
-    <item>highest priority</item>
-    <item>high priority</item>
-    <item>medium priority</item>
-    <item>low priority</item>
-  </string-array>
-  <string name="TAd_hiddenFormat">%s [skjult]</string>
-  <string name="TAd_deletedFormat">%s [slettet]</string>
-  <string name="TAd_actionEditTask">Rediger</string>
-  <string name="TAd_contextEditTask">Rediger opgave</string>
-  <string name="TAd_contextUndeleteTask">Gendan opgave</string>
-  <string name="TAd_contextPurgeTask">Ryd opgave</string>
-  <string name="SSD_title">Sortering og skjulte opgaver</string>
-  <string name="SSD_completed">Vis færdiggjorte opgaver</string>
-  <string name="SSD_hidden">Vis skjulte opgaver</string>
-  <string name="SSD_deleted">Vis slettede opgaver</string>
-  <string name="SSD_sort_auto">Tasks Intelligent sortering</string>
-  <string name="SSD_sort_alpha">Efter titel</string>
-  <string name="SSD_sort_due">Efter deadline</string>
-  <string name="SSD_sort_importance">Efter vigtighed</string>
-  <string name="SSD_sort_modified">Efter senest ændret</string>
-  <string name="SSD_sort_reverse">Omvendt sortering</string>
-  <string name="SSD_save_temp">Kun en gang</string>
-  <string name="SSD_save_always">Altid</string>
-  <string name="FLA_context_shortcut">Opret genvej på skrivebordet</string>
-  <string name="FLA_shortcut_dialog_title">Opret genvej</string>
-  <string name="FLA_shortcut_dialog">Navn på genvej:</string>
-  <string name="FLA_search_hint">Søg efter opgaver</string>
-  <string name="FLA_search_filter">Matcher \'%s\'</string>
-  <string name="FLA_toast_onCreateShortcut">Oprettede genvej: %s</string>
-  <string name="TEA_title_hint">Opgave Overskrift</string>
-  <string name="TEA_importance_label">Vigtighed</string>
-  <string name="TEA_urgency_specific_time">På bestemt tidspunkt?</string>
-  <string-array name="TEA_loading">
-    <item>Indlæser...</item>
-  </string-array>
-  <string name="TEA_note_label">Noter</string>
-  <string name="TEA_notes_hint">Indtast opgavenoter...</string>
-  <string name="TEA_estimatedDuration_label">Hvor lang tid tager det?</string>
-  <string name="TEA_elapsedDuration_label">Tid allerede brugt på denne opgave</string>
-  <string name="TEA_menu_save">Gem ændringer</string>
-  <string name="TEA_menu_discard">Gem ikke</string>
-  <string name="TEA_menu_delete">Slet opgave</string>
-  <string name="TEA_onTaskSave_due">Opgave gemt: deadline %s</string>
-  <string name="TEA_onTaskSave_notDue">Opgave gemt</string>
-  <string name="TEA_tab_activity">Aktivitet</string>
-  <string name="TEA_tab_more">Mere</string>
-  <string-array name="TEA_urgency">
-    <item>No deadline</item>
-    <item>Specific day</item>
-    <item>I dag</item>
-    <item>I morgen</item>
-    <item>(dag efter)</item>
-    <item>Næste uge</item>
-    <item>In two weeks</item>
-    <item>Næste måned</item>
-  </string-array>
-  <string-array name="TEA_hideUntil">
-    <item>Altid</item>
-    <item>Due date</item>
-    <item>Due time</item>
-    <item>Dag før deadline</item>
-    <item>Uge før deadline</item>
-    <item>Specifik dag/tid</item>
-  </string-array>
-  <string name="TEA_control_who">Hvem</string>
-  <string name="TEA_control_more_section">----More Section----</string>
-  <string name="TEA_control_importance">Vigtighed</string>
-  <string name="TEA_control_notes">Noter</string>
-  <string-array name="MCA_dialog_speech_options">
-    <item>It must be nice to be so popular!</item>
-    <item>Yay! People like you!</item>
-    <item>Make their day, give \'em a call!</item>
-    <item>Wouldn\'t you be happy if people called you back?</item>
-    <item>You can do it!</item>
-    <item>You can always send a text...</item>
-  </string-array>
-  <string name="UpS_changelog_title">Hvad er nyt i Tasks</string>
-  <string name="UpS_updates_title">Seneste Tasks-nyheder</string>
-  <string name="EPr_title">Tasks: Opsætning</string>
-  <string name="EPr_appearance_header">Udseende</string>
-  <string name="EPr_fontSize_title">Opgavelistestørrelse</string>
-  <string name="EPr_fontSize_desc">Skriftstørrelse på den centrale liste</string>
-  <string name="EPr_showNotes_title">Vis noter i opgave</string>
-  <string name="EPr_showNotes_desc_enabled">Noter vises altid</string>
-  <string name="EPr_theme_desc">Nuværende: %s</string>
-  <string-array name="EPr_swipe_lists_performance_mode">
-    <item>No swipe</item>
-    <item>Conserve Memory</item>
-    <item>Normal Performance</item>
-    <item>High Performance</item>
-  </string-array>
-  <string-array name="EPr_swipe_lists_performance_desc">
-    <item>Swipe between lists is disabled</item>
-    <item>Slower performance</item>
-    <item>Default setting</item>
-    <item>Uses more system resources</item>
-  </string-array>
-  <string-array name="EPr_themes">
-    <item>Day - Blue</item>
-    <item>Day - Red</item>
-    <item>Sky blue</item>
-    <item>Night</item>
-    <item>Transparent (White Text)</item>
-    <item>Transparent (Black Text)</item>
-  </string-array>
-  <string-array name="EPr_themes_widget">
-    <item>Same as app</item>
-    <item>Day - Blue</item>
-    <item>Day - Red</item>
-    <item>Sky blue</item>
-    <item>Night</item>
-    <item>Transparent (White Text)</item>
-    <item>Transparent (Black Text)</item>
-    <item>Old Style</item>
-  </string-array>
-  <string name="AOA_title">Tilføjelser</string>
-  <string name="AOA_internal_author">Tasks team</string>
-  <string name="AOA_tab_installed">Installerede</string>
-  <string name="AOA_tab_available">Tilgængelige</string>
-  <string name="AOA_free">Gratis</string>
-  <string name="AOA_no_addons">Tom liste!</string>
-  <string name="TWi_loading">Indlæser...</string>
-  <string name="WCA_title">Vælg opgaver der skal vises...</string>
-  <string name="task_killer_help">Det ser ud som om du bruger en app der kan dræbe processer (%s)! Hvis du kan, så tilføj Tasks til udelukkelseslisten så den ikke bliver dræbt. Ellers kan Tasks muligvis ikke fortælle dig hvornår dine opgaver tidsfrist er.\n</string>
-  <string name="task_killer_help_ok">Jeg vil ikke dræbe Tasks!</string>
-  <string name="marketplace_description">Tasks er den højtelskede open-source huskeliste / opgavehåndtering designet til at hjælpe dig med at få ting ordnet. Den har påmindelser, tags, synkronisering, Locale-plug-in, et widget og meget mere.</string>
-  <string name="EPr_defaults_header">Standard for nye opgaver</string>
-  <string name="EPr_default_urgency_title">Standard Deadline</string>
-  <string name="EPr_default_urgency_desc">Nuværende: %s</string>
-  <string name="EPr_default_importance_title">Standard Vigtighed</string>
-  <string name="EPr_default_importance_desc">Nuværende: %s</string>
-  <string name="EPr_default_hideUntil_title">Standard Skjul Indtil</string>
-  <string name="EPr_default_hideUntil_desc">Nuværende: %s</string>
-  <string name="EPr_default_reminders_title">Standardpåmindelser</string>
-  <string name="EPr_default_reminders_desc">Nuværende: %s</string>
-  <string name="EPr_default_reminders_mode_desc">Nuværende: %s</string>
-  <string-array name="EPr_default_importance">
-    <item>!!! (Highest)</item>
-    <item>!!</item>
-    <item>!</item>
-    <item>o (Lowest)</item>
-  </string-array>
-  <string-array name="EPr_default_urgency">
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- ************************************************************** -->
+<!-- ********* THIS FILE IS GENERATED BY GETLOCALIZATION ********** -->
+<!-- ******** http://www.getlocalization.com/tasks_android ******** -->
+<!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
+<!-- ************************************************************** -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+	<string name="actfm_person_hint">Kontaktperson eller email</string>
+	<string name="actfm_person_or_tag_hint">Kontaktperson eller delt liste</string>
+	<string name="actfm_tag_operation_owner_delete">Du er ejeren af dette delte nøgleord! Hvis du sletter det, bliver det slettet for alle liste medlemmer. Er du sikker på du vil fortsætte?</string>
+	<string name="actfm_picture_camera">Tag et billede</string>
+	<string name="actfm_picture_gallery">Vælg fra galleri</string>
+	<string name="actfm_picture_clear">Ryd markering</string>
+	<string name="actfm_view_task_title">Vis opgave?</string>
+	<string name="actfm_view_task_text">Opgaven blev sendt til %s! Du ser lige nu dine egne opgaver. Vil du se disse og andre opgaver, du har tildelt?</string>
+	<string name="actfm_view_task_ok">Vis tildelte</string>
+	<string name="actfm_view_task_cancel">Bliv her</string>
+	<string name="actfm_my_shared_tasks_title">Mine delte opgaver</string>
+	<string name="actfm_my_shared_tasks_empty">Ingen delte opgaver</string>
+	<string name="TVA_add_comment">Tilføj en kommentar</string>
+	<string-array name="TVA_tabs">
+		<item>Opgaver</item>
+		<item>Aktivitet</item>
+		<item>Listeindstillinger</item>
+	</string-array>
+	<string name="actfm_TVA_menu_refresh">Opdater</string>
+	<string name="actfm_TVA_tag_label">Listenavn</string>
+	<string name="actfm_TVA_tag_picture">Liste billede</string>
+	<string name="actfm_EPA_invalid_email">Forkert emailadresse: %s</string>
+	<string name="actfm_https_title">Brug HTTPS</string>
+	<string name="alarm_ACS_label">Alarmer</string>
+	<string name="alarm_ACS_button">Tilføj en alarm</string>
+	<string name="backup_BPr_header">Backup</string>
+	<string name="backup_status_success">Sidste sikkerhedskopi:\n%s</string>
+	<string name="backup_status_failed">Seneste backup fejlede</string>
+	<string name="backup_status_failed_subtitle">(tryk for at vise fejl)</string>
+	<string name="backup_status_never">Har aldrig taget backup!</string>
+	<string name="backup_BPr_group_options">Indstillinger</string>
+	<string name="backup_BPr_auto_title">Automatisk backup</string>
+	<string name="backup_BPr_auto_disabled">Automatisk backup deaktiveret</string>
+	<string name="backup_BPr_auto_enabled">Backup vil ske dagligt</string>
+	<string name="backup_BAc_label">Håndter sikkerhedskopier</string>
+	<string name="backup_BAc_title">Håndter dine sikkerhedskopier</string>
+	<string name="backup_BAc_import">Importér opgaver</string>
+	<string name="backup_BAc_export">Eksportér opgaver</string>
+	<string name="backup_TXI_error">Importfejl</string>
+	<string name="export_toast">Sikkerhedskopierede %1$s til %2$s.</string>
+	<string name="export_toast_no_tasks">Ingen opgaver at eksportere</string>
+	<string name="export_progress_title">Eksporterer...</string>
+	<string name="import_summary_title">Opsummering af gendannelse</string>
+	<string name="import_summary_message">Filen %1$s indeholdt %2$s.\n\n %3$s importeret,\n %4$s findes allerede\n %5$s indeholdt fejl\n</string>
+	<string name="import_progress_title">Importerer...</string>
+	<string name="import_progress_read">Læser opgave %d...</string>
+	<string name="DLG_error_sdcard">Kan ikke få adgang til mappen: %s</string>
+	<string name="DLG_error_sdcard_general">Kan ikke få adgang til dig SD-kort!</string>
+	<string name="import_file_prompt">Vælg en fil for at gendanne</string>
+	<string name="app_name">Tasks Opgaver</string>
+	<string name="read_permission_label">Tasks Tilladelser</string>
+	<string name="read_permission_desc">læs opgaver, vis opgavefiltre</string>
+	<string name="write_permission_label">Tasks Tilladelser</string>
+	<string name="write_permission_desc">opret nye opgaver, rediger eksisterende opgaver</string>
+	<string name="DLG_delete_this_task_question">Slet denne opgave?</string>
+	<string name="DLG_delete_this_item_question">Slet dette element: %s?</string>
+	<string name="DLG_upgrading">Opgraderer dine opgaver...</string>
+	<string name="DLG_hour_minutes">Tid (timer : minutter)</string>
+	<string name="DLG_accept">Jeg accepterer</string>
+	<string name="DLG_decline">Jeg accepterer ikke</string>
+	<string name="DLG_eula_title">Tasks Brugsbetingelser</string>
+	<string name="DLG_loading">Indlæser...</string>
+	<string name="WID_dateButtonUnset">Tryk for at indstille</string>
+	<string name="TLA_menu_sort">Sorter &amp; skjulte</string>
+	<string name="TLA_menu_settings">Opsætning</string>
+	<string name="TLA_custom">Tilpasset</string>
+	<string-array name="TLA_filters">
+		<item>Active</item>
+		<item>I dag</item>
+		<item>Soon</item>
+		<item>Late</item>
+		<item>Færdig</item>
+		<item>Hidden</item>
+	</string-array>
+	<string name="TAd_hiddenFormat">%s [skjult]</string>
+	<string name="TAd_deletedFormat">%s [slettet]</string>
+	<string name="TAd_actionEditTask">Rediger</string>
+	<string name="TAd_contextEditTask">Rediger opgave</string>
+	<string name="TAd_contextUndeleteTask">Gendan opgave</string>
+	<string name="TAd_contextPurgeTask">Ryd opgave</string>
+	<string name="SSD_completed">Vis færdiggjorte opgaver</string>
+	<string name="SSD_hidden">Vis skjulte opgaver</string>
+	<string name="SSD_deleted">Vis slettede opgaver</string>
+	<string name="SSD_sort_auto">Tasks Intelligent sortering</string>
+	<string name="SSD_sort_alpha">Efter titel</string>
+	<string name="SSD_sort_due">Efter deadline</string>
+	<string name="SSD_sort_importance">Efter vigtighed</string>
+	<string name="SSD_sort_modified">Efter senest ændret</string>
+	<string name="SSD_sort_reverse">Omvendt sortering</string>
+	<string name="SSD_save_temp">Kun en gang</string>
+	<string name="SSD_save_always">Altid</string>
+	<string name="FLA_context_shortcut">Opret genvej på skrivebordet</string>
+	<string name="FLA_shortcut_dialog_title">Opret genvej</string>
+	<string name="FLA_shortcut_dialog">Navn på genvej:</string>
+	<string name="FLA_search_hint">Søg efter opgaver</string>
+	<string name="FLA_search_filter">Matcher \'%s\'</string>
+	<string name="FLA_toast_onCreateShortcut">Oprettede genvej: %s</string>
+	<string name="TEA_title_hint">Opgave Overskrift</string>
+	<string name="TEA_importance_label">Vigtighed</string>
+	<string name="TEA_urgency_specific_time">På bestemt tidspunkt?</string>
+	<string-array name="TEA_loading">
+		<item>Indlæser...</item>
+	</string-array>
+	<string name="TEA_note_label">Noter</string>
+	<string name="TEA_notes_hint">Indtast opgavenoter...</string>
+	<string name="TEA_estimatedDuration_label">Hvor lang tid tager det?</string>
+	<string name="TEA_elapsedDuration_label">Tid allerede brugt på denne opgave</string>
+	<string name="TEA_menu_save">Gem ændringer</string>
+	<string name="TEA_menu_discard">Gem ikke</string>
+	<string name="TEA_onTaskSave_due">Opgave gemt: deadline %s</string>
+	<string name="TEA_onTaskSave_notDue">Opgave gemt</string>
+	<string name="TEA_tab_activity">Aktivitet</string>
+	<string-array name="TEA_urgency">
+		<item>No deadline</item>
+		<item>Specific day</item>
+		<item>I dag</item>
+		<item>I morgen</item>
+		<item>(dag efter)</item>
+		<item>Næste uge</item>
+		<item>In two weeks</item>
+		<item>Næste måned</item>
+	</string-array>
+	<string-array name="TEA_hideUntil">
+		<item>Altid</item>
+		<item>Due date</item>
+		<item>Due time</item>
+		<item>Dag før deadline</item>
+		<item>Uge før deadline</item>
+		<item>Specifik dag/tid</item>
+	</string-array>
+	<string name="TEA_control_importance">Vigtighed</string>
+	<string name="TEA_control_notes">Noter</string>
+	<string name="MCA_title">%1$s\ncalled at %2$s</string>
+	<string name="UpS_changelog_title">Hvad er nyt i Tasks</string>
+	<string name="UpS_updates_title">Seneste Tasks-nyheder</string>
+	<string name="EPr_title">Tasks: Opsætning</string>
+	<string name="EPr_appearance_header">Udseende</string>
+	<string name="EPr_fontSize_title">Opgavelistestørrelse</string>
+	<string name="EPr_fontSize_desc">Skriftstørrelse på den centrale liste</string>
+	<string name="EPr_showNotes_title">Vis noter i opgave</string>
+	<string name="EPr_showNotes_desc_enabled">Noter vises altid</string>
+	<string name="EPr_theme_desc">Nuværende: %s</string>
+	<string name="AOA_title">Tilføjelser</string>
+	<string name="AOA_internal_author">Tasks team</string>
+	<string name="AOA_tab_installed">Installerede</string>
+	<string name="AOA_tab_available">Tilgængelige</string>
+	<string name="AOA_free">Gratis</string>
+	<string name="AOA_no_addons">Tom liste!</string>
+	<string name="TWi_loading">Indlæser...</string>
+	<string name="WCA_title">Vælg opgaver der skal vises...</string>
+	<string name="task_killer_help">Det ser ud som om du bruger en app der kan dræbe processer (%s)! Hvis du kan, så tilføj Tasks til udelukkelseslisten så den ikke bliver dræbt. Ellers kan Tasks muligvis ikke fortælle dig hvornår dine opgaver tidsfrist er.\n</string>
+	<string name="task_killer_help_ok">Jeg vil ikke dræbe Tasks!</string>
+	<string name="EPr_defaults_header">Standard for nye opgaver</string>
+	<string name="EPr_default_urgency_title">Standard Deadline</string>
+	<string name="EPr_default_urgency_desc">Nuværende: %s</string>
+	<string name="EPr_default_importance_title">Standard Vigtighed</string>
+	<string name="EPr_default_importance_desc">Nuværende: %s</string>
+	<string name="EPr_default_hideUntil_title">Standard Skjul Indtil</string>
+	<string name="EPr_default_hideUntil_desc">Nuværende: %s</string>
+	<string name="EPr_default_reminders_title">Standardpåmindelser</string>
+	<string name="EPr_default_reminders_desc">Nuværende: %s</string>
+	<string name="EPr_default_reminders_mode_desc">Nuværende: %s</string>
+	<string-array name="EPr_default_urgency">
     <item>Ingen deadline</item>
-    <item>I dag</item>
-    <item>I morgen</item>
+		<item>I dag</item>
+		<item>I morgen</item>
     <item>I overmorgen</item>
     <item>Næste uge</item>
-  </string-array>
+	</string-array>
   <string-array name="EPr_default_hideUntil">
     <item>Skjul ikke</item>
     <item>Opgave når deadline</item>
@@ -258,48 +186,44 @@
     <item>Ved overskredet deadline</item>
     <item>Ved deadline eller overskredet</item>
   </string-array>
-  <string name="BFE_Active">Aktive opgaver</string>
-  <string name="BFE_Recent">Senest ændrede</string>
-  <string name="BFE_Saved_delete">Slet filter</string>
-  <string name="CFA_title">Tilpasset filter</string>
-  <string name="CFA_filterName_hint">Navngiv dette filter for at gemme det...</string>
-  <string name="CFA_universe_all">Aktive opgaver</string>
-  <string name="CFA_type_add">eller</string>
-  <string name="CFA_type_subtract">ikke</string>
-  <string name="CFA_type_intersect">også</string>
-  <string name="CFA_context_chain">%s har kriterier</string>
-  <string name="CFA_context_delete">Slet række</string>
-  <string name="CFA_help">Denne skærm lader dig oprette et nyt filter. Tilføj kriterier ved hjælp af knappen nedenfor, tryk kort eller langt på dem for at justere, og tryk derefter \"Vis\"!</string>
-  <string name="CFA_button_add">Tilføj kriterier</string>
-  <string name="CFA_button_view">Vis</string>
-  <string name="CFA_button_save">Gem &amp; vis</string>
-  <string name="CFC_dueBefore_text">Deadline: ?</string>
-  <string name="CFC_dueBefore_name">Deadline...</string>
-  <string-array name="CFC_dueBefore_entries">
+	<string name="BFE_Active">Aktive opgaver</string>
+	<string name="BFE_Recent">Senest ændrede</string>
+	<string name="BFE_Saved_delete">Slet filter</string>
+	<string name="CFA_filterName_hint">Navngiv dette filter for at gemme det...</string>
+	<string name="CFA_universe_all">Aktive opgaver</string>
+	<string name="CFA_type_add">eller</string>
+	<string name="CFA_type_subtract">ikke</string>
+	<string name="CFA_type_intersect">også</string>
+	<string name="CFA_context_chain">%s har kriterier</string>
+	<string name="CFA_context_delete">Slet række</string>
+	<string name="CFA_help">Denne skærm lader dig oprette et nyt filter. Tilføj kriterier ved hjælp af knappen nedenfor, tryk kort eller langt på dem for at justere, og tryk derefter \"Vis\"!</string>
+	<string name="CFA_button_add">Tilføj kriterier</string>
+	<string name="CFA_button_view">Vis</string>
+	<string name="CFA_button_save">Gem &amp; vis</string>
+	<string name="CFC_dueBefore_text">Deadline: ?</string>
+	<string name="CFC_dueBefore_name">Deadline...</string>
+	<string-array name="CFC_dueBefore_entries">
     <item>Ingen deadline</item>
-    <item>I går</item>
-    <item>I dag</item>
-    <item>I morgen</item>
+		<item>I går</item>
+		<item>I dag</item>
+		<item>I morgen</item>
     <item>I overmorgen</item>
     <item>Næste uge</item>
     <item>Næste måned</item>
-  </string-array>
-  <string name="CFC_importance_text">Vigtighed mindst ?</string>
-  <string name="CFC_importance_name">Vigtighed...</string>
-  <string name="CFC_title_contains_name">Titel indeholder...</string>
-  <string name="CFC_title_contains_text">Titel indeholder: ?</string>
-  <string name="gcal_TEA_error">Fejl ved tilføjelse af opgave til kalender!</string>
-  <string name="gcal_TEA_showCalendar_label">Åbn kalender-begivenhed</string>
-  <string name="gcal_TEA_calendar_updated">Kalenderbegivenhed også opdateret!</string>
-  <string name="gcal_completed_title">%s (fuldført)</string>
-  <string name="gcal_GCP_default">Standardkalender</string>
-  <string name="gtasks_GLA_body">Vær venlig at logge ind to Google Tasks-synkronisering (beta!). Google Apps for Domain understøttes i øjeblikket ikke, men vi arbejder på sagen!</string>
-  <string name="gtasks_GLA_further_help">For at vise dine opgaver med indryk og orden bevaret, skal du gå til Filtre-siden og vælge en Google Tasks-liste. Som standard bruger Tasks sin egen sorteringsopsætning til opgaver.</string>
-  <string name="gtasks_GLA_errorAuth_captcha">Du har muligvis støt på en captcha. Prøv at logge ind fra din standard browser, log da ind her igen:</string>
-  <string name="gtasks_GPr_header">Google Tasks (beta!)</string>
-  <string name="locale_edit_alerts_title">Tasks filter alarm</string>
-  <string name="locale_edit_intro">Tasks vil sende dig en påmindelse når du har opgaver i det følgende filter:</string>
-  <string name="locale_interval_label">Begræns påmindelser til:</string>
+	</string-array>
+	<string name="CFC_importance_text">Vigtighed mindst ?</string>
+	<string name="CFC_importance_name">Vigtighed...</string>
+	<string name="CFC_title_contains_name">Titel indeholder...</string>
+	<string name="CFC_title_contains_text">Titel indeholder: ?</string>
+	<string name="gcal_TEA_error">Fejl ved tilføjelse af opgave til kalender!</string>
+	<string name="gcal_TEA_showCalendar_label">Åbn kalender-begivenhed</string>
+	<string name="gcal_TEA_calendar_updated">Kalenderbegivenhed også opdateret!</string>
+	<string name="gcal_completed_title">%s (fuldført)</string>
+	<string name="gcal_GCP_default">Standardkalender</string>
+	<string name="gtasks_GPr_header">Google Tasks (beta!)</string>
+	<string name="locale_edit_alerts_title">Tasks filter alarm</string>
+	<string name="locale_edit_intro">Tasks vil sende dig en påmindelse når du har opgaver i det følgende filter:</string>
+	<string name="locale_interval_label">Begræns påmindelser til:</string>
   <string-array name="locale_interval">
     <item>en gang i timen</item>
     <item>en gang hver sjette time</item>
@@ -308,71 +232,28 @@
     <item>en gang hver tredje dag</item>
     <item>ugentligt</item>
   </string-array>
-  <string name="locale_notification">Du har $NUM der matcher: $FILTER</string>
-  <string name="locale_plugin_required">Installer venligst Tasks Locale-plugin!</string>
-  <string name="opencrx_FEx_dashboard">Arbejdsområder</string>
-  <string name="opencrx_PDE_task_from">fra %s</string>
-  <string name="opencrx_TEA_notes">Tilføj en kommentar</string>
-  <string name="opencrx_no_creator">(Synkroniser ikke)</string>
-  <string name="opencrx_PLA_signIn">Log ind</string>
-  <string name="opencrx_PLA_password">Adgangskode</string>
-  <string name="opencrx_notification_text">%s opgaver opdateret / tryk for flere detaljer</string>
-  <string name="opencrx_ioerror">Forbindelsesfejl! Tjek din internetforbindelse.</string>
-  <string name="opencrx_MLA_password_empty">Adgangskode blev ikke angivet!</string>
-  <string name="opencrx_TEA_dashboard_default">&lt;Standard&gt;</string>
-  <string name="CFC_opencrx_in_workspace_text">I arbejdsområde: ?</string>
-  <string name="CFC_opencrx_in_workspace_name">I arbejdsområde...</string>
-  <string name="EPr_statistics_desc_disabled">Ingen data om brug vil blive rapporteret</string>
-  <string name="EPr_statistics_desc_enabled">Hjælp os med at forbedre Tasks ved at sende anonyme data om brug</string>
-  <string name="TEA_reminder_due">når deadline er nået</string>
-  <string name="TEA_reminder_overdue">når deadline er overskredet</string>
-  <string name="TEA_reminder_mode_once">Ring en gang</string>
-  <string name="TEA_reminder_mode_nonstop">Ring indtil jeg slår alarmen fra</string>
-  <string-array name="TEA_reminder_random">
-    <item>an hour</item>
-    <item>a day</item>
-    <item>a week</item>
-    <item>in two weeks</item>
-    <item>a month</item>
-    <item>in two months</item>
-  </string-array>
-  <string name="rmd_NoA_filter">Påmindelse!</string>
-  <string name="rmd_NoA_done">Allerede udført!</string>
-  <string name="rmd_NoA_snooze">Slumrefunktion...</string>
-  <string-array name="rmd_reengage_notif_titles">
-    <item>A note from Tasks</item>
-    <item>Memo for %s.</item>
-    <item>Your Tasks digest</item>
-    <item>Reminders from Tasks</item>
-  </string-array>
-  <string-array name="rmd_reengage_dialog_options">
-    <item>Time to shorten your to-do list!</item>
-    <item>Dear sir or madam, some tasks await your inspection!</item>
-    <item>Hi there, could you take a look at these?</item>
-    <item>I\'ve got some tasks with your name on them!</item>
-    <item>A fresh batch of tasks for you today!</item>
-    <item>You look fabulous! Ready to get started?</item>
-    <item>A lovely day for getting some work done, I think!</item>
-  </string-array>
-  <string-array name="rmd_reengage_dialog_empty_options">
-    <item>Don\'t you want to get organized?</item>
-    <item>I\'m Tasks! I\'m here to help you do more!</item>
-    <item>You look busy! Let me take some of those tasks off of your plate.</item>
-    <item>I can help you keep track of all of the details in your life.</item>
-    <item>You\'re serious about getting more done? So am I!</item>
-    <item>Pleasure to make your acquaintance!</item>
-  </string-array>
-  <string name="rmd_EPr_alerts_header">Påmindelsesopsætning</string>
-  <string name="rmd_EPr_quiet_hours_start_title">Stille timer start</string>
-  <string name="rmd_EPr_quiet_hours_start_desc">Ingen påmindelser vil blive vist efter %s</string>
-  <string name="rmd_EPr_quiet_hours_desc_none">Stille timer er deaktiveret</string>
-  <string name="rmd_EPr_quiet_hours_end_title">Stille timer slut</string>
-  <string name="rmd_EPr_ringtone_title">Påmindelsesringetone</string>
-  <string name="rmd_EPr_ringtone_desc_custom">Tilpasset ringetone er blevet sat</string>
-  <string name="rmd_EPr_ringtone_desc_silent">Ringetone sat til stille</string>
-  <string name="rmd_EPr_ringtone_desc_default">Standard ringetone vil blive brugt</string>
-  <string name="rmd_EPr_persistent_desc_true">Påmindelser skal vises individuelt for at blive ryddet</string>
-  <string name="rmd_EPr_vibrate_title">Vibrer ved påmindelse</string>
+	<string name="locale_notification">Du har $NUM der matcher: $FILTER</string>
+	<string name="locale_plugin_required">Installer venligst Tasks Locale-plugin!</string>
+	<string name="opencrx_TEA_notes">Tilføj en kommentar</string>
+	<string name="opencrx_no_creator">(Synkroniser ikke)</string>
+	<string name="TEA_reminder_due">når deadline er nået</string>
+	<string name="TEA_reminder_overdue">når deadline er overskredet</string>
+	<string name="TEA_reminder_mode_once">Ring en gang</string>
+	<string name="TEA_reminder_mode_nonstop">Ring indtil jeg slår alarmen fra</string>
+	<string name="rmd_NoA_filter">Påmindelse!</string>
+	<string name="rmd_NoA_done">Allerede udført!</string>
+	<string name="rmd_NoA_snooze">Slumrefunktion...</string>
+	<string name="rmd_EPr_alerts_header">Påmindelsesopsætning</string>
+	<string name="rmd_EPr_quiet_hours_start_title">Stille timer start</string>
+	<string name="rmd_EPr_quiet_hours_start_desc">Ingen påmindelser vil blive vist efter %s</string>
+	<string name="rmd_EPr_quiet_hours_desc_none">Stille timer er deaktiveret</string>
+	<string name="rmd_EPr_quiet_hours_end_title">Stille timer slut</string>
+	<string name="rmd_EPr_ringtone_title">Påmindelsesringetone</string>
+	<string name="rmd_EPr_ringtone_desc_custom">Tilpasset ringetone er blevet sat</string>
+	<string name="rmd_EPr_ringtone_desc_silent">Ringetone sat til stille</string>
+	<string name="rmd_EPr_ringtone_desc_default">Standard ringetone vil blive brugt</string>
+	<string name="rmd_EPr_persistent_desc_true">Påmindelser skal vises individuelt for at blive ryddet</string>
+	<string name="rmd_EPr_vibrate_title">Vibrer ved påmindelse</string>
   <string-array name="EPr_reminder_random">
     <item>disabled</item>
     <item>hourly</item>
@@ -382,171 +263,7 @@
     <item>månedlig</item>
     <item>bi-monthly</item>
   </string-array>
-  <string-array name="EPr_quiet_hours_start">
-    <item>disabled</item>
-    <item>8 PM</item>
-    <item>9 PM</item>
-    <item>10 PM</item>
-    <item>11 PM</item>
-    <item>12 AM</item>
-    <item>1 AM</item>
-    <item>2 AM</item>
-    <item>3 AM</item>
-    <item>4 AM</item>
-    <item>5 AM</item>
-    <item>6 AM</item>
-    <item>7 AM</item>
-    <item>8 AM</item>
-    <item>9 AM</item>
-    <item>10 AM</item>
-    <item>11 AM</item>
-    <item>12 PM</item>
-    <item>1 PM</item>
-    <item>2 PM</item>
-    <item>3 PM</item>
-    <item>4 PM</item>
-    <item>5 PM</item>
-    <item>6 PM</item>
-    <item>7 PM</item>
-  </string-array>
-  <string-array name="EPr_quiet_hours_end">
-    <item>9 AM</item>
-    <item>10 AM</item>
-    <item>11 AM</item>
-    <item>12 PM</item>
-    <item>1 PM</item>
-    <item>2 PM</item>
-    <item>3 PM</item>
-    <item>4 PM</item>
-    <item>5 PM</item>
-    <item>6 PM</item>
-    <item>7 PM</item>
-    <item>8 PM</item>
-    <item>9 PM</item>
-    <item>10 PM</item>
-    <item>11 PM</item>
-    <item>12 AM</item>
-    <item>1 AM</item>
-    <item>2 AM</item>
-    <item>3 AM</item>
-    <item>4 AM</item>
-    <item>5 AM</item>
-    <item>6 AM</item>
-    <item>7 AM</item>
-    <item>8 AM</item>
-  </string-array>
-  <string-array name="EPr_rmd_time">
-    <item>9 AM</item>
-    <item>10 AM</item>
-    <item>11 AM</item>
-    <item>12 PM</item>
-    <item>1 PM</item>
-    <item>2 PM</item>
-    <item>3 PM</item>
-    <item>4 PM</item>
-    <item>5 PM</item>
-    <item>6 PM</item>
-    <item>7 PM</item>
-    <item>8 PM</item>
-    <item>9 PM</item>
-    <item>10 PM</item>
-    <item>11 PM</item>
-    <item>12 AM</item>
-    <item>1 AM</item>
-    <item>2 AM</item>
-    <item>3 AM</item>
-    <item>4 AM</item>
-    <item>5 AM</item>
-    <item>6 AM</item>
-    <item>7 AM</item>
-    <item>8 AM</item>
-  </string-array>
-  <string-array name="reminders">
-    <item>Hi there! Have a sec?</item>
-    <item>Can I see you for a sec?</item>
-    <item>Have a few minutes?</item>
-    <item>Did you forget?</item>
-    <item>Undskyld mig!</item>
-    <item>When you have a minute:</item>
-    <item>On your agenda:</item>
-    <item>Free for a moment?</item>
-    <item>Tasks here!</item>
-    <item>Hi! Can I bug you?</item>
-    <item>A minute of your time?</item>
-    <item>It\'s a great day to</item>
-  </string-array>
-  <string-array name="reminders_due">
-    <item>Time to work!</item>
-    <item>Due date is here!</item>
-    <item>Klar til start?</item>
-    <item>You said you would do:</item>
-    <item>You\'re supposed to start:</item>
-    <item>Time to start:</item>
-    <item>It\'s time!</item>
-    <item>Excuse me! Time for</item>
-    <item>You free? Time to</item>
-  </string-array>
-  <string-array name="reminders_snooze">
-    <item>Don\'t be lazy now!</item>
-    <item>Snooze time is up!</item>
-    <item>No more snoozing!</item>
-    <item>Now are you ready?</item>
-    <item>No more postponing!</item>
-  </string-array>
-  <string-array name="reminder_responses">
-    <item>I\'ve got something for you!</item>
-    <item>Ready to put this in the past?</item>
-    <item>Why don\'t you get this done?</item>
-    <item>How about it? Ready tiger?</item>
-    <item>Ready to do this?</item>
-    <item>Can you handle this?</item>
-    <item>You can be happy! Just finish this!</item>
-    <item>I promise you\'ll feel better if you finish this!</item>
-    <item>Won\'t you do this today?</item>
-    <item>Please finish this, I\'m sick of it!</item>
-    <item>Can you finish this? Yes you can!</item>
-    <item>Are you ever going to do this?</item>
-    <item>Feel good about yourself! Let\'s go!</item>
-    <item>I\'m so proud of you! Lets get it done!</item>
-    <item>A little snack after you finish this?</item>
-    <item>Just this one task? Please?</item>
-    <item>Time to shorten your todo list!</item>
-    <item>Are you on Team Order or Team Chaos? Team Order! Let\'s go!</item>
-    <item>Have I mentioned you are awesome recently? Keep it up!</item>
-    <item>A task a day keeps the clutter away... Goodbye clutter!</item>
-    <item>How do you do it? Wow, I\'m impressed!</item>
-    <item>You can\'t just get by on your good looks. Let\'s get to it!</item>
-    <item>Lovely weather for a job like this, isn\'t it?</item>
-    <item>A spot of tea while you work on this?</item>
-    <item>If only you had already done this, then you could go outside and play.</item>
-    <item>It\'s time. You can\'t put off the inevitable.</item>
-    <item>I die a little every time you ignore me.</item>
-  </string-array>
-  <string-array name="postpone_nags">
-    <item>Please tell me it isn\'t true that you\'re a procrastinator!</item>
-    <item>Doesn\'t being lazy get old sometimes?</item>
-    <item>Somewhere, someone is depending on you to finish this!</item>
-    <item>When you said postpone, you really meant \'I\'m doing this\', right?</item>
-    <item>This is the last time you postpone this, right?</item>
-    <item>Just finish this today, I won\'t tell anyone!</item>
-    <item>Why postpone when you can um... not postpone!</item>
-    <item>You\'ll finish this eventually, I presume?</item>
-    <item>I think you\'re really great! How about not putting this off?</item>
-    <item>Will you be able to achieve your goals if you do that?</item>
-    <item>Postpone, postpone, postpone. When will you change!</item>
-    <item>I\'ve had enough with your excuses! Just do it already!</item>
-    <item>Didn\'t you make that excuse last time?</item>
-    <item>I can\'t help you organize your life if you do that...</item>
-  </string-array>
-  <string name="repeat_enabled">Gentagelser</string>
-  <string-array name="repeat_interval_short">
-    <item>d</item>
-    <item>wk</item>
-    <item>mo</item>
-    <item>hr</item>
-    <item>min</item>
-    <item>yr</item>
-  </string-array>
+	<string name="repeat_enabled">Gentagelser</string>
   <string-array name="repeat_interval">
     <item>Dag(e)</item>
     <item>Uge(r)</item>
@@ -555,30 +272,4 @@
     <item>Minut(er)</item>
     <item>Year(s)</item>
   </string-array>
-  <string-array name="repeat_until_shortcuts">
-    <item>Forever</item>
-    <item>Specific Day</item>
-    <item>Today</item>
-    <item>Tomorrow</item>
-    <item>(day after)</item>
-    <item>Next Week</item>
-    <item>In Two Weeks</item>
-    <item>Next Month</item>
-  </string-array>
-  <string-array name="repeat_type">
-    <item>from due date</item>
-    <item>from completion date</item>
-  </string-array>
-  <string-array name="repeat_encouragement">
-    <item>Good job!</item>
-    <item>Wow… I\'m so proud of you!</item>
-    <item>I love when you\'re productive!</item>
-    <item>Doesn\'t it feel good to check something off?</item>
-  </string-array>
-  <string-array name="repeat_encouragement_last_time">
-    <item>Good job!</item>
-    <item>I\'m so proud of you!</item>
-    <item>I love when you\'re productive!</item>
-  </string-array>
-  <string name="tag_settings_title">Settings:</string>
 </resources>

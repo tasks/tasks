@@ -66,9 +66,6 @@
 	<string name="EPr_reset_sync_state_detailed">Podczas następnej synchronizacji Twoje zadania zostaną zamienione na kopię, która znajduje się na Tasks.com, co może pomóc rozwiązać błędy synchronizacji. Czy chcesz kontynuować?</string>
 	<string name="alarm_ACS_label">Alarmy</string>
 	<string name="alarm_ACS_button">Dodaj alarm</string>
-	<string-array name="reminders_alarm">
-		<item>Alarm!</item>
-	</string-array>
 	<string name="backup_BPr_header">Kopie zapasowe</string>
 	<string name="backup_BPr_group_status">Stan</string>
 	<string name="backup_status_success">Ostatnia kopia:\n%s</string>
@@ -357,11 +354,6 @@
 	<string name="swipe_lists_helper_title">Przeciągaj pomiędzy listami</string>
 	<string name="swipe_lists_helper_header">Przeciągnij w lewo lub prawo aby szybko przełączyć się między listami</string>
 	<string name="swipe_lists_helper_subtitle">Zmień ustawienia w Ustawienia -&amp;gl; Wygląd</string>
-	<string-array name="EPr_default_reminders_mode">
-		<item>@string/TEA_reminder_mode_once</item>
-		<item>@string/TEA_reminder_mode_five</item>
-		<item>@string/TEA_reminder_mode_nonstop</item>
-	</string-array>
 	<string-array name="EPr_themes">
 		<item>Dzień - Blue</item>
 		<item>Dzień - Red</item>
@@ -461,9 +453,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 		<item>W dniu terminu nieprzekraczalnego</item>
 		<item>Gdy zaległe</item>
 		<item>W nieprzekraczalnym terminie lub gdy zaległe</item>
-	</string-array>
-	<string-array name="EPr_default_addtocalendar">
-		<item>@string/EPr_deactivated</item>
 	</string-array>
 	<string name="BFE_Active">Moje zadania</string>
 	<string name="BFE_Recent">Niedawno zmodyfikowane</string>

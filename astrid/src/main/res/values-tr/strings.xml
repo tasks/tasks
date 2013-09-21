@@ -57,9 +57,6 @@
 	<string name="actfm_sync_ongoing">Senkronizasyon devam ediyor...</string>
 	<string name="alarm_ACS_label">Alarmlar</string>
 	<string name="alarm_ACS_button">Alarm Ekle</string>
-	<string-array name="reminders_alarm">
-		<item>Alarm!</item>
-	</string-array>
 	<string name="backup_BPr_header">Yedekler</string>
 	<string name="backup_BPr_group_status">Durum</string>
 	<string name="backup_status_success">Son yedek:\n%s</string>
@@ -280,16 +277,6 @@
 	<string name="EPr_fullTask_title">Tüm görev başlığını göster</string>
 	<string name="EPr_fullTask_desc_enabled">Tüm görev başlığı gösterilecek</string>
 	<string name="EPr_fullTask_desc_disabled">Görev başlığının ilk iki satırı gösterilecek</string>
-	<string-array name="EPr_task_row_styles">
-		<item>Original</item>
-		<item>Simple</item>
-		<item>Title only</item>
-	</string-array>
-	<string-array name="EPr_task_row_style_descriptions">
-		<item>Truncate title to two lines with date on right</item>
-		<item>Truncate title to one line with date and lists below</item>
-		<item>Single line title only</item>
-	</string-array>
 	<string name="EPr_theme_title">Renk Teması</string>
 	<string name="EPr_theme_desc">Geçerli: %s</string>
 	<string name="EPr_theme_desc_unsupported">Ayarlar için Android 2.0+ zorunludur.</string>
@@ -312,11 +299,6 @@
 	<string name="swipe_lists_helper_title">Listeler arası sürükleme</string>
 	<string name="swipe_lists_helper_header">Listelerde hızlı gezinme için sağa ya da sola kaydır</string>
 	<string name="swipe_lists_helper_subtitle">Ayarlar -&gt; Görünüm içinden ayarları değiştir</string>
-	<string-array name="EPr_default_reminders_mode">
-		<item>@string/TEA_reminder_mode_once</item>
-		<item>@string/TEA_reminder_mode_five</item>
-		<item>@string/TEA_reminder_mode_nonstop</item>
-	</string-array>
 	<string-array name="EPr_themes">
 		<item>Gündüz - Mavi</item>
 		<item>Gündüz - Kırmızı</item>
@@ -408,9 +390,6 @@
 		<item>Son tarihte</item>
 		<item>Son tarih aşıldığında</item>
 		<item>Son tarihte ya da aşıldığında</item>
-	</string-array>
-	<string-array name="EPr_default_addtocalendar">
-		<item>@string/EPr_deactivated</item>
 	</string-array>
 	<string name="BFE_Recent">Yakında Değiştirilenler</string>
 	<string name="BFE_Assigned">Atanmış bulunuyorum</string>

@@ -52,14 +52,19 @@
 	<string name="actfm_feat_list_clone_success">La operación se ha realizado correctamente.</string>
 	<string name="actfm_feat_list_task_clone_success">Tarea copiada</string>
 	<string name="actfm_feat_list_clone_empty">No hay tareas para copiar</string>
+	<string name="actfm_APr_header">Tareas.com</string>
 	<string name="actfm_https_title">Usar HTTPS</string>
 	<string name="actfm_account_type">Tipo de cuenta</string>
 	<string name="actfm_inapp_billing">Actualizar a Premium</string>
 	<string name="actfm_inapp_billing_summary">Adjuntar archivos, respaldos de voz, soporte premium y más</string>
 	<string name="actfm_tag_not_authorized_title">No autorizado</string>
+	<string name="actfm_tag_not_authorized_body">Ya no estas autorizado para ver la lista %s (probablemente fuiste removido) Quieres crear una nueva lista con el mismo nombre?</string>
 	<string name="actfm_tag_not_authorized_new_list">Crea una nueva lista</string>
 	<string name="actfm_tag_not_authorized_leave_list">Abandonar lista</string>
 	<string name="actfm_sync_ongoing">Sincronización en marcha</string>
+	<string name="EPr_reset_sync_state">Reiniciar sincronización</string>
+	<string name="EPr_reset_sync_state_summary">Reinicia algunos datos locales para ayudar a resolver los problemas de sincronización</string>
+	<string name="EPr_reset_sync_state_detailed">La próxima ocasión que sincronices, tus tareas y listas serán cambiadas a un espejo que existe en Tareas.com, que podría ayudar a resolver los problemas de sincronización. Quieres continuar?</string>
 	<string name="alarm_ACS_label">Alarmas</string>
 	<string name="alarm_ACS_button">Añadir una alarma</string>
 	<string-array name="reminders_alarm">
@@ -160,6 +165,7 @@
 	<string name="SSD_completed">Mostrar Tareas Completadas</string>
 	<string name="SSD_hidden">Mostrar Tareas Ocultas</string>
 	<string name="SSD_deleted">Mostrar Tareas Eliminadas</string>
+	<string name="SSD_sort_drag">Orden manual con subtareas</string>
 	<string name="SSD_sort_auto">Clasificación Inteligente Tasks</string>
 	<string name="SSD_sort_alpha">Por título</string>
 	<string name="SSD_sort_due">Por fecha límite</string>
@@ -181,14 +187,17 @@
 	<string name="TEA_when_header_label">Cuando</string>
 	<string name="TEA_title_hint">Nombre de la tarea</string>
 	<string name="TEA_importance_label">Prioridad</string>
+	<string name="TEA_deadline_hint">Establece la fecha</string>
 	<string name="TEA_urgency_specific_time">A una hora específica?</string>
 	<string name="TEA_urgency_none">Ninguna</string>
 	<string name="TEA_hideUntil_label">Ocultar hasta</string>
+	<string name="TEA_hideUntil_display">Ocultar hasta %s</string>
 	<string name="TEA_hideUntil_message">La tarea estara oculta hasta %s</string>
 	<string-array name="TEA_loading">
 		<item>Cargando…</item>
 	</string-array>
 	<string name="TEA_note_label">Descripción</string>
+	<string name="TEA_notes_empty">Descripción...</string>
 	<string name="TEA_notes_hint">Introducir descripción de la tarea...</string>
 	<string name="TEA_estimatedDuration_label">¿Cuanto tiempo llevará?</string>
 	<string name="TEA_elapsedDuration_label">Tiempo ya empleado en la tarea</string>
@@ -199,6 +208,8 @@
 	<string name="TEA_onTaskSave_due">Tarea guardada: finaliza %s</string>
 	<string name="TEA_onTaskSave_notDue">Tarea guardada</string>
 	<string name="TEA_tab_activity">Actividad</string>
+	<string name="TEA_timer_est">Estimado %s</string>
+	<string name="TEA_timer_elap">Transcurrido %s</string>
 	<string-array name="TEA_urgency">
 		<item>Sin fecha</item>
 		<item>Día específico</item>
@@ -297,6 +308,7 @@
 	<string name="EPr_beastMode_shortcut">Personalizar</string>
 	<string name="EPr_time_increment">Incrementos de 5 minutos</string>
 	<string name="EPr_use_date_shortcuts">Utilizar abreviaturas de fecha</string>
+	<string name="EPr_show_timer_shortcut">Mostrar atajo del temporizador</string>
 	<string name="EPr_beastMode_desc">Personalizar la disposición de la pantalla de edición de tareas</string>
 	<string name="EPr_beastMode_reset">Restablecer valores predeterminados</string>
 	<string name="EPr_showNotes_desc_enabled">La descripción se mostrará siempre</string>
@@ -343,11 +355,6 @@
 	<string name="swipe_lists_helper_title">Deslizar entre listas</string>
 	<string name="swipe_lists_helper_header">Deslizar a izquierda o derecha para moverse rápidamente entre listas</string>
 	<string name="swipe_lists_helper_subtitle">Cambiar configuración en Ajustes -&gt; Apariencia</string>
-	<string-array name="EPr_default_reminders_mode">
-		<item>@string/TEA_reminder_mode_once</item>
-		<item>@string/TEA_reminder_mode_five</item>
-		<item>@string/TEA_reminder_mode_nonstop</item>
-	</string-array>
 	<string-array name="EPr_themes">
 		<item>Día - Azul</item>
 		<item>Día - Rojo</item>
@@ -442,9 +449,6 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 		<item>En fecha límite</item>
 		<item>Cuando esté atrasada</item>
 		<item>En fecha límite o atrasada</item>
-	</string-array>
-	<string-array name="EPr_default_addtocalendar">
-		<item>@string/EPr_deactivated</item>
 	</string-array>
 	<string name="BFE_Active">Mis Tareas</string>
 	<string name="BFE_Recent">Recién modificadas</string>

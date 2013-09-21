@@ -361,11 +361,6 @@
 	<string name="swipe_lists_helper_title">Swipe tussen lijsten</string>
 	<string name="swipe_lists_helper_header">Swipe links of rechts om snel lijsten te verplaatsen</string>
 	<string name="swipe_lists_helper_subtitle">Verander instellingen in Instellingen --&gt; Uiterlijk</string>
-	<string-array name="EPr_default_reminders_mode">
-		<item>@string/TEA_reminder_mode_once</item>
-		<item>@string/TEA_reminder_mode_five</item>
-		<item>@string/TEA_reminder_mode_nonstop</item>
-	</string-array>
 	<string-array name="EPr_themes">
 		<item>Dag - Blauw</item>
 		<item>Dag - Rood</item>
@@ -466,9 +461,6 @@
 		<item>Op de einddatum</item>
 		<item>Na de einddatum</item>
 		<item>Op of na de einddatum</item>
-	</string-array>
-	<string-array name="EPr_default_addtocalendar">
-		<item>@string/EPr_deactivated</item>
 	</string-array>
 	<string name="BFE_Active">Mijn taken</string>
 	<string name="BFE_Recent">Onlangs aangepast</string>

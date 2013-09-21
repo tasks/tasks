@@ -263,11 +263,6 @@
 	<string name="EPr_fullTask_title">显示完整的任务标题</string>
 	<string name="EPr_fullTask_desc_enabled">将显示完整的任务标题</string>
 	<string name="EPr_fullTask_desc_disabled">将显示任务标题的头两行</string>
-	<string-array name="EPr_task_row_styles">
-		<item>Original</item>
-		<item>Simple</item>
-		<item>Title only</item>
-	</string-array>
 	<string-array name="EPr_task_row_style_descriptions">
 		<item>截取标题至两行，并在右边显示日期</item>
 		<item>截取标题为一行，并在下方显示日期和列表</item>
@@ -295,11 +290,6 @@
 	<string name="swipe_lists_helper_title">在列表间滑动</string>
 	<string name="swipe_lists_helper_header">向左或向右快速滑动来切换列表</string>
 	<string name="swipe_lists_helper_subtitle">在设置-&amp;gt外观中修改选项</string>
-	<string-array name="EPr_default_reminders_mode">
-		<item>@string/TEA_reminder_mode_once</item>
-		<item>@string/TEA_reminder_mode_five</item>
-		<item>@string/TEA_reminder_mode_nonstop</item>
-	</string-array>
 	<string-array name="EPr_themes">
 		<item>蓝</item>
 		<item>红</item>
@@ -390,9 +380,6 @@
 		<item>截止期限时</item>
 		<item>过期时</item>
 		<item>截止期限或过期时</item>
-	</string-array>
-	<string-array name="EPr_default_addtocalendar">
-		<item>@string/EPr_deactivated</item>
 	</string-array>
 	<string name="BFE_Recent">最近修改过的</string>
 	<string name="BFE_Assigned">我已经安排</string>

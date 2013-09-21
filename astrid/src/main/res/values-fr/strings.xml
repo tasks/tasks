@@ -284,11 +284,6 @@
 	<string name="EPr_fullTask_title">Voir le titre complet de la tâche</string>
 	<string name="EPr_fullTask_desc_enabled">Le titre entier de la tâche sera montré</string>
 	<string name="EPr_fullTask_desc_disabled">Les deux premières lignes du titre de la tâche seront montrées</string>
-	<string-array name="EPr_task_row_styles">
-		<item>Original</item>
-		<item>Simple</item>
-		<item>Title only</item>
-	</string-array>
 	<string-array name="EPr_task_row_style_descriptions">
 		<item>Tronquer le titre en deux lignes avec la date sur la droite</item>
 		<item>Tronquer le titre en une ligne avec la date et les listes en dessous</item>
@@ -316,11 +311,6 @@
 	<string name="swipe_lists_helper_title">Glisser entre les listes.</string>
 	<string name="swipe_lists_helper_header">\"Glissez  vers la gauche ou la droite pour passer rapidement d\'une liste à l\'autre\"</string>
 	<string name="swipe_lists_helper_subtitle">Changez les préférences dans Préférences -&gt; Apparence</string>
-	<string-array name="EPr_default_reminders_mode">
-		<item>@string/TEA_reminder_mode_once</item>
-		<item>@string/TEA_reminder_mode_five</item>
-		<item>@string/TEA_reminder_mode_nonstop</item>
-	</string-array>
 	<string-array name="EPr_themes">
 		<item>Jour - Bleu</item>
 		<item>Jour - Rouge</item>
@@ -412,9 +402,6 @@
 		<item>À la date limite</item>
 		<item>En cas de retard</item>
 		<item>À la date limite ou après</item>
-	</string-array>
-	<string-array name="EPr_default_addtocalendar">
-		<item>@string/EPr_deactivated</item>
 	</string-array>
 	<string name="BFE_Active">Mes tâches</string>
 	<string name="BFE_Recent">Récemment modifié</string>

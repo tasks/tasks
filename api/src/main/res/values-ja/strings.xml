@@ -21,10 +21,6 @@
 		<item quantity="one">1 日</item>
 		<item quantity="other">%d 日</item>
 	</plurals>
-	<plurals name="DUt_weekdays">
-		<item quantity="one">1 Weekday</item>
-		<item quantity="other">%d Weekdays</item>
-	</plurals>
 	<plurals name="DUt_hours">
 		<item quantity="one">1 時間</item>
 		<item quantity="other">%d 時間</item>
