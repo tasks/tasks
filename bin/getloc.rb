@@ -92,7 +92,7 @@ def import(tmp_files, lang, dst_files_block)
       puts "Moving #{tmp_files[i]} to #{dst_files[i]}"
       %x(mv #{tmp_files[i]} #{dst_files[i]})
     end
-    remove_untranslated_strings *dst_files
+    remove_untranslated_strings(*dst_files)
   end
 
 end
@@ -115,27 +115,29 @@ end
 # Main function for invoking the GetLocalization tools
 # cmd (String): Command to invoke. Must be 'import' or 'export'
 # lang (String): Language code. Can also be 'master' to specify master files for export or all languages for import.
-def getloc(cmd, lang)
+def getloc(cmd, languages)
   cmd = cmd.to_sym
 
   raise "must set GETLOC_USER and GETLOC_PASS environment variables" if ENV['GETLOC_USER'].nil? or ENV['GETLOC_PASS'].nil?
   @user = ENV['GETLOC_USER']
   @password = ENV['GETLOC_PASS']
   platform_class = Android
-  case cmd
-  when :export
-    puts "Exporting #{lang} files"
-    export(platform_class.tmp_files, lang, platform_class.src_files(cmd, lang))
-  when :import
-    puts "Importing #{lang} files"
-    import(platform_class.tmp_files, lang, platform_class.src_files(cmd, lang))
-  else
-    puts "Command #{cmd} not recognized. Should be one of 'export' or 'import'."
-    return
-  end
+  languages.split(',').each do |lang|
+    case cmd
+    when :export
+      puts "Exporting #{lang} files"
+      export(platform_class.tmp_files, lang, platform_class.src_files(cmd, lang))
+    when :import
+      puts "Importing #{lang} files"
+      import(platform_class.tmp_files, lang, platform_class.src_files(cmd, lang))
+    else
+      puts "Command #{cmd} not recognized. Should be one of 'export' or 'import'."
+      return
+    end
 
-  platform_class.tmp_files.each do |f|
-    %x(rm -f #{f})
+    platform_class.tmp_files.each do |f|
+      %x(rm -f #{f})
+    end
   end
 end
 
