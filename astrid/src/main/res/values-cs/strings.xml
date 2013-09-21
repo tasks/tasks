@@ -19,11 +19,6 @@
 	<string name="actfm_my_shared_tasks_empty">Žádné sdílené úkoly</string>
 	<string name="actfm_friendship_accept">Potvrdit</string>
 	<string name="TVA_add_comment">Přidej comment...</string>
-	<string-array name="TVA_tabs">
-		<item>Úkoly</item>
-		<item>Činnost</item>
-		<item>Nastavení listu</item>
-	</string-array>
 	<string name="actfm_TVA_menu_refresh">Obnovit</string>
 	<string name="actfm_TVA_tag_label">Název listu:</string>
 	<string name="actfm_TVA_tag_picture">Obrázek listu</string>
@@ -100,14 +95,6 @@
 	<string name="TLA_quick_add_hint">Přidat úkol</string>
 	<string name="TLA_notification_volume_low">Upozornění jsou ztlumena. Neuslyšíte Tasks!</string>
 	<string name="TLA_notification_disabled">Upomínky Tasks jsou vypnuté! Nedostanete žádná upozornění</string>
-	<string-array name="TLA_filters">
-		<item>Aktivní</item>
-		<item>Dnes</item>
-		<item>Brzy</item>
-		<item>Po termínu</item>
-		<item>Hotovo</item>
-		<item>Skryté</item>
-	</string-array>
 	<string name="TLA_quickadd_confirm_speech_bubble">Vytvořila jsem úkol s názvem \"%1$s\", %3$s priorita, do %2$s</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">Nezobrazovat budoucí potvrzení</string>
 	<string name="TLA_repeat_scheduled_title">Nový opakující se úkol %s</string>
@@ -138,7 +125,6 @@
 	<string name="SSD_sort_reverse">Obrácené třídění</string>
 	<string name="SSD_save_temp">Pouze jednou</string>
 	<string name="SSD_save_always">Vždy</string>
-	<string name="FSA_label">Seznam nebo filtr Tasks</string>
 	<string name="FLA_context_shortcut">Vytvořit zástupce na ploše</string>
 	<string name="FLA_shortcut_dialog_title">Vytvořit zástupce</string>
 	<string name="FLA_shortcut_dialog">Název zástupce:</string>
@@ -155,9 +141,6 @@
 	<string name="TEA_urgency_none">Žádný</string>
 	<string name="TEA_hideUntil_label">Zobrazit úkol</string>
 	<string name="TEA_hideUntil_message">Úkol bude skrytý až do %s</string>
-	<string-array name="TEA_loading">
-		<item>Nahrávám...</item>
-	</string-array>
 	<string name="TEA_note_label">Poznámky</string>
 	<string name="TEA_notes_hint">Poznámky k úkolu...</string>
 	<string name="TEA_estimatedDuration_label">Kolik času asi zabere?</string>
@@ -241,18 +224,6 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Čas události v kalendáři</string>
 	<string name="EPr_cal_end_at_due_time">Událost v kalendáři končí splněním úkolu</string>
 	<string name="EPr_cal_start_at_due_time">Událost v kalendáři začíná splněním úkolu</string>
-	<string-array name="EPr_swipe_lists_performance_mode">
-		<item>No swipe</item>
-		<item>Šetřit pamětí</item>
-		<item>Normální Výkon</item>
-		<item>Vysoký Výkon</item>
-	</string-array>
-	<string-array name="EPr_swipe_lists_performance_desc">
-		<item>Swipe between lists is disabled</item>
-		<item>Nižší výkon</item>
-		<item>Default setting</item>
-		<item>Více zatěžuje systém</item>
-	</string-array>
 	<string-array name="EPr_themes">
 		<item>Den - Modrá</item>
 		<item>Den - Červená</item>
@@ -486,86 +457,34 @@
 	</string-array>
 	<string-array name="EPr_quiet_hours_start">
 		<item>zakázáno</item>
-		<item>20:00</item>
-		<item>21:00</item>
-		<item>22:00</item>
-		<item>23:00</item>
-		<item>0:00</item>
-		<item>1:00</item>
-		<item>2:00</item>
-		<item>3:00</item>
-		<item>4:00</item>
-		<item>5:00</item>
-		<item>6:00</item>
-		<item>7:00</item>
-		<item>8:00</item>
-		<item>9:00</item>
-		<item>10:00</item>
-		<item>11:00</item>
-		<item>12:00</item>
-		<item>13:00</item>
-		<item>14:00</item>
-		<item>15:00</item>
-		<item>16:00</item>
-		<item>17:00</item>
-		<item>18:00</item>
-		<item>19:00</item>
-	</string-array>
-	<string-array name="EPr_quiet_hours_end">
-		<item>9:00</item>
-		<item>10:00</item>
-		<item>11:00</item>
-		<item>12:00</item>
-		<item>13:00</item>
-		<item>14:00</item>
-		<item>15:00</item>
-		<item>16:00</item>
-		<item>17:00</item>
-		<item>18:00</item>
-		<item>19:00</item>
-		<item>20:00</item>
-		<item>21:00</item>
-		<item>22:00</item>
-		<item>23:00</item>
-		<item>0:00</item>
-		<item>1:00</item>
-		<item>2:00</item>
-		<item>3:00</item>
-		<item>4:00</item>
-		<item>5:00</item>
-		<item>6:00</item>
-		<item>7:00</item>
-		<item>8:00</item>
-	</string-array>
-	<string-array name="EPr_rmd_time">
-		<item>9:00</item>
-		<item>10:00</item>
-		<item>11:00</item>
-		<item>12:00</item>
-		<item>13:00</item>
-		<item>14:00</item>
-		<item>15:00</item>
-		<item>16:00</item>
-		<item>17:00</item>
-		<item>18:00</item>
-		<item>19:00</item>
-		<item>20:00</item>
-		<item>21:00</item>
-		<item>22:00</item>
-		<item>23:00</item>
-		<item>0:00</item>
-		<item>1:00</item>
-		<item>2:00</item>
-		<item>3:00</item>
-		<item>4:00</item>
-		<item>5:00</item>
-		<item>6:00</item>
-		<item>7:00</item>
-		<item>8:00</item>
+		<item>8 PM</item>
+		<item>9 PM</item>
+		<item>10 PM</item>
+		<item>11 PM</item>
+		<item>12 AM</item>
+		<item>1 AM</item>
+		<item>2 AM</item>
+		<item>3 AM</item>
+		<item>4 AM</item>
+		<item>5 AM</item>
+		<item>6 AM</item>
+		<item>7 AM</item>
+		<item>8 AM</item>
+		<item>9 AM</item>
+		<item>10 AM</item>
+		<item>11 AM</item>
+		<item>12 PM</item>
+		<item>1 PM</item>
+		<item>2 PM</item>
+		<item>3 PM</item>
+		<item>4 PM</item>
+		<item>5 PM</item>
+		<item>6 PM</item>
+		<item>7 PM</item>
 	</string-array>
 	<string-array name="reminders">
 		<item>Ahoj! Máš chvíli?</item>
-		<item>Můžu Tě na chvíli vidět?</item>
+		<item>Je skvělý den na</item>
 		<item>Máš pár minut?</item>
 		<item>Zapomněl jsi?</item>
 		<item>Omlouvám se!</item>
@@ -598,21 +517,21 @@
 	<string-array name="reminder_responses">
 		<item>Mám pro Tebe něco!</item>
 		<item>Plánuješ tohle vůbec někdy udělat?</item>
-		<item>Proč tohle nedokončís?</item>
-		<item>Tak co borče? Jdeme do toho?</item>
-		<item>Jsi připraven(a) tohle udělat?</item>
-		<item>Můžes tohle zvládnout?</item>
-		<item>Můžeš výt šťastná/ý! Jen tohle dokonči!</item>
-		<item>Slibuji Ti, že se budeš cítit lépe, když tohle dokončíš!</item>
-		<item>Neuděláš tohle dnes?</item>
-		<item>Tak to konečně dodělej. Už mě to unavuje!</item>
-		<item>Můžes tohle dokončit?</item>
-		<item>Plánuješ tohle vůbec někdy udělat?</item>
 		<item>Měj ze sebe radost! Jdeme na to!</item>
 		<item>Jsem na Tebe pyšný! Pojď to dokončit!</item>
-		<item>If only you had already done this, then you could go outside and play.</item>
+		<item>A little snack after you finish this?</item>
 		<item>Jen tenhle úkol? Prosím?</item>
 		<item>Je čas zkrátit Tvůj seznam úkolů!</item>
+		<item>Slibuji Ti, že se budeš cítit lépe, když tohle dokončíš!</item>
+		<item>Have I mentioned you are awesome recently? Keep it up!</item>
+		<item>A task a day keeps the clutter away... Goodbye clutter!</item>
+		<item>How do you do it? Wow, I\'m impressed!</item>
+		<item>You can\'t just get by on your good looks. Let\'s get to it!</item>
+		<item>Lovely weather for a job like this, isn\'t it?</item>
+		<item>A spot of tea while you work on this?</item>
+		<item>If only you had already done this, then you could go outside and play.</item>
+		<item>It\'s time. You can\'t put off the inevitable.</item>
+		<item>I die a little every time you ignore me.</item>
 		<item>Are you on Team Order or Team Chaos? Team Order! Let\'s go!</item>
 		<item>Have I mentioned you are awesome recently? Keep it up!</item>
 		<item>A task a day keeps the clutter away... Goodbye clutter!</item>
@@ -623,22 +542,6 @@
 		<item>If only you had already done this, then you could go outside and play.</item>
 		<item>It\'s time. You can\'t put off the inevitable.</item>
 		<item>I die a little every time you ignore me.</item>
-	</string-array>
-	<string-array name="postpone_nags">
-		<item>Prosím řekni mi, že není pravda, že jsi prokrastinátor!</item>
-		<item>Mám dost tvých omluv! Jen to dodělej!</item>
-		<item>Někdo někde čeká až tohle dokončíš!</item>
-		<item>Když jsi řekl odložit, ve skutečnosti jsi myslel \'Já to udělám\', že?</item>
-		<item>Tohle je naposledy co to odkládáš, že?</item>
-		<item>Jen to dodělej, nikomu to neřeknu!</item>
-		<item>Proč odkládat, když můžes hmm... neodkládat!</item>
-		<item>Nakonec to doděláš, že?</item>
-		<item>Myslím, že jsi opravdu úžasný. Co takhle tohle neodkládat?</item>
-		<item>Will you be able to achieve your goals if you do that?</item>
-		<item>Odkládat, odkládat, odkládat. Kdy se změníš!</item>
-		<item>Mám dost tvých omluv! Jen to dodělej!</item>
-		<item>Nepoužil jsi stejnou omluvu i posledně?</item>
-		<item>Nemůžu Ti pomoci organizovat tvůj život, když tohle děláš...</item>
 	</string-array>
 	<string name="repeat_plugin">Opakování úkolů</string>
 	<string name="repeat_plugin_desc">Povolit opakování úkolů</string>

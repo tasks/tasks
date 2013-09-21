@@ -18,11 +18,6 @@
 	<string name="actfm_my_shared_tasks_title">Mine delte opgaver</string>
 	<string name="actfm_my_shared_tasks_empty">Ingen delte opgaver</string>
 	<string name="TVA_add_comment">Tilføj en kommentar</string>
-	<string-array name="TVA_tabs">
-		<item>Opgaver</item>
-		<item>Aktivitet</item>
-		<item>Listeindstillinger</item>
-	</string-array>
 	<string name="actfm_TVA_menu_refresh">Opdater</string>
 	<string name="actfm_TVA_tag_label">Listenavn</string>
 	<string name="actfm_TVA_tag_picture">Liste billede</string>
@@ -71,14 +66,6 @@
 	<string name="TLA_menu_sort">Sorter &amp; skjulte</string>
 	<string name="TLA_menu_settings">Opsætning</string>
 	<string name="TLA_custom">Tilpasset</string>
-	<string-array name="TLA_filters">
-		<item>Active</item>
-		<item>I dag</item>
-		<item>Soon</item>
-		<item>Late</item>
-		<item>Færdig</item>
-		<item>Hidden</item>
-	</string-array>
 	<string name="TAd_hiddenFormat">%s [skjult]</string>
 	<string name="TAd_deletedFormat">%s [slettet]</string>
 	<string name="TAd_actionEditTask">Rediger</string>
@@ -105,9 +92,6 @@
 	<string name="TEA_title_hint">Opgave Overskrift</string>
 	<string name="TEA_importance_label">Vigtighed</string>
 	<string name="TEA_urgency_specific_time">På bestemt tidspunkt?</string>
-	<string-array name="TEA_loading">
-		<item>Indlæser...</item>
-	</string-array>
 	<string name="TEA_note_label">Noter</string>
 	<string name="TEA_notes_hint">Indtast opgavenoter...</string>
 	<string name="TEA_estimatedDuration_label">Hvor lang tid tager det?</string>
@@ -118,22 +102,14 @@
 	<string name="TEA_onTaskSave_notDue">Opgave gemt</string>
 	<string name="TEA_tab_activity">Aktivitet</string>
 	<string-array name="TEA_urgency">
-		<item>No deadline</item>
+		<item>No date</item>
 		<item>Specific day</item>
 		<item>I dag</item>
 		<item>I morgen</item>
-		<item>(dag efter)</item>
-		<item>Næste uge</item>
+		<item>(day after)</item>
+		<item>Next week</item>
 		<item>In two weeks</item>
 		<item>Næste måned</item>
-	</string-array>
-	<string-array name="TEA_hideUntil">
-		<item>Altid</item>
-		<item>Due date</item>
-		<item>Due time</item>
-		<item>Dag før deadline</item>
-		<item>Uge før deadline</item>
-		<item>Specifik dag/tid</item>
 	</string-array>
 	<string name="TEA_control_importance">Vigtighed</string>
 	<string name="TEA_control_notes">Noter</string>
@@ -157,6 +133,10 @@
 	<string name="WCA_title">Vælg opgaver der skal vises...</string>
 	<string name="task_killer_help">Det ser ud som om du bruger en app der kan dræbe processer (%s)! Hvis du kan, så tilføj Tasks til udelukkelseslisten så den ikke bliver dræbt. Ellers kan Tasks muligvis ikke fortælle dig hvornår dine opgaver tidsfrist er.\n</string>
 	<string name="task_killer_help_ok">Jeg vil ikke dræbe Tasks!</string>
+	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
+      If you see this error regularly, we suggest you clear all
+      data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
+      your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
 	<string name="EPr_defaults_header">Standard for nye opgaver</string>
 	<string name="EPr_default_urgency_title">Standard Deadline</string>
 	<string name="EPr_default_urgency_desc">Nuværende: %s</string>
@@ -168,24 +148,12 @@
 	<string name="EPr_default_reminders_desc">Nuværende: %s</string>
 	<string name="EPr_default_reminders_mode_desc">Nuværende: %s</string>
 	<string-array name="EPr_default_urgency">
-    <item>Ingen deadline</item>
+		<item>No deadline</item>
 		<item>I dag</item>
 		<item>I morgen</item>
-    <item>I overmorgen</item>
-    <item>Næste uge</item>
+		<item>Day after tomorrow</item>
+		<item>Next week</item>
 	</string-array>
-  <string-array name="EPr_default_hideUntil">
-    <item>Skjul ikke</item>
-    <item>Opgave når deadline</item>
-    <item>Dag før deadline</item>
-    <item>Uge før deadline</item>
-  </string-array>
-  <string-array name="EPr_default_reminders">
-    <item>Ingen deadline-påmindelser</item>
-    <item>Ved deadline</item>
-    <item>Ved overskredet deadline</item>
-    <item>Ved deadline eller overskredet</item>
-  </string-array>
 	<string name="BFE_Active">Aktive opgaver</string>
 	<string name="BFE_Recent">Senest ændrede</string>
 	<string name="BFE_Saved_delete">Slet filter</string>
@@ -203,13 +171,13 @@
 	<string name="CFC_dueBefore_text">Deadline: ?</string>
 	<string name="CFC_dueBefore_name">Deadline...</string>
 	<string-array name="CFC_dueBefore_entries">
-    <item>Ingen deadline</item>
+		<item>No Due Date</item>
 		<item>I går</item>
 		<item>I dag</item>
 		<item>I morgen</item>
-    <item>I overmorgen</item>
-    <item>Næste uge</item>
-    <item>Næste måned</item>
+		<item>Day After Tomorrow</item>
+		<item>Next Week</item>
+		<item>Next Month</item>
 	</string-array>
 	<string name="CFC_importance_text">Vigtighed mindst ?</string>
 	<string name="CFC_importance_name">Vigtighed...</string>
@@ -224,14 +192,6 @@
 	<string name="locale_edit_alerts_title">Tasks filter alarm</string>
 	<string name="locale_edit_intro">Tasks vil sende dig en påmindelse når du har opgaver i det følgende filter:</string>
 	<string name="locale_interval_label">Begræns påmindelser til:</string>
-  <string-array name="locale_interval">
-    <item>en gang i timen</item>
-    <item>en gang hver sjette time</item>
-    <item>en gang hver tolvte time</item>
-    <item>dagligt</item>
-    <item>en gang hver tredje dag</item>
-    <item>ugentligt</item>
-  </string-array>
 	<string name="locale_notification">Du har $NUM der matcher: $FILTER</string>
 	<string name="locale_plugin_required">Installer venligst Tasks Locale-plugin!</string>
 	<string name="opencrx_TEA_notes">Tilføj en kommentar</string>
@@ -254,22 +214,17 @@
 	<string name="rmd_EPr_ringtone_desc_default">Standard ringetone vil blive brugt</string>
 	<string name="rmd_EPr_persistent_desc_true">Påmindelser skal vises individuelt for at blive ryddet</string>
 	<string name="rmd_EPr_vibrate_title">Vibrer ved påmindelse</string>
-  <string-array name="EPr_reminder_random">
-    <item>disabled</item>
-    <item>hourly</item>
-    <item>daglig</item>
-    <item>ugentlig</item>
-    <item>bi-weekly</item>
-    <item>månedlig</item>
-    <item>bi-monthly</item>
-  </string-array>
 	<string name="repeat_enabled">Gentagelser</string>
-  <string-array name="repeat_interval">
-    <item>Dag(e)</item>
-    <item>Uge(r)</item>
-    <item>Måned(er)</item>
-    <item>Time(r)</item>
-    <item>Minut(er)</item>
-    <item>Year(s)</item>
-  </string-array>
+	<string-array name="repeat_until_shortcuts">
+		<item>Forever</item>
+		<item>Specific Day</item>
+		<item>I dag</item>
+		<item>I morgen</item>
+		<item>(day after)</item>
+		<item>Next Week</item>
+		<item>In Two Weeks</item>
+		<item>Next Month</item>
+	</string-array>
+	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
+    Please do not translate this part of the string. -->
 </resources>

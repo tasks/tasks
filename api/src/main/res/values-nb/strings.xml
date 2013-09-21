@@ -4,100 +4,92 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<resources>
-  <plurals name="DUt_years">
-    <item quantity="one">1 år</item>
-    <item quantity="other">%d år</item>
-  </plurals>
-  <plurals name="DUt_months">
-    <item quantity="one">1 måned</item>
-    <item quantity="other">%d måneder</item>
-  </plurals>
-  <plurals name="DUt_weeks">
-    <item quantity="one">1 uke</item>
-    <item quantity="other">%d uker</item>
-  </plurals>
-  <plurals name="DUt_days">
-    <item quantity="one">1 dag</item>
-    <item quantity="other">%d dager</item>
-  </plurals>
-  <plurals name="DUt_weekdays">
-    <item quantity="one">1 ukesdag</item>
-    <item quantity="other">%d Weekdays</item>
-  </plurals>
-  <plurals name="DUt_hours">
-    <item quantity="one">1 time</item>
-    <item quantity="other">%d timer</item>
-  </plurals>
-  <plurals name="DUt_minutes">
-    <item quantity="one">1 minutt</item>
-    <item quantity="other">%d minutter</item>
-  </plurals>
-  <plurals name="DUt_seconds">
-    <item quantity="one">1 sekund</item>
-    <item quantity="other">%d sekunder</item>
-  </plurals>
-  <plurals name="DUt_hoursShort">
-    <item quantity="one">1 t</item>
-    <item quantity="other">%d t</item>
-  </plurals>
-  <plurals name="DUt_minutesShort">
-    <item quantity="one">1 min</item>
-    <item quantity="other">%d min</item>
-  </plurals>
-  <plurals name="DUt_secondsShort">
-    <item quantity="one">1 s</item>
-    <item quantity="other">%d s</item>
-  </plurals>
-  <plurals name="Ntasks">
-    <item quantity="one">1 oppgave</item>
-    <item quantity="other">%d oppgaver</item>
-  </plurals>
-  <string name="today">I dag</string>
-  <string name="tomorrow">I morgen</string>
-  <string name="yesterday">I går</string>
-  <string name="DLG_confirm_title">Bekreft?</string>
-  <string name="DLG_question_title">Spørsmål:</string>
-  <string name="DLG_information_title">Informasjon</string>
-  <string name="DLG_error_title">Feil!</string>
-  <string name="DLG_save">Lagre</string>
-  <string name="DLG_yes">Ja</string>
-  <string name="DLG_no">Nei</string>
-  <string name="DLG_close">Lukk</string>
-  <string name="DLG_done">Utført</string>
-  <string name="DLG_error">Oi, det oppstod en feil! Dette skjedde:\n\n%s</string>
-  <string name="DLG_error_generic">Oi, det oppstod en feil!</string>
-  <string name="DLG_wait">Vennligst vent...</string>
-  <string name="SyP_progress">Synkroniserer oppgavene dine...</string>
-  <string name="SyP_progress_toast">Synkroniserer...</string>
-  <string name="SyP_ioerror">Tilkoblingsfeil! Kontroller tilkoblingen til Internett</string>
-  <string name="sync_status_ongoing">Synkronisering pågår...</string>
-  <string name="sync_status_success">Siste synkronisering:\n%s</string>
-  <string name="sync_status_failed">Mislykket: %s</string>
-  <string name="sync_status_failed_subtitle">Siste vellykkede synkronisering: %s</string>
-  <string name="sync_status_never">Aldri synkronisert!</string>
-  <string name="sync_SPr_group_options">Alternativer</string>
-  <string name="sync_SPr_interval_title">Bakgrunnssynkronisering</string>
-  <string name="sync_SPr_interval_desc_disabled">Bakgrunnssynkronisering er deaktivert</string>
-  <string name="sync_SPr_interval_desc">Aktuell innstilling: %s</string>
-  <string name="sync_SPr_bgwifi_title">Bare Wifi Innstilling</string>
-  <string name="sync_SPr_bgwifi_desc_enabled">Bakgrunnssynkronisering skjer kun med Wifi-tilkobling</string>
-  <string name="sync_SPr_bgwifi_desc_disabled">Bakgrunnssynkronisering skjer alltid</string>
-  <string name="sync_SPr_group_actions">Handlinger</string>
-  <string name="sync_SPr_sync_log_in">Logg inn &amp; Synkroniser!</string>
-  <string name="sync_SPr_forget">Logg ut</string>
-  <string name="sync_SPr_forget_description">Sletter all synkroniseringsdata</string>
-  <string name="sync_forget_confirm">Logg ut / slett synkroniseringsdata?</string>
-  <string-array name="sync_SPr_interval_entries">
-    <item>deaktiver</item>
-    <item>hvert kvarter</item>
-    <item>hver halvtime</item>
-    <item>hver time</item>
-    <item>hver tredje time</item>
-    <item>hver sjette time</item>
-    <item>hver tolvte time</item>
-    <item>daglig</item>
-    <item>hver tredje dag</item>
-    <item>hver uke</item>
-  </string-array>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+	<plurals name="DUt_years">
+		<item quantity="one">1 år</item>
+		<item quantity="other">%d år</item>
+	</plurals>
+	<plurals name="DUt_months">
+		<item quantity="one">1 måned</item>
+		<item quantity="other">%d måneder</item>
+	</plurals>
+	<plurals name="DUt_weeks">
+		<item quantity="one">1 uke</item>
+		<item quantity="other">%d uker</item>
+	</plurals>
+	<plurals name="DUt_days">
+		<item quantity="one">1 dag</item>
+		<item quantity="other">%d dager</item>
+	</plurals>
+	<plurals name="DUt_weekdays">
+		<item quantity="one">1 ukesdag</item>
+		<item quantity="other">%d Weekdays</item>
+	</plurals>
+	<plurals name="DUt_hours">
+		<item quantity="one">1 time</item>
+		<item quantity="other">%d timer</item>
+	</plurals>
+	<plurals name="DUt_minutes">
+		<item quantity="one">1 minutt</item>
+		<item quantity="other">%d minutter</item>
+	</plurals>
+	<plurals name="DUt_seconds">
+		<item quantity="one">1 sekund</item>
+		<item quantity="other">%d sekunder</item>
+	</plurals>
+	<plurals name="DUt_hoursShort">
+		<item quantity="one">1 t</item>
+		<item quantity="other">%d t</item>
+	</plurals>
+	<plurals name="DUt_minutesShort">
+		<item quantity="one">1 min</item>
+		<item quantity="other">%d min</item>
+	</plurals>
+	<plurals name="DUt_secondsShort">
+		<item quantity="one">1 s</item>
+		<item quantity="other">%d s</item>
+	</plurals>
+	<plurals name="Ntasks">
+		<item quantity="one">1 oppgave</item>
+		<item quantity="other">%d oppgaver</item>
+	</plurals>
+	<string name="today">I dag</string>
+	<string name="tomorrow">I morgen</string>
+	<string name="yesterday">I går</string>
+	<string name="DLG_confirm_title">Bekreft?</string>
+	<string name="DLG_question_title">Spørsmål:</string>
+	<string name="DLG_information_title">Informasjon</string>
+	<string name="DLG_error_title">Feil!</string>
+	<string name="DLG_close">Lukk</string>
+	<string name="DLG_error">Oi, det oppstod en feil! Dette skjedde:\n\n%s</string>
+	<string name="DLG_error_generic">Oi, det oppstod en feil!</string>
+	<string name="DLG_wait">Vennligst vent...</string>
+	<string name="SyP_progress">Synkroniserer oppgavene dine...</string>
+	<string name="SyP_progress_toast">Synkroniserer...</string>
+	<string name="SyP_ioerror">Tilkoblingsfeil! Kontroller tilkoblingen til Internett</string>
+	<string name="sync_status_ongoing">Synkronisering pågår...</string>
+	<string name="sync_status_success">Siste synkronisering:\n%s</string>
+	<string name="sync_status_failed">Mislykket: %s</string>
+	<string name="sync_status_failed_subtitle">Siste vellykkede synkronisering: %s</string>
+	<string name="sync_status_never">Aldri synkronisert!</string>
+	<string name="sync_SPr_group_options">Alternativer</string>
+	<string name="sync_SPr_interval_title">Bakgrunnssynkronisering</string>
+	<string name="sync_SPr_interval_desc_disabled">Bakgrunnssynkronisering er deaktivert</string>
+	<string name="sync_SPr_interval_desc">Aktuell innstilling: %s</string>
+	<string name="sync_SPr_group_actions">Handlinger</string>
+	<string name="sync_SPr_forget">Logg ut</string>
+	<string name="sync_SPr_forget_description">Sletter all synkroniseringsdata</string>
+	<string name="sync_forget_confirm">Logg ut / slett synkroniseringsdata?</string>
+	<string-array name="sync_SPr_interval_entries">
+		<item>deaktiver</item>
+		<item>hvert kvarter</item>
+		<item>hver halvtime</item>
+		<item>hver time</item>
+		<item>hver tredje time</item>
+		<item>hver sjette time</item>
+		<item>hver tolvte time</item>
+		<item>daglig</item>
+		<item>hver tredje dag</item>
+		<item>hver uke</item>
+	</string-array>
 </resources>

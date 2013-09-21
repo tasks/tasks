@@ -4,87 +4,81 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<resources>
-  <plurals name="DUt_years">
-    <item quantity="one">1 any</item>
-    <item quantity="other">%d anys</item>
-  </plurals>
-  <plurals name="DUt_months">
-    <item quantity="one">1 mes</item>
-    <item quantity="other">%d mesos</item>
-  </plurals>
-  <plurals name="DUt_weeks">
-    <item quantity="one">1 setmana</item>
-    <item quantity="other">%d setmanes</item>
-  </plurals>
-  <plurals name="DUt_days">
-    <item quantity="one">1 dia</item>
-    <item quantity="other">%d dies</item>
-  </plurals>
-  <plurals name="DUt_hours">
-    <item quantity="one">1 hora</item>
-    <item quantity="other">%d Hores</item>
-  </plurals>
-  <plurals name="DUt_minutes">
-    <item quantity="one">1 minut</item>
-    <item quantity="other">%d Minuts</item>
-  </plurals>
-  <plurals name="DUt_seconds">
-    <item quantity="one">1 segon</item>
-    <item quantity="other">%d Segons</item>
-  </plurals>
-  <plurals name="DUt_secondsShort">
-    <item quantity="one">1 Seg</item>
-    <item quantity="other">%d Seg</item>
-  </plurals>
-  <plurals name="Ntasks">
-    <item quantity="one">1 tasca</item>
-    <item quantity="other">%d tasques</item>
-  </plurals>
-  <string name="today">Avui</string>
-  <string name="tomorrow">Demà</string>
-  <string name="yesterday">Ahir</string>
-  <string name="DLG_confirm_title">Confirmar?</string>
-  <string name="DLG_question_title">Pregunta:</string>
-  <string name="DLG_information_title">Informació</string>
-  <string name="DLG_error_title">S\'ha produït un error</string>
-  <string name="DLG_save">Desar</string>
-  <string name="DLG_yes">Sí</string>
-  <string name="DLG_no">No</string>
-  <string name="DLG_close">Tancar</string>
-  <string name="DLG_done">Fet</string>
-  <string name="DLG_error">¡Ui, sembla que hi ha hagut un problema! Això es el que ha passat:\n\n%s</string>
-  <string name="DLG_error_generic">¡Ui, sembla que hi ha hagut un problema!</string>
-  <string name="DLG_wait">Si us plau, espera...</string>
-  <string name="SyP_progress">Sincronitzant les seves tasques...</string>
-  <string name="SyP_progress_toast">S\'està sincronitzant...</string>
-  <string name="SyP_ioerror">Error de conexió! Verifiqui la conexió d\'internet.</string>
-  <string name="sync_SPr_group_status">Estat</string>
-  <string name="sync_status_ongoing">Sincronització en curs...</string>
-  <string name="sync_status_success">Última sincronització:\n%s</string>
-  <string name="sync_status_failed">Fallida el: %s</string>
-  <string name="sync_status_failed_subtitle">Última sincronització correcte: %s</string>
-  <string name="sync_status_never">Mai sincronitzat!</string>
-  <string name="sync_SPr_group_options">Opcions</string>
-  <string name="sync_SPr_interval_title">Sincronitzar en segon pla</string>
-  <string name="sync_SPr_interval_desc_disabled">Desactivada la sincronització en segon pla</string>
-  <string name="sync_SPr_interval_desc">Actualment configurat en: %s</string>
-  <string name="sync_SPr_bgwifi_desc_enabled">La sincronització en segon pla només funciona amb el Wifi activat.</string>
-  <string name="sync_SPr_bgwifi_desc_disabled">Sempre es produirà la sincronització en segon pla</string>
-  <string name="sync_SPr_group_actions">Accions</string>
-  <string name="sync_SPr_forget">Surt</string>
-  <string name="sync_SPr_forget_description">Esborra tota la informació de sincronització</string>
-  <string name="sync_forget_confirm">Tancar sessió / esborra la informació de sincronització?</string>
-  <string-array name="sync_SPr_interval_entries">
-    <item>desactivat</item>
-    <item>cada quince minuts</item>
-    <item>cada trenta minuts</item>
-    <item>cada hora</item>
-    <item>cada tres hores</item>
-    <item>cada sis hores</item>
-    <item>cada dotze hores</item>
-    <item>diàriament</item>
-    <item>cada tres dies</item>
-    <item>setmanalment</item>
-  </string-array>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+	<plurals name="DUt_years">
+		<item quantity="one">1 any</item>
+		<item quantity="other">%d anys</item>
+	</plurals>
+	<plurals name="DUt_months">
+		<item quantity="one">1 mes</item>
+		<item quantity="other">%d mesos</item>
+	</plurals>
+	<plurals name="DUt_weeks">
+		<item quantity="one">1 setmana</item>
+		<item quantity="other">%d setmanes</item>
+	</plurals>
+	<plurals name="DUt_days">
+		<item quantity="one">1 dia</item>
+		<item quantity="other">%d dies</item>
+	</plurals>
+	<plurals name="DUt_hours">
+		<item quantity="one">1 hora</item>
+		<item quantity="other">%d Hores</item>
+	</plurals>
+	<plurals name="DUt_minutes">
+		<item quantity="one">1 minut</item>
+		<item quantity="other">%d Minuts</item>
+	</plurals>
+	<plurals name="DUt_seconds">
+		<item quantity="one">1 segon</item>
+		<item quantity="other">%d Segons</item>
+	</plurals>
+	<plurals name="DUt_secondsShort">
+		<item quantity="one">1 Seg</item>
+		<item quantity="other">%d Seg</item>
+	</plurals>
+	<plurals name="Ntasks">
+		<item quantity="one">1 tasca</item>
+		<item quantity="other">%d tasques</item>
+	</plurals>
+	<string name="today">Avui</string>
+	<string name="tomorrow">Demà</string>
+	<string name="yesterday">Ahir</string>
+	<string name="DLG_confirm_title">Confirmar?</string>
+	<string name="DLG_question_title">Pregunta:</string>
+	<string name="DLG_information_title">Informació</string>
+	<string name="DLG_error_title">S\'ha produït un error</string>
+	<string name="DLG_close">Tancar</string>
+	<string name="DLG_error">¡Ui, sembla que hi ha hagut un problema! Això es el que ha passat:\n\n%s</string>
+	<string name="DLG_error_generic">¡Ui, sembla que hi ha hagut un problema!</string>
+	<string name="DLG_wait">Si us plau, espera...</string>
+	<string name="SyP_progress">Sincronitzant les seves tasques...</string>
+	<string name="SyP_progress_toast">S\'està sincronitzant...</string>
+	<string name="SyP_ioerror">Error de conexió! Verifiqui la conexió d\'internet.</string>
+	<string name="sync_SPr_group_status">Estat</string>
+	<string name="sync_status_ongoing">Sincronització en curs...</string>
+	<string name="sync_status_success">Última sincronització:\n%s</string>
+	<string name="sync_status_failed">Fallida el: %s</string>
+	<string name="sync_status_failed_subtitle">Última sincronització correcte: %s</string>
+	<string name="sync_status_never">Mai sincronitzat!</string>
+	<string name="sync_SPr_group_options">Opcions</string>
+	<string name="sync_SPr_interval_title">Sincronitzar en segon pla</string>
+	<string name="sync_SPr_interval_desc_disabled">Desactivada la sincronització en segon pla</string>
+	<string name="sync_SPr_interval_desc">Actualment configurat en: %s</string>
+	<string name="sync_SPr_group_actions">Accions</string>
+	<string name="sync_SPr_forget">Surt</string>
+	<string name="sync_SPr_forget_description">Esborra tota la informació de sincronització</string>
+	<string name="sync_forget_confirm">Tancar sessió / esborra la informació de sincronització?</string>
+	<string-array name="sync_SPr_interval_entries">
+		<item>desactivat</item>
+		<item>cada quince minuts</item>
+		<item>cada trenta minuts</item>
+		<item>cada hora</item>
+		<item>cada tres hores</item>
+		<item>cada sis hores</item>
+		<item>cada dotze hores</item>
+		<item>diàriament</item>
+		<item>cada tres dies</item>
+		<item>setmanalment</item>
+	</string-array>
 </resources>
