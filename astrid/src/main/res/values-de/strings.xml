@@ -324,11 +324,6 @@
 	<string name="swipe_lists_helper_title">Zum Wechseln der Listen wischen</string>
 	<string name="swipe_lists_helper_header">Zieh nach links oder rechts, um schnell zwischen Listen zu wechseln</string>
 	<string name="swipe_lists_helper_subtitle">Ändere die Einstellungen unter Einstellungen -&gt; Erscheinungsbild</string>
-	<string-array name="EPr_default_reminders_mode">
-		<item>@string/TEA_reminder_mode_once</item>
-		<item>Deutsch</item>
-		<item>@string/TEA_reminder_mode_nonstop</item>
-	</string-array>
 	<string-array name="EPr_themes">
 		<item>Tag - Blau</item>
 		<item>Tag -Rot</item>
