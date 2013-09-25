@@ -46,6 +46,17 @@ android {
     }
 }
 
+android.applicationVariants.all { variant ->
+    variant.mergeResources.doLast {
+        if (project.hasProperty('gapiKey')) {
+            File values = file("${buildDir}/res/all/${variant.dirName}/values/values.xml")
+            values.write(
+                    values.getText('UTF-8').replaceAll(/<string name="gapi_key">.*<\/string>/, "<string name=\"gapi_key\">${project.property('gapiKey')}</string>"),
+                    'UTF-8')
+        }
+    }
+}
+
 dependencies {
     compile 'com.android.support:support-v4:18.0.0'
     compile project(":android-aac-enc")

@@ -4,9 +4,9 @@
   These should not be translated 
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
- 
-  <string name="fb_app_id">183862944961271</string>
-    
+
+    <string name="gapi_key">AIzaSyBXGYNWNQcfse4JS5gI9teTSKMzinWzL2M</string>
+
   <!-- ======================================================== REMINDERS == -->
 
   <!-- whether reminders should appear at all -->

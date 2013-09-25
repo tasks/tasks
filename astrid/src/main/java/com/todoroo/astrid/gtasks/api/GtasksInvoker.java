@@ -1,7 +1,5 @@
 package com.todoroo.astrid.gtasks.api;
 
-import java.io.IOException;
-
 import android.content.Context;
 
 import com.google.api.client.extensions.android2.AndroidHttp;
@@ -17,12 +15,15 @@ import com.google.api.services.tasks.Tasks.TasksOperations.Move;
 import com.google.api.services.tasks.model.Task;
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
-import org.tasks.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
+
+import org.tasks.R;
+
+import java.io.IOException;
 
 /**
  * Wrapper around the official Google Tasks API to simplify common operations. In the case
@@ -38,8 +39,6 @@ public class GtasksInvoker {
 
     @Autowired ExceptionService exceptionService;
 
-    private static final String API_KEY = "AIzaSyBXGYNWNQcfse4JS5gI9teTSKMzinWzL2M"; // non-production API key
-
     public static final String AUTH_TOKEN_TYPE = "Manage your tasks"; //"oauth2:https://www.googleapis.com/auth/tasks";
 
     public GtasksInvoker(String authToken) {
@@ -52,9 +51,11 @@ public class GtasksInvoker {
         accessProtectedResource = new GoogleAccessProtectedResource(authToken);
 
         jsonFactory = new GsonFactory();
+        Context context = ContextManager.getContext();
+        String key = context.getString(R.string.gapi_key);
         service = new Tasks(AndroidHttp.newCompatibleTransport(), accessProtectedResource, jsonFactory);
-        service.setKey(API_KEY);
-        service.setApplicationName("Astrid");
+        service.setKey(key);
+        service.setApplicationName("Tasks");
     }
 
     //If we get a 401 or 403, try revalidating the auth token before bailing
