@@ -75,9 +75,6 @@
 	<string name="DLG_delete_this_item_question">Voleu suprimir aquest element: %s?</string>
 	<string name="DLG_upgrading">S\'estan actualitzant les vostres tasques...</string>
 	<string name="DLG_hour_minutes">Temps (hores : minuts)</string>
-	<string name="DLG_accept">Accepto</string>
-	<string name="DLG_decline">Declino</string>
-	<string name="DLG_eula_title">Condicions d\'ús de l\'Tasks</string>
 	<string name="DLG_loading">S\'està carregant…</string>
 	<string name="DLG_ok">Accepta</string>
 	<string name="DLG_cancel">Cancel·la</string>

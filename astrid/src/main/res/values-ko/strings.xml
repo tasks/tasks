@@ -101,9 +101,6 @@
 	<string name="DLG_delete_this_item_question">이 항목을 삭제할까요: %s?</string>
 	<string name="DLG_upgrading">일정 업그레이드 중...</string>
 	<string name="DLG_hour_minutes">시간 (시 : 분)</string>
-	<string name="DLG_accept">동의합니다</string>
-	<string name="DLG_decline">거절합니다</string>
-	<string name="DLG_eula_title">Tasks 사용 약관</string>
 	<string name="DLG_loading">불러오는 중...</string>
 	<string name="DLG_ok">확인</string>
 	<string name="DLG_cancel">취소</string>

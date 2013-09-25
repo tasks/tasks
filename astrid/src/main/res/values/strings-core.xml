@@ -32,15 +32,6 @@
   <!-- Title for dialog selecting a time (hours and minutes) -->
   <string name="DLG_hour_minutes">Time (hours : minutes)</string>
   
-  <!-- Button for accepting EULA -->
-  <string name="DLG_accept">I Accept</string>
-
-  <!-- Button for declining EULA -->
-  <string name="DLG_decline">I Decline</string>
-
-  <!-- EULA title -->
-  <string name="DLG_eula_title">Terms Of Use</string>
-  
   <!-- Dialog - loading -->
   <string name="DLG_loading">Loading...</string>
   

@@ -90,9 +90,6 @@
 	<string name="DLG_delete_this_item_question">Excluir este item: %s?</string>
 	<string name="DLG_upgrading">Atualizando suas tarefas...</string>
 	<string name="DLG_hour_minutes">Horário (horas:minutos)</string>
-	<string name="DLG_accept">Eu aceito</string>
-	<string name="DLG_decline">Recusar</string>
-	<string name="DLG_eula_title">Termos de uso do Tasks</string>
 	<string name="DLG_loading">Carregando...</string>
 	<string name="DLG_cancel">Cancelar</string>
 	<string name="DLG_undo">Desfazer</string>

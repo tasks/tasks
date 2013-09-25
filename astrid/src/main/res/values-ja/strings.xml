@@ -73,9 +73,6 @@
 	<string name="DLG_delete_this_item_question">項目 %s を削除しますか?</string>
 	<string name="DLG_upgrading">タスクを更新しています</string>
 	<string name="DLG_hour_minutes">時間 (時:分)</string>
-	<string name="DLG_accept">同意する</string>
-	<string name="DLG_decline">同意しない</string>
-	<string name="DLG_eula_title">Tasks 利用規定</string>
 	<string name="DLG_loading">読み込んでいます・・・</string>
 	<string name="DLG_cancel">取り消す</string>
 	<string name="DLG_undo">動作を取り消す</string>

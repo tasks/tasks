@@ -99,9 +99,6 @@
 	<string name="DLG_delete_this_item_question">Видалити цей пункт: %s?</string>
 	<string name="DLG_upgrading">Оновлення ваших завдань...</string>
 	<string name="DLG_hour_minutes">Час (години : хвилини)</string>
-	<string name="DLG_accept">Приймаю</string>
-	<string name="DLG_decline">Відхиляю</string>
-	<string name="DLG_eula_title">Умови використання</string>
 	<string name="DLG_loading">Завантаження...</string>
 	<string name="DLG_ok">Так</string>
 	<string name="DLG_cancel">Відміна</string>

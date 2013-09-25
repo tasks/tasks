@@ -30,9 +30,6 @@
 	<string name="DLG_delete_this_task_question">ลบงานนี้?</string>
 	<string name="DLG_delete_this_item_question">ลบรายการนี้: %s?</string>
 	<string name="DLG_hour_minutes">เวลา (ชั่วโมง : นาที)</string>
-	<string name="DLG_accept">ฉันยอมรับ</string>
-	<string name="DLG_decline">ฉันปฏิเสธ</string>
-	<string name="DLG_eula_title">เงื่อนไขการใช้งาน Tasks</string>
 	<string name="DLG_loading">กำลังโหลด...</string>
 	<string name="WID_dateButtonUnset">คลิก เพื่อตั้งค่า</string>
 	<string name="TLA_no_items">ไม่มีแผนงานใดๆ !</string>

@@ -60,8 +60,6 @@
 	<string name="DLG_delete_this_item_question">Apagar este item: %s?</string>
 	<string name="DLG_upgrading">A actualizar as suas tarefas...</string>
 	<string name="DLG_hour_minutes">Tempo (horas : minutos)</string>
-	<string name="DLG_accept">Eu Aceito</string>
-	<string name="DLG_decline">Eu Recuso</string>
 	<string name="DLG_loading">Carregando...</string>
 	<string name="WID_dateButtonUnset">Pressione para confirmar</string>
 	<string name="TLA_no_items">Sem Tarefas!</string>

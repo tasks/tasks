@@ -86,9 +86,6 @@
 	<string name="DLG_delete_this_item_question">Öğe silinsin mi: %s?</string>
 	<string name="DLG_upgrading">Görevleriniz güncelleniyor...</string>
 	<string name="DLG_hour_minutes">Zaman (saat : dakika)</string>
-	<string name="DLG_accept">Kabul Et</string>
-	<string name="DLG_decline">Reddet</string>
-	<string name="DLG_eula_title">Tasks Kullanım Koşulları</string>
 	<string name="DLG_loading">Yükleniyor...</string>
 	<string name="DLG_ok">Tamam</string>
 	<string name="DLG_cancel">Vazgeç</string>

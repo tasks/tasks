@@ -91,9 +91,6 @@
 	<string name="DLG_delete_this_item_question">למחוק את %s?</string>
 	<string name="DLG_upgrading">משדרגת את משימותיך...</string>
 	<string name="DLG_hour_minutes">זמן (שעות : דקות)</string>
-	<string name="DLG_accept">אני מסכים</string>
-	<string name="DLG_decline">אינני מסכים</string>
-	<string name="DLG_eula_title">Tasks תנאי שימוש</string>
 	<string name="DLG_loading">טוענת...</string>
 	<string name="DLG_ok">אישור</string>
 	<string name="DLG_cancel">בטל</string>

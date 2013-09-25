@@ -86,9 +86,6 @@
 	<string name="DLG_delete_this_item_question">Radera följande: %s?</string>
 	<string name="DLG_upgrading">Uppgraderar dina uppgifter...</string>
 	<string name="DLG_hour_minutes">Tid (timmar : minuter)</string>
-	<string name="DLG_accept">Jag godkänner</string>
-	<string name="DLG_decline">Jag godkänner inte</string>
-	<string name="DLG_eula_title">Tasks Användarvillkor</string>
 	<string name="DLG_loading">Laddar...</string>
 	<string name="DLG_cancel">Avbryt</string>
 	<string name="DLG_undo">Ångra</string>

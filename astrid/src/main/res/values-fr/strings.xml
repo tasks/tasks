@@ -96,9 +96,6 @@
 	<string name="DLG_delete_this_item_question">Effacer cet élément: %s</string>
 	<string name="DLG_upgrading">Mise à jour de vos tâches…</string>
 	<string name="DLG_hour_minutes">Temps (heures : minutes)</string>
-	<string name="DLG_accept">J\'accepte</string>
-	<string name="DLG_decline">Je refuse</string>
-	<string name="DLG_eula_title">Conditions d\'utilisation d\'Tasks</string>
 	<string name="DLG_loading">Chargement…</string>
 	<string name="DLG_cancel">Annuler</string>
 	<string name="DLG_undo">Annuler Action</string>
