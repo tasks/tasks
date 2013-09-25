@@ -154,7 +154,6 @@
 	<string name="FLA_new_filter">新建過濾器</string>
 	<string name="FLA_new_list">新建列表</string>
 	<string name="FLA_no_filter_selected">還沒有選定過濾器呢！請選擇一個過濾器或列表唄。</string>
-	<string name="TEA_when_header_label">時間</string>
 	<string name="TEA_urgency_specific_time">指定時間?</string>
 	<string name="TEA_urgency_none">無</string>
 	<string name="TEA_hideUntil_message">任務工作將會被隱藏，直到 %s</string>
@@ -324,8 +323,6 @@
 	<string name="AOA_locale_description">在過濾的條件下，允許Tasks利用場所應用推送通知。現在就買場所插件。</string>
 	<string name="TWi_loading">載入中...</string>
 	<string name="WCA_title">選擇工作顯示...</string>
-	<string name="p_about">關於 Tasks</string>
-	<string name="p_about_text">當前版本： %s\n\n Tasks 是由Todoroo, Inc. 維護的開源軟件。</string>
 	<string name="task_killer_help">似乎您正在使用會刪除進程的應用程序(%s)！可以的話，請將Tasks 加入到例外列表避免被殺死。否則Tasks可能無法通知您任​​務已到期。\n</string>
 	<string name="task_killer_help_ok">我不會中止 Tasks!</string>
 	<string name="DB_corrupted_title">數據庫已經受損</string>

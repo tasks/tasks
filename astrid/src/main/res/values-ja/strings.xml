@@ -119,7 +119,6 @@
 	<string name="FLA_toast_onCreateShortcut">ショートカット %s を作成しました</string>
 	<string name="FLA_new_filter">新しいフィルタ</string>
 	<string name="FLA_new_list">新しいリスト</string>
-	<string name="TEA_when_header_label">いつ</string>
 	<string name="TEA_importance_label">優先順位</string>
 	<string name="TEA_urgency_specific_time">時刻を設定する</string>
 	<string name="TEA_urgency_none">なし</string>

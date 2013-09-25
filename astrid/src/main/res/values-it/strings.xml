@@ -153,7 +153,6 @@
 	<string name="FLA_new_filter">Nuovo Filtro</string>
 	<string name="FLA_new_list">Nuova lista</string>
 	<string name="FLA_no_filter_selected">Filtro non selezionato! Perfavore seleziona un filtro o una lista.</string>
-	<string name="TEA_when_header_label">Quando</string>
 	<string name="TEA_importance_label">Priorità</string>
 	<string name="TEA_urgency_specific_time">In un orario specifico?</string>
 	<string name="TEA_urgency_none">Nessuna</string>
@@ -324,9 +323,6 @@
 	<string name="AOA_locale_description">Consenti ad Tasks di usare l\'applicazione Locale per inviarti notifiche in base ai tuoi filtri. è richiesta l\'applicazione Locale.</string>
 	<string name="TWi_loading">Caricamento...</string>
 	<string name="WCA_title">Seleziona le attività da visualizzare...</string>
-	<string name="p_about">Informazioni su Tasks</string>
-	<string name="p_about_text">Versione attuale: %s\n\n
-Tasks è un open-source ed è sostenuto con orgoglio da Todoroo, Inc.</string>
 	<string name="task_killer_help">Sembra che si stia utilizzando un\'applicazione che può terminare i processi (%s)! Se è possibile, aggiungere Tasks all\'elenco di esclusione in modo che non venga terminato. Contrariamente, Tasks potrebbe non avvisarti quando le tue attività saranno compiute.\n</string>
 	<string name="task_killer_help_ok">Voglio terminare Tasks!</string>
 	<string name="DB_corrupted_title">Database corrotto</string>

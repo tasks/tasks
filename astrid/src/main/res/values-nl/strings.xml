@@ -163,7 +163,6 @@
 	<string name="FLA_new_filter">Nieuw Filter</string>
 	<string name="FLA_new_list">Nieuwe lijst</string>
 	<string name="FLA_no_filter_selected">Geen filter geselecteerd! Selecteer een filter of lijst.</string>
-	<string name="TEA_when_header_label">Wanneer</string>
 	<string name="TEA_title_hint">Taak naam</string>
 	<string name="TEA_importance_label">Prioriteit</string>
 	<string name="TEA_deadline_hint">Stel de einddatum in</string>
@@ -374,8 +373,6 @@
 	<string name="AOA_locale_description">Sta toe dat Tasks gebruik maakt van de Locale applicatie om je notificaties te sturen gebaseerd op de filter voorwaarden. Locale vereist.</string>
 	<string name="TWi_loading">Laden…</string>
 	<string name="WCA_title">Selecteer weer te geven taken...</string>
-	<string name="p_about">Over Tasks</string>
-	<string name="p_about_text">Huidige versie: %s\n\n Tasks is open-source en wordt trots onderhouden door Todoroo, Inc.</string>
 	<string name="feedback_positive_title">Beoordeel Tasks?</string>
 	<string name="feedback_positive_body">Fijn dat ik kon helpen! Heb je een momentje om ons een 5-ster waardering te geven?</string>
 	<string name="feedback_negative_title">Geef feedback?</string>

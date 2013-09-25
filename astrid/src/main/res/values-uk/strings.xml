@@ -165,7 +165,6 @@
 	<string name="FLA_new_filter">Новий фільтр</string>
 	<string name="FLA_new_list">Новий список</string>
 	<string name="FLA_no_filter_selected">Не вибраний жодний фільтр! Будь ласка, виберіть фільтр або список.</string>
-	<string name="TEA_when_header_label">Коли</string>
 	<string name="TEA_title_hint">Ім\'я завдання</string>
 	<string name="TEA_importance_label">Пріоритет</string>
 	<string name="TEA_deadline_hint">Встановити кінцеву дату</string>

@@ -262,16 +262,7 @@
   <string name="FLA_no_filter_selected">No filter selected! Please select a filter or list.</string>
   
   <!-- ================================================= TaskEditActivity == -->
-  
-  <!-- Title when editing a task (%s => task title) -->
-  
-  <!-- Title when creating a new task -->
-  
-  <!-- Task title label -->
-  
-  <!-- Task when label -->
-  <string name="TEA_when_header_label">When</string>
-  
+
   <!-- Task title hint (displayed when edit box is empty) -->
   <string name="TEA_title_hint">Task name</string>
   
@@ -810,16 +801,6 @@
 
   <!-- Widget configuration activity title: select a filter -->
   <string name="WCA_title">Select tasks to view...</string>
-  
-  <!-- ============================================================= About == -->
-  
-  <!-- slide 30h: Title of "About" option in settings -->
-  <string name="p_about">About Tasks</string>
-  
-  <!-- About text (%s => current version)-->
-  <string name="p_about_text">Current version: %s\n\n
-
-Tasks is open-source and proudly maintained by Todoroo, Inc.</string>
 
   <!-- ============================================================= Misc == -->
   

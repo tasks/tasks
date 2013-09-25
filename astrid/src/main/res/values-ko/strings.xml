@@ -169,7 +169,6 @@
 	<string name="FLA_new_filter">새 필터</string>
 	<string name="FLA_new_list">새 목록</string>
 	<string name="FLA_no_filter_selected">필터를 선택하지 않았습니다! 필터나 목록을 선택하세요.</string>
-	<string name="TEA_when_header_label">언제</string>
 	<string name="TEA_title_hint">일정 이름</string>
 	<string name="TEA_importance_label">우선순위</string>
 	<string name="TEA_deadline_hint">마감일 설정</string>
@@ -384,9 +383,6 @@
 	<string name="AOA_locale_description">아스트리드에서 위치 앱을 사용합니다. 위치 앱에서 설정한 필터 조건에 따라 알림을 보내줍니다. 위치 서비스를 사용합니다.</string>
 	<string name="TWi_loading">로드 중…</string>
 	<string name="WCA_title">열람할 일정 선택...</string>
-	<string name="p_about">아스트리드 정보</string>
-	<string name="p_about_text">현재 버전: %s\n\n
-아스트리드는 오픈소스이며 Todoroo, Inc가 관리하고 있습니다.</string>
 	<string name="feedback_positive_title">평가할까요?</string>
 	<string name="feedback_positive_body">도움이 되었다니 기쁘네요! 평가를 위해 잠시 시간을 내주실래요?</string>
 	<string name="feedback_negative_title">피드백을 남길까요?</string>

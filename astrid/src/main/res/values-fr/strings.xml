@@ -162,7 +162,6 @@
 	<string name="FLA_new_filter">Nouveau filtre</string>
 	<string name="FLA_new_list">Nouvelle liste</string>
 	<string name="FLA_no_filter_selected">Aucun filtre sélectionné ! Veuillez sélectionner un filtre ou une liste.</string>
-	<string name="TEA_when_header_label">Quand</string>
 	<string name="TEA_title_hint">Nom de la tâche</string>
 	<string name="TEA_importance_label">Priorité</string>
 	<string name="TEA_deadline_hint">Définir une date d\'échéance</string>
@@ -375,8 +374,6 @@
 	<string name="AOA_locale_description">Autorise Tasks à utiliser l\'application de localisation pour vous envoyer des notifications en fonction de filtres. Nécessite la localisation</string>
 	<string name="TWi_loading">Chargement…</string>
 	<string name="WCA_title">Sélectionnez les tâches à afficher…</string>
-	<string name="p_about">À propos d\'Tasks</string>
-	<string name="p_about_text">Version actuelle : %s\n\n Tasks est un logiciel libre maintenu fièrement par Todoroo, Inc.</string>
 	<string name="feedback_positive_title">Evaluer Tasks ?</string>
 	<string name="feedback_positive_body">Content de savoir que je suis utile ! Prenez un instant pour nous donner 5 étoiles </string>
 	<string name="feedback_negative_title">Laisser un avis?</string>

@@ -162,7 +162,6 @@
 	<string name="FLA_new_filter">Nowy filtr</string>
 	<string name="FLA_new_list">Nowa lista</string>
 	<string name="FLA_no_filter_selected">Nie wybraon filtra! Wybierz filtr lub listę.</string>
-	<string name="TEA_when_header_label">Kiedy</string>
 	<string name="TEA_title_hint">Tytuł zadania</string>
 	<string name="TEA_importance_label">Priorytet</string>
 	<string name="TEA_urgency_specific_time">Dokładna godzina?</string>
@@ -369,8 +368,6 @@
 	<string name="AOA_locale_description">Umożliwia Tasks wykorzystanie aplikacji obsługującej języki, by wysyłać ci powiadomienia oparte o filtry. Wymaga wtyczki Locale.</string>
 	<string name="TWi_loading">Ładowanie...</string>
 	<string name="WCA_title">Wybierz zadania do wyświetlenia</string>
-	<string name="p_about">O Tasks</string>
-	<string name="p_about_text">Bieżąca wersja: %s\n\n Tasks ma otwarte źródła i jest zarządzana z dumą przez Todoroo, Inc.</string>
 	<string name="feedback_positive_title">Ocenić Tasks?</string>
 	<string name="feedback_positive_body">Cieszę się, że mogłem pomóc! Masz chwilę aby pomóc nam pięciogwiazdkową oceną?</string>
 	<string name="feedback_not_now">Nie teraz</string>

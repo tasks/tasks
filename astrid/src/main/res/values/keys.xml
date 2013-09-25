@@ -33,9 +33,6 @@
   <!-- ringtone to use for notifications -->
   <string name="p_rmd_ringtone">notification_ringtone</string>
   
-  <!-- if tts is used for notifications -->
-  <string name="p_rmd_voice">notification_voice</string>
-  
   <!-- icon theme for notifications -->
   <string name="p_rmd_icon">notif_theme</string>
   
@@ -94,14 +91,7 @@
     <item>730</item>
     <item>1460</item>
   </string-array>
-  
-  <string-array name="notif_icon_values">
-    <!-- Corresponding to the constants in Preferences.java (do not edit) -->
-    <item>0</item>
-    <item>1</item>
-    <item>2</item>
-  </string-array>
-  
+    
   <string-array name="EPr_reminder_random_hours">
     <!-- values (in hours) associated with random reminders above. -->
     <item>0</item>
@@ -334,15 +324,9 @@
   
   <!-- default reminders setting (corresponds to reminder flags) -->
   <string name="p_default_reminders_key">p_def_reminders</string>
-  
-  <!-- default Add To Calendar setting (corresponds to entry in gcal_TEA_addToCalendar) -->
-  <string name="p_default_addtocalendar_key">p_def_addtocalendar</string>
-  
+
   <!-- default reminder mode setting (corresponds to entry in TEA_reminder_mode_once, TEA_reminder_mode_five, TEA_reminder_mode_nonstop) -->
   <string name="p_default_reminders_mode_key">rmd_default_reminder_mode</string>
-  
-  <!-- swipe between lists performance mode setting (DEPRECATED)-->
-  <string name="p_swipe_lists_performance_key">p_swipe_lists_perf</string>
 
   <string name="p_swipe_lists_enabled">p_swipe_lists_enabled</string>
   
@@ -376,8 +360,6 @@
       <!-- Preference Key (do not translate) -->
     <string name="sync_SPr_status_key">sync_status</string>
     <!-- Preference Key (do not translate) -->
-    <string name="sync_SPr_bgwifi_key">sync_bgwifi</string>
-    <!-- Preference Key (do not translate) -->
     <string name="sync_SPr_sync_key">sync_sync</string>
     <!-- Preference Key (do not translate) -->
     <string name="sync_SPr_forget_key">sync_forget</string>
@@ -406,10 +388,7 @@
 
   <!-- Default Calendar Preference Key (do not translate) -->
   <string name="gcal_p_default">default_calendar_id</string>
-  
-  <!-- placeholder string for info about translators (i.e. YOU!) -->
-  <string name="about_translators"></string>
-  
+
   <string-array name="TEA_control_sets_beast">
       <item >@string/TEA_control_when</item>
       <item >@string/TEA_control_importance</item>

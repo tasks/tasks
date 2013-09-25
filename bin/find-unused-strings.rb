@@ -1,4 +1,4 @@
-files = Dir.glob('api/src/main/res/values/strings.xml') + Dir.glob('astrid/src/main/res/values/strings-*.xml')
+files = Dir.glob('**/src/main/res/values/*.xml')
 files.each do |path|
     file = File.new(path)
     file.read.scan(/<string name="(.*)">/) do |match|

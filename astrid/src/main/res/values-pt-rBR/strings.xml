@@ -154,7 +154,6 @@
 	<string name="FLA_new_filter">Novo Filtro</string>
 	<string name="FLA_new_list">Nova lista</string>
 	<string name="FLA_no_filter_selected">Sem filtro selecionado! Selecione um filtro ou lista.</string>
-	<string name="TEA_when_header_label">Quando</string>
 	<string name="TEA_importance_label">Prioridade</string>
 	<string name="TEA_urgency_specific_time">Num horário específico?</string>
 	<string name="TEA_urgency_none">Nenhum</string>
@@ -326,8 +325,6 @@
 	<string name="AOA_locale_description">Permitir que o Tasks faça uso do aplicativo Locale para mandar notificações a você com base nas condições de filtro. Requer Locale.</string>
 	<string name="TWi_loading">Carregando...</string>
 	<string name="WCA_title">Selecionar tarefas para visualização...</string>
-	<string name="p_about">Sobre Tasks</string>
-	<string name="p_about_text">Versão atual: %s\n\n Tasks é open-source e orgulhosamente mantido pela Todoroo, Inc.</string>
 	<string name="task_killer_help">Parece que você está usando um aplicativo que pode eliminar processos (%s)! Se você puder, adicione o Tasks à lista de exclusão para que ele não seja eliminado. Caso contrário, o Tasks pode não avisar para você quando suas tarefas estiverem vencidas.\n</string>
 	<string name="task_killer_help_ok">Eu não vou excluir o Tasks!</string>
 	<string name="DB_corrupted_title">Banco de Dados Corrompido</string>

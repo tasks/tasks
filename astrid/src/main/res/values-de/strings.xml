@@ -160,7 +160,6 @@
 	<string name="FLA_new_filter">Neuer Filter</string>
 	<string name="FLA_new_list">Neue Liste</string>
 	<string name="FLA_no_filter_selected">Kein Filter ausgewählt. Bitte Filter oder Liste auswählen.</string>
-	<string name="TEA_when_header_label">Wann</string>
 	<string name="TEA_title_hint">Aufgabenname</string>
 	<string name="TEA_importance_label">Priorität</string>
 	<string name="TEA_deadline_hint">Fälligkeitsdatum setzen</string>
@@ -367,8 +366,6 @@
 	<string name="AOA_locale_description">Erlaubt Tasks, die Gebietschema-App zum Senden von Benachrichtigunen basierend auf Filterregeln zu benutzen. Benötigt Gebietsschema-Plugin.</string>
 	<string name="TWi_loading">Ladevorgang …</string>
 	<string name="WCA_title">Aufgaben zum Anzeigen wählen …</string>
-	<string name="p_about">Über Tasks</string>
-	<string name="p_about_text">Aktuelle Version: %s\n\n Tasks ist Open-Source und wird stolz von Todoroo, Inc. gepflegt.</string>
 	<string name="feedback_positive_title">Tasks bewerten?</string>
 	<string name="feedback_positive_body">Schön, dass ich helfen konnte. Gibst du mir eine 5-Sterne-Bewertung?</string>
 	<string name="feedback_negative_title">Bewertung hinterlassen?</string>

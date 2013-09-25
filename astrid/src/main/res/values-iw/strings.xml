@@ -159,7 +159,6 @@
 	<string name="FLA_new_filter">מַסְנֵן חדש</string>
 	<string name="FLA_new_list">רשימה חדשה</string>
 	<string name="FLA_no_filter_selected">לא נבחר מַסְנֵן! אנא בחר מַסְנֵן או רשימה.</string>
-	<string name="TEA_when_header_label">מתי</string>
 	<string name="TEA_importance_label">עדיפות</string>
 	<string name="TEA_urgency_specific_time">בזמן מסויים?</string>
 	<string name="TEA_urgency_none">ללא</string>
@@ -364,8 +363,6 @@
 	<string name="AOA_locale_description">אפשר לאסטריד להשתמש בתכונות \"מציאת מקום\" על מנת לשלוח לך התראות מבוססות על תנאי סינון. עליך להפעיל שירותי מיקום.</string>
 	<string name="TWi_loading">טוענת...</string>
 	<string name="WCA_title">בחר משימות להצגה...</string>
-	<string name="p_about">אודות אסטריד</string>
-	<string name="p_about_text">גירסא נוכחית: %s\n אסטריד היא תכנת קוד פתוח המתוחזקת בגאווה ע״י Todoroo, Inc.</string>
 	<string name="task_killer_help">ככל הנראה הנך משתמש ביישום אשר יכול להרוג תהליכים (%s)!
 .אם הדבר אפשרי, אנא הוסף את אסטריד לרשימת היישומים אשר ישום זה לא יהרוג. 
 אחרת , יתכן שאסטריד לא תוכל להודיע לך כאשר זמן היעד של המשימות שלך יגיע.</string>

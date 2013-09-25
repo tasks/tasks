@@ -151,7 +151,6 @@
 	<string name="FLA_new_filter">Yeni Filtre</string>
 	<string name="FLA_new_list">Yeni Liste</string>
 	<string name="FLA_no_filter_selected">Süzgeç seçilmemiş! Lütfen bir süzgeç ya da liste seçin.</string>
-	<string name="TEA_when_header_label">Ne Zaman</string>
 	<string name="TEA_urgency_specific_time">Belirli bir zamanda?</string>
 	<string name="TEA_urgency_none">Hiçbiri</string>
 	<string name="TEA_hideUntil_message">Görev %s\'e kadar gizli kalacak</string>
@@ -311,8 +310,6 @@
 	<string name="AOA_ppack_title">Tasks Power Pack</string>
 	<string name="TWi_loading">Yükleniyor...</string>
 	<string name="WCA_title">Görüntülenecek görevi seç...</string>
-	<string name="p_about">Tasks Hakkında</string>
-	<string name="p_about_text">Güncel versiyon: %s\n\n Tasks açık kaynak kodlu olarak Todoroo, Inc tarafından gururla sürdürülmektedir.</string>
 	<string name="task_killer_help">Gönürüyor ki, işlemleri kapatabilen bir uygulama kullanıyorsunuz (%s)! Mümkünse, Tasks\'i programın muafiyet listesine ekleyin ki kapatılamasın. Aksi takdirde, Tasks görevlerin tarihi geldiğinde size bildiremeyebilir.\n</string>
 	<string name="task_killer_help_ok">Tasks\'i Kapatmayacağım!</string>
 	<string name="DB_corrupted_title">Bozuk Veritabanı</string>
