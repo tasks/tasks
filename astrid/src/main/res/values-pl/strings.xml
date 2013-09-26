@@ -302,10 +302,6 @@
 	<string name="EPr_menu_items">Pozycje menu</string>
 	<string name="EPr_list_view">Widok listy</string>
 	<string name="EPr_show_task_edit_comments">Pokaż komentarze w edycji zadania</string>
-	<string name="EPr_theme_title">Kolorystyka</string>
-	<string name="EPr_theme_desc">Aktualnie: %s</string>
-	<string name="EPr_theme_desc_unsupported">Ustawienia wymagaja Androida 2.0+</string>
-	<string name="EPr_theme_widget_title">Skórka Widgeta</string>
 	<string name="EPr_taskRowPrefs_title">Wygląd rzędu zadań</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Czas zdarzenia kalendarza</string>
 	<string name="EPr_cal_end_at_due_time">Zakończ zadania kalendarza w ustalonym czasie</string>
@@ -316,24 +312,6 @@
 	<string name="swipe_lists_helper_title">Przeciągaj pomiędzy listami</string>
 	<string name="swipe_lists_helper_header">Przeciągnij w lewo lub prawo aby szybko przełączyć się między listami</string>
 	<string name="swipe_lists_helper_subtitle">Zmień ustawienia w Ustawienia -&amp;gl; Wygląd</string>
-	<string-array name="EPr_themes">
-		<item>Dzień - Blue</item>
-		<item>Dzień - Red</item>
-		<item>Błękit nieba</item>
-		<item>Noc</item>
-		<item>Przezroczysty (biały tekst)</item>
-		<item>Przezroczysty (czarny tekst)</item>
-	</string-array>
-	<string-array name="EPr_themes_widget">
-		<item>Taki jak aplikacji</item>
-		<item>Dzień - Niebieski</item>
-		<item>Dzień - Czerwony</item>
-		<item>Błękit nieba</item>
-		<item>Noc</item>
-		<item>Przezroczysty (biały tekst)</item>
-		<item>Przezroczysty (czarny tekst)</item>
-		<item>Old Style</item>
-	</string-array>
 	<string name="EPr_manage_header">Zarządzaj starymi zadaniami</string>
 	<string name="EPr_manage_delete_completed">Usuń zakończone zadania</string>
 	<string name="EPr_manage_delete_completed_message">Czy na pewno chcesz usunąć wszystkie zadania wykonane?</string>

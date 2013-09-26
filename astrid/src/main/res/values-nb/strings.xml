@@ -101,7 +101,6 @@
 	<string name="EPr_fontSize_desc">Tekststørrelse for hovedlista</string>
 	<string name="EPr_showNotes_title">Vis notater i oppgaven</string>
 	<string name="EPr_showNotes_desc_enabled">Notater vil alltid vises</string>
-	<string name="EPr_theme_desc">For tiden: %s</string>
 	<string name="AOA_title">Tasks: Tillegg</string>
 	<string name="AOA_internal_author">Tasks-teamet</string>
 	<string name="AOA_tab_installed">Installert</string>

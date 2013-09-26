@@ -10,54 +10,42 @@ import android.graphics.PixelFormat;
 import android.text.TextUtils;
 import android.view.WindowManager;
 
-import org.tasks.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.utility.AstridPreferences;
-import com.todoroo.astrid.widget.TasksWidget;
+
+import org.tasks.R;
 
 public class ThemeService {
 
     public static final String THEME_WHITE = "white";
-    public static final String THEME_WHITE_RED = "white-red";
-    public static final String THEME_WHITE_ALT = "white-alt";
     public static final String THEME_BLACK = "black";
-    public static final String THEME_TRANSPARENT = "transparent";
-    public static final String THEME_TRANSPARENT_WHITE = "transparent-white";
-
-    public static final String THEME_WIDGET_SAME_AS_APP = "same-as-app";
-    public static final String THEME_WIDGET_LEGACY = "legacy-widget";
 
     public static final int FLAG_FORCE_DARK = 1;
     public static final int FLAG_FORCE_LIGHT = 2;
     public static final int FLAG_INVERT = 3;
-
-    private static int currentTheme;
 
     // Widget config activities set this flag since they theme differently than the normal
     // filter list. In other cases this should be false
     private static boolean forceFilterInvert = false;
 
     public static void applyTheme(Activity activity) {
-        currentTheme = getTheme();
+        int currentTheme = getTheme();
         activity.setTheme(currentTheme);
-
         activity.getWindow().setFormat(PixelFormat.RGBA_8888);
         activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DITHER);
     }
 
     public static int getTheme() {
-        String preference = Preferences.getStringValue(R.string.p_theme);
+        String preference = Preferences.getBoolean(R.string.p_use_dark_theme, false) ? THEME_BLACK : THEME_WHITE;
         return getStyleForSetting(preference);
     }
 
     public static int getWidgetTheme() {
-        String preference = Preferences.getStringValue(R.string.p_theme_widget);
-        if (TextUtils.isEmpty(preference) || THEME_WIDGET_SAME_AS_APP.equals(preference)) {
+        String preference = Preferences.getBoolean(R.string.p_use_dark_theme_widget, false) ? THEME_BLACK : THEME_WHITE;
+        if (TextUtils.isEmpty(preference)) {
             return getTheme();
-        } else if (THEME_WIDGET_LEGACY.equals(preference)) {
-            return TasksWidget.THEME_LEGACY;
         } else {
             return getStyleForSetting(preference);
         }
@@ -66,14 +54,6 @@ public class ThemeService {
     private static int getStyleForSetting(String setting) {
         if(THEME_BLACK.equals(setting)) {
             return R.style.Theme;
-        } else if(THEME_TRANSPARENT.equals(setting)) {
-            return R.style.Theme_Transparent;
-        } else if(THEME_TRANSPARENT_WHITE.equals(setting)) {
-            return R.style.Theme_TransparentWhite;
-        } else if (THEME_WHITE_RED.equals(setting)) {
-            return R.style.Theme_White;
-        } else if (THEME_WHITE_ALT.equals(setting)) {
-            return R.style.Theme_White_Alt;
         } else {
             return R.style.Theme_White_Blue;
         }
@@ -152,7 +132,6 @@ public class ThemeService {
 
     /**
      * Only widget config activities should call this (see note on the flag above)
-     * @param forceInvert
      */
     public static void setForceFilterInvert(boolean forceInvert) {
         forceFilterInvert = forceInvert;
@@ -276,9 +255,4 @@ public class ThemeService {
     public static int getTaskEditThemeColor() {
         return getDarkVsLight(R.color.task_edit_selected, R.color.blue_theme_color, true);
     }
-
-    public static void forceTheme(int theme) {
-        currentTheme = theme;
-    }
-
 }

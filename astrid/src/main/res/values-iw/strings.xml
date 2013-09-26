@@ -297,10 +297,6 @@
 	<string name="EPr_menu_items">פריטי תפריט</string>
 	<string name="EPr_list_view">תצוגת רשימה</string>
 	<string name="EPr_show_task_edit_comments">הצגת הערות בעריכת משימה</string>
-	<string name="EPr_theme_title">צבע ערכת נושא</string>
-	<string name="EPr_theme_desc">כעת: %s</string>
-	<string name="EPr_theme_desc_unsupported">הפעלת הגדרות דורשת גירסא 2.0 ומעלה של אנדרואיד</string>
-	<string name="EPr_theme_widget_title">ערכת חֲפִיץ מסך</string>
 	<string name="EPr_taskRowPrefs_title">חזות שורת המשימה</string>
 	<string name="EPr_cal_end_or_start_at_due_time">משך אירוע יומן</string>
 	<string name="EPr_cal_end_at_due_time">סיים את אירועי היומן במועד היעד?</string>
@@ -310,24 +306,6 @@
 	<string name="swipe_lists_helper_title">עִלְעוּל בין רשימות</string>
 	<string name="swipe_lists_helper_header">עִלְעוּל ימינה ושמאלה למעבר מהיר בין רשימות</string>
 	<string name="swipe_lists_helper_subtitle">שנה הגדרות תחת הגדרות&gt;חזות</string>
-	<string-array name="EPr_themes">
-		<item>יום - כחול</item>
-		<item>יום - אדום</item>
-		<item>תכלת</item>
-		<item>לילה</item>
-		<item>שקוף (טקסט לבן)</item>
-		<item>שקוף (טקסט שחור)</item>
-	</string-array>
-	<string-array name="EPr_themes_widget">
-		<item>שמור כְּיִשּׂוּמוֹן</item>
-		<item>יום - כחול</item>
-		<item>יום - אדום</item>
-		<item>תכלת</item>
-		<item>לילה</item>
-		<item>שקוף (טקסט לבן)</item>
-		<item>שקוף (טקסט שחור)</item>
-		<item>סגנון ישן</item>
-	</string-array>
 	<string name="EPr_manage_header">נהל משימות ישנות</string>
 	<string name="EPr_manage_delete_completed">מַחֲקִי משימות שבוצעו</string>
 	<string name="EPr_manage_delete_completed_message">האם אתה בטוח שברצונך למחוק את כל המשימות שבוצעו?</string>

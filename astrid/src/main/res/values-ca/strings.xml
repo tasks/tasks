@@ -220,9 +220,6 @@
 	<string name="EPr_showNotes_desc_enabled">Es mostraran sempre les anotacions</string>
 	<string name="EPr_fullTask_title">Mostra el títol sencer de la tasca</string>
 	<string name="EPr_fullTask_desc_enabled">Es mostrarà el títol sencer de la tasca</string>
-	<string name="EPr_theme_title">Color del tema</string>
-	<string name="EPr_theme_desc">Actualment: %s</string>
-	<string name="EPr_theme_desc_unsupported">Aquest paràmetre requrereix l\'Android 2.0 o superior</string>
 	<string name="EPr_manage_delete_completed_message">Segur que voleu suprimir totes les tasques completades?</string>
 	<string name="EPr_manage_delete_completed_status">S\'han suprimit %d tasques</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Segur que voleu suprimir els esdeveniments de calendari de les tasques completades?</string>

@@ -213,31 +213,10 @@
 	<string name="EPr_fullTask_title">Zobrazit úplný název úkolu</string>
 	<string name="EPr_fullTask_desc_enabled">Zobrazí se úplný název úkolu</string>
 	<string name="EPr_fullTask_desc_disabled">Zobrazí se první dva řádky názvu úkolu</string>
-	<string name="EPr_theme_title">Barevný motiv</string>
-	<string name="EPr_theme_desc">Aktuální: %s</string>
-	<string name="EPr_theme_desc_unsupported">Nastavení vyžaduje Android 2.0+</string>
 	<string name="EPr_taskRowPrefs_title">Vzhled řádku úkolu</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Čas události v kalendáři</string>
 	<string name="EPr_cal_end_at_due_time">Událost v kalendáři končí splněním úkolu</string>
 	<string name="EPr_cal_start_at_due_time">Událost v kalendáři začíná splněním úkolu</string>
-	<string-array name="EPr_themes">
-		<item>Den - Modrá</item>
-		<item>Den - Červená</item>
-		<item>Sky blue</item>
-		<item>Noc</item>
-		<item>Průhledné (Bílý text)</item>
-		<item>Průhledné (Tmavý text)</item>
-	</string-array>
-	<string-array name="EPr_themes_widget">
-		<item>Same as app</item>
-		<item>Den - Modrá</item>
-		<item>Den - Červená</item>
-		<item>Sky blue</item>
-		<item>Noc</item>
-		<item>Průhledné (Bílý text)</item>
-		<item>Průhledné (Tmavý text)</item>
-		<item>Starý styl</item>
-	</string-array>
 	<string name="EPr_manage_header">Spravovat staré úkoly</string>
 	<string name="EPr_manage_delete_completed">Odstranit dokončené úkoly</string>
 	<string name="EPr_manage_delete_completed_message">Opravdu chcete odstranit všechny dokončené úkoly?</string>
@@ -478,7 +457,7 @@
 	</string-array>
 	<string-array name="reminders">
 		<item>Ahoj! Máš chvíli?</item>
-		<item>Je skvělý den na</item>
+		<item>Můžu Tě na chvíli vidět?</item>
 		<item>Máš pár minut?</item>
 		<item>Zapomněl jsi?</item>
 		<item>Omlouvám se!</item>
@@ -515,12 +494,12 @@
 		<item>Jsem na Tebe pyšný! Pojď to dokončit!</item>
 		<item>A little snack after you finish this?</item>
 		<item>Jen tenhle úkol? Prosím?</item>
-		<item>Je čas zkrátit Tvůj seznam úkolů!</item>
+		<item>Můžeš výt šťastná/ý! Jen tohle dokonči!</item>
 		<item>Slibuji Ti, že se budeš cítit lépe, když tohle dokončíš!</item>
 		<item>Have I mentioned you are awesome recently? Keep it up!</item>
 		<item>A task a day keeps the clutter away... Goodbye clutter!</item>
 		<item>How do you do it? Wow, I\'m impressed!</item>
-		<item>You can\'t just get by on your good looks. Let\'s get to it!</item>
+		<item>Plánuješ tohle vůbec někdy udělat?</item>
 		<item>Lovely weather for a job like this, isn\'t it?</item>
 		<item>A spot of tea while you work on this?</item>
 		<item>If only you had already done this, then you could go outside and play.</item>

@@ -268,34 +268,12 @@
 		<item>Truncar título para uma única linha com data e lista abaixo</item>
 		<item>Single line title only</item>
 	</string-array>
-	<string name="EPr_theme_title">Tema</string>
-	<string name="EPr_theme_desc">Atualmente: %s</string>
-	<string name="EPr_theme_desc_unsupported">Esta opção requer Android 2.0+</string>
-	<string name="EPr_theme_widget_title">Tema do widget</string>
 	<string name="EPr_taskRowPrefs_title">Aparência da Tarefa</string>
 	<string name="EPr_force_phone_layout">Usar layout do telefone</string>
 	<string name="EPr_swipe_lists_performance_title">Navegar entre as listas</string>
 	<string name="swipe_lists_helper_title">Navegar entre as listas</string>
 	<string name="swipe_lists_helper_header">Deslizar para a esquerda ou direita para mover-se rapidamente entre listas</string>
 	<string name="swipe_lists_helper_subtitle">Alterar configurações em Configurações -&gt; Aparência</string>
-	<string-array name="EPr_themes">
-		<item>Dia - Azul</item>
-		<item>Dia - Vermelho</item>
-		<item>Sky blue</item>
-		<item>Night</item>
-		<item>Transparent (white text)</item>
-		<item>Transparente (Texto preto)</item>
-	</string-array>
-	<string-array name="EPr_themes_widget">
-		<item>Mesmo que o aplicativo</item>
-		<item>Dia - Azul</item>
-		<item>Dia - Vermelho</item>
-		<item>Sky blue</item>
-		<item>Night</item>
-		<item>Transparent (white text)</item>
-		<item>Transparent (black text)</item>
-		<item>Estilo antigo</item>
-	</string-array>
 	<string name="EPr_manage_header">Gerenciar tarefas antigas</string>
 	<string name="EPr_manage_delete_completed">Exclui as tarefas concluídas</string>
 	<string name="EPr_manage_delete_completed_message">Você realmente deseja excluir todas as tarefas concluídas?</string>

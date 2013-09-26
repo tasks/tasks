@@ -167,14 +167,6 @@ public final class UpgradeService {
             AddOnService.recordOem();
         }
 
-        if(from > 0 && from < V3_8_2) {
-            if(Preferences.getBoolean(R.string.p_transparent_deprecated, false)) {
-                Preferences.setString(R.string.p_theme, "transparent"); //$NON-NLS-1$
-            } else {
-                Preferences.setString(R.string.p_theme, "black"); //$NON-NLS-1$
-            }
-        }
-
         if(from <= V3_9_1_1) {
             actFmPreferenceService.clearLastSyncDate();
         }

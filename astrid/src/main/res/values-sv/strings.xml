@@ -272,34 +272,12 @@
 		<item>Förkorta titel till en rad, med datum och listor nedanför</item>
 		<item>Single line title only</item>
 	</string-array>
-	<string name="EPr_theme_title">Färgtema</string>
-	<string name="EPr_theme_desc">Aktuellt: %s</string>
-	<string name="EPr_theme_desc_unsupported">Inställningen kräver Android 2.0 eller senare version</string>
-	<string name="EPr_theme_widget_title">Widgettema</string>
 	<string name="EPr_taskRowPrefs_title">Utseende på uppgiftsraden</string>
 	<string name="EPr_force_phone_layout">Använd telefonutseende</string>
 	<string name="EPr_swipe_lists_performance_title">Svep för att växla mellan listor</string>
 	<string name="swipe_lists_helper_title">Gör en svepande rörelse för att byta lista</string>
 	<string name="swipe_lists_helper_header">Gör en svepande rörelse åt vänster eller höger för att snabbt växla mellan listor</string>
 	<string name="swipe_lists_helper_subtitle">Ändra inställningar i Inställningar -&gt; Utseende</string>
-	<string-array name="EPr_themes">
-		<item>Dag - blå</item>
-		<item>Dag - röd</item>
-		<item>Sky blue</item>
-		<item>Night</item>
-		<item>Transparent (white text)</item>
-		<item>Genomskinlig (svart text)</item>
-	</string-array>
-	<string-array name="EPr_themes_widget">
-		<item>Same as app</item>
-		<item>Dag - blå</item>
-		<item>Dag - röd</item>
-		<item>Sky blue</item>
-		<item>Night</item>
-		<item>Transparent (white text)</item>
-		<item>Transparent (black text)</item>
-		<item>Gammalt format</item>
-	</string-array>
 	<string name="EPr_manage_header">Hantera gamla uppgifter</string>
 	<string name="EPr_manage_delete_completed">Radera färdiga uppgifter</string>
 	<string name="EPr_manage_delete_completed_message">Vill du verkligen radera alla dina färdiga uppgifter?</string>

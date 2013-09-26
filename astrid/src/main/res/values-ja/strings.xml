@@ -164,15 +164,6 @@
 	<string name="EPr_appearance_header">外観</string>
 	<string name="EPr_fontSize_title">リストの文字サイズ</string>
 	<string name="EPr_fontSize_desc">メインのリスト画面の文字サイズ</string>
-	<string name="EPr_theme_desc">現在の設定: %s</string>
-	<string-array name="EPr_themes">
-		<item>Day - Blue</item>
-		<item>Day - Red</item>
-		<item>Sky blue</item>
-		<item>Night</item>
-		<item>Transparent (white text)</item>
-		<item>Transparent (Black Text)</item>
-	</string-array>
 	<string name="AOA_title">アドオン</string>
 	<string name="AOA_tab_installed">インストール済</string>
 	<string name="AOA_tab_available">追加</string>

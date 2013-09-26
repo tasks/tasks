@@ -302,10 +302,6 @@
 	<string name="EPr_menu_items">Элементы меню</string>
 	<string name="EPr_list_view">Списком</string>
 	<string name="EPr_show_task_edit_comments">Показывать комментарии в редакторе задачи</string>
-	<string name="EPr_theme_title">Цветовая тема</string>
-	<string name="EPr_theme_desc">Текущая: %s</string>
-	<string name="EPr_theme_desc_unsupported">Настройка требует Android 2.0+</string>
-	<string name="EPr_theme_widget_title">Тема виджета</string>
 	<string name="EPr_taskRowPrefs_title">Внешний вид задач в списке</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Время события в календаре</string>
 	<string name="EPr_cal_end_at_due_time">Завершение события при наступлении срока</string>
@@ -315,24 +311,6 @@
 	<string name="swipe_lists_helper_title">Свайп между списками</string>
 	<string name="swipe_lists_helper_header">Свайп влево или вправо чтобы быстро переключать списки</string>
 	<string name="swipe_lists_helper_subtitle">Измените настройки в Параметры -&gt; Интерфейс</string>
-	<string-array name="EPr_themes">
-		<item>День - Синий</item>
-		<item>День - Красный</item>
-		<item>Небесно голубой</item>
-		<item>Ночь</item>
-		<item>Прозрачный (белый текст)</item>
-		<item>Прозрачный (черный текст)</item>
-	</string-array>
-	<string-array name="EPr_themes_widget">
-		<item>Та же что и в приложении</item>
-		<item>День - Синий</item>
-		<item>День - Красный</item>
-		<item>Голубой</item>
-		<item>Ночь</item>
-		<item>Прозрачный (белый текст)</item>
-		<item>Прозрачный (черный текст)</item>
-		<item>Старый стиль</item>
-	</string-array>
 	<string name="EPr_manage_header">Управление старыми задачами</string>
 	<string name="EPr_manage_delete_completed">Удалить завершенные задачи</string>
 	<string name="EPr_manage_delete_completed_message">Вы действительно хотите удалить все завершенные задачи?</string>

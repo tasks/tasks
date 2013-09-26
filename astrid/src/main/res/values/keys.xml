@@ -200,37 +200,12 @@
   </string-array>
   <string name="p_showNotes">notesVisible</string>
   <string name="p_beastMode">beastMode</string>
-  <string name="p_transparent_deprecated">transparent</string>
-  <string name="p_theme">theme</string>
-  <string name="p_theme_widget">theme_widget</string>
-  
+
   <string name="p_voicePrefSection">voicePrefSection</string>
   <string name="p_voiceInputEnabled">voiceInputEnabled</string>
   <string name="p_voiceInputCreatesTask">voiceInputCreatesTask</string>
   <string name="p_voiceRemindersEnabled">voiceRemindersEnabled</string>
-  
-  <string-array name="EPr_theme_settings">
-    <!-- theme_settings: options for preference menu -->
-    <item>white</item>
-    <item>white-red</item>
-    <item>white-alt</item>
-    <item>black</item>
-    <item>transparent</item>
-    <item>transparent-white</item>
-  </string-array>
-    
-  <string-array name="EPr_theme_widget_settings">
-    <!-- theme_settings: options for preference menu -->
-    <item>same-as-app</item>
-    <item>white</item>
-    <item>white-red</item>
-    <item>white-alt</item>
-    <item>black</item>
-    <item>transparent</item>
-    <item>transparent-white</item>
-    <item>legacy-widget</item>
-  </string-array>
-  
+
   <string-array name="EPr_font_size">
     <!-- font_size: options for preference menu -->
     <item>10</item>
@@ -405,7 +380,10 @@
   <string name="TEA_ctrl_hide_section_pref">TEA_ctrl_hide_section_pref</string>
   <string name="TEA_ctrl_reminders_pref">TEA_ctrl_reminders_pref</string>
   <string name="TEA_ctrl_timer_pref">TEA_ctrl_timer_pref</string>
-  <string name="TEA_ctrl_share_pref">TEA_ctrl_share_pref</string> <!-- Deprecated -->
+  <string name="TEA_ctrl_share_pref">TEA_ctrl_share_pref</string>
+    <string name="p_use_dark_theme">use_dark_theme</string>
+    <string name="p_use_dark_theme_widget">use_dark_theme_widget</string>
+    <!-- Deprecated -->
       
   <string-array name="TEA_control_sets_prefs">
       <item>@string/TEA_ctrl_when_pref</item>

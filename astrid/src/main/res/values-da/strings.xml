@@ -119,7 +119,6 @@
 	<string name="EPr_fontSize_desc">Skriftstørrelse på den centrale liste</string>
 	<string name="EPr_showNotes_title">Vis noter i opgave</string>
 	<string name="EPr_showNotes_desc_enabled">Noter vises altid</string>
-	<string name="EPr_theme_desc">Nuværende: %s</string>
 	<string name="AOA_title">Tilføjelser</string>
 	<string name="AOA_internal_author">Tasks team</string>
 	<string name="AOA_tab_installed">Installerede</string>

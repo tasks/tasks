@@ -58,8 +58,6 @@ public class TasksWidget extends AppWidgetProvider {
 
     private static final int NUM_VISIBLE_TASKS = 25;
 
-    public static final int THEME_LEGACY = -1;
-
     public static long suppressUpdateFlag = 0; // Timestamp--don't update widgets if this flag is non-zero and now() is within 5 minutes
     private static final long SUPPRESS_TIME = DateUtilities.ONE_MINUTE * 5;
 
@@ -205,13 +203,10 @@ public class TasksWidget extends AppWidgetProvider {
                     cursor.moveToPosition(i);
                     task.readFromCursor(cursor);
 
-                    String textContent = "";
+                    String textContent;
                     Resources r = context.getResources();
                     int textColor = r
                             .getColor(isDarkTheme() ? R.color.widget_text_color_dark : R.color.widget_text_color_light);
-                    if (isLegacyTheme()) {
-                        textColor = r.getColor(android.R.color.white);
-                    }
 
                     textContent = task.getValue(Task.TITLE);
 
@@ -322,12 +317,6 @@ public class TasksWidget extends AppWidgetProvider {
             return (theme == R.style.Theme || theme == R.style.Theme_Transparent);
         }
 
-        private boolean isLegacyTheme() {
-            int theme = ThemeService.getWidgetTheme();
-            return theme == THEME_LEGACY;
-        }
-
-
         /**
          * The reason we use a bunch of different but almost identical layouts is that there is a bug with
          * Android 2.1 (level 7) that doesn't allow setting backgrounds on remote views. I know it's lame,
@@ -341,18 +330,12 @@ public class TasksWidget extends AppWidgetProvider {
             String packageName = context.getPackageName();
             Resources r = context.getResources();
             int layout;
-            RemoteViews views = null;
+            RemoteViews views;
 
             int titleColor;
             int buttonDrawable;
 
-            if (isLegacyTheme()) {
-                views = new RemoteViews(packageName, R.layout.widget_initialized_legacy);
-                views.setTextColor(R.id.widget_title, r.getColor(android.R.color.white));
-                views.setInt(R.id.widget_button, "setImageResource", R.drawable.button_plus);
-                views.setViewVisibility(R.id.widget_header_separator, View.GONE);
-                return views;
-            } else if(isDarkTheme()) {
+            if (isDarkTheme()) {
                 layout = (theme == R.style.Theme_Transparent ? R.layout.widget_initialized_dark_transparent : R.layout.widget_initialized_dark);
                 titleColor = r.getColor(R.color.widget_text_color_dark);
                 buttonDrawable = R.drawable.plus_button_blue;
@@ -360,7 +343,7 @@ public class TasksWidget extends AppWidgetProvider {
                 layout = R.layout.widget_initialized_red;
                 titleColor = r.getColor(R.color.widget_text_color_light);
                 buttonDrawable = R.drawable.plus_button_red;
-            } else if (theme == R.style.Theme_White_Alt)  {
+            } else if (theme == R.style.Theme_White_Alt) {
                 layout = R.layout.widget_initialized;
                 titleColor = r.getColor(R.color.widget_text_color_light);
                 buttonDrawable = R.drawable.plus_button_blue;

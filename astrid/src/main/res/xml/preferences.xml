@@ -11,19 +11,17 @@
     <PreferenceScreen
         android:title="@string/EPr_appearance_header"
         android:summary="@string/EPr_appearance_summary">
-        
-        <com.todoroo.astrid.ui.MultilineListPreference
-            android:key="@string/p_theme"
-            android:entries="@array/EPr_themes"
-            android:entryValues="@array/EPr_theme_settings"
-            android:title="@string/EPr_theme_title" />
-        
-        <com.todoroo.astrid.ui.MultilineListPreference
-            android:key="@string/p_theme_widget"
-            android:entries="@array/EPr_themes_widget"
-            android:entryValues="@array/EPr_theme_widget_settings"
-            android:title="@string/EPr_theme_widget_title" />
-        
+
+        <CheckBoxPreference
+            android:title="@string/EPr_use_dark_theme"
+            android:key="@string/p_use_dark_theme"
+            android:defaultValue="false"/>
+
+        <CheckBoxPreference
+            android:title="@string/EPr_use_dark_theme_widget"
+            android:key="@string/p_use_dark_theme_widget"
+            android:defaultValue="false"/>
+
         <PreferenceScreen android:title="@string/EPr_taskRowPrefs_title" android:key="@string/p_taskRowPrefs">
         
 	        <com.todoroo.astrid.ui.MultilineListPreference

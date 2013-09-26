@@ -5,13 +5,13 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 
-import org.tasks.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.ThemeService;
+
+import org.tasks.R;
 
 public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
 
@@ -40,10 +40,6 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
                 }
                 BeastModePreferences.setDefaultOrder(context, false);
 
-                if ("white-blue".equals(Preferences.getStringValue(R.string.p_theme))) { //$NON-NLS-1$ migrate from when white-blue wasn't the default
-                    Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE);
-                }
-
                 if (Constants.MARKET_STRATEGY.defaultPhoneLayout()) {
                     setPreference(prefs, editor, r, R.string.p_force_phone_layout, true, ifUnset);
                 }
@@ -68,7 +64,7 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
                         Preferences.setInt(AstridPreferences.P_SUBTASKS_HELP, 1);
                     }
                 }
-                Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE);
+                Preferences.setBoolean(R.string.p_use_dark_theme, false);
                 setPreference(prefs, editor, r, R.string.p_force_phone_layout, Constants.MARKET_STRATEGY.defaultPhoneLayout(), ifUnset);
 
                 BeastModePreferences.setDefaultOrder(context, true);
@@ -110,7 +106,7 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
 
         setPreference(prefs, editor, r, R.string.p_use_filters, false, ifUnset);
 
-        setPreference(prefs, editor, r, R.string.p_theme, ThemeService.THEME_WHITE, ifUnset);
+        setPreference(prefs, editor, r, R.string.p_use_dark_theme, false, ifUnset);
 
         setPreference(prefs, editor, r, R.string.p_force_phone_layout, false, ifUnset);
 

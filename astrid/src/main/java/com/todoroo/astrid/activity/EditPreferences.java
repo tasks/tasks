@@ -345,36 +345,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
             } else {
                 preference.setSummary(R.string.EPr_fullTask_desc_disabled);
             }
-        } else if (r.getString(R.string.p_theme).equals(preference.getKey())) {
-            if (AndroidUtilities.getSdkVersion() < 5) {
-                preference.setEnabled(false);
-                preference.setSummary(R.string.EPr_theme_desc_unsupported);
-            } else {
-                int index = 0;
-                if (value instanceof String && !TextUtils.isEmpty((String) value)) {
-                    index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_theme_settings), (String) value);
-                }
-                if (index < 0) {
-                    index = 0;
-                }
-                preference.setSummary(getString(R.string.EPr_theme_desc,
-                        r.getStringArray(R.array.EPr_themes)[index]));
-            }
-        } else if (r.getString(R.string.p_theme_widget).equals(preference.getKey())) {
-            if (AndroidUtilities.getSdkVersion() < 5) {
-                preference.setEnabled(false);
-                preference.setSummary(R.string.EPr_theme_desc_unsupported);
-            } else {
-                int index = 0;
-                if (value instanceof String && !TextUtils.isEmpty((String) value)) {
-                    index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_theme_widget_settings), (String) value);
-                }
-                if (index < 0) {
-                    index = 0;
-                }
-                preference.setSummary(getString(R.string.EPr_theme_desc,
-                        r.getStringArray(R.array.EPr_themes_widget)[index]));
-            }
         }
 
         // pp preferences
@@ -464,7 +434,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
     }
 
     public void addPreferenceListeners() {
-        findPreference(getString(R.string.p_theme)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
+        findPreference(getString(R.string.p_use_dark_theme)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
 
         findPreference(getString(R.string.p_fontSize)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
 
@@ -476,7 +446,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
             findPreference(getString(key)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
         }
 
-        findPreference(getString(R.string.p_theme_widget)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+        findPreference(getString(R.string.p_use_dark_theme_widget)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 TasksWidget.updateWidgets(EditPreferences.this);

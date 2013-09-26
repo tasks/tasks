@@ -256,34 +256,12 @@
 	<string name="EPr_fullTask_title">Tüm görev başlığını göster</string>
 	<string name="EPr_fullTask_desc_enabled">Tüm görev başlığı gösterilecek</string>
 	<string name="EPr_fullTask_desc_disabled">Görev başlığının ilk iki satırı gösterilecek</string>
-	<string name="EPr_theme_title">Renk Teması</string>
-	<string name="EPr_theme_desc">Geçerli: %s</string>
-	<string name="EPr_theme_desc_unsupported">Ayarlar için Android 2.0+ zorunludur.</string>
-	<string name="EPr_theme_widget_title">Bileşen Teması</string>
 	<string name="EPr_taskRowPrefs_title">Görev Sırası Görünümü</string>
 	<string name="EPr_force_phone_layout">Telefon yerleşimini kullan</string>
 	<string name="EPr_swipe_lists_performance_title">Listeler arası sürükleme</string>
 	<string name="swipe_lists_helper_title">Listeler arası sürükleme</string>
 	<string name="swipe_lists_helper_header">Listelerde hızlı gezinme için sağa ya da sola kaydır</string>
 	<string name="swipe_lists_helper_subtitle">Ayarlar -&gt; Görünüm içinden ayarları değiştir</string>
-	<string-array name="EPr_themes">
-		<item>Gündüz - Mavi</item>
-		<item>Gündüz - Kırmızı</item>
-		<item>Sky blue</item>
-		<item>Night</item>
-		<item>Transparent (white text)</item>
-		<item>Şeffaf (Siyah Metin)</item>
-	</string-array>
-	<string-array name="EPr_themes_widget">
-		<item>Uygulama ile aynı</item>
-		<item>Gündüz - Mavi</item>
-		<item>Gündüz - Kırmızı</item>
-		<item>Sky blue</item>
-		<item>Night</item>
-		<item>Transparent (white text)</item>
-		<item>Transparent (black text)</item>
-		<item>Eski Biçem</item>
-	</string-array>
 	<string name="EPr_manage_header">Eski Görevleri Yönet</string>
 	<string name="EPr_manage_delete_completed">Tamamlanan Görevleri Sil</string>
 	<string name="EPr_manage_delete_completed_message">Gerçekten tüm tamamlanmış görevleri silmek istiyor musun?</string>

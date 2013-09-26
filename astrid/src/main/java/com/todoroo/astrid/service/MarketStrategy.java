@@ -121,7 +121,6 @@ public abstract class MarketStrategy {
         @Override
         public int[] excludedSettings() {
             return new int[] {
-                R.string.p_theme_widget,
                 R.string.p_voicePrefSection,
                 R.string.p_end_at_deadline,
                 R.string.p_field_missed_calls
@@ -157,13 +156,11 @@ public abstract class MarketStrategy {
         @Override
         public int[] excludedSettings() {
             return new int[] {
-                R.string.p_theme_widget,
                 R.string.p_voicePrefSection,
                 R.string.p_end_at_deadline,
                 R.string.p_field_missed_calls,
                 R.string.p_rmd_vibrate,
                 R.string.gcal_p_default,
-                R.string.p_theme_widget,
                 R.string.p_voiceInputEnabled,
                 R.string.p_voiceInputCreatesTask
             };

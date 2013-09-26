@@ -266,34 +266,12 @@
 		<item>Riduci il titolo a una riga con la data e gli elenchi sotto</item>
 		<item>Single line title only</item>
 	</string-array>
-	<string name="EPr_theme_title">Tema del colore</string>
-	<string name="EPr_theme_desc">Attualmente: %s</string>
-	<string name="EPr_theme_desc_unsupported">L\'impostazione richiede Android 2.0+</string>
-	<string name="EPr_theme_widget_title">Tema del widget</string>
 	<string name="EPr_taskRowPrefs_title">Aspetto della riga dei task</string>
 	<string name="EPr_force_phone_layout">Usa il layout del telefono</string>
 	<string name="EPr_swipe_lists_performance_title">Scorri tra le liste</string>
 	<string name="swipe_lists_helper_title">Scorri tra le liste</string>
 	<string name="swipe_lists_helper_header">Scorri a destra o a sinistra per muoverti rapidamente fra le liste</string>
 	<string name="swipe_lists_helper_subtitle">Modifica le impostazioni in Impostazioni -&gt; Aspetto</string>
-	<string-array name="EPr_themes">
-		<item>Giorno - Blu</item>
-		<item>Giorno - Rosso</item>
-		<item>Sky blue</item>
-		<item>Night</item>
-		<item>Transparent (white text)</item>
-		<item>Transparent (Black Text)</item>
-	</string-array>
-	<string-array name="EPr_themes_widget">
-		<item>Come l\'app</item>
-		<item>Giorno - Blu</item>
-		<item>Giorno - Rosso</item>
-		<item>Sky blue</item>
-		<item>Night</item>
-		<item>Transparent (white text)</item>
-		<item>Transparent (black text)</item>
-		<item>Vecchio Stile</item>
-	</string-array>
 	<string name="EPr_manage_header">Gestisci compiti vecchi</string>
 	<string name="EPr_manage_delete_completed">Elimina i compiti completati</string>
 	<string name="EPr_manage_delete_completed_message">Vuoi davvero eliminare tutti i compiti completati?</string>

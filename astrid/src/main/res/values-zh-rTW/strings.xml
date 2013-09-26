@@ -266,34 +266,12 @@
 		<item>截取標題為一行，並在下方顯示日期和列表</item>
 		<item>Single line title only</item>
 	</string-array>
-	<string name="EPr_theme_title">主題</string>
-	<string name="EPr_theme_desc">目前設定: %s</string>
-	<string name="EPr_theme_desc_unsupported">該設置需要 Android 2.0+</string>
-	<string name="EPr_theme_widget_title">小工具主題</string>
 	<string name="EPr_taskRowPrefs_title">任務工作欄</string>
 	<string name="EPr_force_phone_layout">使用手機佈局</string>
 	<string name="EPr_swipe_lists_performance_title">在列表間滑動</string>
 	<string name="swipe_lists_helper_title">在列表間滑動</string>
 	<string name="swipe_lists_helper_header">在列表間向左或向右快速滑動</string>
 	<string name="swipe_lists_helper_subtitle">在設置-&amp;gt外觀中修改選項</string>
-	<string-array name="EPr_themes">
-		<item>藍</item>
-		<item>紅</item>
-		<item>Sky blue</item>
-		<item>Night</item>
-		<item>Transparent (white text)</item>
-		<item>透明(黑色文字)</item>
-	</string-array>
-	<string-array name="EPr_themes_widget">
-		<item>與應用相同</item>
-		<item>日間——藍色</item>
-		<item>日間——紅色</item>
-		<item>Sky blue</item>
-		<item>Night</item>
-		<item>Transparent (white text)</item>
-		<item>Transparent (black text)</item>
-		<item>老式風格</item>
-	</string-array>
 	<string name="EPr_manage_header">管理舊任務工作</string>
 	<string name="EPr_manage_delete_completed">刪除已完成任務工作</string>
 	<string name="EPr_manage_delete_completed_message">您真的要刪除所有已完成任務工作嗎？</string>

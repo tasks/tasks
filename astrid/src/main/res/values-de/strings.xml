@@ -304,10 +304,6 @@
 	<string name="EPr_menu_items">Menüeinträge</string>
 	<string name="EPr_list_view">Listenansicht</string>
 	<string name="EPr_show_task_edit_comments">Kommentare bei Aufgabeneingabe anzeigen </string>
-	<string name="EPr_theme_title">Farbschema</string>
-	<string name="EPr_theme_desc">Momentan: %s</string>
-	<string name="EPr_theme_desc_unsupported">Einstellungen benötigen mindestens Android 2.0</string>
-	<string name="EPr_theme_widget_title">Widget Theme</string>
 	<string name="EPr_taskRowPrefs_title">Aussehen der Aufgabenzeilen</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Zeitpunkt Kalendertermin</string>
 	<string name="EPr_force_phone_layout">Telefon Layout nutzen</string>
@@ -316,24 +312,6 @@
 	<string name="swipe_lists_helper_title">Zum Wechseln der Listen wischen</string>
 	<string name="swipe_lists_helper_header">Zieh nach links oder rechts, um schnell zwischen Listen zu wechseln</string>
 	<string name="swipe_lists_helper_subtitle">Ändere die Einstellungen unter Einstellungen -&gt; Erscheinungsbild</string>
-	<string-array name="EPr_themes">
-		<item>Tag - Blau</item>
-		<item>Tag -Rot</item>
-		<item>Himmelblau</item>
-		<item>Nacht</item>
-		<item>Transparent (weißer Text)</item>
-		<item>Transparent (schwarzer Text)</item>
-	</string-array>
-	<string-array name="EPr_themes_widget">
-		<item>Wie die App</item>
-		<item>Tag - Blau</item>
-		<item>Tag - Rot</item>
-		<item>Himmelblau</item>
-		<item>Nacht</item>
-		<item>Transparent (weißer Text)</item>
-		<item>Transparent (schwarzer Text)</item>
-		<item>Retro</item>
-	</string-array>
 	<string name="EPr_manage_header">Alte Aufgaben verwalten</string>
 	<string name="EPr_manage_delete_completed">Erledigte Aufgaben löschen</string>
 	<string name="EPr_manage_delete_completed_message">Willst du wirklich alle erledigten Aufgaben löschen?</string>

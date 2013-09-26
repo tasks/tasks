@@ -309,10 +309,6 @@
 	<string name="EPr_hide_plus_button">Verberg plus knop</string>
 	<string name="EPr_list_view">Lijst weergave</string>
 	<string name="EPr_show_task_edit_comments">Toon opmerkingen in taak bewerken</string>
-	<string name="EPr_theme_title">Kleuren Thema</string>
-	<string name="EPr_theme_desc">Nu: %s</string>
-	<string name="EPr_theme_desc_unsupported">Instelllingen vereisen Android 2.0+</string>
-	<string name="EPr_theme_widget_title">Widget Thema</string>
 	<string name="EPr_taskRowPrefs_title">Taakrij Weergave</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Agenda item tijd</string>
 	<string name="EPr_cal_end_at_due_time">Agenda item op tijd afronden</string>
@@ -323,24 +319,6 @@
 	<string name="swipe_lists_helper_title">Swipe tussen lijsten</string>
 	<string name="swipe_lists_helper_header">Swipe links of rechts om snel tussen lijsten te bladeren</string>
 	<string name="swipe_lists_helper_subtitle">Verander instellingen in Instellingen --&gt; Uiterlijk</string>
-	<string-array name="EPr_themes">
-		<item>Dag - Blauw</item>
-		<item>Dag - Rood</item>
-		<item>Hemelsblauw</item>
-		<item>Nacht</item>
-		<item>Transparant (witte tekst)</item>
-		<item>Transparant (Zwarte Tekst)</item>
-	</string-array>
-	<string-array name="EPr_themes_widget">
-		<item>Zelfde als app</item>
-		<item>Dag - Blauw</item>
-		<item>Dag - Rood</item>
-		<item>Hemelsblauw</item>
-		<item>Nacht</item>
-		<item>Transparant (witte tekst)</item>
-		<item>Transparant (zwarte tekst)</item>
-		<item>Oude Stijl</item>
-	</string-array>
 	<string name="EPr_manage_header">Oude taken beheren</string>
 	<string name="EPr_manage_delete_completed">Voltooide taken verwijderen</string>
 	<string name="EPr_manage_delete_completed_message">Alle voltooide taken werkelijk verwijderen?</string>

@@ -308,34 +308,12 @@
 	<string name="EPr_use_filters_title">Usar filtros</string>
 	<string name="EPr_menu_items">Objetos del menú</string>
 	<string name="EPr_list_view">Vista de listas</string>
-	<string name="EPr_theme_title">Combinación de colores</string>
-	<string name="EPr_theme_desc">Actualmente: %s</string>
-	<string name="EPr_theme_desc_unsupported">Esta configuración requiere Android 2.0+</string>
-	<string name="EPr_theme_widget_title">Tema del widget</string>
 	<string name="EPr_taskRowPrefs_title">Apariencia de la fila de tareas</string>
 	<string name="EPr_force_phone_layout">Usar diseño de teléfono</string>
 	<string name="EPr_swipe_lists_performance_title">Deslizar entre las listas</string>
 	<string name="swipe_lists_helper_title">Deslizar entre listas</string>
 	<string name="swipe_lists_helper_header">Deslizar a izquierda o derecha para moverse rápidamente entre listas</string>
 	<string name="swipe_lists_helper_subtitle">Cambiar configuración en Ajustes -&gt; Apariencia</string>
-	<string-array name="EPr_themes">
-		<item>Día - Azul</item>
-		<item>Día - Rojo</item>
-		<item>Azul cielo</item>
-		<item>Noche</item>
-		<item>Transparent (white text)</item>
-		<item>Transparente (Texto Negro)</item>
-	</string-array>
-	<string-array name="EPr_themes_widget">
-		<item>El mismo que la app</item>
-		<item>Día - Azul</item>
-		<item>Día - Rojo</item>
-		<item>Sky blue</item>
-		<item>Night</item>
-		<item>Transparent (white text)</item>
-		<item>Transparent (black text)</item>
-		<item>Estilo antiguo</item>
-	</string-array>
 	<string name="EPr_manage_header">Administrar tareas antiguas</string>
 	<string name="EPr_manage_delete_completed">Borrar tareas completadas</string>
 	<string name="EPr_manage_delete_completed_message">¿Seguro que desea borrar todas las tareas completadas?</string>

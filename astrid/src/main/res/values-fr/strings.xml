@@ -51,7 +51,7 @@
 	<string name="actfm_inapp_billing">Passer en premium</string>
 	<string name="actfm_inapp_billing_summary">Ajoutez des fichiers, faites des sauvegardes vocales, bénéficiez du support premium et bien plus</string>
 	<string name="actfm_tag_not_authorized_title">Non autorisé</string>
-	<string name="actfm_tag_not_authorized_body">Vous n\'êtes plus autorisé à voir les listes %s (vous avez peut-être été supprimé). Voulez-vous créer une nouvelle liste avec le même nom?</string>
+	<string name="actfm_tag_not_authorized_body">Vous n\'êtes plus autorisé à voir la liste %s (vous avez peut-être été supprimé). Voulez-vous créer une nouvelle liste avec le même nom?</string>
 	<string name="actfm_tag_not_authorized_new_list">Créer une nouvelle liste</string>
 	<string name="actfm_tag_not_authorized_leave_list">Quitter la liste</string>
 	<string name="actfm_sync_ongoing">Synchronisation en cours...</string>
@@ -307,10 +307,6 @@
 	<string name="EPr_menu_items">Eléments de menu</string>
 	<string name="EPr_list_view">Vue sous forme de liste</string>
 	<string name="EPr_show_task_edit_comments">Afficher les commentaires dans l\'édition de tâches</string>
-	<string name="EPr_theme_title">Thème de couleur</string>
-	<string name="EPr_theme_desc">Actuellement : %s</string>
-	<string name="EPr_theme_desc_unsupported">Ce paramètre requiert Android 2.0+.</string>
-	<string name="EPr_theme_widget_title">Thème de gadget</string>
 	<string name="EPr_taskRowPrefs_title">Style des lignes de tâche</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Heure de l\'évenement dans le calendrier</string>
 	<string name="EPr_cal_end_at_due_time">Terminer les événements dans le calendrier à l\'échéance</string>
@@ -321,24 +317,6 @@
 	<string name="swipe_lists_helper_title">Glisser entre les listes.</string>
 	<string name="swipe_lists_helper_header">\"Glissez  vers la gauche ou la droite pour passer rapidement d\'une liste à l\'autre\"</string>
 	<string name="swipe_lists_helper_subtitle">Changez les préférences dans Préférences -&gt; Apparence</string>
-	<string-array name="EPr_themes">
-		<item>Jour - Bleu</item>
-		<item>Jour - Rouge</item>
-		<item>Bleu ciel</item>
-		<item>Nuit</item>
-		<item>Transparent (texte en blanc)</item>
-		<item>Transparent (Texte Noir)</item>
-	</string-array>
-	<string-array name="EPr_themes_widget">
-		<item>Même que l\'application</item>
-		<item>Jour - Bleu</item>
-		<item>Jour - Rouge</item>
-		<item>Bleu ciel</item>
-		<item>Nuit</item>
-		<item>Transparent (texte en blanc)</item>
-		<item>Transparent (texte en noir)</item>
-		<item>Ancien Style</item>
-	</string-array>
 	<string name="EPr_manage_header">Gérer les anciennes tâches</string>
 	<string name="EPr_manage_delete_completed">Supprimer les tâches terminées</string>
 	<string name="EPr_manage_delete_completed_message">Confirmer la suppression de toutes vos tâches ?</string>
