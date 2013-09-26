@@ -71,20 +71,12 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-            
-            <TextView
-                android:id="@+id/edit_beast_mode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="17dip"
-                android:paddingBottom="17dip"
-                android:text="@string/EPr_beastMode_shortcut"
-                android:textColor="?attr/asTextColor"/>
-            
+
             <ImageView
                 android:id="@+id/delete_task"
                 android:layout_width="20dip"
                 android:layout_height="20dip"
+                android:layout_marginTop="10dip"
                 android:layout_marginBottom="10dip"
                 android:src="@drawable/trashcan"
                 android:scaleType="fitCenter"/>

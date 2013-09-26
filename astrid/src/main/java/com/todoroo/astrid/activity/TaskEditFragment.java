@@ -518,8 +518,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
-        setupBeastModeButton();
-
         getView().findViewById(R.id.delete_task).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -531,26 +529,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         // Load task data in background
         new TaskEditBackgroundLoader().start();
-    }
-
-    private void setupBeastModeButton() {
-        TextView beastMode = (TextView) getView().findViewById(R.id.edit_beast_mode);
-        TypedValue tv = new TypedValue();
-        Theme theme = getActivity().getTheme();
-        theme.resolveAttribute(R.attr.asTextColor, tv, false);
-
-        int color = tv.data & 0x00ffffff;
-        color = color + 0x7f000000;
-        beastMode.setTextColor(color);
-
-        beastMode.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), BeastModePreferences.class);
-                intent.setAction(AstridApiConstants.ACTION_SETTINGS);
-                startActivityForResult(intent, REQUEST_CODE_BEAST_MODE);
-            }
-        });
     }
 
     private void loadEditPageOrder(boolean removeViews) {

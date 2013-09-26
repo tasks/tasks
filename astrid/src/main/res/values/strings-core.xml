@@ -588,8 +588,6 @@
   <!-- slide 30e: Preference: Beast mode (auto-expand edit page) -->
   <string name="EPr_beastMode_title">Edit screen order</string>
   
-  <string name="EPr_beastMode_shortcut">Customize</string>
-  
   <string name="EPr_time_increment">5 minute increments</string>
   
   <string name="EPr_use_date_shortcuts">Use date shortcuts</string>
