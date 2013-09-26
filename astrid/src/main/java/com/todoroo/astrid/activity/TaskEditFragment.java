@@ -861,7 +861,11 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     public boolean onKeyDown(int keyCode) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            discardButtonClick();
+            if(title.getText().length() == 0) {
+                discardButtonClick();
+            } else {
+                saveButtonClick();
+            }
             return true;
         }
         return false;
