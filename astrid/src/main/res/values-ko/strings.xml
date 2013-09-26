@@ -325,12 +325,6 @@
 	<string name="EPr_cal_end_at_due_time">설정한 시간에 달력 이벤트 종료</string>
 	<string name="EPr_cal_start_at_due_time">설정한 시간에 달력 이벤트 시작</string>
 	<string name="EPr_force_phone_layout">스마트폰의 레이아웃 사용하기</string>
-	<string name="EPr_configurations_title">환경 설정하기</string>
-	<string name="EPr_config_default">기본값</string>
-	<string name="EPr_config_lite">아스트리드 라이트</string>
-	<string name="EPr_config_dialog_title">환경을 설정할까요?</string>
-	<string name="EPr_config_dialog_text">설정을 %s 환경으로 초기화할까요?</string>
-	<string name="EPr_config_dialog_default_id">기본값</string>
 	<string name="EPr_show_save_and_cancel">저장과 취소 보이기</string>
 	<string name="EPr_swipe_lists_performance_title">목록간 스와이프 이동하기</string>
 	<string name="swipe_lists_helper_title">목록간 스와이프 이동하기</string>

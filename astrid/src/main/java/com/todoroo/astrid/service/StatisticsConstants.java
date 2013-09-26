@@ -71,8 +71,6 @@ public class StatisticsConstants {
     public static final String PREMIUM_PAGE_VIEWED = "premium-page-viewed";
     public static final String FEATURED_LIST_CLONED = "featured-list-cloned";
     public static final String RANDOM_REMINDER_SAVED = "random-rmdr-save";
-    public static final String PREFS_RESET_DEFAULT = "prefs-reset-default";
-    public static final String PREFS_RESET_LITE = "prefs-reset-lite";
 
     public static final String ACTFM_LOGIN_SIMPLE = "actfm-login-simple";
     public static final String ACTFM_LOGIN_SIMPLE_REJECTED = "actfm-login-simple-rejected";

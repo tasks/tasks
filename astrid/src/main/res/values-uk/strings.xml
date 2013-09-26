@@ -286,8 +286,6 @@
 	<string name="EPr_list_view">Вигляд списку</string>
 	<string name="EPr_show_task_edit_comments">Показувати коментарі в редакторі завдання</string>
 	<string name="EPr_taskRowPrefs_title">Зовнішній вигляд завдань у списку</string>
-	<string name="EPr_config_default">Стандартно</string>
-	<string name="EPr_config_dialog_default_id">типовий</string>
 	<string name="EPr_show_save_and_cancel">Показати зберегти і скасувати</string>
 	<string name="EPr_swipe_lists_performance_title">Свайп між списками</string>
 	<string name="swipe_lists_helper_title">Свайп між списками</string>

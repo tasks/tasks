@@ -311,10 +311,6 @@
 	<string name="EPr_taskRowPrefs_title">Aussehen der Aufgabenzeilen</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Zeitpunkt Kalendertermin</string>
 	<string name="EPr_force_phone_layout">Telefon Layout nutzen</string>
-	<string name="EPr_configurations_title">Einstellen</string>
-	<string name="EPr_config_default">Standard</string>
-	<string name="EPr_config_dialog_title">Einstellen?</string>
-	<string name="EPr_config_dialog_default_id">Standard</string>
 	<string name="EPr_show_save_and_cancel">Zeige speichern und abbrechen</string>
 	<string name="EPr_swipe_lists_performance_title">Zum Wechseln der Listen \"wischen\"</string>
 	<string name="swipe_lists_helper_title">Zum Wechseln der Listen wischen</string>

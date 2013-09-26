@@ -791,9 +791,6 @@ public final class UpgradeService {
      * @param changes
      */
     private void newVersionString(StringBuilder changeLog, String version, String[] changes) {
-        if (Constants.ASTRID_LITE) {
-            version = "0" + version.substring(1);
-        }
         changeLog.append("<font style='text-align: center; color=#ffaa00'><b>Version ").append(version).append(":</b></font><br><ul>");
         for(String change : changes) {
             changeLog.append("<li>").append(change).append("</li>\n");

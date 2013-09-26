@@ -5,12 +5,6 @@
  */
 package com.todoroo.astrid.activity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map.Entry;
-
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -27,7 +21,6 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.text.TextUtils;
 
-import org.tasks.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -47,19 +40,23 @@ import com.todoroo.astrid.helper.MetadataHelper;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.MarketStrategy.AmazonMarketStrategy;
 import com.todoroo.astrid.service.StartupService;
-import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.ui.TaskListFragmentPager;
-import com.todoroo.astrid.utility.AstridDefaultPreferenceSpec;
-import com.todoroo.astrid.utility.AstridLitePreferenceSpec;
-import com.todoroo.astrid.utility.AstridPreferenceSpec;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 import com.todoroo.astrid.voice.VoiceOutputService;
 import com.todoroo.astrid.voice.VoiceRecognizer;
 import com.todoroo.astrid.widget.TasksWidget;
+
+import org.tasks.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map.Entry;
 
 /**
  * Displays the preference screen for users to edit their preferences
@@ -102,31 +99,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
         public boolean onPreferenceChange(Preference p, Object newValue) {
             setResult(resultCode);
             updatePreferences(p, newValue);
-            return true;
-        }
-    }
-
-    private class SetDefaultsClickListener implements OnPreferenceClickListener {
-        private final AstridPreferenceSpec spec;
-        private final int nameId;
-        private final String statistic;
-        public SetDefaultsClickListener(AstridPreferenceSpec spec, int nameId, String statistic) {
-            this.spec = spec;
-            this.nameId = nameId;
-            this.statistic = statistic;
-        }
-
-        @Override
-        public boolean onPreferenceClick(Preference preference) {
-            DialogUtilities.okCancelDialog(EditPreferences.this, getString(R.string.EPr_config_dialog_title),
-                    getString(R.string.EPr_config_dialog_text, getString(nameId)), new OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            spec.resetDefaults();
-                            setResult(RESULT_CODE_PERFORMANCE_PREF_CHANGED);
-                            finish();
-                        }
-                    }, null);
             return true;
         }
     }
@@ -497,12 +469,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
         findPreference(getString(R.string.p_fontSize)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
 
         findPreference(getString(R.string.p_hide_plus_button)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
-
-        findPreference(getString(R.string.p_config_default)).setOnPreferenceClickListener(
-                new SetDefaultsClickListener(new AstridDefaultPreferenceSpec(), R.string.EPr_config_dialog_default_id, StatisticsConstants.PREFS_RESET_DEFAULT));
-
-        findPreference(getString(R.string.p_config_lite)).setOnPreferenceClickListener(
-                new SetDefaultsClickListener(new AstridLitePreferenceSpec(), R.string.EPr_config_lite, StatisticsConstants.PREFS_RESET_LITE));
 
         int[] menuPrefs = { R.string.p_show_menu_search, R.string.p_show_menu_sync, R.string.p_show_menu_sort,
         };

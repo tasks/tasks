@@ -306,12 +306,6 @@
 	<string name="EPr_cal_end_at_due_time">סיים את אירועי היומן במועד היעד?</string>
 	<string name="EPr_cal_start_at_due_time">התחל את מאורעות היומן במועד היעד</string>
 	<string name="EPr_force_phone_layout">מקלדת טלפון</string>
-	<string name="EPr_configurations_title">קביעת קונפיגורציה</string>
-	<string name="EPr_config_default">מחדל</string>
-	<string name="EPr_config_lite">אסטריד לייט</string>
-	<string name="EPr_config_dialog_title">לקבוע קונפיגורציה?</string>
-	<string name="EPr_config_dialog_text">שחזר את כל ההעדפות לקונפיגורציה %s?</string>
-	<string name="EPr_config_dialog_default_id">מחדל</string>
 	<string name="EPr_swipe_lists_performance_title">עִלְעוּל בין רשימות</string>
 	<string name="swipe_lists_helper_title">עִלְעוּל בין רשימות</string>
 	<string name="swipe_lists_helper_header">עִלְעוּל ימינה ושמאלה למעבר מהיר בין רשימות</string>

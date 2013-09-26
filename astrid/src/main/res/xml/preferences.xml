@@ -155,12 +155,6 @@
 	        android:key="@string/p_force_phone_layout"
 	        android:defaultValue="false"/>
         
-        <PreferenceScreen android:key="@string/p_configurations"
-                          android:title="@string/EPr_configurations_title">
-            <PreferenceScreen android:title="@string/EPr_config_default" android:key="@string/p_config_default" />
-            <PreferenceScreen android:title="@string/EPr_config_lite" android:key="@string/p_config_lite"/>    
-        </PreferenceScreen>
-             
     </PreferenceScreen>
 
 </PreferenceScreen>

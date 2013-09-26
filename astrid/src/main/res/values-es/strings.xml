@@ -314,10 +314,6 @@
 	<string name="EPr_theme_widget_title">Tema del widget</string>
 	<string name="EPr_taskRowPrefs_title">Apariencia de la fila de tareas</string>
 	<string name="EPr_force_phone_layout">Usar diseño de teléfono</string>
-	<string name="EPr_configurations_title">Definir configuración</string>
-	<string name="EPr_config_default">Predeterminado</string>
-	<string name="EPr_config_dialog_title">¿Definir configuración?</string>
-	<string name="EPr_config_dialog_default_id">predeterminado</string>
 	<string name="EPr_swipe_lists_performance_title">Deslizar entre las listas</string>
 	<string name="swipe_lists_helper_title">Deslizar entre listas</string>
 	<string name="swipe_lists_helper_header">Deslizar a izquierda o derecha para moverse rápidamente entre listas</string>

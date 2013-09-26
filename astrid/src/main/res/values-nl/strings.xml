@@ -318,11 +318,6 @@
 	<string name="EPr_cal_end_at_due_time">Agenda item op tijd afronden</string>
 	<string name="EPr_cal_start_at_due_time">Agenda item op tijd starten</string>
 	<string name="EPr_force_phone_layout">Gebruik telefoon layout</string>
-	<string name="EPr_configurations_title">Configuratie instellen</string>
-	<string name="EPr_config_default">Standaard</string>
-	<string name="EPr_config_dialog_title">Configuratie instellen?</string>
-	<string name="EPr_config_dialog_text">Reset voorkeuren naar de %s configuratie?</string>
-	<string name="EPr_config_dialog_default_id">standaard</string>
 	<string name="EPr_show_save_and_cancel">Toon opslaan en annuleren</string>
 	<string name="EPr_swipe_lists_performance_title">Swipe tussen lijsten</string>
 	<string name="swipe_lists_helper_title">Swipe tussen lijsten</string>

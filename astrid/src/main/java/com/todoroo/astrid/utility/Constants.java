@@ -38,11 +38,6 @@ public final class Constants {
     public static final boolean DEBUG = false;
 
     /**
-     * Whether this version is Astrid Lite
-     */
-    public static final boolean ASTRID_LITE = false;
-
-    /**
      * Astrid Help URL
      */
     public static final String HELP_URL = "http://weloveastrid.com/help-user-guide-astrid-v3/active-tasks/";

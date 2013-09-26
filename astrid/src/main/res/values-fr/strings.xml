@@ -316,12 +316,6 @@
 	<string name="EPr_cal_end_at_due_time">Terminer les événements dans le calendrier à l\'échéance</string>
 	<string name="EPr_cal_start_at_due_time">Commencer les événements dans le calendrier à l\'échéance</string>
 	<string name="EPr_force_phone_layout">Utiliser la mise en page du téléphone</string>
-	<string name="EPr_configurations_title">Configurer</string>
-	<string name="EPr_config_default">Par défaut</string>
-	<string name="EPr_config_lite">Tâches allégées</string>
-	<string name="EPr_config_dialog_title">Configurer?</string>
-	<string name="EPr_config_dialog_text">Réinitialiser les préférences de la configuration %s?</string>
-	<string name="EPr_config_dialog_default_id">Par défaut</string>
 	<string name="EPr_show_save_and_cancel">Afficher enregistrer et annuler</string>
 	<string name="EPr_swipe_lists_performance_title">Glisser entre les listes.</string>
 	<string name="swipe_lists_helper_title">Glisser entre les listes.</string>

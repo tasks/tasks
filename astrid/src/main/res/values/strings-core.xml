@@ -671,19 +671,6 @@
   
   <string name="EPr_force_phone_layout">Use phone layout</string>
 
-  <!-- Configurations -->
-  <string name="EPr_configurations_title">Set configuration</string>
-  <string name="EPr_config_default">Default</string>
-  <string name="EPr_config_lite">Tasks Lite</string>
-  
-  <!-- Dialog title when setting preference configuration -->
-  <string name="EPr_config_dialog_title">Set configuration?</string>
-  <!-- Dialog prompt when setting preference configuration (%s -> name of configuration)-->
-  <string name="EPr_config_dialog_text">Reset preferences to the %s configuration?</string>
-  
-  <!-- default configuration name for the above dialog -->
-  <string name="EPr_config_dialog_default_id">default</string>
-  
   <!-- Preference title for showing save and cancel buttons in task edit page -->
   <string name="EPr_show_save_and_cancel">Show save and cancel </string>
   

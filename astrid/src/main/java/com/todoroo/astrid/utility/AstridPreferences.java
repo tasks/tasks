@@ -9,7 +9,6 @@ package com.todoroo.astrid.utility;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import org.tasks.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Query;
@@ -20,6 +19,8 @@ import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer;
+
+import org.tasks.R;
 
 public class AstridPreferences {
 
@@ -44,11 +45,7 @@ public class AstridPreferences {
     /** Set preference defaults, if unset. called at startup */
     public static void setPreferenceDefaults() {
         AstridPreferenceSpec spec;
-        if (Constants.ASTRID_LITE) {
-            spec = new AstridLitePreferenceSpec();
-        } else {
-            spec = new AstridDefaultPreferenceSpec();
-        }
+        spec = new AstridDefaultPreferenceSpec();
 
         spec.setIfUnset();
 
@@ -60,11 +57,7 @@ public class AstridPreferences {
 
     public static void resetToDefaults() {
         AstridPreferenceSpec spec;
-        if (Constants.ASTRID_LITE) {
-            spec = new AstridLitePreferenceSpec();
-        } else {
-            spec = new AstridDefaultPreferenceSpec();
-        }
+        spec = new AstridDefaultPreferenceSpec();
 
         spec.resetDefaults();
     }
