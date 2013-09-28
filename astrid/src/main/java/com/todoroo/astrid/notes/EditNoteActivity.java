@@ -5,16 +5,6 @@
  */
 package com.todoroo.astrid.notes;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -31,7 +21,6 @@ import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.text.util.Linkify;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +32,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-import org.tasks.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -78,10 +66,20 @@ import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
-import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.timers.TimerActionControlSet.TimerActionListener;
 import com.todoroo.astrid.utility.ResourceDrawableCache;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.tasks.R;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import edu.mit.mobile.android.imagecache.ImageCache;
 
@@ -415,17 +413,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 }
             });
             this.addView(loadMore);
-        }
-        else if (items.size() == 0) {
-            TextView noUpdates = new TextView(getContext());
-            noUpdates.setText(R.string.TEA_no_activity);
-            noUpdates.setTextColor(activity.getResources().getColor(R.color.task_edit_deadline_gray));
-            noUpdates.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
-                    LayoutParams.WRAP_CONTENT));
-            noUpdates.setPadding(10, 10, 10, 10);
-            noUpdates.setGravity(Gravity.CENTER);
-            noUpdates.setTextSize(16);
-            this.addView(noUpdates);
         }
 
         for (UpdatesChangedListener l : listeners) {

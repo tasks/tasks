@@ -11,7 +11,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
     
-    <com.todoroo.astrid.ui.NestableScrollView
+    <ScrollView
         android:id="@+id/edit_scroll"
         style="@style/Content_EditScroll"
         android:layout_width="fill_parent"
@@ -44,33 +44,16 @@
                 android:layout_height="fill_parent"
                 android:layout_margin="3dip"
                 android:layout_marginTop="10dip"
-                android:orientation="vertical" >
-            </LinearLayout>
+                android:orientation="vertical"/>
 
-
-            <LinearLayout
-                android:id="@+id/more_container"
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pager"
                 style="@style/EditRow"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="3dip"
                 android:layout_marginBottom="0dip"
-                android:orientation="vertical"
-                android:visibility="gone" >
-
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    style="@android:style/Widget.ProgressBar.Horizontal"
-                    android:layout_width="fill_parent"
-                    android:layout_height="5dip"
-                    android:layout_weight="1"
-                    android:visibility="gone" />
-
-                <com.todoroo.astrid.ui.NestableViewPager
-                    android:id="@+id/pager"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+                android:orientation="vertical"/>
 
             <ImageView
                 android:id="@+id/delete_task"
@@ -82,7 +65,7 @@
                 android:scaleType="fitCenter"/>
             
         </LinearLayout>
-    </com.todoroo.astrid.ui.NestableScrollView>
+    </ScrollView>
 
     <!-- Footer -->
 

@@ -11,7 +11,6 @@ import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources.Theme;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,7 +19,6 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +35,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
@@ -57,7 +54,6 @@ import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.actfm.CommentsActivity;
 import com.todoroo.astrid.actfm.TaskCommentsFragment;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskOutstandingDao;
 import com.todoroo.astrid.dao.UserDao;
@@ -88,8 +84,6 @@ import com.todoroo.astrid.ui.EditNotesControlSet;
 import com.todoroo.astrid.ui.EditTitleControlSet;
 import com.todoroo.astrid.ui.HideUntilControlSet;
 import com.todoroo.astrid.ui.ImportanceControlSet;
-import com.todoroo.astrid.ui.NestableScrollView;
-import com.todoroo.astrid.ui.NestableViewPager;
 import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.ui.ReminderControlSet;
 import com.todoroo.astrid.utility.AstridPreferences;
@@ -221,7 +215,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private TimerActionControlSet timerAction;
     private EditText title;
     private EditNoteActivity editNotes;
-    private NestableViewPager mPager;
+    private ViewPager mPager;
     private HashMap<String, TaskEditControlSet> controlSetMap = new HashMap<String, TaskEditControlSet>();
 
     private final List<TaskEditControlSet> controls = Collections.synchronizedList(new ArrayList<TaskEditControlSet>());
@@ -345,7 +339,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     }
 
     private void loadMoreContainer() {
-        View moreTab = (View) getView().findViewById(R.id.more_container);
         View commentsBar = (View) getView().findViewById(R.id.updatesFooter);
 
         long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID, -1L);
@@ -378,13 +371,12 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         TaskEditViewPager adapter = new TaskEditViewPager(getActivity(), tabStyle);
         adapter.parent = this;
 
-        mPager = (NestableViewPager) getView().findViewById(R.id.pager);
+        mPager = (ViewPager) getView().findViewById(R.id.pager);
         mPager.setAdapter(adapter);
 
         if (showEditComments) {
             commentsBar.setVisibility(View.VISIBLE);
         }
-        moreTab.setVisibility(View.VISIBLE);
         setCurrentTab(TAB_VIEW_UPDATES);
         setPagerHeightForPosition(TAB_VIEW_UPDATES);
         Handler handler = new Handler();
@@ -1296,8 +1288,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Override
     public void onPageSelected(final int position) {
         setPagerHeightForPosition(position);
-        NestableScrollView scrollView = (NestableScrollView)getView().findViewById(R.id.edit_scroll);
-        scrollView.setScrollabelViews(null);
     }
 
     @Override
