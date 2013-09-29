@@ -314,7 +314,7 @@ public class TasksWidget extends AppWidgetProvider {
 
         private boolean isDarkTheme() {
             int theme = ThemeService.getWidgetTheme();
-            return (theme == R.style.Theme || theme == R.style.Theme_Transparent);
+            return theme == R.style.Theme;
         }
 
         /**
@@ -336,19 +336,11 @@ public class TasksWidget extends AppWidgetProvider {
             int buttonDrawable;
 
             if (isDarkTheme()) {
-                layout = (theme == R.style.Theme_Transparent ? R.layout.widget_initialized_dark_transparent : R.layout.widget_initialized_dark);
+                layout = R.layout.widget_initialized_dark;
                 titleColor = r.getColor(R.color.widget_text_color_dark);
                 buttonDrawable = R.drawable.plus_button_blue;
-            } else if (theme == R.style.Theme_White) {
-                layout = R.layout.widget_initialized_red;
-                titleColor = r.getColor(R.color.widget_text_color_light);
-                buttonDrawable = R.drawable.plus_button_red;
-            } else if (theme == R.style.Theme_White_Alt) {
-                layout = R.layout.widget_initialized;
-                titleColor = r.getColor(R.color.widget_text_color_light);
-                buttonDrawable = R.drawable.plus_button_blue;
             } else {
-                layout = (theme == R.style.Theme_TransparentWhite ? R.layout.widget_initialized_transparent : R.layout.widget_initialized);
+                layout = R.layout.widget_initialized;
                 titleColor = r.getColor(R.color.widget_text_color_light);
                 buttonDrawable = R.drawable.plus_button_dark_blue;
             }

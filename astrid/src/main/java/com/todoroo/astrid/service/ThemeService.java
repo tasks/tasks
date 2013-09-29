@@ -55,7 +55,7 @@ public class ThemeService {
         if(THEME_BLACK.equals(setting)) {
             return R.style.Theme;
         } else {
-            return R.style.Theme_White_Blue;
+            return R.style.Theme_White;
         }
     }
 
@@ -64,7 +64,7 @@ public class ThemeService {
         switch(theme) {
         case R.style.Theme:
             return R.color.blue_theme_color;
-        case R.style.Theme_White_Blue:
+        case R.style.Theme_White:
         default:
             return R.color.dark_blue_theme_color;
         }
@@ -74,7 +74,7 @@ public class ThemeService {
         boolean ics = AndroidUtilities.getSdkVersion() >= 14;
         int themeSetting = getTheme();
         int theme;
-        if (themeSetting == R.style.Theme || themeSetting == R.style.Theme_Transparent) {
+        if (themeSetting == R.style.Theme) {
             if (ics) {
                 theme = R.style.TEA_Dialog_ICS;
             } else {
@@ -93,7 +93,7 @@ public class ThemeService {
     public static int getDialogTheme() {
         int themeSetting = getTheme();
         int theme;
-        if (themeSetting == R.style.Theme || themeSetting == R.style.Theme_Transparent) {
+        if (themeSetting == R.style.Theme) {
             theme = R.style.Theme_Dialog;
         } else {
             theme = R.style.Theme_Dialog_White;
@@ -104,7 +104,7 @@ public class ThemeService {
     public static int getDialogTextColor() {
         if (AndroidUtilities.getSdkVersion() >= 11) {
             int theme = getTheme();
-            if (theme == R.style.Theme || theme == R.style.Theme_Transparent) {
+            if (theme == R.style.Theme) {
                 return android.R.color.white;
             } else {
                 return android.R.color.black;
@@ -169,7 +169,6 @@ public class ThemeService {
             return lightDrawable;
         }
 
-
         switch(lightDrawable) {
         case R.drawable.ic_action_mic:
             return R.drawable.ic_action_mic_light;
@@ -188,8 +187,6 @@ public class ThemeService {
             return R.drawable.icn_menu_refresh_dark;
         case R.drawable.icn_menu_filters:
             return R.drawable.icn_menu_filters_dark;
-        case R.drawable.icn_featured_lists:
-            return R.drawable.icn_featured_lists_dark;
         case R.drawable.icn_menu_sort_by_size:
             return R.drawable.icn_menu_sort_by_size_dark;
         case R.drawable.icn_menu_search:
@@ -198,14 +195,8 @@ public class ThemeService {
             return R.drawable.icn_menu_friends_dark;
         case R.drawable.icn_menu_lists:
             return R.drawable.icn_menu_lists_dark;
-        case R.drawable.icn_menu_plugins:
-            return R.drawable.icn_menu_plugins_dark;
         case R.drawable.icn_menu_settings:
             return R.drawable.icn_menu_settings_dark;
-        case R.drawable.icn_menu_support:
-            return R.drawable.icn_menu_support_dark;
-        case R.drawable.icn_menu_tutorial:
-            return R.drawable.icn_menu_tutorial_dark;
         case R.drawable.filter_assigned:
             return R.drawable.filter_assigned_dark;
         case R.drawable.filter_calendar:
@@ -224,19 +215,19 @@ public class ThemeService {
                 ContextManager.getResources().getResourceName(lightDrawable));
     }
 
-    public static int getDarkVsLight(int resForWhite, int resForDark, boolean altIsDark) {
+    public static int getDarkVsLight(int resForWhite, int resForDark) {
         int theme = getTheme();
-        if (theme == R.style.Theme || (theme == R.style.Theme_White_Alt && altIsDark) || theme == R.style.Theme_TransparentWhite) {
+        if (theme == R.style.Theme) {
             return resForDark;
         } else {
             return resForWhite;
         }
     }
     public static int getTaskEditDrawable(int regularDrawable, int lightBlueDrawable) {
-        return getDarkVsLight(regularDrawable, lightBlueDrawable, true);
+        return getDarkVsLight(regularDrawable, lightBlueDrawable);
     }
 
     public static int getTaskEditThemeColor() {
-        return getDarkVsLight(R.color.task_edit_selected, R.color.blue_theme_color, true);
+        return getDarkVsLight(R.color.task_edit_selected, R.color.blue_theme_color);
     }
 }

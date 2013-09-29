@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.ui;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import android.app.Activity;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -16,10 +13,14 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ToggleButton;
 
-import org.tasks.R;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.service.ThemeService;
+
+import org.tasks.R;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Control Set for setting task importance
@@ -47,7 +48,7 @@ public class ImportanceControlSet extends TaskEditControlSet {
         for(CompoundButton b : buttons) {
             if(b.getTag() == i) {
                 b.setChecked(true);
-                b.setBackgroundResource(ThemeService.getDarkVsLight(R.drawable.importance_background_selected, R.drawable.importance_background_selected_dark, false));
+                b.setBackgroundResource(ThemeService.getDarkVsLight(R.drawable.importance_background_selected, R.drawable.importance_background_selected_dark));
             } else {
                 b.setChecked(false);
                 b.setBackgroundResource(0);
