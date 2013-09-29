@@ -5,20 +5,14 @@
  */
 package com.todoroo.astrid.actfm;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -34,7 +28,6 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
-import org.tasks.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -59,16 +52,18 @@ import com.todoroo.astrid.data.TagMetadata;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.UUIDHelper;
-import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagMemberMetadata;
 import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.ui.PeopleContainer;
-import com.todoroo.astrid.ui.PeopleContainer.ParseSharedException;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.ResourceDrawableCache;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.tasks.R;
 
 import edu.mit.mobile.android.imagecache.ImageCache;
 
@@ -187,7 +182,7 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
                 if (ThemeService.getTheme() == R.style.Theme_White_Alt) {
                     actionBar.setLogo(R.drawable.ic_menu_save_blue_alt);
                 } else {
-                    actionBar.setLogo(R.drawable.ic_menu_save);
+                    actionBar.setLogo(R.drawable.ic_action_save);
                 }
             } else {
                 actionBar.setLogo(null);
@@ -507,7 +502,7 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
 
         if (isDialog) {
             item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
-            item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_save));
+            item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_save));
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         }
         return super.onCreateOptionsMenu(menu);

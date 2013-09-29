@@ -46,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dip"
                     android:background="@android:color/transparent"
-                    android:src="@drawable/ic_menu_save" />
+                    android:src="@drawable/ic_action_save" />
             </LinearLayout>
 
             <RelativeLayout

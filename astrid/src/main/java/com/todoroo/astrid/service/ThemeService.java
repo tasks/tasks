@@ -63,11 +63,7 @@ public class ThemeService {
         int theme = getTheme();
         switch(theme) {
         case R.style.Theme:
-        case R.style.Theme_Transparent:
             return R.color.blue_theme_color;
-        case R.style.Theme_White:
-        case R.style.Theme_TransparentWhite:
-            return R.color.red_theme_color;
         case R.style.Theme_White_Blue:
         default:
             return R.color.dark_blue_theme_color;
@@ -149,7 +145,7 @@ public class ThemeService {
 
     public static int getDrawable(int lightDrawable, int alter) {
         int theme = getTheme();
-        boolean darkTheme = theme == R.style.Theme || theme == R.style.Theme_Transparent;
+        boolean darkTheme = theme == R.style.Theme;
         switch(alter) {
         case FLAG_FORCE_DARK:
             darkTheme = true;
@@ -169,37 +165,25 @@ public class ThemeService {
             return R.drawable.icn_menu_refresh_tablet;
         }
 
-        if (theme == R.style.Theme_White_Alt) {
-            switch(lightDrawable) {
-            case R.drawable.ic_menu_save:
-                return R.drawable.ic_menu_save_blue_alt;
-            case R.drawable.ic_menu_close:
-                return R.drawable.ic_menu_close_blue_alt;
-            case R.drawable.ic_menu_mic:
-                return R.drawable.ic_menu_mic_blue_alt;
-            case R.drawable.ic_menu_attach:
-                return R.drawable.ic_menu_attach_blue_alt;
-            case R.drawable.list_settings:
-                return R.drawable.list_settings_white;
-            }
-        }
-
         if(!darkTheme) {
             return lightDrawable;
         }
 
 
         switch(lightDrawable) {
-        case R.drawable.ic_menu_save:
-            return R.drawable.ic_menu_save;
-        case R.drawable.ic_menu_close:
-            return R.drawable.ic_menu_close;
-        case R.drawable.ic_menu_mic:
-            return R.drawable.ic_menu_mic;
-        case R.drawable.ic_menu_attach:
-            return R.drawable.ic_menu_attach;
+        case R.drawable.ic_action_mic:
+            return R.drawable.ic_action_mic_light;
+        case R.drawable.ic_action_save:
+            return R.drawable.ic_action_save_light;
+        case R.drawable.ic_action_discard:
+            return R.drawable.ic_action_discard_light;
+            case R.drawable.ic_action_cancel:
+            return R.drawable.ic_action_cancel_light;
+        case R.drawable.ic_action_new_attachment:
+                return R.drawable.ic_action_new_attachment_light;
         case R.drawable.list_settings:
-            return R.drawable.list_settings;
+                return lightDrawable;
+
         case R.drawable.icn_menu_refresh:
             return R.drawable.icn_menu_refresh_dark;
         case R.drawable.icn_menu_filters:

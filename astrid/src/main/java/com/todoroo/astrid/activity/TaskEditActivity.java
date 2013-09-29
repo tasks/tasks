@@ -11,11 +11,12 @@ import android.view.KeyEvent;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
-import org.tasks.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.service.ThemeService;
+
+import org.tasks.R;
 
 public class TaskEditActivity extends AstridActivity {
     /**
@@ -29,7 +30,7 @@ public class TaskEditActivity extends AstridActivity {
             if (ThemeService.getTheme() == R.style.Theme_White_Alt) {
                 actionBar.setLogo(R.drawable.ic_menu_save_blue_alt);
             } else {
-                actionBar.setLogo(R.drawable.ic_menu_save);
+                actionBar.setLogo(R.drawable.ic_action_save);
             }
         } else {
             actionBar.setLogo(null);

@@ -55,15 +55,6 @@
                 android:layout_marginBottom="0dip"
                 android:orientation="vertical"/>
 
-            <ImageView
-                android:id="@+id/delete_task"
-                android:layout_width="20dip"
-                android:layout_height="20dip"
-                android:layout_marginTop="10dip"
-                android:layout_marginBottom="10dip"
-                android:src="@drawable/trashcan"
-                android:scaleType="fitCenter"/>
-            
         </LinearLayout>
     </ScrollView>
 

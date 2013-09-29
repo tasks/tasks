@@ -23,7 +23,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.MeasureSpec;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewParent;
@@ -165,6 +164,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private static final int MENU_SHOW_COMMENTS_ID = R.string.TEA_menu_comments;
     private static final int MENU_ATTACH_ID = R.string.premium_attach_file;
     private static final int MENU_RECORD_ID = R.string.premium_record_audio;
+    private static final int MENU_DELETE_TASK_ID = R.string.delete_task;
 
     // --- result codes
 
@@ -509,13 +509,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         } catch (Exception e) {
             Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
         }
-
-        getView().findViewById(R.id.delete_task).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleteButtonClick();
-            }
-        });
 
         loadEditPageOrder(false);
 
@@ -1059,6 +1052,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         case MENU_RECORD_ID:
             startRecordingAudio();
             return true;
+        case MENU_DELETE_TASK_ID:
+            deleteButtonClick();
+            return true;
         case MENU_COMMENTS_REFRESH_ID: {
             if (editNotes != null) {
                 editNotes.refreshData();
@@ -1089,28 +1085,31 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         super.onCreateOptionsMenu(menu, inflater);
         MenuItem item;
 
-        if (ActFmPreferenceService.isPremiumUser()) {
-            item = menu.add(Menu.NONE, MENU_ATTACH_ID, 0, R.string.premium_attach_file);
-            item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_attach));
-            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        item = menu.add(Menu.NONE, MENU_ATTACH_ID, 0, R.string.premium_attach_file);
+        item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_new_attachment));
 
-            item = menu.add(Menu.NONE, MENU_RECORD_ID, 0, R.string.premium_record_audio);
-            item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_mic));
-            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        }
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        item = menu.add(Menu.NONE, MENU_RECORD_ID, 0, R.string.premium_record_audio);
+        item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_mic));
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        item = menu.add(Menu.NONE, MENU_DELETE_TASK_ID, 0, R.string.delete_task);
+        item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_discard));
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         boolean useSaveAndCancel = Preferences.getBoolean(R.string.p_save_and_cancel, false);
 
         if (useSaveAndCancel || AstridPreferences.useTabletLayout(getActivity())) {
             if (useSaveAndCancel) {
                 item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
-                item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_close));
+                item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_cancel));
                 item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
             }
 
             if (!(getActivity() instanceof TaskEditActivity)) {
                 item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
-                item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_save));
+                item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_save));
                 item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
             }
         }
