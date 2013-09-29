@@ -219,7 +219,6 @@
 	<string name="TEA_control_timer">타이머 조절</string>
 	<string name="TEA_control_hidden_section">----항상 숨김----</string>
 	<string name="hide_until_prompt">내 목록에 표시</string>
-	<string name="TEA_no_activity">활동내역 없음</string>
 	<string name="TEA_load_more">더 불러오기...</string>
 	<string name="TEA_when_dialog_title">마감일이 언제입니까?</string>
 	<string name="TEA_new_task">새 일정</string>
@@ -286,7 +285,6 @@
 	<string name="EPr_showNotes_title">일정에 설명 보기</string>
 	<string name="EPr_edit_screen_options">화면 설정 편집하기</string>
 	<string name="EPr_beastMode_title">화면 정렬 순서 편집하기</string>
-	<string name="EPr_beastMode_shortcut">사용자 정의</string>
 	<string name="EPr_time_increment">5분 증가</string>
 	<string name="EPr_use_date_shortcuts">날짜를 짧게 사용하기</string>
 	<string name="EPr_show_timer_shortcut">타이머 바로가기 보기</string>

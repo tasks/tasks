@@ -196,7 +196,6 @@
 	<string name="TEA_control_timer">Inställningar för tidtagarur</string>
 	<string name="TEA_control_hidden_section">----Göm alltid----</string>
 	<string name="hide_until_prompt">Visa i min lista</string>
-	<string name="TEA_no_activity">Ingen aktivitet att visa.</string>
 	<string name="TEA_load_more">Ladda mer...</string>
 	<string name="TEA_when_dialog_title">När ska uppgiften vara slutförd?</string>
 	<string name="TEA_new_task">Ny uppgift</string>

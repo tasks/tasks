@@ -217,7 +217,6 @@
 	<string name="TEA_control_timer">Controles de tiempo</string>
 	<string name="TEA_control_hidden_section">---Ocultar Siempre---</string>
 	<string name="hide_until_prompt">Mostrar en mi lista</string>
-	<string name="TEA_no_activity">Sin actividad</string>
 	<string name="TEA_load_more">Cargar mas...</string>
 	<string name="TEA_when_dialog_title">¿Para cuando esta previsto?</string>
 	<string name="TEA_new_task">Nueva Tarea</string>
@@ -284,7 +283,6 @@
 	<string name="EPr_showNotes_title">Mostrar descripción en tarea</string>
 	<string name="EPr_edit_screen_options">Editar opciones de pantalla</string>
 	<string name="EPr_beastMode_title">Editar el orden de pantalla</string>
-	<string name="EPr_beastMode_shortcut">Personalizar</string>
 	<string name="EPr_time_increment">Incrementos de 5 minutos</string>
 	<string name="EPr_use_date_shortcuts">Utilizar abreviaturas de fecha</string>
 	<string name="EPr_show_timer_shortcut">Mostrar atajo del temporizador</string>

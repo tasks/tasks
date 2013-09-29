@@ -208,7 +208,6 @@
 	<string name="TEA_control_timer">Sterowanie zegara</string>
 	<string name="TEA_control_hidden_section">----Zawsze Ukryte----</string>
 	<string name="hide_until_prompt">Pokaż na mojej liście</string>
-	<string name="TEA_no_activity">Brak wydarzeń</string>
 	<string name="TEA_load_more">Wczytaj więcej...</string>
 	<string name="TEA_when_dialog_title">Na kiedy ma być zrobione?</string>
 	<string name="TEA_new_task">Nowe zadanie</string>
@@ -275,7 +274,6 @@
 	<string name="EPr_showNotes_title">Pokazuj opis w zadaniu</string>
 	<string name="EPr_edit_screen_options">Edytuj ustawienia ekranu</string>
 	<string name="EPr_beastMode_title">Edytuj kolejność</string>
-	<string name="EPr_beastMode_shortcut">Dostosuj</string>
 	<string name="EPr_time_increment">Krok co 5-minut</string>
 	<string name="EPr_use_date_shortcuts">Użyj skrótów dat</string>
 	<string name="EPr_beastMode_desc">Dostosuj układ strony edycji zadania</string>

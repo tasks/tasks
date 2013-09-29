@@ -193,7 +193,6 @@
 	<string name="TEA_control_timer">定時器控件</string>
 	<string name="TEA_control_hidden_section">----始終隱藏----</string>
 	<string name="hide_until_prompt">在我的列表中顯示</string>
-	<string name="TEA_no_activity">無活動</string>
 	<string name="TEA_load_more">加載更多……</string>
 	<string name="TEA_when_dialog_title">這項活動定在什麼時候呀？</string>
 	<string name="TEA_new_task">新建任務工作</string>

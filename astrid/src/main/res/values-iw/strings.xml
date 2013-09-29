@@ -203,7 +203,6 @@
 	<string name="TEA_control_timer">הערכת זמן</string>
 	<string name="TEA_control_hidden_section">----מוסתר תמיד----</string>
 	<string name="hide_until_prompt">הצג ברשימה שלי</string>
-	<string name="TEA_no_activity">אין פעילות</string>
 	<string name="TEA_load_more">טען עוד...</string>
 	<string name="TEA_when_dialog_title">למתי?</string>
 	<string name="TEA_new_task">משימה חדשה</string>
@@ -270,7 +269,6 @@
 	<string name="EPr_showNotes_title">הצג תיאור עם המשימה</string>
 	<string name="EPr_edit_screen_options">עריכת אפשרויות מסך</string>
 	<string name="EPr_beastMode_title">עריכת סדר מסך</string>
-	<string name="EPr_beastMode_shortcut">התאמה אישית</string>
 	<string name="EPr_time_increment">צעדים של 5 דקות</string>
 	<string name="EPr_use_date_shortcuts">הצג קיצורי תאריך</string>
 	<string name="EPr_beastMode_desc">התאם אישית את מסך עריכת משימה</string>

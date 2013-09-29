@@ -190,7 +190,6 @@
 	<string name="TEA_control_timer">Geri Sayım Denetimleri</string>
 	<string name="TEA_control_hidden_section">----Her Zaman Gizle----</string>
 	<string name="hide_until_prompt">Listemde göster</string>
-	<string name="TEA_no_activity">Etkinlik yok</string>
 	<string name="TEA_load_more">Daha yükle...</string>
 	<string name="TEA_when_dialog_title">Son zamanı nedir?</string>
 	<string name="TEA_new_task">Yeni Görev</string>

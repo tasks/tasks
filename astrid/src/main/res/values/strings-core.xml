@@ -383,9 +383,6 @@
   
   <!-- More row -->
   
-  <!-- slide 15c: Text when no activity to show -->
-  <string name="TEA_no_activity">No activity</string>
-  
   <!-- Text to load more activity -->
   <string name="TEA_load_more">Load more...</string>
   

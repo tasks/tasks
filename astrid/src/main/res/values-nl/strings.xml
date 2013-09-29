@@ -213,7 +213,6 @@
 	<string name="TEA_control_timer">Tijd Controlers</string>
 	<string name="TEA_control_hidden_section">----Altijd Verbergen----</string>
 	<string name="hide_until_prompt">Laat zien in mijn lijst</string>
-	<string name="TEA_no_activity">Geen taken</string>
 	<string name="TEA_load_more">Laad meer...</string>
 	<string name="TEA_when_dialog_title">Wanneer moet dit gedaan zijn?</string>
 	<string name="TEA_new_task">Nieuwe Taak</string>
@@ -280,7 +279,6 @@
 	<string name="EPr_showNotes_title">Toon omschrijving in taak</string>
 	<string name="EPr_edit_screen_options">Scherm opties bewerken</string>
 	<string name="EPr_beastMode_title">Scherm volgorde bewerken</string>
-	<string name="EPr_beastMode_shortcut">Aanpassen</string>
 	<string name="EPr_time_increment">stappen van 5 minuten</string>
 	<string name="EPr_use_date_shortcuts">Gebruik datum snelkoppelingen</string>
 	<string name="EPr_show_timer_shortcut">Toon timer snelkoppeling</string>

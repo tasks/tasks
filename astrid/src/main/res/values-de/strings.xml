@@ -208,7 +208,6 @@
 	<string name="TEA_control_timer">Timer-Einstellungen</string>
 	<string name="TEA_control_hidden_section">----Immer Verbergen----</string>
 	<string name="hide_until_prompt">Anzeigen in meiner Liste</string>
-	<string name="TEA_no_activity">Keine Tätigkeit</string>
 	<string name="TEA_load_more">Weitere laden …</string>
 	<string name="TEA_when_dialog_title">Wann ist das fällig?</string>
 	<string name="TEA_new_task">Neue Aufgabe</string>
@@ -275,7 +274,6 @@
 	<string name="EPr_showNotes_title">Zeige Beschreibung in der Aufgabe</string>
 	<string name="EPr_edit_screen_options">Bildschirmeinstellungen bearbeiten</string>
 	<string name="EPr_beastMode_title">Bearbeite Anordnung</string>
-	<string name="EPr_beastMode_shortcut">Einstellen</string>
 	<string name="EPr_time_increment">5 Minuten Steigerung</string>
 	<string name="EPr_use_date_shortcuts">Nutze Datumsabkürzung</string>
 	<string name="EPr_beastMode_desc">Erscheinungsbild Aufgabenseite anpassen</string>
@@ -702,6 +700,7 @@
 		<item>07:00</item>
 		<item>08:00</item>
 	</string-array>
+	<string name="reminders_social">Diese Leute bauen auf Sie !</string>
 	<string name="reminders_social_one">%s zählt auf dich!</string>
 	<string-array name="reminders">
 		<item>Haste \'ne Sekunde?</item>
@@ -876,6 +875,7 @@
 	<string name="history_this_task">diese Aufgabe</string>
 	<string name="history_tag_added">füge %1$s zu %2$s hinzu</string>
 	<string name="history_tag_removed">lösche %1$s von %2$s</string>
+	<string name="history_left_list">%s übrig</string>
 	<string name="history_deleted">%s gelöscht</string>
 	<string name="history_undeleted">%s wieder hergestellt</string>
 	<string name="history_completed">%s abgeschlossen</string>
@@ -883,6 +883,7 @@
 	<string name="history_name_changed">Name von %1$s nach %2$s geändert</string>
 	<string name="history_made_public">%s freigeben</string>
 	<string name="history_made_private">%s Freigabe widerrufen</string>
+	<string name="history_silenced">%s geschwiegen</string>
 	<string name="history_changed_list_picture">Listenbild ändern</string>
 	<string name="history_updated_description">%s Beschreibung aktualisiert</string>
 	<string name="history_changed_list_owner">hat den Eigentümer der Liste auf %s geändert</string>

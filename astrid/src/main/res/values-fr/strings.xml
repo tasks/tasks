@@ -153,6 +153,7 @@
 	<string name="SSD_sort_reverse">Tri inversé</string>
 	<string name="SSD_save_temp">Une fois seulement</string>
 	<string name="SSD_save_always">Toujours</string>
+	<string name="FSA_label">Liste ou filtre de tâche</string>
 	<string name="FLA_context_shortcut">Créer un raccourci sur le bureau</string>
 	<string name="FLA_shortcut_dialog_title">Créer un raccourci</string>
 	<string name="FLA_shortcut_dialog">Nom du raccourci :</string>
@@ -210,7 +211,6 @@
 	<string name="TEA_control_timer">Contrôle de rappel</string>
 	<string name="TEA_control_hidden_section">---- Toujours masquer ----</string>
 	<string name="hide_until_prompt">Montrer dans ma liste</string>
-	<string name="TEA_no_activity">Aucune activité</string>
 	<string name="TEA_load_more">Charger plus...</string>
 	<string name="TEA_when_dialog_title">Pour quand est-ce prévu ?</string>
 	<string name="TEA_new_task">Nouvelle tâche</string>
@@ -277,7 +277,6 @@
 	<string name="EPr_showNotes_title">Afficher la description dans la tâche</string>
 	<string name="EPr_edit_screen_options">Edition des options d\'affichage</string>
 	<string name="EPr_beastMode_title">Edition de l\'ordre d\'affichage</string>
-	<string name="EPr_beastMode_shortcut">Personnaliser</string>
 	<string name="EPr_time_increment">Incrément de 5 minutes</string>
 	<string name="EPr_use_date_shortcuts">Utiliser les raccourcis de données</string>
 	<string name="EPr_show_timer_shortcut">Afficher le raccourci de minuterie</string>
@@ -950,4 +949,7 @@
 	<string name="EPr_voiceRemindersEnabled_title">Rappels vocaux</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks donnera le nom de la tâche</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks sonnera pendant les rappels</string>
+	<string name="widget_mini">Tâches</string>
+	<string name="EPr_use_dark_theme">Thème foncé</string>
+	<string name="EPr_use_dark_theme_widget">Thème de widget foncé</string>
 </resources>

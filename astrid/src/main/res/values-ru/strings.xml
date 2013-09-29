@@ -208,7 +208,6 @@
 	<string name="TEA_control_timer">Учет времени</string>
 	<string name="TEA_control_hidden_section">Всегда скрывать</string>
 	<string name="hide_until_prompt">Показать в моем листе</string>
-	<string name="TEA_no_activity">Нет активности</string>
 	<string name="TEA_load_more">Загрузить больше...</string>
 	<string name="TEA_when_dialog_title">Когда это должно произойти?</string>
 	<string name="TEA_new_task">Новое задание</string>
@@ -275,7 +274,6 @@
 	<string name="EPr_showNotes_title">Показать описание в задаче</string>
 	<string name="EPr_edit_screen_options">Редактировать настройки экрана</string>
 	<string name="EPr_beastMode_title">Редактировать порядок экранов</string>
-	<string name="EPr_beastMode_shortcut">Настроить</string>
 	<string name="EPr_time_increment">Шаг 5 минут</string>
 	<string name="EPr_use_date_shortcuts">Использовать ярлыки дат</string>
 	<string name="EPr_beastMode_desc">Настроить внешний вид экрана правки задачи</string>
