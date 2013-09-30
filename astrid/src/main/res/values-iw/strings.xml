@@ -67,8 +67,6 @@
 	<string name="backup_BPr_auto_title">גיבויים אוטומטיים</string>
 	<string name="backup_BPr_auto_disabled">הגיבויים האוטומטיים הופסקו</string>
 	<string name="backup_BPr_auto_enabled">הגיבוי יתבצע מדי יום</string>
-	<string name="backup_BAc_label">ניהול גיבויים</string>
-	<string name="backup_BAc_title">ניהול הגיבויים שלך</string>
 	<string name="backup_BAc_import">ייבוא משימות</string>
 	<string name="backup_BAc_export">ייצוא משימות</string>
 	<string name="backup_TXI_error">שגיאת ייבוא</string>

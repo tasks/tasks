@@ -49,8 +49,6 @@
 	<string name="backup_BPr_auto_title">自動的なバックアップ</string>
 	<string name="backup_BPr_auto_disabled">自動的なバックアップは無効です</string>
 	<string name="backup_BPr_auto_enabled">バックアップは毎日行われます</string>
-	<string name="backup_BAc_label">バックアップ</string>
-	<string name="backup_BAc_title">バックアップの管理</string>
 	<string name="backup_BAc_import">タスクのインポート</string>
 	<string name="backup_BAc_export">タスクのエクスポート</string>
 	<string name="backup_TXI_error">インポートに失敗</string>

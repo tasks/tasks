@@ -30,17 +30,6 @@
     <!-- slide 48g: Preference: Automatic Backup Description (when enabled) -->
     <string name="backup_BPr_auto_enabled">Backup will occur daily</string>
     
-    <!-- Preference screen restoring Tasks Help -->
-    <!-- Preference screen Restoring Tasks Help Dialog Text-->
-  
-  <!-- ================================================= BackupActivity == -->
-
-  <!-- slide 48c: backup activity label -->
-  <string name="backup_BAc_label">Manage backups</string>
-
-  <!-- backup activity title -->
-  <string name="backup_BAc_title">Manage your backups</string>
-
   <!-- backup activity import button -->
   <string name="backup_BAc_import">Import tasks</string>
 

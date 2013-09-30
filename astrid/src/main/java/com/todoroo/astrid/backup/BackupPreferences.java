@@ -24,6 +24,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.utility.Flags;
 
 /**
  * Displays synchronization preferences and an action panel so users can
@@ -68,12 +69,19 @@ public class BackupPreferences extends TodorooPreferenceActivity {
             }
         });
 
-        findPreference(getString(R.string.backup_BAc_label)).setOnPreferenceClickListener(new OnPreferenceClickListener() {
+        findPreference(getString(R.string.backup_BAc_import)).setOnPreferenceClickListener(new OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                Intent intent = new Intent(BackupPreferences.this, BackupActivity.class);
-                startActivity(intent);
-                return false;
+                importTasks();
+                return true;
+            }
+        });
+
+        findPreference(getString(R.string.backup_BAc_export)).setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                TasksXmlExporter.exportTasks(BackupPreferences.this, TasksXmlExporter.ExportType.EXPORT_TYPE_MANUAL, null, null);
+                return true;
             }
         });
     }
@@ -141,6 +149,24 @@ public class BackupPreferences extends TodorooPreferenceActivity {
                 view.setBackgroundColor(statusColor);
             }
         }
+    }
 
+    private void importTasks() {
+        FilePickerBuilder.OnFilePickedListener listener = new FilePickerBuilder.OnFilePickedListener() {
+            @Override
+            public void onFilePicked(String filePath) {
+                TasksXmlImporter.importTasks(BackupPreferences.this, filePath,
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                Flags.set(Flags.REFRESH);
+                            }
+                        });
+            }
+        };
+        new FilePickerBuilder(this,
+                getString(R.string.import_file_prompt),
+                BackupConstants.defaultExportDirectory(),
+                listener).show();
     }
 }

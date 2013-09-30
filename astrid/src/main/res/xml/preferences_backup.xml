@@ -27,11 +27,13 @@
             android:defaultValue="true" />
             
     </PreferenceCategory>
-    
-    <com.todoroo.astrid.ui.MultilinePreference
-            android:key="@string/backup_BAc_label" 
-            android:title="@string/backup_BAc_label" 
-            android:textSize="24sp"
-            android:gravity="center"/>
+
+    <Preference
+        android:key="@string/backup_BAc_import"
+        android:title="@string/backup_BAc_import"/>
+
+    <Preference
+        android:key="@string/backup_BAc_export"
+        android:title="@string/backup_BAc_export"/>
 
 </PreferenceScreen>

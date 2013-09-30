@@ -69,8 +69,6 @@
 	<string name="backup_BPr_auto_title">Automatische Backups</string>
 	<string name="backup_BPr_auto_disabled">Automatische Backups deaktiviert</string>
 	<string name="backup_BPr_auto_enabled">Verwalte deine Backups</string>
-	<string name="backup_BAc_label">Backups verwalten</string>
-	<string name="backup_BAc_title">Ihre Backups verwalten</string>
 	<string name="backup_BAc_import">Aufgaben importieren</string>
 	<string name="backup_BAc_export">Aufgaben exportieren</string>
 	<string name="backup_TXI_error">Importfehler</string>

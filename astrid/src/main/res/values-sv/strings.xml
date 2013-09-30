@@ -62,8 +62,6 @@
 	<string name="backup_BPr_auto_title">Automatisk säkerhetskopiering</string>
 	<string name="backup_BPr_auto_disabled">Automatisk säkerhetskopiering avaktiverad</string>
 	<string name="backup_BPr_auto_enabled">Säkerhetskopiering kommer att ske dagligen</string>
-	<string name="backup_BAc_label">Hantera säkerhetskopior</string>
-	<string name="backup_BAc_title">Hantera dina säkerhetskopior</string>
 	<string name="backup_BAc_import">Importera uppgifter</string>
 	<string name="backup_BAc_export">Exportera uppgifter</string>
 	<string name="backup_TXI_error">Importfel</string>

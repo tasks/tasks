@@ -67,7 +67,6 @@
 	<string name="backup_BPr_auto_title">Còpies de seguretat automàtiques</string>
 	<string name="backup_BPr_auto_disabled">Còpies de seguretat automàtiques desactivades</string>
 	<string name="backup_BPr_auto_enabled">Còpies de seguretat diàries</string>
-	<string name="backup_BAc_title">Administrar Còpies de seguretat</string>
 	<string name="backup_BAc_import">Importa tasques</string>
 	<string name="backup_BAc_export">Exporta tasques</string>
 	<string name="backup_TXI_error">Error d\'importació</string>

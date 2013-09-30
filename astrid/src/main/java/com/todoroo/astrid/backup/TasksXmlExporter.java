@@ -5,12 +5,6 @@
  */
 package com.todoroo.astrid.backup;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
-import org.xmlpull.v1.XmlSerializer;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -19,7 +13,6 @@ import android.util.Log;
 import android.util.Xml;
 import android.widget.Toast;
 
-import org.tasks.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
@@ -39,6 +32,13 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.AstridPreferences;
 
+import org.tasks.R;
+import org.xmlpull.v1.XmlSerializer;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class TasksXmlExporter {
 
     // --- public interface
@@ -48,13 +48,11 @@ public class TasksXmlExporter {
      *
      * @param context context
      * @param exportType from service, manual, or on upgrade
-     * @param runAfterExport runnable to run after exporting
      * @param backupDirectoryOverride new backupdirectory, or null to use default
      */
     public static void exportTasks(Context context, ExportType exportType,
-            Runnable runAfterExport, File backupDirectoryOverride, String versionName) {
-        new TasksXmlExporter(context, exportType, runAfterExport,
-                backupDirectoryOverride, versionName);
+            File backupDirectoryOverride, String versionName) {
+        new TasksXmlExporter(context, exportType, backupDirectoryOverride, versionName);
     }
 
     public static enum ExportType {
@@ -91,7 +89,7 @@ public class TasksXmlExporter {
     }
 
     private TasksXmlExporter(final Context context, final ExportType exportType,
-            final Runnable runAfterExport, File backupDirectoryOverride, String versionName) {
+            File backupDirectoryOverride, String versionName) {
         this.context = context;
         this.exportCount = 0;
         this.backupDirectory = backupDirectoryOverride == null ?
@@ -125,8 +123,7 @@ public class TasksXmlExporter {
                         doTasksExport(output);
                     }
 
-                    Preferences.setLong(BackupPreferences.PREF_BACKUP_LAST_DATE,
-                            DateUtilities.now());
+                    Preferences.setLong(BackupPreferences.PREF_BACKUP_LAST_DATE, DateUtilities.now());
                     Preferences.setString(BackupPreferences.PREF_BACKUP_LAST_ERROR, null);
 
                     if (exportType == ExportType.EXPORT_TYPE_MANUAL) {
@@ -148,9 +145,14 @@ public class TasksXmlExporter {
                         break;
                     }
                 } finally {
-                    if(runAfterExport != null) {
-                        runAfterExport.run();
-                    }
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(progressDialog.isShowing() && context instanceof Activity) {
+                                DialogUtilities.dismissDialog((Activity) context, progressDialog);
+                            }
+                        }
+                    });
                 }
             }
         }).start();
@@ -328,7 +330,6 @@ public class TasksXmlExporter {
         handler.post(new Runnable() {
             @Override
             public void run() {
-
                 if(exportCount == 0) {
                     Toast.makeText(context, context.getString(R.string.export_toast_no_tasks), Toast.LENGTH_LONG).show();
                 } else {
@@ -336,9 +337,6 @@ public class TasksXmlExporter {
                             context.getResources().getQuantityString(R.plurals.Ntasks, exportCount,
                                     exportCount), outputFile);
                     Toast.makeText(context, text, Toast.LENGTH_LONG).show();
-                    if(progressDialog.isShowing() && context instanceof Activity) {
-                        DialogUtilities.dismissDialog((Activity) context, progressDialog);
-                    }
                 }
             }
         });

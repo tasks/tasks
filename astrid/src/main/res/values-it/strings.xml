@@ -66,8 +66,6 @@
 	<string name="backup_BPr_auto_title">Backup automatici</string>
 	<string name="backup_BPr_auto_disabled">Backup Automatico Disabilitato</string>
 	<string name="backup_BPr_auto_enabled">I Backup verranno eseguiti giornalmente</string>
-	<string name="backup_BAc_label">Gestisci i backup</string>
-	<string name="backup_BAc_title">Gestione dei Backup</string>
 	<string name="backup_BAc_import">Importa compiti</string>
 	<string name="backup_BAc_export">Esporta compiti</string>
 	<string name="backup_TXI_error">Errore d\'importazione</string>

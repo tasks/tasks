@@ -74,8 +74,6 @@
 	<string name="backup_BPr_auto_title">Автоматичне резервне копіювання</string>
 	<string name="backup_BPr_auto_disabled">Автоматичне резервне копіювання заборонене</string>
 	<string name="backup_BPr_auto_enabled">Резервне копіювання буде здійснюватись щоденно</string>
-	<string name="backup_BAc_label">Управління резервними копіями</string>
-	<string name="backup_BAc_title">Керуйте своїми резервними копіями</string>
 	<string name="backup_BAc_import">Імпортувати завдання</string>
 	<string name="backup_BAc_export">Експорт завдань</string>
 	<string name="backup_TXI_error">Помилка імпорту</string>
@@ -295,6 +293,8 @@
 	<string name="EPr_list_view">Вигляд списку</string>
 	<string name="EPr_show_task_edit_comments">Показувати коментарі в редакторі завдання</string>
 	<string name="EPr_taskRowPrefs_title">Зовнішній вигляд завдань у списку</string>
+	<string name="EPr_cal_end_at_due_time">Завершення календарної події при настанні терміну</string>
+	<string name="EPr_cal_start_at_due_time">Початок календарної події при настанні терміну</string>
 	<string name="EPr_show_save_and_cancel">Показати зберегти і скасувати</string>
 	<string name="EPr_swipe_lists_performance_title">Свайп між списками</string>
 	<string name="swipe_lists_helper_title">Свайп між списками</string>
@@ -303,13 +303,14 @@
 	<string name="AOA_tab_available">Доступні</string>
 	<string name="AOA_free">Вільний</string>
 	<string name="AOA_no_addons">Пустий список!</string>
-	<string name="task_killer_help">It looks like you are using an app that can kill processes (%s)! If you can,
-add Tasks to the exclusion list so it doesn\'t get killed. Otherwise,
-Tasks might not let you know when your tasks are due.\n</string>
+	<string name="task_killer_help">Можливо ви використовуєте менеджер завдань (%s)!
+ По можливості додайте Tasks в список виключень,
+ інакше можливі складнощі з нагадуваннями. \n</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
       If you see this error regularly, we suggest you clear all
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
       your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
+	<string name="EPr_defaults_summary">Пріоритет, термін виконання, додати до календаря</string>
 	<string-array name="EPr_default_urgency">
 		<item>No deadline</item>
 		<item>Сьогодні</item>
@@ -322,6 +323,8 @@ Tasks might not let you know when your tasks are due.\n</string>
 	<string name="CFA_type_intersect">також</string>
 	<string name="CFA_button_view">Вигляд</string>
 	<string name="CFA_button_save">Зберегти і подивитись</string>
+	<string name="CFC_dueBefore_text">Кінцевий термін: ?</string>
+	<string name="CFC_dueBefore_name">Кінцевий термін...</string>
 	<string-array name="CFC_dueBefore_entries">
 		<item>No Due Date</item>
 		<item>Вчора</item>
@@ -366,9 +369,11 @@ Tasks might not let you know when your tasks are due.\n</string>
 	<string name="file_err_no_directory">Упс! Схоже, папка для зберігання файлів не існує. Будь ласка, вкажіть папку для зберігання файлів в Налаштуваннях.</string>
 	<string name="p_files_dir_desc">Прикріплення до задачі збережені в: %s</string>
 	<string name="premium_speech_bubble_2">Підпишіться на рік і заощаджуйте 25%%!</string>
+	<string name="TEA_reminder_due">Коли настане термін виконання завдання</string>
 	<string name="TEA_reminder_mode_once">Тільки раз</string>
 	<string name="TEA_reminder_mode_five">5 раз</string>
 	<string name="TEA_reminder_when">коли</string>
+	<string name="TEA_reminder_due_short">до</string>
 	<string name="TEA_reminder_randomly_short">випадково</string>
 	<string-array name="TEA_reminder_random">
 		<item>година</item>
@@ -381,6 +386,7 @@ Tasks might not let you know when your tasks are due.\n</string>
 	<string name="rmd_NoA_snooze">Відкласти</string>
 	<string name="rmd_reengage_name_default">ти</string>
 	<string name="rmd_reengage_add_tasks">Додати завдання</string>
+	<string name="rmd_EPr_rmd_time_desc">Сповіщення для задач без терміну виконання з\'являться у %s</string>
 	<string-array name="EPr_reminder_random">
 		<item>disabled</item>
 		<item>щогодинно</item>
@@ -442,6 +448,9 @@ Tasks might not let you know when your tasks are due.\n</string>
 	<string name="TEA_timer_controls">Таймер</string>
 	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
     Please do not translate this part of the string. -->
+	<string name="history_changed_due_date">змінена %1$s дата закінчення з %2$s на %3$s</string>
+	<string name="history_set_due_date">встановлена %1$s дата закінчення до %2$s</string>
+	<string name="history_removed_due_date">видалена %s дата закінчення</string>
 	<string name="EPr_voiceInputInstall_dlg">Голосове введення не встановлено. \n Хочете перейти на Market і встановити?</string>
 	<string name="EPr_voiceInputEnabled_title">Голосове введення</string>
 	<string name="EPr_voiceInputEnabled_desc_enabled">Кнопку голосового введення буде відображено на сторінці списку завдань</string>

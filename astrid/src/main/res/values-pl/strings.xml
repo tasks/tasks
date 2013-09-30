@@ -71,8 +71,6 @@
 	<string name="backup_BPr_auto_title">Automatyczne kopie zapasowe</string>
 	<string name="backup_BPr_auto_disabled">Automatyczne kopie zapasowe wyłączone</string>
 	<string name="backup_BPr_auto_enabled">Kopia zapasowa będzie wykonywana codziennie</string>
-	<string name="backup_BAc_label">Zarządzaj kopiami zapasowymi</string>
-	<string name="backup_BAc_title">Zarządzaj swoimi kopiami zapasowymi</string>
 	<string name="backup_BAc_import">Importuj zadania</string>
 	<string name="backup_BAc_export">Eksportuj zadania</string>
 	<string name="backup_TXI_error">Błąd importu</string>

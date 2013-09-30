@@ -72,8 +72,6 @@
 	<string name="backup_BPr_auto_title">Sauvegardes automatiques</string>
 	<string name="backup_BPr_auto_disabled">Sauvegardes automatiques désactivées</string>
 	<string name="backup_BPr_auto_enabled">Une sauvegarde sera effectuée quotidiennement.</string>
-	<string name="backup_BAc_label">Gérer les sauvegardes</string>
-	<string name="backup_BAc_title">Gérer vos sauvegardes</string>
 	<string name="backup_BAc_import">Importer des tâches</string>
 	<string name="backup_BAc_export">Exporter des tâches</string>
 	<string name="backup_TXI_error">Erreur d\'importation</string>

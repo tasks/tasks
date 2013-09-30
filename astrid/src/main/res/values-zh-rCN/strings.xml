@@ -65,8 +65,6 @@
 	<string name="backup_BPr_auto_title">自动备份</string>
 	<string name="backup_BPr_auto_disabled">自动备份已停用</string>
 	<string name="backup_BPr_auto_enabled">备份每天执行</string>
-	<string name="backup_BAc_label">管理备份</string>
-	<string name="backup_BAc_title">管理您的备份</string>
 	<string name="backup_BAc_import">导入任务</string>
 	<string name="backup_BAc_export">导出任务</string>
 	<string name="backup_TXI_error">导入错误</string>

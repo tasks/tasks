@@ -75,8 +75,6 @@
 	<string name="backup_BPr_auto_title">Copias de seguridad automáticas</string>
 	<string name="backup_BPr_auto_disabled">Copias de seguridad automáticas desactivadas</string>
 	<string name="backup_BPr_auto_enabled">La copia de seguridad se hará diariamente</string>
-	<string name="backup_BAc_label">Administrar copias de seguridad</string>
-	<string name="backup_BAc_title">Gestionar sus copias de seguridad</string>
 	<string name="backup_BAc_import">Importar tareas</string>
 	<string name="backup_BAc_export">Exportar tareas</string>
 	<string name="backup_TXI_error">Error al importar</string>

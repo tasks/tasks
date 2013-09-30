@@ -37,7 +37,6 @@
 	<string name="backup_BPr_auto_title">Cópia de Segurança Automática</string>
 	<string name="backup_BPr_auto_disabled">Cópias de Segurança automáticas desligadas</string>
 	<string name="backup_BPr_auto_enabled">A cópia de segurança irá ocorrer diáriamente</string>
-	<string name="backup_BAc_title">Gerir Cópias de Segurança</string>
 	<string name="backup_BAc_import">Importar Tarefas</string>
 	<string name="backup_BAc_export">Exportar Tarefas</string>
 	<string name="backup_TXI_error">Erro de Importação</string>

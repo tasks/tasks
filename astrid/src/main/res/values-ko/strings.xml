@@ -74,8 +74,6 @@
 	<string name="backup_BPr_auto_title">자동 백업</string>
 	<string name="backup_BPr_auto_disabled">자동으로 백업하지 않습니다</string>
 	<string name="backup_BPr_auto_enabled">매일 백업합니다</string>
-	<string name="backup_BAc_label">백업 관리</string>
-	<string name="backup_BAc_title">백업 관리하기</string>
 	<string name="backup_BAc_import">일정 가져오기</string>
 	<string name="backup_BAc_export">일정 내보내기</string>
 	<string name="backup_TXI_error">가져오기 오류</string>

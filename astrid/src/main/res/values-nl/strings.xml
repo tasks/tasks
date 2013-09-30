@@ -56,6 +56,7 @@
 	<string name="actfm_tag_not_authorized_new_list">Maak een nieuwe lijst</string>
 	<string name="actfm_tag_not_authorized_leave_list">Verlaat lijst</string>
 	<string name="actfm_sync_ongoing">Synchronisatie bezig...</string>
+	<string name="EPr_reset_sync_state">Synchronisatie herstellen</string>
 	<string name="EPr_reset_sync_state_summary">Reset sommige lokale data om synchronisatie te proberen te herstellen</string>
 	<string name="EPr_reset_sync_state_detailed">De volgende keer dat je synchroniseert, zullen je taken en lijsten veranderen in overeenstemming met de data die aanwezig is Tasks.com, wat synchronisatie fouten kan herstellen. Wil je doorgaan?</string>
 	<string name="alarm_ACS_label">Herinneringen</string>
@@ -72,8 +73,6 @@
 	<string name="backup_BPr_auto_title">Automatische back-ups</string>
 	<string name="backup_BPr_auto_disabled">Automatische back-ups uitgeschakeld</string>
 	<string name="backup_BPr_auto_enabled">Back-up dagelijks uitvoeren</string>
-	<string name="backup_BAc_label">Back-ups beheren</string>
-	<string name="backup_BAc_title">Back-ups beheren</string>
 	<string name="backup_BAc_import">Taken importeren</string>
 	<string name="backup_BAc_export">Taken exporteren</string>
 	<string name="backup_TXI_error">Importfout</string>
@@ -494,6 +493,7 @@
 	<string name="opencrx_provider_summary">\"Bijvoorbeeld: \"<i>CRX</i></string>
 	<string name="opencrx_TEA_task_assign_label">Taak aan deze persoon toewijzen:</string>
 	<string name="opencrx_TEA_creator_assign_label">Deze taak toewijzen aan deze auteur:</string>
+	<string name="opencrx_TEA_opencrx_title">OpenCRX Controles</string>
 	<string name="EPr_powerpack_header">Premium en diverse instellingen</string>
 	<string name="EPr_powerpack_summary">Gemiste oproepen herinneringen, spraakinvoer en diverse instellingen</string>
 	<string name="speech_err_network">Netwerkfout! Spraakherkenning heeft een netwerkverbinding nodig.</string>

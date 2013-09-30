@@ -72,8 +72,6 @@
 	<string name="backup_BPr_auto_title">Резервное копирование: автоматическое</string>
 	<string name="backup_BPr_auto_disabled">Резервное копирование: отключено</string>
 	<string name="backup_BPr_auto_enabled">Резервное копирование будет производиться ежедневно</string>
-	<string name="backup_BAc_label">Диспетчер резервных копий</string>
-	<string name="backup_BAc_title">Управление резервными копиями</string>
 	<string name="backup_BAc_import">Импортировать задачи</string>
 	<string name="backup_BAc_export">Экспортировать задачи</string>
 	<string name="backup_TXI_error">Ошибка импорта</string>
@@ -527,12 +525,13 @@
 	<string name="premium_speech_bubble_2">Подпишитесь на год и сэкономьте 25%%!</string>
 	<string name="TEA_reminder_label">Напомнить мне:</string>
 	<string name="TEA_reminder_due">Когда наступит срок выполнения задания</string>
-	<string name="TEA_reminder_overdue">Когда задание просрочено</string>
+	<string name="TEA_reminder_overdue">Коли завдання прострочено</string>
 	<string name="TEA_reminder_randomly">Случайно один раз</string>
 	<string name="TEA_reminder_alarm_label">Тип звонка/вибрации</string>
 	<string name="TEA_reminder_mode_once">раз</string>
 	<string name="TEA_reminder_mode_five">Пять раз</string>
 	<string name="TEA_reminder_mode_nonstop">Пока я не отключу сигнал</string>
+	<string name="TEA_reminder_overdue_short">прострочено</string>
 	<string-array name="TEA_reminder_random">
 		<item>час</item>
 		<item>день</item>

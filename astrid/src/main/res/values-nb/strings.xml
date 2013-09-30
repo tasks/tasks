@@ -17,7 +17,6 @@
 	<string name="backup_BPr_auto_title">Automatisk sikkerhetskopiering</string>
 	<string name="backup_BPr_auto_disabled">Automatisk sikkerhetskopiering deaktivert</string>
 	<string name="backup_BPr_auto_enabled">Sikkerhetskopiering vil skje daglig</string>
-	<string name="backup_BAc_title">Håndter sikkerhetskopiene dine</string>
 	<string name="backup_BAc_import">Importer oppgaver</string>
 	<string name="backup_BAc_export">Eksporter oppgaver</string>
 	<string name="backup_TXI_error">Importfeil</string>
