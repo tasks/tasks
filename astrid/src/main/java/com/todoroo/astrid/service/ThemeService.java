@@ -8,6 +8,7 @@ package com.todoroo.astrid.service;
 import android.app.Activity;
 import android.graphics.PixelFormat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.WindowManager;
 
 import com.todoroo.andlib.service.ContextManager;
@@ -211,8 +212,8 @@ public class ThemeService {
             return R.drawable.gl_lists_dark;
         }
 
-        throw new RuntimeException("No theme drawable found for " +
-                ContextManager.getResources().getResourceName(lightDrawable));
+        Log.w("ThemeService", "No theme drawable found for " + ContextManager.getResources().getResourceName(lightDrawable));
+        return lightDrawable;
     }
 
     public static int getDarkVsLight(int resForWhite, int resForDark) {

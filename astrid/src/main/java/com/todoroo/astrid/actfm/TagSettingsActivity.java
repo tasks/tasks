@@ -179,7 +179,11 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
             ThemeService.applyTheme(this);
             ActionBar actionBar = getSupportActionBar();
             if (Preferences.getBoolean(R.string.p_save_and_cancel, false)) {
-                actionBar.setLogo(R.drawable.ic_action_save);
+                if(ThemeService.getTheme() == R.style.Theme) {
+                    actionBar.setLogo(R.drawable.ic_action_save_light);
+                } else {
+                    actionBar.setLogo(R.drawable.ic_action_save);
+                }
             } else {
                 actionBar.setLogo(null);
             }
@@ -492,7 +496,7 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
         MenuItem item;
         if (Preferences.getBoolean(R.string.p_save_and_cancel, false)) {
             item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
-            item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_close));
+            item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_cancel));
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         }
 
