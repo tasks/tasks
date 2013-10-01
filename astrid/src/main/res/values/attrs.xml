@@ -31,8 +31,6 @@
   <attr name="asEditTextBackground" format="reference"/>
   <attr name="asReadonlyTaskBackground" format="color" />
   <attr name="asListsDisclosure" format="reference"/>
-  <attr name="asAddButtonImg" format="reference" />
-  <attr name="asMicButtonImg" format="reference" />
   <attr name="asMainMenu" format="reference" />
   <attr name="asPeopleMenu" format="reference" />
   <attr name="asAbBackgroundColor" format="color"/>
@@ -41,8 +39,12 @@
   <attr name="asListArrowUp" format="reference"/>
   <attr name="asFilterSelectedIcon" format="reference"/>
   <attr name="asTaskRowSelector" format="reference" />
+    <attr name="ic_action_gear" format="reference"/>
+    <attr name="ic_action_camera" format="reference"/>
+    <attr name="ic_action_new" format="reference"/>
+    <attr name="ic_action_mic" format="reference" />
 
-  <declare-styleable name="ContactsAutoComplete">
+    <declare-styleable name="ContactsAutoComplete">
     <attr name="allowMultiple" format="boolean"/>
     <attr name="completeTags" format="boolean"/>
   </declare-styleable>

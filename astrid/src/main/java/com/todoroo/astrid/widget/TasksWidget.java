@@ -338,11 +338,11 @@ public class TasksWidget extends AppWidgetProvider {
             if (isDarkTheme()) {
                 layout = R.layout.widget_initialized_dark;
                 titleColor = r.getColor(R.color.widget_text_color_dark);
-                buttonDrawable = R.drawable.plus_button_blue;
+                buttonDrawable = R.drawable.ic_action_new_light;
             } else {
                 layout = R.layout.widget_initialized;
                 titleColor = r.getColor(R.color.widget_text_color_light);
-                buttonDrawable = R.drawable.plus_button_dark_blue;
+                buttonDrawable = R.drawable.ic_action_new;
             }
 
             views = new RemoteViews(packageName, layout);

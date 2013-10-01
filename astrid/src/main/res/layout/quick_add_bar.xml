@@ -27,8 +27,7 @@
 	        <ImageButton android:id="@+id/voiceAddButton"
 	            android:layout_width="39dip"
 	            android:layout_height="39dip"
-	            android:layout_gravity="top"
-	            android:layout_marginTop="-2dip"
+	            android:layout_gravity="center_vertical"
 	            android:layout_marginLeft="4dip"
 	            android:layout_marginRight="2dip"
 	            android:paddingLeft="10dip"
@@ -36,7 +35,7 @@
 	            android:layout_weight="1"
 	            android:visibility="gone"
 	            android:background="@android:color/transparent"
-	            android:src="?attr/asMicButtonImg"
+	            android:src="?attr/ic_action_mic"
 	            android:scaleType="center"/> 
 	    
 	        <!-- Quick Add Task -->
@@ -63,7 +62,7 @@
 	            android:layout_marginRight="5dip"
 	            android:layout_weight="1"
 	            android:background="@android:color/transparent"
-	            android:src="?attr/asAddButtonImg"
+	            android:src="?attr/ic_action_new"
 	            android:scaleType="center"/> 
 	
 	    </LinearLayout>

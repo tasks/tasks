@@ -41,7 +41,7 @@
 		    android:layout_height="43dip"
 		    android:padding="5dip"
 		    android:layout_weight="1"
-		    android:src="@drawable/list_settings"
+		    android:src="?attr/ic_action_gear"
 		    android:scaleType="fitCenter"/>
 	  </LinearLayout>
 	  

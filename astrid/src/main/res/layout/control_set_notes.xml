@@ -32,7 +32,7 @@
             android:paddingRight="10dip"
 	        android:background="@android:color/transparent"
 	        android:scaleType="center"
-	        android:src="?attr/asMicButtonImg"
+	        android:src="?attr/ic_action_mic"
 	        android:layout_gravity="top"
 	        android:visibility="gone" />
         <EditText

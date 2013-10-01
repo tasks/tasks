@@ -181,8 +181,8 @@ public class ThemeService {
             return R.drawable.ic_action_cancel_light;
         case R.drawable.ic_action_new_attachment:
                 return R.drawable.ic_action_new_attachment_light;
-        case R.drawable.list_settings:
-                return lightDrawable;
+        case R.drawable.ic_action_gear:
+                return R.drawable.ic_action_gear_light;
 
         case R.drawable.icn_menu_refresh:
             return R.drawable.icn_menu_refresh_dark;

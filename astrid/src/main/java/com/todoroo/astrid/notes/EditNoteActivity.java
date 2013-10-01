@@ -185,7 +185,9 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     }
 
     private int getDefaultCameraButton() {
-        return R.drawable.camera_button;
+        TypedValue typedValue = new TypedValue();
+        fragment.getActivity().getTheme().resolveAttribute(R.attr.ic_action_camera, typedValue, true);
+        return typedValue.resourceId;
     }
 
     private void fetchTask(long id) {

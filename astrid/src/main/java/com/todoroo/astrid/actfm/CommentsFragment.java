@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -223,7 +224,9 @@ public abstract class CommentsFragment extends SherlockListFragment {
     }
 
     protected void resetPictureButton() {
-        pictureButton.setImageResource(R.drawable.camera_button);
+        TypedValue typedValue = new TypedValue();
+        getActivity().getTheme().resolveAttribute(R.attr.ic_action_camera, typedValue, true);
+        pictureButton.setImageResource(typedValue.resourceId);
     }
 
     protected void refreshUpdatesList() {
