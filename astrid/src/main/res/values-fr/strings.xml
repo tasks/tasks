@@ -46,10 +46,6 @@
 	<string name="actfm_feat_list_clone_success">Opération réussie !</string>
 	<string name="actfm_feat_list_task_clone_success">Tâche copiée</string>
 	<string name="actfm_feat_list_clone_empty">Aucune tâche à copier</string>
-	<string name="actfm_https_title">Utiliser HTTPS</string>
-	<string name="actfm_account_type">Type de compte</string>
-	<string name="actfm_inapp_billing">Passer en premium</string>
-	<string name="actfm_inapp_billing_summary">Ajoutez des fichiers, faites des sauvegardes vocales, bénéficiez du support premium et bien plus</string>
 	<string name="actfm_tag_not_authorized_title">Non autorisé</string>
 	<string name="actfm_tag_not_authorized_body">Vous n\'êtes plus autorisé à voir la liste %s (vous avez peut-être été supprimé). Voulez-vous créer une nouvelle liste avec le même nom?</string>
 	<string name="actfm_tag_not_authorized_new_list">Créer une nouvelle liste</string>
@@ -226,14 +222,6 @@
 	<string name="MCA_task_title_name">Rappeler %1$s au %2$s</string>
 	<string name="MCA_task_title_no_name">Rappeler %s</string>
 	<string name="MCA_schedule_dialog_title">Rappeler %s dans...</string>
-	<string-array name="MCA_dialog_speech_options">
-		<item>Ça doit être chouette d\'être si populaire!</item>
-		<item>Youpi! Des gens vous aiment!</item>
-		<item>Faites leur plaisir, appelez les!</item>
-		<item>Aimeriez vous que les gens vous rappellent?</item>
-		<item>Allez, vous pouvez le faire!</item>
-		<item>Vous pouvez toujours envoyer un message...</item>
-	</string-array>
 	<string name="CRA_ignore">Ignorer</string>
 	<string name="CRA_title">Besoin d\'une liste de réunion ? </string>
 	<string name="CRA_ignore_title">Ignorer tous les évènements du calendrier ? </string>
@@ -337,8 +325,6 @@
 	<string name="AOA_tab_available">Disponible</string>
 	<string name="AOA_free">Gratuit</string>
 	<string name="AOA_no_addons">Liste vide !</string>
-	<string name="AOA_ppack_title">Power Pack Tasks</string>
-	<string name="AOA_ppack_description">Aidez Tasks et augmentez votre productivité avec le Power Pack Tasks. Gadgets en 4x2 et 4x4 et utilisation de la voix. Montez en puissance aujourd\'hui !</string>
 	<string name="AOA_locale_title">Greffon Tasks de localisation</string>
 	<string name="AOA_locale_description">Autorise Tasks à utiliser l\'application de localisation pour vous envoyer des notifications en fonction de filtres. Nécessite la localisation</string>
 	<string name="TWi_loading">Chargement…</string>
@@ -613,9 +599,6 @@
 	<string name="rmd_EPr_vibrate_title">Vibre lors d\'une alerte</string>
 	<string name="rmd_EPr_vibrate_desc_true">Tasks vibrera lors de l\'envoi de notifications</string>
 	<string name="rmd_EPr_vibrate_desc_false">Tasks ne vibrera pas lors de l\'envoi de notifications</string>
-	<string name="rmd_EPr_nagging_title">Encouragements d\'Tasks</string>
-	<string name="rmd_EPr_nagging_desc_true">Tasks s\'affichera afin de vous encourager lors des rappels</string>
-	<string name="rmd_EPr_nagging_desc_false">Tasks ne vous donnera pas les messages d\'encouragements</string>
 	<string name="rmd_EPr_snooze_dialog_title">Info-bulle de report HH:MM</string>
 	<string name="rmd_EPr_snooze_dialog_desc_true">Reporter en sélectionnant un nouvel horaire de report (HH:MM)</string>
 	<string name="rmd_EPr_snooze_dialog_desc_false">Reporter en sélectionnant # jours/heures à reporter</string>
@@ -710,70 +693,6 @@
 		<item>7 h</item>
 		<item>8 h</item>
 	</string-array>
-	<string name="reminders_social">Ces personnes comptent sur vous !</string>
-	<string name="reminders_social_one">%s compte sur vous !</string>
-	<string name="reminders_social_multiple">%1$s, %2$s, et d\'autres comptent sur vous !</string>
-	<string-array name="reminders">
-		<item>Salut ! Tu as une seconde ?</item>
-		<item>Je peux te voir une seconde ?</item>
-		<item>Tu as quelques minutes ?</item>
-		<item>Tu as oublié ?</item>
-		<item>Excusez-moi !</item>
-		<item>Dès que tu as une minute :</item>
-		<item>Sur votre agenda :</item>
-		<item>Disponible pour un moment ?</item>
-		<item>C\'est Tasks !</item>
-		<item>Salut ! Je peux te déranger ?</item>
-		<item>Une minute de votre temps ?</item>
-		<item>C\'est un beau jour pour</item>
-	</string-array>
-	<string-array name="reminders_due">
-		<item>Il est temps de travailler !</item>
-		<item>La date due est là !</item>
-		<item>Prêt à commencer ?</item>
-		<item>Tu avais prévu de faire :</item>
-		<item>Tu es censé commencer :</item>
-		<item>Il est temps de commencer :</item>
-		<item>Il est temps !</item>
-		<item>Excusez-moi ! C\'est le moment pour</item>
-		<item>Disponible ? Temps de</item>
-	</string-array>
-	<string-array name="reminders_snooze">
-		<item>Ne soyez pas feignant maintenant !</item>
-		<item>Le temps de rappel d\'alarme est activé !</item>
-		<item>Plus de rappel d\'alarme !</item>
-		<item>Et là, tu es prêt(e) ?</item>
-		<item>Plus de décalage !</item>
-	</string-array>
-	<string-array name="reminder_responses">
-		<item>J\'ai quelque chose pour toi !</item>
-		<item>Prêt à ranger ça au passé ?</item>
-		<item>Pourquoi ne pas finir ça ?</item>
-		<item>Quoi de neuf ? Prêt ?</item>
-		<item>Tu es prêt(e) pour cela ?</item>
-		<item>Tu crois que tu peux gérer ça ?</item>
-		<item>Tu peux être heureux(se) ! Finis simplement cela !</item>
-		<item>Je te promets que tu te sentiras mieux si tu finis cela !</item>
-		<item>Vas-tu terminer cela aujourd\'hui ?</item>
-		<item>Je t\'en supplie, finis donc cela, je l\'ai assez vu !</item>
-		<item>Peux-tu finir cela ? Oui, tu le peux !</item>
-		<item>Tu crois que tu vas faire cela un jour ?</item>
-		<item>Aie bonne conscience ! Allons-y !</item>
-		<item>Je suis fière de toi ! Finissons ça !</item>
-		<item>Une petite pause après avoir fini cela ?</item>
-		<item>Juste cette tâche, s\'il te plaît ?</item>
-		<item>Il est temps de réduire votre liste de tâches !</item>
-		<item>Êtes-vous dans l\'équipe Ordre ou dans l\'équipe Chaos ? Équipe Ordre ! En avant !</item>
-		<item>Je vous ai déjà dit que vous êtes super ? Continuez comme ça !</item>
-		<item>Une action par jour et plus rien ne traîne !</item>
-		<item>Comment fais-tu cela ? Wow, je suis impressionnée !</item>
-		<item>Vous ne vous en sortirez pas juste sur votre bonne mine. Allons-y!</item>
-		<item>Un temps parfait pour ce travail, non ?</item>
-		<item>Un petit café en travaillant là-dessus?</item>
-		<item>Si vous aviez déjà fait ça, vous pourriez aller jouer dehors.</item>
-		<item>C\'est l\'heure. Vous ne pouvez pas repousser l\'inévitable</item>
-		<item>À chaque fois que vous m\'ignorez, je meurs un peu.</item>
-	</string-array>
 	<string name="repeat_plugin">Répétition de tâches</string>
 	<string name="repeat_plugin_desc">Permet aux tâches d\'être répétées</string>
 	<string name="repeat_enabled">Répétitions</string>
@@ -830,17 +749,6 @@
 	<string name="repeat_rescheduling_dialog_bubble">%1$s J\'ai reprogrammé la tâche répétitive de %2$s à %3$s</string>
 	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s J\'ai reprogrammé la tâche répétitive jusqu\'à %2$s</string>
 	<string name="repeat_rescheduling_dialog_bubble_last_time">Cette tâche est répétée depuis %1$s, et c\'est maintenant fini. %2$s</string>
-	<string-array name="repeat_encouragement">
-		<item>Bon travail !</item>
-		<item>Wow... Je suis si fière de toi !</item>
-		<item>J\'adore quand vous êtes productif !</item>
-		<item>Ça ne fait pas du bien de rayer quelque chose ?</item>
-	</string-array>
-	<string-array name="repeat_encouragement_last_time">
-		<item>Bon travail !</item>
-		<item>Je suis si fière de toi !</item>
-		<item>J\'adore quand vous êtes productif !</item>
-	</string-array>
 	<string name="subtasks_help_title">Trier et indenter dans Tasks</string>
 	<string name="subtasks_help_1">Garder appuyer pour déplacer une tâche</string>
 	<string name="subtasks_help_2">Déplacer verticalement pour réorganiser</string>
@@ -950,4 +858,5 @@
 	<string name="widget_mini">Tâches</string>
 	<string name="EPr_use_dark_theme">Thème foncé</string>
 	<string name="EPr_use_dark_theme_widget">Thème de widget foncé</string>
+	<string name="delete_task">Supprimer la tâche ? </string>
 </resources>

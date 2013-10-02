@@ -45,9 +45,6 @@
 	<string name="actfm_feat_list_clone_success">L\'operació s\'ha realitzat correctament.</string>
 	<string name="actfm_feat_list_task_clone_success">Tarea copiada </string>
 	<string name="actfm_feat_list_clone_empty">No tarea a copiar</string>
-	<string name="actfm_https_title">Utilitza l\'HTTPS</string>
-	<string name="actfm_account_type">Tipo de cuenta</string>
-	<string name="actfm_inapp_billing">Actualitzar a Premium</string>
 	<string name="actfm_tag_not_authorized_title">No autorizado</string>
 	<string name="actfm_tag_not_authorized_new_list">Crear una nueva lista</string>
 	<string name="actfm_tag_not_authorized_leave_list">Abandonar la lista</string>
@@ -106,7 +103,6 @@
 	<string name="TLA_menu_search">Cerca</string>
 	<string name="TLA_menu_lists">Llistes</string>
 	<string name="TLA_menu_friends">Gent</string>
-	<string name="TLA_menu_suggestions">Suggeriments</string>
 	<string name="TLA_menu_settings">Paràmetres</string>
 	<string name="TLA_menu_support">Assistència</string>
 	<string name="TLA_custom">Personalitzat</string>
@@ -214,14 +210,6 @@
 	<string name="MCA_task_title_name">Retorna la trucada a en/na %1$s a %2$s</string>
 	<string name="MCA_task_title_no_name">Retorna la trucada a %s</string>
 	<string name="MCA_schedule_dialog_title">Retorna la trucada a %s en...</string>
-	<string-array name="MCA_dialog_speech_options">
-		<item>Deu ser genial ser tan popular!</item>
-		<item>Fantàstic, la gent us estima!</item>
-		<item>Alegreu-li el dia, feu-li una trucada!</item>
-		<item>Wouldn\'t you be happy if people called you back?</item>
-		<item>Tu ho pots fer!</item>
-		<item>You can always send a text...</item>
-	</string-array>
 	<string name="UpS_changelog_title">Què hi ha de nou en Tasks?</string>
 	<string name="UpS_updates_title">Novetats de l\'Tasks</string>
 	<string name="EPr_title">Tasks: Paràmetres</string>
@@ -338,8 +326,6 @@
 	<string name="rmd_EPr_vibrate_title">Vibrar amb les Alertes</string>
 	<string name="rmd_EPr_vibrate_desc_true">Tasks vibrarà quan enviï notificacions</string>
 	<string name="rmd_EPr_vibrate_desc_false">Tasks no vibrarà quan enviï notificacions</string>
-	<string name="rmd_EPr_nagging_desc_true">Tasks apareixerà durant les notificacions per donar-li un estímul</string>
-	<string name="rmd_EPr_nagging_desc_false">Tasks no li donarà cap missatge d\'estímul</string>
 	<string name="rmd_EPr_snooze_dialog_title">Diàleg de retard HH:MM</string>
 	<string name="rmd_EPr_snooze_dialog_desc_true">Silencia seleccionant un nou temps límit (HH:MM)</string>
 	<string name="rmd_EPr_snooze_dialog_desc_false">Silencia seleccionant # dies/hores a adormir</string>

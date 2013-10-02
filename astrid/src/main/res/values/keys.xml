@@ -36,9 +36,6 @@
   <!-- icon theme for notifications -->
   <string name="p_rmd_icon">notif_theme</string>
   
-  <!-- whether astrid nag messages are used -->
-  <string name="p_rmd_nagging">nagging</string>
-  
   <!-- if true / unset, hh:mm dialog. otherwise, days / hours -->
   <string name="p_rmd_snooze_dialog">snooze_dialog</string>
   

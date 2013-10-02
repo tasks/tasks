@@ -33,8 +33,6 @@
 	<string name="actfm_EPA_add_person_to_list_cancel">追加しないで</string>
 	<string name="actfm_GAA_title">使用したいGoogleアカウントを選択してください:</string>
 	<string name="actfm_feat_list_clone_success">成功！</string>
-	<string name="actfm_https_title">HTTPS を使う</string>
-	<string name="actfm_account_type">アカウント タイプ</string>
 	<string name="actfm_sync_ongoing">同期中</string>
 	<string name="alarm_ACS_label">アラーム</string>
 	<string name="alarm_ACS_button">アラームを追加する</string>
@@ -79,7 +77,6 @@
 	<string name="TLA_no_items">タスクなし</string>
 	<string name="TLA_menu_lists">リスト</string>
 	<string name="TLA_menu_friends">人々</string>
-	<string name="TLA_menu_suggestions">提案</string>
 	<string name="TLA_menu_settings">設定</string>
 	<string name="TLA_menu_support">サポート</string>
 	<string name="TLA_custom">カスタムフィルタ</string>
@@ -273,9 +270,6 @@
 	<string name="rmd_EPr_vibrate_title">アラート時に振動する</string>
 	<string name="rmd_EPr_vibrate_desc_true">通知するときに振動します</string>
 	<string name="rmd_EPr_vibrate_desc_false">通知するときに振動しません</string>
-	<string name="rmd_EPr_nagging_title">Tasksの通知</string>
-	<string name="rmd_EPr_nagging_desc_true">通知画面に励ましメッセージを表示します</string>
-	<string name="rmd_EPr_nagging_desc_false">励ましメッセージを表示しません</string>
 	<string name="rmd_EPr_snooze_dialog_title">スヌーズの時刻指定</string>
 	<string name="rmd_EPr_snooze_dialog_desc_true">次のスヌーズ時刻を 時:分 で指定します</string>
 	<string name="rmd_EPr_snooze_dialog_desc_false">次のスヌーズまでの時間間隔を指定します</string>
@@ -370,68 +364,6 @@
 		<item>午前7時</item>
 		<item>午前8時</item>
 	</string-array>
-	<string name="reminders_social">この人々はあなたを頼りにしています！</string>
-	<string-array name="reminders">
-		<item>やあ、ちょっと時間ある？</item>
-		<item>少しお時間いただけますか？</item>
-		<item>2～3分お時間ありますか？</item>
-		<item>忘れましたか？</item>
-		<item>すいません！</item>
-		<item>何時あなたに少し時間がありますか？</item>
-		<item>あなたの当面の課題に入っています</item>
-		<item>少しお時間ありますか？</item>
-		<item>Tasksはここだよ！</item>
-		<item>こんにちは、ちょっと邪魔していい？</item>
-		<item>ちょっとお時間よろしいですか？</item>
-		<item>It\'s a great day to</item>
-	</string-array>
-	<string-array name="reminders_due">
-		<item>働く時！</item>
-		<item>期限日が到来です</item>
-		<item>始める準備はできてる？</item>
-		<item>あなたは次のことをやるといいました：</item>
-		<item>あなたは開始することになっています。</item>
-		<item>始める時</item>
-		<item>時間ですよ！</item>
-		<item>すいません！～のための時間を</item>
-		<item>手、空いてる? これやらなくちゃ。</item>
-	</string-array>
-	<string-array name="reminders_snooze">
-		<item>今は怠けちゃダメだよ</item>
-		<item>スヌーズの時間切れです！</item>
-		<item>もう居眠りしないで！</item>
-		<item>今、準備はいいかい？</item>
-		<item>もう先送りしないで！</item>
-	</string-array>
-	<string-array name="reminder_responses">
-		<item>あなたに贈り物があります。</item>
-		<item>これを過去のこととして忘れてしまう準備はできてる？</item>
-		<item>これをやってしまいませんか？</item>
-		<item>それはどうだい？準備はできてるかい？</item>
-		<item>これをする準備はできてる？</item>
-		<item>君はこれを扱えるかい？</item>
-		<item>君も喜ぶと思うよ！これをただ終わらせるだけでいいんだ！</item>
-		<item>終わらせればぜったい気分がいいって！</item>
-		<item>今日はこれをしないんですか？</item>
-		<item>これを終わらせて下さい。私はもううんざりです。</item>
-		<item>これを終えられるかい？そう、君ならできる！</item>
-		<item>あなたは一体これをするつもりなの？</item>
-		<item>あなた自身に自信を持って！さあ行こう！</item>
-		<item>あなたはとても偉い！それをやり遂げましょう！</item>
-		<item>これを終えたらちょっと軽食どう？</item>
-		<item>ただこのタスク1つだけ？たのむよ</item>
-		<item>あなたのToDoリストを短くすべき時</item>
-		<item>あなたは秩序あるチームにいるの？それとも大混乱のチームにいるの？秩序あるチームだよね！さあ行こう！</item>
-		<item>最近あなたはすごいと言いましたっけ？その調子！</item>
-		<item>タスクを1日1つこなし続ければゴチャゴチャがなくなる…。ゴチャゴチャよさようなら！</item>
-		<item>それはどういう風にやるものなの？ ワオ、これはすごい！</item>
-		<item>君の容姿端麗さだけではやっていけないよ。さあ、それに取り掛かろう！</item>
-		<item>こんな仕事にとって素敵な天気ですね？</item>
-		<item>これをやりながらお茶でも1杯どう？</item>
-		<item>If only you had already done this, then you could go outside and play.</item>
-		<item>It\'s time. You can\'t put off the inevitable.</item>
-		<item>君が私を無視するたびに私はずっこける。</item>
-	</string-array>
 	<string name="repeat_enabled">繰り返し</string>
 	<string name="repeat_interval_prompt">繰り返し間隔</string>
 	<string-array name="repeat_interval_short">
@@ -459,17 +391,6 @@
 	<string name="repeat_detail_byday">$I ($D 曜日)</string>
 	<string name="repeat_detail_duedate">%s</string>
 	<string name="repeat_detail_completion">完了日から %s</string>
-	<string-array name="repeat_encouragement">
-		<item>上出来だ！</item>
-		<item>Wow… I\'m so proud of you!</item>
-		<item>I love when you\'re productive!</item>
-		<item>何かにチェック済みの印を付けるのは気分良くないですか？</item>
-	</string-array>
-	<string-array name="repeat_encouragement_last_time">
-		<item>上出来だ！</item>
-		<item>I\'m so proud of you!</item>
-		<item>I love when you\'re productive!</item>
-	</string-array>
 	<string name="TEA_tags_label">リスト</string>
 	<string name="tag_new_list">新しいリスト</string>
 	<string name="tag_FEx_header">リスト</string>

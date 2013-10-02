@@ -194,7 +194,6 @@
 	<string name="rmd_EPr_vibrate_title">Vibrer ved varsel</string>
 	<string name="rmd_EPr_vibrate_desc_true">Tasks vil vibrere ved varsler</string>
 	<string name="rmd_EPr_vibrate_desc_false">Tasks vil ikke vibrere ved varsler</string>
-	<string name="rmd_EPr_nagging_desc_true">Astid vil vise oppmuntringsbeskjeder ved påminnelser</string>
 	<string name="rmd_EPr_snooze_dialog_title">Slumreinnstillinger TT:MM</string>
 	<string name="rmd_EPr_snooze_dialog_desc_true">Slumre ved å velge ny tid (TT:MM)</string>
 	<string name="rmd_EPr_snooze_dialog_desc_false">Slumre ved å velge # dager/timer å slumre</string>

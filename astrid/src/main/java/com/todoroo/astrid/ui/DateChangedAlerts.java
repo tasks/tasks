@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.ui;
 
-import java.text.ParseException;
-import java.util.Date;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -26,7 +23,6 @@ import android.widget.TextView;
 
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
-import org.tasks.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -37,6 +33,11 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.repeats.RepeatTaskCompleteListener;
 import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
 import com.todoroo.astrid.utility.Flags;
+
+import org.tasks.R;
+
+import java.text.ParseException;
+import java.util.Date;
 
 /**
  * Helper class that creates a dialog to confirm the results of a quick add markup
@@ -181,9 +182,7 @@ public class DateChangedAlerts {
         String newDueDateString = getRelativeDateAndTimeString(activity, newDueDate);
         String repeatUntilDateString = getRelativeDateAndTimeString(activity, task.getValue(Task.REPEAT_UNTIL));
 
-        int encouragementResource = lastTime ? R.array.repeat_encouragement_last_time : R.array.repeat_encouragement;
-        String[] encouragements = activity.getResources().getStringArray(encouragementResource);
-        String encouragement = encouragements[(int) (Math.random()*encouragements.length)];
+        String encouragement = "";
 
         String speechBubbleText;
         if (lastTime) {

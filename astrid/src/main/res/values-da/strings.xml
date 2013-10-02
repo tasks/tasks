@@ -22,7 +22,6 @@
 	<string name="actfm_TVA_tag_label">Listenavn</string>
 	<string name="actfm_TVA_tag_picture">Liste billede</string>
 	<string name="actfm_EPA_invalid_email">Forkert emailadresse: %s</string>
-	<string name="actfm_https_title">Brug HTTPS</string>
 	<string name="alarm_ACS_label">Alarmer</string>
 	<string name="alarm_ACS_button">Tilføj en alarm</string>
 	<string name="backup_BPr_header">Backup</string>

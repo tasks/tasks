@@ -47,10 +47,6 @@
 	<string name="actfm_feat_list_clone_success">성공!</string>
 	<string name="actfm_feat_list_task_clone_success">일정 복사 완료</string>
 	<string name="actfm_feat_list_clone_empty">복사할 일정 없음</string>
-	<string name="actfm_https_title">HTTPS 사용하기</string>
-	<string name="actfm_account_type">계정 유형</string>
-	<string name="actfm_inapp_billing">프리미엄으로 업그레이드하기</string>
-	<string name="actfm_inapp_billing_summary">파일 첨부, 음성 백업, 프리미엄 지원 등</string>
 	<string name="actfm_tag_not_authorized_title">권한이 없습니다</string>
 	<string name="actfm_tag_not_authorized_body">더 이상 목록 %s 를 열람할 수 있는 권한이 없습니다 (권한을 삭제한 것 같습니다). 같은 이름의 새 목록을 생성하시겠습니까?</string>
 	<string name="actfm_tag_not_authorized_new_list">새 목록 만들기</string>
@@ -115,7 +111,6 @@
 	<string name="TLA_menu_lists">목록</string>
 	<string name="TLA_menu_friends">사람들</string>
 	<string name="TLA_menu_featured_lists">기능 목록</string>
-	<string name="TLA_menu_suggestions">제안</string>
 	<string name="TLA_menu_settings">설정</string>
 	<string name="TLA_menu_support">지원</string>
 	<string name="TLA_custom">사용자 설정</string>
@@ -234,14 +229,6 @@
 	<string name="MCA_task_title_name">%1$s 님에게 %2$s 에 다시 연락하세요</string>
 	<string name="MCA_task_title_no_name">%s 님에게 다시 연락하세요</string>
 	<string name="MCA_schedule_dialog_title">%s 님에게 다시 연락하세요...</string>
-	<string-array name="MCA_dialog_speech_options">
-		<item>그렇게 유명하다니 좋으시겠네요!</item>
-		<item>예이! 바로 당신같은 사람!</item>
-		<item>전화를 해서 기쁨을 줍시다!</item>
-		<item>사람들이 다시 전화를 걸어준다면 행복하지 않겠어요?</item>
-		<item>할 수 있어요!</item>
-		<item>항상 문자를 보낼 수 있잖아요...</item>
-	</string-array>
 	<string name="CRA_ignore">무시하기</string>
 	<string name="CRA_title">모임 목록이 필요하세요?</string>
 	<string name="CRA_ignore_title">모든 달력 이벤트를 무시할까요?</string>
@@ -345,8 +332,6 @@
 	<string name="AOA_tab_available">추가 가능</string>
 	<string name="AOA_free">무료</string>
 	<string name="AOA_no_addons">목록이 없습니다!</string>
-	<string name="AOA_ppack_title">Tasks 파워 팩</string>
-	<string name="AOA_ppack_description">아스트리드를 지원하고 파워 팩(4x2, 4x4 위젯, 음성입력)으로 일을 좀 더 효율적으로 하세요. 오늘 사용해 보세요!</string>
 	<string name="AOA_locale_title">아스트리드 위치 플러그인</string>
 	<string name="AOA_locale_description">아스트리드에서 위치 앱을 사용합니다. 위치 앱에서 설정한 필터 조건에 따라 알림을 보내줍니다. 위치 서비스를 사용합니다.</string>
 	<string name="TWi_loading">로드 중…</string>
@@ -630,9 +615,6 @@
 	<string name="rmd_EPr_vibrate_title">알림시 진동</string>
 	<string name="rmd_EPr_vibrate_desc_true">알림시 진동합니다.</string>
 	<string name="rmd_EPr_vibrate_desc_false">알림시 진동하지 않습니다.</string>
-	<string name="rmd_EPr_nagging_title">아스트리드 격려 문구</string>
-	<string name="rmd_EPr_nagging_desc_true">아스트리드에서 알림시에 격려 문구를 보여줍니다</string>
-	<string name="rmd_EPr_nagging_desc_false">아스트리드에서 어떤 격려 문구도 보여주지 않습니다</string>
 	<string name="rmd_EPr_snooze_dialog_title">알림 지연 HH:MM</string>
 	<string name="rmd_EPr_snooze_dialog_desc_true">새 지연 시간을 선택하여 알림 연기 (HH:MM)</string>
 	<string name="rmd_EPr_snooze_dialog_desc_false">미룰 날짜/시간을 선택하여 알림 연기</string>
@@ -727,70 +709,6 @@
 		<item>오전 7시</item>
 		<item>오전 8시</item>
 	</string-array>
-	<string name="reminders_social">이 사람들은 당신만 믿고 있어!</string>
-	<string name="reminders_social_one">%s님이 당신을 의지하고 있습니다!</string>
-	<string name="reminders_social_multiple">%1$s, %2$s 님 등이 당신을 의지하고 있습니다!</string>
-	<string-array name="reminders">
-		<item>거기 안녕! 시간 좀 있어?</item>
-		<item>잠깐 볼 수 있을까?</item>
-		<item>잠깐 시간 좀 낼 수 있을까?</item>
-		<item>잊어 버렸어?</item>
-		<item>잠깐만!</item>
-		<item>시간 있을 때:</item>
-		<item>당신의 일정:</item>
-		<item>시간 여유 있어?</item>
-		<item>아스트리드가 여기 있소이다!</item>
-		<item>안녕! 좀 귀찮게 굴어도 될까?</item>
-		<item>시간 좀 낼 수 있어?</item>
-		<item>일하기 좋은 날:</item>
-	</string-array>
-	<string-array name="reminders_due">
-		<item>일할 시간이야!</item>
-		<item>마감일이에요!</item>
-		<item>시작할 준비 됐어?</item>
-		<item>이걸 하겠다고 했잖아:</item>
-		<item>이미 시작했어야지:</item>
-		<item>시작할 시간:</item>
-		<item>시간이 되었네!</item>
-		<item>잠깐만! 이제 일할 시간이야:</item>
-		<item>한가해? 좀 하라구:</item>
-	</string-array>
-	<string-array name="reminders_snooze">
-		<item>지금 게으름은 안돼!</item>
-		<item>낮잠 시간 끝났어요!</item>
-		<item>낮잠은 그만 자!</item>
-		<item>이제 준비됐겠지?</item>
-		<item>더 이상 미루지 말라구!</item>
-	</string-array>
-	<string-array name="reminder_responses">
-		<item>네가 할 일이 있어!</item>
-		<item>이거 끝내버릴 준비 됐어?</item>
-		<item>왜 이 일을 끝내버리지 않는 거지?</item>
-		<item>이건 어때? 준~비됐나?</item>
-		<item>이거 할 준비 됐지?</item>
-		<item>이거 할 수 있겠어?</item>
-		<item>이걸 끝내면 행복해 질 수 있어!</item>
-		<item>이걸 마치면 기분이 좋아질 거야! 날 믿어!</item>
-		<item>이거 오늘 하기로 하지 않았어?</item>
-		<item>제발 이거 좀 마쳐라, 질리지도 않아!</item>
-		<item>이걸 끝낼 수 있겠어? 넌 할 수 있을 거라고 믿어!</item>
-		<item>이거 아주 안할꺼야?</item>
-		<item>자신감을 가져봐. 해보자구!</item>
-		<item>네가 정말 자랑스러워! 이걸 끝내버리자구!</item>
-		<item>이걸 끝내고 약간의 간식 어때?</item>
-		<item>제발 이거 하나만요, 응?</item>
-		<item>할 일 목록를 줄일 시간이거든!</item>
-		<item>너는 팀에서 어떻게 할꺼야? 손발을 잘 맞춰 보라구! 해보자!</item>
-		<item>너 최근에 끝내준다고 말했었나? 좋아, 계속하라구!</item>
-		<item>하루에 하나의 일정으로 어수선함은 그만… 뒤죽박죽은 이제 안녕!</item>
-		<item>어떻게 하고 있어? 와, 정말 인상적인네!</item>
-		<item>잘난 얼굴만 가지고는 할 수 없어. 덤벼들라구!</item>
-		<item>이런 일하기 좋은 날씨야, 그렇지?</item>
-		<item>이 일 하면서 차 한 잔 어때?</item>
-		<item>이 일을 마치기만 하면, 나가서 놀 수 있어.</item>
-		<item>시간이 됐네. 불가피한 일은 미룰 수 없는 거야.</item>
-		<item>네가 나를 무시할 때마다 내 속이 썩어간다.</item>
-	</string-array>
 	<string name="repeat_plugin">일정 반복하기</string>
 	<string name="repeat_plugin_desc">일정 반복 허락</string>
 	<string name="repeat_enabled">반복 설정</string>
@@ -847,17 +765,6 @@
 	<string name="repeat_rescheduling_dialog_bubble">%1$s 이 반복 일정을 %2$s 에서 %3$s 로 변경했습니다</string>
 	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s 이 반복 일정을 %2$s 로 변경했습니다</string>
 	<string name="repeat_rescheduling_dialog_bubble_last_time">이 반복 일정은 %1$s 까지였는데 지금 다 끝냈습니다. %2$s</string>
-	<string-array name="repeat_encouragement">
-		<item>잘했어!</item>
-		<item>와... 네가 정말 자랑스러워!</item>
-		<item>네가 결실을 맺는 것이 좋아!</item>
-		<item>무언가 완료 체크를 하면 기분이 좋지 않니?</item>
-	</string-array>
-	<string-array name="repeat_encouragement_last_time">
-		<item>훌륭해!</item>
-		<item>네가 자랑스럽다!</item>
-		<item>네가 열매를 많이 맺으면 나는 기뻐!</item>
-	</string-array>
 	<string name="subtasks_help_title">Tasks에서 정렬하고 들여쓰기</string>
 	<string name="subtasks_help_1">일정을 옮기려면 길게 누릅니다</string>
 	<string name="subtasks_help_2">재배열하려면 수직으로 드래그합니다</string>

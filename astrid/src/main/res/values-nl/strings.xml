@@ -47,10 +47,6 @@
 	<string name="actfm_feat_list_clone_success">Succes!</string>
 	<string name="actfm_feat_list_task_clone_success">Taak gekopiéerd.</string>
 	<string name="actfm_feat_list_clone_empty">Geen taken om te kopiéren</string>
-	<string name="actfm_https_title">HTTPS gebruiken</string>
-	<string name="actfm_account_type">Type account</string>
-	<string name="actfm_inapp_billing">Upgrade naar Premium</string>
-	<string name="actfm_inapp_billing_summary">Voeg bestanden toe, Stem backup, premium onddrsteuning &amp; meer</string>
 	<string name="actfm_tag_not_authorized_title">Niet geautoriseerd</string>
 	<string name="actfm_tag_not_authorized_body">Je bent niet langer geautoriseerd om lijst %s te bekijken (wellicht ben je verwijderd). Wil je een nieuwe lijst aanmaken met dezelfde naam?</string>
 	<string name="actfm_tag_not_authorized_new_list">Maak een nieuwe lijst</string>
@@ -110,7 +106,6 @@
 	<string name="TLA_menu_lists">Lijsten</string>
 	<string name="TLA_menu_friends">Personen</string>
 	<string name="TLA_menu_featured_lists">Aanbevolen Lijsten</string>
-	<string name="TLA_menu_suggestions">Suggesties</string>
 	<string name="TLA_menu_settings">Instellingen</string>
 	<string name="TLA_menu_support">Ondersteuning</string>
 	<string name="TLA_custom">Aangepast</string>
@@ -229,14 +224,6 @@
 	<string name="MCA_task_title_name">Bel %1$s terug op %2$s</string>
 	<string name="MCA_task_title_no_name">Bel %s terug</string>
 	<string name="MCA_schedule_dialog_title">Bel %s terug over...</string>
-	<string-array name="MCA_dialog_speech_options">
-		<item>Het zal wel leuk zijn om zo populair te zijn!</item>
-		<item>Joehoe! Mensen houden van je!</item>
-		<item>Maak ze blij, bel ze op!</item>
-		<item>Zou jij niet blij zijn als mensen je terug zouden bellen?</item>
-		<item>Je kan het!</item>
-		<item>Je kan altijd een smsje sturen..</item>
-	</string-array>
 	<string name="CRA_ignore">Negeren</string>
 	<string name="CRA_title">Heb je een bijeenkomst lijst nodig? </string>
 	<string name="CRA_ignore_title">Alle agenda gebeurtenissen negeren? </string>
@@ -338,8 +325,6 @@
 	<string name="AOA_tab_available">Beschikbaar</string>
 	<string name="AOA_free">Gratis</string>
 	<string name="AOA_no_addons">Lijst is leeg!</string>
-	<string name="AOA_ppack_title">Tasks Power Pack</string>
-	<string name="AOA_ppack_description">Steun Tasks en wordt productiever met de Tasks Power Pack. 4x2 en 4x4 widgets en stem integratie. Start vandaag! </string>
 	<string name="AOA_locale_description">Sta toe dat Tasks gebruik maakt van de Locale applicatie om je notificaties te sturen gebaseerd op de filter voorwaarden. Locale vereist.</string>
 	<string name="TWi_loading">Laden…</string>
 	<string name="WCA_title">Selecteer weer te geven taken...</string>
@@ -613,9 +598,6 @@
 	<string name="rmd_EPr_vibrate_title">Trillen bij herinnering</string>
 	<string name="rmd_EPr_vibrate_desc_true">Tasks laat telefoon trillen bij herinnering</string>
 	<string name="rmd_EPr_vibrate_desc_false">Tasks laat telefoon niet trillen bij herinnering</string>
-	<string name="rmd_EPr_nagging_title">Tasks aanmoedigingen</string>
-	<string name="rmd_EPr_nagging_desc_true">Tasks geeft motiverende herinneringen</string>
-	<string name="rmd_EPr_nagging_desc_false">Tasks geeft geen aanmoedigings berichten</string>
 	<string name="rmd_EPr_snooze_dialog_title">Sluimeren dialoog UU:MM</string>
 	<string name="rmd_EPr_snooze_dialog_desc_true">Sluimeren door selecteren nieuwe sluimertijd (UU:MM)</string>
 	<string name="rmd_EPr_snooze_dialog_desc_false">Sluimeren door selecteren aantal dagen/uren sluimertijd</string>
@@ -710,70 +692,6 @@
 		<item>07:00</item>
 		<item>08:00</item>
 	</string-array>
-	<string name="reminders_social">Deze mensen rekenen op je!</string>
-	<string name="reminders_social_one">%s rekent op je!</string>
-	<string name="reminders_social_multiple">%1$s, %2$s, en anderen rekenen op je!</string>
-	<string-array name="reminders">
-		<item>Hoi! Mag ik even?</item>
-		<item>Kan ik je even spreken?</item>
-		<item>Heb je een paar minuutjes?</item>
-		<item>Was je dit vergeten?</item>
-		<item>Mag ik even?</item>
-		<item>Luister even...</item>
-		<item>In je agenda:</item>
-		<item>Niets te doen?</item>
-		<item>Hier is Tasks!</item>
-		<item>En dan nog even dit...</item>
-		<item>Mag ik even de aandacht?</item>
-		<item>Dit is het moment om</item>
-	</string-array>
-	<string-array name="reminders_due">
-		<item>Tijd om te knallen!</item>
-		<item>Einddatum in zicht!</item>
-		<item>Klaar voor de start?</item>
-		<item>Je hebt \'t beloofd:</item>
-		<item>Je zou beginnen met:</item>
-		<item>Start nu:</item>
-		<item>Het is tijd!</item>
-		<item>Sorry hoor! Nu moet</item>
-		<item>Heb je even? Het is tijd voor:</item>
-	</string-array>
-	<string-array name="reminders_snooze">
-		<item>Niet lui zijn nu!</item>
-		<item>Uitgesluimerd!</item>
-		<item>Sluimertijd is voorbij!</item>
-		<item>Ben je nu eindelijk vrij?</item>
-		<item>Peper in je reet!</item>
-	</string-array>
-	<string-array name="reminder_responses">
-		<item>Ik heb iets voor je!</item>
-		<item>Klaar om af te vinken?</item>
-		<item>Zou je dit niet kunnen doen?</item>
-		<item>Hoe is \'t, ben je er klaar voor?</item>
-		<item>Klaar voor de start?</item>
-		<item>Kun je dit regelen?</item>
-		<item>Eeuwige roem lonkt! Maak dit af!</item>
-		<item>Lege lijsten zijn mooie lijsten...</item>
-		<item>Waarom niet vandaag?</item>
-		<item>Maak het af, ik word er niet goed van!</item>
-		<item>Kan dit af? Natuurlijk!</item>
-		<item>Gaat dit ooit afkomen?</item>
-		<item>Zo gaat \'ie goed! Zet door!</item>
-		<item>Ik ben trots op je! Kom op!</item>
-		<item>Kopje koffie hierna?</item>
-		<item>Aaah, nog eentje dan? Alsjeblieft?</item>
-		<item>Tijd om je te-doen lijst op te schonen!</item>
-		<item>Ben jij op Team Order of Team Chaos? Team Order! Let\'s go!</item>
-		<item>Had ik al gezegd dat je geweldig bent? Ga zo door!</item>
-		<item>Een taak die een dag blijft houd de rommel weg... Tot ziens warhoofd!</item>
-		<item>Hoe doe je het toch? Wow, ik ben onder de indruk!</item>
-		<item>Je komt niet verder met je knappe koppie. Werk aan de winkel!</item>
-		<item>Mooi weer voor dit werk, vind je niet?</item>
-		<item>A spot of tea while you work on this?</item>
-		<item>Als je dit nu al gedaan had kon je nu buiten spelen!</item>
-		<item>Het is tijd. Je kan het niet eeuwig blijven uitstellen.</item>
-		<item>Telkens als je me negeert, sterft een klein stukje van mij.</item>
-	</string-array>
 	<string name="repeat_plugin">Herhalende taken</string>
 	<string name="repeat_plugin_desc">Herhalende taken toestaan</string>
 	<string name="repeat_enabled">Herhalingen</string>
@@ -831,17 +749,6 @@
 	<string name="repeat_rescheduling_dialog_bubble">%1$s Ik heb deze herhalende taak verzet van %2$s naar %3$s</string>
 	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s Ik heb deze herhalende taak opnieuw ingepland op %2$s</string>
 	<string name="repeat_rescheduling_dialog_bubble_last_time">Deze taak herhaalde zichzelf tot %1$s. Nu ben je klaar. %2$s</string>
-	<string-array name="repeat_encouragement">
-		<item>Goed gedaan!</item>
-		<item>Wauw... Ik ben zo trots op je!</item>
-		<item>Ik hou ervan wanneer je productief bent!</item>
-		<item>Geeft het geen goed gevoel om iets af te kunnen vinken?</item>
-	</string-array>
-	<string-array name="repeat_encouragement_last_time">
-		<item>Goed gedaan!</item>
-		<item>Ik ben zo trots op je!</item>
-		<item>Ik hou ervan wanneer je productief bent!</item>
-	</string-array>
 	<string name="subtasks_help_title">Sorteren en inspringen in Tasks</string>
 	<string name="subtasks_help_1">Druk en sleep om een taak te verplaatsen</string>
 	<string name="subtasks_help_2">Sleep verticaal om te herschikken</string>

@@ -21,13 +21,6 @@ public abstract class MarketStrategy {
     abstract public String strategyId();
 
     /**
-     * @return if this market has power pack
-     */
-    public boolean includesPowerPack() {
-        return true;
-    }
-
-    /**
      * @return if this market has locale plugin
      */
     public boolean includesLocalePlugin() {

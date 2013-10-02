@@ -44,11 +44,6 @@
 	<string name="actfm_feat_list_clone_success">完成!</string>
 	<string name="actfm_feat_list_task_clone_success">任务已复制</string>
 	<string name="actfm_feat_list_clone_empty">无任务复制</string>
-	<string name="actfm_APr_header">Tasks.com (清单小助理)</string>
-	<string name="actfm_https_title">使用 HTTPS</string>
-	<string name="actfm_account_type">帐号类型</string>
-	<string name="actfm_inapp_billing">升级成高级用户</string>
-	<string name="actfm_inapp_billing_summary">附件，语音备份，高级支持和更多</string>
 	<string name="actfm_sync_ongoing">同步中...</string>
 	<string name="alarm_ACS_label">闹钟</string>
 	<string name="alarm_ACS_button">添加闹钟</string>
@@ -102,7 +97,6 @@
 	<string name="TLA_menu_lists">列表</string>
 	<string name="TLA_menu_friends">人物</string>
 	<string name="TLA_menu_featured_lists">特定列表</string>
-	<string name="TLA_menu_suggestions">建议</string>
 	<string name="TLA_menu_settings">设置</string>
 	<string name="TLA_menu_support">支持</string>
 	<string name="TLA_custom">自定义</string>
@@ -208,14 +202,6 @@
 	<string name="MCA_task_title_name">请回电给 %1$s，电话是 %2$s</string>
 	<string name="MCA_task_title_no_name">请回电给 %s</string>
 	<string name="MCA_schedule_dialog_title">请给 %s 回个电话过去……</string>
-	<string-array name="MCA_dialog_speech_options">
-		<item>您这么人见人爱、花见花开，感觉肯定棒极了！</item>
-		<item>哇！个个都喜欢您咽！</item>
-		<item>回个电话吧，好让他们高兴一整天！</item>
-		<item>人家给您回电话，您肯定高兴，不是吗？</item>
-		<item>您是可以回电的！</item>
-		<item>无论怎样，您也可以发条短信呀……</item>
-	</string-array>
 	<string name="CRA_ignore">忽略</string>
 	<string name="CRA_title">需要会议列表？</string>
 	<string name="CRA_ignore_title">忽略所有日历事件？</string>
@@ -273,7 +259,6 @@
 	<string name="AOA_tab_available">可用</string>
 	<string name="AOA_free">免费</string>
 	<string name="AOA_no_addons">空列表！</string>
-	<string name="AOA_ppack_description">支持清单小助理并在优化工具的帮助下变得更加有效率。提供 4＊2 和4＊4尺寸的小工具和语音支持。让我们给生活加把劲！</string>
 	<string name="AOA_locale_title">清单小助理场所插件</string>
 	<string name="AOA_locale_description">在过滤的条件下，允许清单小助理利用场所应用推送通知。现在就获取场所插件。</string>
 	<string name="TWi_loading">载入中...</string>
@@ -517,9 +502,6 @@
 	<string name="rmd_EPr_vibrate_title">震动提醒</string>
 	<string name="rmd_EPr_vibrate_desc_true">传送通知时会震动</string>
 	<string name="rmd_EPr_vibrate_desc_false">传送通知震动关闭</string>
-	<string name="rmd_EPr_nagging_title">清单小助理提醒</string>
-	<string name="rmd_EPr_nagging_desc_true">Tasks 提醒时会给你鼓励</string>
-	<string name="rmd_EPr_nagging_desc_false">Tasks 不显示任何鼓励</string>
 	<string name="rmd_EPr_snooze_dialog_title">晚点提醒对话框 小时:分钟</string>
 	<string name="rmd_EPr_snooze_dialog_desc_true">选择晚点提醒的时间 (小时:分钟)</string>
 	<string name="rmd_EPr_snooze_dialog_desc_false">选择几天/小时后再提醒</string>
@@ -614,67 +596,6 @@
 		<item>07:00</item>
 		<item>08:00</item>
 	</string-array>
-	<string-array name="reminders">
-		<item>您好！有时间吗？</item>
-		<item>能借用一点时间吗？</item>
-		<item>有几分钟吗？</item>
-		<item>忘了什么吗？</item>
-		<item>不好意思！</item>
-		<item>当您有时间：</item>
-		<item>在您的议程：</item>
-		<item>有空吗？</item>
-		<item>注意一下Tasks!</item>
-		<item>可打扰一下吗？</item>
-		<item>能借一分钟吗？</item>
-		<item>重要的一天要</item>
-	</string-array>
-	<string-array name="reminders_due">
-		<item>该任务囉!</item>
-		<item>期限快到了！</item>
-		<item>准备好了吗？</item>
-		<item>您说过您将会：</item>
-		<item>您应开始：</item>
-		<item>该开始：</item>
-		<item>时候到了！</item>
-		<item>抱歉！该做</item>
-		<item>有空吗？是时候做</item>
-	</string-array>
-	<string-array name="reminders_snooze">
-		<item>别想偷懒喔！</item>
-		<item>休息时间过了！</item>
-		<item>别再睡了！</item>
-		<item>现在准备好了吗？</item>
-		<item>不能再推了！</item>
-	</string-array>
-	<string-array name="reminder_responses">
-		<item>我有些事想麻烦您！</item>
-		<item>是时候该让这事成为过去了？</item>
-		<item>为何不将其搞掂？</item>
-		<item>如何?准备好了吗？</item>
-		<item>准备好做这件事了吗？</item>
-		<item>您能处理这件事吗？</item>
-		<item>当您完成时会很高兴的！</item>
-		<item>我保证，完成这件事后您会感觉更棒！</item>
-		<item>您今天不想做这个了？</item>
-		<item>请做完吧，我受不了了！</item>
-		<item>您能完成吗？当然可以！</item>
-		<item>您是否要做这件事？</item>
-		<item>自我感觉很好吧！加油！</item>
-		<item>我以你为荣！让我们完成它吧！</item>
-		<item>完成后来点小奖励如何？</item>
-		<item>就这一件？好吗？</item>
-		<item>是时候清理任务清单了!</item>
-		<item>您所在的队伍是整装待发的还是杂乱无章的？整装待发的！那我们出发吧！</item>
-		<item>我最近不是说过您做得不错吗？坚持啊！</item>
-		<item>一天一件事，天下大乱也不关我的事……再见啦，乱子！</item>
-		<item>您怎么做到的呀？哇，我真佩服了！</item>
-		<item>不管您有多帅多美，您也不能拿来维持生活的。让我们准备做点实事吧！</item>
-		<item>天气不错呀，是时候搞定这种工作了，不是吗？</item>
-		<item>做这件事时是不是想来杯茶呢？</item>
-		<item>要是您已经做完这件事，您就可以到外面玩了。</item>
-		<item>是时候了。要做的事情总是要做的。</item>
-		<item>您每次不理我，我都被折磨得死去活来的。</item>
-	</string-array>
 	<string name="repeat_plugin">重复任务</string>
 	<string name="repeat_plugin_desc">允许任务重复</string>
 	<string name="repeat_enabled">重复</string>
@@ -724,17 +645,6 @@
 	<string name="repeat_rescheduling_dialog_bubble">%1$s 我已经重新安排了这项重复任务，截止日期由 %2$s 变成 %3$s</string>
 	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s 我已经重新安排了这项重复任务，截止日期为 %2$s</string>
 	<string name="repeat_rescheduling_dialog_bubble_last_time">您设置了这项任务重复到 %1$s，现在您已经圆满完成。%2$s</string>
-	<string-array name="repeat_encouragement">
-		<item>做得好！</item>
-		<item>哇噢... 我真为你骄傲！</item>
-		<item>每次您能做那么多事情的时候，我都爱死您了！</item>
-		<item>勾掉一些任务的时候是不是很爽呀？</item>
-	</string-array>
-	<string-array name="repeat_encouragement_last_time">
-		<item>做得好！</item>
-		<item>我真为您骄傲啊！</item>
-		<item>每次您能做那么多事情的时候，我都爱死您了！</item>
-	</string-array>
 	<string name="subtasks_help_title">在 Tasks 中排序并缩进</string>
 	<string name="subtasks_help_1">轻点并按住一项任务来移动它</string>
 	<string name="subtasks_help_2">上下拖动以重新整理</string>

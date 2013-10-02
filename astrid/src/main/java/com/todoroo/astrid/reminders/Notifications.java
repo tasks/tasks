@@ -108,14 +108,6 @@ public class Notifications extends BroadcastReceiver {
 
         if(type == ReminderService.TYPE_ALARM) {
             reminder = getRandomReminder(r.getStringArray(R.array.reminders_alarm));
-        } else if(Preferences.getBoolean(R.string.p_rmd_nagging, true)) {
-            if(type == ReminderService.TYPE_DUE || type == ReminderService.TYPE_OVERDUE) {
-                reminder = getRandomReminder(r.getStringArray(R.array.reminders_due));
-            } else if(type == ReminderService.TYPE_SNOOZE) {
-                reminder = getRandomReminder(r.getStringArray(R.array.reminders_snooze));
-            } else {
-                reminder = getRandomReminder(r.getStringArray(R.array.reminders));
-            }
         } else {
             reminder = ""; //$NON-NLS-1$
         }
@@ -496,9 +488,6 @@ public class Notifications extends BroadcastReceiver {
 
     /**
      * Schedules alarms for a single task
-     *
-     * @param shouldPerformPropertyCheck
-     *            whether to check if task has requisite properties
      */
     public static void cancelNotifications(long taskId) {
         if(notificationManager == null) {

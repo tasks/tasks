@@ -113,7 +113,6 @@ public final class ReminderService  {
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_quietEnd, 10);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_default_random_hours, 0);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_time, 18);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_nagging, true);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_persistent, true);
 
         editor.commit();

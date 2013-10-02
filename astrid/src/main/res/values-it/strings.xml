@@ -45,10 +45,6 @@
 	<string name="actfm_feat_list_clone_success">Operazione riuscita!</string>
 	<string name="actfm_feat_list_task_clone_success">Compito copiato</string>
 	<string name="actfm_feat_list_clone_empty">Nessun compito da copiare</string>
-	<string name="actfm_https_title">Utilizza HTTPS</string>
-	<string name="actfm_account_type">Tipo di account</string>
-	<string name="actfm_inapp_billing">Aggiorna al Premium</string>
-	<string name="actfm_inapp_billing_summary">Allega files, archivio registrazioni vocali, supporto premium &amp; altro</string>
 	<string name="actfm_tag_not_authorized_new_list">Crea nuova lista</string>
 	<string name="actfm_sync_ongoing">Sincronizzazione in corso...</string>
 	<string name="alarm_ACS_label">Promemoria</string>
@@ -101,7 +97,6 @@
 	<string name="TLA_menu_lists">Liste</string>
 	<string name="TLA_menu_friends">Persone</string>
 	<string name="TLA_menu_featured_lists">Liste in primo piano</string>
-	<string name="TLA_menu_suggestions">Suggerimenti</string>
 	<string name="TLA_menu_settings">Impostazioni</string>
 	<string name="TLA_menu_support">Supporto</string>
 	<string name="TLA_custom">Personalizzato</string>
@@ -208,14 +203,6 @@
 	<string name="MCA_task_title_name">Richiama %1$s al %2$s</string>
 	<string name="MCA_task_title_no_name">Richiama %s</string>
 	<string name="MCA_schedule_dialog_title">Richiama %s tra...</string>
-	<string-array name="MCA_dialog_speech_options">
-		<item>Dev\'essere fantastico essere così popolari!</item>
-		<item>Yay! Piaci alla gente!</item>
-		<item>Rendili felici, telefonagli!</item>
-		<item>Non saresti felice se le persone ti richiamassero?</item>
-		<item>Puoi farlo!</item>
-		<item>Puoi sempre inviare un messaggio...</item>
-	</string-array>
 	<string name="CRA_ignore">Ignora</string>
 	<string name="CRA_title">Hai bisogno di una lista per le riunioni?</string>
 	<string name="CRA_ignore_title">Ignora tutti gli eventi del calendario?</string>
@@ -292,8 +279,6 @@
 	<string name="AOA_tab_available">Disponibile</string>
 	<string name="AOA_free">Gratuito</string>
 	<string name="AOA_no_addons">Lista vuota!</string>
-	<string name="AOA_ppack_title">Tasks Power Pack</string>
-	<string name="AOA_ppack_description">Sostieni Tasks e diventa più produttivo con Tasks Power Pack. 4x2 e 4x4 di widgets e integrazione vocale. Provalo adesso!</string>
 	<string name="AOA_locale_title">Plugin Tasks per Locale</string>
 	<string name="AOA_locale_description">Consenti ad Tasks di usare l\'applicazione Locale per inviarti notifiche in base ai tuoi filtri. è richiesta l\'applicazione Locale.</string>
 	<string name="TWi_loading">Caricamento...</string>
@@ -536,9 +521,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="rmd_EPr_vibrate_title">Vibrazione telefono</string>
 	<string name="rmd_EPr_vibrate_desc_true">Tasks vibrerà durante l\'invio di notifiche</string>
 	<string name="rmd_EPr_vibrate_desc_false">Tasks non vibrerà durante l\'invio di notifiche</string>
-	<string name="rmd_EPr_nagging_title">Promemoria Tasks</string>
-	<string name="rmd_EPr_nagging_desc_true">Tasks si mostrerà per incoraggiarti durante i promemoria</string>
-	<string name="rmd_EPr_nagging_desc_false">Tasks non ti darà nessun messaggio di incoraggiamento</string>
 	<string name="rmd_EPr_snooze_dialog_title">Posticipa a HH:MM</string>
 	<string name="rmd_EPr_snooze_dialog_desc_true">Posticipa scegliendo un nuovo orario (HH:MM)</string>
 	<string name="rmd_EPr_snooze_dialog_desc_false">Posticipa scegliendo il numero di giorni/ore</string>
@@ -580,68 +562,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 		<item>5 PM</item>
 		<item>6 PM</item>
 		<item>7 PM</item>
-	</string-array>
-	<string name="reminders_social">Questa gente conta su di te!</string>
-	<string-array name="reminders">
-		<item>Ciao! Hai un secondo?</item>
-		<item>Posso vederti per un secondo?</item>
-		<item>Hai qualche minuto?</item>
-		<item>Ti sei dimenticato?</item>
-		<item>Scusami!</item>
-		<item>Quando hai un minuto:</item>
-		<item>Nella tua agenda:</item>
-		<item>Sei libero per un momento?</item>
-		<item>Tasks è qui!</item>
-		<item>Ciao! Posso disturbarti?</item>
-		<item>Un minuto del tuo tempo?</item>
-		<item>È un gran giorno per</item>
-	</string-array>
-	<string-array name="reminders_due">
-		<item>Ora al lavoro!</item>
-		<item>La scadenza è qui!</item>
-		<item>Pronto per iniziare?</item>
-		<item>Hai detto che avresti fatto:</item>
-		<item>Dovresti iniziare:</item>
-		<item>Tempo per iniziare:</item>
-		<item>E\' il momento!</item>
-		<item>Scusami! E\' il momento di</item>
-		<item>Sei libero? E\' il momento di</item>
-	</string-array>
-	<string-array name="reminders_snooze">
-		<item>Non essere pigro ora!</item>
-		<item>Posticipo terminato!</item>
-		<item>Basta con i posticipi!</item>
-		<item>Adesso sei pronto?</item>
-		<item>Non rimandare più!</item>
-	</string-array>
-	<string-array name="reminder_responses">
-		<item>Ho qualcosa per te!</item>
-		<item>Sei pronto a dimenticarti di questo?</item>
-		<item>Perché non lo completi?</item>
-		<item>Cosa ne pensi? Pronto come una tigre?</item>
-		<item>Sei pronto per questo?</item>
-		<item>Riesci a gestirlo?</item>
-		<item>Puoi essere felice! Basta che tu lo finisca!</item>
-		<item>Ti prometto che ti sentirai meglio se lo finisci!</item>
-		<item>Non lo farai oggi?</item>
-		<item>Ti prego finiscilo, sono stufo!</item>
-		<item>Puoi terminarlo? Si che puoi!</item>
-		<item>Hai intenzione di farlo prima o poi?</item>
-		<item>Sentiti bene con te stesso! Andiamo!</item>
-		<item>Sono fiero di te! Finiamolo!</item>
-		<item>Che ne pensi di un piccolo spuntino dopo che avrai finito?</item>
-		<item>Solo questo compito? Per favore?</item>
-		<item>E\' tempo di accorciare la tua lista delle cose da fare!</item>
-		<item>Are you on Team Order or Team Chaos? Team Order! Let\'s go!</item>
-		<item>Ti ho ricordato di recente che sei fantastico? Continua così!</item>
-		<item>Un\'attività al giorno leva il disordine di torno... Addio disordine!</item>
-		<item>Come ci sei riuscito? Wow..sono impressionato!</item>
-		<item>You can\'t just get by on your good looks. Let\'s get to it!</item>
-		<item>Un tempo ideale per un lavoro come questo, non è così?</item>
-		<item>Una tazza di tè mentre lavori a quest\'attività?</item>
-		<item>Se solo tu avessi già finito, allora potresti uscire e giocare.</item>
-		<item>E\' il momento. Non puoi evitare l\'inevitabile.</item>
-		<item>Muoio un po\' ogni volta che mi ignori.</item>
 	</string-array>
 	<string name="repeat_plugin">Attività ricorrente</string>
 	<string name="repeat_plugin_desc">Permette di ripetere le attività</string>

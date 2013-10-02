@@ -834,9 +834,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         case MainMenuPopover.MAIN_MENU_ITEM_FRIENDS:
             setFilterMode(FILTER_MODE_PEOPLE);
             return;
-        case MainMenuPopover.MAIN_MENU_ITEM_SUGGESTIONS:
-            // Doesn't exist yet
-            return;
         case MainMenuPopover.MAIN_MENU_ITEM_SETTINGS:
             if (tlf != null) {
                 tlf.showSettings();

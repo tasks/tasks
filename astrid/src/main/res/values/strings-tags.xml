@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Resources for built-in tag plug-in -->
-
   <!-- =============================================== Task Edit Controls == -->
 
   <!-- Tags label -->
@@ -14,20 +12,10 @@
   <!-- Tags hint -->
   <string name="TEA_tag_hint">New list</string>
   
-  <!-- Tags dropdown -->
-    
-  <!-- =============================================== Task List Controls == -->
-  
-  <!-- menu item for tags -->
-  
   <!-- ========================================================== Extras == -->
-  
-  <!-- Context Item: show tag -->
   
   <!-- slide 25a: Dialog: new list -->
   <string name="tag_new_list">New List</string>
-  
-  <!-- Dialog: list saved -->
   
   <!-- Dialog: task created without title -->
   <string name="tag_no_title_error">Please enter a name for this list first!</string>
@@ -40,17 +28,9 @@
   <!-- filter header for tags -->
   <string name="tag_FEx_header">Lists</string>
   
-  <!-- filter header for tags user created -->
-  
-  <!-- filter header for tags, shared with user -->
-  
-  <!-- filter header for tags which have no active tasks -->
-  
   <!-- slide 10d: filter for untagged tasks -->
   <string name="tag_FEx_untagged">Uncategorized</string>
   
-  <!-- slide 27a: %s => tag name -->
-
   <!-- context menu option to rename a tag -->
   <string name="tag_cm_rename">Rename List</string>
 

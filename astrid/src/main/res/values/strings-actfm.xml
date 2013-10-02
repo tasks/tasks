@@ -70,25 +70,17 @@
   <!-- Tag View Activity: Add Comment hint -->    
   <string name="TVA_add_comment">Add a comment...</string>
 
-  <!-- Tag View Activity: task comment ($1 - user name, $2 - task title) -->    
-  
   <!-- Tag View Menu: refresh -->
   <string name="actfm_TVA_menu_refresh">Refresh</string>
 
   <!-- Tag Settings: tag name label -->
   <string name="actfm_TVA_tag_label">List</string>
 
-  <!-- Tag Settings: tag owner label -->
-
-  <!-- Tag Settings: tag owner value when there is no owner -->
-
   <!-- Tag Settings: tag picture -->
   <string name="actfm_TVA_tag_picture">List Picture</string>
 
   <!-- slide 25c/28b: Tag Settings: silence notifications label -->
   <string name="actfm_TVA_silence_label">Silence Notifications</string>
-  
-  <!-- Tag Settings: list icon label -->
   
   <!-- slide 25b/27d: Tag Settings: list description label -->
   <string name="actfm_TVA_tag_description_label">Description</string>
@@ -104,29 +96,9 @@
       
   <!-- ============================================ edit people dialog == -->
 
-  <!-- task sharing dialog: window title -->
-    
-  <!-- task sharing dialog: save button -->
-  
-  <!-- task sharing dialog: assigned label -->
-  
-  <!-- task sharing dialog: custom email assignment -->
-  
-  <!-- task sharing dialog: assigned hint -->
-  
-  <!-- task sharing dialog: message hint -->
-  
-  <!-- task sharing dialog: message hint -->
-  
-  <!-- task sharing dialog: # of e-mails sent (%s => # people plural string) -->
-
-  <!-- task sharing dialog: edit people settings saved -->
-
   <!-- task sharing dialog: invalid email (%s => email) -->
   <string name="actfm_EPA_invalid_email">Invalid E-mail: %s</string>
 
-  <!-- task sharing dialog: tag not found (%s => tag) -->
-  
   <string name="actfm_EPA_add_person_to_list_title">Task assigned</string>
   
   <string name="actfm_EPA_add_person_to_list">%1$s is not shared on this list. Would you like to add %2$s to this list?</string>
@@ -138,8 +110,6 @@
   <string name="actfm_list_owner">(owner)</string>
   
   <!-- ========================================= sharing login activity == -->
-
-  <!-- share login: Username / Email -->
 
   <!-- share login: Google Auth title -->
   <string name="actfm_GAA_title">Select the Google account you want to use:</string>
@@ -160,21 +130,6 @@
   
   <!-- ================================================ Synchronization == -->
       
-  <!-- Preferences Title: Act.fm -->    
-  <string name="actfm_APr_header">Tasks.com</string>
-  
-  <string name="actfm_https_title">Use HTTPS</string>
-
-  <!-- title for notification tray after synchronizing -->
-  
-  <!-- text for notification when comments are received -->
-    
-  <!-- account types -->
-  <string name="actfm_account_type">Account type</string>
-  
-  <string name="actfm_inapp_billing">Upgrade to Premium</string>
-  <string name="actfm_inapp_billing_summary">Attach files, voice backups, premium support &amp; more</string>
-  
   <!-- Sync upgrade messages -->
   
   <string name="actfm_tag_not_authorized_title">Not authorized</string>

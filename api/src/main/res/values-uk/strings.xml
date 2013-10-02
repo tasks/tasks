@@ -5,6 +5,42 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
+	<plurals name="DUt_years">
+		<item quantity="one">1 Рік</item>
+		<item quantity="other">%d років</item>
+	</plurals>
+	<plurals name="DUt_months">
+		<item quantity="one">1 місяць</item>
+		<item quantity="other">%d місяців</item>
+	</plurals>
+	<plurals name="DUt_weeks">
+		<item quantity="one">1 тиждень</item>
+		<item quantity="other">%d тижнів</item>
+	</plurals>
+	<plurals name="DUt_days">
+		<item quantity="one">1 день</item>
+		<item quantity="other">%d днів</item>
+	</plurals>
+	<plurals name="DUt_hoursShort">
+		<item quantity="one">1 год.</item>
+		<item quantity="other">%d год.</item>
+	</plurals>
+	<plurals name="DUt_minutesShort">
+		<item quantity="one">1 хв.</item>
+		<item quantity="other">%d хв.</item>
+	</plurals>
+	<plurals name="DUt_secondsShort">
+		<item quantity="one">1 сек.</item>
+		<item quantity="other">%d сек.</item>
+	</plurals>
+	<plurals name="Ntasks">
+		<item quantity="one">1 завдання</item>
+		<item quantity="other">%d завдань</item>
+	</plurals>
+	<plurals name="Npeople">
+		<item quantity="one">1 людина</item>
+		<item quantity="other">%d людей</item>
+	</plurals>
 	<string name="today">Сьогодні</string>
 	<string name="tomorrow">Завтра</string>
 	<string name="yesterday">Вчора</string>
@@ -37,5 +73,21 @@
 	<string name="sync_SPr_interval_desc_disabled">Фонова синхронізація відключена</string>
 	<string name="sync_SPr_group_actions">Дії</string>
 	<string name="sync_SPr_sync">Синхронізувати зараз</string>
+	<string name="sync_SPr_send_report">Відіслати звіт</string>
 	<string name="sync_SPr_forget">Вийти</string>
+	<string name="sync_error_offline">У процесі останньої синхронізації %s.
+ Виникли проблеми підключення до мережі.
+ Будь ласка, спробуйте ще раз пізніше.</string>
+	<string-array name="sync_SPr_interval_entries">
+		<item>вимкнути</item>
+		<item>що 15 хвилин</item>
+		<item>що 30 хвилин</item>
+		<item>кожну годину</item>
+		<item>кожних 3 години</item>
+		<item>кожних 6 годин</item>
+		<item>кожних 12 годин</item>
+		<item>щодня</item>
+		<item>кожного 3-го дня</item>
+		<item>кожного тижня</item>
+	</string-array>
 </resources>

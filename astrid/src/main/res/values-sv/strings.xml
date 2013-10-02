@@ -46,10 +46,6 @@
 	<string name="actfm_feat_list_clone_success">Klart!</string>
 	<string name="actfm_feat_list_task_clone_success">Uppgift kopierad</string>
 	<string name="actfm_feat_list_clone_empty">Ingen uppgift att kopiera</string>
-	<string name="actfm_https_title">Använd HTTPS</string>
-	<string name="actfm_account_type">Kontotyp</string>
-	<string name="actfm_inapp_billing">Uppgradera till Premium</string>
-	<string name="actfm_inapp_billing_summary">Bifoga filer, röstbackup, premiumsupport &amp; mer</string>
 	<string name="actfm_sync_ongoing">Synkronisering pågår...</string>
 	<string name="alarm_ACS_label">Alarm</string>
 	<string name="alarm_ACS_button">Lägg till ett alarm</string>
@@ -99,7 +95,6 @@
 	<string name="TLA_menu_lists">Listor</string>
 	<string name="TLA_menu_friends">Personer</string>
 	<string name="TLA_menu_featured_lists">Visa färdiga listor</string>
-	<string name="TLA_menu_suggestions">Förslag</string>
 	<string name="TLA_menu_settings">Inställningar</string>
 	<string name="TLA_custom">Egendefinierad</string>
 	<string name="TLA_quick_add_hint">Lägg till uppgift</string>
@@ -211,14 +206,6 @@
 	<string name="MCA_task_title_name">Ring %1$s tillbaka kl %2$s</string>
 	<string name="MCA_task_title_no_name">Ring %s tillbaka</string>
 	<string name="MCA_schedule_dialog_title">Ring %s tillbaka om...</string>
-	<string-array name="MCA_dialog_speech_options">
-		<item>Visst är det fint att vara så omtyckt!</item>
-		<item>Hurra! Man tycker om dig!</item>
-		<item>Gör dem glada, ring dem!</item>
-		<item>Skulle inte du bli glad om man ringde tillbaka?</item>
-		<item>Du klarar det!</item>
-		<item>Du kan alltid sända ett sms...</item>
-	</string-array>
 	<string name="CRA_ignore">Ignorera</string>
 	<string name="CRA_title">Behöver du en lista över möten?</string>
 	<string name="CRA_ignore_title">Ignorera alla händelser i kalender?</string>
@@ -298,8 +285,6 @@
 	<string name="AOA_tab_available">Tillgängliga</string>
 	<string name="AOA_free">Ledig</string>
 	<string name="AOA_no_addons">Tom lista!</string>
-	<string name="AOA_ppack_title">Tasks Power Pack</string>
-	<string name="AOA_ppack_description">Stöd Tasks och bli mer produktiv med Tasks Power Pack. 4x2- och 4x4-widgets och röstintegration. Uppgradera idag!</string>
 	<string name="AOA_locale_title">Tillägget Tasks Locale (lokalt språkstöd)</string>
 	<string name="AOA_locale_description">Låter Tasks använda Locale-applikationen för att skicka anpassade meddelanden. Kräver Locale.</string>
 	<string name="TWi_loading">Laddar...</string>
@@ -524,9 +509,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="rmd_EPr_vibrate_title">Vibrera vid varsel</string>
 	<string name="rmd_EPr_vibrate_desc_true">Tasks kommer att vibrera vid varsel</string>
 	<string name="rmd_EPr_vibrate_desc_false">Tasks kommer inte att vibrera vid varsel</string>
-	<string name="rmd_EPr_nagging_title">Tasks påminnelser</string>
-	<string name="rmd_EPr_nagging_desc_true">Tasks kommer att visa uppmuntringsmeddelanden vid påminnelser</string>
-	<string name="rmd_EPr_nagging_desc_false">Tasks kommer inte att visa uppmuntringsmeddelanden</string>
 	<string name="rmd_EPr_snooze_dialog_title">Paustidsinställningar TT:MM</string>
 	<string name="rmd_EPr_snooze_dialog_desc_true">Ställ in paustid genom att välja ny tid (TT:MM)</string>
 	<string name="rmd_EPr_snooze_dialog_desc_false">Ställ in paustid genom att välja # dagar/timmar för pausen</string>
@@ -621,68 +603,6 @@ och återställer dina aktuella uppgifter från en backup
 		<item>kl 07.00</item>
 		<item>kl 08.00</item>
 	</string-array>
-	<string name="reminders_social">Dessa människor räknar med dig!</string>
-	<string-array name="reminders">
-		<item>Hej! Har du en sekund?</item>
-		<item>Får jag prata med dig en sekund?</item>
-		<item>Har du ett par minuter?</item>
-		<item>Har du glömt?</item>
-		<item>Ursäkta mig!</item>
-		<item>När du har en minut:</item>
-		<item>På din agenda:</item>
-		<item>Ledig ett ögonblick?</item>
-		<item>Tasks här!</item>
-		<item>Hej! Får jag störa dig?</item>
-		<item>En minut av din tid?</item>
-		<item>Det är en fin dag att</item>
-	</string-array>
-	<string-array name="reminders_due">
-		<item>Dags att arbeta!</item>
-		<item>Förfallodatumet har kommit!</item>
-		<item>Redo att sätta igång?</item>
-		<item>Du sade att du skulle göra:</item>
-		<item>Det är meningen att du ska börja:</item>
-		<item>Dags att börja:</item>
-		<item>Nu är det dags!</item>
-		<item>Ursäkta mig! Det är dags för</item>
-		<item>Är du ledig? Det är dags för</item>
-	</string-array>
-	<string-array name="reminders_snooze">
-		<item>Var nu inte lat!</item>
-		<item>Paustiden är slut!</item>
-		<item>Ingen paus mer!</item>
-		<item>Är du klar nu då?</item>
-		<item>Skjut inte upp mer!</item>
-	</string-array>
-	<string-array name="reminder_responses">
-		<item>Jag har något till dig!</item>
-		<item>Redo att lägga detta i det förflutna?</item>
-		<item>Varför får du inte detta gjort?</item>
-		<item>Vad sägs? Är du redo?</item>
-		<item>Redo att göra detta?</item>
-		<item>Klarar du detta?</item>
-		<item>Du kan bli lycklig! Avsluta bara detta!</item>
-		<item>Jag lovar att du känner dig bättre om du avslutar detta!</item>
-		<item>Ska du inte göra detta idag?</item>
-		<item>Kan du inte bara avsluta denna uppgift? Jag blir ju led på den!</item>
-		<item>Kan du avsluta detta? Ja, det kan du!</item>
-		<item>Kommer du någonsin att göra detta?</item>
-		<item>Var nöjd med dig själv! Kom igen!</item>
-		<item>Jag är så stolt över dig! Få det gjort!</item>
-		<item>En liten munsbit efter att du avslutat detta?</item>
-		<item>Bara den här uppgiften? Snälla?</item>
-		<item>Dags att korta ned din att-göra-lista!</item>
-		<item>Ingår du i lag Ordning eller i lag Kaos? Lag Ordning! Kom igen!</item>
-		<item>Har jag sagt att du är toppen på sistone? Fortsätt så!</item>
-		<item>Undvik röra - bara att sätta i gång och göra!</item>
-		<item>Hur lyckas du med det här? Jag är verkligen imponerad!</item>
-		<item>Du klarar dig inte enbart med ditt utseende. Sätt i gång!</item>
-		<item>Fint väder för ett jobb som det här, ìnte sant?</item>
-		<item>En skvätt te medan du håller på med det här?</item>
-		<item>Om du bara hade varit klar med det här redan, kunde du ha gått ut och lekt.</item>
-		<item>Det är dags. Du kan inte skjuta upp det ofrånkomliga.</item>
-		<item>Jag dör en smula varje gång du ignorerar mig.</item>
-	</string-array>
 	<string name="repeat_plugin">Upprepande uppgifter</string>
 	<string name="repeat_plugin_desc">Tillåt upprepande uppgifter</string>
 	<string name="repeat_enabled">Upprepningar</string>
@@ -723,17 +643,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="repeat_rescheduling_dialog_bubble">%1$s Återkommande uppgift ändrad från %2$s till %3$s</string>
 	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s Jag har bokat om den här återkommande uppgiften till %2$s</string>
 	<string name="repeat_rescheduling_dialog_bubble_last_time">Du upprepade denna till %1$s, Nu är du helt färdig. %2$s</string>
-	<string-array name="repeat_encouragement">
-		<item>Bra jobbat!</item>
-		<item>Häftigt! Jag är så stolt över dig!</item>
-		<item>I love when you\'re productive!</item>
-		<item>Visst känns det skönt att bocka av någonting?</item>
-	</string-array>
-	<string-array name="repeat_encouragement_last_time">
-		<item>Bra jobbat!</item>
-		<item>I\'m so proud of you!</item>
-		<item>I love when you\'re productive!</item>
-	</string-array>
 	<string name="subtasks_help_title">Sortera och gör indrag i Tasks</string>
 	<string name="subtasks_help_1">Rör vid och håll kvar fingret för att flytta en uppgift</string>
 	<string name="subtasks_help_2">Dra upp eller ner för att ändra ordningen</string>

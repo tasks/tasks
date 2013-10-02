@@ -31,7 +31,6 @@
 	<string name="actfm_GAA_title">Vyberte, který účet Google chcete použít:</string>
 	<string name="actfm_feat_list_clone_success">Povedlo se!</string>
 	<string name="actfm_feat_list_task_clone_success">Úkol zkopírován</string>
-	<string name="actfm_https_title">Použít HTTPS</string>
 	<string name="actfm_sync_ongoing">Probíhá synchronizace...</string>
 	<string name="alarm_ACS_label">Alarmy</string>
 	<string name="alarm_ACS_button">Přidat alarm</string>
@@ -84,7 +83,6 @@
 	<string name="TLA_menu_search">Hledat</string>
 	<string name="TLA_menu_lists">Seznamy</string>
 	<string name="TLA_menu_friends">Lidé</string>
-	<string name="TLA_menu_suggestions">Návrhy</string>
 	<string name="TLA_menu_support">Podpora</string>
 	<string name="TLA_custom">Vlastní</string>
 	<string name="TLA_quick_add_hint">Přidat úkol</string>
@@ -188,14 +186,6 @@
 	<string name="MCA_task_title_name">Zavolat %1$s zpět v %2$s</string>
 	<string name="MCA_task_title_no_name">Zavolat %s zpět</string>
 	<string name="MCA_schedule_dialog_title">Zavolat %s zpět...</string>
-	<string-array name="MCA_dialog_speech_options">
-		<item>To musí být super, být tak oblíbený!</item>
-		<item>Lidí Vás mají rádi! Jů!</item>
-		<item>Potěšte je, ozvěte se!</item>
-		<item>Vás by nepotěšilo, kdyby Vám lidé zavolali zpátky?</item>
-		<item>To zvládnete!</item>
-		<item>SMS můžete poslat vždycky...</item>
-	</string-array>
 	<string name="UpS_changelog_title">Co je nového v Tasks?</string>
 	<string name="UpS_updates_title">Poslední \"Tasks\" novinky</string>
 	<string name="EPr_title">Tasks: Vlastnosti</string>
@@ -412,7 +402,6 @@
 	<string name="rmd_EPr_vibrate_title">Vibruj při upozornění</string>
 	<string name="rmd_EPr_vibrate_desc_true">Tasks bude vibrovat při odesílání upozornění</string>
 	<string name="rmd_EPr_vibrate_desc_false">Tasks nebude vibrovat při odesílání upozornění</string>
-	<string name="rmd_EPr_nagging_desc_true">Tasks bude vypisovat povzbuzující zprávy během upozornění</string>
 	<string name="rmd_EPr_defaultRemind_title">Náhodná upozornění</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Nové úkoly nebudou mít náhodné upozornění</string>
 	<string name="rmd_EPr_defaultRemind_desc">Na nové úkoly bude upozorňováno náhodně: %s</string>
@@ -451,67 +440,6 @@
 		<item>5 PM</item>
 		<item>6 PM</item>
 		<item>7 PM</item>
-	</string-array>
-	<string-array name="reminders">
-		<item>Ahoj! Máš chvíli?</item>
-		<item>Můžu Tě na chvíli vidět?</item>
-		<item>Máš pár minut?</item>
-		<item>Zapomněl jsi?</item>
-		<item>Omlouvám se!</item>
-		<item>Když máš čas:</item>
-		<item>Ve Tvém programu:</item>
-		<item>Máš chvíli čas?</item>
-		<item>Tady je Tasks!</item>
-		<item>Ahoj! Můžu Tě vyrušit?</item>
-		<item>Minuta Tvého času?</item>
-		<item>Je skvělý den na</item>
-	</string-array>
-	<string-array name="reminders_due">
-		<item>Čas na práci!</item>
-		<item>Čas dokončení úkolu je zde!</item>
-		<item>Připraven/a začít?</item>
-		<item>Řekl jsi, že uděláš:</item>
-		<item>Chtěl jsi začít:</item>
-		<item>Čas začít:</item>
-		<item>Je čas!</item>
-		<item>Omlouvám se! Čas na</item>
-		<item>Jsi volný? Čas na</item>
-	</string-array>
-	<string-array name="reminders_snooze">
-		<item>Nebuď ted líná/ý</item>
-		<item>Čas spaní vypršel!</item>
-		<item>Už zádné spaní!</item>
-		<item>Jsi teď připraven(a)?</item>
-		<item>Už žádné odkládání!</item>
-	</string-array>
-	<string-array name="reminder_responses">
-		<item>Mám pro Tebe něco!</item>
-		<item>Plánuješ tohle vůbec někdy udělat?</item>
-		<item>Měj ze sebe radost! Jdeme na to!</item>
-		<item>Jsem na Tebe pyšný! Pojď to dokončit!</item>
-		<item>A little snack after you finish this?</item>
-		<item>Jen tenhle úkol? Prosím?</item>
-		<item>Můžeš výt šťastná/ý! Jen tohle dokonči!</item>
-		<item>Slibuji Ti, že se budeš cítit lépe, když tohle dokončíš!</item>
-		<item>Have I mentioned you are awesome recently? Keep it up!</item>
-		<item>A task a day keeps the clutter away... Goodbye clutter!</item>
-		<item>How do you do it? Wow, I\'m impressed!</item>
-		<item>Plánuješ tohle vůbec někdy udělat?</item>
-		<item>Lovely weather for a job like this, isn\'t it?</item>
-		<item>A spot of tea while you work on this?</item>
-		<item>If only you had already done this, then you could go outside and play.</item>
-		<item>It\'s time. You can\'t put off the inevitable.</item>
-		<item>I die a little every time you ignore me.</item>
-		<item>Are you on Team Order or Team Chaos? Team Order! Let\'s go!</item>
-		<item>Have I mentioned you are awesome recently? Keep it up!</item>
-		<item>A task a day keeps the clutter away... Goodbye clutter!</item>
-		<item>How do you do it? Wow, I\'m impressed!</item>
-		<item>You can\'t just get by on your good looks. Let\'s get to it!</item>
-		<item>Lovely weather for a job like this, isn\'t it?</item>
-		<item>A spot of tea while you work on this?</item>
-		<item>If only you had already done this, then you could go outside and play.</item>
-		<item>It\'s time. You can\'t put off the inevitable.</item>
-		<item>I die a little every time you ignore me.</item>
 	</string-array>
 	<string name="repeat_plugin">Opakování úkolů</string>
 	<string name="repeat_plugin_desc">Povolit opakování úkolů</string>

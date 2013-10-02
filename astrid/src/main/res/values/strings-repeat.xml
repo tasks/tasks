@@ -33,7 +33,6 @@
     <item>yr</item>
   </string-array>
   
-  
   <string-array name="repeat_interval">
     <!-- slide 20e: repeat interval (days,weeks,months,hours,minutes,years) -->
     <item>Day(s)</item>
@@ -106,20 +105,5 @@
   
   <!-- text for when a repeating task was rescheduled for the last time (%1$s -> repeat end date, %2$s -> encouragement string)-->
   <string name="repeat_rescheduling_dialog_bubble_last_time">You had this repeating until %1$s, and now you\'re all done. %2$s</string>
-  
-  <string-array name="repeat_encouragement">
-      <!-- Encouragement in rescheduling dialog bubble -->
-      <item>Good job!</item>
-      <item>Wow… I\'m so proud of you!</item>
-      <item>I love when you\'re productive!</item>
-      <item>Doesn\'t it feel good to check something off?</item>
-  </string-array>
 
-  <string-array name="repeat_encouragement_last_time">
-      <!-- Encouragement in rescheduling dialog bubble -->
-      <item>Good job!</item>
-      <item>I\'m so proud of you!</item>
-      <item>I love when you\'re productive!</item>
-  </string-array>
-  
 </resources>

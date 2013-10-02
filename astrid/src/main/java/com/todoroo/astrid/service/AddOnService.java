@@ -35,9 +35,6 @@ public class AddOnService {
     /** Astrid Locale package */
     public static final String LOCALE_PACKAGE = "com.todoroo.astrid.locale";
 
-    /** Astrid Power Pack label */
-    public static final String POWER_PACK_LABEL = "Astrid Power Pack";
-
     /** Checks whether power pack should be enabled */
     public boolean hasPowerPack() {
         return true;
@@ -139,12 +136,6 @@ public class AddOnService {
 
         // temporary temporary
         ArrayList<AddOn> list = new ArrayList<AddOn>(3);
-        if(Constants.MARKET_STRATEGY.includesPowerPack()) {
-            list.add(new AddOn(false, true, r.getString(R.string.AOA_ppack_title), null,
-                    r.getString(R.string.AOA_ppack_description),
-                    POWER_PACK_PACKAGE,
-                    ((BitmapDrawable) r.getDrawable(R.drawable.icon_48)).getBitmap()));
-        }
 
         if(Constants.MARKET_STRATEGY.includesLocalePlugin()) {
             list.add(new AddOn(false, true, r.getString(R.string.AOA_locale_title), null,

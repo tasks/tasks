@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.calls;
 
-import java.io.InputStream;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentUris;
@@ -24,7 +22,6 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.tasks.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -33,11 +30,14 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.EditPreferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.NotificationFragment.SnoozeDialog;
-import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.SnoozeCallback;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
+
+import org.tasks.R;
+
+import java.io.InputStream;
 
 public class MissedCallActivity extends Activity {
 
@@ -152,13 +152,7 @@ public class MissedCallActivity extends Activity {
 
         addListeners();
 
-
-        if (!Preferences.getBoolean(R.string.p_rmd_nagging, true)) {
-            findViewById(R.id.missed_calls_speech_bubble).setVisibility(View.GONE);
-        } else {
-            TextView dialogView = (TextView) findViewById(R.id.reminder_message);
-            dialogView.setText(Notifications.getRandomReminder(getResources().getStringArray(R.array.MCA_dialog_speech_options)));
-        }
+        findViewById(R.id.missed_calls_speech_bubble).setVisibility(View.GONE);
     }
 
     private void addListeners() {

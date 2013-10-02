@@ -46,10 +46,6 @@
 	<string name="actfm_feat_list_clone_success">Sucesso!</string>
 	<string name="actfm_feat_list_task_clone_success">Tarefa copiada</string>
 	<string name="actfm_feat_list_clone_empty">Sem tarefas para copiar</string>
-	<string name="actfm_https_title">Usar HTTPS</string>
-	<string name="actfm_account_type">Tipo de Conta</string>
-	<string name="actfm_inapp_billing">Atualize para Premium</string>
-	<string name="actfm_inapp_billing_summary">Anexe arquivos, backups de voz, suporte premium e mais</string>
 	<string name="actfm_tag_not_authorized_new_list">Criar nova lista</string>
 	<string name="actfm_sync_ongoing">Sincronizando...</string>
 	<string name="alarm_ACS_label">Alarmes</string>
@@ -102,7 +98,6 @@
 	<string name="TLA_menu_lists">Listas</string>
 	<string name="TLA_menu_friends">Pessoas</string>
 	<string name="TLA_menu_featured_lists">Listas em Destaque</string>
-	<string name="TLA_menu_suggestions">Sugestões</string>
 	<string name="TLA_menu_settings">Configurações</string>
 	<string name="TLA_menu_support">Suporte</string>
 	<string name="TLA_custom">Personalizar</string>
@@ -210,14 +205,6 @@
 	<string name="MCA_task_title_name">Retornar ligação de %1$s às %2$s</string>
 	<string name="MCA_task_title_no_name">Retornar ligação de %s</string>
 	<string name="MCA_schedule_dialog_title">Retornar ligação de %s em ...</string>
-	<string-array name="MCA_dialog_speech_options">
-		<item>Deve ser bom ser tão popular!</item>
-		<item>Êba! Gostam de você!</item>
-		<item>Faça o dia deles, dê uma ligada!</item>
-		<item>Você não ficaria feliz se as pessoas ligassem de volta?</item>
-		<item>Você pode fazer!</item>
-		<item>Você pode sempre mandar uma mensagem...</item>
-	</string-array>
 	<string name="CRA_ignore">Ignorar</string>
 	<string name="CRA_title">Precisa de uma lista de reuniões?</string>
 	<string name="CRA_ignore_title">Ignorar todos os eventos do calendário?</string>
@@ -294,8 +281,6 @@
 	<string name="AOA_tab_available">Disponível</string>
 	<string name="AOA_free">Gratuito</string>
 	<string name="AOA_no_addons">Lista Vazia!</string>
-	<string name="AOA_ppack_title">Tasks Power Pack</string>
-	<string name="AOA_ppack_description">Apoie o Tasks e obtenha mais produtividade com o Tasks Power Pack. Widgets 4x2 e 4x4 e integração de voz. Ganhe forças hoje!</string>
 	<string name="AOA_locale_title">Plugin do Tasks Locale</string>
 	<string name="AOA_locale_description">Permitir que o Tasks faça uso do aplicativo Locale para mandar notificações a você com base nas condições de filtro. Requer Locale.</string>
 	<string name="TWi_loading">Carregando...</string>
@@ -543,9 +528,6 @@
 	<string name="rmd_EPr_vibrate_title">Vibração de alerta</string>
 	<string name="rmd_EPr_vibrate_desc_true">Tasks irá vibrar quando enviar notificações</string>
 	<string name="rmd_EPr_vibrate_desc_false">Tasks não irá vibrar quando enviar notificações</string>
-	<string name="rmd_EPr_nagging_title">Encorajamento Tasks</string>
-	<string name="rmd_EPr_nagging_desc_true">Tasks usará de incentivos nos lembretes</string>
-	<string name="rmd_EPr_nagging_desc_false">Tasks não dará nenhuma mensagem de encorajamento.</string>
 	<string name="rmd_EPr_snooze_dialog_title">Soneca HH:MM</string>
 	<string name="rmd_EPr_snooze_dialog_desc_true">Adiar em horas/minutos</string>
 	<string name="rmd_EPr_snooze_dialog_desc_false">Adiar em # dias/horas</string>
@@ -587,68 +569,6 @@
 		<item>5 PM</item>
 		<item>6 PM</item>
 		<item>7 PM</item>
-	</string-array>
-	<string name="reminders_social">Estas pessoas estão a contar consigo!</string>
-	<string-array name="reminders">
-		<item>Olá você! Tem um minuto?</item>
-		<item>Posso vê-lo por um segundo?</item>
-		<item>Tem alguns minutos?</item>
-		<item>Você esqueceu?</item>
-		<item>Dá licença!</item>
-		<item>Quando você tiver um minuto:</item>
-		<item>Na sua agenda:</item>
-		<item>Você está livre?</item>
-		<item>Tasks aqui!</item>
-		<item>Ola! Posso pertubar você?</item>
-		<item>Um minuto do seu tempo?</item>
-		<item>É um bom dia para</item>
-	</string-array>
-	<string-array name="reminders_due">
-		<item>Hora de trabalhar!</item>
-		<item>O Prazo está acabando</item>
-		<item>Pronto para começar?</item>
-		<item>Você disse que ía fazer:</item>
-		<item>Você devia começar:</item>
-		<item>Hora de começar:</item>
-		<item>É a hora!</item>
-		<item>Licença! Hora de</item>
-		<item>Você está livre? Hora para</item>
-	</string-array>
-	<string-array name="reminders_snooze">
-		<item>Não seja preguiçoso agora!</item>
-		<item>Acabou a pausa!</item>
-		<item>Não dá pra adiar mais!</item>
-		<item>Agora você está pronto(a)?</item>
-		<item>Pare de adiar!</item>
-	</string-array>
-	<string-array name="reminder_responses">
-		<item>Tenho uma coisa para você!</item>
-		<item>Hora de deixar isso no seu passado?</item>
-		<item>Porque você não deixa isso pronto?</item>
-		<item>E aí? Pronto tigrão,tigreza?</item>
-		<item>Pronto para isso?</item>
-		<item>Você consegue lidar com isso?</item>
-		<item>Você pode ser feliz! É só terminar isso!</item>
-		<item>Se terminar isso se sentirá bem melhor!</item>
-		<item>Você não fará isso hoje?</item>
-		<item>Por favor termine isso, já estou enjoado disso!</item>
-		<item>Você pode terminar isso? Sim, você pode!</item>
-		<item>Algum dia você vai fazer isso?</item>
-		<item>Você vai se sentir bem melhor! Vamos lá!</item>
-		<item>Estou tão orgulhoso de você! Vamos terminar isso!</item>
-		<item>Que tal lanchinho depois que você terminar isso?</item>
-		<item>Só mais essa, ok?</item>
-		<item>Hora de terminar essa tarefa!</item>
-		<item>Você é do time da bagunça ou da limpeza? Limpeza! Vamos!</item>
-		<item>Eu mencionei que você está incrível esses dias? Continue assim!</item>
-		<item>Uma tarefa por dia manda a bagunça embora... Tchau bagunça!</item>
-		<item>Como você fez isso? Nossa, estou impressionado!</item>
-		<item>Você não vai conseguir simplesmente pela sua boa aparência. Vamos lá!</item>
-		<item>Tempo bom para um trabalho como este, você não acha?</item>
-		<item>Vai um cafezinho enquanto você trabalha nisto?</item>
-		<item>Se você terminar isto, pode ir lá fora brincar :-)</item>
-		<item>É agora. Você não pode adiar o inevitável.</item>
-		<item>Eu morro um pouquinho cada vez que você me ignora.</item>
 	</string-array>
 	<string name="repeat_plugin">Tarefas recorrentes</string>
 	<string name="repeat_plugin_desc">Permitir tarefas recorrentes</string>
@@ -701,17 +621,6 @@
 	<string name="repeat_rescheduling_dialog_bubble">\"%1$s,  reagendei esta tarefa recorrente de %2$s para %3$s\"</string>
 	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s Eu reagendei esta tarefa recorrente para %2$s</string>
 	<string name="repeat_rescheduling_dialog_bubble_last_time">Você estava repetindo isto até %1$s e agora você concluíu. %2$s</string>
-	<string-array name="repeat_encouragement">
-		<item>Bom trabalho!</item>
-		<item>Oba… Estou orgulhoso de você!</item>
-		<item>Eu adoro quando você é produtivo(a)!</item>
-		<item>Não é bom quando a gente tira um peso da consciência?</item>
-	</string-array>
-	<string-array name="repeat_encouragement_last_time">
-		<item>Bom trabalho!</item>
-		<item>Estou tão orgulhoso de você!</item>
-		<item>Eu adoro quando você é produtivo(a)!</item>
-	</string-array>
 	<string name="subtasks_help_title">Ordenar e Recuar no Tasks</string>
 	<string name="subtasks_help_1">Toque e segure para mover a tarefa</string>
 	<string name="subtasks_help_2">Arraste verticalmente para reordenar</string>

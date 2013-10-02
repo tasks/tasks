@@ -49,15 +49,7 @@
   <!-- Label for DateButtons with no value -->
   <string name="WID_dateButtonUnset">Click to set</string>
   
-  <!-- String formatter for DateButtons ($D => date, $T => time) -->
-  
-  <!-- String formatter for Disable button -->
-  
   <!--  ============================================================= notes -->
-  
-  <!-- Note Exposer -->    
-  
-  <!-- Note Exposer / Comments -->    
   
   <!-- EditNoteActivity - no comments -->
   <string name="ENA_no_comments">No activity yet</string>
@@ -94,18 +86,11 @@
   <!-- Menu: Featured Lists -->
   <string name="TLA_menu_featured_lists">Featured Lists</string>
 
-  <!-- Menu: Suggestions -->
-  <string name="TLA_menu_suggestions">Suggestions</string>
-  
-  <!-- Menu: Tutorial -->
-
-  <!-- Menu: Settings -->    
+  <!-- Menu: Settings -->
   <string name="TLA_menu_settings">Settings</string>
   
   <!-- slide 30b: Menu: Support -->
   <string name="TLA_menu_support">Support</string>
-  
-  <!-- Search Label-->
   
   <!-- Window title for displaying Custom Filter -->
   <string name="TLA_custom">Custom</string>
@@ -133,7 +118,6 @@
   
   <string name="TLA_quickadd_confirm_hide_helpers">Don\'t display future confirmations</string>
   
-  
   <!-- Title for alert on new repeating task. %s-> task title -->
   <string name="TLA_repeat_scheduled_title">New repeating task %s</string>
   
@@ -146,6 +130,7 @@
       <item>medium priority</item>
       <item>low priority</item>
   </string-array>
+
   <!-- slide 22a -->
   <string name="TLA_all_activity">All Activity</string>
   
@@ -156,8 +141,6 @@
   
   <!-- Format string to indicate task is deleted (%s => task name) -->
   <string name="TAd_deletedFormat">%s [deleted]</string>
-  
-  <!-- Displayed when adapter is flung (scrolled quickly) -->
   
   <!-- slide 22b: indicates task was completed. %s => date or time ago -->
   <string name="TAd_completed">Finished\n%s</string>
@@ -226,18 +209,10 @@
   <!-- Tasks Filter Shortcut -->    
   <string name="FSA_label">Tasks List or Filter</string>
 
-  <!-- Filter List Activity Title -->    
-  
-  <!-- Displayed when loading filters -->    
-  
-  <!-- Context Menu: Create Shortcut -->    
+  <!-- Context Menu: Create Shortcut -->
   <string name="FLA_context_shortcut">Create Shortcut On Desktop</string>
   
-  <!-- Menu: Search -->
-  
-  <!-- Menu: Help -->    
-  
-  <!-- slide 28c: Create Shortcut Dialog Title -->    
+  <!-- slide 28c: Create Shortcut Dialog Title -->
   <string name="FLA_shortcut_dialog_title">Create Desktop Shortcut</string>
   
   <!-- Create Shortcut Dialog (asks to name shortcut) -->    
@@ -319,10 +294,6 @@
   <!-- Toast: task saved without deadlines -->
   <string name="TEA_onTaskSave_notDue">Task Saved</string>
   
-  <!-- Toast: task was not saved -->
-  
-  <!-- Toast: task was deleted -->
-  
   <!-- slide 15b: Task edit tab: activity -->
   <string name="TEA_tab_activity">Activity</string>
   
@@ -377,28 +348,13 @@
   
   <string name="hide_until_prompt">Show in my list</string>
   
-  <!-- Add Ons tab when no add-ons found -->
-  
-  <!-- Add Ons button -->
-  
-  <!-- More row -->
-  
   <!-- Text to load more activity -->
   <string name="TEA_load_more">Load more...</string>
   
   <!-- When controls dialog -->
   <string name="TEA_when_dialog_title">When is this due?</string>
-  
-  
+
   <string name="TEA_new_task">New Task</string>
-  
-  <!-- ============================================= IntroductionActivity == -->
-  
-  <!-- slide 1a: Introduction Window title -->
-  
-  <!-- Button to agree to EULA -->
-  
-  <!-- Button to disagree with EULA -->
   
   <!-- ===================================================== MissedCallActivity == -->
   
@@ -441,17 +397,6 @@
   
   <!-- Missed call: schedule dialog title (%s -> name or number)-->
   <string name="MCA_schedule_dialog_title">Call %s back in...</string>
-  
-  <!-- Missed call speech bubble options -->
-  <string-array name="MCA_dialog_speech_options">
-      <item>It must be nice to be so popular!</item>
-      <item>Yay! People like you!</item>
-      <item>Make their day, give \'em a call!</item>
-      <item>Wouldn\'t you be happy if people called you back?</item>
-      <item>You can do it!</item>
-      <item>You can always send a text...</item>
-  </string-array>
-  
   
   <!-- ======================================= Calendar reminder activity == -->
   
@@ -536,10 +481,6 @@
   <!-- Calendar reminder: default new list name (%s -> event title) -->
   <string name="CRA_default_list_name">Action Items: %s</string>
   
-  <!-- ===================================================== HelpActivity == -->
-  
-  <!-- Help: Button to get support from our website -->
-    
   <!-- ==================================================== UpdateService == -->
   
   <!-- Changelog Window Title -->
@@ -574,8 +515,6 @@
   <!-- slide 34g: Preference: Task List Font Size Description -->                                                                                                                                                  
   <string name="EPr_fontSize_desc">Font size on the main listing page</string>  
   
-  <!-- Preferemce: Show task edit confirmation toasts -->
-  
   <!-- slide 34c: Preference: Task List Show Notes -->
   <string name="EPr_showNotes_title">Show description in task</string>
   
@@ -602,9 +541,6 @@
   <string name="EPr_showNotes_desc_disabled">Description will be accessible from the task edit screen</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
   <string name="EPr_showNotes_desc_enabled">Description will always be displayed</string>
-  
-  <!-- slide 34e: Preferences: Use legacy importance and checkbox style -->
-  <!-- slide 34k-->
   
   <!-- slide 34b: Preferences: Wrap task titles to two lines -->
   <string name="EPr_fullTask_title">Show full task title</string>
@@ -668,8 +604,6 @@
   <string name="swipe_lists_helper_header">Swipe left or right to quickly move between lists</string>
   <string name="swipe_lists_helper_subtitle">Change settings in Settings -> Appearance</string>
 
-  <!-- Format string for displaying the currently selected preference. $1 is name of selected mode, $2 is description -->
-  
   <string-array name="EPr_default_reminders_mode">
       <!-- reminders duration: labels for "Task Defaults" preference item. -->
       <item>@string/TEA_reminder_mode_once</item>
@@ -726,15 +660,9 @@
   <!-- Add-on Activity - free add-ons label -->
   <string name="AOA_free">Free</string>
   
-  <!-- Add-on Activity - menu item to visit add-on website -->
-  
-  <!-- Add-on Activity - menu item to visit android market -->
-  
   <!-- Add-on Activity - when list is empty -->
   <string name="AOA_no_addons">Empty List!</string>
   
-  <string name="AOA_ppack_title">Power Pack</string>
-  <string name="AOA_ppack_description">Support Tasks and get more productive with the Power Pack. 4x2 and 4x4 widgets and voice integration. Power up today!</string>
   <string name="AOA_locale_title">Tasks Locale Plugin</string>
   <string name="AOA_locale_description">Allows Tasks to make use of the Locale application to send you notifications based on filter conditions. Requires Locale.</string>
   

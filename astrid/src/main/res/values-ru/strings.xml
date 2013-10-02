@@ -47,10 +47,6 @@
 	<string name="actfm_feat_list_clone_success">Завершено успешно!</string>
 	<string name="actfm_feat_list_task_clone_success">Задача скопирована</string>
 	<string name="actfm_feat_list_clone_empty">Нет задач для копирования</string>
-	<string name="actfm_https_title">Использовать HTTPS</string>
-	<string name="actfm_account_type">Тип учётной записи</string>
-	<string name="actfm_inapp_billing">Перейти на Премиум</string>
-	<string name="actfm_inapp_billing_summary">Прикрепить файлы, голосовые резервные копии, премиальная поддержка и другое</string>
 	<string name="actfm_tag_not_authorized_title">Не авторизовано </string>
 	<string name="actfm_tag_not_authorized_new_list">Создать новый список</string>
 	<string name="actfm_tag_not_authorized_leave_list">Покинуть список</string>
@@ -109,7 +105,6 @@
 	<string name="TLA_menu_lists">Списки</string>
 	<string name="TLA_menu_friends">Люди</string>
 	<string name="TLA_menu_featured_lists">Рекомендуемые списки</string>
-	<string name="TLA_menu_suggestions">Предложения</string>
 	<string name="TLA_menu_settings">Настройки</string>
 	<string name="TLA_menu_support">Поддержка</string>
 	<string name="TLA_custom">Другой</string>
@@ -223,14 +218,6 @@
 	<string name="MCA_task_title_name">Перезвонить %1$s в %2$s</string>
 	<string name="MCA_task_title_no_name">Перезвонить %s</string>
 	<string name="MCA_schedule_dialog_title">Перезвонить %s в...</string>
-	<string-array name="MCA_dialog_speech_options">
-		<item>Должно быть здорово быть популярным!</item>
-		<item>Эй! Ты нравишься людям!</item>
-		<item>Звякни, порадуй человека!</item>
-		<item>Вы не будете рады если бы люди вам перезвонили?</item>
-		<item>Вы можете это сделать!</item>
-		<item>Вы можете всегда отправлять текст...</item>
-	</string-array>
 	<string name="CRA_ignore">Игнорировать</string>
 	<string name="CRA_title">Необходим список встреч?</string>
 	<string name="CRA_ignore_title">Пропустить все события календаря?</string>
@@ -330,8 +317,6 @@
 	<string name="AOA_tab_available">Доступные</string>
 	<string name="AOA_free">Свободен</string>
 	<string name="AOA_no_addons">Пустой список!</string>
-	<string name="AOA_ppack_title">Tasks Power Pack</string>
-	<string name="AOA_ppack_description">\"Поддержите Tasks  и станьте еще продуктивнее с Tasks Power Pack, 4x2 и 4x4 виджетами и голосовым вводом. Повысь производительность уже сегодня!\"</string>
 	<string name="AOA_locale_title">Языковой плагин Tasks</string>
 	<string name="AOA_locale_description">Разрешает Tasks использовать приложение Locale, чтобы посылать вам фильтрованные извещения. Нужно приложение Locale.</string>
 	<string name="TWi_loading">Загрузка...</string>
@@ -525,13 +510,13 @@
 	<string name="premium_speech_bubble_2">Подпишитесь на год и сэкономьте 25%%!</string>
 	<string name="TEA_reminder_label">Напомнить мне:</string>
 	<string name="TEA_reminder_due">Когда наступит срок выполнения задания</string>
-	<string name="TEA_reminder_overdue">Коли завдання прострочено</string>
+	<string name="TEA_reminder_overdue">Когда задание просрочено</string>
 	<string name="TEA_reminder_randomly">Случайно один раз</string>
 	<string name="TEA_reminder_alarm_label">Тип звонка/вибрации</string>
 	<string name="TEA_reminder_mode_once">раз</string>
 	<string name="TEA_reminder_mode_five">Пять раз</string>
 	<string name="TEA_reminder_mode_nonstop">Пока я не отключу сигнал</string>
-	<string name="TEA_reminder_overdue_short">прострочено</string>
+	<string name="TEA_reminder_overdue_short">просрочена</string>
 	<string-array name="TEA_reminder_random">
 		<item>час</item>
 		<item>день</item>
@@ -595,9 +580,6 @@
 	<string name="rmd_EPr_vibrate_title">Будильник с вибрацией</string>
 	<string name="rmd_EPr_vibrate_desc_true">Tasks будет вызывать вибрацию при уведомлении</string>
 	<string name="rmd_EPr_vibrate_desc_false">Tasks не будет вызывать вибрацию при уведомлениях</string>
-	<string name="rmd_EPr_nagging_title">Ободрения Tasks</string>
-	<string name="rmd_EPr_nagging_desc_true">Tasks появится на экране, чтобы подбодрить вас при напоминаниях</string>
-	<string name="rmd_EPr_nagging_desc_false">Tasks не будет показывать приободряющих сообщений</string>
 	<string name="rmd_EPr_snooze_dialog_title">Дремать HH:MM</string>
 	<string name="rmd_EPr_snooze_dialog_desc_true">Дремать введя новое время (HH:MM)</string>
 	<string name="rmd_EPr_snooze_dialog_desc_false">Отложить выбрав # дней/часов</string>
@@ -692,68 +674,6 @@
 		<item>07:00</item>
 		<item>08:00</item>
 	</string-array>
-	<string name="reminders_social">Эти люди рассчитывают на Вас!</string>
-	<string-array name="reminders">
-		<item>Привет! Есть минутка?</item>
-		<item>Можно Вас на минутку?</item>
-		<item>Есть несколько минут?</item>
-		<item>Вы не забыли?</item>
-		<item>Прошу внимания!</item>
-		<item>Когда у Вас есть минутка:</item>
-		<item>В списке дел:</item>
-		<item>Свободны на минутку?</item>
-		<item>Tasks здесь!</item>
-		<item>Привет! Можешь отвлечься?</item>
-		<item>Минутку вашего времени?</item>
-		<item>Прекрасный день, чтобы</item>
-	</string-array>
-	<string-array name="reminders_due">
-		<item>Пора за работу!</item>
-		<item>Наступила дата выполнения!</item>
-		<item>Готовы начать?</item>
-		<item>Вы сказали, что сделаете:</item>
-		<item>Вы должны начать выполнение:</item>
-		<item>Время начать:</item>
-		<item>Время пришло!</item>
-		<item>Прошу внимания! Время для</item>
-		<item>Вы свободны? Пора выполнить</item>
-	</string-array>
-	<string-array name="reminders_snooze">
-		<item>Не надо лениться!</item>
-		<item>Время повтора!</item>
-		<item>Нельзя больше откладывать!</item>
-		<item>Теперь вы готовы?</item>
-		<item>Нельзя больше откладывать!</item>
-	</string-array>
-	<string-array name="reminder_responses">
-		<item>У меня для Вас кое-что есть!</item>
-		<item>Готовы оставить это в прошлом?</item>
-		<item>Почему бы Вам это не сделать?</item>
-		<item>Как насчет этого? Вы готовы?</item>
-		<item>Готовы это сделать?</item>
-		<item>Вы справитесь с этим?</item>
-		<item>Вы можете быть счастливым! Просто закончите это!</item>
-		<item>Обещаю, вам станет определённо лучше после завершения!</item>
-		<item>Разве Вы не сделаете это сегодня?</item>
-		<item>Пожалуйста, заканчивайте, больше не могу терпеть!</item>
-		<item>Вы можете это закончить? Да, можете!</item>
-		<item>Вы когда-нибудь сделаете это?</item>
-		<item>Почувствуйте себя на высоте! Вперед!</item>
-		<item>Я горжусь Вами! Давайте сделаем это!</item>
-		<item>Желаете перекусить, когда закончите?</item>
-		<item>Только одно задание? Пожалуйста?</item>
-		<item>Время сократить список дел!</item>
-		<item>На чьей Вы стороне - порядка или беспорядка? Порядка! Поехали!</item>
-		<item>Я не говорил, что Вы потрясающе справляетесь? Так держать!</item>
-		<item>Задание в день и никакого беспорядка... Беспорядок, прощай!</item>
-		<item>Как Вам это удается? Я восхищен!</item>
-		<item>Вы не получите это за красивые глазки. Поторопитесь!</item>
-		<item>Прекрасная погода для такой работы, не так ли?</item>
-		<item>Чашку чаю?</item>
-		<item>Только если вы уже сделали это, вы можете пойти на улицу и поиграть.</item>
-		<item>Время пришло. Вы не можете откладывать неизбежное.</item>
-		<item>Я будто умираю каждый раз, когда Вы забываете обо мне.</item>
-	</string-array>
 	<string name="repeat_plugin">Повторяющиеся задачи</string>
 	<string name="repeat_plugin_desc">Позволяет задачам повторяться</string>
 	<string name="repeat_enabled">Повторения</string>
@@ -810,17 +730,6 @@
 	<string name="repeat_rescheduling_dialog_bubble">%1$s я перепланировал эту повторяющуюся задачу с %2$s на %3$s</string>
 	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s Я перенес эту повторяющуюся задачу на %2$s</string>
 	<string name="repeat_rescheduling_dialog_bubble_last_time">Вы должны были повторять это до %1$s, теперь повторения закончились. %2$s</string>
-	<string-array name="repeat_encouragement">
-		<item>Отличная работа!</item>
-		<item>Вау... Я так горжусь тобой!</item>
-		<item>Я люблю когда Вы плодотворны!</item>
-		<item>Разве не здорово отбросить выполненное задание?</item>
-	</string-array>
-	<string-array name="repeat_encouragement_last_time">
-		<item>Хорошая работа!</item>
-		<item>Я так горжусь Вами!</item>
-		<item>Я люблю когда Вы плодотворны!</item>
-	</string-array>
 	<string name="subtasks_help_title">Сортировка и отступ в Tasks</string>
 	<string name="subtasks_help_1">Нажмите и удерживайте, чтобы переместить задачу</string>
 	<string name="subtasks_help_2">Перетащите вертикально, чтобы перестроить</string>

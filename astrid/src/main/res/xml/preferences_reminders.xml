@@ -35,10 +35,6 @@
         android:title="@string/rmd_EPr_vibrate_title"
         android:defaultValue="true"  />
     <com.todoroo.astrid.ui.MultilineCheckboxPreference
-       android:key="@string/p_rmd_nagging"
-       android:title="@string/rmd_EPr_nagging_title"
-       android:defaultValue="true"  />
-    <com.todoroo.astrid.ui.MultilineCheckboxPreference
        android:key="@string/p_rmd_snooze_dialog"
        android:title="@string/rmd_EPr_snooze_dialog_title"
        android:defaultValue="false"  />

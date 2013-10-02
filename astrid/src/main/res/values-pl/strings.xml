@@ -47,10 +47,6 @@
 	<string name="actfm_feat_list_clone_success">Zakończono pomyślnie!</string>
 	<string name="actfm_feat_list_task_clone_success">Zadanie skopiowane</string>
 	<string name="actfm_feat_list_clone_empty">Brak zadań do skopiowania</string>
-	<string name="actfm_https_title">Użycie HTTPS</string>
-	<string name="actfm_account_type">Typ konta</string>
-	<string name="actfm_inapp_billing">Załóż konto Premium</string>
-	<string name="actfm_inapp_billing_summary">Załączanie plików, głosowe kopie zapasowe, wsparcie premium i więcej</string>
 	<string name="actfm_tag_not_authorized_title">Nie autoryzowany</string>
 	<string name="actfm_tag_not_authorized_body">Nie masz już uprawnień do wyświetlenia listy %s (mogłeś być usunięty). Czy chcesz stworzyć nową listę o tej samej nazwie?</string>
 	<string name="actfm_tag_not_authorized_new_list">Utwórz nową listę</string>
@@ -108,7 +104,6 @@
 	<string name="TLA_menu_lists">Listy</string>
 	<string name="TLA_menu_friends">Ludzie</string>
 	<string name="TLA_menu_featured_lists">Wyróżnione listy</string>
-	<string name="TLA_menu_suggestions">Sugestie</string>
 	<string name="TLA_menu_settings">Ustawienia</string>
 	<string name="TLA_menu_support">Wsparcie</string>
 	<string name="TLA_custom">Własny filtr</string>
@@ -223,14 +218,6 @@
 	<string name="MCA_task_title_name">Oddzwoń do %1$s o %2$s</string>
 	<string name="MCA_task_title_no_name">Oddzwoń do %s</string>
 	<string name="MCA_schedule_dialog_title">Oddzwoń do %s za...</string>
-	<string-array name="MCA_dialog_speech_options">
-		<item>Musi być fajnie być tak popularnym!</item>
-		<item>Hurra! Ludzie Cię lubią!</item>
-		<item>Umil im dzień, zadzwoń!</item>
-		<item>A Ty byś się nie ucieszył, gdyby ludzie do Ciebie oddzwaniali?</item>
-		<item>Dasz radę!</item>
-		<item>Zawsze możesz odpisać...</item>
-	</string-array>
 	<string name="CRA_ignore">Ignoruj</string>
 	<string name="CRA_title">Czy potrzebujesz listy spotkań?</string>
 	<string name="CRA_ignore_title">Ignorować wszystke wydarzenia w kalendarzu?</string>
@@ -331,8 +318,6 @@
 	<string name="AOA_tab_available">Dostępne</string>
 	<string name="AOA_free">Darmowe</string>
 	<string name="AOA_no_addons">Pusta Lista!</string>
-	<string name="AOA_ppack_title">Tasks Power Pack</string>
-	<string name="AOA_ppack_description">Wspieraj Tasks i stań się bardziej produktywny z Tasks Power Pack. Widżety 4x2 i 4x4 oraz integracja z głosem. Ulepsz go dzisiaj!</string>
 	<string name="AOA_locale_title">Wtyczka do obsługi języków w Tasks</string>
 	<string name="AOA_locale_description">Umożliwia Tasks wykorzystanie aplikacji obsługującej języki, by wysyłać ci powiadomienia oparte o filtry. Wymaga wtyczki Locale.</string>
 	<string name="TWi_loading">Ładowanie...</string>
@@ -602,9 +587,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="rmd_EPr_vibrate_title">Ostrzeżenie wibracyjne</string>
 	<string name="rmd_EPr_vibrate_desc_true">Tasks powiadomi wibracjami podczas wysyłania powiadomienia</string>
 	<string name="rmd_EPr_vibrate_desc_false">Tasks nie będzie powiadamiał wibracjami podczas wysyłania powiadomienia</string>
-	<string name="rmd_EPr_nagging_title">Tasks Zachęta</string>
-	<string name="rmd_EPr_nagging_desc_true">Tasks pokaże się dla zachęty podczas przypomnienia</string>
-	<string name="rmd_EPr_nagging_desc_false">Tasks nie daje żadnych wiadomości zachęty</string>
 	<string name="rmd_EPr_snooze_dialog_title">Tekst drzemki HH:MM</string>
 	<string name="rmd_EPr_snooze_dialog_desc_true">Uśpij wybierając nową godzinę drzemki (HH:MM)</string>
 	<string name="rmd_EPr_snooze_dialog_desc_false">Uśpij wybierając # dni/godziny uśpienia</string>
@@ -699,68 +681,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 		<item>07:00</item>
 		<item>08:00</item>
 	</string-array>
-	<string name="reminders_social">Ci ludzie na ciebie liczą!</string>
-	<string-array name="reminders">
-		<item>Cześć! Masz chwilkę?</item>
-		<item>Mogę się z Tobą zobaczyć na chwilę?</item>
-		<item>Masz trochę czasu?</item>
-		<item>Nie pamiętasz?</item>
-		<item>Przepraszam!</item>
-		<item>Gdy znajdziesz trochę czasu:</item>
-		<item>W Twoim terminarzu:</item>
-		<item>Masz chwilę?w</item>
-		<item>Tu Tasks!</item>
-		<item>Cześć! Mogę przeszkodzić?</item>
-		<item>Minuta Twojego czasu?</item>
-		<item>Jest wspaniały dzień na</item>
-	</string-array>
-	<string-array name="reminders_due">
-		<item>Czas do pracy!</item>
-		<item>Termin zadania się zbliża!</item>
-		<item>Zaczynamy?</item>
-		<item>Taki był Twój zamiar:</item>
-		<item>Powinieneś zacząć:</item>
-		<item>Czas zacząć:</item>
-		<item>Już czas!</item>
-		<item>Przepraszam, ale czas na</item>
-		<item>Macz wolne? Czas na</item>
-	</string-array>
-	<string-array name="reminders_snooze">
-		<item>Nie leń się!</item>
-		<item>Nadszedł czas drzemki!</item>
-		<item>Koniec drzemania!</item>
-		<item>Jesteś w gotowości?</item>
-		<item>Koniec ciągłego odkładania!</item>
-	</string-array>
-	<string-array name="reminder_responses">
-		<item>Mam coś dla Ciebie!</item>
-		<item>Co powiesz na rzucenie tego w przeszłość?</item>
-		<item>Dlaczego wreszcie tego nie zrobisz?</item>
-		<item>I jak tam? Tygrys gotowy?</item>
-		<item>W gotowości na wykonanie zadania?</item>
-		<item>Poradzisz sobie z tym?</item>
-		<item>Szczęście jest blisko! Tylko to zrób!</item>
-		<item>Obiecuję, że poczujesz się lepiej, gdy to skończysz!</item>
-		<item>Dlaczego nie zrobić tego dziś?</item>
-		<item>Proszę, dokończ to! Mam już tego dość!</item>
-		<item>Możesz to skończyć? TAK, możesz!</item>
-		<item>Zrobisz to kiedyś?</item>
-		<item>Nie ma się czym martwić! Do dzieła!</item>
-		<item>Jestem z Ciebie dumny! Dokończmy to!</item>
-		<item>Może jakaś przekąska, gdy już skończysz?</item>
-		<item>Tylko to jedno zadanie, proszę...</item>
-		<item>Czas skrócić listę rzeczy do zrobienia!</item>
-		<item>Jesteś z drużyny \"Ład\" czy \"Chaos\"? Drużyna \"Ład\"! Do boju!</item>
-		<item>Wspominałem, że ostatnio jesteś niesamowity? Tak trzymaj!</item>
-		<item>A task a day keeps the clutter away... Goodbye clutter!</item>
-		<item>Jak Ty to robisz? Wow, jestem pod wrażeniem!</item>
-		<item>You can\'t just get by on your good looks. Let\'s get to it!</item>
-		<item>Cudowny dzień do takiej pracy, prawda?</item>
-		<item>Filiżankę herbaty?</item>
-		<item>Gdybyś tylko się tym zajął, mógłbyś wyjść na dwór się pobawić.</item>
-		<item>Nadszedł czas. Nie odwleczesz nieuniknionego.</item>
-		<item>Mała część mnie umiera za każdym razem, gdy mnie ignorujesz.</item>
-	</string-array>
 	<string name="repeat_plugin">Powtarzanie zadań</string>
 	<string name="repeat_plugin_desc">Zewzwól zadaniom na powtarzanie</string>
 	<string name="repeat_enabled">Powtarza się</string>
@@ -817,17 +737,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="repeat_rescheduling_dialog_bubble">%1$s Przełożyłem to powtarzalne zadanie z %2$s na %3$s</string>
 	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s Przełożyłem to powtarzalne zadanie na %2$s</string>
 	<string name="repeat_rescheduling_dialog_bubble_last_time">To było powtarzane do %1$s, a teraz jest już zakończone. %2$s</string>
-	<string-array name="repeat_encouragement">
-		<item>Dobra robota!</item>
-		<item>ŁaŁ... Jestem z Ciebie dumny!</item>
-		<item>Uwielbiam, gdy jesteś produktywny/a!</item>
-		<item>Czy odznaczenie wykonanego zadania, to nie jest dobre uczucie?</item>
-	</string-array>
-	<string-array name="repeat_encouragement_last_time">
-		<item>Dobra robota!</item>
-		<item>Jestem z Ciebie taka dumna!</item>
-		<item>Uwielbiam, gdy jesteś produktywny/a!</item>
-	</string-array>
 	<string name="subtasks_help_title">Sortowanie i Wcięcie w Tasks</string>
 	<string name="subtasks_help_1">Dotknij i przytrzymaj, by przenieść zadanie</string>
 	<string name="subtasks_help_2">Przenieś w pionie aby przearanżować</string>

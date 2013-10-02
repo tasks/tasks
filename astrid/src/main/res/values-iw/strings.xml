@@ -46,10 +46,6 @@
 	<string name="actfm_feat_list_clone_success">הצלחה!</string>
 	<string name="actfm_feat_list_task_clone_success">משימה הועתקה</string>
 	<string name="actfm_feat_list_clone_empty">אין משימות להעתיק</string>
-	<string name="actfm_https_title">השתמש ב־HTTPS</string>
-	<string name="actfm_account_type">סוג חשבון</string>
-	<string name="actfm_inapp_billing">שידרוג לפרימיום</string>
-	<string name="actfm_inapp_billing_summary">צרפ קבצים, גיבוי קולי, תמיכת פרימיום ועוד</string>
 	<string name="actfm_tag_not_authorized_new_list">צור רשימה חדשה</string>
 	<string name="actfm_sync_ongoing">הסינכרון מתבצע</string>
 	<string name="alarm_ACS_label">התראות</string>
@@ -105,7 +101,6 @@
 	<string name="TLA_menu_lists">רשימות</string>
 	<string name="TLA_menu_friends">אנשים</string>
 	<string name="TLA_menu_featured_lists">רשימות נבחרות</string>
-	<string name="TLA_menu_suggestions">הצעות</string>
 	<string name="TLA_menu_settings">הגדרות</string>
 	<string name="TLA_menu_support">תמיכה</string>
 	<string name="TLA_custom">מותאם אישית</string>
@@ -218,14 +213,6 @@
 	<string name="MCA_task_title_name">\"החזר שיחה ל־%1$s  ב־%2$s\"</string>
 	<string name="MCA_task_title_no_name">החזר שיחה ל־%s</string>
 	<string name="MCA_schedule_dialog_title">החזר שיחה ל־%s ב...</string>
-	<string-array name="MCA_dialog_speech_options">
-		<item>ודאי נחמד להיות כל כך פופולרי</item>
-		<item>יש! אנשים מחבבים אותך!</item>
-		<item>עשה להם את היום, החזר שיחה!</item>
-		<item>האם לא היית אתה שמח לו היו מחזירים לך שיחות?</item>
-		<item>אתה יכול!</item>
-		<item>תמיד תוכל לשלוח מסרון...</item>
-	</string-array>
 	<string name="CRA_ignore">התעלם</string>
 	<string name="CRA_title">צריך רשימה לפגישה?</string>
 	<string name="CRA_ignore_title">להתעלם מכל אירועי היומן?</string>
@@ -325,8 +312,6 @@
 	<string name="AOA_tab_available">זמין</string>
 	<string name="AOA_free">חינם</string>
 	<string name="AOA_no_addons">רשימה ריקה!</string>
-	<string name="AOA_ppack_title">חבילת כֹּחַ של אסטריד</string>
-	<string name="AOA_ppack_description">תמוך באסריד, הֱיֵה פּוֹרֶה יוֹתֵר וקבל את  חבילת הַכֹּחַ הכוללת  חֲפִיצֵי מסך 4x2 ו 4x4 ותמיכה בתפעול קולי</string>
 	<string name="AOA_locale_title">אנא התקן את תוסף אסטריד לתוכנת Locale</string>
 	<string name="AOA_locale_description">אפשר לאסטריד להשתמש בתכונות \"מציאת מקום\" על מנת לשלוח לך התראות מבוססות על תנאי סינון. עליך להפעיל שירותי מיקום.</string>
 	<string name="TWi_loading">טוענת...</string>
@@ -592,9 +577,6 @@
 	<string name="rmd_EPr_vibrate_title">רטט בזמן אתראה</string>
 	<string name="rmd_EPr_vibrate_desc_true">אסטריד תצרף רטט להתראות</string>
 	<string name="rmd_EPr_vibrate_desc_false">אסטריד לא תצרף רטט להתראות</string>
-	<string name="rmd_EPr_nagging_title">עידוד על ידי אסטריד</string>
-	<string name="rmd_EPr_nagging_desc_true">אסטריד תלווה את התזכורות בקריאות עידוד וחיזוק</string>
-	<string name="rmd_EPr_nagging_desc_false">אסטריד תחדל מקריאות העידוד והחיזוק</string>
 	<string name="rmd_EPr_snooze_dialog_title">בקרת השתקה HH:MM</string>
 	<string name="rmd_EPr_snooze_dialog_desc_true">השתק עד לשעה מסויימת (HH:MM)</string>
 	<string name="rmd_EPr_snooze_dialog_desc_false">השתק ע״י בחירת שקט למס\' שעות/ימים</string>
@@ -689,68 +671,6 @@
 		<item>7 בבוקר</item>
 		<item>8 בבוקר</item>
 	</string-array>
-	<string name="reminders_social">האנשים האלו סומכים עליך!</string>
-	<string-array name="reminders">
-		<item>הי אתה! יש לך דקה?</item>
-		<item>אפשר לקבל את תשומת לִבְּךָ לרגע?</item>
-		<item>יש לך כמה רגעים?</item>
-		<item>האם שכחת?</item>
-		<item>סליחה!</item>
-		<item>כיהיה לך רגע פנאי:</item>
-		<item>על השולחן:</item>
-		<item>פנוי לרגע?</item>
-		<item>אסטריד כאן</item>
-		<item>סליחה, אפשר להציק לך?</item>
-		<item>אפשר דקה מזמנך?</item>
-		<item>יום מצויין בשביל</item>
-	</string-array>
-	<string-array name="reminders_due">
-		<item>קדימה לעבודה!</item>
-		<item>תאריך היעד הגיע!</item>
-		<item>מוכן להתחיל?</item>
-		<item>אמרת שתעשה את:</item>
-		<item>אתה אמור להתחיל:</item>
-		<item>זמן ההתחלה</item>
-		<item>הגיעה העת!</item>
-		<item>סליחה, הגיעה העת</item>
-		<item>פנוי? זה הזמן ל...</item>
-	</string-array>
-	<string-array name="reminders_snooze">
-		<item>תפסיק להיות עצלן!</item>
-		<item>ההשתקה שלי הסתיימה!</item>
-		<item>די להשתקות!</item>
-		<item>מוכן?</item>
-		<item>די לדחות!</item>
-	</string-array>
-	<string-array name="reminder_responses">
-		<item>יש לי משהו בשבילך!</item>
-		<item>מוכן לשים את זה מאחוריך?</item>
-		<item>למה שלא תגמור את זה וזהו?</item>
-		<item>מה דעתך?</item>
-		<item>קדימה?</item>
-		<item>קטן עליך!</item>
-		<item>בקרוב תהיה מאושר! רק תגמור את זה ודי!</item>
-		<item>מילה שלי: תרגיש הרבה יותר טוב כשרק תגמור את זה!</item>
-		<item>מה דעתך לעשות זאת?</item>
-		<item>אנא גמור, נמאס לי להזכיר לך!</item>
-		<item>אתה חושב שתוכל לעשות זאת? אני בטוחה שכן!</item>
-		<item>מתי כבר תעשה זאת?</item>
-		<item>תרגיש שוב עם עצמך! קדימה לעבודה!</item>
-		<item>אני כל כך גֵּאָה בְּךָ! עשה זאת!</item>
-		<item>חטיף קטן לפני שמתחילים?</item>
-		<item>רק את זה? בבקשה???</item>
-		<item>הגיע הזמן לקצר את רשימת המשימות שלך!</item>
-		<item>אתה תותח-לענין או נמושת-בלגן? אני בטוחה שתותח לענין! קדימה!</item>
-		<item>אמרתי כבר שאתה נהדר לאחרונה? בוא נמשיך!</item>
-		<item>משימה אחת ליום, והעומס ימוג כחלום... די לעומס!</item>
-		<item>איך עשית זאת? אני נפעמת!</item>
-		<item>אתה לא יכול להסתדר בחיים רק בזכות הפנים היפות שלך. כדאי להתחיל לעבוד!</item>
-		<item>מזג אוויר מצויין לעבודה מסוג זה, לא?</item>
-		<item>כוס קפה בזמן שאתה עובד על כך?</item>
-		<item>אם היית גומר את זה, יכולת ללכת ולעשות חיים.</item>
-		<item>זה הזמן. אי אפשר לדחות עוד ועוד.</item>
-		<item>אני נעלבת בכל פעם שאתה מתעלם ממני.</item>
-	</string-array>
 	<string name="repeat_plugin">משימות חוזרות</string>
 	<string name="repeat_plugin_desc">אפשר למשימות לחזור</string>
 	<string name="repeat_enabled">חזרה</string>
@@ -807,17 +727,6 @@
 	<string name="repeat_rescheduling_dialog_bubble">%1$s תיזמנתי מחדש משימה חוזרת זו מ־%2$s ל־%3$s</string>
 	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s תזמנתי מחדש משימה חוזרת זו ל־%2$s</string>
 	<string name="repeat_rescheduling_dialog_bubble_last_time">משימה זו חזרה עד %1$s, וכעת כל החזרות הסתיימו. %2$s</string>
-	<string-array name="repeat_encouragement">
-		<item>עבודה יפה!</item>
-		<item>יפה... אני כל כך גֵּאָה בְּךָ!</item>
-		<item>אני אוהבת שאתה פּוֹרֶה!</item>
-		<item>איזו הרגשה נהדרת לסמן ״בוצע״?</item>
-	</string-array>
-	<string-array name="repeat_encouragement_last_time">
-		<item>עבודה יפה!</item>
-		<item>אני כל כך גֵּאָה בְּךָ!</item>
-		<item>אני אוהבת שאתה פּוֹרֶה!</item>
-	</string-array>
 	<string name="subtasks_help_title">מיין והזח באסטריד</string>
 	<string name="subtasks_help_1">גע והחזק כדי להעביר משימה</string>
 	<string name="subtasks_help_2">גרור אנכית כדי לארגן מחדש</string>

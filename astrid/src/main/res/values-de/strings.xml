@@ -47,10 +47,6 @@
 	<string name="actfm_feat_list_clone_success">Viel Erfolg!</string>
 	<string name="actfm_feat_list_task_clone_success">Aufgabe kopiert</string>
 	<string name="actfm_feat_list_clone_empty">Keine Aufgaben zum Kopieren vorhanden</string>
-	<string name="actfm_https_title">HTTPS benutzen</string>
-	<string name="actfm_account_type">Konto-Typ</string>
-	<string name="actfm_inapp_billing">Auf Premium aufstocken</string>
-	<string name="actfm_inapp_billing_summary">Dateien anhängen, Sprachaufzeichnungen sichern, Premium Kundensupport und mehr</string>
 	<string name="actfm_tag_not_authorized_title">Nicht autorisiert!</string>
 	<string name="actfm_tag_not_authorized_body">Sie sind nicht mehr berechtigt, die Liste %s anzuzeigen (Sie wurden möglicherweise entfernt). Möchten Sie eine neue Liste mit dem gleichen Namen erstellen?</string>
 	<string name="actfm_tag_not_authorized_new_list">Neue Liste anlegen</string>
@@ -106,7 +102,6 @@
 	<string name="TLA_menu_lists">Listen</string>
 	<string name="TLA_menu_friends">Personen</string>
 	<string name="TLA_menu_featured_lists">Vorgeschlagene Listen</string>
-	<string name="TLA_menu_suggestions">Vorschläge</string>
 	<string name="TLA_menu_settings">Einstellungen</string>
 	<string name="TLA_menu_support">Unterstützung</string>
 	<string name="TLA_custom">Benutzerdefiniert</string>
@@ -223,14 +218,6 @@
 	<string name="MCA_task_title_name">%1$s unter %2$s zurückrufen</string>
 	<string name="MCA_task_title_no_name">%s zurückrufen</string>
 	<string name="MCA_schedule_dialog_title">%s zurückrufen in ...</string>
-	<string-array name="MCA_dialog_speech_options">
-		<item>Schön, wenn man so bekannt ist!</item>
-		<item>Wow, die Leute mögen Sie!</item>
-		<item>Ein Anruf macht Ihnen sicher eine Freude</item>
-		<item>Würde es dich nicht freuen, wenn Sie zurückgerufen werden?</item>
-		<item>Du schaffst es!</item>
-		<item>Du kannst auch eine SMS senden ...</item>
-	</string-array>
 	<string name="CRA_ignore">Ablehnen</string>
 	<string name="CRA_title">Willst Du eine Besprechungsliste erstellen?</string>
 	<string name="CRA_ignore_title">Alle Kalendertermine ablehnen?</string>
@@ -330,8 +317,6 @@
 	<string name="AOA_tab_available">Verfügbar</string>
 	<string name="AOA_free">Kostenlos</string>
 	<string name="AOA_no_addons">Leere Liste!</string>
-	<string name="AOA_ppack_title">Tasks Power Pack</string>
-	<string name="AOA_ppack_description">Unterstützen Sie Tasks und werden Sie produktiver mit dem Tasks Power Pack. 4x2 und 4x4 Widgets sowie Sprachintegration. Starten Sie heute noch durch!</string>
 	<string name="AOA_locale_title">Tasks Gebietsschema-Plugin</string>
 	<string name="AOA_locale_description">Erlaubt Tasks, die Gebietschema-App zum Senden von Benachrichtigunen basierend auf Filterregeln zu benutzen. Benötigt Gebietsschema-Plugin.</string>
 	<string name="TWi_loading">Ladevorgang …</string>
@@ -601,9 +586,6 @@
 	<string name="rmd_EPr_vibrate_title">Vibrieren beim Alarm</string>
 	<string name="rmd_EPr_vibrate_desc_true">Tasks wird beim Senden von Benachrichtigungen vibrieren</string>
 	<string name="rmd_EPr_vibrate_desc_false">Tasks wird beim Senden von Erinnerungen nicht vibrieren</string>
-	<string name="rmd_EPr_nagging_title">Tasks Ermutigungen</string>
-	<string name="rmd_EPr_nagging_desc_true">Tasks wird Ermutigungen zu den Erinnerungen hinzufügen</string>
-	<string name="rmd_EPr_nagging_desc_false">Tasks wird keine Ermutigungen hinzufügen</string>
 	<string name="rmd_EPr_snooze_dialog_title">Schlummer-Dialog HH:MM</string>
 	<string name="rmd_EPr_snooze_dialog_desc_true">Schlummerfunktion durch Auswahl neuer Zeit (HH:MM) aktivieren</string>
 	<string name="rmd_EPr_snooze_dialog_desc_false">Schlummern durch Auswahl von # Tagen/Stunden</string>
@@ -698,69 +680,6 @@
 		<item>07:00</item>
 		<item>08:00</item>
 	</string-array>
-	<string name="reminders_social">Diese Leute bauen auf Sie !</string>
-	<string name="reminders_social_one">%s zählt auf dich!</string>
-	<string-array name="reminders">
-		<item>Haste \'ne Sekunde?</item>
-		<item>Kann ich dich für ne Sekunde sehen?</item>
-		<item>Haste \'ne Minute?</item>
-		<item>Hast du vergessen?</item>
-		<item>Entschuldigung!</item>
-		<item>Wenn du Zeit hast:</item>
-		<item>Was noch zu tun ist:</item>
-		<item>Hast du einen Moment?</item>
-		<item>Tasks ist hier!</item>
-		<item>Hi! Darf ich kurz stören?</item>
-		<item>Eine Minute deiner Zeit!?</item>
-		<item>Heute ist ein toller Tag für:</item>
-	</string-array>
-	<string-array name="reminders_due">
-		<item>Arbeite:</item>
-		<item>Fälligkeit ist hier!</item>
-		<item>Bereit zum Anfangen?</item>
-		<item>Du sagtest, du willst:</item>
-		<item>Du solltest anfangen mit:</item>
-		<item>Es ist Zeit für:</item>
-		<item>Es ist soweit:</item>
-		<item>Entschuldige mich! Zeit für</item>
-		<item>Hast du frei? Zeit für</item>
-	</string-array>
-	<string-array name="reminders_snooze">
-		<item>Sei nicht so faul!</item>
-		<item>Die Schlummerzeit ist vorbei!</item>
-		<item>Nicht mehr schlummern!</item>
-		<item>Jetzt bist du bereit?</item>
-		<item>Kein weiteres Aufschieben mehr!</item>
-	</string-array>
-	<string-array name="reminder_responses">
-		<item>Ich hab was für dich!</item>
-		<item>Bereit die Sache abzuhaken?</item>
-		<item>Warum erledigst du das nicht endlich?</item>
-		<item>Wie sieht\'s hiermit aus? Fertig, Tiger?</item>
-		<item>Bist du bereit für diesen Job?</item>
-		<item>Bist du dem gewachsen?</item>
-		<item>Du kannst glücklich sein! Mach das eben fertig!</item>
-		<item>Du wirst dich besser fühlen, wenn es fertig ist! Ich versprech\'s dir.</item>
-		<item>Willst du es nicht heute erledigen?</item>
-		<item>Mach es zu Ende, mir reicht\'s!</item>
-		<item>Kannst du es erledigen? Ja, du kannst!</item>
-		<item>Möchten Sie es erledigen?</item>
-		<item>Fühl dich gut! Pack\'s an!</item>
-		<item>Ich bin stolz auf dich! Mach es endlich fertig!</item>
-		<item>Wie wäre es mit einem kleinen Snack nach getaner Arbeit?</item>
-		<item>Nur diese eine Aufgabe, bitte?</item>
-		<item>Es ist an der Zeit, deine Aufganliste zu verkürzen!</item>
-		<item>Gehörst du zum \"Team Ordnung\" oder zum \"Team Chaos\"? Fang an!</item>
-		<item>Habe ich dir schon gesagt, dass du mich zurzeit beeindruckst? Weiter so!</item>
-		<item>Eine Aufgabe am Tag verhindert das Chaos! Tschüss Chaos!</item>
-		<item>Wie machst du das nur? Ich bin schwer beeindruckt!</item>
-		<item>Du kommst mir nicht mit deinen schönen Aussehen davon! Kümmer dich drum!</item>
-		<item>Gutes Wetter für so einen Job, nicht wahr?</item>
-		<item>Ein Täschen Tee, während du die Aufgabe löst?</item>
-		<item>Wenn du es endlich gemacht hättest, könntest du rausgehen und spielen.</item>
-		<item>Its time. You cant put off the inevitable.</item>
-		<item>Es kränkt mich immer ein bisschen, wenn du mich ignorierst.</item>
-	</string-array>
 	<string name="repeat_plugin">Wiederkehrende Aufgaben</string>
 	<string name="repeat_plugin_desc">Aufgaben erlauben sich zu wiederholen</string>
 	<string name="repeat_enabled">Wiederholungen</string>
@@ -818,17 +737,6 @@
 	<string name="repeat_rescheduling_dialog_bubble">%1$s Ich habe die Wiederholungsaufgabe neu terminiert von %2$s auf %3$s</string>
 	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s wurde auf %2$s verschoben</string>
 	<string name="repeat_rescheduling_dialog_bubble_last_time">Diese Aufgabe wurde bis %1$s wiederholt, jetzt sind Sie fertig. %2$s</string>
-	<string-array name="repeat_encouragement">
-		<item>Gute Arbeit!</item>
-		<item>Wow...Ich bin so stolz auf dich!</item>
-		<item>Ich liebe Produktivität!</item>
-		<item>Ist es nicht ein schönes Gefühl, etwas abzuhaken?</item>
-	</string-array>
-	<string-array name="repeat_encouragement_last_time">
-		<item>Gute Arbeit!</item>
-		<item>Ich bin stolz auf Sie!</item>
-		<item>Es gefällt mir, wenn Sie produktiv sind!</item>
-	</string-array>
 	<string name="subtasks_help_title">Sortieren und einrücken in Tasks</string>
 	<string name="subtasks_help_1">Drücken und halten, um Aufgabe zu verschieben</string>
 	<string name="subtasks_help_2">Sortieren ändern durch Ziehen nach oben oder unten</string>
