@@ -28,9 +28,6 @@ public class SearchFilter extends FilterListItem {
         this.listingTitle = listingTitle;
     }
 
-    /**
-     * Constructor for creating a new SearchFilter
-     */
     protected SearchFilter() {
         //
     }

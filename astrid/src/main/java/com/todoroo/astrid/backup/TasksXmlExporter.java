@@ -27,8 +27,10 @@ import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.AstridPreferences;
 
@@ -63,13 +65,15 @@ public class TasksXmlExporter {
 
     // --- implementation
 
-    private static final int FORMAT = 2;
+    // 3 is started on Version 4.6.10
+    private static final int FORMAT = 3;
 
     private final Context context;
     private int exportCount = 0;
     private XmlSerializer xml;
     private final Database database = PluginServices.getDatabase();
     private final TaskService taskService = PluginServices.getTaskService();
+    private final TagDataService tagdataService = PluginServices.getTagDataService();
     private final MetadataService metadataService = PluginServices.getMetadataService();
     private final ExceptionService exceptionService = PluginServices.getExceptionService();
 
@@ -176,11 +180,36 @@ public class TasksXmlExporter {
                 Integer.toString(FORMAT));
 
         serializeTasks();
+        serializeTagDatas();
 
         xml.endTag(null, BackupConstants.ASTRID_TAG);
         xml.endDocument();
         xml.flush();
         fos.close();
+    }
+
+    private void  serializeTagDatas() throws IOException {
+        TodorooCursor<TagData> cursor;
+        cursor = tagdataService.query(Query.select(
+                TagData.PROPERTIES).orderBy(Order.asc(TagData.ID)));
+
+        try {
+            TagData tag = new TagData();
+            int length = cursor.getCount();
+            for(int i = 0; i < length; i++) {
+                cursor.moveToNext();
+                tag.readFromCursor(cursor);
+
+                //TODO setProgress(i, length);
+
+                xml.startTag(null, BackupConstants.TAGDATA_TAG);
+                serializeModel(tag, TagData.PROPERTIES, TagData.ID);
+                xml.endTag(null, BackupConstants.TAGDATA_TAG);
+                //this.exportCount++;
+            }
+        } finally {
+            cursor.close();
+        }
     }
 
     private void serializeTasks() throws IOException {
