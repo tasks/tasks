@@ -39,6 +39,9 @@ public class BackupConstants {
     /** Tag containing a metadata item */
     public static final String METADATA_TAG = "metadata";
 
+    /** Tag containing a tagdata item */
+    public static final String TAGDATA_TAG = "tagdata";
+
     // --- format 1
 
     public static final String TAG_TAG = "tag";
