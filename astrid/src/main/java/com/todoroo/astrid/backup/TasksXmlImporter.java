@@ -42,12 +42,14 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.legacy.LegacyImportance;
 import com.todoroo.astrid.legacy.LegacyRepeatInfo;
 import com.todoroo.astrid.legacy.LegacyRepeatInfo.LegacyRepeatInterval;
 import com.todoroo.astrid.legacy.LegacyTaskModel;
 import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.tags.TagService;
@@ -78,6 +80,7 @@ public class TasksXmlImporter {
     private final Context context;
     private final TaskService taskService = PluginServices.getTaskService();
     private final MetadataService metadataService = PluginServices.getMetadataService();
+    private final TagDataService tagdataService = PluginServices.getTagDataService();
     private final ExceptionService exceptionService = PluginServices.getExceptionService();
     private final ProgressDialog progressDialog;
     private final Runnable runAfterImport;
@@ -152,6 +155,8 @@ public class TasksXmlImporter {
                             new Format1TaskImporter(xpp);
                         } else if(TextUtils.equals(format, FORMAT2)) {
                             new Format2TaskImporter(xpp);
+                        } else if(TextUtils.equals(format, FORMAT3)) {
+                            new Format3TaskImporter(xpp);
                         } else {
                             throw new UnsupportedOperationException(
                                     "Did not know how to import tasks with xml format '" +
@@ -207,11 +212,13 @@ public class TasksXmlImporter {
     private static final String FORMAT2 = "2"; //$NON-NLS-1$
     private class Format2TaskImporter {
 
-        private int version;
-        private final XmlPullParser xpp;
-        private final Task currentTask = new Task();
-        private final Metadata metadata = new Metadata();
+        protected int version;
+        protected XmlPullParser xpp;
+        protected Task currentTask = new Task();
+        protected Metadata metadata = new Metadata();
+        protected TagData tagdata = new TagData();
 
+        public Format2TaskImporter() { }
         public Format2TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {
             this.xpp = xpp;
 
@@ -234,7 +241,7 @@ public class TasksXmlImporter {
                         parseTask();
                     } else if (tag.equals(BackupConstants.METADATA_TAG)) {
                         // Process <metadata ... >
-                        parseMetadata();
+                        parseMetadata(2);
                     }
                 } catch (Exception e) {
                     errorCount++;
@@ -245,7 +252,7 @@ public class TasksXmlImporter {
             }
         }
 
-        private void parseTask() {
+        protected void parseTask() {
             taskCount++;
             setProgressMessage(context.getString(R.string.import_progress_read,
                     taskCount));
@@ -326,7 +333,7 @@ public class TasksXmlImporter {
             }
         }
 
-        private void parseMetadata() {
+        protected void parseMetadata(int format) {
             if(!currentTask.isSaved()) {
                 return;
             }
@@ -335,13 +342,33 @@ public class TasksXmlImporter {
             metadata.setId(Metadata.NO_ID);
             metadata.setValue(Metadata.TASK, currentTask.getId());
             metadataService.save(metadata);
+
+            // Construct the TagData from Metadata
+            // Fix for failed backup, Version before 4.6.10
+            if (format == 2) {
+                String name = metadata.getValue(Metadata.VALUE1);
+                String uuid = metadata.getValue(Metadata.VALUE2);
+                TodorooCursor<TagData> cursor = tagdataService.query(Query.select(TagData.ID).
+                        where(TagData.NAME.eq(name).and(TagData.UUID.eq(uuid))));
+                try {
+                    if(cursor.getCount() == 0) {
+                        tagdata.clear();
+                        tagdata.setId(TagData.NO_ID);
+                        tagdata.setUuid(uuid);
+                        tagdata.setValue(TagData.NAME, name);
+                        tagdataService.save(tagdata);
+                    }
+                } finally {
+                    cursor.close();
+                }
+            }
         }
 
         /**
          * Turn a model into xml attributes
          * @param model
          */
-        private void deserializeModel(AbstractModel model, Property<?>[] properties) {
+        protected void deserializeModel(AbstractModel model, Property<?>[] properties) {
             for(Property<?> property : properties) {
                 try {
                     property.accept(xmlReadingVisitor, model);
@@ -399,6 +426,50 @@ public class TasksXmlImporter {
                 return null;
             }
 
+        }
+    }
+
+    // =============================================================== FORMAT3
+
+    private static final String FORMAT3 = "3"; //$NON-NLS-1$
+    private class Format3TaskImporter extends Format2TaskImporter {
+
+        public Format3TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {
+            this.xpp = xpp;
+            try {
+                this.version = Integer.parseInt(xpp.getAttributeValue(null, BackupConstants.ASTRID_ATTR_VERSION));
+            } catch (NumberFormatException e) {
+                // can't read version, assume max version
+                this.version = Integer.MAX_VALUE;
+            }
+
+            while (xpp.next() != XmlPullParser.END_DOCUMENT) {
+                String tag = xpp.getName();
+                if (tag == null || xpp.getEventType() == XmlPullParser.END_TAG) {
+                    continue;
+                }
+
+                try {
+                    if (tag.equals(BackupConstants.TASK_TAG)) {
+                        parseTask();
+                    } else if (tag.equals(BackupConstants.METADATA_TAG)) {
+                        parseMetadata(3);
+                    } else if (tag.equals(BackupConstants.TAGDATA_TAG)) {
+                        parseTagdata();
+                    }
+                } catch (Exception e) {
+                    errorCount++;
+                    Log.e("astrid-importer", //$NON-NLS-1$
+                            "Caught exception while reading from " + //$NON-NLS-1$
+                                    xpp.getText(), e);
+                }
+            }
+        }
+
+        private void parseTagdata() {
+            tagdata.clear();
+            deserializeModel(tagdata, TagData.PROPERTIES);
+            tagdataService.save(tagdata);
         }
     }
 
