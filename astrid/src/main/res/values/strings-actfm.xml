@@ -3,18 +3,6 @@
 
   <!-- ================================================== general terms == -->
 
-  <!-- People Editing Activity -->    
-  
-  <!-- slide 18b/ 25e/ 27c: task sharing dialog: assigned hint -->
-  <string name="actfm_person_hint">Contact or Email</string>
-  
-  <!-- task sharing dialog: shared with hint -->
-  <string name="actfm_person_or_tag_hint">Contact or Shared List</string>
-
-  <!-- toast on transmit success -->
-
-  <!-- can't rename or delete shared tag message -->
-  
   <!-- warning before deleting a list you're the owner of -->
   <string name="actfm_tag_operation_owner_delete">You are the owner of this shared list! If you delete it, it will be deleted for all list members. Are you sure you want to continue?</string>
 
@@ -96,9 +84,6 @@
       
   <!-- ============================================ edit people dialog == -->
 
-  <!-- task sharing dialog: invalid email (%s => email) -->
-  <string name="actfm_EPA_invalid_email">Invalid E-mail: %s</string>
-
   <string name="actfm_EPA_add_person_to_list_title">Task assigned</string>
   
   <string name="actfm_EPA_add_person_to_list">%1$s is not shared on this list. Would you like to add %2$s to this list?</string>
@@ -106,8 +91,6 @@
   <string name="actfm_EPA_add_person_to_list_ok">Add to list</string>
   
   <string name="actfm_EPA_add_person_to_list_cancel">Don\'t add</string>
-  
-  <string name="actfm_list_owner">(owner)</string>
   
   <!-- ========================================= sharing login activity == -->
 

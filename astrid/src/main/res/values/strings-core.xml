@@ -247,12 +247,6 @@
   <!-- Task due date hint -->
   <string name="TEA_deadline_hint">Set due date</string>
   
-  <!-- Task urgency specific time checkbox -->
-  <string name="TEA_urgency_specific_time">At specific time?</string>
-  
-  <!-- Task urgency specific time title when specific time false -->
-  <string name="TEA_urgency_none">None</string>
-  
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">Hide until</string>
 
