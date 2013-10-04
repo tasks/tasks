@@ -239,7 +239,6 @@ public class StartupService {
             }
         }).start();
 
-        AstridPreferences.resetPreferencesFromAbTests(latestSetVersion);
         AstridPreferences.setPreferenceDefaults();
         CalendarStartupReceiver.scheduleCalendarAlarms(context, false); // This needs to be after set preference defaults for the purposes of ab testing
 

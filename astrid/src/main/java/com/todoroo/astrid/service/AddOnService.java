@@ -21,22 +21,12 @@ import com.todoroo.astrid.utility.Constants;
  */
 public class AddOnService {
 
-    /** OEM preference key */
-    private static final String PREF_OEM = "poem";
-
     /** Astrid Power Pack package */
     public static final String POWER_PACK_PACKAGE = "com.todoroo.astrid.ppack";
 
     /** Checks whether power pack should be enabled */
     public boolean hasPowerPack() {
         return true;
-    }
-
-    /**
-     * Record that a version was an OEM install
-     */
-    public static void recordOem() {
-        Preferences.setBoolean(PREF_OEM, true);
     }
 
     /**

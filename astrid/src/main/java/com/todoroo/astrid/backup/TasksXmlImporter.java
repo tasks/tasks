@@ -5,16 +5,6 @@
  */
 package com.todoroo.astrid.backup;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.StringTokenizer;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -28,7 +18,6 @@ import android.util.Log;
 import android.view.WindowManager.BadTokenException;
 
 import com.google.ical.values.RRule;
-import org.tasks.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
@@ -49,8 +38,18 @@ import com.todoroo.astrid.legacy.LegacyRepeatInfo.LegacyRepeatInterval;
 import com.todoroo.astrid.legacy.LegacyTaskModel;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.tags.TagService;
+
+import org.tasks.R;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.StringTokenizer;
 
 public class TasksXmlImporter {
 
@@ -271,19 +270,6 @@ public class TasksXmlImporter {
                 if(cursor.getCount() > 0) {
                     cursor.moveToNext();
 
-                    // fix for failed migration in 4.0.6
-                    if(version < UpgradeService.V4_0_6) {
-                        if(!completionDate.equals("0") &&
-                                !completionDate.equals(Long.toString(cursor.get(Task.COMPLETION_DATE)))) {
-                            existingTask = cursor.get(Task.ID);
-                        }
-
-                        if(!deletionDate.equals("0") &&
-                                !deletionDate.equals(Long.toString(cursor.get(Task.DELETION_DATE)))) {
-                            existingTask = cursor.get(Task.ID);
-                        }
-                    }
-
                     if(existingTask == 0) {
                         skipCount++;
                         return;
@@ -295,9 +281,6 @@ public class TasksXmlImporter {
 
             // else, make a new task model and add away.
             deserializeModel(currentTask, Task.PROPERTIES);
-            if(version < UpgradeService.V4_0_6) {
-                adjustDueDateScheme(currentTask);
-            }
 
             if(existingTask > 0) {
                 currentTask.setId(existingTask);
@@ -308,22 +291,6 @@ public class TasksXmlImporter {
             // Save the task to the database.
             taskService.save(currentTask);
             importCount++;
-        }
-
-        private void adjustDueDateScheme(Task model) {
-            long dueDate = model.getValue(Task.DUE_DATE);
-
-            if (dueDate > 0) {
-                Date date = new Date(dueDate);
-                if (date.getHours() == 23 && date.getMinutes() == 59 && date.getSeconds() == 59) {
-                    date.setHours(12);
-                    date.setMinutes(0);
-                    date.setSeconds(0);
-                } else {
-                    date.setSeconds(1);
-                }
-                model.setValue(Task.DUE_DATE, date.getTime());
-            }
         }
 
         private void parseMetadata() {

@@ -10,14 +10,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.User;
-import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer;
 
 import org.tasks.R;
@@ -60,17 +58,6 @@ public class AstridPreferences {
         spec = new AstridDefaultPreferenceSpec();
 
         spec.resetDefaults();
-    }
-
-    /**
-     * Reset preferences based on archived AB tests
-     * @param fromVersion
-     */
-    public static void resetPreferencesFromAbTests(long fromVersion) {
-        Context context = ContextManager.getContext();
-        if (fromVersion < UpgradeService.V4_4_2) {
-            Preferences.clear(context.getString(R.string.p_calendar_reminders));
-        }
     }
 
     private static void setShowFriendsView() {
