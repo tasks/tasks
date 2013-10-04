@@ -23,7 +23,6 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.actfm.sync.AstridNewSyncMigrator;
 import com.todoroo.astrid.actfm.sync.EmptyTitleOutstandingEntryMigration;
 import com.todoroo.astrid.actfm.sync.messages.ConvertSelfUserIdsToZero;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
@@ -237,7 +236,6 @@ public final class UpgradeService {
                                         cursor.close();
                                     }
                                 }
-                                new AstridNewSyncMigrator().performMigration();
                             }
 
                             if (from < V4_6_2) {

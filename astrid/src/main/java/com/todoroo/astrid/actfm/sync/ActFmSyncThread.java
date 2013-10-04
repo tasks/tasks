@@ -1,19 +1,5 @@
 package com.todoroo.astrid.actfm.sync;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.apache.http.entity.mime.MultipartEntity;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -25,7 +11,6 @@ import android.net.NetworkInfo;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import org.tasks.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -72,6 +57,21 @@ import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.widget.TasksWidget;
 
+import org.apache.http.entity.mime.MultipartEntity;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.tasks.R;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 public class ActFmSyncThread {
 
     private static final String ERROR_TAG = "actfm-sync-thread"; //$NON-NLS-1$
@@ -112,8 +112,6 @@ public class ActFmSyncThread {
     private TaskListMetadataOutstandingDao taskListMetadataOutstandingDao;
 
     private String token;
-
-    private boolean syncMigration = false;
 
     private boolean isTimeForBackgroundSync = false;
 
@@ -177,7 +175,6 @@ public class ActFmSyncThread {
         this.pendingMessages = messageQueue;
         this.pendingCallbacks = Collections.synchronizedMap(new HashMap<ClientToServerMessage<?>, SyncMessageCallback>());
         this.monitor = syncMonitor;
-        this.syncMigration = Preferences.getBoolean(AstridNewSyncMigrator.PREF_SYNC_MIGRATION, false);
         this.notificationManager = new AndroidNotificationManager(ContextManager.getContext());
     }
 
@@ -242,7 +239,7 @@ public class ActFmSyncThread {
             List<ClientToServerMessage<?>> messageBatch = new ArrayList<ClientToServerMessage<?>>();
             while(true) {
                 synchronized(monitor) {
-                    while ((pendingMessages.isEmpty() && !timeForBackgroundSync()) || !actFmPreferenceService.isLoggedIn() || !syncMigration) {
+                    while ((pendingMessages.isEmpty() && !timeForBackgroundSync()) || !actFmPreferenceService.isLoggedIn()) {
                         try {
                             if ((pendingMessages.isEmpty() || !actFmPreferenceService.isLoggedIn()) && notificationId >= 0) {
                                 notificationManager.cancel(notificationId);
@@ -250,10 +247,6 @@ public class ActFmSyncThread {
                             }
                             monitor.wait();
                             AndroidUtilities.sleepDeep(500L); // Wait briefly for large database operations to finish (e.g. adding a task with several tags may trigger a message before all saves are done--fix this?)
-
-                            if (!syncMigration) {
-                                syncMigration = Preferences.getBoolean(AstridNewSyncMigrator.PREF_SYNC_MIGRATION, false);
-                            }
                         } catch (InterruptedException e) {
                             // Ignored
                         }

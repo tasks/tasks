@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.service;
 
-import java.io.File;
-import java.util.List;
-
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -25,7 +22,6 @@ import android.media.AudioManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import org.tasks.R;
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -40,7 +36,6 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
-import com.todoroo.astrid.actfm.sync.AstridNewSyncMigrator;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.backup.BackupService;
@@ -69,6 +64,11 @@ import com.todoroo.astrid.ui.TaskListFragmentPager;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.widget.TasksWidget.WidgetUpdateService;
+
+import org.tasks.R;
+
+import java.io.File;
+import java.util.List;
 
 /**
  * Service which handles jobs that need to be run when Astrid starts up.
@@ -192,8 +192,6 @@ public class StartupService {
         if(justUpgraded && version > 0) {
             if(latestSetVersion > 0) {
                 upgradeService.performUpgrade(context, latestSetVersion);
-            } else {
-                Preferences.setBoolean(AstridNewSyncMigrator.PREF_SYNC_MIGRATION, true); // New installs should have this flag set up front
             }
             AstridPreferences.setCurrentVersion(version);
             AstridPreferences.setCurrentVersionName(versionName);
