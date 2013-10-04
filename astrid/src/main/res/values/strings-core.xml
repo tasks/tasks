@@ -639,24 +639,9 @@
       
   <!-- ==================================================== AddOnActivity == -->
   
-  <!-- Add Ons Activity Title -->
-  <string name="AOA_title">Add-ons</string>
-    
   <!-- Add-on Activity: author for internal authors  -->
   <string name="AOA_internal_author">Tasks Team</string>
     
-  <!-- Add-on Activity: installed add-ons tab -->
-  <string name="AOA_tab_installed">Installed</string>
-  
-  <!-- Add-on Activity - available add-ons tab -->
-  <string name="AOA_tab_available">Available</string>
-  
-  <!-- Add-on Activity - free add-ons label -->
-  <string name="AOA_free">Free</string>
-  
-  <!-- Add-on Activity - when list is empty -->
-  <string name="AOA_no_addons">Empty List!</string>
-  
   <!-- ====================================================== TasksWidget == -->
 
   <!-- Widget text when loading tasks -->

@@ -162,11 +162,6 @@
             </intent-filter>
         </activity>
 
-        <!-- Activity that selects and installs add-ons -->
-        <activity
-            android:name="com.todoroo.astrid.activity.AddOnActivity"
-            android:windowSoftInputMode="stateHidden" />
-
         <!-- Activity for preferences -->
         <activity
             android:name="com.todoroo.astrid.activity.EditPreferences"
