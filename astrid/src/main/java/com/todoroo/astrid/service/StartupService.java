@@ -199,8 +199,6 @@ public class StartupService {
             AstridPreferences.setCurrentVersionName(versionName);
         }
 
-        upgradeService.performSecondaryUpgrade(context);
-
         final int finalLatestVersion = latestSetVersion;
 
         initializeDatabaseListeners();

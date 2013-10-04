@@ -94,13 +94,6 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
         injectables.put("addOnService", AddOnService.class);
         injectables.put("syncService", SyncV2Service.class);
 
-        // com.timsu.astrid.data
-        injectables.put("tasksTable", "tasks");
-        injectables.put("tagsTable", "tags");
-        injectables.put("tagTaskTable", "tagTaskMap");
-        injectables.put("alertsTable", "alerts");
-        injectables.put("syncTable", "sync");
-
         // com.todoroo.astrid.sharing
         injectables.put("actFmPreferenceService", ActFmPreferenceService.class);
         injectables.put("actFmInvoker", ActFmInvoker.class);

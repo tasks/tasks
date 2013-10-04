@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.provider;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.Context;
@@ -29,10 +25,13 @@ import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
-import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagService.Tag;
+
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * This is the legacy Astrid task provider. While it will continue to be
@@ -55,9 +54,9 @@ public class Astrid2TaskProvider extends ContentProvider {
 	private static final boolean LOGD = false;
 
 
-	public static final String AUTHORITY = "com.timsu.astrid.tasksprovider";
+	public static final String AUTHORITY = "org.tasks.tasksprovider";
 
-	public static final Uri CONTENT_URI = Uri.parse("content://com.timsu.astrid.tasksprovider");
+	public static final Uri CONTENT_URI = Uri.parse("content://org.tasks.tasksprovider");
 
 	private static final UriMatcher URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
 

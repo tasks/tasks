@@ -209,14 +209,6 @@ public final class UpgradeService {
                     @Override
                     public void run() {
                         try {
-                            if(from < V3_0_0) {
-                                new Astrid2To3UpgradeHelper().upgrade2To3(UpgradeActivity.this, from);
-                            }
-
-                            if(from < V3_1_0) {
-                                new Astrid2To3UpgradeHelper().upgrade3To3_1(UpgradeActivity.this, from);
-                            }
-
                             if(from < V3_8_3_1) {
                                 new TagCaseMigrator().performTagCaseMigration(UpgradeActivity.this);
                             }
@@ -821,19 +813,4 @@ public final class UpgradeService {
                 Preferences.getInt(SortHelper.PREF_SORT_SORT, 0));
         editor.commit();
     }
-
-    // --- secondary upgrade
-
-    /**
-     * If primary upgrade doesn't work for some reason (corrupt SharedPreferences,
-     * for example), this will catch some cases
-     */
-    public void performSecondaryUpgrade(Context context) {
-        if(!context.getDatabasePath(database.getName()).exists() &&
-                context.getDatabasePath("tasks").exists()) { //$NON-NLS-1$
-            new Astrid2To3UpgradeHelper().upgrade2To3(context, 1);
-        }
-    }
-
-
 }
