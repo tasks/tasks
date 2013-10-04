@@ -65,10 +65,7 @@
   <!-- slide 8b: Task List: Displayed instead of list when no items present -->    
   <string name="TLA_no_items">You have no tasks! \n Want to add something?</string>
   
-  <!-- Task List: Displayed instead of list when no items present in people view (%s-> person's name) -->    
-  <string name="TLA_no_items_person">%s has no\ntasks shared with you</string>
-  
-  <!-- Menu: Adjust Sort and Hidden Task Settings -->    
+  <!-- Menu: Adjust Sort and Hidden Task Settings -->
   <string name="TLA_menu_sort">Sort</string>
   
   <!-- Menu: Sync Now -->    
@@ -79,9 +76,6 @@
   
   <!-- Menu: Tasks -->
   <string name="TLA_menu_lists">Lists</string>
-
-  <!-- Menu: Friends -->
-  <string name="TLA_menu_friends">People</string>
 
   <!-- Menu: Featured Lists -->
   <string name="TLA_menu_featured_lists">Featured Lists</string>
@@ -97,9 +91,6 @@
   
   <!-- slide 8d: Quick Add Edit Box Hint-->
   <string name="TLA_quick_add_hint">Add a task</string>
-  
-  <!-- Quick Add Edit Box Hint for assigning (%s -> name)-->
-  <string name="TLA_quick_add_hint_assign">Add something for %s</string>
   
   <!-- Notification Volumne notification-->
   <string name="TLA_notification_volume_low">Notifications are muted. You won\'t be able to hear Tasks!</string>

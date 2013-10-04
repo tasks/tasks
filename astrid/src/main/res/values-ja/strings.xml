@@ -13,9 +13,6 @@
 	<string name="actfm_view_task_text">タスクは%sに送信されました！只今あなたのタスクが表示されています。あなたが割り当ていた他のタスクもここで表示しますか？</string>
 	<string name="actfm_view_task_ok">表示する</string>
 	<string name="actfm_view_task_cancel">表示しない</string>
-	<string name="actfm_my_shared_tasks_title">自分の共有タスク</string>
-	<string name="actfm_my_shared_tasks_empty">共有タスクがありません</string>
-	<string name="actfm_friendship_accept">受け入れる</string>
 	<string name="TVA_add_comment">コメントする</string>
 	<string name="actfm_TVA_menu_refresh">更新</string>
 	<string name="actfm_TVA_tag_label">リスト</string>
@@ -73,7 +70,6 @@
 	<string name="ENA_refresh_comments">コメントを更新</string>
 	<string name="TLA_no_items">タスクなし</string>
 	<string name="TLA_menu_lists">リスト</string>
-	<string name="TLA_menu_friends">人々</string>
 	<string name="TLA_menu_settings">設定</string>
 	<string name="TLA_menu_support">サポート</string>
 	<string name="TLA_custom">カスタムフィルタ</string>

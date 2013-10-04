@@ -13,8 +13,6 @@
 	<string name="actfm_view_task_text">A tarefa foi enviada para %s! Está a visualizar as suas próprias tarefas. Deseja ver esta e também outras tarefas já atribuídas?</string>
 	<string name="actfm_view_task_ok">Ver atribuídas</string>
 	<string name="actfm_view_task_cancel">Ficar Aqui</string>
-	<string name="actfm_my_shared_tasks_title">Minhas Tarefas Partilhadas</string>
-	<string name="actfm_my_shared_tasks_empty">Sem tarefas partilhadas</string>
 	<string name="TVA_add_comment">Adicionar um comentário...</string>
 	<string name="actfm_TVA_menu_refresh">Actualizar</string>
 	<string name="actfm_TVA_tag_label">Lista</string>

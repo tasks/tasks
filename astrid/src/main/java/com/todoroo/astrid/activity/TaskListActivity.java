@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.activity;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.app.SearchManager;
@@ -26,14 +22,12 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
-import org.tasks.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.QueryTemplate;
@@ -55,8 +49,6 @@ import com.todoroo.astrid.dao.TagMetadataDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.people.PeopleFilterMode;
-import com.todoroo.astrid.people.PersonViewFragment;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagsPlugin;
@@ -70,6 +62,11 @@ import com.todoroo.astrid.ui.TaskListFragmentPager;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.tasks.R;
 
 public class TaskListActivity extends AstridActivity implements MainMenuListener, OnPageChangeListener {
 
@@ -90,7 +87,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     private static final String FILTER_MODE = "filterMode"; //$NON-NLS-1$
 
     public static final int FILTER_MODE_NORMAL = 0;
-    public static final int FILTER_MODE_PEOPLE = 1;
     public static final int FILTER_MODE_FEATURED = 2;
 
     public static final int REQUEST_CODE_RESTART = 10;
@@ -135,10 +131,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         @Override
         public void onClick(View v) {
             TaskListFragment tlf = getTaskListFragment();
-            if (tlf == null || !(tlf instanceof PersonViewFragment)) {
-                return;
-            }
-            ((PersonViewFragment) tlf).handleStatusButtonClicked();
         }
     };
 
@@ -831,9 +823,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         case MainMenuPopover.MAIN_MENU_ITEM_FEATURED_LISTS:
             setFilterMode(FILTER_MODE_FEATURED);
             return;
-        case MainMenuPopover.MAIN_MENU_ITEM_FRIENDS:
-            setFilterMode(FILTER_MODE_PEOPLE);
-            return;
         case MainMenuPopover.MAIN_MENU_ITEM_SETTINGS:
             if (tlf != null) {
                 tlf.showSettings();
@@ -853,11 +842,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             createListsPopover();
             setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0,
                     filterModeSpec.getFilterListClass(), true, true));
-            if (mode == FILTER_MODE_PEOPLE) {
-                personStatus.setVisibility(View.VISIBLE);
-            } else {
-                personStatus.setVisibility(View.GONE);
-            }
+            personStatus.setVisibility(View.GONE);
 
             if (swipeIsEnabled()) {
                 setupPagerAdapter();
@@ -886,9 +871,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     private void updateFilterModeSpec(int mode) {
         switch(mode) {
-        case FILTER_MODE_PEOPLE:
-            filterModeSpec = new PeopleFilterMode();
-            break;
         case FILTER_MODE_FEATURED:
             filterModeSpec = new FeaturedListFilterMode();
             break;

@@ -29,31 +29,7 @@
   <!-- Cancel button for task view prompt -->
   <string name="actfm_view_task_cancel">Stay Here</string>
   
-  <!-- slide 13a: Title for the "My Shared Tasks" filter -->
-  <string name="actfm_my_shared_tasks_title">My Shared Tasks</string>
-  
-  <!-- Empty list for the "My Shared Tasks" filter -->
-  <string name="actfm_my_shared_tasks_empty">No shared tasks</string>
-  
-  <!-- =====================  Friendship connections -->
-  
-  <string name="actfm_friendship_pending">You\'ve sent a friend request to %s!</string>
-
-  <string name="actfm_friendship_blocked">You\'ve blocked %s.</string>
-
-  <string name="actfm_friendship_ignored">You\'ve ignored %s.</string>
-  
-  <string name="actfm_friendship_friends">You\'re friends with %s! Add tasks for them below.</string>
-
-  <string name="actfm_friendship_other_pending">%s wants to be friends with you!</string>
-
-  <string name="actfm_friendship_no_status">Connect with %s to share and see activity on public tasks!</string>
-
-  <string name="actfm_friendship_connect">Add friend</string>
-
-  <string name="actfm_friendship_accept">Accept</string>
-
-  <!-- ================================================== TagViewActivity == -->  
+  <!-- ================================================== TagViewActivity == -->
 
   <!-- Tag View Activity: Add Comment hint -->    
   <string name="TVA_add_comment">Add a comment...</string>
