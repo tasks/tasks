@@ -147,8 +147,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
         addPreferenceListeners();
 
-        disablePremiumPrefs();
-
         PreferenceScreen appearance = (PreferenceScreen) screen.getPreference(APPEARANCE_PREFERENCE);
         if (!AndroidUtilities.isTabletSized(this)) {
             appearance.removePreference(screen.findPreference(getString(R.string.p_force_phone_layout)));
@@ -191,12 +189,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
             }
         }
         return false;
-    }
-
-    private void disablePremiumPrefs() {
-        boolean hasPowerPack = addOnService.hasPowerPack();
-        findPreference(getString(R.string.p_files_dir)).setEnabled(ActFmPreferenceService.isPremiumUser());
-        findPreference(getString(R.string.p_voiceRemindersEnabled)).setEnabled(hasPowerPack);
     }
 
     private void showBeastMode() {

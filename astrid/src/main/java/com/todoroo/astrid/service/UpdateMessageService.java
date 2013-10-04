@@ -5,15 +5,6 @@
  */
 package com.todoroo.astrid.service;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -33,7 +24,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 
-import org.tasks.R;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -48,6 +38,16 @@ import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.utility.Constants;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.tasks.R;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Notifies users when there are server updates
@@ -353,7 +353,7 @@ public class UpdateMessageService {
                     "language=" + Locale.getDefault().getISO3Language() + "&" +
                     "market=" + Constants.MARKET_STRATEGY.strategyId() + "&" +
                     "actfm=" + (actFmPreferenceService.isLoggedIn() ? "1" : "0") + "&" +
-                    "premium=" + (ActFmPreferenceService.isPremiumUser() ? "1" : "0");
+                    "premium=1";
             String result = restClient.get(url); //$NON-NLS-1$
             if(TextUtils.isEmpty(result)) {
                 return null;

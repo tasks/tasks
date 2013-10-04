@@ -5,17 +5,16 @@
  */
 package com.todoroo.astrid.actfm.sync;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.text.TextUtils;
 
-import org.tasks.R;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.RemoteModelDao;
-import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 import com.todoroo.astrid.utility.AstridPreferences;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.tasks.R;
 
 /**
  * Methods for working with GTasks preferences
@@ -46,10 +45,7 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
 
     @Override
     public boolean shouldShowToast() {
-        if(Preferences.getBoolean(AstridPreferences.P_FIRST_TASK, true)) {
-            return false;
-        }
-        return super.shouldShowToast();
+        return !Preferences.getBoolean(AstridPreferences.P_FIRST_TASK, true) && super.shouldShowToast();
     }
 
     // --- user management
@@ -62,13 +58,6 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
         } else {
             RemoteModelDao.setOutstandingEntryFlags(RemoteModelDao.OUTSTANDING_ENTRY_FLAG_ENQUEUE_MESSAGES | RemoteModelDao.OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING);
         }
-    }
-
-    /**
-     * @return true if the user is now or has ever been logged in
-     */
-    public boolean wasLoggedIn() {
-        return RemoteModel.isValidUuid(userId());
     }
 
     /**
@@ -98,12 +87,6 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
     /** Act.fm current user last name */
     public static final String PREF_LAST_NAME = IDENTIFIER + "_last_name"; //$NON-NLS-1$
 
-    /** Act.fm current user premium status */
-    public static final String PREF_PREMIUM = IDENTIFIER + "_premium"; //$NON-NLS-1$
-
-    /** Local knowledge of current premium status */
-    public static final String PREF_LOCAL_PREMIUM = IDENTIFIER + "_local_premium"; //$NON-NLS-1$
-
     /** Act.fm current user picture */
     public static final String PREF_PICTURE = IDENTIFIER + "_picture"; //$NON-NLS-1$
 
@@ -127,29 +110,18 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
         return user;
     }
 
-    public synchronized static void reloadThisUser() {
-        if (user == null) {
-            return;
-        }
-        populateUser();
-    }
-
     private static void populateUser() {
         try {
             user.put("name", Preferences.getStringValue(PREF_NAME));
             user.put("first_name", Preferences.getStringValue(PREF_FIRST_NAME));
             user.put("last_name", Preferences.getStringValue(PREF_LAST_NAME));
-            user.put("premium", isPremiumUser());
+            user.put("premium", true);
             user.put("email", Preferences.getStringValue(PREF_EMAIL));
             user.put("picture", Preferences.getStringValue(PREF_PICTURE));
             user.put("id", ActFmPreferenceService.userId());
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public static boolean isPremiumUser() {
-        return true;
     }
 
     @Override
@@ -175,29 +147,4 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
         }
         return name;
     }
-
-    public static String thisUserName() {
-        JSONObject thisUser = thisUser();
-
-        String name = thisUser.optString("name");
-        if (!(TextUtils.isEmpty(name) || "null".equals(name))) {
-            return name;
-        }
-        String firstName = thisUser.optString("first_name");
-        boolean firstNameEmpty = TextUtils.isEmpty(firstName) || "null".equals(firstName);
-        String lastName = thisUser.optString("last_name");
-        boolean lastNameEmpty = TextUtils.isEmpty(lastName) || "null".equals(lastName);
-        if (firstNameEmpty && lastNameEmpty) {
-            return thisUser.optString("email");
-        }
-        StringBuilder nameBuilder = new StringBuilder();
-        if (!firstNameEmpty) {
-            nameBuilder.append(firstName).append(" ");
-        }
-        if (!lastNameEmpty) {
-            nameBuilder.append(lastName);
-        }
-        return nameBuilder.toString().trim();
-    }
-
 }

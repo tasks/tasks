@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.voice;
 
-import java.io.IOException;
-import java.util.List;
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
@@ -20,14 +17,17 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import org.tasks.R;
 import com.todoroo.aacenc.ContextManager;
 import com.todoroo.aacenc.RecognizerApi;
 import com.todoroo.aacenc.RecognizerApi.RecognizerApiListener;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.utility.Constants;
+
+import org.tasks.R;
+
+import java.io.IOException;
+import java.util.List;
 
 @TargetApi(8)
 public class VoiceRecognizer {
@@ -36,8 +36,7 @@ public class VoiceRecognizer {
     protected VoiceInputAssistant voiceInputAssistant;
 
     public static boolean speechRecordingAvailable(Context context) {
-        return ActFmPreferenceService.isPremiumUser() &&
-                AndroidUtilities.getSdkVersion() >= 8 &&
+        return AndroidUtilities.getSdkVersion() >= 8 &&
                 SpeechRecognizer.isRecognitionAvailable(context);
     }
 
