@@ -5,8 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<string name="actfm_person_hint">איש קשר או דוא״ל</string>
-	<string name="actfm_person_or_tag_hint">איש קשר או רשימה משותפת</string>
 	<string name="actfm_tag_operation_owner_delete">אתה הבעלים של רשימה זו! אם תמחק אותה, היא תימחק עבור השותפים בה. האם אתה בטוח שברצונך להמשיך?</string>
 	<string name="actfm_picture_camera">צַלֵּם תמונה</string>
 	<string name="actfm_picture_gallery">בחר מגלריה</string>
@@ -34,7 +32,6 @@
 	<string name="actfm_TVA_tag_settings_label">הגדרות</string>
 	<string name="actfm_TVA_tag_description_hint">הכנס תיאור כאן</string>
 	<string name="actfm_TVA_tag_name_hint">הכנס שם רשימה</string>
-	<string name="actfm_EPA_invalid_email">כתובת דוא״ל לא תקינה: %s</string>
 	<string name="actfm_EPA_add_person_to_list_title">משימה הוטלה</string>
 	<string name="actfm_EPA_add_person_to_list">%1$s אינו שותף ברשימה זו. הֲתִּרְצֶה להוסיף את %2$s לרשימה זו?</string>
 	<string name="actfm_EPA_add_person_to_list_ok">הוסף לרשימה</string>
@@ -153,8 +150,6 @@
 	<string name="FLA_new_list">רשימה חדשה</string>
 	<string name="FLA_no_filter_selected">לא נבחר מַסְנֵן! אנא בחר מַסְנֵן או רשימה.</string>
 	<string name="TEA_importance_label">עדיפות</string>
-	<string name="TEA_urgency_specific_time">בזמן מסויים?</string>
-	<string name="TEA_urgency_none">ללא</string>
 	<string name="TEA_hideUntil_label">הסתרה עד</string>
 	<string name="TEA_hideUntil_message">המשימה תוסתר עד %s</string>
 	<string name="TEA_note_label">תיאור</string>
@@ -306,14 +301,7 @@
 	<string name="EPr_manage_delete_all_gcal">מַחֲקִי את כל אירועי היומן הקשורים למשימות</string>
 	<string name="EPr_manage_delete_all_gcal_message">האם אתה בטוח שברצונך למחוק את כל אירועי היומן בעבור המשימות?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d אירועי יומן נמחקו</string>
-	<string name="AOA_title">תוספים</string>
 	<string name="AOA_internal_author">הצוות של אסטריד</string>
-	<string name="AOA_tab_installed">מותקן</string>
-	<string name="AOA_tab_available">זמין</string>
-	<string name="AOA_free">חינם</string>
-	<string name="AOA_no_addons">רשימה ריקה!</string>
-	<string name="AOA_locale_title">אנא התקן את תוסף אסטריד לתוכנת Locale</string>
-	<string name="AOA_locale_description">אפשר לאסטריד להשתמש בתכונות \"מציאת מקום\" על מנת לשלוח לך התראות מבוססות על תנאי סינון. עליך להפעיל שירותי מיקום.</string>
 	<string name="TWi_loading">טוענת...</string>
 	<string name="WCA_title">בחר משימות להצגה...</string>
 	<string name="task_killer_help">ככל הנראה הנך משתמש ביישום אשר יכול להרוג תהליכים (%s)!
@@ -432,19 +420,7 @@
 	<string name="gtasks_import_dlg_title">ייבוא ״משימות גוגל״</string>
 	<string name="gtasks_import_add_task_ok">הוסף משימה</string>
 	<string name="gtasks_import_add_task_cancel">אל תוסיף משימה</string>
-	<string name="locale_edit_alerts_title">התראת מַסְנֵן של אסטריד</string>
-	<string name="locale_edit_intro">אסטריד תציג תזכורת כאשר יש משימות בַּמַּסְנֵן</string>
-	<string name="locale_interval_label">הגבלת ההתראות ל־</string>
-	<string-array name="locale_interval">
-		<item>אחת לשעה</item>
-		<item>אחת לשש שעות</item>
-		<item>אחת ל־12 שעות</item>
-		<item>אחת ליום</item>
-		<item>אחת לשלושה ימים</item>
-		<item>אחת לשבוע</item>
-	</string-array>
 	<string name="locale_notification">יש לך $NUM המתאימים: $FILTER</string>
-	<string name="locale_plugin_required">אנא התקן את תוסף אסטריד להגדרות איזור</string>
 	<string name="opencrx_TEA_notes">הוסף הערה</string>
 	<string name="opencrx_creator_input_hint">יוצר</string>
 	<string name="opencrx_contact_input_hint">הוטל על</string>

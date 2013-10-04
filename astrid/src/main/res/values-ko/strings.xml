@@ -5,8 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<string name="actfm_person_hint">연락처나 이메일</string>
-	<string name="actfm_person_or_tag_hint">연락처나 공유목록</string>
 	<string name="actfm_tag_operation_owner_delete">당신은 이 공유 목록의 소유자입니다! 이 목록을 삭제하면, 공유한 모든 구성원의 해당 목록을 삭제합니다. 계속하시겠습니까?</string>
 	<string name="actfm_picture_camera">사진 찍기</string>
 	<string name="actfm_picture_gallery">갤러리에서 가져오기</string>
@@ -34,12 +32,10 @@
 	<string name="actfm_TVA_tag_settings_label">설정</string>
 	<string name="actfm_TVA_tag_description_hint">여기에 설명을 입력하세요</string>
 	<string name="actfm_TVA_tag_name_hint">목록 이름을 입력하세요</string>
-	<string name="actfm_EPA_invalid_email">무효한 이메일: %s</string>
 	<string name="actfm_EPA_add_person_to_list_title">할당한 일정</string>
 	<string name="actfm_EPA_add_person_to_list">%1$s 를 이 목록에 공유하지 않았습니다. %2$s 를 이 목록에 추가할까요?</string>
 	<string name="actfm_EPA_add_person_to_list_ok">목록에 추가하기</string>
 	<string name="actfm_EPA_add_person_to_list_cancel">추가하지 않기</string>
-	<string name="actfm_list_owner">(소유자)</string>
 	<string name="actfm_GAA_title">사용하려는 구글 계정을 선택해 주십시오:</string>
 	<string name="actfm_feat_list_clone">목록 복사하기</string>
 	<string name="actfm_feat_list_suffix">(복사)</string>
@@ -165,8 +161,6 @@
 	<string name="TEA_title_hint">일정 이름</string>
 	<string name="TEA_importance_label">우선순위</string>
 	<string name="TEA_deadline_hint">마감일 설정</string>
-	<string name="TEA_urgency_specific_time">특정한 시간에?</string>
-	<string name="TEA_urgency_none">없음</string>
 	<string name="TEA_hideUntil_label">숨기기 기간:</string>
 	<string name="TEA_hideUntil_display">%s 까지 숨기기</string>
 	<string name="TEA_hideUntil_message">%s 까지 일정을 숨깁니다</string>
@@ -326,14 +320,7 @@
 	<string name="EPr_manage_delete_all_gcal">일정의 모든 달력 이벤트 삭제하기</string>
 	<string name="EPr_manage_delete_all_gcal_message">일정의 모든 이벤트를 정말 삭제할까요?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d 달력 이벤트를 삭제했습니다!</string>
-	<string name="AOA_title">확장기능</string>
 	<string name="AOA_internal_author">아스트리드 팀</string>
-	<string name="AOA_tab_installed">설치된 항목</string>
-	<string name="AOA_tab_available">추가 가능</string>
-	<string name="AOA_free">무료</string>
-	<string name="AOA_no_addons">목록이 없습니다!</string>
-	<string name="AOA_locale_title">아스트리드 위치 플러그인</string>
-	<string name="AOA_locale_description">아스트리드에서 위치 앱을 사용합니다. 위치 앱에서 설정한 필터 조건에 따라 알림을 보내줍니다. 위치 서비스를 사용합니다.</string>
 	<string name="TWi_loading">로드 중…</string>
 	<string name="WCA_title">열람할 일정 선택...</string>
 	<string name="feedback_positive_title">평가할까요?</string>
@@ -462,20 +449,7 @@
 	<string name="gtasks_import_dlg_title">구글 일정 가져오기</string>
 	<string name="gtasks_import_add_task_ok">일정 추가하기</string>
 	<string name="gtasks_import_add_task_cancel">일정 추가하지 않기</string>
-	<string name="locale_edit_alerts_title">아스트리드 필터 경고</string>
-	<string name="locale_edit_intro">다음 필터에 맞는 일정이 있을 때 
-아스트리드가 당신에게 알려 드립니다:</string>
-	<string name="locale_interval_label">알림을 다음에 한정:</string>
-	<string-array name="locale_interval">
-		<item>한 시간마다 한 번</item>
-		<item>여섯 시간마다 한 번</item>
-		<item>열두 시간마다 한 번</item>
-		<item>하루에 한 번</item>
-		<item>3일마다 한 번</item>
-		<item>일주일에 한 번</item>
-	</string-array>
 	<string name="locale_notification">$NUM 개의 일정이 일치합니다: $FILTER</string>
-	<string name="locale_plugin_required">아스트리드 위치 플러그인을 설치하세요!</string>
 	<string name="opencrx_TEA_notes">댓글 쓰기</string>
 	<string name="opencrx_creator_input_hint">작성자</string>
 	<string name="opencrx_contact_input_hint">할당된 사람</string>

@@ -5,8 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<string name="actfm_person_hint">Contacte o correu electrònic</string>
-	<string name="actfm_person_or_tag_hint">Contacte o llista compartida</string>
 	<string name="actfm_tag_operation_owner_delete">Sou el propietari d’aquesta llista compartida. En suprimir-la, ho fareu per a tots els membres de la llista. Voleu continuar?</string>
 	<string name="actfm_picture_camera">Fes una fotografia</string>
 	<string name="actfm_picture_gallery">Tria una imatge de la galeria</string>
@@ -34,10 +32,8 @@
 	<string name="actfm_TVA_tag_settings_label">Paràmetres</string>
 	<string name="actfm_TVA_tag_description_hint">Escriviu una descripció</string>
 	<string name="actfm_TVA_tag_name_hint">Escriviu el nom de la llista</string>
-	<string name="actfm_EPA_invalid_email">El correu electrònic no és vàlid: %s</string>
 	<string name="actfm_EPA_add_person_to_list_ok">Añadir a la lista</string>
 	<string name="actfm_EPA_add_person_to_list_cancel">No lo añadir</string>
-	<string name="actfm_list_owner">(propietario)</string>
 	<string name="actfm_GAA_title">Trieu el compte de Google que vulgueu utilitzar:</string>
 	<string name="actfm_feat_list_clone">Copiar la lista</string>
 	<string name="actfm_feat_list_suffix">(Copia)</string>
@@ -155,8 +151,6 @@
 	<string name="FLA_no_filter_selected">No heu seleccionat cap filtre. Seleccioneu un filtre o una llista.</string>
 	<string name="TEA_title_hint">Resum de la tasca</string>
 	<string name="TEA_importance_label">Importància</string>
-	<string name="TEA_urgency_specific_time">A alguna hora en concret?</string>
-	<string name="TEA_urgency_none">Cap</string>
 	<string name="TEA_hideUntil_label">Mostra la tasca</string>
 	<string name="TEA_hideUntil_message">S\'ocultarà la tasca fins %s</string>
 	<string name="TEA_note_label">Notes</string>
@@ -227,10 +221,6 @@
 	<string name="EPr_manage_delete_completed_status">S\'han suprimit %d tasques</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Segur que voleu suprimir els esdeveniments de calendari de les tasques completades?</string>
 	<string name="AOA_internal_author">Equip d\'Tasks</string>
-	<string name="AOA_tab_installed">Instal·lat</string>
-	<string name="AOA_tab_available">Disponible</string>
-	<string name="AOA_free">Gratuït</string>
-	<string name="AOA_no_addons">Llista buida</string>
 	<string name="TWi_loading">S\'està carregant…</string>
 	<string name="WCA_title">Seleccionar les tasques a veure ...</string>
 	<string name="task_killer_help">Sembla que utilitzes una aplicació que pot matar pocessos (%s)! Si pots, afegeix l\'Tasks a la llista d\'exclusió per tal de no ser morta. En cas contrari podria ser que l\'Tasks no t\'informés de les tasques quan vencin.\n</string>
@@ -292,11 +282,7 @@
 	<string name="gtasks_GTA_clearing">S\'estan netejant les tasques completades...</string>
 	<string name="gtasks_GTA_clear_completed">Neteja les tasques completades</string>
 	<string name="gtasks_GLA_authenticating">S\'està autenticant...</string>
-	<string name="locale_edit_alerts_title">Tasks alerta de filtre</string>
-	<string name="locale_edit_intro">Tasks l\'hi enviarà una notificació quan tingui qualsevol tasca al següent filtre:</string>
-	<string name="locale_interval_label">Limitar notificacions a:</string>
 	<string name="locale_notification">Té $NUM coincidència: $FILTER</string>
-	<string name="locale_plugin_required">Si us plau, instal·la el complement Tasks Locale!</string>
 	<string name="opencrx_TEA_notes">Afegeix un comentari</string>
 	<string name="opencrx_creator_input_hint">Creador/a</string>
 	<string name="opencrx_contact_input_hint">Assignat a</string>

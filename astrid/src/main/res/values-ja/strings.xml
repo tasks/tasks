@@ -5,8 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<string name="actfm_person_hint">連絡先またはメールアドレス</string>
-	<string name="actfm_person_or_tag_hint">連絡先または共有リスト</string>
 	<string name="actfm_tag_operation_owner_delete">あなたはこの共有リストの所有者です！もしリストを削除すると、リストのすべてのメンバーからも削除されます。本当によろしいですか？</string>
 	<string name="actfm_picture_camera">写真を撮る</string>
 	<string name="actfm_picture_gallery">ギャラリーから選択</string>
@@ -27,7 +25,6 @@
 	<string name="actfm_TVA_tag_settings_label">設定</string>
 	<string name="actfm_TVA_tag_description_hint">ここに説明をタイプする</string>
 	<string name="actfm_TVA_tag_name_hint">リスト名を記入してください</string>
-	<string name="actfm_EPA_invalid_email">無効なEメール: %s</string>
 	<string name="actfm_EPA_add_person_to_list_title">割り当てられたタスク</string>
 	<string name="actfm_EPA_add_person_to_list_ok">リストに追加する</string>
 	<string name="actfm_EPA_add_person_to_list_cancel">追加しないで</string>
@@ -115,8 +112,6 @@
 	<string name="FLA_new_filter">新しいフィルタ</string>
 	<string name="FLA_new_list">新しいリスト</string>
 	<string name="TEA_importance_label">優先順位</string>
-	<string name="TEA_urgency_specific_time">時刻を設定する</string>
-	<string name="TEA_urgency_none">なし</string>
 	<string name="TEA_note_label">概要</string>
 	<string name="TEA_estimatedDuration_label">所要時間は?</string>
 	<string name="TEA_elapsedDuration_label">既にタスクに費やした時間</string>
@@ -159,10 +154,6 @@
 	<string name="EPr_appearance_header">外観</string>
 	<string name="EPr_fontSize_title">リストの文字サイズ</string>
 	<string name="EPr_fontSize_desc">メインのリスト画面の文字サイズ</string>
-	<string name="AOA_title">アドオン</string>
-	<string name="AOA_tab_installed">インストール済</string>
-	<string name="AOA_tab_available">追加</string>
-	<string name="AOA_free">自由</string>
 	<string name="TWi_loading">読み込んでいます・・・</string>
 	<string name="WCA_title">ウィジェットに表示する項目</string>
 	<string name="task_killer_help">タスクキラー (%s) を使用中です。Tasks が終了しないように、除外リストに登録してください。そうしないと、期限が来たタスクを通知できなくなります。\n</string>
@@ -236,16 +227,7 @@
 	<string name="gcal_completed_title">%s（完了）</string>
 	<string name="gtasks_GLA_errorIOAuth">すみません、Googleのサーバとの通信で問題が発生しました。しばらくしてから再度やり直してください。</string>
 	<string name="gtasks_GPr_header">Google Tasks (ベータ版!)</string>
-	<string-array name="locale_interval">
-		<item>1時間に一度</item>
-		<item>6時間に一度</item>
-		<item>12時間に一度</item>
-		<item>1日に一度</item>
-		<item>3日に一度</item>
-		<item>1週間に一度</item>
-	</string-array>
 	<string name="locale_notification">$FILTER の検索結果: $NUM 件</string>
-	<string name="locale_plugin_required">Tasks Locale plugin をインストールしてください</string>
 	<string name="TEA_reminder_label">通知するのは...</string>
 	<string name="TEA_reminder_due">何時がタスクの期限ですか？</string>
 	<string name="TEA_reminder_overdue">何時タスクが期限切れになりますか？</string>

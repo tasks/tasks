@@ -5,8 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<string name="actfm_person_hint">Contacto o email</string>
-	<string name="actfm_person_or_tag_hint">Contacto o lista compartida</string>
 	<string name="actfm_tag_operation_owner_delete">Usted es el propietario de esta lista compartida. Si la elimina, se eliminará para todos los miembros de la lista. ¿Continuar?</string>
 	<string name="actfm_picture_camera">Tomar una foto</string>
 	<string name="actfm_picture_gallery">Elegir de la galería</string>
@@ -34,12 +32,10 @@
 	<string name="actfm_TVA_tag_settings_label">Configuración</string>
 	<string name="actfm_TVA_tag_description_hint">Escriba una descripción aquí</string>
 	<string name="actfm_TVA_tag_name_hint">Indique nombre de lista</string>
-	<string name="actfm_EPA_invalid_email">E-mail no válido: %s</string>
 	<string name="actfm_EPA_add_person_to_list_title">Tarea asignada</string>
 	<string name="actfm_EPA_add_person_to_list">%1$s no está compartido en esta lista. ¿Quieres añadir %2$s a esta lista?</string>
 	<string name="actfm_EPA_add_person_to_list_ok">Agregar a lista</string>
 	<string name="actfm_EPA_add_person_to_list_cancel">No agregar</string>
-	<string name="actfm_list_owner">(propietario)</string>
 	<string name="actfm_GAA_title">Elija la cuenta de Google que desea usar:</string>
 	<string name="actfm_feat_list_clone">Copiar lista</string>
 	<string name="actfm_feat_list_suffix">(Copiar)</string>
@@ -162,8 +158,6 @@
 	<string name="TEA_title_hint">Nombre de la tarea</string>
 	<string name="TEA_importance_label">Prioridad</string>
 	<string name="TEA_deadline_hint">Establece la fecha</string>
-	<string name="TEA_urgency_specific_time">A una hora específica?</string>
-	<string name="TEA_urgency_none">Ninguna</string>
 	<string name="TEA_hideUntil_label">Ocultar hasta</string>
 	<string name="TEA_hideUntil_display">Ocultar hasta %s</string>
 	<string name="TEA_hideUntil_message">La tarea estara oculta hasta %s</string>
@@ -272,6 +266,8 @@
 	<string name="EPr_show_timer_shortcut">Mostrar atajo del temporizador</string>
 	<string name="EPr_beastMode_desc">Personalizar la disposición de la pantalla de edición de tareas</string>
 	<string name="EPr_beastMode_reset">Restablecer valores predeterminados</string>
+	<string name="EPr_beastMode_hint">Personalize su pantalla de edición de tareas arrastrando cada fila con el agarre de la izquierda</string>
+	<string name="EPr_showNotes_desc_disabled">La descripción será accesible desde la pantalla de edición de la tarea</string>
 	<string name="EPr_showNotes_desc_enabled">La descripción se mostrará siempre</string>
 	<string name="EPr_fullTask_title">Mostrar completo el título de la tarea</string>
 	<string name="EPr_fullTask_desc_enabled">Se mostrará completo el título de la tarea</string>
@@ -313,14 +309,7 @@
 	<string name="EPr_manage_delete_all_gcal">Borrar todos los eventos del calendario de las tareas</string>
 	<string name="EPr_manage_delete_all_gcal_message">¿Seguro que quieres borrar todos tus eventos para las tareas?</string>
 	<string name="EPr_manage_delete_all_gcal_status">¡Borrados %d eventos del calendario!</string>
-	<string name="AOA_title">Complementos</string>
 	<string name="AOA_internal_author">Equipo de Tasks</string>
-	<string name="AOA_tab_installed">Instalado</string>
-	<string name="AOA_tab_available">Disponible</string>
-	<string name="AOA_free">Gratis</string>
-	<string name="AOA_no_addons">¡Lista vacía!</string>
-	<string name="AOA_locale_title">Complemento Tasks Locale</string>
-	<string name="AOA_locale_description">Permitir a Tasks utilizar la aplicación Locale para enviarle notificaciones basadas en filtros. Requiere el complemento Locale.</string>
 	<string name="TWi_loading">Cargando…</string>
 	<string name="WCA_title">Seleccione las tareas que ver...</string>
 	<string name="task_killer_help">¡Parece que está usando una app que puede matar procesos (%s)! Si puede, 
@@ -429,19 +418,7 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="gtasks_error_background_sync_auth">Error al autenticarse en un segundo plano. Por favor, intente iniciar la sincronización mientras Tasks está ejecutándose.</string>
 	<string name="gtasks_import_add_task_ok">Añadir tarea</string>
 	<string name="gtasks_import_add_task_cancel">No añadir tarea</string>
-	<string name="locale_edit_alerts_title">Alerta de filtro Tasks</string>
-	<string name="locale_edit_intro">Tasks le enviará un recordatorio cuando tenga cualquier tarea en el siguiente filtro.</string>
-	<string name="locale_interval_label">Limitar notificaciones a:</string>
-	<string-array name="locale_interval">
-		<item>una vez por hora</item>
-		<item>una vez cada seis horas</item>
-		<item>una vez cada doce horas</item>
-		<item>una vez por día</item>
-		<item>una vez cada tres días</item>
-		<item>una vez por semana</item>
-	</string-array>
 	<string name="locale_notification">Tiene $NUM que coincide con: $FILTER</string>
-	<string name="locale_plugin_required">Por favor, instale el complemento Tasks Locale</string>
 	<string name="opencrx_TEA_notes">Añadir un comentario</string>
 	<string name="opencrx_creator_input_hint">Creador</string>
 	<string name="opencrx_contact_input_hint">Asignado a</string>

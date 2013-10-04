@@ -5,8 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<string name="actfm_person_hint">Naam contactpersoon of e-mailadres</string>
-	<string name="actfm_person_or_tag_hint">Contactpersoon of Gedeelde Lijst</string>
 	<string name="actfm_tag_operation_owner_delete">Je bent de eigenaar van deze gedeelde lijst! Als jij de lijst verwijdert, wordt deze verwijderd voor alle leden van de lijst. Weet je zeker dat je verder wilt gaan?</string>
 	<string name="actfm_picture_camera">Maak een Foto</string>
 	<string name="actfm_picture_gallery">Maak een keuze uit de Gallerij</string>
@@ -34,12 +32,10 @@
 	<string name="actfm_TVA_tag_settings_label">Voorkeuren</string>
 	<string name="actfm_TVA_tag_description_hint">Type hier een beschrijving</string>
 	<string name="actfm_TVA_tag_name_hint">Geef de lijst een naam</string>
-	<string name="actfm_EPA_invalid_email">Ongeldig e-mailadres: %s</string>
 	<string name="actfm_EPA_add_person_to_list_title">Taak toegewezen</string>
 	<string name="actfm_EPA_add_person_to_list">%1$s is niet gedeeld binnen deze lijst. Wil je %2$s aan deze lijst toevoegen?</string>
 	<string name="actfm_EPA_add_person_to_list_ok">Voeg toe aan lijst</string>
 	<string name="actfm_EPA_add_person_to_list_cancel">Niet toevoegen</string>
-	<string name="actfm_list_owner">(eigenaar)</string>
 	<string name="actfm_GAA_title">Selecteer de Google account die je wil gebruiken:</string>
 	<string name="actfm_feat_list_clone">Kopiëer lijst</string>
 	<string name="actfm_feat_list_suffix">(Kopiéer)</string>
@@ -160,8 +156,6 @@
 	<string name="TEA_title_hint">Taak naam</string>
 	<string name="TEA_importance_label">Prioriteit</string>
 	<string name="TEA_deadline_hint">Stel de einddatum in</string>
-	<string name="TEA_urgency_specific_time">Specifieke tijd?</string>
-	<string name="TEA_urgency_none">Geen</string>
 	<string name="TEA_hideUntil_label">Verbergen tot</string>
 	<string name="TEA_hideUntil_display">Verberg tot %s</string>
 	<string name="TEA_hideUntil_message">Taak is verborgen tot %s</string>
@@ -320,12 +314,6 @@
 	<string name="EPr_manage_delete_all_gcal">Verwijder Alle Agenda-items voor Taken</string>
 	<string name="EPr_manage_delete_all_gcal_message">Weet je zeker dat je alle gebeurtenissen voor taken wil verwijderen?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d agenda-items verwijderd!</string>
-	<string name="AOA_title">Tasks: Uitbreidingen</string>
-	<string name="AOA_tab_installed">Geïnstalleerd</string>
-	<string name="AOA_tab_available">Beschikbaar</string>
-	<string name="AOA_free">Gratis</string>
-	<string name="AOA_no_addons">Lijst is leeg!</string>
-	<string name="AOA_locale_description">Sta toe dat Tasks gebruik maakt van de Locale applicatie om je notificaties te sturen gebaseerd op de filter voorwaarden. Locale vereist.</string>
 	<string name="TWi_loading">Laden…</string>
 	<string name="WCA_title">Selecteer weer te geven taken...</string>
 	<string name="feedback_positive_title">Beoordeel Tasks?</string>
@@ -449,19 +437,7 @@
 	<string name="gtasks_import_dlg_title">Google Taken import</string>
 	<string name="gtasks_import_add_task_ok">Taak toevoegen</string>
 	<string name="gtasks_import_add_task_cancel">Taak niet toevoegen</string>
-	<string name="locale_edit_alerts_title">Tasks Filter waarschuwing</string>
-	<string name="locale_edit_intro">Tasks zal waarschuwen als er een taak is met het volgende filter:</string>
-	<string name="locale_interval_label">Waarschuwingen beperken tot:</string>
-	<string-array name="locale_interval">
-		<item>eens per uur</item>
-		<item>eens per 6 uur</item>
-		<item>eens per 12 uur</item>
-		<item>eens per dag</item>
-		<item>eens per 3 dagen</item>
-		<item>eens per week</item>
-	</string-array>
 	<string name="locale_notification">Er zijn $NUM taken voor: $FILTER</string>
-	<string name="locale_plugin_required">Installeer de Tasks Locale plugin aub!</string>
 	<string name="opencrx_TEA_notes">Commentaar toevoegen</string>
 	<string name="opencrx_creator_input_hint">Auteur</string>
 	<string name="opencrx_contact_input_hint">Toegewezen aan</string>

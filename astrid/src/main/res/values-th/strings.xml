@@ -54,7 +54,6 @@
 	<string name="FLA_toast_onCreateShortcut">สร้างทางลัดแล้ว: %s</string>
 	<string name="TEA_title_hint">สรุปแผนงาน</string>
 	<string name="TEA_importance_label">ความสำคัญ</string>
-	<string name="TEA_urgency_specific_time">ณ.เวลาที่ระบุ?</string>
 	<string name="TEA_note_label">บันทึกย่อ</string>
 	<string name="TEA_menu_save">บันทึกการเปลี่ยนแปลง</string>
 	<string name="TEA_menu_discard">ไม่บันทึก</string>
@@ -78,9 +77,6 @@
 	<string name="EPr_fontSize_desc">ขนาดฟอนต์บนหน้ารายการหลัก</string>
 	<string name="EPr_showNotes_desc_enabled">บันทึกจะแสดงให้เห็นตลอดเวลา</string>
 	<string name="AOA_internal_author">ทีมงาน Tasks</string>
-	<string name="AOA_tab_installed">ติดตั้งแล้ว</string>
-	<string name="AOA_tab_available">พร้อมใช้</string>
-	<string name="AOA_free">ฟรี</string>
 	<string name="TWi_loading">กำลังโหลด...</string>
 	<string name="WCA_title">เลือกแผนงานเพื่อดู...</string>
 	<string name="task_killer_help">It looks like you are using an app that can kill processes (%s)! If you can,
@@ -125,10 +121,6 @@ Tasks might not let you know when your tasks are due.\n</string>
 	<string name="gcal_TEA_showCalendar_label">เปิดเหตุการณ์ปฏิทิน</string>
 	<string name="gcal_completed_title">%s (เสร็จสิ้นแล้ว)</string>
 	<string name="gcal_GCP_default">ปฏิธินตั้งต้น</string>
-	<string name="locale_edit_alerts_title">คำเตือนตัวกรอง Tasks</string>
-	<string name="locale_edit_intro">Tasks จะช่วยเตือนความจำ เมื่อมีแผนงานอยู่เขตตัวกรองดังนี้:</string>
-	<string name="locale_interval_label">จำกัดการแจ้งเตือนไว้ที่:</string>
-	<string name="locale_plugin_required">กรุณาติดตั้ง Tasks Locale plugin!</string>
 	<string name="opencrx_TEA_notes">เพิ่มความคิดเห็น</string>
 	<string name="opencrx_TEA_task_assign_label">มอบหมายแผนงานนี้ให้กับบุคคลนี้:</string>
 	<string name="rmd_NoA_filter">เตือนความจำ!</string>

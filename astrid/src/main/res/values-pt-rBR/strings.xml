@@ -5,8 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<string name="actfm_person_hint">Contato ou Email</string>
-	<string name="actfm_person_or_tag_hint">Contato ou Lista compartilhada</string>
 	<string name="actfm_tag_operation_owner_delete">Você é o dono desta lista compartilhada! Se apagá-la, ela também será apagada para todos os membros dela. Tem certeza que quer continuar?</string>
 	<string name="actfm_picture_camera">Tirar uma foto</string>
 	<string name="actfm_picture_gallery">Selecionar da galeria</string>
@@ -34,7 +32,6 @@
 	<string name="actfm_TVA_tag_settings_label">Configurações</string>
 	<string name="actfm_TVA_tag_description_hint">Digite uma descrição aqui</string>
 	<string name="actfm_TVA_tag_name_hint">Entre com o nome da lista</string>
-	<string name="actfm_EPA_invalid_email">Email inválido: %s</string>
 	<string name="actfm_EPA_add_person_to_list_title">Tarefa atribuída.</string>
 	<string name="actfm_EPA_add_person_to_list">%1$s não é partilhado nesta lista. Gostaria de adicionar %2$s nesta lista?</string>
 	<string name="actfm_EPA_add_person_to_list_ok">Adicionar para lista</string>
@@ -148,8 +145,6 @@
 	<string name="FLA_new_list">Nova lista</string>
 	<string name="FLA_no_filter_selected">Sem filtro selecionado! Selecione um filtro ou lista.</string>
 	<string name="TEA_importance_label">Prioridade</string>
-	<string name="TEA_urgency_specific_time">Num horário específico?</string>
-	<string name="TEA_urgency_none">Nenhum</string>
 	<string name="TEA_hideUntil_message">A Tarefa ficará oculta até %s</string>
 	<string name="TEA_note_label">Descrição</string>
 	<string name="TEA_estimatedDuration_label">Quanto tempo isto vai levar?</string>
@@ -275,14 +270,7 @@
 	<string name="EPr_manage_delete_all_gcal">Apaga todos os eventos de calendário das tarefas</string>
 	<string name="EPr_manage_delete_all_gcal_message">Você quer mesmo apagar todos os eventos de calendário das tarefas?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d eventos de agenda apagados!</string>
-	<string name="AOA_title">Complementos</string>
 	<string name="AOA_internal_author">Equipe do Tasks</string>
-	<string name="AOA_tab_installed">Instalado</string>
-	<string name="AOA_tab_available">Disponível</string>
-	<string name="AOA_free">Gratuito</string>
-	<string name="AOA_no_addons">Lista Vazia!</string>
-	<string name="AOA_locale_title">Plugin do Tasks Locale</string>
-	<string name="AOA_locale_description">Permitir que o Tasks faça uso do aplicativo Locale para mandar notificações a você com base nas condições de filtro. Requer Locale.</string>
 	<string name="TWi_loading">Carregando...</string>
 	<string name="WCA_title">Selecionar tarefas para visualização...</string>
 	<string name="task_killer_help">Parece que você está usando um aplicativo que pode eliminar processos (%s)! Se você puder, adicione o Tasks à lista de exclusão para que ele não seja eliminado. Caso contrário, o Tasks pode não avisar para você quando suas tarefas estiverem vencidas.\n</string>
@@ -386,19 +374,7 @@
 	<string name="gtasks_error_authRefresh">Incapaz de autenticar no Google Tasks. Verifique seu usuário e senha ou tente novamente.</string>
 	<string name="gtasks_error_accountManager">Erro no gerenciado de contas do dispositivo. Desconecte-se e conecte-se novamente pelo painel Google Tasks</string>
 	<string name="gtasks_error_background_sync_auth">Erro ao autenticar em plano de fundo. Por favor tente iniciar a sincronização enquanto o Tasks estiver rodando.</string>
-	<string name="locale_edit_alerts_title">Filtro de Alerta do Tasks</string>
-	<string name="locale_edit_intro">Tasks irá envirar um lembrete quando você tiver qualquer tarefa neste filtro:</string>
-	<string name="locale_interval_label">Limitar notificações para:</string>
-	<string-array name="locale_interval">
-		<item>uma vez por hora</item>
-		<item>uma vez a cada seis horas</item>
-		<item>uma vez a cada doze horas</item>
-		<item>uma vez por dia</item>
-		<item>uma vez a cada três dias</item>
-		<item>uma vez por semana</item>
-	</string-array>
 	<string name="locale_notification">Você tem $NUM resultados: $FILTER</string>
-	<string name="locale_plugin_required">Por favor instale o plugin Tasks Locale!</string>
 	<string name="opencrx_TEA_notes">Inserir comentário</string>
 	<string name="opencrx_creator_input_hint">Criador</string>
 	<string name="opencrx_contact_input_hint">Atribuído a</string>

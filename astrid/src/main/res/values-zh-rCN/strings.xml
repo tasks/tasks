@@ -5,8 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<string name="actfm_person_hint">E-mail / 联系人姓名</string>
-	<string name="actfm_person_or_tag_hint">联系方式或共享列表</string>
 	<string name="actfm_tag_operation_owner_delete">你是这个被分享列表的拥有者，如果删除它，其它被分享者将无法访问，确定删除吗？</string>
 	<string name="actfm_picture_camera">拍照</string>
 	<string name="actfm_picture_gallery">从相册中选取</string>
@@ -33,7 +31,6 @@
 	<string name="actfm_TVA_tag_settings_label">设置</string>
 	<string name="actfm_TVA_tag_description_hint">在这里添加描述</string>
 	<string name="actfm_TVA_tag_name_hint">添加列表名称</string>
-	<string name="actfm_EPA_invalid_email">电子邮箱无效： %s</string>
 	<string name="actfm_EPA_add_person_to_list_title">任务已分配</string>
 	<string name="actfm_EPA_add_person_to_list_ok">添加到列表</string>
 	<string name="actfm_EPA_add_person_to_list_cancel">不要添加</string>
@@ -146,8 +143,6 @@
 	<string name="FLA_new_filter">新建过滤器</string>
 	<string name="FLA_new_list">新建列表</string>
 	<string name="FLA_no_filter_selected">还没有选定过滤器呢！请选择一个过滤器或列表呗。</string>
-	<string name="TEA_urgency_specific_time">于指定时间？</string>
-	<string name="TEA_urgency_none">无</string>
 	<string name="TEA_hideUntil_message">任务将会被隐藏，直到 %s</string>
 	<string name="TEA_note_label">描述</string>
 	<string name="TEA_estimatedDuration_label">要花多久时间?</string>
@@ -253,14 +248,7 @@
 	<string name="EPr_manage_delete_all_gcal">删除所有日程表</string>
 	<string name="EPr_manage_delete_all_gcal_message">您真的想删除您所有事件中的各项任务吗？</string>
 	<string name="EPr_manage_delete_all_gcal_status">已经删除了 %d 个日历事件了！</string>
-	<string name="AOA_title">扩展</string>
 	<string name="AOA_internal_author">清单小助理团队</string>
-	<string name="AOA_tab_installed">已安装</string>
-	<string name="AOA_tab_available">可用</string>
-	<string name="AOA_free">免费</string>
-	<string name="AOA_no_addons">空列表！</string>
-	<string name="AOA_locale_title">清单小助理场所插件</string>
-	<string name="AOA_locale_description">在过滤的条件下，允许清单小助理利用场所应用推送通知。现在就获取场所插件。</string>
 	<string name="TWi_loading">载入中...</string>
 	<string name="WCA_title">选择任务以显示...</string>
 	<string name="task_killer_help">似乎您正在使用会删除进程的应用程序(%s)！可以的话，请将 清单小助理加入到例外列表避免被杀死。否则 清单小助理可能无法通知您任务已到期。\n</string>
@@ -360,19 +348,7 @@
 	<string name="gtasks_error_authRefresh">无法用 Google Tasks验证。请检查您的帐户密码或者稍后再尝试。</string>
 	<string name="gtasks_error_accountManager">您手机的帐户管理器出错了。请退出，然后从 Google Tasks设置中重新登录。</string>
 	<string name="gtasks_error_background_sync_auth">后台验证出错了。请在清单小助理运行时尝试启动同步。</string>
-	<string name="locale_edit_alerts_title">清单小助理筛选警示</string>
-	<string name="locale_edit_intro">当您有任务在筛选内时，清单小助理将送出提醒</string>
-	<string name="locale_interval_label">限制提醒：</string>
-	<string-array name="locale_interval">
-		<item>每小时一次</item>
-		<item>每六小时一次</item>
-		<item>每十二小时一次</item>
-		<item>每天一次</item>
-		<item>每三天一次</item>
-		<item>每周一次</item>
-	</string-array>
 	<string name="locale_notification">您有 $NUM 符合: $FILTER</string>
-	<string name="locale_plugin_required">请安装清单小助理本地插件！</string>
 	<string name="opencrx_TEA_notes">新增注释</string>
 	<string name="opencrx_creator_input_hint">创建者</string>
 	<string name="opencrx_contact_input_hint">指派给</string>

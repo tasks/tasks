@@ -5,8 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<string name="actfm_person_hint">Contact ou courriel</string>
-	<string name="actfm_person_or_tag_hint">Contact ou liste partagée</string>
 	<string name="actfm_tag_operation_owner_delete">Vous êtes le propriétaire de cette liste partagée ! Si vous la supprimez, elle sera aussi détruite pour tous les autres membres. Êtes-vous sûr de vouloir continuer ?</string>
 	<string name="actfm_picture_camera">Prendre une photo</string>
 	<string name="actfm_picture_gallery">Choisir depuis la galerie</string>
@@ -33,12 +31,10 @@
 	<string name="actfm_TVA_tag_settings_label">Paramètres</string>
 	<string name="actfm_TVA_tag_description_hint">Entrez une description ici</string>
 	<string name="actfm_TVA_tag_name_hint">Entrez un nom de liste</string>
-	<string name="actfm_EPA_invalid_email">E-mail incorrect : %s</string>
 	<string name="actfm_EPA_add_person_to_list_title">Tâche assignée</string>
 	<string name="actfm_EPA_add_person_to_list">%1$s n\'est pas partagé dans cette liste. Souhaitez-vous ajouter %2$s à cette liste ? </string>
 	<string name="actfm_EPA_add_person_to_list_ok">Ajouter à la liste</string>
 	<string name="actfm_EPA_add_person_to_list_cancel">Ne pas ajouter</string>
-	<string name="actfm_list_owner">(propriétaire)</string>
 	<string name="actfm_GAA_title">Sélectionnez le compte Google que vous voulez utiliser :</string>
 	<string name="actfm_feat_list_clone">Copier la liste</string>
 	<string name="actfm_feat_list_suffix">(Copier)</string>
@@ -160,8 +156,6 @@
 	<string name="TEA_title_hint">Nom de la tâche</string>
 	<string name="TEA_importance_label">Priorité</string>
 	<string name="TEA_deadline_hint">Définir une date d\'échéance</string>
-	<string name="TEA_urgency_specific_time">À une heure précise ?</string>
-	<string name="TEA_urgency_none">Aucune</string>
 	<string name="TEA_hideUntil_label">Masquer jusqu\'à</string>
 	<string name="TEA_hideUntil_display">Masquer jusqu\'à %s</string>
 	<string name="TEA_hideUntil_message">La tâche sera masquée jusqu\'à %s</string>
@@ -319,14 +313,7 @@
 	<string name="EPr_manage_delete_all_gcal">Supprimer toutes les entrées de calendrier des tâches</string>
 	<string name="EPr_manage_delete_all_gcal_message">Voulez vous vraiment supprimer tous les évènement du calendrier pour Tasks</string>
 	<string name="EPr_manage_delete_all_gcal_status">Supprimer %d évènements du calendrier.</string>
-	<string name="AOA_title">Greffons</string>
 	<string name="AOA_internal_author">L\'équipe d\'Tasks</string>
-	<string name="AOA_tab_installed">Installé</string>
-	<string name="AOA_tab_available">Disponible</string>
-	<string name="AOA_free">Gratuit</string>
-	<string name="AOA_no_addons">Liste vide !</string>
-	<string name="AOA_locale_title">Greffon Tasks de localisation</string>
-	<string name="AOA_locale_description">Autorise Tasks à utiliser l\'application de localisation pour vous envoyer des notifications en fonction de filtres. Nécessite la localisation</string>
 	<string name="TWi_loading">Chargement…</string>
 	<string name="WCA_title">Sélectionnez les tâches à afficher…</string>
 	<string name="feedback_positive_title">Evaluer Tasks ?</string>
@@ -450,19 +437,7 @@
 	<string name="gtasks_import_dlg_title">Importer des tâches depuis Google</string>
 	<string name="gtasks_import_add_task_ok">Ajout d\'une tâche</string>
 	<string name="gtasks_import_add_task_cancel">Ne pas ajouter de tâche </string>
-	<string name="locale_edit_alerts_title">Filtre d\'alertes Tasks</string>
-	<string name="locale_edit_intro">Tasks vous enverra un rappel si vous avez des tâches dans le filtre suivant :</string>
-	<string name="locale_interval_label">Limiter les notifications à :</string>
-	<string-array name="locale_interval">
-		<item>une fois par heure</item>
-		<item>une fois toutes les six heures</item>
-		<item>une fois toutes les douzes heures</item>
-		<item>une fois par jour</item>
-		<item>une fois tous les trois jours</item>
-		<item>une fois par semaine</item>
-	</string-array>
 	<string name="locale_notification">Vous avez $NUM correspondant(s) : $FILTER</string>
-	<string name="locale_plugin_required">Veuillez installer le greffon local d\'Tasks !</string>
 	<string name="opencrx_TEA_notes">Ajouter un commentaire</string>
 	<string name="opencrx_creator_input_hint">Auteur</string>
 	<string name="opencrx_contact_input_hint">Assignée à</string>
