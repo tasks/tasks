@@ -33,11 +33,6 @@
 	<string name="actfm_feat_list_clone_success">Zakończono pomyślnie!</string>
 	<string name="actfm_feat_list_task_clone_success">Zadanie skopiowane</string>
 	<string name="actfm_feat_list_clone_empty">Brak zadań do skopiowania</string>
-	<string name="actfm_tag_not_authorized_title">Nie autoryzowany</string>
-	<string name="actfm_tag_not_authorized_body">Nie masz już uprawnień do wyświetlenia listy %s (mogłeś być usunięty). Czy chcesz stworzyć nową listę o tej samej nazwie?</string>
-	<string name="actfm_tag_not_authorized_new_list">Utwórz nową listę</string>
-	<string name="actfm_tag_not_authorized_leave_list">Opuść Listę</string>
-	<string name="actfm_sync_ongoing">Synchronizacja trwa...</string>
 	<string name="EPr_reset_sync_state">Resetuj synchronizację</string>
 	<string name="EPr_reset_sync_state_summary">Zresetuj lokalne dane aby naprawić błędy sychronizacji</string>
 	<string name="EPr_reset_sync_state_detailed">Podczas następnej synchronizacji Twoje zadania zostaną zamienione na kopię, która znajduje się na Tasks.com, co może pomóc rozwiązać błędy synchronizacji. Czy chcesz kontynuować?</string>
@@ -184,7 +179,6 @@
 	<string name="hide_until_prompt">Pokaż na mojej liście</string>
 	<string name="TEA_load_more">Wczytaj więcej...</string>
 	<string name="TEA_when_dialog_title">Na kiedy ma być zrobione?</string>
-	<string name="TEA_new_task">Nowe zadanie</string>
 	<string name="MCA_title">%1$s\ndzwonił\\-a o %2$s</string>
 	<string name="MCA_return_call">Zadzwoń teraz</string>
 	<string name="MCA_add_task">Zadzwoń później</string>
@@ -409,11 +403,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="gtasks_error_authRefresh">Uwierzytelnienie w Google Zadania nieudane. Proszę, sprawdź poprawność swego hasła lub spróbuj ponownie później.</string>
 	<string name="gtasks_error_accountManager">Błąd w menadżerze kont Twojego telefonu. Proszę, wyloguj się i zaloguj ponownie w ustawieniach Google Zadań.</string>
 	<string name="gtasks_error_background_sync_auth">Błąd uwierzytelniania w tle. Spróbuj zainicjalizować synchronizację, gdy aplikacja Tasks będzie włączone.</string>
-	<string name="gtasks_import_progress">Importuję Zadania Google...</string>
-	<string name="gtasks_import_add_to_shared_list">Lista %1$s jest współdzielona z innymi! Czy dalej chcesz dodać zadanie %2$s do niej?</string>
-	<string name="gtasks_import_dlg_title">Import Zadań Google</string>
-	<string name="gtasks_import_add_task_ok">Dodaj zadanie</string>
-	<string name="gtasks_import_add_task_cancel">Nie dodawaj zadania</string>
 	<string name="locale_notification">Masz $NUM pasujących: $FILTER</string>
 	<string name="opencrx_TEA_notes">Dodaj komentarz</string>
 	<string name="opencrx_creator_input_hint">Krator</string>
@@ -505,7 +494,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 		<item>Your Tasks digest</item>
 		<item>Przypomnienia z Tasks</item>
 	</string-array>
-	<string name="rmd_reengage_name_default">Ty</string>
 	<string name="rmd_reengage_add_tasks">Dodaj zadanie</string>
 	<string-array name="rmd_reengage_dialog_options">
 		<item>Time to shorten your to-do list!</item>

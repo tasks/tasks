@@ -5,20 +5,10 @@
  */
 package com.todoroo.astrid.gtasks.sync;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import org.json.JSONException;
-
 import android.app.Activity;
 import android.text.TextUtils;
 
 import com.google.api.services.tasks.model.Tasks;
-import org.tasks.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -54,12 +44,21 @@ import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
-import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.SyncResultCallbackWrapper.WidgetUpdatingCallbackWrapper;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
 import com.todoroo.astrid.tags.TagService;
+
+import org.json.JSONException;
+import org.tasks.R;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class GtasksSyncV2Provider extends SyncV2Provider {
 
@@ -114,7 +113,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
     @Override
     public boolean isActive() {
-        return gtasksPreferenceService.isLoggedIn() && !actFmPreferenceService.isLoggedIn();
+        return gtasksPreferenceService.isLoggedIn();
     }
 
     public static class GtasksImportTuple {
@@ -142,10 +141,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     @Override
     public void synchronizeActiveTasks(final boolean manual, final SyncResultCallback callback) {
         // TODO: Improve this logic. Should only be able to import from settings or something.
-        final boolean isImport = actFmPreferenceService.isLoggedIn();
-        if (isImport && !manual) {
-            return;
-        }
+        final boolean isImport = false;
 
         callback.started();
         callback.incrementMax(100);
@@ -182,11 +178,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                             synchronizeListHelper(list, invoker, manual, handler, callback, isImport);
                             callback.incrementProgress(25);
                             if (finisher.decrementAndGet() == 0) {
-                                if (!isImport) {
-                                    pushUpdated(invoker, callback);
-                                } else {
-                                    finishImport(callback);
-                                }
+                                pushUpdated(invoker, callback);
                                 finishSync(callback);
                             }
                         }
@@ -234,7 +226,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
             return;
         }
 
-        final boolean isImport = actFmPreferenceService.isLoggedIn();
+        final boolean isImport = false;
 
         callback.started();
         callback.incrementMax(100);
@@ -364,9 +356,6 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
     private void write(GtasksTaskContainer task) throws IOException {
         //  merge astrid dates with google dates
-        if (!task.task.isSaved() && actFmPreferenceService.isLoggedIn()) {
-            titleMatchWithActFm(task.task);
-        }
 
         if(task.task.isSaved()) {
             Task local = PluginServices.getTaskService().fetchById(task.task.getId(), Task.DUE_DATE, Task.COMPLETION_DATE);
@@ -389,22 +378,6 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         }
     }
 
-    private void titleMatchWithActFm(Task task) {
-        String title = task.getValue(Task.TITLE);
-        TodorooCursor<Task> match = taskService.query(Query.select(Task.ID, Task.UUID)
-                .join(Join.left(Metadata.TABLE, Criterion.and(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY), Metadata.TASK.eq(Task.ID))))
-                .where(Criterion.and(Task.TITLE.eq(title), GtasksMetadata.ID.isNull())));
-        try {
-            if (match.getCount() > 0) {
-                match.moveToFirst();
-                task.setId(match.get(Task.ID));
-                task.setUuid(match.get(Task.UUID));
-            }
-        } finally {
-            match.close();
-        }
-    }
-
     private void mergeDates(Task remote, Task local) {
         if(remote.hasDueDate() && local.hasDueTime()) {
             Date newDate = new Date(remote.getValue(Task.DUE_DATE));
@@ -415,69 +388,6 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
             long setDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,
                     newDate.getTime());
             remote.setValue(Task.DUE_DATE, setDate);
-        }
-    }
-
-    private void finishImport(SyncResultCallback callback) {
-        TodorooCursor<Task> tasks = taskService.query(Query.select(Task.ID, Task.UUID, Task.TITLE, GtasksList.NAME)
-                .join(Join.inner(Metadata.TABLE, Task.ID.eq(Metadata.TASK)))
-                .join(Join.left(StoreObject.TABLE, GtasksMetadata.LIST_ID.eq(GtasksList.REMOTE_ID)))
-                .where(MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY)));
-
-        GtasksImportCallback gtCallback = null;
-        if (callback instanceof GtasksImportCallback) {
-            gtCallback = (GtasksImportCallback) callback;
-        }
-
-        try {
-            for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
-                String listName = tasks.get(GtasksList.NAME);
-                String tagUuid = RemoteModel.NO_UUID;
-                if (!TextUtils.isEmpty(listName)) {
-                    TodorooCursor<TagData> existingTag = tagDataDao.query(Query.select(TagData.UUID).where(TagData.NAME.eq(listName)));
-                    try {
-                        if (existingTag.getCount() > 0) {
-                            existingTag.moveToFirst();
-                            tagUuid = existingTag.get(TagData.UUID);
-
-                            boolean taskIsInTag = metadataDao.taskIsInTag(tasks.get(Task.UUID), tagUuid);
-
-                            if (tagMetadataDao.tagHasMembers(tagUuid) && !taskIsInTag) {
-                                GtasksImportTuple tuple = new GtasksImportTuple();
-                                tuple.taskId = tasks.get(Task.ID);
-                                tuple.taskName = tasks.get(Task.TITLE);
-                                tuple.taskUuid = tasks.get(Task.UUID);
-                                tuple.tagUuid = tagUuid;
-                                tuple.tagName = listName;
-
-                                if (gtCallback != null) {
-                                    gtCallback.addImportConflict(tuple);
-                                }
-
-                                continue;
-                            } else if (taskIsInTag) {
-                                continue;
-                            }
-                        } else {
-                            TagData td = new TagData();
-                            td.setValue(TagData.NAME, listName);
-                            tagDataDao.createNew(td);
-                            tagUuid = td.getUuid();
-                        }
-                    } finally {
-                        existingTag.close();
-                    }
-
-                    if (!RemoteModel.isUuidEmpty(tagUuid)) {
-                        Task task = new Task();
-                        task.setId(tasks.get(Task.ID));
-                        task.setUuid(tasks.get(Task.UUID));
-                        tagService.createLink(task, listName, tagUuid);
-                    }
-                }
-            }
-        } finally {
-            tasks.close();
         }
     }
 }

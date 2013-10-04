@@ -10,7 +10,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
-import org.tasks.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -24,6 +23,8 @@ import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 import com.todoroo.astrid.sync.SyncResultCallbackAdapter;
 import com.todoroo.astrid.tags.TagService;
+
+import org.tasks.R;
 
 /**
  * Displays synchronization preferences and an action panel so users can
@@ -72,51 +73,12 @@ public class GtasksPreferences extends SyncProviderPreferences {
     }
 
     private void syncOrImport() {
-        if (actFmPreferenceService.isLoggedIn()) {
-            startBlockingImport();
-        } else {
-            setResultForSynchronize();
-        }
+        setResultForSynchronize();
     }
 
     private void setResultForSynchronize() {
         setResult(RESULT_CODE_SYNCHRONIZE);
         finish();
-    }
-
-    private void startBlockingImport() {
-        final ProgressDialog pd = DialogUtilities.progressDialog(this, getString(R.string.gtasks_import_progress));
-        pd.setCancelable(false);
-
-        GtasksImportCallback callback = new GtasksImportCallback(new SyncResultCallbackAdapter() {/**/}) {
-            @Override
-            public void finished() {
-                super.finished();
-                for (GtasksImportTuple tuple : importConflicts) {
-                    final GtasksImportTuple finalTuple = tuple;
-                    String prompt = getString(R.string.gtasks_import_add_to_shared_list, tuple.tagName, tuple.taskName);
-                    DialogUtilities.okCancelCustomDialog(GtasksPreferences.this,
-                            getString(R.string.gtasks_import_dlg_title),
-                            prompt,
-                            R.string.gtasks_import_add_task_ok,
-                            R.string.gtasks_import_add_task_cancel,
-                            android.R.drawable.ic_dialog_alert,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Task task = new Task();
-                                    task.setId(finalTuple.taskId);
-                                    task.setUuid(finalTuple.taskUuid);
-                                    tagService.createLink(task, finalTuple.tagName, finalTuple.tagUuid);
-                                }
-                            },
-                            null);
-                }
-                DialogUtilities.dismissDialog(GtasksPreferences.this, pd);
-            }
-        };
-
-        GtasksSyncV2Provider.getInstance().synchronizeActiveTasks(true, callback);
     }
 
     private void startLogin() {

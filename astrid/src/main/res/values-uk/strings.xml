@@ -33,11 +33,6 @@
 	<string name="actfm_feat_list_clone_success">Успішно!</string>
 	<string name="actfm_feat_list_task_clone_success">Завдання скопійовано!</string>
 	<string name="actfm_feat_list_clone_empty">Жодного завдання для копіювання</string>
-	<string name="actfm_tag_not_authorized_title">Не авторизований</string>
-	<string name="actfm_tag_not_authorized_body">Ви більше не авторизовані для перегляду списку %s (ви, можливо, були видалені). Хотіли б ви створити новий список з тим же ім\'ям?</string>
-	<string name="actfm_tag_not_authorized_new_list">Створити новий список</string>
-	<string name="actfm_tag_not_authorized_leave_list">Покинути список</string>
-	<string name="actfm_sync_ongoing">Синхронізація в процесі...</string>
 	<string name="EPr_reset_sync_state">Скинути синхронізацію</string>
 	<string name="EPr_reset_sync_state_summary">Скидання деяких локальних даних, щоб допомогти вирішити помилоки синхронізації</string>
 	<string name="EPr_reset_sync_state_detailed">Наступного разу при синхронізації ваших завдань і списків буде змінена, щоб відобразити те, що існує на Tasks.com, які можуть допомогти вирішити помилки синхронізації. Ви хочете продовжити?</string>
@@ -195,7 +190,6 @@
 	<string name="hide_until_prompt">Показувати в мому списку</string>
 	<string name="TEA_load_more">Завантажити більше...</string>
 	<string name="TEA_when_dialog_title">Коли це потрібно виконати?</string>
-	<string name="TEA_new_task">Нове завдання</string>
 	<string name="MCA_title">%1$s\nтелефонував о %2$s</string>
 	<string name="MCA_return_call">Зателефонувати зараз</string>
 	<string name="MCA_add_task">Зателефонувати пізніше</string>
@@ -425,11 +419,6 @@
 	<string name="gtasks_error_authRefresh">Не вдалося пройти аутентифікацію в Google Tasks. Будь ласка, перевірте пароль до облікового запису або спробуйте ще раз пізніше.</string>
 	<string name="gtasks_error_accountManager">Помилка в менеджері акаунтів вашого телефону, ласка вийдіть і увійдіть знову в налаштуваннях Google Tasks</string>
 	<string name="gtasks_error_background_sync_auth">Не вдалося пройти аутентифікацію у фоні. Будь ласка, попробуйте при запущеному Tasks.</string>
-	<string name="gtasks_import_progress">Імпорт Google Tasks...</string>
-	<string name="gtasks_import_add_to_shared_list">Список %1$s зроблений загальнодоступним! Ви все ще хочете додавати завдання у %2$s ?</string>
-	<string name="gtasks_import_dlg_title">Імпорт Google Tasks</string>
-	<string name="gtasks_import_add_task_ok">Додати завдання</string>
-	<string name="gtasks_import_add_task_cancel">Не додавати завдання</string>
 	<string name="locale_notification">Число відповідностей $FILTER: $NUM</string>
 	<string name="opencrx_TEA_notes">Додати коментар</string>
 	<string name="opencrx_creator_input_hint">Автор</string>
@@ -523,7 +512,6 @@
 		<item>Your Tasks digest</item>
 		<item>Нагадування від Tasks</item>
 	</string-array>
-	<string name="rmd_reengage_name_default">ти</string>
 	<string name="rmd_reengage_add_tasks">Додати завдання</string>
 	<string name="rmd_EPr_alerts_header">Налаштування нагадувань</string>
 	<string name="rmd_EPr_alerts_summary">Тихі години, опції короткого сну, рівень наполегливості</string>

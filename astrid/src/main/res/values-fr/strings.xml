@@ -32,11 +32,6 @@
 	<string name="actfm_feat_list_clone_success">Opération réussie !</string>
 	<string name="actfm_feat_list_task_clone_success">Tâche copiée</string>
 	<string name="actfm_feat_list_clone_empty">Aucune tâche à copier</string>
-	<string name="actfm_tag_not_authorized_title">Non autorisé</string>
-	<string name="actfm_tag_not_authorized_body">Vous n\'êtes plus autorisé à voir la liste %s (vous avez peut-être été supprimé). Voulez-vous créer une nouvelle liste avec le même nom?</string>
-	<string name="actfm_tag_not_authorized_new_list">Créer une nouvelle liste</string>
-	<string name="actfm_tag_not_authorized_leave_list">Quitter la liste</string>
-	<string name="actfm_sync_ongoing">Synchronisation en cours...</string>
 	<string name="EPr_reset_sync_state">Réinitialiser la synchronisation</string>
 	<string name="EPr_reset_sync_state_summary">Réinitialiser certaines données locales pour aider à la résolution de problème de synchronisation</string>
 	<string name="EPr_reset_sync_state_detailed">A la prochaine synchronisation, vos tâches et listes seront modifiées pour refléter ce qui existe sur Tasks.com, ce qui pourrait aider à résoudre des erreurs de synchronisation. Voulez-vous continuer?</string>
@@ -188,7 +183,6 @@
 	<string name="hide_until_prompt">Montrer dans ma liste</string>
 	<string name="TEA_load_more">Charger plus...</string>
 	<string name="TEA_when_dialog_title">Pour quand est-ce prévu ?</string>
-	<string name="TEA_new_task">Nouvelle tâche</string>
 	<string name="MCA_title">\"%1$s\na appelé à  %2$s\"</string>
 	<string name="MCA_return_call">Appeler maintenant</string>
 	<string name="MCA_add_task">Appeler plus tard</string>
@@ -419,11 +413,6 @@
 	<string name="gtasks_error_authRefresh">Impossible de s\'authentifier avec Google Tasks. Veuillez vérifier votre mot de passe ou essayez plus tard.</string>
 	<string name="gtasks_error_accountManager">Une erreur est apparue dans le gestionnaire de comptes de votre téléphone. Veuillez vous deconnecter de votre compte Google Task puis vous reconnecter.</string>
 	<string name="gtasks_error_background_sync_auth">\"Erreur d\'authentification en arrière plan.  Réessayez de vous synchroniser quand Tasks est lancé.\"</string>
-	<string name="gtasks_import_progress">Importer les tâches de Google Tâches...</string>
-	<string name="gtasks_import_add_to_shared_list">La liste %1$s est partagée avec d\'autres utilisateurs! Voulez-vous quand même ajouter la tâche %2$s à celle-ci?</string>
-	<string name="gtasks_import_dlg_title">Importer des tâches depuis Google</string>
-	<string name="gtasks_import_add_task_ok">Ajout d\'une tâche</string>
-	<string name="gtasks_import_add_task_cancel">Ne pas ajouter de tâche </string>
 	<string name="locale_notification">Vous avez $NUM correspondant(s) : $FILTER</string>
 	<string name="opencrx_TEA_notes">Ajouter un commentaire</string>
 	<string name="opencrx_creator_input_hint">Auteur</string>
@@ -517,7 +506,6 @@
 		<item>Votre résumé Tasks</item>
 		<item>Rappels d\'Tasks</item>
 	</string-array>
-	<string name="rmd_reengage_name_default">vous</string>
 	<string name="rmd_reengage_add_tasks">Ajouter une tâche</string>
 	<string-array name="rmd_reengage_dialog_options">
 		<item>Il est temps de réduire votre liste de tâches!</item>

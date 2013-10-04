@@ -1,12 +1,5 @@
 package com.todoroo.astrid.gcal;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +9,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-import org.tasks.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -31,6 +23,14 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.ThemeService;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.tasks.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CalendarAlarmListCreator extends Activity {
 
@@ -156,19 +156,7 @@ public class CalendarAlarmListCreator extends Activity {
             @Override
             public void onClick(View v) {
                 // Set members json and save
-                if (!actFmPreferenceService.isLoggedIn()) {
-                    moreOptions.performClick();
-                    return;
-                } else {
-                    TagData tagData = new TagData();
-                    tagData.setValue(TagData.NAME, tagName);
-                    tagData.setValue(TagData.MEMBER_COUNT, emails.size());
-                    tagDataService.save(tagData);
-                    for (String email : emails) {
-                        tagMetadataDao.createMemberLink(tagData.getId(), tagData.getUuid(), email, false);
-                    }
-                    dismissWithAnimation();
-                }
+                moreOptions.performClick();
             }
         });
 

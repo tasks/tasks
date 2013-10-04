@@ -33,10 +33,6 @@
 	<string name="actfm_feat_list_clone_success">Завершено успешно!</string>
 	<string name="actfm_feat_list_task_clone_success">Задача скопирована</string>
 	<string name="actfm_feat_list_clone_empty">Нет задач для копирования</string>
-	<string name="actfm_tag_not_authorized_title">Не авторизовано </string>
-	<string name="actfm_tag_not_authorized_new_list">Создать новый список</string>
-	<string name="actfm_tag_not_authorized_leave_list">Покинуть список</string>
-	<string name="actfm_sync_ongoing">Процесс синхронизации…</string>
 	<string name="EPr_reset_sync_state">Сброс синхронизации</string>
 	<string name="EPr_reset_sync_state_summary">Сбросьте некоторые данные, чтобы разрешить проблему синхронизации</string>
 	<string name="alarm_ACS_label">Напоминания</string>
@@ -184,7 +180,6 @@
 	<string name="hide_until_prompt">Показать в моем листе</string>
 	<string name="TEA_load_more">Загрузить больше...</string>
 	<string name="TEA_when_dialog_title">Когда это должно произойти?</string>
-	<string name="TEA_new_task">Новое задание</string>
 	<string name="MCA_title">%1$s\nзвонил(а) в %2$s</string>
 	<string name="MCA_return_call">Позвонить сейчас</string>
 	<string name="MCA_add_task">Позвонить позже</string>
@@ -403,11 +398,6 @@
 	<string name="gtasks_error_authRefresh">Не удалось пройти аутентификацию в Google Tasks. Пожалуйста, проверьте пароль к учетной записи или попробуйте еще раз позже.</string>
 	<string name="gtasks_error_accountManager">Ошибка в менеджере аккаунтов вашего телефона, Пожалуйста выйдите и войдите снова в настройках Google Tasks</string>
 	<string name="gtasks_error_background_sync_auth">Ошибка фоновой аутентификации. Пожалуйста, попробуйте синхронизироваться, когда Tasks запущен.</string>
-	<string name="gtasks_import_progress">Импорт из Google Tasks</string>
-	<string name="gtasks_import_add_to_shared_list">Список %1$s сделан общедоступным! Вы всё ещё хотите добавлять задачи в %2$s?</string>
-	<string name="gtasks_import_dlg_title">Импорт Google задач</string>
-	<string name="gtasks_import_add_task_ok">Добавить задание</string>
-	<string name="gtasks_import_add_task_cancel">Не добавляйте задачи</string>
 	<string name="locale_notification">Число соответствий $FILTER: $NUM</string>
 	<string name="opencrx_TEA_notes">Добавить комментарий</string>
 	<string name="opencrx_creator_input_hint">Автор</string>
@@ -498,7 +488,6 @@
 		<item>Обзор задач от Tasks</item>
 		<item>Напоминания от Tasks</item>
 	</string-array>
-	<string name="rmd_reengage_name_default">Вы</string>
 	<string name="rmd_reengage_add_tasks">Добавить задание</string>
 	<string-array name="rmd_reengage_dialog_options">
 		<item>Время сократить Ваш список задач!</item>

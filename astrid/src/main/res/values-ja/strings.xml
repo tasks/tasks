@@ -27,7 +27,6 @@
 	<string name="actfm_EPA_add_person_to_list_cancel">追加しないで</string>
 	<string name="actfm_GAA_title">使用したいGoogleアカウントを選択してください:</string>
 	<string name="actfm_feat_list_clone_success">成功！</string>
-	<string name="actfm_sync_ongoing">同期中</string>
 	<string name="alarm_ACS_label">アラーム</string>
 	<string name="alarm_ACS_button">アラームを追加する</string>
 	<string-array name="reminders_alarm">
@@ -140,7 +139,6 @@
 	<string name="TEA_control_lists">リスト</string>
 	<string name="TEA_control_notes">概要</string>
 	<string name="TEA_control_reminders">リマインダー</string>
-	<string name="TEA_new_task">新しいタスク</string>
 	<string name="MCA_title">%1$s\ncalled at %2$s</string>
 	<string name="MCA_ignore">無視する</string>
 	<string name="CRA_ignore">無視する</string>
@@ -231,7 +229,6 @@
 	<string name="rmd_NoA_filter">お知らせ</string>
 	<string name="rmd_NoA_done">既に完了しています!</string>
 	<string name="rmd_NoA_snooze">スヌーズ</string>
-	<string name="rmd_reengage_name_default">あなた</string>
 	<string name="rmd_reengage_add_tasks">タスクを追加する</string>
 	<string name="rmd_EPr_alerts_header">通知の設定</string>
 	<string name="rmd_EPr_quiet_hours_start_title">消音時間の始まり</string>

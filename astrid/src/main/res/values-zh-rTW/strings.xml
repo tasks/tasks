@@ -32,7 +32,6 @@
 	<string name="actfm_feat_list_clone_success">完成!</string>
 	<string name="actfm_feat_list_task_clone_success">任務工作已復制</string>
 	<string name="actfm_feat_list_clone_empty">無任務工作複製</string>
-	<string name="actfm_sync_ongoing">同步中...</string>
 	<string name="alarm_ACS_label">警示</string>
 	<string name="alarm_ACS_button">加入警示</string>
 	<string-array name="reminders_alarm">
@@ -170,7 +169,6 @@
 	<string name="hide_until_prompt">在我的列表中顯示</string>
 	<string name="TEA_load_more">加載更多……</string>
 	<string name="TEA_when_dialog_title">這項活動定在什麼時候呀？</string>
-	<string name="TEA_new_task">新建任務工作</string>
 	<string name="MCA_title">%1$s\n在 %2$s 給您打過電話</string>
 	<string name="MCA_return_call">現在回電</string>
 	<string name="MCA_add_task">稍後回電</string>
@@ -444,7 +442,6 @@
 		<item>您的 Tasks 摘要</item>
 		<item>Tasks 的提醒</item>
 	</string-array>
-	<string name="rmd_reengage_name_default">您</string>
 	<string name="rmd_reengage_add_tasks">添加任務工作</string>
 	<string-array name="rmd_reengage_dialog_options">
 		<item>是時候縮短您的任務工作清單了！</item>

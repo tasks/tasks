@@ -14,7 +14,6 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
-import org.tasks.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -38,6 +37,8 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+
+import org.tasks.R;
 
 /**
  * Exposes filters based on lists
@@ -95,7 +96,7 @@ public class GtasksFilterExposer extends BroadcastReceiver implements AstridFilt
         DependencyInjectionService.getInstance().inject(this);
 
         // if we aren't logged in (or we are logged in to astrid.com), don't expose features
-        if(!gtasksPreferenceService.isLoggedIn() || actFmPreferenceService.isLoggedIn()) {
+        if(!gtasksPreferenceService.isLoggedIn()) {
             return null;
         }
 

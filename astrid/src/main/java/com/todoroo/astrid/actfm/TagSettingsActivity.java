@@ -227,9 +227,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
         else if (tagData.getValue(TagData.MEMBER_COUNT) > 0) {
             leaveListButton.setText(getString(R.string.tag_leave_button));
         }
-        if(actFmPreferenceService.isLoggedIn()) {
-            findViewById(R.id.tag_silenced_container).setVisibility(View.VISIBLE);
-        }
 
         picture.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(getResources(), TagService.getDefaultImageIDForTag(tagData.getUuid())));
         picture.setOnClickListener(new OnClickListener() {
@@ -308,7 +305,7 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
 
         JSONArray members = new JSONArray();
 
-        if(members.length() > 0 && !actFmPreferenceService.isLoggedIn()) {
+        if(members.length() > 0) {
             if(newName.length() > 0 && oldName.length() == 0) {
                 tagDataService.save(tagData);
             }

@@ -81,14 +81,4 @@
     <!-- Error when authorization error happens in background sync -->
     <string name="gtasks_error_background_sync_auth">Error authenticating in background. Please try initiating a sync while Tasks is running.</string>
       
-    <string name="gtasks_import_progress">Importing Google Tasks...</string>
-
-    <string name="gtasks_import_add_to_shared_list">The list %1$s is shared with others! Do you still want to add the task %2$s to it?</string>
-
-    <string name="gtasks_import_dlg_title">Google Tasks Import</string>
-
-    <string name="gtasks_import_add_task_ok">Add task</string>
-
-    <string name="gtasks_import_add_task_cancel">Don\'t add task</string>
-        
 </resources>

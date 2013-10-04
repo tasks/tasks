@@ -33,11 +33,6 @@
 	<string name="actfm_feat_list_clone_success">La operación se ha realizado correctamente.</string>
 	<string name="actfm_feat_list_task_clone_success">Tarea copiada</string>
 	<string name="actfm_feat_list_clone_empty">No hay tareas para copiar</string>
-	<string name="actfm_tag_not_authorized_title">No autorizado</string>
-	<string name="actfm_tag_not_authorized_body">Ya no estas autorizado para ver la lista %s (probablemente fuiste removido) Quieres crear una nueva lista con el mismo nombre?</string>
-	<string name="actfm_tag_not_authorized_new_list">Crea una nueva lista</string>
-	<string name="actfm_tag_not_authorized_leave_list">Abandonar lista</string>
-	<string name="actfm_sync_ongoing">Sincronización en marcha</string>
 	<string name="EPr_reset_sync_state">Reiniciar sincronización</string>
 	<string name="EPr_reset_sync_state_summary">Reinicia algunos datos locales para ayudar a resolver los problemas de sincronización</string>
 	<string name="EPr_reset_sync_state_detailed">La próxima ocasión que sincronices, tus tareas y listas serán cambiadas a un espejo que existe en Tareas.com, que podría ayudar a resolver los problemas de sincronización. Quieres continuar?</string>
@@ -192,7 +187,6 @@
 	<string name="hide_until_prompt">Mostrar en mi lista</string>
 	<string name="TEA_load_more">Cargar mas...</string>
 	<string name="TEA_when_dialog_title">¿Para cuando esta previsto?</string>
-	<string name="TEA_new_task">Nueva Tarea</string>
 	<string name="MCA_title">%1$s\nllamó a las %2$s</string>
 	<string name="MCA_return_call">Llamar ahora</string>
 	<string name="MCA_add_task">Llamar luego</string>
@@ -403,8 +397,6 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="gtasks_error_authRefresh">No se pudo autenticar con Google Tasks. Por favor revisa la contraseña de tu cuenta o intenta de nuevo mas tarde.</string>
 	<string name="gtasks_error_accountManager">Error en el administrador de cuentas de tu teléfono. Por favor reinicia sesión desde la configuración de Google Tasks.</string>
 	<string name="gtasks_error_background_sync_auth">Error al autenticarse en un segundo plano. Por favor, intente iniciar la sincronización mientras Tasks está ejecutándose.</string>
-	<string name="gtasks_import_add_task_ok">Añadir tarea</string>
-	<string name="gtasks_import_add_task_cancel">No añadir tarea</string>
 	<string name="locale_notification">Tiene $NUM que coincide con: $FILTER</string>
 	<string name="opencrx_TEA_notes">Añadir un comentario</string>
 	<string name="opencrx_creator_input_hint">Creador</string>
@@ -494,7 +486,6 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 		<item>Tu resumen Tasks</item>
 		<item>Recordatorios de Tasks</item>
 	</string-array>
-	<string name="rmd_reengage_name_default">tú</string>
 	<string name="rmd_reengage_add_tasks">Añadir una tarea</string>
 	<string-array name="rmd_reengage_dialog_options">
 		<item>¡Es hora de acortar la lista de tareas!</item>

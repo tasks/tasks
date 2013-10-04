@@ -25,7 +25,6 @@
 	<string name="actfm_GAA_title">Vyberte, který účet Google chcete použít:</string>
 	<string name="actfm_feat_list_clone_success">Povedlo se!</string>
 	<string name="actfm_feat_list_task_clone_success">Úkol zkopírován</string>
-	<string name="actfm_sync_ongoing">Probíhá synchronizace...</string>
 	<string name="alarm_ACS_label">Alarmy</string>
 	<string name="alarm_ACS_button">Přidat alarm</string>
 	<string-array name="reminders_alarm">
@@ -162,7 +161,6 @@
 	<string name="hide_until_prompt">Zobrazit v mém seznamu</string>
 	<string name="TEA_load_more">Více...</string>
 	<string name="TEA_when_dialog_title">Kdy je termín?</string>
-	<string name="TEA_new_task">Nový úkol</string>
 	<string name="MCA_title">V %2$s volal\n%1$s</string>
 	<string name="MCA_return_call">Hned zavolat</string>
 	<string name="MCA_add_task">Zavolat později</string>

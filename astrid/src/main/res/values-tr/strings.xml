@@ -33,7 +33,6 @@
 	<string name="actfm_feat_list_clone_success">Başarılı!</string>
 	<string name="actfm_feat_list_task_clone_success">Görev kopyalandı</string>
 	<string name="actfm_feat_list_clone_empty">Kopyalanmış görev bulunmuyor</string>
-	<string name="actfm_sync_ongoing">Senkronizasyon devam ediyor...</string>
 	<string name="alarm_ACS_label">Alarmlar</string>
 	<string name="alarm_ACS_button">Alarm Ekle</string>
 	<string name="backup_BPr_header">Yedekler</string>
@@ -168,7 +167,6 @@
 	<string name="hide_until_prompt">Listemde göster</string>
 	<string name="TEA_load_more">Daha yükle...</string>
 	<string name="TEA_when_dialog_title">Son zamanı nedir?</string>
-	<string name="TEA_new_task">Yeni Görev</string>
 	<string name="MCA_title">%1$s aradı\nzamanı: %2$s</string>
 	<string name="MCA_return_call">Şimdi ara</string>
 	<string name="MCA_add_task">Sonra ara</string>
@@ -436,7 +434,6 @@
 		<item>Tasks özetiniz</item>
 		<item>Tasks Hatırlatmaları</item>
 	</string-array>
-	<string name="rmd_reengage_name_default">siz</string>
 	<string name="rmd_reengage_add_tasks">Görev ekle</string>
 	<string-array name="rmd_reengage_dialog_options">
 		<item>Yapılacaklar listenizi kısaltmanın tam zamanı!</item>

@@ -91,13 +91,6 @@
       
   <!-- Sync upgrade messages -->
   
-  <string name="actfm_tag_not_authorized_title">Not authorized</string>
-  <string name="actfm_tag_not_authorized_body">You are no longer authorized to view list %s (you may have been removed). Would you like to create a new list with the same name?</string>
-  <string name="actfm_tag_not_authorized_new_list">Create new list</string>
-  <string name="actfm_tag_not_authorized_leave_list">Leave list</string>
-  
-  <string name="actfm_sync_ongoing">Sync ongoing...</string>
-  
   <string name="EPr_reset_sync_state">Reset sync</string>
   <string name="EPr_reset_sync_state_summary">Resets some local data to help resolve sync errors</string>
   <string name="EPr_reset_sync_state_detailed">The next time you sync, your tasks and lists will be changed to mirror what exists on Tasks.com, which may help resolve sync errors. Do you wish to continue?</string>

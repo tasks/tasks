@@ -32,7 +32,6 @@
 	<string name="actfm_feat_list_clone_success">完成!</string>
 	<string name="actfm_feat_list_task_clone_success">任务已复制</string>
 	<string name="actfm_feat_list_clone_empty">无任务复制</string>
-	<string name="actfm_sync_ongoing">同步中...</string>
 	<string name="alarm_ACS_label">闹钟</string>
 	<string name="alarm_ACS_button">添加闹钟</string>
 	<string-array name="reminders_alarm">
@@ -170,7 +169,6 @@
 	<string name="hide_until_prompt">在我的列表中显示</string>
 	<string name="TEA_load_more">加载更多……</string>
 	<string name="TEA_when_dialog_title">这项活动定在什么时候呀？</string>
-	<string name="TEA_new_task">新建任务</string>
 	<string name="MCA_title">%1$s\n在 %2$s 给您打过电话</string>
 	<string name="MCA_return_call">现在回电</string>
 	<string name="MCA_add_task">稍后回电</string>
@@ -422,7 +420,6 @@
 		<item>您的清单小助理摘要</item>
 		<item>清单小助理的提醒</item>
 	</string-array>
-	<string name="rmd_reengage_name_default">您</string>
 	<string name="rmd_reengage_add_tasks">添加任务</string>
 	<string-array name="rmd_reengage_dialog_options">
 		<item>是时候缩短您的任务清单了！</item>

@@ -33,11 +33,6 @@
 	<string name="actfm_feat_list_clone_success">Viel Erfolg!</string>
 	<string name="actfm_feat_list_task_clone_success">Aufgabe kopiert</string>
 	<string name="actfm_feat_list_clone_empty">Keine Aufgaben zum Kopieren vorhanden</string>
-	<string name="actfm_tag_not_authorized_title">Nicht autorisiert!</string>
-	<string name="actfm_tag_not_authorized_body">Sie sind nicht mehr berechtigt, die Liste %s anzuzeigen (Sie wurden möglicherweise entfernt). Möchten Sie eine neue Liste mit dem gleichen Namen erstellen?</string>
-	<string name="actfm_tag_not_authorized_new_list">Neue Liste anlegen</string>
-	<string name="actfm_tag_not_authorized_leave_list">Liste verlassen</string>
-	<string name="actfm_sync_ongoing">Synchronisierung läuft...</string>
 	<string name="EPr_reset_sync_state">Synchronisation zurücksetzen</string>
 	<string name="EPr_reset_sync_state_summary">Setzt einige lokale Daten zur Behebung von Synchronisations-Fehlern zurück</string>
 	<string name="EPr_reset_sync_state_detailed">Bei der nächsten Synchronisation werden deine Aufgaben und Listen denjenigen auf Tasks.com angeglichen. Das behebt Synchronisationsfehler. Möchtest du damit beginen?</string>
@@ -184,7 +179,6 @@
 	<string name="hide_until_prompt">Anzeigen in meiner Liste</string>
 	<string name="TEA_load_more">Weitere laden …</string>
 	<string name="TEA_when_dialog_title">Wann ist das fällig?</string>
-	<string name="TEA_new_task">Neue Aufgabe</string>
 	<string name="MCA_title">%1$s hat um %2$s angerufen</string>
 	<string name="MCA_return_call">Jetzt anrufen</string>
 	<string name="MCA_add_task">Später anrufen</string>
@@ -407,10 +401,6 @@
 	<string name="gtasks_error_authRefresh">Anmeldung beo Google Tasks nicht möglich. Bitte Passwort prüfen oder später erneut versuchen.</string>
 	<string name="gtasks_error_accountManager">Fehler in den</string>
 	<string name="gtasks_error_background_sync_auth">Fehler bei der Hintergrunautehntifizierung. Starte eine Synchronisation in der App.</string>
-	<string name="gtasks_import_progress">Google Tasks importieren</string>
-	<string name="gtasks_import_add_to_shared_list">Die Liste %1$s wird mit anderen geteilt! Wollen Sie die Aufgabe %2$s wirklich hinzuzufügen?</string>
-	<string name="gtasks_import_add_task_ok">Aufgabe hinzufügen</string>
-	<string name="gtasks_import_add_task_cancel">Aufgabe nicht hinzufügen</string>
 	<string name="locale_notification">Du hast $NUM Übereinstimmungen mit: $FILTER</string>
 	<string name="opencrx_TEA_notes">Einen Kommentar hinzufügen</string>
 	<string name="opencrx_creator_input_hint">Ersteller</string>
@@ -504,7 +494,6 @@
 		<item>Ihre Tasks-Übersicht</item>
 		<item>Erinnerungen von Tasks</item>
 	</string-array>
-	<string name="rmd_reengage_name_default">Sie</string>
 	<string name="rmd_reengage_add_tasks">Aufgabe hinzufügen</string>
 	<string-array name="rmd_reengage_dialog_options">
 		<item>Zeit, Ihre Todo-Liste zu verkürzen!</item>

@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.gtasks.sync;
 
-import java.io.IOException;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.Semaphore;
-
 import android.content.ContentValues;
 import android.text.TextUtils;
 import android.util.Log;
@@ -35,6 +31,10 @@ import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.MoveRequest;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
+
+import java.io.IOException;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.Semaphore;
 
 public final class GtasksSyncService {
 
@@ -107,9 +107,6 @@ public final class GtasksSyncService {
             @Override
             public void onModelUpdated(final Task model, boolean outstandingEntries) {
                 if(model.checkAndClearTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC)) {
-                    return;
-                }
-                if (actFmPreferenceService.isLoggedIn()) {
                     return;
                 }
                 if (gtasksPreferenceService.isOngoing() && !model.checkTransitory(TaskService.TRANS_REPEAT_COMPLETE)) //Don't try and sync changes that occur during a normal sync
@@ -193,9 +190,6 @@ public final class GtasksSyncService {
         if (metadata.checkAndClearTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC)) {
             return;
         }
-        if (actFmPreferenceService.isLoggedIn()) {
-            return;
-        }
         if (!metadata.getValue(Metadata.KEY).equals(GtasksMetadata.METADATA_KEY)) //Don't care about non-gtasks metadata
         {
             return;
@@ -215,10 +209,6 @@ public final class GtasksSyncService {
      * Synchronize with server when data changes
      */
     public void pushTaskOnSave(Task task, ContentValues values, GtasksInvoker invoker, boolean sleep) throws IOException {
-        if (actFmPreferenceService.isLoggedIn()) {
-            return;
-        }
-
         if (sleep) {
             AndroidUtilities.sleepDeep(1000L); //Wait for metadata to be saved
         }
@@ -327,9 +317,6 @@ public final class GtasksSyncService {
     }
 
     public void pushMetadataOnSave(Metadata model, GtasksInvoker invoker) throws IOException {
-        if (actFmPreferenceService.isLoggedIn()) {
-            return;
-        }
         AndroidUtilities.sleepDeep(1000L);
 
         String taskId = model.getValue(GtasksMetadata.ID);

@@ -31,10 +31,6 @@
 	<string name="actfm_feat_list_clone_success">L\'operació s\'ha realitzat correctament.</string>
 	<string name="actfm_feat_list_task_clone_success">Tarea copiada </string>
 	<string name="actfm_feat_list_clone_empty">No tarea a copiar</string>
-	<string name="actfm_tag_not_authorized_title">No autorizado</string>
-	<string name="actfm_tag_not_authorized_new_list">Crear una nueva lista</string>
-	<string name="actfm_tag_not_authorized_leave_list">Abandonar la lista</string>
-	<string name="actfm_sync_ongoing">Sincronització en curs...</string>
 	<string name="alarm_ACS_label">Alarmes</string>
 	<string name="alarm_ACS_button">Afegeix una alarma</string>
 	<string-array name="reminders_alarm">
@@ -180,7 +176,6 @@
 	<string name="hide_until_prompt">Mostra a la meva llista</string>
 	<string name="TEA_load_more">Carrega més...</string>
 	<string name="TEA_when_dialog_title">Quan venç?</string>
-	<string name="TEA_new_task">Tasca nova</string>
 	<string name="MCA_title">En/na %1$s\nha trucat a les %2$s</string>
 	<string name="MCA_return_call">Truca ara</string>
 	<string name="MCA_add_task">Truca després</string>

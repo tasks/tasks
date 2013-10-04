@@ -9,7 +9,6 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -28,16 +27,11 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.andlib.service.NotificationManager.AndroidNotificationManager;
-import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
-import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
-import com.todoroo.astrid.actfm.sync.ActFmSyncThread.SyncMessageCallback;
-import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -47,31 +41,24 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TagMetadataDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.RemoteModel;
-import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.data.TagMetadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Flags;
 
-import org.json.JSONArray;
 import org.tasks.R;
 
-import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class TagViewFragment extends TaskListFragment {
@@ -188,16 +175,6 @@ public class TagViewFragment extends TaskListFragment {
     }
 
     @Override
-    protected void addSyncRefreshMenuItem(Menu menu, int themeFlags) {
-        if(actFmPreferenceService.isLoggedIn()) {
-            addMenuItem(menu, R.string.actfm_TVA_menu_refresh,
-                    ThemeService.getDrawable(R.drawable.icn_menu_refresh, themeFlags), MENU_REFRESH_ID, true);
-        } else {
-            super.addSyncRefreshMenuItem(menu, themeFlags);
-        }
-    }
-
-    @Override
     protected void addMenuItems(Menu menu, Activity activity) {
         super.addMenuItems(menu, activity);
         MenuItem item = menu.add(Menu.NONE, MENU_LIST_SETTINGS_ID, 0, R.string.tag_settings_title);
@@ -299,120 +276,7 @@ public class TagViewFragment extends TaskListFragment {
             if(DateUtilities.now() - lastAutosync > AUTOSYNC_INTERVAL) {
                 tagData.setValue(TagData.LAST_AUTOSYNC, DateUtilities.now());
                 tagDataDao.saveExisting(tagData);
-                refreshData();
             }
-        }
-    }
-
-    /** refresh the list with latest data from the web */
-    private void refreshData() {
-        if (actFmPreferenceService.isLoggedIn() && tagData != null && !RemoteModel.isUuidEmpty(tagData.getUuid())) {
-            ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
-
-            SyncMessageCallback callback = new SyncMessageCallback() {
-                @Override
-                public void runOnSuccess() {
-                    synchronized(this) {
-                        Activity activity = getActivity();
-                        if (activity != null) {
-                            activity.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    try {
-                                        reloadTagData(false);
-                                        refresh();
-                                        ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
-                                    } catch (Exception e) {
-                                        // Can happen when swipe between lists is on
-                                    }
-                                }
-                            });
-                        }
-                    }
-                }
-                @Override
-                public void runOnErrors(List<JSONArray> errors) {
-                    Activity activity = getActivity();
-                    if (activity != null && activity instanceof TaskListActivity) {
-                        boolean notAuthorized = false;
-                        for (JSONArray error : errors) {
-                            String errorCode = error.optString(1);
-                            if ("not_authorized".equals(errorCode)) { //$NON-NLS-1$
-                                notAuthorized = true;
-                                break;
-                            }
-                        }
-
-                        final String tagName = tagData.getValue(TagData.NAME);
-                        if (notAuthorized) {
-                            final TaskListActivity tla = (TaskListActivity) activity;
-                            tla.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    DialogUtilities.okCancelCustomDialog(tla,
-                                            tla.getString(R.string.actfm_tag_not_authorized_title),
-                                            tla.getString(R.string.actfm_tag_not_authorized_body, tagName),
-                                            R.string.actfm_tag_not_authorized_new_list,
-                                            R.string.actfm_tag_not_authorized_leave_list,
-                                            android.R.drawable.ic_dialog_alert,
-                                            new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    String oldUuid = tagData.getUuid();
-                                                    tagData.setValue(TagData.DELETION_DATE, DateUtilities.now());
-                                                    tagData.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
-                                                    tagDataDao.saveExisting(tagData);
-
-                                                    // TODO: Make this better
-                                                    tagData.clearValue(TagData.ID);
-                                                    tagData.clearValue(TagData.UUID);
-                                                    tagData.clearValue(TagData.USER_ID);
-                                                    tagData.clearValue(TagData.DELETION_DATE);
-                                                    tagData.setValue(TagData.CREATION_DATE, DateUtilities.now());
-                                                    tagDataDao.createNew(tagData);
-                                                    String newUuid = tagData.getUuid();
-
-                                                    TodorooCursor<Task> tasks = taskService.fetchFiltered(filter.getSqlQuery(), null, Task.ID, Task.UUID, Task.USER_ID);
-                                                    try {
-                                                        Task t = new Task();
-                                                        for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
-                                                            t.clear();
-                                                            t.readFromCursor(tasks);
-                                                            if (Task.USER_ID_SELF.equals(t.getValue(Task.USER_ID))) {
-                                                                tagService.createLink(t, tagName, newUuid);
-                                                            }
-                                                        }
-                                                    } finally {
-                                                        tasks.close();
-                                                    }
-                                                    tagService.deleteTagMetadata(oldUuid);
-
-                                                    Filter newFilter = TagFilterExposer.filterFromTagData(tla, tagData);
-                                                    tla.onFilterItemClicked(newFilter);
-                                                }
-                                            },
-                                            new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    String uuid = tagData.getUuid();
-                                                    tagDataDao.delete(tagData.getId());
-                                                    metadataDao.deleteWhere(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(uuid)));
-                                                    tagMetadataDao.deleteWhere(TagMetadata.TAG_UUID.eq(uuid));
-                                                    tla.switchToActiveTasks();
-                                                }
-                                            });
-                                }
-                            });
-                        }
-
-                    }
-                }
-            };
-
-            ActFmSyncThread.getInstance().repopulateQueueFromOutstandingTables();
-            ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<Task>(Task.class, null, tagData.getValue(TagData.TASKS_PUSHED_AT), BriefMe.TAG_ID_KEY, tagData.getUuid()), callback);
-            ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TagData>(TagData.class, tagData.getUuid(), tagData.getValue(TagData.PUSHED_AT)), callback);
-            ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TaskListMetadata>(TaskListMetadata.class, null, tagData.getValue(TagData.METADATA_PUSHED_AT), BriefMe.TAG_ID_KEY, tagData.getUuid()), callback);
         }
     }
 
@@ -438,7 +302,6 @@ public class TagViewFragment extends TaskListFragment {
                     //refreshUpdatesList();
                 }
             });
-            refreshData();
 
             NotificationManager nm = new AndroidNotificationManager(ContextManager.getContext());
             try {
@@ -521,7 +384,6 @@ public class TagViewFragment extends TaskListFragment {
         // handle my own menus
         switch (id) {
         case MENU_REFRESH_ID:
-            refreshData();
             return true;
         case MENU_LIST_SETTINGS_ID:
             settingsListener.onClick(null);

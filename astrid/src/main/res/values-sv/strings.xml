@@ -33,7 +33,6 @@
 	<string name="actfm_feat_list_clone_success">Klart!</string>
 	<string name="actfm_feat_list_task_clone_success">Uppgift kopierad</string>
 	<string name="actfm_feat_list_clone_empty">Ingen uppgift att kopiera</string>
-	<string name="actfm_sync_ongoing">Synkronisering pågår...</string>
 	<string name="alarm_ACS_label">Alarm</string>
 	<string name="alarm_ACS_button">Lägg till ett alarm</string>
 	<string name="backup_BPr_header">Säkerhetskopior</string>
@@ -173,7 +172,6 @@
 	<string name="hide_until_prompt">Visa i min lista</string>
 	<string name="TEA_load_more">Ladda mer...</string>
 	<string name="TEA_when_dialog_title">När ska uppgiften vara slutförd?</string>
-	<string name="TEA_new_task">Ny uppgift</string>
 	<string name="MCA_title">%1$s\nringde kl %2$s</string>
 	<string name="MCA_return_call">Ring nu</string>
 	<string name="MCA_add_task">Ring senare</string>
@@ -445,7 +443,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="rmd_NoA_snooze">Vänta...</string>
 	<string name="rmd_NoA_completed_toast">Grattis till den slutförda uppgiften!</string>
 	<string name="rmd_NoA_dlg_title">Påminnelse:</string>
-	<string name="rmd_reengage_name_default">du</string>
 	<string name="rmd_reengage_add_tasks">Lägg till uppgift</string>
 	<string name="rmd_EPr_alerts_header">Påminnelseinställningar</string>
 	<string name="rmd_EPr_alerts_summary">Tysta timmar, snooze alternativ, envishets-nivå</string>

@@ -220,7 +220,6 @@ public abstract class CommentsFragment extends SherlockListFragment {
         });
 
         refreshUpdatesList();
-        refreshActivity(false); // start a pull in the background
     }
 
     protected void resetPictureButton() {
@@ -317,20 +316,7 @@ public abstract class CommentsFragment extends SherlockListFragment {
                 }
             }
         }
-
-        @Override
-        public void runOnErrors(List<JSONArray> errors) {/**/}
     };
-
-    protected void refreshActivity(boolean manual) {
-        if (actFmPreferenceService.isLoggedIn()) {
-            if (hasModel()) {
-                performFetch(manual, doneRunnable);
-            } else {
-                doneRunnable.runOnSuccess();
-            }
-        }
-    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -339,7 +325,7 @@ public abstract class CommentsFragment extends SherlockListFragment {
         }
 
         MenuItem item;
-        boolean showCommentsRefresh = actFmPreferenceService.isLoggedIn();
+        boolean showCommentsRefresh = false;
         if (showCommentsRefresh) {
         Activity activity = getActivity();
             if (activity instanceof TaskListActivity) {
@@ -360,8 +346,6 @@ public abstract class CommentsFragment extends SherlockListFragment {
         switch (item.getItemId()) {
 
         case MENU_REFRESH_ID: {
-
-            refreshActivity(true);
             return true;
         }
 

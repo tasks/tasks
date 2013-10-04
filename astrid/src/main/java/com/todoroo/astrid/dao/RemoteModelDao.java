@@ -48,9 +48,6 @@ public class RemoteModelDao<RTYPE extends RemoteModel> extends DatabaseDao<RTYPE
         if (outstandingEntryFlag == -1) {
             synchronized (RemoteModelDao.class) {
                 int newValue = 0;
-                if (PluginServices.getActFmPreferenceService().isLoggedIn()) {
-                    newValue = OUTSTANDING_ENTRY_FLAG_ENQUEUE_MESSAGES | OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING;
-                }
                 outstandingEntryFlag = newValue;
             }
         }

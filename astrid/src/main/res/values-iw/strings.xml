@@ -33,8 +33,6 @@
 	<string name="actfm_feat_list_clone_success">הצלחה!</string>
 	<string name="actfm_feat_list_task_clone_success">משימה הועתקה</string>
 	<string name="actfm_feat_list_clone_empty">אין משימות להעתיק</string>
-	<string name="actfm_tag_not_authorized_new_list">צור רשימה חדשה</string>
-	<string name="actfm_sync_ongoing">הסינכרון מתבצע</string>
 	<string name="alarm_ACS_label">התראות</string>
 	<string name="alarm_ACS_button">הוסף התראה</string>
 	<string-array name="reminders_alarm">
@@ -180,7 +178,6 @@
 	<string name="hide_until_prompt">הצג ברשימה שלי</string>
 	<string name="TEA_load_more">טען עוד...</string>
 	<string name="TEA_when_dialog_title">למתי?</string>
-	<string name="TEA_new_task">משימה חדשה</string>
 	<string name="MCA_title">%1$s \nהתקשר ב־%2$s</string>
 	<string name="MCA_return_call">התקשר כעת</string>
 	<string name="MCA_add_task">התקשר מאוחר יותר</string>
@@ -402,11 +399,6 @@
 	<string name="gtasks_error_authRefresh">איני מצליחה לאמת אותך מול ״משימות גוגל״. אנא בדוק את הסיסמא שהזנת, או נסה מאוחר יותר.</string>
 	<string name="gtasks_error_accountManager">מנהל החשבונות של הטלפון שלך נתקל בשגיאה. אנא התנתק והתחבר מתוך הגדרות ״משימות גוגל״.</string>
 	<string name="gtasks_error_background_sync_auth">האימות המתבצע ברקע נכשל. אנא נסה להתחיל את הסינכרון בזמן שאסטריד פועלת.</string>
-	<string name="gtasks_import_progress">מייבאת את ״משימות גוגל״</string>
-	<string name="gtasks_import_add_to_shared_list">הרשימה %1$s משותפת עם אחרים! האם אתה בטוח שברצונך להוסיף את המשימה %2$sלרשימה זו?</string>
-	<string name="gtasks_import_dlg_title">ייבוא ״משימות גוגל״</string>
-	<string name="gtasks_import_add_task_ok">הוסף משימה</string>
-	<string name="gtasks_import_add_task_cancel">אל תוסיף משימה</string>
 	<string name="locale_notification">יש לך $NUM המתאימים: $FILTER</string>
 	<string name="opencrx_TEA_notes">הוסף הערה</string>
 	<string name="opencrx_creator_input_hint">יוצר</string>
@@ -496,7 +488,6 @@
 		<item>תמצית מאסטריד</item>
 		<item>תזכורות מאסטריד</item>
 	</string-array>
-	<string name="rmd_reengage_name_default">אתה</string>
 	<string name="rmd_reengage_add_tasks">הוסף משימה</string>
 	<string-array name="rmd_reengage_dialog_options">
 		<item>הגיע הזמן לקצר את רשימת המשימות שלך!</item>

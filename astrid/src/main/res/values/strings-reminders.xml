@@ -82,8 +82,6 @@
     <item>Reminders from Tasks</item>
   </string-array>
     
-  <string name="rmd_reengage_name_default">you</string>
-
   <string name="rmd_reengage_add_tasks">Add a task</string>
   
   <!-- Speech bubble options for astrid in reengagement notifs -->

@@ -33,11 +33,6 @@
 	<string name="actfm_feat_list_clone_success">Succes!</string>
 	<string name="actfm_feat_list_task_clone_success">Taak gekopiéerd.</string>
 	<string name="actfm_feat_list_clone_empty">Geen taken om te kopiéren</string>
-	<string name="actfm_tag_not_authorized_title">Niet geautoriseerd</string>
-	<string name="actfm_tag_not_authorized_body">Je bent niet langer geautoriseerd om lijst %s te bekijken (wellicht ben je verwijderd). Wil je een nieuwe lijst aanmaken met dezelfde naam?</string>
-	<string name="actfm_tag_not_authorized_new_list">Maak een nieuwe lijst</string>
-	<string name="actfm_tag_not_authorized_leave_list">Verlaat lijst</string>
-	<string name="actfm_sync_ongoing">Synchronisatie bezig...</string>
 	<string name="EPr_reset_sync_state">Synchronisatie herstellen</string>
 	<string name="EPr_reset_sync_state_summary">Reset sommige lokale data om synchronisatie te proberen te herstellen</string>
 	<string name="EPr_reset_sync_state_detailed">De volgende keer dat je synchroniseert, zullen je taken en lijsten veranderen in overeenstemming met de data die aanwezig is Tasks.com, wat synchronisatie fouten kan herstellen. Wil je doorgaan?</string>
@@ -190,7 +185,6 @@
 	<string name="hide_until_prompt">Laat zien in mijn lijst</string>
 	<string name="TEA_load_more">Laad meer...</string>
 	<string name="TEA_when_dialog_title">Wanneer moet dit gedaan zijn?</string>
-	<string name="TEA_new_task">Nieuwe Taak</string>
 	<string name="MCA_title">%1$s\nheeft gebeld op (%2$s)</string>
 	<string name="MCA_return_call">Bel nu</string>
 	<string name="MCA_add_task">Bel later</string>
@@ -419,11 +413,6 @@
 	<string name="gtasks_error_authRefresh">Authenticatieprobleem bij Google Taken. Controleer je wachtwoord of probeer het later opnieuw.</string>
 	<string name="gtasks_error_accountManager">Error in uw telefoon account manager. Log uit en log opnieuw in vanuit de Google Task instellingen.</string>
 	<string name="gtasks_error_background_sync_auth">Error authenticatie op achtergrond bezig. Probeer alstublieft een synchronisatie te starten wanneer Tasks is gestart.</string>
-	<string name="gtasks_import_progress">Google Taken importeren</string>
-	<string name="gtasks_import_add_to_shared_list">De lijst %1$s is gedeeld met anderen! Wil je de taak %2$s nog steeds toevoegen?</string>
-	<string name="gtasks_import_dlg_title">Google Taken import</string>
-	<string name="gtasks_import_add_task_ok">Taak toevoegen</string>
-	<string name="gtasks_import_add_task_cancel">Taak niet toevoegen</string>
 	<string name="locale_notification">Er zijn $NUM taken voor: $FILTER</string>
 	<string name="opencrx_TEA_notes">Commentaar toevoegen</string>
 	<string name="opencrx_creator_input_hint">Auteur</string>
@@ -517,7 +506,6 @@
 		<item>Your Tasks digest</item>
 		<item>Herinneringen van Tasks</item>
 	</string-array>
-	<string name="rmd_reengage_name_default">jij</string>
 	<string name="rmd_reengage_add_tasks">Taak toevoegen</string>
 	<string-array name="rmd_reengage_dialog_options">
 		<item>Het is tijd om je to-do lijst op te schonen!</item>

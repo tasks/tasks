@@ -33,11 +33,6 @@
 	<string name="actfm_feat_list_clone_success">성공!</string>
 	<string name="actfm_feat_list_task_clone_success">일정 복사 완료</string>
 	<string name="actfm_feat_list_clone_empty">복사할 일정 없음</string>
-	<string name="actfm_tag_not_authorized_title">권한이 없습니다</string>
-	<string name="actfm_tag_not_authorized_body">더 이상 목록 %s 를 열람할 수 있는 권한이 없습니다 (권한을 삭제한 것 같습니다). 같은 이름의 새 목록을 생성하시겠습니까?</string>
-	<string name="actfm_tag_not_authorized_new_list">새 목록 만들기</string>
-	<string name="actfm_tag_not_authorized_leave_list">목록 탈퇴하기</string>
-	<string name="actfm_sync_ongoing">동기화 진행 중...</string>
 	<string name="EPr_reset_sync_state">동기화 초기화</string>
 	<string name="EPr_reset_sync_state_summary">동기화 에러를 해결하기 위해 몇가지 로컬 자료를 초기화합니다</string>
 	<string name="EPr_reset_sync_state_detailed">동기화 에러를 해결하기 위해, 다음 동기화 때 당신의 일정과 목록은 Tasks.com 상에 존재하는 미러로 변경될 것입니다. 계속하시겠습니까?</string>
@@ -195,7 +190,6 @@
 	<string name="hide_until_prompt">내 목록에 표시</string>
 	<string name="TEA_load_more">더 불러오기...</string>
 	<string name="TEA_when_dialog_title">마감일이 언제입니까?</string>
-	<string name="TEA_new_task">새 일정</string>
 	<string name="MCA_title">%1$s\n받은 시간: %2$s</string>
 	<string name="MCA_return_call">지금 전화하기</string>
 	<string name="MCA_add_task">나중에 전화하기</string>
@@ -431,11 +425,6 @@
 	<string name="gtasks_error_authRefresh">구글 일정으로 인증할 수 없습니다. 계정 비밀번호를 확인하거나 나중에 다시 시도해 보세요.</string>
 	<string name="gtasks_error_accountManager">휴대폰 계정 관리자에서 에러가 발생했습니다. 로그아웃 후 구글 일정 설정에서 다시 로그인 해 주세요.</string>
 	<string name="gtasks_error_background_sync_auth">백그라운드에서 인증 에러가 발생했습니다. 아스트리드가 실행중일 때 동기화를 시작해 보세요.</string>
-	<string name="gtasks_import_progress">구글 일정 가져오는 중...</string>
-	<string name="gtasks_import_add_to_shared_list">%1$s 목록을 타인과 공유 중입니다! %2$s 일정을 이 목록에 추가할까요?</string>
-	<string name="gtasks_import_dlg_title">구글 일정 가져오기</string>
-	<string name="gtasks_import_add_task_ok">일정 추가하기</string>
-	<string name="gtasks_import_add_task_cancel">일정 추가하지 않기</string>
 	<string name="locale_notification">$NUM 개의 일정이 일치합니다: $FILTER</string>
 	<string name="opencrx_TEA_notes">댓글 쓰기</string>
 	<string name="opencrx_creator_input_hint">작성자</string>
@@ -532,7 +521,6 @@
 		<item>당신의 아스트리드 요약</item>
 		<item>아스트리드 알림</item>
 	</string-array>
-	<string name="rmd_reengage_name_default">당신</string>
 	<string name="rmd_reengage_add_tasks">일정 추가하기</string>
 	<string-array name="rmd_reengage_dialog_options">
 		<item>당신의 할일 목록을 줄일 시간이에요!</item>

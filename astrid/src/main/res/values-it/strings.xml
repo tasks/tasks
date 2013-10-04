@@ -33,8 +33,6 @@
 	<string name="actfm_feat_list_clone_success">Operazione riuscita!</string>
 	<string name="actfm_feat_list_task_clone_success">Compito copiato</string>
 	<string name="actfm_feat_list_clone_empty">Nessun compito da copiare</string>
-	<string name="actfm_tag_not_authorized_new_list">Crea nuova lista</string>
-	<string name="actfm_sync_ongoing">Sincronizzazione in corso...</string>
 	<string name="alarm_ACS_label">Promemoria</string>
 	<string name="alarm_ACS_button">Aggiungi un promemoria</string>
 	<string-array name="reminders_alarm">
@@ -171,7 +169,6 @@
 	<string name="hide_until_prompt">Mostra nella mia lista</string>
 	<string name="TEA_load_more">Caricane di più...</string>
 	<string name="TEA_when_dialog_title">Quando dovrà terminare?</string>
-	<string name="TEA_new_task">Nuova Attività</string>
 	<string name="MCA_title">%1$s\nha chiamato alle %2$s</string>
 	<string name="MCA_return_call">Chiama ora</string>
 	<string name="MCA_add_task">Chiama più tardi</string>
@@ -441,7 +438,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 		<item>Your Tasks digest</item>
 		<item>Promemoria da Tasks</item>
 	</string-array>
-	<string name="rmd_reengage_name_default">tu</string>
 	<string name="rmd_reengage_add_tasks">Aggiungi un\'attività</string>
 	<string-array name="rmd_reengage_dialog_options">
 		<item>E\' tempo di accorciare la tua lista delle cose da fare!</item>

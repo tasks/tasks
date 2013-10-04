@@ -33,8 +33,6 @@
 	<string name="actfm_feat_list_clone_success">Sucesso!</string>
 	<string name="actfm_feat_list_task_clone_success">Tarefa copiada</string>
 	<string name="actfm_feat_list_clone_empty">Sem tarefas para copiar</string>
-	<string name="actfm_tag_not_authorized_new_list">Criar nova lista</string>
-	<string name="actfm_sync_ongoing">Sincronizando...</string>
 	<string name="alarm_ACS_label">Alarmes</string>
 	<string name="alarm_ACS_button">Inserir alarme</string>
 	<string-array name="reminders_alarm">
@@ -172,7 +170,6 @@
 	<string name="hide_until_prompt">Mostrar na minha lista</string>
 	<string name="TEA_load_more">Carregar mais...</string>
 	<string name="TEA_when_dialog_title">Quando vence?</string>
-	<string name="TEA_new_task">Nova Tarefa</string>
 	<string name="MCA_title">%1$s\nligou às %2$s</string>
 	<string name="MCA_return_call">Ligar agora</string>
 	<string name="MCA_add_task">Ligar mais tarde</string>
@@ -447,7 +444,6 @@
 		<item>Seu resumo no Tasks</item>
 		<item>Lembretes do Tasks</item>
 	</string-array>
-	<string name="rmd_reengage_name_default">você</string>
 	<string name="rmd_reengage_add_tasks">Inserir tarefa</string>
 	<string-array name="rmd_reengage_dialog_options">
 		<item>Hora de diminuir sua lista de tarefas!</item>

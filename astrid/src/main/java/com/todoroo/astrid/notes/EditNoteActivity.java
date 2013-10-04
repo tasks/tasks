@@ -70,7 +70,6 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.timers.TimerActionControlSet.TimerActionListener;
 import com.todoroo.astrid.utility.ResourceDrawableCache;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.tasks.R;
 
@@ -142,8 +141,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 }
             }
         }
-        @Override
-        public void runOnErrors(List<JSONArray> errors) {/**/}
     };
 
     private static boolean respondToPicture = false;
@@ -205,21 +202,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
         setUpInterface();
         setUpListAdapter();
-
-        if(actFmPreferenceService.isLoggedIn()) {
-            long pushedAt = task.getValue(Task.USER_ACTIVITIES_PUSHED_AT);
-            if(DateUtilities.now() - pushedAt > DateUtilities.ONE_HOUR / 2) {
-                refreshData();
-            } else {
-                loadingText.setText(R.string.ENA_no_comments);
-                if(items.size() == 0) {
-                    loadingText.setVisibility(View.VISIBLE);
-                }
-            }
-        }
     }
-
-
 
     // --- UI preparation
 
@@ -493,9 +476,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                     });
                 }
             }
-
-            @Override
-            public void runOnErrors(List<JSONArray> errors) {/**/}
         });
         new FetchHistory<Task>(taskDao, Task.HISTORY_FETCH_DATE, Task.HISTORY_HAS_MORE, NameMaps.TABLE_ID_TASKS,
                 task.getUuid(), task.getValue(Task.TITLE), task.getValue(Task.HISTORY_FETCH_DATE), 0, callback).execute();
