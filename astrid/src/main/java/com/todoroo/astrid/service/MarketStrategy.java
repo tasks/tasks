@@ -20,13 +20,6 @@ public abstract class MarketStrategy {
 
     abstract public String strategyId();
 
-    /**
-     * @return if this market has locale plugin
-     */
-    public boolean includesLocalePlugin() {
-        return true;
-    }
-
     public int[] excludedSettings() {
         return null;
     }
@@ -98,11 +91,6 @@ public abstract class MarketStrategy {
                             packageName));
         }
 
-        @Override
-        public boolean includesLocalePlugin() {
-            return false;
-        }
-
         /**
          * @return true if the device is a kindle fire and needs special treatment
          */
@@ -134,11 +122,6 @@ public abstract class MarketStrategy {
             return new Intent(Intent.ACTION_VIEW,
                     Uri.parse("market://search?q=pname:" + //$NON-NLS-1$
                             packageName));
-        }
-
-        @Override
-        public boolean includesLocalePlugin() {
-            return false;
         }
 
         @Override

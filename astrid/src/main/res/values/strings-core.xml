@@ -663,9 +663,6 @@
   <!-- Add-on Activity - when list is empty -->
   <string name="AOA_no_addons">Empty List!</string>
   
-  <string name="AOA_locale_title">Tasks Locale Plugin</string>
-  <string name="AOA_locale_description">Allows Tasks to make use of the Locale application to send you notifications based on filter conditions. Requires Locale.</string>
-  
   <!-- ====================================================== TasksWidget == -->
 
   <!-- Widget text when loading tasks -->

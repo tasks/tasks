@@ -517,21 +517,6 @@
     
     <activity android:name="com.todoroo.astrid.files.FileExplore"/>
         
-    <!-- locale -->
-    <activity android:name="com.todoroo.astrid.locale.LocaleEditAlerts"
-              android:label="@string/locale_edit_alerts_title"
-              android:icon="@drawable/icon_32"
-              android:exported="true">
-      <intent-filter>
-        <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
-      </intent-filter>
-    </activity>
-    <receiver android:name="com.todoroo.astrid.locale.LocaleReceiver">
-      <intent-filter>
-        <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING" />
-      </intent-filter>
-    </receiver>
-    
     <!-- notes -->
     <receiver android:name="com.todoroo.astrid.notes.NotesDetailExposer">
       <intent-filter>

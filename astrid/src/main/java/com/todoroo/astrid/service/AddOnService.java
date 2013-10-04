@@ -5,13 +5,8 @@
  */
 package com.todoroo.astrid.service;
 
-import java.util.ArrayList;
-
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.drawable.BitmapDrawable;
 
-import org.tasks.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -32,22 +27,9 @@ public class AddOnService {
     /** Astrid Power Pack package */
     public static final String POWER_PACK_PACKAGE = "com.todoroo.astrid.ppack";
 
-    /** Astrid Locale package */
-    public static final String LOCALE_PACKAGE = "com.todoroo.astrid.locale";
-
     /** Checks whether power pack should be enabled */
     public boolean hasPowerPack() {
         return true;
-    }
-
-    /** Checks whether locale plugin should be enabled */
-    public boolean hasLocalePlugin() {
-        if (Preferences.getBoolean(PREF_OEM, false)) {
-            return true;
-        } else if(isInstalled(LOCALE_PACKAGE, true)) {
-            return true;
-        }
-        return false;
     }
 
     /**
@@ -132,19 +114,7 @@ public class AddOnService {
      * @return available add-ons
      */
     public AddOn[] getAddOns() {
-        Resources r = ContextManager.getContext().getResources();
-
-        // temporary temporary
-        ArrayList<AddOn> list = new ArrayList<AddOn>(3);
-
-        if(Constants.MARKET_STRATEGY.includesLocalePlugin()) {
-            list.add(new AddOn(false, true, r.getString(R.string.AOA_locale_title), null,
-                    r.getString(R.string.AOA_locale_description),
-                    LOCALE_PACKAGE,
-                    ((BitmapDrawable) r.getDrawable(R.drawable.icon_locale)).getBitmap()));
-        }
-
-        return list.toArray(new AddOn[list.size()]);
+        return new AddOn[0];
     }
 
 }
