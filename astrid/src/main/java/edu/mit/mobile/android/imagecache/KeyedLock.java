@@ -20,9 +20,6 @@ public class KeyedLock<K> {
 
     private static boolean DEBUG = false;
 
-    /**
-     * @param key
-     */
     public void lock(K key) {
         if (DEBUG) {
             log("acquiring lock for key " + key);
@@ -44,9 +41,6 @@ public class KeyedLock<K> {
         lock.lock();
     }
 
-    /**
-     * @param key
-     */
     public void unlock(K key) {
         if (DEBUG) {
             log("unlocking lock for key " + key);

@@ -31,9 +31,6 @@ public class NotesPlugin extends BroadcastReceiver {
 
     /**
      * Does this task have notes to display?
-     *
-     * @param task
-     * @return
      */
     public static boolean hasNotes(Task task) {
         if(task.containsNonNullValue(Task.NOTES) && !TextUtils.isEmpty(task.getValue(Task.NOTES))) {

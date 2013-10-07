@@ -38,10 +38,6 @@ public class DefaultsPreferences extends TodorooPreferenceActivity {
         Calendars.initCalendarsPreference(this, defaultCalendarPreference);
     }
 
-    /**
-     *
-     * @param resource if null, updates all resources
-     */
     @Override
     public void updatePreferences(Preference preference, Object value) {
         Resources r = getResources();

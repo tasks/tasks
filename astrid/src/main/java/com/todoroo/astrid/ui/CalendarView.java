@@ -86,7 +86,6 @@ public class CalendarView extends View {
     /**
      * Constructor.  This version is only needed if you will be instantiating
      * the object manually (not from a layout XML file).
-     * @param context
      */
     public CalendarView(Context context) {
         super(context);

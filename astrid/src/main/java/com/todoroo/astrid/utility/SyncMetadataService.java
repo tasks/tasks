@@ -83,8 +83,6 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
 
     /**
      * Gets tasks that were created since last sync
-     * @param properties
-     * @return
      */
     public TodorooCursor<Task> getLocallyCreated(Property<?>... properties) {
         TodorooCursor<Task> tasks = taskDao.query(Query.select(Task.ID).where(
@@ -95,7 +93,6 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
 
     /**
      * Gets tasks that were modified since last sync
-     * @param properties
      * @return null if never sync'd
      */
     public TodorooCursor<Task> getLocallyUpdated(Property<?>... properties) {
@@ -112,10 +109,6 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
         return joinWithMetadata(tasks, true, properties);
     }
 
-    /**
-     * @param tasks
-     * @param lastSyncDate
-     */
     protected TodorooCursor<Task> filterLocallyUpdated(TodorooCursor<Task> tasks, long lastSyncDate) {
         // override hook
         return tasks;
@@ -142,9 +135,6 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
 
     /**
      * Join rows from two cursors on the first column, assuming its an id column
-     * @param left
-     * @param right
-     * @param matchingRows
      * @param both - if false, returns rows no right row exists, if true,
      *        returns rows where both exist
      */
@@ -182,7 +172,6 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
 
     /**
      * Searches for a local task with same remote id, updates this task's id
-     * @param remoteTask
      */
     public void findLocalMatch(TYPE remoteTask) {
         if(remoteTask.task.getId() != Task.NO_ID) {
@@ -204,7 +193,6 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
 
     /**
      * Saves a task and its metadata
-     * @param task
      */
     public void saveTaskAndMetadata(TYPE task) {
         task.prepareForSaving();
@@ -215,8 +203,6 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
 
     /**
      * Reads a task and its metadata
-     * @param task
-     * @return
      */
     public TYPE readTaskAndMetadata(TodorooCursor<Task> taskCursor) {
         Task task = new Task(taskCursor);

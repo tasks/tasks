@@ -39,7 +39,6 @@ abstract public class TodorooPreferenceActivity extends PreferenceActivity {
 
     /**
      * Update preferences for the given preference
-     * @param preference
      * @param value setting. may be null.
      */
     public abstract void updatePreferences(Preference preference, Object value);

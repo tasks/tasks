@@ -5,13 +5,8 @@
  */
 package com.todoroo.astrid.ui;
 
-import java.util.HashSet;
-import java.util.concurrent.atomic.AtomicReference;
-
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.text.Editable;
@@ -30,7 +25,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-import org.tasks.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -58,6 +52,11 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceRecognizer;
+
+import org.tasks.R;
+
+import java.util.HashSet;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Quick Add Bar lets you add tasks.
@@ -254,9 +253,6 @@ public class QuickAddBar extends LinearLayout {
 
     /**
      * Quick-add a new task
-     *
-     * @param title
-     * @return
      */
     public Task quickAddTask(String title, boolean selectNewTask) {
         TagData tagData = fragment.getActiveTagData();
@@ -350,8 +346,6 @@ public class QuickAddBar extends LinearLayout {
     /**
      * Static method to quickly add tasks without all the control set nonsense.
      * Used from the share link activity.
-     * @param title
-     * @return
      */
     public static Task basicQuickAddTask(String title) {
         if (TextUtils.isEmpty(title)) {

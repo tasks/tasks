@@ -98,9 +98,7 @@ public class VoiceInputAssistant {
      * Creates a new VoiceInputAssistance-instance for use with a specified button and textfield.
      * If you need more than one microphone-button on a given fragment, use the other constructor.
      *
-     * @param fragment the fragment which holds the microphone-buttone and the textField to insert recognized test
      * @param voiceButton the microphone-Button
-     * @param textField the textfield that should get the resulttext
      */
     public VoiceInputAssistant(ImageButton voiceButton) {
         Assert.assertNotNull("A VoiceInputAssistant without a voiceButton makes no sense!", voiceButton);
@@ -116,9 +114,6 @@ public class VoiceInputAssistant {
      * you can leave it to its default, VOICE_RECOGNITION_REQUEST_CODE.
      *
      *
-     * @param fragment
-     * @param voiceButton
-     * @param textField
      * @param requestCode has to be unique in a single fragment-context,
      *   dont use VOICE_RECOGNITION_REQUEST_CODE, this is reserved for the other constructor
      */
@@ -136,7 +131,6 @@ public class VoiceInputAssistant {
      *
      * @param activity the activity which holds the microphone-buttone and the textField to insert recognized test
      * @param voiceButton the microphone-Button
-     * @param textField the textfield that should get the resulttext
      */
     public VoiceInputAssistant(Activity activity, ImageButton voiceButton) {
         Assert.assertNotNull("Each VoiceInputAssistant must be bound to a activity!", activity);
@@ -154,9 +148,6 @@ public class VoiceInputAssistant {
      * you can leave it to its default, VOICE_RECOGNITION_REQUEST_CODE.
      *
      *
-     * @param activity
-     * @param voiceButton
-     * @param textField
      * @param requestCode has to be unique in a single fragment-context,
      *   dont use VOICE_RECOGNITION_REQUEST_CODE, this is reserved for the other constructor
      */
@@ -200,9 +191,6 @@ public class VoiceInputAssistant {
      * these other requests as you need.
      *
      * @param activityRequestCode if this equals the requestCode specified by constructor, then results of voice-recognition
-     * @param resultCode
-     * @param data
-     * @return
      */
     public boolean handleActivityResult(int activityRequestCode, int resultCode, Intent data, EditText textField) {
         boolean result = false;
@@ -238,10 +226,6 @@ public class VoiceInputAssistant {
      * Can also be called from Fragment.onActivityResult to simply get the string result
      * of the speech to text, or null if it couldn't be processed. Convenient when you
      * don't have a bunch of UI elements to hook into.
-     * @param activityRequestCode
-     * @param resultCode
-     * @param data
-     * @return
      */
     public String getActivityResult(int activityRequestCode, int resultCode, Intent data) {
         if (activityRequestCode == this.requestCode) {

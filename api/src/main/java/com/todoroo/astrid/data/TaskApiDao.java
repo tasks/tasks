@@ -112,7 +112,6 @@ public class TaskApiDao extends ContentResolverDao<Task> {
 
     /**
      * Count tasks matching criterion
-     * @param criterion
      * @return # of tasks matching
      */
     public int countTasks(Criterion criterion) {
@@ -126,7 +125,6 @@ public class TaskApiDao extends ContentResolverDao<Task> {
 
     /**
      * Count tasks matching query tepmlate
-     * @param queryTemplate
      * @return # of tasks matching
      */
     public int countTasks(String queryTemplate) {

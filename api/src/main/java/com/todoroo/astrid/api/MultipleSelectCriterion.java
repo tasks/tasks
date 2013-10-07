@@ -32,14 +32,6 @@ public class MultipleSelectCriterion extends CustomFilterCriterion implements Pa
 
     /**
      * Create a new CustomFilterCriteria object
-     *
-     * @param title
-     * @param sql
-     * @param valuesForNewTasks
-     * @param entryTitles
-     * @param entryValues
-     * @param icon
-     * @param name
      */
     public MultipleSelectCriterion(String identifier, String title, String sql,
             ContentValues valuesForNewTasks, String[] entryTitles,

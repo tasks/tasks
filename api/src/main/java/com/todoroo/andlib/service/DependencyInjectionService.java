@@ -145,7 +145,6 @@ public class DependencyInjectionService {
 
     /**
      * Gets the singleton instance of the dependency injection service.
-     * @return
      */
     public synchronized static DependencyInjectionService getInstance() {
         if(instance == null) {
@@ -156,7 +155,6 @@ public class DependencyInjectionService {
 
     /**
      * Removes the supplied injector
-     * @return
      */
     public synchronized void removeInjector(AbstractDependencyInjector injector) {
         injectors.remove(injector);
@@ -164,7 +162,6 @@ public class DependencyInjectionService {
 
     /**
      * Adds a Dependency Injector to the front of the list
-     * @param injectors
      */
     public synchronized void addInjector(AbstractDependencyInjector injector) {
         removeInjector(injector);

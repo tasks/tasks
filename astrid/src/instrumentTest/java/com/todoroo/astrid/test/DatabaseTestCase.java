@@ -48,7 +48,6 @@ public class DatabaseTestCase extends TodorooTestCaseWithInjector {
 
 	/**
 	 * Helper to delete a database by name
-	 * @param toDelete
 	 */
 	protected void deleteDatabase(String toDelete) {
 	    File db = getContext().getDatabasePath(toDelete);

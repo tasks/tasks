@@ -5,19 +5,11 @@
  */
 package com.todoroo.astrid.tags;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import org.tasks.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -46,6 +38,15 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
+
+import org.tasks.R;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Provides operations for working with tags
@@ -144,9 +145,6 @@ public final class TagService {
 
         /**
          * Return SQL selector query for getting tasks with a given tagData
-         *
-         * @param tagData
-         * @return
          */
         public QueryTemplate queryTemplate(Criterion criterion) {
             Criterion fullCriterion = Criterion.and(
@@ -240,9 +238,6 @@ public final class TagService {
 
     /**
      * Creates a link for a nameless tag. We expect the server to fill in the tag name with a MakeChanges message later
-     * @param taskId
-     * @param taskUuid
-     * @param tagUuid
      */
     public void createLink(long taskId, String taskUuid, String tagUuid, boolean suppressOutstanding) {
         TodorooCursor<TagData> existingTag = tagDataService.query(Query.select(TagData.NAME, TagData.UUID).where(TagData.UUID.eq(tagUuid)));
@@ -274,8 +269,6 @@ public final class TagService {
 
     /**
      * Delete a single task to tag link
-     * @param taskUuid
-     * @param tagUuid
      */
     public void deleteLink(long taskId, String taskUuid, String tagUuid, boolean suppressOutstanding) {
         Metadata deleteTemplate = new Metadata();
@@ -291,8 +284,6 @@ public final class TagService {
 
     /**
      * Delete all links between the specified task and the list of tags
-     * @param taskUuid
-     * @param tagUuids
      */
     public void deleteLinks(long taskId, String taskUuid, String[] tagUuids, boolean suppressOutstanding) {
         Metadata deleteTemplate = new Metadata();
@@ -314,8 +305,6 @@ public final class TagService {
 
     /**
      * Return tags on the given task
-     *
-     * @param taskId
      * @return cursor. PLEASE CLOSE THE CURSOR!
      */
     public TodorooCursor<Metadata> getTags(long taskId) {
@@ -345,8 +334,6 @@ public final class TagService {
 
     /**
      * Return tags as a comma-separated list of strings
-     *
-     * @param taskId
      * @return empty string if no tags, otherwise string
      */
     public String getTagsAsString(long taskId) {
@@ -355,8 +342,6 @@ public final class TagService {
 
     /**
      * Return tags as a list of strings separated by given separator
-     *
-     * @param taskId
      * @return empty string if no tags, otherwise string
      */
     public String getTagsAsString(long taskId, String separator) {
@@ -399,7 +384,6 @@ public final class TagService {
 
     /**
      * Return all tags (including metadata tags and TagData tags) in an array list
-     * @return
      */
     public ArrayList<Tag> getTagList() {
         ArrayList<Tag> tagList = new ArrayList<Tag>();
@@ -459,8 +443,6 @@ public final class TagService {
 
     /**
      * Save the given array of tags into the database
-     * @param taskId
-     * @param tags
      */
     public boolean synchronizeTags(long taskId, String taskUuid, Set<String> tags) {
         HashSet<String> existingLinks = new HashSet<String>();
@@ -499,8 +481,6 @@ public final class TagService {
     /**
      * If a tag already exists in the database that case insensitively matches the
      * given tag, return that. Otherwise, return the argument
-     * @param tag
-     * @return
      */
     public String getTagWithCase(String tag) {
         MetadataService service = PluginServices.getMetadataService();

@@ -170,8 +170,6 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
 
     /**
      * Gets the remote id string of the parent task
-     * @param gtasksMetadata
-     * @return
      */
     public String getRemoteParentId(Metadata gtasksMetadata) {
         String parent = null;
@@ -190,9 +188,6 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
 
     /**
      * Gets the remote id string of the previous sibling task
-     * @param listId
-     * @param gtasksMetadata
-     * @return
      */
     public String getRemoteSiblingId(String listId, Metadata gtasksMetadata) {
         final AtomicInteger indentToMatch = new AtomicInteger(gtasksMetadata.getValue(GtasksMetadata.INDENT).intValue());

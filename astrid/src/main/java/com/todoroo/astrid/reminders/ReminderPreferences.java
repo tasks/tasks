@@ -26,10 +26,6 @@ public class ReminderPreferences extends TodorooPreferenceActivity {
         return R.xml.preferences_reminders;
     }
 
-    /**
-     *
-     * @param resource if null, updates all resources
-     */
     @Override
     public void updatePreferences(Preference preference, Object value) {
         Resources r = getResources();

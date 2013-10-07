@@ -156,7 +156,6 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
 
     @Override
     public void timerStarted(Task task) {
-        return;
     }
 
 }

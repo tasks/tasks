@@ -5,13 +5,6 @@
  */
 package com.todoroo.astrid.subtasks;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
-
 import android.app.Activity;
 import android.database.Cursor;
 import android.text.TextUtils;
@@ -24,7 +17,6 @@ import android.widget.ListView;
 import com.commonsware.cwac.tlv.TouchListView.DropListener;
 import com.commonsware.cwac.tlv.TouchListView.GrabberClickListener;
 import com.commonsware.cwac.tlv.TouchListView.SwipeListener;
-import org.tasks.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -45,6 +37,15 @@ import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater.Node;
 import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater.OrderedListNodeVisitor;
 import com.todoroo.astrid.ui.DraggableListView;
 import com.todoroo.astrid.utility.AstridPreferences;
+
+import org.tasks.R;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragmentHelperInterface<LIST> {
 
@@ -118,7 +119,6 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
 
     @Override
     public void beforeSetUpTaskList(Filter filter) {
-        updater.initialize(list, filter);
     }
 
     @Override

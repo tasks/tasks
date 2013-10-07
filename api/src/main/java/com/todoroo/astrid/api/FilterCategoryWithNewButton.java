@@ -41,9 +41,6 @@ public class FilterCategoryWithNewButton extends FilterCategory {
 
     /**
      * Constructor for creating a new FilterCategory
-     *
-     * @param plugin
-     *            {@link Addon} identifier that encompasses object
      */
     protected FilterCategoryWithNewButton() {
         //

@@ -45,7 +45,6 @@ public class BeastModePreferences extends ListActivity {
     /**
      * Migration for existing users to assert that the "hide always" section divider exists in the preferences.
      * Knowing that this section will always be in the constructed list of controls simplifies the logic a bit.
-     * @param c
      */
     public static void assertHideUntilSectionExists(Context c, long latestSetVersion) {
         if (latestSetVersion == 0) {

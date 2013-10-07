@@ -44,11 +44,6 @@ public class FeaturedListFilterMode implements FilterModeSpec {
     }
 
     @Override
-    public void onFilterItemClickedCallback(FilterListItem item) {
-        //
-    }
-
-    @Override
     public boolean showComments() {
         return false;
     }

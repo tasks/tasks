@@ -6,7 +6,7 @@
 package com.todoroo.astrid.api;
 
 /**
- * Common interface for Astrids filter-exposers to provide their {@link FilterListitem}-instances.
+ * Common interface for Astrids filter-exposers to provide their FilterListitem instances.
  *
  * @author Arne Jans
  */

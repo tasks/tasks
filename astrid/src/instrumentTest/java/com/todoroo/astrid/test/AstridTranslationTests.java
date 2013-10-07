@@ -7,12 +7,13 @@ package com.todoroo.astrid.test;
 
 
 
-import java.util.Locale;
-
 import android.content.res.Resources;
 
-import org.tasks.R;
 import com.todoroo.andlib.test.TranslationTests;
+
+import org.tasks.R;
+
+import java.util.Locale;
 
 public class AstridTranslationTests extends TranslationTests {
 
@@ -35,9 +36,6 @@ public class AstridTranslationTests extends TranslationTests {
 
     /**
      * check if string contains contains substrings
-     * @param string
-     * @param contains
-     * @return
      */
     public void contains(Resources r, int resource, StringBuilder failures, String... contains) {
         String string = r.getString(resource);

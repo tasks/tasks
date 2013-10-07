@@ -239,7 +239,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     /**
      * Constructor
      *
-     * @param fragment
      * @param resource
      *            layout resource to inflate
      * @param c
@@ -827,9 +826,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     /**
      * Add detail to a task
-     *
-     * @param id
-     * @param detail
      */
     public void addDetails(long id, String detail) {
         final StringBuilder details = taskDetailLoader.get(id);
@@ -1089,10 +1085,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     /** Helper method to adjust a tasks' appearance if the task is completed or
      * uncompleted.
-     *
-     * @param actionItem
-     * @param name
-     * @param progress
      */
     protected void setTaskAppearance(ViewHolder viewHolder, Task task) {
         Activity activity = fragment.getActivity();
@@ -1277,12 +1269,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * This method is called when user completes a task via check box or other
      * means
      *
-     * @param container
-     *            container for the action item
      * @param newState
      *            state that this task should be set to
-     * @param completeBox
-     *            the box that was clicked. can be null
      */
     protected void completeTask(final Task task, final boolean newState) {
         if(task == null) {
@@ -1301,7 +1289,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     /**
      * Add a new listener
-     * @param newListener
      */
     public void addOnCompletedTaskListener(final OnCompletedTaskListener newListener) {
         if(this.onCompletedTaskListener == null) {

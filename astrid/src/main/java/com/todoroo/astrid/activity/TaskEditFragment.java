@@ -256,11 +256,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         public void onTaskEditDetailsClicked(int category, int position);
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-    }
-
     public TaskEditFragment() {
         DependencyInjectionService.getInstance().inject(this);
     }
@@ -636,8 +631,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     /**
      * Loads action item from the given intent
-     *
-     * @param intent
      */
     protected void loadItem(Intent intent) {
         if (model != null) {
@@ -852,7 +845,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     /**
      * Helper to remove task edit specific info from activity intent
-     * @param intent
      */
     public static void removeExtrasFromIntent(Intent intent) {
         if (intent != null) {
@@ -875,8 +867,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
      * Displays a Toast reporting that the selected task has been saved and, if
      * it has a due date, that is due in 'x' amount of time, to 1 time-unit of
      * precision
-     *
-     * @param additionalMessage
      */
     private String addDueTimeToToast(String additionalMessage) {
         int stringResource;
@@ -1171,16 +1161,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         outState.putString(TASK_UUID, uuid.toString());
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
     /*
      * ======================================================================
      * ========================================== UI component helper classes
@@ -1263,7 +1243,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Override
     public void onPageScrolled(int position, float positionOffset,
             int positionOffsetPixels) {
-        return;
     }
 
     @Override
@@ -1273,7 +1252,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     @Override
     public void onPageScrollStateChanged(int state) {
-        return;
     }
 
     // EditNoteActivity Listener when there are new updates/comments

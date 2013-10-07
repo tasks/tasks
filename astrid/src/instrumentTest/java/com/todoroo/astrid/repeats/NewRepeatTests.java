@@ -62,26 +62,11 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
         AndroidUtilities.sleepDeep(200L); // Delay to make sure changes persist
     }
 
-    /**
-     * @param t
-     * @param expectedDueDate
-     */
     protected REMOTE_MODEL assertTaskExistsRemotely(Task t, long expectedDueDate) {
         // Subclasses can override this to check the existence of remote objects
         return null;
     }
 
-    /**
-     * @param t task
-     */
-    protected void assertTaskCompletedRemotely(Task t) {
-        // Subclasses can override this to check the status of the corresponding remote task
-    }
-
-
-    /**
-     * @param remoteModel
-     */
     protected long setCompletionDate(boolean completeBefore, Task t,
             REMOTE_MODEL remoteModel, long dueDate) {
         long completionDate;

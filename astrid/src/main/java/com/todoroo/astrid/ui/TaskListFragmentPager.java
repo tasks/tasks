@@ -14,7 +14,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import org.tasks.R;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskListFragment;
@@ -22,6 +21,8 @@ import com.todoroo.astrid.adapter.TaskListFragmentPagerAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.utility.Flags;
+
+import org.tasks.R;
 
 public class TaskListFragmentPager extends ViewPager {
 
@@ -53,7 +54,6 @@ public class TaskListFragmentPager extends ViewPager {
 
     /**
      * Show the supplied filter, adding it to the data source if it doesn't exist
-     * @param f
      */
     public void showFilter(Filter f) {
         TaskListFragmentPagerAdapter adapter = (TaskListFragmentPagerAdapter) getAdapter();
@@ -62,7 +62,6 @@ public class TaskListFragmentPager extends ViewPager {
 
     /**
      * Show the filter at the supplied index, with animation
-     * @param index
      */
     public void showFilter(int index) {
         setCurrentItem(index, true);
@@ -70,7 +69,6 @@ public class TaskListFragmentPager extends ViewPager {
 
     /**
      * Returns the currently showing fragment
-     * @return
      */
     public TaskListFragment getCurrentFragment() {
         return (TaskListFragment) ((TaskListFragmentPagerAdapter) getAdapter()).lookupFragmentForPosition(getCurrentItem());

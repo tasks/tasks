@@ -25,7 +25,6 @@ public class SyncContainer {
 
     /**
      * Check if the metadata contains anything with the given key
-     * @param key
      * @return first match. or null
      */
     public Metadata findMetadata(String key) {

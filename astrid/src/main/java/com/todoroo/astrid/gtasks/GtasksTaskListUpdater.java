@@ -107,7 +107,6 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
 
     /**
      * Update order, parent, and indentation fields for all tasks in the given list
-     * @param listId
      */
     public void correctMetadataForList(String listId) {
         StoreObject list = gtasksListService.getList(listId);

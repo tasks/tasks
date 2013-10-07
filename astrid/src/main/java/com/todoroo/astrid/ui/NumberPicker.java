@@ -476,7 +476,6 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
 
     /**
      * Override the number picker's text
-     * @param text
      */
     public void setText(String text) {
         mText.setText(text);

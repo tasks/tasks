@@ -26,11 +26,6 @@ public class TaskToTagMetadata {
      * New metadata object for linking a task to the specified tag. The task
      * object should be saved and have the uuid property. All parameters
      * are manditory
-     * @param taskId
-     * @param tagName
-     * @param taskUuid
-     * @param tagUuid
-     * @return
      */
     public static Metadata newTagMetadata(long taskId, String taskUuid, String tagName, String tagUuid) {
         Metadata link = new Metadata();

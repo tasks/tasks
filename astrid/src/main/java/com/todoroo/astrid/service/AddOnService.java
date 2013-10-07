@@ -9,7 +9,6 @@ import android.content.Context;
 
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.AddOn;
 import com.todoroo.astrid.utility.Constants;
 
@@ -31,8 +30,6 @@ public class AddOnService {
 
     /**
      * Check whether a given add-on is installed
-     * @param addOn
-     * @return
      */
     public boolean isInstalled(AddOn addOn) {
         // it isnt installed if it is null...
@@ -44,8 +41,6 @@ public class AddOnService {
 
     /**
      * Check whether an external add-on is installed
-     * @param packageName
-     * @return
      */
     public boolean isInstalled(String packageName) {
         return isInstalled(packageName, false);
@@ -53,9 +48,7 @@ public class AddOnService {
 
     /**
      * Check whether a given add-on is installed
-     * @param addOn
      * @param internal whether to do api sig check
-     * @return
      */
     private boolean isInstalled(String packageName, boolean internal) {
         if(Constants.PACKAGE.equals(packageName)) {

@@ -105,7 +105,6 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
 
     /**
      * Show options menu for the given criterioninstance
-     * @param item
      */
     public void showOptionsFor(final CriterionInstance item, final Runnable onComplete) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(activity).

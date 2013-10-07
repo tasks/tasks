@@ -179,16 +179,6 @@ public class FilterListFragment extends SherlockListFragment {
      * ====================================================================== */
 
     @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
         if(adapter != null) {
@@ -314,9 +304,6 @@ public class FilterListFragment extends SherlockListFragment {
 
     /**
      * Creates a shortcut on the user's home screen
-     *
-     * @param shortcutIntent
-     * @param label
      */
     private static void createShortcut(Activity activity, Filter filter, Intent shortcutIntent, String label) {
         if(label.length() == 0) {

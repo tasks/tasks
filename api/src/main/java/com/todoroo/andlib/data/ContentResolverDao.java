@@ -5,10 +5,6 @@
  */
 package com.todoroo.andlib.data;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Set;
-
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -21,6 +17,10 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Set;
 
 
 /**
@@ -57,8 +57,6 @@ public class ContentResolverDao<TYPE extends AbstractModel> {
 
     /**
      * Returns a URI for a single id
-     * @param id
-     * @return
      */
     private Uri uriWithId(long id) {
         return Uri.withAppendedPath(baseUri, Long.toString(id));
@@ -66,7 +64,6 @@ public class ContentResolverDao<TYPE extends AbstractModel> {
 
     /**
      * Delete specific item from the given table
-     * @param id
      * @return number of rows affected
      */
     public int delete(long id) {
@@ -75,7 +72,6 @@ public class ContentResolverDao<TYPE extends AbstractModel> {
 
     /**
      * Delete by criteria
-     * @param where
      * @return number of rows affected
      */
     public int deleteWhere(Criterion where) {
@@ -84,8 +80,6 @@ public class ContentResolverDao<TYPE extends AbstractModel> {
 
     /**
      * Query content provider
-     * @param query
-     * @return
      */
     public TodorooCursor<TYPE> query(Query query) {
         if(debug) {
@@ -97,7 +91,6 @@ public class ContentResolverDao<TYPE extends AbstractModel> {
 
     /**
      * Create new or save existing model
-     * @param model
      * @return true if data was written to the db, false otherwise
      */
     public boolean save(TYPE model) {
@@ -133,9 +126,6 @@ public class ContentResolverDao<TYPE extends AbstractModel> {
     /**
      * Returns object corresponding to the given identifier
      *
-     * @param database
-     * @param table
-     *            name of table
      * @param properties
      *            properties to read
      * @param id

@@ -160,26 +160,6 @@ public class GtasksLoginActivity extends ListActivity {
         finish();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
     private static final int REQUEST_AUTHENTICATE = 0;
 
     @Override

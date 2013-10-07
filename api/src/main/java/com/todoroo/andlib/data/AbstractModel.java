@@ -270,7 +270,6 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
     }
 
     /**
-     * @param property
      * @return true if setValues or values contains this property
      */
     public boolean containsValue(Property<?> property) {
@@ -284,7 +283,6 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
     }
 
     /**
-     * @param property
      * @return true if setValues or values contains this property, and the value
      *         stored is not null
      */
@@ -371,7 +369,6 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
 
     /**
      * Clear the key for the given property
-     * @param property
      */
     public synchronized void clearValue(Property<?> property) {
         if(setValues != null && setValues.containsKey(property.getColumnName())) {
@@ -384,9 +381,6 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
 
     /**
      * Sets the state of the given flag on the given property
-     * @param property
-     * @param flag
-     * @param value
      */
     public void setFlag(IntegerProperty property, int flag, boolean value) {
         if(value) {

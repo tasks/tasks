@@ -482,7 +482,6 @@ public final class Task extends RemoteModel {
      *            one of the HIDE_UNTIL_* constants
      * @param customDate
      *            if specific day is set, this value
-     * @return
      */
     public long createHideUntil(int setting, long customDate) {
         long date;

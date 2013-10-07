@@ -7,7 +7,6 @@ package com.todoroo.astrid.gtasks;
 
 import org.tasks.R;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 
 /**
@@ -54,9 +53,4 @@ public class GtasksPreferenceService extends SyncProviderUtilities {
     public String getLoggedInUserName() {
         return Preferences.getStringValue(PREF_USER_NAME);
     }
-
-    @Override
-    protected void reportLastErrorImpl(String lastError, String type) {
-    }
-
 }

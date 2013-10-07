@@ -38,7 +38,6 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.DateAndTimeDialog;

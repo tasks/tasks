@@ -40,10 +40,6 @@ public class SortHelper {
 
     /**
      * Takes a SQL query, and if there isn't already an order, creates an order.
-     * @param originalSql
-     * @param flags
-     * @param sort
-     * @return
      */
     public static String adjustQueryForFlagsAndSort(String originalSql, int flags, int sort) {
         // sort
@@ -120,7 +116,6 @@ public class SortHelper {
 
     /**
      * Returns SQL task ordering that is astrid's default algorithm
-     * @return
      */
     public static Order defaultTaskOrder() {
         return Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),

@@ -48,8 +48,6 @@ public class GtasksApiUtilities {
      * and then truncate h:m:s to 0. This can lead to a loss of date information for
      * us, so we adjust here by doing the normalizing/truncating ourselves and
      * then correcting the date we get back in a similar way.
-     * @param time
-     * @return
      */
     public static DateTime unixTimeToGtasksDueDate(long time) {
         if (time < 0) {

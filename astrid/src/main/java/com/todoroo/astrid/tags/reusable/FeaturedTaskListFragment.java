@@ -28,7 +28,6 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.AsyncImageView;
-import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService.Tag;

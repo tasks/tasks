@@ -64,8 +64,6 @@ public class MetadataService {
 
     /**
      * Query underlying database
-     * @param query
-     * @return
      */
     public TodorooCursor<Metadata> query(Query query) {
         return metadataDao.query(query);
@@ -73,7 +71,6 @@ public class MetadataService {
 
     /**
      * Delete from metadata table where rows match a certain condition
-     * @param where
      */
     public int deleteWhere(Criterion where) {
         return metadataDao.deleteWhere(where);
@@ -90,7 +87,6 @@ public class MetadataService {
 
     /**
      * Save a single piece of metadata
-     * @param metadata
      */
     public boolean save(Metadata metadata) {
         if(!metadata.containsNonNullValue(Metadata.TASK)) {
@@ -102,9 +98,6 @@ public class MetadataService {
 
     /**
      * Synchronize metadata for given task id
-     * @param id
-     * @param metadata
-     * @param metadataKeys
      * @return true if there were changes
      */
     public boolean synchronizeMetadata(long taskId, ArrayList<Metadata> metadata,
@@ -196,7 +189,6 @@ public class MetadataService {
 
     /**
      * Deletes the given metadata
-     * @param metadata
      */
     public void delete(Metadata metadata) {
         metadataDao.delete(metadata.getId());

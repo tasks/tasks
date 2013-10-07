@@ -66,8 +66,6 @@ abstract public class AbstractDatabase {
 
     /**
      * Upgrades an open database from one version to the next
-     * @param oldVersion
-     * @param newVersion
      * @return true if upgrade was handled, false otherwise
      */
     protected abstract boolean onUpgrade(int oldVersion, int newVersion);
@@ -120,8 +118,6 @@ abstract public class AbstractDatabase {
 
     /**
      * Return the name of the table containing these models
-     * @param modelType
-     * @return
      */
     public final Table getTable(Class<? extends AbstractModel> modelType) {
         for(Table table : getTables()) {

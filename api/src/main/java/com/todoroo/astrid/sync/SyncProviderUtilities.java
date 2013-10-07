@@ -136,12 +136,7 @@ abstract public class SyncProviderUtilities {
         String lastError = getLastError();
         if (!TextUtils.isEmpty(lastError)) {
             String type = getLastErrorType();
-            reportLastErrorImpl(lastError, type);
         }
-    }
-
-    protected void reportLastErrorImpl(String lastError, String type) {
-        // Subclasses can override if necessary
     }
 
     /** Set Last Attempted Sync Date */

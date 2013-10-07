@@ -227,7 +227,6 @@ public final class TagsControlSet extends PopupControlSet {
 
     /**
      * Get tags container last text view. might be null
-     * @return
      */
     private TextView getLastTextView() {
         if(newTags.getChildCount() == 0) {

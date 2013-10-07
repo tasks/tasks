@@ -232,10 +232,6 @@ public class SyncActionHelper {
     /**
      * Show menu of sync options. This is shown when you're not logged into any
      * services, or logged into more than one.
-     *
-     * @param <TYPE>
-     * @param items
-     * @param listener
      */
     private <TYPE> void showSyncOptionMenu(TYPE[] items,
             DialogInterface.OnClickListener listener) {

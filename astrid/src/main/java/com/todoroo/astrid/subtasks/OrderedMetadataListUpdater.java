@@ -5,12 +5,6 @@
  */
 package com.todoroo.astrid.subtasks;
 
-import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.concurrent.atomic.AtomicReference;
-
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -18,7 +12,12 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater.OrderedListIterator;
+
+import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReference;
 
 abstract public class OrderedMetadataListUpdater<LIST> {
 
@@ -44,36 +43,11 @@ abstract public class OrderedMetadataListUpdater<LIST> {
 
     abstract protected Metadata createEmptyMetadata(LIST list, long taskId);
 
-    /**
-     * @param list
-     * @param filter
-     */
-    protected void initialize(LIST list, Filter filter) {
-        //
-    }
-
-    /**
-     * @param list
-     */
     protected void beforeIndent(LIST list) {
         //
     }
 
-    /**
-     * @param metadata
-     */
     protected void onMovedOrIndented(Metadata metadata) {
-        //
-    }
-
-    /**
-     * @param list
-     * @param taskId
-     * @param metadata
-     * @param indent
-     * @param order
-     */
-    protected void beforeSaveIndent(LIST list, long taskId, Metadata metadata, int indent, int order) {
         //
     }
 
@@ -148,10 +122,6 @@ abstract public class OrderedMetadataListUpdater<LIST> {
     /**
      * Helper function to iterate through a list and compute a new parent for the target task
      * based on the target parent's indent
-     * @param list
-     * @param targetTaskId
-     * @param newIndent
-     * @return
      */
     private long computeNewParent(Filter filter, LIST list, long targetTaskId, int targetParentIndent) {
         final AtomicInteger desiredParentIndent = new AtomicInteger(targetParentIndent);
@@ -184,8 +154,6 @@ abstract public class OrderedMetadataListUpdater<LIST> {
     /**
      * Move a task and all its children to the position right above
      * taskIdToMoveto. Will change the indent level to match taskIdToMoveTo.
-     *
-     * @param newTaskId task we will move above. if -1, moves to end of list
      */
     public void moveTo(Filter filter, LIST list, final long targetTaskId,
             final long moveBeforeTaskId) {
@@ -357,9 +325,6 @@ abstract public class OrderedMetadataListUpdater<LIST> {
 
     /**
      * Removes a task from the order hierarchy and un-indent children
-     * @param filter
-     * @param list
-     * @param targetTaskId
      */
     public void onDeleteTask(Filter filter, LIST list, final long targetTaskId) {
         if(list == null) {

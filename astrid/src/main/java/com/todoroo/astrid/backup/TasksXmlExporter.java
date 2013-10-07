@@ -226,7 +226,6 @@ public class TasksXmlExporter {
 
     /**
      * Turn a model into xml attributes
-     * @param model
      */
     private void serializeModel(AbstractModel model, Property<?>[] properties, Property<?>... excludes) {
         outer: for(Property<?> property : properties) {
@@ -344,7 +343,6 @@ public class TasksXmlExporter {
 
     /**
      * Creates directories if necessary and returns fully qualified file
-     * @param directory
      * @return output file name
      * @throws IOException
      */

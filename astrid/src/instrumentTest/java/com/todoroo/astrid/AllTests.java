@@ -16,9 +16,10 @@
 
 package com.todoroo.astrid;
 
+import android.test.suitebuilder.TestSuiteBuilder;
+
 import junit.framework.Test;
 import junit.framework.TestSuite;
-import android.test.suitebuilder.TestSuiteBuilder;
 
 /**
  * A test suite containing all tests for ApiDemos.
@@ -32,12 +33,12 @@ import android.test.suitebuilder.TestSuiteBuilder;
  *   -e class com.example.android.apis.AllTests \
  *   com.example.android.apis.tests/android.test.InstrumentationTestRunner
  *
- * To run an individual test case, e.g. {@link com.example.android.apis.os.MorseCodeConverterTest}:
+ * To run an individual test case, e.g. com.example.android.apis.os.MorseCodeConverterTest:
  * $ adb shell am instrument -w \
  *   -e class com.example.android.apis.os.MorseCodeConverterTest \
  *   com.example.android.apis.tests/android.test.InstrumentationTestRunner
  *
- * To run an individual test, e.g. {@link com.example.android.apis.os.MorseCodeConverterTest#testCharacterS()}:
+ * To run an individual test, e.g. com.example.android.apis.os.MorseCodeConverterTest#testCharacterS():
  * $ adb shell am instrument -w \
  *   -e class com.example.android.apis.os.MorseCodeConverterTest#testCharacterS \
  *   com.example.android.apis.tests/android.test.InstrumentationTestRunner

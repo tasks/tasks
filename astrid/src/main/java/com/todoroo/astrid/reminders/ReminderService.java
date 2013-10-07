@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.reminders;
 
-import java.util.Date;
-import java.util.Random;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -17,7 +14,6 @@ import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.util.Log;
 
-import org.tasks.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -31,6 +27,11 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.utility.Constants;
+
+import org.tasks.R;
+
+import java.util.Date;
+import java.util.Random;
 
 
 /**
@@ -150,7 +151,6 @@ public final class ReminderService  {
 
     /**
      * Schedules alarms for a single task
-     * @param task
      */
     public void scheduleAlarm(Task task) {
         scheduleAlarm(task, true);
@@ -246,9 +246,6 @@ public final class ReminderService  {
      * <p>
      * Pretty simple - if a snooze time is in the future, we use that. If it
      * has already passed, we do nothing.
-     *
-     * @param task
-     * @return
      */
     private long calculateNextSnoozeReminder(Task task) {
         if(task.getValue(Task.REMINDER_SNOOZE) > DateUtilities.now()) {
@@ -263,9 +260,6 @@ public final class ReminderService  {
      * We schedule an alarm for after the due date (which could be in the past),
      * with the exception that if a reminder was recently issued, we move
      * the alarm time to the near future.
-     *
-     * @param task
-     * @return
      */
     private long calculateNextOverdueReminder(Task task) {
      // Uses getNowValue() instead of DateUtilities.now()
@@ -307,9 +301,6 @@ public final class ReminderService  {
      * <p>
      * If the date was indicated to not have a due time, we read from
      * preferences and assign a time.
-     *
-     * @param task
-     * @return
      */
     private long calculateNextDueDateReminder(Task task) {
         // Uses getNowValue() instead of DateUtilities.now()
@@ -415,9 +406,6 @@ public final class ReminderService  {
      * We take the last reminder time and add approximately the reminder
      * period. If it's still in the past, we set it to some time in the near
      * future.
-     *
-     * @param task
-     * @return
      */
     private long calculateNextRandomReminder(Task task) {
         long reminderPeriod = task.getValue(Task.REMINDER_PERIOD);
@@ -460,11 +448,6 @@ public final class ReminderService  {
     private static class ReminderAlarmScheduler implements AlarmScheduler {
         /**
          * Create an alarm for the given task at the given type
-         *
-         * @param task
-         * @param time
-         * @param type
-         * @param flags
          */
         @Override
         public void createAlarm(Task task, long time, int type) {
@@ -510,7 +493,6 @@ public final class ReminderService  {
 
     /**
      * Gets a listing of all tasks that are active &
-     * @param properties
      * @return todoroo cursor. PLEASE CLOSE THIS CURSOR!
      */
     private TodorooCursor<Task> getTasksWithReminders(Property<?>... properties) {

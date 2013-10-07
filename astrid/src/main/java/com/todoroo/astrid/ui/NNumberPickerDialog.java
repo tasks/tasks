@@ -33,7 +33,6 @@ public class NNumberPickerDialog extends AlertDialog implements OnClickListener 
 
     /** Instantiate the dialog box.
      *
-     * @param context
      * @param callBack callback function to get the numbers you requested
      * @param title title of the dialog box
      * @param initialValue initial picker values array

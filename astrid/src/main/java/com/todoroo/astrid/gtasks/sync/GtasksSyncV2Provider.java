@@ -47,7 +47,6 @@ import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
 import com.todoroo.astrid.tags.TagService;
 
-import org.json.JSONException;
 import org.tasks.R;
 
 import java.io.IOException;
@@ -317,8 +316,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         }
     }
 
-    /** Create a task container for the given remote task
-     * @throws JSONException */
+    /** Create a task container for the given remote task */
     private GtasksTaskContainer parseRemoteTask(com.google.api.services.tasks.model.Task remoteTask, String listId) {
         Task task = new Task();
 

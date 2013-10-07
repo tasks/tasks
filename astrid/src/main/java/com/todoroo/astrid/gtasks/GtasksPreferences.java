@@ -6,7 +6,6 @@
 package com.todoroo.astrid.gtasks;
 
 import android.content.Intent;
-import android.os.Bundle;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -33,11 +32,6 @@ public class GtasksPreferences extends SyncProviderPreferences {
     public GtasksPreferences() {
         super();
         DependencyInjectionService.getInstance().inject(this);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override

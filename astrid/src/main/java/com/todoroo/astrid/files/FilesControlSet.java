@@ -246,7 +246,6 @@ public class FilesControlSet extends PopupControlSet {
             image.setButton(activity.getString(R.string.DLG_close), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface d, int which) {
-                    return;
                 }
             });
             image.show();

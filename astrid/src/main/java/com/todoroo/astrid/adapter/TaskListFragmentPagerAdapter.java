@@ -51,8 +51,6 @@ public class TaskListFragmentPagerAdapter extends FragmentStatePagerAdapter impl
 
     /**
      * Lookup the fragment for the specified position
-     * @param position
-     * @return
      */
     public Fragment lookupFragmentForPosition(int position) {
         return positionToFragment.get(position);
@@ -66,8 +64,6 @@ public class TaskListFragmentPagerAdapter extends FragmentStatePagerAdapter impl
     /**
      * Adds the specified filter to the data source if it doesn't exist,
      * returning the position of that filter regardless
-     * @param filter
-     * @return
      */
     public int addOrLookup(Filter filter) {
         return filterAdapter.addOrLookup(filter);
@@ -83,8 +79,6 @@ public class TaskListFragmentPagerAdapter extends FragmentStatePagerAdapter impl
 
     /**
      * Get the filter at the specified position
-     * @param position
-     * @return
      */
     public Filter getFilter(int position) {
         return filterAdapter.getItem(position);

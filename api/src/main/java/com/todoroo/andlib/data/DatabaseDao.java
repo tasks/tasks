@@ -76,8 +76,6 @@ public class DatabaseDao<TYPE extends AbstractModel> {
     /**
      * Sets database accessed by this DAO. Used for dependency-injected
      * initialization by child classes and unit tests
-     *
-     * @param database
      */
     public void setDatabase(AbstractDatabase database) {
         if(database == this.database) {
@@ -112,9 +110,6 @@ public class DatabaseDao<TYPE extends AbstractModel> {
 
     /**
      * Construct a query with SQL DSL objects
-     *
-     * @param query
-     * @return
      */
     public TodorooCursor<TYPE> query(Query query) {
         query.from(table);
@@ -127,11 +122,6 @@ public class DatabaseDao<TYPE extends AbstractModel> {
 
     /**
      * Construct a query with raw SQL
-     *
-     * @param properties
-     * @param selection
-     * @param selectionArgs
-     * @return
      */
     public TodorooCursor<TYPE> rawQuery(String selection, String[] selectionArgs, Property<?>... properties) {
         String[] fields = new String[properties.length];
@@ -145,10 +135,6 @@ public class DatabaseDao<TYPE extends AbstractModel> {
 
     /**
      * Returns object corresponding to the given identifier
-     *
-     * @param database
-     * @param table
-     *            name of table
      * @param properties
      *            properties to read
      * @param id
@@ -186,9 +172,6 @@ public class DatabaseDao<TYPE extends AbstractModel> {
 
     /**
      * Delete the given id
-     *
-     * @param database
-     * @param id
      * @return true if delete was successful
      */
     public boolean delete(long id) {
@@ -346,10 +329,6 @@ public class DatabaseDao<TYPE extends AbstractModel> {
 
     /**
      * Creates the given item.
-     *
-     * @param database
-     * @param table
-     *            table name
      * @param item
      *            item model
      * @return returns true on success.
@@ -374,10 +353,6 @@ public class DatabaseDao<TYPE extends AbstractModel> {
 
     /**
      * Saves the given item. Will not create a new item!
-     *
-     * @param database
-     * @param table
-     *            table name
      * @param item
      *            item model
      * @return returns true on success.
@@ -427,8 +402,6 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      * Returns true if an entry in the outstanding table should be recorded for this
      * column. Subclasses can override to return false for insignificant columns
      * (e.g. Task.DETAILS, last modified, etc.)
-     * @param columnName
-     * @return
      */
     protected boolean shouldRecordOutstandingEntry(String columnName, Object value) {
         return true;
@@ -439,15 +412,10 @@ public class DatabaseDao<TYPE extends AbstractModel> {
 
     /**
      * Returns cursor to object corresponding to the given identifier
-     *
-     * @param database
-     * @param table
-     *            name of table
      * @param properties
      *            properties to read
      * @param id
      *            id of item
-     * @return
      */
     protected TodorooCursor<TYPE> fetchItem(long id, Property<?>... properties) {
         TodorooCursor<TYPE> cursor = query(

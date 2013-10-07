@@ -24,8 +24,6 @@ public final class ContextManager {
 
     /**
      * Sets the global context
-     *
-     * @param context
      */
     public static void setContext(Context context) {
         if(context == null || context.getApplicationContext() == null) {
@@ -48,7 +46,6 @@ public final class ContextManager {
      * Convenience method to read a string from the resources
      *
      * @param resId resource
-     * @param parameters % arguments
      * @return resource string
      */
     public static String getString(int resId, Object... formatArgs) {

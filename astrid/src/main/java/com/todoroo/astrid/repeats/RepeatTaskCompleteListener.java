@@ -252,8 +252,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         return rrule;
     }
 
-    /** Set up repeat start date
-     * @param frequency */
+    /** Set up repeat start date */
     private static Date setUpStartDate(Task task, boolean repeatAfterCompletion, Frequency frequency) {
         Date startDate = new Date();
         if(task.hasDueDate()) {

@@ -94,11 +94,6 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
         });
     }
 
-    /**
-     *
-     * @param resource
-     *            if null, updates all resources
-     */
     @Override
     public void updatePreferences(Preference preference, Object value) {
         final Resources r = getResources();

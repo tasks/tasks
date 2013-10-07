@@ -30,8 +30,6 @@ public class SortSelectionActivity {
 
     /**
      * Create the dialog
-     * @param activity
-     * @return
      */
     public static AlertDialog createDialog(Activity activity, boolean showDragDrop,
             OnSortSelectedListener listener, int flags, int sort) {

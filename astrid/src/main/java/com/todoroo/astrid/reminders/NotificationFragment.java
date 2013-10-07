@@ -5,15 +5,12 @@
  */
 package com.todoroo.astrid.reminders;
 
-import java.util.Date;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,7 +18,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
-import org.tasks.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -29,8 +25,11 @@ import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.repeats.RepeatControlSet;
-import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.ui.NumberPicker;
+
+import org.tasks.R;
+
+import java.util.Date;
 
 /**
  * This activity is launched when a user opens up a notification from the
@@ -49,15 +48,6 @@ public class NotificationFragment extends TaskListFragment {
     // --- implementation
 
     private long taskId;
-
-    /* (non-Javadoc)
-     * @see com.todoroo.astrid.activity.TaskListActivity#onActivityCreated(android.os.Bundle)
-     */
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-    }
 
     @Override
     protected void onTaskCompleted(Task item) {

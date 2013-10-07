@@ -18,9 +18,6 @@ public class FilterListHeader extends FilterListItem {
 
     /**
      * Constructor for creating a new FilterListHeader
-     * @param listingTitle
-     * @param listingIconResource
-     * @param priority
      */
     public FilterListHeader(String listingTitle) {
         this.listingTitle = listingTitle;
@@ -28,9 +25,6 @@ public class FilterListHeader extends FilterListItem {
 
     /**
      * Constructor for creating a new FilterListHeader
-     *
-     * @param plugin
-     *            {@link Addon} identifier that encompasses object
      */
     protected FilterListHeader() {
         //
@@ -41,11 +35,6 @@ public class FilterListHeader extends FilterListItem {
     @Override
     public int describeContents() {
         return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel(dest, flags);
     }
 
     public static final Parcelable.Creator<FilterListHeader> CREATOR = new Parcelable.Creator<FilterListHeader>() {

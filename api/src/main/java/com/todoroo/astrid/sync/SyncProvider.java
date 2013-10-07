@@ -5,12 +5,6 @@
  */
 package com.todoroo.astrid.sync;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-
 import android.app.Activity;
 import android.app.Notification;
 import android.content.Context;
@@ -24,8 +18,15 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.andlib.utility.DialogUtilities;
-import org.tasks.api.R;
 import com.todoroo.astrid.data.Task;
+
+import org.tasks.api.R;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 
 /**
  * A helper class for writing synchronization services for Astrid. This class
@@ -69,8 +70,6 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
 
     /**
      * Updates the text of a notification and the intent to open when tapped
-     * @param context
-     * @param notification
      * @return notification id (in Android, there is at most one notification
      *         in the tray for a given id)
      */
@@ -90,7 +89,7 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
      *
      * @param task
      *            task proxy to push
-     * @param remoteTask
+     * @param remote
      *            remote task that we merged with. may be null
      * @return task pulled on remote server
      */
@@ -107,16 +106,12 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
 
     /**
      * Reads a task container from a task in the database
-     *
-     * @param task
      */
     abstract protected TYPE read(TodorooCursor<Task> task) throws IOException;
 
     /**
      * Save task. Used to save local tasks that have been updated and remote
      * tasks that need to be created locally
-     *
-     * @param task
      */
     abstract protected void write(TYPE task) throws IOException;
 
@@ -152,7 +147,6 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
 
     /**
      * Synchronize this provider with sync toast
-     * @param context
      */
     public void synchronize(final Context context) {
         synchronize(context, true);
@@ -160,7 +154,6 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
 
     /**
      * Synchronize this provider
-     * @param context
      * @param showSyncToast should we toast to indicate synchronizing?
      */
     public void synchronize(final Context context, final boolean showSyncToast) {
@@ -379,13 +372,10 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
      * Deal with a synchronization exception. If requested, will show an error
      * to the user (unless synchronization is happening in background)
      *
-     * @param context
      * @param tag
      *            error tag
      * @param e
      *            exception
-     * @param showError
-     *            whether to display a dialog
      */
     protected void handleException(String tag, Exception e, boolean displayError) {
         final Context context = ContextManager.getContext();

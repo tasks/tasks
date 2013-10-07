@@ -167,8 +167,6 @@ public final class GtasksSyncService {
 
     /**
      * Checks to see if any of the values changed are among the properties we sync
-     * @param values
-     * @param properties
      * @return false if none of the properties we sync were changed, true otherwise
      */
     private boolean checkValuesForProperties(ContentValues values, Property<?>[] properties) {

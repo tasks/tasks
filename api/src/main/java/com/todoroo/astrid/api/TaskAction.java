@@ -41,8 +41,6 @@ public class TaskAction {
      *
      * @param text
      *            label to display
-     * @param intent
-     *            intent to invoke. {@link #EXTRAS_TASK_ID} will be passed
      */
     public TaskAction(String text, PendingIntent intent, BitmapDrawable icon) {
         super();

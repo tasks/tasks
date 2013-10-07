@@ -51,7 +51,6 @@ public class GtasksMetadata {
     /**
      * Creates default GTasks metadata item
      * @param taskId if > 0, will set metadata task field
-     * @return
      */
     public static Metadata createEmptyMetadata(long taskId) {
         Metadata metadata = new Metadata();

@@ -228,7 +228,6 @@ public final class Query {
 
     /**
      * Gets a list of fields returned by this query
-     * @return
      */
     public Property<?>[] getFields() {
         return fields.toArray(new Property<?>[fields.size()]);
@@ -236,7 +235,6 @@ public final class Query {
 
     /**
      * Add the SQL query template (comes after the "from")
-     * @param template
      * @return query
      */
     public Query withQueryTemplate(String template) {
@@ -246,9 +244,6 @@ public final class Query {
 
     /**
      * Parse out properties and run query
-     * @param cr
-     * @param baseUri
-     * @return
      */
     public Cursor queryContentResolver(ContentResolver cr, Uri baseUri) {
         Uri uri = baseUri;

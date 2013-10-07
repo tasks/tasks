@@ -46,14 +46,6 @@ public class SearchFilter extends FilterListItem {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel(dest, flags);
-    }
-
-    /**
      * Parcelable creator
      */
     public static final Parcelable.Creator<SearchFilter> CREATOR = new Parcelable.Creator<SearchFilter>() {

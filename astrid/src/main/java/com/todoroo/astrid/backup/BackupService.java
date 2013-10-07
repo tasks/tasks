@@ -62,7 +62,6 @@ public class BackupService extends Service {
 
     /**
      * Test hook for backup
-     * @param context
      */
     public void testBackup(Context context) {
         startBackup(context);

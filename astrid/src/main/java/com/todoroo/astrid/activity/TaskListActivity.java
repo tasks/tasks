@@ -268,10 +268,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         return extras;
     }
 
-    /**
-     *
-     * @param actionBar
-     */
     protected void initializeFragments(ActionBar actionBar) {
         View filterFragment = findViewById(R.id.filterlist_fragment_container);
         View editFragment = findViewById(R.id.taskedit_fragment_container);
@@ -388,7 +384,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         }
 
         boolean result = super.onFilterItemClicked(item);
-        filterModeSpec.onFilterItemClickedCallback(item);
         return result;
     }
 
@@ -484,11 +479,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     public void setListsTitle(String title) {
         lists.setText(title);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     @Override

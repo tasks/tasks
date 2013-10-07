@@ -142,15 +142,12 @@ public class UpdateAdapter extends CursorAdapter {
     /**
      * Constructor
      *
-     * @param activity
      * @param resource
      *            layout resource to inflate
      * @param c
      *            database cursor
      * @param autoRequery
      *            whether cursor is automatically re-queried on changes
-     * @param onCompletedTaskListener
-     *            goal listener. can be null
      */
     public UpdateAdapter(Fragment fragment, int resource,
             Cursor c, boolean autoRequery,
@@ -405,7 +402,6 @@ public class UpdateAdapter extends CursorAdapter {
                     image.setButton(fragment.getString(R.string.DLG_close), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            return;
                         }
                     });
                     image.show();

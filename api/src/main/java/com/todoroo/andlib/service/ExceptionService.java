@@ -114,9 +114,6 @@ public class ExceptionService {
 
         /**
          * Report the error to the logs
-         *
-         * @param name
-         * @param error
          */
         @Override
         public void handleError(String name, Throwable error) {

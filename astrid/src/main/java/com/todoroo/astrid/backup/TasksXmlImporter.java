@@ -57,9 +57,6 @@ public class TasksXmlImporter {
 
     /**
      * Import tasks from the given file
-     *
-     * @param input
-     * @param runAfterImport
      */
     public static void importTasks(Context context, String input, Runnable runAfterImport) {
         new TasksXmlImporter(context, input, runAfterImport);
@@ -306,7 +303,6 @@ public class TasksXmlImporter {
 
         /**
          * Turn a model into xml attributes
-         * @param model
          */
         private void deserializeModel(AbstractModel model, Property<?>[] properties) {
             for(Property<?> property : properties) {

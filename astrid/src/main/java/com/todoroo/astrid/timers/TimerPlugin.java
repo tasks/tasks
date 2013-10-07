@@ -24,7 +24,6 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.utility.Constants;
 
 public class TimerPlugin extends BroadcastReceiver {
@@ -44,7 +43,6 @@ public class TimerPlugin extends BroadcastReceiver {
 
     /**
      * toggles timer and updates elapsed time.
-     * @param task
      * @param start if true, start timer. else, stop it
      */
     public static void updateTimer(Context context, Task task, boolean start) {

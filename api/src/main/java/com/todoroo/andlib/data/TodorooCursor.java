@@ -40,7 +40,6 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
      * Create an <code>AstridCursor</code> from the supplied {@link Cursor}
      * object.
      *
-     * @param cursor
      * @param properties properties read from this cursor
      */
     public TodorooCursor(Cursor cursor, Property<?>[] properties) {
@@ -56,7 +55,6 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
      *
      * @param <PROPERTY_TYPE> type to return
      * @param property to retrieve
-     * @return
      */
     public <PROPERTY_TYPE> PROPERTY_TYPE get(Property<PROPERTY_TYPE> property) {
         return (PROPERTY_TYPE)property.accept(reader, this);
@@ -71,7 +69,6 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
 
     /**
      * Gets entire property list
-     * @return
      */
     public Property<?>[] getProperties() {
         return properties;

@@ -20,7 +20,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import org.tasks.R;
 import com.todoroo.aacenc.RecognizerApi.RecognizerApiListener;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -43,11 +42,12 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.StartupService;
-import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.voice.VoiceRecognizer;
+
+import org.tasks.R;
 
 /**
  * This wrapper activity contains all the glue-code to handle the callbacks between the different
@@ -131,11 +131,6 @@ public class AstridActivity extends SherlockFragmentActivity
         super.onPause();
 
         AndroidUtilities.tryUnregisterReceiver(this, repeatConfirmationReceiver);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
     }
 
     /**

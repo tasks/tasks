@@ -21,9 +21,6 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
 
     private final ListFragment fragment;
 
-    /**
-     * @param taskAdapter
-     */
     protected TaskAdapterAddOnManager(ListFragment fragment) {
         this.fragment = fragment;
     }
@@ -109,7 +106,6 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
     /**
      * Retrieves a list. If it doesn't exist, list is created, but
      * the method will return null
-     * @param taskId
      * @return list if there was already one
      */
     protected synchronized Collection<TYPE> initialize(long taskId) {
@@ -122,8 +118,6 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
 
     /**
      * Adds an item to the cache if it doesn't exist
-     * @param taskId
-     * @param item
      * @return iterator if item was added, null if it already existed
      */
     protected synchronized Collection<TYPE> addIfNotExists(long taskId, String addOn,
@@ -141,8 +135,6 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
 
     /**
      * Gets an item at the given index
-     * @param taskId
-     * @return
      */
     protected Collection<TYPE> get(long taskId) {
         if(cache.get(taskId) == null) {

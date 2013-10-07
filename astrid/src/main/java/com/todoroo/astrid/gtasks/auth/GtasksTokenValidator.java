@@ -31,7 +31,6 @@ public class GtasksTokenValidator {
     /**
      * Invalidates and then revalidates the auth token for the currently logged in user
      * Shouldn't be called from the main thread--will block on network calls
-     * @param token
      * @return valid token on success, null on failure
      */
     public static synchronized String validateAuthToken(Context c, String token) throws GoogleTasksException {

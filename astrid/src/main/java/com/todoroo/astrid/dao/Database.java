@@ -429,10 +429,6 @@ public class Database extends AbstractDatabase {
 
     /**
      * Create table generation SQL
-     * @param sql
-     * @param tableName
-     * @param properties
-     * @return
      */
     public String createTableSql(SqlConstructorVisitor visitor,
             String tableName, Property<?>[] properties) {

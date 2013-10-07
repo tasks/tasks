@@ -130,8 +130,6 @@ public class SubtasksHelper {
 
     /**
      * Takes a subtasks string containing local ids and remaps it to one containing UUIDs
-     * @param localTree
-     * @return
      */
     public static String convertTreeToRemoteIds(String localTree) {
         Long[] localIds = getIdArray(localTree);

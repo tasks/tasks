@@ -85,15 +85,4 @@ public class FilterShortcutActivity extends ListActivity {
         super.onPause();
         adapter.unregisterRecevier();
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
 }

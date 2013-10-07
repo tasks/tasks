@@ -60,8 +60,6 @@ public final class Table extends SqlTable {
 
     /**
      * Create a field object based on the given property
-     * @param property
-     * @return
      */
     public Field field(Property<?> property) {
         if(alias != null) {

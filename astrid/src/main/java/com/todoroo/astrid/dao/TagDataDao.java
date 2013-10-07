@@ -39,7 +39,7 @@ public class TagDataDao extends RemoteModelDao<TagData> {
      */
     public static class TagDataCriteria {
 
-    	/** @returns tasks by id */
+    	/** @return tasks by id */
     	public static Criterion byId(long id) {
     	    return TagData.ID.eq(id);
     	}

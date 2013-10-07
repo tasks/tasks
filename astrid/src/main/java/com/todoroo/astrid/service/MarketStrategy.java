@@ -13,7 +13,6 @@ import org.tasks.R;
 public abstract class MarketStrategy {
 
     /**
-     * @param packageName
      * @return an intent to launch market with this package
      */
     abstract public Intent generateMarketLink(String packageName);
@@ -34,7 +33,6 @@ public abstract class MarketStrategy {
     /**
      * Most market strategies don't support billing at this time,
      * so we'll make the default false
-     * @return
      */
     public boolean billingSupported() {
         return false;
@@ -43,7 +41,6 @@ public abstract class MarketStrategy {
     /**
      * Return true if the preference to use the phone layout should be
      * turned on by default (only true for Nook)
-     * @return
      */
     public boolean defaultPhoneLayout() {
         return false;

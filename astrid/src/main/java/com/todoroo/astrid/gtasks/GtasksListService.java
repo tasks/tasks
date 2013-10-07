@@ -58,7 +58,6 @@ public class GtasksListService {
 
     /**
      * Get list name
-     * @param listId
      * @return NOT_FOUND if no list by this id exists, otherwise list name
      */
     public String getListName(String listId) {

@@ -277,9 +277,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
     /**
      * Create or reuse a view
-     * @param convertView
-     * @param parent
-     * @return
      */
     protected View newView(View convertView, ViewGroup parent) {
         if(convertView == null) {
@@ -347,7 +344,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
     /**
      * Sets the selected item to this one
-     * @param picked
      */
     public void setSelection(FilterListItem picked) {
         selection = picked;
@@ -431,7 +427,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
                             filter instanceof FilterCategory)) {
                     continue;
                 }
-                onReceiveFilter((FilterListItem)item);
 
                 if (filter instanceof FilterCategory) {
                     Filter[] children = ((FilterCategory) filter).children;
@@ -479,14 +474,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
      */
     public void unregisterRecevier() {
         activity.unregisterReceiver(filterReceiver);
-    }
-
-    /**
-     * Called when an item comes through. Override if you like
-     * @param item
-     */
-    public void onReceiveFilter(FilterListItem item) {
-        // do nothing
     }
 
     /* ======================================================================

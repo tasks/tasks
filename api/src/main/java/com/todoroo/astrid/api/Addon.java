@@ -39,11 +39,6 @@ public class Addon implements Parcelable {
 
     /**
      * Convenience constructor to generate a plug-in object
-     *
-     * @param addon
-     * @param title
-     * @param author
-     * @param description
      */
     public Addon(String addon, String title, String author, String description) {
         this.addon = addon;

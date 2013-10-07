@@ -56,7 +56,7 @@ public class TaskDao extends RemoteModelDao<Task> {
      */
     public static class TaskCriteria {
 
-    	/** @returns tasks by id */
+    	/** @return tasks by id */
     	public static Criterion byId(long id) {
     	    return Task.ID.eq(id);
     	}
@@ -154,8 +154,6 @@ public class TaskDao extends RemoteModelDao<Task> {
     /**
      * Delete the given item
      *
-     * @param database
-     * @param id
      * @return true if delete was successful
      */
     @Override
@@ -179,7 +177,6 @@ public class TaskDao extends RemoteModelDao<Task> {
      * Saves the given task to the database.getDatabase(). Task must already
      * exist. Returns true on success.
      *
-     * @param task
      * @return true if save occurred, false otherwise (i.e. nothing changed)
      */
     public boolean save(Task task) {
@@ -248,7 +245,6 @@ public class TaskDao extends RemoteModelDao<Task> {
 
     /**
      * Sets default reminders for the given task if reminders are not set
-     * @param item
      */
     public static void setDefaultReminders(Task item) {
         if(!item.containsValue(Task.REMINDER_PERIOD)) {
@@ -422,9 +418,6 @@ public class TaskDao extends RemoteModelDao<Task> {
 
     /**
      * Called after the task was just completed
-     *
-     * @param task
-     * @param values
      */
     private static void afterComplete(Task task, ContentValues values) {
         Notifications.cancelNotifications(task.getId());

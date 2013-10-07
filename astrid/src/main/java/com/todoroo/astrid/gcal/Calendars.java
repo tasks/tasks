@@ -107,11 +107,6 @@ public class Calendars {
 
 	/**
 	 * Appends all user-modifiable calendars to listPreference.
-	 *
-	 * @param context
-	 *            context
-	 * @param listPreference
-	 *            preference to init
 	 */
 	public static CalendarResult getCalendars() {
 	    Context context = ContextManager.getContext();

@@ -48,11 +48,6 @@ public class SavedFilter {
 
     /**
      * Save a filter
-     *
-     * @param adapter
-     * @param title
-     * @param sql2
-     * @param values2
      */
     public static void persist(CustomFilterAdapter adapter, String title,
             String sql, ContentValues values) {
@@ -93,8 +88,6 @@ public class SavedFilter {
 
     /**
      * Turn a series of CriterionInstance objects into a string
-     * @param adapter
-     * @return
      */
     private static String serializeFilters(CustomFilterAdapter adapter) {
         StringBuilder values = new StringBuilder();
@@ -125,8 +118,6 @@ public class SavedFilter {
 
     /**
      * Read filter from store
-     * @param savedFilter
-     * @return
      */
     public static Filter load(StoreObject savedFilter) {
         String title = savedFilter.getValue(NAME);

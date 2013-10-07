@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.service;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.database.Cursor;
 import android.text.TextUtils;
 
@@ -56,8 +53,6 @@ public class TagDataService {
 
     /**
      * Query underlying database
-     * @param query
-     * @return
      */
     public TodorooCursor<TagData> query(Query query) {
         return tagDataDao.query(query);
@@ -65,16 +60,12 @@ public class TagDataService {
 
     /**
      * Save a single piece of metadata
-     * @param metadata
      */
     public boolean save(TagData tagData) {
         return tagDataDao.persist(tagData);
     }
 
     /**
-     *
-     * @param properties
-     * @param id id
      * @return item, or null if it doesn't exist
      */
     public TagData fetchById(long id, Property<?>... properties) {
@@ -100,10 +91,6 @@ public class TagDataService {
 
     /**
      * Fetch tag data
-     * @param queryTemplate
-     * @param constraint
-     * @param properties
-     * @return
      */
     public TodorooCursor<TagData> fetchFiltered(String queryTemplate, CharSequence constraint,
             Property<?>... properties) {
@@ -192,8 +179,6 @@ public class TagDataService {
 
     /**
      * Return update
-     * @param tagData
-     * @return
      */
     public UserActivity getLatestUpdate(TagData tagData) {
         if(RemoteModel.NO_UUID.equals(tagData.getValue(TagData.UUID))) {

@@ -48,8 +48,6 @@ public class UnaryCriterion extends Criterion {
 
     /**
      * Sanitize the given input for SQL
-     * @param input
-     * @return
      */
     public static String sanitize(String input) {
         return input.replace("'", "''");

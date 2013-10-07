@@ -17,7 +17,6 @@ import org.tasks.R;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
-import com.todoroo.astrid.service.StatisticsConstants;
 
 /**
  * Control set dealing with random reminder settings

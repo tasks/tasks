@@ -5,11 +5,6 @@
  */
 package com.todoroo.astrid.activity;
 
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.atomic.AtomicReference;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -47,11 +42,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import org.tasks.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -109,6 +102,13 @@ import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.widget.TasksWidget;
+
+import org.tasks.R;
+
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Primary activity for the Bente application. Shows a list of upcoming tasks
@@ -227,10 +227,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
      *
      * See also: instantiateWithFilterAndExtras(Filter, Bundle) which uses TaskListFragment as the default
      * custom component.
-     * @param filter
-     * @param extras
-     * @param customComponent
-     * @return
      */
     public static TaskListFragment instantiateWithFilterAndExtras(Filter filter, Bundle extras, Class<?> customComponent) {
         Class<?> component = customComponent;
@@ -264,9 +260,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
     /**
      * Convenience method for calling instantiateWithFilterAndExtras(Filter, Bundle, Class<?>) with
      * TaskListFragment as the default component
-     * @param filter
-     * @param extras
-     * @return
      */
     public static TaskListFragment instantiateWithFilterAndExtras(Filter filter, Bundle extras) {
         return instantiateWithFilterAndExtras(filter, extras, null);
@@ -483,8 +476,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
 
     /**
      * Create options menu (displayed when user presses menu key)
-     *
-     * @return true if menu should be displayed
      */
     @Override
     public void onCreateOptionsMenu(Menu menu, com.actionbarsherlock.view.MenuInflater inflater) {
@@ -879,11 +870,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    public void onScroll(AbsListView view, int firstVisibleItem,
-            int visibleItemCount, int totalItemCount) {
-        // do nothing
-    }
-
     /*
      * ======================================================================
      * =================================================== managing list view
@@ -892,8 +878,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
 
     /**
      * Load or re-load action items and update views
-     *
-     * @param requery
      */
     public void loadTaskListContent(boolean requery) {
         if (taskAdapter == null) {
@@ -957,9 +941,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
 
     /**
      * Fill in the Task List with current items
-     *
-     * @param withCustomId
-     *            force task with given custom id to be part of list
      */
     public void setUpTaskList() {
         if (filter == null) {
@@ -1053,8 +1034,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
     /**
      * Select a custom task id in the list. If it doesn't exist, create a new
      * custom filter
-     *
-     * @param withCustomId
      */
     public void selectCustomId(long withCustomId) {
         // if already in the list, select it

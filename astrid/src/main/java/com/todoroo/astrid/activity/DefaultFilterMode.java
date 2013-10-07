@@ -31,11 +31,6 @@ public class DefaultFilterMode implements FilterModeSpec {
     }
 
     @Override
-    public void onFilterItemClickedCallback(FilterListItem item) {
-        //
-    }
-
-    @Override
     public boolean showComments() {
         return true;
     }

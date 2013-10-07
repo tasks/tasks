@@ -21,7 +21,6 @@ public interface TaskDecorationExposer {
 
     /**
      * Expose task decorations for the given task
-     * @param task
      *
      * @return null if no decorations, or decoration
      */

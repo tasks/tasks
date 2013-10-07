@@ -17,11 +17,8 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.RemoteViews;
 
 import org.tasks.R;
@@ -82,7 +79,6 @@ public class TasksWidget extends AppWidgetProvider {
 
     /**
      * Update all widgets
-     * @param id
      */
     public static void updateWidgets(Context context) {
         if (suppressUpdateFlag > 0 && DateUtilities.now() - suppressUpdateFlag < SUPPRESS_TIME) {
@@ -95,7 +91,6 @@ public class TasksWidget extends AppWidgetProvider {
 
     /**
      * Update widget with the given id
-     * @param id
      */
     public static void updateWidget(Context context, int id) {
         Intent intent = new Intent(ContextManager.getContext(),
@@ -322,8 +317,6 @@ public class TasksWidget extends AppWidgetProvider {
          * Android 2.1 (level 7) that doesn't allow setting backgrounds on remote views. I know it's lame,
          * but I didn't see a better solution. Alternatively, we could disallow theming widgets on
          * Android 2.1.
-         * @param context
-         * @return
          */
         private RemoteViews getThemedRemoteViews(Context context) {
             int theme = ThemeService.getWidgetTheme();

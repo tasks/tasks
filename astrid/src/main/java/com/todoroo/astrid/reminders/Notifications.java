@@ -5,11 +5,6 @@
  */
 package com.todoroo.astrid.reminders;
 
-import java.util.Date;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -25,7 +20,6 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 
-import org.tasks.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -47,6 +41,13 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceOutputService;
+
+import org.tasks.R;
+
+import java.util.Date;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Notifications extends BroadcastReceiver {
 
@@ -259,7 +260,7 @@ public class Notifications extends BroadcastReceiver {
     private static long lastNotificationSound = 0L;
 
     /**
-     * @returns true if notification should sound
+     * @return true if notification should sound
      */
     private static boolean checkLastNotificationSound() {
         long now = DateUtilities.now();

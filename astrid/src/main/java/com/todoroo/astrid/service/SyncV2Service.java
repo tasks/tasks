@@ -34,8 +34,6 @@ public class SyncV2Service {
 
     /**
      * Returns active sync providers
-     *
-     * @param callback
      */
     public List<SyncV2Provider> activeProviders() {
         ArrayList<SyncV2Provider> actives = new ArrayList<SyncV2Provider>();

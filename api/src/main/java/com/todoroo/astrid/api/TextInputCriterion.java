@@ -32,15 +32,6 @@ public class TextInputCriterion extends CustomFilterCriterion implements Parcela
 
     /**
      * Create a new CustomFilterCriteria object
-     *
-     * @param identifier
-     * @param title
-     * @param sql
-     * @param valuesForNewTasks
-     * @param prompt
-     * @param hint
-     * @param icon
-     * @param name
      */
     public TextInputCriterion(String identifier, String title, String sql,
             ContentValues valuesForNewTasks, String prompt, String hint,

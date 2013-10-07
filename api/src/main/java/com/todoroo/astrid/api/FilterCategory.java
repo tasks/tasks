@@ -36,9 +36,6 @@ public class FilterCategory extends FilterListItem {
 
     /**
      * Constructor for creating a new FilterCategory
-     *
-     * @param plugin
-     *            {@link Addon} identifier that encompasses object
      */
     protected FilterCategory() {
         //

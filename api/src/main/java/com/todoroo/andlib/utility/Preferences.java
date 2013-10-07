@@ -24,12 +24,6 @@ public class Preferences {
     /**
      * Helper to write to editor if key specified is null. Writes a String
      * property with the given integer
-     *
-     * @param prefs
-     * @param editor
-     * @param r
-     * @param keyResource
-     * @param value
      */
     public static void setIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, int value) {
         String key = r.getString(keyResource);
@@ -40,11 +34,6 @@ public class Preferences {
 
     /**
      * Helper to write to editor if key specified is null
-     * @param prefs
-     * @param editor
-     * @param r
-     * @param keyResource
-     * @param value
      */
     public static void setIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, boolean value) {
         String key = r.getString(keyResource);
@@ -55,11 +44,6 @@ public class Preferences {
 
     /**
      * Helper to write to editor if key specified is null
-     * @param prefs
-     * @param editor
-     * @param r
-     * @param keyResource
-     * @param value
      */
     public static void setIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, String value) {
         String key = r.getString(keyResource);
@@ -105,9 +89,6 @@ public class Preferences {
 
     /** Gets an string value from a string preference. Returns null
      * if the value is not set
-     *
-     * @param context
-     * @param key
      * @return integer value, or null on error
      */
     public static String getStringValue(String key) {
@@ -117,9 +98,6 @@ public class Preferences {
 
     /** Gets an string value from a string preference. Returns null
      * if the value is not set
-     *
-     * @param context
-     * @param key
      * @return integer value, or null on error
      */
     public static String getStringValue(int keyResource) {
@@ -152,7 +130,6 @@ public class Preferences {
      * if the value is not set or not an flat.
      *
      * @param keyResource resource from string.xml
-     * @return
      */
     public static Float getFloatFromString(int keyResource) {
         Context context = ContextManager.getContext();
@@ -197,9 +174,6 @@ public class Preferences {
     // --- preference fetching (boolean)
 
     /** Gets a boolean preference (e.g. a CheckBoxPreference setting)
-     *
-     * @param key
-     * @param defValue
      * @return default if value is unset otherwise the value
      */
     public static boolean getBoolean(String key, boolean defValue) {
@@ -212,9 +186,6 @@ public class Preferences {
     }
 
     /** Gets a boolean preference (e.g. a CheckBoxPreference setting)
-     *
-     * @param keyResource
-     * @param defValue
      * @return default if value is unset otherwise the value
      */
     public static boolean getBoolean(int keyResources, boolean defValue) {
@@ -223,8 +194,6 @@ public class Preferences {
 
     /**
      * Sets boolean preference
-     * @param key
-     * @param value
      */
     public static void setBoolean(int keyResource, boolean value) {
         setBoolean(ContextManager.getString(keyResource), value);
@@ -232,8 +201,6 @@ public class Preferences {
 
     /**
      * Sets boolean preference
-     * @param key
-     * @param value
      */
     public static void setBoolean(String key, boolean value) {
         Context context = ContextManager.getContext();
@@ -245,9 +212,6 @@ public class Preferences {
     // --- preference fetching (int)
 
     /** Gets a int preference
-     *
-     * @param key
-     * @param defValue
      * @return default if value is unset otherwise the value
      */
     public static int getInt(String key, int defValue) {
@@ -257,8 +221,6 @@ public class Preferences {
 
     /**
      * Sets int preference
-     * @param key
-     * @param value
      */
     public static void setInt(String key, int value) {
         Context context = ContextManager.getContext();
@@ -270,9 +232,6 @@ public class Preferences {
     // --- preference fetching (long)
 
     /** Gets a long preference
-     *
-     * @param key
-     * @param defValue
      * @return default if value is unset otherwise the value
      */
     public static long getLong(String key, long defValue) {
@@ -282,8 +241,6 @@ public class Preferences {
 
     /**
      * Sets long preference
-     * @param key
-     * @param value
      */
     public static void setLong(String key, long value) {
         Context context = ContextManager.getContext();
@@ -294,7 +251,6 @@ public class Preferences {
 
     /**
      * Clears a preference
-     * @param key
      */
     public static void clear(String key) {
         Context context = ContextManager.getContext();

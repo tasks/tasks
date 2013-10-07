@@ -263,10 +263,6 @@ public class StartupService {
         });
     }
 
-    /**
-     * @param context
-     * @param e error that was raised
-     */
     public static void handleSQLiteError(Context context, final SQLiteException e) {
         if (context instanceof Activity) {
             Activity activity = (Activity) context;
@@ -368,7 +364,6 @@ public class StartupService {
 
     /**
      * Show task killer helper
-     * @param context
      */
     private static void showTaskKillerHelp(final Context context) {
         if(!Preferences.getBoolean(P_TASK_KILLER_HELP, false)) {

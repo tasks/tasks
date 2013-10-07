@@ -34,7 +34,6 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.Calendars.CalendarResult;
-import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.PopupControlSet;
 

@@ -58,8 +58,6 @@ public class AlarmService {
 
     /**
      * Return alarms for the given task. PLEASE CLOSE THE CURSOR!
-     *
-     * @param taskId
      */
     public TodorooCursor<Metadata> getAlarms(long taskId) {
         return PluginServices.getMetadataService().query(Query.select(
@@ -69,8 +67,6 @@ public class AlarmService {
 
     /**
      * Save the given array of alarms into the database
-     * @param taskId
-     * @param tags
      * @return true if data was changed
      */
     public boolean synchronizeAlarms(final long taskId, LinkedHashSet<Long> alarms) {
@@ -107,7 +103,6 @@ public class AlarmService {
 
     /**
      * Gets a listing of all alarms that are active
-     * @param properties
      * @return todoroo cursor. PLEASE CLOSE THIS CURSOR!
      */
     private TodorooCursor<Metadata> getActiveAlarms() {
@@ -118,7 +113,6 @@ public class AlarmService {
 
     /**
      * Gets a listing of alarms by task
-     * @param properties
      * @return todoroo cursor. PLEASE CLOSE THIS CURSOR!
      */
     private TodorooCursor<Metadata> getActiveAlarmsForTask(long taskId) {
@@ -150,7 +144,6 @@ public class AlarmService {
 
     /**
      * Schedules alarms for a single task
-     * @param task
      */
     public void scheduleAlarms(long taskId) {
         TodorooCursor<Metadata> cursor = getActiveAlarmsForTask(taskId);
@@ -180,9 +173,6 @@ public class AlarmService {
 
     /**
      * Schedules alarms for a single task
-     *
-     * @param shouldPerformPropertyCheck
-     *            whether to check if task has requisite properties
      */
     private void scheduleAlarm(Metadata alarm) {
         if(alarm == null) {

@@ -97,17 +97,12 @@ public class TaskService {
 
     /**
      * Query underlying database
-     * @param query
-     * @return
      */
     public TodorooCursor<Task> query(Query query) {
         return taskDao.query(query);
     }
 
     /**
-     *
-     * @param properties
-     * @param id id
      * @return item, or null if it doesn't exist
      */
     public Task fetchById(long id, Property<?>... properties) {
@@ -116,8 +111,6 @@ public class TaskService {
 
     /**
      *
-     * @param uuid
-     * @param properties
      * @return item, or null if it doesn't exist
      */
     public Task fetchByUUID(String uuid, Property<?>... properties) {
@@ -135,8 +128,6 @@ public class TaskService {
 
     /**
      * Mark the given task as completed and save it.
-     *
-     * @param item
      */
     public void setComplete(Task item, boolean completed) {
         if(completed) {
@@ -162,11 +153,6 @@ public class TaskService {
 
     /**
      * Create or save the given action item
-     *
-     * @param item
-     * @param skipHooks
-     *            Whether pre and post hooks should run. This should be set
-     *            to true if tasks are created as part of synchronization
      */
     public boolean save(Task item) {
         return taskDao.save(item);
@@ -175,7 +161,6 @@ public class TaskService {
     /**
      * Clone the given task and all its metadata
      *
-     * @param the old task
      * @return the new task
      */
     public Task clone(Task task) {
@@ -241,8 +226,6 @@ public class TaskService {
     /**
      * Delete the given task. Instead of deleting from the database, we set
      * the deleted flag.
-     *
-     * @param model
      */
     public void delete(Task item) {
         if(!item.isSaved()) {
@@ -263,8 +246,6 @@ public class TaskService {
 
     /**
      * Permanently delete the given task.
-     *
-     * @param model
      */
     public void purge(long taskId) {
         taskDao.delete(taskId);
@@ -292,10 +273,7 @@ public class TaskService {
 
     /**
      * Fetch tasks for the given filter
-     * @param properties
      * @param constraint text constraint, or null
-     * @param filter
-     * @return
      */
     public TodorooCursor<Task> fetchFiltered(String queryTemplate, CharSequence constraint,
             Property<?>... properties) {
@@ -357,7 +335,6 @@ public class TaskService {
     }
 
     /**
-     * @param query
      * @return how many tasks are matched by this query
      */
     public int count(Query query) {
@@ -367,7 +344,6 @@ public class TaskService {
     /**
      * Clear details cache. Useful if user performs some operation that
      * affects details
-     * @param criterion
      *
      * @return # of affected rows
      */
@@ -379,10 +355,6 @@ public class TaskService {
 
     /**
      * Update database based on selection and values
-     * @param selection
-     * @param selectionArgs
-     * @param setValues
-     * @return
      */
     public int updateBySelection(String selection, String[] selectionArgs,
             Task taskValues) {
@@ -417,8 +389,6 @@ public class TaskService {
 
     /**
      * Count tasks overall
-     * @param filter
-     * @return
      */
     public int countTasks() {
         TodorooCursor<Task> cursor = query(Query.select(Task.ID));
@@ -443,7 +413,6 @@ public class TaskService {
 
     /**
      * Delete all tasks matching a given criterion
-     * @param all
      */
     public int deleteWhere(Criterion criteria) {
         return taskDao.deleteWhere(criteria);
@@ -465,9 +434,7 @@ public class TaskService {
 
     /**
      * Parse quick add markup for the given task
-     * @param task
      * @param tags an empty array to apply tags to
-     * @return
      */
     public static boolean parseQuickAddMarkup(Task task, ArrayList<String> tags) {
         return TitleParser.parse(task, tags);
@@ -475,7 +442,6 @@ public class TaskService {
 
     /**
      * Create an uncompleted copy of this task and edit it
-     * @param itemId
      * @return cloned item id
      */
     public long duplicateTask(long itemId) {
@@ -499,12 +465,6 @@ public class TaskService {
     /**
      * Create task from the given content values, saving it. This version
      * doesn't need to start with a base task model.
-     *
-     * @param values
-     * @param title
-     * @param taskService
-     * @param metadataService
-     * @return
      */
     public static Task createWithValues(ContentValues values, String title) {
         Task task = new Task();
@@ -513,13 +473,7 @@ public class TaskService {
 
     /**
      * Create task from the given content values, saving it.
-     *
      * @param task base task to start with
-     * @param values
-     * @param title
-     * @param taskService
-     * @param metadataService
-     * @return
      */
     public static Task createWithValues(Task task, ContentValues values, String title) {
         if (title != null) {

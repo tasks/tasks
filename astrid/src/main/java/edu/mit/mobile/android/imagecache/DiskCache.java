@@ -116,8 +116,6 @@ public abstract class DiskCache<K, V> {
 
     /**
      * Creates a new disk cache with no cachePrefix or cacheSuffix
-     *
-     * @param cacheBase
      */
     public DiskCache(File cacheBase) {
         this(cacheBase, null, null);
@@ -219,9 +217,6 @@ public abstract class DiskCache<K, V> {
 
     /**
      * Gets the cache filename for the given key.
-     *
-     * @param key
-     * @return
      */
     protected File getFile(K key) {
         return new File(mCacheBase, (mCachePrefix != null ? mCachePrefix : "") + hash(key)
@@ -255,9 +250,6 @@ public abstract class DiskCache<K, V> {
      * Writes the contents of the InputStream straight to disk. It is the caller's responsibility to
      * ensure it's the same type as what would be written with
      * {@link #toDisk(Object, Object, OutputStream)}
-     *
-     * @param key
-     * @param value
      * @throws IOException
      * @throws FileNotFoundException
      */
@@ -299,8 +291,6 @@ public abstract class DiskCache<K, V> {
     /**
      * Puts the key at the end of the queue, removing it if it's already present. This will cause it
      * to be removed last when {@link #trim()} is called.
-     *
-     * @param cacheFile
      */
     private void touchEntry(File cacheFile) {
         if (mQueue.contains(cacheFile)) {
@@ -312,8 +302,6 @@ public abstract class DiskCache<K, V> {
     /**
      * Marks the given key as accessed recently. This will deprioritize it from automatically being
      * purged upon {@link #trim()}.
-     *
-     * @param key
      */
     protected void touchKey(K key) {
         touchEntry(getFile(key));
@@ -346,9 +334,6 @@ public abstract class DiskCache<K, V> {
 
     /**
      * Reads from an inputstream, dumps to an outputstream
-     *
-     * @param is
-     * @param os
      * @throws IOException
      */
     static public void inputStreamToOutputStream(InputStream is, OutputStream os)
@@ -365,7 +350,6 @@ public abstract class DiskCache<K, V> {
     /**
      * Reads the value from disk using {@link #fromDisk(Object, InputStream)}.
      *
-     * @param key
      * @return The value for key or null if the key doesn't map to any existing entries.
      */
     public final synchronized V get(K key) throws IOException {
@@ -387,7 +371,6 @@ public abstract class DiskCache<K, V> {
     /**
      * Checks the disk cache for a given key.
      *
-     * @param key
      * @return true if the disk cache contains the given key
      */
     public final synchronized boolean contains(K key) {
@@ -399,7 +382,6 @@ public abstract class DiskCache<K, V> {
     /**
      * Removes the item from the disk cache.
      *
-     * @param key
      * @return true if the cached item has been removed or was already removed, false if it was not
      *         able to be removed.
      */
@@ -423,7 +405,6 @@ public abstract class DiskCache<K, V> {
     /**
      * Removes the item from the disk cache.
      *
-     * @param cacheFile
      * @return true if the cached item has been removed or was already removed, false if it was not
      *         able to be removed.
      */
@@ -588,18 +569,11 @@ public abstract class DiskCache<K, V> {
     /**
      * Implement this to do the actual disk writing. Do not close the OutputStream; it will be
      * closed for you.
-     *
-     * @param key
-     * @param in
-     * @param out
      */
     protected abstract void toDisk(K key, V in, OutputStream out);
 
     /**
      * Implement this to do the actual disk reading.
-     *
-     * @param key
-     * @param in
      * @return a new instance of {@link V} containing the contents of in.
      */
     protected abstract V fromDisk(K key, InputStream in);
@@ -608,7 +582,6 @@ public abstract class DiskCache<K, V> {
      * Using the key's {@link Object#toString() toString()} method, generates a string suitable for
      * using as a filename.
      *
-     * @param key
      * @return a string uniquely representing the the key.
      */
     public String hash(K key) {

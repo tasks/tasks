@@ -5,34 +5,6 @@
  */
 package com.todoroo.andlib.utility;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.lang.reflect.Array;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.math.BigInteger;
-import java.net.URL;
-import java.net.URLConnection;
-import java.security.MessageDigest;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
@@ -59,6 +31,34 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.todoroo.andlib.service.ExceptionService;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.math.BigInteger;
+import java.net.URL;
+import java.net.URLConnection;
+import java.security.MessageDigest;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * Android Utility Classes
@@ -148,9 +148,6 @@ public class AndroidUtilities {
 
     /**
      * Start the given intent, handling security exceptions if they arise
-     *
-     * @param context
-     * @param intent
      * @param request request code. if negative, no request.
      */
     public static void startExternalIntent(Context context, Intent intent, int request) {
@@ -169,10 +166,6 @@ public class AndroidUtilities {
 
     /**
      * Start the given intent, handling security exceptions if they arise
-     *
-     * @param activity
-     * @param intent
-     * @param requestCode
      */
     public static void startExternalIntentForResult(
             Activity activity, Intent intent, int requestCode) {
@@ -187,9 +180,6 @@ public class AndroidUtilities {
 
     /**
      * Put an arbitrary object into a {@link ContentValues}
-     * @param target
-     * @param key
-     * @param value
      */
     public static void putInto(ContentValues target, String key, Object value, boolean errorOnFail) {
         if (value instanceof Boolean) {
@@ -216,9 +206,6 @@ public class AndroidUtilities {
 
     /**
      * Put an arbitrary object into a {@link ContentValues}
-     * @param target
-     * @param key
-     * @param value
      */
     public static void putInto(Bundle target, String key, Object value, boolean errorOnFail) {
         if (value instanceof Boolean) {
@@ -262,7 +249,6 @@ public class AndroidUtilities {
      * Return index of value in array
      * @param array array to search
      * @param value value to look for
-     * @return
      */
     public static <TYPE> int indexOf(TYPE[] array, TYPE value) {
         for(int i = 0; i < array.length; i++) {
@@ -277,7 +263,6 @@ public class AndroidUtilities {
      * Return index of value in integer array
      * @param array array to search
      * @param value value to look for
-     * @return
      */
     public static int indexOf(int[] array, int value) {
         for (int i = 0; i < array.length; i++) {
@@ -337,8 +322,6 @@ public class AndroidUtilities {
 
     /**
      * Turn ContentValues into a string
-     * @param string
-     * @return
      */
     public static ContentValues contentValuesFromSerializedString(String string) {
         if(string == null) {
@@ -373,8 +356,6 @@ public class AndroidUtilities {
 
     /**
      * Turn {@link android.os.Bundle} into a string
-     * @param string
-     * @return
      */
     public static Bundle bundleFromSerializedString(String string) {
         if(string == null) {
@@ -434,8 +415,6 @@ public class AndroidUtilities {
 
     /**
      * Turn ContentValues into a string
-     * @param string
-     * @return
      */
     public static ContentValues contentValuesFromString(String string) {
         if(string == null) {
@@ -464,9 +443,6 @@ public class AndroidUtilities {
 
     /**
      * Returns true if a and b or null or a.equals(b)
-     * @param a
-     * @param b
-     * @return
      */
     public static boolean equals(Object a, Object b) {
         if(a == null && b == null) {
@@ -480,9 +456,6 @@ public class AndroidUtilities {
 
     /**
      * Copy a file from one place to another
-     *
-     * @param in
-     * @param out
      * @throws Exception
      */
     public static void copyFile(File in, File out) throws Exception {
@@ -500,8 +473,6 @@ public class AndroidUtilities {
 
     /**
      * Copy stream from source to destination
-     * @param source
-     * @param dest
      * @throws IOException
      */
     public static void copyStream(InputStream source, OutputStream dest) throws IOException {
@@ -527,8 +498,6 @@ public class AndroidUtilities {
 
     /**
      * Find a child view of a certain type
-     * @param view
-     * @param type
      * @return first view (by DFS) if found, or null if none
      */
     public static <TYPE> TYPE findViewByType(View view, Class<TYPE> type) {
@@ -559,7 +528,6 @@ public class AndroidUtilities {
 
     /**
      * Copy databases to a given folder. Useful for debugging
-     * @param folder
      */
     public static void copyDatabases(Context context, String folder) {
         File folderFile = new File(folder);
@@ -579,7 +547,6 @@ public class AndroidUtilities {
 
     /**
      * Sort files by date so the newest file is on top
-     * @param files
      */
     public static void sortFilesByDateDesc(File[] files) {
         Arrays.sort(files, new Comparator<File>() {
@@ -592,8 +559,6 @@ public class AndroidUtilities {
 
     /**
      * Search for the given value in the map, returning key if found
-     * @param map
-     * @param value
      * @return null if not found, otherwise key
      */
     public static <KEY, VALUE> KEY findKeyInMap(Map<KEY, VALUE> map, VALUE value){
@@ -608,8 +573,6 @@ public class AndroidUtilities {
     /**
      * Sleep, ignoring interruption. Before using this method, think carefully
      * about why you are ignoring interruptions.
-     *
-     * @param l
      */
     public static void sleepDeep(long l) {
         try {
@@ -680,7 +643,6 @@ public class AndroidUtilities {
 
     /**
      * Call a method via reflection
-     * @param class class to call method on
      * @param receiver object to call method on (can be null)
      * @param methodName method name to call
      * @param params method parameter types
@@ -711,9 +673,6 @@ public class AndroidUtilities {
     /**
      * From Android MyTracks project (http://mytracks.googlecode.com/).
      * Licensed under the Apache Public License v2
-     * @param activity
-     * @param id
-     * @return
      */
     public static CharSequence readFile(Context activity, int id) {
         BufferedReader in = null;
@@ -764,8 +723,6 @@ public class AndroidUtilities {
 
     /**
      * Performs an md5 hash on the input string
-     * @param input
-     * @return
      */
     public static String md5(String input) {
         try {
@@ -785,9 +742,6 @@ public class AndroidUtilities {
 
     /**
      * Create an intent to a remote activity
-     * @param appPackage
-     * @param activityClass
-     * @return
      */
     public static Intent remoteIntent(String appPackage, String activityClass) {
         Intent intent = new Intent();
@@ -811,11 +765,6 @@ public class AndroidUtilities {
 
     /**
      * Join items to a list
-     * @param <TYPE>
-     * @param list
-     * @param newList
-     * @param newItems
-     * @return
      */
     public static <T> T[] addToArray(Class<T> type, T[] list, T... newItems) {
         int originalListLength = 0;
@@ -859,9 +808,6 @@ public class AndroidUtilities {
 
     /**
      * Concatenate additional stuff to the end of the array
-     * @param params
-     * @param additional
-     * @return
      */
     public static <TYPE> TYPE[] concat(TYPE[] dest, TYPE[] source, TYPE... additional) {
         int i = 0;
@@ -879,8 +825,6 @@ public class AndroidUtilities {
      * Returns a map where the keys are the values of the map argument
      * and the values are the corresponding keys. Use at your own
      * risk if your map is not 1-to-1!
-     * @param map
-     * @return
      */
     public static <K, V> Map<V, K> reverseMap(Map<K, V> map) {
         HashMap<V, K> reversed = new HashMap<V, K>();
@@ -894,8 +838,6 @@ public class AndroidUtilities {
 
     /**
      * Capitalize the first character
-     * @param string
-     * @return
      */
     public static String capitalize(String string) {
         return string.substring(0, 1).toUpperCase() + string.substring(1);
@@ -903,7 +845,6 @@ public class AndroidUtilities {
 
     /**
      * Dismiss the keyboard if it is displayed by any of the listed views
-     * @param context
      * @param views - a list of views that might potentially be displaying the keyboard
      */
     public static void hideSoftInputForViews(Context context, View...views) {
@@ -915,8 +856,6 @@ public class AndroidUtilities {
 
     /**
      * Returns true if the screen is large or xtra large
-     * @param context
-     * @return
      */
     public static boolean isTabletSized(Context context) {
         if (context.getPackageManager().hasSystemFeature("com.google.android.tv")) //$NON-NLS-1$
@@ -948,8 +887,6 @@ public class AndroidUtilities {
     /**
      * Wraps a call to Activity.unregisterReceiver in a try/catch block to prevent
      * exceptions being thrown if receiver was never registered with that activity
-     * @param activity
-     * @param receiver
      */
     public static void tryUnregisterReceiver(Activity activity, BroadcastReceiver receiver) {
         try {
@@ -961,9 +898,6 @@ public class AndroidUtilities {
 
     /**
      * Dismiss a popup window (should call from main thread)
-     *
-     * @param activity
-     * @param popup
      */
     public static void tryDismissPopup(Activity activity, final PopupWindow popup) {
         if (popup == null) {
@@ -1000,8 +934,6 @@ public class AndroidUtilities {
 
     /**
      * Returns the final word characters after the last '.'
-     * @param file
-     * @return
      */
     public static String getFileExtension(String file) {
         int index = file.lastIndexOf('.');
