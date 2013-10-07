@@ -70,7 +70,6 @@
 	<string name="DLG_cancel">Avbryt</string>
 	<string name="DLG_undo">Ångra</string>
 	<string name="WID_dateButtonUnset">Klicka för att ställa</string>
-	<string name="ENA_no_comments">Ännu ingen aktivitet</string>
 	<string name="ENA_no_user">Någon</string>
 	<string name="ENA_refresh_comments">Uppdatera kommentarer</string>
 	<string name="TLA_no_items">Du har inga uppgifter!\n Vill du lägga till någonting?</string>

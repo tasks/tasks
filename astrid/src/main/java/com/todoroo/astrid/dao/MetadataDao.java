@@ -22,17 +22,13 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
-import com.todoroo.astrid.actfm.sync.messages.ChangesHappened;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.OutstandingEntry;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
-import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.AstridPreferences;
 
@@ -109,8 +105,6 @@ public class MetadataDao extends DatabaseDao<Metadata> {
         to.setValue(OutstandingEntry.COLUMN_STRING_PROPERTY, addedOrRemoved);
         to.setValue(OutstandingEntry.VALUE_STRING_PROPERTY, tagUuid);
         database.insert(outstandingTable.name, null, to.getSetValues());
-        ActFmSyncThread.getInstance().enqueueMessage(new ChangesHappened<Task, TaskOutstanding>(taskId, Task.class,
-                PluginServices.getTaskDao(), PluginServices.getTaskOutstandingDao()), null);
         return 1;
     }
 
@@ -183,9 +177,6 @@ public class MetadataDao extends DatabaseDao<Metadata> {
 
     /**
      * Fetch all metadata that are unattached to the task
-     * @param database
-     * @param properties
-     * @return
      */
     public TodorooCursor<Metadata> fetchDangling(Property<?>... properties) {
         Query sql = Query.select(properties).from(Metadata.TABLE).join(Join.left(Task.TABLE,
@@ -193,16 +184,5 @@ public class MetadataDao extends DatabaseDao<Metadata> {
         Cursor cursor = database.rawQuery(sql.toString(), null);
         return new TodorooCursor<Metadata>(cursor, properties);
     }
-
-    public boolean taskIsInTag(String taskUuid, String tagUuid) {
-        TodorooCursor<Metadata> cursor = query(Query.select(Metadata.ID).where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
-                TaskToTagMetadata.TASK_UUID.eq(taskUuid), TaskToTagMetadata.TAG_UUID.eq(tagUuid), Metadata.DELETION_DATE.eq(0))));
-        try {
-            return cursor.getCount() > 0;
-        } finally {
-            cursor.close();
-        }
-    }
-
 }
 

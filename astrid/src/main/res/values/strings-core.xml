@@ -51,9 +51,6 @@
   
   <!--  ============================================================= notes -->
   
-  <!-- EditNoteActivity - no comments -->
-  <string name="ENA_no_comments">No activity yet</string>
-    
   <!-- EditNoteActivity - no username for comment -->
   <string name="ENA_no_user">Someone</string>
   

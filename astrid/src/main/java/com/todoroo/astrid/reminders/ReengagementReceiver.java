@@ -22,7 +22,6 @@ import com.todoroo.andlib.service.NotificationManager.AndroidNotificationManager
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
@@ -36,8 +35,6 @@ import com.todoroo.astrid.utility.Flags;
 import org.tasks.R;
 
 public class ReengagementReceiver extends BroadcastReceiver {
-
-    @Autowired ActFmPreferenceService actFmPreferenceService;
 
     @Autowired TaskService taskService;
 

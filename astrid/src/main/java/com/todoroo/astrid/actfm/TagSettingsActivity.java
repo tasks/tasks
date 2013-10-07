@@ -38,8 +38,6 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.api.Filter;
@@ -88,10 +86,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
     @Autowired TagService tagService;
 
     @Autowired TagDataService tagDataService;
-
-    @Autowired ActFmSyncService actFmSyncService;
-
-    @Autowired ActFmPreferenceService actFmPreferenceService;
 
     @Autowired ExceptionService exceptionService;
 
@@ -421,7 +415,7 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
                         user.readFromCursor(members);
                         try {
                             JSONObject userJson = new JSONObject();
-                            ActFmSyncService.JsonHelper.jsonFromUser(userJson, user);
+                            jsonFromUser(userJson, user);
                             people.put(userJson);
                         } catch (JSONException e2) {
                             //
@@ -457,7 +451,7 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
                 if (u != null) {
                     try {
                         JSONObject owner = new JSONObject();
-                        ActFmSyncService.JsonHelper.jsonFromUser(owner, u);
+                        jsonFromUser(owner, u);
                         owner.put("owner", true);
                         people.put(owner);
                     } catch (JSONException e2) {
@@ -562,4 +556,11 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
         finish();
     }
 
+    private static void jsonFromUser(JSONObject json, User model) throws JSONException {
+        json.put("id", model.getValue(User.UUID));
+        json.put("name", model.getDisplayName());
+        json.put("email", model.getValue(User.EMAIL));
+        json.put("picture", model.getPictureUrl(User.PICTURE, RemoteModel.PICTURE_THUMB));
+        json.put("first_name", model.getValue(User.FIRST_NAME));
+    }
 }

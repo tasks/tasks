@@ -39,9 +39,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.actfm.sync.ActFmSyncService;
-import com.todoroo.astrid.actfm.sync.ActFmSyncThread.SyncMessageCallback;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -51,11 +48,8 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.AsyncImageView;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.tasks.R;
-
-import java.util.List;
 
 import edu.mit.mobile.android.imagecache.ImageCache;
 
@@ -82,9 +76,6 @@ public abstract class CommentsFragment extends SherlockListFragment {
 
     protected Resources resources;
 
-
-    @Autowired ActFmSyncService actFmSyncService;
-    @Autowired ActFmPreferenceService actFmPreferenceService;
     @Autowired UserActivityDao userActivityDao;
 
     public CommentsFragment() {
@@ -120,15 +111,7 @@ public abstract class CommentsFragment extends SherlockListFragment {
 
     protected abstract UserActivity createUpdate();
 
-    protected abstract String commentAddStatistic();
-
-    protected abstract void performFetch(boolean manual, SyncMessageCallback done);
-
     protected abstract boolean canLoadMoreHistory();
-
-    protected abstract void loadMoreHistory(int offset, SyncMessageCallback callback);
-
-    protected abstract void refetchModel();
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -286,7 +269,6 @@ public abstract class CommentsFragment extends SherlockListFragment {
                             historyCount++;
                         }
                     }
-                    loadMoreHistory(historyCount, doneRunnable);
                 }
             });
             listView.addFooterView(footerView);
@@ -299,24 +281,6 @@ public abstract class CommentsFragment extends SherlockListFragment {
     protected void setLastViewed() {
         //
     }
-
-    private final SyncMessageCallback doneRunnable = new SyncMessageCallback() {
-        @Override
-        public void runOnSuccess() {
-            synchronized (this) {
-                Activity activity = getActivity();
-                if (activity != null) {
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            refetchModel();
-                            refreshUpdatesList();
-                        }
-                    });
-                }
-            }
-        }
-    };
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

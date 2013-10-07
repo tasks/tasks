@@ -34,8 +34,6 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.backup.BackupService;
@@ -110,8 +108,6 @@ public class StartupService {
     @Autowired Database database;
 
     @Autowired GtasksPreferenceService gtasksPreferenceService;
-
-    @Autowired ActFmPreferenceService actFmPreferenceService;
 
     @Autowired GtasksSyncService gtasksSyncService;
 
@@ -200,7 +196,6 @@ public class StartupService {
         final int finalLatestVersion = latestSetVersion;
 
         initializeDatabaseListeners();
-        ActFmSyncThread.initializeSyncComponents(taskDao, tagDataDao, userActivityDao, taskAttachmentDao, taskListMetadataDao);
 
         // perform startup activities in a background thread
         new Thread(new Runnable() {
@@ -219,7 +214,6 @@ public class StartupService {
 
                 // if sync ongoing flag was set, clear it
                 gtasksPreferenceService.stopOngoing();
-                actFmPreferenceService.stopOngoing();
                 OpencrxCoreUtils.INSTANCE.stopOngoing();
 
                 // perform initialization

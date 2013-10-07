@@ -5,20 +5,15 @@ import android.database.Cursor;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import org.tasks.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
-import com.todoroo.astrid.actfm.sync.ActFmSyncThread.SyncMessageCallback;
-import com.todoroo.astrid.actfm.sync.messages.BriefMe;
-import com.todoroo.astrid.actfm.sync.messages.FetchHistory;
-import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
-import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.TaskService;
+
+import org.tasks.R;
 
 public class TaskCommentsFragment extends CommentsFragment {
 
@@ -41,13 +36,6 @@ public class TaskCommentsFragment extends CommentsFragment {
         if (task == null) {
             long taskId = intent.getLongExtra(EXTRA_TASK, 0L);
             task = taskDao.fetch(taskId, Task.PROPERTIES);
-        }
-    }
-
-    @Override
-    protected void refetchModel() {
-        if (task != null) {
-            task = taskDao.fetch(task.getId(), Task.PROPERTIES);
         }
     }
 
@@ -92,21 +80,6 @@ public class TaskCommentsFragment extends CommentsFragment {
     }
 
     @Override
-    protected void loadMoreHistory(int offset, SyncMessageCallback callback) {
-        new FetchHistory<Task>(taskDao, Task.HISTORY_FETCH_DATE, Task.HISTORY_HAS_MORE, NameMaps.TABLE_ID_TASKS,
-                task.getUuid(), task.getValue(Task.TITLE), 0, offset, callback).execute();
-    }
-
-    @Override
-    protected void performFetch(boolean manual, SyncMessageCallback done) {
-        if (task != null) {
-            ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<UserActivity>(UserActivity.class, null, task.getValue(Task.USER_ACTIVITIES_PUSHED_AT), BriefMe.TASK_ID_KEY, task.getUuid()), done);
-            new FetchHistory<Task>(taskDao, Task.HISTORY_FETCH_DATE, Task.HISTORY_HAS_MORE, NameMaps.TABLE_ID_TASKS,
-                    task.getUuid(), task.getValue(Task.TITLE), task.getValue(Task.HISTORY_FETCH_DATE), 0, done).execute();
-        }
-    }
-
-    @Override
     protected UserActivity createUpdate() {
         UserActivity update = new UserActivity();
         update.setValue(UserActivity.MESSAGE, addCommentField.getText().toString());
@@ -117,10 +90,4 @@ public class TaskCommentsFragment extends CommentsFragment {
         update.setValue(UserActivity.CREATED_AT, DateUtilities.now());
         return update;
     }
-
-    @Override
-    protected String commentAddStatistic() {
-        return StatisticsConstants.ACTFM_TASK_COMMENT;
-    }
-
 }

@@ -30,8 +30,6 @@ import com.todoroo.andlib.service.NotificationManager.AndroidNotificationManager
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -88,10 +86,6 @@ public class TagViewFragment extends TaskListFragment {
     @Autowired TagService tagService;
 
     @Autowired TagDataDao tagDataDao;
-
-    @Autowired ActFmSyncService actFmSyncService;
-
-    @Autowired ActFmPreferenceService actFmPreferenceService;
 
     @Autowired SyncV2Service syncService;
 

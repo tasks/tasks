@@ -73,7 +73,6 @@
 	<string name="DLG_cancel">Cancelar</string>
 	<string name="DLG_undo">Desfazer</string>
 	<string name="WID_dateButtonUnset">Toque para definir</string>
-	<string name="ENA_no_comments">Nada a exibir</string>
 	<string name="ENA_no_user">Alguém</string>
 	<string name="ENA_refresh_comments">Atualizar comentários</string>
 	<string name="TLA_no_items">Você não tem tarefas! \n Deseja inserir alguma?</string>

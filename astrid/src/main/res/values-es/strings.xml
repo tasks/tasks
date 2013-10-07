@@ -33,9 +33,6 @@
 	<string name="actfm_feat_list_clone_success">La operación se ha realizado correctamente.</string>
 	<string name="actfm_feat_list_task_clone_success">Tarea copiada</string>
 	<string name="actfm_feat_list_clone_empty">No hay tareas para copiar</string>
-	<string name="EPr_reset_sync_state">Reiniciar sincronización</string>
-	<string name="EPr_reset_sync_state_summary">Reinicia algunos datos locales para ayudar a resolver los problemas de sincronización</string>
-	<string name="EPr_reset_sync_state_detailed">La próxima ocasión que sincronices, tus tareas y listas serán cambiadas a un espejo que existe en Tareas.com, que podría ayudar a resolver los problemas de sincronización. Quieres continuar?</string>
 	<string name="alarm_ACS_label">Alarmas</string>
 	<string name="alarm_ACS_button">Añadir una alarma</string>
 	<string-array name="reminders_alarm">
@@ -78,7 +75,6 @@
 	<string name="DLG_cancel">Cancelar</string>
 	<string name="DLG_undo">Deshacer</string>
 	<string name="WID_dateButtonUnset">Pulsar para establecer</string>
-	<string name="ENA_no_comments">Aun sin actividad</string>
 	<string name="ENA_no_user">Alguien</string>
 	<string name="ENA_refresh_comments">Actualizar Comentarios</string>
 	<string name="TLA_no_items">No tienes tareas! \n Quieres agregar alguna?</string>

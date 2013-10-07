@@ -75,7 +75,6 @@
 	<string name="DLG_cancel">בטל</string>
 	<string name="DLG_undo">בטל פעולה אחרונה</string>
 	<string name="WID_dateButtonUnset">הקלק כדי לקבוע</string>
-	<string name="ENA_no_comments">אין פעילות עדיין</string>
 	<string name="ENA_no_user">מישהו</string>
 	<string name="ENA_refresh_comments">רַעְנֵן הערות</string>
 	<string name="TLA_no_items">אין לך משימות!\n הֲתִּרְצֶה להוסיף משימה?</string>

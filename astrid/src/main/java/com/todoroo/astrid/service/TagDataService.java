@@ -22,7 +22,6 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -32,11 +31,9 @@ import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.History;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
-import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
-import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 /**
@@ -191,28 +188,6 @@ public class TagDataService {
         Query resultQuery = activityQuery.union(historyQuery).orderBy(Order.desc("1")); //$NON-NLS-1$
 
         return userActivityDao.query(resultQuery);
-    }
-
-    public void saveFeaturedList(JSONObject featObject) throws JSONException {
-        TodorooCursor<TagData> cursor = query(Query.select(TagData.PROPERTIES).where(
-                Criterion.and(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_FEATURED).gt(0), TagData.UUID.eq(featObject.get("id")))));
-        try {
-            cursor.moveToNext();
-            TagData tagData = new TagData();
-            if (!cursor.isAfterLast()) {
-                tagData.readFromCursor(cursor);
-                if(!tagData.getValue(TagData.NAME).equals(featObject.getString("name"))) {
-                    TagService.getInstance().rename(tagData.getUuid(), featObject.getString("name"), true);
-                }
-                cursor.moveToNext();
-            }
-            ActFmSyncService.JsonHelper.featuredListFromJson(featObject, tagData);
-            tagData.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
-            save(tagData);
-
-        } finally {
-            cursor.close();
-        }
     }
 
     /**

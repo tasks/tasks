@@ -335,17 +335,10 @@
     <!-- Preference Key (do not translate) -->
     <string name="sync_SPr_key_last_error">sync_last_error</string>
     
-  <!-- ===========================================================ACTFM == -->
-  <string name="actfm_https_key">actfmHttps</string>
-    
   <!-- =========================================================== GTASKS == -->
   
     <string name="gtasks_GPr_interval_key">gtasks_sync_freq</string>
     
-  <!-- ========================================================== SHARING == -->
-  
-    <string name="actfm_APr_interval_key">actfm_sync_freq</string>
-
   <!-- ============================================================ OTHER == -->
   
     <!-- Preference Key (do not translate) -->

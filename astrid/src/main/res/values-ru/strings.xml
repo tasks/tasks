@@ -33,8 +33,6 @@
 	<string name="actfm_feat_list_clone_success">Завершено успешно!</string>
 	<string name="actfm_feat_list_task_clone_success">Задача скопирована</string>
 	<string name="actfm_feat_list_clone_empty">Нет задач для копирования</string>
-	<string name="EPr_reset_sync_state">Сброс синхронизации</string>
-	<string name="EPr_reset_sync_state_summary">Сбросьте некоторые данные, чтобы разрешить проблему синхронизации</string>
 	<string name="alarm_ACS_label">Напоминания</string>
 	<string name="alarm_ACS_button">Добавить напоминание</string>
 	<string-array name="reminders_alarm">
@@ -76,7 +74,6 @@
 	<string name="DLG_cancel">Отмена</string>
 	<string name="DLG_undo">Отмена</string>
 	<string name="WID_dateButtonUnset">Нажмите для установки</string>
-	<string name="ENA_no_comments">Нет данных для отображения</string>
 	<string name="ENA_no_user">Кто-нибудь</string>
 	<string name="ENA_refresh_comments">Обновить комментарии</string>
 	<string name="TLA_no_items">Нет задач! \n Добавить?</string>

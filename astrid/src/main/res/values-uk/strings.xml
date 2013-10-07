@@ -33,9 +33,6 @@
 	<string name="actfm_feat_list_clone_success">Успішно!</string>
 	<string name="actfm_feat_list_task_clone_success">Завдання скопійовано!</string>
 	<string name="actfm_feat_list_clone_empty">Жодного завдання для копіювання</string>
-	<string name="EPr_reset_sync_state">Скинути синхронізацію</string>
-	<string name="EPr_reset_sync_state_summary">Скидання деяких локальних даних, щоб допомогти вирішити помилоки синхронізації</string>
-	<string name="EPr_reset_sync_state_detailed">Наступного разу при синхронізації ваших завдань і списків буде змінена, щоб відобразити те, що існує на Tasks.com, які можуть допомогти вирішити помилки синхронізації. Ви хочете продовжити?</string>
 	<string name="alarm_ACS_label">Сигнали</string>
 	<string name="alarm_ACS_button">Додати сигнал</string>
 	<string-array name="reminders_alarm">
@@ -81,7 +78,6 @@
 	<string name="DLG_cancel">Відміна</string>
 	<string name="DLG_undo">Відмінити</string>
 	<string name="WID_dateButtonUnset">Натисніть для установки</string>
-	<string name="ENA_no_comments">Активність поки відсутня</string>
 	<string name="ENA_no_user">Хтось</string>
 	<string name="ENA_refresh_comments">Оновити коментарі</string>
 	<string name="TLA_no_items">У Вас немає завдань! \n Бажаєте щось додати?</string>

@@ -75,7 +75,6 @@
 	<string name="DLG_cancel">Cancel·la</string>
 	<string name="DLG_undo">Desfés</string>
 	<string name="WID_dateButtonUnset">Prem per establir</string>
-	<string name="ENA_no_comments">Encara no hi ha activitat</string>
 	<string name="ENA_no_user">Algú</string>
 	<string name="ENA_refresh_comments">Actualitza els comentaris</string>
 	<string name="TLA_no_items">No teniu tasques! \n Voleu afegir alguna cosa?</string>

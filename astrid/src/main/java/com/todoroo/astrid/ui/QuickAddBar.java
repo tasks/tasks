@@ -38,7 +38,6 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListFragment;
@@ -83,7 +82,6 @@ public class QuickAddBar extends LinearLayout {
     @Autowired AddOnService addOnService;
     @Autowired ExceptionService exceptionService;
     @Autowired MetadataService metadataService;
-    @Autowired ActFmPreferenceService actFmPreferenceService;
     @Autowired
     private TaskAttachmentDao taskAttachmentDao;
 

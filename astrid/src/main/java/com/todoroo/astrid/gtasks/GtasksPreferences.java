@@ -5,23 +5,15 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
-import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider.GtasksImportCallback;
-import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider.GtasksImportTuple;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
-import com.todoroo.astrid.sync.SyncResultCallbackAdapter;
 import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.R;
@@ -36,7 +28,6 @@ import org.tasks.R;
 public class GtasksPreferences extends SyncProviderPreferences {
 
     @Autowired private GtasksPreferenceService gtasksPreferenceService;
-    @Autowired private ActFmPreferenceService actFmPreferenceService;
     @Autowired private TagService tagService;
 
     public GtasksPreferences() {

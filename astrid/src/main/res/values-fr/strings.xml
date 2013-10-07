@@ -32,9 +32,6 @@
 	<string name="actfm_feat_list_clone_success">Opération réussie !</string>
 	<string name="actfm_feat_list_task_clone_success">Tâche copiée</string>
 	<string name="actfm_feat_list_clone_empty">Aucune tâche à copier</string>
-	<string name="EPr_reset_sync_state">Réinitialiser la synchronisation</string>
-	<string name="EPr_reset_sync_state_summary">Réinitialiser certaines données locales pour aider à la résolution de problème de synchronisation</string>
-	<string name="EPr_reset_sync_state_detailed">A la prochaine synchronisation, vos tâches et listes seront modifiées pour refléter ce qui existe sur Tasks.com, ce qui pourrait aider à résoudre des erreurs de synchronisation. Voulez-vous continuer?</string>
 	<string name="alarm_ACS_label">Alarmes</string>
 	<string name="alarm_ACS_button">Ajouter une alarme</string>
 	<string-array name="reminders_alarm">
@@ -75,7 +72,6 @@
 	<string name="DLG_cancel">Annuler</string>
 	<string name="DLG_undo">Annuler Action</string>
 	<string name="WID_dateButtonUnset">Cliquez pour définir</string>
-	<string name="ENA_no_comments">Rien à afficher</string>
 	<string name="ENA_no_user">Quelqu\'un</string>
 	<string name="ENA_refresh_comments">Mettre à jour les commentaires</string>
 	<string name="TLA_no_items">Aucune tâche ! n Voulez vous en créer une ?</string>

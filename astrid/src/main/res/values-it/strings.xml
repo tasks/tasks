@@ -73,7 +73,6 @@
 	<string name="DLG_cancel">Annulla</string>
 	<string name="DLG_undo">Annulla l\'ultima azione</string>
 	<string name="WID_dateButtonUnset">Clicca per Impostare</string>
-	<string name="ENA_no_comments">Nessuna attività</string>
 	<string name="ENA_no_user">Qualcuno</string>
 	<string name="ENA_refresh_comments">Aggiorna i commenti</string>
 	<string name="TLA_no_items">Nessuna Attività!</string>

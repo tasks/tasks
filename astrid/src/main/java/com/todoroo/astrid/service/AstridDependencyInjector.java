@@ -10,9 +10,6 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService.AndroidLogReporter;
 import com.todoroo.andlib.service.ExceptionService.ErrorReporter;
 import com.todoroo.andlib.service.HttpRestClient;
-import com.todoroo.astrid.actfm.sync.ActFmInvoker;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.HistoryDao;
 import com.todoroo.astrid.dao.MetadataDao;
@@ -93,11 +90,6 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
         injectables.put("upgradeService", UpgradeService.class);
         injectables.put("addOnService", AddOnService.class);
         injectables.put("syncService", SyncV2Service.class);
-
-        // com.todoroo.astrid.sharing
-        injectables.put("actFmPreferenceService", ActFmPreferenceService.class);
-        injectables.put("actFmInvoker", ActFmInvoker.class);
-        injectables.put("actFmSyncService", ActFmSyncService.class);
 
         // com.todoroo.astrid.gtasks
         injectables.put("gtasksPreferenceService", GtasksPreferenceService.class);

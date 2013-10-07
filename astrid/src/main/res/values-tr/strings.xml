@@ -72,7 +72,6 @@
 	<string name="DLG_cancel">Vazgeç</string>
 	<string name="DLG_undo">Geri al</string>
 	<string name="WID_dateButtonUnset">Ayar İçin Dokun</string>
-	<string name="ENA_no_comments">Gösterecek öğe yok</string>
 	<string name="ENA_no_user">Herhangi biri</string>
 	<string name="ENA_refresh_comments">Yorumları Yenile</string>
 	<string name="TLA_no_items">Hiç göreviniz yok! \n Bir şeyler eklemek nasıl olur?</string>

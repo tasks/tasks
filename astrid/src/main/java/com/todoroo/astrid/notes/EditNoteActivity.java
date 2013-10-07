@@ -42,12 +42,6 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmCameraModule;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.actfm.sync.ActFmSyncService;
-import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
-import com.todoroo.astrid.actfm.sync.ActFmSyncThread.SyncMessageCallback;
-import com.todoroo.astrid.actfm.sync.messages.BriefMe;
-import com.todoroo.astrid.actfm.sync.messages.FetchHistory;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
@@ -60,7 +54,6 @@ import com.todoroo.astrid.data.History;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.AsyncImageView;
@@ -88,8 +81,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     private Task task;
 
-    @Autowired ActFmSyncService actFmSyncService;
-    @Autowired ActFmPreferenceService actFmPreferenceService;
     @Autowired MetadataService metadataService;
     @Autowired UserActivityDao userActivityDao;
     @Autowired TaskService taskService;
@@ -117,31 +108,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     private final int color;
     private final int grayColor;
-
-    private final SyncMessageCallback callback = new SyncMessageCallback() {
-        @Override
-        public void runOnSuccess() {
-            synchronized(this) {
-                if (activity != null) {
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (task == null) {
-                                return;
-                            }
-                            fetchTask(task.getId());
-                            if (task == null) {
-                                return;
-                            }
-                            setUpListAdapter();
-                            loadingText.setText(R.string.ENA_no_comments);
-                            loadingText.setVisibility(items.size() == 0 ? View.VISIBLE : View.GONE);
-                        }
-                    });
-                }
-            }
-        }
-    };
 
     private static boolean respondToPicture = false;
 
@@ -392,8 +358,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                     commentItems += 10;
                     setUpListAdapter();
                     if (task.getValue(Task.HISTORY_HAS_MORE) > 0) {
-                        new FetchHistory<Task>(taskDao, Task.HISTORY_FETCH_DATE, Task.HISTORY_HAS_MORE, NameMaps.TABLE_ID_TASKS,
-                                task.getUuid(), task.getValue(Task.TITLE), 0, historyCount, callback).execute();
                     }
                 }
             });
@@ -459,26 +423,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         if(!task.containsNonNullValue(Task.UUID)) {
             return;
         }
-
-        ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<UserActivity>(UserActivity.class, null, task.getValue(Task.USER_ACTIVITIES_PUSHED_AT), BriefMe.TASK_ID_KEY, task.getUuid()), callback);
-        ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TaskAttachment>(TaskAttachment.class, null, task.getValue(Task.ATTACHMENTS_PUSHED_AT), BriefMe.TASK_ID_KEY, task.getUuid()), new SyncMessageCallback() {
-            @Override
-            public void runOnSuccess() {
-                if (activity != null) {
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            TaskEditFragment tef = activity.getTaskEditFragment();
-                            if (tef != null) {
-                                tef.refreshFilesDisplay();
-                            }
-                        }
-                    });
-                }
-            }
-        });
-        new FetchHistory<Task>(taskDao, Task.HISTORY_FETCH_DATE, Task.HISTORY_HAS_MORE, NameMaps.TABLE_ID_TASKS,
-                task.getUuid(), task.getValue(Task.TITLE), task.getValue(Task.HISTORY_FETCH_DATE), 0, callback).execute();
     }
 
     private void addComment() {

@@ -15,16 +15,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.tasks.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
-import com.todoroo.astrid.actfm.sync.ActFmSyncThread.SyncMessageCallback;
-import com.todoroo.astrid.actfm.sync.messages.BriefMe;
-import com.todoroo.astrid.actfm.sync.messages.FetchHistory;
-import com.todoroo.astrid.actfm.sync.messages.NameMaps;
-import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.RemoteModel;
@@ -32,11 +25,12 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.AsyncImageView;
-import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.ResourceDrawableCache;
+
+import org.tasks.R;
 
 public class TagCommentsFragment extends CommentsFragment {
 
@@ -78,13 +72,6 @@ public class TagCommentsFragment extends CommentsFragment {
     }
 
     @Override
-    protected void refetchModel() {
-        if (tagData != null) {
-            tagData = tagDataService.fetchById(tagData.getId(), TagData.PROPERTIES);
-        }
-    }
-
-    @Override
     protected String getModelName() {
         return tagData.getValue(TagData.NAME);
     }
@@ -102,12 +89,6 @@ public class TagCommentsFragment extends CommentsFragment {
     @Override
     protected boolean canLoadMoreHistory() {
         return hasModel() && tagData.getValue(TagData.HISTORY_HAS_MORE) > 0;
-    }
-
-    @Override
-    protected void loadMoreHistory(int offset, SyncMessageCallback callback) {
-        new FetchHistory<TagData>(tagDataDao, TagData.HISTORY_FETCH_DATE, TagData.HISTORY_HAS_MORE, NameMaps.TABLE_ID_TAGS,
-                tagData.getUuid(), null, 0, offset, callback).execute();
     }
 
     @Override
@@ -153,15 +134,6 @@ public class TagCommentsFragment extends CommentsFragment {
     }
 
     @Override
-    protected void performFetch(boolean manual, SyncMessageCallback done) {
-        if (tagData != null) {
-            ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<UserActivity>(UserActivity.class, null, tagData.getValue(TagData.USER_ACTIVITIES_PUSHED_AT), BriefMe.TAG_ID_KEY, tagData.getUuid()), done);
-            new FetchHistory<TagData>(tagDataDao, TagData.HISTORY_FETCH_DATE, TagData.HISTORY_HAS_MORE, NameMaps.TABLE_ID_TAGS,
-                    tagData.getUuid(), null, tagData.getValue(TagData.HISTORY_FETCH_DATE), 0, done).execute();
-        }
-    }
-
-    @Override
     protected UserActivity createUpdate() {
         UserActivity userActivity = new UserActivity();
         userActivity.setValue(UserActivity.MESSAGE, addCommentField.getText().toString());
@@ -171,11 +143,6 @@ public class TagCommentsFragment extends CommentsFragment {
         userActivity.setValue(UserActivity.TARGET_NAME, tagData.getValue(TagData.NAME));
         userActivity.setValue(UserActivity.CREATED_AT, DateUtilities.now());
         return userActivity;
-    }
-
-    @Override
-    protected String commentAddStatistic() {
-        return StatisticsConstants.ACTFM_TAG_COMMENT;
     }
 
     @Override

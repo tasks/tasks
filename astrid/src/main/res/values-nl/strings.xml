@@ -33,9 +33,6 @@
 	<string name="actfm_feat_list_clone_success">Succes!</string>
 	<string name="actfm_feat_list_task_clone_success">Taak gekopiéerd.</string>
 	<string name="actfm_feat_list_clone_empty">Geen taken om te kopiéren</string>
-	<string name="EPr_reset_sync_state">Synchronisatie herstellen</string>
-	<string name="EPr_reset_sync_state_summary">Reset sommige lokale data om synchronisatie te proberen te herstellen</string>
-	<string name="EPr_reset_sync_state_detailed">De volgende keer dat je synchroniseert, zullen je taken en lijsten veranderen in overeenstemming met de data die aanwezig is Tasks.com, wat synchronisatie fouten kan herstellen. Wil je doorgaan?</string>
 	<string name="alarm_ACS_label">Herinneringen</string>
 	<string name="alarm_ACS_button">Voeg Herinnering toe</string>
 	<string-array name="reminders_alarm">
@@ -76,7 +73,6 @@
 	<string name="DLG_cancel">Annuleren</string>
 	<string name="DLG_undo">Ongedaan Maken</string>
 	<string name="WID_dateButtonUnset">Klikken om in te stellen</string>
-	<string name="ENA_no_comments">Niets om weer te geven</string>
 	<string name="ENA_no_user">Iemand</string>
 	<string name="ENA_refresh_comments">Opmerkingen vernieuwen</string>
 	<string name="TLA_no_items">U heeft geen taken! \n Taak toevoegen?</string>

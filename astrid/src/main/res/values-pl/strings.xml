@@ -33,9 +33,6 @@
 	<string name="actfm_feat_list_clone_success">Zakończono pomyślnie!</string>
 	<string name="actfm_feat_list_task_clone_success">Zadanie skopiowane</string>
 	<string name="actfm_feat_list_clone_empty">Brak zadań do skopiowania</string>
-	<string name="EPr_reset_sync_state">Resetuj synchronizację</string>
-	<string name="EPr_reset_sync_state_summary">Zresetuj lokalne dane aby naprawić błędy sychronizacji</string>
-	<string name="EPr_reset_sync_state_detailed">Podczas następnej synchronizacji Twoje zadania zostaną zamienione na kopię, która znajduje się na Tasks.com, co może pomóc rozwiązać błędy synchronizacji. Czy chcesz kontynuować?</string>
 	<string name="alarm_ACS_label">Alarmy</string>
 	<string name="alarm_ACS_button">Dodaj alarm</string>
 	<string name="backup_BPr_header">Kopie zapasowe</string>
@@ -74,7 +71,6 @@
 	<string name="DLG_cancel">Anuluj</string>
 	<string name="DLG_undo">Cofnij</string>
 	<string name="WID_dateButtonUnset">Kliknij, aby ustawić</string>
-	<string name="ENA_no_comments">Nic do pokazania</string>
 	<string name="ENA_no_user">Ktoś</string>
 	<string name="ENA_refresh_comments">Odśwież komentarze</string>
 	<string name="TLA_no_items">Brak zadań!</string>

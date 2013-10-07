@@ -9,19 +9,10 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.dao.HistoryDao;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.dao.TagMetadataDao;
-import com.todoroo.astrid.dao.TagOutstandingDao;
-import com.todoroo.astrid.dao.TaskAttachmentDao;
-import com.todoroo.astrid.dao.TaskAttachmentOutstandingDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
-import com.todoroo.astrid.dao.TaskListMetadataOutstandingDao;
-import com.todoroo.astrid.dao.TaskOutstandingDao;
-import com.todoroo.astrid.dao.UserActivityDao;
-import com.todoroo.astrid.dao.UserActivityOutstandingDao;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
@@ -53,9 +44,6 @@ public final class PluginServices {
     MetadataService metadataService;
 
     @Autowired
-    TagMetadataDao tagMetadataDao;
-
-    @Autowired
     TagDataService tagDataService;
 
     @Autowired
@@ -68,31 +56,7 @@ public final class PluginServices {
     UserDao userDao;
 
     @Autowired
-    UserActivityDao userActivityDao;
-
-    @Autowired
-    UserActivityOutstandingDao userActivityOutstandingDao;
-
-    @Autowired
-    TaskOutstandingDao taskOutstandingDao;
-
-    @Autowired
-    TagOutstandingDao tagOutstandingDao;
-
-    @Autowired
-    HistoryDao historyDao;
-
-    @Autowired
-    TaskAttachmentDao taskAttachmentDao;
-
-    @Autowired
-    TaskAttachmentOutstandingDao taskAttachmentOutstandingDao;
-
-    @Autowired
     TaskListMetadataDao taskListMetadataDao;
-
-    @Autowired
-    TaskListMetadataOutstandingDao taskListMetadataOutstandingDao;
 
     @Autowired
     GtasksPreferenceService gtasksPreferenceService;
@@ -140,26 +104,6 @@ public final class PluginServices {
         return getInstance().tagDataDao;
     }
 
-    public static UserActivityDao getUserActivityDao() {
-        return getInstance().userActivityDao;
-    }
-
-    public static TagMetadataDao getTagMetadataDao() {
-        return getInstance().tagMetadataDao;
-    }
-
-    public static TaskOutstandingDao getTaskOutstandingDao() {
-        return getInstance().taskOutstandingDao;
-    }
-
-    public static TagOutstandingDao getTagOutstandingDao() {
-        return getInstance().tagOutstandingDao;
-    }
-
-    public static UserActivityOutstandingDao getUserActivityOutstandingDao() {
-        return getInstance().userActivityOutstandingDao;
-    }
-
     public static ExceptionService getExceptionService() {
         return getInstance().exceptionService;
     }
@@ -177,24 +121,8 @@ public final class PluginServices {
         return getInstance().userDao;
     }
 
-    public static HistoryDao getHistoryDao() {
-        return getInstance().historyDao;
-    }
-
-    public static TaskAttachmentDao getTaskAttachmentDao() {
-        return getInstance().taskAttachmentDao;
-    }
-
-    public static TaskAttachmentOutstandingDao getTaskAttachmentOutstandingDao() {
-        return getInstance().taskAttachmentOutstandingDao;
-    }
-
     public static TaskListMetadataDao getTaskListMetadataDao() {
         return getInstance().taskListMetadataDao;
-    }
-
-    public static TaskListMetadataOutstandingDao getTaskListMetadataOutstandingDao() {
-        return getInstance().taskListMetadataOutstandingDao;
     }
 
     public static GtasksPreferenceService getGtasksPreferenceService() {

@@ -33,9 +33,6 @@
 	<string name="actfm_feat_list_clone_success">성공!</string>
 	<string name="actfm_feat_list_task_clone_success">일정 복사 완료</string>
 	<string name="actfm_feat_list_clone_empty">복사할 일정 없음</string>
-	<string name="EPr_reset_sync_state">동기화 초기화</string>
-	<string name="EPr_reset_sync_state_summary">동기화 에러를 해결하기 위해 몇가지 로컬 자료를 초기화합니다</string>
-	<string name="EPr_reset_sync_state_detailed">동기화 에러를 해결하기 위해, 다음 동기화 때 당신의 일정과 목록은 Tasks.com 상에 존재하는 미러로 변경될 것입니다. 계속하시겠습니까?</string>
 	<string name="alarm_ACS_label">알람</string>
 	<string name="alarm_ACS_button">알람 추가</string>
 	<string-array name="reminders_alarm">
@@ -81,7 +78,6 @@
 	<string name="DLG_cancel">취소</string>
 	<string name="DLG_undo">실행 취소</string>
 	<string name="WID_dateButtonUnset">누르세요</string>
-	<string name="ENA_no_comments">아직 활동내역이 없음</string>
 	<string name="ENA_no_user">누군가</string>
 	<string name="ENA_refresh_comments">댓글 새로고침</string>
 	<string name="TLA_no_items">일정이 없네요!\n추가할까요?</string>

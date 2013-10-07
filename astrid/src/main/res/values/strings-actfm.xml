@@ -86,14 +86,6 @@
   <string name="actfm_feat_list_task_clone_success">Task copied</string>
 
   <string name="actfm_feat_list_clone_empty">No tasks to copy</string>
-  
-  <!-- ================================================ Synchronization == -->
-      
-  <!-- Sync upgrade messages -->
-  
-  <string name="EPr_reset_sync_state">Reset sync</string>
-  <string name="EPr_reset_sync_state_summary">Resets some local data to help resolve sync errors</string>
-  <string name="EPr_reset_sync_state_detailed">The next time you sync, your tasks and lists will be changed to mirror what exists on Tasks.com, which may help resolve sync errors. Do you wish to continue?</string>
-  
+
 </resources>
 

@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.backup;
 
-import java.util.Date;
-
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,15 +13,16 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.view.View;
 import android.view.ViewGroup.OnHierarchyChangeListener;
 
-import org.tasks.R;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.utility.Flags;
+
+import org.tasks.R;
+
+import java.util.Date;
 
 /**
  * Displays synchronization preferences and an action panel so users can
@@ -40,9 +38,6 @@ public class BackupPreferences extends TodorooPreferenceActivity {
     static final String PREF_BACKUP_LAST_ERROR = "backupError"; //$NON-NLS-1$
 
     private int statusColor = Color.BLACK;
-
-    @Autowired
-    private ActFmPreferenceService actFmPreferenceService;
 
     @Override
     public int getPreferenceResource() {
@@ -92,11 +87,6 @@ public class BackupPreferences extends TodorooPreferenceActivity {
         BackupService.scheduleService(this);
     }
 
-    /**
-     *
-     * @param resource
-     *            if null, updates all resources
-     */
     @Override
     public void updatePreferences(Preference preference, Object value) {
         final Resources r = getResources();

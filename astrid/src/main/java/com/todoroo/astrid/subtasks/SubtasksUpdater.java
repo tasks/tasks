@@ -7,7 +7,6 @@ package com.todoroo.astrid.subtasks;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
@@ -18,7 +17,6 @@ public abstract class SubtasksUpdater<T> extends AstridOrderedListUpdater<T> {
 
     @Autowired TaskListMetadataDao taskListMetadataDao;
     @Autowired TaskService taskService;
-    @Autowired ActFmSyncService actFmSyncService;
 
     public static final String ACTIVE_TASKS_ORDER = "active_tasks_order"; //$NON-NLS-1$
     public static final String TODAY_TASKS_ORDER = "today_tasks_order"; //$NON-NLS-1$
