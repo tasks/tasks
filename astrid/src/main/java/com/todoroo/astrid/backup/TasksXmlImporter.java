@@ -314,13 +314,14 @@ public class TasksXmlImporter {
                 String key = metadata.getValue(Metadata.KEY);
                 String name = metadata.getValue(Metadata.VALUE1);
                 String uuid = metadata.getValue(Metadata.VALUE2);
+                long deletionDate = metadata.getValue(Metadata.DELETION_DATE);
                 // UUID is uniquely for every TagData, so we don't need to test the name
                 TodorooCursor<TagData> cursor = tagdataService.query(Query.select(TagData.ID).
                         where(TagData.UUID.eq(uuid)));
                 try {
                     //If you sync with Google tasks it adds some Google task metadata.
                     //For this metadata we don't create a list!
-                    if(key.equals(TaskToTagMetadata.KEY) && cursor.getCount() == 0) {
+                    if(key.equals(TaskToTagMetadata.KEY) && cursor.getCount() == 0 && deletionDate == 0) {
                         tagdata.clear();
                         tagdata.setId(TagData.NO_ID);
                         tagdata.setUuid(uuid);
