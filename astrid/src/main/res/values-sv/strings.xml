@@ -9,10 +9,6 @@
 	<string name="actfm_picture_camera">Ta en bild</string>
 	<string name="actfm_picture_gallery">Välj från galleri</string>
 	<string name="actfm_picture_clear">Rensa bild</string>
-	<string name="actfm_view_task_title">Visa uppgift?</string>
-	<string name="actfm_view_task_text">Uppgiften skickad till %s! Dina egna uppgifter visas. Vill du visa denna och andra uppgifter du har tilldelat?</string>
-	<string name="actfm_view_task_ok">Visa tilldelade</string>
-	<string name="actfm_view_task_cancel">Stanna här</string>
 	<string name="TVA_add_comment">Lägg till en kommentar...</string>
 	<string name="actfm_TVA_menu_refresh">Uppdatera</string>
 	<string name="actfm_TVA_tag_label">Lista</string>
@@ -22,10 +18,6 @@
 	<string name="actfm_TVA_tag_settings_label">Inställningar</string>
 	<string name="actfm_TVA_tag_description_hint">Skriv en beskrivning här</string>
 	<string name="actfm_TVA_tag_name_hint">Ange listnamn</string>
-	<string name="actfm_EPA_add_person_to_list_title">Uppgift tilldelad</string>
-	<string name="actfm_EPA_add_person_to_list">%1$s är inte delad på denna lista. Vill du lägga till %2$s på denna lista?</string>
-	<string name="actfm_EPA_add_person_to_list_ok">Lägg till på lista</string>
-	<string name="actfm_EPA_add_person_to_list_cancel">Lägg inte till</string>
 	<string name="actfm_GAA_title">Välj vilket Googlekonto du vill använda:</string>
 	<string name="actfm_feat_list_clone">Kopiera lista</string>
 	<string name="actfm_feat_list_suffix">(Kopiera)</string>

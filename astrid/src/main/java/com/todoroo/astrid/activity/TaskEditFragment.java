@@ -167,17 +167,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     // --- result codes
 
-    public static final int RESULT_CODE_SAVED = Activity.RESULT_FIRST_USER;
-    public static final int RESULT_CODE_DISCARDED = Activity.RESULT_FIRST_USER + 1;
-    public static final int RESULT_CODE_DELETED = Activity.RESULT_FIRST_USER + 2;
-
     public static final String OVERRIDE_FINISH_ANIM = "finishAnim"; //$NON-NLS-1$
 
-    public static final String TOKEN_TASK_WAS_ASSIGNED = "task_assigned"; //$NON-NLS-1$
-
-    public static final String TOKEN_ASSIGNED_TO_DISPLAY = "task_assigned_to_display"; //$NON-NLS-1$
-    public static final String TOKEN_ASSIGNED_TO_EMAIL = "task_assigned_to_email"; //$NON-NLS-1$
-    public static final String TOKEN_ASSIGNED_TO_ID = "task_assigned_to_id"; //$NON-NLS-1$
     public static final String TOKEN_TAGS_CHANGED = "tags_changed";  //$NON-NLS-1$
     public static final String TOKEN_NEW_REPEATING_TASK = "new_repeating"; //$NON-NLS-1$
 

@@ -9,10 +9,6 @@
 	<string name="actfm_picture_camera">Resim Çek</string>
 	<string name="actfm_picture_gallery">Galeriden Seç</string>
 	<string name="actfm_picture_clear">Resmi sil</string>
-	<string name="actfm_view_task_title">Görevi görüntüle?</string>
-	<string name="actfm_view_task_text">Görev gönderildi: %s! Şu anda kendi görevlerinizi görüntülüyorsunuz. Bunu ve diğer atanmış olduğunuz görevleri görmek istiyor musunuz?</string>
-	<string name="actfm_view_task_ok">Atananları Göster</string>
-	<string name="actfm_view_task_cancel">Burada Kal</string>
 	<string name="TVA_add_comment">Yorum Gir</string>
 	<string name="actfm_TVA_menu_refresh">Yenile</string>
 	<string name="actfm_TVA_tag_label">Liste İsmi:</string>
@@ -22,10 +18,6 @@
 	<string name="actfm_TVA_tag_settings_label">Ayarlar</string>
 	<string name="actfm_TVA_tag_description_hint">Bir açıklama yazın</string>
 	<string name="actfm_TVA_tag_name_hint">Liste adı girin</string>
-	<string name="actfm_EPA_add_person_to_list_title">Görev atandı</string>
-	<string name="actfm_EPA_add_person_to_list">%1$s bu listede paylaşılmadı. %2$s bu listeye eklensin mi?</string>
-	<string name="actfm_EPA_add_person_to_list_ok">Listeye ekle</string>
-	<string name="actfm_EPA_add_person_to_list_cancel">Ekleme</string>
 	<string name="actfm_GAA_title">Kullanmak istediğiniz Google hesabını seçin:</string>
 	<string name="actfm_feat_list_clone">Listeyi kopyala</string>
 	<string name="actfm_feat_list_suffix">(Kopyala)</string>

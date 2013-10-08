@@ -9,10 +9,6 @@
 	<string name="actfm_picture_camera">Prendre une photo</string>
 	<string name="actfm_picture_gallery">Choisir depuis la galerie</string>
 	<string name="actfm_picture_clear">Supprimer l\'image</string>
-	<string name="actfm_view_task_title">Voir la tâche ?</string>
-	<string name="actfm_view_task_text">La tâche a été envoyée à %s ! Vous voyez actuellement vos propres tâches. Voulez-vous également voir celle-ci et les autres tâches que vous avez envoyées ?</string>
-	<string name="actfm_view_task_ok">Voir les tâches attribués</string>
-	<string name="actfm_view_task_cancel">Rester ici</string>
 	<string name="TVA_add_comment">Ajouter un commentaire</string>
 	<string name="actfm_TVA_menu_refresh">Mettre à jour</string>
 	<string name="actfm_TVA_tag_label">Nom de la liste :</string>
@@ -21,10 +17,6 @@
 	<string name="actfm_TVA_tag_settings_label">Paramètres</string>
 	<string name="actfm_TVA_tag_description_hint">Entrez une description ici</string>
 	<string name="actfm_TVA_tag_name_hint">Entrez un nom de liste</string>
-	<string name="actfm_EPA_add_person_to_list_title">Tâche assignée</string>
-	<string name="actfm_EPA_add_person_to_list">%1$s n\'est pas partagé dans cette liste. Souhaitez-vous ajouter %2$s à cette liste ? </string>
-	<string name="actfm_EPA_add_person_to_list_ok">Ajouter à la liste</string>
-	<string name="actfm_EPA_add_person_to_list_cancel">Ne pas ajouter</string>
 	<string name="actfm_GAA_title">Sélectionnez le compte Google que vous voulez utiliser :</string>
 	<string name="actfm_feat_list_clone">Copier la liste</string>
 	<string name="actfm_feat_list_suffix">(Copier)</string>

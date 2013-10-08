@@ -9,12 +9,10 @@ import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
@@ -28,11 +26,8 @@ import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.CommentsFragment;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
@@ -43,9 +38,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.CoreFilterExposer;
-import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.core.PluginServices;
-import com.todoroo.astrid.dao.TagMetadataDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
@@ -63,14 +56,9 @@ import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.tasks.R;
 
 public class TaskListActivity extends AstridActivity implements MainMenuListener, OnPageChangeListener {
-
-    public static final String TOKEN_SELECTED_FILTER = "selectedFilter"; //$NON-NLS-1$
 
     /** token for indicating source of TLA launch */
     public static final String TOKEN_SOURCE = "source"; //$NON-NLS-1$
@@ -89,15 +77,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     public static final int FILTER_MODE_NORMAL = 0;
     public static final int FILTER_MODE_FEATURED = 2;
 
-    public static final int REQUEST_CODE_RESTART = 10;
-
-    @Autowired private TagMetadataDao tagMetadataDao;
-
     private View listsNav;
     private ImageView listsNavDisclosure;
     private TextView lists;
     private ImageView mainMenu;
-    private TextView personStatus;
     private int filterMode;
     private FilterModeSpec filterModeSpec;
 
@@ -127,13 +110,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         }
     };
 
-    private final OnClickListener friendStatusClickListener = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            TaskListFragment tlf = getTaskListFragment();
-        }
-    };
-
     /**
      * @see android.app.Activity#onCreate(Bundle)
      */
@@ -141,7 +117,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     protected void onCreate(Bundle savedInstanceState) {
         ThemeService.applyTheme(this);
         super.onCreate(savedInstanceState);
-        DependencyInjectionService.getInstance().inject(this);
 
         int contentView = getContentView();
         if (contentView == R.layout.task_list_wrapper_activity) {
@@ -158,12 +133,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         listsNavDisclosure = (ImageView) actionBar.getCustomView().findViewById(R.id.list_disclosure_arrow);
         lists = (TextView) actionBar.getCustomView().findViewById(R.id.list_title);
         mainMenu = (ImageView) actionBar.getCustomView().findViewById(R.id.main_menu);
-        personStatus = (TextView) actionBar.getCustomView().findViewById(R.id.person_image);
 
         initializeFragments(actionBar);
         createMainMenuPopover();
         mainMenu.setOnClickListener(mainMenuClickListener);
-        personStatus.setOnClickListener(friendStatusClickListener);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -304,10 +277,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         LayoutTransition transition = new LayoutTransition();
         ViewGroup container = (ViewGroup) findViewById(R.id.right_column);
         container.setLayoutTransition(transition);
-    }
-
-    protected Class<? extends FilterListFragment> getFilterListClass() {
-        return FilterListFragment.class;
     }
 
     private void createListsPopover() {
@@ -497,10 +466,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         lists.setText(item.title);
     }
 
-    public TaskListFragmentPagerAdapter getFragmentPagerAdapter() {
-        return tlfPagerAdapter;
-    }
-
     @Override
     public void onPageSelected(int position) {
         if (tlfPagerAdapter != null) {
@@ -576,12 +541,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             TaskListFragment tlf = getTaskListFragment();
             if (tlf != null) {
                 if (data != null) {
-                    if (data.getBooleanExtra(TaskEditFragment.TOKEN_TASK_WAS_ASSIGNED, false)) {
-                        String assignedTo = data.getStringExtra(TaskEditFragment.TOKEN_ASSIGNED_TO_DISPLAY);
-                        String assignedEmail = data.getStringExtra(TaskEditFragment.TOKEN_ASSIGNED_TO_EMAIL);
-                        String assignedId = data.getStringExtra(TaskEditFragment.TOKEN_ASSIGNED_TO_ID);
-                        taskAssignedTo(assignedTo, assignedEmail, assignedId);
-                    } else if (data.getParcelableExtra(TaskEditFragment.TOKEN_NEW_REPEATING_TASK) != null) {
+                    if (data.getParcelableExtra(TaskEditFragment.TOKEN_NEW_REPEATING_TASK) != null) {
                         Task repeating = data.getParcelableExtra(TaskEditFragment.TOKEN_NEW_REPEATING_TASK);
                         DateChangedAlerts.showRepeatChangedDialog(this, repeating);
                     }
@@ -661,91 +621,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         TaskListFragment tlf = getTaskListFragment();
         if (tlf != null) {
             tlf.refresh();
-        }
-    }
-
-    public void taskAssignedTo(final String assignedDisplay, String assignedEmail, final String assignedId) {
-        final TaskListFragment tlf = getTaskListFragment();
-        if (tlf != null && tlf.isInbox()) {
-            DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Filter assignedFilter = CustomFilterExposer.getAssignedByMeFilter(getResources());
-                    onFilterItemClicked(assignedFilter);
-                }
-            };
-            DialogUtilities.okCancelCustomDialog(this,
-                    getString(R.string.actfm_view_task_title),
-                    getString(R.string.actfm_view_task_text, assignedDisplay),
-                    R.string.actfm_view_task_ok, R.string.actfm_view_task_cancel,
-                    0, okListener, null);
-        } else if (tlf != null && (!TextUtils.isEmpty(assignedEmail) || Task.isRealUserId(assignedId))) {
-            checkAddTagMember(tlf, assignedDisplay, assignedEmail, assignedId);
-        }
-    }
-
-    private void checkAddTagMember(final TaskListFragment tlf, final String assignedDisplay, String assignedEmail, final String assignedId) {
-        final TagData td = tlf.getActiveTagData();
-        if (td != null) {
-            String members = td.getValue(TagData.MEMBERS);
-
-            boolean memberFound = false;
-            if (TextUtils.isEmpty(members)) {
-                memberFound = td.getValue(TagData.USER_ID).equals(assignedId) || tagMetadataDao.memberOfTagData(assignedEmail, td.getUuid(), assignedId);
-            } else {
-                JSONObject user = new JSONObject();
-                JSONArray membersArray = null;
-                try {
-                    if (!TextUtils.isEmpty(assignedEmail)) {
-                        user.put("email", assignedEmail); //$NON-NLS-1$
-                    }
-                    if (Task.isRealUserId(assignedId)) {
-                        user.put("id", assignedId); //$NON-NLS-1$
-                    }
-                    membersArray = new JSONArray(members);
-
-                    for (int i = 0; i < membersArray.length(); i++) {
-                        JSONObject member = membersArray.getJSONObject(i);
-                        String memberId = Long.toString(member.optLong("id", -3)); //$NON-NLS-1$
-                        if (Task.isRealUserId(memberId) && memberId.equals(assignedId)) {
-                            memberFound = true;
-                            break;
-                        }
-                    }
-
-                    if (!memberFound) {
-                        String ownerString = td.getValue(TagData.USER);
-                        if (!TextUtils.isEmpty(ownerString)) {
-                            JSONObject owner = new JSONObject(ownerString);
-                            String ownerId = Long.toString(owner.optLong("id", -3)); //$NON-NLS-1$
-                            if (Task.isRealUserId(ownerId) && assignedId.equals(ownerId)) {
-                                memberFound = true;
-                            }
-                        }
-                    }
-                } catch (JSONException e) {
-                    return;
-                }
-            }
-
-            if (memberFound) {
-                return;
-            }
-
-            DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface d, int which) {
-                    tagMetadataDao.createMemberLink(td.getId(), td.getUuid(), assignedId, false);
-                    tlf.refresh();
-                }
-            };
-            DialogUtilities.okCancelCustomDialog(this,
-                    getString(R.string.actfm_EPA_add_person_to_list_title),
-                    getString(R.string.actfm_EPA_add_person_to_list, assignedDisplay, assignedDisplay),
-                    R.string.actfm_EPA_add_person_to_list_ok,
-                    R.string.actfm_EPA_add_person_to_list_cancel,
-                    android.R.drawable.ic_dialog_alert,
-                    okListener, null);
         }
     }
 
@@ -832,7 +707,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             createListsPopover();
             setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0,
                     filterModeSpec.getFilterListClass(), true, true));
-            personStatus.setVisibility(View.GONE);
 
             if (swipeIsEnabled()) {
                 setupPagerAdapter();

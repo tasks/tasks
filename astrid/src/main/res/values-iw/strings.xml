@@ -9,10 +9,6 @@
 	<string name="actfm_picture_camera">צַלֵּם תמונה</string>
 	<string name="actfm_picture_gallery">בחר מגלריה</string>
 	<string name="actfm_picture_clear">הסר תמונה</string>
-	<string name="actfm_view_task_title">להציג את המשימה?</string>
-	<string name="actfm_view_task_text">משימה נשלחה אל %s! הנך מביט במשימות שלך. הֲתִּרְצֶה לעיין במשימה זו ובמשימות אשר הטלת על אחרים?</string>
-	<string name="actfm_view_task_ok">הצג משימות שהטלת</string>
-	<string name="actfm_view_task_cancel">הִשָּׁאֵר כאן</string>
 	<string name="TVA_add_comment">הוסף הערה</string>
 	<string name="actfm_TVA_menu_refresh">רַעְנֵן</string>
 	<string name="actfm_TVA_tag_label">רשימה</string>
@@ -22,10 +18,6 @@
 	<string name="actfm_TVA_tag_settings_label">הגדרות</string>
 	<string name="actfm_TVA_tag_description_hint">הכנס תיאור כאן</string>
 	<string name="actfm_TVA_tag_name_hint">הכנס שם רשימה</string>
-	<string name="actfm_EPA_add_person_to_list_title">משימה הוטלה</string>
-	<string name="actfm_EPA_add_person_to_list">%1$s אינו שותף ברשימה זו. הֲתִּרְצֶה להוסיף את %2$s לרשימה זו?</string>
-	<string name="actfm_EPA_add_person_to_list_ok">הוסף לרשימה</string>
-	<string name="actfm_EPA_add_person_to_list_cancel">אל תוסיף</string>
 	<string name="actfm_GAA_title">בחר חשבון גוגל</string>
 	<string name="actfm_feat_list_clone">העתקת רשימה</string>
 	<string name="actfm_feat_list_suffix">(העתק)</string>

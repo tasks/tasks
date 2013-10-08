@@ -9,10 +9,6 @@
 	<string name="actfm_picture_camera">Fes una fotografia</string>
 	<string name="actfm_picture_gallery">Tria una imatge de la galeria</string>
 	<string name="actfm_picture_clear">Neteja la selecció d\'imatge</string>
-	<string name="actfm_view_task_title">Voleu veure la tasca?</string>
-	<string name="actfm_view_task_text">La tasca s\'ha enviat a %s! Tu segueixes veient les teves pròpies tasques. Vols veure aquesta tasca i les altres que has assignat?</string>
-	<string name="actfm_view_task_ok">Mostra les tasques assignades</string>
-	<string name="actfm_view_task_cancel">Queda\'t aquí</string>
 	<string name="TVA_add_comment">Afegiu un comentari...</string>
 	<string name="actfm_TVA_menu_refresh">Actualitza</string>
 	<string name="actfm_TVA_tag_label">Llista</string>
@@ -22,8 +18,6 @@
 	<string name="actfm_TVA_tag_settings_label">Paràmetres</string>
 	<string name="actfm_TVA_tag_description_hint">Escriviu una descripció</string>
 	<string name="actfm_TVA_tag_name_hint">Escriviu el nom de la llista</string>
-	<string name="actfm_EPA_add_person_to_list_ok">Añadir a la lista</string>
-	<string name="actfm_EPA_add_person_to_list_cancel">No lo añadir</string>
 	<string name="actfm_GAA_title">Trieu el compte de Google que vulgueu utilitzar:</string>
 	<string name="actfm_feat_list_clone">Copiar la lista</string>
 	<string name="actfm_feat_list_suffix">(Copia)</string>

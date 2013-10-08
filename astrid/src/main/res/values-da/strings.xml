@@ -9,10 +9,6 @@
 	<string name="actfm_picture_camera">Tag et billede</string>
 	<string name="actfm_picture_gallery">Vælg fra galleri</string>
 	<string name="actfm_picture_clear">Ryd markering</string>
-	<string name="actfm_view_task_title">Vis opgave?</string>
-	<string name="actfm_view_task_text">Opgaven blev sendt til %s! Du ser lige nu dine egne opgaver. Vil du se disse og andre opgaver, du har tildelt?</string>
-	<string name="actfm_view_task_ok">Vis tildelte</string>
-	<string name="actfm_view_task_cancel">Bliv her</string>
 	<string name="TVA_add_comment">Tilføj en kommentar</string>
 	<string name="actfm_TVA_menu_refresh">Opdater</string>
 	<string name="actfm_TVA_tag_label">Listenavn</string>

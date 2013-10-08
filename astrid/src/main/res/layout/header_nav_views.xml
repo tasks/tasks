@@ -57,15 +57,4 @@
 		</RelativeLayout>
     </LinearLayout>
 	
-    <TextView 
-        android:id="@+id/person_image"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:gravity="center_vertical"
-        android:singleLine="true"
-        android:paddingRight="5dip"
-        style="@style/TextAppearance.ActionBar_ListsHeader"
-        android:textSize="16sp"
-        android:visibility="gone"/>
-
 </LinearLayout>

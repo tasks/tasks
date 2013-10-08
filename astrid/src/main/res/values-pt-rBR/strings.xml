@@ -9,10 +9,6 @@
 	<string name="actfm_picture_camera">Tirar uma foto</string>
 	<string name="actfm_picture_gallery">Selecionar da galeria</string>
 	<string name="actfm_picture_clear">Limpar imagem</string>
-	<string name="actfm_view_task_title">Ver tarefa?</string>
-	<string name="actfm_view_task_text">A tarefa foi enviada para %s! Atualmente está vendo suas próprias tarefas. Quer ver esta e as outras tarefas que você atribuiu?</string>
-	<string name="actfm_view_task_ok">Ver atribuídas</string>
-	<string name="actfm_view_task_cancel">Ficar aqui</string>
 	<string name="TVA_add_comment">Comentar...</string>
 	<string name="actfm_TVA_menu_refresh">Atualizar</string>
 	<string name="actfm_TVA_tag_label">Lista</string>
@@ -22,10 +18,6 @@
 	<string name="actfm_TVA_tag_settings_label">Configurações</string>
 	<string name="actfm_TVA_tag_description_hint">Digite uma descrição aqui</string>
 	<string name="actfm_TVA_tag_name_hint">Entre com o nome da lista</string>
-	<string name="actfm_EPA_add_person_to_list_title">Tarefa atribuída.</string>
-	<string name="actfm_EPA_add_person_to_list">%1$s não é partilhado nesta lista. Gostaria de adicionar %2$s nesta lista?</string>
-	<string name="actfm_EPA_add_person_to_list_ok">Adicionar para lista</string>
-	<string name="actfm_EPA_add_person_to_list_cancel">Não adicionar</string>
 	<string name="actfm_GAA_title">Selecione a conta do Google que deseja usar:</string>
 	<string name="actfm_feat_list_clone">Copiar lista</string>
 	<string name="actfm_feat_list_suffix">(Cópia)</string>
@@ -76,6 +68,7 @@
 	<string name="ENA_no_user">Alguém</string>
 	<string name="ENA_refresh_comments">Atualizar comentários</string>
 	<string name="TLA_no_items">Você não tem tarefas! \n Deseja inserir alguma?</string>
+	<string name="TLA_menu_sort">Ordenar</string>
 	<string name="TLA_menu_sync">Sincronizar Agora</string>
 	<string name="TLA_menu_search">Buscar</string>
 	<string name="TLA_menu_lists">Listas</string>
@@ -112,9 +105,11 @@
 	<string name="SSD_completed">Exibir tarefas terminadas</string>
 	<string name="SSD_hidden">Exibir tarefas ocultas</string>
 	<string name="SSD_deleted">Exibir tarefas excluídas</string>
+	<string name="SSD_sort_drag">Ordem manual com subtarefas</string>
 	<string name="SSD_sort_auto">Ordenação inteligente Tasks</string>
 	<string name="SSD_sort_alpha">Por título</string>
 	<string name="SSD_sort_due">Por data de vencimento</string>
+	<string name="SSD_sort_importance">Por prioridade</string>
 	<string name="SSD_sort_modified">Por data de modificação</string>
 	<string name="SSD_sort_reverse">Ordenação reversa</string>
 	<string name="SSD_save_temp">Somente uma vez</string>
@@ -589,6 +584,7 @@
 	<string name="tag_no_title_error">Entre com o nome da lista primeiro!</string>
 	<string name="tag_FEx_add_new">Nova</string>
 	<string name="tag_FEx_header">Listas</string>
+	<string name="tag_FEx_untagged">Sem categoria</string>
 	<string name="tag_cm_rename">Renomear Lista</string>
 	<string name="tag_cm_delete">Excluir lista</string>
 	<string name="tag_cm_leave">Deixar lista</string>

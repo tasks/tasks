@@ -9,10 +9,6 @@
 	<string name="actfm_picture_camera">Vyfoť obrázek</string>
 	<string name="actfm_picture_gallery">Vybrat obrázek z galerie</string>
 	<string name="actfm_picture_clear">Odebrat obrázek</string>
-	<string name="actfm_view_task_title">Zobrazit úkol?</string>
-	<string name="actfm_view_task_text">%s se stal novým vlastníkem úkolu! Teď si prohlížíte vlastní úkoly. Chcete vidět úkoly, které jste delegoval(a)?</string>
-	<string name="actfm_view_task_ok">Delegované</string>
-	<string name="actfm_view_task_cancel">Vlastní</string>
 	<string name="TVA_add_comment">Přidej comment...</string>
 	<string name="actfm_TVA_menu_refresh">Obnovit</string>
 	<string name="actfm_TVA_tag_label">Název listu:</string>

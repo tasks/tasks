@@ -9,10 +9,6 @@
 	<string name="actfm_picture_camera">Tirar uma Imagem</string>
 	<string name="actfm_picture_gallery">Seleccionar da Galeria</string>
 	<string name="actfm_picture_clear">Limpar Imagem</string>
-	<string name="actfm_view_task_title">Visualizar Tarefa?</string>
-	<string name="actfm_view_task_text">A tarefa foi enviada para %s! Está a visualizar as suas próprias tarefas. Deseja ver esta e também outras tarefas já atribuídas?</string>
-	<string name="actfm_view_task_ok">Ver atribuídas</string>
-	<string name="actfm_view_task_cancel">Ficar Aqui</string>
 	<string name="TVA_add_comment">Adicionar um comentário...</string>
 	<string name="actfm_TVA_menu_refresh">Actualizar</string>
 	<string name="actfm_TVA_tag_label">Lista</string>
