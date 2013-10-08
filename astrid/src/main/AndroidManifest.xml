@@ -352,14 +352,6 @@
             android:name="com.todoroo.astrid.tags.TagFilterExposer$RenameTagActivity"
             android:theme="@style/Theme.FullTransparent" />
 
-        <!-- People view -->
-        <receiver android:name="com.todoroo.astrid.people.PeopleFilterExposer">
-            <intent-filter>
-                <action android:name="org.tasks.REQUEST_PEOPLE_FILTERS" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
-
         <!-- Featured lists -->
         <receiver android:name="com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer">
             <intent-filter>
@@ -401,12 +393,6 @@
         <activity
             android:name="com.todoroo.astrid.actfm.CommentsActivity"
             android:windowSoftInputMode="stateHidden" />
-
-        <receiver android:name="com.todoroo.astrid.actfm.sync.ActFmSyncThread$NetworkStateChangedReceiver">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-        </receiver>
 
         <!-- gtasks -->
         <activity
