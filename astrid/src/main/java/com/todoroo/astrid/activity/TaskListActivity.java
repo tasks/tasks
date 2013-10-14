@@ -7,8 +7,8 @@ package com.todoroo.astrid.activity;
 
 import android.animation.LayoutTransition;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,49 +16,44 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.PopupWindow.OnDismissListener;
-import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.CommentsFragment;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.actfm.TagViewFragment;
-import com.todoroo.astrid.adapter.FilterAdapter;
-import com.todoroo.astrid.adapter.TaskListFragmentPagerAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.CoreFilterExposer;
+import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gtasks.GtasksListFragment;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagFilterExposer;
+import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagsPlugin;
-import com.todoroo.astrid.tags.reusable.FeaturedListFilterMode;
 import com.todoroo.astrid.ui.DateChangedAlerts;
-import com.todoroo.astrid.ui.FragmentPopover;
-import com.todoroo.astrid.ui.MainMenuPopover;
-import com.todoroo.astrid.ui.MainMenuPopover.MainMenuListener;
-import com.todoroo.astrid.ui.QuickAddBar;
-import com.todoroo.astrid.ui.TaskListFragmentPager;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 
+import net.simonvt.menudrawer.MenuDrawer;
+
 import org.tasks.R;
 
-public class TaskListActivity extends AstridActivity implements MainMenuListener, OnPageChangeListener {
+public class TaskListActivity extends AstridActivity implements OnPageChangeListener {
+
+    MenuDrawer menuDrawer;
 
     /** token for indicating source of TLA launch */
     public static final String TOKEN_SOURCE = "source"; //$NON-NLS-1$
@@ -75,40 +70,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     private static final String FILTER_MODE = "filterMode"; //$NON-NLS-1$
 
     public static final int FILTER_MODE_NORMAL = 0;
-    public static final int FILTER_MODE_FEATURED = 2;
 
-    private View listsNav;
-    private ImageView listsNavDisclosure;
-    private TextView lists;
-    private ImageView mainMenu;
     private int filterMode;
     private FilterModeSpec filterModeSpec;
-
-    private TaskListFragmentPager tlfPager;
-    private TaskListFragmentPagerAdapter tlfPagerAdapter;
-
-    private FragmentPopover listsPopover;
-    private MainMenuPopover mainMenuPopover;
-
-    private boolean swipeEnabled = false;
-
-    private final OnClickListener mainMenuClickListener = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            mainMenu.setSelected(true);
-            mainMenuPopover.show(v);
-            hideKeyboard();
-        }
-    };
-
-    private final OnClickListener popupMenuClickListener = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            setListsDropdownSelected(true);
-            listsPopover.show(v);
-            hideKeyboard();
-        }
-    };
 
     /**
      * @see android.app.Activity#onCreate(Bundle)
@@ -119,24 +83,29 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         super.onCreate(savedInstanceState);
 
         int contentView = getContentView();
-        if (contentView == R.layout.task_list_wrapper_activity) {
-            swipeEnabled = true;
-        }
         setContentView(contentView);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        actionBar.setCustomView(getHeaderView());
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setLogo(null);
 
-        listsNav = actionBar.getCustomView().findViewById(R.id.lists_nav);
-        listsNavDisclosure = (ImageView) actionBar.getCustomView().findViewById(R.id.list_disclosure_arrow);
-        lists = (TextView) actionBar.getCustomView().findViewById(R.id.list_title);
-        mainMenu = (ImageView) actionBar.getCustomView().findViewById(R.id.main_menu);
+        if(AndroidUtilities.isTabletSized(this)) {
+            menuDrawer = MenuDrawer.attach(this, MenuDrawer.Type.STATIC);
+            menuDrawer.setDropShadowEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        } else {
+            menuDrawer = MenuDrawer.attach(this, MenuDrawer.Type.OVERLAY);
+            menuDrawer.setDrawerIndicatorEnabled(true);
+        }
+        menuDrawer.setContentView(contentView);
+        // cannot use full screen until next menudrawer release
+        // menuDrawer.setTouchMode(MenuDrawer.TOUCH_MODE_FULLSCREEN);
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.ic_drawer, typedValue, true);
+        menuDrawer.setSlideDrawable(typedValue.resourceId);
+        menuDrawer.setHardwareLayerEnabled(true);
 
-        initializeFragments(actionBar);
-        createMainMenuPopover();
-        mainMenu.setOnClickListener(mainMenuClickListener);
+        initializeFragments();
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -165,10 +134,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
         extras.putParcelable(TaskListFragment.TOKEN_FILTER, savedFilter);
 
-        if (swipeIsEnabled()) {
-            setupPagerAdapter();
-        }
-
         setupTasklistFragmentWithFilter(savedFilter, extras);
 
         if (savedFilter != null) {
@@ -180,57 +145,49 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         }
     }
 
-    private void setupPagerAdapter() {
-        FilterListFragment flf = getFilterListFragment();
-        if (flf == null) {
-            throw new RuntimeException("Filterlist fragment was null, needs to exist to construct the fragment pager"); //$NON-NLS-1$
-        }
-        FilterAdapter adapter = flf.adapter;
-        tlfPager = (TaskListFragmentPager) findViewById(R.id.pager);
-        tlfPagerAdapter = new TaskListFragmentPagerAdapter(getSupportFragmentManager(), adapter);
-        tlfPager.setAdapter(tlfPagerAdapter);
-        tlfPager.setOnPageChangeListener(this);
+    @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        menuDrawer.closeMenu();
+        return super.onMenuItemSelected(featureId, item);
     }
 
-    private int getHeaderView() {
-        return R.layout.header_nav_views;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getSupportMenuInflater().inflate(R.menu.task_list_activity, menu);
+        TaskListFragment tlf = getTaskListFragment();
+        if(tlf instanceof TagViewFragment) {
+            menu.findItem(R.id.menu_delete_list).setVisible(true);
+            menu.findItem(R.id.menu_rename_list).setVisible(true);
+        } else if(tlf instanceof GtasksListFragment) {
+            menu.findItem(R.id.menu_sync).setTitle(R.string.actfm_TVA_menu_refresh);
+            menu.findItem(R.id.menu_clear_completed).setVisible(true);
+            menu.findItem(R.id.menu_sort).setVisible(false);
+        }
+        if(!Preferences.getBoolean(R.string.p_show_menu_search, true)) {
+            menu.findItem(R.id.menu_search).setVisible(false);
+        }
+        if(!Preferences.getBoolean(R.string.p_show_menu_sort, true)) {
+            menu.findItem(R.id.menu_sort).setVisible(false);
+        }
+        if(!Preferences.getBoolean(R.string.p_show_menu_sync, true)) {
+            menu.findItem(R.id.menu_sync).setVisible(false);
+        }
+        if(Preferences.getBoolean(R.string.p_use_filters, false)) {
+            menu.findItem(R.id.menu_new_filter).setVisible(true);
+        }
+        return true;
     }
 
     protected int getContentView() {
         if (AstridPreferences.useTabletLayout(this)) {
             return R.layout.task_list_wrapper_activity_3pane;
-        } else if (!Preferences.getBoolean(R.string.p_swipe_lists_enabled, false)) {
-            return R.layout.task_list_wrapper_activity_no_swipe;
         } else {
-            return R.layout.task_list_wrapper_activity;
+            return R.layout.task_list_wrapper_activity_no_swipe;
         }
     }
 
     protected Filter getDefaultFilter() {
         return filterModeSpec.getDefaultFilter(this);
-    }
-
-    private boolean swipeIsEnabled() {
-        return fragmentLayout == LAYOUT_SINGLE && swipeEnabled;
-    }
-
-    @Override
-    public TaskListFragment getTaskListFragment() {
-        if (swipeIsEnabled()) {
-            return tlfPager.getCurrentFragment();
-        } else {
-            return super.getTaskListFragment();
-        }
-    }
-
-    @Override
-    public void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Bundle extras, Class<?> customTaskList) {
-        if (swipeIsEnabled()) {
-            tlfPager.showFilter(filter);
-            tlfPager.forceReload(); // Hack to force reload of current page
-        } else {
-            super.setupTasklistFragmentWithFilterAndCustomTaskList(filter, extras, customTaskList);
-        }
     }
 
     @Override
@@ -241,18 +198,13 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         return extras;
     }
 
-    protected void initializeFragments(ActionBar actionBar) {
-        View filterFragment = findViewById(R.id.filterlist_fragment_container);
+    protected void initializeFragments() {
         View editFragment = findViewById(R.id.taskedit_fragment_container);
         filterMode = getIntent().getIntExtra(FILTER_MODE, FILTER_MODE_NORMAL);
         updateFilterModeSpec(filterMode);
 
-        if (filterFragment != null) {
-            actionBar.setDisplayHomeAsUpEnabled(false);
-            actionBar.getCustomView().findViewById(R.id.list_disclosure_arrow).setVisibility(View.GONE);
-            listsNav.setOnClickListener(null);
-
-            if(editFragment != null && editFragment.getVisibility() == View.INVISIBLE) {
+        if(editFragment != null) {
+            if(editFragment.getVisibility() == View.INVISIBLE) {
                 fragmentLayout = LAYOUT_TRIPLE;
             } else {
                 fragmentLayout = LAYOUT_DOUBLE;
@@ -260,17 +212,12 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                     setupLayoutTransitions();
                 }
             }
-
-            setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT,
-                    R.id.filterlist_fragment_container, filterModeSpec.getFilterListClass(), false, false);
         } else {
             fragmentLayout = LAYOUT_SINGLE;
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            listsNav.setOnClickListener(popupMenuClickListener);
-            createListsPopover();
-            setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0,
-                    filterModeSpec.getFilterListClass(), true, false));
         }
+
+        setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0,
+                filterModeSpec.getFilterListClass(), true, false));
     }
 
     private void setupLayoutTransitions() {
@@ -279,108 +226,43 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         container.setLayoutTransition(transition);
     }
 
-    private void createListsPopover() {
-        listsPopover = new FragmentPopover(this, R.layout.list_dropdown_popover);
-        listsPopover.setOnDismissListener(new OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                setListsDropdownSelected(false);
+    private void setupPopoverWithFragment(Fragment frag) {
+        View view = frag.getView();
+        if (view != null) {
+            FrameLayout parent = (FrameLayout) view.getParent();
+            if (parent != null) {
+                parent.removeView(view);
             }
-        });
-    }
-
-    private void createMainMenuPopover() {
-        int layout;
-        boolean isTabletLayout = AstridPreferences.useTabletLayout(this);
-        if (isTabletLayout) {
-            layout = R.layout.main_menu_popover_tablet;
-        } else if (AndroidUtilities.isTabletSized(this)) {
-            layout = R.layout.main_menu_popover_tablet_phone_layout;
-        } else {
-            layout = R.layout.main_menu_popover;
-        }
-
-        mainMenuPopover = new MainMenuPopover(this, layout, (fragmentLayout != LAYOUT_SINGLE), this);
-        mainMenuPopover.setOnDismissListener(new OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                mainMenu.setSelected(false);
-            }
-        });
-
-        if (isTabletLayout) {
-            mainMenuPopover.refreshFixedItems();
-        }
-    }
-
-    private void setupPopoverWithFragment(FragmentPopover popover, Fragment frag, LayoutParams params) {
-        if (popover != null) {
-            View view = frag.getView();
-            if (view != null) {
-                FrameLayout parent = (FrameLayout) view.getParent();
-                if (parent != null) {
-                    parent.removeView(view);
-                }
-                if (params == null) {
-                    popover.setContent(view);
-                } else {
-                    popover.setContent(view, params);
-                }
-            }
+            menuDrawer.setMenuView(view);
         }
     }
 
     public void setupPopoverWithFilterList(FilterListFragment fla) {
-        setupPopoverWithFragment(listsPopover, fla, null);
+        setupPopoverWithFragment(fla);
     }
 
     @Override
     public boolean onFilterItemClicked(FilterListItem item) {
-        if (listsPopover != null) {
-            listsPopover.dismiss();
-        }
-
-        if (swipeIsEnabled()) {
-            TaskListFragmentPager.showSwipeBetweenHelper(this);
-            tlfPager.showFilter((Filter) item);
-            return true;
-        }
-
         TaskEditFragment.removeExtrasFromIntent(getIntent());
         TaskEditFragment tef = getTaskEditFragment();
         if (tef != null) {
             onBackPressed();
         }
+        menuDrawer.closeMenu();
 
-        boolean result = super.onFilterItemClicked(item);
-        return result;
+        return super.onFilterItemClicked(item);
     }
 
     @Override
     public void setupActivityFragment(TagData tagData) {
         super.setupActivityFragment(tagData);
 
-        int visibility = (filterModeSpec.showComments() ? View.VISIBLE : View.GONE);
-
-        if (fragmentLayout != LAYOUT_TRIPLE) {
-        } else {
+        if (fragmentLayout == LAYOUT_TRIPLE) {
             View container = findViewById(R.id.taskedit_fragment_container);
             if (container != null) {
-                container.setVisibility(visibility);
+                container.setVisibility(View.VISIBLE);
             }
         }
-    }
-
-    private void setListsDropdownSelected(boolean selected) {
-        int oldTextColor = lists.getTextColors().getDefaultColor();
-        int textStyle = (selected ? R.style.TextAppearance_ActionBar_ListsHeader_Selected :
-            R.style.TextAppearance_ActionBar_ListsHeader);
-
-        TypedValue listDisclosure = new TypedValue();
-        getTheme().resolveAttribute(R.attr.asListsDisclosure, listDisclosure, false);
-        lists.setTextAppearance(this, textStyle);
-        listsNav.setBackgroundColor(selected ? oldTextColor : android.R.color.transparent);
-        listsNavDisclosure.setSelected(selected);
     }
 
     @Override
@@ -447,40 +329,15 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     }
 
     public void setListsTitle(String title) {
-        lists.setText(title);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        AndroidUtilities.tryDismissPopup(this, listsPopover);
-        AndroidUtilities.tryDismissPopup(this, mainMenuPopover);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
+        getSupportActionBar().setTitle(title);
     }
 
     public void setSelectedItem(Filter item) {
-        lists.setText(item.title);
+        getSupportActionBar().setTitle(item.title);
     }
 
     @Override
     public void onPageSelected(int position) {
-        if (tlfPagerAdapter != null) {
-            configureIntentAndExtrasWithFilter(getIntent(), tlfPagerAdapter.getFilter(position));
-            setListsTitle(tlfPagerAdapter.getPageTitle(position).toString());
-
-            TaskListFragment fragment = getTaskListFragment();
-            if (fragment != null) {
-                fragment.initiateAutomaticSync();
-                fragment.requestCommentCountUpdate();
-            }
-            if (position != 0) {
-                Preferences.setBoolean(TaskListFragmentPager.PREF_SHOWED_SWIPE_HELPER, true);
-            }
-        }
     }
 
     @Override
@@ -491,15 +348,18 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     public void onPageScrollStateChanged(int state) { /* Nothing */ }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menuDrawer.closeMenu();
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public void onBackPressed() {
         // manage task edit visibility
         View taskeditFragmentContainer = findViewById(R.id.taskedit_fragment_container);
         if(taskeditFragmentContainer != null && taskeditFragmentContainer.getVisibility() == View.VISIBLE) {
             if(fragmentLayout == LAYOUT_DOUBLE) {
-                boolean commentsVisible = false;
-                if (!commentsVisible) {
-                    findViewById(R.id.taskedit_fragment_container).setVisibility(View.GONE);
-                }
+                findViewById(R.id.taskedit_fragment_container).setVisibility(View.GONE);
             }
             Flags.set(Flags.TLA_DISMISSED_FROM_TASK_EDIT);
             onPostResume();
@@ -508,6 +368,11 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             if (tuf != null) {
                 tuf.getView().setVisibility(View.VISIBLE);
             }
+        }
+        int drawerState = menuDrawer.getDrawerState();
+        if(drawerState == MenuDrawer.STATE_OPEN || drawerState == MenuDrawer.STATE_OPENING) {
+            menuDrawer.closeMenu();
+            return;
         }
         super.onBackPressed();
     }
@@ -531,7 +396,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             if (newList != null) {
                 getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, newList); // Handle in onPostResume()
                 FilterListFragment fla = getFilterListFragment();
-                if (fla != null && !swipeIsEnabled()) {
+                if (fla != null) {
                     fla.clear();
                 }
             }
@@ -667,107 +532,70 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     }
 
     @Override
-    public boolean shouldAddMenuItem(int itemId) {
-        return AndroidUtilities.indexOf(filterModeSpec.getForbiddenMenuItems(), itemId) < 0;
-    }
-
-    @Override
-    public void mainMenuItemSelected(int item, Intent customIntent) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         TaskListFragment tlf = getTaskListFragment();
-        switch (item) {
-        case MainMenuPopover.MAIN_MENU_ITEM_LISTS:
-            if (filterMode == FILTER_MODE_NORMAL) {
-                listsNav.performClick();
-            } else {
-                setFilterMode(FILTER_MODE_NORMAL);
-            }
-            return;
-        case MainMenuPopover.MAIN_MENU_ITEM_SEARCH:
-            onSearchRequested();
-            return;
-        case MainMenuPopover.MAIN_MENU_ITEM_FEATURED_LISTS:
-            setFilterMode(FILTER_MODE_FEATURED);
-            return;
-        case MainMenuPopover.MAIN_MENU_ITEM_SETTINGS:
-            if (tlf != null) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                if(menuDrawer.getDrawerState() != MenuDrawer.STATE_CLOSED) {
+                    menuDrawer.closeMenu();
+                } else {
+                    menuDrawer.openMenu();
+                }
+                return true;
+            case R.id.menu_settings:
                 tlf.showSettings();
-            }
-            return;
+                return true;
+            case R.id.menu_search:
+                onSearchRequested();
+                return true;
+            case R.id.menu_sort:
+                AlertDialog dialog = SortSelectionActivity.createDialog(
+                        this, tlf.hasDraggableOption(), tlf, tlf.getSortFlags(), tlf.getSort());
+                dialog.show();
+                return true;
+            case R.id.menu_sync:
+                tlf.syncActionHelper.performSyncAction();
+                return true;
+            case R.id.menu_new_filter:
+                Intent intent = new Intent(this, CustomFilterActivity.class);
+                startActivityForResult(intent, TaskListFragment.ACTIVITY_REQUEST_NEW_FILTER);
+                return true;
+            case R.id.menu_new_list:
+                startActivityForResult(TagsPlugin.newTagDialog(this), FilterListFragment.REQUEST_NEW_LIST);
+                if (!AstridPreferences.useTabletLayout(this)) {
+                    AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_left_in, R.anim.slide_left_out);
+                }
+                return true;
+            case R.id.menu_delete_list:
+                TagService.Tag deleteTag = new TagService.Tag(tlf.getActiveTagData());
+                Intent ret = new Intent(this, TagFilterExposer.DeleteTagActivity.class);
+                ret.putExtra("tag", deleteTag.tag);
+                ret.putExtra(TagViewFragment.EXTRA_TAG_UUID, deleteTag.uuid);
+                startActivityForResult(ret, FilterListFragment.REQUEST_CUSTOM_INTENT);
+                return true;
+            case R.id.menu_rename_list:
+                TagService.Tag renameTag = new TagService.Tag(tlf.getActiveTagData());
+                Intent rename = new Intent(this, TagFilterExposer.RenameTagActivity.class);
+                rename.putExtra("tag", renameTag.tag);
+                rename.putExtra(TagViewFragment.EXTRA_TAG_UUID, renameTag.uuid);
+                startActivityForResult(rename, FilterListFragment.REQUEST_CUSTOM_INTENT);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        tlf.handleOptionsMenuItemSelected(item, customIntent);
-    }
-
-    public void setFilterMode(int mode) {
-        filterMode = mode;
-        updateFilterModeSpec(mode);
-        getIntent().putExtra(FILTER_MODE, mode);
-
-        refreshMainMenu();
-        if (fragmentLayout == LAYOUT_SINGLE) {
-            createListsPopover();
-            setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0,
-                    filterModeSpec.getFilterListClass(), true, true));
-
-            if (swipeIsEnabled()) {
-                setupPagerAdapter();
-            }
-
-        } else {
-            setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, R.id.filterlist_fragment_container,
-                    filterModeSpec.getFilterListClass(), false, true);
-        }
-
-        onFilterItemClicked(getDefaultFilter());
-        if (swipeIsEnabled()) {
-            setListsTitle(tlfPagerAdapter.getPageTitle(0).toString());
-        }
-        if (fragmentLayout == LAYOUT_SINGLE) {
-            listsNav.performClick();
-        }
-    }
-
-    public void refreshMainMenu() {
-        mainMenuPopover.refreshFixedItems();
-        TypedValue tv = new TypedValue();
-        getTheme().resolveAttribute(filterModeSpec.getMainMenuIconAttr(), tv, false);
-        mainMenu.setImageResource(tv.data);
     }
 
     private void updateFilterModeSpec(int mode) {
         switch(mode) {
-        case FILTER_MODE_FEATURED:
-            filterModeSpec = new FeaturedListFilterMode();
-            break;
         case FILTER_MODE_NORMAL:
         default:
             filterModeSpec = new DefaultFilterMode();
         }
     }
 
-    public MainMenuPopover getMainMenuPopover() {
-        return mainMenuPopover;
-    }
-
-    private void hideKeyboard() {
-        TaskListFragment tlf = getTaskListFragment();
-        if (tlf == null) {
-            return;
-        }
-        InputMethodManager imm = (InputMethodManager)getSystemService(
-                Context.INPUT_METHOD_SERVICE);
-        QuickAddBar qab = tlf.quickAddBar;
-        if (qab != null) {
-            imm.hideSoftInputFromWindow(qab.getQuickAddBox().getWindowToken(), 0);
-        }
-    }
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_MENU) {
-            mainMenuPopover.suppressNextKeyEvent();
-            mainMenu.performClick();
-            return true;
-        } else if (keyCode == KeyEvent.KEYCODE_BACK) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             TaskEditFragment tef = getTaskEditFragment();
             if (tef != null && tef.onKeyDown(keyCode)) {
                 return true;

@@ -16,7 +16,6 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.activity.EditPreferences;
 import com.todoroo.astrid.activity.TaskListActivity;
-import com.todoroo.astrid.dao.TagMetadataDao;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.User;
@@ -40,9 +39,6 @@ public class CalendarAlarmListCreator extends Activity {
 
     @Autowired
     private TagDataService tagDataService;
-
-    @Autowired
-    private TagMetadataDao tagMetadataDao;
 
     private ArrayList<String> names;
     private ArrayList<String> emails;

@@ -30,18 +30,15 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.files.FileExplore;
 import com.todoroo.astrid.gcal.CalendarStartupReceiver;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.helper.MetadataHelper;
-import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.MarketStrategy.AmazonMarketStrategy;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
-import com.todoroo.astrid.ui.TaskListFragmentPager;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
@@ -76,10 +73,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
     // --- instance variables
 
     @Autowired private TaskService taskService;
-    @Autowired private AddOnService addOnService;
-
-    @Autowired
-    private Database database;
 
     private VoiceInputAssistant voiceInputAssistant;
 
@@ -148,9 +141,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
         PreferenceScreen appearance = (PreferenceScreen) screen.getPreference(APPEARANCE_PREFERENCE);
         if (!AndroidUtilities.isTabletSized(this)) {
             appearance.removePreference(screen.findPreference(getString(R.string.p_force_phone_layout)));
-        } else {
-            preference = screen.findPreference(getString(R.string.p_swipe_lists_enabled));
-            preference.setEnabled(Preferences.getBoolean(R.string.p_force_phone_layout, false));
         }
 
         preference = screen.findPreference(getString(R.string.p_showNotes));
@@ -354,21 +344,10 @@ public class EditPreferences extends TodorooPreferenceActivity {
         } else if (booleanPreference(preference, value, R.string.p_end_at_deadline,
                 R.string.EPr_cal_end_at_due_time, R.string.EPr_cal_start_at_due_time)) {
             ;
-        } else if (r.getString(R.string.p_swipe_lists_enabled).equals(preference.getKey())) {
-            preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED) {
-                @Override
-                public boolean onPreferenceChange(Preference p, Object newValue) {
-                    // If the user changes the setting themselves, no need to show the helper
-                    Preferences.setBoolean(TaskListFragmentPager.PREF_SHOWED_SWIPE_HELPER, true);
-                    return super.onPreferenceChange(p, newValue);
-                }
-            });
         } else if (r.getString(R.string.p_force_phone_layout).equals(preference.getKey())) {
             preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED) {
                 @Override
                 public boolean onPreferenceChange(Preference p, Object newValue) {
-                    Preference swipe = findPreference(getString(R.string.p_swipe_lists_enabled));
-                    swipe.setEnabled((Boolean) newValue);
                     return super.onPreferenceChange(p, newValue);
                 }
             });

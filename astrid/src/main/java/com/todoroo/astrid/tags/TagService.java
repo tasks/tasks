@@ -37,7 +37,6 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
-import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
 
@@ -80,8 +79,6 @@ public final class TagService {
     // --- implementation details
 
     @Autowired MetadataDao metadataDao;
-
-    @Autowired TaskService taskService;
 
     @Autowired TagDataService tagDataService;
 
@@ -367,16 +364,13 @@ public final class TagService {
     public Intent deleteOrLeaveTag(Context context, String tag, String uuid) {
         int deleted = deleteTagMetadata(uuid);
         TagData tagData = tagDataDao.fetch(uuid, TagData.ID, TagData.UUID, TagData.DELETION_DATE, TagData.MEMBER_COUNT, TagData.USER_ID);
-        boolean shared = false;
         Intent tagDeleted = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED);
         if(tagData != null) {
             tagData.setValue(TagData.DELETION_DATE, DateUtilities.now());
             PluginServices.getTagDataService().save(tagData);
             tagDeleted.putExtra(TagViewFragment.EXTRA_TAG_UUID, tagData.getUuid());
-            shared = tagData.getValue(TagData.MEMBER_COUNT) > 0 && !Task.USER_ID_SELF.equals(tagData.getValue(TagData.USER_ID)); // Was I a list member and NOT owner?
         }
-        Toast.makeText(context, context.getString(shared ? R.string.TEA_tags_left : R.string.TEA_tags_deleted, tag, deleted),
-                Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, context.getString(R.string.TEA_tags_deleted, tag, deleted), Toast.LENGTH_SHORT).show();
 
         context.sendBroadcast(tagDeleted);
         return tagDeleted;

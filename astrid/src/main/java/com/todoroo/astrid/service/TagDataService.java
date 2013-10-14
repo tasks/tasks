@@ -23,7 +23,6 @@ import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.History;
 import com.todoroo.astrid.data.Metadata;
@@ -42,7 +41,6 @@ import com.todoroo.astrid.tags.TaskToTagMetadata;
 public class TagDataService {
 
     @Autowired TagDataDao tagDataDao;
-    @Autowired TaskDao taskDao;
     @Autowired UserActivityDao userActivityDao;
 
     public TagDataService() {

@@ -219,14 +219,5 @@ public class Filter extends FilterListItem {
         public Filter[] newArray(int size) {
             return new Filter[size];
         }
-
     };
-
-    /**
-     * @return a filter that matches nothing
-     */
-    public static Filter emptyFilter(String title) {
-        return new Filter(title, title,
-                new QueryTemplate().where(Criterion.none), null);
-    }
 }

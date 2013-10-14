@@ -71,12 +71,6 @@
   <!-- Menu: Search -->
   <string name="TLA_menu_search">Search</string>
   
-  <!-- Menu: Tasks -->
-  <string name="TLA_menu_lists">Lists</string>
-
-  <!-- Menu: Featured Lists -->
-  <string name="TLA_menu_featured_lists">Featured Lists</string>
-
   <!-- Menu: Settings -->
   <string name="TLA_menu_settings">Settings</string>
   
@@ -121,7 +115,7 @@
 
   <!-- slide 22a -->
   <string name="TLA_all_activity">All Activity</string>
-  
+
   <!-- ====================================================== TaskAdapter == -->
   
   <!-- Format string to indicate task is hidden (%s => task name) -->
@@ -576,14 +570,6 @@
   <!-- Preference title for showing save and cancel buttons in task edit page -->
   <string name="EPr_show_save_and_cancel">Show save and cancel </string>
   
-  <!-- Swipe between lists -->
-  <!-- Preference: swipe between lists performance -->
-  <string name="EPr_swipe_lists_performance_title">Swipe between lists</string>
-  
-  <string name="swipe_lists_helper_title">Swipe between lists</string>
-  <string name="swipe_lists_helper_header">Swipe left or right to quickly move between lists</string>
-  <string name="swipe_lists_helper_subtitle">Change settings in Settings -> Appearance</string>
-
   <string-array name="EPr_default_reminders_mode">
       <!-- reminders duration: labels for "Task Defaults" preference item. -->
       <item>@string/TEA_reminder_mode_once</item>

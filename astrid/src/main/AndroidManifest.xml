@@ -5,8 +5,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.tasks"
-    android:versionName="4.6.9"
-    android:versionCode="320">
+    android:versionName="4.6.10"
+    android:versionCode="321">
 
     <!-- widgets, alarms, and services will break if Astrid is installed on SD card -->
     <!--    android:installLocation="internalOnly"> -->
@@ -351,14 +351,6 @@
         <activity
             android:name="com.todoroo.astrid.tags.TagFilterExposer$RenameTagActivity"
             android:theme="@style/Theme.FullTransparent" />
-
-        <!-- Featured lists -->
-        <receiver android:name="com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer">
-            <intent-filter>
-                <action android:name="org.tasks.REQUEST_FEATURED_LISTS" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
 
         <!-- alarms -->
         <receiver android:name="com.todoroo.astrid.alarms.AlarmTaskRepeatListener">

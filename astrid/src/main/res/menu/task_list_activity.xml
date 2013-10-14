@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_search"
+        android:showAsAction="ifRoom"
+        android:title="@string/TLA_menu_search"
+        android:icon="?attr/ic_action_search"/>
+    <item
+        android:id="@+id/menu_delete_list"
+        android:showAsAction="never"
+        android:title="@string/tag_cm_delete"
+        android:icon="?attr/ic_action_discard"
+        android:visible="false"/>
+    <item
+        android:id="@+id/menu_rename_list"
+        android:showAsAction="never"
+        android:title="@string/tag_cm_rename"
+        android:icon="@drawable/filter_pencil"
+        android:visible="false"/>
+    <item
+        android:id="@+id/menu_sort"
+        android:showAsAction="never"
+        android:title="@string/TLA_menu_sort"
+        android:icon="@drawable/icn_menu_sort_by_size"/>
+    <item
+        android:id="@+id/menu_sync"
+        android:showAsAction="never"
+        android:title="@string/TLA_menu_sync"
+        android:icon="@drawable/icn_menu_refresh"/>
+    <item
+        android:id="@+id/menu_clear_completed"
+        android:showAsAction="never"
+        android:title="@string/gtasks_GTA_clear_completed"
+        android:icon="@android:drawable/ic_input_delete"
+        android:visible="false"/>
+    <item
+        android:id="@+id/menu_new_list"
+        android:showAsAction="never"
+        android:title="@string/FLA_new_list"
+        android:icon="?attr/ic_action_new"/>
+    <item
+        android:id="@+id/menu_new_filter"
+        android:showAsAction="never"
+        android:title="@string/FLA_new_filter"
+        android:icon="@drawable/icn_menu_filters"
+        android:visible="false"/>
+    <item
+        android:id="@+id/menu_settings"
+        android:showAsAction="never"
+        android:title="@string/TLA_menu_settings"
+        android:icon="?attr/ic_action_gear" />
+</menu>

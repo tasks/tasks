@@ -5,7 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<string name="actfm_tag_operation_owner_delete">Sou el propietari d’aquesta llista compartida. En suprimir-la, ho fareu per a tots els membres de la llista. Voleu continuar?</string>
 	<string name="actfm_picture_camera">Fes una fotografia</string>
 	<string name="actfm_picture_gallery">Tria una imatge de la galeria</string>
 	<string name="actfm_picture_clear">Neteja la selecció d\'imatge</string>
@@ -13,18 +12,8 @@
 	<string name="actfm_TVA_menu_refresh">Actualitza</string>
 	<string name="actfm_TVA_tag_label">Llista</string>
 	<string name="actfm_TVA_tag_picture">Imatge de la llista</string>
-	<string name="actfm_TVA_silence_label">Inhabilita les notificacions</string>
-	<string name="actfm_TVA_tag_description_label">Descripció</string>
-	<string name="actfm_TVA_tag_settings_label">Paràmetres</string>
-	<string name="actfm_TVA_tag_description_hint">Escriviu una descripció</string>
 	<string name="actfm_TVA_tag_name_hint">Escriviu el nom de la llista</string>
 	<string name="actfm_GAA_title">Trieu el compte de Google que vulgueu utilitzar:</string>
-	<string name="actfm_feat_list_clone">Copiar la lista</string>
-	<string name="actfm_feat_list_suffix">(Copia)</string>
-	<string name="actfm_feat_list_cloning">S\'està copiant...</string>
-	<string name="actfm_feat_list_clone_success">L\'operació s\'ha realitzat correctament.</string>
-	<string name="actfm_feat_list_task_clone_success">Tarea copiada </string>
-	<string name="actfm_feat_list_clone_empty">No tarea a copiar</string>
 	<string name="alarm_ACS_label">Alarmes</string>
 	<string name="alarm_ACS_button">Afegeix una alarma</string>
 	<string-array name="reminders_alarm">
@@ -75,7 +64,6 @@
 	<string name="TLA_menu_sort">Ordenació i subtasques</string>
 	<string name="TLA_menu_sync">Sincronitza ara</string>
 	<string name="TLA_menu_search">Cerca</string>
-	<string name="TLA_menu_lists">Llistes</string>
 	<string name="TLA_menu_settings">Paràmetres</string>
 	<string name="TLA_menu_support">Assistència</string>
 	<string name="TLA_custom">Personalitzat</string>

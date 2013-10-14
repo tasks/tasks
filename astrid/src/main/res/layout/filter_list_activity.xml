@@ -6,47 +6,20 @@
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent" 
-    android:layout_height="wrap_content"
-    android:background="?attr/asListPopoverBg"
+    android:layout_height="fill_parent"
     android:orientation="vertical">
 
-
     <!-- List -->
-    <com.todoroo.astrid.ui.ErrorCatchingListView android:id="@android:id/list"
+
+    <ListView
+        android:id="@android:id/list"
         android:layout_width="fill_parent"
-        android:layout_height="320dip"
+        android:layout_height="fill_parent"
         android:layout_alignParentTop="true"
         android:scrollbars="vertical"
-        android:divider="@android:color/transparent"
         android:dividerHeight="1px"
-        android:background="@android:color/transparent"
+        android:background="?attr/drawer_background"
         android:cacheColorHint="#00000000"/>
-    
-    <include layout="@layout/fla_separator"/>
 
-    <!-- Footer -->
-    <LinearLayout
-        android:id="@+id/lists_footer"
-        android:layout_width="fill_parent" 
-        android:layout_height="50dip"
-        android:padding="5dip"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_alignParentBottom="true">
-        
-        <TextView
-		    android:id="@+id/new_list_button"
-		    android:layout_width="fill_parent"
-		    android:layout_height="fill_parent"
-		    android:gravity="left|center_vertical"
-	        android:background="?attr/asThemeTextColor"
-	        android:paddingLeft="9dip"
-		    android:drawableLeft="@drawable/filter_plus_button"
-            android:drawablePadding="13dip"
-		    android:text="@string/FLA_new_list"
-		    style="@style/TextAppearance.FLA_Button"/>
-        
-    </LinearLayout>
-        
 </LinearLayout>
     

@@ -11,54 +11,6 @@
   android:layout_height="wrap_content"
   android:layout_weight="100">
   
-  <LinearLayout
-    android:id="@+id/members_header"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-  
-	  <LinearLayout
-	    android:layout_width="fill_parent"
-	    android:layout_height="43dip"
-	    android:layout_weight="1"
-	    android:background="?attr/asMembersHeaderBackground">
-		  <HorizontalScrollView
-		    android:layout_width="fill_parent"
-		    android:layout_height="43dip"
-		    android:layout_weight="100"
-		    android:scrollbars="none">
-		    <LinearLayout
-		       android:id="@+id/shared_with"
-		       android:layout_width="wrap_content"
-		       android:paddingLeft="6dip"
-		       android:layout_height="fill_parent"
-		       android:gravity="center_vertical">
-		    </LinearLayout>
-		  </HorizontalScrollView>
-		  <ImageView 
-		    android:id="@+id/members_edit"
-		    android:layout_width="43dip"
-		    android:layout_height="43dip"
-		    android:padding="5dip"
-		    android:layout_weight="1"
-		    android:src="?attr/ic_action_gear"
-		    android:scaleType="fitCenter"/>
-	  </LinearLayout>
-	  
-	  <TextView
-	    android:id="@+id/filter_assigned"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_weight="1"
-	    android:gravity="center"
-	    android:paddingTop="3dip"
-        android:paddingBottom="3dip"
-	    style="@style/TextAppearance"
-	    android:background="@android:color/darker_gray"
-	    android:visibility="gone"/>
-	  
-  </LinearLayout>
-  
   <!-- List body goes here -->
     
 </LinearLayout>

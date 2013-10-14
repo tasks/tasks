@@ -5,7 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<string name="actfm_tag_operation_owner_delete">אתה הבעלים של רשימה זו! אם תמחק אותה, היא תימחק עבור השותפים בה. האם אתה בטוח שברצונך להמשיך?</string>
 	<string name="actfm_picture_camera">צַלֵּם תמונה</string>
 	<string name="actfm_picture_gallery">בחר מגלריה</string>
 	<string name="actfm_picture_clear">הסר תמונה</string>
@@ -13,18 +12,8 @@
 	<string name="actfm_TVA_menu_refresh">רַעְנֵן</string>
 	<string name="actfm_TVA_tag_label">רשימה</string>
 	<string name="actfm_TVA_tag_picture">תמונת רשימה</string>
-	<string name="actfm_TVA_silence_label">השתק התראות</string>
-	<string name="actfm_TVA_tag_description_label">תיאור</string>
-	<string name="actfm_TVA_tag_settings_label">הגדרות</string>
-	<string name="actfm_TVA_tag_description_hint">הכנס תיאור כאן</string>
 	<string name="actfm_TVA_tag_name_hint">הכנס שם רשימה</string>
 	<string name="actfm_GAA_title">בחר חשבון גוגל</string>
-	<string name="actfm_feat_list_clone">העתקת רשימה</string>
-	<string name="actfm_feat_list_suffix">(העתק)</string>
-	<string name="actfm_feat_list_cloning">מעתיקה...</string>
-	<string name="actfm_feat_list_clone_success">הצלחה!</string>
-	<string name="actfm_feat_list_task_clone_success">משימה הועתקה</string>
-	<string name="actfm_feat_list_clone_empty">אין משימות להעתיק</string>
 	<string name="alarm_ACS_label">התראות</string>
 	<string name="alarm_ACS_button">הוסף התראה</string>
 	<string-array name="reminders_alarm">
@@ -73,8 +62,6 @@
 	<string name="TLA_menu_sort">מיון</string>
 	<string name="TLA_menu_sync">סנכרני כעת</string>
 	<string name="TLA_menu_search">חיפוש</string>
-	<string name="TLA_menu_lists">רשימות</string>
-	<string name="TLA_menu_featured_lists">רשימות נבחרות</string>
 	<string name="TLA_menu_settings">הגדרות</string>
 	<string name="TLA_menu_support">תמיכה</string>
 	<string name="TLA_custom">מותאם אישית</string>
@@ -255,10 +242,6 @@
 	<string name="EPr_cal_end_at_due_time">סיים את אירועי היומן במועד היעד?</string>
 	<string name="EPr_cal_start_at_due_time">התחל את מאורעות היומן במועד היעד</string>
 	<string name="EPr_force_phone_layout">מקלדת טלפון</string>
-	<string name="EPr_swipe_lists_performance_title">עִלְעוּל בין רשימות</string>
-	<string name="swipe_lists_helper_title">עִלְעוּל בין רשימות</string>
-	<string name="swipe_lists_helper_header">עִלְעוּל ימינה ושמאלה למעבר מהיר בין רשימות</string>
-	<string name="swipe_lists_helper_subtitle">שנה הגדרות תחת הגדרות&gt;חזות</string>
 	<string name="EPr_manage_header">נהל משימות ישנות</string>
 	<string name="EPr_manage_delete_completed">מַחֲקִי משימות שבוצעו</string>
 	<string name="EPr_manage_delete_completed_message">האם אתה בטוח שברצונך למחוק את כל המשימות שבוצעו?</string>
@@ -685,18 +668,13 @@
 	<string name="tag_FEx_header">רשימות</string>
 	<string name="tag_cm_rename">שנה שם רשימה</string>
 	<string name="tag_cm_delete">מַחֲקִי רשימה</string>
-	<string name="tag_cm_leave">עזוב רשימה</string>
 	<string name="DLG_delete_this_tag_question">למחוק את הרשימה %s? (המשימות שברשימה לא תימחקנה.)</string>
-	<string name="DLG_leave_this_shared_tag_question">לעזוב את הרשימה המשותפת %s? (המשימות לא תימחקנה.)</string>
 	<string name="DLG_rename_this_tag_header">שינוי שם הרשימה %s ל:</string>
 	<string name="TEA_no_tags_modified">לא נעשו שינויים</string>
 	<string name="TEA_tags_deleted">\"הרשימה %1$s נמחקה,  %2$d משימות השתנו\"</string>
-	<string name="TEA_tags_left">\"עזבת את הרשימה המשותפת  %1$s,   %2$d משימות השתנו\"</string>
 	<string name="TEA_tags_renamed">\"החלפתי את  %1$s ב %2$s עבור %3$d משימות\"</string>
 	<string name="tag_settings_title">הגדרות רשימה:</string>
 	<string name="tag_updates_title">פעילות: %s</string>
-	<string name="tag_delete_button">מחיקת רשימה</string>
-	<string name="tag_leave_button">עזוב רשימה זו</string>
 	<string name="TPl_notification">קוצב זמן הופעל עבור %s משימות</string>
 	<string name="TFE_workingOn">משימות עם הערכת זמן</string>
 	<string name="TEA_timer_controls">טיימר</string>

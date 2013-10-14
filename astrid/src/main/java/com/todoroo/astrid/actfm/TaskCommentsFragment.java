@@ -70,11 +70,6 @@ public class TaskCommentsFragment extends CommentsFragment {
     }
 
     @Override
-    protected void populateListHeader(ViewGroup header) {
-        // Do nothing
-    }
-
-    @Override
     protected boolean canLoadMoreHistory() {
         return hasModel() && task.getValue(Task.HISTORY_HAS_MORE) > 0;
     }

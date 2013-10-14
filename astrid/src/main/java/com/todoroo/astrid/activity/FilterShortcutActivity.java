@@ -13,11 +13,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-import org.tasks.R;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.service.ThemeService;
+
+import org.tasks.R;
 
 public class FilterShortcutActivity extends ListActivity {
 
@@ -55,8 +56,7 @@ public class FilterShortcutActivity extends ListActivity {
             Intent shortcutIntent = ShortcutActivity.createIntent(
                     (Filter) filter);
 
-            Bitmap bitmap = FilterListFragment.superImposeListIcon(FilterShortcutActivity.this,
-                    filter.listingIcon, filter.listingTitle);
+            Bitmap bitmap = FilterListFragment.superImposeListIcon(FilterShortcutActivity.this);
             Intent intent = new Intent();
             intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
             intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, filter.title);

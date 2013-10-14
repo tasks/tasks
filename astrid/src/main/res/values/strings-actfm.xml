@@ -3,9 +3,6 @@
 
   <!-- ================================================== general terms == -->
 
-  <!-- warning before deleting a list you're the owner of -->
-  <string name="actfm_tag_operation_owner_delete">You are the owner of this shared list! If you delete it, it will be deleted for all list members. Are you sure you want to continue?</string>
-
   <!-- slide 29a: menu item to take a picture -->
   <string name="actfm_picture_camera">Take a Picture</string>
 
@@ -29,18 +26,6 @@
   <!-- Tag Settings: tag picture -->
   <string name="actfm_TVA_tag_picture">List Picture</string>
 
-  <!-- slide 25c/28b: Tag Settings: silence notifications label -->
-  <string name="actfm_TVA_silence_label">Silence Notifications</string>
-  
-  <!-- slide 25b/27d: Tag Settings: list description label -->
-  <string name="actfm_TVA_tag_description_label">Description</string>
-  
-  <!-- slide 28a: Tag Settings: list settings label -->
-  <string name="actfm_TVA_tag_settings_label">Settings</string>
-
-  <!-- slide 25b: Tag Settings: list description hint -->
-  <string name="actfm_TVA_tag_description_hint">Type a description here</string>
-  
   <!-- slide 25d: Tag Settings: list name hint -->
   <string name="actfm_TVA_tag_name_hint">Enter list name</string>
       
@@ -48,20 +33,6 @@
 
   <!-- share login: Google Auth title -->
   <string name="actfm_GAA_title">Select the Google account you want to use:</string>
-
-  <!-- ================================================ Featured Lists -->
-
-  <string name="actfm_feat_list_clone">Copy list</string>
-  
-  <string name="actfm_feat_list_suffix">(Copy)</string>
-
-  <string name="actfm_feat_list_cloning">Copying...</string>
-
-  <string name="actfm_feat_list_clone_success">Success!</string>
-
-  <string name="actfm_feat_list_task_clone_success">Task copied</string>
-
-  <string name="actfm_feat_list_clone_empty">No tasks to copy</string>
 
 </resources>
 

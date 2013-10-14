@@ -5,7 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<string name="actfm_tag_operation_owner_delete">あなたはこの共有リストの所有者です！もしリストを削除すると、リストのすべてのメンバーからも削除されます。本当によろしいですか？</string>
 	<string name="actfm_picture_camera">写真を撮る</string>
 	<string name="actfm_picture_gallery">ギャラリーから選択</string>
 	<string name="actfm_picture_clear">写真を削除</string>
@@ -13,13 +12,8 @@
 	<string name="actfm_TVA_menu_refresh">更新</string>
 	<string name="actfm_TVA_tag_label">リスト</string>
 	<string name="actfm_TVA_tag_picture">リスト写真</string>
-	<string name="actfm_TVA_silence_label">通知を無効する</string>
-	<string name="actfm_TVA_tag_description_label">説明</string>
-	<string name="actfm_TVA_tag_settings_label">設定</string>
-	<string name="actfm_TVA_tag_description_hint">ここに説明をタイプする</string>
 	<string name="actfm_TVA_tag_name_hint">リスト名を記入してください</string>
 	<string name="actfm_GAA_title">使用したいGoogleアカウントを選択してください:</string>
-	<string name="actfm_feat_list_clone_success">成功！</string>
 	<string name="alarm_ACS_label">アラーム</string>
 	<string name="alarm_ACS_button">アラームを追加する</string>
 	<string-array name="reminders_alarm">
@@ -61,7 +55,6 @@
 	<string name="WID_dateButtonUnset">入力する</string>
 	<string name="ENA_refresh_comments">コメントを更新</string>
 	<string name="TLA_no_items">タスクなし</string>
-	<string name="TLA_menu_lists">リスト</string>
 	<string name="TLA_menu_settings">設定</string>
 	<string name="TLA_menu_support">サポート</string>
 	<string name="TLA_custom">カスタムフィルタ</string>

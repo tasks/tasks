@@ -17,8 +17,6 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.utility.AstridPreferences;
 
 import org.tasks.R;
@@ -27,20 +25,6 @@ public final class UpgradeService {
 
     public static final int V4_6_5 = 306;
     public static final int V3_0_0 = 136;
-
-    @Autowired Database database;
-
-    @Autowired TaskService taskService;
-
-    @Autowired MetadataService metadataService;
-
-    @Autowired GtasksPreferenceService gtasksPreferenceService;
-
-    @Autowired AddOnService addOnService;
-
-    public UpgradeService() {
-        DependencyInjectionService.getInstance().inject(this);
-    }
 
     /**
      * Perform upgrade from one version to the next. Needs to be called
@@ -79,7 +63,9 @@ public final class UpgradeService {
                 new Thread() {
                     @Override
                     public void run() {
+                        //noinspection EmptyTryBlock
                         try {
+
                         } finally {
                             finished = true;
                             DialogUtilities.dismissDialog(UpgradeActivity.this, dialog);
@@ -87,7 +73,7 @@ public final class UpgradeService {
                             setResult(AstridActivity.RESULT_RESTART_ACTIVITY);
                             finish();
                         }
-                    };
+                    }
                 }.start();
             } else {
                 finished = true;

@@ -14,17 +14,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
@@ -41,19 +37,10 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
-import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.api.FilterWithUpdate;
-import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.tags.TagsPlugin;
-import com.todoroo.astrid.utility.AstridPreferences;
 
 import org.tasks.R;
 
@@ -85,15 +72,11 @@ public class FilterListFragment extends SherlockListFragment {
 
     // --- instance variables
 
-    @Autowired ExceptionService exceptionService;
-
     protected FilterAdapter adapter = null;
 
     private final RefreshReceiver refreshReceiver = new RefreshReceiver();
 
     private OnFilterItemClickedListener mListener;
-
-    private View newListButton;
 
     /* ======================================================================
      * ======================================================= initialization
@@ -104,10 +87,6 @@ public class FilterListFragment extends SherlockListFragment {
      */
     public interface OnFilterItemClickedListener {
         public boolean onFilterItemClicked(FilterListItem item);
-    }
-
-    public FilterListFragment() {
-        DependencyInjectionService.getInstance().inject(this);
     }
 
     @Override
@@ -123,7 +102,7 @@ public class FilterListFragment extends SherlockListFragment {
         }
     }
 
-    protected FilterAdapter instantiateAdapter() {
+    private FilterAdapter instantiateAdapter() {
         return new FilterAdapter(getActivity(), null,
                 R.layout.filter_adapter_row, false);
     }
@@ -141,12 +120,7 @@ public class FilterListFragment extends SherlockListFragment {
     }
 
     protected int getLayout(Activity activity) {
-        if (AstridPreferences.useTabletLayout(activity)) {
-            adapter.filterStyle = R.style.TextAppearance_FLA_Filter_Tablet;
-            return R.layout.filter_list_activity_3pane;
-        } else {
-            return R.layout.filter_list_activity;
-        }
+        return R.layout.filter_list_activity;
     }
 
     @Override
@@ -156,21 +130,7 @@ public class FilterListFragment extends SherlockListFragment {
         setHasOptionsMenu(true);
 
         getActivity().setDefaultKeyMode(Activity.DEFAULT_KEYS_SEARCH_LOCAL);
-        //ImageView backButton = (ImageView) getView().findViewById(R.id.back);
-        newListButton = getView().findViewById(R.id.new_list_button);
 
-        if (newListButton != null) {
-            newListButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = TagsPlugin.newTagDialog(getActivity());
-                    getActivity().startActivityForResult(intent, REQUEST_NEW_LIST);
-                    if (!AstridPreferences.useTabletLayout(getActivity())) {
-                        AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
-                    }
-                }
-            });
-        }
         setUpList();
     }
 
@@ -310,16 +270,7 @@ public class FilterListFragment extends SherlockListFragment {
             return;
         }
 
-        String defaultImageId = filter.listingTitle;
-        if (filter instanceof FilterWithUpdate) {
-            FilterWithUpdate fwu = (FilterWithUpdate) filter;
-            Bundle customExtras = fwu.customExtras;
-            if (customExtras != null && customExtras.containsKey(TagViewFragment.EXTRA_TAG_UUID)) {
-                defaultImageId = customExtras.getString(TagViewFragment.EXTRA_TAG_UUID);
-            }
-        }
-
-        Bitmap bitmap = superImposeListIcon(activity, filter.listingIcon, defaultImageId);
+        Bitmap bitmap = superImposeListIcon(activity);
 
         Intent createShortcutIntent = new Intent();
         createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
@@ -332,25 +283,8 @@ public class FilterListFragment extends SherlockListFragment {
                 activity.getString(R.string.FLA_toast_onCreateShortcut, label), Toast.LENGTH_LONG).show();
     }
 
-    public static Bitmap superImposeListIcon(Activity activity, Bitmap listingIcon, String uuid) {
-        Bitmap emblem = listingIcon;
-        if(emblem == null) {
-            emblem = ((BitmapDrawable) activity.getResources().getDrawable(
-                    TagService.getDefaultImageIDForTag(uuid))).getBitmap();
-        }
-
-        // create icon by superimposing astrid w/ icon
-        DisplayMetrics metrics = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        Bitmap bitmap = ((BitmapDrawable) activity.getResources().getDrawable(
-                R.drawable.icon)).getBitmap();
-        bitmap = bitmap.copy(bitmap.getConfig(), true);
-        Canvas canvas = new Canvas(bitmap);
-        int dimension = 22;
-        canvas.drawBitmap(emblem, new Rect(0, 0, emblem.getWidth(), emblem.getHeight()),
-                new Rect(bitmap.getWidth() - dimension, bitmap.getHeight() - dimension,
-                        bitmap.getWidth(), bitmap.getHeight()), null);
-        return bitmap;
+    public static Bitmap superImposeListIcon(Activity activity) {
+        return ((BitmapDrawable)activity.getResources().getDrawable(R.drawable.icon)).getBitmap();
     }
 
     @Override

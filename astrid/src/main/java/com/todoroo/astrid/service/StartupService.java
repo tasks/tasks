@@ -42,10 +42,6 @@ import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.dao.TaskAttachmentDao;
-import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.dao.TaskListMetadataDao;
-import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
@@ -58,7 +54,6 @@ import com.todoroo.astrid.reminders.ReengagementService;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
 import com.todoroo.astrid.subtasks.SubtasksMetadata;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
-import com.todoroo.astrid.ui.TaskListFragmentPager;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.widget.TasksWidget.WidgetUpdateService;
@@ -93,15 +88,7 @@ public class StartupService {
 
     @Autowired TaskService taskService;
 
-    @Autowired TaskDao taskDao;
-
     @Autowired TagDataDao tagDataDao;
-
-    @Autowired UserActivityDao userActivityDao;
-
-    @Autowired TaskAttachmentDao taskAttachmentDao;
-
-    @Autowired TaskListMetadataDao taskListMetadataDao;
 
     @Autowired MetadataService metadataService;
 
@@ -332,9 +319,6 @@ public class StartupService {
 
     private void checkForSwipeListsUse() {
         if (!Preferences.getBoolean(PREF_SWIPE_CHECK, false)) {
-            if (Preferences.getBoolean(R.string.p_swipe_lists_enabled, false)
-                    && Preferences.getBoolean(TaskListFragmentPager.PREF_SHOWED_SWIPE_HELPER, false)) {
-            }
             Preferences.setBoolean(PREF_SWIPE_CHECK, true);
         }
     }

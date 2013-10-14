@@ -5,7 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<string name="actfm_tag_operation_owner_delete">Du är ägare till den här delade listan! Om du tar bort den, tas den bort för alla medlemmar på listan. Är du säker på att du vill fortsätta?</string>
 	<string name="actfm_picture_camera">Ta en bild</string>
 	<string name="actfm_picture_gallery">Välj från galleri</string>
 	<string name="actfm_picture_clear">Rensa bild</string>
@@ -13,18 +12,8 @@
 	<string name="actfm_TVA_menu_refresh">Uppdatera</string>
 	<string name="actfm_TVA_tag_label">Lista</string>
 	<string name="actfm_TVA_tag_picture">Listbild</string>
-	<string name="actfm_TVA_silence_label">Tysta påminelser</string>
-	<string name="actfm_TVA_tag_description_label">Beskrivning</string>
-	<string name="actfm_TVA_tag_settings_label">Inställningar</string>
-	<string name="actfm_TVA_tag_description_hint">Skriv en beskrivning här</string>
 	<string name="actfm_TVA_tag_name_hint">Ange listnamn</string>
 	<string name="actfm_GAA_title">Välj vilket Googlekonto du vill använda:</string>
-	<string name="actfm_feat_list_clone">Kopiera lista</string>
-	<string name="actfm_feat_list_suffix">(Kopiera)</string>
-	<string name="actfm_feat_list_cloning">Kopierar...</string>
-	<string name="actfm_feat_list_clone_success">Klart!</string>
-	<string name="actfm_feat_list_task_clone_success">Uppgift kopierad</string>
-	<string name="actfm_feat_list_clone_empty">Ingen uppgift att kopiera</string>
 	<string name="alarm_ACS_label">Alarm</string>
 	<string name="alarm_ACS_button">Lägg till ett alarm</string>
 	<string name="backup_BPr_header">Säkerhetskopior</string>
@@ -68,8 +57,6 @@
 	<string name="TLA_menu_sort">Sortera</string>
 	<string name="TLA_menu_sync">Synkronisera nu</string>
 	<string name="TLA_menu_search">Sök</string>
-	<string name="TLA_menu_lists">Listor</string>
-	<string name="TLA_menu_featured_lists">Visa färdiga listor</string>
 	<string name="TLA_menu_settings">Inställningar</string>
 	<string name="TLA_custom">Egendefinierad</string>
 	<string name="TLA_quick_add_hint">Lägg till uppgift</string>
@@ -229,10 +216,6 @@
 	</string-array>
 	<string name="EPr_taskRowPrefs_title">Utseende på uppgiftsraden</string>
 	<string name="EPr_force_phone_layout">Använd telefonutseende</string>
-	<string name="EPr_swipe_lists_performance_title">Svep för att växla mellan listor</string>
-	<string name="swipe_lists_helper_title">Gör en svepande rörelse för att byta lista</string>
-	<string name="swipe_lists_helper_header">Gör en svepande rörelse åt vänster eller höger för att snabbt växla mellan listor</string>
-	<string name="swipe_lists_helper_subtitle">Ändra inställningar i Inställningar -&gt; Utseende</string>
 	<string name="EPr_manage_header">Hantera gamla uppgifter</string>
 	<string name="EPr_manage_delete_completed">Radera färdiga uppgifter</string>
 	<string name="EPr_manage_delete_completed_message">Vill du verkligen radera alla dina färdiga uppgifter?</string>
@@ -606,18 +589,13 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="tag_FEx_header">Listor</string>
 	<string name="tag_cm_rename">Byt namn på listan</string>
 	<string name="tag_cm_delete">Radera listan</string>
-	<string name="tag_cm_leave">Lämna listan</string>
 	<string name="DLG_delete_this_tag_question">Radera listan %s? (Inga uppgifter raderas.)</string>
-	<string name="DLG_leave_this_shared_tag_question">Lämna den delade listan %s? (Inga uppgifter raderas.)</string>
 	<string name="DLG_rename_this_tag_header">Byt namn på listan %s till:</string>
 	<string name="TEA_no_tags_modified">Inga ändringar gjordes</string>
 	<string name="TEA_tags_deleted">Listan %1$s raderad. Det påverkar %2$d uppgifter</string>
-	<string name="TEA_tags_left">Du lämnade listan %1$s. Det påverkar %2$d uppgifter</string>
 	<string name="TEA_tags_renamed">Bytte namn på %1$s till %2$s för %3$d uppgifter</string>
 	<string name="tag_settings_title">Settings:</string>
 	<string name="tag_updates_title">Aktivitet: %s</string>
-	<string name="tag_delete_button">Radera listan</string>
-	<string name="tag_leave_button">Lämna den här listan</string>
 	<string name="TPl_notification">Tidtagarur aktivt för %s!</string>
 	<string name="TFE_workingOn">Uppgifter med tidtagning</string>
 	<string name="TEA_timer_comment_started">påbörjade uppgiften:</string>

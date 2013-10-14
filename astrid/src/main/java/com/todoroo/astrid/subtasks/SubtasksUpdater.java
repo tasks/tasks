@@ -11,12 +11,10 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TaskService;
 
 public abstract class SubtasksUpdater<T> extends AstridOrderedListUpdater<T> {
 
     @Autowired TaskListMetadataDao taskListMetadataDao;
-    @Autowired TaskService taskService;
 
     public static final String ACTIVE_TASKS_ORDER = "active_tasks_order"; //$NON-NLS-1$
     public static final String TODAY_TASKS_ORDER = "today_tasks_order"; //$NON-NLS-1$

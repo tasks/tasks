@@ -7,7 +7,6 @@ package com.todoroo.astrid.actfm;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -17,10 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -31,16 +27,11 @@ import com.actionbarsherlock.view.Window;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
-import com.todoroo.astrid.activity.FilterListFragment;
-import com.todoroo.astrid.activity.ShortcutActivity;
-import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TagMetadataDao;
 import com.todoroo.astrid.dao.TagMetadataDao.TagMetadataCriteria;
 import com.todoroo.astrid.dao.UserDao;
@@ -56,7 +47,6 @@ import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagMemberMetadata;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.AstridPreferences;
-import com.todoroo.astrid.utility.ResourceDrawableCache;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -81,22 +71,16 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
     private static final String MEMBERS_IN_PROGRESS = "members"; //$NON-NLS-1$
 
     private TagData tagData;
-    private Filter filter; // Used for creating shortcuts, only initialized if necessary
 
     @Autowired TagService tagService;
 
     @Autowired TagDataService tagDataService;
 
-    @Autowired ExceptionService exceptionService;
-
     @Autowired UserDao userDao;
 
     @Autowired TagMetadataDao tagMetadataDao;
 
-    private AsyncImageView picture;
     private EditText tagName;
-    private EditText tagDescription;
-    private CheckBox isSilent;
     private Bitmap setBitmap;
     private final ImageCache imageCache;
 
@@ -172,14 +156,10 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
         } else {
             ThemeService.applyTheme(this);
             ActionBar actionBar = getSupportActionBar();
-            if (Preferences.getBoolean(R.string.p_save_and_cancel, false)) {
-                if(ThemeService.getTheme() == R.style.Theme) {
-                    actionBar.setLogo(R.drawable.ic_action_save_light);
-                } else {
-                    actionBar.setLogo(R.drawable.ic_action_save);
-                }
+            if(ThemeService.getTheme() == R.style.Theme) {
+                actionBar.setLogo(R.drawable.ic_action_save_light);
             } else {
-                actionBar.setLogo(null);
+                actionBar.setLogo(R.drawable.ic_action_save);
             }
         }
     }
@@ -202,48 +182,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
         }
 
         tagName = (EditText) findViewById(R.id.tag_name);
-        tagDescription = (EditText) findViewById(R.id.tag_description);
-        picture = (AsyncImageView) findViewById(R.id.picture);
-        isSilent = (CheckBox) findViewById(R.id.tag_silenced);
-        isSilent.setChecked(tagData.getFlag(TagData.FLAGS, TagData.FLAG_SILENT));
-
-        Button leaveListButton = (Button) findViewById(R.id.leave_list);
-        leaveListButton.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                showDeleteDialog(tagData);
-            }
-        });
-        if (isNewTag) {
-            leaveListButton.setVisibility(View.GONE);
-        }
-        else if (tagData.getValue(TagData.MEMBER_COUNT) > 0) {
-            leaveListButton.setText(getString(R.string.tag_leave_button));
-        }
-
-        picture.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(getResources(), TagService.getDefaultImageIDForTag(tagData.getUuid())));
-        picture.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                ActFmCameraModule.showPictureLauncher(TagSettingsActivity.this, null);
-            }
-        });
-
-        if (isNewTag) {
-            findViewById(R.id.create_shortcut_container).setVisibility(View.GONE);
-        } else {
-            findViewById(R.id.create_shortcut_container).setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (filter == null) {
-                        filter = TagFilterExposer.filterFromTagData(TagSettingsActivity.this, tagData);
-                    }
-                    filter.listingIcon = picture.getImageBitmap();
-                    FilterListFragment.showCreateShortcutDialog(TagSettingsActivity.this, ShortcutActivity.createIntent(filter), filter);
-                }
-            });
-        }
 
         refreshSettingsPage();
 
@@ -285,10 +223,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
                 }
             }
         }
-        //handles description part
-        String newDesc = tagDescription.getText().toString();
-
-        tagData.setValue(TagData.TAG_DESCRIPTION, newDesc);
 
         if (setBitmap != null) {
             JSONObject pictureJson = RemoteModel.PictureHelper.savePictureJson(this, setBitmap);
@@ -311,7 +245,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
         if (members.length() > oldMemberCount) {
         }
         tagData.setValue(TagData.MEMBER_COUNT, members.length());
-        tagData.setFlag(TagData.FLAGS, TagData.FLAG_SILENT, isSilent.isChecked());
 
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(tagName.getWindowToken(), 0);
@@ -375,27 +308,8 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
             }
         }
 
-        String imageUrl = tagData.getPictureUrl(TagData.PICTURE, RemoteModel.PICTURE_MEDIUM);
-        Bitmap imageBitmap = null;
-        if (TextUtils.isEmpty(imageUrl)) {
-            imageBitmap = tagData.getPictureBitmap(TagData.PICTURE);
-        }
-
-        if (imageBitmap != null) {
-            picture.setImageBitmap(imageBitmap);
-        } else {
-            picture.setUrl(imageUrl);
-        }
-        if (!isNewTag) {
-            ImageView shortcut = (ImageView) findViewById(R.id.create_shortcut);
-            shortcut.setImageBitmap(FilterListFragment.superImposeListIcon(this, picture.getImageBitmap(), tagData.getUuid()));
-        }
-
         String peopleJson = tagData.getValue(TagData.MEMBERS);
         updateMembers(peopleJson, tagData.getUuid());
-
-        tagDescription.setText(tagData.getValue(TagData.TAG_DESCRIPTION));
-
     }
 
     private void updateMembers(String peopleJson, String tagUuid) {
@@ -468,7 +382,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
         CameraResultCallback callback = new CameraResultCallback() {
             @Override
             public void handleCameraResult(Bitmap bitmap) {
-                picture.setImageBitmap(bitmap);
                 setBitmap = bitmap;
                 saveTagPictureLocally(bitmap);
             }
@@ -525,35 +438,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
             break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    protected void showDeleteDialog(TagData td) {
-        if(td == null) {
-            return;
-        }
-
-        int string;
-        if (td.getValue(TagData.MEMBER_COUNT) > 0) {
-            string = R.string.DLG_leave_this_shared_tag_question;
-        } else {
-            string = R.string.DLG_delete_this_tag_question;
-        }
-
-
-        DialogUtilities.okCancelDialog(this, getString(string, td.getValue(TagData.NAME)),
-                new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                deleteTag();
-            }
-        }, null );
-    }
-
-    protected void deleteTag() {
-        Intent result = tagService.deleteOrLeaveTag(this, tagData.getValue(TagData.NAME), tagData.getUuid());
-        setResult(Activity.RESULT_OK, result);
-        finish();
     }
 
     private static void jsonFromUser(JSONObject json, User model) throws JSONException {

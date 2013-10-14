@@ -11,8 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.actionbarsherlock.view.Menu;
-import org.tasks.R;
+import com.actionbarsherlock.view.MenuItem;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -25,26 +24,21 @@ import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.SyncV2Service;
-import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.subtasks.OrderedListFragmentHelperInterface;
 import com.todoroo.astrid.subtasks.OrderedMetadataListFragmentHelper;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 
+import org.tasks.R;
+
 public class GtasksListFragment extends SubtasksListFragment {
 
-    protected static final int MENU_CLEAR_COMPLETED_ID = MENU_ADDON_INTENT_ID + 1;
-
     public static final String TOKEN_STORE_ID = "storeId"; //$NON-NLS-1$
-
-    protected static final int MENU_REFRESH_ID = MENU_SUPPORT_ID + 1;
 
     @Autowired private StoreObjectDao storeObjectDao;
 
     @Autowired private GtasksTaskListUpdater gtasksTaskListUpdater;
 
     @Autowired private GtasksMetadataService gtasksMetadataService;
-
-    @Autowired private GtasksPreferenceService gtasksPreferenceService;
 
     @Autowired private SyncV2Service syncService;
 
@@ -62,11 +56,6 @@ public class GtasksListFragment extends SubtasksListFragment {
     @Override
     protected OrderedListFragmentHelperInterface<?> createFragmentHelper() {
         return new OrderedMetadataListFragmentHelper<StoreObject>(this, gtasksTaskListUpdater);
-    }
-
-    @Override
-    protected boolean allowResorting() {
-        return false;
     }
 
     @Override
@@ -111,24 +100,17 @@ public class GtasksListFragment extends SubtasksListFragment {
     }
 
     @Override
-    protected void addMenuItems(Menu menu, Activity activity) {
-        super.addMenuItems(menu, activity);
-        addMenuItem(menu, R.string.gtasks_GTA_clear_completed, android.R.drawable.ic_input_delete, MENU_CLEAR_COMPLETED_ID, false);
-    }
-
-    @Override
-    public boolean handleOptionsMenuItemSelected(int id, Intent intent) {
-     // handle my own menus
-        switch (id) {
-        case MENU_REFRESH_ID:
-            refreshData(true);
-            return true;
-        case MENU_CLEAR_COMPLETED_ID:
-            clearCompletedTasks();
-            return true;
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.menu_sync:
+                refreshData(true);
+                return true;
+            case R.id.menu_clear_completed:
+                clearCompletedTasks();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.handleOptionsMenuItemSelected(id, intent);
     }
 
     private void clearCompletedTasks() {
@@ -178,15 +160,4 @@ public class GtasksListFragment extends SubtasksListFragment {
     public Property<?>[] taskProperties() {
         return helper.taskProperties();
     }
-
-    @Override
-    protected void addSyncRefreshMenuItem(Menu menu, int themeFlags) {
-        if(gtasksPreferenceService.isLoggedIn()) {
-            addMenuItem(menu, R.string.actfm_TVA_menu_refresh,
-                    ThemeService.getDrawable(R.drawable.icn_menu_refresh, themeFlags), MENU_REFRESH_ID, true);
-        } else {
-            super.addSyncRefreshMenuItem(menu, themeFlags);
-        }
-    }
-
 }

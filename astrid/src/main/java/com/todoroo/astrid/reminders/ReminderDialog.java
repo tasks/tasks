@@ -20,10 +20,8 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
-import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.R;
 
@@ -41,12 +39,6 @@ public class ReminderDialog extends Dialog {
 
     @Autowired
     private TaskService taskService;
-
-    @Autowired
-    private TagService tagService;
-
-    @Autowired
-    private UserDao userDao;
 
     public ReminderDialog(final AstridActivity activity, final long taskId,
             String title) {

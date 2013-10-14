@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.tags;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -22,7 +19,6 @@ import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.tasks.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -44,12 +40,14 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
-import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagService.Tag;
+
+import org.tasks.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Exposes filters based on tags
@@ -60,9 +58,6 @@ import com.todoroo.astrid.tags.TagService.Tag;
 public class TagFilterExposer extends BroadcastReceiver implements AstridFilterExposer {
 
     private static final String TAG = "tag"; //$NON-NLS-1$
-
-    @Autowired protected TagDataService tagDataService;
-    @Autowired GtasksPreferenceService gtasksPreferenceService;
 
     protected boolean addUntaggedFilter = true;
 
@@ -85,16 +80,9 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
             filter.listingTitle += " (" + tag.count + ")";
         }
 
-        int deleteIntentLabel;
-        if (tag.memberCount > 0 && !Task.USER_ID_SELF.equals(tag.userId)) {
-            deleteIntentLabel = R.string.tag_cm_leave;
-        } else {
-            deleteIntentLabel = R.string.tag_cm_delete;
-        }
-
         filter.contextMenuLabels = new String[] {
             context.getString(R.string.tag_cm_rename),
-            context.getString(deleteIntentLabel)
+            context.getString(R.string.tag_cm_delete)
         };
         filter.contextMenuIntents = new Intent[] {
                 newTagIntent(context, RenameTagActivity.class, tag, tag.uuid),
@@ -137,7 +125,6 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
     }
 
     protected FilterListItem[] prepareFilters(Context context) {
-        DependencyInjectionService.getInstance().inject(this);
         ContextManager.setContext(context);
 
         ArrayList<FilterListItem> list = new ArrayList<FilterListItem>();
@@ -223,7 +210,6 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
             }
             DependencyInjectionService.getInstance().inject(this);
 
-
             TagData tagData = tagDataDao.fetch(uuid, TagData.MEMBER_COUNT, TagData.USER_ID);
             showDialog(tagData);
         }
@@ -276,18 +262,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
 
         @Override
         protected void showDialog(TagData tagData) {
-            int string;
-            if (tagData != null && (tagMetadataDao.tagHasMembers(uuid) || tagData.getValue(TagData.MEMBER_COUNT) > 0)) {
-                if (Task.USER_ID_SELF.equals(tagData.getValue(TagData.USER_ID))) {
-                    string = R.string.actfm_tag_operation_owner_delete;
-                } else {
-                    string = R.string.DLG_leave_this_shared_tag_question;
-                }
-            }
-            else {
-                string = R.string.DLG_delete_this_tag_question;
-            }
-            DialogUtilities.okCancelDialog(this, getString(string, tag), getOkListener(), getCancelListener());
+            DialogUtilities.okCancelDialog(this, getString(R.string.DLG_delete_this_tag_question, tag), getOkListener(), getCancelListener());
         }
 
         @Override

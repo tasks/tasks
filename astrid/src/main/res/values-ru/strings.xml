@@ -5,7 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<string name="actfm_tag_operation_owner_delete">Вы владелец этого общего списка! Если вы удалите его, он будет удален для всех участников. Вы уверены, что хотите продолжить?</string>
 	<string name="actfm_picture_camera">Сделать снимок</string>
 	<string name="actfm_picture_gallery">Взять из галереи</string>
 	<string name="actfm_picture_clear">Убрать изображение</string>
@@ -13,18 +12,8 @@
 	<string name="actfm_TVA_menu_refresh">Обновить</string>
 	<string name="actfm_TVA_tag_label">Список</string>
 	<string name="actfm_TVA_tag_picture">Укажите фото:</string>
-	<string name="actfm_TVA_silence_label">Беззвучные уведомления</string>
-	<string name="actfm_TVA_tag_description_label">Описание</string>
-	<string name="actfm_TVA_tag_settings_label">Настройки</string>
-	<string name="actfm_TVA_tag_description_hint">Введите описание здесь</string>
 	<string name="actfm_TVA_tag_name_hint">Введите имя списка</string>
 	<string name="actfm_GAA_title">Выберите аккаунт Google, который вы хотите использовать:</string>
-	<string name="actfm_feat_list_clone">Копировать список</string>
-	<string name="actfm_feat_list_suffix">(Копия)</string>
-	<string name="actfm_feat_list_cloning">Копирование...</string>
-	<string name="actfm_feat_list_clone_success">Завершено успешно!</string>
-	<string name="actfm_feat_list_task_clone_success">Задача скопирована</string>
-	<string name="actfm_feat_list_clone_empty">Нет задач для копирования</string>
 	<string name="alarm_ACS_label">Напоминания</string>
 	<string name="alarm_ACS_button">Добавить напоминание</string>
 	<string-array name="reminders_alarm">
@@ -72,8 +61,6 @@
 	<string name="TLA_menu_sort">Сортировка</string>
 	<string name="TLA_menu_sync">Синхронизация</string>
 	<string name="TLA_menu_search">Поиск</string>
-	<string name="TLA_menu_lists">Списки</string>
-	<string name="TLA_menu_featured_lists">Рекомендуемые списки</string>
 	<string name="TLA_menu_settings">Настройки</string>
 	<string name="TLA_menu_support">Поддержка</string>
 	<string name="TLA_custom">Другой</string>
@@ -126,6 +113,7 @@
 	<string name="FLA_no_filter_selected">Фильтры не выбраны! Пожалуйста, выберите фильтр или список</string>
 	<string name="TEA_title_hint">Имя задачи</string>
 	<string name="TEA_importance_label">Приоритет</string>
+	<string name="TEA_deadline_hint">Установить дату выполнения</string>
 	<string name="TEA_hideUntil_label">Скрыть до</string>
 	<string name="TEA_hideUntil_message">Задача будет скрыта до %s</string>
 	<string name="TEA_note_label">Описание</string>
@@ -255,10 +243,6 @@
 	<string name="EPr_cal_end_at_due_time">Завершение события при наступлении срока</string>
 	<string name="EPr_force_phone_layout">Использовать режим телефона</string>
 	<string name="EPr_show_save_and_cancel">Показать сохранить и отменить</string>
-	<string name="EPr_swipe_lists_performance_title">Свайп между списками</string>
-	<string name="swipe_lists_helper_title">Свайп между списками</string>
-	<string name="swipe_lists_helper_header">Свайп влево или вправо чтобы быстро переключать списки</string>
-	<string name="swipe_lists_helper_subtitle">Измените настройки в Параметры -&gt; Интерфейс</string>
 	<string name="EPr_manage_header">Управление старыми задачами</string>
 	<string name="EPr_manage_delete_completed">Удалить завершенные задачи</string>
 	<string name="EPr_manage_delete_completed_message">Вы действительно хотите удалить все завершенные задачи?</string>
@@ -684,18 +668,13 @@
 	<string name="tag_FEx_untagged">Без категории</string>
 	<string name="tag_cm_rename">Переименовать список</string>
 	<string name="tag_cm_delete">Удалить список</string>
-	<string name="tag_cm_leave">Покинуть список</string>
 	<string name="DLG_delete_this_tag_question">Удалить этот список: %s? (Задачи не будут удалены.)</string>
-	<string name="DLG_leave_this_shared_tag_question">Покинуть этот обедоступный список: %s? (Задачи не будут удалены.)</string>
 	<string name="DLG_rename_this_tag_header">Переименовать список %s в:</string>
 	<string name="TEA_no_tags_modified">Без изменений</string>
 	<string name="TEA_tags_deleted">Список %1$s был удален, затронуло %2$d задач</string>
-	<string name="TEA_tags_left">Вы покинули обший список %1$s, затронуло %2$d задач</string>
 	<string name="TEA_tags_renamed">Переименовано %1$s в %2$s для %3$d задач</string>
 	<string name="tag_settings_title">Настройки</string>
 	<string name="tag_updates_title">Активность: %s</string>
-	<string name="tag_delete_button">Удалить список</string>
-	<string name="tag_leave_button">Не удалять</string>
 	<string name="TPl_notification">Для %s действуют таймеры!</string>
 	<string name="TFE_workingOn">Задачи для замера времени</string>
 	<string name="TEA_timer_controls">Таймер</string>

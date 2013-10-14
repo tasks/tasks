@@ -5,7 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<string name="actfm_tag_operation_owner_delete">Du er ejeren af dette delte nøgleord! Hvis du sletter det, bliver det slettet for alle liste medlemmer. Er du sikker på du vil fortsætte?</string>
 	<string name="actfm_picture_camera">Tag et billede</string>
 	<string name="actfm_picture_gallery">Vælg fra galleri</string>
 	<string name="actfm_picture_clear">Ryd markering</string>

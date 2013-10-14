@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.core;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -16,11 +14,8 @@ import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
-import org.tasks.R;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
@@ -37,9 +32,11 @@ import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gtasks.GtasksPreferenceService;
-import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.ThemeService;
+
+import org.tasks.R;
+
+import java.util.ArrayList;
 
 /**
  * Exposes Astrid's built in filters to the {@link FilterListFragment}
@@ -52,9 +49,6 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
     private static final String TOKEN_FILTER_ID = "id"; //$NON-NLS-1$
     private static final String TOKEN_FILTER_NAME = "name"; //$NON-NLS-1$
 
-    @Autowired TagDataService tagDataService;
-    @Autowired GtasksPreferenceService gtasksPreferenceService;
-
     @Override
     public void onReceive(Context context, Intent intent) {
         FilterListItem[] list = prepareFilters(context);
@@ -66,7 +60,6 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
     }
 
     private FilterListItem[] prepareFilters(Context context) {
-        DependencyInjectionService.getInstance().inject(this);
         Resources r = context.getResources();
 
         Filter[] savedFilters = buildSavedFilters(context, r);
@@ -158,7 +151,6 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
             }
             final String name = getIntent().getStringExtra(TOKEN_FILTER_NAME);
 
-            DependencyInjectionService.getInstance().inject(this);
             DialogUtilities.okCancelDialog(this,
                     getString(R.string.DLG_delete_this_item_question, name),
                     new DialogInterface.OnClickListener() {

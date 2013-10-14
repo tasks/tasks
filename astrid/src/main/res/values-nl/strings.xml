@@ -5,7 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<string name="actfm_tag_operation_owner_delete">Je bent de eigenaar van deze gedeelde lijst! Als jij de lijst verwijdert, wordt deze verwijderd voor alle leden van de lijst. Weet je zeker dat je verder wilt gaan?</string>
 	<string name="actfm_picture_camera">Maak een Foto</string>
 	<string name="actfm_picture_gallery">Maak een keuze uit de Gallerij</string>
 	<string name="actfm_picture_clear">Verwijder Foto</string>
@@ -13,18 +12,8 @@
 	<string name="actfm_TVA_menu_refresh">Vernieuwen</string>
 	<string name="actfm_TVA_tag_label">Lijst</string>
 	<string name="actfm_TVA_tag_picture">Lijst afbeelding:</string>
-	<string name="actfm_TVA_silence_label">Stille waarschuwingen</string>
-	<string name="actfm_TVA_tag_description_label">Omschrijving</string>
-	<string name="actfm_TVA_tag_settings_label">Voorkeuren</string>
-	<string name="actfm_TVA_tag_description_hint">Type hier een beschrijving</string>
 	<string name="actfm_TVA_tag_name_hint">Geef de lijst een naam</string>
 	<string name="actfm_GAA_title">Selecteer de Google account die je wil gebruiken:</string>
-	<string name="actfm_feat_list_clone">Kopiëer lijst</string>
-	<string name="actfm_feat_list_suffix">(Kopiéer)</string>
-	<string name="actfm_feat_list_cloning">Kopiëren ...</string>
-	<string name="actfm_feat_list_clone_success">Succes!</string>
-	<string name="actfm_feat_list_task_clone_success">Taak gekopiéerd.</string>
-	<string name="actfm_feat_list_clone_empty">Geen taken om te kopiéren</string>
 	<string name="alarm_ACS_label">Herinneringen</string>
 	<string name="alarm_ACS_button">Voeg Herinnering toe</string>
 	<string-array name="reminders_alarm">
@@ -71,8 +60,6 @@
 	<string name="TLA_menu_sort">Sorteren</string>
 	<string name="TLA_menu_sync">Nu Synchroniseren</string>
 	<string name="TLA_menu_search">Zoek</string>
-	<string name="TLA_menu_lists">Lijsten</string>
-	<string name="TLA_menu_featured_lists">Aanbevolen Lijsten</string>
 	<string name="TLA_menu_settings">Instellingen</string>
 	<string name="TLA_menu_support">Ondersteuning</string>
 	<string name="TLA_custom">Aangepast</string>
@@ -262,10 +249,6 @@
 	<string name="EPr_cal_start_at_due_time">Agenda item op tijd starten</string>
 	<string name="EPr_force_phone_layout">Gebruik telefoon layout</string>
 	<string name="EPr_show_save_and_cancel">Toon opslaan en annuleren</string>
-	<string name="EPr_swipe_lists_performance_title">Swipe tussen lijsten</string>
-	<string name="swipe_lists_helper_title">Swipe tussen lijsten</string>
-	<string name="swipe_lists_helper_header">Swipe links of rechts om snel tussen lijsten te bladeren</string>
-	<string name="swipe_lists_helper_subtitle">Verander instellingen in Instellingen --&gt; Uiterlijk</string>
 	<string name="EPr_manage_header">Oude taken beheren</string>
 	<string name="EPr_manage_delete_completed">Voltooide taken verwijderen</string>
 	<string name="EPr_manage_delete_completed_message">Alle voltooide taken werkelijk verwijderen?</string>
@@ -702,18 +685,13 @@
 	<string name="tag_FEx_untagged">Niet gecategoriseerd</string>
 	<string name="tag_cm_rename">Lijst hernoemen</string>
 	<string name="tag_cm_delete">Lijst verwijderen</string>
-	<string name="tag_cm_leave">Verlaat Lijst</string>
 	<string name="DLG_delete_this_tag_question">De lijst %s verwijderen? (Taken blijven behouden.)</string>
-	<string name="DLG_leave_this_shared_tag_question">Verlaat deze gedeelde lijst: %s? (Er zullen geen taken worden verwijderd.)</string>
 	<string name="DLG_rename_this_tag_header">De lijst %s hernoemen naar:</string>
 	<string name="TEA_no_tags_modified">Niets gewijzigd</string>
 	<string name="TEA_tags_deleted">De lijst %1$s is verwijderd, van invloed op %2$d taken</string>
-	<string name="TEA_tags_left">Gedeelde lijst %1$s is verlaten, dit beïnvloed %2$d taken</string>
 	<string name="TEA_tags_renamed">Taak %1$s hernoemd naar %2$s voor %3$d taken</string>
 	<string name="tag_settings_title">Lijst instellingen</string>
 	<string name="tag_updates_title">Activiteit: %s</string>
-	<string name="tag_delete_button">Lijst verwijderen</string>
-	<string name="tag_leave_button">Verlaat Deze Lijst</string>
 	<string name="TPl_notification">Timers ingeschakeld voor %s!</string>
 	<string name="TFE_workingOn">Taken met timer</string>
 	<string name="TEA_timer_comment_started">taak begonnen:</string>

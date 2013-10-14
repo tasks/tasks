@@ -63,7 +63,7 @@ dependencies {
     compile project(":greendroid")
     compile project(":api")
     compile fileTree(dir: "libs", includes: ["*.jar"])
-
+    compile 'net.simonvt.menudrawer:menudrawer:3.0.4@aar'
     compile group: 'com.google.guava', name: 'guava', version: '11.0.1', transitive: false
     compile group: 'com.google.code.gson', name: 'gson', version: '1.7.1', transitive: false
     compile group: 'org.codehaus.jackson', name: 'jackson-core-asl', version: '1.6.7', transitive: false

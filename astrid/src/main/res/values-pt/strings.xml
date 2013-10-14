@@ -5,17 +5,12 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<string name="actfm_tag_operation_owner_delete">É o dono desta lista partilhada! Se a apagar, será apagada para todos os membros da lista. Tem a certeza que deseja continuar?</string>
 	<string name="actfm_picture_camera">Tirar uma Imagem</string>
 	<string name="actfm_picture_gallery">Seleccionar da Galeria</string>
 	<string name="actfm_picture_clear">Limpar Imagem</string>
 	<string name="TVA_add_comment">Adicionar um comentário...</string>
 	<string name="actfm_TVA_menu_refresh">Actualizar</string>
 	<string name="actfm_TVA_tag_label">Lista</string>
-	<string name="actfm_TVA_silence_label">Notificações Silienciosas</string>
-	<string name="actfm_TVA_tag_description_label">Descrição</string>
-	<string name="actfm_TVA_tag_settings_label">Definições</string>
-	<string name="actfm_TVA_tag_description_hint">Digita uma descrição aqui</string>
 	<string name="actfm_TVA_tag_name_hint">Introduza o nome da lista</string>
 	<string name="alarm_ACS_label">Alarmes</string>
 	<string name="alarm_ACS_button">Adicionar um Alarme</string>

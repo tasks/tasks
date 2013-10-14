@@ -5,7 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<string name="actfm_tag_operation_owner_delete">Bu paylaşılan listenin sahibisiniz. Bunu silerseniz, tüm liste üyeleri için silinecek. Devam etmek istiyor musunuz?</string>
 	<string name="actfm_picture_camera">Resim Çek</string>
 	<string name="actfm_picture_gallery">Galeriden Seç</string>
 	<string name="actfm_picture_clear">Resmi sil</string>
@@ -13,18 +12,8 @@
 	<string name="actfm_TVA_menu_refresh">Yenile</string>
 	<string name="actfm_TVA_tag_label">Liste İsmi:</string>
 	<string name="actfm_TVA_tag_picture">Liste Resmi</string>
-	<string name="actfm_TVA_silence_label">Uyarıları Sessizleştir</string>
-	<string name="actfm_TVA_tag_description_label">Açıklama</string>
-	<string name="actfm_TVA_tag_settings_label">Ayarlar</string>
-	<string name="actfm_TVA_tag_description_hint">Bir açıklama yazın</string>
 	<string name="actfm_TVA_tag_name_hint">Liste adı girin</string>
 	<string name="actfm_GAA_title">Kullanmak istediğiniz Google hesabını seçin:</string>
-	<string name="actfm_feat_list_clone">Listeyi kopyala</string>
-	<string name="actfm_feat_list_suffix">(Kopyala)</string>
-	<string name="actfm_feat_list_cloning">Kopyalanıyor...</string>
-	<string name="actfm_feat_list_clone_success">Başarılı!</string>
-	<string name="actfm_feat_list_task_clone_success">Görev kopyalandı</string>
-	<string name="actfm_feat_list_clone_empty">Kopyalanmış görev bulunmuyor</string>
 	<string name="alarm_ACS_label">Alarmlar</string>
 	<string name="alarm_ACS_button">Alarm Ekle</string>
 	<string name="backup_BPr_header">Yedekler</string>
@@ -69,8 +58,6 @@
 	<string name="TLA_no_items">Hiç göreviniz yok! \n Bir şeyler eklemek nasıl olur?</string>
 	<string name="TLA_menu_sync">Şimdi Eşle</string>
 	<string name="TLA_menu_search">Ara</string>
-	<string name="TLA_menu_lists">Listeler</string>
-	<string name="TLA_menu_featured_lists">Öne Çıkan Listeler</string>
 	<string name="TLA_menu_settings">Ayarlar</string>
 	<string name="TLA_menu_support">Destek</string>
 	<string name="TLA_custom">Özel</string>
@@ -214,10 +201,6 @@
 	<string name="EPr_fullTask_desc_disabled">Görev başlığının ilk iki satırı gösterilecek</string>
 	<string name="EPr_taskRowPrefs_title">Görev Sırası Görünümü</string>
 	<string name="EPr_force_phone_layout">Telefon yerleşimini kullan</string>
-	<string name="EPr_swipe_lists_performance_title">Listeler arası sürükleme</string>
-	<string name="swipe_lists_helper_title">Listeler arası sürükleme</string>
-	<string name="swipe_lists_helper_header">Listelerde hızlı gezinme için sağa ya da sola kaydır</string>
-	<string name="swipe_lists_helper_subtitle">Ayarlar -&gt; Görünüm içinden ayarları değiştir</string>
 	<string name="EPr_manage_header">Eski Görevleri Yönet</string>
 	<string name="EPr_manage_delete_completed">Tamamlanan Görevleri Sil</string>
 	<string name="EPr_manage_delete_completed_message">Gerçekten tüm tamamlanmış görevleri silmek istiyor musun?</string>
@@ -623,18 +606,13 @@
 	<string name="tag_FEx_header">Listeler</string>
 	<string name="tag_cm_rename">Listeyi yeniden adlandır</string>
 	<string name="tag_cm_delete">Listeyi Sil</string>
-	<string name="tag_cm_leave">Listeden Çık</string>
 	<string name="DLG_delete_this_tag_question">Bu Listeyi Sil: %s? (Hiçbir görev silinmeyecektir.)</string>
-	<string name="DLG_leave_this_shared_tag_question">Bu paylaşılan listeden çık: %s? (Silinen görev olmayacak.)</string>
 	<string name="DLG_rename_this_tag_header">%s listesini şu isimle adlandır:</string>
 	<string name="TEA_no_tags_modified">Hiç değişiklik yapılmadı</string>
 	<string name="TEA_tags_deleted">%1$s listesi, %2$d görevlerini etkileyecek şekilde silindi</string>
-	<string name="TEA_tags_left">Paylaşılan %1$s listesinden çıktınız, %2$d görevi etkiliyor</string>
 	<string name="TEA_tags_renamed">%1$s yeniden %3$d görevleri için %2$s olarak isimlendirildi.</string>
 	<string name="tag_settings_title">Liste Ayarları:</string>
 	<string name="tag_updates_title">Etkinlik: %s</string>
-	<string name="tag_delete_button">Listeyi sil</string>
-	<string name="tag_leave_button">Bu listeyi bırak</string>
 	<string name="TPl_notification">%s için kronometre etkin!</string>
 	<string name="TFE_workingOn">Zaman Ölçümü Olan Görevler</string>
 	<string name="TEA_timer_comment_started">başlanan görev:</string>

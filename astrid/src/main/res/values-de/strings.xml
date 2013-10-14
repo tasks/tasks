@@ -5,7 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<string name="actfm_tag_operation_owner_delete">Sie sind der Eigentümer dieser geteilten Liste! Wenn Sie die Liste löschen, wird sie bei allen Listenmitgliedern gelöscht. Sind Sie sich sicher, dass Sie fortfahren möchten?</string>
 	<string name="actfm_picture_camera">Bild aufnehmen</string>
 	<string name="actfm_picture_gallery">Aus Galerie wählen</string>
 	<string name="actfm_picture_clear">Bild entfernen</string>
@@ -13,18 +12,8 @@
 	<string name="actfm_TVA_menu_refresh">Aktualisieren</string>
 	<string name="actfm_TVA_tag_label">Liste</string>
 	<string name="actfm_TVA_tag_picture">Listenbild</string>
-	<string name="actfm_TVA_silence_label">Lautlose Erinnerungen</string>
-	<string name="actfm_TVA_tag_description_label">Beschreibung</string>
-	<string name="actfm_TVA_tag_settings_label">Einstellungen</string>
-	<string name="actfm_TVA_tag_description_hint">Beschreibung eingeben</string>
 	<string name="actfm_TVA_tag_name_hint">Vergebe einen Listennamen</string>
 	<string name="actfm_GAA_title">Wählen Sie den zu verwendenden Google-Account aus:</string>
-	<string name="actfm_feat_list_clone">Liste kopieren</string>
-	<string name="actfm_feat_list_suffix">(Kopie)</string>
-	<string name="actfm_feat_list_cloning">Kopiere...</string>
-	<string name="actfm_feat_list_clone_success">Viel Erfolg!</string>
-	<string name="actfm_feat_list_task_clone_success">Aufgabe kopiert</string>
-	<string name="actfm_feat_list_clone_empty">Keine Aufgaben zum Kopieren vorhanden</string>
 	<string name="alarm_ACS_label">Alarme</string>
 	<string name="alarm_ACS_button">Einen Alarm hinzufügen</string>
 	<string name="backup_status_success">Letzte Datensicherung:\n%s</string>
@@ -67,8 +56,6 @@
 	<string name="TLA_menu_sort">Sortieren</string>
 	<string name="TLA_menu_sync">Jetzt synchronisieren</string>
 	<string name="TLA_menu_search">Suchen</string>
-	<string name="TLA_menu_lists">Listen</string>
-	<string name="TLA_menu_featured_lists">Vorgeschlagene Listen</string>
 	<string name="TLA_menu_settings">Einstellungen</string>
 	<string name="TLA_menu_support">Unterstützung</string>
 	<string name="TLA_custom">Benutzerdefiniert</string>
@@ -254,10 +241,6 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Zeitpunkt Kalendertermin</string>
 	<string name="EPr_force_phone_layout">Telefon Layout nutzen</string>
 	<string name="EPr_show_save_and_cancel">Zeige speichern und abbrechen</string>
-	<string name="EPr_swipe_lists_performance_title">Zum Wechseln der Listen \"wischen\"</string>
-	<string name="swipe_lists_helper_title">Zum Wechseln der Listen wischen</string>
-	<string name="swipe_lists_helper_header">Zieh nach links oder rechts, um schnell zwischen Listen zu wechseln</string>
-	<string name="swipe_lists_helper_subtitle">Ändere die Einstellungen unter Einstellungen -&gt; Erscheinungsbild</string>
 	<string name="EPr_manage_header">Alte Aufgaben verwalten</string>
 	<string name="EPr_manage_delete_completed">Erledigte Aufgaben löschen</string>
 	<string name="EPr_manage_delete_completed_message">Willst du wirklich alle erledigten Aufgaben löschen?</string>
@@ -690,18 +673,13 @@
 	<string name="tag_FEx_untagged">Nicht kategorisiert</string>
 	<string name="tag_cm_rename">Liste umbenennen</string>
 	<string name="tag_cm_delete">Liste löschen</string>
-	<string name="tag_cm_leave">Liste verlassen</string>
 	<string name="DLG_delete_this_tag_question">Diese Liste löschen: %s ? (Es werden keine Aufgaben werden gelöscht.)</string>
-	<string name="DLG_leave_this_shared_tag_question">Geteilte Liste \"%s\" verlassen? (Aufgaben werden nicht gelöscht)</string>
 	<string name="DLG_rename_this_tag_header">Die Liste %s umbnennen nach:</string>
 	<string name="TEA_no_tags_modified">Es gibt keine Änderungen</string>
 	<string name="TEA_tags_deleted">Löschen der Liste %1$s beeinflusste %2$d Aufgaben</string>
-	<string name="TEA_tags_left">Sie haben die geteilte Liste %1$s verlassen (betrifft %2$d Aufgaben)</string>
 	<string name="TEA_tags_renamed">%1$s umbennant nach %2$s für %3$d Aufgaben</string>
 	<string name="tag_settings_title">Listeneinstellungen</string>
 	<string name="tag_updates_title">Aktivität: %s</string>
-	<string name="tag_delete_button">Liste löschen</string>
-	<string name="tag_leave_button">Diese Liste verlassen</string>
 	<string name="TPl_notification">Timer ist aktiv für %s!</string>
 	<string name="TFE_workingOn">Zeitlich festgelegte Aufgaben</string>
 	<string name="TEA_timer_comment_started">Aufgabe begonnen:</string>

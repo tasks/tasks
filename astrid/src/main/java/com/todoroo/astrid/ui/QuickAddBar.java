@@ -78,9 +78,7 @@ public class QuickAddBar extends LinearLayout {
 
     private String currentVoiceFile = null;
 
-    @Autowired AddOnService addOnService;
     @Autowired ExceptionService exceptionService;
-    @Autowired MetadataService metadataService;
     @Autowired
     private TaskAttachmentDao taskAttachmentDao;
 

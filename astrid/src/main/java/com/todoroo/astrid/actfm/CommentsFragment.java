@@ -107,8 +107,6 @@ public abstract class CommentsFragment extends SherlockListFragment {
 
     protected abstract void addHeaderToListView(ListView listView);
 
-    protected abstract void populateListHeader(ViewGroup header);
-
     protected abstract UserActivity createUpdate();
 
     protected abstract boolean canLoadMoreHistory();
@@ -241,7 +239,6 @@ public abstract class CommentsFragment extends SherlockListFragment {
                 addFooterToListView(listView);
                 listView.setAdapter(updateAdapter);
             }
-            populateListHeader(listHeader);
         }
 
         listView.setVisibility(View.VISIBLE);

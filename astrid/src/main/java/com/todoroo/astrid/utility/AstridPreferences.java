@@ -16,7 +16,6 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.User;
-import com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer;
 
 import org.tasks.R;
 
@@ -48,9 +47,6 @@ public class AstridPreferences {
         spec.setIfUnset();
 
         setShowFriendsView();
-
-        setShowFeaturedLists();
-
     }
 
     public static void resetToDefaults() {
@@ -69,10 +65,6 @@ public class AstridPreferences {
         } finally {
             users.close();
         }
-    }
-
-    private static void setShowFeaturedLists() {
-        Preferences.setBoolean(FeaturedListFilterExposer.PREF_SHOULD_SHOW_FEATURED_LISTS, false);
     }
 
     /* ======================================================================

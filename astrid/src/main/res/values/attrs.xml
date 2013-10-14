@@ -30,18 +30,19 @@
   <attr name="asHeaderTextColorInverse" format="color"/>
   <attr name="asEditTextBackground" format="reference"/>
   <attr name="asReadonlyTaskBackground" format="color" />
-  <attr name="asListsDisclosure" format="reference"/>
-  <attr name="asMainMenu" format="reference" />
   <attr name="asAbBackgroundColor" format="color"/>
   <attr name="asQuickaddBackgroundColor" format="color" />
-  <attr name="asListPopoverBg" format="reference"/>
-  <attr name="asListArrowUp" format="reference"/>
   <attr name="asFilterSelectedIcon" format="reference"/>
   <attr name="asTaskRowSelector" format="reference" />
     <attr name="ic_action_gear" format="reference"/>
     <attr name="ic_action_camera" format="reference"/>
     <attr name="ic_action_new" format="reference"/>
     <attr name="ic_action_mic" format="reference" />
+    <attr name="ic_action_search" format="reference"/>
+    <attr name="ic_action_discard" format="reference"/>
+    <attr name="ic_drawer" format="reference"/>
+    <attr name="drawer_background" format="color"/>
+    <attr name="drawer_text" format="color"/>
 
   <declare-styleable name="DateAndTimePicker">
       <attr name="shortcutLabels" format="reference"/>

@@ -14,14 +14,11 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -35,24 +32,14 @@ import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.SortHelper;
-import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.dao.TagMetadataDao;
-import com.todoroo.astrid.dao.TaskListMetadataDao;
-import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TagDataService;
-import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.tags.TagFilterExposer;
-import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Flags;
 
 import org.tasks.R;
@@ -72,9 +59,6 @@ public class TagViewFragment extends TaskListFragment {
 
     public static final String EXTRA_TAG_DATA = "tagData"; //$NON-NLS-1$
 
-    protected static final int MENU_REFRESH_ID = MENU_SUPPORT_ID + 1;
-    protected static final int MENU_LIST_SETTINGS_ID = R.string.tag_settings_title;
-
     private static final int REQUEST_CODE_SETTINGS = 0;
 
     public static final String TOKEN_START_ACTIVITY = "startActivity"; //$NON-NLS-1$
@@ -83,29 +67,13 @@ public class TagViewFragment extends TaskListFragment {
 
     @Autowired TagDataService tagDataService;
 
-    @Autowired TagService tagService;
-
     @Autowired TagDataDao tagDataDao;
-
-    @Autowired SyncV2Service syncService;
-
-    @Autowired UserDao userDao;
-
-    @Autowired MetadataDao metadataDao;
-
-    @Autowired TagMetadataDao tagMetadataDao;
-
-    @Autowired TaskListMetadataDao taskListMetadataDao;
 
     protected View taskListView;
 
     private boolean dataLoaded = false;
 
-    private String currentId = Task.USER_ID_IGNORE;
-
     protected AtomicBoolean isBeingFiltered = new AtomicBoolean(false);
-
-    private Filter originalFilter;
 
     protected boolean justDeleted = false;
 
@@ -127,29 +95,7 @@ public class TagViewFragment extends TaskListFragment {
         };
 
         ((EditText) getView().findViewById(R.id.quickAddText)).setOnTouchListener(onTouch);
-
-        View membersEdit = getView().findViewById(R.id.members_edit);
-        if (membersEdit != null) {
-            membersEdit.setOnClickListener(settingsListener);
-        }
-
-        originalFilter = filter;
     }
-
-    private final OnClickListener settingsListener = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Activity activity = getActivity();
-            Class<?> settingsClass = AstridPreferences.useTabletLayout(activity) ? TagSettingsActivityTablet.class : TagSettingsActivity.class;
-            Intent intent = new Intent(getActivity(), settingsClass);
-            intent.putExtra(EXTRA_TAG_DATA, tagData);
-            startActivityForResult(intent, REQUEST_CODE_SETTINGS);
-
-            if (!AstridPreferences.useTabletLayout(activity)) {
-                AndroidUtilities.callOverridePendingTransition(activity, R.anim.slide_left_in, R.anim.slide_left_out);
-            }
-        }
-    };
 
     /* (non-Javadoc)
      * @see com.todoroo.astrid.activity.TaskListActivity#getListBody(android.view.ViewGroup)
@@ -166,14 +112,6 @@ public class TagViewFragment extends TaskListFragment {
 
     protected int getTaskListBodyLayout() {
         return R.layout.task_list_body_tag;
-    }
-
-    @Override
-    protected void addMenuItems(Menu menu, Activity activity) {
-        super.addMenuItems(menu, activity);
-        MenuItem item = menu.add(Menu.NONE, MENU_LIST_SETTINGS_ID, 0, R.string.tag_settings_title);
-        item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_gear));
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }
 
     // --- data loading
@@ -225,8 +163,6 @@ public class TagViewFragment extends TaskListFragment {
 
         super.initializeData();
 
-        setUpMembersGallery();
-
         if (extras.getBoolean(TOKEN_START_ACTIVITY, false)) {
             extras.remove(TOKEN_START_ACTIVITY);
         }
@@ -272,10 +208,6 @@ public class TagViewFragment extends TaskListFragment {
                 tagDataDao.saveExisting(tagData);
             }
         }
-    }
-
-    protected void setUpMembersGallery() {
-        getView().findViewById(R.id.members_header).setVisibility(View.GONE);
     }
 
     // --- receivers
@@ -374,20 +306,6 @@ public class TagViewFragment extends TaskListFragment {
     }
 
     @Override
-    public boolean handleOptionsMenuItemSelected(int id, Intent intent) {
-        // handle my own menus
-        switch (id) {
-        case MENU_REFRESH_ID:
-            return true;
-        case MENU_LIST_SETTINGS_ID:
-            settingsListener.onClick(null);
-            return true;
-        }
-
-        return super.handleOptionsMenuItemSelected(id, intent);
-    }
-
-    @Override
     protected boolean hasDraggableOption() {
         return tagData != null && !tagData.getFlag(TagData.FLAGS, TagData.FLAG_FEATURED);
     }
@@ -412,7 +330,6 @@ public class TagViewFragment extends TaskListFragment {
 
     @Override
     protected void refresh() {
-        setUpMembersGallery();
         loadTaskListContent(true);
         ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
     }

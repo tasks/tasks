@@ -5,7 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<string name="actfm_tag_operation_owner_delete">Você é o dono desta lista compartilhada! Se apagá-la, ela também será apagada para todos os membros dela. Tem certeza que quer continuar?</string>
 	<string name="actfm_picture_camera">Tirar uma foto</string>
 	<string name="actfm_picture_gallery">Selecionar da galeria</string>
 	<string name="actfm_picture_clear">Limpar imagem</string>
@@ -13,18 +12,8 @@
 	<string name="actfm_TVA_menu_refresh">Atualizar</string>
 	<string name="actfm_TVA_tag_label">Lista</string>
 	<string name="actfm_TVA_tag_picture">Imagem da lista</string>
-	<string name="actfm_TVA_silence_label">Silenciar notificações</string>
-	<string name="actfm_TVA_tag_description_label">Descrição</string>
-	<string name="actfm_TVA_tag_settings_label">Configurações</string>
-	<string name="actfm_TVA_tag_description_hint">Digite uma descrição aqui</string>
 	<string name="actfm_TVA_tag_name_hint">Entre com o nome da lista</string>
 	<string name="actfm_GAA_title">Selecione a conta do Google que deseja usar:</string>
-	<string name="actfm_feat_list_clone">Copiar lista</string>
-	<string name="actfm_feat_list_suffix">(Cópia)</string>
-	<string name="actfm_feat_list_cloning">Copiando...</string>
-	<string name="actfm_feat_list_clone_success">Sucesso!</string>
-	<string name="actfm_feat_list_task_clone_success">Tarefa copiada</string>
-	<string name="actfm_feat_list_clone_empty">Sem tarefas para copiar</string>
 	<string name="alarm_ACS_label">Alarmes</string>
 	<string name="alarm_ACS_button">Inserir alarme</string>
 	<string-array name="reminders_alarm">
@@ -71,8 +60,6 @@
 	<string name="TLA_menu_sort">Ordenar</string>
 	<string name="TLA_menu_sync">Sincronizar Agora</string>
 	<string name="TLA_menu_search">Buscar</string>
-	<string name="TLA_menu_lists">Listas</string>
-	<string name="TLA_menu_featured_lists">Listas em Destaque</string>
 	<string name="TLA_menu_settings">Configurações</string>
 	<string name="TLA_menu_support">Suporte</string>
 	<string name="TLA_custom">Personalizar</string>
@@ -123,17 +110,24 @@
 	<string name="FLA_new_filter">Novo Filtro</string>
 	<string name="FLA_new_list">Nova lista</string>
 	<string name="FLA_no_filter_selected">Sem filtro selecionado! Selecione um filtro ou lista.</string>
+	<string name="TEA_title_hint">Nome da tarefa</string>
 	<string name="TEA_importance_label">Prioridade</string>
+	<string name="TEA_deadline_hint">Definir data de vencimento</string>
+	<string name="TEA_hideUntil_label">Ocultar até</string>
 	<string name="TEA_hideUntil_message">A Tarefa ficará oculta até %s</string>
 	<string name="TEA_note_label">Descrição</string>
+	<string name="TEA_notes_empty">Descrição...</string>
+	<string name="TEA_notes_hint">Insira a descrição da tarefa...</string>
 	<string name="TEA_estimatedDuration_label">Quanto tempo isto vai levar?</string>
 	<string name="TEA_elapsedDuration_label">Tempo já gasto na tarefa</string>
 	<string name="TEA_menu_save">Salvar alterações</string>
 	<string name="TEA_menu_discard">Não salvar</string>
+	<string name="TEA_menu_refresh_comments">Atualizar comentários</string>
 	<string name="TEA_menu_comments">Comentários</string>
 	<string name="TEA_onTaskSave_due">Tarefa salva: vence em %s</string>
 	<string name="TEA_onTaskSave_notDue">Tarefa salva</string>
 	<string name="TEA_tab_activity">Atividades</string>
+	<string name="TEA_timer_elap">Decorrido %s</string>
 	<string-array name="TEA_urgency">
 		<item>No date</item>
 		<item>Dia específico</item>
@@ -215,6 +209,9 @@
 	<string name="EPr_fontSize_title">Tamanho do texto</string>
 	<string name="EPr_showSmartConfirmation_title">Mostrar confirmação para lembretes espertos</string>
 	<string name="EPr_fontSize_desc">Tamanho do texto nas listagens</string>
+	<string name="EPr_showNotes_title">Mostrar descrição na tarefa</string>
+	<string name="EPr_edit_screen_options">Editar opções da tela</string>
+	<string name="EPr_use_date_shortcuts">Usar atalhos de data</string>
 	<string name="EPr_beastMode_desc">Personalize o layout da tela de edição</string>
 	<string name="EPr_beastMode_reset">Restaurar valores padrão</string>
 	<string name="EPr_fullTask_title">Exibir título completo</string>
@@ -227,10 +224,6 @@
 	</string-array>
 	<string name="EPr_taskRowPrefs_title">Aparência da Tarefa</string>
 	<string name="EPr_force_phone_layout">Usar layout do telefone</string>
-	<string name="EPr_swipe_lists_performance_title">Navegar entre as listas</string>
-	<string name="swipe_lists_helper_title">Navegar entre as listas</string>
-	<string name="swipe_lists_helper_header">Deslizar para a esquerda ou direita para mover-se rapidamente entre listas</string>
-	<string name="swipe_lists_helper_subtitle">Alterar configurações em Configurações -&gt; Aparência</string>
 	<string name="EPr_manage_header">Gerenciar tarefas antigas</string>
 	<string name="EPr_manage_delete_completed">Exclui as tarefas concluídas</string>
 	<string name="EPr_manage_delete_completed_message">Você realmente deseja excluir todas as tarefas concluídas?</string>
@@ -587,18 +580,13 @@
 	<string name="tag_FEx_untagged">Sem categoria</string>
 	<string name="tag_cm_rename">Renomear Lista</string>
 	<string name="tag_cm_delete">Excluir lista</string>
-	<string name="tag_cm_leave">Deixar lista</string>
 	<string name="DLG_delete_this_tag_question">Excluir esta lista: %s? (nenhuma tarefa será excluída)</string>
-	<string name="DLG_leave_this_shared_tag_question">Deixar esta lista compartilhada: %s? (Nenhuma tarefa será apagada.)</string>
 	<string name="DLG_rename_this_tag_header">Renomear a lista %s para:</string>
 	<string name="TEA_no_tags_modified">Nenhuma mudança efetuada</string>
 	<string name="TEA_tags_deleted">A Lista %1$s foi excluída, afetando %2$d tarefas</string>
-	<string name="TEA_tags_left">Você deixou a lista compartilhada %1$s, afetando %2$d tarefas</string>
 	<string name="TEA_tags_renamed">A lista %1$s foi renomeada para %2$s com %3$d tarefas</string>
 	<string name="tag_settings_title">Lista de Configurações</string>
 	<string name="tag_updates_title">Atividade: %s</string>
-	<string name="tag_delete_button">Excluir lista</string>
-	<string name="tag_leave_button">Deixar esta lista</string>
 	<string name="TPl_notification">Temporizador ativado para %s!</string>
 	<string name="TFE_workingOn">Tarefas com contagem de tempo</string>
 	<string name="TEA_timer_comment_started">iniciou a tarefa</string>

@@ -54,7 +54,6 @@ import com.todoroo.astrid.actfm.CommentsActivity;
 import com.todoroo.astrid.actfm.TaskCommentsFragment;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskOutstandingDao;
-import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
@@ -187,9 +186,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     @Autowired
     private TaskAttachmentDao taskAttachmentDao;
-
-    @Autowired
-    private UserDao userDao;
 
     // --- UI components
 

@@ -5,14 +5,6 @@
  */
 package com.todoroo.astrid.adapter;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.app.PendingIntent.CanceledException;
@@ -40,11 +32,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.tasks.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.TaskListFragment;
@@ -57,13 +47,19 @@ import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.FilterWithUpdate;
-import com.todoroo.astrid.data.RemoteModel;
-import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.service.MarketStrategy.NookMarketStrategy;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Constants;
-import com.todoroo.astrid.utility.ResourceDrawableCache;
+
+import org.tasks.R;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class FilterAdapter extends ArrayAdapter<Filter> {
 
@@ -146,10 +142,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         this.filterCounts = new HashMap<Filter, Integer>();
 
         this.nook = (Constants.MARKET_STRATEGY instanceof NookMarketStrategy);
-
-        if (activity instanceof AstridActivity && ((AstridActivity) activity).getFragmentLayout() != AstridActivity.LAYOUT_SINGLE) {
-            filterStyle = R.style.TextAppearance_FLA_Filter_Tablet;
-        }
 
         inflater = (LayoutInflater) activity.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
@@ -283,8 +275,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
             convertView = inflater.inflate(layout, parent, false);
             ViewHolder viewHolder = new ViewHolder();
             viewHolder.view = convertView;
-            viewHolder.icon = (ImageView)convertView.findViewById(R.id.icon);
-            viewHolder.urlImage = (AsyncImageView)convertView.findViewById(R.id.url_image);
             viewHolder.name = (TextView)convertView.findViewById(R.id.name);
             viewHolder.selected = (ImageView)convertView.findViewById(R.id.selected);
             viewHolder.size = (TextView)convertView.findViewById(R.id.size);
@@ -296,8 +286,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
     public static class ViewHolder {
         public FilterListItem item;
-        public ImageView icon;
-        public AsyncImageView urlImage;
         public TextView name;
         public TextView size;
         public ImageView selected;
@@ -324,7 +312,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         }
 
         if (selected != null && selected.equals(viewHolder.item)) {
-            convertView.setBackgroundColor(activity.getResources().getColor(R.color.tablet_list_selected));
+//            convertView.setBackgroundColor(activity.getResources().getColor(R.color.tablet_list_selected));
         } else {
             convertView.setBackgroundColor(activity.getResources().getColor(android.R.color.transparent));
         }
@@ -501,16 +489,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
             viewHolder.name.setShadowLayer(0, 0, 0, 0);
         }
 
-        // update with filter attributes (listing icon, url, update text, size)
-
-        viewHolder.urlImage.setVisibility(View.GONE);
-        viewHolder.icon.setVisibility(View.GONE);
-
-        if(!nook && filter.listingIcon != null) {
-            viewHolder.icon.setVisibility(View.VISIBLE);
-            viewHolder.icon.setImageBitmap(filter.listingIcon);
-        }
-
         // title / size
         int countInt = -1;
         if(filterCounts.containsKey(filter) || (!TextUtils.isEmpty(filter.listingTitle) && filter.listingTitle.matches(".* \\(\\d+\\)$"))) { //$NON-NLS-1$
@@ -550,20 +528,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         }
 
         viewHolder.name.getLayoutParams().height = (int) (58 * metrics.density);
-        if(!nook && filter instanceof FilterWithUpdate) {
-            String defaultImageId = RemoteModel.NO_UUID;
-            FilterWithUpdate fwu = (FilterWithUpdate) filter;
-            Bundle customExtras = fwu.customExtras;
-            if (customExtras != null && customExtras.containsKey(TagViewFragment.EXTRA_TAG_UUID)) {
-                defaultImageId = customExtras.getString(TagViewFragment.EXTRA_TAG_UUID);
-            } else {
-                defaultImageId = viewHolder.name.getText().toString();
-            }
-
-            viewHolder.urlImage.setVisibility(View.VISIBLE);
-            viewHolder.urlImage.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, TagService.getDefaultImageIDForTag(defaultImageId)));
-            viewHolder.urlImage.setUrl(((FilterWithUpdate)filter).imageUrl);
-        }
 
         if (nook) {
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) viewHolder.name.getLayoutParams();

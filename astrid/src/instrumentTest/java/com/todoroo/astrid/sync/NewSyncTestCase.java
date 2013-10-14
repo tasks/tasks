@@ -1,7 +1,6 @@
 package com.todoroo.astrid.sync;
 
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
@@ -19,9 +18,6 @@ public class NewSyncTestCase extends DatabaseTestCase {
 
 	@Autowired
 	protected TaskOutstandingDao taskOutstandingDao;
-
-	@Autowired
-	protected MetadataDao metadataDao;
 
 	@Override
 	protected void setUp() throws Exception {

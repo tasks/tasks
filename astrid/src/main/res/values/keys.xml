@@ -78,7 +78,7 @@
   <string name="p_show_menu_search">p_show_menu_search</string>
   <string name="p_show_menu_sync">p_show_menu_sync</string>
   <string name="p_show_menu_sort">p_show_menu_sort</string>
-  
+
   <string-array name="TEA_reminder_random_hours">
     <!-- values (in hours) associated with items above. -->
     <item>1</item>
@@ -295,8 +295,6 @@
   <!-- default reminder mode setting (corresponds to entry in TEA_reminder_mode_once, TEA_reminder_mode_five, TEA_reminder_mode_nonstop) -->
   <string name="p_default_reminders_mode_key">rmd_default_reminder_mode</string>
 
-  <string name="p_swipe_lists_enabled">p_swipe_lists_enabled</string>
-  
   <!-- on calendar end at dealline if true, start at deadline if false -->
   <string name="p_end_at_deadline">p_end_at_deadline</string>
   

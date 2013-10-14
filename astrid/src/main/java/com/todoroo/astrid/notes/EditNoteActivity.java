@@ -48,7 +48,6 @@ import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.History;
 import com.todoroo.astrid.data.Metadata;
@@ -84,7 +83,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     @Autowired MetadataService metadataService;
     @Autowired UserActivityDao userActivityDao;
     @Autowired TaskService taskService;
-    @Autowired TaskDao taskDao;
 
     private final ArrayList<NoteOrUpdate> items = new ArrayList<NoteOrUpdate>();
     private EditText commentField;

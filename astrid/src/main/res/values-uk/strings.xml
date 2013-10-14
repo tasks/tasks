@@ -5,7 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<string name="actfm_tag_operation_owner_delete">Ви власник цього спільного списку! Якщо ви його видалите, він буде видалений для усіх користувачів. Ви певні, що хочете продовжити?</string>
 	<string name="actfm_picture_camera">Зробити знімок</string>
 	<string name="actfm_picture_gallery">Завантажити з Галереї</string>
 	<string name="actfm_picture_clear">Очистити</string>
@@ -13,18 +12,8 @@
 	<string name="actfm_TVA_menu_refresh">Оновити</string>
 	<string name="actfm_TVA_tag_label">Список</string>
 	<string name="actfm_TVA_tag_picture">Зображення Списку</string>
-	<string name="actfm_TVA_silence_label">Заглушити нагадування</string>
-	<string name="actfm_TVA_tag_description_label">Опис</string>
-	<string name="actfm_TVA_tag_settings_label">Налаштування</string>
-	<string name="actfm_TVA_tag_description_hint">Введіть опис </string>
 	<string name="actfm_TVA_tag_name_hint">Введіть назву списку</string>
 	<string name="actfm_GAA_title">Виберіть обліковий запис Google для використання:</string>
-	<string name="actfm_feat_list_clone">Копіювати список</string>
-	<string name="actfm_feat_list_suffix">(Копіювати)</string>
-	<string name="actfm_feat_list_cloning">Копіювання...</string>
-	<string name="actfm_feat_list_clone_success">Успішно!</string>
-	<string name="actfm_feat_list_task_clone_success">Завдання скопійовано!</string>
-	<string name="actfm_feat_list_clone_empty">Жодного завдання для копіювання</string>
 	<string name="alarm_ACS_label">Сигнали</string>
 	<string name="alarm_ACS_button">Додати сигнал</string>
 	<string-array name="reminders_alarm">
@@ -76,8 +65,6 @@
 	<string name="TLA_menu_sort">Сортувати</string>
 	<string name="TLA_menu_sync">Синхронізувати</string>
 	<string name="TLA_menu_search">Пошук</string>
-	<string name="TLA_menu_lists">Списки</string>
-	<string name="TLA_menu_featured_lists">Особливі списки</string>
 	<string name="TLA_menu_settings">Налаштування</string>
 	<string name="TLA_menu_support">Підтримка</string>
 	<string name="TLA_custom">Користувальницький</string>
@@ -263,10 +250,6 @@
 	<string name="EPr_cal_start_at_due_time">Початок календарної події при настанні терміну</string>
 	<string name="EPr_force_phone_layout">Використовувати режим телефона</string>
 	<string name="EPr_show_save_and_cancel">Показати зберегти і скасувати</string>
-	<string name="EPr_swipe_lists_performance_title">Свайп між списками</string>
-	<string name="swipe_lists_helper_title">Свайп між списками</string>
-	<string name="swipe_lists_helper_header">Свайп вліво або вправо щоб швидко перемикати списки</string>
-	<string name="swipe_lists_helper_subtitle">Змінити налаштування в \"Налаштування -&gt; Інтерфейс\"</string>
 	<string name="EPr_manage_header">Управління старими завданнями</string>
 	<string name="EPr_manage_delete_completed">Видалити виконані завдання</string>
 	<string name="EPr_manage_delete_completed_message">Ви дійсно хочете видалити всі завершені завдання?</string>
@@ -600,13 +583,10 @@
 	<string name="tag_FEx_untagged">Без категорії</string>
 	<string name="tag_cm_rename">Переіменувати список</string>
 	<string name="tag_cm_delete">Видалити список</string>
-	<string name="tag_cm_leave">Покинути список</string>
 	<string name="DLG_delete_this_tag_question">Видалити цей список: %s? (Завдання не будуть видалені.)</string>
-	<string name="DLG_leave_this_shared_tag_question">Покинути цей спільний список: %s? (Завдання не будуть видалені.)</string>
 	<string name="DLG_rename_this_tag_header">Переіменувати список %s на :</string>
 	<string name="TEA_no_tags_modified">Змін не зроблено</string>
 	<string name="TEA_tags_deleted">Список %1$s був видалений, разом з %2$d завданнями</string>
-	<string name="tag_delete_button">Видалити список</string>
 	<string name="TPl_notification">Для %s діють таймери!</string>
 	<string name="TEA_timer_controls">Таймер</string>
 	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.

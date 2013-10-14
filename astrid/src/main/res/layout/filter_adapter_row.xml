@@ -12,31 +12,10 @@
     android:paddingLeft="7dip"
     android:orientation="horizontal">
         
-    <!-- filter icon -->
-    <ImageView android:id="@+id/icon"
-        android:layout_width="25dip"
-        android:layout_height="48dip"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="8dip"
-        android:scaleType="fitCenter"
-        android:visibility="gone"/>
-        
-    <!-- filter url image icon -->
-    <com.todoroo.astrid.helper.AsyncImageView android:id="@+id/url_image"
-        android:layout_width="30dip"
-        android:layout_height="48dip"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="6dip"
-        android:scaleType="fitCenter"
-        android:visibility="gone"/>
-            
     <!-- filter name -->
     <TextView android:id="@+id/name"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginLeft="55dp"
         android:paddingRight="30dp"
         android:checked="false"
         android:checkMark="?android:attr/listChoiceIndicatorMultiple"
@@ -50,12 +29,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:background="@drawable/filter_count"
         android:layout_marginRight="5dip"
         android:layout_centerVertical="true"
         android:paddingLeft="7dip" 
         android:paddingRight="7dip"
-        android:textColor="#ffffff"
+        android:textColor="?attr/drawer_text"
         android:gravity="center" />
         
     <!-- selected -->

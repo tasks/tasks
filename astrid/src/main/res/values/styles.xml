@@ -26,13 +26,9 @@
         <item name="asEditTextBackground">@null</item>
         <item name="asEditBackground">#101010</item>
         <item name="asEditRowBackground">@drawable/task_edit_background</item>
-        <item name="asMainMenu">@drawable/menu_button_blue</item>
         <item name="asThemeTextColor">@color/blue_theme_color</item>
-        <item name="asListsDisclosure">@drawable/lists_disclosure_blue</item>
         <item name="asAbBackgroundColor">#000000</item>
         <item name="asQuickaddBackgroundColor">?attr/asAbBackgroundColor</item>
-        <item name="asListPopoverBg">@drawable/list_popover_bg_white</item>
-        <item name="asListArrowUp">@drawable/list_arrow_up_white</item>
         <item name="asFilterSelectedIcon">@drawable/filter_selected_icon</item>
         <item name="asTaskRowSelector">@drawable/task_row_bg_dark</item>
         <item name="asReadonlyTaskBackground">#322c19</item>
@@ -42,23 +38,32 @@
         <item name="ic_action_camera">@drawable/ic_action_camera_light</item>
         <item name="ic_action_mic">@drawable/ic_action_mic_light</item>
         <item name="ic_action_new">@drawable/ic_action_new_light</item>
+        <item name="ic_action_search">@drawable/ic_action_search_light</item>
+        <item name="ic_action_discard">@drawable/ic_action_discard_light</item>
+        <item name="ic_drawer">@drawable/ic_drawer_light</item>
+        <item name="drawer_background">#303030</item>
+        <item name="drawer_text">#ffffff</item>
         <!-- actionbar-styling -->
         <item name="android:actionBarStyle">@style/AstridV11ActionBarStyle</item>
         <item name="actionBarStyle">@style/AstridActionBarStyle</item>
+        <item name="android:actionOverflowButtonStyle">@style/AstridOverflowStyle</item>
+        <item name="actionOverflowButtonStyle">@style/AstridOverflowStyle</item>
     </style>
     
     <style name="AstridV11ActionBarStyle" parent="@style/Widget.Sherlock.ActionBar">
         <item name="android:background">@drawable/header_blue</item>
-        <item name="android:displayOptions">useLogo|showHome|showTitle</item>
-        <item name="android:logo">@drawable/home_button_blue</item>
+        <item name="android:displayOptions">showHome|showTitle</item>
     </style>
     
     <style name="AstridActionBarStyle" parent="@style/Widget.Sherlock.ActionBar">
         <item name="background">@drawable/header_blue</item>
-        <item name="displayOptions">useLogo|showHome|showTitle</item>
-        <item name="logo">@drawable/home_button_blue</item>
+        <item name="displayOptions">showHome|showTitle</item>
     </style>
-    
+
+    <style name="AstridOverflowStyle" parent="Widget.Sherlock.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_action_overflow_light</item>
+    </style>
+
     <style name="Theme.White" parent="@style/Theme.Sherlock.Light">
         <item name="asContentBackground">@android:color/white</item>
         <item name="asEditBackground">#e5e5e5</item>
@@ -72,36 +77,42 @@
         <item name="asMembersHeaderBackground">#d0d0d0</item>
         <item name="asListDividerColor">#dddddd</item>
         <item name="asEditRowBackground">@drawable/task_edit_background_white</item>
-        <item name="asListPopoverBg">@drawable/list_popover_bg</item>
-        <item name="asListArrowUp">@drawable/list_arrow_up</item>
         <item name="asFilterSelectedIcon">@drawable/filter_selected_icon_black</item>
         <item name="asTaskRowSelector">@drawable/task_row_bg_white</item>
         <item name="asReadonlyTaskBackground">#fff6d7</item>
-        <item name="asMainMenu">@drawable/menu_button_dark_blue</item>
         <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
-        <item name="asListsDisclosure">@drawable/lists_disclosure_dark_blue</item>
         <item name="asAbBackgroundColor">#e9e9e9</item>
         <item name="ic_action_gear">@drawable/ic_action_gear</item>
         <item name="ic_action_camera">@drawable/ic_action_camera</item>
         <item name="ic_action_mic">@drawable/ic_action_mic</item>
         <item name="ic_action_new">@drawable/ic_action_new</item>
+        <item name="ic_action_search">@drawable/ic_action_search</item>
+        <item name="ic_action_discard">@drawable/ic_action_discard</item>
+        <item name="ic_drawer">@drawable/ic_drawer</item>
+        <item name="drawer_background">#efefef</item>
+        <item name="drawer_text">#000</item>
         <!-- actionbar-styling -->
         <item name="android:actionBarStyle">@style/AstridV11ActionBarStyle.White</item>
         <item name="actionBarStyle">@style/AstridActionBarStyle.White</item>
+        <item name="android:actionOverflowButtonStyle">@style/AstridOverflowStyle.White</item>
+        <item name="actionOverflowButtonStyle">@style/AstridOverflowStyle.White</item>
     </style>
 
     <style name="AstridV11ActionBarStyle.White">
-        <item name="android:displayOptions">useLogo|showHome|showTitle</item>
+        <item name="android:displayOptions">showHome|showTitle</item>
         <item name="android:background">@drawable/header_day_blue</item>
-        <item name="android:logo">@drawable/home_button_dark_blue</item>
     </style>
     
     <style name="AstridActionBarStyle.White">
-        <item name="displayOptions">useLogo|showHome|showTitle</item>
+        <item name="displayOptions">showHome|showTitle</item>
         <item name="background">@drawable/header_day_blue</item>
-        <item name="logo">@drawable/home_button_dark_blue</item>
     </style>
-    
+
+    <style name="AstridOverflowStyle.White" parent="Widget.Sherlock.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_action_overflow</item>
+    </style>
+
+
     <style name="Theme.FullTransparent" parent="@style/Theme.Sherlock">
         <item name="android:windowIsTranslucent">true</item>
 	    <item name="android:windowBackground">@android:color/transparent</item>
@@ -148,14 +159,12 @@
     
     <style name="AstridV11ActionBarStyle.Dialog">
         <item name="android:background">@drawable/header_background</item>
-        <item name="android:displayOptions">useLogo|showHome|showTitle</item>
-        <item name="android:logo">@drawable/icon_48</item>
+        <item name="android:displayOptions">showHome|showTitle</item>
     </style>
     
     <style name="AstridActionBarStyle.Dialog">
         <item name="background">@drawable/header_background</item>
-        <item name="displayOptions">useLogo|showHome|showTitle</item>
-        <item name="logo">@drawable/icon_48</item>
+        <item name="displayOptions">showHome|showTitle</item>
     </style>
     
     <style name="Theme.Dialog.White">
@@ -178,14 +187,12 @@
     
     <style name="AstridV11ActionBarStyle.Dialog.White">
         <item name="android:background">@android:color/white</item>
-        <item name="android:displayOptions">useLogo|showHome|showTitle</item>
-        <item name="android:logo">@drawable/icon_48</item>
+        <item name="android:displayOptions">showHome|showTitle</item>
     </style>
     
     <style name="AstridActionBarStyle.Dialog.White">
         <item name="background">@android:color/white</item>
-        <item name="displayOptions">useLogo|showHome|showTitle</item>
-        <item name="logo">@drawable/icon_48</item>
+        <item name="displayOptions">showHome|showTitle</item>
     </style>
         
     <!--================================================== General == -->
@@ -399,20 +406,10 @@
 
     <style name="TextAppearance.FLA_Filter">
         <item name="android:textSize">18sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">?attr/asTextColorInverse</item>
     </style>
     
     <style name="TextAppearance.FLA_Filter_Widget" parent="TextAppearance.FLA_Filter">
         <item name="android:textColor">?attr/asTextColor</item>
-    </style>
-    
-    <style name="TextAppearance.FLA_Filter_Tablet" parent="TextAppearance.FLA_Filter">
-        <item name="android:textColor">@android:color/white</item>
-    </style>
-    
-    <style name="TextAppearance.FLA_Button" parent="TextAppearance.FLA_Filter">
-        <item name="android:textColor">@color/new_list_button_text</item>
     </style>
     
     <style name="TextAppearance.FLA_Header" parent="TextAppearance.FLA_Filter">

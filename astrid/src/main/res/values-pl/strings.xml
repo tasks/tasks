@@ -5,7 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<string name="actfm_tag_operation_owner_delete">Jesteś właścicielem tej współdzielonej listy! Jeśli ją usuniesz, zostanie ona również usunięta dla wszystkich jej członków. Jesteś pewien, że chcesz to zrobić?</string>
 	<string name="actfm_picture_camera">Zrób zdjęcie</string>
 	<string name="actfm_picture_gallery">Wybierz z galerii</string>
 	<string name="actfm_picture_clear">Usuń obrazek</string>
@@ -13,18 +12,8 @@
 	<string name="actfm_TVA_menu_refresh">Odśwież</string>
 	<string name="actfm_TVA_tag_label">Lista</string>
 	<string name="actfm_TVA_tag_picture">Obrazek listy</string>
-	<string name="actfm_TVA_silence_label">Ciche powiadomienia</string>
-	<string name="actfm_TVA_tag_description_label">Opis</string>
-	<string name="actfm_TVA_tag_settings_label">Ustawienia</string>
-	<string name="actfm_TVA_tag_description_hint">Wpisz tutaj jakiś opis</string>
 	<string name="actfm_TVA_tag_name_hint">Podaj nazwę listy</string>
 	<string name="actfm_GAA_title">Wybierz konto Google, którego chcesz użyć:</string>
-	<string name="actfm_feat_list_clone">Kopiuj listę</string>
-	<string name="actfm_feat_list_suffix">(Kopiuj)</string>
-	<string name="actfm_feat_list_cloning">Kopiowanie...</string>
-	<string name="actfm_feat_list_clone_success">Zakończono pomyślnie!</string>
-	<string name="actfm_feat_list_task_clone_success">Zadanie skopiowane</string>
-	<string name="actfm_feat_list_clone_empty">Brak zadań do skopiowania</string>
 	<string name="alarm_ACS_label">Alarmy</string>
 	<string name="alarm_ACS_button">Dodaj alarm</string>
 	<string name="backup_BPr_header">Kopie zapasowe</string>
@@ -69,8 +58,6 @@
 	<string name="TLA_menu_sort">Sortowanie</string>
 	<string name="TLA_menu_sync">Zsynchronizuj</string>
 	<string name="TLA_menu_search">Szukaj</string>
-	<string name="TLA_menu_lists">Listy</string>
-	<string name="TLA_menu_featured_lists">Wyróżnione listy</string>
 	<string name="TLA_menu_settings">Ustawienia</string>
 	<string name="TLA_menu_support">Wsparcie</string>
 	<string name="TLA_custom">Własny filtr</string>
@@ -254,10 +241,6 @@
 	<string name="EPr_cal_start_at_due_time">Rozpocznij zadania kalendarza w ustalonym czasie</string>
 	<string name="EPr_force_phone_layout">Używaj wyglądu komórkowego</string>
 	<string name="EPr_show_save_and_cancel">Pokaż przyciski zapisz i anuluj</string>
-	<string name="EPr_swipe_lists_performance_title">Przejedź pomiędzy listami</string>
-	<string name="swipe_lists_helper_title">Przeciągaj pomiędzy listami</string>
-	<string name="swipe_lists_helper_header">Przeciągnij w lewo lub prawo aby szybko przełączyć się między listami</string>
-	<string name="swipe_lists_helper_subtitle">Zmień ustawienia w Ustawienia -&amp;gl; Wygląd</string>
 	<string name="EPr_manage_header">Zarządzaj starymi zadaniami</string>
 	<string name="EPr_manage_delete_completed">Usuń zakończone zadania</string>
 	<string name="EPr_manage_delete_completed_message">Czy na pewno chcesz usunąć wszystkie zadania wykonane?</string>
@@ -689,18 +672,13 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="tag_FEx_untagged">Na żadnej liście</string>
 	<string name="tag_cm_rename">Zmień nazwę listy</string>
 	<string name="tag_cm_delete">Usuń listę</string>
-	<string name="tag_cm_leave">Opuść Listę</string>
 	<string name="DLG_delete_this_tag_question">Usuń tą listę: %s? (Bez zadań zostaną usuwane.)</string>
-	<string name="DLG_leave_this_shared_tag_question">Opuścić tę współdzieloną listę: %s? (Żadne zadanie nie zostanie usunięte.)</string>
 	<string name="DLG_rename_this_tag_header">Zmień nazwę listy %s na:</string>
 	<string name="TEA_no_tags_modified">Nie wprowadzono żadnych zmian</string>
 	<string name="TEA_tags_deleted">Lista %1$s została usunięta, mających wpływ na %2$d zadań</string>
-	<string name="TEA_tags_left">Opuściłeś udostępnioną listę %1$s, która wpływa na %2$d zadania</string>
 	<string name="TEA_tags_renamed">Zmiana nazwy %1$s z %2$s dla %3$d zadań</string>
 	<string name="tag_settings_title">Settings:</string>
 	<string name="tag_updates_title">Aktywności: %s</string>
-	<string name="tag_delete_button">Usuń listę</string>
-	<string name="tag_leave_button">Opuść tę listę</string>
 	<string name="TPl_notification">Minutnkiki aktywne przez %s!</string>
 	<string name="TFE_workingOn">Zadania zostały spracyzowane czasowo</string>
 	<string name="TEA_timer_controls">Minutnik</string>

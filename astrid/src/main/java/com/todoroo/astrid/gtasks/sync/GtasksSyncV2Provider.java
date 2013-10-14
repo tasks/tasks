@@ -19,11 +19,8 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.core.PluginServices;
-import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.StoreObjectDao;
-import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.dao.TagMetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
@@ -45,7 +42,6 @@ import com.todoroo.astrid.service.SyncResultCallbackWrapper.WidgetUpdatingCallba
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
-import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.R;
 
@@ -60,16 +56,12 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
     @Autowired TaskService taskService;
     @Autowired MetadataService metadataService;
-    @Autowired MetadataDao metadataDao;
     @Autowired StoreObjectDao storeObjectDao;
     @Autowired GtasksPreferenceService gtasksPreferenceService;
     @Autowired GtasksSyncService gtasksSyncService;
     @Autowired GtasksListService gtasksListService;
     @Autowired GtasksMetadataService gtasksMetadataService;
     @Autowired GtasksTaskListUpdater gtasksTaskListUpdater;
-    @Autowired TagService tagService;
-    @Autowired TagDataDao tagDataDao;
-    @Autowired TagMetadataDao tagMetadataDao;
 
     static {
         AstridDependencyInjector.initialize();

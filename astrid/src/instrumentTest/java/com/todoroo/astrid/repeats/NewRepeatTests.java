@@ -5,18 +5,12 @@
  */
 package com.todoroo.astrid.repeats;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-
 import android.content.Intent;
 
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.Weekday;
 import com.google.ical.values.WeekdayNum;
-import org.tasks.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.sql.Query;
@@ -24,20 +18,23 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import org.tasks.R;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+
 public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
 
     @Autowired
     protected TaskDao taskDao;
-
-    @Autowired
-    protected MetadataDao metadataDao;
 
     @Override
     protected void setUp() throws Exception {
@@ -142,7 +139,6 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
         System.err.println("Completion date: " + new Date(completionDate));
 
         waitAndSync();
-        assertTaskCompletedRemotely(t);
 
         TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.PROPERTIES).where(TaskCriteria.notDeleted()));
         try {

@@ -8,27 +8,19 @@ package com.todoroo.astrid.actfm;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.text.TextUtils;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.adapter.UpdateAdapter;
-import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
-import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.service.TagDataService;
-import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.AstridPreferences;
-import com.todoroo.astrid.utility.ResourceDrawableCache;
 
 import org.tasks.R;
 
@@ -38,9 +30,6 @@ public class TagCommentsFragment extends CommentsFragment {
 
     @Autowired
     private TagDataService tagDataService;
-
-    @Autowired
-    private TagDataDao tagDataDao;
 
     public TagCommentsFragment() {
         super();
@@ -95,41 +84,7 @@ public class TagCommentsFragment extends CommentsFragment {
     protected void addHeaderToListView(ListView listView) {
         if (AstridPreferences.useTabletLayout(getActivity()) && tagData != null) {
             listHeader = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.tag_updates_header, listView, false);
-            populateListHeader(listHeader);
             listView.addHeaderView(listHeader);
-        }
-    }
-
-    @Override
-    protected void populateListHeader(ViewGroup header) {
-        if (header == null) {
-            return;
-        }
-        TextView tagTitle = (TextView) header.findViewById(R.id.tag_title);
-        String tagName = tagData.getValue(TagData.NAME);
-        tagTitle.setText(tagName);
-        TextView descriptionTitle = (TextView) header.findViewById(R.id.tag_description);
-        String description = tagData.getValue(TagData.TAG_DESCRIPTION);
-        if (!TextUtils.isEmpty(description)) {
-            descriptionTitle.setText(description);
-            descriptionTitle.setVisibility(View.VISIBLE);
-        }
-        else {
-            descriptionTitle.setVisibility(View.GONE);
-        }
-
-
-        AsyncImageView imageView = (AsyncImageView) header.findViewById(R.id.tag_picture);
-        imageView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(getResources(), TagService.getDefaultImageIDForTag(tagData.getUuid())));
-        String imageUrl = tagData.getPictureUrl(TagData.PICTURE, RemoteModel.PICTURE_MEDIUM);
-        Bitmap imageBitmap = null;
-        if (TextUtils.isEmpty(imageUrl)) {
-            imageBitmap = tagData.getPictureBitmap(TagData.PICTURE);
-        }
-        if (imageBitmap != null) {
-            imageView.setImageBitmap(imageBitmap);
-        } else {
-            imageView.setUrl(imageUrl);
         }
     }
 

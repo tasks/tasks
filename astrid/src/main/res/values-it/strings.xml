@@ -5,7 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<string name="actfm_tag_operation_owner_delete">Sei il proprietario di questa lista condivisa! Se la elimini verrà eliminata da tutti i membri della lista. Sei sicuro di voler continuare?</string>
 	<string name="actfm_picture_camera">Scatta una foto</string>
 	<string name="actfm_picture_gallery">Scegli dalla Galleria</string>
 	<string name="actfm_picture_clear">Deseleziona Immagine</string>
@@ -13,18 +12,8 @@
 	<string name="actfm_TVA_menu_refresh">Aggiorna</string>
 	<string name="actfm_TVA_tag_label">Lista</string>
 	<string name="actfm_TVA_tag_picture">Elenco Immagini</string>
-	<string name="actfm_TVA_silence_label">Notifiche Silenziose</string>
-	<string name="actfm_TVA_tag_description_label">Descrizione</string>
-	<string name="actfm_TVA_tag_settings_label">Impostazioni</string>
-	<string name="actfm_TVA_tag_description_hint">Digita qui una descrizione</string>
 	<string name="actfm_TVA_tag_name_hint">Inserisci il nome della lista</string>
 	<string name="actfm_GAA_title">Seleziona l\'account Google che vuoi utilizzare:</string>
-	<string name="actfm_feat_list_clone">Copia lista</string>
-	<string name="actfm_feat_list_suffix">(Copia)</string>
-	<string name="actfm_feat_list_cloning">Copia...</string>
-	<string name="actfm_feat_list_clone_success">Operazione riuscita!</string>
-	<string name="actfm_feat_list_task_clone_success">Compito copiato</string>
-	<string name="actfm_feat_list_clone_empty">Nessun compito da copiare</string>
 	<string name="alarm_ACS_label">Promemoria</string>
 	<string name="alarm_ACS_button">Aggiungi un promemoria</string>
 	<string-array name="reminders_alarm">
@@ -70,8 +59,6 @@
 	<string name="TLA_no_items">Nessuna Attività!</string>
 	<string name="TLA_menu_sync">Sincronizza Ora</string>
 	<string name="TLA_menu_search">Cerca</string>
-	<string name="TLA_menu_lists">Liste</string>
-	<string name="TLA_menu_featured_lists">Liste in primo piano</string>
 	<string name="TLA_menu_settings">Impostazioni</string>
 	<string name="TLA_menu_support">Supporto</string>
 	<string name="TLA_custom">Personalizzato</string>
@@ -223,10 +210,6 @@
 	</string-array>
 	<string name="EPr_taskRowPrefs_title">Aspetto della riga dei task</string>
 	<string name="EPr_force_phone_layout">Usa il layout del telefono</string>
-	<string name="EPr_swipe_lists_performance_title">Scorri tra le liste</string>
-	<string name="swipe_lists_helper_title">Scorri tra le liste</string>
-	<string name="swipe_lists_helper_header">Scorri a destra o a sinistra per muoverti rapidamente fra le liste</string>
-	<string name="swipe_lists_helper_subtitle">Modifica le impostazioni in Impostazioni -&gt; Aspetto</string>
 	<string name="EPr_manage_header">Gestisci compiti vecchi</string>
 	<string name="EPr_manage_delete_completed">Elimina i compiti completati</string>
 	<string name="EPr_manage_delete_completed_message">Vuoi davvero eliminare tutti i compiti completati?</string>
@@ -569,18 +552,13 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="tag_FEx_header">Liste</string>
 	<string name="tag_cm_rename">Rinomina Lista</string>
 	<string name="tag_cm_delete">Cancella Lista</string>
-	<string name="tag_cm_leave">Abbandona la Lista</string>
 	<string name="DLG_delete_this_tag_question">Cancellare questa Lista: %s? (Nessuna attività sarà cancellata.)</string>
-	<string name="DLG_leave_this_shared_tag_question">Abbandonare questa lista condivisa: %s? (Nessuna attività sarà cancellata.)</string>
 	<string name="DLG_rename_this_tag_header">Rinomina la lista %s in:</string>
 	<string name="TEA_no_tags_modified">Nessuna modifica effettuata</string>
 	<string name="TEA_tags_deleted">Lista %1$s è stata cancellata, interressate %2$d attività</string>
-	<string name="TEA_tags_left">Hai lasciato condivisa la lista %1$s, coinvolte %2$d attività</string>
 	<string name="TEA_tags_renamed">Rinominato %1$s in %2$s per le attivitá %3$d</string>
 	<string name="tag_settings_title">Settings:</string>
 	<string name="tag_updates_title">Attività: %s</string>
-	<string name="tag_delete_button">Cancella Lista</string>
-	<string name="tag_leave_button">Lascia questa lista</string>
 	<string name="TPl_notification">Timer attivi per %s!</string>
 	<string name="TFE_workingOn">Attività cronometrate</string>
 	<string name="TEA_timer_comment_started">inizio attività</string>

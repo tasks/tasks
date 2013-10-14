@@ -13,7 +13,6 @@ import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
-import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.R;
 
@@ -27,7 +26,6 @@ import org.tasks.R;
 public class GtasksPreferences extends SyncProviderPreferences {
 
     @Autowired private GtasksPreferenceService gtasksPreferenceService;
-    @Autowired private TagService tagService;
 
     public GtasksPreferences() {
         super();

@@ -5,7 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<string name="actfm_tag_operation_owner_delete">你是這個被分享列表的擁有者，如果刪除它，其它被分享者將無法訪問，確定刪除嗎？</string>
 	<string name="actfm_picture_camera">拍下照片</string>
 	<string name="actfm_picture_gallery">從圖庫選擇</string>
 	<string name="actfm_picture_clear">清除圖片</string>
@@ -13,18 +12,8 @@
 	<string name="actfm_TVA_menu_refresh">重新整理</string>
 	<string name="actfm_TVA_tag_label">列表名稱：</string>
 	<string name="actfm_TVA_tag_picture">清單圖片</string>
-	<string name="actfm_TVA_silence_label">靜音提醒</string>
-	<string name="actfm_TVA_tag_description_label">描述</string>
-	<string name="actfm_TVA_tag_settings_label">設定</string>
-	<string name="actfm_TVA_tag_description_hint">在這裡添加描述</string>
 	<string name="actfm_TVA_tag_name_hint">添加列表名稱</string>
 	<string name="actfm_GAA_title">選擇您要使用的Google帳戶：</string>
-	<string name="actfm_feat_list_clone">複製列表</string>
-	<string name="actfm_feat_list_suffix">（複製）</string>
-	<string name="actfm_feat_list_cloning">正在復制...</string>
-	<string name="actfm_feat_list_clone_success">完成!</string>
-	<string name="actfm_feat_list_task_clone_success">任務工作已復制</string>
-	<string name="actfm_feat_list_clone_empty">無任務工作複製</string>
 	<string name="alarm_ACS_label">警示</string>
 	<string name="alarm_ACS_button">加入警示</string>
 	<string-array name="reminders_alarm">
@@ -72,8 +61,6 @@
 	<string name="TLA_no_items">無工作!</string>
 	<string name="TLA_menu_sync">立即同步</string>
 	<string name="TLA_menu_search">搜索</string>
-	<string name="TLA_menu_lists">列表</string>
-	<string name="TLA_menu_featured_lists">特定列表</string>
 	<string name="TLA_menu_settings">設定</string>
 	<string name="TLA_menu_support">支持</string>
 	<string name="TLA_custom">自訂</string>
@@ -224,10 +211,6 @@
 	</string-array>
 	<string name="EPr_taskRowPrefs_title">任務工作欄</string>
 	<string name="EPr_force_phone_layout">使用手機佈局</string>
-	<string name="EPr_swipe_lists_performance_title">在列表間滑動</string>
-	<string name="swipe_lists_helper_title">在列表間滑動</string>
-	<string name="swipe_lists_helper_header">在列表間向左或向右快速滑動</string>
-	<string name="swipe_lists_helper_subtitle">在設置-&amp;gt外觀中修改選項</string>
 	<string name="EPr_manage_header">管理舊任務工作</string>
 	<string name="EPr_manage_delete_completed">刪除已完成任務工作</string>
 	<string name="EPr_manage_delete_completed_message">您真的要刪除所有已完成任務工作嗎？</string>
@@ -632,18 +615,13 @@
 	<string name="tag_FEx_header">列表</string>
 	<string name="tag_cm_rename">重命名列表</string>
 	<string name="tag_cm_delete">刪除列表</string>
-	<string name="tag_cm_leave">離開列表</string>
 	<string name="DLG_delete_this_tag_question">刪除列表%s 嗎？(不會刪除任務工作。)</string>
-	<string name="DLG_leave_this_shared_tag_question">要離開這份共享列表嗎：%s？（不會刪除任何任務工作。）</string>
 	<string name="DLG_rename_this_tag_header">重命名列表 %s 為：</string>
 	<string name="TEA_no_tags_modified">沒有變更</string>
 	<string name="TEA_tags_deleted">列表%1$s 已刪除，影響了%2$d 項任務工作</string>
-	<string name="TEA_tags_left">您離開了共享列表%1$s，影響到%2$d 個任務工作</string>
 	<string name="TEA_tags_renamed">%3$d 項任務工作由%1$s 重命名為%2$s。</string>
 	<string name="tag_settings_title">設置：</string>
 	<string name="tag_updates_title">活躍程度：%s</string>
-	<string name="tag_delete_button">刪除列表</string>
-	<string name="tag_leave_button">離開這份列表</string>
 	<string name="TPl_notification">秒錶啟動了 %s！</string>
 	<string name="TFE_workingOn">任務工作已開始計時</string>
 	<string name="TEA_timer_comment_started">已經開始了這項任務工作：</string>

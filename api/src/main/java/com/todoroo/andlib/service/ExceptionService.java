@@ -5,8 +5,6 @@
  */
 package com.todoroo.andlib.service;
 
-import java.lang.Thread.UncaughtExceptionHandler;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -140,33 +138,5 @@ public class ExceptionService {
             }
         }
     }
-
-    /**
-     * Uncaught exception handler uses the exception utilities class to
-     * report errors
-     *
-     * @author Tim Su <tim@todoroo.com>
-     *
-     */
-    public static class TodorooUncaughtExceptionHandler implements UncaughtExceptionHandler {
-        private final UncaughtExceptionHandler defaultUEH;
-
-        @Autowired
-        protected ExceptionService exceptionService;
-
-        public TodorooUncaughtExceptionHandler() {
-            defaultUEH = Thread.getDefaultUncaughtExceptionHandler();
-            DependencyInjectionService.getInstance().inject(this);
-        }
-
-        @Override
-        public void uncaughtException(Thread thread, Throwable ex) {
-            if(exceptionService != null) {
-                exceptionService.reportError("uncaught", ex); //$NON-NLS-1$
-            }
-            defaultUEH.uncaughtException(thread, ex);
-        }
-    }
-
 }
 
