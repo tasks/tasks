@@ -294,16 +294,6 @@ public class UpdateAdapter extends CursorAdapter {
     }
 
     private void setupUserActivityRow(View view, UserActivity activity, User user) {
-        final AsyncImageView pictureView = (AsyncImageView)view.findViewById(R.id.picture); {
-            if (user.containsNonNullValue(USER_PICTURE)) {
-                String pictureUrl = user.getPictureUrl(USER_PICTURE, RemoteModel.PICTURE_THUMB);
-                pictureView.setUrl(pictureUrl);
-            } else {
-                pictureView.setUrl(null);
-            }
-            pictureView.setVisibility(View.VISIBLE);
-        }
-
         final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture); {
             String pictureThumb = activity.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_MEDIUM);
             String pictureFull = activity.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_LARGE);
@@ -333,16 +323,6 @@ public class UpdateAdapter extends CursorAdapter {
     }
 
     private void setupHistoryRow(View view, History history, User user) {
-        final AsyncImageView pictureView = (AsyncImageView)view.findViewById(R.id.picture); {
-            if (user.containsNonNullValue(USER_PICTURE)) {
-                String pictureUrl = user.getPictureUrl(USER_PICTURE, RemoteModel.PICTURE_THUMB);
-                pictureView.setUrl(pictureUrl);
-            } else {
-                pictureView.setUrl(null);
-            }
-            pictureView.setVisibility(View.VISIBLE);
-        }
-
         final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture);
         commentPictureView.setVisibility(View.GONE);
 
@@ -376,7 +356,7 @@ public class UpdateAdapter extends CursorAdapter {
 
             if (pictureThumb != null && imageCache.contains(pictureThumb) && updateBitmap == null) {
                 try {
-                    commentPictureView.setDefaultImageBitmap(imageCache.get(pictureThumb));
+                    commentPictureView.setImageBitmap(imageCache.get(pictureThumb));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -390,7 +370,7 @@ public class UpdateAdapter extends CursorAdapter {
                     AlertDialog image = new AlertDialog.Builder(fragment.getActivity()).create();
                     AsyncImageView imageView = new AsyncImageView(fragment.getActivity());
                     imageView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-                    imageView.setDefaultImageResource(android.R.drawable.ic_menu_gallery);
+                    imageView.setImageResource(android.R.drawable.ic_menu_gallery);
                     if (updateBitmap != null) {
                         imageView.setImageBitmap(updateBitmap);
                     } else {
@@ -418,80 +398,7 @@ public class UpdateAdapter extends CursorAdapter {
 
     public static Spanned getUpdateComment(final AstridActivity context, UserActivity activity, User user, String linkColor, String fromView) {
         String message = activity.getValue(UserActivity.MESSAGE);
-        if (!Preferences.getBoolean(R.string.p_show_caption_comments, false)) {
-            return Html.fromHtml(message);
-        }
-
-        String userDisplay;
-        if (activity.getValue(UserActivity.USER_UUID).equals(Task.USER_ID_SELF)) {
-            userDisplay = context.getString(R.string.update_string_user_self);
-        } else if (user == null) {
-            userDisplay = context.getString(R.string.ENA_no_user);
-        } else {
-            userDisplay = user.getDisplayName(USER_NAME, USER_FIRST_NAME, USER_LAST_NAME);
-        }
-        if (TextUtils.isEmpty(userDisplay)) {
-            userDisplay = context.getString(R.string.ENA_no_user);
-        }
-        String targetName = activity.getValue(UserActivity.TARGET_NAME);
-        String action = activity.getValue(UserActivity.ACTION);
-
-        int commentResource = 0;
-        if (UserActivity.ACTION_TASK_COMMENT.equals(action)) {
-            if (fromView.equals(FROM_TASK_VIEW) || TextUtils.isEmpty(targetName)) {
-                commentResource = R.string.update_string_default_comment;
-            } else {
-                commentResource = R.string.update_string_task_comment;
-            }
-        } else if (UserActivity.ACTION_TAG_COMMENT.equals(action)) {
-            if (fromView.equals(FROM_TAG_VIEW) || TextUtils.isEmpty(targetName)) {
-                commentResource = R.string.update_string_default_comment;
-            } else {
-                commentResource = R.string.update_string_tag_comment;
-            }
-        }
-
-        if (commentResource == 0) {
-            return Html.fromHtml(String.format("%s %s", userDisplay, message)); //$NON-NLS-1$
-        }
-
-        String original = context.getString(commentResource, userDisplay, targetName, message);
-        int taskLinkIndex = original.indexOf(TARGET_LINK_PREFIX);
-
-        if (taskLinkIndex < 0) {
-            return Html.fromHtml(original);
-        }
-
-        String[] components = original.split(" "); //$NON-NLS-1$
-        SpannableStringBuilder builder = new SpannableStringBuilder();
-        StringBuilder htmlStringBuilder = new StringBuilder();
-
-        for (String comp : components) {
-            Matcher m = TARGET_LINK_PATTERN.matcher(comp);
-            if (m.find()) {
-                builder.append(Html.fromHtml(htmlStringBuilder.toString()));
-                htmlStringBuilder.setLength(0);
-
-                String linkType = m.group(1);
-                CharSequence link = getLinkSpan(context, activity, targetName, linkColor, linkType);
-                if (link != null) {
-                    builder.append(link);
-                    if (!m.hitEnd()) {
-                        builder.append(comp.substring(m.end()));
-                    }
-                    builder.append(' ');
-                }
-            } else {
-                htmlStringBuilder.append(comp);
-                htmlStringBuilder.append(' ');
-            }
-        }
-
-        if (htmlStringBuilder.length() > 0) {
-            builder.append(Html.fromHtml(htmlStringBuilder.toString()));
-        }
-
-        return builder;
+        return Html.fromHtml(message);
     }
 
     public static String getHistoryComment(final AstridActivity context, History history, User user, String linkColor, String fromView) {

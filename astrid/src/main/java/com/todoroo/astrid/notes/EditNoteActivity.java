@@ -60,7 +60,6 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.timers.TimerActionControlSet.TimerActionListener;
-import com.todoroo.astrid.utility.ResourceDrawableCache;
 
 import org.json.JSONObject;
 import org.tasks.R;
@@ -369,29 +368,14 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
 
     public View getUpdateNotes(NoteOrUpdate note, ViewGroup parent) {
-        View convertView;
-        if (Preferences.getBoolean(R.string.p_show_caption_comments, false)) {
-            convertView = ((Activity)getContext()).getLayoutInflater().inflate(
+        View convertView = ((Activity)getContext()).getLayoutInflater().inflate(
                     R.layout.update_adapter_row, parent, false);
-        }
-        else {
-            convertView = ((Activity)getContext()).getLayoutInflater().inflate(
-                    R.layout.update_adapter_row_no_caption, parent, false);
-        }
-
         bindView(convertView, note);
         return convertView;
     }
 
     /** Helper method to set the contents and visibility of each field */
     public synchronized void bindView(View view, NoteOrUpdate item) {
-        // picture
-        if (Preferences.getBoolean(R.string.p_show_caption_comments, false)) {
-            final AsyncImageView pictureView = (AsyncImageView)view.findViewById(R.id.picture);
-            pictureView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_default_person_image));
-            pictureView.setUrl(item.picture);
-        }
-
         // name
         final TextView nameView = (TextView)view.findViewById(R.id.title); {
             nameView.setText(item.title);

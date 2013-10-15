@@ -20,27 +20,6 @@
 	    android:layout_marginBottom="5dip"
 	    android:minHeight="40dip">
 	
-	    <ImageView
-	        android:id="@+id/pictureBorder"
-	        android:layout_width="35dip"
-	        android:layout_height="35dip"
-	        android:layout_marginLeft="8dip"
-	        android:layout_centerVertical="true"
-	        android:background="@drawable/icn_default_person_image"
-	        android:scaleType="center"
-	        android:visibility="gone" >
-	    </ImageView>
-	    <com.todoroo.astrid.helper.AsyncImageView
-	        android:id="@+id/picture"
-	        android:layout_width="35dip"
-	        android:layout_height="35dip"
-	        android:padding="2dip"
-	        android:layout_marginLeft="8dip"
-	        android:layout_centerVertical="true"
-	        astrid:defaultSrc="@drawable/icn_default_person_image"
-	        android:scaleType="fitCenter"
-	        android:visibility="gone" />
-	    
 	    <com.todoroo.astrid.ui.CheckableImageView
 	        android:id="@+id/completeBox"
 	        android:layout_width="45dip"

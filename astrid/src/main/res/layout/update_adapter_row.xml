@@ -20,25 +20,14 @@
 	    android:paddingLeft="6dip"
 	    android:paddingRight="6dip">
 	        
-	    <!-- picture -->
-	    <com.todoroo.astrid.helper.AsyncImageView android:id="@+id/picture"
-	        android:layout_width="40dip"
-	        android:layout_height="40dip"
-	        android:layout_alignParentTop="true"
-	        android:layout_alignParentLeft="true"
-	        android:layout_marginTop="5dip"
-	        android:layout_marginLeft="3dip"
-	        astrid:defaultSrc="@drawable/icn_default_person_image"
-	        android:scaleType="fitCenter" />
-	        
 	    <!-- title -->
 	    <TextView android:id="@+id/title"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentTop="true"
 	        android:layout_alignParentLeft="true"
-	        android:paddingLeft="54dip" 
-	        android:paddingRight="5dip" 
+	        android:paddingLeft="5dip"
+	        android:paddingRight="3dip"
 	        style="@style/TextAppearance.TAd_ItemTitle"
 	        android:textSize="16sp"/>
 	    
@@ -49,7 +38,7 @@
             android:layout_height="wrap_content"  
             android:layout_below="@id/title"
             android:layout_alignLeft="@id/title"
-            android:layout_marginLeft="54dip" 
+            android:layout_marginLeft="5dip"
             android:paddingTop="1dip"
             style="@style/TextAppearance.TAd_ItemDueDate"
             android:textStyle="normal"
@@ -57,19 +46,6 @@
             android:ellipsize="end"
             android:textSize="12sp"
             android:singleLine="true"/>
-	        
-	    
-        <!-- picture -->
-        <com.todoroo.astrid.helper.AsyncImageView android:id="@+id/comment_picture"
-            android:layout_width="100dip"
-            android:layout_height="100dip"
-            android:layout_below="@id/date"
-            android:paddingTop="5dip" 
-            astrid:defaultSrc="@drawable/icn_default_person_image"
-            android:scaleType="fitStart"
-            android:layout_marginLeft="50dip"
-            android:visibility="gone" />
-        
 	        
 	</RelativeLayout>
     
@@ -79,10 +55,9 @@
         android:layout_width="50dip"
         android:layout_height="50dip"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="50dip"
+        android:layout_marginLeft="5dip"
         android:layout_marginBottom="4dip"
         android:visibility="gone"
-        astrid:defaultSrc="@android:drawable/ic_menu_gallery"
         android:scaleType="fitCenter"/>
     
 </LinearLayout>

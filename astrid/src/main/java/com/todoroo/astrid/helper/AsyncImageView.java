@@ -5,27 +5,21 @@
  */
 package com.todoroo.astrid.helper;
 
-import java.io.IOException;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.widget.ImageView;
 
 import com.todoroo.andlib.service.ContextManager;
 
+import java.io.IOException;
+
 import edu.mit.mobile.android.imagecache.ImageCache;
 
-/**
- * Subclass of greendroid.widget.AsyncImageView, so that we can cache the image
- * locally when user is offline
- *
- * IMPORTANT: cannot load a cached image by setting the url in an xml file.
- * ImageDiskCache object is created after object is loaded from xml
- */
-public class AsyncImageView extends greendroid.widget.AsyncImageView {
+public class AsyncImageView extends ImageView {
 
     private final ImageCache imageDiskCache;
     private Bitmap cacheImage;
@@ -42,7 +36,7 @@ public class AsyncImageView extends greendroid.widget.AsyncImageView {
         super(context, set, defStyle);
         imageDiskCache = getImageCache();
     }
-    @Override
+
     public void setUrl(String url) {
         if (cacheImage != null && cacheURL.equals(url) && !TextUtils.isEmpty(url)) {
             setImageBitmap(cacheImage);
@@ -57,26 +51,6 @@ public class AsyncImageView extends greendroid.widget.AsyncImageView {
                 //
             }
         }
-        super.setUrl(url);
-    }
-
-    public Bitmap getImageBitmap() {
-        setDrawingCacheEnabled(true);
-
-        // this is the important code :)
-        // Without it the view will have a dimension of 0,0 and the bitmap will be null
-        measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
-                MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
-        layout(0, 0, getMeasuredWidth(), getMeasuredHeight());
-
-        buildDrawingCache(true);
-        Bitmap drawingCache = getDrawingCache();
-        if (drawingCache == null) {
-            return null;
-        }
-        Bitmap b = Bitmap.createBitmap(getDrawingCache());
-        setDrawingCacheEnabled(false); // clear drawing cache
-        return b;
     }
 
     private static volatile ImageCache imageCacheInstance = null;
@@ -98,5 +72,4 @@ public class AsyncImageView extends greendroid.widget.AsyncImageView {
         }
         return imageCacheInstance;
     }
-
 }

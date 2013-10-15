@@ -80,7 +80,6 @@ import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.files.FilesAction;
 import com.todoroo.astrid.files.FilesControlSet;
-import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.TaskAdapterAddOnManager;
 import com.todoroo.astrid.notes.NotesAction;
 import com.todoroo.astrid.notes.NotesDecorationExposer;
@@ -90,7 +89,6 @@ import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.timers.TimerDecorationExposer;
 import com.todoroo.astrid.ui.CheckableImageView;
 import com.todoroo.astrid.utility.Constants;
-import com.todoroo.astrid.utility.ResourceDrawableCache;
 
 /**
  * Adapter for displaying a user's tasks as a list
@@ -358,8 +356,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         viewHolder.view = view;
         viewHolder.rowBody = (ViewGroup)view.findViewById(R.id.rowBody);
         viewHolder.nameView = (TextView)view.findViewById(R.id.title);
-        viewHolder.picture = (AsyncImageView)view.findViewById(R.id.picture);
-        viewHolder.pictureBorder = (ImageView)view.findViewById(R.id.pictureBorder);
         viewHolder.completeBox = (CheckableImageView)view.findViewById(R.id.completeBox);
         viewHolder.dueDate = (TextView)view.findViewById(R.id.dueDate);
         viewHolder.tagsView = (TextView)view.findViewById(R.id.tagsDisplay);
@@ -447,8 +443,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public ViewGroup rowBody;
         public TextView nameView;
         public CheckableImageView completeBox;
-        public AsyncImageView picture;
-        public ImageView pictureBorder;
         public TextView dueDate;
         public TextView tagsView;
         public TextView details1, details2;
@@ -620,16 +614,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         };
         viewHolder.completeBox.setOnTouchListener(otl);
         viewHolder.completeBox.setOnClickListener(completeBoxListener);
-
-        if (viewHolder.picture != null) {
-            viewHolder.picture.setOnTouchListener(otl);
-            viewHolder.picture.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    viewHolder.completeBox.performClick();
-                }
-            });
-        }
 
         if (viewHolder.taskActionContainer != null) {
             viewHolder.taskActionContainer.setOnClickListener(new OnClickListener() {
@@ -1135,39 +1119,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 }
             }
             paint.setTextSize(detailTextSize);
-
-            // image view
-            final AsyncImageView pictureView = viewHolder.picture; {
-                if (pictureView != null) {
-                    if(Task.USER_ID_SELF.equals(task.getValue(Task.USER_ID))) {
-                        pictureView.setVisibility(View.GONE);
-                        if (viewHolder.pictureBorder != null) {
-                            viewHolder.pictureBorder.setVisibility(View.GONE);
-                        }
-                    } else {
-                        pictureView.setVisibility(View.VISIBLE);
-                        if (viewHolder.pictureBorder != null) {
-                            viewHolder.pictureBorder.setVisibility(View.VISIBLE);
-                        }
-                        pictureView.setUrl(null);
-                        if (Task.USER_ID_UNASSIGNED.equals(task.getValue(Task.USER_ID))) {
-                            pictureView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_anyone_transparent));
-                        } else {
-                            pictureView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_default_person_image));
-                            if (!TextUtils.isEmpty(viewHolder.imageUrl)) {
-                                pictureView.setUrl(viewHolder.imageUrl);
-                            } else if (!TextUtils.isEmpty(task.getValue(Task.USER))) {
-                                try {
-                                    JSONObject user = new JSONObject(task.getValue(Task.USER));
-                                    pictureView.setUrl(user.optString("picture")); //$NON-NLS-1$
-                                } catch (JSONException e) {
-                                    //
-                                }
-                            }
-                        }
-                    }
-                }
-            }
         }
 
         setupCompleteBox(viewHolder);
@@ -1177,7 +1128,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private void setupCompleteBox(ViewHolder viewHolder) {
      // complete box
         final Task task = viewHolder.task;
-        final AsyncImageView pictureView = viewHolder.picture;
         final CheckableImageView checkBoxView = viewHolder.completeBox; {
             boolean completed = task.isCompleted();
             checkBoxView.setChecked(completed);
@@ -1199,23 +1149,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 return;
             }
 
-            if (checkBoxView.isChecked()) {
-                if (pictureView != null) {
-                    pictureView.setVisibility(View.GONE);
-                }
-                if (viewHolder.pictureBorder != null) {
-                    viewHolder.pictureBorder.setVisibility(View.GONE);
-                }
-            }
-
-            if (pictureView != null && pictureView.getVisibility() == View.VISIBLE) {
-                checkBoxView.setVisibility(View.INVISIBLE);
-                if (viewHolder.pictureBorder != null) {
-                    viewHolder.pictureBorder.setBackgroundDrawable(IMPORTANCE_DRAWABLES_LARGE[value]);
-                }
-            } else {
-                checkBoxView.setVisibility(View.VISIBLE);
-            }
+            checkBoxView.setVisibility(View.VISIBLE);
         }
     }
 

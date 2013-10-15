@@ -7,9 +7,6 @@
     Please do not translate this part of the string. -->
     
     <!-- These are still in use -->
-    <string name="update_string_default_comment">%1$s commented: %3$s</string>
-    <string name="update_string_task_comment">%1$s on $link_task: %3$s</string>
-    <string name="update_string_tag_comment">%1$s on %2$s: %3$s</string>
     <string name="update_string_user_self">You</string>
     
     <string name="history_yourself">yourself</string>

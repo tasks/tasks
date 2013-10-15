@@ -438,5 +438,9 @@
         <item name="android:textSize">14dip</item>                                                                                                                                                                    
         <item name="android:textColor">@android:color/black</item> 
     </style>
-    
+
+    <style name="TextAppearance.Medium">
+        <item name="android:textSize">18sp</item>
+    </style>
+
 </resources>

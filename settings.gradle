@@ -1,4 +1,3 @@
 include ':android-aac-enc'
-include ':greendroid'
 include ':api'
 include ':astrid'
