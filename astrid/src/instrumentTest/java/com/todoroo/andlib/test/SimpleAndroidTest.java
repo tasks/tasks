@@ -5,8 +5,9 @@
  */
 package com.todoroo.andlib.test;
 
-import junit.framework.Assert;
 import android.test.AndroidTestCase;
+
+import junit.framework.Assert;
 
 public class SimpleAndroidTest extends AndroidTestCase {
 

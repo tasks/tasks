@@ -5,12 +5,12 @@
  */
 package com.todoroo.andlib.data;
 
-import java.util.WeakHashMap;
-
 import android.database.Cursor;
 import android.database.CursorWrapper;
 
 import com.todoroo.andlib.data.Property.PropertyVisitor;
+
+import java.util.WeakHashMap;
 
 /**
  * AstridCursor wraps a cursor and allows users to query for individual

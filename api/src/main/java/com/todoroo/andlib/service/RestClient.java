@@ -5,10 +5,10 @@
  */
 package com.todoroo.andlib.service;
 
-import java.io.IOException;
-
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
+
+import java.io.IOException;
 
 /**
  * RestClient stub invokes the HTML requests as desired

@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.model;
 
-import java.util.ArrayList;
-import java.util.TreeSet;
-
 import android.content.ContentValues;
 
 import com.todoroo.andlib.service.Autowired;
@@ -16,6 +13,9 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 import com.todoroo.astrid.utility.AstridPreferences;
+
+import java.util.ArrayList;
+import java.util.TreeSet;
 
 public class TaskTests extends DatabaseTestCase {
 

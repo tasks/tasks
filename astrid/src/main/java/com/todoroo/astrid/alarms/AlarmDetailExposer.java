@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.alarms;
 
-import java.util.Date;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +15,8 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Metadata;
+
+import java.util.Date;
 
 /**
  * Exposes Task Detail for tags, i.e. "Tags: frogs, animals"

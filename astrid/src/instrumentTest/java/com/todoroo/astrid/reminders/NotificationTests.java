@@ -5,12 +5,9 @@
  */
 package com.todoroo.astrid.reminders;
 
-import java.util.Date;
-
 import android.app.Notification;
 import android.content.Intent;
 
-import org.tasks.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -18,6 +15,10 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
+
+import org.tasks.R;
+
+import java.util.Date;
 
 public class NotificationTests extends DatabaseTestCase {
 

@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.ui;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -31,6 +28,9 @@ import android.view.View;
 import android.view.WindowManager;
 
 import org.tasks.R;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class CalendarView extends View {
 

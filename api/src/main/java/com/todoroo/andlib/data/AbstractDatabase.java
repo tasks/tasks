@@ -5,9 +5,6 @@
  */
 package com.todoroo.andlib.data;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -23,6 +20,9 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 /**
  * AbstractDatabase is a database abstraction which wraps a SQLite database.

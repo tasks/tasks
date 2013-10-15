@@ -13,8 +13,9 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 
-import org.tasks.R;
 import com.todoroo.astrid.core.SortHelper;
+
+import org.tasks.R;
 
 /**
  * Shows the sort / hidden dialog

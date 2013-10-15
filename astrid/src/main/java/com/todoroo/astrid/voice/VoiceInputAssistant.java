@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.voice;
 
-import java.security.InvalidParameterException;
-import java.util.ArrayList;
-
-import junit.framework.Assert;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
@@ -21,12 +17,18 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import org.tasks.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.utility.Constants;
+
+import junit.framework.Assert;
+
+import org.tasks.R;
+
+import java.security.InvalidParameterException;
+import java.util.ArrayList;
 
 /**
  * This class handles taking voice-input and appends the text to the registered EditText-instance.

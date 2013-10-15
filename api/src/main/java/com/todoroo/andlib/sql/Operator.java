@@ -5,10 +5,10 @@
  */
 package com.todoroo.andlib.sql;
 
-import static com.todoroo.andlib.sql.SqlConstants.SPACE;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.todoroo.andlib.sql.SqlConstants.SPACE;
 
 public final class Operator {
 

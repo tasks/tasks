@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 	<string name="actfm_picture_camera">拍照</string>
 	<string name="actfm_picture_gallery">从相册中选取</string>
 	<string name="actfm_picture_clear">取消选择</string>

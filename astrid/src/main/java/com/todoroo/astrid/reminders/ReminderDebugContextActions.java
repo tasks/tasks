@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.reminders;
 
-import java.util.Date;
-
 import android.widget.Toast;
 
 import com.todoroo.andlib.service.ContextManager;
@@ -14,6 +12,8 @@ import com.todoroo.astrid.api.TaskContextActionExposer;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.ReminderService.AlarmScheduler;
 import com.todoroo.astrid.utility.Constants;
+
+import java.util.Date;
 
 public class ReminderDebugContextActions {
 

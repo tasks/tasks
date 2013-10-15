@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.sync;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Set;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -27,7 +23,12 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
+
 import org.tasks.api.R;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Utility class for common synchronization action: displaying synchronization

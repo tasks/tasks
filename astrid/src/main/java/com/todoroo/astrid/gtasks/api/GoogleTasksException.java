@@ -5,9 +5,9 @@
  */
 package com.todoroo.astrid.gtasks.api;
 
-import java.io.IOException;
-
 import android.text.TextUtils;
+
+import java.io.IOException;
 
 public class GoogleTasksException extends IOException {
     private static final long serialVersionUID = -5585448790574862510L;

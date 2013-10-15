@@ -16,13 +16,9 @@
 
 package com.zutubi.android.junitreport;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.Locale;
+import android.content.Context;
+import android.util.Log;
+import android.util.Xml;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
@@ -31,9 +27,13 @@ import junit.framework.TestListener;
 
 import org.xmlpull.v1.XmlSerializer;
 
-import android.content.Context;
-import android.util.Log;
-import android.util.Xml;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Locale;
 
 /**
  * Custom test listener that outputs test results to XML files. The files

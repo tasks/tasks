@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Map.Entry;
-
 import android.content.ContentValues;
 
 import com.todoroo.andlib.data.Property.CountProperty;
@@ -21,6 +17,10 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Map.Entry;
 
 /**
  * Service layer for {@link Metadata}-centered activities.

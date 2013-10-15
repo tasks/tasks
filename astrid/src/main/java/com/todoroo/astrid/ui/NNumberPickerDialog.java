@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.ui;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,6 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.tasks.R;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /** Dialog box with an arbitrary number of number pickers */
 public class NNumberPickerDialog extends AlertDialog implements OnClickListener {

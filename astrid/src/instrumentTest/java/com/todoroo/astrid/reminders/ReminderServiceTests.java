@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.reminders;
 
-import java.util.Date;
-
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
@@ -14,6 +12,8 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.ReminderService.AlarmScheduler;
 import com.todoroo.astrid.test.DatabaseTestCase;
 import com.todoroo.astrid.utility.AstridPreferences;
+
+import java.util.Date;
 
 public class ReminderServiceTests extends DatabaseTestCase {
 

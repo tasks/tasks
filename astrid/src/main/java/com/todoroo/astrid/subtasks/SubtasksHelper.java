@@ -1,8 +1,5 @@
 package com.todoroo.astrid.subtasks;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
@@ -26,6 +23,9 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
 import com.todoroo.astrid.utility.AstridPreferences;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SubtasksHelper {
 

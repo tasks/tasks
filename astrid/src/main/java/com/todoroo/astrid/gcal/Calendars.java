@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.gcal;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
@@ -17,10 +14,14 @@ import android.preference.ListPreference;
 import android.provider.CalendarContract;
 import android.util.Log;
 
-import org.tasks.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
+
+import org.tasks.R;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Calendars {
 

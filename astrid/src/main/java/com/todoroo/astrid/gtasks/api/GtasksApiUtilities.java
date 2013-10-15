@@ -5,10 +5,10 @@
  */
 package com.todoroo.astrid.gtasks.api;
 
+import com.google.api.client.util.DateTime;
+
 import java.util.Date;
 import java.util.TimeZone;
-
-import com.google.api.client.util.DateTime;
 
 public class GtasksApiUtilities {
 

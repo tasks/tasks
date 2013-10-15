@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.tasks.R;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
@@ -20,6 +19,8 @@ import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.timers.TimerActionControlSet.TimerActionListener;
 import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.ui.TimeDurationControlSet;
+
+import org.tasks.R;
 
 /**
  * Control Set for managing repeats

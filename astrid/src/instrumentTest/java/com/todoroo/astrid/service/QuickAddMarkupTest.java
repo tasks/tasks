@@ -5,12 +5,12 @@
  */
 package com.todoroo.astrid.service;
 
+import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.test.DatabaseTestCase;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.test.DatabaseTestCase;
 
 public class QuickAddMarkupTest extends DatabaseTestCase {
 

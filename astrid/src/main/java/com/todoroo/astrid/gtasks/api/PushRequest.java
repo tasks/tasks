@@ -5,9 +5,9 @@
  */
 package com.todoroo.astrid.gtasks.api;
 
-import java.io.IOException;
-
 import com.google.api.services.tasks.model.Task;
+
+import java.io.IOException;
 
 /**
  * Abstract class that encapsulates some push request to the server

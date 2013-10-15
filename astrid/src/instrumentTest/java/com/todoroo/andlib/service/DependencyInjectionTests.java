@@ -5,9 +5,9 @@
  */
 package com.todoroo.andlib.service;
 
-import java.lang.reflect.Field;
-
 import android.test.AndroidTestCase;
+
+import java.lang.reflect.Field;
 
 public class DependencyInjectionTests extends AndroidTestCase {
 

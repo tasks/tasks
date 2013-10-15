@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.core;
 
-import java.util.HashMap;
-import java.util.List;
-
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -21,13 +18,17 @@ import android.text.Spannable;
 import android.text.style.URLSpan;
 import android.text.util.Linkify;
 
-import org.tasks.R;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.files.FilesAction;
 import com.todoroo.astrid.notes.NotesAction;
+
+import org.tasks.R;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Exposes {@link TaskDecoration} for phone numbers, emails, urls, etc

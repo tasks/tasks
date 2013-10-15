@@ -5,10 +5,10 @@
  */
 package com.todoroo.andlib.sql;
 
-import static com.todoroo.andlib.sql.SqlConstants.SPACE;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.todoroo.andlib.sql.SqlConstants.SPACE;
 
 public class Order {
     private final Object expression;

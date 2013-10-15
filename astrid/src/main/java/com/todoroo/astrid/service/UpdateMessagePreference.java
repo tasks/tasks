@@ -1,17 +1,17 @@
 package com.todoroo.astrid.service;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 
-import org.tasks.R;
 import com.todoroo.andlib.utility.Preferences;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.tasks.R;
 
 public class UpdateMessagePreference extends PreferenceActivity {
 

@@ -5,16 +5,12 @@
  */
 package com.todoroo.astrid.activity;
 
-import java.util.Map.Entry;
-import java.util.Set;
-
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 
-import org.tasks.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -22,6 +18,11 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.FilterWithUpdate;
 import com.todoroo.astrid.data.Task;
+
+import org.tasks.R;
+
+import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * This activity is launched when a user opens up a notification from the

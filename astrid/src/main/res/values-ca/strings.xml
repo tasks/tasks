@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 	<string name="actfm_picture_camera">Fes una fotografia</string>
 	<string name="actfm_picture_gallery">Tria una imatge de la galeria</string>
 	<string name="actfm_picture_clear">Neteja la selecció d\'imatge</string>

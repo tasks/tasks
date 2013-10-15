@@ -5,6 +5,17 @@
  */
 package com.todoroo.andlib.sql;
 
+import android.content.ContentResolver;
+import android.database.Cursor;
+import android.net.Uri;
+
+import com.todoroo.andlib.data.Property;
+import com.todoroo.astrid.api.AstridApiConstants;
+
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static com.todoroo.andlib.sql.SqlConstants.ALL;
 import static com.todoroo.andlib.sql.SqlConstants.COMMA;
 import static com.todoroo.andlib.sql.SqlConstants.DISTINCT;
@@ -20,17 +31,6 @@ import static com.todoroo.andlib.sql.SqlConstants.UNION;
 import static com.todoroo.andlib.sql.SqlConstants.WHERE;
 import static com.todoroo.andlib.sql.SqlTable.table;
 import static java.util.Arrays.asList;
-
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import android.content.ContentResolver;
-import android.database.Cursor;
-import android.net.Uri;
-
-import com.todoroo.andlib.data.Property;
-import com.todoroo.astrid.api.AstridApiConstants;
 
 public final class Query {
 

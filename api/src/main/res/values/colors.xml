@@ -4,7 +4,7 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
     
     <color name="importance_1">#ffff5555</color>
     <color name="importance_2">#fffea400</color>

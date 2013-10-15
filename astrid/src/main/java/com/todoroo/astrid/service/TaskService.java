@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map.Entry;
-
 import android.content.ContentValues;
 import android.text.TextUtils;
 
@@ -51,6 +47,10 @@ import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.TitleParser;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
 
 
 /**

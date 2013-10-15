@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 	<plurals name="DUt_years">
 		<item quantity="one">1년</item>
 		<item quantity="other">%d년</item>

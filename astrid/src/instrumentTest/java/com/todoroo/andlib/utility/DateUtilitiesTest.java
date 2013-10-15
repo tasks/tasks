@@ -5,12 +5,12 @@
  */
 package com.todoroo.andlib.utility;
 
+import com.todoroo.andlib.test.TodorooTestCase;
+
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
-
-import com.todoroo.andlib.test.TodorooTestCase;
 
 public class DateUtilitiesTest extends TodorooTestCase {
 

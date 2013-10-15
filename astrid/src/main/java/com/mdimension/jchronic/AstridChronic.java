@@ -5,9 +5,6 @@
  */
 package com.mdimension.jchronic;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import com.mdimension.jchronic.handlers.Handler;
 import com.mdimension.jchronic.numerizer.Numerizer;
 import com.mdimension.jchronic.repeaters.Repeater;
@@ -19,6 +16,9 @@ import com.mdimension.jchronic.tags.Separator;
 import com.mdimension.jchronic.tags.TimeZone;
 import com.mdimension.jchronic.utils.Span;
 import com.mdimension.jchronic.utils.Token;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class AstridChronic {
   public static final String VERSION = "0.2.3";

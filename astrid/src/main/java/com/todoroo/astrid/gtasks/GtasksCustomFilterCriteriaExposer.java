@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 
-import org.tasks.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -29,6 +28,8 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+
+import org.tasks.R;
 
 public class GtasksCustomFilterCriteriaExposer extends BroadcastReceiver {
     @Autowired private GtasksPreferenceService gtasksPreferenceService;

@@ -21,15 +21,12 @@
         android:text="@string/TLA_no_items"
         style="@style/TextAppearance.TLA_NoItems"/>
 
-    <com.todoroo.astrid.ui.DraggableListView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tlv="http://schemas.android.com/apk/res/org.tasks"
-    
-        android:id="@android:id/list"        
+    <com.todoroo.astrid.ui.DraggableListView xmlns:android="http://schemas.android.com/apk/res/android"
+
+        android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:drawSelectorOnTop="false"
-        style="@style/ListView"
-    />
+        style="@style/ListView" />
                 
 </FrameLayout>

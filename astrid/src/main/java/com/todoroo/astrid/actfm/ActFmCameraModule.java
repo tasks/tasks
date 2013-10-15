@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.actfm;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -22,9 +18,14 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.widget.ArrayAdapter;
 
-import org.tasks.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
+
+import org.tasks.R;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class ActFmCameraModule {
 

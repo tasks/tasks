@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 	<string name="actfm_picture_camera">사진 찍기</string>
 	<string name="actfm_picture_gallery">갤러리에서 가져오기</string>
 	<string name="actfm_picture_clear">사진 제거하기</string>

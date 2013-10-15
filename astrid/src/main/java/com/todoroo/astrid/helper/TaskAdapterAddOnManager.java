@@ -3,12 +3,6 @@
  */
 package com.todoroo.astrid.helper;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import android.content.Intent;
 import android.support.v4.app.ListFragment;
 import android.widget.ListView;
@@ -16,6 +10,12 @@ import android.widget.ListView;
 import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Task;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 abstract public class TaskAdapterAddOnManager<TYPE> {
 

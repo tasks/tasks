@@ -5,18 +5,18 @@
  */
 package com.todoroo.andlib.utility;
 
+import android.content.Context;
+import android.text.format.DateFormat;
+import android.text.format.DateUtils;
+
+import org.tasks.api.R;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
-import android.content.Context;
-import android.text.format.DateFormat;
-import android.text.format.DateUtils;
-
-import org.tasks.api.R;
 
 
 public class DateUtilities {

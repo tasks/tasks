@@ -5,13 +5,13 @@
  */
 package com.todoroo.astrid.sync;
 
-import java.io.IOException;
-
 import android.app.Activity;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+
+import java.io.IOException;
 
 
 abstract public class SyncV2Provider {

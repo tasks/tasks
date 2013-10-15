@@ -5,14 +5,6 @@
  */
 package com.todoroo.astrid.dao;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.ContentValues;
 import android.text.TextUtils;
 
@@ -34,6 +26,14 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagMetadata;
 import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.tags.TagMemberMetadata;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Data Access layer for {@link Metadata}-related operations.

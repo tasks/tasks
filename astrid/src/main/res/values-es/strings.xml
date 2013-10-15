@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 	<string name="actfm_picture_camera">Tomar una foto</string>
 	<string name="actfm_picture_gallery">Elegir de la galería</string>
 	<string name="actfm_picture_clear">Borrar imagen</string>

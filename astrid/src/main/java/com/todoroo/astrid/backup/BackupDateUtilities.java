@@ -5,12 +5,12 @@
  */
 package com.todoroo.astrid.backup;
 
+import android.util.Log;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import android.util.Log;
 
 /**
  * Date Utility functions for backups

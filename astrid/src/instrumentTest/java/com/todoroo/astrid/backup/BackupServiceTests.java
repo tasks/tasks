@@ -5,20 +5,21 @@
  */
 package com.todoroo.astrid.backup;
 
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.backup.BackupService.BackupDirectorySetting;
+import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.test.DatabaseTestCase;
+
+import org.tasks.R;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import org.tasks.R;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.backup.BackupService.BackupDirectorySetting;
-import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.test.DatabaseTestCase;
-import com.todoroo.andlib.utility.Preferences;
 
 public class BackupServiceTests extends DatabaseTestCase {
 

@@ -14,11 +14,12 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
-import org.tasks.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
+
+import org.tasks.R;
 
 public class GCalTaskCompleteListener extends BroadcastReceiver {
 

@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.dao;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.ContentValues;
 import android.text.TextUtils;
 
@@ -22,6 +19,9 @@ import com.todoroo.astrid.data.OutstandingEntry;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskAttachmentOutstanding;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Data Access layer for {@link TagData}-related operations.

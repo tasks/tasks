@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.repeats;
 
-import java.text.DateFormatSymbols;
-import java.text.ParseException;
-import java.util.List;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -17,10 +13,15 @@ import android.content.res.Resources;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.WeekdayNum;
-import org.tasks.R;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
+
+import org.tasks.R;
+
+import java.text.DateFormatSymbols;
+import java.text.ParseException;
+import java.util.List;
 
 /**
  * Exposes Task Detail for repeats, i.e. "Repeats every 2 days"

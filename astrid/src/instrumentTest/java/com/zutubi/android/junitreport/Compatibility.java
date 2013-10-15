@@ -1,11 +1,11 @@
 package com.zutubi.android.junitreport;
 
-import java.io.File;
-import java.lang.reflect.Method;
-
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
+
+import java.io.File;
+import java.lang.reflect.Method;
 
 /**
  * Utilities for backwards-compatibility with early Android versions.

@@ -11,9 +11,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.tasks.R;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.service.ThemeService;
+
+import org.tasks.R;
 
 public class ReengagementFragment extends TaskListFragment {
 

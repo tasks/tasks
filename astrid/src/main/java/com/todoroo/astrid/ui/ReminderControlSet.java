@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,10 +17,14 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import org.tasks.R;
 import com.todoroo.astrid.alarms.AlarmControlSet;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.ThemeService;
+
+import org.tasks.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Control set dealing with reminder settings

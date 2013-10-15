@@ -5,14 +5,14 @@
  */
 package com.todoroo.astrid.service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 import com.todoroo.astrid.service.SyncResultCallbackWrapper.WidgetUpdatingCallbackWrapper;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * SyncV2Service is a simplified synchronization interface for supporting

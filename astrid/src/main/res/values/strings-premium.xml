@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
     
     <string name="speech_err_network">Network error! Speech recognition requires a network connection to work.</string>
     <string name="speech_err_no_match">Sorry, I couldn\'t understand that! Please try again.</string>

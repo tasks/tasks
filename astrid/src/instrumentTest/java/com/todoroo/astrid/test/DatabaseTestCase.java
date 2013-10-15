@@ -5,14 +5,14 @@
  */
 package com.todoroo.astrid.test;
 
-import java.io.File;
-
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.test.TodorooTestCaseWithInjector;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.legacy.AlarmDatabase;
 import com.todoroo.astrid.provider.ProviderTestUtilities;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+
+import java.io.File;
 
 /**
  * Test case that automatically sets up and tears down a test database

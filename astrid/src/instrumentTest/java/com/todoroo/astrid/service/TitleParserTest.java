@@ -6,17 +6,18 @@
 package com.todoroo.astrid.service;
 
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
-import org.tasks.R;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 import com.todoroo.astrid.utility.TitleParser;
+
+import org.tasks.R;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class TitleParserTest extends DatabaseTestCase {
 

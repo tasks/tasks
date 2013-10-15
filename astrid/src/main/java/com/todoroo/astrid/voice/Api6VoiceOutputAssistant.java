@@ -3,9 +3,6 @@
  */
 package com.todoroo.astrid.voice;
 
-import java.util.HashMap;
-import java.util.Locale;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +13,9 @@ import android.util.Log;
 
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.voice.VoiceOutputService.VoiceOutputAssistant;
+
+import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * @author Arne Jans

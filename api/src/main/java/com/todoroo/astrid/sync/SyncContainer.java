@@ -5,11 +5,11 @@
  */
 package com.todoroo.astrid.sync;
 
-import java.util.ArrayList;
-
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+
+import java.util.ArrayList;
 
 /**
  * Container class for transmitting tasks and including local and remote

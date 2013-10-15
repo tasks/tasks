@@ -5,9 +5,10 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import org.tasks.R;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
+
+import org.tasks.R;
 
 /**
  * Methods for working with GTasks preferences

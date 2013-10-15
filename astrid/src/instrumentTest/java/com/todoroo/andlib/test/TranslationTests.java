@@ -6,6 +6,9 @@
 package com.todoroo.andlib.test;
 
 
+import android.content.res.Resources;
+
+import org.tasks.R;
 
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
@@ -13,10 +16,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
-import android.content.res.Resources;
-
-import org.tasks.R;
 
 /**
  * Tests translations for consistency with the default values. You must

@@ -5,11 +5,6 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
-
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -29,7 +24,11 @@ import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater;
-import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater.OrderedListIterator;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObject> {
 

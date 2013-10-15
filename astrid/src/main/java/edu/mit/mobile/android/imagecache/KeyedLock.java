@@ -1,10 +1,10 @@
 package edu.mit.mobile.android.imagecache;
 
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
-
-import android.util.Log;
 
 /**
  * A synchronization lock that creates a separate lock for each key.

@@ -23,8 +23,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.tasks.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
+
+import org.tasks.R;
 
 public class NumberPicker extends LinearLayout implements OnClickListener,
         OnFocusChangeListener, OnLongClickListener {

@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.dao;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
 import android.content.ContentValues;
 import android.database.Cursor;
 
@@ -31,6 +28,9 @@ import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.AstridPreferences;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Data Access layer for {@link Metadata}-related operations.

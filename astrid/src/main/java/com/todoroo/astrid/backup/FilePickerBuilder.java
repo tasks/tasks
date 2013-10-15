@@ -5,16 +5,17 @@
  */
 package com.todoroo.astrid.backup;
 
-import java.io.File;
-import java.io.FilenameFilter;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
 
-import org.tasks.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
+
+import org.tasks.R;
+
+import java.io.File;
+import java.io.FilenameFilter;
 
 public class FilePickerBuilder extends AlertDialog.Builder implements DialogInterface.OnClickListener {
 

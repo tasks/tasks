@@ -5,10 +5,9 @@
  */
 package com.todoroo.andlib.service;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.ref.WeakReference;
-import java.util.zip.GZIPInputStream;
+import android.util.Log;
+
+import com.todoroo.andlib.utility.AndroidUtilities;
 
 import org.apache.http.Header;
 import org.apache.http.HeaderElement;
@@ -37,9 +36,10 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HttpContext;
 
-import android.util.Log;
-
-import com.todoroo.andlib.utility.AndroidUtilities;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.ref.WeakReference;
+import java.util.zip.GZIPInputStream;
 
 /**
  * RestClient allows Android to consume web requests.

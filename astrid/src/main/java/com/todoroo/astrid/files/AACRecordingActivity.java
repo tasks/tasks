@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.files;
 
-import java.io.IOException;
-import java.util.concurrent.atomic.AtomicReference;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -17,11 +14,15 @@ import android.view.View.OnClickListener;
 import android.widget.Chronometer;
 import android.widget.Toast;
 
-import org.tasks.R;
 import com.todoroo.aacenc.AACRecorder;
 import com.todoroo.aacenc.AACRecorder.AACRecorderCallbacks;
 import com.todoroo.aacenc.AACToM4A;
 import com.todoroo.andlib.utility.DialogUtilities;
+
+import org.tasks.R;
+
+import java.io.IOException;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class AACRecordingActivity extends Activity implements AACRecorderCallbacks {
 

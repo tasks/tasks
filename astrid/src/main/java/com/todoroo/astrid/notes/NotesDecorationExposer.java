@@ -9,12 +9,13 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
-import org.tasks.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.api.TaskDecorationExposer;
 import com.todoroo.astrid.data.Task;
+
+import org.tasks.R;
 
 /**
  * Exposes {@link TaskDecoration} for timers

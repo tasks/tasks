@@ -2,7 +2,6 @@ package com.todoroo.astrid.actfm;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.todoroo.andlib.service.Autowired;

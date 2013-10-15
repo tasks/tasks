@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.timers;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import android.app.Activity;
 import android.os.SystemClock;
 import android.text.format.DateFormat;
@@ -18,10 +15,14 @@ import android.widget.Chronometer.OnChronometerTickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import org.tasks.R;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
+
+import org.tasks.R;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class TimerActionControlSet extends TaskEditControlSet {
 

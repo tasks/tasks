@@ -40,8 +40,9 @@ import com.commonsware.cwac.tlv.TouchListView.DragListener;
 import com.commonsware.cwac.tlv.TouchListView.DropListener;
 import com.commonsware.cwac.tlv.TouchListView.GrabberClickListener;
 import com.commonsware.cwac.tlv.TouchListView.SwipeListener;
-import org.tasks.R;
 import com.todoroo.astrid.utility.Flags;
+
+import org.tasks.R;
 
 public class DraggableListView extends ListView {
 

@@ -6,8 +6,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.tasks.R;
 import com.todoroo.astrid.activity.AstridActivity;
+
+import org.tasks.R;
 
 public class AstridDialog extends Dialog {
 

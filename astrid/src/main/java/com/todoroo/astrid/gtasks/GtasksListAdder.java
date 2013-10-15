@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import java.io.IOException;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -15,7 +13,6 @@ import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 
-import org.tasks.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -23,6 +20,10 @@ import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
+
+import org.tasks.R;
+
+import java.io.IOException;
 
 public class GtasksListAdder extends Activity {
 

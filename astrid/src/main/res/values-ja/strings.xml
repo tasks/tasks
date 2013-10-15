@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 	<string name="actfm_picture_camera">写真を撮る</string>
 	<string name="actfm_picture_gallery">ギャラリーから選択</string>
 	<string name="actfm_picture_clear">写真を削除</string>

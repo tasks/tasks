@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.alarms;
 
-import java.util.Date;
-import java.util.LinkedHashSet;
-
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +13,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.tasks.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Metadata;
@@ -25,6 +21,11 @@ import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.ui.DateAndTimeDialog;
 import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
 import com.todoroo.astrid.ui.DateAndTimePicker;
+
+import org.tasks.R;
+
+import java.util.Date;
+import java.util.LinkedHashSet;
 
 /**
  * Control set to manage adding and removing tags

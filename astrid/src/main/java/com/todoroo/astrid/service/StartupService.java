@@ -46,13 +46,11 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.CalendarStartupReceiver;
-import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.reminders.ReengagementService;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
-import com.todoroo.astrid.subtasks.SubtasksMetadata;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
@@ -213,10 +211,6 @@ public class StartupService {
                 if (finalLatestVersion != 0) {
 //                    new UpdateMessageService(context).processUpdates();
                 }
-
-                checkForSubtasksUse();
-                checkForSwipeListsUse();
-                checkForVoiceRemindersUse();
             }
         }).start();
 
@@ -297,51 +291,6 @@ public class StartupService {
         } catch (Exception e) {
             Log.w("astrid-database-restore", e); //$NON-NLS-1$
         }
-    }
-
-    private static final String PREF_SUBTASKS_CHECK = "subtasks_check_stat"; //$NON-NLS-1$
-
-    private void checkForSubtasksUse() {
-        if (!Preferences.getBoolean(PREF_SUBTASKS_CHECK, false)) {
-            if (taskService.countTasks() > 3) {
-                checkMetadataStat(Criterion.and(MetadataCriteria.withKey(SubtasksMetadata.METADATA_KEY),
-                        SubtasksMetadata.ORDER.gt(0)), StatisticsConstants.SUBTASKS_ORDER_USED);
-                checkMetadataStat(Criterion.and(MetadataCriteria.withKey(SubtasksMetadata.METADATA_KEY),
-                        SubtasksMetadata.INDENT.gt(0)), StatisticsConstants.SUBTASKS_INDENT_USED);
-                checkMetadataStat(Criterion.and(MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
-                        GtasksMetadata.INDENT.gt(0)), StatisticsConstants.GTASKS_INDENT_USED);
-            }
-            Preferences.setBoolean(PREF_SUBTASKS_CHECK, true);
-        }
-    }
-
-    private static final String PREF_SWIPE_CHECK = "swipe_check_stat"; //$NON-NLS-1$
-
-    private void checkForSwipeListsUse() {
-        if (!Preferences.getBoolean(PREF_SWIPE_CHECK, false)) {
-            Preferences.setBoolean(PREF_SWIPE_CHECK, true);
-        }
-    }
-
-    private static final String PREF_VOICE_REMINDERS_CHECK = "voice_reminders_check"; //$NON-NLS-1$
-
-    private void checkForVoiceRemindersUse() {
-        if (!Preferences.getBoolean(PREF_VOICE_REMINDERS_CHECK, false)) {
-            if (Preferences.getBoolean(R.string.p_voiceRemindersEnabled, false)) {
-                Preferences.setBoolean(PREF_VOICE_REMINDERS_CHECK, true);
-            }
-        }
-    }
-
-    private void checkMetadataStat(Criterion criterion, String statistic) {
-        TodorooCursor<Metadata> sort = metadataService.query(Query.select(Metadata.ID).where(criterion).limit(1));
-        try {
-            if (sort.getCount() > 0) {
-            }
-        } finally {
-            sort.close();
-        }
-
     }
 
     private static final String P_TASK_KILLER_HELP = "taskkiller"; //$NON-NLS-1$

@@ -5,16 +5,17 @@
  */
 package com.todoroo.andlib.data;
 
-import static com.todoroo.andlib.sql.SqlConstants.COMMA;
-import static com.todoroo.andlib.sql.SqlConstants.LEFT_PARENTHESIS;
-import static com.todoroo.andlib.sql.SqlConstants.RIGHT_PARENTHESIS;
-import static com.todoroo.andlib.sql.SqlConstants.SPACE;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Operator;
 import com.todoroo.andlib.sql.UnaryCriterion;
+
+import static com.todoroo.andlib.sql.SqlConstants.COMMA;
+import static com.todoroo.andlib.sql.SqlConstants.LEFT_PARENTHESIS;
+import static com.todoroo.andlib.sql.SqlConstants.RIGHT_PARENTHESIS;
+import static com.todoroo.andlib.sql.SqlConstants.SPACE;
 
 /**
  * Property represents a typed column in a database.

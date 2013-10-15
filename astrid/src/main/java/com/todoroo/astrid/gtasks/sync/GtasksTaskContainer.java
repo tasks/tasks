@@ -5,13 +5,13 @@
  */
 package com.todoroo.astrid.gtasks.sync;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.sync.SyncContainer;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * RTM Task Container

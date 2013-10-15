@@ -13,13 +13,14 @@ import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.RemoteViews;
 
-import org.tasks.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.api.TaskDecorationExposer;
 import com.todoroo.astrid.data.Task;
+
+import org.tasks.R;
 
 /**
  * Exposes {@link TaskDecoration} for timers

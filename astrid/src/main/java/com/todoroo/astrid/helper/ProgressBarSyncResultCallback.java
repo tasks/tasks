@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.helper;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -15,6 +13,8 @@ import android.widget.ProgressBar;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.sync.SyncResultCallbackAdapter;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ProgressBarSyncResultCallback extends SyncResultCallbackAdapter {
 

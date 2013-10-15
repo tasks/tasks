@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.alarms;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedHashSet;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -32,6 +28,10 @@ import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.MetadataService.SynchronizeMetadataCallback;
 import com.todoroo.astrid.utility.Constants;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashSet;
 
 /**
  * Provides operations for working with alerts

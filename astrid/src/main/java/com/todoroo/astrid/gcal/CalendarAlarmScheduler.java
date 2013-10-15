@@ -1,7 +1,5 @@
 package com.todoroo.astrid.gcal;
 
-import java.util.Date;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ContentResolver;
@@ -11,10 +9,13 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 
-import org.tasks.R;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.utility.Constants;
+
+import org.tasks.R;
+
+import java.util.Date;
 
 public class CalendarAlarmScheduler {
 

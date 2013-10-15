@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.utility;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 
 import com.todoroo.andlib.data.Property;
@@ -24,6 +22,8 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.sync.SyncContainer;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
+
+import java.util.ArrayList;
 
 abstract public class SyncMetadataService<TYPE extends SyncContainer> {
 

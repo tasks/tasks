@@ -17,6 +17,13 @@ package edu.mit.mobile.android.imagecache;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
+import android.os.Build;
+import android.os.StatFs;
+import android.util.Log;
+
+import com.todoroo.astrid.utility.Constants;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -36,12 +43,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-
-import android.os.Build;
-import android.os.StatFs;
-import android.util.Log;
-
-import com.todoroo.astrid.utility.Constants;
 
 /**
  * <p>

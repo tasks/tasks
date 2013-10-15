@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.provider;
 
-import java.util.HashSet;
-import java.util.Map.Entry;
-import java.util.Set;
-
 import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -39,6 +35,10 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+
+import java.util.HashSet;
+import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * Astrid 3 Content Provider. There are two ways to use this content provider:
