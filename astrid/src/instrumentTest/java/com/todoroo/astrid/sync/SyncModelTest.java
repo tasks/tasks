@@ -4,9 +4,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.data.RemoteModel;
-import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskOutstanding;
 
@@ -59,46 +57,6 @@ public class SyncModelTest extends NewSyncTestCase {
 				assertEquals(Task.IMPORTANCE.name, to.getValue(TaskOutstanding.COLUMN_STRING));
 				assertEquals(Task.IMPORTANCE_DO_OR_DIE, Integer.parseInt(to.getValue(TaskOutstanding.VALUE_STRING)));
 			}
-		} finally {
-			cursor.close();
-		}
-	}
-	
-	public void testChangeTagMakesOutstandingEntries() {
-		TagData tag = createTagData();
-		String newName = "changing tag name";
-		tag.setValue(TagData.NAME, newName);
-		
-		tagDataDao.saveExisting(tag);
-		TodorooCursor<TagOutstanding> cursor = tagOutstandingDao.query(Query.select(TagOutstanding.PROPERTIES)
-				.where(Criterion.and(TagOutstanding.TAG_DATA_ID.eq(tag.getId()),
-						TagOutstanding.COLUMN_STRING.eq(TagData.NAME.name),
-						TagOutstanding.VALUE_STRING.eq(newName))));
-		try {
-			assertTrue(cursor.getCount() > 0);
-		} finally {
-			cursor.close();
-		}
-	}
-	
-	public void testSuppressionFlagSuppressesOutstandingEntries() {
-		Task task = createTask(true);
-		TodorooCursor<TagOutstanding> cursor = tagOutstandingDao.query(Query.select(TagOutstanding.PROPERTIES)
-				.where(TagOutstanding.TAG_DATA_ID.eq(task.getId())));
-		try {
-			assertEquals(0, cursor.getCount());
-		} finally {
-			cursor.close();
-		}
-		
-		task.setValue(Task.TITLE, "new title");
-		task.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
-		taskDao.save(task);
-		
-		cursor = tagOutstandingDao.query(Query.select(TagOutstanding.PROPERTIES)
-				.where(TagOutstanding.TAG_DATA_ID.eq(task.getId())));
-		try {
-			assertEquals(0, cursor.getCount());
 		} finally {
 			cursor.close();
 		}
