@@ -27,6 +27,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -54,7 +55,6 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
-import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
@@ -69,8 +69,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-
-import edu.mit.mobile.android.imagecache.ImageCache;
 
 public class EditNoteActivity extends LinearLayout implements TimerActionListener {
 
@@ -97,7 +95,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     private final Resources resources;
 
-    private final ImageCache imageCache;
     private final int cameraButton;
     private final String linkColor;
     private int historyCount = 0;
@@ -118,7 +115,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         super(fragment.getActivity());
         DependencyInjectionService.getInstance().inject(this);
 
-        imageCache = AsyncImageView.getImageCache();
         this.fragment = fragment;
 
         this.activity = (AstridActivity) fragment.getActivity();
@@ -395,9 +391,8 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
 
         // picture
-        final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture); {
-            UpdateAdapter.setupImagePopupForCommentView(view, commentPictureView, item.pictureThumb, item.pictureFull, item.commentBitmap, item.title.toString(), fragment, imageCache);
-        }
+        final ImageView commentPictureView = (ImageView)view.findViewById(R.id.comment_picture);
+        UpdateAdapter.setupImagePopupForCommentView(view, commentPictureView, item.pictureThumb, item.pictureFull, item.commentBitmap, item.title.toString(), fragment);
     }
 
     public void refreshData() {

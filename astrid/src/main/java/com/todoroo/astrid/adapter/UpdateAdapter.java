@@ -23,6 +23,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.CursorAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.todoroo.andlib.data.Property;
@@ -39,13 +40,8 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
-import com.todoroo.astrid.helper.AsyncImageView;
 
 import org.tasks.R;
-
-import java.io.IOException;
-
-import edu.mit.mobile.android.imagecache.ImageCache;
 
 /**
  * Adapter for displaying a user's activity
@@ -60,7 +56,6 @@ public class UpdateAdapter extends CursorAdapter {
     protected final Fragment fragment;
     private final int resource;
     private final LayoutInflater inflater;
-    private final ImageCache imageCache;
     private final String linkColor;
     private final String fromView;
 
@@ -138,7 +133,6 @@ public class UpdateAdapter extends CursorAdapter {
 
         inflater = (LayoutInflater) fragment.getActivity().getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
-        imageCache = AsyncImageView.getImageCache();
         this.fromView = fromView;
 
         this.resource = resource;
@@ -269,7 +263,7 @@ public class UpdateAdapter extends CursorAdapter {
     }
 
     private void setupUserActivityRow(View view, UserActivity activity, User user) {
-        final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture); {
+        final ImageView commentPictureView = (ImageView)view.findViewById(R.id.comment_picture); {
             String pictureThumb = activity.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_MEDIUM);
             String pictureFull = activity.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_LARGE);
             Bitmap updateBitmap = null;
@@ -277,7 +271,7 @@ public class UpdateAdapter extends CursorAdapter {
                 updateBitmap = activity.getPictureBitmap(UserActivity.PICTURE);
             }
             setupImagePopupForCommentView(view, commentPictureView, pictureThumb, pictureFull, updateBitmap,
-                    activity.getValue(UserActivity.MESSAGE), fragment, imageCache);
+                    activity.getValue(UserActivity.MESSAGE), fragment);
         }
 
         // name
@@ -302,37 +296,23 @@ public class UpdateAdapter extends CursorAdapter {
         return false;
     }
 
-    public static void setupImagePopupForCommentView(View view, AsyncImageView commentPictureView, final String pictureThumb, final String pictureFull, final Bitmap updateBitmap,
-            final String message, final Fragment fragment, ImageCache imageCache) {
+    public static void setupImagePopupForCommentView(View view, ImageView commentPictureView, final String pictureThumb, final String pictureFull, final Bitmap updateBitmap,
+            final String message, final Fragment fragment) {
         if ((!TextUtils.isEmpty(pictureThumb) && !"null".equals(pictureThumb)) || updateBitmap != null) { //$NON-NLS-1$
             commentPictureView.setVisibility(View.VISIBLE);
             if (updateBitmap != null) {
                 commentPictureView.setImageBitmap(updateBitmap);
-            } else {
-                commentPictureView.setUrl(pictureThumb);
-            }
-
-            if (pictureThumb != null && imageCache.contains(pictureThumb) && updateBitmap == null) {
-                try {
-                    commentPictureView.setImageBitmap(imageCache.get(pictureThumb));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }  else if (updateBitmap == null) {
-                commentPictureView.setUrl(pictureThumb);
             }
 
             view.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     AlertDialog image = new AlertDialog.Builder(fragment.getActivity()).create();
-                    AsyncImageView imageView = new AsyncImageView(fragment.getActivity());
+                    ImageView imageView = new ImageView(fragment.getActivity());
                     imageView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
                     imageView.setImageResource(android.R.drawable.ic_menu_gallery);
                     if (updateBitmap != null) {
                         imageView.setImageBitmap(updateBitmap);
-                    } else {
-                        imageView.setUrl(pictureFull);
                     }
                     image.setView(imageView);
 

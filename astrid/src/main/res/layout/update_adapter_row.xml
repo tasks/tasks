@@ -49,12 +49,12 @@
 	</RelativeLayout>
     
     <!-- picture -->
-    <com.todoroo.astrid.helper.AsyncImageView
+    <ImageView
         android:id="@+id/comment_picture"
         android:layout_width="50dip"
         android:layout_height="50dip"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="5dip"
+        android:layout_marginLeft="50dip"
         android:layout_marginBottom="4dip"
         android:visibility="gone"
         android:scaleType="fitCenter"/>

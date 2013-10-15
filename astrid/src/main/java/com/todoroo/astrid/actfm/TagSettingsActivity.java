@@ -39,7 +39,6 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagMetadata;
 import com.todoroo.astrid.data.User;
-import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.ThemeService;
@@ -52,8 +51,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.tasks.R;
-
-import edu.mit.mobile.android.imagecache.ImageCache;
 
 public class TagSettingsActivity extends SherlockFragmentActivity {
 
@@ -82,14 +79,12 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
 
     private EditText tagName;
     private Bitmap setBitmap;
-    private final ImageCache imageCache;
 
     private boolean isNewTag = false;
     private boolean isDialog;
 
     public TagSettingsActivity() {
         DependencyInjectionService.getInstance().inject(this);
-        imageCache = AsyncImageView.getImageCache();
     }
 
     @Override
@@ -269,7 +264,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
         }
         try {
             String tagPicture = RemoteModel.PictureHelper.getPictureHash(tagData);
-            imageCache.put(tagPicture, bitmap);
             tagData.setValue(TagData.PICTURE, tagPicture);
         }
         catch (Exception e) {
