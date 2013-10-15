@@ -198,6 +198,4 @@
 		<item>In Two Weeks</item>
 		<item>Next Month</item>
 	</string-array>
-	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
-    Please do not translate this part of the string. -->
 </resources>

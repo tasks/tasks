@@ -59,7 +59,6 @@
 	<string name="DLG_cancel">취소</string>
 	<string name="DLG_undo">실행 취소</string>
 	<string name="WID_dateButtonUnset">누르세요</string>
-	<string name="ENA_no_user">누군가</string>
 	<string name="ENA_refresh_comments">댓글 새로고침</string>
 	<string name="TLA_no_items">일정이 없네요!\n추가할까요?</string>
 	<string name="TLA_menu_sort">정렬</string>
@@ -652,13 +651,6 @@
 		<item>분마다</item>
 		<item>년마다</item>
 	</string-array>
-	<string name="repeat_days">일</string>
-	<string name="repeat_weekdays">주중</string>
-	<string name="repeat_weeks">주</string>
-	<string name="repeat_months">달</string>
-	<string name="repeat_years">년</string>
-	<string name="repeat_hours">시</string>
-	<string name="repeat_minutes">분</string>
 	<string-array name="repeat_until_shortcuts">
 		<item>영원히</item>
 		<item>특정일</item>
@@ -712,66 +704,6 @@
 	<string name="TEA_timer_comment_started">이 일정 시작:</string>
 	<string name="TEA_timer_comment_stopped">이 일정 중지:</string>
 	<string name="TEA_timer_comment_spent">소요 시간:</string>
-	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
-    Please do not translate this part of the string. -->
-	<string name="update_string_default_comment">%1$s의 댓글: %3$s</string>
-	<string name="update_string_task_comment">$link_task 의 %1$s: %3$s</string>
-	<string name="update_string_tag_comment">%2$s의 %1$s: %3$s</string>
-	<string name="update_string_user_self">당신</string>
-	<string name="history_yourself">스스로</string>
-	<string name="history_you">당신</string>
-	<string name="history_a_deleted_user">(삭제한 사용자)</string>
-	<string name="history_this_list">이 목록</string>
-	<string name="history_this_task">이 일정</string>
-	<string name="history_tag_added">%1$s 를 %2$s 에 추가함</string>
-	<string name="history_tag_removed">%1$s 을 %2$s 에서 제거함</string>
-	<string name="history_attach_added">%1$s 을 %2$s 에 첨부함</string>
-	<string name="history_attach_removed">%1$s 을 %2$s 에서 제거함</string>
-	<string name="history_left_list">%s 를 탈퇴함</string>
-	<string name="history_deleted">%s 을 삭제함</string>
-	<string name="history_undeleted">%s 를 복구함</string>
-	<string name="history_completed">%s 를 완료함</string>
-	<string name="history_uncompleted">%s 를 미완료</string>
-	<string name="history_importance_changed">우선순위 %1$s 를 %2$s 에서 %3$s 로 변경함</string>
-	<string name="history_title_changed">제목 %1$s 를 %2$s 에서 %3$s 로 변경함</string>
-	<string name="history_title_set">제목 %1$s 를 %2$s 로 설정함</string>
-	<string name="history_name_changed">이름을 %1$s 에서 %2$s 로 변경함</string>
-	<string name="history_name_set">이름을 %2$s 로 설정하기</string>
-	<string name="history_description_changed">설명을 %1$s 에서 %2$s 로 변경함</string>
-	<string name="history_description_set">설명을 %2$s 로 설정함</string>
-	<string name="history_made_public">%s 를 공개합니다</string>
-	<string name="history_made_private">%s 를 비공개합니다</string>
-	<string name="history_silenced">%s 를 침묵시켰습니다</string>
-	<string name="history_unsilenced">%s 의 침묵을 해제했습니다</string>
-	<string name="history_favorited">%s 를 즐겨찾기 했습니다</string>
-	<string name="history_unfavorited">%s 의 즐겨찾기를 해제했습니다</string>
-	<string name="history_changed_list_picture">이 목록의 사진을 변경하기</string>
-	<string name="history_added_description_characters">%1$d 문자를 %2$s 설명에 추가했습니다</string>
-	<string name="history_removed_description">%s 설명을 삭제했습니다</string>
-	<string name="history_removed_description_characters">%1$d 문자를 %2$s 설명에서 삭제했습니다</string>
-	<string name="history_updated_description">%s 설명을 업데이트 했습니다</string>
-	<string name="history_changed_list_owner">목록 소유자를  %s 로 변경했습니다</string>
-	<string name="history_created_this_list">이 목록을 만들었습니다</string>
-	<string name="history_unassigned">미할당 %s</string>
-	<string name="history_claimed">%s 를 요구했습니다</string>
-	<string name="history_assigned_to">%1$s 를 %2$s 로 할당함</string>
-	<string name="history_created_for">%2$s 에 대해 %1$s 을 만들었습니다</string>
-	<string name="history_created">%s 를 만들었습니다</string>
-	<string name="history_changed_due_date">%1$s 마감일 변경: %2$s -&gt; %3$s</string>
-	<string name="history_set_due_date">%1$s 마감일 설정: %2$s</string>
-	<string name="history_removed_due_date">%s 마감일을 삭제했습니다</string>
-	<string name="history_completed_repeating_task">%1$s 를 완료했습니다 (이제 %2$s 까지)</string>
-	<string name="history_added_user">%1$s 를 %2$s 에 추가했습니다</string>
-	<string name="history_removed_user">%1$s 를 %2$s 에서 삭제했습니다</string>
-	<string name="history_changed_repeat">%1$s 반복을 %2$s 으로 변경했습니다</string>
-	<string name="history_removed_repeat">%s 반복을 삭제했습니다</string>
-	<string name="history_shared_with">%1$s 를 %2$s 님과 공유했습니다</string>
-	<string name="history_unshared_with">%1$s 를 %2$s 님과 공유를 중단했습니다</string>
-	<string name="history_repeat_every">매 %s</string>
-	<string name="history_repeat_on">: %s</string>
-	<string name="history_repeat_from_completion">완료 후</string>
-	<string name="history_acknowledged">%s 를 열람했습니다</string>
-	<string name="history_default">%1$s 를 %2$s 로 변경했습니다</string>
 	<string name="voice_create_prompt">일정을 만들려면 말하세요</string>
 	<string name="voice_edit_title_prompt">일정 제목을 말하세요</string>
 	<string name="voice_edit_note_prompt">일정의 내용을 말하세요</string>

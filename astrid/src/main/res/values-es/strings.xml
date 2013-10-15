@@ -56,7 +56,6 @@
 	<string name="DLG_cancel">Cancelar</string>
 	<string name="DLG_undo">Deshacer</string>
 	<string name="WID_dateButtonUnset">Pulsar para establecer</string>
-	<string name="ENA_no_user">Alguien</string>
 	<string name="ENA_refresh_comments">Actualizar Comentarios</string>
 	<string name="TLA_no_items">No tienes tareas! \n Quieres agregar alguna?</string>
 	<string name="TLA_menu_sort">Ordenar</string>
@@ -616,13 +615,6 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 		<item>Minuto(s)</item>
 		<item>Año(s)</item>
 	</string-array>
-	<string name="repeat_days">días</string>
-	<string name="repeat_weekdays">días laborales</string>
-	<string name="repeat_weeks">semanas</string>
-	<string name="repeat_months">meses</string>
-	<string name="repeat_years">años</string>
-	<string name="repeat_hours">horas</string>
-	<string name="repeat_minutes">minutos</string>
 	<string-array name="repeat_until_shortcuts">
 		<item>Por siempre</item>
 		<item>Día específico</item>
@@ -676,25 +668,6 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="TEA_timer_comment_started">comenzó esta tarea:</string>
 	<string name="TEA_timer_comment_stopped">dejó de hacer esta tarea:</string>
 	<string name="TEA_timer_comment_spent">Tiempo dedicado:</string>
-	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
-    Please do not translate this part of the string. -->
-	<string name="update_string_default_comment">%1$s comentó: %3$s</string>
-	<string name="update_string_user_self">Tú</string>
-	<string name="history_yourself">tú mismo</string>
-	<string name="history_you">tú</string>
-	<string name="history_a_deleted_user">(un usuario borrado)</string>
-	<string name="history_this_list">esta lista</string>
-	<string name="history_this_task">esta tarea</string>
-	<string name="history_left_list">izquierda %s</string>
-	<string name="history_deleted">borrado %s</string>
-	<string name="history_undeleted">recuperado %s</string>
-	<string name="history_completed">completado %s</string>
-	<string name="history_uncompleted">incompleto %s</string>
-	<string name="history_silenced">silenciado %s</string>
-	<string name="history_unassigned">no asignado %s</string>
-	<string name="history_claimed">reclamado %s</string>
-	<string name="history_repeat_every">cada %s</string>
-	<string name="history_repeat_on">en %s</string>
 	<string name="voice_create_prompt">Hable para crear una tarea</string>
 	<string name="voice_edit_title_prompt">Hable para establecer título de tarea</string>
 	<string name="voice_edit_note_prompt">Hable para establecer notas de tarea</string>

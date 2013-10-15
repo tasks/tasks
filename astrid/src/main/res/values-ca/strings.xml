@@ -58,7 +58,6 @@
 	<string name="DLG_cancel">Cancel·la</string>
 	<string name="DLG_undo">Desfés</string>
 	<string name="WID_dateButtonUnset">Prem per establir</string>
-	<string name="ENA_no_user">Algú</string>
 	<string name="ENA_refresh_comments">Actualitza els comentaris</string>
 	<string name="TLA_no_items">No teniu tasques! \n Voleu afegir alguna cosa?</string>
 	<string name="TLA_menu_sort">Ordenació i subtasques</string>
@@ -313,6 +312,4 @@
 	<string name="TFE_workingOn">Tasques sent cronometrades</string>
 	<string name="TEA_timer_comment_started">inici d\'aquesta tasca:</string>
 	<string name="TEA_timer_comment_stopped">finalització d\'aquesta tasca:</string>
-	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
-    Please do not translate this part of the string. -->
 </resources>

@@ -52,7 +52,6 @@
 	<string name="DLG_cancel">Anuluj</string>
 	<string name="DLG_undo">Cofnij</string>
 	<string name="WID_dateButtonUnset">Kliknij, aby ustawić</string>
-	<string name="ENA_no_user">Ktoś</string>
 	<string name="ENA_refresh_comments">Odśwież komentarze</string>
 	<string name="TLA_no_items">Brak zadań!</string>
 	<string name="TLA_menu_sort">Sortowanie</string>
@@ -624,13 +623,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 		<item>Minut(a/y)</item>
 		<item>Year(s)</item>
 	</string-array>
-	<string name="repeat_days">dni</string>
-	<string name="repeat_weekdays">dni robocze</string>
-	<string name="repeat_weeks">tygodnie</string>
-	<string name="repeat_months">miesiące</string>
-	<string name="repeat_years">lata</string>
-	<string name="repeat_hours">godziny</string>
-	<string name="repeat_minutes">minuty</string>
 	<string-array name="repeat_until_shortcuts">
 		<item>Zawsze</item>
 		<item>Konkretny dzień</item>
@@ -685,48 +677,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="TEA_timer_comment_started">rozpoczęto zadanie:</string>
 	<string name="TEA_timer_comment_stopped">zakończono zadanie:</string>
 	<string name="TEA_timer_comment_spent">Czas spędzony:</string>
-	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
-    Please do not translate this part of the string. -->
-	<string name="update_string_default_comment">%1$s skomentował: %3$s</string>
-	<string name="update_string_user_self">Ty</string>
-	<string name="history_you">Ty</string>
-	<string name="history_a_deleted_user">(usunięty użytkownik)</string>
-	<string name="history_this_list">tej listy</string>
-	<string name="history_this_task">to zadanie</string>
-	<string name="history_tag_added">dodano %1$s do %2$s</string>
-	<string name="history_deleted">usunięto %s</string>
-	<string name="history_undeleted">przywrócono %s</string>
-	<string name="history_completed">ukończono %s</string>
-	<string name="history_uncompleted">cofnięto ukończenie %s</string>
-	<string name="history_importance_changed">zmieniono priorytet %1$s z %2$s na %3$s</string>
-	<string name="history_title_changed">zmieniono tytuł %1$s z %2$s na %3$s</string>
-	<string name="history_title_set">ustawiono tytuł %1$s na %2$s</string>
-	<string name="history_name_changed">zmień nazwę z %1$s na %2$s</string>
-	<string name="history_description_changed">zmień opis z %1$s na %2$s</string>
-	<string name="history_made_public">zmieniono %s na publiczne</string>
-	<string name="history_made_private">zmieniono %s na prywatne</string>
-	<string name="history_silenced">wyciszono %s</string>
-	<string name="history_unsilenced">cofnięto wyciszenie %s</string>
-	<string name="history_favorited">dodano %s do ulubionych</string>
-	<string name="history_unfavorited">usunięto %s z ulubionych</string>
-	<string name="history_changed_list_picture">Zmień obrazek tej listy</string>
-	<string name="history_removed_description">usunięto opis %s</string>
-	<string name="history_updated_description">uaktualniono opis %s</string>
-	<string name="history_changed_list_owner">zmieniono właściciela listy na %s</string>
-	<string name="history_created_this_list">utworzono tę listę</string>
-	<string name="history_unassigned">nieprzypisane %s</string>
-	<string name="history_assigned_to">przypisano %1$s do %2$s</string>
-	<string name="history_created">utworzono %s</string>
-	<string name="history_changed_due_date">zmieniono termin %1$s z %2$s na %3$s</string>
-	<string name="history_set_due_date">ustawiono termin %1$s na %2$s</string>
-	<string name="history_removed_due_date">usunięto termin z %s</string>
-	<string name="history_completed_repeating_task">ukończono %1$s (nowy termin to %2$s)</string>
-	<string name="history_added_user">dodano %1$s do %2$s</string>
-	<string name="history_removed_user">usunięto %1$s z %2$s</string>
-	<string name="history_removed_repeat">usunięto powtarzanie %s</string>
-	<string name="history_repeat_every">Co %s</string>
-	<string name="history_repeat_from_completion">po ukończeniu</string>
-	<string name="history_default">zmieniono %1$s na %2$s</string>
 	<string name="voice_create_prompt">Mów by utworzyć zadanie</string>
 	<string name="voice_edit_title_prompt">Mów by ustawić tytuł zadania</string>
 	<string name="voice_edit_note_prompt">Mów by ustawić notatkę zadania</string>

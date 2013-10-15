@@ -14,7 +14,6 @@ import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.Html;
-import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -501,27 +500,22 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             long createdAt = 0;
             String type = null;
 
-            if (u != null) {
-                pictureThumb = u.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_MEDIUM);
-                pictureFull = u.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_LARGE);
-                if (TextUtils.isEmpty(pictureThumb)) {
-                    commentBitmap = u.getPictureBitmap(UserActivity.PICTURE);
-                }
-                title = UpdateAdapter.getUpdateComment(context, u, user, linkColor, UpdateAdapter.FROM_TASK_VIEW);
-                userImage = ""; //$NON-NLS-1$
-                if (user.containsNonNullValue(UpdateAdapter.USER_PICTURE)) {
-                    userImage = user.getPictureUrl(UpdateAdapter.USER_PICTURE, RemoteModel.PICTURE_THUMB);
-                }
-                createdAt = u.getValue(UserActivity.CREATED_AT);
-                type = NameMaps.TABLE_ID_USER_ACTIVITY;
-            } else {
-                if (user.containsNonNullValue(UpdateAdapter.USER_PICTURE)) {
-                    userImage = user.getPictureUrl(UpdateAdapter.USER_PICTURE, RemoteModel.PICTURE_THUMB);
-                }
-                title = new SpannableString(UpdateAdapter.getHistoryComment(context, history, user, linkColor, UpdateAdapter.FROM_TASK_VIEW));
-                createdAt = history.getValue(History.CREATED_AT);
-                type = NameMaps.TABLE_ID_HISTORY;
+            if(u == null) {
+                throw new RuntimeException("UserActivity should never be null");
             }
+
+            pictureThumb = u.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_MEDIUM);
+            pictureFull = u.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_LARGE);
+            if (TextUtils.isEmpty(pictureThumb)) {
+                commentBitmap = u.getPictureBitmap(UserActivity.PICTURE);
+            }
+            title = UpdateAdapter.getUpdateComment(context, u, user, linkColor, UpdateAdapter.FROM_TASK_VIEW);
+            userImage = ""; //$NON-NLS-1$
+            if (user.containsNonNullValue(UpdateAdapter.USER_PICTURE)) {
+                userImage = user.getPictureUrl(UpdateAdapter.USER_PICTURE, RemoteModel.PICTURE_THUMB);
+            }
+            createdAt = u.getValue(UserActivity.CREATED_AT);
+            type = NameMaps.TABLE_ID_USER_ACTIVITY;
 
             return new NoteOrUpdate(userImage,
                     title,
@@ -536,12 +530,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     public void addListener(UpdatesChangedListener listener) {
         listeners.add(listener);
-    }
-
-    public void removeListener(UpdatesChangedListener listener) {
-        if (listeners.contains(listener)) {
-            listeners.remove(listener);
-        }
     }
 
     @Override

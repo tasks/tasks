@@ -59,7 +59,6 @@
 	<string name="DLG_cancel">Відміна</string>
 	<string name="DLG_undo">Відмінити</string>
 	<string name="WID_dateButtonUnset">Натисніть для установки</string>
-	<string name="ENA_no_user">Хтось</string>
 	<string name="ENA_refresh_comments">Оновити коментарі</string>
 	<string name="TLA_no_items">У Вас немає завдань! \n Бажаєте щось додати?</string>
 	<string name="TLA_menu_sort">Сортувати</string>
@@ -539,13 +538,6 @@
 		<item>хв.</item>
 		<item>р.</item>
 	</string-array>
-	<string name="repeat_days">днів</string>
-	<string name="repeat_weekdays">Дні тижня</string>
-	<string name="repeat_weeks">тижнів</string>
-	<string name="repeat_months">Місяці</string>
-	<string name="repeat_years">Роки</string>
-	<string name="repeat_hours">\"год.\"</string>
-	<string name="repeat_minutes">\"хв.\"</string>
 	<string-array name="repeat_until_shortcuts">
 		<item>Forever</item>
 		<item>Specific Day</item>
@@ -589,17 +581,6 @@
 	<string name="TEA_tags_deleted">Список %1$s був видалений, разом з %2$d завданнями</string>
 	<string name="TPl_notification">Для %s діють таймери!</string>
 	<string name="TEA_timer_controls">Таймер</string>
-	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
-    Please do not translate this part of the string. -->
-	<string name="history_a_deleted_user">(видалений користувач)</string>
-	<string name="history_deleted">видалено %s</string>
-	<string name="history_undeleted">відновлено %s</string>
-	<string name="history_created_this_list">створив цей список</string>
-	<string name="history_created_for">створено %1$s для %2$s</string>
-	<string name="history_created">створено %s</string>
-	<string name="history_changed_due_date">змінена %1$s дата закінчення з %2$s на %3$s</string>
-	<string name="history_set_due_date">встановлена %1$s дата закінчення до %2$s</string>
-	<string name="history_removed_due_date">видалена %s дата закінчення</string>
 	<string name="voice_create_prompt">Горовіть щоб створити завдання</string>
 	<string name="EPr_voiceInputInstall_dlg">Голосове введення не встановлено. \n Хочете перейти на Market і встановити?</string>
 	<string name="EPr_voiceInputEnabled_title">Голосове введення</string>

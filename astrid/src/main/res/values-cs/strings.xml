@@ -55,7 +55,6 @@
 	<string name="DLG_cancel">Storno</string>
 	<string name="DLG_undo">Vrátit změny</string>
 	<string name="WID_dateButtonUnset">Klikni pro nastavení</string>
-	<string name="ENA_no_user">Kdosi</string>
 	<string name="ENA_refresh_comments">Obnovit komentáře</string>
 	<string name="TLA_no_items">Žádné úkoly!</string>
 	<string name="TLA_menu_sort">Třídit &amp; skryté</string>
@@ -435,7 +434,5 @@
 	<string name="tag_settings_title">Settings:</string>
 	<string name="TPl_notification">Aktivní časovače pro %s!</string>
 	<string name="TFE_workingOn">Úkol je časován</string>
-	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
-    Please do not translate this part of the string. -->
 	<string name="voice_create_prompt">Mluvte pro vytvoření úkolu</string>
 </resources>

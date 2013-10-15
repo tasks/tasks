@@ -54,7 +54,6 @@
 	<string name="DLG_cancel">Annuler</string>
 	<string name="DLG_undo">Annuler Action</string>
 	<string name="WID_dateButtonUnset">Cliquez pour définir</string>
-	<string name="ENA_no_user">Quelqu\'un</string>
 	<string name="ENA_refresh_comments">Mettre à jour les commentaires</string>
 	<string name="TLA_no_items">Aucune tâche ! n Voulez vous en créer une ?</string>
 	<string name="TLA_menu_sort">Trier</string>
@@ -638,12 +637,6 @@
 		<item>Minute(s)</item>
 		<item>Année(s)</item>
 	</string-array>
-	<string name="repeat_days">jours</string>
-	<string name="repeat_weekdays">Jours de la semaine</string>
-	<string name="repeat_weeks">Semaines</string>
-	<string name="repeat_months">Mois</string>
-	<string name="repeat_years">Annees</string>
-	<string name="repeat_hours">Heures</string>
 	<string-array name="repeat_until_shortcuts">
 		<item>Indéfiniment</item>
 		<item>Jour précis</item>
@@ -697,66 +690,6 @@
 	<string name="TEA_timer_comment_started">Cette tâche est commencée :</string>
 	<string name="TEA_timer_comment_stopped">Cette tâche a été arretée :</string>
 	<string name="TEA_timer_comment_spent">Temps passé :</string>
-	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
-    Please do not translate this part of the string. -->
-	<string name="update_string_default_comment">%1$s a commenté : %3$s</string>
-	<string name="update_string_task_comment">%1$s sur $link_task: %3$Taw94mwdPH6z9cbs</string>
-	<string name="update_string_tag_comment">%1$s sur %2$s: %3$s</string>
-	<string name="update_string_user_self">Vous</string>
-	<string name="history_yourself">vous-même</string>
-	<string name="history_you">vous</string>
-	<string name="history_a_deleted_user">(un utilisateur supprimé)</string>
-	<string name="history_this_list">cette liste</string>
-	<string name="history_this_task">cette tâche</string>
-	<string name="history_tag_added">%1$s ajouté à %2$s</string>
-	<string name="history_tag_removed">%1$s supprimé de %2$s</string>
-	<string name="history_attach_added">%1$s joint à %2$s</string>
-	<string name="history_attach_removed">%1$s supprimé de %2$s</string>
-	<string name="history_left_list">%s abandonné</string>
-	<string name="history_deleted">%s supprimé</string>
-	<string name="history_undeleted">non supprimé %s</string>
-	<string name="history_completed">%s complété</string>
-	<string name="history_uncompleted">non complété %s</string>
-	<string name="history_importance_changed">la priorité de %1$s a été changée de %2$s à %3$s</string>
-	<string name="history_title_changed">la titre de %1$s a été changé de %2$s à %3$s</string>
-	<string name="history_title_set">donner le titre de %1$s à %2$s </string>
-	<string name="history_name_changed">la nom a été changé de %1$s à %2$s</string>
-	<string name="history_name_set">nommer  %2$s</string>
-	<string name="history_description_changed">la description a été changée de %1$s à %2$s</string>
-	<string name="history_description_set">appliquer la description à %2$s</string>
-	<string name="history_made_public">%s est rendu publique</string>
-	<string name="history_made_private">%s est privé</string>
-	<string name="history_silenced">%s est silencieux</string>
-	<string name="history_unsilenced">%s n\'est pas silencieux</string>
-	<string name="history_favorited">%s est favori</string>
-	<string name="history_unfavorited">%s n\'est pas favori</string>
-	<string name="history_changed_list_picture">changer l\'image de cette liste</string>
-	<string name="history_added_description_characters">les caractères de %1$d ont été ajoutés à la description de %2$s</string>
-	<string name="history_removed_description">la description %s a été supprimée</string>
-	<string name="history_removed_description_characters">les caractères de %1$d ont été supprimés de la description de %2$s</string>
-	<string name="history_updated_description">la description de %s a été mise à jour</string>
-	<string name="history_changed_list_owner">la liste des propriétaires à été changée en %s</string>
-	<string name="history_created_this_list">cette liste a été créée</string>
-	<string name="history_unassigned">%s non attribué</string>
-	<string name="history_claimed">%s demandé</string>
-	<string name="history_assigned_to">%1$s assigné à %2$s</string>
-	<string name="history_created_for">%1$s créé pour %2$s</string>
-	<string name="history_created">%s créé</string>
-	<string name="history_changed_due_date">la date d\'échéance de %1$s a été changée de %2$s à %3$s</string>
-	<string name="history_set_due_date">Définir la date d\'échéance de %1$s à %2$s</string>
-	<string name="history_removed_due_date">date d\'échéance de %s supprimée</string>
-	<string name="history_completed_repeating_task">%1$s complété (maintenant attendue sur %2$s)</string>
-	<string name="history_added_user">%1$s ajoutée à %2$s</string>
-	<string name="history_removed_user">%1$s supprimé de %2$s</string>
-	<string name="history_changed_repeat">%1$s changé, répété sur %2$s</string>
-	<string name="history_removed_repeat">répétition %s supprimée</string>
-	<string name="history_shared_with">%1$s partagée avec %2$s</string>
-	<string name="history_unshared_with">%1$s non partagée avec %2$s</string>
-	<string name="history_repeat_every">Chaque %s</string>
-	<string name="history_repeat_on">sur %s</string>
-	<string name="history_repeat_from_completion">après achèvement</string>
-	<string name="history_acknowledged">%s vu</string>
-	<string name="history_default">%1$s changé en %2$s</string>
 	<string name="voice_create_prompt">Parlez pour créer une nouvelle tâche</string>
 	<string name="voice_edit_title_prompt">Parlez pour définir un titre</string>
 	<string name="voice_edit_note_prompt">Parlez pour définir les notes de la tâche</string>

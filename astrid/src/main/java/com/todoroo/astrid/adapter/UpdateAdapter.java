@@ -5,19 +5,6 @@
  */
 package com.todoroo.astrid.adapter;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -25,14 +12,10 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.text.Html;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,12 +25,10 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
-import org.tasks.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
@@ -59,6 +40,10 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.AsyncImageView;
+
+import org.tasks.R;
+
+import java.io.IOException;
 
 import edu.mit.mobile.android.imagecache.ImageCache;
 
@@ -88,7 +73,6 @@ public class UpdateAdapter extends CursorAdapter {
 
     public static final StringProperty ACTIVITY_TYPE_PROPERTY = new StringProperty(null, "'" + NameMaps.TABLE_ID_USER_ACTIVITY + "' as type");  //$NON-NLS-1$//$NON-NLS-2$
     public static final StringProperty HISTORY_TYPE_PROPERTY = new StringProperty(null, "'" + NameMaps.TABLE_ID_HISTORY + "'");  //$NON-NLS-1$ //$NON-NLS-2$
-    public static final StringProperty PADDING_PROPERTY = new StringProperty(null, "'0'"); //$NON-NLS-1$
 
     public static final Property<?>[] USER_PROPERTIES = {
         USER_PICTURE,
@@ -126,10 +110,6 @@ public class UpdateAdapter extends CursorAdapter {
 
     public static final int TYPE_PROPERTY_INDEX = USER_ACTIVITY_PROPERTIES.length - 1;
 
-    private static final String TARGET_LINK_PREFIX = "$link_"; //$NON-NLS-1$
-    private static final Pattern TARGET_LINK_PATTERN = Pattern.compile("\\" + TARGET_LINK_PREFIX + "(\\w*)");  //$NON-NLS-1$//$NON-NLS-2$
-    private static final String TASK_LINK_TYPE = "task"; //$NON-NLS-1$
-
     public static final String FROM_TAG_VIEW = "from_tag"; //$NON-NLS-1$
     public static final String FROM_TASK_VIEW = "from_task"; //$NON-NLS-1$
     public static final String FROM_RECENT_ACTIVITY_VIEW = "from_recent_activity"; //$NON-NLS-1$
@@ -137,7 +117,6 @@ public class UpdateAdapter extends CursorAdapter {
     private final User self;
 
     private final int color;
-    private final int grayColor;
 
     /**
      * Constructor
@@ -171,7 +150,6 @@ public class UpdateAdapter extends CursorAdapter {
         color = tv.data;
 
         fragment.getActivity().getTheme().resolveAttribute(R.attr.asDueDateColor, tv, false);
-        grayColor = tv.data;
     }
 
     public static User getSelfUser() {
@@ -287,10 +265,7 @@ public class UpdateAdapter extends CursorAdapter {
         // picture
         if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(type)) {
             setupUserActivityRow(view, activity, user);
-        } else if (NameMaps.TABLE_ID_HISTORY.equals(type)) {
-            setupHistoryRow(view, history, user);
         }
-
     }
 
     private void setupUserActivityRow(View view, UserActivity activity, User user) {
@@ -316,23 +291,6 @@ public class UpdateAdapter extends CursorAdapter {
         // date
         final TextView date = (TextView)view.findViewById(R.id.date); {
             CharSequence dateString = DateUtils.getRelativeTimeSpanString(activity.getValue(UserActivity.CREATED_AT),
-                    DateUtilities.now(), DateUtils.MINUTE_IN_MILLIS,
-                    DateUtils.FORMAT_ABBREV_RELATIVE);
-            date.setText(dateString);
-        }
-    }
-
-    private void setupHistoryRow(View view, History history, User user) {
-        final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture);
-        commentPictureView.setVisibility(View.GONE);
-
-        final TextView nameView = (TextView)view.findViewById(R.id.title); {
-            nameView.setText(getHistoryComment((AstridActivity) fragment.getActivity(), history, user, linkColor, fromView));
-            nameView.setTextColor(grayColor);
-        }
-
-        final TextView date = (TextView)view.findViewById(R.id.date); {
-            CharSequence dateString = DateUtils.getRelativeTimeSpanString(history.getValue(History.CREATED_AT),
                     DateUtilities.now(), DateUtils.MINUTE_IN_MILLIS,
                     DateUtils.FORMAT_ABBREV_RELATIVE);
             date.setText(dateString);
@@ -392,390 +350,8 @@ public class UpdateAdapter extends CursorAdapter {
         }
     }
 
-    public static String linkify (String string, String linkColor) {
-        return String.format("<font color=%s>%s</font>", linkColor, string);  //$NON-NLS-1$
-    }
-
     public static Spanned getUpdateComment(final AstridActivity context, UserActivity activity, User user, String linkColor, String fromView) {
         String message = activity.getValue(UserActivity.MESSAGE);
         return Html.fromHtml(message);
-    }
-
-    public static String getHistoryComment(final AstridActivity context, History history, User user, String linkColor, String fromView) {
-        boolean hasTask = false;
-        JSONArray taskAttrs = null;
-        if (!TextUtils.isEmpty(history.getValue(History.TASK))) {
-            try {
-                taskAttrs = new JSONArray(history.getValue(History.TASK));
-                hasTask = true;
-            } catch (JSONException e) {
-                //
-            }
-        }
-
-        String item;
-        String itemPosessive;
-        if (FROM_TASK_VIEW.equals(fromView)) {
-            item = context.getString(R.string.history_this_task);
-        } else if (hasTask && taskAttrs != null) {
-            item = taskAttrs.optString(1);
-        } else {
-            item = context.getString(R.string.history_this_list);
-        }
-        itemPosessive = item + "'s";
-
-        String oldValue = history.getValue(History.OLD_VALUE);
-        String newValue = history.getValue(History.NEW_VALUE);
-
-        String result = "";
-        String column = history.getValue(History.COLUMN);
-        try {
-            if (History.COL_TAG_ADDED.equals(column) || History.COL_TAG_REMOVED.equals(column)) {
-                JSONArray tagObj = new JSONArray(newValue);
-                String tagName = tagObj.getString(1);
-                if (History.COL_TAG_ADDED.equals(column)) {
-                    result = context.getString(R.string.history_tag_added, item, tagName);
-                } else {
-                    result = context.getString(R.string.history_tag_removed, item, tagName);
-                }
-
-            } else if (History.COL_ATTACHMENT_ADDED.equals(column) || History.COL_ATTACHMENT_REMOVED.equals(column)) {
-                JSONArray attachmentArray = new JSONArray(newValue);
-                String attachmentName = attachmentArray.getString(0);
-                if (History.COL_ATTACHMENT_ADDED.equals(column)) {
-                    result = context.getString(R.string.history_attach_added, attachmentName, item);
-                } else {
-                    result = context.getString(R.string.history_attach_removed, attachmentName, item);
-                }
-            } else if (History.COL_ACKNOWLEDGED.equals(column)) {
-                result = context.getString(R.string.history_acknowledged, item);
-            } else if (History.COL_SHARED_WITH.equals(column) || History.COL_UNSHARED_WITH.equals(column)) {
-                JSONArray members = new JSONArray(newValue);
-                String userId = history.getValue(History.USER_UUID);
-                StringBuilder memberList = new StringBuilder();
-                for (int i = 0; i < members.length(); i++) {
-                    JSONObject m = members.getJSONObject(i);
-                    memberList.append(userDisplay(context, userId, m));
-                    if (i != members.length() - 1) {
-                        memberList.append(", ");
-                    }
-                }
-
-                if (History.COL_SHARED_WITH.equals(column)) {
-                    result = context.getString(R.string.history_shared_with, item, memberList);
-                } else {
-                    result = context.getString(R.string.history_unshared_with, item, memberList);
-                }
-            } else if (History.COL_MEMBER_ADDED.equals(column) || History.COL_MEMBER_REMOVED.equals(column)) {
-                JSONObject userValue = new JSONObject(newValue);
-                if (history.getValue(History.USER_UUID).equals(userValue.optString("id")) && History.COL_MEMBER_REMOVED.equals(column)) {
-                    result = context.getString(R.string.history_left_list, item);
-                } else {
-                    String userDisplay = userDisplay(context, history.getValue(History.USER_UUID), userValue);
-                    if (History.COL_MEMBER_ADDED.equals(column)) {
-                        result = context.getString(R.string.history_added_user, userDisplay, item);
-                    } else {
-                        result = context.getString(R.string.history_removed_user, userDisplay, item);
-                    }
-                }
-            } else if (History.COL_COMPLETED_AT.equals(column)) {
-                if (!TextUtils.isEmpty(newValue) && !"null".equals(newValue)) {
-                    result = context.getString(R.string.history_completed, item);
-                } else {
-                    result = context.getString(R.string.history_uncompleted, item);
-                }
-            } else if (History.COL_DELETED_AT.equals(column)) {
-                if (!TextUtils.isEmpty(newValue) && !"null".equals(newValue)) {
-                    result = context.getString(R.string.history_deleted, item);
-                } else {
-                    result = context.getString(R.string.history_undeleted, item);
-                }
-            } else if (History.COL_IMPORTANCE.equals(column)) {
-                int oldPriority = AndroidUtilities.tryParseInt(oldValue, 0);
-                int newPriority = AndroidUtilities.tryParseInt(newValue, 0);
-
-                result = context.getString(R.string.history_importance_changed, itemPosessive, priorityString(oldPriority), priorityString(newPriority));
-            } else if (History.COL_NOTES_LENGTH.equals(column)) {
-                int oldLength = AndroidUtilities.tryParseInt(oldValue, 0);
-                int newLength = AndroidUtilities.tryParseInt(newValue, 0);
-
-                if (oldLength > 0 && newLength > oldLength) {
-                    result = context.getString(R.string.history_added_description_characters, (newLength - oldLength), itemPosessive);
-                } else if (newLength == 0) {
-                    result = context.getString(R.string.history_removed_description, itemPosessive);
-                } else if (oldLength > 0 && newLength < oldLength) {
-                    result = context.getString(R.string.history_removed_description_characters, (oldLength - newLength), itemPosessive);
-                } else if (oldLength > 0 && oldLength == newLength) {
-                    result = context.getString(R.string.history_updated_description, itemPosessive);
-                }
-            } else if (History.COL_PUBLIC.equals(column)) {
-                int value = AndroidUtilities.tryParseInt(newValue, 0);
-                if (value > 0) {
-                    result = context.getString(R.string.history_made_public, item);
-                } else {
-                    result = context.getString(R.string.history_made_private, item);
-                }
-            } else if (History.COL_DUE.equals(column)) {
-                if (!TextUtils.isEmpty(oldValue) && !TextUtils.isEmpty(newValue)
-                        && !"null".equals(oldValue) && !"null".equals(newValue)) {
-                    result = context.getString(R.string.history_changed_due_date, itemPosessive, dateString(context, oldValue, newValue), dateString(context, newValue, oldValue));
-                } else if (!TextUtils.isEmpty(newValue) && !"null".equals(newValue)) {
-                    result = context.getString(R.string.history_set_due_date, itemPosessive, dateString(context, newValue, DateUtilities.timeToIso8601(DateUtilities.now(), true)));
-                } else {
-                    result = context.getString(R.string.history_removed_due_date, itemPosessive);
-                }
-            } else if (History.COL_REPEAT.equals(column)) {
-                String repeatString = getRepeatString(context, newValue);
-                if (!TextUtils.isEmpty(repeatString)) {
-                    result = context.getString(R.string.history_changed_repeat, itemPosessive, repeatString);
-                } else {
-                    result = context.getString(R.string.history_removed_repeat, itemPosessive);
-                }
-            } else if (History.COL_TASK_REPEATED.equals(column)) {
-                result = context.getString(R.string.history_completed_repeating_task, item, dateString(context, newValue, oldValue));
-            } else if (History.COL_TITLE.equals(column)) {
-                if (!TextUtils.isEmpty(oldValue) && !"null".equals(oldValue)) {
-                    result = context.getString(R.string.history_title_changed, itemPosessive, oldValue, newValue);
-                } else {
-                    result = context.getString(R.string.history_title_set, itemPosessive, newValue);
-                }
-            } else if (History.COL_NAME.equals(column)) {
-                if (!TextUtils.isEmpty(oldValue) && !"null".equals(oldValue)) {
-                    result = context.getString(R.string.history_name_changed, oldValue, newValue);
-                } else {
-                    result = context.getString(R.string.history_name_set, newValue);
-                }
-            } else if (History.COL_DESCRIPTION.equals(column)) {
-                if (!TextUtils.isEmpty(oldValue) && !"null".equals(oldValue)) {
-                    result = context.getString(R.string.history_description_changed, oldValue, newValue);
-                } else {
-                    result = context.getString(R.string.history_description_set, newValue);
-                }
-            } else if (History.COL_PICTURE_ID.equals(column) || History.COL_DEFAULT_LIST_IMAGE_ID.equals(column)) {
-                result = context.getString(R.string.history_changed_list_picture);
-            } else if (History.COL_IS_SILENT.equals(column)) {
-                int value = AndroidUtilities.tryParseInt(newValue, 0);
-                if (value > 0) {
-                    result = context.getString(R.string.history_silenced, item);
-                } else {
-                    result = context.getString(R.string.history_unsilenced, item);
-                }
-            } else if (History.COL_IS_FAVORITE.equals(column)) {
-                int value = AndroidUtilities.tryParseInt(newValue, 0);
-                if (value > 0) {
-                    result = context.getString(R.string.history_favorited, item);
-                } else {
-                    result = context.getString(R.string.history_unfavorited, item);
-                }
-            } else if (History.COL_USER_ID.equals(column)) {
-                String userId = history.getValue(History.USER_UUID);
-                JSONObject userValue = new JSONObject(newValue);
-                if (FROM_TAG_VIEW.equals(fromView) && !hasTask) {
-                    if (!TextUtils.isEmpty(oldValue) && !"null".equals(oldValue)) {
-                        result = context.getString(R.string.history_changed_list_owner, userDisplay(context, userId, userValue));
-                    } else {
-                        result = context.getString(R.string.history_created_this_list);
-                    }
-                } else if (!TextUtils.isEmpty(oldValue) && !"null".equals(oldValue) && Task.USER_ID_UNASSIGNED.equals(userValue)) {
-                    result = context.getString(R.string.history_unassigned, item);
-                } else if (Task.USER_ID_UNASSIGNED.equals(oldValue) && userValue.optString("id").equals(ActFmPreferenceService.userId())) {
-                    result = context.getString(R.string.history_claimed, item);
-                } else if (!TextUtils.isEmpty(oldValue) && !"null".equals(oldValue)) {
-                    result = context.getString(R.string.history_assigned_to, item, userDisplay(context, userId, userValue));
-                } else if (!userValue.optString("id").equals(ActFmPreferenceService.userId()) && !Task.USER_ID_UNASSIGNED.equals(userValue.optString("id"))) {
-                    result = context.getString(R.string.history_created_for, item, userDisplay(context, userId, userValue));
-                } else {
-                    result = context.getString(R.string.history_created, item);
-                }
-            } else {
-                result = context.getString(R.string.history_default, column, newValue);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            result = context.getString(R.string.history_default, column, newValue);
-        }
-
-        if (TextUtils.isEmpty(result)) {
-            result = context.getString(R.string.history_default, column, newValue);
-        }
-
-        String userDisplay;
-        if (history.getValue(History.USER_UUID).equals(Task.USER_ID_SELF) || history.getValue(History.USER_UUID).equals(ActFmPreferenceService.userId())) {
-            userDisplay = context.getString(R.string.update_string_user_self);
-        } else if (user == null) {
-            userDisplay = context.getString(R.string.ENA_no_user);
-        } else {
-            userDisplay = user.getDisplayName(USER_NAME, USER_FIRST_NAME, USER_LAST_NAME);
-        }
-
-        return userDisplay + " " + result;
-    }
-
-    private static String dateString(Context context, String value, String other) {
-        boolean includeYear = (!TextUtils.isEmpty(other) && !value.substring(0, 4).equals(other.substring(0, 4)));
-        boolean hasTime = DateUtilities.isoStringHasTime(value);
-
-        long time = 0;
-        try {
-            time = DateUtilities.parseIso8601(value);
-            Date date = new Date(time);
-            String result = DateUtilities.getDateString(context, date, includeYear);
-            if (hasTime) {
-                result += ", " + DateUtilities.getTimeString(context, date, false); //$NON-NLS-1$
-            }
-            return result;
-        } catch (ParseException e) {
-            return value;
-        }
-
-    }
-
-    private static final HashMap<String, Integer> INTERVAL_LABELS = new HashMap<String, Integer>();
-    static {
-        INTERVAL_LABELS.put("DAILY", R.string.repeat_days); //$NON-NLS-1$
-        INTERVAL_LABELS.put("WEEKDAYS", R.string.repeat_weekdays); //$NON-NLS-1$
-        INTERVAL_LABELS.put("WEEKLY", R.string.repeat_weeks); //$NON-NLS-1$
-        INTERVAL_LABELS.put("MONTHLY", R.string.repeat_months); //$NON-NLS-1$
-        INTERVAL_LABELS.put("YEARLY", R.string.repeat_years); //$NON-NLS-1$
-        INTERVAL_LABELS.put("HOURLY", R.string.repeat_hours); //$NON-NLS-1$
-        INTERVAL_LABELS.put("MINUTELY", R.string.repeat_minutes); //$NON-NLS-1$
-    }
-
-    private static final String[] SORTED_WEEKDAYS = { "SU", "MO", "TU", "WE", "TH", "FR", "SA" };
-
-    private static String getRepeatString(Context context, String value) {
-        if (TextUtils.isEmpty(value) || "null".equals(value)) {
-            return null;
-        }
-
-        try {
-            JSONObject repeat = new JSONObject(value);
-            boolean weekdays = false;
-            if (repeat.has("freq")) {
-                String freq = repeat.getString("freq");
-                int interval = repeat.getInt("interval");
-                JSONArray byDay = repeat.optJSONArray("byday");
-                String[] byDayStrings = null;
-                if (byDay != null) {
-                    byDayStrings = new String[byDay.length()];
-                    for (int i = 0; i < byDay.length(); i++) {
-                        byDayStrings[i] = byDay.getString(i);
-                    }
-                }
-                String result = "";
-                if ("WEEKLY".equals(freq) && byDay != null && byDayStrings != null) {
-                    Arrays.sort(byDayStrings);
-                    StringBuilder daysString = new StringBuilder();
-                    daysString.append("[");
-                    for (String s : byDayStrings) {
-                        daysString.append("\"").append(s).append("\"").append(",");
-                    }
-                    daysString.deleteCharAt(daysString.length() - 1);
-                    daysString.append("]");
-
-                    if (daysString.toString().equals("[\"FR\",\"MO\",\"TH\",\"TU\",\"WE\"]")) {
-                        result = context.getString(R.string.repeat_weekdays);
-                        weekdays = true;
-                    }
-                }
-
-                if (!weekdays) {
-                    if (interval == 1) {
-                        result = context.getString(INTERVAL_LABELS.get(freq));
-                        result = result.substring(0, result.length() - 1);
-                    } else {
-                        result = interval + " " + context.getString(INTERVAL_LABELS.get(freq));
-                    }
-                }
-
-                result = context.getString(R.string.history_repeat_every, result);
-                if ("WEEKLY".equals(freq) && !weekdays && byDay != null && byDay.length() > 0 && byDayStrings != null) {
-                    Arrays.sort(byDayStrings, new Comparator<String>() {
-                        @Override
-                        public int compare(String lhs, String rhs) {
-                            int lhIndex = AndroidUtilities.indexOf(SORTED_WEEKDAYS, lhs);
-                            int rhIndex = AndroidUtilities.indexOf(SORTED_WEEKDAYS, rhs);
-                            if (lhIndex < rhIndex) {
-                                return -1;
-                            } else if (lhIndex > rhIndex) {
-                                return 1;
-                            } else {
-                                return 0;
-                            }
-                        }
-                    });
-
-                    StringBuilder byDayDisplay = new StringBuilder();
-                    for (String s : byDayStrings) {
-                        byDayDisplay.append(s).append(", ");
-                    }
-                    byDayDisplay.delete(byDayDisplay.length() - 2, byDayDisplay.length());
-
-                    result += (" " + context.getString(R.string.history_repeat_on, byDayDisplay.toString()));
-                }
-
-                if ("COMPLETION".equals(repeat.optString("from"))) {
-                    result += (" " + context.getString(R.string.history_repeat_from_completion));
-                }
-
-                return result;
-            } else {
-                return null;
-            }
-        } catch (JSONException e) {
-            return null;
-        }
-    }
-
-    private static String userDisplay(Context context, String historyUserId, JSONObject userJson) {
-        try {
-            String id = userJson.getString("id");
-            String name = userJson.getString("name");
-
-            if (historyUserId.equals(id) && ActFmPreferenceService.userId().equals(id)) {
-                return context.getString(R.string.history_yourself);
-            } else if (ActFmPreferenceService.userId().equals(id)) {
-                return context.getString(R.string.history_you);
-            } else if (RemoteModel.isValidUuid(id)) {
-                return name;
-            } else {
-                return context.getString(R.string.history_a_deleted_user);
-            }
-        } catch (JSONException e) {
-            return context.getString(R.string.ENA_no_user).toLowerCase();
-        }
-    }
-
-    private static final String[] PRIORITY_STRINGS = { "!!!", "!!", "!", "o" };
-    private static String priorityString(int priority) {
-        return PRIORITY_STRINGS[priority];
-    }
-
-    private static CharSequence getLinkSpan(final AstridActivity activity, UserActivity update, String targetName, String linkColor, String linkType) {
-        if (TASK_LINK_TYPE.equals(linkType)) {
-            final String taskId = update.getValue(UserActivity.TARGET_ID);
-            if (RemoteModel.isValidUuid(taskId)) {
-                SpannableString taskSpan = new SpannableString(targetName);
-                taskSpan.setSpan(new ClickableSpan() {
-                    @Override
-                    public void onClick(View widget) {
-                        if (activity != null) // TODO: This shouldn't happen, but sometimes does
-                        {
-                            activity.onTaskListItemClicked(taskId);
-                        }
-                    }
-
-                    @Override
-                    public void updateDrawState(TextPaint ds) {
-                        super.updateDrawState(ds);
-                        ds.setUnderlineText(false);
-                    }
-                }, 0, targetName.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-                return taskSpan;
-            } else {
-                return Html.fromHtml(linkify(targetName, linkColor));
-            }
-        }
-        return null;
     }
 }

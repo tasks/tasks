@@ -54,7 +54,6 @@
 	<string name="DLG_cancel">Annuleren</string>
 	<string name="DLG_undo">Ongedaan Maken</string>
 	<string name="WID_dateButtonUnset">Klikken om in te stellen</string>
-	<string name="ENA_no_user">Iemand</string>
 	<string name="ENA_refresh_comments">Opmerkingen vernieuwen</string>
 	<string name="TLA_no_items">U heeft geen taken! \n Taak toevoegen?</string>
 	<string name="TLA_menu_sort">Sorteren</string>
@@ -637,13 +636,6 @@
 		<item>Minu(u)t(en)</item>
 		<item>Ja(a)r(en)</item>
 	</string-array>
-	<string name="repeat_days">dagen </string>
-	<string name="repeat_weekdays">weekdagen</string>
-	<string name="repeat_weeks">weken</string>
-	<string name="repeat_months">maanden</string>
-	<string name="repeat_years">jaren</string>
-	<string name="repeat_hours">uren</string>
-	<string name="repeat_minutes">minuten</string>
 	<string-array name="repeat_until_shortcuts">
 		<item>Altijd</item>
 		<item>Specifieke dag</item>
@@ -697,66 +689,6 @@
 	<string name="TEA_timer_comment_started">taak begonnen:</string>
 	<string name="TEA_timer_comment_stopped">taak gestopt:</string>
 	<string name="TEA_timer_comment_spent">Gebruikte tijd:</string>
-	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
-    Please do not translate this part of the string. -->
-	<string name="update_string_default_comment">%1$s heeft gereageerd: %3$s</string>
-	<string name="update_string_task_comment">%1$s op $link_task: %3$s</string>
-	<string name="update_string_tag_comment">%1$s op %2$s: %3$s</string>
-	<string name="update_string_user_self">Jij</string>
-	<string name="history_yourself">jijzelf</string>
-	<string name="history_you">jij</string>
-	<string name="history_a_deleted_user">(een verwijderde gebruiker)</string>
-	<string name="history_this_list">deze lijst</string>
-	<string name="history_this_task">deze taak</string>
-	<string name="history_tag_added">%1$s toegevoegd aan %2$s</string>
-	<string name="history_tag_removed">%1$s verwijderd van %2$s</string>
-	<string name="history_attach_added">%1$s bijgevoegd aan %2$s</string>
-	<string name="history_attach_removed">%1$s verwijderd van %2$s</string>
-	<string name="history_left_list">resterend %s</string>
-	<string name="history_deleted">verwijderd %s</string>
-	<string name="history_undeleted">herstelde %s</string>
-	<string name="history_completed">voltooid %s</string>
-	<string name="history_uncompleted">onvoltooid %s</string>
-	<string name="history_importance_changed">prioriteit %1$s veranderd van %2$s naar %3$s</string>
-	<string name="history_title_changed">%1$s titel veranderd van %2$s naar %3$s</string>
-	<string name="history_title_set">%1$s tiltel ingesteld op %2$s</string>
-	<string name="history_name_changed">naam van %1$s veranderd in %2$s</string>
-	<string name="history_name_set">naam ingesteld op %2$s</string>
-	<string name="history_description_changed">omschrijving %1$s veranderd in %2$s</string>
-	<string name="history_description_set">omschrijving ingesteld op %2$s</string>
-	<string name="history_made_public">%s openbaar gemaakt</string>
-	<string name="history_made_private">%s prive gemaakt</string>
-	<string name="history_silenced">%s gedempt</string>
-	<string name="history_unsilenced">%s niet langer gedempt</string>
-	<string name="history_favorited">%s gemarkeerd als favoriet</string>
-	<string name="history_unfavorited">%s verwijderd als favoriet</string>
-	<string name="history_changed_list_picture">veranderd de afbeelding van deze lijst</string>
-	<string name="history_added_description_characters">%1$d tekens toegevoegd aan de omschrijving van %2$s</string>
-	<string name="history_removed_description">omschrijving van %s verwijderd</string>
-	<string name="history_removed_description_characters">%1$d tekens van de omschrijving van %2$s verwijderd</string>
-	<string name="history_updated_description">omschrijving van %s bijgewerkt</string>
-	<string name="history_changed_list_owner">lijst eigenaar van %s bijgewerkt</string>
-	<string name="history_created_this_list">deze lijst aangemaakt</string>
-	<string name="history_unassigned">niet toegewezen %s</string>
-	<string name="history_claimed">%s geclaimed</string>
-	<string name="history_assigned_to">%1$s toegewezen aan %2$s</string>
-	<string name="history_created_for">%1$s aangemaakt voor %2$s</string>
-	<string name="history_created">%s aangemaakt</string>
-	<string name="history_changed_due_date">einddatum %1$s veranderd van %2$s naar %3$s</string>
-	<string name="history_set_due_date">%1$s einddatum ingesteld op %2$s</string>
-	<string name="history_removed_due_date">einddatum %s verwijderd</string>
-	<string name="history_completed_repeating_task">voltooid %1$s (verloopt nu op %2$s)</string>
-	<string name="history_added_user">%1$s toegevoegd aan %2$s</string>
-	<string name="history_removed_user">%1$s verwijderd van %2$s</string>
-	<string name="history_changed_repeat">herhaling van %1$s gewijzigd in %2$s</string>
-	<string name="history_removed_repeat">herhaling van %s verwijderd</string>
-	<string name="history_shared_with">%1$s gedeeld met %2$s</string>
-	<string name="history_unshared_with">%1$s niet langer gedeeld met %2$s</string>
-	<string name="history_repeat_every">elke %s</string>
-	<string name="history_repeat_on">op %s</string>
-	<string name="history_repeat_from_completion">na voltooing</string>
-	<string name="history_acknowledged">%s bekeken</string>
-	<string name="history_default">%1$s veranderd in %2$s</string>
 	<string name="voice_create_prompt">Spreek om taak te maken</string>
 	<string name="voice_edit_title_prompt">Spreek titel van taak in</string>
 	<string name="voice_edit_note_prompt">Spreek notities van taak in</string>

@@ -343,8 +343,6 @@
 		<item>Minute(s)</item>
 		<item>Year(s)</item>
 	</string-array>
-	<string name="repeat_days">日々</string>
-	<string name="repeat_minutes">分</string>
 	<string-array name="repeat_type">
 		<item>期限から</item>
 		<item>完了日から</item>
@@ -357,10 +355,4 @@
 	<string name="tag_FEx_header">リスト</string>
 	<string name="TEA_no_tags_modified">変更されませんでした</string>
 	<string name="tag_settings_title">Settings:</string>
-	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
-    Please do not translate this part of the string. -->
-	<string name="update_string_user_self">あなた</string>
-	<string name="history_you">あなた</string>
-	<string name="history_this_list">このリスト</string>
-	<string name="history_this_task">このタスク</string>
 </resources>

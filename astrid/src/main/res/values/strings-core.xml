@@ -51,9 +51,6 @@
   
   <!--  ============================================================= notes -->
   
-  <!-- EditNoteActivity - no username for comment -->
-  <string name="ENA_no_user">Someone</string>
-  
   <!-- EditNoteActivity - refresh comments -->
   <string name="ENA_refresh_comments">Refresh Comments</string>
   

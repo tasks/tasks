@@ -56,7 +56,6 @@
 	<string name="DLG_cancel">בטל</string>
 	<string name="DLG_undo">בטל פעולה אחרונה</string>
 	<string name="WID_dateButtonUnset">הקלק כדי לקבוע</string>
-	<string name="ENA_no_user">מישהו</string>
 	<string name="ENA_refresh_comments">רַעְנֵן הערות</string>
 	<string name="TLA_no_items">אין לך משימות!\n הֲתִּרְצֶה להוסיף משימה?</string>
 	<string name="TLA_menu_sort">מיון</string>
@@ -621,13 +620,6 @@
 		<item>דקה/דקות</item>
 		<item>שנה/שנים</item>
 	</string-array>
-	<string name="repeat_days">ימים</string>
-	<string name="repeat_weekdays">ימי עבודה</string>
-	<string name="repeat_weeks">שבועות</string>
-	<string name="repeat_months">חודשים</string>
-	<string name="repeat_years">שנים</string>
-	<string name="repeat_hours">שעות</string>
-	<string name="repeat_minutes">דקות</string>
 	<string-array name="repeat_until_shortcuts">
 		<item>לנצח</item>
 		<item>תאריך מסויים</item>
@@ -681,66 +673,6 @@
 	<string name="TEA_timer_comment_started">התחיל משימה זו:</string>
 	<string name="TEA_timer_comment_stopped">הפסק ביצוע של משימה זו:</string>
 	<string name="TEA_timer_comment_spent">זמן שהושקע:</string>
-	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
-    Please do not translate this part of the string. -->
-	<string name="update_string_default_comment">%1$s הוסיף: %3$s</string>
-	<string name="update_string_task_comment">%1$s על $link_task: %3$s</string>
-	<string name="update_string_tag_comment">%1$s על %2$s: %3$s</string>
-	<string name="update_string_user_self">את/אתה</string>
-	<string name="history_yourself">אתה</string>
-	<string name="history_you">אתה</string>
-	<string name="history_a_deleted_user">(משתמש שנמחק)</string>
-	<string name="history_this_list">רשימה זו</string>
-	<string name="history_this_task">משימה זו</string>
-	<string name="history_tag_added">הוסיף את  %1$s ל%2$s</string>
-	<string name="history_tag_removed">הסיר את %1$s מ%2$s</string>
-	<string name="history_attach_added">צירף את %1$s ל %2$s</string>
-	<string name="history_attach_removed">הסיר את %1$s מ %2$s</string>
-	<string name="history_left_list">%s: נותרה</string>
-	<string name="history_deleted">%s: נמחקה</string>
-	<string name="history_undeleted">%s: מחיקה בוטלה</string>
-	<string name="history_completed">%s: בוצעה</string>
-	<string name="history_uncompleted">%s: לא בוצעה</string>
-	<string name="history_importance_changed">שינה את העדיפות של %1$s מ %2$s   ל %3$s</string>
-	<string name="history_title_changed">שינה את הכותרת של  %1$s מ   %2$s ל %3$s </string>
-	<string name="history_title_set">קבע את הכותרת של  %1$s ל %2$s</string>
-	<string name="history_name_changed">שינה את השם מ  %1$s  ל  %2$s</string>
-	<string name="history_name_set">קבע את השם ל %2$s</string>
-	<string name="history_description_changed">שינה את התיאור מ %1$s ל %2$s</string>
-	<string name="history_description_set">קבע את התיאור ל %2$s</string>
-	<string name="history_made_public">הפך את %s לציבורית</string>
-	<string name="history_made_private">הפך את %s לפרטית</string>
-	<string name="history_silenced">החריש את %s</string>
-	<string name="history_unsilenced">ביטל את ההחרשה של %s</string>
-	<string name="history_favorited">הפך את  %s למועדפת</string>
-	<string name="history_unfavorited">ביטל את ההעדפה של %s</string>
-	<string name="history_changed_list_picture">שינה את התמונה של רשימה זו</string>
-	<string name="history_added_description_characters">הוסיף %1$d תווים לתיאור של  %2$s </string>
-	<string name="history_removed_description">הסיר את התיאור של %s</string>
-	<string name="history_removed_description_characters">הסיר %1$d תווים מהתיאור של %2$s</string>
-	<string name="history_updated_description">עדכן את התיאור של %s</string>
-	<string name="history_changed_list_owner">שינה את הבעלים של הרשימה ל %s</string>
-	<string name="history_created_this_list">יצר רשימה זו</string>
-	<string name="history_unassigned">ביטל את ההטלה של %s</string>
-	<string name="history_claimed">%s תפס בעלות</string>
-	<string name="history_assigned_to">הטיל את %1$s על %2$s</string>
-	<string name="history_created_for">יצר את %1$s בעבור %2$s</string>
-	<string name="history_created">יצר את %s</string>
-	<string name="history_changed_due_date">שינה את תאריך היעד של  %1$s מ- %2$s ל %3$s</string>
-	<string name="history_set_due_date">קבע %1$s תאריך היעד ל %2$s</string>
-	<string name="history_removed_due_date">הסיר את תאריך היעד של %s</string>
-	<string name="history_completed_repeating_task">ביצע את %1$s (מועד יעד כעת: %2$s)</string>
-	<string name="history_added_user">הוסיף את %1$s ל %2$s</string>
-	<string name="history_removed_user">הסיר את %1$s מ %2$s</string>
-	<string name="history_changed_repeat">שינה את החזרות של %1$s ל %2$s</string>
-	<string name="history_removed_repeat">%s: הוסרו חזרות</string>
-	<string name="history_shared_with">שיתף את %1$s עם %2$s</string>
-	<string name="history_unshared_with">ביטל את השיתוף של %1$s עם %2$s</string>
-	<string name="history_repeat_every">כל %s</string>
-	<string name="history_repeat_on">על %s</string>
-	<string name="history_repeat_from_completion">אחרי ביצוע</string>
-	<string name="history_acknowledged">הציג את %s</string>
-	<string name="history_default">שינה את %1$s ל %2$s</string>
 	<string name="voice_create_prompt">דַּבֵּר כדי ליצור משימה</string>
 	<string name="voice_edit_title_prompt">דַּבֵּר כדי לקבוע את כותרת המשימה</string>
 	<string name="voice_edit_note_prompt">דַּבֵּר כדי לקבוע את ההערות למשימה</string>

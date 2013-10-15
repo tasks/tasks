@@ -42,15 +42,7 @@
     <item>Minute(s)</item>
     <item>Year(s)</item>
   </string-array>
-  
-  <string name="repeat_days">days</string>
-  <string name="repeat_weekdays">weekdays</string>
-  <string name="repeat_weeks">weeks</string>
-  <string name="repeat_months">months</string>
-  <string name="repeat_years">years</string>
-  <string name="repeat_hours">hours</string>
-  <string name="repeat_minutes">minutes</string>
-  
+
   <string-array name="repeat_until_shortcuts">
       <item>Forever</item>
       <item>Specific Day</item>

@@ -54,7 +54,6 @@
 	<string name="DLG_cancel">Annulla</string>
 	<string name="DLG_undo">Annulla l\'ultima azione</string>
 	<string name="WID_dateButtonUnset">Clicca per Impostare</string>
-	<string name="ENA_no_user">Qualcuno</string>
 	<string name="ENA_refresh_comments">Aggiorna i commenti</string>
 	<string name="TLA_no_items">Nessuna Attività!</string>
 	<string name="TLA_menu_sync">Sincronizza Ora</string>
@@ -511,8 +510,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 		<item>Minuto(i)</item>
 		<item>Anno(i)</item>
 	</string-array>
-	<string name="repeat_days">giorni</string>
-	<string name="repeat_minutes">minuti</string>
 	<string-array name="repeat_until_shortcuts">
 		<item>Forever</item>
 		<item>Specific Day</item>
@@ -564,13 +561,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="TEA_timer_comment_started">inizio attività</string>
 	<string name="TEA_timer_comment_stopped">fine attività</string>
 	<string name="TEA_timer_comment_spent">Tempo speso:</string>
-	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
-    Please do not translate this part of the string. -->
-	<string name="update_string_default_comment">%1$s ha commentato: %3$s</string>
-	<string name="update_string_user_self">Tu</string>
-	<string name="history_you">tu</string>
-	<string name="history_this_list">Questa lista</string>
-	<string name="history_this_task">Questa attività</string>
 	<string name="voice_create_prompt">Parla per creare un\'attività</string>
 	<string name="voice_edit_title_prompt">Parla per aggiungere il titolo</string>
 	<string name="voice_edit_note_prompt">Parla per aggiungere le note</string>

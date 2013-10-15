@@ -51,7 +51,6 @@
 	<string name="DLG_cancel">Avbryt</string>
 	<string name="DLG_undo">Ångra</string>
 	<string name="WID_dateButtonUnset">Klicka för att ställa</string>
-	<string name="ENA_no_user">Någon</string>
 	<string name="ENA_refresh_comments">Uppdatera kommentarer</string>
 	<string name="TLA_no_items">Du har inga uppgifter!\n Vill du lägga till någonting?</string>
 	<string name="TLA_menu_sort">Sortera</string>
@@ -559,7 +558,6 @@ och återställer dina aktuella uppgifter från en backup
 		<item>Minut(er)</item>
 		<item>År</item>
 	</string-array>
-	<string name="repeat_days">dagar</string>
 	<string name="repeat_until_title">Repetera tills...</string>
 	<string name="repeat_keep_going">Fortsätt</string>
 	<string-array name="repeat_type">
@@ -601,9 +599,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="TEA_timer_comment_started">påbörjade uppgiften:</string>
 	<string name="TEA_timer_comment_stopped">slutade arbeta med uppgiften:</string>
 	<string name="TEA_timer_comment_spent">Nedlagt tid:</string>
-	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
-    Please do not translate this part of the string. -->
-	<string name="update_string_default_comment">%1$s kommenterade: %3$s</string>
 	<string name="voice_create_prompt">Prata för att skapa uppgift</string>
 	<string name="voice_edit_title_prompt">Prata för att sätta uppgiftens titel</string>
 	<string name="voice_edit_note_prompt">Prata för att sätta uppgiftens anteckningar</string>

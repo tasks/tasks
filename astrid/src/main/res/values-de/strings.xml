@@ -50,7 +50,6 @@
 	<string name="DLG_cancel">Abbrechen</string>
 	<string name="DLG_undo">Rückgängig</string>
 	<string name="WID_dateButtonUnset">Klicken zur Bestätigung</string>
-	<string name="ENA_no_user">Irgendjemand</string>
 	<string name="ENA_refresh_comments">Kommentare aktualisieren</string>
 	<string name="TLA_no_items">Sie haben keine Aufgaben! \n Möchten Sie welche hinzufügen?</string>
 	<string name="TLA_menu_sort">Sortieren</string>
@@ -625,13 +624,6 @@
 		<item>Minute(n)</item>
 		<item>Jahr(e)</item>
 	</string-array>
-	<string name="repeat_days">Tage</string>
-	<string name="repeat_weekdays">Wochentage</string>
-	<string name="repeat_weeks">Wochen</string>
-	<string name="repeat_months">Monate</string>
-	<string name="repeat_years">Jahre</string>
-	<string name="repeat_hours">Stunden</string>
-	<string name="repeat_minutes">Minuten</string>
 	<string-array name="repeat_until_shortcuts">
 		<item>Für immer</item>
 		<item>Bestimmter Tag</item>
@@ -685,38 +677,6 @@
 	<string name="TEA_timer_comment_started">Aufgabe begonnen:</string>
 	<string name="TEA_timer_comment_stopped">Bearbeitung abgebrochen:</string>
 	<string name="TEA_timer_comment_spent">Benötigte Zeit:</string>
-	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
-    Please do not translate this part of the string. -->
-	<string name="update_string_default_comment">%1$s hat kommentiert: %3$s</string>
-	<string name="update_string_task_comment">%1$s in $link_task: %3$s</string>
-	<string name="update_string_tag_comment">%1$s in %2$s: %3$s</string>
-	<string name="update_string_user_self">Sie</string>
-	<string name="history_yourself">Du selbst</string>
-	<string name="history_you">Sie</string>
-	<string name="history_a_deleted_user">(Ein gelöschter Nutzer)</string>
-	<string name="history_this_list">diese Liste</string>
-	<string name="history_this_task">diese Aufgabe</string>
-	<string name="history_tag_added">füge %1$s zu %2$s hinzu</string>
-	<string name="history_tag_removed">lösche %1$s von %2$s</string>
-	<string name="history_left_list">%s übrig</string>
-	<string name="history_deleted">%s gelöscht</string>
-	<string name="history_undeleted">%s wieder hergestellt</string>
-	<string name="history_completed">%s abgeschlossen</string>
-	<string name="history_uncompleted">nicht erledigte %s</string>
-	<string name="history_name_changed">Name von %1$s nach %2$s geändert</string>
-	<string name="history_made_public">%s freigeben</string>
-	<string name="history_made_private">%s Freigabe widerrufen</string>
-	<string name="history_silenced">%s geschwiegen</string>
-	<string name="history_changed_list_picture">Listenbild ändern</string>
-	<string name="history_updated_description">%s Beschreibung aktualisiert</string>
-	<string name="history_changed_list_owner">hat den Eigentümer der Liste auf %s geändert</string>
-	<string name="history_created_this_list">hat diese Liste erstellt</string>
-	<string name="history_set_due_date">haben/hat das Fälligkeitsdatum von %1$s auf %2$s gesetzt.</string>
-	<string name="history_added_user">%1$s wurde zu %2$s hinzugefügt</string>
-	<string name="history_removed_user">%1$s wurde aus %2$s entfernt</string>
-	<string name="history_repeat_every">Jede(n) %s</string>
-	<string name="history_repeat_on">am %s</string>
-	<string name="history_repeat_from_completion">nach abschluss</string>
 	<string name="voice_create_prompt">Sprechen Sie, um eine Aufgabe anzulegen</string>
 	<string name="voice_edit_title_prompt">Sprechen Sie, um einen Auftragsnamen zu vergeben</string>
 	<string name="voice_edit_note_prompt">Sprechen Sie, um Aufgabennotizen zu setzen</string>

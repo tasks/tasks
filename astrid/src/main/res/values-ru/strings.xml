@@ -55,7 +55,6 @@
 	<string name="DLG_cancel">Отмена</string>
 	<string name="DLG_undo">Отмена</string>
 	<string name="WID_dateButtonUnset">Нажмите для установки</string>
-	<string name="ENA_no_user">Кто-нибудь</string>
 	<string name="ENA_refresh_comments">Обновить комментарии</string>
 	<string name="TLA_no_items">Нет задач! \n Добавить?</string>
 	<string name="TLA_menu_sort">Сортировка</string>
@@ -620,13 +619,6 @@
 		<item>Минута(ы)</item>
 		<item>Лет (Года)</item>
 	</string-array>
-	<string name="repeat_days">дни</string>
-	<string name="repeat_weekdays">Дни недели</string>
-	<string name="repeat_weeks">недели</string>
-	<string name="repeat_months">месяцы</string>
-	<string name="repeat_years">годы</string>
-	<string name="repeat_hours">часы</string>
-	<string name="repeat_minutes">минуты</string>
 	<string-array name="repeat_until_shortcuts">
 		<item>Всегда</item>
 		<item>Определённый день</item>
@@ -681,35 +673,6 @@
 	<string name="TEA_timer_comment_started">задача началась:</string>
 	<string name="TEA_timer_comment_stopped">зада завершилась:</string>
 	<string name="TEA_timer_comment_spent">Времени потрачено:</string>
-	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
-    Please do not translate this part of the string. -->
-	<string name="update_string_default_comment">%1$s прокомментировал(а): %3$s</string>
-	<string name="update_string_user_self">Вы</string>
-	<string name="history_yourself">себя</string>
-	<string name="history_you">Вы</string>
-	<string name="history_a_deleted_user">(удаленный пользователь)</string>
-	<string name="history_this_list">этот список</string>
-	<string name="history_this_task">это задание</string>
-	<string name="history_tag_added">добавлен %1$s  в  %2$s</string>
-	<string name="history_tag_removed">удален %1$s из %2$s</string>
-	<string name="history_attach_removed">удален %1$s из %2$s</string>
-	<string name="history_left_list">осталось %s</string>
-	<string name="history_deleted">удалено %s</string>
-	<string name="history_undeleted">востановлено %s</string>
-	<string name="history_completed">выполнено %s</string>
-	<string name="history_uncompleted">не выполнено %s</string>
-	<string name="history_importance_changed">изменил %1$s приоритет с  %2$s на %3$s</string>
-	<string name="history_title_set">установил %1$s заголовок %2$s</string>
-	<string name="history_name_changed">изменил имя с %1$s на %2$s</string>
-	<string name="history_made_private">сделано %s частными</string>
-	<string name="history_changed_list_picture">изменить изображение этого листа</string>
-	<string name="history_created_this_list">создал этот список</string>
-	<string name="history_unassigned">не назначенный %s</string>
-	<string name="history_claimed">заявлен %s</string>
-	<string name="history_created">создано %s</string>
-	<string name="history_repeat_every">каждый %s</string>
-	<string name="history_repeat_from_completion">после завершения</string>
-	<string name="history_acknowledged">просмотрен %s</string>
 	<string name="voice_create_prompt">Говорите чтобы создать задачу</string>
 	<string name="voice_edit_title_prompt">Произнесите название задачи</string>
 	<string name="voice_edit_note_prompt">Произнесите заметки задачи</string>

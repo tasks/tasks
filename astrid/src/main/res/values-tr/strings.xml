@@ -53,7 +53,6 @@
 	<string name="DLG_cancel">Vazgeç</string>
 	<string name="DLG_undo">Geri al</string>
 	<string name="WID_dateButtonUnset">Ayar İçin Dokun</string>
-	<string name="ENA_no_user">Herhangi biri</string>
 	<string name="ENA_refresh_comments">Yorumları Yenile</string>
 	<string name="TLA_no_items">Hiç göreviniz yok! \n Bir şeyler eklemek nasıl olur?</string>
 	<string name="TLA_menu_sync">Şimdi Eşle</string>
@@ -618,19 +617,6 @@
 	<string name="TEA_timer_comment_started">başlanan görev:</string>
 	<string name="TEA_timer_comment_stopped">bu görevden vazgeç:</string>
 	<string name="TEA_timer_comment_spent">Harcanan zaman:</string>
-	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
-    Please do not translate this part of the string. -->
-	<string name="update_string_default_comment">%1$s şunu yorumladı: %3$s</string>
-	<string name="history_yourself">kendiniz</string>
-	<string name="history_you">siz</string>
-	<string name="history_a_deleted_user">silinmiş kullanıcı</string>
-	<string name="history_this_list">bu liste</string>
-	<string name="history_this_task">bu görev</string>
-	<string name="history_left_list">kaldı %s</string>
-	<string name="history_deleted">silindi %s</string>
-	<string name="history_undeleted">silinmemiş %s</string>
-	<string name="history_completed">tamamlandı %s</string>
-	<string name="history_uncompleted">tamamlanmamış %s</string>
 	<string name="voice_create_prompt">Yeni görev için konuş</string>
 	<string name="voice_edit_title_prompt">Görev başlığı için konuş</string>
 	<string name="voice_edit_note_prompt">Görev notları için konuş</string>

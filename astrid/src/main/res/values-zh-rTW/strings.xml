@@ -56,7 +56,6 @@
 	<string name="DLG_cancel">取消</string>
 	<string name="DLG_undo">撤消</string>
 	<string name="WID_dateButtonUnset">點選</string>
-	<string name="ENA_no_user">某人</string>
 	<string name="ENA_refresh_comments">刷新留言</string>
 	<string name="TLA_no_items">無工作!</string>
 	<string name="TLA_menu_sync">立即同步</string>
@@ -627,10 +626,6 @@
 	<string name="TEA_timer_comment_started">已經開始了這項任務工作：</string>
 	<string name="TEA_timer_comment_stopped">已經停止了這項任務工作：</string>
 	<string name="TEA_timer_comment_spent">已經花費時間：</string>
-	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
-    Please do not translate this part of the string. -->
-	<string name="update_string_default_comment">%1$s 發表道：%3$s</string>
-	<string name="history_you">您</string>
 	<string name="voice_create_prompt">請說話以建立工作</string>
 	<string name="voice_edit_title_prompt">請說話以設定工作主旨</string>
 	<string name="voice_edit_note_prompt">請說話以設定工作備註</string>
