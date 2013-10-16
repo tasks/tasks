@@ -1,0 +1,41 @@
+language: java
+jdk: oraclejdk7
+env:
+  matrix:
+    - ANDROID_SDKS=android-18,sysimg-18  ANDROID_TARGET=android-18  ANDROID_ABI=armeabi-v7a
+before_install:
+  # Install base Android SDK
+  - sudo apt-get update -qq
+  - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch > /dev/null; fi
+  - wget http://dl.google.com/android/android-sdk_r22.0.5-linux.tgz
+  - tar xzf android-sdk_r22.0.5-linux.tgz
+  - export ANDROID_HOME=$PWD/android-sdk-linux
+  - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
+
+  # install android build tools
+  - wget https://dl-ssl.google.com/android/repository/build-tools_r18.1-linux.zip
+  - unzip build-tools_r18.1-linux.zip -d $ANDROID_HOME
+  - mkdir -p $ANDROID_HOME/build-tools/
+  - mv $ANDROID_HOME/android-4.3 $ANDROID_HOME/build-tools/18.1
+
+  # Install required components.
+  # For a full list, run `android list sdk -a --extended`
+  # Note that sysimg-18 downloads the ARM, x86 and MIPS images (we should optimize this).
+  # Other relevant API's
+  - echo yes | android update sdk --filter tools --no-ui --force > /dev/null
+  - echo yes | android update sdk --filter platform-tools --no-ui --force > /dev/null
+  - echo yes | android update sdk --filter android-18 --no-ui --force > /dev/null
+  - echo yes | android update sdk --filter sysimg-18 --no-ui --force > /dev/null
+  - echo yes | android update sdk --filter extra-android-m2repository --no-ui --force > /dev/null
+
+  # Create and start emulator
+  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
+  - emulator -avd test -no-skin -no-audio -no-window &
+
+before_script:
+  - chmod +x .wait_for_emulator.sh
+  - ./.wait_for_emulator.sh
+  - adb shell input keyevent 82 &
+
+script:
+  - ./gradlew :astrid:connectedInstrumentTest

@@ -43,6 +43,8 @@ android {
         android.signingConfigs.release.storeFile = file(storeFile)
         android.signingConfigs.release.storePassword = storePassword
         android.signingConfigs.release.keyPassword = keyPassword
+    } else {
+        buildTypes.release.signingConfig = null
     }
 }
 
