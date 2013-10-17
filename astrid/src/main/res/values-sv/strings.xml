@@ -149,6 +149,7 @@
 	<string name="hide_until_prompt">Visa i min lista</string>
 	<string name="TEA_load_more">Ladda mer...</string>
 	<string name="TEA_when_dialog_title">När ska uppgiften vara slutförd?</string>
+	<string name="TEA_new_task">Ny uppgift</string>
 	<string name="MCA_title">%1$s\nringde kl %2$s</string>
 	<string name="MCA_return_call">Ring nu</string>
 	<string name="MCA_add_task">Ring senare</string>

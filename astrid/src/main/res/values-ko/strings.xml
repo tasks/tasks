@@ -164,6 +164,7 @@
 	<string name="hide_until_prompt">내 목록에 표시</string>
 	<string name="TEA_load_more">더 불러오기...</string>
 	<string name="TEA_when_dialog_title">마감일이 언제입니까?</string>
+	<string name="TEA_new_task">새 일정</string>
 	<string name="MCA_title">%1$s\n받은 시간: %2$s</string>
 	<string name="MCA_return_call">지금 전화하기</string>
 	<string name="MCA_add_task">나중에 전화하기</string>

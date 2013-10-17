@@ -8,7 +8,6 @@ package com.todoroo.astrid.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
-import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -34,19 +33,13 @@ public class TaskEditActivity extends AstridActivity {
 		setContentView(R.layout.task_edit_wrapper_activity);
 
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		actionBar.setDisplayShowTitleEnabled(false);
-
-		actionBar.setDisplayShowCustomEnabled(true);
-		actionBar.setCustomView(R.layout.header_title_view);
-		((TextView) actionBar.getCustomView().findViewById(R.id.title)).setText(R.string.TAd_contextEditTask);
-
+		actionBar.setDisplayShowTitleEnabled(true);
 	}
 
 	public void updateTitle(boolean isNewTask) {
 	    ActionBar actionBar = getSupportActionBar();
 	    if (actionBar != null) {
-	        TextView title = ((TextView) actionBar.getCustomView().findViewById(R.id.title));
-            title.setText(""); //$NON-NLS-1$
+            actionBar.setTitle(isNewTask ? R.string.TEA_new_task : R.string.TAd_contextEditTask);
         }
 	}
 

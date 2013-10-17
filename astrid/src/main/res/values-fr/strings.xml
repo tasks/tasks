@@ -158,6 +158,7 @@
 	<string name="hide_until_prompt">Montrer dans ma liste</string>
 	<string name="TEA_load_more">Charger plus...</string>
 	<string name="TEA_when_dialog_title">Pour quand est-ce prévu ?</string>
+	<string name="TEA_new_task">Nouvelle tâche</string>
 	<string name="MCA_title">\"%1$s\na appelé à  %2$s\"</string>
 	<string name="MCA_return_call">Appeler maintenant</string>
 	<string name="MCA_add_task">Appeler plus tard</string>

@@ -159,6 +159,7 @@
 	<string name="hide_until_prompt">Laat zien in mijn lijst</string>
 	<string name="TEA_load_more">Laad meer...</string>
 	<string name="TEA_when_dialog_title">Wanneer moet dit gedaan zijn?</string>
+	<string name="TEA_new_task">Nieuwe Taak</string>
 	<string name="MCA_title">%1$s\nheeft gebeld op (%2$s)</string>
 	<string name="MCA_return_call">Bel nu</string>
 	<string name="MCA_add_task">Bel later</string>

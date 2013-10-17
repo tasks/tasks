@@ -327,6 +327,8 @@
   <!-- When controls dialog -->
   <string name="TEA_when_dialog_title">When is this due?</string>
 
+  <string name="TEA_new_task">New Task</string>
+
   <!-- ===================================================== MissedCallActivity == -->
   
   <!-- Missed call: return call (%1$s -> caller, %2$s -> time of call)-->

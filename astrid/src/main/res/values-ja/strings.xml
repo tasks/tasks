@@ -125,6 +125,7 @@
 	<string name="TEA_control_lists">リスト</string>
 	<string name="TEA_control_notes">概要</string>
 	<string name="TEA_control_reminders">リマインダー</string>
+	<string name="TEA_new_task">新しいタスク</string>
 	<string name="MCA_title">%1$s\ncalled at %2$s</string>
 	<string name="MCA_ignore">無視する</string>
 	<string name="CRA_ignore">無視する</string>

@@ -155,6 +155,7 @@
 	<string name="hide_until_prompt">הצג ברשימה שלי</string>
 	<string name="TEA_load_more">טען עוד...</string>
 	<string name="TEA_when_dialog_title">למתי?</string>
+	<string name="TEA_new_task">משימה חדשה</string>
 	<string name="MCA_title">%1$s \nהתקשר ב־%2$s</string>
 	<string name="MCA_return_call">התקשר כעת</string>
 	<string name="MCA_add_task">התקשר מאוחר יותר</string>
