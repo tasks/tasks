@@ -9,6 +9,7 @@ import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -43,6 +45,7 @@ import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagsPlugin;
 import com.todoroo.astrid.ui.DateChangedAlerts;
+import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
@@ -350,6 +353,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         menuDrawer.closeMenu();
+        hideKeyboard();
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -541,6 +545,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 } else {
                     menuDrawer.openMenu();
                 }
+                hideKeyboard();
                 return true;
             case R.id.menu_settings:
                 tlf.showSettings();
@@ -591,6 +596,17 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         default:
             filterModeSpec = new DefaultFilterMode();
         }
+    }
+
+    private void hideKeyboard() {
+        TaskListFragment tlf = getTaskListFragment();
+        if (tlf == null)
+            return;
+        InputMethodManager imm = (InputMethodManager)getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        QuickAddBar qab = tlf.quickAddBar;
+        if (qab != null)
+            imm.hideSoftInputFromWindow(qab.getQuickAddBox().getWindowToken(), 0);
     }
 
     @Override
