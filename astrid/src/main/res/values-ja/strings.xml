@@ -130,7 +130,6 @@
 	<string name="MCA_ignore">無視する</string>
 	<string name="CRA_ignore">無視する</string>
 	<string name="UpS_changelog_title">Tasks の変更点</string>
-	<string name="UpS_updates_title">最新のTasksニュース</string>
 	<string name="EPr_title">Tasks: 設定</string>
 	<string name="EPr_appearance_header">外観</string>
 	<string name="EPr_fontSize_title">リストの文字サイズ</string>

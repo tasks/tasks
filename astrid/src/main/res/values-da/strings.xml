@@ -98,7 +98,6 @@
 	<string name="TEA_control_notes">Noter</string>
 	<string name="MCA_title">%1$s\ncalled at %2$s</string>
 	<string name="UpS_changelog_title">Hvad er nyt i Tasks</string>
-	<string name="UpS_updates_title">Seneste Tasks-nyheder</string>
 	<string name="EPr_title">Tasks: Opsætning</string>
 	<string name="EPr_appearance_header">Udseende</string>
 	<string name="EPr_fontSize_title">Opgavelistestørrelse</string>

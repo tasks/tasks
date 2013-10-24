@@ -203,7 +203,6 @@
 	<string name="CRA_list_created_title">Lijst gemaakt!</string>
 	<string name="CRA_default_list_name">Actie-items: %s</string>
 	<string name="UpS_changelog_title">Nieuw in Tasks</string>
-	<string name="UpS_updates_title">Laatste Tasks nieuws</string>
 	<string name="EPr_title">Tasks: Instellingen</string>
 	<string name="EPr_deactivated">uitgeschakeld</string>
 	<string name="EPr_appearance_header">Uiterlijk</string>

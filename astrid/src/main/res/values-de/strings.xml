@@ -197,7 +197,6 @@
 	<string name="CRA_list_created_title">Liste erstellt</string>
 	<string name="CRA_default_list_name">Einzelaufgaben: %s</string>
 	<string name="UpS_changelog_title">Was ist neu bei Tasks?</string>
-	<string name="UpS_updates_title">Tasks Neuigkeiten</string>
 	<string name="EPr_title">Tasks: Einstellungen</string>
 	<string name="EPr_deactivated">deaktiviert</string>
 	<string name="EPr_appearance_header">Erscheinungsbild</string>

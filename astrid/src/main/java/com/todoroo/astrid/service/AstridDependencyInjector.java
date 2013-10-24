@@ -9,7 +9,6 @@ import com.todoroo.andlib.service.AbstractDependencyInjector;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService.AndroidLogReporter;
 import com.todoroo.andlib.service.ExceptionService.ErrorReporter;
-import com.todoroo.andlib.service.HttpRestClient;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.StoreObjectDao;
@@ -56,7 +55,6 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
 
         // com.todoroo.android.service
         injectables.put("applicationName", "astrid");
-        injectables.put("restClient", HttpRestClient.class);
 
         // com.todoroo.astrid.dao
         injectables.put("database", Database.class);

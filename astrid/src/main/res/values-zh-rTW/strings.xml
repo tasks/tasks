@@ -191,7 +191,6 @@
 	<string name="CRA_list_created_title">列表建立了！</string>
 	<string name="CRA_default_list_name">行動事項：%s</string>
 	<string name="UpS_changelog_title">Tasks 有哪些最新消息?</string>
-	<string name="UpS_updates_title">Tasks 最新消息</string>
 	<string name="EPr_title">Tasks: 偏好</string>
 	<string name="EPr_deactivated">禁用</string>
 	<string name="EPr_appearance_header">外觀</string>

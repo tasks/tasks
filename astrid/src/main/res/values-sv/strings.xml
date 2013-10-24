@@ -193,7 +193,6 @@
 	<string name="CRA_list_created_title">Listan skapades!</string>
 	<string name="CRA_default_list_name">Saker att göra: %s</string>
 	<string name="UpS_changelog_title">Vad är nytt i Tasks?</string>
-	<string name="UpS_updates_title">Senaste Tasks nyheter</string>
 	<string name="EPr_title">Inställningar</string>
 	<string name="EPr_deactivated">inaktiverad</string>
 	<string name="EPr_appearance_header">Utseende</string>

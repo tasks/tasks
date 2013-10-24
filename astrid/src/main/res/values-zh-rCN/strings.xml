@@ -172,7 +172,6 @@
 	<string name="CRA_postpone">也许以后</string>
 	<string name="CRA_list_exists_title">列表已存在</string>
 	<string name="UpS_changelog_title">清单小助理有哪些最新功能？</string>
-	<string name="UpS_updates_title">清单小助理最新消息</string>
 	<string name="EPr_title">清单小助理：设置</string>
 	<string name="EPr_deactivated">禁用</string>
 	<string name="EPr_appearance_header">外观</string>

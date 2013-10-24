@@ -162,7 +162,6 @@
 	<string name="MCA_task_title_no_name">Zavolat %s zpět</string>
 	<string name="MCA_schedule_dialog_title">Zavolat %s zpět...</string>
 	<string name="UpS_changelog_title">Co je nového v Tasks?</string>
-	<string name="UpS_updates_title">Poslední \"Tasks\" novinky</string>
 	<string name="EPr_title">Tasks: Vlastnosti</string>
 	<string name="EPr_appearance_header">Vzhled</string>
 	<string name="EPr_fontSize_title">Velikost seznamu úkolů</string>

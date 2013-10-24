@@ -205,7 +205,6 @@
 	<string name="CRA_list_created_title">Lista creada</string>
 	<string name="CRA_default_list_name">Acciones: %s</string>
 	<string name="UpS_changelog_title">¿Que hay de nuevo en Tasks?</string>
-	<string name="UpS_updates_title">Últimas Noticias de Tasks</string>
 	<string name="EPr_title">Tasks: Preferencias</string>
 	<string name="EPr_deactivated">desactivada</string>
 	<string name="EPr_appearance_header">Apariencia</string>

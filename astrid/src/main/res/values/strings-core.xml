@@ -459,9 +459,6 @@
   <!-- Changelog Window Title -->
   <string name="UpS_changelog_title">What\'s new?</string>
   
-  <!-- Updates Window Title -->
-  <string name="UpS_updates_title">Latest Tasks News</string>
-  
   <!-- ================================================== EditPreferences == -->
     
   <!-- slide 31g: Preference Window Title -->

@@ -197,7 +197,6 @@
 	<string name="CRA_list_created_title">Lista utworzona!</string>
 	<string name="CRA_default_list_name">Wydarzenia aktywne: %s</string>
 	<string name="UpS_changelog_title">Co nowego w Tasks?</string>
-	<string name="UpS_updates_title">Aktualności Tasks</string>
 	<string name="EPr_title">Tasks: Właściwości</string>
 	<string name="EPr_deactivated">niekatywny</string>
 	<string name="EPr_appearance_header">Wygląd</string>

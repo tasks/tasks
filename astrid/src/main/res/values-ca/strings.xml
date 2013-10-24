@@ -168,7 +168,6 @@
 	<string name="MCA_task_title_no_name">Retorna la trucada a %s</string>
 	<string name="MCA_schedule_dialog_title">Retorna la trucada a %s en...</string>
 	<string name="UpS_changelog_title">Què hi ha de nou en Tasks?</string>
-	<string name="UpS_updates_title">Novetats de l\'Tasks</string>
 	<string name="EPr_title">Tasks: Paràmetres</string>
 	<string name="EPr_deactivated">desactivat</string>
 	<string name="EPr_appearance_header">Aparença</string>

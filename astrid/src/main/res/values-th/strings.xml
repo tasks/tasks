@@ -72,7 +72,6 @@
 	<string name="TEA_control_notes">บันทึกย่อ</string>
 	<string name="MCA_title">%1$s\ncalled at %2$s</string>
 	<string name="UpS_changelog_title">มีอะไรใหม่ใน Tasks?</string>
-	<string name="UpS_updates_title">ข่าวล่าสุดของ Tasks</string>
 	<string name="EPr_appearance_header">รูปโฉม</string>
 	<string name="EPr_fontSize_desc">ขนาดฟอนต์บนหน้ารายการหลัก</string>
 	<string name="EPr_showNotes_desc_enabled">บันทึกจะแสดงให้เห็นตลอดเวลา</string>
