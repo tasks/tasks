@@ -138,7 +138,7 @@ public abstract class CommentsFragment extends SherlockListFragment {
             ActionBar ab = ((AstridActivity) getActivity()).getSupportActionBar();
             String title = hasModel() ? getString(R.string.tag_updates_title, getModelName())
                     : getString(R.string.TLA_all_activity);
-            ((TextView) ab.getCustomView().findViewById(R.id.title)).setText(title);
+            ab.setTitle(title);
         }
 
         final ImageButton commentButton = (ImageButton) getView().findViewById(R.id.commentButton);

@@ -8,7 +8,6 @@ package com.todoroo.astrid.actfm;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
@@ -27,11 +26,7 @@ public class CommentsActivity extends AstridActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
-
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setCustomView(R.layout.header_title_view);
-        ((TextView) actionBar.getCustomView().findViewById(R.id.title)).setText(R.string.TAd_contextEditTask);
+        actionBar.setTitle(R.string.TAd_contextEditTask);
 
         Fragment fragment;
         String tag;

@@ -353,7 +353,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         menuDrawer.closeMenu();
-        hideKeyboard();
         return super.onPrepareOptionsMenu(menu);
     }
 

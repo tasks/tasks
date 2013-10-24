@@ -17,7 +17,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -117,9 +116,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setDisplayShowCustomEnabled(true);
-            actionBar.setCustomView(R.layout.header_title_view);
         }
 
         setUpSettingsPage();
@@ -287,12 +283,10 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
         tagName.setText(tagData.getValue(TagData.NAME));
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
-            View customView = ab.getCustomView();
-            TextView titleView = (TextView) customView.findViewById(R.id.title);
             if (isNewTag) {
-                titleView.setText(getString(R.string.tag_new_list));
+                ab.setTitle(getString(R.string.tag_new_list));
             } else {
-                titleView.setText(getString(R.string.tag_settings_title));
+                ab.setTitle(getString(R.string.tag_settings_title));
             }
         } else {
             if (isNewTag) {
