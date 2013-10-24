@@ -599,14 +599,6 @@
 
         <service android:name="com.todoroo.astrid.reminders.ReminderSchedulingService" />
 
-        <!-- other task actions -->
-        <receiver android:name="com.todoroo.astrid.core.LinkActionExposer">
-            <intent-filter>
-                <action android:name="org.tasks.REQUEST_ACTIONS" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
-
         <!-- Uses Library -->
         <uses-library
             android:name="com.google.android.maps"
