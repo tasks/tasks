@@ -5,12 +5,18 @@
  */
 package com.todoroo.astrid.service;
 
-import android.test.AndroidTestCase;
-
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 
-public class AstridDependencyInjectorTests extends AndroidTestCase {
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+
+import static org.junit.Assert.assertTrue;
+
+@RunWith(RobolectricTestRunner.class)
+public class AstridDependencyInjectorTest {
 
     protected static class Helper {
         public Object getObject() {
@@ -18,16 +24,15 @@ public class AstridDependencyInjectorTests extends AndroidTestCase {
         }
     }
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-
+    @Before
+    public void setUp() throws Exception {
         // in case some state from other unit tests overwrote injector
         DependencyInjectionService.getInstance().addInjector(
                 new AstridDependencyInjector()
         );
     }
 
+    @Test
     public void testWithString() {
         Helper helper = new Helper() {
             @Autowired
@@ -43,6 +48,7 @@ public class AstridDependencyInjectorTests extends AndroidTestCase {
         assertTrue(((String)helper.getObject()).length() > 0);
     }
 
+    @Test
     public void testWithClass() {
 
         Helper helper = new Helper() {

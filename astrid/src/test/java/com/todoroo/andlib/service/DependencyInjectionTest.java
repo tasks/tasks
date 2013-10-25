@@ -5,12 +5,20 @@
  */
 package com.todoroo.andlib.service;
 
-import android.test.AndroidTestCase;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
 import java.lang.reflect.Field;
 
-public class DependencyInjectionTests extends AndroidTestCase {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
+@RunWith(RobolectricTestRunner.class)
+public class DependencyInjectionTest {
+
+    @Test
     public void testNoAutowire() {
         DependencyInjectionService service = new DependencyInjectionService();
 
@@ -18,6 +26,7 @@ public class DependencyInjectionTests extends AndroidTestCase {
         service.inject(test);
     }
 
+    @Test
     public void testSimpleStringInjectionAutowire() {
         DependencyInjectionService service = new DependencyInjectionService();
         service.addInjector(
@@ -94,6 +103,7 @@ public class DependencyInjectionTests extends AndroidTestCase {
         assertNull( test.toString());
     }
 
+    @Test
     public void testHierarchicalStringInjectionAutowire() {
         DependencyInjectionService service = new DependencyInjectionService();
         service.addInjector(
@@ -141,6 +151,7 @@ public class DependencyInjectionTests extends AndroidTestCase {
         assertEquals("malarkey", test.toString());
     }
 
+    @Test
     public void testMissingInjection() {
         DependencyInjectionService service = new DependencyInjectionService();
         service.addInjector(
@@ -175,6 +186,7 @@ public class DependencyInjectionTests extends AndroidTestCase {
         assertNull(test.toString());
     }
 
+    @Test
     public void testMultipleInjection() {
         DependencyInjectionService service = new DependencyInjectionService();
         service.addInjector(
@@ -223,6 +235,7 @@ public class DependencyInjectionTests extends AndroidTestCase {
         protected String bar;
     }
 
+    @Test
     public void testInheritedInjection() {
         DependencyInjectionService service = new DependencyInjectionService();
         service.addInjector(

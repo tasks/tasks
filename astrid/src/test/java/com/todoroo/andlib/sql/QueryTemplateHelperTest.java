@@ -5,18 +5,24 @@
  */
 package com.todoroo.andlib.sql;
 
-import android.test.AndroidTestCase;
-
 import com.todoroo.andlib.sql.Query.QueryTemplateHelper;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 
-public class QueryTemplateHelperTest extends AndroidTestCase {
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+
+import static org.junit.Assert.assertEquals;
+
+@RunWith(RobolectricTestRunner.class)
+public class QueryTemplateHelperTest {
 
     public StringBuilder selection = new StringBuilder();
     public StringBuilder order = new StringBuilder();
     public StringBuilder groupBy = new StringBuilder();
 
+    @Test
     public void testBasic() {
         QueryTemplateHelper.queryForContentResolver("",
                 selection, order, groupBy);
@@ -25,6 +31,7 @@ public class QueryTemplateHelperTest extends AndroidTestCase {
         assertEquals(groupBy.toString(), "");
     }
 
+    @Test
     public void testSelection() {
         QueryTemplateHelper.queryForContentResolver("WHERE foo = bar",
                 selection, order, groupBy);
@@ -33,6 +40,7 @@ public class QueryTemplateHelperTest extends AndroidTestCase {
         assertEquals(groupBy.toString(), "");
     }
 
+    @Test
     public void testOrder() {
         QueryTemplateHelper.queryForContentResolver("ORDER BY cats",
                 selection, order, groupBy);
@@ -41,6 +49,7 @@ public class QueryTemplateHelperTest extends AndroidTestCase {
         assertEquals(groupBy.toString(), "");
     }
 
+    @Test
     public void testWhereOrder() {
         QueryTemplateHelper.queryForContentResolver("WHERE foo = bar ORDER BY cats",
                 selection, order, groupBy);
@@ -49,6 +58,7 @@ public class QueryTemplateHelperTest extends AndroidTestCase {
         assertEquals(groupBy.toString(), "");
     }
 
+    @Test
     public void testGroupBy() {
         QueryTemplateHelper.queryForContentResolver("GROUP BY dogs",
                 selection, order, groupBy);
@@ -57,6 +67,7 @@ public class QueryTemplateHelperTest extends AndroidTestCase {
         assertEquals(groupBy.toString(), "dogs");
     }
 
+    @Test
     public void testWhereGroupBy() {
         QueryTemplateHelper.queryForContentResolver("WHERE foo = bar GROUP BY dogs",
                 selection, order, groupBy);
@@ -65,6 +76,7 @@ public class QueryTemplateHelperTest extends AndroidTestCase {
         assertEquals(groupBy.toString(), "dogs");
     }
 
+    @Test
     public void testOrderGroupBy() {
         QueryTemplateHelper.queryForContentResolver("GROUP BY dogs ORDER BY cats",
                 selection, order, groupBy);
@@ -72,6 +84,7 @@ public class QueryTemplateHelperTest extends AndroidTestCase {
         assertEquals(groupBy.toString(), "dogs");
     }
 
+    @Test
     public void testWhereGroupByAndOrder() {
         QueryTemplateHelper.queryForContentResolver("WHERE foo = bar GROUP BY dogs ORDER BY cats",
                 selection, order, groupBy);
@@ -80,6 +93,7 @@ public class QueryTemplateHelperTest extends AndroidTestCase {
         assertEquals(groupBy.toString(), "dogs");
     }
 
+    @Test
     public void testRealQueryTemplate() {
         QueryTemplateHelper.queryForContentResolver(
                 new QueryTemplate().where(TaskCriteria.completed()).
@@ -90,6 +104,7 @@ public class QueryTemplateHelperTest extends AndroidTestCase {
         assertEquals("", groupBy.toString());
     }
 
+    @Test
     public void testRealQueryTemplateTwo() {
         QueryTemplateHelper.queryForContentResolver(
                 new QueryTemplate().where(TaskCriteria.isActive()).
@@ -99,7 +114,4 @@ public class QueryTemplateHelperTest extends AndroidTestCase {
         assertEquals(Order.asc(Task.ELAPSED_SECONDS).toString(), order.toString());
         assertEquals(Task.NOTES.toString(), groupBy.toString());
     }
-
-
-
 }
