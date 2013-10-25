@@ -9,23 +9,33 @@ import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.Weekday;
 import com.google.ical.values.WeekdayNum;
-import com.todoroo.andlib.test.TodorooTestCase;
+import com.todoroo.andlib.test.TodorooRobolectricTestCase;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
 
-public class RepeatAfterCompleteTests extends TodorooTestCase {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+@RunWith(RobolectricTestRunner.class)
+public class RepeatAfterCompleteTest extends TodorooRobolectricTestCase {
 
     private Task task;
     private long nextDueDate;
     private RRule rrule;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         super.setUp();
         task = new Task();
         task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
@@ -34,6 +44,7 @@ public class RepeatAfterCompleteTests extends TodorooTestCase {
 
     // --- date with time tests
 
+    @Test
     public void testSubDailyFreqs() throws ParseException {
         task.setValue(Task.DUE_DATE, DateUtilities.now() - DateUtilities.ONE_WEEK);
 
@@ -59,6 +70,7 @@ public class RepeatAfterCompleteTests extends TodorooTestCase {
         }
     }
 
+    @Test
     public void testDailyAndGreaterFreqs() throws ParseException {
         task.setValue(Task.DUE_DATE,
                 Task.createDueDate(Task.URGENCY_SPECIFIC_DAY,
@@ -89,6 +101,7 @@ public class RepeatAfterCompleteTests extends TodorooTestCase {
         }
     }
 
+    @Test
     public void testTimeZoneLate() throws ParseException {
         TimeZone.setDefault(TimeZone.getTimeZone("America/Los_Angeles"));
         task.setValue(Task.DUE_DATE, DateUtilities.now() + DateUtilities.ONE_WEEK);
@@ -127,5 +140,4 @@ public class RepeatAfterCompleteTests extends TodorooTestCase {
             days.add(new WeekdayNum(0, wd));
         rrule.setByDay(days);
     }
-
 }

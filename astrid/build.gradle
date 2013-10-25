@@ -92,6 +92,10 @@ dependencies {
     testCompile 'junit:junit:4.10'
     testCompile 'org.robolectric:robolectric:2.3-SNAPSHOT'
     // hack to get android studio to import libraries
-    instrumentTestCompile 'junit:junit:4.10'
-    instrumentTestCompile 'org.robolectric:robolectric:2.3-SNAPSHOT'
+    instrumentTestCompile('junit:junit:4.10') {
+        transitive = false
+    }
+    instrumentTestCompile('org.robolectric:robolectric:2.3-SNAPSHOT') {
+        transitive = false
+    }
 }
