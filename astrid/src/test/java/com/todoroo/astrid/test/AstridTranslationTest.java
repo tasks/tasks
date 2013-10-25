@@ -5,17 +5,21 @@
  */
 package com.todoroo.astrid.test;
 
-
-
 import android.content.res.Resources;
 
 import com.todoroo.andlib.test.TranslationTests;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 import org.tasks.R;
 
 import java.util.Locale;
 
-public class AstridTranslationTests extends TranslationTests {
+import static org.junit.Assert.assertEquals;
+
+@RunWith(RobolectricTestRunner.class)
+public class AstridTranslationTest extends TranslationTests {
 
     @Override
     public Class<?> getArrayResources() {
@@ -51,6 +55,7 @@ public class AstridTranslationTests extends TranslationTests {
     /**
      * Test dollar sign resources
      */
+    @Test
     public void testSpecialStringsMatch() throws Exception {
         final Resources r = getContext().getResources();
         final StringBuilder failures = new StringBuilder();
@@ -70,5 +75,4 @@ public class AstridTranslationTests extends TranslationTests {
         assertEquals(failures.toString(), 0,
                 failures.toString().replaceAll("[^\n]", "").length());
     }
-
 }

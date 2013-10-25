@@ -5,19 +5,28 @@
  */
 package com.todoroo.andlib.utility;
 
-import com.todoroo.andlib.test.TodorooTestCase;
+import com.todoroo.andlib.test.TodorooRobolectricTestCase;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-public class DateUtilitiesTest extends TodorooTestCase {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+@RunWith(RobolectricTestRunner.class)
+public class DateUtilitiesTest extends TodorooRobolectricTestCase {
 
     public void set24Hour(boolean is24) {
         DateUtilities.is24HourOverride = is24;
     }
 
+    @Test
     public void testTimeString() {
         forEachLocale(new Runnable() {
             public void run() {
@@ -38,6 +47,7 @@ public class DateUtilitiesTest extends TodorooTestCase {
         });
     }
 
+    @Test
     public void testDateString() {
         forEachLocale(new Runnable() {
             public void run() {
@@ -49,9 +59,9 @@ public class DateUtilitiesTest extends TodorooTestCase {
                 }
             }
         });
-
     }
 
+    @Test
     public void testWeekdayString() {
         forEachLocale(new Runnable() {
             public void run() {
@@ -63,9 +73,9 @@ public class DateUtilitiesTest extends TodorooTestCase {
                 }
             }
         });
-
     }
 
+    @Test
     public void testParseISO8601() {
         String withTime = "2013-01-28T13:17:02+00:00";
         long date;
@@ -86,6 +96,7 @@ public class DateUtilitiesTest extends TodorooTestCase {
         assertEquals(2, cal.get(Calendar.SECOND));
     }
 
+    @Test
     public void testParseISO8601NoTime() {
         String withTime = "2013-01-28";
         long date;

@@ -8,6 +8,7 @@ package com.todoroo.andlib.test;
 
 import android.content.res.Resources;
 
+import org.junit.Test;
 import org.tasks.R;
 
 import java.lang.reflect.Field;
@@ -17,6 +18,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 /**
  * Tests translations for consistency with the default values. You must
  * extend this class and create it with your own values for strings
@@ -25,7 +30,7 @@ import java.util.Locale;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-abstract public class TranslationTests extends TodorooTestCase {
+abstract public class TranslationTests extends TodorooRobolectricTestCase {
 
     // --- abstract methods
 
@@ -108,6 +113,7 @@ abstract public class TranslationTests extends TodorooTestCase {
     /**
      * Internal test of format string parser
      */
+    @Test
     public void testFormatStringParser() {
         String s = "abc";
         FormatStringData data = new FormatStringData(s);
@@ -141,6 +147,7 @@ abstract public class TranslationTests extends TodorooTestCase {
      * Test that the format specifiers in translations match exactly the
      * translations in the default text
      */
+    @Test
     public void testFormatStringsMatch() throws Exception {
         final Resources r = getContext().getResources();
         final int[] strings = getResourceIds(getStringResources());
@@ -189,6 +196,7 @@ abstract public class TranslationTests extends TodorooTestCase {
     /**
      * Test that date formatters parse correctly
      */
+    @Test
     public void testDateFormats() throws Exception {
         final Resources r = getContext().getResources();
 
@@ -225,6 +233,7 @@ abstract public class TranslationTests extends TodorooTestCase {
     /**
      * Test that there are the same number of array entries in each locale
      */
+    @Test
     public void testArraySizesMatch() throws Exception {
         final Resources r = getContext().getResources();
         final int[] arrays = getResourceIds(getArrayResources());

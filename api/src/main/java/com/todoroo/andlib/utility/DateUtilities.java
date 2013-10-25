@@ -128,8 +128,7 @@ public class DateUtilities {
      * @return date, with month, day, and year
      */
     public static String getDateString(Context context, Date date, boolean includeYear) {
-        String month = DateUtils.getMonthString(date.getMonth() +
-                Calendar.JANUARY, DateUtils.LENGTH_MEDIUM);
+        String month = new SimpleDateFormat("MMM").format(date);
         String value;
         String standardDate;
         // united states, you are special
@@ -200,10 +199,8 @@ public class DateUtilities {
      * @return weekday
      */
     public static String getWeekday(Date date) {
-        return DateUtils.getDayOfWeekString(date.getDay() + Calendar.SUNDAY,
-                DateUtils.LENGTH_LONG);
+        return new SimpleDateFormat("EEEE").format(date);
     }
-
 
     /**
      * @return weekday

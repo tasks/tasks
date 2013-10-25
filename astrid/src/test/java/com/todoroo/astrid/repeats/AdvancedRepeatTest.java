@@ -9,17 +9,24 @@ import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.Weekday;
 import com.google.ical.values.WeekdayNum;
-import com.todoroo.andlib.test.TodorooTestCase;
+import com.todoroo.andlib.test.TodorooRobolectricTestCase;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class AdvancedRepeatTests extends TodorooTestCase {
+import static org.junit.Assert.assertEquals;
 
+@RunWith(RobolectricTestRunner.class)
+public class AdvancedRepeatTest extends TodorooRobolectricTestCase {
 
     private static final int PREV_PREV = -2;
     private static final int PREV = -1;
@@ -31,8 +38,8 @@ public class AdvancedRepeatTests extends TodorooTestCase {
     private long nextDueDate;
     private RRule rrule;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         super.setUp();
         task = new Task();
         task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
@@ -41,6 +48,7 @@ public class AdvancedRepeatTests extends TodorooTestCase {
 
     // --- date with time tests
 
+    @Test
     public void testDueDateSpecificTime() throws ParseException {
         buildRRule(1, Frequency.DAILY);
 
@@ -53,6 +61,7 @@ public class AdvancedRepeatTests extends TodorooTestCase {
         assertDateTimeEquals(nextDayWithTime, nextDueDate);
     }
 
+    @Test
     public void testCompletionDateSpecificTime() throws ParseException {
         buildRRule(1, Frequency.DAILY);
 
@@ -75,8 +84,8 @@ public class AdvancedRepeatTests extends TodorooTestCase {
     // --- due date tests
 
     /** test multiple days per week - DUE DATE */
+    @Test
     public void testDueDateInPastSingleWeekMultiDay() throws Exception {
-
         buildRRule(1, Frequency.WEEKLY, Weekday.MO, Weekday.WE, Weekday.FR);
 
         setTaskDueDate(THIS, Calendar.SUNDAY);
@@ -93,8 +102,8 @@ public class AdvancedRepeatTests extends TodorooTestCase {
     }
 
     /** test single day repeats - DUE DATE */
+    @Test
     public void testDueDateSingleDay() throws Exception {
-
         buildRRule(1, Frequency.WEEKLY, Weekday.MO);
 
         setTaskDueDate(PREV_PREV, Calendar.MONDAY);
@@ -123,6 +132,7 @@ public class AdvancedRepeatTests extends TodorooTestCase {
     }
 
     /** test multiple days per week - DUE DATE */
+    @Test
     public void testDueDateSingleWeekMultiDay() throws Exception {
 
         buildRRule(1, Frequency.WEEKLY, Weekday.MO, Weekday.WE, Weekday.FR);
@@ -141,8 +151,8 @@ public class AdvancedRepeatTests extends TodorooTestCase {
     }
 
     /** test multiple days per week, multiple intervals - DUE DATE */
+    @Test
     public void testDueDateMultiWeekMultiDay() throws Exception {
-
         buildRRule(2, Frequency.WEEKLY, Weekday.MO, Weekday.WE, Weekday.FR);
 
         setTaskDueDate(THIS, Calendar.SUNDAY);
@@ -161,8 +171,8 @@ public class AdvancedRepeatTests extends TodorooTestCase {
     // --- completion tests
 
     /** test multiple days per week - COMPLETE DATE */
+    @Test
     public void testCompleteDateSingleWeek() throws Exception {
-
         for(Weekday wday : Weekday.values()) {
             buildRRule(1, Frequency.WEEKLY, wday);
             computeNextDueDate(true);
@@ -187,8 +197,8 @@ public class AdvancedRepeatTests extends TodorooTestCase {
     }
 
     /** test multiple days per week, multiple intervals - COMPLETE DATE */
+    @Test
     public void testCompleteDateMultiWeek() throws Exception {
-
         for(Weekday wday : Weekday.values()) {
             buildRRule(2, Frequency.WEEKLY, wday);
             computeNextDueDate(true);
@@ -247,7 +257,6 @@ public class AdvancedRepeatTests extends TodorooTestCase {
         rrule.setByDay(days);
     }
 
-
     private void setTaskDueDate(int which, int day) {
         long time = getDate(DateUtilities.now(), which, day);
 
@@ -265,5 +274,4 @@ public class AdvancedRepeatTests extends TodorooTestCase {
         c.add(Calendar.DAY_OF_MONTH, (Math.abs(which) - 1) * direction * 7);
         return Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, c.getTimeInMillis());
     }
-
 }
