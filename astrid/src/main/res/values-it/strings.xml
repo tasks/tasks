@@ -275,7 +275,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	</string-array>
 	<string name="BFE_Active">Le mie attività</string>
 	<string name="BFE_Recent">Modificate di recente</string>
-	<string name="BFE_Assigned">Assegnate da me</string>
 	<string name="BFE_Saved_delete">Cancella Filtro</string>
 	<string name="CFA_filterName_hint">Dai un nome al filtro per salvarlo...</string>
 	<string name="CFA_universe_all">Attività in corso</string>

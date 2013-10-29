@@ -240,7 +240,6 @@
 	</string-array>
 	<string name="BFE_Active">Aktivní úkoly</string>
 	<string name="BFE_Recent">Nedávno upravené</string>
-	<string name="BFE_Assigned">Přidělil jsem</string>
 	<string name="BFE_Saved_delete">Smazat filtr</string>
 	<string name="CFA_filterName_hint">Pojmenujte tento filtr pro jeho uložení</string>
 	<string name="CFA_universe_all">Aktivní úkoly</string>

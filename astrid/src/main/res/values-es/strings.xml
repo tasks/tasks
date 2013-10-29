@@ -311,7 +311,6 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	</string-array>
 	<string name="BFE_Active">Mis Tareas</string>
 	<string name="BFE_Recent">Recién modificadas</string>
-	<string name="BFE_Assigned">Yo he asignado</string>
 	<string name="BFE_Saved_delete">Borrar filtro</string>
 	<string name="CFA_filterName_hint">Da nombre al filtro para grabarlo...</string>
 	<string name="CFA_universe_all">Tareas activas</string>

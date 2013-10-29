@@ -10,8 +10,6 @@
   <attr name="asContentBackground" format="color"/>
   <attr name="asEditBackground" format="color"/>
   <attr name="asEditRowBackground" format="reference"/>
-  <attr name="asHeaderBackground" format="reference"/>
-  <attr name="asHeaderButtonBackground" format="reference"/>
   <attr name="asTextColor" format="color"/>
   <attr name="asTextColorInverse" format="color"/>
   <attr name="asDetailsColor" format="color"/>
@@ -19,9 +17,6 @@
   <attr name="asDueDateOverdueColor" format="color"/>
   <attr name="asDueDateCompletedColor" format="color"/>
   <attr name="asFilterHeaderColor" format="color"/>
-  <attr name="asFilterHeaderBackground" format="reference"/>
-  <attr name="asFilterCountColor" format="color"/>
-  <attr name="asMembersHeaderBackground" format="color"/>
   <attr name="asSeparatorBackground" format="color"/>
   <attr name="asListDividerColor" format="color"/>
   

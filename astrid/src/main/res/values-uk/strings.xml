@@ -332,7 +332,6 @@
 	</string-array>
 	<string name="BFE_Active">Мої завдання</string>
 	<string name="BFE_Recent">Недавно змінені</string>
-	<string name="BFE_Assigned">Призначено мною</string>
 	<string name="BFE_Saved_delete">Видалити фільтр</string>
 	<string name="CFA_filterName_hint">Задайте ім\'я фільтра для його збереження ...</string>
 	<string name="CFA_universe_all">Активні завдання</string>

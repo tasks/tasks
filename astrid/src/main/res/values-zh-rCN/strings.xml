@@ -255,7 +255,6 @@
 		<item>截止期限或过期时</item>
 	</string-array>
 	<string name="BFE_Recent">最近修改过的</string>
-	<string name="BFE_Assigned">我已经安排</string>
 	<string name="BFE_Saved_delete">删除筛选</string>
 	<string name="CFA_filterName_hint">命名筛选并保存...</string>
 	<string name="CFA_universe_all">进行中的任务</string>

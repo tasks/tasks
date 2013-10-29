@@ -42,6 +42,7 @@
 	<string name="DLG_error_sdcard">Нет доступа к папке:%s</string>
 	<string name="DLG_error_sdcard_general">Нет доступа к карте памяти!</string>
 	<string name="import_file_prompt">Выберите файл для восстановления</string>
+	<string name="app_name">Разрешенные задачи</string>
 	<string name="read_permission_label">Право Tasks</string>
 	<string name="read_permission_desc">чтение и отображение фильтров задач</string>
 	<string name="write_permission_label">Право Tasks</string>
@@ -262,6 +263,8 @@
 	<string name="AOA_internal_author">Команда Tasks</string>
 	<string name="TWi_loading">Загрузка...</string>
 	<string name="WCA_title">Выберите задачи для просмотра…</string>
+	<string name="feedback_positive_title">Уровень задачи</string>
+	<string name="feedback_banner_text">Как задачи работают для Вас?</string>
 	<string name="task_killer_help">Возможно вы используете менеджер задач (%s). По возможности добавьте Tasks в список исключений иначе возможны сложности с напоминаниями.\n</string>
 	<string name="task_killer_help_ok">Я не хочу убивать Tasks!</string>
 	<string name="DB_corrupted_title">Поврежденная база данных</string>
@@ -312,7 +315,6 @@
 	</string-array>
 	<string name="BFE_Active">Мои задания</string>
 	<string name="BFE_Recent">Недавно изменённые</string>
-	<string name="BFE_Assigned">Назначенные мной</string>
 	<string name="BFE_Saved_delete">Удалить фильтр</string>
 	<string name="CFA_filterName_hint">Задайте имя фильтра для его сохранения…</string>
 	<string name="CFA_universe_all">Активные задачи</string>
@@ -321,6 +323,7 @@
 	<string name="CFA_type_intersect">и</string>
 	<string name="CFA_context_chain">%s содержит критерий</string>
 	<string name="CFA_context_delete">Удалить строку</string>
+	<string name="CFA_help">Долгое нажатие на пункт для дополнительных опций</string>
 	<string name="CFA_button_add">Добавить критерий</string>
 	<string name="CFA_button_view">Просмотр</string>
 	<string name="CFA_button_save">Сохранить и просмотреть</string>
@@ -440,6 +443,7 @@
 	<string name="TEA_reminder_mode_once">раз</string>
 	<string name="TEA_reminder_mode_five">Пять раз</string>
 	<string name="TEA_reminder_mode_nonstop">Пока я не отключу сигнал</string>
+	<string name="TEA_reminder_when">Когда</string>
 	<string name="TEA_reminder_overdue_short">просрочена</string>
 	<string-array name="TEA_reminder_random">
 		<item>час</item>
@@ -602,6 +606,7 @@
 	<string name="repeat_enabled">Повторения</string>
 	<string name="repeat_every">С интервалом в %d</string>
 	<string name="repeat_interval_prompt">Интервал повтора</string>
+	<string name="repeat_never">Не повторять</string>
 	<string name="repeat_dont">Не повторять</string>
 	<string-array name="repeat_interval_short">
 		<item>д.</item>
@@ -688,4 +693,5 @@
 	<string name="EPr_voiceRemindersEnabled_title">Голосовые напоминания</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks должен произносить название задач во время напоминаний</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Оповещение звуком во время напоминания</string>
+	<string name="EPr_use_dark_theme_widget">Темная тема виджета</string>
 </resources>

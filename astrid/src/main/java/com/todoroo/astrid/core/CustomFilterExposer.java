@@ -118,19 +118,6 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
         }
     }
 
-    public static Filter getAssignedByMeFilter(Resources r) {
-        int themeFlags = ThemeService.getFilterThemeFlags();
-        Filter f = new Filter(r.getString(R.string.BFE_Assigned),
-                r.getString(R.string.BFE_Assigned),
-                new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
-                        Criterion.or(Task.CREATOR_ID.eq(0), Task.CREATOR_ID.eq(ActFmPreferenceService.userId())),
-                        Task.USER_ID.neq(0))),
-                        null);
-        f.listingIcon = ((BitmapDrawable)r.getDrawable(
-                ThemeService.getDrawable(R.drawable.filter_assigned, themeFlags))).getBitmap();
-        return f;
-    }
-
     /**
      * Simple activity for deleting stuff
      *

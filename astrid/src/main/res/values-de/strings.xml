@@ -315,7 +315,6 @@
 	</string-array>
 	<string name="BFE_Active">Meine Aufgaben</string>
 	<string name="BFE_Recent">Kürzlich bearbeitet</string>
-	<string name="BFE_Assigned">Ich habe zugeordnet</string>
 	<string name="BFE_Saved_delete">Filter löschen</string>
 	<string name="CFA_filterName_hint">Benennen Sie den Filter, um ihn zu speichern …</string>
 	<string name="CFA_universe_all">Aktuelle Aufgaben</string>

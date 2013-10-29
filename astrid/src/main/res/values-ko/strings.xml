@@ -335,7 +335,6 @@
 	</string-array>
 	<string name="BFE_Active">나의 일정</string>
 	<string name="BFE_Recent">최근에 수정한 일정</string>
-	<string name="BFE_Assigned">내가 할당한 일정</string>
 	<string name="BFE_Saved_delete">필터 삭제</string>
 	<string name="CFA_filterName_hint">저장할 필터 이름을 정하세요...</string>
 	<string name="CFA_universe_all">실행중인 일정</string>

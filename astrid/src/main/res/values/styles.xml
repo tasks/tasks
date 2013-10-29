@@ -11,7 +11,6 @@
     <style name="Theme" parent="@style/Theme.Sherlock">
         <item name="android:windowBackground">@null</item>
         <item name="asContentBackground">@android:color/black</item>
-        <item name="asHeaderButtonBackground">@drawable/header_button</item>
         <item name="asTextColor">#ffffff</item>
         <item name="asTextColorInverse">#000000</item>
         <item name="asDetailsColor">#777777</item>
@@ -19,8 +18,6 @@
         <item name="asDueDateOverdueColor">#ee5555</item>
         <item name="asDueDateCompletedColor">#ff777777</item>
         <item name="asFilterHeaderColor">#cccccc</item>
-        <item name="asFilterHeaderBackground">@drawable/edit_titlebar</item>
-        <item name="asMembersHeaderBackground">#909090</item>
         <item name="asSeparatorBackground">#888888</item>
         <item name="asListDividerColor">#555555</item>
         <item name="asEditTextBackground">@null</item>
@@ -67,14 +64,11 @@
     <style name="Theme.White" parent="@style/Theme.Sherlock.Light">
         <item name="asContentBackground">@android:color/white</item>
         <item name="asEditBackground">#e5e5e5</item>
-        <item name="asHeaderButtonBackground">@drawable/header_button_white</item>
         <item name="asTextColor">#000000</item>
         <item name="asTextColorInverse">#ffffff</item>
         <item name="asDetailsColor">#6666aa</item>
         <item name="asDueDateColor">#878787</item>
         <item name="asFilterHeaderColor">#ffffff</item>
-        <item name="asFilterHeaderBackground">@drawable/edit_titlebar_white</item>
-        <item name="asMembersHeaderBackground">#d0d0d0</item>
         <item name="asListDividerColor">#dddddd</item>
         <item name="asEditRowBackground">@drawable/task_edit_background_white</item>
         <item name="asFilterSelectedIcon">@drawable/filter_selected_icon_black</item>
@@ -124,15 +118,12 @@
     <style name="Theme.Dialog" parent="@android:style/Theme.Dialog">
         <!--<item name="android:windowBackground">@null</item>-->
         <item name="asContentBackground">@android:color/black</item>
-        <item name="asHeaderButtonBackground">@drawable/header_button</item>
         <item name="asTextColor">#ffffffff</item>
         <item name="asDetailsColor">#ff777777</item>
         <item name="asDueDateColor">#ff7777aa</item>
         <item name="asDueDateOverdueColor">#ffee5555</item>
         <item name="asDueDateCompletedColor">#ff777777</item>
         <item name="asFilterHeaderColor">#ffcccccc</item>
-        <item name="asFilterHeaderBackground">@drawable/edit_titlebar</item>
-        <item name="asMembersHeaderBackground">#d0d0d0</item>
         <item name="asSeparatorBackground">#888888</item>
         <!-- actionbar-styling -->
         <item name="android:actionBarStyle">@style/AstridV11ActionBarStyle.Dialog</item>
@@ -169,13 +160,10 @@
     
     <style name="Theme.Dialog.White">
         <item name="asContentBackground">@android:color/white</item>
-        <item name="asHeaderButtonBackground">@drawable/header_button_white</item>
         <item name="asTextColor">#ff000000</item>
         <item name="asDetailsColor">#ff6666aa</item>
         <item name="asDueDateColor">#878787</item>
         <item name="asFilterHeaderColor">#ffffff</item>
-        <item name="asFilterHeaderBackground">@drawable/edit_titlebar_white</item>
-        <item name="asMembersHeaderBackground">#d0d0d0</item>
         <!-- actionbar-styling -->
         <item name="android:actionBarStyle">@style/AstridV11ActionBarStyle.Dialog.White</item>        
         <item name="actionBarStyle">@style/AstridActionBarStyle.Dialog.White</item>        

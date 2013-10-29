@@ -283,7 +283,6 @@ och återställer dina aktuella uppgifter från en backup
 		<item>Vid eller efter förfallodagen</item>
 	</string-array>
 	<string name="BFE_Recent">Nyligen ändrade</string>
-	<string name="BFE_Assigned">Jag har delat ut</string>
 	<string name="BFE_Saved_delete">Radera filter</string>
 	<string name="CFA_filterName_hint">Spara detta filter genom att ge det ett namn</string>
 	<string name="CFA_universe_all">Aktiva uppgifter</string>

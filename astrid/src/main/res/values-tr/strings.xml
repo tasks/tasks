@@ -267,7 +267,6 @@
 		<item>Son tarihte ya da aşıldığında</item>
 	</string-array>
 	<string name="BFE_Recent">Yakında Değiştirilenler</string>
-	<string name="BFE_Assigned">Atanmış bulunuyorum</string>
 	<string name="BFE_Saved_delete">Süzgeci Sil</string>
 	<string name="CFA_filterName_hint">Süzgeci kaydetmek için ad yazın...</string>
 	<string name="CFA_universe_all">Etkin Görevler</string>

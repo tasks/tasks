@@ -189,16 +189,6 @@ public class ThemeService {
             return R.drawable.icn_menu_filters_dark;
         case R.drawable.icn_menu_sort_by_size:
             return R.drawable.icn_menu_sort_by_size_dark;
-        case R.drawable.icn_menu_search:
-            return R.drawable.icn_menu_search_dark;
-        case R.drawable.icn_menu_friends:
-            return R.drawable.icn_menu_friends_dark;
-        case R.drawable.icn_menu_lists:
-            return R.drawable.icn_menu_lists_dark;
-        case R.drawable.icn_menu_settings:
-            return R.drawable.icn_menu_settings_dark;
-        case R.drawable.filter_assigned:
-            return R.drawable.filter_assigned_dark;
         case R.drawable.filter_calendar:
             return R.drawable.filter_calendar_dark;
         case R.drawable.filter_inbox:

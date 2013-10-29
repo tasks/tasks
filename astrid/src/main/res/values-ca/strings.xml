@@ -205,7 +205,6 @@
 	</string-array>
 	<string name="BFE_Active">Tasques actives</string>
 	<string name="BFE_Recent">Modificades fa poc</string>
-	<string name="BFE_Assigned">Assignades</string>
 	<string name="BFE_Saved_delete">Esborra el filtre</string>
 	<string name="CFA_filterName_hint">Dona nom al filtre per desar-lo...</string>
 	<string name="CFA_universe_all">Tasques actives</string>

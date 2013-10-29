@@ -313,7 +313,6 @@
 	</string-array>
 	<string name="BFE_Active">המשימות שלי</string>
 	<string name="BFE_Recent">עודכנו לאחרונה</string>
-	<string name="BFE_Assigned">משימות שהטלתי</string>
 	<string name="BFE_Saved_delete">מַחֲקִי מַסְנֵן</string>
 	<string name="CFA_filterName_hint">בחר שם לַמַּסְנֵן כדי לשמור אותו...</string>
 	<string name="CFA_universe_all">משימות פעילות</string>

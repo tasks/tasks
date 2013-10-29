@@ -313,7 +313,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	</string-array>
 	<string name="BFE_Active">Moje zadania</string>
 	<string name="BFE_Recent">Niedawno zmodyfikowane</string>
-	<string name="BFE_Assigned">Przypisałem</string>
 	<string name="BFE_Saved_delete">Usuń filtr</string>
 	<string name="CFA_filterName_hint">Nazwij filtr w celu zapisania...</string>
 	<string name="CFA_universe_all">Aktywne zadania</string>

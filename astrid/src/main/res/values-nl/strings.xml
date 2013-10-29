@@ -323,7 +323,6 @@
 	</string-array>
 	<string name="BFE_Active">Mijn taken</string>
 	<string name="BFE_Recent">Onlangs aangepast</string>
-	<string name="BFE_Assigned">Ik heb toegekend</string>
 	<string name="BFE_Saved_delete">Filter verwijderen</string>
 	<string name="CFA_filterName_hint">Naam geven om op te slaan...</string>
 	<string name="CFA_universe_all">Actieve taken</string>

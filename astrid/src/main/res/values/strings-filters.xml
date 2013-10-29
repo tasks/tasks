@@ -1,24 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <!-- Resources for built-in filter plug-in -->
-    
     <!-- ================================================= Filter Exposer == -->
     
     <!-- Active Tasks Filter -->
     <string name="BFE_Active">My Tasks</string>
     
-    <!-- Search Filter -->
-    
     <!-- slide 10b: Recently Modified -->
     <string name="BFE_Recent">Recently Modified</string>
-    
-    <!-- slide 10c: I've assigned -->
-    <string name="BFE_Assigned">I\'ve Assigned</string>
-    
-    <!-- Build Your Own Filter -->
-    
-    <!-- Saved Filters Header -->
     
     <!-- Saved Filters Context Menu: delete -->
     <string name="BFE_Saved_delete">Delete Filter</string>
@@ -27,8 +16,6 @@
     
     <!-- slide 30e: Filter Name edit box hint (if user types here, filter will be saved) -->
     <string name="CFA_filterName_hint">Name this filter to save it...</string>
-    
-    <!-- Filter Name default for copied filters (%s => old filter name) -->
     
     <!-- slide 30a: Filter Starting Universe: all tasks -->
     <string name="CFA_universe_all">Active Tasks</string>
