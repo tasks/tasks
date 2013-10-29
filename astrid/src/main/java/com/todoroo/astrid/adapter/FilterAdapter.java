@@ -202,15 +202,14 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         offerFilter(item);
     }
 
-    public int addOrLookup(Filter filter) {
+    public void addOrLookup(Filter filter) {
         int index = getPosition(filter);
         if (index >= 0) {
             Filter existing = getItem(index);
             transferImageReferences(filter, existing);
-            return index;
+            return;
         }
         add(filter);
-        return getCount() - 1;
     }
 
     // Helper function: if a filter was created from serialized extras, it may not
@@ -223,7 +222,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         }
     }
 
-    public int adjustFilterCount(Filter filter, int delta) {
+    public void adjustFilterCount(Filter filter, int delta) {
         int filterCount = 0;
         if (filterCounts.containsKey(filter)) {
             filterCount = filterCounts.get(filter);
@@ -231,15 +230,14 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         int newCount = Math.max(filterCount + delta, 0);
         filterCounts.put(filter, newCount);
         notifyDataSetChanged();
-        return newCount;
     }
 
-    public int incrementFilterCount(Filter filter) {
-        return adjustFilterCount(filter, 1);
+    public void incrementFilterCount(Filter filter) {
+        adjustFilterCount(filter, 1);
     }
 
-    public int decrementFilterCount(Filter filter) {
-        return adjustFilterCount(filter, -1);
+    public void decrementFilterCount(Filter filter) {
+        adjustFilterCount(filter, -1);
     }
 
     public void refreshFilterCount(final Filter filter) {
@@ -348,10 +346,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         return selection;
     }
 
-    protected boolean shouldDirectlyPopulateFilters() {
-        return true;
-    }
-
     /* ======================================================================
      * ============================================================= receiver
      * ====================================================================== */
@@ -376,26 +370,13 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         @Override
         public void onReceive(Context context, Intent intent) {
             try {
-                if (shouldDirectlyPopulateFilters()) {
-                    for (ResolveInfo filterExposerInfo : filterExposerList) {
-                        String className = filterExposerInfo.activityInfo.name;
-                        AstridFilterExposer filterExposer = null;
-                        filterExposer = (AstridFilterExposer) Class.forName(className, true, FilterAdapter.class.getClassLoader()).newInstance();
+                for (ResolveInfo filterExposerInfo : filterExposerList) {
+                    String className = filterExposerInfo.activityInfo.name;
+                    AstridFilterExposer filterExposer = null;
+                    filterExposer = (AstridFilterExposer) Class.forName(className, true, FilterAdapter.class.getClassLoader()).newInstance();
 
-                        if (filterExposer != null) {
-                            populateFiltersToAdapter(filterExposer.getFilters());
-                        }
-                    }
-                } else {
-                    try {
-                        Bundle extras = intent.getExtras();
-                        extras.setClassLoader(FilterListHeader.class.getClassLoader());
-                        final Parcelable[] filters = extras.getParcelableArray(AstridApiConstants.EXTRAS_RESPONSE);
-                        populateFiltersToAdapter(filters);
-                    } catch (Exception e) {
-                        Log.e("receive-filter-" +  //$NON-NLS-1$
-                                intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON),
-                                e.toString(), e);
+                    if (filterExposer != null) {
+                        populateFiltersToAdapter(filterExposer.getFilters());
                     }
                 }
             } catch (Exception e) {

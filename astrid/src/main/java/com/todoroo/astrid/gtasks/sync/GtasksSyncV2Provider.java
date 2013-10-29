@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.gtasks.sync;
 
-import android.app.Activity;
 import android.text.TextUtils;
 
 import com.google.api.services.tasks.model.Tasks;
@@ -91,7 +90,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     }
 
     @Override
-    public void signOut(Activity activity) {
+    public void signOut() {
         gtasksPreferenceService.clearLastSyncDate();
         gtasksPreferenceService.setToken(null);
         Preferences.setString(GtasksPreferenceService.PREF_USER_NAME, null);
@@ -340,7 +339,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         return container;
     }
 
-    private void write(GtasksTaskContainer task) throws IOException {
+    private void write(GtasksTaskContainer task) {
         //  merge astrid dates with google dates
 
         if(task.task.isSaved()) {

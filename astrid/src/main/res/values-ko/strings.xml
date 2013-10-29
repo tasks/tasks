@@ -129,8 +129,6 @@
 	<string name="TEA_menu_discard">저장하지 않음</string>
 	<string name="TEA_menu_refresh_comments">댓글 새로고침</string>
 	<string name="TEA_menu_comments">댓글</string>
-	<string name="TEA_onTaskSave_due">일정 저장: 마감일 %s</string>
-	<string name="TEA_onTaskSave_notDue">일정을 저장했습니다</string>
 	<string name="TEA_tab_activity">활동 내역</string>
 	<string name="TEA_timer_est">동부표준시 %s</string>
 	<string name="TEA_timer_elap">경과 시간: %s</string>

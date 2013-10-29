@@ -129,8 +129,6 @@
 	<string name="TEA_menu_discard">Не зберігати зміни</string>
 	<string name="TEA_menu_refresh_comments">Оновити коментарі</string>
 	<string name="TEA_menu_comments">Коментарі</string>
-	<string name="TEA_onTaskSave_due">Завдання збережено: завдяки %s</string>
-	<string name="TEA_onTaskSave_notDue">Завдання збережено</string>
 	<string name="TEA_tab_activity">Активність</string>
 	<string name="TEA_timer_est">Зал. %s</string>
 	<string name="TEA_timer_elap">Час, що минув %s</string>

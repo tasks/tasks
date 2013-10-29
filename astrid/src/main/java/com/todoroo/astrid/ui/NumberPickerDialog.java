@@ -17,7 +17,7 @@ import org.tasks.R;
 public class NumberPickerDialog extends AlertDialog implements OnClickListener {
 
     public interface OnNumberPickedListener {
-        void onNumberPicked(NumberPicker view, int number);
+        void onNumberPicked(int number);
     }
 
     private final NumberPicker           mPicker;
@@ -51,7 +51,7 @@ public class NumberPickerDialog extends AlertDialog implements OnClickListener {
     public void onClick(DialogInterface dialog, int which) {
         if (mCallback != null) {
             mPicker.clearFocus();
-            mCallback.onNumberPicked(mPicker, mPicker.getCurrent());
+            mCallback.onNumberPicked(mPicker.getCurrent());
         }
     }
 }

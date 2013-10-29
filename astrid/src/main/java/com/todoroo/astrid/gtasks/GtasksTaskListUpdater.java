@@ -68,7 +68,7 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
     }
 
     @Override
-    protected Metadata getTaskMetadata(StoreObject list, long taskId) {
+    protected Metadata getTaskMetadata(long taskId) {
         return gtasksMetadataService.getTaskMetadata(taskId);
     }
     @Override
@@ -84,7 +84,7 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
     }
 
     @Override
-    protected void iterateThroughList(Filter filter, StoreObject list, OrderedListIterator iterator) {
+    protected void iterateThroughList(StoreObject list, OrderedListIterator iterator) {
         gtasksMetadataService.iterateThroughList(list, iterator);
     }
 

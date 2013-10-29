@@ -436,15 +436,11 @@ public abstract class AstridOrderedListUpdater<LIST> {
             return tree.toString();
         }
 
-        try {
-            recursivelySerialize(root, tree);
-        } catch (JSONException e) {
-            Log.e("OrderedListUpdater", "Error serializing tree model", e);  //$NON-NLS-1$//$NON-NLS-2$
-        }
+        recursivelySerialize(root, tree);
         return tree.toString();
     }
 
-    private static void recursivelySerialize(Node node, JSONArray serializeTo) throws JSONException {
+    private static void recursivelySerialize(Node node, JSONArray serializeTo) {
         ArrayList<Node> children = node.children;
         serializeTo.put(node.uuid);
         for (Node child : children) {

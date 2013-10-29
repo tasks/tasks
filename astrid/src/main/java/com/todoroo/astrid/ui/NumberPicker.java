@@ -32,7 +32,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
 
     public interface OnChangedListener {
         /** return new value */
-        int onChanged(NumberPicker picker, int oldVal, int newVal);
+        int onChanged(int newVal);
     }
 
     public interface Formatter {
@@ -69,10 +69,10 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         @Override
         public void run() {
             if (mIncrement) {
-                changeCurrent(mCurrent + incrementBy, mSlideUpInAnimation, mSlideUpOutAnimation);
+                changeCurrent(mCurrent + incrementBy);
                 mHandler.postDelayed(this, mSpeed);
             } else if (mDecrement) {
-                changeCurrent(mCurrent - incrementBy, mSlideDownInAnimation, mSlideDownOutAnimation);
+                changeCurrent(mCurrent - incrementBy);
                 mHandler.postDelayed(this, mSpeed);
             }
         }
@@ -104,10 +104,6 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         this(context, null);
     }
 
-    public NumberPicker(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
-
     protected int getLayout() {
         return R.layout.number_picker;
     }
@@ -120,7 +116,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         return -1;
     }
 
-    public NumberPicker(Context context, AttributeSet attrs, int defStyle) {
+    public NumberPicker(Context context, AttributeSet attrs) {
         super(context, attrs);
         setOrientation(VERTICAL);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -243,11 +239,9 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
 
         // now perform the increment/decrement
         if (R.id.increment == v.getId()) {
-            changeCurrent(mCurrent + incrementBy, mSlideUpInAnimation,
-                    mSlideUpOutAnimation);
+            changeCurrent(mCurrent + incrementBy);
         } else if (R.id.decrement == v.getId()) {
-            changeCurrent(mCurrent - incrementBy, mSlideDownInAnimation,
-                    mSlideDownOutAnimation);
+            changeCurrent(mCurrent - incrementBy);
         }
     }
 
@@ -256,7 +250,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
                 .valueOf(value);
     }
 
-    private void changeCurrent(int current, Animation in, Animation out) {
+    private void changeCurrent(int current) {
         current = notifyChange(current);
 
         // Wrap around the values if we go past the start or end
@@ -272,7 +266,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
 
     private int notifyChange(int current) {
         if (mListener != null) {
-            return mListener.onChanged(this, mCurrent, current);
+            return mListener.onChanged(current);
         } else {
             return current;
         }

@@ -20,14 +20,6 @@ public class ReminderDebugContextActions {
     public static class WhenReminder implements TaskContextActionExposer {
 
         @Override
-        public Object getLabel(Task task) {
-            if (Constants.DEBUG) {
-                return "when alarm?";
-            }
-            return null;
-        }
-
-        @Override
         public void invoke(Task task) {
             AlarmScheduler original = ReminderService.getInstance().getScheduler();
             ReminderService.getInstance().setScheduler(new AlarmScheduler() {
@@ -51,14 +43,6 @@ public class ReminderDebugContextActions {
     }
 
     public static class MakeNotification implements TaskContextActionExposer {
-
-        @Override
-        public Object getLabel(Task task) {
-            if (Constants.DEBUG) {
-                return "when alarm?"; //$NON-NLS-1$
-            }
-            return null;
-        }
 
         @Override
         public void invoke(Task task) {

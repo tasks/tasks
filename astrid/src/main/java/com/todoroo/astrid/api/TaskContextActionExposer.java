@@ -32,13 +32,6 @@ public interface TaskContextActionExposer {
     }
 
     /**
-     * Expose context menu item label, or null if item should not be shown
-     *
-     * @return null if no item should be displayed, or string or id
-     */
-    public Object getLabel(Task task);
-
-    /**
      * Call context menu action
      */
     public void invoke(Task task);

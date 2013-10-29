@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -39,7 +38,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
-import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.adapter.UpdateAdapter;
@@ -102,8 +100,6 @@ public abstract class CommentsFragment extends SherlockListFragment {
     protected abstract void addHeaderToListView(ListView listView);
 
     protected abstract UserActivity createUpdate();
-
-    protected abstract boolean canLoadMoreHistory();
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -226,12 +222,9 @@ public abstract class CommentsFragment extends SherlockListFragment {
             cursor = updateAdapter.getCursor();
             cursor.requery();
             activity.startManagingCursor(cursor);
-            if (footerView != null && !canLoadMoreHistory()) {
+            if (footerView != null) {
                 listView.removeFooterView(footerView);
                 footerView = null;
-            } else if (footerView == null && canLoadMoreHistory()) {
-                addFooterToListView(listView);
-                listView.setAdapter(updateAdapter);
             }
         }
 
@@ -246,27 +239,7 @@ public abstract class CommentsFragment extends SherlockListFragment {
         if (footerView != null) {
             listView.removeFooterView(footerView);
         }
-        if (canLoadMoreHistory()) {
-            footerView = new Button(getActivity());
-            footerView.setText(R.string.TEA_load_more);
-            footerView.setBackgroundColor(Color.alpha(0));
-            footerView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int historyCount = 0;
-                    Cursor c = updateAdapter.getCursor();
-                    for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
-                        if (NameMaps.TABLE_ID_HISTORY.equals(c.getString(UpdateAdapter.TYPE_PROPERTY_INDEX))) {
-                            historyCount++;
-                        }
-                    }
-                }
-            });
-            listView.addFooterView(footerView);
-        } else {
-            footerView = null;
-        }
-
+        footerView = null;
     }
 
     protected void setLastViewed() {

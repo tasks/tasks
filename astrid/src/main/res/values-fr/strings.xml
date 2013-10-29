@@ -123,8 +123,6 @@
 	<string name="TEA_menu_discard">Ne pas enregistrer</string>
 	<string name="TEA_menu_refresh_comments">Mettre à jour les commentaires</string>
 	<string name="TEA_menu_comments">Commentaires</string>
-	<string name="TEA_onTaskSave_due">Tâche enregistrée : prévue dans %s</string>
-	<string name="TEA_onTaskSave_notDue">Tâche enregistrée</string>
 	<string name="TEA_tab_activity">Activité</string>
 	<string name="TEA_timer_est">Restant %s</string>
 	<string name="TEA_timer_elap">Passé %s</string>

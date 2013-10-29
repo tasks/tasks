@@ -210,8 +210,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
             }
             DependencyInjectionService.getInstance().inject(this);
 
-            TagData tagData = tagDataDao.fetch(uuid, TagData.MEMBER_COUNT, TagData.USER_ID);
-            showDialog(tagData);
+            showDialog();
         }
 
         protected DialogInterface.OnClickListener getOkListener() {
@@ -253,7 +252,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
                         Toast.LENGTH_SHORT).show();
         }
 
-        protected abstract void showDialog(TagData tagData);
+        protected abstract void showDialog();
 
         protected abstract Intent ok();
     }
@@ -261,7 +260,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
     public static class DeleteTagActivity extends TagActivity {
 
         @Override
-        protected void showDialog(TagData tagData) {
+        protected void showDialog() {
             DialogUtilities.okCancelDialog(this, getString(R.string.DLG_delete_this_tag_question, tag), getOkListener(), getCancelListener());
         }
 
@@ -277,7 +276,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         private EditText editor;
 
         @Override
-        protected void showDialog(TagData tagData) {
+        protected void showDialog() {
             editor = new EditText(this);
             DialogUtilities.viewDialog(this, getString(R.string.DLG_rename_this_tag_header, tag), editor, getOkListener(), getCancelListener());
         }

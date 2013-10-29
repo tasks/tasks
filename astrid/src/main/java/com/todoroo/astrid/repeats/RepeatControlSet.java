@@ -126,8 +126,7 @@ public class RepeatControlSet extends PopupControlSet {
 
         new NumberPickerDialog(activity, new OnNumberPickedListener() {
             @Override
-            public void onNumberPicked(NumberPicker view,
-                    int number) {
+            public void onNumberPicked(int number) {
                 setRepeatValue(number);
             }
         }, activity.getResources().getString(R.string.repeat_interval_prompt),

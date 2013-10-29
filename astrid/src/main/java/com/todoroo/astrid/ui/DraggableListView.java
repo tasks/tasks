@@ -112,10 +112,6 @@ public class DraggableListView extends ListView {
         this.mItemHeightNormal = itemHeightNormal;
     }
 
-    protected boolean isDraggableRow(View view) {
-        return true;
-    }
-
     /*
      * pointToPosition() doesn't consider invisible views, but we need to, so
      * implement a slightly different version.
@@ -177,13 +173,11 @@ public class DraggableListView extends ListView {
                 }
             }
 
-            if (isDraggableRow(v)) {
-                ViewGroup.LayoutParams params = v.getLayoutParams();
-                params.height = LayoutParams.WRAP_CONTENT;
-                v.setLayoutParams(params);
-                v.setVisibility(View.VISIBLE);
-                v.setPadding(0, 0, 0, 0);
-            }
+            ViewGroup.LayoutParams params = v.getLayoutParams();
+            params.height = LayoutParams.WRAP_CONTENT;
+            v.setLayoutParams(params);
+            v.setVisibility(View.VISIBLE);
+            v.setPadding(0, 0, 0, 0);
         }
     }
 
@@ -228,13 +222,11 @@ public class DraggableListView extends ListView {
                 }
             }
 
-            if (isDraggableRow(vv)) {
-                ViewGroup.LayoutParams params = vv.getLayoutParams();
-                params.height = height;
-                vv.setLayoutParams(params);
-                vv.setVisibility(visibility);
-                vv.setPadding(0, marginTop, 0, 0);
-            }
+            ViewGroup.LayoutParams params = vv.getLayoutParams();
+            params.height = height;
+            vv.setLayoutParams(params);
+            vv.setVisibility(visibility);
+            vv.setPadding(0, marginTop, 0, 0);
         }
         // Request re-layout since we changed the items layout
         // and not doing this would cause bogus hitbox calculation
@@ -366,23 +358,16 @@ public class DraggableListView extends ListView {
         }
     };
 
-    /**
-     * @return true if drag was initiated
-     */
-    protected boolean initiateDrag(MotionEvent ev) {
+    protected void initiateDrag(MotionEvent ev) {
         int x = (int) mTouchCurrentX;
         int y = (int) mTouchCurrentY;
         int itemNum = pointToPosition(x, y);
 
         if (itemNum == AdapterView.INVALID_POSITION) {
-            return false;
+            return;
         }
 
         View item = (View) getChildAt(itemNum - getFirstVisiblePosition());
-
-        if(!isDraggableRow(item)) {
-            return false;
-        }
 
         mDragPoint = new Point(x - item.getLeft(), y - item.getTop());
         mCoordOffset = new Point((int)ev.getRawX() - x, (int)ev.getRawY() - y);
@@ -409,8 +394,6 @@ public class DraggableListView extends ListView {
 
         Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
         v.vibrate(50);
-
-        return true;
     }
 
     private void startDragging(Bitmap bm, int x, int y) {

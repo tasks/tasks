@@ -120,8 +120,6 @@
 	<string name="TEA_menu_discard">Nie zapisuj</string>
 	<string name="TEA_menu_refresh_comments">Odśwież komentarze</string>
 	<string name="TEA_menu_comments">Komentarze</string>
-	<string name="TEA_onTaskSave_due">Zadanie zapisano: termin do %s</string>
-	<string name="TEA_onTaskSave_notDue">Zadanie zapisane</string>
 	<string name="TEA_tab_activity">Aktywność</string>
 	<string-array name="TEA_urgency">
 		<item>Brak daty</item>

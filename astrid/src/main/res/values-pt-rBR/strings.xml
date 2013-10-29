@@ -123,8 +123,6 @@
 	<string name="TEA_menu_discard">Não salvar</string>
 	<string name="TEA_menu_refresh_comments">Atualizar comentários</string>
 	<string name="TEA_menu_comments">Comentários</string>
-	<string name="TEA_onTaskSave_due">Tarefa salva: vence em %s</string>
-	<string name="TEA_onTaskSave_notDue">Tarefa salva</string>
 	<string name="TEA_tab_activity">Atividades</string>
 	<string name="TEA_timer_elap">Decorrido %s</string>
 	<string-array name="TEA_urgency">

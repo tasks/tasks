@@ -14,7 +14,6 @@ import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.astrid.data.History;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.TagData;
@@ -68,7 +67,6 @@ public class Database extends AbstractDatabase {
         User.TABLE,
         UserActivity.TABLE,
         TagMetadata.TABLE,
-        History.TABLE,
         TaskAttachment.TABLE,
         TaskListMetadata.TABLE,
         TaskOutstanding.TABLE,
@@ -141,13 +139,6 @@ public class Database extends AbstractDatabase {
         sql.append("CREATE UNIQUE INDEX IF NOT EXISTS t_rid ON ").
         append(Task.TABLE).append('(').
         append(Task.UUID.name).
-        append(')');
-        database.execSQL(sql.toString());
-        sql.setLength(0);
-
-        sql.append("CREATE INDEX IF NOT EXISTS hist_tag_id ON ").
-        append(History.TABLE).append('(').
-        append(History.TAG_ID.name).
         append(')');
         database.execSQL(sql.toString());
         sql.setLength(0);
@@ -359,11 +350,9 @@ public class Database extends AbstractDatabase {
             tryExecSQL(addColumnSql(Task.TABLE, Task.IS_PUBLIC, visitor, "0"));
             tryExecSQL(addColumnSql(Task.TABLE, Task.IS_READONLY, visitor, "0"));
             tryExecSQL(addColumnSql(Task.TABLE, Task.CLASSIFICATION, visitor, null));
-            tryExecSQL(addColumnSql(Task.TABLE, Task.HISTORY_FETCH_DATE, visitor, null));
             tryExecSQL(addColumnSql(Task.TABLE, Task.ATTACHMENTS_PUSHED_AT, visitor, null));
             tryExecSQL(addColumnSql(Task.TABLE, Task.USER_ACTIVITIES_PUSHED_AT, visitor, null));
             tryExecSQL(addColumnSql(TagData.TABLE, TagData.PUSHED_AT, visitor, null));
-            tryExecSQL(addColumnSql(TagData.TABLE, TagData.HISTORY_FETCH_DATE, visitor, null));
             tryExecSQL(addColumnSql(TagData.TABLE, TagData.TASKS_PUSHED_AT, visitor, null));
             tryExecSQL(addColumnSql(TagData.TABLE, TagData.METADATA_PUSHED_AT, visitor, null));
             tryExecSQL(addColumnSql(TagData.TABLE, TagData.USER_ACTIVITIES_PUSHED_AT, visitor, null));
@@ -374,11 +363,7 @@ public class Database extends AbstractDatabase {
 
         case 30:
         case 31:
-            tryExecSQL(addColumnSql(Task.TABLE, Task.HISTORY_HAS_MORE, visitor, null));
-            tryExecSQL(addColumnSql(TagData.TABLE, TagData.HISTORY_HAS_MORE, visitor, null));
         case 32:
-            tryExecSQL("DROP TABLE " + History.TABLE.name);
-            tryExecSQL(createTableSql(visitor, History.TABLE.name, History.PROPERTIES));
             tryExecSQL(addColumnSql(User.TABLE, User.TASKS_PUSHED_AT, visitor, null));
         case 33:
             tryExecSQL(addColumnSql(TagData.TABLE, TagData.LAST_AUTOSYNC, visitor, null));

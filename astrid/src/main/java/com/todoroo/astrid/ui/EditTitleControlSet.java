@@ -94,7 +94,7 @@ public class EditTitleControlSet extends TaskEditControlSet implements Importanc
     }
 
     @Override
-    public void importanceChanged(int i, int color) {
+    public void importanceChanged(int i) {
         importanceValue = i;
         updateCompleteBox();
     }

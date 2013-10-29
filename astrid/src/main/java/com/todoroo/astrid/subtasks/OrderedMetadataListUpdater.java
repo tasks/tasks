@@ -8,7 +8,6 @@ package com.todoroo.astrid.subtasks;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
@@ -31,7 +30,7 @@ abstract public class OrderedMetadataListUpdater<LIST> {
 
     // --- abstract and empty
 
-    abstract protected Metadata getTaskMetadata(LIST list, long taskId);
+    abstract protected Metadata getTaskMetadata(long taskId);
 
     abstract protected IntegerProperty indentProperty();
 
@@ -39,7 +38,7 @@ abstract public class OrderedMetadataListUpdater<LIST> {
 
     abstract protected LongProperty parentProperty();
 
-    abstract protected void iterateThroughList(Filter filter, LIST list, OrderedListIterator iterator);
+    abstract protected void iterateThroughList(LIST list, OrderedListIterator iterator);
 
     abstract protected Metadata createEmptyMetadata(LIST list, long taskId);
 
@@ -56,7 +55,7 @@ abstract public class OrderedMetadataListUpdater<LIST> {
     /**
      * Indent a task and all its children
      */
-    public void indent(final Filter filter, final LIST list, final long targetTaskId, final int delta) {
+    public void indent(final LIST list, final long targetTaskId, final int delta) {
         if(list == null) {
             return;
         }
@@ -68,7 +67,7 @@ abstract public class OrderedMetadataListUpdater<LIST> {
         final AtomicLong previousTask = new AtomicLong(Task.NO_ID);
         final AtomicLong globalOrder = new AtomicLong(-1);
 
-        iterateThroughList(filter, list, new OrderedListIterator() {
+        iterateThroughList(list, new OrderedListIterator() {
             @Override
             public void processTask(long taskId, Metadata metadata) {
                 if(!metadata.isSaved()) {
@@ -87,7 +86,7 @@ abstract public class OrderedMetadataListUpdater<LIST> {
                         metadata.setValue(indentProperty(), indent + delta);
 
                         if(parentProperty() != null) {
-                            long newParent = computeNewParent(filter, list,
+                            long newParent = computeNewParent(list,
                                     taskId, indent + delta - 1);
                             if (newParent == taskId) {
                                 metadata.setValue(parentProperty(), Task.NO_ID);
@@ -116,20 +115,20 @@ abstract public class OrderedMetadataListUpdater<LIST> {
             }
 
         });
-        onMovedOrIndented(getTaskMetadata(list, targetTaskId));
+        onMovedOrIndented(getTaskMetadata(targetTaskId));
     }
 
     /**
      * Helper function to iterate through a list and compute a new parent for the target task
      * based on the target parent's indent
      */
-    private long computeNewParent(Filter filter, LIST list, long targetTaskId, int targetParentIndent) {
+    private long computeNewParent(LIST list, long targetTaskId, int targetParentIndent) {
         final AtomicInteger desiredParentIndent = new AtomicInteger(targetParentIndent);
         final AtomicLong targetTask = new AtomicLong(targetTaskId);
         final AtomicLong lastPotentialParent = new AtomicLong(Task.NO_ID);
         final AtomicBoolean computedParent = new AtomicBoolean(false);
 
-        iterateThroughList(filter, list, new OrderedListIterator() {
+        iterateThroughList(list, new OrderedListIterator() {
             @Override
             public void processTask(long taskId, Metadata metadata) {
                 if (targetTask.get() == taskId) {
@@ -155,13 +154,13 @@ abstract public class OrderedMetadataListUpdater<LIST> {
      * Move a task and all its children to the position right above
      * taskIdToMoveto. Will change the indent level to match taskIdToMoveTo.
      */
-    public void moveTo(Filter filter, LIST list, final long targetTaskId,
+    public void moveTo(LIST list, final long targetTaskId,
             final long moveBeforeTaskId) {
         if(list == null) {
             return;
         }
 
-        Node root = buildTreeModel(filter, list);
+        Node root = buildTreeModel(list);
         Node target = findNode(root, targetTaskId);
 
         if(target != null && target.parent != null) {
@@ -187,7 +186,7 @@ abstract public class OrderedMetadataListUpdater<LIST> {
         }
 
         traverseTreeAndWriteValues(list, root, new AtomicLong(0), -1);
-        onMovedOrIndented(getTaskMetadata(list, targetTaskId));
+        onMovedOrIndented(getTaskMetadata(targetTaskId));
     }
 
     private boolean ancestorOf(Node ancestor, Node descendant) {
@@ -213,7 +212,7 @@ abstract public class OrderedMetadataListUpdater<LIST> {
 
     protected void traverseTreeAndWriteValues(LIST list, Node node, AtomicLong order, int indent) {
         if(node.taskId != Task.NO_ID) {
-            Metadata metadata = getTaskMetadata(list, node.taskId);
+            Metadata metadata = getTaskMetadata(node.taskId);
             if(metadata == null) {
                 metadata = createEmptyMetadata(list, node.taskId);
             }
@@ -249,12 +248,12 @@ abstract public class OrderedMetadataListUpdater<LIST> {
         return null;
     }
 
-    protected Node buildTreeModel(Filter filter, LIST list) {
+    protected Node buildTreeModel(LIST list) {
         final Node root = new Node(Task.NO_ID, null);
         final AtomicInteger previoustIndent = new AtomicInteger(-1);
         final AtomicReference<Node> currentNode = new AtomicReference<Node>(root);
 
-        iterateThroughList(filter, list, new OrderedListIterator() {
+        iterateThroughList(list, new OrderedListIterator() {
             @Override
             public void processTask(long taskId, Metadata metadata) {
                 int indent = metadata.getValue(indentProperty());
@@ -303,10 +302,10 @@ abstract public class OrderedMetadataListUpdater<LIST> {
     /**
      * Apply an operation only to the children of the task
      */
-    public void applyToChildren(Filter filter, LIST list, long targetTaskId,
+    public void applyToChildren(LIST list, long targetTaskId,
             OrderedListNodeVisitor visitor) {
 
-        Node root = buildTreeModel(filter, list);
+        Node root = buildTreeModel(list);
         Node target = findNode(root, targetTaskId);
 
         if(target != null) {
@@ -326,12 +325,12 @@ abstract public class OrderedMetadataListUpdater<LIST> {
     /**
      * Removes a task from the order hierarchy and un-indent children
      */
-    public void onDeleteTask(Filter filter, LIST list, final long targetTaskId) {
+    public void onDeleteTask(LIST list, final long targetTaskId) {
         if(list == null) {
             return;
         }
 
-        Node root = buildTreeModel(filter, list);
+        Node root = buildTreeModel(list);
         Node target = findNode(root, targetTaskId);
 
         if(target != null && target.parent != null) {
@@ -345,32 +344,4 @@ abstract public class OrderedMetadataListUpdater<LIST> {
 
         traverseTreeAndWriteValues(list, root, new AtomicLong(0), -1);
     }
-
-    // --- utility
-
-    public void debugPrint(Filter filter, LIST list) {
-        iterateThroughList(filter, list, new OrderedListIterator() {
-            @Override
-            public void processTask(long taskId, Metadata metadata) {
-                System.err.format("id %d: order %d, indent:%d, parent:%d\n", taskId, //$NON-NLS-1$
-                        metadata.getValue(orderProperty()),
-                        metadata.getValue(indentProperty()),
-                        parentProperty() == null ? Task.NO_ID : metadata.getValue(parentProperty()));
-            }
-        });
-    }
-
-
-    public void debugPrint(Node root, int depth) {
-        for(int i = 0; i < depth; i++) {
-            System.err.print(" + ");
-        }
-        System.err.format("%03d", root.taskId);
-        System.err.print("\n");
-
-        for(int i = 0; i < root.children.size(); i++) {
-            debugPrint(root.children.get(i), depth + 1);
-        }
-    }
-
 }

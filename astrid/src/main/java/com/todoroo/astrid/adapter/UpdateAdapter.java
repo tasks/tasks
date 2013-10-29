@@ -34,8 +34,6 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
-import com.todoroo.astrid.activity.AstridActivity;
-import com.todoroo.astrid.data.History;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
@@ -67,7 +65,6 @@ public class UpdateAdapter extends CursorAdapter {
     private static final StringProperty USER_NAME = User.NAME.cloneAs(USER_TABLE_ALIAS, "userName"); //$NON-NLS-1$
 
     public static final StringProperty ACTIVITY_TYPE_PROPERTY = new StringProperty(null, "'" + NameMaps.TABLE_ID_USER_ACTIVITY + "' as type");  //$NON-NLS-1$//$NON-NLS-2$
-    public static final StringProperty HISTORY_TYPE_PROPERTY = new StringProperty(null, "'" + NameMaps.TABLE_ID_HISTORY + "'");  //$NON-NLS-1$ //$NON-NLS-2$
 
     public static final Property<?>[] USER_PROPERTIES = {
         USER_PICTURE,
@@ -88,20 +85,6 @@ public class UpdateAdapter extends CursorAdapter {
         UserActivity.ID,
         ACTIVITY_TYPE_PROPERTY,
     };
-
-    public static final Property<?>[] HISTORY_PROPERTIES = {
-        History.CREATED_AT,
-        History.USER_UUID,
-        History.COLUMN,
-        History.TABLE_ID,
-        History.OLD_VALUE,
-        History.NEW_VALUE,
-        History.TASK,
-        History.USER_UUID,
-        History.ID,
-        HISTORY_TYPE_PROPERTY,
-    };
-
 
     public static final int TYPE_PROPERTY_INDEX = USER_ACTIVITY_PROPERTIES.length - 1;
 
@@ -176,7 +159,6 @@ public class UpdateAdapter extends CursorAdapter {
     private class ModelHolder {
         public UserActivity activity = new UserActivity();
         public User user = new User();
-        public History history = new History();
     }
 
     /** Creates a new view for use in the list view */
@@ -206,18 +188,12 @@ public class UpdateAdapter extends CursorAdapter {
         User user = mh.user;
         user.clear();
 
-        History history = mh.history;
         boolean isSelf;
-        if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(type)) {
-            readUserActivityProperties(cursor, update);
-            isSelf = Task.USER_ID_SELF.equals(update.getValue(UserActivity.USER_UUID));
-        } else {
-            readHistoryProperties(cursor, history);
-            isSelf = Task.USER_ID_SELF.equals(history.getValue(History.USER_UUID));
-        }
+        readUserActivityProperties(cursor, update);
+        isSelf = Task.USER_ID_SELF.equals(update.getValue(UserActivity.USER_UUID));
         readUserProperties(cursor, user, self, isSelf);
 
-        setFieldContentsAndVisibility(view, update, user, history, type);
+        setFieldContentsAndVisibility(view, update, type);
     }
 
     public static void readUserActivityProperties(TodorooCursor<UserActivity> unionCursor, UserActivity activity) {
@@ -229,17 +205,6 @@ public class UpdateAdapter extends CursorAdapter {
         activity.setValue(UserActivity.TARGET_NAME, unionCursor.getString(5));
         activity.setValue(UserActivity.PICTURE, unionCursor.getString(6));
         activity.setValue(UserActivity.USER_UUID, unionCursor.getString(7));
-    }
-
-    public static void readHistoryProperties(TodorooCursor<UserActivity> unionCursor, History history) {
-        history.setValue(History.CREATED_AT, unionCursor.getLong(0));
-        history.setValue(History.USER_UUID, unionCursor.getString(1));
-        history.setValue(History.COLUMN, unionCursor.getString(2));
-        history.setValue(History.TABLE_ID, unionCursor.getString(3));
-        history.setValue(History.OLD_VALUE, unionCursor.getString(4));
-        history.setValue(History.NEW_VALUE, unionCursor.getString(5));
-        history.setValue(History.TASK, unionCursor.getString(6));
-        history.setValue(History.USER_UUID, unionCursor.getString(7));
     }
 
     public static void readUserProperties(TodorooCursor<UserActivity> joinCursor, User user, User self, boolean isSelf) {
@@ -255,28 +220,27 @@ public class UpdateAdapter extends CursorAdapter {
     }
 
     /** Helper method to set the contents and visibility of each field */
-    public synchronized void setFieldContentsAndVisibility(View view, UserActivity activity, User user, History history, String type) {
+    public synchronized void setFieldContentsAndVisibility(View view, UserActivity activity, String type) {
         // picture
         if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(type)) {
-            setupUserActivityRow(view, activity, user);
+            setupUserActivityRow(view, activity);
         }
     }
 
-    private void setupUserActivityRow(View view, UserActivity activity, User user) {
+    private void setupUserActivityRow(View view, UserActivity activity) {
         final ImageView commentPictureView = (ImageView)view.findViewById(R.id.comment_picture); {
             String pictureThumb = activity.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_MEDIUM);
-            String pictureFull = activity.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_LARGE);
             Bitmap updateBitmap = null;
             if (TextUtils.isEmpty(pictureThumb)) {
                 updateBitmap = activity.getPictureBitmap(UserActivity.PICTURE);
             }
-            setupImagePopupForCommentView(view, commentPictureView, pictureThumb, pictureFull, updateBitmap,
+            setupImagePopupForCommentView(view, commentPictureView, pictureThumb, updateBitmap,
                     activity.getValue(UserActivity.MESSAGE), fragment);
         }
 
         // name
         final TextView nameView = (TextView)view.findViewById(R.id.title); {
-            nameView.setText(getUpdateComment((AstridActivity)fragment.getActivity(), activity, user, linkColor, fromView));
+            nameView.setText(getUpdateComment(activity));
             nameView.setMovementMethod(new LinkMovementMethod());
             nameView.setTextColor(color);
         }
@@ -296,7 +260,7 @@ public class UpdateAdapter extends CursorAdapter {
         return false;
     }
 
-    public static void setupImagePopupForCommentView(View view, ImageView commentPictureView, final String pictureThumb, final String pictureFull, final Bitmap updateBitmap,
+    public static void setupImagePopupForCommentView(View view, ImageView commentPictureView, final String pictureThumb, final Bitmap updateBitmap,
             final String message, final Fragment fragment) {
         if ((!TextUtils.isEmpty(pictureThumb) && !"null".equals(pictureThumb)) || updateBitmap != null) { //$NON-NLS-1$
             commentPictureView.setVisibility(View.VISIBLE);
@@ -330,7 +294,7 @@ public class UpdateAdapter extends CursorAdapter {
         }
     }
 
-    public static Spanned getUpdateComment(final AstridActivity context, UserActivity activity, User user, String linkColor, String fromView) {
+    public static Spanned getUpdateComment(UserActivity activity) {
         String message = activity.getValue(UserActivity.MESSAGE);
         return Html.fromHtml(message);
     }

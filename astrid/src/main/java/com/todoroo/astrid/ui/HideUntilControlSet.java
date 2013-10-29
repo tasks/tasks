@@ -99,7 +99,7 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
             }
             Date hideUntilAsDate = new Date(specificDate);
             if(hideUntilAsDate.getHours() == 0 && hideUntilAsDate.getMinutes() == 0 && hideUntilAsDate.getSeconds() == 0) {
-                updated[0] = new HideUntilValue(DateUtilities.getDateString(activity, new Date(specificDate)),
+                updated[0] = new HideUntilValue(DateUtilities.getDateString(new Date(specificDate)),
                         Task.HIDE_UNTIL_SPECIFIC_DAY, specificDate);
                 existingDate = specificDate;
             } else {

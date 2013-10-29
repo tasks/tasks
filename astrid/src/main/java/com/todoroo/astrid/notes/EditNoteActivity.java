@@ -7,7 +7,6 @@ package com.todoroo.astrid.notes;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -49,7 +48,6 @@ import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.UserActivityDao;
-import com.todoroo.astrid.data.History;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
@@ -82,7 +80,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     private final ArrayList<NoteOrUpdate> items = new ArrayList<NoteOrUpdate>();
     private EditText commentField;
-    private TextView loadingText;
     private final View commentsBar;
     private View timerView;
     private View commentButton;
@@ -93,11 +90,8 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     private final AstridActivity activity;
 
-    private final Resources resources;
-
     private final int cameraButton;
     private final String linkColor;
-    private int historyCount = 0;
 
     private final int color;
     private final int grayColor;
@@ -119,7 +113,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
         this.activity = (AstridActivity) fragment.getActivity();
 
-        this.resources = fragment.getResources();
         TypedValue tv = new TypedValue();
         fragment.getActivity().getTheme().resolveAttribute(R.attr.asTextColor, tv, false);
         color = tv.data;
@@ -146,7 +139,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     }
 
     private void fetchTask(long id) {
-        task = PluginServices.getTaskService().fetchById(id, Task.NOTES, Task.ID, Task.UUID, Task.TITLE, Task.HISTORY_FETCH_DATE, Task.HISTORY_HAS_MORE, Task.USER_ACTIVITIES_PUSHED_AT, Task.ATTACHMENTS_PUSHED_AT);
+        task = PluginServices.getTaskService().fetchById(id, Task.NOTES, Task.ID, Task.UUID, Task.TITLE, Task.USER_ACTIVITIES_PUSHED_AT, Task.ATTACHMENTS_PUSHED_AT);
     }
 
     public void loadViewForTaskID(long t){
@@ -262,16 +255,11 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 pictureButton.setImageBitmap(pendingCommentPicture);
             }
         }
-
-        //TODO add loading text back in
-        //        loadingText = (TextView) findViewById(R.id.loading);
-        loadingText = new TextView(getContext());
     }
 
     private void setUpListAdapter() {
         items.clear();
         this.removeAllViews();
-        historyCount = 0;
         TodorooCursor<Metadata> notes = metadataService.query(
                 Query.select(Metadata.PROPERTIES).where(
                         MetadataCriteria.byTaskAndwithKey(task.getId(),
@@ -288,29 +276,22 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
         User self = UpdateAdapter.getSelfUser();
 
-        TodorooCursor<UserActivity> updates = taskService.getActivityAndHistoryForTask(task);
+        TodorooCursor<UserActivity> updates = taskService.getActivityForTask(task);
         try {
             UserActivity update = new UserActivity();
-            History history = new History();
             User user = new User();
             for(updates.moveToFirst(); !updates.isAfterLast(); updates.moveToNext()) {
                 update.clear();
                 user.clear();
 
                 String type = updates.getString(UpdateAdapter.TYPE_PROPERTY_INDEX);
-                NoteOrUpdate noa;
+                NoteOrUpdate noa = null;
                 boolean isSelf;
                 if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(type)) {
                     UpdateAdapter.readUserActivityProperties(updates, update);
                     isSelf = Task.USER_ID_SELF.equals(update.getValue(UserActivity.USER_UUID));
                     UpdateAdapter.readUserProperties(updates, user, self, isSelf);
-                    noa = NoteOrUpdate.fromUpdateOrHistory(activity, update, null, user, linkColor);
-                } else {
-                    UpdateAdapter.readHistoryProperties(updates, history);
-                    isSelf = Task.USER_ID_SELF.equals(history.getValue(History.USER_UUID));
-                    UpdateAdapter.readUserProperties(updates, user, self, isSelf);
-                    noa = NoteOrUpdate.fromUpdateOrHistory(activity, null, history, user, linkColor);
-                    historyCount++;
+                    noa = NoteOrUpdate.fromUpdate(update, user);
                 }
                 if(noa != null) {
                     items.add(noa);
@@ -338,7 +319,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             this.addView(notesView);
         }
 
-        if (items.size() > commentItems || task.getValue(Task.HISTORY_HAS_MORE) > 0) {
+        if (items.size() > commentItems) {
             Button loadMore = new Button(getContext());
             loadMore.setText(R.string.TEA_load_more);
             loadMore.setTextColor(activity.getResources().getColor(R.color.task_edit_deadline_gray));
@@ -349,8 +330,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                     // Perform action on click
                     commentItems += 10;
                     setUpListAdapter();
-                    if (task.getValue(Task.HISTORY_HAS_MORE) > 0) {
-                    }
                 }
             });
             this.addView(loadMore);
@@ -374,11 +353,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         // name
         final TextView nameView = (TextView)view.findViewById(R.id.title); {
             nameView.setText(item.title);
-            if (NameMaps.TABLE_ID_HISTORY.equals(item.type)) {
-                nameView.setTextColor(grayColor);
-            } else {
-                nameView.setTextColor(color);
-            }
+            nameView.setTextColor(color);
             Linkify.addLinks(nameView, Linkify.ALL);
         }
 
@@ -392,7 +367,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
         // picture
         final ImageView commentPictureView = (ImageView)view.findViewById(R.id.comment_picture);
-        UpdateAdapter.setupImagePopupForCommentView(view, commentPictureView, item.pictureThumb, item.pictureFull, item.commentBitmap, item.title.toString(), fragment);
+        UpdateAdapter.setupImagePopupForCommentView(view, commentPictureView, item.pictureThumb, item.commentBitmap, item.title.toString(), fragment);
     }
 
     public void refreshData() {
@@ -486,7 +461,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                     m.getValue(Metadata.CREATION_DATE), null);
         }
 
-        public static NoteOrUpdate fromUpdateOrHistory(AstridActivity context, UserActivity u, History history, User user, String linkColor) {
+        public static NoteOrUpdate fromUpdate(UserActivity u, User user) {
             String userImage = ""; //$NON-NLS-1$
             String pictureThumb = ""; //$NON-NLS-1$
             String pictureFull = ""; //$NON-NLS-1$
@@ -504,7 +479,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             if (TextUtils.isEmpty(pictureThumb)) {
                 commentBitmap = u.getPictureBitmap(UserActivity.PICTURE);
             }
-            title = UpdateAdapter.getUpdateComment(context, u, user, linkColor, UpdateAdapter.FROM_TASK_VIEW);
+            title = UpdateAdapter.getUpdateComment(u);
             userImage = ""; //$NON-NLS-1$
             if (user.containsNonNullValue(UpdateAdapter.USER_PICTURE)) {
                 userImage = user.getPictureUrl(UpdateAdapter.USER_PICTURE, RemoteModel.PICTURE_THUMB);

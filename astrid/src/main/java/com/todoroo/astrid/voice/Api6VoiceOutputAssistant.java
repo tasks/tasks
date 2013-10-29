@@ -52,7 +52,7 @@ public class Api6VoiceOutputAssistant implements OnInitListener, VoiceOutputAssi
     }
 
     @Override
-    public boolean handleActivityResult(int requestCode, int resultCode, Intent data) {
+    public void handleActivityResult(int requestCode, int resultCode) {
         if (requestCode == MY_DATA_CHECK_CODE) {
             if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
                 // success, create the TTS instance
@@ -63,11 +63,7 @@ public class Api6VoiceOutputAssistant implements OnInitListener, VoiceOutputAssi
                 installIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
                 context.startActivity(installIntent);
             }
-
-            return true;
         }
-
-        return false;
     }
 
     private void initTTS() {

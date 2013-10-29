@@ -119,7 +119,7 @@ public class AstridTimePicker extends LinearLayout {
         NumberPicker.OnChangedListener autoEnableTimeCheck = new NumberPicker.OnChangedListener() {
 
             @Override
-            public int onChanged(NumberPicker picker, int oldVal, int newVal) {
+            public int onChanged(int newVal) {
                 setHasTime(true);
                 return newVal;
             }

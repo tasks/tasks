@@ -345,12 +345,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 R.string.EPr_cal_end_at_due_time, R.string.EPr_cal_start_at_due_time)) {
             ;
         } else if (r.getString(R.string.p_force_phone_layout).equals(preference.getKey())) {
-            preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED) {
-                @Override
-                public boolean onPreferenceChange(Preference p, Object newValue) {
-                    return super.onPreferenceChange(p, newValue);
-                }
-            });
+            preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
         } else if (r.getString(R.string.p_voiceInputEnabled).equals(preference.getKey())) {
             if (value != null && !(Boolean) value) {
                 preference.setSummary(R.string.EPr_voiceInputEnabled_desc_disabled);
@@ -395,7 +390,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
             return;
         }
         try {
-            VoiceOutputService.getVoiceOutputInstance().handleActivityResult(requestCode, resultCode, data);
+            VoiceOutputService.getVoiceOutputInstance().handleActivityResult(requestCode, resultCode);
         } catch (VerifyError e) {
             // unavailable
         }

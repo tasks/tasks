@@ -81,7 +81,7 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
      * @param task
      *            task to create
      */
-    abstract protected TYPE create(TYPE task) throws IOException;
+    abstract protected void create(TYPE task);
 
     /**
      * Push variables from given task to the remote server, and read the newly
@@ -93,7 +93,7 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
      *            remote task that we merged with. may be null
      * @return task pulled on remote server
      */
-    abstract protected TYPE push(TYPE task, TYPE remote) throws IOException;
+    abstract protected TYPE push(TYPE task, TYPE remote);
 
     /**
      * Fetch remote task. Used to re-read merged tasks
@@ -102,18 +102,18 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
      *            task with id's to re-read
      * @return new Task
      */
-    abstract protected TYPE pull(TYPE task) throws IOException;
+    abstract protected TYPE pull(TYPE task);
 
     /**
      * Reads a task container from a task in the database
      */
-    abstract protected TYPE read(TodorooCursor<Task> task) throws IOException;
+    abstract protected TYPE read(TodorooCursor<Task> task);
 
     /**
      * Save task. Used to save local tasks that have been updated and remote
      * tasks that need to be created locally
      */
-    abstract protected void write(TYPE task) throws IOException;
+    abstract protected void write(TYPE task);
 
     /**
      * Finds a task in the list with the same remote identifier(s) as
@@ -159,7 +159,7 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
     public void synchronize(final Context context, final boolean showSyncToast) {
         // display toast
         if(context instanceof Activity) {
-            if(getUtilities().isLoggedIn() && getUtilities().shouldShowToast()) {
+            if(getUtilities().isLoggedIn()) {
                 ((Activity) context).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -210,7 +210,7 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
      *
      * @param data synchronization data structure
      */
-    protected void synchronizeTasks(SyncData<TYPE> data) throws IOException {
+    protected void synchronizeTasks(SyncData<TYPE> data) {
         int length;
 
         // create internal data structures
@@ -246,7 +246,7 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
         }
     }
 
-    protected void readRemotelyUpdated(SyncData<TYPE> data) throws IOException {
+    protected void readRemotelyUpdated(SyncData<TYPE> data) {
         int length;
         // Rearrange remoteTasks so completed tasks get synchronized first.
         // This prevents bugs where a repeated task has two copies come down
@@ -298,7 +298,7 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
         }
     }
 
-    protected void sendLocallyUpdated(SyncData<TYPE> data) throws IOException {
+    protected void sendLocallyUpdated(SyncData<TYPE> data) {
         int length;
         length = data.localUpdated.getCount();
         for(int i = 0; i < length; i++) {
@@ -330,7 +330,7 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
     }
 
     protected void sendLocallyCreated(SyncData<TYPE> data,
-            HashMap<String, Integer> remoteNewTaskNameMap) throws IOException {
+            HashMap<String, Integer> remoteNewTaskNameMap) {
         int length;
         length = data.localCreated.getCount();
         for(int i = 0; i < length; i++) {

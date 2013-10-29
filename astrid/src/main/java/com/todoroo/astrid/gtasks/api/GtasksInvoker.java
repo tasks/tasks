@@ -226,7 +226,7 @@ public class GtasksInvoker {
         return toReturn;
     }
 
-    public Task updateGtask(String listId, Task task) throws IOException {
+    public void updateGtask(String listId, Task task) throws IOException {
         Task toReturn = null;
         try {
             toReturn = service.tasks().update(listId, task.getId(), task).execute();
@@ -236,7 +236,6 @@ public class GtasksInvoker {
         } finally {
             log("Update gtask, title: " + task.getTitle(), toReturn);
         }
-        return toReturn;
     }
 
     public Task moveGtask(String listId, String taskId, String parentId, String previousId) throws IOException {

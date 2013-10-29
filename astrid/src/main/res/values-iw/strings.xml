@@ -122,8 +122,6 @@
 	<string name="TEA_menu_discard">לא לשמור</string>
 	<string name="TEA_menu_refresh_comments">רַעְנֵן הערות</string>
 	<string name="TEA_menu_comments">הערות</string>
-	<string name="TEA_onTaskSave_due">המשימה נשמרה: יעד %s</string>
-	<string name="TEA_onTaskSave_notDue">המשימה נשמרה</string>
 	<string name="TEA_tab_activity">פעילות</string>
 	<string-array name="TEA_urgency">
 		<item>ללא תאריך</item>

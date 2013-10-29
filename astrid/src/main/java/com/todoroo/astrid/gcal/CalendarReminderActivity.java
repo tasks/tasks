@@ -202,7 +202,7 @@ public class CalendarReminderActivity extends Activity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     createNewList(tag.getValue(TagData.NAME) + " "
-                            + DateUtilities.getDateStringHideYear(CalendarReminderActivity.this, new Date(startTime)));
+                            + DateUtilities.getDateStringHideYear(new Date(startTime)));
                 }
             },
             new DialogInterface.OnClickListener() {

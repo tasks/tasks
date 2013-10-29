@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.utility;
 
-import android.content.Context;
-
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -59,7 +57,7 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
 
     // --- implementation
 
-    public SyncMetadataService(Context context) {
+    public SyncMetadataService() {
         DependencyInjectionService.getInstance().inject(this);
     }
 

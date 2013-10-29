@@ -51,7 +51,7 @@ public class TaskEditViewPager extends PagerAdapter {
 
     @Override
     public Object instantiateItem(View pager, int position) {
-        View pageView = parent.getPageView(position);
+        View pageView = parent.getPageView();
 
         ((ViewPager) pager).addView(pageView, 0);
         return pageView;

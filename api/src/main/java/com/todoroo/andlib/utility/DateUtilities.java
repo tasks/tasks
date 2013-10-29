@@ -123,11 +123,10 @@ public class DateUtilities {
     }
 
     /**
-     * @param context android context
      * @param date date to format
      * @return date, with month, day, and year
      */
-    public static String getDateString(Context context, Date date, boolean includeYear) {
+    public static String getDateString(Date date, boolean includeYear) {
         String month = new SimpleDateFormat("MMM").format(date);
         String value;
         String standardDate;
@@ -151,16 +150,15 @@ public class DateUtilities {
         }
         return standardDate;}
 
-    public static String getDateString(Context context, Date date) {
-        return getDateString(context, date, true);
+    public static String getDateString(Date date) {
+        return getDateString(date, true);
     }
 
     /**
-     * @param context android context
      * @param date date to format
      * @return date, with month, day, and year
      */
-    public static String getDateStringHideYear(Context context, Date date) {
+    public static String getDateStringHideYear(Date date) {
         String month = DateUtils.getMonthString(date.getMonth() +
                 Calendar.JANUARY, DateUtils.LENGTH_MEDIUM);
         String value;
@@ -190,9 +188,9 @@ public class DateUtilities {
     /**
      * @return date format as getDateFormat with weekday
      */
-    public static String getDateStringWithWeekday(Context context, Date date) {
+    public static String getDateStringWithWeekday(Date date) {
         String weekday = getWeekday(date);
-        return weekday + ", " + getDateString(context, date);
+        return weekday + ", " + getDateString(date);
     }
 
     /**
@@ -214,14 +212,14 @@ public class DateUtilities {
      * @return date format as getDateFormat with weekday
      */
     public static String getDateStringWithTimeAndWeekday(Context context, Date date) {
-        return getDateStringWithWeekday(context, date) + " " + getTimeString(context, date);
+        return getDateStringWithWeekday(date) + " " + getTimeString(context, date);
     }
 
     /**
      * @return date with time at the end
      */
     public static String getDateStringWithTime(Context context, Date date) {
-        return getDateString(context, date) + " " + getTimeString(context, date);
+        return getDateString(date) + " " + getTimeString(context, date);
     }
 
     /**
@@ -248,7 +246,7 @@ public class DateUtilities {
             return abbreviated ? DateUtilities.getWeekdayShort(new Date(date)) : DateUtilities.getWeekday(new Date(date));
         }
 
-        return DateUtilities.getDateStringHideYear(context, new Date(date));
+        return DateUtilities.getDateStringHideYear(new Date(date));
     }
 
     public static boolean isEndOfMonth(Date d) {

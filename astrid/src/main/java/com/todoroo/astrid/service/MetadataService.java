@@ -72,8 +72,8 @@ public class MetadataService {
     /**
      * Delete from metadata table where rows match a certain condition
      */
-    public int deleteWhere(Criterion where) {
-        return metadataDao.deleteWhere(where);
+    public void deleteWhere(Criterion where) {
+        metadataDao.deleteWhere(where);
     }
 
     /**
@@ -81,8 +81,8 @@ public class MetadataService {
      * @param where predicate for which rows to update
      * @param metadata values to set
      */
-    public int update(Criterion where, Metadata metadata) {
-        return metadataDao.update(where, metadata);
+    public void update(Criterion where, Metadata metadata) {
+        metadataDao.update(where, metadata);
     }
 
     /**

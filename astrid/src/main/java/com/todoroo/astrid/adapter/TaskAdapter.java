@@ -942,7 +942,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 return;
             }
 
-            reset(viewHolder, taskId);
+            reset(viewHolder);
             if(decorations.size() == 0) {
                 return;
             }
@@ -979,7 +979,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
 
         @Override
-        protected void reset(ViewHolder viewHolder, long taskId) {
+        protected void reset(ViewHolder viewHolder) {
             if(viewHolder.decorations != null) {
                 for(View view : viewHolder.decorations) {
                     viewHolder.rowBody.removeView(view);
@@ -992,11 +992,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             } else {
                 viewHolder.view.setBackgroundResource(android.R.drawable.list_selector_background);
             }
-        }
-
-        @Override
-        protected Intent createBroadcastIntent(Task task) {
-            return null;
         }
     }
 

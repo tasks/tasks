@@ -142,14 +142,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
      */
     public static final String TOKEN_PICTURE_IN_PROGRESS = "picture_in_progress"; //$NON-NLS-1$
 
-    /**
-     * Tab to start on
-     */
-    public static final String TOKEN_TAB = "tab"; //$NON-NLS-1$
-
     // --- request codes
 
-    public static final int REQUEST_LOG_IN = 0;
     private static final int REQUEST_VOICE_RECOG = 10;
     public static final int REQUEST_CODE_CONTACT = 20;
     public static final int REQUEST_CODE_RECORD = 30;
@@ -236,14 +230,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
      * ======================================================= initialization
      * ======================================================================
      */
-
-    /**
-     * Container Activity must implement this interface and we ensure that it
-     * does during the onAttach() callback
-     */
-    public interface OnTaskEditDetailsClickedListener {
-        public void onTaskEditDetailsClicked(int category, int position);
-    }
 
     public TaskEditFragment() {
         DependencyInjectionService.getInstance().inject(this);
@@ -358,7 +344,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             commentsBar.setVisibility(View.VISIBLE);
         }
         setCurrentTab(TAB_VIEW_UPDATES);
-        setPagerHeightForPosition(TAB_VIEW_UPDATES);
+        setPagerHeightForPosition();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -672,13 +658,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     }
 
-    public long getTaskIdInProgress() {
-        if (model != null && model.getId() > 0) {
-            return model.getId();
-        }
-        return getActivity().getIntent().getLongExtra(TOKEN_ID, -1);
-    }
-
     private void setIsNewTask(boolean isNewTask) {
         this.isNewTask = isNewTask;
         Activity activity = getActivity();
@@ -708,12 +687,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             }
         }
 
-    }
-
-    public void refreshFilesDisplay() {
-        boolean hasAttachments = taskAttachmentDao.taskHasAttachments(model.getUuid());
-        filesControlSet.getDisplayView().setVisibility(hasAttachments ? View.VISIBLE : View.GONE);
-        filesControlSet.readFromTask(model);
     }
 
     /** Populate UI component values from the model */
@@ -757,8 +730,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 }
             }
         }
-
-        addDueTimeToToast(toast.toString());
 
         boolean tagsChanged = Flags.check(Flags.TAGS_CHANGED);
         model.putTransitory(TaskService.TRANS_EDIT_SAVE, true);
@@ -850,28 +821,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     protected void saveButtonClick() {
         save(false);
-    }
-
-    /**
-     * Displays a Toast reporting that the selected task has been saved and, if
-     * it has a due date, that is due in 'x' amount of time, to 1 time-unit of
-     * precision
-     */
-    private String addDueTimeToToast(String additionalMessage) {
-        int stringResource;
-
-        long due = model.getValue(Task.DUE_DATE);
-        String toastMessage;
-        if (due != 0) {
-            stringResource = R.string.TEA_onTaskSave_due;
-            CharSequence formattedDate = DateUtilities.getRelativeDay(
-                    getActivity(), due);
-            toastMessage = getString(stringResource, formattedDate);
-        } else {
-            toastMessage = getString(R.string.TEA_onTaskSave_notDue);
-        }
-
-        return toastMessage + additionalMessage;
     }
 
     protected void discardButtonClick() {
@@ -1157,43 +1106,15 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
      * ======================================================================
      */
 
-    public int getTabForPosition(int position) {
-        int tab = TaskEditViewPager.getPageForPosition(position, tabStyle);
-        switch(tab) {
-        case TaskEditViewPager.TAB_SHOW_ACTIVITY:
-            return TAB_VIEW_UPDATES;
-        }
-
-        // error experienced
-        return TAB_VIEW_UPDATES;
+    public View getPageView() {
+        return editNotes;
     }
 
-    /**
-     * Returns the correct view for TaskEditViewPager
-     *
-     * @param position
-     *            in the horizontal scroll view
-     */
-
-    public View getPageView(int position) {
-        switch(getTabForPosition(position)) {
-        case TAB_VIEW_UPDATES:
-            return editNotes;
-        }
-        return null;
-    }
-
-    private void setPagerHeightForPosition(int position) {
+    private void setPagerHeightForPosition() {
         int height = 0;
 
-        View view = null;
-        switch(getTabForPosition(position)) {
-        case TAB_VIEW_UPDATES:
-            view = editNotes;
-            break;
-        }
-
-        if (view == null || mPager == null) {
+        View view = editNotes;
+        if (mPager == null) {
             return;
         }
 
@@ -1208,27 +1129,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
     }
 
-    public static void setViewHeightBasedOnChildren(LinearLayout view) {
-
-        int totalHeight = 0;
-        int desiredWidth = MeasureSpec.makeMeasureSpec(view.getWidth(),
-                MeasureSpec.AT_MOST);
-        for (int i = 0; i < view.getChildCount(); i++) {
-            View listItem = view.getChildAt(i);
-            listItem.measure(desiredWidth, MeasureSpec.UNSPECIFIED);
-            totalHeight += listItem.getMeasuredHeight();
-        }
-
-        ViewGroup.LayoutParams params = view.getLayoutParams();
-        if(params == null) {
-            return;
-        }
-
-        params.height = totalHeight;
-        view.setLayoutParams(params);
-        view.requestLayout();
-    }
-
     // Tab Page listener when page/tab changes
     @Override
     public void onPageScrolled(int position, float positionOffset,
@@ -1237,7 +1137,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     @Override
     public void onPageSelected(final int position) {
-        setPagerHeightForPosition(position);
+        setPagerHeightForPosition();
     }
 
     @Override
@@ -1248,7 +1148,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Override
     public void updatesChanged()  {
         if (mPager != null && mPager.getCurrentItem() == TAB_VIEW_UPDATES) {
-            setPagerHeightForPosition(TAB_VIEW_UPDATES);
+            setPagerHeightForPosition();
         }
     }
 
@@ -1256,7 +1156,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Override
     public void commentAdded() {
         setCurrentTab(TAB_VIEW_UPDATES);
-        setPagerHeightForPosition(TAB_VIEW_UPDATES);
+        setPagerHeightForPosition();
         scrollToView(editNotes);
     }
 

@@ -114,12 +114,12 @@ public class FilterListFragment extends SherlockListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         Activity activity = getActivity();
-        int layout = getLayout(activity);
+        int layout = getLayout();
         ViewGroup parent = (ViewGroup) activity.getLayoutInflater().inflate(layout, container, false);
         return parent;
     }
 
-    protected int getLayout(Activity activity) {
+    protected int getLayout() {
         return R.layout.filter_list_activity;
     }
 
@@ -265,7 +265,7 @@ public class FilterListFragment extends SherlockListFragment {
     /**
      * Creates a shortcut on the user's home screen
      */
-    private static void createShortcut(Activity activity, Filter filter, Intent shortcutIntent, String label) {
+    private static void createShortcut(Activity activity, Intent shortcutIntent, String label) {
         if(label.length() == 0) {
             return;
         }
@@ -340,7 +340,7 @@ public class FilterListFragment extends SherlockListFragment {
             @Override
             public void run() {
                 String label = editText.getText().toString();
-                createShortcut(activity, filter, shortcutIntent, label);
+                createShortcut(activity, shortcutIntent, label);
             }
         };
         editText.setOnEditorActionListener(new OnEditorActionListener() {

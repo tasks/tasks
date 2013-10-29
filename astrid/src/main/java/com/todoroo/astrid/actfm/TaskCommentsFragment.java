@@ -55,7 +55,7 @@ public class TaskCommentsFragment extends CommentsFragment {
 
     @Override
     protected Cursor getCursor() {
-        return taskService.getActivityAndHistoryForTask(task);
+        return taskService.getActivityForTask(task);
     }
 
     @Override
@@ -66,11 +66,6 @@ public class TaskCommentsFragment extends CommentsFragment {
     @Override
     protected void addHeaderToListView(ListView listView) {
         // Do nothing
-    }
-
-    @Override
-    protected boolean canLoadMoreHistory() {
-        return hasModel() && task.getValue(Task.HISTORY_HAS_MORE) > 0;
     }
 
     @Override

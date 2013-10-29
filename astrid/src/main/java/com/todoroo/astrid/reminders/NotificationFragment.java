@@ -50,7 +50,7 @@ public class NotificationFragment extends TaskListFragment {
     private long taskId;
 
     @Override
-    protected void onTaskCompleted(Task item) {
+    protected void onTaskCompleted() {
     }
 
     @Override

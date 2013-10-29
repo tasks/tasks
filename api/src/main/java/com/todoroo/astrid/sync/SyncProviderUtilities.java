@@ -48,13 +48,6 @@ abstract public class SyncProviderUtilities {
     }
 
     /**
-     * @return true if we should show sync toast when synchronizing
-     */
-    public boolean shouldShowToast() {
-        return true;
-    }
-
-    /**
      * @return true if we have a token for this user, false otherwise
      */
     public boolean isLoggedIn() {

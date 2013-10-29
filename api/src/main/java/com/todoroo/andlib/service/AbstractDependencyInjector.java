@@ -54,13 +54,11 @@ abstract public class AbstractDependencyInjector {
      * Gets the injected object for this field. If implementing class does not
      * know how to handle this dependency, it should return null
      *
-     * @param object
-     *            object to perform dependency injection on
      * @param field
      *            field tagged with {link Autowired} annotation
      * @return object to assign to this field, or null
      */
-    public Object getInjection(Object object, Field field) {
+    public Object getInjection(Field field) {
         if(injectables.containsKey(field.getName())) {
             Object injection = injectables.get(field.getName());
 

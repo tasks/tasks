@@ -22,7 +22,6 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
@@ -33,7 +32,6 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.dao.TaskOutstandingDao;
 import com.todoroo.astrid.dao.UserActivityDao;
-import com.todoroo.astrid.data.History;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
@@ -344,13 +342,11 @@ public class TaskService {
     /**
      * Clear details cache. Useful if user performs some operation that
      * affects details
-     *
-     * @return # of affected rows
      */
-    public int clearDetails(Criterion criterion) {
+    public void clearDetails(Criterion criterion) {
         Task template = new Task();
         template.setValue(Task.DETAILS_DATE, 0L);
-        return taskDao.update(criterion, template);
+        taskDao.update(criterion, template);
     }
 
     /**
@@ -540,15 +536,10 @@ public class TaskService {
         return task;
     }
 
-    public TodorooCursor<UserActivity> getActivityAndHistoryForTask(Task task) {
+    public TodorooCursor<UserActivity> getActivityForTask(Task task) {
         Query taskQuery = queryForTask(task, UpdateAdapter.USER_TABLE_ALIAS, UpdateAdapter.USER_ACTIVITY_PROPERTIES, UpdateAdapter.USER_PROPERTIES);
 
-        Query historyQuery = Query.select(AndroidUtilities.addToArray(Property.class, UpdateAdapter.HISTORY_PROPERTIES, UpdateAdapter.USER_PROPERTIES)).from(History.TABLE)
-                .where(Criterion.and(History.TABLE_ID.eq(NameMaps.TABLE_ID_TASKS), History.TARGET_ID.eq(task.getUuid())))
-                .from(History.TABLE)
-                .join(Join.left(User.TABLE.as(UpdateAdapter.USER_TABLE_ALIAS), History.USER_UUID.eq(Field.field(UpdateAdapter.USER_TABLE_ALIAS + "." + User.UUID.name)))); //$NON-NLS-1$;
-
-        Query resultQuery = taskQuery.union(historyQuery).orderBy(Order.desc("1")); //$NON-NLS-1$
+        Query resultQuery = taskQuery.orderBy(Order.desc("1")); //$NON-NLS-1$
 
         return userActivityDao.query(resultQuery);
     }

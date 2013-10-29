@@ -368,7 +368,7 @@ public class TaskDao extends RemoteModelDao<Task> {
 
         task.markSaved();
         if(values.containsKey(Task.COMPLETION_DATE.name) && task.isCompleted()) {
-            afterComplete(task, values);
+            afterComplete(task);
         } else {
             if(values.containsKey(Task.DUE_DATE.name) ||
                     values.containsKey(Task.REMINDER_FLAGS.name) ||
@@ -420,7 +420,7 @@ public class TaskDao extends RemoteModelDao<Task> {
     /**
      * Called after the task was just completed
      */
-    private static void afterComplete(Task task, ContentValues values) {
+    private static void afterComplete(Task task) {
         Notifications.cancelNotifications(task.getId());
     }
 

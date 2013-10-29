@@ -67,17 +67,12 @@ public class TagCommentsFragment extends CommentsFragment {
 
     @Override
     protected Cursor getCursor() {
-        return tagDataService.getActivityAndHistoryForTagData(tagData, null, UpdateAdapter.USER_TABLE_ALIAS, UpdateAdapter.USER_PROPERTIES);
+        return tagDataService.getActivityForTagData(tagData, null, UpdateAdapter.USER_TABLE_ALIAS, UpdateAdapter.USER_PROPERTIES);
     }
 
     @Override
     protected String getSourceIdentifier() {
         return (tagData == null) ? UpdateAdapter.FROM_RECENT_ACTIVITY_VIEW : UpdateAdapter.FROM_TAG_VIEW;
-    }
-
-    @Override
-    protected boolean canLoadMoreHistory() {
-        return hasModel() && tagData.getValue(TagData.HISTORY_HAS_MORE) > 0;
     }
 
     @Override

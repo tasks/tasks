@@ -261,12 +261,6 @@
 
   <string name="TEA_menu_comments">Comments</string>
   
-   <!-- Toast: task saved with deadline (%s => preposition + time units) -->
-  <string name="TEA_onTaskSave_due">Task Saved: due %s</string>
-  
-  <!-- Toast: task saved without deadlines -->
-  <string name="TEA_onTaskSave_notDue">Task Saved</string>
-  
   <!-- slide 15b: Task edit tab: activity -->
   <string name="TEA_tab_activity">Activity</string>
   

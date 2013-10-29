@@ -112,8 +112,6 @@
 	<string name="TEA_menu_save">Değişiklikleri Kaydet</string>
 	<string name="TEA_menu_discard">Kaydetme</string>
 	<string name="TEA_menu_comments">Yorumlar</string>
-	<string name="TEA_onTaskSave_due">Görev Kaydedildi: tarihi %s</string>
-	<string name="TEA_onTaskSave_notDue">Görev kaydedildi</string>
 	<string name="TEA_tab_activity">Etkinlik</string>
 	<string-array name="TEA_urgency">
 		<item>No date</item>

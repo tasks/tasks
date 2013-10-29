@@ -115,8 +115,6 @@
 	<string name="TEA_menu_save">儲存變更</string>
 	<string name="TEA_menu_discard">不要儲存</string>
 	<string name="TEA_menu_comments">註釋</string>
-	<string name="TEA_onTaskSave_due">工作已儲存: %s 到期</string>
-	<string name="TEA_onTaskSave_notDue">工作已儲存</string>
 	<string name="TEA_tab_activity">活動</string>
 	<string-array name="TEA_urgency">
 		<item>No date</item>

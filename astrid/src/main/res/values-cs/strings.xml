@@ -115,8 +115,6 @@
 	<string name="TEA_menu_save">Uložit změny</string>
 	<string name="TEA_menu_discard">Neukládat</string>
 	<string name="TEA_menu_comments">Komentáře</string>
-	<string name="TEA_onTaskSave_due">Úkol uložen: termín je %s</string>
-	<string name="TEA_onTaskSave_notDue">Úkol uložen</string>
 	<string name="TEA_tab_activity">Činnost</string>
 	<string-array name="TEA_urgency">
 		<item>Bez termínu</item>

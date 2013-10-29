@@ -24,7 +24,6 @@ public class NameMaps {
     public static final String TABLE_ID_TAGS = "tags";
     public static final String TABLE_ID_USERS = "users";
     public static final String TABLE_ID_USER_ACTIVITY = "user_activities";
-    public static final String TABLE_ID_HISTORY = "history";
     public static final String TABLE_ID_ATTACHMENTS = "task_attachments";
     public static final String TABLE_ID_TASK_LIST_METADATA = "task_list_metadata";
 

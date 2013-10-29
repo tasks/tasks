@@ -448,10 +448,10 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
             return;
         }
 
-        addMenuItems(menu, activity);
+        addMenuItems(menu);
     }
 
-    protected void addMenuItems(Menu menu, Activity activity) {
+    protected void addMenuItems(Menu menu) {
         // ask about plug-ins
         Intent queryIntent = new Intent(
                 AstridApiConstants.ACTION_TASK_LIST_MENU);
@@ -856,8 +856,8 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
                 new OnCompletedTaskListener() {
                     @Override
                     public void onCompletedTask(Task item, boolean newState) {
-                        if (newState == true) {
-                            onTaskCompleted(item);
+                        if (newState) {
+                            onTaskCompleted();
                         }
                     }
                 });
@@ -984,13 +984,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
      * ======================================================================
      */
 
-    /**
-     * A task was completed from the task adapter
-     *
-     * @param item
-     *            task that was completed
-     */
-    protected void onTaskCompleted(Task item) {
+    protected void onTaskCompleted() {
         if (isInbox) {
         } else {
         }
@@ -1037,19 +1031,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
                     R.string.TAd_contextEditTask);
             menu.add(id, CONTEXT_MENU_COPY_TASK_ID, Menu.NONE,
                     R.string.TAd_contextCopyTask);
-
-            for (int i = 0; i < contextItemExposers.length; i++) {
-                Object label = contextItemExposers[i].getLabel(task);
-                if (label != null) {
-                    if (label instanceof Integer) {
-                        menu.add(id, CONTEXT_MENU_PLUGIN_ID_FIRST + i,
-                                Menu.NONE, (Integer) label);
-                    } else {
-                        menu.add(id, CONTEXT_MENU_PLUGIN_ID_FIRST + i,
-                                Menu.NONE, (String) label);
-                    }
-                }
-            }
 
             long taskId = task.getId();
             for (ContextMenuItem item : contextMenuExtensionLoader.getList()) {

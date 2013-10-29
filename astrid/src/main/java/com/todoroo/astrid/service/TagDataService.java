@@ -24,7 +24,6 @@ import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.UserActivityDao;
-import com.todoroo.astrid.data.History;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
@@ -59,8 +58,8 @@ public class TagDataService {
     /**
      * Save a single piece of metadata
      */
-    public boolean save(TagData tagData) {
-        return tagDataDao.persist(tagData);
+    public void save(TagData tagData) {
+        tagDataDao.persist(tagData);
     }
 
     /**
@@ -155,22 +154,11 @@ public class TagDataService {
         return userActivityDao.query(queryForTagData(tagData, criterion, null, UserActivity.PROPERTIES, null).orderBy(Order.desc(UserActivity.CREATED_AT)));
     }
 
-    public Cursor getActivityAndHistoryForTagData(TagData tagData, Criterion extraCriterion, String userTableAlias, Property<?>...userProperties) {
+    public Cursor getActivityForTagData(TagData tagData, Criterion extraCriterion, String userTableAlias, Property<?>... userProperties) {
         Query activityQuery = queryForTagData(tagData, extraCriterion, userTableAlias, UpdateAdapter.USER_ACTIVITY_PROPERTIES, userProperties)
                 .from(UserActivity.TABLE);
 
-        Criterion historyCriterion;
-        if (tagData == null) {
-            historyCriterion = Criterion.none;
-        } else {
-            historyCriterion = History.TAG_ID.eq(tagData.getUuid());
-        }
-
-        Query historyQuery = Query.select(AndroidUtilities.addToArray(Property.class, UpdateAdapter.HISTORY_PROPERTIES, userProperties)).from(History.TABLE)
-                .where(historyCriterion)
-                .join(Join.left(User.TABLE.as(userTableAlias), History.USER_UUID.eq(Field.field(userTableAlias + "." + User.UUID.name)))); //$NON-NLS-1$
-
-        Query resultQuery = activityQuery.union(historyQuery).orderBy(Order.desc("1")); //$NON-NLS-1$
+        Query resultQuery = activityQuery.orderBy(Order.desc("1")); //$NON-NLS-1$
 
         return userActivityDao.query(resultQuery);
     }

@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.sync;
 
-import android.app.Activity;
-
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
@@ -75,7 +73,7 @@ abstract public class SyncV2Provider {
     /**
      * Sign out of service, deleting all synchronization metadata
      */
-    abstract public void signOut(Activity activity);
+    abstract public void signOut();
 
     /**
      * @return sync utility instance

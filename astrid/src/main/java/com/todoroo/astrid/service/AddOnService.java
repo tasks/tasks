@@ -23,11 +23,6 @@ public class AddOnService {
     /** Astrid Power Pack package */
     public static final String POWER_PACK_PACKAGE = "com.todoroo.astrid.ppack";
 
-    /** Checks whether power pack should be enabled */
-    public boolean hasPowerPack() {
-        return true;
-    }
-
     /**
      * Check whether a given add-on is installed
      */

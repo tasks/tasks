@@ -27,7 +27,6 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.todoroo.andlib.service.ExceptionService;
@@ -605,15 +604,14 @@ public class AndroidUtilities {
      * @param methodName method name to call
      * @param params method parameter types
      * @param args arguments
-     * @return method return value, or null if nothing was called or exception
      */
-    public static Object callApiMethod(int minSdk, Object receiver,
+    public static void callApiMethod(int minSdk, Object receiver,
             String methodName, Class<?>[] params, Object... args) {
         if(getSdkVersion() < minSdk) {
-            return null;
+            return;
         }
 
-        return AndroidUtilities.callMethod(receiver.getClass(),
+        AndroidUtilities.callMethod(receiver.getClass(),
                 receiver, methodName, params, args);
     }
 
@@ -893,20 +891,6 @@ public class AndroidUtilities {
             activity.unregisterReceiver(receiver);
         } catch (IllegalArgumentException e) {
             // Receiver wasn't registered for some reason
-        }
-    }
-
-    /**
-     * Dismiss a popup window (should call from main thread)
-     */
-    public static void tryDismissPopup(Activity activity, final PopupWindow popup) {
-        if (popup == null) {
-            return;
-        }
-        try {
-            popup.dismiss();
-        } catch (Exception e) {
-            // window already closed or something
         }
     }
 
