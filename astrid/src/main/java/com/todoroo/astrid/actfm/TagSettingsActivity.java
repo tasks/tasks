@@ -23,31 +23,22 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.dao.TagMetadataDao;
-import com.todoroo.astrid.dao.TagMetadataDao.TagMetadataCriteria;
-import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.data.TagMetadata;
-import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagFilterExposer;
-import com.todoroo.astrid.tags.TagMemberMetadata;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.AstridPreferences;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.tasks.R;
 
@@ -71,8 +62,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
     @Autowired TagService tagService;
 
     @Autowired TagDataService tagDataService;
-
-    @Autowired UserDao userDao;
 
     @Autowired TagMetadataDao tagMetadataDao;
 
@@ -119,22 +108,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
         }
 
         setUpSettingsPage();
-
-        if(savedInstanceState != null && savedInstanceState.containsKey(MEMBERS_IN_PROGRESS)) {
-            final String members = savedInstanceState.getString(MEMBERS_IN_PROGRESS);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    AndroidUtilities.sleepDeep(500);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            updateMembers(members, RemoteModel.NO_UUID);
-                        }
-                    });
-                }
-            }).start();
-        }
     }
 
     private void setupForDialogOrFullscreen() {
@@ -178,7 +151,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
 
         String autopopulateMembers = getIntent().getStringExtra(TOKEN_AUTOPOPULATE_MEMBERS);
         if (!TextUtils.isEmpty(autopopulateMembers)) {
-            updateMembers(autopopulateMembers, RemoteModel.NO_UUID);
             getIntent().removeExtra(TOKEN_AUTOPOPULATE_MEMBERS);
         }
 
@@ -297,72 +269,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
         }
 
         String peopleJson = tagData.getValue(TagData.MEMBERS);
-        updateMembers(peopleJson, tagData.getUuid());
-    }
-
-    private void updateMembers(String peopleJson, String tagUuid) {
-        JSONArray people = null;
-        try {
-            people = new JSONArray(peopleJson);
-        } catch (JSONException e) {
-            if (!RemoteModel.isUuidEmpty(tagUuid)) {
-                people = new JSONArray();
-                TodorooCursor<User> members = userDao.query(Query.select(User.PROPERTIES)
-                        .where(User.UUID.in(Query.select(TagMemberMetadata.USER_UUID)
-                                .from(TagMetadata.TABLE).where(Criterion.and(TagMetadataCriteria.byTagAndWithKey(tagUuid, TagMemberMetadata.KEY), TagMetadata.DELETION_DATE.eq(0))))));
-                try {
-                    User user = new User();
-                    for (members.moveToFirst(); !members.isAfterLast(); members.moveToNext()) {
-                        user.clear();
-                        user.readFromCursor(members);
-                        try {
-                            JSONObject userJson = new JSONObject();
-                            jsonFromUser(userJson, user);
-                            people.put(userJson);
-                        } catch (JSONException e2) {
-                            //
-                        }
-                    }
-                } finally {
-                    members.close();
-                }
-
-                TodorooCursor<TagMetadata> emailMembers = tagMetadataDao.query(Query.select(TagMemberMetadata.USER_UUID)
-                        .where(Criterion.and(TagMetadataCriteria.byTagAndWithKey(tagUuid, TagMemberMetadata.KEY),
-                                TagMetadata.DELETION_DATE.eq(0),
-                                TagMemberMetadata.USER_UUID.like("%@%"))));
-                try {
-                    TagMetadata m = new TagMetadata();
-                    for (emailMembers.moveToFirst(); !emailMembers.isAfterLast(); emailMembers.moveToNext()) {
-                        m.clear();
-                        m.readFromCursor(emailMembers);
-
-                        try {
-                            JSONObject userJson = new JSONObject();
-                            userJson.put("email", m.getValue(TagMemberMetadata.USER_UUID));
-                            people.put(userJson);
-                        } catch (JSONException e2) {
-                            //
-                        }
-                    }
-                } finally {
-                    emailMembers.close();
-                }
-
-                User u = userDao.fetch(tagData.getValue(TagData.USER_ID), User.PROPERTIES);
-                if (u != null) {
-                    try {
-                        JSONObject owner = new JSONObject();
-                        jsonFromUser(owner, u);
-                        owner.put("owner", true);
-                        people.put(owner);
-                    } catch (JSONException e2) {
-                        //
-                    }
-                }
-            }
-
-        }
     }
 
     @Override
@@ -426,13 +332,5 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
             break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private static void jsonFromUser(JSONObject json, User model) throws JSONException {
-        json.put("id", model.getValue(User.UUID));
-        json.put("name", model.getDisplayName());
-        json.put("email", model.getValue(User.EMAIL));
-        json.put("picture", model.getPictureUrl(User.PICTURE, RemoteModel.PICTURE_THUMB));
-        json.put("first_name", model.getValue(User.FIRST_NAME));
     }
 }

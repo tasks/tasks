@@ -65,7 +65,6 @@ import com.todoroo.astrid.core.LinkActionExposer;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
-import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.files.FilesAction;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.helper.TaskAdapterAddOnManager;
@@ -108,8 +107,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private static final LongProperty FILE_ID_PROPERTY = TaskAttachment.ID.cloneAs(TaskListFragment.FILE_METADATA_JOIN, "fileId");
     private static final IntegerProperty HAS_NOTES_PROPERTY = new IntegerProperty(null, "length(" + Task.NOTES + ") > 0").as("hasNotes");
 
-    private static final StringProperty PICTURE = User.PICTURE.cloneAs(TaskListFragment.USER_IMAGE_JOIN, null);
-
     // --- other constants
 
     /** Properties that need to be read from the action item */
@@ -130,10 +127,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Task.TIMER_START,
         Task.RECURRENCE,
         Task.USER_ID,
-        Task.USER,
         Task.REMINDER_LAST,
         Task.SOCIAL_REMINDER,
-        PICTURE,
         HAS_NOTES_PROPERTY, // Whether or not the task has notes
         TAGS, // Concatenated list of tags
         FILE_ID_PROPERTY // File id
@@ -403,7 +398,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         if (!titleOnlyLayout) {
             viewHolder.tagsString = cursor.get(TAGS);
-            viewHolder.imageUrl = RemoteModel.PictureHelper.getPictureUrlFromCursor(cursor, PICTURE, RemoteModel.PICTURE_THUMB);
             viewHolder.hasFiles = cursor.get(FILE_ID_PROPERTY) > 0;
             viewHolder.hasNotes = cursor.get(HAS_NOTES_PROPERTY) > 0;
         }

@@ -26,7 +26,6 @@ import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.data.TaskListMetadataOutstanding;
 import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.Update;
-import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.data.UserActivityOutstanding;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
@@ -64,7 +63,6 @@ public class Database extends AbstractDatabase {
         StoreObject.TABLE,
         TagData.TABLE,
         Update.TABLE,
-        User.TABLE,
         UserActivity.TABLE,
         TagMetadata.TABLE,
         TaskAttachment.TABLE,
@@ -194,9 +192,6 @@ public class Database extends AbstractDatabase {
                 database.execSQL("ALTER TABLE " + Task.TABLE.name + " ADD " +
                         property.accept(visitor, null) + " DEFAULT 0");
             }
-
-            database.execSQL("ALTER TABLE " + Task.TABLE.name + " ADD " +
-                    Task.USER.accept(visitor, null));
         } catch (SQLiteException e) {
             Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
@@ -298,13 +293,7 @@ public class Database extends AbstractDatabase {
         catch (SQLiteException e) {
             Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
-        case 22: try {
-            database.execSQL(createTableSql(visitor, User.TABLE.name, User.PROPERTIES));
-            onCreateTables();
-        } catch (SQLiteException e) {
-            Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
-        }
-
+        case 22:
         case 23:
         case 24: try {
             database.execSQL("ALTER TABLE " + Task.TABLE.name + " ADD " +
@@ -313,15 +302,7 @@ public class Database extends AbstractDatabase {
             Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
 
-        case 25: try {
-            database.execSQL("ALTER TABLE " + User.TABLE.name + " ADD " +
-                    User.STATUS.accept(visitor, null));
-
-            database.execSQL("ALTER TABLE " + User.TABLE.name + " ADD " +
-                    User.PENDING_STATUS.accept(visitor, null));
-        } catch (SQLiteException e) {
-            Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
-        }
+        case 25:
         case 26: try {
             database.execSQL("ALTER TABLE " + TagData.TABLE.name + " ADD " +
                     TagData.TAG_ORDERING.accept(visitor, null));
@@ -357,17 +338,12 @@ public class Database extends AbstractDatabase {
             tryExecSQL(addColumnSql(TagData.TABLE, TagData.METADATA_PUSHED_AT, visitor, null));
             tryExecSQL(addColumnSql(TagData.TABLE, TagData.USER_ACTIVITIES_PUSHED_AT, visitor, null));
             tryExecSQL(addColumnSql(Metadata.TABLE, Metadata.DELETION_DATE, visitor, "0"));
-            tryExecSQL(addColumnSql(User.TABLE, User.PUSHED_AT, visitor, null));
-            tryExecSQL(addColumnSql(User.TABLE, User.FIRST_NAME, visitor, null));
-            tryExecSQL(addColumnSql(User.TABLE, User.LAST_NAME, visitor, null));
 
         case 30:
         case 31:
         case 32:
-            tryExecSQL(addColumnSql(User.TABLE, User.TASKS_PUSHED_AT, visitor, null));
         case 33:
             tryExecSQL(addColumnSql(TagData.TABLE, TagData.LAST_AUTOSYNC, visitor, null));
-            tryExecSQL(addColumnSql(User.TABLE, User.LAST_AUTOSYNC, visitor, null));
 
         case 34:
             tryExecSQL(addColumnSql(TagData.TABLE, TagData.IS_FOLDER, visitor, null));

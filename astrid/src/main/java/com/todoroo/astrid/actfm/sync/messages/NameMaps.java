@@ -5,7 +5,6 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskListMetadata;
-import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 
 import java.util.HashMap;
@@ -22,7 +21,6 @@ public class NameMaps {
     // Universal table identifiers
     public static final String TABLE_ID_TASKS = "tasks";
     public static final String TABLE_ID_TAGS = "tags";
-    public static final String TABLE_ID_USERS = "users";
     public static final String TABLE_ID_USER_ACTIVITY = "user_activities";
     public static final String TABLE_ID_ATTACHMENTS = "task_attachments";
     public static final String TABLE_ID_TASK_LIST_METADATA = "task_list_metadata";
@@ -118,32 +116,6 @@ public class NameMaps {
 
     public static final String MEMBER_ADDED_COLUMN = "member_added";
     public static final String MEMBER_REMOVED_COLUMN = "member_removed";
-
-    // ----------
-    // Users
-    // ----------
-    private static final Map<Property<?>, String> USER_PROPERTIES_LOCAL_TO_SERVER;
-    private static final Map<String, Property<?>> USER_COLUMN_NAMES_TO_PROPERTIES;
-    private static final Map<String, String> USER_COLUMNS_LOCAL_TO_SERVER;
-    private static final Set<String> USER_PROPERTIES_EXCLUDED;
-
-    private static void putUserPropertyToServerName(Property<?> property, String serverName, boolean writeable) {
-        putPropertyToServerName(property, serverName, USER_PROPERTIES_LOCAL_TO_SERVER, USER_COLUMN_NAMES_TO_PROPERTIES,
-                USER_COLUMNS_LOCAL_TO_SERVER, USER_PROPERTIES_EXCLUDED, writeable);
-    }
-
-    static {
-        USER_PROPERTIES_LOCAL_TO_SERVER = new HashMap<Property<?>, String>();
-        USER_COLUMN_NAMES_TO_PROPERTIES = new HashMap<String, Property<?>>();
-        USER_COLUMNS_LOCAL_TO_SERVER = new HashMap<String, String>();
-        USER_PROPERTIES_EXCLUDED = new HashSet<String>();
-
-        putUserPropertyToServerName(User.UUID,       "uuid",       false);
-        putUserPropertyToServerName(User.PICTURE,    "picture",    false);
-        putUserPropertyToServerName(User.FIRST_NAME, "first_name", false);
-        putUserPropertyToServerName(User.LAST_NAME,  "last_name",  false);
-        putUserPropertyToServerName(User.STATUS,     "connection", true);
-    }
 
     // ----------
     // User Activity
@@ -252,10 +224,6 @@ public class NameMaps {
         } else if (TABLE_ID_USER_ACTIVITY.equals(table)) {
             if (USER_ACTIVITY_COLUMN_NAMES_TO_PROPERTIES.containsKey(column)) {
                 return !USER_ACTIVITY_PROPERTIES_EXCLUDED.contains(column);
-            }
-        } else if (TABLE_ID_USERS.equals(table)) {
-            if (USER_COLUMN_NAMES_TO_PROPERTIES.containsKey(column)) {
-                return !USER_PROPERTIES_EXCLUDED.contains(column);
             }
         } else if (TABLE_ID_ATTACHMENTS.equals(table)) {
             if (TASK_ATTACHMENT_COLUMN_NAMES_TO_PROPERTIES.containsKey(column)) {

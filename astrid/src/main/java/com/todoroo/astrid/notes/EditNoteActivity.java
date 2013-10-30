@@ -51,7 +51,6 @@ import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
@@ -274,24 +273,17 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             notes.close();
         }
 
-        User self = UpdateAdapter.getSelfUser();
-
         TodorooCursor<UserActivity> updates = taskService.getActivityForTask(task);
         try {
             UserActivity update = new UserActivity();
-            User user = new User();
             for(updates.moveToFirst(); !updates.isAfterLast(); updates.moveToNext()) {
                 update.clear();
-                user.clear();
 
                 String type = updates.getString(UpdateAdapter.TYPE_PROPERTY_INDEX);
                 NoteOrUpdate noa = null;
-                boolean isSelf;
                 if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(type)) {
                     UpdateAdapter.readUserActivityProperties(updates, update);
-                    isSelf = Task.USER_ID_SELF.equals(update.getValue(UserActivity.USER_UUID));
-                    UpdateAdapter.readUserProperties(updates, user, self, isSelf);
-                    noa = NoteOrUpdate.fromUpdate(update, user);
+                    noa = NoteOrUpdate.fromUpdate(update);
                 }
                 if(noa != null) {
                     items.add(noa);
@@ -461,7 +453,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                     m.getValue(Metadata.CREATION_DATE), null);
         }
 
-        public static NoteOrUpdate fromUpdate(UserActivity u, User user) {
+        public static NoteOrUpdate fromUpdate(UserActivity u) {
             String userImage = ""; //$NON-NLS-1$
             String pictureThumb = ""; //$NON-NLS-1$
             String pictureFull = ""; //$NON-NLS-1$
@@ -481,9 +473,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             }
             title = UpdateAdapter.getUpdateComment(u);
             userImage = ""; //$NON-NLS-1$
-            if (user.containsNonNullValue(UpdateAdapter.USER_PICTURE)) {
-                userImage = user.getPictureUrl(UpdateAdapter.USER_PICTURE, RemoteModel.PICTURE_THUMB);
-            }
             createdAt = u.getValue(UserActivity.CREATED_AT);
             type = NameMaps.TABLE_ID_USER_ACTIVITY;
 

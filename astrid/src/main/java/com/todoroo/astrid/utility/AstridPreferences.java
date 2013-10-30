@@ -15,7 +15,6 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
-import com.todoroo.astrid.data.User;
 
 import org.tasks.R;
 
@@ -45,8 +44,6 @@ public class AstridPreferences {
         spec = new AstridDefaultPreferenceSpec();
 
         spec.setIfUnset();
-
-        setShowFriendsView();
     }
 
     public static void resetToDefaults() {
@@ -54,17 +51,6 @@ public class AstridPreferences {
         spec = new AstridDefaultPreferenceSpec();
 
         spec.resetDefaults();
-    }
-
-    private static void setShowFriendsView() {
-        // Show friends view if necessary
-        boolean showFriends = false;
-        TodorooCursor<User> users = PluginServices.getUserDao().query(Query.select(User.ID).limit(1));
-        try {
-            showFriends = users.getCount() > 0;
-        } finally {
-            users.close();
-        }
     }
 
     /* ======================================================================

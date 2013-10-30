@@ -31,12 +31,8 @@ import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.data.RemoteModel;
-import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 
 import org.tasks.R;
@@ -59,19 +55,7 @@ public class UpdateAdapter extends CursorAdapter {
 
     public static final String USER_TABLE_ALIAS = "users_join"; //$NON-NLS-1$
 
-    public static final StringProperty USER_PICTURE = User.PICTURE.cloneAs(USER_TABLE_ALIAS, "userPicture"); //$NON-NLS-1$
-    private static final StringProperty USER_FIRST_NAME = User.FIRST_NAME.cloneAs(USER_TABLE_ALIAS, "userFirstName"); //$NON-NLS-1$
-    private static final StringProperty USER_LAST_NAME = User.LAST_NAME.cloneAs(USER_TABLE_ALIAS, "userLastName"); //$NON-NLS-1$
-    private static final StringProperty USER_NAME = User.NAME.cloneAs(USER_TABLE_ALIAS, "userName"); //$NON-NLS-1$
-
     public static final StringProperty ACTIVITY_TYPE_PROPERTY = new StringProperty(null, "'" + NameMaps.TABLE_ID_USER_ACTIVITY + "' as type");  //$NON-NLS-1$//$NON-NLS-2$
-
-    public static final Property<?>[] USER_PROPERTIES = {
-        USER_PICTURE,
-        USER_FIRST_NAME,
-        USER_LAST_NAME,
-        USER_NAME
-    };
 
     public static final Property<?>[] USER_ACTIVITY_PROPERTIES = {
         UserActivity.CREATED_AT,
@@ -91,8 +75,6 @@ public class UpdateAdapter extends CursorAdapter {
     public static final String FROM_TAG_VIEW = "from_tag"; //$NON-NLS-1$
     public static final String FROM_TASK_VIEW = "from_task"; //$NON-NLS-1$
     public static final String FROM_RECENT_ACTIVITY_VIEW = "from_recent_activity"; //$NON-NLS-1$
-
-    private final User self;
 
     private final int color;
 
@@ -120,30 +102,12 @@ public class UpdateAdapter extends CursorAdapter {
 
         this.resource = resource;
         this.fragment = fragment;
-        this.self = getSelfUser();
 
         TypedValue tv = new TypedValue();
         fragment.getActivity().getTheme().resolveAttribute(R.attr.asTextColor, tv, false);
         color = tv.data;
 
         fragment.getActivity().getTheme().resolveAttribute(R.attr.asDueDateColor, tv, false);
-    }
-
-    public static User getSelfUser() {
-        User self = new User();
-        readPreferenceToUser(self, USER_FIRST_NAME, ActFmPreferenceService.PREF_FIRST_NAME);
-        readPreferenceToUser(self, USER_LAST_NAME, ActFmPreferenceService.PREF_LAST_NAME);
-        readPreferenceToUser(self, USER_NAME, ActFmPreferenceService.PREF_NAME);
-        readPreferenceToUser(self, USER_PICTURE, ActFmPreferenceService.PREF_PICTURE);
-        return self;
-    }
-
-    private static void readPreferenceToUser(User u, StringProperty prop, String prefKey) {
-        String val = Preferences.getStringValue(prefKey);
-        if (val == null) {
-            val = ""; //$NON-NLS-1$
-        }
-        u.setValue(prop, val);
     }
 
     public static String getLinkColor(Fragment f) {
@@ -158,7 +122,6 @@ public class UpdateAdapter extends CursorAdapter {
 
     private class ModelHolder {
         public UserActivity activity = new UserActivity();
-        public User user = new User();
     }
 
     /** Creates a new view for use in the list view */
@@ -185,13 +148,7 @@ public class UpdateAdapter extends CursorAdapter {
         UserActivity update = mh.activity;
         update.clear();
 
-        User user = mh.user;
-        user.clear();
-
-        boolean isSelf;
         readUserActivityProperties(cursor, update);
-        isSelf = Task.USER_ID_SELF.equals(update.getValue(UserActivity.USER_UUID));
-        readUserProperties(cursor, user, self, isSelf);
 
         setFieldContentsAndVisibility(view, update, type);
     }
@@ -205,18 +162,6 @@ public class UpdateAdapter extends CursorAdapter {
         activity.setValue(UserActivity.TARGET_NAME, unionCursor.getString(5));
         activity.setValue(UserActivity.PICTURE, unionCursor.getString(6));
         activity.setValue(UserActivity.USER_UUID, unionCursor.getString(7));
-    }
-
-    public static void readUserProperties(TodorooCursor<UserActivity> joinCursor, User user, User self, boolean isSelf) {
-        if (isSelf) {
-            user.mergeWith(self.getSetValues());
-        } else {
-            user.setValue(USER_FIRST_NAME, joinCursor.get(USER_FIRST_NAME));
-            user.setValue(USER_LAST_NAME, joinCursor.get(USER_LAST_NAME));
-            user.setValue(USER_NAME, joinCursor.get(USER_NAME));
-            user.setValue(USER_PICTURE, joinCursor.get(USER_PICTURE));
-        }
-
     }
 
     /** Helper method to set the contents and visibility of each field */

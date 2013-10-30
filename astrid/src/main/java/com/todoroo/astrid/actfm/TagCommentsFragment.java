@@ -67,7 +67,7 @@ public class TagCommentsFragment extends CommentsFragment {
 
     @Override
     protected Cursor getCursor() {
-        return tagDataService.getActivityForTagData(tagData, null, UpdateAdapter.USER_TABLE_ALIAS, UpdateAdapter.USER_PROPERTIES);
+        return tagDataService.getActivityForTagData(tagData, null);
     }
 
     @Override

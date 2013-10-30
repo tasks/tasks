@@ -13,7 +13,6 @@ import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
-import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
@@ -51,9 +50,6 @@ public final class PluginServices {
 
     @Autowired
     StoreObjectDao storeObjectDao;
-
-    @Autowired
-    UserDao userDao;
 
     @Autowired
     TaskListMetadataDao taskListMetadataDao;
@@ -115,10 +111,6 @@ public final class PluginServices {
 
     public static StoreObjectDao getStoreObjectDao() {
         return getInstance().storeObjectDao;
-    }
-
-    public static UserDao getUserDao() {
-        return getInstance().userDao;
     }
 
     public static TaskListMetadataDao getTaskListMetadataDao() {

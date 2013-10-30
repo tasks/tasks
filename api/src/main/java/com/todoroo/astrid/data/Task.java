@@ -37,10 +37,6 @@ public final class Task extends RemoteModel {
     /** table for this model */
     public static final Table TABLE = new Table("tasks", Task.class);
 
-    /** model class for entries in the outstanding table */
-    public static final Class<? extends OutstandingEntry<Task>> OUTSTANDING_MODEL = TaskOutstanding.class;
-
-    /** content uri for this model */
     public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.API_PACKAGE + "/" +
             TABLE.name);
 
@@ -162,10 +158,6 @@ public final class Task extends RemoteModel {
     public static final StringProperty USER_ID = new StringProperty(
             TABLE, USER_ID_PROPERTY_NAME, Property.PROP_FLAG_USER_ID);
 
-    /** User Object (JSON) */
-    @Deprecated public static final StringProperty USER = new StringProperty(
-            TABLE, USER_JSON_PROPERTY_NAME);
-
     /** Creator user id */
     public static final StringProperty CREATOR_ID = new StringProperty(
             TABLE, "creatorId", Property.PROP_FLAG_USER_ID);
@@ -190,40 +182,10 @@ public final class Task extends RemoteModel {
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(Task.class);
 
-    // --- flags
-
-    /** whether repeat occurs relative to completion date instead of due date */
-    @Deprecated public static final int FLAG_REPEAT_AFTER_COMPLETION = 1 << 1;
-
-    /** whether task is read-only */
-    @Deprecated public static final int FLAG_IS_READONLY = 1 << 2;
-
-    /** whether a task is public */
-    @Deprecated public static final int FLAG_PUBLIC = 1 << 3;
-
     // --- user id special values
-
-    /** user id = doesn't exist/ignore it. For filtering in tags */
-    public static final String USER_ID_IGNORE = "-3";
-
-    /** user id = read user email value */
-    public static final String USER_ID_EMAIL = "-2";
-
-    /** user id = unassigned */
-    public static final String USER_ID_UNASSIGNED = "-1";
 
     /** user id = myself */
     public static final String USER_ID_SELF = "0";
-
-    public static boolean isRealUserId(String userId) {
-        if (userId == null) {
-            return false;
-        }
-        return !(Task.USER_ID_SELF.equals(userId) ||
-                Task.USER_ID_UNASSIGNED.equals(userId) ||
-                Task.USER_ID_EMAIL.equals(userId) ||
-                Task.USER_ID_IGNORE.equals(userId));
-    }
 
     public static boolean userIdIsEmail(String userId) {
         if (userId == null) {
@@ -256,9 +218,6 @@ public final class Task extends RemoteModel {
     // --- social reminder types
 
     public static final String REMINDER_SOCIAL_UNSEEN = "unseen";
-    public static final String REMINDER_SOCIAL_PRIVATE = "private";
-    public static final String REMINDER_SOCIAL_NO_FACES = "no_faces";
-    public static final String REMINDER_SOCIAL_FACES = "faces";
 
     /**
      * @return colors that correspond to importance values
@@ -314,8 +273,6 @@ public final class Task extends RemoteModel {
         defaultValues.put(UUID.name, NO_UUID);
         defaultValues.put(USER_ID.name, "0");
         defaultValues.put(CREATOR_ID.name, 0);
-        defaultValues.put(USER.name, "");
-//        defaultValues.put(USER_EMAIL.name, "");
         defaultValues.put(PUSHED_AT.name, 0L);
         defaultValues.put(ATTACHMENTS_PUSHED_AT.name, 0L);
         defaultValues.put(USER_ACTIVITIES_PUSHED_AT.name, 0L);

@@ -6,28 +6,21 @@
 package com.todoroo.astrid.service;
 
 import android.database.Cursor;
-import android.text.TextUtils;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Field;
-import com.todoroo.andlib.sql.Functions;
-import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.adapter.UpdateAdapter;
-import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
@@ -86,42 +79,7 @@ public class TagDataService {
         }
     }
 
-    /**
-     * Fetch tag data
-     */
-    public TodorooCursor<TagData> fetchFiltered(String queryTemplate, CharSequence constraint,
-            Property<?>... properties) {
-        Criterion whereConstraint = null;
-        if(constraint != null) {
-            whereConstraint = Functions.upper(TagData.NAME).like("%" +
-                    constraint.toString().toUpperCase() + "%");
-        }
-
-        if(queryTemplate == null) {
-            if(whereConstraint == null) {
-                return tagDataDao.query(Query.select(properties));
-            } else {
-                return tagDataDao.query(Query.select(properties).where(whereConstraint));
-            }
-        }
-
-        String sql;
-        if(whereConstraint != null) {
-            if(!queryTemplate.toUpperCase().contains("WHERE")) {
-                sql = queryTemplate + " WHERE " + whereConstraint;
-            } else {
-                sql = queryTemplate.replace("WHERE ", "WHERE " + whereConstraint + " AND ");
-            }
-        } else {
-            sql = queryTemplate;
-        }
-
-        sql = PermaSql.replacePlaceholders(sql);
-
-        return tagDataDao.query(Query.select(properties).withQueryTemplate(sql));
-    }
-
-    private static Query queryForTagData(TagData tagData, Criterion extraCriterion, String userTableAlias, Property<?>[] activityProperties, Property<?>[] userProperties) {
+    private static Query queryForTagData(TagData tagData, Criterion extraCriterion, Property<?>[] activityProperties) {
         Criterion criteria;
         if (tagData == null) {
             criteria = UserActivity.DELETED_AT.eq(0);
@@ -137,50 +95,16 @@ public class TagDataService {
             criteria = Criterion.and(criteria, extraCriterion);
         }
 
-        Query result = Query.select(AndroidUtilities.addToArray(Property.class, activityProperties, userProperties)).where(criteria);
-        if (!TextUtils.isEmpty(userTableAlias)) {
-            result = result.join(Join.left(User.TABLE.as(userTableAlias), UserActivity.USER_UUID.eq(Field.field(userTableAlias + "." + User.UUID.name)))); //$NON-NLS-1$
-        }
+        Query result = Query.select(AndroidUtilities.addToArray(Property.class, activityProperties)).where(criteria);
         return result;
     }
 
-    public TodorooCursor<UserActivity> getUserActivityWithExtraCriteria(TagData tagData, Criterion criterion) {
-        if (tagData == null) {
-            return userActivityDao.query(Query.select(UserActivity.PROPERTIES).where(
-                    criterion).
-                    orderBy(Order.desc(UserActivity.CREATED_AT)));
-        }
-
-        return userActivityDao.query(queryForTagData(tagData, criterion, null, UserActivity.PROPERTIES, null).orderBy(Order.desc(UserActivity.CREATED_AT)));
-    }
-
-    public Cursor getActivityForTagData(TagData tagData, Criterion extraCriterion, String userTableAlias, Property<?>... userProperties) {
-        Query activityQuery = queryForTagData(tagData, extraCriterion, userTableAlias, UpdateAdapter.USER_ACTIVITY_PROPERTIES, userProperties)
+    public Cursor getActivityForTagData(TagData tagData, Criterion extraCriterion) {
+        Query activityQuery = queryForTagData(tagData, extraCriterion, UpdateAdapter.USER_ACTIVITY_PROPERTIES)
                 .from(UserActivity.TABLE);
 
         Query resultQuery = activityQuery.orderBy(Order.desc("1")); //$NON-NLS-1$
 
         return userActivityDao.query(resultQuery);
     }
-
-    /**
-     * Return update
-     */
-    public UserActivity getLatestUpdate(TagData tagData) {
-        if(RemoteModel.NO_UUID.equals(tagData.getValue(TagData.UUID))) {
-            return null;
-        }
-
-        TodorooCursor<UserActivity> updates = userActivityDao.query(queryForTagData(tagData, null, null, UserActivity.PROPERTIES, null).orderBy(Order.desc(UserActivity.CREATED_AT)).limit(1));
-        try {
-            if(updates.getCount() == 0) {
-                return null;
-            }
-            updates.moveToFirst();
-            return new UserActivity(updates);
-        } finally {
-            updates.close();
-        }
-    }
-
 }
