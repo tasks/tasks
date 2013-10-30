@@ -30,9 +30,6 @@ public class Metadata extends AbstractModel {
     /** table for this model */
     public static final Table TABLE = new Table("metadata", Metadata.class);
 
-    /** changes to metadata (specifically tags) are recorded in the task outstanding table */
-    public static final Class<? extends OutstandingEntry<Task>> OUTSTANDING_MODEL = TaskOutstanding.class;
-
     /** content uri for this model */
     public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.API_PACKAGE + "/" +
             TABLE.name);

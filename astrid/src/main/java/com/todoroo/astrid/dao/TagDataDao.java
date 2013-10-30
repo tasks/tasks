@@ -27,11 +27,6 @@ public class TagDataDao extends RemoteModelDao<TagData> {
         setDatabase(database);
     }
 
-    @Override
-    protected boolean shouldRecordOutstandingEntry(String columnName, Object value) {
-        return NameMaps.shouldRecordOutstandingColumnForTable(NameMaps.TABLE_ID_TAGS, columnName);
-    }
-
     // --- SQL clause generators
 
     /**

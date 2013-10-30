@@ -21,7 +21,6 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 /**
@@ -128,22 +127,6 @@ abstract public class AbstractDatabase {
         throw new UnsupportedOperationException("Unknown model class " + modelType); //$NON-NLS-1$
     }
 
-    public final Table getOutstandingTable(Class<? extends AbstractModel> modelType) {
-        try {
-            Field f = modelType.getDeclaredField("OUTSTANDING_MODEL");
-            Class<? extends AbstractModel> outstandingModelType = (Class<? extends AbstractModel>) f.get(null);
-            return getTable(outstandingModelType);
-        } catch (NoSuchFieldException n) {
-            //
-        } catch (IllegalAccessException i) {
-            //
-        } catch (ClassCastException c) {
-            throw new RuntimeException("Outstanding model class for type " + modelType + " could not be cast");
-        }
-
-        return null;
-    }
-
     protected synchronized final void initializeHelper() {
         if(helper == null) {
             if(ContextManager.getContext() == null) {
@@ -247,7 +230,7 @@ abstract public class AbstractDatabase {
      * @see android.database.sqlite.SQLiteDatabase#insert(String  table, String  nullColumnHack, ContentValues  values)
      */
     public synchronized long insert(String table, String nullColumnHack, ContentValues values) {
-        long result = -1;
+        long result;
         try {
             result = getDatabase().insertOrThrow(table, nullColumnHack, values);
         } catch (SQLiteConstraintException e) { // Throw these exceptions

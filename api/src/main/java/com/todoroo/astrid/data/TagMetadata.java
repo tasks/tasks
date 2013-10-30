@@ -15,9 +15,6 @@ public class TagMetadata extends AbstractModel {
 
     public static final Table TABLE = new Table("tag_metadata", TagMetadata.class);
 
-    /** changes to metadata (specifically members) are recorded in the tag outstanding table */
-    public static final Class<? extends OutstandingEntry<TagData>> OUTSTANDING_MODEL = TagOutstanding.class;
-
     /** content uri for this model */
     public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.API_PACKAGE + "/" +
             TABLE.name);

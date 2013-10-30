@@ -32,19 +32,6 @@ public class TaskListMetadataDao extends RemoteModelDao<TaskListMetadata> {
         setDatabase(database);
     }
 
-    @Override
-    protected boolean shouldRecordOutstandingEntry(String columnName, Object value) {
-        if (TaskListMetadata.FILTER.name.equals(columnName) || TaskListMetadata.TAG_UUID.name.equals(columnName)) {
-            return !RemoteModel.isUuidEmpty(value.toString());
-        }
-
-        if (TaskListMetadata.TASK_IDS.name.equals(columnName)) {
-            return !TaskListMetadata.taskIdsIsEmpty(value.toString());
-        }
-
-        return NameMaps.shouldRecordOutstandingColumnForTable(NameMaps.TABLE_ID_TASK_LIST_METADATA, columnName);
-    }
-
     public TaskListMetadata fetchByTagId(String tagUuid, Property<?>...properties) {
         TodorooCursor<TaskListMetadata> taskListMetadata = query(Query.select(properties).where(Criterion.or(TaskListMetadata.TAG_UUID.eq(tagUuid),
                 TaskListMetadata.FILTER.eq(tagUuid))));

@@ -54,11 +54,6 @@ public class RemoteModelDao<RTYPE extends RemoteModel> extends DatabaseDao<RTYPE
         return (outstandingEntryFlag & flag) > 0;
     }
 
-    @Override
-    protected boolean shouldRecordOutstanding(RTYPE item) {
-        return super.shouldRecordOutstanding(item) && getOutstandingEntryFlag(OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING);
-    }
-
     /**
      * Fetch a model object by UUID
      */

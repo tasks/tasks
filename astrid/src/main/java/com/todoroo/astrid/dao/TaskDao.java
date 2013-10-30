@@ -293,11 +293,6 @@ public class TaskDao extends RemoteModelDao<Task> {
         Task.RECURRENCE
     };
 
-    @Override
-    protected boolean shouldRecordOutstandingEntry(String columnName, Object value) {
-        return NameMaps.shouldRecordOutstandingColumnForTable(NameMaps.TABLE_ID_TASKS, columnName);
-    }
-
     public void saveExistingWithSqlConstraintCheck(Task item) {
         try {
             saveExisting(item);

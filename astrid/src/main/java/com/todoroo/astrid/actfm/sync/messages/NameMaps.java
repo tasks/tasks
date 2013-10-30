@@ -19,11 +19,7 @@ public class NameMaps {
     // --------------------------------
 
     // Universal table identifiers
-    public static final String TABLE_ID_TASKS = "tasks";
-    public static final String TABLE_ID_TAGS = "tags";
     public static final String TABLE_ID_USER_ACTIVITY = "user_activities";
-    public static final String TABLE_ID_ATTACHMENTS = "task_attachments";
-    public static final String TABLE_ID_TASK_LIST_METADATA = "task_list_metadata";
 
     // --------------------------------
     // ---- Column name mappings -------
@@ -79,10 +75,6 @@ public class NameMaps {
         putTaskPropertyToServerName(Task.CLASSIFICATION,  "classification", false);
     }
 
-    public static final String TAG_ADDED_COLUMN = "tag_added";
-    public static final String TAG_REMOVED_COLUMN = "tag_removed";
-
-
     // ----------
     // TagData
     // ----------
@@ -113,9 +105,6 @@ public class NameMaps {
         putTagPropertyToServerName(TagData.PICTURE,         "picture",      true);
         putTagPropertyToServerName(TagData.IS_FOLDER,       "is_folder",    false);
     }
-
-    public static final String MEMBER_ADDED_COLUMN = "member_added";
-    public static final String MEMBER_REMOVED_COLUMN = "member_removed";
 
     // ----------
     // User Activity
@@ -154,8 +143,6 @@ public class NameMaps {
     private static final Map<String, Property<?>> TASK_ATTACHMENT_COLUMN_NAMES_TO_PROPERTIES;
     private static final Map<String, String> TASK_ATTACHMENT_COLUMNS_LOCAL_TO_SERVER;
     private static final Set<String> TASK_ATTACHMENT_PROPERTIES_EXCLUDED;
-
-    public static final String ATTACHMENT_ADDED_COLUMN = "file";
 
     private static void putTaskAttachmentPropertyToServerName(Property<?> property, String serverName, boolean writeable) {
         putPropertyToServerName(property, serverName, TASK_ATTACHMENT_PROPERTIES_LOCAL_TO_SERVER, TASK_ATTACHMENT_COLUMN_NAMES_TO_PROPERTIES,
@@ -206,34 +193,5 @@ public class NameMaps {
         putTaskListMetadataPropertyToServerName(TaskListMetadata.SETTINGS,      "settings",      false);
         putTaskListMetadataPropertyToServerName(TaskListMetadata.CHILD_TAG_IDS, "child_tag_ids", false);
         putTaskListMetadataPropertyToServerName(TaskListMetadata.IS_COLLAPSED,  "is_collapsed",  false);
-    }
-
-    // ----------
-    // Mapping helpers
-    // ----------
-
-    public static boolean shouldRecordOutstandingColumnForTable(String table, String column) {
-        if (TABLE_ID_TASKS.equals(table)) {
-           if (TASK_COLUMN_NAMES_TO_PROPERTIES.containsKey(column)) {
-               return !TASK_PROPERTIES_EXCLUDED.contains(column);
-           }
-        } else if (TABLE_ID_TAGS.equals(table)) {
-            if (TAG_DATA_COLUMN_NAMES_TO_PROPERTIES.containsKey(column)) {
-                return !TAG_PROPERTIES_EXCLUDED.contains(column);
-            }
-        } else if (TABLE_ID_USER_ACTIVITY.equals(table)) {
-            if (USER_ACTIVITY_COLUMN_NAMES_TO_PROPERTIES.containsKey(column)) {
-                return !USER_ACTIVITY_PROPERTIES_EXCLUDED.contains(column);
-            }
-        } else if (TABLE_ID_ATTACHMENTS.equals(table)) {
-            if (TASK_ATTACHMENT_COLUMN_NAMES_TO_PROPERTIES.containsKey(column)) {
-                return !TASK_ATTACHMENT_PROPERTIES_EXCLUDED.contains(column);
-            }
-        } else if (TABLE_ID_TASK_LIST_METADATA.equals(table)) {
-            if (TASK_LIST_METADATA_COLUMN_NAMES_TO_PROPERTIES.containsKey(column)) {
-                return !TASK_LIST_METADATA_PROPERTIES_EXCLUDED.contains(column);
-            }
-        }
-        return false;
     }
 }

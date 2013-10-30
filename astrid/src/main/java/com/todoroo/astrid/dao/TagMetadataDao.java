@@ -5,10 +5,8 @@
  */
 package com.todoroo.astrid.dao;
 
-import android.content.ContentValues;
 import android.text.TextUtils;
 
-import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -16,15 +14,12 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.OutstandingEntry;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagMetadata;
-import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.tags.TagMemberMetadata;
 
 import org.json.JSONArray;
@@ -67,41 +62,6 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
         public static Criterion byTagAndWithKey(String tagUuid, String key) {
             return Criterion.and(withKey(key), byTag(tagUuid));
         }
-    }
-
-    @Override
-    protected boolean shouldRecordOutstanding(TagMetadata item) {
-        ContentValues cv = item.getSetValues();
-        return super.shouldRecordOutstanding(item) && cv != null &&
-                ((cv.containsKey(TagMetadata.KEY.name) &&
-                        TagMemberMetadata.KEY.equals(item.getValue(TagMetadata.KEY))) ||
-                (cv.containsKey(TagMetadata.DELETION_DATE.name) &&
-                        item.getValue(TagMetadata.DELETION_DATE) > 0)) &&
-                RemoteModelDao.getOutstandingEntryFlag(RemoteModelDao.OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING);
-    }
-
-    @Override
-    protected int createOutstandingEntries(long modelId, ContentValues modelSetValues) {
-        Long tagDataId = modelSetValues.getAsLong(TagMetadata.TAG_ID.name);
-        String memberId = modelSetValues.getAsString(TagMemberMetadata.USER_UUID.name);
-        Long deletionDate = modelSetValues.getAsLong(TagMetadata.DELETION_DATE.name);
-        if (tagDataId == null || tagDataId == AbstractModel.NO_ID || RemoteModel.isUuidEmpty(memberId)) {
-            return -1;
-        }
-
-        TagOutstanding to = new TagOutstanding();
-        to.setValue(OutstandingEntry.ENTITY_ID_PROPERTY, tagDataId);
-        to.setValue(OutstandingEntry.CREATED_AT_PROPERTY, DateUtilities.now());
-
-        String addedOrRemoved = NameMaps.MEMBER_ADDED_COLUMN;
-        if (deletionDate != null && deletionDate > 0) {
-            addedOrRemoved = NameMaps.MEMBER_REMOVED_COLUMN;
-        }
-
-        to.setValue(OutstandingEntry.COLUMN_STRING_PROPERTY, addedOrRemoved);
-        to.setValue(OutstandingEntry.VALUE_STRING_PROPERTY, memberId);
-        database.insert(outstandingTable.name, null, to.getSetValues());
-        return 1;
     }
 
     public void createMemberLink(long tagId, String tagUuid, String memberId, boolean suppressOutstanding) {

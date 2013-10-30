@@ -33,7 +33,7 @@ public class DependencyInjectionTest {
                 new AbstractDependencyInjector() {
 
                     @Override
-                    public Object getInjection(Object object, Field field) {
+                    public Object getInjection(Field field) {
                         if(field.getName().equals("foo"))
                             return "bar";
                         return null;
@@ -110,7 +110,7 @@ public class DependencyInjectionTest {
                 new AbstractDependencyInjector() {
 
                     @Override
-                    public Object getInjection(Object object, Field field) {
+                    public Object getInjection(Field field) {
                         return "malarkey";
                     }
                 }
@@ -119,7 +119,7 @@ public class DependencyInjectionTest {
                 new AbstractDependencyInjector() {
 
                     @Override
-                    public Object getInjection(Object object, Field field) {
+                    public Object getInjection(Field field) {
                         if(field.getName().equals("foo"))
                             return "bar";
                         return null;
@@ -158,7 +158,7 @@ public class DependencyInjectionTest {
                 new AbstractDependencyInjector() {
 
                     @Override
-                    public Object getInjection(Object object, Field field) {
+                    public Object getInjection(Field field) {
                         if(field.getName().equals("wozzle"))
                             return "bar";
                         return null;
@@ -193,7 +193,7 @@ public class DependencyInjectionTest {
                 new AbstractDependencyInjector() {
 
                     @Override
-                    public Object getInjection(Object object, Field field) {
+                    public Object getInjection(Field field) {
                         if(field.getName().equals("foo"))
                             return "bar";
                         return null;
@@ -242,7 +242,7 @@ public class DependencyInjectionTest {
                 new AbstractDependencyInjector() {
 
                     @Override
-                    public Object getInjection(Object object, Field field) {
+                    public Object getInjection(Field field) {
                         if(field.getName().equals("foo"))
                             return "gotfoo";
                         else if(field.getName().equals("bar"))

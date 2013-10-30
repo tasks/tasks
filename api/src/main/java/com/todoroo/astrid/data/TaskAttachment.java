@@ -32,9 +32,6 @@ public final class TaskAttachment extends RemoteModel {
     /** table for this model */
     public static final Table TABLE = new Table("task_attachments", TaskAttachment.class);
 
-    /** model class for entries in the outstanding table */
-    public static final Class<? extends OutstandingEntry<TaskAttachment>> OUTSTANDING_MODEL = TaskAttachmentOutstanding.class;
-
     /** content uri for this model */
     public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.API_PACKAGE + "/" +
             TABLE.name);

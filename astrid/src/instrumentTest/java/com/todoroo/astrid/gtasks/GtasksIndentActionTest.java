@@ -125,11 +125,11 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
     // --- helpers
 
     private void whenIncreaseIndent() {
-        gtasksTaskListUpdater.indent(null, storeList, task.getId(), 1);
+        gtasksTaskListUpdater.indent(storeList, task.getId(), 1);
     }
 
     private void whenDecreaseIndent() {
-        gtasksTaskListUpdater.indent(null, storeList, task.getId(), -1);
+        gtasksTaskListUpdater.indent(storeList, task.getId(), -1);
     }
 
     @Override

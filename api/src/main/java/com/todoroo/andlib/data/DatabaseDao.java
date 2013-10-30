@@ -7,24 +7,17 @@ package com.todoroo.andlib.data;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteTransactionListener;
 import android.util.Log;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.data.OutstandingEntry;
-import com.todoroo.astrid.data.SyncFlags;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Map.Entry;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 
 
 
@@ -43,8 +36,6 @@ public class DatabaseDao<TYPE extends AbstractModel> {
     private final Class<TYPE> modelClass;
 
     private Table table;
-
-    protected Table outstandingTable;
 
     private AbstractDatabase database;
 
@@ -83,7 +74,6 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         }
         this.database = database;
         table = database.getTable(modelClass);
-        outstandingTable = database.getOutstandingTable(modelClass);
     }
 
     // --- listeners
@@ -203,57 +193,8 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      * @return # of updated items
      */
     public int update(Criterion where, TYPE template) {
-        boolean recordOutstanding = shouldRecordOutstanding(template);
-        final AtomicInteger result = new AtomicInteger(0);
-
-        if (recordOutstanding) {
-            TodorooCursor<TYPE> toUpdate = query(Query.select(AbstractModel.ID_PROPERTY).where(where));
-            Long[] ids = null;
-            try {
-                ids = new Long[toUpdate.getCount()];
-                for (int i = 0; i < toUpdate.getCount(); i++) {
-                    toUpdate.moveToNext();
-                    ids[i] = toUpdate.get(AbstractModel.ID_PROPERTY);
-                }
-            } finally {
-                toUpdate.close();
-            }
-
-            if (toUpdate.getCount() == 0) {
-                return 0;
-            }
-
-            synchronized (database) {
-                database.getDatabase().beginTransactionWithListener(new SQLiteTransactionListener() {
-                    @Override
-                    public void onRollback() {
-                        Log.e(ERROR_TAG, "Error updating rows", new Throwable()); //$NON-NLS-1$
-                        result.set(0);
-                    }
-                    @Override
-                    public void onCommit() {/**/}
-                    @Override
-                    public void onBegin() {/**/}
-                });
-
-                try {
-                    result.set(database.update(table.name, template.getSetValues(),
-                            where.toString(), null));
-                    if (result.get() > 0) {
-                        for (Long id : ids) {
-                            createOutstandingEntries(id, template.getSetValues());
-                        }
-                    }
-                    database.getDatabase().setTransactionSuccessful();
-                } finally {
-                    database.getDatabase().endTransaction();
-                }
-            }
-            return result.get();
-        } else {
-            return database.update(table.name, template.getSetValues(),
-                    where.toString(), null);
-        }
+        return database.update(table.name, template.getSetValues(),
+                where.toString(), null);
     }
 
     /**
@@ -281,44 +222,10 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         public boolean makeChange();
     }
 
-    protected boolean shouldRecordOutstanding(TYPE item) {
-        return (outstandingTable != null) &&
-                !item.checkAndClearTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES);
-    }
-
-    private boolean insertOrUpdateAndRecordChanges(TYPE item, ContentValues values, DatabaseChangeOp op) {
-        boolean recordOutstanding = shouldRecordOutstanding(item);
+    private boolean insertOrUpdateAndRecordChanges(TYPE item, DatabaseChangeOp op) {
         final AtomicBoolean result = new AtomicBoolean(false);
-
         synchronized(database) {
-            if (recordOutstanding) { // begin transaction
-                database.getDatabase().beginTransactionWithListener(new SQLiteTransactionListener() {
-                    @Override
-                    public void onRollback() {
-                        Log.e(ERROR_TAG, "Error inserting or updating rows", new Throwable()); //$NON-NLS-1$
-                        result.set(false);
-                    }
-                    @Override
-                    public void onCommit() {/**/}
-                    @Override
-                    public void onBegin() {/**/}
-                });
-            }
-            int numOutstanding = 0;
-            try {
-                result.set(op.makeChange());
-                if(result.get()) {
-                    if (recordOutstanding && ((numOutstanding = createOutstandingEntries(item.getId(), values)) != -1)) // Create entries for setValues in outstanding table
-                    {
-                        database.getDatabase().setTransactionSuccessful();
-                    }
-                }
-            } finally {
-                if (recordOutstanding) // commit transaction
-                {
-                    database.getDatabase().endTransaction();
-                }
-            }
+            result.set(op.makeChange());
             if (result.get()) {
                 onModelUpdated(item);
                 item.markSaved();
@@ -348,7 +255,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
                 return result;
             }
         };
-        return insertOrUpdateAndRecordChanges(item, item.getMergedValues(), insert);
+        return insertOrUpdateAndRecordChanges(item, insert);
     }
 
     /**
@@ -370,45 +277,10 @@ public class DatabaseDao<TYPE extends AbstractModel> {
                         AbstractModel.ID_PROPERTY.eq(item.getId()).toString(), null) > 0;
             }
         };
-        return insertOrUpdateAndRecordChanges(item, values, update);
-    }
-
-    protected int createOutstandingEntries(long modelId, ContentValues modelSetValues) {
-        Set<Entry<String, Object>> entries = modelSetValues.valueSet();
-        long now = DateUtilities.now();
-        int count = 0;
-        for (Entry<String, Object> entry : entries) {
-            if (entry.getValue() != null && shouldRecordOutstandingEntry(entry.getKey(), entry.getValue())) {
-                AbstractModel m;
-                try {
-                    m = outstandingTable.modelClass.newInstance();
-                } catch (IllegalAccessException e) {
-                    return -1;
-                } catch (InstantiationException e2) {
-                    return -1;
-                }
-                m.setValue(OutstandingEntry.ENTITY_ID_PROPERTY, modelId);
-                m.setValue(OutstandingEntry.COLUMN_STRING_PROPERTY, entry.getKey());
-                m.setValue(OutstandingEntry.VALUE_STRING_PROPERTY, entry.getValue().toString());
-                m.setValue(OutstandingEntry.CREATED_AT_PROPERTY, now);
-                database.insert(outstandingTable.name, null, m.getSetValues());
-                count++;
-            }
-        }
-        return count;
-    }
-
-    /**
-     * Returns true if an entry in the outstanding table should be recorded for this
-     * column. Subclasses can override to return false for insignificant columns
-     * (e.g. Task.DETAILS, last modified, etc.)
-     */
-    protected boolean shouldRecordOutstandingEntry(String columnName, Object value) {
-        return true;
+        return insertOrUpdateAndRecordChanges(item, update);
     }
 
     // --- helper methods
-
 
     /**
      * Returns cursor to object corresponding to the given identifier

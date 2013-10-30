@@ -18,16 +18,11 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagMetadata;
-import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
-import com.todoroo.astrid.data.TaskAttachmentOutstanding;
 import com.todoroo.astrid.data.TaskListMetadata;
-import com.todoroo.astrid.data.TaskListMetadataOutstanding;
-import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.data.UserActivity;
-import com.todoroo.astrid.data.UserActivityOutstanding;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.provider.Astrid3ContentProvider;
 import com.todoroo.astrid.widget.TasksWidget;
@@ -67,11 +62,6 @@ public class Database extends AbstractDatabase {
         TagMetadata.TABLE,
         TaskAttachment.TABLE,
         TaskListMetadata.TABLE,
-        TaskOutstanding.TABLE,
-        TagOutstanding.TABLE,
-        UserActivityOutstanding.TABLE,
-        TaskAttachmentOutstanding.TABLE,
-        TaskListMetadataOutstanding.TABLE
     };
 
     // --- listeners
@@ -317,15 +307,10 @@ public class Database extends AbstractDatabase {
         }
         case 28:
         case 29:
-            tryExecSQL(createTableSql(visitor, TaskOutstanding.TABLE.name, TaskOutstanding.PROPERTIES));
-            tryExecSQL(createTableSql(visitor, TagOutstanding.TABLE.name, TagOutstanding.PROPERTIES));
-            tryExecSQL(createTableSql(visitor, TaskAttachmentOutstanding.TABLE.name, TagOutstanding.PROPERTIES));
             tryExecSQL(createTableSql(visitor, TagMetadata.TABLE.name, TagMetadata.PROPERTIES));
             tryExecSQL(createTableSql(visitor, UserActivity.TABLE.name, UserActivity.PROPERTIES));
-            tryExecSQL(createTableSql(visitor, UserActivityOutstanding.TABLE.name, UserActivityOutstanding.PROPERTIES));
             tryExecSQL(createTableSql(visitor, TaskAttachment.TABLE.name, TaskAttachment.PROPERTIES));
             tryExecSQL(createTableSql(visitor, TaskListMetadata.TABLE.name, TaskListMetadata.PROPERTIES));
-            tryExecSQL(createTableSql(visitor, TaskListMetadataOutstanding.TABLE.name, TaskListMetadataOutstanding.PROPERTIES));
 
             tryExecSQL(addColumnSql(Task.TABLE, Task.PUSHED_AT, visitor, null));
             tryExecSQL(addColumnSql(Task.TABLE, Task.IS_PUBLIC, visitor, "0"));

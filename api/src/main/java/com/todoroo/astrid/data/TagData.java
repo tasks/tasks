@@ -31,9 +31,6 @@ public final class TagData extends RemoteModel {
     /** table for this model */
     public static final Table TABLE = new Table("tagdata", TagData.class);
 
-    /** model class for entries in the outstanding table */
-    public static final Class<? extends OutstandingEntry<TagData>> OUTSTANDING_MODEL = TagOutstanding.class;
-
     /** content uri for this model */
     public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.API_PACKAGE + "/" +
             TABLE.name);
