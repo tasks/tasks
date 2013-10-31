@@ -237,9 +237,16 @@
 	</string-array>
 	<string name="EPr_task_row_style_title">Estilo de fila: %s</string>
 	<string name="EPr_use_filters_title">Usar filtros</string>
+	<string name="EPr_use_filters_subtitle">Permite crear filtros personalizados</string>
+	<string name="EPr_show_quickadd_controls">Controles avanzados de adiciona rápida</string>
+	<string name="EPr_hide_plus_button">Ocultar botón de adición</string>
 	<string name="EPr_menu_items">Objetos del menú</string>
 	<string name="EPr_list_view">Vista de listas</string>
+	<string name="EPr_show_task_edit_comments">Mostrar comentarios durante la edición de tareas</string>
 	<string name="EPr_taskRowPrefs_title">Apariencia de la fila de tareas</string>
+	<string name="EPr_cal_end_or_start_at_due_time">Fecha del evento en calendario</string>
+	<string name="EPr_cal_end_at_due_time">Terminar eventos de calendario en fecha límite</string>
+	<string name="EPr_cal_start_at_due_time">Iniciar eventos del calendario en fecha límite</string>
 	<string name="EPr_force_phone_layout">Usar diseño de teléfono</string>
 	<string name="EPr_manage_header">Administrar tareas antiguas</string>
 	<string name="EPr_manage_delete_completed">Borrar tareas completadas</string>
@@ -269,6 +276,7 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="DB_corrupted_body">\"¡Oh-oh! Es posible que tu base de datos esté corrupta. Si ves éste error con frecuencia, te sugerimos que limpies toda la información  (Configuración-&gt;Sincronización y respaldos-&gt;Administrar tareas pasadas-&gt;Limpiar toda la información) y recuperar tus tareas de un respaldo (Configuración-&gt;Sincronización y respaldos-&gt;Respaldos-&gt;Importar tareas) en Tasks.\"</string>
 	<string name="market_unavailable">Desafortunadamente el Market no está disponible para tu sistema</string>
 	<string name="EPr_defaults_header">Configuración por defecto de nuevas tareas.</string>
+	<string name="EPr_defaults_summary">Prioridad, fecha limite, añadir al calendario</string>
 	<string name="EPr_default_urgency_title">Fecha límite por defecto</string>
 	<string name="EPr_default_urgency_desc">Actualmente: %s</string>
 	<string name="EPr_default_importance_title">Prioridad predeterminada</string>
@@ -317,6 +325,7 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="CFA_type_intersect">también</string>
 	<string name="CFA_context_chain">%s cumple el criterio</string>
 	<string name="CFA_context_delete">Eliminar fila</string>
+	<string name="CFA_help">Mantén presionado un ítem para ver opciones adicionales</string>
 	<string name="CFA_button_add">Añadir Criterio</string>
 	<string name="CFA_button_view">Ver</string>
 	<string name="CFA_button_save">Guardar &amp; ver</string>
@@ -331,6 +340,7 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 		<item>Próxima semana</item>
 		<item>Próximo mes</item>
 	</string-array>
+	<string name="CFC_importance_text">¿Prioridad mínima?</string>
 	<string name="CFC_importance_name">Prioridad...</string>
 	<string name="CFC_tag_text">Lista: ?</string>
 	<string name="CFC_tag_name">Lista...</string>
@@ -426,6 +436,7 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="p_files_dir_desc">Archivos adjuntos de tareas guardados en: %s</string>
 	<string name="p_files_dir_desc_default">Directorio predeterminado</string>
 	<string name="premium_speech_bubble_2">¡Ordena un año y ahorra un 25%%!</string>
+	<string name="TEA_reminders_group_label">Recordar configuración</string>
 	<string name="TEA_reminder_label">Recordarme:</string>
 	<string name="TEA_reminder_due">Cuando la tarea es finalizada</string>
 	<string name="TEA_reminder_overdue">Cuando la tarea está retrasada</string>
@@ -434,6 +445,12 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="TEA_reminder_mode_once">Una vez</string>
 	<string name="TEA_reminder_mode_five">Cinco veces</string>
 	<string name="TEA_reminder_mode_nonstop">Hasta que cancele la alarma</string>
+	<string name="TEA_reminder_when">cuando</string>
+	<string name="TEA_reminder_due_short">límite</string>
+	<string name="TEA_reminder_overdue_short">retrasado</string>
+	<string name="TEA_reminder_randomly_short">aleatoriamente</string>
+	<string name="TEA_reminder_display_one">Recordarme %s</string>
+	<string name="TEA_reminder_display_multiple">Recordar %s</string>
 	<string-array name="TEA_reminder_random">
 		<item>una hora</item>
 		<item>un día</item>
@@ -595,6 +612,7 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="repeat_enabled">Repeticiones</string>
 	<string name="repeat_every">Cada %d</string>
 	<string name="repeat_interval_prompt">Intervalo de repetición</string>
+	<string name="repeat_never">Sin repetir</string>
 	<string name="repeat_dont">No repetir</string>
 	<string-array name="repeat_interval_short">
 		<item>d</item>
@@ -650,6 +668,7 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="tag_no_title_error">Por favor, ¡introduce un nombre para la primera lista!</string>
 	<string name="tag_FEx_add_new">Nueva</string>
 	<string name="tag_FEx_header">Listas</string>
+	<string name="tag_FEx_untagged">Sin Categoría</string>
 	<string name="tag_cm_rename">Renombrar lista</string>
 	<string name="tag_cm_delete">Eliminar lista</string>
 	<string name="DLG_delete_this_tag_question">¿Eliminar esta lista: %s? (Ninguna tarea será eliminada.)</string>

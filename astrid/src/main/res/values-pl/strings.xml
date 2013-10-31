@@ -258,9 +258,6 @@
 	<string name="AOA_internal_author">Zespół Tasks</string>
 	<string name="TWi_loading">Ładowanie...</string>
 	<string name="WCA_title">Wybierz zadania do wyświetlenia</string>
-	<string name="feedback_positive_title">Ocenić Tasks?</string>
-	<string name="feedback_positive_body">Cieszę się, że mogłem pomóc! Masz chwilę aby pomóc nam pięciogwiazdkową oceną?</string>
-	<string name="feedback_not_now">Nie teraz</string>
 	<string name="task_killer_help">Wygląda na to, że używasz aplikacji, która zabija procesy (%s)! Jeśli możesz, dodaj Tasks do listy wyjątków. Nieaktywny program Tasks nie będzie Ci przypominać o zadaniach do wykonania.\n</string>
 	<string name="task_killer_help_ok">Nie zabiję Tasks!</string>
 	<string name="DB_corrupted_title">Uszkodzona baza danych</string>

@@ -37,7 +37,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -89,7 +88,6 @@ import com.todoroo.astrid.subtasks.SubtasksUpdater;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.timers.TimerPlugin;
-import com.todoroo.astrid.ui.FeedbackPromptDialogs;
 import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Flags;
@@ -610,47 +608,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         refreshFilterCount();
 
         initiateAutomaticSync();
-
-//        showFeedbackPrompt();
-    }
-
-    private void showFeedbackPrompt() {
-        if (!(this instanceof TagViewFragment) &&
-                (DateUtilities.now() - Preferences.getLong(PREF_LAST_FEEDBACK_TIME, 0)) > FEEDBACK_TIME_INTERVAL &&
-                taskService.getUserActivationStatus()) {
-            final LinearLayout root = (LinearLayout) getView().findViewById(R.id.taskListParent);
-            if (root.findViewById(R.id.feedback_banner) == null) {
-                final View feedbackPrompt = getActivity().getLayoutInflater().inflate(R.layout.feedback_prompt, root, false);
-
-                feedbackPrompt.findViewById(R.id.positiveFeedback).setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        try {
-                            root.removeView(feedbackPrompt);
-                            FeedbackPromptDialogs.showFeedbackDialog((AstridActivity) getActivity(), true);
-                            Preferences.setLong(PREF_LAST_FEEDBACK_TIME, DateUtilities.now());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-
-                feedbackPrompt.findViewById(R.id.negativeFeedback).setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        try {
-                            root.removeView(feedbackPrompt);
-                            FeedbackPromptDialogs.showFeedbackDialog((AstridActivity) getActivity(), false);
-                            Preferences.setLong(PREF_LAST_FEEDBACK_TIME, DateUtilities.now());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-
-                root.addView(feedbackPrompt, 0);
-            }
-        }
     }
 
     protected boolean isCurrentTaskListFragment() {

@@ -265,15 +265,6 @@
 	<string name="EPr_manage_delete_all_gcal_status">%d agenda-items verwijderd!</string>
 	<string name="TWi_loading">Laden…</string>
 	<string name="WCA_title">Selecteer weer te geven taken...</string>
-	<string name="feedback_positive_title">Beoordeel Tasks?</string>
-	<string name="feedback_positive_body">Fijn dat ik kon helpen! Heb je een momentje om ons een 5-ster waardering te geven?</string>
-	<string name="feedback_negative_title">Geef feedback?</string>
-	<string name="feedback_negative_body">Jammer te horen dat we problemen hebben</string>
-	<string name="feedback_activity_error">Oeps! Het is niet gelukt om de market review sectie te starten--mogelijk is het niet beschikbaar op je apparaat.</string>
-	<string name="feedback_positive_button">Beoordeel Tasks</string>
-	<string name="feedback_negative_button">Geef feedback</string>
-	<string name="feedback_not_now">Niet nu</string>
-	<string name="feedback_banner_text">Hoe werkt Tasks voor jou?</string>
 	<string name="task_killer_help">U gebruikt waarschijnlijk een applicatie die processen kan afsluiten (%s)! Voeg Tasks indien mogelijk toe aan de lijst met uitgezonderde programma\'s. Als u dit niet doet kan Tasks u niet helpen met taken herinneren!\n</string>
 	<string name="task_killer_help_ok">Tasks niet afsluiten</string>
 	<string name="DB_corrupted_title">Database Corrupt</string>

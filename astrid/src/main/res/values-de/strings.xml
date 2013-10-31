@@ -257,15 +257,6 @@
 	<string name="EPr_manage_delete_all_gcal_status">%d Kalendereinträge gelöscht!</string>
 	<string name="TWi_loading">Ladevorgang …</string>
 	<string name="WCA_title">Aufgaben zum Anzeigen wählen …</string>
-	<string name="feedback_positive_title">Tasks bewerten?</string>
-	<string name="feedback_positive_body">Schön, dass ich helfen konnte. Gibst du mir eine 5-Sterne-Bewertung?</string>
-	<string name="feedback_negative_title">Bewertung hinterlassen?</string>
-	<string name="feedback_negative_body">Tut mir leid, dass es ein Problem gibt</string>
-	<string name="feedback_activity_error">Huch, kann die Berwertungsfunktion des Markets nicht starten. Sie ist vielleicht auf deinem Gerät nicht verfügbar</string>
-	<string name="feedback_positive_button">Tasks bewerten</string>
-	<string name="feedback_negative_button">Bewertung hinterlassen</string>
-	<string name="feedback_not_now">Nicht jetzt</string>
-	<string name="feedback_banner_text">Wie läuft es mit Tasks?</string>
 	<string name="task_killer_help">Es scheint Sie benutzen eine Anwendung die Prozesse killen kann (%s)! Falls möglich setzen Sie Tasks auf die Liste der davon ausgenommenen Prozesse damit es nicht gekillt wird. Andernfalls kann Tasks Sie nicht über fällige Tasks informieren.\n</string>
 	<string name="task_killer_help_ok">Ich werde Tasks nicht killen!</string>
 	<string name="DB_corrupted_title">Fehler in der Datenbank</string>

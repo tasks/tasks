@@ -266,15 +266,6 @@
 	<string name="AOA_internal_author">L\'équipe d\'Tasks</string>
 	<string name="TWi_loading">Chargement…</string>
 	<string name="WCA_title">Sélectionnez les tâches à afficher…</string>
-	<string name="feedback_positive_title">Evaluer Tasks ?</string>
-	<string name="feedback_positive_body">Content de savoir que je suis utile ! Prenez un instant pour nous donner 5 étoiles </string>
-	<string name="feedback_negative_title">Laisser un avis?</string>
-	<string name="feedback_negative_body">Désolé de voir que vous avez des problèmes</string>
-	<string name="feedback_activity_error">Oups ! Nous n\'avons pas pu lancer la section commentaires -- ce n\'est peut-être pas disponible sur votre appareil</string>
-	<string name="feedback_positive_button">Evaluer Tasks</string>
-	<string name="feedback_negative_button">Laisser un avis</string>
-	<string name="feedback_not_now">Plus tard</string>
-	<string name="feedback_banner_text">Comment fonctionne Tasks pour vous?</string>
 	<string name="task_killer_help">Il semble que vous utilisiez un logiciel capable de fermer les processus (%s) ! Si vous pouvez, ajoutez Tasks à la liste d\'exception afin qu\'il ne soit pas fermé. Sinon, Tasks ne pourra probablement pas vous avertir lorsque vos tâches seront dues.\n</string>
 	<string name="task_killer_help_ok">Je n\'éliminerai pas Tasks !</string>
 	<string name="DB_corrupted_title">Base de donnée corrompue</string>

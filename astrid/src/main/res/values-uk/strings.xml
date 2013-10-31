@@ -267,15 +267,6 @@
 	<string name="AOA_internal_author">Команда Tasks</string>
 	<string name="TWi_loading">Завантаження...</string>
 	<string name="WCA_title">Виберіть завдання для перегляду...</string>
-	<string name="feedback_positive_title">Оцінити Tasks?</string>
-	<string name="feedback_positive_body">Приємно бути корисним! Допоможіть нам 5-ма зірками рейтингу?</string>
-	<string name="feedback_negative_title">Залишити відгук?</string>
-	<string name="feedback_negative_body">Сумно чути, що у Вас проблеми</string>
-	<string name="feedback_activity_error">Упс! Ми не можемо запустити розділ для коментарів на вашому пристрої</string>
-	<string name="feedback_positive_button">Оцінити Tasks</string>
-	<string name="feedback_negative_button">Залишити відгук</string>
-	<string name="feedback_not_now">Не зараз</string>
-	<string name="feedback_banner_text">Як Tasks працює для вас?</string>
 	<string name="task_killer_help">Можливо ви використовуєте менеджер завдань (%s)!
  По можливості додайте Tasks в список виключень,
  інакше можливі складнощі з нагадуваннями. \n</string>

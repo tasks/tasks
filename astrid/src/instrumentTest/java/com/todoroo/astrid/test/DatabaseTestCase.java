@@ -8,7 +8,6 @@ package com.todoroo.astrid.test;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.test.TodorooTestCaseWithInjector;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.legacy.AlarmDatabase;
 import com.todoroo.astrid.provider.ProviderTestUtilities;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 
@@ -65,13 +64,6 @@ public class DatabaseTestCase extends TodorooTestCaseWithInjector {
         @Override
 	    public String getName() {
 	        return "databasetest";
-	    }
-	}
-
-	public static class TestAlarmsDatabase extends AlarmDatabase {
-	    @Override
-        public String getName() {
-	        return "alarmstest";
 	    }
 	}
 }
