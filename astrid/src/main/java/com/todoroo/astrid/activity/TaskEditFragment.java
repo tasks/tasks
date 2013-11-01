@@ -19,7 +19,6 @@ import android.speech.RecognizerIntent;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,8 +63,6 @@ import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.gcal.GCalControlSet;
 import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.notes.EditNoteActivity;
-import com.todoroo.astrid.opencrx.OpencrxControlSet;
-import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.TaskService;
@@ -455,20 +452,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 R.string.TEA_control_files);
         controls.add(filesControlSet);
         controlSetMap.put(getString(R.string.TEA_ctrl_files_pref), filesControlSet);
-
-        try {
-            if (OpencrxCoreUtils.INSTANCE.isLoggedIn()) {
-                OpencrxControlSet ocrxControl = new OpencrxControlSet(
-                        getActivity(), R.layout.control_set_opencrx,
-                        R.layout.control_set_opencrx_display,
-                        R.string.opencrx_TEA_opencrx_title);
-                controls.add(ocrxControl);
-                basicControls.addView(ocrxControl.getDisplayView());
-                notesEditText.setHint(R.string.opencrx_TEA_notes);
-            }
-        } catch (Exception e) {
-            Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
-        }
 
         loadEditPageOrder(false);
 

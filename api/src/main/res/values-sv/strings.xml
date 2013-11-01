@@ -83,7 +83,6 @@
 	<string name="sync_SPr_interval_title">Bakgrundssynkronisering</string>
 	<string name="sync_SPr_interval_desc_disabled">Bakgrundssynkronisering är inaktiverad</string>
 	<string name="sync_SPr_interval_desc">Aktuell inställning: %s</string>
-	<string name="sync_SPr_group_actions">Åtgärder</string>
 	<string name="sync_SPr_sync">Synkronisera nu</string>
 	<string name="sync_SPr_last_error">Status rapport</string>
 	<string name="sync_SPr_last_error_subtitle">Klicka för att skicka en rapport till Tasks-teamet</string>

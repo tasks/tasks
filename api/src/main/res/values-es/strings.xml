@@ -89,7 +89,6 @@
 	<string name="sync_SPr_interval_title">Sincronización en segundo plano</string>
 	<string name="sync_SPr_interval_desc_disabled">Sincronización en segundo plano deshabilitada</string>
 	<string name="sync_SPr_interval_desc">Actualmente configurado a: %s</string>
-	<string name="sync_SPr_group_actions">Acciones</string>
 	<string name="sync_SPr_sync">Sincronizar ahora</string>
 	<string name="sync_SPr_last_error">Reporte de estado</string>
 	<string name="sync_SPr_last_error_subtitle">Click para enviar un reporte al equipo de Tasks</string>

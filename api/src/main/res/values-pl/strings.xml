@@ -88,7 +88,6 @@
 	<string name="sync_SPr_interval_title">Synchronizacja w tle</string>
 	<string name="sync_SPr_interval_desc_disabled">Synchronizacja w tle wyłączona</string>
 	<string name="sync_SPr_interval_desc">Aktualnie ustawione na: %s</string>
-	<string name="sync_SPr_group_actions">Działania</string>
 	<string name="sync_SPr_sync">Synchronizuj teraz</string>
 	<string name="sync_SPr_last_error">Raport statusu</string>
 	<string name="sync_SPr_last_error_subtitle">Kliknij by wysłać raport do zespłu Tasks</string>

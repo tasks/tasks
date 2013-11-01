@@ -40,5 +40,4 @@
 	<string name="SyP_ioerror">ข้อผิดพลาดในการเชื่อมต่อ! ตรวจดูการเชื่อมต่ออินเตอร์เน็ท</string>
 	<string name="sync_SPr_group_status">สถานะ</string>
 	<string name="sync_SPr_group_options">ตัวเลือก</string>
-	<string name="sync_SPr_group_actions">การดำเนินการ</string>
 </resources>

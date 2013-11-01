@@ -65,7 +65,6 @@
 	<string name="sync_SPr_interval_title">Sincronitzar en segon pla</string>
 	<string name="sync_SPr_interval_desc_disabled">Desactivada la sincronització en segon pla</string>
 	<string name="sync_SPr_interval_desc">Actualment configurat en: %s</string>
-	<string name="sync_SPr_group_actions">Accions</string>
 	<string name="sync_SPr_forget">Surt</string>
 	<string name="sync_SPr_forget_description">Esborra tota la informació de sincronització</string>
 	<string name="sync_forget_confirm">Tancar sessió / esborra la informació de sincronització?</string>

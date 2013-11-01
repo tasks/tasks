@@ -242,11 +242,6 @@
 	<string name="gtasks_GTA_clear_completed">Neteja les tasques completades</string>
 	<string name="gtasks_GLA_authenticating">S\'està autenticant...</string>
 	<string name="locale_notification">Té $NUM coincidència: $FILTER</string>
-	<string name="opencrx_TEA_notes">Afegeix un comentari</string>
-	<string name="opencrx_creator_input_hint">Creador/a</string>
-	<string name="opencrx_contact_input_hint">Assignat a</string>
-	<string name="opencrx_segment_default">Estàndard</string>
-	<string name="opencrx_TEA_task_assign_label">Asigna aquesta tasca a aquesta persona:</string>
 	<string name="TEA_reminders_group_label">Recordatoris</string>
 	<string name="TEA_reminder_alarm_label">Tipus de So/Vibració</string>
 	<string name="TEA_reminder_mode_once">Sona una vegada</string>

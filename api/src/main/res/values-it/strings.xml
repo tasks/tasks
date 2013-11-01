@@ -88,7 +88,6 @@
 	<string name="sync_SPr_interval_title">Sincronizzazione eseguita in background</string>
 	<string name="sync_SPr_interval_desc_disabled">La sincronizzazione in background è disattivata</string>
 	<string name="sync_SPr_interval_desc">Attualmente impostata su: %s</string>
-	<string name="sync_SPr_group_actions">Azioni</string>
 	<string name="sync_SPr_sync">Sincronizza ora</string>
 	<string name="sync_SPr_last_error_subtitle">\"Clicca  per inviare un rapporto al team Tasks\"</string>
 	<string name="sync_SPr_send_report">Invia rapporto</string>

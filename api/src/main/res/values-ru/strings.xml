@@ -89,7 +89,6 @@
 	<string name="sync_SPr_interval_title">Фоновая синхронизация</string>
 	<string name="sync_SPr_interval_desc_disabled">Фоновая синхронизация отключена</string>
 	<string name="sync_SPr_interval_desc">Сейчас установлено: %s</string>
-	<string name="sync_SPr_group_actions">Действия</string>
 	<string name="sync_SPr_sync">Синхронизировать</string>
 	<string name="sync_SPr_last_error">Отчёт о состоянии</string>
 	<string name="sync_SPr_last_error_subtitle">Нажмите, чтобы отправить отчет команде Tasks</string>

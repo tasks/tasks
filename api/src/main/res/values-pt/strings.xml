@@ -61,7 +61,6 @@
 	<string name="SyP_label">Sincronização</string>
 	<string name="sync_SPr_group_status">Estado</string>
 	<string name="sync_SPr_group_options">Opções</string>
-	<string name="sync_SPr_group_actions">Acções</string>
 	<string name="sync_SPr_forget">Terminar sessão</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>desactivar</item>

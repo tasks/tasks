@@ -48,7 +48,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.CalendarStartupReceiver;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
-import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.reminders.ReengagementService;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
@@ -199,7 +198,6 @@ public class StartupService {
 
                 // if sync ongoing flag was set, clear it
                 gtasksPreferenceService.stopOngoing();
-                OpencrxCoreUtils.INSTANCE.stopOngoing();
 
                 // perform initialization
                 ReminderStartupReceiver.startReminderSchedulingService(context);

@@ -89,7 +89,6 @@
 	<string name="sync_SPr_interval_title">סנכרון ברקע</string>
 	<string name="sync_SPr_interval_desc_disabled">סנכרון ברקע אינו מופעל</string>
 	<string name="sync_SPr_interval_desc">כרגע מוגדר ל: %s</string>
-	<string name="sync_SPr_group_actions">פעולות</string>
 	<string name="sync_SPr_sync">מסנכרן כעת</string>
 	<string name="sync_SPr_last_error">דו\"ח מצב</string>
 	<string name="sync_SPr_last_error_subtitle">הקלק כדי לשלוח דוח לצוות של אסטריד</string>

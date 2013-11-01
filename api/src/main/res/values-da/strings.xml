@@ -62,7 +62,6 @@
 	<string name="sync_SPr_group_options">Indstillinger</string>
 	<string name="sync_SPr_interval_title">Baggrunds Synk</string>
 	<string name="sync_SPr_interval_desc_disabled">Baggrunds synkronisering er slået fra</string>
-	<string name="sync_SPr_group_actions">Handlinger</string>
 	<string name="sync_SPr_forget">Log af</string>
 	<string name="sync_SPr_forget_description">Sletter al synkroniserings data</string>
 	<string-array name="sync_SPr_interval_entries">

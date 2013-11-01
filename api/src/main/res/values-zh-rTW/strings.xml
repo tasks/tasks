@@ -88,7 +88,6 @@
 	<string name="sync_SPr_interval_title">後台同步</string>
 	<string name="sync_SPr_interval_desc_disabled">後台同步已關閉</string>
 	<string name="sync_SPr_interval_desc">目前同步間隔：%s</string>
-	<string name="sync_SPr_group_actions">動作</string>
 	<string name="sync_SPr_sync">現在同步</string>
 	<string name="sync_SPr_last_error">狀態報告</string>
 	<string name="sync_SPr_last_error_subtitle">點擊給 Tasks 團隊發送報告</string>

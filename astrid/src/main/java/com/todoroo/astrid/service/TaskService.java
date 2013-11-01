@@ -35,7 +35,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
-import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.TitleParser;
@@ -176,9 +175,6 @@ public class TaskService {
 
                     if(GtasksMetadata.METADATA_KEY.equals(metadata.getValue(Metadata.KEY))) {
                         metadata.setValue(GtasksMetadata.ID, ""); //$NON-NLS-1$
-                    }
-                    if(OpencrxCoreUtils.OPENCRX_ACTIVITY_METADATA_KEY.equals(metadata.getValue(Metadata.KEY))) {
-                        metadata.setValue(OpencrxCoreUtils.ACTIVITY_ID, 0L);
                     }
 
                     metadata.setValue(Metadata.TASK, newId);

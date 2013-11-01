@@ -71,7 +71,6 @@
 	<string name="sync_SPr_group_options">Опції</string>
 	<string name="sync_SPr_interval_title">Фонова синхронізація</string>
 	<string name="sync_SPr_interval_desc_disabled">Фонова синхронізація відключена</string>
-	<string name="sync_SPr_group_actions">Дії</string>
 	<string name="sync_SPr_sync">Синхронізувати зараз</string>
 	<string name="sync_SPr_send_report">Відіслати звіт</string>
 	<string name="sync_SPr_forget">Вийти</string>

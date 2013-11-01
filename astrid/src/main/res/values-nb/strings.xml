@@ -155,9 +155,6 @@
 	<string name="gcal_completed_title">%s (fullført)</string>
 	<string name="gcal_GCP_default">Standardkalender</string>
 	<string name="locale_notification">Du har $NUM som matcher: $FILTER</string>
-	<string name="opencrx_TEA_notes">Legg til kommentar</string>
-	<string name="opencrx_no_creator">(Ikke synkroniser)</string>
-	<string name="opencrx_TEA_task_assign_label">Tildel følgende person denne oppgaven:</string>
 	<string name="TEA_reminder_label">Minn meg på...</string>
 	<string name="TEA_reminder_due">...når oppgaven forfaller</string>
 	<string name="TEA_reminder_overdue">... når oppgaven har forfalt</string>

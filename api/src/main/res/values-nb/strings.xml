@@ -76,7 +76,6 @@
 	<string name="sync_SPr_interval_title">Bakgrunnssynkronisering</string>
 	<string name="sync_SPr_interval_desc_disabled">Bakgrunnssynkronisering er deaktivert</string>
 	<string name="sync_SPr_interval_desc">Aktuell innstilling: %s</string>
-	<string name="sync_SPr_group_actions">Handlinger</string>
 	<string name="sync_SPr_forget">Logg ut</string>
 	<string name="sync_SPr_forget_description">Sletter all synkroniseringsdata</string>
 	<string name="sync_forget_confirm">Logg ut / slett synkroniseringsdata?</string>

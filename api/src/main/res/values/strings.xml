@@ -175,10 +175,7 @@
   <!-- Preference: Synchronization Interval Description (%s => setting) -->
   <string name="sync_SPr_interval_desc">Currently set to: %s</string>
   
-  <!-- Actions Group Label  -->
-  <string name="sync_SPr_group_actions">Actions</string>
-
-  <!-- Synchronize Now Button -->    
+  <!-- Synchronize Now Button -->
   <string name="sync_SPr_sync">Synchronize now</string>
   
   <!-- Sync: Last error -->

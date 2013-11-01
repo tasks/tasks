@@ -87,7 +87,6 @@
 	<string name="sync_SPr_interval_title">Hintergrund-Synchronisierung</string>
 	<string name="sync_SPr_interval_desc_disabled">Hintergrund-Synchronisierung ist deaktiviert</string>
 	<string name="sync_SPr_interval_desc">Gesetzt auf: %s</string>
-	<string name="sync_SPr_group_actions">Aktionen</string>
 	<string name="sync_SPr_sync">Jetzt synchronisieren</string>
 	<string name="sync_SPr_last_error">Statusbericht</string>
 	<string name="sync_SPr_last_error_subtitle">Klicke um einen Bericht ans Tasks-Team zu senden</string>

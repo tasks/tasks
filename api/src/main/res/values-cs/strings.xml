@@ -88,7 +88,6 @@
 	<string name="sync_SPr_interval_title">Synchronizace na pozadí</string>
 	<string name="sync_SPr_interval_desc_disabled">Synchronizace na pozadí je zakázána</string>
 	<string name="sync_SPr_interval_desc">Současně nastaveno na: %s</string>
-	<string name="sync_SPr_group_actions">Akce</string>
 	<string name="sync_SPr_sync">Synchronizovat nyní</string>
 	<string name="sync_SPr_last_error">Stavové hlášení</string>
 	<string name="sync_SPr_last_error_subtitle">Klepnutím odešlete zprávu týmu Tasks</string>

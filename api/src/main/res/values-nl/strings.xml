@@ -87,7 +87,6 @@
 	<string name="sync_SPr_interval_title">Achtergrond synchronisatie</string>
 	<string name="sync_SPr_interval_desc_disabled">Achtergrond synchronisatie uitgeschakeld</string>
 	<string name="sync_SPr_interval_desc">Huidige instelling: %s</string>
-	<string name="sync_SPr_group_actions">Acties</string>
 	<string name="sync_SPr_sync">Nu synchroniseren</string>
 	<string name="sync_SPr_last_error">Statusrapport</string>
 	<string name="sync_SPr_last_error_subtitle">Klik om een rapport naar het Tasks team te versturen</string>

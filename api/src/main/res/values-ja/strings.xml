@@ -76,7 +76,6 @@
 	<string name="sync_SPr_interval_title">バックグラウンド同期</string>
 	<string name="sync_SPr_interval_desc_disabled">バックグラウンド同期は無効になっています</string>
 	<string name="sync_SPr_interval_desc">現在の設定: %s</string>
-	<string name="sync_SPr_group_actions">アクション</string>
 	<string name="sync_SPr_forget">ログアウト</string>
 	<string name="sync_SPr_forget_description">すべての同期データを消去します</string>
 	<string name="sync_forget_confirm">ログアウトと同期データを消去しますか?</string>

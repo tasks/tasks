@@ -86,7 +86,6 @@
 	<string name="sync_SPr_interval_title">Arkaplanda senkronizasyon</string>
 	<string name="sync_SPr_interval_desc_disabled">Arkaplanda senkronizasyon devre dışı</string>
 	<string name="sync_SPr_interval_desc">Mevcut ayar: %s</string>
-	<string name="sync_SPr_group_actions">Eylemler</string>
 	<string name="sync_SPr_sync">Şimdi Eşle</string>
 	<string name="sync_SPr_last_error">Durum Raporu</string>
 	<string name="sync_SPr_last_error_subtitle">Tasks takımına bildirmek için tıklayın</string>

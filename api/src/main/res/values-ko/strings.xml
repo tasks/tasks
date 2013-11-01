@@ -89,7 +89,6 @@
 	<string name="sync_SPr_interval_title">백그라운드 동기화</string>
 	<string name="sync_SPr_interval_desc_disabled">백그라운드 동기화를 사용하지 않습니다.</string>
 	<string name="sync_SPr_interval_desc">현재 설정: %s</string>
-	<string name="sync_SPr_group_actions">동작</string>
 	<string name="sync_SPr_sync">지금 동기화하기</string>
 	<string name="sync_SPr_last_error">상태 보고</string>
 	<string name="sync_SPr_last_error_subtitle">아스트리드 팀에게 보고서를 보내려면 클릭하세요</string>

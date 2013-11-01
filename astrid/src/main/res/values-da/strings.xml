@@ -164,8 +164,6 @@
 	<string name="gcal_GCP_default">Standardkalender</string>
 	<string name="gtasks_GPr_header">Google Tasks (beta!)</string>
 	<string name="locale_notification">Du har $NUM der matcher: $FILTER</string>
-	<string name="opencrx_TEA_notes">Tilføj en kommentar</string>
-	<string name="opencrx_no_creator">(Synkroniser ikke)</string>
 	<string name="TEA_reminder_due">når deadline er nået</string>
 	<string name="TEA_reminder_overdue">når deadline er overskredet</string>
 	<string name="TEA_reminder_mode_once">Ring en gang</string>
