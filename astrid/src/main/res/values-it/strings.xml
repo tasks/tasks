@@ -59,7 +59,6 @@
 	<string name="TLA_menu_sync">Sincronizza Ora</string>
 	<string name="TLA_menu_search">Cerca</string>
 	<string name="TLA_menu_settings">Impostazioni</string>
-	<string name="TLA_menu_support">Supporto</string>
 	<string name="TLA_custom">Personalizzato</string>
 	<string name="TLA_quick_add_hint">Aggiungi un\'attività</string>
 	<string name="TLA_notification_volume_low">Le notifiche sono mutate. Non dovresti essere più in grado di sentire Tasks!</string>

@@ -20,7 +20,6 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Task;
@@ -62,11 +61,6 @@ public class TaskDao extends RemoteModelDao<Task> {
     	    return Task.ID.eq(id);
     	}
 
-    	/** @return tasks that were deleted */
-    	public static Criterion isDeleted() {
-    	    return Task.DELETION_DATE.neq(0);
-    	}
-
     	/** @return tasks that were not deleted */
     	public static Criterion notDeleted() {
     	    return Task.DELETION_DATE.eq(0);
@@ -94,25 +88,10 @@ public class TaskDao extends RemoteModelDao<Task> {
     	            Task.DELETION_DATE.eq(0));
     	}
 
-    	/** @return tasks that are due within the next 24 hours */
-    	public static Criterion dueToday() {
-    	    return Criterion.and(TaskCriteria.activeAndVisible(), Task.DUE_DATE.gt(0), Task.DUE_DATE.lt(Functions.fromNow(DateUtilities.ONE_DAY)));
-    	}
-
-    	/** @return tasks that are due within the next 72 hours */
-    	public static Criterion dueSoon() {
-    	    return Criterion.and(TaskCriteria.activeAndVisible(), Task.DUE_DATE.gt(0), Task.DUE_DATE.lt(Functions.fromNow(3 * DateUtilities.ONE_DAY)));
-    	}
-
     	/** @return tasks that are not hidden at current time */
     	public static Criterion isVisible() {
     	    return Task.HIDE_UNTIL.lt(Functions.now());
         }
-
-    	/** @return tasks that are hidden at the current time */
-    	public static Criterion isHidden() {
-    	    return Task.HIDE_UNTIL.gt(Functions.now());
-    	}
 
     	/** @return tasks that have a due date */
     	public static Criterion hasDeadlines() {

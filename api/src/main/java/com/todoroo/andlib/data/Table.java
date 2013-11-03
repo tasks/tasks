@@ -5,7 +5,6 @@
  */
 package com.todoroo.andlib.data;
 
-import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.SqlTable;
 
 /**
@@ -56,16 +55,6 @@ public final class Table extends SqlTable {
     @Override
     public Table as(String newAlias) {
         return new Table(name, modelClass, newAlias);
-    }
-
-    /**
-     * Create a field object based on the given property
-     */
-    public Field field(Property<?> property) {
-        if(alias != null) {
-            return Field.field(alias + "." + property.name);
-        }
-        return Field.field(name + "." + property.name);
     }
 
     @Override

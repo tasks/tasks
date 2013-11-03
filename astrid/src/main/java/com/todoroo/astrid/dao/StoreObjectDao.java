@@ -39,12 +39,6 @@ public class StoreObjectDao extends DatabaseDao<StoreObject> {
     	public static Criterion byType(String type) {
     	    return StoreObject.TYPE.eq(type);
     	}
-
-    	/** Returns store object with type and key */
-    	public static Criterion byTypeAndItem(String type, String item) {
-    	    return Criterion.and(byType(type), StoreObject.ITEM.eq(item));
-    	}
-
     }
 
 }

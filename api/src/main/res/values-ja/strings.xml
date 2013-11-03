@@ -62,10 +62,7 @@
 	<string name="DLG_error_title">エラー</string>
 	<string name="DLG_close">閉じる</string>
 	<string name="DLG_wait">お待ちください</string>
-	<string name="SyP_progress">タスクの同期中...</string>
-	<string name="SyP_progress_toast">同期中...</string>
 	<string name="SyP_label">同期</string>
-	<string name="SyP_ioerror">接続エラー！インターネットに接続できるか確認してください。</string>
 	<string name="sync_SPr_group_status">状況</string>
 	<string name="sync_status_ongoing">同期中</string>
 	<string name="sync_status_success">前回の同期:\n%s</string>

@@ -64,7 +64,6 @@
 	<string name="TLA_menu_sync">Sincronitza ara</string>
 	<string name="TLA_menu_search">Cerca</string>
 	<string name="TLA_menu_settings">Paràmetres</string>
-	<string name="TLA_menu_support">Assistència</string>
 	<string name="TLA_custom">Personalitzat</string>
 	<string name="TLA_quick_add_hint">Afegeix una tasca</string>
 	<string name="TLA_notification_volume_low">S\'han silenciat les notificacions. No sentireu res més d\'Tasks!</string>

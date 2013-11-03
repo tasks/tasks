@@ -17,7 +17,6 @@ import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.api.Filter;
@@ -64,10 +63,6 @@ public class TaskService {
 
     public static final String TRANS_REPEAT_COMPLETE = "repeat-complete"; //$NON-NLS-1$
 
-    private static final int TOTAL_TASKS_FOR_ACTIVATION = 3;
-    private static final int COMPLETED_TASKS_FOR_ACTIVATION = 1;
-    private static final String PREF_USER_ACTVATED = "user-activated"; //$NON-NLS-1$
-
     @Autowired
     private TaskDao taskDao;
 
@@ -98,23 +93,6 @@ public class TaskService {
     }
 
     /**
-     *
-     * @return item, or null if it doesn't exist
-     */
-    public Task fetchByUUID(String uuid, Property<?>... properties) {
-        TodorooCursor<Task> task = query(Query.select(properties).where(Task.UUID.eq(uuid)));
-        try {
-            if (task.getCount() > 0) {
-                task.moveToFirst();
-                return new Task(task);
-            }
-            return null;
-        } finally {
-            task.close();
-        }
-    }
-
-    /**
      * Mark the given task as completed and save it.
      */
     public void setComplete(Task item, boolean completed) {
@@ -142,8 +120,8 @@ public class TaskService {
     /**
      * Create or save the given action item
      */
-    public boolean save(Task item) {
-        return taskDao.save(item);
+    public void save(Task item) {
+        taskDao.save(item);
     }
 
     /**
@@ -269,33 +247,6 @@ public class TaskService {
         sql = PermaSql.replacePlaceholders(sql);
 
         return taskDao.query(Query.select(properties).withQueryTemplate(sql));
-    }
-
-    public boolean getUserActivationStatus() {
-        if (Preferences.getBoolean(PREF_USER_ACTVATED, false)) {
-            return true;
-        }
-
-        TodorooCursor<Task> all = query(Query.select(Task.ID).limit(TOTAL_TASKS_FOR_ACTIVATION));
-        try {
-            if (all.getCount() < TOTAL_TASKS_FOR_ACTIVATION) {
-                return false;
-            }
-
-            TodorooCursor<Task> completed = query(Query.select(Task.ID).where(TaskCriteria.completed()).limit(COMPLETED_TASKS_FOR_ACTIVATION));
-            try {
-                if (completed.getCount() < COMPLETED_TASKS_FOR_ACTIVATION) {
-                    return false;
-                }
-            } finally {
-                completed.close();
-            }
-        } finally {
-            all.close();
-        }
-
-        Preferences.setBoolean(PREF_USER_ACTVATED, true);
-        return true;
     }
 
     /**
@@ -503,14 +454,14 @@ public class TaskService {
     }
 
     public TodorooCursor<UserActivity> getActivityForTask(Task task) {
-        Query taskQuery = queryForTask(task, UpdateAdapter.USER_TABLE_ALIAS, UpdateAdapter.USER_ACTIVITY_PROPERTIES);
+        Query taskQuery = queryForTask(task, UpdateAdapter.USER_ACTIVITY_PROPERTIES);
 
         Query resultQuery = taskQuery.orderBy(Order.desc("1")); //$NON-NLS-1$
 
         return userActivityDao.query(resultQuery);
     }
 
-    private static Query queryForTask(Task task, String userTableAlias, Property<?>[] activityProperties) {
+    private static Query queryForTask(Task task, Property<?>[] activityProperties) {
         Query result = Query.select(AndroidUtilities.addToArray(Property.class, activityProperties))
                 .where(Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TASK_COMMENT), UserActivity.TARGET_ID.eq(task.getUuid()), UserActivity.DELETED_AT.eq(0)));
         return result;

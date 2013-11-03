@@ -62,7 +62,6 @@
 	<string name="TLA_menu_sync">Синхронизация</string>
 	<string name="TLA_menu_search">Поиск</string>
 	<string name="TLA_menu_settings">Настройки</string>
-	<string name="TLA_menu_support">Поддержка</string>
 	<string name="TLA_custom">Другой</string>
 	<string name="TLA_quick_add_hint">Добавить задание</string>
 	<string name="TLA_notification_volume_low">Звуковые извещения заглушены. Вы не услышите Tasks!</string>

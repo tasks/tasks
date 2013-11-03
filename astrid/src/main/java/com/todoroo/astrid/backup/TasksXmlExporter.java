@@ -24,7 +24,6 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.core.PluginServices;
-import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
@@ -71,7 +70,6 @@ public class TasksXmlExporter {
     private final Context context;
     private int exportCount = 0;
     private XmlSerializer xml;
-    private final Database database = PluginServices.getDatabase();
     private final TaskService taskService = PluginServices.getTaskService();
     private final TagDataService tagdataService = PluginServices.getTagDataService();
     private final MetadataService metadataService = PluginServices.getMetadataService();
@@ -301,24 +299,6 @@ public class TasksXmlExporter {
         public Void visitLong(Property<Long> property, AbstractModel data) {
             try {
                 Long value = data.getValue(property);
-                String valueString = (value == null) ? XML_NULL : value.toString();
-                xml.attribute(null, property.name, valueString);
-            } catch (UnsupportedOperationException e) {
-                // didn't read this value, do nothing
-            } catch (IllegalArgumentException e) {
-                throw new RuntimeException(e);
-            } catch (IllegalStateException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            return null;
-        }
-
-        @Override
-        public Void visitDouble(Property<Double> property, AbstractModel data) {
-            try {
-                Double value = data.getValue(property);
                 String valueString = (value == null) ? XML_NULL : value.toString();
                 xml.attribute(null, property.name, valueString);
             } catch (UnsupportedOperationException e) {

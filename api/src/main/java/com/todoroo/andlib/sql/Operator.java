@@ -8,8 +8,6 @@ package com.todoroo.andlib.sql;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.todoroo.andlib.sql.SqlConstants.SPACE;
-
 public final class Operator {
 
     private final String operator;
@@ -43,15 +41,6 @@ public final class Operator {
 
     private Operator(String operator) {
         this.operator = operator;
-    }
-
-    public Operator getContrary() {
-        if(!contraryRegistry.containsKey(this)){
-            Operator opposite = new Operator(not.toString() + SPACE + this.toString());
-            contraryRegistry.put(this, opposite);
-            contraryRegistry.put(opposite, this);
-        }
-        return contraryRegistry.get(this);
     }
 
     @Override

@@ -58,7 +58,6 @@
 	<string name="TLA_menu_sync">Şimdi Eşle</string>
 	<string name="TLA_menu_search">Ara</string>
 	<string name="TLA_menu_settings">Ayarlar</string>
-	<string name="TLA_menu_support">Destek</string>
 	<string name="TLA_custom">Özel</string>
 	<string name="TLA_quick_add_hint">Görev ekle</string>
 	<string name="TLA_notification_volume_low">Uyarılar susturuldu. Tasks \'i duyamayacaksın!</string>

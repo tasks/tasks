@@ -62,7 +62,6 @@
 	<string name="TLA_menu_sync">סנכרני כעת</string>
 	<string name="TLA_menu_search">חיפוש</string>
 	<string name="TLA_menu_settings">הגדרות</string>
-	<string name="TLA_menu_support">תמיכה</string>
 	<string name="TLA_custom">מותאם אישית</string>
 	<string name="TLA_quick_add_hint">הוסף משימה</string>
 	<string name="TLA_notification_volume_low">ההתראות מוחרשות. לא תשמע את אסטריד יותר!</string>

@@ -126,31 +126,6 @@ public class Preferences {
         }
     }
 
-    /** Gets an float value from a string preference. Returns null
-     * if the value is not set or not an flat.
-     *
-     * @param keyResource resource from string.xml
-     */
-    public static Float getFloatFromString(int keyResource) {
-        Context context = ContextManager.getContext();
-        Resources r = context.getResources();
-        String value = getPrefs(context).getString(r.getString(keyResource), ""); //$NON-NLS-1$
-
-        try {
-            return Float.parseFloat(value);
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    /**
-     * Sets string preference
-     */
-    public static void setString(int keyResource, String newValue) {
-        Context context = ContextManager.getContext();
-        setString(context.getString(keyResource), newValue);
-    }
-
     /**
      * Sets string preference
      */

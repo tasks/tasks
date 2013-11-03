@@ -61,10 +61,6 @@ public class UnaryCriterion extends Criterion {
         return new UnaryCriterion(field, Operator.gt, value);
     }
 
-    public static Criterion gte(Field field, Object value) {
-        return new UnaryCriterion(field, Operator.gte, value);
-    }
-
     public static Criterion lt(Field field, Object value) {
         return new UnaryCriterion(field, Operator.lt, value);
     }

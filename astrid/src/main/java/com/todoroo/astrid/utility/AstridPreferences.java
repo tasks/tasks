@@ -9,12 +9,9 @@ package com.todoroo.astrid.utility;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.core.PluginServices;
 
 import org.tasks.R;
 
@@ -24,17 +21,11 @@ public class AstridPreferences {
 
     private static final String P_CURRENT_VERSION_NAME = "cvname"; //$NON-NLS-1$
 
-    public static final String P_FIRST_TASK = "ft"; //$NON-NLS-1$
-
     public static final String P_FIRST_LIST = "fl"; //$NON-NLS-1$
 
     public static final String P_UPGRADE_FROM = "uf"; //$NON-NLS-1$
 
     public static final String P_FIRST_LAUNCH = "fltime";  //$NON-NLS-1$
-
-    public static final String P_LAST_POPOVER = "lpopover";  //$NON-NLS-1$
-
-    private static final long MIN_POPOVER_TIME = 3 * 1000L;
 
     public static final String P_SUBTASKS_HELP = "sthelp"; //$NON-NLS-1$
 
@@ -44,13 +35,6 @@ public class AstridPreferences {
         spec = new AstridDefaultPreferenceSpec();
 
         spec.setIfUnset();
-    }
-
-    public static void resetToDefaults() {
-        AstridPreferenceSpec spec;
-        spec = new AstridDefaultPreferenceSpec();
-
-        spec.resetDefaults();
     }
 
     /* ======================================================================
@@ -78,31 +62,11 @@ public class AstridPreferences {
         Preferences.setInt(P_CURRENT_VERSION, version);
     }
 
-    /** The name (e.g. 4.0.1) of the currently installed version of astrid*/
-    public static String getCurrentVersionName() {
-        String versionName = Preferences.getStringValue(P_CURRENT_VERSION_NAME);
-        if (versionName == null) {
-            versionName = "0"; //$NON-NLS-1$
-        }
-        return versionName;
-    }
-
     public static void setCurrentVersionName(String versionName) {
         Preferences.setString(P_CURRENT_VERSION_NAME, versionName);
-    }
-
-    /** If true, can show a help popover. If false, another one was recently shown */
-    public static boolean canShowPopover() {
-        long last = Preferences.getLong(P_LAST_POPOVER, 0);
-        if(System.currentTimeMillis() - last < MIN_POPOVER_TIME) {
-            return false;
-        }
-        Preferences.setLong(P_LAST_POPOVER, System.currentTimeMillis());
-        return true;
     }
 
     public static boolean useTabletLayout(Context context) {
         return AndroidUtilities.isTabletSized(context) && !Preferences.getBoolean(R.string.p_force_phone_layout, false);
     }
-
 }

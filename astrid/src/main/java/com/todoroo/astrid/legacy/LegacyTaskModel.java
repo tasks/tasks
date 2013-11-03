@@ -23,20 +23,12 @@ abstract public class LegacyTaskModel {
     public static final String NOTIFICATIONS = "notifications";
     public static final String NOTIFICATION_FLAGS = "notificationFlags";
     public static final String LAST_NOTIFIED = "lastNotified";
-    public static final String REPEAT = "repeat";
     public static final String CREATION_DATE = "creationDate";
     public static final String COMPLETION_DATE = "completionDate";
-    public static final String CALENDAR_URI = "calendarUri";
     public static final String FLAGS = "flags";
     public static final String BLOCKING_ON = "blockingOn";
 
-    // notification flags
-    public static final int NOTIFY_BEFORE_DEADLINE = 1 << 0;
-    public static final int NOTIFY_AT_DEADLINE     = 1 << 1;
-    public static final int NOTIFY_AFTER_DEADLINE  = 1 << 2;
-    public static final int NOTIFY_NONSTOP         = 1 << 3;
-
     // other flags
-    public static final int FLAG_SYNC_ON_COMPLETE  = 1 << 0;
+    public static final int FLAG_SYNC_ON_COMPLETE  = 1;
 
 }

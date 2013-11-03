@@ -12,31 +12,7 @@ import com.todoroo.astrid.api.TaskAction;
 
 public class NotesAction extends TaskAction {
 
-    public NotesAction(String text, PendingIntent intent, BitmapDrawable icon) {
-        super(text, intent, icon);
+    public NotesAction(PendingIntent intent, BitmapDrawable icon) {
+        super(intent, icon);
     }
-//
-//    /**
-//     * Parcelable creator
-//     */
-//    public static final Parcelable.Creator<NotesAction> CREATOR = new Parcelable.Creator<NotesAction>() {
-//        /**
-//         * {@inheritDoc}
-//         */
-//        public NotesAction createFromParcel(Parcel source) {
-//            NotesAction action = new NotesAction(source.readString(),
-//                    (PendingIntent)source.readParcelable(PendingIntent.class.getClassLoader()),
-//                    (Bitmap)source.readParcelable(Bitmap.class.getClassLoader()));
-//            action.drawable = source.readInt();
-//            return action;
-//        }
-//
-//        /**
-//         * {@inheritDoc}
-//         */
-//        public NotesAction[] newArray(int size) {
-//            return new NotesAction[size];
-//        };
-//    };
-
 }

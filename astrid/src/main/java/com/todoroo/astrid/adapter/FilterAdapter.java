@@ -14,7 +14,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -43,13 +42,10 @@ import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterCategoryWithNewButton;
-import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.FilterWithUpdate;
-import com.todoroo.astrid.service.MarketStrategy.NookMarketStrategy;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.R;
 
@@ -63,10 +59,6 @@ import java.util.regex.Pattern;
 
 public class FilterAdapter extends ArrayAdapter<Filter> {
 
-    public static interface FilterDataSourceChangedListener {
-        public void filterDataSourceChanged();
-    }
-
     // --- style constants
 
     public int filterStyle = R.style.TextAppearance_FLA_Filter;
@@ -79,8 +71,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
     /** parent activity */
     protected final Activity activity;
-
-    protected final Resources resources;
 
     /** owner listview */
     protected ListView listView;
@@ -108,11 +98,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
     private final HashMap<Filter, Integer> filterCounts;
 
-    private FilterDataSourceChangedListener listener;
-
-    private final boolean nook;
-
-
     // Previous solution involved a queue of filters and a filterSizeLoadingThread. The filterSizeLoadingThread had
     // a few problems: how to make sure that the thread is resumed when the controlling activity is resumed, and
     // how to make sure that the the filterQueue does not accumulate filters without being processed. I am replacing
@@ -134,14 +119,11 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         DependencyInjectionService.getInstance().inject(this);
 
         this.activity = activity;
-        this.resources = activity.getResources();
         this.listView = listView;
         this.layout = rowLayout;
         this.skipIntentFilters = skipIntentFilters;
         this.selectable = selectable;
         this.filterCounts = new HashMap<Filter, Integer>();
-
-        this.nook = (Constants.MARKET_STRATEGY instanceof NookMarketStrategy);
 
         inflater = (LayoutInflater) activity.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
@@ -255,10 +237,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
                 });
             }
         });
-    }
-
-    public void setDataSourceChangedListener(FilterDataSourceChangedListener listener) {
-        this.listener = listener;
     }
 
     public void setListView(ListView listView) {
@@ -392,7 +370,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
             for (Parcelable item : filters) {
                 FilterListItem filter = (FilterListItem) item;
                 if(skipIntentFilters && !(filter instanceof Filter ||
-                            filter instanceof FilterListHeader ||
                             filter instanceof FilterCategory)) {
                     continue;
                 }
@@ -408,14 +385,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
             }
 
             notifyDataSetChanged();
-        }
-    }
-
-    @Override
-    public void notifyDataSetChanged() {
-        super.notifyDataSetChanged();
-        if (listener != null) {
-            listener.filterDataSourceChanged();
         }
     }
 
@@ -462,7 +431,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
             viewHolder.decoration = null;
         }
 
-        if(viewHolder.item instanceof FilterListHeader || viewHolder.item instanceof FilterCategory) {
+        if(viewHolder.item instanceof FilterCategory) {
             viewHolder.name.setTextAppearance(activity, headerStyle);
             viewHolder.name.setShadowLayer(1, 1, 1, Color.BLACK);
         } else {
@@ -509,11 +478,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         }
 
         viewHolder.name.getLayoutParams().height = (int) (58 * metrics.density);
-
-        if (nook) {
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) viewHolder.name.getLayoutParams();
-            params.setMargins((int) (8 * metrics.density), 0, 0, 0);
-        }
 
         if (filter.color != 0) {
             viewHolder.name.setTextColor(filter.color);

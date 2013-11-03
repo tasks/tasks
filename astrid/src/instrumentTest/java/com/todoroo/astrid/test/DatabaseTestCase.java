@@ -11,8 +11,6 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.provider.ProviderTestUtilities;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 
-import java.io.File;
-
 /**
  * Test case that automatically sets up and tears down a test database
  *
@@ -44,15 +42,6 @@ public class DatabaseTestCase extends TodorooTestCaseWithInjector {
 
 		ProviderTestUtilities.setDatabaseOverride(database);
 	}
-
-	/**
-	 * Helper to delete a database by name
-	 */
-	protected void deleteDatabase(String toDelete) {
-	    File db = getContext().getDatabasePath(toDelete);
-	    if(db.exists())
-	        db.delete();
-    }
 
     @Override
 	protected void tearDown() throws Exception {

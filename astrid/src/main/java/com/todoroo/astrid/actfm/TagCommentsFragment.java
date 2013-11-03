@@ -14,7 +14,6 @@ import android.widget.ListView;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
@@ -68,11 +67,6 @@ public class TagCommentsFragment extends CommentsFragment {
     @Override
     protected Cursor getCursor() {
         return tagDataService.getActivityForTagData(tagData, null);
-    }
-
-    @Override
-    protected String getSourceIdentifier() {
-        return (tagData == null) ? UpdateAdapter.FROM_RECENT_ACTIVITY_VIEW : UpdateAdapter.FROM_TAG_VIEW;
     }
 
     @Override

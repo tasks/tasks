@@ -21,10 +21,6 @@ public class CheckableImageView extends ImageView implements Checkable {
         super(context, attrs);
     }
 
-    public static interface OnCheckedChangeListener {
-        public void onCheckedChanged(Checkable c, boolean isChecked);
-    }
-
     @Override
     public boolean performClick() {
         toggle();
@@ -33,7 +29,6 @@ public class CheckableImageView extends ImageView implements Checkable {
 
     private boolean mChecked;
     private boolean mBroadcasting;
-    private OnCheckedChangeListener mOnCheckedChangeListener;
 
     @Override
     public void toggle() {
@@ -62,23 +57,8 @@ public class CheckableImageView extends ImageView implements Checkable {
                 return;
             }
 
-            mBroadcasting = true;
-            if (mOnCheckedChangeListener != null) {
-                mOnCheckedChangeListener.onCheckedChanged(this, mChecked);
-            }
-
             mBroadcasting = false;
         }
-    }
-
-    /**
-     * Register a callback to be invoked when the checked state of this button
-     * changes.
-     *
-     * @param listener the callback to call on checked state change
-     */
-    public void setOnCheckedChangeListener(OnCheckedChangeListener listener) {
-        mOnCheckedChangeListener = listener;
     }
 
     @Override

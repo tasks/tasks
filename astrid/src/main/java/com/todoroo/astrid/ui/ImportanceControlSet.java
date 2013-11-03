@@ -73,12 +73,6 @@ public class ImportanceControlSet extends TaskEditControlSet {
         listeners.add(listener);
     }
 
-    public void removeListener(ImportanceChangedListener listener) {
-        if (listeners.contains(listener)) {
-            listeners.remove(listener);
-        }
-    }
-
     @Override
     protected void afterInflate() {
         LinearLayout container = (LinearLayout) getView().findViewById(R.id.importance_container);

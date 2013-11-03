@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.activity;
 
-import android.app.PendingIntent.CanceledException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -34,10 +33,8 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
-import com.todoroo.astrid.api.IntentFilter;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.PluginServices;
-import com.todoroo.astrid.core.SearchFilter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
@@ -141,34 +138,23 @@ public class AstridActivity extends SherlockFragmentActivity
         if (this instanceof TaskListActivity && (item instanceof Filter) ) {
             ((TaskListActivity) this).setSelectedItem((Filter) item);
         }
-        if (item instanceof SearchFilter) {
-            onSearchRequested();
-            return false;
-        } else {
-            // If showing both fragments, directly update the tasklist-fragment
-            Intent intent = getIntent();
+        // If showing both fragments, directly update the tasklist-fragment
+        Intent intent = getIntent();
 
-            if(item instanceof Filter) {
-                Filter filter = (Filter)item;
+        if(item instanceof Filter) {
+            Filter filter = (Filter)item;
 
-                Bundle extras = configureIntentAndExtrasWithFilter(intent, filter);
-                if (fragmentLayout == LAYOUT_TRIPLE && getTaskEditFragment() != null) {
-                    onBackPressed(); // remove the task edit fragment when switching between lists
-                }
-                setupTasklistFragmentWithFilter(filter, extras);
-
-                // no animation for dualpane-layout
-                AndroidUtilities.callOverridePendingTransition(this, 0, 0);
-                return true;
-            } else if(item instanceof IntentFilter) {
-                try {
-                    ((IntentFilter)item).intent.send();
-                } catch (CanceledException e) {
-                    // ignore
-                }
+            Bundle extras = configureIntentAndExtrasWithFilter(intent, filter);
+            if (fragmentLayout == LAYOUT_TRIPLE && getTaskEditFragment() != null) {
+                onBackPressed(); // remove the task edit fragment when switching between lists
             }
-            return false;
+            setupTasklistFragmentWithFilter(filter, extras);
+
+            // no animation for dualpane-layout
+            AndroidUtilities.callOverridePendingTransition(this, 0, 0);
+            return true;
         }
+        return false;
     }
 
     protected Bundle configureIntentAndExtrasWithFilter(Intent intent, Filter filter) {
@@ -241,13 +227,6 @@ public class AstridActivity extends SherlockFragmentActivity
         Task task = taskDao.fetch(taskId, Task.IS_READONLY, Task.IS_PUBLIC, Task.USER_ID);
         if (task != null) {
             onTaskListItemClicked(taskId, task.isEditable());
-        }
-    }
-
-    public void onTaskListItemClicked(String uuid) {
-        Task task = taskDao.fetch(uuid, Task.ID, Task.IS_READONLY, Task.IS_PUBLIC, Task.USER_ID);
-        if (task != null) {
-            onTaskListItemClicked(task.getId(), task.isEditable());
         }
     }
 

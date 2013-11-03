@@ -17,7 +17,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
@@ -175,16 +174,6 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
     }
 
     // --- setting up values
-
-    public void setDefaults() {
-        int setting = Preferences.getIntegerFromString(R.string.p_default_hideUntil_key,
-                Task.HIDE_UNTIL_NONE);
-        selection = setting;
-        if (spinner != null) {
-            spinner.setSelection(selection);
-        }
-        refreshDisplayView();
-    }
 
     @Override
     protected OnClickListener getDisplayClickListener() {

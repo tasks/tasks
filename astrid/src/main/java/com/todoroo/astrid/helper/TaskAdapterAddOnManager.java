@@ -27,29 +27,8 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
 
     // --- interface
 
-    /**
-     * Request add-ons for the given task
-     * @return true if cache miss, false if cache hit
-     */
-    public boolean request(ViewHolder viewHolder) {
-        long taskId = viewHolder.task.getId();
-
-        Collection<TYPE> list = initialize(taskId);
-        if(list != null) {
-            draw(viewHolder, taskId, list);
-            return false;
-        }
-
-        // request details
-        draw(viewHolder, taskId, get(taskId));
-        return true;
-    }
-
     /** updates the given view */
     abstract protected void draw(ViewHolder viewHolder, long taskId, Collection<TYPE> list);
-
-    /** resets the view as if there was nothing */
-    abstract protected void reset(ViewHolder viewHolder);
 
     /** on receive an intent */
     public void addNew(long taskId, String addOn, TYPE item, ViewHolder thisViewHolder) {
@@ -84,27 +63,7 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
         cache.clear();
     }
 
-    /**
-     * Clears single item from cache
-     */
-    public void clearCache(long taskId) {
-        cache.remove(taskId);
-    }
-
     // --- internal goodies
-
-    /**
-     * Retrieves a list. If it doesn't exist, list is created, but
-     * the method will return null
-     * @return list if there was already one
-     */
-    protected synchronized Collection<TYPE> initialize(long taskId) {
-        if(cache.containsKey(taskId) && cache.get(taskId) != null) {
-            return get(taskId);
-        }
-        cache.put(taskId, new LinkedHashMap<String, TYPE>(0));
-        return null;
-    }
 
     /**
      * Adds an item to the cache if it doesn't exist

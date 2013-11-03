@@ -70,12 +70,9 @@
 	<string name="DLG_error">Oups, une erreur est survenue ! Voici ce qu\'il s\'est passé :\n\n%s</string>
 	<string name="DLG_error_generic">Oups, une erreur est survenue !</string>
 	<string name="DLG_wait">Veuillez patienter...</string>
-	<string name="SyP_progress">Synchronisation de vos tâches...</string>
-	<string name="SyP_progress_toast">Synchronisation...</string>
 	<string name="SyP_label">Synchronisation</string>
 	<string name="Sync_now_label">Synchroniser maintenant</string>
 	<string name="SyP_summary">Tâches Google, données enregistrées, sauvegarde locale</string>
-	<string name="SyP_ioerror">Erreur de connexion ! Veuillez vérifier votre connexion Internet.</string>
 	<string name="sync_SPr_group_status">Statut</string>
 	<string name="sync_SPr_status_subtitle">État : %s</string>
 	<string name="sync_status_loggedout">Non connecté</string>

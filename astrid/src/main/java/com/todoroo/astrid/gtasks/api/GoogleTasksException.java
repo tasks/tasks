@@ -19,16 +19,6 @@ public class GoogleTasksException extends IOException {
         this.type = type;
     }
 
-    public GoogleTasksException(String message, Throwable cause) {
-        super(message);
-        initCause(cause);
-    }
-
-    public GoogleTasksException(Throwable cause) {
-        super(cause.getMessage());
-        initCause(cause);
-    }
-
     public String getType() {
         if (!TextUtils.isEmpty(type)) {
             return type;

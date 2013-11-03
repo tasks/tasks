@@ -52,9 +52,6 @@
 	<string name="DLG_error">¡Ui, sembla que hi ha hagut un problema! Això es el que ha passat:\n\n%s</string>
 	<string name="DLG_error_generic">¡Ui, sembla que hi ha hagut un problema!</string>
 	<string name="DLG_wait">Si us plau, espera...</string>
-	<string name="SyP_progress">Sincronitzant les seves tasques...</string>
-	<string name="SyP_progress_toast">S\'està sincronitzant...</string>
-	<string name="SyP_ioerror">Error de conexió! Verifiqui la conexió d\'internet.</string>
 	<string name="sync_SPr_group_status">Estat</string>
 	<string name="sync_status_ongoing">Sincronització en curs...</string>
 	<string name="sync_status_success">Última sincronització:\n%s</string>

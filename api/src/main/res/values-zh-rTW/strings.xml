@@ -70,11 +70,8 @@
 	<string name="DLG_error">糟糕，發生錯誤！狀況是:\n\n%s</string>
 	<string name="DLG_error_generic">糟糕，發生錯誤！</string>
 	<string name="DLG_wait">請稍候...</string>
-	<string name="SyP_progress">工作同步中...</string>
-	<string name="SyP_progress_toast">正在同步中...</string>
 	<string name="SyP_label">同步和備份</string>
 	<string name="SyP_summary">谷歌任務，已存數據，本地備份</string>
-	<string name="SyP_ioerror">連結錯誤! 檢查您的網際網路連線.</string>
 	<string name="sync_SPr_group_status">狀態</string>
 	<string name="sync_SPr_status_subtitle">狀態：%s</string>
 	<string name="sync_status_loggedout">未登陸</string>

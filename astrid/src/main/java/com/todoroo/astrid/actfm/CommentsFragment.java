@@ -7,7 +7,6 @@ package com.todoroo.astrid.actfm;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -67,8 +66,6 @@ public abstract class CommentsFragment extends SherlockListFragment {
 
     protected static final int MENU_REFRESH_ID = Menu.FIRST;
 
-    protected Resources resources;
-
     @Autowired UserActivityDao userActivityDao;
 
     public CommentsFragment() {
@@ -94,8 +91,6 @@ public abstract class CommentsFragment extends SherlockListFragment {
     protected abstract String getModelName();
 
     protected abstract Cursor getCursor();
-
-    protected abstract String getSourceIdentifier();
 
     protected abstract void addHeaderToListView(ListView listView);
 
@@ -125,8 +120,6 @@ public abstract class CommentsFragment extends SherlockListFragment {
         addCommentField.setOnTouchListener(onTouch);
 
         setUpUpdateList();
-
-        resources = getResources();
     }
 
     protected void setUpUpdateList() {
@@ -211,10 +204,9 @@ public abstract class CommentsFragment extends SherlockListFragment {
         if(updateAdapter == null) {
             cursor = getCursor();
             activity.startManagingCursor(cursor);
-            String source = getSourceIdentifier();
 
             updateAdapter = new UpdateAdapter(this, R.layout.update_adapter_row,
-                    cursor, false, source);
+                    cursor, false);
             addHeaderToListView(listView);
             addFooterToListView(listView);
             listView.setAdapter(updateAdapter);

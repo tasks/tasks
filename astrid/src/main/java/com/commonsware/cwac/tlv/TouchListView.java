@@ -23,7 +23,6 @@ import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -33,31 +32,23 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.ui.ErrorCatchingListView;
 
 import org.tasks.R;
 
 public class TouchListView extends ErrorCatchingListView {
 	private ImageView mDragView;
-	private View mOriginalView;
 	private WindowManager mWindowManager;
 	private WindowManager.LayoutParams mWindowParams;
 	private int mDragPos;      // which item is being dragged
 	private int mFirstDragPos; // where was the dragged item originally
 	private int mDragPoint;    // at what offset inside the item did the user grab it
 	private int mCoordOffset;  // the difference between screen coordinates and coordinates in this view
-	private float mDragStartX, mDragCurrentX;
-	private long mDragStartTime;
-	private DragListener mDragListener;
+	private float mDragStartX;
 	private DropListener mDropListener;
-	private SwipeListener mSwipeListener;
-	private GrabberClickListener mClickListener;
 	private int mUpperBound;
 	private int mLowerBound;
 	private int mHeight;
-	private GestureDetector mGestureDetector;
-	public static final int FLING = 0;
 	public static final int SLIDE_RIGHT = 1;
 	public static final int SLIDE_LEFT = 2;
 	private int mRemoveMode = -1;
@@ -123,7 +114,7 @@ public class TouchListView extends ErrorCatchingListView {
 
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent ev) {
-			if (mDragListener != null || mDropListener != null) {
+			if (mDropListener != null) {
 					switch (ev.getAction()) {
 							case MotionEvent.ACTION_DOWN:
 									int x = (int) ev.getX();
@@ -163,8 +154,6 @@ public class TouchListView extends ErrorCatchingListView {
 												mFirstDragPos = mDragPos;
 												mHeight = getHeight();
 												mDragStartX = ev.getX();
-												mDragStartTime = System.currentTimeMillis();
-												mOriginalView = item;
 
 												int touchSlop = mTouchSlop;
 												mUpperBound = Math.min(y - touchSlop, mHeight / 3);
@@ -312,26 +301,17 @@ public class TouchListView extends ErrorCatchingListView {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
-			if (mGestureDetector != null) {
-					mGestureDetector.onTouchEvent(ev);
-			}
-			if ((mDragListener != null || mDropListener != null) && mDragView != null) {
+			if ((mDropListener != null) && mDragView != null) {
 					int action = ev.getAction();
 					switch (action) {
 							case MotionEvent.ACTION_UP:
 							case MotionEvent.ACTION_CANCEL:
 									Rect r = mTempRect;
 									mDragView.getDrawingRect(r);
-									stopDragging(ev);
+									stopDragging();
 									if (mDragPos == mFirstDragPos && ev.getX() > mDragStartX + 20) {
-											if (mSwipeListener!= null) {
-													mSwipeListener.swipeRight(mFirstDragPos);
-											}
 											unExpandViews(true);
 									} else if (mDragPos == mFirstDragPos && ev.getX() < mDragStartX - 20) {
-    									    if (mSwipeListener!= null) {
-    									        mSwipeListener.swipeLeft(mFirstDragPos);
-    									    }
 											unExpandViews(true);
 									} else {
 											if (mDropListener != null && mDragPos >= 0 && mDragPos < getCount()) {
@@ -349,9 +329,6 @@ public class TouchListView extends ErrorCatchingListView {
 									int itemnum = getItemForPosition(y);
 									if (itemnum >= 0) {
 											if (action == MotionEvent.ACTION_DOWN || itemnum != mDragPos) {
-													if (mDragListener != null) {
-															mDragListener.drag(mDragPos, itemnum);
-													}
 													mDragPos = itemnum;
 													doExpansion();
 											}
@@ -385,7 +362,7 @@ public class TouchListView extends ErrorCatchingListView {
 	}
 
 	private void startDragging(Bitmap bm, int x, int y) {
-			stopDragging(null);
+			stopDragging();
 
 			mWindowParams = new WindowManager.LayoutParams();
 			mWindowParams.gravity = Gravity.TOP|Gravity.LEFT;
@@ -409,34 +386,7 @@ public class TouchListView extends ErrorCatchingListView {
 			mWindowManager = (WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE);
 			mWindowManager.addView(v, mWindowParams);
 			mDragView = v;
-
-			if(mClickListener != null) {
-			    longPressThread = new Thread(longPressRunnable);
-			    longPressThread.start();
-			}
 	}
-
-	private final Runnable longPressRunnable = new Runnable() {
-	    @Override
-        public void run() {
-	        AndroidUtilities.sleepDeep(1000L);
-	        if(Thread.currentThread().isInterrupted()) {
-                return;
-            }
-
-	        if(mDragView != null && mDragPos == mFirstDragPos &&
-                    Math.abs(mDragCurrentX - mDragStartX) < 10) {
-	            post(new Runnable() {
-	                @Override
-                    public void run() {
-	                    stopDragging(null);
-	                    mClickListener.onLongClick(mOriginalView);
-	                    invalidate();
-	                }
-	            });
-	        }
-	    }
-	};
 
 	private void dragView(int x, int y) {
 		float alpha = 1.0f;
@@ -456,10 +406,9 @@ public class TouchListView extends ErrorCatchingListView {
 		}
 		mWindowParams.y = y - mDragPoint + mCoordOffset;
 		mWindowManager.updateViewLayout(mDragView, mWindowParams);
-		mDragCurrentX = x;
 	}
 
-    private void stopDragging(MotionEvent ev) {
+    private void stopDragging() {
         if (mDragBitmap != null) {
             mDragBitmap.recycle();
             mDragBitmap = null;
@@ -471,19 +420,6 @@ public class TouchListView extends ErrorCatchingListView {
             wm.removeView(mDragView);
             mDragView.setImageDrawable(null);
             mDragView = null;
-
-            if (ev != null && mClickListener != null) {
-                // detect press & long press case
-                if(mDragPos == mFirstDragPos &&
-                        Math.abs(mDragCurrentX - mDragStartX) < 10) {
-                    long pressTime = System.currentTimeMillis() - mDragStartTime;
-                    if(pressTime < 1000) {
-                        mClickListener.onClick(mOriginalView);
-                    } else {
-                        mClickListener.onLongClick(mOriginalView);
-                    }
-                }
-            }
         }
 
         if(longPressThread != null) {
@@ -492,34 +428,15 @@ public class TouchListView extends ErrorCatchingListView {
         }
     }
 
-	public void setDragListener(DragListener l) {
-			mDragListener = l;
-	}
-
 	public void setDropListener(DropListener l) {
 			mDropListener = l;
 	}
-
-	public void setSwipeListener(SwipeListener l) {
-			mSwipeListener = l;
-	}
-
-	public void setClickListener(GrabberClickListener listener) {
-        this.mClickListener = listener;
-    }
-
-	public void setDragndropBackgroundColor(int color) {
-        this.dragndropBackgroundColor = color;
-    }
 
 	public interface GrabberClickListener {
 	    public void onClick(View v);
 	    public void onLongClick(View v);
 	}
 
-	public interface DragListener {
-			void drag(int from, int to);
-	}
 	public interface DropListener {
 			void drop(int from, int to);
 	}

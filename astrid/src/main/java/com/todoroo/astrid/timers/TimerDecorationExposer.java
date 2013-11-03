@@ -17,7 +17,6 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.TaskDecoration;
-import com.todoroo.astrid.api.TaskDecorationExposer;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
@@ -28,11 +27,10 @@ import org.tasks.R;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TimerDecorationExposer implements TaskDecorationExposer {
+public class TimerDecorationExposer {
 
     private static final int TIMING_BG_COLOR = Color.argb(200, 220, 50, 0);
 
-    @Override
     public TaskDecoration expose(Task task) {
         if(task == null || (task.getValue(Task.ELAPSED_SECONDS) == 0 &&
                 task.getValue(Task.TIMER_START) == 0)) {
@@ -82,10 +80,4 @@ public class TimerDecorationExposer implements TaskDecorationExposer {
     private String buildFormat(long elapsed) {
         return DateUtils.formatElapsedTime(elapsed / 1000L);
     }
-
-    @Override
-    public String getAddon() {
-        return TimerPlugin.IDENTIFIER;
-    }
-
 }

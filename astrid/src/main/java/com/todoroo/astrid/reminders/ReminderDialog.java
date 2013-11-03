@@ -35,8 +35,6 @@ import java.util.Date;
  */
 public class ReminderDialog extends Dialog {
 
-    private static final int MAX_FACES = 4;
-
     @Autowired
     private TaskService taskService;
 

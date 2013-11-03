@@ -60,7 +60,6 @@
 	<string name="TLA_menu_sort">Třídit &amp; skryté</string>
 	<string name="TLA_menu_sync">Sychronizovat</string>
 	<string name="TLA_menu_search">Hledat</string>
-	<string name="TLA_menu_support">Podpora</string>
 	<string name="TLA_custom">Vlastní</string>
 	<string name="TLA_quick_add_hint">Přidat úkol</string>
 	<string name="TLA_notification_volume_low">Upozornění jsou ztlumena. Neuslyšíte Tasks!</string>

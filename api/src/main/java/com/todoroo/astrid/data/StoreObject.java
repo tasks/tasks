@@ -60,14 +60,6 @@ public class StoreObject extends AbstractModel {
     public static final StringProperty VALUE3 = new StringProperty(
             TABLE, "value3");
 
-    /** Store Value Column 4 */
-    public static final StringProperty VALUE4 = new StringProperty(
-            TABLE, "value4");
-
-    /** Store Value Column 5 */
-    public static final StringProperty VALUE5 = new StringProperty(
-            TABLE, "value5");
-
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(StoreObject.class);
 
@@ -104,10 +96,4 @@ public class StoreObject extends AbstractModel {
     // --- parcelable helpers
 
     private static final Creator<StoreObject> CREATOR = new ModelCreator<StoreObject>(StoreObject.class);
-
-    @Override
-    protected Creator<? extends AbstractModel> getCreator() {
-        return CREATOR;
-    }
-
 }

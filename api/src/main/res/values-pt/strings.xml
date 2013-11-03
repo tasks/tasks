@@ -57,7 +57,6 @@
 	<string name="DLG_information_title">Informação</string>
 	<string name="DLG_close">Fechar</string>
 	<string name="DLG_wait">Por favor aguarde...</string>
-	<string name="SyP_progress_toast">A Sincronizar...</string>
 	<string name="SyP_label">Sincronização</string>
 	<string name="sync_SPr_group_status">Estado</string>
 	<string name="sync_SPr_group_options">Opções</string>

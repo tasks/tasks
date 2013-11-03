@@ -59,13 +59,7 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
         AndroidUtilities.sleepDeep(200L); // Delay to make sure changes persist
     }
 
-    protected REMOTE_MODEL assertTaskExistsRemotely(Task t, long expectedDueDate) {
-        // Subclasses can override this to check the existence of remote objects
-        return null;
-    }
-
-    protected long setCompletionDate(boolean completeBefore, Task t,
-            REMOTE_MODEL remoteModel, long dueDate) {
+    protected long setCompletionDate(boolean completeBefore, Task t, long dueDate) {
         long completionDate;
         if (completeBefore)
             completionDate = dueDate - DateUtilities.ONE_DAY;
@@ -133,9 +127,8 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
 
         waitAndSync();
         t = taskDao.fetch(t.getId(), Task.PROPERTIES); // Refetch
-        REMOTE_MODEL remoteModel = assertTaskExistsRemotely(t, dueDate);
 
-        long completionDate = setCompletionDate(completeBefore, t, remoteModel, dueDate);
+        long completionDate = setCompletionDate(completeBefore, t, dueDate);
         System.err.println("Completion date: " + new Date(completionDate));
 
         waitAndSync();
@@ -158,7 +151,6 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
             long fromDate = (fromCompletion? completionDate : dueDate);
             long expectedTime = computeNextDueDateFromDate(fromDate, rrule, fromCompletion);
 
-            assertTaskExistsRemotely(t, expectedTime);
             if (frequency == Frequency.WEEKLY) // We do this because DST was making the results be off by an hour
                 assertTimesWithinOneHour(expectedTime, newDueDate);
             else

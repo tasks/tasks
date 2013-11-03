@@ -5,14 +5,14 @@
  */
 package com.todoroo.astrid.legacy;
 
-
+@SuppressWarnings("unused")
 public enum LegacyImportance {
     // MOST IMPORTANT
 
 	LEVEL_1,
 	LEVEL_2,
 	LEVEL_3,
-	LEVEL_4;
+	LEVEL_4
 
 	// LEAST IMPORTANT
 }

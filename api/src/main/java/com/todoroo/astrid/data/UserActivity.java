@@ -3,7 +3,6 @@ package com.todoroo.astrid.data;
 import android.content.ContentValues;
 import android.net.Uri;
 
-import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
@@ -31,10 +30,6 @@ public class UserActivity extends RemoteModel {
     /** Remote ID */
     public static final StringProperty UUID = new StringProperty(
             TABLE, UUID_PROPERTY_NAME);
-
-    /** Pushed at */
-    public static final LongProperty PUSHED_AT = new LongProperty(
-            TABLE, PUSHED_AT_PROPERTY_NAME, Property.PROP_FLAG_DATE);
 
     /** User ID (activity initiator) */
     public static final StringProperty USER_UUID = new StringProperty(
@@ -75,25 +70,13 @@ public class UserActivity extends RemoteModel {
     // --- Action codes
     public static final String ACTION_TASK_COMMENT = "task_comment";
     public static final String ACTION_TAG_COMMENT = "tag_comment";
-    public static final String ACTION_REQUEST_FRIENDSHIP = "request_friendship";
-    public static final String ACTION_CONFIRM_FRIENDSHIP = "confirm_friendship";
-    public static final String ACTION_ACHIEVEMENT_REACHED = "achievement_reached";
 
     public UserActivity(TodorooCursor<UserActivity> cursor) {
         this();
         readPropertiesFromCursor(cursor);
     }
 
-    public void readFromCursor(TodorooCursor<UserActivity> cursor) {
-        super.readPropertiesFromCursor(cursor);
-    }
-
     // --- helpers
-
-    @Override
-    public String getUuid() {
-        return getUuidHelper(UUID);
-    }
 
     /** Default values container */
     private static final ContentValues defaultValues = new ContentValues();
@@ -124,10 +107,4 @@ public class UserActivity extends RemoteModel {
     }
 
     private static final Creator<UserActivity> CREATOR = new ModelCreator<UserActivity>(UserActivity.class);
-
-    @Override
-    protected Creator<? extends AbstractModel> getCreator() {
-        return CREATOR;
-    }
-
 }

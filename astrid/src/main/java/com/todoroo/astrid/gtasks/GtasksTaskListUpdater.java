@@ -16,7 +16,6 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.data.Metadata;

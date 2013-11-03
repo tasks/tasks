@@ -69,7 +69,6 @@ public class GtasksPreferences extends SyncProviderPreferences {
         startActivityForResult(intent, REQUEST_LOGIN);
     }
 
-    @Override
     public void logOut() {
         GtasksSyncV2Provider.getInstance().signOut();
     }

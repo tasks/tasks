@@ -6,8 +6,6 @@ import com.todoroo.astrid.data.TaskListMetadata;
 
 public class SubtasksHelperTest extends SubtasksTestCase {
 
-    private Task A, B, C, D, E, F;
-
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -17,21 +15,20 @@ public class SubtasksHelperTest extends SubtasksTestCase {
         updater.initializeFromSerializedTree(m, filter, SubtasksHelper.convertTreeToRemoteIds(DEFAULT_SERIALIZED_TREE));
     }
 
-    private Task createTask(String title, String uuid) {
+    private void createTask(String title, String uuid) {
         Task t = new Task();
         t.setValue(Task.TITLE, title);
         t.setValue(Task.UUID, uuid);
         PluginServices.getTaskService().save(t);
-        return t;
     }
 
     private void createTasks() {
-        A = createTask("A", "6"); // Local id 1
-        B = createTask("B", "4"); // Local id 2
-        C = createTask("C", "3"); // Local id 3
-        D = createTask("D", "1"); // Local id 4
-        E = createTask("E", "2"); // Local id 5
-        F = createTask("F", "5"); // Local id 6
+        createTask("A", "6"); // Local id 1
+        createTask("B", "4"); // Local id 2
+        createTask("C", "3"); // Local id 3
+        createTask("D", "1"); // Local id 4
+        createTask("E", "2"); // Local id 5
+        createTask("F", "5"); // Local id 6
     }
 
     private static final String[] EXPECTED_ORDER = { "-1", "1", "2", "3", "4", "5", "6" };

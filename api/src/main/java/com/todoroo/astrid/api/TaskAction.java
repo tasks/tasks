@@ -17,11 +17,6 @@ import android.graphics.drawable.BitmapDrawable;
 public class TaskAction {
 
     /**
-     * Label
-     */
-    public String text = null;
-
-    /**
      * Intent to call when invoking this operation
      */
     public PendingIntent intent = null;
@@ -32,63 +27,11 @@ public class TaskAction {
     public BitmapDrawable icon = null;
 
     /**
-     * Quick action drawable resource
-     */
-    public int drawable = 0;
-
-    /**
      * Create an EditOperation object
-     *
-     * @param text
-     *            label to display
      */
-    public TaskAction(String text, PendingIntent intent, BitmapDrawable icon) {
+    public TaskAction(PendingIntent intent, BitmapDrawable icon) {
         super();
-        this.text = text;
         this.intent = intent;
         this.icon = icon;
     }
-
-    // --- parcelable helpers
-
-    /**
-     * {@inheritDoc}
-     */
-    public int describeContents() {
-        return 0;
-    }
-//
-//    /**
-//     * {@inheritDoc}
-//     */
-//    public void writeToParcel(Parcel dest, int flags) {
-//        dest.writeString(text);
-//        dest.writeParcelable(intent, 0);
-//        dest.writeParcelable(icon, 0);
-//        dest.writeInt(drawable);
-//    }
-//
-//    /**
-//     * Parcelable creator
-//     */
-//    public static final Parcelable.Creator<TaskAction> CREATOR = new Parcelable.Creator<TaskAction>() {
-//        /**
-//         * {@inheritDoc}
-//         */
-//        public TaskAction createFromParcel(Parcel source) {
-//            TaskAction action = new TaskAction(source.readString(),
-//                    (PendingIntent)source.readParcelable(PendingIntent.class.getClassLoader()),
-//                    (Bitmap)source.readParcelable(Bitmap.class.getClassLoader()));
-//            action.drawable = source.readInt();
-//            return action;
-//        }
-//
-//        /**
-//         * {@inheritDoc}
-//         */
-//        public TaskAction[] newArray(int size) {
-//            return new TaskAction[size];
-//        };
-//    };
-
 }

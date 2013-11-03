@@ -28,7 +28,6 @@ public class SubtasksTestCase extends DatabaseTestCase {
     * F
     */
     public static final String DEFAULT_SERIALIZED_TREE = "[-1, [1, 2, [3, 4]], 5, 6]".replaceAll("\\s", "");
-    public static final String DEFAULT_SERIALIZED_TREE_STRING = "[\"-1\", [\"1\", \"2\", [\"3\", \"4\"]], \"5\", \"6\"]".replaceAll("\\s", "");
 
     @Override
     protected void setUp() throws Exception {

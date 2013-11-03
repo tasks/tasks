@@ -67,11 +67,8 @@
 	<string name="DLG_error">Oj, det uppstod ett fel! Detta hände:\n\n%s</string>
 	<string name="DLG_error_generic">Oj, det uppstod ett fel!</string>
 	<string name="DLG_wait">Var god vänta...</string>
-	<string name="SyP_progress">Synkroniserar dina uppgifter...</string>
-	<string name="SyP_progress_toast">Synkroniserar...</string>
 	<string name="SyP_label">Synkronisering</string>
 	<string name="SyP_summary">Google Aktiviteter, sparad data, lokal backup</string>
-	<string name="SyP_ioerror">Tillkopplingsfel! Kontrollera din tillkoppling till internet.</string>
 	<string name="sync_status_loggedout">Ej inloggad</string>
 	<string name="sync_status_ongoing">Synkronisering pågår...</string>
 	<string name="sync_status_success">Synkroniserades senast:\n%s</string>

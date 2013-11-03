@@ -5,8 +5,6 @@
  */
 package com.todoroo.andlib.sql;
 
-import static com.todoroo.andlib.sql.SqlConstants.AND;
-import static com.todoroo.andlib.sql.SqlConstants.BETWEEN;
 import static com.todoroo.andlib.sql.SqlConstants.COMMA;
 import static com.todoroo.andlib.sql.SqlConstants.LEFT_PARENTHESIS;
 import static com.todoroo.andlib.sql.SqlConstants.RIGHT_PARENTHESIS;
@@ -56,10 +54,6 @@ public class Field extends DBObject<Field> {
         return UnaryCriterion.gt(this, value);
     }
 
-    public Criterion gte(Object value) {
-        return UnaryCriterion.gte(this, value);
-    }
-
     public Criterion lt(final Object value) {
         return UnaryCriterion.lt(this, value);
     }
@@ -74,18 +68,6 @@ public class Field extends DBObject<Field> {
 
     public Criterion isNotNull() {
         return UnaryCriterion.isNotNull(this);
-    }
-
-    public Criterion between(final Object lower, final Object upper) {
-        final Field field = this;
-        return new Criterion(null) {
-
-            @Override
-            protected void populate(StringBuilder sb) {
-                sb.append(field).append(SPACE).append(BETWEEN).append(SPACE).append(lower).append(SPACE).append(AND)
-                        .append(SPACE).append(upper);
-            }
-        };
     }
 
     public Criterion like(final String value) {

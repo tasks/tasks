@@ -43,11 +43,10 @@ public class TitleParser {
         }
         return pattern;
     }
-    public static boolean listHelper(Task task, ArrayList<String> tags) {
+    public static void listHelper(Task task, ArrayList<String> tags) {
         String inputText = task.getValue(Task.TITLE);
         Pattern tagPattern = Pattern.compile("(\\s|^)#(\\(.*\\)|[^\\s]+)");
         Pattern contextPattern = Pattern.compile("(\\s|^)@(\\(.*\\)|[^\\s]+)");
-        boolean result = false;
 
         Set<String> addedTags = new HashSet<String>();
         TagService tagService = TagService.getInstance();
@@ -55,7 +54,6 @@ public class TitleParser {
         while(true) {
             Matcher m = tagPattern.matcher(inputText);
             if(m.find()) {
-                result = true;
                 String tag = TitleParser.trimParenthesis(m.group(2));
                 String tagWithCase = tagService.getTagWithCase(tag);
                 if (!addedTags.contains(tagWithCase)) {
@@ -65,7 +63,6 @@ public class TitleParser {
             } else {
                 m = contextPattern.matcher(inputText);
                 if(m.find()) {
-                    result = true;
                     String tag = TitleParser.trimParenthesis(m.group(2));
                     String tagWithCase = tagService.getTagWithCase(tag);
                     if (!addedTags.contains(tagWithCase)) {
@@ -79,7 +76,6 @@ public class TitleParser {
             inputText = inputText.substring(0, m.start()) + inputText.substring(m.end());
         }
         task.setValue(Task.TITLE, inputText.trim());
-        return result;
     }
 
     //helper method for priorityHelper. converts the string to a Task Importance

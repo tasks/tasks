@@ -7,9 +7,7 @@ package com.todoroo.astrid.data;
 
 
 import android.content.ContentValues;
-import android.net.Uri;
 
-import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
@@ -17,7 +15,6 @@ import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.api.AstridApiConstants;
 
 /**
  * Data Model which represents a user.
@@ -31,10 +28,6 @@ public final class TaskAttachment extends RemoteModel {
 
     /** table for this model */
     public static final Table TABLE = new Table("task_attachments", TaskAttachment.class);
-
-    /** content uri for this model */
-    public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.API_PACKAGE + "/" +
-            TABLE.name);
 
     // --- properties
 
@@ -172,18 +165,7 @@ public final class TaskAttachment extends RemoteModel {
         return getIdHelper(ID);
     }
 
-    @Override
-    public String getUuid() {
-        return getUuidHelper(UUID);
-    }
-
     // --- parcelable helpers
 
     public static final Creator<TaskAttachment> CREATOR = new ModelCreator<TaskAttachment>(TaskAttachment.class);
-
-    @Override
-    protected Creator<? extends AbstractModel> getCreator() {
-        return CREATOR;
-    }
-
 }

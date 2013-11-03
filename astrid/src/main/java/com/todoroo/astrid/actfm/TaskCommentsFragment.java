@@ -6,7 +6,6 @@ import android.widget.ListView;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
@@ -56,11 +55,6 @@ public class TaskCommentsFragment extends CommentsFragment {
     @Override
     protected Cursor getCursor() {
         return taskService.getActivityForTask(task);
-    }
-
-    @Override
-    protected String getSourceIdentifier() {
-        return (task == null) ? UpdateAdapter.FROM_RECENT_ACTIVITY_VIEW : UpdateAdapter.FROM_TASK_VIEW;
     }
 
     @Override

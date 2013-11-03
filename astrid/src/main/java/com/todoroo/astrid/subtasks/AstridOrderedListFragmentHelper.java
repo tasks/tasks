@@ -214,8 +214,6 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
                 OnCompletedTaskListener onCompletedTaskListener) {
             super(activity, resource, c, query, autoRequery,
                     onCompletedTaskListener);
-
-            applyListeners = APPLY_LISTENERS_NONE;
         }
 
         @Override

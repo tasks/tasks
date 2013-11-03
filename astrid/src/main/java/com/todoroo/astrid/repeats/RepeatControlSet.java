@@ -35,7 +35,6 @@ import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.DateAndTimeDialog;
 import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
 import com.todoroo.astrid.ui.DateAndTimePicker;
-import com.todoroo.astrid.ui.NumberPicker;
 import com.todoroo.astrid.ui.NumberPickerDialog;
 import com.todoroo.astrid.ui.NumberPickerDialog.OnNumberPickedListener;
 import com.todoroo.astrid.ui.PopupControlSet;
@@ -92,8 +91,6 @@ public class RepeatControlSet extends PopupControlSet {
 
     @Autowired
     ExceptionService exceptionService;
-
-    boolean setInterval = false;
 
     // --- implementation
 
@@ -153,12 +150,6 @@ public class RepeatControlSet extends PopupControlSet {
 
     public void addListener(RepeatChangedListener listener) {
         listeners.add(listener);
-    }
-
-    public void removeListener(RepeatChangedListener listener) {
-        if (listeners.contains(listener)) {
-            listeners.remove(listener);
-        }
     }
 
     @Override
@@ -243,9 +234,6 @@ public class RepeatControlSet extends PopupControlSet {
                         }
                     }
                 }
-
-                // suppress first call to interval.onItemSelected
-                setInterval = true;
             } catch (Exception e) {
                 // invalid RRULE
                 recurrence = ""; //$NON-NLS-1$

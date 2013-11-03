@@ -56,9 +56,7 @@
 	<string name="DLG_question_title">Spørsmål:</string>
 	<string name="DLG_close">Luk</string>
 	<string name="DLG_wait">Vent venligst...</string>
-	<string name="SyP_progress_toast">Synkroniserer...</string>
 	<string name="SyP_label">Synkronisering</string>
-	<string name="SyP_ioerror">Forbindelsesfejl! Tjek din internetforbindelse.</string>
 	<string name="sync_SPr_group_options">Indstillinger</string>
 	<string name="sync_SPr_interval_title">Baggrunds Synk</string>
 	<string name="sync_SPr_interval_desc_disabled">Baggrunds synkronisering er slået fra</string>

@@ -7,7 +7,6 @@ package com.todoroo.astrid.api;
 
 import com.todoroo.astrid.data.Task;
 
-
 /**
  * API for exposing context menu items associated with a task.
  *
@@ -20,20 +19,8 @@ import com.todoroo.astrid.data.Task;
  */
 public interface TaskContextActionExposer {
 
-    public class TaskContextAction{
-        public int labelResource;
-        public Runnable action;
-
-        public TaskContextAction(int labelResource, Runnable action) {
-            super();
-            this.labelResource = labelResource;
-            this.action = action;
-        }
-    }
-
     /**
      * Call context menu action
      */
     public void invoke(Task task);
-
 }

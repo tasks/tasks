@@ -56,7 +56,6 @@
 	<string name="ENA_refresh_comments">コメントを更新</string>
 	<string name="TLA_no_items">タスクなし</string>
 	<string name="TLA_menu_settings">設定</string>
-	<string name="TLA_menu_support">サポート</string>
 	<string name="TLA_custom">カスタムフィルタ</string>
 	<string name="TLA_quick_add_hint">タスクを追加する</string>
 	<string-array name="TLA_priority_strings">

@@ -10,7 +10,6 @@ import android.content.ContentValues;
 import android.content.res.Resources;
 import android.net.Uri;
 
-import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
@@ -303,7 +302,6 @@ public final class Task extends RemoteModel {
         return getIdHelper(ID);
     }
 
-    @Override
     public String getUuid() {
         return getUuidHelper(UUID);
     }
@@ -311,11 +309,6 @@ public final class Task extends RemoteModel {
     // --- parcelable helpers
 
     public static final Creator<Task> CREATOR = new ModelCreator<Task>(Task.class);
-
-    @Override
-    protected Creator<? extends AbstractModel> getCreator() {
-        return CREATOR;
-    }
 
     // --- data access methods
 

@@ -260,17 +260,14 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
      * E
      * F
      */
-    private Task[] givenTasksABCDEF() {
-        Task[] tasks = new Task[] {
-            A = createTask("A", 0, 0),
-            B = createTask("B", 1, 1),
-            C = createTask("C", 2, 1),
-            D = createTask("D", 3, 2),
-            E = createTask("E", 4, 0),
-            F = createTask("F", 5, 0),
-        };
+    private void givenTasksABCDEF() {
+        A = createTask("A", 0, 0);
+        B = createTask("B", 1, 1);
+        C = createTask("C", 2, 1);
+        D = createTask("D", 3, 2);
+        E = createTask("E", 4, 0);
+        F = createTask("F", 5, 0);
         gtasksTaskListUpdater.correctMetadataForList("1");
-        return tasks;
     }
 
     private Task createTask(String title, long order, int indent) {

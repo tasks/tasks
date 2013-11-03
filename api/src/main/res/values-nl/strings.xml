@@ -70,12 +70,9 @@
 	<string name="DLG_error">Er is een fout opgetreden:\n\n%s</string>
 	<string name="DLG_error_generic">Er is een fout opgetreden!</string>
 	<string name="DLG_wait">Even geduld a.u.b.</string>
-	<string name="SyP_progress">Taken synchroniseren...</string>
-	<string name="SyP_progress_toast">Synchroniseren…</string>
 	<string name="SyP_label">Synchronisatie</string>
 	<string name="Sync_now_label">Nu synchroniseren</string>
 	<string name="SyP_summary">Google Taken, opgeslagen data, lokale back-up</string>
-	<string name="SyP_ioerror">Verbindingsfout! Controleer de internetverbinding</string>
 	<string name="sync_status_loggedout">Niet aangemeld</string>
 	<string name="sync_status_ongoing">Synchronisatie bezig...</string>
 	<string name="sync_status_success">Vorige:\n%s</string>

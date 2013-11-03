@@ -122,10 +122,4 @@ public class Metadata extends AbstractModel {
     // --- parcelable helpers
 
     private static final Creator<Metadata> CREATOR = new ModelCreator<Metadata>(Metadata.class);
-
-    @Override
-    protected Creator<? extends AbstractModel> getCreator() {
-        return CREATOR;
-    }
-
 }

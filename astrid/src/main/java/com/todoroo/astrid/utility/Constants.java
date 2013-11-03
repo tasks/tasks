@@ -37,11 +37,6 @@ public final class Constants {
      */
     public static final boolean DEBUG = false;
 
-    /**
-     * Astrid Help URL
-     */
-    public static final String HELP_URL = "http://weloveastrid.com/help-user-guide-astrid-v3/active-tasks/";
-
     // --- task list activity source strings
 
     public static final int SOURCE_OTHER = -1;
@@ -54,24 +49,6 @@ public final class Constants {
 
     // --- notification id's
 
-    /** Notification Manager id for sync notifications */
-    public static final int NOTIFICATION_SYNC = -1;
-
     /** Notification Manager id for timing */
     public static final int NOTIFICATION_TIMER = -2;
-
-    /** Notification Manager id for locale */
-    public static final int NOTIFICATION_LOCALE = -3;
-
-    /** Notification Manager id for astrid.com */
-    public static final int NOTIFICATION_ACTFM = -5;
-
-    // --- amazon
-
-    public static final String AWS_ACCESS_KEY_ID = "AKIAJTVL4FOF4PRBKBNA";
-
-    public static final String AWS_SECRET_KEY_ID = "";
-
-    public static final String AWS_ENDPOINT = "ecs.amazonaws.com";
-
 }

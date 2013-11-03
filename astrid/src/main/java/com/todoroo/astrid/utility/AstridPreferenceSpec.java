@@ -8,7 +8,6 @@ import com.todoroo.andlib.utility.Preferences;
 
 public abstract class AstridPreferenceSpec {
     public abstract void setIfUnset();
-    public abstract void resetDefaults();
 
     protected static void setPreference(SharedPreferences prefs, Editor editor, Resources r, int key, int value, boolean ifUnset) {
         if (ifUnset) {

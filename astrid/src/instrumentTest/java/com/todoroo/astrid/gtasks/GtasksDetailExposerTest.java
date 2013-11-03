@@ -109,14 +109,14 @@ public class GtasksDetailExposerTest extends DatabaseTestCase {
         gtasksListService.updateLists(lists);
     }
 
-    private Task givenTaskWithList(String list) {
+    private void givenTaskWithList(String list) {
         Task newTask = new Task();
         PluginServices.getTaskService().save(newTask);
         Metadata metadata = GtasksMetadata.createEmptyMetadata(newTask.getId());
         if(list != null)
             metadata.setValue(GtasksMetadata.LIST_ID, list);
         PluginServices.getMetadataService().save(metadata);
-        return task = newTask;
+        task = newTask;
     }
 
     @Override

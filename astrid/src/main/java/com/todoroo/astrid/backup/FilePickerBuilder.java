@@ -42,10 +42,6 @@ public class FilePickerBuilder extends AlertDialog.Builder implements DialogInte
         setPath(path);
     }
 
-    public void setFilter(FilenameFilter filter) {
-        this.filter = filter;
-    }
-
     private void setPath(File path) {
         if (path != null && path.exists()) {
             this.path = path.getAbsolutePath();

@@ -18,7 +18,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -419,13 +418,4 @@ public class QuickAddBar extends LinearLayout {
     public void destroyRecognizerApi() {
         voiceRecognizer.destroyRecognizerApi();
     }
-
-
-
-    public void hideKeyboard() {
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(
-                Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(quickAddBox.getWindowToken(), 0);
-    }
-
 }

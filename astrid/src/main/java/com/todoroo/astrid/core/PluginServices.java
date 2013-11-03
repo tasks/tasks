@@ -11,9 +11,7 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
-import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
@@ -29,9 +27,6 @@ public final class PluginServices {
 
     @Autowired
     TaskService taskService;
-
-    @Autowired
-    TaskDao taskDao;
 
     @Autowired
     Database database;
@@ -54,9 +49,6 @@ public final class PluginServices {
     @Autowired
     TaskListMetadataDao taskListMetadataDao;
 
-    @Autowired
-    GtasksPreferenceService gtasksPreferenceService;
-
     private static volatile PluginServices instance;
 
     static {
@@ -78,18 +70,9 @@ public final class PluginServices {
         return instance;
     }
 
-    public static Database getDatabase() {
-        getInstance().database.openForWriting();
-        return getInstance().database;
-    }
-
     public static TaskService getTaskService() {
         getInstance().database.openForWriting();
         return getInstance().taskService;
-    }
-
-    public static TaskDao getTaskDao() {
-        return getInstance().taskDao;
     }
 
     public static TagDataService getTagDataService() {
@@ -115,9 +98,5 @@ public final class PluginServices {
 
     public static TaskListMetadataDao getTaskListMetadataDao() {
         return getInstance().taskListMetadataDao;
-    }
-
-    public static GtasksPreferenceService getGtasksPreferenceService() {
-        return getInstance().gtasksPreferenceService;
     }
 }

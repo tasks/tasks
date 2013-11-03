@@ -54,12 +54,9 @@
 	<string name="DLG_error">На жаль, схоже, сталася помилка! Ось що вийшло:\n\n%s</string>
 	<string name="DLG_error_generic">На жаль, схоже, сталася помилка!</string>
 	<string name="DLG_wait">Будь ласка, зачекайте...</string>
-	<string name="SyP_progress">Синхронізація завдань...</string>
-	<string name="SyP_progress_toast">Синхронізація…</string>
 	<string name="SyP_label">Синхронізація і резерв. копіювання</string>
 	<string name="Sync_now_label">Синхронізувати</string>
 	<string name="SyP_summary">Google Tasks, збережені дані, локальне резервне копіювання</string>
-	<string name="SyP_ioerror">Помилка з\'єднання! Перевірте підключення до Інтернету.</string>
 	<string name="sync_SPr_group_status">Статус</string>
 	<string name="sync_SPr_status_subtitle">Статус: %s</string>
 	<string name="sync_status_loggedout">Не залогований</string>

@@ -44,18 +44,6 @@ public class TodorooTestCase extends AndroidTestCase {
     }
 
     /**
-     * Loop through each locale and call runnable
-     */
-    public void forEachLocale(Runnable r) {
-        Locale[] locales = Locale.getAvailableLocales();
-        for(Locale locale : locales) {
-            setLocale(locale);
-
-            r.run();
-        }
-    }
-
-    /**
      * Sets locale
      */
     private void setLocale(Locale locale) {

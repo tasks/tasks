@@ -23,7 +23,6 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
-import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.ui.NumberPicker;
 

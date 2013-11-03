@@ -30,10 +30,6 @@ import java.util.Date;
 
 public class DateAndTimePicker extends LinearLayout {
 
-    public interface OnDateChangedListener {
-        public void onDateChanged();
-    }
-
     private static final int SHORTCUT_PADDING = 8;
 
     private ArrayList<UrgencyValue> urgencyValues;
@@ -58,7 +54,6 @@ public class DateAndTimePicker extends LinearLayout {
     private final CalendarView calendarView;
     private final AstridTimePicker timePicker;
     private final LinearLayout dateShortcuts;
-    private OnDateChangedListener listener;
     private final boolean useShortcuts;
     private UrgencyValue todayUrgency;
 
@@ -119,7 +114,6 @@ public class DateAndTimePicker extends LinearLayout {
             @Override
             public void onSelectedDate(Date date) {
                 updateShortcutView(date);
-                otherCallbacks();
             }
         });
 
@@ -143,7 +137,6 @@ public class DateAndTimePicker extends LinearLayout {
                 timePicker.forceNoTime();
             }
             updateShortcutView(date);
-            otherCallbacks();
         }
     }
 
@@ -228,7 +221,6 @@ public class DateAndTimePicker extends LinearLayout {
                         timePicker.forceNoTime();
                     }
                     updateShortcutView(date);
-                    otherCallbacks();
                 }
             });
             dateShortcuts.addView(tb);
@@ -252,12 +244,6 @@ public class DateAndTimePicker extends LinearLayout {
         }
     }
 
-    private void otherCallbacks() {
-        if (listener != null) {
-            listener.onDateChanged();
-        }
-    }
-
     public long constructDueDate() {
         Date calendarDate = new Date(calendarView.getCalendarDate().getTime());
         if (timePicker.hasTime() && calendarDate.getTime() > 0) {
@@ -272,10 +258,6 @@ public class DateAndTimePicker extends LinearLayout {
 
     public boolean hasTime() {
         return timePicker.hasTime();
-    }
-
-    public void setOnDateChangedListener(OnDateChangedListener listener) {
-        this.listener = listener;
     }
 
     public boolean isAfterNow() {

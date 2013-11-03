@@ -56,7 +56,6 @@
 	<string name="TLA_menu_sync">Jetzt synchronisieren</string>
 	<string name="TLA_menu_search">Suchen</string>
 	<string name="TLA_menu_settings">Einstellungen</string>
-	<string name="TLA_menu_support">Unterstützung</string>
 	<string name="TLA_custom">Benutzerdefiniert</string>
 	<string name="TLA_quick_add_hint">Aufgabe hinzufügen</string>
 	<string name="TLA_notification_volume_low">Erinnerungen sind stummgeschaltet. Du wirst Tasks nicht hören!</string>

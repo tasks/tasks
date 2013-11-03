@@ -49,6 +49,7 @@ abstract public class SyncV2BackgroundService extends Service {
 
     // --- implementation
 
+    @SuppressWarnings("unused")
     public SyncV2BackgroundService() {
         DependencyInjectionService.getInstance().inject(this);
     }
@@ -94,11 +95,6 @@ abstract public class SyncV2BackgroundService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
-    }
-
-    public synchronized void stop() {
-        started.set(false);
-        stopSelf();
     }
 
     // --- alarm management

@@ -17,25 +17,8 @@ public abstract class MarketStrategy {
      */
     abstract public Intent generateMarketLink(String packageName);
 
-    abstract public String strategyId();
-
     public int[] excludedSettings() {
         return null;
-    }
-
-    /**
-     * @return true if ideas tab should be shown
-     */
-    public boolean allowIdeasTab() {
-        return true;
-    }
-
-    /**
-     * Most market strategies don't support billing at this time,
-     * so we'll make the default false
-     */
-    public boolean billingSupported() {
-        return false;
     }
 
     /**
@@ -46,18 +29,6 @@ public abstract class MarketStrategy {
         return false;
     }
 
-    public static class NoMarketStrategy extends MarketStrategy {
-        @Override
-        public Intent generateMarketLink(String packageName) {
-            return null;
-        }
-
-        @Override
-        public String strategyId() {
-            return "no_market"; //$NON-NLS-1$
-        }
-    }
-
     public static class AndroidMarketStrategy extends MarketStrategy {
 
         @Override
@@ -66,17 +37,6 @@ public abstract class MarketStrategy {
                     Uri.parse("market://search?q=pname:" + //$NON-NLS-1$
                             packageName));
         }
-
-        @Override
-        public String strategyId() {
-            return "android_market"; //$NON-NLS-1$
-        }
-
-        @Override
-        public boolean billingSupported() {
-            return true;
-        }
-
     }
 
     public static class AmazonMarketStrategy extends MarketStrategy {
@@ -104,51 +64,5 @@ public abstract class MarketStrategy {
                 R.string.p_field_missed_calls
             };
         }
-
-        @Override
-        public String strategyId() {
-            return "amazon_market"; //$NON-NLS-1$
-        }
-
     }
-
-    public static class NookMarketStrategy extends MarketStrategy {
-
-        @Override
-        public Intent generateMarketLink(String packageName) {
-            return new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("market://search?q=pname:" + //$NON-NLS-1$
-                            packageName));
-        }
-
-        @Override
-        public boolean allowIdeasTab() {
-            return false;
-        }
-
-        @Override
-        public int[] excludedSettings() {
-            return new int[] {
-                R.string.p_voicePrefSection,
-                R.string.p_end_at_deadline,
-                R.string.p_field_missed_calls,
-                R.string.p_rmd_vibrate,
-                R.string.gcal_p_default,
-                R.string.p_voiceInputEnabled,
-                R.string.p_voiceInputCreatesTask
-            };
-        }
-
-        @Override
-        public boolean defaultPhoneLayout() {
-            return true;
-        }
-
-        @Override
-        public String strategyId() {
-            return "nook_market"; //$NON-NLS-1$
-        }
-
-    }
-
 }

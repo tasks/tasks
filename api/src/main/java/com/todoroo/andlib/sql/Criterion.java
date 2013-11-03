@@ -6,7 +6,6 @@
 package com.todoroo.andlib.sql;
 
 import static com.todoroo.andlib.sql.SqlConstants.AND;
-import static com.todoroo.andlib.sql.SqlConstants.EXISTS;
 import static com.todoroo.andlib.sql.SqlConstants.LEFT_PARENTHESIS;
 import static com.todoroo.andlib.sql.SqlConstants.NOT;
 import static com.todoroo.andlib.sql.SqlConstants.OR;
@@ -56,16 +55,6 @@ public abstract class Criterion {
                 for (Criterion c : criterions) {
                     sb.append(SPACE).append(OR).append(SPACE).append(c.toString());
                 }
-            }
-        };
-    }
-
-    public static Criterion exists(final Query query) {
-        return new Criterion(Operator.exists) {
-
-            @Override
-            protected void populate(StringBuilder sb) {
-                sb.append(EXISTS).append(SPACE).append(LEFT_PARENTHESIS).append(query).append(RIGHT_PARENTHESIS);
             }
         };
     }

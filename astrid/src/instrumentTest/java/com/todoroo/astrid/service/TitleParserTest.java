@@ -61,7 +61,7 @@ public class TitleParserTest extends DatabaseTestCase {
       };
       for (int i = 0; i < 23; i++) {
           String testTitle = "Jog on " + titleMonthStrings[i] + " 12.";
-          insertTitleAddTask(testTitle, task, taskService);
+          insertTitleAddTask(testTitle, task);
           Date date = new Date(task.getValue(Task.DUE_DATE));
           assertEquals(date.getMonth(), i/2);
           assertEquals(date.getDate(), 12);
@@ -73,7 +73,7 @@ public class TitleParserTest extends DatabaseTestCase {
       Task task = new Task();
       for (int i = 1; i < 13; i++) {
           String testTitle = "Jog on " + i + "/12/13";
-          insertTitleAddTask(testTitle, task, taskService);
+          insertTitleAddTask(testTitle, task);
           Date date = new Date(task.getValue(Task.DUE_DATE));
           assertEquals(date.getMonth(), i-1);
           assertEquals(date.getDate(), 12);
@@ -85,7 +85,7 @@ public class TitleParserTest extends DatabaseTestCase {
       TaskService taskService = new TaskService();
       Task task = new Task();
       String testTitle = "Jog on 23:21.";
-      insertTitleAddTask(testTitle, task, taskService);
+      insertTitleAddTask(testTitle, task);
       Date date = new Date(task.getValue(Task.DUE_DATE));
       assertEquals(date.getMinutes(), 21);
       assertEquals(date.getHours(), 23);
@@ -95,7 +95,7 @@ public class TitleParserTest extends DatabaseTestCase {
       TaskService taskService = new TaskService();
       Task task = new Task();
       String testTitle = "Jog at 8:33 PM.";
-      insertTitleAddTask(testTitle, task, taskService);
+      insertTitleAddTask(testTitle, task);
       Date date = new Date(task.getValue(Task.DUE_DATE));
       assertEquals(date.getMinutes(), 33);
       assertEquals(date.getHours(), 20);
@@ -105,7 +105,7 @@ public class TitleParserTest extends DatabaseTestCase {
       TaskService taskService = new TaskService();
       Task task = new Task();
       String testTitle = "Jog at 8 PM.";
-      insertTitleAddTask(testTitle, task, taskService);
+      insertTitleAddTask(testTitle, task);
       Date date = new Date(task.getValue(Task.DUE_DATE));
       assertEquals(date.getMinutes(), 0);
       assertEquals(date.getHours(), 20);
@@ -115,7 +115,7 @@ public class TitleParserTest extends DatabaseTestCase {
       TaskService taskService = new TaskService();
       Task task = new Task();
       String testTitle = "Jog at 8 o'clock AM.";
-      insertTitleAddTask(testTitle, task, taskService);
+      insertTitleAddTask(testTitle, task);
       Date date = new Date(task.getValue(Task.DUE_DATE));
       assertEquals(date.getMinutes(), 0);
       assertEquals(date.getHours(), 8);
@@ -130,7 +130,7 @@ public class TitleParserTest extends DatabaseTestCase {
               "at 8:00 AM"
       };
       for (String testTitle: testTitles) {
-          insertTitleAddTask(testTitle, task, taskService);
+          insertTitleAddTask(testTitle, task);
           Date date = new Date(task.getValue(Task.DUE_DATE));
           assertEquals(date.getMinutes(), 0);
           assertEquals(date.getHours(), 8);
@@ -148,14 +148,14 @@ public class TitleParserTest extends DatabaseTestCase {
 
       };
       for (String testTitle: testTitles) {
-          insertTitleAddTask(testTitle, task, taskService);
+          insertTitleAddTask(testTitle, task);
           Date date = new Date(task.getValue(Task.DUE_DATE));
           assertEquals(date.getMinutes(), 30);
           assertEquals(date.getHours(), 12);
       }
   }
 
-  private void insertTitleAddTask(String title, Task task, TaskService taskService) {
+  private void insertTitleAddTask(String title, Task task) {
       task.clear();
       task.setValue(Task.TITLE, title);
       TaskService.createWithValues(task, null, title);

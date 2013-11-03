@@ -70,12 +70,9 @@
 	<string name="DLG_error">Ups, sieht aus, als ob ein Fehler aufgetreten ist! Folgendes ist passiert:\n\n%s</string>
 	<string name="DLG_error_generic">Ups, sieht aus, als ob ein Fehler aufgetreten ist!</string>
 	<string name="DLG_wait">Bitte warten...</string>
-	<string name="SyP_progress">Synchronisiere deine Aufgaben</string>
-	<string name="SyP_progress_toast">Synchronisiere…</string>
 	<string name="SyP_label">Synchronisation</string>
 	<string name="Sync_now_label">Jetzt synchronisieren</string>
 	<string name="SyP_summary">Google Tasks, gespeicherte Daten, lokale Backups</string>
-	<string name="SyP_ioerror">Verbindungsfehler! Überprüfe Deine Internetverbindung.</string>
 	<string name="sync_status_loggedout">Nicht angemeldet</string>
 	<string name="sync_status_ongoing">Synchronisierung läuft...</string>
 	<string name="sync_status_success">Letzte Synchronisierung:\n%s</string>

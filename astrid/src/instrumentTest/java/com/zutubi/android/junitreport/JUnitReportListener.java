@@ -111,7 +111,6 @@ public class JUnitReportListener implements TestListener {
     /**
      * Creates a new listener.
      *
-     * @param context context of the test application
      * @param targetContext context of the application under test
      * @param reportFile name of the report file(s) to create
      * @param reportDir  path of the directory under which to write files
@@ -121,7 +120,7 @@ public class JUnitReportListener implements TestListener {
      *            framework methods) omitted for clarity
      * @param multiFile if true, use a separate file for each test suite
      */
-    public JUnitReportListener(Context context, Context targetContext, String reportFile, String reportDir, boolean filterTraces, boolean multiFile) {
+    public JUnitReportListener(Context targetContext, String reportFile, String reportDir, boolean filterTraces, boolean multiFile) {
         Log.i(LOG_TAG, "Listener created with arguments:\n" +
                 "  report file  : '" + reportFile + "'\n" +
                 "  report dir   : '" + reportDir + "'\n" +

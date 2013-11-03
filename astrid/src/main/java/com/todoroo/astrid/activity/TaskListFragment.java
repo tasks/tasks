@@ -53,10 +53,7 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.CommentsActivity;
-import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.activity.SortSelectionActivity.OnSortSelectedListener;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
@@ -78,7 +75,8 @@ import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.helper.SyncActionHelper;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader.ContextMenuItem;
-import com.todoroo.astrid.reminders.ReminderDebugContextActions;
+import com.todoroo.astrid.reminders.MakeNotification;
+import com.todoroo.astrid.reminders.WhenReminder;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.UpgradeService;
@@ -111,9 +109,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
 
     public static final String TAG_TASKLIST_FRAGMENT = "tasklist_fragment"; //$NON-NLS-1$
 
-    public static final String PREF_LAST_FEEDBACK_TIME = "pref_last_feedback_time"; //$NON-NLS-1$
-    private static final long FEEDBACK_TIME_INTERVAL = DateUtilities.ONE_WEEK * 12;
-
     // --- activities
 
     public static final long AUTOSYNC_INTERVAL = 90000L;
@@ -121,14 +116,11 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
     private static final long WAIT_BEFORE_AUTOSYNC = 2000L;
     public static final int ACTIVITY_EDIT_TASK = 0;
     public static final int ACTIVITY_SETTINGS = 1;
-    public static final int ACTIVITY_SORT = 2;
-    public static final int ACTIVITY_ADDONS = 3;
     public static final int ACTIVITY_MENU_EXTERNAL = 4;
     public static final int ACTIVITY_REQUEST_NEW_FILTER = 5;
 
     // --- menu codes
 
-    protected static final int MENU_SUPPORT_ID = R.string.TLA_menu_support;
     protected static final int MENU_ADDON_INTENT_ID = Menu.FIRST + 199;
 
     protected static final int CONTEXT_MENU_EDIT_TASK_ID = R.string.TAd_contextEditTask;
@@ -159,8 +151,8 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
     @Autowired TaskListMetadataDao taskListMetadataDao;
 
     private final TaskContextActionExposer[] contextItemExposers = new TaskContextActionExposer[] {
-            new ReminderDebugContextActions.MakeNotification(),
-            new ReminderDebugContextActions.WhenReminder(),
+            new MakeNotification(),
+            new WhenReminder(),
     };
 
     protected Resources resources;
@@ -233,14 +225,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         args.putBundle(TOKEN_EXTRAS, extras);
         newFragment.setArguments(args);
         return newFragment;
-    }
-
-    /**
-     * Convenience method for calling instantiateWithFilterAndExtras(Filter, Bundle, Class<?>) with
-     * TaskListFragment as the default component
-     */
-    public static TaskListFragment instantiateWithFilterAndExtras(Filter filter, Bundle extras) {
-        return instantiateWithFilterAndExtras(filter, extras, null);
     }
 
     /**
@@ -352,10 +336,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
      */
     public TagData getActiveTagData() {
         return null;
-    }
-
-    public TaskListMetadata getTaskListMetadata() {
-        return taskListMetadata;
     }
 
     protected void initializeData() {
@@ -653,11 +633,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         }
     }
 
-    // Subclasses should override this
-    public void requestCommentCountUpdate() {
-        TaskListActivity activity = (TaskListActivity) getActivity();
-    }
-
     @Override
     public void onPause() {
         super.onPause();
@@ -821,8 +796,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
 
     public static final String TAGS_METADATA_JOIN = "for_tags"; //$NON-NLS-1$
 
-    public static final String USER_IMAGE_JOIN = "for_images"; // //$NON-NLS-1$
-
     public  static final String FILE_METADATA_JOIN = "for_actions"; //$NON-NLS-1$
 
 
@@ -944,24 +917,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         }
     }
 
-    /**
-     * Comments button in action bar was clicked
-     */
-    protected void handleCommentsButtonClicked() {
-        Activity activity = getActivity();
-        if (activity != null) {
-            Intent intent = new Intent(activity, CommentsActivity.class);
-            long id = 0;
-            TagData td = getActiveTagData();
-            if (td != null) {
-                id = td.getId();
-            }
-            intent.putExtra(TagViewFragment.EXTRA_TAG_DATA, id);
-            startActivity(intent);
-            AndroidUtilities.callOverridePendingTransition(activity, R.anim.slide_left_in, R.anim.slide_left_out);
-        }
-    }
-
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
             ContextMenuInfo menuInfo) {
@@ -998,10 +953,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
                     R.string.TAd_contextDeleteTask);
 
         }
-    }
-
-    public boolean isInbox() {
-        return isInbox;
     }
 
     /** Show a dialog box and delete the task specified */

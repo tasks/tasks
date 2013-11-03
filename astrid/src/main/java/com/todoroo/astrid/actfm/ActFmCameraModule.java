@@ -38,55 +38,6 @@ public class ActFmCameraModule {
         public void clearImage();
     }
 
-    public static void showPictureLauncher(final Activity activity, final ClearImageCallback clearImageOption) {
-        ArrayList<String> options = new ArrayList<String>();
-
-        final Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        PackageManager pm = activity.getPackageManager();
-
-        final boolean cameraAvailable = pm.queryIntentActivities(cameraIntent, 0).size() > 0;
-        if(cameraAvailable) {
-            options.add(activity.getString(R.string.actfm_picture_camera));
-        }
-        options.add(activity.getString(R.string.actfm_picture_gallery));
-
-        if (clearImageOption != null) {
-            options.add(activity.getString(R.string.actfm_picture_clear));
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity,
-                android.R.layout.simple_spinner_dropdown_item, options.toArray(new String[options.size()]));
-
-        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface d, int which) {
-                if(which == 0 && cameraAvailable) {
-                    lastTempFile = getTempFile(activity);
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    if (lastTempFile != null) {
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(lastTempFile));
-                    }
-                    activity.startActivityForResult(intent, REQUEST_CODE_CAMERA);
-                } else if ((which == 1 && cameraAvailable) || (which == 0 && !cameraAvailable)) {
-                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                    intent.setType("image/*");
-                    activity.startActivityForResult(Intent.createChooser(intent,
-                            activity.getString(R.string.actfm_TVA_tag_picture)), REQUEST_CODE_PICTURE);
-                } else {
-                    if (clearImageOption != null) {
-                        clearImageOption.clearImage();
-                    }
-                }
-            }
-        };
-
-        // show a menu of available options
-        new AlertDialog.Builder(activity)
-        .setAdapter(adapter, listener)
-        .show().setOwnerActivity(activity);
-    }
-
-
     public static void showPictureLauncher(final Fragment fragment, final ClearImageCallback clearImageOption) {
         ArrayList<String> options = new ArrayList<String>();
 

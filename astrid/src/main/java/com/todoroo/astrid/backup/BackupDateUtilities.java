@@ -23,19 +23,6 @@ public class BackupDateUtilities {
     private static final String ISO_8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ssz";
 
     /**
-     * Format a Date into ISO 8601 Complaint format.
-     * @return date string, or empty string if input was null
-     */
-    public static String getIso8601String(Date d) {
-        SimpleDateFormat sdf = new SimpleDateFormat(ISO_8601_FORMAT);
-        String result = "";
-        if (d != null) {
-            result = sdf.format(d);
-        }
-        return result;
-    }
-
-    /**
      * Take an ISO 8601 string and return a Date object.
      * On failure, returns null.
      */

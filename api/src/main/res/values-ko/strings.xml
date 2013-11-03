@@ -70,12 +70,9 @@
 	<string name="DLG_error">에러가 발생한 것 같습니다! 발생한 에러는 다음과 같습니다:\n\n%s</string>
 	<string name="DLG_error_generic">에러가 발생한 것 같습니다!</string>
 	<string name="DLG_wait">잠시 기다리세요...</string>
-	<string name="SyP_progress">일정을 동기화 중입니다...</string>
-	<string name="SyP_progress_toast">동기화하는 중...</string>
 	<string name="SyP_label">동기화 &amp; 백업</string>
 	<string name="Sync_now_label">지금 동기화하기</string>
 	<string name="SyP_summary">구글 일정, 저장한 자료, 로컬 백업</string>
-	<string name="SyP_ioerror">연결 오류! 인터넷 연결을 확인하세요.</string>
 	<string name="sync_SPr_group_status">상태</string>
 	<string name="sync_SPr_status_subtitle">상태: %s</string>
 	<string name="sync_status_loggedout">로그인 안 됨</string>

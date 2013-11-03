@@ -16,13 +16,11 @@ import android.os.Bundle;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;

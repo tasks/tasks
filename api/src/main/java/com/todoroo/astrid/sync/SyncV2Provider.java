@@ -71,11 +71,6 @@ abstract public class SyncV2Provider {
     abstract public void synchronizeList(Object list, boolean manual, SyncResultCallback callback);
 
     /**
-     * Sign out of service, deleting all synchronization metadata
-     */
-    abstract public void signOut();
-
-    /**
      * @return sync utility instance
      */
     abstract protected SyncProviderUtilities getUtilities();

@@ -101,9 +101,4 @@ public class EditNotesControlSet extends PopupControlSet {
         InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
     }
-
-    public boolean hasNotes() {
-        return !TextUtils.isEmpty(editText.getText());
-    }
-
 }

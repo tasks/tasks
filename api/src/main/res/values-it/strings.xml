@@ -70,11 +70,8 @@
 	<string name="DLG_error">Oops, sembra che ci sia stato un errore! E\' successo questo:\n\n%s</string>
 	<string name="DLG_error_generic">Oops, sembra che ci sia stato un errore!</string>
 	<string name="DLG_wait">Attendi...</string>
-	<string name="SyP_progress">Sincronizzando le tue attività...</string>
-	<string name="SyP_progress_toast">Sincronizzando...</string>
 	<string name="SyP_label">Sincronizza &amp; archivia</string>
 	<string name="SyP_summary">Attività Google, dati salvati, backup locale </string>
-	<string name="SyP_ioerror">Errore di Connessione! Controlla la tua connessione Internet.</string>
 	<string name="sync_SPr_group_status">Stato</string>
 	<string name="sync_SPr_status_subtitle">Stato: %s</string>
 	<string name="sync_status_loggedout">Non connesso</string>

@@ -76,10 +76,6 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
         return fragment.getListView();
     }
 
-    private Filter getFilter() {
-        return fragment.getFilter();
-    }
-
     public DraggableListView getTouchListView() {
         DraggableListView tlv = (DraggableListView) fragment.getListView();
         return tlv;
@@ -228,8 +224,6 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
                 OnCompletedTaskListener onCompletedTaskListener) {
             super(activity, resource, c, query, autoRequery,
                     onCompletedTaskListener);
-
-            applyListeners = APPLY_LISTENERS_NONE;
         }
 
         @Override

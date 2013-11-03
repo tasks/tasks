@@ -26,8 +26,6 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
  */
 public class GtasksDetailExposer extends BroadcastReceiver {
 
-    public static final String DETAIL_SEPARATOR = " | "; //$NON-NLS-1$
-
     @Autowired private GtasksMetadataService gtasksMetadataService;
     @Autowired private GtasksListService gtasksListService;
     @Autowired private GtasksPreferenceService gtasksPreferenceService;

@@ -58,7 +58,6 @@
 	<string name="TLA_menu_sync">Zsynchronizuj</string>
 	<string name="TLA_menu_search">Szukaj</string>
 	<string name="TLA_menu_settings">Ustawienia</string>
-	<string name="TLA_menu_support">Wsparcie</string>
 	<string name="TLA_custom">Własny filtr</string>
 	<string name="TLA_quick_add_hint">Dodaj zadanie</string>
 	<string name="TLA_notification_volume_low">Powiadomienia są wyciszone. Nie będziesz w stanie usłyszeć Tasks!</string>

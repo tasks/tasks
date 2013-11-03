@@ -8,12 +8,9 @@ package com.todoroo.astrid.notes;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
 
 import com.todoroo.astrid.api.Addon;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.core.PluginServices;
-import com.todoroo.astrid.data.Task;
 
 public class NotesPlugin extends BroadcastReceiver {
 
@@ -28,20 +25,4 @@ public class NotesPlugin extends BroadcastReceiver {
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, plugin);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
-
-    /**
-     * Does this task have notes to display?
-     */
-    public static boolean hasNotes(Task task) {
-        if(task.containsNonNullValue(Task.NOTES) && !TextUtils.isEmpty(task.getValue(Task.NOTES))) {
-            return true;
-        }
-
-        if(PluginServices.getMetadataService().hasMetadata(task.getId(), NoteMetadata.METADATA_KEY)) {
-            return true;
-        }
-
-        return false;
-    }
-
 }

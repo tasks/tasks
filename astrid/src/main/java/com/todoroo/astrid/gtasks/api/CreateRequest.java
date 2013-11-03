@@ -34,22 +34,4 @@ public class CreateRequest extends PushRequest {
         parent = null;
         priorSiblingId = null;
     }
-
-    public String getParent() {
-        return parent;
-    }
-
-    public void setParent(String parent) {
-        this.parent = parent;
-    }
-
-    public String getPriorSiblingId() {
-        return priorSiblingId;
-    }
-
-    public void setPriorSiblingId(String priorSiblingId) {
-        this.priorSiblingId = priorSiblingId;
-    }
-
-
 }

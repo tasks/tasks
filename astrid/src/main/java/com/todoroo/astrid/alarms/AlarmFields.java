@@ -32,8 +32,4 @@ public class AlarmFields {
 
     /** this alarm is single-shot */
     public static final int TYPE_SINGLE = 1;
-
-    /** this alarm repeats itself until turned off */
-    public static final int TYPE_REPEATING = 2;
-
 }

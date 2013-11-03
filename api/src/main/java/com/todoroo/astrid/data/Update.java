@@ -6,15 +6,12 @@
 package com.todoroo.astrid.data;
 
 import android.content.ContentValues;
-import android.net.Uri;
 
-import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.astrid.api.AstridApiConstants;
 
 
 
@@ -31,10 +28,6 @@ public class Update extends RemoteModel {
 
     /** table for this model */
     public static final Table TABLE = new Table("updates", Update.class);
-
-    /** content uri for this model */
-    public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.API_PACKAGE + "/" +
-            TABLE.name);
 
     // --- properties
 
@@ -98,16 +91,8 @@ public class Update extends RemoteModel {
     public static final StringProperty PICTURE = new StringProperty(
             TABLE, "picture");
 
-    /** Unixtime Metadata was created */
-    public static final LongProperty CREATION_DATE = new LongProperty(
-            TABLE, "created");
-
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(Update.class);
-
-    // --- constants
-
-    public static final String PICTURE_LOADING = "<loading>";
 
     // --- defaults
 
@@ -147,27 +132,12 @@ public class Update extends RemoteModel {
         readPropertiesFromCursor(cursor);
     }
 
-    public void readFromCursor(TodorooCursor<Update> cursor) {
-        super.readPropertiesFromCursor(cursor);
-    }
-
     @Override
     public long getId() {
         return getIdHelper(ID);
     };
 
-    @Override
-    public String getUuid() {
-        return null;
-    }
-
     // --- parcelable helpers
 
     private static final Creator<Update> CREATOR = new ModelCreator<Update>(Update.class);
-
-    @Override
-    protected Creator<? extends AbstractModel> getCreator() {
-        return CREATOR;
-    }
-
 }

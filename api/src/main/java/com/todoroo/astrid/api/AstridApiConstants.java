@@ -6,7 +6,6 @@
 package com.todoroo.astrid.api;
 
 import android.content.Intent;
-import android.widget.RemoteViews;
 
 /**
  * Constants for interfacing with Astrid.
@@ -76,17 +75,7 @@ public class AstridApiConstants {
      */
     public static final String EXTRAS_NEW_DUE_DATE = "newDueDate";
 
-    /**
-     * Extras name for sync provider name
-     */
-    public static final String EXTRAS_NAME = "name";
-
     // --- Add-ons API
-
-    /**
-     * Action name for broadcast intent requesting add-ons
-     */
-    public static final String BROADCAST_REQUEST_ADDONS = API_PACKAGE + ".REQUEST_ADDONS";
 
     /**
      * Action name for broadcast intent sending add-ons back to Astrid
@@ -122,21 +111,6 @@ public class AstridApiConstants {
      * <li> EXTRAS_RESPONSE an array of {@link CustomFilterCriterion} </li>
      */
     public static final String BROADCAST_SEND_CUSTOM_FILTER_CRITERIA = API_PACKAGE + ".SEND_CUSTOM_FILTER_CRITERIA";
-
-    // --- Edit Controls API
-
-    /**
-     * Action name for broadcast intent requesting task edit controls
-     * <li> EXTRAS_TASK_ID id of the task user is editing
-     */
-    public static final String BROADCAST_REQUEST_EDIT_CONTROLS = API_PACKAGE + ".REQUEST_EDIT_CONTROLS";
-
-    /**
-     * Action name for broadcast intent sending task edit controls back to Astrid
-     * <li> EXTRAS_ADDON your add-on identifier
-     * <li> EXTRAS_RESPONSE a {@link RemoteViews} with your edit controls
-     */
-    public static final String BROADCAST_SEND_EDIT_CONTROLS = API_PACKAGE + ".SEND_EDIT_CONTROLS";
 
     // --- Task Details API
 
@@ -176,12 +150,6 @@ public class AstridApiConstants {
     // --- Task Decorations API
 
     /**
-     * Action name for broadcast intent requesting task list decorations for a task
-     * <li> EXTRAS_TASK_ID id of the task
-     */
-    public static final String BROADCAST_REQUEST_DECORATIONS = API_PACKAGE + ".REQUEST_DECORATIONS";
-
-    /**
      * Action name for broadcast intent sending decorations back to Astrid
      * <li> EXTRAS_ADDON your add-on identifier
      * <li> EXTRAS_TASK_ID id of the task
@@ -212,11 +180,6 @@ public class AstridApiConstants {
     public static final String ACTION_SETTINGS = API_PACKAGE + ".SETTINGS";
 
     // --- Events API
-
-    /**
-     * Action name for broadcast intent notifying add-ons that Astrid started up
-     */
-    public static final String BROADCAST_EVENT_STARTUP = API_PACKAGE + ".STARTUP";
 
     /**
      * Action name for broadcast intent notifying Astrid task list to refresh

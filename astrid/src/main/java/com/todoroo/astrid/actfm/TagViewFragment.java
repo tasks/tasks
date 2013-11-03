@@ -189,10 +189,6 @@ public class TagViewFragment extends TaskListFragment {
         }
     }
 
-    @Override
-    public void requestCommentCountUpdate() {
-    }
-
     // --------------------------------------------------------- refresh data
 
 
@@ -307,7 +303,7 @@ public class TagViewFragment extends TaskListFragment {
 
     @Override
     protected boolean hasDraggableOption() {
-        return tagData != null && !tagData.getFlag(TagData.FLAGS, TagData.FLAG_FEATURED);
+        return tagData != null;
     }
 
     @Override

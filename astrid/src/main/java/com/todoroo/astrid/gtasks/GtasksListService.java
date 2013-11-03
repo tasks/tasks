@@ -68,21 +68,6 @@ public class GtasksListService {
         return LIST_NOT_FOUND;
     }
 
-    public void migrateListIds (TaskLists remoteLists) {
-        readLists();
-
-        List<TaskList> items = remoteLists.getItems();
-        for (TaskList remote : items) {
-            for (StoreObject list : lists) {
-                if (list.getValue(GtasksList.NAME).equals(remote.getTitle())) {
-                    list.setValue(GtasksList.REMOTE_ID, remote.getId());
-                    storeObjectDao.persist(list);
-                    break;
-                }
-            }
-        }
-    }
-
     /**
      * Reads in remote list information and updates local list objects.
      *

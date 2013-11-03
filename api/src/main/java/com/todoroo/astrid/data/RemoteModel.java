@@ -12,9 +12,7 @@ import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.data.AbstractModel;
-import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
 
 import org.json.JSONException;
@@ -43,20 +41,11 @@ abstract public class RemoteModel extends AbstractModel {
     /** user id property common to all remote models */
     protected static final String USER_ID_PROPERTY_NAME = "userId"; //$NON-NLS-1$
 
-    /** user id property */
-    public static final StringProperty USER_ID_PROPERTY = new StringProperty(null, USER_ID_PROPERTY_NAME);
-
     /** user json property common to all remote models */
     protected static final String USER_JSON_PROPERTY_NAME = "user"; //$NON-NLS-1$
 
-    /** user json property */
-    @Deprecated public static final StringProperty USER_JSON_PROPERTY = new StringProperty(null, USER_JSON_PROPERTY_NAME);
-
     /** pushed at date property name */
     public static final String PUSHED_AT_PROPERTY_NAME = "pushedAt"; //$NON-NLS-1$
-
-    /** pushed at date property name */
-    public static final LongProperty PUSHED_AT_PROPERTY = new LongProperty(null, PUSHED_AT_PROPERTY_NAME);
 
     /** constant value for no uuid */
     public static final String NO_UUID = "0"; //$NON-NLS-1$
@@ -69,13 +58,6 @@ abstract public class RemoteModel extends AbstractModel {
             return isUuidEmpty(uuid);
         }
     }
-
-    /**
-     * Utility method to get the identifier of the model, if it exists.
-     *
-     * @return {@value #NO_UUID} if this model was not added to the database
-     */
-    abstract public String getUuid();
 
     protected String getUuidHelper(StringProperty uuid) {
         if(setValues != null && setValues.containsKey(uuid.name)) {
@@ -105,7 +87,6 @@ abstract public class RemoteModel extends AbstractModel {
 
     public static final String PICTURE_THUMB = "thumb"; //$NON-NLS-1$
     public static final String PICTURE_MEDIUM = "medium"; //$NON-NLS-1$
-    public static final String PICTURE_LARGE = "large"; //$NON-NLS-1$
 
     public String getPictureUrl(StringProperty pictureProperty, String size) {
         String value = getValue(pictureProperty);
@@ -120,11 +101,6 @@ abstract public class RemoteModel extends AbstractModel {
     public static class PictureHelper {
 
         public static final String PICTURES_DIRECTORY = "pictures"; //$NON-NLS-1$
-
-        public static String getPictureHash(UserActivity update) {
-            return String.format("cached::%s%s", update.getValue(UserActivity.TARGET_ID), update.getValue(UserActivity.CREATED_AT));
-        }
-
 
         public static String getPictureHash(TagData tagData) {
             long tag_date = 0;
@@ -205,11 +181,6 @@ abstract public class RemoteModel extends AbstractModel {
                 return null;
             }
 
-        }
-
-        public static String getPictureUrlFromCursor(TodorooCursor<?> cursor, StringProperty pictureProperty, String size) {
-            String value = cursor.get(pictureProperty);
-            return getPictureUrl(value, size);
         }
     }
 }

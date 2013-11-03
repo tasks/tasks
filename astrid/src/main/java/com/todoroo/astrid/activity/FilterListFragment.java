@@ -66,7 +66,6 @@ public class FilterListFragment extends SherlockListFragment {
     private static final int CONTEXT_MENU_INTENT = Menu.FIRST + 4;
 
     public static final int REQUEST_CUSTOM_INTENT = 10;
-    static final int REQUEST_VIEW_TASKS = 2;
     public static final int REQUEST_NEW_BUTTON = 3;
     public static final int REQUEST_NEW_LIST = 4;
 

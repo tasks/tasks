@@ -60,7 +60,6 @@
 	<string name="TLA_menu_sync">Synchroniser maintenant</string>
 	<string name="TLA_menu_search">Rechercher</string>
 	<string name="TLA_menu_settings">Paramètres</string>
-	<string name="TLA_menu_support">Assistance</string>
 	<string name="TLA_custom">Personnalisé</string>
 	<string name="TLA_quick_add_hint">Ajouter une tâche</string>
 	<string name="TLA_notification_volume_low">Les notifications sont désactivées. Vous ne pourrez plus entendre Tasks !</string>

@@ -19,11 +19,6 @@ public class TestDependencyInjector extends AbstractDependencyInjector {
     }
 
     @Override
-    protected void addInjectables() {
-        // do nothing, we populate injectables via the addInjectable method
-    }
-
-    @Override
     public String toString() {
         return "TestDI:" + name;
     }

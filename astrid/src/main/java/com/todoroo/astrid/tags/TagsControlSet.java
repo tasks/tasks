@@ -328,10 +328,4 @@ public final class TagsControlSet extends PopupControlSet {
             image.setImageResource(R.drawable.tea_icn_lists_gray);
         }
     }
-
-    public boolean hasLists() {
-        LinkedHashSet<String> tags = getTagSet();
-        return !tags.isEmpty();
-    }
-
 }

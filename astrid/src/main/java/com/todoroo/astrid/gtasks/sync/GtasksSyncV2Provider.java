@@ -37,7 +37,6 @@ import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
-import com.todoroo.astrid.service.SyncResultCallbackWrapper.WidgetUpdatingCallbackWrapper;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
@@ -89,7 +88,6 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         return gtasksPreferenceService;
     }
 
-    @Override
     public void signOut() {
         gtasksPreferenceService.clearLastSyncDate();
         gtasksPreferenceService.setToken(null);
@@ -100,28 +98,6 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     @Override
     public boolean isActive() {
         return gtasksPreferenceService.isLoggedIn();
-    }
-
-    public static class GtasksImportTuple {
-        public long taskId;
-        public String taskName;
-        public String taskUuid;
-        public String tagUuid;
-        public String tagName;
-    }
-
-    public static class GtasksImportCallback extends WidgetUpdatingCallbackWrapper {
-
-        protected final ArrayList<GtasksImportTuple> importConflicts;
-
-        public GtasksImportCallback(SyncResultCallback wrap) {
-            super(wrap);
-            importConflicts = new ArrayList<GtasksImportTuple>();
-        }
-
-        public void addImportConflict(GtasksImportTuple tuple) {
-            importConflicts.add(tuple);
-        }
     }
 
     @Override

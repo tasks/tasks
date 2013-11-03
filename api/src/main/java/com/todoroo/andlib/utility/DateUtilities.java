@@ -25,14 +25,6 @@ public class DateUtilities {
      * ============================================================ long time
      * ====================================================================== */
 
-    /** Convert unixtime into date */
-    public static final Date unixtimeToDate(long millis) {
-        if(millis == 0) {
-            return null;
-        }
-        return new Date(millis);
-    }
-
     /** Convert date into unixtime */
     public static final long dateToUnixtime(Date date) {
         if(date == null) {
@@ -209,13 +201,6 @@ public class DateUtilities {
     }
 
     /**
-     * @return date format as getDateFormat with weekday
-     */
-    public static String getDateStringWithTimeAndWeekday(Context context, Date date) {
-        return getDateStringWithWeekday(date) + " " + getTimeString(context, date);
-    }
-
-    /**
      * @return date with time at the end
      */
     public static String getDateStringWithTime(Context context, Date date) {
@@ -317,17 +302,4 @@ public class DateUtilities {
         Date result = new SimpleDateFormat(formatString).parse(iso8601String);
         return result.getTime();
     }
-
-    public static String timeToIso8601(long time, boolean includeTime) {
-        if (time == 0) {
-            return null;
-        }
-        Date date = new Date(time);
-        String formatString = "yyyy-MM-dd'T'HH:mm:ssZ"; //$NON-NLS-1$
-        if (!includeTime) {
-            formatString = "yyyy-MM-dd"; //$NON-NLS-1$
-        }
-        return new SimpleDateFormat(formatString).format(date);
-    }
-
 }

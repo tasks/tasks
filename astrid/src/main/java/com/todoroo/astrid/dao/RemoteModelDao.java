@@ -31,29 +31,6 @@ public class RemoteModelDao<RTYPE extends RemoteModel> extends DatabaseDao<RTYPE
         return super.createNew(item);
     }
 
-    private static int outstandingEntryFlag = -1;
-
-    public static final int OUTSTANDING_FLAG_UNINITIALIZED = -1;
-    public static final int OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING = 1 << 0;
-    public static final int OUTSTANDING_ENTRY_FLAG_ENQUEUE_MESSAGES = 1 << 1;
-
-    public static void setOutstandingEntryFlags(int newValue) {
-        synchronized (RemoteModelDao.class) {
-            outstandingEntryFlag = newValue;
-        }
-    }
-
-    public static boolean getOutstandingEntryFlag(int flag) {
-        if (outstandingEntryFlag == -1) {
-            synchronized (RemoteModelDao.class) {
-                int newValue = 0;
-                outstandingEntryFlag = newValue;
-            }
-        }
-
-        return (outstandingEntryFlag & flag) > 0;
-    }
-
     /**
      * Fetch a model object by UUID
      */
@@ -73,22 +50,6 @@ public class RemoteModelDao<RTYPE extends RemoteModel> extends DatabaseDao<RTYPE
                 Query.select(properties).where(RemoteModel.UUID_PROPERTY.eq(uuid)));
         cursor.moveToFirst();
         return new TodorooCursor<RTYPE>(cursor, properties);
-    }
-
-    /**
-     * Get the local id
-     */
-    public long localIdFromUuid(String uuid) {
-        TodorooCursor<RTYPE> cursor = query(Query.select(AbstractModel.ID_PROPERTY).where(RemoteModel.UUID_PROPERTY.eq(uuid)));
-        try {
-            if (cursor.getCount() == 0) {
-                return AbstractModel.NO_ID;
-            }
-            cursor.moveToFirst();
-            return cursor.get(AbstractModel.ID_PROPERTY);
-        } finally {
-            cursor.close();
-        }
     }
 
     public String uuidFromLocalId(long localId) {

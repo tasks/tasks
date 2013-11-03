@@ -37,7 +37,6 @@
 	<string name="tomorrow">พรุ่งนี้</string>
 	<string name="yesterday">เมื่อวาน</string>
 	<string name="DLG_information_title">ข้อมูล</string>
-	<string name="SyP_ioerror">ข้อผิดพลาดในการเชื่อมต่อ! ตรวจดูการเชื่อมต่ออินเตอร์เน็ท</string>
 	<string name="sync_SPr_group_status">สถานะ</string>
 	<string name="sync_SPr_group_options">ตัวเลือก</string>
 </resources>

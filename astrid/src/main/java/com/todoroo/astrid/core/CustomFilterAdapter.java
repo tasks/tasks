@@ -23,14 +23,13 @@ import android.widget.TextView;
 import com.todoroo.astrid.api.MultipleSelectCriterion;
 import com.todoroo.astrid.api.TextInputCriterion;
 import com.todoroo.astrid.core.CustomFilterActivity.CriterionInstance;
-import com.todoroo.astrid.data.AddOn;
 
 import org.tasks.R;
 
 import java.util.List;
 
 /**
- * Adapter for {@link AddOn}s
+ * Adapter for AddOns
  *
  * @author Tim Su <tim@todoroo.com>
  *

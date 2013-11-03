@@ -31,19 +31,6 @@ public class TaskEditViewPager extends PagerAdapter {
         titles = titleList.toArray(new String[titleList.size()]);
     }
 
-    public static int getPageForPosition(int position, int tabStyle) {
-        int numOnesEncountered = 0;
-        for (int i = 0; i <= 2; i++) {
-            if ((tabStyle & (1 << i)) > 0) {
-                numOnesEncountered++;
-            }
-            if (numOnesEncountered == position + 1) {
-                return 1 << i;
-            }
-        }
-        return -1;
-    }
-
     @Override
     public int getCount() {
         return titles.length;

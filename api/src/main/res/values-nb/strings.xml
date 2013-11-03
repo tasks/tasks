@@ -64,9 +64,6 @@
 	<string name="DLG_error">Oi, det oppstod en feil! Dette skjedde:\n\n%s</string>
 	<string name="DLG_error_generic">Oi, det oppstod en feil!</string>
 	<string name="DLG_wait">Vennligst vent...</string>
-	<string name="SyP_progress">Synkroniserer oppgavene dine...</string>
-	<string name="SyP_progress_toast">Synkroniserer...</string>
-	<string name="SyP_ioerror">Tilkoblingsfeil! Kontroller tilkoblingen til Internett</string>
 	<string name="sync_status_ongoing">Synkronisering pågår...</string>
 	<string name="sync_status_success">Siste synkronisering:\n%s</string>
 	<string name="sync_status_failed">Mislykket: %s</string>

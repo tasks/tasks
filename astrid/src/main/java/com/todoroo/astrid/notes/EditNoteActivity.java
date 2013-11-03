@@ -69,8 +69,6 @@ import java.util.List;
 
 public class EditNoteActivity extends LinearLayout implements TimerActionListener {
 
-    public static final String EXTRA_TASK_ID = "task"; //$NON-NLS-1$
-
     private Task task;
 
     @Autowired MetadataService metadataService;
@@ -90,10 +88,8 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     private final AstridActivity activity;
 
     private final int cameraButton;
-    private final String linkColor;
 
     private final int color;
-    private final int grayColor;
 
     private static boolean respondToPicture = false;
 
@@ -117,10 +113,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         color = tv.data;
 
         fragment.getActivity().getTheme().resolveAttribute(R.attr.asDueDateColor, tv, false);
-        grayColor = tv.data;
-
-
-        linkColor = UpdateAdapter.getLinkColor(fragment);
 
         cameraButton = getDefaultCameraButton();
 
@@ -413,28 +405,18 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
     }
 
-    public int numberOfComments() {
-        return items.size();
-    }
-
     private static class NoteOrUpdate {
-        private final String type;
-        private final String picture;
         private final Spanned title;
         private final String pictureThumb;
-        private final String pictureFull;
         private final Bitmap commentBitmap;
         private final long createdAt;
 
-        public NoteOrUpdate(String picture, Spanned title, String pictureThumb, String pictureFull, Bitmap commentBitmap, long createdAt, String type) {
+        public NoteOrUpdate(Spanned title, String pictureThumb, Bitmap commentBitmap, long createdAt) {
             super();
-            this.picture = picture;
             this.title = title;
             this.pictureThumb = pictureThumb;
-            this.pictureFull = pictureFull;
             this.commentBitmap = commentBitmap;
             this.createdAt = createdAt;
-            this.type = type;
         }
 
         public static NoteOrUpdate fromMetadata(Metadata m) {
@@ -445,44 +427,34 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 m.setValue(NoteMetadata.COMMENT_PICTURE, ""); //$NON-NLS-1$
             }
             Spanned title = Html.fromHtml(String.format("%s\n%s", m.getValue(NoteMetadata.TITLE), m.getValue(NoteMetadata.BODY))); //$NON-NLS-1$
-            return new NoteOrUpdate(m.getValue(NoteMetadata.THUMBNAIL),
-                    title,
-                    m.getValue(NoteMetadata.COMMENT_PICTURE),
+            return new NoteOrUpdate(title,
                     m.getValue(NoteMetadata.COMMENT_PICTURE),
                     null,
-                    m.getValue(Metadata.CREATION_DATE), null);
+                    m.getValue(Metadata.CREATION_DATE));
         }
 
         public static NoteOrUpdate fromUpdate(UserActivity u) {
-            String userImage = ""; //$NON-NLS-1$
             String pictureThumb = ""; //$NON-NLS-1$
-            String pictureFull = ""; //$NON-NLS-1$
             Spanned title;
             Bitmap commentBitmap = null;
             long createdAt = 0;
-            String type = null;
 
             if(u == null) {
                 throw new RuntimeException("UserActivity should never be null");
             }
 
             pictureThumb = u.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_MEDIUM);
-            pictureFull = u.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_LARGE);
             if (TextUtils.isEmpty(pictureThumb)) {
                 commentBitmap = u.getPictureBitmap(UserActivity.PICTURE);
             }
             title = UpdateAdapter.getUpdateComment(u);
-            userImage = ""; //$NON-NLS-1$
             createdAt = u.getValue(UserActivity.CREATED_AT);
-            type = NameMaps.TABLE_ID_USER_ACTIVITY;
 
-            return new NoteOrUpdate(userImage,
+            return new NoteOrUpdate(
                     title,
                     pictureThumb,
-                    pictureFull,
                     commentBitmap,
-                    createdAt,
-                    type);
+                    createdAt);
         }
 
     }

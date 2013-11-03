@@ -88,11 +88,9 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     private final Animation                    mSlideDownOutAnimation;
     private final Animation                    mSlideDownInAnimation;
 
-    private String[]                           mDisplayedValues;
     private int                                mStart;
     private int                                mEnd;
     private int                                mCurrent;
-    private int                                mPrevious;
     private OnChangedListener                  mListener;
     private Formatter                          mFormatter;
     private long                               mSpeed              = 60;
@@ -195,37 +193,9 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         updateView();
     }
 
-    /**
-     * Set the range of numbers allowed for the number picker. The current value
-     * will be automatically set to the start. Also provide a mapping for values
-     * used to display to the user.
-     *
-     * @param start
-     *            the start of the range (inclusive)
-     * @param end
-     *            the end of the range (inclusive)
-     * @param displayedValues
-     *            the values displayed to the user.
-     */
-    public void setRange(int start, int end, String[] displayedValues) {
-        mDisplayedValues = displayedValues;
-        mStart = start;
-        mEnd = end;
-        mCurrent = start;
-        updateView();
-    }
-
     public void setCurrent(int current) {
         mCurrent = current;
         updateView();
-    }
-
-    /**
-     * The speed (in milliseconds) at which the numbers will scroll when the the
-     * +/- buttons are longpressed. Default is 300ms.
-     */
-    public void setSpeed(long speed) {
-        mSpeed = speed;
     }
 
     @Override
@@ -254,12 +224,11 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         current = notifyChange(current);
 
         // Wrap around the values if we go past the start or end
-        if (current > mEnd) {;
+        if (current > mEnd) {
             current = mStart + (current - mEnd) - 1;
         } else if (current < mStart) {
             current = mEnd - (mStart - current) + 1;
         }
-        mPrevious = mCurrent;
         mCurrent = current;
         updateView();
     }
@@ -280,11 +249,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
          * find the correct value in the displayed values for the current
          * number.
          */
-        if (mDisplayedValues == null) {
-            mText.setText(formatNumber(mCurrent));
-        } else {
-            mText.setText(mDisplayedValues[mCurrent - mStart]);
-        }
+        mText.setText(formatNumber(mCurrent));
     }
 
     public void validateAndUpdate() {
@@ -300,7 +265,6 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         if (!TextUtils.isEmpty(str)) {
             int val = getSelectedPos(str.toString());
             if ((val >= mStart) && (val <= mEnd)) {
-                mPrevious = mCurrent;
                 mCurrent = val;
                 if (notifyChange) {
                     notifyChange(mCurrent);
@@ -371,22 +335,8 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         @Override
         public CharSequence filter(CharSequence source, int start, int end,
                 Spanned dest, int dstart, int dend) {
-            if (mDisplayedValues == null) {
-                return mNumberInputFilter.filter(source, start, end, dest,
-                        dstart, dend);
-            }
-            CharSequence filtered = String.valueOf(source.subSequence(start,
-                    end));
-            String result = String.valueOf(dest.subSequence(0, dstart))
-                + filtered + dest.subSequence(dend, dest.length());
-            String str = String.valueOf(result).toLowerCase();
-            for (String val : mDisplayedValues) {
-                val = val.toLowerCase();
-                if (val.startsWith(str)) {
-                    return filtered;
-                }
-            }
-            return "";
+            return mNumberInputFilter.filter(source, start, end, dest,
+                    dstart, dend);
         }
     }
 
@@ -439,34 +389,11 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     }
 
     private int getSelectedPos(String str) {
-        if (mDisplayedValues == null) {
-            try {
-                return Integer.parseInt(str);
-            } catch (NumberFormatException e) {
-                return mStart;
-            }
-        } else {
-            for (int i = 0; i < mDisplayedValues.length; i++) {
-
-                /* Don't force the user to type in jan when ja will do */
-                str = str.toLowerCase();
-                if (mDisplayedValues[i].toLowerCase().startsWith(str)) {
-                    return mStart + i;
-                }
-            }
-
-            /*
-             * The user might have typed in a number into the month field i.e.
-             * 10 instead of OCT so support that too.
-             */
-            try {
-                return Integer.parseInt(str);
-            } catch (NumberFormatException e) {
-
-                /* Ignore as if it's not a number we don't care */
-            }
+        try {
+            return Integer.parseInt(str);
+        } catch (NumberFormatException e) {
+            return mStart;
         }
-        return mStart;
     }
 
     /**

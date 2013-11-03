@@ -70,12 +70,9 @@
 	<string name="DLG_error">Ой, похоже произошла ошибка! Подробности ниже:\n\n%s</string>
 	<string name="DLG_error_generic">Ой, похоже произошла ошибка!</string>
 	<string name="DLG_wait">Пожалуйста, подождите…</string>
-	<string name="SyP_progress">Синхронизация задач…</string>
-	<string name="SyP_progress_toast">Синхронизация…</string>
 	<string name="SyP_label">Синхронизация</string>
 	<string name="Sync_now_label">Синхронизировать</string>
 	<string name="SyP_summary">Задачи Google, сохраненные данные, локальная резервная копия</string>
-	<string name="SyP_ioerror">Ошибка соединения! Проверьте подключение к интернету.</string>
 	<string name="sync_SPr_group_status">Состояние</string>
 	<string name="sync_SPr_status_subtitle">Состояние: %s</string>
 	<string name="sync_status_loggedout">Вход не выполнен</string>

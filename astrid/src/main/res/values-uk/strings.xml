@@ -65,7 +65,6 @@
 	<string name="TLA_menu_sync">Синхронізувати</string>
 	<string name="TLA_menu_search">Пошук</string>
 	<string name="TLA_menu_settings">Налаштування</string>
-	<string name="TLA_menu_support">Підтримка</string>
 	<string name="TLA_custom">Користувальницький</string>
 	<string name="TLA_quick_add_hint">Додати завдання</string>
 	<string name="TLA_notification_volume_low">Сповіщення приглушені. Ви не зможете почути Tasks!</string>

@@ -49,31 +49,6 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
         setPrefs(extras, true);
     }
 
-    @Override
-    public void resetDefaults() {
-        PreferenceExtras extras = new PreferenceExtras() {
-            @Override
-            public void setExtras(Context context, SharedPreferences prefs, Editor editor, Resources r, boolean ifUnset) {
-                SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(context);
-                if (publicPrefs != null) {
-                    Editor edit = publicPrefs.edit();
-                    if (edit != null) {
-                        edit.putInt(SortHelper.PREF_SORT_FLAGS, SortHelper.FLAG_DRAG_DROP);
-                        edit.putInt(SortHelper.PREF_SORT_SORT, SortHelper.SORT_AUTO);
-                        edit.commit();
-                        Preferences.setInt(AstridPreferences.P_SUBTASKS_HELP, 1);
-                    }
-                }
-                Preferences.setBoolean(R.string.p_use_dark_theme, false);
-                setPreference(prefs, editor, r, R.string.p_force_phone_layout, Constants.MARKET_STRATEGY.defaultPhoneLayout(), ifUnset);
-
-                BeastModePreferences.setDefaultOrder(context, true);
-            }
-        };
-
-        setPrefs(extras, false);
-    }
-
     private static void setPrefs(PreferenceExtras extras, boolean ifUnset) {
         Context context = ContextManager.getContext();
         SharedPreferences prefs = Preferences.getPrefs(context);

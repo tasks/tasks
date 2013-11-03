@@ -25,9 +25,6 @@ import java.util.ArrayList;
 
 abstract public class SyncMetadataService<TYPE extends SyncContainer> {
 
-    /** metadata key of tag add-on */
-    public static final String TAG_KEY = "tags-tag"; //$NON-NLS-1$
-
     // --- instance variables
 
     @Autowired
@@ -43,14 +40,8 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
     /** @return sync provider utilities */
     abstract public SyncProviderUtilities getUtilities();
 
-    /** create a task container based on the given data */
-    abstract public TYPE createContainerFromLocalTask(Task task, ArrayList<Metadata> metadata);
-
     /** @return criterion for matching all metadata keys that your provider synchronizes */
     abstract public Criterion getMetadataCriteria();
-
-    /** @return criterion for finding local matches of sync container in task database */
-    abstract public Criterion getLocalMatchCriteria(TYPE remoteTask);
 
     /** @return criterion for matching metadata that indicate remote task exists */
     abstract public Criterion getMetadataWithRemoteId();
@@ -169,27 +160,6 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
     }
 
     /**
-     * Searches for a local task with same remote id, updates this task's id
-     */
-    public void findLocalMatch(TYPE remoteTask) {
-        if(remoteTask.task.getId() != Task.NO_ID) {
-            return;
-        }
-        TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(Metadata.TASK).
-                where(Criterion.and(MetadataCriteria.withKey(getMetadataKey()),
-                        getLocalMatchCriteria(remoteTask))));
-        try {
-            if(cursor.getCount() == 0) {
-                return;
-            }
-            cursor.moveToFirst();
-            remoteTask.task.setId(cursor.get(Metadata.TASK));
-        } finally {
-            cursor.close();
-        }
-    }
-
-    /**
      * Saves a task and its metadata
      */
     public void saveTaskAndMetadata(TYPE task) {
@@ -197,27 +167,6 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
         taskDao.save(task.task);
         metadataDao.synchronizeMetadata(task.task.getId(), task.metadata,
                 getMetadataCriteria());
-    }
-
-    /**
-     * Reads a task and its metadata
-     */
-    public TYPE readTaskAndMetadata(TodorooCursor<Task> taskCursor) {
-        Task task = new Task(taskCursor);
-
-        ArrayList<Metadata> metadata = new ArrayList<Metadata>();
-        TodorooCursor<Metadata> metadataCursor = metadataDao.query(Query.select(Metadata.PROPERTIES).
-                where(Criterion.and(MetadataCriteria.byTask(task.getId()),
-                        getMetadataCriteria())));
-        try {
-            for(metadataCursor.moveToFirst(); !metadataCursor.isAfterLast(); metadataCursor.moveToNext()) {
-                metadata.add(new Metadata(metadataCursor));
-            }
-        } finally {
-            metadataCursor.close();
-        }
-
-        return createContainerFromLocalTask(task, metadata);
     }
 
     /**

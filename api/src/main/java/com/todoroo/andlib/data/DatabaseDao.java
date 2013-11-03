@@ -19,19 +19,15 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-
-
 /**
  * DAO for reading data from an instance of {@link AbstractDatabase}. If you
  * are writing an add-on for Astrid, you probably want to be using a subclass
- * of {@link ContentResolverDao} instead.
+ * of ContentResolverDao instead.
  *
  * @author Tim Su <tim@todoroo.com>
  *
  */
 public class DatabaseDao<TYPE extends AbstractModel> {
-
-    private static final String ERROR_TAG = "database-dao"; //$NON-NLS-1$
 
     private final Class<TYPE> modelClass;
 
@@ -50,18 +46,9 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         }
     }
 
-    public DatabaseDao(Class<TYPE> modelClass, AbstractDatabase database) {
-        this(modelClass);
-        setDatabase(database);
-    }
-
     /** Gets table associated with this DAO */
     public Table getTable() {
         return table;
-    }
-
-    public Class<TYPE> getModelClass() {
-        return modelClass;
     }
 
     /**

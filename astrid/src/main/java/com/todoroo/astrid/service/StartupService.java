@@ -100,13 +100,6 @@ public class StartupService {
      */
     private static boolean hasStartedUp = false;
 
-    /**
-     * Call to skip initialization steps (i.e. if only a notification screen is needed)
-     */
-    public synchronized static void bypassInitialization() {
-        hasStartedUp = true;
-    }
-
     /** Called when this application is started up */
     public synchronized void onStartupApplication(final Activity context) {
         if(hasStartedUp || context == null) {

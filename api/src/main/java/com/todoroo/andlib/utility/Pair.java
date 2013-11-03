@@ -31,10 +31,6 @@ public class Pair<L, R> {
         this.right = right;
     }
 
-    public static <A, B> Pair<A, B> create(A left, B right) {
-        return new Pair<A, B>(left, right);
-    }
-
     @Override
     public final boolean equals(Object o) {
         if (!(o instanceof Pair<?, ?>)) {

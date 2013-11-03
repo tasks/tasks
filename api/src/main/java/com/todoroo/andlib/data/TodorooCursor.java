@@ -33,9 +33,6 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
     /** Property reading visitor */
     private static final CursorReadingVisitor reader = new CursorReadingVisitor();
 
-    /** Wrapped cursor */
-    private final Cursor cursor;
-
     /**
      * Create an <code>AstridCursor</code> from the supplied {@link Cursor}
      * object.
@@ -45,7 +42,6 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
     public TodorooCursor(Cursor cursor, Property<?>[] properties) {
         super(cursor);
 
-        this.cursor = cursor;
         this.properties = properties;
         columnIndexCache = new WeakHashMap<String, Integer>();
     }
@@ -58,13 +54,6 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
      */
     public <PROPERTY_TYPE> PROPERTY_TYPE get(Property<PROPERTY_TYPE> property) {
         return (PROPERTY_TYPE)property.accept(reader, this);
-    }
-
-    /**
-     * @return underlying cursor
-     */
-    public Cursor getCursor() {
-        return cursor;
     }
 
     /**
@@ -94,16 +83,6 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
      *
      */
     public static class CursorReadingVisitor implements PropertyVisitor<Object, TodorooCursor<?>> {
-
-        @Override
-        public Object visitDouble(Property<Double> property,
-                TodorooCursor<?> cursor) {
-            int column = columnIndex(property, cursor);
-            if(property.checkFlag(Property.PROP_FLAG_NULLABLE) && cursor.isNull(column)) {
-                return null;
-            }
-            return cursor.getDouble(column);
-        }
 
         @Override
         public Object visitInteger(Property<Integer> property,

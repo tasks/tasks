@@ -7,7 +7,6 @@ package com.todoroo.astrid.service;
 
 import android.content.ContentValues;
 
-import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -88,12 +87,12 @@ public class MetadataService {
     /**
      * Save a single piece of metadata
      */
-    public boolean save(Metadata metadata) {
+    public void save(Metadata metadata) {
         if(!metadata.containsNonNullValue(Metadata.TASK)) {
             throw new IllegalArgumentException("metadata needs to be attached to a task: " + metadata.getMergedValues()); //$NON-NLS-1$
         }
 
-        return metadataDao.persist(metadata);
+        metadataDao.persist(metadata);
     }
 
     /**
@@ -165,32 +164,5 @@ public class MetadataService {
         }
 
         return dirty;
-    }
-
-    public boolean synchronizeMetadata(long taskId, ArrayList<Metadata> metadata,
-            Criterion metadataCriterion, boolean hardDelete) {
-        return synchronizeMetadata(taskId, metadata, metadataCriterion, null, hardDelete);
-    }
-
-    /**
-     * Does metadata with this key and task exist?
-     */
-    public boolean hasMetadata(long id, String key) {
-        CountProperty count = new CountProperty();
-        TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(
-                count).where(MetadataCriteria.byTaskAndwithKey(id, key)));
-        try {
-            cursor.moveToFirst();
-            return cursor.get(count) > 0;
-        } finally {
-            cursor.close();
-        }
-    }
-
-    /**
-     * Deletes the given metadata
-     */
-    public void delete(Metadata metadata) {
-        metadataDao.delete(metadata.getId());
     }
 }

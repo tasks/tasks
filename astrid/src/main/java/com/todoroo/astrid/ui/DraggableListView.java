@@ -25,7 +25,6 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Vibrator;
 import android.util.AttributeSet;
-import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -36,7 +35,6 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import com.commonsware.cwac.tlv.TouchListView.DragListener;
 import com.commonsware.cwac.tlv.TouchListView.DropListener;
 import com.commonsware.cwac.tlv.TouchListView.GrabberClickListener;
 import com.commonsware.cwac.tlv.TouchListView.SwipeListener;
@@ -72,11 +70,9 @@ public class DraggableListView extends ListView {
 	private int dragndropBackgroundColor = 0x00000000;
 
 	// --- listeners
-    private DragListener mDragListener;
     private DropListener mDropListener;
     private SwipeListener mSwipeListener;
     private GrabberClickListener mClickListener;
-    private GestureDetector mGestureDetector;
 
     // --- other instance variables
     private int mItemHeightNormal = -1;
@@ -236,10 +232,6 @@ public class DraggableListView extends ListView {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        if (mGestureDetector != null) {
-            mGestureDetector.onTouchEvent(ev);
-        }
-
         mTouchCurrentX = ev.getX();
         mTouchCurrentY = ev.getY();
 
@@ -444,9 +436,6 @@ public class DraggableListView extends ListView {
         if (itemnum >= 0) {
             if (ev.getAction() == MotionEvent.ACTION_DOWN
                     || itemnum != mDragPos) {
-                if (mDragListener != null) {
-                    mDragListener.drag(mDragPos, itemnum);
-                }
                 mDragPos = itemnum;
                 doExpansion();
             }
@@ -513,10 +502,6 @@ public class DraggableListView extends ListView {
     }
 
     // --- getters and setters
-
-    public void setDragListener(DragListener l) {
-        mDragListener = l;
-    }
 
     public void setDropListener(DropListener l) {
         mDropListener = l;

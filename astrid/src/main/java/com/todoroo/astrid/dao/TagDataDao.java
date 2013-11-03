@@ -7,8 +7,6 @@ package com.todoroo.astrid.dao;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.data.TagData;
 
 /**
@@ -26,24 +24,5 @@ public class TagDataDao extends RemoteModelDao<TagData> {
         DependencyInjectionService.getInstance().inject(this);
         setDatabase(database);
     }
-
-    // --- SQL clause generators
-
-    /**
-     * Generates SQL clauses
-     */
-    public static class TagDataCriteria {
-
-    	/** @return tasks by id */
-    	public static Criterion byId(long id) {
-    	    return TagData.ID.eq(id);
-    	}
-
-        public static Criterion isTeam() {
-            return TagData.IS_TEAM.eq(1);
-        }
-
-    }
-
 }
 

@@ -60,7 +60,6 @@
 	<string name="TLA_menu_sync">Nu Synchroniseren</string>
 	<string name="TLA_menu_search">Zoek</string>
 	<string name="TLA_menu_settings">Instellingen</string>
-	<string name="TLA_menu_support">Ondersteuning</string>
 	<string name="TLA_custom">Aangepast</string>
 	<string name="TLA_quick_add_hint">Taak toevoegen</string>
 	<string name="TLA_notification_volume_low">Meldingsgeluid uitgeschakeld. U kunt Tasks niet horen!</string>

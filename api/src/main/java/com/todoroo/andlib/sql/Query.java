@@ -5,12 +5,7 @@
  */
 package com.todoroo.andlib.sql;
 
-import android.content.ContentResolver;
-import android.database.Cursor;
-import android.net.Uri;
-
 import com.todoroo.andlib.data.Property;
-import com.todoroo.astrid.api.AstridApiConstants;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -21,15 +16,12 @@ import static com.todoroo.andlib.sql.SqlConstants.COMMA;
 import static com.todoroo.andlib.sql.SqlConstants.DISTINCT;
 import static com.todoroo.andlib.sql.SqlConstants.FROM;
 import static com.todoroo.andlib.sql.SqlConstants.GROUP_BY;
-import static com.todoroo.andlib.sql.SqlConstants.LEFT_PARENTHESIS;
 import static com.todoroo.andlib.sql.SqlConstants.LIMIT;
 import static com.todoroo.andlib.sql.SqlConstants.ORDER_BY;
-import static com.todoroo.andlib.sql.SqlConstants.RIGHT_PARENTHESIS;
 import static com.todoroo.andlib.sql.SqlConstants.SELECT;
 import static com.todoroo.andlib.sql.SqlConstants.SPACE;
 import static com.todoroo.andlib.sql.SqlConstants.UNION;
 import static com.todoroo.andlib.sql.SqlConstants.WHERE;
-import static com.todoroo.andlib.sql.SqlTable.table;
 import static java.util.Arrays.asList;
 
 public final class Query {
@@ -80,11 +72,6 @@ public final class Query {
         return this;
     }
 
-    public Query union(Query query) {
-        unions.add(query);
-        return this;
-    }
-
     public Query orderBy(Order... order) {
         orders.addAll(asList(order));
         return this;
@@ -92,11 +79,6 @@ public final class Query {
 
     public Query limit(int limit) {
         limits = limit;
-        return this;
-    }
-
-    public Query appendSelectFields(Property<?>... selectFields) {
-        this.fields.addAll(asList(selectFields));
         return this;
     }
 
@@ -217,15 +199,6 @@ public final class Query {
         }
     }
 
-    public SqlTable as(String alias) {
-        return table(LEFT_PARENTHESIS + this.toString() + RIGHT_PARENTHESIS).as(alias);
-    }
-
-    public Query having(Criterion criterion) {
-        this.havings.add(criterion);
-        return this;
-    }
-
     /**
      * Gets a list of fields returned by this query
      */
@@ -240,57 +213,6 @@ public final class Query {
     public Query withQueryTemplate(String template) {
         queryTemplate = template;
         return this;
-    }
-
-    /**
-     * Parse out properties and run query
-     */
-    public Cursor queryContentResolver(ContentResolver cr, Uri baseUri) {
-        Uri uri = baseUri;
-
-        if(joins.size() != 0) {
-            throw new UnsupportedOperationException("can't perform join in content resolver query"); //$NON-NLS-1$
-        }
-
-        String[] projection = new String[fields.size()];
-        for(int i = 0; i < projection.length; i++) {
-            projection[i] = fields.get(i).toString();
-        }
-
-        StringBuilder groupByClause = new StringBuilder();
-        StringBuilder selectionClause = new StringBuilder();
-        StringBuilder orderClause = new StringBuilder();
-        if(queryTemplate != null) {
-            QueryTemplateHelper.queryForContentResolver(queryTemplate,
-                    selectionClause, orderClause, groupByClause);
-        } else {
-            if(groupBies.size() > 0) {
-                for (Field groupBy : groupBies) {
-                    groupByClause.append(SPACE).append(groupBy).append(COMMA);
-                }
-                if(groupByClause.length() > 0) {
-                    groupByClause.deleteCharAt(groupByClause.length() - 1);
-                }
-            }
-
-            for (Criterion criterion : criterions) {
-                selectionClause.append(criterion).append(SPACE);
-            }
-
-            for (Order order : orders) {
-                orderClause.append(SPACE).append(order).append(COMMA);
-            }
-            if(orderClause.length() > 0) {
-                orderClause.deleteCharAt(orderClause.length() - 1);
-            }
-        }
-
-        if(groupByClause.length() > 0) {
-            uri = Uri.withAppendedPath(baseUri, AstridApiConstants.GROUP_BY_URI +
-                    groupByClause.toString().trim());
-        }
-        return cr.query(uri, projection, selectionClause.toString(), null,
-                orderClause.toString());
     }
 
     /** query template helper */

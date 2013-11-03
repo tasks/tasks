@@ -9,7 +9,6 @@ import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.todoroo.andlib.data.Property.DoubleProperty;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
@@ -22,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map.Entry;
-import java.util.Set;
 
 /**
  * <code>AbstractModel</code> represents a row in a database.
@@ -172,11 +170,6 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
         return clone;
     }
 
-    /** Check if this model has values that have been changed */
-    public boolean isModified() {
-        return setValues.size() > 0;
-    }
-
     // --- data retrieval
 
     /**
@@ -222,8 +215,6 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
                 return (TYPE) Long.valueOf((String) value);
             } else if(value instanceof String && property instanceof IntegerProperty) {
                 return (TYPE) Integer.valueOf((String) value);
-            } else if(value instanceof String && property instanceof DoubleProperty) {
-                return (TYPE) Double.valueOf((String) value);
             } else if(value instanceof Integer && property instanceof LongProperty) {
                 return (TYPE) Long.valueOf(((Number) value).longValue());
             }
@@ -380,17 +371,6 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
     }
 
     /**
-     * Sets the state of the given flag on the given property
-     */
-    public void setFlag(IntegerProperty property, int flag, boolean value) {
-        if(value) {
-            setValue(property, getValue(property) | flag);
-        } else {
-            setValue(property, getValue(property) & ~flag);
-        }
-    }
-
-    /**
      * Returns the set state of the given flag on the given property
      * @param property the property to get the set state of the flag
      * @param flag the flag-descriptor (e.g. <code>Task.FLAG_REPEAT_AFTER_COMPLETION</code>)
@@ -422,13 +402,6 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
             return null;
         }
         return transitoryData.remove(key);
-    }
-
-    public Set<String> getAllTransitoryKeys() {
-        if (transitoryData == null) {
-            return null;
-        }
-        return transitoryData.keySet();
     }
 
     // --- Convenience wrappers for using transitories as flags
@@ -499,12 +472,6 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
         }
 
         @Override
-        public Void visitDouble(Property<Double> property, Object value) {
-            store.put(property.getColumnName(), (Double) value);
-            return null;
-        }
-
-        @Override
         public Void visitInteger(Property<Integer> property, Object value) {
             store.put(property.getColumnName(), (Integer) value);
             return null;
@@ -541,13 +508,6 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
         dest.writeParcelable(setValues, 0);
         dest.writeParcelable(values, 0);
     }
-
-    /**
-     * In addition to overriding this class, model classes should create
-     * a static final variable named "CREATOR" in order to satisfy the
-     * requirements of the Parcelable interface.
-     */
-    abstract protected Parcelable.Creator<? extends AbstractModel> getCreator();
 
    /**
     * Parcelable creator helper

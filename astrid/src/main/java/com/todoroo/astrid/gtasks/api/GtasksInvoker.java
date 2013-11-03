@@ -7,7 +7,6 @@ import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessProtecte
 import com.google.api.client.http.HttpResponseException;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
-import com.google.api.client.util.DateTime;
 import com.google.api.services.tasks.Tasks;
 import com.google.api.services.tasks.Tasks.TasksOperations.Insert;
 import com.google.api.services.tasks.Tasks.TasksOperations.List;
@@ -138,34 +137,6 @@ public class GtasksInvoker {
         return toReturn;
     }
 
-    public TaskList updateGtaskList(TaskList list) throws IOException {
-        TaskList toReturn = null;
-        try {
-            toReturn = service.tasklists().update(list.getId(), list).execute();
-        } catch (IOException e) {
-            handleException(e);
-            toReturn = service.tasklists().update(list.getId(), list).execute();
-        } finally {
-            log("Update list, id: " + list.getId(), toReturn);
-        }
-        return toReturn;
-    }
-
-    public void deleteGtaskList(String listId) throws IOException {
-        try {
-            service.tasklists().delete(listId).execute();
-        } catch (IOException e) {
-            handleException(e);
-            service.tasklists().delete(listId).execute();
-        } finally {
-            log("Delete list, id: " + listId, null);
-        }
-    }
-
-    public com.google.api.services.tasks.model.Tasks getAllGtasksFromTaskList(TaskList list, boolean includeDeleted, boolean includeHidden, long lastSyncDate) throws IOException {
-        return getAllGtasksFromListId(list.getId(), includeDeleted, includeHidden, lastSyncDate);
-    }
-
     public com.google.api.services.tasks.model.Tasks getAllGtasksFromListId(String listId, boolean includeDeleted, boolean includeHidden, long lastSyncDate) throws IOException {
         com.google.api.services.tasks.model.Tasks toReturn = null;
         List request = service.tasks().list(listId);
@@ -181,32 +152,6 @@ public class GtasksInvoker {
             log("Get all tasks, list: " + listId + ", include deleted: " + includeDeleted, toReturn);
         }
         return toReturn;
-    }
-
-    public Task getGtask(String listId, String taskId) throws IOException {
-        Task toReturn = null;
-        try {
-            toReturn = service.tasks().get(listId, taskId).execute();
-        } catch (IOException e) {
-            handleException(e);
-            toReturn = service.tasks().get(listId, taskId).execute();
-        } finally {
-            log("Get gtask, id: " + taskId + ", list id: " + listId, toReturn);
-        }
-        return toReturn;
-    }
-
-    public Task createGtask(String listId, String title, String notes, DateTime due) throws IOException {
-        Task newGtask = new Task();
-        newGtask.setTitle(title);
-        newGtask.setNotes(notes);
-        newGtask.setDue(due);
-
-        return createGtask(listId, newGtask);
-    }
-
-    public Task createGtask(String listId, Task task) throws IOException {
-        return createGtask(listId, task, null, null);
     }
 
     public Task createGtask(String listId, Task task, String parent, String priorSiblingId) throws IOException {
@@ -264,20 +209,5 @@ public class GtasksInvoker {
         } finally {
             log("Delete task, id: " + taskId, null);
         }
-    }
-
-    public void clearCompletedTasks(String listId) throws IOException {
-        try {
-            service.tasks().clear(listId).execute();
-        } catch (IOException e) {
-            handleException(e);
-            service.tasks().clear(listId).execute();
-        } finally {
-            log("Clear completed tasks, list id: " + listId, null);
-        }
-    }
-
-    public JsonFactory getJsonFactory() {
-        return jsonFactory;
     }
 }

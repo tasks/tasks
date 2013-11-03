@@ -26,7 +26,6 @@ import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater.OrderedListIterato
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 import com.todoroo.astrid.utility.SyncMetadataService;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -47,13 +46,6 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
         DependencyInjectionService.getInstance().inject(this);
     }
 
-    @Override
-    public GtasksTaskContainer createContainerFromLocalTask(Task task,
-            ArrayList<Metadata> metadata) {
-        return new GtasksTaskContainer(task, metadata);
-    }
-
-    @Override
     public Criterion getLocalMatchCriteria(GtasksTaskContainer remoteTask) {
         return GtasksMetadata.ID.eq(remoteTask.gtaskMetadata.getValue(GtasksMetadata.ID));
     }
@@ -78,7 +70,6 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
         return GtasksMetadata.ID.neq(""); //$NON-NLS-1$
     }
 
-    @Override
     public synchronized void findLocalMatch(GtasksTaskContainer remoteTask) {
         if(remoteTask.task.getId() != Task.NO_ID) {
             return;

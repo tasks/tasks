@@ -1,7 +1,6 @@
 package com.todoroo.astrid.sync;
 
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.SyncFlags;
@@ -18,7 +17,6 @@ public class NewSyncTestCase extends DatabaseTestCase {
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		RemoteModelDao.setOutstandingEntryFlags(RemoteModelDao.OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING);
 	}
 
 	protected Task createTask(String title, boolean suppress) {
@@ -43,7 +41,7 @@ public class NewSyncTestCase extends DatabaseTestCase {
 		return createTask(SYNC_TASK_TITLE, suppress);
 	}
 
-	protected TagData createTagData(String name, boolean suppress) {
+	protected TagData createTagData(String name) {
 		TagData tag = new TagData();
 		tag.setValue(TagData.NAME, name);
 
@@ -52,10 +50,6 @@ public class NewSyncTestCase extends DatabaseTestCase {
 	}
 
 	protected TagData createTagData() {
-		return createTagData(false);
-	}
-
-	protected TagData createTagData(boolean suppress) {
-		return createTagData("new tag", suppress);
+		return createTagData("new tag");
 	}
 }

@@ -77,10 +77,6 @@ public class NotificationTests extends DatabaseTestCase {
                 // allowed
             }
 
-            public void cancelAll() {
-                fail("wtf cancel all?");
-            }
-
             public void notify(int id, Notification notification) {
                 fail("sent a notification, you shouldn't have...");
             }
@@ -104,10 +100,6 @@ public class NotificationTests extends DatabaseTestCase {
 
             public void cancel(int id) {
                 // allowed
-            }
-
-            public void cancelAll() {
-                fail("wtf cancel all?");
             }
 
             public void notify(int id, Notification notification) {
@@ -188,9 +180,6 @@ public class NotificationTests extends DatabaseTestCase {
     abstract public class TestNotificationManager implements NotificationManager {
         public void cancel(int id) {
             fail("wtf cance?");
-        }
-        public void cancelAll() {
-            fail("wtf cancel all?");
         }
     }
 

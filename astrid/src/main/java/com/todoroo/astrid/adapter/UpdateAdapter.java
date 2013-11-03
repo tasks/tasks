@@ -50,10 +50,6 @@ public class UpdateAdapter extends CursorAdapter {
     protected final Fragment fragment;
     private final int resource;
     private final LayoutInflater inflater;
-    private final String linkColor;
-    private final String fromView;
-
-    public static final String USER_TABLE_ALIAS = "users_join"; //$NON-NLS-1$
 
     public static final StringProperty ACTIVITY_TYPE_PROPERTY = new StringProperty(null, "'" + NameMaps.TABLE_ID_USER_ACTIVITY + "' as type");  //$NON-NLS-1$//$NON-NLS-2$
 
@@ -72,10 +68,6 @@ public class UpdateAdapter extends CursorAdapter {
 
     public static final int TYPE_PROPERTY_INDEX = USER_ACTIVITY_PROPERTIES.length - 1;
 
-    public static final String FROM_TAG_VIEW = "from_tag"; //$NON-NLS-1$
-    public static final String FROM_TASK_VIEW = "from_task"; //$NON-NLS-1$
-    public static final String FROM_RECENT_ACTIVITY_VIEW = "from_recent_activity"; //$NON-NLS-1$
-
     private final int color;
 
     /**
@@ -89,16 +81,12 @@ public class UpdateAdapter extends CursorAdapter {
      *            whether cursor is automatically re-queried on changes
      */
     public UpdateAdapter(Fragment fragment, int resource,
-            Cursor c, boolean autoRequery,
-            String fromView) {
+            Cursor c, boolean autoRequery) {
         super(fragment.getActivity(), c, autoRequery);
         DependencyInjectionService.getInstance().inject(this);
 
-        linkColor = getLinkColor(fragment);
-
         inflater = (LayoutInflater) fragment.getActivity().getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
-        this.fromView = fromView;
 
         this.resource = resource;
         this.fragment = fragment;
@@ -108,12 +96,6 @@ public class UpdateAdapter extends CursorAdapter {
         color = tv.data;
 
         fragment.getActivity().getTheme().resolveAttribute(R.attr.asDueDateColor, tv, false);
-    }
-
-    public static String getLinkColor(Fragment f) {
-        TypedValue colorType = new TypedValue();
-        f.getActivity().getTheme().resolveAttribute(R.attr.asDetailsColor, colorType, false);
-        return "#" + Integer.toHexString(colorType.data).substring(2); //$NON-NLS-1$
     }
 
     /* ======================================================================

@@ -65,25 +65,9 @@ public class VoiceInputAssistant {
         this.languageModel = languageModel;
     }
 
-    /**
-     * @return the languageModel
-     */
-    public String getLanguageModel() {
-        return languageModel;
-    }
-
     /** Sets whether voice input will append into field */
     public void setAppend(boolean append) {
         this.append = append;
-    }
-
-    /**
-     * Creates a new VoiceInputAssistant-instance simply for checking the availability of the
-     * RecognizerService. This is used for Preferences-Screens that dont want to provide
-     * a microphone-button themselves.
-     */
-    public VoiceInputAssistant() {
-        this.voiceButton = null;
     }
 
     /**
@@ -121,40 +105,6 @@ public class VoiceInputAssistant {
      */
     public VoiceInputAssistant(ImageButton voiceButton, int requestCode) {
         this(voiceButton);
-        if (requestCode == VOICE_RECOGNITION_REQUEST_CODE) {
-            throw new InvalidParameterException("You have to specify a unique requestCode for this VoiceInputAssistant!");
-        }
-        this.requestCode = requestCode;
-    }
-
-    /**
-     * Creates a new VoiceInputAssistance-instance for use with a specified button and textfield.
-     * If you need more than one microphone-button on a given fragment, use the other constructor.
-     *
-     * @param activity the activity which holds the microphone-buttone and the textField to insert recognized test
-     * @param voiceButton the microphone-Button
-     */
-    public VoiceInputAssistant(Activity activity, ImageButton voiceButton) {
-        Assert.assertNotNull("Each VoiceInputAssistant must be bound to a activity!", activity);
-        Assert.assertNotNull("A VoiceInputAssistant without a voiceButton makes no sense!", voiceButton);
-        this.activity = activity;
-        this.voiceButton = voiceButton;
-    }
-
-    /**
-     * The param requestCode is used to differentiate between multiple
-     * microphone-buttons on a single fragment.
-     * Use the this constructor to specify your own requestCode in
-     * this case for every additional use on a activity.
-     * If you only use one microphone-button on a activity,
-     * you can leave it to its default, VOICE_RECOGNITION_REQUEST_CODE.
-     *
-     *
-     * @param requestCode has to be unique in a single fragment-context,
-     *   dont use VOICE_RECOGNITION_REQUEST_CODE, this is reserved for the other constructor
-     */
-    public VoiceInputAssistant(Activity activity, ImageButton voiceButton, int requestCode) {
-        this(activity, voiceButton);
         if (requestCode == VOICE_RECOGNITION_REQUEST_CODE) {
             throw new InvalidParameterException("You have to specify a unique requestCode for this VoiceInputAssistant!");
         }
@@ -222,30 +172,6 @@ public class VoiceInputAssistant {
         }
 
         return result;
-    }
-
-    /**
-     * Can also be called from Fragment.onActivityResult to simply get the string result
-     * of the speech to text, or null if it couldn't be processed. Convenient when you
-     * don't have a bunch of UI elements to hook into.
-     */
-    public String getActivityResult(int activityRequestCode, int resultCode, Intent data) {
-        if (activityRequestCode == this.requestCode) {
-            if (resultCode == Activity.RESULT_OK) {
-                // Fill the quickAddBox-view with the string the recognizer thought it could have heard
-                ArrayList<String> match = data.getStringArrayListExtra(
-                        RecognizerIntent.EXTRA_RESULTS);
-                // make sure we only do this if there is SomeThing (tm) returned
-                if (match != null && match.size() > 0 && match.get(0).length() > 0) {
-                    String recognizedSpeech = match.get(0);
-                    recognizedSpeech = recognizedSpeech.substring(0, 1).toUpperCase() +
-                        recognizedSpeech.substring(1).toLowerCase();
-                    return recognizedSpeech;
-                }
-            }
-        }
-
-        return null;
     }
 
     public void configureMicrophoneButton(final Fragment fragment, final int prompt) {

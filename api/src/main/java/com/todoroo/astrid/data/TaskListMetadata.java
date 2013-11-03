@@ -7,17 +7,13 @@ package com.todoroo.astrid.data;
 
 
 import android.content.ContentValues;
-import android.net.Uri;
-import android.text.TextUtils;
 
-import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.astrid.api.AstridApiConstants;
 
 /**
  * Data Model which represents a user.
@@ -31,10 +27,6 @@ public final class TaskListMetadata extends RemoteModel {
 
     /** table for this model */
     public static final Table TABLE = new Table("task_list_metadata", TaskListMetadata.class);
-
-    /** content uri for this model */
-    public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.API_PACKAGE + "/" +
-            TABLE.name);
 
     // --- properties
 
@@ -85,16 +77,6 @@ public final class TaskListMetadata extends RemoteModel {
 
     public static final String FILTER_ID_ALL = "all";
     public static final String FILTER_ID_TODAY = "today";
-    public static final String FILTER_ID_NO_LIST = "nolist";
-    public static final String FILTER_ID_ASSIGNED_BY_ME = "assigned";
-
-    public static final String SORT_AUTO = "auto";
-    public static final String SORT_MANUAL = "manual";
-    public static final String SORT_DUE = "due";
-    public static final String SORT_CREATED = "created";
-    public static final String SORT_COMPLETED = "completed";
-    public static final String SORT_UPDATED = "updated";
-    public static final String SORT_TITLE = "title";
 
     // --- defaults
 
@@ -129,31 +111,12 @@ public final class TaskListMetadata extends RemoteModel {
         readPropertiesFromCursor(cursor);
     }
 
-    public void readFromCursor(TodorooCursor<TaskListMetadata> cursor) {
-        super.readPropertiesFromCursor(cursor);
-    }
-
     @Override
     public long getId() {
         return getIdHelper(ID);
     }
 
-    @Override
-    public String getUuid() {
-        return getUuidHelper(UUID);
-    }
-
-    public static boolean taskIdsIsEmpty(String taskIds) {
-        return TextUtils.isEmpty(taskIds) || "[]".equals(taskIds) || "[\"-1\"]".equals(taskIds) || "[-1]".equals(taskIds);
-    }
-
     // --- parcelable helpers
 
     public static final Creator<TaskListMetadata> CREATOR = new ModelCreator<TaskListMetadata>(TaskListMetadata.class);
-
-    @Override
-    protected Creator<? extends AbstractModel> getCreator() {
-        return CREATOR;
-    }
-
 }

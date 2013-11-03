@@ -68,13 +68,13 @@ public class LinkActionExposer {
         Resources r = context.getResources();
         if (hasAttachments) {
             BitmapDrawable icon = getBitmapDrawable(R.drawable.action_attachments, r);
-            FilesAction filesAction = new FilesAction("", null, icon); //$NON-NLS-1$
+            FilesAction filesAction = new FilesAction(null, icon); //$NON-NLS-1$
             return filesAction;
         }
 
         if (hasNotes && !Preferences.getBoolean(R.string.p_showNotes, false)) {
             BitmapDrawable icon = getBitmapDrawable(R.drawable.action_notes, r);
-            NotesAction notesAction = new NotesAction("", null, icon); //$NON-NLS-1$
+            NotesAction notesAction = new NotesAction(null, icon); //$NON-NLS-1$
             return notesAction;
         }
 
@@ -117,7 +117,7 @@ public class LinkActionExposer {
             text = text.substring(0, 12) + "..."; //$NON-NLS-1$
         }
 
-        TaskAction action = new TaskAction(text,
+        TaskAction action = new TaskAction(
                 PendingIntent.getActivity(context, (int)id, actionIntent, 0), (BitmapDrawable)icon);
         return action;
     }

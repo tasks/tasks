@@ -32,7 +32,6 @@ import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 
@@ -62,7 +61,7 @@ import java.util.Set;
  * </ul>
  * <p>
  * If you are writing a third-party application to access this data, you may
- * also consider using one of the Api DAO objects like {@link TaskApiDao}.
+ * also consider using one of the Api DAO objects like TaskApiDao.
  *
  * @author Tim Su <tim@todoroo.com>
  *

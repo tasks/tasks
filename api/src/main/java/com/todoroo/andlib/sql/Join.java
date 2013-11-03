@@ -29,14 +29,6 @@ public class Join {
         return new Join(table, JoinType.LEFT, criterions);
     }
 
-    public static Join right(SqlTable table, Criterion... criterions) {
-        return new Join(table, JoinType.RIGHT, criterions);
-    }
-
-    public static Join out(SqlTable table, Criterion... criterions) {
-        return new Join(table, JoinType.OUT, criterions);
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

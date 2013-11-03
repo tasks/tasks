@@ -36,7 +36,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
-import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -60,7 +59,6 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
-import com.todoroo.astrid.api.TaskDecorationExposer;
 import com.todoroo.astrid.core.LinkActionExposer;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
@@ -69,11 +67,9 @@ import com.todoroo.astrid.files.FilesAction;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.helper.TaskAdapterAddOnManager;
 import com.todoroo.astrid.notes.NotesAction;
-import com.todoroo.astrid.notes.NotesDecorationExposer;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
-import com.todoroo.astrid.timers.TimerDecorationExposer;
 import com.todoroo.astrid.ui.CheckableImageView;
 import com.todoroo.astrid.utility.Constants;
 
@@ -100,8 +96,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     }
 
     public static final String DETAIL_SEPARATOR = " | "; //$NON-NLS-1$
-
-    public static final String BROADCAST_EXTRA_TASK = "model"; //$NON-NLS-1$
 
     private static final StringProperty TAGS = new StringProperty(null, "group_concat(nullif(" + TaskListFragment.TAGS_METADATA_JOIN + "." + TaskToTagMetadata.TAG_NAME.name + ", '')"+ ", '  |  ')").as("tags");
     private static final LongProperty FILE_ID_PROPERTY = TaskAttachment.ID.cloneAs(TaskListFragment.FILE_METADATA_JOIN, "fileId");
@@ -193,10 +187,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     @Autowired
     protected TaskService taskService;
 
-    public static int APPLY_LISTENERS_PARENT = 0;
-    public static int APPLY_LISTENERS_ROW_BODY= 1;
-    public static int APPLY_LISTENERS_NONE = 2;
-
     protected final Context context;
     protected final TaskListFragment fragment;
     protected final Resources resources;
@@ -206,7 +196,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     protected final LayoutInflater inflater;
     private DetailLoaderThread detailLoader;
     private int fontSize;
-    protected int applyListeners = APPLY_LISTENERS_PARENT;
     private long mostRecentlyMade = -1;
     private final ScaleAnimation scaleAnimation;
     private final int readonlyBackground;
@@ -330,10 +319,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         return newCursor;
     }
 
-    public String getQuery() {
-        return query.get();
-    }
-
     /* ======================================================================
      * =========================================================== view setup
      * ====================================================================== */
@@ -442,7 +427,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public View taskActionContainer;
         public ImageView taskActionIcon;
         public String tagsString; // From join query, not part of the task model
-        public String imageUrl; // From join query, not part of the task model
         public boolean hasFiles; // From join query, not part of the task model
         public boolean hasNotes;
 
@@ -898,38 +882,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             super(fragment);
         }
 
-        private final TaskDecorationExposer[] exposers = new TaskDecorationExposer[] {
-                new TimerDecorationExposer(),
-                new NotesDecorationExposer()
-        };
-
-        /**
-         * Request add-ons for the given task
-         * @return true if cache miss, false if cache hit
-         */
-        @Override
-        public boolean request(ViewHolder viewHolder) {
-            long taskId = viewHolder.task.getId();
-
-            Collection<TaskDecoration> list = initialize(taskId);
-            if(list != null) {
-                draw(viewHolder, taskId, list);
-                return false;
-            }
-
-            // request details
-            draw(viewHolder, taskId, get(taskId));
-
-            for(TaskDecorationExposer exposer : exposers) {
-                TaskDecoration deco = exposer.expose(viewHolder.task);
-                if(deco != null) {
-                    addNew(viewHolder.task.getId(), exposer.getAddon(), deco, viewHolder);
-                }
-            }
-
-            return true;
-        }
-
         @Override
         protected void draw(ViewHolder viewHolder, long taskId, Collection<TaskDecoration> decorations) {
             if(decorations == null || viewHolder.task.getId() != taskId) {
@@ -972,8 +924,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             }
         }
 
-        @Override
-        protected void reset(ViewHolder viewHolder) {
+        private void reset(ViewHolder viewHolder) {
             if(viewHolder.decorations != null) {
                 for(View view : viewHolder.decorations) {
                     viewHolder.rowBody.removeView(view);
@@ -1040,18 +991,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             long taskId = viewHolder.task.getId();
             fragment.onTaskListItemClicked(taskId, viewHolder.task.isEditable());
         }
-    }
-
-    /**
-     * Call me when the parent presses trackpad
-     */
-    public void onTrackpadPressed(View container) {
-        if(container == null) {
-            return;
-        }
-
-        final CheckBox completeBox = ((CheckBox)container.findViewById(R.id.completeBox));
-        completeBox.performClick();
     }
 
     /** Helper method to adjust a tasks' appearance if the task is completed or

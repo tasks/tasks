@@ -71,9 +71,6 @@
   <!-- Menu: Settings -->
   <string name="TLA_menu_settings">Settings</string>
   
-  <!-- slide 30b: Menu: Support -->
-  <string name="TLA_menu_support">Support</string>
-  
   <!-- Window title for displaying Custom Filter -->
   <string name="TLA_custom">Custom</string>
   

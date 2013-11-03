@@ -39,7 +39,7 @@ public class TaskTests extends DatabaseTestCase {
     }
 
     /** Check defaults */
-    public void checkDefaults() {
+    public void testDefaults() {
         AstridPreferences.setPreferenceDefaults();
         ContentValues defaults = new Task().getDefaultValues();
         assertTrue(defaults.containsKey(Task.TITLE.name));
@@ -50,7 +50,7 @@ public class TaskTests extends DatabaseTestCase {
     }
 
     /** Check task gets a creation date at some point */
-    public void checkCreationDate() {
+    public void testCreationDate() {
         Task task = new Task();
         taskService.save(task);
         assertTrue(task.getValue(Task.CREATION_DATE) > 0);
@@ -59,7 +59,7 @@ public class TaskTests extends DatabaseTestCase {
     /**
      * Check various getters
      */
-    public void checkGetters() {
+    public void testGetters() {
         Task task = new Task();
         assertFalse(task.isCompleted());
         task.setValue(Task.COMPLETION_DATE, DateUtilities.now());

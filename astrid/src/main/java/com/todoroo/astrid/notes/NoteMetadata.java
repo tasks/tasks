@@ -30,12 +30,4 @@ public class NoteMetadata {
 
     /** note external id (use for your own purposes) */
     public static final StringProperty COMMENT_PICTURE = Metadata.VALUE6;
-
-    /** note external provider (use for your own purposes) */
-    public static final StringProperty EXT_PROVIDER = Metadata.VALUE4;
-
-    /** note external id (use for your own purposes) */
-    public static final StringProperty EXT_ID = Metadata.VALUE5;
-
-
 }

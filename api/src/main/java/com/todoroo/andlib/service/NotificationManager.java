@@ -18,8 +18,6 @@ public interface NotificationManager {
 
     public void cancel(int id);
 
-    public void cancelAll();
-
     public void notify(int id, Notification notification);
 
     /**
@@ -39,11 +37,6 @@ public interface NotificationManager {
         @Override
         public void cancel(int id) {
             nm.cancel(id);
-        }
-
-        @Override
-        public void cancelAll() {
-            nm.cancelAll();
         }
 
         @Override

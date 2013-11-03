@@ -61,7 +61,6 @@
 	<string name="TLA_menu_sync">立即同步</string>
 	<string name="TLA_menu_search">搜索</string>
 	<string name="TLA_menu_settings">設定</string>
-	<string name="TLA_menu_support">支持</string>
 	<string name="TLA_custom">自訂</string>
 	<string name="TLA_quick_add_hint">添加任務工作</string>
 	<string name="TLA_notification_volume_low">已靜音。你不會再聽到了！</string>

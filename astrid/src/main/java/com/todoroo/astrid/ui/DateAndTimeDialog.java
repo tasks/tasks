@@ -92,10 +92,6 @@ public class DateAndTimeDialog extends Dialog {
         });
     }
 
-    public long getSelectedDate() {
-        return dateAndTimePicker.constructDueDate();
-    }
-
     public void setSelectedDateAndTime(long date) {
         dateAndTimePicker.initializeWithDate(date);
     }
@@ -106,9 +102,5 @@ public class DateAndTimeDialog extends Dialog {
 
     public void setDateAndTimeDialogListener(DateAndTimeDialogListener listener) {
         this.listener = listener;
-    }
-
-    public String getDisplayString(Context context) {
-        return dateAndTimePicker.getDisplayString(context, false, false);
     }
 }

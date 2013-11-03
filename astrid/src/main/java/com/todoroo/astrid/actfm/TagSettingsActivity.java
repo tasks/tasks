@@ -55,8 +55,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
 
     public static final String TOKEN_AUTOPOPULATE_NAME = "autopopulateName"; //$NON-NLS-1$
 
-    private static final String MEMBERS_IN_PROGRESS = "members"; //$NON-NLS-1$
-
     private TagData tagData;
 
     @Autowired TagService tagService;

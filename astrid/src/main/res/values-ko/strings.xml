@@ -65,7 +65,6 @@
 	<string name="TLA_menu_sync">지금 동기화</string>
 	<string name="TLA_menu_search">검색</string>
 	<string name="TLA_menu_settings">설정</string>
-	<string name="TLA_menu_support">지원</string>
 	<string name="TLA_custom">사용자 설정</string>
 	<string name="TLA_quick_add_hint">일정 추가하기</string>
 	<string name="TLA_notification_volume_low">알림를 껐습니다. 아스트리드 알림 소리를 들을 수 없습니다!</string>

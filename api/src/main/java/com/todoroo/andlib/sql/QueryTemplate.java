@@ -110,11 +110,6 @@ public final class QueryTemplate {
         }
     }
 
-    public QueryTemplate having(Criterion criterion) {
-        this.havings.add(criterion);
-        return this;
-    }
-
     public QueryTemplate limit(int limitValue) {
         this.limit = limitValue;
         return this;

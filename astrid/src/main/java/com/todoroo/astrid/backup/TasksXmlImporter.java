@@ -209,7 +209,6 @@ public class TasksXmlImporter {
     private static final String FORMAT2 = "2"; //$NON-NLS-1$
     private class Format2TaskImporter {
 
-        protected int version;
         protected XmlPullParser xpp;
         protected Task currentTask = new Task();
         protected Metadata metadata = new Metadata();
@@ -218,13 +217,6 @@ public class TasksXmlImporter {
         public Format2TaskImporter() { }
         public Format2TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {
             this.xpp = xpp;
-
-            try {
-                this.version = Integer.parseInt(xpp.getAttributeValue(null, BackupConstants.ASTRID_ATTR_VERSION));
-            } catch (NumberFormatException e) {
-                // can't read version, assume max version
-                this.version = Integer.MAX_VALUE;
-            }
 
             while (xpp.next() != XmlPullParser.END_DOCUMENT) {
                 String tag = xpp.getName();
@@ -375,17 +367,6 @@ public class TasksXmlImporter {
             }
 
             @Override
-            public Void visitDouble(Property<Double> property,
-                    AbstractModel data) {
-                String value = xpp.getAttributeValue(null, property.name);
-                if(value != null) {
-                    data.setValue(property, TasksXmlExporter.XML_NULL.equals(value) ?
-                            null : Double.parseDouble(value));
-                }
-                return null;
-            }
-
-            @Override
             public Void visitString(Property<String> property,
                     AbstractModel data) {
                 String value = xpp.getAttributeValue(null, property.name);
@@ -405,13 +386,6 @@ public class TasksXmlImporter {
 
         public Format3TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {
             this.xpp = xpp;
-            try {
-                this.version = Integer.parseInt(xpp.getAttributeValue(null, BackupConstants.ASTRID_ATTR_VERSION));
-            } catch (NumberFormatException e) {
-                // can't read version, assume max version
-                this.version = Integer.MAX_VALUE;
-            }
-
             while (xpp.next() != XmlPullParser.END_DOCUMENT) {
                 String tag = xpp.getName();
                 if (tag == null || xpp.getEventType() == XmlPullParser.END_TAG) {

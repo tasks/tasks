@@ -125,12 +125,6 @@
 
  <!-- ====================================================== SyncProvider == -->
           
-  <!-- Sync Notification: message when sync service active -->
-  <string name="SyP_progress">Synchronizing your tasks...</string>
-  
-  <!-- Sync Notification: toast when sync activated from activity -->
-  <string name="SyP_progress_toast">Synchronizing...</string>
-  
   <!-- Sync Label: used in menu to denote synchronization -->
   <string name="SyP_label">Sync &amp; backup</string>  
 
@@ -139,9 +133,6 @@
 
   <!-- Sync label subtitle -->
   <string name="SyP_summary">Google Tasks, saved data, local backup</string>  
-
-  <!-- Error msg when io exception  -->
-  <string name="SyP_ioerror">Connection Error! Check your Internet connection.</string>
 
   <!-- ================================================== SyncPreferences == -->
   

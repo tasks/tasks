@@ -70,12 +70,9 @@
 	<string name="DLG_error">Ups! Wygląda na to, że wystąpił jakiś błąd! Oto, co się stało:\n\n%s</string>
 	<string name="DLG_error_generic">Ups! Wygląda na to, że wystąpił jakiś błąd!</string>
 	<string name="DLG_wait">Proszę czekać...</string>
-	<string name="SyP_progress">Synchronizowanie Twoich zadań...</string>
-	<string name="SyP_progress_toast">Synchronizacja...</string>
 	<string name="SyP_label">Synchronizacja</string>
 	<string name="Sync_now_label">Zsynchronizuj</string>
 	<string name="SyP_summary">Zadania Google, zapisane dane, lokalna kopia zapasowa</string>
-	<string name="SyP_ioerror">Błąd połączenia! Sprawdź swoje połączenie z Internetem!</string>
 	<string name="sync_SPr_group_status">Stan</string>
 	<string name="sync_status_loggedout">Niezalogowany</string>
 	<string name="sync_status_ongoing">Synchronizacja trwa...</string>

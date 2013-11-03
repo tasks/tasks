@@ -103,13 +103,6 @@ public class BackupService extends Service {
                 BACKUP_INTERVAL, pendingIntent);
     }
 
-    public static void unscheduleService(Context context) {
-        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pendingIntent = PendingIntent.getService(context, 0,
-                createAlarmIntent(context), PendingIntent.FLAG_UPDATE_CURRENT);
-        am.cancel(pendingIntent);
-    }
-
     private static Intent createAlarmIntent(Context context) {
         Intent intent = new Intent(context, BackupService.class);
         intent.setAction(BACKUP_ACTION);
