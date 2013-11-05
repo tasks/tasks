@@ -23,7 +23,7 @@ public class TaskEditActivity extends AstridActivity {
 	protected void onCreate(Bundle savedInstanceState) {
         ThemeService.applyTheme(this);
         ActionBar actionBar = getSupportActionBar();
-        if(ThemeService.getTheme() == R.style.Theme) {
+        if(ThemeService.getTheme() == R.style.Tasks) {
             actionBar.setLogo(R.drawable.ic_action_save_light);
         } else {
             actionBar.setLogo(R.drawable.ic_action_save);

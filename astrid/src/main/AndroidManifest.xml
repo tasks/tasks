@@ -87,7 +87,7 @@
     <application
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:theme="@style/Theme"
+        android:theme="@style/Tasks"
         android:hardwareAccelerated="false"
         android:manageSpaceActivity="com.todoroo.astrid.core.OldTaskPreferences">
 
@@ -337,19 +337,19 @@
 
         <activity
             android:name="com.todoroo.astrid.core.CustomFilterActivity"
-            android:theme="@style/Theme.Dialog" />
+            android:theme="@style/Tasks.Dialog" />
 
         <activity
             android:name="com.todoroo.astrid.core.CustomFilterExposer$DeleteActivity"
-            android:theme="@style/Theme.FullTransparent" />
+            android:theme="@style/Tasks.FullTransparent" />
 
         <activity
             android:name="com.todoroo.astrid.tags.TagFilterExposer$DeleteTagActivity"
-            android:theme="@style/Theme.FullTransparent" />
+            android:theme="@style/Tasks.FullTransparent" />
 
         <activity
             android:name="com.todoroo.astrid.tags.TagFilterExposer$RenameTagActivity"
-            android:theme="@style/Theme.FullTransparent" />
+            android:theme="@style/Tasks.FullTransparent" />
 
         <!-- alarms -->
         <receiver android:name="com.todoroo.astrid.alarms.AlarmTaskRepeatListener">
@@ -369,7 +369,7 @@
         <!-- actfm -->
         <activity
             android:name="com.todoroo.astrid.actfm.ActFmGoogleAuthActivity"
-            android:theme="@style/Theme"
+            android:theme="@style/Tasks"
             android:configChanges="orientation|keyboardHidden" />
 
         <activity
@@ -379,7 +379,7 @@
         <activity
             android:name="com.todoroo.astrid.actfm.TagSettingsActivityTablet"
             android:windowSoftInputMode="stateHidden"
-            android:theme="@style/Theme.Dialog" />
+            android:theme="@style/Tasks.Dialog" />
 
         <activity
             android:name="com.todoroo.astrid.actfm.CommentsActivity"
@@ -389,7 +389,7 @@
         <activity
             android:name="com.todoroo.astrid.gtasks.GtasksListFragment"
             android:windowSoftInputMode="stateHidden|adjustResize"
-            android:theme="@style/Theme">
+            android:theme="@style/Tasks">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -398,7 +398,7 @@
 
         <activity
             android:name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity"
-            android:theme="@style/Theme"
+            android:theme="@style/Tasks"
             android:configChanges="orientation|keyboardHidden" />
 
         <receiver android:name="com.todoroo.astrid.gtasks.GtasksCustomFilterCriteriaExposer">

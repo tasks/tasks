@@ -310,7 +310,7 @@ public class TasksWidget extends AppWidgetProvider {
 
         private boolean isDarkTheme() {
             int theme = ThemeService.getWidgetTheme();
-            return theme == R.style.Theme;
+            return theme == R.style.Tasks;
         }
 
         /**

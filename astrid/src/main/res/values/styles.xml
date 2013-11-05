@@ -8,7 +8,7 @@
 
     <!-- ========================================================== General  -->
     
-    <style name="Theme" parent="@style/Theme.Sherlock">
+    <style name="Tasks" parent="@style/Theme.Sherlock">
         <item name="android:windowBackground">@null</item>
         <item name="asContentBackground">@android:color/black</item>
         <item name="asTextColor">#ffffff</item>
@@ -61,7 +61,7 @@
         <item name="android:src">@drawable/ic_action_overflow_light</item>
     </style>
 
-    <style name="Theme.White" parent="@style/Theme.Sherlock.Light">
+    <style name="Tasks.Light" parent="@style/Theme.Sherlock.Light">
         <item name="asContentBackground">@android:color/white</item>
         <item name="asEditBackground">#e5e5e5</item>
         <item name="asTextColor">#000000</item>
@@ -86,28 +86,28 @@
         <item name="drawer_background">#efefef</item>
         <item name="drawer_text">#000</item>
         <!-- actionbar-styling -->
-        <item name="android:actionBarStyle">@style/AstridV11ActionBarStyle.White</item>
-        <item name="actionBarStyle">@style/AstridActionBarStyle.White</item>
-        <item name="android:actionOverflowButtonStyle">@style/AstridOverflowStyle.White</item>
-        <item name="actionOverflowButtonStyle">@style/AstridOverflowStyle.White</item>
+        <item name="android:actionBarStyle">@style/AstridV11ActionBarStyle.Light</item>
+        <item name="actionBarStyle">@style/AstridActionBarStyle.Light</item>
+        <item name="android:actionOverflowButtonStyle">@style/AstridOverflowStyle.Light</item>
+        <item name="actionOverflowButtonStyle">@style/AstridOverflowStyle.Light</item>
     </style>
 
-    <style name="AstridV11ActionBarStyle.White">
+    <style name="AstridV11ActionBarStyle.Light">
         <item name="android:displayOptions">showHome|showTitle</item>
         <item name="android:background">@drawable/header_day_blue</item>
     </style>
     
-    <style name="AstridActionBarStyle.White">
+    <style name="AstridActionBarStyle.Light">
         <item name="displayOptions">showHome|showTitle</item>
         <item name="background">@drawable/header_day_blue</item>
     </style>
 
-    <style name="AstridOverflowStyle.White" parent="Widget.Sherlock.ActionButton.Overflow">
+    <style name="AstridOverflowStyle.Light" parent="Widget.Sherlock.ActionButton.Overflow">
         <item name="android:src">@drawable/ic_action_overflow</item>
     </style>
 
 
-    <style name="Theme.FullTransparent" parent="@style/Theme.Sherlock">
+    <style name="Tasks.FullTransparent" parent="@style/Theme.Sherlock">
         <item name="android:windowIsTranslucent">true</item>
 	    <item name="android:windowBackground">@android:color/transparent</item>
 	    <item name="android:windowContentOverlay">@null</item>
@@ -115,7 +115,7 @@
 	    <item name="android:windowIsFloating">true</item>
 	</style>
 
-    <style name="Theme.Dialog" parent="@android:style/Theme.Dialog">
+    <style name="Tasks.Dialog" parent="@android:style/Theme.Dialog">
         <!--<item name="android:windowBackground">@null</item>-->
         <item name="asContentBackground">@android:color/black</item>
         <item name="asTextColor">#ffffffff</item>
@@ -158,27 +158,27 @@
         <item name="displayOptions">showHome|showTitle</item>
     </style>
     
-    <style name="Theme.Dialog.White">
+    <style name="Tasks.Dialog.Light">
         <item name="asContentBackground">@android:color/white</item>
         <item name="asTextColor">#ff000000</item>
         <item name="asDetailsColor">#ff6666aa</item>
         <item name="asDueDateColor">#878787</item>
         <item name="asFilterHeaderColor">#ffffff</item>
         <!-- actionbar-styling -->
-        <item name="android:actionBarStyle">@style/AstridV11ActionBarStyle.Dialog.White</item>        
-        <item name="actionBarStyle">@style/AstridActionBarStyle.Dialog.White</item>        
+        <item name="android:actionBarStyle">@style/AstridV11ActionBarStyle.Dialog.Light</item>
+        <item name="actionBarStyle">@style/AstridActionBarStyle.Dialog.Light</item>
         
         <item name="asEditBackground">#dddddd</item>
         <item name="asEditRowBackground">@drawable/task_edit_background_transparent_white</item>
         <item name="asThemeTextColor">@color/blue_theme_color</item>
     </style>
     
-    <style name="AstridV11ActionBarStyle.Dialog.White">
+    <style name="AstridV11ActionBarStyle.Dialog.Light">
         <item name="android:background">@android:color/white</item>
         <item name="android:displayOptions">showHome|showTitle</item>
     </style>
     
-    <style name="AstridActionBarStyle.Dialog.White">
+    <style name="AstridActionBarStyle.Dialog.Light">
         <item name="background">@android:color/white</item>
         <item name="displayOptions">showHome|showTitle</item>
     </style>
@@ -294,11 +294,11 @@
         <item name="android:textSize">18sp</item>
     </style>
    	
-   	<style name="Theme.WhenDialog">
+   	<style name="Tasks.WhenDialog">
    	    <item name="android:windowAnimationStyle">@style/TEA_WhenDialog_Anim</item>
    	</style>
     
-   	<style name="Theme.White.WhenDialog">
+   	<style name="Tasks.Light.WhenDialog">
    	    <item name="android:windowAnimationStyle">@style/TEA_WhenDialog_Anim</item>
    	</style>
    	    
@@ -318,7 +318,7 @@
 	    <item name="asTextColor">#ffffff</item>
 	</style>
 	
-   	<style name="TEA_Dialog.White">
+   	<style name="TEA_Dialog.Light">
    	    <item name="android:windowBackground">@drawable/dialog_full_holo_light</item>
    	    <item name="asTextColor">#000000</item>
    	</style>
@@ -333,7 +333,7 @@
 	    <item name="asTextColor">#ffffff</item>   	    
    	</style>
 
-    <style name="TEA_Dialog_White_ICS" parent="@android:style/Theme.Holo.Light.Dialog">
+    <style name="TEA_Dialog_Light_ICS" parent="@android:style/Theme.Holo.Light.Dialog">
 	    <item name="android:windowFrame">@null</item>
 	    <item name="android:windowTitleStyle">@style/TEA_DialogWindowTitle</item>
 	    <item name="android:windowIsFloating">true</item>

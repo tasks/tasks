@@ -54,18 +54,18 @@ public class ThemeService {
 
     private static int getStyleForSetting(String setting) {
         if(THEME_BLACK.equals(setting)) {
-            return R.style.Theme;
+            return R.style.Tasks;
         } else {
-            return R.style.Theme_White;
+            return R.style.Tasks_Light;
         }
     }
 
     public static int getThemeColor() {
         int theme = getTheme();
         switch(theme) {
-        case R.style.Theme:
+        case R.style.Tasks:
             return R.color.blue_theme_color;
-        case R.style.Theme_White:
+        case R.style.Tasks_Light:
         default:
             return R.color.dark_blue_theme_color;
         }
@@ -75,7 +75,7 @@ public class ThemeService {
         boolean ics = AndroidUtilities.getSdkVersion() >= 14;
         int themeSetting = getTheme();
         int theme;
-        if (themeSetting == R.style.Theme) {
+        if (themeSetting == R.style.Tasks) {
             if (ics) {
                 theme = R.style.TEA_Dialog_ICS;
             } else {
@@ -83,9 +83,9 @@ public class ThemeService {
             }
         } else {
             if (ics) {
-                theme = R.style.TEA_Dialog_White_ICS;
+                theme = R.style.TEA_Dialog_Light_ICS;
             } else {
-                theme = R.style.TEA_Dialog_White;
+                theme = R.style.TEA_Dialog_Light;
             }
         }
         return theme;
@@ -94,10 +94,10 @@ public class ThemeService {
     public static int getDialogTheme() {
         int themeSetting = getTheme();
         int theme;
-        if (themeSetting == R.style.Theme) {
-            theme = R.style.Theme_Dialog;
+        if (themeSetting == R.style.Tasks) {
+            theme = R.style.Tasks_Dialog;
         } else {
-            theme = R.style.Theme_Dialog_White;
+            theme = R.style.Tasks_Dialog_Light;
         }
         return theme;
     }
@@ -105,7 +105,7 @@ public class ThemeService {
     public static int getDialogTextColor() {
         if (AndroidUtilities.getSdkVersion() >= 11) {
             int theme = getTheme();
-            if (theme == R.style.Theme) {
+            if (theme == R.style.Tasks) {
                 return android.R.color.white;
             } else {
                 return android.R.color.black;
@@ -146,7 +146,7 @@ public class ThemeService {
 
     public static int getDrawable(int lightDrawable, int alter) {
         int theme = getTheme();
-        boolean darkTheme = theme == R.style.Theme;
+        boolean darkTheme = theme == R.style.Tasks;
         switch(alter) {
         case FLAG_FORCE_DARK:
             darkTheme = true;
@@ -205,12 +205,12 @@ public class ThemeService {
         return lightDrawable;
     }
 
-    public static int getDarkVsLight(int resForWhite, int resForDark) {
+    public static int getDarkVsLight(int resForLight, int resForDark) {
         int theme = getTheme();
-        if (theme == R.style.Theme) {
+        if (theme == R.style.Tasks) {
             return resForDark;
         } else {
-            return resForWhite;
+            return resForLight;
         }
     }
     public static int getTaskEditDrawable(int regularDrawable, int lightBlueDrawable) {
