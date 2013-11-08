@@ -8,9 +8,9 @@ package com.todoroo.astrid.actfm;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
+import android.view.MenuItem;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.MenuItem;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.service.ThemeService;

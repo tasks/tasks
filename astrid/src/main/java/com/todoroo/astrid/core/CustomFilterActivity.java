@@ -15,20 +15,20 @@ import android.database.Cursor;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnCreateContextMenuListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.MenuItem;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -66,7 +66,7 @@ import java.util.Map.Entry;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class CustomFilterActivity extends SherlockFragmentActivity {
+public class CustomFilterActivity extends ActionBarActivity {
 
     private static final String IDENTIFIER_TITLE = "title"; //$NON-NLS-1$
     private static final String IDENTIFIER_IMPORTANCE = "importance"; //$NON-NLS-1$

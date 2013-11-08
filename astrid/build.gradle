@@ -68,8 +68,9 @@ android.applicationVariants.all { variant ->
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:19.0.+'
-    compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
+    compile group: 'com.android.support', name: 'support-v4', version: '19.0.+'
+    compile group: 'com.android.support', name: 'appcompat-v7', version: '19.0.+'
+
     compile 'net.simonvt.menudrawer:menudrawer:3.0.4@aar'
 
     compile project(":android-aac-enc")

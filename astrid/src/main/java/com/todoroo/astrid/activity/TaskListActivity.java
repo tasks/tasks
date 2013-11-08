@@ -14,16 +14,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.support.v7.app.ActionBar;
 import android.util.TypedValue;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -149,14 +149,8 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     }
 
     @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        menuDrawer.closeMenu();
-        return super.onMenuItemSelected(featureId, item);
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getSupportMenuInflater().inflate(R.menu.task_list_activity, menu);
+        getMenuInflater().inflate(R.menu.task_list_activity, menu);
         TaskListFragment tlf = getTaskListFragment();
         if(tlf instanceof TagViewFragment) {
             menu.findItem(R.id.menu_delete_list).setVisible(true);

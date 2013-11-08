@@ -16,11 +16,15 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.RecognizerIntent;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
@@ -37,10 +41,6 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
@@ -94,6 +94,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static android.support.v4.view.MenuItemCompat.setShowAsAction;
+
 /**
  * This activity is responsible for creating new tasks and editing existing
  * ones. It saves a task when it is paused (screen rotated, back button pressed)
@@ -102,7 +104,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * @author timsu
  *
  */
-public final class TaskEditFragment extends SherlockFragment implements
+public final class TaskEditFragment extends Fragment implements
 ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     public static final String TAG_TASKEDIT_FRAGMENT = "taskedit_fragment"; //$NON-NLS-1$
@@ -980,15 +982,15 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         item = menu.add(Menu.NONE, MENU_ATTACH_ID, 0, R.string.premium_attach_file);
         item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_new_attachment));
 
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         item = menu.add(Menu.NONE, MENU_RECORD_ID, 0, R.string.premium_record_audio);
         item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_mic));
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         item = menu.add(Menu.NONE, MENU_DELETE_TASK_ID, 0, R.string.delete_task);
         item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_discard));
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         boolean useSaveAndCancel = Preferences.getBoolean(R.string.p_save_and_cancel, false);
 
@@ -996,13 +998,13 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             if (useSaveAndCancel) {
                 item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
                 item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_cancel));
-                item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
             }
 
             if (!(getActivity() instanceof TaskEditActivity)) {
                 item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
                 item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_save));
-                item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
             }
         }
     }

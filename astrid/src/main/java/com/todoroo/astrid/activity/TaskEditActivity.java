@@ -7,9 +7,9 @@ package com.todoroo.astrid.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.view.KeyEvent;
 
-import com.actionbarsherlock.app.ActionBar;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.service.ThemeService;
 
@@ -22,15 +22,11 @@ public class TaskEditActivity extends AstridActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
         ThemeService.applyTheme(this);
-        ActionBar actionBar = getSupportActionBar();
-        if(ThemeService.getTheme() == R.style.Tasks) {
-            actionBar.setLogo(R.drawable.ic_action_save_light);
-        } else {
-            actionBar.setLogo(R.drawable.ic_action_save);
-        }
 
         super.onCreate(savedInstanceState);
-		setContentView(R.layout.task_edit_wrapper_activity);
+
+        ActionBar actionBar = getSupportActionBar();
+        setContentView(R.layout.task_edit_wrapper_activity);
 
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setDisplayShowTitleEnabled(true);

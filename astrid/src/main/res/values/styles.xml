@@ -8,7 +8,7 @@
 
     <!-- ========================================================== General  -->
     
-    <style name="Tasks" parent="@style/Theme.Sherlock">
+    <style name="Tasks" parent="@style/Theme.AppCompat">
         <item name="android:windowBackground">@null</item>
         <item name="asContentBackground">@android:color/black</item>
         <item name="asTextColor">#ffffff</item>
@@ -47,21 +47,21 @@
         <item name="actionOverflowButtonStyle">@style/AstridOverflowStyle</item>
     </style>
     
-    <style name="AstridV11ActionBarStyle" parent="@style/Widget.Sherlock.ActionBar">
+    <style name="AstridV11ActionBarStyle" parent="@style/Widget.AppCompat.ActionBar">
         <item name="android:background">@drawable/header_blue</item>
         <item name="android:displayOptions">showHome|showTitle</item>
     </style>
     
-    <style name="AstridActionBarStyle" parent="@style/Widget.Sherlock.ActionBar">
+    <style name="AstridActionBarStyle" parent="@style/Widget.AppCompat.ActionBar">
         <item name="background">@drawable/header_blue</item>
         <item name="displayOptions">showHome|showTitle</item>
     </style>
 
-    <style name="AstridOverflowStyle" parent="Widget.Sherlock.ActionButton.Overflow">
+    <style name="AstridOverflowStyle" parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="android:src">@drawable/ic_action_overflow_light</item>
     </style>
 
-    <style name="Tasks.Light" parent="@style/Theme.Sherlock.Light">
+    <style name="Tasks.Light" parent="@style/Theme.AppCompat.Light">
         <item name="asContentBackground">@android:color/white</item>
         <item name="asEditBackground">#e5e5e5</item>
         <item name="asTextColor">#000000</item>
@@ -102,15 +102,14 @@
         <item name="background">@drawable/header_day_blue</item>
     </style>
 
-    <style name="AstridOverflowStyle.Light" parent="Widget.Sherlock.ActionButton.Overflow">
+    <style name="AstridOverflowStyle.Light" parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="android:src">@drawable/ic_action_overflow</item>
     </style>
 
 
-    <style name="Tasks.FullTransparent" parent="@style/Theme.Sherlock">
+    <style name="Tasks.FullTransparent" parent="@style/Theme.AppCompat">
         <item name="android:windowIsTranslucent">true</item>
 	    <item name="android:windowBackground">@android:color/transparent</item>
-	    <item name="android:windowContentOverlay">@null</item>
 	    <item name="android:backgroundDimEnabled">false</item>
 	    <item name="android:windowIsFloating">true</item>
 	</style>
@@ -131,7 +130,6 @@
         
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowBackground">@drawable/panel_background</item>
-        <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
         <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
         <item name="android:layout_width">fill_parent</item>
@@ -142,7 +140,6 @@
         <item name="android:colorBackgroundCacheHint">@null</item>
         
         <item name="windowActionBar">false</item>
-        <item name="windowContentOverlay">@null</item>
         <item name="asEditBackground">#101010</item>
         <item name="asEditRowBackground">@drawable/task_edit_background</item>
         <item name="asThemeTextColor">@color/blue_theme_color</item>
@@ -230,7 +227,6 @@
         <item name="android:windowBackground">@drawable/reminder_dialog_inset_background</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowIsFloating">true</item>
-        <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
         <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
     </style>
@@ -312,7 +308,6 @@
 	    <item name="android:windowTitleStyle">@style/TEA_DialogWindowTitle</item>
 	    <item name="android:windowBackground">@drawable/dialog_full_holo_dark</item>
 	    <item name="android:windowIsFloating">true</item>
-	    <item name="android:windowContentOverlay">@null</item>
 	    <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
 	    <item name="android:windowSoftInputMode">stateUnspecified|adjustResize</item>
 	    <item name="asTextColor">#ffffff</item>
@@ -327,7 +322,6 @@
 	    <item name="android:windowFrame">@null</item>
 	    <item name="android:windowTitleStyle">@style/TEA_DialogWindowTitle</item>
 	    <item name="android:windowIsFloating">true</item>
-	    <item name="android:windowContentOverlay">@null</item>
 	    <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
 	    <item name="android:windowSoftInputMode">stateUnspecified|adjustResize</item>
 	    <item name="asTextColor">#ffffff</item>   	    
@@ -337,7 +331,6 @@
 	    <item name="android:windowFrame">@null</item>
 	    <item name="android:windowTitleStyle">@style/TEA_DialogWindowTitle</item>
 	    <item name="android:windowIsFloating">true</item>
-	    <item name="android:windowContentOverlay">@null</item>
 	    <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
 	    <item name="android:windowSoftInputMode">stateUnspecified|adjustResize</item>
 	    <item name="asTextColor">#000000</item>   	    

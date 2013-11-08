@@ -10,19 +10,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.Window;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -42,7 +42,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.tasks.R;
 
-public class TagSettingsActivity extends SherlockFragmentActivity {
+import static android.support.v4.view.MenuItemCompat.setShowAsAction;
+
+public class TagSettingsActivity extends ActionBarActivity {
 
     public static final String TOKEN_NEW_FILTER = "newFilter"; //$NON-NLS-1$
 
@@ -293,13 +295,13 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
         if (Preferences.getBoolean(R.string.p_save_and_cancel, false)) {
             item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
             item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_cancel));
-            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+            setShowAsAction(item, MenuItem.SHOW_AS_ACTION_IF_ROOM);
         }
 
         if (isDialog) {
             item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
             item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_save));
-            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+            setShowAsAction(item, MenuItem.SHOW_AS_ACTION_IF_ROOM);
         }
         return super.onCreateOptionsMenu(menu);
     }
