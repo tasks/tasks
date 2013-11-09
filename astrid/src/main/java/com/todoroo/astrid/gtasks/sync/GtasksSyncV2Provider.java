@@ -37,6 +37,7 @@ import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.service.SyncResultCallbackWrapper;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
@@ -106,7 +107,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         final boolean isImport = false;
 
         callback.started();
-        callback.incrementMax(100);
+        callback.incrementMax(20);
 
 
         gtasksPreferenceService.recordSyncStart();
@@ -114,7 +115,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                callback.incrementProgress(50);
+                callback.incrementProgress(1); // 5%
                 String authToken = getValidatedAuthToken();
                 final GtasksInvoker invoker = new GtasksInvoker(authToken);
                 try {
@@ -130,17 +131,29 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                     finishSync(callback);
                     return;
                 }
-                callback.incrementMax(25 * lists.length);
+
+                callback.incrementProgress(1); // 10%
+                final SyncResultCallbackWrapper.Partial callback0;
+                callback0 = new SyncResultCallbackWrapper.Partial(
+                        callback, 2, 16
+                );
+
+                callback0.incrementMax(lists.length * 3);
                 final AtomicInteger finisher = new AtomicInteger(lists.length);
 
                 for (final StoreObject list : lists) {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            synchronizeListHelper(list, invoker, manual, handler, callback, isImport);
-                            callback.incrementProgress(25);
+                            synchronizeListHelper(list, invoker, manual, handler, callback0, isImport);
+                            callback.incrementProgress(3);
                             if (finisher.decrementAndGet() == 0) {
-                                pushUpdated(invoker, callback);
+                                callback0.incrementProgress(8);
+                                SyncResultCallback callback1 = new SyncResultCallbackWrapper.Rescaled(
+                                    callback0, 1, callback0.getRemainderSize()
+                                );
+                                pushUpdated(invoker, callback1);
+                                callback0.incrementProgress(8);
                                 finishSync(callback);
                             }
                         }
@@ -155,7 +168,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         TodorooCursor<Task> queued = taskService.query(Query.select(Task.PROPERTIES).
                 join(Join.left(Metadata.TABLE, Criterion.and(MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY), Task.ID.eq(Metadata.TASK)))).where(
                         Criterion.or(Task.MODIFICATION_DATE.gt(GtasksMetadata.LAST_SYNC),
-                                    Criterion.and(Task.USER_ID.neq(Task.USER_ID_SELF), GtasksMetadata.ID.isNotNull()),
+                                Criterion.and(Task.USER_ID.neq(Task.USER_ID_SELF), GtasksMetadata.ID.isNotNull()),
                                       Metadata.KEY.isNull())));
         callback.incrementMax(queued.getCount() * 10);
         try {
@@ -191,21 +204,21 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         final boolean isImport = false;
 
         callback.started();
-        callback.incrementMax(100);
+        callback.incrementMax(8);
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                callback.incrementProgress(50);
+                callback.incrementProgress(4);
                 try {
                     String authToken = getValidatedAuthToken();
-                    callback.incrementProgress(12);
+                    callback.incrementProgress(1);
                     gtasksSyncService.waitUntilEmpty();
-                    callback.incrementProgress(13);
+                    callback.incrementProgress(1);
                     final GtasksInvoker service = new GtasksInvoker(authToken);
                     synchronizeListHelper(gtasksList, service, manual, null, callback, isImport);
                 } finally {
-                    callback.incrementProgress(25);
+                    callback.incrementProgress(2);
                     callback.finished();
                 }
             }
@@ -335,7 +348,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         }
         if (!TextUtils.isEmpty(task.task.getValue(Task.TITLE))) {
             task.task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
-            gtasksMetadataService.saveTaskAndMetadata(task);
+            gtasksMetadaataService.saveTaskAndMetadata(task);
         }
     }
 
