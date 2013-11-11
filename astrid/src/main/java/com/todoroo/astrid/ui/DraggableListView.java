@@ -305,7 +305,7 @@ public class DraggableListView extends ListView {
             return null;
         }
 
-        return (View) getChildAt(itemNum - getFirstVisiblePosition());
+        return getChildAt(itemNum - getFirstVisiblePosition());
     }
 
     // --- drag logic
@@ -348,7 +348,7 @@ public class DraggableListView extends ListView {
                 // bye!
             }
         }
-    };
+    }
 
     protected void initiateDrag(MotionEvent ev) {
         int x = (int) mTouchCurrentX;
@@ -359,7 +359,7 @@ public class DraggableListView extends ListView {
             return;
         }
 
-        View item = (View) getChildAt(itemNum - getFirstVisiblePosition());
+        View item = getChildAt(itemNum - getFirstVisiblePosition());
 
         mDragPoint = new Point(x - item.getLeft(), y - item.getTop());
         mCoordOffset = new Point((int)ev.getRawX() - x, (int)ev.getRawY() - y);

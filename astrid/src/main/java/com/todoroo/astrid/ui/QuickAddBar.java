@@ -261,7 +261,6 @@ public class QuickAddBar extends LinearLayout {
             if (title != null) {
                 title = title.trim();
             }
-            boolean assignedToMe = true;
 
             Task task = new Task();
             if (title != null) {
@@ -280,15 +279,9 @@ public class QuickAddBar extends LinearLayout {
 
             TaskService.createWithValues(task, fragment.getFilter().valuesForNewTasks, title);
 
-            if (Task.userIdIsEmail(task.getValue(Task.USER_ID))) {
-            }
-
             resetControlSets();
 
             addToCalendar(task, title);
-
-            if(!TextUtils.isEmpty(title)) {
-            }
 
             TextView quickAdd = (TextView) findViewById(R.id.quickAddText);
             quickAdd.setText(""); //$NON-NLS-1$
@@ -297,9 +290,9 @@ public class QuickAddBar extends LinearLayout {
                 fragment.loadTaskListContent(true);
                 fragment.selectCustomId(task.getId());
                 if (task.getTransitory(TaskService.TRANS_QUICK_ADD_MARKUP) != null) {
-                    showAlertForMarkupTask((AstridActivity) activity, task, title);
+                    showAlertForMarkupTask(activity, task, title);
                 } else if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
-                    showAlertForRepeatingTask((AstridActivity) activity, task);
+                    showAlertForRepeatingTask(activity, task);
                 }
             }
 

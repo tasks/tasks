@@ -122,9 +122,7 @@ public class FileExplore extends Activity {
 
 			if (!firstLvl) {
 				Item temp[] = new Item[fileList.length + 1];
-				for (int i = 0; i < fileList.length; i++) {
-					temp[i + 1] = fileList[i];
-				}
+                System.arraycopy(fileList, 0, temp, 1, fileList.length);
 				temp[0] = new Item(upString, R.drawable.directory_up);
 				fileList = temp;
 			}
@@ -174,7 +172,7 @@ public class FileExplore extends Activity {
 
 	@Override
 	protected Dialog onCreateDialog(int id) {
-		Dialog dialog = null;
+		Dialog dialog;
 		AlertDialog.Builder builder = new Builder(this);
 
 		if (fileList == null) {

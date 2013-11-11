@@ -249,8 +249,6 @@ public class TasksXmlImporter {
 
             String title = xpp.getAttributeValue(null, Task.TITLE.name);
             String created = xpp.getAttributeValue(null, Task.CREATION_DATE.name);
-            String deletionDate = xpp.getAttributeValue(null, Task.DELETION_DATE.name);
-            String completionDate = xpp.getAttributeValue(null, Task.COMPLETION_DATE.name);
 
             // if we don't have task name or creation date, skip
             if (created == null || title == null) {
@@ -553,7 +551,7 @@ public class TasksXmlImporter {
         }
 
         /** helper method to set field on a task */
-        private final boolean setTaskField(Task task, String field, String value) {
+        private boolean setTaskField(Task task, String field, String value) {
             if(field.equals(LegacyTaskModel.ID)) {
                 // ignore
             }
@@ -592,7 +590,7 @@ public class TasksXmlImporter {
             else if(field.equals(LegacyTaskModel.PREFERRED_DUE_DATE)) {
                 String definite = xpp.getAttributeValue(null, LegacyTaskModel.DEFINITE_DUE_DATE);
                 if(definite != null) {
-                    ; // handled above
+                    // handled above
                 } else {
                     task.setValue(Task.DUE_DATE,
                             BackupDateUtilities.getTaskDueDateFromIso8601String(value).getTime());

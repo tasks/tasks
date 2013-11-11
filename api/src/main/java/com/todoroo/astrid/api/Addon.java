@@ -88,7 +88,7 @@ public class Addon implements Parcelable {
         @Override
         public Addon[] newArray(int size) {
             return new Addon[size];
-        };
+        }
     };
 
 }

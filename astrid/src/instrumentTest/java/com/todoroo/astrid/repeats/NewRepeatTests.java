@@ -199,7 +199,6 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
                 Weekday curr = allWeekdays[i];
                 daysToAdd++;
                 if (weekdays.contains(curr)) {
-                    next = curr;
                     break;
                 }
             }

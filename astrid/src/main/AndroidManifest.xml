@@ -88,6 +88,7 @@
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:theme="@style/Tasks"
+        android:allowBackup="true"
         android:hardwareAccelerated="false"
         android:manageSpaceActivity="com.todoroo.astrid.core.OldTaskPreferences">
 
@@ -185,11 +186,6 @@
         <activity
             android:name="com.todoroo.astrid.service.UpgradeService$UpgradeActivity"
             android:screenOrientation="portrait" />
-
-        <activity
-            android:name="com.todoroo.astrid.service.UpgradeService$UpgradeActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme" />
 
         <!-- ======================================================= Receivers = -->
 
@@ -386,16 +382,6 @@
             android:windowSoftInputMode="stateHidden" />
 
         <!-- gtasks -->
-        <activity
-            android:name="com.todoroo.astrid.gtasks.GtasksListFragment"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:theme="@style/Tasks">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
         <activity
             android:name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity"
             android:theme="@style/Tasks"

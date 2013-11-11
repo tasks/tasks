@@ -49,7 +49,7 @@ public class DateAndTimeDialog extends Dialog {
         LayoutParams params = getWindow().getAttributes();
         params.height = LayoutParams.FILL_PARENT;
         params.width = LayoutParams.FILL_PARENT;
-        getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
+        getWindow().setAttributes(params);
 
         dateAndTimePicker = (DateAndTimePicker) findViewById(R.id.date_and_time);
         dateAndTimePicker.initializeWithDate(startDate);

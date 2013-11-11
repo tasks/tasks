@@ -90,8 +90,7 @@ public class ActFmCameraModule {
             String storageState = Environment.getExternalStorageState();
             if(storageState.equals(Environment.MEDIA_MOUNTED)) {
                 String path = Environment.getExternalStorageDirectory().getName() + File.separatorChar + "Android/data/" + activity.getPackageName() + "/files/";
-                File photoFile = File.createTempFile("comment_pic_" + DateUtilities.now(), ".jpg", new File(path));
-                return photoFile;
+                return File.createTempFile("comment_pic_" + DateUtilities.now(), ".jpg", new File(path));
             }
         } catch (IOException e) {
             return null;

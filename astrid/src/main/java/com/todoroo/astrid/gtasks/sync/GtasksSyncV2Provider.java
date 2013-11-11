@@ -292,12 +292,12 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         task.setValue(Task.TITLE, remoteTask.getTitle());
         task.setValue(Task.CREATION_DATE, DateUtilities.now());
         task.setValue(Task.COMPLETION_DATE, GtasksApiUtilities.gtasksCompletedTimeToUnixTime(remoteTask.getCompleted(), 0));
-        if (remoteTask.getDeleted() == null || !remoteTask.getDeleted().booleanValue()) {
+        if (remoteTask.getDeleted() == null || !remoteTask.getDeleted()) {
             task.setValue(Task.DELETION_DATE, 0L);
-        } else if (remoteTask.getDeleted().booleanValue()) {
+        } else if (remoteTask.getDeleted()) {
             task.setValue(Task.DELETION_DATE, DateUtilities.now());
         }
-        if (remoteTask.getHidden() != null && remoteTask.getHidden().booleanValue()) {
+        if (remoteTask.getHidden() != null && remoteTask.getHidden()) {
             task.setValue(Task.DELETION_DATE, DateUtilities.now());
         }
 
@@ -310,9 +310,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         gtasksMetadata.setValue(GtasksMetadata.ID, remoteTask.getId());
         gtasksMetadata.setValue(GtasksMetadata.LIST_ID, listId);
 
-        GtasksTaskContainer container = new GtasksTaskContainer(task, metadata,
-                gtasksMetadata);
-        return container;
+        return new GtasksTaskContainer(task, metadata, gtasksMetadata);
     }
 
     private void write(GtasksTaskContainer task) {
@@ -325,8 +323,6 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 task.task.clearValue(Task.UUID);
             } else {
                 mergeDates(task.task, local);
-                if(task.task.isCompleted() && !local.isCompleted()) {
-                }
             }
         } else { // Set default importance and reminders for remotely created tasks
             task.task.setValue(Task.IMPORTANCE, Preferences.getIntegerFromString(

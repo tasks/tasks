@@ -334,7 +334,7 @@ public final class ReminderService  {
                     quietHoursEndDate.setMinutes(0);
                     quietHoursEndDate.setSeconds(0);
 
-                    long millisToQuiet = quietHoursStartDate.getTime() - getNowValue();
+                    long millisToQuiet;
                     long millisToEndOfDay = dueDate - getNowValue();
 
                     //
@@ -357,11 +357,11 @@ public final class ReminderService  {
                                 if (millisAfterQuiet > (millisToQuiet / ((float)(1-(1/periodDivFactor))) )) {
                                     dueDateAlarm = quietHoursEndDate.getTime();
                                 } else {
-                                    dueDateAlarm = getNowValue() + (long) (millisToQuiet / periodDivFactor);
+                                    dueDateAlarm = getNowValue() + (millisToQuiet / periodDivFactor);
                                 }
                             } else {
                                 // after quietHours, reuse dueDate for end of day
-                                dueDateAlarm = getNowValue() + (long)(millisToEndOfDay / periodDivFactor);
+                                dueDateAlarm = getNowValue() + (millisToEndOfDay / periodDivFactor);
                             }
                         } else { // wrap across 24/hour boundary
                             if(hour >= quietHoursStart) {
@@ -373,12 +373,12 @@ public final class ReminderService  {
                             } else {
                                 // quietHours didnt start yet
                                 millisToQuiet = quietHoursStartDate.getTime() - getNowValue();
-                                dueDateAlarm = getNowValue() + (long)(millisToQuiet / periodDivFactor);
+                                dueDateAlarm = getNowValue() + (millisToQuiet / periodDivFactor);
                             }
                         }
                     } else {
                         // Quiet hours not activated, simply schedule the reminder on 1/periodDivFactor towards the end of day
-                        dueDateAlarm = getNowValue() + (long)(millisToEndOfDay / periodDivFactor);
+                        dueDateAlarm = getNowValue() + (millisToEndOfDay / periodDivFactor);
                     }
 
                     if(dueDate > getNowValue() && dueDateAlarm < getNowValue()) {

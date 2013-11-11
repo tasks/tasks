@@ -98,18 +98,6 @@ public class TaskService {
     public void setComplete(Task item, boolean completed) {
         if(completed) {
             item.setValue(Task.COMPLETION_DATE, DateUtilities.now());
-
-            long reminderLast = item.getValue(Task.REMINDER_LAST);
-            String socialReminder = item.getValue(Task.SOCIAL_REMINDER);
-            if (reminderLast > 0) {
-                long diff = DateUtilities.now() - reminderLast;
-                if (diff > 0 && diff < DateUtilities.ONE_DAY) {
-                    // within one day of last reminder
-                }
-                if (diff > 0 && diff < DateUtilities.ONE_WEEK) {
-                    // within one week of last reminder
-                }
-            }
         } else {
             item.setValue(Task.COMPLETION_DATE, 0L);
         }
@@ -173,7 +161,9 @@ public class TaskService {
     public void delete(Task item) {
         if(!item.isSaved()) {
             return;
-        } else if(item.containsValue(Task.TITLE) && item.getValue(Task.TITLE).length() == 0) {
+        }
+
+        if(item.containsValue(Task.TITLE) && item.getValue(Task.TITLE).length() == 0) {
             taskDao.delete(item.getId());
             item.setId(Task.NO_ID);
         } else {
@@ -462,9 +452,8 @@ public class TaskService {
     }
 
     private static Query queryForTask(Task task, Property<?>[] activityProperties) {
-        Query result = Query.select(AndroidUtilities.addToArray(Property.class, activityProperties))
+        return Query.select(AndroidUtilities.addToArray(Property.class, activityProperties))
                 .where(Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TASK_COMMENT), UserActivity.TARGET_ID.eq(task.getUuid()), UserActivity.DELETED_AT.eq(0)));
-        return result;
     }
 
 }

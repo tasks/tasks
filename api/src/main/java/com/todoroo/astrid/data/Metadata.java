@@ -117,7 +117,7 @@ public class Metadata extends AbstractModel {
     @Override
     public long getId() {
         return getIdHelper(ID);
-    };
+    }
 
     // --- parcelable helpers
 

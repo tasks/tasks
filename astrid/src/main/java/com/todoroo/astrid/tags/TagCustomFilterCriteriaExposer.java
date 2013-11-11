@@ -76,7 +76,7 @@ public class TagCustomFilterCriteriaExposer extends BroadcastReceiver {
                                             null, context.getString(R.string.CFC_tag_contains_name), "",
                                             ((BitmapDrawable)r.getDrawable(TagService.getDefaultImageIDForTag(RemoteModel.NO_UUID))).getBitmap(),
                                             context.getString(R.string.CFC_tag_contains_name));
-            ret[j++] = criterion;
+            ret[j] = criterion;
         }
 
         // transmit filter list

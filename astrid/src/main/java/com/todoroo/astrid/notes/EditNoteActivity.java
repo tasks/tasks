@@ -354,16 +354,9 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         UpdateAdapter.setupImagePopupForCommentView(view, commentPictureView, item.pictureThumb, item.commentBitmap, item.title.toString(), fragment);
     }
 
-    public void refreshData() {
-        if(!task.containsNonNullValue(Task.UUID)) {
-            return;
-        }
-    }
-
     private void addComment() {
         addComment(commentField.getText().toString(), UserActivity.ACTION_TASK_COMMENT, task.getUuid(), task.getValue(Task.TITLE), true);
     }
-
 
     private void addComment(String message, String actionCode, String uuid, String title, boolean usePicture) {
         // Allow for users to just add picture
@@ -434,10 +427,10 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
 
         public static NoteOrUpdate fromUpdate(UserActivity u) {
-            String pictureThumb = ""; //$NON-NLS-1$
+            String pictureThumb;
             Spanned title;
             Bitmap commentBitmap = null;
-            long createdAt = 0;
+            long createdAt;
 
             if(u == null) {
                 throw new RuntimeException("UserActivity should never be null");

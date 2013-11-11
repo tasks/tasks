@@ -195,14 +195,12 @@ public class EditPreferences extends TodorooPreferenceActivity {
         PackageManager pm = getPackageManager();
         List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(queryIntent,
                 PackageManager.GET_META_DATA);
-        int length = resolveInfoList.size();
         LinkedHashMap<String, ArrayList<Preference>> categoryPreferences =
             new LinkedHashMap<String, ArrayList<Preference>>();
 
         // Loop through a list of all packages (including plugins, addons)
         // that have a settings action
-        for(int i = 0; i < length; i++) {
-            ResolveInfo resolveInfo = resolveInfoList.get(i);
+        for (ResolveInfo resolveInfo : resolveInfoList) {
             final Intent intent = new Intent(AstridApiConstants.ACTION_SETTINGS);
             intent.setClassName(resolveInfo.activityInfo.packageName,
                     resolveInfo.activityInfo.name);
@@ -244,7 +242,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
             String category = MetadataHelper.resolveActivityCategoryName(resolveInfo, pm);
 
-            if(!categoryPreferences.containsKey(category)) {
+            if (!categoryPreferences.containsKey(category)) {
                 categoryPreferences.put(category, new ArrayList<Preference>());
             }
             ArrayList<Preference> arrayList = categoryPreferences.get(category);
@@ -293,7 +291,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
             preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED) {
                 @Override
                 public boolean onPreferenceChange(Preference p, Object newValue) {
-                    String valueString = newValue.toString();
                     Preference notes = findPreference(getString(R.string.p_showNotes));
                     Preference fullTitle = findPreference(getString(R.string.p_fullTaskTitle));
                     try {
@@ -306,7 +303,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
                     return super.onPreferenceChange(p, newValue);
                 }
 
-                ;
             });
 
         } else if (r.getString(R.string.p_showNotes).equals(preference.getKey())) {
@@ -337,13 +333,10 @@ public class EditPreferences extends TodorooPreferenceActivity {
             preference.setSummary(r.getString(R.string.p_files_dir_desc, dir));
         } else if (booleanPreference(preference, value, R.string.p_field_missed_calls,
                 R.string.MCA_missed_calls_pref_desc_disabled, R.string.MCA_missed_calls_pref_desc_enabled)) {
-            ;
         } else if (booleanPreference(preference, value, R.string.p_calendar_reminders,
                 R.string.CRA_calendar_reminders_pref_desc_disabled, R.string.CRA_calendar_reminders_pref_desc_enabled)) {
-            ;
         } else if (booleanPreference(preference, value, R.string.p_end_at_deadline,
                 R.string.EPr_cal_end_at_due_time, R.string.EPr_cal_start_at_due_time)) {
-            ;
         } else if (r.getString(R.string.p_force_phone_layout).equals(preference.getKey())) {
             preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
         } else if (r.getString(R.string.p_voiceInputEnabled).equals(preference.getKey())) {

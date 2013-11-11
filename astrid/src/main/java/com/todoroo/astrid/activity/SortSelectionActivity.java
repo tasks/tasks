@@ -113,7 +113,7 @@ public class SortSelectionActivity {
         @Override
         public void onClick(DialogInterface view, int button) {
             int flags = 0;
-            int sort = 0;
+            int sort;
 
             if(((CheckBox)body.findViewById(R.id.reverse)).isChecked()) {
                 flags |= SortHelper.FLAG_REVERSE_SORT;

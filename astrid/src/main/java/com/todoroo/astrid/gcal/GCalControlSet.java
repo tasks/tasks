@@ -138,9 +138,9 @@ public class GCalControlSet extends PopupControlSet {
     }
 
     @Override
-    protected String writeToModelAfterInitialized(Task task) {
+    protected void writeToModelAfterInitialized(Task task) {
         if (!task.hasDueDate()) {
-            return null;
+            return;
         }
 
         boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null &&
@@ -189,16 +189,12 @@ public class GCalControlSet extends PopupControlSet {
                 }
 
                 ContentResolver cr = activity.getContentResolver();
-                if(cr.update(calendarUri, updateValues, null, null) > 0) {
-                    return activity.getString(R.string.gcal_TEA_calendar_updated);
-                }
+                cr.update(calendarUri, updateValues, null, null);
             } catch (Exception e) {
                 exceptionService.reportError("unable-to-update-calendar: " +  //$NON-NLS-1$
                         task.getValue(Task.CALENDAR_URI), e);
             }
         }
-
-        return null;
     }
 
     private void viewCalendarEvent() {

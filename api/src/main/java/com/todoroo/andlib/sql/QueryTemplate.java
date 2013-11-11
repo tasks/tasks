@@ -28,7 +28,6 @@ public final class QueryTemplate {
     private final ArrayList<Join> joins = new ArrayList<Join>();
     private final ArrayList<Field> groupBies = new ArrayList<Field>();
     private final ArrayList<Order> orders = new ArrayList<Order>();
-    private final ArrayList<Criterion> havings = new ArrayList<Criterion>();
     private Integer limit = null;
 
     public QueryTemplate join(Join... join) {
@@ -82,14 +81,6 @@ public final class QueryTemplate {
         sql.append(GROUP_BY);
         for (Field groupBy : groupBies) {
             sql.append(SPACE).append(groupBy).append(COMMA);
-        }
-        sql.deleteCharAt(sql.length() - 1).append(SPACE);
-        if (havings.isEmpty()) {
-            return;
-        }
-        sql.append("HAVING");
-        for (Criterion havingCriterion : havings) {
-            sql.append(SPACE).append(havingCriterion).append(COMMA);
         }
         sql.deleteCharAt(sql.length() - 1).append(SPACE);
     }

@@ -78,7 +78,6 @@ abstract public class SyncV2Provider {
     protected void finishSync(SyncResultCallback callback) {
         SyncProviderUtilities utilities = getUtilities();
         utilities.recordSuccessfulSync();
-        utilities.reportLastError();
         utilities.stopOngoing();
         if (callback != null) {
             callback.finished();

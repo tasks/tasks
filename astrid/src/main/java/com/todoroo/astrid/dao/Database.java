@@ -185,11 +185,7 @@ public class Database extends AbstractDatabase {
         } catch (SQLiteException e) {
             Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
-        case 10: try {
-            //
-        } catch (SQLiteException e) {
-            Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
-        }
+        case 10:
         case 11: try {
             database.execSQL(createTableSql(visitor, TagData.TABLE.name, TagData.PROPERTIES));
         } catch (SQLiteException e) {

@@ -13,9 +13,7 @@ import com.todoroo.andlib.data.Property.StringProperty;
 public final class Functions {
 
     public static String caseStatement(Criterion when, Object ifTrue, Object ifFalse) {
-        return new StringBuilder("(CASE WHEN ").
-            append(when.toString()).append(" THEN ").append(value(ifTrue)).
-            append(" ELSE ").append(value(ifFalse)).append(" END)").toString();
+        return "(CASE WHEN " + when.toString() + " THEN " + value(ifTrue) + " ELSE " + value(ifFalse) + " END)";
     }
 
     private static String value(Object value) {

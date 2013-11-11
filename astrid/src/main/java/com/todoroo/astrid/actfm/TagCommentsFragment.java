@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.actfm;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.view.ViewGroup;
@@ -93,7 +92,6 @@ public class TagCommentsFragment extends CommentsFragment {
     protected void setLastViewed() {
         if(tagData != null && RemoteModel.isValidUuid(tagData.getValue(TagData.UUID))) {
             Preferences.setLong(UPDATES_LAST_VIEWED + tagData.getValue(TagData.UUID), DateUtilities.now());
-            Activity activity = getActivity();
         }
     }
 }

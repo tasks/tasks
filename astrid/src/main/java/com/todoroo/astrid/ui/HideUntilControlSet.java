@@ -93,9 +93,7 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
 
         if(specificDate > 0) {
             HideUntilValue[] updated = new HideUntilValue[values.length + 1];
-            for(int i = 0; i < values.length; i++) {
-                updated[i + 1] = values[i];
-            }
+            System.arraycopy(values, 0, updated, 1, values.length);
             Date hideUntilAsDate = new Date(specificDate);
             if(hideUntilAsDate.getHours() == 0 && hideUntilAsDate.getMinutes() == 0 && hideUntilAsDate.getSeconds() == 0) {
                 updated[0] = new HideUntilValue(DateUtilities.getDateString(new Date(specificDate)),
@@ -264,21 +262,16 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
     }
 
     @Override
-    protected String writeToModelAfterInitialized(Task task) {
+    protected void writeToModelAfterInitialized(Task task) {
         if(adapter == null || spinner == null) {
-            return null;
+            return;
         }
         HideUntilValue item = adapter.getItem(spinner.getSelectedItemPosition());
         if(item == null) {
-            return null;
+            return;
         }
         long value = task.createHideUntil(item.setting, item.date);
         task.setValue(Task.HIDE_UNTIL, value);
-
-        if (value != 0) {
-            return activity.getString(R.string.TEA_hideUntil_message, DateAndTimePicker.getDisplayString(activity, value, false, false, false));
-        }
-        return null;
     }
 
 }

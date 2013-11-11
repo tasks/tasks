@@ -46,7 +46,7 @@ public class TaskEditActivity extends AstridActivity {
     protected void onResume() {
         super.onResume();
 
-        Fragment frag = (Fragment) getSupportFragmentManager()
+        Fragment frag = getSupportFragmentManager()
                 .findFragmentByTag(TaskListFragment.TAG_TASKLIST_FRAGMENT);
         if (frag != null) {
             fragmentLayout = LAYOUT_DOUBLE;

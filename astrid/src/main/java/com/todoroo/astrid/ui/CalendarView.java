@@ -97,7 +97,7 @@ public class CalendarView extends View {
         initCalendarView(context);
     }
 
-    private final void initCalendarView(Context context) {
+    private void initCalendarView(Context context) {
         Display display = ((WindowManager) context.getSystemService(
                 Context.WINDOW_SERVICE)).getDefaultDisplay();
 
@@ -308,8 +308,8 @@ public class CalendarView extends View {
         boxWidth = (getMeasuredWidth() - (PADDING*2)) / 7.0f;
         boxHeight = (int) (((getMeasuredHeight() - (monthTitleHeight) - 16) - (PADDING * 8)) / 7);
 
-        float textX = 0;
-        float textY = 0;
+        float textX;
+        float textY;
 
         int firstDayOfWeek = calendar.getFirstDayOfWeek();
         calendar.set(Calendar.DAY_OF_WEEK, firstDayOfWeek);

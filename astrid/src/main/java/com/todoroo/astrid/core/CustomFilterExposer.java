@@ -60,8 +60,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
     private FilterListItem[] prepareFilters(Context context) {
         Resources r = context.getResources();
 
-        Filter[] savedFilters = buildSavedFilters(context, r);
-        return savedFilters;
+        return buildSavedFilters(context, r);
     }
 
     private Filter[] buildSavedFilters(Context context, Resources r) {

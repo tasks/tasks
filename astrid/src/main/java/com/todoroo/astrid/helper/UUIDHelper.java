@@ -11,9 +11,9 @@ public class UUIDHelper {
      * generated uuid and the corresponding proof text
      */
     public static String newUUID() {
-        long uuid = 0;
+        long uuid;
         do {
-            uuid = UUID.randomUUID().getLeastSignificantBits() & 0x7fffffffffffffffL;;
+            uuid = UUID.randomUUID().getLeastSignificantBits() & 0x7fffffffffffffffL;
         } while (uuid < MIN_UUID);
         return Long.toString(uuid);
     }

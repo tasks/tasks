@@ -157,12 +157,11 @@ public class ReminderControlSet extends PopupControlSet {
     }
 
     @Override
-    protected String writeToModelAfterInitialized(Task task) {
+    protected void writeToModelAfterInitialized(Task task) {
         task.setValue(Task.REMINDER_FLAGS, getValue());
 
         randomControlSet.writeToModel(task);
         alarmControl.writeToModel(task);
-        return null;
     }
 
     @Override

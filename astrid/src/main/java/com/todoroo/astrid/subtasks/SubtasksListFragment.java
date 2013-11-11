@@ -36,9 +36,7 @@ public class SubtasksListFragment extends TaskListFragment {
     }
 
     protected OrderedListFragmentHelperInterface<?> createFragmentHelper() {
-        AstridOrderedListFragmentHelper<TaskListMetadata> olfh =
-            new AstridOrderedListFragmentHelper<TaskListMetadata>(this, new SubtasksFilterUpdater());
-        return olfh;
+        return new AstridOrderedListFragmentHelper<TaskListMetadata>(this, new SubtasksFilterUpdater());
     }
 
     @Override

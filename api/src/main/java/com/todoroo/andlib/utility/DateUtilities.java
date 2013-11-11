@@ -26,7 +26,7 @@ public class DateUtilities {
      * ====================================================================== */
 
     /** Convert date into unixtime */
-    public static final long dateToUnixtime(Date date) {
+    public static long dateToUnixtime(Date date) {
         if(date == null) {
             return 0;
         }
@@ -41,7 +41,7 @@ public class DateUtilities {
      * @param interval the amount of months to be added
      * @return the calculated time in milliseconds
      */
-    public static final long addCalendarMonthsToUnixtime(long time, int interval) {
+    public static long addCalendarMonthsToUnixtime(long time, int interval) {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(time);
         c.add(Calendar.MONTH, interval);
@@ -49,12 +49,12 @@ public class DateUtilities {
     }
 
     /** Returns unixtime for current time */
-    public static final long now() {
+    public static long now() {
         return System.currentTimeMillis();
     }
 
     /** Returns unixtime one month from now */
-    public static final long oneMonthFromNow() {
+    public static long oneMonthFromNow() {
         Date date = new Date();
         date.setMonth(date.getMonth() + 1);
         return date.getTime();

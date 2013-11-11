@@ -58,8 +58,7 @@ public class GtasksApiUtilities {
         date.setMinutes(0);
         date.setSeconds(0);
         date.setTime(date.getTime() - date.getTimezoneOffset() * 60000);
-        DateTime dateTime = new DateTime(date, TimeZone.getTimeZone("UTC"));
-        return dateTime;
+        return new DateTime(date, TimeZone.getTimeZone("UTC"));
     }
 
 //    public static DateTime unixTimeToGtasksDueDate(long time) {

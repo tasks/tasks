@@ -89,7 +89,6 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             broadcastIntent.putExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, newDueDate);
             context.sendOrderedBroadcast(broadcastIntent, null);
             Flags.set(Flags.REFRESH);
-            return;
         }
     }
 
@@ -182,8 +181,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
     private static WeekdayNum findNextWeekday(List<WeekdayNum> byDay,
             Calendar date) {
         WeekdayNum next = byDay.get(0);
-        for (int i = 0; i < byDay.size(); i++) {
-            WeekdayNum weekday = byDay.get(i);
+        for (WeekdayNum weekday : byDay) {
             if (weekday.wday.javaDayNum > date.get(Calendar.DAY_OF_WEEK)) {
                 return weekday;
             }
@@ -191,12 +189,11 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         return next;
     }
 
-    private static long invokeRecurrence(RRule rrule, Date original,
-            DateValue startDateAsDV) {
+    private static long invokeRecurrence(RRule rrule, Date original, DateValue startDateAsDV) {
         long newDueDate = -1;
         RecurrenceIterator iterator = RecurrenceIteratorFactory.createRecurrenceIterator(rrule,
                 startDateAsDV, TimeZone.getDefault());
-        DateValue nextDate = startDateAsDV;
+        DateValue nextDate;
 
         for(int i = 0; i < 10; i++) { // ten tries then we give up
             if(!iterator.hasNext()) {

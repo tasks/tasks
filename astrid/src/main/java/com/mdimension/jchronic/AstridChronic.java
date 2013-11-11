@@ -178,7 +178,6 @@ public class AstridChronic {
     else {
       guessValue = span.getBegin();
     }
-    Span guess = new Span(guessValue, guessValue);
-    return guess;
+      return new Span(guessValue, guessValue);
   }
 }

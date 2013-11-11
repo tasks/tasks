@@ -229,9 +229,6 @@
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_display">Hide until %s</string>
   
-  <!-- Task hide until toast -->
-  <string name="TEA_hideUntil_message">Task will be hidden until %s</string>
-  
   <!-- slide 16c: Task note label -->
   <string name="TEA_note_label">Description</string>
 

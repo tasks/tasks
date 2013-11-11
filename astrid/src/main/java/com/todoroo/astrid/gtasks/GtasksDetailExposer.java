@@ -77,7 +77,7 @@ public class GtasksDetailExposer extends BroadcastReceiver {
             return null;
         }
         String listName = gtasksListService.getListName(listId);
-        if(listName == GtasksListService.LIST_NOT_FOUND) {
+        if(listName.equals(GtasksListService.LIST_NOT_FOUND)) {
             return null;
         }
 

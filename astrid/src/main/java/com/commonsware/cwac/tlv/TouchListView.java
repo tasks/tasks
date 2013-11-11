@@ -124,7 +124,7 @@ public class TouchListView extends ErrorCatchingListView {
 											break;
 									}
 
-									View item = (View) getChildAt(itemnum - getFirstVisiblePosition());
+									View item = getChildAt(itemnum - getFirstVisiblePosition());
 
 									if (isDraggableRow(item)) {
 										mDragPoint = y - item.getTop();

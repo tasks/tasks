@@ -63,12 +63,11 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
     }
 
     @Override
-    protected String writeToModelAfterInitialized(Task task) {
+    protected void writeToModelAfterInitialized(Task task) {
         if (initialized) {
             estimated.writeToModel(task);
             elapsed.writeToModel(task);
         }
-        return null;
     }
 
     // --- TimeDurationTaskEditControlSet
@@ -102,9 +101,8 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
         }
 
         @Override
-        protected String writeToModelAfterInitialized(Task task) {
+        protected void writeToModelAfterInitialized(Task task) {
             task.setValue(property, controlSet.getTimeDurationInSeconds());
-            return null;
         }
 
         public String getDisplayString() {

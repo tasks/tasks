@@ -210,7 +210,7 @@ public final class GtasksSyncService {
         }
 
         Metadata gtasksMetadata = gtasksMetadataService.getTaskMetadata(task.getId());
-        com.google.api.services.tasks.model.Task remoteModel = null;
+        com.google.api.services.tasks.model.Task remoteModel;
         boolean newlyCreated = false;
 
         if (values.containsKey(Task.USER_ID.name) && !Task.USER_ID_SELF.equals(values.getAsString(Task.USER_ID.name))) {
@@ -225,7 +225,7 @@ public final class GtasksSyncService {
             return;
         }
 
-        String remoteId = null;
+        String remoteId;
         String listId = Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST);
         if (listId == null) {
             com.google.api.services.tasks.model.TaskList defaultList = invoker.getGtaskList(DEFAULT_LIST);

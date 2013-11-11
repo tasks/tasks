@@ -95,16 +95,13 @@ public class RandomReminderControlSet extends TaskEditControlSet {
     }
 
     @Override
-    protected String writeToModelAfterInitialized(Task task) {
+    protected void writeToModelAfterInitialized(Task task) {
         if(settingCheckbox.isChecked()) {
             int hourValue = hours[periodSpinner.getSelectedItemPosition()];
             task.setValue(Task.REMINDER_PERIOD, hourValue * DateUtilities.ONE_HOUR);
-            if (task.getSetValues().containsKey(Task.REMINDER_PERIOD.name)) {
-            }
         } else {
             task.setValue(Task.REMINDER_PERIOD, 0L);
         }
-        return null;
     }
 
     public boolean hasRandomReminder() {

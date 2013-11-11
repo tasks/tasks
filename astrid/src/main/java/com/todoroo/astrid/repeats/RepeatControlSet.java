@@ -319,14 +319,11 @@ public class RepeatControlSet extends PopupControlSet {
     }
 
     @Override
-    protected String writeToModelAfterInitialized(Task task) {
+    protected void writeToModelAfterInitialized(Task task) {
         String result;
         if(!doRepeat) {
             result = ""; //$NON-NLS-1$
         } else {
-            if(TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
-            }
-
             RRule rrule = new RRule();
             rrule.setInterval(repeatValue);
             switch(interval.getSelectedItemPosition()) {
@@ -337,9 +334,9 @@ public class RepeatControlSet extends PopupControlSet {
                 rrule.setFreq(Frequency.WEEKLY);
 
                 ArrayList<WeekdayNum> days = new ArrayList<WeekdayNum>();
-                for(int i = 0; i < daysOfWeek.length; i++) {
-                    if (daysOfWeek[i].isChecked()) {
-                        days.add(new WeekdayNum(0, (Weekday) daysOfWeek[i].getTag()));
+                for (CompoundButton dayOfWeek : daysOfWeek) {
+                    if (dayOfWeek.isChecked()) {
+                        days.add(new WeekdayNum(0, (Weekday) dayOfWeek.getTag()));
                     }
                 }
                 rrule.setByDay(days);
@@ -376,8 +373,6 @@ public class RepeatControlSet extends PopupControlSet {
         if(task.repeatAfterCompletion()) {
             type.setSelection(1);
         }
-
-        return null;
     }
 
     public boolean isRecurrenceSet() {

@@ -151,9 +151,7 @@
   <string name="sync_status_failed">Failed on: %s</string>
   <!-- Sync Status: error status (%s -> last sync date) -->    
   <string name="sync_status_errors">Sync w/ errors: %s</string>
-  <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-  <string name="sync_status_failed_subtitle">Last successful sync: %s</string>
-  <!-- Sync Status: never sync'd -->    
+  <!-- Sync Status: never sync'd -->
   <string name="sync_status_never">Never synchronized!</string>
 
   <!-- Options Group Label -->    

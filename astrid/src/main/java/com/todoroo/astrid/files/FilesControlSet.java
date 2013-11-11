@@ -144,9 +144,8 @@ public class FilesControlSet extends PopupControlSet {
     }
 
     @Override
-    protected String writeToModelAfterInitialized(Task task) {
+    protected void writeToModelAfterInitialized(Task task) {
         // Nothing to write
-        return null;
     }
 
     @Override
@@ -259,7 +258,7 @@ public class FilesControlSet extends PopupControlSet {
                 if (!TextUtils.isEmpty(guessedType)) {
                     useType = guessedType;
                 }
-                if (useType != guessedType) {
+                if (!useType.equals(guessedType)) {
                     m.setValue(TaskAttachment.CONTENT_TYPE, useType);
                     m.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                     taskAttachmentDao.saveExisting(m);
@@ -366,13 +365,13 @@ public class FilesControlSet extends PopupControlSet {
 
                     byte[] buffer = new byte[1024];
 
-                    int bufferLength = 0; //used to store a temporary size of the buffer
+                    int bufferLength; //used to store a temporary size of the buffer
 
                     while ((bufferLength = inputStream.read(buffer)) > 0) {
                         fileOutput.write(buffer, 0, bufferLength);
                         downloadedSize += bufferLength;
 
-                        int progress = (int) (downloadedSize*100/totalSize);
+                        int progress = downloadedSize*100/totalSize;
                         pd.setProgress(progress);
                     }
 

@@ -48,24 +48,16 @@ public class FileUtilities {
     }
 
     private static String getNewAttachmentPath(Context context, int prefixId, String extension, AtomicReference<String> nameReference) {
-        StringBuilder fileNameBuilder = new StringBuilder();
-        fileNameBuilder.append(context.getString(prefixId))
-                .append(" ") //$NON-NLS-1$
-                .append(getDateStringForFilename(context, new Date()));
 
         String dir = getAttachmentsDirectory(context).getAbsolutePath();
 
-        String name = getNonCollidingFileName(dir, fileNameBuilder.toString(), extension);
+        String name = getNonCollidingFileName(dir, context.getString(prefixId) + " " + getDateStringForFilename(context, new Date()), extension);
 
-        StringBuilder filePathBuilder = new StringBuilder();
-        filePathBuilder.append(dir)
-                .append(File.separator)
-                .append(name);
         if (nameReference != null) {
             nameReference.set(name);
         }
 
-        return filePathBuilder.toString();
+        return dir + File.separator + name;
     }
 
     public static File getAttachmentsDirectory(Context context) {

@@ -160,7 +160,7 @@ public class TaskDao extends RemoteModelDao<Task> {
      * @return true if save occurred, false otherwise (i.e. nothing changed)
      */
     public boolean save(Task task) {
-        boolean saveSuccessful = false;
+        boolean saveSuccessful;
         if (task.getId() == Task.NO_ID) {
             try {
                 saveSuccessful = createNew(task);

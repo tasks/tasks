@@ -291,7 +291,7 @@ public class CustomFilterActivity extends ActionBarActivity {
     }
 
     private void setUpListeners() {
-        ((Button)findViewById(R.id.add)).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.add).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listView.showContextMenu();

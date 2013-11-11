@@ -413,12 +413,9 @@ public final class TagService {
         }
         int result = tagDataDao.update(TagData.UUID.eq(uuid), template);
 
-        boolean tagRenamed = result > 0;
-
         Metadata metadataTemplate = new Metadata();
         metadataTemplate.setValue(TaskToTagMetadata.TAG_NAME, newName);
         result = metadataDao.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(uuid)), metadataTemplate);
-        tagRenamed = tagRenamed || result > 0;
 
         return result;
     }
@@ -428,6 +425,6 @@ public final class TagService {
             int random = (int)(Math.random()*4);
             return default_tag_images[random];
         }
-        return default_tag_images[((int)Math.abs(nameOrUUID.hashCode()))%4];
+        return default_tag_images[(Math.abs(nameOrUUID.hashCode()))%4];
     }
 }

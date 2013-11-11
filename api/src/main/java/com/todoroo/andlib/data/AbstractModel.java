@@ -144,13 +144,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(getClass().getSimpleName()).append("\n")
-        .append("set values:\n")
-        .append(setValues).append("\n")
-        .append("values:\n")
-        .append(values).append("\n");
-        return builder.toString();
+        return getClass().getSimpleName() + "\n" + "set values:\n" + setValues + "\n" + "values:\n" + values + "\n";
     }
 
     @Override
@@ -546,7 +540,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
         @Override
         public TYPE[] newArray(int size) {
             return (TYPE[]) Array.newInstance(cls, size);
-        };
-    };
+        }
+   }
 
 }

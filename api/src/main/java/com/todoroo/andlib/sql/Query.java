@@ -20,7 +20,6 @@ import static com.todoroo.andlib.sql.SqlConstants.LIMIT;
 import static com.todoroo.andlib.sql.SqlConstants.ORDER_BY;
 import static com.todoroo.andlib.sql.SqlConstants.SELECT;
 import static com.todoroo.andlib.sql.SqlConstants.SPACE;
-import static com.todoroo.andlib.sql.SqlConstants.UNION;
 import static com.todoroo.andlib.sql.SqlConstants.WHERE;
 import static java.util.Arrays.asList;
 
@@ -32,9 +31,7 @@ public final class Query {
     private final ArrayList<Field> fields = new ArrayList<Field>();
     private final ArrayList<Join> joins = new ArrayList<Join>();
     private final ArrayList<Field> groupBies = new ArrayList<Field>();
-    private final ArrayList<Query> unions = new ArrayList<Query>();
     private final ArrayList<Order> orders = new ArrayList<Order>();
-    private final ArrayList<Criterion> havings = new ArrayList<Criterion>();
     private int limits = -1;
     private boolean distinct = false;
 
@@ -102,12 +99,10 @@ public final class Query {
         if(queryTemplate == null) {
             visitWhereClause(sql);
             visitGroupByClause(sql);
-            visitUnionClause(sql);
             visitOrderByClause(sql);
             visitLimitClause(sql);
         } else {
-            if(groupBies.size() > 0 || orders.size() > 0 ||
-                    havings.size() > 0) {
+            if(groupBies.size() > 0 || orders.size() > 0) {
                 throw new IllegalStateException("Can't have extras AND query template"); //$NON-NLS-1$
             }
             sql.append(queryTemplate);
@@ -136,23 +131,6 @@ public final class Query {
             sql.append(SPACE).append(groupBy).append(COMMA);
         }
         sql.deleteCharAt(sql.length() - 1).append(SPACE);
-        if (havings.isEmpty()) {
-            return;
-        }
-        sql.append("HAVING");
-        for (Criterion havingCriterion : havings) {
-            sql.append(SPACE).append(havingCriterion).append(COMMA);
-        }
-        sql.deleteCharAt(sql.length() - 1).append(SPACE);
-    }
-
-    private void visitUnionClause(StringBuilder sql) {
-        if (unions.isEmpty()) {
-            return;
-        }
-        for (Query query : unions) {
-            sql.append(UNION).append(SPACE).append(query).append(SPACE);
-        }
     }
 
     private void visitWhereClause(StringBuilder sql) {

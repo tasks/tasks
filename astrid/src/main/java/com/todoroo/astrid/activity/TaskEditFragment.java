@@ -260,9 +260,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        View v = inflater.inflate(R.layout.task_edit_activity, container, false);
-
-        return v;
+        return inflater.inflate(R.layout.task_edit_activity, container, false);
     }
 
     @Override
@@ -298,7 +296,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     }
 
     private void loadMoreContainer() {
-        View commentsBar = (View) getView().findViewById(R.id.updatesFooter);
+        View commentsBar = getView().findViewById(R.id.updatesFooter);
 
         long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID, -1L);
 
@@ -354,8 +352,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     /** Initialize UI components */
     private void setUpUIComponents() {
 
-        LinearLayout basicControls = (LinearLayout) getView().findViewById(
-                R.id.basic_controls);
         LinearLayout titleControls = (LinearLayout) getView().findViewById(
                 R.id.title_controls);
         LinearLayout whenDialogView = (LinearLayout) LayoutInflater.from(
@@ -472,7 +468,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         String[] itemOrder = controlOrder.toArray(new String[controlOrder.size()]);
 
         String hideAlwaysTrigger = getString(R.string.TEA_ctrl_hide_section_pref);
-        LinearLayout section = basicControls;
 
         Class<?> openControl = (Class<?>) getActivity().getIntent().getSerializableExtra(TOKEN_OPEN_CONTROL);
 
@@ -485,18 +480,18 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 TaskEditControlSet curr = controlSetMap.get(item);
 
                 if (curr != null) {
-                    controlSet = (LinearLayout) curr.getDisplayView();
+                    controlSet = curr.getDisplayView();
                 }
 
                 if (controlSet != null) {
                     if ((i + 1 >= itemOrder.length)) {
                         removeTeaSeparator(controlSet);
                     }
-                    section.addView(controlSet);
+                    basicControls.addView(controlSet);
                 }
 
                 if (curr != null && curr.getClass().equals(openControl) && curr instanceof PopupControlSet) {
-                    ((PopupControlSet) curr).getDisplayView().performClick();
+                    curr.getDisplayView().performClick();
                 }
             }
         }
@@ -687,7 +682,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             return;
         }
 
-        StringBuilder toast = new StringBuilder();
         synchronized (controls) {
             for (TaskEditControlSet controlSet : controls) {
                 if (controlSet instanceof PopupControlSet) { // Save open control set
@@ -697,10 +691,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                         getActivity().getIntent().putExtra(TOKEN_OPEN_CONTROL, popup.getClass());
                     }
                 }
-                String toastText = controlSet.writeToModel(model);
-                if (toastText != null) {
-                    toast.append('\n').append(toastText);
-                }
+                controlSet.writeToModel(model);
             }
         }
 
@@ -712,8 +703,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             boolean taskEditActivity = (getActivity() instanceof TaskEditActivity);
             boolean showRepeatAlert = model.getTransitory(TaskService.TRANS_REPEAT_CHANGED) != null
                     && !TextUtils.isEmpty(model.getValue(Task.RECURRENCE));
-            if (Task.userIdIsEmail(model.getValue(Task.USER_ID))) {
-            }
 
             if (taskEditActivity) {
                 Intent data = new Intent();
@@ -949,9 +938,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             deleteButtonClick();
             return true;
         case MENU_COMMENTS_REFRESH_ID: {
-            if (editNotes != null) {
-                editNotes.refreshData();
-            }
             return true;
         }
         case MENU_SHOW_COMMENTS_ID: {
@@ -1070,7 +1056,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         // stick our task into the outState
         outState.putParcelable(TASK_IN_PROGRESS, model);
-        outState.putString(TASK_UUID, uuid.toString());
+        outState.putString(TASK_UUID, uuid);
     }
 
     /*
@@ -1094,7 +1080,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         int desiredWidth = MeasureSpec.makeMeasureSpec(view.getWidth(),
                 MeasureSpec.AT_MOST);
         view.measure(desiredWidth, MeasureSpec.UNSPECIFIED);
-        height = Math.max(view.getMeasuredHeight(), height);;
+        height = Math.max(view.getMeasuredHeight(), height);
         LayoutParams pagerParams = mPager.getLayoutParams();
         if (height > 0 && height != pagerParams.height) {
             pagerParams.height = height;

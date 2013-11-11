@@ -133,7 +133,7 @@ public class BackupService extends Service {
         Arrays.sort(files, new Comparator<File>() {
             @Override
             public int compare(File file1, File file2) {
-                return -Long.valueOf(file1.lastModified()).compareTo(Long.valueOf(file2.lastModified()));
+                return -Long.valueOf(file1.lastModified()).compareTo(file2.lastModified());
             }
         });
         for(int i = DAYS_TO_KEEP_BACKUP; i < files.length; i++) {

@@ -170,7 +170,7 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
 
         @Override
         public IntegerProperty cloneAs(String tableAlias, String columnAlias) {
-            return (IntegerProperty) this.cloneAs(tableAlias, columnAlias);
+            return this.cloneAs(tableAlias, columnAlias);
         }
     }
 

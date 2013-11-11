@@ -102,7 +102,7 @@ public class ShortcutActivity extends Activity {
             // launched from desktop shortcut, must create a fake filter
             String title = extras.getString(TOKEN_FILTER_TITLE);
             String sql = extras.getString(TOKEN_FILTER_SQL);
-            ContentValues values = null;
+            ContentValues values;
             if(extras.containsKey(TOKEN_FILTER_VALUES)) {
                 values = AndroidUtilities.contentValuesFromString(extras.getString(TOKEN_FILTER_VALUES));
             } else {
@@ -149,8 +149,7 @@ public class ShortcutActivity extends Activity {
                 }
 
                 ((FilterWithCustomIntent) filter).customExtras = customExtras; // Something
-                ComponentName customTaskList = ComponentName.unflattenFromString(extras.getString(TOKEN_CUSTOM_CLASS));
-                ((FilterWithCustomIntent) filter).customTaskList = customTaskList;
+                ((FilterWithCustomIntent) filter).customTaskList = ComponentName.unflattenFromString(extras.getString(TOKEN_CUSTOM_CLASS));
             } else {
                 filter = new Filter(title, title, sql, values);
             }

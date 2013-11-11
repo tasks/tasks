@@ -57,9 +57,8 @@ public class TimerActionControlSet extends TaskEditControlSet {
     }
 
     @Override
-    protected String writeToModelAfterInitialized(Task task) {
+    protected void writeToModelAfterInitialized(Task task) {
         // Nothing to do here
-        return null;
     }
 
     private final OnClickListener timerListener = new OnClickListener() {

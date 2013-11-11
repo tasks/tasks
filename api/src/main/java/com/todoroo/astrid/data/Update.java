@@ -135,7 +135,7 @@ public class Update extends RemoteModel {
     @Override
     public long getId() {
         return getIdHelper(ID);
-    };
+    }
 
     // --- parcelable helpers
 

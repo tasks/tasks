@@ -77,9 +77,7 @@ public abstract class CommentsFragment extends ListFragment {
             Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        View v = inflater.inflate(getLayout(), container, false);
-
-        return v;
+        return inflater.inflate(getLayout(), container, false);
     }
 
     protected abstract int getLayout();
@@ -199,7 +197,7 @@ public abstract class CommentsFragment extends ListFragment {
             return;
         }
 
-        Cursor cursor = null;
+        Cursor cursor;
         ListView listView = ((ListView) view.findViewById(android.R.id.list));
         if(updateAdapter == null) {
             cursor = getCursor();
@@ -301,9 +299,7 @@ public abstract class CommentsFragment extends ListFragment {
             }
         };
 
-        if (ActFmCameraModule.activityResult(getActivity(), requestCode, resultCode, data, callback)) {
-            //Handled
-        } else {
+        if (!ActFmCameraModule.activityResult(getActivity(), requestCode, resultCode, data, callback)) {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }

@@ -147,11 +147,11 @@ public abstract class PopupControlSet extends TaskEditControlSet {
     }
 
     @Override
-    public String writeToModel(Task task) {
+    public void writeToModel(Task task) {
         if (initialized && dialog != null) {
             dialog.dismiss();
         }
-        return super.writeToModel(task);
+        super.writeToModel(task);
     }
 
     @Override

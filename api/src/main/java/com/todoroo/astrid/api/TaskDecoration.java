@@ -94,7 +94,7 @@ public final class TaskDecoration implements Parcelable {
         @Override
         public TaskDecoration[] newArray(int size) {
             return new TaskDecoration[size];
-        };
+        }
     };
 
 }

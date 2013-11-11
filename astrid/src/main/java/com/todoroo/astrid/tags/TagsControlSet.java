@@ -86,8 +86,8 @@ public final class TagsControlSet extends PopupControlSet {
 
     private ArrayList<String> getTagNames(Tag[] tags) {
         ArrayList<String> names = new ArrayList<String>();
-        for (int i = 0; i < tags.length; i++) {
-            names.add(tags[i].toString());
+        for (Tag tag : tags) {
+            names.add(tag.toString());
         }
         return names;
     }
@@ -232,8 +232,7 @@ public final class TagsControlSet extends PopupControlSet {
             return null;
         }
         View lastItem = newTags.getChildAt(newTags.getChildCount()-1);
-        TextView lastText = (TextView) lastItem.findViewById(R.id.text1);
-        return lastText;
+        return (TextView) lastItem.findViewById(R.id.text1);
     }
 
     @Override
@@ -300,10 +299,10 @@ public final class TagsControlSet extends PopupControlSet {
     }
 
     @Override
-    protected String writeToModelAfterInitialized(Task task) {
+    protected void writeToModelAfterInitialized(Task task) {
         // this is a case where we're asked to save but the UI was not yet populated
         if(!populated) {
-            return null;
+            return;
         }
 
         LinkedHashSet<String> tags = getTagSet();
@@ -311,8 +310,6 @@ public final class TagsControlSet extends PopupControlSet {
         TagService.getInstance().synchronizeTags(task.getId(), task.getValue(Task.UUID), tags);
         Flags.set(Flags.TAGS_CHANGED);
         task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
-
-        return null;
     }
 
     @Override

@@ -53,8 +53,7 @@ public class FilterShortcutActivity extends ListActivity {
                 DialogUtilities.okDialog(FilterShortcutActivity.this, getString(R.string.FLA_no_filter_selected), null);
                 return;
             }
-            Intent shortcutIntent = ShortcutActivity.createIntent(
-                    (Filter) filter);
+            Intent shortcutIntent = ShortcutActivity.createIntent(filter);
 
             Bitmap bitmap = FilterListFragment.superImposeListIcon(FilterShortcutActivity.this);
             Intent intent = new Intent();

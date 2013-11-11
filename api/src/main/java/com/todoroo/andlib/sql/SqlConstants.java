@@ -21,7 +21,6 @@ public final class SqlConstants {
     public static final String OR = "OR";
     public static final String ORDER_BY = "ORDER BY";
     public static final String GROUP_BY = "GROUP BY";
-    public static final String UNION = "UNION";
     public static final String WHERE = "WHERE";
     public static final String NOT = "NOT";
     public static final String LIMIT = "LIMIT";

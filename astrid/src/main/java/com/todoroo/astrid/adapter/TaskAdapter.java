@@ -313,10 +313,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             return getFilterQueryProvider().runQuery(constraint);
         }
 
-        // perform query
-        TodorooCursor<Task> newCursor = taskService.fetchFiltered(
-                query.get(), constraint, fragment.taskProperties());
-        return newCursor;
+        return taskService.fetchFiltered(query.get(), constraint, fragment.taskProperties());
     }
 
     /* ======================================================================
@@ -484,7 +481,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             } else if (Preferences.getBoolean(R.string.p_showNotes, false)) {
                 viewHolder.details1.setVisibility(View.VISIBLE);
                 if (details.startsWith(DETAIL_SEPARATOR)) {
-                    StringBuffer buffer = new StringBuffer(details);
+                    StringBuilder buffer = new StringBuilder(details);
                     int length = DETAIL_SEPARATOR.length();
                     while(buffer.lastIndexOf(DETAIL_SEPARATOR, length) == 0) {
                         buffer.delete(0, length);
@@ -1064,7 +1061,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             if (value >= IMPORTANCE_RESOURCES.length) {
                 value = IMPORTANCE_RESOURCES.length - 1;
             }
-            Drawable[] boxes = IMPORTANCE_DRAWABLES;
+            Drawable[] boxes;
             if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
                 boxes = completed ? IMPORTANCE_REPEAT_DRAWABLES_CHECKED : IMPORTANCE_REPEAT_DRAWABLES;
             } else {

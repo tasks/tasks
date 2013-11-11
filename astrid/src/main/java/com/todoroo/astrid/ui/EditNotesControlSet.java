@@ -83,9 +83,8 @@ public class EditNotesControlSet extends PopupControlSet {
     }
 
     @Override
-    protected String writeToModelAfterInitialized(Task task) {
+    protected void writeToModelAfterInitialized(Task task) {
         task.setValue(Task.NOTES, editText.getText().toString());
-        return null;
     }
 
     @Override

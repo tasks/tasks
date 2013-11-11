@@ -39,7 +39,9 @@ public class UnaryCriterion extends Criterion {
     protected void afterPopulateOperator(StringBuilder sb) {
         if(value == null) {
             return;
-        } else if(value instanceof String) {
+        }
+
+        if(value instanceof String) {
             sb.append("'").append(sanitize((String) value)).append("'");
         } else {
             sb.append(value);

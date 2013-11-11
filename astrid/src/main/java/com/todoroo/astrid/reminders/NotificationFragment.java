@@ -49,10 +49,6 @@ public class NotificationFragment extends TaskListFragment {
     private long taskId;
 
     @Override
-    protected void onTaskCompleted() {
-    }
-
-    @Override
     protected void initializeData() {
         displayNotificationPopup();
         super.initializeData();

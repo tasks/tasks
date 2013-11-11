@@ -16,7 +16,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.todoroo.andlib.data.TodorooCursor;
@@ -94,7 +93,7 @@ public class TagViewFragment extends TaskListFragment {
             }
         };
 
-        ((EditText) getView().findViewById(R.id.quickAddText)).setOnTouchListener(onTouch);
+        getView().findViewById(R.id.quickAddText).setOnTouchListener(onTouch);
     }
 
     /* (non-Javadoc)
@@ -125,7 +124,6 @@ public class TagViewFragment extends TaskListFragment {
             dataLoaded = true;
         }
 
-        TaskListActivity activity = (TaskListActivity) getActivity();
         String tag = extras.getString(EXTRA_TAG_NAME);
         String uuid = RemoteModel.NO_UUID;
         if (extras.containsKey(EXTRA_TAG_UUID)) {
@@ -214,7 +212,7 @@ public class TagViewFragment extends TaskListFragment {
             if(!intent.hasExtra("tag_id")) {
                 return;
             }
-            if(tagData == null || !tagData.getValue(TagData.UUID).toString().equals(intent.getStringExtra("tag_id"))) {
+            if(tagData == null || !tagData.getValue(TagData.UUID).equals(intent.getStringExtra("tag_id"))) {
                 return;
             }
 

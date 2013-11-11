@@ -95,8 +95,7 @@ public class TagDataService {
             criteria = Criterion.and(criteria, extraCriterion);
         }
 
-        Query result = Query.select(AndroidUtilities.addToArray(Property.class, activityProperties)).where(criteria);
-        return result;
+        return Query.select(AndroidUtilities.addToArray(Property.class, activityProperties)).where(criteria);
     }
 
     public Cursor getActivityForTagData(TagData tagData, Criterion extraCriterion) {

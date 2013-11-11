@@ -114,8 +114,7 @@ public class FilterListFragment extends ListFragment {
             Bundle savedInstanceState) {
         Activity activity = getActivity();
         int layout = getLayout();
-        ViewGroup parent = (ViewGroup) activity.getLayoutInflater().inflate(layout, container, false);
-        return parent;
+        return (ViewGroup) activity.getLayoutInflater().inflate(layout, container, false);
     }
 
     protected int getLayout() {
@@ -243,9 +242,8 @@ public class FilterListFragment extends ListFragment {
         android.view.MenuItem menuItem;
 
         if(item instanceof Filter) {
-            Filter filter = (Filter) item;
             menuItem = menu.add(0, CONTEXT_MENU_SHORTCUT, 0, R.string.FLA_context_shortcut);
-            menuItem.setIntent(ShortcutActivity.createIntent(filter));
+            menuItem.setIntent(ShortcutActivity.createIntent(item));
         }
 
         for(int i = 0; i < item.contextMenuLabels.length; i++) {

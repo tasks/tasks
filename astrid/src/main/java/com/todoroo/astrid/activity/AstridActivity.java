@@ -76,31 +76,23 @@ public class AstridActivity extends ActionBarActivity
     private TaskDao taskDao;
 
     public FilterListFragment getFilterListFragment() {
-        FilterListFragment frag = (FilterListFragment) getSupportFragmentManager()
+        return (FilterListFragment) getSupportFragmentManager()
                 .findFragmentByTag(FilterListFragment.TAG_FILTERLIST_FRAGMENT);
-
-        return frag;
     }
 
     public TaskListFragment getTaskListFragment() {
-        TaskListFragment frag = (TaskListFragment) getSupportFragmentManager()
+        return (TaskListFragment) getSupportFragmentManager()
                 .findFragmentByTag(TaskListFragment.TAG_TASKLIST_FRAGMENT);
-
-        return frag;
     }
 
     public TaskEditFragment getTaskEditFragment() {
-        TaskEditFragment frag = (TaskEditFragment) getSupportFragmentManager()
+        return (TaskEditFragment) getSupportFragmentManager()
                 .findFragmentByTag(TaskEditFragment.TAG_TASKEDIT_FRAGMENT);
-
-        return frag;
     }
 
     public CommentsFragment getTagUpdatesFragment() {
-        CommentsFragment frag = (CommentsFragment) getSupportFragmentManager()
+        return (CommentsFragment) getSupportFragmentManager()
                 .findFragmentByTag(CommentsFragment.TAG_UPDATES_FRAGMENT);
-
-        return frag;
     }
 
 

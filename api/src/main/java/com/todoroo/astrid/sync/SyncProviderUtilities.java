@@ -121,14 +121,6 @@ abstract public class SyncProviderUtilities {
         editor.commit();
     }
 
-    /** Report last error if one exists */
-    public void reportLastError() {
-        String lastError = getLastError();
-        if (!TextUtils.isEmpty(lastError)) {
-            String type = getLastErrorType();
-        }
-    }
-
     /** Set Last Attempted Sync Date */
     public void recordSyncStart() {
         Editor editor = getPrefs().edit();

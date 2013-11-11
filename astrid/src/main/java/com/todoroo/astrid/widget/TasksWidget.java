@@ -152,9 +152,8 @@ public class TasksWidget extends AppWidgetProvider {
                     // "System server dead" was sometimes thrown here by the OS. Abort if that happens
                 }
             } else {
-                int id = extrasId;
-                RemoteViews updateViews = buildUpdate(this, id);
-                manager.updateAppWidget(id, updateViews);
+                RemoteViews updateViews = buildUpdate(this, extrasId);
+                manager.updateAppWidget(extrasId, updateViews);
             }
 
             stopSelf();
@@ -194,7 +193,7 @@ public class TasksWidget extends AppWidgetProvider {
                 database.openForReading();
                 cursor = taskService.fetchFiltered(query, null, Task.ID, Task.TITLE, Task.DUE_DATE, Task.COMPLETION_DATE);
                 Task task = new Task();
-                int i = 0;
+                int i;
                 for (i = 0; i < cursor.getCount() && i < numberOfTasks; i++) {
                     cursor.moveToPosition(i);
                     task.readFromCursor(cursor);
@@ -320,7 +319,6 @@ public class TasksWidget extends AppWidgetProvider {
          * Android 2.1.
          */
         private RemoteViews getThemedRemoteViews(Context context) {
-            int theme = ThemeService.getWidgetTheme();
             String packageName = context.getPackageName();
             Resources r = context.getResources();
             int layout;
@@ -370,13 +368,12 @@ public class TasksWidget extends AppWidgetProvider {
                 ((FilterWithCustomIntent) filter).customTaskList = component;
                 String serializedExtras = Preferences.getStringValue(WidgetConfigActivity.PREF_CUSTOM_EXTRAS
                         + widgetId);
-                Bundle extras = AndroidUtilities.bundleFromSerializedString(serializedExtras);
-                ((FilterWithCustomIntent) filter).customExtras = extras;
+                ((FilterWithCustomIntent) filter).customExtras = AndroidUtilities.bundleFromSerializedString(serializedExtras);
             }
 
             // Validate tagData
             long id = Preferences.getLong(WidgetConfigActivity.PREF_TAG_ID + widgetId, 0);
-            TagData tagData = null;
+            TagData tagData;
             if (id > 0) {
                 tagData = tagDataService.fetchById(id, TagData.ID, TagData.NAME, TagData.TASK_COUNT, TagData.UUID, TagData.PICTURE, TagData.USER_ID, TagData.MEMBER_COUNT);
                 if (tagData != null && !tagData.getValue(TagData.NAME).equals(filter.title)) { // Tag has been renamed; rebuild filter

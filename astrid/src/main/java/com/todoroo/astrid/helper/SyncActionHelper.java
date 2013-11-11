@@ -179,13 +179,11 @@ public class SyncActionHelper {
             PackageManager pm = activity.getPackageManager();
             List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(
                     queryIntent, PackageManager.GET_META_DATA);
-            int length = resolveInfoList.size();
             ArrayList<Intent> syncIntents = new ArrayList<Intent>();
 
             // Loop through a list of all packages (including plugins, addons)
             // that have a settings action: filter to sync actions
-            for (int i = 0; i < length; i++) {
-                ResolveInfo resolveInfo = resolveInfoList.get(i);
+            for (ResolveInfo resolveInfo : resolveInfoList) {
                 Intent intent = new Intent(AstridApiConstants.ACTION_SETTINGS);
                 intent.setClassName(resolveInfo.activityInfo.packageName,
                         resolveInfo.activityInfo.name);

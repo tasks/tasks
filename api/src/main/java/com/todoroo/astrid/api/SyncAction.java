@@ -106,7 +106,7 @@ public class SyncAction implements Parcelable {
         @Override
         public SyncAction[] newArray(int size) {
             return new SyncAction[size];
-        };
+        }
     };
 
 }

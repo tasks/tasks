@@ -152,8 +152,7 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
 
         try {
             if (c.moveToFirst()) {
-                long id = c.getLong(c.getColumnIndex(ContactsContract.PhoneLookup._ID));
-                return id;
+                return c.getLong(c.getColumnIndex(ContactsContract.PhoneLookup._ID));
             }
         } finally {
             c.close();

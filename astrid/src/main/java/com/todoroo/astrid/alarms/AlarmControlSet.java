@@ -72,15 +72,15 @@ public final class AlarmControlSet extends TaskEditControlSet {
     }
 
     @Override
-    public String writeToModel(Task task) {
+    public void writeToModel(Task task) {
         if (initialized && pickerDialog != null) {
             pickerDialog.dismiss();
         }
-        return super.writeToModel(task);
+        super.writeToModel(task);
     }
 
     @Override
-    protected String writeToModelAfterInitialized(Task task) {
+    protected void writeToModelAfterInitialized(Task task) {
         LinkedHashSet<Long> alarms = new LinkedHashSet<Long>();
         for(int i = 0; i < alertsContainer.getChildCount(); i++) {
             Long dateValue = (Long) alertsContainer.getChildAt(i).getTag();
@@ -93,8 +93,6 @@ public final class AlarmControlSet extends TaskEditControlSet {
         if(AlarmService.getInstance().synchronizeAlarms(task.getId(), alarms)) {
             task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
         }
-
-        return null;
     }
 
     private void addAlarm(Date alert) {

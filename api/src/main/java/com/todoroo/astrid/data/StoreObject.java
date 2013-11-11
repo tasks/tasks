@@ -91,7 +91,7 @@ public class StoreObject extends AbstractModel {
     @Override
     public long getId() {
         return getIdHelper(ID);
-    };
+    }
 
     // --- parcelable helpers
 

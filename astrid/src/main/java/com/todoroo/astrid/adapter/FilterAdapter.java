@@ -275,7 +275,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
         convertView = newView(convertView, parent);
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
-        viewHolder.item = (FilterListItem) getItem(position);
+        viewHolder.item = getItem(position);
         populateView(viewHolder);
 
         Filter selected = null;
@@ -350,7 +350,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
             try {
                 for (ResolveInfo filterExposerInfo : filterExposerList) {
                     String className = filterExposerInfo.activityInfo.name;
-                    AstridFilterExposer filterExposer = null;
+                    AstridFilterExposer filterExposer;
                     filterExposer = (AstridFilterExposer) Class.forName(className, true, FilterAdapter.class.getClassLoader()).newInstance();
 
                     if (filterExposer != null) {

@@ -119,12 +119,6 @@ public class TagSettingsActivity extends ActionBarActivity {
             }
         } else {
             ThemeService.applyTheme(this);
-            ActionBar actionBar = getSupportActionBar();
-            if(ThemeService.getTheme() == R.style.Tasks) {
-                actionBar.setLogo(R.drawable.ic_action_save_light);
-            } else {
-                actionBar.setLogo(R.drawable.ic_action_save);
-            }
         }
     }
 
@@ -181,8 +175,6 @@ public class TagSettingsActivity extends ActionBarActivity {
                 if (!newName.equals(oldName)) {
                     tagData.setValue(TagData.NAME, newName);
                     service.rename(tagData.getUuid(), newName);
-                } else {
-                    nameChanged = false;
                 }
             }
         }
@@ -196,17 +188,6 @@ public class TagSettingsActivity extends ActionBarActivity {
 
         JSONArray members = new JSONArray();
 
-        if(members.length() > 0) {
-            if(newName.length() > 0 && oldName.length() == 0) {
-                tagDataService.save(tagData);
-            }
-
-            return;
-        }
-
-        int oldMemberCount = tagData.getValue(TagData.MEMBER_COUNT);
-        if (members.length() > oldMemberCount) {
-        }
         tagData.setValue(TagData.MEMBER_COUNT, members.length());
 
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -267,8 +248,6 @@ public class TagSettingsActivity extends ActionBarActivity {
                 setTitle(getString(R.string.tag_settings_title));
             }
         }
-
-        String peopleJson = tagData.getValue(TagData.MEMBERS);
     }
 
     @Override
@@ -280,12 +259,12 @@ public class TagSettingsActivity extends ActionBarActivity {
                 saveTagPictureLocally(bitmap);
             }
         };
-        if (ActFmCameraModule.activityResult(this, requestCode, resultCode, data, callback)) {
-            // Handled
-        } else if(requestCode == REQUEST_ACTFM_LOGIN && resultCode == Activity.RESULT_OK) {
-            saveSettings();
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
+        if (!ActFmCameraModule.activityResult(this, requestCode, resultCode, data, callback)) {
+            if(requestCode == REQUEST_ACTFM_LOGIN && resultCode == Activity.RESULT_OK) {
+                saveSettings();
+            } else {
+                super.onActivityResult(requestCode, resultCode, data);
+            }
         }
     }
 

@@ -104,7 +104,7 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
                 preference.getKey())) {
             int index = AndroidUtilities.indexOf(
                     r.getStringArray(R.array.sync_SPr_interval_values),
-                    (String) value);
+                    value);
             if (index <= 0) {
                 preference.setSummary(R.string.sync_SPr_interval_desc_disabled);
             } else {
@@ -138,12 +138,6 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
                         DateUtilities.getDateStringWithTime(SyncProviderPreferences.this,
                         new Date(getUtilities().getLastAttemptedSyncDate())));
                     statusColor = Color.rgb(100, 0, 0);
-
-                    if(getUtilities().getLastSyncDate() > 0) {
-//                        subtitle = r.getString(R.string.sync_status_failed_subtitle,
-//                                DateUtilities.getDateStringWithTime(SyncProviderPreferences.this,
-//                                        new Date(getUtilities().getLastSyncDate())));
-                    }
                 } else {
                     long lastSyncDate = getUtilities().getLastSyncDate();
                     String dateString = lastSyncDate > 0 ?
@@ -260,7 +254,7 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
         return exceptionsToDisplayMessages;
     }
 
-    private static final String adjustErrorForDisplay(Resources r, String lastError, String service) {
+    private static String adjustErrorForDisplay(Resources r, String lastError, String service) {
         Set<String> exceptions = getExceptionMap().keySet();
         Integer resource = null;
         for (String key : exceptions) {
@@ -272,7 +266,7 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
         if (resource == null) {
             return lastError;
         }
-        return r.getString(resource.intValue(), service);
+        return r.getString(resource, service);
     }
 
     @Override

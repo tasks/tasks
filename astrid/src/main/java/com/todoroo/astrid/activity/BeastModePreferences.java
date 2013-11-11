@@ -25,6 +25,7 @@ import com.todoroo.andlib.utility.Preferences;
 import org.tasks.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class BeastModePreferences extends ListActivity {
@@ -157,9 +158,7 @@ public class BeastModePreferences extends ListActivity {
         while (items.size() > 0) {
             items.remove(0);
         }
-        for (String s : prefsArray) {
-            items.add(s);
-        }
+        Collections.addAll(items, prefsArray);
         adapter.notifyDataSetChanged();
     }
 

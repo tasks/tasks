@@ -84,13 +84,12 @@ public class EditTitleControlSet extends TaskEditControlSet implements Importanc
     }
 
     @Override
-    protected String writeToModelAfterInitialized(Task task) {
+    protected void writeToModelAfterInitialized(Task task) {
         task.setValue(Task.TITLE, editText.getText().toString());
         boolean newState = completeBox.isChecked();
         if (newState != task.isCompleted()) {
             taskService.setComplete(task, newState);
         }
-        return null;
     }
 
     @Override

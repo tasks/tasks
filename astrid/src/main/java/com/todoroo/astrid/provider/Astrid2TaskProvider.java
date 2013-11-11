@@ -144,13 +144,13 @@ public class Astrid2TaskProvider extends ContentProvider {
 
 		MatrixCursor ret = new MatrixCursor(TAGS_FIELD_LIST);
 
-		for (int i = 0; i < tags.length; i++) {
-			Object[] values = new Object[2];
-			values[0] = tagNameToLong(tags[i].tag);
-			values[1] = tags[i].tag;
+        for (Tag tag : tags) {
+            Object[] values = new Object[2];
+            values[0] = tagNameToLong(tag.tag);
+            values[1] = tag.tag;
 
-			ret.addRow(values);
-		}
+            ret.addRow(values);
+        }
 
 		return ret;
 	}
@@ -267,10 +267,7 @@ public class Astrid2TaskProvider extends ContentProvider {
                 task.setValue(Task.IMPORTANCE, values.getAsInteger(IMPORTANCE));
             }
             if(values.containsKey(COMPLETED)) {
-                task.setValue(Task.COMPLETION_DATE,
-                        values.getAsBoolean(COMPLETED) ? DateUtilities.now() : 0);
-                if(task.isCompleted()) {
-                }
+                task.setValue(Task.COMPLETION_DATE, values.getAsBoolean(COMPLETED) ? DateUtilities.now() : 0);
             }
 
             // map selection criteria

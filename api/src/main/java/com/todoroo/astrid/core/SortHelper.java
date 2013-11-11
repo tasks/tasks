@@ -125,9 +125,7 @@ public class SortHelper {
     }
 
     private static String adjustedDueDateFunction() {
-        return new StringBuilder("(CASE WHEN (").append(Task.DUE_DATE.name).append(" / 1000) % 60 > 0")
-                .append(" THEN ").append(Task.DUE_DATE.name).append(" ELSE ").append("(").append(Task.DUE_DATE.name)
-                .append(" + ").append(DateUtilities.ONE_HOUR * 11 + DateUtilities.ONE_MINUTE * 59).append(") END)").toString();
+        return "(CASE WHEN (" + Task.DUE_DATE.name + " / 1000) % 60 > 0" + " THEN " + Task.DUE_DATE.name + " ELSE " + "(" + Task.DUE_DATE.name + " + " + (DateUtilities.ONE_HOUR * 11 + DateUtilities.ONE_MINUTE * 59) + ") END)";
     }
 
 }

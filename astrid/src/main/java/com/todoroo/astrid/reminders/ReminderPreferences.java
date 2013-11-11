@@ -32,7 +32,7 @@ public class ReminderPreferences extends TodorooPreferenceActivity {
         Resources r = getResources();
 
         if(r.getString(R.string.p_rmd_quietStart).equals(preference.getKey())) {
-            int index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_quiet_hours_start_values), (String)value);
+            int index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_quiet_hours_start_values), value);
             Preference endPreference = findPreference(getString(R.string.p_rmd_quietEnd));
             if(index <= 0) {
                 preference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_desc_none));
@@ -43,7 +43,7 @@ public class ReminderPreferences extends TodorooPreferenceActivity {
                 endPreference.setEnabled(true);
             }
         } else if(r.getString(R.string.p_rmd_quietEnd).equals(preference.getKey())) {
-            int index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_quiet_hours_end_values), (String)value);
+            int index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_quiet_hours_end_values), value);
             int quietHoursStart = Preferences.getIntegerFromString(R.string.p_rmd_quietStart, -1);
             if(index == -1 || quietHoursStart == -1) {
                 preference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_desc_none));
@@ -52,7 +52,7 @@ public class ReminderPreferences extends TodorooPreferenceActivity {
                 preference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_end_desc, setting));
             }
         } else if(r.getString(R.string.p_rmd_time).equals(preference.getKey())) {
-            int index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_rmd_time_values), (String)value);
+            int index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_rmd_time_values), value);
             if (index != -1 && index < r.getStringArray(R.array.EPr_rmd_time).length) {
                 // FIXME this does not fix the underlying cause of the ArrayIndexOutofBoundsException
                 String setting = r.getStringArray(R.array.EPr_rmd_time)[index];

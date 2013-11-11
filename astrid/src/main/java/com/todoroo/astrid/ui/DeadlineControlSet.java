@@ -117,14 +117,13 @@ public class DeadlineControlSet extends PopupControlSet {
     }
 
     @Override
-    protected String writeToModelAfterInitialized(Task task) {
+    protected void writeToModelAfterInitialized(Task task) {
         long dueDate = dateAndTimePicker.constructDueDate();
         if (dueDate != task.getValue(Task.DUE_DATE)) // Clear snooze if due date has changed
         {
             task.setValue(Task.REMINDER_SNOOZE, 0L);
         }
         task.setValue(Task.DUE_DATE, dueDate);
-        return null;
     }
 
     private void initializeWithDate(long dueDate) {

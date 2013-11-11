@@ -404,7 +404,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
     private static void recursivelyBuildChildren(Node node, JSONArray children, JSONTreeModelBuilder callback) throws JSONException {
         for (int i = 1; i < children.length(); i++) {
             JSONArray subarray = children.optJSONArray(i);
-            String uuid = RemoteModel.NO_UUID;
+            String uuid;
             if (subarray == null) {
                 uuid = children.getString(i);
             } else {

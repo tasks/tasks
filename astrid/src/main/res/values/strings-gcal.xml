@@ -16,11 +16,6 @@
   <!-- Label when calendar event already exists -->
   <string name="gcal_TEA_showCalendar_label">Open Calendar Event</string>
   
-  <!-- Toast when unable to open calendar event -->
-  
-  <!-- Toast when calendar event updated because task changed -->
-  <string name="gcal_TEA_calendar_updated">Calendar event also updated!</string>
-  
   <!-- No calendar label (don't add option) -->
   <string name="gcal_TEA_nocal">Don\'t add</string>
   

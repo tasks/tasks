@@ -186,13 +186,6 @@ public final class Task extends RemoteModel {
     /** user id = myself */
     public static final String USER_ID_SELF = "0";
 
-    public static boolean userIdIsEmail(String userId) {
-        if (userId == null) {
-            return false;
-        }
-        return userId.indexOf('@') >= 0;
-    }
-
     // --- notification flags
 
     /** whether to send a reminder at deadline */

@@ -339,7 +339,7 @@ public class AndroidUtilities {
         ContentValues result = new ContentValues();
         String key = null;
         for(int i = 0; i < pairs.length; i++) {
-            String newKey = null;
+            String newKey;
             int lastSpace = pairs[i].lastIndexOf(' ');
             if(lastSpace != -1) {
                 newKey = pairs[i].substring(lastSpace + 1);
@@ -377,8 +377,6 @@ public class AndroidUtilities {
         FileOutputStream fos = new FileOutputStream(out);
         try {
             copyStream(fis, fos);
-        } catch (Exception e) {
-            throw e;
         } finally {
             fis.close();
             fos.close();
@@ -424,7 +422,7 @@ public class AndroidUtilities {
         Arrays.sort(files, new Comparator<File>() {
             @Override
             public int compare(File o1, File o2) {
-                return Long.valueOf(o2.lastModified()).compareTo(Long.valueOf(o1.lastModified()));
+                return Long.valueOf(o2.lastModified()).compareTo(o1.lastModified());
             }
         });
     }
@@ -481,7 +479,6 @@ public class AndroidUtilities {
      * @param methodName method name to call
      * @param params method parameter types
      * @param args arguments
-     * @return method return value, or null if nothing was called or exception
      */
     public static void callMethod(Class<?> cls, Object receiver,
             String methodName, Class<?>[] params, Object... args) {
@@ -517,14 +514,10 @@ public class AndroidUtilities {
 
         T[] newList = (T[]) Array.newInstance(type, length);
         if (list != null) {
-            for(int i = 0; i < list.length; i++) {
-                newList[i] = list[i];
-            }
+            System.arraycopy(list, 0, newList, 0, list.length);
         }
         if (newItems != null) {
-            for(int i = 0; i < newItems.length; i++) {
-                newList[originalListLength + i] = newItems[i];
-            }
+            System.arraycopy(newItems, 0, newList, originalListLength, newItems.length);
         }
         return newList;
     }

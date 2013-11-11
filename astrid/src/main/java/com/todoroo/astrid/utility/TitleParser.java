@@ -38,8 +38,7 @@ public class TitleParser {
             pattern = pattern.substring(1);
         }
         if ('(' == pattern.charAt(0)) {
-            String list = pattern.substring(1, pattern.length()-1);
-            return list;
+            return pattern.substring(1, pattern.length()-1);
         }
         return pattern;
     }
@@ -188,8 +187,7 @@ public class TitleParser {
             Matcher m = pattern.matcher(inputText);
             if (m.find()) {
                 String toParse = stripParens(m.group(0));
-                Calendar dayCal = AstridChronic.parse(toParse).getBeginCalendar();
-                cal = dayCal;
+                cal = AstridChronic.parse(toParse).getBeginCalendar();
                 inputText = removeIfParenthetical(m, inputText);
                 //then put it into task
             }
