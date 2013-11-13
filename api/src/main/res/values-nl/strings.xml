@@ -78,7 +78,6 @@
 	<string name="sync_status_success">Vorige:\n%s</string>
 	<string name="sync_status_failed">Mislukt op: %s</string>
 	<string name="sync_status_errors">Gesync. met fouten: %s</string>
-	<string name="sync_status_failed_subtitle">Gelukt op: %s</string>
 	<string name="sync_status_never">Nooit gesynct!</string>
 	<string name="sync_SPr_group_options">Opties</string>
 	<string name="sync_SPr_interval_title">Achtergrond synchronisatie</string>

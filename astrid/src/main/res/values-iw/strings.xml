@@ -110,10 +110,13 @@
 	<string name="FLA_new_filter">מַסְנֵן חדש</string>
 	<string name="FLA_new_list">רשימה חדשה</string>
 	<string name="FLA_no_filter_selected">לא נבחר מַסְנֵן! אנא בחר מַסְנֵן או רשימה.</string>
+	<string name="TEA_title_hint">שם המשימה</string>
 	<string name="TEA_importance_label">עדיפות</string>
+	<string name="TEA_deadline_hint">קבע מועד יעד</string>
 	<string name="TEA_hideUntil_label">הסתרה עד</string>
-	<string name="TEA_hideUntil_message">המשימה תוסתר עד %s</string>
+	<string name="TEA_hideUntil_display">הסתר עד %s</string>
 	<string name="TEA_note_label">תיאור</string>
+	<string name="TEA_notes_empty">תיאור</string>
 	<string name="TEA_notes_hint">הזן את תיאור המשימה...</string>
 	<string name="TEA_estimatedDuration_label">כמה זמן תיקח המשימה?</string>
 	<string name="TEA_elapsedDuration_label">זמן שכבר הושקע במשימה</string>
@@ -122,6 +125,7 @@
 	<string name="TEA_menu_refresh_comments">רַעְנֵן הערות</string>
 	<string name="TEA_menu_comments">הערות</string>
 	<string name="TEA_tab_activity">פעילות</string>
+	<string name="TEA_timer_elap">זמן שעבר %s</string>
 	<string-array name="TEA_urgency">
 		<item>ללא תאריך</item>
 		<item>יום מסוים</item>
@@ -137,8 +141,8 @@
 		<item>אף פעם</item>
 		<item>עד ה</item>
 		<item>Due time</item>
-		<item>Day before due</item>
-		<item>Week before due</item>
+		<item>יום לפני מועד היעד</item>
+		<item>שבוע לפני מועד היעד</item>
 		<item>תאריך/שעה מסוימים</item>
 	</string-array>
 	<string name="TEA_control_when">מתי</string>
@@ -230,6 +234,7 @@
 	<string name="EPr_use_filters_title">השתמש בְּמַסְנְנִים</string>
 	<string name="EPr_use_filters_subtitle">מאפשר לך ליצור מַסְנְנִים מותאמים אישית</string>
 	<string name="EPr_show_quickadd_controls">בקרת הוספה מהירה מתקדם</string>
+	<string name="EPr_hide_plus_button">הסתר את כפתור ה-פלוס</string>
 	<string name="EPr_menu_items">פריטי תפריט</string>
 	<string name="EPr_list_view">תצוגת רשימה</string>
 	<string name="EPr_show_task_edit_comments">הצגת הערות בעריכת משימה</string>
@@ -238,6 +243,7 @@
 	<string name="EPr_cal_end_at_due_time">סיים את אירועי היומן במועד היעד?</string>
 	<string name="EPr_cal_start_at_due_time">התחל את מאורעות היומן במועד היעד</string>
 	<string name="EPr_force_phone_layout">מקלדת טלפון</string>
+	<string name="EPr_show_save_and_cancel">הראה את שמור וביטול</string>
 	<string name="EPr_manage_header">נהל משימות ישנות</string>
 	<string name="EPr_manage_delete_completed">מַחֲקִי משימות שבוצעו</string>
 	<string name="EPr_manage_delete_completed_message">האם אתה בטוח שברצונך למחוק את כל המשימות שבוצעו?</string>
@@ -318,6 +324,7 @@
 	<string name="CFA_type_intersect">וגם</string>
 	<string name="CFA_context_chain">%s כולל קריטריונים</string>
 	<string name="CFA_context_delete">מַחֲקִי שורה</string>
+	<string name="CFA_help">לחיצה ארוכה על פריטים כדי לקבל אפשרויות נוספות</string>
 	<string name="CFA_button_add">הוסף קריטריון</string>
 	<string name="CFA_button_view">הצג</string>
 	<string name="CFA_button_save">שמור והצג</string>
@@ -343,7 +350,6 @@
 	<string name="gcal_TEA_error">שגיאה בהוספת המשימה ליומן!</string>
 	<string name="gcal_TEA_addToCalendar_label">הוסף ליומן</string>
 	<string name="gcal_TEA_showCalendar_label">פתח אירוע ביומן</string>
-	<string name="gcal_TEA_calendar_updated">אירוע יומן עודכן!</string>
 	<string name="gcal_TEA_nocal">אל תוסיף</string>
 	<string name="gcal_TEA_none_selected">ליומן?</string>
 	<string name="gcal_TEA_has_event">אירוע יומן</string>
@@ -411,6 +417,7 @@
 	<string name="p_files_dir_desc">צְרוּפוֹת נשמרו בתיקיה %s</string>
 	<string name="p_files_dir_desc_default">תיקייית ברירת מחדל</string>
 	<string name="premium_speech_bubble_2">הזמן לשנה וחסוך !25%%</string>
+	<string name="TEA_reminders_group_label">הגדרות תזכורת</string>
 	<string name="TEA_reminder_label">הזכירי לי:</string>
 	<string name="TEA_reminder_due">כאשר הגיע מועד היעד</string>
 	<string name="TEA_reminder_overdue">כשעבר מועד היעד</string>
@@ -419,6 +426,10 @@
 	<string name="TEA_reminder_mode_once">פעם אחת</string>
 	<string name="TEA_reminder_mode_five">חמש פעמים</string>
 	<string name="TEA_reminder_mode_nonstop">עד אשר אבטל את התזכורות</string>
+	<string name="TEA_reminder_when">מתי</string>
+	<string name="TEA_reminder_due_short">מועד יעד</string>
+	<string name="TEA_reminder_randomly_short">באקראיות</string>
+	<string name="TEA_reminder_display_one">הזכר לי %s</string>
 	<string-array name="TEA_reminder_random">
 		<item>שעה</item>
 		<item>יום</item>
@@ -433,27 +444,27 @@
 	<string name="rmd_NoA_completed_toast">איחולי על השלמת המשימה!</string>
 	<string name="rmd_NoA_dlg_title">תזכורת:</string>
 	<string-array name="rmd_reengage_notif_titles">
-		<item>הודעה מאסטריד</item>
+		<item>הודעה מ-Tasks</item>
 		<item>מזכר עבור %s</item>
-		<item>תמצית מאסטריד</item>
-		<item>תזכורות מאסטריד</item>
+		<item>תמצית מ-משימות</item>
+		<item>תזכורות ממשימות</item>
 	</string-array>
 	<string name="rmd_reengage_add_tasks">הוסף משימה</string>
 	<string-array name="rmd_reengage_dialog_options">
 		<item>הגיע הזמן לקצר את רשימת המשימות שלך!</item>
-		<item>אדוני היקר, יש לך כמה משימות לבדוק!</item>
-		<item>תוכל בבקשה להביט באילו?</item>
+		<item>אדון או גברת יקרה, ישנן כמה משימות שמחכות שתבחנו אותם!</item>
+		<item>שלום לך, תוכל להעיף מבט על אלה?</item>
 		<item>יש לי כמה משימות ששמך מתנוסס עליהן!</item>
 		<item>ערימה חדשה של משימות עבורך היום!</item>
 		<item>אתה נראה נהדר! מוכן להתחיל לעבוד?</item>
-		<item>אני חושבת שהיום הוא יום מצויין לעבוד קצת!</item>
+		<item>אני חושב שהיום הוא יום מצויין כדי לעבוד קצת!</item>
 	</string-array>
 	<string-array name="rmd_reengage_dialog_empty_options">
-		<item>אתה לא מתכוון להתחיל להתחיל להתארגן?</item>
-		<item>שמי אסטריד ואני אעזור לך לעשות יותר דברים!</item>
+		<item>אתה לא מתכוון להתחיל להתארגן?</item>
+		<item>שמי משימות ואני אעזור לך לעשות יותר דברים!</item>
 		<item>אתה נראה עסוק! תן לי להקל עליך.</item>
 		<item>אני יכולה לעזור לך לארגן את כל הדברים הקטנים שבחייך.</item>
-		<item>אתה</item>
+		<item>רציני/ת לגבי להספיק לעשות יותר דברים? גם אני!</item>
 		<item>נעים להכיר!</item>
 	</string-array>
 	<string name="rmd_EPr_alerts_header">הגדרות תזכורת</string>
@@ -488,16 +499,16 @@
 	<string name="rmd_EPr_defaultRemind_desc_disabled">משימות חדשות לא תכלנה תזכורות אקראיות</string>
 	<string name="rmd_EPr_defaultRemind_desc">משימות חדשות יתזכרו אותך אקראית: %s</string>
 	<string-array name="EPr_reminder_random">
-		<item>מָנוּעַ</item>
-		<item>שְׁעָתִי</item>
-		<item>יוֹמִי</item>
-		<item>שְׁבוּעִי</item>
-		<item>דּוּ-שְׁבוּעִי</item>
-		<item>חָדְשִׁי</item>
-		<item>דּוּ-חָדְשִׁי</item>
+		<item>לא זמין</item>
+		<item>שעתי</item>
+		<item>יומי</item>
+		<item>שבועי</item>
+		<item>דו שבועי</item>
+		<item>חודשי</item>
+		<item>דו חודשי</item>
 	</string-array>
 	<string-array name="EPr_quiet_hours_start">
-		<item>מָנוּעַ</item>
+		<item>לא זמין</item>
 		<item>8 בערב</item>
 		<item>9 בערב</item>
 		<item>10 בלילה</item>
@@ -515,24 +526,24 @@
 		<item>10 בבוקר</item>
 		<item>11 בבוקר</item>
 		<item>12 בצהריים</item>
-		<item>1 אחה״צ</item>
-		<item>2 אחה״צ</item>
-		<item>3 אחה״צ</item>
+		<item>1 בצהריים</item>
+		<item>2 בצהריים</item>
+		<item>3 בצהריים</item>
 		<item>4 אחה״צ</item>
 		<item>5 אחה״צ</item>
 		<item>6 בערב</item>
 		<item>7 בערב</item>
 	</string-array>
 	<string-array name="EPr_quiet_hours_end">
-		<item>9 בערב</item>
+		<item>9 בבוקר</item>
 		<item>10 בבוקר</item>
 		<item>11 בבוקר</item>
 		<item>12 בצהריים</item>
-		<item>1 אחה״צ</item>
-		<item>2 אחה״צ</item>
-		<item>3 אחה״צ</item>
+		<item>1 בצהריים</item>
+		<item>2 בצהריים</item>
+		<item>3 בצהריים</item>
 		<item>4 אחה״צ</item>
-		<item>4 אחה״צ</item>
+		<item>5 אחה\"צ</item>
 		<item>6 בערב</item>
 		<item>7 בערב</item>
 		<item>8 בערב</item>
@@ -554,8 +565,8 @@
 		<item>10 בבוקר</item>
 		<item>11 בבוקר</item>
 		<item>12 בצהריים</item>
-		<item>1 אחה״צ</item>
-		<item>2 אחה״צ</item>
+		<item>1 בצהריים</item>
+		<item>2 בצהריים</item>
 		<item>3 אחה״צ</item>
 		<item>4 אחה״צ</item>
 		<item>5 אחה״צ</item>
@@ -665,4 +676,6 @@
 	<string name="EPr_voiceRemindersEnabled_title">תזכורות קוליות</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">אסטריד תאמר את שם המשימה כחלק מהתזכורת</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">אסטריד תשמיע נְעִימוֹן במתן תזכורות למשימות</string>
+	<string name="widget_mini">משימות</string>
+	<string name="delete_task">מחק משימה</string>
 </resources>

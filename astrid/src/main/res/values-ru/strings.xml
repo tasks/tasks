@@ -114,7 +114,6 @@
 	<string name="TEA_importance_label">Приоритет</string>
 	<string name="TEA_deadline_hint">Установить дату выполнения</string>
 	<string name="TEA_hideUntil_label">Скрыть до</string>
-	<string name="TEA_hideUntil_message">Задача будет скрыта до %s</string>
 	<string name="TEA_note_label">Описание</string>
 	<string name="TEA_notes_hint">Введите описание задачи...</string>
 	<string name="TEA_estimatedDuration_label">Как долго это продлится?</string>
@@ -344,7 +343,6 @@
 	<string name="gcal_TEA_error">Ошибка при добавлении задачи в календарь!</string>
 	<string name="gcal_TEA_addToCalendar_label">Добавить в календарь</string>
 	<string name="gcal_TEA_showCalendar_label">Открыть календарное событие</string>
-	<string name="gcal_TEA_calendar_updated">Календарное событие также обновлено!</string>
 	<string name="gcal_TEA_nocal">Не добавлять</string>
 	<string name="gcal_TEA_none_selected">В календарь ?</string>
 	<string name="gcal_TEA_has_event">Календарное событие</string>

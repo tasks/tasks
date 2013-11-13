@@ -115,7 +115,6 @@
 	<string name="TEA_deadline_hint">Establece la fecha</string>
 	<string name="TEA_hideUntil_label">Ocultar hasta</string>
 	<string name="TEA_hideUntil_display">Ocultar hasta %s</string>
-	<string name="TEA_hideUntil_message">La tarea estara oculta hasta %s</string>
 	<string name="TEA_note_label">Descripción</string>
 	<string name="TEA_notes_empty">Descripción...</string>
 	<string name="TEA_notes_hint">Introducir descripción de la tarea...</string>
@@ -350,7 +349,6 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="gcal_TEA_error">¡Ocurrió un error al agregar la tarea al calendario!</string>
 	<string name="gcal_TEA_addToCalendar_label">Agregar al calendario</string>
 	<string name="gcal_TEA_showCalendar_label">Abrir evento del calendario</string>
-	<string name="gcal_TEA_calendar_updated">También actualizado el evento de calendario!</string>
 	<string name="gcal_TEA_nocal">No agregar</string>
 	<string name="gcal_TEA_none_selected">¿Al calendario?</string>
 	<string name="gcal_TEA_has_event">Evento de llamada</string>

@@ -118,7 +118,6 @@
 	<string name="TEA_deadline_hint">마감일 설정</string>
 	<string name="TEA_hideUntil_label">숨기기 기간:</string>
 	<string name="TEA_hideUntil_display">%s 까지 숨기기</string>
-	<string name="TEA_hideUntil_message">%s 까지 일정을 숨깁니다</string>
 	<string name="TEA_note_label">설명</string>
 	<string name="TEA_notes_empty">설명</string>
 	<string name="TEA_notes_hint">일정 내용을 입력하세요</string>
@@ -357,7 +356,6 @@
 	<string name="gcal_TEA_error">달력에 일정 추가 실패!</string>
 	<string name="gcal_TEA_addToCalendar_label">달력에 일정 추가하기</string>
 	<string name="gcal_TEA_showCalendar_label">달력 이벤트 열기</string>
-	<string name="gcal_TEA_calendar_updated">달력 이벤트도 업데이트했습니다!</string>
 	<string name="gcal_TEA_nocal">추가하지 않기</string>
 	<string name="gcal_TEA_none_selected">달력에?</string>
 	<string name="gcal_TEA_has_event">달력 이벤트</string>

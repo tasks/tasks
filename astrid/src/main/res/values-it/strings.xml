@@ -106,7 +106,6 @@
 	<string name="FLA_new_list">Nuova lista</string>
 	<string name="FLA_no_filter_selected">Filtro non selezionato! Perfavore seleziona un filtro o una lista.</string>
 	<string name="TEA_importance_label">Priorità</string>
-	<string name="TEA_hideUntil_message">L\'attività verrà nascosta fino a: %s</string>
 	<string name="TEA_note_label">Descrizione</string>
 	<string name="TEA_estimatedDuration_label">Quanto tempo impiegherà?</string>
 	<string name="TEA_elapsedDuration_label">Tempo già speso per l\'attività</string>
@@ -303,7 +302,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="gcal_TEA_error">Errore durante l\'aggiunta dell\'attività al calendario!</string>
 	<string name="gcal_TEA_addToCalendar_label">Aggiungi al Calendario</string>
 	<string name="gcal_TEA_showCalendar_label">Apri Calendario Eventi</string>
-	<string name="gcal_TEA_calendar_updated">Evento del calendario aggiornato!</string>
 	<string name="gcal_TEA_nocal">Non aggiungere</string>
 	<string name="gcal_TEA_has_event">Evento del calendario</string>
 	<string name="gcal_completed_title">%s (completato)</string>

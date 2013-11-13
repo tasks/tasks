@@ -104,7 +104,6 @@
 	<string name="FLA_new_filter">Yeni Filtre</string>
 	<string name="FLA_new_list">Yeni Liste</string>
 	<string name="FLA_no_filter_selected">Süzgeç seçilmemiş! Lütfen bir süzgeç ya da liste seçin.</string>
-	<string name="TEA_hideUntil_message">Görev %s\'e kadar gizli kalacak</string>
 	<string name="TEA_note_label">Açıklama</string>
 	<string name="TEA_estimatedDuration_label">Ne kadar sürecek?</string>
 	<string name="TEA_elapsedDuration_label">Görev üzerinde çalışılan zaman</string>
@@ -295,7 +294,6 @@
 	<string name="gcal_TEA_error">Takvime görev eklenmesinde hata!</string>
 	<string name="gcal_TEA_addToCalendar_label">Takvime Ekle</string>
 	<string name="gcal_TEA_showCalendar_label">Takvim Olayı Aç</string>
-	<string name="gcal_TEA_calendar_updated">Takvim olayı da güncellendi!</string>
 	<string name="gcal_TEA_nocal">Ekleme</string>
 	<string name="gcal_TEA_has_event">Takvim olayı</string>
 	<string name="gcal_completed_title">%s (tamamlandı)</string>

@@ -80,7 +80,6 @@
 	<string name="sync_status_success">סנכרון אחרון:\n%s</string>
 	<string name="sync_status_failed">נכשל ב: %s</string>
 	<string name="sync_status_errors">סנכרון עם שגיאות: %s</string>
-	<string name="sync_status_failed_subtitle">סנכרון מוצלח אחרון: %s</string>
 	<string name="sync_status_never">לעולם לא סונכרן!</string>
 	<string name="sync_SPr_group_options">אפשרויות</string>
 	<string name="sync_SPr_interval_title">סנכרון ברקע</string>

@@ -80,7 +80,6 @@
 	<string name="sync_status_success">Последняя синхронизация\n%s</string>
 	<string name="sync_status_failed">Ошибка: %s</string>
 	<string name="sync_status_errors">Синхронизировано с ошибками: %s</string>
-	<string name="sync_status_failed_subtitle">Последняя успешная синхронизация: %s</string>
 	<string name="sync_status_never">Синхронизаций не выполнялось!</string>
 	<string name="sync_SPr_group_options">Параметры</string>
 	<string name="sync_SPr_interval_title">Фоновая синхронизация</string>

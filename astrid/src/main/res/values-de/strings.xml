@@ -109,7 +109,6 @@
 	<string name="TEA_deadline_hint">Fälligkeitsdatum setzen</string>
 	<string name="TEA_hideUntil_label">Verbergen bis</string>
 	<string name="TEA_hideUntil_display">Verbergen bis %s</string>
-	<string name="TEA_hideUntil_message">Aufgabe wird bis %s versteckt</string>
 	<string name="TEA_note_label">Beschreibung</string>
 	<string name="TEA_notes_empty">Beschreibung ...</string>
 	<string name="TEA_notes_hint">Aufgabenbeschreibung eingeben ...</string>
@@ -336,7 +335,6 @@
 	<string name="gcal_TEA_error">Fehler beim Hinzufügen der Aufgabe zum Kalender</string>
 	<string name="gcal_TEA_addToCalendar_label">In Kalender eintragen</string>
 	<string name="gcal_TEA_showCalendar_label">Öffne Termin im Kalender</string>
-	<string name="gcal_TEA_calendar_updated">Termin im Kalender wurde ebenfalls aktualisiert!</string>
 	<string name="gcal_TEA_nocal">Nicht eintragen</string>
 	<string name="gcal_TEA_none_selected">In den Kalender?</string>
 	<string name="gcal_TEA_has_event">Kalendereintrag</string>

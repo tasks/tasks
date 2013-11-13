@@ -79,7 +79,6 @@
 	<string name="sync_status_success">Ultima Sincronizzazione:\n%s</string>
 	<string name="sync_status_failed">Fallita Su: %s</string>
 	<string name="sync_status_errors">Sincronizza con gli errori: %s</string>
-	<string name="sync_status_failed_subtitle">Ultima sincronizzazione eseguita con successo in data: %s</string>
 	<string name="sync_status_never">Mai sincronizzato!</string>
 	<string name="sync_SPr_group_options">Preferenze</string>
 	<string name="sync_SPr_interval_title">Sincronizzazione eseguita in background</string>

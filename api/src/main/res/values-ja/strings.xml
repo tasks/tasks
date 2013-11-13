@@ -67,7 +67,6 @@
 	<string name="sync_status_ongoing">同期中</string>
 	<string name="sync_status_success">前回の同期:\n%s</string>
 	<string name="sync_status_failed">失敗: %s</string>
-	<string name="sync_status_failed_subtitle">最後の同期: %s</string>
 	<string name="sync_status_never">同期していません</string>
 	<string name="sync_SPr_group_options">オプション</string>
 	<string name="sync_SPr_interval_title">バックグラウンド同期</string>

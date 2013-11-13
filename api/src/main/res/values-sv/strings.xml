@@ -74,7 +74,6 @@
 	<string name="sync_status_success">Synkroniserades senast:\n%s</string>
 	<string name="sync_status_failed">Misslyckades: %s</string>
 	<string name="sync_status_errors">Synkade med fel: %s</string>
-	<string name="sync_status_failed_subtitle">Synkronisering lyckades senast: %s</string>
 	<string name="sync_status_never">Aldrig synkroniserad!</string>
 	<string name="sync_SPr_group_options">Alternativ</string>
 	<string name="sync_SPr_interval_title">Bakgrundssynkronisering</string>

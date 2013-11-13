@@ -107,7 +107,6 @@
 	<string name="FLA_no_filter_selected">Inget filter valt! Välj ett filter eller en lista.</string>
 	<string name="TEA_importance_label">Prioritet</string>
 	<string name="TEA_hideUntil_label">Dölj tills</string>
-	<string name="TEA_hideUntil_message">Uppgiften är dold fram till %s</string>
 	<string name="TEA_note_label">Beskrivning</string>
 	<string name="TEA_notes_hint">Ange uppgiftsbeskrivning...</string>
 	<string name="TEA_estimatedDuration_label">Hur lång tid kommer det att ta?</string>
@@ -312,7 +311,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="gcal_TEA_error">Misslyckades med att lägga uppgift till kalender!</string>
 	<string name="gcal_TEA_addToCalendar_label">Skapa kalenderhändelse</string>
 	<string name="gcal_TEA_showCalendar_label">Öppna kalenderhändelse</string>
-	<string name="gcal_TEA_calendar_updated">Kalenderhändelsen uppdaterades också!</string>
 	<string name="gcal_TEA_nocal">Lägg inte till</string>
 	<string name="gcal_TEA_has_event">Kalenderhändelse</string>
 	<string name="gcal_completed_title">%s (avslutad)</string>

@@ -112,7 +112,6 @@
 	<string name="TEA_importance_label">Prioridade</string>
 	<string name="TEA_deadline_hint">Definir data de vencimento</string>
 	<string name="TEA_hideUntil_label">Ocultar até</string>
-	<string name="TEA_hideUntil_message">A Tarefa ficará oculta até %s</string>
 	<string name="TEA_note_label">Descrição</string>
 	<string name="TEA_notes_empty">Descrição...</string>
 	<string name="TEA_notes_hint">Insira a descrição da tarefa...</string>
@@ -317,7 +316,6 @@
 	<string name="gcal_TEA_error">Erro ao inserir a tarefa no calendário!</string>
 	<string name="gcal_TEA_addToCalendar_label">Inserir no calendário</string>
 	<string name="gcal_TEA_showCalendar_label">Abrir evento no calendário</string>
-	<string name="gcal_TEA_calendar_updated">Evento do calendário também atualizado!</string>
 	<string name="gcal_TEA_nocal">Não adicionar</string>
 	<string name="gcal_TEA_has_event">Evento no calendário</string>
 	<string name="gcal_completed_title">%s (concluído)</string>

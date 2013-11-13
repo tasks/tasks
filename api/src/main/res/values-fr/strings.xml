@@ -80,7 +80,6 @@
 	<string name="sync_status_success">Dernière synchro. :\n%s</string>
 	<string name="sync_status_failed">Échec sur : %s</string>
 	<string name="sync_status_errors">Synchro avec Erreurs: %s</string>
-	<string name="sync_status_failed_subtitle">Dernière synchro. réussie : %s</string>
 	<string name="sync_status_never">Jamais synchronisé !</string>
 	<string name="sync_SPr_interval_title">Synchro. en arrière-plan</string>
 	<string name="sync_SPr_interval_desc_disabled">Synchronisation en arrière-plan désactivée</string>

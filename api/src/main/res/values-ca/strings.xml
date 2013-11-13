@@ -56,7 +56,6 @@
 	<string name="sync_status_ongoing">Sincronització en curs...</string>
 	<string name="sync_status_success">Última sincronització:\n%s</string>
 	<string name="sync_status_failed">Fallida el: %s</string>
-	<string name="sync_status_failed_subtitle">Última sincronització correcte: %s</string>
 	<string name="sync_status_never">Mai sincronitzat!</string>
 	<string name="sync_SPr_group_options">Opcions</string>
 	<string name="sync_SPr_interval_title">Sincronitzar en segon pla</string>

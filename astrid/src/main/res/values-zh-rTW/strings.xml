@@ -107,7 +107,6 @@
 	<string name="FLA_new_filter">新建過濾器</string>
 	<string name="FLA_new_list">新建列表</string>
 	<string name="FLA_no_filter_selected">還沒有選定過濾器呢！請選擇一個過濾器或列表唄。</string>
-	<string name="TEA_hideUntil_message">任務工作將會被隱藏，直到 %s</string>
 	<string name="TEA_note_label">描述</string>
 	<string name="TEA_estimatedDuration_label">要花多久時間?</string>
 	<string name="TEA_elapsedDuration_label">已經用掉的時間</string>
@@ -302,7 +301,6 @@
 	<string name="gcal_TEA_error">工作加入行事曆錯誤</string>
 	<string name="gcal_TEA_addToCalendar_label">建立行事曆事項</string>
 	<string name="gcal_TEA_showCalendar_label">打開行事曆事項</string>
-	<string name="gcal_TEA_calendar_updated">行事曆事件也更新了!</string>
 	<string name="gcal_TEA_nocal">事件開啟錯誤!</string>
 	<string name="gcal_TEA_has_event">日曆活動</string>
 	<string name="gcal_completed_title">%s （已完成）</string>

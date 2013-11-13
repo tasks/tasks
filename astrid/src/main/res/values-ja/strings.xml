@@ -199,7 +199,6 @@
 	<string name="gcal_TEA_error">カレンダーへの登録に失敗しました</string>
 	<string name="gcal_TEA_addToCalendar_label">カレンダーに登録</string>
 	<string name="gcal_TEA_showCalendar_label">カレンダーのイベントを開く</string>
-	<string name="gcal_TEA_calendar_updated">カレンダーの項目も更新しました</string>
 	<string name="gcal_TEA_nocal">追加しないで</string>
 	<string name="gcal_completed_title">%s（完了）</string>
 	<string name="gtasks_GLA_errorIOAuth">すみません、Googleのサーバとの通信で問題が発生しました。しばらくしてから再度やり直してください。</string>

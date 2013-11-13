@@ -109,7 +109,6 @@
 	<string name="TEA_title_hint">Tytuł zadania</string>
 	<string name="TEA_importance_label">Priorytet</string>
 	<string name="TEA_hideUntil_label">Ukrywanie</string>
-	<string name="TEA_hideUntil_message">Zadanie będzie ukryte do %s</string>
 	<string name="TEA_note_label">Opis</string>
 	<string name="TEA_notes_empty">Opis...</string>
 	<string name="TEA_notes_hint">Podaj opis zadania...</string>
@@ -341,7 +340,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="gcal_TEA_error">Błąd podczas dodawania zadania do kalendarza!</string>
 	<string name="gcal_TEA_addToCalendar_label">Dodaj do kalendarza</string>
 	<string name="gcal_TEA_showCalendar_label">Otwórz zdarzenie kalendarza</string>
-	<string name="gcal_TEA_calendar_updated">Zdarzenie kalendarza również uaktualnione!</string>
 	<string name="gcal_TEA_nocal">Nie dodawaj</string>
 	<string name="gcal_TEA_none_selected">Do kalendarza?</string>
 	<string name="gcal_TEA_has_event">Wydarzenie w kalendarzu</string>

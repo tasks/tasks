@@ -151,7 +151,6 @@
 	<string name="CFC_title_contains_text">Tittel inneholder: ?</string>
 	<string name="gcal_TEA_error">Klarte ikke å legge oppgave til kalender!</string>
 	<string name="gcal_TEA_showCalendar_label">Åpne kalenderhendelse</string>
-	<string name="gcal_TEA_calendar_updated">Kalenderhendelsen ble også oppdatert!</string>
 	<string name="gcal_completed_title">%s (fullført)</string>
 	<string name="gcal_GCP_default">Standardkalender</string>
 	<string name="locale_notification">Du har $NUM som matcher: $FILTER</string>

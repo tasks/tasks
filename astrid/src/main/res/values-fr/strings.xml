@@ -34,7 +34,7 @@
 	<string name="export_toast">Sauvegardé %1$s dans %2$s.</string>
 	<string name="export_toast_no_tasks">Pas de tâches à exporter</string>
 	<string name="export_progress_title">Exportation en cours…</string>
-	<string name="import_summary_title">Résumé de la restoration</string>
+	<string name="import_summary_title">Résumé de la restauration</string>
 	<string name="import_summary_message">Le fichier %1$s contenait %2$s.\n\n %3$s importées,\n %4$s existent déjà\n %5$s avaient des erreurs\n</string>
 	<string name="import_progress_title">Importation en cours…</string>
 	<string name="import_progress_read">Lecture de la tâche %d…</string>
@@ -55,7 +55,7 @@
 	<string name="DLG_undo">Annuler Action</string>
 	<string name="WID_dateButtonUnset">Cliquez pour définir</string>
 	<string name="ENA_refresh_comments">Mettre à jour les commentaires</string>
-	<string name="TLA_no_items">Aucune tâche ! n Voulez vous en créer une ?</string>
+	<string name="TLA_no_items">Aucune tâche ! \n Voulez-vous en créer une ?</string>
 	<string name="TLA_menu_sort">Trier</string>
 	<string name="TLA_menu_sync">Synchroniser maintenant</string>
 	<string name="TLA_menu_search">Rechercher</string>
@@ -114,7 +114,6 @@
 	<string name="TEA_deadline_hint">Définir une date d\'échéance</string>
 	<string name="TEA_hideUntil_label">Masquer jusqu\'à</string>
 	<string name="TEA_hideUntil_display">Masquer jusqu\'à %s</string>
-	<string name="TEA_hideUntil_message">La tâche sera masquée jusqu\'à %s</string>
 	<string name="TEA_notes_hint">Décrire la tâche</string>
 	<string name="TEA_estimatedDuration_label">Combien de temps cela va-t-il prendre ?</string>
 	<string name="TEA_elapsedDuration_label">Temps déjà passé sur la tâche</string>
@@ -147,7 +146,6 @@
 	<string name="TEA_control_when">Quand</string>
 	<string name="TEA_control_importance">Priorité</string>
 	<string name="TEA_control_lists">Listes</string>
-	<string name="TEA_control_notes">Description..</string>
 	<string name="TEA_control_files">Fichiers</string>
 	<string name="TEA_control_reminders">Rappels</string>
 	<string name="TEA_control_timer">Contrôle de rappel</string>
@@ -172,8 +170,8 @@
 	<string name="MCA_schedule_dialog_title">Rappeler %s dans...</string>
 	<string name="CRA_ignore">Ignorer</string>
 	<string name="CRA_title">Besoin d\'une liste de réunion ? </string>
-	<string name="CRA_ignore_title">Ignorer tous les évènements du calendrier ? </string>
-	<string name="CRA_ignore_body">Vous avez ignoré plusieurs évènements du calendrier. Souhaitez-vous qu\'Tasks cesse de vous questionner à ce sujet ? </string>
+	<string name="CRA_ignore_title">Ignorer tous les événements du calendrier ? </string>
+	<string name="CRA_ignore_body">Vous avez ignoré plusieurs événements du calendrier. Souhaitez-vous qu\'Tasks cesse de vous questionner à ce sujet ? </string>
 	<string name="CRA_ignore_all">Ignorer tous les événements</string>
 	<string name="CRA_ignore_this">Ignorer uniquement cet événement</string>
 	<string name="CRA_speech_bubble_start">Il semble que %s débute bientôt. Désirez-vous créer une liste d\'actions à accomplir ? </string>
@@ -190,8 +188,8 @@
 	<string name="CRA_many_attendees">%1$s, %2$s, et %3$d autres participent.</string>
 	<string name="CRA_invitation_prompt">Voulez-vous les inviter ? </string>
 	<string name="CRA_calendar_reminders_pref_title">Assistant du calendrier</string>
-	<string name="CRA_calendar_reminders_pref_desc_disabled">Tasks n’émettra pas de rappel au sujet des prochains évènements. </string>
-	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks émettra un rappel au sujet des prochains évènements et vous proposera de vous y préparer. </string>
+	<string name="CRA_calendar_reminders_pref_desc_disabled">Tasks n’émettra pas de rappel au sujet des prochains événements. </string>
+	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks émettra un rappel au sujet des prochains événements et vous proposera de vous y préparer. </string>
 	<string name="CRA_share_list_title">Partager la liste ?</string>
 	<string name="CRA_invite_attendees">Inviter des participants</string>
 	<string name="CRA_more_options">Plus d\'options</string>
@@ -203,7 +201,7 @@
 	<string name="EPr_deactivated">désactivé</string>
 	<string name="EPr_appearance_header">Apparence</string>
 	<string name="EPr_appearance_summary">Thèmes, gadgets, ligne de tâche, écran d\'édition</string>
-	<string name="EPr_fontSize_title">Taillede la liste de tâche</string>
+	<string name="EPr_fontSize_title">Taille de la liste de tâches</string>
 	<string name="EPr_filters_to_show_title">Filtres à afficher</string>
 	<string name="EPr_showSmartConfirmation_title">Montrer une confirmation pour les rappels intelligents</string>
 	<string name="EPr_fontSize_desc">Taille de la police pour la page principale des listes</string>
@@ -257,11 +255,11 @@
 	<string name="EPr_manage_clear_all">Effacer toutes les données</string>
 	<string name="EPr_manage_clear_all_message">Supprimer toutes les tâches et configuration?\n\nAttention: cela est irréversible!</string>
 	<string name="EPr_manage_delete_completed_gcal">Supprimer les entrées de calendrier des tâches terminées</string>
-	<string name="EPr_manage_delete_completed_gcal_message">Voulez-vous réellement supprimer tous les évènements pour les tâches complétées?</string>
-	<string name="EPr_manage_delete_completed_gcal_status">Supprimer %d évènements du calendrier.</string>
+	<string name="EPr_manage_delete_completed_gcal_message">Voulez-vous réellement supprimer tous les événements pour les tâches complétées?</string>
+	<string name="EPr_manage_delete_completed_gcal_status">%d événements du calendrier ont été supprimés!</string>
 	<string name="EPr_manage_delete_all_gcal">Supprimer toutes les entrées de calendrier des tâches</string>
-	<string name="EPr_manage_delete_all_gcal_message">Voulez vous vraiment supprimer tous les évènement du calendrier pour Tasks</string>
-	<string name="EPr_manage_delete_all_gcal_status">Supprimer %d évènements du calendrier.</string>
+	<string name="EPr_manage_delete_all_gcal_message">Voulez-vous vraiment supprimer tous les événement du calendrier pour Tasks?</string>
+	<string name="EPr_manage_delete_all_gcal_status">%d événements du calendrier ont été supprimés!</string>
 	<string name="AOA_internal_author">L\'équipe d\'Tasks</string>
 	<string name="TWi_loading">Chargement…</string>
 	<string name="WCA_title">Sélectionnez les tâches à afficher…</string>
@@ -346,7 +344,6 @@
 	<string name="gcal_TEA_error">Erreur d\'ajout de tâche à l\'agenda !</string>
 	<string name="gcal_TEA_addToCalendar_label">Créer un évènement d\'agenda</string>
 	<string name="gcal_TEA_showCalendar_label">Ouvrir l\'événement de l\'agenda</string>
-	<string name="gcal_TEA_calendar_updated">Événement du calendrier également mis à jour</string>
 	<string name="gcal_TEA_nocal">Ne pas ajouter</string>
 	<string name="gcal_TEA_none_selected">Ajouter au calendrier?</string>
 	<string name="gcal_TEA_has_event">Evènement d\'appel</string>

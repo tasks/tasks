@@ -67,7 +67,6 @@
 	<string name="sync_status_ongoing">Synkronisering pågår...</string>
 	<string name="sync_status_success">Siste synkronisering:\n%s</string>
 	<string name="sync_status_failed">Mislykket: %s</string>
-	<string name="sync_status_failed_subtitle">Siste vellykkede synkronisering: %s</string>
 	<string name="sync_status_never">Aldri synkronisert!</string>
 	<string name="sync_SPr_group_options">Alternativer</string>
 	<string name="sync_SPr_interval_title">Bakgrunnssynkronisering</string>

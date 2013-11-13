@@ -79,7 +79,6 @@
 	<string name="sync_status_success">上次同步：\n%s</string>
 	<string name="sync_status_failed">失败：%s</string>
 	<string name="sync_status_errors">同步 w/ 错误： %s 上次同步日期</string>
-	<string name="sync_status_failed_subtitle">上次成功同步：%s</string>
 	<string name="sync_status_never">未同步过！</string>
 	<string name="sync_SPr_group_options">选项</string>
 	<string name="sync_SPr_interval_title">后台同步</string>

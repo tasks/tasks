@@ -118,7 +118,6 @@
 	<string name="TEA_deadline_hint">Встановити кінцеву дату</string>
 	<string name="TEA_hideUntil_label">Приховати до</string>
 	<string name="TEA_hideUntil_display">Приховати до %s</string>
-	<string name="TEA_hideUntil_message">Завдання буде приховане до %s</string>
 	<string name="TEA_note_label">Опис</string>
 	<string name="TEA_notes_empty">Опис</string>
 	<string name="TEA_notes_hint">Ввести опис завдання...</string>
@@ -354,7 +353,6 @@
 	<string name="gcal_TEA_error">Помилка при додаванні завдання в календар!</string>
 	<string name="gcal_TEA_addToCalendar_label">Додати до календаря</string>
 	<string name="gcal_TEA_showCalendar_label">Відкрити календарну подію</string>
-	<string name="gcal_TEA_calendar_updated">Календарна подія також оновлена!</string>
 	<string name="gcal_TEA_nocal">Не додавати</string>
 	<string name="gcal_TEA_none_selected">До календаря?</string>
 	<string name="gcal_TEA_has_event">Кал. подія</string>

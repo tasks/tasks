@@ -159,7 +159,6 @@
 	<string name="CFC_title_contains_text">Titel indeholder: ?</string>
 	<string name="gcal_TEA_error">Fejl ved tilføjelse af opgave til kalender!</string>
 	<string name="gcal_TEA_showCalendar_label">Åbn kalender-begivenhed</string>
-	<string name="gcal_TEA_calendar_updated">Kalenderbegivenhed også opdateret!</string>
 	<string name="gcal_completed_title">%s (fuldført)</string>
 	<string name="gcal_GCP_default">Standardkalender</string>
 	<string name="gtasks_GPr_header">Google Tasks (beta!)</string>

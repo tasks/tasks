@@ -80,7 +80,6 @@
 	<string name="sync_status_success">마지막 동기화: \n%s</string>
 	<string name="sync_status_failed">실패: %s</string>
 	<string name="sync_status_errors">동기화 중 에러: %s</string>
-	<string name="sync_status_failed_subtitle">마지막 동기화 성공시간: %s</string>
 	<string name="sync_status_never">동기화 한 적이 없습니다!</string>
 	<string name="sync_SPr_group_options">설정</string>
 	<string name="sync_SPr_interval_title">백그라운드 동기화</string>

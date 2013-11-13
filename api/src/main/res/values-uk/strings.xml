@@ -63,7 +63,6 @@
 	<string name="sync_status_ongoing">Процес синхронізації</string>
 	<string name="sync_status_success">Остання синхр.:\n%s</string>
 	<string name="sync_status_errors">Синхр. з помилками: %s</string>
-	<string name="sync_status_failed_subtitle">Остання успішна синхр.: %s</string>
 	<string name="sync_status_never">Ніколи не було синхронізовано!</string>
 	<string name="sync_SPr_group_options">Опції</string>
 	<string name="sync_SPr_interval_title">Фонова синхронізація</string>

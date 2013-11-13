@@ -79,7 +79,6 @@
 	<string name="sync_status_success">Poslední synchronizace:\n%s</string>
 	<string name="sync_status_failed">Selhalo: %s</string>
 	<string name="sync_status_errors">Sync w/ chyby: %s</string>
-	<string name="sync_status_failed_subtitle">Poslední úspěšná synchronizace: %s</string>
 	<string name="sync_status_never">Nikdo nesynchronizováno!</string>
 	<string name="sync_SPr_group_options">Možnosti</string>
 	<string name="sync_SPr_interval_title">Synchronizace na pozadí</string>

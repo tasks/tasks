@@ -107,7 +107,6 @@
 	<string name="FLA_new_filter">新建过滤器</string>
 	<string name="FLA_new_list">新建列表</string>
 	<string name="FLA_no_filter_selected">还没有选定过滤器呢！请选择一个过滤器或列表呗。</string>
-	<string name="TEA_hideUntil_message">任务将会被隐藏，直到 %s</string>
 	<string name="TEA_note_label">描述</string>
 	<string name="TEA_estimatedDuration_label">要花多久时间?</string>
 	<string name="TEA_elapsedDuration_label">已用于任务的时间</string>
@@ -283,7 +282,6 @@
 	<string name="gcal_TEA_error">添加任务到日历时失败！</string>
 	<string name="gcal_TEA_addToCalendar_label">建立日程表事件</string>
 	<string name="gcal_TEA_showCalendar_label">打开日程表事件</string>
-	<string name="gcal_TEA_calendar_updated">日程表事件也更新了!</string>
 	<string name="gcal_TEA_nocal">不要添加</string>
 	<string name="gcal_TEA_has_event">日历事件</string>
 	<string name="gcal_completed_title">%s (已完成)</string>

@@ -77,7 +77,6 @@
 	<string name="sync_status_success">Son Senk.\n%s</string>
 	<string name="sync_status_failed">Başarısız: %s</string>
 	<string name="sync_status_errors">Hatalı Senkron: %s</string>
-	<string name="sync_status_failed_subtitle">Son Başarılı Eşleme: %s</string>
 	<string name="sync_status_never">Hiç Eşleme Yapılmamış!</string>
 	<string name="sync_SPr_group_options">Ayarlar</string>
 	<string name="sync_SPr_interval_title">Arkaplanda senkronizasyon</string>
