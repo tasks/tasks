@@ -67,7 +67,7 @@ public final class GtasksSyncService {
             if(DateUtilities.now() - creationDate < 1000) {
                 AndroidUtilities.sleepDeep(1000 - (DateUtilities.now() - creationDate));
             }
-            pushTaskOnSave(model, model.getMergedValues(), invoker, false);
+            pushTaskOnSave(model, model.getMergedValues(), invoker);
         }
     }
 
@@ -204,11 +204,7 @@ public final class GtasksSyncService {
     /**
      * Synchronize with server when data changes
      */
-    public void pushTaskOnSave(Task task, ContentValues values, GtasksInvoker invoker, boolean sleep) throws IOException {
-        if (sleep) {
-            AndroidUtilities.sleepDeep(1000L); //Wait for metadata to be saved
-        }
-
+    public void pushTaskOnSave(Task task, ContentValues values, GtasksInvoker invoker) throws IOException {
         Metadata gtasksMetadata = gtasksMetadataService.getTaskMetadata(task.getId());
         com.google.api.services.tasks.model.Task remoteModel;
         boolean newlyCreated = false;

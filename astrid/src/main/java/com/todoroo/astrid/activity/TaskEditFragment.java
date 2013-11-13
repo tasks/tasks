@@ -178,11 +178,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     // --- UI components
 
-    private ImageButton voiceAddNoteButton;
-
     private EditNotesControlSet notesControlSet = null;
-    private HideUntilControlSet hideUntilControls = null;
-    private TagsControlSet tagsControlSet = null;
     private FilesControlSet filesControlSet = null;
     private TimerActionControlSet timerAction;
     private EditText title;
@@ -215,8 +211,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private String uuid = RemoteModel.NO_UUID;
 
     private boolean showEditComments;
-
-    private int tabStyle = 0;
 
     /*
      * ======================================================================
@@ -300,7 +294,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID, -1L);
 
-        tabStyle = TaskEditViewPager.TAB_SHOW_ACTIVITY;
+        int tabStyle = TaskEditViewPager.TAB_SHOW_ACTIVITY;
 
         if (!showEditComments) {
             tabStyle &= ~TaskEditViewPager.TAB_SHOW_ACTIVITY;
@@ -372,7 +366,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 getActivity(), getView());
         controls.add(timerAction);
 
-        tagsControlSet = new TagsControlSet(getActivity(),
+        TagsControlSet tagsControlSet = new TagsControlSet(getActivity(),
                 R.layout.control_set_tags,
                 R.layout.control_set_default_display, R.string.TEA_tags_label_long);
         controls.add(tagsControlSet);
@@ -426,7 +420,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controlSetMap.put(getString(R.string.TEA_ctrl_reminders_pref),
                 reminderControl);
 
-        hideUntilControls = new HideUntilControlSet(getActivity(),
+        HideUntilControlSet hideUntilControls = new HideUntilControlSet(getActivity(),
                 R.layout.control_set_hide,
                 R.layout.control_set_default_display,
                 R.string.hide_until_prompt);
@@ -540,12 +534,12 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             // prepare and set listener for voice-button
             if (getActivity() != null) {
                 if (VoiceRecognizer.voiceInputAvailable(getActivity())) {
-                    voiceAddNoteButton = (ImageButton) notesControlSet.getView().findViewById(
+                    ImageButton voiceAddNoteButton = (ImageButton) notesControlSet.getView().findViewById(
                             R.id.voiceAddNoteButton);
                     voiceAddNoteButton.setVisibility(View.VISIBLE);
                     int prompt = R.string.voice_edit_note_prompt;
                     voiceNoteAssistant = new VoiceInputAssistant(voiceAddNoteButton, REQUEST_VOICE_RECOG);
-                    voiceNoteAssistant.setAppend(true);
+                    voiceNoteAssistant.setAppend();
                     voiceNoteAssistant.setLanguageModel(RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
                     voiceNoteAssistant.configureMicrophoneButton(TaskEditFragment.this, prompt);
                 }

@@ -217,7 +217,7 @@ public class QuickAddBar extends LinearLayout {
                 R.layout.control_set_deadline,
                 R.layout.control_set_default_display, null,
                 repeatControl.getDisplayView(), gcalControl.getDisplayView());
-        deadlineControl.setIsQuickadd(true);
+        deadlineControl.setIsQuickadd();
 
         resetControlSets();
 

@@ -150,7 +150,6 @@ Tasks might not let you know when your tasks are due.\n</string>
 		<item>In Two Weeks</item>
 		<item>Next Month</item>
 	</string-array>
-	<string name="TEA_tags_label">Listas</string>
 	<string name="tag_FEx_header">Listas</string>
 	<string name="tag_settings_title">Settings:</string>
 </resources>

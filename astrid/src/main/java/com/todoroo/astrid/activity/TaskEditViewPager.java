@@ -20,7 +20,7 @@ public class TaskEditViewPager extends PagerAdapter {
     private final String[] titles;
     public TaskEditFragment parent;
 
-    public static final int TAB_SHOW_ACTIVITY = 1 << 0;
+    public static final int TAB_SHOW_ACTIVITY = 1;
 
     public TaskEditViewPager(Context context, int tabStyleMask) {
         ArrayList<String> titleList = new ArrayList<String>();

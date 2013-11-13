@@ -102,8 +102,7 @@ public class FilterListFragment extends ListFragment {
     }
 
     private FilterAdapter instantiateAdapter() {
-        return new FilterAdapter(getActivity(), null,
-                R.layout.filter_adapter_row, false);
+        return new FilterAdapter(getActivity(), R.layout.filter_adapter_row);
     }
 
     /* (non-Javadoc)
@@ -114,7 +113,7 @@ public class FilterListFragment extends ListFragment {
             Bundle savedInstanceState) {
         Activity activity = getActivity();
         int layout = getLayout();
-        return (ViewGroup) activity.getLayoutInflater().inflate(layout, container, false);
+        return activity.getLayoutInflater().inflate(layout, container, false);
     }
 
     protected int getLayout() {

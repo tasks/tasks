@@ -107,9 +107,8 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     // be added).
     private final ThreadPoolExecutor filterExecutor = new ThreadPoolExecutor(0, 1, 1, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
 
-    public FilterAdapter(Activity activity, ListView listView,
-            int rowLayout, boolean skipIntentFilters) {
-        this(activity, listView, rowLayout, skipIntentFilters, false);
+    public FilterAdapter(Activity activity, int rowLayout) {
+        this(activity, null, rowLayout, false, false);
     }
 
     public FilterAdapter(Activity activity, ListView listView,

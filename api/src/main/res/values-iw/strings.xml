@@ -21,10 +21,6 @@
 		<item quantity="one">יום אחד</item>
 		<item quantity="other">%d ימים</item>
 	</plurals>
-	<plurals name="DUt_weekdays">
-		<item quantity="one">יום עבודה אחד</item>
-		<item quantity="other">%d ימי עבודה</item>
-	</plurals>
 	<plurals name="DUt_hours">
 		<item quantity="one">שעה אחת</item>
 		<item quantity="other">%d שעות</item>
@@ -33,29 +29,9 @@
 		<item quantity="one">דקה אחת</item>
 		<item quantity="other">%d דקות</item>
 	</plurals>
-	<plurals name="DUt_seconds">
-		<item quantity="one">שנייה אחת</item>
-		<item quantity="other">%d שניות</item>
-	</plurals>
-	<plurals name="DUt_hoursShort">
-		<item quantity="one">שעה</item>
-		<item quantity="other">%d שע\'</item>
-	</plurals>
-	<plurals name="DUt_minutesShort">
-		<item quantity="one">דקה</item>
-		<item quantity="other">%d דק׳</item>
-	</plurals>
-	<plurals name="DUt_secondsShort">
-		<item quantity="one">שנייה</item>
-		<item quantity="other">%d שנ\'</item>
-	</plurals>
 	<plurals name="Ntasks">
 		<item quantity="one">משימה אחת</item>
 		<item quantity="other">%d משימות</item>
-	</plurals>
-	<plurals name="Npeople">
-		<item quantity="one">שותף אחד</item>
-		<item quantity="other">%d שותפים</item>
 	</plurals>
 	<string name="today">היום</string>
 	<string name="tomorrow">מחר</string>

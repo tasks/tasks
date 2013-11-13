@@ -29,14 +29,6 @@
 		<item quantity="one">1 minut</item>
 		<item quantity="other">%d Minuts</item>
 	</plurals>
-	<plurals name="DUt_seconds">
-		<item quantity="one">1 segon</item>
-		<item quantity="other">%d Segons</item>
-	</plurals>
-	<plurals name="DUt_secondsShort">
-		<item quantity="one">1 Seg</item>
-		<item quantity="other">%d Seg</item>
-	</plurals>
 	<plurals name="Ntasks">
 		<item quantity="one">1 tasca</item>
 		<item quantity="other">%d tasques</item>

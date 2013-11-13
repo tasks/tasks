@@ -8,7 +8,6 @@ package com.todoroo.astrid.sync;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
-import android.text.TextUtils;
 
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -79,11 +78,6 @@ abstract public class SyncProviderUtilities {
     /** @return Last Error, or null if no last error */
     public String getLastError() {
         return getPrefs().getString(getIdentifier() + PREF_LAST_ERROR, null);
-    }
-
-    /** @return Last Error type, or null if no last error */
-    public String getLastErrorType() {
-        return getPrefs().getString(getIdentifier() + PREF_LAST_ERROR_TYPE, null);
     }
 
     /** @return Last Error, or null if no last error */

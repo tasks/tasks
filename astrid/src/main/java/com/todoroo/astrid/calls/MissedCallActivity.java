@@ -96,7 +96,6 @@ public class MissedCallActivity extends Activity {
 
     private String name;
     private String number;
-    private String timeString;
 
     private TextView returnCallButton;
     private TextView callLaterButton;
@@ -116,7 +115,7 @@ public class MissedCallActivity extends Activity {
 
         name = intent.getStringExtra(EXTRA_NAME);
         number = intent.getStringExtra(EXTRA_NUMBER);
-        timeString = intent.getStringExtra(EXTRA_TIME);
+        String timeString = intent.getStringExtra(EXTRA_TIME);
         long contactId = intent.getExtras().getLong(EXTRA_CONTACT_ID);
 
         int color = ThemeService.getThemeColor();

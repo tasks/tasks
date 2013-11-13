@@ -518,7 +518,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="subtasks_help_1">Tocca e tieni premuto per spostare un\'attività</string>
 	<string name="subtasks_help_2">Trascina verticalmente per riordinare</string>
 	<string name="subtasks_help_3">Trascina orizzontalmente per indentare</string>
-	<string name="TEA_tags_label">Liste</string>
 	<string name="TEA_tag_hint">Nuova lista</string>
 	<string name="tag_new_list">Nuova lista</string>
 	<string name="tag_no_title_error">Per cortesia, prima inserisci un nome per questa lista</string>

@@ -27,12 +27,6 @@
     <!-- plurals: days -->
     <item quantity="other">%d Days</item>
   </plurals>
-  <plurals name="DUt_weekdays">
-    <!-- plurals: days -->
-    <item quantity="one">1 Weekday</item>
-    <!-- plurals: days -->
-    <item quantity="other">%d Weekdays</item>
-  </plurals>
   <plurals name="DUt_hours">
     <!-- plurals: hours -->
     <item quantity="one">1 Hour</item>
@@ -45,43 +39,13 @@
     <!-- plurals: minutes -->
     <item quantity="other">%d Minutes</item>
   </plurals>
-  <plurals name="DUt_seconds">
-    <!-- plurals: seconds -->
-    <item quantity="one">1 Second</item>
-    <!-- plurals: seconds -->
-    <item quantity="other">%d Seconds</item>
-  </plurals>
-  <plurals name="DUt_hoursShort">
-    <!-- plurals: hours (abbreviated) -->
-    <item quantity="one">1 Hr</item>
-    <!-- plurals: hours (abbreviated) -->
-    <item quantity="other">%d Hrs</item>
-  </plurals>
-  <plurals name="DUt_minutesShort">
-    <!-- plurals: minutes (abbreviated) -->
-    <item quantity="one">1 Min</item>
-    <!-- plurals: minutes (abbreviated) -->
-    <item quantity="other">%d Min</item>
-  </plurals>
-  <plurals name="DUt_secondsShort">
-    <!-- plurals: seconds (abbreviated) -->
-    <item quantity="one">1 Sec</item>
-    <!-- plurals: seconds (abbreviated) -->
-    <item quantity="other">%d Sec</item>
-  </plurals>
   <plurals name="Ntasks">
     <!-- plurals: tasks -->
     <item quantity="one">1 task</item>
     <!-- plurals: tasks -->
     <item quantity="other">%d tasks</item>
   </plurals>
-  <plurals name="Npeople">
-    <!-- plurals: people -->
-    <item quantity="one">1 person</item>
-    <!-- plurals: people -->
-    <item quantity="other">%d people</item>
-  </plurals>
-  
+
   <!-- slide 10a, 12c: today -->
   <string name="today">Today</string>
   

@@ -32,7 +32,7 @@ public class NotificationTests extends DatabaseTestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        Notifications.forceNotificationManager(true);
+        Notifications.forceNotificationManager();
     }
 
     @Override

@@ -79,7 +79,7 @@ public class TagDataService {
         }
     }
 
-    private static Query queryForTagData(TagData tagData, Criterion extraCriterion, Property<?>[] activityProperties) {
+    private static Query queryForTagData(TagData tagData, Property<?>[] activityProperties) {
         Criterion criteria;
         if (tagData == null) {
             criteria = UserActivity.DELETED_AT.eq(0);
@@ -91,15 +91,11 @@ public class TagDataService {
                                     .from(Metadata.TABLE).where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(tagData.getUuid())))))));
         }
 
-        if (extraCriterion != null) {
-            criteria = Criterion.and(criteria, extraCriterion);
-        }
-
         return Query.select(AndroidUtilities.addToArray(Property.class, activityProperties)).where(criteria);
     }
 
-    public Cursor getActivityForTagData(TagData tagData, Criterion extraCriterion) {
-        Query activityQuery = queryForTagData(tagData, extraCriterion, UpdateAdapter.USER_ACTIVITY_PROPERTIES)
+    public Cursor getActivityForTagData(TagData tagData) {
+        Query activityQuery = queryForTagData(tagData, UpdateAdapter.USER_ACTIVITY_PROPERTIES)
                 .from(UserActivity.TABLE);
 
         Query resultQuery = activityQuery.orderBy(Order.desc("1")); //$NON-NLS-1$

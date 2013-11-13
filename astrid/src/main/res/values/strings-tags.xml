@@ -3,9 +3,6 @@
 
   <!-- =============================================== Task Edit Controls == -->
 
-  <!-- Tags label -->
-  <string name="TEA_tags_label">Lists</string>
-  
   <!-- Tags label long version -->
   <string name="TEA_tags_label_long">Add to lists</string>
  

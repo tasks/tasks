@@ -5,14 +5,13 @@
  */
 package com.todoroo.astrid.files;
 
-import android.app.PendingIntent;
 import android.graphics.drawable.BitmapDrawable;
 
 import com.todoroo.astrid.api.TaskAction;
 
 public class FilesAction extends TaskAction {
 
-    public FilesAction(PendingIntent intent, BitmapDrawable icon) {
-        super(intent, icon);
+    public FilesAction(BitmapDrawable icon) {
+        super(null, icon);
     }
 }

@@ -260,7 +260,7 @@ public class TagViewFragment extends TaskListFragment {
         AndroidUtilities.tryUnregisterReceiver(getActivity(), notifyReceiver);
     }
 
-    protected void reloadTagData(boolean onActivityResult) {
+    protected void reloadTagData() {
         tagData = tagDataService.fetchById(tagData.getId(), TagData.PROPERTIES); // refetch
         if (tagData == null) {
             // This can happen if a tag has been deleted as part of a sync
@@ -279,11 +279,7 @@ public class TagViewFragment extends TaskListFragment {
             ((TaskListActivity) activity).setListsTitle(filter.title);
             FilterListFragment flf = ((TaskListActivity) activity).getFilterListFragment();
             if (flf != null) {
-                if (!onActivityResult) {
-                    flf.refresh();
-                } else {
-                    flf.clear();
-                }
+                flf.clear();
             }
         }
         taskAdapter = null;
@@ -293,7 +289,7 @@ public class TagViewFragment extends TaskListFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_SETTINGS && resultCode == Activity.RESULT_OK) {
-            reloadTagData(true);
+            reloadTagData();
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }

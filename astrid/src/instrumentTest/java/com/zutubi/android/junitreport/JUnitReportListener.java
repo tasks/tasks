@@ -203,7 +203,7 @@ public class JUnitReportListener implements TestListener {
             return mTargetContext.openFileOutput(fileName, Context.MODE_WORLD_READABLE);
         } else {
             if (mReportDir.contains(TOKEN_EXTERNAL)) {
-                File externalDir = Compatibility.getExternalFilesDir(mTargetContext, null);
+                File externalDir = Compatibility.getExternalFilesDir(mTargetContext);
                 if (externalDir == null) {
                     Log.e(LOG_TAG, "reportDir references external storage, but external storage is not available (check mounting and permissions)");
                     throw new IOException("Cannot access external storage");

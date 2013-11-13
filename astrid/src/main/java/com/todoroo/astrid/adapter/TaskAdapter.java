@@ -18,7 +18,6 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.text.Html.ImageGetter;
-import android.text.Html.TagHandler;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -194,7 +193,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     protected OnCompletedTaskListener onCompletedTaskListener = null;
     protected final int resource;
     protected final LayoutInflater inflater;
-    private DetailLoaderThread detailLoader;
     private int fontSize;
     private long mostRecentlyMade = -1;
     private final ScaleAnimation scaleAnimation;
@@ -223,15 +221,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      *            layout resource to inflate
      * @param c
      *            database cursor
-     * @param autoRequery
-     *            whether cursor is automatically re-queried on changes
      * @param onCompletedTaskListener
      *            task listener. can be null
      */
     public TaskAdapter(TaskListFragment fragment, int resource,
-            Cursor c, AtomicReference<String> query, boolean autoRequery,
-            OnCompletedTaskListener onCompletedTaskListener) {
-        super(ContextManager.getContext(), c, autoRequery);
+            Cursor c, AtomicReference<String> query, OnCompletedTaskListener onCompletedTaskListener) {
+        super(ContextManager.getContext(), c, false);
         DependencyInjectionService.getInstance().inject(this);
 
         this.context = ContextManager.getContext();
@@ -298,7 +293,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     private void startDetailThread() {
         if (Preferences.getBoolean(R.string.p_showNotes, false) && !simpleLayout && !titleOnlyLayout) {
-            detailLoader = new DetailLoaderThread();
+            DetailLoaderThread detailLoader = new DetailLoaderThread();
             detailLoader.start();
         }
     }
@@ -539,7 +534,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         int i = 0;
         for(; i < splitDetails.length; i++) {
-            Spanned spanned = convertToHtml(splitDetails[i] + "  ", detailImageGetter, null);
+            Spanned spanned = convertToHtml(splitDetails[i] + "  ", detailImageGetter);
             prospective.insert(prospective.length(), spanned);
             viewHolder.details1.setText(prospective);
             viewHolder.details1.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
@@ -561,7 +556,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
 
         for(; i < splitDetails.length; i++) {
-            actual.insert(actual.length(), convertToHtml(splitDetails[i] + "  ", detailImageGetter, null));
+            actual.insert(actual.length(), convertToHtml(splitDetails[i] + "  ", detailImageGetter));
         }
         viewHolder.details2.setText(actual);
     }
@@ -662,11 +657,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     private final HashMap<String, Spanned> htmlCache = new HashMap<String, Spanned>(8);
 
-    private Spanned convertToHtml(String string, ImageGetter imageGetter, TagHandler tagHandler) {
+    private Spanned convertToHtml(String string, ImageGetter imageGetter) {
         if(!htmlCache.containsKey(string)) {
             Spanned html;
             try {
-                html = Html.fromHtml(string, imageGetter, tagHandler);
+                html = Html.fromHtml(string, imageGetter, null);
             } catch (RuntimeException e) {
                 html = Spannable.Factory.getInstance().newSpannable(string);
             }

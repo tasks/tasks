@@ -637,7 +637,6 @@
 	<string name="subtasks_help_1">Druk en sleep om een taak te verplaatsen</string>
 	<string name="subtasks_help_2">Sleep verticaal om te herschikken</string>
 	<string name="subtasks_help_3">Sleep horizontaal om in te springen</string>
-	<string name="TEA_tags_label">Lijsten</string>
 	<string name="TEA_tags_label_long">Voeg toe aan lijsten</string>
 	<string name="TEA_tag_hint">Nieuwe lijst</string>
 	<string name="tag_new_list">Nieuwe lijst</string>

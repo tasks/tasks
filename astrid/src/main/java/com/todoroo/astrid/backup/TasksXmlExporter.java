@@ -52,8 +52,8 @@ public class TasksXmlExporter {
      * @param backupDirectoryOverride new backupdirectory, or null to use default
      */
     public static void exportTasks(Context context, ExportType exportType,
-            File backupDirectoryOverride, String versionName) {
-        new TasksXmlExporter(context, exportType, backupDirectoryOverride, versionName);
+            File backupDirectoryOverride) {
+        new TasksXmlExporter(context, exportType, backupDirectoryOverride);
     }
 
     public static enum ExportType {
@@ -91,12 +91,12 @@ public class TasksXmlExporter {
     }
 
     private TasksXmlExporter(final Context context, final ExportType exportType,
-            File backupDirectoryOverride, String versionName) {
+            File backupDirectoryOverride) {
         this.context = context;
         this.exportCount = 0;
         this.backupDirectory = backupDirectoryOverride == null ?
                 BackupConstants.defaultExportDirectory() : backupDirectoryOverride;
-        this.latestSetVersionName = versionName;
+        this.latestSetVersionName = null;
 
         handler = new Handler();
         progressDialog = new ProgressDialog(context);

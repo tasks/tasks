@@ -17,11 +17,6 @@ public final class Constants {
     public static final String PACKAGE = "org.tasks";
 
     /**
-     * Whether this is an OEM installation
-     */
-    public static final boolean OEM = false;
-
-    /**
      * Market selection strategy
      */
     public static final MarketStrategy MARKET_STRATEGY = new MarketStrategy.AndroidMarketStrategy();

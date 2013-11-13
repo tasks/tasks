@@ -91,21 +91,17 @@ public class DateUtilities {
      * @param date time to format
      * @return time, with hours and minutes
      */
-    public static String getTimeString(Context context, Date date, boolean excludeZeroMinutes) {
+    public static String getTimeString(Context context, Date date) {
         String value;
         if (is24HourFormat(context)) {
             value = "H:mm";
-        } else if (date.getMinutes() == 0 && excludeZeroMinutes){
+        } else if (date.getMinutes() == 0){
             value = "h a";
         }
         else {
             value = "h:mm a";
         }
         return new SimpleDateFormat(value).format(date);
-    }
-
-    public static String getTimeString(Context context, Date date) {
-        return getTimeString(context, date, true);
     }
 
     /* Returns true if search string is in sortedValues */
@@ -118,7 +114,7 @@ public class DateUtilities {
      * @param date date to format
      * @return date, with month, day, and year
      */
-    public static String getDateString(Date date, boolean includeYear) {
+    public static String getDateString(Date date) {
         String month = new SimpleDateFormat("MMM").format(date);
         String value;
         String standardDate;
@@ -130,9 +126,7 @@ public class DateUtilities {
         } else {
             value = "d'$' '#'";
         }
-        if (includeYear) {
-            value += ", yyyy";
-        }
+        value += ", yyyy";
         if (arrayBinaryContains(locale.getLanguage(), "ja", "zh")){
             standardDate = new SimpleDateFormat(value).format(date).replace("#", month).replace("$", "\u65E5"); //$NON-NLS-1$
         }else if ("ko".equals(Locale.getDefault().getLanguage())){
@@ -140,10 +134,7 @@ public class DateUtilities {
         }else{
             standardDate = new SimpleDateFormat(value).format(date).replace("#", month).replace("$", "");
         }
-        return standardDate;}
-
-    public static String getDateString(Date date) {
-        return getDateString(date, true);
+        return standardDate;
     }
 
     /**

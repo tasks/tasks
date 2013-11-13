@@ -136,7 +136,6 @@ public class CustomFilterActivity extends ActionBarActivity {
 
     private ListView listView;
     private TextView filterName;
-    private boolean isDialog;
 
     private CustomFilterAdapter adapter;
     private final Map<String,CustomFilterCriterion> criteria = Collections.synchronizedMap(new LinkedHashMap<String,CustomFilterCriterion>());
@@ -179,8 +178,7 @@ public class CustomFilterActivity extends ActionBarActivity {
     }
 
     private void setupForDialogOrFullscreen() {
-        isDialog = AstridPreferences.useTabletLayout(this);
-        if (isDialog) {
+        if (AstridPreferences.useTabletLayout(this)) {
             setTheme(ThemeService.getDialogTheme());
         } else {
             ThemeService.applyTheme(this);
@@ -261,7 +259,7 @@ public class CustomFilterActivity extends ActionBarActivity {
                     Query.select(Task.ID).from(Task.TABLE).where(
                             Criterion.and(TaskCriteria.activeVisibleMine(),
                                     Task.TITLE.like("%?%"))).toString(),
-                        null, getString(R.string.CFC_title_contains_name), "",
+                        getString(R.string.CFC_title_contains_name), "",
                         ((BitmapDrawable)r.getDrawable(R.drawable.tango_alpha)).getBitmap(),
                         getString(R.string.CFC_title_contains_name));
             criteria.put(IDENTIFIER_TITLE, criterion);

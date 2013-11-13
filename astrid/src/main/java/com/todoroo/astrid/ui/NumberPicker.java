@@ -68,32 +68,25 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     private final Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
+            long speed = 60;
             if (mIncrement) {
                 changeCurrent(mCurrent + incrementBy);
-                mHandler.postDelayed(this, mSpeed);
+                mHandler.postDelayed(this, speed);
             } else if (mDecrement) {
                 changeCurrent(mCurrent - incrementBy);
-                mHandler.postDelayed(this, mSpeed);
+                mHandler.postDelayed(this, speed);
             }
         }
     };
 
-    private final LayoutInflater               mInflater;
     private final EditText                     mText;
-    private final InputFilter                  mInputFilter;
     private final InputFilter                  mNumberInputFilter;
-
-    private final Animation                    mSlideUpOutAnimation;
-    private final Animation                    mSlideUpInAnimation;
-    private final Animation                    mSlideDownOutAnimation;
-    private final Animation                    mSlideDownInAnimation;
 
     private int                                mStart;
     private int                                mEnd;
     private int                                mCurrent;
     private OnChangedListener                  mListener;
     private Formatter                          mFormatter;
-    private long                               mSpeed              = 60;
 
     private boolean                            mIncrement;
     private boolean                            mDecrement;
@@ -117,10 +110,10 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     public NumberPicker(Context context, AttributeSet attrs) {
         super(context, attrs);
         setOrientation(VERTICAL);
-        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mInflater.inflate(getLayout(), this, true);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(getLayout(), this, true);
         mHandler = new Handler();
-        mInputFilter = new NumberPickerInputFilter();
+        InputFilter inputFilter = new NumberPickerInputFilter();
         mNumberInputFilter = new NumberRangeKeyListener();
         mIncrementButton = (NumberPickerButton) findViewById(R.id.increment);
         mIncrementButton.setOnClickListener(this);
@@ -133,27 +126,27 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
 
         mText = (EditText) findViewById(R.id.timepicker_input);
         mText.setOnFocusChangeListener(this);
-        mText.setFilters(new InputFilter[] { mInputFilter });
+        mText.setFilters(new InputFilter[] {inputFilter});
 
         // disable keyboard until user requests it
         AndroidUtilities.suppressVirtualKeyboard(mText);
 
-        mSlideUpOutAnimation = new TranslateAnimation(
+        Animation slideUpOutAnimation = new TranslateAnimation(
                 Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0,
                 Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, -100);
-        mSlideUpOutAnimation.setDuration(200);
-        mSlideUpInAnimation = new TranslateAnimation(
+        slideUpOutAnimation.setDuration(200);
+        Animation slideUpInAnimation = new TranslateAnimation(
                 Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0,
                 Animation.RELATIVE_TO_SELF, 100, Animation.RELATIVE_TO_SELF, 0);
-        mSlideUpInAnimation.setDuration(200);
-        mSlideDownOutAnimation = new TranslateAnimation(
+        slideUpInAnimation.setDuration(200);
+        Animation slideDownOutAnimation = new TranslateAnimation(
                 Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0,
                 Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 100);
-        mSlideDownOutAnimation.setDuration(200);
-        mSlideDownInAnimation = new TranslateAnimation(
+        slideDownOutAnimation.setDuration(200);
+        Animation slideDownInAnimation = new TranslateAnimation(
                 Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0,
                 Animation.RELATIVE_TO_SELF, -100, Animation.RELATIVE_TO_SELF, 0);
-        mSlideDownInAnimation.setDuration(200);
+        slideDownInAnimation.setDuration(200);
 
         if (!isEnabled()) {
             setEnabled(false);

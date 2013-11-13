@@ -32,7 +32,6 @@ import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
-import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
@@ -216,7 +215,7 @@ public final class TagService {
     /**
      * Delete all links between the specified task and the list of tags
      */
-    public void deleteLinks(long taskId, String taskUuid, String[] tagUuids, boolean suppressOutstanding) {
+    public void deleteLinks(long taskId, String taskUuid, String[] tagUuids) {
         Metadata deleteTemplate = new Metadata();
         deleteTemplate.setValue(Metadata.TASK, taskId); // Need this for recording changes in outstanding table
         deleteTemplate.setValue(Metadata.DELETION_DATE, DateUtilities.now());
@@ -225,9 +224,6 @@ public final class TagService {
                 // TODO: Right now this is in a loop because each deleteTemplate needs the individual tagUuid in order to record
                 // the outstanding entry correctly. If possible, this should be improved to a single query
                 deleteTemplate.setValue(TaskToTagMetadata.TAG_UUID, uuid); // Need this for recording changes in outstanding table
-                if (suppressOutstanding) {
-                    deleteTemplate.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
-                }
                 metadataDao.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), Metadata.DELETION_DATE.eq(0),
                         TaskToTagMetadata.TASK_UUID.eq(taskUuid), TaskToTagMetadata.TAG_UUID.eq(uuid)), deleteTemplate);
             }
@@ -348,7 +344,7 @@ public final class TagService {
         }
 
         // Mark as deleted links that don't exist anymore
-        deleteLinks(taskId, taskUuid, existingLinks.toArray(new String[existingLinks.size()]), false);
+        deleteLinks(taskId, taskUuid, existingLinks.toArray(new String[existingLinks.size()]));
     }
 
     /**
@@ -402,22 +398,14 @@ public final class TagService {
     }
 
     public int rename(String uuid, String newName) {
-        return rename(uuid, newName, false);
-    }
-
-    public int rename(String uuid, String newName, boolean suppressSync) {
         TagData template = new TagData();
         template.setValue(TagData.NAME, newName);
-        if (suppressSync) {
-            template.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
-        }
-        int result = tagDataDao.update(TagData.UUID.eq(uuid), template);
+        tagDataDao.update(TagData.UUID.eq(uuid), template);
 
         Metadata metadataTemplate = new Metadata();
         metadataTemplate.setValue(TaskToTagMetadata.TAG_NAME, newName);
-        result = metadataDao.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(uuid)), metadataTemplate);
 
-        return result;
+        return metadataDao.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(uuid)), metadataTemplate);
     }
 
     public static int getDefaultImageIDForTag(String nameOrUUID) {

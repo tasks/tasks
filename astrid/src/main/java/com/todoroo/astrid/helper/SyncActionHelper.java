@@ -90,7 +90,7 @@ public class SyncActionHelper {
     public void initiateAutomaticSync() {
         long tasksPushedAt = Preferences.getLong(PREF_LAST_AUTO_SYNC, 0);
         if (DateUtilities.now() - tasksPushedAt > TaskListFragment.AUTOSYNC_INTERVAL) {
-            performSyncServiceV2Sync(false);
+            performSyncServiceV2Sync();
         }
     }
 
@@ -140,8 +140,8 @@ public class SyncActionHelper {
 
     // --- sync logic
 
-    protected void performSyncServiceV2Sync(boolean manual) {
-        boolean syncOccurred = syncService.synchronizeActiveTasks(manual, syncResultCallback);
+    protected void performSyncServiceV2Sync() {
+        boolean syncOccurred = syncService.synchronizeActiveTasks(false, syncResultCallback);
         if (syncOccurred) {
             Preferences.setLong(PREF_LAST_AUTO_SYNC, DateUtilities.now());
         }

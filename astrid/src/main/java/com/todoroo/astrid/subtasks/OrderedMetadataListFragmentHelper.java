@@ -204,7 +204,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
             AtomicReference<String> sqlQueryTemplate) {
 
         taskAdapter = new DraggableTaskAdapter(fragment, TaskListFragment.getTaskRowResource(),
-                cursor, sqlQueryTemplate, false, null);
+                cursor, sqlQueryTemplate);
 
         taskAdapter.addOnCompletedTaskListener(new OnCompletedTaskListener() {
             @Override
@@ -219,10 +219,8 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
     private final class DraggableTaskAdapter extends TaskAdapter {
 
         private DraggableTaskAdapter(TaskListFragment activity, int resource,
-                Cursor c, AtomicReference<String> query, boolean autoRequery,
-                OnCompletedTaskListener onCompletedTaskListener) {
-            super(activity, resource, c, query, autoRequery,
-                    onCompletedTaskListener);
+                Cursor c, AtomicReference<String> query) {
+            super(activity, resource, c, query, null);
         }
 
         @Override
@@ -258,7 +256,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
         final Task model = new Task();
         final long completionDate = completedState ? DateUtilities.now() : 0;
 
-        if(completedState == false) {
+        if(!completedState) {
             ArrayList<Long> chained = chainedCompletions.get(itemId);
             if(chained != null) {
                 for(Long taskId : chained) {

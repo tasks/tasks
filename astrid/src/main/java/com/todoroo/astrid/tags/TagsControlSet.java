@@ -144,11 +144,11 @@ public final class TagsControlSet extends PopupControlSet {
     }
 
     /** Adds a tag to the tag field */
-    void addTag(String tagName, boolean reuse) {
+    void addTag(String tagName) {
         LayoutInflater inflater = activity.getLayoutInflater();
 
         // check if already exists
-        TextView lastText = null;
+        TextView lastText;
         for(int i = 0; i < newTags.getChildCount(); i++) {
             View view = newTags.getChildAt(i);
             lastText = (TextView) view.findViewById(R.id.text1);
@@ -158,12 +158,8 @@ public final class TagsControlSet extends PopupControlSet {
         }
 
         final View tagItem;
-        if(reuse && lastText != null && lastText.getText().length() == 0) {
-            tagItem = (View) lastText.getParent();
-        } else {
-            tagItem = inflater.inflate(R.layout.tag_edit_row, null);
-            newTags.addView(tagItem);
-        }
+        tagItem = inflater.inflate(R.layout.tag_edit_row, null);
+        newTags.addView(tagItem);
         if(tagName == null) {
             tagName = ""; //$NON-NLS-1$
         }
@@ -187,7 +183,7 @@ public final class TagsControlSet extends PopupControlSet {
                     int count) {
                 if(count > 0 && newTags.getChildAt(newTags.getChildCount()-1) ==
                         tagItem) {
-                    addTag("", false); //$NON-NLS-1$
+                    addTag(""); //$NON-NLS-1$
                 }
             }
         });
@@ -199,7 +195,7 @@ public final class TagsControlSet extends PopupControlSet {
                     return false;
                 }
                 if(getLastTextView().getText().length() != 0) {
-                    addTag("", false); //$NON-NLS-1$
+                    addTag(""); //$NON-NLS-1$
                 }
                 return true;
             }
@@ -264,7 +260,7 @@ public final class TagsControlSet extends PopupControlSet {
         if(model.getId() != AbstractModel.NO_ID) {
             selectTagsFromModel();
         }
-        addTag("", false); //$NON-NLS-1$
+        addTag(""); //$NON-NLS-1$
         refreshDisplayView();
         populated = true;
     }

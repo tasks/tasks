@@ -572,7 +572,6 @@
 	<string name="subtasks_help_1">Bir görevi taşımak için dokunup sürükleyin</string>
 	<string name="subtasks_help_2">Yeniden sıralamak için dikine sürükle</string>
 	<string name="subtasks_help_3">Girintili yazmak için yatay sürükle</string>
-	<string name="TEA_tags_label">Listeler</string>
 	<string name="TEA_tag_hint">Yeni liste</string>
 	<string name="tag_new_list">Yeni Liste</string>
 	<string name="tag_no_title_error">Lütfen bu liste için isim girin!</string>

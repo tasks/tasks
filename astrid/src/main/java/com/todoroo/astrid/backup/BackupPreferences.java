@@ -75,7 +75,7 @@ public class BackupPreferences extends TodorooPreferenceActivity {
         findPreference(getString(R.string.backup_BAc_export)).setOnPreferenceClickListener(new OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                TasksXmlExporter.exportTasks(BackupPreferences.this, TasksXmlExporter.ExportType.EXPORT_TYPE_MANUAL, null, null);
+                TasksXmlExporter.exportTasks(BackupPreferences.this, TasksXmlExporter.ExportType.EXPORT_TYPE_MANUAL, null);
                 return true;
             }
         });

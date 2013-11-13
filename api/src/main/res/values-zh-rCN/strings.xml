@@ -21,10 +21,6 @@
 		<item quantity="one">1 天</item>
 		<item quantity="other">%d 天</item>
 	</plurals>
-	<plurals name="DUt_weekdays">
-		<item quantity="one">1 个任务天</item>
-		<item quantity="other">%d 个任务天</item>
-	</plurals>
 	<plurals name="DUt_hours">
 		<item quantity="one">1 小时</item>
 		<item quantity="other">%d 小时</item>
@@ -33,29 +29,9 @@
 		<item quantity="one">1 分钟</item>
 		<item quantity="other">%d 分钟</item>
 	</plurals>
-	<plurals name="DUt_seconds">
-		<item quantity="one">1 秒</item>
-		<item quantity="other">%d 秒</item>
-	</plurals>
-	<plurals name="DUt_hoursShort">
-		<item quantity="one">1 小时</item>
-		<item quantity="other">%d 小时</item>
-	</plurals>
-	<plurals name="DUt_minutesShort">
-		<item quantity="one">1 分钟</item>
-		<item quantity="other">%d 分钟</item>
-	</plurals>
-	<plurals name="DUt_secondsShort">
-		<item quantity="one">1 秒</item>
-		<item quantity="other">%d 秒</item>
-	</plurals>
 	<plurals name="Ntasks">
 		<item quantity="one">1 个任务</item>
 		<item quantity="other">%d 个任务</item>
-	</plurals>
-	<plurals name="Npeople">
-		<item quantity="one">一个人</item>
-		<item quantity="other">%d 个人</item>
 	</plurals>
 	<string name="today">今天</string>
 	<string name="tomorrow">明天</string>

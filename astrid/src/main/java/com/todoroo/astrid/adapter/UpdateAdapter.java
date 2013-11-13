@@ -77,12 +77,10 @@ public class UpdateAdapter extends CursorAdapter {
      *            layout resource to inflate
      * @param c
      *            database cursor
-     * @param autoRequery
-     *            whether cursor is automatically re-queried on changes
      */
     public UpdateAdapter(Fragment fragment, int resource,
-            Cursor c, boolean autoRequery) {
-        super(fragment.getActivity(), c, autoRequery);
+            Cursor c) {
+        super(fragment.getActivity(), c, false);
         DependencyInjectionService.getInstance().inject(this);
 
         inflater = (LayoutInflater) fragment.getActivity().getSystemService(

@@ -36,11 +36,10 @@ public final class Compatibility {
      * on API 7 and below.
      * 
      * @param context context to get the external files directory for
-     * @param type the type of files directory to return (may be null)
      * @return the path of the directory holding application files on external
      *         storage, or null if external storage cannot be accessed
      */
-    public static File getExternalFilesDir(final Context context, final String type) {
+    public static File getExternalFilesDir(final Context context) {
         if (METHOD_GET_EXTERNAL_FILES_DIR == null) {
             final File externalRoot = Environment.getExternalStorageDirectory();
             if (externalRoot == null) {
@@ -51,7 +50,7 @@ public final class Compatibility {
             return new File(externalRoot, "Android/data/" + packageName + "/files");
         } else {
             try {
-                return (File) METHOD_GET_EXTERNAL_FILES_DIR.invoke(context, type);
+                return (File) METHOD_GET_EXTERNAL_FILES_DIR.invoke(context, null);
             } catch (Exception e) {
                 Log.e(LOG_TAG, "Could not invoke getExternalFilesDir: " + e.getMessage(), e);
                 return null;

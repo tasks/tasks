@@ -21,10 +21,6 @@
 		<item quantity="one">1 dag</item>
 		<item quantity="other">%d dagar</item>
 	</plurals>
-	<plurals name="DUt_weekdays">
-		<item quantity="one">1 Veckodag</item>
-		<item quantity="other">%d Veckodagar</item>
-	</plurals>
 	<plurals name="DUt_hours">
 		<item quantity="one">1 timme</item>
 		<item quantity="other">%d timmar</item>
@@ -33,29 +29,9 @@
 		<item quantity="one">1 minut</item>
 		<item quantity="other">%d minuter</item>
 	</plurals>
-	<plurals name="DUt_seconds">
-		<item quantity="one">1 sekund</item>
-		<item quantity="other">%d sekunder</item>
-	</plurals>
-	<plurals name="DUt_hoursShort">
-		<item quantity="one">1 tim</item>
-		<item quantity="other">%d tim</item>
-	</plurals>
-	<plurals name="DUt_minutesShort">
-		<item quantity="one">1 min</item>
-		<item quantity="other">%d min</item>
-	</plurals>
-	<plurals name="DUt_secondsShort">
-		<item quantity="one">1 sek</item>
-		<item quantity="other">%d sek</item>
-	</plurals>
 	<plurals name="Ntasks">
 		<item quantity="one">1 uppgift</item>
 		<item quantity="other">%d uppgifter</item>
-	</plurals>
-	<plurals name="Npeople">
-		<item quantity="one">1 person</item>
-		<item quantity="other">%d personer</item>
 	</plurals>
 	<string name="yesterday">Igår</string>
 	<string name="tmrw">imorn</string>

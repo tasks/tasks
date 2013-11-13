@@ -68,12 +68,12 @@ public class LinkActionExposer {
         Resources r = context.getResources();
         if (hasAttachments) {
             BitmapDrawable icon = getBitmapDrawable(R.drawable.action_attachments, r);
-            return new FilesAction(null, icon);
+            return new FilesAction(icon);
         }
 
         if (hasNotes && !Preferences.getBoolean(R.string.p_showNotes, false)) {
             BitmapDrawable icon = getBitmapDrawable(R.drawable.action_notes, r);
-            return new NotesAction(null, icon);
+            return new NotesAction(icon);
         }
 
         return null;

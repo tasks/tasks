@@ -83,7 +83,7 @@ public class BackupService extends Service {
             }
 
             TasksXmlExporter.exportTasks(context, TasksXmlExporter.ExportType.EXPORT_TYPE_SERVICE,
-                    backupDirectorySetting.getBackupDirectory(), null);
+                    backupDirectorySetting.getBackupDirectory());
 
         } catch (Exception e) {
             Log.e("error-backup", "Error starting backups", e); //$NON-NLS-1$ //$NON-NLS-2$

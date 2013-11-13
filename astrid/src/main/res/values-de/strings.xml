@@ -624,7 +624,6 @@
 	<string name="subtasks_help_1">Drücken und halten, um Aufgabe zu verschieben</string>
 	<string name="subtasks_help_2">Sortieren ändern durch Ziehen nach oben oder unten</string>
 	<string name="subtasks_help_3">Zum Einrücken waagerecht ziehen</string>
-	<string name="TEA_tags_label">Listen</string>
 	<string name="TEA_tags_label_long">Zur Liste hinzufügen</string>
 	<string name="TEA_tag_hint">Wähle eine Liste</string>
 	<string name="tag_new_list">Neue Liste</string>

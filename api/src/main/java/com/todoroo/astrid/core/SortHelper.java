@@ -20,7 +20,7 @@ import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
  */
 public class SortHelper {
 
-    public static final int FLAG_REVERSE_SORT = 1 << 0;
+    public static final int FLAG_REVERSE_SORT = 1;
     public static final int FLAG_SHOW_COMPLETED = 1 << 1;
     public static final int FLAG_SHOW_HIDDEN = 1 << 2;
     public static final int FLAG_SHOW_DELETED = 1 << 3;

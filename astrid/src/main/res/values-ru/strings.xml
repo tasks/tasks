@@ -629,7 +629,6 @@
 	<string name="subtasks_help_1">Нажмите и удерживайте, чтобы переместить задачу</string>
 	<string name="subtasks_help_2">Перетащите вертикально, чтобы перестроить</string>
 	<string name="subtasks_help_3">Перетащите горизонтально для отступа</string>
-	<string name="TEA_tags_label">Списки</string>
 	<string name="TEA_tags_label_long">Добавить в список</string>
 	<string name="TEA_tag_hint">Новый список</string>
 	<string name="tag_new_list">Новый список</string>

@@ -639,7 +639,6 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="subtasks_help_1">Mantenga presionado para mover una tarea</string>
 	<string name="subtasks_help_2">Arrastre verticalmente para reordenar</string>
 	<string name="subtasks_help_3">Arrastre horizontalmente para aplicar una sangría</string>
-	<string name="TEA_tags_label">Listas</string>
 	<string name="TEA_tags_label_long">Añadir a listas</string>
 	<string name="TEA_tag_hint">Nueva lista</string>
 	<string name="tag_new_list">Nueva lista</string>

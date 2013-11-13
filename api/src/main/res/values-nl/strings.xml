@@ -21,10 +21,6 @@
 		<item quantity="one">1 dag</item>
 		<item quantity="other">%d dagen</item>
 	</plurals>
-	<plurals name="DUt_weekdays">
-		<item quantity="one">1 weekdag</item>
-		<item quantity="other">%d weekdagen</item>
-	</plurals>
 	<plurals name="DUt_hours">
 		<item quantity="one">1 uur</item>
 		<item quantity="other">%d uren</item>
@@ -33,29 +29,9 @@
 		<item quantity="one">1 minuut</item>
 		<item quantity="other">%d minuten</item>
 	</plurals>
-	<plurals name="DUt_seconds">
-		<item quantity="one">1 seconde</item>
-		<item quantity="other">%d seconden</item>
-	</plurals>
-	<plurals name="DUt_hoursShort">
-		<item quantity="one">1 u.</item>
-		<item quantity="other">%d u.</item>
-	</plurals>
-	<plurals name="DUt_minutesShort">
-		<item quantity="one">1 m.</item>
-		<item quantity="other">%d m.</item>
-	</plurals>
-	<plurals name="DUt_secondsShort">
-		<item quantity="one">1 s.</item>
-		<item quantity="other">%d s.</item>
-	</plurals>
 	<plurals name="Ntasks">
 		<item quantity="one">1 taak</item>
 		<item quantity="other">%d taken</item>
-	</plurals>
-	<plurals name="Npeople">
-		<item quantity="one">1 persoon</item>
-		<item quantity="other">%d personen</item>
 	</plurals>
 	<string name="today">Vandaag</string>
 	<string name="tomorrow">Morgen</string>

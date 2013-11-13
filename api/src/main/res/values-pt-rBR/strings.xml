@@ -21,10 +21,6 @@
 		<item quantity="one">1 dia</item>
 		<item quantity="other">%d dias</item>
 	</plurals>
-	<plurals name="DUt_weekdays">
-		<item quantity="one">1 dia útil</item>
-		<item quantity="other">%d dias úteis</item>
-	</plurals>
 	<plurals name="DUt_hours">
 		<item quantity="one">1 hora</item>
 		<item quantity="other">%d horas</item>
@@ -33,29 +29,9 @@
 		<item quantity="one">1 minuto</item>
 		<item quantity="other">%d minutos</item>
 	</plurals>
-	<plurals name="DUt_seconds">
-		<item quantity="one">1 segundo</item>
-		<item quantity="other">%d segundos</item>
-	</plurals>
-	<plurals name="DUt_hoursShort">
-		<item quantity="one">1 h</item>
-		<item quantity="other">%d h</item>
-	</plurals>
-	<plurals name="DUt_minutesShort">
-		<item quantity="one">1 min</item>
-		<item quantity="other">%d min</item>
-	</plurals>
-	<plurals name="DUt_secondsShort">
-		<item quantity="one">1 s</item>
-		<item quantity="other">%d s</item>
-	</plurals>
 	<plurals name="Ntasks">
 		<item quantity="one">1 tarefa</item>
 		<item quantity="other">%d tarefas</item>
-	</plurals>
-	<plurals name="Npeople">
-		<item quantity="one">1 pessoa</item>
-		<item quantity="other">%d pessoas</item>
 	</plurals>
 	<string name="today">Hoje</string>
 	<string name="tomorrow">Amanhã</string>

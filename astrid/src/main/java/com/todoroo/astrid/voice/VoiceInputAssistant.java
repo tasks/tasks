@@ -66,8 +66,8 @@ public class VoiceInputAssistant {
     }
 
     /** Sets whether voice input will append into field */
-    public void setAppend(boolean append) {
-        this.append = append;
+    public void setAppend() {
+        this.append = true;
     }
 
     /**

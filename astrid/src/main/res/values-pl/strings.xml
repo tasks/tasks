@@ -627,7 +627,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="subtasks_help_1">Dotknij i przytrzymaj, by przenieść zadanie</string>
 	<string name="subtasks_help_2">Przenieś w pionie aby przearanżować</string>
 	<string name="subtasks_help_3">Przenieś w poziomie aby zrobić wcięcie</string>
-	<string name="TEA_tags_label">Listy</string>
 	<string name="TEA_tags_label_long">Dodaj do list</string>
 	<string name="TEA_tag_hint">Nowa lista</string>
 	<string name="tag_new_list">Nowa lista</string>

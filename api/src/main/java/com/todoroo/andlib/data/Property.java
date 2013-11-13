@@ -40,7 +40,7 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
     public final String name;
 
     /** Can this field be null? */
-    public static final int PROP_FLAG_NULLABLE = 1 << 0;
+    public static final int PROP_FLAG_NULLABLE = 1;
     /** Is this field a date? */
     public static final int PROP_FLAG_DATE = 1 << 1;
     /** Is this field a user id? */
@@ -153,8 +153,8 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
             super(table, name, flags);
         }
 
-        protected IntegerProperty(Table table, String name, String expression) {
-            super(table, name, expression);
+        protected IntegerProperty(String name, String expression) {
+            super(null, name, expression);
         }
 
         @Override
@@ -271,7 +271,7 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
     /** Runs a SQL function and returns the result as a string */
     public static class IntegerFunctionProperty extends IntegerProperty {
         public IntegerFunctionProperty(String function, String columnName) {
-            super(null, columnName, function);
+            super(columnName, function);
             alias = columnName;
         }
     }

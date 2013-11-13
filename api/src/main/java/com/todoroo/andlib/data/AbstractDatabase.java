@@ -10,7 +10,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
@@ -133,7 +132,7 @@ abstract public class AbstractDatabase {
                 throw new NullPointerException("Null context creating database helper");
             }
             helper = new DatabaseHelper(ContextManager.getContext(),
-                    getName(), null, getVersion());
+                    getName(), getVersion());
         }
     }
 
@@ -219,11 +218,8 @@ abstract public class AbstractDatabase {
 
     // --- database wrapper
 
-    /*
-     * @see android.database.sqlite.SQLiteDatabase#rawQuery(String  sql, String[] selectionArgs)
-     */
-    public synchronized Cursor rawQuery(String sql, String[] selectionArgs) {
-        return getDatabase().rawQuery(sql, selectionArgs);
+    public synchronized Cursor rawQuery(String sql) {
+        return getDatabase().rawQuery(sql, null);
     }
 
     /*
@@ -252,11 +248,8 @@ abstract public class AbstractDatabase {
         return result;
     }
 
-    /*
-     * @see android.database.sqlite.SQLiteDatabase#update(String  table, ContentValues  values, String  whereClause, String[] whereArgs)
-     */
-    public synchronized int update(String  table, ContentValues  values, String  whereClause, String[] whereArgs) {
-        int result = getDatabase().update(table, values, whereClause, whereArgs);
+    public synchronized int update(String  table, ContentValues  values, String whereClause) {
+        int result = getDatabase().update(table, values, whereClause, null);
         onDatabaseUpdated();
         return result;
     }
@@ -268,9 +261,8 @@ abstract public class AbstractDatabase {
      */
     private class DatabaseHelper extends SQLiteOpenHelper {
 
-        public DatabaseHelper(Context context, String name,
-                CursorFactory factory, int version) {
-            super(context, name, factory, version);
+        public DatabaseHelper(Context context, String name, int version) {
+            super(context, name, null, version);
         }
 
         /**

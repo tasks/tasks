@@ -647,7 +647,6 @@
 	<string name="subtasks_help_1">일정을 옮기려면 길게 누릅니다</string>
 	<string name="subtasks_help_2">재배열하려면 수직으로 드래그합니다</string>
 	<string name="subtasks_help_3">들여쓰기하려면 수평으로 드래그합니다</string>
-	<string name="TEA_tags_label">목록</string>
 	<string name="TEA_tags_label_long">목록에 추가하기</string>
 	<string name="TEA_tag_hint">새 목록</string>
 	<string name="tag_new_list">새 목록</string>

@@ -144,7 +144,7 @@ public class ShortcutActivity extends Activity {
                 Set<String> keys = extras.keySet();
                 for (String key : keys) {
                     if (AndroidUtilities.indexOf(CUSTOM_EXTRAS, key) < 0) {
-                        AndroidUtilities.putInto(customExtras, key, extras.get(key), false);
+                        AndroidUtilities.putInto(customExtras, key, extras.get(key));
                     }
                 }
 

@@ -696,8 +696,7 @@ public class TaskListFragment extends ListFragment implements OnSortSelectedList
 
                 if (AstridApiConstants.BROADCAST_SEND_DECORATIONS.equals(intent.getAction())) {
                     TaskDecoration deco = receivedExtras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
-                    taskAdapter.decorationManager.addNew(taskId, addOn, deco,
-                            null);
+                    taskAdapter.decorationManager.addNew(taskId, addOn, deco);
                 } else if (AstridApiConstants.BROADCAST_SEND_DETAILS.equals(intent.getAction())) {
                     String detail = receivedExtras.getString(AstridApiConstants.EXTRAS_RESPONSE);
                     taskAdapter.addDetails(taskId, detail);
@@ -781,7 +780,7 @@ public class TaskListFragment extends ListFragment implements OnSortSelectedList
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
 
         return new TaskAdapter(this, getTaskRowResource(),
-                cursor, sqlQueryTemplate, false,
+                cursor, sqlQueryTemplate,
                 new OnCompletedTaskListener() {
                     @Override
                     public void onCompletedTask(Task item, boolean newState) {

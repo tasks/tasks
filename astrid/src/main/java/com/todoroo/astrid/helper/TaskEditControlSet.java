@@ -91,7 +91,6 @@ public abstract class TaskEditControlSet {
 
     /**
      * Write to model, if initialization logic has been called
-     * @return toast text
      */
     protected abstract void writeToModelAfterInitialized(Task task);
 

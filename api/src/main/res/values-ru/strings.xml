@@ -21,10 +21,6 @@
 		<item quantity="one">1 день</item>
 		<item quantity="other">%d дня/дней</item>
 	</plurals>
-	<plurals name="DUt_weekdays">
-		<item quantity="one">1 рабочий день</item>
-		<item quantity="other">%d рабочих дня</item>
-	</plurals>
 	<plurals name="DUt_hours">
 		<item quantity="one">1 час</item>
 		<item quantity="other">%d часа/часов</item>
@@ -33,29 +29,9 @@
 		<item quantity="one">1 минута</item>
 		<item quantity="other">%d минуты/минут</item>
 	</plurals>
-	<plurals name="DUt_seconds">
-		<item quantity="one">1 секунда</item>
-		<item quantity="other">%d секунды/секунд</item>
-	</plurals>
-	<plurals name="DUt_hoursShort">
-		<item quantity="one">1 час</item>
-		<item quantity="other">%d ч</item>
-	</plurals>
-	<plurals name="DUt_minutesShort">
-		<item quantity="one">1 мин</item>
-		<item quantity="other">%d мин</item>
-	</plurals>
-	<plurals name="DUt_secondsShort">
-		<item quantity="one">1 с</item>
-		<item quantity="other">%d с</item>
-	</plurals>
 	<plurals name="Ntasks">
 		<item quantity="one">1 задача</item>
 		<item quantity="other">%d задач(а/и)</item>
-	</plurals>
-	<plurals name="Npeople">
-		<item quantity="one">1 человек</item>
-		<item quantity="other">%d человек</item>
 	</plurals>
 	<string name="today">Сегодня</string>
 	<string name="tomorrow">Завтра</string>

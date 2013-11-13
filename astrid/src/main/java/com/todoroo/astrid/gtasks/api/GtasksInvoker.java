@@ -34,7 +34,6 @@ public class GtasksInvoker {
     private Tasks service;
     private GoogleAccessProtectedResource accessProtectedResource;
     private String token;
-    private JsonFactory jsonFactory;
 
     @Autowired ExceptionService exceptionService;
 
@@ -49,7 +48,7 @@ public class GtasksInvoker {
         this.token = authToken;
         accessProtectedResource = new GoogleAccessProtectedResource(authToken);
 
-        jsonFactory = new GsonFactory();
+        JsonFactory jsonFactory = new GsonFactory();
         Context context = ContextManager.getContext();
         String key = context.getString(R.string.gapi_key);
         service = new Tasks(AndroidHttp.newCompatibleTransport(), accessProtectedResource, jsonFactory);

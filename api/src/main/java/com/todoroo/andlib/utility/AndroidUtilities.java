@@ -32,8 +32,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Array;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Map.Entry;
@@ -108,7 +106,7 @@ public class AndroidUtilities {
     /**
      * Put an arbitrary object into a {@link ContentValues}
      */
-    public static void putInto(ContentValues target, String key, Object value, boolean errorOnFail) {
+    public static void putInto(ContentValues target, String key, Object value) {
         if (value instanceof Boolean) {
             target.put(key, (Boolean) value);
         } else if (value instanceof Byte) {
@@ -125,7 +123,7 @@ public class AndroidUtilities {
             target.put(key, (Short) value);
         } else if (value instanceof String) {
             target.put(key, (String) value);
-        } else if (errorOnFail) {
+        } else {
             throw new UnsupportedOperationException("Could not handle type " + //$NON-NLS-1$
                     value.getClass());
         }
@@ -134,7 +132,7 @@ public class AndroidUtilities {
     /**
      * Put an arbitrary object into a {@link ContentValues}
      */
-    public static void putInto(Bundle target, String key, Object value, boolean errorOnFail) {
+    public static void putInto(Bundle target, String key, Object value) {
         if (value instanceof Boolean) {
             target.putBoolean(key, (Boolean) value);
         } else if (value instanceof Byte) {
@@ -151,9 +149,6 @@ public class AndroidUtilities {
             target.putShort(key, (Short) value);
         } else if (value instanceof String) {
             target.putString(key, (String) value);
-        } else if (errorOnFail) {
-            throw new UnsupportedOperationException("Could not handle type " + //$NON-NLS-1$
-                    value.getClass());
         }
     }
 
@@ -448,54 +443,7 @@ public class AndroidUtilities {
      * @param exitAnim the outgoing-transition of this activity
      */
     public static void callOverridePendingTransition(Activity activity, int enterAnim, int exitAnim) {
-        callApiMethod(5,
-                activity,
-                "overridePendingTransition", //$NON-NLS-1$
-                new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                enterAnim, exitAnim);
-    }
-
-    /**
-     * Call a method via reflection if API level is at least minSdk
-     * @param minSdk minimum sdk number (i.e. 8)
-     * @param receiver object to call method on
-     * @param methodName method name to call
-     * @param params method parameter types
-     * @param args arguments
-     */
-    public static void callApiMethod(int minSdk, Object receiver,
-            String methodName, Class<?>[] params, Object... args) {
-        if(getSdkVersion() < minSdk) {
-            return;
-        }
-
-        AndroidUtilities.callMethod(receiver.getClass(),
-                receiver, methodName, params, args);
-    }
-
-    /**
-     * Call a method via reflection
-     * @param receiver object to call method on (can be null)
-     * @param methodName method name to call
-     * @param params method parameter types
-     * @param args arguments
-     */
-    public static void callMethod(Class<?> cls, Object receiver,
-            String methodName, Class<?>[] params, Object... args) {
-        try {
-            Method method = cls.getMethod(methodName, params);
-            method.invoke(receiver, args);
-        } catch (SecurityException e) {
-            getExceptionService().reportError("call-method", e);
-        } catch (NoSuchMethodException e) {
-            getExceptionService().reportError("call-method", e);
-        } catch (IllegalArgumentException e) {
-            getExceptionService().reportError("call-method", e);
-        } catch (IllegalAccessException e) {
-            getExceptionService().reportError("call-method", e);
-        } catch (InvocationTargetException e) {
-            getExceptionService().reportError("call-method", e);
-        }
+        activity.overridePendingTransition(enterAnim, exitAnim);
     }
 
     /**

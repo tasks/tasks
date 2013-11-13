@@ -138,7 +138,7 @@ public class DeadlineControlSet extends PopupControlSet {
      * Set whether date and time should be separated by a newline or a comma
      * in the display view
      */
-    public void setIsQuickadd(boolean isQuickadd) {
-        this.isQuickadd = isQuickadd;
+    public void setIsQuickadd() {
+        this.isQuickadd = true;
     }
 }

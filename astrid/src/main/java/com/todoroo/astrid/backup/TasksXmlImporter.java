@@ -436,7 +436,6 @@ public class TasksXmlImporter {
                     if(BackupConstants.TASK_TAG.equals(tag) && xpp.getEventType() == XmlPullParser.END_TAG) {
                         saveTags();
                     } else if (tag == null || xpp.getEventType() == XmlPullParser.END_TAG) {
-                        continue;
                     } else if (tag.equals(BackupConstants.TASK_TAG)) {
                         // Parse <task ... >
                         currentTask = parseTask();

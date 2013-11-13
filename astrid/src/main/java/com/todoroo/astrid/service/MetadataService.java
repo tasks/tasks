@@ -100,7 +100,7 @@ public class MetadataService {
      * @return true if there were changes
      */
     public boolean synchronizeMetadata(long taskId, ArrayList<Metadata> metadata,
-            Criterion metadataCriterion, SynchronizeMetadataCallback callback, boolean hardDelete) {
+            Criterion metadataCriterion, SynchronizeMetadataCallback callback) {
         boolean dirty = false;
         HashSet<ContentValues> newMetadataValues = new HashSet<ContentValues>();
         for(Metadata metadatum : metadata) {
@@ -142,12 +142,7 @@ public class MetadataService {
                 if (callback != null) {
                     callback.beforeDeleteMetadata(item);
                 }
-                if (hardDelete) {
-                    metadataDao.delete(id);
-                } else {
-                    item.setValue(Metadata.DELETION_DATE, DateUtilities.now());
-                    metadataDao.persist(item);
-                }
+                metadataDao.delete(id);
                 dirty = true;
             }
         } finally {

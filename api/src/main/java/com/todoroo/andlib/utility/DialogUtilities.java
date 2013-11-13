@@ -86,8 +86,7 @@ public class DialogUtilities {
      * Displays a dialog box with an OK button
      */
     public static void okDialog(final Activity activity, final String title,
-            final int icon, final CharSequence text,
-            final DialogInterface.OnClickListener okListener) {
+            final int icon, final CharSequence text) {
         if(activity.isFinishing()) {
             return;
         }
@@ -99,7 +98,7 @@ public class DialogUtilities {
                 .setTitle(title)
                 .setMessage(text)
                 .setIcon(icon)
-                .setPositiveButton(android.R.string.ok, okListener)
+                .setPositiveButton(android.R.string.ok, null)
                 .show().setOwnerActivity(activity);
             }
         });
@@ -109,10 +108,9 @@ public class DialogUtilities {
      * Displays a dialog box with OK and Cancel buttons and custom title
      */
     public static void okCancelDialog(final Activity activity, final String title,
-            final String text, final DialogInterface.OnClickListener okListener,
-            final DialogInterface.OnClickListener cancelListener) {
+            final String text, final DialogInterface.OnClickListener okListener) {
 
-        okCancelCustomDialog(activity, title, text, android.R.string.ok, android.R.string.cancel, android.R.drawable.ic_dialog_alert, okListener, cancelListener);
+        okCancelCustomDialog(activity, title, text, android.R.string.ok, android.R.string.cancel, android.R.drawable.ic_dialog_alert, okListener, null);
     }
 
     /**

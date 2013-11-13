@@ -14,7 +14,7 @@ public class Flags {
      * writing a background service, send a BROADCAST_EVENT_REFRESH
      * instead, as this is only checked periodically and when loading task list.
      */
-    public static final int REFRESH = 1 << 0;
+    public static final int REFRESH = 1;
 
     /**
      * If set, indicates tags changed during task save

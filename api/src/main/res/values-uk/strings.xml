@@ -21,25 +21,9 @@
 		<item quantity="one">1 день</item>
 		<item quantity="other">%d днів</item>
 	</plurals>
-	<plurals name="DUt_hoursShort">
-		<item quantity="one">1 год.</item>
-		<item quantity="other">%d год.</item>
-	</plurals>
-	<plurals name="DUt_minutesShort">
-		<item quantity="one">1 хв.</item>
-		<item quantity="other">%d хв.</item>
-	</plurals>
-	<plurals name="DUt_secondsShort">
-		<item quantity="one">1 сек.</item>
-		<item quantity="other">%d сек.</item>
-	</plurals>
 	<plurals name="Ntasks">
 		<item quantity="one">1 завдання</item>
 		<item quantity="other">%d завдань</item>
-	</plurals>
-	<plurals name="Npeople">
-		<item quantity="one">1 людина</item>
-		<item quantity="other">%d людей</item>
 	</plurals>
 	<string name="today">Сьогодні</string>
 	<string name="tomorrow">Завтра</string>

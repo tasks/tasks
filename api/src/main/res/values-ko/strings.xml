@@ -21,10 +21,6 @@
 		<item quantity="one">1일</item>
 		<item quantity="other">%d일</item>
 	</plurals>
-	<plurals name="DUt_weekdays">
-		<item quantity="one">주중 1일</item>
-		<item quantity="other">주중 %d일</item>
-	</plurals>
 	<plurals name="DUt_hours">
 		<item quantity="one">1시간</item>
 		<item quantity="other">%d시간</item>
@@ -33,29 +29,9 @@
 		<item quantity="one">1분</item>
 		<item quantity="other">%d분</item>
 	</plurals>
-	<plurals name="DUt_seconds">
-		<item quantity="one">1초</item>
-		<item quantity="other">%d초</item>
-	</plurals>
-	<plurals name="DUt_hoursShort">
-		<item quantity="one">1시간</item>
-		<item quantity="other">%d시간</item>
-	</plurals>
-	<plurals name="DUt_minutesShort">
-		<item quantity="one">1분</item>
-		<item quantity="other">%d분</item>
-	</plurals>
-	<plurals name="DUt_secondsShort">
-		<item quantity="one">1초</item>
-		<item quantity="other">%d초</item>
-	</plurals>
 	<plurals name="Ntasks">
 		<item quantity="one">1 일정</item>
 		<item quantity="other">%d 일정</item>
-	</plurals>
-	<plurals name="Npeople">
-		<item quantity="one">1 사람</item>
-		<item quantity="other">%d 사람</item>
 	</plurals>
 	<string name="today">오늘</string>
 	<string name="tomorrow">내일</string>

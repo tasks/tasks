@@ -21,14 +21,6 @@ public abstract class MarketStrategy {
         return null;
     }
 
-    /**
-     * Return true if the preference to use the phone layout should be
-     * turned on by default (only true for Nook)
-     */
-    public boolean defaultPhoneLayout() {
-        return false;
-    }
-
     public static class AndroidMarketStrategy extends MarketStrategy {
 
         @Override

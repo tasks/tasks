@@ -635,7 +635,6 @@
 	<string name="subtasks_help_1">Garder appuyer pour déplacer une tâche</string>
 	<string name="subtasks_help_2">Déplacer verticalement pour réorganiser</string>
 	<string name="subtasks_help_3">Déplacer horizontalement pour indenter</string>
-	<string name="TEA_tags_label">Listes</string>
 	<string name="TEA_tags_label_long">Ajouter à la liste</string>
 	<string name="TEA_tag_hint">Nouvelle liste</string>
 	<string name="tag_new_list">Nouvelle liste</string>

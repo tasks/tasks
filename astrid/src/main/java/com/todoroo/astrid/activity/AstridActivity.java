@@ -289,11 +289,10 @@ public class AstridActivity extends ActionBarActivity
 
     // --- fragment helpers
 
-    protected Fragment setupFragment(String tag, int container, Class<? extends Fragment> cls, boolean createImmediate, boolean replace) {
+    protected Fragment setupFragment(String tag, int container, Class<? extends Fragment> cls) {
         final FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentByTag(tag);
-        if(fragment == null || replace) {
-            Fragment oldFragment = fragment;
+        if(fragment == null) {
             try {
                 fragment = cls.newInstance();
             } catch (InstantiationException e) {
@@ -304,23 +303,18 @@ public class AstridActivity extends ActionBarActivity
 
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             if (container == 0) {
-                if (oldFragment != null && replace) {
-                    ft.remove(oldFragment);
-                }
                 ft.add(fragment, tag);
             }
             else {
                 ft.replace(container, fragment, tag);
             }
             ft.commit();
-            if (createImmediate) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        fm.executePendingTransactions();
-                    }
-                });
-            }
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    fm.executePendingTransactions();
+                }
+            });
         }
         return fragment;
     }

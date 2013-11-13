@@ -201,7 +201,6 @@
 	<string name="repeat_detail_byday">$I på $D</string>
 	<string name="repeat_detail_duedate">Hver %s</string>
 	<string name="repeat_detail_completion">%s etter avslutning</string>
-	<string name="TEA_tags_label">Lister</string>
 	<string name="tag_FEx_header">Lister</string>
 	<string name="TEA_no_tags_modified">Ingen endringer gjort</string>
 	<string name="tag_settings_title">Settings:</string>

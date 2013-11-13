@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.api;
 
-import android.content.ContentValues;
 import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -34,12 +33,11 @@ public class TextInputCriterion extends CustomFilterCriterion implements Parcela
      * Create a new CustomFilterCriteria object
      */
     public TextInputCriterion(String identifier, String title, String sql,
-            ContentValues valuesForNewTasks, String prompt, String hint,
-            Bitmap icon, String name) {
+            String prompt, String hint, Bitmap icon, String name) {
         this.identifier = identifier;
         this.text = title;
         this.sql = sql;
-        this.valuesForNewTasks = valuesForNewTasks;
+        this.valuesForNewTasks = null;
         this.prompt = prompt;
         this.hint = hint;
         this.icon = icon;

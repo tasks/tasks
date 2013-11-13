@@ -93,7 +93,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         if(debug) {
             Log.i("SQL-" + modelClass.getSimpleName(), query.toString()); //$NON-NLS-1$
         }
-        Cursor cursor = database.rawQuery(query.toString(), null);
+        Cursor cursor = database.rawQuery(query.toString());
         return new TodorooCursor<TYPE>(cursor, query.getFields());
     }
 
@@ -181,7 +181,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      */
     public int update(Criterion where, TYPE template) {
         return database.update(table.name, template.getSetValues(),
-                where.toString(), null);
+                where.toString());
     }
 
     /**
@@ -261,7 +261,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
             @Override
             public boolean makeChange() {
                 return database.update(table.name, values,
-                        AbstractModel.ID_PROPERTY.eq(item.getId()).toString(), null) > 0;
+                        AbstractModel.ID_PROPERTY.eq(item.getId()).toString()) > 0;
             }
         };
         return insertOrUpdateAndRecordChanges(item, update);

@@ -503,7 +503,6 @@ vas mogoče ne bomo mogli pravočano obvestiti o dospelosti opravkov.\n</string>
 	<string name="subtasks_help_1">Opravek se lahko premakne z dolgim dotikom</string>
 	<string name="subtasks_help_2">Povleci navpično za prerazporeditev</string>
 	<string name="subtasks_help_3">Povleci vodoravno za zamik</string>
-	<string name="TEA_tags_label">Seznami</string>
 	<string name="TEA_tags_label_long">Dodaj na sezname</string>
 	<string name="TEA_tag_hint">Nov seznam</string>
 	<string name="tag_new_list">Nov seznam</string>

@@ -31,27 +31,23 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
     abstract protected void draw(ViewHolder viewHolder, long taskId, Collection<TYPE> list);
 
     /** on receive an intent */
-    public void addNew(long taskId, String addOn, TYPE item, ViewHolder thisViewHolder) {
+    public void addNew(long taskId, String addOn, TYPE item) {
         if(item == null) {
             return;
         }
 
         Collection<TYPE> cacheList = addIfNotExists(taskId, addOn, item);
         if(cacheList != null) {
-            if(thisViewHolder != null) {
-                draw(thisViewHolder, taskId, cacheList);
-            } else {
-                ListView listView = fragment.getListView();
-                // update view if it is visible
-                int length = listView.getChildCount();
-                for(int i = 0; i < length; i++) {
-                    ViewHolder viewHolder = (ViewHolder) listView.getChildAt(i).getTag();
-                    if(viewHolder == null || viewHolder.task.getId() != taskId) {
-                        continue;
-                    }
-                    draw(viewHolder, taskId, cacheList);
-                    break;
+            ListView listView = fragment.getListView();
+            // update view if it is visible
+            int length = listView.getChildCount();
+            for(int i = 0; i < length; i++) {
+                ViewHolder viewHolder = (ViewHolder) listView.getChildAt(i).getTag();
+                if(viewHolder == null || viewHolder.task.getId() != taskId) {
+                    continue;
                 }
+                draw(viewHolder, taskId, cacheList);
+                break;
             }
         }
     }

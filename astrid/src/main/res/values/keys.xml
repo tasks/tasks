@@ -185,7 +185,6 @@
   <!-- ======================================================= APPEARANCE == -->
 
   <string name="p_fontSize">font_size</string>
-  <string name="p_taskRowStyle">p_taskRowStyle</string> <!-- DEPRECATED -->
   <string name="p_taskRowStyle_v2">p_taskRowStyle_v2</string>
   <string-array name="EPr_task_row_style_values">
       <item>0</item>

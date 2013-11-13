@@ -581,7 +581,6 @@
 	<string name="subtasks_help_1">輕點並按住一項任務工作來移動它</string>
 	<string name="subtasks_help_2">垂直拖動以重新整理</string>
 	<string name="subtasks_help_3">水平拖動以縮進</string>
-	<string name="TEA_tags_label">列表</string>
 	<string name="TEA_tag_hint">新建列表</string>
 	<string name="tag_new_list">新建列表</string>
 	<string name="tag_no_title_error">請先為此列表鍵入一個名稱！</string>

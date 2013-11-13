@@ -30,7 +30,6 @@ import java.util.HashMap;
 
 public class BeastModePreferences extends ListActivity {
 
-    private TouchListView touchList;
     private ArrayAdapter<String> adapter;
 
     private ArrayList<String> items;
@@ -81,14 +80,11 @@ public class BeastModePreferences extends ListActivity {
         Preferences.setBoolean(BEAST_MODE_ASSERTED_HIDE_ALWAYS, true);
     }
 
-    public static void setDefaultOrder(Context context, boolean force) {
-        if (Preferences.getStringValue(BEAST_MODE_ORDER_PREF) != null && !force) {
+    public static void setDefaultOrder(Context context) {
+        if (Preferences.getStringValue(BEAST_MODE_ORDER_PREF) != null) {
             return;
         }
 
-        if (force) {
-            Preferences.clear(BEAST_MODE_ORDER_PREF);
-        }
         ArrayList<String> list = constructOrderedControlList(context);
         StringBuilder newSetting = new StringBuilder(30);
         for (String item : list) {
@@ -107,7 +103,7 @@ public class BeastModePreferences extends ListActivity {
         prefsToDescriptions = new HashMap<String, String>();
         buildDescriptionMap(getResources());
 
-        touchList = (TouchListView) getListView();
+        TouchListView touchList = (TouchListView) getListView();
         items = constructOrderedControlList(this);
 
         adapter = new ArrayAdapter<String>(this, R.layout.preference_draggable_row, R.id.text, items) {

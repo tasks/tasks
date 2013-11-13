@@ -29,22 +29,6 @@
 		<item quantity="one">1 Minuto</item>
 		<item quantity="other">%d Minutos</item>
 	</plurals>
-	<plurals name="DUt_seconds">
-		<item quantity="one">1 Segundo</item>
-		<item quantity="other">%d Segundos</item>
-	</plurals>
-	<plurals name="DUt_hoursShort">
-		<item quantity="one">1 h</item>
-		<item quantity="other">%d h</item>
-	</plurals>
-	<plurals name="DUt_minutesShort">
-		<item quantity="one">1 min</item>
-		<item quantity="other">%d min</item>
-	</plurals>
-	<plurals name="DUt_secondsShort">
-		<item quantity="one">1 s</item>
-		<item quantity="other">%d s</item>
-	</plurals>
 	<plurals name="Ntasks">
 		<item quantity="one">1 tarefa</item>
 		<item quantity="other">%d tarefas</item>

@@ -208,10 +208,7 @@ public class StartupService {
         AstridPreferences.setPreferenceDefaults();
         CalendarStartupReceiver.scheduleCalendarAlarms(context, false); // This needs to be after set preference defaults for the purposes of ab testing
 
-        // check for task killers
-        if(!Constants.OEM) {
-            showTaskKillerHelp(context);
-        }
+        showTaskKillerHelp(context);
 
         hasStartedUp = true;
     }
@@ -239,7 +236,7 @@ public class StartupService {
         if (context instanceof Activity) {
             Activity activity = (Activity) context;
             DialogUtilities.okDialog(activity, activity.getString(R.string.DB_corrupted_title),
-                    0, activity.getString(R.string.DB_corrupted_body), null);
+                    0, activity.getString(R.string.DB_corrupted_body));
         }
         e.printStackTrace();
     }

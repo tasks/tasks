@@ -21,10 +21,6 @@
 		<item quantity="one">1 dan</item>
 		<item quantity="other">Št. dni: %d</item>
 	</plurals>
-	<plurals name="DUt_weekdays">
-		<item quantity="one">1 delovni dan</item>
-		<item quantity="other">Št. del. dni: %d</item>
-	</plurals>
 	<plurals name="DUt_hours">
 		<item quantity="one">1 ura</item>
 		<item quantity="other">Št. ur: %d</item>
@@ -33,29 +29,9 @@
 		<item quantity="one">1 minuta</item>
 		<item quantity="other">Št. minut: %d</item>
 	</plurals>
-	<plurals name="DUt_seconds">
-		<item quantity="one">1 sekunda</item>
-		<item quantity="other">Št. sekund: %d</item>
-	</plurals>
-	<plurals name="DUt_hoursShort">
-		<item quantity="one">1 ura</item>
-		<item quantity="other">%d ur.</item>
-	</plurals>
-	<plurals name="DUt_minutesShort">
-		<item quantity="one">1 min.</item>
-		<item quantity="other">%d min.</item>
-	</plurals>
-	<plurals name="DUt_secondsShort">
-		<item quantity="one">1 sek.</item>
-		<item quantity="other">%d sek.</item>
-	</plurals>
 	<plurals name="Ntasks">
 		<item quantity="one">1 opravek</item>
 		<item quantity="other">Št. opravkov: %d</item>
-	</plurals>
-	<plurals name="Npeople">
-		<item quantity="one">1 oseba</item>
-		<item quantity="other">Št. oseb: %d</item>
 	</plurals>
 	<string name="today">Danes</string>
 	<string name="tomorrow">Jutri</string>

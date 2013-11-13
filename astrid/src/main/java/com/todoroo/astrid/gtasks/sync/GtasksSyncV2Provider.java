@@ -163,7 +163,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
             for (queued.moveToFirst(); !queued.isAfterLast(); queued.moveToNext()) {
                 task.readFromCursor(queued);
                 try {
-                    gtasksSyncService.pushTaskOnSave(task, task.getMergedValues(), invoker, false);
+                    gtasksSyncService.pushTaskOnSave(task, task.getMergedValues(), invoker);
                 } catch (GoogleTasksException e) {
                     handler.handleException("gtasks-sync-io", e, e.getType()); //$NON-NLS-1$
                 } catch (IOException e) {

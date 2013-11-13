@@ -348,7 +348,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
             if (setValues.containsKey(item.getKey())) {
                 continue;
             }
-            AndroidUtilities.putInto(setValues, item.getKey(), item.getValue(), true);
+            AndroidUtilities.putInto(setValues, item.getKey(), item.getValue());
         }
     }
 

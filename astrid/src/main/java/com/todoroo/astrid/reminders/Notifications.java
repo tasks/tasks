@@ -508,8 +508,8 @@ public class Notifications extends BroadcastReceiver {
         Notifications.notificationManager = notificationManager;
     }
 
-    public static void forceNotificationManager(boolean status) {
-        forceNotificationManager = status;
+    public static void forceNotificationManager() {
+        forceNotificationManager = true;
     }
 
 }

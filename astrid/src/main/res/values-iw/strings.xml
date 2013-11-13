@@ -639,7 +639,6 @@
 	<string name="subtasks_help_1">גע והחזק כדי להעביר משימה</string>
 	<string name="subtasks_help_2">גרור אנכית כדי לארגן מחדש</string>
 	<string name="subtasks_help_3">גרור אופקית כדי להזיח</string>
-	<string name="TEA_tags_label">רשימות</string>
 	<string name="TEA_tags_label_long">הוסף לרשימות</string>
 	<string name="TEA_tag_hint">רשימה חדשה</string>
 	<string name="tag_new_list">רשימה חדשה</string>

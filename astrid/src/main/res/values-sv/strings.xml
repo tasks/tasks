@@ -558,7 +558,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="subtasks_help_1">Rör vid och håll kvar fingret för att flytta en uppgift</string>
 	<string name="subtasks_help_2">Dra upp eller ner för att ändra ordningen</string>
 	<string name="subtasks_help_3">Dra åt höger för att göra indrag</string>
-	<string name="TEA_tags_label">Listor</string>
 	<string name="TEA_tag_hint">Ny lista</string>
 	<string name="tag_new_list">Ny lista</string>
 	<string name="tag_no_title_error">Ange först ett namn på listan!</string>

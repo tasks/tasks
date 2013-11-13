@@ -214,7 +214,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         }
 
         setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0,
-                filterModeSpec.getFilterListClass(), true, false));
+                filterModeSpec.getFilterListClass()));
     }
 
     private void setupLayoutTransitions() {

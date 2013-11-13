@@ -21,10 +21,6 @@
 		<item quantity="one">1 Gün</item>
 		<item quantity="other">%d gün</item>
 	</plurals>
-	<plurals name="DUt_weekdays">
-		<item quantity="one">1 haftaiçi gün</item>
-		<item quantity="other">%d haftaiçi günü</item>
-	</plurals>
 	<plurals name="DUt_hours">
 		<item quantity="one">1 Saat</item>
 		<item quantity="other">%d saat</item>
@@ -33,29 +29,9 @@
 		<item quantity="one">1 Dakika</item>
 		<item quantity="other">%d dakika</item>
 	</plurals>
-	<plurals name="DUt_seconds">
-		<item quantity="one">1 Saniye</item>
-		<item quantity="other">%d saniye</item>
-	</plurals>
-	<plurals name="DUt_hoursShort">
-		<item quantity="one">1 saat</item>
-		<item quantity="other">%d saat</item>
-	</plurals>
-	<plurals name="DUt_minutesShort">
-		<item quantity="one">1 dakika</item>
-		<item quantity="other">%d dakika</item>
-	</plurals>
-	<plurals name="DUt_secondsShort">
-		<item quantity="one">1 saniye</item>
-		<item quantity="other">%d saniye</item>
-	</plurals>
 	<plurals name="Ntasks">
 		<item quantity="one">1 görev</item>
 		<item quantity="other">%d görev</item>
-	</plurals>
-	<plurals name="Npeople">
-		<item quantity="one">1 kişi</item>
-		<item quantity="other">%d kişi</item>
 	</plurals>
 	<string name="today">Bugün</string>
 	<string name="tomorrow">Yarın</string>

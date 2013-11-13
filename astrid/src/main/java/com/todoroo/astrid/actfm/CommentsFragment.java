@@ -203,8 +203,7 @@ public abstract class CommentsFragment extends ListFragment {
             cursor = getCursor();
             activity.startManagingCursor(cursor);
 
-            updateAdapter = new UpdateAdapter(this, R.layout.update_adapter_row,
-                    cursor, false);
+            updateAdapter = new UpdateAdapter(this, R.layout.update_adapter_row, cursor);
             addHeaderToListView(listView);
             addFooterToListView(listView);
             listView.setAdapter(updateAdapter);

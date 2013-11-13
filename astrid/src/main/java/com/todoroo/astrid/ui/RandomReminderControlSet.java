@@ -26,8 +26,6 @@ import org.tasks.R;
  *
  */
 public class RandomReminderControlSet extends TaskEditControlSet {
-    /** default interval for spinner if date is unselected */
-    private final long DEFAULT_INTERVAL = DateUtilities.ONE_WEEK * 2;
 
     private final CheckBox settingCheckbox;
     private final Spinner periodSpinner;
@@ -81,7 +79,8 @@ public class RandomReminderControlSet extends TaskEditControlSet {
 
         boolean enabled = time > 0;
         if(time <= 0) {
-            time = DEFAULT_INTERVAL;
+            /* default interval for spinner if date is unselected */
+            time = DateUtilities.ONE_WEEK * 2;
         }
 
         int i;

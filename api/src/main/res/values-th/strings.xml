@@ -17,22 +17,6 @@
 		<item quantity="one">1 นาที</item>
 		<item quantity="other">%d นาที</item>
 	</plurals>
-	<plurals name="DUt_seconds">
-		<item quantity="one">1 วินาที</item>
-		<item quantity="other">%d วินาที</item>
-	</plurals>
-	<plurals name="DUt_hoursShort">
-		<item quantity="one">1 ช.ม.</item>
-		<item quantity="other">%d ช.ม.</item>
-	</plurals>
-	<plurals name="DUt_minutesShort">
-		<item quantity="one">1 นาที</item>
-		<item quantity="other">%d นาที</item>
-	</plurals>
-	<plurals name="DUt_secondsShort">
-		<item quantity="one">1 วิ.</item>
-		<item quantity="other">%d วิ.</item>
-	</plurals>
 	<string name="today">วันนี้</string>
 	<string name="tomorrow">พรุ่งนี้</string>
 	<string name="yesterday">เมื่อวาน</string>

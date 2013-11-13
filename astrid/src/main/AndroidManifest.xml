@@ -180,10 +180,6 @@
             android:theme="@android:style/Theme.Dialog" />
 
         <activity
-            android:name="com.todoroo.astrid.service.UpdateMessagePreference"
-            android:theme="@android:style/Theme" />
-
-        <activity
             android:name="com.todoroo.astrid.service.UpgradeService$UpgradeActivity"
             android:screenOrientation="portrait" />
 

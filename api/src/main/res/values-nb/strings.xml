@@ -21,10 +21,6 @@
 		<item quantity="one">1 dag</item>
 		<item quantity="other">%d dager</item>
 	</plurals>
-	<plurals name="DUt_weekdays">
-		<item quantity="one">1 ukesdag</item>
-		<item quantity="other">%d Weekdays</item>
-	</plurals>
 	<plurals name="DUt_hours">
 		<item quantity="one">1 time</item>
 		<item quantity="other">%d timer</item>
@@ -32,22 +28,6 @@
 	<plurals name="DUt_minutes">
 		<item quantity="one">1 minutt</item>
 		<item quantity="other">%d minutter</item>
-	</plurals>
-	<plurals name="DUt_seconds">
-		<item quantity="one">1 sekund</item>
-		<item quantity="other">%d sekunder</item>
-	</plurals>
-	<plurals name="DUt_hoursShort">
-		<item quantity="one">1 t</item>
-		<item quantity="other">%d t</item>
-	</plurals>
-	<plurals name="DUt_minutesShort">
-		<item quantity="one">1 min</item>
-		<item quantity="other">%d min</item>
-	</plurals>
-	<plurals name="DUt_secondsShort">
-		<item quantity="one">1 s</item>
-		<item quantity="other">%d s</item>
 	</plurals>
 	<plurals name="Ntasks">
 		<item quantity="one">1 oppgave</item>
