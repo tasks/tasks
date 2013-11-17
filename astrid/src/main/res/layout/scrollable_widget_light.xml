@@ -64,9 +64,6 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:background="@color/widget_body_light"
-        android:layout_marginTop="37dip"
-        android:padding="10dip"
-        android:text="@string/TWi_loading"
         style="@style/TextAppearance.Widget" />
         
 </LinearLayout>

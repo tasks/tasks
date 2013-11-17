@@ -3,8 +3,7 @@ package com.todoroo.astrid.service;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.sync.SyncResultCallback;
-
-import org.tasks.widget.WidgetHelper;
+import com.todoroo.astrid.widget.TasksWidget;
 
 public class SyncResultCallbackWrapper implements SyncResultCallback {
     private final SyncResultCallback wrapped;
@@ -37,14 +36,14 @@ public class SyncResultCallbackWrapper implements SyncResultCallback {
         @Override
         public void started() {
             super.started();
-            WidgetHelper.suppressUpdateFlag = DateUtilities.now();
+            TasksWidget.suppressUpdateFlag = DateUtilities.now();
         }
 
         @Override
         public void finished() {
             super.finished();
-            WidgetHelper.suppressUpdateFlag = 0L;
-            WidgetHelper.updateWidgets(ContextManager.getContext());
+            TasksWidget.suppressUpdateFlag = 0L;
+            TasksWidget.updateWidgets(ContextManager.getContext());
         }
 
     }

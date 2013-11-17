@@ -5,8 +5,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.tasks"
-    android:versionName="4.6.10"
-    android:versionCode="321">
+    android:versionName="4.6.11"
+    android:versionCode="322">
 
     <!-- widgets, alarms, and services will break if Astrid is installed on SD card -->
     <!--    android:installLocation="internalOnly"> -->
@@ -174,12 +174,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".widget.ScrollableWidgetConfigActivity">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-            </intent-filter>
-        </activity>
-
         <activity
             android:name="com.todoroo.astrid.service.UpdateScreenFlow"
             android:screenOrientation="portrait"
@@ -202,7 +196,6 @@
         <!-- widgets -->
         <receiver
             android:name="com.todoroo.astrid.widget.TasksWidget"
-            android:enabled="@bool/is_pre_api_14"
             android:label="@string/widget_mini">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -210,18 +203,6 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_provider_info" />
-        </receiver>
-
-        <receiver
-            android:name=".widget.ScrollableTasksWidget"
-            android:enabled="@bool/is_post_api_14"
-            android:label="@string/widget_mini">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/scrollable_widget_provider_info" />
         </receiver>
 
         <receiver android:name="com.todoroo.astrid.service.GlobalEventReceiver">

@@ -27,12 +27,12 @@ import org.tasks.R;
 
 public class WidgetConfigActivity extends ListActivity {
 
-    static final String PREF_TITLE = "widget-title-";
-    static final String PREF_SQL = "widget-sql-";
-    static final String PREF_VALUES = "widget-values-";
+    public static final String PREF_TITLE = "widget-title-";
+    public static final String PREF_SQL = "widget-sql-";
+    public static final String PREF_VALUES = "widget-values-";
     public static final String PREF_CUSTOM_INTENT = "widget-intent-";
     public static final String PREF_CUSTOM_EXTRAS = "widget-extras-";
-    static final String PREF_TAG_ID = "widget-tag-id-";
+    public static final String PREF_TAG_ID = "widget-tag-id-";
 
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
@@ -43,89 +43,89 @@ public class WidgetConfigActivity extends ListActivity {
     }
 
     public void updateWidget() {
-        TasksWidget.updateWidget(this, mAppWidgetId);
+        TasksWidget.applyConfigSelection(this, mAppWidgetId);
     }
 
     @Override
-    public void onCreate(Bundle icicle) {
-        ThemeService.applyTheme(this);
-        ThemeService.setForceFilterInvert(true);
-        super.onCreate(icicle);
+         public void onCreate(Bundle icicle) {
+             ThemeService.applyTheme(this);
+             ThemeService.setForceFilterInvert(true);
+             super.onCreate(icicle);
 
-        // Set the result to CANCELED.  This will cause the widget host to cancel
-        // out of the widget placement if they press the back button.
-        setResult(RESULT_CANCELED);
+             // Set the result to CANCELED.  This will cause the widget host to cancel
+             // out of the widget placement if they press the back button.
+             setResult(RESULT_CANCELED);
 
-        // Set the view layout resource to use.
-        setContentView(R.layout.widget_config_activity);
+             // Set the view layout resource to use.
+             setContentView(R.layout.widget_config_activity);
 
-        setTitle(R.string.WCA_title);
+             setTitle(R.string.WCA_title);
 
-        // Find the widget id from the intent.
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        if (extras != null) {
-            mAppWidgetId = extras.getInt(
-                    AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-        }
+             // Find the widget id from the intent.
+             Intent intent = getIntent();
+             Bundle extras = intent.getExtras();
+             if (extras != null) {
+                 mAppWidgetId = extras.getInt(
+                         AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+             }
 
-        // If they gave us an intent without the widget id, just bail.
-        if (mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
-            finish();
-        }
+             // If they gave us an intent without the widget id, just bail.
+             if (mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
+                 finish();
+             }
 
-        // set up ui
-        adapter = new FilterAdapter(this, getListView(),
-                R.layout.filter_adapter_row, true, true);
-        adapter.filterStyle = R.style.TextAppearance_FLA_Filter_Widget;
-        setListAdapter(adapter);
+             // set up ui
+             adapter = new FilterAdapter(this, getListView(),
+                     R.layout.filter_adapter_row, true, true);
+             adapter.filterStyle = R.style.TextAppearance_FLA_Filter_Widget;
+             setListAdapter(adapter);
 
-        Button button = (Button)findViewById(R.id.ok);
-        button.setOnClickListener(mOnClickListener);
-    }
+             Button button = (Button)findViewById(R.id.ok);
+             button.setOnClickListener(mOnClickListener);
+         }
 
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            // Save configuration options
-            saveConfiguration(adapter.getSelection());
+             @Override
+             public void onClick(View v) {
+                 // Save configuration options
+                 saveConfiguration(adapter.getSelection());
 
-            updateWidget();
+                 updateWidget();
 
-            // Make sure we pass back the original appWidgetId
-            Intent resultValue = new Intent();
-            resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
-            setResult(RESULT_OK, resultValue);
-            finish();
-        }
-    };
+                 // Make sure we pass back the original appWidgetId
+                 Intent resultValue = new Intent();
+                 resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
+                 setResult(RESULT_OK, resultValue);
+                 finish();
+             }
+         };
 
 
-
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        Filter item = adapter.getItem(position);
-        adapter.setSelection(item);
-    }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        adapter.registerRecevier();
-    }
+         protected void onListItemClick(ListView l, View v, int position, long id) {
+             super.onListItemClick(l, v, position, id);
+             Filter item = adapter.getItem(position);
+             adapter.setSelection(item);
+         }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        adapter.unregisterRecevier();
-    }
+         protected void onResume() {
+             super.onResume();
+             adapter.registerRecevier();
+         }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        ThemeService.setForceFilterInvert(false);
-    }
+         protected void onPause() {
+             super.onPause();
+             adapter.unregisterRecevier();
+         }
+
+    @Override
+         protected void onStop() {
+             super.onStop();
+             ThemeService.setForceFilterInvert(false);
+         }
 
     private void saveConfiguration(FilterListItem filterListItem){
         DisplayMetrics metrics = new DisplayMetrics();

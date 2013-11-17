@@ -17,7 +17,6 @@ import android.widget.RemoteViews;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.activity.TaskEditActivity;
@@ -49,21 +48,6 @@ public class WidgetHelper {
         AstridDependencyInjector.initialize();
     }
 
-    public static long suppressUpdateFlag = 0; // Timestamp--don't update widgets if this flag is non-zero and now() is within 5 minutes
-    private static final long SUPPRESS_TIME = DateUtilities.ONE_MINUTE * 5;
-
-    public static void updateWidgets(Context context) {
-        if (suppressUpdateFlag > 0 && DateUtilities.now() - suppressUpdateFlag < SUPPRESS_TIME) {
-            return;
-        }
-        suppressUpdateFlag = 0;
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            TasksWidget.updateWidgets(context);
-        } else {
-            ScrollableTasksWidget.updateWidgets(context);
-        }
-    }
-
     public static void startWidgetService(Context context) {
         Class widgetServiceClass = android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH
                 ? WidgetUpdateService.class
@@ -77,12 +61,9 @@ public class WidgetHelper {
     }
 
     public static void triggerUpdate(Context context) {
-        Class widgetClass = android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH
-                ? TasksWidget.class
-                : ScrollableTasksWidget.class;
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-        ComponentName thisWidget = new ComponentName(context, widgetClass);
-        Intent intent = new Intent(context, widgetClass);
+        ComponentName thisWidget = new ComponentName(context, TasksWidget.class);
+        Intent intent = new Intent(context, TasksWidget.class);
         intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetManager.getAppWidgetIds(thisWidget));
         context.sendBroadcast(intent);
@@ -183,49 +164,49 @@ public class WidgetHelper {
 
         // base our filter off the inbox filter, replace stuff if we have it
         Filter filter = CoreFilterExposer.buildInboxFilter(context.getResources());
-        String sql = Preferences.getStringValue(ScrollableWidgetConfigActivity.PREF_SQL + widgetId);
+        String sql = Preferences.getStringValue(WidgetConfigActivity.PREF_SQL + widgetId);
         if(sql != null) {
             filter.setSqlQuery(sql);
         }
-        String title = Preferences.getStringValue(ScrollableWidgetConfigActivity.PREF_TITLE + widgetId);
+        String title = Preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
         if(title != null) {
             filter.title = title;
         }
-        String contentValues = Preferences.getStringValue(ScrollableWidgetConfigActivity.PREF_VALUES + widgetId);
+        String contentValues = Preferences.getStringValue(WidgetConfigActivity.PREF_VALUES + widgetId);
         if(contentValues != null) {
             filter.valuesForNewTasks = AndroidUtilities.contentValuesFromSerializedString(contentValues);
         }
 
-        String customComponent = Preferences.getStringValue(ScrollableWidgetConfigActivity.PREF_CUSTOM_INTENT
+        String customComponent = Preferences.getStringValue(WidgetConfigActivity.PREF_CUSTOM_INTENT
                 + widgetId);
         if (customComponent != null) {
             ComponentName component = ComponentName.unflattenFromString(customComponent);
             filter = new FilterWithCustomIntent(filter.title, filter.title, filter.getSqlQuery(), filter.valuesForNewTasks);
             ((FilterWithCustomIntent) filter).customTaskList = component;
-            String serializedExtras = Preferences.getStringValue(ScrollableWidgetConfigActivity.PREF_CUSTOM_EXTRAS
+            String serializedExtras = Preferences.getStringValue(WidgetConfigActivity.PREF_CUSTOM_EXTRAS
                     + widgetId);
             ((FilterWithCustomIntent) filter).customExtras = AndroidUtilities.bundleFromSerializedString(serializedExtras);
         }
 
         // Validate tagData
-        long id = Preferences.getLong(ScrollableWidgetConfigActivity.PREF_TAG_ID + widgetId, 0);
+        long id = Preferences.getLong(WidgetConfigActivity.PREF_TAG_ID + widgetId, 0);
         TagData tagData;
         if (id > 0) {
             tagData = tagDataService.fetchById(id, TagData.ID, TagData.NAME, TagData.TASK_COUNT, TagData.UUID, TagData.PICTURE, TagData.USER_ID, TagData.MEMBER_COUNT);
             if (tagData != null && !tagData.getValue(TagData.NAME).equals(filter.title)) { // Tag has been renamed; rebuild filter
                 filter = TagFilterExposer.filterFromTagData(context, tagData);
-                Preferences.setString(ScrollableWidgetConfigActivity.PREF_SQL + widgetId, filter.getSqlQuery());
-                Preferences.setString(ScrollableWidgetConfigActivity.PREF_TITLE + widgetId, filter.title);
+                Preferences.setString(WidgetConfigActivity.PREF_SQL + widgetId, filter.getSqlQuery());
+                Preferences.setString(WidgetConfigActivity.PREF_TITLE + widgetId, filter.title);
                 ContentValues newTaskValues = filter.valuesForNewTasks;
                 String contentValuesString = null;
                 if(newTaskValues != null) {
                     contentValuesString = AndroidUtilities.contentValuesToSerializedString(newTaskValues);
                 }
-                Preferences.setString(ScrollableWidgetConfigActivity.PREF_VALUES + widgetId, contentValuesString);
+                Preferences.setString(WidgetConfigActivity.PREF_VALUES + widgetId, contentValuesString);
                 if (filter instanceof FilterWithCustomIntent) {
                     String flattenedExtras = AndroidUtilities.bundleToSerializedString(((FilterWithCustomIntent) filter).customExtras);
                     if (flattenedExtras != null) {
-                        Preferences.setString(ScrollableWidgetConfigActivity.PREF_CUSTOM_EXTRAS + widgetId,
+                        Preferences.setString(WidgetConfigActivity.PREF_CUSTOM_EXTRAS + widgetId,
                                 flattenedExtras);
                     }
                 }
@@ -233,7 +214,7 @@ public class WidgetHelper {
         } else {
             tagData = tagDataService.getTagByName(filter.title, TagData.ID);
             if (tagData != null) {
-                Preferences.setLong(ScrollableWidgetConfigActivity.PREF_TAG_ID + widgetId, tagData.getId());
+                Preferences.setLong(WidgetConfigActivity.PREF_TAG_ID + widgetId, tagData.getId());
             }
         }
 
@@ -252,7 +233,7 @@ public class WidgetHelper {
         String query = SortHelper.adjustQueryForFlagsAndSort(
                 filter.getSqlQuery(), flags, sort).replaceAll("LIMIT \\d+", "");
 
-        String tagName = Preferences.getStringValue(ScrollableWidgetConfigActivity.PREF_TITLE + widgetId);
+        String tagName = Preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
 
         return SubtasksHelper.applySubtasksToWidgetFilter(filter, query, tagName, 0);
     }
