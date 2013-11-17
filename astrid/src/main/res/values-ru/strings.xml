@@ -667,4 +667,5 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks должен произносить название задач во время напоминаний</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Оповещение звуком во время напоминания</string>
 	<string name="EPr_use_dark_theme_widget">Темная тема виджета</string>
+	<string name="delete_task">Удалить задачу</string>
 </resources>

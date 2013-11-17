@@ -63,7 +63,7 @@
 	<string name="TLA_quickadd_confirm_title">Rekli ste, \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Ustvaril sem opravek imenovan \"%1$s\" %2$s at %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">za %s</string>
-	<string name="TLA_quickadd_confirm_hide_helpers">Potrditev ne prikazuj več</string>
+	<string name="TLA_quickadd_confirm_hide_helpers">Prihodnjih potrditev ne prikazuj več</string>
 	<string name="TLA_repeat_scheduled_title">Nov ponavljajoči se opravek %s</string>
 	<string name="TLA_repeat_scheduled_speech_bubble">Opomnil te bom o tem %s.</string>
 	<string name="TLA_all_activity">Vse dejavnosti</string>
@@ -122,7 +122,7 @@
 		<item>In two weeks</item>
 		<item>Next month</item>
 	</string-array>
-	<string name="TEA_no_time">Brez časa</string>
+	<string name="TEA_no_time">Čas ni določen</string>
 	<string name="TEA_control_when">Kdaj</string>
 	<string name="TEA_control_importance">Prioriteta</string>
 	<string name="TEA_control_lists">Seznami</string>
@@ -259,12 +259,12 @@ vas mogoče ne bomo mogli pravočano obvestiti o dospelosti opravkov.\n</string>
 		<item>Day after tomorrow</item>
 		<item>Next week</item>
 	</string-array>
-	<string name="BFE_Active">Moji opravki</string>
+	<string name="BFE_Active">Moji Opravki</string>
 	<string name="BFE_Recent">Nedavno spremenjeno</string>
 	<string name="BFE_Saved_delete">Zbriši filter</string>
 	<string name="CFA_filterName_hint">Poimenuj ta filter, da se shrani.</string>
 	<string name="CFA_universe_all">Izvedbena opravila</string>
-	<string name="CFA_type_add">ali</string>
+	<string name="CFA_type_add">na dan</string>
 	<string name="CFA_type_subtract">ne</string>
 	<string name="CFA_type_intersect">tudi</string>
 	<string name="CFA_context_chain">%s ima merila</string>
@@ -338,14 +338,18 @@ vas mogoče ne bomo mogli pravočano obvestiti o dospelosti opravkov.\n</string>
 	<string name="search_market_pdf_title">Ne najdem PDF bralnika</string>
 	<string name="search_market_ms">Ne najdem bralnika MS Office. Ga želite naložiti z Android tržnice?</string>
 	<string name="search_market_ms_title">Ne najdem bralnika MS Office</string>
+	<string name="TEA_reminder_randomly">Naključno enkrat</string>
+	<string name="TEA_reminder_randomly_short">naključno</string>
 	<string-array name="TEA_reminder_random">
-		<item>ura</item>
+		<item>na uro</item>
 		<item>dan</item>
-		<item>teden</item>
-		<item>in two weeks</item>
-		<item>mesec</item>
-		<item>in two months</item>
+		<item>na teden</item>
+		<item>na dva tedna</item>
+		<item>na mesec</item>
+		<item>na dva meseca</item>
 	</string-array>
+	<string name="rmd_NoA_snooze">Dremež</string>
+	<string name="rmd_NoA_completed_toast">Čestitke za dokončanje!</string>
 	<string-array name="rmd_reengage_dialog_options">
 		<item>Time to shorten your to-do list!</item>
 		<item>Gospod ali gospa, nekaj opravkov čaka na vašo pozornost.</item>
@@ -461,7 +465,7 @@ vas mogoče ne bomo mogli pravočano obvestiti o dospelosti opravkov.\n</string>
 	<string name="repeat_plugin">Ponavljajoči se opravki</string>
 	<string name="repeat_plugin_desc">Omogoči ponavljanje opravkov</string>
 	<string name="repeat_enabled">Ponovitve</string>
-	<string name="repeat_every">Vsak %d</string>
+	<string name="repeat_every">Vsake %d</string>
 	<string name="repeat_interval_prompt">Pogostost ponovitev</string>
 	<string name="repeat_never">Brez ponovitev</string>
 	<string name="repeat_dont">Ne ponovi</string>
@@ -472,6 +476,14 @@ vas mogoče ne bomo mogli pravočano obvestiti o dospelosti opravkov.\n</string>
 		<item>u</item>
 		<item>min</item>
 		<item>l</item>
+	</string-array>
+	<string-array name="repeat_interval">
+		<item>Day(s)</item>
+		<item>V tednih</item>
+		<item>Month(s)</item>
+		<item>V urah</item>
+		<item>V minutah</item>
+		<item>Year(s)</item>
 	</string-array>
 	<string-array name="repeat_until_shortcuts">
 		<item>Do preklica</item>
@@ -494,10 +506,10 @@ vas mogoče ne bomo mogli pravočano obvestiti o dospelosti opravkov.\n</string>
 	<string name="repeat_detail_completion">%s po dokončanju</string>
 	<string name="repeat_forever">Ponavljaj do preklica</string>
 	<string name="repeat_until">Ponavljaj do %s</string>
-	<string name="repeat_rescheduling_dialog_title">Sprememba časa opravka \"%s\"</string>
+	<string name="repeat_rescheduling_dialog_title">Spremenjen čas opravka \"%s\"</string>
 	<string name="repeat_rescheduling_dialog_title_last_time">Dokončani ponavljajoči se opravek \"%s\"</string>
-	<string name="repeat_rescheduling_dialog_bubble">%1$s sem spremenil čas tega ponavljajočega se opravka z %2$s na %3$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s sem spremenil čas tega ponavljajočega se opravka na %2$s</string>
+	<string name="repeat_rescheduling_dialog_bubble">%1$s Spremenil sem čas tega ponavljajočega se opravka s/z %2$s na %3$s</string>
+	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s Spremenil sem čas tega ponavljajočega se opravka na %2$s</string>
 	<string name="repeat_rescheduling_dialog_bubble_last_time">Ta se je ponavljal do %1$s, sedaj je dokončan. %2$s</string>
 	<string name="subtasks_help_title">Razvrsti in zamakni</string>
 	<string name="subtasks_help_1">Opravek se lahko premakne z dolgim dotikom</string>
