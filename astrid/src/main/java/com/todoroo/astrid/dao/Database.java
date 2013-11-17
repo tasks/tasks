@@ -25,7 +25,8 @@ import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.provider.Astrid3ContentProvider;
-import com.todoroo.astrid.widget.TasksWidget;
+
+import org.tasks.widget.WidgetHelper;
 
 /**
  * Database wrapper
@@ -73,7 +74,7 @@ public class Database extends AbstractDatabase {
             public void onDatabaseUpdated() {
                 Astrid2TaskProvider.notifyDatabaseModification();
                 Astrid3ContentProvider.notifyDatabaseModification();
-                TasksWidget.updateWidgets(ContextManager.getContext());
+                WidgetHelper.updateWidgets(ContextManager.getContext());
             }
         });
     }

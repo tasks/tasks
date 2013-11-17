@@ -42,5 +42,8 @@
   <declare-styleable name="DateAndTimePicker">
       <attr name="shortcutLabels" format="reference"/>
   </declare-styleable>
-    
+
+    <bool name="is_pre_api_14">true</bool>
+    <bool name="is_post_api_14">false</bool>
+
 </resources>

@@ -44,9 +44,9 @@ import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 import com.todoroo.astrid.voice.VoiceOutputService;
 import com.todoroo.astrid.voice.VoiceRecognizer;
-import com.todoroo.astrid.widget.TasksWidget;
 
 import org.tasks.R;
+import org.tasks.widget.WidgetHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -406,7 +406,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
         findPreference(getString(R.string.p_use_dark_theme_widget)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                TasksWidget.updateWidgets(EditPreferences.this);
+                WidgetHelper.triggerUpdate(EditPreferences.this);
                 updatePreferences(preference, newValue);
                 return true;
             }

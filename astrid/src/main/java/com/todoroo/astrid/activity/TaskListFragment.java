@@ -89,9 +89,9 @@ import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Flags;
-import com.todoroo.astrid.widget.TasksWidget;
 
 import org.tasks.R;
+import org.tasks.widget.WidgetHelper;
 
 import java.util.List;
 import java.util.Timer;
@@ -719,7 +719,7 @@ public class TaskListFragment extends ListFragment implements OnSortSelectedList
             if (resultCode == EditPreferences.RESULT_CODE_THEME_CHANGED || resultCode == EditPreferences.RESULT_CODE_PERFORMANCE_PREF_CHANGED) {
                 getActivity().finish();
                 getActivity().startActivity(getActivity().getIntent());
-                TasksWidget.updateWidgets(getActivity());
+                WidgetHelper.updateWidgets(getActivity());
                 return;
             } else if (resultCode == SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE) {
                 Preferences.setLong(SyncActionHelper.PREF_LAST_AUTO_SYNC, 0); // Forces autosync to occur after login
@@ -1166,7 +1166,7 @@ public class TaskListFragment extends ListFragment implements OnSortSelectedList
                     editor.putInt(SortHelper.PREF_SORT_FLAGS, flags);
                     editor.putInt(SortHelper.PREF_SORT_SORT, sort);
                     editor.commit();
-                    TasksWidget.updateWidgets(ContextManager.getContext());
+                    WidgetHelper.updateWidgets(ContextManager.getContext());
                 }
             }
         }

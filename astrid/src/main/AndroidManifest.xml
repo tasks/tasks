@@ -168,7 +168,13 @@
             android:theme="@android:style/Theme" />
 
         <!-- Activity that configures widget -->
-        <activity android:name="com.todoroo.astrid.widget.TasksWidget$ConfigActivity">
+        <activity android:name="com.todoroo.astrid.widget.WidgetConfigActivity">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".widget.ScrollableWidgetConfigActivity">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
@@ -196,6 +202,7 @@
         <!-- widgets -->
         <receiver
             android:name="com.todoroo.astrid.widget.TasksWidget"
+            android:enabled="@bool/is_pre_api_14"
             android:label="@string/widget_mini">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -203,6 +210,18 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_provider_info" />
+        </receiver>
+
+        <receiver
+            android:name=".widget.ScrollableTasksWidget"
+            android:enabled="@bool/is_post_api_14"
+            android:label="@string/widget_mini">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/scrollable_widget_provider_info" />
         </receiver>
 
         <receiver android:name="com.todoroo.astrid.service.GlobalEventReceiver">
@@ -225,7 +244,11 @@
 
         <!-- ======================================================== Services = -->
 
-        <service android:name="com.todoroo.astrid.widget.TasksWidget$WidgetUpdateService" />
+        <service android:name="com.todoroo.astrid.widget.WidgetUpdateService" />
+
+        <service
+            android:name=".widget.ScrollableWidgetUpdateService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"/>
 
         <!-- ======================================================= Providers = -->
 

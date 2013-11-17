@@ -7,7 +7,6 @@ package com.todoroo.astrid.service;
 
 import android.app.Activity;
 import android.graphics.PixelFormat;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.WindowManager;
 
@@ -43,13 +42,8 @@ public class ThemeService {
         return getStyleForSetting(preference);
     }
 
-    public static int getWidgetTheme() {
-        String preference = Preferences.getBoolean(R.string.p_use_dark_theme_widget, false) ? THEME_BLACK : THEME_WHITE;
-        if (TextUtils.isEmpty(preference)) {
-            return getTheme();
-        } else {
-            return getStyleForSetting(preference);
-        }
+    public static boolean isDarkWidgetTheme() {
+        return Preferences.getBoolean(R.string.p_use_dark_theme_widget, false);
     }
 
     private static int getStyleForSetting(String setting) {

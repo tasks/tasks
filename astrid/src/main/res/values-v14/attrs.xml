@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="is_pre_api_14">false</bool>
+    <bool name="is_post_api_14">true</bool>
+</resources>

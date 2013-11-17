@@ -1,9 +1,4 @@
-/**
- * Copyright (c) 2012 Todoroo Inc
- *
- * See the file "LICENSE" for the full license governing this code.
- */
-package com.todoroo.astrid.widget;
+package org.tasks.widget;
 
 import android.app.ListActivity;
 import android.appwidget.AppWidgetManager;
@@ -25,25 +20,26 @@ import com.todoroo.astrid.service.ThemeService;
 
 import org.tasks.R;
 
-public class WidgetConfigActivity extends ListActivity {
+public class ScrollableWidgetConfigActivity extends ListActivity {
 
     static final String PREF_TITLE = "widget-title-";
     static final String PREF_SQL = "widget-sql-";
     static final String PREF_VALUES = "widget-values-";
-    public static final String PREF_CUSTOM_INTENT = "widget-intent-";
-    public static final String PREF_CUSTOM_EXTRAS = "widget-extras-";
+    static final String PREF_CUSTOM_INTENT = "widget-intent-";
+    static final String PREF_CUSTOM_EXTRAS = "widget-extras-";
     static final String PREF_TAG_ID = "widget-tag-id-";
 
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
     FilterAdapter adapter = null;
 
-    public WidgetConfigActivity() {
-        super();
-    }
+    private final WidgetHelper widgetHelper = new WidgetHelper();
 
     public void updateWidget() {
-        TasksWidget.updateWidget(this, mAppWidgetId);
+        // setup view for new widget
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
+        appWidgetManager.updateAppWidget(mAppWidgetId, widgetHelper.createScrollableWidget(getApplicationContext(), mAppWidgetId));
+        ScrollableTasksWidget.updateWidget(this, mAppWidgetId);
     }
 
     @Override
@@ -142,17 +138,17 @@ public class WidgetConfigActivity extends ListActivity {
             title = ((Filter)filterListItem).title;
         }
 
-        Preferences.setString(WidgetConfigActivity.PREF_TITLE + mAppWidgetId, title);
-        Preferences.setString(WidgetConfigActivity.PREF_SQL + mAppWidgetId, sql);
-        Preferences.setString(WidgetConfigActivity.PREF_VALUES + mAppWidgetId, contentValuesString);
+        Preferences.setString(ScrollableWidgetConfigActivity.PREF_TITLE + mAppWidgetId, title);
+        Preferences.setString(ScrollableWidgetConfigActivity.PREF_SQL + mAppWidgetId, sql);
+        Preferences.setString(ScrollableWidgetConfigActivity.PREF_VALUES + mAppWidgetId, contentValuesString);
 
         if(filterListItem instanceof FilterWithCustomIntent) {
             String flattenedName = ((FilterWithCustomIntent)filterListItem).customTaskList.flattenToString();
-            Preferences.setString(WidgetConfigActivity.PREF_CUSTOM_INTENT + mAppWidgetId,
+            Preferences.setString(ScrollableWidgetConfigActivity.PREF_CUSTOM_INTENT + mAppWidgetId,
                     flattenedName);
             String flattenedExtras = AndroidUtilities.bundleToSerializedString(((FilterWithCustomIntent)filterListItem).customExtras);
             if (flattenedExtras != null) {
-                Preferences.setString(WidgetConfigActivity.PREF_CUSTOM_EXTRAS + mAppWidgetId,
+                Preferences.setString(ScrollableWidgetConfigActivity.PREF_CUSTOM_EXTRAS + mAppWidgetId,
                         flattenedExtras);
             }
         }

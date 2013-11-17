@@ -79,6 +79,9 @@ public class DependencyInjectionService {
         if(packageName.startsWith("org.weloveastrid")) {
             return true;
         }
+        if(packageName.startsWith("org.tasks")) {
+            return true;
+        }
         return false;
     }
 

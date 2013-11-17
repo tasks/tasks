@@ -6,11 +6,11 @@
 -->
 
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:configure="com.todoroo.astrid.widget.WidgetConfigActivity"
+    android:configure="org.tasks.widget.ScrollableWidgetConfigActivity"
     android:minWidth="142dip"
     android:minHeight="142dip"
     android:minResizeWidth="142dip"
     android:minResizeHeight="142dip"
     android:updatePeriodMillis="86400000"
-    android:initialLayout="@layout/widget_loading"
+    android:initialLayout="@layout/scrollable_widget_light"
     android:resizeMode="horizontal|vertical"/>

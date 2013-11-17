@@ -7,14 +7,11 @@ package com.todoroo.astrid.service;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteException;
@@ -53,12 +50,13 @@ import com.todoroo.astrid.reminders.ReminderStartupReceiver;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
-import com.todoroo.astrid.widget.TasksWidget.WidgetUpdateService;
 
 import org.tasks.R;
 
 import java.io.File;
 import java.util.List;
+
+import static org.tasks.widget.WidgetHelper.startWidgetService;
 
 /**
  * Service which handles jobs that need to be run when Astrid starts up.
@@ -178,13 +176,7 @@ public class StartupService {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                // start widget updating alarm
-                AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-                Intent intent = new Intent(context, WidgetUpdateService.class);
-                PendingIntent pendingIntent = PendingIntent.getService(context,
-                        0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-                am.setInexactRepeating(AlarmManager.RTC, 0,
-                        Constants.WIDGET_UPDATE_INTERVAL, pendingIntent);
+                startWidgetService(context);
 
                 ReengagementService.scheduleReengagementAlarm(context);
                 taskService.cleanup();
