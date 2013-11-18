@@ -176,7 +176,7 @@ public class WidgetUpdateService extends Service {
             views.setOnClickPendingIntent(R.id.taskbody, pListIntent);
         }
 
-        PendingIntent pEditIntent = widgetHelper.getEditIntent(context, filter, widgetId);
+        PendingIntent pEditIntent = widgetHelper.getNewTaskIntent(context, filter, widgetId);
         if (pEditIntent != null) {
             views.setOnClickPendingIntent(R.id.widget_button, pEditIntent);
             views.setOnClickPendingIntent(R.id.widget_title, pEditIntent);

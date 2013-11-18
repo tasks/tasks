@@ -42,17 +42,26 @@ import com.todoroo.astrid.widget.WidgetUpdateService;
 
 import org.tasks.R;
 
+import static android.content.Intent.*;
+
 public class WidgetHelper {
 
     static {
         AstridDependencyInjector.initialize();
     }
 
+    private static int flags = FLAG_ACTIVITY_NEW_TASK
+            | FLAG_ACTIVITY_MULTIPLE_TASK
+            | FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET
+            | FLAG_ACTIVITY_NO_HISTORY
+            | FLAG_ACTIVITY_PREVIOUS_IS_TOP;
+
+
     public static void startWidgetService(Context context) {
         Class widgetServiceClass = android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH
                 ? WidgetUpdateService.class
                 : ScrollableWidgetUpdateService.class;
-        AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, widgetServiceClass);
         PendingIntent pendingIntent = PendingIntent.getService(context,
                 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
@@ -62,6 +71,9 @@ public class WidgetHelper {
 
     public static void triggerUpdate(Context context) {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        if (appWidgetManager == null) {
+            return;
+        }
         ComponentName thisWidget = new ComponentName(context, TasksWidget.class);
         Intent intent = new Intent(context, TasksWidget.class);
         intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
@@ -89,13 +101,16 @@ public class WidgetHelper {
         remoteViews.setRemoteAdapter(R.id.list_view, rvIntent);
         remoteViews.setEmptyView(R.id.list_view, R.id.empty_view);
         PendingIntent listIntent = getListIntent(context, filter, id);
-        if(listIntent != null) {
+        if (listIntent != null) {
             remoteViews.setOnClickPendingIntent(R.id.widget_title, listIntent);
-            remoteViews.setPendingIntentTemplate(R.id.list_view, listIntent);
         }
-        PendingIntent editIntent = getEditIntent(context, filter, id);
-        if (editIntent != null) {
-            remoteViews.setOnClickPendingIntent(R.id.widget_button, editIntent);
+        PendingIntent newTaskIntent = getNewTaskIntent(context, filter, id);
+        if (newTaskIntent != null) {
+            remoteViews.setOnClickPendingIntent(R.id.widget_button, newTaskIntent);
+        }
+        PendingIntent editTaskIntent = getEditTaskIntent(context, filter, id);
+        if (editTaskIntent != null) {
+            remoteViews.setPendingIntentTemplate(R.id.list_view, editTaskIntent);
         }
         return remoteViews;
     }
@@ -104,7 +119,7 @@ public class WidgetHelper {
         Intent listIntent = new Intent(context, TaskListActivity.class);
         String customIntent = Preferences.getStringValue(WidgetConfigActivity.PREF_CUSTOM_INTENT
                 + widgetId);
-        if(customIntent != null) {
+        if (customIntent != null) {
             String serializedExtras = Preferences.getStringValue(WidgetConfigActivity.PREF_CUSTOM_EXTRAS
                     + widgetId);
             Bundle extras = AndroidUtilities.bundleFromSerializedString(serializedExtras);
@@ -112,7 +127,7 @@ public class WidgetHelper {
         }
         listIntent.putExtra(TaskListActivity.TOKEN_SOURCE, Constants.SOURCE_WIDGET);
         listIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        if(filter != null) {
+        if (filter != null) {
             listIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
             listIntent.setAction("L" + widgetId + filter.getSqlQuery());
         } else {
@@ -126,38 +141,53 @@ public class WidgetHelper {
                 listIntent, PendingIntent.FLAG_CANCEL_CURRENT);
     }
 
-    public PendingIntent getEditIntent(Context context, Filter filter, int id) {
-        Intent editIntent;
+    private PendingIntent getEditTaskIntent(Context context, Filter filter, int widgetId) {
+        Intent intent;
+        if (AstridPreferences.useTabletLayout(context)) {
+            intent = new Intent(context, TaskListActivity.class);
+            if (filter != null && filter instanceof FilterWithCustomIntent) {
+                Bundle customExtras = ((FilterWithCustomIntent) filter).customExtras;
+                intent.putExtras(customExtras);
+            }
+        } else {
+            intent = new Intent(context, TaskEditActivity.class);
+        }
+        intent.setFlags(flags);
+        intent.putExtra(TaskEditFragment.OVERRIDE_FINISH_ANIM, false);
+        return PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+    }
+
+    public PendingIntent getNewTaskIntent(Context context, Filter filter, int id) {
+        Intent intent;
         boolean tablet = AstridPreferences.useTabletLayout(context);
         if (tablet) {
-            editIntent = new Intent(context, TaskListActivity.class);
-            editIntent.putExtra(TaskListActivity.OPEN_TASK, 0L);
-        }
-        else {
-            editIntent = new Intent(context, TaskEditActivity.class);
+            intent = new Intent(context, TaskListActivity.class);
+            intent.putExtra(TaskListActivity.OPEN_TASK, 0L);
+        } else {
+            intent = new Intent(context, TaskEditActivity.class);
         }
 
-        editIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        editIntent.putExtra(TaskEditFragment.OVERRIDE_FINISH_ANIM, false);
-        if(filter != null) {
-            editIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
+        intent.setFlags(flags);
+        intent.putExtra(TaskEditFragment.OVERRIDE_FINISH_ANIM, false);
+        if (filter != null) {
+            intent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
             if (filter.valuesForNewTasks != null) {
                 String values = AndroidUtilities.contentValuesToSerializedString(filter.valuesForNewTasks);
                 values = PermaSql.replacePlaceholders(values);
-                editIntent.putExtra(TaskEditFragment.TOKEN_VALUES, values);
-                editIntent.setAction("E" + id + values);
+                intent.putExtra(TaskEditFragment.TOKEN_VALUES, values);
+                intent.setAction("E" + id + values);
             }
             if (tablet) {
                 if (filter instanceof FilterWithCustomIntent) {
                     Bundle customExtras = ((FilterWithCustomIntent) filter).customExtras;
-                    editIntent.putExtras(customExtras);
+                    intent.putExtras(customExtras);
                 }
             }
         } else {
-            editIntent.setAction("E" + id);
+            intent.setAction("E" + id);
         }
 
-        return PendingIntent.getActivity(context, -id, editIntent, 0);
+        return PendingIntent.getActivity(context, -id, intent, 0);
     }
 
     public Filter getFilter(Context context, int widgetId) {
@@ -165,15 +195,15 @@ public class WidgetHelper {
         // base our filter off the inbox filter, replace stuff if we have it
         Filter filter = CoreFilterExposer.buildInboxFilter(context.getResources());
         String sql = Preferences.getStringValue(WidgetConfigActivity.PREF_SQL + widgetId);
-        if(sql != null) {
+        if (sql != null) {
             filter.setSqlQuery(sql);
         }
         String title = Preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
-        if(title != null) {
+        if (title != null) {
             filter.title = title;
         }
         String contentValues = Preferences.getStringValue(WidgetConfigActivity.PREF_VALUES + widgetId);
-        if(contentValues != null) {
+        if (contentValues != null) {
             filter.valuesForNewTasks = AndroidUtilities.contentValuesFromSerializedString(contentValues);
         }
 
@@ -199,11 +229,11 @@ public class WidgetHelper {
                 Preferences.setString(WidgetConfigActivity.PREF_TITLE + widgetId, filter.title);
                 ContentValues newTaskValues = filter.valuesForNewTasks;
                 String contentValuesString = null;
-                if(newTaskValues != null) {
+                if (newTaskValues != null) {
                     contentValuesString = AndroidUtilities.contentValuesToSerializedString(newTaskValues);
                 }
                 Preferences.setString(WidgetConfigActivity.PREF_VALUES + widgetId, contentValuesString);
-                if (filter instanceof FilterWithCustomIntent) {
+                if (filter != null) {
                     String flattenedExtras = AndroidUtilities.bundleToSerializedString(((FilterWithCustomIntent) filter).customExtras);
                     if (flattenedExtras != null) {
                         Preferences.setString(WidgetConfigActivity.PREF_CUSTOM_EXTRAS + widgetId,

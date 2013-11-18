@@ -12,6 +12,9 @@ import android.widget.RemoteViewsService;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.astrid.activity.TaskEditActivity;
+import com.todoroo.astrid.activity.TaskEditFragment;
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
@@ -109,7 +112,10 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             row.setTextViewText(R.id.text, textContent);
             row.setTextColor(R.id.text, textColor);
 
-            row.setOnClickFillInIntent(R.id.text, new Intent());
+            Intent intent = new Intent(context, TaskEditActivity.class);
+            intent.putExtra(TaskEditFragment.TOKEN_ID, task.getId());
+            intent.putExtra(TaskListActivity.OPEN_TASK, task.getId());
+            row.setOnClickFillInIntent(R.id.text, intent);
 
             return row;
         } catch (Exception e) {

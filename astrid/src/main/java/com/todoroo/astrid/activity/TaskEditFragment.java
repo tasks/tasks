@@ -752,8 +752,11 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
 
         if (activity instanceof TaskListActivity) {
-            if (title.getText().length() == 0 && isNewTask
-                    && model != null && model.isSaved()) {
+            if (title.getText().length() == 0 && isNewTask && model != null && model.isSaved()) {
+                taskService.delete(model);
+            }
+        } else if (activity instanceof TaskEditActivity) {
+            if (title.getText().length() == 0 && isNewTask && model != null && model.isSaved()) {
                 taskService.delete(model);
             }
         }
@@ -783,8 +786,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         shouldSaveState = false;
 
         // abandon editing in this case
-        if (title.getText().length() == 0
-                || TextUtils.isEmpty(model.getValue(Task.TITLE))) {
+        if (title.getText().length() == 0 || TextUtils.isEmpty(model.getValue(Task.TITLE))) {
             if (isNewTask) {
                 TimerPlugin.updateTimer(getActivity(), model, false);
                 taskService.delete(model);
