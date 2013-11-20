@@ -15,6 +15,9 @@
 	<string name="actfm_GAA_title">Izberi Google račun, ki naj se uporablja:</string>
 	<string name="alarm_ACS_label">Glasna opozorila</string>
 	<string name="alarm_ACS_button">Dodaj glasno opozorilo</string>
+	<string-array name="reminders_alarm">
+		<item>Glasno opozorilo!</item>
+	</string-array>
 	<string name="backup_BPr_header">Varnostne kopije</string>
 	<string name="backup_status_success">Najnovejša varnostna kopija:\n%s</string>
 	<string name="backup_status_failed">Najnovejša varnostna kopija neuspešna</string>
@@ -41,6 +44,10 @@
 	<string name="DLG_error_sdcard_general">Tvoja SD kartica ni dostopna.</string>
 	<string name="import_file_prompt">Izberi datoteko za obnovo</string>
 	<string name="app_name">Opravki</string>
+	<string name="read_permission_label">Dovoljenje Opravkom</string>
+	<string name="read_permission_desc">preberi opravke, prikaži filtre opravka</string>
+	<string name="write_permission_label">Dovoljenje Opravkom</string>
+	<string name="write_permission_desc">ustvari nove opravke, uredi obstoječe opravke</string>
 	<string name="DLG_delete_this_task_question">Zbrišem ta opravek?</string>
 	<string name="DLG_delete_this_item_question">Zbrišem ta predmet: %s?</string>
 	<string name="DLG_upgrading">Nadgrajujem tvoje opravke...</string>
@@ -58,7 +65,7 @@
 	<string name="TLA_menu_settings">Nastavitve</string>
 	<string name="TLA_custom">Po meri</string>
 	<string name="TLA_quick_add_hint">Dodaj opravek</string>
-	<string name="TLA_notification_volume_low">Obvestila so utišana. Ta aplikacija bo neslišna!</string>
+	<string name="TLA_notification_volume_low">Obvestila so utišana. Aplikacija Opravki bo neslišna!</string>
 	<string name="TLA_notification_disabled">Opomniki so onemogočeni, zato se ne bodo pojavljali.</string>
 	<string name="TLA_quickadd_confirm_title">Rekli ste, \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Ustvaril sem opravek imenovan \"%1$s\" %2$s at %3$s</string>
@@ -66,6 +73,12 @@
 	<string name="TLA_quickadd_confirm_hide_helpers">Prihodnjih potrditev ne prikazuj več</string>
 	<string name="TLA_repeat_scheduled_title">Nov ponavljajoči se opravek %s</string>
 	<string name="TLA_repeat_scheduled_speech_bubble">Opomnil te bom o tem %s.</string>
+	<string-array name="TLA_priority_strings">
+		<item>najvišja prioriteta</item>
+		<item>visoka prioriteta</item>
+		<item>srednja prioriteta</item>
+		<item>nizka prioriteta</item>
+	</string-array>
 	<string name="TLA_all_activity">Vse dejavnosti</string>
 	<string name="TAd_hiddenFormat">%s [skrit]</string>
 	<string name="TAd_deletedFormat">%s [zbrisan]</string>
@@ -88,10 +101,12 @@
 	<string name="SSD_sort_reverse">Razvrsti po obratnem vrstnem redu</string>
 	<string name="SSD_save_temp">Samo enkrat</string>
 	<string name="SSD_save_always">Vedno</string>
+	<string name="FSA_label">Seznam ali filter opravkov</string>
 	<string name="FLA_context_shortcut">Ustvari bližnjico na namizju</string>
 	<string name="FLA_shortcut_dialog_title">Ustvari bližnjico za namizje</string>
 	<string name="FLA_shortcut_dialog">Poimenovanje bližnjice</string>
-	<string name="FLA_search_hint">Išči po opravkih</string>
+	<string name="FLA_search_hint">Išči po Opravkih</string>
+	<string name="FLA_search_filter">Ustreza \'%s\' </string>
 	<string name="FLA_toast_onCreateShortcut">Ustvarjena bližnjica: %s</string>
 	<string name="FLA_new_filter">Nov filter</string>
 	<string name="FLA_new_list">Nov seznam</string>
@@ -111,18 +126,27 @@
 	<string name="TEA_menu_refresh_comments">Osveži opombe</string>
 	<string name="TEA_menu_comments">Opombe</string>
 	<string name="TEA_tab_activity">Dejavnost</string>
+	<string name="TEA_timer_est">Cca. %s</string>
 	<string name="TEA_timer_elap">%s je potekel</string>
 	<string-array name="TEA_urgency">
-		<item>No date</item>
-		<item>Specific day</item>
+		<item>Brez datuma</item>
+		<item>Določen dan</item>
 		<item>Danes</item>
 		<item>Jutri</item>
-		<item>(day after)</item>
-		<item>Next week</item>
+		<item>(dan kasneje)</item>
+		<item>Naslednji teden</item>
 		<item>In two weeks</item>
 		<item>Next month</item>
 	</string-array>
 	<string name="TEA_no_time">Čas ni določen</string>
+	<string-array name="TEA_hideUntil">
+		<item>Nikoli</item>
+		<item>Dospelost po datumu</item>
+		<item>Dospelost po času</item>
+		<item>Dan pred dospelostjo</item>
+		<item>Teden pred dospelostjo</item>
+		<item>Določene/ga ure/dne</item>
+	</string-array>
 	<string name="TEA_control_when">Kdaj</string>
 	<string name="TEA_control_importance">Prioriteta</string>
 	<string name="TEA_control_lists">Seznami</string>
@@ -140,18 +164,19 @@
 	<string name="MCA_add_task">Kliči kasneje</string>
 	<string name="MCA_ignore">Ignoriraj</string>
 	<string name="MCA_ignore_title">Ignoriram vse zgrešene klice?</string>
-	<string name="MCA_ignore_body">Ignorirali ste številne zgrešene klice. Naj vas nehamo spraševati o zgrešenih klicih?</string>
+	<string name="MCA_ignore_body">Ignorirali ste številne zgrešene klice. Naj vas aplikacija Opravki neha spraševati o zgrešenih klicih?</string>
 	<string name="MCA_ignore_all">Ignoriraj vse klice</string>
 	<string name="MCA_ignore_this">Ignoriraj samo ta klic</string>
-	<string name="MCA_missed_calls_pref_desc_enabled">Obvestili vas bomo o zgrešenih klicih in ponudili opomnik za vrnitev klicev</string>
-	<string name="MCA_missed_calls_pref_desc_disabled">Ne bomo vas obvestili o zgrešenih klicih</string>
+	<string name="MCA_missed_calls_pref_title">Zabeleži zgrešene klice</string>
+	<string name="MCA_missed_calls_pref_desc_enabled">Aplikacija Opravki vas bo obvestila o zgrešenih klicih in ponudila opomnik za vrnitev klicev</string>
+	<string name="MCA_missed_calls_pref_desc_disabled">Aplikacija Opravki vas ne bo obveščala o zgrešenih klicih</string>
 	<string name="MCA_task_title_name">%1$s pokliči nazaj ob %2$s</string>
 	<string name="MCA_task_title_no_name">Vrni klic %s </string>
 	<string name="MCA_schedule_dialog_title">Pokliči nazaj %s čez...</string>
 	<string name="CRA_ignore">Ignoriraj</string>
 	<string name="CRA_title">Potrebujete seznam sestankov?</string>
 	<string name="CRA_ignore_title">Naj ignoriram vse dogodke na koledarju?</string>
-	<string name="CRA_ignore_body">Ignorirali ste številne dogodke na koledarju. Naj vas nehamo spraševati o teh dogodkih?</string>
+	<string name="CRA_ignore_body">Ignorirali ste številne dogodke na koledarju. Naj vas aplikacija Opravki neha spraševati o njih?</string>
 	<string name="CRA_ignore_all">Naj ignoriram vse dogodke?</string>
 	<string name="CRA_ignore_this">Ignoriraj samo ta dogodek</string>
 	<string name="CRA_speech_bubble_start">%s naj bi se kmalu začel. Želite ustvariti seznam izvedbenih opravil?</string>
@@ -168,8 +193,8 @@
 	<string name="CRA_many_attendees">%1$s, %2$s, in še %3$d se udeležujejo.</string>
 	<string name="CRA_invitation_prompt">Naj povabim?</string>
 	<string name="CRA_calendar_reminders_pref_title">Pomočnik za koledar</string>
-	<string name="CRA_calendar_reminders_pref_desc_disabled">Aplikacija vas ne bo opominjala o prihajajočih dogodkih na koledarju</string>
-	<string name="CRA_calendar_reminders_pref_desc_enabled">Aplikacija vas bo opominjala o prihajajočih dogodkih na koledarju in vas pozivala, da se nanje pripravite</string>
+	<string name="CRA_calendar_reminders_pref_desc_disabled">Aplikacija Opravki vas ne bo opominjala o prihajajočih dogodkih na koledarju</string>
+	<string name="CRA_calendar_reminders_pref_desc_enabled">Aplikacija Opravki vas bo opominjala o prihajajočih dogodkih na koledarju in vas pozivala, da se nanje pripravite</string>
 	<string name="CRA_share_list_title">Naj se ta seznam deli s kom?</string>
 	<string name="CRA_invite_attendees">Povabi udeležence</string>
 	<string name="CRA_more_options">Dodatne možnosti</string>
@@ -184,7 +209,10 @@
 	<string name="EPr_fontSize_title">Velikost seznama opravkov</string>
 	<string name="EPr_filters_to_show_title">Filtri za prikaz</string>
 	<string name="EPr_showSmartConfirmation_title">Pokaži potrditev za pametne opomnike</string>
+	<string name="EPr_fontSize_desc">Velikost črk na strani z glavnim seznamom</string>
+	<string name="EPr_showNotes_title">Prikaži opis pri opravku</string>
 	<string name="EPr_edit_screen_options">Uredi možnosti zaslona</string>
+	<string name="EPr_beastMode_title">Uredi vrstni red zaslonov</string>
 	<string name="EPr_time_increment">5-minutni podaljški</string>
 	<string name="EPr_use_date_shortcuts">Uporabi bližnjice za datum</string>
 	<string name="EPr_show_timer_shortcut">Prikaži bližnjico za štoparico</string>
@@ -196,6 +224,16 @@
 	<string name="EPr_fullTask_title">Prikaži celoten naziv opravka</string>
 	<string name="EPr_fullTask_desc_enabled">Celoten naziv opravka bo prikazan</string>
 	<string name="EPr_fullTask_desc_disabled">Prikazani bosta prvi dve vrstici naziva opravka</string>
+	<string-array name="EPr_task_row_styles">
+		<item>Originalni</item>
+		<item>Enostavni</item>
+		<item>Samo naziv</item>
+	</string-array>
+	<string-array name="EPr_task_row_style_descriptions">
+		<item>Skajšaj naziv v dve vrstici z datumom na desni strani</item>
+		<item>Skrajšaj naziv na eno vrstico z datumom in seznami pod njo.</item>
+		<item>Enovrstični naziv</item>
+	</string-array>
 	<string name="EPr_task_row_style_title">Slog vrstice:%s</string>
 	<string name="EPr_use_filters_title">Uporabi filtre</string>
 	<string name="EPr_use_filters_subtitle">Omogoči filtre po meri</string>
@@ -220,22 +258,20 @@
 	<string name="EPr_manage_purge_deleted_status">Število popolnoma odstranjenih opravkov: %d </string>
 	<string name="EPr_manage_purge_deleted_summary">Pozor! Popolnoma odstranjeni opravki se lahko obnovijo samo z ustrezno varnostno kopijo!</string>
 	<string name="EPr_manage_clear_all">Zbriši vse podatke</string>
-	<string name="EPr_manage_clear_all_message">Zbriši vse opravke in nastavitve v aplikaciji?\n\nPozor: ukaza ni mogoče razveljaviti!</string>
+	<string name="EPr_manage_clear_all_message">Zbriši vse opravke in nastavitve v aplikaciji Opravki?\n\nPozor: ukaza ni mogoče razveljaviti!</string>
 	<string name="EPr_manage_delete_completed_gcal">Zbriši dokončane opravke s koledarja dogodkov</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Ste prepričani, da želite zbrisati vse dokončane opravke iz vaših dogodkov?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">Število zbrisanih dogodkov na koledarju: %d </string>
 	<string name="EPr_manage_delete_all_gcal">Zbriši vse dogodke na koledarju z opravki</string>
 	<string name="EPr_manage_delete_all_gcal_message">Ste prepričani, da želite zbrisati vse opravke iz vaših dogodkov?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Število zbrisanih dogodkov na koledarju: %d </string>
-	<string name="AOA_internal_author">Sodelujoči pri izdelavi aplikacije</string>
+	<string name="AOA_internal_author">Sodelujoči pri izdelavi aplikacije Opravki</string>
 	<string name="TWi_loading">Nalagam...</string>
 	<string name="WCA_title">Izberi in prikaži opravke...</string>
-	<string name="task_killer_help">Zdi se, da uporabljate neko aplikacijo, ki ima pravico prekinjati procese(%s)!  
-Prosimo, dodajte našo aplikacijo na seznam izjem, kajti sicer 
-vas mogoče ne bomo mogli pravočano obvestiti o dospelosti opravkov.\n</string>
-	<string name="task_killer_help_ok">Ne bom prekinjal izvedbe aplikacije!</string>
+	<string name="task_killer_help">Zdi se, da uporabljate neko aplikacijo, ki ima pravico prekinjati procese(%s)! Prosimo, dodajte aplikacijo Opravki na seznam izjem, kajti sicer vas Opravki morda ne bodo mogli pravočano obvestiti o dospelosti opravkov.\n</string>
+	<string name="task_killer_help_ok">Aplikacija Opravki ne bo prekinjena!</string>
 	<string name="DB_corrupted_title">Okvarjena baza podatkov</string>
-	<string name="DB_corrupted_body">O, ne! Zdi se, da imate okvarjeno bazo podatkov. Če se ta napaka pogosto pojavlja, vam predlagamo, da zbrišete vse podatke (Nastavitve-&gt;Usklajevanje in varnostna kopija-&gt; Upravljanje s preteklimi opravki-&gt;Zbriši vse podatke) in obnovite svoje opravke s pomočjo varnostne kopije aplikacije. (Nastavitve-&gt;Usklajevanje in varnostna kopija-&gt;Varnostna kopija-&gt;Uvozi opravke)</string>
+	<string name="DB_corrupted_body">O, ne! Zdi se, da imate okvarjeno bazo podatkov. Če se ta napaka pogosto pojavlja, vam predlagamo, da zbrišete vse podatke (Nastavitve-&gt;Usklajevanje in varnostna kopija-&gt; Upravljanje s preteklimi opravki-&gt;Zbriši vse podatke) in obnovite svoje opravke s pomočjo varnostne kopije aplikacije Opravki. (Nastavitve-&gt;Usklajevanje in varnostna kopija-&gt;Varnostna kopija-&gt;Uvozi opravke)</string>
 	<string name="market_unavailable">Žal trg ne podpira vašega sistema.</string>
 	<string name="EPr_defaults_header">Privzete nastavitve novih opravkov</string>
 	<string name="EPr_defaults_summary">Prioriteta, dospelost, dodaj na koledar</string>
@@ -252,18 +288,36 @@ vas mogoče ne bomo mogli pravočano obvestiti o dospelosti opravkov.\n</string>
 	<string name="EPr_default_addtocalendar_desc">Novi opravki bodo na koledarju: \"%s\"</string>
 	<string name="EPr_default_reminders_mode_title">Privzeti način zvonenja/vibriranja</string>
 	<string name="EPr_default_reminders_mode_desc">Trenutno: %s</string>
+	<string-array name="EPr_default_importance">
+		<item>!!! (Najvišja)</item>
+		<item>!!</item>
+		<item>!</item>
+		<item>o (Najnižja)</item>
+	</string-array>
 	<string-array name="EPr_default_urgency">
-		<item>No deadline</item>
+		<item>Brez dospelosti</item>
 		<item>Danes</item>
 		<item>Jutri</item>
-		<item>Day after tomorrow</item>
-		<item>Next week</item>
+		<item>Pojutrišnjem</item>
+		<item>Naslednji teden</item>
+	</string-array>
+	<string-array name="EPr_default_hideUntil">
+		<item>Ne skrij</item>
+		<item>Opravek dospe</item>
+		<item>Dan pred dospelostjo</item>
+		<item>Teden pred dospelostjo</item>
+	</string-array>
+	<string-array name="EPr_default_reminders">
+		<item>Brez opomnikov o dospelosti</item>
+		<item>Ob dospelosti</item>
+		<item>Po dospelosti</item>
+		<item>Ob dospelosti ali potem</item>
 	</string-array>
 	<string name="BFE_Active">Moji Opravki</string>
 	<string name="BFE_Recent">Nedavno spremenjeno</string>
 	<string name="BFE_Saved_delete">Zbriši filter</string>
 	<string name="CFA_filterName_hint">Poimenuj ta filter, da se shrani.</string>
-	<string name="CFA_universe_all">Izvedbena opravila</string>
+	<string name="CFA_universe_all">Aktivni Opravki</string>
 	<string name="CFA_type_add">na dan</string>
 	<string name="CFA_type_subtract">ne</string>
 	<string name="CFA_type_intersect">tudi</string>
@@ -276,13 +330,13 @@ vas mogoče ne bomo mogli pravočano obvestiti o dospelosti opravkov.\n</string>
 	<string name="CFC_dueBefore_text">Opraviti do:?</string>
 	<string name="CFC_dueBefore_name">Opraviti do:</string>
 	<string-array name="CFC_dueBefore_entries">
-		<item>No Due Date</item>
+		<item>Brez datuma dospelosti</item>
 		<item>Včeraj</item>
 		<item>Danes</item>
 		<item>Jutri</item>
-		<item>Day After Tomorrow</item>
-		<item>Next Week</item>
-		<item>Next Month</item>
+		<item>Pojutrišnjem</item>
+		<item>Naslednji teden</item>
+		<item>Naslednji mesec</item>
 	</string-array>
 	<string name="CFC_importance_text">Prioriteta namanj ?</string>
 	<string name="CFC_importance_name">Prioriteta...</string>
@@ -318,9 +372,9 @@ vas mogoče ne bomo mogli pravočano obvestiti o dospelosti opravkov.\n</string>
 	<string name="gtasks_error_accountNotFound">Račun %s ni najden--prosimo odjavite se, nato pa ponovno prijavite skozi nastavitve Google Nalog.</string>
 	<string name="gtasks_error_authRefresh">Avtentikacija v Google Naloge ni uspela. Prosimo, preverite geslo svojega računa in poskusite ponovno kasneje.</string>
 	<string name="gtasks_error_accountManager">Napaka pri upravitelju računov na vašem telefonu. Prosimo, odjavite se, nato pa ponovno prijavite skozi nastavitve Google Nalog.</string>
-	<string name="gtasks_error_background_sync_auth">Napaka pri overjanju v ozadju. Prosimo, poskusite začeti z usklajevanjem med delovanjem aplikacije.</string>
+	<string name="gtasks_error_background_sync_auth">Napaka pri overjanju v ozadju. Prosimo, poskusite začeti z usklajevanjem med delovanjem aplikacije Opravki.</string>
 	<string name="EPr_powerpack_header">Napredne nastavitve</string>
-	<string name="EPr_powerpack_summary">Zgrešeni opomniki za klice, vnos zvoka in razne nastavitve</string>
+	<string name="EPr_powerpack_summary">Opomniki zgrešenih klicev, vnos glasu in razne nastavitve</string>
 	<string name="speech_err_network">Napaka na omrežju! Prepoznava govora za delovanje potrebuje omrežno povezavo.</string>
 	<string name="speech_err_no_match">Žal tega nisem razumel. Prosim poskusite ponovno.</string>
 	<string name="speech_err_default">Žal je pri prepoznavi govora prišlo do napake. Prosimo poskusite ponovno.</string>
@@ -338,8 +392,43 @@ vas mogoče ne bomo mogli pravočano obvestiti o dospelosti opravkov.\n</string>
 	<string name="search_market_pdf_title">Ne najdem PDF bralnika</string>
 	<string name="search_market_ms">Ne najdem bralnika MS Office. Ga želite naložiti z Android tržnice?</string>
 	<string name="search_market_ms_title">Ne najdem bralnika MS Office</string>
+	<string name="file_type_unhandled">Žal nobena aplikacija ne ustreza takim datotekam.</string>
+	<string name="file_type_unhandled_title">Ni ustrezne aplikacije</string>
+	<string name="file_prefix_image">Slika</string>
+	<string name="file_prefix_voice">Glas</string>
+	<string name="file_browser_title">Izberite datoteko</string>
+	<string name="dir_browser_title">Izberite mapo</string>
+	<string name="file_browser_err_permissions">Napaka pri dovoljenjih! Prosimo, preverite, da niste preprečili aplikaciji Opravki dostopa do SD kartice.</string>
+	<string name="file_add_picture">Pripni sliko</string>
+	<string name="file_add_sdcard">Pripni datoteko z SD kartice</string>
+	<string name="file_download_title">Snamem datoteko?</string>
+	<string name="file_download_body">Datotka ni bila naložena na SD kartico. Naložim sedaj?</string>
+	<string name="file_download_progress">Nalagam...</string>
+	<string name="file_err_memory">Slika prevelika za pomnilnik</string>
+	<string name="file_err_copy">Napaka pri kopiranju datoteke za priponko</string>
+	<string name="file_err_download">Napaka pri snemanju datoteke</string>
+	<string name="file_err_no_directory">Ups! Zdi se, da mapa z datotekami ne obstaja. Prosimo, izberite mapo za shranjevanje datotek v prednostnih nastavitvah.</string>
+	<string name="file_dir_dialog_ok">Uporabi to mapo</string>
+	<string name="file_dir_dialog_default">Ponastavi na privzeto</string>
+	<string name="p_files_dir">Mapa za posebna snemanja</string>
+	<string name="p_files_dir_desc">Priponke opravku shranjene v:%s</string>
+	<string name="p_files_dir_desc_default">Privzeta mapa</string>
+	<string name="premium_speech_bubble_2">Enoletna naročnina prihrani 25%!</string>
+	<string name="TEA_reminders_group_label">Nastavitve opomnika</string>
+	<string name="TEA_reminder_label">Opomni me</string>
+	<string name="TEA_reminder_due">Ko opravek dospe</string>
+	<string name="TEA_reminder_overdue">Po dospelosti opravka</string>
 	<string name="TEA_reminder_randomly">Naključno enkrat</string>
+	<string name="TEA_reminder_alarm_label">Način zvonenja/vibriranja</string>
+	<string name="TEA_reminder_mode_once">Enkrat</string>
+	<string name="TEA_reminder_mode_five">Petkrat</string>
+	<string name="TEA_reminder_mode_nonstop">Dokler ne ugasnem</string>
+	<string name="TEA_reminder_when">kdaj</string>
+	<string name="TEA_reminder_due_short">dospelo</string>
+	<string name="TEA_reminder_overdue_short">že dospelo</string>
 	<string name="TEA_reminder_randomly_short">naključno</string>
+	<string name="TEA_reminder_display_one">Opomni me %s</string>
+	<string name="TEA_reminder_display_multiple">Opomni %s</string>
 	<string-array name="TEA_reminder_random">
 		<item>na uro</item>
 		<item>dan</item>
@@ -348,10 +437,20 @@ vas mogoče ne bomo mogli pravočano obvestiti o dospelosti opravkov.\n</string>
 		<item>na mesec</item>
 		<item>na dva meseca</item>
 	</string-array>
+	<string name="rmd_NoA_filter">Opomnik!</string>
+	<string name="rmd_NoA_done">Končano</string>
 	<string name="rmd_NoA_snooze">Dremež</string>
 	<string name="rmd_NoA_completed_toast">Čestitke za dokončanje!</string>
+	<string name="rmd_NoA_dlg_title">Opomnik:</string>
+	<string-array name="rmd_reengage_notif_titles">
+		<item>Obvestilo aplikacije Opravki</item>
+		<item>Sporočilo za %s.</item>
+		<item>Pozetek vaših Opravkov</item>
+		<item>Opomniki aplikacije Opravki</item>
+	</string-array>
+	<string name="rmd_reengage_add_tasks">Dodaj opravek</string>
 	<string-array name="rmd_reengage_dialog_options">
-		<item>Time to shorten your to-do list!</item>
+		<item>Čas je, da skrajšate vaš seznam opravil!</item>
 		<item>Gospod ali gospa, nekaj opravkov čaka na vašo pozornost.</item>
 		<item>Živjo, tole bi bilo treba pregledati!</item>
 		<item>Imam nekaj opravkov zate!</item>
@@ -361,13 +460,37 @@ vas mogoče ne bomo mogli pravočano obvestiti o dospelosti opravkov.\n</string>
 	</string-array>
 	<string-array name="rmd_reengage_dialog_empty_options">
 		<item>Si želiš več urejenosti?</item>
-		<item>Imenujem se Tasks! Tukaj sem, da ti pomagam narediti več!</item>
+		<item>Sem aplikacija Opravki! Tukaj sem, da vam pomagam pri produktivnosti!</item>
 		<item>Zdiš se, da imaš polne roke dela! Dovoli mi prestaviti nekatere opravke na kasneje.</item>
 		<item>Lahko ti pomagam slediti vsem podrobnostim tvojega življenja.</item>
 		<item>Res želiš narediti več? Jaz tudi!</item>
 		<item>Me veseli, da sva se spoznala!</item>
 	</string-array>
+	<string name="rmd_EPr_alerts_header">Nastavitve opomnika</string>
 	<string name="rmd_EPr_alerts_summary">Tihi čas, možnosti dremeža, stopnja vztrajnosti</string>
+	<string name="rmd_EPr_enabled_title">Opomniki omogočeni?</string>
+	<string name="rmd_EPr_enabled_desc_true">Opomniki so omogočeni (to je običajno)</string>
+	<string name="rmd_EPr_enabled_desc_false">Opomniki se ne bodo nikoli pojavili na vaši napravi</string>
+	<string name="rmd_EPr_quiet_hours_start_title">Tihe ure se začnejo ob</string>
+	<string name="rmd_EPr_quiet_hours_start_desc">Obvestila bodo utišana po %s.\n Obvestilo: vibriranje določajo nastavitve \"Vibriranje ob opozorilih\"</string>
+	<string name="rmd_EPr_quiet_hours_desc_none">Tihe ure onemogočene</string>
+	<string name="rmd_EPr_quiet_hours_end_title">Tihe ure se končajo ob</string>
+	<string name="rmd_EPr_quiet_hours_end_desc">Obvestila ne bodo več utišana od %s</string>
+	<string name="rmd_EPr_rmd_time_title">Privzeti opomnik ob</string>
+	<string name="rmd_EPr_rmd_time_desc">Obvestila o opravkih brez dospelosti se prikažejo ob %s</string>
+	<string name="rmd_EPr_ringtone_title">Zvonenje ob obvestilu</string>
+	<string name="rmd_EPr_ringtone_desc_custom">Zvonenje po meri je nastavljeno</string>
+	<string name="rmd_EPr_ringtone_desc_silent">Zvonenje utišano</string>
+	<string name="rmd_EPr_ringtone_desc_default">Uporabljeno bo privzeto zvonenje</string>
+	<string name="rmd_EPr_persistent_title">Vztrajnost obvestil</string>
+	<string name="rmd_EPr_persistent_desc_true">Obvestila je potrebno pogledati eno po eno, da se zbrišejo</string>
+	<string name="rmd_EPr_persistent_desc_false">Obvestila je mogoče zbrisati z gumbom \"Briši vse\"</string>
+	<string name="rmd_EPr_multiple_maxvolume_title">Največja jakost zvoka opomnikov z večkratnim zvonenjem</string>
+	<string name="rmd_EPr_multiple_maxvolume_desc_true">Aplikacija Opravki bo izvajala opomnike z večkratnim zvonenjem pri polni jakosti zvoka.</string>
+	<string name="rmd_EPr_multiple_maxvolume_desc_false">Aplikacija Opravki bo uporabljala sistemske nastavitve jakosti zvoka</string>
+	<string name="rmd_EPr_vibrate_title">Vibriraj ob opozorilih</string>
+	<string name="rmd_EPr_vibrate_desc_true">Aplikacija Opravki bo vibrirala ob pošiljanju obvestil</string>
+	<string name="rmd_EPr_vibrate_desc_false">Aplikacija Opravki ne bo vibrirala ob pošiljanju obvestil</string>
 	<string name="rmd_EPr_snooze_dialog_title">Pogovor o dremežu UU:MM</string>
 	<string name="rmd_EPr_snooze_dialog_desc_true">Začni dremež z nastavitvijo novega časa za dremež (UU:MM)</string>
 	<string name="rmd_EPr_snooze_dialog_desc_false">Začni dremež z nastavitvijo števila dni/ur dremeža</string>
@@ -385,82 +508,82 @@ vas mogoče ne bomo mogli pravočano obvestiti o dospelosti opravkov.\n</string>
 	</string-array>
 	<string-array name="EPr_quiet_hours_start">
 		<item>onemogočen</item>
-		<item>8 zvečer</item>
-		<item>9 zvečer</item>
-		<item>10 zvečer</item>
-		<item>11 zvečer</item>
-		<item>opolnoči</item>
-		<item>1 ponoči</item>
-		<item>2 ponoči</item>
-		<item>3 ponoči</item>
-		<item>4 ponoči</item>
-		<item>5 zjutraj</item>
-		<item>6 AM</item>
-		<item>7 AM</item>
-		<item>8 AM</item>
-		<item>9 AM</item>
-		<item>10 AM</item>
-		<item>11 AM</item>
-		<item>12 PM</item>
-		<item>1 PM</item>
-		<item>2 PM</item>
-		<item>3 PM</item>
-		<item>4 PM</item>
-		<item>5 PM</item>
-		<item>6 PM</item>
-		<item>7 PM</item>
+		<item>20ih</item>
+		<item>21ih</item>
+		<item>22ih</item>
+		<item>23ih</item>
+		<item>polnoči</item>
+		<item>enih</item>
+		<item>dveh</item>
+		<item>treh</item>
+		<item>4ih</item>
+		<item>5ih</item>
+		<item>6ih</item>
+		<item>7ih</item>
+		<item>8ih</item>
+		<item>9ih</item>
+		<item>10ih</item>
+		<item>11ih</item>
+		<item>poldne</item>
+		<item>13ih</item>
+		<item>14ih</item>
+		<item>15ih</item>
+		<item>16ih</item>
+		<item>17ih</item>
+		<item>18ih</item>
+		<item>19ih</item>
 	</string-array>
 	<string-array name="EPr_quiet_hours_end">
-		<item>9 AM</item>
-		<item>10 AM</item>
-		<item>11 AM</item>
-		<item>12 PM</item>
-		<item>1 PM</item>
-		<item>2 PM</item>
-		<item>3 PM</item>
-		<item>4 PM</item>
-		<item>5 PM</item>
-		<item>6 PM</item>
-		<item>7 PM</item>
-		<item>8 PM</item>
-		<item>9 PM</item>
-		<item>10 PM</item>
-		<item>11 PM</item>
-		<item>12 AM</item>
-		<item>1 AM</item>
-		<item>2 AM</item>
-		<item>3 AM</item>
-		<item>4 AM</item>
-		<item>5 AM</item>
-		<item>6 AM</item>
-		<item>7 AM</item>
-		<item>8 zjutraj</item>
+		<item>9ih</item>
+		<item>10ih</item>
+		<item>11ih</item>
+		<item>poldne</item>
+		<item>13ih</item>
+		<item>14ih</item>
+		<item>15ih</item>
+		<item>16ih</item>
+		<item>17ih</item>
+		<item>18ih</item>
+		<item>19ih</item>
+		<item>20ih</item>
+		<item>21ih</item>
+		<item>22ih</item>
+		<item>23ih</item>
+		<item>polnoči</item>
+		<item>enih</item>
+		<item>dveh</item>
+		<item>treh</item>
+		<item>4ih</item>
+		<item>5ih</item>
+		<item>6ih</item>
+		<item>7ih</item>
+		<item>8ih</item>
 	</string-array>
 	<string-array name="EPr_rmd_time">
-		<item>9 dopoldne</item>
-		<item>10 dopoldne</item>
-		<item>11 dopoldne</item>
-		<item>opoldne</item>
-		<item>1 popoldne</item>
-		<item>2 popoldne</item>
-		<item>3 popoldne</item>
-		<item>4 popoldne</item>
-		<item>5 popoldne</item>
-		<item>6 zvečer</item>
-		<item>7 zvečer</item>
-		<item>8 zvečer</item>
-		<item>9 zvečer</item>
-		<item>10 zvečer</item>
-		<item>11 zvečer</item>
-		<item>opolnoči</item>
-		<item>1 ponoči</item>
-		<item>2 ponoči</item>
-		<item>3 ponoči</item>
-		<item>4 ponoči</item>
-		<item>5 zjutraj</item>
-		<item>6 zjutraj</item>
-		<item>7 zjutraj</item>
-		<item>8 zjutraj</item>
+		<item>9ih</item>
+		<item>10ih</item>
+		<item>11ih</item>
+		<item>poldne</item>
+		<item>13ih</item>
+		<item>14ih</item>
+		<item>15ih</item>
+		<item>16ih</item>
+		<item>17ih</item>
+		<item>18ih</item>
+		<item>19ih</item>
+		<item>20ih</item>
+		<item>21ih</item>
+		<item>22ih</item>
+		<item>23ih</item>
+		<item>polnoči</item>
+		<item>enih</item>
+		<item>dveh</item>
+		<item>treh</item>
+		<item>4ih</item>
+		<item>5ih</item>
+		<item>6ih</item>
+		<item>7ih</item>
+		<item>8ih</item>
 	</string-array>
 	<string name="repeat_plugin">Ponavljajoči se opravki</string>
 	<string name="repeat_plugin_desc">Omogoči ponavljanje opravkov</string>
@@ -478,12 +601,12 @@ vas mogoče ne bomo mogli pravočano obvestiti o dospelosti opravkov.\n</string>
 		<item>l</item>
 	</string-array>
 	<string-array name="repeat_interval">
-		<item>Day(s)</item>
+		<item>Dan/dni</item>
 		<item>V tednih</item>
-		<item>Month(s)</item>
+		<item>Mesec/a /e /ev</item>
 		<item>V urah</item>
 		<item>V minutah</item>
-		<item>Year(s)</item>
+		<item>Let/o /i /a</item>
 	</string-array>
 	<string-array name="repeat_until_shortcuts">
 		<item>Do preklica</item>
@@ -532,11 +655,25 @@ vas mogoče ne bomo mogli pravočano obvestiti o dospelosti opravkov.\n</string>
 	<string name="tag_settings_title">Nastavitve seznamov</string>
 	<string name="tag_updates_title">Dejavnost: %s</string>
 	<string name="TPl_notification">Merilniki časa aktivni za %s!</string>
-	<string name="TFE_workingOn">Merjenje časa opravkom</string>
+	<string name="TFE_workingOn">Opravki katerim se meri čas</string>
 	<string name="TEA_timer_controls">Merilnik časa</string>
 	<string name="TEA_timer_comment_started">ta opravek začel:</string>
 	<string name="TEA_timer_comment_stopped">ta opravek končal:</string>
 	<string name="TEA_timer_comment_spent">Porabljen čas:</string>
+	<string name="voice_create_prompt">Glasovno ustvari opravek</string>
+	<string name="voice_edit_title_prompt">Glasovno določi naziv opravka</string>
+	<string name="voice_edit_note_prompt">Govorite za opis opravka</string>
+	<string name="EPr_voiceInputInstall_dlg">Vnos glasu ni nameščen.\n Želite to možnosti nabaviti in namestiti?</string>
+	<string name="EPr_voiceInputUnavailable_dlg">Vnos glasu žal ni na razpolago vašemu sistemu.\n Če je mogoče, nadgradite svojega Androida vsaj na verzijo 2.1.</string>
+	<string name="EPr_marketUnavailable_dlg">Trg žal ne podpira vašega sistema.\n Poskusite naložiti glasovno iskanje z drugega vira.</string>
+	<string name="EPr_voiceInputEnabled_title">Vnos glasu</string>
+	<string name="EPr_voiceInputCreatesTask_title">Opravke ustvari neposredno</string>
+	<string name="EPr_voiceInputCreatesTask_desc_enabled">Opravki bodo ustvarjeni na podlagi snemanja glasu</string>
+	<string name="EPr_voiceInputCreatesTask_desc_disabled">Naziv opravka lahko uredite, ko se konča vnos glasu</string>
+	<string name="EPr_voiceRemindersEnabled_title">Glasovni opomniki</string>
+	<string name="EPr_voiceRemindersEnabled_desc_enabled">Aplikacija Opravki bo med opominjanjem glede opravkov izgovarjala nazive opravkov</string>
+	<string name="EPr_voiceRemindersEnabled_desc_disabled">Aplikacija Opravki bo med opominjanjem glede opravkov zvonila.</string>
+	<string name="widget_mini">Opravki</string>
 	<string name="EPr_use_dark_theme">Temni videz</string>
 	<string name="EPr_use_dark_theme_widget">Temni videz gradnika</string>
 	<string name="delete_task">Zbriši opravek</string>
