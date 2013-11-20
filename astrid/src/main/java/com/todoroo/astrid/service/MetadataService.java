@@ -102,7 +102,7 @@ public class MetadataService {
     public boolean synchronizeMetadata(long taskId, ArrayList<Metadata> metadata,
             Criterion metadataCriterion, SynchronizeMetadataCallback callback) {
         boolean dirty = false;
-        HashSet<ContentValues> newMetadataValues = new HashSet<ContentValues>();
+        HashSet<ContentValues> newMetadataValues = new HashSet<>();
         for(Metadata metadatum : metadata) {
             metadatum.setValue(Metadata.TASK, taskId);
             metadatum.clearValue(Metadata.CREATION_DATE);

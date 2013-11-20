@@ -171,7 +171,7 @@ public final class TagService {
             orderBy(order).groupBy(TaskToTagMetadata.TAG_NAME);
         TodorooCursor<Metadata> cursor = metadataDao.query(query);
         try {
-            ArrayList<Tag> array = new ArrayList<Tag>();
+            ArrayList<Tag> array = new ArrayList<>();
             for (int i = 0; i < cursor.getCount(); i++) {
                 cursor.moveToNext();
                 Tag tag = Tag.tagFromUUID(cursor.get(TaskToTagMetadata.TAG_UUID));
@@ -293,7 +293,7 @@ public final class TagService {
      * Return all tags (including metadata tags and TagData tags) in an array list
      */
     public ArrayList<Tag> getTagList() {
-        ArrayList<Tag> tagList = new ArrayList<Tag>();
+        ArrayList<Tag> tagList = new ArrayList<>();
         TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES).where(Criterion.and(TagData.DELETION_DATE.eq(0), Criterion.or(TagData.IS_FOLDER.isNull(),
                 TagData.IS_FOLDER.neq(1)), TagData.NAME.isNotNull())).orderBy(Order.asc(Functions.upper(TagData.NAME))));
         try {
@@ -316,7 +316,7 @@ public final class TagService {
      * Save the given array of tags into the database
      */
     public void synchronizeTags(long taskId, String taskUuid, Set<String> tags) {
-        HashSet<String> existingLinks = new HashSet<String>();
+        HashSet<String> existingLinks = new HashSet<>();
         TodorooCursor<Metadata> links = metadataDao.query(Query.select(Metadata.PROPERTIES)
                 .where(Criterion.and(TaskToTagMetadata.TASK_UUID.eq(taskUuid), Metadata.DELETION_DATE.eq(0))));
         try {

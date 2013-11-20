@@ -87,7 +87,7 @@ public class AACRecordingActivity extends Activity implements AACRecorderCallbac
     public void encodingFinished() {
         try {
 
-            AtomicReference<String> nameRef = new AtomicReference<String>();
+            AtomicReference<String> nameRef = new AtomicReference<>();
             String outFile = FileUtilities.getNewAudioAttachmentPath(this, nameRef);
 
             new AACToM4A().convert(this, tempFile, outFile);

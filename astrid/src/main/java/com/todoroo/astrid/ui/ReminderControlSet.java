@@ -46,7 +46,7 @@ public class ReminderControlSet extends PopupControlSet {
 
     public ReminderControlSet(Activity activity, int viewLayout, int displayViewLayout) {
         super(activity, viewLayout, displayViewLayout, R.string.TEA_reminders_group_label);
-        extraViews = new ArrayList<View>();
+        extraViews = new ArrayList<>();
         label = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
 
         image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
@@ -123,7 +123,7 @@ public class ReminderControlSet extends PopupControlSet {
                 activity.getString(R.string.TEA_reminder_mode_five),
                 activity.getString(R.string.TEA_reminder_mode_nonstop),
         };
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 activity, android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mode.setOnItemSelectedListener(new OnItemSelectedListener() {

@@ -285,11 +285,7 @@ public class TasksXmlExporter {
                 xml.attribute(null, property.name, valueString);
             } catch (UnsupportedOperationException e) {
                 // didn't read this value, do nothing
-            } catch (IllegalArgumentException e) {
-                throw new RuntimeException(e);
-            } catch (IllegalStateException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
+            } catch (IllegalArgumentException | IOException | IllegalStateException e) {
                 throw new RuntimeException(e);
             }
             return null;
@@ -303,11 +299,7 @@ public class TasksXmlExporter {
                 xml.attribute(null, property.name, valueString);
             } catch (UnsupportedOperationException e) {
                 // didn't read this value, do nothing
-            } catch (IllegalArgumentException e) {
-                throw new RuntimeException(e);
-            } catch (IllegalStateException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
+            } catch (IllegalArgumentException | IOException | IllegalStateException e) {
                 throw new RuntimeException(e);
             }
             return null;
@@ -323,11 +315,7 @@ public class TasksXmlExporter {
                 xml.attribute(null, property.name, value);
             } catch (UnsupportedOperationException e) {
                 // didn't read this value, do nothing
-            } catch (IllegalArgumentException e) {
-                throw new RuntimeException(e);
-            } catch (IllegalStateException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
+            } catch (IllegalArgumentException | IOException | IllegalStateException e) {
                 throw new RuntimeException(e);
             }
             return null;

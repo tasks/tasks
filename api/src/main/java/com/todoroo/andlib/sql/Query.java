@@ -27,11 +27,11 @@ public final class Query {
 
     private SqlTable table;
     private String queryTemplate = null;
-    private final ArrayList<Criterion> criterions = new ArrayList<Criterion>();
-    private final ArrayList<Field> fields = new ArrayList<Field>();
-    private final ArrayList<Join> joins = new ArrayList<Join>();
-    private final ArrayList<Field> groupBies = new ArrayList<Field>();
-    private final ArrayList<Order> orders = new ArrayList<Order>();
+    private final ArrayList<Criterion> criterions = new ArrayList<>();
+    private final ArrayList<Field> fields = new ArrayList<>();
+    private final ArrayList<Join> joins = new ArrayList<>();
+    private final ArrayList<Field> groupBies = new ArrayList<>();
+    private final ArrayList<Order> orders = new ArrayList<>();
     private int limits = -1;
     private boolean distinct = false;
 

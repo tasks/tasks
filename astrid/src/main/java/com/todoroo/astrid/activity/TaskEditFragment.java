@@ -184,7 +184,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private EditText title;
     private EditNoteActivity editNotes;
     private ViewPager mPager;
-    private HashMap<String, TaskEditControlSet> controlSetMap = new HashMap<String, TaskEditControlSet>();
+    private HashMap<String, TaskEditControlSet> controlSetMap = new HashMap<>();
 
     private final List<TaskEditControlSet> controls = Collections.synchronizedList(new ArrayList<TaskEditControlSet>());
 
@@ -353,7 +353,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         constructWhenDialog(whenDialogView);
 
-        controlSetMap = new HashMap<String, TaskEditControlSet>();
+        controlSetMap = new HashMap<>();
 
         // populate control set
         EditTitleControlSet editTitle = new EditTitleControlSet(getActivity(),
@@ -829,11 +829,11 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     }
 
     private void startAttachFile() {
-        ArrayList<String> options = new ArrayList<String>();
+        ArrayList<String> options = new ArrayList<>();
         options.add(getString(R.string.file_add_picture));
         options.add(getString(R.string.file_add_sdcard));
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_spinner_dropdown_item, options.toArray(new String[options.size()]));
 
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
@@ -893,7 +893,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     private void attachImage(Bitmap bitmap) {
 
-        AtomicReference<String> nameRef = new AtomicReference<String>();
+        AtomicReference<String> nameRef = new AtomicReference<>();
         String path = FileUtilities.getNewImageAttachmentPath(getActivity(), nameRef);
 
         try {

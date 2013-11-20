@@ -76,7 +76,7 @@ public class GtasksListService {
     public synchronized void updateLists(TaskLists remoteLists) {
         readLists();
 
-        HashSet<Long> previousLists = new HashSet<Long>(lists.length);
+        HashSet<Long> previousLists = new HashSet<>(lists.length);
         for(StoreObject list : lists) {
             previousLists.add(list.getId());
         }

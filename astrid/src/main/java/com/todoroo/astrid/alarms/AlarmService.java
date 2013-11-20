@@ -72,7 +72,7 @@ public class AlarmService {
     public boolean synchronizeAlarms(final long taskId, LinkedHashSet<Long> alarms) {
         MetadataService service = PluginServices.getMetadataService();
 
-        ArrayList<Metadata> metadata = new ArrayList<Metadata>();
+        ArrayList<Metadata> metadata = new ArrayList<>();
         for(Long alarm : alarms) {
             Metadata item = new Metadata();
             item.setValue(Metadata.KEY, AlarmFields.METADATA_KEY);

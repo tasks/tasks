@@ -32,13 +32,13 @@ import java.util.concurrent.atomic.AtomicLong;
 public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObject> {
 
     /** map of task -> parent task */
-    final HashMap<Long, Long> parents = new HashMap<Long, Long>();
+    final HashMap<Long, Long> parents = new HashMap<>();
 
     /** map of task -> prior sibling */
-    final HashMap<Long, Long> siblings = new HashMap<Long, Long>();
+    final HashMap<Long, Long> siblings = new HashMap<>();
 
     final HashMap<Long, String> localToRemoteIdMap =
-        new HashMap<Long, String>();
+        new HashMap<>();
 
     @Autowired private GtasksListService gtasksListService;
     @Autowired private GtasksMetadataService gtasksMetadataService;

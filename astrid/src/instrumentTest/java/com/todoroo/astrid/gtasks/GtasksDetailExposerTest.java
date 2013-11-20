@@ -96,7 +96,7 @@ public class GtasksDetailExposerTest extends DatabaseTestCase {
 
     private void givenTwoListSetup() {
         TaskLists lists = new TaskLists();
-        List<TaskList> newLists = new ArrayList<TaskList>();
+        List<TaskList> newLists = new ArrayList<>();
         TaskList list = new TaskList();
         list.setId("listone-id");
         list.setTitle("List One"); //new GoogleTaskListInfo("listone-id", "List One");

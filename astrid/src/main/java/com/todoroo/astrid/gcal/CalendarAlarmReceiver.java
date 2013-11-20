@@ -113,11 +113,11 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
                         int emailIndex = attendees.getColumnIndexOrThrow(Calendars.ATTENDEES_EMAIL_COL);
                         int nameIndex = attendees.getColumnIndexOrThrow(Calendars.ATTENDEES_NAME_COL);
 
-                        ArrayList<String> names = new ArrayList<String>();
-                        ArrayList<String> emails = new ArrayList<String>();
+                        ArrayList<String> names = new ArrayList<>();
+                        ArrayList<String> emails = new ArrayList<>();
 
                         Account[] accountArray = AccountManager.get(context).getAccounts();
-                        Set<String> phoneAccounts = new HashSet<String>();
+                        Set<String> phoneAccounts = new HashSet<>();
                         for (Account a : accountArray) {
                             phoneAccounts.add(a.name);
                         }

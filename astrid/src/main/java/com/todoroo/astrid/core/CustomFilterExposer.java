@@ -74,7 +74,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
                     StoreObject.TYPE.eq(SavedFilter.TYPE)).orderBy(Order.asc(SavedFilter.NAME)));
         }
         try {
-            ArrayList<Filter> list = new ArrayList<Filter>();
+            ArrayList<Filter> list = new ArrayList<>();
 
             // stock filters
             if (Preferences.getBoolean(R.string.p_show_recently_modified_filter, true)) {

@@ -49,7 +49,7 @@ public class RemoteModelDao<RTYPE extends RemoteModel> extends DatabaseDao<RTYPE
         TodorooCursor<RTYPE> cursor = query(
                 Query.select(properties).where(RemoteModel.UUID_PROPERTY.eq(uuid)));
         cursor.moveToFirst();
-        return new TodorooCursor<RTYPE>(cursor, properties);
+        return new TodorooCursor<>(cursor, properties);
     }
 
     public String uuidFromLocalId(long localId) {

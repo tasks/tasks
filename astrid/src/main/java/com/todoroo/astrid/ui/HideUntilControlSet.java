@@ -162,7 +162,7 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
 
     private void customDateFinished() {
         HideUntilValue[] list = createHideUntilList(customDate.getTime());
-        adapter = new ArrayAdapter<HideUntilValue>(
+        adapter = new ArrayAdapter<>(
                 activity, android.R.layout.simple_spinner_item,
                 list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -246,7 +246,7 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
         }
 
         HideUntilValue[] list = createHideUntilList(date);
-        adapter = new ArrayAdapter<HideUntilValue>(
+        adapter = new ArrayAdapter<>(
                 activity, android.R.layout.simple_spinner_item, list);
 
         super.readFromTask(task);

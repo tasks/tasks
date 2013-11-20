@@ -57,7 +57,7 @@ public class FilesControlSet extends PopupControlSet {
     @Autowired
     private TaskAttachmentDao taskAttachmentDao;
 
-    private final ArrayList<TaskAttachment> files = new ArrayList<TaskAttachment>();
+    private final ArrayList<TaskAttachment> files = new ArrayList<>();
     private final LinearLayout fileDisplayList;
     private final LayoutInflater inflater;
     private final ImageView image;

@@ -39,7 +39,7 @@ public class ActFmCameraModule {
     }
 
     public static void showPictureLauncher(final Fragment fragment, final ClearImageCallback clearImageOption) {
-        ArrayList<String> options = new ArrayList<String>();
+        ArrayList<String> options = new ArrayList<>();
 
         final Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         PackageManager pm = fragment.getActivity().getPackageManager();
@@ -54,7 +54,7 @@ public class ActFmCameraModule {
             options.add(fragment.getString(R.string.actfm_picture_clear));
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(fragment.getActivity(),
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(fragment.getActivity(),
                 android.R.layout.simple_spinner_dropdown_item, options.toArray(new String[options.size()]));
 
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {

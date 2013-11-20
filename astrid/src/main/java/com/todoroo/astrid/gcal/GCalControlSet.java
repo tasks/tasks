@@ -73,11 +73,11 @@ public class GCalControlSet extends PopupControlSet {
         ((LinearLayout) getDisplayView()).addView(getView()); //hack for spinner
 
         this.calendarSelector = (Spinner) getView().findViewById(R.id.calendars);
-        ArrayList<String> items = new ArrayList<String>();
+        ArrayList<String> items = new ArrayList<>();
         Collections.addAll(items, calendars.calendars);
         items.add(0, activity.getString(R.string.gcal_TEA_nocal));
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(activity,
                 android.R.layout.simple_spinner_item, items.toArray(new String[items.size()]));
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

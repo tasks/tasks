@@ -383,7 +383,7 @@ public class TaskService {
             task.setValue(Task.TITLE, title);
         }
 
-        ArrayList<String> tags = new ArrayList<String>();
+        ArrayList<String> tags = new ArrayList<>();
         boolean quickAddMarkup = false;
         try {
             quickAddMarkup = parseQuickAddMarkup(task, tags);

@@ -83,7 +83,7 @@ public class RepeatControlSet extends PopupControlSet {
     private long repeatUntilValue;
 
 
-    private final List<RepeatChangedListener> listeners = new LinkedList<RepeatChangedListener>();
+    private final List<RepeatChangedListener> listeners = new LinkedList<>();
 
     public interface RepeatChangedListener {
         public void repeatChanged(boolean repeat);
@@ -333,7 +333,7 @@ public class RepeatControlSet extends PopupControlSet {
             case INTERVAL_WEEKS: {
                 rrule.setFreq(Frequency.WEEKLY);
 
-                ArrayList<WeekdayNum> days = new ArrayList<WeekdayNum>();
+                ArrayList<WeekdayNum> days = new ArrayList<>();
                 for (CompoundButton dayOfWeek : daysOfWeek) {
                     if (dayOfWeek.isChecked()) {
                         days.add(new WeekdayNum(0, (Weekday) dayOfWeek.getTag()));

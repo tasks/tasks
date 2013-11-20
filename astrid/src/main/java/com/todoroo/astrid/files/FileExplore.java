@@ -37,7 +37,7 @@ import java.util.ArrayList;
 public class FileExplore extends Activity {
 
 	// Stores names of traversed directories
-	ArrayList<String> str = new ArrayList<String>();
+	ArrayList<String> str = new ArrayList<>();
 
 	// Check if the first level of the directory structure is the one showing
 	private Boolean firstLvl = true;

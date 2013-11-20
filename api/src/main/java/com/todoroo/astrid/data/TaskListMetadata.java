@@ -118,5 +118,5 @@ public final class TaskListMetadata extends RemoteModel {
 
     // --- parcelable helpers
 
-    public static final Creator<TaskListMetadata> CREATOR = new ModelCreator<TaskListMetadata>(TaskListMetadata.class);
+    public static final Creator<TaskListMetadata> CREATOR = new ModelCreator<>(TaskListMetadata.class);
 }

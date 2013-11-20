@@ -168,7 +168,7 @@ public class CustomFilterActivity extends ActionBarActivity {
         populateCriteria();
 
         filterName = (TextView)findViewById(R.id.filterName);
-        List<CriterionInstance> startingCriteria = new ArrayList<CriterionInstance>();
+        List<CriterionInstance> startingCriteria = new ArrayList<>();
         startingCriteria.add(getStartingUniverse());
         adapter = new CustomFilterAdapter(this, startingCriteria);
         listView.setAdapter(adapter);

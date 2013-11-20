@@ -22,7 +22,7 @@ public class Order {
     private Order(Object expression, OrderType orderType) {
         this.expression = expression;
         this.orderType = orderType;
-        this.secondaryExpressions = new ArrayList<Order>();
+        this.secondaryExpressions = new ArrayList<>();
     }
 
     public static Order asc(Object expression) {

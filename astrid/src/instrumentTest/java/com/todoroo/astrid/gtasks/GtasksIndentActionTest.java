@@ -137,7 +137,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         super.setUp();
 
         TaskLists lists = new TaskLists();
-        List<TaskList> items = new ArrayList<TaskList>();
+        List<TaskList> items = new ArrayList<>();
         TaskList list = new TaskList();
         list.setId("list");
         list.setTitle("Test Tasks");

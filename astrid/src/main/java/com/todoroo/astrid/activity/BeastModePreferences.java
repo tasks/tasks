@@ -100,7 +100,7 @@ public class BeastModePreferences extends ListActivity {
         setContentView(R.layout.beast_mode_pref_activity);
         setTitle(R.string.EPr_beastMode_desc);
 
-        prefsToDescriptions = new HashMap<String, String>();
+        prefsToDescriptions = new HashMap<>();
         buildDescriptionMap(getResources());
 
         TouchListView touchList = (TouchListView) getListView();
@@ -171,7 +171,7 @@ public class BeastModePreferences extends ListActivity {
 
     public static ArrayList<String> constructOrderedControlList(Context context) {
         String order = Preferences.getStringValue(BEAST_MODE_ORDER_PREF);
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> list = new ArrayList<>();
         String[] itemsArray;
         if (order == null) {
             itemsArray = context.getResources().getStringArray(R.array.TEA_control_sets_prefs);

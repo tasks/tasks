@@ -95,5 +95,5 @@ public class StoreObject extends AbstractModel {
 
     // --- parcelable helpers
 
-    private static final Creator<StoreObject> CREATOR = new ModelCreator<StoreObject>(StoreObject.class);
+    private static final Creator<StoreObject> CREATOR = new ModelCreator<>(StoreObject.class);
 }

@@ -43,7 +43,7 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
         super(cursor);
 
         this.properties = properties;
-        columnIndexCache = new WeakHashMap<String, Integer>();
+        columnIndexCache = new WeakHashMap<>();
     }
 
     /**

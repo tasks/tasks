@@ -233,7 +233,7 @@ public class QuickAddBar extends LinearLayout {
         Task empty = new Task();
         TagData tagData = fragment.getActiveTagData();
         if (tagData != null) {
-            HashSet<String> tagsTransitory = new HashSet<String>();
+            HashSet<String> tagsTransitory = new HashSet<>();
             tagsTransitory.add(tagData.getValue(TagData.NAME));
             empty.putTransitory(TaskService.TRANS_TAGS, tagsTransitory);
         }
@@ -298,7 +298,7 @@ public class QuickAddBar extends LinearLayout {
 
             if (currentVoiceFile != null) {
 
-                AtomicReference<String> nameRef = new AtomicReference<String>();
+                AtomicReference<String> nameRef = new AtomicReference<>();
                 String path = FileUtilities.getNewAudioAttachmentPath(activity, nameRef);
 
                 voiceRecognizer.convert(path);

@@ -55,7 +55,7 @@ public class GtasksListFragment extends SubtasksListFragment {
 
     @Override
     protected OrderedListFragmentHelperInterface<?> createFragmentHelper() {
-        return new OrderedMetadataListFragmentHelper<StoreObject>(this, gtasksTaskListUpdater);
+        return new OrderedMetadataListFragmentHelper<>(this, gtasksTaskListUpdater);
     }
 
     @Override

@@ -114,7 +114,7 @@ public class LinkActionExposer {
         return new TaskAction(PendingIntent.getActivity(context, (int)id, actionIntent, 0), (BitmapDrawable)icon);
     }
 
-    private static final HashMap<Integer, BitmapDrawable> IMAGE_CACHE = new HashMap<Integer, BitmapDrawable>();
+    private static final HashMap<Integer, BitmapDrawable> IMAGE_CACHE = new HashMap<>();
 
     private static BitmapDrawable getBitmapDrawable(int resId, Resources resources) {
         if (IMAGE_CACHE.containsKey(resId)) {

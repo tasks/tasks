@@ -24,7 +24,7 @@ public class SubtasksTagListFragment extends TagViewFragment {
 
     public SubtasksTagListFragment() {
         super();
-        helper = new AstridOrderedListFragmentHelper<TaskListMetadata>(this, new SubtasksTagUpdater(isBeingFiltered));
+        helper = new AstridOrderedListFragmentHelper<>(this, new SubtasksTagUpdater(isBeingFiltered));
     }
 
     @Override

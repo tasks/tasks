@@ -54,7 +54,7 @@ public class SyncActionHelper {
 
     public static final String PREF_LAST_AUTO_SYNC = "taskListLastAutoSync"; //$NON-NLS-1$
 
-    private final LinkedHashSet<SyncAction> syncActions = new LinkedHashSet<SyncAction>();
+    private final LinkedHashSet<SyncAction> syncActions = new LinkedHashSet<>();
 
     public final SyncResultCallback syncResultCallback;
 
@@ -179,7 +179,7 @@ public class SyncActionHelper {
             PackageManager pm = activity.getPackageManager();
             List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(
                     queryIntent, PackageManager.GET_META_DATA);
-            ArrayList<Intent> syncIntents = new ArrayList<Intent>();
+            ArrayList<Intent> syncIntents = new ArrayList<>();
 
             // Loop through a list of all packages (including plugins, addons)
             // that have a settings action: filter to sync actions
@@ -239,7 +239,7 @@ public class SyncActionHelper {
             return;
         }
 
-        ArrayAdapter<TYPE> adapter = new ArrayAdapter<TYPE>(activity,
+        ArrayAdapter<TYPE> adapter = new ArrayAdapter<>(activity,
                 android.R.layout.simple_spinner_dropdown_item, items);
 
         // show a menu of available options

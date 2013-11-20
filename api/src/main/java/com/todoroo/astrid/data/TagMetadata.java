@@ -75,5 +75,5 @@ public class TagMetadata extends AbstractModel {
 
     // --- parcelable helpers
 
-    private static final Creator<TagMetadata> CREATOR = new ModelCreator<TagMetadata>(TagMetadata.class);
+    private static final Creator<TagMetadata> CREATOR = new ModelCreator<>(TagMetadata.class);
 }

@@ -159,7 +159,7 @@ public class TaskListFragment extends ListFragment implements OnSortSelectedList
     protected TaskAdapter taskAdapter = null;
     protected DetailReceiver detailReceiver = new DetailReceiver();
     protected RefreshReceiver refreshReceiver = new RefreshReceiver();
-    protected final AtomicReference<String> sqlQueryTemplate = new AtomicReference<String>();
+    protected final AtomicReference<String> sqlQueryTemplate = new AtomicReference<>();
     protected SyncActionHelper syncActionHelper;
     protected Filter filter;
     protected int sortFlags;

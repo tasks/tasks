@@ -548,7 +548,7 @@ public class TitleParserTest extends DatabaseTestCase {
         for (String acceptedString : acceptedStrings) {
             task = new Task();
             task.setValue(Task.TITLE, "Jog " + acceptedString); //test at end of task. should set importance.
-            ArrayList<String> tags = new ArrayList<String>();
+            ArrayList<String> tags = new ArrayList<>();
             TitleParser.listHelper(task, tags);
             String tag = TitleParser.trimParenthesis(acceptedString);
             assertTrue("test pound at failed for string: " + acceptedString + " for tags: " + tags.toString(), tags.contains(tag));
@@ -567,7 +567,7 @@ public class TitleParserTest extends DatabaseTestCase {
         for (String acceptedString : acceptedStrings) {
             task = new Task();
             task.setValue(Task.TITLE, "Jog " + acceptedString); //test at end of task. should set importance.
-            ArrayList<String> tags = new ArrayList<String>();
+            ArrayList<String> tags = new ArrayList<>();
             TitleParser.listHelper(task, tags);
             String tag = TitleParser.trimParenthesis(acceptedString);
             assertTrue("testTagsAt failed for string: " + acceptedString+ " for tags: " + tags.toString(), tags.contains(tag));

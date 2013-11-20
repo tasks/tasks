@@ -42,13 +42,13 @@ abstract public class AbstractDependencyInjector {
     /**
      * Dependencies this class knows how to handle
      */
-    protected final HashMap<String, Object> injectables = new HashMap<String, Object>();
+    protected final HashMap<String, Object> injectables = new HashMap<>();
 
     /**
      * Cache of classes that were instantiated by the injector
      */
     protected final HashMap<Class<?>, WeakReference<Object>> createdObjects =
-        new HashMap<Class<?>, WeakReference<Object>>();
+        new HashMap<>();
 
     /**
      * Gets the injected object for this field. If implementing class does not
@@ -71,14 +71,11 @@ abstract public class AbstractDependencyInjector {
                     Class<?> cls = (Class<?>)injection;
                     try {
                         injection = cls.newInstance();
-                    } catch (IllegalAccessException e) {
-                        throw new RuntimeException(e);
-                    } catch (InstantiationException e) {
+                    } catch (IllegalAccessException | InstantiationException e) {
                         throw new RuntimeException(e);
                     }
 
-                    createdObjects.put(cls,
-                            new WeakReference<Object>(injection));
+                    createdObjects.put(cls, new WeakReference<>(injection));
                 }
             }
 

@@ -75,7 +75,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     @Autowired UserActivityDao userActivityDao;
     @Autowired TaskService taskService;
 
-    private final ArrayList<NoteOrUpdate> items = new ArrayList<NoteOrUpdate>();
+    private final ArrayList<NoteOrUpdate> items = new ArrayList<>();
     private EditText commentField;
     private final View commentsBar;
     private View timerView;
@@ -93,7 +93,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     private static boolean respondToPicture = false;
 
-    private final List<UpdatesChangedListener> listeners = new LinkedList<UpdatesChangedListener>();
+    private final List<UpdatesChangedListener> listeners = new LinkedList<>();
 
     public interface UpdatesChangedListener {
         public void updatesChanged();

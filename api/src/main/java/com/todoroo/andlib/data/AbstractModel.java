@@ -379,7 +379,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
 
     public synchronized void putTransitory(String key, Object value) {
         if(transitoryData == null) {
-            transitoryData = new HashMap<String, Object>();
+            transitoryData = new HashMap<>();
         }
         transitoryData.put(key, value);
     }
@@ -415,7 +415,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
      * Looks inside the given class and finds all declared properties
      */
     protected static Property<?>[] generateProperties(Class<? extends AbstractModel> cls) {
-        ArrayList<Property<?>> properties = new ArrayList<Property<?>>();
+        ArrayList<Property<?>> properties = new ArrayList<>();
         if(cls.getSuperclass() != AbstractModel.class) {
             properties.addAll(Arrays.asList(generateProperties(
                     (Class<? extends AbstractModel>) cls.getSuperclass())));
@@ -434,9 +434,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
                     continue;
                 }
                 properties.add((Property<?>) field.get(null));
-            } catch (IllegalArgumentException e) {
-                throw new RuntimeException(e);
-            } catch (IllegalAccessException e) {
+            } catch (IllegalArgumentException | IllegalAccessException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -524,9 +522,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
             TYPE model;
             try {
                 model = cls.newInstance();
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            } catch (InstantiationException e) {
+            } catch (IllegalAccessException | InstantiationException e) {
                 throw new RuntimeException(e);
             }
             model.setValues = source.readParcelable(ContentValues.class.getClassLoader());

@@ -167,5 +167,5 @@ public final class TaskAttachment extends RemoteModel {
 
     // --- parcelable helpers
 
-    public static final Creator<TaskAttachment> CREATOR = new ModelCreator<TaskAttachment>(TaskAttachment.class);
+    public static final Creator<TaskAttachment> CREATOR = new ModelCreator<>(TaskAttachment.class);
 }

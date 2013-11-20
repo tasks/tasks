@@ -106,5 +106,5 @@ public class UserActivity extends RemoteModel {
         return getIdHelper(ID);
     }
 
-    private static final Creator<UserActivity> CREATOR = new ModelCreator<UserActivity>(UserActivity.class);
+    private static final Creator<UserActivity> CREATOR = new ModelCreator<>(UserActivity.class);
 }

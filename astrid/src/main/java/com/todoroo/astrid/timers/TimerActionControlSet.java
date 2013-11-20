@@ -29,7 +29,7 @@ public class TimerActionControlSet extends TaskEditControlSet {
     private final ImageView timerButton;
     private final Chronometer chronometer;
     private boolean timerActive;
-    private final List<TimerActionListener> listeners = new LinkedList<TimerActionListener>();
+    private final List<TimerActionListener> listeners = new LinkedList<>();
 
     public TimerActionControlSet(final Activity activity, View parent) {
         super(activity, -1);

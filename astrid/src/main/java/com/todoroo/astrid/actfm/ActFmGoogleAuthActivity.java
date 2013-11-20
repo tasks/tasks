@@ -72,13 +72,13 @@ public class ActFmGoogleAuthActivity extends ListActivity {
 
         accountManager = new GoogleAccountManager(this);
         Account[] accounts = accountManager.getAccounts();
-        ArrayList<String> accountNames = new ArrayList<String>();
+        ArrayList<String> accountNames = new ArrayList<>();
         for (Account a : accounts) {
             accountNames.add(a.name);
         }
 
         nameArray = accountNames.toArray(new String[accountNames.size()]);
-        setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nameArray));
+        setListAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, nameArray));
         findViewById(R.id.empty_button).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

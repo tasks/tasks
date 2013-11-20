@@ -26,7 +26,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
 
     public AstridOrderedListUpdater() {
         DependencyInjectionService.getInstance().inject(this);
-        idToNode = new HashMap<String, Node>();
+        idToNode = new HashMap<>();
     }
 
     public interface OrderedListNodeVisitor {
@@ -37,7 +37,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
         public String uuid;
         public Node parent;
         public int indent;
-        public final ArrayList<Node> children = new ArrayList<Node>();
+        public final ArrayList<Node> children = new ArrayList<>();
 
         public Node(String uuid, Node parent, int indent) {
             this.uuid = uuid;
@@ -80,11 +80,11 @@ public abstract class AstridOrderedListUpdater<LIST> {
     private void verifyTreeModel(LIST list, Filter filter) {
         boolean changedThings = false;
         Set<String> keySet = idToNode.keySet();
-        Set<String> currentIds = new HashSet<String>();
+        Set<String> currentIds = new HashSet<>();
         for (String id : keySet) {
             currentIds.add(id);
         }
-        Set<String> idsInQuery = new HashSet<String>();
+        Set<String> idsInQuery = new HashSet<>();
         String sql = filter.getSqlQuery().replaceAll("ORDER BY .*", "");  //$NON-NLS-1$//$NON-NLS-2$
         sql = sql + String.format(" ORDER BY %s", Task.CREATION_DATE); //$NON-NLS-1$
         TodorooCursor<Task> tasks = taskService.fetchFiltered(sql, null, Task.UUID);
@@ -138,7 +138,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
     }
 
     private String[] getOrderedIds() {
-        ArrayList<String> ids = new ArrayList<String>();
+        ArrayList<String> ids = new ArrayList<>();
         orderedIdHelper(treeRoot, ids);
         return ids.toArray(new String[ids.size()]);
     }

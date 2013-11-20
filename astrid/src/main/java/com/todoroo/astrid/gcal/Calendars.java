@@ -71,12 +71,13 @@ public class Calendars {
 	}
 
 	private static Uri getIcsUri(String table) {
-	    if (CALENDAR_CONTENT_CALENDARS.equals(table)) {
-            return CalendarContract.Calendars.CONTENT_URI;
-        } else if (CALENDAR_CONTENT_EVENTS.equals(table)) {
-            return CalendarContract.Events.CONTENT_URI;
-        } else if (CALENDAR_CONTENT_ATTENDEES.equals(table)) {
-            return CalendarContract.Attendees.CONTENT_URI;
+        switch (table) {
+            case CALENDAR_CONTENT_CALENDARS:
+                return CalendarContract.Calendars.CONTENT_URI;
+            case CALENDAR_CONTENT_EVENTS:
+                return CalendarContract.Events.CONTENT_URI;
+            case CALENDAR_CONTENT_ATTENDEES:
+                return CalendarContract.Attendees.CONTENT_URI;
         }
 	    return null;
 	}
@@ -179,11 +180,11 @@ public class Calendars {
 
         int currentSettingIndex = -1;
 
-        ArrayList<CharSequence> entries = new ArrayList<CharSequence>();
+        ArrayList<CharSequence> entries = new ArrayList<>();
         entries.addAll(Arrays.asList(r.getStringArray(R.array.EPr_default_addtocalendar)));
         entries.addAll(Arrays.asList(calendars.calendars));
 
-        ArrayList<CharSequence> entryValues = new ArrayList<CharSequence>();
+        ArrayList<CharSequence> entryValues = new ArrayList<>();
         entryValues.addAll(Arrays.asList(r.getStringArray(R.array.EPr_default_addtocalendar_values)));
         entryValues.addAll(Arrays.asList(calendars.calendarIds));
 

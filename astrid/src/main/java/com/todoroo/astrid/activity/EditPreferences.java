@@ -185,7 +185,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
         startActivity(intent);
     }
 
-    private static final HashMap<Class<?>, Integer> PREFERENCE_REQUEST_CODES = new HashMap<Class<?>, Integer>();
+    private static final HashMap<Class<?>, Integer> PREFERENCE_REQUEST_CODES = new HashMap<>();
     static {
         PREFERENCE_REQUEST_CODES.put(SyncProviderPreferences.class, REQUEST_CODE_SYNC);
     }
@@ -196,7 +196,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
         List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(queryIntent,
                 PackageManager.GET_META_DATA);
         LinkedHashMap<String, ArrayList<Preference>> categoryPreferences =
-            new LinkedHashMap<String, ArrayList<Preference>>();
+            new LinkedHashMap<>();
 
         // Loop through a list of all packages (including plugins, addons)
         // that have a settings action

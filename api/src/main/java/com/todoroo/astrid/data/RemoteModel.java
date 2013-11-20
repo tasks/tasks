@@ -19,7 +19,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
@@ -133,8 +132,6 @@ abstract public class RemoteModel extends AbstractModel {
                         fos.flush();
                         fos.close();
                         jsonObject.put("path", file.getAbsolutePath());
-                    } catch (FileNotFoundException e) {
-                        //
                     } catch (IOException e) {
                         //
                     }

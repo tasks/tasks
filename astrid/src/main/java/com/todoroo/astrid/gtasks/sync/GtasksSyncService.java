@@ -48,7 +48,7 @@ public final class GtasksSyncService {
         DependencyInjectionService.getInstance().inject(this);
     }
 
-    private final LinkedBlockingQueue<SyncOnSaveOperation> operationQueue = new LinkedBlockingQueue<SyncOnSaveOperation>();
+    private final LinkedBlockingQueue<SyncOnSaveOperation> operationQueue = new LinkedBlockingQueue<>();
 
     private abstract class SyncOnSaveOperation {
         abstract public void op(GtasksInvoker invoker) throws IOException;

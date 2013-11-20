@@ -261,7 +261,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
             return;
         }
 
-        final ArrayList<String> chained = new ArrayList<String>();
+        final ArrayList<String> chained = new ArrayList<>();
         updater.applyToDescendants(itemId, new AstridOrderedListUpdater.OrderedListNodeVisitor() {
             @Override
             public void visitNode(AstridOrderedListUpdater.Node node) {

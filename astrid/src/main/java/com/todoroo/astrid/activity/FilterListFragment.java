@@ -189,7 +189,7 @@ public class FilterListFragment extends ListFragment {
                     final Filter filter = adapter.getItem(position);
                     final String[] labels = filter.contextMenuLabels;
                     final Intent[] intents = filter.contextMenuIntents;
-                    ArrayAdapter<String> intentAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1);
+                    ArrayAdapter<String> intentAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1);
                     intentAdapter.add(getString(R.string.FLA_context_shortcut));
                     for (String l : labels) {
                         intentAdapter.add(l);

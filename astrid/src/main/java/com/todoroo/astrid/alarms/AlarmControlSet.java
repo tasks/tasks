@@ -81,7 +81,7 @@ public final class AlarmControlSet extends TaskEditControlSet {
 
     @Override
     protected void writeToModelAfterInitialized(Task task) {
-        LinkedHashSet<Long> alarms = new LinkedHashSet<Long>();
+        LinkedHashSet<Long> alarms = new LinkedHashSet<>();
         for(int i = 0; i < alertsContainer.getChildCount(); i++) {
             Long dateValue = (Long) alertsContainer.getChildAt(i).getTag();
             if(dateValue == null) {

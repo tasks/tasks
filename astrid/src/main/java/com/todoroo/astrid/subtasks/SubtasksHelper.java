@@ -103,7 +103,7 @@ public class SubtasksHelper {
 
     @Deprecated
     private static Long[] getIdArray(String serializedTree) {
-        ArrayList<Long> ids = new ArrayList<Long>();
+        ArrayList<Long> ids = new ArrayList<>();
         String[] digitsOnly = serializedTree.split("[\\[\\],\\s]"); // Split on [ ] , or whitespace chars
         for (String idString : digitsOnly) {
             try {
@@ -118,7 +118,7 @@ public class SubtasksHelper {
     }
 
     public static String[] getStringIdArray(String serializedTree) {
-        ArrayList<String> ids = new ArrayList<String>();
+        ArrayList<String> ids = new ArrayList<>();
         String[] values = serializedTree.split("[\\[\\],\"\\s]"); // Split on [ ] , or whitespace chars
         for (String idString : values) {
             if (!TextUtils.isEmpty(idString)) {
@@ -176,7 +176,7 @@ public class SubtasksHelper {
     }
 
     private static <A, B> HashMap<A, B> getIdMap(A[] keys, Property<A> keyProperty, Property<B> valueProperty) {
-        HashMap<A, B> map = new HashMap<A, B>();
+        HashMap<A, B> map = new HashMap<>();
         TodorooCursor<Task> tasks = PluginServices.getTaskService().query(Query.select(keyProperty, valueProperty).where(keyProperty.in(keys)));
         try {
             for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {

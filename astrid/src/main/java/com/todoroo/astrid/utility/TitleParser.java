@@ -47,7 +47,7 @@ public class TitleParser {
         Pattern tagPattern = Pattern.compile("(\\s|^)#(\\(.*\\)|[^\\s]+)");
         Pattern contextPattern = Pattern.compile("(\\s|^)@(\\(.*\\)|[^\\s]+)");
 
-        Set<String> addedTags = new HashSet<String>();
+        Set<String> addedTags = new HashSet<>();
         TagService tagService = TagService.getInstance();
 
         while(true) {
@@ -262,7 +262,7 @@ public class TitleParser {
             inputText = removeIfParenthetical(match, inputText);
         }
 
-        HashMap<String, Integer> dayTimes = new HashMap<String, Integer>();
+        HashMap<String, Integer> dayTimes = new HashMap<>();
         dayTimes.put("(?i)\\bbreakfast\\b", 8);
         dayTimes.put("(?i)\\blunch\\b", 12);
         dayTimes.put("(?i)\\bsupper\\b", 18);
@@ -375,7 +375,7 @@ public class TitleParser {
             return false;
         }
         String inputText = task.getValue(Task.TITLE);
-        HashMap<String, Frequency> repeatTimes = new HashMap<String, Frequency>();
+        HashMap<String, Frequency> repeatTimes = new HashMap<>();
         repeatTimes.put("(?i)\\bevery ?\\w{0,6} days?\\b" , Frequency.DAILY);
         repeatTimes.put("(?i)\\bevery ?\\w{0,6} ?nights?\\b" , Frequency.DAILY);
         repeatTimes.put("(?i)\\bevery ?\\w{0,6} ?mornings?\\b" , Frequency.DAILY);
@@ -386,7 +386,7 @@ public class TitleParser {
         repeatTimes.put("(?i)\\bevery \\w{0,6} ?months?\\b", Frequency.MONTHLY);
         repeatTimes.put("(?i)\\bevery \\w{0,6} ?years?\\b", Frequency.YEARLY);
 
-        HashMap<String, Frequency> repeatTimesIntervalOne = new HashMap<String, Frequency>();
+        HashMap<String, Frequency> repeatTimesIntervalOne = new HashMap<>();
         //pre-determined intervals of 1
         repeatTimesIntervalOne.put( "(?i)\\bdaily\\b" , Frequency.DAILY);
         repeatTimesIntervalOne.put( "(?i)\\beveryday\\b" , Frequency.DAILY);
@@ -426,7 +426,7 @@ public class TitleParser {
 
     //helper method for repeatHelper.
     private static int findInterval(String inputText) {
-        HashMap<String,Integer> wordsToNum = new HashMap<String, Integer>();
+        HashMap<String,Integer> wordsToNum = new HashMap<>();
         String[] words = new String[] {
                 "one", "two", "three", "four", "five", "six",
                 "seven", "eight", "nine", "ten", "eleven", "twelve"

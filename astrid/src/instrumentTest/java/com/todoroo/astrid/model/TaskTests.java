@@ -28,13 +28,13 @@ public class TaskTests extends DatabaseTestCase {
         assertTrue(Task.IMPORTANCE_MUST_DO < Task.IMPORTANCE_SHOULD_DO);
         assertTrue(Task.IMPORTANCE_SHOULD_DO < Task.IMPORTANCE_NONE);
 
-        ArrayList<Integer> reminderFlags = new ArrayList<Integer>();
+        ArrayList<Integer> reminderFlags = new ArrayList<>();
         reminderFlags.add(Task.NOTIFY_AFTER_DEADLINE);
         reminderFlags.add(Task.NOTIFY_AT_DEADLINE);
         reminderFlags.add(Task.NOTIFY_MODE_NONSTOP);
 
         // assert no duplicates
-        assertEquals(new TreeSet<Integer>(reminderFlags).size(),
+        assertEquals(new TreeSet<>(reminderFlags).size(),
                 reminderFlags.size());
     }
 

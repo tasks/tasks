@@ -301,7 +301,7 @@ public final class Task extends RemoteModel {
 
     // --- parcelable helpers
 
-    public static final Creator<Task> CREATOR = new ModelCreator<Task>(Task.class);
+    public static final Creator<Task> CREATOR = new ModelCreator<>(Task.class);
 
     // --- data access methods
 

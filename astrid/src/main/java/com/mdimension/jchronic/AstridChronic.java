@@ -91,7 +91,7 @@ public class AstridChronic {
     tokens = Separator.scan(tokens, options);
     tokens = TimeZone.scan(tokens, options);
 
-    List<Token> taggedTokens = new LinkedList<Token>();
+    List<Token> taggedTokens = new LinkedList<>();
     for (Token token : tokens) {
       if (token.isTagged()) {
         taggedTokens.add(token);
@@ -156,7 +156,7 @@ public class AstridChronic {
    */
   protected static List<Token> baseTokenize(String text) {
     String[] words = text.split(" ");
-    List<Token> tokens = new LinkedList<Token>();
+    List<Token> tokens = new LinkedList<>();
     for (String word : words) {
       tokens.add(new Token(word));
     }

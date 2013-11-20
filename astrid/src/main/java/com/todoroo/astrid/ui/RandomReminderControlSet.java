@@ -54,7 +54,7 @@ public class RandomReminderControlSet extends TaskEditControlSet {
         });
 
         // create adapter
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 activity, android.R.layout.simple_spinner_item,
                 activity.getResources().getStringArray(R.array.TEA_reminder_random));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

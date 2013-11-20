@@ -23,7 +23,7 @@ public class TaskEditViewPager extends PagerAdapter {
     public static final int TAB_SHOW_ACTIVITY = 1;
 
     public TaskEditViewPager(Context context, int tabStyleMask) {
-        ArrayList<String> titleList = new ArrayList<String>();
+        ArrayList<String> titleList = new ArrayList<>();
         if ((tabStyleMask & TAB_SHOW_ACTIVITY) > 0) {
             titleList.add(context.getString(R.string.TEA_tab_activity));
         }

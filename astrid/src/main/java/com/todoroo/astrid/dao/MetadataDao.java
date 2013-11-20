@@ -79,7 +79,7 @@ public class MetadataDao extends DatabaseDao<Metadata> {
      */
     public void synchronizeMetadata(long taskId, ArrayList<Metadata> metadata,
             Criterion metadataCriteria) {
-        HashSet<ContentValues> newMetadataValues = new HashSet<ContentValues>();
+        HashSet<ContentValues> newMetadataValues = new HashSet<>();
         for(Metadata metadatum : metadata) {
             metadatum.setValue(Metadata.TASK, taskId);
             metadatum.clearValue(Metadata.ID);
@@ -142,7 +142,7 @@ public class MetadataDao extends DatabaseDao<Metadata> {
         Query sql = Query.select(properties).from(Metadata.TABLE).join(Join.left(Task.TABLE,
                 Metadata.TASK.eq(Task.ID))).where(Task.TITLE.isNull());
         Cursor cursor = database.rawQuery(sql.toString());
-        return new TodorooCursor<Metadata>(cursor, properties);
+        return new TodorooCursor<>(cursor, properties);
     }
 }
 

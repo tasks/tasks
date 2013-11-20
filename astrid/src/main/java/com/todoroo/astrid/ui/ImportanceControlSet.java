@@ -29,9 +29,9 @@ import java.util.List;
  *
  */
 public class ImportanceControlSet extends TaskEditControlSet {
-    private final List<CompoundButton> buttons = new LinkedList<CompoundButton>();
+    private final List<CompoundButton> buttons = new LinkedList<>();
     private final int[] colors;
-    private final List<ImportanceChangedListener> listeners = new LinkedList<ImportanceChangedListener>();
+    private final List<ImportanceChangedListener> listeners = new LinkedList<>();
 
     private static final int TEXT_SIZE = 18;
 

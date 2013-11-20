@@ -123,7 +123,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
             baseProperties = TaskAdapter.BASIC_PROPERTIES;
         }
 
-        ArrayList<Property<?>> properties = new ArrayList<Property<?>>(Arrays.asList(baseProperties));
+        ArrayList<Property<?>> properties = new ArrayList<>(Arrays.asList(baseProperties));
         properties.add(updater.indentProperty());
         properties.add(updater.orderProperty());
         return properties.toArray(new Property<?>[properties.size()]);
@@ -272,7 +272,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
             return;
         }
 
-        final ArrayList<Long> chained = new ArrayList<Long>();
+        final ArrayList<Long> chained = new ArrayList<>();
         final int parentIndent = item.getValue(updater.indentProperty());
         updater.applyToChildren(list, itemId, new OrderedListNodeVisitor() {
             @Override

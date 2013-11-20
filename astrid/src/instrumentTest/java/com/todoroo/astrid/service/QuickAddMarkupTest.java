@@ -70,7 +70,7 @@ public class QuickAddMarkupTest extends DatabaseTestCase {
     // --- helpers
 
     private Task task;
-    private final ArrayList<String> tags = new ArrayList<String>();
+    private final ArrayList<String> tags = new ArrayList<>();
 
     private void assertTagsAre(String... expectedTags) {
         List<String> expected = Arrays.asList(expectedTags);

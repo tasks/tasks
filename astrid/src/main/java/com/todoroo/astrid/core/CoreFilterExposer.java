@@ -57,7 +57,7 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
 
     private FilterListItem[] prepareFilters(Resources r) {
         // core filters
-        List<FilterListItem> filters = new ArrayList<FilterListItem>(3);
+        List<FilterListItem> filters = new ArrayList<>(3);
 
         filters.add(buildInboxFilter(r));
         if (Preferences.getBoolean(R.string.p_show_today_filter, true)) {

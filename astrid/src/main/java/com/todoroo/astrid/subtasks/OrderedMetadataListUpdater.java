@@ -202,7 +202,7 @@ abstract public class OrderedMetadataListUpdater<LIST> {
     protected static class Node {
         public final long taskId;
         public Node parent;
-        public final ArrayList<Node> children = new ArrayList<Node>();
+        public final ArrayList<Node> children = new ArrayList<>();
 
         public Node(long taskId, Node parent) {
             this.taskId = taskId;
@@ -251,7 +251,7 @@ abstract public class OrderedMetadataListUpdater<LIST> {
     protected Node buildTreeModel(LIST list) {
         final Node root = new Node(Task.NO_ID, null);
         final AtomicInteger previoustIndent = new AtomicInteger(-1);
-        final AtomicReference<Node> currentNode = new AtomicReference<Node>(root);
+        final AtomicReference<Node> currentNode = new AtomicReference<>(root);
 
         iterateThroughList(list, new OrderedListIterator() {
             @Override

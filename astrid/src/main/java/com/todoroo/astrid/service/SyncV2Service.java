@@ -36,7 +36,7 @@ public class SyncV2Service {
      * Returns active sync providers
      */
     public List<SyncV2Provider> activeProviders() {
-        ArrayList<SyncV2Provider> actives = new ArrayList<SyncV2Provider>();
+        ArrayList<SyncV2Provider> actives = new ArrayList<>();
         for(SyncV2Provider provider : providers) {
             if(provider.isActive()) {
                 actives.add(provider);

@@ -30,7 +30,7 @@ public class DependencyInjectionService {
     /**
      * Dependency injectors. Use getters and setters to modify this list
      */
-    private final LinkedList<AbstractDependencyInjector> injectors = new LinkedList<AbstractDependencyInjector>();
+    private final LinkedList<AbstractDependencyInjector> injectors = new LinkedList<>();
 
     /**
      * Perform dependency injection in the caller object
@@ -55,13 +55,7 @@ public class DependencyInjectionService {
                     field.setAccessible(true);
                     try {
                         handleField(caller, field);
-                    } catch (IllegalStateException e) {
-                        throw new RuntimeException(String.format("Unable to set field '%s' of type '%s'",
-                                field.getName(), field.getType()), e);
-                    } catch (IllegalArgumentException e) {
-                        throw new RuntimeException(String.format("Unable to set field '%s' of type '%s'",
-                                        field.getName(), field.getType()), e);
-                    } catch (IllegalAccessException e) {
+                    } catch (IllegalStateException | IllegalAccessException | IllegalArgumentException e) {
                         throw new RuntimeException(String.format("Unable to set field '%s' of type '%s'",
                                 field.getName(), field.getType()), e);
                     }

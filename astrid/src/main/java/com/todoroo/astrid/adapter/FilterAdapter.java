@@ -122,7 +122,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         this.layout = rowLayout;
         this.skipIntentFilters = skipIntentFilters;
         this.selectable = selectable;
-        this.filterCounts = new HashMap<Filter, Integer>();
+        this.filterCounts = new HashMap<>();
 
         inflater = (LayoutInflater) activity.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);

@@ -170,7 +170,7 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
             result += DateUtilities.ONE_WEEK * rrule.getInterval();
             return result;
         }
-        HashSet<Weekday> weekdays = new HashSet<Weekday>();
+        HashSet<Weekday> weekdays = new HashSet<>();
         for (WeekdayNum curr : weekdayNums) {
             weekdays.add(curr.wday);
         }
@@ -361,7 +361,7 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
 
         int interval = 1;
         rrule.setInterval(interval);
-        List<WeekdayNum> weekdays = new ArrayList<WeekdayNum>();
+        List<WeekdayNum> weekdays = new ArrayList<>();
         weekdays.add(new WeekdayNum(0, Weekday.MO));
         weekdays.add(new WeekdayNum(0, Weekday.WE));
         rrule.setByDay(weekdays);
@@ -374,7 +374,7 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
 
         int interval = 1;
         rrule.setInterval(interval);
-        List<WeekdayNum> weekdays = new ArrayList<WeekdayNum>();
+        List<WeekdayNum> weekdays = new ArrayList<>();
         weekdays.add(new WeekdayNum(0, Weekday.MO));
         weekdays.add(new WeekdayNum(0, Weekday.WE));
         rrule.setByDay(weekdays);

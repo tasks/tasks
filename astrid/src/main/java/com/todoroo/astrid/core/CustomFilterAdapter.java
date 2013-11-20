@@ -113,7 +113,7 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
         if(item.criterion instanceof MultipleSelectCriterion) {
             MultipleSelectCriterion multiSelectCriterion = (MultipleSelectCriterion) item.criterion;
             final String[] titles = multiSelectCriterion.entryTitles;
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity,
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(activity,
                     android.R.layout.simple_spinner_dropdown_item, titles);
             DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
                 @Override

@@ -70,7 +70,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
     }
 
     private final ArrayList<ModelUpdateListener<TYPE>> listeners =
-        new ArrayList<ModelUpdateListener<TYPE>>();
+        new ArrayList<>();
 
     public void addListener(ModelUpdateListener<TYPE> listener) {
         listeners.add(listener);
@@ -94,7 +94,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
             Log.i("SQL-" + modelClass.getSimpleName(), query.toString()); //$NON-NLS-1$
         }
         Cursor cursor = database.rawQuery(query.toString());
-        return new TodorooCursor<TYPE>(cursor, query.getFields());
+        return new TodorooCursor<>(cursor, query.getFields());
     }
 
     /**
@@ -105,7 +105,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         for(int i = 0; i < properties.length; i++) {
             fields[i] = properties[i].name;
         }
-        return new TodorooCursor<TYPE>(database.getDatabase().query(table.name,
+        return new TodorooCursor<>(database.getDatabase().query(table.name,
                 fields, selection, selectionArgs, null, null, null),
                 properties);
     }
@@ -130,17 +130,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
             }
             Constructor<TYPE> constructor = modelClass.getConstructor(TodorooCursor.class);
             return constructor.newInstance(cursor);
-        } catch (SecurityException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalArgumentException e) {
-            throw new RuntimeException(e);
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (InvocationTargetException e) {
+        } catch (SecurityException | InvocationTargetException | IllegalAccessException | InstantiationException | IllegalArgumentException | NoSuchMethodException e) {
             throw new RuntimeException(e);
         } finally {
             cursor.close();
@@ -280,7 +270,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         TodorooCursor<TYPE> cursor = query(
                 Query.select(properties).where(AbstractModel.ID_PROPERTY.eq(id)));
         cursor.moveToFirst();
-        return new TodorooCursor<TYPE>(cursor, properties);
+        return new TodorooCursor<>(cursor, properties);
     }
 
     public int count(Query query) {

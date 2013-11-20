@@ -36,13 +36,7 @@ public final class Table extends SqlTable {
     public Property<?>[] getProperties() {
         try {
             return (Property<?>[])modelClass.getField("PROPERTIES").get(null);
-        } catch (IllegalArgumentException e) {
-            throw new RuntimeException(e);
-        } catch (SecurityException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchFieldException e) {
+        } catch (IllegalArgumentException | NoSuchFieldException | IllegalAccessException | SecurityException e) {
             throw new RuntimeException(e);
         }
     }

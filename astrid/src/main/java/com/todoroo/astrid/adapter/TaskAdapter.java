@@ -189,7 +189,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     protected final Context context;
     protected final TaskListFragment fragment;
     protected final Resources resources;
-    protected final HashMap<Object, Boolean> completedItems = new HashMap<Object, Boolean>(0);
+    protected final HashMap<Object, Boolean> completedItems = new HashMap<>(0);
     protected OnCompletedTaskListener onCompletedTaskListener = null;
     protected final int resource;
     protected final LayoutInflater inflater;
@@ -563,7 +563,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     protected TaskRowListener listener = new TaskRowListener();
 
-    private Pair<Float, Float> lastTouchYRawY = new Pair<Float, Float>(0f, 0f);
+    private Pair<Float, Float> lastTouchYRawY = new Pair<>(0f, 0f);
 
     /**
      * Set listeners for this view. This is called once per view when it is
@@ -576,7 +576,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         OnTouchListener otl = new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                lastTouchYRawY = new Pair<Float, Float>(event.getY(), event.getRawY());
+                lastTouchYRawY = new Pair<>(event.getY(), event.getRawY());
                 return false;
             }
         };
@@ -655,7 +655,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * ============================================================== details
      * ====================================================================== */
 
-    private final HashMap<String, Spanned> htmlCache = new HashMap<String, Spanned>(8);
+    private final HashMap<String, Spanned> htmlCache = new HashMap<>(8);
 
     private Spanned convertToHtml(String string, ImageGetter imageGetter) {
         if(!htmlCache.containsKey(string)) {
@@ -671,7 +671,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         return htmlCache.get(string);
     }
 
-    private final HashMap<Long, String> dateCache = new HashMap<Long, String>(8);
+    private final HashMap<Long, String> dateCache = new HashMap<>(8);
 
     private String formatDate(long date) {
         if(dateCache.containsKey(date)) {
@@ -812,18 +812,23 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     private final ImageGetter detailImageGetter = new ImageGetter() {
         private final HashMap<Integer, Drawable> cache =
-            new HashMap<Integer, Drawable>(3);
+            new HashMap<>(3);
         @Override
         public Drawable getDrawable(String source) {
             int drawable = 0;
-            if(source.equals("silk_clock")) {
-                drawable = R.drawable.details_alarm;
-            } else if(source.equals("silk_tag_pink")) {
-                drawable = R.drawable.details_tag;
-            } else if(source.equals("silk_date")) {
-                drawable = R.drawable.details_repeat;
-            } else if(source.equals("silk_note")) {
-                drawable = R.drawable.details_note;
+            switch (source) {
+                case "silk_clock":
+                    drawable = R.drawable.details_alarm;
+                    break;
+                case "silk_tag_pink":
+                    drawable = R.drawable.details_tag;
+                    break;
+                case "silk_date":
+                    drawable = R.drawable.details_repeat;
+                    break;
+                case "silk_note":
+                    drawable = R.drawable.details_note;
+                    break;
             }
 
             if (drawable == 0) {

@@ -247,7 +247,7 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
 
     private static HashMap<String, Integer> getExceptionMap() {
         if (exceptionsToDisplayMessages == null) {
-            exceptionsToDisplayMessages = new HashMap<String, Integer>();
+            exceptionsToDisplayMessages = new HashMap<>();
             exceptionsToDisplayMessages.put("java.net.ConnectionException", R.string.sync_error_offline);
             exceptionsToDisplayMessages.put("java.net.UnknownHostException", R.string.sync_error_offline);
         }

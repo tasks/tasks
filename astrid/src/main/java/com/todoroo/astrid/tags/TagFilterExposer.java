@@ -127,7 +127,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
     protected FilterListItem[] prepareFilters(Context context) {
         ContextManager.setContext(context);
 
-        ArrayList<FilterListItem> list = new ArrayList<FilterListItem>();
+        ArrayList<FilterListItem> list = new ArrayList<>();
 
         addTags(list);
 
@@ -149,7 +149,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         boolean shouldAddUntagged = addUntaggedFilter &&
                 Preferences.getBoolean(R.string.p_show_not_in_list_filter, true);
 
-        ArrayList<Filter> filters = new ArrayList<Filter>(tags.length);
+        ArrayList<Filter> filters = new ArrayList<>(tags.length);
 
         Context context = ContextManager.getContext();
         Resources r = context.getResources();

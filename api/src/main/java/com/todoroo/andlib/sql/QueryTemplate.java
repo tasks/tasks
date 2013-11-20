@@ -24,10 +24,10 @@ import static java.util.Arrays.asList;
  */
 public final class QueryTemplate {
 
-    private final ArrayList<Criterion> criterions = new ArrayList<Criterion>();
-    private final ArrayList<Join> joins = new ArrayList<Join>();
-    private final ArrayList<Field> groupBies = new ArrayList<Field>();
-    private final ArrayList<Order> orders = new ArrayList<Order>();
+    private final ArrayList<Criterion> criterions = new ArrayList<>();
+    private final ArrayList<Join> joins = new ArrayList<>();
+    private final ArrayList<Field> groupBies = new ArrayList<>();
+    private final ArrayList<Order> orders = new ArrayList<>();
     private Integer limit = null;
 
     public QueryTemplate join(Join... join) {

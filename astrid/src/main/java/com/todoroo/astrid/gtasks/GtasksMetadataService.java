@@ -107,7 +107,7 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
 
     @Override
     protected TodorooCursor<Task> filterLocallyUpdated(TodorooCursor<Task> tasks, long lastSyncDate) {
-        HashSet<Long> taskIds = new HashSet<Long>();
+        HashSet<Long> taskIds = new HashSet<>();
         for(tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
             taskIds.add(tasks.get(Task.ID));
         }
@@ -182,7 +182,7 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
     public String getRemoteSiblingId(String listId, Metadata gtasksMetadata) {
         final AtomicInteger indentToMatch = new AtomicInteger(gtasksMetadata.getValue(GtasksMetadata.INDENT));
         final AtomicLong parentToMatch = new AtomicLong(gtasksMetadata.getValue(GtasksMetadata.PARENT_TASK));
-        final AtomicReference<String> sibling = new AtomicReference<String>();
+        final AtomicReference<String> sibling = new AtomicReference<>();
         OrderedListIterator iterator = new OrderedListIterator() {
             @Override
             public void processTask(long taskId, Metadata metadata) {

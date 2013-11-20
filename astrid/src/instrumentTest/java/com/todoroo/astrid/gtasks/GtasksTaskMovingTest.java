@@ -241,7 +241,7 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         super.setUp();
 
         TaskLists lists = new TaskLists();
-        List<TaskList> items = new ArrayList<TaskList>();
+        List<TaskList> items = new ArrayList<>();
         TaskList taskList = new TaskList();
         taskList.setId("1");
         taskList.setTitle("Tim's Tasks");

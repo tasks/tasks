@@ -108,7 +108,7 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
         try {
             TodorooCursor<Metadata> metadata = getRemoteTaskMetadata();
             try {
-                ArrayList<Long> matchingRows = new ArrayList<Long>();
+                ArrayList<Long> matchingRows = new ArrayList<>();
                 joinRows(tasks, metadata, matchingRows, both);
 
                 return

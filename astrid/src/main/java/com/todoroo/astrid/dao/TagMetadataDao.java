@@ -89,10 +89,10 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
 
     public void synchronizeMembers(TagData tagData, String legacyMembersString, String tagUuid, JSONArray members) {
         long tagId = tagData.getId();
-        Set<String> emails = new HashSet<String>();
-        Set<String> ids = new HashSet<String>();
+        Set<String> emails = new HashSet<>();
+        Set<String> ids = new HashSet<>();
 
-        HashMap<String, String> idToEmail = new HashMap<String, String>();
+        HashMap<String, String> idToEmail = new HashMap<>();
 
         for (int i = 0; i < members.length(); i++) {
             JSONObject person = members.optJSONObject(i);

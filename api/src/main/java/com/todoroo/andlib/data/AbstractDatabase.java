@@ -93,7 +93,7 @@ abstract public class AbstractDatabase {
         public void onDatabaseUpdated();
     }
 
-    private final ArrayList<DatabaseUpdateListener> listeners = new ArrayList<DatabaseUpdateListener>();
+    private final ArrayList<DatabaseUpdateListener> listeners = new ArrayList<>();
 
     public void addListener(DatabaseUpdateListener listener) {
         listeners.add(listener);

@@ -124,7 +124,7 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
         super.setUp();
 
         TaskLists lists = new TaskLists();
-        List<TaskList> items = new ArrayList<TaskList>();
+        List<TaskList> items = new ArrayList<>();
         TaskList list = new TaskList();
         list.setId("1");
         list.setTitle("Tim's Tasks");

@@ -77,7 +77,7 @@ public final class TagsControlSet extends PopupControlSet {
     }
 
     private HashMap<String, Integer> buildTagIndices(ArrayList<String> tagNames) {
-        HashMap<String, Integer> indices = new HashMap<String, Integer>();
+        HashMap<String, Integer> indices = new HashMap<>();
         for (int i = 0; i < tagNames.size(); i++) {
             indices.put(tagNames.get(i), i);
         }
@@ -85,7 +85,7 @@ public final class TagsControlSet extends PopupControlSet {
     }
 
     private ArrayList<String> getTagNames(Tag[] tags) {
-        ArrayList<String> names = new ArrayList<String>();
+        ArrayList<String> names = new ArrayList<>();
         for (Tag tag : tags) {
             names.add(tag.toString());
         }
@@ -119,7 +119,7 @@ public final class TagsControlSet extends PopupControlSet {
     }
 
     private LinkedHashSet<String> getTagSet() {
-        LinkedHashSet<String> tags = new LinkedHashSet<String>();
+        LinkedHashSet<String> tags = new LinkedHashSet<>();
         if (initialized) {
             for(int i = 0; i < selectedTags.getAdapter().getCount(); i++) {
                 if (selectedTags.isItemChecked(i)) {
@@ -236,7 +236,7 @@ public final class TagsControlSet extends PopupControlSet {
         super.readFromTask(task);
         if(model.getId() != AbstractModel.NO_ID) {
             TodorooCursor<Metadata> cursor = tagService.getTags(model.getId());
-            LinkedHashSet<String> tags = new LinkedHashSet<String>(cursor.getCount());
+            LinkedHashSet<String> tags = new LinkedHashSet<>(cursor.getCount());
             try {
                 for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                     String tag = cursor.get(TaskToTagMetadata.TAG_NAME);
@@ -287,7 +287,7 @@ public final class TagsControlSet extends PopupControlSet {
         tagIndices = buildTagIndices(allTagNames);
 
         selectedTags = (ListView) getView().findViewById(R.id.existingTags);
-        selectedTags.setAdapter(new ArrayAdapter<String>(activity,
+        selectedTags.setAdapter(new ArrayAdapter<>(activity,
                 R.layout.simple_list_item_multiple_choice_themed, allTagNames));
         selectedTags.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 

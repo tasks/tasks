@@ -43,7 +43,7 @@ public class AlarmTaskRepeatListener extends BroadcastReceiver {
             }
 
             Metadata metadata = new Metadata();
-            LinkedHashSet<Long> alarms = new LinkedHashSet<Long>(cursor.getCount());
+            LinkedHashSet<Long> alarms = new LinkedHashSet<>(cursor.getCount());
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 metadata.readFromCursor(cursor);
                 alarms.add(metadata.getValue(AlarmFields.TIME) + (newDueDate - oldDueDate));

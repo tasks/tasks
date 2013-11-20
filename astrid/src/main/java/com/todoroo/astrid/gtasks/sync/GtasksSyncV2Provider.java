@@ -242,7 +242,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
             List<com.google.api.services.tasks.model.Task> tasks = taskList.getItems();
             if (tasks != null) {
                 callback.incrementMax(tasks.size() * 10);
-                HashSet<Long> localIds = new HashSet<Long>(tasks.size());
+                HashSet<Long> localIds = new HashSet<>(tasks.size());
                 for (com.google.api.services.tasks.model.Task t : tasks) {
                     GtasksTaskContainer container = parseRemoteTask(t, listId);
                     gtasksMetadataService.findLocalMatch(container);
@@ -287,7 +287,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     private GtasksTaskContainer parseRemoteTask(com.google.api.services.tasks.model.Task remoteTask, String listId) {
         Task task = new Task();
 
-        ArrayList<Metadata> metadata = new ArrayList<Metadata>();
+        ArrayList<Metadata> metadata = new ArrayList<>();
 
         task.setValue(Task.TITLE, remoteTask.getTitle());
         task.setValue(Task.CREATION_DATE, DateUtilities.now());

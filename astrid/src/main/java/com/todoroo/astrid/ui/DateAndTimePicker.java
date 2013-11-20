@@ -150,7 +150,7 @@ public class DateAndTimePicker extends LinearLayout {
         }
 
         String[] labels = context.getResources().getStringArray(arrayResource);
-        ArrayList<UrgencyValue> urgencyValues = new ArrayList<UrgencyValue>();
+        ArrayList<UrgencyValue> urgencyValues = new ArrayList<>();
         todayUrgency = new UrgencyValue(labels[2],
                 Task.URGENCY_TODAY);
         if (useShortcuts) {

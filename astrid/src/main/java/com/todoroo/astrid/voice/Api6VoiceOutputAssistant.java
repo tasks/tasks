@@ -30,7 +30,7 @@ public class Api6VoiceOutputAssistant implements OnInitListener, VoiceOutputAssi
     private boolean isTTSInitialized;
     private boolean retryLastSpeak;
     private String lastTextToSpeak;
-    private static final HashMap<String, String> ttsParams = new HashMap<String, String>();
+    private static final HashMap<String, String> ttsParams = new HashMap<>();
 
     static {
         ttsParams.put(TextToSpeech.Engine.KEY_PARAM_STREAM,

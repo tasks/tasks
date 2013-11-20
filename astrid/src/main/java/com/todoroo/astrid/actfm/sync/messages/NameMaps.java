@@ -52,10 +52,10 @@ public class NameMaps {
 
     static {
         // Hardcoded local columns mapped to corresponding server names
-        TASK_PROPERTIES_LOCAL_TO_SERVER = new HashMap<Property<?>, String>();
-        TASK_COLUMNS_LOCAL_TO_SERVER = new HashMap<String, String>();
-        TASK_COLUMN_NAMES_TO_PROPERTIES = new HashMap<String, Property<?>>();
-        TASK_PROPERTIES_EXCLUDED = new HashSet<String>();
+        TASK_PROPERTIES_LOCAL_TO_SERVER = new HashMap<>();
+        TASK_COLUMNS_LOCAL_TO_SERVER = new HashMap<>();
+        TASK_COLUMN_NAMES_TO_PROPERTIES = new HashMap<>();
+        TASK_PROPERTIES_EXCLUDED = new HashSet<>();
 
         putTaskPropertyToServerName(Task.TITLE,           "title",          true);
         putTaskPropertyToServerName(Task.IMPORTANCE,      "importance",     true);
@@ -90,10 +90,10 @@ public class NameMaps {
     }
     static {
         // Hardcoded local columns mapped to corresponding server names
-        TAG_DATA_PROPERTIES_LOCAL_TO_SERVER = new HashMap<Property<?>, String>();
-        TAG_DATA_COLUMNS_LOCAL_TO_SERVER = new HashMap<String, String>();
-        TAG_DATA_COLUMN_NAMES_TO_PROPERTIES = new HashMap<String, Property<?>>();
-        TAG_PROPERTIES_EXCLUDED = new HashSet<String>();
+        TAG_DATA_PROPERTIES_LOCAL_TO_SERVER = new HashMap<>();
+        TAG_DATA_COLUMNS_LOCAL_TO_SERVER = new HashMap<>();
+        TAG_DATA_COLUMN_NAMES_TO_PROPERTIES = new HashMap<>();
+        TAG_PROPERTIES_EXCLUDED = new HashSet<>();
 
         putTagPropertyToServerName(TagData.USER_ID,         "user_id",      true);
         putTagPropertyToServerName(TagData.NAME,            "name",         true);
@@ -120,10 +120,10 @@ public class NameMaps {
     }
 
     static {
-        USER_ACTIVITY_PROPERTIES_LOCAL_TO_SERVER = new HashMap<Property<?>, String>();
-        USER_ACTIVITY_COLUMN_NAMES_TO_PROPERTIES = new HashMap<String, Property<?>>();
-        USER_ACTIVITY_COLUMNS_LOCAL_TO_SERVER = new HashMap<String, String>();
-        USER_ACTIVITY_PROPERTIES_EXCLUDED = new HashSet<String>();
+        USER_ACTIVITY_PROPERTIES_LOCAL_TO_SERVER = new HashMap<>();
+        USER_ACTIVITY_COLUMN_NAMES_TO_PROPERTIES = new HashMap<>();
+        USER_ACTIVITY_COLUMNS_LOCAL_TO_SERVER = new HashMap<>();
+        USER_ACTIVITY_PROPERTIES_EXCLUDED = new HashSet<>();
 
         putUserActivityPropertyToServerName(UserActivity.UUID,        "uuid",        false);
         putUserActivityPropertyToServerName(UserActivity.USER_UUID,   "user_id",     false);
@@ -150,10 +150,10 @@ public class NameMaps {
     }
 
     static {
-        TASK_ATTACHMENT_PROPERTIES_LOCAL_TO_SERVER = new HashMap<Property<?>, String>();
-        TASK_ATTACHMENT_COLUMN_NAMES_TO_PROPERTIES = new HashMap<String, Property<?>>();
-        TASK_ATTACHMENT_COLUMNS_LOCAL_TO_SERVER = new HashMap<String, String>();
-        TASK_ATTACHMENT_PROPERTIES_EXCLUDED = new HashSet<String>();
+        TASK_ATTACHMENT_PROPERTIES_LOCAL_TO_SERVER = new HashMap<>();
+        TASK_ATTACHMENT_COLUMN_NAMES_TO_PROPERTIES = new HashMap<>();
+        TASK_ATTACHMENT_COLUMNS_LOCAL_TO_SERVER = new HashMap<>();
+        TASK_ATTACHMENT_PROPERTIES_EXCLUDED = new HashSet<>();
 
         putTaskAttachmentPropertyToServerName(TaskAttachment.UUID,         "uuid",         false);
         putTaskAttachmentPropertyToServerName(TaskAttachment.USER_UUID,    "user_id",      false);
@@ -180,10 +180,10 @@ public class NameMaps {
     }
 
     static {
-        TASK_LIST_METADATA_PROPERTIES_LOCAL_TO_SERVER = new HashMap<Property<?>, String>();
-        TASK_LIST_METADATA_COLUMN_NAMES_TO_PROPERTIES = new HashMap<String, Property<?>>();
-        TASK_LIST_METADATA_COLUMNS_LOCAL_TO_SERVER = new HashMap<String, String>();
-        TASK_LIST_METADATA_PROPERTIES_EXCLUDED = new HashSet<String>();
+        TASK_LIST_METADATA_PROPERTIES_LOCAL_TO_SERVER = new HashMap<>();
+        TASK_LIST_METADATA_COLUMN_NAMES_TO_PROPERTIES = new HashMap<>();
+        TASK_LIST_METADATA_COLUMNS_LOCAL_TO_SERVER = new HashMap<>();
+        TASK_LIST_METADATA_PROPERTIES_EXCLUDED = new HashSet<>();
 
         putTaskListMetadataPropertyToServerName(TaskListMetadata.UUID,          "uuid",          false);
         putTaskListMetadataPropertyToServerName(TaskListMetadata.TAG_UUID,      "tag_id",        true);

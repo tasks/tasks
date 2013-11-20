@@ -139,5 +139,5 @@ public class Update extends RemoteModel {
 
     // --- parcelable helpers
 
-    private static final Creator<Update> CREATOR = new ModelCreator<Update>(Update.class);
+    private static final Creator<Update> CREATOR = new ModelCreator<>(Update.class);
 }

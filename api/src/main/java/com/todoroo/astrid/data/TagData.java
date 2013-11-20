@@ -197,7 +197,7 @@ public final class TagData extends RemoteModel {
 
     // --- parcelable helpers
 
-    public static final Creator<TagData> CREATOR = new ModelCreator<TagData>(TagData.class);
+    public static final Creator<TagData> CREATOR = new ModelCreator<>(TagData.class);
 
     // --- data access methods
 
