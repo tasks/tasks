@@ -12,6 +12,8 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Helpers for sorting a list of tasks
  *
@@ -25,12 +27,14 @@ public class SortHelper {
     public static final int FLAG_SHOW_HIDDEN = 1 << 2;
     public static final int FLAG_SHOW_DELETED = 1 << 3;
     public static final int FLAG_DRAG_DROP = 1 << 4;
+    public static final int FLAG_SHOW_RECENTLY_COMPLETED = 1 << 5;
 
     public static final int SORT_AUTO = 0;
     public static final int SORT_ALPHA = 1;
     public static final int SORT_DUE = 2;
     public static final int SORT_IMPORTANCE = 3;
     public static final int SORT_MODIFIED = 4;
+    public static final int SORT_WIDGET = 5;
 
     /** preference key for sort flags. stored in public prefs */
     public static final String PREF_SORT_FLAGS = "sort_flags"; //$NON-NLS-1$
@@ -59,6 +63,10 @@ public class SortHelper {
         if((flags & FLAG_SHOW_COMPLETED) > 0) {
             originalSql = originalSql.replace(Task.COMPLETION_DATE.eq(0).toString(),
                     Criterion.all.toString());
+        }
+        if ((flags & FLAG_SHOW_RECENTLY_COMPLETED) > 0) {
+            originalSql = originalSql.replace(Task.COMPLETION_DATE.eq(0).toString(),
+                    Criterion.or(Task.COMPLETION_DATE.eq(0), Task.COMPLETION_DATE.gt(DateUtilities.now() - TimeUnit.MINUTES.toMillis(1))).toString());
         }
         if((flags & FLAG_SHOW_HIDDEN) > 0) {
             originalSql = originalSql.replace(TaskCriteria.isVisible().toString(),
@@ -104,6 +112,9 @@ public class SortHelper {
         case SORT_MODIFIED:
             order = Order.desc(Task.MODIFICATION_DATE);
             break;
+        case SORT_WIDGET:
+            order = defaultWidgetTaskOrder();
+            break;
         default:
             order = defaultTaskOrder();
         }
@@ -122,6 +133,13 @@ public class SortHelper {
                 Functions.now() + "*2",
                 adjustedDueDateFunction()) + " + " + (2 * DateUtilities.ONE_DAY) + " * " +
                 Task.IMPORTANCE + " + 2*" + Task.COMPLETION_DATE);
+    }
+
+    public static Order defaultWidgetTaskOrder() {
+        return Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
+                Functions.now() + "*2",
+                adjustedDueDateFunction()) + " + " + (2 * DateUtilities.ONE_DAY) + " * " +
+                Task.IMPORTANCE);
     }
 
     private static String adjustedDueDateFunction() {

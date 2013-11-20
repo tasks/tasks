@@ -1,9 +1,12 @@
 package org.tasks.widget;
 
 import android.annotation.TargetApi;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Paint;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,13 +16,21 @@ import android.widget.RemoteViewsService;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
+import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.FilterWithCustomIntent;
+import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.subtasks.SubtasksHelper;
+import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.widget.TasksWidget;
+import com.todoroo.astrid.widget.WidgetConfigActivity;
 
 import org.tasks.R;
 
@@ -33,14 +44,16 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
     TaskService taskService;
 
     private final Context context;
-    private String query;
+    private final Filter filter;
+    private final int widgetId;
     private boolean dark;
 
     private TodorooCursor<Task> cursor;
 
-    public ScrollableViewsFactory(Context context, String query, boolean dark) {
+    public ScrollableViewsFactory(Context context, Filter filter, int widgetId, boolean dark) {
         this.context = context;
-        this.query = query;
+        this.filter = filter;
+        this.widgetId = widgetId;
         this.dark = dark;
     }
 
@@ -118,13 +131,17 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
 
             textContent = task.getValue(Task.TITLE);
 
+            RemoteViews row = new RemoteViews(Constants.PACKAGE, R.layout.widget_row);
+
             if (task.isCompleted()) {
                 textColor = r.getColor(R.color.task_list_done);
-            } else if (task.hasDueDate() && task.isOverdue()) {
-                textColor = r.getColor(R.color.task_list_overdue);
+                row.setInt(R.id.text, "setPaintFlags", Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+            } else {
+                row.setInt(R.id.text, "setPaintFlags", Paint.ANTI_ALIAS_FLAG);
+                if (task.hasDueDate() && task.isOverdue()) {
+                    textColor = r.getColor(R.color.task_list_overdue);
+                }
             }
-
-            RemoteViews row = new RemoteViews(Constants.PACKAGE, R.layout.widget_row);
 
             row.setTextViewText(R.id.text, textContent);
             row.setTextColor(R.id.text, textColor);
@@ -150,11 +167,33 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
     }
 
     private TodorooCursor<Task> getCursor() {
+        String query = getQuery(context);
         return taskService.fetchFiltered(query, null, Task.ID, Task.TITLE, Task.DUE_DATE, Task.COMPLETION_DATE, Task.IMPORTANCE, Task.RECURRENCE);
     }
 
     private Task getTask(int position) {
         cursor.moveToPosition(position);
         return new Task(cursor);
+    }
+
+    private String getQuery(Context context) {
+        if (SubtasksHelper.isTagFilter(filter)) {
+            ((FilterWithCustomIntent) filter).customTaskList = new ComponentName(context, TagViewFragment.class); // In case legacy widget was created with subtasks fragment
+        }
+
+        SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(context);
+        int flags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
+        flags |= SortHelper.FLAG_SHOW_RECENTLY_COMPLETED;
+        int sort = publicPrefs.getInt(SortHelper.PREF_SORT_SORT, 0);
+        if(sort == 0) {
+            sort = SortHelper.SORT_WIDGET;
+        }
+
+        String query = SortHelper.adjustQueryForFlagsAndSort(
+                filter.getSqlQuery(), flags, sort).replaceAll("LIMIT \\d+", "");
+
+        String tagName = Preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
+
+        return SubtasksHelper.applySubtasksToWidgetFilter(filter, query, tagName, 0);
     }
 }

@@ -8,7 +8,6 @@ import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -27,12 +25,10 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.core.CoreFilterExposer;
-import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.ThemeService;
-import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
@@ -42,7 +38,11 @@ import com.todoroo.astrid.widget.WidgetUpdateService;
 
 import org.tasks.R;
 
-import static android.content.Intent.*;
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET;
+import static android.content.Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_NO_HISTORY;
+import static android.content.Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP;
 
 public class WidgetHelper {
 
@@ -91,7 +91,9 @@ public class WidgetHelper {
     public RemoteViews createScrollableWidget(Context context, int id) {
         Filter filter = getFilter(context, id);
         Intent rvIntent = new Intent(context, ScrollableWidgetUpdateService.class);
-        rvIntent.putExtra(ScrollableWidgetUpdateService.QUERY_ID, getQuery(context, filter, id));
+        Bundle filterBundle = new Bundle(com.todoroo.astrid.api.Filter.class.getClassLoader());
+        filterBundle.putParcelable(ScrollableWidgetUpdateService.FILTER, filter);
+        rvIntent.putExtra(ScrollableWidgetUpdateService.FILTER, filterBundle);
         rvIntent.putExtra(ScrollableWidgetUpdateService.IS_DARK_THEME, ThemeService.isDarkWidgetTheme());
         rvIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id);
         rvIntent.setData(Uri.parse(rvIntent.toUri(Intent.URI_INTENT_SCHEME)));
@@ -243,22 +245,5 @@ public class WidgetHelper {
         }
 
         return filter;
-    }
-
-    private String getQuery(Context context, Filter filter, int widgetId) {
-        if (SubtasksHelper.isTagFilter(filter)) {
-            ((FilterWithCustomIntent) filter).customTaskList = new ComponentName(context, TagViewFragment.class); // In case legacy widget was created with subtasks fragment
-        }
-
-        SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(context);
-        int flags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
-        int sort = publicPrefs.getInt(SortHelper.PREF_SORT_SORT, 0);
-
-        String query = SortHelper.adjustQueryForFlagsAndSort(
-                filter.getSqlQuery(), flags, sort).replaceAll("LIMIT \\d+", "");
-
-        String tagName = Preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
-
-        return SubtasksHelper.applySubtasksToWidgetFilter(filter, query, tagName, 0);
     }
 }
