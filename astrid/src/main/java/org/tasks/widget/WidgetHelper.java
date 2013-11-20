@@ -50,12 +50,11 @@ public class WidgetHelper {
         AstridDependencyInjector.initialize();
     }
 
-    private static int flags = FLAG_ACTIVITY_NEW_TASK
+    public static int flags = FLAG_ACTIVITY_NEW_TASK
             | FLAG_ACTIVITY_MULTIPLE_TASK
             | FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET
             | FLAG_ACTIVITY_NO_HISTORY
             | FLAG_ACTIVITY_PREVIOUS_IS_TOP;
-
 
     public static void startWidgetService(Context context) {
         Class widgetServiceClass = android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH
@@ -142,19 +141,14 @@ public class WidgetHelper {
     }
 
     private PendingIntent getEditTaskIntent(Context context, Filter filter, int widgetId) {
-        Intent intent;
+        Intent intent = new Intent(context, TasksWidget.class);
         if (AstridPreferences.useTabletLayout(context)) {
-            intent = new Intent(context, TaskListActivity.class);
             if (filter != null && filter instanceof FilterWithCustomIntent) {
                 Bundle customExtras = ((FilterWithCustomIntent) filter).customExtras;
                 intent.putExtras(customExtras);
             }
-        } else {
-            intent = new Intent(context, TaskEditActivity.class);
         }
-        intent.setFlags(flags);
-        intent.putExtra(TaskEditFragment.OVERRIDE_FINISH_ANIM, false);
-        return PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        return PendingIntent.getBroadcast(context, -widgetId, intent, 0);
     }
 
     public PendingIntent getNewTaskIntent(Context context, Filter filter, int id) {

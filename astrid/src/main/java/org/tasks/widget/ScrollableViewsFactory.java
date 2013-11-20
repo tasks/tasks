@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
@@ -12,13 +13,13 @@ import android.widget.RemoteViewsService;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
-import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
+import com.todoroo.astrid.widget.TasksWidget;
 
 import org.tasks.R;
 
@@ -91,6 +92,22 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
         return true;
     }
 
+    private int getCheckbox(Task task) {
+        boolean completed = task.isCompleted();
+
+        int value = task.getValue(Task.IMPORTANCE);
+        if (value >= TaskAdapter.IMPORTANCE_RESOURCES.length) {
+            value = TaskAdapter.IMPORTANCE_RESOURCES.length - 1;
+        }
+        int[] boxes;
+        if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
+            boxes = completed ? TaskAdapter.IMPORTANCE_REPEAT_RESOURCES_CHECKED : TaskAdapter.IMPORTANCE_REPEAT_RESOURCES;
+        } else {
+            boxes = completed ? TaskAdapter.IMPORTANCE_RESOURCES_CHECKED : TaskAdapter.IMPORTANCE_RESOURCES;
+        }
+        return boxes[value];
+    }
+
     public RemoteViews buildUpdate(int position) {
         try {
             Task task = getTask(position);
@@ -111,11 +128,17 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
 
             row.setTextViewText(R.id.text, textContent);
             row.setTextColor(R.id.text, textColor);
+            row.setImageViewResource(R.id.completeBox, getCheckbox(task));
 
-            Intent intent = new Intent(context, TaskEditActivity.class);
-            intent.putExtra(TaskEditFragment.TOKEN_ID, task.getId());
-            intent.putExtra(TaskListActivity.OPEN_TASK, task.getId());
-            row.setOnClickFillInIntent(R.id.text, intent);
+            Intent editIntent = new Intent();
+            editIntent.setAction(TasksWidget.EDIT_TASK);
+            editIntent.putExtra(TaskEditFragment.TOKEN_ID, task.getId());
+            row.setOnClickFillInIntent(R.id.text, editIntent);
+
+            Intent completeIntent = new Intent();
+            completeIntent.setAction(TasksWidget.COMPLETE_TASK);
+            completeIntent.putExtra(TaskEditFragment.TOKEN_ID, task.getId());
+            row.setOnClickFillInIntent(R.id.completeBox, completeIntent);
 
             return row;
         } catch (Exception e) {
@@ -127,7 +150,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
     }
 
     private TodorooCursor<Task> getCursor() {
-        return taskService.fetchFiltered(query, null, Task.ID, Task.TITLE, Task.DUE_DATE, Task.COMPLETION_DATE);
+        return taskService.fetchFiltered(query, null, Task.ID, Task.TITLE, Task.DUE_DATE, Task.COMPLETION_DATE, Task.IMPORTANCE, Task.RECURRENCE);
     }
 
     private Task getTask(int position) {

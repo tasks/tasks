@@ -199,6 +199,8 @@
             android:label="@string/widget_mini">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.todoroo.astrid.widget.TasksWidget.COMPLETE_TASK"/>
+                <action android:name="com.todoroo.astrid.widget.TasksWidget.EDIT_TASK"/>
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"

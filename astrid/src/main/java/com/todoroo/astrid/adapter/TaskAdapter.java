@@ -175,11 +175,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         R.drawable.check_box_repeat_checked_4,
     };
 
-    private static final Drawable[] IMPORTANCE_DRAWABLES = new Drawable[IMPORTANCE_RESOURCES.length];
-    private static final Drawable[] IMPORTANCE_DRAWABLES_CHECKED = new Drawable[IMPORTANCE_RESOURCES_CHECKED.length];
+    public static final Drawable[] IMPORTANCE_DRAWABLES = new Drawable[IMPORTANCE_RESOURCES.length];
+    public static final Drawable[] IMPORTANCE_DRAWABLES_CHECKED = new Drawable[IMPORTANCE_RESOURCES_CHECKED.length];
     private static final Drawable[] IMPORTANCE_DRAWABLES_LARGE = new Drawable[IMPORTANCE_RESOURCES_LARGE.length];
-    private static final Drawable[] IMPORTANCE_REPEAT_DRAWABLES = new Drawable[IMPORTANCE_REPEAT_RESOURCES.length];
-    private static final Drawable[] IMPORTANCE_REPEAT_DRAWABLES_CHECKED = new Drawable[IMPORTANCE_REPEAT_RESOURCES_CHECKED.length];
+    public static final Drawable[] IMPORTANCE_REPEAT_DRAWABLES = new Drawable[IMPORTANCE_REPEAT_RESOURCES.length];
+    public static final Drawable[] IMPORTANCE_REPEAT_DRAWABLES_CHECKED = new Drawable[IMPORTANCE_REPEAT_RESOURCES_CHECKED.length];
 
     // --- instance variables
 
