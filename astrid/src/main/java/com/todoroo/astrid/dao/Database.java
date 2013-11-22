@@ -21,7 +21,6 @@ import com.todoroo.astrid.data.TagMetadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskListMetadata;
-import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.provider.Astrid3ContentProvider;
@@ -57,7 +56,6 @@ public class Database extends AbstractDatabase {
         Metadata.TABLE,
         StoreObject.TABLE,
         TagData.TABLE,
-        Update.TABLE,
         UserActivity.TABLE,
         TagMetadata.TABLE,
         TaskAttachment.TABLE,
@@ -172,12 +170,7 @@ public class Database extends AbstractDatabase {
             // not needed anymore
         }
         case 9: try {
-            database.execSQL(createTableSql(visitor, Update.TABLE.name, Update.PROPERTIES));
-            onCreateTables();
-
-            Property<?>[] properties = new Property<?>[] { Task.UUID,
-                    Task.USER_ID };
-
+            Property<?>[] properties = new Property<?>[] { Task.UUID, Task.USER_ID };
             for(Property<?> property : properties) {
                 database.execSQL("ALTER TABLE " + Task.TABLE.name + " ADD " +
                         property.accept(visitor, null) + " DEFAULT 0");
@@ -191,12 +184,7 @@ public class Database extends AbstractDatabase {
         } catch (SQLiteException e) {
             Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
-        case 12: try {
-            database.execSQL("ALTER TABLE " + Update.TABLE.name + " ADD " +
-                    Update.TAGS.accept(visitor, null));
-        } catch (SQLiteException e) {
-            Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
-        }
+        case 12:
         case 13: try {
             database.execSQL("ALTER TABLE " + TagData.TABLE.name + " ADD " +
                     TagData.MEMBERS.accept(visitor, null));
@@ -237,19 +225,7 @@ public class Database extends AbstractDatabase {
         } catch (SQLiteException e) {
             Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
-        case 19: try {
-            for(Property<?> property : new Property<?>[] { Update.TASK_LOCAL, Update.TAGS_LOCAL }) {
-                database.execSQL("ALTER TABLE " + Update.TABLE.name + " ADD " +
-                        property.accept(visitor, null));
-            }
-            database.execSQL("CREATE INDEX IF NOT EXISTS up_tid ON " +
-                    Update.TABLE + "(" + Update.TASK_LOCAL.name + ")");
-            database.execSQL("CREATE INDEX IF NOT EXISTS up_tid ON " +
-                    Update.TABLE + "(" + Update.TAGS_LOCAL.name + ")");
-
-        } catch (SQLiteException e) {
-            Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
-        }
+        case 19:
         case 20: try {
             String tasks = Task.TABLE.name;
             String id = Task.ID.name;
@@ -269,16 +245,7 @@ public class Database extends AbstractDatabase {
         } catch (SQLiteException e) {
             Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
-        case 21: try {
-            for(Property<?> property : new Property<?>[] { Update.OTHER_USER_ID, Update.OTHER_USER }) {
-                database.execSQL("ALTER TABLE " + Update.TABLE.name + " ADD " +
-                        property.accept(visitor, null));
-            }
-
-        }
-        catch (SQLiteException e) {
-            Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
-        }
+        case 21:
         case 22:
         case 23:
         case 24: try {
