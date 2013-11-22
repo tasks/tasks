@@ -70,8 +70,6 @@ public class NameMaps {
         putTaskPropertyToServerName(Task.USER_ID,         "user_id",        true);
         putTaskPropertyToServerName(Task.CREATOR_ID,      "creator_id",     false);
         putTaskPropertyToServerName(Task.UUID,            "uuid",           false);
-        putTaskPropertyToServerName(Task.IS_PUBLIC,       "public",         true);
-        putTaskPropertyToServerName(Task.IS_READONLY,     "read_only",      false);
         putTaskPropertyToServerName(Task.CLASSIFICATION,  "classification", false);
     }
 

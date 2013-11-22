@@ -63,7 +63,6 @@ public class DateChangedAlerts {
 
         final Dialog d = new Dialog(activity, R.style.ReminderDialog);
         final long taskId = task.getId();
-        final boolean editable = task.isEditable();
         d.setContentView(R.layout.astrid_reminder_view);
 
         Button okButton = (Button) d.findViewById(R.id.reminder_complete);
@@ -83,7 +82,7 @@ public class DateChangedAlerts {
             @Override
             public void onClick(View v) {
                 d.dismiss();
-                activity.onTaskListItemClicked(taskId, editable);
+                activity.onTaskListItemClicked(taskId);
             }
         });
 

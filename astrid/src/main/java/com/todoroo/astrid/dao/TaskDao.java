@@ -78,7 +78,6 @@ public class TaskDao extends RemoteModelDao<Task> {
     	    return Criterion.and(Task.COMPLETION_DATE.eq(0),
     	            Task.DELETION_DATE.eq(0),
     	            Task.HIDE_UNTIL.lt(Functions.now()),
-    	            Task.IS_READONLY.eq(0),
     	            Task.USER_ID.eq(0));
     	}
 
@@ -120,14 +119,10 @@ public class TaskDao extends RemoteModelDao<Task> {
 
     	/** Check if a given task belongs to someone else & is read-only */
         public static Criterion ownedByMe() {
-             return Criterion.and(Task.IS_READONLY.eq(0),
-                     Task.USER_ID.eq(0));
+             return Task.USER_ID.eq(0);
         }
 
     }
-
-    // --- custom operations
-
 
     // --- delete
 

@@ -91,12 +91,6 @@ public final class Task extends RemoteModel {
     public static final IntegerProperty FLAGS = new IntegerProperty(
             TABLE, "flags");
 
-    public static final IntegerProperty IS_PUBLIC = new IntegerProperty(
-            TABLE, "is_public", Property.PROP_FLAG_BOOLEAN);
-
-    public static final IntegerProperty IS_READONLY = new IntegerProperty(
-            TABLE, "is_readonly", Property.PROP_FLAG_BOOLEAN);
-
     // --- non-core task metadata
 
     public static final StringProperty NOTES = new StringProperty(
@@ -257,8 +251,6 @@ public final class Task extends RemoteModel {
         defaultValues.put(TIMER_START.name, 0);
         defaultValues.put(DETAILS.name, (String)null);
         defaultValues.put(DETAILS_DATE.name, 0);
-        defaultValues.put(IS_PUBLIC.name, 0);
-        defaultValues.put(IS_READONLY.name, 0);
         defaultValues.put(CLASSIFICATION.name, "");
 
         defaultValues.put(LAST_SYNC.name, 0);
@@ -471,11 +463,6 @@ public final class Task extends RemoteModel {
         long compareTo = hasDueTime() ? DateUtilities.now() : DateUtilities.getStartOfDay(DateUtilities.now());
 
         return dueDate < compareTo;
-    }
-
-    public boolean isEditable() {
-        return (getValue(Task.IS_READONLY) == 0) &&
-                !(getValue(Task.IS_PUBLIC) == 1 && !Task.USER_ID_SELF.equals(getValue(Task.USER_ID)));
     }
 
     public boolean repeatAfterCompletion() {

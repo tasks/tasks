@@ -282,13 +282,13 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         if (getIntent().hasExtra(OPEN_TASK)) {
             long id = getIntent().getLongExtra(OPEN_TASK, 0);
             if (id > 0) {
-                onTaskListItemClicked(id, true);
+                onTaskListItemClicked(id);
             } else {
                 TaskListFragment tlf = getTaskListFragment();
                 if (tlf != null) {
                     Task result = tlf.quickAddBar.quickAddTask("", true); //$NON-NLS-1$
                     if (result != null) {
-                        onTaskListItemClicked(result.getId(), true);
+                        onTaskListItemClicked(result.getId());
                     }
                 }
             }
@@ -313,8 +313,8 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     }
 
     @Override
-    public void onTaskListItemClicked(long taskId, boolean editable) {
-        if (fragmentLayout != LAYOUT_SINGLE && editable) {
+    public void onTaskListItemClicked(long taskId) {
+        if (fragmentLayout != LAYOUT_SINGLE) {
             getIntent().putExtra(OPEN_TASK, taskId);
         }
         CommentsFragment tuf = getTagUpdatesFragment();
@@ -322,7 +322,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
             tuf.getView().setVisibility(View.INVISIBLE);
         }
 
-        super.onTaskListItemClicked(taskId, editable);
+        super.onTaskListItemClicked(taskId);
     }
 
     public void setListsTitle(String title) {

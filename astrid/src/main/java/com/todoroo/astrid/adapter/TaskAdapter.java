@@ -24,7 +24,6 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextUtils.TruncateAt;
 import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -107,8 +106,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Task.ID,
         Task.UUID,
         Task.TITLE,
-        Task.IS_READONLY,
-        Task.IS_PUBLIC,
         Task.IMPORTANCE,
         Task.DUE_DATE,
         Task.COMPLETION_DATE,
@@ -131,8 +128,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Task.ID,
         Task.UUID,
         Task.TITLE,
-        Task.IS_READONLY,
-        Task.IS_PUBLIC,
         Task.IMPORTANCE,
         Task.RECURRENCE,
         Task.COMPLETION_DATE,
@@ -196,7 +191,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private int fontSize;
     private long mostRecentlyMade = -1;
     private final ScaleAnimation scaleAnimation;
-    private final int readonlyBackground;
 
     private final AtomicReference<String> query;
 
@@ -255,16 +249,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         scaleAnimation.setDuration(100);
 
-        TypedValue readonlyBg = new TypedValue();
-        fragment.getActivity().getTheme().resolveAttribute(R.attr.asReadonlyTaskBackground, readonlyBg, false);
-        readonlyBackground = readonlyBg.data;
-
         preloadDrawables(IMPORTANCE_RESOURCES, IMPORTANCE_DRAWABLES);
         preloadDrawables(IMPORTANCE_RESOURCES_CHECKED, IMPORTANCE_DRAWABLES_CHECKED);
         preloadDrawables(IMPORTANCE_RESOURCES_LARGE, IMPORTANCE_DRAWABLES_LARGE);
         preloadDrawables(IMPORTANCE_REPEAT_RESOURCES, IMPORTANCE_REPEAT_DRAWABLES);
         preloadDrawables(IMPORTANCE_REPEAT_RESOURCES_CHECKED, IMPORTANCE_REPEAT_DRAWABLES_CHECKED);
-
     }
 
     private void preloadDrawables(int[] resourceIds, Drawable[] drawables) {
@@ -437,11 +426,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             viewHolder.completeBox.setMinimumHeight(minRowHeight);
         }
 
-        if (task.isEditable()) {
-            viewHolder.view.setBackgroundColor(resources.getColor(android.R.color.transparent));
-        } else {
-            viewHolder.view.setBackgroundColor(readonlyBackground);
-        }
+        viewHolder.view.setBackgroundColor(resources.getColor(android.R.color.transparent));
 
         // name
         final TextView nameView = viewHolder.nameView; {
@@ -508,7 +493,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     }
 
     private TaskAction getTaskAction(Task task, boolean hasFiles, boolean hasNotes) {
-        if (titleOnlyLayout || task.isCompleted() || !task.isEditable()) {
+        if (titleOnlyLayout || task.isCompleted()) {
             return null;
         }
         if (taskActionLoader.containsKey(task.getId())) {
@@ -986,7 +971,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             }
 
             long taskId = viewHolder.task.getId();
-            fragment.onTaskListItemClicked(taskId, viewHolder.task.isEditable());
+            fragment.onTaskListItemClicked(taskId);
         }
     }
 
@@ -1054,8 +1039,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         final CheckableImageView checkBoxView = viewHolder.completeBox; {
             boolean completed = task.isCompleted();
             checkBoxView.setChecked(completed);
-            // disable checkbox if task is readonly
-            checkBoxView.setEnabled(viewHolder.task.isEditable());
+            checkBoxView.setEnabled(true);
 
             int value = task.getValue(Task.IMPORTANCE);
             if (value >= IMPORTANCE_RESOURCES.length) {

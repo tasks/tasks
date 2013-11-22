@@ -276,8 +276,6 @@ public class Database extends AbstractDatabase {
             tryExecSQL(createTableSql(visitor, TaskListMetadata.TABLE.name, TaskListMetadata.PROPERTIES));
 
             tryExecSQL(addColumnSql(Task.TABLE, Task.PUSHED_AT, visitor, null));
-            tryExecSQL(addColumnSql(Task.TABLE, Task.IS_PUBLIC, visitor, "0"));
-            tryExecSQL(addColumnSql(Task.TABLE, Task.IS_READONLY, visitor, "0"));
             tryExecSQL(addColumnSql(Task.TABLE, Task.CLASSIFICATION, visitor, null));
             tryExecSQL(addColumnSql(Task.TABLE, Task.ATTACHMENTS_PUSHED_AT, visitor, null));
             tryExecSQL(addColumnSql(Task.TABLE, Task.USER_ACTIVITIES_PUSHED_AT, visitor, null));

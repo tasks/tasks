@@ -25,10 +25,8 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.actfm.CommentsActivity;
 import com.todoroo.astrid.actfm.CommentsFragment;
 import com.todoroo.astrid.actfm.TagCommentsFragment;
-import com.todoroo.astrid.actfm.TaskCommentsFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
@@ -216,19 +214,7 @@ public class AstridActivity extends ActionBarActivity
 
     @Override
     public void onTaskListItemClicked(long taskId) {
-        Task task = taskDao.fetch(taskId, Task.IS_READONLY, Task.IS_PUBLIC, Task.USER_ID);
-        if (task != null) {
-            onTaskListItemClicked(taskId, task.isEditable());
-        }
-    }
-
-    @Override
-    public void onTaskListItemClicked(long taskId, boolean editable) {
-        if (editable) {
-            editTask(taskId);
-        } else {
-            showComments(taskId);
-        }
+        editTask(taskId);
     }
 
     private void editTask(long taskId) {
@@ -270,13 +256,6 @@ public class AstridActivity extends ActionBarActivity
             startActivityForResult(intent, TaskListFragment.ACTIVITY_EDIT_TASK);
             AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_left_in, R.anim.slide_left_out);
         }
-    }
-
-    private void showComments(long taskId) {
-        Intent intent = new Intent(this, CommentsActivity.class);
-        intent.putExtra(TaskCommentsFragment.EXTRA_TASK, taskId);
-        startActivity(intent);
-        AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_left_in, R.anim.slide_left_out);
     }
 
     @Override

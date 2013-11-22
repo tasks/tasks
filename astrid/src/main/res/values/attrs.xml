@@ -19,12 +19,10 @@
   <attr name="asFilterHeaderColor" format="color"/>
   <attr name="asSeparatorBackground" format="color"/>
   <attr name="asListDividerColor" format="color"/>
-  
   <attr name="asThemeTextColor" format="color"/>
   <attr name="asHeaderTextColor" format="color"/>
   <attr name="asHeaderTextColorInverse" format="color"/>
   <attr name="asEditTextBackground" format="reference"/>
-  <attr name="asReadonlyTaskBackground" format="color" />
   <attr name="asAbBackgroundColor" format="color"/>
   <attr name="asQuickaddBackgroundColor" format="color" />
   <attr name="asFilterSelectedIcon" format="reference"/>

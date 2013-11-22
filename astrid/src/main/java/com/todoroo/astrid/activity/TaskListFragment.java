@@ -233,7 +233,6 @@ public class TaskListFragment extends ListFragment implements OnSortSelectedList
      */
     public interface OnTaskListItemClickedListener {
         public void onTaskListItemClicked(long taskId);
-        public void onTaskListItemClicked(long taskId, boolean editable);
     }
 
     @Override
@@ -325,7 +324,7 @@ public class TaskListFragment extends ListFragment implements OnSortSelectedList
                         return;
                     }
 
-                    onTaskListItemClicked(id, task.isEditable());
+                    onTaskListItemClicked(id);
                 }
             }
         });
@@ -910,9 +909,6 @@ public class TaskListFragment extends ListFragment implements OnSortSelectedList
             ContextMenuInfo menuInfo) {
         AdapterContextMenuInfo adapterInfo = (AdapterContextMenuInfo) menuInfo;
         Task task = ((ViewHolder) adapterInfo.targetView.getTag()).task;
-        if (task.getValue(Task.IS_READONLY) > 0) {
-            return;
-        }
 
         int id = (int) task.getId();
         menu.setHeaderTitle(task.getValue(Task.TITLE));
@@ -1118,8 +1114,8 @@ public class TaskListFragment extends ListFragment implements OnSortSelectedList
         startActivityForResult(intent, ACTIVITY_SETTINGS);
     }
 
-    public void onTaskListItemClicked(long taskId, boolean editable) {
-        mListener.onTaskListItemClicked(taskId, editable);
+    public void onTaskListItemClicked(long taskId) {
+        mListener.onTaskListItemClicked(taskId);
     }
 
     protected void toggleDragDrop(boolean newState) {
