@@ -71,39 +71,6 @@
   <!-- Prefix for reminder dialog title -->
   <string name="rmd_NoA_dlg_title">Reminder:</string>
   
-  <!-- ==================================================== user reengagement == -->
-
-  <!-- Titles for user reengagement notifications -->
-  <string-array name="rmd_reengage_notif_titles">
-    <item>A note from Tasks</item>
-    <!-- %s -> first name -->
-    <item>Memo for %s.</item> 
-    <item>Your Tasks digest</item>
-    <item>Reminders from Tasks</item>
-  </string-array>
-    
-  <string name="rmd_reengage_add_tasks">Add a task</string>
-  
-  <!-- Speech bubble options for astrid in reengagement notifs -->
-  <string-array name="rmd_reengage_dialog_options">
-    <item>Time to shorten your to-do list!</item>
-    <item>Dear sir or madam, some tasks await your inspection!</item>
-    <item>Hi there, could you take a look at these?</item>
-    <item>I\'ve got some tasks with your name on them!</item>
-    <item>A fresh batch of tasks for you today!</item>
-    <item>You look fabulous! Ready to get started?</item>
-    <item>A lovely day for getting some work done, I think!</item>
-  </string-array>
-  
-  <!-- Speech bubble options for astrid in reengagement notifs when no tasks present -->
-  <string-array name="rmd_reengage_dialog_empty_options">
-    <item>Don\'t you want to get organized?</item>
-    <item>I\'m Tasks! I\'m here to help you do more!</item>
-    <item>You look busy! Let me take some of those tasks off of your plate.</item>
-    <item>I can help you keep track of all of the details in your life.</item>
-    <item>You\'re serious about getting more done? So am I!</item>
-    <item>Pleasure to make your acquaintance!</item>
-  </string-array>
   <!-- ============================================= reminder preferences == -->
   
   <!-- slide 33d: Reminder Preference Screen Title -->

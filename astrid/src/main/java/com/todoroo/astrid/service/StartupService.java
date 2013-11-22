@@ -45,7 +45,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.CalendarStartupReceiver;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
-import com.todoroo.astrid.reminders.ReengagementService;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.AstridPreferences;
@@ -178,7 +177,6 @@ public class StartupService {
             public void run() {
                 startWidgetService(context);
 
-                ReengagementService.scheduleReengagementAlarm(context);
                 taskService.cleanup();
 
                 // if sync ongoing flag was set, clear it

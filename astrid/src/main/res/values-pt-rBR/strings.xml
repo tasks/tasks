@@ -400,30 +400,6 @@
 	<string name="rmd_NoA_snooze">Adiar</string>
 	<string name="rmd_NoA_completed_toast">Parabéns!</string>
 	<string name="rmd_NoA_dlg_title">Lembrete:</string>
-	<string-array name="rmd_reengage_notif_titles">
-		<item>Uma nota do Tasks</item>
-		<item>Recado para %s.</item>
-		<item>Seu resumo no Tasks</item>
-		<item>Lembretes do Tasks</item>
-	</string-array>
-	<string name="rmd_reengage_add_tasks">Inserir tarefa</string>
-	<string-array name="rmd_reengage_dialog_options">
-		<item>Hora de diminuir sua lista de tarefas!</item>
-		<item>Prezado sr. ou sra., algumas tarefas aguardam sua inspeção!</item>
-		<item>Olá, você poderia dar uma olhada nissos?</item>
-		<item>Eu achei algumas tarefas com seu nome nelas!</item>
-		<item>Um novo lote de tarefas para você hoje!</item>
-		<item>Você parece fabuloso! Pronto para começar?</item>
-		<item>Um dia amável para concluir alguns trabalhos, eu acho!</item>
-	</string-array>
-	<string-array name="rmd_reengage_dialog_empty_options">
-		<item>Você não quer se organizar?</item>
-		<item>Sou Tasks! Estou aqui para te ajudar a fazer mais!</item>
-		<item>Você parece ocupado! Deixe-me tirar algumas tarefas de seu prato.</item>
-		<item>Eu posso te ajudar a manter o controle sobre todos os detalhes de sua vida.</item>
-		<item>Está falando sério sobre estar fazendo mais? Eu também!</item>
-		<item>Prazer em conhecê-lo!</item>
-	</string-array>
 	<string name="rmd_EPr_alerts_header">Configurações de lembretes</string>
 	<string name="rmd_EPr_alerts_summary">Horas quieto, opções de soneca, nível de persistência</string>
 	<string name="rmd_EPr_enabled_title">Habilitar lembretes?</string>

@@ -385,30 +385,6 @@
 	<string name="rmd_NoA_snooze">晚點提醒...</string>
 	<string name="rmd_NoA_completed_toast">恭喜，已經完成了！</string>
 	<string name="rmd_NoA_dlg_title">提醒：</string>
-	<string-array name="rmd_reengage_notif_titles">
-		<item>Tasks 的提示</item>
-		<item>%s 的備忘錄。</item>
-		<item>您的 Tasks 摘要</item>
-		<item>Tasks 的提醒</item>
-	</string-array>
-	<string name="rmd_reengage_add_tasks">添加任務工作</string>
-	<string-array name="rmd_reengage_dialog_options">
-		<item>是時候縮短您的任務工作清單了！</item>
-		<item>尊敬的先生或女士，有一些任務工作等待您的檢查！</item>
-		<item>嘿，您好，您可不可以看一看這些任務工作？</item>
-		<item>我有些任務工作，上面有您的名字喔！</item>
-		<item>您今天的一批新任務工作！</item>
-		<item>您看起來棒極了！準備好開始了嗎？</item>
-		<item>今天不錯，是時候搞定一些事兒了，我認為是這樣的！</item>
-	</string-array>
-	<string-array name="rmd_reengage_dialog_empty_options">
-		<item>您不想生活變得更加有條理嗎？</item>
-		<item>我是Tasks！我隨時幫助您做更多事情！</item>
-		<item>您好像好忙喔！讓我來分擔一下您的重擔裡的一些活兒唄。</item>
-		<item>我可以幫您記錄您生活中的所有細節。</item>
-		<item>您真的要搞定更多事情嗎？我也是啊！</item>
-		<item>好高興認識您咽！</item>
-	</string-array>
 	<string name="rmd_EPr_alerts_header">提醒設置</string>
 	<string name="rmd_EPr_alerts_summary">勿擾模式，稍候提醒，持續提醒</string>
 	<string name="rmd_EPr_enabled_title">允許提醒？</string>

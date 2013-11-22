@@ -363,30 +363,6 @@
 	<string name="rmd_NoA_snooze">晚点提醒...</string>
 	<string name="rmd_NoA_completed_toast">恭喜，已经完成了！</string>
 	<string name="rmd_NoA_dlg_title">提醒：</string>
-	<string-array name="rmd_reengage_notif_titles">
-		<item>清单小助理的提示</item>
-		<item>%s 的备忘录。</item>
-		<item>您的清单小助理摘要</item>
-		<item>清单小助理的提醒</item>
-	</string-array>
-	<string name="rmd_reengage_add_tasks">添加任务</string>
-	<string-array name="rmd_reengage_dialog_options">
-		<item>是时候缩短您的任务清单了！</item>
-		<item>尊敬的先生或女士，有一些任务等待您的检查！</item>
-		<item>嘿，您好，您可不可以看一看这些任务？</item>
-		<item>我有些任务，上面有您的名字喔！</item>
-		<item>您今天的一批新任务！</item>
-		<item>您看起来棒极了！准备好开始了吗？</item>
-		<item>今天不错，是时候搞定一些事儿了，我认为是这样的！</item>
-	</string-array>
-	<string-array name="rmd_reengage_dialog_empty_options">
-		<item>您不想生活变得更加有条理吗？</item>
-		<item>我是清单小助理！我随时帮助您做更多事情！</item>
-		<item>您好像好忙喔！让我来分担一下您的重担里的一些活儿呗。</item>
-		<item>我可以帮您记录您生活中的所有细节。</item>
-		<item>您真的要搞定更多事情吗？我也是啊！</item>
-		<item>好高兴认识您咽！</item>
-	</string-array>
 	<string name="rmd_EPr_alerts_header">提醒设置</string>
 	<string name="rmd_EPr_alerts_summary">勿扰模式，稍候提醒，持续提醒</string>
 	<string name="rmd_EPr_enabled_title">允许提醒？</string>

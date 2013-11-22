@@ -427,30 +427,6 @@
 	<string name="rmd_NoA_snooze">Schlummern</string>
 	<string name="rmd_NoA_completed_toast">Herzlichen Glückwunsch zum Abschluss!</string>
 	<string name="rmd_NoA_dlg_title">Erinnerung:</string>
-	<string-array name="rmd_reengage_notif_titles">
-		<item>Eine Mitteilung von Tasks</item>
-		<item>Notiz für %s.</item>
-		<item>Ihre Tasks-Übersicht</item>
-		<item>Erinnerungen von Tasks</item>
-	</string-array>
-	<string name="rmd_reengage_add_tasks">Aufgabe hinzufügen</string>
-	<string-array name="rmd_reengage_dialog_options">
-		<item>Zeit, Ihre Todo-Liste zu verkürzen!</item>
-		<item>Sehr geehrte Damen und Herren, einige Aufgaben warten zur Durchsicht!</item>
-		<item>Hallo, könnten Sie sich das bitte ansehen?</item>
-		<item>Ich haben einige Aufgaben, die Ihnen zugewiesen wurden!</item>
-		<item>Ein neuer Stapel Aufgaben für Sie!</item>
-		<item>Sie sehen großartig aus! Können wir loslegen?</item>
-		<item>Heute ist ein wunderbarer Tag um ein paar Dinge fertig zu bekommen!</item>
-	</string-array>
-	<string-array name="rmd_reengage_dialog_empty_options">
-		<item>Möchten Sie Ihre Aufgaben nicht besser organisieren?</item>
-		<item>Ich bin Tasks! Meine Aufgabe ist es, Sie bei Ihren Aufgaben zu unterstützen!</item>
-		<item>Sie sehen beschäftigt aus, kann ich Ihnen diese Aufgaben abnehmen?</item>
-		<item>Ich kann Sie bei Ihrer gesamten Aufgabenplanung unterstützen.</item>
-		<item>Wollen Sie mehr schaffen? Ich auch!</item>
-		<item>Sehr erfreut, Sie kennenzulernen!</item>
-	</string-array>
 	<string name="rmd_EPr_alerts_header">Erinnerungseinstellungen</string>
 	<string name="rmd_EPr_alerts_summary">Ruhezeiten, Snooze Einstellungen, Hartnäckigkeit</string>
 	<string name="rmd_EPr_enabled_title">Erinnerungen aktiviert?</string>

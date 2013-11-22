@@ -40,7 +40,6 @@ public final class Constants {
     public static final int SOURCE_WIDGET = 2;
     public static final int SOURCE_PPWIDGET = 3;
     public static final int SOURCE_C2DM = 4;
-    public static final int SOURCE_REENGAGEMENT = 5;
 
     // --- notification id's
 

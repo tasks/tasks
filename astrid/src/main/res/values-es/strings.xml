@@ -442,30 +442,6 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="rmd_NoA_snooze">Espera...</string>
 	<string name="rmd_NoA_completed_toast">¡Felicitaciones por terminar!</string>
 	<string name="rmd_NoA_dlg_title">Recordatorio:</string>
-	<string-array name="rmd_reengage_notif_titles">
-		<item>Una nota desde Tasks</item>
-		<item>Memorándum para %s.</item>
-		<item>Tu resumen Tasks</item>
-		<item>Recordatorios de Tasks</item>
-	</string-array>
-	<string name="rmd_reengage_add_tasks">Añadir una tarea</string>
-	<string-array name="rmd_reengage_dialog_options">
-		<item>¡Es hora de acortar la lista de tareas!</item>
-		<item>Estimada dama o caballero, ¡algunas tareas esperan su inspección!</item>
-		<item>Hola, ¿Podrías darle una revisada a éstas?</item>
-		<item>¡Tengo unas tareas con tu nombre en ellas!</item>
-		<item>¡Un lote de frescas tareas para ti hoy!</item>
-		<item>¡Luces espectacular! ¿Listo para empezar?</item>
-		<item>Un hermoso día para hacer un poco de trabajo, ¡eso creo!</item>
-	</string-array>
-	<string-array name="rmd_reengage_dialog_empty_options">
-		<item>¿No quieres estar organizado?</item>
-		<item>¡Soy Tasks! ¡Estoy aquí para ayudarte a hacer más!</item>
-		<item>¡Pareces ocupado! Déjame quitarte alguna de esas tareas de tu plato.</item>
-		<item>Puedo ayudarle a rastrear todos los detalles en tu vida.</item>
-		<item>¿Tomaste seriamente acerca de hacer más? ¡Yo también!</item>
-		<item>¡Es un placer conocerlo!</item>
-	</string-array>
 	<string name="rmd_EPr_alerts_header">Configurar recordatorios</string>
 	<string name="rmd_EPr_alerts_summary">Horas tranquilas, opciones de vigilia, nivel de persistencia</string>
 	<string name="rmd_EPr_enabled_title">¿Habilitar recordatorios?</string>

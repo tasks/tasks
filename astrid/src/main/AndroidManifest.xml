@@ -219,12 +219,6 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name="com.todoroo.astrid.reminders.ReengagementReceiver">
-            <intent-filter>
-                <action android:name="org.tasks.SHOW_REENGAGEMENT" />
-            </intent-filter>
-        </receiver>
-
         <!-- ======================================================== Services = -->
 
         <service android:name="com.todoroo.astrid.widget.WidgetUpdateService" />

@@ -432,30 +432,6 @@
 	<string name="rmd_NoA_snooze">Повтор</string>
 	<string name="rmd_NoA_completed_toast">Поздравляем с окончанием!</string>
 	<string name="rmd_NoA_dlg_title">Напоминания:</string>
-	<string-array name="rmd_reengage_notif_titles">
-		<item>Заметка из Tasks</item>
-		<item>Напоминание для %s</item>
-		<item>Обзор задач от Tasks</item>
-		<item>Напоминания от Tasks</item>
-	</string-array>
-	<string name="rmd_reengage_add_tasks">Добавить задание</string>
-	<string-array name="rmd_reengage_dialog_options">
-		<item>Время сократить Ваш список задач!</item>
-		<item>Дорогой сэр или мадам, некоторые задачи ждут Вашего внимания!</item>
-		<item>Привет, могли бы Вы взглянуть сюда?</item>
-		<item>У меня есть несколько задач на Ваше имя!</item>
-		<item>Свежая пачка задач для Вас на сегодня.</item>
-		<item>Вы выглядите потрясающе! Готовы начать?</item>
-		<item>Прекрасный день, чтобы поработат, я думаю!</item>
-	</string-array>
-	<string-array name="rmd_reengage_dialog_empty_options">
-		<item>Разве вы не хотите навести порядок?</item>
-		<item>Я Tasks! Я здесь, чтобы помочь Вам сделать больше!</item>
-		<item>Вы выглядите занятым. Позвольте убрать некоторые задачи из вашего списка.</item>
-		<item>Я могу помочь Вам следить за всеми деталями Вашей жизни.</item>
-		<item>Вы серьёзно о том что нужно сделать побольше? Ну что, я тоже!</item>
-		<item>Очень приятно с Вами познакомиться!</item>
-	</string-array>
 	<string name="rmd_EPr_alerts_header">Настройки напоминаний</string>
 	<string name="rmd_EPr_alerts_summary">Тихие часы, опции короткого сна, уровень настойчивости</string>
 	<string name="rmd_EPr_enabled_title">Включить напоминания?</string>

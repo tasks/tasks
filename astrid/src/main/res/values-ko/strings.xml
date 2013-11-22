@@ -451,30 +451,6 @@
 	<string name="rmd_NoA_snooze">알림 잠시 미루기</string>
 	<string name="rmd_NoA_completed_toast">완료를 축하합니다!</string>
 	<string name="rmd_NoA_dlg_title">알림:</string>
-	<string-array name="rmd_reengage_notif_titles">
-		<item>아스트리드 노트</item>
-		<item>%s 의 메모.</item>
-		<item>당신의 아스트리드 요약</item>
-		<item>아스트리드 알림</item>
-	</string-array>
-	<string name="rmd_reengage_add_tasks">일정 추가하기</string>
-	<string-array name="rmd_reengage_dialog_options">
-		<item>당신의 할일 목록을 줄일 시간이에요!</item>
-		<item>친애하는 당신, 몇가지 일정이 당신의 손길을 기다려요!</item>
-		<item>안녕, 이것 좀 봐줄 수 있을까?</item>
-		<item>거기 네 이름으로 된 일정이 좀 있어!</item>
-		<item>오늘 너를 위해 새로운 일정 목록이 있어!</item>
-		<item>너 끝내준다! 시작할 준비 됐지?</item>
-		<item>내가 생각하기에 일을 마치기에 좋은 날인 듯!</item>
-	</string-array>
-	<string-array name="rmd_reengage_dialog_empty_options">
-		<item>조직적이고 싶지 않니?</item>
-		<item>나 아스트리드! 네 일을 돕기 위해 내가 여기 있노라!</item>
-		<item>너 바뻐 보인다! 니 일정 중 몇 가지는 내가 처리해 줄께.</item>
-		<item>나는 네 삶의 모든 세부 사항의 기록을 유지할 수 있도록 도울 수 있어.</item>
-		<item>일을 더 확실히 마치고 싶지? 나도 그래!</item>
-		<item>너를 알게 되서 기쁘다!</item>
-	</string-array>
 	<string name="rmd_EPr_alerts_header">알림 설정</string>
 	<string name="rmd_EPr_alerts_summary">알람 꺼짐 시간, 스누즈 설정, 알람 지속 레벨</string>
 	<string name="rmd_EPr_enabled_title">알림을 사용할까요?</string>

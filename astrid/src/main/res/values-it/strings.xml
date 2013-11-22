@@ -382,30 +382,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="rmd_NoA_snooze">Rimanda...</string>
 	<string name="rmd_NoA_completed_toast">Congratulazioni per il completamento!</string>
 	<string name="rmd_NoA_dlg_title">Promemoria:</string>
-	<string-array name="rmd_reengage_notif_titles">
-		<item>Nota da Tasks</item>
-		<item>Memo per %s</item>
-		<item>Your Tasks digest</item>
-		<item>Promemoria da Tasks</item>
-	</string-array>
-	<string name="rmd_reengage_add_tasks">Aggiungi un\'attività</string>
-	<string-array name="rmd_reengage_dialog_options">
-		<item>E\' tempo di accorciare la tua lista delle cose da fare!</item>
-		<item>Caro signore o signora, alcune attività attendono di essere visionate!</item>
-		<item>Ehi, puoi dare un\'occhiata a queste?</item>
-		<item>Ho alcune attività con il tuo nome!</item>
-		<item>Un nuovo elenco di attività per te oggi!</item>
-		<item>Hai un aspetto favoloso! Sei pronto ad iniziare?</item>
-		<item>Un giorno perfetto per completare qualche attività, credo!</item>
-	</string-array>
-	<string-array name="rmd_reengage_dialog_empty_options">
-		<item>Non vuoi organizzarti?</item>
-		<item>Sono Tasks! Sono qui ad aiutarti a fare di più!</item>
-		<item>Sembri impegnato! Fammi togliere alcune attività dal tuo carico di lavoro.</item>
-		<item>Posso aiutarti a tenere traccia di tutti i dettagli nella tua vita.</item>
-		<item>Sei serio sul volerne completare ancora? Allora anch\'io!</item>
-		<item>Pleasure to make your acquaintance!</item>
-	</string-array>
 	<string name="rmd_EPr_alerts_header">Impostazioni promemoria</string>
 	<string name="rmd_EPr_alerts_summary">Ore tranquille, funzione di ripetizione, livello di persistenza</string>
 	<string name="rmd_EPr_enabled_title">I promemoria sono abilitati?</string>

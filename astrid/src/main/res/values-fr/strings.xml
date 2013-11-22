@@ -438,30 +438,6 @@
 	<string name="rmd_NoA_snooze">Rappeler ultérieurement...</string>
 	<string name="rmd_NoA_completed_toast">Félicitations pour avoir fini cette tâche</string>
 	<string name="rmd_NoA_dlg_title">Rappel :</string>
-	<string-array name="rmd_reengage_notif_titles">
-		<item>Une note de la part d\'Tasks</item>
-		<item>Mémo pour %s.</item>
-		<item>Votre résumé Tasks</item>
-		<item>Rappels d\'Tasks</item>
-	</string-array>
-	<string name="rmd_reengage_add_tasks">Ajouter une tâche</string>
-	<string-array name="rmd_reengage_dialog_options">
-		<item>Il est temps de réduire votre liste de tâches!</item>
-		<item>Cher Monsieur ou Madame, certaines tâches attendent votre inspection !</item>
-		<item>Bonjour ! Pourriez-vous jeter un œil à ça ?</item>
-		<item>Il y a des tâches avec votre nom dessus !</item>
-		<item>Une livraison de tâches toute fraiche pour vous aujourd\'hui !</item>
-		<item>Vous êtes magnifique ! Prêt à commencer ?</item>
-		<item>Un jour idéal pour travailler, à mon avis !</item>
-	</string-array>
-	<string-array name="rmd_reengage_dialog_empty_options">
-		<item>Vous ne voulez pas être organisé ?</item>
-		<item>Je suis Tasks ! Je suis ici pour t\'aider à en faire plus !</item>
-		<item>Vous avez l\'air occupé ! Laissez moi vous débarrasser de ces tâches.</item>
-		<item>Je peux vous aider à garder des traces de tous les détails de votre vie.</item>
-		<item>Vous voulez vraiment en faire plus ? Moi aussi !</item>
-		<item>Enchanté de faire votre connaissance !</item>
-	</string-array>
 	<string name="rmd_EPr_alerts_header">Paramètres de rappel</string>
 	<string name="rmd_EPr_alerts_summary">Heures de repos, options de report, niveau de persistance</string>
 	<string name="rmd_EPr_enabled_title">Activer les rappels ?</string>

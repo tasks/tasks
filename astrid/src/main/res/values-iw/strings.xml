@@ -443,30 +443,6 @@
 	<string name="rmd_NoA_snooze">השתק</string>
 	<string name="rmd_NoA_completed_toast">איחולי על השלמת המשימה!</string>
 	<string name="rmd_NoA_dlg_title">תזכורת:</string>
-	<string-array name="rmd_reengage_notif_titles">
-		<item>הודעה מ-Tasks</item>
-		<item>מזכר עבור %s</item>
-		<item>תמצית מ-משימות</item>
-		<item>תזכורות ממשימות</item>
-	</string-array>
-	<string name="rmd_reengage_add_tasks">הוסף משימה</string>
-	<string-array name="rmd_reengage_dialog_options">
-		<item>הגיע הזמן לקצר את רשימת המשימות שלך!</item>
-		<item>אדון או גברת יקרה, ישנן כמה משימות שמחכות שתבחנו אותם!</item>
-		<item>שלום לך, תוכל להעיף מבט על אלה?</item>
-		<item>יש לי כמה משימות ששמך מתנוסס עליהן!</item>
-		<item>ערימה חדשה של משימות עבורך היום!</item>
-		<item>אתה נראה נהדר! מוכן להתחיל לעבוד?</item>
-		<item>אני חושב שהיום הוא יום מצויין כדי לעבוד קצת!</item>
-	</string-array>
-	<string-array name="rmd_reengage_dialog_empty_options">
-		<item>אתה לא מתכוון להתחיל להתארגן?</item>
-		<item>שמי משימות ואני אעזור לך לעשות יותר דברים!</item>
-		<item>אתה נראה עסוק! תן לי להקל עליך.</item>
-		<item>אני יכולה לעזור לך לארגן את כל הדברים הקטנים שבחייך.</item>
-		<item>רציני/ת לגבי להספיק לעשות יותר דברים? גם אני!</item>
-		<item>נעים להכיר!</item>
-	</string-array>
 	<string name="rmd_EPr_alerts_header">הגדרות תזכורת</string>
 	<string name="rmd_EPr_alerts_summary">שעות שקטות, אשפרויות נימנום, רמת המשכות</string>
 	<string name="rmd_EPr_enabled_title">\?תזכורות מאופשרות</string>

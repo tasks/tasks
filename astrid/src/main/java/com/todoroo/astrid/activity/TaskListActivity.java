@@ -511,8 +511,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
      * Report who launched this activity
      */
     protected void trackActivitySource() {
-        switch (getIntent().getIntExtra(TOKEN_SOURCE,
-                Constants.SOURCE_DEFAULT)) {
+        switch (getIntent().getIntExtra(TOKEN_SOURCE, Constants.SOURCE_DEFAULT)) {
         case Constants.SOURCE_NOTIFICATION:
             break;
         case Constants.SOURCE_OTHER:
@@ -523,7 +522,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
             break;
         case Constants.SOURCE_C2DM:
             break;
-        case Constants.SOURCE_REENGAGEMENT:
         }
         getIntent().putExtra(TOKEN_SOURCE, Constants.SOURCE_DEFAULT); // Only report source once
     }

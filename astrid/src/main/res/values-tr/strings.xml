@@ -376,30 +376,6 @@
 	<string name="rmd_NoA_snooze">Ertele</string>
 	<string name="rmd_NoA_completed_toast">Bitirdiğin için tebrikler!</string>
 	<string name="rmd_NoA_dlg_title">Hatırlatıcı:</string>
-	<string-array name="rmd_reengage_notif_titles">
-		<item>Tasks\'ten bir not</item>
-		<item>Bilgi notu: %s.</item>
-		<item>Tasks özetiniz</item>
-		<item>Tasks Hatırlatmaları</item>
-	</string-array>
-	<string name="rmd_reengage_add_tasks">Görev ekle</string>
-	<string-array name="rmd_reengage_dialog_options">
-		<item>Yapılacaklar listenizi kısaltmanın tam zamanı!</item>
-		<item>Sevgili iş bitirici, bazı görevler incelemeniz için beklemektedir!</item>
-		<item>Selamlar saygılar, şunlara hızlıca bir göz atabilir misin?</item>
-		<item>Üzerinde adınızın yazdığı bazı görevlerim var!</item>
-		<item>Bugün sizi yeni bir sürü görev bekliyor!</item>
-		<item>Akıl almaz görünüyorsun! Başlamaya hazır mısın?</item>
-		<item>Bazı işleri yola koymak için ne güzel bir gün, bence!</item>
-	</string-array>
-	<string-array name="rmd_reengage_dialog_empty_options">
-		<item>Daha düzenli olmak istemiyor musun?</item>
-		<item>Ben Tasks! Daha çalışkan olman için buradayım!</item>
-		<item>Meşgul görünüyorsun! Görevlerinden bazılarını listenden kaldırmama izin ver.</item>
-		<item>Hayatındaki tüm ayrıntıları izlemene yardımcı olabilirim.</item>
-		<item>İş bitirme konusunda oldukça ciddisin? Ben de!</item>
-		<item>Tanıştığımıza memnun oldum!</item>
-	</string-array>
 	<string name="rmd_EPr_alerts_header">Hatırlatıcı Ayarları</string>
 	<string name="rmd_EPr_alerts_summary">Sessiz saatler, erteleme seçenekleri, süreklilik düzeyi</string>
 	<string name="rmd_EPr_enabled_title">Hatırlatmalar etkin mi?</string>

@@ -6,11 +6,12 @@
 <!-- ************************************************************** -->
 <resources>
 	<string name="actfm_picture_camera">Naredi fotografijo</string>
-	<string name="actfm_picture_gallery">Izberi iz galerije</string>
+	<string name="actfm_picture_gallery">Izberi iz Galerije</string>
 	<string name="actfm_picture_clear">Izbriši fotografijo</string>
 	<string name="TVA_add_comment">Dodaj komentar...</string>
 	<string name="actfm_TVA_menu_refresh">Osveži</string>
 	<string name="actfm_TVA_tag_label">Seznam</string>
+	<string name="actfm_TVA_tag_picture">Seznami slik</string>
 	<string name="actfm_TVA_tag_name_hint">Vnesi ime seznama</string>
 	<string name="actfm_GAA_title">Izberi Google račun, ki naj se uporablja:</string>
 	<string name="alarm_ACS_label">Glasna opozorila</string>
@@ -88,13 +89,14 @@
 	<string name="TAd_contextCopyTask">Naredi kopijo opravka</string>
 	<string name="TAd_contextDeleteTask">Zbriši opravek</string>
 	<string name="TAd_contextUndeleteTask">Razveljavi izbris opravka</string>
+	<string name="TAd_contextPurgeTask">Očisti opravek</string>
 	<string name="SSD_hidden_title">Skriti opravki</string>
 	<string name="SSD_completed">Prikaži dokončane opravke</string>
 	<string name="SSD_hidden">Prikaži skrite opravke</string>
 	<string name="SSD_deleted">Prikaži zbrisane opravke</string>
 	<string name="SSD_sort_drag">Ročna nastavitev s podopravki</string>
 	<string name="SSD_sort_auto">Pametno razvrščanje</string>
-	<string name="SSD_sort_alpha">Po naslovu</string>
+	<string name="SSD_sort_alpha">Po nazivu</string>
 	<string name="SSD_sort_due">Po dospelosti</string>
 	<string name="SSD_sort_importance">Po prioriteti</string>
 	<string name="SSD_sort_modified">Po zadnjih spremembah</string>
@@ -135,8 +137,8 @@
 		<item>Jutri</item>
 		<item>(dan kasneje)</item>
 		<item>Naslednji teden</item>
-		<item>In two weeks</item>
-		<item>Next month</item>
+		<item>V roku dveh tednov</item>
+		<item>Naslednji mesec</item>
 	</string-array>
 	<string name="TEA_no_time">Čas ni določen</string>
 	<string-array name="TEA_hideUntil">
@@ -327,7 +329,7 @@
 	<string name="CFA_button_add">Dodaj merilo</string>
 	<string name="CFA_button_view">Prikaz</string>
 	<string name="CFA_button_save">Shrani &amp; prikaži</string>
-	<string name="CFC_dueBefore_text">Opraviti do:?</string>
+	<string name="CFC_dueBefore_text">Opraviti do: ?</string>
 	<string name="CFC_dueBefore_name">Opraviti do:</string>
 	<string-array name="CFC_dueBefore_entries">
 		<item>Brez datuma dospelosti</item>
@@ -340,7 +342,7 @@
 	</string-array>
 	<string name="CFC_importance_text">Prioriteta namanj ?</string>
 	<string name="CFC_importance_name">Prioriteta...</string>
-	<string name="CFC_tag_text">Seznam:?</string>
+	<string name="CFC_tag_text">Seznam: ?</string>
 	<string name="CFC_tag_name">Seznam...</string>
 	<string name="CFC_tag_contains_name">Naziv seznama vsebuje...</string>
 	<string name="CFC_tag_contains_text">Naziv seznama vsebuje:?</string>
@@ -373,6 +375,7 @@
 	<string name="gtasks_error_authRefresh">Avtentikacija v Google Naloge ni uspela. Prosimo, preverite geslo svojega računa in poskusite ponovno kasneje.</string>
 	<string name="gtasks_error_accountManager">Napaka pri upravitelju računov na vašem telefonu. Prosimo, odjavite se, nato pa ponovno prijavite skozi nastavitve Google Nalog.</string>
 	<string name="gtasks_error_background_sync_auth">Napaka pri overjanju v ozadju. Prosimo, poskusite začeti z usklajevanjem med delovanjem aplikacije Opravki.</string>
+	<string name="locale_notification">$NUM jih ustreza: $FILTER</string>
 	<string name="EPr_powerpack_header">Napredne nastavitve</string>
 	<string name="EPr_powerpack_summary">Opomniki zgrešenih klicev, vnos glasu in razne nastavitve</string>
 	<string name="speech_err_network">Napaka na omrežju! Prepoznava govora za delovanje potrebuje omrežno povezavo.</string>
@@ -396,6 +399,7 @@
 	<string name="file_type_unhandled_title">Ni ustrezne aplikacije</string>
 	<string name="file_prefix_image">Slika</string>
 	<string name="file_prefix_voice">Glas</string>
+	<string name="file_browser_up">Gor</string>
 	<string name="file_browser_title">Izberite datoteko</string>
 	<string name="dir_browser_title">Izberite mapo</string>
 	<string name="file_browser_err_permissions">Napaka pri dovoljenjih! Prosimo, preverite, da niste preprečili aplikaciji Opravki dostopa do SD kartice.</string>
@@ -442,30 +446,6 @@
 	<string name="rmd_NoA_snooze">Dremež</string>
 	<string name="rmd_NoA_completed_toast">Čestitke za dokončanje!</string>
 	<string name="rmd_NoA_dlg_title">Opomnik:</string>
-	<string-array name="rmd_reengage_notif_titles">
-		<item>Obvestilo aplikacije Opravki</item>
-		<item>Sporočilo za %s.</item>
-		<item>Pozetek vaših Opravkov</item>
-		<item>Opomniki aplikacije Opravki</item>
-	</string-array>
-	<string name="rmd_reengage_add_tasks">Dodaj opravek</string>
-	<string-array name="rmd_reengage_dialog_options">
-		<item>Čas je, da skrajšate vaš seznam opravil!</item>
-		<item>Gospod ali gospa, nekaj opravkov čaka na vašo pozornost.</item>
-		<item>Živjo, tole bi bilo treba pregledati!</item>
-		<item>Imam nekaj opravkov zate!</item>
-		<item>Sveži paket današnjih opravkov zate.</item>
-		<item>Super izgledaš! Bova začela?</item>
-		<item>Lep dan za delo, bi rekel.</item>
-	</string-array>
-	<string-array name="rmd_reengage_dialog_empty_options">
-		<item>Si želiš več urejenosti?</item>
-		<item>Sem aplikacija Opravki! Tukaj sem, da vam pomagam pri produktivnosti!</item>
-		<item>Zdiš se, da imaš polne roke dela! Dovoli mi prestaviti nekatere opravke na kasneje.</item>
-		<item>Lahko ti pomagam slediti vsem podrobnostim tvojega življenja.</item>
-		<item>Res želiš narediti več? Jaz tudi!</item>
-		<item>Me veseli, da sva se spoznala!</item>
-	</string-array>
 	<string name="rmd_EPr_alerts_header">Nastavitve opomnika</string>
 	<string name="rmd_EPr_alerts_summary">Tihi čas, možnosti dremeža, stopnja vztrajnosti</string>
 	<string name="rmd_EPr_enabled_title">Opomniki omogočeni?</string>
@@ -624,6 +604,7 @@
 		<item>od datuma dospelosti</item>
 		<item>od datuma dokončanja</item>
 	</string-array>
+	<string name="repeat_detail_byday">$I dne $D</string>
 	<string name="repeat_detail_duedate">Vsak %s</string>
 	<string name="repeat_detail_duedate_until">Vsak %1$s\n do  %2$s</string>
 	<string name="repeat_detail_completion">%s po dokončanju</string>
@@ -667,6 +648,8 @@
 	<string name="EPr_voiceInputUnavailable_dlg">Vnos glasu žal ni na razpolago vašemu sistemu.\n Če je mogoče, nadgradite svojega Androida vsaj na verzijo 2.1.</string>
 	<string name="EPr_marketUnavailable_dlg">Trg žal ne podpira vašega sistema.\n Poskusite naložiti glasovno iskanje z drugega vira.</string>
 	<string name="EPr_voiceInputEnabled_title">Vnos glasu</string>
+	<string name="EPr_voiceInputEnabled_desc_enabled">Gumb za vnos glasu bo prikazan s seznamom opravkov</string>
+	<string name="EPr_voiceInputEnabled_desc_disabled">Gumb za vnos glasu ne bo viden ob seznamu opravkov</string>
 	<string name="EPr_voiceInputCreatesTask_title">Opravke ustvari neposredno</string>
 	<string name="EPr_voiceInputCreatesTask_desc_enabled">Opravki bodo ustvarjeni na podlagi snemanja glasu</string>
 	<string name="EPr_voiceInputCreatesTask_desc_disabled">Naziv opravka lahko uredite, ko se konča vnos glasu</string>

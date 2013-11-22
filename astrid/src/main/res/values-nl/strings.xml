@@ -440,30 +440,6 @@
 	<string name="rmd_NoA_snooze">Sluimeren...</string>
 	<string name="rmd_NoA_completed_toast">Gefeliciteerd met het afronden!</string>
 	<string name="rmd_NoA_dlg_title">Herinnering:</string>
-	<string-array name="rmd_reengage_notif_titles">
-		<item>Een bericht van Tasks</item>
-		<item>Bericht voor %s</item>
-		<item>Uw takenoverzicht</item>
-		<item>Herinneringen van Tasks</item>
-	</string-array>
-	<string name="rmd_reengage_add_tasks">Taak toevoegen</string>
-	<string-array name="rmd_reengage_dialog_options">
-		<item>Het is tijd om je to-do lijst op te schonen!</item>
-		<item>Sommige taken vereisen jouw aandacht!</item>
-		<item>Hallo, zou je hier naar kunnen kijken?</item>
-		<item>Ik heb een aantal taken met jouw naam erop!</item>
-		<item>Een nieuwe lading taken voor jou om naar te kijken vandaag!</item>
-		<item>Je ziet er fantastisch uit! Klaar om te beginnen?</item>
-		<item>Ik denk dat het een fantastische dag is om wat werk gedaan te krijgen!</item>
-	</string-array>
-	<string-array name="rmd_reengage_dialog_empty_options">
-		<item>Zou je niet georganiseerd willen zijn?</item>
-		<item>Ik ben Tasks! Klaar om je te helpen meer voor elkaar te krijgen!</item>
-		<item>Bezige bij! Laat mij een paar taken van je overnemen.</item>
-		<item>Ik kan je helpen om alle details van je leven in de gaten te houden.</item>
-		<item>Dus jij wil echt meer voor elkaar krijgen? Ik ook!</item>
-		<item>Aangenaam kennis te maken!</item>
-	</string-array>
 	<string name="rmd_EPr_alerts_header">Instellingen herinneringen</string>
 	<string name="rmd_EPr_alerts_summary">Rustige uren, snooze opties, niveau volhouden</string>
 	<string name="rmd_EPr_enabled_title">Herinneringen Ingeschakeld?</string>

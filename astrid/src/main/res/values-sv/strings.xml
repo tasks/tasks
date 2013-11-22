@@ -395,7 +395,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="rmd_NoA_snooze">Vänta...</string>
 	<string name="rmd_NoA_completed_toast">Grattis till den slutförda uppgiften!</string>
 	<string name="rmd_NoA_dlg_title">Påminnelse:</string>
-	<string name="rmd_reengage_add_tasks">Lägg till uppgift</string>
 	<string name="rmd_EPr_alerts_header">Påminnelseinställningar</string>
 	<string name="rmd_EPr_alerts_summary">Tysta timmar, snooze alternativ, envishets-nivå</string>
 	<string name="rmd_EPr_enabled_title">Påminnelser valda?</string>
