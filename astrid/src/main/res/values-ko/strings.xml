@@ -410,13 +410,8 @@
 	<string name="file_browser_err_permissions">권한 에러! 아스트리드가 SD 카드에 접근하는 것을 막지 않았는지 확인하세요.</string>
 	<string name="file_add_picture">그림 첨부하기</string>
 	<string name="file_add_sdcard">SD 카드에서 파일 첨부하기</string>
-	<string name="file_download_title">파일을 다운로드할까요?</string>
-	<string name="file_download_body">이 파일은 SD 카드로 다운로드되지 않았습니다. 지금 다운로드할까요?</string>
-	<string name="file_download_progress">다운로드 중...</string>
 	<string name="file_err_memory">이미지가 너무 커서 메모리에 올릴 수 없습니다</string>
 	<string name="file_err_copy">첨부용 파일 복사 에러</string>
-	<string name="file_err_download">파일 다운로드 에러</string>
-	<string name="file_err_no_directory">맙소사! 이 파일의 디렉토리가 없는 것 같습니다. Tasks 설정에서 파일을 저장할 디렉토리를 선택하세요.</string>
 	<string name="file_dir_dialog_ok">이 디렉토리 사용</string>
 	<string name="file_dir_dialog_default">기본값으로 초기화</string>
 	<string name="p_files_dir">프리미엄 다운로드 디렉토리</string>

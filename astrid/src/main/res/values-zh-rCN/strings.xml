@@ -332,13 +332,8 @@
 	<string name="file_browser_err_permissions">权限出错！请确保您没有阻止清单小助理访问 SD 卡。</string>
 	<string name="file_add_picture">附上一幅图片</string>
 	<string name="file_add_sdcard">附上一份来自您 SD 卡的文件</string>
-	<string name="file_download_title">要下载文件吗？</string>
-	<string name="file_download_body">这份文件还没有下载到您的 SD 卡上。要现在下载吗？</string>
-	<string name="file_download_progress">正在下载……</string>
 	<string name="file_err_memory">图片太大，无法存入内存</string>
 	<string name="file_err_copy">复制文件添加附件时出错</string>
-	<string name="file_err_download">下载文件时出错</string>
-	<string name="file_err_no_directory">糟糕！这个文件目录似乎并不存在。请在清单小助理设置中选择目录以存放文件。</string>
 	<string name="file_dir_dialog_ok">使用此目录</string>
 	<string name="file_dir_dialog_default">重设为默认值</string>
 	<string name="p_files_dir">高级下载设置</string>

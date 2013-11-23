@@ -351,13 +351,8 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="file_browser_err_permissions">Errore di autorizzazioni! Assicurati di non aver bloccato l\'accesso alla scheda SD da parte di Tasks</string>
 	<string name="file_add_picture">Allega una foto</string>
 	<string name="file_add_sdcard">Allega un file dalla tua scheda SD</string>
-	<string name="file_download_title">Vuoi scaricare il file?</string>
-	<string name="file_download_body">Questo file non è stato ancora scaricato nella scheda SD. Vuoi scaricarlo ora?</string>
-	<string name="file_download_progress">Download in corso...</string>
 	<string name="file_err_memory">L\'immagine è troppo grande per la memoria disponibile</string>
 	<string name="file_err_copy">Errore di copia dei file da allegare</string>
-	<string name="file_err_download">Errore nel download del file</string>
-	<string name="file_err_no_directory">Whoops! Sembra che la directory non esista. Scegliere nelle Preferenze di Tasks una directory dove salvare i file .</string>
 	<string name="file_dir_dialog_ok">Utilizza questa directory</string>
 	<string name="file_dir_dialog_default">Ripristino impostazioni iniziali</string>
 	<string name="p_files_dir">Cartella download Premium</string>

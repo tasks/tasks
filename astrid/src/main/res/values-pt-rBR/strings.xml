@@ -369,13 +369,8 @@
 	<string name="file_browser_err_permissions">Erro de permissões! Certifique-se de que você não bloqueou o Tasks de acessar o cartão SD.</string>
 	<string name="file_add_picture">Anexe uma imagem</string>
 	<string name="file_add_sdcard">Anexe um arquivo do seu cartão SD</string>
-	<string name="file_download_title">Baixar arquivo?</string>
-	<string name="file_download_body">Este arquivo não foi baixado para seu cartão SD. Baixar agora?</string>
-	<string name="file_download_progress">Baixando...</string>
 	<string name="file_err_memory">A imagem é muito grande para caber na memória</string>
 	<string name="file_err_copy">Erro ao copiar o arquivo para o anexo</string>
-	<string name="file_err_download">Erro na transferência do arquivo</string>
-	<string name="file_err_no_directory">Ops! Parece que este diretório de arquivos não existe. Por favor escolha um diretório para salvar os arquivos nas preferências do Tasks.</string>
 	<string name="file_dir_dialog_ok">Usar este diretório</string>
 	<string name="file_dir_dialog_default">Restaurar padrões</string>
 	<string name="p_files_dir">Diretório de downloads Premium</string>

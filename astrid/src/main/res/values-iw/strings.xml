@@ -404,13 +404,8 @@
 	<string name="file_browser_err_permissions">הרשאות לא מספיקות! אנא בדוק שלא חסמת את אסטריד מלגשת לכרטיס הזיכרון</string>
 	<string name="file_add_picture">צרף תמונה</string>
 	<string name="file_add_sdcard">צרף קובץ מכרטיס הזיכרון</string>
-	<string name="file_download_title">להוריד קובץ?</string>
-	<string name="file_download_body">קובץ זה לא הורד אל כרטיס הזיכרון. להוריד כעת?</string>
-	<string name="file_download_progress">מורידה...</string>
 	<string name="file_err_memory">תמונה זו גדולה מכדי להכנס לזכרון...</string>
 	<string name="file_err_copy">שגיאה בהעתקת הקובץ המצורף</string>
-	<string name="file_err_download">שגיאה בהורדת הקובץ</string>
-	<string name="file_err_no_directory">אווופס! נראה שהקבצים מהתיקייה לא קיימים. יש לבחור תיקייה לשמירת הקבצים אליה בהעדפות אסטריד.</string>
 	<string name="file_dir_dialog_ok">השתמש בתיקיה זו</string>
 	<string name="file_dir_dialog_default">אפס לברירת מחדל</string>
 	<string name="p_files_dir">תיקיית הורדות פרימיום</string>

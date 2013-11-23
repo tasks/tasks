@@ -364,13 +364,8 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="file_browser_err_permissions">Behörighets fel! Vänligen kontrollera att du inte blockat Tasks från att komma åt SD-kortet.</string>
 	<string name="file_add_picture">Bifoga en bild</string>
 	<string name="file_add_sdcard">Bifoga en fil från SD-kortet</string>
-	<string name="file_download_title">Ladda ned fil?</string>
-	<string name="file_download_body">Den här filen har inte laddats ned till ditt SD-kort. Ladda ned nu?</string>
-	<string name="file_download_progress">Laddar ned...</string>
 	<string name="file_err_memory">Bilden är för stor och får inte plats i minnet</string>
 	<string name="file_err_copy">Bifoga fil misslyckades: fel vid kopiering</string>
-	<string name="file_err_download">Nedladdning av filen misslyckades</string>
-	<string name="file_err_no_directory">Ogiltig sökväg. Vänligen ange en sökväg för att spara filer i Taskss inställningar.</string>
 	<string name="file_dir_dialog_ok">Använd denna mapp</string>
 	<string name="file_dir_dialog_default">Återställ till standard</string>
 	<string name="p_files_dir">Mapp för Premium-nedladdningar</string>

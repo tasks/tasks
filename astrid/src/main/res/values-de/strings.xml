@@ -386,13 +386,8 @@
 	<string name="file_browser_err_permissions">Konnte nicht auf die SD-Karte zugreifen. Bitte stellen Sie sicher, das sie den Zugriff auf sie SD Karte nicht eingeschränkt haben.</string>
 	<string name="file_add_picture">Ein Bild anhängen</string>
 	<string name="file_add_sdcard">Eine Datei von der SD-Karte anhängen</string>
-	<string name="file_download_title">Datei herunterladen?</string>
-	<string name="file_download_body">Diese Daten befindet sich noch nicht auf Ihrer SD-Karte. Wollen Sie sie herunterladen ?</string>
-	<string name="file_download_progress">Herunterladen...</string>
 	<string name="file_err_memory">Das Bild ist zu groß um dekodiert zu werden</string>
 	<string name="file_err_copy">Fehler beim Kopieren der angehängten Datei</string>
-	<string name="file_err_download">Fehler beim Herunterladen</string>
-	<string name="file_err_no_directory">Hoppla! Sieht aus wie die Dateien Verzeichnis nicht vorhanden ist. Bitte wählen Sie ein Verzeichnis, um Dateien in den Tasks-Einstellungen zu speichern.</string>
 	<string name="file_dir_dialog_ok">Verwenden Sie dieses Verzeichnis</string>
 	<string name="file_dir_dialog_default">Auf Standardeinstellungen zurücksetzen</string>
 	<string name="p_files_dir">Premium-Downloadverzeichnis</string>

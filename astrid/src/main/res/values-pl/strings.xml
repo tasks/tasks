@@ -394,13 +394,8 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="file_browser_err_permissions">Błąd dostępu! Proszę upewnić się, że Tasks nie ma zablokowanego dostępu do karty SD.</string>
 	<string name="file_add_picture">Dodaj obrazek</string>
 	<string name="file_add_sdcard">Dodaj plik z karty SD</string>
-	<string name="file_download_title">Pobrać plik?</string>
-	<string name="file_download_body">Ten plik nie został pobrany na kartę SD. Chcesz pobrać teraz?</string>
-	<string name="file_download_progress">Pobieranie...</string>
 	<string name="file_err_memory">Grafika jest zbyt duża; za mało pamięci</string>
 	<string name="file_err_copy">Błąd kopiowania pliku do załącznika</string>
-	<string name="file_err_download">Błąd przy pobieraniu pliku</string>
-	<string name="file_err_no_directory">Ups! Wygląda na to że katalog plików nie istnieje. Wybierz proszę katalog do zapisu plików w Ustawieniach Tasks</string>
 	<string name="file_dir_dialog_ok">Użycie tego katalogu</string>
 	<string name="file_dir_dialog_default">Przywróć ustawienia domyślne</string>
 	<string name="p_files_dir">Katalog pobranych plików Premium</string>

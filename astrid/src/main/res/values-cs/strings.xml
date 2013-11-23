@@ -312,12 +312,8 @@
 	<string name="file_browser_err_permissions">Chyba oprávnění! Ujistěte se prosím, že jste Tasks nezabránil v přístupu k SD kartě.</string>
 	<string name="file_add_picture">Připojit obrázek</string>
 	<string name="file_add_sdcard">Připojit soubor z SD karty</string>
-	<string name="file_download_title">Stáhnout soubor?</string>
-	<string name="file_download_body">Soubor nebyl stažen na SD kartu. Stáhnout nyní?</string>
-	<string name="file_download_progress">Stahuji...</string>
 	<string name="file_err_memory">Obrázek se nevejde do paměti</string>
 	<string name="file_err_copy">Chyba při kopírování souboru jako přílohy</string>
-	<string name="file_err_download">Chyba při stahování souboru</string>
 	<string name="TEA_reminders_group_label">Upomínky</string>
 	<string name="TEA_reminder_label">Upozorni mě...</string>
 	<string name="TEA_reminder_due">Při termínu</string>

@@ -399,13 +399,8 @@
 	<string name="file_browser_err_permissions">Bestandsrechtenfout! Let erop dat Tasks toegang heeft tot de SD-kaart.</string>
 	<string name="file_add_picture">Afbeelding toevoegen</string>
 	<string name="file_add_sdcard">Bestand toevoegen vanaf SD-kaart</string>
-	<string name="file_download_title">Bestand downloaden?</string>
-	<string name="file_download_body">Dit bestand bevindt zich nog niet op de SD-kaart. Nu downloaden?</string>
-	<string name="file_download_progress">Bezig met downloaden...</string>
 	<string name="file_err_memory">Afbeelding past niet in het geheugen</string>
 	<string name="file_err_copy">Fout bij kopiëren toe te voegen bestand</string>
-	<string name="file_err_download">Fout bij downloaden bestand</string>
-	<string name="file_err_no_directory">Oeps! Het ziet er naar uit dat de bestanden directory niet bestaat. Kies een directory om bestanden op te slaan in de Tasks Voorkeuren.</string>
 	<string name="file_dir_dialog_ok">Gebruik deze directory.</string>
 	<string name="file_dir_dialog_default">Stel opnieuw in naar standaardinstellingen</string>
 	<string name="p_files_dir">Premium downloads map</string>

@@ -405,13 +405,8 @@
 	<string name="file_browser_err_permissions">Napaka pri dovoljenjih! Prosimo, preverite, da niste preprečili aplikaciji Opravki dostopa do SD kartice.</string>
 	<string name="file_add_picture">Pripni sliko</string>
 	<string name="file_add_sdcard">Pripni datoteko z SD kartice</string>
-	<string name="file_download_title">Snamem datoteko?</string>
-	<string name="file_download_body">Datotka ni bila naložena na SD kartico. Naložim sedaj?</string>
-	<string name="file_download_progress">Nalagam...</string>
 	<string name="file_err_memory">Slika prevelika za pomnilnik</string>
 	<string name="file_err_copy">Napaka pri kopiranju datoteke za priponko</string>
-	<string name="file_err_download">Napaka pri snemanju datoteke</string>
-	<string name="file_err_no_directory">Ups! Zdi se, da mapa z datotekami ne obstaja. Prosimo, izberite mapo za shranjevanje datotek v prednostnih nastavitvah.</string>
 	<string name="file_dir_dialog_ok">Uporabi to mapo</string>
 	<string name="file_dir_dialog_default">Ponastavi na privzeto</string>
 	<string name="p_files_dir">Mapa za posebna snemanja</string>

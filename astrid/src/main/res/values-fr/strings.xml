@@ -397,13 +397,8 @@
 	<string name="file_browser_err_permissions">Erreur de permissions ! Assurez-vous qu\'Tasks à le droit d\'accéder à la carte SD.</string>
 	<string name="file_add_picture">Joindre une photo</string>
 	<string name="file_add_sdcard">Joindre un fichier à partir de votre carte SD</string>
-	<string name="file_download_title">Télécharger le fichier ?</string>
-	<string name="file_download_body">Ce fichier n\'a pas été téléchargé vers votre carte SD. Souhaitez-vous le télécharger maintenant ?</string>
-	<string name="file_download_progress">Téléchargement en cours...</string>
 	<string name="file_err_memory">L\'image est trop lourde pour la mémoire</string>
 	<string name="file_err_copy">Erreur lors de la copie du fichier à joindre</string>
-	<string name="file_err_download">Erreur lors du téléchargement du fichier</string>
-	<string name="file_err_no_directory">Oups ! Il semble que le dossier n\'existe pas. Veuillez choisir un autre dossier dans les préférences d\'Tasks pour sauvegarder les fichiers.</string>
 	<string name="file_dir_dialog_ok">Utiliser ce dossier</string>
 	<string name="file_dir_dialog_default">Rétablir les valeurs par défaut</string>
 	<string name="p_files_dir">Dossier de téléchargements premium</string>

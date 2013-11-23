@@ -7,7 +7,6 @@ package com.todoroo.astrid.files;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -46,10 +45,6 @@ import com.todoroo.astrid.utility.Constants;
 import org.tasks.R;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class FilesControlSet extends PopupControlSet {
@@ -160,7 +155,12 @@ public class FilesControlSet extends PopupControlSet {
             View name = fileRow.findViewById(R.id.file_text);
             View clearFile = fileRow.findViewById(R.id.remove_file);
 
-            setupFileClickListener(name, m);
+            name.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showFile(m);
+                }
+            });
 
             clearFile.setVisibility(View.VISIBLE);
             clearFile.setOnClickListener(new OnClickListener() {
@@ -186,31 +186,6 @@ public class FilesControlSet extends PopupControlSet {
                             finalList.removeView(fileRow);
                         }
                     }, null);
-                }
-            });
-        }
-    }
-
-    private void setupFileClickListener(View view, final TaskAttachment m) {
-        final String filePath = m.containsNonNullValue(TaskAttachment.FILE_PATH) ? m.getValue(TaskAttachment.FILE_PATH) : null;
-        if (TextUtils.isEmpty(filePath)) {
-            view.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    DialogUtilities.okCancelDialog(activity, activity.getString(R.string.file_download_title),
-                            activity.getString(R.string.file_download_body), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface d, int which) {
-                            downloadFile(m);
-                        }
-                    });
-                }
-            });
-        } else {
-            view.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showFile(m);
                 }
             });
         }
@@ -308,99 +283,6 @@ public class FilesControlSet extends PopupControlSet {
                 }
             }
         });
-    }
-
-    private void downloadFile(final TaskAttachment m) {
-        final ProgressDialog pd = new ProgressDialog(activity);
-        pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        pd.setMessage(activity.getString(R.string.file_download_progress));
-        pd.setMax(100);
-
-        new Thread() {
-            @Override
-            public void run() {
-                String urlString = m.getValue(TaskAttachment.URL);
-                urlString = urlString.replace(" ", "%20");
-                String name = m.getValue(TaskAttachment.NAME);
-                StringBuilder filePathBuilder = new StringBuilder();
-
-                File directory = FileUtilities.getAttachmentsDirectory(activity);
-
-                if (directory == null) {
-                    Toast.makeText(activity, R.string.file_err_no_directory, Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-                filePathBuilder.append(directory.toString())
-                    .append(File.separator)
-                    .append(name);
-
-                File file = new File(filePathBuilder.toString());
-                if (file.exists()) {
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(activity, R.string.file_err_download, Toast.LENGTH_LONG).show();
-                        }
-                    });
-                    return;
-                }
-
-                try {
-                    URL url = new URL(urlString);
-
-                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                    urlConnection.setRequestMethod("GET");
-
-                    urlConnection.connect();
-
-                    FileOutputStream fileOutput = new FileOutputStream(file);
-
-                    InputStream inputStream = urlConnection.getInputStream();
-
-                    int totalSize = urlConnection.getContentLength();
-
-                    int downloadedSize = 0;
-
-                    byte[] buffer = new byte[1024];
-
-                    int bufferLength; //used to store a temporary size of the buffer
-
-                    while ((bufferLength = inputStream.read(buffer)) > 0) {
-                        fileOutput.write(buffer, 0, bufferLength);
-                        downloadedSize += bufferLength;
-
-                        int progress = downloadedSize*100/totalSize;
-                        pd.setProgress(progress);
-                    }
-
-                    fileOutput.flush();
-                    fileOutput.close();
-
-                    m.setValue(TaskAttachment.FILE_PATH, file.getAbsolutePath());
-                    taskAttachmentDao.saveExisting(m);
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            refreshMetadata();
-                            showFile(m);
-                        }
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    file.delete();
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(activity, R.string.file_err_download, Toast.LENGTH_LONG).show();
-                        }
-                    });
-                } finally {
-                    DialogUtilities.dismissDialog(activity, pd);
-                }
-            }
-        }.start();
-        pd.show();
     }
 
     private void setUpFileRow(TaskAttachment m, View row, LinearLayout parent, LayoutParams lp) {

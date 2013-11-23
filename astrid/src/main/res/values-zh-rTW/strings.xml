@@ -354,13 +354,8 @@
 	<string name="file_browser_err_permissions">權限出錯！請確保您沒有阻止Tasks訪問SD 卡。</string>
 	<string name="file_add_picture">附上一幅圖片</string>
 	<string name="file_add_sdcard">附上一份來自您 SD 卡的文件</string>
-	<string name="file_download_title">要下載文件嗎？</string>
-	<string name="file_download_body">這份文件還沒有下載到您的SD 卡上。要現在下載嗎？</string>
-	<string name="file_download_progress">正在下載……</string>
 	<string name="file_err_memory">圖片太大，無法存入內存</string>
 	<string name="file_err_copy">複製文件添加附件時出錯</string>
-	<string name="file_err_download">下載文件時出錯</string>
-	<string name="file_err_no_directory">糟糕！這個文件目錄似乎並不存在。請在Tasks 設置中選擇目錄以存放文件。</string>
 	<string name="file_dir_dialog_ok">使用此目錄</string>
 	<string name="file_dir_dialog_default">重設為默認值</string>
 	<string name="p_files_dir">高級下載設置</string>

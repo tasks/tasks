@@ -401,13 +401,8 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="file_browser_err_permissions">¡Permiso denegado! Por favor asegúrese permitir a Tasks el acceso a la tarjeta SD.</string>
 	<string name="file_add_picture">Adjuntar una imagen</string>
 	<string name="file_add_sdcard">Adjuntar un archivo desde su tarjeta SD</string>
-	<string name="file_download_title">¿Descargar archivo?</string>
-	<string name="file_download_body">Este archivo se ha descargado a su tarjeta SD. ¿Descargar ahora?</string>
-	<string name="file_download_progress">Descargando...</string>
 	<string name="file_err_memory">La imagen es muy grande para caber en la memoria</string>
 	<string name="file_err_copy">Error al copiar el archivo a adjuntar</string>
-	<string name="file_err_download">Error al descargar el archivo</string>
-	<string name="file_err_no_directory">¡Oops! Al parecer la carpeta de archivos no existe. Por favor elije una carpeta para guardar archivos en Preferencias de Tasks</string>
 	<string name="file_dir_dialog_ok">Usar este directorio</string>
 	<string name="file_dir_dialog_default">Restaurar a valores por defecto</string>
 	<string name="p_files_dir">Directorio de descargas Premium</string>
