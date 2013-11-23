@@ -41,8 +41,6 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskAttachment;
-import com.todoroo.astrid.files.FileUtilities;
 import com.todoroo.astrid.gcal.GCalControlSet;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.repeats.RepeatControlSet;
@@ -53,7 +51,6 @@ import com.todoroo.astrid.voice.VoiceRecognizer;
 import org.tasks.R;
 
 import java.util.HashSet;
-import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Quick Add Bar lets you add tasks.
@@ -72,8 +69,6 @@ public class QuickAddBar extends LinearLayout {
     private DeadlineControlSet deadlineControl;
     private RepeatControlSet repeatControl;
     private GCalControlSet gcalControl;
-
-    private String currentVoiceFile = null;
 
     @Autowired ExceptionService exceptionService;
     @Autowired
@@ -243,7 +238,6 @@ public class QuickAddBar extends LinearLayout {
         deadlineControl.readFromTask(empty);
     }
 
-
     // --- quick add task logic
 
     /**
@@ -294,18 +288,6 @@ public class QuickAddBar extends LinearLayout {
                 } else if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
                     showAlertForRepeatingTask(activity, task);
                 }
-            }
-
-            if (currentVoiceFile != null) {
-
-                AtomicReference<String> nameRef = new AtomicReference<>();
-                String path = FileUtilities.getNewAudioAttachmentPath(activity, nameRef);
-
-                voiceRecognizer.convert(path);
-                currentVoiceFile = null;
-
-                TaskAttachment attachment = TaskAttachment.createNewAttachment(task.getUuid(), path, nameRef.get(), TaskAttachment.FILE_TYPE_AUDIO + "m4a");
-                taskAttachmentDao.createNew(attachment);
             }
 
             fragment.onTaskCreated(task);
@@ -389,19 +371,14 @@ public class QuickAddBar extends LinearLayout {
             return true;
         }
 
-
         return false;
     }
-
 
     public VoiceRecognizer getVoiceRecognizer() {
         return voiceRecognizer;
     }
     public void startVoiceRecognition() {
-        if (VoiceRecognizer.speechRecordingAvailable(activity) && currentVoiceFile == null) {
-            currentVoiceFile = Long.toString(DateUtilities.now());
-        }
-        voiceRecognizer.startVoiceRecognition(activity, fragment, currentVoiceFile);
+        voiceRecognizer.startVoiceRecognition(activity, fragment, Long.toString(DateUtilities.now()));
     }
 
     public void setupRecognizerApi() {
