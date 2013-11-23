@@ -237,8 +237,6 @@
 		<item>제목을 한줄에만</item>
 	</string-array>
 	<string name="EPr_task_row_style_title">가로줄 스타일: %s</string>
-	<string name="EPr_use_filters_title">필터 사용하기</string>
-	<string name="EPr_use_filters_subtitle">사용자 필터를 만들어 봅시다</string>
 	<string name="EPr_show_quickadd_controls">고급 빠른추가 조정</string>
 	<string name="EPr_hide_plus_button">플러스 버튼 감추기</string>
 	<string name="EPr_menu_items">메뉴 항목</string>

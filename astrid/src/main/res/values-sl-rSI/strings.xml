@@ -237,8 +237,6 @@
 		<item>Enovrstični naziv</item>
 	</string-array>
 	<string name="EPr_task_row_style_title">Slog vrstice:%s</string>
-	<string name="EPr_use_filters_title">Uporabi filtre</string>
-	<string name="EPr_use_filters_subtitle">Omogoči filtre po meri</string>
 	<string name="EPr_show_quickadd_controls">Napredni kontrolniki za hitro dodajanje</string>
 	<string name="EPr_hide_plus_button">Skrij gumb s plusom</string>
 	<string name="EPr_menu_items">Predmeti na seznamu</string>

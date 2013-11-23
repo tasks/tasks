@@ -294,9 +294,6 @@
   <!-- on calendar end at dealline if true, start at deadline if false -->
   <string name="p_end_at_deadline">p_end_at_deadline</string>
   
-  <!-- whether custom filters are enabled -->
-  <string name="p_use_filters">p_use_filters</string>
-
   <string-array name="EPr_default_addtocalendar_values">
     <!-- addtocalendar: labels that map EPr_default_addtocalendar items to calendar selection in settings. -->
     <item>-1</item>

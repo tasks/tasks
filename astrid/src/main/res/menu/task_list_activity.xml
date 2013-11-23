@@ -43,8 +43,7 @@
         android:id="@+id/menu_new_filter"
         android:showAsAction="never"
         android:title="@string/FLA_new_filter"
-        android:icon="@drawable/icn_menu_filters"
-        android:visible="false"/>
+        android:icon="@drawable/icn_menu_filters"/>
     <item
         android:id="@+id/menu_settings"
         android:showAsAction="never"

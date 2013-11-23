@@ -66,13 +66,9 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
     private Filter[] buildSavedFilters(Context context, Resources r) {
         int themeFlags = ThemeService.getFilterThemeFlags();
 
-        boolean useCustomFilters = Preferences.getBoolean(R.string.p_use_filters, true);
         StoreObjectDao dao = PluginServices.getStoreObjectDao();
-        TodorooCursor<StoreObject> cursor = null;
-        if (useCustomFilters) {
-            cursor = dao.query(Query.select(StoreObject.PROPERTIES).where(
-                    StoreObject.TYPE.eq(SavedFilter.TYPE)).orderBy(Order.asc(SavedFilter.NAME)));
-        }
+        TodorooCursor<StoreObject> cursor = dao.query(Query.select(StoreObject.PROPERTIES).where(
+                StoreObject.TYPE.eq(SavedFilter.TYPE)).orderBy(Order.asc(SavedFilter.NAME)));
         try {
             ArrayList<Filter> list = new ArrayList<>();
 
@@ -90,7 +86,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
                 list.add(recent);
             }
 
-            if (useCustomFilters && cursor != null) {
+            if (cursor != null) {
                 StoreObject savedFilter = new StoreObject();
                 for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                     savedFilter.readFromCursor(cursor);

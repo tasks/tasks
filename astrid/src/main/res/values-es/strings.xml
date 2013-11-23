@@ -234,8 +234,6 @@
 		<item>Single line title only</item>
 	</string-array>
 	<string name="EPr_task_row_style_title">Estilo de fila: %s</string>
-	<string name="EPr_use_filters_title">Usar filtros</string>
-	<string name="EPr_use_filters_subtitle">Permite crear filtros personalizados</string>
 	<string name="EPr_show_quickadd_controls">Controles avanzados de adiciona rápida</string>
 	<string name="EPr_hide_plus_button">Ocultar botón de adición</string>
 	<string name="EPr_menu_items">Objetos del menú</string>

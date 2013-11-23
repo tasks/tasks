@@ -232,8 +232,6 @@
 		<item>Title only</item>
 	</string-array>
 	<string name="EPr_task_row_style_title">Стиль стрічки: %s</string>
-	<string name="EPr_use_filters_title">Використовувати фільтри</string>
-	<string name="EPr_use_filters_subtitle">Дозволяє створювати власні фільтри</string>
 	<string name="EPr_show_quickadd_controls">Розширені можливості швидкого додавання</string>
 	<string name="EPr_hide_plus_button">Прибрати кнопку плюс</string>
 	<string name="EPr_menu_items">Елементи меню</string>

@@ -231,8 +231,6 @@
 		<item>שורת כותרת פשוטה בלבד</item>
 	</string-array>
 	<string name="EPr_task_row_style_title">סגנון שורה: %s</string>
-	<string name="EPr_use_filters_title">השתמש בְּמַסְנְנִים</string>
-	<string name="EPr_use_filters_subtitle">מאפשר לך ליצור מַסְנְנִים מותאמים אישית</string>
 	<string name="EPr_show_quickadd_controls">בקרת הוספה מהירה מתקדם</string>
 	<string name="EPr_hide_plus_button">הסתר את כפתור ה-פלוס</string>
 	<string name="EPr_menu_items">פריטי תפריט</string>

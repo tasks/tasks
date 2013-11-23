@@ -225,8 +225,6 @@
 		<item>Einzeilig, nur Titel</item>
 	</string-array>
 	<string name="EPr_task_row_style_title">Zeilenart: %s</string>
-	<string name="EPr_use_filters_title">Filter nutzen</string>
-	<string name="EPr_use_filters_subtitle">Hiermit können Sie benutzerdefinierte Filter erstellen</string>
 	<string name="EPr_show_quickadd_controls">Erweiterte Einstellungen für Schnelleingabe</string>
 	<string name="EPr_hide_plus_button">Verstecke den +-Knopf</string>
 	<string name="EPr_menu_items">Menüeinträge</string>

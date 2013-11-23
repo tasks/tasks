@@ -522,10 +522,6 @@
   <!-- task row style title (%s -> style) -->
   <string name="EPr_task_row_style_title">Row style: %s</string>
   
-  <!-- Preference: custom filters enabled -->
-  <string name="EPr_use_filters_title">Use filters</string>
-  <string name="EPr_use_filters_subtitle">Lets you create custom filters</string>
-
   <!-- Preference: simple input box style -->
   <string name="EPr_show_quickadd_controls">Advanced quickadd controls</string>
 

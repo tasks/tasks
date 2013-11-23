@@ -224,8 +224,6 @@
 		<item>Tytuł tylko w jednej linii</item>
 	</string-array>
 	<string name="EPr_task_row_style_title">Styl wiersza: %s</string>
-	<string name="EPr_use_filters_title">Użyj filtrów</string>
-	<string name="EPr_use_filters_subtitle">Pozwala stworzyć własne filtry</string>
 	<string name="EPr_show_quickadd_controls">Zaawansowane kontrolki szybkiego dodawania</string>
 	<string name="EPr_menu_items">Pozycje menu</string>
 	<string name="EPr_list_view">Widok listy</string>

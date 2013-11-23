@@ -233,8 +233,6 @@
 		<item>Enkele regel enkel titel</item>
 	</string-array>
 	<string name="EPr_task_row_style_title">Regel stijl %s</string>
-	<string name="EPr_use_filters_title">Gebruik filters</string>
-	<string name="EPr_use_filters_subtitle">Laat je aangepaste filters creëren</string>
 	<string name="EPr_show_quickadd_controls">Geavanceerde snel toevoegen controls</string>
 	<string name="EPr_hide_plus_button">Verberg plus knop</string>
 	<string name="EPr_list_view">Lijst weergave</string>
