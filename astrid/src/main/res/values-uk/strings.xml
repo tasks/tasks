@@ -234,7 +234,6 @@
 	<string name="EPr_task_row_style_title">Стиль стрічки: %s</string>
 	<string name="EPr_show_quickadd_controls">Розширені можливості швидкого додавання</string>
 	<string name="EPr_hide_plus_button">Прибрати кнопку плюс</string>
-	<string name="EPr_menu_items">Елементи меню</string>
 	<string name="EPr_list_view">Вигляд списку</string>
 	<string name="EPr_show_task_edit_comments">Показувати коментарі в редакторі завдання</string>
 	<string name="EPr_taskRowPrefs_title">Зовнішній вигляд завдань у списку</string>

@@ -528,9 +528,6 @@
   <!-- Preference: don't show plus button until input present -->
   <string name="EPr_hide_plus_button">Hide plus button</string>
 
-  <!-- Preference: menu items -->
-  <string name="EPr_menu_items">Menu items</string>
-
   <!-- Preference: list view -->
   <string name="EPr_list_view">List view</string>
 

@@ -239,7 +239,6 @@
 	<string name="EPr_task_row_style_title">가로줄 스타일: %s</string>
 	<string name="EPr_show_quickadd_controls">고급 빠른추가 조정</string>
 	<string name="EPr_hide_plus_button">플러스 버튼 감추기</string>
-	<string name="EPr_menu_items">메뉴 항목</string>
 	<string name="EPr_list_view">목록 보기</string>
 	<string name="EPr_show_task_edit_comments">일정 편집에서 댓글 보기</string>
 	<string name="EPr_taskRowPrefs_title">일정 표시줄 보기 설정</string>

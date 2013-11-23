@@ -82,21 +82,6 @@
         </PreferenceScreen>
         
         <PreferenceScreen android:title="@string/EPr_list_view" android:key="@string/p_list_view">
-            <PreferenceScreen android:title="@string/EPr_menu_items" android:key="@string/p_menu_items">
-	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	                android:key="@string/p_show_menu_search"
-	                android:title="@string/TLA_menu_search"
-	                android:defaultValue="true" />
-	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	                android:key="@string/p_show_menu_sync"
-	                android:title="@string/TLA_menu_sync"
-	                android:defaultValue="true"/>
-	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	                android:key="@string/p_show_menu_sort"
-	                android:title="@string/TLA_menu_sort"
-	                android:defaultValue="true"/>
-            </PreferenceScreen>
-        
 	        <PreferenceScreen android:title="@string/EPr_filters_to_show_title" android:key="@string/p_filters_to_show">
 	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
 	                android:key="@string/p_show_my_tasks_filter"

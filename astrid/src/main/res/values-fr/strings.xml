@@ -232,7 +232,6 @@
 	<string name="EPr_task_row_style_title">Style de ligne : %s</string>
 	<string name="EPr_show_quickadd_controls">Contrôles d\'ajouts rapides avancés</string>
 	<string name="EPr_hide_plus_button">Masquer le bouton \"+\"</string>
-	<string name="EPr_menu_items">Eléments de menu</string>
 	<string name="EPr_list_view">Vue sous forme de liste</string>
 	<string name="EPr_show_task_edit_comments">Afficher les commentaires dans l\'édition de tâches</string>
 	<string name="EPr_taskRowPrefs_title">Style des lignes de tâche</string>

@@ -70,12 +70,6 @@
   <!-- show save and cancel buttons in task edit -->
   <string name="p_save_and_cancel">p_save_and_cancel</string>
   
-  <!-- menu items to show -->
-  <string name="p_menu_items">p_menu_items</string>
-  <string name="p_show_menu_search">p_show_menu_search</string>
-  <string name="p_show_menu_sync">p_show_menu_sync</string>
-  <string name="p_show_menu_sort">p_show_menu_sort</string>
-
   <string-array name="TEA_reminder_random_hours">
     <!-- values (in hours) associated with items above. -->
     <item>1</item>

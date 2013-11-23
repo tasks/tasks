@@ -397,12 +397,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
         findPreference(getString(R.string.p_hide_plus_button)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
 
-        int[] menuPrefs = { R.string.p_show_menu_search, R.string.p_show_menu_sync, R.string.p_show_menu_sort,
-        };
-        for (int key : menuPrefs) {
-            findPreference(getString(key)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
-        }
-
         findPreference(getString(R.string.p_use_dark_theme_widget)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {

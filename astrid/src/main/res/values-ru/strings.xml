@@ -229,7 +229,6 @@
 	</string-array>
 	<string name="EPr_task_row_style_title">Стиль строки: %s</string>
 	<string name="EPr_show_quickadd_controls">Расширенные возможности быстрого добавления</string>
-	<string name="EPr_menu_items">Элементы меню</string>
 	<string name="EPr_list_view">Списком</string>
 	<string name="EPr_show_task_edit_comments">Показывать комментарии в редакторе задачи</string>
 	<string name="EPr_taskRowPrefs_title">Внешний вид задач в списке</string>

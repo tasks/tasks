@@ -160,15 +160,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
             menu.findItem(R.id.menu_clear_completed).setVisible(true);
             menu.findItem(R.id.menu_sort).setVisible(false);
         }
-        if(!Preferences.getBoolean(R.string.p_show_menu_search, true)) {
-            menu.findItem(R.id.menu_search).setVisible(false);
-        }
-        if(!Preferences.getBoolean(R.string.p_show_menu_sort, true)) {
-            menu.findItem(R.id.menu_sort).setVisible(false);
-        }
-        if(!Preferences.getBoolean(R.string.p_show_menu_sync, true)) {
-            menu.findItem(R.id.menu_sync).setVisible(false);
-        }
         return true;
     }
 

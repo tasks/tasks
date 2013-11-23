@@ -69,10 +69,6 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
         setPreference(prefs, editor, r, R.string.p_show_recently_modified_filter, true);
         setPreference(prefs, editor, r, R.string.p_show_not_in_list_filter, true);
 
-        setPreference(prefs, editor, r, R.string.p_show_menu_search, true);
-        setPreference(prefs, editor, r, R.string.p_show_menu_sync, true);
-        setPreference(prefs, editor, r, R.string.p_show_menu_sort, true);
-
         setPreference(prefs, editor, r, R.string.p_calendar_reminders, true);
 
         setPreference(prefs, editor, r, R.string.p_use_dark_theme, false);

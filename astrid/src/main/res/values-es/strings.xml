@@ -236,7 +236,6 @@
 	<string name="EPr_task_row_style_title">Estilo de fila: %s</string>
 	<string name="EPr_show_quickadd_controls">Controles avanzados de adiciona rápida</string>
 	<string name="EPr_hide_plus_button">Ocultar botón de adición</string>
-	<string name="EPr_menu_items">Objetos del menú</string>
 	<string name="EPr_list_view">Vista de listas</string>
 	<string name="EPr_show_task_edit_comments">Mostrar comentarios durante la edición de tareas</string>
 	<string name="EPr_taskRowPrefs_title">Apariencia de la fila de tareas</string>

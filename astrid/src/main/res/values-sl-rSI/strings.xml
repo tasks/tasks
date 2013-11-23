@@ -239,7 +239,6 @@
 	<string name="EPr_task_row_style_title">Slog vrstice:%s</string>
 	<string name="EPr_show_quickadd_controls">Napredni kontrolniki za hitro dodajanje</string>
 	<string name="EPr_hide_plus_button">Skrij gumb s plusom</string>
-	<string name="EPr_menu_items">Predmeti na seznamu</string>
 	<string name="EPr_list_view">Seznamski prikaz</string>
 	<string name="EPr_show_task_edit_comments">Prikaži opombe pri urejanju opravkov</string>
 	<string name="EPr_taskRowPrefs_title">Izgled vrstic z opravki</string>
