@@ -175,14 +175,6 @@ public class ThemeService {
             return R.drawable.ic_action_cancel_light;
         case R.drawable.ic_action_new_attachment:
             return R.drawable.ic_action_new_attachment_light;
-        case R.drawable.ic_action_gear:
-            return R.drawable.ic_action_gear_light;
-        case R.drawable.icn_menu_refresh:
-            return R.drawable.icn_menu_refresh_dark;
-        case R.drawable.icn_menu_filters:
-            return R.drawable.icn_menu_filters_dark;
-        case R.drawable.icn_menu_sort_by_size:
-            return R.drawable.icn_menu_sort_by_size_dark;
         case R.drawable.filter_calendar:
             return R.drawable.filter_calendar_dark;
         case R.drawable.filter_inbox:
