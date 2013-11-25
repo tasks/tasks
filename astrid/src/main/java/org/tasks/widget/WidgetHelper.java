@@ -38,11 +38,8 @@ import com.todoroo.astrid.widget.WidgetUpdateService;
 
 import org.tasks.R;
 
-import static android.content.Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET;
 import static android.content.Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
-import static android.content.Intent.FLAG_ACTIVITY_NO_HISTORY;
-import static android.content.Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP;
 
 public class WidgetHelper {
 
@@ -50,11 +47,7 @@ public class WidgetHelper {
         AstridDependencyInjector.initialize();
     }
 
-    public static int flags = FLAG_ACTIVITY_NEW_TASK
-            | FLAG_ACTIVITY_MULTIPLE_TASK
-            | FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET
-            | FLAG_ACTIVITY_NO_HISTORY
-            | FLAG_ACTIVITY_PREVIOUS_IS_TOP;
+    public static int flags = FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_MULTIPLE_TASK;
 
     public static void startWidgetService(Context context) {
         Class widgetServiceClass = android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH
