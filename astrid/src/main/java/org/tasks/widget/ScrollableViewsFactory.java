@@ -19,6 +19,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.activity.TaskEditFragment;
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
@@ -150,6 +151,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             Intent editIntent = new Intent();
             editIntent.setAction(TasksWidget.EDIT_TASK);
             editIntent.putExtra(TaskEditFragment.TOKEN_ID, task.getId());
+            editIntent.putExtra(TaskListActivity.OPEN_TASK, task.getId());
             row.setOnClickFillInIntent(R.id.text, editIntent);
 
             Intent completeIntent = new Intent();
