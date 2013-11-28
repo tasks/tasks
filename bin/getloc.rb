@@ -10,15 +10,18 @@ require 'clean_translations'
 # lang: Language code or 'master'
 
 PROJECT_NAME='tasks_android'
+LANGUAGE_MAP = {
+    "el" => "grk"
+}
 
 # Converts astrid language codes to GetLocalization language codes (which don't use -r)
 def astrid_code_to_getloc_code(lang)
-  lang.sub("-r", "-")
+    (LANGUAGE_MAP[lang] || lang).sub("-r", "-")
 end
 
 # Inverse of the above function
 def getloc_code_to_astrid_code(lang)
-  lang.sub("-", "-r")
+    (LANGUAGE_MAP.invert[lang] || lang).sub("-", "-r")
 end
 
 # Uploads files for the specified language to GetLocalization
