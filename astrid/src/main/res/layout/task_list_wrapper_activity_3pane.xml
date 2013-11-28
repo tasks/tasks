@@ -16,26 +16,24 @@
         android:layout_height="match_parent"
         android:background="?attr/asSeparatorBackground"/>
   
-	<LinearLayout
-	    android:id="@+id/right_column"
+    <!-- Task List -->
+	<FrameLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-	    android:layout_weight="40"
-	    android:orientation="vertical">
-        <!-- Task List -->
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="50"
-            android:id="@+id/tasklist_fragment_container" />	    
-	    
-        <!-- Task Edit -->
-		<FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/taskedit_fragment_container"
-            android:visibility="gone" />
-	  
-    </LinearLayout>
+        android:layout_weight="60"
+        android:id="@+id/tasklist_fragment_container" />
+  
+	<View 
+        android:layout_width="1px"
+        android:layout_height="match_parent"
+        android:background="?attr/asSeparatorBackground"/>
+  
+    <!-- Task Edit -->
+	<FrameLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+        android:layout_weight="40"
+        android:id="@+id/taskedit_fragment_container"
+        android:visibility="invisible" />
   
 </LinearLayout>

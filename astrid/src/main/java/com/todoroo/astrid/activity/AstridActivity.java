@@ -62,7 +62,6 @@ public class AstridActivity extends ActionBarActivity
 
     public static final int LAYOUT_SINGLE = 0;
     public static final int LAYOUT_DOUBLE = 1;
-    public static final int LAYOUT_TRIPLE = 2;
 
     public static final int RESULT_RESTART_ACTIVITY = 50;
 
@@ -135,7 +134,7 @@ public class AstridActivity extends ActionBarActivity
             Filter filter = (Filter)item;
 
             Bundle extras = configureIntentAndExtrasWithFilter(intent, filter);
-            if (fragmentLayout == LAYOUT_TRIPLE && getTaskEditFragment() != null) {
+            if (fragmentLayout == LAYOUT_DOUBLE && getTaskEditFragment() != null) {
                 onBackPressed(); // remove the task edit fragment when switching between lists
             }
             setupTasklistFragmentWithFilter(filter, extras);
@@ -170,7 +169,7 @@ public class AstridActivity extends ActionBarActivity
             return;
         }
 
-        if (fragmentLayout == LAYOUT_TRIPLE) {
+        if (fragmentLayout == LAYOUT_DOUBLE) {
             findViewById(R.id.taskedit_fragment_container).setVisibility(View.VISIBLE);
         }
         FragmentManager manager = getSupportFragmentManager();
@@ -358,7 +357,7 @@ public class AstridActivity extends ActionBarActivity
     }
 
     /**
-     * @return LAYOUT_SINGLE, LAYOUT_DOUBLE, or LAYOUT_TRIPLE
+     * @return LAYOUT_SINGLE or LAYOUT_DOUBLE
      */
     public int getFragmentLayout() {
         return fragmentLayout;

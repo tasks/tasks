@@ -48,9 +48,7 @@ public class TaskEditActivity extends AstridActivity {
 
         Fragment frag = getSupportFragmentManager()
                 .findFragmentByTag(TaskListFragment.TAG_TASKLIST_FRAGMENT);
-        if (frag != null) {
-            fragmentLayout = LAYOUT_DOUBLE;
-        } else {
+        if (frag == null) {
             fragmentLayout = LAYOUT_SINGLE;
         }
     }

@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.activity;
 
-import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.SearchManager;
@@ -20,13 +19,11 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.CommentsFragment;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.actfm.TagViewFragment;
@@ -92,14 +89,8 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setLogo(null);
 
-        if(AndroidUtilities.isTabletSized(this)) {
-            menuDrawer = MenuDrawer.attach(this, MenuDrawer.Type.STATIC);
-            menuDrawer.setDropShadowEnabled(false);
-            actionBar.setDisplayHomeAsUpEnabled(false);
-        } else {
-            menuDrawer = MenuDrawer.attach(this, MenuDrawer.Type.OVERLAY);
-            menuDrawer.setDrawerIndicatorEnabled(true);
-        }
+        menuDrawer = MenuDrawer.attach(this, MenuDrawer.Type.OVERLAY);
+        menuDrawer.setDrawerIndicatorEnabled(true);
         menuDrawer.setContentView(contentView);
         // cannot use full screen until next menudrawer release
         // menuDrawer.setTouchMode(MenuDrawer.TOUCH_MODE_FULLSCREEN);
@@ -189,26 +180,13 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         updateFilterModeSpec(filterMode);
 
         if(editFragment != null) {
-            if(editFragment.getVisibility() == View.INVISIBLE) {
-                fragmentLayout = LAYOUT_TRIPLE;
-            } else {
-                fragmentLayout = LAYOUT_DOUBLE;
-                if (AndroidUtilities.getSdkVersion() >= 11) {
-                    setupLayoutTransitions();
-                }
-            }
+            fragmentLayout = LAYOUT_DOUBLE;
         } else {
             fragmentLayout = LAYOUT_SINGLE;
         }
 
         setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0,
                 filterModeSpec.getFilterListClass()));
-    }
-
-    private void setupLayoutTransitions() {
-        LayoutTransition transition = new LayoutTransition();
-        ViewGroup container = (ViewGroup) findViewById(R.id.right_column);
-        container.setLayoutTransition(transition);
     }
 
     private void setupPopoverWithFragment(Fragment frag) {
@@ -242,7 +220,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     public void setupActivityFragment(TagData tagData) {
         super.setupActivityFragment(tagData);
 
-        if (fragmentLayout == LAYOUT_TRIPLE) {
+        if (fragmentLayout == LAYOUT_DOUBLE) {
             View container = findViewById(R.id.taskedit_fragment_container);
             if (container != null) {
                 container.setVisibility(View.VISIBLE);
@@ -343,9 +321,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         // manage task edit visibility
         View taskeditFragmentContainer = findViewById(R.id.taskedit_fragment_container);
         if(taskeditFragmentContainer != null && taskeditFragmentContainer.getVisibility() == View.VISIBLE) {
-            if(fragmentLayout == LAYOUT_DOUBLE) {
-                findViewById(R.id.taskedit_fragment_container).setVisibility(View.GONE);
-            }
             Flags.set(Flags.TLA_DISMISSED_FROM_TASK_EDIT);
             onPostResume();
 
