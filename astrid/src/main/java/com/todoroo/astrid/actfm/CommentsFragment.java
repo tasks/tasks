@@ -11,7 +11,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.support.v7.app.ActionBar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -37,7 +36,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
-import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.dao.UserActivityDao;
@@ -49,7 +47,6 @@ import org.tasks.R;
 
 public abstract class CommentsFragment extends ListFragment {
 
-//    private TagData tagData;
     protected UpdateAdapter updateAdapter;
     protected EditText addCommentField;
     protected ViewGroup listHeader;
@@ -60,9 +57,6 @@ public abstract class CommentsFragment extends ListFragment {
     protected Bitmap picture = null;
 
     public static final String TAG_UPDATES_FRAGMENT = "tagupdates_fragment"; //$NON-NLS-1$
-
-    //Append tag data remote id to this preference
-    public static final String UPDATES_LAST_VIEWED = "updates_last_viewed_"; //$NON-NLS-1$
 
     protected static final int MENU_REFRESH_ID = Menu.FIRST;
 
@@ -85,8 +79,6 @@ public abstract class CommentsFragment extends ListFragment {
     protected abstract void loadModelFromIntent(Intent intent);
 
     protected abstract boolean hasModel();
-
-    protected abstract String getModelName();
 
     protected abstract Cursor getCursor();
 
@@ -121,13 +113,6 @@ public abstract class CommentsFragment extends ListFragment {
     }
 
     protected void setUpUpdateList() {
-        if (getActivity() instanceof CommentsActivity) {
-            ActionBar ab = ((AstridActivity) getActivity()).getSupportActionBar();
-            String title = hasModel() ? getString(R.string.tag_updates_title, getModelName())
-                    : getString(R.string.TLA_all_activity);
-            ab.setTitle(title);
-        }
-
         final ImageButton commentButton = (ImageButton) getView().findViewById(R.id.commentButton);
         addCommentField = (EditText) getView().findViewById(R.id.commentField);
         addCommentField.setOnEditorActionListener(new OnEditorActionListener() {
@@ -218,10 +203,6 @@ public abstract class CommentsFragment extends ListFragment {
         }
 
         listView.setVisibility(View.VISIBLE);
-
-        if (activity instanceof CommentsActivity) {
-            setLastViewed();
-        }
     }
 
     private void addFooterToListView(ListView listView) {
@@ -229,10 +210,6 @@ public abstract class CommentsFragment extends ListFragment {
             listView.removeFooterView(footerView);
         }
         footerView = null;
-    }
-
-    protected void setLastViewed() {
-        //
     }
 
     @Override

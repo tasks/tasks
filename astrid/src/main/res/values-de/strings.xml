@@ -72,7 +72,6 @@
 		<item>mittlere Priorität</item>
 		<item>niedrige Priorität</item>
 	</string-array>
-	<string name="TLA_all_activity">Alle Aktivitäten</string>
 	<string name="TAd_hiddenFormat">%s [versteckt]</string>
 	<string name="TAd_deletedFormat">%s [gelöscht]</string>
 	<string name="TAd_completed">Abgeschlossen\n%s</string>
@@ -116,8 +115,6 @@
 	<string name="TEA_elapsedDuration_label">Zeit, die schon für die Aufgabe gebraucht wurde</string>
 	<string name="TEA_menu_save">Änderungen speichern</string>
 	<string name="TEA_menu_discard">Nicht speichern</string>
-	<string name="TEA_menu_refresh_comments">Kommentare aktualisieren</string>
-	<string name="TEA_menu_comments">Kommentare</string>
 	<string name="TEA_tab_activity">Aktivität</string>
 	<string-array name="TEA_urgency">
 		<item>Kein Datum</item>
@@ -607,7 +604,6 @@
 	<string name="TEA_tags_deleted">Löschen der Liste %1$s beeinflusste %2$d Aufgaben</string>
 	<string name="TEA_tags_renamed">%1$s umbennant nach %2$s für %3$d Aufgaben</string>
 	<string name="tag_settings_title">Listeneinstellungen</string>
-	<string name="tag_updates_title">Aktivität: %s</string>
 	<string name="TPl_notification">Timer ist aktiv für %s!</string>
 	<string name="TFE_workingOn">Zeitlich festgelegte Aufgaben</string>
 	<string name="TEA_timer_comment_started">Aufgabe begonnen:</string>

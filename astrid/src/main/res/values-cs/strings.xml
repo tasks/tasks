@@ -112,7 +112,6 @@
 	<string name="TEA_elapsedDuration_label">Jak dlouho už na úkolu pracujete</string>
 	<string name="TEA_menu_save">Uložit změny</string>
 	<string name="TEA_menu_discard">Neukládat</string>
-	<string name="TEA_menu_comments">Komentáře</string>
 	<string name="TEA_tab_activity">Činnost</string>
 	<string-array name="TEA_urgency">
 		<item>Bez termínu</item>

@@ -78,7 +78,6 @@
 		<item>prioridad media</item>
 		<item>prioridad baja</item>
 	</string-array>
-	<string name="TLA_all_activity">Toda la actividad</string>
 	<string name="TAd_hiddenFormat">%s [oculto]</string>
 	<string name="TAd_deletedFormat">%s [borrado]</string>
 	<string name="TAd_completed">Terminado\n%s</string>
@@ -122,8 +121,6 @@
 	<string name="TEA_elapsedDuration_label">Tiempo ya empleado en la tarea</string>
 	<string name="TEA_menu_save">Guardar cambios</string>
 	<string name="TEA_menu_discard">No guardar</string>
-	<string name="TEA_menu_refresh_comments">Actualizar comentarios</string>
-	<string name="TEA_menu_comments">Comentarios</string>
 	<string name="TEA_tab_activity">Actividad</string>
 	<string name="TEA_timer_est">Estimado %s</string>
 	<string name="TEA_timer_elap">Transcurrido %s</string>
@@ -622,7 +619,6 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="TEA_tags_deleted">La lista %1$s fue eliminada, afectando %2$d tareas</string>
 	<string name="TEA_tags_renamed">Renombrada %1$s como %2$s en %3$d tareas</string>
 	<string name="tag_settings_title">Configuración de lista</string>
-	<string name="tag_updates_title">Actividad: %s</string>
 	<string name="TPl_notification">Temporizadores activos para %s!</string>
 	<string name="TFE_workingOn">Tareas que se están cronometrando</string>
 	<string name="TEA_timer_controls">Temporizador</string>

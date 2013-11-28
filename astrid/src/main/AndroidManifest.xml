@@ -375,10 +375,6 @@
             android:windowSoftInputMode="stateHidden"
             android:theme="@style/Tasks.Dialog" />
 
-        <activity
-            android:name="com.todoroo.astrid.actfm.CommentsActivity"
-            android:windowSoftInputMode="stateHidden" />
-
         <!-- gtasks -->
         <activity
             android:name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity"

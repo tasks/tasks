@@ -77,7 +77,6 @@
 		<item>中等优先级</item>
 		<item>低优先级</item>
 	</string-array>
-	<string name="TLA_all_activity">所有活动</string>
 	<string name="TAd_hiddenFormat">%s [已隐藏]</string>
 	<string name="TAd_deletedFormat">%s [已删除]</string>
 	<string name="TAd_completed">完成\n%s 项</string>
@@ -112,7 +111,6 @@
 	<string name="TEA_elapsedDuration_label">已用于任务的时间</string>
 	<string name="TEA_menu_save">保存更改</string>
 	<string name="TEA_menu_discard">不保存</string>
-	<string name="TEA_menu_comments">注释</string>
 	<string name="TEA_tab_activity">活动</string>
 	<string-array name="TEA_urgency">
 		<item>No date</item>
@@ -543,7 +541,6 @@
 	<string name="TEA_tags_deleted">列表 %1$s 已删除，影响了 %2$d 项任务</string>
 	<string name="TEA_tags_renamed">%3$d 项任务由 %1$s 重命名为 %2$s。</string>
 	<string name="tag_settings_title">设置：</string>
-	<string name="tag_updates_title">活跃程度：%s</string>
 	<string name="TPl_notification">秒表启动了 %s！</string>
 	<string name="TFE_workingOn">任务已开始计时</string>
 	<string name="TEA_timer_comment_started">已经开始了这项任务：</string>

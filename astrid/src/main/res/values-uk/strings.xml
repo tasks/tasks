@@ -81,7 +81,6 @@
 		<item>середній пріоритет</item>
 		<item>низький пріоритет</item>
 	</string-array>
-	<string name="TLA_all_activity">Вся діяльність</string>
 	<string name="TAd_hiddenFormat">%s [приховано]</string>
 	<string name="TAd_deletedFormat">%s [видалено]</string>
 	<string name="TAd_completed">Завершено\n%s</string>
@@ -125,8 +124,6 @@
 	<string name="TEA_elapsedDuration_label">Час вже потрачео</string>
 	<string name="TEA_menu_save">Зберегти зміни</string>
 	<string name="TEA_menu_discard">Не зберігати зміни</string>
-	<string name="TEA_menu_refresh_comments">Оновити коментарі</string>
-	<string name="TEA_menu_comments">Коментарі</string>
 	<string name="TEA_tab_activity">Активність</string>
 	<string name="TEA_timer_est">Зал. %s</string>
 	<string name="TEA_timer_elap">Час, що минув %s</string>

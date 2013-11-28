@@ -50,8 +50,6 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmCameraModule;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
-import com.todoroo.astrid.actfm.CommentsActivity;
-import com.todoroo.astrid.actfm.TaskCommentsFragment;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
@@ -150,8 +148,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     private static final int MENU_SAVE_ID = R.string.TEA_menu_save;
     private static final int MENU_DISCARD_ID = R.string.TEA_menu_discard;
-    private static final int MENU_COMMENTS_REFRESH_ID = R.string.TEA_menu_refresh_comments;
-    private static final int MENU_SHOW_COMMENTS_ID = R.string.TEA_menu_comments;
     private static final int MENU_ATTACH_ID = R.string.premium_attach_file;
     private static final int MENU_RECORD_ID = R.string.premium_record_audio;
     private static final int MENU_DELETE_TASK_ID = R.string.delete_task;
@@ -933,16 +929,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         case MENU_DELETE_TASK_ID:
             deleteButtonClick();
             return true;
-        case MENU_COMMENTS_REFRESH_ID: {
-            return true;
-        }
-        case MENU_SHOW_COMMENTS_ID: {
-            Intent intent = new Intent(getActivity(), CommentsActivity.class);
-            intent.putExtra(TaskCommentsFragment.EXTRA_TASK, model.getId());
-            startActivity(intent);
-            AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
-            return true;
-        }
         case android.R.id.home:
             if (title.getText().length() == 0) {
                 discardButtonClick();

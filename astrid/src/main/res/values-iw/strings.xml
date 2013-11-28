@@ -78,7 +78,6 @@
 		<item>עדיפות בינונית</item>
 		<item>עדיפות נמוכה</item>
 	</string-array>
-	<string name="TLA_all_activity">כל הפעילות</string>
 	<string name="TAd_hiddenFormat">%s [מוסתרת]</string>
 	<string name="TAd_deletedFormat">%s [נמחקה]</string>
 	<string name="TAd_completed">הסתיימה\n%s</string>
@@ -122,8 +121,6 @@
 	<string name="TEA_elapsedDuration_label">זמן שכבר הושקע במשימה</string>
 	<string name="TEA_menu_save">שמירת השינויים</string>
 	<string name="TEA_menu_discard">לא לשמור</string>
-	<string name="TEA_menu_refresh_comments">רַעְנֵן הערות</string>
-	<string name="TEA_menu_comments">הערות</string>
 	<string name="TEA_tab_activity">פעילות</string>
 	<string name="TEA_timer_elap">זמן שעבר %s</string>
 	<string-array name="TEA_urgency">
@@ -621,7 +618,6 @@
 	<string name="TEA_tags_deleted">\"הרשימה %1$s נמחקה,  %2$d משימות השתנו\"</string>
 	<string name="TEA_tags_renamed">\"החלפתי את  %1$s ב %2$s עבור %3$d משימות\"</string>
 	<string name="tag_settings_title">הגדרות רשימה:</string>
-	<string name="tag_updates_title">פעילות: %s</string>
 	<string name="TPl_notification">קוצב זמן הופעל עבור %s משימות</string>
 	<string name="TFE_workingOn">משימות עם הערכת זמן</string>
 	<string name="TEA_timer_controls">טיימר</string>

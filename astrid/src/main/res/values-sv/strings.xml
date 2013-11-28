@@ -73,7 +73,6 @@
 		<item>medelhög prioritet</item>
 		<item>låg prioritet</item>
 	</string-array>
-	<string name="TLA_all_activity">Alla händelser</string>
 	<string name="TAd_hiddenFormat">%s [dold]</string>
 	<string name="TAd_deletedFormat">%s [raderad]</string>
 	<string name="TAd_completed">Avslutad\n%s</string>
@@ -113,8 +112,6 @@
 	<string name="TEA_elapsedDuration_label">Tid redan spenderad på uppgiften</string>
 	<string name="TEA_menu_save">Spara ändringar</string>
 	<string name="TEA_menu_discard">Spara inte</string>
-	<string name="TEA_menu_refresh_comments">Uppdatera kommentarer</string>
-	<string name="TEA_menu_comments">Kommentarer</string>
 	<string name="TEA_tab_activity">Aktivitet</string>
 	<string-array name="TEA_urgency">
 		<item>No date</item>
@@ -565,7 +562,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="TEA_tags_deleted">Listan %1$s raderad. Det påverkar %2$d uppgifter</string>
 	<string name="TEA_tags_renamed">Bytte namn på %1$s till %2$s för %3$d uppgifter</string>
 	<string name="tag_settings_title">Settings:</string>
-	<string name="tag_updates_title">Aktivitet: %s</string>
 	<string name="TPl_notification">Tidtagarur aktivt för %s!</string>
 	<string name="TFE_workingOn">Uppgifter med tidtagning</string>
 	<string name="TEA_timer_comment_started">påbörjade uppgiften:</string>

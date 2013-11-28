@@ -107,9 +107,6 @@
       <item>low priority</item>
   </string-array>
 
-  <!-- slide 22a -->
-  <string name="TLA_all_activity">All Activity</string>
-
   <!-- ====================================================== TaskAdapter == -->
   
   <!-- Format string to indicate task is hidden (%s => task name) -->
@@ -249,11 +246,6 @@
   
   <!-- Menu: Don't Save -->
   <string name="TEA_menu_discard">Don\'t Save</string>
-  
-  <!-- Menu: Task comments -->
-  <string name="TEA_menu_refresh_comments">Refresh comments</string>
-
-  <string name="TEA_menu_comments">Comments</string>
   
   <!-- slide 15b: Task edit tab: activity -->
   <string name="TEA_tab_activity">Activity</string>

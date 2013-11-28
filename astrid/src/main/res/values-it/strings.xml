@@ -75,7 +75,6 @@
 		<item>priorità media</item>
 		<item>priorità bassa</item>
 	</string-array>
-	<string name="TLA_all_activity">Tutte le Attività</string>
 	<string name="TAd_hiddenFormat">%s [Nascosto]</string>
 	<string name="TAd_deletedFormat">%s [eliminato]</string>
 	<string name="TAd_completed">Terminata\n%s</string>
@@ -111,7 +110,6 @@
 	<string name="TEA_elapsedDuration_label">Tempo già speso per l\'attività</string>
 	<string name="TEA_menu_save">Salva le modifiche</string>
 	<string name="TEA_menu_discard">Non salvare</string>
-	<string name="TEA_menu_comments">Commenti</string>
 	<string name="TEA_tab_activity">Attività</string>
 	<string-array name="TEA_urgency">
 		<item>No date</item>
@@ -502,7 +500,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="TEA_tags_deleted">Lista %1$s è stata cancellata, interressate %2$d attività</string>
 	<string name="TEA_tags_renamed">Rinominato %1$s in %2$s per le attivitá %3$d</string>
 	<string name="tag_settings_title">Settings:</string>
-	<string name="tag_updates_title">Attività: %s</string>
 	<string name="TPl_notification">Timer attivi per %s!</string>
 	<string name="TFE_workingOn">Attività cronometrate</string>
 	<string name="TEA_timer_comment_started">inizio attività</string>

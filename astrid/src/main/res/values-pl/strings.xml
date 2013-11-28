@@ -74,7 +74,6 @@
 		<item>średni priorytet</item>
 		<item>Niski priorytet</item>
 	</string-array>
-	<string name="TLA_all_activity">Cała aktywność</string>
 	<string name="TAd_hiddenFormat">%s [ukryte]</string>
 	<string name="TAd_deletedFormat">%s [usunięte]</string>
 	<string name="TAd_completed">Ukończono\n%s</string>
@@ -116,8 +115,6 @@
 	<string name="TEA_elapsedDuration_label">Czas dotychczas spędzony nad tym zadaniem</string>
 	<string name="TEA_menu_save">Zapisz zmiany</string>
 	<string name="TEA_menu_discard">Nie zapisuj</string>
-	<string name="TEA_menu_refresh_comments">Odśwież komentarze</string>
-	<string name="TEA_menu_comments">Komentarze</string>
 	<string name="TEA_tab_activity">Aktywność</string>
 	<string-array name="TEA_urgency">
 		<item>Brak daty</item>
@@ -610,7 +607,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="TEA_tags_deleted">Lista %1$s została usunięta, mających wpływ na %2$d zadań</string>
 	<string name="TEA_tags_renamed">Zmiana nazwy %1$s z %2$s dla %3$d zadań</string>
 	<string name="tag_settings_title">Settings:</string>
-	<string name="tag_updates_title">Aktywności: %s</string>
 	<string name="TPl_notification">Minutnkiki aktywne przez %s!</string>
 	<string name="TFE_workingOn">Zadania zostały spracyzowane czasowo</string>
 	<string name="TEA_timer_controls">Minutnik</string>

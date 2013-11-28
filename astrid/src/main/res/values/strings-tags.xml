@@ -52,7 +52,4 @@
   <!-- Header for tag settings -->
   <string name="tag_settings_title">List Settings</string>
   
-  <!-- Header for tag activity -->
-  <string name="tag_updates_title">Activity: %s</string>
-
 </resources>

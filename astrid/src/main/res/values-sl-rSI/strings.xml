@@ -80,7 +80,6 @@
 		<item>srednja prioriteta</item>
 		<item>nizka prioriteta</item>
 	</string-array>
-	<string name="TLA_all_activity">Vse dejavnosti</string>
 	<string name="TAd_hiddenFormat">%s [skrit]</string>
 	<string name="TAd_deletedFormat">%s [zbrisan]</string>
 	<string name="TAd_completed">Opravljen\n%s</string>
@@ -125,8 +124,6 @@
 	<string name="TEA_elapsedDuration_label">Porabljen čas</string>
 	<string name="TEA_menu_save">Shrani spremembe</string>
 	<string name="TEA_menu_discard">Ne shrani</string>
-	<string name="TEA_menu_refresh_comments">Osveži opombe</string>
-	<string name="TEA_menu_comments">Opombe</string>
 	<string name="TEA_tab_activity">Dejavnost</string>
 	<string name="TEA_timer_est">Cca. %s</string>
 	<string name="TEA_timer_elap">%s je potekel</string>
@@ -626,7 +623,6 @@
 	<string name="TEA_tags_deleted">Seznam %1$s je bil zbrisan, kar je vplivalo na naslednje število opravkov %2$d </string>
 	<string name="TEA_tags_renamed">Preimenoval %1$s v %2$s za%3$d opravkov</string>
 	<string name="tag_settings_title">Nastavitve seznamov</string>
-	<string name="tag_updates_title">Dejavnost: %s</string>
 	<string name="TPl_notification">Merilniki časa aktivni za %s!</string>
 	<string name="TFE_workingOn">Opravki katerim se meri čas</string>
 	<string name="TEA_timer_controls">Merilnik časa</string>

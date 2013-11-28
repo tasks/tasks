@@ -74,7 +74,6 @@
 		<item>orta öncelik</item>
 		<item>düşük öncelik</item>
 	</string-array>
-	<string name="TLA_all_activity">Tüm Etkinlik</string>
 	<string name="TAd_hiddenFormat">%s [gizli]</string>
 	<string name="TAd_deletedFormat">%s [silinmiş]</string>
 	<string name="TAd_completed">Bitti\n%s</string>
@@ -109,7 +108,6 @@
 	<string name="TEA_elapsedDuration_label">Görev üzerinde çalışılan zaman</string>
 	<string name="TEA_menu_save">Değişiklikleri Kaydet</string>
 	<string name="TEA_menu_discard">Kaydetme</string>
-	<string name="TEA_menu_comments">Yorumlar</string>
 	<string name="TEA_tab_activity">Etkinlik</string>
 	<string-array name="TEA_urgency">
 		<item>No date</item>
@@ -556,7 +554,6 @@
 	<string name="TEA_tags_deleted">%1$s listesi, %2$d görevlerini etkileyecek şekilde silindi</string>
 	<string name="TEA_tags_renamed">%1$s yeniden %3$d görevleri için %2$s olarak isimlendirildi.</string>
 	<string name="tag_settings_title">Liste Ayarları:</string>
-	<string name="tag_updates_title">Etkinlik: %s</string>
 	<string name="TPl_notification">%s için kronometre etkin!</string>
 	<string name="TFE_workingOn">Zaman Ölçümü Olan Görevler</string>
 	<string name="TEA_timer_comment_started">başlanan görev:</string>

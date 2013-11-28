@@ -97,7 +97,6 @@
 	<string name="TEA_elapsedDuration_label">既にタスクに費やした時間</string>
 	<string name="TEA_menu_save">変更の保存</string>
 	<string name="TEA_menu_discard">保存しない</string>
-	<string name="TEA_menu_comments">コメント</string>
 	<string name="TEA_tab_activity">活動</string>
 	<string-array name="TEA_urgency">
 		<item>No date</item>

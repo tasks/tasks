@@ -78,7 +78,6 @@
 		<item>средний приоритет</item>
 		<item>низкий приоритет</item>
 	</string-array>
-	<string name="TLA_all_activity">Вся активность</string>
 	<string name="TAd_hiddenFormat">%s [скрыта]</string>
 	<string name="TAd_deletedFormat">%s [удалена]</string>
 	<string name="TAd_completed">Завершена\n%s</string>
@@ -120,8 +119,6 @@
 	<string name="TEA_elapsedDuration_label">Время уже потраченное на задачу</string>
 	<string name="TEA_menu_save">Сохранить изменения</string>
 	<string name="TEA_menu_discard">Не сохранять</string>
-	<string name="TEA_menu_refresh_comments">Обновить комментарии</string>
-	<string name="TEA_menu_comments">Комментарии</string>
 	<string name="TEA_tab_activity">Действия</string>
 	<string-array name="TEA_urgency">
 		<item>Без даты</item>
@@ -612,7 +609,6 @@
 	<string name="TEA_tags_deleted">Список %1$s был удален, затронуло %2$d задач</string>
 	<string name="TEA_tags_renamed">Переименовано %1$s в %2$s для %3$d задач</string>
 	<string name="tag_settings_title">Настройки</string>
-	<string name="tag_updates_title">Активность: %s</string>
 	<string name="TPl_notification">Для %s действуют таймеры!</string>
 	<string name="TFE_workingOn">Задачи для замера времени</string>
 	<string name="TEA_timer_controls">Таймер</string>

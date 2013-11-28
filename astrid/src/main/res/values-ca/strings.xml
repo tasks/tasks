@@ -80,7 +80,6 @@
 		<item>prioritat mitjana</item>
 		<item>prioritat baixa</item>
 	</string-array>
-	<string name="TLA_all_activity">Tota l\'activitat</string>
 	<string name="TAd_hiddenFormat">%s [ocult]</string>
 	<string name="TAd_deletedFormat">%s [eliminat]</string>
 	<string name="TAd_completed">Acabat fa\n%s</string>
@@ -120,7 +119,6 @@
 	<string name="TEA_elapsedDuration_label">Temps que ja s\'ha invertit en la Tasca</string>
 	<string name="TEA_menu_save">Desa els canvis</string>
 	<string name="TEA_menu_discard">No ho desis</string>
-	<string name="TEA_menu_comments">Comentaris</string>
 	<string name="TEA_tab_activity">Activitat</string>
 	<string-array name="TEA_urgency">
 		<item>Sense venciment</item>
@@ -295,7 +293,6 @@
 	<string name="tag_cm_delete">Suprimeix la llista</string>
 	<string name="DLG_delete_this_tag_question">Voleu suprimir aquesta llista: %s? (no se suprimirà cap tasca.)</string>
 	<string name="tag_settings_title">Paràmetres:</string>
-	<string name="tag_updates_title">Activitat: %s</string>
 	<string name="TPl_notification">Temporitzadors actius per %s!</string>
 	<string name="TFE_workingOn">Tasques sent cronometrades</string>
 	<string name="TEA_timer_comment_started">inici d\'aquesta tasca:</string>

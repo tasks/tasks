@@ -81,7 +81,6 @@
 		<item>보통 순위</item>
 		<item>낮은 순위</item>
 	</string-array>
-	<string name="TLA_all_activity">모든 활동내역</string>
 	<string name="TAd_hiddenFormat">%s [숨김]</string>
 	<string name="TAd_deletedFormat">%s [지움]</string>
 	<string name="TAd_completed">일정 완료\n%s</string>
@@ -125,8 +124,6 @@
 	<string name="TEA_elapsedDuration_label">일정에 이미 소모한 시간</string>
 	<string name="TEA_menu_save">변경사항 저장</string>
 	<string name="TEA_menu_discard">저장하지 않음</string>
-	<string name="TEA_menu_refresh_comments">댓글 새로고침</string>
-	<string name="TEA_menu_comments">댓글</string>
 	<string name="TEA_tab_activity">활동 내역</string>
 	<string name="TEA_timer_est">동부표준시 %s</string>
 	<string name="TEA_timer_elap">경과 시간: %s</string>
@@ -630,7 +627,6 @@
 	<string name="TEA_tags_deleted">삭제한 목록 %1$s 은 %2$d 일정에 영향을 미칩니다</string>
 	<string name="TEA_tags_renamed">%3$d 일정의 %1$s 의 이름을 %2$s 로 변경했습니다</string>
 	<string name="tag_settings_title">목록 설정</string>
-	<string name="tag_updates_title">활동내역: %s</string>
 	<string name="TPl_notification">%s 동안 타이머 작동함!</string>
 	<string name="TFE_workingOn">기한이 정해진 일정</string>
 	<string name="TEA_timer_controls">타이머</string>

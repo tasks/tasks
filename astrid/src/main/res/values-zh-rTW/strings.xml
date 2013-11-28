@@ -77,7 +77,6 @@
 		<item>普通</item>
 		<item>低優先權</item>
 	</string-array>
-	<string name="TLA_all_activity">所有活動</string>
 	<string name="TAd_hiddenFormat">%s [隱藏]</string>
 	<string name="TAd_deletedFormat">%s [刪除]</string>
 	<string name="TAd_completed">%s\n完成</string>
@@ -112,7 +111,6 @@
 	<string name="TEA_elapsedDuration_label">已經用掉的時間</string>
 	<string name="TEA_menu_save">儲存變更</string>
 	<string name="TEA_menu_discard">不要儲存</string>
-	<string name="TEA_menu_comments">註釋</string>
 	<string name="TEA_tab_activity">活動</string>
 	<string-array name="TEA_urgency">
 		<item>No date</item>
@@ -565,7 +563,6 @@
 	<string name="TEA_tags_deleted">列表%1$s 已刪除，影響了%2$d 項任務工作</string>
 	<string name="TEA_tags_renamed">%3$d 項任務工作由%1$s 重命名為%2$s。</string>
 	<string name="tag_settings_title">設置：</string>
-	<string name="tag_updates_title">活躍程度：%s</string>
 	<string name="TPl_notification">秒錶啟動了 %s！</string>
 	<string name="TFE_workingOn">任務工作已開始計時</string>
 	<string name="TEA_timer_comment_started">已經開始了這項任務工作：</string>

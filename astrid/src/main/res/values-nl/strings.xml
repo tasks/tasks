@@ -76,7 +76,6 @@
 		<item>gemiddelde prioriteit</item>
 		<item>lage prioriteit</item>
 	</string-array>
-	<string name="TLA_all_activity">Alle Activiteiten</string>
 	<string name="TAd_hiddenFormat">%s [verborgen]</string>
 	<string name="TAd_deletedFormat">%s [verwijderd]</string>
 	<string name="TAd_completed">Afgerond\n%s</string>
@@ -121,8 +120,6 @@
 	<string name="TEA_elapsedDuration_label">Bestede tijd tot nu toe</string>
 	<string name="TEA_menu_save">Wijzigingen opslaan</string>
 	<string name="TEA_menu_discard">Niet opslaan</string>
-	<string name="TEA_menu_refresh_comments">Opmerkingen vernieuwen</string>
-	<string name="TEA_menu_comments">Opmerkingen</string>
 	<string name="TEA_tab_activity">Activiteit</string>
 	<string name="TEA_timer_est">Gesch. %s</string>
 	<string name="TEA_timer_elap">Verstreken %s</string>
@@ -621,7 +618,6 @@
 	<string name="TEA_tags_deleted">De lijst %1$s is verwijderd, van invloed op %2$d taken</string>
 	<string name="TEA_tags_renamed">Taak %1$s hernoemd naar %2$s voor %3$d taken</string>
 	<string name="tag_settings_title">Lijst instellingen</string>
-	<string name="tag_updates_title">Activiteit: %s</string>
 	<string name="TPl_notification">Timers ingeschakeld voor %s!</string>
 	<string name="TFE_workingOn">Taken met timer</string>
 	<string name="TEA_timer_comment_started">taak begonnen:</string>

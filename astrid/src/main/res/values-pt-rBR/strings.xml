@@ -76,7 +76,6 @@
 		<item>prioridade média</item>
 		<item>baixa prioridade</item>
 	</string-array>
-	<string name="TLA_all_activity">Todas as atividades</string>
 	<string name="TAd_hiddenFormat">%s [oculta]</string>
 	<string name="TAd_deletedFormat">%s [excluída]</string>
 	<string name="TAd_completed">Concluída\n%s</string>
@@ -119,8 +118,6 @@
 	<string name="TEA_elapsedDuration_label">Tempo já gasto na tarefa</string>
 	<string name="TEA_menu_save">Salvar alterações</string>
 	<string name="TEA_menu_discard">Não salvar</string>
-	<string name="TEA_menu_refresh_comments">Atualizar comentários</string>
-	<string name="TEA_menu_comments">Comentários</string>
 	<string name="TEA_tab_activity">Atividades</string>
 	<string name="TEA_timer_elap">Decorrido %s</string>
 	<string-array name="TEA_urgency">
@@ -529,7 +526,6 @@
 	<string name="TEA_tags_deleted">A Lista %1$s foi excluída, afetando %2$d tarefas</string>
 	<string name="TEA_tags_renamed">A lista %1$s foi renomeada para %2$s com %3$d tarefas</string>
 	<string name="tag_settings_title">Lista de Configurações</string>
-	<string name="tag_updates_title">Atividade: %s</string>
 	<string name="TPl_notification">Temporizador ativado para %s!</string>
 	<string name="TFE_workingOn">Tarefas com contagem de tempo</string>
 	<string name="TEA_timer_comment_started">iniciou a tarefa</string>

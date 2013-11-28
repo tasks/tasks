@@ -12,8 +12,6 @@ import android.widget.ListView;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
@@ -59,11 +57,6 @@ public class TagCommentsFragment extends CommentsFragment {
     }
 
     @Override
-    protected String getModelName() {
-        return tagData.getValue(TagData.NAME);
-    }
-
-    @Override
     protected Cursor getCursor() {
         return tagDataService.getActivityForTagData(tagData);
     }
@@ -86,12 +79,5 @@ public class TagCommentsFragment extends CommentsFragment {
         userActivity.setValue(UserActivity.TARGET_NAME, tagData.getValue(TagData.NAME));
         userActivity.setValue(UserActivity.CREATED_AT, DateUtilities.now());
         return userActivity;
-    }
-
-    @Override
-    protected void setLastViewed() {
-        if(tagData != null && RemoteModel.isValidUuid(tagData.getValue(TagData.UUID))) {
-            Preferences.setLong(UPDATES_LAST_VIEWED + tagData.getValue(TagData.UUID), DateUtilities.now());
-        }
     }
 }
