@@ -50,7 +50,7 @@ public final class Compatibility {
             return new File(externalRoot, "Android/data/" + packageName + "/files");
         } else {
             try {
-                return (File) METHOD_GET_EXTERNAL_FILES_DIR.invoke(context, null);
+                return (File) METHOD_GET_EXTERNAL_FILES_DIR.invoke(context);
             } catch (Exception e) {
                 Log.e(LOG_TAG, "Could not invoke getExternalFilesDir: " + e.getMessage(), e);
                 return null;

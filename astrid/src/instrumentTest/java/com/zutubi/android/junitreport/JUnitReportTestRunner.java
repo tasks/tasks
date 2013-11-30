@@ -116,7 +116,7 @@ public class JUnitReportTestRunner extends InstrumentationTestRunner {
     @Override
     protected AndroidTestRunner getAndroidTestRunner() {
         AndroidTestRunner runner = makeAndroidTestRunner();
-        mListener = new JUnitReportListener(getContext(), getTargetContext(), mReportFile, mReportDir, mFilterTraces, mMultiFile);
+        mListener = new JUnitReportListener(getTargetContext(), mReportFile, mReportDir, mFilterTraces, mMultiFile);
         runner.addTestListener(mListener);
         return runner;
     }
