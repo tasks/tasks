@@ -3,4 +3,5 @@
     <string name="EPr_use_dark_theme">Dark theme</string>
     <string name="EPr_use_dark_theme_widget">Dark widget theme</string>
     <string name="delete_task">Delete task</string>
+    <string name="TLA_menu_donate">Donate</string>
 </resources>

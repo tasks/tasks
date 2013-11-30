@@ -6,7 +6,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.tasks"
     android:versionName="4.6.11"
-    android:versionCode="324">
+    android:versionCode="325">
 
     <!-- widgets, alarms, and services will break if Astrid is installed on SD card -->
     <!--    android:installLocation="internalOnly"> -->
@@ -93,6 +93,18 @@
         android:allowBackup="true"
         android:hardwareAccelerated="false"
         android:manageSpaceActivity="com.todoroo.astrid.core.OldTaskPreferences">
+
+        <!-- ========================================================= Billing = -->
+
+        <service android:name="com.todoroo.astrid.billing.BillingService" />
+
+        <receiver android:name="com.todoroo.astrid.billing.BillingReceiver">
+            <intent-filter>
+                <action android:name="com.android.vending.billing.IN_APP_NOTIFY" />
+                <action android:name="com.android.vending.billing.RESPONSE_CODE" />
+                <action android:name="com.android.vending.billing.PURCHASE_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
 
         <!-- ====================================================== Activities = -->
 

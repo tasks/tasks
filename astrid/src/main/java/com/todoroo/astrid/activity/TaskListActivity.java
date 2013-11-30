@@ -30,6 +30,8 @@ import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.billing.BillingConstants;
+import com.todoroo.astrid.billing.BillingService;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.core.PluginServices;
@@ -73,6 +75,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
 
     private int filterMode;
     private FilterModeSpec filterModeSpec;
+    private BillingService billingService;
 
     /**
      * @see android.app.Activity#onCreate(Bundle)
@@ -137,6 +140,9 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         if (getIntent().hasExtra(TOKEN_SOURCE)) {
             trackActivitySource();
         }
+
+        billingService = new BillingService();
+        billingService.setActivity(this);
     }
 
     @Override
@@ -313,6 +319,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         menuDrawer.closeMenu();
+        menu.findItem(R.id.menu_donate).setVisible(billingService.showDonateOption());
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -539,6 +546,9 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 rename.putExtra(TagViewFragment.EXTRA_TAG_UUID, renameTag.uuid);
                 startActivityForResult(rename, FilterListFragment.REQUEST_CUSTOM_INTENT);
                 return true;
+            case R.id.menu_donate:
+                billingService.requestPurchase(BillingConstants.TASKS_DONATION_ITEM_ID, BillingConstants.ITEM_TYPE_INAPP, null);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -572,5 +582,29 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
             }
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        billingService.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        billingService.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        billingService.unbind();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        billingService.checkBillingSupported();
     }
 }
