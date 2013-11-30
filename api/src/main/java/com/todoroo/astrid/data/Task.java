@@ -91,6 +91,9 @@ public final class Task extends RemoteModel {
     public static final IntegerProperty FLAGS = new IntegerProperty(
             TABLE, "flags");
 
+    public static final IntegerProperty IS_READONLY = new IntegerProperty(
+            TABLE, "is_readonly", Property.PROP_FLAG_BOOLEAN);
+
     // --- non-core task metadata
 
     public static final StringProperty NOTES = new StringProperty(
@@ -251,6 +254,7 @@ public final class Task extends RemoteModel {
         defaultValues.put(TIMER_START.name, 0);
         defaultValues.put(DETAILS.name, (String)null);
         defaultValues.put(DETAILS_DATE.name, 0);
+        defaultValues.put(IS_READONLY.name, 0);
         defaultValues.put(CLASSIFICATION.name, "");
 
         defaultValues.put(LAST_SYNC.name, 0);
