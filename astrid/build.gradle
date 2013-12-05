@@ -27,7 +27,7 @@ android {
 
     defaultConfig {
         minSdkVersion 7
-        targetSdkVersion 19
+        targetSdkVersion 18
     }
 
     signingConfigs {

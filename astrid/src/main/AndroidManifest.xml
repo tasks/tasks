@@ -75,7 +75,7 @@
     <!-- ========================================================== Metadata = -->
 
     <uses-sdk
-        android:targetSdkVersion="19"
+        android:targetSdkVersion="18"
         android:minSdkVersion="7" />
 
     <supports-screens
