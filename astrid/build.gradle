@@ -101,5 +101,5 @@ dependencies {
     // hack to get android studio to import libraries
     instrumentTestCompile group: 'junit', name: 'junit', version: '4.10', transitive: false
     instrumentTestCompile group: 'org.robolectric', name: 'robolectric', version: '2.3-SNAPSHOT', transitive: false
-    instrumentTestCompile group: 'org.mockito', name: 'mockito-all', version: '1.9.0', transitive: false
+    instrumentTestCompile group: 'org.mockito', name: 'mockito-core', version: '1.9.0', transitive: false
 }
