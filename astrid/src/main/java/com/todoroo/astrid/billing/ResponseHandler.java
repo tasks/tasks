@@ -5,8 +5,6 @@ import android.content.Intent;
 
 import com.todoroo.astrid.billing.BillingConstants.PurchaseState;
 import com.todoroo.astrid.billing.BillingConstants.ResponseCode;
-import com.todoroo.astrid.billing.BillingService.RequestPurchase;
-import com.todoroo.astrid.billing.BillingService.RestoreTransactions;
 
 public class ResponseHandler {
 
@@ -47,15 +45,9 @@ public class ResponseHandler {
         }).start();
     }
 
-    public static void responseCodeReceived(RequestPurchase request, ResponseCode responseCode) {
+    public static void responseCodeReceived(ResponseCode responseCode) {
         if (sPurchaseObserver != null) {
-            sPurchaseObserver.onRequestPurchaseResponse(request, responseCode);
-        }
-    }
-
-    public static void responseCodeReceived(RestoreTransactions request, ResponseCode responseCode) {
-        if (sPurchaseObserver != null) {
-            sPurchaseObserver.onRestoreTransactionsResponse(request, responseCode);
+            sPurchaseObserver.onRestoreTransactionsResponse(responseCode);
         }
     }
 }

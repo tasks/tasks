@@ -15,6 +15,8 @@ import android.util.Log;
 import com.android.vending.billing.IMarketBillingService;
 import com.todoroo.astrid.billing.BillingConstants.ResponseCode;
 
+import org.tasks.billing.PurchaseHandler;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -31,10 +33,11 @@ public class BillingService extends Service implements ServiceConnection {
 
     private static HashMap<Long, BillingRequest> sentRequests = new HashMap<>();
 
-    private AstridPurchaseObserver purchaseObserver;
+    private PurchaseObserver purchaseObserver;
+    private PurchaseHandler purchaseHandler;
 
     public boolean showDonateOption() {
-        return purchaseObserver.isBillingSupported() && !purchaseObserver.userDonated();
+        return purchaseHandler.isBillingSupported() && !purchaseHandler.userDonated();
     }
 
     abstract class BillingRequest {
@@ -167,6 +170,7 @@ public class BillingService extends Service implements ServiceConnection {
                         ResponseCode.valueOf(responseCode));
             }
             boolean billingSupported = (responseCode == ResponseCode.RESULT_OK.ordinal());
+            Log.d(TAG, "check billing support type: " + mProductType + ", response code: " + responseCode);
             ResponseHandler.checkBillingSupportedResponse(billingSupported, mProductType);
             return BillingConstants.BILLING_RESPONSE_INVALID_REQUEST_ID;
         }
@@ -221,7 +225,7 @@ public class BillingService extends Service implements ServiceConnection {
 
         @Override
         protected void responseCodeReceived(ResponseCode responseCode) {
-            ResponseHandler.responseCodeReceived(this, responseCode);
+            Log.d(TAG, "received response code " + responseCode + " for request " + this);
         }
     }
 
@@ -291,13 +295,15 @@ public class BillingService extends Service implements ServiceConnection {
 
         @Override
         protected void responseCodeReceived(ResponseCode responseCode) {
-            ResponseHandler.responseCodeReceived(this, responseCode);
+            Log.d(TAG, "received response code " + responseCode + " for request " + this);
+            ResponseHandler.responseCodeReceived(responseCode);
         }
     }
 
     public void setActivity(Activity activity) {
         attachBaseContext(activity);
-        purchaseObserver = new AstridPurchaseObserver(activity, this);
+        purchaseHandler = new PurchaseHandler(this);
+        purchaseObserver = new PurchaseObserver(activity, purchaseHandler);
     }
 
     @Override
@@ -366,7 +372,7 @@ public class BillingService extends Service implements ServiceConnection {
     }
 
     public boolean checkBillingSupported() {
-        return new CheckBillingSupported(BillingConstants.ITEM_TYPE_INAPP).runRequest();
+        return purchaseHandler.userDonated() || new CheckBillingSupported(BillingConstants.ITEM_TYPE_INAPP).runRequest();
     }
 
     /**
@@ -446,6 +452,7 @@ public class BillingService extends Service implements ServiceConnection {
             if (vp.notificationId != null) {
                 notifyList.add(vp.notificationId);
             }
+            Log.d(TAG, "purchase state changed productId: " + vp.productId + ", state: " + vp.purchaseState);
             ResponseHandler.purchaseResponse(vp.purchaseState, vp.productId);
         }
         if (!notifyList.isEmpty()) {
