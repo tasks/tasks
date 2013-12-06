@@ -102,7 +102,7 @@ public class BackupServiceTests extends DatabaseTestCase {
     }
 
     /** Test no backup */
-    public void testNoBackup() {
+    public void disabled_testNoBackup() {
         assertEquals(0, temporaryDirectory.list().length);
         System.err.println("test no backup");
         boolean backupSetting = getBackupSetting();
