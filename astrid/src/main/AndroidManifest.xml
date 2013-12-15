@@ -246,6 +246,7 @@
         <provider
             android:name="com.todoroo.astrid.provider.Astrid2TaskProvider"
             android:authorities="org.tasks.tasksprovider"
+            android:exported="true"
             android:multiprocess="true"
             android:grantUriPermissions="true"
             android:readPermission="org.tasks.permission.READ_TASKS" />
@@ -253,6 +254,7 @@
         <provider
             android:name="com.todoroo.astrid.provider.Astrid3ContentProvider"
             android:authorities="org.tasks"
+            android:exported="true"
             android:multiprocess="true"
             android:grantUriPermissions="true"
             android:readPermission="org.tasks.READ"
@@ -261,6 +263,7 @@
         <provider
             android:name="com.todoroo.astrid.provider.SqlContentProvider"
             android:authorities="org.tasks.private"
+            android:exported="true"
             android:multiprocess="true"
             android:grantUriPermissions="true"
             android:readPermission="org.tasks.READ"
