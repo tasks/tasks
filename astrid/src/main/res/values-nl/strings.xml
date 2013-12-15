@@ -398,7 +398,7 @@
 	<string name="file_err_copy">Fout bij kopiëren toe te voegen bestand</string>
 	<string name="file_dir_dialog_ok">Gebruik deze directory.</string>
 	<string name="file_dir_dialog_default">Stel opnieuw in naar standaardinstellingen</string>
-	<string name="p_files_dir">Premium downloads map</string>
+	<string name="p_files_dir">Doneer</string>
 	<string name="p_files_dir_desc">Taak bijlagen opgeslagen op: %s</string>
 	<string name="p_files_dir_desc_default">Standaard directory</string>
 	<string name="premium_speech_bubble_2">Bestel voor een jaar en bespaar 25%%!</string>
@@ -642,4 +642,5 @@
 	<string name="EPr_use_dark_theme">Donker thema</string>
 	<string name="EPr_use_dark_theme_widget">Donker widget thema</string>
 	<string name="delete_task">Verwijder taak</string>
+	<string name="TLA_menu_donate">Doneer</string>
 </resources>

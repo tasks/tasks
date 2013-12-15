@@ -58,6 +58,7 @@
 	<string name="WID_dateButtonUnset">點選</string>
 	<string name="ENA_refresh_comments">刷新留言</string>
 	<string name="TLA_no_items">無工作!</string>
+	<string name="TLA_menu_sort">排序</string>
 	<string name="TLA_menu_sync">立即同步</string>
 	<string name="TLA_menu_search">搜索</string>
 	<string name="TLA_menu_settings">設定</string>
@@ -93,6 +94,7 @@
 	<string name="SSD_sort_auto">Tasks智慧排序</string>
 	<string name="SSD_sort_alpha">依主旨</string>
 	<string name="SSD_sort_due">依到期日</string>
+	<string name="SSD_sort_importance">依照優先權</string>
 	<string name="SSD_sort_modified">依最後修改</string>
 	<string name="SSD_sort_reverse">反向排序</string>
 	<string name="SSD_save_temp">僅一次</string>
@@ -106,12 +108,20 @@
 	<string name="FLA_new_filter">新建過濾器</string>
 	<string name="FLA_new_list">新建列表</string>
 	<string name="FLA_no_filter_selected">還沒有選定過濾器呢！請選擇一個過濾器或列表唄。</string>
+	<string name="TEA_title_hint">工作名稱</string>
+	<string name="TEA_importance_label">優先權</string>
+	<string name="TEA_deadline_hint">設定到期日</string>
+	<string name="TEA_hideUntil_label">隱藏直到</string>
+	<string name="TEA_hideUntil_display">隱藏直到 %s</string>
 	<string name="TEA_note_label">描述</string>
+	<string name="TEA_notes_empty">描述...</string>
+	<string name="TEA_notes_hint">輸入工作描述...</string>
 	<string name="TEA_estimatedDuration_label">要花多久時間?</string>
 	<string name="TEA_elapsedDuration_label">已經用掉的時間</string>
 	<string name="TEA_menu_save">儲存變更</string>
 	<string name="TEA_menu_discard">不要儲存</string>
 	<string name="TEA_tab_activity">活動</string>
+	<string name="TEA_timer_elap">已經過 %s</string>
 	<string-array name="TEA_urgency">
 		<item>No date</item>
 		<item>指定哪天</item>
@@ -132,6 +142,7 @@
 		<item>指定日期/時間</item>
 	</string-array>
 	<string name="TEA_control_when">時間</string>
+	<string name="TEA_control_importance">優先權</string>
 	<string name="TEA_control_lists">列表</string>
 	<string name="TEA_control_notes">描述</string>
 	<string name="TEA_control_files">文件</string>
@@ -192,8 +203,14 @@
 	<string name="EPr_fontSize_title">工作清單大小</string>
 	<string name="EPr_showSmartConfirmation_title">在智能提示上顯示確認消息</string>
 	<string name="EPr_fontSize_desc">清單主頁面字型大小</string>
+	<string name="EPr_showNotes_title">顯示工作描述</string>
+	<string name="EPr_edit_screen_options">編輯畫面選項</string>
+	<string name="EPr_beastMode_title">編輯畫面順序</string>
+	<string name="EPr_use_date_shortcuts">使用日期捷徑</string>
 	<string name="EPr_beastMode_desc">自定義設定菜單屏幕</string>
 	<string name="EPr_beastMode_reset">恢復默認值</string>
+	<string name="EPr_showNotes_desc_disabled">描述可在工作編輯畫面下存取</string>
+	<string name="EPr_showNotes_desc_enabled">描述永遠顯示</string>
 	<string name="EPr_fullTask_title">顯示完整的任務工作標題</string>
 	<string name="EPr_fullTask_desc_enabled">將顯示完整的任務工作標題</string>
 	<string name="EPr_fullTask_desc_disabled">將顯示任務工作標題的頭兩行</string>
@@ -232,6 +249,7 @@
 	<string name="EPr_defaults_header">工作預設值</string>
 	<string name="EPr_default_urgency_title">預設嚴重性</string>
 	<string name="EPr_default_urgency_desc">目前設定: %s</string>
+	<string name="EPr_default_importance_title">預設優先權</string>
 	<string name="EPr_default_importance_desc">目前設定: %s</string>
 	<string name="EPr_default_hideUntil_title">預設隱藏直到...</string>
 	<string name="EPr_default_hideUntil_desc">目前設定: %s</string>
@@ -267,6 +285,7 @@
 		<item>當過期時</item>
 		<item>在截止期限或過期時</item>
 	</string-array>
+	<string name="BFE_Active">我的工作</string>
 	<string name="BFE_Recent">最近修改過</string>
 	<string name="BFE_Saved_delete">刪除篩選</string>
 	<string name="CFA_filterName_hint">命名篩選並儲存...</string>
@@ -276,6 +295,7 @@
 	<string name="CFA_type_intersect">也</string>
 	<string name="CFA_context_chain">%s 含條件</string>
 	<string name="CFA_context_delete">刪除列</string>
+	<string name="CFA_help">長按開啟額外選項</string>
 	<string name="CFA_button_add">加入條件</string>
 	<string name="CFA_button_view">檢視</string>
 	<string name="CFA_button_save">儲存</string>
@@ -360,11 +380,14 @@
 	<string name="p_files_dir_desc">將任務工作附件保存至：%s</string>
 	<string name="p_files_dir_desc_default">默認目錄</string>
 	<string name="premium_speech_bubble_2">購買一年的服務並且得到25%%的折扣</string>
+	<string name="TEA_reminders_group_label">提醒設置</string>
 	<string name="TEA_reminder_label">提醒我：</string>
 	<string name="TEA_reminder_due">當任務工作到期時</string>
 	<string name="TEA_reminder_overdue">當任務工作過期時</string>
 	<string name="TEA_reminder_randomly">隨機一次</string>
 	<string name="TEA_reminder_alarm_label">鈴響/震動類型：</string>
+	<string name="TEA_reminder_display_one">提醒我 %s</string>
+	<string name="TEA_reminder_display_multiple">提醒 %s</string>
 	<string-array name="TEA_reminder_random">
 		<item>一個小時</item>
 		<item>一天</item>
@@ -550,11 +573,13 @@
 	<string name="subtasks_help_1">輕點並按住一項任務工作來移動它</string>
 	<string name="subtasks_help_2">垂直拖動以重新整理</string>
 	<string name="subtasks_help_3">水平拖動以縮進</string>
+	<string name="TEA_tags_label_long">加入至列表</string>
 	<string name="TEA_tag_hint">新建列表</string>
 	<string name="tag_new_list">新建列表</string>
 	<string name="tag_no_title_error">請先為此列表鍵入一個名稱！</string>
 	<string name="tag_FEx_add_new">添加</string>
 	<string name="tag_FEx_header">列表</string>
+	<string name="tag_FEx_untagged">未分類</string>
 	<string name="tag_cm_rename">重命名列表</string>
 	<string name="tag_cm_delete">刪除列表</string>
 	<string name="DLG_delete_this_tag_question">刪除列表%s 嗎？(不會刪除任務工作。)</string>
@@ -583,4 +608,8 @@
 	<string name="EPr_voiceRemindersEnabled_title">語音提醒</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks在工作提醒時會以語音說出工作名稱</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks在工作提醒時將會播放鈴聲</string>
+	<string name="EPr_use_dark_theme">暗色主題</string>
+	<string name="EPr_use_dark_theme_widget">暗色小工具主題</string>
+	<string name="delete_task">刪除工作</string>
+	<string name="TLA_menu_donate">贊助</string>
 </resources>

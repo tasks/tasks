@@ -8,14 +8,43 @@
 	<string name="actfm_GAA_title">Επιλέξτε τον λογαριασμό Google που θέλετε να χρησιμοποιήσετε:</string>
 	<string name="alarm_ACS_label">Ξυπνητήρια</string>
 	<string name="alarm_ACS_button">Προσθήκη ξυπνητηριού</string>
+	<string-array name="reminders_alarm">
+		<item>Ξυπνητήρι!</item>
+	</string-array>
+	<string name="backup_BPr_header">Αντίγραφα ασφαλείας</string>
 	<string name="backup_BPr_group_status">Κατάσταση</string>
+	<string name="backup_status_success">Τελευταίο αντίγραφο ασφαλείας:\n%s</string>
+	<string name="backup_status_failed">Το τελευταίο αντίγραφο ασφαλείας απέτυχε</string>
+	<string name="backup_status_failed_subtitle">(πατήστε για να δείξετε σφάλμα)</string>
+	<string name="backup_status_never">Δεν έγινε ποτέ αντίγραφο ασφαλείας!</string>
 	<string name="backup_BPr_group_options">Ρυθμίσεις</string>
+	<string name="backup_BPr_auto_title">Αυτόματα αντίγραφα ασφαλείας</string>
+	<string name="backup_BPr_auto_disabled">Αυτόματα αντίγραφα ασφαλείας απενεργοποιήθηκαν</string>
+	<string name="backup_BPr_auto_enabled">Aντίγραφα ασφαλείας θα παίρνονται καθημερινά</string>
+	<string name="backup_BAc_import">Εισαγωγή καθηκόντων</string>
+	<string name="backup_BAc_export">Εξαγωγή καθηκόντων</string>
 	<string name="backup_TXI_error">Σφάλμα εισαγωγής</string>
+	<string name="export_toast">Αποθηκεύση ασφαλείας %1$s στο %2$s.</string>
+	<string name="export_toast_no_tasks">Δεν υπάρχουν καθήκοντα για εξαγωγή</string>
+	<string name="export_progress_title">Εξαγωγή...</string>
+	<string name="import_summary_title">Επαναφορά σύνοψης</string>
 	<string name="import_summary_message">File %1$s contained %2$s.\n\n
 %3$s imported,\n
 %4$s already exist\n
 %5$s had errors\n</string>
+	<string name="import_progress_title">Εισαγωγή...</string>
+	<string name="import_progress_read">Ανάγνωση καθήκοντος %d...</string>
+	<string name="DLG_error_sdcard">Δεν υπάρχει πρόσβαση στον φάκελο: %s</string>
+	<string name="DLG_error_sdcard_general">Δεν υπάρχει πρόσβαση στην SD κάρτα!</string>
+	<string name="import_file_prompt">Επιλογή αρχείου για επαναφορά</string>
+	<string name="app_name">Καθήκοντα</string>
 	<string name="DLG_cancel">Ακύρωση</string>
+	<string-array name="TLA_priority_strings">
+		<item>υψηλότερη προτεραιότητα</item>
+		<item>υψηλή προτεραιότητα</item>
+		<item>μέτρια προτεραιότητα</item>
+		<item>χαμηλή προτεραιότητα</item>
+	</string-array>
 	<string name="SSD_hidden_title">Κρυμμένα καθήκοντα</string>
 	<string name="SSD_completed">Εμφάνιση ολοκληρωμένων καθηκόντων</string>
 	<string name="SSD_hidden">Εμφάνιση κρυμμένων καθηκόντων</string>
@@ -29,6 +58,7 @@
 	<string name="SSD_sort_reverse">Αντίστροφη ταξινόμηση</string>
 	<string name="SSD_save_temp">Μόνο μια φορά</string>
 	<string name="SSD_save_always">Πάντα</string>
+	<string name="FSA_label">Λίστα καθηκόντων η Φίλτρο</string>
 	<string name="FLA_context_shortcut">Δημιουργία συντόμευσης στην Επιφάνεια Εργασίας</string>
 	<string name="FLA_shortcut_dialog_title">Δημιουργία συντόμευσης στην Επιφάνεια Εργασίας</string>
 	<string name="FLA_shortcut_dialog">Όνομα συντόμευσης:</string>
@@ -53,6 +83,16 @@
 	<string name="TEA_tab_activity">Δραστηριότητα</string>
 	<string name="TEA_timer_est">Εκτιμώμενο %s</string>
 	<string name="TEA_timer_elap">Πέρασε %s</string>
+	<string-array name="TEA_urgency">
+		<item>Χωρίς ημερομηνία</item>
+		<item>Συγκεκριμένη ημέρα</item>
+		<item>Σήμερα</item>
+		<item>Αύριο</item>
+		<item>(μεθαύριο)</item>
+		<item>Επόμενη εβδομάδα</item>
+		<item>Σε δύο εβδομάδες</item>
+		<item>Επόμενος μήνας</item>
+	</string-array>
 	<string name="TEA_no_time">Απουσία χρόνου</string>
 	<string-array name="TEA_hideUntil">
 		<item>Ποτέ</item>
@@ -74,15 +114,22 @@
 	<string name="TEA_load_more">Φόρτωση περισσότερων</string>
 	<string name="TEA_when_dialog_title">Πότε λήγει?</string>
 	<string name="TEA_new_task">Νέο καθήκον</string>
-	<string name="MCA_title">%1$s\ncalled at %2$s</string>
+	<string name="MCA_title">%1$s\nκάλεσε στίς %2$s</string>
 	<string name="MCA_return_call">Κλήση τώρα</string>
 	<string name="MCA_add_task">Κλήση αργότερα</string>
 	<string name="MCA_ignore">Αγνοήστε</string>
 	<string name="MCA_ignore_title">Αγνόηση όλων των χαμένων κλησεων</string>
+	<string name="MCA_ignore_body">Αγνοήσατε αρκετές κλήσεις. Να σταματήσουμε να ρωτάμε για αυτές;</string>
 	<string name="MCA_ignore_all">Αγνόηση όλων των χαμένων κλησεων</string>
 	<string name="MCA_ignore_this">Άγνόηση μόνο αυτής της κλήσης</string>
+	<string name="MCA_missed_calls_pref_desc_enabled">Τα Καθήκοντα θα σας ενημερώσουν για αναπάντητες κλήσεις και θα προσφέρουν υπενθύμιση για να τις απαντήσετε μετά</string>
+	<string name="MCA_missed_calls_pref_desc_disabled">Τα καθήκοντα θα σας ενημερώσουν για αναπάντητες κλήσεις</string>
+	<string name="MCA_task_title_name">Ξανακαλέστε %1$s στίς %2$s</string>
+	<string name="MCA_task_title_no_name">Ξανακαλέστε %s</string>
+	<string name="MCA_schedule_dialog_title">Ξανακαλέστε %s σε...</string>
 	<string name="CRA_ignore">Αγνοήστε</string>
 	<string name="CRA_title">Χρειάζεστε λίστα για το meeting?</string>
+	<string name="CRA_ignore_title">Αγνόηση όλων των event ημερολογίου;</string>
 	<string name="CRA_ignore_all">Αγνόηση όλων των events</string>
 	<string name="CRA_ignore_this">Αγνόηση μόνο αυτού του event</string>
 	<string name="CRA_create_list">Δημιουργία λίστας</string>
@@ -92,21 +139,57 @@
 	<string name="CRA_use_existing">Χρήση υπάρχουσας</string>
 	<string name="CRA_created_list_dialog">Δημιούργησα μια λίστα %s.</string>
 	<string name="CRA_one_attendee">%s θα παραστεί</string>
+	<string name="CRA_invitation_prompt">Θέλετε να τους προσκαλέσετε;</string>
+	<string name="CRA_calendar_reminders_pref_title">Βοηθός ημερολογίου</string>
+	<string name="CRA_calendar_reminders_pref_desc_disabled">Τα καθήκοντα δεν θα σας υπενθυμίσουν για επερχόμενα events ημερολογίου</string>
+	<string name="CRA_calendar_reminders_pref_desc_enabled">Τα καθήκοντα θα σας υπενθυμισουν για επερχόμενα events ημερολογίου και θα σας ειδοποιήσουν για να προετοιμαστείτε για αυτα</string>
+	<string name="CRA_share_list_title">Διαμοιρασμός της λίστας;</string>
+	<string name="CRA_invite_attendees">Πρόσκληση παρεβρισκόμενων; </string>
 	<string name="CRA_more_options">Παραπάνω επιλογές</string>
 	<string name="CRA_dont_invite">Όχι ευχαριστώ</string>
 	<string name="CRA_list_created_title">Λίστα δημιουργήθηκε!</string>
+	<string name="CRA_default_list_name">Αντικείμενα ενεργειών: %s</string>
 	<string name="UpS_changelog_title">Τι νέα;</string>
 	<string name="EPr_title">Ρυθμίσεις</string>
 	<string name="EPr_deactivated">απενεργοποίησε</string>
 	<string name="EPr_appearance_header">Εμφάνιση</string>
+	<string name="EPr_appearance_summary">Θέματα, wdigets, σειρές καθηκόντων, επεξεργασία οθόνης</string>
 	<string name="EPr_fontSize_title">Μέγεθος λίστας καθηκόντων</string>
 	<string name="EPr_filters_to_show_title">Φίλτρα που θα εμφανιστούν</string>
+	<string name="EPr_showSmartConfirmation_title">Εμφάνιση επιβεβαίωσης για έξυπνες ειδοποιήσεις</string>
+	<string name="EPr_showNotes_title">Εμφάνιση περιγραφής στο καθήκον</string>
 	<string name="EPr_time_increment">5λεπτες αυξήσεις </string>
 	<string-array name="EPr_task_row_styles">
 		<item>Πρωτότυπο</item>
 		<item>Απλό</item>
-		<item>Title only</item>
+		<item>Τίτλος μόνο</item>
 	</string-array>
+	<string-array name="EPr_task_row_style_descriptions">
+		<item>Επέκταση τίτλου σε δύο σειρές με την ημερομηνία στα δεξια</item>
+		<item>Επέκταση τίτλου σε μια γραμμή με ημερομηνία και λίστες απο κάτω</item>
+		<item>Τίτλος μονής γραμμής μόνο</item>
+	</string-array>
+	<string name="EPr_task_row_style_title">Στύλ γραμμής: %s</string>
+	<string name="EPr_show_quickadd_controls">Προηγμένα χειριστήρια γρήγορης πρόσθεσης</string>
+	<string name="EPr_hide_plus_button">Απόκρυψη κουμπιού πρόσθεσης</string>
+	<string name="EPr_list_view">Εμφάνιση λίστας</string>
+	<string name="EPr_show_task_edit_comments">Εμφάνιση σχόλιων στην επεξεργασία καθήκοντος</string>
+	<string name="EPr_taskRowPrefs_title">Εμφάνιση σειράς καθήκοντος</string>
+	<string name="EPr_cal_end_or_start_at_due_time">Χρόνος event ημερολογίου</string>
+	<string name="EPr_cal_start_at_due_time">Εκκίνηση event ημερολογίου στην ώρα λήξης τους</string>
+	<string name="EPr_force_phone_layout">Χρήση εμφάνισης τηλεφώνου</string>
+	<string name="EPr_show_save_and_cancel">Εμφάνιση αποθήκευσης και ακύρωσης</string>
+	<string name="EPr_manage_header">Διαχείρηση παλιών καθηκόντων</string>
+	<string name="EPr_manage_delete_completed">Διαγραφή ολοκληρωμένων καθηκόντων</string>
+	<string name="EPr_manage_delete_completed_message">Θέλετε στα αλήθεια την διαγραφή όλων των ολοκληρωμένων καθηκόντων σας;</string>
+	<string name="EPr_manage_delete_completed_summary">Διεγραμμένα καθήκοντα μπορούν να επαναφερθούν ένα ενα</string>
+	<string name="EPr_manage_delete_completed_status">Διαγράφτηκαν %d καθήκοντα!</string>
+	<string name="EPr_manage_purge_deleted">Εκκαθάριση διεγραμμένων καθηκόντων</string>
+	<string name="EPr_manage_purge_deleted_status">Εκκαθαριστηκαν %d καθήκοντα!</string>
+	<string name="EPr_manage_purge_deleted_summary">Προσοχή! Εκκαθαρισμένα καθήκοντα δεν μπορούν να ανακτηθούν χωρίς αντίγραφο ασφαλείας!</string>
+	<string name="EPr_manage_clear_all">Εκκαθάριση όλων των δεδομένων</string>
+	<string name="EPr_manage_delete_completed_gcal">Διαγραφή των event ημερολογίου για ολοκληρωμένα καθήκοντα</string>
+	<string name="EPr_manage_delete_completed_gcal_message">Σίγουρα διαγραφή όλων των events για τα ολοκληρωμένα καθήκοντα;</string>
 	<string name="TWi_loading">Φόρτωση...</string>
 	<string name="task_killer_help">It looks like you are using an app that can kill processes (%s)! If you can,
 add Tasks to the exclusion list so it doesn\'t get killed. Otherwise,
@@ -115,18 +198,30 @@ Tasks might not let you know when your tasks are due.\n</string>
       If you see this error regularly, we suggest you clear all
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
       your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
+	<string-array name="EPr_default_importance">
+		<item>!!! (Υψηλότερο)</item>
+		<item>!!</item>
+		<item>!</item>
+		<item>0 (χαμηλότερο)</item>
+	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>Χωρίς προθεσμία</item>
-		<item>Today</item>
+		<item>Σήμερα</item>
 		<item>Αύριο</item>
 		<item>Μεθαύριο</item>
 		<item>Επόμενη εβδομάδα</item>
 	</string-array>
 	<string-array name="EPr_default_hideUntil">
 		<item>Μη απόκρυψη</item>
-		<item>Task is due</item>
-		<item>Day before due</item>
-		<item>Week before due</item>
+		<item>Το καθήκον λήγει </item>
+		<item>Μια μέρα πρίν την λήξη</item>
+		<item>Μια εβδομάδα πρίν ληξει</item>
+	</string-array>
+	<string-array name="EPr_default_reminders">
+		<item>Όχι υπενθυμίσεις προθεσμίας</item>
+		<item>Στην προθεσμία</item>
+		<item>Όταν λήξει</item>
+		<item>Στην λήξη η και μετά</item>
 	</string-array>
 	<string name="CFA_type_add">ή</string>
 	<string name="CFA_type_subtract">μή</string>
@@ -140,11 +235,11 @@ Tasks might not let you know when your tasks are due.\n</string>
 	<string name="CFC_dueBefore_text">Λήγει στίς: ?</string>
 	<string name="CFC_dueBefore_name">Λήγει στίς...</string>
 	<string-array name="CFC_dueBefore_entries">
-		<item>No Due Date</item>
+		<item>Χωρίς ημερομηνία λήξης</item>
 		<item>Χθές</item>
-		<item>Today</item>
+		<item>Σήμερα</item>
 		<item>Αύριο</item>
-		<item>Day After Tomorrow</item>
+		<item>Μεθαύριο</item>
 		<item>Επόμενη εβδομάδα</item>
 		<item>Επόμενος μήνας</item>
 	</string-array>
@@ -164,10 +259,13 @@ Tasks might not let you know when your tasks are due.\n</string>
 	<string name="gcal_TEA_has_event">Event ημερολογίου</string>
 	<string name="gcal_completed_title">%s (έχει ολοκληρωθεί)</string>
 	<string name="gcal_GCP_default">Προεπιλεγμένο ημερολόγιο</string>
+	<string name="gtasks_FEx_header">Καθήκοντα Google</string>
+	<string name="gtasks_FEx_title">Καθήκοντα Google: %s</string>
 	<string name="gtasks_FEx_creating_list">Δημιουργία λίστας...</string>
 	<string name="gtasks_FEx_create_list_dialog">Νέο όνομα λίστας:</string>
 	<string name="gtasks_FEx_create_list_error">Σφάλμα κατα την δημιουργία λίστας</string>
 	<string name="CFC_gtasks_list_text">Στην λίστα: ?</string>
+	<string name="CFC_gtasks_list_name">Στην λίστα του GTasks...</string>
 	<string name="gtasks_GTA_clearing">Καθαρισμός ολοκληρωμένων καθηκόντων...</string>
 	<string name="gtasks_GTA_clear_completed">Καθαρισμός ολοκληρωμένων</string>
 	<string name="gtasks_GLA_noaccounts">Δεν υπάρχουν λογαριασμοί Google για συγχρονισμο.</string>
@@ -175,17 +273,35 @@ Tasks might not let you know when your tasks are due.\n</string>
 	<string name="gtasks_GLA_errorAuth">Σφάλμα αυθεντικοποίησης! Παρακαλώ ελέγξτε το όνομα και τον κωδικό χρήστη στην διαχείρηση λογαριασμών του κινητού</string>
 	<string name="gtasks_GLA_errorIOAuth">Συγγνώμη, υπήρξε σφάλμα επικοινωνίας με τους servers της Google. Παρακαλουμε δοκιμάστε πάλι μετά</string>
 	<string name="gtasks_GPr_header">Καθήκοντα Google</string>
+	<string name="gtasks_error_backend">Το API του Google Task είναι σε δοκιμαστική μορφή και έχει αντιμετωπίσει σφάλμα. Η υπηρεσία μπορεί να μην λειτουργεί, δοκιμάστε αργότερα</string>
 	<string name="gtasks_error_accountNotFound">Λογαριασμός %s δεν βρέθηκε - παρακαλώ αποσυνδεθείτε και συνδεθείτε πάλι απο τις ρυθμίσεις του Google Tasks.</string>
 	<string name="gtasks_error_authRefresh">Ανέφικτη η αυθεντικοποίηση με το Google Tasks. Παρακαλώ ελέγξτε τον κωδικό του λογαριασμού σας και δοκιμάστε πάλι.</string>
+	<string name="gtasks_error_accountManager">Σφάλμα στον διαχειριστή επαφών της συσκευής σας. Παρακαλώ αποσυνδεθείτε και συνδεθείτε ξανά απο τις ρυθμίσεις του Google Tasks.</string>
 	<string name="gtasks_error_background_sync_auth">Σφάλμα αυθεντικοποίησης στο παρασκήνιο. Παρακαλώ δοκιμάστε να συγχρονίσετε όσο τρέχει το Tasks.</string>
 	<string name="EPr_powerpack_header">Προηγμένες ρυθμίσεις</string>
 	<string name="premium_attach_file">Προσθήκη αρχείου</string>
 	<string name="premium_record_audio">Καταγραφή σημείωσης</string>
 	<string name="premium_remove_file_confirm">Είστε σίγουρος; Δεν μπορεί να ακυρωθεί</string>
+	<string name="search_market_pdf_title">Δεν βρέθηκε αναγνώστης PDF αρχείων</string>
+	<string name="search_market_ms">Δεν βρέθηκε αναγνώστης αρχείων MS Office. Θα θέλατε να κατεβάσετε εναν απο το Android Market;</string>
+	<string name="search_market_ms_title">Δεν βρέθηκε αναγνώστης αρχείων MS Office.</string>
+	<string name="file_type_unhandled">Συγγνώμη! Δεν βρέθηκε εφαρμογή που να χειρίζεται τέτοιο τύπο αρχείου</string>
+	<string name="file_type_unhandled_title">Δεν βρέθηκε εφαρμογή</string>
 	<string name="file_prefix_image">Εικόνα</string>
+	<string name="file_prefix_voice">Φωνή</string>
+	<string name="file_browser_up">Πάνω</string>
 	<string name="file_browser_title">Επιλογή αρχείου</string>
 	<string name="dir_browser_title">Επιλογή φακέλου</string>
+	<string name="file_browser_err_permissions">Σφάλμα αδειών! Παρακαλώ σιγουρεύτείτε οτι δεν έχετε μπλοκάρει τα Καθήκοντα απο το να έχουν πρόσβαση στην SD κάρτα σας.</string>
 	<string name="file_add_picture">Επισύναψη εικόνας</string>
+	<string name="file_add_sdcard">Προσθήκη αρχείου απο την SD κάρτα σας</string>
+	<string name="file_err_memory">Εικόνα πολύ μεγάλη για να χωρέσει στην μνήμη</string>
+	<string name="file_err_copy">Σφάλμα αντιγραφής αρχείου προς επισύναψη</string>
+	<string name="file_dir_dialog_ok">Χρήση αυτού του φακέλου</string>
+	<string name="file_dir_dialog_default">Επαναφορά προεπιλογών</string>
+	<string name="p_files_dir">Φάκελος premium κατεβασμένων</string>
+	<string name="p_files_dir_desc">Συνημμένα καθήκοντος σώθηκαν στο: %s</string>
+	<string name="p_files_dir_desc_default">Προεπιλεγμένος φάκελος</string>
 	<string name="TEA_reminder_mode_once">Μία φορά</string>
 	<string name="TEA_reminder_mode_five">Πέντε φορές</string>
 	<string name="TEA_reminder_randomly_short">τυχαία</string>
@@ -210,6 +326,85 @@ Tasks might not let you know when your tasks are due.\n</string>
 		<item>μηνιαία</item>
 		<item>bi-monthly</item>
 	</string-array>
+	<string-array name="EPr_quiet_hours_start">
+		<item>disabled</item>
+		<item>8 PM</item>
+		<item>9 PM</item>
+		<item>10 PM</item>
+		<item>11 PM</item>
+		<item>12 AM</item>
+		<item>1 AM</item>
+		<item>2 ΠΜ</item>
+		<item>3 ΠΜ</item>
+		<item>4 ΠΜ</item>
+		<item>5 ΠΜ</item>
+		<item>6 ΠΜ</item>
+		<item>7 ΠΜ</item>
+		<item>8 ΠΜ</item>
+		<item>9 ΠΜ</item>
+		<item>10 ΠΜ</item>
+		<item>11 ΠΜ</item>
+		<item>12 ΜΜ</item>
+		<item>1 ΜΜ</item>
+		<item>2 ΜΜ</item>
+		<item>3 ΜΜ</item>
+		<item>4 ΜΜ</item>
+		<item>5 ΜΜ</item>
+		<item>6 ΜΜ</item>
+		<item>7 ΜΜ</item>
+	</string-array>
+	<string-array name="EPr_quiet_hours_end">
+		<item>9 ΠΜ</item>
+		<item>10 ΠΜ</item>
+		<item>11 ΠΜ</item>
+		<item>12 ΜΜ</item>
+		<item>1 ΜΜ</item>
+		<item>2 ΜΜ</item>
+		<item>3 ΜΜ</item>
+		<item>4 ΜΜ</item>
+		<item>5 ΜΜ</item>
+		<item>6 ΜΜ</item>
+		<item>7 ΜΜ</item>
+		<item>8 ΜΜ</item>
+		<item>9 ΜΜ</item>
+		<item>10 ΜΜ</item>
+		<item>11 ΜΜ</item>
+		<item>12 ΠΜ</item>
+		<item>1 ΠΜ</item>
+		<item>2 ΠΜ</item>
+		<item>3 ΠΜ</item>
+		<item>4 ΠΜ</item>
+		<item>5 ΠΜ</item>
+		<item>6 ΠΜ</item>
+		<item>7 ΠΜ</item>
+		<item>8 ΠΜ</item>
+	</string-array>
+	<string-array name="EPr_rmd_time">
+		<item>9 ΠΜ</item>
+		<item>10 ΠΜ</item>
+		<item>11 ΠΜ</item>
+		<item>12 ΜΜ</item>
+		<item>1 ΜΜ</item>
+		<item>2 ΜΜ</item>
+		<item>3 ΜΜ</item>
+		<item>4 ΜΜ</item>
+		<item>5 ΜΜ</item>
+		<item>6 ΜΜ</item>
+		<item>7 ΜΜ</item>
+		<item>8 ΜΜ</item>
+		<item>9 ΜΜ</item>
+		<item>10 ΜΜ</item>
+		<item>11 ΜΜ</item>
+		<item>12 ΠΜ</item>
+		<item>1 ΠΜ</item>
+		<item>2 ΠΜ</item>
+		<item>3 ΠΜ</item>
+		<item>4 AM</item>
+		<item>5 AM</item>
+		<item>6 AM</item>
+		<item>7 AM</item>
+		<item>8 AM</item>
+	</string-array>
 	<string name="repeat_plugin">Επαναλαμβανόμενα καθήκοντα</string>
 	<string name="repeat_plugin_desc">Επιτρέπει στα καθήκοντα να επαναλαμβάνονται</string>
 	<string name="repeat_enabled">Επαναλήψεις</string>
@@ -219,12 +414,15 @@ Tasks might not let you know when your tasks are due.\n</string>
 	<string name="repeat_dont">Να μήν επαναληφθεί</string>
 	<string name="repeat_until_title">Επανάληψη εως ότου</string>
 	<string name="repeat_keep_going">Συνέχιση</string>
+	<string name="repeat_detail_byday">$I στο $D</string>
 	<string name="repeat_detail_duedate">Κάθε %s</string>
+	<string name="repeat_detail_duedate_until">Κάθε %1$s\nμέχρι %2$s</string>
 	<string name="repeat_detail_completion">%s μετά την ολοκλήρωση</string>
 	<string name="repeat_forever">Επανάληψη επ\'αορίστου</string>
 	<string name="repeat_until">Επανάληψη μέχρι %s</string>
 	<string name="repeat_rescheduling_dialog_title">Επανακαθορισμός καθήκοντος \"%s\"</string>
 	<string name="repeat_rescheduling_dialog_title_last_time">Ολοκληρώθηκε το επαναλαμβανόμενο καθήκον \"%s\"</string>
+	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s επαναπρογραμμάτισα αυτό το επαναλαμβανόμενο καθήκον για τις %2$s</string>
 	<string name="subtasks_help_title">Ταξινόμηση και στοίχηση</string>
 	<string name="subtasks_help_1">Πατήστε και κρατήστε για μετακίνηση καθήκοντος</string>
 	<string name="subtasks_help_2">Σύρετε κάθετα για ορισμό σειράς</string>
@@ -241,7 +439,10 @@ Tasks might not let you know when your tasks are due.\n</string>
 	<string name="DLG_delete_this_tag_question">Διαγραφή της λίστας: %s ? (δεν θα διαγραφούν τα καθήκοντα.)</string>
 	<string name="DLG_rename_this_tag_header">Μετονομασία της λίστας %s σε:</string>
 	<string name="TEA_no_tags_modified">Δεν έγιναν αλλαγές</string>
+	<string name="TEA_tags_deleted">Η λίστα %1$s διαγράφτηκε, επηρεάζοντας %2$d καθήκοντα</string>
+	<string name="TEA_tags_renamed">Μετονομασία %1$s σε %2$s για %3$d καθήκοντα</string>
 	<string name="tag_settings_title">Ρυθμίσεις λίστας</string>
+	<string name="TPl_notification">Χρονοδιακόπτες ενεργοί για %s!</string>
 	<string name="TFE_workingOn">Καθήκοντα με χρονικό όριο</string>
 	<string name="TEA_timer_controls">Χρονοδιακόπτης</string>
 	<string name="TEA_timer_comment_started">ξεκίνησε το καθήκον:</string>
@@ -251,4 +452,5 @@ Tasks might not let you know when your tasks are due.\n</string>
 	<string name="EPr_use_dark_theme">Σκοτεινό θέμα</string>
 	<string name="EPr_use_dark_theme_widget">Widget σκοτεινού θέματος</string>
 	<string name="delete_task">Διαγραφή καθήκοντος</string>
+	<string name="TLA_menu_donate">Δωρίστε</string>
 </resources>

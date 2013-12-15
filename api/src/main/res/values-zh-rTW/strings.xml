@@ -47,6 +47,7 @@
 	<string name="DLG_error_generic">糟糕，發生錯誤！</string>
 	<string name="DLG_wait">請稍候...</string>
 	<string name="SyP_label">同步和備份</string>
+	<string name="Sync_now_label">立即同步</string>
 	<string name="SyP_summary">谷歌任務，已存數據，本地備份</string>
 	<string name="sync_SPr_group_status">狀態</string>
 	<string name="sync_SPr_status_subtitle">狀態：%s</string>

@@ -95,6 +95,7 @@
 	<string name="SSD_sort_reverse">Omvänd sortering</string>
 	<string name="SSD_save_temp">Bara en gång</string>
 	<string name="SSD_save_always">Alltid</string>
+	<string name="FSA_label">Uppgiftslista eller filter</string>
 	<string name="FLA_context_shortcut">Skapa genväg på skrivbordet</string>
 	<string name="FLA_shortcut_dialog_title">Skapa genväg</string>
 	<string name="FLA_shortcut_dialog">Genvägens namn:</string>
@@ -104,20 +105,26 @@
 	<string name="FLA_new_filter">Nytt filter</string>
 	<string name="FLA_new_list">Ny lista</string>
 	<string name="FLA_no_filter_selected">Inget filter valt! Välj ett filter eller en lista.</string>
+	<string name="TEA_title_hint">Uppgiftsnamn</string>
 	<string name="TEA_importance_label">Prioritet</string>
+	<string name="TEA_deadline_hint">Ange förfallodatum</string>
 	<string name="TEA_hideUntil_label">Dölj tills</string>
+	<string name="TEA_hideUntil_display">Dölj tills %s</string>
 	<string name="TEA_note_label">Beskrivning</string>
+	<string name="TEA_notes_empty">Beskrivning</string>
 	<string name="TEA_notes_hint">Ange uppgiftsbeskrivning...</string>
 	<string name="TEA_estimatedDuration_label">Hur lång tid kommer det att ta?</string>
 	<string name="TEA_elapsedDuration_label">Tid redan spenderad på uppgiften</string>
 	<string name="TEA_menu_save">Spara ändringar</string>
 	<string name="TEA_menu_discard">Spara inte</string>
 	<string name="TEA_tab_activity">Aktivitet</string>
+	<string name="TEA_timer_est">Ung. %s</string>
+	<string name="TEA_timer_elap">Förfluten %s</string>
 	<string-array name="TEA_urgency">
-		<item>No date</item>
+		<item>Inget datum</item>
 		<item>Specifik dag</item>
-		<item>Today</item>
-		<item>Tomorrow</item>
+		<item>Idag</item>
+		<item>Imorgon</item>
 		<item>(dagen efter)</item>
 		<item>Nästa vecka</item>
 		<item>Om två veckor</item>
@@ -125,8 +132,8 @@
 	</string-array>
 	<string name="TEA_no_time">Ingen tid</string>
 	<string-array name="TEA_hideUntil">
-		<item>Never</item>
-		<item>Due date</item>
+		<item>Aldrig</item>
+		<item>Förfallodatum</item>
 		<item>Due time</item>
 		<item>Day before due</item>
 		<item>Week before due</item>
@@ -197,18 +204,33 @@
 	<string name="EPr_fontSize_desc">Textstorlek för huvudlistan</string>
 	<string name="EPr_showNotes_title">Visa beskrivning i uppgiften</string>
 	<string name="EPr_edit_screen_options">Ändra skärminställningar</string>
+	<string name="EPr_beastMode_title">Redigera skärmordning</string>
+	<string name="EPr_time_increment">5 minuters steg</string>
 	<string name="EPr_beastMode_desc">Ställ in layouten för uppgiftsredigeringsrutan</string>
 	<string name="EPr_beastMode_reset">Återställ till standardvärden</string>
+	<string name="EPr_showNotes_desc_disabled">Beskrivning är tillgänglig från uppgiftsredigeringsskärmen </string>
+	<string name="EPr_showNotes_desc_enabled">Beskrivning visas alltid</string>
 	<string name="EPr_fullTask_title">Visa hela namnet på uppgiften</string>
 	<string name="EPr_fullTask_desc_enabled">Uppgiftens namn kommer att visas i sin helhet</string>
 	<string name="EPr_fullTask_desc_disabled">De första två raderna i uppgiftens namn kommer att visas</string>
+	<string-array name="EPr_task_row_styles">
+		<item>Original</item>
+		<item>Enkel</item>
+		<item>Endast titel</item>
+	</string-array>
 	<string-array name="EPr_task_row_style_descriptions">
 		<item>Förkorta titel till två rader med datum till höger</item>
 		<item>Förkorta titel till en rad, med datum och listor nedanför</item>
 		<item>Single line title only</item>
 	</string-array>
+	<string name="EPr_task_row_style_title">Rad stil: %s</string>
+	<string name="EPr_show_quickadd_controls">Avancerade quickadd kontroller.</string>
+	<string name="EPr_hide_plus_button">Dölj plusknappen</string>
+	<string name="EPr_list_view">Listvy</string>
+	<string name="EPr_show_task_edit_comments">Vissa kommentarer i uppgiftsredigering</string>
 	<string name="EPr_taskRowPrefs_title">Utseende på uppgiftsraden</string>
 	<string name="EPr_force_phone_layout">Använd telefonutseende</string>
+	<string name="EPr_show_save_and_cancel">Visa spara och avbryt</string>
 	<string name="EPr_manage_header">Hantera gamla uppgifter</string>
 	<string name="EPr_manage_delete_completed">Radera färdiga uppgifter</string>
 	<string name="EPr_manage_delete_completed_message">Vill du verkligen radera alla dina färdiga uppgifter?</string>
@@ -241,6 +263,7 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="EPr_defaults_header">Standardinställningar för nya uppgifter</string>
 	<string name="EPr_default_urgency_title">Standardfrist</string>
 	<string name="EPr_default_urgency_desc">Aktuellt: %s</string>
+	<string name="EPr_default_importance_title">Standard prioritet</string>
 	<string name="EPr_default_importance_desc">Aktuellt: %s</string>
 	<string name="EPr_default_hideUntil_title">Standard Dölj tills</string>
 	<string name="EPr_default_hideUntil_desc">Aktuellt: %s</string>
@@ -259,8 +282,8 @@ och återställer dina aktuella uppgifter från en backup
 	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>Ingen frist</item>
-		<item>Today</item>
-		<item>Tomorrow</item>
+		<item>Idag</item>
+		<item>Imorgon</item>
 		<item>I övermorgon</item>
 		<item>Nästa vecka</item>
 	</string-array>
@@ -276,6 +299,7 @@ och återställer dina aktuella uppgifter från en backup
 		<item>Efter förfallodagen</item>
 		<item>Vid eller efter förfallodagen</item>
 	</string-array>
+	<string name="BFE_Active">Mina Uppgifter</string>
 	<string name="BFE_Recent">Nyligen ändrade</string>
 	<string name="BFE_Saved_delete">Radera filter</string>
 	<string name="CFA_filterName_hint">Spara detta filter genom att ge det ett namn</string>
@@ -293,12 +317,13 @@ och återställer dina aktuella uppgifter från en backup
 	<string-array name="CFC_dueBefore_entries">
 		<item>Inget förfallodatum</item>
 		<item>Igår</item>
-		<item>Today</item>
-		<item>Tomorrow</item>
+		<item>Idag</item>
+		<item>Imorgon</item>
 		<item>I övermorgon</item>
 		<item>Nästa vecka</item>
 		<item>Nästa månad</item>
 	</string-array>
+	<string name="CFC_importance_name">Prioritet...</string>
 	<string name="CFC_tag_text">Lista: ?</string>
 	<string name="CFC_tag_name">Lista...</string>
 	<string name="CFC_tag_contains_name">Namnet på listan innehåller...</string>
@@ -309,6 +334,7 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="gcal_TEA_addToCalendar_label">Skapa kalenderhändelse</string>
 	<string name="gcal_TEA_showCalendar_label">Öppna kalenderhändelse</string>
 	<string name="gcal_TEA_nocal">Lägg inte till</string>
+	<string name="gcal_TEA_none_selected">Till kalender</string>
 	<string name="gcal_TEA_has_event">Kalenderhändelse</string>
 	<string name="gcal_completed_title">%s (avslutad)</string>
 	<string name="gcal_GCP_default">Standardkalender</string>
@@ -369,11 +395,19 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="p_files_dir_desc">Uppgiftens bifogade filer sparades till: %s</string>
 	<string name="p_files_dir_desc_default">Standardmapp</string>
 	<string name="premium_speech_bubble_2">Beställ för helår och spara 25%!</string>
+	<string name="TEA_reminders_group_label">Påminnelseinställningar</string>
 	<string name="TEA_reminder_label">Påminn mig:</string>
 	<string name="TEA_reminder_due">...när uppgiften förfaller</string>
 	<string name="TEA_reminder_overdue">...när uppgiften har förfallit</string>
 	<string name="TEA_reminder_randomly">En gång slumpmässigt</string>
 	<string name="TEA_reminder_alarm_label">Ring/Vibrationsinställning:</string>
+	<string name="TEA_reminder_mode_once">En</string>
+	<string name="TEA_reminder_mode_five">Fem gånger</string>
+	<string name="TEA_reminder_mode_nonstop">Tills jag stänger av alarmet</string>
+	<string name="TEA_reminder_when">när</string>
+	<string name="TEA_reminder_randomly_short">slumpvis</string>
+	<string name="TEA_reminder_display_one">Påminn mig %s</string>
+	<string name="TEA_reminder_display_multiple">Påminn %s</string>
 	<string-array name="TEA_reminder_random">
 		<item>en timme</item>
 		<item>ett dygn</item>
@@ -416,7 +450,7 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="rmd_EPr_snooze_dialog_desc_true">Ställ in paustid genom att välja ny tid (TT:MM)</string>
 	<string name="rmd_EPr_snooze_dialog_desc_false">Ställ in paustid genom att välja # dagar/timmar för pausen</string>
 	<string name="rmd_EPr_defaultRemind_title">Tillfälliga påminnelser</string>
-	<string name="rmd_EPr_defaultRemind_desc_disabled">Nya uppgifter påminns inte tillfälligtvis</string>
+	<string name="rmd_EPr_defaultRemind_desc_disabled">Nya uppgifter påminns ej slumpmässigt</string>
 	<string name="rmd_EPr_defaultRemind_desc">Nya uppgifter påminns tillfälligtvis: %s</string>
 	<string-array name="EPr_reminder_random">
 		<item>inaktiverad</item>
@@ -511,6 +545,7 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="repeat_enabled">Upprepningar</string>
 	<string name="repeat_every">Varje %d</string>
 	<string name="repeat_interval_prompt">Upprepningsintervall</string>
+	<string name="repeat_never">Inte upprepande</string>
 	<string name="repeat_dont">Upprepa inte</string>
 	<string-array name="repeat_interval_short">
 		<item>d</item>
@@ -527,6 +562,16 @@ och återställer dina aktuella uppgifter från en backup
 		<item>Timme (timmar)</item>
 		<item>Minut(er)</item>
 		<item>År</item>
+	</string-array>
+	<string-array name="repeat_until_shortcuts">
+		<item>Forever</item>
+		<item>Specifik dag</item>
+		<item>Idag</item>
+		<item>Imorgon</item>
+		<item>(i övermorgon)</item>
+		<item>Nästa Vecka</item>
+		<item>Om två veckor</item>
+		<item>Nästa månad</item>
 	</string-array>
 	<string name="repeat_until_title">Repetera tills...</string>
 	<string name="repeat_keep_going">Fortsätt</string>
@@ -549,11 +594,13 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="subtasks_help_1">Rör vid och håll kvar fingret för att flytta en uppgift</string>
 	<string name="subtasks_help_2">Dra upp eller ner för att ändra ordningen</string>
 	<string name="subtasks_help_3">Dra åt höger för att göra indrag</string>
+	<string name="TEA_tags_label_long">Lägg till på listor</string>
 	<string name="TEA_tag_hint">Ny lista</string>
 	<string name="tag_new_list">Ny lista</string>
 	<string name="tag_no_title_error">Ange först ett namn på listan!</string>
 	<string name="tag_FEx_add_new">Ny</string>
 	<string name="tag_FEx_header">Listor</string>
+	<string name="tag_FEx_untagged">Ingen kategori</string>
 	<string name="tag_cm_rename">Byt namn på listan</string>
 	<string name="tag_cm_delete">Radera listan</string>
 	<string name="DLG_delete_this_tag_question">Radera listan %s? (Inga uppgifter raderas.)</string>
@@ -582,4 +629,7 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="EPr_voiceRemindersEnabled_title">Röstpåminnelser</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks läser upp uppgifterna vid påminnelse</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks kommer att spela en ringsignal vid påminnelse</string>
+	<string name="widget_mini">Uppgifter</string>
+	<string name="delete_task">Radera uppgift</string>
+	<string name="TLA_menu_donate">Donera</string>
 </resources>
