@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/abaker/tasks.png?branch=master)](https://travis-ci.org/abaker/tasks)
+[![Build Status](https://travis-ci.org/abaker/tasks.png?branch=master)](https://travis-ci.org/abaker/tasks) [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/abaker/tasks/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 Visit the wiki to [get started with development](https://github.com/abaker/tasks/wiki/Getting-Started-with-Development).
 
