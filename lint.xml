@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <lint>
-    <issue id="UnusedResources" severity="ignore"/>
     <issue id="InconsistentArrays" severity="error"/>
+    <issue id="MissingTranslation" severity="ignore"/>
 </lint>

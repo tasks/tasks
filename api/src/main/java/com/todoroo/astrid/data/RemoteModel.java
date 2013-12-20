@@ -5,10 +5,12 @@
  */
 package com.todoroo.astrid.data;
 
+import android.annotation.TargetApi;
 import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.data.AbstractModel;
@@ -112,6 +114,7 @@ abstract public class RemoteModel extends AbstractModel {
             return String.format("cached::%s%s", tagData.getValue(TagData.NAME), tag_date);
         }
 
+        @TargetApi(Build.VERSION_CODES.FROYO)
         public static JSONObject savePictureJson(Context context, Bitmap bitmap) {
             try {
                 String name = DateUtilities.now() + ".jpg";

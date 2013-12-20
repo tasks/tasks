@@ -12,8 +12,6 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  * Helpers for sorting a list of tasks
  *
@@ -66,7 +64,7 @@ public class SortHelper {
         }
         if ((flags & FLAG_SHOW_RECENTLY_COMPLETED) > 0) {
             originalSql = originalSql.replace(Task.COMPLETION_DATE.eq(0).toString(),
-                    Criterion.or(Task.COMPLETION_DATE.lte(0), Task.COMPLETION_DATE.gt(DateUtilities.now() - TimeUnit.MINUTES.toMillis(1))).toString());
+                    Criterion.or(Task.COMPLETION_DATE.lte(0), Task.COMPLETION_DATE.gt(DateUtilities.now() - 60000)).toString());
         }
         if((flags & FLAG_SHOW_HIDDEN) > 0) {
             originalSql = originalSql.replace(TaskCriteria.isVisible().toString(),
