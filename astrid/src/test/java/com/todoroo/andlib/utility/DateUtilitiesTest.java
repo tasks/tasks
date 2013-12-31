@@ -8,6 +8,7 @@ package com.todoroo.andlib.utility;
 import com.todoroo.andlib.test.TodorooRobolectricTestCase;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -142,8 +143,8 @@ public class DateUtilitiesTest extends TodorooRobolectricTestCase {
 
     @Test
     public void oneMonthFromEndOfFebruary() {
-        DateTime now = new DateTime(2014, 2, 28, 9, 19, 7, 990);
-        final long expected = new DateTime(2014, 3, 28, 9, 19, 7, 990).getMillis();
+        DateTime now = new DateTime(2014, 2, 28, 9, 19, 7, 990, DateTimeZone.forID("America/Chicago"));
+        final long expected = new DateTime(2014, 3, 28, 9, 19, 7, 990, DateTimeZone.forID("America/Chicago")).getMillis();
 
         freezeAt(now).thawAfter(new Snippet() {{
             assertEquals(expected, oneMonthFromNow());
