@@ -2,4 +2,5 @@
 <lint>
     <issue id="InconsistentArrays" severity="error"/>
     <issue id="MissingTranslation" severity="ignore"/>
+    <issue id="TypographyEllipsis" severity="ignore"/>
 </lint>

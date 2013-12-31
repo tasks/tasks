@@ -30,4 +30,6 @@ android {
 
 dependencies {
     compile 'com.android.support:support-v4:18.0.0'
+
+    compile group: 'joda-time', name: 'joda-time', version: '2.3', transitive: false
 }

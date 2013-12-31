@@ -280,7 +280,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         }
     }
 
-    private static long handleSubdayRepeat(Date startDate, RRule rrule) {
+    static long handleSubdayRepeat(Date startDate, RRule rrule) {
         long millis;
         switch(rrule.getFreq()) {
         case HOURLY:
@@ -293,8 +293,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             throw new RuntimeException("Error handing subday repeat: " + rrule.getFreq()); //$NON-NLS-1$
         }
         long newDueDate = startDate.getTime() + millis * rrule.getInterval();
-        return Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,
-                newDueDate);
+        return Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, newDueDate);
     }
 
 }

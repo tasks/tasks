@@ -40,4 +40,4 @@ before_script:
 
 script:
   - ./gradlew test --stacktrace --info
-  - ./gradlew :astrid:connectedInstrumentTest --stacktrace --info
+  # - ./gradlew :astrid:connectedInstrumentTest --stacktrace --info

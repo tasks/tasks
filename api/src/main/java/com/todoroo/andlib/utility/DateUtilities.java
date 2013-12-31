@@ -18,6 +18,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import static org.tasks.date.DateTimeUtils.currentTimeMillis;
+
 
 public class DateUtilities {
 
@@ -50,12 +52,12 @@ public class DateUtilities {
 
     /** Returns unixtime for current time */
     public static long now() {
-        return System.currentTimeMillis();
+        return currentTimeMillis();
     }
 
     /** Returns unixtime one month from now */
     public static long oneMonthFromNow() {
-        Date date = new Date();
+        Date date = new Date(now());
         date.setMonth(date.getMonth() + 1);
         return date.getTime();
     }
