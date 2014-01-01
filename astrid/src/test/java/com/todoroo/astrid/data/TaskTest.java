@@ -1,8 +1,10 @@
 package com.todoroo.astrid.data;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -17,7 +19,10 @@ import static com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY_TIME;
 import static com.todoroo.astrid.data.Task.URGENCY_TODAY;
 import static com.todoroo.astrid.data.Task.URGENCY_TOMORROW;
 import static com.todoroo.astrid.data.Task.createDueDate;
+import static com.todoroo.astrid.data.Task.hasDueTime;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.tasks.Freeze.freezeAt;
 import static org.tasks.Freeze.thaw;
 
@@ -26,6 +31,11 @@ public class TaskTest {
 
     private static final DateTime now = new DateTime(2013, 12, 31, 16, 10, 53, 452);
     private static final DateTime specificDueDate = new DateTime(2014, 3, 17, 9, 54, 27, 959);
+
+    @BeforeClass
+    public static void beforeClass() {
+        DateTimeZone.setDefault(DateTimeZone.forID("America/Chicago"));
+    }
 
     @Before
     public void before() {
@@ -96,5 +106,15 @@ public class TaskTest {
                 .withMillisOfSecond(0)
                 .getMillis();
         assertEquals(expected, createDueDate(URGENCY_SPECIFIC_DAY_TIME, specificDueDate.getMillis()));
+    }
+
+    @Test
+    public void doesHaveDueTime() {
+        assertTrue(hasDueTime(1388516076000L));
+    }
+
+    @Test
+    public void doesNotHaveDueTime() {
+        assertFalse(hasDueTime(1388469600000L));
     }
 }

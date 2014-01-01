@@ -49,7 +49,7 @@ public class RepeatAfterCompleteTest extends TodorooRobolectricTestCase {
         task.setValue(Task.DUE_DATE, DateUtilities.now() - DateUtilities.ONE_WEEK);
 
         for(Frequency freq : Frequency.values()) {
-            long interval = -1;
+            long interval;
             switch(freq) {
             case MINUTELY:
                 interval = DateUtilities.ONE_MINUTE; break;
@@ -135,7 +135,7 @@ public class RepeatAfterCompleteTest extends TodorooRobolectricTestCase {
     }
 
     private void setRRuleDays(RRule rrule, Weekday... weekdays) {
-        ArrayList<WeekdayNum> days = new ArrayList<WeekdayNum>();
+        ArrayList<WeekdayNum> days = new ArrayList<>();
         for(Weekday wd : weekdays)
             days.add(new WeekdayNum(0, wd));
         rrule.setByDay(days);
