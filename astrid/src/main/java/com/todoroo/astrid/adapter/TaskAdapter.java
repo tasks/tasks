@@ -75,11 +75,12 @@ import org.tasks.R;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
+
+import static org.tasks.date.DateTimeUtils.newDate;
 
 /**
  * Adapter for displaying a user's tasks as a list
@@ -667,7 +668,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         String string = DateUtilities.getRelativeDay(fragment.getActivity(), date);
         if(Task.hasDueTime(date)) {
             string = String.format(formatString, string, //$NON-NLS-1$
-                    DateUtilities.getTimeString(fragment.getActivity(), new Date(date)));
+                    DateUtilities.getTimeString(fragment.getActivity(), newDate(date)));
         }
 
         dateCache.put(date, string);
@@ -712,8 +713,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                         continue;
                     } else if(Constants.DEBUG) {
                         System.err.println("Forced loading of details: " + task.getId() + //$NON-NLS-1$
-                                "\n  details: " + new Date(task.getValue(Task.DETAILS_DATE)) + //$NON-NLS-1$
-                                "\n  modified: " + new Date(task.getValue(Task.MODIFICATION_DATE))); //$NON-NLS-1$
+                                "\n  details: " + newDate(task.getValue(Task.DETAILS_DATE)) + //$NON-NLS-1$
+                                "\n  modified: " + newDate(task.getValue(Task.MODIFICATION_DATE))); //$NON-NLS-1$
                     }
                     addTaskToLoadingArray(task);
 

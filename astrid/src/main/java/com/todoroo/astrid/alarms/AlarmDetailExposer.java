@@ -18,6 +18,8 @@ import com.todoroo.astrid.data.Metadata;
 
 import java.util.Date;
 
+import static org.tasks.date.DateTimeUtils.newDate;
+
 /**
  * Exposes Task Detail for tags, i.e. "Tags: frogs, animals"
  *
@@ -64,8 +66,8 @@ public class AlarmDetailExposer extends BroadcastReceiver {
                 return null;
             }
             int flags = DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME;
-            Date today = new Date();
-            Date alarm = new Date(nextTime);
+            Date today = newDate();
+            Date alarm = newDate(nextTime);
             if(today.getYear() == alarm.getYear()) {
                 flags |= DateUtils.FORMAT_NO_YEAR;
             }

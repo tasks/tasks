@@ -27,6 +27,8 @@ import org.tasks.R;
 
 import java.util.Date;
 
+import static org.tasks.date.DateTimeUtils.newDate;
+
 /**
  * A dialog that shows your task reminder
  *
@@ -55,7 +57,7 @@ public class ReminderDialog extends Dialog {
         final OnTimeSetListener onTimeSet = new OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hours, int minutes) {
-                Date alarmTime = new Date();
+                Date alarmTime = newDate();
                 alarmTime.setHours(hours);
                 alarmTime.setMinutes(minutes);
                 if(alarmTime.getTime() < DateUtilities.now()) {

@@ -15,7 +15,7 @@ import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.R;
 
-import java.util.Date;
+import static org.tasks.date.DateTimeUtils.newDate;
 
 public class CalendarAlarmScheduler {
 
@@ -62,7 +62,7 @@ public class CalendarAlarmScheduler {
                     am.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
 
                     if (Constants.DEBUG) {
-                        Log.w(TAG, "Scheduling calendar alarm for " + new Date(alarmTime));
+                        Log.w(TAG, "Scheduling calendar alarm for " + newDate(alarmTime));
                     }
                 }
 

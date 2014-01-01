@@ -26,9 +26,10 @@ import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 
 import org.tasks.api.R;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Set;
+
+import static org.tasks.date.DateTimeUtils.newDate;
 
 /**
  * Utility class for common synchronization action: displaying synchronization
@@ -136,13 +137,13 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
                 if(getUtilities().getLastAttemptedSyncDate() != 0) {
                     status = r.getString(R.string.sync_status_failed,
                         DateUtilities.getDateStringWithTime(SyncProviderPreferences.this,
-                        new Date(getUtilities().getLastAttemptedSyncDate())));
+                        newDate(getUtilities().getLastAttemptedSyncDate())));
                     statusColor = Color.rgb(100, 0, 0);
                 } else {
                     long lastSyncDate = getUtilities().getLastSyncDate();
                     String dateString = lastSyncDate > 0 ?
                             DateUtilities.getDateStringWithTime(SyncProviderPreferences.this,
-                                    new Date(lastSyncDate)) : ""; //$NON-NLS-1$
+                                    newDate(lastSyncDate)) : ""; //$NON-NLS-1$
                     status = r.getString(R.string.sync_status_errors, dateString);
                     statusColor = Color.rgb(100, 100, 0);
                 }
@@ -150,7 +151,7 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
             else if(getUtilities().getLastSyncDate() > 0) {
                 status = r.getString(R.string.sync_status_success,
                         DateUtilities.getDateStringWithTime(SyncProviderPreferences.this,
-                        new Date(getUtilities().getLastSyncDate())));
+                        newDate(getUtilities().getLastSyncDate())));
                 statusColor = Color.rgb(0, 100, 0);
             } else {
                 status = r.getString(R.string.sync_status_never);

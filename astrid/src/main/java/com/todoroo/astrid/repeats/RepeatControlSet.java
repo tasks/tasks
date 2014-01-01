@@ -48,6 +48,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import static org.tasks.date.DateTimeUtils.newDate;
+
 /**
  * Control Set for managing repeats
  *
@@ -205,7 +207,7 @@ public class RepeatControlSet extends PopupControlSet {
     protected void readFromTaskOnInitialize() {
         Date date;
         if(model.getValue(Task.DUE_DATE) != 0) {
-            date = new Date(model.getValue(Task.DUE_DATE));
+            date = newDate(model.getValue(Task.DUE_DATE));
 
             int dayOfWeek = date.getDay();
             for(int i = 0; i < 7; i++) {

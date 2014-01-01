@@ -19,6 +19,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static org.tasks.date.DateTimeUtils.newDate;
+
 public class FileUtilities {
 
     /**
@@ -51,7 +53,7 @@ public class FileUtilities {
 
         String dir = getAttachmentsDirectory(context).getAbsolutePath();
 
-        String name = getNonCollidingFileName(dir, context.getString(prefixId) + " " + getDateStringForFilename(context, new Date()), extension);
+        String name = getNonCollidingFileName(dir, context.getString(prefixId) + " " + getDateStringForFilename(context, newDate()), extension);
 
         if (nameReference != null) {
             nameReference.set(name);

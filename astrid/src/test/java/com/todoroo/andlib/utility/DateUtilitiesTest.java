@@ -23,6 +23,7 @@ import static com.todoroo.andlib.utility.DateUtilities.oneMonthFromNow;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.tasks.Freeze.freezeAt;
+import static org.tasks.date.DateTimeUtils.newDate;
 
 @RunWith(RobolectricTestRunner.class)
 public class DateUtilitiesTest extends TodorooRobolectricTestCase {
@@ -35,7 +36,7 @@ public class DateUtilitiesTest extends TodorooRobolectricTestCase {
     public void testTimeString() {
         forEachLocale(new Runnable() {
             public void run() {
-                Date d = new Date();
+                Date d = newDate();
 
                 set24Hour(false);
                 for(int i = 0; i < 24; i++) {
@@ -56,7 +57,7 @@ public class DateUtilitiesTest extends TodorooRobolectricTestCase {
     public void testDateString() {
         forEachLocale(new Runnable() {
             public void run() {
-                Date d = new Date();
+                Date d = newDate();
 
                 for(int i = 0; i < 12; i++) {
                     d.setMonth(i);
@@ -70,7 +71,7 @@ public class DateUtilitiesTest extends TodorooRobolectricTestCase {
     public void testWeekdayString() {
         forEachLocale(new Runnable() {
             public void run() {
-                Date d = new Date();
+                Date d = newDate();
 
                 for(int i = 0; i < 7; i++) {
                     d.setDate(i);

@@ -63,9 +63,10 @@ import org.tasks.R;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+
+import static org.tasks.date.DateTimeUtils.newDate;
 
 public class EditNoteActivity extends LinearLayout implements TimerActionListener {
 
@@ -460,7 +461,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     public void timerStarted(Task t) {
         addComment(String.format("%s %s",  //$NON-NLS-1$
                 getContext().getString(R.string.TEA_timer_comment_started),
-                DateUtilities.getTimeString(getContext(), new Date())),
+                DateUtilities.getTimeString(getContext(), newDate())),
                 UserActivity.ACTION_TASK_COMMENT,
                 t.getUuid(),
                 t.getValue(Task.TITLE),
@@ -472,7 +473,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         String elapsedTime = DateUtils.formatElapsedTime(t.getValue(Task.ELAPSED_SECONDS));
         addComment(String.format("%s %s\n%s %s", //$NON-NLS-1$
                 getContext().getString(R.string.TEA_timer_comment_stopped),
-                DateUtilities.getTimeString(getContext(), new Date()),
+                DateUtilities.getTimeString(getContext(), newDate()),
                 getContext().getString(R.string.TEA_timer_comment_spent),
                 elapsedTime), UserActivity.ACTION_TASK_COMMENT,
                 t.getUuid(),

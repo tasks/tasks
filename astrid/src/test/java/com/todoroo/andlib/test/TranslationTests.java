@@ -21,6 +21,7 @@ import java.util.Locale;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.tasks.date.DateTimeUtils.newDate;
 
 /**
  * Tests translations for consistency with the default values. You must
@@ -202,7 +203,7 @@ abstract public class TranslationTests extends TodorooRobolectricTestCase {
 
         final StringBuilder failures = new StringBuilder();
         final int[] dateStrings = getDateFormatStrings();
-        final Date date = new Date();
+        final Date date = newDate();
 
         forEachLocale(new Runnable() {
             public void run() {

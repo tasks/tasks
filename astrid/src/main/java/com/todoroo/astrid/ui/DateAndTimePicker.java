@@ -28,6 +28,8 @@ import org.tasks.R;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static org.tasks.date.DateTimeUtils.newDate;
+
 public class DateAndTimePicker extends LinearLayout {
 
     private static final int SHORTCUT_PADDING = 8;
@@ -79,7 +81,7 @@ public class DateAndTimePicker extends LinearLayout {
     }
 
     public void initializeWithDate(long dateValue) {
-        Date date = new Date(dateValue);
+        Date date = newDate(dateValue);
         Date forCalendar;
         if (dateValue> 0) {
             forCalendar = getDateForCalendar(date);
@@ -100,7 +102,7 @@ public class DateAndTimePicker extends LinearLayout {
     }
 
     private Date getDateForCalendar(Date date) {
-        Date forCalendar = new Date(date.getTime() / 1000L * 1000L);
+        Date forCalendar = newDate(date.getTime() / 1000L * 1000L);
         forCalendar.setHours(12);
         forCalendar.setMinutes(0);
         forCalendar.setSeconds(0);
@@ -128,7 +130,7 @@ public class DateAndTimePicker extends LinearLayout {
     private void forceDateSelected() {
         ToggleButton none = (ToggleButton) dateShortcuts.getChildAt(dateShortcuts.getChildCount() - 1);
         if (none.isChecked()) {
-            Date date = new Date(todayUrgency.dueDate);
+            Date date = newDate(todayUrgency.dueDate);
             calendarView.setCalendarDate(date);
             calendarView.invalidate();
             if (todayUrgency.setting == Task.URGENCY_NONE) {
@@ -212,7 +214,7 @@ public class DateAndTimePicker extends LinearLayout {
                 @Override
                 public void onClick(View v) {
                     UrgencyValue value = (UrgencyValue) v.getTag();
-                    Date date = new Date(value.dueDate);
+                    Date date = newDate(value.dueDate);
                     calendarView.setCalendarDate(date);
                     calendarView.invalidate();
                     if (value.setting == Task.URGENCY_NONE) {
@@ -243,7 +245,7 @@ public class DateAndTimePicker extends LinearLayout {
     }
 
     public long constructDueDate() {
-        Date calendarDate = new Date(calendarView.getCalendarDate().getTime());
+        Date calendarDate = newDate(calendarView.getCalendarDate().getTime());
         if (timePicker.hasTime() && calendarDate.getTime() > 0) {
             calendarDate.setHours(timePicker.getHours());
             calendarDate.setMinutes(timePicker.getMinutes());
@@ -274,7 +276,7 @@ public class DateAndTimePicker extends LinearLayout {
 
     public static String getDisplayString(Context context, long forDate, boolean useNewline, boolean hideYear, boolean hideTime) {
         StringBuilder displayString = new StringBuilder();
-        Date d = new Date(forDate);
+        Date d = newDate(forDate);
         if (d.getTime() > 0) {
             if (hideYear) {
                 displayString.append(DateUtilities.getDateStringHideYear(d));

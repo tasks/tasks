@@ -10,18 +10,20 @@ import com.google.api.client.util.DateTime;
 import java.util.Date;
 import java.util.TimeZone;
 
+import static org.tasks.date.DateTimeUtils.newDate;
+
 public class GtasksApiUtilities {
 
     public static DateTime unixTimeToGtasksCompletionTime(long time) {
         if (time < 0) {
             return null;
         }
-        return new DateTime(new Date(time), TimeZone.getDefault());
+        return new DateTime(newDate(time), TimeZone.getDefault());
     }
 
 //    public static String unixTimeToGtasksCompletionTime(long time) {
 //        if (time == 0) return null;
-//        return new DateTime(new Date(time), TimeZone.getDefault()).toStringRfc3339();
+//        return new DateTime(newDate(time), TimeZone.getDefault()).toStringRfc3339();
 //    }
 
 
@@ -36,7 +38,7 @@ public class GtasksApiUtilities {
 //        if (gtasksCompletedTime == null) return defaultValue;
 //        try {
 //            long utcTime = DateTime.parseRfc3339(gtasksCompletedTime).value;
-//            Date date = new Date(utcTime);
+//            Date date = newDate(utcTime);
 //            return date.getTime();
 //        } catch (NumberFormatException e) {
 //            return defaultValue;
@@ -53,7 +55,7 @@ public class GtasksApiUtilities {
         if (time < 0) {
             return null;
         }
-        Date date = new Date(time);
+        Date date = newDate(time);
         date.setHours(0);
         date.setMinutes(0);
         date.setSeconds(0);
@@ -73,8 +75,8 @@ public class GtasksApiUtilities {
         }
         try {
             long utcTime = gtasksDueTime.getValue(); //DateTime.parseRfc3339(gtasksDueTime).value;
-            Date date = new Date(utcTime);
-            Date returnDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+            Date date = newDate(utcTime);
+            Date returnDate = newDate(date.getTime() + date.getTimezoneOffset() * 60000);
             return returnDate.getTime();
         } catch (NumberFormatException e) {
             return defaultValue;

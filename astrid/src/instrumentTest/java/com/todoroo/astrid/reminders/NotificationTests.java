@@ -18,7 +18,7 @@ import com.todoroo.astrid.test.DatabaseTestCase;
 
 import org.tasks.R;
 
-import java.util.Date;
+import static org.tasks.date.DateTimeUtils.newDate;
 
 public class NotificationTests extends DatabaseTestCase {
 
@@ -122,7 +122,7 @@ public class NotificationTests extends DatabaseTestCase {
         Intent intent = new Intent();
         intent.putExtra(Notifications.ID_KEY, task.getId());
 
-        int hour = new Date().getHours();
+        int hour = newDate().getHours();
         Preferences.setStringFromInteger(R.string.p_rmd_quietStart, hour - 1);
         Preferences.setStringFromInteger(R.string.p_rmd_quietEnd, hour + 1);
 

@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import static org.tasks.date.DateTimeUtils.newDate;
+
 public class TitleParserTest extends DatabaseTestCase {
 
     @Override
@@ -62,7 +64,7 @@ public class TitleParserTest extends DatabaseTestCase {
       for (int i = 0; i < 23; i++) {
           String testTitle = "Jog on " + titleMonthStrings[i] + " 12.";
           insertTitleAddTask(testTitle, task);
-          Date date = new Date(task.getValue(Task.DUE_DATE));
+          Date date = newDate(task.getValue(Task.DUE_DATE));
           assertEquals(date.getMonth(), i/2);
           assertEquals(date.getDate(), 12);
       }
@@ -74,7 +76,7 @@ public class TitleParserTest extends DatabaseTestCase {
       for (int i = 1; i < 13; i++) {
           String testTitle = "Jog on " + i + "/12/13";
           insertTitleAddTask(testTitle, task);
-          Date date = new Date(task.getValue(Task.DUE_DATE));
+          Date date = newDate(task.getValue(Task.DUE_DATE));
           assertEquals(date.getMonth(), i-1);
           assertEquals(date.getDate(), 12);
           assertEquals(date.getYear(), 113);
@@ -86,7 +88,7 @@ public class TitleParserTest extends DatabaseTestCase {
       Task task = new Task();
       String testTitle = "Jog on 23:21.";
       insertTitleAddTask(testTitle, task);
-      Date date = new Date(task.getValue(Task.DUE_DATE));
+      Date date = newDate(task.getValue(Task.DUE_DATE));
       assertEquals(date.getMinutes(), 21);
       assertEquals(date.getHours(), 23);
   }
@@ -96,7 +98,7 @@ public class TitleParserTest extends DatabaseTestCase {
       Task task = new Task();
       String testTitle = "Jog at 8:33 PM.";
       insertTitleAddTask(testTitle, task);
-      Date date = new Date(task.getValue(Task.DUE_DATE));
+      Date date = newDate(task.getValue(Task.DUE_DATE));
       assertEquals(date.getMinutes(), 33);
       assertEquals(date.getHours(), 20);
   }
@@ -106,7 +108,7 @@ public class TitleParserTest extends DatabaseTestCase {
       Task task = new Task();
       String testTitle = "Jog at 8 PM.";
       insertTitleAddTask(testTitle, task);
-      Date date = new Date(task.getValue(Task.DUE_DATE));
+      Date date = newDate(task.getValue(Task.DUE_DATE));
       assertEquals(date.getMinutes(), 0);
       assertEquals(date.getHours(), 20);
   }
@@ -116,7 +118,7 @@ public class TitleParserTest extends DatabaseTestCase {
       Task task = new Task();
       String testTitle = "Jog at 8 o'clock AM.";
       insertTitleAddTask(testTitle, task);
-      Date date = new Date(task.getValue(Task.DUE_DATE));
+      Date date = newDate(task.getValue(Task.DUE_DATE));
       assertEquals(date.getMinutes(), 0);
       assertEquals(date.getHours(), 8);
   }
@@ -131,7 +133,7 @@ public class TitleParserTest extends DatabaseTestCase {
       };
       for (String testTitle: testTitles) {
           insertTitleAddTask(testTitle, task);
-          Date date = new Date(task.getValue(Task.DUE_DATE));
+          Date date = newDate(task.getValue(Task.DUE_DATE));
           assertEquals(date.getMinutes(), 0);
           assertEquals(date.getHours(), 8);
       }
@@ -149,7 +151,7 @@ public class TitleParserTest extends DatabaseTestCase {
       };
       for (String testTitle: testTitles) {
           insertTitleAddTask(testTitle, task);
-          Date date = new Date(task.getValue(Task.DUE_DATE));
+          Date date = newDate(task.getValue(Task.DUE_DATE));
           assertEquals(date.getMinutes(), 30);
           assertEquals(date.getHours(), 12);
       }
@@ -171,7 +173,7 @@ public class TitleParserTest extends DatabaseTestCase {
         String title = "Jog today";
         task.setValue(Task.TITLE, title);
         TaskService.createWithValues(task, null, title);
-        Date date = new Date(task.getValue(Task.DUE_DATE));
+        Date date = newDate(task.getValue(Task.DUE_DATE));
         assertEquals(date.getDay()+1, today.get(Calendar.DAY_OF_WEEK));
         //Calendar starts 1-6, date.getDay() starts at 0
 
@@ -179,7 +181,7 @@ public class TitleParserTest extends DatabaseTestCase {
         title = "Jog tomorrow";
         task.setValue(Task.TITLE, title);
         TaskService.createWithValues(task, null, title);
-        date = new Date(task.getValue(Task.DUE_DATE));
+        date = newDate(task.getValue(Task.DUE_DATE));
         assertEquals((date.getDay()+1) % 7, (today.get(Calendar.DAY_OF_WEEK)+1) % 7);
 
         String[] days = {
@@ -206,14 +208,14 @@ public class TitleParserTest extends DatabaseTestCase {
             title = "Jog "+ days[i];
             task.setValue(Task.TITLE, title);
             TaskService.createWithValues(task, null, title);
-            date = new Date(task.getValue(Task.DUE_DATE));
+            date = newDate(task.getValue(Task.DUE_DATE));
             assertEquals(date.getDay(), i);
 
             task = new Task();
             title = "Jog "+ abrevDays[i];
             task.setValue(Task.TITLE, title);
             TaskService.createWithValues(task, null, title);
-            date = new Date(task.getValue(Task.DUE_DATE));
+            date = newDate(task.getValue(Task.DUE_DATE));
             assertEquals(date.getDay(), i);
         }
 

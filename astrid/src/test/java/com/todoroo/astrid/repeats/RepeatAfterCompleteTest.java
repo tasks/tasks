@@ -20,12 +20,12 @@ import org.robolectric.RobolectricTestRunner;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.TimeZone;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.tasks.date.DateTimeUtils.newDate;
 
 @RunWith(RobolectricTestRunner.class)
 public class RepeatAfterCompleteTest extends TodorooRobolectricTestCase {
@@ -122,15 +122,15 @@ public class RepeatAfterCompleteTest extends TodorooRobolectricTestCase {
     public static void assertDateTimeEquals(String message, long expected, long actual) {
         expected = expected / 60000L * 60000;
         actual = actual / 60000L * 60000;
-        assertEquals(message + ": Expected: " + new Date(expected) + ", Actual: " + new Date(actual),
+        assertEquals(message + ": Expected: " + newDate(expected) + ", Actual: " + newDate(actual),
                 expected, actual);
     }
 
     private void assertDateEquals(String message, long expected, long actual) {
         expected = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, expected);
         actual = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, actual);
-        assertEquals(message + ": Due Date is '" + DateUtilities.getDateStringWithWeekday(new Date(actual))
-                + "', expected '" + DateUtilities.getDateStringWithWeekday(new Date(expected)) + "'",
+        assertEquals(message + ": Due Date is '" + DateUtilities.getDateStringWithWeekday(newDate(actual))
+                + "', expected '" + DateUtilities.getDateStringWithWeekday(newDate(expected)) + "'",
                 expected, actual);
     }
 

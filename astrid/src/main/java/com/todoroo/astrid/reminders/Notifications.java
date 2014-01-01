@@ -44,10 +44,11 @@ import com.todoroo.astrid.voice.VoiceOutputService;
 
 import org.tasks.R;
 
-import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+
+import static org.tasks.date.DateTimeUtils.newDate;
 
 public class Notifications extends BroadcastReceiver {
 
@@ -471,7 +472,7 @@ public class Notifications extends BroadcastReceiver {
         int quietHoursStart = Preferences.getIntegerFromString(R.string.p_rmd_quietStart, -1);
         int quietHoursEnd = Preferences.getIntegerFromString(R.string.p_rmd_quietEnd, -1);
         if(quietHoursStart != -1 && quietHoursEnd != -1) {
-            int hour = new Date().getHours();
+            int hour = newDate().getHours();
             if(quietHoursStart <= quietHoursEnd) {
                 if(hour >= quietHoursStart && hour < quietHoursEnd) {
                     return true;

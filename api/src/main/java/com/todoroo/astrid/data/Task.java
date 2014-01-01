@@ -23,6 +23,8 @@ import org.tasks.api.R;
 
 import java.util.Date;
 
+import static org.tasks.date.DateTimeUtils.newDate;
+
 /**
  * Data Model which represents a task users need to accomplish.
  *
@@ -394,7 +396,7 @@ public final class Task extends RemoteModel {
             return date;
         }
 
-        Date dueDate = new Date(date / 1000L * 1000L); // get rid of millis
+        Date dueDate = newDate(date / 1000L * 1000L); // get rid of millis
         if(setting != URGENCY_SPECIFIC_DAY_TIME) {
             dueDate.setHours(12);
             dueDate.setMinutes(0);
@@ -441,7 +443,7 @@ public final class Task extends RemoteModel {
             return date;
         }
 
-        Date hideUntil = new Date(date / 1000L * 1000L); // get rid of millis
+        Date hideUntil = newDate(date / 1000L * 1000L); // get rid of millis
         if(setting != HIDE_UNTIL_SPECIFIC_DAY_TIME && setting != HIDE_UNTIL_DUE_TIME) {
             hideUntil.setHours(0);
             hideUntil.setMinutes(0);

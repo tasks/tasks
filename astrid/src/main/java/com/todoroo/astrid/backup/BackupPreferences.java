@@ -24,6 +24,8 @@ import org.tasks.R;
 
 import java.util.Date;
 
+import static org.tasks.date.DateTimeUtils.newDate;
+
 /**
  * Displays synchronization preferences and an action panel so users can
  * initiate actions from the menu.
@@ -123,7 +125,7 @@ public class BackupPreferences extends TodorooPreferenceActivity {
             } else if(last > 0) {
                 status = r.getString(R.string.backup_status_success,
                         DateUtilities.getDateStringWithTime(BackupPreferences.this,
-                        new Date(last)));
+                        newDate(last)));
                 statusColor = Color.rgb(0, 100, 0);
                 preference.setOnPreferenceClickListener(null);
             } else {

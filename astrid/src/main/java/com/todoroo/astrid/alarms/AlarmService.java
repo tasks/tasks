@@ -30,8 +30,9 @@ import com.todoroo.astrid.service.MetadataService.SynchronizeMetadataCallback;
 import com.todoroo.astrid.utility.Constants;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedHashSet;
+
+import static org.tasks.date.DateTimeUtils.newDate;
 
 /**
  * Provides operations for working with alerts
@@ -191,7 +192,7 @@ public class AlarmService {
         } else if(time > DateUtilities.now()) {
             if(Constants.DEBUG) {
                 Log.e("Astrid", "Alarm (" + taskId + ", " + ReminderService.TYPE_ALARM +
-                        ", " + alarm.getId() + ") set for " + new Date(time));
+                        ", " + alarm.getId() + ") set for " + newDate(time));
             }
             am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
         }

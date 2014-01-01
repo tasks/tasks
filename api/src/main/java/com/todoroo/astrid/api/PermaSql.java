@@ -9,6 +9,8 @@ import com.todoroo.andlib.utility.DateUtilities;
 
 import java.util.Date;
 
+import static org.tasks.date.DateTimeUtils.newDate;
+
 /**
  * PermaSql allows for creating SQL statements that can be saved and used
  * later without dates getting stale. It also allows these values to be
@@ -79,7 +81,7 @@ public final class PermaSql {
     }
 
     private static String replaceEodValues(String value) {
-        Date date = new Date();
+        Date date = newDate();
         date.setHours(23);
         date.setMinutes(59);
         date.setSeconds(59);
@@ -94,7 +96,7 @@ public final class PermaSql {
     }
 
     private static String replaceNoonValues(String value) {
-        Date date = new Date();
+        Date date = newDate();
         date.setHours(12);
         date.setMinutes(0);
         date.setSeconds(0);

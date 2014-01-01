@@ -32,7 +32,7 @@ import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.R;
 
-import java.util.Date;
+import static org.tasks.date.DateTimeUtils.newDate;
 
 public class CalendarReminderActivity extends Activity {
 
@@ -202,7 +202,7 @@ public class CalendarReminderActivity extends Activity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     createNewList(tag.getValue(TagData.NAME) + " "
-                            + DateUtilities.getDateStringHideYear(new Date(startTime)));
+                            + DateUtilities.getDateStringHideYear(newDate(startTime)));
                 }
             },
             new DialogInterface.OnClickListener() {
@@ -244,7 +244,7 @@ public class CalendarReminderActivity extends Activity {
 
         long alarmTime = endTime + DateUtilities.ONE_MINUTE * 5;
         if (Constants.DEBUG) {
-            Log.w(CalendarAlarmScheduler.TAG, "Scheduling calendar alarm for " + new Date(alarmTime));
+            Log.w(CalendarAlarmScheduler.TAG, "Scheduling calendar alarm for " + newDate(alarmTime));
         }
         am.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
         dismissButton.performClick();

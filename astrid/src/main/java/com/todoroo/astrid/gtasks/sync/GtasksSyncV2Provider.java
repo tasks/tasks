@@ -51,6 +51,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static org.tasks.date.DateTimeUtils.newDate;
+
 public class GtasksSyncV2Provider extends SyncV2Provider {
 
     @Autowired TaskService taskService;
@@ -350,8 +352,8 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
     private void mergeDates(Task remote, Task local) {
         if(remote.hasDueDate() && local.hasDueTime()) {
-            Date newDate = new Date(remote.getValue(Task.DUE_DATE));
-            Date oldDate = new Date(local.getValue(Task.DUE_DATE));
+            Date newDate = newDate(remote.getValue(Task.DUE_DATE));
+            Date oldDate = newDate(local.getValue(Task.DUE_DATE));
             newDate.setHours(oldDate.getHours());
             newDate.setMinutes(oldDate.getMinutes());
             newDate.setSeconds(oldDate.getSeconds());

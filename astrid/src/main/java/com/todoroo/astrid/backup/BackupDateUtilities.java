@@ -12,6 +12,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static org.tasks.date.DateTimeUtils.newDate;
+
 /**
  * Date Utility functions for backups
  *
@@ -55,7 +57,7 @@ public class BackupDateUtilities {
      */
     public static String getDateForExport() {
         DateFormat df = new SimpleDateFormat("yyMMdd-HHmm");
-        return df.format(new Date());
+        return df.format(newDate());
     }
 
 }

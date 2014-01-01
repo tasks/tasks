@@ -31,6 +31,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
+import static org.tasks.date.DateTimeUtils.newDate;
+
 public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
 
     @Autowired
@@ -71,12 +73,12 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
     }
 
     protected void assertTimesMatch(long expectedTime, long newDueDate) {
-        assertTrue(String.format("Expected %s, was %s", new Date(expectedTime), new Date(newDueDate)),
+        assertTrue(String.format("Expected %s, was %s", newDate(expectedTime), newDate(newDueDate)),
                 Math.abs(expectedTime - newDueDate) < 5000);
     }
 
     protected void assertTimesWithinOneHour(long expectedTime, long newDueDate) {
-        assertTrue(String.format("Expected %s, was %s", new Date(expectedTime), new Date(newDueDate)),
+        assertTrue(String.format("Expected %s, was %s", newDate(expectedTime), newDate(newDueDate)),
                 Math.abs(expectedTime - newDueDate) <= DateUtilities.ONE_HOUR);
     }
 
@@ -105,7 +107,7 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
         Task t = new Task();
         t.setValue(Task.TITLE, title);
         long dueDate = DateUtilities.now() + DateUtilities.ONE_DAY * 3;
-        Date adjustDate = new Date(dueDate);
+        Date adjustDate = newDate(dueDate);
         adjustDate.setSeconds(1);
         dueDate = adjustDate.getTime();
         dueDate = (dueDate / 1000L) * 1000L; // Strip milliseconds
@@ -129,7 +131,7 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
         t = taskDao.fetch(t.getId(), Task.PROPERTIES); // Refetch
 
         long completionDate = setCompletionDate(completeBefore, t, dueDate);
-        System.err.println("Completion date: " + new Date(completionDate));
+        System.err.println("Completion date: " + newDate(completionDate));
 
         waitAndSync();
 
@@ -176,7 +178,7 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
         }
 
         Weekday[] allWeekdays = Weekday.values();
-        Date date = new Date(result);
+        Date date = newDate(result);
         Weekday start = allWeekdays[date.getDay()];
         int i;
         for (i = 0; i < allWeekdays.length; i++) {
@@ -226,7 +228,7 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
         } else if (frequency.equals(Frequency.WEEKLY)) {
             expectedTime = computeWeeklyCaseDueDate(fromDate, rrule, fromCompletion);
         } else if (frequency.equals(Frequency.MONTHLY)) {
-            Date originalDate = new Date(expectedTime);
+            Date originalDate = newDate(expectedTime);
             for (int i = 0; i < interval; i++) {
                 int month = originalDate.getMonth();
                 if (month == 11) { // Roll over the year and set the month to January
@@ -238,7 +240,7 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
             }
             expectedTime = originalDate.getTime();
         } else if (frequency.equals(Frequency.YEARLY)) {
-            Date originalCompleteDate = new Date(expectedTime);
+            Date originalCompleteDate = newDate(expectedTime);
             originalCompleteDate.setYear(originalCompleteDate.getYear() + interval);
             expectedTime = originalCompleteDate.getTime();
         }

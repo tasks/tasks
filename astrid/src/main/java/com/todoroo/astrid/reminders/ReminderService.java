@@ -33,6 +33,8 @@ import org.tasks.R;
 import java.util.Date;
 import java.util.Random;
 
+import static org.tasks.date.DateTimeUtils.newDate;
+
 
 /**
  * Data service for reminders
@@ -260,7 +262,7 @@ public final class ReminderService  {
     private long calculateNextOverdueReminder(Task task) {
      // Uses getNowValue() instead of DateUtilities.now()
         if(task.hasDueDate() && task.getFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE)) {
-            Date due = new Date(task.getValue(Task.DUE_DATE));
+            Date due = newDate(task.getValue(Task.DUE_DATE));
             if (!task.hasDueTime()) {
                 due.setHours(23);
                 due.setMinutes(59);
@@ -312,7 +314,7 @@ public final class ReminderService  {
                 dueDateAlarm = dueDate;
             } else if (DateUtilities.now() > lastReminder + DateUtilities.ONE_DAY) {
                 // return notification time on this day
-                Date date = new Date(dueDate);
+                Date date = newDate(dueDate);
                 date.setHours(Preferences.getIntegerFromString(R.string.p_rmd_time, 18));
                 date.setMinutes(0);
                 date.setSeconds(0);
@@ -323,13 +325,13 @@ public final class ReminderService  {
                     // on this day before start of quiet hours or after quiet hours
                     // randomly placed in this interval
                     int quietHoursStart = Preferences.getIntegerFromString(R.string.p_rmd_quietStart, -1);
-                    Date quietHoursStartDate = new Date();
+                    Date quietHoursStartDate = newDate();
                     quietHoursStartDate.setHours(quietHoursStart);
                     quietHoursStartDate.setMinutes(0);
                     quietHoursStartDate.setSeconds(0);
 
                     int quietHoursEnd = Preferences.getIntegerFromString(R.string.p_rmd_quietEnd, -1);
-                    Date quietHoursEndDate = new Date();
+                    Date quietHoursEndDate = newDate();
                     quietHoursEndDate.setHours(quietHoursStart);
                     quietHoursEndDate.setMinutes(0);
                     quietHoursEndDate.setSeconds(0);
@@ -341,7 +343,7 @@ public final class ReminderService  {
                     int periodDivFactor = 4;
 
                     if(quietHoursStart != -1 && quietHoursEnd != -1) {
-                        int hour = new Date().getHours();
+                        int hour = newDate().getHours();
                         if(quietHoursStart <= quietHoursEnd) {
                             if(hour >= quietHoursStart && hour < quietHoursEnd) {
                                 // its quiet now, quietHoursEnd is 23 max,
@@ -478,7 +480,7 @@ public final class ReminderService  {
                 }
 
                if(Constants.DEBUG) {
-                   Log.e("Astrid", "Reminder set for " + new Date(time) + " for (\"" + task.getValue(Task.TITLE) + "\" (" + task.getId() + "), " + type + ")");
+                   Log.e("Astrid", "Reminder set for " + newDate(time) + " for (\"" + task.getValue(Task.TITLE) + "\" (" + task.getId() + "), " + type + ")");
                }
                 am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
             }

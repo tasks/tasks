@@ -24,6 +24,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
+import static org.tasks.date.DateTimeUtils.newDate;
 
 @RunWith(RobolectricTestRunner.class)
 public class AdvancedRepeatTest extends TodorooRobolectricTestCase {
@@ -53,7 +54,7 @@ public class AdvancedRepeatTest extends TodorooRobolectricTestCase {
         buildRRule(1, Frequency.DAILY);
 
         // test specific day & time
-        long dayWithTime = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, new Date(110, 7, 1, 10, 4).getTime());
+        long dayWithTime = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, newDate(2010, 8, 1, 10, 4, 0).getTime());
         task.setValue(Task.DUE_DATE, dayWithTime);
 
         long nextDayWithTime = dayWithTime + DateUtilities.ONE_DAY;
@@ -66,10 +67,10 @@ public class AdvancedRepeatTest extends TodorooRobolectricTestCase {
         buildRRule(1, Frequency.DAILY);
 
         // test specific day & time
-        long dayWithTime = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, new Date(110, 7, 1, 10, 4, 0).getTime());
+        long dayWithTime = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, newDate(2010, 8, 1, 10, 4, 0).getTime());
         task.setValue(Task.DUE_DATE, dayWithTime);
 
-        Date todayWithTime = new Date();
+        Date todayWithTime = newDate();
         todayWithTime.setHours(10);
         todayWithTime.setMinutes(4);
         todayWithTime.setSeconds(1);
@@ -240,13 +241,13 @@ public class AdvancedRepeatTest extends TodorooRobolectricTestCase {
     }
 
     public static void assertDateTimeEquals(long date, long other) {
-        assertEquals("Expected: " + new Date(date) + ", Actual: " + new Date(other),
+        assertEquals("Expected: " + newDate(date) + ", Actual: " + newDate(other),
                 date, other);
     }
 
     private void assertDateEquals(long actual, long expected) {
-        assertEquals("Due Date is '" + DateUtilities.getDateStringWithWeekday(new Date(actual))
-                + "', expected '" + DateUtilities.getDateStringWithWeekday(new Date(expected)) + "'",
+        assertEquals("Due Date is '" + DateUtilities.getDateStringWithWeekday(newDate(actual))
+                + "', expected '" + DateUtilities.getDateStringWithWeekday(newDate(expected)) + "'",
                 expected, actual);
     }
 

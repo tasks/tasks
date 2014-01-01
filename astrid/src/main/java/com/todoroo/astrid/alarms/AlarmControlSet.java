@@ -27,6 +27,8 @@ import org.tasks.R;
 import java.util.Date;
 import java.util.LinkedHashSet;
 
+import static org.tasks.date.DateTimeUtils.newDate;
+
 /**
  * Control set to manage adding and removing tags
  *
@@ -50,7 +52,7 @@ public final class AlarmControlSet extends TaskEditControlSet {
         TodorooCursor<Metadata> cursor = AlarmService.getInstance().getAlarms(model.getId());
         try {
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                addAlarm(new Date(cursor.get(AlarmFields.TIME)));
+                addAlarm(newDate(cursor.get(AlarmFields.TIME)));
             }
         } finally {
             cursor.close();
@@ -63,7 +65,7 @@ public final class AlarmControlSet extends TaskEditControlSet {
         View.OnClickListener addAlarmListener = new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                addAlarm(new Date());
+                addAlarm(newDate());
             }
         };
         getView().findViewById(R.id.alarms_add).setOnClickListener(addAlarmListener);
@@ -108,7 +110,7 @@ public final class AlarmControlSet extends TaskEditControlSet {
                     public void onDateAndTimeSelected(long date) {
                         if (date > 0) {
                             if (!pickerDialog.hasTime()) {
-                                Date d = new Date(date);
+                                Date d = newDate(date);
                                 d.setHours(18);
                                 d.setMinutes(0);
                                 d.setSeconds(0);

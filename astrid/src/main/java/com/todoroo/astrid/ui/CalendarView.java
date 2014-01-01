@@ -32,6 +32,8 @@ import org.tasks.R;
 import java.util.Calendar;
 import java.util.Date;
 
+import static org.tasks.date.DateTimeUtils.newDate;
+
 public class CalendarView extends View {
 
 	private static final int PADDING = 0;
@@ -67,7 +69,7 @@ public class CalendarView extends View {
 	private float boxWidth;
 	private float boxHeight;
 
-	private Date calendarDate = new Date();
+	private Date calendarDate = newDate();
 	private int currentHighlightDay = -1;
 
 	public interface OnSelectedDateListener {
@@ -324,7 +326,7 @@ public class CalendarView extends View {
         // Day heading -- End
 
         // Calendar -- Start
-        calendar.setTime(getCoercedDate(new Date(), calendarDate)); // Reset the calendar to either today or the specified date
+        calendar.setTime(getCoercedDate(newDate(), calendarDate)); // Reset the calendar to either today or the specified date
 
         if (currentHighlightDay == -1) {
         	currentHighlightDay = calendarDate.getTime() == 0 ? 0 : calendar.get(Calendar.DATE);

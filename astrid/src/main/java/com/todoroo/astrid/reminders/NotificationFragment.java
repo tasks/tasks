@@ -30,6 +30,8 @@ import org.tasks.R;
 
 import java.util.Date;
 
+import static org.tasks.date.DateTimeUtils.newDate;
+
 /**
  * This activity is launched when a user opens up a notification from the
  * tray. It launches the appropriate activity based on the passed in parameters.
@@ -129,7 +131,7 @@ public class NotificationFragment extends TaskListFragment {
      */
     public static void snooze(Activity activity, OnTimeSetListener onTimeSet, SnoozeCallback snoozeCallback) {
         if(Preferences.getBoolean(R.string.p_rmd_snooze_dialog, false)) {
-            Date now = new Date();
+            Date now = newDate();
             now.setHours(now.getHours() + 1);
             int hour = now.getHours();
             int minute = now.getMinutes();

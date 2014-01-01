@@ -24,6 +24,8 @@ import org.tasks.R;
 
 import java.util.Date;
 
+import static org.tasks.date.DateTimeUtils.newDate;
+
 public class PhoneStateChangedReceiver extends BroadcastReceiver {
 
     private static final String PREF_LAST_INCOMING_NUMBER = "last_incoming_number";
@@ -108,7 +110,7 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
                             int nameIndex = calls.getColumnIndex(Calls.CACHED_NAME);
                             String name = calls.getString(nameIndex);
 
-                            String timeString = DateUtilities.getTimeString(context, new Date(date));
+                            String timeString = DateUtilities.getTimeString(context, newDate(date));
 
                             long contactId = getContactIdFromNumber(context, number);
 

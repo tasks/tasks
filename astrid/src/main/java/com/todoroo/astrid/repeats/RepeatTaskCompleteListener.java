@@ -36,6 +36,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
+import static org.tasks.date.DateTimeUtils.newDate;
+import static org.tasks.date.DateTimeUtils.newDateUtc;
+
 public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
     @Override
@@ -178,8 +181,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
     };
 
-    private static WeekdayNum findNextWeekday(List<WeekdayNum> byDay,
-            Calendar date) {
+    private static WeekdayNum findNextWeekday(List<WeekdayNum> byDay, Calendar date) {
         WeekdayNum next = byDay.get(0);
         for (WeekdayNum weekday : byDay) {
             if (weekday.wday.javaDayNum > date.get(Calendar.DAY_OF_WEEK)) {
@@ -220,9 +222,9 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         long newDueDate;
         if(nextDate instanceof DateTimeValueImpl) {
             DateTimeValueImpl newDateTime = (DateTimeValueImpl)nextDate;
-            Date date = new Date(Date.UTC(newDateTime.year() - 1900, newDateTime.month() - 1,
+            Date date = newDateUtc(newDateTime.year(), newDateTime.month(),
                     newDateTime.day(), newDateTime.hour(),
-                    newDateTime.minute(), newDateTime.second()));
+                    newDateTime.minute(), newDateTime.second());
             // time may be inaccurate due to DST, force time to be same
             date.setHours(original.getHours());
             date.setMinutes(original.getMinutes());
@@ -230,8 +232,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
                     date.getTime());
         } else {
             newDueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY,
-                    new Date(nextDate.year() - 1900, nextDate.month() - 1,
-                            nextDate.day()).getTime());
+                    newDate(nextDate.year(), nextDate.month(), nextDate.day()).getTime());
         }
         return newDueDate;
     }
@@ -251,11 +252,11 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
     /** Set up repeat start date */
     private static Date setUpStartDate(Task task, boolean repeatAfterCompletion, Frequency frequency) {
-        Date startDate = new Date();
+        Date startDate = newDate();
         if(task.hasDueDate()) {
-            Date dueDate = new Date(task.getValue(Task.DUE_DATE));
+            Date dueDate = newDate(task.getValue(Task.DUE_DATE));
             if(repeatAfterCompletion) {
-                startDate = new Date(task.getValue(Task.COMPLETION_DATE));
+                startDate = newDate(task.getValue(Task.COMPLETION_DATE));
             } else {
                 startDate = dueDate;
             }

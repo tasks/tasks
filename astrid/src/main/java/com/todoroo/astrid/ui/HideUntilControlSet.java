@@ -25,6 +25,8 @@ import org.tasks.R;
 
 import java.util.Date;
 
+import static org.tasks.date.DateTimeUtils.newDate;
+
 /**
  * Control set for specifying when a task should be hidden
  *
@@ -94,13 +96,13 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
         if(specificDate > 0) {
             HideUntilValue[] updated = new HideUntilValue[values.length + 1];
             System.arraycopy(values, 0, updated, 1, values.length);
-            Date hideUntilAsDate = new Date(specificDate);
+            Date hideUntilAsDate = newDate(specificDate);
             if(hideUntilAsDate.getHours() == 0 && hideUntilAsDate.getMinutes() == 0 && hideUntilAsDate.getSeconds() == 0) {
-                updated[0] = new HideUntilValue(DateUtilities.getDateString(new Date(specificDate)),
+                updated[0] = new HideUntilValue(DateUtilities.getDateString(newDate(specificDate)),
                         Task.HIDE_UNTIL_SPECIFIC_DAY, specificDate);
                 existingDate = specificDate;
             } else {
-                updated[0] = new HideUntilValue(DateUtilities.getDateStringWithTime(activity, new Date(specificDate)),
+                updated[0] = new HideUntilValue(DateUtilities.getDateStringWithTime(activity, newDate(specificDate)),
                         Task.HIDE_UNTIL_SPECIFIC_DAY_TIME, specificDate);
                 existingDate = specificDate;
             }
@@ -118,7 +120,7 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
         // ... at conclusion of dialog, update our list
         HideUntilValue item = adapter.getItem(position);
         if(item.date == SPECIFIC_DATE) {
-            customDate = new Date(existingDate == EXISTING_TIME_UNSET ? DateUtilities.now() : existingDate);
+            customDate = newDate(existingDate == EXISTING_TIME_UNSET ? DateUtilities.now() : existingDate);
             customDate.setSeconds(0);
 
             final DateAndTimeDialog dateAndTimeDialog = new DateAndTimeDialog(activity, customDate.getTime());
@@ -127,7 +129,7 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
                 @Override
                 public void onDateAndTimeSelected(long date) {
                     if (date > 0) {
-                        customDate = new Date(date);
+                        customDate = newDate(date);
                         if (!dateAndTimeDialog.hasTime()) {
                             customDate.setHours(0);
                             customDate.setMinutes(0);
@@ -219,7 +221,7 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
     public void readFromTask(Task task) {
         long date = task.getValue(Task.HIDE_UNTIL);
 
-        Date dueDay = new Date(task.getValue(Task.DUE_DATE)/1000L*1000L);
+        Date dueDay = newDate(task.getValue(Task.DUE_DATE)/1000L*1000L);
 
         dueDay.setHours(0);
         dueDay.setMinutes(0);

@@ -37,7 +37,8 @@ import com.todoroo.astrid.utility.Flags;
 import org.tasks.R;
 
 import java.text.ParseException;
-import java.util.Date;
+
+import static org.tasks.date.DateTimeUtils.newDate;
 
 /**
  * Helper class that creates a dialog to confirm the results of a quick add markup
@@ -305,7 +306,7 @@ public class DateChangedAlerts {
         String dueString = date > 0 ? DateUtilities.getRelativeDay(context, date, false) : "";
         if(Task.hasDueTime(date)) {
             dueString = String.format("%s at %s", dueString, //$NON-NLS-1$
-                    DateUtilities.getTimeString(context, new Date(date)));
+                    DateUtilities.getTimeString(context, newDate(date)));
         }
         return dueString;
     }

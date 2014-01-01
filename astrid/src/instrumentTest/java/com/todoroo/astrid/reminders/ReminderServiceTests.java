@@ -13,7 +13,7 @@ import com.todoroo.astrid.reminders.ReminderService.AlarmScheduler;
 import com.todoroo.astrid.test.DatabaseTestCase;
 import com.todoroo.astrid.utility.AstridPreferences;
 
-import java.util.Date;
+import static org.tasks.date.DateTimeUtils.newDate;
 
 public class ReminderServiceTests extends DatabaseTestCase {
 
@@ -240,7 +240,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
         public void createAlarm(Task task, long time, int type) {
             if(time == 0 || time == Long.MAX_VALUE)
                 return;
-            fail("created alarm, no alarm expected (" + type + ": " + new Date(time));
+            fail("created alarm, no alarm expected (" + type + ": " + newDate(time));
         }
     }
 

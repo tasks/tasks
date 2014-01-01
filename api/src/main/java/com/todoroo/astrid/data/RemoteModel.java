@@ -23,7 +23,8 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Date;
+
+import static org.tasks.date.DateTimeUtils.newDate;
 
 /**
  * A model that is synchronized to a remote server and has a remote id
@@ -109,7 +110,7 @@ abstract public class RemoteModel extends AbstractModel {
                 tag_date = tagData.getValue(TagData.CREATION_DATE);
             }
             if (tag_date == 0) {
-                tag_date = DateUtilities.dateToUnixtime(new Date());
+                tag_date = DateUtilities.dateToUnixtime(newDate());
             }
             return String.format("cached::%s%s", tagData.getValue(TagData.NAME), tag_date);
         }

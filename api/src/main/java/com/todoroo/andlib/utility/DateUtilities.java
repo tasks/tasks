@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import static org.tasks.date.DateTimeUtils.currentTimeMillis;
+import static org.tasks.date.DateTimeUtils.newDate;
 
 
 public class DateUtilities {
@@ -57,7 +58,7 @@ public class DateUtilities {
 
     /** Returns unixtime one month from now */
     public static long oneMonthFromNow() {
-        Date date = new Date(now());
+        Date date = newDate();
         date.setMonth(date.getMonth() + 1);
         return date.getTime();
     }
@@ -156,7 +157,7 @@ public class DateUtilities {
             value = "d '#'";
         }
 
-        if (date.getYear() !=  (new Date()).getYear()) {
+        if (date.getYear() !=  (newDate()).getYear()) {
             value = value + "\nyyyy";
         }
         if (arrayBinaryContains(locale.getLanguage(), "ja", "zh")) //$NON-NLS-1$
@@ -204,8 +205,8 @@ public class DateUtilities {
      * @return yesterday, today, tomorrow, or null
      */
     public static String getRelativeDay(Context context, long date, boolean abbreviated) {
-        long today = clearTime(new Date());
-        long input = clearTime(new Date(date));
+        long today = clearTime(newDate());
+        long input = clearTime(newDate(date));
 
         if(today == input) {
             return context.getString(R.string.today).toLowerCase();
@@ -221,10 +222,10 @@ public class DateUtilities {
 
         if(today + DateUtilities.ONE_WEEK >= input &&
                 today - DateUtilities.ONE_WEEK <= input) {
-            return abbreviated ? DateUtilities.getWeekdayShort(new Date(date)) : DateUtilities.getWeekday(new Date(date));
+            return abbreviated ? DateUtilities.getWeekdayShort(newDate(date)) : DateUtilities.getWeekday(newDate(date));
         }
 
-        return DateUtilities.getDateStringHideYear(new Date(date));
+        return DateUtilities.getDateStringHideYear(newDate(date));
     }
 
     public static boolean isEndOfMonth(Date d) {

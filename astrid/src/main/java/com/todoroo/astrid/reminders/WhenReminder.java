@@ -6,7 +6,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.api.TaskContextActionExposer;
 import com.todoroo.astrid.data.Task;
 
-import java.util.Date;
+import static org.tasks.date.DateTimeUtils.newDate;
 
 public class WhenReminder implements TaskContextActionExposer {
 
@@ -21,7 +21,7 @@ public class WhenReminder implements TaskContextActionExposer {
                 }
 
                 Toast.makeText(ContextManager.getContext(), "Scheduled Alarm: " +
-                        new Date(time), Toast.LENGTH_LONG).show();
+                        newDate(time), Toast.LENGTH_LONG).show();
                 ReminderService.getInstance().setScheduler(null);
             }
         });
