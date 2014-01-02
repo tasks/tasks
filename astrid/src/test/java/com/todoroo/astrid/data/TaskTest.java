@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
+import static com.todoroo.astrid.data.Task.DUE_DATE;
 import static com.todoroo.astrid.data.Task.URGENCY_DAY_AFTER;
 import static com.todoroo.astrid.data.Task.URGENCY_IN_TWO_WEEKS;
 import static com.todoroo.astrid.data.Task.URGENCY_NEXT_MONTH;
@@ -99,6 +100,22 @@ public class TaskTest {
                 .withMillisOfSecond(0)
                 .getMillis();
         assertEquals(expected, createDueDate(URGENCY_SPECIFIC_DAY_TIME, specificDueDate.getMillis()));
+    }
+
+    @Test
+    public void taskHasDueTime() {
+        Task task = new Task();
+        task.setValue(DUE_DATE, 1388516076000L);
+        assertTrue(task.hasDueTime());
+        assertTrue(task.hasDueDate());
+    }
+
+    @Test
+    public void taskHasDueDate() {
+        Task task = new Task();
+        task.setValue(DUE_DATE, 1388469600000L);
+        assertFalse(task.hasDueTime());
+        assertTrue(task.hasDueDate());
     }
 
     @Test

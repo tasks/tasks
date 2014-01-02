@@ -172,14 +172,6 @@ public class DateUtilities {
     }
 
     /**
-     * @return date format as getDateFormat with weekday
-     */
-    public static String getDateStringWithWeekday(Date date) {
-        String weekday = getWeekday(date);
-        return weekday + ", " + getDateString(date);
-    }
-
-    /**
      * @return weekday
      */
     public static String getWeekday(Date date) {

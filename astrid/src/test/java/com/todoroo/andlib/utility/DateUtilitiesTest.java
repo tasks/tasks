@@ -68,20 +68,6 @@ public class DateUtilitiesTest extends TodorooRobolectricTestCase {
     }
 
     @Test
-    public void testWeekdayString() {
-        forEachLocale(new Runnable() {
-            public void run() {
-                Date d = newDate();
-
-                for(int i = 0; i < 7; i++) {
-                    d.setDate(i);
-                    DateUtilities.getDateStringWithWeekday(d);
-                }
-            }
-        });
-    }
-
-    @Test
     public void testParseISO8601() {
         String withTime = "2013-01-28T13:17:02+00:00";
         long date;

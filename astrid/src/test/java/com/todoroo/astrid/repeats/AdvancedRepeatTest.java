@@ -179,7 +179,7 @@ public class AdvancedRepeatTest extends TodorooRobolectricTestCase {
             computeNextDueDate(true);
             long expected = getDate(DateUtilities.now() + DateUtilities.ONE_DAY, THIS, wday.javaDayNum);
             nextDueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, nextDueDate);
-            assertDateEquals(nextDueDate, expected);
+            assertEquals(expected, nextDueDate);
         }
 
         for(Weekday wday1 : Weekday.values()) {
@@ -192,7 +192,7 @@ public class AdvancedRepeatTest extends TodorooRobolectricTestCase {
                 long nextTwo = getDate(DateUtilities.now() + DateUtilities.ONE_DAY, THIS, wday2.javaDayNum);
                 computeNextDueDate(true);
                 nextDueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, nextDueDate);
-                assertDateEquals(nextDueDate, Math.min(nextOne, nextTwo));
+                assertEquals(Math.min(nextOne, nextTwo), nextDueDate);
             }
         }
     }
@@ -205,7 +205,7 @@ public class AdvancedRepeatTest extends TodorooRobolectricTestCase {
             computeNextDueDate(true);
             long expected = getDate(DateUtilities.now() + DateUtilities.ONE_DAY, NEXT, wday.javaDayNum);
             nextDueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, nextDueDate);
-            assertDateEquals(nextDueDate, expected);
+            assertEquals(expected, nextDueDate);
         }
 
         for(Weekday wday1 : Weekday.values()) {
@@ -218,7 +218,7 @@ public class AdvancedRepeatTest extends TodorooRobolectricTestCase {
                 long nextTwo = getDate(DateUtilities.now() + DateUtilities.ONE_DAY, NEXT, wday2.javaDayNum);
                 computeNextDueDate(true);
                 nextDueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, nextDueDate);
-                assertDateEquals(nextDueDate, Math.min(nextOne, nextTwo));
+                assertEquals(Math.min(nextOne, nextTwo), nextDueDate);
             }
         }
     }
@@ -237,18 +237,12 @@ public class AdvancedRepeatTest extends TodorooRobolectricTestCase {
 
     private void assertDueDate(long actual, int expectedWhich, int expectedDayOfWeek) {
         long expected = getDate(task.getValue(Task.DUE_DATE), expectedWhich, expectedDayOfWeek);
-        assertDateEquals(actual, expected);
+        assertEquals(expected, actual);
     }
 
     public static void assertDateTimeEquals(long date, long other) {
         assertEquals("Expected: " + newDate(date) + ", Actual: " + newDate(other),
                 date, other);
-    }
-
-    private void assertDateEquals(long actual, long expected) {
-        assertEquals("Due Date is '" + DateUtilities.getDateStringWithWeekday(newDate(actual))
-                + "', expected '" + DateUtilities.getDateStringWithWeekday(newDate(expected)) + "'",
-                expected, actual);
     }
 
     private void setRRuleDays(RRule rrule, Weekday... weekdays) {

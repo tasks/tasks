@@ -18,7 +18,7 @@ public class Freeze {
         DateTimeUtils.setCurrentMillisSystem();
     }
 
-    public void thawAfter(Snippet snippet) {
+    public void thawAfter(@SuppressWarnings("UnusedParameters") Snippet snippet) {
         thaw();
     }
 }
