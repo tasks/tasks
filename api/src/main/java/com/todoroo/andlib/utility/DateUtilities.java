@@ -9,6 +9,7 @@ import android.content.Context;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 
+import org.joda.time.DateTime;
 import org.tasks.api.R;
 
 import java.text.ParseException;
@@ -58,9 +59,14 @@ public class DateUtilities {
 
     /** Returns unixtime one month from now */
     public static long oneMonthFromNow() {
-        Date date = newDate();
-        date.setMonth(date.getMonth() + 1);
-        return date.getTime();
+        final DateTime now = DateTime.now();
+        DateTime result = now.plusMonths(1);
+        // preserving java.util.date behavior
+        int diff = now.getDayOfMonth() - result.getDayOfMonth();
+        if(diff > 0) {
+            result = result.plusDays(diff);
+        }
+        return result.getMillis();
     }
 
     /** Represents a single hour */

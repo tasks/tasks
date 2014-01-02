@@ -108,6 +108,16 @@ public class DateUtilitiesTest extends TodorooRobolectricTestCase {
     }
 
     @Test
+    public void oneMonthFromStartOfDecember() {
+        DateTime now = new DateTime(2013, 12, 1, 12, 19, 45, 192);
+        final long expected = new DateTime(2014, 1, 1, 12, 19, 45, 192).getMillis();
+
+        freezeAt(now).thawAfter(new Snippet() {{
+            assertEquals(expected, oneMonthFromNow());
+        }});
+    }
+
+    @Test
     public void oneMonthFromEndOfDecember() {
         DateTime now = new DateTime(2013, 12, 31, 16, 31, 20, 597);
         final long expected = new DateTime(2014, 1, 31, 16, 31, 20, 597).getMillis();
