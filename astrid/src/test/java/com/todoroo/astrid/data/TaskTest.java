@@ -1,10 +1,8 @@
 package com.todoroo.astrid.data;
 
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -31,11 +29,6 @@ public class TaskTest {
 
     private static final DateTime now = new DateTime(2013, 12, 31, 16, 10, 53, 452);
     private static final DateTime specificDueDate = new DateTime(2014, 3, 17, 9, 54, 27, 959);
-
-    @BeforeClass
-    public static void beforeClass() {
-        DateTimeZone.setDefault(DateTimeZone.forID("America/Chicago"));
-    }
 
     @Before
     public void before() {

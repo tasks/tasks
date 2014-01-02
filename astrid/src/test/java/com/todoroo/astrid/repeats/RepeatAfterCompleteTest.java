@@ -20,7 +20,6 @@ import org.robolectric.RobolectricTestRunner;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.TimeZone;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -103,7 +102,6 @@ public class RepeatAfterCompleteTest extends TodorooRobolectricTestCase {
 
     @Test
     public void testTimeZoneLate() throws ParseException {
-        TimeZone.setDefault(TimeZone.getTimeZone("America/Los_Angeles"));
         task.setValue(Task.DUE_DATE, DateUtilities.now() + DateUtilities.ONE_WEEK);
         nextDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal(), true);
 
