@@ -3,7 +3,13 @@ package org.tasks;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
 
+import static org.joda.time.DateTime.now;
+
 public class Freeze {
+
+    public static Freeze freezeClock() {
+        return freezeAt(now());
+    }
 
     public static Freeze freezeAt(DateTime dateTime) {
         return freezeAt(dateTime.getMillis());

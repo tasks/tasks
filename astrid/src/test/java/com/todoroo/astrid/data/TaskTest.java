@@ -6,8 +6,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.tasks.Snippet;
 
+import static com.todoroo.astrid.data.Task.COMPLETION_DATE;
+import static com.todoroo.astrid.data.Task.DELETION_DATE;
 import static com.todoroo.astrid.data.Task.DUE_DATE;
+import static com.todoroo.astrid.data.Task.HIDE_UNTIL;
 import static com.todoroo.astrid.data.Task.URGENCY_DAY_AFTER;
 import static com.todoroo.astrid.data.Task.URGENCY_IN_TWO_WEEKS;
 import static com.todoroo.astrid.data.Task.URGENCY_NEXT_MONTH;
@@ -24,6 +28,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.tasks.Freeze.freezeAt;
 import static org.tasks.Freeze.thaw;
+import static org.tasks.date.DateTimeUtils.currentTimeMillis;
 
 @RunWith(RobolectricTestRunner.class)
 public class TaskTest {
@@ -126,5 +131,107 @@ public class TaskTest {
     @Test
     public void doesNotHaveDueTime() {
         assertFalse(hasDueTime(1388469600000L));
+    }
+
+    @Test
+    public void newTaskIsNotCompleted() {
+        assertFalse(new Task().isCompleted());
+    }
+
+    @Test
+    public void newTaskNotDeleted() {
+        assertFalse(new Task().isDeleted());
+    }
+
+    @Test
+    public void newTaskNotHidden() {
+        assertFalse(new Task().isHidden());
+    }
+
+    @Test
+    public void newTaskDoesNotHaveDueDateOrTime() {
+        assertFalse(new Task().hasDueDate());
+        assertFalse(new Task().hasDueTime());
+    }
+
+    @Test
+    public void taskIsCompleted() {
+        Task task = new Task();
+        task.setValue(COMPLETION_DATE, 1L);
+        assertTrue(task.isCompleted());
+    }
+
+    @Test
+    public void taskIsNotHiddenAtHideUntilTime() {
+        final long now = currentTimeMillis();
+        freezeAt(now).thawAfter(new Snippet() {{
+            Task task = new Task();
+            task.setValue(HIDE_UNTIL, now);
+            assertFalse(task.isHidden());
+        }});
+    }
+
+    @Test
+    public void taskIsHiddenBeforeHideUntilTime() {
+        final long now = currentTimeMillis();
+        freezeAt(now).thawAfter(new Snippet() {{
+            Task task = new Task();
+            task.setValue(HIDE_UNTIL, now + 1);
+            assertTrue(task.isHidden());
+        }});
+    }
+
+    @Test
+    public void taskIsDeleted() {
+        Task task = new Task();
+        task.setValue(DELETION_DATE, 1L);
+        assertTrue(task.isDeleted());
+    }
+
+    @Test
+    public void taskWithNoDueDateIsOverdue() {
+        assertTrue(new Task().isOverdue());
+    }
+
+    @Test
+    public void taskNotOverdueAtDueTime() {
+        final long now = currentTimeMillis();
+        freezeAt(now).thawAfter(new Snippet() {{
+            Task task = new Task();
+            task.setValue(DUE_DATE, now);
+            assertFalse(task.isOverdue());
+        }});
+    }
+
+    @Test
+    public void taskIsOverduePastDueTime() {
+        final long dueDate = currentTimeMillis();
+        freezeAt(dueDate + 1).thawAfter(new Snippet() {{
+            Task task = new Task();
+            task.setValue(DUE_DATE, dueDate);
+            assertTrue(task.isOverdue());
+        }});
+    }
+
+    @Test
+    public void taskNotOverdueBeforeNoonOnDueDate() {
+        final DateTime dueDate = new DateTime().withMillisOfDay(0);
+        freezeAt(dueDate.plusHours(12).minusMillis(1)).thawAfter(new Snippet() {{
+            Task task = new Task();
+            task.setValue(DUE_DATE, dueDate.getMillis());
+            assertFalse(task.hasDueTime());
+            assertFalse(task.isOverdue());
+        }});
+    }
+
+    @Test
+    public void taskOverdueAtNoonOnDueDate() {
+        final DateTime dueDate = new DateTime().withMillisOfDay(0);
+        freezeAt(dueDate.plusHours(12)).thawAfter(new Snippet() {{
+            Task task = new Task();
+            task.setValue(DUE_DATE, dueDate.getMillis());
+            assertFalse(task.hasDueTime());
+            assertTrue(task.isOverdue());
+        }});
     }
 }

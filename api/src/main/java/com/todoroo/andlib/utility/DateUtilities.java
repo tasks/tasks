@@ -12,7 +12,6 @@ import android.text.format.DateUtils;
 import org.joda.time.DateTime;
 import org.tasks.api.R;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -199,6 +198,10 @@ public class DateUtilities {
         return getDateString(date) + " " + getTimeString(context, date);
     }
 
+    public static String getRelativeDay(Context context, long date) {
+        return DateUtilities.getRelativeDay(context, date, true);
+    }
+
     /**
      * @return yesterday, today, tomorrow, or null
      */
@@ -227,28 +230,7 @@ public class DateUtilities {
     }
 
     public static boolean isEndOfMonth(Date d) {
-        int date = d.getDate();
-        if (date < 28) {
-            return false;
-        }
-
-        int month = d.getMonth();
-        if (month == Calendar.FEBRUARY) {
-            return date >= 28;
-        }
-
-        if (month == Calendar.APRIL || month == Calendar.JUNE || month == Calendar.SEPTEMBER || month == Calendar.NOVEMBER) {
-            return date >= 30;
-        }
-
-        return date >= 31;
-    }
-
-    /**
-     * Calls getRelativeDay with abbreviated parameter defaulted to true
-     */
-    public static String getRelativeDay(Context context, long date) {
-        return DateUtilities.getRelativeDay(context, date, true);
+        return d.getDate() == new DateTime(d).dayOfMonth().getMaximumValue();
     }
 
     private static final Calendar calendar = Calendar.getInstance();
@@ -261,37 +243,11 @@ public class DateUtilities {
         return calendar.getTimeInMillis();
     }
 
-    private static long clearTime(Date date) {
+    static long clearTime(Date date) {
         date.setTime(date.getTime() / 1000L * 1000);
         date.setHours(0);
         date.setMinutes(0);
         date.setSeconds(0);
         return date.getTime();
-    }
-
-    public static boolean isoStringHasTime(String iso8601String) {
-        return iso8601String.length() > 10;
-    }
-
-    public static long parseIso8601(String iso8601String) throws ParseException {
-        if (iso8601String == null) {
-            return 0;
-        }
-        String formatString;
-        if (isoStringHasTime(iso8601String)) { // Time exists
-            iso8601String = iso8601String.replace("Z", "+00:00"); //$NON-NLS-1$ //$NON-NLS-2$
-            try {
-                iso8601String = iso8601String.substring(0, 22) + iso8601String.substring(23);
-            } catch (IndexOutOfBoundsException e) {
-                e.printStackTrace();
-                throw new ParseException("Invalid ISO 8601 length for string " + iso8601String, 0); //$NON-NLS-1$
-            }
-            formatString = "yyyy-MM-dd'T'HH:mm:ssZ"; //$NON-NLS-1$
-        } else {
-            formatString = "yyyy-MM-dd"; //$NON-NLS-1$
-        }
-
-        Date result = new SimpleDateFormat(formatString).parse(iso8601String);
-        return result.getTime();
     }
 }
