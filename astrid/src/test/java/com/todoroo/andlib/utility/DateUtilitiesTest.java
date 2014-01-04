@@ -5,8 +5,6 @@
  */
 package com.todoroo.andlib.utility;
 
-import android.content.Context;
-
 import com.todoroo.andlib.test.TodorooRobolectricTestCase;
 
 import org.joda.time.DateTime;
@@ -18,18 +16,15 @@ import org.tasks.Snippet;
 import java.util.Date;
 
 import static com.todoroo.andlib.utility.DateUtilities.clearTime;
-import static com.todoroo.andlib.utility.DateUtilities.getRelativeDay;
 import static com.todoroo.andlib.utility.DateUtilities.getStartOfDay;
+import static com.todoroo.andlib.utility.DateUtilities.getWeekday;
+import static com.todoroo.andlib.utility.DateUtilities.getWeekdayShort;
 import static com.todoroo.andlib.utility.DateUtilities.isEndOfMonth;
 import static com.todoroo.andlib.utility.DateUtilities.oneMonthFromNow;
-import static org.joda.time.DateTime.now;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.robolectric.Robolectric.getShadowApplication;
 import static org.tasks.Freeze.freezeAt;
-import static org.tasks.Freeze.freezeClock;
-import static org.tasks.date.DateTimeUtils.currentTimeMillis;
 import static org.tasks.date.DateTimeUtils.newDate;
 
 @RunWith(RobolectricTestRunner.class)
@@ -163,32 +158,24 @@ public class DateUtilitiesTest extends TodorooRobolectricTestCase {
     }
 
     @Test
-    public void relativeDayIsToday() {
-        final Context context = getShadowApplication().getApplicationContext();
-        freezeClock().thawAfter(new Snippet() {{
-            final long today = currentTimeMillis();
-            assertEquals("today", getRelativeDay(context, today));
-            assertEquals("today", getRelativeDay(context, today, false));
-        }});
+    public void getWeekdayLongString() {
+        assertEquals("Sunday", getWeekday(newDate(2013, 12, 29)));
+        assertEquals("Monday", getWeekday(newDate(2013, 12, 30)));
+        assertEquals("Tuesday", getWeekday(newDate(2013, 12, 31)));
+        assertEquals("Wednesday", getWeekday(newDate(2014, 1, 1)));
+        assertEquals("Thursday", getWeekday(newDate(2014, 1, 2)));
+        assertEquals("Friday", getWeekday(newDate(2014, 1, 3)));
+        assertEquals("Saturday", getWeekday(newDate(2014, 1, 4)));
     }
 
     @Test
-    public void relativeDayIsTomorrow() {
-        final Context context = getShadowApplication().getApplicationContext();
-        freezeClock().thawAfter(new Snippet() {{
-            final long tomorrow = now().plusDays(1).getMillis();
-            assertEquals("tmrw", getRelativeDay(context, tomorrow));
-            assertEquals("tomorrow", getRelativeDay(context, tomorrow, false));
-        }});
-    }
-
-    @Test
-    public void relativeDayIsYesterday() {
-        final Context context = getShadowApplication().getApplicationContext();
-        freezeClock().thawAfter(new Snippet() {{
-            final long yesterday = now().minusDays(1).getMillis();
-            assertEquals("yest", getRelativeDay(context, yesterday));
-            assertEquals("yesterday", getRelativeDay(context, yesterday, false));
-        }});
+    public void getWeekdayShortString() {
+        assertEquals("Sun", getWeekdayShort(new DateTime(2013, 12, 29, 11, 12, 13, 14).toDate()));
+        assertEquals("Mon", getWeekdayShort(newDate(2013, 12, 30)));
+        assertEquals("Tue", getWeekdayShort(newDate(2013, 12, 31)));
+        assertEquals("Wed", getWeekdayShort(newDate(2014, 1, 1)));
+        assertEquals("Thu", getWeekdayShort(newDate(2014, 1, 2)));
+        assertEquals("Fri", getWeekdayShort(newDate(2014, 1, 3)));
+        assertEquals("Sat", getWeekdayShort(newDate(2014, 1, 4)));
     }
 }

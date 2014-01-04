@@ -7,7 +7,6 @@ package com.todoroo.andlib.utility;
 
 import android.content.Context;
 import android.text.format.DateFormat;
-import android.text.format.DateUtils;
 
 import org.joda.time.DateTime;
 import org.tasks.api.R;
@@ -150,11 +149,9 @@ public class DateUtilities {
      * @return date, with month, day, and year
      */
     public static String getDateStringHideYear(Date date) {
-        String month = DateUtils.getMonthString(date.getMonth() +
-                Calendar.JANUARY, DateUtils.LENGTH_MEDIUM);
+        String month = new SimpleDateFormat("MMM").format(date);
         String value;
         Locale locale = Locale.getDefault();
-        // united states, you are special
         if (arrayBinaryContains(locale.getLanguage(), "ja", "ko", "zh")
                 || arrayBinaryContains(locale.getCountry(),  "BZ", "CA", "KE", "MN" ,"US")) {
             value = "'#' d";
@@ -187,8 +184,7 @@ public class DateUtilities {
      * @return weekday
      */
     public static String getWeekdayShort(Date date) {
-        return DateUtils.getDayOfWeekString(date.getDay() + Calendar.SUNDAY,
-                DateUtils.LENGTH_MEDIUM);
+        return new SimpleDateFormat("EEE").format(date);
     }
 
     /**
@@ -221,8 +217,7 @@ public class DateUtilities {
             return context.getString(abbreviated ? R.string.yest : R.string.yesterday).toLowerCase();
         }
 
-        if(today + DateUtilities.ONE_WEEK >= input &&
-                today - DateUtilities.ONE_WEEK <= input) {
+        if(today + DateUtilities.ONE_WEEK >= input && today - DateUtilities.ONE_WEEK <= input) {
             return abbreviated ? DateUtilities.getWeekdayShort(newDate(date)) : DateUtilities.getWeekday(newDate(date));
         }
 
