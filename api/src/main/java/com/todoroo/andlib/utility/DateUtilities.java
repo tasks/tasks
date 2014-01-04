@@ -27,14 +27,6 @@ public class DateUtilities {
      * ============================================================ long time
      * ====================================================================== */
 
-    /** Convert date into unixtime */
-    public static long dateToUnixtime(Date date) {
-        if(date == null) {
-            return 0;
-        }
-        return date.getTime();
-    }
-
     /**
      * Add the specified amount of months to the given time.<br/>
      * The day of month will stay the same.<br/>
@@ -44,10 +36,14 @@ public class DateUtilities {
      * @return the calculated time in milliseconds
      */
     public static long addCalendarMonthsToUnixtime(long time, int interval) {
-        Calendar c = Calendar.getInstance();
-        c.setTimeInMillis(time);
-        c.add(Calendar.MONTH, interval);
-        return c.getTimeInMillis();
+        DateTime dt = new DateTime(time);
+        DateTime result = dt.plusMonths(interval);
+        // preserving java.util.date behavior
+        int diff = dt.getDayOfMonth() - result.getDayOfMonth();
+        if(diff > 0) {
+            result = result.plusDays(diff);
+        }
+        return result.getMillis();
     }
 
     /** Returns unixtime for current time */
@@ -57,14 +53,7 @@ public class DateUtilities {
 
     /** Returns unixtime one month from now */
     public static long oneMonthFromNow() {
-        final DateTime now = DateTime.now();
-        DateTime result = now.plusMonths(1);
-        // preserving java.util.date behavior
-        int diff = now.getDayOfMonth() - result.getDayOfMonth();
-        if(diff > 0) {
-            result = result.plusDays(diff);
-        }
-        return result.getMillis();
+        return addCalendarMonthsToUnixtime(currentTimeMillis(), 1);
     }
 
     /** Represents a single hour */
@@ -125,7 +114,6 @@ public class DateUtilities {
         String month = new SimpleDateFormat("MMM").format(date);
         String value;
         String standardDate;
-        // united states, you are special
         Locale locale = Locale.getDefault();
         if (arrayBinaryContains(locale.getLanguage(), "ja", "ko", "zh")
                 || arrayBinaryContains(locale.getCountry(),  "BZ", "CA", "KE", "MN" ,"US")) {

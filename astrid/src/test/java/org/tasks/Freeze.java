@@ -3,12 +3,12 @@ package org.tasks;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
 
-import static org.joda.time.DateTime.now;
+import java.util.Date;
 
 public class Freeze {
 
-    public static Freeze freezeClock() {
-        return freezeAt(now());
+    public static Freeze freezeAt(Date date) {
+        return freezeAt(date.getTime());
     }
 
     public static Freeze freezeAt(DateTime dateTime) {

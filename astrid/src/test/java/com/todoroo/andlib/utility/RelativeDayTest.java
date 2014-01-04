@@ -27,7 +27,7 @@ public class RelativeDayTest {
     @Before
     public void before() {
         defaultLocale = Locale.getDefault();
-        Locale.setDefault(Locale.ENGLISH);
+        Locale.setDefault(Locale.US);
         freezeAt(now);
     }
 
@@ -66,12 +66,12 @@ public class RelativeDayTest {
 
     @Test
     public void relativeDayMoreThanOneWeek() {
-        checkRelativeDay(now().minusDays(8), "23 Dec", "23 Dec");
+        checkRelativeDay(now().minusDays(8), "Dec 23", "Dec 23");
     }
 
     @Test
     public void relativeDayNextYear() {
-        checkRelativeDay(now().plusDays(8), "8 Jan\n2014", "8 Jan\n2014");
+        checkRelativeDay(now().plusDays(8), "Jan 8\n2014", "Jan 8\n2014");
     }
 
     private void checkRelativeDay(DateTime now, String full, String abbreviated) {

@@ -8,15 +8,22 @@ package com.todoroo.andlib.utility;
 import com.todoroo.andlib.test.TodorooRobolectricTestCase;
 
 import org.joda.time.DateTime;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.tasks.Snippet;
 
 import java.util.Date;
+import java.util.Locale;
 
+import static com.todoroo.andlib.utility.DateUtilities.addCalendarMonthsToUnixtime;
 import static com.todoroo.andlib.utility.DateUtilities.clearTime;
+import static com.todoroo.andlib.utility.DateUtilities.getDateString;
+import static com.todoroo.andlib.utility.DateUtilities.getDateStringHideYear;
 import static com.todoroo.andlib.utility.DateUtilities.getStartOfDay;
+import static com.todoroo.andlib.utility.DateUtilities.getTimeString;
 import static com.todoroo.andlib.utility.DateUtilities.getWeekday;
 import static com.todoroo.andlib.utility.DateUtilities.getWeekdayShort;
 import static com.todoroo.andlib.utility.DateUtilities.isEndOfMonth;
@@ -30,8 +37,18 @@ import static org.tasks.date.DateTimeUtils.newDate;
 @RunWith(RobolectricTestRunner.class)
 public class DateUtilitiesTest extends TodorooRobolectricTestCase {
 
-    public void set24Hour(boolean is24) {
-        DateUtilities.is24HourOverride = is24;
+    private static Locale defaultLocale;
+
+    @Before
+    public void before() {
+        defaultLocale = Locale.getDefault();
+        Locale.setDefault(Locale.US);
+    }
+
+    @After
+    public void after() {
+        DateUtilities.is24HourOverride = null;
+        Locale.setDefault(defaultLocale);
     }
 
     @Test
@@ -40,13 +57,13 @@ public class DateUtilitiesTest extends TodorooRobolectricTestCase {
             public void run() {
                 Date d = newDate();
 
-                set24Hour(false);
+                DateUtilities.is24HourOverride = false;
                 for (int i = 0; i < 24; i++) {
                     d.setHours(i);
                     DateUtilities.getTimeString(getContext(), d);
                 }
 
-                set24Hour(true);
+                DateUtilities.is24HourOverride = true;
                 for (int i = 0; i < 24; i++) {
                     d.setHours(i);
                     DateUtilities.getTimeString(getContext(), d);
@@ -63,10 +80,49 @@ public class DateUtilitiesTest extends TodorooRobolectricTestCase {
 
                 for (int i = 0; i < 12; i++) {
                     d.setMonth(i);
-                    DateUtilities.getDateString(d);
+                    getDateString(d);
                 }
             }
         });
+    }
+
+    @Test
+    public void get24HourTime() {
+        DateUtilities.is24HourOverride = true;
+        assertEquals("9:05", getTimeString(null, newDate(2014, 1, 4, 9, 5, 36)));
+        assertEquals("13:00", getTimeString(null, newDate(2014, 1, 4, 13, 0, 1)));
+    }
+
+    @Test
+    public void getTime() {
+        DateUtilities.is24HourOverride = false;
+        assertEquals("9:05 AM", getTimeString(null, newDate(2014, 1, 4, 9, 5, 36)));
+        assertEquals("1:05 PM", getTimeString(null, newDate(2014, 1, 4, 13, 5, 36)));
+    }
+
+    @Test
+    public void getTimeWithNoMinutes() {
+        DateUtilities.is24HourOverride = false;
+        assertEquals("1 PM", getTimeString(null, newDate(2014, 1, 4, 13, 0, 59))); // derp?
+    }
+
+    @Test
+    public void getDateStringWithYear() {
+        assertEquals("Jan 4, 2014", getDateString(newDate(2014, 1, 4, 0, 0, 0)));
+    }
+
+    @Test
+    public void getDateStringHidingYear() {
+        freezeAt(newDate(2014, 1, 1)).thawAfter(new Snippet() {{
+            assertEquals("Jan 1", getDateStringHideYear(newDate()));
+        }});
+    }
+
+    @Test
+    public void getDateStringWithDifferentYear() {
+        freezeAt(newDate(2013, 12, 31)).thawAfter(new Snippet() {{
+            assertEquals("Jan 1\n2014", getDateStringHideYear(newDate(2014, 1, 1)));
+        }});
     }
 
     @Test
@@ -170,12 +226,28 @@ public class DateUtilitiesTest extends TodorooRobolectricTestCase {
 
     @Test
     public void getWeekdayShortString() {
-        assertEquals("Sun", getWeekdayShort(new DateTime(2013, 12, 29, 11, 12, 13, 14).toDate()));
+        assertEquals("Sun", getWeekdayShort(newDate(2013, 12, 29)));
         assertEquals("Mon", getWeekdayShort(newDate(2013, 12, 30)));
         assertEquals("Tue", getWeekdayShort(newDate(2013, 12, 31)));
         assertEquals("Wed", getWeekdayShort(newDate(2014, 1, 1)));
         assertEquals("Thu", getWeekdayShort(newDate(2014, 1, 2)));
         assertEquals("Fri", getWeekdayShort(newDate(2014, 1, 3)));
         assertEquals("Sat", getWeekdayShort(newDate(2014, 1, 4)));
+    }
+
+    @Test
+    public void addMonthsToTimestamp() {
+        assertEquals(newDate(2014, 1, 1).getTime(), addCalendarMonthsToUnixtime(newDate(2013, 12, 1).getTime(), 1));
+        assertEquals(newDate(2014, 12, 31).getTime(), addCalendarMonthsToUnixtime(newDate(2013, 12, 31).getTime(), 12));
+    }
+
+    @Test
+    public void addMonthsWithLessDays() {
+        assertEquals(newDate(2014, 3, 3).getTime(), addCalendarMonthsToUnixtime(newDate(2013, 12, 31).getTime(), 2));
+    }
+
+    @Test
+    public void addMonthsWithMoreDays() {
+        assertEquals(newDate(2014, 1, 30).getTime(), addCalendarMonthsToUnixtime(newDate(2013, 11, 30).getTime(), 2));
     }
 }
