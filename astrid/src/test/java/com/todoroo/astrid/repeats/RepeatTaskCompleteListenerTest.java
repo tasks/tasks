@@ -16,7 +16,6 @@ import java.text.ParseException;
 import static com.google.ical.values.Frequency.DAILY;
 import static com.google.ical.values.Frequency.HOURLY;
 import static com.google.ical.values.Frequency.MINUTELY;
-import static com.google.ical.values.Frequency.MONTHLY;
 import static com.google.ical.values.Frequency.WEEKLY;
 import static com.google.ical.values.Frequency.YEARLY;
 import static com.todoroo.andlib.utility.DateUtilities.addCalendarMonthsToUnixtime;
@@ -25,7 +24,6 @@ import static java.util.concurrent.TimeUnit.DAYS;
 import static java.util.concurrent.TimeUnit.HOURS;
 import static java.util.concurrent.TimeUnit.MINUTES;
 import static org.junit.Assert.assertEquals;
-import static org.tasks.date.DateTimeUtils.currentTimeMillis;
 
 @SuppressLint("NewApi")
 @RunWith(RobolectricTestRunner.class)
@@ -36,8 +34,8 @@ public class RepeatTaskCompleteListenerTest {
     private final long completionDate;
 
     {
-        completionDate = currentTimeMillis();
-        dueDate = completionDate - DAYS.toMillis(7);
+        completionDate = new DateTime(2014, 1, 7, 17, 17, 32, 900).getMillis();
+        dueDate = new DateTime(2013, 12, 31, 17, 17, 32, 900).getMillis();
         task.setValue(Task.DUE_DATE, dueDate);
         task.setValue(Task.COMPLETION_DATE, completionDate);
     }
@@ -64,8 +62,16 @@ public class RepeatTaskCompleteListenerTest {
 
     @Test
     public void monthlyRepeat() {
-        checkExpected(6, addCalendarMonthsToUnixtime(dueDate, 6), MONTHLY, false);
-        checkExpected(6, addCalendarMonthsToUnixtime(completionDate, 6), MONTHLY, true);
+        assertEquals(
+                new DateTime(2014, 7, 7, 17, 17, 1, 0).getMillis(),
+                nextDueDate(6, Frequency.MONTHLY, true));
+    }
+
+    @Test
+    public void monthlyRepeatAtEndOfMonth() {
+        assertEquals(
+                new DateTime(2014, 6, 30, 17, 17, 1, 0).getMillis(),
+                nextDueDate(6, Frequency.MONTHLY, false));
     }
 
     @Test
@@ -80,20 +86,22 @@ public class RepeatTaskCompleteListenerTest {
     }
 
     private void checkExpected(int count, long expected, Frequency frequency, boolean repeatAfterCompletion) {
-        RRule rrule = new RRule();
-        rrule.setInterval(count);
-        rrule.setFreq(frequency);
-        long nextDueDate;
-        try {
-            nextDueDate = computeNextDueDate(task, rrule.toIcal(), repeatAfterCompletion);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
         assertEquals(
                 new DateTime(expected)
                         .withSecondOfMinute(1)
                         .withMillisOfSecond(0)
                         .getMillis(),
-                nextDueDate);
+                nextDueDate(count, frequency, repeatAfterCompletion));
+    }
+
+    private long nextDueDate(int count, Frequency frequency, boolean repeatAfterCompletion) {
+        RRule rrule = new RRule();
+        rrule.setInterval(count);
+        rrule.setFreq(frequency);
+        try {
+            return computeNextDueDate(task, rrule.toIcal(), repeatAfterCompletion);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

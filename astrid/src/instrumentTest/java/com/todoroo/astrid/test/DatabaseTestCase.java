@@ -8,7 +8,7 @@ package com.todoroo.astrid.test;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.test.TodorooTestCaseWithInjector;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.provider.ProviderTestUtilities;
+import com.todoroo.astrid.provider.Astrid3ContentProvider;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 
 /**
@@ -40,7 +40,7 @@ public class DatabaseTestCase extends TodorooTestCaseWithInjector {
 	    database.clear();
 		database.openForWriting();
 
-		ProviderTestUtilities.setDatabaseOverride(database);
+        Astrid3ContentProvider.setDatabaseOverride(database);
 	}
 
     @Override

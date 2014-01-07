@@ -1,5 +1,9 @@
 package com.todoroo.astrid.data;
 
+import android.content.ContentValues;
+
+import com.todoroo.astrid.utility.AstridPreferences;
+
 import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
@@ -7,6 +11,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.tasks.Snippet;
+
+import java.util.ArrayList;
+import java.util.TreeSet;
 
 import static com.todoroo.astrid.data.Task.COMPLETION_DATE;
 import static com.todoroo.astrid.data.Task.DELETION_DATE;
@@ -233,5 +240,31 @@ public class TaskTest {
             assertFalse(task.hasDueTime());
             assertTrue(task.isOverdue());
         }});
+    }
+
+    @Test
+    public void testDefaults() {
+        AstridPreferences.setPreferenceDefaults();
+        ContentValues defaults = new Task().getDefaultValues();
+        assertTrue(defaults.containsKey(Task.TITLE.name));
+        assertTrue(defaults.containsKey(Task.DUE_DATE.name));
+        assertTrue(defaults.containsKey(Task.HIDE_UNTIL.name));
+        assertTrue(defaults.containsKey(Task.COMPLETION_DATE.name));
+        assertTrue(defaults.containsKey(Task.IMPORTANCE.name));
+    }
+
+    @Test
+    public void testSanity() {
+        assertTrue(Task.IMPORTANCE_DO_OR_DIE < Task.IMPORTANCE_MUST_DO);
+        assertTrue(Task.IMPORTANCE_MUST_DO < Task.IMPORTANCE_SHOULD_DO);
+        assertTrue(Task.IMPORTANCE_SHOULD_DO < Task.IMPORTANCE_NONE);
+
+        ArrayList<Integer> reminderFlags = new ArrayList<>();
+        reminderFlags.add(Task.NOTIFY_AFTER_DEADLINE);
+        reminderFlags.add(Task.NOTIFY_AT_DEADLINE);
+        reminderFlags.add(Task.NOTIFY_MODE_NONSTOP);
+
+        // assert no duplicates
+        assertEquals(new TreeSet<>(reminderFlags).size(), reminderFlags.size());
     }
 }
