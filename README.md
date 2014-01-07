@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/abaker/tasks.png?branch=master)](https://travis-ci.org/abaker/tasks) [![Analytics](https://ga-beacon.appspot.com/UA-43015607-2/tasks/repo?pixel)](https://github.com/igrigorik/ga-beacon)
+[![Build Status](https://travis-ci.org/abaker/tasks.png?branch=master)](https://travis-ci.org/abaker/tasks)
 
 Visit the wiki to [get started with development](https://github.com/abaker/tasks/wiki/Getting-Started-with-Development).
 
