@@ -42,7 +42,7 @@
 	<string name="DLG_error_sdcard">Нет доступа к папке:%s</string>
 	<string name="DLG_error_sdcard_general">Нет доступа к карте памяти!</string>
 	<string name="import_file_prompt">Выберите файл для восстановления</string>
-	<string name="app_name">Разрешенные задачи</string>
+	<string name="app_name">Задачи</string>
 	<string name="read_permission_label">Право Tasks</string>
 	<string name="read_permission_desc">чтение и отображение фильтров задач</string>
 	<string name="write_permission_label">Право Tasks</string>
@@ -100,6 +100,7 @@
 	<string name="SSD_sort_reverse">В обратном порядке</string>
 	<string name="SSD_save_temp">Только один раз</string>
 	<string name="SSD_save_always">Всегда</string>
+	<string name="FSA_label">Список задач или фильтр</string>
 	<string name="FLA_context_shortcut">Создать ярлык на рабочем столе…</string>
 	<string name="FLA_shortcut_dialog_title">Создать ярлык</string>
 	<string name="FLA_shortcut_dialog">Имя ярлыка:</string>
@@ -113,13 +114,17 @@
 	<string name="TEA_importance_label">Приоритет</string>
 	<string name="TEA_deadline_hint">Установить дату выполнения</string>
 	<string name="TEA_hideUntil_label">Скрыть до</string>
+	<string name="TEA_hideUntil_display">Скрыть до %s</string>
 	<string name="TEA_note_label">Описание</string>
+	<string name="TEA_notes_empty">Описание...</string>
 	<string name="TEA_notes_hint">Введите описание задачи...</string>
 	<string name="TEA_estimatedDuration_label">Как долго это продлится?</string>
 	<string name="TEA_elapsedDuration_label">Время уже потраченное на задачу</string>
 	<string name="TEA_menu_save">Сохранить изменения</string>
 	<string name="TEA_menu_discard">Не сохранять</string>
 	<string name="TEA_tab_activity">Действия</string>
+	<string name="TEA_timer_est">Ост. %s</string>
+	<string name="TEA_timer_elap">Прошло %s</string>
 	<string-array name="TEA_urgency">
 		<item>Без даты</item>
 		<item>Конкретный день</item>
@@ -134,9 +139,9 @@
 	<string-array name="TEA_hideUntil">
 		<item>Никогда</item>
 		<item>Дата выполнения</item>
-		<item>Due time</item>
-		<item>Day before due</item>
-		<item>Week before due</item>
+		<item>Срок</item>
+		<item>За день до намеченного срока</item>
+		<item>Неделя до намеченного срока</item>
 		<item>Определённый день/время</item>
 	</string-array>
 	<string name="TEA_control_when">Когда</string>
@@ -226,6 +231,7 @@
 	</string-array>
 	<string name="EPr_task_row_style_title">Стиль строки: %s</string>
 	<string name="EPr_show_quickadd_controls">Расширенные возможности быстрого добавления</string>
+	<string name="EPr_hide_plus_button">Убрать кнопку плюс</string>
 	<string name="EPr_list_view">Списком</string>
 	<string name="EPr_show_task_edit_comments">Показывать комментарии в редакторе задачи</string>
 	<string name="EPr_taskRowPrefs_title">Внешний вид задач в списке</string>
@@ -301,7 +307,7 @@
 		<item>Когда просрочена</item>
 		<item>Вовремя или просрочена</item>
 	</string-array>
-	<string name="BFE_Active">Мои задания</string>
+	<string name="BFE_Active">Мои задачи</string>
 	<string name="BFE_Recent">Недавно изменённые</string>
 	<string name="BFE_Saved_delete">Удалить фильтр</string>
 	<string name="CFA_filterName_hint">Задайте имя фильтра для его сохранения…</string>
@@ -376,7 +382,7 @@
 	<string name="audio_err_encoding">Ошибка кодировки голоса.</string>
 	<string name="search_market_audio">Не найден проигрыватель для этого типа аудио. Хотите скачать его с Google Plus?</string>
 	<string name="search_market_audio_title">Не найдено проигрывателя.</string>
-	<string name="search_market_pdf">Не найдена программа для просмотра PDF файлов. Хотите скачать её с Google Plus?</string>
+	<string name="search_market_pdf">Не найдена программа для просмотра PDF файлов. Хотите скачать её с Play Market?</string>
 	<string name="search_market_pdf_title">Не найдена программа для просмотра PDF файлов.</string>
 	<string name="search_market_ms">Не найдена программа для просмотра файлов MS Office. Хотите скачать её с Google Plus?</string>
 	<string name="search_market_ms_title">Не найдена программа для просмотра файлов MS Office.</string>
@@ -398,6 +404,7 @@
 	<string name="p_files_dir_desc">Прикрепления к задаче сохранены в: %s</string>
 	<string name="p_files_dir_desc_default">Каталог по-умолчанию</string>
 	<string name="premium_speech_bubble_2">Подпишитесь на год и сэкономьте 25%%!</string>
+	<string name="TEA_reminders_group_label">Настройки напоминаний</string>
 	<string name="TEA_reminder_label">Напомнить мне:</string>
 	<string name="TEA_reminder_due">Когда наступит срок выполнения задания</string>
 	<string name="TEA_reminder_overdue">Когда задание просрочено</string>
@@ -407,7 +414,11 @@
 	<string name="TEA_reminder_mode_five">Пять раз</string>
 	<string name="TEA_reminder_mode_nonstop">Пока я не отключу сигнал</string>
 	<string name="TEA_reminder_when">Когда</string>
+	<string name="TEA_reminder_due_short">Срок</string>
 	<string name="TEA_reminder_overdue_short">просрочена</string>
+	<string name="TEA_reminder_randomly_short">случайно</string>
+	<string name="TEA_reminder_display_one">Напомнить мне %s</string>
+	<string name="TEA_reminder_display_multiple">Напомнить %s</string>
 	<string-array name="TEA_reminder_random">
 		<item>час</item>
 		<item>день</item>
@@ -630,6 +641,8 @@
 	<string name="EPr_voiceRemindersEnabled_title">Голосовые напоминания</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks должен произносить название задач во время напоминаний</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Оповещение звуком во время напоминания</string>
+	<string name="widget_mini">Задачи</string>
+	<string name="EPr_use_dark_theme">Тёмная тема</string>
 	<string name="EPr_use_dark_theme_widget">Темная тема виджета</string>
 	<string name="delete_task">Удалить задачу</string>
 </resources>
