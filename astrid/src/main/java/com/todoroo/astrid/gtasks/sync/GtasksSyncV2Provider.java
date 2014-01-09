@@ -306,7 +306,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
         task.setValue(Task.TITLE, remoteTask.getTitle());
         task.setValue(Task.CREATION_DATE, DateUtilities.now());
-        task.setValue(Task.COMPLETION_DATE, GtasksApiUtilities.gtasksCompletedTimeToUnixTime(remoteTask.getCompleted(), 0));
+        task.setValue(Task.COMPLETION_DATE, GtasksApiUtilities.gtasksCompletedTimeToUnixTime(remoteTask.getCompleted()));
         if (remoteTask.getDeleted() == null || !remoteTask.getDeleted()) {
             task.setValue(Task.DELETION_DATE, 0L);
         } else if (remoteTask.getDeleted()) {
@@ -316,7 +316,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
             task.setValue(Task.DELETION_DATE, DateUtilities.now());
         }
 
-        long dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue(), 0);
+        long dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue());
         long createdDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate);
         task.setValue(Task.DUE_DATE, createdDate);
         task.setValue(Task.NOTES, remoteTask.getNotes());

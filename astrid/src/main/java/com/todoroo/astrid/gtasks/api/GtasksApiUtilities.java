@@ -21,29 +21,12 @@ public class GtasksApiUtilities {
         return new DateTime(newDate(time), TimeZone.getDefault());
     }
 
-//    public static String unixTimeToGtasksCompletionTime(long time) {
-//        if (time == 0) return null;
-//        return new DateTime(newDate(time), TimeZone.getDefault()).toStringRfc3339();
-//    }
-
-
-    public static long gtasksCompletedTimeToUnixTime(DateTime gtasksCompletedTime, long defaultValue) {
+    public static long gtasksCompletedTimeToUnixTime(DateTime gtasksCompletedTime) {
         if (gtasksCompletedTime == null) {
-            return defaultValue;
+            return 0;
         }
         return gtasksCompletedTime.getValue();
     }
-
-//    public static long gtasksCompletedTimeToUnixTime(String gtasksCompletedTime, long defaultValue) {
-//        if (gtasksCompletedTime == null) return defaultValue;
-//        try {
-//            long utcTime = DateTime.parseRfc3339(gtasksCompletedTime).value;
-//            Date date = newDate(utcTime);
-//            return date.getTime();
-//        } catch (NumberFormatException e) {
-//            return defaultValue;
-//        }
-//    }
 
     /**
      * Google deals only in dates for due times, so on the server side they normalize to utc time
@@ -55,7 +38,7 @@ public class GtasksApiUtilities {
         if (time < 0) {
             return null;
         }
-        Date date = newDate(time);
+        Date date = newDate(time / 1000 * 1000);
         date.setHours(0);
         date.setMinutes(0);
         date.setSeconds(0);
@@ -63,15 +46,10 @@ public class GtasksApiUtilities {
         return new DateTime(date, TimeZone.getTimeZone("UTC"));
     }
 
-//    public static DateTime unixTimeToGtasksDueDate(long time) {
-//        if (time == 0) return null;
-//        return new DateTime(time, 0);
-//    }
-
     //Adjust for google's rounding
-    public static long gtasksDueTimeToUnixTime(DateTime gtasksDueTime, long defaultValue) {
+    public static long gtasksDueTimeToUnixTime(DateTime gtasksDueTime) {
         if (gtasksDueTime == null) {
-            return defaultValue;
+            return 0;
         }
         try {
             long utcTime = gtasksDueTime.getValue(); //DateTime.parseRfc3339(gtasksDueTime).value;
@@ -79,13 +57,7 @@ public class GtasksApiUtilities {
             Date returnDate = newDate(date.getTime() + date.getTimezoneOffset() * 60000);
             return returnDate.getTime();
         } catch (NumberFormatException e) {
-            return defaultValue;
+            return 0;
         }
     }
-
-//    public static long gtasksDueTimeToUnixTime(DateTime gtasksDueTime, long defaultValue) {
-//        if (gtasksDueTime == null) return defaultValue;
-//        return gtasksDueTime.getValue();
-//    }
-
 }
