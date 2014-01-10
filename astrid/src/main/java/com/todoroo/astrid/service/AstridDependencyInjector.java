@@ -26,6 +26,8 @@ import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Constants;
 
+import org.tasks.Broadcaster;
+
 /**
  * Astrid application dependency injector loads classes in Astrid with the
  * appropriate instantiated objects necessary for their operation. For
@@ -81,6 +83,8 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
 
         // com.todoroo.astrid.tags
         injectables.put("tagService", TagService.class);
+
+        injectables.put("broadcaster", Broadcaster.class);
 
         // these make reference to fields defined above
         injectables.put("errorReporters", new ErrorReporter[] {

@@ -5,7 +5,13 @@ import org.joda.time.DateTimeUtils;
 
 import java.util.Date;
 
+import static org.tasks.date.DateTimeUtils.currentTimeMillis;
+
 public class Freeze {
+
+    public static Freeze freezeClock() {
+        return freezeAt(currentTimeMillis());
+    }
 
     public static Freeze freezeAt(Date date) {
         return freezeAt(date.getTime());

@@ -6,14 +6,12 @@
 package com.todoroo.astrid.dao;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteConstraintException;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
@@ -27,6 +25,7 @@ import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ReminderService;
 
+import org.tasks.Broadcaster;
 import org.tasks.R;
 
 /**
@@ -42,6 +41,9 @@ public class TaskDao extends RemoteModelDao<Task> {
 
     @Autowired
     private Database database;
+
+    @Autowired
+    private Broadcaster broadcaster;
 
 	public TaskDao() {
         super(Task.class);
@@ -330,7 +332,7 @@ public class TaskDao extends RemoteModelDao<Task> {
      * TaskApiDao in that it runs hooks that need to be run from within
      * Astrid. Order matters here!
      */
-    public static void afterSave(Task task, ContentValues values) {
+    private void afterSave(Task task, ContentValues values) {
         if(values == null) {
             return;
         }
@@ -357,19 +359,16 @@ public class TaskDao extends RemoteModelDao<Task> {
      * @param task task that was saved
      * @param values values that were updated
      */
-    public static void broadcastTaskSave(Task task, ContentValues values) {
+    private void broadcastTaskSave(Task task, ContentValues values) {
         if(TaskApiDao.insignificantChange(values)) {
             return;
         }
 
         if(values.containsKey(Task.COMPLETION_DATE.name) && task.isCompleted()) {
-            Context context = ContextManager.getContext();
-            if(context != null) {
-                Intent broadcastIntent;
-                broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_COMPLETED);
-                broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
-                context.sendOrderedBroadcast(broadcastIntent, null);
-            }
+            Intent broadcastIntent;
+            broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_COMPLETED);
+            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
+            broadcaster.sendOrderedBroadcast(broadcastIntent);
         }
 
         broadcastTaskChanged();
@@ -378,12 +377,8 @@ public class TaskDao extends RemoteModelDao<Task> {
     /**
      * Send broadcast when task list changes. Widgets should update.
      */
-    public static void broadcastTaskChanged() {
-        Context context = ContextManager.getContext();
-        if(context != null) {
-            Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_LIST_UPDATED);
-            context.sendOrderedBroadcast(broadcastIntent, null);
-        }
+    private void broadcastTaskChanged() {
+        broadcaster.sendOrderedBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_LIST_UPDATED));
     }
 
     /**

@@ -13,7 +13,6 @@ import com.todoroo.andlib.data.AbstractDatabase;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Table;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.TagData;
@@ -24,7 +23,6 @@ import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.provider.Astrid3ContentProvider;
-import com.todoroo.astrid.widget.TasksWidget;
 
 /**
  * Database wrapper
@@ -71,7 +69,6 @@ public class Database extends AbstractDatabase {
             public void onDatabaseUpdated() {
                 Astrid2TaskProvider.notifyDatabaseModification();
                 Astrid3ContentProvider.notifyDatabaseModification();
-                TasksWidget.updateWidgets(ContextManager.getContext());
             }
         });
     }

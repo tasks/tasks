@@ -29,6 +29,8 @@ import com.todoroo.astrid.utility.AstridPreferences;
 import org.tasks.R;
 import org.tasks.widget.WidgetHelper;
 
+import static com.todoroo.astrid.api.AstridApiConstants.BROADCAST_EVENT_TASK_LIST_UPDATED;
+
 public class TasksWidget extends AppWidgetProvider {
 
     static {
@@ -54,20 +56,27 @@ public class TasksWidget extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals(COMPLETE_TASK)) {
-            Task task = taskService.fetchById(intent.getLongExtra(TaskEditFragment.TOKEN_ID, 0), Task.ID, Task.COMPLETION_DATE);
-            taskService.setComplete(task, !task.isCompleted());
-        } else if(intent.getAction().equals(EDIT_TASK)) {
-            if(AstridPreferences.useTabletLayout(context)) {
-                intent.setClass(context, TaskListActivity.class);
-            } else {
-                intent.setClass(context, TaskEditActivity.class);
-            }
-            intent.setFlags(WidgetHelper.flags);
-            intent.putExtra(TaskEditFragment.OVERRIDE_FINISH_ANIM, false);
-            context.startActivity(intent);
-        } else {
-            super.onReceive(context, intent);
+        switch(intent.getAction()) {
+            case COMPLETE_TASK:
+                Task task = taskService.fetchById(intent.getLongExtra(TaskEditFragment.TOKEN_ID, 0), Task.ID, Task.COMPLETION_DATE);
+                taskService.setComplete(task, !task.isCompleted());
+                break;
+            case EDIT_TASK:
+                if(AstridPreferences.useTabletLayout(context)) {
+                    intent.setClass(context, TaskListActivity.class);
+                } else {
+                    intent.setClass(context, TaskEditActivity.class);
+                }
+                intent.setFlags(WidgetHelper.flags);
+                intent.putExtra(TaskEditFragment.OVERRIDE_FINISH_ANIM, false);
+                context.startActivity(intent);
+
+                break;
+            case BROADCAST_EVENT_TASK_LIST_UPDATED:
+                updateWidgets(context);
+                break;
+            default:
+                super.onReceive(context, intent);
         }
     }
 
