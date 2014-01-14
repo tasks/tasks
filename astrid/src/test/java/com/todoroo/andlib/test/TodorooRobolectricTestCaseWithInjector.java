@@ -2,6 +2,7 @@ package com.todoroo.andlib.test;
 
 import com.todoroo.andlib.service.RobolectricTestDependencyInjector;
 
+import org.junit.After;
 import org.tasks.Broadcaster;
 
 import static org.mockito.Mockito.mock;
@@ -22,10 +23,8 @@ abstract public class TodorooRobolectricTestCaseWithInjector extends TodorooRobo
 	    super.setUp();
 	}
 
-	@Override
-	public void tearDown() throws Exception {
-	    super.tearDown();
-
+	@After
+	public void after() throws Exception {
 	    RobolectricTestDependencyInjector.deinitialize(testInjector);
 	}
 

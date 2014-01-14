@@ -30,12 +30,6 @@ public class TodorooRobolectricTestCase {
         ContextManager.setContext(getContext());
         AstridDependencyInjector.flush();
         DependencyInjectionService.getInstance().inject(this);
-        setLocale(Locale.ENGLISH);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        setLocale(Locale.getDefault());
     }
 
     /**

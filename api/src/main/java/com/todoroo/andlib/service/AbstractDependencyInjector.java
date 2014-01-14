@@ -59,30 +59,33 @@ abstract public class AbstractDependencyInjector {
      * @return object to assign to this field, or null
      */
     public Object getInjection(Field field) {
-        if(injectables.containsKey(field.getName())) {
-            Object injection = injectables.get(field.getName());
+        return getInjection(field.getName());
+    }
 
-            // if it's a class, instantiate the class
-            if(injection instanceof Class<?>) {
-                if(createdObjects.containsKey(injection) &&
-                        createdObjects.get(injection).get() != null) {
-                    injection = createdObjects.get(injection).get();
-                } else {
-                    Class<?> cls = (Class<?>)injection;
-                    try {
-                        injection = cls.newInstance();
-                    } catch (IllegalAccessException | InstantiationException e) {
-                        throw new RuntimeException(e);
-                    }
+    public Object getInjection(String name) {
+        if(!injectables.containsKey(name)) {
+            return null;
+        }
+        Object injection = injectables.get(name);
 
-                    createdObjects.put(cls, new WeakReference<>(injection));
+        // if it's a class, instantiate the class
+        if(injection instanceof Class<?>) {
+            if(createdObjects.containsKey(injection) &&
+                    createdObjects.get(injection).get() != null) {
+                injection = createdObjects.get(injection).get();
+            } else {
+                Class<?> cls = (Class<?>)injection;
+                try {
+                    injection = cls.newInstance();
+                } catch (IllegalAccessException | InstantiationException e) {
+                    throw new RuntimeException(e);
                 }
-            }
 
-            return injection;
+                createdObjects.put(cls, new WeakReference<>(injection));
+            }
         }
 
-        return null;
+        return injection;
     }
 
     @Override
