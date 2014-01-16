@@ -32,7 +32,7 @@ public class TodorooTestCase extends AndroidTestCase {
 	    super.setUp();
 
 	    ContextManager.setContext(this.getContext());
-	    AstridDependencyInjector.flush();
+	    AstridDependencyInjector.reset();
 	    DependencyInjectionService.getInstance().inject(this);
 	    setLocale(Locale.ENGLISH);
 	}

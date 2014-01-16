@@ -57,7 +57,7 @@ public class AstridTranslationTest extends TranslationTests {
      */
     @Test
     public void testSpecialStringsMatch() throws Exception {
-        final Resources r = getContext().getResources();
+        final Resources r = getRobolectricContext().getResources();
         final StringBuilder failures = new StringBuilder();
 
         forEachLocale(new Runnable() {

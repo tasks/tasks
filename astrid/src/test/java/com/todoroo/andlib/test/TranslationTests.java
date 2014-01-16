@@ -150,7 +150,7 @@ abstract public class TranslationTests extends TodorooRobolectricTestCase {
      */
     @Test
     public void testFormatStringsMatch() throws Exception {
-        final Resources r = getContext().getResources();
+        final Resources r = getRobolectricContext().getResources();
         final int[] strings = getResourceIds(getStringResources());
         final FormatStringData[] formatStrings = new FormatStringData[strings.length];
 
@@ -199,7 +199,7 @@ abstract public class TranslationTests extends TodorooRobolectricTestCase {
      */
     @Test
     public void testDateFormats() throws Exception {
-        final Resources r = getContext().getResources();
+        final Resources r = getRobolectricContext().getResources();
 
         final StringBuilder failures = new StringBuilder();
         final int[] dateStrings = getDateFormatStrings();
@@ -236,7 +236,7 @@ abstract public class TranslationTests extends TodorooRobolectricTestCase {
      */
     @Test
     public void testArraySizesMatch() throws Exception {
-        final Resources r = getContext().getResources();
+        final Resources r = getRobolectricContext().getResources();
         final int[] arrays = getResourceIds(getArrayResources());
         final int[] sizes = new int[arrays.length];
         final StringBuilder failures = new StringBuilder();

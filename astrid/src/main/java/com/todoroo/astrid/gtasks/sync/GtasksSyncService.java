@@ -35,7 +35,7 @@ import java.io.IOException;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.Semaphore;
 
-public final class GtasksSyncService {
+public class GtasksSyncService {
 
     private static final String DEFAULT_LIST = "@default"; //$NON-NLS-1$
     @Autowired MetadataService metadataService;

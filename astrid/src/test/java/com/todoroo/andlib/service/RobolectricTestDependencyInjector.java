@@ -27,12 +27,4 @@ public class RobolectricTestDependencyInjector extends AbstractDependencyInjecto
         DependencyInjectionService.getInstance().addInjector(instance);
         return instance;
     }
-
-    /**
-     * Remove an installed TestDependencyInjector
-     */
-    public static void deinitialize(RobolectricTestDependencyInjector instance) {
-        DependencyInjectionService.getInstance().removeInjector(instance);
-    }
-
 }

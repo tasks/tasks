@@ -4,13 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.google.api.services.tasks.model.TaskList;
-import com.todoroo.andlib.test.TodorooRobolectricTestCaseWithInjector;
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.test.TodorooRobolectricTestCase;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -20,32 +22,29 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 @RunWith(RobolectricTestRunner.class)
-public class GtasksDetailExposerTest extends TodorooRobolectricTestCaseWithInjector {
+public class GtasksDetailExposerTest extends TodorooRobolectricTestCase {
 
     private Context context;
     private RobolectricGtasksPreferenceService gtasksPreferenceService;
 
-    @Override
-    protected void addInjectables() {
-        testInjector.addInjectable("gtasksPreferenceService", gtasksPreferenceService);
-    }
+    @Autowired
+    private GtasksListService gtasksListService;
 
     @Override
-    public void setUp() throws Exception {
-        gtasksPreferenceService = new RobolectricGtasksPreferenceService();
+    public void before() throws Exception {
         context = mock(Context.class);
-        new GtasksListService().addNewList(
-                new TaskList().setId("list_id").setTitle("list_title"));
 
-        super.setUp();
+        super.before();
+
+        gtasksPreferenceService = addInjectable("gtasksPreferenceService", new RobolectricGtasksPreferenceService());
+        gtasksListService.addNewList(
+                new TaskList().setId("list_id").setTitle("list_title"));
     }
 
-    @Override
+    @After
     public void after() throws Exception {
         verify(context).getApplicationContext();
         verifyNoMoreInteractions(context);
-
-        super.after();
     }
 
     @Test

@@ -1,11 +1,13 @@
 package com.todoroo.astrid.model;
 
+import android.content.ContentValues;
+
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.test.TodorooRobolectricTestCaseWithInjector;
+import com.todoroo.andlib.test.TodorooRobolectricTestCase;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.utility.AstridPreferences;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -13,18 +15,21 @@ import org.tasks.Snippet;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.tasks.Freeze.freezeClock;
-import static org.tasks.RemoteModelHelpers.compareRemoteModel;
 import static org.tasks.RemoteModelHelpers.asQueryProperties;
+import static org.tasks.RemoteModelHelpers.compareRemoteModel;
 import static org.tasks.date.DateTimeUtils.currentTimeMillis;
 
 @RunWith(RobolectricTestRunner.class)
-public class TaskTest extends TodorooRobolectricTestCaseWithInjector {
+public class TaskTest extends TodorooRobolectricTestCase {
 
     private TaskService taskService;
 
-    @Before
-    public void before() {
+    @Override
+    public void before() throws Exception {
+        super.before();
+
         taskService = new TaskService();
     }
 
@@ -51,5 +56,14 @@ public class TaskTest extends TodorooRobolectricTestCaseWithInjector {
         compareRemoteModel(task, fromDb);
     }
 
-
+    @Test
+    public void testDefaults() {
+        AstridPreferences.setPreferenceDefaults();
+        ContentValues defaults = new Task().getDefaultValues();
+        assertTrue(defaults.containsKey(Task.TITLE.name));
+        assertTrue(defaults.containsKey(Task.DUE_DATE.name));
+        assertTrue(defaults.containsKey(Task.HIDE_UNTIL.name));
+        assertTrue(defaults.containsKey(Task.COMPLETION_DATE.name));
+        assertTrue(defaults.containsKey(Task.IMPORTANCE.name));
+    }
 }

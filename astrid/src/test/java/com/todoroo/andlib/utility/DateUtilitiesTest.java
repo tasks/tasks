@@ -5,8 +5,6 @@
  */
 package com.todoroo.andlib.utility;
 
-import com.todoroo.andlib.test.TodorooRobolectricTestCase;
-
 import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
@@ -18,6 +16,8 @@ import org.tasks.Snippet;
 import java.util.Date;
 import java.util.Locale;
 
+import static com.todoroo.andlib.test.TodorooRobolectricTestCase.forEachLocale;
+import static com.todoroo.andlib.test.TodorooRobolectricTestCase.getRobolectricContext;
 import static com.todoroo.andlib.utility.DateUtilities.addCalendarMonthsToUnixtime;
 import static com.todoroo.andlib.utility.DateUtilities.clearTime;
 import static com.todoroo.andlib.utility.DateUtilities.getDateString;
@@ -35,7 +35,7 @@ import static org.tasks.Freeze.freezeAt;
 import static org.tasks.date.DateTimeUtils.newDate;
 
 @RunWith(RobolectricTestRunner.class)
-public class DateUtilitiesTest extends TodorooRobolectricTestCase {
+public class DateUtilitiesTest {
 
     private static Locale defaultLocale;
 
@@ -60,13 +60,13 @@ public class DateUtilitiesTest extends TodorooRobolectricTestCase {
                 DateUtilities.is24HourOverride = false;
                 for (int i = 0; i < 24; i++) {
                     d.setHours(i);
-                    DateUtilities.getTimeString(getContext(), d);
+                    DateUtilities.getTimeString(getRobolectricContext(), d);
                 }
 
                 DateUtilities.is24HourOverride = true;
                 for (int i = 0; i < 24; i++) {
                     d.setHours(i);
-                    DateUtilities.getTimeString(getContext(), d);
+                    DateUtilities.getTimeString(getRobolectricContext(), d);
                 }
             }
         });
@@ -206,12 +206,12 @@ public class DateUtilitiesTest extends TodorooRobolectricTestCase {
         assertTrue(isEndOfMonth(newDate(2014, 11, 30)));
         assertTrue(isEndOfMonth(newDate(2014, 12, 31)));
     }
-    
+
     @Test
     public void notTheEndOfTheMonth() {
-        for(int month = 1 ; month <= 12 ; month++) {
+        for (int month = 1; month <= 12; month++) {
             int lastDay = new DateTime(2014, month, 1, 0, 0, 0, 0).dayOfMonth().getMaximumValue();
-            for(int day = 1 ; day < lastDay ; day++) {
+            for (int day = 1; day < lastDay; day++) {
                 assertFalse(isEndOfMonth(newDate(2014, month, day)));
             }
         }

@@ -115,7 +115,8 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
     /**
      * Flush dependency injection cache. Useful for unit tests.
      */
-    public synchronized static void flush() {
-        instance.flushCreated();
+    public synchronized static void reset() {
+        instance = null;
+        initialize();
     }
 }

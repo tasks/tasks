@@ -243,17 +243,6 @@ public class TaskTest {
     }
 
     @Test
-    public void testDefaults() {
-        AstridPreferences.setPreferenceDefaults();
-        ContentValues defaults = new Task().getDefaultValues();
-        assertTrue(defaults.containsKey(Task.TITLE.name));
-        assertTrue(defaults.containsKey(Task.DUE_DATE.name));
-        assertTrue(defaults.containsKey(Task.HIDE_UNTIL.name));
-        assertTrue(defaults.containsKey(Task.COMPLETION_DATE.name));
-        assertTrue(defaults.containsKey(Task.IMPORTANCE.name));
-    }
-
-    @Test
     public void testSanity() {
         assertTrue(Task.IMPORTANCE_DO_OR_DIE < Task.IMPORTANCE_MUST_DO);
         assertTrue(Task.IMPORTANCE_MUST_DO < Task.IMPORTANCE_SHOULD_DO);

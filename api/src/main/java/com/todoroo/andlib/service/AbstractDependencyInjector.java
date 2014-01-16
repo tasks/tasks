@@ -96,7 +96,7 @@ abstract public class AbstractDependencyInjector {
     /**
      * Flush dependency injection cache. Useful for unit tests.
      */
-    protected void flushCreated() {
+    protected void clear() {
         createdObjects.clear();
     }
 

@@ -40,8 +40,8 @@ public class AdvancedRepeatTest extends TodorooRobolectricTestCase {
     private RRule rrule;
 
     @Before
-    public void setUp() throws Exception {
-        super.setUp();
+    public void before() throws Exception {
+        super.before();
         task = new Task();
         task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
         rrule = new RRule();
