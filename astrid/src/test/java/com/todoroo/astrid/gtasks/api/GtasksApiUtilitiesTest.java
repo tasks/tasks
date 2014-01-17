@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
+import java.util.Locale;
 import java.util.TimeZone;
 
 import static com.todoroo.astrid.gtasks.api.GtasksApiUtilities.gtasksCompletedTimeToUnixTime;
@@ -20,16 +21,19 @@ import static org.junit.Assert.assertNull;
 @RunWith(RobolectricTestRunner.class)
 public class GtasksApiUtilitiesTest {
 
-    private static final DateTimeZone defaultTimeZone = DateTimeZone.getDefault();
+    private static final Locale defaultLocale = Locale.getDefault();
+    private static final DateTimeZone defaultDateTimeZone = DateTimeZone.getDefault();
 
     @Before
     public void before() {
+        Locale.setDefault(Locale.US);
         DateTimeZone.setDefault(DateTimeZone.forID("America/Chicago"));
     }
 
     @After
     public void after() {
-        DateTimeZone.setDefault(defaultTimeZone);
+        Locale.setDefault(defaultLocale);
+        DateTimeZone.setDefault(defaultDateTimeZone);
     }
 
     @Test

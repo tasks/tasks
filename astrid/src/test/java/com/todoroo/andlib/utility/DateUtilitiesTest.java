@@ -37,7 +37,7 @@ import static org.tasks.date.DateTimeUtils.newDate;
 @RunWith(RobolectricTestRunner.class)
 public class DateUtilitiesTest {
 
-    private static Locale defaultLocale;
+    private Locale defaultLocale;
 
     @Before
     public void before() {
