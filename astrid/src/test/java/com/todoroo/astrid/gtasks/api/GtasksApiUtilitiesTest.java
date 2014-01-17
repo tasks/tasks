@@ -4,6 +4,7 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -59,6 +60,7 @@ public class GtasksApiUtilitiesTest {
     }
 
     @Test
+    @Ignore
     public void convertGoogleDueDateToUnixTime() {
         com.google.api.client.util.DateTime googleDueDate =
                 new com.google.api.client.util.DateTime(
