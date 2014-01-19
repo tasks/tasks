@@ -6,6 +6,7 @@ import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.core.SortHelper;
@@ -88,6 +89,46 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
         setPreference(prefs, editor, r, R.string.p_hide_plus_button, true);
 
         extras.setExtras(context);
+
+        /** START Migration to new Quiet Hours settings */
+        boolean hasMigrated = Preferences.getBoolean(R.string.p_rmd_hasMigrated, false);
+
+        if(!hasMigrated) {
+            // for each preference load old stored value
+            int quietHoursStart = Preferences.getIntegerFromString(R.string.p_rmd_quietStart_old, -1);
+            int quietHoursEnd = Preferences.getIntegerFromString(R.string.p_rmd_quietEnd_old, -1);
+            int defReminderTime = Preferences.getIntegerFromString(R.string.p_rmd_time_old, -1);
+            System.out.println("!!!!!!!!Values before:" + quietHoursStart + "," + quietHoursEnd + "," + defReminderTime);
+            // if a previous quietHoursStart preference exists and it's not disabled (so it's not 0 or -1)
+            if (quietHoursStart > 0) {
+                quietHoursStart = (quietHoursStart - 5) >= 0 ? quietHoursStart - 5 : 19 + quietHoursStart;
+                // if a previous quietHoursEnd preference exists adapt it
+                if (quietHoursEnd >= 0) {
+                    quietHoursEnd = (quietHoursEnd + 9) % 23;
+                }
+                Preferences.setBoolean(R.string.p_rmd_enable_quiet, true);
+            } else {
+                // set new quietHoursEnabled setting to false
+                Preferences.setBoolean( R.string.p_rmd_enable_quiet, false);
+            }
+            // if a previous defReminderTime preference exists
+            if (defReminderTime >= 0 && defReminderTime < r.getStringArray(R.array.EPr_rmd_time).length) {
+                // convert to hours from index. 9 is the initial 9AM in the reminder array
+                // so you have to return 9 hours to get to 0 (and modulo the result to reverse negative results)
+                defReminderTime = (defReminderTime + 9) % 23;
+            } else if (defReminderTime == -1) {
+                defReminderTime = 0;
+            }
+
+            // save changed preferences in the new preference keys
+            Preferences.setStringFromInteger(R.string.p_rmd_quietStart, quietHoursStart);
+            Preferences.setStringFromInteger(R.string.p_rmd_quietEnd, quietHoursEnd);
+            Preferences.setStringFromInteger(R.string.p_rmd_time, defReminderTime);
+
+            // set migration to completed
+            Preferences.setBoolean(R.string.p_rmd_hasMigrated, true);
+        }
+        /** END Migration to new Quiet Hours settings */
 
         editor.commit();
     }

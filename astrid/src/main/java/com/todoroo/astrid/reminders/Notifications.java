@@ -469,9 +469,11 @@ public class Notifications extends BroadcastReceiver {
      * @return whether we're in quiet hours
      */
     public static boolean isQuietHours() {
+        boolean quietHoursEnabled = Preferences.getBoolean(R.string.p_rmd_enable_quiet, false);
         int quietHoursStart = Preferences.getIntegerFromString(R.string.p_rmd_quietStart, -1);
         int quietHoursEnd = Preferences.getIntegerFromString(R.string.p_rmd_quietEnd, -1);
-        if(quietHoursStart != -1 && quietHoursEnd != -1) {
+
+        if(quietHoursEnabled) {
             int hour = newDate().getHours();
             if(quietHoursStart <= quietHoursEnd) {
                 if(hour >= quietHoursStart && hour < quietHoursEnd) {

@@ -112,6 +112,7 @@ public final class ReminderService  {
         Editor editor = prefs.edit();
         Resources r = context.getResources();
 
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_enable_quiet, false);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_quietStart, 22);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_quietEnd, 10);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_default_random_hours, 0);
@@ -320,7 +321,7 @@ public final class ReminderService  {
                 date.setSeconds(0);
                 dueDateAlarm = date.getTime();
                 if (dueDate > getNowValue() && dueDateAlarm < getNowValue()) {
-                    // this only happens for tasks due today, cause dueDateAlarm wouldnt be in the past otherwise
+                    // this only happens for tasks due today, cause dueDateAlarm wouldn't be in the past otherwise
                     // if the default reminder is in the past, then reschedule it
                     // on this day before start of quiet hours or after quiet hours
                     // randomly placed in this interval
@@ -336,13 +337,14 @@ public final class ReminderService  {
                     quietHoursEndDate.setMinutes(0);
                     quietHoursEndDate.setSeconds(0);
 
+                    boolean quietHoursEnabled = Preferences.getBoolean(R.string.p_rmd_enable_quiet, false);
+
                     long millisToQuiet;
                     long millisToEndOfDay = dueDate - getNowValue();
 
-                    //
                     int periodDivFactor = 4;
 
-                    if(quietHoursStart != -1 && quietHoursEnd != -1) {
+                    if(quietHoursEnabled) {
                         int hour = newDate().getHours();
                         if(quietHoursStart <= quietHoursEnd) {
                             if(hour >= quietHoursStart && hour < quietHoursEnd) {

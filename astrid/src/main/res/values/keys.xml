@@ -11,16 +11,31 @@
 
   <!-- whether reminders should appear at all -->
   <string name="p_rmd_enabled">notif_enabled</string>
-  
-  <!-- hour to start quiet hours (inclusive) -->
-  <string name="p_rmd_quietStart">notif_qstart</string>
+
+  <!-- boolean : whether to enable quiet hours or not -->
+  <string name="p_rmd_enable_quiet">enable_qhours</string>
+
+    <!-- hour to start quiet hours (inclusive) -->
+  <string name="p_rmd_quietStart">notif_qstart_new</string>
   
   <!-- hour to end quiet hours (non-inclusive) -->
-  <string name="p_rmd_quietEnd">notif_qend</string>
-  
+  <string name="p_rmd_quietEnd">notif_qend_new</string>
+
+  <!-- Whether or not the user has migrated (automatically) to the new reminder prefs -->
+  <string name="p_rmd_hasMigrated">has_migrated_rmd</string>
+
   <!-- reminder time when task doesn't have a due time (hour of day) -->
-  <string name="p_rmd_time">reminder_time</string>
-  
+  <string name="p_rmd_time">reminder_time_new</string>
+
+  <!-- OLD Quiet hours settings -->
+    <!-- reminder time when task doesn't have a due time (hour of day) -->
+    <string name="p_rmd_time_old">reminder_time</string>
+    <!-- hour to start quiet hours (inclusive) -->
+    <string name="p_rmd_quietStart_old">notif_qstart</string>
+    <!-- hour to end quiet hours (non-inclusive) -->
+    <string name="p_rmd_quietEnd_old">notif_qend</string>
+  <!-- END OF OLD Quiet hours settings -->
+
   <!-- whether "clear all notifications" clears astrid notifications -->
   <string name="p_rmd_persistent">notif_annoy</string>
   

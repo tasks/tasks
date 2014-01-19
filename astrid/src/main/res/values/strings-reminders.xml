@@ -82,8 +82,10 @@
   <!-- Reminder Preference Reminders Enabled Description (true) -->
   <string name="rmd_EPr_enabled_desc_true">Reminders are enabled (this is normal)</string>
   <!-- Reminder Preference Reminders Enabled Description (false) -->
-  <string name="rmd_EPr_enabled_desc_false">Reminders will never appear on your phone</string>  
-    
+  <string name="rmd_EPr_enabled_desc_false">Reminders will never appear on your phone</string>
+
+  <!-- Reminder Preference: Quiet Hours Start Title -->
+  <string name="rmd_EPr_enable_quiet_title">Enable quiet hours</string>
   <!-- Reminder Preference: Quiet Hours Start Title -->
   <string name="rmd_EPr_quiet_hours_start_title">Quiet hours start</string>
   <!-- Reminder Preference: Quiet Hours Start Description (%s => time set) -->
@@ -144,7 +146,7 @@
   <string name="rmd_EPr_defaultRemind_desc_disabled">New tasks will have no random reminders</string>
   <!-- Reminder Preference: Default Reminders Setting (%s => setting) -->
   <string name="rmd_EPr_defaultRemind_desc">New tasks will remind randomly: %s</string>
-  
+
   <!-- slide 39a: Defaults Title -->
   
   <string-array name="EPr_reminder_random">
@@ -162,7 +164,7 @@
     <item>monthly</item>
     <item>bi-monthly</item>
   </string-array>
-        
+
   <string-array name="EPr_quiet_hours_start">
     <!-- Reminder Preference: quiet_hours_start: options for preference menu. Translate but don't change the times!. -->
     <item>disabled</item>
@@ -191,7 +193,7 @@
     <item>6 PM</item>
     <item>7 PM</item>
   </string-array>
-  
+
   <string-array name="EPr_quiet_hours_end">
     <!-- Reminder Preference: quiet_hours_end: options for preference menu. Translate but don't change the times! -->
     <item>9 AM</item>
@@ -219,7 +221,7 @@
     <item>7 AM</item>
     <item>8 AM</item>
   </string-array>
-  
+
   <string-array name="EPr_rmd_time">
     <!-- Reminder Preference: rmd_time: options for preference menu. Translate but don't change the times! -->
     <item>9 AM</item>

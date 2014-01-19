@@ -31,33 +31,33 @@ public class ReminderPreferences extends TodorooPreferenceActivity {
     public void updatePreferences(Preference preference, Object value) {
         Resources r = getResources();
 
-        if(r.getString(R.string.p_rmd_quietStart).equals(preference.getKey())) {
-            int index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_quiet_hours_start_values), value);
-            Preference endPreference = findPreference(getString(R.string.p_rmd_quietEnd));
+        if(r.getString(R.string.p_rmd_enable_quiet).equals(preference.getKey())) {
+            if( !(Boolean) value) {
+                preference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_desc_none));
+            } else {
+                preference.setSummary("");
+            }
+        } else if(r.getString(R.string.p_rmd_quietStart).equals(preference.getKey())) {
+            int index = Integer.parseInt((String) value);
+
             if(index <= 0) {
                 preference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_desc_none));
-                endPreference.setEnabled(false);
             } else {
-                String setting = r.getStringArray(R.array.EPr_quiet_hours_start)[index];
+                String setting = String.valueOf(index);
                 preference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_start_desc, setting));
-                endPreference.setEnabled(true);
             }
         } else if(r.getString(R.string.p_rmd_quietEnd).equals(preference.getKey())) {
-            int index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_quiet_hours_end_values), value);
+            int index = Integer.parseInt((String) value);
             int quietHoursStart = Preferences.getIntegerFromString(R.string.p_rmd_quietStart, -1);
             if(index == -1 || quietHoursStart == -1) {
                 preference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_desc_none));
             } else {
-                String setting = r.getStringArray(R.array.EPr_quiet_hours_end)[index];
+                String setting = String.valueOf(index);
                 preference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_end_desc, setting));
             }
         } else if(r.getString(R.string.p_rmd_time).equals(preference.getKey())) {
-            int index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_rmd_time_values), value);
-            if (index != -1 && index < r.getStringArray(R.array.EPr_rmd_time).length) {
-                // FIXME this does not fix the underlying cause of the ArrayIndexOutofBoundsException
-                String setting = r.getStringArray(R.array.EPr_rmd_time)[index];
-                preference.setSummary(r.getString(R.string.rmd_EPr_rmd_time_desc, setting));
-            }
+            String setting = (String) value;
+            preference.setSummary(r.getString(R.string.rmd_EPr_rmd_time_desc, setting));
         } else if(r.getString(R.string.p_rmd_ringtone).equals(preference.getKey())) {
             if(value == null || "content://settings/system/notification_sound".equals(value)) //$NON-NLS-1$
             {
@@ -93,7 +93,7 @@ public class ReminderPreferences extends TodorooPreferenceActivity {
                 preference.setSummary(r.getString(R.string.rmd_EPr_snooze_dialog_desc_false));
             }
         } else if (r.getString(R.string.p_rmd_enabled).equals(preference.getKey())) {
-            if((Boolean)value) {
+            if( (Boolean)value ) {
                 preference.setSummary(R.string.rmd_EPr_enabled_desc_true);
             } else {
                 preference.setSummary(R.string.rmd_EPr_enabled_desc_false);

@@ -14,15 +14,18 @@ package com.todoroo.andlib.utility;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.DialogPreference;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceGroup;
+import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.astrid.ui.TimePreference;
 
 /**
  * Displays a preference screen for users to edit their preferences. Override
@@ -74,7 +77,10 @@ abstract public class TodorooPreferenceActivity extends PreferenceActivity {
             } else if(preference instanceof EditTextPreference) {
                 value = ((EditTextPreference) preference).getText();
             } else if(preference instanceof RingtonePreference) {
-                value = getPreferenceManager().getSharedPreferences().getString(preference.getKey(), null);
+                value = PreferenceManager.getDefaultSharedPreferences(preference.getContext())
+                        .getString(preference.getKey(), null);
+            } else if(preference instanceof TimePreference) {
+                value = ((TimePreference) preference).getLastHour();
             }
 
             updatePreferences(preference, value);
