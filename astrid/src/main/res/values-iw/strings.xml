@@ -463,94 +463,15 @@
 	<string name="rmd_EPr_defaultRemind_title">תזכורות אקראיות</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">משימות חדשות לא תכלנה תזכורות אקראיות</string>
 	<string name="rmd_EPr_defaultRemind_desc">משימות חדשות יתזכרו אותך אקראית: %s</string>
-	<string-array name="EPr_reminder_random">
-		<item>לא זמין</item>
-		<item>שעתי</item>
-		<item>יומי</item>
-		<item>שבועי</item>
-		<item>דו שבועי</item>
-		<item>חודשי</item>
-		<item>דו חודשי</item>
-	</string-array>
-	<string-array name="EPr_quiet_hours_start">
-		<item>לא זמין</item>
-		<item>8 בערב</item>
-		<item>9 בערב</item>
-		<item>10 בלילה</item>
-		<item>11 בלילה</item>
-		<item>חצות</item>
-		<item>1 לפנות בוקר</item>
-		<item>2 לפנות בוקר</item>
-		<item>3 לפנות בוקר</item>
-		<item>4 לפנות בוקר</item>
-		<item>5 לפנות בוקר</item>
-		<item>6 בבוקר</item>
-		<item>7 בבוקר</item>
-		<item>8 בבוקר</item>
-		<item>9 בבוקר</item>
-		<item>10 בבוקר</item>
-		<item>11 בבוקר</item>
-		<item>12 בצהריים</item>
-		<item>1 בצהריים</item>
-		<item>2 בצהריים</item>
-		<item>3 בצהריים</item>
-		<item>4 אחה״צ</item>
-		<item>5 אחה״צ</item>
-		<item>6 בערב</item>
-		<item>7 בערב</item>
-	</string-array>
-	<string-array name="EPr_quiet_hours_end">
-		<item>9 בבוקר</item>
-		<item>10 בבוקר</item>
-		<item>11 בבוקר</item>
-		<item>12 בצהריים</item>
-		<item>1 בצהריים</item>
-		<item>2 בצהריים</item>
-		<item>3 בצהריים</item>
-		<item>4 אחה״צ</item>
-		<item>5 אחה\"צ</item>
-		<item>6 בערב</item>
-		<item>7 בערב</item>
-		<item>8 בערב</item>
-		<item>9 בערב</item>
-		<item>10 בלילה</item>
-		<item>11 בלילה</item>
-		<item>חצות</item>
-		<item>1 לפנות בוקר</item>
-		<item>2 לפנות בוקר</item>
-		<item>3 לפנות בוקר</item>
-		<item>4 לפנות בוקר</item>
-		<item>5 לפנות בוקר</item>
-		<item>6 בבוקר</item>
-		<item>7 בבוקר</item>
-		<item>8 בבוקר</item>
-	</string-array>
-	<string-array name="EPr_rmd_time">
-		<item>9 בבוקר</item>
-		<item>10 בבוקר</item>
-		<item>11 בבוקר</item>
-		<item>12 בצהריים</item>
-		<item>1 בצהריים</item>
-		<item>2 בצהריים</item>
-		<item>3 אחה״צ</item>
-		<item>4 אחה״צ</item>
-		<item>5 אחה״צ</item>
-		<item>6 בערב</item>
-		<item>7 בערב</item>
-		<item>8 בערב</item>
-		<item>9 בערב</item>
-		<item>10 בלילה</item>
-		<item>11 בלילה</item>
-		<item>חצות</item>
-		<item>1 לפנות בוקר</item>
-		<item>2 לפנות בוקר</item>
-		<item>3 לפנות בוקר</item>
-		<item>4 לפנות בוקר</item>
-		<item>5 לפנות בוקר</item>
-		<item>6 בבוקר</item>
-		<item>7 בבוקר</item>
-		<item>8 בבוקר</item>
-	</string-array>
+        <string-array name="EPr_reminder_random">
+                <item>לא זמין</item>
+                <item>שעתי</item>
+                <item>יומי</item>
+                <item>שבועי</item>
+                <item>דו שבועי</item>
+                <item>חודשי</item>
+                <item>דו חודשי</item>
+        </string-array>
 	<string name="repeat_plugin">משימות חוזרות</string>
 	<string name="repeat_plugin_desc">אפשר למשימות לחזור</string>
 	<string name="repeat_enabled">חזרה</string>

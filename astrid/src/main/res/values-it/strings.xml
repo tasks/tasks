@@ -415,33 +415,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 		<item>mensilmente</item>
 		<item>bi-mensilmente</item>
 	</string-array>
-	<string-array name="EPr_quiet_hours_start">
-		<item>disabilitato</item>
-		<item>8 PM</item>
-		<item>9 PM</item>
-		<item>10 PM</item>
-		<item>11 PM</item>
-		<item>12 AM</item>
-		<item>1 AM</item>
-		<item>2 AM</item>
-		<item>3 AM</item>
-		<item>4 AM</item>
-		<item>5 AM</item>
-		<item>6 AM</item>
-		<item>7 AM</item>
-		<item>8 AM</item>
-		<item>9 AM</item>
-		<item>10 AM</item>
-		<item>11 AM</item>
-		<item>12 PM</item>
-		<item>1 PM</item>
-		<item>2 PM</item>
-		<item>3 PM</item>
-		<item>4 PM</item>
-		<item>5 PM</item>
-		<item>6 PM</item>
-		<item>7 PM</item>
-	</string-array>
 	<string name="repeat_plugin">Attività ricorrente</string>
 	<string name="repeat_plugin_desc">Permette di ripetere le attività</string>
 	<string name="repeat_enabled">Ripeti</string>

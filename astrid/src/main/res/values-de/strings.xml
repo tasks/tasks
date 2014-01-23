@@ -20,14 +20,14 @@
 	<string name="backup_status_failed">Letzte Datensicherung gescheitert</string>
 	<string name="backup_status_failed_subtitle">(Anklicken, um Fehler anzuzeigen)</string>
 	<string name="backup_status_never">Bisher keine Datensicherung erstellt!</string>
-	<string name="backup_BPr_group_options">Einstellungen</string>
+	<string name="backup_BPr_group_options">Optionen</string>
 	<string name="backup_BPr_auto_title">Automatische Backups</string>
 	<string name="backup_BPr_auto_disabled">Automatische Backups deaktiviert</string>
-	<string name="backup_BPr_auto_enabled">Verwalte deine Backups</string>
+	<string name="backup_BPr_auto_enabled">Backup täglich durchführen</string>
 	<string name="backup_BAc_import">Aufgaben importieren</string>
 	<string name="backup_BAc_export">Aufgaben exportieren</string>
-	<string name="backup_TXI_error">Importfehler</string>
-	<string name="export_toast">%1$s bis %2$s gesichert.</string>
+	<string name="backup_TXI_error">Fehler beim Import</string>
+	<string name="export_toast">Gesichert von %1$s bis %2$s.</string>
 	<string name="export_toast_no_tasks">Keine Aufgaben zu exportieren.</string>
 	<string name="export_progress_title">Es wird exportiert …</string>
 	<string name="import_summary_title">Zusammenfassung wiederherstellen</string>
@@ -35,13 +35,13 @@
 	<string name="import_progress_title">Es wird importiert …</string>
 	<string name="import_progress_read">Aufgabe %d wird gelesen …</string>
 	<string name="DLG_error_sdcard">Ordner konnte nicht geöffnet werden: %s</string>
-	<string name="DLG_error_sdcard_general">SD-Karte konnte nicht geöffnet werden!</string>
+	<string name="DLG_error_sdcard_general">Auf die SD-Karte konnte nicht zugegriffen werden!</string>
 	<string name="import_file_prompt">Wählen Sie eine Datei zum Wiederherstellen</string>
 	<string name="app_name">Tasks Aufgaben</string>
 	<string name="read_permission_label">Tasks Zugriffsrechte</string>
 	<string name="read_permission_desc">Aufgaben lesen, Aufgabenfilter anzeigen</string>
 	<string name="write_permission_label">Tasks Zugriffsrechte</string>
-	<string name="write_permission_desc">Aufgaben erstellen, existierende bearbeiten</string>
+	<string name="write_permission_desc">Aufgaben erstellen, existierende Aufgaben bearbeiten</string>
 	<string name="DLG_delete_this_task_question">Diese Aufgabe löschen?</string>
 	<string name="DLG_delete_this_item_question">Dieses Element löschen: %s?</string>
 	<string name="DLG_upgrading">Ihre Aufgaben werden aktualisiert …</string>
@@ -59,18 +59,18 @@
 	<string name="TLA_custom">Benutzerdefiniert</string>
 	<string name="TLA_quick_add_hint">Aufgabe hinzufügen</string>
 	<string name="TLA_notification_volume_low">Erinnerungen sind stummgeschaltet. Du wirst Tasks nicht hören!</string>
-	<string name="TLA_notification_disabled">Taskss Erinnerungen sind ausgeschaltet! Du wirst keine Erinnerungen mehr erhalten!</string>
+	<string name="TLA_notification_disabled">Erinnerungen durch Tasks sind ausgeschaltet! Du wirst keine Erinnerungen mehr erhalten!</string>
 	<string name="TLA_quickadd_confirm_title">Sie sagten: \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Ich habe die Aufgabe \"%1$s\" %2$s mit %3$s angelegt</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">für %s</string>
-	<string name="TLA_quickadd_confirm_hide_helpers">In Zukunft nicht mehr nach Bestätigung fragen</string>
+	<string name="TLA_quickadd_confirm_hide_helpers">In Zukunft nicht mehr nach Bestätigungen fragen</string>
 	<string name="TLA_repeat_scheduled_title">Neue sich wiederholende Aufgabe %s</string>
 	<string name="TLA_repeat_scheduled_speech_bubble">\"Ich werde dich erinnern an  %s.\"</string>
 	<string-array name="TLA_priority_strings">
-		<item>höchste Priorität</item>
-		<item>hohe Priorität</item>
-		<item>mittlere Priorität</item>
-		<item>niedrige Priorität</item>
+		<item>Höchste Priorität</item>
+		<item>Hohe Priorität</item>
+		<item>Mittlere Priorität</item>
+		<item>Niedrige Priorität</item>
 	</string-array>
 	<string name="TAd_hiddenFormat">%s [versteckt]</string>
 	<string name="TAd_deletedFormat">%s [gelöscht]</string>
@@ -80,29 +80,29 @@
 	<string name="TAd_contextCopyTask">Aufgabe kopieren</string>
 	<string name="TAd_contextDeleteTask">Aufgabe löschen</string>
 	<string name="TAd_contextUndeleteTask">Aufgabe wiederherstellen</string>
-	<string name="TAd_contextPurgeTask">Aufgabe löschen</string>
+	<string name="TAd_contextPurgeTask">Aufgabe endgültig löschen</string>
 	<string name="SSD_hidden_title">Versteckte Aufgaben</string>
 	<string name="SSD_completed">Erledigte Aufgaben anzeigen</string>
 	<string name="SSD_hidden">Versteckte Aufgaben anzeigen</string>
 	<string name="SSD_deleted">Gelöschte Aufgaben anzeigen</string>
-	<string name="SSD_sort_drag">Manuelle Sortierung mit Subtasks</string>
+	<string name="SSD_sort_drag">Manuelle Sortierung mit Teilaufgaben</string>
 	<string name="SSD_sort_auto">Tasks Smart Sort</string>
 	<string name="SSD_sort_alpha">Nach Titel</string>
 	<string name="SSD_sort_due">Nach Fälligkeit</string>
 	<string name="SSD_sort_importance">Nach Priorität</string>
 	<string name="SSD_sort_modified">Nach letzter Änderung</string>
 	<string name="SSD_sort_reverse">Umgekehrte Sortierung</string>
-	<string name="SSD_save_temp">Nur einmal</string>
+	<string name="SSD_save_temp">Einmalig</string>
 	<string name="SSD_save_always">Immer</string>
 	<string name="FLA_context_shortcut">Verknüpfung auf dem Desktop erstellen</string>
-	<string name="FLA_shortcut_dialog_title">Desktop Verküpfung erstellen</string>
-	<string name="FLA_shortcut_dialog">Name der Verknüpfung</string>
-	<string name="FLA_search_hint">Suche nach Aufgabe</string>
+	<string name="FLA_shortcut_dialog_title">Desktop-Verküpfung erstellen</string>
+	<string name="FLA_shortcut_dialog">Name der Verknüpfung:</string>
+	<string name="FLA_search_hint">Suche nach Aufgaben</string>
 	<string name="FLA_search_filter">Übereinstimmung mit %s</string>
 	<string name="FLA_toast_onCreateShortcut">Verknüpfung erstellt: %s</string>
 	<string name="FLA_new_filter">Neuer Filter</string>
 	<string name="FLA_new_list">Neue Liste</string>
-	<string name="FLA_no_filter_selected">Kein Filter ausgewählt. Bitte Filter oder Liste auswählen.</string>
+	<string name="FLA_no_filter_selected">Kein Filter ausgewählt! Bitte Filter oder Liste auswählen.</string>
 	<string name="TEA_title_hint">Aufgabenname</string>
 	<string name="TEA_importance_label">Priorität</string>
 	<string name="TEA_deadline_hint">Fälligkeitsdatum setzen</string>
@@ -111,11 +111,12 @@
 	<string name="TEA_note_label">Beschreibung</string>
 	<string name="TEA_notes_empty">Beschreibung ...</string>
 	<string name="TEA_notes_hint">Aufgabenbeschreibung eingeben ...</string>
-	<string name="TEA_estimatedDuration_label">Wie lang wird es dauern?</string>
+	<string name="TEA_estimatedDuration_label">Wie lange wird es dauern?</string>
 	<string name="TEA_elapsedDuration_label">Zeit, die schon für die Aufgabe gebraucht wurde</string>
 	<string name="TEA_menu_save">Änderungen speichern</string>
 	<string name="TEA_menu_discard">Nicht speichern</string>
 	<string name="TEA_tab_activity">Aktivität</string>
+	<string name="TEA_timer_elap">%s verstrichen</string>
 	<string-array name="TEA_urgency">
 		<item>Kein Datum</item>
 		<item>Bestimmter Tag</item>
@@ -130,7 +131,7 @@
 	<string-array name="TEA_hideUntil">
 		<item>Nie</item>
 		<item>Fälligkeitsdatum</item>
-		<item>Fälligkeitsdatum</item>
+		<item>Fälligkeits-Uhrzeit</item>
 		<item>Tag vor Fälligkeit</item>
 		<item>Woche vor Fälligkeit</item>
 		<item>Bestimmter Tag/Uhrzeit</item>
@@ -157,7 +158,7 @@
 	<string name="MCA_ignore_this">Nur diesen Anruf ignorieren</string>
 	<string name="MCA_missed_calls_pref_title">Verpasste Anrufe</string>
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks wird Sie über versäumte Anrufe informieren und an Rückrufe erinnern</string>
-	<string name="MCA_missed_calls_pref_desc_disabled">Tasks wird Sie über versäumte Anrufe informieren</string>
+	<string name="MCA_missed_calls_pref_desc_disabled">Tasks wird dich nicht über versäumte Anrufe informieren</string>
 	<string name="MCA_task_title_name">%1$s unter %2$s zurückrufen</string>
 	<string name="MCA_task_title_no_name">%s zurückrufen</string>
 	<string name="MCA_schedule_dialog_title">%s zurückrufen in ...</string>
@@ -202,15 +203,16 @@
 	<string name="EPr_edit_screen_options">Bildschirmeinstellungen bearbeiten</string>
 	<string name="EPr_beastMode_title">Bearbeite Anordnung</string>
 	<string name="EPr_time_increment">5 Minuten Steigerung</string>
-	<string name="EPr_use_date_shortcuts">Nutze Datumsabkürzung</string>
+	<string name="EPr_use_date_shortcuts">Nutze Datumsabkürzungen</string>
+	<string name="EPr_show_timer_shortcut">Verknüpfung zu Timer anzeigen</string>
 	<string name="EPr_beastMode_desc">Erscheinungsbild Aufgabenseite anpassen</string>
 	<string name="EPr_beastMode_reset">Auf Standardeinstellungen zurücksetzen</string>
 	<string name="EPr_beastMode_hint">Du kannst die Eingabeseite für Aufgaben mit den Schiebereglern links anpassen</string>
-	<string name="EPr_showNotes_desc_disabled">Beschreibung vom Eingabeschirm für Aufgaben erreichbar </string>
-	<string name="EPr_showNotes_desc_enabled">Beschreibung werden immer angezegt</string>
+	<string name="EPr_showNotes_desc_disabled">Beschreibung vom Eingabeschirm für Aufgaben aus erreichbar </string>
+	<string name="EPr_showNotes_desc_enabled">Beschreibung wird immer angezeigt</string>
 	<string name="EPr_fullTask_title">Gesamten Aufgabentitel anzeigen</string>
-	<string name="EPr_fullTask_desc_enabled">Aufgabentitel werden vollständig angezeigt</string>
-	<string name="EPr_fullTask_desc_disabled">Zwei Zeilen des Aufgabentitels werden angezeigt</string>
+	<string name="EPr_fullTask_desc_enabled">Aufgabentitel wird vollständig angezeigt</string>
+	<string name="EPr_fullTask_desc_disabled">Die ersten beiden Zeilen des Aufgabentitels werden angezeigt</string>
 	<string-array name="EPr_task_row_styles">
 		<item>Original</item>
 		<item>Einfach</item>
@@ -228,17 +230,17 @@
 	<string name="EPr_show_task_edit_comments">Kommentare bei Aufgabeneingabe anzeigen </string>
 	<string name="EPr_taskRowPrefs_title">Aussehen der Aufgabenzeilen</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Zeitpunkt Kalendertermin</string>
-	<string name="EPr_force_phone_layout">Telefon Layout nutzen</string>
-	<string name="EPr_show_save_and_cancel">Zeige speichern und abbrechen</string>
+	<string name="EPr_force_phone_layout">Telefon-Layout benutzen</string>
+	<string name="EPr_show_save_and_cancel">Zeige Speichern und Abbrechen</string>
 	<string name="EPr_manage_header">Alte Aufgaben verwalten</string>
 	<string name="EPr_manage_delete_completed">Erledigte Aufgaben löschen</string>
 	<string name="EPr_manage_delete_completed_message">Willst du wirklich alle erledigten Aufgaben löschen?</string>
 	<string name="EPr_manage_delete_completed_summary">Gelöschte Aufgaben können einzeln wiederhergestellt werden.</string>
 	<string name="EPr_manage_delete_completed_status">%d Aufgaben gelöscht</string>
-	<string name="EPr_manage_purge_deleted">Bereinige gelöschte Aufgaben</string>
+	<string name="EPr_manage_purge_deleted">Gelöschte Aufgaben endgültig löschen</string>
 	<string name="EPr_manage_purge_deleted_message">Willst du wirklich alle gelöschten Aufgaben bereinigen?\n\nDiese Aufgaben werden für immer gelöscht bleiben!</string>
 	<string name="EPr_manage_purge_deleted_status">%d Aufgaben bereinigt!</string>
-	<string name="EPr_manage_purge_deleted_summary">Vorsicht! Bereinigte Aufgaben können ohne Backup-Datei nicht wiederhergestellt werden!</string>
+	<string name="EPr_manage_purge_deleted_summary">Vorsicht! Endgültig gelöschte Aufgaben können ohne Backup-Datei nicht wiederhergestellt werden!</string>
 	<string name="EPr_manage_clear_all">Alle Daten löschen</string>
 	<string name="EPr_manage_clear_all_message">Alle Aufgaben und Einstellungen von Tasks löschen?\n\nWarnung: Dies kann nicht rückgängig gemacht werden!</string>
 	<string name="EPr_manage_delete_completed_gcal">Lösche Kalendereinträge von erledigten Aufgaben</string>
@@ -258,11 +260,11 @@
 	<string name="EPr_defaults_summary">Priorität, Fälligkeitsdatum, in Kalender eintragen</string>
 	<string name="EPr_default_urgency_title">Standard Dringlichkeit</string>
 	<string name="EPr_default_urgency_desc">Momentan: %s</string>
-	<string name="EPr_default_importance_title">Standard Dringlichkeit</string>
+	<string name="EPr_default_importance_title">Standard Priorität</string>
 	<string name="EPr_default_importance_desc">Momentan: %s</string>
 	<string name="EPr_default_hideUntil_title">Standardmäßig verstecken bis</string>
 	<string name="EPr_default_hideUntil_desc">Momentan: %s</string>
-	<string name="EPr_default_reminders_title">Standarderinnerungen</string>
+	<string name="EPr_default_reminders_title">Standard-Erinnerungen</string>
 	<string name="EPr_default_reminders_desc">Momentan: %s</string>
 	<string name="EPr_default_addtocalendar_title">Standardmäßig in Kalender eintragen</string>
 	<string name="EPr_default_addtocalendar_desc_disabled">Neue Aufgaben legen keinen Eintrag in den Google Kalender an.</string>
@@ -284,12 +286,12 @@
 	</string-array>
 	<string-array name="EPr_default_hideUntil">
 		<item>Nicht verstecken</item>
-		<item>Aufgabe fällig ist</item>
+		<item>Aufgabe ist fällig</item>
 		<item>Tag vor der Fälligkeit</item>
 		<item>Woche vor der Fälligkeit</item>
 	</string-array>
 	<string-array name="EPr_default_reminders">
-		<item>Keine Frist-Erinnerungen</item>
+		<item>Keine Fälligkeits-Erinnerungen</item>
 		<item>Am Stichtag</item>
 		<item>Wenn überfällig</item>
 		<item>Am Stichtag oder überfällig</item>
@@ -304,8 +306,8 @@
 	<string name="CFA_type_intersect">auch</string>
 	<string name="CFA_context_chain">%s hat Kriterien</string>
 	<string name="CFA_context_delete">Zeile löschen</string>
-	<string name="CFA_help">Langes drücken auf Elemente für zusätzliche Optionen</string>
-	<string name="CFA_button_add">Kriterium hinzufügen</string>
+	<string name="CFA_help">Langes Drücken auf Elemente für zusätzliche Optionen</string>
+	<string name="CFA_button_add">Kriterien hinzufügen</string>
 	<string name="CFA_button_view">Anzeigen</string>
 	<string name="CFA_button_save">Speichern &amp; Anzeigen</string>
 	<string name="CFC_dueBefore_text">Fällig am: ?</string>
@@ -319,17 +321,17 @@
 		<item>Nächste Woche</item>
 		<item>Nächster Monat</item>
 	</string-array>
-	<string name="CFC_importance_name">Dringlichkeit...</string>
+	<string name="CFC_importance_name">Priorität...</string>
 	<string name="CFC_tag_text">Liste: ?</string>
 	<string name="CFC_tag_name">Liste …</string>
 	<string name="CFC_tag_contains_name">Listenname enthält …</string>
 	<string name="CFC_tag_contains_text">Listenname enthält: ?</string>
 	<string name="CFC_title_contains_name">Titel enthält …</string>
 	<string name="CFC_title_contains_text">Titel enthält: ?</string>
-	<string name="gcal_TEA_error">Fehler beim Hinzufügen der Aufgabe zum Kalender</string>
+	<string name="gcal_TEA_error">Fehler beim Hinzufügen der Aufgabe zum Kalender!</string>
 	<string name="gcal_TEA_addToCalendar_label">In Kalender eintragen</string>
 	<string name="gcal_TEA_showCalendar_label">Öffne Termin im Kalender</string>
-	<string name="gcal_TEA_nocal">Nicht eintragen</string>
+	<string name="gcal_TEA_nocal">Nicht hinzufügen</string>
 	<string name="gcal_TEA_none_selected">In den Kalender?</string>
 	<string name="gcal_TEA_has_event">Kalendereintrag</string>
 	<string name="gcal_completed_title">%s (abgeschlossen)</string>
@@ -341,17 +343,17 @@
 	<string name="CFC_gtasks_list_name">In GTasks-Liste …</string>
 	<string name="gtasks_GTA_clearing">Erledigte Aufgaben werden entfernt …</string>
 	<string name="gtasks_GTA_clear_completed">Entferne erledigte Aufgaben</string>
-	<string name="gtasks_GLA_noaccounts">Keine verfügbaren Google Accounts zum synchronisieren.</string>
-	<string name="gtasks_GLA_authenticating">Legitimierung …</string>
-	<string name="gtasks_GLA_errorAuth">Anmeldefehler! Bitte Nutzernamen und Passwort in den Kontoeinstellungen des Telefons prüfen</string>
+	<string name="gtasks_GLA_noaccounts">Keine Google-Accounts zum synchronisieren verfügbar.</string>
+	<string name="gtasks_GLA_authenticating">Authentifizierung ...</string>
+	<string name="gtasks_GLA_errorAuth">Anmeldefehler! Bitte Benutzername und Passwort in den Kontoeinstellungen des Telefons prüfen</string>
 	<string name="gtasks_GLA_errorIOAuth">Entschuldigung, während der Kommunikation mit den Google-Servern ist ein Problem aufgetreten. Bitte versuchen Sie es später noch einmal.</string>
 	<string name="gtasks_error_backend">Google Task API ist im Beta-Status und hat einen Fehler festgestellt. Der Dienst könnte nicht aktiv sein, bitte später erneut versuchen.</string>
 	<string name="gtasks_error_accountNotFound">Konto %s nicht gefunden. Bitte ausloggen und erneut einloggen über die Einstellungen von Google Tasks.</string>
-	<string name="gtasks_error_authRefresh">Anmeldung beo Google Tasks nicht möglich. Bitte Passwort prüfen oder später erneut versuchen.</string>
+	<string name="gtasks_error_authRefresh">Anmeldung bei Google Tasks nicht möglich. Bitte Passwort prüfen oder später erneut versuchen.</string>
 	<string name="gtasks_error_accountManager">Fehler in den</string>
-	<string name="gtasks_error_background_sync_auth">Fehler bei der Hintergrunautehntifizierung. Starte eine Synchronisation in der App.</string>
+	<string name="gtasks_error_background_sync_auth">Fehler bei der Hintergrundauthentifizierung. Starte eine Synchronisation in der App.</string>
 	<string name="locale_notification">Du hast $NUM Übereinstimmungen mit: $FILTER</string>
-	<string name="EPr_powerpack_header">Premium und verschiedene Einstellungen</string>
+	<string name="EPr_powerpack_header">Premium und erweiterte Einstellungen</string>
 	<string name="EPr_powerpack_summary">Verpasste Anruf Erinnerungen, Spracheingabe und Andere Einstellungen</string>
 	<string name="speech_err_network">Netzwerkfehler! Spracherkennung benötigt eine Internetverbindung um zu funktionieren.</string>
 	<string name="speech_err_no_match">Entschuldigung! Ich konnte das nicht verstehen! Bitte versuchen Sie es erneut.</string>
@@ -381,14 +383,14 @@
 	<string name="file_add_picture">Ein Bild anhängen</string>
 	<string name="file_add_sdcard">Eine Datei von der SD-Karte anhängen</string>
 	<string name="file_err_memory">Das Bild ist zu groß um dekodiert zu werden</string>
-	<string name="file_err_copy">Fehler beim Kopieren der angehängten Datei</string>
-	<string name="file_dir_dialog_ok">Verwenden Sie dieses Verzeichnis</string>
+	<string name="file_err_copy">Fehler beim Kopieren der anzuhängenden Datei</string>
+	<string name="file_dir_dialog_ok">Dieses Verzeichnis verwenden</string>
 	<string name="file_dir_dialog_default">Auf Standardeinstellungen zurücksetzen</string>
 	<string name="p_files_dir">Premium-Downloadverzeichnis</string>
-	<string name="p_files_dir_desc">Aufgabe Anhänge gespeichert zu: %s</string>
+	<string name="p_files_dir_desc">Aufgaben-Anhänge gespeichert in: %s</string>
 	<string name="p_files_dir_desc_default">Standard-Verzeichnis</string>
-	<string name="premium_speech_bubble_2">Bestell für ein Jahr und spare 25%%!</string>
-	<string name="TEA_reminders_group_label">Erinnerungseinstellungen</string>
+	<string name="premium_speech_bubble_2">Bestelle für ein ganzes Jahr und spare 25%!</string>
+	<string name="TEA_reminders_group_label">Erinnerungs-Einstellungen</string>
 	<string name="TEA_reminder_label">Erinnere mich:</string>
 	<string name="TEA_reminder_due">Wenn Aufgabe fällig ist</string>
 	<string name="TEA_reminder_overdue">Wenn Aufgabe überfällig ist</string>
@@ -416,23 +418,23 @@
 	<string name="rmd_NoA_snooze">Schlummern</string>
 	<string name="rmd_NoA_completed_toast">Herzlichen Glückwunsch zum Abschluss!</string>
 	<string name="rmd_NoA_dlg_title">Erinnerung:</string>
-	<string name="rmd_EPr_alerts_header">Erinnerungseinstellungen</string>
-	<string name="rmd_EPr_alerts_summary">Ruhezeiten, Snooze Einstellungen, Hartnäckigkeit</string>
+	<string name="rmd_EPr_alerts_header">Erinnerungs-Einstellungen</string>
+	<string name="rmd_EPr_alerts_summary">Ruhezeiten, Schlummer-Einstellungen, Hartnäckigkeit</string>
 	<string name="rmd_EPr_enabled_title">Erinnerungen aktiviert?</string>
-	<string name="rmd_EPr_enabled_desc_true">Taskss Erinnerung sind aktiviert (Standard)</string>
+	<string name="rmd_EPr_enabled_desc_true">Erinnerungen durch Tasks sind aktiviert (Standard)</string>
 	<string name="rmd_EPr_enabled_desc_false">Tasks wird keine Erinnerungen auf deinem Telefon anzeigen</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Stille Stunden beginnen.</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">Benachrichtigungen sind lautlos nach %s.\nHinweis: Vibrieren wird durch Einstellungen weiter unten gesteuert!</string>
-	<string name="rmd_EPr_quiet_hours_desc_none">Stille Stunden sind deaktiviert</string>
-	<string name="rmd_EPr_quiet_hours_end_title">Stille Stunden beenden</string>
+	<string name="rmd_EPr_quiet_hours_desc_none">Ruhezeiten sind deaktiviert</string>
+	<string name="rmd_EPr_quiet_hours_end_title">Ruhezeiten enden</string>
 	<string name="rmd_EPr_quiet_hours_end_desc">Benachrichtigungen werden nicht mehr lautlos sein ab %s</string>
-	<string name="rmd_EPr_rmd_time_title">Standarderinnerumg</string>
+	<string name="rmd_EPr_rmd_time_title">Standard-Erinnerung</string>
 	<string name="rmd_EPr_rmd_time_desc">Benachrichtigungen für Aufgaben ohne Fälligkeit werden um %s angezeigt</string>
-	<string name="rmd_EPr_ringtone_title">Erinnerungsklingelton</string>
+	<string name="rmd_EPr_ringtone_title">Erinnerungs-Klingelton</string>
 	<string name="rmd_EPr_ringtone_desc_custom">Eigener Klingelton eingestellt</string>
 	<string name="rmd_EPr_ringtone_desc_silent">Klingelton auf Lautlos eingestellt</string>
-	<string name="rmd_EPr_ringtone_desc_default">Standardklingelton wird benutzt</string>
-	<string name="rmd_EPr_persistent_title">Meldungsbeharrlichkeit</string>
+	<string name="rmd_EPr_ringtone_desc_default">Standard-Klingelton wird benutzt</string>
+	<string name="rmd_EPr_persistent_title">Hartnäckigkeit von Meldungen</string>
 	<string name="rmd_EPr_persistent_desc_true">Benachrichtigungen müssen einzeln angesehen werden um sie zu löschen</string>
 	<string name="rmd_EPr_persistent_desc_false">Erinnerungen können mit dem \"Alle Löschen\" Button gelöscht werden</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Maximale Lautstärke für mehrfachläutende Erinnerungen</string>
@@ -445,7 +447,7 @@
 	<string name="rmd_EPr_snooze_dialog_desc_true">Schlummerfunktion durch Auswahl neuer Zeit (HH:MM) aktivieren</string>
 	<string name="rmd_EPr_snooze_dialog_desc_false">Schlummern durch Auswahl von # Tagen/Stunden</string>
 	<string name="rmd_EPr_defaultRemind_title">Zufällige Erinnerungen</string>
-	<string name="rmd_EPr_defaultRemind_desc_disabled">Aufgaben sollen keine zufälligen Erinnerungen haben</string>
+	<string name="rmd_EPr_defaultRemind_desc_disabled">Neue Aufgaben sollen keine zufälligen Erinnerungen haben</string>
 	<string name="rmd_EPr_defaultRemind_desc">Neue Aufgaben werden zufällig erinnern: %s</string>
 	<string-array name="EPr_reminder_random">
 		<item>deaktiviert</item>
@@ -456,89 +458,10 @@
 		<item>monatlich</item>
 		<item>alle zwei Monate</item>
 	</string-array>
-	<string-array name="EPr_quiet_hours_start">
-		<item>deaktiviert</item>
-		<item>20:00</item>
-		<item>21:00</item>
-		<item>22:00</item>
-		<item>23:00</item>
-		<item>00:00</item>
-		<item>01:00</item>
-		<item>02:00</item>
-		<item>03:00</item>
-		<item>04:00</item>
-		<item>05:00</item>
-		<item>06:00</item>
-		<item>07:00</item>
-		<item>08:00</item>
-		<item>09:00</item>
-		<item>10:00</item>
-		<item>11:00</item>
-		<item>12:00</item>
-		<item>13:00</item>
-		<item>14:00</item>
-		<item>15:00</item>
-		<item>16:00</item>
-		<item>17:00</item>
-		<item>18:00</item>
-		<item>19:00</item>
-	</string-array>
-	<string-array name="EPr_quiet_hours_end">
-		<item>09:00</item>
-		<item>10:00</item>
-		<item>11:00</item>
-		<item>12:00</item>
-		<item>13:00</item>
-		<item>14:00</item>
-		<item>15:00</item>
-		<item>16:00</item>
-		<item>17:00</item>
-		<item>18:00</item>
-		<item>19:00</item>
-		<item>20:00</item>
-		<item>21:00</item>
-		<item>22:00</item>
-		<item>23:00</item>
-		<item>00:00</item>
-		<item>01:00</item>
-		<item>02:00</item>
-		<item>03:00</item>
-		<item>04:00</item>
-		<item>05:00</item>
-		<item>06:00</item>
-		<item>07:00</item>
-		<item>08:00</item>
-	</string-array>
-	<string-array name="EPr_rmd_time">
-		<item>09:00</item>
-		<item>10:00</item>
-		<item>11:00</item>
-		<item>12:00</item>
-		<item>13:00</item>
-		<item>14:00</item>
-		<item>15:00</item>
-		<item>16:00</item>
-		<item>17:00</item>
-		<item>18:00</item>
-		<item>19:00</item>
-		<item>20:00</item>
-		<item>21:00</item>
-		<item>22:00</item>
-		<item>23:00</item>
-		<item>00:00</item>
-		<item>01:00</item>
-		<item>02:00</item>
-		<item>03:00</item>
-		<item>04:00</item>
-		<item>05:00</item>
-		<item>06:00</item>
-		<item>07:00</item>
-		<item>08:00</item>
-	</string-array>
 	<string name="repeat_plugin">Wiederkehrende Aufgaben</string>
 	<string name="repeat_plugin_desc">Aufgaben erlauben sich zu wiederholen</string>
 	<string name="repeat_enabled">Wiederholungen</string>
-	<string name="repeat_every">Alle %d</string>
+	<string name="repeat_every">Jeden %d</string>
 	<string name="repeat_interval_prompt">Wiederholungsintervall</string>
 	<string name="repeat_never">Nicht wiederholen</string>
 	<string name="repeat_dont">Nicht wiederholen</string>
@@ -569,7 +492,7 @@
 		<item>Nächster Monat</item>
 	</string-array>
 	<string name="repeat_until_title">Wiederhole bis...</string>
-	<string name="repeat_keep_going">Weitermachen</string>
+	<string name="repeat_keep_going">Fortfahren</string>
 	<string-array name="repeat_type">
 		<item>bei Fälligkeit</item>
 		<item>bei Erledigung</item>
@@ -600,7 +523,7 @@
 	<string name="tag_cm_delete">Liste löschen</string>
 	<string name="DLG_delete_this_tag_question">Diese Liste löschen: %s ? (Es werden keine Aufgaben werden gelöscht.)</string>
 	<string name="DLG_rename_this_tag_header">Die Liste %s umbnennen nach:</string>
-	<string name="TEA_no_tags_modified">Es gibt keine Änderungen</string>
+	<string name="TEA_no_tags_modified">Es wurden keine Änderungen vorgenommen</string>
 	<string name="TEA_tags_deleted">Löschen der Liste %1$s beeinflusste %2$d Aufgaben</string>
 	<string name="TEA_tags_renamed">%1$s umbennant nach %2$s für %3$d Aufgaben</string>
 	<string name="tag_settings_title">Listeneinstellungen</string>
@@ -610,18 +533,20 @@
 	<string name="TEA_timer_comment_stopped">Bearbeitung abgebrochen:</string>
 	<string name="TEA_timer_comment_spent">Benötigte Zeit:</string>
 	<string name="voice_create_prompt">Sprechen Sie, um eine Aufgabe anzulegen</string>
-	<string name="voice_edit_title_prompt">Sprechen Sie, um einen Auftragsnamen zu vergeben</string>
+	<string name="voice_edit_title_prompt">Sprechen Sie, um einen Namen für die Aufgabe zu vergeben</string>
 	<string name="voice_edit_note_prompt">Sprechen Sie, um Aufgabennotizen zu setzen</string>
-	<string name="EPr_voiceInputInstall_dlg">Spracheingabe ist nicht installiert.\nWollen Sie in den Markt wechseln und das nachholen?</string>
-	<string name="EPr_voiceInputUnavailable_dlg">Leider ist Spracheingabe für Ihr System nicht verfügbar.\nWenn möglich, aktualisieren Sie bitte auf Android 2.1 oder höher.</string>
+	<string name="EPr_voiceInputInstall_dlg">Spracheingabe ist nicht installiert.\nWollen Sie zu Google Play wechseln und das nachholen?</string>
+	<string name="EPr_voiceInputUnavailable_dlg">Leider ist die Spracheingabe für Ihr System nicht verfügbar.\nWenn möglich, aktualisieren Sie bitte auf Android 2.1 oder höher.</string>
 	<string name="EPr_marketUnavailable_dlg">Leider ist der Marktplatz für Ihr System nicht verfügbar.\nWenn möglich, laden Sie die sprachgestützte Suchfunktion bitte aus einer anderen Quelle herunter.</string>
 	<string name="EPr_voiceInputEnabled_title">Spracheingabe aktivieren</string>
 	<string name="EPr_voiceInputEnabled_desc_enabled">Mikrofon-Button wird angezeigt</string>
 	<string name="EPr_voiceInputEnabled_desc_disabled">Mikrofon-Button wird ausgeblendet</string>
 	<string name="EPr_voiceInputCreatesTask_title">Aufgaben direkt erzeugen</string>
 	<string name="EPr_voiceInputCreatesTask_desc_enabled">Aufgaben werden direkt aus Spracheingaben erzeugt</string>
-	<string name="EPr_voiceInputCreatesTask_desc_disabled">Sie können die Aufgabentitel nach der Spracheingabe ändern</string>
+	<string name="EPr_voiceInputCreatesTask_desc_disabled">Sie können den Aufgabentitel nach dem Beenden der Spracheingabe bearbeiten</string>
 	<string name="EPr_voiceRemindersEnabled_title">Sprach-Erinnerungen</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks wird Aufgabennamen bei der Erinnerung aussprechen</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks wird bei der Erinnerung einen Klingelton abspielen</string>
+	<string name="delete_task">Aufgabe löschen</string>
+	<string name="TLA_menu_donate">Spenden</string>
 </resources>

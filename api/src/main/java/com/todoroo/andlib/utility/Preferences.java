@@ -163,6 +163,10 @@ public class Preferences {
     /** Gets a boolean preference (e.g. a CheckBoxPreference setting)
      * @return default if value is unset otherwise the value
      */
+    public static boolean getBoolean(int keyResources) {
+        return getBoolean(keyResources, false);
+    }
+
     public static boolean getBoolean(int keyResources, boolean defValue) {
         return getBoolean(ContextManager.getString(keyResources), defValue);
     }

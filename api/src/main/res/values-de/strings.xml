@@ -6,11 +6,11 @@
 <!-- ************************************************************** -->
 <resources>
 	<plurals name="DUt_years">
-		<item quantity="one">Ein Jahr</item>
+		<item quantity="one">1 Jahr</item>
 		<item quantity="other">%d Jahre</item>
 	</plurals>
 	<plurals name="DUt_months">
-		<item quantity="one">Ein Monat</item>
+		<item quantity="one">1 Monat</item>
 		<item quantity="other">%d Monate</item>
 	</plurals>
 	<plurals name="DUt_weeks">
@@ -26,7 +26,7 @@
 		<item quantity="other">%d Stunden</item>
 	</plurals>
 	<plurals name="DUt_minutes">
-		<item quantity="one">Eine Minute</item>
+		<item quantity="one">1 Minute</item>
 		<item quantity="other">%d Minuten</item>
 	</plurals>
 	<plurals name="Ntasks">
@@ -40,22 +40,21 @@
 	<string name="yest">Gest.</string>
 	<string name="DLG_confirm_title">Bestätigen?</string>
 	<string name="DLG_question_title">Frage:</string>
-	<string name="DLG_information_title">Informationen</string>
 	<string name="DLG_error_title">Fehler!</string>
 	<string name="DLG_close">Schließen</string>
 	<string name="DLG_error">Ups, sieht aus, als ob ein Fehler aufgetreten ist! Folgendes ist passiert:\n\n%s</string>
 	<string name="DLG_error_generic">Ups, sieht aus, als ob ein Fehler aufgetreten ist!</string>
 	<string name="DLG_wait">Bitte warten...</string>
-	<string name="SyP_label">Synchronisation</string>
+	<string name="SyP_label">Synchronisation &amp; Backup</string>
 	<string name="Sync_now_label">Jetzt synchronisieren</string>
-	<string name="SyP_summary">Google Tasks, gespeicherte Daten, lokale Backups</string>
+	<string name="SyP_summary">Google Tasks, Gespeicherte Daten, Lokale Backups</string>
 	<string name="sync_status_loggedout">Nicht angemeldet</string>
 	<string name="sync_status_ongoing">Synchronisierung läuft...</string>
 	<string name="sync_status_success">Letzte Synchronisierung:\n%s</string>
 	<string name="sync_status_failed">Fehlgeschlagen am: %s</string>
 	<string name="sync_status_errors">Synchronisation m. Fehler: %s</string>
 	<string name="sync_status_never">Noch nie synchronisiert!</string>
-	<string name="sync_SPr_group_options">Einstellungen</string>
+	<string name="sync_SPr_group_options">Optionen</string>
 	<string name="sync_SPr_interval_title">Hintergrund-Synchronisierung</string>
 	<string name="sync_SPr_interval_desc_disabled">Hintergrund-Synchronisierung ist deaktiviert</string>
 	<string name="sync_SPr_interval_desc">Gesetzt auf: %s</string>
@@ -65,7 +64,7 @@
 	<string name="sync_SPr_send_report">Bericht senden</string>
 	<string name="sync_SPr_forget">Abmelden</string>
 	<string name="sync_SPr_forget_description">Alle Synchronisationsdaten löschen</string>
-	<string name="sync_forget_confirm">Ausloggen/synchronisierte Daten löschen?</string>
+	<string name="sync_forget_confirm">Ausloggen / Synchronisierte Daten löschen?</string>
 	<string name="sync_error_offline">Es gab ein Problem mit der Netzwerkverbindung während der letzten Synchronisation mit %s. Versuche es bitte später noch einmal.</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>deaktivieren</item>
