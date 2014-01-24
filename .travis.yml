@@ -37,5 +37,5 @@ before_install:
   #- adb shell input keyevent 82 &
 
 script:
-  - ./gradlew test
+  - ./gradlew check
   #- ./gradlew :astrid:connectedInstrumentTest --stacktrace --info
