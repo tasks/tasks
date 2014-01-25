@@ -6,38 +6,42 @@
 package com.todoroo.astrid.reminders;
 
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.test.TodorooRobolectricTestCase;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.ReminderService.AlarmScheduler;
-import com.todoroo.astrid.test.DatabaseTestCase;
-import com.todoroo.astrid.utility.AstridPreferences;
 
+import org.junit.After;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.tasks.date.DateTimeUtils.newDate;
 
-public class ReminderServiceTests extends DatabaseTestCase {
+@RunWith(RobolectricTestRunner.class)
+public class ReminderServiceTest extends TodorooRobolectricTestCase {
 
     ReminderService service;
-    AlarmScheduler original;
 
     @Autowired
     TaskDao taskDao;
 
     @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    public void before() {
+        super.before();
         service = ReminderService.getInstance();
-        original = service.getScheduler();
-        AstridPreferences.setPreferenceDefaults();
     }
 
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
-        service.setScheduler(original);
+    @After
+    public void after() throws Exception {
+        service.clearInstance();
     }
 
-    /** tests with no alarms */
+    @Test
     public void testNoReminders() {
         service.setScheduler(new NoAlarmExpected());
 
@@ -49,7 +53,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
         service.scheduleAlarm(task);
     }
 
-    /** tests with due date */
+    @Test
     public void testDueDates() {
         service.setScheduler(new AlarmExpected() {
             @Override
@@ -75,7 +79,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
         assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
     }
 
-    /** tests with random */
+    @Test
     public void testRandom() {
         // test random
         final Task task = new Task();
@@ -96,7 +100,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
         assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
     }
 
-    /** tests with overdue */
+    @Test
     public void testOverdue() {
         // test due date in the future
         service.setScheduler(new AlarmExpected() {
@@ -149,7 +153,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
         assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
     }
 
-    /** tests with multiple */
+    @Test
     public void testMultipleReminders() {
         // test due date in the future, enable random
         final Task task = new Task();
@@ -193,8 +197,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
         assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
     }
 
-
-    /** tests with snooze */
+    @Test
     public void testSnoozeReminders() {
         // test due date and snooze in the future
         final Task task = new Task();
@@ -233,7 +236,6 @@ public class ReminderServiceTests extends DatabaseTestCase {
         assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
     }
 
-
     // --- helper classes
 
     public class NoAlarmExpected implements AlarmScheduler {
@@ -250,5 +252,4 @@ public class ReminderServiceTests extends DatabaseTestCase {
             alarmCreated = true;
         }
     }
-
 }

@@ -27,7 +27,7 @@ public class TaskTest extends TodorooRobolectricTestCase {
     private TaskService taskService;
 
     @Override
-    public void before() throws Exception {
+    public void before() {
         super.before();
 
         taskService = new TaskService();

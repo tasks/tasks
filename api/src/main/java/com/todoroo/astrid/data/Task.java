@@ -31,7 +31,7 @@ import static org.tasks.date.DateTimeUtils.newDate;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public final class Task extends RemoteModel {
+public class Task extends RemoteModel {
 
     // --- table and uri
 

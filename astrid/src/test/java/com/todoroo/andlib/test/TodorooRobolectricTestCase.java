@@ -21,6 +21,7 @@ import org.tasks.Broadcaster;
 import java.util.Locale;
 
 import static org.mockito.Mockito.mock;
+import static org.tasks.TestUtilities.resetPreferences;
 
 public class TodorooRobolectricTestCase {
 
@@ -32,8 +33,9 @@ public class TodorooRobolectricTestCase {
     }
 
     @Before
-    public void before() throws Exception {
+    public void before() {
         ContextManager.setContext(getRobolectricContext());
+        resetPreferences();
         AstridDependencyInjector.reset();
         testInjector = RobolectricTestDependencyInjector.initialize("test");
         addInjectable("broadcaster", mock(Broadcaster.class));

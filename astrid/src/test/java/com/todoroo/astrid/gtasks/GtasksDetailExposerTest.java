@@ -31,7 +31,7 @@ public class GtasksDetailExposerTest extends TodorooRobolectricTestCase {
     private GtasksListService gtasksListService;
 
     @Override
-    public void before() throws Exception {
+    public void before() {
         context = mock(Context.class);
 
         super.before();

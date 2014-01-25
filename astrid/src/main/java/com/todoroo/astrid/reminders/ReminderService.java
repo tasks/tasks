@@ -81,7 +81,7 @@ public final class ReminderService  {
 
     private long now = -1; // For tracking when reminders might be scheduled all at once
 
-    private ReminderService() {
+    ReminderService() {
         DependencyInjectionService.getInstance().inject(this);
         setPreferenceDefaults();
     }
@@ -95,6 +95,10 @@ public final class ReminderService  {
             instance = new ReminderService();
         }
         return instance;
+    }
+
+    void clearInstance() {
+        instance = null;
     }
 
     // --- preference handling
@@ -301,7 +305,7 @@ public final class ReminderService  {
      * If the date was indicated to not have a due time, we read from
      * preferences and assign a time.
      */
-    private long calculateNextDueDateReminder(Task task) {
+    long calculateNextDueDateReminder(Task task) {
         // Uses getNowValue() instead of DateUtilities.now()
         if(task.hasDueDate() && task.getFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AT_DEADLINE)) {
             long dueDate = task.getValue(Task.DUE_DATE);
@@ -309,9 +313,7 @@ public final class ReminderService  {
 
             long dueDateAlarm = NO_ALARM;
 
-            if(task.hasDueTime())
-                // return due date straight up
-            {
+            if(task.hasDueTime()) {
                 dueDateAlarm = dueDate;
             } else if (DateUtilities.now() > lastReminder + DateUtilities.ONE_DAY) {
                 // return notification time on this day
