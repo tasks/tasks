@@ -20,6 +20,8 @@ import org.robolectric.RobolectricTestRunner;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.tasks.Freeze.freezeClock;
+import static org.tasks.Freeze.thaw;
 import static org.tasks.date.DateTimeUtils.newDate;
 
 @RunWith(RobolectricTestRunner.class)
@@ -34,11 +36,13 @@ public class ReminderServiceTest extends TodorooRobolectricTestCase {
     public void before() {
         super.before();
         service = ReminderService.getInstance();
+        freezeClock();
     }
 
     @After
     public void after() throws Exception {
         service.clearInstance();
+        thaw();
     }
 
     @Test
@@ -199,6 +203,8 @@ public class ReminderServiceTest extends TodorooRobolectricTestCase {
 
     @Test
     public void testSnoozeReminders() {
+        thaw(); // TODO: get rid of this
+
         // test due date and snooze in the future
         final Task task = new Task();
         task.setValue(Task.TITLE, "spacemen");
