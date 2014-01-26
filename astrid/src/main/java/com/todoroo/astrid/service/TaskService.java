@@ -139,7 +139,7 @@ public class TaskService {
                         continue;
                     }
 
-                    if(GtasksMetadata.METADATA_KEY.equals(metadata.getValue(Metadata.KEY))) {
+                    if(GtasksMetadata.METADATA_KEY.equals(metadata.getKey())) {
                         metadata.setValue(GtasksMetadata.ID, ""); //$NON-NLS-1$
                     }
 
@@ -163,7 +163,7 @@ public class TaskService {
             return;
         }
 
-        if(item.containsValue(Task.TITLE) && item.getValue(Task.TITLE).length() == 0) {
+        if(item.containsValue(Task.TITLE) && item.getTitle().length() == 0) {
             taskDao.delete(item.getId());
             item.setId(Task.NO_ID);
         } else {
@@ -351,7 +351,7 @@ public class TaskService {
         Task original = new Task();
         original.setId(itemId);
         Task clone = clone(original);
-        String userId = clone.getValue(Task.USER_ID);
+        String userId = clone.getUserID();
         if (!Task.USER_ID_SELF.equals(userId) && !ActFmPreferenceService.userId().equals(userId)) {
             clone.putTransitory(TRANS_ASSIGNED, true);
         }
@@ -414,7 +414,7 @@ public class TaskService {
             task.mergeWithoutReplacement(forTask);
         }
 
-        if (!Task.USER_ID_SELF.equals(task.getValue(Task.USER_ID))) {
+        if (!Task.USER_ID_SELF.equals(task.getUserID())) {
             task.putTransitory(TRANS_ASSIGNED, true);
         }
 
@@ -427,7 +427,7 @@ public class TaskService {
             Metadata metadata = new Metadata();
             metadata.setValue(Metadata.TASK, task.getId());
             metadata.mergeWith(forMetadata);
-            if (TaskToTagMetadata.KEY.equals(metadata.getValue(Metadata.KEY))) {
+            if (TaskToTagMetadata.KEY.equals(metadata.getKey())) {
                 if (metadata.containsNonNullValue(TaskToTagMetadata.TAG_UUID) && !RemoteModel.NO_UUID.equals(metadata.getValue(TaskToTagMetadata.TAG_UUID))) {
                     // This is more efficient
                     TagService.getInstance().createLink(task, metadata.getValue(TaskToTagMetadata.TAG_NAME), metadata.getValue(TaskToTagMetadata.TAG_UUID));

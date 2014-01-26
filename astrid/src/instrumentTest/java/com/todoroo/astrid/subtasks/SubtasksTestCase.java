@@ -40,7 +40,7 @@ public class SubtasksTestCase extends DatabaseTestCase {
     protected void expectParentAndPosition(Task task, Task parent, int positionInParent) {
         String parentId = (parent == null ? "-1" : parent.getUuid());
         Node n = updater.findNodeForTask(task.getUuid());
-        assertNotNull("No node found for task " + task.getValue(Task.TITLE), n);
+        assertNotNull("No node found for task " + task.getTitle(), n);
         assertEquals("Parent mismatch", parentId, n.parent.uuid);
         assertEquals("Position mismatch", positionInParent, n.parent.children.indexOf(n));
     }

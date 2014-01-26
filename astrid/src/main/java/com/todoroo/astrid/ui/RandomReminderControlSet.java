@@ -75,7 +75,7 @@ public class RandomReminderControlSet extends TaskEditControlSet {
 
     @Override
     protected void readFromTaskOnInitialize() {
-        long time = model.getValue(Task.REMINDER_PERIOD);
+        long time = model.getReminderPeriod();
 
         boolean enabled = time > 0;
         if(time <= 0) {

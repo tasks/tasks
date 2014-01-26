@@ -236,7 +236,7 @@ public class AdvancedRepeatTest extends TodorooRobolectricTestCase {
     }
 
     private void assertDueDate(long actual, int expectedWhich, int expectedDayOfWeek) {
-        long expected = getDate(task.getValue(Task.DUE_DATE), expectedWhich, expectedDayOfWeek);
+        long expected = getDate(task.getDueDate(), expectedWhich, expectedDayOfWeek);
         assertEquals(expected, actual);
     }
 

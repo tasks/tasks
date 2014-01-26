@@ -57,15 +57,15 @@ public class TimerPlugin extends BroadcastReceiver {
         }
 
         if(start) {
-            if(task.getValue(Task.TIMER_START) == 0) {
+            if(task.getTimerStart() == 0) {
                 task.setValue(Task.TIMER_START, DateUtilities.now());
             }
         } else {
-            if(task.getValue(Task.TIMER_START) > 0) {
-                int newElapsed = (int)((DateUtilities.now() - task.getValue(Task.TIMER_START)) / 1000L);
+            if(task.getTimerStart() > 0) {
+                int newElapsed = (int)((DateUtilities.now() - task.getTimerStart()) / 1000L);
                 task.setValue(Task.TIMER_START, 0L);
                 task.setValue(Task.ELAPSED_SECONDS,
-                        task.getValue(Task.ELAPSED_SECONDS) + newElapsed);
+                        task.getElapsedSeconds() + newElapsed);
             }
         }
         PluginServices.getTaskService().save(task);

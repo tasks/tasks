@@ -199,11 +199,11 @@ public class Astrid2TaskProvider extends ContentProvider {
     			String taskTags = TagService.getInstance().getTagsAsString(task.getId(), TAG_SEPARATOR);
 
     			Object[] values = new Object[7];
-    			values[0] = task.getValue(Task.TITLE);
-    			values[1] = importanceColors[task.getValue(Task.IMPORTANCE)];
-    			values[2] = task.getValue(Task.DUE_DATE);
-    			values[3] = task.getValue(Task.DUE_DATE);
-    			values[4] = task.getValue(Task.IMPORTANCE);
+    			values[0] = task.getTitle();
+    			values[1] = importanceColors[task.getImportance()];
+    			values[2] = task.getDueDate();
+    			values[3] = task.getDueDate();
+    			values[4] = task.getImportance();
     			values[5] = task.getId();
     			values[6] = taskTags;
 

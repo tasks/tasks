@@ -155,16 +155,16 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
                 Metadata curr = new Metadata();
                 for (metadata.moveToFirst(); !metadata.isAfterLast(); metadata.moveToNext()) {
                     curr.readFromCursor(metadata);
-                    if(alreadyChecked.contains(curr.getValue(Metadata.TASK))) {
+                    if(alreadyChecked.contains(curr.getTask())) {
                         continue;
                     }
 
                     curr.setValue(GtasksMetadata.INDENT, indentLevel);
                     curr.setValue(GtasksMetadata.ORDER, order.getAndIncrement());
                     metadataDao.saveExisting(curr);
-                    alreadyChecked.add(curr.getValue(Metadata.TASK));
+                    alreadyChecked.add(curr.getTask());
 
-                    orderAndIndentHelper(listId, order, curr.getValue(Metadata.TASK), indentLevel + 1, alreadyChecked);
+                    orderAndIndentHelper(listId, order, curr.getTask(), indentLevel + 1, alreadyChecked);
                 }
             }
         } finally {

@@ -62,7 +62,7 @@ public class TimerActionControlSet extends TaskEditControlSet {
 
     @Override
     protected void readFromTaskOnInitialize() {
-        if (model.getValue(Task.TIMER_START) == 0) {
+        if (model.getTimerStart() == 0) {
             timerActive = false;
         } else {
             timerActive = true;
@@ -91,10 +91,10 @@ public class TimerActionControlSet extends TaskEditControlSet {
         timerButton.setImageResource(drawable);
 
 
-        long elapsed = model.getValue(Task.ELAPSED_SECONDS) * 1000L;
+        long elapsed = model.getElapsedSeconds() * 1000L;
         if (timerActive) {
             chronometer.setVisibility(View.VISIBLE);
-            elapsed += DateUtilities.now() - model.getValue(Task.TIMER_START);
+            elapsed += DateUtilities.now() - model.getTimerStart();
             chronometer.setBase(SystemClock.elapsedRealtime() - elapsed);
             if (elapsed > DateUtilities.ONE_DAY) {
                 chronometer.setOnChronometerTickListener(new OnChronometerTickListener() {

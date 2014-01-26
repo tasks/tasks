@@ -828,7 +828,7 @@ public class TaskListFragment extends ListFragment implements OnSortSelectedList
     private TodorooCursor<Task> constructCursor() {
         String tagName = null;
         if (getActiveTagData() != null) {
-            tagName = getActiveTagData().getValue(TagData.NAME);
+            tagName = getActiveTagData().getName();
         }
 
         Criterion tagsJoinCriterion = Criterion.and(
@@ -911,7 +911,7 @@ public class TaskListFragment extends ListFragment implements OnSortSelectedList
         Task task = ((ViewHolder) adapterInfo.targetView.getTag()).task;
 
         int id = (int) task.getId();
-        menu.setHeaderTitle(task.getValue(Task.TITLE));
+        menu.setHeaderTitle(task.getTitle());
 
         if (task.isDeleted()) {
             menu.add(id, CONTEXT_MENU_UNDELETE_TASK_ID, Menu.NONE,

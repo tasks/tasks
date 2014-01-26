@@ -168,4 +168,20 @@ public final class TaskAttachment extends RemoteModel {
     // --- parcelable helpers
 
     public static final Creator<TaskAttachment> CREATOR = new ModelCreator<>(TaskAttachment.class);
+
+    public String getName() {
+        return getValue(NAME);
+    }
+
+    public String getContentType() {
+        return getValue(CONTENT_TYPE);
+    }
+
+    public String getUUID() {
+        return getValue(UUID);
+    }
+
+    public String getFilePath() {
+        return getValue(FILE_PATH);
+    }
 }

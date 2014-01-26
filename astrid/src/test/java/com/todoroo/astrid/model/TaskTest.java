@@ -43,7 +43,7 @@ public class TaskTest extends TodorooRobolectricTestCase {
         freezeClock().thawAfter(new Snippet() {{
             Task task = new Task();
             taskService.save(task);
-            assertEquals(currentTimeMillis(), (long) task.getValue(Task.CREATION_DATE));
+            assertEquals(currentTimeMillis(), (long) task.getCreationDate());
         }});
     }
 

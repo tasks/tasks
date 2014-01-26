@@ -213,9 +213,9 @@ public class StartupService {
                 Metadata m = new Metadata();
                 if (values != null) {
                     if (values.containsKey(TagData.NAME.name)) {
-                        m.setValue(TaskToTagMetadata.TAG_NAME, model.getValue(TagData.NAME));
+                        m.setValue(TaskToTagMetadata.TAG_NAME, model.getName());
                         PluginServices.getMetadataService().update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
-                                TaskToTagMetadata.TAG_UUID.eq(model.getValue(TagData.UUID))), m);
+                                TaskToTagMetadata.TAG_UUID.eq(model.getUUID())), m);
                     }
                 }
             }

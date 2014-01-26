@@ -16,7 +16,7 @@ public class SubtasksFilterUpdater extends SubtasksUpdater<TaskListMetadata> {
         if (list == null) {
             return "[]"; //$NON-NLS-1$
         }
-        String order = list.getValue(TaskListMetadata.TASK_IDS);
+        String order = list.getTaskIDs();
         if (TextUtils.isEmpty(order) || "null".equals(order)) //$NON-NLS-1$
         {
             order = "[]"; //$NON-NLS-1$

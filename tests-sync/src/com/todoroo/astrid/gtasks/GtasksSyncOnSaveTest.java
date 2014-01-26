@@ -148,7 +148,7 @@ public class GtasksSyncOnSaveTest extends DatabaseTestCase {
 
         com.google.api.services.tasks.model.Task remoteTask = getRemoteTaskForLocalId(localTask.getId());
         assertTrue(remoteTask.getDeleted());
-        assertFalse(taskWithTitleExists(localTask.getValue(Task.TITLE)));
+        assertFalse(taskWithTitleExists(localTask.getTITLE()));
     }
 
     private boolean taskWithTitleExists(String title) throws IOException {

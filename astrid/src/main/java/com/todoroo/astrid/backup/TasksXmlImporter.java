@@ -298,10 +298,10 @@ public class TasksXmlImporter {
             // Construct the TagData from Metadata
             // Fix for failed backup, Version before 4.6.10
             if (format == 2) {
-                String key = metadata.getValue(Metadata.KEY);
+                String key = metadata.getKey();
                 String name = metadata.getValue(Metadata.VALUE1);
                 String uuid = metadata.getValue(Metadata.VALUE2);
-                long deletionDate = metadata.getValue(Metadata.DELETION_DATE);
+                long deletionDate = metadata.getDeletionDate();
                 // UUID is uniquely for every TagData, so we don't need to test the name
                 TodorooCursor<TagData> cursor = tagdataService.query(Query.select(TagData.ID).
                         where(TagData.UUID.eq(uuid)));
@@ -486,7 +486,7 @@ public class TasksXmlImporter {
 
         private void saveTags() {
             if(currentTask != null && tags.size() > 0) {
-                TagService.getInstance().synchronizeTags(currentTask.getId(), currentTask.getValue(Task.UUID), tags);
+                TagService.getInstance().synchronizeTags(currentTask.getId(), currentTask.getUUID(), tags);
             }
             tags.clear();
         }
@@ -536,8 +536,8 @@ public class TasksXmlImporter {
             }
 
             if(upgradeNotes != null) {
-                if(task.containsValue(Task.NOTES) && task.getValue(Task.NOTES).length() > 0) {
-                    task.setValue(Task.NOTES, task.getValue(Task.NOTES) + "\n" + upgradeNotes);
+                if(task.containsValue(Task.NOTES) && task.getNotes().length() > 0) {
+                    task.setValue(Task.NOTES, task.getNotes() + "\n" + upgradeNotes);
                 } else {
                     task.setValue(Task.NOTES, upgradeNotes);
                 }

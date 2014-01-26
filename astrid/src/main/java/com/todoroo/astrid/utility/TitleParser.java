@@ -43,7 +43,7 @@ public class TitleParser {
         return pattern;
     }
     public static void listHelper(Task task, ArrayList<String> tags) {
-        String inputText = task.getValue(Task.TITLE);
+        String inputText = task.getTitle();
         Pattern tagPattern = Pattern.compile("(\\s|^)#(\\(.*\\)|[^\\s]+)");
         Pattern contextPattern = Pattern.compile("(\\s|^)@(\\(.*\\)|[^\\s]+)");
 
@@ -97,7 +97,7 @@ public class TitleParser {
 
     //priorityHelper parses the string and sets the Task's importance
     private static boolean priorityHelper(Task task) {
-        String inputText = task.getValue(Task.TITLE);
+        String inputText = task.getTitle();
         String[] importanceStrings = {
                 "()((^|[^\\w!])!+|(^|[^\\w!])!\\d)($|[^\\w!])",
                 "()(?i)((\\s?bang){1,})$",
@@ -167,7 +167,7 @@ public class TitleParser {
         if (task.containsNonNullValue(Task.DUE_DATE)) {
             return false;
         }
-        String inputText = task.getValue(Task.TITLE);
+        String inputText = task.getTitle();
         Calendar cal = null;
         Boolean containsSpecificTime = false;
         String[] daysOfWeek = {
@@ -374,7 +374,7 @@ public class TitleParser {
         if (task.containsNonNullValue(Task.RECURRENCE)) {
             return false;
         }
-        String inputText = task.getValue(Task.TITLE);
+        String inputText = task.getTitle();
         HashMap<String, Frequency> repeatTimes = new HashMap<>();
         repeatTimes.put("(?i)\\bevery ?\\w{0,6} days?\\b" , Frequency.DAILY);
         repeatTimes.put("(?i)\\bevery ?\\w{0,6} ?nights?\\b" , Frequency.DAILY);

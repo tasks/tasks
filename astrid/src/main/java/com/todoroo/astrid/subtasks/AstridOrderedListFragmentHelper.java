@@ -286,7 +286,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
                 for (recurring.moveToFirst(); !recurring.isAfterLast(); recurring.moveToNext()) {
                     t.clear();
                     t.readFromCursor(recurring);
-                    if (!TextUtils.isEmpty(t.getValue(Task.RECURRENCE))) {
+                    if (!TextUtils.isEmpty(t.getRecurrence())) {
                         updater.moveToParentOf(t.getUuid(), itemId);
                         madeChanges = true;
                     }

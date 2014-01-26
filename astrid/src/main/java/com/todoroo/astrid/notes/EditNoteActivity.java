@@ -231,11 +231,11 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 respondToPicture = true;
             }
         });
-        if(!TextUtils.isEmpty(task.getValue(Task.NOTES))) {
+        if(!TextUtils.isEmpty(task.getNotes())) {
             TextView notes = new TextView(getContext());
             notes.setLinkTextColor(Color.rgb(100, 160, 255));
             notes.setTextSize(18);
-            notes.setText(task.getValue(Task.NOTES));
+            notes.setText(task.getNotes());
             notes.setPadding(5, 10, 5, 10);
             Linkify.addLinks(notes, Linkify.ALL);
         }
@@ -356,7 +356,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     }
 
     private void addComment() {
-        addComment(commentField.getText().toString(), UserActivity.ACTION_TASK_COMMENT, task.getUuid(), task.getValue(Task.TITLE), true);
+        addComment(commentField.getText().toString(), UserActivity.ACTION_TASK_COMMENT, task.getUuid(), task.getTitle(), true);
     }
 
     private void addComment(String message, String actionCode, String uuid, String title, boolean usePicture) {
@@ -424,7 +424,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             return new NoteOrUpdate(title,
                     m.getValue(NoteMetadata.COMMENT_PICTURE),
                     null,
-                    m.getValue(Metadata.CREATION_DATE));
+                    m.getCreationDate());
         }
 
         public static NoteOrUpdate fromUpdate(UserActivity u) {
@@ -442,7 +442,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 commentBitmap = u.getPictureBitmap(UserActivity.PICTURE);
             }
             title = UpdateAdapter.getUpdateComment(u);
-            createdAt = u.getValue(UserActivity.CREATED_AT);
+            createdAt = u.getCreatedAt();
 
             return new NoteOrUpdate(
                     title,
@@ -464,20 +464,20 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 DateUtilities.getTimeString(getContext(), newDate())),
                 UserActivity.ACTION_TASK_COMMENT,
                 t.getUuid(),
-                t.getValue(Task.TITLE),
+                t.getTitle(),
                 false);
     }
 
     @Override
     public void timerStopped(Task t) {
-        String elapsedTime = DateUtils.formatElapsedTime(t.getValue(Task.ELAPSED_SECONDS));
+        String elapsedTime = DateUtils.formatElapsedTime(t.getElapsedSeconds());
         addComment(String.format("%s %s\n%s %s", //$NON-NLS-1$
                 getContext().getString(R.string.TEA_timer_comment_stopped),
                 DateUtilities.getTimeString(getContext(), newDate()),
                 getContext().getString(R.string.TEA_timer_comment_spent),
                 elapsedTime), UserActivity.ACTION_TASK_COMMENT,
                 t.getUuid(),
-                t.getValue(Task.TITLE),
+                t.getTitle(),
                 false);
     }
 

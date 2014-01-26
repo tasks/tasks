@@ -197,7 +197,7 @@ public final class ReminderService  {
         // Make sure no alarms are scheduled other than the next one. When that one is shown, it
         // will schedule the next one after it, and so on and so forth.
         clearAllAlarms(task);
-        if(task.isCompleted() || task.isDeleted() || !Task.USER_ID_SELF.equals(task.getValue(Task.USER_ID))) {
+        if(task.isCompleted() || task.isDeleted() || !Task.USER_ID_SELF.equals(task.getUserID())) {
             return;
         }
 
@@ -251,8 +251,8 @@ public final class ReminderService  {
      * has already passed, we do nothing.
      */
     private long calculateNextSnoozeReminder(Task task) {
-        if(task.getValue(Task.REMINDER_SNOOZE) > DateUtilities.now()) {
-            return task.getValue(Task.REMINDER_SNOOZE);
+        if(task.getReminderSnooze() > DateUtilities.now()) {
+            return task.getReminderSnooze();
         }
         return NO_ALARM;
     }
@@ -267,14 +267,14 @@ public final class ReminderService  {
     private long calculateNextOverdueReminder(Task task) {
      // Uses getNowValue() instead of DateUtilities.now()
         if(task.hasDueDate() && task.getFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE)) {
-            Date due = newDate(task.getValue(Task.DUE_DATE));
+            Date due = newDate(task.getDueDate());
             if (!task.hasDueTime()) {
                 due.setHours(23);
                 due.setMinutes(59);
                 due.setSeconds(59);
             }
             long dueDateForOverdue = due.getTime();
-            long lastReminder = task.getValue(Task.REMINDER_LAST);
+            long lastReminder = task.getReminderLast();
 
             if(dueDateForOverdue > getNowValue()) {
                 return dueDateForOverdue + (long) ((0.5f + 2f * random.nextFloat()) * DateUtilities.ONE_HOUR);
@@ -286,7 +286,7 @@ public final class ReminderService  {
 
             if(getNowValue() - lastReminder < 6 * DateUtilities.ONE_HOUR) {
                 return getNowValue() + (long) ((2.0f +
-                        task.getValue(Task.IMPORTANCE) +
+                        task.getImportance() +
                         6f * random.nextFloat()) * DateUtilities.ONE_HOUR);
             }
 
@@ -308,8 +308,8 @@ public final class ReminderService  {
     long calculateNextDueDateReminder(Task task) {
         // Uses getNowValue() instead of DateUtilities.now()
         if(task.hasDueDate() && task.getFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AT_DEADLINE)) {
-            long dueDate = task.getValue(Task.DUE_DATE);
-            long lastReminder = task.getValue(Task.REMINDER_LAST);
+            long dueDate = task.getDueDate();
+            long lastReminder = task.getReminderLast();
 
             long dueDateAlarm = NO_ALARM;
 
@@ -410,12 +410,12 @@ public final class ReminderService  {
      * future.
      */
     private long calculateNextRandomReminder(Task task) {
-        long reminderPeriod = task.getValue(Task.REMINDER_PERIOD);
+        long reminderPeriod = task.getReminderPeriod();
         if((reminderPeriod) > 0) {
-            long when = task.getValue(Task.REMINDER_LAST);
+            long when = task.getReminderLast();
 
             if(when == 0) {
-                when = task.getValue(Task.CREATION_DATE);
+                when = task.getCreationDate();
             }
 
             when += (long)(reminderPeriod * (0.85f + 0.3f * random.nextFloat()));
@@ -484,7 +484,7 @@ public final class ReminderService  {
                 }
 
                if(Constants.DEBUG) {
-                   Log.e("Astrid", "Reminder set for " + newDate(time) + " for (\"" + task.getValue(Task.TITLE) + "\" (" + task.getId() + "), " + type + ")");
+                   Log.e("Astrid", "Reminder set for " + newDate(time) + " for (\"" + task.getTitle() + "\" (" + task.getId() + "), " + type + ")");
                }
                 am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
             }

@@ -156,7 +156,7 @@ public class QuickAddBar extends LinearLayout {
             @Override
             public void onClick(View v) {
                 Task task = quickAddTask(quickAddBox.getText().toString(), true);
-                if (task != null && task.getValue(Task.TITLE).length() == 0) {
+                if (task != null && task.getTitle().length() == 0) {
                     mListener.onTaskListItemClicked(task.getId());
                 }
             }
@@ -229,7 +229,7 @@ public class QuickAddBar extends LinearLayout {
         TagData tagData = fragment.getActiveTagData();
         if (tagData != null) {
             HashSet<String> tagsTransitory = new HashSet<>();
-            tagsTransitory.add(tagData.getValue(TagData.NAME));
+            tagsTransitory.add(tagData.getName());
             empty.putTransitory(TaskService.TRANS_TAGS, tagsTransitory);
         }
         repeatControl.readFromTask(empty);
@@ -246,7 +246,7 @@ public class QuickAddBar extends LinearLayout {
     public Task quickAddTask(String title, boolean selectNewTask) {
         TagData tagData = fragment.getActiveTagData();
         if(tagData != null && (!tagData.containsNonNullValue(TagData.NAME) ||
-                tagData.getValue(TagData.NAME).length() == 0)) {
+                tagData.getName().length() == 0)) {
             DialogUtilities.okDialog(activity, activity.getString(R.string.tag_no_title_error), null);
             return null;
         }
@@ -285,7 +285,7 @@ public class QuickAddBar extends LinearLayout {
                 fragment.selectCustomId(task.getId());
                 if (task.getTransitory(TaskService.TRANS_QUICK_ADD_MARKUP) != null) {
                     showAlertForMarkupTask(activity, task, title);
-                } else if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
+                } else if (!TextUtils.isEmpty(task.getRecurrence())) {
                     showAlertForRepeatingTask(activity, task);
                 }
             }
@@ -304,7 +304,7 @@ public class QuickAddBar extends LinearLayout {
         boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null
                 && !Preferences.getStringValue(R.string.gcal_p_default).equals("-1") && task.hasDueDate(); //$NON-NLS-1$
 
-        if (!TextUtils.isEmpty(title) && gcalCreateEventEnabled && TextUtils.isEmpty(task.getValue(Task.CALENDAR_URI))) {
+        if (!TextUtils.isEmpty(title) && gcalCreateEventEnabled && TextUtils.isEmpty(task.getCalendarURI())) {
             Uri calendarUri = GCalHelper.createTaskEvent(task,
                     ContextManager.getContext().getContentResolver(), new ContentValues());
             task.setValue(Task.CALENDAR_URI, calendarUri.toString());

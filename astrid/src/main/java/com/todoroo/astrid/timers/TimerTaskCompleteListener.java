@@ -26,7 +26,7 @@ public class TimerTaskCompleteListener extends BroadcastReceiver {
 
         Task task = PluginServices.getTaskService().fetchById(taskId, Task.ID, Task.ELAPSED_SECONDS,
                 Task.TIMER_START);
-        if(task == null || task.getValue(Task.TIMER_START) == 0) {
+        if(task == null || task.getTimerStart() == 0) {
             return;
         }
 

@@ -278,7 +278,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
             @Override
             public void visitNode(Node node) {
                 Task childTask = taskService.fetchById(node.taskId, Task.RECURRENCE);
-                if(!TextUtils.isEmpty(childTask.getValue(Task.RECURRENCE))) {
+                if(!TextUtils.isEmpty(childTask.getRecurrence())) {
                     Metadata metadata = updater.getTaskMetadata(node.taskId);
                     metadata.setValue(updater.indentProperty(), parentIndent);
                     metadataService.save(metadata);

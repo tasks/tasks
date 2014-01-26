@@ -431,10 +431,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         // name
         final TextView nameView = viewHolder.nameView; {
-            String nameValue = task.getValue(Task.TITLE);
+            String nameValue = task.getTitle();
 
-            long hiddenUntil = task.getValue(Task.HIDE_UNTIL);
-            if(task.getValue(Task.DELETION_DATE) > 0) {
+            long hiddenUntil = task.getHideUntil();
+            if(task.getDeletionDate() > 0) {
                 nameValue = resources.getString(R.string.TAd_deletedFormat, nameValue);
             }
             if(hiddenUntil > DateUtilities.now()) {
@@ -454,7 +454,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             if(taskDetailLoader.containsKey(task.getId())) {
                 details = taskDetailLoader.get(task.getId()).toString();
             } else {
-                details = task.getValue(Task.DETAILS);
+                details = task.getDetails();
             }
             if(TextUtils.isEmpty(details) || DETAIL_SEPARATOR.equals(details) || task.isCompleted()) {
                 viewHolder.details1.setVisibility(View.GONE);
@@ -487,7 +487,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             }
         }
 
-        if(Math.abs(DateUtilities.now() - task.getValue(Task.MODIFICATION_DATE)) < 2000L) {
+        if(Math.abs(DateUtilities.now() - task.getModificationDate()) < 2000L) {
             mostRecentlyMade = task.getId();
         }
 
@@ -594,7 +594,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         String notes = null;
         Task t = taskService.fetchById(task.getId(), Task.NOTES);
         if (t != null) {
-            notes = t.getValue(Task.NOTES);
+            notes = t.getNotes();
         }
         if (TextUtils.isEmpty(notes)) {
             return;
@@ -704,7 +704,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                         // even if we are up to date, randomly load a fraction
                         if(random.nextFloat() < 0.1) {
                             taskDetailLoader.put(task.getId(),
-                                    new StringBuilder(task.getValue(Task.DETAILS)));
+                                    new StringBuilder(task.getDetails()));
                             requestNewDetails(task);
                             if(Constants.DEBUG) {
                                 System.err.println("Refreshing details: " + task.getId()); //$NON-NLS-1$
@@ -713,8 +713,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                         continue;
                     } else if(Constants.DEBUG) {
                         System.err.println("Forced loading of details: " + task.getId() + //$NON-NLS-1$
-                                "\n  details: " + newDate(task.getValue(Task.DETAILS_DATE)) + //$NON-NLS-1$
-                                "\n  modified: " + newDate(task.getValue(Task.MODIFICATION_DATE))); //$NON-NLS-1$
+                                "\n  details: " + newDate(task.getDetailsDate()) + //$NON-NLS-1$
+                                "\n  modified: " + newDate(task.getModificationDate())); //$NON-NLS-1$
                     }
                     addTaskToLoadingArray(task);
 
@@ -743,8 +743,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
 
         private boolean detailsAreRecentAndUpToDate(Task task) {
-            return task.getValue(Task.DETAILS_DATE) >= task.getValue(Task.MODIFICATION_DATE) &&
-            !TextUtils.isEmpty(task.getValue(Task.DETAILS));
+            return task.getDetailsDate() >= task.getModificationDate() &&
+            !TextUtils.isEmpty(task.getDetails());
         }
 
         private void addTaskToLoadingArray(Task task) {
@@ -1042,12 +1042,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             checkBoxView.setChecked(completed);
             checkBoxView.setEnabled(true);
 
-            int value = task.getValue(Task.IMPORTANCE);
+            int value = task.getImportance();
             if (value >= IMPORTANCE_RESOURCES.length) {
                 value = IMPORTANCE_RESOURCES.length - 1;
             }
             Drawable[] boxes;
-            if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
+            if (!TextUtils.isEmpty(task.getRecurrence())) {
                 boxes = completed ? IMPORTANCE_REPEAT_DRAWABLES_CHECKED : IMPORTANCE_REPEAT_DRAWABLES;
             } else {
                 boxes = completed ? IMPORTANCE_DRAWABLES_CHECKED : IMPORTANCE_DRAWABLES;
@@ -1069,7 +1069,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             Activity activity = fragment.getActivity();
             if (activity != null) {
                 if(!task.isCompleted() && task.hasDueDate()) {
-                    long dueDate = task.getValue(Task.DUE_DATE);
+                    long dueDate = task.getDueDate();
                     if(task.isOverdue()) {
                         dueDateView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDueDate_Overdue);
                     } else {
@@ -1080,7 +1080,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     dueDateTextWidth = paint.measureText(dateValue);
                     dueDateView.setVisibility(View.VISIBLE);
                 } else if(task.isCompleted()) {
-                    String dateValue = formatDate(task.getValue(Task.COMPLETION_DATE));
+                    String dateValue = formatDate(task.getCompletionDate());
                     dueDateView.setText(resources.getString(R.string.TAd_completed, dateValue));
                     dueDateView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDueDate_Completed);
                     dueDateTextWidth = paint.measureText(dateValue);

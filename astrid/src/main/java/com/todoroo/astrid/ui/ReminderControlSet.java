@@ -150,7 +150,7 @@ public class ReminderControlSet extends PopupControlSet {
 
     @Override
     protected void readFromTaskOnInitialize() {
-        setValue(model.getValue(Task.REMINDER_FLAGS));
+        setValue(model.getReminderFlags());
         // Calls to get view will force other control sets to load
         randomControlSet.readFromTask(model);
         randomControlSet.readFromTaskOnInitialize();
@@ -170,7 +170,7 @@ public class ReminderControlSet extends PopupControlSet {
         StringBuilder reminderString = new StringBuilder();
 
         // Has random reminder?
-        if ((randomControlSet != null && randomControlSet.hasRandomReminder()) || (randomControlSet == null && model.getValue(Task.REMINDER_PERIOD) > 0)) {
+        if ((randomControlSet != null && randomControlSet.hasRandomReminder()) || (randomControlSet == null && model.getReminderPeriod() > 0)) {
             reminderString.append(activity.getString(R.string.TEA_reminder_randomly_short));
             reminderCount++;
         }
@@ -179,7 +179,7 @@ public class ReminderControlSet extends PopupControlSet {
         if (initialized) {
             value = getValue();
         } else {
-            value = model.getValue(Task.REMINDER_FLAGS);
+            value = model.getReminderFlags();
         }
 
         boolean appendedWhen = false;

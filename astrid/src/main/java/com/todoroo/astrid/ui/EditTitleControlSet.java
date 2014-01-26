@@ -68,7 +68,7 @@ public class EditTitleControlSet extends TaskEditControlSet implements Importanc
 
     @Override
     protected void readFromTaskOnInitialize() {
-        editText.setTextKeepState(model.getValue(Task.TITLE));
+        editText.setTextKeepState(model.getTitle());
         completeBox.setChecked(model.isCompleted());
         completeBox.setOnClickListener(new OnClickListener() {
             @Override
@@ -109,8 +109,8 @@ public class EditTitleControlSet extends TaskEditControlSet implements Importanc
     @Override
     public void readFromTask(Task task) {
         super.readFromTask(task);
-        isRepeating = !TextUtils.isEmpty(task.getValue(Task.RECURRENCE));
-        importanceValue = model.getValue(Task.IMPORTANCE);
+        isRepeating = !TextUtils.isEmpty(task.getRecurrence());
+        importanceValue = model.getImportance();
     }
 
 

@@ -180,7 +180,7 @@ public class AlarmService {
             return;
         }
 
-        long taskId = alarm.getValue(Metadata.TASK);
+        long taskId = alarm.getTask();
 
         Context context = ContextManager.getContext();
         AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);

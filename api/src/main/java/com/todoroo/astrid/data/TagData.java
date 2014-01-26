@@ -211,4 +211,31 @@ public final class TagData extends RemoteModel {
         }
     }
 
+    public Long getCreationDate() {
+        return getValue(CREATION_DATE);
+    }
+
+    public String getName() {
+        return getValue(NAME);
+    }
+
+    public String getTagOrdering() {
+        return getValue(TAG_ORDERING);
+    }
+
+    public Long getLastAutosync() {
+        return getValue(LAST_AUTOSYNC);
+    }
+
+    public String getUUID() {
+        return getValue(UUID);
+    }
+
+    public Integer getTaskCount() {
+        return getValue(TASK_COUNT);
+    }
+
+    public String getMembers() {
+        return getValue(MEMBERS);
+    }
 }

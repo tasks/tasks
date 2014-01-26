@@ -45,7 +45,7 @@ public class TaskDaoTests extends DatabaseTestCase {
         long happyId = task.getId();
         assertNotSame(Task.NO_ID, happyId);
         task = taskDao.fetch(happyId, TITLES);
-        assertEquals("happy", task.getValue(Task.TITLE));
+        assertEquals("happy", task.getTitle());
 
         // create task "sad"
         task = new Task();
@@ -68,9 +68,9 @@ public class TaskDaoTests extends DatabaseTestCase {
 
         // check state
         task = taskDao.fetch(happyId, TITLES);
-        assertEquals("happy", task.getValue(Task.TITLE));
+        assertEquals("happy", task.getTitle());
         task = taskDao.fetch(sadId,TITLES);
-        assertEquals("melancholy", task.getValue(Task.TITLE));
+        assertEquals("melancholy", task.getTitle());
     }
 
     /**

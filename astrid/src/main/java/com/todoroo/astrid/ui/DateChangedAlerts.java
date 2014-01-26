@@ -105,7 +105,7 @@ public class DateChangedAlerts {
 
         d.findViewById(R.id.reminder_snooze).setVisibility(View.GONE);
         d.findViewById(R.id.reminder_edit).setVisibility(View.GONE);
-        ((TextView) d.findViewById(R.id.reminder_title)).setText(activity.getString(R.string.TLA_repeat_scheduled_title, task.getValue(Task.TITLE)));
+        ((TextView) d.findViewById(R.id.reminder_title)).setText(activity.getString(R.string.TLA_repeat_scheduled_title, task.getTitle()));
 
         String speechBubbleText = constructSpeechBubbleTextForRepeat(activity, task);
 
@@ -176,11 +176,11 @@ public class DateChangedAlerts {
 
         int titleResource = lastTime ? R.string.repeat_rescheduling_dialog_title_last_time : R.string.repeat_rescheduling_dialog_title;
         ((TextView) d.findViewById(R.id.reminder_title)).setText(
-                activity.getString(titleResource, task.getValue(Task.TITLE)));
+                activity.getString(titleResource, task.getTitle()));
 
         String oldDueDateString = getRelativeDateAndTimeString(activity, oldDueDate);
         String newDueDateString = getRelativeDateAndTimeString(activity, newDueDate);
-        String repeatUntilDateString = getRelativeDateAndTimeString(activity, task.getValue(Task.REPEAT_UNTIL));
+        String repeatUntilDateString = getRelativeDateAndTimeString(activity, task.getRepeatUntil());
 
         String encouragement = "";
 
@@ -204,7 +204,7 @@ public class DateChangedAlerts {
                 d.dismiss();
                 task.setValue(Task.DUE_DATE, oldDueDate);
                 task.setValue(Task.COMPLETION_DATE, 0L);
-                long hideUntil = task.getValue(Task.HIDE_UNTIL);
+                long hideUntil = task.getHideUntil();
                 if (hideUntil > 0) {
                     task.setValue(Task.HIDE_UNTIL, hideUntil - (newDueDate - oldDueDate));
                 }
@@ -269,11 +269,11 @@ public class DateChangedAlerts {
         String[] priorityStrings = context.getResources().getStringArray(R.array.TLA_priority_strings);
         int[] colorsArray = new int[] { R.color.importance_1, R.color.importance_2, R.color.importance_3, R.color.importance_4 };
 
-        String title = task.getValue(Task.TITLE);
-        long date = task.getValue(Task.DUE_DATE);
+        String title = task.getTitle();
+        long date = task.getDueDate();
 
         String dueString = "";
-        if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
+        if (!TextUtils.isEmpty(task.getRecurrence())) {
             dueString = getRecurrenceString(context, task);
         }
 
@@ -285,7 +285,7 @@ public class DateChangedAlerts {
             dueString = context.getString(R.string.TLA_quickadd_confirm_speech_bubble_date, dueString);
         }
 
-        int priority = task.getValue(Task.IMPORTANCE);
+        int priority = task.getImportance();
         if (priority >= priorityStrings.length) {
             priority = priorityStrings.length - 1;
         }

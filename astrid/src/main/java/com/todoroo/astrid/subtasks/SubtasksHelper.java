@@ -91,9 +91,9 @@ public class SubtasksHelper {
     private static String getOrderString(TagData tagData, TaskListMetadata tlm) {
         String serialized;
         if (tlm != null) {
-            serialized = tlm.getValue(TaskListMetadata.TASK_IDS);
+            serialized = tlm.getTaskIDs();
         } else if (tagData != null) {
-            serialized = convertTreeToRemoteIds(tagData.getValue(TagData.TAG_ORDERING));
+            serialized = convertTreeToRemoteIds(tagData.getTagOrdering());
         } else {
             serialized = "[]"; //$NON-NLS-1$
         }

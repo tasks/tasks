@@ -95,7 +95,7 @@ public class RepeatTestsGtasksSync extends AbstractSyncRepeatTests<com.google.ap
             fail("Exception in gtasks service");
         }
         assertNotNull(remote);
-        assertEquals(t.getValue(Task.TITLE), remote.getTitle());
+        assertEquals(t.getTITLE(), remote.getTitle());
 
         Date expected = new Date(expectedRemoteTime);
         expected.setHours(0);
@@ -122,7 +122,7 @@ public class RepeatTestsGtasksSync extends AbstractSyncRepeatTests<com.google.ap
         }
 
         assertNotNull(remote);
-        assertEquals(t.getValue(Task.TITLE), remote.getTitle());
+        assertEquals(t.getTITLE(), remote.getTitle());
     }
 
     private void initializeTestService() throws Exception {

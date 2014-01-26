@@ -160,7 +160,7 @@ public class UpdateAdapter extends CursorAdapter {
                 updateBitmap = activity.getPictureBitmap(UserActivity.PICTURE);
             }
             setupImagePopupForCommentView(view, commentPictureView, pictureThumb, updateBitmap,
-                    activity.getValue(UserActivity.MESSAGE), fragment);
+                    activity.getMessage(), fragment);
         }
 
         // name
@@ -173,7 +173,7 @@ public class UpdateAdapter extends CursorAdapter {
 
         // date
         final TextView date = (TextView)view.findViewById(R.id.date); {
-            CharSequence dateString = DateUtils.getRelativeTimeSpanString(activity.getValue(UserActivity.CREATED_AT),
+            CharSequence dateString = DateUtils.getRelativeTimeSpanString(activity.getCreatedAt(),
                     DateUtilities.now(), DateUtils.MINUTE_IN_MILLIS,
                     DateUtils.FORMAT_ABBREV_RELATIVE);
             date.setText(dateString);
@@ -220,7 +220,7 @@ public class UpdateAdapter extends CursorAdapter {
     }
 
     public static Spanned getUpdateComment(UserActivity activity) {
-        String message = activity.getValue(UserActivity.MESSAGE);
+        String message = activity.getMessage();
         return Html.fromHtml(message);
     }
 }

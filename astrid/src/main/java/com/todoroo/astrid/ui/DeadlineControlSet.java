@@ -50,8 +50,8 @@ public class DeadlineControlSet extends PopupControlSet {
             isOverdue = !dateAndTimePicker.isAfterNow();
             displayString.append(dateAndTimePicker.getDisplayString(activity, isQuickadd, isQuickadd));
         } else {
-            isOverdue = model.getValue(Task.DUE_DATE) < DateUtilities.now();
-            displayString.append(DateAndTimePicker.getDisplayString(activity, model.getValue(Task.DUE_DATE), isQuickadd, isQuickadd, false));
+            isOverdue = model.getDueDate() < DateUtilities.now();
+            displayString.append(DateAndTimePicker.getDisplayString(activity, model.getDueDate(), isQuickadd, isQuickadd, false));
         }
 
         if (!isQuickadd && repeatControlSet != null) {
@@ -111,7 +111,7 @@ public class DeadlineControlSet extends PopupControlSet {
 
     @Override
     protected void readFromTaskOnInitialize() {
-        long dueDate = model.getValue(Task.DUE_DATE);
+        long dueDate = model.getDueDate();
         initializeWithDate(dueDate);
         refreshDisplayView();
     }
@@ -119,7 +119,7 @@ public class DeadlineControlSet extends PopupControlSet {
     @Override
     protected void writeToModelAfterInitialized(Task task) {
         long dueDate = dateAndTimePicker.constructDueDate();
-        if (dueDate != task.getValue(Task.DUE_DATE)) // Clear snooze if due date has changed
+        if (dueDate != task.getDueDate()) // Clear snooze if due date has changed
         {
             task.setValue(Task.REMINDER_SNOOZE, 0L);
         }

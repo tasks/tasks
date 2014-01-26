@@ -186,7 +186,7 @@ public class GtasksSyncService {
         if (metadata.checkAndClearTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC)) {
             return;
         }
-        if (!metadata.getValue(Metadata.KEY).equals(GtasksMetadata.METADATA_KEY)) //Don't care about non-gtasks metadata
+        if (!metadata.getKey().equals(GtasksMetadata.METADATA_KEY)) //Don't care about non-gtasks metadata
         {
             return;
         }
@@ -255,7 +255,7 @@ public class GtasksSyncService {
         //creating a task which may end up being cancelled. Also don't sync new but already
         //deleted tasks
         if (newlyCreated &&
-                (!values.containsKey(Task.TITLE.name) || TextUtils.isEmpty(task.getValue(Task.TITLE)) || task.getValue(Task.DELETION_DATE) > 0)) {
+                (!values.containsKey(Task.TITLE.name) || TextUtils.isEmpty(task.getTitle()) || task.getDeletionDate() > 0)) {
             return;
         }
 
@@ -265,17 +265,17 @@ public class GtasksSyncService {
         }
 
         if (values.containsKey(Task.TITLE.name)) {
-            remoteModel.setTitle(task.getValue(Task.TITLE));
+            remoteModel.setTitle(task.getTitle());
         }
         if (values.containsKey(Task.NOTES.name)) {
-            remoteModel.setNotes(task.getValue(Task.NOTES));
+            remoteModel.setNotes(task.getNotes());
         }
         if (values.containsKey(Task.DUE_DATE.name) && task.hasDueDate()) {
-            remoteModel.setDue(GtasksApiUtilities.unixTimeToGtasksDueDate(task.getValue(Task.DUE_DATE)));
+            remoteModel.setDue(GtasksApiUtilities.unixTimeToGtasksDueDate(task.getDueDate()));
         }
         if (values.containsKey(Task.COMPLETION_DATE.name)) {
             if (task.isCompleted()) {
-                remoteModel.setCompleted(GtasksApiUtilities.unixTimeToGtasksCompletionTime(task.getValue(Task.COMPLETION_DATE)));
+                remoteModel.setCompleted(GtasksApiUtilities.unixTimeToGtasksCompletionTime(task.getCompletionDate()));
                 remoteModel.setStatus("completed"); //$NON-NLS-1$
             } else {
                 remoteModel.setCompleted(null);

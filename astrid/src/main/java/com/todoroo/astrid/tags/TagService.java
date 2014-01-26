@@ -115,9 +115,9 @@ public final class TagService {
         }
 
         public Tag(TagData tagData) {
-            tag = tagData.getValue(TagData.NAME);
-            count = tagData.getValue(TagData.TASK_COUNT);
-            uuid = tagData.getValue(TagData.UUID);
+            tag = tagData.getName();
+            count = tagData.getTaskCount();
+            uuid = tagData.getUUID();
             image = tagData.getPictureUrl(TagData.PICTURE, RemoteModel.PICTURE_THUMB);
         }
 
@@ -198,7 +198,7 @@ public final class TagService {
                 existingTag.moveToFirst();
                 tagData = new TagData(existingTag);
             }
-            createLink(task, tagData.getValue(TagData.NAME), tagData.getValue(TagData.UUID));
+            createLink(task, tagData.getName(), tagData.getUUID());
         } finally {
             existingTag.close();
         }
@@ -207,7 +207,7 @@ public final class TagService {
     public void createLink(Task task, String tagName, String tagUuid) {
         Metadata link = TaskToTagMetadata.newTagMetadata(task.getId(), task.getUuid(), tagName, tagUuid);
         if (metadataDao.update(Criterion.and(MetadataCriteria.byTaskAndwithKey(task.getId(), TaskToTagMetadata.KEY),
-                    TaskToTagMetadata.TASK_UUID.eq(task.getValue(Task.UUID)), TaskToTagMetadata.TAG_UUID.eq(tagUuid)), link) <= 0) {
+                    TaskToTagMetadata.TASK_UUID.eq(task.getUUID()), TaskToTagMetadata.TAG_UUID.eq(tagUuid)), link) <= 0) {
             metadataDao.createNew(link);
         }
     }
@@ -335,10 +335,10 @@ public final class TagService {
                 tagData.setValue(TagData.NAME, tag);
                 tagDataService.save(tagData);
             }
-            if (existingLinks.contains(tagData.getValue(TagData.UUID))) {
-                existingLinks.remove(tagData.getValue(TagData.UUID));
+            if (existingLinks.contains(tagData.getUUID())) {
+                existingLinks.remove(tagData.getUUID());
             } else {
-                Metadata newLink = TaskToTagMetadata.newTagMetadata(taskId, taskUuid, tag, tagData.getValue(TagData.UUID));
+                Metadata newLink = TaskToTagMetadata.newTagMetadata(taskId, taskUuid, tag, tagData.getUUID());
                 metadataDao.createNew(newLink);
             }
         }
@@ -365,7 +365,7 @@ public final class TagService {
                 try {
                     if (tagData.getCount() > 0) {
                         tagData.moveToFirst();
-                        tagWithCase = new TagData(tagData).getValue(TagData.NAME);
+                        tagWithCase = new TagData(tagData).getName();
                     }
                 } finally {
                     tagData.close();

@@ -344,7 +344,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                     R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO));
             TaskDao.setDefaultReminders(task.task);
         }
-        if (!TextUtils.isEmpty(task.task.getValue(Task.TITLE))) {
+        if (!TextUtils.isEmpty(task.task.getTitle())) {
             task.task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
             gtasksMetadataService.saveTaskAndMetadata(task);
         }
@@ -352,8 +352,8 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
     private void mergeDates(Task remote, Task local) {
         if(remote.hasDueDate() && local.hasDueTime()) {
-            Date newDate = newDate(remote.getValue(Task.DUE_DATE));
-            Date oldDate = newDate(local.getValue(Task.DUE_DATE));
+            Date newDate = newDate(remote.getDueDate());
+            Date oldDate = newDate(local.getDueDate());
             newDate.setHours(oldDate.getHours());
             newDate.setMinutes(oldDate.getMinutes());
             newDate.setSeconds(oldDate.getSeconds());

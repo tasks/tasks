@@ -127,14 +127,14 @@ public class ImportanceControlSet extends TaskEditControlSet {
     @Override
     public void readFromTask(Task task) {
         super.readFromTask(task);
-        setImportance(model.getValue(Task.IMPORTANCE));
+        setImportance(model.getImportance());
     }
 
     // Same as above because we need the setImportance listeners to fire even in
     // the case when the UI hasn't been created yet
     @Override
     protected void readFromTaskOnInitialize() {
-        setImportance(model.getValue(Task.IMPORTANCE));
+        setImportance(model.getImportance());
     }
 
     @Override

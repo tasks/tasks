@@ -162,7 +162,7 @@ public class RepeatControlSet extends PopupControlSet {
             recurrence = "";
         }
 
-        repeatUntilValue = model.getValue(Task.REPEAT_UNTIL);
+        repeatUntilValue = model.getRepeatUntil();
 
         if(recurrence.length() > 0) {
             try {
@@ -206,8 +206,8 @@ public class RepeatControlSet extends PopupControlSet {
     @Override
     protected void readFromTaskOnInitialize() {
         Date date;
-        if(model.getValue(Task.DUE_DATE) != 0) {
-            date = newDate(model.getValue(Task.DUE_DATE));
+        if(model.getDueDate() != 0) {
+            date = newDate(model.getDueDate());
 
             int dayOfWeek = date.getDay();
             for(int i = 0; i < 7; i++) {
@@ -221,7 +221,7 @@ public class RepeatControlSet extends PopupControlSet {
                 RRule rrule = new RRule(recurrence);
 
                 setRepeatValue(rrule.getInterval());
-                setRepeatUntilValue(model.getValue(Task.REPEAT_UNTIL));
+                setRepeatUntilValue(model.getRepeatUntil());
                 interval.setSelection(intervalValue);
 
                 // clear all day of week checks, then update them
@@ -365,7 +365,7 @@ public class RepeatControlSet extends PopupControlSet {
             result = result + ";FROM=COMPLETION"; //$NON-NLS-1$
         }
 
-        if (!result.equals(task.getValue(Task.RECURRENCE).replaceAll("BYDAY=;", "")))  //$NON-NLS-1$//$NON-NLS-2$
+        if (!result.equals(task.getRecurrence().replaceAll("BYDAY=;", "")))  //$NON-NLS-1$//$NON-NLS-2$
         {
             task.putTransitory(TaskService.TRANS_REPEAT_CHANGED, true);
         }

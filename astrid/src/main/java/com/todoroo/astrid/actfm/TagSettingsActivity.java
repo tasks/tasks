@@ -156,7 +156,7 @@ public class TagSettingsActivity extends ActionBarActivity {
     }
 
     private void saveSettings() {
-        String oldName = tagData.getValue(TagData.NAME);
+        String oldName = tagData.getName();
         String newName = tagName.getText().toString().trim();
 
         if (TextUtils.isEmpty(newName)) {
@@ -194,7 +194,7 @@ public class TagSettingsActivity extends ActionBarActivity {
         imm.hideSoftInputFromWindow(tagName.getWindowToken(), 0);
 
         tagDataService.save(tagData);
-        tagMetadataDao.synchronizeMembers(tagData, tagData.getValue(TagData.MEMBERS), tagData.getUuid(), members);
+        tagMetadataDao.synchronizeMembers(tagData, tagData.getMembers(), tagData.getUuid(), members);
 
         if (isNewTag) {
             setResult(RESULT_OK, new Intent().putExtra(TOKEN_NEW_FILTER,
@@ -233,7 +233,7 @@ public class TagSettingsActivity extends ActionBarActivity {
     }
 
     private void refreshSettingsPage() {
-        tagName.setText(tagData.getValue(TagData.NAME));
+        tagName.setText(tagData.getName());
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
             if (isNewTag) {

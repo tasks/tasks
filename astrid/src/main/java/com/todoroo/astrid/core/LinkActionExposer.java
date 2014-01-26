@@ -43,7 +43,7 @@ public class LinkActionExposer {
             return null;
         }
 
-        Spannable titleSpan = Spannable.Factory.getInstance().newSpannable(task.getValue(Task.TITLE));
+        Spannable titleSpan = Spannable.Factory.getInstance().newSpannable(task.getTitle());
         Linkify.addLinks(titleSpan, Linkify.ALL);
 
         URLSpan[] urlSpans = titleSpan.getSpans(0, titleSpan.length(), URLSpan.class);

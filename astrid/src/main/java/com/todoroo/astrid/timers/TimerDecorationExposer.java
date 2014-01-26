@@ -32,8 +32,8 @@ public class TimerDecorationExposer {
     private static final int TIMING_BG_COLOR = Color.argb(200, 220, 50, 0);
 
     public TaskDecoration expose(Task task) {
-        if(task == null || (task.getValue(Task.ELAPSED_SECONDS) == 0 &&
-                task.getValue(Task.TIMER_START) == 0)) {
+        if(task == null || (task.getElapsedSeconds() == 0 &&
+                task.getTimerStart() == 0)) {
             return null;
         }
 
@@ -43,10 +43,10 @@ public class TimerDecorationExposer {
         decoration = new TaskDecoration(remoteViews,
                 TaskDecoration.POSITION_LEFT, 0);
 
-        long elapsed = task.getValue(Task.ELAPSED_SECONDS) * 1000L;
-        if(task.getValue(Task.TIMER_START) != 0) {
+        long elapsed = task.getElapsedSeconds() * 1000L;
+        if(task.getTimerStart() != 0) {
             decoration.color = TIMING_BG_COLOR;
-            elapsed += DateUtilities.now() - task.getValue(Task.TIMER_START);
+            elapsed += DateUtilities.now() - task.getTimerStart();
             decoration.decoration.setChronometer(R.id.timer, SystemClock.elapsedRealtime() -
                     elapsed, null, true);
             decoration.decoration.setViewVisibility(R.id.timer, View.VISIBLE);

@@ -25,7 +25,7 @@ public class RemoteModelDao<RTYPE extends RemoteModel> extends DatabaseDao<RTYPE
 
     @Override
     public boolean createNew(RTYPE item) {
-        if (!item.containsValue(RemoteModel.UUID_PROPERTY) || RemoteModel.isUuidEmpty(item.getValue(RemoteModel.UUID_PROPERTY))) {
+        if (!item.containsValue(RemoteModel.UUID_PROPERTY) || RemoteModel.isUuidEmpty(item.getUuidProperty())) {
             item.setValue(RemoteModel.UUID_PROPERTY, UUIDHelper.newUUID());
         }
         return super.createNew(item);

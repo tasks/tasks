@@ -181,7 +181,7 @@ public class TagViewFragment extends TaskListFragment {
         int count = taskAdapter.getCursor().getCount();
 
         if(tagData != null && sortFlags <= SortHelper.FLAG_REVERSE_SORT &&
-                count != tagData.getValue(TagData.TASK_COUNT)) {
+                count != tagData.getTaskCount()) {
             tagData.setValue(TagData.TASK_COUNT, count);
             tagDataService.save(tagData);
         }
@@ -196,7 +196,7 @@ public class TagViewFragment extends TaskListFragment {
             return;
         }
         if (tagData != null) {
-            long lastAutosync = tagData.getValue(TagData.LAST_AUTOSYNC);
+            long lastAutosync = tagData.getLastAutosync();
             if(DateUtilities.now() - lastAutosync > AUTOSYNC_INTERVAL) {
                 tagData.setValue(TagData.LAST_AUTOSYNC, DateUtilities.now());
                 tagDataDao.saveExisting(tagData);
@@ -212,7 +212,7 @@ public class TagViewFragment extends TaskListFragment {
             if(!intent.hasExtra("tag_id")) {
                 return;
             }
-            if(tagData == null || !tagData.getValue(TagData.UUID).equals(intent.getStringExtra("tag_id"))) {
+            if(tagData == null || !tagData.getUUID().equals(intent.getStringExtra("tag_id"))) {
                 return;
             }
 
@@ -225,7 +225,7 @@ public class TagViewFragment extends TaskListFragment {
 
             NotificationManager nm = new AndroidNotificationManager(ContextManager.getContext());
             try {
-                nm.cancel(Integer.parseInt(tagData.getValue(TagData.UUID)));
+                nm.cancel(Integer.parseInt(tagData.getUUID()));
             } catch (NumberFormatException e) {
                 // Eh
             }

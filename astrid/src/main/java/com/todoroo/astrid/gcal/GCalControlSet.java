@@ -122,7 +122,7 @@ public class GCalControlSet extends PopupControlSet {
                 hasEvent = true;
             } catch (Exception e) {
                 exceptionService.reportError("unable-to-parse-calendar: " +  //$NON-NLS-1$
-                        model.getValue(Task.CALENDAR_URI), e);
+                        model.getCalendarURI(), e);
             }
         } else {
             hasEvent = false;
@@ -179,10 +179,10 @@ public class GCalControlSet extends PopupControlSet {
                 // check if we need to update the item
                 ContentValues setValues = task.getSetValues();
                 if(setValues.containsKey(Task.TITLE.name)) {
-                    updateValues.put("title", task.getValue(Task.TITLE));
+                    updateValues.put("title", task.getTitle());
                 }
                 if(setValues.containsKey(Task.NOTES.name)) {
-                    updateValues.put("description", task.getValue(Task.NOTES));
+                    updateValues.put("description", task.getNotes());
                 }
                 if(setValues.containsKey(Task.DUE_DATE.name) || setValues.containsKey(Task.ESTIMATED_SECONDS.name)) {
                     GCalHelper.createStartAndEndDate(task, updateValues);
@@ -192,7 +192,7 @@ public class GCalControlSet extends PopupControlSet {
                 cr.update(calendarUri, updateValues, null, null);
             } catch (Exception e) {
                 exceptionService.reportError("unable-to-update-calendar: " +  //$NON-NLS-1$
-                        task.getValue(Task.CALENDAR_URI), e);
+                        task.getCalendarURI(), e);
             }
         }
     }
@@ -244,7 +244,7 @@ public class GCalControlSet extends PopupControlSet {
             }
         } else {
             int index = calendars.defaultIndex;
-            if (!TextUtils.isEmpty(model.getValue(Task.CALENDAR_URI))) {
+            if (!TextUtils.isEmpty(model.getCalendarURI())) {
                 calendar.setText(R.string.gcal_TEA_has_event);
             } else if (index >= 0 && index < calendars.calendars.length) {
                 calendar.setText(calendars.calendars[index]);

@@ -194,14 +194,14 @@ public class CalendarReminderActivity extends Activity {
     private void listExists(final TagData tag) {
         DialogUtilities.okCancelCustomDialog(this,
             getString(R.string.CRA_list_exists_title),
-            getString(R.string.CRA_list_exists_body, tag.getValue(TagData.NAME)),
+            getString(R.string.CRA_list_exists_body, tag.getName()),
             R.string.CRA_create_new,
             R.string.CRA_use_existing,
             0,
             new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    createNewList(tag.getValue(TagData.NAME) + " "
+                    createNewList(tag.getName() + " "
                             + DateUtilities.getDateStringHideYear(newDate(startTime)));
                 }
             },

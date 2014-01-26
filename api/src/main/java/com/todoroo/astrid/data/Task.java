@@ -332,6 +332,7 @@ public class Task extends RemoteModel {
 
     /** urgency array index -> significance */
     public static final int URGENCY_NONE = 0;
+
     public static final int URGENCY_TODAY = 1;
     public static final int URGENCY_TOMORROW = 2;
     public static final int URGENCY_DAY_AFTER = 3;
@@ -340,16 +341,15 @@ public class Task extends RemoteModel {
     public static final int URGENCY_NEXT_MONTH = 6;
     public static final int URGENCY_SPECIFIC_DAY = 7;
     public static final int URGENCY_SPECIFIC_DAY_TIME = 8;
-
     /** hide until array index -> significance */
     public static final int HIDE_UNTIL_NONE = 0;
+
     public static final int HIDE_UNTIL_DUE = 1;
     public static final int HIDE_UNTIL_DAY_BEFORE = 2;
     public static final int HIDE_UNTIL_WEEK_BEFORE = 3;
     public static final int HIDE_UNTIL_SPECIFIC_DAY = 4;
     public static final int HIDE_UNTIL_SPECIFIC_DAY_TIME = 5;
     public static final int HIDE_UNTIL_DUE_TIME = 6;
-
     /**
      * Creates due date for this task. If this due date has no time associated,
      * we move it to the last millisecond of the day.
@@ -461,22 +461,22 @@ public class Task extends RemoteModel {
         if(!hasDueDate()) {
             return false;
         }
-        return hasDueTime(getValue(Task.DUE_DATE));
+        return hasDueTime(getDueDate());
     }
 
     public boolean isOverdue() {
-        long dueDate = getValue(Task.DUE_DATE);
+        long dueDate = getDueDate();
         long compareTo = hasDueTime() ? DateUtilities.now() : DateUtilities.getStartOfDay(DateUtilities.now());
 
         return dueDate < compareTo;
     }
 
     public boolean repeatAfterCompletion() {
-        return getValue(Task.RECURRENCE).contains("FROM=COMPLETION");
+        return getRecurrence().contains("FROM=COMPLETION");
     }
 
     public String sanitizedRecurrence() {
-        return getValue(Task.RECURRENCE).replaceAll("BYDAY=;","").replaceAll(";?FROM=[^;]*", "");  //$NON-NLS-1$//$NON-NLS-2$
+        return getRecurrence().replaceAll("BYDAY=;", "").replaceAll(";?FROM=[^;]*", "");  //$NON-NLS-1$//$NON-NLS-2$
     }
 
     /**
@@ -486,4 +486,95 @@ public class Task extends RemoteModel {
         return dueDate > 0 && (dueDate % 60000 > 0);
     }
 
+    public Long getDueDate() {
+        return getValue(DUE_DATE);
+    }
+
+    public String getRecurrence() {
+        return getValue(RECURRENCE);
+    }
+
+    public Long getCreationDate() {
+        return getValue(CREATION_DATE);
+    }
+
+    public String getUUID() {
+        return getValue(UUID);
+    }
+
+    public String getTitle() {
+        return getValue(TITLE);
+    }
+
+    public String getDetails() {
+        return getValue(DETAILS);
+    }
+
+    public Long getDeletionDate() {
+        return getValue(DELETION_DATE);
+    }
+
+    public Long getHideUntil() {
+        return getValue(HIDE_UNTIL);
+    }
+
+    public Long getReminderLast() {
+        return getValue(REMINDER_LAST);
+    }
+
+    public Long getReminderSnooze() {
+        return getValue(REMINDER_SNOOZE);
+    }
+
+    public Integer getElapsedSeconds() {
+        return getValue(ELAPSED_SECONDS);
+    }
+
+    public Long getTimerStart() {
+        return getValue(TIMER_START);
+    }
+
+    public Long getRepeatUntil() {
+        return getValue(REPEAT_UNTIL);
+    }
+
+    public String getCalendarURI() {
+        return getValue(CALENDAR_URI);
+    }
+
+    public String getUserID() {
+        return getValue(USER_ID);
+    }
+
+    public Integer getImportance() {
+        return getValue(IMPORTANCE);
+    }
+
+    public Long getCompletionDate() {
+        return getValue(COMPLETION_DATE);
+    }
+
+    public Long getDetailsDate() {
+        return getValue(DETAILS_DATE);
+    }
+
+    public String getNotes() {
+        return getValue(NOTES);
+    }
+
+    public Long getModificationDate() {
+        return getValue(MODIFICATION_DATE);
+    }
+
+    public Integer getReminderFlags() {
+        return getValue(REMINDER_FLAGS);
+    }
+
+    public Long getReminderPeriod() {
+        return getValue(REMINDER_PERIOD);
+    }
+
+    public Integer getEstimatedSeconds() {
+        return getValue(ESTIMATED_SECONDS);
+    }
 }

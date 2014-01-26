@@ -173,7 +173,7 @@ public class TaskDao extends RemoteModelDao<Task> {
 
     public boolean handleSQLiteConstraintException(Task task) {
         TodorooCursor<Task> cursor = query(Query.select(Task.ID).where(
-                Task.UUID.eq(task.getValue(Task.UUID))));
+                Task.UUID.eq(task.getUUID())));
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             task.setId(cursor.get(Task.ID));
@@ -273,7 +273,7 @@ public class TaskDao extends RemoteModelDao<Task> {
         try {
             saveExisting(item);
         } catch (SQLiteConstraintException e) {
-            String uuid = item.getValue(Task.UUID);
+            String uuid = item.getUUID();
             TodorooCursor<Task> tasksWithUUID = query(Query.select(
                     SQL_CONSTRAINT_MERGE_PROPERTIES).where(
                     Task.UUID.eq(uuid)));
@@ -317,8 +317,8 @@ public class TaskDao extends RemoteModelDao<Task> {
             }
         }
         if (!match) {
-            if (existing.getValue(Task.CREATION_DATE).equals(newConflict.getValue(Task.CREATION_DATE))) {
-                newConflict.setValue(Task.CREATION_DATE, newConflict.getValue(Task.CREATION_DATE) + 1000L);
+            if (existing.getCreationDate().equals(newConflict.getCreationDate())) {
+                newConflict.setValue(Task.CREATION_DATE, newConflict.getCreationDate() + 1000L);
             }
             newConflict.clearValue(Task.UUID);
             saveExisting(newConflict);

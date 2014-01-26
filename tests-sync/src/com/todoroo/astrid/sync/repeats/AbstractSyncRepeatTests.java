@@ -153,15 +153,15 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
         try {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 Task task = new Task(cursor);
-                System.err.println("Task: " + task.getValue(Task.TITLE) + ", due: " + task.getValue(Task.DUE_DATE));
+                System.err.println("Task: " + task.getTITLE() + ", due: " + task.getDUE_DATE());
             }
             assertEquals(1, cursor.getCount());
             cursor.moveToFirst();
             t.readFromCursor(cursor);
 
-            assertEquals(title, t.getValue(Task.TITLE));
+            assertEquals(title, t.getTITLE());
             assertFalse(t.isCompleted());
-            long newDueDate = t.getValue(Task.DUE_DATE);
+            long newDueDate = t.getDUE_DATE();
             assertTrue(t.hasDueTime());
 
             long fromDate = (fromCompletion? completionDate : dueDate);

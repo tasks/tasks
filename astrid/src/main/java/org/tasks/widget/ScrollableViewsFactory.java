@@ -109,12 +109,12 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
     private int getCheckbox(Task task) {
         boolean completed = task.isCompleted();
 
-        int value = task.getValue(Task.IMPORTANCE);
+        int value = task.getImportance();
         if (value >= TaskAdapter.IMPORTANCE_RESOURCES.length) {
             value = TaskAdapter.IMPORTANCE_RESOURCES.length - 1;
         }
         int[] boxes;
-        if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
+        if (!TextUtils.isEmpty(task.getRecurrence())) {
             boxes = completed ? TaskAdapter.IMPORTANCE_REPEAT_RESOURCES_CHECKED : TaskAdapter.IMPORTANCE_REPEAT_RESOURCES;
         } else {
             boxes = completed ? TaskAdapter.IMPORTANCE_RESOURCES_CHECKED : TaskAdapter.IMPORTANCE_RESOURCES;
@@ -130,7 +130,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             Resources r = context.getResources();
             int textColor = r.getColor(dark ? R.color.widget_text_color_dark : R.color.widget_text_color_light);
 
-            textContent = task.getValue(Task.TITLE);
+            textContent = task.getTitle();
 
             RemoteViews row = new RemoteViews(Constants.PACKAGE, R.layout.widget_row);
 

@@ -369,7 +369,7 @@ public final class Task extends AbstractModel {
      * Checks whether this due date has a due time or only a date
      */
     public boolean hasDueTime() {
-        return hasDueTime(getValue(Task.DUE_DATE));
+        return hasDueTime(getDUE_DATE());
     }
 
     /**

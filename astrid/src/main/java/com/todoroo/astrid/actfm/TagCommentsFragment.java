@@ -76,7 +76,7 @@ public class TagCommentsFragment extends CommentsFragment {
         userActivity.setValue(UserActivity.ACTION, UserActivity.ACTION_TAG_COMMENT);
         userActivity.setValue(UserActivity.USER_UUID, Task.USER_ID_SELF);
         userActivity.setValue(UserActivity.TARGET_ID, tagData.getUuid());
-        userActivity.setValue(UserActivity.TARGET_NAME, tagData.getValue(TagData.NAME));
+        userActivity.setValue(UserActivity.TARGET_NAME, tagData.getName());
         userActivity.setValue(UserActivity.CREATED_AT, DateUtilities.now());
         return userActivity;
     }

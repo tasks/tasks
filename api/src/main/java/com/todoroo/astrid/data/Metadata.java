@@ -122,4 +122,20 @@ public class Metadata extends AbstractModel {
     // --- parcelable helpers
 
     private static final Creator<Metadata> CREATOR = new ModelCreator<>(Metadata.class);
+
+    public Long getDeletionDate() {
+        return getValue(DELETION_DATE);
+    }
+
+    public Long getTask() {
+        return getValue(TASK);
+    }
+
+    public Long getCreationDate() {
+        return getValue(CREATION_DATE);
+    }
+
+    public String getKey() {
+        return getValue(KEY);
+    }
 }

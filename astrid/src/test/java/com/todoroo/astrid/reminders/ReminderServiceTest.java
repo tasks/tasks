@@ -65,7 +65,7 @@ public class ReminderServiceTest extends TodorooRobolectricTestCase {
                 if (time == ReminderService.NO_ALARM)
                     return;
                 super.createAlarm(task, time, type);
-                assertEquals((long)task.getValue(Task.DUE_DATE), time);
+                assertEquals((long)task.getDueDate(), time);
                 assertEquals(type, ReminderService.TYPE_DUE);
             }
         });
@@ -113,8 +113,8 @@ public class ReminderServiceTest extends TodorooRobolectricTestCase {
                 if (time == ReminderService.NO_ALARM)
                     return;
                 super.createAlarm(task, time, type);
-                assertTrue(time > task.getValue(Task.DUE_DATE));
-                assertTrue(time < task.getValue(Task.DUE_DATE) + DateUtilities.ONE_DAY);
+                assertTrue(time > task.getDueDate());
+                assertTrue(time < task.getDueDate() + DateUtilities.ONE_DAY);
                 assertEquals(type, ReminderService.TYPE_OVERDUE);
             }
         });
@@ -193,7 +193,7 @@ public class ReminderServiceTest extends TodorooRobolectricTestCase {
                 if (time == ReminderService.NO_ALARM)
                     return;
                 super.createAlarm(task, time, type);
-                assertEquals((long)task.getValue(Task.DUE_DATE), time);
+                assertEquals((long)task.getDueDate(), time);
                 assertEquals(type, ReminderService.TYPE_DUE);
             }
         });

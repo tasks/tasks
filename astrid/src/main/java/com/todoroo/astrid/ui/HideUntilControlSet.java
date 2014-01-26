@@ -219,16 +219,16 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
 
     @Override
     public void readFromTask(Task task) {
-        long date = task.getValue(Task.HIDE_UNTIL);
+        long date = task.getHideUntil();
 
-        Date dueDay = newDate(task.getValue(Task.DUE_DATE)/1000L*1000L);
+        Date dueDay = newDate(task.getDueDate()/1000L*1000L);
 
         dueDay.setHours(0);
         dueDay.setMinutes(0);
         dueDay.setSeconds(0);
 
         // For the hide until due case, we need the time component
-        long dueTime = task.getValue(Task.DUE_DATE)/1000L*1000L;
+        long dueTime = task.getDueDate()/1000L*1000L;
 
         if(date == 0) {
             selection = 0;

@@ -40,7 +40,7 @@ public class TitleParserTest extends DatabaseTestCase {
       taskService.save(task);
       assertFalse(task.hasDueTime());
       assertFalse(task.hasDueDate());
-      assertEquals(task.getValue(Task.RECURRENCE), nothing.getValue(Task.RECURRENCE));
+      assertEquals(task.getRecurrence(), nothing.getRecurrence());
   }
 
   /** Tests correct date is parsed **/
@@ -64,7 +64,7 @@ public class TitleParserTest extends DatabaseTestCase {
       for (int i = 0; i < 23; i++) {
           String testTitle = "Jog on " + titleMonthStrings[i] + " 12.";
           insertTitleAddTask(testTitle, task);
-          Date date = newDate(task.getValue(Task.DUE_DATE));
+          Date date = newDate(task.getDueDate());
           assertEquals(date.getMonth(), i/2);
           assertEquals(date.getDate(), 12);
       }
@@ -76,7 +76,7 @@ public class TitleParserTest extends DatabaseTestCase {
       for (int i = 1; i < 13; i++) {
           String testTitle = "Jog on " + i + "/12/13";
           insertTitleAddTask(testTitle, task);
-          Date date = newDate(task.getValue(Task.DUE_DATE));
+          Date date = newDate(task.getDueDate());
           assertEquals(date.getMonth(), i-1);
           assertEquals(date.getDate(), 12);
           assertEquals(date.getYear(), 113);
@@ -88,7 +88,7 @@ public class TitleParserTest extends DatabaseTestCase {
       Task task = new Task();
       String testTitle = "Jog on 23:21.";
       insertTitleAddTask(testTitle, task);
-      Date date = newDate(task.getValue(Task.DUE_DATE));
+      Date date = newDate(task.getDueDate());
       assertEquals(date.getMinutes(), 21);
       assertEquals(date.getHours(), 23);
   }
@@ -98,7 +98,7 @@ public class TitleParserTest extends DatabaseTestCase {
       Task task = new Task();
       String testTitle = "Jog at 8:33 PM.";
       insertTitleAddTask(testTitle, task);
-      Date date = newDate(task.getValue(Task.DUE_DATE));
+      Date date = newDate(task.getDueDate());
       assertEquals(date.getMinutes(), 33);
       assertEquals(date.getHours(), 20);
   }
@@ -108,7 +108,7 @@ public class TitleParserTest extends DatabaseTestCase {
       Task task = new Task();
       String testTitle = "Jog at 8 PM.";
       insertTitleAddTask(testTitle, task);
-      Date date = newDate(task.getValue(Task.DUE_DATE));
+      Date date = newDate(task.getDueDate());
       assertEquals(date.getMinutes(), 0);
       assertEquals(date.getHours(), 20);
   }
@@ -118,7 +118,7 @@ public class TitleParserTest extends DatabaseTestCase {
       Task task = new Task();
       String testTitle = "Jog at 8 o'clock AM.";
       insertTitleAddTask(testTitle, task);
-      Date date = newDate(task.getValue(Task.DUE_DATE));
+      Date date = newDate(task.getDueDate());
       assertEquals(date.getMinutes(), 0);
       assertEquals(date.getHours(), 8);
   }
@@ -133,7 +133,7 @@ public class TitleParserTest extends DatabaseTestCase {
       };
       for (String testTitle: testTitles) {
           insertTitleAddTask(testTitle, task);
-          Date date = newDate(task.getValue(Task.DUE_DATE));
+          Date date = newDate(task.getDueDate());
           assertEquals(date.getMinutes(), 0);
           assertEquals(date.getHours(), 8);
       }
@@ -151,7 +151,7 @@ public class TitleParserTest extends DatabaseTestCase {
       };
       for (String testTitle: testTitles) {
           insertTitleAddTask(testTitle, task);
-          Date date = newDate(task.getValue(Task.DUE_DATE));
+          Date date = newDate(task.getDueDate());
           assertEquals(date.getMinutes(), 30);
           assertEquals(date.getHours(), 12);
       }
@@ -173,7 +173,7 @@ public class TitleParserTest extends DatabaseTestCase {
         String title = "Jog today";
         task.setValue(Task.TITLE, title);
         TaskService.createWithValues(task, null, title);
-        Date date = newDate(task.getValue(Task.DUE_DATE));
+        Date date = newDate(task.getDueDate());
         assertEquals(date.getDay()+1, today.get(Calendar.DAY_OF_WEEK));
         //Calendar starts 1-6, date.getDay() starts at 0
 
@@ -181,7 +181,7 @@ public class TitleParserTest extends DatabaseTestCase {
         title = "Jog tomorrow";
         task.setValue(Task.TITLE, title);
         TaskService.createWithValues(task, null, title);
-        date = newDate(task.getValue(Task.DUE_DATE));
+        date = newDate(task.getDueDate());
         assertEquals((date.getDay()+1) % 7, (today.get(Calendar.DAY_OF_WEEK)+1) % 7);
 
         String[] days = {
@@ -208,14 +208,14 @@ public class TitleParserTest extends DatabaseTestCase {
             title = "Jog "+ days[i];
             task.setValue(Task.TITLE, title);
             TaskService.createWithValues(task, null, title);
-            date = newDate(task.getValue(Task.DUE_DATE));
+            date = newDate(task.getDueDate());
             assertEquals(date.getDay(), i);
 
             task = new Task();
             title = "Jog "+ abrevDays[i];
             task.setValue(Task.TITLE, title);
             TaskService.createWithValues(task, null, title);
-            date = newDate(task.getValue(Task.DUE_DATE));
+            date = newDate(task.getDueDate());
             assertEquals(date.getDay(), i);
         }
 
@@ -239,14 +239,14 @@ public class TitleParserTest extends DatabaseTestCase {
             String title = "Jog " + acceptedString;
             task.setValue(Task.TITLE, title); //test at end of task. should set importance.
             TaskService.createWithValues(task, null, title);
-            assertEquals((int)task.getValue(Task.IMPORTANCE), Task.IMPORTANCE_LEAST);
+            assertEquals((int)task.getImportance(), Task.IMPORTANCE_LEAST);
         }
         for (String acceptedString:acceptedStrings){
             task = new Task();
             String title = acceptedString + " jog";
             task.setValue(Task.TITLE, title); //test at beginning of task. should not set importance.
             TaskService.createWithValues(task, null, title);
-            assertNotSame(task.getValue(Task.IMPORTANCE),Task.IMPORTANCE_LEAST);
+            assertNotSame(task.getImportance(),Task.IMPORTANCE_LEAST);
         }
     }
 
@@ -267,23 +267,23 @@ public class TitleParserTest extends DatabaseTestCase {
             task = new Task();
             task.setValue(Task.TITLE, "Jog " + acceptedStringAtEnd); //test at end of task. should set importance.
             taskService.save(task);
-            assertEquals((int)task.getValue(Task.IMPORTANCE), Task.IMPORTANCE_SHOULD_DO);
+            assertEquals((int)task.getImportance(), Task.IMPORTANCE_SHOULD_DO);
         }
         for (String acceptedStringAtEnd:acceptedStringsAtEnd){
             task = new Task();
             task.setValue(Task.TITLE, acceptedStringAtEnd + " jog"); //test at beginning of task. should not set importance.
             taskService.save(task);
-            assertEquals((int)task.getValue(Task.IMPORTANCE), Task.IMPORTANCE_SHOULD_DO);
+            assertEquals((int)task.getImportance(), Task.IMPORTANCE_SHOULD_DO);
         }
         for (String acceptedStringAnywhere:acceptedStringsAnywhere){
             task = new Task();
             task.setValue(Task.TITLE, "Jog " + acceptedStringAnywhere); //test at end of task. should set importance.
             taskService.save(task);
-            assertEquals((int)task.getValue(Task.IMPORTANCE), Task.IMPORTANCE_SHOULD_DO);
+            assertEquals((int)task.getImportance(), Task.IMPORTANCE_SHOULD_DO);
 
             task.setValue(Task.TITLE, acceptedStringAnywhere + " jog"); //test at beginning of task. should set importance.
             taskService.save(task);
-            assertEquals((int)task.getValue(Task.IMPORTANCE), Task.IMPORTANCE_SHOULD_DO);
+            assertEquals((int)task.getImportance(), Task.IMPORTANCE_SHOULD_DO);
         }
     }
 
@@ -305,25 +305,25 @@ public class TitleParserTest extends DatabaseTestCase {
             String title = "Jog " + acceptedStringAtEnd;
             task.setValue(Task.TITLE, title); //test at end of task. should set importance.
             TaskService.createWithValues(task, null, title);
-            assertEquals((int)task.getValue(Task.IMPORTANCE), Task.IMPORTANCE_MUST_DO);
+            assertEquals((int)task.getImportance(), Task.IMPORTANCE_MUST_DO);
 
             task = new Task();
             title = acceptedStringAtEnd + " jog";
             task.setValue(Task.TITLE, title); //test at beginning of task. should not set importance.
             TaskService.createWithValues(task, null, title);
-            assertNotSame(task.getValue(Task.IMPORTANCE), Task.IMPORTANCE_MUST_DO);
+            assertNotSame(task.getImportance(), Task.IMPORTANCE_MUST_DO);
         }
         for (String acceptedStringAnywhere:acceptedStringsAnywhere){
             task = new Task();
             String title = "Jog " + acceptedStringAnywhere;
             task.setValue(Task.TITLE, title); //test at end of task. should set importance.
             TaskService.createWithValues(task, null, title);
-            assertEquals((int)task.getValue(Task.IMPORTANCE), Task.IMPORTANCE_MUST_DO);
+            assertEquals((int)task.getImportance(), Task.IMPORTANCE_MUST_DO);
 
             title = acceptedStringAnywhere + " jog";
             task.setValue(Task.TITLE, title); //test at beginning of task. should set importance.
             TaskService.createWithValues(task, null, title);
-            assertEquals((int)task.getValue(Task.IMPORTANCE), Task.IMPORTANCE_MUST_DO);
+            assertEquals((int)task.getImportance(), Task.IMPORTANCE_MUST_DO);
         }
     }
 
@@ -348,25 +348,25 @@ public class TitleParserTest extends DatabaseTestCase {
             String title = "Jog " + acceptedStringAtEnd;
             task.setValue(Task.TITLE, title); //test at end of task. should set importance.
             TaskService.createWithValues(task, null, title);
-            assertEquals((int)task.getValue(Task.IMPORTANCE), Task.IMPORTANCE_DO_OR_DIE);
+            assertEquals((int)task.getImportance(), Task.IMPORTANCE_DO_OR_DIE);
 
             task = new Task();
             title = acceptedStringAtEnd + " jog";
             task.setValue(Task.TITLE, title); //test at beginning of task. should not set importance.
             TaskService.createWithValues(task, null, title);
-            assertNotSame(task.getValue(Task.IMPORTANCE), Task.IMPORTANCE_DO_OR_DIE);
+            assertNotSame(task.getImportance(), Task.IMPORTANCE_DO_OR_DIE);
         }
         for (String acceptedStringAnywhere:acceptedStringsAnywhere){
             task = new Task();
             String title = "Jog " + acceptedStringAnywhere;
             task.setValue(Task.TITLE, title); //test at end of task. should set importance.
             TaskService.createWithValues(task, null, title);
-            assertEquals((int)task.getValue(Task.IMPORTANCE), Task.IMPORTANCE_DO_OR_DIE);
+            assertEquals((int)task.getImportance(), Task.IMPORTANCE_DO_OR_DIE);
 
             title = acceptedStringAnywhere + " jog";
             task.setValue(Task.TITLE, title); //test at beginning of task. should set importance.
             TaskService.createWithValues(task, null, title);
-            assertEquals((int)task.getValue(Task.IMPORTANCE), Task.IMPORTANCE_DO_OR_DIE);
+            assertEquals((int)task.getImportance(), Task.IMPORTANCE_DO_OR_DIE);
         }
     }
 
@@ -385,14 +385,14 @@ public class TitleParserTest extends DatabaseTestCase {
         RRule rrule = new RRule();
         rrule.setFreq(Frequency.DAILY);
         rrule.setInterval(1);
-        assertEquals(task.getValue(Task.RECURRENCE), rrule.toIcal());
+        assertEquals(task.getRecurrence(), rrule.toIcal());
         assertFalse(task.hasDueTime());
         assertFalse(task.hasDueDate());
 
         title = "Jog every day";
         task.setValue(Task.TITLE, title);
         TaskService.createWithValues(task, null, title);
-        assertEquals(task.getValue(Task.RECURRENCE), rrule.toIcal());
+        assertEquals(task.getRecurrence(), rrule.toIcal());
         assertFalse(task.hasDueTime());
         assertFalse(task.hasDueDate());
 
@@ -401,7 +401,7 @@ public class TitleParserTest extends DatabaseTestCase {
             task.setValue(Task.TITLE, title);
             rrule.setInterval(i);
             TaskService.createWithValues(task, null, title);
-            assertEquals(task.getValue(Task.RECURRENCE), rrule.toIcal());
+            assertEquals(task.getRecurrence(), rrule.toIcal());
             assertFalse(task.hasDueTime());
             assertFalse(task.hasDueDate());
             task = new Task();
@@ -419,14 +419,14 @@ public class TitleParserTest extends DatabaseTestCase {
         RRule rrule = new RRule();
         rrule.setFreq(Frequency.WEEKLY);
         rrule.setInterval(1);
-        assertEquals(task.getValue(Task.RECURRENCE), rrule.toIcal());
+        assertEquals(task.getRecurrence(), rrule.toIcal());
         assertFalse(task.hasDueTime());
         assertFalse(task.hasDueDate());
 
         title = "Jog every week";
         task.setValue(Task.TITLE, title);
         TaskService.createWithValues(task, null, title);
-        assertEquals(task.getValue(Task.RECURRENCE), rrule.toIcal());
+        assertEquals(task.getRecurrence(), rrule.toIcal());
         assertFalse(task.hasDueTime());
         assertFalse(task.hasDueDate());
 
@@ -435,7 +435,7 @@ public class TitleParserTest extends DatabaseTestCase {
             task.setValue(Task.TITLE, title);
             rrule.setInterval(i);
             TaskService.createWithValues(task, null, title);
-            assertEquals(task.getValue(Task.RECURRENCE), rrule.toIcal());
+            assertEquals(task.getRecurrence(), rrule.toIcal());
             assertFalse(task.hasDueTime());
             assertFalse(task.hasDueDate());
             task = new Task();
@@ -451,14 +451,14 @@ public class TitleParserTest extends DatabaseTestCase {
         RRule rrule = new RRule();
         rrule.setFreq(Frequency.MONTHLY);
         rrule.setInterval(1);
-        assertEquals(task.getValue(Task.RECURRENCE), rrule.toIcal());
+        assertEquals(task.getRecurrence(), rrule.toIcal());
         assertFalse(task.hasDueTime());
         assertFalse(task.hasDueDate());
 
         title = "Jog every month";
         task.setValue(Task.TITLE, title);
         TaskService.createWithValues(task, null, title);
-        assertEquals(task.getValue(Task.RECURRENCE), rrule.toIcal());
+        assertEquals(task.getRecurrence(), rrule.toIcal());
         assertFalse(task.hasDueTime());
         assertFalse(task.hasDueDate());
 
@@ -467,7 +467,7 @@ public class TitleParserTest extends DatabaseTestCase {
             task.setValue(Task.TITLE, title);
             rrule.setInterval(i);
             TaskService.createWithValues(task, null, title);
-            assertEquals(task.getValue(Task.RECURRENCE), rrule.toIcal());
+            assertEquals(task.getRecurrence(), rrule.toIcal());
             assertFalse(task.hasDueTime());
             assertFalse(task.hasDueDate());
             task = new Task();
@@ -482,7 +482,7 @@ public class TitleParserTest extends DatabaseTestCase {
         RRule rrule = new RRule();
         rrule.setFreq(Frequency.DAILY);
         rrule.setInterval(1);
-        assertEquals(task.getValue(Task.RECURRENCE), rrule.toIcal());
+        assertEquals(task.getRecurrence(), rrule.toIcal());
         assertTrue(task.hasDueDate());
 
         task.clearValue(Task.ID);
@@ -490,7 +490,7 @@ public class TitleParserTest extends DatabaseTestCase {
         title = "Jog every day starting from today";
         task.setValue(Task.TITLE, title);
         TaskService.createWithValues(task, null, title);
-        assertEquals(task.getValue(Task.RECURRENCE), rrule.toIcal());
+        assertEquals(task.getRecurrence(), rrule.toIcal());
         assertTrue(task.hasDueDate());
 
         for (int i = 1; i <= 12; i++){
@@ -498,7 +498,7 @@ public class TitleParserTest extends DatabaseTestCase {
             task.setValue(Task.TITLE, title);
             rrule.setInterval(i);
             TaskService.createWithValues(task, null, title);
-            assertEquals(task.getValue(Task.RECURRENCE), rrule.toIcal());
+            assertEquals(task.getRecurrence(), rrule.toIcal());
             assertTrue(task.hasDueDate());
             task = new Task();
         }
@@ -512,7 +512,7 @@ public class TitleParserTest extends DatabaseTestCase {
         RRule rrule = new RRule();
         rrule.setFreq(Frequency.WEEKLY);
         rrule.setInterval(1);
-        assertEquals(task.getValue(Task.RECURRENCE), rrule.toIcal());
+        assertEquals(task.getRecurrence(), rrule.toIcal());
         assertTrue(task.hasDueDate());
 
         task.clearValue(Task.ID);
@@ -520,7 +520,7 @@ public class TitleParserTest extends DatabaseTestCase {
         title = "Jog every week starting from today";
         task.setValue(Task.TITLE, title);
         TaskService.createWithValues(task, null, title);
-        assertEquals(task.getValue(Task.RECURRENCE), rrule.toIcal());
+        assertEquals(task.getRecurrence(), rrule.toIcal());
         assertTrue(task.hasDueDate());
 
         for (int i = 1; i <= 12; i++){
@@ -528,7 +528,7 @@ public class TitleParserTest extends DatabaseTestCase {
             task.setValue(Task.TITLE, title);
             rrule.setInterval(i);
             TaskService.createWithValues(task, null, title);
-            assertEquals(task.getValue(Task.RECURRENCE), rrule.toIcal());
+            assertEquals(task.getRecurrence(), rrule.toIcal());
             assertTrue(task.hasDueDate());
             task = new Task();
         }

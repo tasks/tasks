@@ -116,7 +116,7 @@ public class FilesControlSet extends PopupControlSet {
         for (int i = 0; i < files.size(); i++) {
             TaskAttachment m = files.get(i);
             if (m.containsNonNullValue(TaskAttachment.FILE_PATH)) {
-                File f = new File(m.getValue(TaskAttachment.FILE_PATH));
+                File f = new File(m.getFilePath());
                 if (!f.exists()) {
                     m.setValue(TaskAttachment.FILE_PATH, ""); //$NON-NLS-1$
                     if (m.containsNonNullValue(TaskAttachment.URL)) { // We're ok, just the local file was deleted
@@ -170,7 +170,7 @@ public class FilesControlSet extends PopupControlSet {
                             new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface d, int which) {
-                            if (RemoteModel.isValidUuid(m.getValue(TaskAttachment.UUID))) {
+                            if (RemoteModel.isValidUuid(m.getUUID())) {
                                 m.setValue(TaskAttachment.DELETED_AT, DateUtilities.now());
                                 taskAttachmentDao.saveExisting(m);
                             } else {
@@ -178,7 +178,7 @@ public class FilesControlSet extends PopupControlSet {
                             }
 
                             if (m.containsNonNullValue(TaskAttachment.FILE_PATH)) {
-                                File f = new File(m.getValue(TaskAttachment.FILE_PATH));
+                                File f = new File(m.getFilePath());
                                 f.delete();
                             }
                             files.remove(m);
@@ -192,11 +192,11 @@ public class FilesControlSet extends PopupControlSet {
     }
 
     private void showFile(final TaskAttachment m) {
-        final String fileType = m.containsNonNullValue(TaskAttachment.CONTENT_TYPE) ? m.getValue(TaskAttachment.CONTENT_TYPE) : TaskAttachment.FILE_TYPE_OTHER;
-        final String filePath = m.getValue(TaskAttachment.FILE_PATH);
+        final String fileType = m.containsNonNullValue(TaskAttachment.CONTENT_TYPE) ? m.getContentType() : TaskAttachment.FILE_TYPE_OTHER;
+        final String filePath = m.getFilePath();
 
         if (fileType.startsWith(TaskAttachment.FILE_TYPE_AUDIO)) {
-            RecognizerApi.play(activity, m.getValue(TaskAttachment.FILE_PATH), new PlaybackExceptionHandler() {
+            RecognizerApi.play(activity, m.getFilePath(), new PlaybackExceptionHandler() {
                 @Override
                 public void playbackFailed(String file) {
                     showFromIntent(filePath, fileType);
@@ -290,7 +290,7 @@ public class FilesControlSet extends PopupControlSet {
         nameView.setTextColor(themeColor);
         TextView typeView = (TextView) row.findViewById(R.id.file_type);
         String name = getNameString(m);
-        String type = getTypeString(m.getValue(TaskAttachment.NAME));
+        String type = getTypeString(m.getName());
         nameView.setText(name);
 
         if (TextUtils.isEmpty(type)) {
@@ -303,7 +303,7 @@ public class FilesControlSet extends PopupControlSet {
     }
 
     private String getNameString(TaskAttachment metadata) {
-        String name = metadata.getValue(TaskAttachment.NAME);
+        String name = metadata.getName();
         int extension = name.lastIndexOf('.');
         if (extension < 0) {
             return name;

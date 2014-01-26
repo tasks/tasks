@@ -33,14 +33,14 @@ public class GCalHelper {
 
     public static String getTaskEventUri(Task task) {
         String uri;
-        if (!TextUtils.isEmpty(task.getValue(Task.CALENDAR_URI))) {
-            uri = task.getValue(Task.CALENDAR_URI);
+        if (!TextUtils.isEmpty(task.getCalendarURI())) {
+            uri = task.getCalendarURI();
         } else {
             task = PluginServices.getTaskService().fetchById(task.getId(), Task.CALENDAR_URI);
             if(task == null) {
                 return null;
             }
-            uri = task.getValue(Task.CALENDAR_URI);
+            uri = task.getCalendarURI();
         }
 
         return uri;
@@ -78,8 +78,8 @@ public class GCalHelper {
 
         try{
             Uri uri = Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_EVENTS);
-            values.put("title", task.getValue(Task.TITLE));
-            values.put("description", task.getValue(Task.NOTES));
+            values.put("title", task.getTitle());
+            values.put("description", task.getNotes());
             values.put("hasAlarm", 0);
             if (AndroidUtilities.getSdkVersion() < 14) {
                 values.put("transparency", 0);
@@ -145,13 +145,13 @@ public class GCalHelper {
         boolean eventDeleted = false;
         String uri;
         if(task.containsNonNullValue(Task.CALENDAR_URI)) {
-            uri = task.getValue(Task.CALENDAR_URI);
+            uri = task.getCalendarURI();
         } else {
             task = PluginServices.getTaskService().fetchById(task.getId(), Task.CALENDAR_URI);
             if(task == null) {
                 return false;
             }
-            uri = task.getValue(Task.CALENDAR_URI);
+            uri = task.getCalendarURI();
         }
 
         if(!TextUtils.isEmpty(uri)) {
@@ -182,13 +182,13 @@ public class GCalHelper {
     }
 
     static void createStartAndEndDate(Task task, ContentValues values) {
-        long dueDate = task.getValue(Task.DUE_DATE);
+        long dueDate = task.getDueDate();
         long tzCorrectedDueDate = dueDate + TimeZone.getDefault().getOffset(dueDate);
         long tzCorrectedDueDateNow = DateUtilities.now() + TimeZone.getDefault().getOffset(DateUtilities.now());
         // FIXME: doesnt respect timezones, see story 17443653
         if(task.hasDueDate()) {
             if(task.hasDueTime()) {
-                long estimatedTime = task.getValue(Task.ESTIMATED_SECONDS)  * 1000;
+                long estimatedTime = task.getEstimatedSeconds()  * 1000;
                 if(estimatedTime <= 0) {
                     estimatedTime = DEFAULT_CAL_TIME;
                 }

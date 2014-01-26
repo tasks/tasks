@@ -100,7 +100,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
         //Refetch remote task and assert that both local and remote titles match expected
         localTask = refetchLocalTask(localTask);
         remoteTask = refetchRemoteTask(remoteTask);
-        assertEquals(newTitle, localTask.getValue(Task.TITLE));
+        assertEquals(newTitle, localTask.getTITLE());
         assertEquals(newTitle, remoteTask.getTitle());
     }
 
@@ -125,20 +125,20 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
         remoteTask = refetchRemoteTask(remoteTask);
         localTask = refetchLocalTask(localTask);
         assertEquals(newRemoteTitle, remoteTask.getTitle());
-        assertEquals(newRemoteTitle, localTask.getValue(Task.TITLE));
+        assertEquals(newRemoteTitle, localTask.getTITLE());
     }
 
     public void testDateChangedLocally() throws Exception {
         if(bypassTests) return;
         Task localTask = createLocalTaskForDateTests(" locally");
-        String title = localTask.getValue(Task.TITLE);
-        long startDate = localTask.getValue(Task.DUE_DATE);
+        String title = localTask.getTITLE();
+        long startDate = localTask.getDUE_DATE();
 
         whenInvokeSync();
         com.google.api.services.tasks.model.Task remoteTask = assertTaskExistsRemotely(localTask, title);
         localTask = refetchLocalTask(localTask);
-        assertTrue(String.format("Expected %s, was %s", new Date(startDate), new Date(localTask.getValue(Task.DUE_DATE))),
-                Math.abs(startDate - localTask.getValue(Task.DUE_DATE)) < 5000);
+        assertTrue(String.format("Expected %s, was %s", new Date(startDate), new Date(localTask.getDUE_DATE())),
+                Math.abs(startDate - localTask.getDUE_DATE()) < 5000);
         long dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue(), 0);
         long createdDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate);
         assertEquals(startDate, createdDate);
@@ -154,7 +154,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
         //Refetch remote task and assert that both tasks match expected due date
         localTask = refetchLocalTask(localTask);
         remoteTask = refetchRemoteTask(remoteTask);
-        assertEquals(newDueDate, localTask.getValue(Task.DUE_DATE).longValue());
+        assertEquals(newDueDate, localTask.getDUE_DATE().longValue());
         dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue(), 0);
         createdDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate);
         assertEquals(newDueDate, createdDate);
@@ -163,14 +163,14 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
     public void testDateChangedRemotely() throws Exception {
         if(bypassTests) return;
         Task localTask = createLocalTaskForDateTests(" remotely");
-        String title = localTask.getValue(Task.TITLE);
-        long startDate = localTask.getValue(Task.DUE_DATE);
+        String title = localTask.getTITLE();
+        long startDate = localTask.getDUE_DATE();
 
         whenInvokeSync();
         com.google.api.services.tasks.model.Task remoteTask = assertTaskExistsRemotely(localTask, title);
         localTask = refetchLocalTask(localTask);
-        assertTrue(String.format("Expected %s, was %s", new Date(startDate), new Date(localTask.getValue(Task.DUE_DATE))),
-                Math.abs(startDate - localTask.getValue(Task.DUE_DATE)) < 5000);
+        assertTrue(String.format("Expected %s, was %s", new Date(startDate), new Date(localTask.getDUE_DATE())),
+                Math.abs(startDate - localTask.getDUE_DATE()) < 5000);
         long dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue(), 0);
         long createdDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate);
         assertEquals(startDate, createdDate);
@@ -187,7 +187,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
         //Refetch remote task and assert that both tasks match expected due date
         localTask = refetchLocalTask(localTask);
         remoteTask = refetchRemoteTask(remoteTask);
-        assertEquals(newDueDate, localTask.getValue(Task.DUE_DATE).longValue());
+        assertEquals(newDueDate, localTask.getDUE_DATE().longValue());
         dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue(), 0);
         createdDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate);
         assertEquals(newDueDate, createdDate);
@@ -197,14 +197,14 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
     public void testDateChangedBoth_ChooseLocal() throws Exception {
         if(bypassTests) return;
         Task localTask = createLocalTaskForDateTests(" remotely");
-        String title = localTask.getValue(Task.TITLE);
-        long startDate = localTask.getValue(Task.DUE_DATE);
+        String title = localTask.getTITLE();
+        long startDate = localTask.getDUE_DATE();
 
         whenInvokeSync();
         com.google.api.services.tasks.model.Task remoteTask = assertTaskExistsRemotely(localTask, title);
         localTask = refetchLocalTask(localTask);
-        assertTrue(String.format("Expected %s, was %s", new Date(startDate), new Date(localTask.getValue(Task.DUE_DATE))),
-                Math.abs(startDate - localTask.getValue(Task.DUE_DATE)) < 5000);
+        assertTrue(String.format("Expected %s, was %s", new Date(startDate), new Date(localTask.getDUE_DATE())),
+                Math.abs(startDate - localTask.getDUE_DATE()) < 5000);
         long dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue(), 0);
         long createdDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate);
         assertEquals(startDate, createdDate);
@@ -227,7 +227,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
         //Refetch both and assert that due dates match the one we set to local (more recent)
         localTask = refetchLocalTask(localTask);
         remoteTask = refetchRemoteTask(remoteTask);
-        assertEquals(newLocalDate, localTask.getValue(Task.DUE_DATE).longValue());
+        assertEquals(newLocalDate, localTask.getDUE_DATE().longValue());
         dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue(), 0);
         createdDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate);
         assertEquals(newLocalDate, createdDate);
@@ -236,14 +236,14 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
     public void DISABLED_testDateChangedBoth_ChooseRemote() throws Exception {
         if(bypassTests) return;
         Task localTask = createLocalTaskForDateTests(" remotely");
-        String title = localTask.getValue(Task.TITLE);
-        long startDate = localTask.getValue(Task.DUE_DATE);
+        String title = localTask.getTITLE();
+        long startDate = localTask.getDUE_DATE();
 
         whenInvokeSync();
         com.google.api.services.tasks.model.Task remoteTask = assertTaskExistsRemotely(localTask, title);
         localTask = refetchLocalTask(localTask);
-        assertTrue(String.format("Expected %s, was %s", new Date(startDate), new Date(localTask.getValue(Task.DUE_DATE))),
-                Math.abs(startDate - localTask.getValue(Task.DUE_DATE)) < 5000);
+        assertTrue(String.format("Expected %s, was %s", new Date(startDate), new Date(localTask.getDUE_DATE())),
+                Math.abs(startDate - localTask.getDUE_DATE()) < 5000);
         assertEquals(startDate, GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue(), 0));
         AndroidUtilities.sleepDeep(TIME_BETWEEN_SYNCS);
 
@@ -265,7 +265,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
         //Refetch both and assert that due dates match the one we set to local (more recent)
         localTask = refetchLocalTask(localTask);
         remoteTask = refetchRemoteTask(remoteTask);
-        assertEquals(newLocalDate, localTask.getValue(Task.DUE_DATE).longValue());
+        assertEquals(newLocalDate, localTask.getDUE_DATE().longValue());
         assertEquals(newLocalDate, GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue(), 0));
     }
 
@@ -288,13 +288,13 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
     public void testNoteEditedLocally() throws Exception {
         if(bypassTests) return;
         Task localTask = createLocalTaskForNoteTests(" locally");
-        String title = localTask.getValue(Task.TITLE);
-        String originalNote = localTask.getValue(Task.NOTES);
+        String title = localTask.getTITLE();
+        String originalNote = localTask.getNOTES();
 
         whenInvokeSync();
 
         com.google.api.services.tasks.model.Task remoteTask = assertTaskExistsRemotely(localTask, title);
-        assertEquals(originalNote, localTask.getValue(Task.NOTES));
+        assertEquals(originalNote, localTask.getNOTES());
         assertEquals(originalNote, remoteTask.getNotes());
 
         AndroidUtilities.sleepDeep(TIME_BETWEEN_SYNCS);
@@ -307,20 +307,20 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
 
         localTask = refetchLocalTask(localTask);
         remoteTask = refetchRemoteTask(remoteTask);
-        assertEquals(newNote, localTask.getValue(Task.NOTES));
+        assertEquals(newNote, localTask.getNOTES());
         assertEquals(newNote, remoteTask.getNotes());
     }
 
     public void testNoteEditedRemotely() throws Exception {
         if(bypassTests) return;
         Task localTask = createLocalTaskForNoteTests(" remotely");
-        String title = localTask.getValue(Task.TITLE);
-        String originalNote = localTask.getValue(Task.NOTES);
+        String title = localTask.getTITLE();
+        String originalNote = localTask.getNOTES();
 
         whenInvokeSync();
 
         com.google.api.services.tasks.model.Task remoteTask = assertTaskExistsRemotely(localTask, title);
-        assertEquals(originalNote, localTask.getValue(Task.NOTES));
+        assertEquals(originalNote, localTask.getNOTES());
         assertEquals(originalNote, remoteTask.getNotes());
 
         AndroidUtilities.sleepDeep(TIME_BETWEEN_SYNCS);
@@ -333,20 +333,20 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
 
         localTask = refetchLocalTask(localTask);
         remoteTask = refetchRemoteTask(remoteTask);
-        assertEquals(newNote, localTask.getValue(Task.NOTES));
+        assertEquals(newNote, localTask.getNOTES());
         assertEquals(newNote, remoteTask.getNotes());
     }
 
     public void DISABLED_testNoteEditedBoth() throws Exception {
         if(bypassTests) return;
         Task localTask = createLocalTaskForNoteTests(" remotely");
-        String title = localTask.getValue(Task.TITLE);
-        String originalNote = localTask.getValue(Task.NOTES);
+        String title = localTask.getTITLE();
+        String originalNote = localTask.getNOTES();
 
         whenInvokeSync();
 
         com.google.api.services.tasks.model.Task remoteTask = assertTaskExistsRemotely(localTask, title);
-        assertEquals(originalNote, localTask.getValue(Task.NOTES));
+        assertEquals(originalNote, localTask.getNOTES());
         assertEquals(originalNote, remoteTask.getNotes());
 
         AndroidUtilities.sleepDeep(TIME_BETWEEN_SYNCS);
@@ -366,7 +366,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
 
         localTask = refetchLocalTask(localTask);
         remoteTask = refetchRemoteTask(remoteTask);
-        System.err.println("Local note: " + localTask.getValue(Task.NOTES));
+        System.err.println("Local note: " + localTask.getNOTES());
         System.err.println("Remote note: " + remoteTask.getNotes());
     }
 
@@ -401,8 +401,8 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
 
         localTask = refetchLocalTask(localTask);
         remoteTask = refetchRemoteTask(remoteTask);
-        assertTrue(String.format("Expected %s, was %s", new Date(completion), new Date(localTask.getValue(Task.COMPLETION_DATE))),
-                Math.abs(completion - localTask.getValue(Task.COMPLETION_DATE)) < 5000);
+        assertTrue(String.format("Expected %s, was %s", new Date(completion), new Date(localTask.getCOMPLETION_DATE())),
+                Math.abs(completion - localTask.getCOMPLETION_DATE()) < 5000);
         assertEquals("completed", remoteTask.getStatus());
     }
 
@@ -425,8 +425,8 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
 
         localTask = refetchLocalTask(localTask);
         remoteTask = refetchRemoteTask(remoteTask);
-        assertTrue(String.format("Expected %s, was %s", new Date(completion), new Date(localTask.getValue(Task.COMPLETION_DATE))),
-                Math.abs(completion - localTask.getValue(Task.COMPLETION_DATE)) < 5000);
+        assertTrue(String.format("Expected %s, was %s", new Date(completion), new Date(localTask.getCOMPLETION_DATE())),
+                Math.abs(completion - localTask.getCOMPLETION_DATE()) < 5000);
         assertEquals("completed", remoteTask.getStatus());
     }
 
@@ -447,7 +447,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
 
         //Do a basic title match
         assertNotNull(remoteTask);
-        assertEquals(title, localTask.getValue(Task.TITLE));
+        assertEquals(title, localTask.getTITLE());
         assertEquals(title, remoteTask.getTitle());
         return remoteTask;
     }
@@ -460,12 +460,12 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
 
         assertNotNull(localTask);
         assertEquals(title, remoteTask.getTitle());
-        assertEquals(title, localTask.getValue(Task.TITLE));
+        assertEquals(title, localTask.getTITLE());
         return localTask;
     }
 
     private Task refetchLocalTask(Task localTask) {
-        return taskService.fetchById(localTask.getValue(Task.ID), Task.PROPERTIES);
+        return taskService.fetchById(localTask.getID(), Task.PROPERTIES);
     }
 
     private com.google.api.services.tasks.model.Task refetchRemoteTask(com.google.api.services.tasks.model.Task remoteTask) throws Exception {

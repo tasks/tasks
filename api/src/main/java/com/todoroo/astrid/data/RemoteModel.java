@@ -61,6 +61,10 @@ abstract public class RemoteModel extends AbstractModel {
         }
     }
 
+    public String getUuidProperty() {
+        return getValue(UUID_PROPERTY);
+    }
+
     protected String getUuidHelper(StringProperty uuid) {
         if(setValues != null && setValues.containsKey(uuid.name)) {
             return setValues.getAsString(uuid.name);
@@ -107,12 +111,12 @@ abstract public class RemoteModel extends AbstractModel {
         public static String getPictureHash(TagData tagData) {
             long tag_date = 0;
             if (tagData.containsValue(TagData.CREATION_DATE)) {
-                tag_date = tagData.getValue(TagData.CREATION_DATE);
+                tag_date = tagData.getCreationDate();
             }
             if (tag_date == 0) {
                 tag_date = currentTimeMillis();
             }
-            return String.format("cached::%s%s", tagData.getValue(TagData.NAME), tag_date);
+            return String.format("cached::%s%s", tagData.getName(), tag_date);
         }
 
         @TargetApi(Build.VERSION_CODES.FROYO)

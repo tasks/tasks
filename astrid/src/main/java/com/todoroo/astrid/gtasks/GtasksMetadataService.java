@@ -96,7 +96,7 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
         try {
             if (metadata.getCount() > 0) {
                 metadata.moveToFirst();
-                return (new Metadata(metadata).getValue(Metadata.TASK));
+                return (new Metadata(metadata).getTask());
             } else {
                 return AbstractModel.NO_ID;
             }

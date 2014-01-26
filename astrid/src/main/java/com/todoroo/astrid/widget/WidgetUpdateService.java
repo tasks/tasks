@@ -135,7 +135,7 @@ public class WidgetUpdateService extends Service {
                 int textColor = r
                         .getColor(ThemeService.isDarkWidgetTheme() ? R.color.widget_text_color_dark : R.color.widget_text_color_light);
 
-                textContent = task.getValue(Task.TITLE);
+                textContent = task.getTitle();
 
                 if(task.isCompleted()) {
                     textColor = r.getColor(R.color.task_list_done);

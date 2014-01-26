@@ -45,7 +45,7 @@ public class MetadataDaoTests extends DatabaseTestCase {
         long happyId = metadata.getId();
         assertNotSame(Metadata.NO_ID, happyId);
         metadata = metadataDao.fetch(happyId, KEYS);
-        assertEquals("happy", metadata.getValue(Metadata.KEY));
+        assertEquals("happy", metadata.getKey());
 
         // create "sad"
         metadata = new Metadata();
@@ -67,9 +67,9 @@ public class MetadataDaoTests extends DatabaseTestCase {
 
         // check state
         metadata = metadataDao.fetch(happyId, KEYS);
-        assertEquals("happy", metadata.getValue(Metadata.KEY));
+        assertEquals("happy", metadata.getKey());
         metadata = metadataDao.fetch(sadId, KEYS);
-        assertEquals("melancholy", metadata.getValue(Metadata.KEY));
+        assertEquals("melancholy", metadata.getKey());
 
         // delete sad
         assertTrue(metadataDao.delete(sadId));
@@ -78,7 +78,7 @@ public class MetadataDaoTests extends DatabaseTestCase {
         assertEquals(1, cursor.getCount());
         cursor.moveToFirst();
         metadata.readFromCursor(cursor);
-        assertEquals("happy", metadata.getValue(Metadata.KEY));
+        assertEquals("happy", metadata.getKey());
         cursor.close();
     }
 
@@ -108,10 +108,10 @@ public class MetadataDaoTests extends DatabaseTestCase {
         assertEquals(2, cursor.getCount());
         cursor.moveToFirst();
         metadata.readFromCursor(cursor);
-        assertEquals("with1", metadata.getValue(Metadata.KEY));
+        assertEquals("with1", metadata.getKey());
         cursor.moveToNext();
         metadata.readFromCursor(cursor);
-        assertEquals("with1", metadata.getValue(Metadata.KEY));
+        assertEquals("with1", metadata.getKey());
         cursor.close();
 
         cursor = metadataDao.query(
@@ -188,7 +188,7 @@ public class MetadataDaoTests extends DatabaseTestCase {
         assertEquals(1, cursor.getCount());
         cursor.moveToFirst();
         metadata.readFromCursor(cursor);
-        assertEquals("with2", metadata.getValue(Metadata.KEY));
+        assertEquals("with2", metadata.getKey());
         cursor.close();
     }
 

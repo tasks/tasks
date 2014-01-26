@@ -66,7 +66,7 @@ public class NotesDetailExposer extends BroadcastReceiver {
 
         StringBuilder notesBuilder = new StringBuilder();
 
-        String notes = task.getValue(Task.NOTES);
+        String notes = task.getNotes();
         if(!TextUtils.isEmpty(notes)) {
             if(notes.length() > NOTE_MAX) {
                 int lastSpace = notes.lastIndexOf(' ', NOTE_MAX);

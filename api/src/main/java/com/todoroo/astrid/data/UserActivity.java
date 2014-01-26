@@ -107,4 +107,12 @@ public class UserActivity extends RemoteModel {
     }
 
     private static final Creator<UserActivity> CREATOR = new ModelCreator<>(UserActivity.class);
+
+    public Long getCreatedAt() {
+        return getValue(CREATED_AT);
+    }
+
+    public String getMessage() {
+        return getValue(MESSAGE);
+    }
 }

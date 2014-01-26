@@ -161,12 +161,12 @@ public class Notifications extends BroadcastReceiver {
             return false;
         }
         // you're done, or not yours - don't sound, do delete
-        if(task.isCompleted() || task.isDeleted() || !Task.USER_ID_SELF.equals(task.getValue(Task.USER_ID))) {
+        if(task.isCompleted() || task.isDeleted() || !Task.USER_ID_SELF.equals(task.getUserID())) {
             return false;
         }
 
         // new task edit in progress
-        if(TextUtils.isEmpty(task.getValue(Task.TITLE))) {
+        if(TextUtils.isEmpty(task.getTitle())) {
             return false;
         }
 
@@ -176,15 +176,15 @@ public class Notifications extends BroadcastReceiver {
         }
 
         // task due date was changed, but alarm wasn't rescheduled
-        boolean dueInFuture = task.hasDueTime() && task.getValue(Task.DUE_DATE) > DateUtilities.now() ||
-            !task.hasDueTime() && task.getValue(Task.DUE_DATE) - DateUtilities.now() > DateUtilities.ONE_DAY;
+        boolean dueInFuture = task.hasDueTime() && task.getDueDate() > DateUtilities.now() ||
+            !task.hasDueTime() && task.getDueDate() - DateUtilities.now() > DateUtilities.ONE_DAY;
         if((type == ReminderService.TYPE_DUE || type == ReminderService.TYPE_OVERDUE) &&
                 (!task.hasDueDate() || dueInFuture)) {
             return true;
         }
 
         // read properties
-        String taskTitle = task.getValue(Task.TITLE);
+        String taskTitle = task.getTitle();
         boolean nonstopMode = task.getFlag(Task.REMINDER_FLAGS, Task.NOTIFY_MODE_NONSTOP);
         boolean ringFiveMode = task.getFlag(Task.REMINDER_FLAGS, Task.NOTIFY_MODE_FIVE);
         int ringTimes = nonstopMode ? -1 : (ringFiveMode ? 5 : 1);

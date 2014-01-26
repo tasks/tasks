@@ -212,7 +212,7 @@ public class WidgetHelper {
         TagData tagData;
         if (id > 0) {
             tagData = tagDataService.fetchById(id, TagData.ID, TagData.NAME, TagData.TASK_COUNT, TagData.UUID, TagData.PICTURE, TagData.USER_ID, TagData.MEMBER_COUNT);
-            if (tagData != null && !tagData.getValue(TagData.NAME).equals(filter.title)) { // Tag has been renamed; rebuild filter
+            if (tagData != null && !tagData.getName().equals(filter.title)) { // Tag has been renamed; rebuild filter
                 filter = TagFilterExposer.filterFromTagData(context, tagData);
                 Preferences.setString(WidgetConfigActivity.PREF_SQL + widgetId, filter.getSqlQuery());
                 Preferences.setString(WidgetConfigActivity.PREF_TITLE + widgetId, filter.title);

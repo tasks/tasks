@@ -36,14 +36,14 @@ public class GCalTaskCompleteListener extends BroadcastReceiver {
             return;
         }
 
-        String calendarUri = task.getValue(Task.CALENDAR_URI);
+        String calendarUri = task.getCalendarURI();
         if(!TextUtils.isEmpty(calendarUri)) {
             try {
                 // change title of calendar event
                 ContentResolver cr = context.getContentResolver();
                 ContentValues values = new ContentValues();
                 values.put("title", context.getString(R.string.gcal_completed_title,
-                        task.getValue(Task.TITLE)));
+                        task.getTitle()));
                 cr.update(Uri.parse(calendarUri), values, null, null);
             } catch (Exception e) {
                 Log.d("astrid-gcal", "Error updating calendar entry", e); //$NON-NLS-1$ //$NON-NLS-2$

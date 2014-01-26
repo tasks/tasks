@@ -127,7 +127,7 @@ public class MetadataDao extends DatabaseDao<Metadata> {
         boolean state = super.persist(item);
         if(Preferences.getBoolean(AstridPreferences.P_FIRST_LIST, true)) {
             if (state && item.containsNonNullValue(Metadata.KEY) &&
-                    item.getValue(Metadata.KEY).equals(TaskToTagMetadata.KEY)) {
+                    item.getKey().equals(TaskToTagMetadata.KEY)) {
                 Preferences.setBoolean(AstridPreferences.P_FIRST_LIST, false);
             }
         }

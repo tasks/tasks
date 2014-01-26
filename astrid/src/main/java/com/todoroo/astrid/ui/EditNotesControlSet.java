@@ -38,7 +38,7 @@ public class EditNotesControlSet extends PopupControlSet {
         if (initialized) {
             textToUse = editText.getText().toString();
         } else {
-            textToUse = model.getValue(Task.NOTES);
+            textToUse = model.getNotes();
         }
 
         if (TextUtils.isEmpty(textToUse)) {
@@ -77,8 +77,8 @@ public class EditNotesControlSet extends PopupControlSet {
 
     @Override
     protected void readFromTaskOnInitialize() {
-        editText.setTextKeepState(model.getValue(Task.NOTES));
-        notesPreview.setText(model.getValue(Task.NOTES));
+        editText.setTextKeepState(model.getNotes());
+        notesPreview.setText(model.getNotes());
         linkifyDisplayView();
     }
 

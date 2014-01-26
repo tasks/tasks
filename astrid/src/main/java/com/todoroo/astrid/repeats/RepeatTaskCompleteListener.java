@@ -70,8 +70,8 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
                 return;
             }
 
-            long oldDueDate = task.getValue(Task.DUE_DATE);
-            long repeatUntil = task.getValue(Task.REPEAT_UNTIL);
+            long oldDueDate = task.getDueDate();
+            long repeatUntil = task.getRepeatUntil();
 
             boolean repeatFinished = repeatUntil > 0 && newDueDate >= repeatUntil;
             if (repeatFinished) {
@@ -96,9 +96,9 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
     }
 
     public static void rescheduleTask(Task task, long newDueDate) {
-        long hideUntil = task.getValue(Task.HIDE_UNTIL);
-        if(hideUntil > 0 && task.getValue(Task.DUE_DATE) > 0) {
-            hideUntil += newDueDate - task.getValue(Task.DUE_DATE);
+        long hideUntil = task.getHideUntil();
+        if(hideUntil > 0 && task.getDueDate() > 0) {
+            hideUntil += newDueDate - task.getDueDate();
         }
 
         task.setValue(Task.COMPLETION_DATE, 0L);
@@ -254,9 +254,9 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
     private static Date setUpStartDate(Task task, boolean repeatAfterCompletion, Frequency frequency) {
         Date startDate = newDate();
         if(task.hasDueDate()) {
-            Date dueDate = newDate(task.getValue(Task.DUE_DATE));
+            Date dueDate = newDate(task.getDueDate());
             if(repeatAfterCompletion) {
-                startDate = newDate(task.getValue(Task.COMPLETION_DATE));
+                startDate = newDate(task.getCompletionDate());
             } else {
                 startDate = dueDate;
             }

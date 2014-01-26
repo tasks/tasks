@@ -574,7 +574,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     protected void loadItem(Intent intent) {
         if (model != null) {
             // came from bundle
-            setIsNewTask(model.getValue(Task.TITLE).length() == 0);
+            setIsNewTask(model.getTitle().length() == 0);
             return;
         }
 
@@ -583,7 +583,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             model = taskService.fetchById(idParam, Task.PROPERTIES);
 
             if (model != null && model.containsNonNullValue(Task.UUID)) {
-                uuid = model.getValue(Task.UUID);
+                uuid = model.getUUID();
             }
         }
 
@@ -602,13 +602,13 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             getActivity().getIntent().putExtra(TOKEN_ID, model.getId());
         }
 
-        if (model.getValue(Task.TITLE).length() == 0) {
+        if (model.getTitle().length() == 0) {
 
             // set deletion date until task gets a title
             model.setValue(Task.DELETION_DATE, DateUtilities.now());
         }
 
-        setIsNewTask(model.getValue(Task.TITLE).length() == 0);
+        setIsNewTask(model.getTitle().length() == 0);
 
         if (model == null) {
             exceptionService.reportError("task-edit-no-task",
@@ -692,7 +692,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         if (!onPause) {
             boolean taskEditActivity = (getActivity() instanceof TaskEditActivity);
             boolean showRepeatAlert = model.getTransitory(TaskService.TRANS_REPEAT_CHANGED) != null
-                    && !TextUtils.isEmpty(model.getValue(Task.RECURRENCE));
+                    && !TextUtils.isEmpty(model.getRecurrence());
 
             if (taskEditActivity) {
                 Intent data = new Intent();
@@ -782,7 +782,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         shouldSaveState = false;
 
         // abandon editing in this case
-        if (title.getText().length() == 0 || TextUtils.isEmpty(model.getValue(Task.TITLE))) {
+        if (title.getText().length() == 0 || TextUtils.isEmpty(model.getTitle())) {
             if (isNewTask) {
                 TimerPlugin.updateTimer(getActivity(), model, false);
                 taskService.delete(model);

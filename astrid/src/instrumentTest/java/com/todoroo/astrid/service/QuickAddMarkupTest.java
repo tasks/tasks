@@ -78,7 +78,7 @@ public class QuickAddMarkupTest extends DatabaseTestCase {
     }
 
     private void assertTitleBecomes(String title) {
-        assertEquals(title, task.getValue(Task.TITLE));
+        assertEquals(title, task.getTitle());
     }
 
     private void whenTitleIs(String title) {
@@ -89,7 +89,7 @@ public class QuickAddMarkupTest extends DatabaseTestCase {
     }
 
     private void assertImportanceIs(int importance) {
-        assertEquals(importance, (int)task.getValue(Task.IMPORTANCE));
+        assertEquals(importance, (int)task.getImportance());
     }
 
 }
