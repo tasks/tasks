@@ -329,7 +329,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
     /**
      * Merges content values with those coming from another source
      */
-    public synchronized <TYPE> void mergeWith(ContentValues other) {
+    public synchronized void mergeWith(ContentValues other) {
         if (setValues == null) {
             setValues = new ContentValues();
         }
@@ -340,7 +340,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
      * Merges set values with those coming from another source,
      * keeping the existing value if one already exists
      */
-    public synchronized <TYPE> void mergeWithoutReplacement(ContentValues other) {
+    public synchronized void mergeWithoutReplacement(ContentValues other) {
         if (setValues == null) {
             setValues = new ContentValues();
         }

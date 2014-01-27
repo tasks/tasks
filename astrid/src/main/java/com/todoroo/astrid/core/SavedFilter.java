@@ -70,7 +70,7 @@ public class SavedFilter {
         }
 
         // populate saved filter properties
-        storeObject.setValue(StoreObject.TYPE, TYPE);
+        storeObject.setType(TYPE);
         storeObject.setValue(NAME, title);
         storeObject.setValue(SQL, sql);
 

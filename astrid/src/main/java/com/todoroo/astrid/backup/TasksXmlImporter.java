@@ -471,10 +471,10 @@ public class TasksXmlImporter {
 
                 Metadata metadata = new Metadata();
                 metadata.setTask(currentTask.getId());
-                metadata.setValue(Metadata.VALUE1, (listId));
-                metadata.setValue(Metadata.VALUE2, (taskSeriesId));
-                metadata.setValue(Metadata.VALUE3, (taskId));
-                metadata.setValue(Metadata.VALUE4, syncOnComplete ? "1" : "0"); //$NON-NLS-1$ //$NON-NLS-2$
+                metadata.setValue1(listId);
+                metadata.setValue2(taskSeriesId);
+                metadata.setValue3(taskId);
+                metadata.setValue4(syncOnComplete ? "1" : "0"); //$NON-NLS-1$ //$NON-NLS-2$
                 metadataService.save(metadata);
             }
         }

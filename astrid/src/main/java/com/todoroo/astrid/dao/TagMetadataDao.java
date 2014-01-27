@@ -69,7 +69,7 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
     public void createMemberLink(long tagId, String tagUuid, String memberId, boolean removedMember) {
         TagMetadata newMetadata = TagMemberMetadata.newMemberMetadata(tagId, tagUuid, memberId);
         if (removedMember) {
-            newMetadata.setValue(TagMetadata.DELETION_DATE, DateUtilities.now());
+            newMetadata.setDeletionDate(DateUtilities.now());
         }
         if (update(Criterion.and(TagMetadataCriteria.byTagAndWithKey(tagUuid, TagMemberMetadata.KEY),
                 TagMemberMetadata.USER_UUID.eq(memberId)), newMetadata) <= 0) {
@@ -79,8 +79,8 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
 
     public void removeMemberLink(long tagId, String tagUuid, String memberId) {
         TagMetadata deleteTemplate = new TagMetadata();
-        deleteTemplate.setValue(TagMetadata.TAG_ID, tagId); // Need this for recording changes in outstanding table
-        deleteTemplate.setValue(TagMetadata.DELETION_DATE, DateUtilities.now());
+        deleteTemplate.setTagID(tagId); // Need this for recording changes in outstanding table
+        deleteTemplate.setDeletionDate(DateUtilities.now());
         deleteTemplate.setValue(TagMemberMetadata.USER_UUID, memberId); // Need this for recording changes in outstanding table
 
         update(Criterion.and(TagMetadataCriteria.withKey(TagMemberMetadata.KEY), TagMetadata.DELETION_DATE.eq(0),

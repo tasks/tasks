@@ -99,7 +99,7 @@ public class GtasksListService {
                 local = new StoreObject();
             }
 
-            local.setValue(StoreObject.TYPE, GtasksList.TYPE);
+            local.setType(GtasksList.TYPE);
             local.setValue(GtasksList.REMOTE_ID, id);
             local.setValue(GtasksList.NAME, remote.getTitle());
             local.setValue(GtasksList.ORDER, i);
@@ -128,7 +128,7 @@ public class GtasksListService {
         }
         StoreObject local = new StoreObject();
 
-        local.setValue(StoreObject.TYPE, GtasksList.TYPE);
+        local.setType(GtasksList.TYPE);
         local.setValue(GtasksList.REMOTE_ID, newList.getId());
         local.setValue(GtasksList.NAME, newList.getTitle());
 

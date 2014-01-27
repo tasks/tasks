@@ -162,7 +162,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      * Example (updates "joe" => "bob" in metadata value1):
      * {code}
      * Metadata item = new Metadata();
-     * item.setValue(Metadata.VALUE1, "bob");
+     * item.setVALUE1("bob");
      * update(item, Metadata.VALUE1.eq("joe"));
      * {code}
      * @param where sql criteria

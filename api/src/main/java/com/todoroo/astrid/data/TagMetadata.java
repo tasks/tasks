@@ -76,4 +76,20 @@ public class TagMetadata extends AbstractModel {
     // --- parcelable helpers
 
     private static final Creator<TagMetadata> CREATOR = new ModelCreator<>(TagMetadata.class);
+
+    public void setKey(String key) {
+        setValue(KEY, key);
+    }
+
+    public void setTagUUID(String tagUuid) {
+        setValue(TAG_UUID, tagUuid);
+    }
+
+    public void setTagID(Long tagId) {
+        setValue(TAG_ID, tagId);
+    }
+
+    public void setDeletionDate(Long deletionDate) {
+        setValue(DELETION_DATE, deletionDate);
+    }
 }

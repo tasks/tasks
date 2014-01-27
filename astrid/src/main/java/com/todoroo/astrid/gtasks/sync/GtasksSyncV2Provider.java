@@ -199,7 +199,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
             return;
         }
         final StoreObject gtasksList = (StoreObject) list;
-        if (!GtasksList.TYPE.equals(gtasksList.getValue(StoreObject.TYPE))) {
+        if (!GtasksList.TYPE.equals(gtasksList.getType())) {
             return;
         }
 
