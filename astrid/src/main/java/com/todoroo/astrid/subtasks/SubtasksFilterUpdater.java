@@ -28,7 +28,7 @@ public class SubtasksFilterUpdater extends SubtasksUpdater<TaskListMetadata> {
     @Override
     protected void writeSerialization(TaskListMetadata list, String serialized, boolean shouldQueueSync) {
         if (list != null) {
-            list.setValue(TaskListMetadata.TASK_IDS, serialized);
+            list.setTaskIDs(serialized);
             if (!shouldQueueSync) {
                 list.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
             }

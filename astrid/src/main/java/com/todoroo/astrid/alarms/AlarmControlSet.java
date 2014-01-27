@@ -93,7 +93,7 @@ public final class AlarmControlSet extends TaskEditControlSet {
         }
 
         if(AlarmService.getInstance().synchronizeAlarms(task.getId(), alarms)) {
-            task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
+            task.setModificationDate(DateUtilities.now());
         }
     }
 

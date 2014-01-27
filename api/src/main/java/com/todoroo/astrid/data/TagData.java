@@ -219,6 +219,10 @@ public final class TagData extends RemoteModel {
         return getValue(NAME);
     }
 
+    public void setName(String name) {
+        setValue(NAME, name);
+    }
+
     public String getTagOrdering() {
         return getValue(TAG_ORDERING);
     }
@@ -227,15 +231,43 @@ public final class TagData extends RemoteModel {
         return getValue(LAST_AUTOSYNC);
     }
 
+    public void setLastAutosync(Long lastAutosync) {
+        setValue(LAST_AUTOSYNC, lastAutosync);
+    }
+
     public String getUUID() {
         return getValue(UUID);
+    }
+
+    public void setUUID(String uuid) {
+        setValue(UUID, uuid);
     }
 
     public Integer getTaskCount() {
         return getValue(TASK_COUNT);
     }
 
+    public void setTaskCount(Integer taskCount) {
+        setValue(TASK_COUNT, taskCount);
+    }
+
     public String getMembers() {
         return getValue(MEMBERS);
+    }
+
+    public void setMembers(String members) {
+        setValue(MEMBERS, members);
+    }
+
+    public void setDeletionDate(Long deletionDate) {
+        setValue(DELETION_DATE, deletionDate);
+    }
+
+    public void setMemberCount(Integer memberCount) {
+        setValue(MEMBER_COUNT, memberCount);
+    }
+
+    public void setPicture(String picture) {
+        setValue(PICTURE, picture);
     }
 }

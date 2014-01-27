@@ -195,8 +195,8 @@ public class MissedCallActivity extends Activity {
                     public void snoozeForTime(long time) {
 
                         Task newTask = new Task();
-                        newTask.setValue(Task.TITLE, taskTitle);
-                        newTask.setValue(Task.DUE_DATE, time);
+                        newTask.setTitle(taskTitle);
+                        newTask.setDueDate(time);
                         taskService.save(newTask);
 
                         finish();

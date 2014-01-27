@@ -305,7 +305,7 @@ public final class TagsControlSet extends PopupControlSet {
 
         TagService.getInstance().synchronizeTags(task.getId(), task.getUUID(), tags);
         Flags.set(Flags.TAGS_CHANGED);
-        task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
+        task.setModificationDate(DateUtilities.now());
     }
 
     @Override

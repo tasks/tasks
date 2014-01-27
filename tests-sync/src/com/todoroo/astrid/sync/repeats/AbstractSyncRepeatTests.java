@@ -86,7 +86,7 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
     protected long setCompletionDate(boolean completeBefore, Task t,
             REMOTE_MODEL remoteModel, long dueDate) {
         long completionDate = DateUtilities.now();
-        t.setValue(Task.COMPLETION_DATE, completionDate);
+        t.setCompletionDate(completionDate);
         saveAndTriggerRepeatListener(t);
         return completionDate;
     }
@@ -103,10 +103,10 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
 
     public void testNoRepeat() {
         Task t = new Task();
-        t.setValue(Task.TITLE, "no repeat");
+        t.setTITLE("no repeat");
         taskDao.save(t);
 
-        t.setValue(Task.COMPLETION_DATE, DateUtilities.now());
+        t.setCompletionDate(DateUtilities.now());
         saveAndTriggerRepeatListener(t);
 
         TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.ID));
@@ -120,11 +120,11 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
     protected void testRepeating(boolean completeBefore, boolean fromCompletion,
             RRule rrule, Frequency frequency, String title) {
         Task t = new Task();
-        t.setValue(Task.TITLE, title);
+        t.setTITLE(title);
         long dueDate = DateUtilities.now() + ((completeBefore ? -1 : 1) * DateUtilities.ONE_DAY * 3);
         dueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, (dueDate / 1000L) * 1000L); // Strip milliseconds
 
-        t.setValue(Task.DUE_DATE, dueDate);
+        t.setDUE_DATE(dueDate);
 
         if (rrule == null) {
             rrule = new RRule();
@@ -137,7 +137,7 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
         if (fromCompletion)
             result = result + ";FROM=COMPLETION";
         
-        t.setValue(Task.RECURRENCE, rrule.toIcal());
+        t.setRECURRENCE(rrule.toIcal());
         taskDao.save(t);
 
         waitAndSync();

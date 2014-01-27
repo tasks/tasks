@@ -163,7 +163,7 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
 
     private Task createTask(String title, long order, int indent) {
         Task task = new Task();
-        task.setValue(Task.TITLE, title);
+        task.setTitle(title);
         PluginServices.getTaskService().save(task);
         Metadata metadata = GtasksMetadata.createEmptyMetadata(task.getId());
         metadata.setValue(GtasksMetadata.LIST_ID, "1");

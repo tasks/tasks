@@ -36,7 +36,7 @@ public class TaskDaoTests extends DatabaseTestCase {
 
         // create task "happy"
         Task task = new Task();
-        task.setValue(Task.TITLE, "happy");
+        task.setTitle("happy");
         assertTrue(taskDao.save(task));
         cursor = taskDao.query(
                 Query.select(IDS));
@@ -49,7 +49,7 @@ public class TaskDaoTests extends DatabaseTestCase {
 
         // create task "sad"
         task = new Task();
-        task.setValue(Task.TITLE, "sad");
+        task.setTitle("sad");
         assertTrue(taskDao.save(task));
         cursor = taskDao.query(
                 Query.select(IDS));
@@ -59,7 +59,7 @@ public class TaskDaoTests extends DatabaseTestCase {
         // rename sad to melancholy
         long sadId = task.getId();
         assertNotSame(Task.NO_ID, sadId);
-        task.setValue(Task.TITLE, "melancholy");
+        task.setTitle("melancholy");
         assertTrue(taskDao.save(task));
         cursor = taskDao.query(
                 Query.select(IDS));
@@ -79,35 +79,35 @@ public class TaskDaoTests extends DatabaseTestCase {
     public void testTaskConditions() throws Exception {
         // create normal task
         Task task = new Task();
-        task.setValue(Task.TITLE, "normal");
+        task.setTitle("normal");
         assertTrue(taskDao.save(task));
 
         // create blank task
         task = new Task();
-        task.setValue(Task.TITLE, "");
+        task.setTitle("");
         assertTrue(taskDao.save(task));
 
         // create hidden task
         task = new Task();
-        task.setValue(Task.TITLE, "hidden");
-        task.setValue(Task.HIDE_UNTIL, DateUtilities.now() + 10000);
+        task.setTitle("hidden");
+        task.setHideUntil(DateUtilities.now() + 10000);
         assertTrue(taskDao.save(task));
 
         // create task with deadlines
         task = new Task();
-        task.setValue(Task.TITLE, "deadlineInFuture");
-        task.setValue(Task.DUE_DATE, DateUtilities.now() + 10000);
+        task.setTitle("deadlineInFuture");
+        task.setDueDate(DateUtilities.now() + 10000);
         assertTrue(taskDao.save(task));
 
         task = new Task();
-        task.setValue(Task.TITLE, "deadlineInPast");
-        task.setValue(Task.DUE_DATE, DateUtilities.now() - 10000);
+        task.setTitle("deadlineInPast");
+        task.setDueDate(DateUtilities.now() - 10000);
         assertTrue(taskDao.save(task));
 
         // create completed task
         task = new Task();
-        task.setValue(Task.TITLE, "completed");
-        task.setValue(Task.COMPLETION_DATE, DateUtilities.now() - 10000);
+        task.setTitle("completed");
+        task.setCompletionDate(DateUtilities.now() - 10000);
         assertTrue(taskDao.save(task));
 
         // check has no name
@@ -169,7 +169,7 @@ public class TaskDaoTests extends DatabaseTestCase {
 
         // create task "happy"
         Task task = new Task();
-        task.setValue(Task.TITLE, "happy");
+        task.setTitle("happy");
         assertTrue(taskDao.save(task));
         cursor = taskDao.query(
                 Query.select(IDS));
@@ -193,8 +193,8 @@ public class TaskDaoTests extends DatabaseTestCase {
 
         // try to save task "happy"
         Task task = new Task();
-        task.setValue(Task.TITLE, "happy");
-        task.setValue(Task.ID, 1L);
+        task.setTitle("happy");
+        task.setID(1L);
 
         assertFalse(taskDao.save(task));
 

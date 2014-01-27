@@ -123,4 +123,16 @@ public final class TaskListMetadata extends RemoteModel {
     public String getTaskIDs() {
         return getValue(TASK_IDS);
     }
+
+    public void setTaskIDs(String taskIds) {
+        setValue(TASK_IDS, taskIds);
+    }
+
+    public void setTagUUID(String tagUuid) {
+        setValue(TAG_UUID, tagUuid);
+    }
+
+    public void setFilter(String filter) {
+        setValue(FILTER, filter);
+    }
 }

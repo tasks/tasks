@@ -51,7 +51,7 @@ public final class ShareLinkActivity extends TaskListActivity {
 
             Task task = QuickAddBar.basicQuickAddTask(subject);
             if (task != null) {
-                task.setValue(Task.NOTES, callerIntent.getStringExtra(Intent.EXTRA_TEXT));
+                task.setNotes(callerIntent.getStringExtra(Intent.EXTRA_TEXT));
                 taskService.save(task);
                 handled = true;
                 onTaskListItemClicked(task.getId());

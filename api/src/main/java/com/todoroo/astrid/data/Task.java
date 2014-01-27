@@ -490,12 +490,24 @@ public class Task extends RemoteModel {
         return getValue(DUE_DATE);
     }
 
+    public void setDueDate(Long dueDate) {
+        setValue(DUE_DATE, dueDate);
+    }
+
     public String getRecurrence() {
         return getValue(RECURRENCE);
     }
 
+    public void setRecurrence(String recurrence) {
+        setValue(RECURRENCE, recurrence);
+    }
+
     public Long getCreationDate() {
         return getValue(CREATION_DATE);
+    }
+
+    public void setCreationDate(Long creationDate) {
+        setValue(CREATION_DATE, creationDate);
     }
 
     public String getUUID() {
@@ -506,24 +518,48 @@ public class Task extends RemoteModel {
         return getValue(TITLE);
     }
 
+    public void setTitle(String title) {
+        setValue(TITLE, title);
+    }
+
     public String getDetails() {
         return getValue(DETAILS);
+    }
+
+    public void setDetails(String details) {
+        setValue(DETAILS, details);
     }
 
     public Long getDeletionDate() {
         return getValue(DELETION_DATE);
     }
 
+    public void setDeletionDate(Long deletionDate) {
+        setValue(DELETION_DATE, deletionDate);
+    }
+
     public Long getHideUntil() {
         return getValue(HIDE_UNTIL);
+    }
+
+    public void setHideUntil(Long hideUntil) {
+        setValue(HIDE_UNTIL, hideUntil);
     }
 
     public Long getReminderLast() {
         return getValue(REMINDER_LAST);
     }
 
+    public void setReminderLast(Long reminderLast) {
+        setValue(REMINDER_LAST, reminderLast);
+    }
+
     public Long getReminderSnooze() {
         return getValue(REMINDER_SNOOZE);
+    }
+
+    public void setReminderSnooze(Long reminderSnooze) {
+        setValue(REMINDER_SNOOZE, reminderSnooze);
     }
 
     public Integer getElapsedSeconds() {
@@ -534,8 +570,16 @@ public class Task extends RemoteModel {
         return getValue(TIMER_START);
     }
 
+    public void setTimerStart(Long timerStart) {
+        setValue(TIMER_START, timerStart);
+    }
+
     public Long getRepeatUntil() {
         return getValue(REPEAT_UNTIL);
+    }
+
+    public void setRepeatUntil(Long repeatUntil) {
+        setValue(REPEAT_UNTIL, repeatUntil);
     }
 
     public String getCalendarURI() {
@@ -550,31 +594,83 @@ public class Task extends RemoteModel {
         return getValue(IMPORTANCE);
     }
 
+    public void setImportance(Integer importance) {
+        setValue(IMPORTANCE, importance);
+    }
+
     public Long getCompletionDate() {
         return getValue(COMPLETION_DATE);
+    }
+
+    public void setCompletionDate(Long completionDate) {
+        setValue(COMPLETION_DATE, completionDate);
     }
 
     public Long getDetailsDate() {
         return getValue(DETAILS_DATE);
     }
 
+    public void setDetailsDate(Long detailsDate) {
+        setValue(DETAILS_DATE, detailsDate);
+    }
+
     public String getNotes() {
         return getValue(NOTES);
+    }
+
+    public void setNotes(String notes) {
+        setValue(NOTES, notes);
     }
 
     public Long getModificationDate() {
         return getValue(MODIFICATION_DATE);
     }
 
+    public void setModificationDate(Long modificationDate) {
+        setValue(MODIFICATION_DATE, modificationDate);
+    }
+
     public Integer getReminderFlags() {
         return getValue(REMINDER_FLAGS);
+    }
+
+    public void setReminderFlags(Integer reminderFlags) {
+        setValue(REMINDER_FLAGS, reminderFlags);
     }
 
     public Long getReminderPeriod() {
         return getValue(REMINDER_PERIOD);
     }
 
+    public void setReminderPeriod(Long reminderPeriod) {
+        setValue(REMINDER_PERIOD, reminderPeriod);
+    }
+
     public Integer getEstimatedSeconds() {
         return getValue(ESTIMATED_SECONDS);
+    }
+
+    public void setEstimatedSeconds(Integer estimatedSeconds) {
+        setValue(ESTIMATED_SECONDS, estimatedSeconds);
+    }
+
+    public void setSocialReminder(String socialReminder) {
+        setValue(SOCIAL_REMINDER, socialReminder);
+    }
+
+    public void setPostponeCount(Integer postponeCount) {
+        setValue(POSTPONE_COUNT, postponeCount);
+    }
+
+    public void setELAPSED_SECONDS(Integer elapsedSeconds) {
+        setValue(ELAPSED_SECONDS, elapsedSeconds);
+    }
+
+    public void setCalendarUri(String calendarUri) {
+        setValue(CALENDAR_URI, calendarUri);
+    }
+
+    public void setID(Long id) {
+        setValue(ID, id);
     }
 }

@@ -381,8 +381,8 @@ public class TaskListFragment extends ListFragment implements OnSortSelectedList
                     }
                     defaultOrder = SubtasksHelper.convertTreeToRemoteIds(defaultOrder);
                     taskListMetadata = new TaskListMetadata();
-                    taskListMetadata.setValue(TaskListMetadata.FILTER, filterId);
-                    taskListMetadata.setValue(TaskListMetadata.TASK_IDS, defaultOrder);
+                    taskListMetadata.setFilter(filterId);
+                    taskListMetadata.setTaskIDs(defaultOrder);
                     taskListMetadataDao.createNew(taskListMetadata);
                 }
             }
@@ -391,7 +391,7 @@ public class TaskListFragment extends ListFragment implements OnSortSelectedList
             taskListMetadata = taskListMetadataDao.fetchByTagId(td.getUuid(), TaskListMetadata.PROPERTIES);
             if (taskListMetadata == null && !RemoteModel.isUuidEmpty(tdId)) {
                 taskListMetadata = new TaskListMetadata();
-                taskListMetadata.setValue(TaskListMetadata.TAG_UUID, tdId);
+                taskListMetadata.setTagUUID(tdId);
                 taskListMetadataDao.createNew(taskListMetadata);
             }
         }
@@ -460,7 +460,7 @@ public class TaskListFragment extends ListFragment implements OnSortSelectedList
                         && event.getUnicodeChar() <= '4' && selected != null) {
                     int importance = event.getNumber() - '1';
                     Task task = ((ViewHolder) selected.getTag()).task;
-                    task.setValue(Task.IMPORTANCE, importance);
+                    task.setImportance(importance);
                     taskService.save(task);
                     taskAdapter.setFieldContentsAndVisibility(selected);
                 }
@@ -1063,7 +1063,7 @@ public class TaskListFragment extends ListFragment implements OnSortSelectedList
             itemId = item.getGroupId();
             Task task = new Task();
             task.setId(itemId);
-            task.setValue(Task.DELETION_DATE, 0L);
+            task.setDeletionDate(0L);
             taskService.save(task);
             loadTaskListContent(true);
             return true;

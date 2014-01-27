@@ -148,8 +148,8 @@ public class TagViewFragment extends TaskListFragment {
         try {
             tagData = new TagData();
             if(cursor.getCount() == 0) {
-                tagData.setValue(TagData.NAME, tag);
-                tagData.setValue(TagData.UUID, uuid);
+                tagData.setName(tag);
+                tagData.setUUID(uuid);
                 tagDataService.save(tagData);
             } else {
                 cursor.moveToFirst();
@@ -182,7 +182,7 @@ public class TagViewFragment extends TaskListFragment {
 
         if(tagData != null && sortFlags <= SortHelper.FLAG_REVERSE_SORT &&
                 count != tagData.getTaskCount()) {
-            tagData.setValue(TagData.TASK_COUNT, count);
+            tagData.setTaskCount(count);
             tagDataService.save(tagData);
         }
     }
@@ -198,7 +198,7 @@ public class TagViewFragment extends TaskListFragment {
         if (tagData != null) {
             long lastAutosync = tagData.getLastAutosync();
             if(DateUtilities.now() - lastAutosync > AUTOSYNC_INTERVAL) {
-                tagData.setValue(TagData.LAST_AUTOSYNC, DateUtilities.now());
+                tagData.setLastAutosync(DateUtilities.now());
                 tagDataDao.saveExisting(tagData);
             }
         }

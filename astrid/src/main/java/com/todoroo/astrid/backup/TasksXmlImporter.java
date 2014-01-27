@@ -292,7 +292,7 @@ public class TasksXmlImporter {
             metadata.clear();
             deserializeModel(metadata, Metadata.PROPERTIES);
             metadata.setId(Metadata.NO_ID);
-            metadata.setValue(Metadata.TASK, currentTask.getId());
+            metadata.setTask(currentTask.getId());
             metadataService.save(metadata);
 
             // Construct the TagData from Metadata
@@ -312,7 +312,7 @@ public class TasksXmlImporter {
                         tagdata.clear();
                         tagdata.setId(TagData.NO_ID);
                         tagdata.setUuid(uuid);
-                        tagdata.setValue(TagData.NAME, name);
+                        tagdata.setName(name);
                         tagdataService.save(tagdata);
                     }
                 } finally {
@@ -470,7 +470,7 @@ public class TasksXmlImporter {
                 String listId = strtok.nextToken();
 
                 Metadata metadata = new Metadata();
-                metadata.setValue(Metadata.TASK, currentTask.getId());
+                metadata.setTask(currentTask.getId());
                 metadata.setValue(Metadata.VALUE1, (listId));
                 metadata.setValue(Metadata.VALUE2, (taskSeriesId));
                 metadata.setValue(Metadata.VALUE3, (taskId));
@@ -537,9 +537,9 @@ public class TasksXmlImporter {
 
             if(upgradeNotes != null) {
                 if(task.containsValue(Task.NOTES) && task.getNotes().length() > 0) {
-                    task.setValue(Task.NOTES, task.getNotes() + "\n" + upgradeNotes);
+                    task.setNotes(task.getNotes() + "\n" + upgradeNotes);
                 } else {
-                    task.setValue(Task.NOTES, upgradeNotes);
+                    task.setNotes(upgradeNotes);
                 }
                 upgradeNotes = null;
             }
@@ -557,25 +557,25 @@ public class TasksXmlImporter {
                     // ignore
                     break;
                 case LegacyTaskModel.NAME:
-                    task.setValue(Task.TITLE, value);
+                    task.setTitle(value);
                     break;
                 case LegacyTaskModel.NOTES:
-                    task.setValue(Task.NOTES, value);
+                    task.setNotes(value);
                     break;
                 case LegacyTaskModel.PROGRESS_PERCENTAGE:
                     // ignore
                     break;
                 case LegacyTaskModel.IMPORTANCE:
-                    task.setValue(Task.IMPORTANCE, LegacyImportance.valueOf(value).ordinal());
+                    task.setImportance(LegacyImportance.valueOf(value).ordinal());
                     break;
                 case LegacyTaskModel.ESTIMATED_SECONDS:
-                    task.setValue(Task.ESTIMATED_SECONDS, Integer.parseInt(value));
+                    task.setEstimatedSeconds(Integer.parseInt(value));
                     break;
                 case LegacyTaskModel.ELAPSED_SECONDS:
-                    task.setValue(Task.ELAPSED_SECONDS, Integer.parseInt(value));
+                    task.setELAPSED_SECONDS(Integer.parseInt(value));
                     break;
                 case LegacyTaskModel.TIMER_START:
-                    task.setValue(Task.TIMER_START,
+                    task.setTimerStart(
                             BackupDateUtilities.getDateFromIso8601String(value).getTime());
                     break;
                 case LegacyTaskModel.DEFINITE_DUE_DATE:
@@ -585,7 +585,7 @@ public class TasksXmlImporter {
                         upgradeNotes = "Project Deadline: " +
                                 DateUtilities.getDateString(preferredDate);
                     }
-                    task.setValue(Task.DUE_DATE,
+                    task.setDueDate(
                             BackupDateUtilities.getTaskDueDateFromIso8601String(value).getTime());
                     break;
                 case LegacyTaskModel.PREFERRED_DUE_DATE:
@@ -593,39 +593,39 @@ public class TasksXmlImporter {
                     if (definite != null) {
                         // handled above
                     } else {
-                        task.setValue(Task.DUE_DATE,
+                        task.setDueDate(
                                 BackupDateUtilities.getTaskDueDateFromIso8601String(value).getTime());
                     }
                     break;
                 case LegacyTaskModel.HIDDEN_UNTIL:
-                    task.setValue(Task.HIDE_UNTIL,
+                    task.setHideUntil(
                             BackupDateUtilities.getDateFromIso8601String(value).getTime());
                     break;
                 case LegacyTaskModel.BLOCKING_ON:
                     // ignore
                     break;
                 case LegacyTaskModel.POSTPONE_COUNT:
-                    task.setValue(Task.POSTPONE_COUNT, Integer.parseInt(value));
+                    task.setPostponeCount(Integer.parseInt(value));
                     break;
                 case LegacyTaskModel.NOTIFICATIONS:
-                    task.setValue(Task.REMINDER_PERIOD, Integer.parseInt(value) * 1000L);
+                    task.setReminderPeriod(Integer.parseInt(value) * 1000L);
                     break;
                 case LegacyTaskModel.CREATION_DATE:
-                    task.setValue(Task.CREATION_DATE,
+                    task.setCreationDate(
                             BackupDateUtilities.getDateFromIso8601String(value).getTime());
                     break;
                 case LegacyTaskModel.COMPLETION_DATE:
                     String completion = xpp.getAttributeValue(null, LegacyTaskModel.PROGRESS_PERCENTAGE);
                     if ("100".equals(completion)) {
-                        task.setValue(Task.COMPLETION_DATE,
+                        task.setCompletionDate(
                                 BackupDateUtilities.getDateFromIso8601String(value).getTime());
                     }
                     break;
                 case LegacyTaskModel.NOTIFICATION_FLAGS:
-                    task.setValue(Task.REMINDER_FLAGS, Integer.parseInt(value));
+                    task.setReminderFlags(Integer.parseInt(value));
                     break;
                 case LegacyTaskModel.LAST_NOTIFIED:
-                    task.setValue(Task.REMINDER_LAST,
+                    task.setReminderLast(
                             BackupDateUtilities.getDateFromIso8601String(value).getTime());
                     break;
                 case "repeat_interval":
@@ -638,7 +638,7 @@ public class TasksXmlImporter {
                         LegacyRepeatInterval interval = LegacyRepeatInterval.valueOf(repeatInterval);
                         LegacyRepeatInfo repeatInfo = new LegacyRepeatInfo(interval, repeatValue);
                         RRule rrule = repeatInfo.toRRule();
-                        task.setValue(Task.RECURRENCE, rrule.toIcal());
+                        task.setRecurrence(rrule.toIcal());
                     }
                     break;
                 case LegacyTaskModel.FLAGS:

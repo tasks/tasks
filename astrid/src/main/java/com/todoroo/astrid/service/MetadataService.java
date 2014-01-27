@@ -104,7 +104,7 @@ public class MetadataService {
         boolean dirty = false;
         HashSet<ContentValues> newMetadataValues = new HashSet<>();
         for(Metadata metadatum : metadata) {
-            metadatum.setValue(Metadata.TASK, taskId);
+            metadatum.setTask(taskId);
             metadatum.clearValue(Metadata.CREATION_DATE);
             metadatum.clearValue(Metadata.ID);
 
@@ -152,7 +152,7 @@ public class MetadataService {
         // everything that remains shall be written
         for(ContentValues values : newMetadataValues) {
             item.clear();
-            item.setValue(Metadata.CREATION_DATE, DateUtilities.now());
+            item.setCreationDate(DateUtilities.now());
             item.mergeWith(values);
             metadataDao.persist(item);
             dirty = true;

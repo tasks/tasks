@@ -99,7 +99,7 @@ public class TagSettingsActivity extends ActionBarActivity {
         if (tagData == null) {
             isNewTag = true;
             tagData = new TagData();
-            tagData.setValue(TagData.UUID, UUIDHelper.newUUID());
+            tagData.setUUID(UUIDHelper.newUUID());
         }
 
         ActionBar actionBar = getSupportActionBar();
@@ -167,13 +167,13 @@ public class TagSettingsActivity extends ActionBarActivity {
         TagService service = TagService.getInstance();
         if (nameChanged) {
             if (oldName.equalsIgnoreCase(newName)) { // Change the capitalization of a list manually
-                tagData.setValue(TagData.NAME, newName);
+                tagData.setName(newName);
                 service.rename(tagData.getUuid(), newName);
             } else { // Rename list--check for existing name
                 newName = service.getTagWithCase(newName);
                 tagName.setText(newName);
                 if (!newName.equals(oldName)) {
-                    tagData.setValue(TagData.NAME, newName);
+                    tagData.setName(newName);
                     service.rename(tagData.getUuid(), newName);
                 }
             }
@@ -182,13 +182,13 @@ public class TagSettingsActivity extends ActionBarActivity {
         if (setBitmap != null) {
             JSONObject pictureJson = RemoteModel.PictureHelper.savePictureJson(this, setBitmap);
             if (pictureJson != null) {
-                tagData.setValue(TagData.PICTURE, pictureJson.toString());
+                tagData.setPicture(pictureJson.toString());
             }
         }
 
         JSONArray members = new JSONArray();
 
-        tagData.setValue(TagData.MEMBER_COUNT, members.length());
+        tagData.setMemberCount(members.length());
 
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(tagName.getWindowToken(), 0);
@@ -213,7 +213,7 @@ public class TagSettingsActivity extends ActionBarActivity {
         }
         try {
             String tagPicture = RemoteModel.PictureHelper.getPictureHash(tagData);
-            tagData.setValue(TagData.PICTURE, tagPicture);
+            tagData.setPicture(tagPicture);
         }
         catch (Exception e) {
             e.printStackTrace();

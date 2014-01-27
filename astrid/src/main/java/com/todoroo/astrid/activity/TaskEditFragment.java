@@ -605,7 +605,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         if (model.getTitle().length() == 0) {
 
             // set deletion date until task gets a title
-            model.setValue(Task.DELETION_DATE, DateUtilities.now());
+            model.setDeletionDate(DateUtilities.now());
         }
 
         setIsNewTask(model.getTitle().length() == 0);
@@ -665,7 +665,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
 
         if (title.getText().length() > 0) {
-            model.setValue(Task.DELETION_DATE, 0L);
+            model.setDeletionDate(0L);
         }
 
         if (title.getText().length() == 0) {

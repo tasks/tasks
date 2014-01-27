@@ -255,19 +255,19 @@ public class Astrid2TaskProvider extends ContentProvider {
 
             // map values
             if(values.containsKey(NAME)) {
-                task.setValue(Task.TITLE, values.getAsString(NAME));
+                task.setTitle(values.getAsString(NAME));
             }
             if(values.containsKey(PREFERRED_DUE_DATE)) {
-                task.setValue(Task.DUE_DATE, values.getAsLong(PREFERRED_DUE_DATE));
+                task.setDueDate(values.getAsLong(PREFERRED_DUE_DATE));
             }
             if(values.containsKey(DEFINITE_DUE_DATE)) {
-                task.setValue(Task.DUE_DATE, values.getAsLong(DEFINITE_DUE_DATE));
+                task.setDueDate(values.getAsLong(DEFINITE_DUE_DATE));
             }
             if(values.containsKey(IMPORTANCE)) {
-                task.setValue(Task.IMPORTANCE, values.getAsInteger(IMPORTANCE));
+                task.setImportance(values.getAsInteger(IMPORTANCE));
             }
             if(values.containsKey(COMPLETED)) {
-                task.setValue(Task.COMPLETION_DATE, values.getAsBoolean(COMPLETED) ? DateUtilities.now() : 0);
+                task.setCompletionDate(values.getAsBoolean(COMPLETED) ? DateUtilities.now() : 0);
             }
 
             // map selection criteria

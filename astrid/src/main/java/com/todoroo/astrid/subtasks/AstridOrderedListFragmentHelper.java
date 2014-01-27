@@ -250,7 +250,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
             ArrayList<String> chained = chainedCompletions.get(itemId);
             if(chained != null) {
                 for(String taskId : chained) {
-                    model.setValue(Task.COMPLETION_DATE, completionDate);
+                    model.setCompletionDate(completionDate);
                     taskService.update(Task.UUID.eq(taskId), model);
                     model.clear();
 
@@ -266,7 +266,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
             @Override
             public void visitNode(AstridOrderedListUpdater.Node node) {
                 String uuid = node.uuid;
-                model.setValue(Task.COMPLETION_DATE, completionDate);
+                model.setCompletionDate(completionDate);
                 taskService.update(Task.UUID.eq(uuid), model);
                 model.clear();
 

@@ -133,7 +133,7 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
             } catch (JSONException e) {
                 //
             }
-            tagData.setValue(TagData.MEMBERS, ""); //$NON-NLS-1$
+            tagData.setMembers(""); //$NON-NLS-1$
             PluginServices.getTagDataDao().saveExisting(tagData);
         }
 

@@ -81,7 +81,7 @@ public class MetadataDao extends DatabaseDao<Metadata> {
             Criterion metadataCriteria) {
         HashSet<ContentValues> newMetadataValues = new HashSet<>();
         for(Metadata metadatum : metadata) {
-            metadatum.setValue(Metadata.TASK, taskId);
+            metadatum.setTask(taskId);
             metadatum.clearValue(Metadata.ID);
             newMetadataValues.add(metadatum.getMergedValues());
         }
@@ -121,7 +121,7 @@ public class MetadataDao extends DatabaseDao<Metadata> {
     @Override
     public boolean persist(Metadata item) {
         if(!item.containsValue(Metadata.CREATION_DATE)) {
-            item.setValue(Metadata.CREATION_DATE, DateUtilities.now());
+            item.setCreationDate(DateUtilities.now());
         }
 
         boolean state = super.persist(item);

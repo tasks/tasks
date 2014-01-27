@@ -92,7 +92,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
 
         //Set new title on local task
         String newTitle = "Astrid task 2 edited";
-        localTask.setValue(Task.TITLE, newTitle);
+        localTask.setTITLE(newTitle);
         taskService.save(localTask);
 
         whenInvokeSync();
@@ -146,7 +146,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
 
         //Set new due date on local task
         long newDueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, new Date(116, 1, 8).getTime());
-        localTask.setValue(Task.DUE_DATE, newDueDate);
+        localTask.setDUE_DATE(newDueDate);
         taskService.save(localTask);
 
         whenInvokeSync();
@@ -219,7 +219,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
 
         AndroidUtilities.sleepDeep(TIME_BETWEEN_SYNCS);
 
-        localTask.setValue(Task.DUE_DATE, newLocalDate);
+        localTask.setDUE_DATE(newLocalDate);
         taskService.save(localTask);
 
         whenInvokeSync();
@@ -252,7 +252,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
         long newLocalDate = new Date(128, 5, 11).getTime();
         long newRemoteDate = new Date(121, 5, 25).getTime();
 
-        localTask.setValue(Task.DUE_DATE, newLocalDate);
+        localTask.setDUE_DATE(newLocalDate);
         taskService.save(localTask);
 
         AndroidUtilities.sleepDeep(TIME_BETWEEN_SYNCS);
@@ -279,7 +279,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
         date.setMinutes(0);
         date.setSeconds(0);
         long dueDate = date.getTime();
-        localTask.setValue(Task.DUE_DATE, dueDate);
+        localTask.setDUE_DATE(dueDate);
         taskService.save(localTask);
 
         return localTask;
@@ -300,7 +300,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
         AndroidUtilities.sleepDeep(TIME_BETWEEN_SYNCS);
 
         String newNote = "New local note";
-        localTask.setValue(Task.NOTES, newNote);
+        localTask.setNOTES(newNote);
         taskService.save(localTask);
 
         whenInvokeSync();
@@ -354,7 +354,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
         String newLocalNote = "New local note";
         String newRemoteNote = "New remote note";
 
-        localTask.setValue(Task.NOTES, newLocalNote);
+        localTask.setNOTES(newLocalNote);
         taskService.save(localTask);
 
         AndroidUtilities.sleepDeep(TIME_BETWEEN_SYNCS);
@@ -373,7 +373,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
     private Task createLocalTaskForNoteTests(String addToTitle) {
         Task localTask = createNewLocalTask("Note will change" + addToTitle);
         String note = "Original note";
-        localTask.setValue(Task.NOTES, note);
+        localTask.setNOTES(note);
         taskService.save(localTask);
 
         return localTask;
@@ -394,7 +394,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
         AndroidUtilities.sleepDeep(TIME_BETWEEN_SYNCS);
 
         long completion = DateUtilities.now();
-        localTask.setValue(Task.COMPLETION_DATE, completion);
+        localTask.setCompletionDate(completion);
         taskService.save(localTask);
 
         whenInvokeSync();
@@ -489,7 +489,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
   //Create a new Astrid task and save it to the database
     private Task createNewLocalTask(String title) {
         Task task = new Task();
-        task.setValue(Task.TITLE, title);
+        task.setTITLE(title);
         taskService.save(task);
         return task;
     }

@@ -162,7 +162,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                                     cursor.close();
                                 }
                                 Task template = new Task();
-                                template.setValue(Task.DELETION_DATE,
+                                template.setDeletionDate(
                                         DateUtilities.now());
                                 int result = taskService.update(
                                         Task.COMPLETION_DATE.gt(0), template);
@@ -242,7 +242,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                                 // mass update the CALENDAR_URI here,
                                 // since the GCalHelper doesnt save it due to performance-reasons
                                 Task template = new Task();
-                                template.setValue(Task.CALENDAR_URI, ""); //$NON-NLS-1$
+                                template.setCalendarUri(""); //$NON-NLS-1$
                                 taskService.update(
                                         Criterion.and(Task.COMPLETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull()),
                                         template);
@@ -284,7 +284,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                                 // mass update the CALENDAR_URI here,
                                 // since the GCalHelper doesnt save it due to performance-reasons
                                 Task template = new Task();
-                                template.setValue(Task.CALENDAR_URI, ""); //$NON-NLS-1$
+                                template.setCalendarUri(""); //$NON-NLS-1$
                                 taskService.update(
                                         Task.CALENDAR_URI.isNotNull(),
                                         template);

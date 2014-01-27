@@ -365,16 +365,16 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             message = " ";
         }
         UserActivity userActivity = new UserActivity();
-        userActivity.setValue(UserActivity.MESSAGE, message);
-        userActivity.setValue(UserActivity.ACTION, actionCode);
-        userActivity.setValue(UserActivity.USER_UUID, Task.USER_ID_SELF);
-        userActivity.setValue(UserActivity.TARGET_ID, uuid);
-        userActivity.setValue(UserActivity.TARGET_NAME, title);
-        userActivity.setValue(UserActivity.CREATED_AT, DateUtilities.now());
+        userActivity.setMessage(message);
+        userActivity.setAction(actionCode);
+        userActivity.setUserUUID(Task.USER_ID_SELF);
+        userActivity.setTargetId(uuid);
+        userActivity.setTargetName(title);
+        userActivity.setCreatedAt(DateUtilities.now());
         if (usePicture && pendingCommentPicture != null) {
             JSONObject pictureJson = RemoteModel.PictureHelper.savePictureJson(activity, pendingCommentPicture);
             if (pictureJson != null) {
-                userActivity.setValue(UserActivity.PICTURE, pictureJson.toString());
+                userActivity.setPicture(pictureJson.toString());
             }
         }
 

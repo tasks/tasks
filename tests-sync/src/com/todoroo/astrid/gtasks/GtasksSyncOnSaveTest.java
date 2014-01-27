@@ -67,7 +67,7 @@ public class GtasksSyncOnSaveTest extends DatabaseTestCase {
 
     private Task setupLocalTaskModel(String title) {
         Task localTask = new Task();
-        localTask.setValue(Task.TITLE, title);
+        localTask.setTITLE(title);
         return localTask;
     }
 
@@ -84,7 +84,7 @@ public class GtasksSyncOnSaveTest extends DatabaseTestCase {
         Task localTask = performBasicCreation("-title will change");
 
         String newTitle = "Title has changed!";
-        localTask.setValue(Task.TITLE, newTitle);
+        localTask.setTITLE(newTitle);
         taskService.save(localTask);
 
         AndroidUtilities.sleepDeep(TIME_TO_WAIT);
@@ -98,7 +98,7 @@ public class GtasksSyncOnSaveTest extends DatabaseTestCase {
         Task localTask = performBasicCreation("-due date will change");
 
         long dueDate = new Date(115, 2, 14).getTime();
-        localTask.setValue(Task.DUE_DATE, dueDate);
+        localTask.setDUE_DATE(dueDate);
         taskService.save(localTask);
 
         AndroidUtilities.sleepDeep(TIME_TO_WAIT);
@@ -112,7 +112,7 @@ public class GtasksSyncOnSaveTest extends DatabaseTestCase {
         Task localTask = performBasicCreation("-notes will change");
 
         String notes = "Noted!";
-        localTask.setValue(Task.NOTES, notes);
+        localTask.setNOTES(notes);
         taskService.save(localTask);
 
         AndroidUtilities.sleepDeep(TIME_TO_WAIT);
@@ -126,7 +126,7 @@ public class GtasksSyncOnSaveTest extends DatabaseTestCase {
         Task localTask = performBasicCreation("-will be completed");
 
         long completionDate = (DateUtilities.now() / 1000L) * 1000L;
-        localTask.setValue(Task.COMPLETION_DATE, completionDate);
+        localTask.setCompletionDate(completionDate);
         taskService.save(localTask);
 
         AndroidUtilities.sleepDeep(TIME_TO_WAIT);
@@ -141,7 +141,7 @@ public class GtasksSyncOnSaveTest extends DatabaseTestCase {
         Task localTask = performBasicCreation("-will be deleted");
 
         long deletionDate = DateUtilities.now();
-        localTask.setValue(Task.DELETION_DATE, deletionDate);
+        localTask.setDELETION_DATE(deletionDate);
         taskService.save(localTask);
 
         AndroidUtilities.sleepDeep(TIME_TO_WAIT);

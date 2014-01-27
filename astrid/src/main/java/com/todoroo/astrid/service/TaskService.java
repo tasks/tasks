@@ -97,9 +97,9 @@ public class TaskService {
      */
     public void setComplete(Task item, boolean completed) {
         if(completed) {
-            item.setValue(Task.COMPLETION_DATE, DateUtilities.now());
+            item.setCompletionDate(DateUtilities.now());
         } else {
-            item.setValue(Task.COMPLETION_DATE, 0L);
+            item.setCompletionDate(0L);
         }
 
         taskDao.save(item);
@@ -143,7 +143,7 @@ public class TaskService {
                         metadata.setValue(GtasksMetadata.ID, ""); //$NON-NLS-1$
                     }
 
-                    metadata.setValue(Metadata.TASK, newId);
+                    metadata.setTask(newId);
                     metadata.clearValue(Metadata.ID);
                     metadataDao.createNew(metadata);
                 }
@@ -171,7 +171,7 @@ public class TaskService {
             item.clear();
             item.setId(id);
             GCalHelper.deleteTaskEvent(item);
-            item.setValue(Task.DELETION_DATE, DateUtilities.now());
+            item.setDeletionDate(DateUtilities.now());
             taskDao.save(item);
         }
     }
@@ -252,7 +252,7 @@ public class TaskService {
      */
     public void clearDetails(Criterion criterion) {
         Task template = new Task();
-        template.setValue(Task.DETAILS_DATE, 0L);
+        template.setDetailsDate(0L);
         taskDao.update(criterion, template);
     }
 
@@ -264,7 +264,7 @@ public class TaskService {
         TodorooCursor<Task> cursor = taskDao.rawQuery(selection, selectionArgs, Task.ID);
         try {
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                taskValues.setValue(Task.ID, cursor.get(Task.ID));
+                taskValues.setID(cursor.get(Task.ID));
                 taskDao.save(taskValues);
             }
             return cursor.getCount();
@@ -355,10 +355,10 @@ public class TaskService {
         if (!Task.USER_ID_SELF.equals(userId) && !ActFmPreferenceService.userId().equals(userId)) {
             clone.putTransitory(TRANS_ASSIGNED, true);
         }
-        clone.setValue(Task.CREATION_DATE, DateUtilities.now());
-        clone.setValue(Task.COMPLETION_DATE, 0L);
-        clone.setValue(Task.DELETION_DATE, 0L);
-        clone.setValue(Task.CALENDAR_URI, ""); //$NON-NLS-1$
+        clone.setCreationDate(DateUtilities.now());
+        clone.setCompletionDate(0L);
+        clone.setDeletionDate(0L);
+        clone.setCalendarUri(""); //$NON-NLS-1$
         GCalHelper.createTaskEventIfEnabled(clone);
 
         save(clone);
@@ -380,7 +380,7 @@ public class TaskService {
      */
     public static Task createWithValues(Task task, ContentValues values, String title) {
         if (title != null) {
-            task.setValue(Task.TITLE, title);
+            task.setTitle(title);
         }
 
         ArrayList<String> tags = new ArrayList<>();
@@ -425,7 +425,7 @@ public class TaskService {
 
         if (forMetadata != null && forMetadata.size() > 0) {
             Metadata metadata = new Metadata();
-            metadata.setValue(Metadata.TASK, task.getId());
+            metadata.setTask(task.getId());
             metadata.mergeWith(forMetadata);
             if (TaskToTagMetadata.KEY.equals(metadata.getKey())) {
                 if (metadata.containsNonNullValue(TaskToTagMetadata.TAG_UUID) && !RemoteModel.NO_UUID.equals(metadata.getValue(TaskToTagMetadata.TAG_UUID))) {

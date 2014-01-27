@@ -43,8 +43,8 @@ public class NotificationTests extends DatabaseTestCase {
     /** test that a normal task gets a notification */
     public void testAlarmToNotification() {
         final Task task = new Task();
-        task.setValue(Task.TITLE, "rubberduck");
-        task.setValue(Task.DUE_DATE, DateUtilities.now() - DateUtilities.ONE_DAY);
+        task.setTitle("rubberduck");
+        task.setDueDate(DateUtilities.now() - DateUtilities.ONE_DAY);
         taskDao.persist(task);
 
         final MutableBoolean triggered = new MutableBoolean();
@@ -67,8 +67,8 @@ public class NotificationTests extends DatabaseTestCase {
     /** test that a deleted task doesn't get a notification */
     public void testDeletedTask() {
         final Task task = new Task();
-        task.setValue(Task.TITLE, "gooeyduck");
-        task.setValue(Task.DELETION_DATE, DateUtilities.now());
+        task.setTitle("gooeyduck");
+        task.setDeletionDate(DateUtilities.now());
         taskDao.persist(task);
 
         Notifications.setNotificationManager(new NotificationManager() {
@@ -92,8 +92,8 @@ public class NotificationTests extends DatabaseTestCase {
     /** test that a completed task doesn't get a notification */
     public void testCompletedTask() {
         final Task task = new Task();
-        task.setValue(Task.TITLE, "rubberduck");
-        task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
+        task.setTitle("rubberduck");
+        task.setCompletionDate(DateUtilities.now());
         taskDao.persist(task);
 
         Notifications.setNotificationManager(new NotificationManager() {
@@ -117,7 +117,7 @@ public class NotificationTests extends DatabaseTestCase {
     /** test of quiet hours */
     public void testQuietHours() {
         final Task task = new Task();
-        task.setValue(Task.TITLE, "rubberduck");
+        task.setTitle("rubberduck");
         taskDao.persist(task);
         Intent intent = new Intent();
         intent.putExtra(Notifications.ID_KEY, task.getId());
@@ -166,7 +166,7 @@ public class NotificationTests extends DatabaseTestCase {
         new Notifications().onReceive(getContext(), intent);
 
         // nonstop notification still sounds
-        task.setValue(Task.REMINDER_FLAGS, Task.NOTIFY_MODE_NONSTOP);
+        task.setReminderFlags(Task.NOTIFY_MODE_NONSTOP);
         taskDao.persist(task);
         Notifications.setNotificationManager(new TestNotificationManager() {
             public void notify(int id, Notification notification) {

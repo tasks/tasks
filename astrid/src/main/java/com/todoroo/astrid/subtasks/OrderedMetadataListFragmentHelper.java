@@ -261,7 +261,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
             if(chained != null) {
                 for(Long taskId : chained) {
                     model.setId(taskId);
-                    model.setValue(Task.COMPLETION_DATE, completionDate);
+                    model.setCompletionDate(completionDate);
                     taskService.save(model);
                     model.clear();
 
@@ -285,7 +285,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
                 }
 
                 model.setId(node.taskId);
-                model.setValue(Task.COMPLETION_DATE, completionDate);
+                model.setCompletionDate(completionDate);
                 taskService.save(model);
                 model.clear();
 

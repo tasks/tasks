@@ -67,7 +67,7 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
             completionDate = dueDate - DateUtilities.ONE_DAY;
         else
             completionDate = dueDate + DateUtilities.ONE_DAY;
-        t.setValue(Task.COMPLETION_DATE, completionDate);
+        t.setCompletionDate(completionDate);
         saveAndTriggerRepeatListener(t);
         return completionDate;
     }
@@ -88,10 +88,10 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
 
     public void testNoRepeat() {
         Task t = new Task();
-        t.setValue(Task.TITLE, "no repeat");
+        t.setTitle("no repeat");
         taskDao.save(t);
 
-        t.setValue(Task.COMPLETION_DATE, DateUtilities.now());
+        t.setCompletionDate(DateUtilities.now());
         saveAndTriggerRepeatListener(t);
 
         TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.ID));
@@ -105,14 +105,14 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
     protected void testRepeating(boolean completeBefore, boolean fromCompletion,
             RRule rrule, Frequency frequency, String title) {
         Task t = new Task();
-        t.setValue(Task.TITLE, title);
+        t.setTitle(title);
         long dueDate = DateUtilities.now() + DateUtilities.ONE_DAY * 3;
         Date adjustDate = newDate(dueDate);
         adjustDate.setSeconds(1);
         dueDate = adjustDate.getTime();
         dueDate = (dueDate / 1000L) * 1000L; // Strip milliseconds
 
-        t.setValue(Task.DUE_DATE, dueDate);
+        t.setDueDate(dueDate);
 
         if (rrule == null) {
             rrule = new RRule();
@@ -124,7 +124,7 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
         String result = rrule.toIcal();
         if (fromCompletion)
             result = result + ";FROM=COMPLETION";
-        t.setValue(Task.RECURRENCE, result);
+        t.setRecurrence(result);
         taskDao.save(t);
 
         waitAndSync();

@@ -273,7 +273,7 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
             return;
         }
         long value = task.createHideUntil(item.setting, item.date);
-        task.setValue(Task.HIDE_UNTIL, value);
+        task.setHideUntil(value);
     }
 
 }

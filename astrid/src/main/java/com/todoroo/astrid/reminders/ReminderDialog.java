@@ -49,7 +49,7 @@ public class ReminderDialog extends Dialog {
             public void snoozeForTime(long time) {
                 Task task = new Task();
                 task.setId(taskId);
-                task.setValue(Task.REMINDER_SNOOZE, time);
+                task.setReminderSnooze(time);
                 PluginServices.getTaskService().save(task);
                 dismiss();
             }

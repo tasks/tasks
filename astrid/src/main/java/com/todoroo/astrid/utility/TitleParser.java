@@ -74,7 +74,7 @@ public class TitleParser {
             }
             inputText = inputText.substring(0, m.start()) + inputText.substring(m.end());
         }
-        task.setValue(Task.TITLE, inputText.trim());
+        task.setTitle(inputText.trim());
     }
 
     //helper method for priorityHelper. converts the string to a Task Importance
@@ -112,7 +112,7 @@ public class TitleParser {
                 Matcher m = importancePattern.matcher(inputText);
                 if(m.find()) {
                     result = true;
-                    task.setValue(Task.IMPORTANCE, strToPriority(m.group(2).trim()));
+                    task.setImportance(strToPriority(m.group(2).trim()));
                     int start = m.start() == 0 ? 0 : m.start() + 1;
                     inputText = inputText.substring(0, start) + inputText.substring(m.end());
 
@@ -121,7 +121,7 @@ public class TitleParser {
                 }
             }
         }
-        task.setValue(Task.TITLE, inputText.trim());
+        task.setTitle(inputText.trim());
         return result;
     }
 
@@ -356,12 +356,12 @@ public class TitleParser {
 
         if(cal != null) { //if at least one of the above has been called, write to task. else do nothing.
             if (!TextUtils.isEmpty(inputText)) {
-                task.setValue(Task.TITLE, inputText);
+                task.setTitle(inputText);
             }
             if (containsSpecificTime) {
-                task.setValue(Task.DUE_DATE, Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, cal.getTime().getTime()));
+                task.setDueDate(Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, cal.getTime().getTime()));
             } else {
-                task.setValue(Task.DUE_DATE, Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, cal.getTime().getTime()));
+                task.setDueDate(Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, cal.getTime().getTime()));
             }
             return true;
         }
@@ -403,7 +403,7 @@ public class TitleParser {
                 RRule rrule = new RRule();
                 rrule.setFreq(rtime);
                 rrule.setInterval(findInterval(inputText));
-                task.setValue(Task.RECURRENCE, rrule.toIcal());
+                task.setRecurrence(rrule.toIcal());
                 return true;
             }
         }
@@ -417,7 +417,7 @@ public class TitleParser {
                 rrule.setFreq(rtime);
                 rrule.setInterval(1);
                 String thing = rrule.toIcal();
-                task.setValue(Task.RECURRENCE, thing);
+                task.setRecurrence(thing);
                 return true;
             }
         }

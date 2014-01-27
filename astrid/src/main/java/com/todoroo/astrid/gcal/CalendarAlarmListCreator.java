@@ -46,7 +46,7 @@ public class CalendarAlarmListCreator extends Activity {
         @Override
         public void onClick(View v) {
             TagData tagData = new TagData();
-            tagData.setValue(TagData.NAME, tagName);
+            tagData.setName(tagName);
             tagDataService.save(tagData);
             dismissWithAnimation();
         }

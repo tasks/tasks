@@ -36,8 +36,8 @@ public class RepeatTaskCompleteListenerTest {
     {
         completionDate = new DateTime(2014, 1, 7, 17, 17, 32, 900).getMillis();
         dueDate = new DateTime(2013, 12, 31, 17, 17, 32, 900).getMillis();
-        task.setValue(Task.DUE_DATE, dueDate);
-        task.setValue(Task.COMPLETION_DATE, completionDate);
+        task.setDueDate(dueDate);
+        task.setCompletionDate(completionDate);
     }
 
     @Test

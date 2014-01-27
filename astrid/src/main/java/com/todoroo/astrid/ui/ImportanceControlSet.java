@@ -140,7 +140,7 @@ public class ImportanceControlSet extends TaskEditControlSet {
     @Override
     protected void writeToModelAfterInitialized(Task task) {
         if(getImportance() != null) {
-            task.setValue(Task.IMPORTANCE, getImportance());
+            task.setImportance(getImportance());
         }
     }
 }

@@ -11,14 +11,14 @@ public class SubtasksHelperTest extends SubtasksTestCase {
         super.setUp();
         createTasks();
         TaskListMetadata m = new TaskListMetadata();
-        m.setValue(TaskListMetadata.FILTER, TaskListMetadata.FILTER_ID_ALL);
+        m.setFilter(TaskListMetadata.FILTER_ID_ALL);
         updater.initializeFromSerializedTree(m, filter, SubtasksHelper.convertTreeToRemoteIds(DEFAULT_SERIALIZED_TREE));
     }
 
     private void createTask(String title, String uuid) {
         Task t = new Task();
-        t.setValue(Task.TITLE, title);
-        t.setValue(Task.UUID, uuid);
+        t.setTitle(title);
+        t.setUUID(uuid);
         PluginServices.getTaskService().save(t);
     }
 

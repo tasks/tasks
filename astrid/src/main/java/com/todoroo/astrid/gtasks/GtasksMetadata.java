@@ -54,7 +54,7 @@ public class GtasksMetadata {
      */
     public static Metadata createEmptyMetadata(long taskId) {
         Metadata metadata = new Metadata();
-        metadata.setValue(Metadata.KEY, GtasksMetadata.METADATA_KEY);
+        metadata.setKey(GtasksMetadata.METADATA_KEY);
         metadata.setValue(ID, ""); //$NON-NLS-1$
 
         String defaultList = Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST);
@@ -67,7 +67,7 @@ public class GtasksMetadata {
         metadata.setValue(INDENT, 0);
         metadata.setValue(ORDER, DateUtilities.now());
         if(taskId > AbstractModel.NO_ID) {
-            metadata.setValue(Metadata.TASK, taskId);
+            metadata.setTask(taskId);
         }
         return metadata;
     }

@@ -29,12 +29,12 @@ public class TaskToTagMetadata {
      */
     public static Metadata newTagMetadata(long taskId, String taskUuid, String tagName, String tagUuid) {
         Metadata link = new Metadata();
-        link.setValue(Metadata.KEY, KEY);
-        link.setValue(Metadata.TASK, taskId);
+        link.setKey(KEY);
+        link.setTask(taskId);
         link.setValue(TAG_NAME, tagName);
         link.setValue(TASK_UUID, taskUuid);
         link.setValue(TAG_UUID, tagUuid);
-        link.setValue(Metadata.DELETION_DATE, 0L);
+        link.setDeletionDate(0L);
         return link;
     }
 }

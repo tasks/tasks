@@ -155,7 +155,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         metadata.setValue(GtasksMetadata.INDENT, indentation);
         metadata.setValue(GtasksMetadata.ORDER, order);
         metadata.setValue(GtasksMetadata.LIST_ID, "list");
-        metadata.setValue(Metadata.TASK, newTask.getId());
+        metadata.setTask(newTask.getId());
         PluginServices.getMetadataService().save(metadata);
         return newTask;
     }

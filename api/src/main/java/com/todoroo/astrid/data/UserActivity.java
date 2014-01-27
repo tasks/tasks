@@ -112,7 +112,39 @@ public class UserActivity extends RemoteModel {
         return getValue(CREATED_AT);
     }
 
+    public void setCreatedAt(Long createdAt) {
+        setValue(CREATED_AT, createdAt);
+    }
+
     public String getMessage() {
         return getValue(MESSAGE);
+    }
+
+    public void setMessage(String message) {
+        setValue(MESSAGE, message);
+    }
+
+    public void setUserUUID(String userUuid) {
+        setValue(USER_UUID, userUuid);
+    }
+
+    public void setTargetName(String targetName) {
+        setValue(TARGET_NAME, targetName);
+    }
+
+    public void setTargetId(String targetId) {
+        setValue(TARGET_ID, targetId);
+    }
+
+    public void setAction(String action) {
+        setValue(ACTION, action);
+    }
+
+    public void setUUID(String uuid) {
+        setValue(UUID, uuid);
+    }
+
+    public void setPicture(String picture) {
+        setValue(PICTURE, picture);
     }
 }

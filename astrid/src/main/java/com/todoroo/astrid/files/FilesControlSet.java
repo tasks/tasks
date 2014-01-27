@@ -118,7 +118,7 @@ public class FilesControlSet extends PopupControlSet {
             if (m.containsNonNullValue(TaskAttachment.FILE_PATH)) {
                 File f = new File(m.getFilePath());
                 if (!f.exists()) {
-                    m.setValue(TaskAttachment.FILE_PATH, ""); //$NON-NLS-1$
+                    m.setFilePath(""); //$NON-NLS-1$
                     if (m.containsNonNullValue(TaskAttachment.URL)) { // We're ok, just the local file was deleted
                         taskAttachmentDao.saveExisting(m);
                     } else { // No local file and no url -- delete the metadata
@@ -171,7 +171,7 @@ public class FilesControlSet extends PopupControlSet {
                         @Override
                         public void onClick(DialogInterface d, int which) {
                             if (RemoteModel.isValidUuid(m.getUUID())) {
-                                m.setValue(TaskAttachment.DELETED_AT, DateUtilities.now());
+                                m.setDeletedAt(DateUtilities.now());
                                 taskAttachmentDao.saveExisting(m);
                             } else {
                                 taskAttachmentDao.delete(m.getId());
@@ -233,7 +233,7 @@ public class FilesControlSet extends PopupControlSet {
                     useType = guessedType;
                 }
                 if (!useType.equals(guessedType)) {
-                    m.setValue(TaskAttachment.CONTENT_TYPE, useType);
+                    m.setContentType(useType);
                     m.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                     taskAttachmentDao.saveExisting(m);
                 }

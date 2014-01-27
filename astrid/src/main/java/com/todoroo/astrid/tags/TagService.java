@@ -192,7 +192,7 @@ public final class TagService {
             TagData tagData;
             if (existingTag.getCount() == 0) {
                 tagData = new TagData();
-                tagData.setValue(TagData.NAME, tagName);
+                tagData.setName(tagName);
                 tagDataService.save(tagData);
             } else {
                 existingTag.moveToFirst();
@@ -217,8 +217,8 @@ public final class TagService {
      */
     public void deleteLinks(long taskId, String taskUuid, String[] tagUuids) {
         Metadata deleteTemplate = new Metadata();
-        deleteTemplate.setValue(Metadata.TASK, taskId); // Need this for recording changes in outstanding table
-        deleteTemplate.setValue(Metadata.DELETION_DATE, DateUtilities.now());
+        deleteTemplate.setTask(taskId); // Need this for recording changes in outstanding table
+        deleteTemplate.setDeletionDate(DateUtilities.now());
         if (tagUuids != null) {
             for (String uuid : tagUuids) {
                 // TODO: Right now this is in a loop because each deleteTemplate needs the individual tagUuid in order to record
@@ -279,7 +279,7 @@ public final class TagService {
         TagData tagData = tagDataDao.fetch(uuid, TagData.ID, TagData.UUID, TagData.DELETION_DATE, TagData.MEMBER_COUNT, TagData.USER_ID);
         Intent tagDeleted = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED);
         if(tagData != null) {
-            tagData.setValue(TagData.DELETION_DATE, DateUtilities.now());
+            tagData.setDeletionDate(DateUtilities.now());
             PluginServices.getTagDataService().save(tagData);
             tagDeleted.putExtra(TagViewFragment.EXTRA_TAG_UUID, tagData.getUuid());
         }
@@ -332,7 +332,7 @@ public final class TagService {
             TagData tagData = getTagDataWithCase(tag, TagData.NAME, TagData.UUID);
             if (tagData == null) {
                 tagData = new TagData();
-                tagData.setValue(TagData.NAME, tag);
+                tagData.setName(tag);
                 tagDataService.save(tagData);
             }
             if (existingLinks.contains(tagData.getUUID())) {
@@ -392,14 +392,14 @@ public final class TagService {
 
     public int deleteTagMetadata(String uuid) {
         Metadata deleted = new Metadata();
-        deleted.setValue(Metadata.DELETION_DATE, DateUtilities.now());
+        deleted.setDeletionDate(DateUtilities.now());
 
         return metadataDao.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(uuid)), deleted);
     }
 
     public int rename(String uuid, String newName) {
         TagData template = new TagData();
-        template.setValue(TagData.NAME, newName);
+        template.setName(newName);
         tagDataDao.update(TagData.UUID.eq(uuid), template);
 
         Metadata metadataTemplate = new Metadata();

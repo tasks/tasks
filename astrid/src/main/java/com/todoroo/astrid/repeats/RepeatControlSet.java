@@ -369,8 +369,8 @@ public class RepeatControlSet extends PopupControlSet {
         {
             task.putTransitory(TaskService.TRANS_REPEAT_CHANGED, true);
         }
-        task.setValue(Task.RECURRENCE, result);
-        task.setValue(Task.REPEAT_UNTIL, repeatUntilValue);
+        task.setRecurrence(result);
+        task.setRepeatUntil(repeatUntilValue);
 
         if(task.repeatAfterCompletion()) {
             type.setSelection(1);

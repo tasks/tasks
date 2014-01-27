@@ -83,7 +83,7 @@ public class QuickAddMarkupTest extends DatabaseTestCase {
 
     private void whenTitleIs(String title) {
         task = new Task();
-        task.setValue(Task.TITLE, title);
+        task.setTitle(title);
         tags.clear();
         TaskService.parseQuickAddMarkup(task, tags);
     }

@@ -157,7 +157,7 @@ public class GCalControlSet extends PopupControlSet {
 
                 calendarUri = GCalHelper.createTaskEvent(task, cr, values);
                 if(calendarUri != null) {
-                    task.setValue(Task.CALENDAR_URI, calendarUri.toString());
+                    task.setCalendarUri(calendarUri.toString());
 
                     if (calendarSelector.getSelectedItemPosition() != 0 && !hasEvent) {
                         // pop up the new event

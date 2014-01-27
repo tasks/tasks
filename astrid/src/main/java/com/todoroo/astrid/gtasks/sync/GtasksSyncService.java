@@ -301,7 +301,7 @@ public class GtasksSyncService {
             }
         }
 
-        task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
+        task.setModificationDate(DateUtilities.now());
         gtasksMetadata.setValue(GtasksMetadata.LAST_SYNC, DateUtilities.now() + 1000L);
         metadataService.save(gtasksMetadata);
         task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);

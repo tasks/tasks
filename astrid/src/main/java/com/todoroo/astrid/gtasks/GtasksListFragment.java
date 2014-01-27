@@ -132,7 +132,7 @@ public class GtasksListFragment extends SubtasksListFragment {
                                 listId = gtasksMetadataService.getTaskMetadata(
                                         t.getId()).getValue(GtasksMetadata.LIST_ID);
                             }
-                            t.setValue(Task.DELETION_DATE, DateUtilities.now());
+                            t.setDeletionDate(DateUtilities.now());
                             taskService.save(t);
                         }
                     }

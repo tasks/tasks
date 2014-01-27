@@ -134,14 +134,14 @@ public class UpdateAdapter extends CursorAdapter {
     }
 
     public static void readUserActivityProperties(TodorooCursor<UserActivity> unionCursor, UserActivity activity) {
-        activity.setValue(UserActivity.CREATED_AT, unionCursor.getLong(0));
-        activity.setValue(UserActivity.UUID, unionCursor.getString(1));
-        activity.setValue(UserActivity.ACTION, unionCursor.getString(2));
-        activity.setValue(UserActivity.MESSAGE, unionCursor.getString(3));
-        activity.setValue(UserActivity.TARGET_ID, unionCursor.getString(4));
-        activity.setValue(UserActivity.TARGET_NAME, unionCursor.getString(5));
-        activity.setValue(UserActivity.PICTURE, unionCursor.getString(6));
-        activity.setValue(UserActivity.USER_UUID, unionCursor.getString(7));
+        activity.setCreatedAt(unionCursor.getLong(0));
+        activity.setUUID(unionCursor.getString(1));
+        activity.setAction(unionCursor.getString(2));
+        activity.setMessage(unionCursor.getString(3));
+        activity.setTargetId(unionCursor.getString(4));
+        activity.setTargetName(unionCursor.getString(5));
+        activity.setPicture(unionCursor.getString(6));
+        activity.setUserUUID(unionCursor.getString(7));
     }
 
     /** Helper method to set the contents and visibility of each field */

@@ -718,8 +718,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     }
                     addTaskToLoadingArray(task);
 
-                    task.setValue(Task.DETAILS, DETAIL_SEPARATOR);
-                    task.setValue(Task.DETAILS_DATE, DateUtilities.now());
+                    task.setDetails(DETAIL_SEPARATOR);
+                    task.setDetailsDate(DateUtilities.now());
                     taskService.save(task);
 
                     requestNewDetails(task);
@@ -780,8 +780,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             details.append(detail);
             Task task = new Task();
             task.setId(id);
-            task.setValue(Task.DETAILS, details.toString());
-            task.setValue(Task.DETAILS_DATE, DateUtilities.now());
+            task.setDetails(details.toString());
+            task.setDetailsDate(DateUtilities.now());
             taskService.save(task);
         }
 
@@ -990,7 +990,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             value = completedItems.get(task.getId());
         }
         if(value != null) {
-            task.setValue(Task.COMPLETION_DATE,
+            task.setCompletionDate(
                     value ? DateUtilities.now() : 0);
         }
         boolean state = task.isCompleted();

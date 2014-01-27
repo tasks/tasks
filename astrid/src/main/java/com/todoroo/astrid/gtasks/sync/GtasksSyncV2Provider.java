@@ -304,22 +304,22 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
         ArrayList<Metadata> metadata = new ArrayList<>();
 
-        task.setValue(Task.TITLE, remoteTask.getTitle());
-        task.setValue(Task.CREATION_DATE, DateUtilities.now());
-        task.setValue(Task.COMPLETION_DATE, GtasksApiUtilities.gtasksCompletedTimeToUnixTime(remoteTask.getCompleted()));
+        task.setTitle(remoteTask.getTitle());
+        task.setCreationDate(DateUtilities.now());
+        task.setCompletionDate(GtasksApiUtilities.gtasksCompletedTimeToUnixTime(remoteTask.getCompleted()));
         if (remoteTask.getDeleted() == null || !remoteTask.getDeleted()) {
-            task.setValue(Task.DELETION_DATE, 0L);
+            task.setDeletionDate(0L);
         } else if (remoteTask.getDeleted()) {
-            task.setValue(Task.DELETION_DATE, DateUtilities.now());
+            task.setDeletionDate(DateUtilities.now());
         }
         if (remoteTask.getHidden() != null && remoteTask.getHidden()) {
-            task.setValue(Task.DELETION_DATE, DateUtilities.now());
+            task.setDeletionDate(DateUtilities.now());
         }
 
         long dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue());
         long createdDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate);
-        task.setValue(Task.DUE_DATE, createdDate);
-        task.setValue(Task.NOTES, remoteTask.getNotes());
+        task.setDueDate(createdDate);
+        task.setNotes(remoteTask.getNotes());
 
         Metadata gtasksMetadata = GtasksMetadata.createEmptyMetadata(AbstractModel.NO_ID);
         gtasksMetadata.setValue(GtasksMetadata.ID, remoteTask.getId());
@@ -340,7 +340,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 mergeDates(task.task, local);
             }
         } else { // Set default importance and reminders for remotely created tasks
-            task.task.setValue(Task.IMPORTANCE, Preferences.getIntegerFromString(
+            task.task.setImportance(Preferences.getIntegerFromString(
                     R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO));
             TaskDao.setDefaultReminders(task.task);
         }
@@ -359,7 +359,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
             newDate.setSeconds(oldDate.getSeconds());
             long setDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,
                     newDate.getTime());
-            remote.setValue(Task.DUE_DATE, setDate);
+            remote.setDueDate(setDate);
         }
     }
 }

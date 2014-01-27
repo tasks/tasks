@@ -127,15 +127,31 @@ public class Metadata extends AbstractModel {
         return getValue(DELETION_DATE);
     }
 
+    public void setDeletionDate(Long deletionDate) {
+        setValue(DELETION_DATE, deletionDate);
+    }
+
     public Long getTask() {
         return getValue(TASK);
+    }
+
+    public void setTask(Long task) {
+        setValue(TASK, task);
     }
 
     public Long getCreationDate() {
         return getValue(CREATION_DATE);
     }
 
+    public void setCreationDate(Long creationDate) {
+        setValue(CREATION_DATE, creationDate);
+    }
+
     public String getKey() {
         return getValue(KEY);
+    }
+
+    public void setKey(String key) {
+        setValue(KEY, key);
     }
 }

@@ -101,9 +101,9 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             hideUntil += newDueDate - task.getDueDate();
         }
 
-        task.setValue(Task.COMPLETION_DATE, 0L);
-        task.setValue(Task.DUE_DATE, newDueDate);
-        task.setValue(Task.HIDE_UNTIL, hideUntil);
+        task.setCompletionDate(0L);
+        task.setDueDate(newDueDate);
+        task.setHideUntil(hideUntil);
         task.putTransitory(TaskService.TRANS_REPEAT_COMPLETE, true);
 
         ContentResolver cr = ContextManager.getContext().getContentResolver();

@@ -50,7 +50,7 @@ public class BackupServiceTests extends DatabaseTestCase {
 
         // make a temporary task
         Task task = new Task();
-        task.setValue(Task.TITLE, "helicopter");
+        task.setTitle("helicopter");
         taskDao.createNew(task);
     }
 

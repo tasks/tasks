@@ -20,8 +20,8 @@ public class NewSyncTestCase extends DatabaseTestCase {
 
 	protected Task createTask(String title) {
 		Task task = new Task();
-		task.setValue(Task.TITLE, title);
-		task.setValue(Task.IMPORTANCE, SYNC_TASK_IMPORTANCE);
+		task.setTitle(title);
+		task.setImportance(SYNC_TASK_IMPORTANCE);
 
         taskDao.createNew(task);
 		return task;
@@ -36,7 +36,7 @@ public class NewSyncTestCase extends DatabaseTestCase {
 
 	protected TagData createTagData(String name) {
 		TagData tag = new TagData();
-		tag.setValue(TagData.NAME, name);
+		tag.setName(name);
 
 		tagDataDao.createNew(tag);
 		return tag;

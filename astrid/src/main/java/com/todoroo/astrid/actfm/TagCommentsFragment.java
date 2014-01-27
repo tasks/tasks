@@ -72,12 +72,12 @@ public class TagCommentsFragment extends CommentsFragment {
     @Override
     protected UserActivity createUpdate() {
         UserActivity userActivity = new UserActivity();
-        userActivity.setValue(UserActivity.MESSAGE, addCommentField.getText().toString());
-        userActivity.setValue(UserActivity.ACTION, UserActivity.ACTION_TAG_COMMENT);
-        userActivity.setValue(UserActivity.USER_UUID, Task.USER_ID_SELF);
-        userActivity.setValue(UserActivity.TARGET_ID, tagData.getUuid());
-        userActivity.setValue(UserActivity.TARGET_NAME, tagData.getName());
-        userActivity.setValue(UserActivity.CREATED_AT, DateUtilities.now());
+        userActivity.setMessage(addCommentField.getText().toString());
+        userActivity.setAction(UserActivity.ACTION_TAG_COMMENT);
+        userActivity.setUserUUID(Task.USER_ID_SELF);
+        userActivity.setTargetId(tagData.getUuid());
+        userActivity.setTargetName(tagData.getName());
+        userActivity.setCreatedAt(DateUtilities.now());
         return userActivity;
     }
 }

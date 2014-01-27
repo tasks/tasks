@@ -258,7 +258,7 @@ public class QuickAddBar extends LinearLayout {
 
             Task task = new Task();
             if (title != null) {
-                task.setValue(Task.TITLE, title); // need this for calendar
+                task.setTitle(title); // need this for calendar
             }
 
             if (repeatControl.isRecurrenceSet()) {
@@ -307,7 +307,7 @@ public class QuickAddBar extends LinearLayout {
         if (!TextUtils.isEmpty(title) && gcalCreateEventEnabled && TextUtils.isEmpty(task.getCalendarURI())) {
             Uri calendarUri = GCalHelper.createTaskEvent(task,
                     ContextManager.getContext().getContentResolver(), new ContentValues());
-            task.setValue(Task.CALENDAR_URI, calendarUri.toString());
+            task.setCalendarUri(calendarUri.toString());
             task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
             PluginServices.getTaskService().save(task);
         }

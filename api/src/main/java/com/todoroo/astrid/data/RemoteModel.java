@@ -61,10 +61,6 @@ abstract public class RemoteModel extends AbstractModel {
         }
     }
 
-    public String getUuidProperty() {
-        return getValue(UUID_PROPERTY);
-    }
-
     protected String getUuidHelper(StringProperty uuid) {
         if(setValues != null && setValues.containsKey(uuid.name)) {
             return setValues.getAsString(uuid.name);
@@ -187,5 +183,13 @@ abstract public class RemoteModel extends AbstractModel {
             }
 
         }
+    }
+
+    public String getUuidProperty() {
+        return getValue(UUID_PROPERTY);
+    }
+
+    public void setUuidProperty(String uuidProperty) {
+        setValue(UUID_PROPERTY, uuidProperty);
     }
 }

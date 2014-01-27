@@ -252,7 +252,7 @@ public abstract class CommentsFragment extends ListFragment {
         if (picture != null) {
             JSONObject pictureJson = RemoteModel.PictureHelper.savePictureJson(getActivity(), picture);
             if (pictureJson != null) {
-                update.setValue(UserActivity.PICTURE, pictureJson.toString());
+                update.setPicture(pictureJson.toString());
             }
 
         }

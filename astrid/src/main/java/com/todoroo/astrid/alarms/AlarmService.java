@@ -76,7 +76,7 @@ public class AlarmService {
         ArrayList<Metadata> metadata = new ArrayList<>();
         for(Long alarm : alarms) {
             Metadata item = new Metadata();
-            item.setValue(Metadata.KEY, AlarmFields.METADATA_KEY);
+            item.setKey(AlarmFields.METADATA_KEY);
             item.setValue(AlarmFields.TIME, alarm);
             item.setValue(AlarmFields.TYPE, AlarmFields.TYPE_SINGLE);
             metadata.add(item);

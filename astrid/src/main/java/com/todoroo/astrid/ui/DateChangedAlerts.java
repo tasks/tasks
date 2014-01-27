@@ -156,7 +156,7 @@ public class DateChangedAlerts {
                         @Override
                         public void onDateAndTimeSelected(long date) {
                             d.dismiss();
-                            task.setValue(Task.REPEAT_UNTIL, date);
+                            task.setRepeatUntil(date);
                             RepeatTaskCompleteListener.rescheduleTask(task, newDueDate);
                             Flags.set(Flags.REFRESH);
                         }
@@ -202,11 +202,11 @@ public class DateChangedAlerts {
             @Override
             public void onClick(View v) {
                 d.dismiss();
-                task.setValue(Task.DUE_DATE, oldDueDate);
-                task.setValue(Task.COMPLETION_DATE, 0L);
+                task.setDueDate(oldDueDate);
+                task.setCompletionDate(0L);
                 long hideUntil = task.getHideUntil();
                 if (hideUntil > 0) {
-                    task.setValue(Task.HIDE_UNTIL, hideUntil - (newDueDate - oldDueDate));
+                    task.setHideUntil(hideUntil - (newDueDate - oldDueDate));
                 }
                 PluginServices.getTaskService().save(task);
                 Flags.set(Flags.REFRESH);

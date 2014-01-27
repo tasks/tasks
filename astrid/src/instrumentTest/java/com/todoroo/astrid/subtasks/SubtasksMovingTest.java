@@ -13,7 +13,7 @@ public class SubtasksMovingTest extends SubtasksTestCase {
         super.setUp();
         createTasks();
         TaskListMetadata m = new TaskListMetadata();
-        m.setValue(TaskListMetadata.FILTER, TaskListMetadata.FILTER_ID_ALL);
+        m.setFilter(TaskListMetadata.FILTER_ID_ALL);
         updater.initializeFromSerializedTree(m, filter, SubtasksHelper.convertTreeToRemoteIds(DEFAULT_SERIALIZED_TREE));
 
         // Assert initial state is correct
@@ -36,7 +36,7 @@ public class SubtasksMovingTest extends SubtasksTestCase {
 
     private Task createTask(String title) {
         Task task = new Task();
-        task.setValue(Task.TITLE, title);
+        task.setTitle(title);
         PluginServices.getTaskService().save(task);
         return task;
     }

@@ -60,7 +60,7 @@ public class GCalHelper {
             ContentResolver cr = ContextManager.getContext().getContentResolver();
             Uri calendarUri = GCalHelper.createTaskEvent(t, cr, new ContentValues(), deleteEventIfExists);
             if (calendarUri != null) {
-                t.setValue(Task.CALENDAR_URI, calendarUri.toString());
+                t.setCalendarUri(calendarUri.toString());
             }
         }
     }
@@ -119,14 +119,14 @@ public class GCalHelper {
         Uri eventUri = Uri.parse(taskUri);
         String calendarId = getCalendarId(eventUri, cr);
         if (calendarId == null) { // Bail out, no calendar id
-            task.setValue(Task.CALENDAR_URI, ""); //$NON-NLS-1$
+            task.setCalendarUri(""); //$NON-NLS-1$
             return;
         }
         ContentValues cv = new ContentValues();
         cv.put(CALENDAR_ID_COLUMN, calendarId);
 
         Uri uri = createTaskEvent(task, cr, cv, false);
-        task.setValue(Task.CALENDAR_URI, uri.toString());
+        task.setCalendarUri(uri.toString());
     }
 
     private static String getCalendarId(Uri uri, ContentResolver cr) {
@@ -172,7 +172,7 @@ public class GCalHelper {
                     cursor.close();
                 }
 
-                task.setValue(Task.CALENDAR_URI,"");
+                task.setCalendarUri( "");
             } catch (Exception e) {
                 Log.e("astrid-gcal", "error-deleting-calendar-event", e); //$NON-NLS-1$ //$NON-NLS-2$
             }

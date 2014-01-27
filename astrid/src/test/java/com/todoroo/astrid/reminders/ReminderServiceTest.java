@@ -50,9 +50,9 @@ public class ReminderServiceTest extends TodorooRobolectricTestCase {
         service.setScheduler(new NoAlarmExpected());
 
         Task task = new Task();
-        task.setValue(Task.TITLE, "water");
-        task.setValue(Task.REMINDER_FLAGS, 0);
-        task.setValue(Task.REMINDER_PERIOD, 0L);
+        task.setTitle("water");
+        task.setReminderFlags(0);
+        task.setReminderPeriod(0L);
         taskDao.save(task);
         service.scheduleAlarm(task);
     }
@@ -72,13 +72,13 @@ public class ReminderServiceTest extends TodorooRobolectricTestCase {
 
         // test due date in the past
         final Task task = new Task();
-        task.setValue(Task.TITLE, "water");
-        task.setValue(Task.DUE_DATE, DateUtilities.now() - DateUtilities.ONE_DAY);
-        task.setValue(Task.REMINDER_FLAGS, Task.NOTIFY_AT_DEADLINE);
+        task.setTitle("water");
+        task.setDueDate(DateUtilities.now() - DateUtilities.ONE_DAY);
+        task.setReminderFlags(Task.NOTIFY_AT_DEADLINE);
         taskDao.save(task);
 
         // test due date in the future
-        task.setValue(Task.DUE_DATE, DateUtilities.now() + DateUtilities.ONE_DAY);
+        task.setDueDate(DateUtilities.now() + DateUtilities.ONE_DAY);
         taskDao.save(task);
         assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
     }
@@ -87,8 +87,8 @@ public class ReminderServiceTest extends TodorooRobolectricTestCase {
     public void testRandom() {
         // test random
         final Task task = new Task();
-        task.setValue(Task.TITLE, "water");
-        task.setValue(Task.REMINDER_PERIOD, DateUtilities.ONE_WEEK);
+        task.setTitle("water");
+        task.setReminderPeriod(DateUtilities.ONE_WEEK);
         service.setScheduler(new AlarmExpected() {
             @Override
             public void createAlarm(Task task, long time, int type) {
@@ -119,13 +119,13 @@ public class ReminderServiceTest extends TodorooRobolectricTestCase {
             }
         });
         final Task task = new Task();
-        task.setValue(Task.TITLE, "water");
-        task.setValue(Task.DUE_DATE, DateUtilities.now() + DateUtilities.ONE_DAY);
-        task.setValue(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE);
+        task.setTitle("water");
+        task.setDueDate(DateUtilities.now() + DateUtilities.ONE_DAY);
+        task.setReminderFlags(Task.NOTIFY_AFTER_DEADLINE);
         taskDao.save(task);
 
         // test due date in the past
-        task.setValue(Task.DUE_DATE, DateUtilities.now() - DateUtilities.ONE_DAY);
+        task.setDueDate(DateUtilities.now() - DateUtilities.ONE_DAY);
         service.setScheduler(new AlarmExpected() {
             @Override
             public void createAlarm(Task task, long time, int type) {
@@ -141,7 +141,7 @@ public class ReminderServiceTest extends TodorooRobolectricTestCase {
         assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
 
         // test due date in the past, but recently notified
-        task.setValue(Task.REMINDER_LAST, DateUtilities.now());
+        task.setReminderLast(DateUtilities.now());
         service.setScheduler(new AlarmExpected() {
             @Override
             public void createAlarm(Task task, long time, int type) {
@@ -161,10 +161,10 @@ public class ReminderServiceTest extends TodorooRobolectricTestCase {
     public void testMultipleReminders() {
         // test due date in the future, enable random
         final Task task = new Task();
-        task.setValue(Task.TITLE, "water");
-        task.setValue(Task.DUE_DATE, DateUtilities.now() + DateUtilities.ONE_WEEK);
-        task.setValue(Task.REMINDER_FLAGS, Task.NOTIFY_AT_DEADLINE);
-        task.setValue(Task.REMINDER_PERIOD, DateUtilities.ONE_HOUR);
+        task.setTitle("water");
+        task.setDueDate(DateUtilities.now() + DateUtilities.ONE_WEEK);
+        task.setReminderFlags(Task.NOTIFY_AT_DEADLINE);
+        task.setReminderPeriod(DateUtilities.ONE_HOUR);
         service.setScheduler(new AlarmExpected() {
             @Override
             public void createAlarm(Task task, long time, int type) {
@@ -180,13 +180,13 @@ public class ReminderServiceTest extends TodorooRobolectricTestCase {
         assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
 
         // now set the due date in the past
-        task.setValue(Task.DUE_DATE, DateUtilities.now() - DateUtilities.ONE_WEEK);
+        task.setDueDate(DateUtilities.now() - DateUtilities.ONE_WEEK);
         ((AlarmExpected)service.getScheduler()).alarmCreated = false;
         service.scheduleAlarm(task);
         assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
 
         // now set the due date before the random
-        task.setValue(Task.DUE_DATE, DateUtilities.now() + DateUtilities.ONE_HOUR);
+        task.setDueDate(DateUtilities.now() + DateUtilities.ONE_HOUR);
         service.setScheduler(new AlarmExpected() {
             @Override
             public void createAlarm(Task task, long time, int type) {
@@ -207,10 +207,10 @@ public class ReminderServiceTest extends TodorooRobolectricTestCase {
 
         // test due date and snooze in the future
         final Task task = new Task();
-        task.setValue(Task.TITLE, "spacemen");
-        task.setValue(Task.DUE_DATE, DateUtilities.now() + 5000L);
-        task.setValue(Task.REMINDER_FLAGS, Task.NOTIFY_AT_DEADLINE);
-        task.setValue(Task.REMINDER_SNOOZE, DateUtilities.now() + DateUtilities.ONE_WEEK);
+        task.setTitle("spacemen");
+        task.setDueDate(DateUtilities.now() + 5000L);
+        task.setReminderFlags(Task.NOTIFY_AT_DEADLINE);
+        task.setReminderSnooze(DateUtilities.now() + DateUtilities.ONE_WEEK);
         service.setScheduler(new AlarmExpected() {
             @Override
             public void createAlarm(Task task, long time, int type) {
@@ -226,7 +226,7 @@ public class ReminderServiceTest extends TodorooRobolectricTestCase {
         assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
 
         // snooze in the past
-        task.setValue(Task.REMINDER_SNOOZE, DateUtilities.now() - DateUtilities.ONE_WEEK);
+        task.setReminderSnooze(DateUtilities.now() - DateUtilities.ONE_WEEK);
         service.setScheduler(new AlarmExpected() {
             @Override
             public void createAlarm(Task task, long time, int type) {

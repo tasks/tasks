@@ -121,9 +121,9 @@ public class DeadlineControlSet extends PopupControlSet {
         long dueDate = dateAndTimePicker.constructDueDate();
         if (dueDate != task.getDueDate()) // Clear snooze if due date has changed
         {
-            task.setValue(Task.REMINDER_SNOOZE, 0L);
+            task.setReminderSnooze(0L);
         }
-        task.setValue(Task.DUE_DATE, dueDate);
+        task.setDueDate(dueDate);
     }
 
     private void initializeWithDate(long dueDate) {

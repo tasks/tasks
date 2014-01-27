@@ -135,13 +135,13 @@ public final class TaskAttachment extends RemoteModel {
 
     public static TaskAttachment createNewAttachment(String taskUuid, String filePath, String fileName, String fileType) {
         TaskAttachment attachment = new TaskAttachment();
-        attachment.setValue(TaskAttachment.TASK_UUID, taskUuid);
-        attachment.setValue(NAME, fileName);
-        attachment.setValue(USER_UUID, Task.USER_ID_SELF);
-        attachment.setValue(FILE_PATH, filePath);
-        attachment.setValue(CONTENT_TYPE, fileType);
-        attachment.setValue(CREATED_AT, DateUtilities.now());
-        attachment.setValue(DELETED_AT, 0L);
+        attachment.setTaskUUID(taskUuid);
+        attachment.setName(fileName);
+        attachment.setUserUUID(Task.USER_ID_SELF);
+        attachment.setFilePath(filePath);
+        attachment.setContentType(fileType);
+        attachment.setCreatedAt(DateUtilities.now());
+        attachment.setDeletedAt(0L);
         return attachment;
     }
 
@@ -169,12 +169,36 @@ public final class TaskAttachment extends RemoteModel {
 
     public static final Creator<TaskAttachment> CREATOR = new ModelCreator<>(TaskAttachment.class);
 
+    public void setDeletedAt(Long deletedAt) {
+        setValue(DELETED_AT, deletedAt);
+    }
+
+    public void setCreatedAt(Long createdAt) {
+        setValue(CREATED_AT, createdAt);
+    }
+
+    public void setUserUUID(String userUuid) {
+        setValue(USER_UUID, userUuid);
+    }
+
+    public void setTaskUUID(String taskUuid) {
+        setValue(TASK_UUID, taskUuid);
+    }
+
     public String getName() {
         return getValue(NAME);
     }
 
+    public void setName(String name) {
+        setValue(NAME, name);
+    }
+
     public String getContentType() {
         return getValue(CONTENT_TYPE);
+    }
+
+    public void setContentType(String contentType) {
+        setValue(CONTENT_TYPE, contentType);
     }
 
     public String getUUID() {
@@ -183,5 +207,9 @@ public final class TaskAttachment extends RemoteModel {
 
     public String getFilePath() {
         return getValue(FILE_PATH);
+    }
+
+    public void setFilePath(String filePath) {
+        setValue(FILE_PATH, filePath);
     }
 }

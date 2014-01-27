@@ -185,19 +185,19 @@ public class TaskDao extends RemoteModelDao<Task> {
     @Override
     public boolean createNew(Task item) {
         if(!item.containsValue(Task.CREATION_DATE)) {
-            item.setValue(Task.CREATION_DATE, DateUtilities.now());
+            item.setCreationDate(DateUtilities.now());
         }
-        item.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
+        item.setModificationDate(DateUtilities.now());
 
         // set up task defaults
         if(!item.containsValue(Task.IMPORTANCE)) {
-            item.setValue(Task.IMPORTANCE, Preferences.getIntegerFromString(
+            item.setImportance(Preferences.getIntegerFromString(
                     R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO));
         }
         if(!item.containsValue(Task.DUE_DATE)) {
             int setting = Preferences.getIntegerFromString(R.string.p_default_urgency_key,
                     Task.URGENCY_NONE);
-            item.setValue(Task.DUE_DATE, Task.createDueDate(setting, 0));
+            item.setDueDate(Task.createDueDate(setting, 0));
         }
         createDefaultHideUntil(item);
 
@@ -216,7 +216,7 @@ public class TaskDao extends RemoteModelDao<Task> {
         if(!item.containsValue(Task.HIDE_UNTIL)) {
             int setting = Preferences.getIntegerFromString(R.string.p_default_hideUntil_key,
                     Task.HIDE_UNTIL_NONE);
-            item.setValue(Task.HIDE_UNTIL, item.createHideUntil(setting, 0));
+            item.setHideUntil(item.createHideUntil(setting, 0));
         }
     }
 
@@ -225,7 +225,7 @@ public class TaskDao extends RemoteModelDao<Task> {
      */
     public static void setDefaultReminders(Task item) {
         if(!item.containsValue(Task.REMINDER_PERIOD)) {
-            item.setValue(Task.REMINDER_PERIOD, DateUtilities.ONE_HOUR *
+            item.setReminderPeriod(DateUtilities.ONE_HOUR *
                     Preferences.getIntegerFromString(R.string.p_rmd_default_random_hours,
                             0));
         }
@@ -233,7 +233,7 @@ public class TaskDao extends RemoteModelDao<Task> {
             int reminder_flags = Preferences.getIntegerFromString(R.string.p_default_reminders_key,
                     Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE) |
                     Preferences.getIntegerFromString(R.string.p_default_reminders_mode_key, 0);
-            item.setValue(Task.REMINDER_FLAGS, reminder_flags);
+            item.setReminderFlags(reminder_flags);
         }
     }
 
@@ -244,9 +244,9 @@ public class TaskDao extends RemoteModelDao<Task> {
             return false;
         }
         if(!TaskApiDao.insignificantChange(values)) {
-            item.setValue(Task.DETAILS, null);
+            item.setDetails(null);
             if(!values.containsKey(Task.MODIFICATION_DATE.name)) {
-                item.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
+                item.setModificationDate(DateUtilities.now());
             }
         }
         boolean result = super.saveExisting(item);
@@ -318,7 +318,7 @@ public class TaskDao extends RemoteModelDao<Task> {
         }
         if (!match) {
             if (existing.getCreationDate().equals(newConflict.getCreationDate())) {
-                newConflict.setValue(Task.CREATION_DATE, newConflict.getCreationDate() + 1000L);
+                newConflict.setCreationDate(newConflict.getCreationDate() + 1000L);
             }
             newConflict.clearValue(Task.UUID);
             saveExisting(newConflict);

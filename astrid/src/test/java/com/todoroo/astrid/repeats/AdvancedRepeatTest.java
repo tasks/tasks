@@ -43,7 +43,7 @@ public class AdvancedRepeatTest extends TodorooRobolectricTestCase {
     public void before() {
         super.before();
         task = new Task();
-        task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
+        task.setCompletionDate(DateUtilities.now());
         rrule = new RRule();
     }
 
@@ -55,7 +55,7 @@ public class AdvancedRepeatTest extends TodorooRobolectricTestCase {
 
         // test specific day & time
         long dayWithTime = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, newDate(2010, 8, 1, 10, 4, 0).getTime());
-        task.setValue(Task.DUE_DATE, dayWithTime);
+        task.setDueDate(dayWithTime);
 
         long nextDayWithTime = dayWithTime + DateUtilities.ONE_DAY;
         nextDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal(), false);
@@ -68,7 +68,7 @@ public class AdvancedRepeatTest extends TodorooRobolectricTestCase {
 
         // test specific day & time
         long dayWithTime = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, newDate(2010, 8, 1, 10, 4, 0).getTime());
-        task.setValue(Task.DUE_DATE, dayWithTime);
+        task.setDueDate(dayWithTime);
 
         Date todayWithTime = newDate();
         todayWithTime.setHours(10);
@@ -255,7 +255,7 @@ public class AdvancedRepeatTest extends TodorooRobolectricTestCase {
     private void setTaskDueDate(int which, int day) {
         long time = getDate(DateUtilities.now(), which, day);
 
-        task.setValue(Task.DUE_DATE, time);
+        task.setDueDate(time);
     }
 
     private long getDate(long start, int which, int dayOfWeek) {
