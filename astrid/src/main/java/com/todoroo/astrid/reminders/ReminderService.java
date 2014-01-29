@@ -335,7 +335,7 @@ public final class ReminderService  {
 
                     int quietHoursEnd = Preferences.getIntegerFromString(R.string.p_rmd_quietEnd, -1);
                     Date quietHoursEndDate = newDate();
-                    quietHoursEndDate.setHours(quietHoursStart);
+                    quietHoursEndDate.setHours(quietHoursEnd);
                     quietHoursEndDate.setMinutes(0);
                     quietHoursEndDate.setSeconds(0);
 

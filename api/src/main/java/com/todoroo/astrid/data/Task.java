@@ -490,6 +490,10 @@ public class Task extends RemoteModel {
         return getValue(DUE_DATE);
     }
 
+    public void setDueDate(int setting, long time) {
+        setDueDate(createDueDate(setting, time));
+    }
+
     public void setDueDate(Long dueDate) {
         setValue(DUE_DATE, dueDate);
     }

@@ -2,6 +2,7 @@ package com.todoroo.astrid.reminders;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.test.TodorooRobolectricTestCase;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 
@@ -10,6 +11,8 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.tasks.Freeze;
+import org.tasks.R;
 
 import static com.todoroo.astrid.reminders.ReminderService.NO_ALARM;
 import static org.junit.Assert.assertEquals;
@@ -21,9 +24,14 @@ import static org.tasks.date.DateTimeUtils.newDate;
 public class NotifyAtDeadlineTest extends TodorooRobolectricTestCase {
 
     @Autowired
-    TaskDao taskDao;
+    private TaskDao taskDao;
 
-    ReminderService service;
+    private ReminderService service;
+
+    private final Task dueAtNoon = new Task() {{
+        setDueDate(Task.URGENCY_SPECIFIC_DAY, newDate(2014, 1, 27).getTime());
+        setReminderFlags(Task.NOTIFY_AT_DEADLINE);
+    }};
 
     @Override
     public void before() {
@@ -84,5 +92,103 @@ public class NotifyAtDeadlineTest extends TodorooRobolectricTestCase {
         assertEquals(
                 dueDate.withHourOfDay(18).getMillis(),
                 service.calculateNextDueDateReminder(task));
+    }
+
+    @Test
+    public void duringQuietHoursSetNotificationAtEnd() {
+        setQuietHours(0, 10);
+        Freeze.freezeAt(new DateTime(2014, 1, 27, 9, 13, 37, 501));
+        Preferences.setStringFromInteger(R.string.p_rmd_time, 8);
+        Task task = new Task() {{
+            setDueDate(Task.URGENCY_SPECIFIC_DAY, newDate(2014, 1, 27).getTime());
+            setReminderFlags(Task.NOTIFY_AT_DEADLINE);
+        }};
+        assertEquals(
+                new DateTime(2014, 1, 27, 10, 0, 0, 0).getMillis(),
+                service.calculateNextDueDateReminder(task));
+    }
+
+    @Test
+    public void afterQuietHoursSetNotificationOnePeriodCloserToDueDate() {
+        setQuietHours(0, 10);
+        Freeze.freezeAt(new DateTime(2014, 1, 27, 11, 13, 37, 501));
+        Preferences.setStringFromInteger(R.string.p_rmd_time, 8);
+        Task task = new Task() {{
+            setDueDate(Task.URGENCY_SPECIFIC_DAY, newDate(2014, 1, 27).getTime());
+            setReminderFlags(Task.NOTIFY_AT_DEADLINE);
+        }};
+        assertEquals(
+                new DateTime(2014, 1, 27, 11, 25, 13, 125).getMillis(),
+                service.calculateNextDueDateReminder(task));
+    }
+
+    @Test
+    public void beforeQuietStartDueDateMoreThanOnePeriodAfterEnd() {
+        setQuietHours(2, 11);
+        Freeze.freezeAt(new DateTime(2014, 1, 27, 1, 53, 37, 509));
+        Preferences.setStringFromInteger(R.string.p_rmd_time, 1);
+        Task task = new Task() {{
+            setDueDate(Task.URGENCY_SPECIFIC_DAY, newDate(2014, 1, 27).getTime());
+            setReminderFlags(Task.NOTIFY_AT_DEADLINE);
+        }};
+        assertEquals(
+                new DateTime(2014, 1, 27, 11, 0, 0, 509).getMillis(),
+                service.calculateNextDueDateReminder(task));
+    }
+
+    @Test
+    public void beforeQuietStartDueDateLessThanOnePeriodAfterEnd() {
+        setQuietHours(3, 11);
+        Freeze.freezeAt(new DateTime(2014, 1, 27, 1, 53, 37, 509));
+        Preferences.setStringFromInteger(R.string.p_rmd_time, 1);
+        assertEquals(
+                new DateTime(2014, 1, 27, 2, 10, 13, 259).getMillis(),
+                service.calculateNextDueDateReminder(dueAtNoon));
+    }
+
+    @Test
+    public void noAlarmAfterQuietHoursStartWithWrap() {
+        setQuietHours(10, 1);
+        Freeze.freezeAt(new DateTime(2014, 1, 27, 10, 0, 0, 0));
+        Preferences.setStringFromInteger(R.string.p_rmd_time, 8);
+        assertEquals(
+                NO_ALARM,
+                service.calculateNextDueDateReminder(dueAtNoon));
+    }
+
+    @Test
+    public void setToQuietAlarmEndWithWrap() {
+        setQuietHours(22, 11);
+        Freeze.freezeAt(new DateTime(2014, 1, 27, 10, 59, 59, 999));
+        Preferences.setStringFromInteger(R.string.p_rmd_time, 8);
+        assertEquals(
+                new DateTime(2014, 1, 27, 11, 0, 0, 0).getMillis(),
+                service.calculateNextDueDateReminder(dueAtNoon));
+    }
+
+    @Test
+    public void setReminderOnePeriodFromNowBeforeQuietHourStartWithWrap() {
+        setQuietHours(22, 11);
+        Freeze.freezeAt(new DateTime(2014, 1, 27, 11, 0, 0, 0));
+        Preferences.setStringFromInteger(R.string.p_rmd_time, 8);
+        assertEquals(
+                // wtf? this is after due date
+                new DateTime(2014, 1, 27, 13, 45, 0, 0).getMillis(),
+                service.calculateNextDueDateReminder(dueAtNoon));
+    }
+
+    @Test
+    public void setReminderOnePeriodFromNowNoQuietHours() {
+        Freeze.freezeAt(new DateTime(2014, 1, 27, 11, 0, 0, 0));
+        Preferences.setStringFromInteger(R.string.p_rmd_time, 8);
+        assertEquals(
+                new DateTime(2014, 1, 27, 11, 15, 0, 0).getMillis(),
+                service.calculateNextDueDateReminder(dueAtNoon));
+    }
+
+    private void setQuietHours(int start, int end) {
+        Preferences.setBoolean(R.string.p_rmd_enable_quiet, true);
+        Preferences.setStringFromInteger(R.string.p_rmd_quietStart, start);
+        Preferences.setStringFromInteger(R.string.p_rmd_quietEnd, end);
     }
 }
