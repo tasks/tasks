@@ -8,11 +8,13 @@ package com.todoroo.astrid.reminders;
 import android.content.res.Resources;
 import android.preference.Preference;
 
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 
+import org.joda.time.DateTime;
 import org.tasks.R;
+
+import java.text.DateFormat;
 
 /**
  * Displays the preference screen for users to edit their preferences
@@ -38,25 +40,24 @@ public class ReminderPreferences extends TodorooPreferenceActivity {
                 preference.setSummary("");
             }
         } else if(r.getString(R.string.p_rmd_quietStart).equals(preference.getKey())) {
-            int index = Integer.parseInt((String) value);
-
-            if(index <= 0) {
-                preference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_desc_none));
-            } else {
-                String setting = String.valueOf(index);
+            if(Preferences.getBoolean(R.string.p_rmd_enable_quiet, false)) {
+                int millisOfDay = (int) value;
+                String setting = DateFormat.getTimeInstance(DateFormat.SHORT).format(new DateTime().withMillisOfDay(millisOfDay).toDate());
                 preference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_start_desc, setting));
+            } else {
+                preference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_desc_none));
             }
         } else if(r.getString(R.string.p_rmd_quietEnd).equals(preference.getKey())) {
-            int index = Integer.parseInt((String) value);
-            int quietHoursStart = Preferences.getIntegerFromString(R.string.p_rmd_quietStart, -1);
-            if(index == -1 || quietHoursStart == -1) {
-                preference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_desc_none));
-            } else {
-                String setting = String.valueOf(index);
+            if(Preferences.getBoolean(R.string.p_rmd_enable_quiet, false)) {
+                int millisOfDay = (int) value;
+                String setting = DateFormat.getTimeInstance(DateFormat.SHORT).format(new DateTime().withMillisOfDay(millisOfDay).toDate());
                 preference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_end_desc, setting));
+            } else {
+                preference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_desc_none));
             }
         } else if(r.getString(R.string.p_rmd_time).equals(preference.getKey())) {
-            String setting = (String) value;
+            int millisOfDay = (int) value;
+            String setting = DateFormat.getTimeInstance(DateFormat.SHORT).format(new DateTime().withMillisOfDay(millisOfDay).toDate());
             preference.setSummary(r.getString(R.string.rmd_EPr_rmd_time_desc, setting));
         } else if(r.getString(R.string.p_rmd_ringtone).equals(preference.getKey())) {
             if(value == null || "content://settings/system/notification_sound".equals(value)) //$NON-NLS-1$

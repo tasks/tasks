@@ -129,6 +129,10 @@ public class Preferences {
     /**
      * Sets string preference
      */
+    public static void setString(int resourceId, String value) {
+        setString(ContextManager.getContext().getString(resourceId), value);
+    }
+
     public static void setString(String key, String newValue) {
         Context context = ContextManager.getContext();
         Editor editor = getPrefs(context).edit();
@@ -193,6 +197,14 @@ public class Preferences {
     /** Gets a int preference
      * @return default if value is unset otherwise the value
      */
+    public static int getInt(int resourceId) {
+        return getInt(resourceId, 0);
+    }
+
+    public static int getInt(int resourceId, int defValue) {
+        return getInt(ContextManager.getContext().getString(resourceId), defValue);
+    }
+
     public static int getInt(String key, int defValue) {
         Context context = ContextManager.getContext();
         return getPrefs(context).getInt(key, defValue);
@@ -201,6 +213,10 @@ public class Preferences {
     /**
      * Sets int preference
      */
+    public static void setInt(int resourceId, int value) {
+        setInt(ContextManager.getContext().getString(resourceId), value);
+    }
+
     public static void setInt(String key, int value) {
         Context context = ContextManager.getContext();
         Editor editor = getPrefs(context).edit();

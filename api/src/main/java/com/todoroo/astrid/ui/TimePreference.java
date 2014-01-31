@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TimePicker;
 
+import org.joda.time.DateTime;
+
 /**
  * Preference dialog that displays a TimePicker and persists the selected value.
  *
@@ -22,7 +24,7 @@ import android.widget.TimePicker;
 public class TimePreference extends DialogPreference {
 
     /** The last hour digit picked by the user in String format */
-    private String lastHour = "0";
+    private int millisOfDay;
     private TimePicker picker = null;
 
     public TimePreference(Context context, AttributeSet attrs) {
@@ -37,9 +39,7 @@ public class TimePreference extends DialogPreference {
     public View onCreateDialogView() {
         picker = new TimePicker(getContext());
 
-        picker.setCurrentHour(Integer.parseInt(getLastHour()));
-        picker.setCurrentMinute(0);
-        picker.setIs24HourView(DateFormat.is24HourFormat(getContext()));
+        refreshPicker();
 
         return picker;
     }
@@ -48,9 +48,15 @@ public class TimePreference extends DialogPreference {
     public void onBindDialogView(View v) {
         super.onBindDialogView(v);
 
-        picker.setCurrentHour(Integer.parseInt(getLastHour()));
-        picker.setCurrentMinute(0);
+        refreshPicker();
+    }
+
+    private void refreshPicker() {
+        DateTime dateTime = DateTime.now().withMillisOfDay(millisOfDay);
+        picker.setCurrentHour(dateTime.getHourOfDay());
+        picker.setCurrentMinute(dateTime.getMinuteOfHour());
         picker.setIs24HourView(DateFormat.is24HourFormat(getContext()));
+
     }
 
     @Override
@@ -58,33 +64,37 @@ public class TimePreference extends DialogPreference {
         super.onDialogClosed(positiveResult);
         /** When the dialog is closed update the lastHour variable and store the value in preferences */
         if (positiveResult) {
-            lastHour = String.valueOf(picker.getCurrentHour());
+            millisOfDay = new DateTime()
+                    .withMillisOfDay(0)
+                    .withHourOfDay(picker.getCurrentHour())
+                    .withMinuteOfHour(picker.getCurrentMinute())
+                    .getMillisOfDay();
 
-            if (callChangeListener(lastHour)) {
-                persistString(lastHour);
+            if (callChangeListener(millisOfDay)) {
+                persistInt(millisOfDay);
             }
         }
     }
 
     @Override
     public Object onGetDefaultValue(TypedArray array, int index) {
-        return (array.getString(index));
+        return (array.getInt(index, 0));
     }
 
     /** When called for the first time initialize the value of the last hour to either the saved one
      * or to the default one. If a default one is not provided use "0" */
     @Override
     public void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-        String defString = (defaultValue == null) ? "0" : defaultValue.toString();
+        int def = (defaultValue == null) ? 0 : (int) defaultValue;
 
         if (restoreValue) {
-            lastHour = getPersistedString(defString);
+            millisOfDay = getPersistedInt(def);
         } else {
-            lastHour = defString;
+            millisOfDay = def;
         }
     }
 
-    public String getLastHour() {
-        return lastHour;
+    public int getMillisOfDay() {
+        return millisOfDay;
     }
 }

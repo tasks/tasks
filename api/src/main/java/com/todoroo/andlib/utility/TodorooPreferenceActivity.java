@@ -14,7 +14,6 @@ package com.todoroo.andlib.utility;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
-import android.preference.DialogPreference;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -80,7 +79,7 @@ abstract public class TodorooPreferenceActivity extends PreferenceActivity {
                 value = PreferenceManager.getDefaultSharedPreferences(preference.getContext())
                         .getString(preference.getKey(), null);
             } else if(preference instanceof TimePreference) {
-                value = ((TimePreference) preference).getLastHour();
+                value = ((TimePreference) preference).getMillisOfDay();
             }
 
             updatePreferences(preference, value);

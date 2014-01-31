@@ -1,5 +1,7 @@
 package com.todoroo.astrid.reminders;
 
+import android.annotation.SuppressLint;
+
 import com.todoroo.andlib.utility.Preferences;
 
 import org.joda.time.DateTime;
@@ -10,6 +12,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.tasks.R;
 
+import java.util.concurrent.TimeUnit;
+
 import static com.todoroo.astrid.reminders.Notifications.isQuietHours;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -19,6 +23,9 @@ import static org.tasks.TestUtilities.clearPreferences;
 
 @RunWith(RobolectricTestRunner.class)
 public class NotificationsTest {
+
+    @SuppressLint("NewApi")
+    private static final int MILLIS_PER_HOUR = (int) TimeUnit.HOURS.toMillis(1);
 
     private static final DateTime now =
             new DateTime(2014, 1, 23, 18, 8, 31, 540);
@@ -85,10 +92,10 @@ public class NotificationsTest {
     }
 
     private void setQuietHoursStart(int hour) {
-        Preferences.setStringFromInteger(R.string.p_rmd_quietStart, hour);
+        Preferences.setInt(R.string.p_rmd_quietStart, hour * MILLIS_PER_HOUR);
     }
 
     private void setQuietHoursEnd(int hour) {
-        Preferences.setStringFromInteger(R.string.p_rmd_quietEnd, hour);
+        Preferences.setInt(R.string.p_rmd_quietEnd, hour * MILLIS_PER_HOUR);
     }
 }

@@ -11,6 +11,7 @@ import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.Task;
 
+import org.joda.time.DateTime;
 import org.tasks.R;
 
 public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
@@ -95,39 +96,24 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
     }
 
     static void migrateToNewQuietHours() {
-        Context context = ContextManager.getContext();
-        Resources r = context.getResources();
-
-        /** START Migration to new Quiet Hours settings */
         boolean hasMigrated = Preferences.getBoolean(R.string.p_rmd_hasMigrated, false);
 
         if(!hasMigrated) {
-            // for each preference load old stored value
-            int quietHoursStart = Preferences.getIntegerFromString(R.string.p_rmd_quietStart_old, -1);
-            Preferences.setBoolean(R.string.p_rmd_enable_quiet, quietHoursStart > 0);
-            int quietHoursEnd = Preferences.getIntegerFromString(R.string.p_rmd_quietEnd_old, -1);
-            int defReminderTime = Preferences.getIntegerFromString(R.string.p_rmd_time_old, -1);
-            // if a previous quietHoursStart preference exists and it's not disabled (so it's not 0 or -1)
-            if (quietHoursStart > 0) {
-                quietHoursStart = (quietHoursStart + 19) % 24;
-                if (quietHoursEnd >= 0) {
-                    quietHoursEnd = (quietHoursEnd + 9) % 24;
-                }
-                Preferences.setStringFromInteger(R.string.p_rmd_quietStart, quietHoursStart);
-                Preferences.setStringFromInteger(R.string.p_rmd_quietEnd, quietHoursEnd);
-            }
-            // if a previous defReminderTime preference exists
-            if (defReminderTime >= 0 && defReminderTime < 24) {
-                // convert to hours from index. 9 is the initial 9AM in the reminder array
-                // so you have to return 9 hours to get to 0 (and modulo the result to reverse negative results)
-                defReminderTime = (defReminderTime + 9) % 24;
-                // save changed preferences in the new preference keys
-                Preferences.setStringFromInteger(R.string.p_rmd_time, defReminderTime);
-            }
+            boolean quietHoursEnabled = Preferences.getIntegerFromString(R.string.p_rmd_quietStart_old, -1) >= 0;
+            Preferences.setBoolean(R.string.p_rmd_enable_quiet, quietHoursEnabled);
 
-            // set migration to completed
+            if (quietHoursEnabled) {
+                setTime(R.string.p_rmd_quietStart_old, R.string.p_rmd_quietStart, 22);
+                setTime(R.string.p_rmd_quietEnd_old, R.string.p_rmd_quietEnd, 10);
+            }
+            setTime(R.string.p_rmd_time_old, R.string.p_rmd_time, 18);
             Preferences.setBoolean(R.string.p_rmd_hasMigrated, true);
         }
-        /** END Migration to new Quiet Hours settings */
+    }
+
+    private static void setTime(int oldResourceId, int newResourceId, int defValue) {
+        int hour = Preferences.getIntegerFromString(oldResourceId, defValue);
+        int millisOfDay = new DateTime().withMillisOfDay(0).withHourOfDay(hour).getMillisOfDay();
+        Preferences.setInt(newResourceId, millisOfDay);
     }
 }

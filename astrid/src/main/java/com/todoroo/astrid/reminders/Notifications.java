@@ -42,13 +42,14 @@ import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceOutputService;
 
+import org.joda.time.DateTime;
 import org.tasks.R;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import static org.tasks.date.DateTimeUtils.newDate;
+import static org.tasks.date.DateTimeUtils.currentTimeMillis;
 
 public class Notifications extends BroadcastReceiver {
 
@@ -470,17 +471,16 @@ public class Notifications extends BroadcastReceiver {
      */
     public static boolean isQuietHours() {
         boolean quietHoursEnabled = Preferences.getBoolean(R.string.p_rmd_enable_quiet, false);
-        int quietHoursStart = Preferences.getIntegerFromString(R.string.p_rmd_quietStart, -1);
-        int quietHoursEnd = Preferences.getIntegerFromString(R.string.p_rmd_quietEnd, -1);
-
         if(quietHoursEnabled) {
-            int hour = newDate().getHours();
+            long quietHoursStart = new DateTime().withMillisOfDay(Preferences.getInt(R.string.p_rmd_quietStart)).getMillis();
+            long quietHoursEnd = new DateTime().withMillisOfDay(Preferences.getInt(R.string.p_rmd_quietEnd)).getMillis();
+            long now = currentTimeMillis();
             if(quietHoursStart <= quietHoursEnd) {
-                if(hour >= quietHoursStart && hour < quietHoursEnd) {
+                if(now >= quietHoursStart && now < quietHoursEnd) {
                     return true;
                 }
             } else { // wrap across 24/hour boundary
-                if(hour >= quietHoursStart || hour < quietHoursEnd) {
+                if(now >= quietHoursStart || now < quietHoursEnd) {
                     return true;
                 }
             }

@@ -28,11 +28,13 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.utility.Constants;
 
+import org.joda.time.DateTime;
 import org.tasks.R;
 
 import java.util.Date;
 import java.util.Random;
 
+import static org.tasks.date.DateTimeUtils.currentTimeMillis;
 import static org.tasks.date.DateTimeUtils.newDate;
 
 
@@ -105,6 +107,8 @@ public final class ReminderService  {
 
     private static boolean preferencesInitialized = false;
 
+    private static final int MILLIS_PER_HOUR = 60 * 60 * 1000;
+
     /** Set preference defaults, if unset. called at startup */
     public void setPreferenceDefaults() {
         if(preferencesInitialized) {
@@ -117,10 +121,10 @@ public final class ReminderService  {
         Resources r = context.getResources();
 
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_enable_quiet, false);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_quietStart, 22);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_quietEnd, 10);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_quietStart, 22 * MILLIS_PER_HOUR);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_quietEnd, 10 * MILLIS_PER_HOUR);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_default_random_hours, 0);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_time, 18);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_time, 18 * MILLIS_PER_HOUR);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_persistent, true);
 
         editor.commit();
@@ -317,27 +321,18 @@ public final class ReminderService  {
                 dueDateAlarm = dueDate;
             } else if (DateUtilities.now() > lastReminder + DateUtilities.ONE_DAY) {
                 // return notification time on this day
-                Date date = newDate(dueDate);
-                date.setHours(Preferences.getIntegerFromString(R.string.p_rmd_time, 18));
-                date.setMinutes(0);
-                date.setSeconds(0);
+                Date date = new DateTime(dueDate).withMillisOfDay(Preferences.getInt(R.string.p_rmd_time, 18 * MILLIS_PER_HOUR)).toDate();
                 dueDateAlarm = date.getTime();
                 if (dueDate > getNowValue() && dueDateAlarm < getNowValue()) {
                     // this only happens for tasks due today, cause dueDateAlarm wouldn't be in the past otherwise
                     // if the default reminder is in the past, then reschedule it
                     // on this day before start of quiet hours or after quiet hours
                     // randomly placed in this interval
-                    int quietHoursStart = Preferences.getIntegerFromString(R.string.p_rmd_quietStart, -1);
-                    Date quietHoursStartDate = newDate();
-                    quietHoursStartDate.setHours(quietHoursStart);
-                    quietHoursStartDate.setMinutes(0);
-                    quietHoursStartDate.setSeconds(0);
+                    long quietHoursStart = new DateTime().withMillisOfDay(Preferences.getInt(R.string.p_rmd_quietStart, 22 * MILLIS_PER_HOUR)).getMillis();
+                    Date quietHoursStartDate = newDate(quietHoursStart);
 
-                    int quietHoursEnd = Preferences.getIntegerFromString(R.string.p_rmd_quietEnd, -1);
-                    Date quietHoursEndDate = newDate();
-                    quietHoursEndDate.setHours(quietHoursEnd);
-                    quietHoursEndDate.setMinutes(0);
-                    quietHoursEndDate.setSeconds(0);
+                    long quietHoursEnd = new DateTime().withMillisOfDay(Preferences.getInt(R.string.p_rmd_quietEnd, 10 * MILLIS_PER_HOUR)).getMillis();
+                    Date quietHoursEndDate = newDate(quietHoursEnd);
 
                     boolean quietHoursEnabled = Preferences.getBoolean(R.string.p_rmd_enable_quiet, false);
 
@@ -347,14 +342,14 @@ public final class ReminderService  {
                     int periodDivFactor = 4;
 
                     if(quietHoursEnabled) {
-                        int hour = newDate().getHours();
+                        long now = currentTimeMillis();
                         if(quietHoursStart <= quietHoursEnd) {
-                            if(hour >= quietHoursStart && hour < quietHoursEnd) {
+                            if(now >= quietHoursStart && now < quietHoursEnd) {
                                 // its quiet now, quietHoursEnd is 23 max,
                                 // so put the default reminder to the end of the quiethours
-                                date.setHours(quietHoursEnd);
+                                date = quietHoursEndDate;
                                 dueDateAlarm = date.getTime();
-                            } else if (hour < quietHoursStart) {
+                            } else if (now < quietHoursStart) {
                                 // quietHours didnt start yet
                                 millisToQuiet = quietHoursStartDate.getTime() - getNowValue();
                                 long millisAfterQuiet = dueDate - quietHoursEndDate.getTime();
@@ -370,11 +365,11 @@ public final class ReminderService  {
                                 dueDateAlarm = getNowValue() + (millisToEndOfDay / periodDivFactor);
                             }
                         } else { // wrap across 24/hour boundary
-                            if(hour >= quietHoursStart) {
+                            if(now >= quietHoursStart) {
                                 // do nothing for the end of day, dont let it even vibrate
                                 dueDateAlarm = NO_ALARM;
-                            } else if (hour < quietHoursEnd) {
-                                date.setHours(quietHoursEnd);
+                            } else if (now < quietHoursEnd) {
+                                date = quietHoursEndDate;
                                 dueDateAlarm = date.getTime();
                             } else {
                                 // quietHours didnt start yet
