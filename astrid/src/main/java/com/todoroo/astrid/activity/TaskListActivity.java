@@ -456,24 +456,10 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         }
     }
 
-    public void incrementFilterCount(Filter filter) {
+    public void refreshFilterCount() {
         FilterListFragment flf = getFilterListFragment();
         if (flf != null) {
-            flf.adapter.incrementFilterCount(filter);
-        }
-    }
-
-    public void decrementFilterCount(Filter filter) {
-        FilterListFragment flf = getFilterListFragment();
-        if (flf != null) {
-            flf.adapter.decrementFilterCount(filter);
-        }
-    }
-
-    public void refreshFilterCount(Filter filter) {
-        FilterListFragment flf = getFilterListFragment();
-        if (flf != null) {
-            flf.adapter.refreshFilterCount(filter);
+            flf.adapter.refreshFilterCount();
         }
     }
 

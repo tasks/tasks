@@ -219,4 +219,9 @@ public class Filter extends FilterListItem {
             return new Filter[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return title;
+    }
 }

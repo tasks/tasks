@@ -956,12 +956,9 @@ public class TaskListFragment extends ListFragment implements OnSortSelectedList
     }
 
     public void onTaskCreated(Task task) {
-        incrementFilterCount();
     }
 
     protected void onTaskDelete(Task task) {
-        decrementFilterCount();
-
         Activity a = getActivity();
         if (a instanceof AstridActivity) {
             AstridActivity activity = (AstridActivity) a;
@@ -975,21 +972,9 @@ public class TaskListFragment extends ListFragment implements OnSortSelectedList
         TimerPlugin.updateTimer(ContextManager.getContext(), task, false);
     }
 
-    public void incrementFilterCount() {
-        if (getActivity() instanceof TaskListActivity) {
-            ((TaskListActivity) getActivity()).incrementFilterCount(filter);
-        }
-    }
-
-    public void decrementFilterCount() {
-        if (getActivity() instanceof TaskListActivity) {
-            ((TaskListActivity) getActivity()).decrementFilterCount(filter);
-        }
-    }
-
     public void refreshFilterCount() {
         if (getActivity() instanceof TaskListActivity) {
-            ((TaskListActivity) getActivity()).refreshFilterCount(filter);
+            ((TaskListActivity) getActivity()).refreshFilterCount();
         }
     }
 

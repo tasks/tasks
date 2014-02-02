@@ -39,6 +39,7 @@ import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TagDataDao;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
@@ -51,6 +52,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.R;
+import org.tasks.filters.FilterCounter;
 
 import java.io.File;
 import java.util.List;

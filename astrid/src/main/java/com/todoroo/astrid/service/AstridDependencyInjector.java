@@ -27,6 +27,7 @@ import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.Broadcaster;
+import org.tasks.filters.FilterCounter;
 
 /**
  * Astrid application dependency injector loads classes in Astrid with the
@@ -85,6 +86,8 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
         injectables.put("tagService", TagService.class);
 
         injectables.put("broadcaster", Broadcaster.class);
+
+        injectables.put("filterCounter", FilterCounter.class);
 
         // these make reference to fields defined above
         injectables.put("errorReporters", new ErrorReporter[] {

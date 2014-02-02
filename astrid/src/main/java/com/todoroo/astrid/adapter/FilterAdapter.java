@@ -19,7 +19,6 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,12 +47,9 @@ import com.todoroo.astrid.api.FilterWithUpdate;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
+import org.tasks.filters.FilterCounter;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -69,6 +65,9 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     @Autowired
     private TaskService taskService;
 
+    @Autowired
+    private FilterCounter filterCounter;
+
     /** parent activity */
     protected final Activity activity;
 
@@ -81,6 +80,8 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     /** receiver for new filters */
     protected final FilterReceiver filterReceiver = new FilterReceiver();
 
+    private final FilterListUpdateReceiver filterListUpdateReceiver = new FilterListUpdateReceiver();
+
     /** row layout to inflate */
     private final int layout;
 
@@ -92,20 +93,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
     /** whether rows are selectable */
     private final boolean selectable;
-
-    /** Pattern for matching filter counts in listing titles */
-    private final Pattern countPattern = Pattern.compile(".* \\((\\d+)\\)$"); //$NON-NLS-1$
-
-    private final HashMap<Filter, Integer> filterCounts;
-
-    // Previous solution involved a queue of filters and a filterSizeLoadingThread. The filterSizeLoadingThread had
-    // a few problems: how to make sure that the thread is resumed when the controlling activity is resumed, and
-    // how to make sure that the the filterQueue does not accumulate filters without being processed. I am replacing
-    // both the queue and a the thread with a thread pool, which will shut itself off after a second if it has
-    // nothing to do (corePoolSize == 0, which makes it available for garbage collection), and will wake itself up
-    // if new filters are queued (obviously it cannot be garbage collected if it is possible for new filters to
-    // be added).
-    private final ThreadPoolExecutor filterExecutor = new ThreadPoolExecutor(0, 1, 1, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
 
     public FilterAdapter(Activity activity, int rowLayout) {
         this(activity, null, rowLayout, false, false);
@@ -122,7 +109,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         this.layout = rowLayout;
         this.skipIntentFilters = skipIntentFilters;
         this.selectable = selectable;
-        this.filterCounts = new HashMap<>();
 
         inflater = (LayoutInflater) activity.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
@@ -134,40 +120,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         if(selectable && selection == null) {
             setSelection(filter);
         }
-        filterExecutor.submit(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    int size = -1;
-                    Matcher m = countPattern.matcher(filter.listingTitle);
-                    if(m.find()) {
-                        String countString = m.group(1);
-                        try {
-                            size = Integer.parseInt(countString);
-                        } catch (NumberFormatException e) {
-                            // Count manually
-                            e.printStackTrace();
-                        }
-                    }
-
-                    if (size < 0) {
-                        size = taskService.countTasks(filter);
-                        filter.listingTitle = filter.listingTitle + (" (" + //$NON-NLS-1$
-                                size + ")"); //$NON-NLS-1$
-                    }
-
-                    filterCounts.put(filter, size);
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            notifyDataSetChanged();
-                        }
-                    });
-                } catch (Exception e) {
-                    Log.e("astrid-filter-adapter", "Error loading filter size", e); //$NON-NLS-1$ //$NON-NLS-2$
-                }
-            }
-        });
     }
 
     @Override
@@ -178,9 +130,20 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     @Override
     public void add(Filter item) {
         super.add(item);
-        notifyDataSetChanged();
         // load sizes
+        filterCounter.registerFilter(item);
         offerFilter(item);
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                FilterAdapter.super.notifyDataSetChanged();
+            }
+        });
     }
 
     public void addOrLookup(Filter filter) {
@@ -203,37 +166,11 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         }
     }
 
-    public void adjustFilterCount(Filter filter, int delta) {
-        int filterCount = 0;
-        if (filterCounts.containsKey(filter)) {
-            filterCount = filterCounts.get(filter);
-        }
-        int newCount = Math.max(filterCount + delta, 0);
-        filterCounts.put(filter, newCount);
-        notifyDataSetChanged();
-    }
-
-    public void incrementFilterCount(Filter filter) {
-        adjustFilterCount(filter, 1);
-    }
-
-    public void decrementFilterCount(Filter filter) {
-        adjustFilterCount(filter, -1);
-    }
-
-    public void refreshFilterCount(final Filter filter) {
-        filterExecutor.submit(new Runnable() {
+    public void refreshFilterCount() {
+        filterCounter.refreshFilterCounts(new Runnable() {
             @Override
             public void run() {
-                int size = taskService.countTasks(filter);
-                filterCounts.put(filter, size);
-                activity.runOnUiThread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        notifyDataSetChanged();
-                    }
-                });
+                notifyDataSetChanged();
             }
         });
     }
@@ -271,7 +208,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         convertView = newView(convertView, parent);
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
         viewHolder.item = getItem(position);
@@ -326,6 +262,13 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     /* ======================================================================
      * ============================================================= receiver
      * ====================================================================== */
+
+    public class FilterListUpdateReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            notifyDataSetChanged();
+        }
+    }
 
     /**
      * Receiver which receives intents to add items to the filter list
@@ -383,7 +326,12 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
                 }
             }
 
-            notifyDataSetChanged();
+            filterCounter.refreshFilterCounts(new Runnable() {
+                @Override
+                public void run() {
+                    notifyDataSetChanged();
+                }
+            });
         }
     }
 
@@ -403,7 +351,10 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         IntentFilter regularFilter = new IntentFilter(AstridApiConstants.BROADCAST_SEND_FILTERS);
         regularFilter.setPriority(2);
         activity.registerReceiver(filterReceiver, regularFilter);
+        activity.registerReceiver(filterListUpdateReceiver, new IntentFilter(AstridApiConstants.BROADCAST_EVENT_FILTER_LIST_UPDATED));
         getLists();
+
+        refreshFilterCount();
     }
 
     /**
@@ -411,11 +362,15 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
      */
     public void unregisterRecevier() {
         activity.unregisterReceiver(filterReceiver);
+        activity.unregisterReceiver(filterListUpdateReceiver);
     }
 
     /* ======================================================================
      * ================================================================ views
      * ====================================================================== */
+
+    /** Pattern for matching filter counts in listing titles */
+    private final Pattern countPattern = Pattern.compile(".* \\((\\d+)\\)$"); //$NON-NLS-1$
 
     public void populateView(ViewHolder viewHolder) {
         FilterListItem filter = viewHolder.item;
@@ -438,36 +393,29 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
             viewHolder.name.setShadowLayer(0, 0, 0, 0);
         }
 
+        String title = filter.listingTitle;
+        Matcher match = countPattern.matcher(filter.listingTitle);
+        if(match.matches()) {
+            title = title.substring(0, title.lastIndexOf(' '));
+        }
+        if(!title.equals(viewHolder.name.getText())) {
+            viewHolder.name.setText(title);
+        }
+
         // title / size
         int countInt = -1;
-        if(filterCounts.containsKey(filter) || (!TextUtils.isEmpty(filter.listingTitle) && filter.listingTitle.matches(".* \\(\\d+\\)$"))) { //$NON-NLS-1$
+        if(filterCounter.containsKey(filter) || (!TextUtils.isEmpty(filter.listingTitle) && filter.listingTitle.matches(".* \\(\\d+\\)$"))) { //$NON-NLS-1$
             viewHolder.size.setVisibility(View.VISIBLE);
-            String count;
-            if (filterCounts.containsKey(filter)) {
-                Integer c = filterCounts.get(filter);
+            String count = "";
+            if (filterCounter.containsKey(filter)) {
+                Integer c = filterCounter.get(filter);
                 countInt = c;
                 count = c.toString();
-            } else {
-                count = filter.listingTitle.substring(filter.listingTitle.lastIndexOf('(') + 1,
-                        filter.listingTitle.length() - 1);
-                try {
-                    countInt = Integer.parseInt(count);
-                } catch (NumberFormatException e) {
-                    //
-                }
             }
-            viewHolder.size.setText(count);
-
-            String title;
-            int listingTitleSplit = filter.listingTitle.lastIndexOf(' ');
-            if (listingTitleSplit > 0) {
-                title = filter.listingTitle.substring(0, listingTitleSplit);
-            } else {
-                title = filter.listingTitle;
+            if(!count.equals(viewHolder.size.getText())) {
+                viewHolder.size.setText(count);
             }
-            viewHolder.name.setText(title);
         } else {
-            viewHolder.name.setText(filter.listingTitle);
             viewHolder.size.setVisibility(View.GONE);
             countInt = -1;
         }

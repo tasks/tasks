@@ -6,6 +6,7 @@
 package com.todoroo.astrid.service;
 
 import android.content.ContentValues;
+import android.content.Intent;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -19,7 +20,7 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.adapter.UpdateAdapter;
-import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao;
@@ -37,6 +38,9 @@ import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.TitleParser;
+
+import org.tasks.Broadcaster;
+import org.tasks.filters.FilterCounter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +76,12 @@ public class TaskService {
     @Autowired
     private UserActivityDao userActivityDao;
 
+    @Autowired
+    private Broadcaster broadcaster;
+
+    @Autowired
+    private FilterCounter filterCounter;
+
     public TaskService() {
         DependencyInjectionService.getInstance().inject(this);
     }
@@ -102,13 +112,18 @@ public class TaskService {
             item.setCompletionDate(0L);
         }
 
-        taskDao.save(item);
+        save(item);
     }
 
     /**
      * Create or save the given action item
      */
     public void save(Task item) {
+        taskDao.save(item);
+        broadcastFilterListUpdated();
+    }
+
+    private void saveWithoutPublishingFilterUpdate(Task item) {
         taskDao.save(item);
     }
 
@@ -130,7 +145,7 @@ public class TaskService {
             if(cursor.getCount() > 0) {
                 Metadata metadata = new Metadata();
                 newTask.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
-                taskDao.save(newTask);
+                save(newTask);
                 long newId = newTask.getId();
                 for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                     metadata.readFromCursor(cursor);
@@ -172,7 +187,7 @@ public class TaskService {
             item.setId(id);
             GCalHelper.deleteTaskEvent(item);
             item.setDeletionDate(DateUtilities.now());
-            taskDao.save(item);
+            save(item);
         }
     }
 
@@ -265,7 +280,7 @@ public class TaskService {
         try {
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 taskValues.setID(cursor.get(Task.ID));
-                taskDao.save(taskValues);
+                save(taskValues);
             }
             return cursor.getCount();
         } finally {
@@ -302,18 +317,6 @@ public class TaskService {
         }
     }
 
-    /** count tasks in a given filter */
-    public int countTasks(Filter filter) {
-        String queryTemplate = PermaSql.replacePlaceholders(filter.getSqlQuery());
-        TodorooCursor<Task> cursor = query(Query.select(Task.ID).withQueryTemplate(
-                queryTemplate));
-        try {
-            return cursor.getCount();
-        } finally {
-            cursor.close();
-        }
-    }
-
     /**
      * Delete all tasks matching a given criterion
      */
@@ -329,10 +332,20 @@ public class TaskService {
      * <li>!4 - set priority to !!!!
      */
     private void quickAdd(Task task, List<String> tags) {
-        save(task);
+        saveWithoutPublishingFilterUpdate(task);
         for(String tag : tags) {
             TagService.getInstance().createLink(task, tag);
         }
+        broadcastFilterListUpdated();
+    }
+
+    private void broadcastFilterListUpdated() {
+        filterCounter.refreshFilterCounts(new Runnable() {
+            @Override
+            public void run() {
+                broadcaster.sendOrderedBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_FILTER_LIST_UPDATED));
+            }
+        });
     }
 
     /**
