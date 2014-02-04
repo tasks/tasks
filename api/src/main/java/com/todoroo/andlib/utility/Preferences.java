@@ -21,6 +21,13 @@ import com.todoroo.andlib.service.ContextManager;
  */
 public class Preferences {
 
+    public static void setIntIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, int value) {
+        String key = r.getString(keyResource);
+        if(!prefs.contains(key)) {
+            editor.putInt(key, value);
+        }
+    }
+
     /**
      * Helper to write to editor if key specified is null. Writes a String
      * property with the given integer

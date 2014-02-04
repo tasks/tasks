@@ -24,7 +24,7 @@ import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.astrid.ui.TimePreference;
+import org.tasks.ui.TimePreference;
 
 /**
  * Displays a preference screen for users to edit their preferences. Override

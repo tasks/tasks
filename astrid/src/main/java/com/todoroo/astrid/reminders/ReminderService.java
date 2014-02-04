@@ -121,10 +121,7 @@ public final class ReminderService  {
         Resources r = context.getResources();
 
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_enable_quiet, false);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_quietStart, 22 * MILLIS_PER_HOUR);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_quietEnd, 10 * MILLIS_PER_HOUR);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_default_random_hours, 0);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_time, 18 * MILLIS_PER_HOUR);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_persistent, true);
 
         editor.commit();

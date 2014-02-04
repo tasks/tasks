@@ -12,19 +12,19 @@
         android:key="@string/p_rmd_enable_quiet"
         android:title="@string/rmd_EPr_enable_quiet_title"
         android:defaultValue="false"/>
-    <com.todoroo.astrid.ui.TimePreference
+    <org.tasks.ui.TimePreference
         android:key="@string/p_rmd_quietStart"
-        android:defaultValue="-1"
+        android:defaultValue="@integer/default_quiet_hours_start"
         android:dependency="@string/p_rmd_enable_quiet"
         android:title="@string/rmd_EPr_quiet_hours_start_title"/>
-    <com.todoroo.astrid.ui.TimePreference
+    <org.tasks.ui.TimePreference
         android:key="@string/p_rmd_quietEnd"
-        android:defaultValue="-1"
-        android:dependency="@string/p_rmd_quietStart"
+        android:defaultValue="@integer/default_quiet_hours_end"
+        android:dependency="@string/p_rmd_enable_quiet"
         android:title="@string/rmd_EPr_quiet_hours_end_title"/>
-<com.todoroo.astrid.ui.TimePreference
+<org.tasks.ui.TimePreference
     android:key="@string/p_rmd_time"
-    android:defaultValue="7"
+    android:defaultValue="@integer/default_remind_time"
     android:title="@string/rmd_EPr_rmd_time_title"/>
 <com.todoroo.astrid.ui.MultilineCheckboxPreference
     android:key="@string/p_rmd_persistent"

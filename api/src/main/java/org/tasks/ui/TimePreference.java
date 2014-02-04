@@ -1,7 +1,6 @@
-package com.todoroo.astrid.ui;
+package org.tasks.ui;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.preference.DialogPreference;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
@@ -10,20 +9,8 @@ import android.widget.TimePicker;
 
 import org.joda.time.DateTime;
 
-/**
- * Preference dialog that displays a TimePicker and persists the selected value.
- *
- * The xml to use it is of the form:
- < com.todoroo.astrid.ui.TimePreference
-     android:key="@string/my_key_value"
-     android:defaultValue="-1"
-     android:positiveButtonText="Save"
-     android:negativeButtonText="Reset"
-     android:title="@string/my_pref_title_value" />
- */
 public class TimePreference extends DialogPreference {
 
-    /** The last hour digit picked by the user in String format */
     private int millisOfDay;
     private TimePicker picker = null;
 
@@ -32,7 +19,6 @@ public class TimePreference extends DialogPreference {
 
         setPositiveButtonText(android.R.string.ok);
         setNegativeButtonText(android.R.string.cancel);
-
     }
 
     @Override
@@ -56,13 +42,11 @@ public class TimePreference extends DialogPreference {
         picker.setCurrentHour(dateTime.getHourOfDay());
         picker.setCurrentMinute(dateTime.getMinuteOfHour());
         picker.setIs24HourView(DateFormat.is24HourFormat(getContext()));
-
     }
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
         super.onDialogClosed(positiveResult);
-        /** When the dialog is closed update the lastHour variable and store the value in preferences */
         if (positiveResult) {
             millisOfDay = new DateTime()
                     .withMillisOfDay(0)
@@ -76,13 +60,6 @@ public class TimePreference extends DialogPreference {
         }
     }
 
-    @Override
-    public Object onGetDefaultValue(TypedArray array, int index) {
-        return (array.getInt(index, 0));
-    }
-
-    /** When called for the first time initialize the value of the last hour to either the saved one
-     * or to the default one. If a default one is not provided use "0" */
     @Override
     public void onSetInitialValue(boolean restoreValue, Object defaultValue) {
         int def = (defaultValue == null) ? 0 : (int) defaultValue;
