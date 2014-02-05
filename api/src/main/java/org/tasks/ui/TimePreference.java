@@ -13,6 +13,7 @@ public class TimePreference extends DialogPreference {
 
     private int millisOfDay;
     private TimePicker picker = null;
+    private int defaultFocusability;
 
     public TimePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -24,9 +25,8 @@ public class TimePreference extends DialogPreference {
     @Override
     public View onCreateDialogView() {
         picker = new TimePicker(getContext());
-
+        defaultFocusability = picker.getDescendantFocusability();
         refreshPicker();
-
         return picker;
     }
 
@@ -42,12 +42,20 @@ public class TimePreference extends DialogPreference {
         picker.setCurrentHour(dateTime.getHourOfDay());
         picker.setCurrentMinute(dateTime.getMinuteOfHour());
         picker.setIs24HourView(DateFormat.is24HourFormat(getContext()));
+        if(picker.is24HourView()) {
+            // Disable keyboard input on time picker to avoid this:
+            // https://code.google.com/p/android/issues/detail?id=24387
+            picker.setDescendantFocusability(TimePicker.FOCUS_BLOCK_DESCENDANTS);
+        } else {
+            picker.setDescendantFocusability(defaultFocusability);
+        }
     }
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
         super.onDialogClosed(positiveResult);
         if (positiveResult) {
+            picker.clearFocus();
             millisOfDay = new DateTime()
                     .withMillisOfDay(0)
                     .withHourOfDay(picker.getCurrentHour())
