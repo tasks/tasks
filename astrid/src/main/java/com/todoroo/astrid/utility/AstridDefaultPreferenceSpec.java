@@ -90,6 +90,7 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
 
         setPreference(prefs, editor, r, R.string.p_hide_plus_button, true);
 
+        setPreference(prefs, editor, r, R.string.p_rmd_enable_quiet, true);
         setIntIfUnset(prefs, editor, r, R.string.p_rmd_quietStart, r.getInteger(R.integer.default_quiet_hours_start));
         setIntIfUnset(prefs, editor, r, R.string.p_rmd_quietEnd, r.getInteger(R.integer.default_quiet_hours_end));
         setIntIfUnset(prefs, editor, r, R.string.p_rmd_time, r.getInteger(R.integer.default_remind_time));
