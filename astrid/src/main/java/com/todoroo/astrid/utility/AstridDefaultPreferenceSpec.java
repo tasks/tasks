@@ -14,6 +14,7 @@ import com.todoroo.astrid.data.Task;
 import org.joda.time.DateTime;
 import org.tasks.R;
 
+import static com.todoroo.andlib.utility.Preferences.setBoolean;
 import static com.todoroo.andlib.utility.Preferences.setIntIfUnset;
 
 public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
@@ -39,7 +40,7 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
                             Preferences.setInt(AstridPreferences.P_SUBTASKS_HELP, 1);
                         }
                     }
-                    Preferences.setBoolean(dragDropTestInitialized, true);
+                    setBoolean(dragDropTestInitialized, true);
                 }
                 BeastModePreferences.setDefaultOrder(context);
             }
@@ -90,7 +91,8 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
 
         setPreference(prefs, editor, r, R.string.p_hide_plus_button, true);
 
-        setPreference(prefs, editor, r, R.string.p_rmd_enable_quiet, true);
+        setPreference(prefs, editor, r, R.string.p_rmd_quietStart_old, 22); // enable quiet hours by default
+
         setIntIfUnset(prefs, editor, r, R.string.p_rmd_quietStart, r.getInteger(R.integer.default_quiet_hours_start));
         setIntIfUnset(prefs, editor, r, R.string.p_rmd_quietEnd, r.getInteger(R.integer.default_quiet_hours_end));
         setIntIfUnset(prefs, editor, r, R.string.p_rmd_time, r.getInteger(R.integer.default_remind_time));
@@ -103,18 +105,12 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
     }
 
     static void migrateToNewQuietHours() {
-        boolean hasMigrated = Preferences.getBoolean(R.string.p_rmd_hasMigrated, false);
-
-        if(!hasMigrated) {
-            boolean quietHoursEnabled = Preferences.getIntegerFromString(R.string.p_rmd_quietStart_old, -1) >= 0;
-            Preferences.setBoolean(R.string.p_rmd_enable_quiet, quietHoursEnabled);
-
-            if (quietHoursEnabled) {
-                setTime(R.string.p_rmd_quietStart_old, R.string.p_rmd_quietStart, 22);
-                setTime(R.string.p_rmd_quietEnd_old, R.string.p_rmd_quietEnd, 10);
-            }
+        if(!Preferences.getBoolean(R.string.p_rmd_hasMigrated, false)) {
+            setBoolean(R.string.p_rmd_enable_quiet, Preferences.getIntegerFromString(R.string.p_rmd_quietStart_old, -1) >= 0);
+            setTime(R.string.p_rmd_quietStart_old, R.string.p_rmd_quietStart, 22);
+            setTime(R.string.p_rmd_quietEnd_old, R.string.p_rmd_quietEnd, 10);
             setTime(R.string.p_rmd_time_old, R.string.p_rmd_time, 18);
-            Preferences.setBoolean(R.string.p_rmd_hasMigrated, true);
+            setBoolean(R.string.p_rmd_hasMigrated, true);
         }
     }
 

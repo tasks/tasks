@@ -120,7 +120,6 @@ public final class ReminderService  {
         Editor editor = prefs.edit();
         Resources r = context.getResources();
 
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_enable_quiet, false);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_default_random_hours, 0);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_persistent, true);
 

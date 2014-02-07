@@ -8,7 +8,6 @@ package com.todoroo.astrid.reminders;
 import android.content.res.Resources;
 import android.preference.Preference;
 
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 
 import org.joda.time.DateTime;
@@ -40,21 +39,13 @@ public class ReminderPreferences extends TodorooPreferenceActivity {
                 preference.setSummary("");
             }
         } else if(r.getString(R.string.p_rmd_quietStart).equals(preference.getKey())) {
-            if(Preferences.getBoolean(R.string.p_rmd_enable_quiet, false)) {
-                int millisOfDay = (int) value;
-                String setting = DateFormat.getTimeInstance(DateFormat.SHORT).format(new DateTime().withMillisOfDay(millisOfDay).toDate());
-                preference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_start_desc, setting));
-            } else {
-                preference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_desc_none));
-            }
+            int millisOfDay = (int) value;
+            String setting = DateFormat.getTimeInstance(DateFormat.SHORT).format(new DateTime().withMillisOfDay(millisOfDay).toDate());
+            preference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_start_desc, setting));
         } else if(r.getString(R.string.p_rmd_quietEnd).equals(preference.getKey())) {
-            if(Preferences.getBoolean(R.string.p_rmd_enable_quiet, false)) {
-                int millisOfDay = (int) value;
-                String setting = DateFormat.getTimeInstance(DateFormat.SHORT).format(new DateTime().withMillisOfDay(millisOfDay).toDate());
-                preference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_end_desc, setting));
-            } else {
-                preference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_desc_none));
-            }
+            int millisOfDay = (int) value;
+            String setting = DateFormat.getTimeInstance(DateFormat.SHORT).format(new DateTime().withMillisOfDay(millisOfDay).toDate());
+            preference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_end_desc, setting));
         } else if(r.getString(R.string.p_rmd_time).equals(preference.getKey())) {
             int millisOfDay = (int) value;
             String setting = DateFormat.getTimeInstance(DateFormat.SHORT).format(new DateTime().withMillisOfDay(millisOfDay).toDate());
