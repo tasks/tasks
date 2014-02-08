@@ -434,10 +434,11 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="rmd_NoA_completed_toast">¡Felicitaciones por terminar!</string>
 	<string name="rmd_NoA_dlg_title">Recordatorio:</string>
 	<string name="rmd_EPr_alerts_header">Configurar recordatorios</string>
-	<string name="rmd_EPr_alerts_summary">Horas de silencio, opciones de dilación, nivel de persistencia</string>
+	<string name="rmd_EPr_alerts_summary">Horario en silencio, opciones al posponer, nivel de persistencia</string>
 	<string name="rmd_EPr_enabled_title">¿Habilitar recordatorios?</string>
 	<string name="rmd_EPr_enabled_desc_true">Los avisos de Tasks están habilitados (esto es lo normal)</string>
 	<string name="rmd_EPr_enabled_desc_false">Los avisos de Tasks no aparecerán nunca en el teléfono</string>
+	<string name="rmd_EPr_enable_quiet_title">Habilitar horario en silencio</string>
 	<string name="rmd_EPr_quiet_hours_start_title">El horario en silencio empieza</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">Notificaciones serán silenciadas después de %s.\nNota: las vibraciones están controladas según la configuración \"Vibrar en alerta\"</string>
 	<string name="rmd_EPr_quiet_hours_desc_none">Horario en silencio deshabilitado</string>
@@ -458,9 +459,9 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="rmd_EPr_vibrate_title">Vibrar en alerta</string>
 	<string name="rmd_EPr_vibrate_desc_true">Tasks vibrará cuando envíe notificaciones</string>
 	<string name="rmd_EPr_vibrate_desc_false">Tasks no vibrará al enviar notificaciones</string>
-	<string name="rmd_EPr_snooze_dialog_title">Diálogo de dilación HH:MM</string>
-	<string name="rmd_EPr_snooze_dialog_desc_true">Retrasa seleccionando un nuevo tiempo de dilación (HH:MM)</string>
-	<string name="rmd_EPr_snooze_dialog_desc_false">Retrasar seleccionando # días/horas de dilación</string>
+	<string name="rmd_EPr_snooze_dialog_title">Diálogo de espera HH:MM</string>
+	<string name="rmd_EPr_snooze_dialog_desc_true">Posponer seleccionando nuevo horario de aviso (HH:MM)</string>
+	<string name="rmd_EPr_snooze_dialog_desc_false">Posponer seleccionando # días/horas de siesta</string>
 	<string name="rmd_EPr_defaultRemind_title">Recordatorios aleatorios</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Las nuevas tareas no tendrán recordatorios al azar</string>
 	<string name="rmd_EPr_defaultRemind_desc">Las nuevas tareas tendrán recordatorios al azar: %s</string>

@@ -5,6 +5,7 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
+	<string name="TVA_add_comment">Προσθήκη σχόλιου...</string>
 	<string name="actfm_GAA_title">Επιλέξτε τον λογαριασμό Google που θέλετε να χρησιμοποιήσετε:</string>
 	<string name="alarm_ACS_label">Ξυπνητήρια</string>
 	<string name="alarm_ACS_button">Προσθήκη ξυπνητηριού</string>
@@ -39,12 +40,16 @@
 	<string name="import_file_prompt">Επιλογή αρχείου για επαναφορά</string>
 	<string name="app_name">Καθήκοντα</string>
 	<string name="DLG_cancel">Ακύρωση</string>
+	<string name="TLA_menu_sort">Ταξινόμηση</string>
+	<string name="TLA_menu_search">Αναζήτηση</string>
 	<string-array name="TLA_priority_strings">
 		<item>υψηλότερη προτεραιότητα</item>
 		<item>υψηλή προτεραιότητα</item>
 		<item>μέτρια προτεραιότητα</item>
 		<item>χαμηλή προτεραιότητα</item>
 	</string-array>
+	<string name="TAd_actionEditTask">Επεξεργασία</string>
+	<string name="TAd_contextCopyTask">Αντιγραφή καθήκοντος</string>
 	<string name="SSD_hidden_title">Κρυμμένα καθήκοντα</string>
 	<string name="SSD_completed">Εμφάνιση ολοκληρωμένων καθηκόντων</string>
 	<string name="SSD_hidden">Εμφάνιση κρυμμένων καθηκόντων</string>
@@ -158,7 +163,11 @@
 	<string name="EPr_filters_to_show_title">Φίλτρα που θα εμφανιστούν</string>
 	<string name="EPr_showSmartConfirmation_title">Εμφάνιση επιβεβαίωσης για έξυπνες ειδοποιήσεις</string>
 	<string name="EPr_showNotes_title">Εμφάνιση περιγραφής στο καθήκον</string>
+	<string name="EPr_edit_screen_options">Ρύθμιση επιλογών εμφάνισης</string>
+	<string name="EPr_beastMode_title">Αλλαγή σειράς επιλογών</string>
 	<string name="EPr_time_increment">5λεπτες αυξήσεις </string>
+	<string name="EPr_beastMode_reset">Επαναφορά προεπιλογών</string>
+	<string name="EPr_fullTask_title">Εμφάνισε πλήρη τίτλο καθήκοντος</string>
 	<string-array name="EPr_task_row_styles">
 		<item>Πρωτότυπο</item>
 		<item>Απλό</item>
@@ -223,6 +232,7 @@ Tasks might not let you know when your tasks are due.\n</string>
 		<item>Όταν λήξει</item>
 		<item>Στην λήξη η και μετά</item>
 	</string-array>
+	<string name="BFE_Saved_delete">Διαγραφή φίλτρου</string>
 	<string name="CFA_type_add">ή</string>
 	<string name="CFA_type_subtract">μή</string>
 	<string name="CFA_type_intersect">επίσης</string>
@@ -279,9 +289,16 @@ Tasks might not let you know when your tasks are due.\n</string>
 	<string name="gtasks_error_accountManager">Σφάλμα στον διαχειριστή επαφών της συσκευής σας. Παρακαλώ αποσυνδεθείτε και συνδεθείτε ξανά απο τις ρυθμίσεις του Google Tasks.</string>
 	<string name="gtasks_error_background_sync_auth">Σφάλμα αυθεντικοποίησης στο παρασκήνιο. Παρακαλώ δοκιμάστε να συγχρονίσετε όσο τρέχει το Tasks.</string>
 	<string name="EPr_powerpack_header">Προηγμένες ρυθμίσεις</string>
+	<string name="speech_err_no_match">Συγγνώμη δεν το κατάλαβα αυτό! Ξαναπροσπάθησε.</string>
+	<string name="speech_err_default">Συγγνώμη η αναγνώριση φωνής αντιμετώπισε σφάλμα. Παρακαλώ ξαναπροσπαθήστε.</string>
 	<string name="premium_attach_file">Προσθήκη αρχείου</string>
 	<string name="premium_record_audio">Καταγραφή σημείωσης</string>
 	<string name="premium_remove_file_confirm">Είστε σίγουρος; Δεν μπορεί να ακυρωθεί</string>
+	<string name="audio_recording_title">Καταγραφή Ήχου</string>
+	<string name="audio_stop_recording">Παύση καταγραφής</string>
+	<string name="audio_encoding">Γίνεται κωδικοποίηση...</string>
+	<string name="audio_err_encoding">Σφάλμα κατα την κωδικοποίηση του ήχου</string>
+	<string name="search_market_audio_title">Δεν βρέθηκε audio player</string>
 	<string name="search_market_pdf_title">Δεν βρέθηκε αναγνώστης PDF αρχείων</string>
 	<string name="search_market_ms">Δεν βρέθηκε αναγνώστης αρχείων MS Office. Θα θέλατε να κατεβάσετε εναν απο το Android Market;</string>
 	<string name="search_market_ms_title">Δεν βρέθηκε αναγνώστης αρχείων MS Office.</string>
@@ -313,18 +330,19 @@ Tasks might not let you know when your tasks are due.\n</string>
 		<item>εναν μήνα</item>
 		<item>σε δύο μήνες</item>
 	</string-array>
+	<string name="rmd_EPr_enable_quiet_title">Ενεργοποίηση ωρών ησυχίας</string>
 	<string name="rmd_EPr_snooze_dialog_title">Διάλογος ύπνου HH:MM</string>
 	<string name="rmd_EPr_defaultRemind_title">Τυχαίες υπενθυμίσεις</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Τα νέα καθήκοντα δεν θα έχουν τυχαίες υπενθυμίσεις</string>
 	<string name="rmd_EPr_defaultRemind_desc">Τα νέα καθήκοντα θα υπενθυμίζουν τυχαία: %s</string>
 	<string-array name="EPr_reminder_random">
-		<item>disabled</item>
+		<item>απενεργοποιημένο</item>
 		<item>ωριαία</item>
 		<item>καθημερινά</item>
 		<item>Εβδομαδιαία</item>
-		<item>bi-weekly</item>
+		<item>κάθε δυο εβδομάδες</item>
 		<item>μηνιαία</item>
-		<item>bi-monthly</item>
+		<item>διμηνιαία</item>
 	</string-array>
 	<string name="repeat_plugin">Επαναλαμβανόμενα καθήκοντα</string>
 	<string name="repeat_plugin_desc">Επιτρέπει στα καθήκοντα να επαναλαμβάνονται</string>
@@ -333,8 +351,30 @@ Tasks might not let you know when your tasks are due.\n</string>
 	<string name="repeat_interval_prompt">Διάστημα επανάληψης</string>
 	<string name="repeat_never">Μή επαναλαμβανόμενα</string>
 	<string name="repeat_dont">Να μήν επαναληφθεί</string>
+	<string-array name="repeat_interval">
+		<item>Μέρα(ες)</item>
+		<item>Εβδομαδα(ές)</item>
+		<item>Μήνας(ές)</item>
+		<item>Ώρα(ές)</item>
+		<item>Λεπτό(ά)</item>
+		<item>Χρόνος(ια)</item>
+	</string-array>
+	<string-array name="repeat_until_shortcuts">
+		<item>Επ\'αόριστου</item>
+		<item>Συγκεκριμένη ημέρα</item>
+		<item>Σήμερα</item>
+		<item>Αύριο</item>
+		<item>(μεθαύριο)</item>
+		<item>Την επόμενη εβδομάδα</item>
+		<item>Σε δύο εβδομάδες</item>
+		<item>Τον επόμενο μήνα</item>
+	</string-array>
 	<string name="repeat_until_title">Επανάληψη εως ότου</string>
 	<string name="repeat_keep_going">Συνέχιση</string>
+	<string-array name="repeat_type">
+		<item>απο την ημερομηνία λήξης</item>
+		<item>απο την ημερομηνία ολοκλήρωσης </item>
+	</string-array>
 	<string name="repeat_detail_byday">$I στο $D</string>
 	<string name="repeat_detail_duedate">Κάθε %s</string>
 	<string name="repeat_detail_duedate_until">Κάθε %1$s\nμέχρι %2$s</string>
@@ -369,6 +409,12 @@ Tasks might not let you know when your tasks are due.\n</string>
 	<string name="TEA_timer_comment_started">ξεκίνησε το καθήκον:</string>
 	<string name="TEA_timer_comment_stopped">σταμάτησε να εκτελεί το καθήκον:</string>
 	<string name="TEA_timer_comment_spent">Χρόνος που πέρασε</string>
+	<string name="voice_create_prompt">Μιλήστε για να δημιουργήσετε καθήκον</string>
+	<string name="voice_edit_title_prompt">Μιλήστε για να ορίσετε τίτλο καθήκοντος</string>
+	<string name="voice_edit_note_prompt">Μιλήστε για να οριίσετε περιγραφή καθήκοντος</string>
+	<string name="EPr_voiceInputEnabled_title">Εισαγωγή φωνής</string>
+	<string name="EPr_voiceInputCreatesTask_title">Δημιούργησε απευθείας καθήκοντα</string>
+	<string name="EPr_voiceRemindersEnabled_title">Φωνητικές υπενθυμίσεις</string>
 	<string name="widget_mini">Καθήκοντα</string>
 	<string name="EPr_use_dark_theme">Σκοτεινό θέμα</string>
 	<string name="EPr_use_dark_theme_widget">Widget σκοτεινού θέματος</string>

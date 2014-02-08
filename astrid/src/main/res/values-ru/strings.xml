@@ -63,7 +63,7 @@
 	<string name="TLA_menu_search">Поиск</string>
 	<string name="TLA_menu_settings">Настройки</string>
 	<string name="TLA_custom">Другой</string>
-	<string name="TLA_quick_add_hint">Добавить задание</string>
+	<string name="TLA_quick_add_hint">Добавить задачу</string>
 	<string name="TLA_notification_volume_low">Звуковые извещения заглушены. Вы не услышите Tasks!</string>
 	<string name="TLA_notification_disabled">Напоминания Tasks отключены! Вы не будете получать никаких напоминаний</string>
 	<string name="TLA_quickadd_confirm_title">Вы сказали, \"%s\"</string>
@@ -155,7 +155,7 @@
 	<string name="hide_until_prompt">Показать в моем листе</string>
 	<string name="TEA_load_more">Загрузить больше...</string>
 	<string name="TEA_when_dialog_title">Когда это должно произойти?</string>
-	<string name="TEA_new_task">Новое задание</string>
+	<string name="TEA_new_task">Новая задача</string>
 	<string name="MCA_title">%1$s\nзвонил(а) в %2$s</string>
 	<string name="MCA_return_call">Позвонить сейчас</string>
 	<string name="MCA_add_task">Позвонить позже</string>
@@ -214,6 +214,7 @@
 	<string name="EPr_use_date_shortcuts">Использовать ярлыки дат</string>
 	<string name="EPr_beastMode_desc">Настроить внешний вид экрана правки задачи</string>
 	<string name="EPr_beastMode_reset">Настройки по умолчанию</string>
+	<string name="EPr_beastMode_hint">Настройте экран редактирования задачи, перетаскивая элементы ниже</string>
 	<string name="EPr_showNotes_desc_disabled">Описание будет доступно на экране редактирования задачи</string>
 	<string name="EPr_showNotes_desc_enabled">Всегда показывать описание</string>
 	<string name="EPr_fullTask_title">Показывать полное название задачи</string>
@@ -236,7 +237,8 @@
 	<string name="EPr_show_task_edit_comments">Показывать комментарии в редакторе задачи</string>
 	<string name="EPr_taskRowPrefs_title">Внешний вид задач в списке</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Время события в календаре</string>
-	<string name="EPr_cal_end_at_due_time">Завершение события при наступлении срока</string>
+	<string name="EPr_cal_end_at_due_time">Завершать события в календаре при наступлении срока</string>
+	<string name="EPr_cal_start_at_due_time">Создавать события в календаре при наступлении срока</string>
 	<string name="EPr_force_phone_layout">Использовать режим телефона</string>
 	<string name="EPr_show_save_and_cancel">Показать сохранить и отменить</string>
 	<string name="EPr_manage_header">Управление старыми задачами</string>
@@ -437,6 +439,7 @@
 	<string name="rmd_EPr_enabled_title">Включить напоминания?</string>
 	<string name="rmd_EPr_enabled_desc_true">Напоминания Tasks включены (это нормально)</string>
 	<string name="rmd_EPr_enabled_desc_false">Напоминания Tasks никогда не появятся на вашем телефоне</string>
+	<string name="rmd_EPr_enable_quiet_title">Настроить тихие часы</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Начало тихих часов</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">Уведомления будут беззвучными после %s.\nПримечание: вибрация управляется настройками ниже!</string>
 	<string name="rmd_EPr_quiet_hours_desc_none">Тихие часы отключены</string>

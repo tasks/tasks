@@ -1,4 +1,7 @@
 #!/usr/bin/env ruby
+
+require 'FileUtils'
+
 $:.unshift File.dirname(__FILE__)
 require 'clean_translations'
 
@@ -102,6 +105,7 @@ end
 
 class Android
   def self.tmp_files
+      FileUtils.mkdir_p "translations"
     ["translations/strings.xml", "translations/strings-api.xml"]
   end
 
