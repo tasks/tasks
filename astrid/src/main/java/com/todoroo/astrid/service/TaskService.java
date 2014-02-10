@@ -41,6 +41,7 @@ import com.todoroo.astrid.utility.TitleParser;
 
 import org.tasks.Broadcaster;
 import org.tasks.filters.FilterCounter;
+import org.tasks.scheduling.RefreshScheduler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +83,9 @@ public class TaskService {
     @Autowired
     private FilterCounter filterCounter;
 
+    @Autowired
+    private RefreshScheduler refreshScheduler;
+
     public TaskService() {
         DependencyInjectionService.getInstance().inject(this);
     }
@@ -121,6 +125,7 @@ public class TaskService {
     public void save(Task item) {
         taskDao.save(item);
         broadcastFilterListUpdated();
+        refreshScheduler.scheduleRefresh(item);
     }
 
     private void saveWithoutPublishingFilterUpdate(Task item) {

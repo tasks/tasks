@@ -9,8 +9,12 @@ public class Broadcaster {
 
     public void sendOrderedBroadcast(Intent intent) {
         Context context = ContextManager.getContext();
-        if(context != null) {
-            context.sendOrderedBroadcast(intent, null);
+        if (context != null) {
+            sendOrderedBroadcast(context, intent);
         }
+    }
+
+    public void sendOrderedBroadcast(Context context, Intent intent) {
+        context.sendOrderedBroadcast(intent, null);
     }
 }

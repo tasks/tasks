@@ -28,6 +28,7 @@ import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.Broadcaster;
 import org.tasks.filters.FilterCounter;
+import org.tasks.scheduling.RefreshScheduler;
 
 /**
  * Astrid application dependency injector loads classes in Astrid with the
@@ -88,6 +89,7 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
         injectables.put("broadcaster", Broadcaster.class);
 
         injectables.put("filterCounter", FilterCounter.class);
+        injectables.put("refreshScheduler", RefreshScheduler.class);
 
         // these make reference to fields defined above
         injectables.put("errorReporters", new ErrorReporter[] {

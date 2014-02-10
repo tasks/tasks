@@ -27,7 +27,7 @@ public class TaskApiDao {
 
         /** @return tasks that are not hidden at current time */
         public static Criterion isVisible() {
-            return Task.HIDE_UNTIL.lt(Functions.now());
+            return Task.HIDE_UNTIL.lte(Functions.now());
         }
     }
 
