@@ -188,6 +188,7 @@ public class NotifyAtDeadlineTest extends TodorooRobolectricTestCase {
     @Test
     public void setReminderOnePeriodFromNowNoQuietHours() {
         Freeze.freezeAt(new DateTime(2014, 1, 27, 11, 0, 0, 0));
+        Preferences.setBoolean(R.string.p_rmd_enable_quiet, false);
         Preferences.setInt(R.string.p_rmd_time, 8 * MILLIS_PER_HOUR);
         assertEquals(
                 new DateTime(2014, 1, 27, 11, 15, 0, 0).getMillis(),
