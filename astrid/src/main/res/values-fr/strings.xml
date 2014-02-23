@@ -560,4 +560,5 @@
 	<string name="EPr_use_dark_theme">Thème foncé</string>
 	<string name="EPr_use_dark_theme_widget">Thème de widget foncé</string>
 	<string name="delete_task">Supprimer la tâche ? </string>
+	<string name="TLA_menu_donate">Remercier</string>
 </resources>

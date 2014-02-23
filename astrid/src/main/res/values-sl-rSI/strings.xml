@@ -13,7 +13,7 @@
 	<string name="actfm_TVA_tag_label">Seznam</string>
 	<string name="actfm_TVA_tag_picture">Seznami slik</string>
 	<string name="actfm_TVA_tag_name_hint">Vnesi ime seznama</string>
-	<string name="actfm_GAA_title">Izberi Google račun, ki naj se uporablja:</string>
+	<string name="actfm_GAA_title">Izberite želeni Google račun:</string>
 	<string name="alarm_ACS_label">Glasna opozorila</string>
 	<string name="alarm_ACS_button">Dodaj glasno opozorilo</string>
 	<string-array name="reminders_alarm">
@@ -95,8 +95,8 @@
 	<string name="SSD_deleted">Prikaži zbrisane opravke</string>
 	<string name="SSD_sort_drag">Ročna nastavitev s podopravki</string>
 	<string name="SSD_sort_auto">Pametno razvrščanje</string>
-	<string name="SSD_sort_alpha">Po nazivu</string>
-	<string name="SSD_sort_due">Po dospelosti</string>
+	<string name="SSD_sort_alpha">Po naslovu</string>
+	<string name="SSD_sort_due">Po datumu roka</string>
 	<string name="SSD_sort_importance">Po prioriteti</string>
 	<string name="SSD_sort_modified">Po zadnjih spremembah</string>
 	<string name="SSD_sort_reverse">Razvrsti po obratnem vrstnem redu</string>
@@ -105,13 +105,13 @@
 	<string name="FSA_label">Seznam ali filter opravkov</string>
 	<string name="FLA_context_shortcut">Ustvari bližnjico na namizju</string>
 	<string name="FLA_shortcut_dialog_title">Ustvari bližnjico za namizje</string>
-	<string name="FLA_shortcut_dialog">Poimenovanje bližnjice</string>
-	<string name="FLA_search_hint">Išči po Opravkih</string>
-	<string name="FLA_search_filter">Ustreza \'%s\' </string>
+	<string name="FLA_shortcut_dialog">Ime bližnjice:</string>
+	<string name="FLA_search_hint">Išči po opravilih</string>
+	<string name="FLA_search_filter">Ujemanje za \'%s\'</string>
 	<string name="FLA_toast_onCreateShortcut">Ustvarjena bližnjica: %s</string>
 	<string name="FLA_new_filter">Nov filter</string>
 	<string name="FLA_new_list">Nov seznam</string>
-	<string name="FLA_no_filter_selected">Brez izbranega filtra. Prosim, izberite filter ali seznam.</string>
+	<string name="FLA_no_filter_selected">Noben filter ni izbran. Izberite filter ali seznam.</string>
 	<string name="TEA_title_hint">Poimenovanje opravka</string>
 	<string name="TEA_importance_label">Prioriteta</string>
 	<string name="TEA_deadline_hint">Nastavi datum dospelosti</string>
@@ -320,9 +320,9 @@
 	<string name="CFA_context_chain">%s ima merila</string>
 	<string name="CFA_context_delete">Zbriši vrstico</string>
 	<string name="CFA_help">Dolg dotik na predmetih s seznama za dodatne možnosti </string>
-	<string name="CFA_button_add">Dodaj merilo</string>
-	<string name="CFA_button_view">Prikaz</string>
-	<string name="CFA_button_save">Shrani &amp; prikaži</string>
+	<string name="CFA_button_add">Dodaj merila</string>
+	<string name="CFA_button_view">Prikaži</string>
+	<string name="CFA_button_save">Shrani in prikaži</string>
 	<string name="CFC_dueBefore_text">Opraviti do: ?</string>
 	<string name="CFC_dueBefore_name">Opraviti do:</string>
 	<string-array name="CFC_dueBefore_entries">
@@ -335,16 +335,16 @@
 		<item>Naslednji mesec</item>
 	</string-array>
 	<string name="CFC_importance_text">Prioriteta namanj ?</string>
-	<string name="CFC_importance_name">Prioriteta...</string>
+	<string name="CFC_importance_name">Prioriteta ...</string>
 	<string name="CFC_tag_text">Seznam: ?</string>
-	<string name="CFC_tag_name">Seznam...</string>
-	<string name="CFC_tag_contains_name">Naziv seznama vsebuje...</string>
-	<string name="CFC_tag_contains_text">Naziv seznama vsebuje:?</string>
-	<string name="CFC_title_contains_name">Naziv vsebuje...</string>
-	<string name="CFC_title_contains_text">Naziv vsebuje: ?</string>
-	<string name="gcal_TEA_error">Napaka pri dodajanju opravka na koledar!</string>
-	<string name="gcal_TEA_addToCalendar_label">Dodaj na koledar</string>
-	<string name="gcal_TEA_showCalendar_label">Odpri dogodek na koledarju</string>
+	<string name="CFC_tag_name">Seznam ...</string>
+	<string name="CFC_tag_contains_name">Ime seznama vsebuje ...</string>
+	<string name="CFC_tag_contains_text">Ime seznama vsebuje: ?</string>
+	<string name="CFC_title_contains_name">Naslov vsebuje ...</string>
+	<string name="CFC_title_contains_text">Naslov vsebuje: ?</string>
+	<string name="gcal_TEA_error">Napaka pri dodajanju opravila!</string>
+	<string name="gcal_TEA_addToCalendar_label">Dodaj v koledar</string>
+	<string name="gcal_TEA_showCalendar_label">Odpri dogodek v koledarju</string>
 	<string name="gcal_TEA_nocal">Ne dodaj</string>
 	<string name="gcal_TEA_none_selected">Na koledar?</string>
 	<string name="gcal_TEA_has_event">Kol dogodek</string>
@@ -465,7 +465,7 @@
 	<string name="rmd_EPr_snooze_dialog_desc_false">Začni dremež z nastavitvijo števila dni/ur dremeža</string>
 	<string name="rmd_EPr_defaultRemind_title">Naključni opomniki</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Novi opravki bodo brez naključnih opomnikov</string>
-	<string name="rmd_EPr_defaultRemind_desc">Novi opravki bodo opominjali naključno: %s</string>
+	<string name="rmd_EPr_defaultRemind_desc">Nova opravila bodo opominjala naključno: %s</string>
 	<string-array name="EPr_reminder_random">
 		<item>onemogočen</item>
 		<item>vsako uro</item>
@@ -475,10 +475,10 @@
 		<item>mesečno</item>
 		<item>vsake dva meseca</item>
 	</string-array>
-	<string name="repeat_plugin">Ponavljajoči se opravki</string>
-	<string name="repeat_plugin_desc">Omogoči ponavljanje opravkov</string>
+	<string name="repeat_plugin">Ponavljajoča se opravila</string>
+	<string name="repeat_plugin_desc">Omogoči ponavljanje opravil</string>
 	<string name="repeat_enabled">Ponovitve</string>
-	<string name="repeat_every">Vsake %d</string>
+	<string name="repeat_every">Vsakih %d</string>
 	<string name="repeat_interval_prompt">Pogostost ponovitev</string>
 	<string name="repeat_never">Brez ponovitev</string>
 	<string name="repeat_dont">Ne ponovi</string>
@@ -508,7 +508,7 @@
 		<item>V roku dveh tednov</item>
 		<item>Naslednji mesec</item>
 	</string-array>
-	<string name="repeat_until_title">Ponavljaj dokler...</string>
+	<string name="repeat_until_title">Ponavljaj, dokler ...</string>
 	<string name="repeat_keep_going">Nadaljuj</string>
 	<string-array name="repeat_type">
 		<item>od datuma dospelosti</item>

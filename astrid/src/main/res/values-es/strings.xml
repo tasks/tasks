@@ -241,7 +241,7 @@
 	<string name="EPr_cal_end_at_due_time">Finalizar los eventos del calendario en su fecha de vencimiento</string>
 	<string name="EPr_cal_start_at_due_time">Iniciar los eventos del calendario en su fecha de vencimiento</string>
 	<string name="EPr_force_phone_layout">Usar diseño de teléfono</string>
-	<string name="EPr_show_save_and_cancel">Mostrar guardado y cancelar</string>
+	<string name="EPr_show_save_and_cancel">Mostrar guardar y cancelar</string>
 	<string name="EPr_manage_header">Administrar tareas antiguas</string>
 	<string name="EPr_manage_delete_completed">Borrar tareas completadas</string>
 	<string name="EPr_manage_delete_completed_message">¿Seguro que desea borrar todas las tareas completadas?</string>
@@ -568,5 +568,5 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="EPr_use_dark_theme">Estilo oscuro</string>
 	<string name="EPr_use_dark_theme_widget">Estilo de componentes oscuros</string>
 	<string name="delete_task">Eliminar tarea</string>
-	<string name="TLA_menu_donate">Haz una donación</string>
+	<string name="TLA_menu_donate">Donar</string>
 </resources>
