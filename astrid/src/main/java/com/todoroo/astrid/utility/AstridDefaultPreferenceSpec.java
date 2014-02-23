@@ -34,7 +34,6 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
                     if (publicPrefs != null) {
                         Editor edit = publicPrefs.edit();
                         if (edit != null) {
-                            edit.putInt(SortHelper.PREF_SORT_FLAGS, SortHelper.FLAG_DRAG_DROP);
                             edit.putInt(SortHelper.PREF_SORT_SORT, SortHelper.SORT_AUTO);
                             edit.commit();
                             Preferences.setInt(AstridPreferences.P_SUBTASKS_HELP, 1);
