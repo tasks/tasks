@@ -40,11 +40,6 @@
         android:title="@string/FLA_new_filter"
         tasks:showAsAction="never" />
     <item
-        android:id="@+id/menu_donate"
-        android:title="@string/TLA_menu_donate"
-        android:visible="false"
-        tasks:showAsAction="never" />
-    <item
         android:id="@+id/menu_settings"
         android:title="@string/TLA_menu_settings"
         tasks:showAsAction="never" />

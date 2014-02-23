@@ -39,8 +39,6 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <!-- Used to initiate sync when device comes back online -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!-- required for in-app billing of donations -->
-    <uses-permission android:name="com.android.vending.BILLING" />
 
     <!-- ============================================== Exported Permissions = -->
 
