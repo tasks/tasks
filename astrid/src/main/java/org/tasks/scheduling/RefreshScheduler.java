@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -18,10 +17,10 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 
-import org.joda.time.DateTime;
 import org.tasks.Broadcaster;
 
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
+import static com.todoroo.andlib.utility.DateUtilities.ONE_MINUTE;
 import static org.tasks.date.DateTimeUtils.currentTimeMillis;
 
 public class RefreshScheduler extends BroadcastReceiver {
@@ -69,9 +68,16 @@ public class RefreshScheduler extends BroadcastReceiver {
         if (task.containsValue(Task.HIDE_UNTIL)) {
             scheduleRefresh(task.getHideUntil());
         }
+        if (task.containsValue(Task.COMPLETION_DATE)) {
+            scheduleRefresh(task.getCompletionDate() + ONE_MINUTE);
+        }
     }
 
     private void scheduleRefresh(Long dueDate) {
+        if (currentTimeMillis() > dueDate) {
+            return;
+        }
+
         dueDate += 1000; // this is ghetto
         Context context = ContextManager.getContext();
         Intent intent = new Intent(context, RefreshScheduler.class);
