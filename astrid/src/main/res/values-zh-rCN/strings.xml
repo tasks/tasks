@@ -482,4 +482,5 @@
 	<string name="EPr_voiceRemindersEnabled_title">语音提醒</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks在任务提醒时会以语音说出任务名称</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks在任务提醒时将会播放铃声</string>
+	<string name="TLA_menu_support">支持</string>
 </resources>

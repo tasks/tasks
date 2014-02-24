@@ -495,4 +495,5 @@
 	<string name="EPr_voiceRemindersEnabled_title">Sesli Hatırlatmalar</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks görev isimlerini görev hatırlatmaları sırasında söyleyecek</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks görev hatırlatmaları sırasında zil sesi çalacak</string>
+	<string name="TLA_menu_support">Destek</string>
 </resources>

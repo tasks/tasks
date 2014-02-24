@@ -388,4 +388,5 @@
 	<string name="TPl_notification">Aktivní časovače pro %s!</string>
 	<string name="TFE_workingOn">Úkol je časován</string>
 	<string name="voice_create_prompt">Mluvte pro vytvoření úkolu</string>
+	<string name="TLA_menu_support">Podpora</string>
 </resources>

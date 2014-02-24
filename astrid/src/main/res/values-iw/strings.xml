@@ -562,4 +562,5 @@
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">אסטריד תשמיע נְעִימוֹן במתן תזכורות למשימות</string>
 	<string name="widget_mini">משימות</string>
 	<string name="delete_task">מחק משימה</string>
+	<string name="TLA_menu_support">תמיכה</string>
 </resources>

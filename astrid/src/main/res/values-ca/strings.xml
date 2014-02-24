@@ -297,4 +297,5 @@
 	<string name="TFE_workingOn">Tasques sent cronometrades</string>
 	<string name="TEA_timer_comment_started">inici d\'aquesta tasca:</string>
 	<string name="TEA_timer_comment_stopped">finalització d\'aquesta tasca:</string>
+	<string name="TLA_menu_support">Assistència</string>
 </resources>

@@ -569,4 +569,5 @@
 	<string name="EPr_voiceRemindersEnabled_title">음성 알림</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">일정 알림기간 동안 일정 이름을 직접 말해 줍니다</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">일정 알림기간 동안 벨소리를 울려줍니다</string>
+	<string name="TLA_menu_support">지원</string>
 </resources>

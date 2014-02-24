@@ -519,4 +519,5 @@
 	<string name="EPr_voiceRemindersEnabled_title">Lembretes de voz</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks irá falar o nome das tarefas durante os lembretes</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks irá tocar um som durante o lembrete</string>
+	<string name="TLA_menu_support">Suporte</string>
 </resources>

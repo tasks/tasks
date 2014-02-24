@@ -569,4 +569,5 @@
 	<string name="EPr_use_dark_theme">Тёмная тема</string>
 	<string name="EPr_use_dark_theme_widget">Темная тема виджета</string>
 	<string name="delete_task">Удалить задачу</string>
+	<string name="TLA_menu_support">Поддержка</string>
 </resources>

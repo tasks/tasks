@@ -493,4 +493,5 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="EPr_voiceRemindersEnabled_title">Promemoria vocali</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks pronuncerà il nome dell\'attività durante i promemoria</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks emetterà una suoneria durante i promemoria</string>
+	<string name="TLA_menu_support">Supporto</string>
 </resources>
