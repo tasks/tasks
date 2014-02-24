@@ -92,18 +92,6 @@
         android:hardwareAccelerated="false"
         android:manageSpaceActivity="com.todoroo.astrid.core.OldTaskPreferences">
 
-        <!-- ========================================================= Billing = -->
-
-        <service android:name="com.todoroo.astrid.billing.BillingService" />
-
-        <receiver android:name="com.todoroo.astrid.billing.BillingReceiver">
-            <intent-filter>
-                <action android:name="com.android.vending.billing.IN_APP_NOTIFY" />
-                <action android:name="com.android.vending.billing.RESPONSE_CODE" />
-                <action android:name="com.android.vending.billing.PURCHASE_STATE_CHANGED" />
-            </intent-filter>
-        </receiver>
-
         <!-- ====================================================== Activities = -->
 
         <!-- Activity that displays task list -->
