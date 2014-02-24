@@ -419,5 +419,4 @@ Tasks might not let you know when your tasks are due.\n</string>
 	<string name="EPr_use_dark_theme">Σκοτεινό θέμα</string>
 	<string name="EPr_use_dark_theme_widget">Widget σκοτεινού θέματος</string>
 	<string name="delete_task">Διαγραφή καθήκοντος</string>
-	<string name="TLA_menu_donate">Δωρίστε</string>
 </resources>

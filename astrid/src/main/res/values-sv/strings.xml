@@ -552,5 +552,4 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks kommer att spela en ringsignal vid påminnelse</string>
 	<string name="widget_mini">Uppgifter</string>
 	<string name="delete_task">Radera uppgift</string>
-	<string name="TLA_menu_donate">Donera</string>
 </resources>

@@ -548,5 +548,4 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks wird Aufgabennamen bei der Erinnerung aussprechen</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks wird bei der Erinnerung einen Klingelton abspielen</string>
 	<string name="delete_task">Aufgabe löschen</string>
-	<string name="TLA_menu_donate">Spenden</string>
 </resources>
