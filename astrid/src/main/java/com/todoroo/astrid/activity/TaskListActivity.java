@@ -10,6 +10,7 @@ import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -524,6 +525,9 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 rename.putExtra("tag", renameTag.tag);
                 rename.putExtra(TagViewFragment.EXTRA_TAG_UUID, renameTag.uuid);
                 startActivityForResult(rename, FilterListFragment.REQUEST_CUSTOM_INTENT);
+                return true;
+            case R.id.menu_support:
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://abaker.github.io/tasks/")));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
