@@ -23,7 +23,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_gravity="center_vertical"/>
+        android:layout_gravity="center_vertical"
+        android:inputType="textCapSentences"/>
         
     <ImageButton android:id="@+id/button1"
         android:layout_width="32dip"
