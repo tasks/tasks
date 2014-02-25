@@ -205,9 +205,10 @@
                 <action android:name="com.todoroo.astrid.widget.TasksWidget.EDIT_TASK"/>
                 <action android:name="org.tasks.TASK_LIST_UPDATED"/>
             </intent-filter>
+
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/widget_provider_info" />
+                android:resource="@xml/scrollable_widget_provider_info" />
         </receiver>
 
         <receiver android:name="com.todoroo.astrid.service.GlobalEventReceiver">
