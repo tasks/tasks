@@ -4,4 +4,5 @@
     <string name="EPr_use_dark_theme_widget">Dark widget theme</string>
     <string name="delete_task">Delete task</string>
     <string name="TLA_menu_support">Support</string>
+    <string name="voice_command_added_task">Added task</string>
 </resources>
