@@ -23,9 +23,7 @@ import static org.tasks.date.DateTimeUtils.newDate;
 
 public class DateUtilities {
 
-    /* ======================================================================
-     * ============================================================ long time
-     * ====================================================================== */
+    private static final long abbreviationLimit = DateUtilities.ONE_DAY  * 6;
 
     /**
      * Add the specified amount of months to the given time.<br/>
@@ -205,7 +203,7 @@ public class DateUtilities {
             return context.getString(abbreviated ? R.string.yest : R.string.yesterday).toLowerCase();
         }
 
-        if(today + DateUtilities.ONE_WEEK >= input && today - DateUtilities.ONE_WEEK <= input) {
+        if(today + abbreviationLimit >= input && today - abbreviationLimit <= input) {
             return abbreviated ? DateUtilities.getWeekdayShort(newDate(date)) : DateUtilities.getWeekday(newDate(date));
         }
 

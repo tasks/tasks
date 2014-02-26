@@ -59,19 +59,19 @@ public class RelativeDayTest {
     }
 
     @Test
+    public void relativeDaySix() {
+        checkRelativeDay(now().minusDays(6), "Wednesday", "Wed");
+        checkRelativeDay(now().plusDays(6), "Monday", "Mon");
+    }
+
+    @Test
     public void relativeDayOneWeek() {
-        checkRelativeDay(now().minusDays(7), "Tuesday", "Tue");
-        checkRelativeDay(now().plusDays(7), "Tuesday", "Tue");
+        checkRelativeDay(now().minusDays(7), "Dec 24", "Dec 24");
     }
 
     @Test
-    public void relativeDayMoreThanOneWeek() {
-        checkRelativeDay(now().minusDays(8), "Dec 23", "Dec 23");
-    }
-
-    @Test
-    public void relativeDayNextYear() {
-        checkRelativeDay(now().plusDays(8), "Jan 8\n2014", "Jan 8\n2014");
+    public void relativeDayOneWeekNextYear() {
+        checkRelativeDay(now().plusDays(7), "Jan 7\n2014", "Jan 7\n2014");
     }
 
     private void checkRelativeDay(DateTime now, String full, String abbreviated) {
