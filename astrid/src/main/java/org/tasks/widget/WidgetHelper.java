@@ -82,6 +82,8 @@ public class WidgetHelper {
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     public RemoteViews createScrollableWidget(Context context, int id) {
+        startWidgetService(context);
+
         Filter filter = getFilter(context, id);
         Intent rvIntent = new Intent(context, ScrollableWidgetUpdateService.class);
         Bundle filterBundle = new Bundle(com.todoroo.astrid.api.Filter.class.getClassLoader());
