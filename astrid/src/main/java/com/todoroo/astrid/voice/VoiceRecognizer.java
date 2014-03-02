@@ -78,9 +78,8 @@ public class VoiceRecognizer {
         return instance;
     }
 
-    public void startVoiceRecognition(Context context, Fragment fragment, String currentVoiceFile) {
+    public void startVoiceRecognition(Context context, Fragment fragment) {
         if (speechRecordingAvailable(context) && recognizerApi != null) {
-            recognizerApi.setTemporaryFile(currentVoiceFile);
             recognizerApi.start(Constants.PACKAGE,
                     context.getString(R.string.audio_speak_now),
                     context.getString(R.string.audio_encoding));

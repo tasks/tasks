@@ -1,10 +1,5 @@
 package com.todoroo.aacenc;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -19,14 +14,16 @@ import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.util.Log;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+
 @TargetApi(8)
 public class RecognizerApi implements RecognitionListener {
 
 	public static interface PlaybackExceptionHandler {
 		public void playbackFailed(String file);
 	}
-
-    private String aacFile;
 
     private Context context;
 
@@ -40,18 +37,7 @@ public class RecognizerApi implements RecognitionListener {
     public RecognizerApi(Context context) {
     	this.context = context;
 
-    	File dir = context.getFilesDir();
-    	aacFile = dir.toString() + "/audio.aac";
-
     	sr = SpeechRecognizer.createSpeechRecognizer(context);
-    }
-
-    public void setTemporaryFile(String fileName) {
-    	aacFile = context.getFilesDir().toString() + "/" + fileName;
-    }
-
-    public String getTemporaryFile() {
-    	return aacFile;
     }
 
     public void setListener(RecognizerApiListener listener) {
@@ -70,12 +56,10 @@ public class RecognizerApi implements RecognitionListener {
         }
     }
 
-    private AACEncoder encoder = new AACEncoder();
     private long speechStarted = 0;
     private SpeechRecognizer sr;
     private ProgressDialog speakPd;
     private ProgressDialog processingPd;
-    private String processingMessage;
 
     /**
      * Start speech recognition
@@ -111,16 +95,6 @@ public class RecognizerApi implements RecognitionListener {
         sr.startListening(intent);
 
         speechStarted = System.currentTimeMillis();
-    }
-
-    /**
-     * Convert AAC file to M4A
-     *
-     * @param toFile
-     * @throws IOException
-     */
-    public void convert(String toFile) throws IOException {
-		new AACToM4A().convert(context, aacFile, toFile);
     }
 
     public void cancel() {
@@ -159,7 +133,7 @@ public class RecognizerApi implements RecognitionListener {
             return;
 
         processingPd = new ProgressDialog(context);
-        processingPd.setMessage(processingMessage);
+        processingPd.setMessage("");
         processingPd.setIndeterminate(true);
         processingPd.setCancelable(true);
         processingPd.setOnCancelListener(new OnCancelListener() {
@@ -169,18 +143,6 @@ public class RecognizerApi implements RecognitionListener {
             }
         });
         processingPd.show();
-
-        long delta = System.currentTimeMillis() - speechStarted;
-
-        int sampleRate = (int) (baos.size() * 1000 / delta);
-        sampleRate = 8000; // THIS IS A MAGIC NUMBER@?!!?!?!
-        // can i has calculate?
-
-        encoder.init(64000, 1, sampleRate, 16, aacFile);
-
-        encoder.encode(baos.toByteArray());
-
-        encoder.uninit();
     }
 
     @Override

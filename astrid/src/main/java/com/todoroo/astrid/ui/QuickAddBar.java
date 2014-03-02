@@ -28,7 +28,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.AstridActivity;
@@ -378,7 +377,7 @@ public class QuickAddBar extends LinearLayout {
         return voiceRecognizer;
     }
     public void startVoiceRecognition() {
-        voiceRecognizer.startVoiceRecognition(activity, fragment, Long.toString(DateUtilities.now()));
+        voiceRecognizer.startVoiceRecognition(activity, fragment);
     }
 
     public void setupRecognizerApi() {
