@@ -432,6 +432,7 @@
 	<string name="rmd_EPr_enabled_title">Activer les rappels ?</string>
 	<string name="rmd_EPr_enabled_desc_true">Les rappels d\'Tasks sont activés (c\'est normal)</string>
 	<string name="rmd_EPr_enabled_desc_false">Les rappels d\'Tasks n\' apparaîtront jamais sur votre téléphone</string>
+	<string name="rmd_EPr_enable_quiet_title">Activer le mode silencieux</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Début des heures de repos</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">Les notifications seront silencieuses après %s.\nNote : les vibrations sont contrôlées par le paramètre Vibrations</string>
 	<string name="rmd_EPr_quiet_hours_desc_none">Les heures de repos sont désactivées</string>
@@ -561,4 +562,5 @@
 	<string name="EPr_use_dark_theme_widget">Thème de widget foncé</string>
 	<string name="delete_task">Supprimer la tâche ? </string>
 	<string name="TLA_menu_support">Assistance</string>
+	<string name="voice_command_added_task">Tâche ajoutée</string>
 </resources>

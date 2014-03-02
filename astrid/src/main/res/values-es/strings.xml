@@ -569,4 +569,5 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="EPr_use_dark_theme_widget">Estilo de componentes oscuros</string>
 	<string name="delete_task">Eliminar tarea</string>
 	<string name="TLA_menu_support">Soporte</string>
+	<string name="voice_command_added_task">Tarea agregada</string>
 </resources>
