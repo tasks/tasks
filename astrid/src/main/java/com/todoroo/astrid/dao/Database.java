@@ -38,7 +38,7 @@ public class Database extends AbstractDatabase {
      * Database version number. This variable must be updated when database
      * tables are updated, as it determines whether a database needs updating.
      */
-    public static final int VERSION = 35;
+    public static final int VERSION = 36;
 
     /**
      * Database name (must be unique)
@@ -290,6 +290,9 @@ public class Database extends AbstractDatabase {
 
         case 34:
             tryExecSQL(addColumnSql(TagData.TABLE, TagData.IS_FOLDER, visitor, null));
+        case 35:
+            tryExecSQL(addColumnSql(Task.TABLE, Task.REMAINING_SECONDS, visitor, "0"));
+            TaskDao.migrateLoggedTime(database);
 
         return true;
         }
