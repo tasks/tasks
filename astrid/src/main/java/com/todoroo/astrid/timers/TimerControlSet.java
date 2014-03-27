@@ -30,7 +30,7 @@ import org.tasks.R;
  */
 public class TimerControlSet extends PopupControlSet implements TimerActionListener {
 
-    TimeDurationTaskEditControlSet estimated, elapsed;
+    TimeDurationTaskEditControlSet estimated, elapsed, remaining;
     private final TextView displayEdit;
     private final ImageView image;
 
@@ -44,17 +44,21 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
         image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
 
         estimated = new TimeDurationTaskEditControlSet(activity, getView(), Task.ESTIMATED_SECONDS,
-                R.id.estimatedDuration, 0, R.string.DLG_hour_minutes
+                R.id.estimatedDurationLayout, 0, R.string.DLG_hour_minutes, R.string.TEA_estimatedDuration_label
                 );
-        elapsed = new TimeDurationTaskEditControlSet(activity, getView(), Task.ELAPSED_SECONDS, R.id.elapsedDuration,
-                0, R.string.DLG_hour_minutes
-                );
+        elapsed = new TimeDurationTaskEditControlSet(activity, getView(), Task.ELAPSED_SECONDS, R.id.elapsedDurationLayout,
+                0, R.string.DLG_hour_minutes,
+                R.string.TEA_elapsedDuration_label);
+        remaining = new TimeDurationTaskEditControlSet(activity, getView(), Task.ELAPSED_SECONDS, R.id.remainingDurationLayout,
+                0, R.string.DLG_hour_minutes,
+                R.string.TEA_remainingDuration_label);//TODO zmienic kolumne z Task.ELAPSED_SECONDS na remaining
     }
 
     @Override
     protected void readFromTaskOnInitialize() {
         estimated.readFromTask(model);
         elapsed.readFromTask(model);
+        remaining.readFromTask(model);
     }
 
     @Override
@@ -67,6 +71,7 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
         if (initialized) {
             estimated.writeToModel(task);
             elapsed.writeToModel(task);
+            remaining.writeToModel(task);
         }
     }
 
@@ -81,12 +86,12 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
         private final TimeDurationControlSet controlSet;
         private final IntegerProperty property;
 
-        public TimeDurationTaskEditControlSet(Activity activity, View v, IntegerProperty property, int timeButtonId,
-                int prefixResource, int titleResource) {
+        public TimeDurationTaskEditControlSet(Activity activity, View v, IntegerProperty property, int layoutId,
+                                              int prefixResource, int titleResource, int labelId) {
             super(activity, -1);
             this.property = property;
             this.controlSet = new TimeDurationControlSet(activity, v, property,
-                    timeButtonId, prefixResource, titleResource);
+                    layoutId, prefixResource, titleResource, labelId);
         }
 
         @Override
@@ -116,26 +121,30 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
 
     @Override
     protected void refreshDisplayView() {
-        String est = estimated.getDisplayString();
-        if (!TextUtils.isEmpty(est)) {
-            est = activity.getString(R.string.TEA_timer_est, est);
-        }
-        String elap = elapsed.getDisplayString();
-        if (!TextUtils.isEmpty(elap)) {
-            elap = activity.getString(R.string.TEA_timer_elap, elap);
+//        String est = estimated.getDisplayString();
+//        if (!TextUtils.isEmpty(est)) {
+//            est = activity.getString(R.string.TEA_timer_est, est);
+//            est = est.substring(0,est.length()-3);
+//        }
+        String elaps = elapsed.getDisplayString();
+        if (!TextUtils.isEmpty(elaps)) {
+            elaps = activity.getString(R.string.TEA_timer_elap, elaps);
+            elaps = elaps.substring(0,elaps.length()-3);
         }
 
-        String toDisplay;
-
-        if (!TextUtils.isEmpty(est) && !TextUtils.isEmpty(elap)) {
-            toDisplay = est + ", " + elap; //$NON-NLS-1$
-        } else if (!TextUtils.isEmpty(est)) {
-            toDisplay = est;
-        } else if (!TextUtils.isEmpty(elap)) {
-            toDisplay = elap;
-        } else {
-            toDisplay = null;
+        String remain = remaining.getDisplayString();
+        if (!TextUtils.isEmpty(remain)) {
+            remain = activity.getString(R.string.TEA_timer_remain, remain);
+            remain = remain.substring(0,remain.length()-3);
         }
+
+        String toDisplay="";
+        if (!TextUtils.isEmpty(elaps))
+            toDisplay += elaps;
+        if (!TextUtils.isEmpty(toDisplay))
+            toDisplay += ", ";
+        if (!TextUtils.isEmpty(remain))
+            toDisplay += remain;
 
         if (!TextUtils.isEmpty(toDisplay)) {
             displayEdit.setText(toDisplay);
