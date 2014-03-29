@@ -135,7 +135,7 @@
 	<string-array name="TEA_hideUntil">
 		<item>Jamais</item>
 		<item>Date d\'échéance</item>
-		<item>Date d\'échéance</item>
+		<item>Heure d\'échéance</item>
 		<item>Jour avant échéance</item>
 		<item>Semaine avant échéance</item>
 		<item>Jour/horaire spécifique</item>
