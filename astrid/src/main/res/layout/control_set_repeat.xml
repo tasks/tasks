@@ -57,7 +57,7 @@
           android:layout_width="fill_parent"
           android:layout_height="wrap_content" 
           android:layout_weight="1"/>
-        <Button xmlns:android="http://schemas.android.com/apk/res/android"
+        <Button
           android:id="@+id/edit_dont_repeat"
           android:text="@string/repeat_dont"        
           android:layout_width="fill_parent"

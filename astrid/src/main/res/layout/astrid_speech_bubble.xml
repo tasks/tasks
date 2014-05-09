@@ -4,8 +4,8 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<merge>
-	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+	<LinearLayout
 	    android:id="@+id/speech_bubble_container"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
