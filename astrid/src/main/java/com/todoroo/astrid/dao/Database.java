@@ -20,6 +20,7 @@ import com.todoroo.astrid.data.TagMetadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskListMetadata;
+import com.todoroo.astrid.data.TaskTimeLog;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.provider.Astrid3ContentProvider;
@@ -58,6 +59,7 @@ public class Database extends AbstractDatabase {
         TagMetadata.TABLE,
         TaskAttachment.TABLE,
         TaskListMetadata.TABLE,
+        TaskTimeLog.TABLE
     };
 
     // --- listeners
@@ -292,6 +294,7 @@ public class Database extends AbstractDatabase {
             tryExecSQL(addColumnSql(TagData.TABLE, TagData.IS_FOLDER, visitor, null));
         case 35:
             tryExecSQL(addColumnSql(Task.TABLE, Task.REMAINING_SECONDS, visitor, "0"));
+            database.execSQL(createTableSql(visitor, TaskTimeLog.TABLE.name, TaskTimeLog.PROPERTIES));
             TaskDao.migrateLoggedTime(database);
 
         return true;
