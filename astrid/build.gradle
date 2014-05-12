@@ -1,24 +1,16 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven {
-            url 'https://oss.sonatype.org/content/repositories/snapshots/'
-        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.9.+'
-        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.1-SNAPSHOT'
+        classpath 'com.android.tools.build:gradle:0.10.+'
     }
 }
 
 apply plugin: 'android'
-apply plugin: 'android-test'
 
 repositories {
     mavenCentral()
-    maven {
-        url 'https://oss.sonatype.org/content/repositories/snapshots/'
-    }
 }
 
 android {
@@ -31,7 +23,7 @@ android {
 
     defaultConfig {
         minSdkVersion 7
-        targetSdkVersion 18
+        targetSdkVersion 19
     }
 
     signingConfigs {
@@ -99,11 +91,6 @@ dependencies {
     compile group: 'com.google.oauth-client', name: 'google-oauth-client', version: '1.6.0-beta', transitive: false
     compile group: 'com.google.oauth-client', name: 'google-oauth-client-extensions', version: '1.6.0-beta', transitive: false
 
-    testCompile group: 'junit', name: 'junit', version: '4.10'
-    testCompile group: 'org.robolectric', name: 'robolectric', version: '2.3-SNAPSHOT'
-    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
-    // hack to get android studio to import libraries
     androidTestCompile group: 'junit', name: 'junit', version: '4.10', transitive: false
-    androidTestCompile group: 'org.robolectric', name: 'robolectric', version: '2.3-SNAPSHOT', transitive: false
     androidTestCompile group: 'org.mockito', name: 'mockito-core', version: '1.9.5', transitive: false
 }

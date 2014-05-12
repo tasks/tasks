@@ -72,10 +72,6 @@
 
     <!-- ========================================================== Metadata = -->
 
-    <uses-sdk
-        android:targetSdkVersion="18"
-        android:minSdkVersion="7" />
-
     <supports-screens
         android:xlargeScreens="true"
         android:largeScreens="true" />
