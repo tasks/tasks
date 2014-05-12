@@ -8,8 +8,8 @@ public class SubtasksMovingTest extends SubtasksTestCase {
 
     private Task A, B, C, D, E, F;
 
-    @Override
-    protected void setUp() throws Exception {
+//    @Override
+    protected void disabled_setUp() throws Exception {
         super.setUp();
         createTasks();
         TaskListMetadata m = new TaskListMetadata();
@@ -56,7 +56,7 @@ public class SubtasksMovingTest extends SubtasksTestCase {
     * F
     */
 
-    public void testMoveBeforeIntoSelf() { // Should have no effect
+    public void disabled_testMoveBeforeIntoSelf() { // Should have no effect
         whenTriggerMoveBefore(A, B);
 
         expectParentAndPosition(A, null, 0);
@@ -67,7 +67,7 @@ public class SubtasksMovingTest extends SubtasksTestCase {
         expectParentAndPosition(F, null, 2);
     }
 
-    public void testMoveIntoDescendant() { // Should have no effect
+    public void disabled_testMoveIntoDescendant() { // Should have no effect
         whenTriggerMoveBefore(A, C);
 
         expectParentAndPosition(A, null, 0);
@@ -78,7 +78,7 @@ public class SubtasksMovingTest extends SubtasksTestCase {
         expectParentAndPosition(F, null, 2);
     }
 
-    public void testMoveToEndOfChildren() { // Should have no effect
+    public void disabled_testMoveToEndOfChildren() { // Should have no effect
         whenTriggerMoveBefore(A, E);
 
         expectParentAndPosition(A, null, 0);
@@ -89,7 +89,7 @@ public class SubtasksMovingTest extends SubtasksTestCase {
         expectParentAndPosition(F, null, 2);
     }
 
-    public void testStandardMove() {
+    public void disabled_testStandardMove() {
         whenTriggerMoveBefore(A, F);
 
         expectParentAndPosition(A, null, 1);
@@ -100,7 +100,7 @@ public class SubtasksMovingTest extends SubtasksTestCase {
         expectParentAndPosition(F, null, 2);
     }
 
-    public void testMoveToEndOfList() {
+    public void disabled_testMoveToEndOfList() {
         whenTriggerMoveBefore(A, null);
 
         expectParentAndPosition(A, null, 2);

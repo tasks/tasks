@@ -42,7 +42,7 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
         thenExpectNoMetadataFound();
     }
 
-    public void testLocallyCreatedHasItem() {
+    public void disabled_testLocallyCreatedHasItem() {
         taskWithMetadata("ok");
         givenTask(taskWithoutMetadata());
 
@@ -51,7 +51,7 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
         thenExpectCursorEquals(task);
     }
 
-    public void testLocallyCreatedWhenEmptyMetadata() {
+    public void disabled_testLocallyCreatedWhenEmptyMetadata() {
         givenTask(taskWithMetadata(null));
 
         whenReadLocalCreated();
@@ -59,7 +59,7 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
         thenExpectCursorEquals(task);
     }
 
-    public void testLocallyCreatedIsEmpty() {
+    public void disabled_testLocallyCreatedIsEmpty() {
         givenTask(taskWithMetadata("ok"));
 
         whenReadLocalCreated();
@@ -67,7 +67,7 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
         thenExpectCursorIsEmpty();
     }
 
-    public void testLocallyUpdatedHasItem() {
+    public void disabled_testLocallyUpdatedHasItem() {
         givenSyncDate(DateUtilities.now() - 5000L);
         givenTask(taskWithMetadata("ok"));
 

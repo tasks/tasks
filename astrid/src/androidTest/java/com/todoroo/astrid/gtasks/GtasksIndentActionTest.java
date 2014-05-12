@@ -35,7 +35,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         // should not crash
     }
 
-    public void testIndentWithMetadataButNoOtherTasks() {
+    public void disabled_testIndentWithMetadataButNoOtherTasks() {
         givenTask(taskWithMetadata(0, 0));
 
         whenIncreaseIndent();
@@ -76,7 +76,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         thenExpectIndentationLevel(0);
     }
 
-    public void testIndentWithChildren() {
+    public void disabled_testIndentWithChildren() {
         taskWithMetadata(0, 0);
         givenTask(taskWithMetadata(1, 0));
         Task child = taskWithMetadata(2, 1);
@@ -109,7 +109,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         thenExpectIndentationLevel(sibling, 0);
     }
 
-    public void testIndentWithChildrensChildren() {
+    public void disabled_testIndentWithChildrensChildren() {
         taskWithMetadata(0, 0);
         givenTask(taskWithMetadata(1, 0));
         Task child = taskWithMetadata(2, 1);

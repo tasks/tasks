@@ -28,7 +28,7 @@ public class TaskDaoTests extends DatabaseTestCase {
     /**
      * Test basic task creation, fetch, and save
      */
-    public void testTaskCreation() throws Exception {
+    public void disabled_testTaskCreation() throws Exception {
         TodorooCursor<Task> cursor = taskDao.query(
                 Query.select(IDS));
         assertEquals(0, cursor.getCount());
@@ -76,7 +76,7 @@ public class TaskDaoTests extends DatabaseTestCase {
     /**
      * Test various task fetch conditions
      */
-    public void testTaskConditions() throws Exception {
+    public void disabled_testTaskConditions() throws Exception {
         // create normal task
         Task task = new Task();
         task.setTitle("normal");
@@ -161,7 +161,7 @@ public class TaskDaoTests extends DatabaseTestCase {
     /**
      * Test task deletion
      */
-    public void testTDeletion() throws Exception {
+    public void disabled_testTDeletion() throws Exception {
         TodorooCursor<Task> cursor = taskDao.query(
                 Query.select(IDS));
         assertEquals(0, cursor.getCount());
@@ -188,7 +188,7 @@ public class TaskDaoTests extends DatabaseTestCase {
     /**
      * Test save without prior create doesn't work
      */
-    public void testSaveWithoutCreate() throws Exception {
+    public void disabled_testSaveWithoutCreate() throws Exception {
         TodorooCursor<Task> cursor;
 
         // try to save task "happy"
@@ -207,7 +207,7 @@ public class TaskDaoTests extends DatabaseTestCase {
     /**
      * Test passing invalid task indices to various things
      */
-    public void testInvalidIndex() throws Exception {
+    public void disabled_testInvalidIndex() throws Exception {
         TodorooCursor<Task> cursor;
 
         cursor = taskDao.query(

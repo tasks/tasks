@@ -36,7 +36,7 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
         thenExpectParent(tasks[4], null);
     }
 
-    public void testBasicSiblingComputation() {
+    public void disabled_testBasicSiblingComputation() {
         Task[] tasks = givenTasksABCDE();
 
         whenCalculatingParentsAndSiblings();
@@ -48,7 +48,7 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
         thenExpectSibling(tasks[4], tasks[0]);
     }
 
-    public void testMetadataParentComputation() {
+    public void disabled_testMetadataParentComputation() {
         Task[] tasks = givenTasksABCDE();
 
         whenCalculatingOrder();
@@ -60,7 +60,7 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
         thenExpectMetadataParent(tasks[4], null);
     }
 
-    public void testMetadataOrderComputation() {
+    public void disabled_testMetadataOrderComputation() {
         Task[] tasks = givenTasksABCDE();
 
         whenCalculatingOrder();
@@ -72,7 +72,7 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
         thenExpectMetadataIndentAndOrder(tasks[4], 4, 0);
     }
 
-    public void testNewTaskOrder() {
+    public void disabled_testNewTaskOrder() {
         givenTasksABCDE();
 
         Task newTask = createTask("F", GtasksMetadata.VALUE_UNSET, 0);
