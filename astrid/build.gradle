@@ -89,7 +89,4 @@ dependencies {
     compile group: 'com.google.http-client', name: 'google-http-client-extensions-android3', version: '1.6.0-beta', transitive: false
     compile group: 'com.google.oauth-client', name: 'google-oauth-client', version: '1.6.0-beta', transitive: false
     compile group: 'com.google.oauth-client', name: 'google-oauth-client-extensions', version: '1.6.0-beta', transitive: false
-
-    androidTestCompile group: 'junit', name: 'junit', version: '4.10', transitive: false
-    androidTestCompile group: 'org.mockito', name: 'mockito-core', version: '1.9.5', transitive: false
 }
