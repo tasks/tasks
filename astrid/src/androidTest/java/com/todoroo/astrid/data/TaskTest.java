@@ -1,15 +1,8 @@
 package com.todoroo.astrid.data;
 
-import android.content.ContentValues;
-
-import com.todoroo.astrid.utility.AstridPreferences;
+import android.test.AndroidTestCase;
 
 import org.joda.time.DateTime;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 import org.tasks.Snippet;
 
 import java.util.ArrayList;
@@ -30,72 +23,58 @@ import static com.todoroo.astrid.data.Task.URGENCY_TODAY;
 import static com.todoroo.astrid.data.Task.URGENCY_TOMORROW;
 import static com.todoroo.astrid.data.Task.createDueDate;
 import static com.todoroo.astrid.data.Task.hasDueTime;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.tasks.Freeze.freezeAt;
 import static org.tasks.Freeze.thaw;
 import static org.tasks.date.DateTimeUtils.currentTimeMillis;
 
-@RunWith(RobolectricTestRunner.class)
-public class TaskTest {
+public class TaskTest extends AndroidTestCase {
 
     private static final DateTime now = new DateTime(2013, 12, 31, 16, 10, 53, 452);
     private static final DateTime specificDueDate = new DateTime(2014, 3, 17, 9, 54, 27, 959);
 
-    @Before
-    public void before() {
+    public void setUp() {
         freezeAt(now);
     }
 
-    @After
-    public void after() {
+    public void tearDown() {
         thaw();
     }
 
-    @Test
-    public void createDueDateNoUrgency() {
+    public void testCreateDueDateNoUrgency() {
         assertEquals(0, createDueDate(URGENCY_NONE, 1L));
     }
 
-    @Test
-    public void createDueDateToday() {
+    public void testCreateDueDateToday() {
         long expected = new DateTime(2013, 12, 31, 12, 0, 0, 0).getMillis();
         assertEquals(expected, createDueDate(URGENCY_TODAY, -1L));
     }
 
-    @Test
-    public void createDueDateTomorrow() {
+    public void testCreateDueDateTomorrow() {
         long expected = new DateTime(2014, 1, 1, 12, 0, 0, 0).getMillis();
         assertEquals(expected, createDueDate(URGENCY_TOMORROW, -1L));
     }
 
-    @Test
-    public void createDueDateDayAfter() {
+    public void testCreateDueDateDayAfter() {
         long expected = new DateTime(2014, 1, 2, 12, 0, 0, 0).getMillis();
         assertEquals(expected, createDueDate(URGENCY_DAY_AFTER, -1L));
     }
 
-    @Test
-    public void createDueDateNextWeek() {
+    public void testCreateDueDateNextWeek() {
         long expected = new DateTime(2014, 1, 7, 12, 0, 0, 0).getMillis();
         assertEquals(expected, createDueDate(URGENCY_NEXT_WEEK, -1L));
     }
 
-    @Test
-    public void createDueDateInTwoWeeks() {
+    public void testCreateDueDateInTwoWeeks() {
         long expected = new DateTime(2014, 1, 14, 12, 0, 0, 0).getMillis();
         assertEquals(expected, createDueDate(URGENCY_IN_TWO_WEEKS, -1L));
     }
 
-    @Test
-    public void createDueDateNextMonth() {
+    public void testCreateDueDateNextMonth() {
         long expected = new DateTime(2014, 1, 31, 12, 0, 0, 0).getMillis();
         assertEquals(expected, createDueDate(URGENCY_NEXT_MONTH, -1L));
     }
 
-    @Test
-    public void removeTimeForSpecificDay() {
+    public void testRemoveTimeForSpecificDay() {
         long expected = specificDueDate
                 .withHourOfDay(12)
                 .withMinuteOfHour(0)
@@ -105,8 +84,7 @@ public class TaskTest {
         assertEquals(expected, createDueDate(URGENCY_SPECIFIC_DAY, specificDueDate.getMillis()));
     }
 
-    @Test
-    public void removeSecondsForSpecificTime() {
+    public void testRemoveSecondsForSpecificTime() {
         long expected = specificDueDate
                 .withSecondOfMinute(1)
                 .withMillisOfSecond(0)
@@ -114,62 +92,52 @@ public class TaskTest {
         assertEquals(expected, createDueDate(URGENCY_SPECIFIC_DAY_TIME, specificDueDate.getMillis()));
     }
 
-    @Test
-    public void taskHasDueTime() {
+    public void testTaskHasDueTime() {
         Task task = new Task();
         task.setValue(DUE_DATE, 1388516076000L);
         assertTrue(task.hasDueTime());
         assertTrue(task.hasDueDate());
     }
 
-    @Test
-    public void taskHasDueDate() {
+    public void testTaskHasDueDate() {
         Task task = new Task();
         task.setValue(DUE_DATE, 1388469600000L);
         assertFalse(task.hasDueTime());
         assertTrue(task.hasDueDate());
     }
 
-    @Test
-    public void doesHaveDueTime() {
+    public void testDoesHaveDueTime() {
         assertTrue(hasDueTime(1388516076000L));
     }
 
-    @Test
-    public void doesNotHaveDueTime() {
+    public void testDoesNotHaveDueTime() {
         assertFalse(hasDueTime(1388469600000L));
     }
 
-    @Test
-    public void newTaskIsNotCompleted() {
+    public void testNewTaskIsNotCompleted() {
         assertFalse(new Task().isCompleted());
     }
 
-    @Test
-    public void newTaskNotDeleted() {
+    public void testNewTaskNotDeleted() {
         assertFalse(new Task().isDeleted());
     }
 
-    @Test
-    public void newTaskNotHidden() {
+    public void testNewTaskNotHidden() {
         assertFalse(new Task().isHidden());
     }
 
-    @Test
-    public void newTaskDoesNotHaveDueDateOrTime() {
+    public void testNewTaskDoesNotHaveDueDateOrTime() {
         assertFalse(new Task().hasDueDate());
         assertFalse(new Task().hasDueTime());
     }
 
-    @Test
-    public void taskIsCompleted() {
+    public void testTaskIsCompleted() {
         Task task = new Task();
         task.setValue(COMPLETION_DATE, 1L);
         assertTrue(task.isCompleted());
     }
 
-    @Test
-    public void taskIsNotHiddenAtHideUntilTime() {
+    public void testTaskIsNotHiddenAtHideUntilTime() {
         final long now = currentTimeMillis();
         freezeAt(now).thawAfter(new Snippet() {{
             Task task = new Task();
@@ -178,8 +146,7 @@ public class TaskTest {
         }});
     }
 
-    @Test
-    public void taskIsHiddenBeforeHideUntilTime() {
+    public void testTaskIsHiddenBeforeHideUntilTime() {
         final long now = currentTimeMillis();
         freezeAt(now).thawAfter(new Snippet() {{
             Task task = new Task();
@@ -188,20 +155,17 @@ public class TaskTest {
         }});
     }
 
-    @Test
-    public void taskIsDeleted() {
+    public void testTaskIsDeleted() {
         Task task = new Task();
         task.setValue(DELETION_DATE, 1L);
         assertTrue(task.isDeleted());
     }
 
-    @Test
-    public void taskWithNoDueDateIsOverdue() {
+    public void testTaskWithNoDueDateIsOverdue() {
         assertTrue(new Task().isOverdue());
     }
 
-    @Test
-    public void taskNotOverdueAtDueTime() {
+    public void testTaskNotOverdueAtDueTime() {
         final long now = currentTimeMillis();
         freezeAt(now).thawAfter(new Snippet() {{
             Task task = new Task();
@@ -210,8 +174,7 @@ public class TaskTest {
         }});
     }
 
-    @Test
-    public void taskIsOverduePastDueTime() {
+    public void testTaskIsOverduePastDueTime() {
         final long dueDate = currentTimeMillis();
         freezeAt(dueDate + 1).thawAfter(new Snippet() {{
             Task task = new Task();
@@ -220,8 +183,7 @@ public class TaskTest {
         }});
     }
 
-    @Test
-    public void taskNotOverdueBeforeNoonOnDueDate() {
+    public void testTaskNotOverdueBeforeNoonOnDueDate() {
         final DateTime dueDate = new DateTime().withMillisOfDay(0);
         freezeAt(dueDate.plusHours(12).minusMillis(1)).thawAfter(new Snippet() {{
             Task task = new Task();
@@ -231,8 +193,7 @@ public class TaskTest {
         }});
     }
 
-    @Test
-    public void taskOverdueAtNoonOnDueDate() {
+    public void testTaskOverdueAtNoonOnDueDate() {
         final DateTime dueDate = new DateTime().withMillisOfDay(0);
         freezeAt(dueDate.plusHours(12)).thawAfter(new Snippet() {{
             Task task = new Task();
@@ -242,7 +203,6 @@ public class TaskTest {
         }});
     }
 
-    @Test
     public void testSanity() {
         assertTrue(Task.IMPORTANCE_DO_OR_DIE < Task.IMPORTANCE_MUST_DO);
         assertTrue(Task.IMPORTANCE_MUST_DO < Task.IMPORTANCE_SHOULD_DO);

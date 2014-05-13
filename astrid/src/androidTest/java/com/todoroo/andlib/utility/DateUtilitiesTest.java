@@ -5,19 +5,16 @@
  */
 package com.todoroo.andlib.utility;
 
+import android.content.res.Configuration;
+import android.test.AndroidTestCase;
+import android.util.DisplayMetrics;
+
 import org.joda.time.DateTime;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 import org.tasks.Snippet;
 
 import java.util.Date;
 import java.util.Locale;
 
-import static com.todoroo.andlib.test.TodorooRobolectricTestCase.forEachLocale;
-import static com.todoroo.andlib.test.TodorooRobolectricTestCase.getRobolectricContext;
 import static com.todoroo.andlib.utility.DateUtilities.addCalendarMonthsToUnixtime;
 import static com.todoroo.andlib.utility.DateUtilities.clearTime;
 import static com.todoroo.andlib.utility.DateUtilities.getDateString;
@@ -28,30 +25,40 @@ import static com.todoroo.andlib.utility.DateUtilities.getWeekday;
 import static com.todoroo.andlib.utility.DateUtilities.getWeekdayShort;
 import static com.todoroo.andlib.utility.DateUtilities.isEndOfMonth;
 import static com.todoroo.andlib.utility.DateUtilities.oneMonthFromNow;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.tasks.Freeze.freezeAt;
 import static org.tasks.date.DateTimeUtils.newDate;
 
-@RunWith(RobolectricTestRunner.class)
-public class DateUtilitiesTest {
+public class DateUtilitiesTest extends AndroidTestCase {
 
     private static Locale defaultLocale;
 
-    @Before
-    public void before() {
+    public void setUp() {
         defaultLocale = Locale.getDefault();
         Locale.setDefault(Locale.US);
     }
 
-    @After
-    public void after() {
+    public void tearDown() {
         DateUtilities.is24HourOverride = null;
         Locale.setDefault(defaultLocale);
     }
 
-    @Test
+    private void setLocale(Locale locale) {
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        DisplayMetrics metrics = getContext().getResources().getDisplayMetrics();
+        getContext().getResources().updateConfiguration(config, metrics);
+    }
+
+    public void forEachLocale(Runnable r) {
+        Locale[] locales = Locale.getAvailableLocales();
+        for(Locale locale : locales) {
+            setLocale(locale);
+
+            r.run();
+        }
+    }
+
     public void testTimeString() {
         forEachLocale(new Runnable() {
             public void run() {
@@ -60,19 +67,18 @@ public class DateUtilitiesTest {
                 DateUtilities.is24HourOverride = false;
                 for (int i = 0; i < 24; i++) {
                     d.setHours(i);
-                    DateUtilities.getTimeString(getRobolectricContext(), d);
+                    DateUtilities.getTimeString(getContext(), d);
                 }
 
                 DateUtilities.is24HourOverride = true;
                 for (int i = 0; i < 24; i++) {
                     d.setHours(i);
-                    DateUtilities.getTimeString(getRobolectricContext(), d);
+                    DateUtilities.getTimeString(getContext(), d);
                 }
             }
         });
     }
 
-    @Test
     public void testDateString() {
         forEachLocale(new Runnable() {
             public void run() {
@@ -86,47 +92,40 @@ public class DateUtilitiesTest {
         });
     }
 
-    @Test
-    public void get24HourTime() {
+    public void testGet24HourTime() {
         DateUtilities.is24HourOverride = true;
         assertEquals("9:05", getTimeString(null, newDate(2014, 1, 4, 9, 5, 36)));
         assertEquals("13:00", getTimeString(null, newDate(2014, 1, 4, 13, 0, 1)));
     }
 
-    @Test
-    public void getTime() {
+    public void testGetTime() {
         DateUtilities.is24HourOverride = false;
         assertEquals("9:05 AM", getTimeString(null, newDate(2014, 1, 4, 9, 5, 36)));
         assertEquals("1:05 PM", getTimeString(null, newDate(2014, 1, 4, 13, 5, 36)));
     }
 
-    @Test
-    public void getTimeWithNoMinutes() {
+    public void testGetTimeWithNoMinutes() {
         DateUtilities.is24HourOverride = false;
         assertEquals("1 PM", getTimeString(null, newDate(2014, 1, 4, 13, 0, 59))); // derp?
     }
 
-    @Test
-    public void getDateStringWithYear() {
+    public void testGetDateStringWithYear() {
         assertEquals("Jan 4, 2014", getDateString(newDate(2014, 1, 4, 0, 0, 0)));
     }
 
-    @Test
-    public void getDateStringHidingYear() {
+    public void testGetDateStringHidingYear() {
         freezeAt(newDate(2014, 1, 1)).thawAfter(new Snippet() {{
             assertEquals("Jan 1", getDateStringHideYear(newDate()));
         }});
     }
 
-    @Test
-    public void getDateStringWithDifferentYear() {
+    public void testGetDateStringWithDifferentYear() {
         freezeAt(newDate(2013, 12, 31)).thawAfter(new Snippet() {{
             assertEquals("Jan 1\n2014", getDateStringHideYear(newDate(2014, 1, 1)));
         }});
     }
 
-    @Test
-    public void oneMonthFromStartOfDecember() {
+    public void testOneMonthFromStartOfDecember() {
         DateTime now = new DateTime(2013, 12, 1, 12, 19, 45, 192);
         final long expected = new DateTime(2014, 1, 1, 12, 19, 45, 192).getMillis();
 
@@ -135,8 +134,7 @@ public class DateUtilitiesTest {
         }});
     }
 
-    @Test
-    public void oneMonthFromEndOfDecember() {
+    public void testOneMonthFromEndOfDecember() {
         DateTime now = new DateTime(2013, 12, 31, 16, 31, 20, 597);
         final long expected = new DateTime(2014, 1, 31, 16, 31, 20, 597).getMillis();
 
@@ -145,8 +143,7 @@ public class DateUtilitiesTest {
         }});
     }
 
-    @Test
-    public void getSixMonthsFromEndOfDecember() {
+    public void testGetSixMonthsFromEndOfDecember() {
         final DateTime now = new DateTime(2013, 12, 31, 17, 17, 32, 900);
         final long expected = new DateTime(2014, 7, 1, 17, 17, 32, 900).getMillis();
 
@@ -155,8 +152,7 @@ public class DateUtilitiesTest {
         }});
     }
 
-    @Test
-    public void oneMonthFromEndOfJanuary() {
+    public void testOneMonthFromEndOfJanuary() {
         DateTime now = new DateTime(2014, 1, 31, 12, 54, 33, 175);
         final long expected = new DateTime(2014, 3, 3, 12, 54, 33, 175).getMillis();
 
@@ -165,8 +161,7 @@ public class DateUtilitiesTest {
         }});
     }
 
-    @Test
-    public void oneMonthFromEndOfFebruary() {
+    public void testOneMonthFromEndOfFebruary() {
         DateTime now = new DateTime(2014, 2, 28, 9, 19, 7, 990);
         final long expected = new DateTime(2014, 3, 28, 9, 19, 7, 990).getMillis();
 
@@ -175,24 +170,21 @@ public class DateUtilitiesTest {
         }});
     }
 
-    @Test
-    public void clearTimeFromDate() {
+    public void testClearTimeFromDate() {
         DateTime now = new DateTime(2014, 1, 3, 10, 34, 32, 98);
         assertEquals(
                 now.withMillisOfDay(0).getMillis(),
                 clearTime(new Date(now.getMillis())));
     }
 
-    @Test
-    public void shouldGetStartOfDay() {
+    public void testShouldGetStartOfDay() {
         DateTime now = new DateTime(2014, 1, 3, 10, 41, 41, 520);
         assertEquals(
                 now.withMillisOfDay(0).getMillis(),
                 getStartOfDay(now.getMillis()));
     }
 
-    @Test
-    public void checkEndOfMonth() {
+    public void testCheckEndOfMonth() {
         assertTrue(isEndOfMonth(newDate(2014, 1, 31)));
         assertTrue(isEndOfMonth(newDate(2014, 2, 28)));
         assertTrue(isEndOfMonth(newDate(2014, 3, 31)));
@@ -207,8 +199,7 @@ public class DateUtilitiesTest {
         assertTrue(isEndOfMonth(newDate(2014, 12, 31)));
     }
 
-    @Test
-    public void notTheEndOfTheMonth() {
+    public void testNotTheEndOfTheMonth() {
         for (int month = 1; month <= 12; month++) {
             int lastDay = new DateTime(2014, month, 1, 0, 0, 0, 0).dayOfMonth().getMaximumValue();
             for (int day = 1; day < lastDay; day++) {
@@ -217,14 +208,12 @@ public class DateUtilitiesTest {
         }
     }
 
-    @Test
-    public void checkEndOfMonthDuringLeapYear() {
+    public void testCheckEndOfMonthDuringLeapYear() {
         assertFalse(isEndOfMonth(newDate(2016, 2, 28)));
         assertTrue(isEndOfMonth(newDate(2016, 2, 29)));
     }
 
-    @Test
-    public void getWeekdayLongString() {
+    public void testGetWeekdayLongString() {
         assertEquals("Sunday", getWeekday(newDate(2013, 12, 29)));
         assertEquals("Monday", getWeekday(newDate(2013, 12, 30)));
         assertEquals("Tuesday", getWeekday(newDate(2013, 12, 31)));
@@ -234,8 +223,7 @@ public class DateUtilitiesTest {
         assertEquals("Saturday", getWeekday(newDate(2014, 1, 4)));
     }
 
-    @Test
-    public void getWeekdayShortString() {
+    public void testGetWeekdayShortString() {
         assertEquals("Sun", getWeekdayShort(newDate(2013, 12, 29)));
         assertEquals("Mon", getWeekdayShort(newDate(2013, 12, 30)));
         assertEquals("Tue", getWeekdayShort(newDate(2013, 12, 31)));
@@ -245,19 +233,16 @@ public class DateUtilitiesTest {
         assertEquals("Sat", getWeekdayShort(newDate(2014, 1, 4)));
     }
 
-    @Test
-    public void addMonthsToTimestamp() {
+    public void testAddMonthsToTimestamp() {
         assertEquals(newDate(2014, 1, 1).getTime(), addCalendarMonthsToUnixtime(newDate(2013, 12, 1).getTime(), 1));
         assertEquals(newDate(2014, 12, 31).getTime(), addCalendarMonthsToUnixtime(newDate(2013, 12, 31).getTime(), 12));
     }
 
-    @Test
-    public void addMonthsWithLessDays() {
+    public void testAddMonthsWithLessDays() {
         assertEquals(newDate(2014, 3, 3).getTime(), addCalendarMonthsToUnixtime(newDate(2013, 12, 31).getTime(), 2));
     }
 
-    @Test
-    public void addMonthsWithMoreDays() {
+    public void testAddMonthsWithMoreDays() {
         assertEquals(newDate(2014, 1, 30).getTime(), addCalendarMonthsToUnixtime(newDate(2013, 11, 30).getTime(), 2));
     }
 }
