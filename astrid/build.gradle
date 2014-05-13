@@ -74,7 +74,6 @@ dependencies {
 
     compile 'net.simonvt.menudrawer:menudrawer:3.0.4@aar'
 
-    compile project(":android-aac-enc")
     compile project(":api")
 
     compile fileTree(dir: "libs", includes: ["*.jar"])

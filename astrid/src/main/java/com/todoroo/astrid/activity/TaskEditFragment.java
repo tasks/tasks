@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.RecognizerIntent;
@@ -852,7 +853,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     private void startRecordingAudio() {
         Intent recordAudio = new Intent(getActivity(), AACRecordingActivity.class);
-        recordAudio.putExtra(AACRecordingActivity.EXTRA_TEMP_FILE, getActivity().getFilesDir() + File.separator + "audio.aac"); //$NON-NLS-1$
         startActivityForResult(recordAudio, REQUEST_CODE_RECORD);
     }
 
@@ -952,9 +952,13 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
 
-        item = menu.add(Menu.NONE, MENU_RECORD_ID, 0, R.string.premium_record_audio);
-        item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_mic));
-        setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD_MR1) {
+            // media recorder aac support requires api level 10
+            // approximately 1% of current installs are using api level 7-9
+            item = menu.add(Menu.NONE, MENU_RECORD_ID, 0, R.string.premium_record_audio);
+            item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_mic));
+            setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
+        }
 
         item = menu.add(Menu.NONE, MENU_DELETE_TASK_ID, 0, R.string.delete_task);
         item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_discard));

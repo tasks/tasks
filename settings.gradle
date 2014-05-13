@@ -1,3 +1,2 @@
-include ':android-aac-enc'
 include ':api'
 include ':astrid'
