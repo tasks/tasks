@@ -43,18 +43,6 @@ public class TodorooRobolectricTestCase {
     }
 
     /**
-     * Loop through each locale and call runnable
-     */
-    public static void forEachLocale(Runnable r) {
-        Locale[] locales = Locale.getAvailableLocales();
-        for(Locale locale : locales) {
-            setLocale(locale);
-
-            r.run();
-        }
-    }
-
-    /**
      * Sets locale
      */
     private static void setLocale(Locale locale) {

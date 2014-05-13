@@ -8,7 +8,6 @@ package com.todoroo.andlib.test;
 
 import android.content.res.Resources;
 
-import org.junit.Test;
 import org.tasks.R;
 
 import java.lang.reflect.Field;
@@ -18,9 +17,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.tasks.date.DateTimeUtils.newDate;
 
 /**
@@ -31,7 +27,7 @@ import static org.tasks.date.DateTimeUtils.newDate;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-abstract public class TranslationTests extends TodorooRobolectricTestCase {
+abstract public class TranslationTests extends TodorooTestCase {
 
     // --- abstract methods
 
@@ -114,7 +110,6 @@ abstract public class TranslationTests extends TodorooRobolectricTestCase {
     /**
      * Internal test of format string parser
      */
-    @Test
     public void testFormatStringParser() {
         String s = "abc";
         FormatStringData data = new FormatStringData(s);
@@ -148,9 +143,8 @@ abstract public class TranslationTests extends TodorooRobolectricTestCase {
      * Test that the format specifiers in translations match exactly the
      * translations in the default text
      */
-    @Test
     public void testFormatStringsMatch() throws Exception {
-        final Resources r = getRobolectricContext().getResources();
+        final Resources r = getContext().getResources();
         final int[] strings = getResourceIds(getStringResources());
         final FormatStringData[] formatStrings = new FormatStringData[strings.length];
 
@@ -173,8 +167,11 @@ abstract public class TranslationTests extends TodorooRobolectricTestCase {
                 Locale locale = r.getConfiguration().locale;
                 for(int i = 0; i < strings.length; i++) {
                     try {
-                        if (strings[i] == R.string.premium_speech_bubble_2) // Special exception--this string contains a % character
-                            continue;
+                        switch(strings[i]) {
+                            case R.string.premium_speech_bubble_2: // Special exception--this string contains a % character
+                            case R.string.abc_shareactionprovider_share_with_application:
+                                continue;
+                        }
                         String string = r.getString(strings[i]);
                         FormatStringData newFS = new FormatStringData(string);
                         if(!newFS.matches(formatStrings[i])) {
@@ -197,9 +194,8 @@ abstract public class TranslationTests extends TodorooRobolectricTestCase {
     /**
      * Test that date formatters parse correctly
      */
-    @Test
     public void testDateFormats() throws Exception {
-        final Resources r = getRobolectricContext().getResources();
+        final Resources r = getContext().getResources();
 
         final StringBuilder failures = new StringBuilder();
         final int[] dateStrings = getDateFormatStrings();
@@ -234,9 +230,8 @@ abstract public class TranslationTests extends TodorooRobolectricTestCase {
     /**
      * Test that there are the same number of array entries in each locale
      */
-    @Test
     public void testArraySizesMatch() throws Exception {
-        final Resources r = getRobolectricContext().getResources();
+        final Resources r = getContext().getResources();
         final int[] arrays = getResourceIds(getArrayResources());
         final int[] sizes = new int[arrays.length];
         final StringBuilder failures = new StringBuilder();
