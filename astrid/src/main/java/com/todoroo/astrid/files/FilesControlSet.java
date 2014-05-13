@@ -23,8 +23,8 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.todoroo.aacenc.RecognizerApi;
-import com.todoroo.aacenc.RecognizerApi.PlaybackExceptionHandler;
+import com.todoroo.astrid.voice.RecognizerApi;
+import com.todoroo.astrid.voice.RecognizerApi.PlaybackExceptionHandler;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -196,7 +196,7 @@ public class FilesControlSet extends PopupControlSet {
         final String filePath = m.getFilePath();
 
         if (fileType.startsWith(TaskAttachment.FILE_TYPE_AUDIO)) {
-            RecognizerApi.play(activity, m.getFilePath(), new PlaybackExceptionHandler() {
+            RecognizerApi.play(m.getFilePath(), new PlaybackExceptionHandler() {
                 @Override
                 public void playbackFailed(String file) {
                     showFromIntent(filePath, fileType);

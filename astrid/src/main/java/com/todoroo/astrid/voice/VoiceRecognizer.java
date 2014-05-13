@@ -16,8 +16,7 @@ import android.support.v4.app.Fragment;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import com.todoroo.aacenc.RecognizerApi;
-import com.todoroo.aacenc.RecognizerApi.RecognizerApiListener;
+import com.todoroo.astrid.voice.RecognizerApi.RecognizerApiListener;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.utility.Constants;
@@ -81,8 +80,7 @@ public class VoiceRecognizer {
     public void startVoiceRecognition(Context context, Fragment fragment) {
         if (speechRecordingAvailable(context) && recognizerApi != null) {
             recognizerApi.start(Constants.PACKAGE,
-                    context.getString(R.string.audio_speak_now),
-                    context.getString(R.string.audio_encoding));
+                    context.getString(R.string.audio_speak_now));
         } else {
             int prompt = R.string.voice_edit_title_prompt;
             if (Preferences.getBoolean(R.string.p_voiceInputCreatesTask, false)) {

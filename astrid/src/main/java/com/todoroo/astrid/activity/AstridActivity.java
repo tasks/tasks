@@ -19,7 +19,7 @@ import android.view.WindowManager.BadTokenException;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.todoroo.aacenc.RecognizerApi.RecognizerApiListener;
+import com.todoroo.astrid.voice.RecognizerApi.RecognizerApiListener;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;

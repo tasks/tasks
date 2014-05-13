@@ -1,7 +1,6 @@
-package com.todoroo.aacenc;
+package com.todoroo.astrid.voice;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,30 +20,31 @@ import java.util.ArrayList;
 @TargetApi(8)
 public class RecognizerApi implements RecognitionListener {
 
-	public static interface PlaybackExceptionHandler {
-		public void playbackFailed(String file);
-	}
+    public static interface PlaybackExceptionHandler {
+        public void playbackFailed(String file);
+    }
 
     private Context context;
 
     public static interface RecognizerApiListener {
-    	public void onSpeechResult(String result);
-    	public void onSpeechError(int error);
+        public void onSpeechResult(String result);
+
+        public void onSpeechError(int error);
     }
 
     private RecognizerApiListener mListener;
 
     public RecognizerApi(Context context) {
-    	this.context = context;
+        this.context = context;
 
-    	sr = SpeechRecognizer.createSpeechRecognizer(context);
+        sr = SpeechRecognizer.createSpeechRecognizer(context);
     }
 
     public void setListener(RecognizerApiListener listener) {
-    	this.mListener = listener;
+        this.mListener = listener;
     }
 
-    public static void play(Activity activity, String file, PlaybackExceptionHandler handler) {
+    public static void play(String file, PlaybackExceptionHandler handler) {
         MediaPlayer mediaPlayer = new MediaPlayer();
 
         try {
@@ -52,7 +52,7 @@ public class RecognizerApi implements RecognitionListener {
             mediaPlayer.prepare();
             mediaPlayer.start();
         } catch (Exception e) {
-        	handler.playbackFailed(file);
+            handler.playbackFailed(file);
         }
     }
 
@@ -61,14 +61,7 @@ public class RecognizerApi implements RecognitionListener {
     private ProgressDialog speakPd;
     private ProgressDialog processingPd;
 
-    /**
-     * Start speech recognition
-     *
-     * @param callingPackage e.g. com.myapp.example
-     * @param speakNowMessage e.g. "Speak now!"
-     * @param processingMessage e.g. "Processing..."
-     */
-    public void start(String callingPackage, String speakNowMessage, String processingMessage) {
+    public void start(String callingPackage, String speakNowMessage) {
         sr.setRecognitionListener(this);
 
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -98,12 +91,12 @@ public class RecognizerApi implements RecognitionListener {
     }
 
     public void cancel() {
-    	sr.cancel();
+        sr.cancel();
     }
 
     public void destroy() {
-    	sr.setRecognitionListener(null);
-    	sr.destroy();
+        sr.setRecognitionListener(null);
+        sr.destroy();
     }
 
     // --- RecognitionListener methods --- //
@@ -116,7 +109,7 @@ public class RecognizerApi implements RecognitionListener {
 
     @Override
     public void onBufferReceived(byte[] buffer) {
-        if(speechStarted > 0) {
+        if (speechStarted > 0) {
             try {
                 baos.write(buffer);
             } catch (IOException e) {
@@ -129,7 +122,7 @@ public class RecognizerApi implements RecognitionListener {
     public void onEndOfSpeech() {
         speakPd.dismiss();
 
-        if(speechStarted == 0)
+        if (speechStarted == 0)
             return;
 
         processingPd = new ProgressDialog(context);
@@ -147,8 +140,9 @@ public class RecognizerApi implements RecognitionListener {
 
     @Override
     public void onError(int error) {
-    	if (mListener != null)
-    		mListener.onSpeechError(error);
+        if (mListener != null) {
+            mListener.onSpeechError(error);
+        }
         Log.w("Speech Error", "Error code: " + error);
     }
 
@@ -168,10 +162,11 @@ public class RecognizerApi implements RecognitionListener {
 
     @Override
     public void onResults(Bundle results) {
-    	processingPd.dismiss();
+        processingPd.dismiss();
         ArrayList<String> strings = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-        if (mListener != null)
-        	mListener.onSpeechResult(strings.size() == 0 ? "" : strings.get(0));
+        if (mListener != null) {
+            mListener.onSpeechResult(strings == null || strings.size() == 0 ? "" : strings.get(0));
+        }
     }
 
     @Override
