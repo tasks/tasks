@@ -20,7 +20,6 @@ import android.text.util.Linkify;
 
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.TaskAction;
-import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.files.FilesAction;
 import com.todoroo.astrid.notes.NotesAction;
@@ -31,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Exposes {@link TaskDecoration} for phone numbers, emails, urls, etc
+ * Exposes {@link TaskAction} for phone numbers, emails, urls, etc
  *
  * @author Tim Su <tim@todoroo.com>
  *

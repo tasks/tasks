@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.text.Html;
@@ -56,14 +55,12 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.TaskAction;
-import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.core.LinkActionExposer;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.files.FilesAction;
 import com.todoroo.astrid.files.FilesControlSet;
-import com.todoroo.astrid.helper.TaskAdapterAddOnManager;
 import com.todoroo.astrid.notes.NotesAction;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
@@ -73,7 +70,6 @@ import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.R;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -203,10 +199,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private final boolean titleOnlyLayout;
     protected final int minRowHeight;
 
-    // --- task detail and decoration soft caches
-
-    public final DecorationManager decorationManager;
-
     private final Map<Long, TaskAction> taskActionLoader = Collections.synchronizedMap(new HashMap<Long, TaskAction>());
 
     /**
@@ -243,8 +235,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         this.minRowHeight = computeMinRowHeight();
 
         startDetailThread();
-
-        decorationManager = new DecorationManager();
 
         scaleAnimation = new ScaleAnimation(1.4f, 1.0f, 1.4f, 1.0f,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
@@ -844,83 +834,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      */
     public void flushCaches() {
         completedItems.clear();
-        decorationManager.clearCache();
         taskDetailLoader.clear();
         startDetailThread();
     }
 
     public HashMap<Object, Boolean> getCompletedItems() {
         return completedItems;
-    }
-
-    /**
-     * AddOnManager for TaskDecorations
-     *
-     * @author Tim Su <tim@todoroo.com>
-     *
-     */
-    public class DecorationManager extends TaskAdapterAddOnManager<TaskDecoration> {
-
-        public DecorationManager() {
-            super(fragment);
-        }
-
-        @Override
-        protected void draw(ViewHolder viewHolder, long taskId, Collection<TaskDecoration> decorations) {
-            if(decorations == null || viewHolder.task.getId() != taskId) {
-                return;
-            }
-
-            reset(viewHolder);
-            if(decorations.size() == 0) {
-                return;
-            }
-
-
-            int i = 0;
-            boolean colorSet = false;
-            if(viewHolder.decorations == null || viewHolder.decorations.length != decorations.size()) {
-                viewHolder.decorations = new View[decorations.size()];
-            }
-            for(TaskDecoration decoration : decorations) {
-                if(decoration.color != 0 && !colorSet) {
-                    colorSet = true;
-                    viewHolder.view.setBackgroundColor(decoration.color);
-                }
-                if(decoration.decoration != null) {
-                    View view = decoration.decoration.apply(fragment.getActivity(), viewHolder.taskRow);
-                    viewHolder.decorations[i] = view;
-                    switch(decoration.position) {
-                    case TaskDecoration.POSITION_LEFT: {
-                        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-                        params.addRule(RelativeLayout.BELOW, R.id.completeBox);
-                        view.setLayoutParams(params);
-                        viewHolder.rowBody.addView(view);
-                        break;
-                    }
-                    case TaskDecoration.POSITION_RIGHT:
-                        viewHolder.taskRow.addView(view, viewHolder.taskRow.getChildCount());
-                    }
-                }
-                i++;
-            }
-        }
-
-        private void reset(ViewHolder viewHolder) {
-            if(viewHolder.decorations != null) {
-                for(View view : viewHolder.decorations) {
-                    viewHolder.rowBody.removeView(view);
-                    viewHolder.taskRow.removeView(view);
-                }
-                viewHolder.decorations = null;
-            }
-            if(viewHolder.task.getId() == mostRecentlyMade) {
-                viewHolder.view.setBackgroundColor(Color.argb(30, 150, 150, 150));
-            } else {
-                viewHolder.view.setBackgroundResource(android.R.drawable.list_selector_background);
-            }
-        }
     }
 
     /* ======================================================================

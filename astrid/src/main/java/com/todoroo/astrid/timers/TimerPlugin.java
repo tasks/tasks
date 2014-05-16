@@ -69,7 +69,6 @@ public class TimerPlugin extends BroadcastReceiver {
             }
         }
         PluginServices.getTaskService().save(task);
-        new TimerDecorationExposer().updateDecoration(context, task);
 
         // update notification
         TimerPlugin.updateNotifications(context);

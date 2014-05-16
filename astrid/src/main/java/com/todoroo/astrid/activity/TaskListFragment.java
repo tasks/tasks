@@ -62,7 +62,6 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.TaskContextActionExposer;
-import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
@@ -570,8 +569,6 @@ public class TaskListFragment extends ListFragment implements OnSortSelectedList
 
         getActivity().registerReceiver(detailReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_DETAILS));
-        getActivity().registerReceiver(detailReceiver,
-                new IntentFilter(AstridApiConstants.BROADCAST_SEND_DECORATIONS));
         getActivity().registerReceiver(refreshReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
         syncActionHelper.register();
@@ -691,12 +688,7 @@ public class TaskListFragment extends ListFragment implements OnSortSelectedList
             try {
                 Bundle receivedExtras = intent.getExtras();
                 long taskId = receivedExtras.getLong(AstridApiConstants.EXTRAS_TASK_ID);
-                String addOn = receivedExtras.getString(AstridApiConstants.EXTRAS_ADDON);
-
-                if (AstridApiConstants.BROADCAST_SEND_DECORATIONS.equals(intent.getAction())) {
-                    TaskDecoration deco = receivedExtras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
-                    taskAdapter.decorationManager.addNew(taskId, addOn, deco);
-                } else if (AstridApiConstants.BROADCAST_SEND_DETAILS.equals(intent.getAction())) {
+                if (AstridApiConstants.BROADCAST_SEND_DETAILS.equals(intent.getAction())) {
                     String detail = receivedExtras.getString(AstridApiConstants.EXTRAS_RESPONSE);
                     taskAdapter.addDetails(taskId, detail);
                 }

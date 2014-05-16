@@ -147,16 +147,6 @@ public class AstridApiConstants {
      */
     public static final String BROADCAST_SEND_SYNC_ACTIONS = API_PACKAGE + ".SEND_SYNC_ACTIONS";
 
-    // --- Task Decorations API
-
-    /**
-     * Action name for broadcast intent sending decorations back to Astrid
-     * <li> EXTRAS_ADDON your add-on identifier
-     * <li> EXTRAS_TASK_ID id of the task
-     * <li> EXTRAS_RESPONSE a {@link TaskDecoration}
-     */
-    public static final String BROADCAST_SEND_DECORATIONS = API_PACKAGE + ".SEND_DECORATIONS";
-
     // --- Actions API
 
     /**
