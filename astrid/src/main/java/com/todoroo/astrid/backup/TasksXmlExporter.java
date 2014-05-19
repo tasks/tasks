@@ -17,7 +17,8 @@ import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -42,6 +43,8 @@ import java.io.IOException;
 
 public class TasksXmlExporter {
 
+    private static final String TAG = "TasksXmlExporter";
+
     // --- public interface
 
     /**
@@ -64,6 +67,9 @@ public class TasksXmlExporter {
 
     // --- implementation
 
+    @Autowired
+    TagDataService tagDataService;
+
     // 3 is started on Version 4.6.10
     private static final int FORMAT = 3;
 
@@ -71,9 +77,7 @@ public class TasksXmlExporter {
     private int exportCount = 0;
     private XmlSerializer xml;
     private final TaskService taskService = PluginServices.getTaskService();
-    private final TagDataService tagdataService = PluginServices.getTagDataService();
     private final MetadataService metadataService = PluginServices.getMetadataService();
-    private final ExceptionService exceptionService = PluginServices.getExceptionService();
 
     private final ProgressDialog progressDialog;
     private final Handler handler;
@@ -90,8 +94,9 @@ public class TasksXmlExporter {
         });
     }
 
-    private TasksXmlExporter(final Context context, final ExportType exportType,
-            File backupDirectoryOverride) {
+    private TasksXmlExporter(final Context context, final ExportType exportType, File backupDirectoryOverride) {
+        DependencyInjectionService.getInstance().inject(this);
+
         this.context = context;
         this.exportCount = 0;
         this.backupDirectory = backupDirectoryOverride == null ?
@@ -132,20 +137,7 @@ public class TasksXmlExporter {
                         onFinishExport(output);
                     }
                 } catch (IOException e) {
-                    switch(exportType) {
-                    case EXPORT_TYPE_MANUAL:
-                        exceptionService.displayAndReportError(context,
-                            context.getString(R.string.backup_TXI_error), e);
-                        break;
-                    case EXPORT_TYPE_SERVICE:
-                        exceptionService.reportError("background-backup", e); //$NON-NLS-1$
-                        Preferences.setString(BackupPreferences.PREF_BACKUP_LAST_ERROR, e.toString());
-                        break;
-                    case EXPORT_TYPE_ON_UPGRADE:
-                        exceptionService.reportError("background-backup", e); //$NON-NLS-1$
-                        Preferences.setString(BackupPreferences.PREF_BACKUP_LAST_ERROR, e.toString());
-                        break;
-                    }
+                    Log.e(TAG, exportType + ": " + e.getMessage(), e);
                 } finally {
                     handler.post(new Runnable() {
                         @Override
@@ -188,7 +180,7 @@ public class TasksXmlExporter {
 
     private void  serializeTagDatas() throws IOException {
         TodorooCursor<TagData> cursor;
-        cursor = tagdataService.query(Query.select(
+        cursor = tagDataService.query(Query.select(
                 TagData.PROPERTIES).orderBy(Order.asc(TagData.ID)));
 
         try {

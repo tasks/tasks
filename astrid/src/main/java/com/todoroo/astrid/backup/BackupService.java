@@ -16,7 +16,6 @@ import android.util.Log;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.core.PluginServices;
 
 import org.tasks.R;
 
@@ -29,6 +28,8 @@ import java.util.Comparator;
  * Inspired heavily by SynchronizationService
  */
 public class BackupService extends Service {
+
+    private static final String TAG = "BackupService";
 
     // --- constants for backup
 
@@ -56,7 +57,7 @@ public class BackupService extends Service {
             ContextManager.setContext(this);
             startBackup(this);
         } catch (Exception e) {
-            PluginServices.getExceptionService().reportError("backup-bg-sync", e); //$NON-NLS-1$
+            Log.e(TAG, e.getMessage(), e);
         }
     }
 

@@ -9,6 +9,7 @@ import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.google.ical.iter.RecurrenceIterator;
 import com.google.ical.iter.RecurrenceIteratorFactory;
@@ -41,6 +42,8 @@ import static org.tasks.date.DateTimeUtils.newDateUtc;
 
 public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
+    private static final String TAG = "RepeatTaskCompleteListener";
+
     @Override
     public void onReceive(Context context, Intent intent) {
         ContextManager.setContext(context);
@@ -66,7 +69,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
                     return;
                 }
             } catch (ParseException e) {
-                PluginServices.getExceptionService().reportError("repeat-parse", e); //$NON-NLS-1$
+                Log.e(TAG, e.getMessage(), e);
                 return;
             }
 

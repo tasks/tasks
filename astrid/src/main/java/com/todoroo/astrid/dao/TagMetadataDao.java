@@ -14,7 +14,6 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagMetadata;
@@ -39,7 +38,10 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
     @Autowired
     private Database database;
 
-	public TagMetadataDao() {
+    @Autowired
+    TagDataDao tagDataDao;
+
+    public TagMetadataDao() {
         super(TagMetadata.class);
         DependencyInjectionService.getInstance().inject(this);
         setDatabase(database);
@@ -134,7 +136,7 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
                 //
             }
             tagData.setMembers(""); //$NON-NLS-1$
-            PluginServices.getTagDataDao().saveExisting(tagData);
+            tagDataDao.saveExisting(tagData);
         }
 
         TodorooCursor<TagMetadata> currentMembers = query(Query.select(TagMemberMetadata.USER_UUID).where(TagMetadataCriteria.byTagAndWithKey(tagUuid, TagMemberMetadata.KEY)));

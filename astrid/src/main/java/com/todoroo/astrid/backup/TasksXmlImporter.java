@@ -22,8 +22,9 @@ import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -56,6 +57,8 @@ import java.util.StringTokenizer;
 
 public class TasksXmlImporter {
 
+    private static final String TAG = "TasksXmlImporter";
+
     // --- public interface
 
     /**
@@ -67,6 +70,9 @@ public class TasksXmlImporter {
 
     // --- implementation
 
+    @Autowired
+    TagDataService tagDataService;
+
     private final Handler handler;
     private int taskCount;
     private int importCount = 0;
@@ -77,8 +83,6 @@ public class TasksXmlImporter {
     private final Context context;
     private final TaskService taskService = PluginServices.getTaskService();
     private final MetadataService metadataService = PluginServices.getMetadataService();
-    private final TagDataService tagdataService = PluginServices.getTagDataService();
-    private final ExceptionService exceptionService = PluginServices.getExceptionService();
     private final ProgressDialog progressDialog;
     private final Runnable runAfterImport;
 
@@ -96,6 +100,8 @@ public class TasksXmlImporter {
      * @param runAfterImport optional runnable after import
      */
     private TasksXmlImporter(final Context context, String input, Runnable runAfterImport) {
+        DependencyInjectionService.getInstance().inject(this);
+
         this.input = input;
         this.context = context;
         this.runAfterImport = runAfterImport;
@@ -122,8 +128,7 @@ public class TasksXmlImporter {
                 try {
                     performImport();
                 } catch (IOException | XmlPullParserException e) {
-                    exceptionService.displayAndReportError(context,
-                            context.getString(R.string.backup_TXI_error), e);
+                    Log.e(TAG, e.getMessage(), e);
                 }
             }
         }).start();
@@ -303,7 +308,7 @@ public class TasksXmlImporter {
                 String uuid = metadata.getValue(Metadata.VALUE2);
                 long deletionDate = metadata.getDeletionDate();
                 // UUID is uniquely for every TagData, so we don't need to test the name
-                TodorooCursor<TagData> cursor = tagdataService.query(Query.select(TagData.ID).
+                TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.ID).
                         where(TagData.UUID.eq(uuid)));
                 try {
                     //If you sync with Google tasks it adds some Google task metadata.
@@ -313,7 +318,7 @@ public class TasksXmlImporter {
                         tagdata.setId(TagData.NO_ID);
                         tagdata.setUuid(uuid);
                         tagdata.setName(name);
-                        tagdataService.save(tagdata);
+                        tagDataService.save(tagdata);
                     }
                 } finally {
                     cursor.close();
@@ -411,7 +416,7 @@ public class TasksXmlImporter {
         private void parseTagdata() {
             tagdata.clear();
             deserializeModel(tagdata, TagData.PROPERTIES);
-            tagdataService.save(tagdata);
+            tagDataService.save(tagdata);
         }
     }
 

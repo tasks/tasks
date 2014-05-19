@@ -46,6 +46,7 @@ import com.todoroo.astrid.api.MultipleSelectCriterion;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.api.TextInputCriterion;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.ThemeService;
@@ -146,6 +147,9 @@ public class CustomFilterActivity extends ActionBarActivity {
 
     @Autowired
     Database database;
+
+    @Autowired
+    StoreObjectDao storeObjectDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -427,7 +431,7 @@ public class CustomFilterActivity extends ActionBarActivity {
         if(filterName.getText().length() > 0) {
             // persist saved filter
             title = filterName.getText().toString().trim();
-            SavedFilter.persist(adapter, title, sql.toString(), values);
+            SavedFilter.persist(storeObjectDao, adapter, title, sql.toString(), values);
         } else {
             // temporary
             title = suggestedTitle.toString();

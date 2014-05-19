@@ -25,7 +25,9 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.utility.AstridPreferences;
@@ -43,6 +45,12 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
 
     @Autowired
     TaskService taskService;
+
+    @Autowired
+    TaskListMetadataDao taskListMetadataDao;
+
+    @Autowired
+    TagDataService tagDataService;
 
     private final Context context;
     private final Filter filter;
@@ -196,6 +204,6 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
 
         String tagName = Preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
 
-        return SubtasksHelper.applySubtasksToWidgetFilter(filter, query, tagName, 0);
+        return SubtasksHelper.applySubtasksToWidgetFilter(tagDataService, taskListMetadataDao, filter, query, tagName, 0);
     }
 }

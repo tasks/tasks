@@ -23,8 +23,10 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
@@ -49,6 +51,12 @@ public class WidgetUpdateService extends Service {
 
     @Autowired
     TaskService taskService;
+
+    @Autowired
+    TaskListMetadataDao taskListMetadataDao;
+
+    @Autowired
+    TagDataService tagDataService;
 
     private final WidgetHelper widgetHelper = new WidgetHelper();
 
@@ -120,7 +128,7 @@ public class WidgetUpdateService extends Service {
                     filter.getSqlQuery(), flags, sort).replaceAll("LIMIT \\d+", "") + " LIMIT " + numberOfTasks;
 
             String tagName = Preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
-            query = SubtasksHelper.applySubtasksToWidgetFilter(filter, query, tagName, numberOfTasks);
+            query = SubtasksHelper.applySubtasksToWidgetFilter(tagDataService, taskListMetadataDao, filter, query, tagName, numberOfTasks);
 
             database.openForReading();
             cursor = taskService.fetchFiltered(query, null, Task.ID, Task.TITLE, Task.DUE_DATE, Task.COMPLETION_DATE);

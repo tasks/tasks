@@ -7,14 +7,9 @@ package com.todoroo.astrid.core;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.dao.StoreObjectDao;
-import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
-import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 
 /**
@@ -32,22 +27,7 @@ public final class PluginServices {
     Database database;
 
     @Autowired
-    ExceptionService exceptionService;
-
-    @Autowired
     MetadataService metadataService;
-
-    @Autowired
-    TagDataService tagDataService;
-
-    @Autowired
-    TagDataDao tagDataDao;
-
-    @Autowired
-    StoreObjectDao storeObjectDao;
-
-    @Autowired
-    TaskListMetadataDao taskListMetadataDao;
 
     private static volatile PluginServices instance;
 
@@ -75,28 +55,8 @@ public final class PluginServices {
         return getInstance().taskService;
     }
 
-    public static TagDataService getTagDataService() {
-        return getInstance().tagDataService;
-    }
-
-    public static TagDataDao getTagDataDao() {
-        return getInstance().tagDataDao;
-    }
-
-    public static ExceptionService getExceptionService() {
-        return getInstance().exceptionService;
-    }
-
     public static MetadataService getMetadataService() {
         getInstance().database.openForWriting();
         return getInstance().metadataService;
-    }
-
-    public static StoreObjectDao getStoreObjectDao() {
-        return getInstance().storeObjectDao;
-    }
-
-    public static TaskListMetadataDao getTaskListMetadataDao() {
-        return getInstance().taskListMetadataDao;
     }
 }

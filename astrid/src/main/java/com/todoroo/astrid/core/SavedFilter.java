@@ -49,7 +49,7 @@ public class SavedFilter {
     /**
      * Save a filter
      */
-    public static void persist(CustomFilterAdapter adapter, String title,
+    public static void persist(StoreObjectDao dao, CustomFilterAdapter adapter, String title,
             String sql, ContentValues values) {
 
         if(title == null || title.length() == 0) {
@@ -57,7 +57,6 @@ public class SavedFilter {
         }
 
         // if filter of this name exists, edit it
-        StoreObjectDao dao = PluginServices.getStoreObjectDao();
         StoreObject storeObject = new StoreObject();
         TodorooCursor<StoreObject> cursor = dao.query(Query.select(StoreObject.ID).where(NAME.eq(title)));
         try {

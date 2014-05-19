@@ -23,6 +23,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.CommentsFragment;
@@ -33,7 +35,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.CustomFilterActivity;
-import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
@@ -53,6 +55,9 @@ import net.simonvt.menudrawer.MenuDrawer;
 import org.tasks.R;
 
 public class TaskListActivity extends AstridActivity implements OnPageChangeListener {
+
+    @Autowired
+    TagDataDao tagDataDao;
 
     MenuDrawer menuDrawer;
 
@@ -408,7 +413,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 if (tlf != null) {
                     TagData td = tlf.getActiveTagData();
                     if (td != null && td.getUuid().equals(uuid)) {
-                        td = PluginServices.getTagDataDao().fetch(uuid, TagData.PROPERTIES);
+                        td = tagDataDao.fetch(uuid, TagData.PROPERTIES);
                         if (td != null) {
                             Filter filter = TagFilterExposer.filterFromTagData(this, td);
                             getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, filter);

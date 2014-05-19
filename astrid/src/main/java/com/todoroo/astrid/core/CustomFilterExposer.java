@@ -15,7 +15,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
@@ -47,6 +49,13 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
     private static final String TOKEN_FILTER_ID = "id"; //$NON-NLS-1$
     private static final String TOKEN_FILTER_NAME = "name"; //$NON-NLS-1$
 
+    @Autowired
+    StoreObjectDao storeObjectDao;
+
+    public CustomFilterExposer() {
+        DependencyInjectionService.getInstance().inject(this);
+    }
+
     @Override
     public void onReceive(Context context, Intent intent) {
         FilterListItem[] list = prepareFilters(context);
@@ -66,8 +75,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
     private Filter[] buildSavedFilters(Context context, Resources r) {
         int themeFlags = ThemeService.getFilterThemeFlags();
 
-        StoreObjectDao dao = PluginServices.getStoreObjectDao();
-        TodorooCursor<StoreObject> cursor = dao.query(Query.select(StoreObject.PROPERTIES).where(
+        TodorooCursor<StoreObject> cursor = storeObjectDao.query(Query.select(StoreObject.PROPERTIES).where(
                 StoreObject.TYPE.eq(SavedFilter.TYPE)).orderBy(Order.asc(SavedFilter.NAME)));
         try {
             ArrayList<Filter> list = new ArrayList<>();
@@ -119,8 +127,13 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
      */
     public static class DeleteActivity extends Activity {
 
+        @Autowired
+        StoreObjectDao storeObjectDao;
+
         @Override
         protected void onCreate(Bundle savedInstanceState) {
+            DependencyInjectionService.getInstance().inject(this);
+
             super.onCreate(savedInstanceState);
             setTheme(android.R.style.Theme_Dialog);
 
@@ -137,7 +150,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
 
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            PluginServices.getStoreObjectDao().delete(id);
+                            storeObjectDao.delete(id);
                             setResult(RESULT_OK);
                             finish();
                         }

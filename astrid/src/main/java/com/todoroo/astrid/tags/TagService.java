@@ -99,21 +99,6 @@ public final class TagService {
         public String uuid;
         public String image;
 
-        public static Tag tagFromUUID(String uuid) {
-            TodorooCursor<TagData> tagData = PluginServices.getTagDataService().query(Query.select(TagData.PROPERTIES).where(TagData.UUID.eq(uuid)));
-            try {
-                if (tagData.getCount() > 0) {
-                    tagData.moveToFirst();
-                    return new Tag(new TagData(tagData));
-                } else {
-                    return null;
-                }
-            } finally {
-                tagData.close();
-            }
-
-        }
-
         public Tag(TagData tagData) {
             tag = tagData.getName();
             count = tagData.getTaskCount();
@@ -174,7 +159,7 @@ public final class TagService {
             ArrayList<Tag> array = new ArrayList<>();
             for (int i = 0; i < cursor.getCount(); i++) {
                 cursor.moveToNext();
-                Tag tag = Tag.tagFromUUID(cursor.get(TaskToTagMetadata.TAG_UUID));
+                Tag tag = tagFromUUID(cursor.get(TaskToTagMetadata.TAG_UUID));
                 if (tag != null) {
                     array.add(tag);
                 }
@@ -183,6 +168,21 @@ public final class TagService {
         } finally {
             cursor.close();
         }
+    }
+
+    private Tag tagFromUUID(String uuid) {
+        TodorooCursor<TagData> tagData = tagDataService.query(Query.select(TagData.PROPERTIES).where(TagData.UUID.eq(uuid)));
+        try {
+            if (tagData.getCount() > 0) {
+                tagData.moveToFirst();
+                return new Tag(new TagData(tagData));
+            } else {
+                return null;
+            }
+        } finally {
+            tagData.close();
+        }
+
     }
 
     public void createLink(Task task, String tagName) {
@@ -280,7 +280,7 @@ public final class TagService {
         Intent tagDeleted = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED);
         if(tagData != null) {
             tagData.setDeletionDate(DateUtilities.now());
-            PluginServices.getTagDataService().save(tagData);
+            tagDataService.save(tagData);
             tagDeleted.putExtra(TagViewFragment.EXTRA_TAG_UUID, tagData.getUuid());
         }
         Toast.makeText(context, context.getString(R.string.TEA_tags_deleted, tag, deleted), Toast.LENGTH_SHORT).show();

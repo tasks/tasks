@@ -7,6 +7,7 @@ package com.todoroo.astrid.service;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.util.Log;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -55,6 +56,8 @@ import java.util.Map.Entry;
  *
  */
 public class TaskService {
+
+    private static final String TAG = "TaskService";
 
     public static final String TRANS_QUICK_ADD_MARKUP = "markup"; //$NON-NLS-1$
 
@@ -406,7 +409,7 @@ public class TaskService {
         try {
             quickAddMarkup = parseQuickAddMarkup(task, tags);
         } catch (Throwable e) {
-            PluginServices.getExceptionService().reportError("parse-quick-add", e); //$NON-NLS-1$
+            Log.e(TAG, e.getMessage(), e);
         }
 
         ContentValues forMetadata = null;

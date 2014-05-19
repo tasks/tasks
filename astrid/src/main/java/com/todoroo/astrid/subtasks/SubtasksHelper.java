@@ -21,6 +21,7 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
+import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
 import com.todoroo.astrid.utility.AstridPreferences;
 
@@ -59,11 +60,10 @@ public class SubtasksHelper {
         return false;
     }
 
-    public static String applySubtasksToWidgetFilter(Filter filter, String query, String tagName, int limit) {
+    public static String applySubtasksToWidgetFilter(TagDataService tagDataService, TaskListMetadataDao tlmd, Filter filter, String query, String tagName, int limit) {
         if (SubtasksHelper.shouldUseSubtasksFragmentForFilter(filter)) {
             // care for manual ordering
-            TagData tagData = PluginServices.getTagDataService().getTagByName(tagName, TagData.UUID, TagData.TAG_ORDERING);
-            TaskListMetadataDao tlmd = PluginServices.getTaskListMetadataDao();
+            TagData tagData = tagDataService.getTagByName(tagName, TagData.UUID, TagData.TAG_ORDERING);
             TaskListMetadata tlm = null;
             if (tagData != null) {
                 tlm = tlmd.fetchByTagId(tagData.getUuid(), TaskListMetadata.TASK_IDS);
