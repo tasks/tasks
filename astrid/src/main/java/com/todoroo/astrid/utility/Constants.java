@@ -27,11 +27,6 @@ public final class Constants {
      */
     public static final long WIDGET_UPDATE_INTERVAL = 30 * 60 * 1000L;
 
-    /**
-     * Whether to turn on debugging logging and UI
-     */
-    public static final boolean DEBUG = false;
-
     // --- task list activity source strings
 
     public static final int SOURCE_OTHER = -1;

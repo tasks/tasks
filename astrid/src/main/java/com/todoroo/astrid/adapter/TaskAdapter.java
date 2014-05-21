@@ -696,15 +696,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                             taskDetailLoader.put(task.getId(),
                                     new StringBuilder(task.getDetails()));
                             requestNewDetails(task);
-                            if(Constants.DEBUG) {
-                                System.err.println("Refreshing details: " + task.getId()); //$NON-NLS-1$
-                            }
                         }
                         continue;
-                    } else if(Constants.DEBUG) {
-                        System.err.println("Forced loading of details: " + task.getId() + //$NON-NLS-1$
-                                "\n  details: " + newDate(task.getDetailsDate()) + //$NON-NLS-1$
-                                "\n  modified: " + newDate(task.getModificationDate())); //$NON-NLS-1$
                     }
                     addTaskToLoadingArray(task);
 

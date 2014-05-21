@@ -27,12 +27,9 @@ import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.MetadataService.SynchronizeMetadataCallback;
-import com.todoroo.astrid.utility.Constants;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
-
-import static org.tasks.date.DateTimeUtils.newDate;
 
 /**
  * Provides operations for working with alerts
@@ -190,10 +187,6 @@ public class AlarmService {
         if(time == 0 || time == NO_ALARM) {
             am.cancel(pendingIntent);
         } else if(time > DateUtilities.now()) {
-            if(Constants.DEBUG) {
-                Log.e("Astrid", "Alarm (" + taskId + ", " + ReminderService.TYPE_ALARM +
-                        ", " + alarm.getId() + ") set for " + newDate(time));
-            }
             am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
         }
     }

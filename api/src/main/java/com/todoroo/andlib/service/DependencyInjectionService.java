@@ -118,10 +118,6 @@ public class DependencyInjectionService {
     // --- default dependency injector
 
     private class DefaultDependencyInjector extends AbstractDependencyInjector {
-        @Override
-        protected void addInjectables() {
-            injectables.put("debug", false);
-        }
     }
 
     // --- static methods

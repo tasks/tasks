@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -135,9 +134,6 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
                                 if (phoneAccounts.contains(email)) {
                                     includesMe = true;
                                     continue;
-                                }
-                                if (Constants.DEBUG) {
-                                    Log.w(CalendarAlarmScheduler.TAG, "Attendee: " + name + ", email: " + email);
                                 }
                                 names.add(name);
                                 emails.add(email);

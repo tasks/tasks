@@ -7,10 +7,7 @@ package com.todoroo.andlib.data;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.util.Log;
 
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 
@@ -35,15 +32,8 @@ public class DatabaseDao<TYPE extends AbstractModel> {
 
     private AbstractDatabase database;
 
-    @Autowired
-    protected Boolean debug;
-
     public DatabaseDao(Class<TYPE> modelClass) {
-        DependencyInjectionService.getInstance().inject(this);
         this.modelClass = modelClass;
-        if(debug == null) {
-            debug = false;
-        }
     }
 
     /** Gets table associated with this DAO */
@@ -90,9 +80,6 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      */
     public TodorooCursor<TYPE> query(Query query) {
         query.from(table);
-        if(debug) {
-            Log.i("SQL-" + modelClass.getSimpleName(), query.toString()); //$NON-NLS-1$
-        }
         Cursor cursor = database.rawQuery(query.toString());
         return new TodorooCursor<>(cursor, query.getFields());
     }

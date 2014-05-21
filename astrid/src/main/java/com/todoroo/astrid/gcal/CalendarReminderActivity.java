@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -28,7 +27,6 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagFilterExposer;
-import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.R;
 
@@ -243,9 +241,6 @@ public class CalendarReminderActivity extends Activity {
         am.cancel(pendingIntent);
 
         long alarmTime = endTime + DateUtilities.ONE_MINUTE * 5;
-        if (Constants.DEBUG) {
-            Log.w(CalendarAlarmScheduler.TAG, "Scheduling calendar alarm for " + newDate(alarmTime));
-        }
         am.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
         dismissButton.performClick();
     }

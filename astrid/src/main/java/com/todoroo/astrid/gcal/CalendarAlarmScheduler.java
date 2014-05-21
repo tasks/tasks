@@ -7,15 +7,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.util.Log;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.R;
-
-import static org.tasks.date.DateTimeUtils.newDate;
 
 public class CalendarAlarmScheduler {
 
@@ -60,10 +56,6 @@ public class CalendarAlarmScheduler {
 
                     long alarmTime = start - DateUtilities.ONE_MINUTE * 15;
                     am.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-
-                    if (Constants.DEBUG) {
-                        Log.w(TAG, "Scheduling calendar alarm for " + newDate(alarmTime));
-                    }
                 }
 
             }

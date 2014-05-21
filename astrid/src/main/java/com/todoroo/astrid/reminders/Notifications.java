@@ -18,7 +18,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -395,10 +394,6 @@ public class Notifications extends BroadcastReceiver {
             } else {
                 notification.vibrate = null;
             }
-        }
-
-        if(Constants.DEBUG) {
-            Log.w("Astrid", "Logging notification: " + text); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
         singleThreadVoicePool.submit(new NotificationRunnable(ringTimes, notificationId, notification, voiceReminder,

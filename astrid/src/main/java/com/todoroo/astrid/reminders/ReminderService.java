@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
-import android.util.Log;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -26,7 +25,6 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.utility.Constants;
 
 import org.joda.time.DateTime;
 import org.tasks.R;
@@ -474,9 +472,6 @@ public final class ReminderService  {
                     time = DateUtilities.now() + 5000L;
                 }
 
-               if(Constants.DEBUG) {
-                   Log.e("Astrid", "Reminder set for " + newDate(time) + " for (\"" + task.getTitle() + "\" (" + task.getId() + "), " + type + ")");
-               }
                 am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
             }
         }

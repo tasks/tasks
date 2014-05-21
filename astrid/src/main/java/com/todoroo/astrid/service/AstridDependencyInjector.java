@@ -22,7 +22,6 @@ import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.Broadcaster;
 import org.tasks.filters.FilterCounter;
@@ -50,8 +49,6 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
      */
     @Override
     protected void addInjectables() {
-        injectables.put("debug", Constants.DEBUG);
-
         // com.todoroo.android.service
         injectables.put("applicationName", "astrid");
 
