@@ -24,7 +24,6 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -50,6 +49,8 @@ import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 
 import java.io.File;
@@ -63,6 +64,7 @@ import java.util.List;
  */
 public class StartupService {
 
+    private static final Logger log = LoggerFactory.getLogger(StartupService.class);
 
     static {
         AstridDependencyInjector.initialize();
@@ -73,8 +75,6 @@ public class StartupService {
     }
 
     // --- application startup
-
-    @Autowired ExceptionService exceptionService;
 
     @Autowired UpgradeService upgradeService;
 
@@ -128,7 +128,7 @@ public class StartupService {
         try {
             latestSetVersion = AstridPreferences.getCurrentVersion();
         } catch (Exception e) {
-            exceptionService.reportError("astrid-startup-version-read", e); //$NON-NLS-1$
+            log.error(e.getMessage(), e);
         }
 
         if (latestSetVersion == 0) {
@@ -147,7 +147,7 @@ public class StartupService {
             version = pi.versionCode;
             versionName = pi.versionName;
         } catch (Exception e) {
-            exceptionService.reportError("astrid-startup-package-read", e); //$NON-NLS-1$
+            log.error(e.getMessage(), e);
         }
 
         Log.i("astrid", "Astrid Startup. " + latestSetVersion + //$NON-NLS-1$ //$NON-NLS-2$

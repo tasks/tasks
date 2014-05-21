@@ -13,10 +13,12 @@ import android.net.Uri;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Non-public-API SQL content provider.
@@ -29,6 +31,8 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
  *
  */
 public class SqlContentProvider extends ContentProvider {
+
+    private static final Logger log = LoggerFactory.getLogger(SqlContentProvider.class);
 
     // --- instance variables
 
@@ -46,16 +50,13 @@ public class SqlContentProvider extends ContentProvider {
     @Autowired
     private Database database;
 
-    @Autowired
-    private ExceptionService exceptionService;
-
     @Override
     public boolean onCreate() {
         try {
             database.openForWriting();
             return database.getDatabase() != null;
         } catch (Exception e) {
-            exceptionService.reportError("astrid-provider", e);
+            log.error(e.getMessage(), e);
             return false;
         }
     }

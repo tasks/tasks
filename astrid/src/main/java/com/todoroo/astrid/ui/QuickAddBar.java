@@ -27,7 +27,6 @@ import android.widget.TextView.OnEditorActionListener;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.AstridActivity;
@@ -47,6 +46,8 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceRecognizer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 
 import java.util.HashSet;
@@ -59,6 +60,8 @@ import java.util.HashSet;
  */
 public class QuickAddBar extends LinearLayout {
 
+    private static final Logger log = LoggerFactory.getLogger(QuickAddBar.class);
+
     private ImageButton voiceAddButton;
     private ImageButton quickAddButton;
     private EditText quickAddBox;
@@ -69,7 +72,6 @@ public class QuickAddBar extends LinearLayout {
     private RepeatControlSet repeatControl;
     private GCalControlSet gcalControl;
 
-    @Autowired ExceptionService exceptionService;
     @Autowired
     private TaskAttachmentDao taskAttachmentDao;
 
@@ -293,8 +295,7 @@ public class QuickAddBar extends LinearLayout {
 
             return task;
         } catch (Exception e) {
-            exceptionService.displayAndReportError(activity,
-                    "quick-add-task", e);
+            log.error(e.getMessage(), e);
             return new Task();
         }
     }

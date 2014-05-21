@@ -48,7 +48,6 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
@@ -90,6 +89,8 @@ import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.widget.TasksWidget;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 
 import java.util.List;
@@ -105,6 +106,8 @@ import java.util.concurrent.atomic.AtomicReference;
  *
  */
 public class TaskListFragment extends ListFragment implements OnSortSelectedListener {
+
+    private static final Logger log = LoggerFactory.getLogger(TaskListFragment.class);
 
     public static final String TAG_TASKLIST_FRAGMENT = "tasklist_fragment"; //$NON-NLS-1$
 
@@ -138,9 +141,6 @@ public class TaskListFragment extends ListFragment implements OnSortSelectedList
     private static final String TOKEN_EXTRAS = "extras"; //$NON-NLS-1$
 
     // --- instance variables
-
-    @Autowired
-    protected ExceptionService exceptionService;
 
     @Autowired
     protected TaskService taskService;
@@ -693,9 +693,7 @@ public class TaskListFragment extends ListFragment implements OnSortSelectedList
                     taskAdapter.addDetails(taskId, detail);
                 }
             } catch (Exception e) {
-                exceptionService.reportError("receive-detail-" + //$NON-NLS-1$
-                        intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON),
-                        e);
+                log.error("receive-detail-{}", intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON), e);
             }
         }
     }

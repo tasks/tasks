@@ -21,7 +21,6 @@ import android.widget.ArrayAdapter;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -33,6 +32,8 @@ import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 
 import java.util.ArrayList;
@@ -52,6 +53,8 @@ import java.util.List;
  */
 public class SyncActionHelper {
 
+    private static final Logger log = LoggerFactory.getLogger(SyncActionHelper.class);
+
     public static final String PREF_LAST_AUTO_SYNC = "taskListLastAutoSync"; //$NON-NLS-1$
 
     private final LinkedHashSet<SyncAction> syncActions = new LinkedHashSet<>();
@@ -65,7 +68,6 @@ public class SyncActionHelper {
     protected SyncActionReceiver syncActionReceiver = new SyncActionReceiver();
 
     @Autowired SyncV2Service syncService;
-    @Autowired ExceptionService exceptionService;
 
     // --- boilerplate
 
@@ -113,9 +115,7 @@ public class SyncActionHelper {
                 SyncAction syncAction = extras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
                 syncActions.add(syncAction);
             } catch (Exception e) {
-                exceptionService.reportError("receive-sync-action-" + //$NON-NLS-1$
-                        intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON),
-                        e);
+                log.error("receive-sync-action-{}", intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON), e);
             }
         }
     }

@@ -14,11 +14,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.todoroo.andlib.data.Property.PropertyVisitor;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
@@ -38,6 +38,8 @@ import java.util.ArrayList;
  *
  */
 abstract public class AbstractDatabase {
+
+    Logger log = LoggerFactory.getLogger(AbstractDatabase.class);
 
 	// --- abstract methods
 
@@ -105,15 +107,6 @@ abstract public class AbstractDatabase {
         }
     }
 
-	// --- internal implementation
-
-    @Autowired
-    private ExceptionService exceptionService;
-
-    public AbstractDatabase() {
-        DependencyInjectionService.getInstance().inject(this);
-    }
-
     /**
      * Return the name of the table containing these models
      */
@@ -159,8 +152,7 @@ abstract public class AbstractDatabase {
                 // provide read-only database
                 openForReading();
             } catch (Exception readException) {
-                exceptionService.reportError("database-open-" + getName(), original);
-
+                log.error("database-open-{}", getName(), original);
                 // throw original write exception
                 throw original;
             }
@@ -312,8 +304,7 @@ abstract public class AbstractDatabase {
                             "from " + oldVersion + " to " + newVersion);
                 }
             } catch (Exception e) {
-                exceptionService.reportError(String.format("database-upgrade-%s-%d-%d",
-                        getName(), oldVersion, newVersion), e);
+                log.error("database-upgrade-{}-{}-{}", getName(), oldVersion, newVersion, e);
             }
         }
     }

@@ -24,15 +24,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.Calendars.CalendarResult;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.PopupControlSet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 
 import java.util.ArrayList;
@@ -46,10 +45,9 @@ import java.util.Collections;
  */
 public class GCalControlSet extends PopupControlSet {
 
-    // --- instance variables
+    private static final Logger log = LoggerFactory.getLogger(GCalControlSet.class);
 
-    @Autowired
-    private ExceptionService exceptionService;
+    // --- instance variables
 
     private Uri calendarUri = null;
 
@@ -61,7 +59,6 @@ public class GCalControlSet extends PopupControlSet {
 
     public GCalControlSet(final Activity activity, int viewLayout, int displayViewLayout, int title) {
         super(activity, viewLayout, displayViewLayout, title);
-        DependencyInjectionService.getInstance().inject(this);
         this.title = title;
         calendars = Calendars.getCalendars();
         getView(); // Hack to force initialized
@@ -121,8 +118,7 @@ public class GCalControlSet extends PopupControlSet {
 
                 hasEvent = true;
             } catch (Exception e) {
-                exceptionService.reportError("unable-to-parse-calendar: " +  //$NON-NLS-1$
-                        model.getCalendarURI(), e);
+                log.error("unable-to-parse-calendar: {}", model.getCalendarURI(), e);
             }
         } else {
             hasEvent = false;
@@ -169,8 +165,7 @@ public class GCalControlSet extends PopupControlSet {
                 }
 
             } catch (Exception e) {
-                exceptionService.displayAndReportError(activity,
-                        activity.getString(R.string.gcal_TEA_error), e);
+                log.error(e.getMessage(), e);
             }
         } else if(calendarUri != null) {
             try {
@@ -191,8 +186,7 @@ public class GCalControlSet extends PopupControlSet {
                 ContentResolver cr = activity.getContentResolver();
                 cr.update(calendarUri, updateValues, null, null);
             } catch (Exception e) {
-                exceptionService.reportError("unable-to-update-calendar: " +  //$NON-NLS-1$
-                        task.getCalendarURI(), e);
+                log.error("unable-to-update-calendar: {}", task.getCalendarURI(), e);
             }
         }
     }

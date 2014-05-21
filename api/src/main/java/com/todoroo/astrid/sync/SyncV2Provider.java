@@ -5,45 +5,22 @@
  */
 package com.todoroo.astrid.sync;
 
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
-
-import java.io.IOException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 abstract public class SyncV2Provider {
 
+    private static final Logger log = LoggerFactory.getLogger(SyncV2Provider.class);
+
     public class SyncExceptionHandler {
         public void handleException(String tag, Exception e, String type) {
             getUtilities().setLastError(e.toString(), type);
-
-            // occurs when application was closed
-            if(e instanceof IllegalStateException) {
-                exceptionService.reportError(tag + "-caught", e); //$NON-NLS-1$
-            }
-
-            // occurs when network error
-            else if(e instanceof IOException) {
-                exceptionService.reportError(tag + "-io", e); //$NON-NLS-1$
-            }
-
-            // unhandled error
-            else {
-                exceptionService.reportError(tag + "-unhandled", e); //$NON-NLS-1$
-            }
+            log.error("{}: {}", tag, e.getMessage(), e);
         }
     }
 
-    @Autowired
-    protected ExceptionService exceptionService;
-
-    protected final SyncExceptionHandler handler;
-
-    public SyncV2Provider() {
-        DependencyInjectionService.getInstance().inject(this);
-        handler = new SyncExceptionHandler();
-    }
+    protected final SyncExceptionHandler handler = new SyncExceptionHandler();
 
     /**
      * @return sync provider name (displayed in sync menu)

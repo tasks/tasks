@@ -22,7 +22,6 @@ import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
@@ -34,6 +33,9 @@ import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
 import java.util.Map.Entry;
@@ -67,6 +69,8 @@ import java.util.Set;
  *
  */
 public class Astrid3ContentProvider extends ContentProvider {
+
+    private static final Logger log = LoggerFactory.getLogger(Astrid3ContentProvider.class);
 
     static {
         AstridDependencyInjector.initialize();
@@ -103,16 +107,13 @@ public class Astrid3ContentProvider extends ContentProvider {
     @Autowired
     private UserActivityDao userActivityDao;
 
-    @Autowired
-    private ExceptionService exceptionService;
-
     @Override
     public boolean onCreate() {
         try {
             database.openForWriting();
             return database.getDatabase() != null;
         } catch (Exception e) {
-            exceptionService.reportError("astrid-provider", e);
+            log.error(e.getMessage(), e);
             return false;
         }
     }

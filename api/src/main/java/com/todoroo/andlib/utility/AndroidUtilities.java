@@ -23,7 +23,8 @@ import android.view.View.OnTouchListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
-import com.todoroo.andlib.service.ExceptionService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -43,6 +44,8 @@ import java.util.Map.Entry;
  *
  */
 public class AndroidUtilities {
+
+    private static final Logger log = LoggerFactory.getLogger(AndroidUtilities.class);
 
     public static final String SEPARATOR_ESCAPE = "!PIPE!"; //$NON-NLS-1$
     public static final String SERIALIZATION_SEPARATOR = "|"; //$NON-NLS-1$
@@ -97,9 +100,7 @@ public class AndroidUtilities {
                 context.startActivity(intent);
             }
         } catch (Exception e) {
-            getExceptionService().displayAndReportError(context,
-                    "start-external-intent-" + intent.toString(), //$NON-NLS-1$
-                    e);
+            log.error("start-external-intent-{}", intent.toString(), e);
         }
     }
 
@@ -468,21 +469,6 @@ public class AndroidUtilities {
             System.arraycopy(newItems, 0, newList, originalListLength, newItems.length);
         }
         return newList;
-    }
-
-    // --- internal
-
-    private static ExceptionService exceptionService = null;
-
-    private static ExceptionService getExceptionService() {
-        if(exceptionService == null) {
-            synchronized (AndroidUtilities.class) {
-                if (exceptionService == null) {
-                    exceptionService = new ExceptionService();
-                }
-            }
-        }
-        return exceptionService;
     }
 
     /**

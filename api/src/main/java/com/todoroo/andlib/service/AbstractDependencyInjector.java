@@ -5,8 +5,6 @@
  */
 package com.todoroo.andlib.service;
 
-import com.todoroo.andlib.service.ExceptionService.ErrorReporter;
-
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -24,7 +22,6 @@ abstract public class AbstractDependencyInjector {
     /**
      * Initialize list of injection variables. Special care must used when
      * instantiating classes that themselves depend on dependency injection
-     * (i.e. {@link ErrorReporter}.
      */
     protected void addInjectables() {
         // your injectables here

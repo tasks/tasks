@@ -14,12 +14,11 @@ import com.google.api.services.tasks.Tasks.TasksOperations.Move;
 import com.google.api.services.tasks.model.Task;
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 
 import java.io.IOException;
@@ -31,16 +30,16 @@ import java.io.IOException;
  *
  */
 public class GtasksInvoker {
+
+    private static final Logger log = LoggerFactory.getLogger(GtasksInvoker.class);
+
     private Tasks service;
     private GoogleAccessProtectedResource accessProtectedResource;
     private String token;
 
-    @Autowired ExceptionService exceptionService;
-
     public static final String AUTH_TOKEN_TYPE = "Manage your tasks"; //"oauth2:https://www.googleapis.com/auth/tasks";
 
     public GtasksInvoker(String authToken) {
-        DependencyInjectionService.getInstance().inject(this);
         authenticate(authToken);
     }
 
@@ -68,10 +67,7 @@ public class GtasksInvoker {
                     accessProtectedResource.setAccessToken(token);
                 }
             } else if (statusCode == 503) { // 503 errors are generally either 1) quota limit reached or 2) problems on Google's end
-                System.err.println("Encountered 503 error");
-                final Context context = ContextManager.getContext();
-                String message = context.getString(R.string.gtasks_error_backend);
-                exceptionService.reportError(message, h);
+                log.error("503: {}", e.getMessage(), e);
             } else if (statusCode == 400 || statusCode == 500) {
                 System.err.println("Encountered " + statusCode + " error");
                 System.err.println(h.getResponse().getStatusMessage());

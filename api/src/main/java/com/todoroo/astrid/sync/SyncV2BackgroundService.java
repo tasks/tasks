@@ -13,13 +13,13 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -36,23 +36,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 abstract public class SyncV2BackgroundService extends Service {
 
+    private static final Logger log = LoggerFactory.getLogger(SyncV2BackgroundService.class);
+
 	/** Minimum time before an auto-sync */
 	private static final long AUTO_SYNC_MIN_OFFSET = 5*60*1000L;
-
-    @Autowired private ExceptionService exceptionService;
-
-    // --- abstract methods
 
     abstract protected SyncV2Provider getSyncProvider();
 
     abstract protected SyncProviderUtilities getSyncUtilities();
-
-    // --- implementation
-
-    @SuppressWarnings("unused")
-    public SyncV2BackgroundService() {
-        DependencyInjectionService.getInstance().inject(this);
-    }
 
     private final AtomicBoolean started = new AtomicBoolean(false);
 
@@ -64,7 +55,7 @@ abstract public class SyncV2BackgroundService extends Service {
                 startSynchronization(this);
             }
         } catch (Exception e) {
-            exceptionService.reportError(getSyncUtilities().getIdentifier() + "-bg-sync", e); //$NON-NLS-1$
+            log.error("{}-bg-sync", getSyncUtilities().getIdentifier(), e);
         }
     }
 

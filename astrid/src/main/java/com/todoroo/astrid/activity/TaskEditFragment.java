@@ -44,7 +44,6 @@ import android.widget.Toast;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -83,6 +82,8 @@ import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 import com.todoroo.astrid.voice.VoiceRecognizer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 
 import java.io.File;
@@ -105,6 +106,8 @@ import static android.support.v4.view.MenuItemCompat.setShowAsAction;
  */
 public final class TaskEditFragment extends Fragment implements
 ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
+
+    private static final Logger log = LoggerFactory.getLogger(TaskEditFragment.class);
 
     public static final String TAG_TASKEDIT_FRAGMENT = "taskedit_fragment"; //$NON-NLS-1$
 
@@ -163,9 +166,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     // --- services
 
     public static final int TAB_VIEW_UPDATES = 0;
-
-    @Autowired
-    private ExceptionService exceptionService;
 
     @Autowired
     private TaskService taskService;
@@ -612,8 +612,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         setIsNewTask(model.getTitle().length() == 0);
 
         if (model == null) {
-            exceptionService.reportError("task-edit-no-task",
-                    new NullPointerException("model"));
+            log.error("task-edit-no-task", new NullPointerException("model"));
             getActivity().onBackPressed();
             return;
         }

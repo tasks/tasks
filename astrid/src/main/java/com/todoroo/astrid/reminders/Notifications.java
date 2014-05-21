@@ -23,7 +23,6 @@ import android.util.Log;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.andlib.service.NotificationManager.AndroidNotificationManager;
 import com.todoroo.andlib.sql.QueryTemplate;
@@ -43,6 +42,8 @@ import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceOutputService;
 
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 
 import java.util.concurrent.ExecutorService;
@@ -52,6 +53,8 @@ import java.util.concurrent.TimeUnit;
 import static org.tasks.date.DateTimeUtils.currentTimeMillis;
 
 public class Notifications extends BroadcastReceiver {
+
+    private static final Logger log = LoggerFactory.getLogger(Notifications.class);
 
     // --- constants
 
@@ -81,9 +84,6 @@ public class Notifications extends BroadcastReceiver {
 
     @Autowired
     private TaskDao taskDao;
-
-    @Autowired
-    private ExceptionService exceptionService;
 
     public static NotificationManager notificationManager = null;
     private static boolean forceNotificationManager = false;
@@ -154,7 +154,7 @@ public class Notifications extends BroadcastReceiver {
             }
 
         } catch (Exception e) {
-            exceptionService.reportError("show-notif", e); //$NON-NLS-1$
+            log.error(e.getMessage(), e);
             return false;
         }
 

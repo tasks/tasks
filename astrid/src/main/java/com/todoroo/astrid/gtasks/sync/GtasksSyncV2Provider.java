@@ -12,6 +12,7 @@ import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
@@ -71,7 +72,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     private static GtasksSyncV2Provider instance = null;
 
     protected GtasksSyncV2Provider() {
-        // prevent multiple sync providers
+        DependencyInjectionService.getInstance().inject(this);
     }
 
     public synchronized static GtasksSyncV2Provider getInstance() {

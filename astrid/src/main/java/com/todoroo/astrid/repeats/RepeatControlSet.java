@@ -25,9 +25,6 @@ import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.Weekday;
 import com.google.ical.values.WeekdayNum;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
@@ -39,6 +36,8 @@ import com.todoroo.astrid.ui.NumberPickerDialog;
 import com.todoroo.astrid.ui.NumberPickerDialog.OnNumberPickedListener;
 import com.todoroo.astrid.ui.PopupControlSet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 
 import java.text.DateFormatSymbols;
@@ -57,6 +56,8 @@ import static org.tasks.date.DateTimeUtils.newDate;
  *
  */
 public class RepeatControlSet extends PopupControlSet {
+
+    private static final Logger log = LoggerFactory.getLogger(RepeatControlSet.class);
 
     // --- spinner constants
 
@@ -91,14 +92,10 @@ public class RepeatControlSet extends PopupControlSet {
         public void repeatChanged(boolean repeat);
     }
 
-    @Autowired
-    ExceptionService exceptionService;
-
     // --- implementation
 
     public RepeatControlSet(Activity activity, int viewLayout, int displayViewLayout, int title) {
         super(activity, viewLayout, displayViewLayout, title);
-        DependencyInjectionService.getInstance().inject(this);
     }
 
     /** Set up the repeat value button */
@@ -189,14 +186,12 @@ public class RepeatControlSet extends PopupControlSet {
                     intervalValue = INTERVAL_YEARS;
                     break;
                 default:
-                    // an unhandled recurrence
-                    exceptionService.reportError("repeat-unhandled-rule",  //$NON-NLS-1$
-                            new Exception("Unhandled rrule frequency: " + recurrence));
+                    log.error("repeat-unhandled-rule", new Exception("Unhandled rrule frequency: " + recurrence));
                 }
             } catch (Exception e) {
                 // invalid RRULE
                 recurrence = ""; //$NON-NLS-1$
-                exceptionService.reportError("repeat-parse-exception", e);
+                log.error(e.getMessage(), e);
             }
         }
         doRepeat = recurrence.length() > 0;
@@ -239,7 +234,7 @@ public class RepeatControlSet extends PopupControlSet {
             } catch (Exception e) {
                 // invalid RRULE
                 recurrence = ""; //$NON-NLS-1$
-                exceptionService.reportError("repeat-parse-exception", e);
+                log.error(e.getMessage(), e);
             }
         }
         doRepeat = recurrence.length() > 0;
