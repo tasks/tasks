@@ -24,10 +24,10 @@ import java.util.regex.Pattern;
 
 public class TitleParser {
 
-    public static boolean parse(Task task, ArrayList<String> tags) {
-        boolean markup = false;
-        markup = repeatHelper(task) || markup;
-        listHelper(task,tags); // Don't need to know if tags affected things since we don't show alerts for them
+    public static boolean parse(TagService tagService, Task task, ArrayList<String> tags) {
+        boolean markup;
+        markup = repeatHelper(task);
+        listHelper(tagService, task,tags); // Don't need to know if tags affected things since we don't show alerts for them
         markup = dayHelper(task) || markup;
         markup = priorityHelper(task) || markup;
         return markup;
@@ -42,13 +42,12 @@ public class TitleParser {
         }
         return pattern;
     }
-    public static void listHelper(Task task, ArrayList<String> tags) {
+    public static void listHelper(TagService tagService, Task task, ArrayList<String> tags) {
         String inputText = task.getTitle();
         Pattern tagPattern = Pattern.compile("(\\s|^)#(\\(.*\\)|[^\\s]+)");
         Pattern contextPattern = Pattern.compile("(\\s|^)@(\\(.*\\)|[^\\s]+)");
 
         Set<String> addedTags = new HashSet<>();
-        TagService tagService = TagService.getInstance();
 
         while(true) {
             Matcher m = tagPattern.matcher(inputText);

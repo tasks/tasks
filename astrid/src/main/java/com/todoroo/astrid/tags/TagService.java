@@ -13,8 +13,6 @@ import android.widget.Toast;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Functions;
@@ -43,17 +41,17 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 /**
  * Provides operations for working with tags
  *
  * @author Tim Su <tim@todoroo.com>
  *
  */
+@Singleton
 public final class TagService {
-
-    // --- singleton
-
-    private static TagService instance = null;
 
     private static int[] default_tag_images = new int[] {
         R.drawable.default_list_0,
@@ -62,23 +60,15 @@ public final class TagService {
         R.drawable.default_list_3
     };
 
-    public static synchronized TagService getInstance() {
-        if(instance == null) {
-            instance = new TagService();
-        }
-        return instance;
-    }
+    private final MetadataDao metadataDao;
+    private final TagDataService tagDataService;
+    private final TagDataDao tagDataDao;
 
-    // --- implementation details
-
-    @Autowired MetadataDao metadataDao;
-
-    @Autowired TagDataService tagDataService;
-
-    @Autowired TagDataDao tagDataDao;
-
-    public TagService() {
-        DependencyInjectionService.getInstance().inject(this);
+    @Inject
+    public TagService(MetadataDao metadataDao, TagDataService tagDataService, TagDataDao tagDataDao) {
+        this.metadataDao = metadataDao;
+        this.tagDataService = tagDataService;
+        this.tagDataDao = tagDataDao;
     }
 
     /**

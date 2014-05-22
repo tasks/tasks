@@ -72,6 +72,8 @@ public class TasksXmlImporter {
 
     @Autowired TagDataService tagDataService;
 
+    @Autowired TagService tagService;
+
     private final Handler handler;
     private int taskCount;
     private int importCount = 0;
@@ -490,7 +492,7 @@ public class TasksXmlImporter {
 
         private void saveTags() {
             if(currentTask != null && tags.size() > 0) {
-                TagService.getInstance().synchronizeTags(currentTask.getId(), currentTask.getUUID(), tags);
+                tagService.synchronizeTags(currentTask.getId(), currentTask.getUUID(), tags);
             }
             tags.clear();
         }

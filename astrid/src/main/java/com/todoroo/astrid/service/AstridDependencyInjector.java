@@ -62,6 +62,7 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
     @Inject FilterCounter filterCounter;
     @Inject RefreshScheduler refreshScheduler;
     @Inject TaskService taskService;
+    @Inject TagService tagService;
 
     /**
      * Initialize list of injectables. Special care must used when
@@ -97,7 +98,7 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
         injectables.put("gtasksSyncService", GtasksSyncService.class);
 
         // com.todoroo.astrid.tags
-        injectables.put("tagService", TagService.class);
+        injectables.put("tagService", tagService);
 
         injectables.put("broadcaster", broadcaster);
 

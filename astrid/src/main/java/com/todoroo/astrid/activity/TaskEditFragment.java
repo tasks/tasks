@@ -65,6 +65,7 @@ import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
+import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.timers.TimerActionControlSet;
 import com.todoroo.astrid.timers.TimerControlSet;
@@ -170,6 +171,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Autowired private TaskService taskService;
 
     @Autowired private TaskAttachmentDao taskAttachmentDao;
+
+    @Autowired private TagService tagService;
 
     // --- UI components
 
@@ -597,7 +600,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             } catch (Exception e) {
                 // oops, can't serialize
             }
-            model = TaskService.createWithValues(values, null);
+            model = TaskService.createWithValues(tagService, values, null);
             getActivity().getIntent().putExtra(TOKEN_ID, model.getId());
         }
 

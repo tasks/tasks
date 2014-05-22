@@ -9,6 +9,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.api.AstridApiConstants;
 
 /**
@@ -18,6 +20,12 @@ import com.todoroo.astrid.api.AstridApiConstants;
  *
  */
 public class TagDetailExposer extends BroadcastReceiver {
+
+    @Autowired TagService tagService;
+
+    public TagDetailExposer() {
+        DependencyInjectionService.getInstance().inject(this);
+    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -41,7 +49,7 @@ public class TagDetailExposer extends BroadcastReceiver {
     }
 
     public String getTaskDetails(long id) {
-        String tagList = TagService.getInstance().getTagsAsString(id);
+        String tagList = tagService.getTagsAsString(id);
         if(tagList.length() == 0) {
             return null;
         }

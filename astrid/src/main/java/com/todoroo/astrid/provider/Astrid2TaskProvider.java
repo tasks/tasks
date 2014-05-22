@@ -81,6 +81,8 @@ public class Astrid2TaskProvider extends ContentProvider {
 
 	@Autowired private TaskService taskService;
 
+    @Autowired private TagService tagService;
+
 	private static Context ctx = null;
 
 	static {
@@ -122,7 +124,7 @@ public class Astrid2TaskProvider extends ContentProvider {
 	 */
 	public Cursor getTags() {
 
-		Tag[] tags = TagService.getInstance().getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE,
+		Tag[] tags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE,
 		        Criterion.all);
 
 		MatrixCursor ret = new MatrixCursor(TAGS_FIELD_LIST);
@@ -179,7 +181,7 @@ public class Astrid2TaskProvider extends ContentProvider {
     			cursor.moveToNext();
     			task.readFromCursor(cursor);
 
-    			String taskTags = TagService.getInstance().getTagsAsString(task.getId(), TAG_SEPARATOR);
+    			String taskTags = tagService.getTagsAsString(task.getId(), TAG_SEPARATOR);
 
     			Object[] values = new Object[7];
     			values[0] = task.getTitle();

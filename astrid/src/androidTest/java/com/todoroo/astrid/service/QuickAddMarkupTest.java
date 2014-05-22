@@ -5,7 +5,9 @@
  */
 package com.todoroo.astrid.service;
 
+import com.todoroo.andlib.service.Autowired;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
 import java.util.ArrayList;
@@ -13,6 +15,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class QuickAddMarkupTest extends DatabaseTestCase {
+
+    @Autowired TagService tagService;
 
     @Override
     protected void setUp() throws Exception {
@@ -85,7 +89,7 @@ public class QuickAddMarkupTest extends DatabaseTestCase {
         task = new Task();
         task.setTitle(title);
         tags.clear();
-        TaskService.parseQuickAddMarkup(task, tags);
+        TaskService.parseQuickAddMarkup(tagService, task, tags);
     }
 
     private void assertImportanceIs(int importance) {

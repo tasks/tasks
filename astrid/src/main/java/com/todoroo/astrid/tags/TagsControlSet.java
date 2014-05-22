@@ -25,6 +25,7 @@ import android.widget.TextView.OnEditorActionListener;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Metadata;
@@ -52,7 +53,6 @@ public final class TagsControlSet extends PopupControlSet {
 
     private static final String TRANSITORY_TAGS = "tags";//$NON-NLS-1$
 
-    private final TagService tagService = TagService.getInstance();
     private ArrayList<String> allTagNames;
 
     private LinearLayout newTags;
@@ -64,6 +64,8 @@ public final class TagsControlSet extends PopupControlSet {
     //private final LinearLayout tagsContainer;
     private final TextView tagsDisplay;
 
+    @Autowired TagService tagService;
+
     public TagsControlSet(Activity activity, int viewLayout, int displayViewLayout, int title) {
         super(activity, viewLayout, displayViewLayout, title);
         DependencyInjectionService.getInstance().inject(this);
@@ -72,7 +74,7 @@ public final class TagsControlSet extends PopupControlSet {
     }
 
     private Tag[] getTagArray() {
-        ArrayList<Tag> tagsList = TagService.getInstance().getTagList();
+        ArrayList<Tag> tagsList = tagService.getTagList();
         return tagsList.toArray(new Tag[tagsList.size()]);
     }
 
@@ -303,7 +305,7 @@ public final class TagsControlSet extends PopupControlSet {
 
         LinkedHashSet<String> tags = getTagSet();
 
-        TagService.getInstance().synchronizeTags(task.getId(), task.getUUID(), tags);
+        tagService.synchronizeTags(task.getId(), task.getUUID(), tags);
         Flags.set(Flags.TAGS_CHANGED);
         task.setModificationDate(DateUtilities.now());
     }

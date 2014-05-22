@@ -59,7 +59,13 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
 
     private static final String TAG = "tag"; //$NON-NLS-1$
 
+    @Autowired TagService tagService;
+
     protected boolean addUntaggedFilter = true;
+
+    public TagFilterExposer() {
+        DependencyInjectionService.getInstance().inject(this);
+    }
 
     /** Create filter from new tag object */
     public static FilterWithCustomIntent filterFromTag(Context context, Tag tag, Criterion criterion) {
@@ -142,7 +148,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
     }
 
     protected List<Tag> getTagList() {
-        return TagService.getInstance().getTagList();
+        return tagService.getTagList();
     }
 
     private FilterCategory filterFromTags(Tag[] tags, int name) {
@@ -160,7 +166,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         if (shouldAddUntagged) {
             Filter untagged = new Filter(r.getString(R.string.tag_FEx_untagged),
                     r.getString(R.string.tag_FEx_untagged),
-                    TagService.getInstance().untaggedTemplate(),
+                    tagService.untaggedTemplate(),
                     null);
             untagged.listingIcon = ((BitmapDrawable)r.getDrawable(
                     ThemeService.getDrawable(R.drawable.gl_lists, themeFlags))).getBitmap();

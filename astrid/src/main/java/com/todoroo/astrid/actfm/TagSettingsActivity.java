@@ -164,17 +164,16 @@ public class TagSettingsActivity extends ActionBarActivity {
         }
 
         boolean nameChanged = !oldName.equals(newName);
-        TagService service = TagService.getInstance();
         if (nameChanged) {
             if (oldName.equalsIgnoreCase(newName)) { // Change the capitalization of a list manually
                 tagData.setName(newName);
-                service.rename(tagData.getUuid(), newName);
+                tagService.rename(tagData.getUuid(), newName);
             } else { // Rename list--check for existing name
-                newName = service.getTagWithCase(newName);
+                newName = tagService.getTagWithCase(newName);
                 tagName.setText(newName);
                 if (!newName.equals(oldName)) {
                     tagData.setName(newName);
-                    service.rename(tagData.getUuid(), newName);
+                    tagService.rename(tagData.getUuid(), newName);
                 }
             }
         }

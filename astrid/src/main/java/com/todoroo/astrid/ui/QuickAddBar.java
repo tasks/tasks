@@ -43,6 +43,7 @@ import com.todoroo.astrid.gcal.GCalControlSet;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceRecognizer;
 
@@ -73,6 +74,8 @@ public class QuickAddBar extends LinearLayout {
     private GCalControlSet gcalControl;
 
     @Autowired private TaskAttachmentDao taskAttachmentDao;
+
+    @Autowired private TagService tagService;
 
     private VoiceRecognizer voiceRecognizer;
 
@@ -271,7 +274,7 @@ public class QuickAddBar extends LinearLayout {
             }
             gcalControl.writeToModel(task);
 
-            TaskService.createWithValues(task, fragment.getFilter().valuesForNewTasks, title);
+            TaskService.createWithValues(tagService, task, fragment.getFilter().valuesForNewTasks, title);
 
             resetControlSets();
 
@@ -316,14 +319,14 @@ public class QuickAddBar extends LinearLayout {
      * Static method to quickly add tasks without all the control set nonsense.
      * Used from the share link activity.
      */
-    public static Task basicQuickAddTask(String title) {
+    public static Task basicQuickAddTask(TagService tagService, String title) {
         if (TextUtils.isEmpty(title)) {
             return null;
         }
 
         title = title.trim();
 
-        Task task = TaskService.createWithValues(null, title);
+        Task task = TaskService.createWithValues(tagService, null, title);
         addToCalendar(task, title);
 
         return task;

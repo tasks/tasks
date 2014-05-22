@@ -10,6 +10,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.QuickAddBar;
 
 /**
@@ -20,6 +21,9 @@ import com.todoroo.astrid.ui.QuickAddBar;
 public final class ShareLinkActivity extends TaskListActivity {
 
     @Autowired private TaskService taskService;
+
+    @Autowired private TagService tagService;
+
     private String subject;
     private boolean handled;
 
@@ -48,7 +52,7 @@ public final class ShareLinkActivity extends TaskListActivity {
         if (!handled) {
             Intent callerIntent = getIntent();
 
-            Task task = QuickAddBar.basicQuickAddTask(subject);
+            Task task = QuickAddBar.basicQuickAddTask(tagService, subject);
             if (task != null) {
                 task.setNotes(callerIntent.getStringExtra(Intent.EXTRA_TEXT));
                 taskService.save(task);

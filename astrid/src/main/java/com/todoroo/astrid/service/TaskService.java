@@ -79,15 +79,17 @@ public class TaskService {
     private final Broadcaster broadcaster;
     private final FilterCounter filterCounter;
     private final RefreshScheduler refreshScheduler;
+    private final TagService tagService;
 
     @Inject
-    public TaskService(TaskDao taskDao, MetadataDao metadataDao, UserActivityDao userActivityDao, Broadcaster broadcaster, FilterCounter filterCounter, RefreshScheduler refreshScheduler) {
+    public TaskService(TaskDao taskDao, MetadataDao metadataDao, UserActivityDao userActivityDao, Broadcaster broadcaster, FilterCounter filterCounter, RefreshScheduler refreshScheduler, TagService tagService) {
         this.taskDao = taskDao;
         this.metadataDao = metadataDao;
         this.userActivityDao = userActivityDao;
         this.broadcaster = broadcaster;
         this.filterCounter = filterCounter;
         this.refreshScheduler = refreshScheduler;
+        this.tagService = tagService;
     }
 
     // --- service layer
@@ -339,7 +341,7 @@ public class TaskService {
     private void quickAdd(Task task, List<String> tags) {
         saveWithoutPublishingFilterUpdate(task);
         for(String tag : tags) {
-            TagService.getInstance().createLink(task, tag);
+            tagService.createLink(task, tag);
         }
         broadcastFilterListUpdated();
     }
@@ -357,8 +359,8 @@ public class TaskService {
      * Parse quick add markup for the given task
      * @param tags an empty array to apply tags to
      */
-    public static boolean parseQuickAddMarkup(Task task, ArrayList<String> tags) {
-        return TitleParser.parse(task, tags);
+    public static boolean parseQuickAddMarkup(TagService tagService, Task task, ArrayList<String> tags) {
+        return TitleParser.parse(tagService, task, tags);
     }
 
     /**
@@ -387,16 +389,16 @@ public class TaskService {
      * Create task from the given content values, saving it. This version
      * doesn't need to start with a base task model.
      */
-    public static Task createWithValues(ContentValues values, String title) {
+    public static Task createWithValues(TagService tagService, ContentValues values, String title) {
         Task task = new Task();
-        return createWithValues(task, values, title);
+        return createWithValues(tagService, task, values, title);
     }
 
     /**
      * Create task from the given content values, saving it.
      * @param task base task to start with
      */
-    public static Task createWithValues(Task task, ContentValues values, String title) {
+    public static Task createWithValues(TagService tagService, Task task, ContentValues values, String title) {
         if (title != null) {
             task.setTitle(title);
         }
@@ -404,7 +406,7 @@ public class TaskService {
         ArrayList<String> tags = new ArrayList<>();
         boolean quickAddMarkup = false;
         try {
-            quickAddMarkup = parseQuickAddMarkup(task, tags);
+            quickAddMarkup = parseQuickAddMarkup(tagService, task, tags);
         } catch (Throwable e) {
             Log.e(TAG, e.getMessage(), e);
         }
@@ -448,10 +450,10 @@ public class TaskService {
             if (TaskToTagMetadata.KEY.equals(metadata.getKey())) {
                 if (metadata.containsNonNullValue(TaskToTagMetadata.TAG_UUID) && !RemoteModel.NO_UUID.equals(metadata.getValue(TaskToTagMetadata.TAG_UUID))) {
                     // This is more efficient
-                    TagService.getInstance().createLink(task, metadata.getValue(TaskToTagMetadata.TAG_NAME), metadata.getValue(TaskToTagMetadata.TAG_UUID));
+                    tagService.createLink(task, metadata.getValue(TaskToTagMetadata.TAG_NAME), metadata.getValue(TaskToTagMetadata.TAG_UUID));
                 } else {
                     // This is necessary for backwards compatibility
-                    TagService.getInstance().createLink(task, metadata.getValue(TaskToTagMetadata.TAG_NAME));
+                    tagService.createLink(task, metadata.getValue(TaskToTagMetadata.TAG_NAME));
                 }
             } else {
                 PluginServices.getMetadataService().save(metadata);

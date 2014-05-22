@@ -12,6 +12,8 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
@@ -31,6 +33,12 @@ public class TagCustomFilterCriteriaExposer extends BroadcastReceiver {
     private static final String IDENTIFIER_TAG_IS = "tag_is"; //$NON-NLS-1$
     private static final String IDENTIFIER_TAG_CONTAINS = "tag_contains"; //$NON-NLS-1$
 
+    @Autowired TagService tagService;
+
+    public TagCustomFilterCriteriaExposer() {
+        DependencyInjectionService.getInstance().inject(this);
+    }
+
     @Override
     public void onReceive(Context context, Intent intent) {
         Resources r = context.getResources();
@@ -40,7 +48,7 @@ public class TagCustomFilterCriteriaExposer extends BroadcastReceiver {
 
         // built in criteria: tags
         {
-            TagService.Tag[] tags = TagService.getInstance().getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE,
+            TagService.Tag[] tags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE,
                             TaskDao.TaskCriteria.activeAndVisible());
             String[] tagNames = new String[tags.length];
             for(int i = 0; i < tags.length; i++) {
