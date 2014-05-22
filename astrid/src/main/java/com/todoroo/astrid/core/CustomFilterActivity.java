@@ -145,11 +145,9 @@ public class CustomFilterActivity extends ActionBarActivity {
 
     // --- activity
 
-    @Autowired
-    Database database;
+    @Autowired Database database;
 
-    @Autowired
-    StoreObjectDao storeObjectDao;
+    @Autowired StoreObjectDao storeObjectDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

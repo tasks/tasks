@@ -26,8 +26,7 @@ import org.tasks.scheduling.RefreshScheduler;
  */
 public class ReminderSchedulingService extends Service {
 
-    @Autowired
-    private RefreshScheduler refreshScheduler;
+    @Autowired private RefreshScheduler refreshScheduler;
 
     public ReminderSchedulingService() {
         DependencyInjectionService.getInstance().inject(this);

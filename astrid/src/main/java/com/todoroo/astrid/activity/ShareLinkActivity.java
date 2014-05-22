@@ -19,8 +19,7 @@ import com.todoroo.astrid.ui.QuickAddBar;
  */
 public final class ShareLinkActivity extends TaskListActivity {
 
-    @Autowired
-    private TaskService taskService;
+    @Autowired private TaskService taskService;
     private String subject;
     private boolean handled;
 

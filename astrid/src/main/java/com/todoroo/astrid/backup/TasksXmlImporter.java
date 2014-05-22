@@ -70,8 +70,7 @@ public class TasksXmlImporter {
 
     // --- implementation
 
-    @Autowired
-    TagDataService tagDataService;
+    @Autowired TagDataService tagDataService;
 
     private final Handler handler;
     private int taskCount;

@@ -24,8 +24,7 @@ import static org.tasks.date.DateTimeUtils.newDate;
 
 public class TitleParserTest extends DatabaseTestCase {
 
-    @Autowired
-    TaskService taskService;
+    @Autowired TaskService taskService;
 
     @Override
     protected void setUp() throws Exception {

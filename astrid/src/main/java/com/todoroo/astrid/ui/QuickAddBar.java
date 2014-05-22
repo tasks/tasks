@@ -72,8 +72,7 @@ public class QuickAddBar extends LinearLayout {
     private RepeatControlSet repeatControl;
     private GCalControlSet gcalControl;
 
-    @Autowired
-    private TaskAttachmentDao taskAttachmentDao;
+    @Autowired private TaskAttachmentDao taskAttachmentDao;
 
     private VoiceRecognizer voiceRecognizer;
 

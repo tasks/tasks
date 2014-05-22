@@ -35,8 +35,7 @@ import static org.tasks.date.DateTimeUtils.newDate;
 
 public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
 
-    @Autowired
-    protected TaskDao taskDao;
+    @Autowired protected TaskDao taskDao;
 
     @Override
     protected void setUp() throws Exception {

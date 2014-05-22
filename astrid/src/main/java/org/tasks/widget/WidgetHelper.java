@@ -73,8 +73,7 @@ public class WidgetHelper {
         context.sendBroadcast(intent);
     }
 
-    @Autowired
-    TagDataService tagDataService;
+    @Autowired TagDataService tagDataService;
 
     public WidgetHelper() {
         DependencyInjectionService.getInstance().inject(this);

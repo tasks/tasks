@@ -28,8 +28,7 @@ public class BackupServiceTests extends DatabaseTestCase {
 
     File temporaryDirectory = null;
 
-    @Autowired
-    private TaskDao taskDao;
+    @Autowired private TaskDao taskDao;
 
     BackupDirectorySetting setting = new BackupDirectorySetting() {
         public File getBackupDirectory() {

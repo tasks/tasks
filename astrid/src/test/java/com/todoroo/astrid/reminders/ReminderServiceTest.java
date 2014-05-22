@@ -30,8 +30,7 @@ public class ReminderServiceTest extends TodorooRobolectricTestCase {
 
     ReminderService service;
 
-    @Autowired
-    TaskDao taskDao;
+    @Autowired TaskDao taskDao;
 
     @Override
     public void before() {

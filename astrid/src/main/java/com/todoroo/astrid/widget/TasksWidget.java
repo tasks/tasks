@@ -37,8 +37,7 @@ public class TasksWidget extends AppWidgetProvider {
         AstridDependencyInjector.initialize();
     }
 
-    @Autowired
-    private TaskService taskService;
+    @Autowired private TaskService taskService;
 
     public static final String COMPLETE_TASK = "COMPLETE_TASK";
     public static final String EDIT_TASK = "EDIT_TASK";

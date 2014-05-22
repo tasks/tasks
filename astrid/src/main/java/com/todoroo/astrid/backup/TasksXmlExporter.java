@@ -67,8 +67,7 @@ public class TasksXmlExporter {
 
     // --- implementation
 
-    @Autowired
-    TagDataService tagDataService;
+    @Autowired TagDataService tagDataService;
 
     // 3 is started on Version 4.6.10
     private static final int FORMAT = 3;

@@ -28,8 +28,7 @@ public final class GlobalEventReceiver extends BroadcastReceiver {
         AstridDependencyInjector.initialize();
     }
 
-    @Autowired
-    private TaskService taskService;
+    @Autowired private TaskService taskService;
 
     @Override
     public void onReceive(Context context, Intent intent) {

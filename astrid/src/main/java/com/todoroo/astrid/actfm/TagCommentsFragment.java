@@ -24,8 +24,7 @@ public class TagCommentsFragment extends CommentsFragment {
 
     private TagData tagData;
 
-    @Autowired
-    private TagDataService tagDataService;
+    @Autowired private TagDataService tagDataService;
 
     public TagCommentsFragment() {
         super();

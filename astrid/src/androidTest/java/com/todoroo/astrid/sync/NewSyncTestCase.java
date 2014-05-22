@@ -8,10 +8,8 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
 public class NewSyncTestCase extends DatabaseTestCase {
-	@Autowired
-	protected TaskDao taskDao;
-	@Autowired
-	protected TagDataDao tagDataDao;
+	@Autowired protected TaskDao taskDao;
+	@Autowired protected TagDataDao tagDataDao;
 
 	@Override
 	protected void setUp() throws Exception {

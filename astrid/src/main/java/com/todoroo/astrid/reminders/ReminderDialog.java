@@ -37,8 +37,7 @@ import static org.tasks.date.DateTimeUtils.newDate;
  */
 public class ReminderDialog extends Dialog {
 
-    @Autowired
-    private TaskService taskService;
+    @Autowired private TaskService taskService;
 
     public ReminderDialog(final AstridActivity activity, final long taskId,
             String title) {

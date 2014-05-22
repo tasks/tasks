@@ -175,8 +175,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     // --- instance variables
 
-    @Autowired
-    protected TaskService taskService;
+    @Autowired protected TaskService taskService;
 
     protected final Context context;
     protected final TaskListFragment fragment;

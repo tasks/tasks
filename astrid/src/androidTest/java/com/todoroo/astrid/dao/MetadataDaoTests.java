@@ -16,11 +16,9 @@ import com.todoroo.astrid.test.DatabaseTestCase;
 
 public class MetadataDaoTests extends DatabaseTestCase {
 
-    @Autowired
-    MetadataDao metadataDao;
+    @Autowired MetadataDao metadataDao;
 
-    @Autowired
-    TaskDao taskDao;
+    @Autowired TaskDao taskDao;
 
     public static Property<?>[] KEYS = new Property<?>[] { Metadata.ID,
             Metadata.KEY };

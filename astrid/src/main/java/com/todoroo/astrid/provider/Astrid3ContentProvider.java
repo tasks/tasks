@@ -81,20 +81,15 @@ public class Astrid3ContentProvider extends ContentProvider {
 
     // --- instance variables
 
-    @Autowired
-    private Database database;
+    @Autowired private Database database;
 
-    @Autowired
-    private TaskDao taskDao;
+    @Autowired private TaskDao taskDao;
 
-    @Autowired
-    private MetadataDao metadataDao;
+    @Autowired private MetadataDao metadataDao;
 
-    @Autowired
-    private StoreObjectDao storeObjectDao;
+    @Autowired private StoreObjectDao storeObjectDao;
 
-    @Autowired
-    private UserActivityDao userActivityDao;
+    @Autowired private UserActivityDao userActivityDao;
 
     @Override
     public boolean onCreate() {

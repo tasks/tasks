@@ -35,8 +35,7 @@ public class AstridDependencyInjectorTest {
     @Test
     public void testWithString() {
         Helper helper = new Helper() {
-            @Autowired
-            public String applicationName;
+            @Autowired public String applicationName;
 
             @Override
             public Object getObject() {
@@ -52,8 +51,7 @@ public class AstridDependencyInjectorTest {
     public void testWithClass() {
 
         Helper helper = new Helper() {
-            @Autowired
-            public TaskService taskService;
+            @Autowired public TaskService taskService;
 
             @Override
             public Object getObject() {
@@ -65,8 +63,7 @@ public class AstridDependencyInjectorTest {
         assertTrue(helper.getObject() instanceof TaskService);
 
         Helper helper2 = new Helper() {
-            @Autowired
-            public TaskService taskService;
+            @Autowired public TaskService taskService;
 
             @Override
             public Object getObject() {

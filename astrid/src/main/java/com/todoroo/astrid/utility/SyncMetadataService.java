@@ -27,10 +27,8 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
 
     // --- instance variables
 
-    @Autowired
-    protected TaskDao taskDao;
-    @Autowired
-    protected MetadataDao metadataDao;
+    @Autowired protected TaskDao taskDao;
+    @Autowired protected MetadataDao metadataDao;
 
     // --- abstract methods
 

@@ -49,8 +49,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
     private static final String TOKEN_FILTER_ID = "id"; //$NON-NLS-1$
     private static final String TOKEN_FILTER_NAME = "name"; //$NON-NLS-1$
 
-    @Autowired
-    StoreObjectDao storeObjectDao;
+    @Autowired StoreObjectDao storeObjectDao;
 
     public CustomFilterExposer() {
         DependencyInjectionService.getInstance().inject(this);
@@ -127,8 +126,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
      */
     public static class DeleteActivity extends Activity {
 
-        @Autowired
-        StoreObjectDao storeObjectDao;
+        @Autowired StoreObjectDao storeObjectDao;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {

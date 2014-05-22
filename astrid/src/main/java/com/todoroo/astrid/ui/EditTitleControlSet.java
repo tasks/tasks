@@ -41,8 +41,7 @@ public class EditTitleControlSet extends TaskEditControlSet implements Importanc
     private boolean isRepeating;
     private int importanceValue;
 
-    @Autowired
-    private TaskService taskService;
+    @Autowired private TaskService taskService;
 
     public EditTitleControlSet(Activity activity, int layout, int editText) {
         super(activity, layout);

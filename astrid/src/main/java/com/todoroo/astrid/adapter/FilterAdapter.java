@@ -62,11 +62,9 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
     // --- instance variables
 
-    @Autowired
-    private TaskService taskService;
+    @Autowired private TaskService taskService;
 
-    @Autowired
-    private FilterCounter filterCounter;
+    @Autowired private FilterCounter filterCounter;
 
     /** parent activity */
     protected final Activity activity;

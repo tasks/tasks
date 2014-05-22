@@ -30,8 +30,7 @@ public class NotifyAtDeadlineTest extends TodorooRobolectricTestCase {
     @SuppressLint("NewApi")
     private static final int MILLIS_PER_HOUR = (int) TimeUnit.HOURS.toMillis(1);
 
-    @Autowired
-    private TaskDao taskDao;
+    @Autowired private TaskDao taskDao;
 
     private ReminderService service;
 

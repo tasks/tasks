@@ -22,8 +22,7 @@ import static org.tasks.date.DateTimeUtils.newDate;
 
 public class NotificationTests extends DatabaseTestCase {
 
-    @Autowired
-    TaskDao taskDao;
+    @Autowired TaskDao taskDao;
 
     public class MutableBoolean {
         boolean value = false;

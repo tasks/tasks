@@ -34,11 +34,9 @@ import com.todoroo.astrid.utility.Flags;
 
 abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
 
-    @Autowired
-    protected TaskDao taskDao;
+    @Autowired protected TaskDao taskDao;
 
-    @Autowired
-    protected MetadataDao metadataDao;
+    @Autowired protected MetadataDao metadataDao;
 
     @Override
     protected void setUp() throws Exception {

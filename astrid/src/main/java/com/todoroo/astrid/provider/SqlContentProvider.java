@@ -40,8 +40,7 @@ public class SqlContentProvider extends ContentProvider {
                 "sql", 0);
     }
 
-    @Autowired
-    private Database database;
+    @Autowired private Database database;
 
     @Override
     public boolean onCreate() {

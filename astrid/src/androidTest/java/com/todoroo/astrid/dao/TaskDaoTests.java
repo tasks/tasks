@@ -22,8 +22,7 @@ public class TaskDaoTests extends DatabaseTestCase {
     public static Property<?>[] TITLES = new Property<?>[] { Task.ID,
             Task.TITLE };
 
-    @Autowired
-    TaskDao taskDao;
+    @Autowired TaskDao taskDao;
 
     /**
      * Test basic task creation, fetch, and save

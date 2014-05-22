@@ -29,8 +29,7 @@ public class CalendarAlarmListCreator extends Activity {
 
     public static final String TOKEN_LIST_NAME = "listName"; //$NON-NLS-1$
 
-    @Autowired
-    private TagDataService tagDataService;
+    @Autowired private TagDataService tagDataService;
 
     private ArrayList<String> names;
     private ArrayList<String> emails;

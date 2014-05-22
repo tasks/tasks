@@ -43,8 +43,7 @@ public class DependencyInjectionTest {
 
         // test various permissions
         Object test = new Object() {
-            @Autowired
-            public String foo;
+            @Autowired public String foo;
 
             @Override
             public String toString() {
@@ -55,8 +54,7 @@ public class DependencyInjectionTest {
         assertEquals("bar", test.toString());
 
         test = new Object() {
-            @Autowired
-            String foo;
+            @Autowired String foo;
 
             @Override
             public String toString() {
@@ -67,8 +65,7 @@ public class DependencyInjectionTest {
         assertEquals("bar", test.toString());
 
         test = new Object() {
-            @Autowired
-            protected String foo;
+            @Autowired protected String foo;
 
             @Override
             public String toString() {
@@ -79,8 +76,7 @@ public class DependencyInjectionTest {
         assertEquals("bar", test.toString());
 
         test = new Object() {
-            @Autowired
-            private String foo;
+            @Autowired private String foo;
 
             @Override
             public String toString() {
@@ -127,8 +123,7 @@ public class DependencyInjectionTest {
                 });
 
         Object test = new Object() {
-            @Autowired
-            public String foo;
+            @Autowired public String foo;
 
             @Override
             public String toString() {
@@ -139,8 +134,7 @@ public class DependencyInjectionTest {
         assertEquals("bar", test.toString());
 
         test = new Object() {
-            @Autowired
-            public String forks;
+            @Autowired public String forks;
 
             @Override
             public String toString() {
@@ -167,8 +161,7 @@ public class DependencyInjectionTest {
         );
 
         Object test = new Object() {
-            @Autowired
-            public String foo;
+            @Autowired public String foo;
 
             @Override
             public String toString() {
@@ -202,8 +195,7 @@ public class DependencyInjectionTest {
         );
 
         Object test1 = new Object() {
-            @Autowired
-            public String foo;
+            @Autowired public String foo;
 
             @Override
             public String toString() {
@@ -211,8 +203,7 @@ public class DependencyInjectionTest {
             }
         };
         Object test2 = new Object() {
-            @Autowired
-            public String foo;
+            @Autowired public String foo;
 
             @Override
             public String toString() {
@@ -226,13 +217,11 @@ public class DependencyInjectionTest {
     }
 
     public static class ParentInjectee {
-        @Autowired
-        protected String foo;
+        @Autowired protected String foo;
     }
 
     public static class ChildInjectee extends ParentInjectee {
-        @Autowired
-        protected String bar;
+        @Autowired protected String bar;
     }
 
     @Test

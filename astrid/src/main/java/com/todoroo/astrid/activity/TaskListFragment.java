@@ -142,8 +142,7 @@ public class TaskListFragment extends ListFragment implements OnSortSelectedList
 
     // --- instance variables
 
-    @Autowired
-    protected TaskService taskService;
+    @Autowired protected TaskService taskService;
 
     @Autowired UpgradeService upgradeService;
 

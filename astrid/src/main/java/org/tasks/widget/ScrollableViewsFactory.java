@@ -40,17 +40,13 @@ import org.tasks.R;
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
-    @Autowired
-    Database database;
+    @Autowired Database database;
 
-    @Autowired
-    TaskService taskService;
+    @Autowired TaskService taskService;
 
-    @Autowired
-    TaskListMetadataDao taskListMetadataDao;
+    @Autowired TaskListMetadataDao taskListMetadataDao;
 
-    @Autowired
-    TagDataService tagDataService;
+    @Autowired TagDataService tagDataService;
 
     private final Context context;
     private final Filter filter;

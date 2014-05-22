@@ -15,8 +15,7 @@ import org.tasks.R;
 
 public class VoiceCommandActivity extends Activity {
 
-    @Autowired
-    TaskService taskService;
+    @Autowired TaskService taskService;
 
     public VoiceCommandActivity() {
         DependencyInjectionService.getInstance().inject(this);

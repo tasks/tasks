@@ -27,8 +27,7 @@ public class GtasksDetailExposerTest extends TodorooRobolectricTestCase {
     private Context context;
     private RobolectricGtasksPreferenceService gtasksPreferenceService;
 
-    @Autowired
-    private GtasksListService gtasksListService;
+    @Autowired private GtasksListService gtasksListService;
 
     @Override
     public void before() {

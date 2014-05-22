@@ -21,8 +21,7 @@ import java.util.Set;
 
 public abstract class AstridOrderedListUpdater<LIST> {
 
-    @Autowired
-    private TaskService taskService;
+    @Autowired private TaskService taskService;
 
     public AstridOrderedListUpdater() {
         DependencyInjectionService.getInstance().inject(this);

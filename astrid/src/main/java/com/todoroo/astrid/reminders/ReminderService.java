@@ -74,8 +74,7 @@ public final class ReminderService  {
 
     // --- instance variables
 
-    @Autowired
-    private TaskDao taskDao;
+    @Autowired private TaskDao taskDao;
 
     private AlarmScheduler scheduler = new ReminderAlarmScheduler();
 

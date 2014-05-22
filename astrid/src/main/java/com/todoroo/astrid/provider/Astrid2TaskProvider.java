@@ -79,8 +79,7 @@ public class Astrid2TaskProvider extends ContentProvider {
 
 	private static final String TAG_SEPARATOR = "|";
 
-	@Autowired
-	private TaskService taskService;
+	@Autowired private TaskService taskService;
 
 	private static Context ctx = null;
 

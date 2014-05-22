@@ -49,8 +49,7 @@ import java.util.ArrayList;
 
 public class FilesControlSet extends PopupControlSet {
 
-    @Autowired
-    private TaskAttachmentDao taskAttachmentDao;
+    @Autowired private TaskAttachmentDao taskAttachmentDao;
 
     private final ArrayList<TaskAttachment> files = new ArrayList<>();
     private final LinearLayout fileDisplayList;

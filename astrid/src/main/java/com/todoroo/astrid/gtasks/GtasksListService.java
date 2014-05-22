@@ -23,8 +23,7 @@ public class GtasksListService {
     public static final String LIST_NOT_FOUND = null;
     public static final StoreObject LIST_NOT_FOUND_OBJECT = null;
 
-    @Autowired
-    private StoreObjectDao storeObjectDao;
+    @Autowired private StoreObjectDao storeObjectDao;
 
     private StoreObject[] lists = null;
 

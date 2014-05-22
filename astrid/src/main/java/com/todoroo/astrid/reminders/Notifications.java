@@ -81,8 +81,7 @@ public class Notifications extends BroadcastReceiver {
 
     // --- instance variables
 
-    @Autowired
-    private TaskDao taskDao;
+    @Autowired private TaskDao taskDao;
 
     public static NotificationManager notificationManager = null;
     private static boolean forceNotificationManager = false;

@@ -56,8 +56,7 @@ import org.tasks.R;
 
 public class TaskListActivity extends AstridActivity implements OnPageChangeListener {
 
-    @Autowired
-    TagDataDao tagDataDao;
+    @Autowired TagDataDao tagDataDao;
 
     MenuDrawer menuDrawer;
 

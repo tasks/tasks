@@ -44,8 +44,7 @@ public final class UpgradeService {
     }
 
     public static class UpgradeActivity extends Activity {
-        @Autowired
-        private TaskService taskService;
+        @Autowired private TaskService taskService;
         private ProgressDialog dialog;
 
         public static final String TOKEN_FROM_VERSION = "from_version"; //$NON-NLS-1$

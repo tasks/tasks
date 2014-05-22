@@ -48,8 +48,7 @@ public class CalendarReminderActivity extends Activity {
     // Prompt user to ignore all missed calls after this many ignore presses
     private static final int IGNORE_PROMPT_COUNT = 3;
 
-    @Autowired
-    private TagDataService tagDataService;
+    @Autowired private TagDataService tagDataService;
 
     private String eventName;
     private long startTime;

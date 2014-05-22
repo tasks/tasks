@@ -20,14 +20,11 @@ import com.todoroo.astrid.service.TaskService;
  */
 public final class PluginServices {
 
-    @Autowired
-    TaskService taskService;
+    @Autowired TaskService taskService;
 
-    @Autowired
-    Database database;
+    @Autowired Database database;
 
-    @Autowired
-    MetadataService metadataService;
+    @Autowired MetadataService metadataService;
 
     private static volatile PluginServices instance;
 

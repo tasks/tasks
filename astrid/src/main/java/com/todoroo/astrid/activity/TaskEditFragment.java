@@ -167,11 +167,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     public static final int TAB_VIEW_UPDATES = 0;
 
-    @Autowired
-    private TaskService taskService;
+    @Autowired private TaskService taskService;
 
-    @Autowired
-    private TaskAttachmentDao taskAttachmentDao;
+    @Autowired private TaskAttachmentDao taskAttachmentDao;
 
     // --- UI components
 

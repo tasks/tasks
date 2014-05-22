@@ -69,8 +69,7 @@ public class AstridActivity extends ActionBarActivity
 
     private final RepeatConfirmationReceiver repeatConfirmationReceiver = new RepeatConfirmationReceiver();
 
-    @Autowired
-    private TaskDao taskDao;
+    @Autowired private TaskDao taskDao;
 
     public FilterListFragment getFilterListFragment() {
         return (FilterListFragment) getSupportFragmentManager()

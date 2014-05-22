@@ -46,17 +46,13 @@ public class WidgetUpdateService extends Service {
 
     public static final String EXTRA_WIDGET_ID = "widget_id"; //$NON-NLS-1$
 
-    @Autowired
-    Database database;
+    @Autowired Database database;
 
-    @Autowired
-    TaskService taskService;
+    @Autowired TaskService taskService;
 
-    @Autowired
-    TaskListMetadataDao taskListMetadataDao;
+    @Autowired TaskListMetadataDao taskListMetadataDao;
 
-    @Autowired
-    TagDataService tagDataService;
+    @Autowired TagDataService tagDataService;
 
     private final WidgetHelper widgetHelper = new WidgetHelper();
 
