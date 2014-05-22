@@ -19,10 +19,8 @@ import android.view.WindowManager.BadTokenException;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.todoroo.astrid.voice.RecognizerApi.RecognizerApiListener;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.CommentsFragment;
@@ -36,10 +34,12 @@ import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.QuickAddBar;
+import com.todoroo.astrid.voice.RecognizerApi.RecognizerApiListener;
 import com.todoroo.astrid.voice.VoiceRecognizer;
 
 import org.tasks.R;
@@ -95,7 +95,7 @@ public class AstridActivity extends ActionBarActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        DependencyInjectionService.getInstance().inject(this);
+        AstridDependencyInjector.inject(this);
         super.onCreate(savedInstanceState);
         ContextManager.setContext(this);
 

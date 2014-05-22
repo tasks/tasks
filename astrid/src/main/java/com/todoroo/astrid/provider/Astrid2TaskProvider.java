@@ -17,7 +17,6 @@ import android.util.Log;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -45,14 +44,9 @@ import java.security.NoSuchAlgorithmException;
  */
 public class Astrid2TaskProvider extends ContentProvider {
 
-    static {
-        AstridDependencyInjector.initialize();
-    }
-
 	private static final String TAG = "MessageProvider";
 
 	private static final boolean LOGD = false;
-
 
 	public static final String AUTHORITY = "org.tasks.tasksprovider";
 
@@ -93,8 +87,6 @@ public class Astrid2TaskProvider extends ContentProvider {
 	static {
 		URI_MATCHER.addURI(AUTHORITY, "tasks", URI_TASKS);
 		URI_MATCHER.addURI(AUTHORITY, "tags", URI_TAGS);
-
-		AstridDependencyInjector.initialize();
 	}
 
 	@Override
@@ -298,7 +290,7 @@ public class Astrid2TaskProvider extends ContentProvider {
 
     private TaskService getTaskService() {
         if (taskService == null) {
-            DependencyInjectionService.getInstance().inject(this);
+            AstridDependencyInjector.inject(this);
         }
         return taskService;
     }

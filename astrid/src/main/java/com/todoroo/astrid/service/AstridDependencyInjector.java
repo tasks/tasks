@@ -24,8 +24,11 @@ import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.Broadcaster;
+import org.tasks.Injector;
 import org.tasks.filters.FilterCounter;
 import org.tasks.scheduling.RefreshScheduler;
+
+import javax.inject.Inject;
 
 /**
  * Astrid application dependency injector loads classes in Astrid with the
@@ -43,17 +46,18 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
      */
     private static AstridDependencyInjector instance = null;
 
+    @Inject Database database;
+
     /**
      * Initialize list of injectables. Special care must used when
      * instantiating classes that themselves depend on dependency injection
      */
     @Override
     protected void addInjectables() {
-        // com.todoroo.android.service
-        injectables.put("applicationName", "astrid");
+        new Injector().inject(this);
 
         // com.todoroo.astrid.dao
-        injectables.put("database", Database.class);
+        injectables.put("database", database);
         injectables.put("taskDao", TaskDao.class);
         injectables.put("metadataDao", MetadataDao.class);
         injectables.put("tagMetadataDao", TagMetadataDao.class);
@@ -99,6 +103,11 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
             }
             DependencyInjectionService.getInstance().addInjector(instance);
         }
+    }
+
+    public static void inject(Object caller) {
+        initialize();
+        DependencyInjectionService.getInstance().inject(caller);
     }
 
     AstridDependencyInjector() {

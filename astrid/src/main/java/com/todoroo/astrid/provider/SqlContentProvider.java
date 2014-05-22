@@ -13,7 +13,6 @@ import android.net.Uri;
 
 import com.todoroo.andlib.data.AbstractDatabase;
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.service.AstridDependencyInjector;
@@ -35,8 +34,6 @@ public class SqlContentProvider extends ContentProvider {
     private static UriMatcher uriMatcher;
 
     static {
-        AstridDependencyInjector.initialize();
-
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
         uriMatcher.addURI(AstridApiConstants.API_PACKAGE + ".private",
@@ -121,7 +118,7 @@ public class SqlContentProvider extends ContentProvider {
 
     private AbstractDatabase getDatabase() {
         if (database == null) {
-            DependencyInjectionService.getInstance().inject(this);
+            AstridDependencyInjector.inject(this);
             database.openForWriting();
         }
 

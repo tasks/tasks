@@ -24,12 +24,16 @@ import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.provider.Astrid3ContentProvider;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 /**
  * Database wrapper
  *
  * @author Tim Su <tim@todoroo.com>
  *
  */
+@Singleton
 public class Database extends AbstractDatabase {
 
     // --- constants
@@ -62,6 +66,7 @@ public class Database extends AbstractDatabase {
 
     // --- listeners
 
+    @Inject
     public Database() {
         super();
         addListener(new DatabaseUpdateListener() {

@@ -32,6 +32,9 @@ android {
 }
 
 dependencies {
+    provided group: 'com.squareup.dagger', name: 'dagger-compiler', version: '1.2.1'
+    compile group: 'com.squareup.dagger', name: 'dagger', version: '1.2.1'
+
     compile group: 'com.android.support', name: 'support-v4', version: '19.1.+'
 
     compile group: 'org.slf4j', name: 'slf4j-android', version: '1.7.7', transitive: false

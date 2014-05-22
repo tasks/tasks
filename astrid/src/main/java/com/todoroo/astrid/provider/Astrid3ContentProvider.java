@@ -21,7 +21,6 @@ import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
@@ -66,10 +65,6 @@ import java.util.Set;
  *
  */
 public class Astrid3ContentProvider extends ContentProvider {
-
-    static {
-        AstridDependencyInjector.initialize();
-    }
 
     /** URI for making a request over all items */
     private static final int URI_DIR = 1;
@@ -201,7 +196,7 @@ public class Astrid3ContentProvider extends ContentProvider {
 
     private AbstractDatabase getDatabase() {
         if (database == null) {
-            DependencyInjectionService.getInstance().inject(this);
+            AstridDependencyInjector.inject(this);
             database.openForWriting();
         }
         if(databaseOverride != null) {
