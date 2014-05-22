@@ -11,8 +11,6 @@ import android.database.sqlite.SQLiteConstraintException;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
@@ -28,27 +26,27 @@ import com.todoroo.astrid.reminders.ReminderService;
 import org.tasks.Broadcaster;
 import org.tasks.R;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 /**
  * Data Access layer for {@link Task}-related operations.
  *
  * @author Tim Su <tim@todoroo.com>
  *
  */
+@Singleton
 public class TaskDao extends RemoteModelDao<Task> {
 
-    @Autowired
-    private MetadataDao metadataDao;
+    private final MetadataDao metadataDao;
+    private final Broadcaster broadcaster;
 
-    @Autowired
-    private Database database;
-
-    @Autowired
-    private Broadcaster broadcaster;
-
-	public TaskDao() {
+    @Inject
+	public TaskDao(Database database, MetadataDao metadataDao, Broadcaster broadcaster) {
         super(Task.class);
-        DependencyInjectionService.getInstance().inject(this);
         setDatabase(database);
+        this.metadataDao = metadataDao;
+        this.broadcaster = broadcaster;
     }
 
     // --- SQL clause generators
@@ -387,6 +385,5 @@ public class TaskDao extends RemoteModelDao<Task> {
     private static void afterComplete(Task task) {
         Notifications.cancelNotifications(task.getId());
     }
-
 }
 

@@ -2,19 +2,18 @@ package com.todoroo.astrid.dao;
 
 import android.content.ContentValues;
 
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.UserActivity;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public class UserActivityDao extends RemoteModelDao<UserActivity> {
 
-    @Autowired
-    private Database database;
-
-    public UserActivityDao() {
+    @Inject
+    public UserActivityDao(Database database) {
         super(UserActivity.class);
-        DependencyInjectionService.getInstance().inject(this);
         setDatabase(database);
     }
 

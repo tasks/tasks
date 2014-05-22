@@ -8,9 +8,7 @@ import android.content.Intent;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -19,27 +17,28 @@ import com.todoroo.astrid.data.Task;
 
 import org.tasks.Broadcaster;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 import static com.todoroo.andlib.utility.DateUtilities.ONE_MINUTE;
 import static org.tasks.date.DateTimeUtils.currentTimeMillis;
 
+@Singleton
 public class RefreshScheduler extends BroadcastReceiver {
 
-    private static final String TAG = "RefreshScheduler";
-
-    @Autowired
-    private TaskDao taskDao;
-
-    @Autowired
-    private Broadcaster broadcaster;
+    private final TaskDao taskDao;
+    private final Broadcaster broadcaster;
 
     private static final Property<?>[] REFRESH_PROPERTIES = new Property<?>[]{
             Task.DUE_DATE,
             Task.HIDE_UNTIL
     };
 
-    public RefreshScheduler() {
-        DependencyInjectionService.getInstance().inject(this);
+    @Inject
+    public RefreshScheduler(TaskDao taskDao, Broadcaster broadcaster) {
+        this.taskDao = taskDao;
+        this.broadcaster = broadcaster;
     }
 
     @Override

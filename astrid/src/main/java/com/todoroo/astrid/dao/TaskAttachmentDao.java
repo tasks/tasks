@@ -6,12 +6,13 @@
 package com.todoroo.astrid.dao;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TaskAttachment;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Data Access layer for {@link TagData}-related operations.
@@ -19,13 +20,12 @@ import com.todoroo.astrid.data.TaskAttachment;
  * @author Tim Su <tim@todoroo.com>
  *
  */
+@Singleton
 public class TaskAttachmentDao extends RemoteModelDao<TaskAttachment> {
 
-    @Autowired Database database;
-
-	public TaskAttachmentDao() {
+    @Inject
+	public TaskAttachmentDao(Database database) {
         super(TaskAttachment.class);
-        DependencyInjectionService.getInstance().inject(this);
         setDatabase(database);
     }
 

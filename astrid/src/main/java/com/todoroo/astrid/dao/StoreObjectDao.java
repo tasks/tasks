@@ -6,10 +6,11 @@
 package com.todoroo.astrid.dao;
 
 import com.todoroo.andlib.data.DatabaseDao;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.astrid.data.StoreObject;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Data Access layer for {@link StoreObject}-related operations.
@@ -17,14 +18,12 @@ import com.todoroo.astrid.data.StoreObject;
  * @author Tim Su <tim@todoroo.com>
  *
  */
+@Singleton
 public class StoreObjectDao extends DatabaseDao<StoreObject> {
 
-    @Autowired
-    private Database database;
-
-	public StoreObjectDao() {
+    @Inject
+	public StoreObjectDao(Database database) {
         super(StoreObject.class);
-        DependencyInjectionService.getInstance().inject(this);
         setDatabase(database);
     }
 

@@ -1,7 +1,6 @@
 package org.tasks.filters;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.api.Filter;
@@ -17,6 +16,10 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public class FilterCounter {
     // Previous solution involved a queue of filters and a filterSizeLoadingThread. The filterSizeLoadingThread had
     // a few problems: how to make sure that the thread is resumed when the controlling activity is resumed, and
@@ -29,14 +32,15 @@ public class FilterCounter {
 
     private final Map<Filter, Integer> filterCounts = new ConcurrentHashMap<>();
 
-    @Autowired
-    private TaskDao taskDao;
+    private final TaskDao taskDao;
 
-    public FilterCounter() {
-        this(new ThreadPoolExecutor(0, 1, 1, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>()));
+    @Inject
+    public FilterCounter(TaskDao taskDao) {
+        this(taskDao, new ThreadPoolExecutor(0, 1, 1, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>()));
     }
 
-    FilterCounter(ExecutorService executorService) {
+    FilterCounter(TaskDao taskDao, ExecutorService executorService) {
+        this.taskDao = taskDao;
         this.executorService = executorService;
         DependencyInjectionService.getInstance().inject(this);
     }

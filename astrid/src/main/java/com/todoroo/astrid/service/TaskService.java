@@ -11,8 +11,6 @@ import android.util.Log;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
@@ -48,6 +46,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 
 /**
  * Service layer for {@link Task}-centered activities.
@@ -55,6 +56,7 @@ import java.util.Map.Entry;
  * @author Tim Su <tim@todoroo.com>
  *
  */
+@Singleton
 public class TaskService {
 
     private static final String TAG = "TaskService";
@@ -71,26 +73,21 @@ public class TaskService {
 
     public static final String TRANS_REPEAT_COMPLETE = "repeat-complete"; //$NON-NLS-1$
 
-    @Autowired
-    private TaskDao taskDao;
+    private final TaskDao taskDao;
+    private final MetadataDao metadataDao;
+    private final UserActivityDao userActivityDao;
+    private final Broadcaster broadcaster;
+    private final FilterCounter filterCounter;
+    private final RefreshScheduler refreshScheduler;
 
-    @Autowired
-    private MetadataDao metadataDao;
-
-    @Autowired
-    private UserActivityDao userActivityDao;
-
-    @Autowired
-    private Broadcaster broadcaster;
-
-    @Autowired
-    private FilterCounter filterCounter;
-
-    @Autowired
-    private RefreshScheduler refreshScheduler;
-
-    public TaskService() {
-        DependencyInjectionService.getInstance().inject(this);
+    @Inject
+    public TaskService(TaskDao taskDao, MetadataDao metadataDao, UserActivityDao userActivityDao, Broadcaster broadcaster, FilterCounter filterCounter, RefreshScheduler refreshScheduler) {
+        this.taskDao = taskDao;
+        this.metadataDao = metadataDao;
+        this.userActivityDao = userActivityDao;
+        this.broadcaster = broadcaster;
+        this.filterCounter = filterCounter;
+        this.refreshScheduler = refreshScheduler;
     }
 
     // --- service layer

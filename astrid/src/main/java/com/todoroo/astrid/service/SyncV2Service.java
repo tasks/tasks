@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 /**
  * SyncV2Service is a simplified synchronization interface for supporting
  * next-generation sync interfaces such as Google Tasks and Astrid.com
@@ -21,6 +24,7 @@ import java.util.List;
  * @author Tim Su <tim@astrid.com>
  *
  */
+@Singleton
 public class SyncV2Service {
 
     /*
@@ -31,6 +35,10 @@ public class SyncV2Service {
     private static final SyncV2Provider[] providers = new SyncV2Provider[] {
             GtasksSyncV2Provider.getInstance()
     };
+
+    @Inject
+    public SyncV2Service() {
+    }
 
     /**
      * Returns active sync providers
@@ -82,5 +90,4 @@ public class SyncV2Service {
             }
         }
     }
-
 }

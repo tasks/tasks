@@ -8,6 +8,7 @@ package com.todoroo.astrid.service;
 
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
+import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
@@ -23,17 +24,17 @@ import static org.tasks.date.DateTimeUtils.newDate;
 
 public class TitleParserTest extends DatabaseTestCase {
 
+    @Autowired
+    TaskService taskService;
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();
         Preferences.setStringFromInteger(R.string.p_default_urgency_key, 0);
     }
 
-
-
   /** test that completing a task w/ no regular expressions creates a simple task with no date, no repeat, no lists*/
   public void testNoRegexes() throws Exception{
-      TaskService taskService = new TaskService();
       Task task = new Task();
       Task nothing = new Task();
       task.setTitle("Jog");
@@ -45,7 +46,6 @@ public class TitleParserTest extends DatabaseTestCase {
 
   /** Tests correct date is parsed **/
   public void testMonthDate() {
-      new TaskService();
       Task task = new Task();
       String[] titleMonthStrings = {
               "Jan.", "January",
@@ -71,7 +71,6 @@ public class TitleParserTest extends DatabaseTestCase {
   }
 
   public void testMonthSlashDay() {
-      new TaskService();
       Task task = new Task();
       for (int i = 1; i < 13; i++) {
           String testTitle = "Jog on " + i + "/12/13";
@@ -84,7 +83,6 @@ public class TitleParserTest extends DatabaseTestCase {
   }
 
   public void testArmyTime() {
-      new TaskService();
       Task task = new Task();
       String testTitle = "Jog on 23:21.";
       insertTitleAddTask(testTitle, task);
@@ -94,7 +92,6 @@ public class TitleParserTest extends DatabaseTestCase {
   }
 
   public void test_AM_PM() {
-      new TaskService();
       Task task = new Task();
       String testTitle = "Jog at 8:33 PM.";
       insertTitleAddTask(testTitle, task);
@@ -104,7 +101,6 @@ public class TitleParserTest extends DatabaseTestCase {
   }
 
   public void test_at_hour() {
-      new TaskService();
       Task task = new Task();
       String testTitle = "Jog at 8 PM.";
       insertTitleAddTask(testTitle, task);
@@ -114,7 +110,6 @@ public class TitleParserTest extends DatabaseTestCase {
   }
 
   public void test_oclock_AM() {
-      new TaskService();
       Task task = new Task();
       String testTitle = "Jog at 8 o'clock AM.";
       insertTitleAddTask(testTitle, task);
@@ -124,7 +119,6 @@ public class TitleParserTest extends DatabaseTestCase {
   }
 
   public void test_several_forms_of_eight() {
-      new TaskService();
       Task task = new Task();
       String[] testTitles = {
               "Jog 8 AM",
@@ -140,7 +134,6 @@ public class TitleParserTest extends DatabaseTestCase {
   }
 
   public void test_several_forms_of_1230PM() {
-      new TaskService();
       Task task = new Task();
       String[] testTitles = {
               "Jog 12:30 PM",
@@ -167,7 +160,6 @@ public class TitleParserTest extends DatabaseTestCase {
    // ----------------Days begin----------------//
     public void testDays() throws Exception{
         Calendar today = Calendar.getInstance();
-        new TaskService();
         Task task = new Task();
 
         String title = "Jog today";
@@ -261,7 +253,6 @@ public class TitleParserTest extends DatabaseTestCase {
                 "!1",
                 "!"
         };
-        TaskService taskService = new TaskService();
         Task task;
         for (String acceptedStringAtEnd:acceptedStringsAtEnd){
             task = new Task();
@@ -298,7 +289,6 @@ public class TitleParserTest extends DatabaseTestCase {
                 "!2",
                 "!!"
         };
-        new TaskService();
         Task task;
         for (String acceptedStringAtEnd:acceptedStringsAtEnd){
             task = new Task();
@@ -341,7 +331,6 @@ public class TitleParserTest extends DatabaseTestCase {
                 "!6",
                 "!!!!!!!!!!!!!"
         };
-        new TaskService();
         Task task;
         for (String acceptedStringAtEnd:acceptedStringsAtEnd){
             task = new Task();
@@ -411,7 +400,6 @@ public class TitleParserTest extends DatabaseTestCase {
 
     /** test weekly repeat from due date, with no due date & time set */
     public void testWeeklyWithNoDueDate() throws Exception {
-        new TaskService();
         Task task = new Task();
         String title = "Jog weekly";
         task.setTitle(title);

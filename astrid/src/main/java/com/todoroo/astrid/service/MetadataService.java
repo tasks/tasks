@@ -8,8 +8,6 @@ package com.todoroo.astrid.service;
 import android.content.ContentValues;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -21,23 +19,27 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map.Entry;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 /**
  * Service layer for {@link Metadata}-centered activities.
  *
  * @author Tim Su <tim@todoroo.com>
  *
  */
+@Singleton
 public class MetadataService {
 
     public static interface SynchronizeMetadataCallback {
         public void beforeDeleteMetadata(Metadata m);
     }
 
-    @Autowired
-    private MetadataDao metadataDao;
+    private final MetadataDao metadataDao;
 
-    public MetadataService() {
-        DependencyInjectionService.getInstance().inject(this);
+    @Inject
+    public MetadataService(MetadataDao metadataDao) {
+        this.metadataDao = metadataDao;
     }
 
     // --- service layer

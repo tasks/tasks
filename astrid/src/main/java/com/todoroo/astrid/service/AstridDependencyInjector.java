@@ -47,6 +47,21 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
     private static AstridDependencyInjector instance = null;
 
     @Inject Database database;
+    @Inject MetadataDao metadataDao;
+    @Inject TagDataDao tagDataDao;
+    @Inject Broadcaster broadcaster;
+    @Inject TaskDao taskDao;
+    @Inject TagMetadataDao tagMetadataDao;
+    @Inject StoreObjectDao storeObjectDao;
+    @Inject UserActivityDao userActivityDao;
+    @Inject TaskAttachmentDao taskAttachmentDao;
+    @Inject TaskListMetadataDao taskListMetadataDao;
+    @Inject TagDataService tagDataService;
+    @Inject MetadataService metadataService;
+    @Inject SyncV2Service syncV2Service;
+    @Inject FilterCounter filterCounter;
+    @Inject RefreshScheduler refreshScheduler;
+    @Inject TaskService taskService;
 
     /**
      * Initialize list of injectables. Special care must used when
@@ -58,21 +73,21 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
 
         // com.todoroo.astrid.dao
         injectables.put("database", database);
-        injectables.put("taskDao", TaskDao.class);
-        injectables.put("metadataDao", MetadataDao.class);
-        injectables.put("tagMetadataDao", TagMetadataDao.class);
-        injectables.put("tagDataDao", TagDataDao.class);
-        injectables.put("storeObjectDao", StoreObjectDao.class);
-        injectables.put("userActivityDao", UserActivityDao.class);
-        injectables.put("taskAttachmentDao", TaskAttachmentDao.class);
-        injectables.put("taskListMetadataDao", TaskListMetadataDao.class);
+        injectables.put("taskDao", taskDao);
+        injectables.put("metadataDao", metadataDao);
+        injectables.put("tagMetadataDao", tagMetadataDao);
+        injectables.put("tagDataDao", tagDataDao);
+        injectables.put("storeObjectDao", storeObjectDao);
+        injectables.put("userActivityDao", userActivityDao);
+        injectables.put("taskAttachmentDao", taskAttachmentDao);
+        injectables.put("taskListMetadataDao", taskListMetadataDao);
 
         // com.todoroo.astrid.service
-        injectables.put("taskService", TaskService.class);
-        injectables.put("metadataService", MetadataService.class);
-        injectables.put("tagDataService", TagDataService.class);
+        injectables.put("taskService", taskService);
+        injectables.put("metadataService", metadataService);
+        injectables.put("tagDataService", tagDataService);
         injectables.put("upgradeService", UpgradeService.class);
-        injectables.put("syncService", SyncV2Service.class);
+        injectables.put("syncService", syncV2Service);
 
         // com.todoroo.astrid.gtasks
         injectables.put("gtasksPreferenceService", GtasksPreferenceService.class);
@@ -84,10 +99,10 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
         // com.todoroo.astrid.tags
         injectables.put("tagService", TagService.class);
 
-        injectables.put("broadcaster", Broadcaster.class);
+        injectables.put("broadcaster", broadcaster);
 
-        injectables.put("filterCounter", FilterCounter.class);
-        injectables.put("refreshScheduler", RefreshScheduler.class);
+        injectables.put("filterCounter", filterCounter);
+        injectables.put("refreshScheduler", refreshScheduler);
     }
 
     /**

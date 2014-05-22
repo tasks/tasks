@@ -9,8 +9,6 @@ import android.database.Cursor;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
@@ -24,19 +22,25 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 /**
  * Service layer for {@link TagData}-centered activities.
  *
  * @author Tim Su <tim@todoroo.com>
  *
  */
+@Singleton
 public class TagDataService {
 
-    @Autowired TagDataDao tagDataDao;
-    @Autowired UserActivityDao userActivityDao;
+    private final TagDataDao tagDataDao;
+    private final UserActivityDao userActivityDao;
 
-    public TagDataService() {
-        DependencyInjectionService.getInstance().inject(this);
+    @Inject
+    public TagDataService(TagDataDao tagDataDao, UserActivityDao userActivityDao) {
+        this.tagDataDao = tagDataDao;
+        this.userActivityDao = userActivityDao;
     }
 
     // --- service layer

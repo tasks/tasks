@@ -9,8 +9,6 @@ import android.text.TextUtils;
 
 import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -27,23 +25,24 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 /**
  * Data Access layer for {@link Metadata}-related operations.
  *
  * @author Tim Su <tim@todoroo.com>
  *
  */
+@Singleton
 public class TagMetadataDao extends DatabaseDao<TagMetadata> {
 
-    @Autowired
-    private Database database;
+    private final TagDataDao tagDataDao;
 
-    @Autowired
-    TagDataDao tagDataDao;
-
-    public TagMetadataDao() {
+    @Inject
+    public TagMetadataDao(Database database, TagDataDao tagDataDao) {
         super(TagMetadata.class);
-        DependencyInjectionService.getInstance().inject(this);
+        this.tagDataDao = tagDataDao;
         setDatabase(database);
     }
 

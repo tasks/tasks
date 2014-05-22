@@ -5,23 +5,22 @@
  */
 package com.todoroo.astrid.dao;
 
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.data.TagData;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Data Access layer for {@link TagData}-related operations.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
+@Singleton
 public class TagDataDao extends RemoteModelDao<TagData> {
 
-    @Autowired Database database;
-
-	public TagDataDao() {
+    @Inject
+    public TagDataDao(Database database) {
         super(TagData.class);
-        DependencyInjectionService.getInstance().inject(this);
         setDatabase(database);
     }
 }
