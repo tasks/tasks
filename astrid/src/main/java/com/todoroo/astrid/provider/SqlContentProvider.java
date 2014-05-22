@@ -11,14 +11,12 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
 
+import com.todoroo.andlib.data.AbstractDatabase;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.service.AstridDependencyInjector;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Non-public-API SQL content provider.
@@ -31,8 +29,6 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class SqlContentProvider extends ContentProvider {
-
-    private static final Logger log = LoggerFactory.getLogger(SqlContentProvider.class);
 
     // --- instance variables
 
@@ -52,19 +48,10 @@ public class SqlContentProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        try {
-            database.openForWriting();
-            return database.getDatabase() != null;
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            return false;
-        }
+        return true;
     }
 
-
     public SqlContentProvider() {
-        DependencyInjectionService.getInstance().inject(this);
-
         setReadPermission(AstridApiConstants.PERMISSION_READ);
         setWritePermission(AstridApiConstants.PERMISSION_WRITE);
     }
@@ -129,7 +116,15 @@ public class SqlContentProvider extends ContentProvider {
     public Cursor query(Uri uri, String[] projection, String selection,
             String[] selectionArgs, String sortOrder) {
 
-        return database.rawQuery(selection);
+        return getDatabase().rawQuery(selection);
     }
 
+    private AbstractDatabase getDatabase() {
+        if (database == null) {
+            DependencyInjectionService.getInstance().inject(this);
+            database.openForWriting();
+        }
+
+        return database;
+    }
 }

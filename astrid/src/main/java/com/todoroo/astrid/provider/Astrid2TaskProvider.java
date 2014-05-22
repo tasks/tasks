@@ -97,14 +97,6 @@ public class Astrid2TaskProvider extends ContentProvider {
 		AstridDependencyInjector.initialize();
 	}
 
-	public Astrid2TaskProvider() {
-	    try {
-	        DependencyInjectionService.getInstance().inject(this);
-	    } catch (Exception e) {
-	        // can't do anything about this
-	    }
-    }
-
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
 		if (LOGD) {
@@ -185,7 +177,7 @@ public class Astrid2TaskProvider extends ContentProvider {
 
 		MatrixCursor ret = new MatrixCursor(TASK_FIELD_LIST);
 
-		TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.TITLE,
+		TodorooCursor<Task> cursor = getTaskService().query(Query.select(Task.ID, Task.TITLE,
 		        Task.IMPORTANCE, Task.DUE_DATE).where(Criterion.and(TaskCriteria.isActive(),
                         TaskCriteria.isVisible())).
 		        orderBy(SortHelper.defaultTaskOrder()).limit(MAX_NUMBER_OF_TASKS));
@@ -278,7 +270,7 @@ public class Astrid2TaskProvider extends ContentProvider {
                 replace(ID, Task.ID.name).
                 replace(IMPORTANCE, Task.IMPORTANCE.name);
 
-            return taskService.updateBySelection(criteria, selectionArgs, task);
+            return getTaskService().updateBySelection(criteria, selectionArgs, task);
 
         case URI_TAGS:
             throw new UnsupportedOperationException("tags updating: not yet");
@@ -304,4 +296,10 @@ public class Astrid2TaskProvider extends ContentProvider {
 		}
 	}
 
+    private TaskService getTaskService() {
+        if (taskService == null) {
+            DependencyInjectionService.getInstance().inject(this);
+        }
+        return taskService;
+    }
 }

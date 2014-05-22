@@ -34,9 +34,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.HashSet;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -70,8 +67,6 @@ import java.util.Set;
  */
 public class Astrid3ContentProvider extends ContentProvider {
 
-    private static final Logger log = LoggerFactory.getLogger(Astrid3ContentProvider.class);
-
     static {
         AstridDependencyInjector.initialize();
     }
@@ -91,7 +86,6 @@ public class Astrid3ContentProvider extends ContentProvider {
 
     // --- instance variables
 
-
     @Autowired
     private Database database;
 
@@ -109,13 +103,7 @@ public class Astrid3ContentProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        try {
-            database.openForWriting();
-            return database.getDatabase() != null;
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            return false;
-        }
+        return true;
     }
 
     static {
@@ -135,8 +123,6 @@ public class Astrid3ContentProvider extends ContentProvider {
     }
 
     public Astrid3ContentProvider() {
-        DependencyInjectionService.getInstance().inject(this);
-
         setReadPermission(AstridApiConstants.PERMISSION_READ);
         setWritePermission(AstridApiConstants.PERMISSION_WRITE);
     }
@@ -179,29 +165,30 @@ public class Astrid3ContentProvider extends ContentProvider {
     }
 
     private UriHelper<?> generateHelper(Uri uri, boolean populateModel) {
+        AbstractDatabase db = getDatabase();
         if(uri.toString().startsWith(Task.CONTENT_URI.toString())) {
             UriHelper<Task> helper = new UriHelper<>();
             helper.model = populateModel ? new Task() : null;
             helper.dao = taskDao;
-            helper.dao.setDatabase(getDatabase());
+            helper.dao.setDatabase(db);
             return helper;
         } else if(uri.toString().startsWith(Metadata.CONTENT_URI.toString())) {
             UriHelper<Metadata> helper = new UriHelper<>();
             helper.model = populateModel ? new Metadata() : null;
             helper.dao = metadataDao;
-            helper.dao.setDatabase(getDatabase());
+            helper.dao.setDatabase(db);
             return helper;
         } else if(uri.toString().startsWith(StoreObject.CONTENT_URI.toString())) {
             UriHelper<StoreObject> helper = new UriHelper<>();
             helper.model = populateModel ? new StoreObject() : null;
             helper.dao = storeObjectDao;
-            helper.dao.setDatabase(getDatabase());
+            helper.dao.setDatabase(db);
             return helper;
         } else if(uri.toString().startsWith(UserActivity.CONTENT_URI.toString())) {
             UriHelper<UserActivity> helper = new UriHelper<>();
             helper.model = populateModel ? new UserActivity() : null;
             helper.dao = userActivityDao;
-            helper.dao.setDatabase(getDatabase());
+            helper.dao.setDatabase(db);
             return helper;
         }
 
@@ -213,6 +200,10 @@ public class Astrid3ContentProvider extends ContentProvider {
     }
 
     private AbstractDatabase getDatabase() {
+        if (database == null) {
+            DependencyInjectionService.getInstance().inject(this);
+            database.openForWriting();
+        }
         if(databaseOverride != null) {
             return databaseOverride;
         }
@@ -422,5 +413,4 @@ public class Astrid3ContentProvider extends ContentProvider {
         ContentResolver cr = ContextManager.getContext().getContentResolver();
         cr.notifyChange(Task.CONTENT_URI, null);
     }
-
 }
