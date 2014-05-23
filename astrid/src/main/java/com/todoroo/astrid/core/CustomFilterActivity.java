@@ -16,7 +16,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -30,9 +29,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.todoroo.andlib.data.Property.CountProperty;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Query;
@@ -53,6 +50,7 @@ import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.utility.AstridPreferences;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingActionBarActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -61,13 +59,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.inject.Inject;
+
 /**
  * Activity that allows users to build custom filters
  *
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class CustomFilterActivity extends ActionBarActivity {
+public class CustomFilterActivity extends InjectingActionBarActivity {
 
     private static final String IDENTIFIER_TITLE = "title"; //$NON-NLS-1$
     private static final String IDENTIFIER_IMPORTANCE = "importance"; //$NON-NLS-1$
@@ -145,9 +145,8 @@ public class CustomFilterActivity extends ActionBarActivity {
 
     // --- activity
 
-    @Autowired Database database;
-
-    @Autowired StoreObjectDao storeObjectDao;
+    @Inject Database database;
+    @Inject StoreObjectDao storeObjectDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,7 +164,6 @@ public class CustomFilterActivity extends ActionBarActivity {
 
         listView = (ListView) findViewById(android.R.id.list);
 
-        DependencyInjectionService.getInstance().inject(this);
         database.openForReading();
         populateCriteria();
 

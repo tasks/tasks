@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Menu;
@@ -23,8 +22,6 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
@@ -41,10 +38,13 @@ import com.todoroo.astrid.utility.AstridPreferences;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.tasks.R;
+import org.tasks.injection.InjectingActionBarActivity;
+
+import javax.inject.Inject;
 
 import static android.support.v4.view.MenuItemCompat.setShowAsAction;
 
-public class TagSettingsActivity extends ActionBarActivity {
+public class TagSettingsActivity extends InjectingActionBarActivity {
 
     public static final String TOKEN_NEW_FILTER = "newFilter"; //$NON-NLS-1$
 
@@ -59,21 +59,15 @@ public class TagSettingsActivity extends ActionBarActivity {
 
     private TagData tagData;
 
-    @Autowired TagService tagService;
-
-    @Autowired TagDataService tagDataService;
-
-    @Autowired TagMetadataDao tagMetadataDao;
+    @Inject TagService tagService;
+    @Inject TagDataService tagDataService;
+    @Inject TagMetadataDao tagMetadataDao;
 
     private EditText tagName;
     private Bitmap setBitmap;
 
     private boolean isNewTag = false;
     private boolean isDialog;
-
-    public TagSettingsActivity() {
-        DependencyInjectionService.getInstance().inject(this);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
