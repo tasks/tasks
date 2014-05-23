@@ -13,8 +13,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.widget.RemoteViews;
 
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskEditActivity;
@@ -26,7 +24,6 @@ import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagFilterExposer;
@@ -38,14 +35,14 @@ import com.todoroo.astrid.widget.WidgetUpdateService;
 
 import org.tasks.R;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import static android.content.Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
+@Singleton
 public class WidgetHelper {
-
-    static {
-        AstridDependencyInjector.initialize();
-    }
 
     public static int flags = FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_MULTIPLE_TASK;
 
@@ -73,10 +70,11 @@ public class WidgetHelper {
         context.sendBroadcast(intent);
     }
 
-    @Autowired TagDataService tagDataService;
+    private final TagDataService tagDataService;
 
-    public WidgetHelper() {
-        DependencyInjectionService.getInstance().inject(this);
+    @Inject
+    public WidgetHelper(TagDataService tagDataService) {
+        this.tagDataService = tagDataService;
     }
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)

@@ -54,7 +54,7 @@ public class WidgetUpdateService extends Service {
 
     @Autowired TagDataService tagDataService;
 
-    private final WidgetHelper widgetHelper = new WidgetHelper();
+    @Autowired WidgetHelper widgetHelper;
 
     @Override
     public void onStart(final Intent intent, int startId) {

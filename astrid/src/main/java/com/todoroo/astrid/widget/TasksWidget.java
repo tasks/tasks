@@ -7,37 +7,33 @@ package com.todoroo.astrid.widget;
 
 import android.annotation.TargetApi;
 import android.appwidget.AppWidgetManager;
-import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.AstridPreferences;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingAppWidgetProvider;
 import org.tasks.widget.WidgetHelper;
+
+import javax.inject.Inject;
 
 import static com.todoroo.astrid.api.AstridApiConstants.BROADCAST_EVENT_TASK_LIST_UPDATED;
 
-public class TasksWidget extends AppWidgetProvider {
+public class TasksWidget extends InjectingAppWidgetProvider {
 
-    static {
-        AstridDependencyInjector.initialize();
-    }
-
-    @Autowired private TaskService taskService;
+    @Inject TaskService taskService;
+    @Inject WidgetHelper widgetHelper;
 
     public static final String COMPLETE_TASK = "COMPLETE_TASK";
     public static final String EDIT_TASK = "EDIT_TASK";
@@ -45,16 +41,10 @@ public class TasksWidget extends AppWidgetProvider {
     public static long suppressUpdateFlag = 0; // Timestamp--don't update widgets if this flag is non-zero and now() is within 5 minutes
     private static final long SUPPRESS_TIME = DateUtilities.ONE_MINUTE * 5;
 
-    private static final WidgetHelper widgetHelper = new WidgetHelper();
-
-    public TasksWidget() {
-        super();
-
-        DependencyInjectionService.getInstance().inject(this);
-    }
-
     @Override
     public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+
         switch(intent.getAction()) {
             case COMPLETE_TASK:
                 Task task = taskService.fetchById(intent.getLongExtra(TaskEditFragment.TOKEN_ID, 0), Task.ID, Task.COMPLETION_DATE);
@@ -74,8 +64,6 @@ public class TasksWidget extends AppWidgetProvider {
             case BROADCAST_EVENT_TASK_LIST_UPDATED:
                 updateWidgets(context);
                 break;
-            default:
-                super.onReceive(context, intent);
         }
     }
 
@@ -113,7 +101,7 @@ public class TasksWidget extends AppWidgetProvider {
         }
     }
 
-    public static void applyConfigSelection(Context context, int id) {
+    public static void applyConfigSelection(WidgetHelper widgetHelper, Context context, int id) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             Intent intent = new Intent(ContextManager.getContext(), WidgetUpdateService.class);
             intent.putExtra(WidgetUpdateService.EXTRA_WIDGET_ID, id);

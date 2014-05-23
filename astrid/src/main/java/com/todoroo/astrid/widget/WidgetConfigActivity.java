@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.widget;
 
-import android.app.ListActivity;
 import android.appwidget.AppWidgetManager;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -24,8 +23,12 @@ import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.service.ThemeService;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingListActivity;
+import org.tasks.widget.WidgetHelper;
 
-public class WidgetConfigActivity extends ListActivity {
+import javax.inject.Inject;
+
+public class WidgetConfigActivity extends InjectingListActivity {
 
     public static final String PREF_TITLE = "widget-title-";
     public static final String PREF_SQL = "widget-sql-";
@@ -38,12 +41,10 @@ public class WidgetConfigActivity extends ListActivity {
 
     FilterAdapter adapter = null;
 
-    public WidgetConfigActivity() {
-        super();
-    }
+    @Inject WidgetHelper widgetHelper;
 
     public void updateWidget() {
-        TasksWidget.applyConfigSelection(this, mAppWidgetId);
+        TasksWidget.applyConfigSelection(widgetHelper, this, mAppWidgetId);
     }
 
     @Override

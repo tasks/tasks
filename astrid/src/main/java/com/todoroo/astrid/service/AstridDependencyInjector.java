@@ -29,6 +29,7 @@ import org.tasks.TasksModule;
 import org.tasks.filters.FilterCounter;
 import org.tasks.injection.Injector;
 import org.tasks.scheduling.RefreshScheduler;
+import org.tasks.widget.WidgetHelper;
 
 import javax.inject.Inject;
 
@@ -76,6 +77,7 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
     @Inject GtasksSyncService gtasksSyncService;
     @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
     @Inject GtasksSyncV2Provider gtasksSyncV2Provider;
+    @Inject WidgetHelper widgetHelper;
 
     /**
      * Initialize list of injectables. Special care must used when
@@ -128,6 +130,7 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
 
         injectables.put("filterCounter", filterCounter);
         injectables.put("refreshScheduler", refreshScheduler);
+        injectables.put("widgetHelper", widgetHelper);
     }
 
     /**

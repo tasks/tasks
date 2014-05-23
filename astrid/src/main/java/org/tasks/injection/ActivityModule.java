@@ -12,6 +12,7 @@ import com.todoroo.astrid.gcal.CalendarReminderActivity;
 import com.todoroo.astrid.gtasks.GtasksListAdder;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.tags.TagFilterExposer;
+import com.todoroo.astrid.widget.WidgetConfigActivity;
 
 import org.tasks.voice.VoiceCommandActivity;
 
@@ -32,7 +33,8 @@ import dagger.Module;
                 TagFilterExposer.DeleteTagActivity.class,
                 TagFilterExposer.RenameTagActivity.class,
                 VoiceCommandActivity.class,
-                GtasksLoginActivity.class
+                GtasksLoginActivity.class,
+                WidgetConfigActivity.class
         })
 public class ActivityModule {
 }
