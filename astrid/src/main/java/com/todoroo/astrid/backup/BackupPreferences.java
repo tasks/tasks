@@ -13,7 +13,6 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.view.View;
 import android.view.ViewGroup.OnHierarchyChangeListener;
 
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -21,8 +20,6 @@ import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 import com.todoroo.astrid.utility.Flags;
 
 import org.tasks.R;
-
-import java.util.Date;
 
 import static org.tasks.date.DateTimeUtils.newDate;
 
@@ -49,7 +46,6 @@ public class BackupPreferences extends TodorooPreferenceActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DependencyInjectionService.getInstance().inject(this);
         getListView().setOnHierarchyChangeListener(new OnHierarchyChangeListener() {
 
             @Override

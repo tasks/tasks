@@ -29,7 +29,6 @@ import android.widget.TextView;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.data.RemoteModel;
@@ -81,7 +80,6 @@ public class UpdateAdapter extends CursorAdapter {
     public UpdateAdapter(Fragment fragment, int resource,
             Cursor c) {
         super(fragment.getActivity(), c, false);
-        DependencyInjectionService.getInstance().inject(this);
 
         inflater = (LayoutInflater) fragment.getActivity().getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);

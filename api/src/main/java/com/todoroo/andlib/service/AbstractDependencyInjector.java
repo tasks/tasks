@@ -56,33 +56,7 @@ abstract public class AbstractDependencyInjector {
      * @return object to assign to this field, or null
      */
     public Object getInjection(Field field) {
-        return getInjection(field.getName());
-    }
-
-    public Object getInjection(String name) {
-        if(!injectables.containsKey(name)) {
-            return null;
-        }
-        Object injection = injectables.get(name);
-
-        // if it's a class, instantiate the class
-        if(injection instanceof Class<?>) {
-            if(createdObjects.containsKey(injection) &&
-                    createdObjects.get(injection).get() != null) {
-                injection = createdObjects.get(injection).get();
-            } else {
-                Class<?> cls = (Class<?>)injection;
-                try {
-                    injection = cls.newInstance();
-                } catch (IllegalAccessException | InstantiationException e) {
-                    throw new RuntimeException(e);
-                }
-
-                createdObjects.put(cls, new WeakReference<>(injection));
-            }
-        }
-
-        return injection;
+        return injectables.get(field.getName());
     }
 
     @Override

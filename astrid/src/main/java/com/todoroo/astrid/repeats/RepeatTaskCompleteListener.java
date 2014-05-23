@@ -20,7 +20,6 @@ import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
@@ -47,7 +46,6 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         ContextManager.setContext(context);
-        DependencyInjectionService.getInstance().inject(this);
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
         if(taskId == -1) {
             return;

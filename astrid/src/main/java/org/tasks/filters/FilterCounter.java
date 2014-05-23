@@ -1,7 +1,6 @@
 package org.tasks.filters;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
@@ -42,7 +41,6 @@ public class FilterCounter {
     FilterCounter(TaskDao taskDao, ExecutorService executorService) {
         this.taskDao = taskDao;
         this.executorService = executorService;
-        DependencyInjectionService.getInstance().inject(this);
     }
 
     public void refreshFilterCounts(final Runnable onComplete) {

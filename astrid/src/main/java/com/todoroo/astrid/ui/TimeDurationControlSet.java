@@ -12,14 +12,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.todoroo.andlib.data.Property.IntegerProperty;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.ui.NNumberPickerDialog.OnNNumberPickedListener;
 
 import org.tasks.R;
 
-public class TimeDurationControlSet implements OnNNumberPickedListener,
-        View.OnClickListener {
+public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnClickListener {
 
     private final Activity activity;
     private final TextView timeButton;
@@ -33,7 +31,6 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
 
     public TimeDurationControlSet(Activity activity, View view, IntegerProperty property,
             int timeButtonId, int prefixResource, int titleResource) {
-        DependencyInjectionService.getInstance().inject(this);
 
         this.activity = activity;
         this.prefixResource = prefixResource;
