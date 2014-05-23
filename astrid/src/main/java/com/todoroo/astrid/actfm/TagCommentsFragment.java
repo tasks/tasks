@@ -10,7 +10,6 @@ import android.database.Cursor;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
@@ -20,11 +19,13 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 import org.tasks.R;
 
+import javax.inject.Inject;
+
 public class TagCommentsFragment extends CommentsFragment {
 
     private TagData tagData;
 
-    @Autowired private TagDataService tagDataService;
+    @Inject TagDataService tagDataService;
 
     public TagCommentsFragment() {
         super();

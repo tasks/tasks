@@ -22,7 +22,6 @@ import android.database.sqlite.SQLiteException;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -45,9 +44,7 @@ import android.widget.ListView;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
@@ -75,7 +72,6 @@ import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader.ContextMenuItem;
 import com.todoroo.astrid.reminders.MakeNotification;
 import com.todoroo.astrid.reminders.WhenReminder;
-import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
@@ -92,11 +88,14 @@ import com.todoroo.astrid.widget.TasksWidget;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.injection.InjectingListFragment;
 
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicReference;
+
+import javax.inject.Inject;
 
 /**
  * Primary activity for the Bente application. Shows a list of upcoming tasks
@@ -105,7 +104,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TaskListFragment extends ListFragment implements OnSortSelectedListener {
+public class TaskListFragment extends InjectingListFragment implements OnSortSelectedListener {
 
     private static final Logger log = LoggerFactory.getLogger(TaskListFragment.class);
 
@@ -142,11 +141,9 @@ public class TaskListFragment extends ListFragment implements OnSortSelectedList
 
     // --- instance variables
 
-    @Autowired protected TaskService taskService;
-
-    @Autowired UpgradeService upgradeService;
-
-    @Autowired TaskListMetadataDao taskListMetadataDao;
+    @Inject protected TaskService taskService;
+    @Inject UpgradeService upgradeService;
+    @Inject TaskListMetadataDao taskListMetadataDao;
 
     private final TaskContextActionExposer[] contextItemExposers = new TaskContextActionExposer[] {
             new MakeNotification(),
@@ -181,10 +178,6 @@ public class TaskListFragment extends ListFragment implements OnSortSelectedList
      * ======================================================= initialization
      * ======================================================================
      */
-
-    static {
-        AstridDependencyInjector.initialize();
-    }
 
     /**
      * Instantiates and returns an instance of TaskListFragment (or some subclass). Custom types of
@@ -259,7 +252,6 @@ public class TaskListFragment extends ListFragment implements OnSortSelectedList
     /** Called when loading up the activity */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        DependencyInjectionService.getInstance().inject(this);
         super.onCreate(savedInstanceState);
         extras = getArguments() != null ? getArguments().getBundle(TOKEN_EXTRAS) : null;
         if (extras == null) {

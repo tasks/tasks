@@ -19,7 +19,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.andlib.service.NotificationManager.AndroidNotificationManager;
@@ -45,6 +44,8 @@ import org.tasks.R;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import javax.inject.Inject;
+
 public class TagViewFragment extends TaskListFragment {
 
     public static final String BROADCAST_TAG_ACTIVITY = AstridApiConstants.API_PACKAGE + ".TAG_ACTIVITY"; //$NON-NLS-1$
@@ -64,9 +65,8 @@ public class TagViewFragment extends TaskListFragment {
 
     protected TagData tagData;
 
-    @Autowired TagDataService tagDataService;
-
-    @Autowired TagDataDao tagDataDao;
+    @Inject TagDataService tagDataService;
+    @Inject TagDataDao tagDataDao;
 
     protected View taskListView;
 

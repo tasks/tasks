@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -32,8 +31,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -44,8 +41,11 @@ import com.todoroo.astrid.data.UserActivity;
 
 import org.json.JSONObject;
 import org.tasks.R;
+import org.tasks.injection.InjectingListFragment;
 
-public abstract class CommentsFragment extends ListFragment {
+import javax.inject.Inject;
+
+public abstract class CommentsFragment extends InjectingListFragment {
 
     protected UpdateAdapter updateAdapter;
     protected EditText addCommentField;
@@ -60,11 +60,7 @@ public abstract class CommentsFragment extends ListFragment {
 
     protected static final int MENU_REFRESH_ID = Menu.FIRST;
 
-    @Autowired UserActivityDao userActivityDao;
-
-    public CommentsFragment() {
-        DependencyInjectionService.getInstance().inject(this);
-    }
+    @Inject UserActivityDao userActivityDao;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

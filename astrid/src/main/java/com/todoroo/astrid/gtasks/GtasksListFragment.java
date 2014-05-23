@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -30,17 +29,16 @@ import com.todoroo.astrid.subtasks.SubtasksListFragment;
 
 import org.tasks.R;
 
+import javax.inject.Inject;
+
 public class GtasksListFragment extends SubtasksListFragment {
 
     public static final String TOKEN_STORE_ID = "storeId"; //$NON-NLS-1$
 
-    @Autowired private StoreObjectDao storeObjectDao;
-
-    @Autowired private GtasksTaskListUpdater gtasksTaskListUpdater;
-
-    @Autowired private GtasksMetadataService gtasksMetadataService;
-
-    @Autowired private SyncV2Service syncService;
+    @Inject StoreObjectDao storeObjectDao;
+    @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
+    @Inject GtasksMetadataService gtasksMetadataService;
+    @Inject SyncV2Service syncService;
 
     private StoreObject list;
 
