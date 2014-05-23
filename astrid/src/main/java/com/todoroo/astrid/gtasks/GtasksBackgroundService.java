@@ -15,10 +15,11 @@ import com.todoroo.astrid.sync.SyncV2Provider;
 public class GtasksBackgroundService extends SyncV2BackgroundService {
 
     @Autowired private GtasksPreferenceService gtasksPreferenceService;
+    @Autowired private GtasksSyncV2Provider gtasksSyncV2Provider;
 
     @Override
     protected SyncV2Provider getSyncProvider() {
-        return GtasksSyncV2Provider.getInstance();
+        return gtasksSyncV2Provider;
     }
 
     @Override

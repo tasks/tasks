@@ -32,12 +32,13 @@ public class SyncV2Service {
      * there is enough interest, the Astrid team could create an interface
      * for responding to sync requests through this new API.
      */
-    private static final SyncV2Provider[] providers = new SyncV2Provider[] {
-            GtasksSyncV2Provider.getInstance()
-    };
+    private final SyncV2Provider[] providers;
 
     @Inject
-    public SyncV2Service() {
+    public SyncV2Service(GtasksSyncV2Provider gtasksSyncV2Provider) {
+        providers = new SyncV2Provider[] {
+                gtasksSyncV2Provider
+        };
     }
 
     /**

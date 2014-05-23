@@ -10,9 +10,7 @@ import android.text.TextUtils;
 import com.google.api.services.tasks.model.Tasks;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
@@ -36,7 +34,6 @@ import com.todoroo.astrid.gtasks.api.GoogleTasksException;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
-import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.SyncResultCallbackWrapper;
 import com.todoroo.astrid.service.TaskService;
@@ -52,34 +49,34 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import static org.tasks.date.DateTimeUtils.newDate;
 
+@Singleton
 public class GtasksSyncV2Provider extends SyncV2Provider {
 
-    @Autowired TaskService taskService;
-    @Autowired MetadataService metadataService;
-    @Autowired StoreObjectDao storeObjectDao;
-    @Autowired GtasksPreferenceService gtasksPreferenceService;
-    @Autowired GtasksSyncService gtasksSyncService;
-    @Autowired GtasksListService gtasksListService;
-    @Autowired GtasksMetadataService gtasksMetadataService;
-    @Autowired GtasksTaskListUpdater gtasksTaskListUpdater;
+    private final TaskService taskService;
+    private final MetadataService metadataService;
+    private final StoreObjectDao storeObjectDao;
+    private final GtasksPreferenceService gtasksPreferenceService;
+    private final GtasksSyncService gtasksSyncService;
+    private final GtasksListService gtasksListService;
+    private final GtasksMetadataService gtasksMetadataService;
+    private final GtasksTaskListUpdater gtasksTaskListUpdater;
 
-    static {
-        AstridDependencyInjector.initialize();
-    }
-
-    private static GtasksSyncV2Provider instance = null;
-
-    protected GtasksSyncV2Provider() {
-        DependencyInjectionService.getInstance().inject(this);
-    }
-
-    public synchronized static GtasksSyncV2Provider getInstance() {
-        if(instance == null) {
-            instance = new GtasksSyncV2Provider();
-        }
-        return instance;
+    @Inject
+    public GtasksSyncV2Provider(TaskService taskService, MetadataService metadataService, StoreObjectDao storeObjectDao, GtasksPreferenceService gtasksPreferenceService,
+                                GtasksSyncService gtasksSyncService, GtasksListService gtasksListService, GtasksMetadataService gtasksMetadataService, GtasksTaskListUpdater gtasksTaskListUpdater) {
+        this.taskService = taskService;
+        this.metadataService = metadataService;
+        this.storeObjectDao = storeObjectDao;
+        this.gtasksPreferenceService = gtasksPreferenceService;
+        this.gtasksSyncService = gtasksSyncService;
+        this.gtasksListService = gtasksListService;
+        this.gtasksMetadataService = gtasksMetadataService;
+        this.gtasksTaskListUpdater = gtasksTaskListUpdater;
     }
 
     @Override

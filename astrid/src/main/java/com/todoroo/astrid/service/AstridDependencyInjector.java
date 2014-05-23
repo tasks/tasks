@@ -21,6 +21,7 @@ import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
+import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.Broadcaster;
@@ -74,6 +75,7 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
     @Inject GtasksMetadataService gtasksMetadataService;
     @Inject GtasksSyncService gtasksSyncService;
     @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
+    @Inject GtasksSyncV2Provider gtasksSyncV2Provider;
 
     /**
      * Initialize list of injectables. Special care must used when
@@ -117,6 +119,7 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
         injectables.put("gtasksMetadataService", gtasksMetadataService);
         injectables.put("gtasksTaskListUpdater", gtasksTaskListUpdater);
         injectables.put("gtasksSyncService", gtasksSyncService);
+        injectables.put("gtasksSyncV2Provider", gtasksSyncV2Provider);
 
         // com.todoroo.astrid.tags
         injectables.put("tagService", tagService);

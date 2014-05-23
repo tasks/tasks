@@ -26,6 +26,7 @@ import org.tasks.R;
 public class GtasksPreferences extends SyncProviderPreferences {
 
     @Autowired private GtasksPreferenceService gtasksPreferenceService;
+    @Autowired private GtasksSyncV2Provider gtasksSyncV2Provider;
 
     public GtasksPreferences() {
         super();
@@ -70,7 +71,7 @@ public class GtasksPreferences extends SyncProviderPreferences {
     }
 
     public void logOut() {
-        GtasksSyncV2Provider.getInstance().signOut();
+        gtasksSyncV2Provider.signOut();
     }
 
     @Override
