@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.core;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -35,8 +34,11 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.ThemeService;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingActivity;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 /**
  * Exposes Astrid's built in filters to the {@link FilterListFragment}
@@ -124,16 +126,14 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
      * @author Tim Su <tim@todoroo.com>
      *
      */
-    public static class DeleteActivity extends Activity {
+    public static class DeleteActivity extends InjectingActivity {
 
-        @Autowired StoreObjectDao storeObjectDao;
+        @Inject StoreObjectDao storeObjectDao;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
-            DependencyInjectionService.getInstance().inject(this);
-
-            super.onCreate(savedInstanceState);
             setTheme(android.R.style.Theme_Dialog);
+            super.onCreate(savedInstanceState);
 
             final long id = getIntent().getLongExtra(TOKEN_FILTER_ID, -1);
             if(id == -1) {

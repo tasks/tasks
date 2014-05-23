@@ -34,20 +34,20 @@ import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.FilterWithUpdate;
-import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.dao.TagMetadataDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagService.Tag;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Exposes filters based on tags
@@ -188,18 +188,12 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
 
     // --- tag manipulation activities
 
-    public abstract static class TagActivity extends Activity {
+    public abstract static class TagActivity extends InjectingActivity {
 
-        protected String tag;
-        protected String uuid;
+        String tag;
+        String uuid;
 
-        @Autowired public TagService tagService;
-        @Autowired public TagDataDao tagDataDao;
-        @Autowired public TagMetadataDao tagMetadataDao;
-
-        static {
-            AstridDependencyInjector.initialize();
-        }
+        @Inject TagService tagService;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -212,7 +206,6 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
                 finish();
                 return;
             }
-            DependencyInjectionService.getInstance().inject(this);
 
             showDialog();
         }

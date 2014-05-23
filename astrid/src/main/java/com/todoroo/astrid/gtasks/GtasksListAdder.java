@@ -13,8 +13,6 @@ import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.data.StoreObject;
@@ -22,13 +20,16 @@ import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingActivity;
 
 import java.io.IOException;
 
-public class GtasksListAdder extends Activity {
+import javax.inject.Inject;
 
-    @Autowired GtasksPreferenceService gtasksPreferenceService;
-    @Autowired GtasksListService gtasksListService;
+public class GtasksListAdder extends InjectingActivity {
+
+    @Inject GtasksPreferenceService gtasksPreferenceService;
+    @Inject GtasksListService gtasksListService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +38,6 @@ public class GtasksListAdder extends Activity {
     }
 
     private void showNewListDialog(final Activity activity) {
-        DependencyInjectionService.getInstance().inject(this);
-
         FrameLayout frame = new FrameLayout(activity);
         final EditText editText = new EditText(activity);
         frame.addView(editText);

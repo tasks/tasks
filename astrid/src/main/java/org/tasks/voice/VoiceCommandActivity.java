@@ -1,25 +1,21 @@
 package org.tasks.voice;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingActivity;
 
-public class VoiceCommandActivity extends Activity {
+import javax.inject.Inject;
 
-    @Autowired TaskService taskService;
+public class VoiceCommandActivity extends InjectingActivity {
 
-    public VoiceCommandActivity() {
-        DependencyInjectionService.getInstance().inject(this);
-    }
+    @Inject TaskService taskService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

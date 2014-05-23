@@ -1,6 +1,5 @@
 package com.todoroo.astrid.gcal;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -12,8 +11,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -29,10 +26,13 @@ import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingActivity;
+
+import javax.inject.Inject;
 
 import static org.tasks.date.DateTimeUtils.newDate;
 
-public class CalendarReminderActivity extends Activity {
+public class CalendarReminderActivity extends InjectingActivity {
 
     public static final String TOKEN_NAMES = "names";
     public static final String TOKEN_EMAILS = "emails";
@@ -48,7 +48,7 @@ public class CalendarReminderActivity extends Activity {
     // Prompt user to ignore all missed calls after this many ignore presses
     private static final int IGNORE_PROMPT_COUNT = 3;
 
-    @Autowired private TagDataService tagDataService;
+    @Inject TagDataService tagDataService;
 
     private String eventName;
     private long startTime;
@@ -108,10 +108,8 @@ public class CalendarReminderActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         new StartupService().onStartupApplication(this);
         super.onCreate(savedInstanceState);
-        DependencyInjectionService.getInstance().inject(this);
 
         setContentView(R.layout.calendar_reminder_activity);
-
 
         Intent intent = getIntent();
         fromPostpone = intent.getBooleanExtra(TOKEN_FROM_POSTPONE, false);

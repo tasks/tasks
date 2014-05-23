@@ -1,6 +1,5 @@
 package com.todoroo.astrid.gcal;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,8 +8,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.activity.EditPreferences;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -22,14 +19,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.tasks.R;
+import org.tasks.injection.InjectingActivity;
 
 import java.util.ArrayList;
 
-public class CalendarAlarmListCreator extends Activity {
+import javax.inject.Inject;
+
+public class CalendarAlarmListCreator extends InjectingActivity {
 
     public static final String TOKEN_LIST_NAME = "listName"; //$NON-NLS-1$
 
-    @Autowired private TagDataService tagDataService;
+    @Inject TagDataService tagDataService;
 
     private ArrayList<String> names;
     private ArrayList<String> emails;
@@ -59,7 +59,6 @@ public class CalendarAlarmListCreator extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DependencyInjectionService.getInstance().inject(this);
         setContentView(R.layout.calendar_alarm_list_creator);
 
         Intent intent = getIntent();

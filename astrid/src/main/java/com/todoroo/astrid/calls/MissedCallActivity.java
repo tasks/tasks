@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.calls;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentUris;
 import android.content.DialogInterface;
@@ -22,8 +21,6 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -36,10 +33,13 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingActivity;
 
 import java.io.InputStream;
 
-public class MissedCallActivity extends Activity {
+import javax.inject.Inject;
+
+public class MissedCallActivity extends InjectingActivity {
 
     public static final String EXTRA_NUMBER = "number"; //$NON-NLS-1$
     public static final String EXTRA_NAME = "name"; //$NON-NLS-1$
@@ -51,7 +51,7 @@ public class MissedCallActivity extends Activity {
     // Prompt user to ignore all missed calls after this many ignore presses
     private static final int IGNORE_PROMPT_COUNT = 3;
 
-    @Autowired private TaskService taskService;
+    @Inject TaskService taskService;
 
     private final OnClickListener dismissListener = new OnClickListener() {
         @Override
@@ -107,7 +107,6 @@ public class MissedCallActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         new StartupService().onStartupApplication(this);
         super.onCreate(savedInstanceState);
-        DependencyInjectionService.getInstance().inject(this);
 
         setContentView(R.layout.missed_call_activity);
 
