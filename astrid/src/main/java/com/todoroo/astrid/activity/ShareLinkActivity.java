@@ -6,12 +6,12 @@ package com.todoroo.astrid.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.QuickAddBar;
+
+import javax.inject.Inject;
 
 /**
  * @author joshuagross
@@ -20,19 +20,13 @@ import com.todoroo.astrid.ui.QuickAddBar;
  */
 public final class ShareLinkActivity extends TaskListActivity {
 
-    @Autowired private TaskService taskService;
-
-    @Autowired private TagService tagService;
+    @Inject TaskService taskService;
+    @Inject TagService tagService;
 
     private String subject;
     private boolean handled;
 
     private static final String TOKEN_LINK_HANDLED = "linkHandled"; //$NON-NLS-1$
-
-    public ShareLinkActivity () {
-        super();
-        DependencyInjectionService.getInstance().inject(this);
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

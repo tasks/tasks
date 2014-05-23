@@ -13,13 +13,11 @@ import android.speech.SpeechRecognizer;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.WindowManager.BadTokenException;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -34,7 +32,6 @@ import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.ui.DateChangedAlerts;
@@ -43,6 +40,9 @@ import com.todoroo.astrid.voice.RecognizerApi.RecognizerApiListener;
 import com.todoroo.astrid.voice.VoiceRecognizer;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingActionBarActivity;
+
+import javax.inject.Inject;
 
 /**
  * This wrapper activity contains all the glue-code to handle the callbacks between the different
@@ -55,7 +55,7 @@ import org.tasks.R;
  * @author Arne
  *
  */
-public class AstridActivity extends ActionBarActivity
+public class AstridActivity extends InjectingActionBarActivity
     implements FilterListFragment.OnFilterItemClickedListener,
     TaskListFragment.OnTaskListItemClickedListener,
     RecognizerApiListener {
@@ -69,7 +69,7 @@ public class AstridActivity extends ActionBarActivity
 
     private final RepeatConfirmationReceiver repeatConfirmationReceiver = new RepeatConfirmationReceiver();
 
-    @Autowired private TaskDao taskDao;
+    @Inject TaskDao taskDao;
 
     public FilterListFragment getFilterListFragment() {
         return (FilterListFragment) getSupportFragmentManager()
@@ -94,7 +94,6 @@ public class AstridActivity extends ActionBarActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AstridDependencyInjector.inject(this);
         super.onCreate(savedInstanceState);
         ContextManager.setContext(this);
 

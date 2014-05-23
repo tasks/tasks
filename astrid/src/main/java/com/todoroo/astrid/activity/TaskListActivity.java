@@ -23,8 +23,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.CommentsFragment;
@@ -54,9 +52,11 @@ import net.simonvt.menudrawer.MenuDrawer;
 
 import org.tasks.R;
 
+import javax.inject.Inject;
+
 public class TaskListActivity extends AstridActivity implements OnPageChangeListener {
 
-    @Autowired TagDataDao tagDataDao;
+    @Inject TagDataDao tagDataDao;
 
     MenuDrawer menuDrawer;
 

@@ -71,7 +71,6 @@ android.applicationVariants.all { variant ->
 dependencies {
     provided group: 'com.squareup.dagger', name: 'dagger-compiler', version: '1.2.1'
 
-    compile group: 'com.android.support', name: 'support-v4', version: '19.1.+'
     compile group: 'com.android.support', name: 'appcompat-v7', version: '19.1.+'
 
     compile 'net.simonvt.menudrawer:menudrawer:3.0.4@aar'

@@ -24,11 +24,14 @@ import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.Broadcaster;
-import org.tasks.Injector;
+import org.tasks.TasksModule;
 import org.tasks.filters.FilterCounter;
+import org.tasks.injection.Injector;
 import org.tasks.scheduling.RefreshScheduler;
 
 import javax.inject.Inject;
+
+import dagger.ObjectGraph;
 
 /**
  * Astrid application dependency injector loads classes in Astrid with the
@@ -45,6 +48,8 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
      * Boolean bit to prevent multiple copies of this injector to be loaded
      */
     private static AstridDependencyInjector instance = null;
+
+    private Injector injector;
 
     @Inject Database database;
     @Inject MetadataDao metadataDao;
@@ -76,7 +81,17 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
      */
     @Override
     protected void addInjectables() {
-        new Injector().inject(this);
+        injector = new Injector() {
+            ObjectGraph objectGraph = ObjectGraph.create(new TasksModule());
+
+            @Override
+            public void inject(Object caller, Object... modules) {
+                objectGraph
+                        .plus(modules)
+                        .inject(caller);
+            }
+        };
+        injector.inject(this);
 
         // com.todoroo.astrid.dao
         injectables.put("database", database);
@@ -143,5 +158,10 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
     public synchronized static void reset() {
         instance = null;
         initialize();
+    }
+
+    public static Injector getInjector() {
+        initialize();
+        return instance.injector;
     }
 }
