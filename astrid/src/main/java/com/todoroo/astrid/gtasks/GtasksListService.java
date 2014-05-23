@@ -8,8 +8,6 @@ package com.todoroo.astrid.gtasks;
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
@@ -18,17 +16,22 @@ import com.todoroo.astrid.data.StoreObject;
 import java.util.HashSet;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public class GtasksListService {
 
     public static final String LIST_NOT_FOUND = null;
     public static final StoreObject LIST_NOT_FOUND_OBJECT = null;
 
-    @Autowired private StoreObjectDao storeObjectDao;
+    private final StoreObjectDao storeObjectDao;
 
     private StoreObject[] lists = null;
 
-    public GtasksListService() {
-        DependencyInjectionService.getInstance().inject(this);
+    @Inject
+    public GtasksListService(StoreObjectDao storeObjectDao) {
+        this.storeObjectDao = storeObjectDao;
     }
 
     private void readLists() {

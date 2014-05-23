@@ -9,15 +9,15 @@ import android.text.TextUtils;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
@@ -31,19 +31,24 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 /**
  * Service for working with GTasks metadata
  *
  * @author Tim Su <tim@todoroo.com>
  *
  */
+@Singleton
 public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskContainer> {
 
-    @Autowired private GtasksPreferenceService gtasksPreferenceService;
+    private final GtasksPreferenceService gtasksPreferenceService;
 
-    public GtasksMetadataService() {
-        super();
-        DependencyInjectionService.getInstance().inject(this);
+    @Inject
+    public GtasksMetadataService(GtasksPreferenceService gtasksPreferenceService, TaskDao taskDao, MetadataDao metadataDao) {
+        super(taskDao, metadataDao);
+        this.gtasksPreferenceService = gtasksPreferenceService;
     }
 
     public Criterion getLocalMatchCriteria(GtasksTaskContainer remoteTask) {

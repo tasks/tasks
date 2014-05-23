@@ -11,7 +11,6 @@ import android.util.Log;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
@@ -29,6 +28,10 @@ import java.util.HashSet;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObject> {
 
     /** map of task -> parent task */
@@ -40,13 +43,17 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
     final HashMap<Long, String> localToRemoteIdMap =
         new HashMap<>();
 
-    @Autowired private GtasksListService gtasksListService;
-    @Autowired private GtasksMetadataService gtasksMetadataService;
-    @Autowired private GtasksSyncService gtasksSyncService;
-    @Autowired private MetadataDao metadataDao;
+    private final GtasksListService gtasksListService;
+    private final GtasksMetadataService gtasksMetadataService;
+    private final GtasksSyncService gtasksSyncService;
+    private final MetadataDao metadataDao;
 
-    public GtasksTaskListUpdater() {
-        super();
+    @Inject
+    public GtasksTaskListUpdater(GtasksListService gtasksListService, GtasksMetadataService gtasksMetadataService, GtasksSyncService gtasksSyncService, MetadataDao metadataDao) {
+        this.gtasksListService = gtasksListService;
+        this.gtasksMetadataService = gtasksMetadataService;
+        this.gtasksSyncService = gtasksSyncService;
+        this.metadataDao = metadataDao;
     }
 
     // --- overrides

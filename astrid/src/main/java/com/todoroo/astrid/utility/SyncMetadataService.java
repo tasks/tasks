@@ -7,8 +7,6 @@ package com.todoroo.astrid.utility;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
@@ -25,10 +23,8 @@ import java.util.ArrayList;
 
 abstract public class SyncMetadataService<TYPE extends SyncContainer> {
 
-    // --- instance variables
-
-    @Autowired protected TaskDao taskDao;
-    @Autowired protected MetadataDao metadataDao;
+    protected final TaskDao taskDao;
+    protected final MetadataDao metadataDao;
 
     // --- abstract methods
 
@@ -46,8 +42,9 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
 
     // --- implementation
 
-    public SyncMetadataService() {
-        DependencyInjectionService.getInstance().inject(this);
+    public SyncMetadataService(TaskDao taskDao, MetadataDao metadataDao) {
+        this.taskDao = taskDao;
+        this.metadataDao = metadataDao;
     }
 
     /**

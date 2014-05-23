@@ -7,7 +7,6 @@ package com.todoroo.astrid.subtasks;
 
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
@@ -19,10 +18,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
 abstract public class OrderedMetadataListUpdater<LIST> {
-
-    public OrderedMetadataListUpdater() {
-        DependencyInjectionService.getInstance().inject(this);
-    }
 
     public interface OrderedListIterator {
         public void processTask(long taskId, Metadata metadata);

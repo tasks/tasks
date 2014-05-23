@@ -63,6 +63,12 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
     @Inject RefreshScheduler refreshScheduler;
     @Inject TaskService taskService;
     @Inject TagService tagService;
+    @Inject UpgradeService upgradeService;
+    @Inject GtasksPreferenceService gtasksPreferenceService;
+    @Inject GtasksListService gtasksListService;
+    @Inject GtasksMetadataService gtasksMetadataService;
+    @Inject GtasksSyncService gtasksSyncService;
+    @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
 
     /**
      * Initialize list of injectables. Special care must used when
@@ -87,15 +93,15 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
         injectables.put("taskService", taskService);
         injectables.put("metadataService", metadataService);
         injectables.put("tagDataService", tagDataService);
-        injectables.put("upgradeService", UpgradeService.class);
+        injectables.put("upgradeService", upgradeService);
         injectables.put("syncService", syncV2Service);
 
         // com.todoroo.astrid.gtasks
-        injectables.put("gtasksPreferenceService", GtasksPreferenceService.class);
-        injectables.put("gtasksListService", GtasksListService.class);
-        injectables.put("gtasksMetadataService", GtasksMetadataService.class);
-        injectables.put("gtasksTaskListUpdater", GtasksTaskListUpdater.class);
-        injectables.put("gtasksSyncService", GtasksSyncService.class);
+        injectables.put("gtasksPreferenceService", gtasksPreferenceService);
+        injectables.put("gtasksListService", gtasksListService);
+        injectables.put("gtasksMetadataService", gtasksMetadataService);
+        injectables.put("gtasksTaskListUpdater", gtasksTaskListUpdater);
+        injectables.put("gtasksSyncService", gtasksSyncService);
 
         // com.todoroo.astrid.tags
         injectables.put("tagService", tagService);

@@ -11,8 +11,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.AstridActivity;
@@ -21,10 +19,18 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 import org.tasks.R;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public final class UpgradeService {
 
     public static final int V4_6_5 = 306;
     public static final int V3_0_0 = 136;
+
+    @Inject
+    public UpgradeService() {
+    }
 
     /**
      * Perform upgrade from one version to the next. Needs to be called
@@ -44,7 +50,6 @@ public final class UpgradeService {
     }
 
     public static class UpgradeActivity extends Activity {
-        @Autowired private TaskService taskService;
         private ProgressDialog dialog;
 
         public static final String TOKEN_FROM_VERSION = "from_version"; //$NON-NLS-1$
@@ -54,7 +59,6 @@ public final class UpgradeService {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            DependencyInjectionService.getInstance().inject(this);
             from = getIntent().getIntExtra(TOKEN_FROM_VERSION, -1);
             if (from > 0) {
                 dialog = DialogUtilities.progressDialog(this,

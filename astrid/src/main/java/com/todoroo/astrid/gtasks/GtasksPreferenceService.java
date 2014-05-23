@@ -9,16 +9,24 @@ import com.todoroo.astrid.sync.SyncProviderUtilities;
 
 import org.tasks.R;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 /**
  * Methods for working with GTasks preferences
  *
  * @author timsu
  *
  */
+@Singleton
 public class GtasksPreferenceService extends SyncProviderUtilities {
 
     /** add-on identifier */
     public static final String IDENTIFIER = "gtasks"; //$NON-NLS-1$
+
+    @Inject
+    public GtasksPreferenceService() {
+    }
 
     @Override
     public String getIdentifier() {

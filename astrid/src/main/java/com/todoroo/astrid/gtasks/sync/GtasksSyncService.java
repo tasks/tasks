@@ -11,8 +11,6 @@ import android.util.Log;
 
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -35,17 +33,27 @@ import java.io.IOException;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.Semaphore;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public class GtasksSyncService {
 
     private static final String DEFAULT_LIST = "@default"; //$NON-NLS-1$
-    @Autowired MetadataService metadataService;
-    @Autowired MetadataDao metadataDao;
-    @Autowired GtasksMetadataService gtasksMetadataService;
-    @Autowired TaskDao taskDao;
-    @Autowired GtasksPreferenceService gtasksPreferenceService;
 
-    public GtasksSyncService() {
-        DependencyInjectionService.getInstance().inject(this);
+    private final MetadataService metadataService;
+    private final MetadataDao metadataDao;
+    private final GtasksMetadataService gtasksMetadataService;
+    private final TaskDao taskDao;
+    private final GtasksPreferenceService gtasksPreferenceService;
+
+    @Inject
+    public GtasksSyncService(MetadataService metadataService, MetadataDao metadataDao, GtasksMetadataService gtasksMetadataService, TaskDao taskDao, GtasksPreferenceService gtasksPreferenceService) {
+        this.metadataService = metadataService;
+        this.metadataDao = metadataDao;
+        this.gtasksMetadataService = gtasksMetadataService;
+        this.taskDao = taskDao;
+        this.gtasksPreferenceService = gtasksPreferenceService;
     }
 
     private final LinkedBlockingQueue<SyncOnSaveOperation> operationQueue = new LinkedBlockingQueue<>();
