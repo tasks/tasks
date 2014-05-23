@@ -9,7 +9,6 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
-import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,20 +22,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.api.client.googleapis.extensions.android2.auth.GoogleAccountManager;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
-import com.todoroo.astrid.service.AstridDependencyInjector;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingListActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
 
 /**
  * This activity allows users to sign in or log in to Google Tasks
@@ -45,11 +44,9 @@ import java.util.concurrent.TimeUnit;
  * @author Sam Bosley
  *
  */
-public class GtasksLoginActivity extends ListActivity {
+public class GtasksLoginActivity extends InjectingListActivity {
 
-    @Autowired private GtasksPreferenceService gtasksPreferenceService;
-
-    // --- ui initialization
+    @Inject GtasksPreferenceService gtasksPreferenceService;
 
     private GoogleAccountManager accountManager;
     private String[] nameArray;
@@ -57,20 +54,10 @@ public class GtasksLoginActivity extends ListActivity {
     private String authToken;
     private String accountName;
 
-    static {
-        AstridDependencyInjector.initialize();
-    }
-
-    public GtasksLoginActivity() {
-        super();
-        DependencyInjectionService.getInstance().inject(this);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ContextManager.setContext(this);
-
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.gtasks_login_activity);
