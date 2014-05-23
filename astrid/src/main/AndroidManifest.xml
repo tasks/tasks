@@ -184,7 +184,7 @@
 
         <receiver android:name="com.todoroo.astrid.reminders.Notifications" />
 
-        <receiver android:name="org.tasks.scheduling.RefreshScheduler" />
+        <receiver android:name="org.tasks.scheduling.RefreshBroadcastReceiver" />
 
         <receiver android:name="com.todoroo.astrid.reminders.Notifications$ShowNotificationReceiver">
             <intent-filter>

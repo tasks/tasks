@@ -2,7 +2,6 @@ package org.tasks.scheduling;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
@@ -11,11 +10,8 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-
-import org.tasks.Broadcaster;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -25,10 +21,9 @@ import static com.todoroo.andlib.utility.DateUtilities.ONE_MINUTE;
 import static org.tasks.date.DateTimeUtils.currentTimeMillis;
 
 @Singleton
-public class RefreshScheduler extends BroadcastReceiver {
+public class RefreshScheduler {
 
     private final TaskDao taskDao;
-    private final Broadcaster broadcaster;
 
     private static final Property<?>[] REFRESH_PROPERTIES = new Property<?>[]{
             Task.DUE_DATE,
@@ -36,15 +31,8 @@ public class RefreshScheduler extends BroadcastReceiver {
     };
 
     @Inject
-    public RefreshScheduler(TaskDao taskDao, Broadcaster broadcaster) {
+    public RefreshScheduler(TaskDao taskDao) {
         this.taskDao = taskDao;
-        this.broadcaster = broadcaster;
-    }
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        broadcaster.sendOrderedBroadcast(context, new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_LIST_UPDATED));
-        broadcaster.sendOrderedBroadcast(context, new Intent(AstridApiConstants.BROADCAST_EVENT_FILTER_LIST_UPDATED));
     }
 
     public void scheduleAllAlarms() {
@@ -79,7 +67,7 @@ public class RefreshScheduler extends BroadcastReceiver {
 
         dueDate += 1000; // this is ghetto
         Context context = ContextManager.getContext();
-        Intent intent = new Intent(context, RefreshScheduler.class);
+        Intent intent = new Intent(context, RefreshBroadcastReceiver.class);
         intent.setAction(Long.toString(dueDate));
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, FLAG_UPDATE_CURRENT);
