@@ -1,6 +1,7 @@
 package org.tasks.injection;
 
 import com.todoroo.astrid.actfm.TagViewFragment;
+import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.gtasks.GtasksListFragment;
 import com.todoroo.astrid.reminders.NotificationFragment;
@@ -17,6 +18,7 @@ import dagger.Module;
                 SubtasksListFragment.class,
                 SubtasksTagListFragment.class,
                 TagViewFragment.class,
+                TaskEditFragment.class
         })
 public class FragmentModule {
 }

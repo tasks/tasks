@@ -17,7 +17,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.RecognizerIntent;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -42,8 +41,6 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -86,6 +83,7 @@ import com.todoroo.astrid.voice.VoiceRecognizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.injection.InjectingFragment;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -94,6 +92,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
+
+import javax.inject.Inject;
 
 import static android.support.v4.view.MenuItemCompat.setShowAsAction;
 
@@ -105,7 +105,7 @@ import static android.support.v4.view.MenuItemCompat.setShowAsAction;
  * @author timsu
  *
  */
-public final class TaskEditFragment extends Fragment implements
+public final class TaskEditFragment extends InjectingFragment implements
 ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     private static final Logger log = LoggerFactory.getLogger(TaskEditFragment.class);
@@ -168,11 +168,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     public static final int TAB_VIEW_UPDATES = 0;
 
-    @Autowired private TaskService taskService;
-
-    @Autowired private TaskAttachmentDao taskAttachmentDao;
-
-    @Autowired private TagService tagService;
+    @Inject TaskService taskService;
+    @Inject TaskAttachmentDao taskAttachmentDao;
+    @Inject TagService tagService;
 
     // --- UI components
 
@@ -215,10 +213,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
      * ======================================================= initialization
      * ======================================================================
      */
-
-    public TaskEditFragment() {
-        DependencyInjectionService.getInstance().inject(this);
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

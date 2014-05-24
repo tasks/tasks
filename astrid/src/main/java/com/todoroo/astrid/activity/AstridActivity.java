@@ -29,7 +29,6 @@ import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.PluginServices;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.StartupService;
@@ -41,8 +40,6 @@ import com.todoroo.astrid.voice.VoiceRecognizer;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingActionBarActivity;
-
-import javax.inject.Inject;
 
 /**
  * This wrapper activity contains all the glue-code to handle the callbacks between the different
@@ -68,8 +65,6 @@ public class AstridActivity extends InjectingActionBarActivity
     protected int fragmentLayout = LAYOUT_SINGLE;
 
     private final RepeatConfirmationReceiver repeatConfirmationReceiver = new RepeatConfirmationReceiver();
-
-    @Inject TaskDao taskDao;
 
     public FilterListFragment getFilterListFragment() {
         return (FilterListFragment) getSupportFragmentManager()
