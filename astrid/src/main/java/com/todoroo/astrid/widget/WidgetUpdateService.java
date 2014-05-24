@@ -1,7 +1,6 @@
 package com.todoroo.astrid.widget;
 
 import android.app.PendingIntent;
-import android.app.Service;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -14,9 +13,7 @@ import android.view.View;
 import android.widget.RemoteViews;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.Filter;
@@ -25,7 +22,6 @@ import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
@@ -34,27 +30,22 @@ import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingService;
 import org.tasks.widget.WidgetHelper;
 
-public class WidgetUpdateService extends Service {
+import javax.inject.Inject;
 
-    static {
-        AstridDependencyInjector.initialize();
-    }
+public class WidgetUpdateService extends InjectingService {
 
     private static final int NUM_VISIBLE_TASKS = 25;
 
     public static final String EXTRA_WIDGET_ID = "widget_id"; //$NON-NLS-1$
 
-    @Autowired Database database;
-
-    @Autowired TaskService taskService;
-
-    @Autowired TaskListMetadataDao taskListMetadataDao;
-
-    @Autowired TagDataService tagDataService;
-
-    @Autowired WidgetHelper widgetHelper;
+    @Inject Database database;
+    @Inject TaskService taskService;
+    @Inject TaskListMetadataDao taskListMetadataDao;
+    @Inject TagDataService tagDataService;
+    @Inject WidgetHelper widgetHelper;
 
     @Override
     public void onStart(final Intent intent, int startId) {
@@ -101,8 +92,6 @@ public class WidgetUpdateService extends Service {
     }
 
     public RemoteViews buildUpdate(Context context, int widgetId) {
-        DependencyInjectionService.getInstance().inject(this);
-
         RemoteViews views = getThemedRemoteViews(context);
 
         int numberOfTasks = NUM_VISIBLE_TASKS;

@@ -5,18 +5,18 @@
  */
 package com.todoroo.astrid.reminders;
 
-import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.alarms.AlarmService;
 
+import org.tasks.injection.InjectingService;
 import org.tasks.scheduling.RefreshScheduler;
+
+import javax.inject.Inject;
 
 /**
  * Schedules reminders in the background to prevent ANR's
@@ -24,13 +24,9 @@ import org.tasks.scheduling.RefreshScheduler;
  * @author Tim Su
  *
  */
-public class ReminderSchedulingService extends Service {
+public class ReminderSchedulingService extends InjectingService {
 
-    @Autowired private RefreshScheduler refreshScheduler;
-
-    public ReminderSchedulingService() {
-        DependencyInjectionService.getInstance().inject(this);
-    }
+    @Inject RefreshScheduler refreshScheduler;
 
     /** Receive the alarm - start the synchronize service! */
     @Override
