@@ -168,8 +168,12 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         TodorooCursor<Task> queued = taskService.query(Query.select(Task.PROPERTIES).
                 join(Join.left(Metadata.TABLE, Criterion.and(MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY), Task.ID.eq(Metadata.TASK)))).where(
                         Criterion.or(Task.MODIFICATION_DATE.gt(GtasksMetadata.LAST_SYNC),
-                                Criterion.and(Task.USER_ID.neq(Task.USER_ID_SELF), GtasksMetadata.ID.isNotNull()),
+                                Criterion.and(Task.USER_ID.neq(Task.USER_ID_SELF), GtasksMetadata.ID.isNotNull()), // XXX: Shouldn't this neq("")?
                                       Metadata.KEY.isNull())));
+        pushTasks(queued, invoker, callback);
+    }
+
+    private synchronized void pushTasks(TodorooCursor<Task> queued, GtasksInvoker invoker, SyncResultCallback callback) {
         callback.incrementMax(queued.getCount() * 10);
         try {
             Task task = new Task();
@@ -248,6 +252,21 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         } else {
             lastSyncDate = 0;
         }
+
+        /**
+         * Find tasks which have been associated with the list internally, but have not yet been
+         * pushed to Google Tasks (and so haven't yet got a valid ID).
+         */
+        Criterion not_pushed_tasks = Criterion.and(
+                Metadata.KEY.eq(GtasksMetadata.METADATA_KEY),
+                GtasksMetadata.LIST_ID.eq(listId),
+                GtasksMetadata.ID.eq("")
+        );
+        TodorooCursor<Task> qs = taskService.query(Query.select(Task.PROPERTIES).
+                join(Join.left(Metadata.TABLE, Criterion.and(MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY), Task.ID.eq(Metadata.TASK)))).where(not_pushed_tasks)
+        );
+        pushTasks(qs, invoker, callback);
+
         boolean includeDeletedAndHidden = lastSyncDate != 0;
         try {
             Tasks taskList = invoker.getAllGtasksFromListId(listId, includeDeletedAndHidden,
