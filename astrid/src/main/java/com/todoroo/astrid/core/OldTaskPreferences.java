@@ -15,14 +15,11 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceScreen;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
@@ -31,6 +28,9 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.AstridPreferences;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingTodorooPreferenceActivity;
+
+import javax.inject.Inject;
 
 /**
  * Displays the preference screen for users to manage their old tasks and events
@@ -38,11 +38,11 @@ import org.tasks.R;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class OldTaskPreferences extends TodorooPreferenceActivity {
+public class OldTaskPreferences extends InjectingTodorooPreferenceActivity {
 
-    @Autowired TaskService taskService;
-    @Autowired MetadataService metadataService;
-    @Autowired Database database;
+    @Inject TaskService taskService;
+    @Inject MetadataService metadataService;
+    @Inject Database database;
 
     ProgressDialog pd;
 
@@ -55,7 +55,6 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         PreferenceScreen screen = getPreferenceScreen();
-        DependencyInjectionService.getInstance().inject(this);
 
         // Extended prefs
         Preference preference = screen.findPreference(getString(R.string.EPr_manage_delete_completed));

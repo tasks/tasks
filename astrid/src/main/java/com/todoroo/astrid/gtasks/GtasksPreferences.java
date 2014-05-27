@@ -7,14 +7,14 @@ package com.todoroo.astrid.gtasks;
 
 import android.content.Intent;
 
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
-import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingSyncProviderPreferences;
+
+import javax.inject.Inject;
 
 /**
  * Displays synchronization preferences and an action panel so users can
@@ -23,16 +23,11 @@ import org.tasks.R;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class GtasksPreferences extends SyncProviderPreferences {
+public class GtasksPreferences extends InjectingSyncProviderPreferences {
 
-    @Autowired private GtasksPreferenceService gtasksPreferenceService;
-    @Autowired private GtasksSyncV2Provider gtasksSyncV2Provider;
-    @Autowired private GtasksScheduler gtasksScheduler;
-
-    public GtasksPreferences() {
-        super();
-        DependencyInjectionService.getInstance().inject(this);
-    }
+    @Inject GtasksPreferenceService gtasksPreferenceService;
+    @Inject GtasksSyncV2Provider gtasksSyncV2Provider;
+    @Inject GtasksScheduler gtasksScheduler;
 
     @Override
     public int getPreferenceResource() {

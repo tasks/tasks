@@ -21,14 +21,11 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.text.TextUtils;
 
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.files.FileExplore;
@@ -46,6 +43,7 @@ import com.todoroo.astrid.voice.VoiceOutputService;
 import com.todoroo.astrid.voice.VoiceRecognizer;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingTodorooPreferenceActivity;
 import org.tasks.widget.WidgetHelper;
 
 import java.util.ArrayList;
@@ -54,13 +52,15 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import javax.inject.Inject;
+
 /**
  * Displays the preference screen for users to edit their preferences
  *
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class EditPreferences extends TodorooPreferenceActivity {
+public class EditPreferences extends InjectingTodorooPreferenceActivity {
 
     private static final int APPEARANCE_PREFERENCE = 0;
 
@@ -72,13 +72,9 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     // --- instance variables
 
-    @Autowired private TaskService taskService;
+    @Inject TaskService taskService;
 
     private VoiceInputAssistant voiceInputAssistant;
-
-    public EditPreferences() {
-        DependencyInjectionService.getInstance().inject(this);
-    }
 
     private class SetResultOnPreferenceChangeListener implements OnPreferenceChangeListener {
         private final int resultCode;
