@@ -14,8 +14,6 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.activity.TaskEditFragment;
@@ -40,14 +38,10 @@ import org.tasks.R;
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
-    @Autowired Database database;
-
-    @Autowired TaskService taskService;
-
-    @Autowired TaskListMetadataDao taskListMetadataDao;
-
-    @Autowired TagDataService tagDataService;
-
+    private final Database database;
+    private final TaskService taskService;
+    private final TaskListMetadataDao taskListMetadataDao;
+    private final TagDataService tagDataService;
     private final Context context;
     private final Filter filter;
     private final int widgetId;
@@ -55,17 +49,27 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
 
     private TodorooCursor<Task> cursor;
 
-    public ScrollableViewsFactory(Context context, Filter filter, int widgetId, boolean dark) {
+    public ScrollableViewsFactory(
+            Context context,
+            Filter filter,
+            int widgetId,
+            boolean dark,
+            Database database,
+            TaskService taskService,
+            TaskListMetadataDao taskListMetadataDao,
+            TagDataService tagDataService) {
         this.context = context;
         this.filter = filter;
         this.widgetId = widgetId;
         this.dark = dark;
+        this.database = database;
+        this.taskService = taskService;
+        this.taskListMetadataDao = taskListMetadataDao;
+        this.tagDataService = tagDataService;
     }
 
     @Override
     public void onCreate() {
-        DependencyInjectionService.getInstance().inject(this);
-
         database.openForReading();
         cursor = getCursor();
     }
