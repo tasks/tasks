@@ -45,9 +45,7 @@ import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Pair;
@@ -175,7 +173,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     // --- instance variables
 
-    @Autowired protected TaskService taskService;
+    private final TaskService taskService;
 
     protected final Context context;
     protected final TaskListFragment fragment;
@@ -210,11 +208,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * @param onCompletedTaskListener
      *            task listener. can be null
      */
-    public TaskAdapter(TaskListFragment fragment, int resource,
+    public TaskAdapter(TaskService taskService, TaskListFragment fragment, int resource,
             Cursor c, AtomicReference<String> query, OnCompletedTaskListener onCompletedTaskListener) {
         super(ContextManager.getContext(), c, false);
-        DependencyInjectionService.getInstance().inject(this);
-
+        this.taskService = taskService;
         this.context = ContextManager.getContext();
         this.query = query;
         this.resource = resource;

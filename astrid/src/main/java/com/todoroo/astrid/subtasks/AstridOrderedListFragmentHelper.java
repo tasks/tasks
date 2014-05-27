@@ -210,7 +210,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
 
         private DraggableTaskAdapter(TaskListFragment activity, int resource,
                 Cursor c, AtomicReference<String> query) {
-            super(activity, resource, c, query, null);
+            super(taskService, activity, resource, c, query, null);
         }
 
         @Override

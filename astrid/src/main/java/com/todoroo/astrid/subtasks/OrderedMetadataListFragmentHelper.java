@@ -220,7 +220,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
 
         private DraggableTaskAdapter(TaskListFragment activity, int resource,
                 Cursor c, AtomicReference<String> query) {
-            super(activity, resource, c, query, null);
+            super(taskService, activity, resource, c, query, null);
         }
 
         @Override

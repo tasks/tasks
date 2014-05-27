@@ -759,7 +759,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
 
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
 
-        return new TaskAdapter(this, getTaskRowResource(),
+        return new TaskAdapter(taskService, this, getTaskRowResource(),
                 cursor, sqlQueryTemplate,
                 new OnCompletedTaskListener() {
                     @Override
