@@ -19,8 +19,6 @@ import com.commonsware.cwac.tlv.TouchListView.GrabberClickListener;
 import com.commonsware.cwac.tlv.TouchListView.SwipeListener;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -53,15 +51,16 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
     private final OrderedMetadataListUpdater<LIST> updater;
     private final TaskListFragment fragment;
 
-    @Autowired TaskService taskService;
-    @Autowired MetadataService metadataService;
+    private final TaskService taskService;
+    private final MetadataService metadataService;
 
     private DraggableTaskAdapter taskAdapter;
 
     private LIST list;
 
-    public OrderedMetadataListFragmentHelper(TaskListFragment fragment, OrderedMetadataListUpdater<LIST> updater) {
-        DependencyInjectionService.getInstance().inject(this);
+    public OrderedMetadataListFragmentHelper(TaskService taskService, MetadataService metadataService, TaskListFragment fragment, OrderedMetadataListUpdater<LIST> updater) {
+        this.taskService = taskService;
+        this.metadataService = metadataService;
         this.fragment = fragment;
         this.updater = updater;
     }
