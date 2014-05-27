@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -13,9 +12,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 
 import com.todoroo.andlib.data.AbstractModel;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
@@ -27,24 +24,24 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.AstridDependencyInjector;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingBroadcastReceiver;
 
-public class GtasksCustomFilterCriteriaExposer extends BroadcastReceiver {
-    @Autowired private GtasksPreferenceService gtasksPreferenceService;
-    @Autowired private GtasksListService gtasksListService;
+import javax.inject.Inject;
+
+public class GtasksCustomFilterCriteriaExposer extends InjectingBroadcastReceiver {
 
     private static final String IDENTIFIER = "gtaskslist"; //$NON-NLS-1$
 
-    static {
-        AstridDependencyInjector.initialize();
-    }
+    @Inject GtasksPreferenceService gtasksPreferenceService;
+    @Inject GtasksListService gtasksListService;
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+
         ContextManager.setContext(context);
-        DependencyInjectionService.getInstance().inject(this);
 
         // if we aren't logged in, don't expose sync action
         if(!gtasksPreferenceService.isLoggedIn()) {
@@ -52,7 +49,6 @@ public class GtasksCustomFilterCriteriaExposer extends BroadcastReceiver {
         }
 
         Resources r = context.getResources();
-
 
         StoreObject[] lists = gtasksListService.getLists();
 

@@ -5,15 +5,12 @@
  */
 package com.todoroo.astrid.tags;
 
-import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
@@ -28,19 +25,21 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingBroadcastReceiver;
 
-public class TagCustomFilterCriteriaExposer extends BroadcastReceiver {
+import javax.inject.Inject;
+
+public class TagCustomFilterCriteriaExposer extends InjectingBroadcastReceiver {
+
     private static final String IDENTIFIER_TAG_IS = "tag_is"; //$NON-NLS-1$
     private static final String IDENTIFIER_TAG_CONTAINS = "tag_contains"; //$NON-NLS-1$
 
-    @Autowired TagService tagService;
-
-    public TagCustomFilterCriteriaExposer() {
-        DependencyInjectionService.getInstance().inject(this);
-    }
+    @Inject TagService tagService;
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+
         Resources r = context.getResources();
 
         CustomFilterCriterion[] ret = new CustomFilterCriterion[2];

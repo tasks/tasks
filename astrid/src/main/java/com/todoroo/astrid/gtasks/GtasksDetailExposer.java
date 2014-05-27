@@ -5,17 +5,17 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.service.AstridDependencyInjector;
+
+import org.tasks.injection.InjectingBroadcastReceiver;
+
+import javax.inject.Inject;
 
 /**
  * Exposes Task Details for Google TAsks:
@@ -24,22 +24,16 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class GtasksDetailExposer extends BroadcastReceiver {
+public class GtasksDetailExposer extends InjectingBroadcastReceiver {
 
-    @Autowired private GtasksMetadataService gtasksMetadataService;
-    @Autowired private GtasksListService gtasksListService;
-    @Autowired private GtasksPreferenceService gtasksPreferenceService;
-
-    static {
-        AstridDependencyInjector.initialize();
-    }
-
-    public GtasksDetailExposer() {
-        DependencyInjectionService.getInstance().inject(this);
-    }
+    @Inject GtasksMetadataService gtasksMetadataService;
+    @Inject GtasksListService gtasksListService;
+    @Inject GtasksPreferenceService gtasksPreferenceService;
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+
         ContextManager.setContext(context);
 
         // if we aren't logged in, don't expose features
@@ -64,7 +58,7 @@ public class GtasksDetailExposer extends BroadcastReceiver {
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
-    public String getTaskDetails(long id) {
+    private String getTaskDetails(long id) {
         Metadata metadata = gtasksMetadataService.getTaskMetadata(id);
         if(metadata == null) {
             return null;
