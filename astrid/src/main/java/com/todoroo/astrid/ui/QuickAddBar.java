@@ -24,9 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.AstridActivity;
@@ -34,7 +32,6 @@ import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.activity.TaskListFragment.OnTaskListItemClickedListener;
 import com.todoroo.astrid.core.PluginServices;
-import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
@@ -50,8 +47,11 @@ import com.todoroo.astrid.voice.VoiceRecognizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.injection.Injector;
 
 import java.util.HashSet;
+
+import javax.inject.Inject;
 
 /**
  * Quick Add Bar lets you add tasks.
@@ -73,33 +73,33 @@ public class QuickAddBar extends LinearLayout {
     private RepeatControlSet repeatControl;
     private GCalControlSet gcalControl;
 
-    @Autowired private TaskAttachmentDao taskAttachmentDao;
-
-    @Autowired private TagService tagService;
+    @Inject TagService tagService;
 
     private VoiceRecognizer voiceRecognizer;
 
     private AstridActivity activity;
     private TaskListFragment fragment;
 
-    public QuickAddBar(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
+    public QuickAddBar(Context context) {
+        super(context);
     }
 
     public QuickAddBar(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public QuickAddBar(Context context) {
-        super(context);
+    public QuickAddBar(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
     }
 
     public void initialize(AstridActivity myActivity, TaskListFragment myFragment,
             final OnTaskListItemClickedListener mListener) {
+
+        ((Injector) myActivity.getApplication()).inject(this);
+
         activity = myActivity;
         fragment = myFragment;
 
-        DependencyInjectionService.getInstance().inject(this);
         LayoutInflater.from(activity).inflate(R.layout.quick_add_bar, this);
 
         quickAddControls = (LinearLayout) findViewById(R.id.taskListQuickaddControls);
