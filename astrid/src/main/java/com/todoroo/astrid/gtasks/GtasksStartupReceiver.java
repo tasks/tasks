@@ -5,24 +5,23 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.astrid.service.AstridDependencyInjector;
 
-public class GtasksStartupReceiver extends BroadcastReceiver {
+import org.tasks.injection.InjectingBroadcastReceiver;
 
-    static {
-        AstridDependencyInjector.initialize();
-    }
+import javax.inject.Inject;
+
+public class GtasksStartupReceiver extends InjectingBroadcastReceiver {
+
+    @Inject GtasksScheduler scheduler;
 
     @Override
-    /** Called when device is restarted */
     public void onReceive(final Context context, Intent intent) {
+        super.onReceive(context, intent);
         ContextManager.setContext(context);
-        new GtasksBackgroundService().scheduleService();
+        scheduler.scheduleService();
     }
-
 }

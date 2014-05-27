@@ -27,6 +27,7 @@ public class GtasksPreferences extends SyncProviderPreferences {
 
     @Autowired private GtasksPreferenceService gtasksPreferenceService;
     @Autowired private GtasksSyncV2Provider gtasksSyncV2Provider;
+    @Autowired private GtasksScheduler gtasksScheduler;
 
     public GtasksPreferences() {
         super();
@@ -82,6 +83,6 @@ public class GtasksPreferences extends SyncProviderPreferences {
     @Override
     protected void onPause() {
         super.onPause();
-        new GtasksBackgroundService().scheduleService();
+        gtasksScheduler.scheduleService();
     }
 }

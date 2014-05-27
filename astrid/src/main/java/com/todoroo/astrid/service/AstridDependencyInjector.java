@@ -19,6 +19,7 @@ import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
+import com.todoroo.astrid.gtasks.GtasksScheduler;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
@@ -78,6 +79,7 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
     @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
     @Inject GtasksSyncV2Provider gtasksSyncV2Provider;
     @Inject WidgetHelper widgetHelper;
+    @Inject GtasksScheduler gtasksScheduler;
 
     /**
      * Initialize list of injectables. Special care must used when
@@ -131,6 +133,7 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
         injectables.put("filterCounter", filterCounter);
         injectables.put("refreshScheduler", refreshScheduler);
         injectables.put("widgetHelper", widgetHelper);
+        injectables.put("gtasksScheduler", gtasksScheduler);
     }
 
     /**
