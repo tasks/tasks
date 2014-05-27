@@ -25,8 +25,6 @@ import android.widget.TextView.OnEditorActionListener;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
@@ -36,10 +34,13 @@ import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.utility.Flags;
 
 import org.tasks.R;
+import org.tasks.injection.Injector;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+
+import javax.inject.Inject;
 
 /**
  * Control set to manage adding and removing tags
@@ -64,11 +65,11 @@ public final class TagsControlSet extends PopupControlSet {
     //private final LinearLayout tagsContainer;
     private final TextView tagsDisplay;
 
-    @Autowired TagService tagService;
+    @Inject TagService tagService;
 
     public TagsControlSet(Activity activity, int viewLayout, int displayViewLayout, int title) {
         super(activity, viewLayout, displayViewLayout, title);
-        DependencyInjectionService.getInstance().inject(this);
+        ((Injector) activity.getApplication()).inject(this);
         tagsDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
         image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
     }

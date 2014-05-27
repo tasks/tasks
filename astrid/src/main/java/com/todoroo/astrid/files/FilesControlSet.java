@@ -23,11 +23,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.todoroo.astrid.voice.RecognizerApi;
-import com.todoroo.astrid.voice.RecognizerApi.PlaybackExceptionHandler;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -41,15 +37,20 @@ import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.utility.Constants;
+import com.todoroo.astrid.voice.RecognizerApi;
+import com.todoroo.astrid.voice.RecognizerApi.PlaybackExceptionHandler;
 
 import org.tasks.R;
+import org.tasks.injection.Injector;
 
 import java.io.File;
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 public class FilesControlSet extends PopupControlSet {
 
-    @Autowired private TaskAttachmentDao taskAttachmentDao;
+    @Inject TaskAttachmentDao taskAttachmentDao;
 
     private final ArrayList<TaskAttachment> files = new ArrayList<>();
     private final LinearLayout fileDisplayList;
@@ -58,7 +59,7 @@ public class FilesControlSet extends PopupControlSet {
 
     public FilesControlSet(Activity activity, int viewLayout, int displayViewLayout, int title) {
         super(activity, viewLayout, displayViewLayout, title);
-        DependencyInjectionService.getInstance().inject(this);
+        ((Injector) activity.getApplication()).inject(this);
 
         fileDisplayList = (LinearLayout) getDisplayView().findViewById(R.id.files_list);
         image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);

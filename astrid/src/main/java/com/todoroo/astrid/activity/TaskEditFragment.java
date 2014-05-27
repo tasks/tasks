@@ -48,6 +48,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmCameraModule;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
+import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
@@ -60,6 +61,7 @@ import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.notes.EditNoteActivity;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.repeats.RepeatControlSet;
+import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagService;
@@ -171,6 +173,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Inject TaskService taskService;
     @Inject TaskAttachmentDao taskAttachmentDao;
     @Inject TagService tagService;
+    @Inject MetadataService metadataService;
+    @Inject UserActivityDao userActivityDao;
 
     // --- UI components
 
@@ -272,7 +276,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private void instantiateEditNotes() {
         if (showEditComments) {
             long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID, -1L);
-            editNotes = new EditNoteActivity(this, getView(),
+            editNotes = new EditNoteActivity(metadataService, userActivityDao, taskService, this, getView(),
                     idParam);
             editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT,
                     LayoutParams.WRAP_CONTENT));

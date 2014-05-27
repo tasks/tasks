@@ -16,8 +16,6 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.EditText;
 
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.data.Task;
@@ -27,6 +25,9 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.ui.ImportanceControlSet.ImportanceChangedListener;
 
 import org.tasks.R;
+import org.tasks.injection.Injector;
+
+import javax.inject.Inject;
 
 /**
  * Control set for mapping a Property to an EditText
@@ -41,12 +42,12 @@ public class EditTitleControlSet extends TaskEditControlSet implements Importanc
     private boolean isRepeating;
     private int importanceValue;
 
-    @Autowired private TaskService taskService;
+    @Inject TaskService taskService;
 
     public EditTitleControlSet(Activity activity, int layout, int editText) {
         super(activity, layout);
+        ((Injector) activity.getApplication()).inject(this);
         this.editTextId = editText;
-        DependencyInjectionService.getInstance().inject(this);
     }
 
     @Override

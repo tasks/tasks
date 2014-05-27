@@ -32,9 +32,7 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -72,10 +70,9 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     private Task task;
 
-    @Autowired MetadataService metadataService;
-    @Autowired UserActivityDao userActivityDao;
-    @Autowired TaskService taskService;
-
+    private final MetadataService metadataService;
+    private final UserActivityDao userActivityDao;
+    private final TaskService taskService;
     private final ArrayList<NoteOrUpdate> items = new ArrayList<>();
     private EditText commentField;
     private final View commentsBar;
@@ -101,9 +98,18 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         public void commentAdded();
     }
 
-    public EditNoteActivity(Fragment fragment, View parent, long t) {
+    public EditNoteActivity(
+            MetadataService metadataService,
+            UserActivityDao userActivityDao,
+            TaskService taskService,
+            Fragment fragment,
+            View parent,
+            long t) {
         super(fragment.getActivity());
-        DependencyInjectionService.getInstance().inject(this);
+
+        this.metadataService = metadataService;
+        this.userActivityDao = userActivityDao;
+        this.taskService = taskService;
 
         this.fragment = fragment;
 
