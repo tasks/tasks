@@ -48,6 +48,7 @@ public class CalendarReminderActivity extends InjectingActivity {
     // Prompt user to ignore all missed calls after this many ignore presses
     private static final int IGNORE_PROMPT_COUNT = 3;
 
+    @Inject StartupService startupService;
     @Inject TagDataService tagDataService;
 
     private String eventName;
@@ -106,8 +107,9 @@ public class CalendarReminderActivity extends InjectingActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new StartupService().onStartupApplication(this);
         super.onCreate(savedInstanceState);
+
+        startupService.onStartupApplication(this);
 
         setContentView(R.layout.calendar_reminder_activity);
 

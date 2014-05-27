@@ -51,6 +51,7 @@ public class MissedCallActivity extends InjectingActivity {
     // Prompt user to ignore all missed calls after this many ignore presses
     private static final int IGNORE_PROMPT_COUNT = 3;
 
+    @Inject StartupService startupService;
     @Inject TaskService taskService;
 
     private final OnClickListener dismissListener = new OnClickListener() {
@@ -105,8 +106,8 @@ public class MissedCallActivity extends InjectingActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new StartupService().onStartupApplication(this);
         super.onCreate(savedInstanceState);
+        startupService.onStartupApplication(this);
 
         setContentView(R.layout.missed_call_activity);
 

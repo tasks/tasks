@@ -41,6 +41,8 @@ import com.todoroo.astrid.voice.VoiceRecognizer;
 import org.tasks.R;
 import org.tasks.injection.InjectingActionBarActivity;
 
+import javax.inject.Inject;
+
 /**
  * This wrapper activity contains all the glue-code to handle the callbacks between the different
  * fragments that could be visible on the screen in landscape-mode.
@@ -86,13 +88,14 @@ public class AstridActivity extends InjectingActionBarActivity
                 .findFragmentByTag(CommentsFragment.TAG_UPDATES_FRAGMENT);
     }
 
+    @Inject StartupService startupService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ContextManager.setContext(this);
 
-        new StartupService().onStartupApplication(this);
+        startupService.onStartupApplication(this);
     }
 
     @Override

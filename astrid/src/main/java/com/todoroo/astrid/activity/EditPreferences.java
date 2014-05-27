@@ -72,6 +72,7 @@ public class EditPreferences extends InjectingTodorooPreferenceActivity {
 
     // --- instance variables
 
+    @Inject StartupService startupService;
     @Inject TaskService taskService;
 
     private VoiceInputAssistant voiceInputAssistant;
@@ -98,7 +99,7 @@ public class EditPreferences extends InjectingTodorooPreferenceActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new StartupService().onStartupApplication(this);
+        startupService.onStartupApplication(this);
         ContextManager.setContext(this);
 
         PreferenceScreen screen = getPreferenceScreen();

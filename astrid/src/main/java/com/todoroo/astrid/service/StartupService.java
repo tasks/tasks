@@ -21,9 +21,7 @@ import android.widget.Toast;
 
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -56,39 +54,41 @@ import org.tasks.R;
 import java.io.File;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 /**
  * Service which handles jobs that need to be run when Astrid starts up.
  *
  * @author Tim Su <tim@todoroo.com>
  *
  */
+@Singleton
 public class StartupService {
 
     private static final Logger log = LoggerFactory.getLogger(StartupService.class);
 
-    static {
-        AstridDependencyInjector.initialize();
-    }
-
-    public StartupService() {
-        DependencyInjectionService.getInstance().inject(this);
-    }
-
     // --- application startup
 
-    @Autowired UpgradeService upgradeService;
+    private final UpgradeService upgradeService;
+    private final TaskService taskService;
+    private final TagDataDao tagDataDao;
+    private final Database database;
+    private final GtasksPreferenceService gtasksPreferenceService;
+    private final GtasksSyncService gtasksSyncService;
 
-    @Autowired TaskService taskService;
-
-    @Autowired TagDataDao tagDataDao;
-
-    @Autowired MetadataService metadataService;
-
-    @Autowired Database database;
-
-    @Autowired GtasksPreferenceService gtasksPreferenceService;
-
-    @Autowired GtasksSyncService gtasksSyncService;
+    @Inject
+    public StartupService(UpgradeService upgradeService, TaskService taskService,
+                          TagDataDao tagDataDao, Database database,
+                          GtasksPreferenceService gtasksPreferenceService,
+                          GtasksSyncService gtasksSyncService) {
+        this.upgradeService = upgradeService;
+        this.taskService = taskService;
+        this.tagDataDao = tagDataDao;
+        this.database = database;
+        this.gtasksPreferenceService = gtasksPreferenceService;
+        this.gtasksSyncService = gtasksSyncService;
+    }
 
     /**
      * bit to prevent multiple initializations
