@@ -113,7 +113,7 @@ public class WidgetUpdateService extends InjectingService {
                     filter.getSqlQuery(), flags, sort).replaceAll("LIMIT \\d+", "") + " LIMIT " + numberOfTasks;
 
             String tagName = Preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
-            query = SubtasksHelper.applySubtasksToWidgetFilter(tagDataService, taskListMetadataDao, filter, query, tagName, numberOfTasks);
+            query = SubtasksHelper.applySubtasksToWidgetFilter(taskService, tagDataService, taskListMetadataDao, filter, query, tagName, numberOfTasks);
 
             database.openForReading();
             cursor = taskService.fetchFiltered(query, null, Task.ID, Task.TITLE, Task.DUE_DATE, Task.COMPLETION_DATE);

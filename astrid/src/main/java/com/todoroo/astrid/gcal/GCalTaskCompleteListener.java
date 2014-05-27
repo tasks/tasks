@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.gcal;
 
-import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -16,22 +15,29 @@ import android.util.Log;
 
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingBroadcastReceiver;
 
-public class GCalTaskCompleteListener extends BroadcastReceiver {
+import javax.inject.Inject;
+
+public class GCalTaskCompleteListener extends InjectingBroadcastReceiver {
+
+    @Inject TaskService taskService;
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+
         ContextManager.setContext(context);
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
         if(taskId == -1) {
             return;
         }
 
-        Task task = PluginServices.getTaskService().fetchById(taskId, Task.ID, Task.TITLE, Task.CALENDAR_URI);
+        Task task = taskService.fetchById(taskId, Task.ID, Task.TITLE, Task.CALENDAR_URI);
         if(task == null) {
             return;
         }

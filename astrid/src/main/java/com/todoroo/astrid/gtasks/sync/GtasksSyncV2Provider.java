@@ -16,7 +16,6 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskDao;
@@ -349,7 +348,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         //  merge astrid dates with google dates
 
         if(task.task.isSaved()) {
-            Task local = PluginServices.getTaskService().fetchById(task.task.getId(), Task.DUE_DATE, Task.COMPLETION_DATE);
+            Task local = taskService.fetchById(task.task.getId(), Task.DUE_DATE, Task.COMPLETION_DATE);
             if (local == null) {
                 task.task.clearValue(Task.ID);
                 task.task.clearValue(Task.UUID);

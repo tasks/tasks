@@ -21,7 +21,6 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.PermaSql;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
@@ -82,7 +81,9 @@ public class TaskService {
     private final TagService tagService;
 
     @Inject
-    public TaskService(TaskDao taskDao, MetadataDao metadataDao, UserActivityDao userActivityDao, Broadcaster broadcaster, FilterCounter filterCounter, RefreshScheduler refreshScheduler, TagService tagService) {
+    public TaskService(TaskDao taskDao, MetadataDao metadataDao, UserActivityDao userActivityDao,
+                       Broadcaster broadcaster, FilterCounter filterCounter,
+                       RefreshScheduler refreshScheduler, TagService tagService) {
         this.taskDao = taskDao;
         this.metadataDao = metadataDao;
         this.userActivityDao = userActivityDao;
@@ -192,7 +193,7 @@ public class TaskService {
             long id = item.getId();
             item.clear();
             item.setId(id);
-            GCalHelper.deleteTaskEvent(item);
+            GCalHelper.deleteTaskEvent(this, item);
             item.setDeletionDate(DateUtilities.now());
             save(item);
         }
@@ -379,7 +380,7 @@ public class TaskService {
         clone.setCompletionDate(0L);
         clone.setDeletionDate(0L);
         clone.setCalendarUri(""); //$NON-NLS-1$
-        GCalHelper.createTaskEventIfEnabled(clone);
+        GCalHelper.createTaskEventIfEnabled(this, clone);
 
         save(clone);
         return clone.getId();
@@ -389,16 +390,16 @@ public class TaskService {
      * Create task from the given content values, saving it. This version
      * doesn't need to start with a base task model.
      */
-    public static Task createWithValues(TagService tagService, ContentValues values, String title) {
+    public static Task createWithValues(TaskService taskService, MetadataService metadataService, TagService tagService, ContentValues values, String title) {
         Task task = new Task();
-        return createWithValues(tagService, task, values, title);
+        return createWithValues(taskService, metadataService, tagService, task, values, title);
     }
 
     /**
      * Create task from the given content values, saving it.
      * @param task base task to start with
      */
-    public static Task createWithValues(TagService tagService, Task task, ContentValues values, String title) {
+    public static Task createWithValues(TaskService taskService, MetadataService metadataService, TagService tagService, Task task, ContentValues values, String title) {
         if (title != null) {
             task.setTitle(title);
         }
@@ -438,7 +439,7 @@ public class TaskService {
             task.putTransitory(TRANS_ASSIGNED, true);
         }
 
-        PluginServices.getTaskService().quickAdd(task, tags);
+        taskService.quickAdd(task, tags);
         if (quickAddMarkup) {
             task.putTransitory(TRANS_QUICK_ADD_MARKUP, true);
         }
@@ -456,7 +457,7 @@ public class TaskService {
                     tagService.createLink(task, metadata.getValue(TaskToTagMetadata.TAG_NAME));
                 }
             } else {
-                PluginServices.getMetadataService().save(metadata);
+                metadataService.save(metadata);
             }
         }
 

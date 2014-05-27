@@ -28,9 +28,9 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.AstridActivity;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.repeats.RepeatTaskCompleteListener;
+import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
 import com.todoroo.astrid.utility.Flags;
 
@@ -129,7 +129,7 @@ public class DateChangedAlerts {
                     Task.REPEAT_UNTIL
             };
 
-    public static void showRepeatTaskRescheduledDialog(final AstridActivity activity, final Task task,
+    public static void showRepeatTaskRescheduledDialog(final TaskService taskService, final AstridActivity activity, final Task task,
             final long oldDueDate, final long newDueDate, final boolean lastTime) {
         if (!Preferences.getBoolean(PREF_SHOW_HELPERS, true)) {
             return;
@@ -157,7 +157,7 @@ public class DateChangedAlerts {
                         public void onDateAndTimeSelected(long date) {
                             d.dismiss();
                             task.setRepeatUntil(date);
-                            RepeatTaskCompleteListener.rescheduleTask(task, newDueDate);
+                            RepeatTaskCompleteListener.rescheduleTask(taskService, task, newDueDate);
                             Flags.set(Flags.REFRESH);
                         }
 
@@ -208,7 +208,7 @@ public class DateChangedAlerts {
                 if (hideUntil > 0) {
                     task.setHideUntil(hideUntil - (newDueDate - oldDueDate));
                 }
-                PluginServices.getTaskService().save(task);
+                taskService.save(task);
                 Flags.set(Flags.REFRESH);
             }
         });

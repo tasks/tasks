@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
@@ -45,7 +44,7 @@ public class ReminderDialog extends Dialog {
                 Task task = new Task();
                 task.setId(taskId);
                 task.setReminderSnooze(time);
-                PluginServices.getTaskService().save(task);
+                taskService.save(task);
                 dismiss();
             }
         };

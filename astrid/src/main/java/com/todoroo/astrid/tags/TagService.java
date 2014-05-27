@@ -23,7 +23,6 @@ import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TagDataDao;
@@ -61,12 +60,14 @@ public final class TagService {
     };
 
     private final MetadataDao metadataDao;
+    private final MetadataService metadataService;
     private final TagDataService tagDataService;
     private final TagDataDao tagDataDao;
 
     @Inject
-    public TagService(MetadataDao metadataDao, TagDataService tagDataService, TagDataDao tagDataDao) {
+    public TagService(MetadataDao metadataDao, MetadataService metadataService, TagDataService tagDataService, TagDataDao tagDataDao) {
         this.metadataDao = metadataDao;
+        this.metadataService = metadataService;
         this.tagDataService = tagDataService;
         this.tagDataDao = tagDataDao;
     }
@@ -342,9 +343,8 @@ public final class TagService {
      * given tag, return that. Otherwise, return the argument
      */
     public String getTagWithCase(String tag) {
-        MetadataService service = PluginServices.getMetadataService();
         String tagWithCase = tag;
-        TodorooCursor<Metadata> tagMetadata = service.query(Query.select(TaskToTagMetadata.TAG_NAME).where(TagService.tagEqIgnoreCase(tag, Criterion.all)).limit(1));
+        TodorooCursor<Metadata> tagMetadata = metadataService.query(Query.select(TaskToTagMetadata.TAG_NAME).where(TagService.tagEqIgnoreCase(tag, Criterion.all)).limit(1));
         try {
             if (tagMetadata.getCount() > 0) {
                 tagMetadata.moveToFirst();

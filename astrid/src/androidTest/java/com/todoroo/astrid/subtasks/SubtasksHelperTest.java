@@ -1,10 +1,13 @@
 package com.todoroo.astrid.subtasks;
 
-import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.andlib.service.Autowired;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
+import com.todoroo.astrid.service.TaskService;
 
 public class SubtasksHelperTest extends SubtasksTestCase {
+
+    @Autowired TaskService taskService;
 
     @Override
     protected void setUp() throws Exception {
@@ -19,7 +22,7 @@ public class SubtasksHelperTest extends SubtasksTestCase {
         Task t = new Task();
         t.setTitle(title);
         t.setUuid(uuid);
-        PluginServices.getTaskService().save(t);
+        taskService.save(t);
     }
 
     private void createTasks() {

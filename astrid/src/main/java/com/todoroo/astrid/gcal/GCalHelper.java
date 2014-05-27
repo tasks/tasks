@@ -18,8 +18,8 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
 
@@ -31,12 +31,12 @@ public class GCalHelper {
 
     public static final String CALENDAR_ID_COLUMN = "calendar_id"; //$NON-NLS-1$
 
-    public static String getTaskEventUri(Task task) {
+    public static String getTaskEventUri(TaskService taskService, Task task) {
         String uri;
         if (!TextUtils.isEmpty(task.getCalendarURI())) {
             uri = task.getCalendarURI();
         } else {
-            task = PluginServices.getTaskService().fetchById(task.getId(), Task.CALENDAR_URI);
+            task = taskService.fetchById(task.getId(), Task.CALENDAR_URI);
             if(task == null) {
                 return null;
             }
@@ -46,34 +46,34 @@ public class GCalHelper {
         return uri;
     }
 
-    public static void createTaskEventIfEnabled(Task t) {
+    public static void createTaskEventIfEnabled(TaskService taskService, Task t) {
         if (!t.hasDueDate()) {
             return;
         }
-        createTaskEventIfEnabled(t, true);
+        createTaskEventIfEnabled(taskService, t, true);
     }
 
-    private static void createTaskEventIfEnabled(Task t, boolean deleteEventIfExists) {
+    private static void createTaskEventIfEnabled(TaskService taskService, Task t, boolean deleteEventIfExists) {
         boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null
             && !Preferences.getStringValue(R.string.gcal_p_default).equals("-1"); //$NON-NLS-1$
         if (gcalCreateEventEnabled) {
             ContentResolver cr = ContextManager.getContext().getContentResolver();
-            Uri calendarUri = GCalHelper.createTaskEvent(t, cr, new ContentValues(), deleteEventIfExists);
+            Uri calendarUri = GCalHelper.createTaskEvent(taskService, t, cr, new ContentValues(), deleteEventIfExists);
             if (calendarUri != null) {
                 t.setCalendarUri(calendarUri.toString());
             }
         }
     }
 
-    public static Uri createTaskEvent(Task task, ContentResolver cr, ContentValues values) {
-        return createTaskEvent(task, cr, values, true);
+    public static Uri createTaskEvent(TaskService taskService, Task task, ContentResolver cr, ContentValues values) {
+        return createTaskEvent(taskService, task, cr, values, true);
     }
 
-    public static Uri createTaskEvent(Task task, ContentResolver cr, ContentValues values, boolean deleteEventIfExists) {
-        String eventuri = getTaskEventUri(task);
+    public static Uri createTaskEvent(TaskService taskService, Task task, ContentResolver cr, ContentValues values, boolean deleteEventIfExists) {
+        String eventuri = getTaskEventUri(taskService, task);
 
         if(!TextUtils.isEmpty(eventuri) && deleteEventIfExists) {
-            deleteTaskEvent(task);
+            deleteTaskEvent(taskService, task);
         }
 
         try{
@@ -110,8 +110,8 @@ public class GCalHelper {
         return null;
     }
 
-    public static void rescheduleRepeatingTask(Task task, ContentResolver cr) {
-        String taskUri = getTaskEventUri(task);
+    public static void rescheduleRepeatingTask(TaskService taskService, Task task, ContentResolver cr) {
+        String taskUri = getTaskEventUri(taskService, task);
         if (TextUtils.isEmpty(taskUri)) {
             return;
         }
@@ -125,7 +125,7 @@ public class GCalHelper {
         ContentValues cv = new ContentValues();
         cv.put(CALENDAR_ID_COLUMN, calendarId);
 
-        Uri uri = createTaskEvent(task, cr, cv, false);
+        Uri uri = createTaskEvent(taskService, task, cr, cv, false);
         task.setCalendarUri(uri.toString());
     }
 
@@ -141,13 +141,13 @@ public class GCalHelper {
         }
     }
 
-    public static boolean deleteTaskEvent(Task task) {
+    public static boolean deleteTaskEvent(TaskService taskService, Task task) {
         boolean eventDeleted = false;
         String uri;
         if(task.containsNonNullValue(Task.CALENDAR_URI)) {
             uri = task.getCalendarURI();
         } else {
-            task = PluginServices.getTaskService().fetchById(task.getId(), Task.CALENDAR_URI);
+            task = taskService.fetchById(task.getId(), Task.CALENDAR_URI);
             if(task == null) {
                 return false;
             }

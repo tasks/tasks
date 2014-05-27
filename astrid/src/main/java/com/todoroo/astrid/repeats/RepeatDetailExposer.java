@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.repeats;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -14,14 +13,17 @@ import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.WeekdayNum;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingBroadcastReceiver;
 
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Exposes Task Detail for repeats, i.e. "Repeats every 2 days"
@@ -29,10 +31,14 @@ import java.util.List;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class RepeatDetailExposer extends BroadcastReceiver {
+public class RepeatDetailExposer extends InjectingBroadcastReceiver {
+
+    @Inject TaskService taskService;
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+
         // get tags associated with this task
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
         if(taskId == -1) {
@@ -53,7 +59,7 @@ public class RepeatDetailExposer extends BroadcastReceiver {
     }
 
     public String getTaskDetails(Context context, long id) {
-        Task task = PluginServices.getTaskService().fetchById(id, Task.RECURRENCE);
+        Task task = taskService.fetchById(id, Task.RECURRENCE);
         if(task == null) {
             return null;
         }

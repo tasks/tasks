@@ -155,7 +155,7 @@ public class OldTaskPreferences extends InjectingTodorooPreferenceActivity {
                                     for(int i = 0; i < length; i++) {
                                         cursor.moveToNext();
                                         task.readFromCursor(cursor);
-                                        GCalHelper.deleteTaskEvent(task);
+                                        GCalHelper.deleteTaskEvent(taskService, task);
                                     }
                                 } finally {
                                     cursor.close();
@@ -194,7 +194,7 @@ public class OldTaskPreferences extends InjectingTodorooPreferenceActivity {
                                     for(int i = 0; i < length; i++) {
                                         cursor.moveToNext();
                                         task.readFromCursor(cursor);
-                                        GCalHelper.deleteTaskEvent(task);
+                                        GCalHelper.deleteTaskEvent(taskService, task);
                                     }
                                 } finally {
                                     cursor.close();
@@ -231,7 +231,7 @@ public class OldTaskPreferences extends InjectingTodorooPreferenceActivity {
                                     for(int i = 0; i < length; i++) {
                                         cursor.moveToNext();
                                         task.readFromCursor(cursor);
-                                        if (GCalHelper.deleteTaskEvent(task)) {
+                                        if (GCalHelper.deleteTaskEvent(taskService, task)) {
                                             deletedEventCount++;
                                         }
                                     }
@@ -273,7 +273,7 @@ public class OldTaskPreferences extends InjectingTodorooPreferenceActivity {
                                     for(int i = 0; i < length; i++) {
                                         cursor.moveToNext();
                                         task.readFromCursor(cursor);
-                                        if (GCalHelper.deleteTaskEvent(task)) {
+                                        if (GCalHelper.deleteTaskEvent(taskService, task)) {
                                             deletedEventCount++;
                                         }
                                     }

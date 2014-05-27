@@ -8,10 +8,11 @@ package com.todoroo.astrid.gtasks;
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
     @Autowired private GtasksMetadataService gtasksMetadataService;
     @Autowired private GtasksListService gtasksListService;
     @Autowired private GtasksTaskListUpdater gtasksTaskListUpdater;
+    @Autowired private MetadataService metadataService;
+    @Autowired TaskService taskService;
 
     private Task task;
     private StoreObject storeList;
@@ -150,13 +153,13 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
 
     private Task taskWithMetadata(long order, int indentation) {
         Task newTask = new Task();
-        PluginServices.getTaskService().save(newTask);
+        taskService.save(newTask);
         Metadata metadata = GtasksMetadata.createEmptyMetadata(newTask.getId());
         metadata.setValue(GtasksMetadata.INDENT, indentation);
         metadata.setValue(GtasksMetadata.ORDER, order);
         metadata.setValue(GtasksMetadata.LIST_ID, "list");
         metadata.setTask(newTask.getId());
-        PluginServices.getMetadataService().save(metadata);
+        metadataService.save(metadata);
         return newTask;
     }
 
@@ -178,7 +181,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
 
     private Task taskWithoutMetadata() {
         Task task = new Task();
-        PluginServices.getTaskService().save(task);
+        taskService.save(task);
         return task;
     }
 

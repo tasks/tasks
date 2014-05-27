@@ -21,8 +21,8 @@ import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.api.Addon;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.R;
@@ -46,11 +46,11 @@ public class TimerPlugin extends BroadcastReceiver {
      * toggles timer and updates elapsed time.
      * @param start if true, start timer. else, stop it
      */
-    public static void updateTimer(Context context, Task task, boolean start) {
+    public static void updateTimer(TaskService taskService, Context context, Task task, boolean start) {
         // if this call comes from tasklist, then we need to fill in the gaps to handle this correctly
         // this is needed just for stopping a task
         if (!task.containsNonNullValue(Task.TIMER_START)) {
-            task = PluginServices.getTaskService().fetchById(task.getId(), Task.ID, Task.TIMER_START, Task.ELAPSED_SECONDS);
+            task = taskService.fetchById(task.getId(), Task.ID, Task.TIMER_START, Task.ELAPSED_SECONDS);
         }
         if (task == null) {
             return;
@@ -68,16 +68,16 @@ public class TimerPlugin extends BroadcastReceiver {
                         task.getElapsedSeconds() + newElapsed);
             }
         }
-        PluginServices.getTaskService().save(task);
+        taskService.save(task);
 
         // update notification
-        TimerPlugin.updateNotifications(context);
+        TimerPlugin.updateNotifications(taskService, context);
     }
 
-    private static void updateNotifications(Context context) {
+    private static void updateNotifications(TaskService taskService, Context context) {
         NotificationManager nm = new AndroidNotificationManager(context);
 
-        int count = PluginServices.getTaskService().count(Query.select(Task.ID).
+        int count = taskService.count(Query.select(Task.ID).
                 where(Task.TIMER_START.gt(0)));
         if(count == 0) {
             nm.cancel(Constants.NOTIFICATION_TIMER);

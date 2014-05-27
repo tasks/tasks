@@ -18,13 +18,19 @@ import android.widget.LinearLayout;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
+import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
+import org.tasks.injection.Injector;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class TimerActionControlSet extends TaskEditControlSet {
+
+    @Inject TaskService taskService;
 
     private final ImageView timerButton;
     private final Chronometer chronometer;
@@ -33,20 +39,23 @@ public class TimerActionControlSet extends TaskEditControlSet {
 
     public TimerActionControlSet(final Activity activity, View parent) {
         super(activity, -1);
+
+        ((Injector) activity.getApplication()).inject(this);
+
         LinearLayout timerContainer = (LinearLayout) parent.findViewById(R.id.timer_container);
         timerButton = (ImageView) parent.findViewById(R.id.timer_button);
         OnClickListener timerListener = new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (timerActive) {
-                    TimerPlugin.updateTimer(activity, model, false);
+                    TimerPlugin.updateTimer(taskService, activity, model, false);
 
                     for (TimerActionListener listener : listeners) {
                         listener.timerStopped(model);
                     }
                     chronometer.stop();
                 } else {
-                    TimerPlugin.updateTimer(activity, model, true);
+                    TimerPlugin.updateTimer(taskService, activity, model, true);
                     for (TimerActionListener listener : listeners) {
                         listener.timerStarted(model);
                     }

@@ -1,10 +1,13 @@
 package com.todoroo.astrid.subtasks;
 
-import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.andlib.service.Autowired;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
+import com.todoroo.astrid.service.TaskService;
 
 public class SubtasksMovingTest extends SubtasksTestCase {
+
+    @Autowired TaskService taskService;
 
     private Task A, B, C, D, E, F;
 
@@ -37,7 +40,7 @@ public class SubtasksMovingTest extends SubtasksTestCase {
     private Task createTask(String title) {
         Task task = new Task();
         task.setTitle(title);
-        PluginServices.getTaskService().save(task);
+        taskService.save(task);
         return task;
     }
 

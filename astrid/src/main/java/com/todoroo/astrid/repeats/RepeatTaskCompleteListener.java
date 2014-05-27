@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.repeats;
 
-import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -22,11 +21,12 @@ import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Flags;
+
+import org.tasks.injection.InjectingBroadcastReceiver;
 
 import java.text.ParseException;
 import java.util.Calendar;
@@ -36,22 +36,28 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
+import javax.inject.Inject;
+
 import static org.tasks.date.DateTimeUtils.newDate;
 import static org.tasks.date.DateTimeUtils.newDateUtc;
 
-public class RepeatTaskCompleteListener extends BroadcastReceiver {
+public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
 
     private static final String TAG = "RepeatTaskCompleteListener";
 
+    @Inject TaskService taskService;
+
     @Override
     public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+
         ContextManager.setContext(context);
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
         if(taskId == -1) {
             return;
         }
 
-        Task task = PluginServices.getTaskService().fetchById(taskId, Task.PROPERTIES);
+        Task task = taskService.fetchById(taskId, Task.PROPERTIES);
         if(task == null || !task.isCompleted()) {
             return;
         }
@@ -84,7 +90,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
                 return;
             }
 
-            rescheduleTask(task, newDueDate);
+            rescheduleTask(taskService, task, newDueDate);
 
             // send a broadcast
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_REPEATED);
@@ -96,7 +102,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         }
     }
 
-    public static void rescheduleTask(Task task, long newDueDate) {
+    public static void rescheduleTask(TaskService taskService, Task task, long newDueDate) {
         long hideUntil = task.getHideUntil();
         if(hideUntil > 0 && task.getDueDate() > 0) {
             hideUntil += newDueDate - task.getDueDate();
@@ -108,8 +114,8 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         task.putTransitory(TaskService.TRANS_REPEAT_COMPLETE, true);
 
         ContentResolver cr = ContextManager.getContext().getContentResolver();
-        GCalHelper.rescheduleRepeatingTask(task, cr);
-        PluginServices.getTaskService().save(task);
+        GCalHelper.rescheduleRepeatingTask(taskService, task, cr);
+        taskService.save(task);
     }
 
     /** Compute next due date */

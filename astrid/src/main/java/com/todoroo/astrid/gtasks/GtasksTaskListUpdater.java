@@ -15,12 +15,12 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
+import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater;
 
 import java.util.HashMap;
@@ -47,13 +47,16 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
     private final GtasksMetadataService gtasksMetadataService;
     private final GtasksSyncService gtasksSyncService;
     private final MetadataDao metadataDao;
+    private final MetadataService metadataService;
 
     @Inject
-    public GtasksTaskListUpdater(GtasksListService gtasksListService, GtasksMetadataService gtasksMetadataService, GtasksSyncService gtasksSyncService, MetadataDao metadataDao) {
+    public GtasksTaskListUpdater(GtasksListService gtasksListService, GtasksMetadataService gtasksMetadataService, GtasksSyncService gtasksSyncService, MetadataDao metadataDao, MetadataService metadataService) {
+        super(metadataService);
         this.gtasksListService = gtasksListService;
         this.gtasksMetadataService = gtasksMetadataService;
         this.gtasksSyncService = gtasksSyncService;
         this.metadataDao = metadataDao;
+        this.metadataService = metadataService;
     }
 
     // --- overrides
@@ -140,7 +143,7 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
                 }
                 metadata.setValue(GtasksMetadata.PARENT_TASK, parent);
 
-                PluginServices.getMetadataService().save(metadata);
+                metadataService.save(metadata);
                 previousIndent.set(indent);
             }
         });

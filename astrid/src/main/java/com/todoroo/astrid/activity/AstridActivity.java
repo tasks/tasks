@@ -28,10 +28,10 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.CoreFilterExposer;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.StartupService;
+import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.QuickAddBar;
@@ -88,6 +88,7 @@ public class AstridActivity extends InjectingActionBarActivity
                 .findFragmentByTag(CommentsFragment.TAG_UPDATES_FRAGMENT);
     }
 
+    @Inject TaskService taskService;
     @Inject StartupService startupService;
 
     @Override
@@ -370,13 +371,12 @@ public class AstridActivity extends InjectingActionBarActivity
                         AstridApiConstants.EXTRAS_OLD_DUE_DATE, 0);
                 long newDueDate = intent.getLongExtra(
                         AstridApiConstants.EXTRAS_NEW_DUE_DATE, 0);
-                Task task = PluginServices.getTaskService().fetchById(taskId,
-                        DateChangedAlerts.REPEAT_RESCHEDULED_PROPERTIES);
+                Task task = taskService.fetchById(taskId, DateChangedAlerts.REPEAT_RESCHEDULED_PROPERTIES);
 
                 try {
                     boolean lastTime = AstridApiConstants.BROADCAST_EVENT_TASK_REPEAT_FINISHED.equals(intent.getAction());
                     DateChangedAlerts.showRepeatTaskRescheduledDialog(
-                            AstridActivity.this, task, oldDueDate, newDueDate, lastTime);
+                            taskService, AstridActivity.this, task, oldDueDate, newDueDate, lastTime);
 
                 } catch (BadTokenException e) { // Activity not running when tried to show dialog--rebroadcast
                     new Thread() {

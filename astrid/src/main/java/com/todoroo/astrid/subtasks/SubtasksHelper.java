@@ -13,7 +13,6 @@ import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.CoreFilterExposer;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
@@ -22,6 +21,7 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.service.TagDataService;
+import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
 import com.todoroo.astrid.utility.AstridPreferences;
 
@@ -60,7 +60,7 @@ public class SubtasksHelper {
         return false;
     }
 
-    public static String applySubtasksToWidgetFilter(TagDataService tagDataService, TaskListMetadataDao tlmd, Filter filter, String query, String tagName, int limit) {
+    public static String applySubtasksToWidgetFilter(TaskService taskService, TagDataService tagDataService, TaskListMetadataDao tlmd, Filter filter, String query, String tagName, int limit) {
         if (SubtasksHelper.shouldUseSubtasksFragmentForFilter(filter)) {
             // care for manual ordering
             TagData tagData = tagDataService.getTagByName(tagName, TagData.UUID, TagData.TAG_ORDERING);
@@ -76,7 +76,7 @@ public class SubtasksHelper {
             query = query.replaceAll("ORDER BY .*", "");
             query = query + String.format(" ORDER BY %s, %s, %s, %s",
                     Task.DELETION_DATE, Task.COMPLETION_DATE,
-                    getOrderString(tagData, tlm), Task.CREATION_DATE);
+                    getOrderString(taskService, tagData, tlm), Task.CREATION_DATE);
             if (limit > 0) {
                 query = query + " LIMIT " + limit;
             }
@@ -88,12 +88,12 @@ public class SubtasksHelper {
         return query;
     }
 
-    private static String getOrderString(TagData tagData, TaskListMetadata tlm) {
+    private static String getOrderString(TaskService taskService, TagData tagData, TaskListMetadata tlm) {
         String serialized;
         if (tlm != null) {
             serialized = tlm.getTaskIDs();
         } else if (tagData != null) {
-            serialized = convertTreeToRemoteIds(tagData.getTagOrdering());
+            serialized = convertTreeToRemoteIds(taskService, tagData.getTagOrdering());
         } else {
             serialized = "[]"; //$NON-NLS-1$
         }
@@ -131,9 +131,9 @@ public class SubtasksHelper {
     /**
      * Takes a subtasks string containing local ids and remaps it to one containing UUIDs
      */
-    public static String convertTreeToRemoteIds(String localTree) {
+    public static String convertTreeToRemoteIds(TaskService taskService, String localTree) {
         Long[] localIds = getIdArray(localTree);
-        HashMap<Long, String> idMap = getIdMap(localIds, Task.ID, Task.UUID);
+        HashMap<Long, String> idMap = getIdMap(taskService, localIds, Task.ID, Task.UUID);
         idMap.put(-1L, "-1"); //$NON-NLS-1$
 
         Node tree = AstridOrderedListUpdater.buildTreeModel(localTree, null);
@@ -175,9 +175,9 @@ public class SubtasksHelper {
         });
     }
 
-    private static <A, B> HashMap<A, B> getIdMap(A[] keys, Property<A> keyProperty, Property<B> valueProperty) {
+    private static <A, B> HashMap<A, B> getIdMap(TaskService taskService, A[] keys, Property<A> keyProperty, Property<B> valueProperty) {
         HashMap<A, B> map = new HashMap<>();
-        TodorooCursor<Task> tasks = PluginServices.getTaskService().query(Query.select(keyProperty, valueProperty).where(keyProperty.in(keys)));
+        TodorooCursor<Task> tasks = taskService.query(Query.select(keyProperty, valueProperty).where(keyProperty.in(keys)));
         try {
             for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
                 A key = tasks.get(keyProperty);

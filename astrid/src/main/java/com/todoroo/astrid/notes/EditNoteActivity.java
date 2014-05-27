@@ -43,7 +43,6 @@ import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.adapter.UpdateAdapter;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Metadata;
@@ -137,7 +136,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     }
 
     private void fetchTask(long id) {
-        task = PluginServices.getTaskService().fetchById(id, Task.NOTES, Task.ID, Task.UUID, Task.TITLE, Task.USER_ACTIVITIES_PUSHED_AT, Task.ATTACHMENTS_PUSHED_AT);
+        task = taskService.fetchById(id, Task.NOTES, Task.ID, Task.UUID, Task.TITLE, Task.USER_ACTIVITIES_PUSHED_AT, Task.ATTACHMENTS_PUSHED_AT);
     }
 
     public void loadViewForTaskID(long t){

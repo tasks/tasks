@@ -11,9 +11,10 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
 @SuppressWarnings("nls")
@@ -21,6 +22,8 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
 
     private final GtasksTestPreferenceService preferences = new GtasksTestPreferenceService();
     @Autowired private GtasksMetadataService gtasksMetadataService;
+    @Autowired private MetadataService metadataService;
+    @Autowired TaskService taskService;
 
     private Task task;
     private Metadata metadata;
@@ -133,12 +136,12 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
     private Task taskWithMetadata(String id) {
         Task task = new Task();
         task.setTitle("cats");
-        PluginServices.getTaskService().save(task);
+        taskService.save(task);
         Metadata metadata = GtasksMetadata.createEmptyMetadata(task.getId());
         if(id != null)
             metadata.setValue(GtasksMetadata.ID, id);
         metadata.setTask(task.getId());
-        PluginServices.getMetadataService().save(metadata);
+        metadataService.save(metadata);
         return task;
     }
 
@@ -149,7 +152,7 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
     private Task taskWithoutMetadata() {
         Task task = new Task();
         task.setTitle("dogs");
-        PluginServices.getTaskService().save(task);
+        taskService.save(task);
         return task;
     }
 

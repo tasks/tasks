@@ -6,7 +6,6 @@
 package com.todoroo.astrid.notes;
 
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
@@ -16,12 +15,16 @@ import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingBroadcastReceiver;
+
+import javax.inject.Inject;
 
 /**
  * Exposes Task Detail for notes
@@ -29,12 +32,17 @@ import org.tasks.R;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class NotesDetailExposer extends BroadcastReceiver {
+public class NotesDetailExposer extends InjectingBroadcastReceiver {
 
     private static final int NOTE_MAX = 200;
 
+    @Inject MetadataService metadataService;
+    @Inject TaskService taskService;
+
     @Override
     public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+
         // get tags associated with this task
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
         if(taskId == -1) {
@@ -54,12 +62,12 @@ public class NotesDetailExposer extends BroadcastReceiver {
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
-    public String getTaskDetails(long id) {
+    private String getTaskDetails(long id) {
         if(!Preferences.getBoolean(R.string.p_showNotes, false)) {
             return null;
         }
 
-        Task task = PluginServices.getTaskService().fetchById(id, Task.ID, Task.NOTES);
+        Task task = taskService.fetchById(id, Task.ID, Task.NOTES);
         if(task == null) {
             return null;
         }
@@ -75,7 +83,7 @@ public class NotesDetailExposer extends BroadcastReceiver {
             notesBuilder.append(notes);
         }
 
-        TodorooCursor<Metadata> cursor = PluginServices.getMetadataService().query(
+        TodorooCursor<Metadata> cursor = metadataService.query(
                 Query.select(Metadata.PROPERTIES).where(
                         MetadataCriteria.byTaskAndwithKey(task.getId(),
                                 NoteMetadata.METADATA_KEY)).orderBy(Order.asc(Metadata.CREATION_DATE)));

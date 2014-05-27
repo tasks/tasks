@@ -30,7 +30,6 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
@@ -71,8 +70,9 @@ public class TasksXmlImporter {
     // --- implementation
 
     @Autowired TagDataService tagDataService;
-
     @Autowired TagService tagService;
+    @Autowired MetadataService metadataService;
+    @Autowired TaskService taskService;
 
     private final Handler handler;
     private int taskCount;
@@ -82,8 +82,6 @@ public class TasksXmlImporter {
     private final String input;
 
     private final Context context;
-    private final TaskService taskService = PluginServices.getTaskService();
-    private final MetadataService metadataService = PluginServices.getMetadataService();
     private final ProgressDialog progressDialog;
     private final Runnable runAfterImport;
 

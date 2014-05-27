@@ -27,15 +27,19 @@ import android.widget.Toast;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.Calendars.CalendarResult;
+import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.PopupControlSet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.injection.Injector;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import javax.inject.Inject;
 
 /**
  * Control Set for managing repeats
@@ -49,6 +53,8 @@ public class GCalControlSet extends PopupControlSet {
 
     // --- instance variables
 
+    @Inject TaskService taskService;
+
     private Uri calendarUri = null;
 
     private final CalendarResult calendars;
@@ -59,6 +65,9 @@ public class GCalControlSet extends PopupControlSet {
 
     public GCalControlSet(final Activity activity, int viewLayout, int displayViewLayout, int title) {
         super(activity, viewLayout, displayViewLayout, title);
+
+        ((Injector)activity.getApplication()).inject(this);
+
         this.title = title;
         calendars = Calendars.getCalendars();
         getView(); // Hack to force initialized
@@ -97,7 +106,7 @@ public class GCalControlSet extends PopupControlSet {
 
     @Override
     protected void readFromTaskOnInitialize() {
-        String uri = GCalHelper.getTaskEventUri(model);
+        String uri = GCalHelper.getTaskEventUri(taskService, model);
         if(!TextUtils.isEmpty(uri)) {
             try {
                 calendarUri = Uri.parse(uri);
@@ -151,7 +160,7 @@ public class GCalControlSet extends PopupControlSet {
                 String calendarId = calendars.calendarIds[calendarSelector.getSelectedItemPosition() - 1];
                 values.put("calendar_id", calendarId);
 
-                calendarUri = GCalHelper.createTaskEvent(task, cr, values);
+                calendarUri = GCalHelper.createTaskEvent(taskService, task, cr, values);
                 if(calendarUri != null) {
                     task.setCalendarUri(calendarUri.toString());
 

@@ -20,10 +20,13 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
+import org.tasks.injection.Injector;
+
+import javax.inject.Inject;
 
 /**
  * Exposes "working on" filter to the {@link FilterListFragment}
@@ -32,6 +35,8 @@ import org.tasks.R;
  *
  */
 public final class TimerFilterExposer extends BroadcastReceiver implements AstridFilterExposer {
+
+    @Inject TaskService taskService;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -44,7 +49,10 @@ public final class TimerFilterExposer extends BroadcastReceiver implements Astri
     }
 
     private FilterListItem[] prepareFilters(Context context) {
-        if(PluginServices.getTaskService().count(Query.select(Task.ID).
+        // TODO: get rid of this
+        ((Injector) context.getApplicationContext()).inject(this);
+
+        if(taskService.count(Query.select(Task.ID).
                 where(Task.TIMER_START.gt(0))) == 0) {
             return null;
         }
@@ -77,5 +85,4 @@ public final class TimerFilterExposer extends BroadcastReceiver implements Astri
 
         return prepareFilters(ContextManager.getContext());
     }
-
 }

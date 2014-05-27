@@ -24,7 +24,6 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
@@ -68,6 +67,8 @@ public class TasksXmlExporter {
     // --- implementation
 
     @Autowired TagDataService tagDataService;
+    @Autowired MetadataService metadataService;
+    @Autowired TaskService taskService;
 
     // 3 is started on Version 4.6.10
     private static final int FORMAT = 3;
@@ -75,8 +76,6 @@ public class TasksXmlExporter {
     private final Context context;
     private int exportCount = 0;
     private XmlSerializer xml;
-    private final TaskService taskService = PluginServices.getTaskService();
-    private final MetadataService metadataService = PluginServices.getMetadataService();
 
     private final ProgressDialog progressDialog;
     private final Handler handler;

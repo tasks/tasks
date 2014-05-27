@@ -355,7 +355,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
                     if (TextUtils.isEmpty(defaultOrder)) {
                         defaultOrder = "[]"; //$NON-NLS-1$
                     }
-                    defaultOrder = SubtasksHelper.convertTreeToRemoteIds(defaultOrder);
+                    defaultOrder = SubtasksHelper.convertTreeToRemoteIds(taskService, defaultOrder);
                     taskListMetadata = new TaskListMetadata();
                     taskListMetadata.setFilter(filterId);
                     taskListMetadata.setTaskIDs(defaultOrder);
@@ -918,7 +918,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
                 }
             }
         }
-        TimerPlugin.updateTimer(ContextManager.getContext(), task, false);
+        TimerPlugin.updateTimer(taskService, ContextManager.getContext(), task, false);
     }
 
     public void refreshFilterCount() {
@@ -998,7 +998,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
             itemId = item.getGroupId();
             Task task = new Task();
             task.setId(itemId);
-            TimerPlugin.updateTimer(getActivity(), task, false);
+            TimerPlugin.updateTimer(taskService, getActivity(), task, false);
             taskService.purge(itemId);
             loadTaskListContent(true);
             return true;

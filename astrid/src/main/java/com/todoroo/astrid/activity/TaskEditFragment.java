@@ -598,7 +598,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             } catch (Exception e) {
                 // oops, can't serialize
             }
-            model = TaskService.createWithValues(tagService, values, null);
+            model = TaskService.createWithValues(taskService, metadataService, tagService, values, null);
             getActivity().getIntent().putExtra(TOKEN_ID, model.getId());
         }
 
@@ -783,7 +783,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         // abandon editing in this case
         if (title.getText().length() == 0 || TextUtils.isEmpty(model.getTitle())) {
             if (isNewTask) {
-                TimerPlugin.updateTimer(getActivity(), model, false);
+                TimerPlugin.updateTimer(taskService, getActivity(), model, false);
                 taskService.delete(model);
                 if (getActivity() instanceof TaskListActivity) {
                     TaskListActivity tla = (TaskListActivity) getActivity();
@@ -804,7 +804,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                                         android.R.string.ok, new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
-                                                TimerPlugin.updateTimer(getActivity(), model, false);
+                                                TimerPlugin.updateTimer(taskService, getActivity(), model, false);
                                                 taskService.delete(model);
                                                 shouldSaveState = false;
 

@@ -14,7 +14,6 @@ import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
@@ -22,6 +21,7 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.sync.GtasksTaskContainer;
+import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater.OrderedListIterator;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 import com.todoroo.astrid.utility.SyncMetadataService;
@@ -44,11 +44,13 @@ import javax.inject.Singleton;
 public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskContainer> {
 
     private final GtasksPreferenceService gtasksPreferenceService;
+    private MetadataService metadataService;
 
     @Inject
-    public GtasksMetadataService(GtasksPreferenceService gtasksPreferenceService, TaskDao taskDao, MetadataDao metadataDao) {
+    public GtasksMetadataService(GtasksPreferenceService gtasksPreferenceService, TaskDao taskDao, MetadataDao metadataDao, MetadataService metadataService) {
         super(taskDao, metadataDao);
         this.gtasksPreferenceService = gtasksPreferenceService;
+        this.metadataService = metadataService;
     }
 
     public Criterion getLocalMatchCriteria(GtasksTaskContainer remoteTask) {
@@ -147,7 +149,7 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
                         GtasksMetadata.LIST_ID.eq(listId),
                         startAtCriterion)).
                         orderBy(order);
-        TodorooCursor<Metadata> cursor = PluginServices.getMetadataService().query(query);
+        TodorooCursor<Metadata> cursor = metadataService.query(query);
         try {
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 long taskId = cursor.get(Metadata.TASK);

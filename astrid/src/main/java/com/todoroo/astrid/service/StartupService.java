@@ -32,7 +32,6 @@ import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.backup.TasksXmlImporter;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TagDataDao;
@@ -76,18 +75,20 @@ public class StartupService {
     private final Database database;
     private final GtasksPreferenceService gtasksPreferenceService;
     private final GtasksSyncService gtasksSyncService;
+    private MetadataService metadataService;
 
     @Inject
     public StartupService(UpgradeService upgradeService, TaskService taskService,
                           TagDataDao tagDataDao, Database database,
                           GtasksPreferenceService gtasksPreferenceService,
-                          GtasksSyncService gtasksSyncService) {
+                          GtasksSyncService gtasksSyncService, MetadataService metadataService) {
         this.upgradeService = upgradeService;
         this.taskService = taskService;
         this.tagDataDao = tagDataDao;
         this.database = database;
         this.gtasksPreferenceService = gtasksPreferenceService;
         this.gtasksSyncService = gtasksSyncService;
+        this.metadataService = metadataService;
     }
 
     /**
@@ -210,7 +211,7 @@ public class StartupService {
                 if (values != null) {
                     if (values.containsKey(TagData.NAME.name)) {
                         m.setValue(TaskToTagMetadata.TAG_NAME, model.getName());
-                        PluginServices.getMetadataService().update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
+                        metadataService.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
                                 TaskToTagMetadata.TAG_UUID.eq(model.getUUID())), m);
                     }
                 }

@@ -204,6 +204,6 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
 
         String tagName = Preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
 
-        return SubtasksHelper.applySubtasksToWidgetFilter(tagDataService, taskListMetadataDao, filter, query, tagName, 0);
+        return SubtasksHelper.applySubtasksToWidgetFilter(taskService, tagDataService, taskListMetadataDao, filter, query, tagName, 0);
     }
 }
