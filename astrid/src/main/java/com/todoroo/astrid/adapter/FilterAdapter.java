@@ -30,9 +30,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.TaskListFragment;
@@ -44,14 +42,16 @@ import com.todoroo.astrid.api.FilterCategoryWithNewButton;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.FilterWithUpdate;
-import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
 import org.tasks.filters.FilterCounter;
+import org.tasks.injection.Injector;
 
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.inject.Inject;
 
 public class FilterAdapter extends ArrayAdapter<Filter> {
 
@@ -62,9 +62,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
     // --- instance variables
 
-    @Autowired private TaskService taskService;
-
-    @Autowired private FilterCounter filterCounter;
+    @Inject FilterCounter filterCounter;
 
     /** parent activity */
     protected final Activity activity;
@@ -92,15 +90,11 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     /** whether rows are selectable */
     private final boolean selectable;
 
-    public FilterAdapter(Activity activity, int rowLayout) {
-        this(activity, null, rowLayout, false, false);
-    }
-
     public FilterAdapter(Activity activity, ListView listView,
             int rowLayout, boolean skipIntentFilters, boolean selectable) {
         super(activity, 0);
 
-        DependencyInjectionService.getInstance().inject(this);
+        ((Injector) activity.getApplication()).inject(this);
 
         this.activity = activity;
         this.listView = listView;

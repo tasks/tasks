@@ -102,7 +102,7 @@ public class FilterListFragment extends ListFragment {
     }
 
     private FilterAdapter instantiateAdapter() {
-        return new FilterAdapter(getActivity(), R.layout.filter_adapter_row);
+        return new FilterAdapter(getActivity(), null, R.layout.filter_adapter_row, false, false);
     }
 
     /* (non-Javadoc)
