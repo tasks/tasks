@@ -27,6 +27,7 @@ import javax.inject.Inject;
 public class ReminderSchedulingService extends InjectingService {
 
     @Inject RefreshScheduler refreshScheduler;
+    @Inject AlarmService alarmService;
 
     /** Receive the alarm - start the synchronize service! */
     @Override
@@ -48,7 +49,7 @@ public class ReminderSchedulingService extends InjectingService {
     private void scheduleReminders() {
         try {
             ReminderService.getInstance().scheduleAllAlarms();
-            AlarmService.getInstance().scheduleAllAlarms();
+            alarmService.scheduleAllAlarms();
             refreshScheduler.scheduleAllAlarms();
 
         } catch (Exception e) {

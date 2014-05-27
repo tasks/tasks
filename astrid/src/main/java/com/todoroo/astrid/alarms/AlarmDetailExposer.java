@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.alarms;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.text.format.DateUtils;
@@ -16,7 +15,11 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Metadata;
 
+import org.tasks.injection.InjectingBroadcastReceiver;
+
 import java.util.Date;
+
+import javax.inject.Inject;
 
 import static org.tasks.date.DateTimeUtils.newDate;
 
@@ -26,10 +29,14 @@ import static org.tasks.date.DateTimeUtils.newDate;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class AlarmDetailExposer extends BroadcastReceiver {
+public class AlarmDetailExposer extends InjectingBroadcastReceiver {
+
+    @Inject AlarmService alarmService;
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+
         ContextManager.setContext(context);
         // get tags associated with this task
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
@@ -51,7 +58,7 @@ public class AlarmDetailExposer extends BroadcastReceiver {
     }
 
     public String getTaskDetails(Context context, long id) {
-        TodorooCursor<Metadata> cursor = AlarmService.getInstance().getAlarms(id);
+        TodorooCursor<Metadata> cursor = alarmService.getAlarms(id);
         long nextTime = -1;
         try {
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {

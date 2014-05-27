@@ -1,6 +1,7 @@
 package org.tasks;
 
 import com.todoroo.astrid.adapter.FilterAdapter;
+import com.todoroo.astrid.alarms.AlarmControlSet;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.tags.TagsControlSet;
@@ -19,6 +20,7 @@ import dagger.Module;
                 EditTitleControlSet.class,
                 FilesControlSet.class,
                 TagsControlSet.class,
+                AlarmControlSet.class,
                 FilterAdapter.class
         }
 )

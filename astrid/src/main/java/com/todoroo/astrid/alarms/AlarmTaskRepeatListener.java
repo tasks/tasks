@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.alarms;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
@@ -15,12 +14,20 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Metadata;
 
+import org.tasks.injection.InjectingBroadcastReceiver;
+
 import java.util.LinkedHashSet;
 
-public class AlarmTaskRepeatListener extends BroadcastReceiver {
+import javax.inject.Inject;
+
+public class AlarmTaskRepeatListener extends InjectingBroadcastReceiver {
+
+    @Inject AlarmService alarmService;
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+
         ContextManager.setContext(context);
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
         if(taskId == -1) {
@@ -36,7 +43,7 @@ public class AlarmTaskRepeatListener extends BroadcastReceiver {
             return;
         }
 
-        TodorooCursor<Metadata> cursor = AlarmService.getInstance().getAlarms(taskId);
+        TodorooCursor<Metadata> cursor = alarmService.getAlarms(taskId);
         try {
             if(cursor.getCount() == 0) {
                 return;
@@ -48,7 +55,7 @@ public class AlarmTaskRepeatListener extends BroadcastReceiver {
                 metadata.readFromCursor(cursor);
                 alarms.add(metadata.getValue(AlarmFields.TIME) + (newDueDate - oldDueDate));
             }
-            AlarmService.getInstance().synchronizeAlarms(taskId, alarms);
+            alarmService.synchronizeAlarms(taskId, alarms);
 
         } finally {
             cursor.close();

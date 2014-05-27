@@ -18,7 +18,6 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
@@ -31,36 +30,35 @@ import com.todoroo.astrid.service.MetadataService.SynchronizeMetadataCallback;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 /**
  * Provides operations for working with alerts
  *
  * @author Tim Su <tim@todoroo.com>
  *
  */
+@Singleton
 public class AlarmService {
-
-    // --- singleton
-
-    private static AlarmService instance = null;
-
-    public static synchronized AlarmService getInstance() {
-        if(instance == null) {
-            instance = new AlarmService();
-        }
-        return instance;
-    }
 
     // --- data retrieval
 
     public static final String IDENTIFIER = "alarms"; //$NON-NLS-1$
+    private MetadataService metadataService;
+
+    @Inject
+    public AlarmService(MetadataService metadataService) {
+        this.metadataService = metadataService;
+    }
 
     /**
      * Return alarms for the given task. PLEASE CLOSE THE CURSOR!
      */
     public TodorooCursor<Metadata> getAlarms(long taskId) {
-        return PluginServices.getMetadataService().query(Query.select(
+        return metadataService.query(Query.select(
                 Metadata.PROPERTIES).where(MetadataCriteria.byTaskAndwithKey(
-                        taskId, AlarmFields.METADATA_KEY)).orderBy(Order.asc(AlarmFields.TIME)));
+                taskId, AlarmFields.METADATA_KEY)).orderBy(Order.asc(AlarmFields.TIME)));
     }
 
     /**
@@ -68,8 +66,6 @@ public class AlarmService {
      * @return true if data was changed
      */
     public boolean synchronizeAlarms(final long taskId, LinkedHashSet<Long> alarms) {
-        MetadataService service = PluginServices.getMetadataService();
-
         ArrayList<Metadata> metadata = new ArrayList<>();
         for(Long alarm : alarms) {
             Metadata item = new Metadata();
@@ -82,7 +78,7 @@ public class AlarmService {
         final Context context = ContextManager.getContext();
         final AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 
-        boolean changed = service.synchronizeMetadata(taskId, metadata, Metadata.KEY.eq(AlarmFields.METADATA_KEY), new SynchronizeMetadataCallback() {
+        boolean changed = metadataService.synchronizeMetadata(taskId, metadata, Metadata.KEY.eq(AlarmFields.METADATA_KEY), new SynchronizeMetadataCallback() {
             @Override
             public void beforeDeleteMetadata(Metadata m) {
                 // Cancel the alarm before the metadata is deleted
@@ -104,7 +100,7 @@ public class AlarmService {
      * @return todoroo cursor. PLEASE CLOSE THIS CURSOR!
      */
     private TodorooCursor<Metadata> getActiveAlarms() {
-        return PluginServices.getMetadataService().query(Query.select(Metadata.ID, Metadata.TASK, AlarmFields.TIME).
+        return metadataService.query(Query.select(Metadata.ID, Metadata.TASK, AlarmFields.TIME).
                 join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
                 where(Criterion.and(TaskCriteria.isActive(), MetadataCriteria.withKey(AlarmFields.METADATA_KEY))));
     }
@@ -114,7 +110,7 @@ public class AlarmService {
      * @return todoroo cursor. PLEASE CLOSE THIS CURSOR!
      */
     private TodorooCursor<Metadata> getActiveAlarmsForTask(long taskId) {
-        return PluginServices.getMetadataService().query(Query.select(Metadata.ID, Metadata.TASK, AlarmFields.TIME).
+        return metadataService.query(Query.select(Metadata.ID, Metadata.TASK, AlarmFields.TIME).
                 join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
                 where(Criterion.and(TaskCriteria.isActive(),
                         MetadataCriteria.byTaskAndwithKey(taskId, AlarmFields.METADATA_KEY))));
