@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.subtasks;
 
+import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -13,18 +14,26 @@ import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
+import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
 
+import javax.inject.Inject;
+
 public class SubtasksTagListFragment extends TagViewFragment {
 
-    private final AstridOrderedListFragmentHelper<TaskListMetadata> helper;
+    @Inject TaskService taskService;
+    @Inject SubtasksFilterUpdater subtasksFilterUpdater;
+
+    private AstridOrderedListFragmentHelper<TaskListMetadata> helper;
 
     private int lastVisibleIndex = -1;
 
-    public SubtasksTagListFragment() {
-        super();
-        helper = new AstridOrderedListFragmentHelper<>(this, new SubtasksTagUpdater(isBeingFiltered));
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        helper = new AstridOrderedListFragmentHelper<>(taskService, this, subtasksFilterUpdater);
     }
 
     @Override

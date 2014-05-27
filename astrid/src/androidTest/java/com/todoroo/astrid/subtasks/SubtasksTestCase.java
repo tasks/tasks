@@ -1,10 +1,13 @@
 package com.todoroo.astrid.subtasks;
 
+import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.CoreFilterExposer;
+import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
+import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
@@ -14,6 +17,9 @@ import com.todoroo.astrid.test.DatabaseTestCase;
  *
  */
 public class SubtasksTestCase extends DatabaseTestCase {
+
+    @Autowired TaskListMetadataDao taskListMetadataDao;
+    @Autowired TaskService taskService;
 
     protected SubtasksUpdater<TaskListMetadata> updater;
     protected Filter filter;
@@ -34,7 +40,7 @@ public class SubtasksTestCase extends DatabaseTestCase {
         super.setUp();
         filter = CoreFilterExposer.buildInboxFilter(getContext().getResources());
         Preferences.clear(SubtasksUpdater.ACTIVE_TASKS_ORDER);
-        updater = new SubtasksFilterUpdater();
+        updater = new SubtasksFilterUpdater(taskListMetadataDao, taskService);
     }
 
     protected void expectParentAndPosition(Task task, Task parent, int positionInParent) {

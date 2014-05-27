@@ -3,8 +3,6 @@ package com.todoroo.astrid.subtasks;
 import android.util.Log;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
@@ -21,10 +19,10 @@ import java.util.Set;
 
 public abstract class AstridOrderedListUpdater<LIST> {
 
-    @Autowired private TaskService taskService;
+    private final TaskService taskService;
 
-    public AstridOrderedListUpdater() {
-        DependencyInjectionService.getInstance().inject(this);
+    public AstridOrderedListUpdater(TaskService taskService) {
+        this.taskService = taskService;
         idToNode = new HashMap<>();
     }
 

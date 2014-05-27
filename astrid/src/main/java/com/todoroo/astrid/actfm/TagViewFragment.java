@@ -42,8 +42,6 @@ import com.todoroo.astrid.utility.Flags;
 
 import org.tasks.R;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import javax.inject.Inject;
 
 public class TagViewFragment extends TaskListFragment {
@@ -71,8 +69,6 @@ public class TagViewFragment extends TaskListFragment {
     protected View taskListView;
 
     private boolean dataLoaded = false;
-
-    protected AtomicBoolean isBeingFiltered = new AtomicBoolean(false);
 
     protected boolean justDeleted = false;
 

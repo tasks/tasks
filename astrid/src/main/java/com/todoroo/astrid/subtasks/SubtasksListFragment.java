@@ -5,7 +5,7 @@
  */
 package com.todoroo.astrid.subtasks;
 
-import android.os.Bundle;
+import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -14,8 +14,11 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
+import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
+
+import javax.inject.Inject;
 
 /**
  * Fragment for subtasks
@@ -29,14 +32,18 @@ public class SubtasksListFragment extends TaskListFragment {
 
     private int lastVisibleIndex = -1;
 
+    @Inject TaskService taskService;
+    @Inject SubtasksFilterUpdater subtasksFilterUpdater;
+
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
         helper = createFragmentHelper();
-        super.onActivityCreated(savedInstanceState);
     }
 
     protected OrderedListFragmentHelperInterface<?> createFragmentHelper() {
-        return new AstridOrderedListFragmentHelper<>(this, new SubtasksFilterUpdater());
+        return new AstridOrderedListFragmentHelper<>(taskService, this, subtasksFilterUpdater);
     }
 
     @Override

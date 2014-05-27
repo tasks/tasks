@@ -23,6 +23,7 @@ import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.SyncV2Service;
+import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.OrderedListFragmentHelperInterface;
 import com.todoroo.astrid.subtasks.OrderedMetadataListFragmentHelper;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
@@ -35,6 +36,7 @@ public class GtasksListFragment extends SubtasksListFragment {
 
     public static final String TOKEN_STORE_ID = "storeId"; //$NON-NLS-1$
 
+    @Inject TaskService taskService;
     @Inject StoreObjectDao storeObjectDao;
     @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
     @Inject GtasksMetadataService gtasksMetadataService;

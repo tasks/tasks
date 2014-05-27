@@ -72,6 +72,7 @@ import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader.ContextMenuItem;
 import com.todoroo.astrid.reminders.MakeNotification;
 import com.todoroo.astrid.reminders.WhenReminder;
+import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
@@ -141,9 +142,10 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
 
     // --- instance variables
 
-    @Inject protected TaskService taskService;
+    @Inject TaskService taskService;
     @Inject UpgradeService upgradeService;
     @Inject TaskListMetadataDao taskListMetadataDao;
+    @Inject SyncV2Service syncService;
 
     private final TaskContextActionExposer[] contextItemExposers = new TaskContextActionExposer[] {
             new MakeNotification(),
@@ -282,7 +284,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         // We have a menu item to show in action bar.
         resources = getResources();
         setHasOptionsMenu(true);
-        syncActionHelper = new SyncActionHelper(getActivity(), this);
+        syncActionHelper = new SyncActionHelper(syncService, getActivity(), this);
         setUpUiComponents();
         initializeData();
         setupQuickAddBar();

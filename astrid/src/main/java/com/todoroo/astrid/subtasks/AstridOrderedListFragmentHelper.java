@@ -14,8 +14,6 @@ import com.commonsware.cwac.tlv.TouchListView.GrabberClickListener;
 import com.commonsware.cwac.tlv.TouchListView.SwipeListener;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
@@ -47,15 +45,14 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
     private final DisplayMetrics metrics = new DisplayMetrics();
     private final AstridOrderedListUpdater<LIST> updater;
     private final TaskListFragment fragment;
-
-    @Autowired TaskService taskService;
+    private final TaskService taskService;
 
     private DraggableTaskAdapter taskAdapter;
 
     private LIST list;
 
-    public AstridOrderedListFragmentHelper(TaskListFragment fragment, AstridOrderedListUpdater<LIST> updater) {
-        DependencyInjectionService.getInstance().inject(this);
+    public AstridOrderedListFragmentHelper(TaskService taskService, TaskListFragment fragment, AstridOrderedListUpdater<LIST> updater) {
+        this.taskService = taskService;
         this.fragment = fragment;
         this.updater = updater;
     }

@@ -18,9 +18,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.widget.ArrayAdapter;
 
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -67,13 +65,12 @@ public class SyncActionHelper {
 
     protected SyncActionReceiver syncActionReceiver = new SyncActionReceiver();
 
-    @Autowired SyncV2Service syncService;
+    private final SyncV2Service syncService;
 
     // --- boilerplate
 
-    public SyncActionHelper(Activity activity, Fragment fragment) {
-        DependencyInjectionService.getInstance().inject(this);
-
+    public SyncActionHelper(SyncV2Service syncService, Activity activity, Fragment fragment) {
+        this.syncService = syncService;
         this.activity = activity;
         this.fragment = fragment;
         syncResultCallback = new ProgressBarSyncResultCallback(activity, fragment,

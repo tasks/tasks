@@ -14,8 +14,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -37,12 +35,10 @@ import static org.tasks.date.DateTimeUtils.newDate;
  */
 public class ReminderDialog extends Dialog {
 
-    @Autowired private TaskService taskService;
-
-    public ReminderDialog(final AstridActivity activity, final long taskId,
+    public ReminderDialog(final TaskService taskService, final AstridActivity activity, final long taskId,
             String title) {
         super(activity, R.style.ReminderDialog);
-        DependencyInjectionService.getInstance().inject(this);
+
         final SnoozeCallback dialogSnooze = new SnoozeCallback() {
             @Override
             public void snoozeForTime(long time) {

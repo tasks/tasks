@@ -24,11 +24,14 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.repeats.RepeatControlSet;
+import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.ui.NumberPicker;
 
 import org.tasks.R;
 
 import java.util.Date;
+
+import javax.inject.Inject;
 
 import static org.tasks.date.DateTimeUtils.newDate;
 
@@ -48,6 +51,8 @@ public class NotificationFragment extends TaskListFragment {
 
     // --- implementation
 
+    @Inject TaskService taskService;
+
     @Override
     protected void initializeData() {
         displayNotificationPopup();
@@ -63,7 +68,7 @@ public class NotificationFragment extends TaskListFragment {
 
         String title = extras.getString(Notifications.EXTRAS_TEXT);
         long taskId = extras.getLong(TOKEN_ID);
-        new ReminderDialog((AstridActivity) getActivity(), taskId, title).show();
+        new ReminderDialog(taskService, (AstridActivity) getActivity(), taskId, title).show();
     }
 
     public static class SnoozeDialog extends FrameLayout implements DialogInterface.OnClickListener {
