@@ -57,7 +57,6 @@ import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
-import com.todoroo.astrid.api.TaskContextActionExposer;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
@@ -68,10 +67,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.helper.SyncActionHelper;
-import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader;
-import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader.ContextMenuItem;
-import com.todoroo.astrid.reminders.MakeNotification;
-import com.todoroo.astrid.reminders.WhenReminder;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.UpgradeService;
@@ -130,8 +125,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     protected static final int CONTEXT_MENU_DELETE_TASK_ID = R.string.TAd_contextDeleteTask;
     protected static final int CONTEXT_MENU_UNDELETE_TASK_ID = R.string.TAd_contextUndeleteTask;
     protected static final int CONTEXT_MENU_PURGE_TASK_ID = R.string.TAd_contextPurgeTask;
-    protected static final int CONTEXT_MENU_BROADCAST_INTENT_ID = Menu.FIRST + 25;
-    protected static final int CONTEXT_MENU_PLUGIN_ID_FIRST = Menu.FIRST + 26;
 
     // --- constants
 
@@ -146,11 +139,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     @Inject UpgradeService upgradeService;
     @Inject TaskListMetadataDao taskListMetadataDao;
     @Inject SyncV2Service syncService;
-
-    private final TaskContextActionExposer[] contextItemExposers = new TaskContextActionExposer[] {
-            new MakeNotification(),
-            new WhenReminder(),
-    };
 
     protected Resources resources;
     protected TaskAdapter taskAdapter = null;
@@ -168,8 +156,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     protected boolean isInbox;
     protected boolean isTodayFilter;
     protected TaskListMetadata taskListMetadata;
-
-    private final TaskListContextMenuExtensionLoader contextMenuExtensionLoader = new TaskListContextMenuExtensionLoader();
 
     // --- fragment handling variables
     protected OnTaskListItemClickedListener mListener;
@@ -347,8 +333,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
 
         setUpTaskList();
         ((AstridActivity) getActivity()).setupActivityFragment(getActiveTagData());
-
-        contextMenuExtensionLoader.loadInNewThread(getActivity());
     }
 
     protected void initializeTaskListMetadata() {
@@ -888,37 +872,19 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
      */
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-            ContextMenuInfo menuInfo) {
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         AdapterContextMenuInfo adapterInfo = (AdapterContextMenuInfo) menuInfo;
         Task task = ((ViewHolder) adapterInfo.targetView.getTag()).task;
-
         int id = (int) task.getId();
         menu.setHeaderTitle(task.getTitle());
 
         if (task.isDeleted()) {
-            menu.add(id, CONTEXT_MENU_UNDELETE_TASK_ID, Menu.NONE,
-                    R.string.TAd_contextUndeleteTask);
-
-            menu.add(id, CONTEXT_MENU_PURGE_TASK_ID, Menu.NONE,
-                    R.string.TAd_contextPurgeTask);
+            menu.add(id, CONTEXT_MENU_UNDELETE_TASK_ID, Menu.NONE, R.string.TAd_contextUndeleteTask);
+            menu.add(id, CONTEXT_MENU_PURGE_TASK_ID, Menu.NONE, R.string.TAd_contextPurgeTask);
         } else {
-            menu.add(id, CONTEXT_MENU_EDIT_TASK_ID, Menu.NONE,
-                    R.string.TAd_contextEditTask);
-            menu.add(id, CONTEXT_MENU_COPY_TASK_ID, Menu.NONE,
-                    R.string.TAd_contextCopyTask);
-
-            long taskId = task.getId();
-            for (ContextMenuItem item : contextMenuExtensionLoader.getList()) {
-                android.view.MenuItem menuItem = menu.add(id,
-                        CONTEXT_MENU_BROADCAST_INTENT_ID, Menu.NONE, item.title);
-                item.intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
-                menuItem.setIntent(item.intent);
-            }
-
-            menu.add(id, CONTEXT_MENU_DELETE_TASK_ID, Menu.NONE,
-                    R.string.TAd_contextDeleteTask);
-
+            menu.add(id, CONTEXT_MENU_EDIT_TASK_ID, Menu.NONE, R.string.TAd_contextEditTask);
+            menu.add(id, CONTEXT_MENU_COPY_TASK_ID, Menu.NONE, R.string.TAd_contextCopyTask);
+            menu.add(id, CONTEXT_MENU_DELETE_TASK_ID, Menu.NONE, R.string.TAd_contextDeleteTask);
         }
     }
 
@@ -989,7 +955,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        Intent intent;
         long itemId;
 
         if (!isCurrentTaskListFragment()) {
@@ -1004,21 +969,14 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         switch (item.getItemId()) {
         // --- context menu items
 
-        case CONTEXT_MENU_BROADCAST_INTENT_ID: {
-            intent = item.getIntent();
-            getActivity().sendBroadcast(intent);
-            return true;
-        }
-        case CONTEXT_MENU_EDIT_TASK_ID: {
+        case CONTEXT_MENU_EDIT_TASK_ID:
             itemId = item.getGroupId();
             mListener.onTaskListItemClicked(itemId);
             return true;
-        }
-        case CONTEXT_MENU_COPY_TASK_ID: {
+        case CONTEXT_MENU_COPY_TASK_ID:
             itemId = item.getGroupId();
             duplicateTask(itemId);
             return true;
-        }
         case CONTEXT_MENU_DELETE_TASK_ID: {
             itemId = item.getGroupId();
             Task task = taskService.fetchById(itemId, Task.ID, Task.UUID);
@@ -1045,20 +1003,8 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
             loadTaskListContent(true);
             return true;
         }
-        default: {
-            if (item.getItemId() < CONTEXT_MENU_PLUGIN_ID_FIRST) {
-                return false;
-            }
-            if (item.getItemId() - CONTEXT_MENU_PLUGIN_ID_FIRST >= contextItemExposers.length) {
-                return false;
-            }
-
-            AdapterContextMenuInfo adapterInfo = (AdapterContextMenuInfo) item.getMenuInfo();
-            Task task = ((ViewHolder) adapterInfo.targetView.getTag()).task;
-            contextItemExposers[item.getItemId() - CONTEXT_MENU_PLUGIN_ID_FIRST].invoke(task);
-
-            return true;
-        }
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 

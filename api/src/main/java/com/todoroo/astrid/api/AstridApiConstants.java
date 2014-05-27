@@ -150,12 +150,6 @@ public class AstridApiConstants {
     // --- Actions API
 
     /**
-     * Action name for intents to be displayed on task context menu
-     * <li> EXTRAS_TASK_ID id of the task
-     */
-    public static final String ACTION_TASK_CONTEXT_MENU = API_PACKAGE + ".CONTEXT_MENU";
-
-    /**
      * Action name for intents to be displayed on Astrid's task list menu
      * <li> EXTRAS_ADDON your add-on identifier
      * <li> EXTRAS_RESPONSE an array of {@link Intent}s

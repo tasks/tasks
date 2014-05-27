@@ -19,9 +19,7 @@ import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.andlib.service.NotificationManager.AndroidNotificationManager;
 import com.todoroo.andlib.sql.QueryTemplate;
@@ -35,7 +33,6 @@ import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceOutputService;
@@ -44,14 +41,17 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.injection.InjectingBroadcastReceiver;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
+
 import static org.tasks.date.DateTimeUtils.currentTimeMillis;
 
-public class Notifications extends BroadcastReceiver {
+public class Notifications extends InjectingBroadcastReceiver {
 
     private static final Logger log = LoggerFactory.getLogger(Notifications.class);
 
@@ -81,24 +81,18 @@ public class Notifications extends BroadcastReceiver {
 
     // --- instance variables
 
-    @Autowired private TaskDao taskDao;
+    @Inject TaskDao taskDao;
 
     public static NotificationManager notificationManager = null;
     private static boolean forceNotificationManager = false;
 
     // --- alarm handling
 
-    static {
-        AstridDependencyInjector.initialize();
-    }
-
-    public Notifications() {
-        DependencyInjectionService.getInstance().inject(this);
-    }
-
     @Override
     /** Alarm intent */
     public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+
         ContextManager.setContext(context);
 
         long id = intent.getLongExtra(ID_KEY, 0);
@@ -142,7 +136,7 @@ public class Notifications extends BroadcastReceiver {
      * Show a new notification about the given task. Returns false if there was
      * some sort of error or the alarm should be disabled.
      */
-    public boolean showTaskNotification(long id, int type, String reminder) {
+    private boolean showTaskNotification(long id, int type, String reminder) {
         Task task;
         try {
             task = taskDao.fetch(id, Task.ID, Task.TITLE, Task.HIDE_UNTIL, Task.COMPLETION_DATE,
