@@ -17,8 +17,6 @@ import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -34,11 +32,14 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.AstridPreferences;
 
 import org.tasks.R;
+import org.tasks.injection.Injector;
 import org.xmlpull.v1.XmlSerializer;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import javax.inject.Inject;
 
 public class TasksXmlExporter {
 
@@ -66,9 +67,9 @@ public class TasksXmlExporter {
 
     // --- implementation
 
-    @Autowired TagDataService tagDataService;
-    @Autowired MetadataService metadataService;
-    @Autowired TaskService taskService;
+    @Inject TagDataService tagDataService;
+    @Inject MetadataService metadataService;
+    @Inject TaskService taskService;
 
     // 3 is started on Version 4.6.10
     private static final int FORMAT = 3;
@@ -93,7 +94,7 @@ public class TasksXmlExporter {
     }
 
     private TasksXmlExporter(final Context context, final ExportType exportType, File backupDirectoryOverride) {
-        DependencyInjectionService.getInstance().inject(this);
+        ((Injector) context.getApplicationContext()).inject(this);
 
         this.context = context;
         this.exportCount = 0;

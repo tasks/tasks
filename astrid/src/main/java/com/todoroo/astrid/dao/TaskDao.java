@@ -40,13 +40,15 @@ public class TaskDao extends RemoteModelDao<Task> {
 
     private final MetadataDao metadataDao;
     private final Broadcaster broadcaster;
+    private final ReminderService reminderService;
 
     @Inject
-	public TaskDao(Database database, MetadataDao metadataDao, Broadcaster broadcaster) {
+	public TaskDao(Database database, MetadataDao metadataDao, Broadcaster broadcaster, ReminderService reminderService) {
         super(Task.class);
         setDatabase(database);
         this.metadataDao = metadataDao;
         this.broadcaster = broadcaster;
+        this.reminderService = reminderService;
     }
 
     // --- SQL clause generators
@@ -344,7 +346,7 @@ public class TaskDao extends RemoteModelDao<Task> {
                     values.containsKey(Task.REMINDER_PERIOD.name) ||
                     values.containsKey(Task.REMINDER_LAST.name) ||
                     values.containsKey(Task.REMINDER_SNOOZE.name)) {
-                ReminderService.getInstance().scheduleAlarm(task);
+                reminderService.scheduleAlarm(this, task);
             }
         }
 

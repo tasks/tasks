@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.provider;
 
-import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -19,7 +18,6 @@ import android.text.TextUtils;
 import com.todoroo.andlib.data.AbstractDatabase;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.DatabaseDao;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
@@ -31,11 +29,16 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
-import com.todoroo.astrid.service.AstridDependencyInjector;
+
+import org.tasks.injection.InjectingContentProvider;
 
 import java.util.HashSet;
 import java.util.Map.Entry;
 import java.util.Set;
+
+import javax.inject.Inject;
+
+import dagger.Lazy;
 
 /**
  * Astrid 3 Content Provider. There are two ways to use this content provider:
@@ -64,7 +67,7 @@ import java.util.Set;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class Astrid3ContentProvider extends ContentProvider {
+public class Astrid3ContentProvider extends InjectingContentProvider {
 
     /** URI for making a request over all items */
     private static final int URI_DIR = 1;
@@ -81,20 +84,12 @@ public class Astrid3ContentProvider extends ContentProvider {
 
     // --- instance variables
 
-    @Autowired private Database database;
-
-    @Autowired private TaskDao taskDao;
-
-    @Autowired private MetadataDao metadataDao;
-
-    @Autowired private StoreObjectDao storeObjectDao;
-
-    @Autowired private UserActivityDao userActivityDao;
-
-    @Override
-    public boolean onCreate() {
-        return true;
-    }
+    private boolean open;
+    @Inject Lazy<Database> database;
+    @Inject Lazy<TaskDao> taskDao;
+    @Inject Lazy<MetadataDao> metadataDao;
+    @Inject Lazy<StoreObjectDao> storeObjectDao;
+    @Inject Lazy<UserActivityDao> userActivityDao;
 
     static {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -159,25 +154,25 @@ public class Astrid3ContentProvider extends ContentProvider {
         if(uri.toString().startsWith(Task.CONTENT_URI.toString())) {
             UriHelper<Task> helper = new UriHelper<>();
             helper.model = populateModel ? new Task() : null;
-            helper.dao = taskDao;
+            helper.dao = taskDao.get();
             helper.dao.setDatabase(db);
             return helper;
         } else if(uri.toString().startsWith(Metadata.CONTENT_URI.toString())) {
             UriHelper<Metadata> helper = new UriHelper<>();
             helper.model = populateModel ? new Metadata() : null;
-            helper.dao = metadataDao;
+            helper.dao = metadataDao.get();
             helper.dao.setDatabase(db);
             return helper;
         } else if(uri.toString().startsWith(StoreObject.CONTENT_URI.toString())) {
             UriHelper<StoreObject> helper = new UriHelper<>();
             helper.model = populateModel ? new StoreObject() : null;
-            helper.dao = storeObjectDao;
+            helper.dao = storeObjectDao.get();
             helper.dao.setDatabase(db);
             return helper;
         } else if(uri.toString().startsWith(UserActivity.CONTENT_URI.toString())) {
             UriHelper<UserActivity> helper = new UriHelper<>();
             helper.model = populateModel ? new UserActivity() : null;
-            helper.dao = userActivityDao;
+            helper.dao = userActivityDao.get();
             helper.dao.setDatabase(db);
             return helper;
         }
@@ -190,14 +185,14 @@ public class Astrid3ContentProvider extends ContentProvider {
     }
 
     private AbstractDatabase getDatabase() {
-        if (database == null) {
-            AstridDependencyInjector.inject(this);
-            database.openForWriting();
+        if (!open) {
+            database.get().openForWriting();
+            open = true;
         }
         if(databaseOverride != null) {
             return databaseOverride;
         }
-        return database;
+        return database.get();
     }
 
     /* ======================================================================

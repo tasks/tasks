@@ -14,15 +14,10 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
 
 public class BackupStartupReceiver extends BroadcastReceiver {
 
-    static {
-        AstridDependencyInjector.initialize();
-    }
-
     @Override
     /** Called when device is restarted */
     public void onReceive(final Context context, Intent intent) {
         ContextManager.setContext(context);
         BackupService.scheduleService(context);
     }
-
 }

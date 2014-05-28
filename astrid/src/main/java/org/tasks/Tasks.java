@@ -2,9 +2,10 @@ package org.tasks;
 
 import android.app.Application;
 
-import com.todoroo.astrid.service.AstridDependencyInjector;
-
 import org.tasks.injection.Injector;
+import org.tasks.injection.TasksModule;
+
+import dagger.ObjectGraph;
 
 public class Tasks extends Application implements Injector {
 
@@ -14,11 +15,28 @@ public class Tasks extends Application implements Injector {
     public void onCreate() {
         super.onCreate();
 
-        injector = AstridDependencyInjector.getInjector();
+        getInjector();
     }
 
     @Override
     public void inject(Object caller, Object... modules) {
-        injector.inject(caller, modules);
+        getInjector().inject(caller, modules);
+    }
+
+    private Injector getInjector() {
+        if (injector == null) {
+            injector = new Injector() {
+                ObjectGraph objectGraph = ObjectGraph.create(new TasksModule());
+
+                @Override
+                public void inject(Object caller, Object... modules) {
+                    objectGraph
+                            .plus(modules)
+                            .inject(caller);
+                }
+            };
+        }
+
+        return injector;
     }
 }

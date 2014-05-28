@@ -2,6 +2,8 @@ package org.tasks.injection;
 
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.alarms.AlarmControlSet;
+import com.todoroo.astrid.backup.TasksXmlExporter;
+import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.gcal.GCalControlSet;
@@ -33,7 +35,9 @@ import dagger.Module;
                 TimerActionControlSet.class,
                 CustomFilterExposer.class,
                 GtasksFilterExposer.class,
-                TagFilterExposer.class
+                TagFilterExposer.class,
+                TasksXmlExporter.class,
+                TasksXmlImporter.class
         }
 )
 public class TasksModule {

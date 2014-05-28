@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.provider;
 
-import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.UriMatcher;
@@ -15,7 +14,6 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
@@ -23,14 +21,19 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagService.Tag;
 
+import org.tasks.injection.InjectingContentProvider;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import javax.inject.Inject;
+
+import dagger.Lazy;
 
 /**
  * This is the legacy Astrid task provider. While it will continue to be
@@ -42,7 +45,7 @@ import java.security.NoSuchAlgorithmException;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class Astrid2TaskProvider extends ContentProvider {
+public class Astrid2TaskProvider extends InjectingContentProvider {
 
 	private static final String TAG = "MessageProvider";
 
@@ -79,9 +82,8 @@ public class Astrid2TaskProvider extends ContentProvider {
 
 	private static final String TAG_SEPARATOR = "|";
 
-	@Autowired private TaskService taskService;
-
-    @Autowired private TagService tagService;
+	@Inject Lazy<TaskService> taskService;
+    @Inject Lazy<TagService> tagService;
 
 	private static Context ctx = null;
 
@@ -111,7 +113,8 @@ public class Astrid2TaskProvider extends ContentProvider {
 
 	@Override
 	public boolean onCreate() {
-		ctx = getContext();
+		super.onCreate();
+        ctx = getContext();
 		ContextManager.setContext(ctx);
 		return false;
 	}
@@ -124,8 +127,8 @@ public class Astrid2TaskProvider extends ContentProvider {
 	 */
 	public Cursor getTags() {
 
-		Tag[] tags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE,
-		        Criterion.all);
+		Tag[] tags = tagService.get().getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE,
+                Criterion.all);
 
 		MatrixCursor ret = new MatrixCursor(TAGS_FIELD_LIST);
 
@@ -170,10 +173,10 @@ public class Astrid2TaskProvider extends ContentProvider {
 
 		MatrixCursor ret = new MatrixCursor(TASK_FIELD_LIST);
 
-		TodorooCursor<Task> cursor = getTaskService().query(Query.select(Task.ID, Task.TITLE,
-		        Task.IMPORTANCE, Task.DUE_DATE).where(Criterion.and(TaskCriteria.isActive(),
-                        TaskCriteria.isVisible())).
-		        orderBy(SortHelper.defaultTaskOrder()).limit(MAX_NUMBER_OF_TASKS));
+		TodorooCursor<Task> cursor = taskService.get().query(Query.select(Task.ID, Task.TITLE,
+                Task.IMPORTANCE, Task.DUE_DATE).where(Criterion.and(TaskCriteria.isActive(),
+                TaskCriteria.isVisible())).
+                orderBy(SortHelper.defaultTaskOrder()).limit(MAX_NUMBER_OF_TASKS));
 		try {
     		int[] importanceColors = Task.getImportanceColors(ctx.getResources());
     		Task task = new Task();
@@ -181,7 +184,7 @@ public class Astrid2TaskProvider extends ContentProvider {
     			cursor.moveToNext();
     			task.readFromCursor(cursor);
 
-    			String taskTags = tagService.getTagsAsString(task.getId(), TAG_SEPARATOR);
+    			String taskTags = tagService.get().getTagsAsString(task.getId(), TAG_SEPARATOR);
 
     			Object[] values = new Object[7];
     			values[0] = task.getTitle();
@@ -263,7 +266,7 @@ public class Astrid2TaskProvider extends ContentProvider {
                 replace(ID, Task.ID.name).
                 replace(IMPORTANCE, Task.IMPORTANCE.name);
 
-            return getTaskService().updateBySelection(criteria, selectionArgs, task);
+            return taskService.get().updateBySelection(criteria, selectionArgs, task);
 
         case URI_TAGS:
             throw new UnsupportedOperationException("tags updating: not yet");
@@ -288,11 +291,4 @@ public class Astrid2TaskProvider extends ContentProvider {
 		    // no context was available
 		}
 	}
-
-    private TaskService getTaskService() {
-        if (taskService == null) {
-            AstridDependencyInjector.inject(this);
-        }
-        return taskService;
-    }
 }

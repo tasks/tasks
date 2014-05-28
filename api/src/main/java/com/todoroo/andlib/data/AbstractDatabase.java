@@ -124,8 +124,7 @@ abstract public class AbstractDatabase {
             if(ContextManager.getContext() == null) {
                 throw new NullPointerException("Null context creating database helper");
             }
-            helper = new DatabaseHelper(ContextManager.getContext(),
-                    getName(), getVersion());
+            helper = new DatabaseHelper(ContextManager.getContext(), getName(), getVersion());
         }
     }
 

@@ -15,7 +15,7 @@ public class SubtasksHelperTest extends SubtasksTestCase {
         createTasks();
         TaskListMetadata m = new TaskListMetadata();
         m.setFilter(TaskListMetadata.FILTER_ID_ALL);
-        updater.initializeFromSerializedTree(m, filter, SubtasksHelper.convertTreeToRemoteIds(DEFAULT_SERIALIZED_TREE));
+        updater.initializeFromSerializedTree(m, filter, SubtasksHelper.convertTreeToRemoteIds(taskService, DEFAULT_SERIALIZED_TREE));
     }
 
     private void createTask(String title, String uuid) {
@@ -48,7 +48,7 @@ public class SubtasksHelperTest extends SubtasksTestCase {
 
     private static String EXPECTED_REMOTE = "[\"-1\", [\"6\", \"4\", [\"3\", \"1\"]], \"2\", \"5\"]".replaceAll("\\s", "");
     public void disabled_testLocalToRemoteIdMapping() {
-        String mapped = SubtasksHelper.convertTreeToRemoteIds(DEFAULT_SERIALIZED_TREE).replaceAll("\\s", "");
+        String mapped = SubtasksHelper.convertTreeToRemoteIds(taskService, DEFAULT_SERIALIZED_TREE).replaceAll("\\s", "");
         assertEquals(EXPECTED_REMOTE, mapped);
     }
 }

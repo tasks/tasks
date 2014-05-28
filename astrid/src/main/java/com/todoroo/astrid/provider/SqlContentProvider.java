@@ -5,17 +5,20 @@
  */
 package com.todoroo.astrid.provider;
 
-import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
 
 import com.todoroo.andlib.data.AbstractDatabase;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.service.AstridDependencyInjector;
+
+import org.tasks.injection.InjectingContentProvider;
+
+import javax.inject.Inject;
+
+import dagger.Lazy;
 
 /**
  * Non-public-API SQL content provider.
@@ -27,7 +30,7 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class SqlContentProvider extends ContentProvider {
+public class SqlContentProvider extends InjectingContentProvider {
 
     // --- instance variables
 
@@ -40,12 +43,8 @@ public class SqlContentProvider extends ContentProvider {
                 "sql", 0);
     }
 
-    @Autowired private Database database;
-
-    @Override
-    public boolean onCreate() {
-        return true;
-    }
+    private boolean open;
+    @Inject Lazy<Database> database;
 
     public SqlContentProvider() {
         setReadPermission(AstridApiConstants.PERMISSION_READ);
@@ -92,8 +91,7 @@ public class SqlContentProvider extends ContentProvider {
      * ====================================================================== */
 
     @Override
-    public int update(Uri uri, ContentValues values, String selection,
-            String[] selectionArgs) {
+    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         throw new UnsupportedOperationException("unimplemented");
     }
 
@@ -116,11 +114,11 @@ public class SqlContentProvider extends ContentProvider {
     }
 
     private AbstractDatabase getDatabase() {
-        if (database == null) {
-            AstridDependencyInjector.inject(this);
-            database.openForWriting();
+        if (!open) {
+            database.get().openForWriting();
+            open = true;
         }
 
-        return database;
+        return database.get();
     }
 }

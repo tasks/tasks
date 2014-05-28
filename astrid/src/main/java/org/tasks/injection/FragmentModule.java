@@ -1,5 +1,6 @@
 package org.tasks.injection;
 
+import com.todoroo.astrid.actfm.TagCommentsFragment;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListFragment;
@@ -18,7 +19,8 @@ import dagger.Module;
                 SubtasksListFragment.class,
                 SubtasksTagListFragment.class,
                 TagViewFragment.class,
-                TaskEditFragment.class
+                TaskEditFragment.class,
+                TagCommentsFragment.class
         })
 public class FragmentModule {
 }

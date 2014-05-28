@@ -12,6 +12,7 @@ import android.util.Log;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.alarms.AlarmService;
+import com.todoroo.astrid.dao.TaskDao;
 
 import org.tasks.injection.InjectingService;
 import org.tasks.scheduling.RefreshScheduler;
@@ -28,6 +29,8 @@ public class ReminderSchedulingService extends InjectingService {
 
     @Inject RefreshScheduler refreshScheduler;
     @Inject AlarmService alarmService;
+    @Inject ReminderService reminderService;
+    @Inject TaskDao taskDao;
 
     /** Receive the alarm - start the synchronize service! */
     @Override
@@ -48,7 +51,7 @@ public class ReminderSchedulingService extends InjectingService {
 
     private void scheduleReminders() {
         try {
-            ReminderService.getInstance().scheduleAllAlarms();
+            reminderService.scheduleAllAlarms(taskDao);
             alarmService.scheduleAllAlarms();
             refreshScheduler.scheduleAllAlarms();
 

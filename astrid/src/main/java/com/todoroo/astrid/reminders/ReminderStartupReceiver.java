@@ -20,12 +20,6 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
  */
 public class ReminderStartupReceiver extends BroadcastReceiver {
 
-    static {
-        AstridDependencyInjector.initialize();
-    }
-
-    // --- system startup
-
     @Override
     /** Called when the system is started up */
     public void onReceive(Context context, Intent intent) {

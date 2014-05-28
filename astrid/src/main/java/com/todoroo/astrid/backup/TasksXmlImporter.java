@@ -22,9 +22,7 @@ import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -44,6 +42,7 @@ import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.R;
+import org.tasks.injection.Injector;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -53,6 +52,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.StringTokenizer;
+
+import javax.inject.Inject;
 
 public class TasksXmlImporter {
 
@@ -69,10 +70,10 @@ public class TasksXmlImporter {
 
     // --- implementation
 
-    @Autowired TagDataService tagDataService;
-    @Autowired TagService tagService;
-    @Autowired MetadataService metadataService;
-    @Autowired TaskService taskService;
+    @Inject TagDataService tagDataService;
+    @Inject TagService tagService;
+    @Inject MetadataService metadataService;
+    @Inject TaskService taskService;
 
     private final Handler handler;
     private int taskCount;
@@ -99,7 +100,7 @@ public class TasksXmlImporter {
      * @param runAfterImport optional runnable after import
      */
     private TasksXmlImporter(final Context context, String input, Runnable runAfterImport) {
-        DependencyInjectionService.getInstance().inject(this);
+        ((Injector) context.getApplicationContext()).inject(this);
 
         this.input = input;
         this.context = context;

@@ -15,9 +15,7 @@ import android.content.res.Resources;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -32,6 +30,9 @@ import org.tasks.R;
 import java.util.Date;
 import java.util.Random;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import static org.tasks.date.DateTimeUtils.currentTimeMillis;
 import static org.tasks.date.DateTimeUtils.newDate;
 
@@ -42,6 +43,7 @@ import static org.tasks.date.DateTimeUtils.newDate;
  * @author Tim Su <tim@todoroo.com>
  *
  */
+@Singleton
 public final class ReminderService  {
 
     // --- constants
@@ -74,30 +76,13 @@ public final class ReminderService  {
 
     // --- instance variables
 
-    @Autowired private TaskDao taskDao;
-
     private AlarmScheduler scheduler = new ReminderAlarmScheduler();
 
     private long now = -1; // For tracking when reminders might be scheduled all at once
 
+    @Inject
     ReminderService() {
-        DependencyInjectionService.getInstance().inject(this);
         setPreferenceDefaults();
-    }
-
-    // --- singleton
-
-    private static ReminderService instance = null;
-
-    public static synchronized ReminderService getInstance() {
-        if(instance == null) {
-            instance = new ReminderService();
-        }
-        return instance;
-    }
-
-    void clearInstance() {
-        instance = null;
     }
 
     // --- preference handling
@@ -129,14 +114,14 @@ public final class ReminderService  {
     /**
      * Schedules all alarms
      */
-    public void scheduleAllAlarms() {
-        TodorooCursor<Task> cursor = getTasksWithReminders(NOTIFICATION_PROPERTIES);
+    public void scheduleAllAlarms(TaskDao taskDao) {
+        TodorooCursor<Task> cursor = getTasksWithReminders(taskDao, NOTIFICATION_PROPERTIES);
         try {
             Task task = new Task();
             now = DateUtilities.now(); // Before mass scheduling, initialize now variable
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 task.readFromCursor(cursor);
-                scheduleAlarm(task, false);
+                scheduleAlarm(task, null);
             }
         } catch (Exception e) {
             // suppress
@@ -156,8 +141,8 @@ public final class ReminderService  {
     /**
      * Schedules alarms for a single task
      */
-    public void scheduleAlarm(Task task) {
-        scheduleAlarm(task, true);
+    public void scheduleAlarm(TaskDao taskDao, Task task) {
+        scheduleAlarm(task, taskDao);
     }
 
     public void clearAllAlarms(Task task) {
@@ -167,19 +152,13 @@ public final class ReminderService  {
         scheduler.createAlarm(task, NO_ALARM, TYPE_OVERDUE);
     }
 
-    /**
-     * Schedules alarms for a single task
-     *
-     * @param shouldPerformPropertyCheck
-     *            whether to check if task has requisite properties
-     */
-    private void scheduleAlarm(Task task, boolean shouldPerformPropertyCheck) {
+    private void scheduleAlarm(Task task, TaskDao taskDao) {
         if(task == null || !task.isSaved()) {
             return;
         }
 
         // read data if necessary
-        if(shouldPerformPropertyCheck) {
+        if(taskDao != null) {
             for(Property<?> property : NOTIFICATION_PROPERTIES) {
                 if(!task.containsValue(property)) {
                     task = taskDao.fetch(task.getId(), NOTIFICATION_PROPERTIES);
@@ -482,12 +461,10 @@ public final class ReminderService  {
      * Gets a listing of all tasks that are active &
      * @return todoroo cursor. PLEASE CLOSE THIS CURSOR!
      */
-    private TodorooCursor<Task> getTasksWithReminders(Property<?>... properties) {
+    private TodorooCursor<Task> getTasksWithReminders(TaskDao taskDao, Property<?>... properties) {
         return taskDao.query(Query.select(properties).where(Criterion.and(
                 TaskCriteria.isActive(),
                 TaskCriteria.ownedByMe(),
                 Criterion.or(Task.REMINDER_FLAGS.gt(0), Task.REMINDER_PERIOD.gt(0)))));
     }
-
-
 }
