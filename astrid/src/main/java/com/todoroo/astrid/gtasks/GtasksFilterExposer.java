@@ -15,9 +15,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
 import com.todoroo.andlib.data.AbstractModel;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Join;
@@ -35,9 +33,11 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.AstridDependencyInjector;
 
 import org.tasks.R;
+import org.tasks.injection.Injector;
+
+import javax.inject.Inject;
 
 /**
  * Exposes filters based on lists
@@ -47,12 +47,8 @@ import org.tasks.R;
  */
 public class GtasksFilterExposer extends BroadcastReceiver implements AstridFilterExposer {
 
-    @Autowired private GtasksListService gtasksListService;
-    @Autowired private GtasksPreferenceService gtasksPreferenceService;
-
-    static {
-        AstridDependencyInjector.initialize();
-    }
+    @Inject GtasksListService gtasksListService;
+    @Inject GtasksPreferenceService gtasksPreferenceService;
 
     private StoreObject[] lists;
 
@@ -91,7 +87,7 @@ public class GtasksFilterExposer extends BroadcastReceiver implements AstridFilt
     }
 
     private FilterListItem[] prepareFilters(Context context) {
-        DependencyInjectionService.getInstance().inject(this);
+        ((Injector) context.getApplicationContext()).inject(this);
 
         // if we aren't logged in (or we are logged in to astrid.com), don't expose features
         if(!gtasksPreferenceService.isLoggedIn()) {

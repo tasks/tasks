@@ -26,7 +26,7 @@ import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.Broadcaster;
-import org.tasks.TasksModule;
+import org.tasks.injection.TasksModule;
 import org.tasks.filters.FilterCounter;
 import org.tasks.injection.Injector;
 import org.tasks.scheduling.RefreshScheduler;

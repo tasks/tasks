@@ -14,9 +14,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
@@ -35,6 +33,7 @@ import com.todoroo.astrid.service.ThemeService;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingActivity;
+import org.tasks.injection.Injector;
 
 import java.util.ArrayList;
 
@@ -51,11 +50,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
     private static final String TOKEN_FILTER_ID = "id"; //$NON-NLS-1$
     private static final String TOKEN_FILTER_NAME = "name"; //$NON-NLS-1$
 
-    @Autowired StoreObjectDao storeObjectDao;
-
-    public CustomFilterExposer() {
-        DependencyInjectionService.getInstance().inject(this);
-    }
+    @Inject StoreObjectDao storeObjectDao;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -74,6 +69,8 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
     }
 
     private Filter[] buildSavedFilters(Context context, Resources r) {
+        ((Injector) context.getApplicationContext()).inject(this);
+
         int themeFlags = ThemeService.getFilterThemeFlags();
 
         TodorooCursor<StoreObject> cursor = storeObjectDao.query(Query.select(StoreObject.PROPERTIES).where(

@@ -19,9 +19,7 @@ import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -43,6 +41,7 @@ import com.todoroo.astrid.tags.TagService.Tag;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingActivity;
+import org.tasks.injection.Injector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,13 +58,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
 
     private static final String TAG = "tag"; //$NON-NLS-1$
 
-    @Autowired TagService tagService;
-
-    protected boolean addUntaggedFilter = true;
-
-    public TagFilterExposer() {
-        DependencyInjectionService.getInstance().inject(this);
-    }
+    @Inject TagService tagService;
 
     /** Create filter from new tag object */
     public static FilterWithCustomIntent filterFromTag(Context context, Tag tag, Criterion criterion) {
@@ -130,7 +123,9 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
-    protected FilterListItem[] prepareFilters(Context context) {
+    private FilterListItem[] prepareFilters(Context context) {
+        ((Injector) context.getApplicationContext()).inject(this);
+
         ContextManager.setContext(context);
 
         ArrayList<FilterListItem> list = new ArrayList<>();
@@ -142,18 +137,12 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
     }
 
     private void addTags(ArrayList<FilterListItem> list) {
-        List<Tag> tagList = getTagList();
-        list.add(filterFromTags(tagList.toArray(new Tag[tagList.size()]),
-                R.string.tag_FEx_header));
-    }
-
-    protected List<Tag> getTagList() {
-        return tagService.getTagList();
+        List<Tag> tagList = tagService.getTagList();
+        list.add(filterFromTags(tagList.toArray(new Tag[tagList.size()]), R.string.tag_FEx_header));
     }
 
     private FilterCategory filterFromTags(Tag[] tags, int name) {
-        boolean shouldAddUntagged = addUntaggedFilter &&
-                Preferences.getBoolean(R.string.p_show_not_in_list_filter, true);
+        boolean shouldAddUntagged = Preferences.getBoolean(R.string.p_show_not_in_list_filter, true);
 
         ArrayList<Filter> filters = new ArrayList<>(tags.length);
 
