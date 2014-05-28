@@ -6,11 +6,8 @@
 package com.todoroo.astrid.actfm;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,17 +16,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.NotificationManager;
-import com.todoroo.andlib.service.NotificationManager.AndroidNotificationManager;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TagDataDao;
@@ -45,8 +37,6 @@ import org.tasks.R;
 import javax.inject.Inject;
 
 public class TagViewFragment extends TaskListFragment {
-
-    public static final String BROADCAST_TAG_ACTIVITY = AstridApiConstants.API_PACKAGE + ".TAG_ACTIVITY"; //$NON-NLS-1$
 
     public static final String EXTRA_TAG_NAME = "tag"; //$NON-NLS-1$
 
@@ -200,34 +190,6 @@ public class TagViewFragment extends TaskListFragment {
         }
     }
 
-    // --- receivers
-
-    private final BroadcastReceiver notifyReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if(!intent.hasExtra("tag_id")) {
-                return;
-            }
-            if(tagData == null || !tagData.getUUID().equals(intent.getStringExtra("tag_id"))) {
-                return;
-            }
-
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    //refreshUpdatesList();
-                }
-            });
-
-            NotificationManager nm = new AndroidNotificationManager(ContextManager.getContext());
-            try {
-                nm.cancel(Integer.parseInt(tagData.getUUID()));
-            } catch (NumberFormatException e) {
-                // Eh
-            }
-        }
-    };
-
     @Override
     public void onResume() {
         if (justDeleted) {
@@ -243,17 +205,6 @@ public class TagViewFragment extends TaskListFragment {
             return;
         }
         super.onResume();
-
-
-        IntentFilter intentFilter = new IntentFilter(BROADCAST_TAG_ACTIVITY);
-        getActivity().registerReceiver(notifyReceiver, intentFilter);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        AndroidUtilities.tryUnregisterReceiver(getActivity(), notifyReceiver);
     }
 
     protected void reloadTagData() {

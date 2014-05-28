@@ -9,9 +9,9 @@ import android.content.res.Configuration;
 import android.test.AndroidTestCase;
 import android.util.DisplayMetrics;
 
+import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.astrid.service.AstridDependencyInjector;
 
 import java.util.Locale;
 

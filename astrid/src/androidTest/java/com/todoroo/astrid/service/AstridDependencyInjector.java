@@ -26,26 +26,35 @@ import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.Broadcaster;
-import org.tasks.injection.TasksModule;
 import org.tasks.filters.FilterCounter;
 import org.tasks.injection.Injector;
+import org.tasks.injection.TasksModule;
 import org.tasks.scheduling.RefreshScheduler;
 import org.tasks.widget.WidgetHelper;
 
 import javax.inject.Inject;
 
+import dagger.Module;
 import dagger.ObjectGraph;
 
 /**
  * Astrid application dependency injector loads classes in Astrid with the
  * appropriate instantiated objects necessary for their operation. For
- * more information on Dependency Injection, see {@link DependencyInjectionService}
- * and {@link AbstractDependencyInjector}.
+ * more information on Dependency Injection, see {@link com.todoroo.andlib.service.DependencyInjectionService}
+ * and {@link com.todoroo.andlib.service.AbstractDependencyInjector}.
  *
  * @author Tim Su <tim@todoroo.com>
  *
  */
 public class AstridDependencyInjector extends AbstractDependencyInjector {
+
+    @Module(
+            injects = {
+                    AstridDependencyInjector.class
+            }
+    )
+    public static class TestModule {
+    }
 
     /**
      * Boolean bit to prevent multiple copies of this injector to be loaded
@@ -97,7 +106,7 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
                         .inject(caller);
             }
         };
-        injector.inject(this);
+        injector.inject(this, new TestModule());
 
         // com.todoroo.astrid.dao
         injectables.put("database", database);

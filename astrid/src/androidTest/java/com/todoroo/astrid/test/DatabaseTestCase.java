@@ -9,7 +9,6 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.test.TodorooTestCaseWithInjector;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.provider.Astrid3ContentProvider;
-import com.todoroo.astrid.service.AstridDependencyInjector;
 
 /**
  * Test case that automatically sets up and tears down a test database
@@ -18,10 +17,6 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
  *
  */
 public class DatabaseTestCase extends TodorooTestCaseWithInjector {
-
-    static {
-        AstridDependencyInjector.initialize();
-    }
 
     public static Database database = new TestDatabase();
 

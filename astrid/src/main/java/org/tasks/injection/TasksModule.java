@@ -8,7 +8,6 @@ import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.gcal.GCalControlSet;
 import com.todoroo.astrid.gtasks.GtasksFilterExposer;
-import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.timers.TimerActionControlSet;
@@ -22,7 +21,6 @@ import dagger.Module;
 
 @Module(
         injects = {
-                AstridDependencyInjector.class,
                 ScrollableViewsFactory.class,
                 QuickAddBar.class,
                 EditTitleControlSet.class,

@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.astrid.service.AstridDependencyInjector;
 
 /**
  * Service which handles jobs that need to be run when phone boots
