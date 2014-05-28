@@ -198,7 +198,7 @@ public class FilesControlSet extends PopupControlSet {
         if (fileType.startsWith(TaskAttachment.FILE_TYPE_AUDIO)) {
             RecognizerApi.play(m.getFilePath(), new PlaybackExceptionHandler() {
                 @Override
-                public void playbackFailed(String file) {
+                public void playbackFailed() {
                     showFromIntent(filePath, fileType);
                 }
             });

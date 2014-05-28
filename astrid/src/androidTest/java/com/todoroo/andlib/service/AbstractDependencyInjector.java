@@ -7,7 +7,6 @@ package com.todoroo.andlib.service;
 
 import android.content.Context;
 
-import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 
@@ -44,12 +43,6 @@ abstract public class AbstractDependencyInjector {
     protected final HashMap<String, Object> injectables = new HashMap<>();
 
     /**
-     * Cache of classes that were instantiated by the injector
-     */
-    protected final HashMap<Class<?>, WeakReference<Object>> createdObjects =
-        new HashMap<>();
-
-    /**
      * Gets the injected object for this field. If implementing class does not
      * know how to handle this dependency, it should return null
      *
@@ -65,12 +58,4 @@ abstract public class AbstractDependencyInjector {
     public String toString() {
         return getClass().getSimpleName();
     }
-
-    /**
-     * Flush dependency injection cache. Useful for unit tests.
-     */
-    protected void clear() {
-        createdObjects.clear();
-    }
-
 }

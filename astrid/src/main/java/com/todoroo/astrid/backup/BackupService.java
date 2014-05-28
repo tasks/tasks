@@ -64,7 +64,7 @@ public class BackupService extends Service {
     /**
      * Test hook for backup
      */
-    public void testBackup(Context context) {
+    void testBackup(Context context) {
         startBackup(context);
     }
 
@@ -160,7 +160,7 @@ public class BackupService extends Service {
         }
     };
 
-    public void setBackupDirectorySetting(
+    void setBackupDirectorySetting(
             BackupDirectorySetting backupDirectorySetting) {
         this.backupDirectorySetting = backupDirectorySetting;
     }

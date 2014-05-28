@@ -25,6 +25,7 @@ import com.todoroo.astrid.gtasks.GtasksScheduler;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
+import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.Broadcaster;
@@ -103,6 +104,7 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
     @Inject GtasksSyncV2Provider gtasksSyncV2Provider;
     @Inject WidgetHelper widgetHelper;
     @Inject GtasksScheduler gtasksScheduler;
+    @Inject ReminderService reminderService;
 
     /**
      * Initialize list of injectables. Special care must used when
@@ -148,6 +150,7 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
         injectables.put("refreshScheduler", refreshScheduler);
         injectables.put("widgetHelper", widgetHelper);
         injectables.put("gtasksScheduler", gtasksScheduler);
+        injectables.put("reminderService", reminderService);
     }
 
     /**

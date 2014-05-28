@@ -183,7 +183,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     protected final int resource;
     protected final LayoutInflater inflater;
     private int fontSize;
-    private long mostRecentlyMade = -1;
     private final ScaleAnimation scaleAnimation;
 
     private final AtomicReference<String> query;
@@ -397,8 +396,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public String tagsString; // From join query, not part of the task model
         public boolean hasFiles; // From join query, not part of the task model
         public boolean hasNotes;
-
-        public View[] decorations;
     }
 
     /** Helper method to set the contents and visibility of each field */
@@ -472,11 +469,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 taskAction.setTag(null);
             }
         }
-
-        if(Math.abs(DateUtilities.now() - task.getModificationDate()) < 2000L) {
-            mostRecentlyMade = task.getId();
-        }
-
     }
 
     private TaskAction getTaskAction(Task task, boolean hasFiles, boolean hasNotes) {

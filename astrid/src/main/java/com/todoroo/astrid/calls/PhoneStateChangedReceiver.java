@@ -22,8 +22,6 @@ import com.todoroo.andlib.utility.Preferences;
 
 import org.tasks.R;
 
-import java.util.Date;
-
 import static org.tasks.date.DateTimeUtils.newDate;
 
 public class PhoneStateChangedReceiver extends BroadcastReceiver {

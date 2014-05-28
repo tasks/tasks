@@ -204,18 +204,18 @@ abstract public class TranslationTests extends TodorooTestCase {
         forEachLocale(new Runnable() {
             public void run() {
                 Locale locale = r.getConfiguration().locale;
-                for(int i = 0; i < dateStrings.length; i++) {
+                for (int dateString : dateStrings) {
                     try {
-                        String string = r.getString(dateStrings[i]);
+                        String string = r.getString(dateString);
                         try {
                             new SimpleDateFormat(string).format(date);
                         } catch (Exception e) {
-                            String name = r.getResourceName(dateStrings[i]);
+                            String name = r.getResourceName(dateString);
                             failures.append(String.format("%s: invalid format string '%s': %s\n",
                                     locale.toString(), name, e.getMessage()));
                         }
                     } catch (Exception e) {
-                        String name = r.getResourceName(dateStrings[i]);
+                        String name = r.getResourceName(dateString);
                         failures.append(String.format("%s: error opening %s: %s\n",
                                 locale.toString(), name, e.getMessage()));
                     }
@@ -296,10 +296,10 @@ abstract public class TranslationTests extends TodorooTestCase {
      */
     public int[] getResourceIds(Class<?> resources) throws Exception {
         Field[] fields = resources.getDeclaredFields();
-        List<Integer> ids = new ArrayList<Integer>(fields.length);
-        for(int i = 0; i < fields.length; i++) {
+        List<Integer> ids = new ArrayList<>(fields.length);
+        for (Field field : fields) {
             try {
-                ids.add(fields[i].getInt(null));
+                ids.add(field.getInt(null));
             } catch (Exception e) {
                 // not a field we care about
             }

@@ -47,7 +47,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
 
     private final HashMap<String, Node> idToNode;
 
-    protected abstract String getSerializedTree(LIST list, Filter filter);
+    protected abstract String getSerializedTree(LIST list);
     protected abstract void writeSerialization(LIST list, String serialized, boolean shouldQueueSync);
     protected abstract void applyToFilter(Filter filter);
 
@@ -60,7 +60,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
     }
 
     public void initialize(LIST list, Filter filter) {
-        initializeFromSerializedTree(list, filter, getSerializedTree(list, filter));
+        initializeFromSerializedTree(list, filter, getSerializedTree(list));
     }
 
     public void initializeFromSerializedTree(LIST list, Filter filter, String serializedTree) {
@@ -130,7 +130,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
         }
     }
 
-    public Node findNodeForTask(String taskId) {
+    Node findNodeForTask(String taskId) {
         return idToNode.get(taskId);
     }
 

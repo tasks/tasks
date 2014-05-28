@@ -2,7 +2,6 @@ package com.todoroo.astrid.subtasks;
 
 import android.text.TextUtils;
 
-import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TaskListMetadata;
@@ -22,7 +21,7 @@ public class SubtasksFilterUpdater extends SubtasksUpdater<TaskListMetadata> {
     }
 
     @Override
-    protected String getSerializedTree(TaskListMetadata list, Filter filter) {
+    protected String getSerializedTree(TaskListMetadata list) {
         if (list == null) {
             return "[]"; //$NON-NLS-1$
         }

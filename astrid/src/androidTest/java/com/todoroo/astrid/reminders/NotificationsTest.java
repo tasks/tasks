@@ -1,28 +1,21 @@
 package com.todoroo.astrid.reminders;
 
 import android.annotation.SuppressLint;
+import android.test.AndroidTestCase;
 
 import com.todoroo.andlib.utility.Preferences;
 
 import org.joda.time.DateTime;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 import org.tasks.R;
 
 import java.util.concurrent.TimeUnit;
 
 import static com.todoroo.astrid.reminders.Notifications.isQuietHours;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.tasks.Freeze.freezeAt;
 import static org.tasks.Freeze.thaw;
 import static org.tasks.TestUtilities.clearPreferences;
 
-@RunWith(RobolectricTestRunner.class)
-public class NotificationsTest {
+public class NotificationsTest extends AndroidTestCase {
 
     @SuppressLint("NewApi")
     private static final int MILLIS_PER_HOUR = (int) TimeUnit.HOURS.toMillis(1);
@@ -30,20 +23,17 @@ public class NotificationsTest {
     private static final DateTime now =
             new DateTime(2014, 1, 23, 18, 8, 31, 540);
 
-    @Before
-    public void before() {
-        clearPreferences();
+    public void setUp() {
+        clearPreferences(getContext());
         Preferences.setBoolean(R.string.p_rmd_enable_quiet, true);
         freezeAt(now);
     }
 
-    @After
-    public void after() {
+    public void tearDown() {
         thaw();
     }
 
-    @Test
-    public void notQuietWhenQuietHoursDisabled() {
+    public void testNotQuietWhenQuietHoursDisabled() {
         Preferences.setBoolean(R.string.p_rmd_enable_quiet, false);
         setQuietHoursStart(18);
         setQuietHoursEnd(19);
@@ -51,40 +41,35 @@ public class NotificationsTest {
         assertFalse(isQuietHours());
     }
 
-    @Test
-    public void isQuietAtStartOfQuietHoursNoTimeWrap() {
+    public void testIsQuietAtStartOfQuietHoursNoTimeWrap() {
         setQuietHoursStart(18);
         setQuietHoursEnd(19);
 
         assertTrue(isQuietHours());
     }
 
-    @Test
-    public void isNotQuietWhenStartAndEndAreSame() {
+    public void testIsNotQuietWhenStartAndEndAreSame() {
         setQuietHoursStart(18);
         setQuietHoursEnd(18);
 
         assertFalse(isQuietHours());
     }
 
-    @Test
-    public void isNotQuietAtEndOfQuietHoursNoTimeWrap() {
+    public void testIsNotQuietAtEndOfQuietHoursNoTimeWrap() {
         setQuietHoursStart(17);
         setQuietHoursEnd(18);
 
         assertFalse(isQuietHours());
     }
 
-    @Test
-    public void isQuietAtStartOfQuietHoursTimeWrap() {
+    public void testIsQuietAtStartOfQuietHoursTimeWrap() {
         setQuietHoursStart(18);
         setQuietHoursEnd(9);
 
         assertTrue(isQuietHours());
     }
 
-    @Test
-    public void isNotQuietAtEndOfQuietHoursTimeWrap() {
+    public void testIsNotQuietAtEndOfQuietHoursTimeWrap() {
         setQuietHoursStart(19);
         setQuietHoursEnd(18);
 

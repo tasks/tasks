@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class RecognizerApi implements RecognitionListener {
 
     public static interface PlaybackExceptionHandler {
-        public void playbackFailed(String file);
+        public void playbackFailed();
     }
 
     private Context context;
@@ -52,7 +52,7 @@ public class RecognizerApi implements RecognitionListener {
             mediaPlayer.prepare();
             mediaPlayer.start();
         } catch (Exception e) {
-            handler.playbackFailed(file);
+            handler.playbackFailed();
         }
     }
 

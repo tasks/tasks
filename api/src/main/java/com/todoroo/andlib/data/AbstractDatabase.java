@@ -39,7 +39,7 @@ import java.util.ArrayList;
  */
 abstract public class AbstractDatabase {
 
-    Logger log = LoggerFactory.getLogger(AbstractDatabase.class);
+    private static final Logger log = LoggerFactory.getLogger(AbstractDatabase.class);
 
 	// --- abstract methods
 
@@ -75,7 +75,7 @@ abstract public class AbstractDatabase {
     /**
      * SQLiteOpenHelper that takes care of database operations
      */
-    protected SQLiteOpenHelper helper = null;
+    private SQLiteOpenHelper helper = null;
 
     /**
      * Internal pointer to open database. Hides the fact that there is a
@@ -101,7 +101,7 @@ abstract public class AbstractDatabase {
         listeners.add(listener);
     }
 
-    protected void onDatabaseUpdated() {
+    private void onDatabaseUpdated() {
         for(DatabaseUpdateListener listener : listeners) {
             listener.onDatabaseUpdated();
         }
@@ -119,7 +119,7 @@ abstract public class AbstractDatabase {
         throw new UnsupportedOperationException("Unknown model class " + modelType); //$NON-NLS-1$
     }
 
-    protected synchronized final void initializeHelper() {
+    private synchronized void initializeHelper() {
         if(helper == null) {
             if(ContextManager.getContext() == null) {
                 throw new NullPointerException("Null context creating database helper");

@@ -8,8 +8,6 @@ package com.todoroo.andlib.sql;
 import com.todoroo.andlib.data.Property;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static com.todoroo.andlib.sql.SqlConstants.ALL;
 import static com.todoroo.andlib.sql.SqlConstants.COMMA;
@@ -192,34 +190,4 @@ public final class Query {
         queryTemplate = template;
         return this;
     }
-
-    /** query template helper */
-    public static class QueryTemplateHelper {
-
-        /** build a content resolver query */
-        public static void queryForContentResolver(String queryTemplate,
-                StringBuilder selectionClause, StringBuilder orderClause,
-                StringBuilder groupByClause) {
-
-            Pattern where = Pattern.compile("WHERE (.*?)(LIMIT|HAVING|GROUP|ORDER|\\Z)");
-            Matcher whereMatcher = where.matcher(queryTemplate);
-            if(whereMatcher.find()) {
-                selectionClause.append(whereMatcher.group(1).trim());
-            }
-
-            Pattern group = Pattern.compile("GROUP BY (.*?)(LIMIT|HAVING|ORDER|\\Z)");
-            Matcher groupMatcher = group.matcher(queryTemplate);
-            if(groupMatcher.find()) {
-                groupByClause.append(groupMatcher.group(1).trim());
-            }
-
-            Pattern order = Pattern.compile("ORDER BY (.*?)(LIMIT|HAVING|\\Z)");
-            Matcher orderMatcher = order.matcher(queryTemplate);
-            if(orderMatcher.find()) {
-                orderClause.append(orderMatcher.group(1).trim());
-            }
-        }
-
-    }
-
 }

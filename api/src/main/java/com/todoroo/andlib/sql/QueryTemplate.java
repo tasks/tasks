@@ -40,11 +40,6 @@ public final class QueryTemplate {
         return this;
     }
 
-    public QueryTemplate groupBy(Field... groupBy) {
-        groupBies.addAll(asList(groupBy));
-        return this;
-    }
-
     public QueryTemplate orderBy(Order... order) {
         orders.addAll(asList(order));
         return this;

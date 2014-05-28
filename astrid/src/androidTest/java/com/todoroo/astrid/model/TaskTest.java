@@ -3,43 +3,28 @@ package com.todoroo.astrid.model;
 import android.content.ContentValues;
 
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.test.TodorooRobolectricTestCase;
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.test.TodorooTestCase;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.AstridPreferences;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 import org.tasks.Snippet;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.tasks.Freeze.freezeClock;
 import static org.tasks.RemoteModelHelpers.asQueryProperties;
 import static org.tasks.RemoteModelHelpers.compareRemoteModel;
 import static org.tasks.date.DateTimeUtils.currentTimeMillis;
 
-@RunWith(RobolectricTestRunner.class)
-public class TaskTest extends TodorooRobolectricTestCase {
+public class TaskTest extends TodorooTestCase {
 
-    private TaskService taskService;
+    @Autowired private TaskService taskService;
 
-    @Override
-    public void before() {
-        super.before();
-
-        taskService = new TaskService();
-    }
-
-    @Test
-    public void newTaskHasNoCreationDate() {
+    public void testNewTaskHasNoCreationDate() {
         assertFalse(new Task().containsValue(Task.CREATION_DATE));
     }
 
-    @Test
-    public void savedTaskHasCreationDate() {
+    public void testSavedTaskHasCreationDate() {
         freezeClock().thawAfter(new Snippet() {{
             Task task = new Task();
             taskService.save(task);
@@ -47,8 +32,7 @@ public class TaskTest extends TodorooRobolectricTestCase {
         }});
     }
 
-    @Test
-    public void readTaskFromDb() {
+    public void testReadTaskFromDb() {
         Task task = new Task();
         taskService.save(task);
         Property[] properties = asQueryProperties(Task.TABLE, task.getDatabaseValues());
@@ -56,7 +40,6 @@ public class TaskTest extends TodorooRobolectricTestCase {
         compareRemoteModel(task, fromDb);
     }
 
-    @Test
     public void testDefaults() {
         AstridPreferences.setPreferenceDefaults();
         ContentValues defaults = new Task().getDefaultValues();

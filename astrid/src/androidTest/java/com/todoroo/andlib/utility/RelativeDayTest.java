@@ -1,82 +1,64 @@
 package com.todoroo.andlib.utility;
 
-import android.content.Context;
+import android.test.AndroidTestCase;
 
 import org.joda.time.DateTime;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 
 import java.util.Locale;
 
 import static com.todoroo.andlib.utility.DateUtilities.getRelativeDay;
 import static org.joda.time.DateTime.now;
-import static org.junit.Assert.assertEquals;
-import static org.robolectric.Robolectric.getShadowApplication;
 import static org.tasks.Freeze.freezeAt;
 import static org.tasks.Freeze.thaw;
 
-@RunWith(RobolectricTestRunner.class)
-public class RelativeDayTest {
+public class RelativeDayTest extends AndroidTestCase {
 
     private static Locale defaultLocale;
     private static final DateTime now = new DateTime(2013, 12, 31, 11, 9, 42, 357);
 
-    @Before
-    public void before() {
+    public void setUp() {
         defaultLocale = Locale.getDefault();
         Locale.setDefault(Locale.US);
         freezeAt(now);
     }
 
-    @After
-    public void after() {
+    public void tearDown() {
         Locale.setDefault(defaultLocale);
         thaw();
     }
 
-    @Test
-    public void relativeDayIsToday() {
+    public void testRelativeDayIsToday() {
         checkRelativeDay(now(), "today", "today");
     }
 
-    @Test
-    public void relativeDayIsTomorrow() {
+    public void testRelativeDayIsTomorrow() {
         checkRelativeDay(now().plusDays(1), "tomorrow", "tmrw");
     }
 
-    @Test
-    public void relativeDayIsYesterday() {
+    public void testRelativeDayIsYesterday() {
         checkRelativeDay(now().minusDays(1), "yesterday", "yest");
     }
 
-    @Test
-    public void relativeDayTwo() {
+    public void testRelativeDayTwo() {
         checkRelativeDay(now().minusDays(2), "Sunday", "Sun");
         checkRelativeDay(now().plusDays(2), "Thursday", "Thu");
     }
 
-    @Test
-    public void relativeDaySix() {
+    public void testRelativeDaySix() {
         checkRelativeDay(now().minusDays(6), "Wednesday", "Wed");
         checkRelativeDay(now().plusDays(6), "Monday", "Mon");
     }
 
-    @Test
-    public void relativeDayOneWeek() {
+    public void testRelativeDayOneWeek() {
         checkRelativeDay(now().minusDays(7), "Dec 24", "Dec 24");
     }
 
-    @Test
-    public void relativeDayOneWeekNextYear() {
+    public void testRelativeDayOneWeekNextYear() {
         checkRelativeDay(now().plusDays(7), "Jan 7\n2014", "Jan 7\n2014");
     }
 
     private void checkRelativeDay(DateTime now, String full, String abbreviated) {
-        final Context context = getShadowApplication().getApplicationContext();
-        assertEquals(full, getRelativeDay(context, now.getMillis(), false));
-        assertEquals(abbreviated, getRelativeDay(context, now.getMillis()));
+        assertEquals(full, getRelativeDay(getContext(), now.getMillis(), false));
+        assertEquals(abbreviated, getRelativeDay(getContext(), now.getMillis()));
     }
 }

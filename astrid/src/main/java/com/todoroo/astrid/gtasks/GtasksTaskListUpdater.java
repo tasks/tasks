@@ -107,7 +107,7 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
     /**
      * Create a local tree of tasks to expedite sibling and parent lookups
      */
-    public void createParentSiblingMaps() {
+    void createParentSiblingMaps() {
         for(StoreObject list : gtasksListService.getLists()) {
             updateParentSiblingMapsFor(list);
         }

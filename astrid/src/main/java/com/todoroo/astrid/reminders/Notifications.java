@@ -492,12 +492,12 @@ public class Notifications extends InjectingBroadcastReceiver {
 
     // --- notification manager
 
-    public static void setNotificationManager(
+    static void setNotificationManager(
             NotificationManager notificationManager) {
         Notifications.notificationManager = notificationManager;
     }
 
-    public static void forceNotificationManager() {
+    static void forceNotificationManager() {
         forceNotificationManager = true;
     }
 

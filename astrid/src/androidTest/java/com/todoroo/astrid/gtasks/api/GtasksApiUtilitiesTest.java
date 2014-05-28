@@ -1,13 +1,9 @@
 package com.todoroo.astrid.gtasks.api;
 
+import android.test.AndroidTestCase;
+
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 
 import java.util.Locale;
 import java.util.TimeZone;
@@ -16,42 +12,34 @@ import static com.todoroo.astrid.gtasks.api.GtasksApiUtilities.gtasksCompletedTi
 import static com.todoroo.astrid.gtasks.api.GtasksApiUtilities.gtasksDueTimeToUnixTime;
 import static com.todoroo.astrid.gtasks.api.GtasksApiUtilities.unixTimeToGtasksCompletionTime;
 import static com.todoroo.astrid.gtasks.api.GtasksApiUtilities.unixTimeToGtasksDueDate;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
-@RunWith(RobolectricTestRunner.class)
-public class GtasksApiUtilitiesTest {
+public class GtasksApiUtilitiesTest extends AndroidTestCase {
 
     private static final Locale defaultLocale = Locale.getDefault();
     private static final DateTimeZone defaultDateTimeZone = DateTimeZone.getDefault();
 
-    @Before
-    public void before() {
+    public void setUp() {
         Locale.setDefault(Locale.US);
         DateTimeZone.setDefault(DateTimeZone.forID("America/Chicago"));
     }
 
-    @After
-    public void after() {
+    public void tearDown() {
         Locale.setDefault(defaultLocale);
         DateTimeZone.setDefault(defaultDateTimeZone);
     }
 
-    @Test
-    public void convertUnixToGoogleCompletionTime() {
+    public void testConvertUnixToGoogleCompletionTime() {
         long now = new DateTime(2014, 1, 8, 8, 53, 20, 109).getMillis();
         assertEquals(now, unixTimeToGtasksCompletionTime(now).getValue());
     }
 
-    @Test
-    public void convertGoogleCompletedTimeToUnixTime() {
+    public void testConvertGoogleCompletedTimeToUnixTime() {
         long now = new DateTime(2014, 1, 8, 8, 53, 20, 109).getMillis();
         com.google.api.client.util.DateTime gtime = new com.google.api.client.util.DateTime(now);
         assertEquals(now, gtasksCompletedTimeToUnixTime(gtime));
     }
 
-    @Test
-    public void convertDueDateTimeToGoogleDueDate() {
+    public void testConvertDueDateTimeToGoogleDueDate() {
         DateTime now = new DateTime(2014, 1, 8, 8, 53, 20, 109);
 
         assertEquals(
@@ -59,9 +47,7 @@ public class GtasksApiUtilitiesTest {
                 unixTimeToGtasksDueDate(now.getMillis()).getValue());
     }
 
-    @Test
-    @Ignore
-    public void convertGoogleDueDateToUnixTime() {
+    public void disabled_testConvertGoogleDueDateToUnixTime() {
         com.google.api.client.util.DateTime googleDueDate =
                 new com.google.api.client.util.DateTime(
                         new DateTime(2014, 1, 8, 0, 0, 0, 0).toDate(), TimeZone.getTimeZone("UTC"));
@@ -71,14 +57,12 @@ public class GtasksApiUtilitiesTest {
                 gtasksDueTimeToUnixTime(googleDueDate));
     }
 
-    @Test
-    public void convertToInvalidGtaskTimes() {
+    public void testConvertToInvalidGtaskTimes() {
         assertNull(unixTimeToGtasksCompletionTime(-1));
         assertNull(unixTimeToGtasksDueDate(-1));
     }
 
-    @Test
-    public void convertFromInvalidGtaskTimes() {
+    public void testConvertFromInvalidGtaskTimes() {
         assertEquals(0, gtasksCompletedTimeToUnixTime(null));
         assertEquals(0, gtasksDueTimeToUnixTime(null));
     }
