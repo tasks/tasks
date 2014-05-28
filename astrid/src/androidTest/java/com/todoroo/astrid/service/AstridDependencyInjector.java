@@ -5,6 +5,8 @@
  */
 package com.todoroo.astrid.service;
 
+import android.content.Context;
+
 import com.todoroo.andlib.service.AbstractDependencyInjector;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.dao.Database;
@@ -27,15 +29,17 @@ import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.Broadcaster;
 import org.tasks.filters.FilterCounter;
-import org.tasks.injection.Injector;
-import org.tasks.injection.TasksModule;
+import org.tasks.injection.TestInjector;
 import org.tasks.scheduling.RefreshScheduler;
 import org.tasks.widget.WidgetHelper;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import dagger.Module;
-import dagger.ObjectGraph;
+import dagger.Provides;
+
+import static org.tasks.injection.TasksModule.ForApplication;
 
 /**
  * Astrid application dependency injector loads classes in Astrid with the
@@ -54,14 +58,24 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
             }
     )
     public static class TestModule {
+        private Context context;
+
+        public TestModule(Context context) {
+            this.context = context;
+        }
+
+        @Singleton
+        @Provides
+        @ForApplication
+        public Context getContext() {
+            return context;
+        }
     }
 
     /**
      * Boolean bit to prevent multiple copies of this injector to be loaded
      */
     private static AstridDependencyInjector instance = null;
-
-    private Injector injector;
 
     @Inject Database database;
     @Inject MetadataDao metadataDao;
@@ -95,18 +109,9 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
      * instantiating classes that themselves depend on dependency injection
      */
     @Override
-    protected void addInjectables() {
-        injector = new Injector() {
-            ObjectGraph objectGraph = ObjectGraph.create(new TasksModule());
-
-            @Override
-            public void inject(Object caller, Object... modules) {
-                objectGraph
-                        .plus(modules)
-                        .inject(caller);
-            }
-        };
-        injector.inject(this, new TestModule());
+    protected void addInjectables(Context context) {
+        new TestInjector(context)
+                .inject(this, new TestModule(context));
 
         // com.todoroo.astrid.dao
         injectables.put("database", database);
@@ -148,38 +153,28 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
     /**
      * Install this service as the default Dependency Injector
      */
-    public static void initialize() {
+    private static void initialize(Context context) {
         if(instance != null) {
             return;
         }
         synchronized(AstridDependencyInjector.class) {
             if(instance == null) {
-                instance = new AstridDependencyInjector();
+                instance = new AstridDependencyInjector(context);
             }
             DependencyInjectionService.getInstance().addInjector(instance);
         }
     }
 
-    public static void inject(Object caller) {
-        initialize();
-        DependencyInjectionService.getInstance().inject(caller);
-    }
-
-    AstridDependencyInjector() {
+    AstridDependencyInjector(Context context) {
         // prevent instantiation
-        super();
+        super(context);
     }
 
     /**
      * Flush dependency injection cache. Useful for unit tests.
      */
-    public synchronized static void reset() {
+    public synchronized static void reset(Context context) {
         instance = null;
-        initialize();
-    }
-
-    public static Injector getInjector() {
-        initialize();
-        return instance.injector;
+        initialize(context);
     }
 }

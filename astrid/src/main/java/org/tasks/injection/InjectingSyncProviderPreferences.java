@@ -7,7 +7,7 @@ import com.todoroo.astrid.sync.SyncProviderPreferences;
 public abstract class InjectingSyncProviderPreferences extends SyncProviderPreferences {
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        ((Injector) getApplication()).inject(this, new ActivityModule());
+        ((Injector) getApplication()).inject(this, new ActivityModule(this));
 
         super.onCreate(savedInstanceState);
     }

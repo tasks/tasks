@@ -7,6 +7,7 @@ package com.todoroo.astrid.gtasks;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -14,7 +15,6 @@ import android.widget.TextView;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -33,6 +33,8 @@ import org.tasks.R;
 
 import javax.inject.Inject;
 
+import static org.tasks.injection.ActivityModule.ForActivity;
+
 public class GtasksListFragment extends SubtasksListFragment {
 
     public static final String TOKEN_STORE_ID = "storeId"; //$NON-NLS-1$
@@ -43,6 +45,7 @@ public class GtasksListFragment extends SubtasksListFragment {
     @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
     @Inject GtasksMetadataService gtasksMetadataService;
     @Inject SyncV2Service syncService;
+    @Inject @ForActivity Context context;
 
     private StoreObject list;
 
@@ -87,7 +90,7 @@ public class GtasksListFragment extends SubtasksListFragment {
             @Override
             public void run() {
                 if (manual) {
-                    ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+                    context.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
                 } else {
                     refresh();
                 }

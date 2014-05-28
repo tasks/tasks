@@ -21,8 +21,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.data.UserActivity;
-import com.todoroo.astrid.provider.Astrid2TaskProvider;
-import com.todoroo.astrid.provider.Astrid3ContentProvider;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -68,14 +66,6 @@ public class Database extends AbstractDatabase {
 
     @Inject
     public Database() {
-        super();
-        addListener(new DatabaseUpdateListener() {
-            @Override
-            public void onDatabaseUpdated() {
-                Astrid2TaskProvider.notifyDatabaseModification();
-                Astrid3ContentProvider.notifyDatabaseModification();
-            }
-        });
     }
 
     // --- implementation

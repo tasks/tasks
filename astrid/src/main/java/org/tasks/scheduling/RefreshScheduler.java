@@ -7,7 +7,6 @@ import android.content.Intent;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.TaskDao;
@@ -19,11 +18,13 @@ import javax.inject.Singleton;
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 import static com.todoroo.andlib.utility.DateUtilities.ONE_MINUTE;
 import static org.tasks.date.DateTimeUtils.currentTimeMillis;
+import static org.tasks.injection.TasksModule.ForApplication;
 
 @Singleton
 public class RefreshScheduler {
 
     private final TaskDao taskDao;
+    private final Context context;
 
     private static final Property<?>[] REFRESH_PROPERTIES = new Property<?>[]{
             Task.DUE_DATE,
@@ -31,8 +32,9 @@ public class RefreshScheduler {
     };
 
     @Inject
-    public RefreshScheduler(TaskDao taskDao) {
+    public RefreshScheduler(TaskDao taskDao, @ForApplication Context context) {
         this.taskDao = taskDao;
+        this.context = context;
     }
 
     public void scheduleAllAlarms() {
@@ -66,7 +68,6 @@ public class RefreshScheduler {
         }
 
         dueDate += 1000; // this is ghetto
-        Context context = ContextManager.getContext();
         Intent intent = new Intent(context, RefreshBroadcastReceiver.class);
         intent.setAction(Long.toString(dueDate));
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

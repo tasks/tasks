@@ -18,7 +18,6 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.AstridPreferences;
 
@@ -133,7 +132,6 @@ public class MetadataDao extends DatabaseDao<Metadata> {
                 Preferences.setBoolean(AstridPreferences.P_FIRST_LIST, false);
             }
         }
-        Astrid2TaskProvider.notifyDatabaseModification();
         return state;
     }
 

@@ -1,5 +1,7 @@
 package org.tasks.injection;
 
+import android.content.Context;
+
 import com.todoroo.astrid.alarms.AlarmDetailExposer;
 import com.todoroo.astrid.alarms.AlarmTaskRepeatListener;
 import com.todoroo.astrid.gcal.GCalTaskCompleteListener;
@@ -18,7 +20,12 @@ import com.todoroo.astrid.widget.TasksWidget;
 
 import org.tasks.scheduling.RefreshBroadcastReceiver;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
+import dagger.Provides;
+
+import static org.tasks.injection.TasksModule.ForApplication;
 
 @Module(library = true,
         injects = {
@@ -40,4 +47,17 @@ import dagger.Module;
                 GtasksStartupReceiver.class
         })
 public class BroadcastModule {
+
+    private final Context context;
+
+    public BroadcastModule(Context context) {
+        this.context = context;
+    }
+
+    @Singleton
+    @Provides
+    @ForApplication
+    public Context getContext() {
+        return context.getApplicationContext();
+    }
 }

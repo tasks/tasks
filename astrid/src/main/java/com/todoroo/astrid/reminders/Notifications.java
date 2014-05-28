@@ -50,6 +50,7 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import static org.tasks.date.DateTimeUtils.currentTimeMillis;
+import static org.tasks.injection.TasksModule.ForApplication;
 
 public class Notifications extends InjectingBroadcastReceiver {
 
@@ -82,6 +83,7 @@ public class Notifications extends InjectingBroadcastReceiver {
     // --- instance variables
 
     @Inject TaskDao taskDao;
+    @Inject @ForApplication Context context;
 
     public static NotificationManager notificationManager = null;
     private static boolean forceNotificationManager = false;
@@ -187,7 +189,6 @@ public class Notifications extends InjectingBroadcastReceiver {
         task.setSocialReminder(Task.REMINDER_SOCIAL_UNSEEN);
         taskDao.saveExisting(task);
 
-        Context context = ContextManager.getContext();
         String title = context.getString(R.string.app_name);
         String text = reminder + " " + taskTitle; //$NON-NLS-1$
 
@@ -209,12 +210,11 @@ public class Notifications extends InjectingBroadcastReceiver {
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         notifyIntent.putExtra(TaskListActivity.TOKEN_SOURCE, Constants.SOURCE_NOTIFICATION);
 
-        requestNotification((int)id, notifyIntent, type, title, text, ringTimes);
+        requestNotification(context, (int)id, notifyIntent, type, title, text, ringTimes);
         return true;
     }
 
-    private static void requestNotification(long taskId, Intent intent, int type, String title, String text, int ringTimes) {
-        Context context = ContextManager.getContext();
+    private static void requestNotification(Context context, long taskId, Intent intent, int type, String title, String text, int ringTimes) {
         Intent inAppNotify = new Intent(BROADCAST_IN_APP_NOTIFY);
         inAppNotify.putExtra(EXTRAS_NOTIF_ID, (int)taskId);
         inAppNotify.putExtra(NotificationFragment.TOKEN_ID, taskId);
@@ -225,7 +225,7 @@ public class Notifications extends InjectingBroadcastReceiver {
         inAppNotify.putExtra(EXTRAS_RING_TIMES, ringTimes);
 
         if(forceNotificationManager) {
-            new ShowNotificationReceiver().onReceive(ContextManager.getContext(), inAppNotify);
+            new ShowNotificationReceiver().onReceive(context, inAppNotify);
         } else {
             context.sendOrderedBroadcast(inAppNotify, AstridApiConstants.PERMISSION_READ);
         }
@@ -246,7 +246,7 @@ public class Notifications extends InjectingBroadcastReceiver {
             String title = intent.getStringExtra(EXTRAS_TITLE);
             String text = intent.getStringExtra(EXTRAS_TEXT);
             int ringTimes = intent.getIntExtra(EXTRAS_RING_TIMES, 1);
-            showNotification(notificationId, customIntent, type, title, text, ringTimes);
+            showNotification(context, notificationId, customIntent, type, title, text, ringTimes);
         }
     }
 
@@ -269,10 +269,8 @@ public class Notifications extends InjectingBroadcastReceiver {
      * from preferences. You can make it say anything you like.
      * @param ringTimes number of times to ring (-1 = nonstop)
      */
-    public static void showNotification(int notificationId, Intent intent, int type, String title,
+    public static void showNotification(Context context, int notificationId, Intent intent, int type, String title,
             String text, int ringTimes) {
-        Context context = ContextManager.getContext();
-
         if(notificationManager == null) {
             notificationManager = new AndroidNotificationManager(context);
         }

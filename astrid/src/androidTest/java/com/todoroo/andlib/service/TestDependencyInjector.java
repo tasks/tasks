@@ -11,6 +11,7 @@ public class TestDependencyInjector extends AbstractDependencyInjector {
     private String name;
 
     public TestDependencyInjector(String name) {
+        super(null);
         this.name = name;
     }
 

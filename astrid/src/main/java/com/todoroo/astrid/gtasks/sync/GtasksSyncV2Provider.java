@@ -5,12 +5,12 @@
  */
 package com.todoroo.astrid.gtasks.sync;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import com.google.api.services.tasks.model.Tasks;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
@@ -52,6 +52,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import static org.tasks.date.DateTimeUtils.newDate;
+import static org.tasks.injection.TasksModule.ForApplication;
 
 @Singleton
 public class GtasksSyncV2Provider extends SyncV2Provider {
@@ -64,10 +65,12 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     private final GtasksListService gtasksListService;
     private final GtasksMetadataService gtasksMetadataService;
     private final GtasksTaskListUpdater gtasksTaskListUpdater;
+    private Context context;
 
     @Inject
     public GtasksSyncV2Provider(TaskService taskService, MetadataService metadataService, StoreObjectDao storeObjectDao, GtasksPreferenceService gtasksPreferenceService,
-                                GtasksSyncService gtasksSyncService, GtasksListService gtasksListService, GtasksMetadataService gtasksMetadataService, GtasksTaskListUpdater gtasksTaskListUpdater) {
+                                GtasksSyncService gtasksSyncService, GtasksListService gtasksListService, GtasksMetadataService gtasksMetadataService,
+                                GtasksTaskListUpdater gtasksTaskListUpdater, @ForApplication Context context) {
         this.taskService = taskService;
         this.metadataService = metadataService;
         this.storeObjectDao = storeObjectDao;
@@ -76,11 +79,12 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         this.gtasksListService = gtasksListService;
         this.gtasksMetadataService = gtasksMetadataService;
         this.gtasksTaskListUpdater = gtasksTaskListUpdater;
+        this.context = context;
     }
 
     @Override
     public String getName() {
-        return ContextManager.getString(R.string.gtasks_GPr_header);
+        return context.getString(R.string.gtasks_GPr_header);
     }
 
     @Override
@@ -231,7 +235,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     private String getValidatedAuthToken() {
         String authToken = gtasksPreferenceService.getToken();
         try {
-            authToken = GtasksTokenValidator.validateAuthToken(ContextManager.getContext(), authToken);
+            authToken = GtasksTokenValidator.validateAuthToken(context, authToken);
             if (authToken != null) {
                 gtasksPreferenceService.setToken(authToken);
             }

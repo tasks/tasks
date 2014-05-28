@@ -1,5 +1,8 @@
 package org.tasks.injection;
 
+import android.app.Application;
+import android.content.Context;
+
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.alarms.AlarmControlSet;
 import com.todoroo.astrid.backup.TasksXmlExporter;
@@ -17,7 +20,20 @@ import com.todoroo.astrid.ui.QuickAddBar;
 
 import org.tasks.widget.ScrollableViewsFactory;
 
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import javax.inject.Qualifier;
+import javax.inject.Singleton;
+
 import dagger.Module;
+import dagger.Provides;
+
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Module(
         injects = {
@@ -39,4 +55,28 @@ import dagger.Module;
         }
 )
 public class TasksModule {
+
+    private final Context context;
+
+    public static TasksModule newTasksModule(Application application) {
+        return new TasksModule(application.getApplicationContext());
+    }
+
+    TasksModule(Context context) {
+        this.context = context;
+    }
+
+    @Singleton
+    @Provides
+    @ForApplication
+    public Context getContext() {
+        return context;
+    }
+
+    @Qualifier
+    @Target({FIELD, PARAMETER, METHOD})
+    @Documented
+    @Retention(RUNTIME)
+    public @interface ForApplication {
+    }
 }

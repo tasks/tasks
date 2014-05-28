@@ -19,6 +19,7 @@ import android.media.AudioManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.todoroo.andlib.data.AbstractDatabase;
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.ContextManager;
@@ -41,6 +42,8 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.CalendarStartupReceiver;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
+import com.todoroo.astrid.provider.Astrid2TaskProvider;
+import com.todoroo.astrid.provider.Astrid3ContentProvider;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.AstridPreferences;
@@ -104,6 +107,14 @@ public class StartupService {
 
         // sets up context manager
         ContextManager.setContext(context);
+
+        database.addListener(new AbstractDatabase.DatabaseUpdateListener() {
+            @Override
+            public void onDatabaseUpdated() {
+                Astrid2TaskProvider.notifyDatabaseModification(context);
+                Astrid3ContentProvider.notifyDatabaseModification(context);
+            }
+        });
 
         try {
             database.openForWriting();

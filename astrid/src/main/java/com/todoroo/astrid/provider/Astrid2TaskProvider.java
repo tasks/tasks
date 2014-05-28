@@ -11,10 +11,8 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
-import android.util.Log;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -25,6 +23,8 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagService.Tag;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.injection.InjectingContentProvider;
 
 import java.math.BigInteger;
@@ -47,9 +47,7 @@ import dagger.Lazy;
  */
 public class Astrid2TaskProvider extends InjectingContentProvider {
 
-	private static final String TAG = "MessageProvider";
-
-	private static final boolean LOGD = false;
+    private static final Logger log = LoggerFactory.getLogger(Astrid2TaskProvider.class);
 
 	public static final String AUTHORITY = "org.tasks.tasksprovider";
 
@@ -85,8 +83,6 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 	@Inject Lazy<TaskService> taskService;
     @Inject Lazy<TagService> tagService;
 
-	private static Context ctx = null;
-
 	static {
 		URI_MATCHER.addURI(AUTHORITY, "tasks", URI_TASKS);
 		URI_MATCHER.addURI(AUTHORITY, "tags", URI_TAGS);
@@ -94,10 +90,6 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
-		if (LOGD) {
-            Log.d(TAG, "delete");
-        }
-
 		return 0;
 	}
 
@@ -114,8 +106,6 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 	@Override
 	public boolean onCreate() {
 		super.onCreate();
-        ctx = getContext();
-		ContextManager.setContext(ctx);
 		return false;
 	}
 
@@ -178,7 +168,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
                 TaskCriteria.isVisible())).
                 orderBy(SortHelper.defaultTaskOrder()).limit(MAX_NUMBER_OF_TASKS));
 		try {
-    		int[] importanceColors = Task.getImportanceColors(ctx.getResources());
+    		int[] importanceColors = Task.getImportanceColors(getContext().getResources());
     		Task task = new Task();
     		for (int i = 0; i < cursor.getCount(); i++) {
     			cursor.moveToNext();
@@ -206,11 +196,6 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-
-		if (LOGD) {
-            Log.d(TAG, "query");
-        }
-
 		Cursor cursor;
 		switch (URI_MATCHER.match(uri)) {
 
@@ -231,11 +216,6 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 
 	@Override
 	public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-
-		if (LOGD) {
-            Log.d(TAG, "update");
-        }
-
       switch (URI_MATCHER.match(uri)) {
 
         case URI_TASKS:
@@ -276,19 +256,11 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
         }
 	}
 
-	public static void notifyDatabaseModification() {
-
-		if (LOGD) {
-            Log.d(TAG, "notifyDatabaseModification");
-        }
-
-		if(ctx == null) {
-            ctx = ContextManager.getContext();
-        }
+	public static void notifyDatabaseModification(Context context) {
 		try {
-		    ctx.getContentResolver().notifyChange(CONTENT_URI, null);
+		    context.getContentResolver().notifyChange(CONTENT_URI, null);
 		} catch (Exception e) {
-		    // no context was available
+            log.error(e.getMessage(), e);
 		}
 	}
 }

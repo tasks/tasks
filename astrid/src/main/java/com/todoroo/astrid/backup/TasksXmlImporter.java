@@ -22,7 +22,6 @@ import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -166,7 +165,7 @@ public class TasksXmlImporter {
             }
         } finally {
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
-            ContextManager.getContext().sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+            context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
             handler.post(new Runnable() {
                 @Override
                 public void run() {

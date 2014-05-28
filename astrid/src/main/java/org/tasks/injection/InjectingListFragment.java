@@ -12,7 +12,7 @@ public class InjectingListFragment extends ListFragment {
         super.onAttach(activity);
 
         if (!injected) {
-            ((Injector) activity.getApplication()).inject(this, new FragmentModule());
+            ((Injector) activity.getApplication()).inject(this, new FragmentModule(activity));
             injected = true;
         }
     }

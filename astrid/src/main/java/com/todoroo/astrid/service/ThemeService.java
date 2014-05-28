@@ -187,7 +187,7 @@ public class ThemeService {
             return R.drawable.gl_lists_dark;
         }
 
-        Log.w("ThemeService", "No theme drawable found for " + ContextManager.getResources().getResourceName(lightDrawable));
+        Log.w("ThemeService", "No theme drawable found for " + lightDrawable);
         return lightDrawable;
     }
 

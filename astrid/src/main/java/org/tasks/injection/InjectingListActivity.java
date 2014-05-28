@@ -6,7 +6,7 @@ import android.os.Bundle;
 public class InjectingListActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ((Injector) getApplication()).inject(this, new ActivityModule());
+        ((Injector) getApplication()).inject(this, new ActivityModule(this));
 
         super.onCreate(savedInstanceState);
     }

@@ -101,20 +101,8 @@ public class TasksWidget extends InjectingAppWidgetProvider {
         }
     }
 
-    public static void applyConfigSelection(WidgetHelper widgetHelper, Context context, int id) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            Intent intent = new Intent(ContextManager.getContext(), WidgetUpdateService.class);
-            intent.putExtra(WidgetUpdateService.EXTRA_WIDGET_ID, id);
-            context.startService(intent);
-        } else {
-            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-            appWidgetManager.updateAppWidget(id, widgetHelper.createScrollableWidget(context, id));
-            updateScrollableWidgets(context, new int[]{id});
-        }
-    }
-
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private static void updateScrollableWidgets(Context context, int[] widgetIds) {
+    public static void updateScrollableWidgets(Context context, int[] widgetIds) {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         if (widgetIds == null) {
             widgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, TasksWidget.class));

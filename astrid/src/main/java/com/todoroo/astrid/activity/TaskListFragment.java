@@ -44,7 +44,6 @@ import android.widget.ListView;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
@@ -93,6 +92,8 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
+import static org.tasks.injection.ActivityModule.ForActivity;
+
 /**
  * Primary activity for the Bente application. Shows a list of upcoming tasks
  * and a user's coaches.
@@ -139,6 +140,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     @Inject UpgradeService upgradeService;
     @Inject TaskListMetadataDao taskListMetadataDao;
     @Inject SyncV2Service syncService;
+    @Inject @ForActivity Context context;
 
     protected Resources resources;
     protected TaskAdapter taskAdapter = null;
@@ -918,7 +920,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
                 }
             }
         }
-        TimerPlugin.updateTimer(taskService, ContextManager.getContext(), task, false);
+        TimerPlugin.updateTimer(taskService, context, task, false);
     }
 
     public void refreshFilterCount() {
@@ -1069,14 +1071,14 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         sortSort = sort;
 
         if (always) {
-            SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(ContextManager.getContext());
+            SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(context);
             if (publicPrefs != null) {
                 Editor editor = publicPrefs.edit();
                 if (editor != null) {
                     editor.putInt(SortHelper.PREF_SORT_FLAGS, flags);
                     editor.putInt(SortHelper.PREF_SORT_SORT, sort);
                     editor.commit();
-                    TasksWidget.updateWidgets(ContextManager.getContext());
+                    TasksWidget.updateWidgets(context);
                 }
             }
         }
@@ -1088,6 +1090,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
                 setUpTaskList();
             }
         } catch (IllegalStateException e) {
+            log.error(e.getMessage(), e);
             // TODO: Fragment got detached somehow (rare)
         }
     }

@@ -7,7 +7,7 @@ import android.content.Intent;
 public class InjectingAppWidgetProvider extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
-        ((Injector) context.getApplicationContext()).inject(this, new BroadcastModule());
+        ((Injector) context.getApplicationContext()).inject(this, new BroadcastModule(context));
 
         super.onReceive(context, intent);
     }

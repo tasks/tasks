@@ -8,6 +8,7 @@ package com.todoroo.astrid.widget;
 import android.appwidget.AppWidgetManager;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -43,8 +44,16 @@ public class WidgetConfigActivity extends InjectingListActivity {
 
     @Inject WidgetHelper widgetHelper;
 
-    public void updateWidget() {
-        TasksWidget.applyConfigSelection(widgetHelper, this, mAppWidgetId);
+    private void updateWidget() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            Intent intent = new Intent(this, WidgetUpdateService.class);
+            intent.putExtra(WidgetUpdateService.EXTRA_WIDGET_ID, mAppWidgetId);
+            startService(intent);
+        } else {
+            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+            appWidgetManager.updateAppWidget(mAppWidgetId, widgetHelper.createScrollableWidget(this, mAppWidgetId));
+            TasksWidget.updateScrollableWidgets(this, new int[]{mAppWidgetId});
+        }
     }
 
     @Override

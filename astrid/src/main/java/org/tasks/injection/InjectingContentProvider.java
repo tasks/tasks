@@ -1,11 +1,13 @@
 package org.tasks.injection;
 
 import android.content.ContentProvider;
+import android.content.Context;
 
 public abstract class InjectingContentProvider extends ContentProvider {
     @Override
     public boolean onCreate() {
-        ((Injector) getContext().getApplicationContext()).inject(this, new ContentProviderModule());
+        Context context = getContext();
+        ((Injector) context.getApplicationContext()).inject(this, new ContentProviderModule(context));
 
         return true;
     }

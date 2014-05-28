@@ -8,6 +8,7 @@ package com.todoroo.astrid.provider;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -18,7 +19,6 @@ import android.text.TextUtils;
 import com.todoroo.andlib.data.AbstractDatabase;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.DatabaseDao;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
@@ -394,8 +394,8 @@ public class Astrid3ContentProvider extends InjectingContentProvider {
 
     // --- change listeners
 
-    public static void notifyDatabaseModification() {
-        ContentResolver cr = ContextManager.getContext().getContentResolver();
+    public static void notifyDatabaseModification(Context context) {
+        ContentResolver cr = context.getContentResolver();
         cr.notifyChange(Task.CONTENT_URI, null);
     }
 }

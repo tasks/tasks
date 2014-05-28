@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
@@ -33,6 +32,8 @@ import java.util.LinkedHashSet;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import static org.tasks.injection.TasksModule.ForApplication;
+
 /**
  * Provides operations for working with alerts
  *
@@ -45,11 +46,14 @@ public class AlarmService {
     // --- data retrieval
 
     public static final String IDENTIFIER = "alarms"; //$NON-NLS-1$
-    private MetadataService metadataService;
+
+    private final MetadataService metadataService;
+    private final Context context;
 
     @Inject
-    public AlarmService(MetadataService metadataService) {
+    public AlarmService(MetadataService metadataService, @ForApplication Context context) {
         this.metadataService = metadataService;
+        this.context = context;
     }
 
     /**
@@ -75,7 +79,6 @@ public class AlarmService {
             metadata.add(item);
         }
 
-        final Context context = ContextManager.getContext();
         final AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 
         boolean changed = metadataService.synchronizeMetadata(taskId, metadata, Metadata.KEY.eq(AlarmFields.METADATA_KEY), new SynchronizeMetadataCallback() {
@@ -155,7 +158,6 @@ public class AlarmService {
     }
 
     private PendingIntent pendingIntentForAlarm(Metadata alarm, long taskId) {
-        Context context = ContextManager.getContext();
         Intent intent = new Intent(context, Notifications.class);
         intent.setAction("ALARM" + alarm.getId()); //$NON-NLS-1$
         intent.putExtra(Notifications.ID_KEY, taskId);
@@ -175,7 +177,6 @@ public class AlarmService {
 
         long taskId = alarm.getTask();
 
-        Context context = ContextManager.getContext();
         AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = pendingIntentForAlarm(alarm, taskId);
 

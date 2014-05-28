@@ -7,7 +7,6 @@ package com.todoroo.andlib.service;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
 
 /**
  * Singleton class to manage current application context
@@ -51,14 +50,4 @@ public final class ContextManager {
     public static String getString(int resId, Object... formatArgs) {
         return context.getString(resId, formatArgs);
     }
-
-    /**
-     * Convenience method to read resources
-     *
-     * @return resources object
-     */
-    public static Resources getResources() {
-        return context.getResources();
-    }
-
 }

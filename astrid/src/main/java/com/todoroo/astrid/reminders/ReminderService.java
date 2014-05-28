@@ -15,7 +15,6 @@ import android.content.res.Resources;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -35,6 +34,7 @@ import javax.inject.Singleton;
 
 import static org.tasks.date.DateTimeUtils.currentTimeMillis;
 import static org.tasks.date.DateTimeUtils.newDate;
+import static org.tasks.injection.TasksModule.ForApplication;
 
 
 /**
@@ -79,9 +79,11 @@ public final class ReminderService  {
     private AlarmScheduler scheduler = new ReminderAlarmScheduler();
 
     private long now = -1; // For tracking when reminders might be scheduled all at once
+    private Context context;
 
     @Inject
-    ReminderService() {
+    ReminderService(@ForApplication Context context) {
+        this.context = context;
         setPreferenceDefaults();
     }
 
@@ -97,7 +99,6 @@ public final class ReminderService  {
             return;
         }
 
-        Context context = ContextManager.getContext();
         SharedPreferences prefs = Preferences.getPrefs(context);
         Editor editor = prefs.edit();
         Resources r = context.getResources();
@@ -146,10 +147,10 @@ public final class ReminderService  {
     }
 
     public void clearAllAlarms(Task task) {
-        scheduler.createAlarm(task, NO_ALARM, TYPE_SNOOZE);
-        scheduler.createAlarm(task, NO_ALARM, TYPE_RANDOM);
-        scheduler.createAlarm(task, NO_ALARM, TYPE_DUE);
-        scheduler.createAlarm(task, NO_ALARM, TYPE_OVERDUE);
+        scheduler.createAlarm(context, task, NO_ALARM, TYPE_SNOOZE);
+        scheduler.createAlarm(context, task, NO_ALARM, TYPE_RANDOM);
+        scheduler.createAlarm(context, task, NO_ALARM, TYPE_DUE);
+        scheduler.createAlarm(context, task, NO_ALARM, TYPE_OVERDUE);
     }
 
     private void scheduleAlarm(Task task, TaskDao taskDao) {
@@ -204,19 +205,19 @@ public final class ReminderService  {
 
         // snooze trumps all
         if(whenSnooze != NO_ALARM) {
-            scheduler.createAlarm(task, whenSnooze, TYPE_SNOOZE);
+            scheduler.createAlarm(context, task, whenSnooze, TYPE_SNOOZE);
         }
         else if(whenRandom < whenDueDate && whenRandom < whenOverdue) {
-            scheduler.createAlarm(task, whenRandom, TYPE_RANDOM);
+            scheduler.createAlarm(context, task, whenRandom, TYPE_RANDOM);
         }
         else if(whenDueDate < whenOverdue) {
-            scheduler.createAlarm(task, whenDueDate, TYPE_DUE);
+            scheduler.createAlarm(context, task, whenDueDate, TYPE_DUE);
         }
         else if(whenOverdue != NO_ALARM) {
-            scheduler.createAlarm(task, whenOverdue, TYPE_OVERDUE);
+            scheduler.createAlarm(context, task, whenOverdue, TYPE_OVERDUE);
         }
         else {
-            scheduler.createAlarm(task, 0, 0);
+            scheduler.createAlarm(context, task, 0, 0);
         }
     }
 
@@ -403,7 +404,7 @@ public final class ReminderService  {
      * Interface for testing
      */
     public interface AlarmScheduler {
-        public void createAlarm(Task task, long time, int type);
+        public void createAlarm(Context context, Task task, long time, int type);
     }
 
     public void setScheduler(AlarmScheduler scheduler) {
@@ -419,11 +420,10 @@ public final class ReminderService  {
          * Create an alarm for the given task at the given type
          */
         @Override
-        public void createAlarm(Task task, long time, int type) {
+        public void createAlarm(Context context, Task task, long time, int type) {
             if(task.getId() == Task.NO_ID) {
                 return;
             }
-            Context context = ContextManager.getContext();
             Intent intent = new Intent(context, Notifications.class);
             intent.setType(Long.toString(task.getId()));
             intent.setAction(Integer.toString(type));

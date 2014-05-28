@@ -18,7 +18,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.widget.ArrayAdapter;
 
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -69,7 +68,7 @@ public class SyncActionHelper {
 
     // --- boilerplate
 
-    public SyncActionHelper(SyncV2Service syncService, Activity activity, Fragment fragment) {
+    public SyncActionHelper(SyncV2Service syncService, final Activity activity, Fragment fragment) {
         this.syncService = syncService;
         this.activity = activity;
         this.fragment = fragment;
@@ -77,7 +76,7 @@ public class SyncActionHelper {
                 R.id.progressBar, new Runnable() {
                     @Override
                     public void run() {
-                        ContextManager.getContext().sendBroadcast(
+                        activity.sendBroadcast(
                                 new Intent(
                                         AstridApiConstants.BROADCAST_EVENT_REFRESH));
                     }

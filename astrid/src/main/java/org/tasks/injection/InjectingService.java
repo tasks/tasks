@@ -7,6 +7,6 @@ public abstract class InjectingService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        ((Injector) getApplication()).inject(this, new ServiceModule());
+        ((Injector) getApplication()).inject(this, new ServiceModule(this));
     }
 }

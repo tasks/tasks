@@ -23,16 +23,12 @@ import java.util.Locale;
  */
 public class TodorooTestCase extends AndroidTestCase {
 
-    static {
-        AstridDependencyInjector.initialize();
-    }
-
 	@Override
 	protected void setUp() throws Exception {
 	    super.setUp();
 
 	    ContextManager.setContext(this.getContext());
-	    AstridDependencyInjector.reset();
+	    AstridDependencyInjector.reset(getContext());
 	    DependencyInjectionService.getInstance().inject(this);
 	    setLocale(Locale.ENGLISH);
 	}

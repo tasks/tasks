@@ -5,6 +5,8 @@
  */
 package com.todoroo.andlib.service;
 
+import android.content.Context;
+
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -23,7 +25,7 @@ abstract public class AbstractDependencyInjector {
      * Initialize list of injection variables. Special care must used when
      * instantiating classes that themselves depend on dependency injection
      */
-    protected void addInjectables() {
+    protected void addInjectables(Context context) {
         // your injectables here
     }
 
@@ -32,8 +34,8 @@ abstract public class AbstractDependencyInjector {
     /**
      * Constructor
      */
-    protected AbstractDependencyInjector() {
-        addInjectables();
+    protected AbstractDependencyInjector(Context context) {
+        addInjectables(context);
     }
 
     /**

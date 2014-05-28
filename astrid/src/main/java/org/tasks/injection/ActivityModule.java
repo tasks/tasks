@@ -1,5 +1,8 @@
 package org.tasks.injection;
 
+import android.app.Activity;
+import android.content.Context;
+
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.activity.EditPreferences;
 import com.todoroo.astrid.activity.ShareLinkActivity;
@@ -19,7 +22,21 @@ import com.todoroo.astrid.widget.WidgetConfigActivity;
 
 import org.tasks.voice.VoiceCommandActivity;
 
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import javax.inject.Qualifier;
+import javax.inject.Singleton;
+
 import dagger.Module;
+import dagger.Provides;
+
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import static org.tasks.injection.TasksModule.ForApplication;
 
 @Module(library = true,
         injects = {
@@ -43,4 +60,24 @@ import dagger.Module;
                 OldTaskPreferences.class
         })
 public class ActivityModule {
+
+    private final Context context;
+
+    public ActivityModule(Activity activity) {
+        context = activity.getApplicationContext();
+    }
+
+    @Singleton
+    @Provides
+    @ForApplication
+    public Context getApplicationContext() {
+        return context;
+    }
+
+    @Qualifier
+    @Target({FIELD, PARAMETER, METHOD})
+    @Documented
+    @Retention(RUNTIME)
+    public @interface ForActivity {
+    }
 }

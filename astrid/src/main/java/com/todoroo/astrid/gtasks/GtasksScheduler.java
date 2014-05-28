@@ -6,12 +6,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import static org.tasks.injection.TasksModule.ForApplication;
 
 @Singleton
 public class GtasksScheduler {
@@ -20,10 +21,12 @@ public class GtasksScheduler {
     private static final long AUTO_SYNC_MIN_OFFSET = 5*60*1000L;
 
     private final GtasksPreferenceService gtasksPreferenceService;
+    private Context context;
 
     @Inject
-    public GtasksScheduler(GtasksPreferenceService gtasksPreferenceService) {
+    public GtasksScheduler(GtasksPreferenceService gtasksPreferenceService, @ForApplication Context context) {
         this.gtasksPreferenceService = gtasksPreferenceService;
+        this.context = context;
     }
 
     /**
@@ -37,7 +40,6 @@ public class GtasksScheduler {
         } catch(ClassCastException e) {
             Preferences.setStringFromInteger(gtasksPreferenceService.getSyncIntervalKey(), 0);
         }
-        Context context = ContextManager.getContext();
         if(syncFrequencySeconds <= 0) {
             unscheduleService(context);
             return;

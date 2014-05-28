@@ -8,8 +8,6 @@ package com.todoroo.andlib.service;
 import java.lang.reflect.Field;
 import java.util.LinkedList;
 
-
-
 /**
  * Simple Dependency Injection Service for Android.
  * <p>
@@ -115,18 +113,11 @@ public class DependencyInjectionService {
                         injectors));
     }
 
-    // --- default dependency injector
-
-    private class DefaultDependencyInjector extends AbstractDependencyInjector {
-    }
-
     // --- static methods
 
     private static DependencyInjectionService instance = null;
 
     DependencyInjectionService() {
-        // prevent instantiation
-        injectors.add(new DefaultDependencyInjector());
     }
 
     /**
