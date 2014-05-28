@@ -67,6 +67,8 @@ import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.helper.SyncActionHelper;
 import com.todoroo.astrid.service.SyncV2Service;
+import com.todoroo.astrid.service.TaskDeleter;
+import com.todoroo.astrid.service.TaskDuplicator;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
@@ -140,6 +142,8 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     @Inject UpgradeService upgradeService;
     @Inject TaskListMetadataDao taskListMetadataDao;
     @Inject SyncV2Service syncService;
+    @Inject TaskDeleter taskDeleter;
+    @Inject TaskDuplicator taskDuplicator;
     @Inject @ForActivity Context context;
 
     protected Resources resources;
@@ -900,7 +904,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         onTaskDelete(task);
-                        taskService.delete(task);
+                        taskDeleter.delete(task);
                         loadTaskListContent(true);
                     }
                 }).setNegativeButton(android.R.string.cancel, null).show();
@@ -1011,7 +1015,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     }
 
     protected void duplicateTask(long itemId) {
-        long cloneId = taskService.duplicateTask(itemId);
+        long cloneId = taskDuplicator.duplicateTask(itemId);
 
         Intent intent = new Intent(getActivity(), TaskEditActivity.class);
         intent.putExtra(TaskEditFragment.TOKEN_ID, cloneId);

@@ -30,6 +30,7 @@ import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
@@ -90,6 +91,7 @@ public class AstridActivity extends InjectingActionBarActivity
 
     @Inject TaskService taskService;
     @Inject StartupService startupService;
+    @Inject GCalHelper gcalHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -376,7 +378,7 @@ public class AstridActivity extends InjectingActionBarActivity
                 try {
                     boolean lastTime = AstridApiConstants.BROADCAST_EVENT_TASK_REPEAT_FINISHED.equals(intent.getAction());
                     DateChangedAlerts.showRepeatTaskRescheduledDialog(
-                            taskService, AstridActivity.this, task, oldDueDate, newDueDate, lastTime);
+                            gcalHelper, taskService, AstridActivity.this, task, oldDueDate, newDueDate, lastTime);
 
                 } catch (BadTokenException e) { // Activity not running when tried to show dialog--rebroadcast
                     new Thread() {

@@ -17,22 +17,16 @@ import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.PermaSql;
-import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
-import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
-import com.todoroo.astrid.gcal.GCalHelper;
-import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.TitleParser;
@@ -73,7 +67,6 @@ public class TaskService {
     public static final String TRANS_REPEAT_COMPLETE = "repeat-complete"; //$NON-NLS-1$
 
     private final TaskDao taskDao;
-    private final MetadataDao metadataDao;
     private final UserActivityDao userActivityDao;
     private final Broadcaster broadcaster;
     private final FilterCounter filterCounter;
@@ -81,11 +74,10 @@ public class TaskService {
     private final TagService tagService;
 
     @Inject
-    public TaskService(TaskDao taskDao, MetadataDao metadataDao, UserActivityDao userActivityDao,
+    public TaskService(TaskDao taskDao, UserActivityDao userActivityDao,
                        Broadcaster broadcaster, FilterCounter filterCounter,
                        RefreshScheduler refreshScheduler, TagService tagService) {
         this.taskDao = taskDao;
-        this.metadataDao = metadataDao;
         this.userActivityDao = userActivityDao;
         this.broadcaster = broadcaster;
         this.filterCounter = filterCounter;
@@ -133,70 +125,6 @@ public class TaskService {
 
     private void saveWithoutPublishingFilterUpdate(Task item) {
         taskDao.save(item);
-    }
-
-    /**
-     * Clone the given task and all its metadata
-     *
-     * @return the new task
-     */
-    public Task clone(Task task) {
-        Task newTask = fetchById(task.getId(), Task.PROPERTIES);
-        if(newTask == null) {
-            return new Task();
-        }
-        newTask.clearValue(Task.ID);
-        newTask.clearValue(Task.UUID);
-        TodorooCursor<Metadata> cursor = metadataDao.query(
-                Query.select(Metadata.PROPERTIES).where(MetadataCriteria.byTask(task.getId())));
-        try {
-            if(cursor.getCount() > 0) {
-                Metadata metadata = new Metadata();
-                newTask.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
-                save(newTask);
-                long newId = newTask.getId();
-                for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                    metadata.readFromCursor(cursor);
-
-                    if(!metadata.containsNonNullValue(Metadata.KEY)) {
-                        continue;
-                    }
-
-                    if(GtasksMetadata.METADATA_KEY.equals(metadata.getKey())) {
-                        metadata.setValue(GtasksMetadata.ID, ""); //$NON-NLS-1$
-                    }
-
-                    metadata.setTask(newId);
-                    metadata.clearValue(Metadata.ID);
-                    metadataDao.createNew(metadata);
-                }
-            }
-        } finally {
-            cursor.close();
-        }
-        return newTask;
-    }
-
-    /**
-     * Delete the given task. Instead of deleting from the database, we set
-     * the deleted flag.
-     */
-    public void delete(Task item) {
-        if(!item.isSaved()) {
-            return;
-        }
-
-        if(item.containsValue(Task.TITLE) && item.getTitle().length() == 0) {
-            taskDao.delete(item.getId());
-            item.setId(Task.NO_ID);
-        } else {
-            long id = item.getId();
-            item.clear();
-            item.setId(id);
-            GCalHelper.deleteTaskEvent(this, item);
-            item.setDeletionDate(DateUtilities.now());
-            save(item);
-        }
     }
 
     /**
@@ -362,28 +290,6 @@ public class TaskService {
      */
     public static boolean parseQuickAddMarkup(TagService tagService, Task task, ArrayList<String> tags) {
         return TitleParser.parse(tagService, task, tags);
-    }
-
-    /**
-     * Create an uncompleted copy of this task and edit it
-     * @return cloned item id
-     */
-    public long duplicateTask(long itemId) {
-        Task original = new Task();
-        original.setId(itemId);
-        Task clone = clone(original);
-        String userId = clone.getUserID();
-        if (!Task.USER_ID_SELF.equals(userId) && !ActFmPreferenceService.userId().equals(userId)) {
-            clone.putTransitory(TRANS_ASSIGNED, true);
-        }
-        clone.setCreationDate(DateUtilities.now());
-        clone.setCompletionDate(0L);
-        clone.setDeletionDate(0L);
-        clone.setCalendarUri(""); //$NON-NLS-1$
-        GCalHelper.createTaskEventIfEnabled(this, clone);
-
-        save(clone);
-        return clone.getId();
     }
 
     /**

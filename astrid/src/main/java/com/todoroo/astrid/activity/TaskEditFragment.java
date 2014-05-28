@@ -62,6 +62,7 @@ import com.todoroo.astrid.notes.EditNoteActivity;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagService;
@@ -175,6 +176,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Inject TagService tagService;
     @Inject MetadataService metadataService;
     @Inject UserActivityDao userActivityDao;
+    @Inject TaskDeleter taskDeleter;
 
     // --- UI components
 
@@ -748,11 +750,11 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         if (activity instanceof TaskListActivity) {
             if (title.getText().length() == 0 && isNewTask && model != null && model.isSaved()) {
-                taskService.delete(model);
+                taskDeleter.delete(model);
             }
         } else if (activity instanceof TaskEditActivity) {
             if (title.getText().length() == 0 && isNewTask && model != null && model.isSaved()) {
-                taskService.delete(model);
+                taskDeleter.delete(model);
             }
         }
     }
@@ -784,7 +786,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         if (title.getText().length() == 0 || TextUtils.isEmpty(model.getTitle())) {
             if (isNewTask) {
                 TimerPlugin.updateTimer(taskService, getActivity(), model, false);
-                taskService.delete(model);
+                taskDeleter.delete(model);
                 if (getActivity() instanceof TaskListActivity) {
                     TaskListActivity tla = (TaskListActivity) getActivity();
                     tla.refreshTaskList();
@@ -805,7 +807,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 TimerPlugin.updateTimer(taskService, getActivity(), model, false);
-                                                taskService.delete(model);
+                                                taskDeleter.delete(model);
                                                 shouldSaveState = false;
 
                                                 Activity a = getActivity();

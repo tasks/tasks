@@ -29,6 +29,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.repeats.RepeatTaskCompleteListener;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
@@ -129,7 +130,7 @@ public class DateChangedAlerts {
                     Task.REPEAT_UNTIL
             };
 
-    public static void showRepeatTaskRescheduledDialog(final TaskService taskService, final AstridActivity activity, final Task task,
+    public static void showRepeatTaskRescheduledDialog(final GCalHelper gcalHelper, final TaskService taskService, final AstridActivity activity, final Task task,
             final long oldDueDate, final long newDueDate, final boolean lastTime) {
         if (!Preferences.getBoolean(PREF_SHOW_HELPERS, true)) {
             return;
@@ -157,7 +158,7 @@ public class DateChangedAlerts {
                         public void onDateAndTimeSelected(long date) {
                             d.dismiss();
                             task.setRepeatUntil(date);
-                            RepeatTaskCompleteListener.rescheduleTask(taskService, task, newDueDate);
+                            RepeatTaskCompleteListener.rescheduleTask(gcalHelper, taskService, task, newDueDate);
                             Flags.set(Flags.REFRESH);
                         }
 

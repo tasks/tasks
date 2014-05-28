@@ -43,6 +43,7 @@ public class OldTaskPreferences extends InjectingTodorooPreferenceActivity {
     @Inject TaskService taskService;
     @Inject MetadataService metadataService;
     @Inject Database database;
+    @Inject GCalHelper gcalHelper;
 
     ProgressDialog pd;
 
@@ -155,7 +156,7 @@ public class OldTaskPreferences extends InjectingTodorooPreferenceActivity {
                                     for(int i = 0; i < length; i++) {
                                         cursor.moveToNext();
                                         task.readFromCursor(cursor);
-                                        GCalHelper.deleteTaskEvent(taskService, task);
+                                        gcalHelper.deleteTaskEvent(task);
                                     }
                                 } finally {
                                     cursor.close();
@@ -194,7 +195,7 @@ public class OldTaskPreferences extends InjectingTodorooPreferenceActivity {
                                     for(int i = 0; i < length; i++) {
                                         cursor.moveToNext();
                                         task.readFromCursor(cursor);
-                                        GCalHelper.deleteTaskEvent(taskService, task);
+                                        gcalHelper.deleteTaskEvent(task);
                                     }
                                 } finally {
                                     cursor.close();
@@ -231,7 +232,7 @@ public class OldTaskPreferences extends InjectingTodorooPreferenceActivity {
                                     for(int i = 0; i < length; i++) {
                                         cursor.moveToNext();
                                         task.readFromCursor(cursor);
-                                        if (GCalHelper.deleteTaskEvent(taskService, task)) {
+                                        if (gcalHelper.deleteTaskEvent(task)) {
                                             deletedEventCount++;
                                         }
                                     }
@@ -273,7 +274,7 @@ public class OldTaskPreferences extends InjectingTodorooPreferenceActivity {
                                     for(int i = 0; i < length; i++) {
                                         cursor.moveToNext();
                                         task.readFromCursor(cursor);
-                                        if (GCalHelper.deleteTaskEvent(taskService, task)) {
+                                        if (gcalHelper.deleteTaskEvent(task)) {
                                             deletedEventCount++;
                                         }
                                     }

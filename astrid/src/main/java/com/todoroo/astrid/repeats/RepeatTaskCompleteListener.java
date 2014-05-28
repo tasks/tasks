@@ -46,6 +46,7 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
     private static final String TAG = "RepeatTaskCompleteListener";
 
     @Inject TaskService taskService;
+    @Inject GCalHelper gcalHelper;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -90,7 +91,7 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
                 return;
             }
 
-            rescheduleTask(taskService, task, newDueDate);
+            rescheduleTask(gcalHelper, taskService, task, newDueDate);
 
             // send a broadcast
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_REPEATED);
@@ -102,7 +103,7 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
         }
     }
 
-    public static void rescheduleTask(TaskService taskService, Task task, long newDueDate) {
+    public static void rescheduleTask(GCalHelper gcalHelper, TaskService taskService, Task task, long newDueDate) {
         long hideUntil = task.getHideUntil();
         if(hideUntil > 0 && task.getDueDate() > 0) {
             hideUntil += newDueDate - task.getDueDate();
@@ -114,7 +115,7 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
         task.putTransitory(TaskService.TRANS_REPEAT_COMPLETE, true);
 
         ContentResolver cr = ContextManager.getContext().getContentResolver();
-        GCalHelper.rescheduleRepeatingTask(taskService, task, cr);
+        gcalHelper.rescheduleRepeatingTask(task, cr);
         taskService.save(task);
     }
 

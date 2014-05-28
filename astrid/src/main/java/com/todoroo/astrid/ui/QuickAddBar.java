@@ -76,6 +76,7 @@ public class QuickAddBar extends LinearLayout {
     @Inject TagService tagService;
     @Inject MetadataService metadataService;
     @Inject TaskService taskService;
+    @Inject GCalHelper gcalHelper;
 
     private VoiceRecognizer voiceRecognizer;
 
@@ -280,7 +281,7 @@ public class QuickAddBar extends LinearLayout {
 
             resetControlSets();
 
-            addToCalendar(taskService, task, title);
+            addToCalendar(gcalHelper, taskService, task, title);
 
             TextView quickAdd = (TextView) findViewById(R.id.quickAddText);
             quickAdd.setText(""); //$NON-NLS-1$
@@ -304,12 +305,12 @@ public class QuickAddBar extends LinearLayout {
         }
     }
 
-    private static void addToCalendar(TaskService taskService, Task task, String title) {
+    private static void addToCalendar(GCalHelper gcalHelper, TaskService taskService, Task task, String title) {
         boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null
                 && !Preferences.getStringValue(R.string.gcal_p_default).equals("-1") && task.hasDueDate(); //$NON-NLS-1$
 
         if (!TextUtils.isEmpty(title) && gcalCreateEventEnabled && TextUtils.isEmpty(task.getCalendarURI())) {
-            Uri calendarUri = GCalHelper.createTaskEvent(taskService, task,
+            Uri calendarUri = gcalHelper.createTaskEvent(task,
                     ContextManager.getContext().getContentResolver(), new ContentValues());
             task.setCalendarUri(calendarUri.toString());
             task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
@@ -321,7 +322,7 @@ public class QuickAddBar extends LinearLayout {
      * Static method to quickly add tasks without all the control set nonsense.
      * Used from the share link activity.
      */
-    public static Task basicQuickAddTask(TaskService taskService, MetadataService metadataService, TagService tagService, String title) {
+    public static Task basicQuickAddTask(GCalHelper gcalHelper, TaskService taskService, MetadataService metadataService, TagService tagService, String title) {
         if (TextUtils.isEmpty(title)) {
             return null;
         }
@@ -329,7 +330,7 @@ public class QuickAddBar extends LinearLayout {
         title = title.trim();
 
         Task task = TaskService.createWithValues(taskService, metadataService, tagService, null, title);
-        addToCalendar(taskService, task, title);
+        addToCalendar(gcalHelper, taskService, task, title);
 
         return task;
     }

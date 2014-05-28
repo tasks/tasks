@@ -27,7 +27,6 @@ import android.widget.Toast;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.Calendars.CalendarResult;
-import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.PopupControlSet;
 
@@ -53,7 +52,7 @@ public class GCalControlSet extends PopupControlSet {
 
     // --- instance variables
 
-    @Inject TaskService taskService;
+    @Inject GCalHelper gcal;
 
     private Uri calendarUri = null;
 
@@ -106,7 +105,7 @@ public class GCalControlSet extends PopupControlSet {
 
     @Override
     protected void readFromTaskOnInitialize() {
-        String uri = GCalHelper.getTaskEventUri(taskService, model);
+        String uri = gcal.getTaskEventUri(model);
         if(!TextUtils.isEmpty(uri)) {
             try {
                 calendarUri = Uri.parse(uri);
@@ -160,7 +159,7 @@ public class GCalControlSet extends PopupControlSet {
                 String calendarId = calendars.calendarIds[calendarSelector.getSelectedItemPosition() - 1];
                 values.put("calendar_id", calendarId);
 
-                calendarUri = GCalHelper.createTaskEvent(taskService, task, cr, values);
+                calendarUri = gcal.createTaskEvent(task, cr, values);
                 if(calendarUri != null) {
                     task.setCalendarUri(calendarUri.toString());
 
