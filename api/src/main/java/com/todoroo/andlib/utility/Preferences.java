@@ -179,14 +179,16 @@ public class Preferences {
     }
 
     public static boolean getBoolean(int keyResources, boolean defValue) {
-        return getBoolean(ContextManager.getString(keyResources), defValue);
+        Context context = ContextManager.getContext();
+        return getBoolean(context.getString(keyResources), defValue);
     }
 
     /**
      * Sets boolean preference
      */
     public static void setBoolean(int keyResource, boolean value) {
-        setBoolean(ContextManager.getString(keyResource), value);
+        Context context = ContextManager.getContext();
+        setBoolean(context.getString(keyResource), value);
     }
 
     /**

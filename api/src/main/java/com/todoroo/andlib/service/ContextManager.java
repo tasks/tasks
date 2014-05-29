@@ -40,14 +40,4 @@ public final class ContextManager {
     public static Context getContext() {
         return context;
     }
-
-    /**
-     * Convenience method to read a string from the resources
-     *
-     * @param resId resource
-     * @return resource string
-     */
-    public static String getString(int resId, Object... formatArgs) {
-        return context.getString(resId, formatArgs);
-    }
 }
