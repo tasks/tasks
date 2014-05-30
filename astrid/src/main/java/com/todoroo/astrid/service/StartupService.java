@@ -29,7 +29,6 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.backup.TasksXmlImporter;
@@ -148,8 +147,6 @@ public class StartupService {
                 Preferences.setLong(AstridPreferences.P_FIRST_LAUNCH, DateUtilities.now());
             }
         }
-
-        BeastModePreferences.assertHideUntilSectionExists(context, latestSetVersion);
 
         int version = 0;
         String versionName = "0"; //$NON-NLS-1$
