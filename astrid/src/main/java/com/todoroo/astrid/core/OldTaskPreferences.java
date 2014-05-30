@@ -8,7 +8,6 @@ package com.todoroo.astrid.core;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -19,16 +18,15 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.utility.AstridPreferences;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingTodorooPreferenceActivity;
+import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
@@ -44,6 +42,7 @@ public class OldTaskPreferences extends InjectingTodorooPreferenceActivity {
     @Inject MetadataService metadataService;
     @Inject Database database;
     @Inject GCalHelper gcalHelper;
+    @Inject Preferences preferences;
 
     ProgressDialog pd;
 
@@ -107,18 +106,13 @@ public class OldTaskPreferences extends InjectingTodorooPreferenceActivity {
     private void showClearDataDialog() {
         DialogUtilities.okCancelDialog(
                 this,
-                getResources().getString(
-                        R.string.EPr_manage_clear_all_message),
-                        new OnClickListener() {
+                getResources().getString(R.string.EPr_manage_clear_all_message),
+                new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Editor editor = Preferences.getPrefs(OldTaskPreferences.this).edit();
-                        editor.clear();
-                        editor.commit();
-
                         deleteDatabase(database.getName());
 
-                        AstridPreferences.setPreferenceDefaults();
+                        preferences.reset();
 
                         System.exit(0);
                     }

@@ -27,14 +27,6 @@ public class AstridPreferences {
 
     public static final String P_SUBTASKS_HELP = "sthelp"; //$NON-NLS-1$
 
-    /** Set preference defaults, if unset. called at startup */
-    public static void setPreferenceDefaults() {
-        AstridPreferenceSpec spec;
-        spec = new AstridDefaultPreferenceSpec();
-
-        spec.setIfUnset();
-    }
-
     /* ======================================================================
      * ========================================================= public prefs
      * ====================================================================== */

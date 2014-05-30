@@ -27,7 +27,6 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.backup.TasksXmlImporter;
@@ -50,6 +49,7 @@ import com.todoroo.astrid.utility.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.preferences.Preferences;
 
 import java.io.File;
 import java.util.List;
@@ -76,13 +76,15 @@ public class StartupService {
     private final Database database;
     private final GtasksPreferenceService gtasksPreferenceService;
     private final GtasksSyncService gtasksSyncService;
-    private MetadataService metadataService;
+    private final MetadataService metadataService;
+    private final Preferences preferences;
 
     @Inject
     public StartupService(UpgradeService upgradeService, TaskService taskService,
                           TagDataDao tagDataDao, Database database,
                           GtasksPreferenceService gtasksPreferenceService,
-                          GtasksSyncService gtasksSyncService, MetadataService metadataService) {
+                          GtasksSyncService gtasksSyncService, MetadataService metadataService,
+                          Preferences preferences) {
         this.upgradeService = upgradeService;
         this.taskService = taskService;
         this.tagDataDao = tagDataDao;
@@ -90,6 +92,7 @@ public class StartupService {
         this.gtasksPreferenceService = gtasksPreferenceService;
         this.gtasksSyncService = gtasksSyncService;
         this.metadataService = metadataService;
+        this.preferences = preferences;
     }
 
     /**
@@ -126,7 +129,7 @@ public class StartupService {
         if(context instanceof Activity) {
             AudioManager audioManager = (AudioManager)context.getSystemService(
                 Context.AUDIO_SERVICE);
-            if(!Preferences.getBoolean(R.string.p_rmd_enabled, true)) {
+            if(!preferences.getBoolean(R.string.p_rmd_enabled, true)) {
                 Toast.makeText(context, R.string.TLA_notification_disabled, Toast.LENGTH_LONG).show();
             } else if(audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) == 0) {
                 Toast.makeText(context, R.string.TLA_notification_volume_low, Toast.LENGTH_LONG).show();
@@ -193,7 +196,8 @@ public class StartupService {
             }
         }).start();
 
-        AstridPreferences.setPreferenceDefaults();
+        preferences.setDefaults();
+
         CalendarStartupReceiver.scheduleCalendarAlarms(context, false); // This needs to be after set preference defaults for the purposes of ab testing
 
         showTaskKillerHelp(context);
@@ -273,8 +277,8 @@ public class StartupService {
     /**
      * Show task killer helper
      */
-    private static void showTaskKillerHelp(final Context context) {
-        if(!Preferences.getBoolean(P_TASK_KILLER_HELP, false)) {
+    private void showTaskKillerHelp(final Context context) {
+        if(!preferences.getBoolean(P_TASK_KILLER_HELP, false)) {
             return;
         }
 
@@ -297,7 +301,7 @@ public class StartupService {
                         @Override
                         public void onClick(DialogInterface arg0,
                                 int arg1) {
-                            Preferences.setBoolean(P_TASK_KILLER_HELP, true);
+                            preferences.setBoolean(P_TASK_KILLER_HELP, true);
                         }
                     };
 

@@ -7,9 +7,9 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.test.TodorooTestCase;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.utility.AstridPreferences;
 
 import org.tasks.Snippet;
+import org.tasks.preferences.Preferences;
 
 import static org.tasks.Freeze.freezeClock;
 import static org.tasks.RemoteModelHelpers.asQueryProperties;
@@ -19,6 +19,7 @@ import static org.tasks.date.DateTimeUtils.currentTimeMillis;
 public class TaskTest extends TodorooTestCase {
 
     @Autowired private TaskService taskService;
+    @Autowired private Preferences preferences;
 
     public void testNewTaskHasNoCreationDate() {
         assertFalse(new Task().containsValue(Task.CREATION_DATE));
@@ -41,7 +42,7 @@ public class TaskTest extends TodorooTestCase {
     }
 
     public void testDefaults() {
-        AstridPreferences.setPreferenceDefaults();
+        preferences.setDefaults();
         ContentValues defaults = new Task().getDefaultValues();
         assertTrue(defaults.containsKey(Task.TITLE.name));
         assertTrue(defaults.containsKey(Task.DUE_DATE.name));

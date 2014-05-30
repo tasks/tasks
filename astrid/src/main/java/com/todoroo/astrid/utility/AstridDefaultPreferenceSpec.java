@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.core.SortHelper;
@@ -15,41 +14,16 @@ import org.joda.time.DateTime;
 import org.tasks.R;
 
 import static com.todoroo.andlib.utility.Preferences.setBoolean;
-import static com.todoroo.andlib.utility.Preferences.setIntIfUnset;
 
-public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
+public class AstridDefaultPreferenceSpec {
 
-    public static interface PreferenceExtras {
-        public void setExtras(Context context);
+    private Context context;
+
+    public AstridDefaultPreferenceSpec(Context context) {
+        this.context = context;
     }
 
-    @Override
     public void setIfUnset() {
-        PreferenceExtras extras = new PreferenceExtras() {
-            @Override
-            public void setExtras(Context context) {
-                String dragDropTestInitialized = "android_drag_drop_initialized"; //$NON-NLS-1$
-                if (!Preferences.getBoolean(dragDropTestInitialized, false)) {
-                    SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(context);
-                    if (publicPrefs != null) {
-                        Editor edit = publicPrefs.edit();
-                        if (edit != null) {
-                            edit.putInt(SortHelper.PREF_SORT_SORT, SortHelper.SORT_AUTO);
-                            edit.commit();
-                            Preferences.setInt(AstridPreferences.P_SUBTASKS_HELP, 1);
-                        }
-                    }
-                    setBoolean(dragDropTestInitialized, true);
-                }
-                BeastModePreferences.setDefaultOrder(context);
-            }
-        };
-
-        setPrefs(extras);
-    }
-
-    private static void setPrefs(PreferenceExtras extras) {
-        Context context = ContextManager.getContext();
         SharedPreferences prefs = Preferences.getPrefs(context);
         Editor editor = prefs.edit();
         Resources r = context.getResources();
@@ -96,7 +70,20 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
         setIntIfUnset(prefs, editor, r, R.string.p_rmd_quietEnd, r.getInteger(R.integer.default_quiet_hours_end));
         setIntIfUnset(prefs, editor, r, R.string.p_rmd_time, r.getInteger(R.integer.default_remind_time));
 
-        extras.setExtras(context);
+        String dragDropTestInitialized = "android_drag_drop_initialized"; //$NON-NLS-1$
+        if (!Preferences.getBoolean(dragDropTestInitialized, false)) {
+            SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(context);
+            if (publicPrefs != null) {
+                Editor edit = publicPrefs.edit();
+                if (edit != null) {
+                    edit.putInt(SortHelper.PREF_SORT_SORT, SortHelper.SORT_AUTO);
+                    edit.commit();
+                    Preferences.setInt(AstridPreferences.P_SUBTASKS_HELP, 1);
+                }
+            }
+            setBoolean(dragDropTestInitialized, true);
+        }
+        BeastModePreferences.setDefaultOrder(context);
 
         editor.commit();
 
@@ -117,5 +104,31 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
         int hour = Preferences.getIntegerFromString(oldResourceId, defValue);
         int millisOfDay = new DateTime().withMillisOfDay(0).withHourOfDay(hour).getMillisOfDay();
         Preferences.setInt(newResourceId, millisOfDay);
+    }
+
+    private static void setPreference(SharedPreferences prefs, Editor editor, Resources r, int key, int value) {
+        Preferences.setIfUnset(prefs, editor, r, key, value);
+    }
+
+    private static void setPreference(SharedPreferences prefs, Editor editor, Resources r, int key, boolean value) {
+        Preferences.setIfUnset(prefs, editor, r, key, value);
+    }
+
+    private static void setPreference(SharedPreferences prefs, Editor editor, Resources r, int key, String value) {
+        setIfUnset(prefs, editor, r, key, value);
+    }
+
+    private static void setIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, String value) {
+        String key = r.getString(keyResource);
+        if(!prefs.contains(key) || !(prefs.getAll().get(key) instanceof String)) {
+            editor.putString(key, value);
+        }
+    }
+
+    private static void setIntIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, int value) {
+        String key = r.getString(keyResource);
+        if(!prefs.contains(key)) {
+            editor.putInt(key, value);
+        }
     }
 }

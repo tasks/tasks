@@ -21,13 +21,6 @@ import com.todoroo.andlib.service.ContextManager;
  */
 public class Preferences {
 
-    public static void setIntIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, int value) {
-        String key = r.getString(keyResource);
-        if(!prefs.contains(key)) {
-            editor.putInt(key, value);
-        }
-    }
-
     /**
      * Helper to write to editor if key specified is null. Writes a String
      * property with the given integer
@@ -46,16 +39,6 @@ public class Preferences {
         String key = r.getString(keyResource);
         if(!prefs.contains(key) || !(prefs.getAll().get(key) instanceof Boolean)) {
             editor.putBoolean(key, value);
-        }
-    }
-
-    /**
-     * Helper to write to editor if key specified is null
-     */
-    public static void setIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, String value) {
-        String key = r.getString(keyResource);
-        if(!prefs.contains(key) || !(prefs.getAll().get(key) instanceof String)) {
-            editor.putString(key, value);
         }
     }
 
