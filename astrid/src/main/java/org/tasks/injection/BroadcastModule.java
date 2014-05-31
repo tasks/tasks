@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.todoroo.astrid.alarms.AlarmDetailExposer;
 import com.todoroo.astrid.alarms.AlarmTaskRepeatListener;
+import com.todoroo.astrid.calls.PhoneStateChangedReceiver;
 import com.todoroo.astrid.gcal.GCalTaskCompleteListener;
 import com.todoroo.astrid.gtasks.GtasksCustomFilterCriteriaExposer;
 import com.todoroo.astrid.gtasks.GtasksDetailExposer;
@@ -44,7 +45,8 @@ import static org.tasks.injection.TasksModule.ForApplication;
                 RepeatTaskCompleteListener.class,
                 AlarmTaskRepeatListener.class,
                 AlarmDetailExposer.class,
-                GtasksStartupReceiver.class
+                GtasksStartupReceiver.class,
+                PhoneStateChangedReceiver.class
         })
 public class BroadcastModule {
 

@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.calls;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -18,22 +17,29 @@ import android.util.Log;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingBroadcastReceiver;
+import org.tasks.preferences.Preferences;
+
+import javax.inject.Inject;
 
 import static org.tasks.date.DateTimeUtils.newDate;
 
-public class PhoneStateChangedReceiver extends BroadcastReceiver {
+public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
 
     private static final String PREF_LAST_INCOMING_NUMBER = "last_incoming_number";
 
     private static final long WAIT_BEFORE_READ_LOG = 3000L;
 
+    @Inject Preferences preferences;
+
     @Override
     public void onReceive(final Context context, Intent intent) {
-        if (!Preferences.getBoolean(R.string.p_field_missed_calls, false)) {
-            Preferences.clear(PREF_LAST_INCOMING_NUMBER);
+        super.onReceive(context, intent);
+
+        if (!preferences.getBoolean(R.string.p_field_missed_calls, false)) {
+            preferences.clear(PREF_LAST_INCOMING_NUMBER);
             return;
         }
 
@@ -45,14 +51,14 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
                 return;
             }
 
-            Preferences.setString(PREF_LAST_INCOMING_NUMBER, number);
+            preferences.setString(PREF_LAST_INCOMING_NUMBER, number);
         } else if (TelephonyManager.EXTRA_STATE_IDLE.equals(state)) {
-            final String lastNumber = Preferences.getStringValue(PREF_LAST_INCOMING_NUMBER);
+            final String lastNumber = preferences.getStringValue(PREF_LAST_INCOMING_NUMBER);
             if (TextUtils.isEmpty(lastNumber)) {
                 return;
             }
 
-            Preferences.clear(PREF_LAST_INCOMING_NUMBER);
+            preferences.clear(PREF_LAST_INCOMING_NUMBER);
 
             new Thread() {
                 @Override

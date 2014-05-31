@@ -12,12 +12,12 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.utility.AstridPreferences;
 
 import org.tasks.R;
+import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -27,9 +27,11 @@ public final class UpgradeService {
 
     public static final int V4_6_5 = 306;
     public static final int V3_0_0 = 136;
+    private final Preferences preferences;
 
     @Inject
-    public UpgradeService() {
+    public UpgradeService(Preferences preferences) {
+        this.preferences = preferences;
     }
 
     /**
@@ -38,7 +40,7 @@ public final class UpgradeService {
      * show users a change log.
      */
     public void performUpgrade(final Activity context, final int from) {
-        Preferences.setInt(AstridPreferences.P_UPGRADE_FROM, from);
+        preferences.setInt(AstridPreferences.P_UPGRADE_FROM, from);
 
         int maxWithUpgrade = V4_6_5;
 
@@ -102,7 +104,7 @@ public final class UpgradeService {
             return;
         }
 
-        Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
+        preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
 
         if (from >= 0 && from < V4_6_5) {

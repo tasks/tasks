@@ -235,15 +235,4 @@ public class Preferences {
         editor.putLong(key, value);
         editor.commit();
     }
-
-    /**
-     * Clears a preference
-     */
-    public static void clear(String key) {
-        Context context = ContextManager.getContext();
-        Editor editor = getPrefs(context).edit();
-        editor.remove(key);
-        editor.commit();
-    }
-
 }
