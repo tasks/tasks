@@ -225,14 +225,4 @@ public class Preferences {
         Context context = ContextManager.getContext();
         return getPrefs(context).getLong(key, defValue);
     }
-
-    /**
-     * Sets long preference
-     */
-    public static void setLong(String key, long value) {
-        Context context = ContextManager.getContext();
-        Editor editor = getPrefs(context).edit();
-        editor.putLong(key, value);
-        editor.commit();
-    }
 }

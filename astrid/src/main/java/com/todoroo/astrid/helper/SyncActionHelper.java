@@ -20,7 +20,6 @@ import android.widget.ArrayAdapter;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.SyncAction;
@@ -32,6 +31,7 @@ import com.todoroo.astrid.sync.SyncV2Provider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -58,19 +58,19 @@ public class SyncActionHelper {
 
     public final SyncResultCallback syncResultCallback;
 
-    private final Activity activity;
-
-    private final Fragment fragment;
-
     protected SyncActionReceiver syncActionReceiver = new SyncActionReceiver();
 
     private final SyncV2Service syncService;
+    private final Activity activity;
+    private final Preferences preferences;
+    private final Fragment fragment;
 
     // --- boilerplate
 
-    public SyncActionHelper(SyncV2Service syncService, final Activity activity, Fragment fragment) {
+    public SyncActionHelper(SyncV2Service syncService, final Activity activity, Preferences preferences, Fragment fragment) {
         this.syncService = syncService;
         this.activity = activity;
+        this.preferences = preferences;
         this.fragment = fragment;
         syncResultCallback = new ProgressBarSyncResultCallback(activity, fragment,
                 R.id.progressBar, new Runnable() {
@@ -86,7 +86,7 @@ public class SyncActionHelper {
     // --- automatic sync logic
 
     public void initiateAutomaticSync() {
-        long tasksPushedAt = Preferences.getLong(PREF_LAST_AUTO_SYNC, 0);
+        long tasksPushedAt = preferences.getLong(PREF_LAST_AUTO_SYNC, 0);
         if (DateUtilities.now() - tasksPushedAt > TaskListFragment.AUTOSYNC_INTERVAL) {
             performSyncServiceV2Sync();
         }
@@ -139,7 +139,7 @@ public class SyncActionHelper {
     protected void performSyncServiceV2Sync() {
         boolean syncOccurred = syncService.synchronizeActiveTasks(false, syncResultCallback);
         if (syncOccurred) {
-            Preferences.setLong(PREF_LAST_AUTO_SYNC, DateUtilities.now());
+            preferences.setLong(PREF_LAST_AUTO_SYNC, DateUtilities.now());
         }
     }
 

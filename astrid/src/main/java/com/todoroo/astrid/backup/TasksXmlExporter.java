@@ -21,7 +21,6 @@ import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
@@ -33,6 +32,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 import org.tasks.R;
 import org.tasks.injection.Injector;
+import org.tasks.preferences.Preferences;
 import org.xmlpull.v1.XmlSerializer;
 
 import java.io.File;
@@ -70,6 +70,7 @@ public class TasksXmlExporter {
     @Inject TagDataService tagDataService;
     @Inject MetadataService metadataService;
     @Inject TaskService taskService;
+    @Inject Preferences preferences;
 
     // 3 is started on Version 4.6.10
     private static final int FORMAT = 3;
@@ -129,8 +130,8 @@ public class TasksXmlExporter {
                         doTasksExport(output);
                     }
 
-                    Preferences.setLong(BackupPreferences.PREF_BACKUP_LAST_DATE, DateUtilities.now());
-                    Preferences.setString(BackupPreferences.PREF_BACKUP_LAST_ERROR, null);
+                    preferences.setLong(BackupPreferences.PREF_BACKUP_LAST_DATE, DateUtilities.now());
+                    preferences.setString(BackupPreferences.PREF_BACKUP_LAST_ERROR, null);
 
                     if (exportType == ExportType.EXPORT_TYPE_MANUAL) {
                         onFinishExport(output);

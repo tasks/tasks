@@ -48,7 +48,6 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.SortSelectionActivity.OnSortSelectedListener;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
@@ -86,6 +85,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingListFragment;
+import org.tasks.preferences.Preferences;
 
 import java.util.List;
 import java.util.Timer;
@@ -145,6 +145,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     @Inject TaskDeleter taskDeleter;
     @Inject TaskDuplicator taskDuplicator;
     @Inject @ForActivity Context context;
+    @Inject Preferences preferences;
 
     protected Resources resources;
     protected TaskAdapter taskAdapter = null;
@@ -276,7 +277,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         // We have a menu item to show in action bar.
         resources = getResources();
         setHasOptionsMenu(true);
-        syncActionHelper = new SyncActionHelper(syncService, getActivity(), this);
+        syncActionHelper = new SyncActionHelper(syncService, getActivity(), preferences, this);
         setUpUiComponents();
         initializeData();
         setupQuickAddBar();
@@ -292,9 +293,9 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
             getListView().setItemsCanFocus(false);
         }
 
-        if (Preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1) > -1) {
+        if (preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1) > -1) {
             upgradeService.showChangeLog(getActivity(),
-                    Preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1));
+                    preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1));
         }
 
         getListView().setOnItemClickListener(new OnItemClickListener() {
@@ -357,7 +358,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
             if (!TextUtils.isEmpty(filterId)) {
                 taskListMetadata = taskListMetadataDao.fetchByTagId(filterId, TaskListMetadata.PROPERTIES);
                 if (taskListMetadata == null) {
-                    String defaultOrder = Preferences.getStringValue(prefId);
+                    String defaultOrder = preferences.getStringValue(prefId);
                     if (TextUtils.isEmpty(defaultOrder)) {
                         defaultOrder = "[]"; //$NON-NLS-1$
                     }
@@ -694,7 +695,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
                 TasksWidget.updateWidgets(getActivity());
                 return;
             } else if (resultCode == SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE) {
-                Preferences.setLong(SyncActionHelper.PREF_LAST_AUTO_SYNC, 0); // Forces autosync to occur after login
+                preferences.setLong(SyncActionHelper.PREF_LAST_AUTO_SYNC, 0); // Forces autosync to occur after login
             }
         }
 
@@ -736,8 +737,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         syncActionHelper.request();
     }
 
-    public static int getTaskRowResource() {
-        int rowStyle = Preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0);
+    public static int getTaskRowResource(int rowStyle) {
         switch(rowStyle) {
         case 1:
             return R.layout.task_adapter_row_simple;
@@ -751,7 +751,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
 
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
 
-        return new TaskAdapter(taskService, this, getTaskRowResource(),
+        return new TaskAdapter(taskService, this, getTaskRowResource(preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0)),
                 cursor, sqlQueryTemplate,
                 new OnCompletedTaskListener() {
                     @Override
@@ -788,7 +788,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     }
 
     public Property<?>[] taskProperties() {
-        if (Preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0) == 2) {
+        if (preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0) == 2) {
             return TaskAdapter.BASIC_PROPERTIES;
         }
         return TaskAdapter.PROPERTIES;

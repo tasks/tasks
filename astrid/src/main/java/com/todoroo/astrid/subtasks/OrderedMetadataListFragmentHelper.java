@@ -202,7 +202,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
     public TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor,
             AtomicReference<String> sqlQueryTemplate) {
 
-        taskAdapter = new DraggableTaskAdapter(fragment, TaskListFragment.getTaskRowResource(),
+        taskAdapter = new DraggableTaskAdapter(fragment, TaskListFragment.getTaskRowResource(Preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0)),
                 cursor, sqlQueryTemplate);
 
         taskAdapter.addOnCompletedTaskListener(new OnCompletedTaskListener() {

@@ -7,13 +7,13 @@ package com.todoroo.astrid.backup;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.backup.BackupService.BackupDirectorySetting;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
 import org.tasks.R;
+import org.tasks.preferences.Preferences;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +29,7 @@ public class BackupServiceTests extends DatabaseTestCase {
     File temporaryDirectory = null;
 
     @Autowired private TaskDao taskDao;
+    @Autowired private Preferences preferences;
 
     BackupDirectorySetting setting = new BackupDirectorySetting() {
         public File getBackupDirectory() {
@@ -65,11 +66,11 @@ public class BackupServiceTests extends DatabaseTestCase {
     }
 
     private boolean getBackupSetting() {
-        return Preferences.getBoolean(R.string.backup_BPr_auto_key, true);
+        return preferences.getBoolean(R.string.backup_BPr_auto_key, true);
     }
 
     private void setBackupSetting(boolean setting) {
-        Preferences.setBoolean(R.string.backup_BPr_auto_key, setting);
+        preferences.setBoolean(R.string.backup_BPr_auto_key, setting);
     }
 
     /** Test backup works */
@@ -79,7 +80,7 @@ public class BackupServiceTests extends DatabaseTestCase {
         boolean backupSetting = getBackupSetting();
         try {
             setBackupSetting(true);
-            Preferences.setLong(BackupPreferences.PREF_BACKUP_LAST_DATE, 0);
+            preferences.setLong(BackupPreferences.PREF_BACKUP_LAST_DATE, 0);
 
             // create a backup
             BackupService service = new BackupService();
@@ -94,8 +95,8 @@ public class BackupServiceTests extends DatabaseTestCase {
             assertTrue(files[0].getName().matches(BackupService.BACKUP_FILE_NAME_REGEX));
 
             // assert summary updated
-            assertTrue(Preferences.getLong(BackupPreferences.PREF_BACKUP_LAST_DATE, 0) > 0);
-            assertNull(Preferences.getStringValue(BackupPreferences.PREF_BACKUP_LAST_ERROR));
+            assertTrue(preferences.getLong(BackupPreferences.PREF_BACKUP_LAST_DATE, 0) > 0);
+            assertNull(preferences.getStringValue(BackupPreferences.PREF_BACKUP_LAST_ERROR));
         } finally {
             setBackupSetting(backupSetting);
         }
@@ -108,7 +109,7 @@ public class BackupServiceTests extends DatabaseTestCase {
         boolean backupSetting = getBackupSetting();
         try {
             setBackupSetting(false);
-            Preferences.setLong(BackupPreferences.PREF_BACKUP_LAST_DATE, 0);
+            preferences.setLong(BackupPreferences.PREF_BACKUP_LAST_DATE, 0);
 
             // create a backup
             BackupService service = new BackupService();
@@ -127,7 +128,7 @@ public class BackupServiceTests extends DatabaseTestCase {
             assertEquals(0, files.length);
 
             // assert summary not updated
-            assertEquals(0, Preferences.getLong(BackupPreferences.PREF_BACKUP_LAST_DATE, 0));
+            assertEquals(0, preferences.getLong(BackupPreferences.PREF_BACKUP_LAST_DATE, 0));
         } finally {
             setBackupSetting(backupSetting);
         }
