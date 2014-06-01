@@ -215,14 +215,4 @@ public class Preferences {
         editor.putInt(key, value);
         editor.commit();
     }
-
-    // --- preference fetching (long)
-
-    /** Gets a long preference
-     * @return default if value is unset otherwise the value
-     */
-    public static long getLong(String key, long defValue) {
-        Context context = ContextManager.getContext();
-        return getPrefs(context).getLong(key, defValue);
-    }
 }

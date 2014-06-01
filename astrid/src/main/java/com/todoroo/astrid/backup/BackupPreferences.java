@@ -15,11 +15,13 @@ import android.view.ViewGroup.OnHierarchyChangeListener;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 import com.todoroo.astrid.utility.Flags;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingTodorooPreferenceActivity;
+import org.tasks.preferences.Preferences;
+
+import javax.inject.Inject;
 
 import static org.tasks.date.DateTimeUtils.newDate;
 
@@ -30,13 +32,15 @@ import static org.tasks.date.DateTimeUtils.newDate;
  * @author timsu
  *
  */
-public class BackupPreferences extends TodorooPreferenceActivity {
+public class BackupPreferences extends InjectingTodorooPreferenceActivity {
 
     static final String PREF_BACKUP_LAST_DATE = "backupDate"; //$NON-NLS-1$
 
     static final String PREF_BACKUP_LAST_ERROR = "backupError"; //$NON-NLS-1$
 
     private int statusColor = Color.BLACK;
+
+    @Inject Preferences preferences;
 
     @Override
     public int getPreferenceResource() {
@@ -105,8 +109,8 @@ public class BackupPreferences extends TodorooPreferenceActivity {
             String subtitle = ""; //$NON-NLS-1$
 
             // last backup was error
-            final long last = Preferences.getLong(PREF_BACKUP_LAST_DATE, 0);
-            final String error = Preferences.getStringValue(PREF_BACKUP_LAST_ERROR);
+            final long last = preferences.getLong(PREF_BACKUP_LAST_DATE, 0);
+            final String error = preferences.getStringValue(PREF_BACKUP_LAST_ERROR);
             if(error != null) {
                 status = r.getString(R.string.backup_status_failed);
                 subtitle = r.getString(R.string.backup_status_failed_subtitle);
