@@ -60,8 +60,6 @@ public class TaskService {
 
     public static final String TRANS_TAGS = "tags"; //$NON-NLS-1$
 
-    public static final String TRANS_ASSIGNED = "task-assigned"; //$NON-NLS-1$
-
     public static final String TRANS_EDIT_SAVE = "task-edit-save"; //$NON-NLS-1$
 
     public static final String TRANS_REPEAT_COMPLETE = "repeat-complete"; //$NON-NLS-1$
@@ -339,10 +337,6 @@ public class TaskService {
                 AndroidUtilities.putInto(forTask, key, value);
             }
             task.mergeWithoutReplacement(forTask);
-        }
-
-        if (!Task.USER_ID_SELF.equals(task.getUserID())) {
-            task.putTransitory(TRANS_ASSIGNED, true);
         }
 
         taskService.quickAdd(task, tags);

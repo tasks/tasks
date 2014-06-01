@@ -3,7 +3,6 @@ package com.todoroo.astrid.service;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.SyncFlags;
@@ -35,9 +34,6 @@ public class TaskDuplicator {
         original.setId(itemId);
         Task clone = clone(original);
         String userId = clone.getUserID();
-        if (!Task.USER_ID_SELF.equals(userId) && !ActFmPreferenceService.userId().equals(userId)) {
-            clone.putTransitory(TaskService.TRANS_ASSIGNED, true);
-        }
         clone.setCreationDate(DateUtilities.now());
         clone.setCompletionDate(0L);
         clone.setDeletionDate(0L);
