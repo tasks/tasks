@@ -13,7 +13,6 @@ import android.text.TextUtils;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.R;
@@ -66,8 +65,7 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
         }
     }
 
-    private void showCalReminder(Context context,
-            long eventId, boolean fromPostpone) {
+    private void showCalReminder(Context context, long eventId, boolean fromPostpone) {
         ContentResolver cr = context.getContentResolver();
         Uri eventUri = Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_EVENTS);
 
@@ -119,11 +117,6 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
                         Set<String> phoneAccounts = new HashSet<>();
                         for (Account a : accountArray) {
                             phoneAccounts.add(a.name);
-                        }
-
-                        String astridUser = ActFmPreferenceService.thisUser().optString("email");
-                        if (!TextUtils.isEmpty(astridUser)) {
-                            phoneAccounts.add(astridUser);
                         }
 
                         boolean includesMe = false;
