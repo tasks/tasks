@@ -47,6 +47,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmCameraModule;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
+import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.RemoteModel;
@@ -57,6 +58,7 @@ import com.todoroo.astrid.files.FileExplore;
 import com.todoroo.astrid.files.FileUtilities;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.gcal.GCalControlSet;
+import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.notes.EditNoteActivity;
 import com.todoroo.astrid.reminders.Notifications;
@@ -177,6 +179,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Inject MetadataService metadataService;
     @Inject UserActivityDao userActivityDao;
     @Inject TaskDeleter taskDeleter;
+    @Inject AlarmService alarmService;
+    @Inject GCalHelper gcalHelper;
 
     // --- UI components
 
@@ -354,19 +358,17 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controlSetMap = new HashMap<>();
 
         // populate control set
-        EditTitleControlSet editTitle = new EditTitleControlSet(getActivity(),
+        EditTitleControlSet editTitle = new EditTitleControlSet(taskService, getActivity(),
                 R.layout.control_set_title, R.id.title);
         title = (EditText) editTitle.getView().findViewById(R.id.title);
         controls.add(editTitle);
         titleControls.addView(editTitle.getDisplayView(), 0, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1.0f));
 
-        timerAction = new TimerActionControlSet(
-                getActivity(), getView());
+        timerAction = new TimerActionControlSet(taskService, getActivity(), getView());
         controls.add(timerAction);
 
-        TagsControlSet tagsControlSet = new TagsControlSet(getActivity(),
-                R.layout.control_set_tags,
-                R.layout.control_set_default_display, R.string.TEA_tags_label_long);
+        TagsControlSet tagsControlSet = new TagsControlSet(tagService, getActivity(),
+                R.layout.control_set_tags, R.layout.control_set_default_display, R.string.TEA_tags_label_long);
         controls.add(tagsControlSet);
         controlSetMap.put(getString(R.string.TEA_ctrl_lists_pref),
                 tagsControlSet);
@@ -375,7 +377,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 R.layout.control_set_repeat,
                 R.layout.control_set_repeat_display, R.string.repeat_enabled);
 
-        GCalControlSet gcalControl = new GCalControlSet(getActivity(),
+        GCalControlSet gcalControl = new GCalControlSet(gcalHelper, getActivity(),
                 R.layout.control_set_gcal, R.layout.control_set_gcal_display,
                 R.string.gcal_TEA_addToCalendar_label);
 
@@ -412,7 +414,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 notesControlSet);
 
         ReminderControlSet reminderControl = new ReminderControlSet(
-                getActivity(), R.layout.control_set_reminders,
+                alarmService, getActivity(), R.layout.control_set_reminders,
                 R.layout.control_set_default_display);
         controls.add(reminderControl);
         controlSetMap.put(getString(R.string.TEA_ctrl_reminders_pref),
@@ -436,10 +438,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controls.add(timerControl);
         controlSetMap.put(getString(R.string.TEA_ctrl_timer_pref), timerControl);
 
-        filesControlSet = new FilesControlSet(getActivity(),
-                R.layout.control_set_files,
-                R.layout.control_set_files_display,
-                R.string.TEA_control_files);
+        filesControlSet = new FilesControlSet(taskAttachmentDao, getActivity(),
+                R.layout.control_set_files, R.layout.control_set_files_display, R.string.TEA_control_files);
         controls.add(filesControlSet);
         controlSetMap.put(getString(R.string.TEA_ctrl_files_pref), filesControlSet);
 

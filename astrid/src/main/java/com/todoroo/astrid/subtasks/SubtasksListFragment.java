@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
+import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.service.TaskService;
@@ -34,6 +35,7 @@ public class SubtasksListFragment extends TaskListFragment {
 
     @Inject TaskService taskService;
     @Inject SubtasksFilterUpdater subtasksFilterUpdater;
+    @Inject TaskAttachmentDao taskAttachmentDao;
 
     @Override
     public void onAttach(Activity activity) {
@@ -43,7 +45,7 @@ public class SubtasksListFragment extends TaskListFragment {
     }
 
     protected OrderedListFragmentHelperInterface<?> createFragmentHelper() {
-        return new AstridOrderedListFragmentHelper<>(taskService, this, subtasksFilterUpdater);
+        return new AstridOrderedListFragmentHelper<>(taskAttachmentDao, taskService, this, subtasksFilterUpdater);
     }
 
     @Override

@@ -41,7 +41,6 @@ import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.R;
-import org.tasks.injection.Injector;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -53,37 +52,28 @@ import java.util.LinkedHashSet;
 import java.util.StringTokenizer;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import static org.tasks.injection.TasksModule.ForApplication;
 
 public class TasksXmlImporter {
 
     private static final String TAG = "TasksXmlImporter";
 
-    // --- public interface
+    private final TagDataService tagDataService;
+    private final TagService tagService;
+    private final MetadataService metadataService;
+    private final TaskService taskService;
+    private final Context context;
 
-    /**
-     * Import tasks from the given file
-     */
-    public static void importTasks(Context context, String input, Runnable runAfterImport) {
-        new TasksXmlImporter(context, input, runAfterImport);
-    }
-
-    // --- implementation
-
-    @Inject TagDataService tagDataService;
-    @Inject TagService tagService;
-    @Inject MetadataService metadataService;
-    @Inject TaskService taskService;
-
-    private final Handler handler;
+    private Handler handler;
     private int taskCount;
     private int importCount = 0;
     private int skipCount = 0;
     private int errorCount = 0;
-    private final String input;
-
-    private final Context context;
-    private final ProgressDialog progressDialog;
-    private final Runnable runAfterImport;
+    private ProgressDialog progressDialog;
+    private Runnable runAfterImport;
+    private String input;
 
     private void setProgressMessage(final String message) {
         handler.post(new Runnable() {
@@ -94,15 +84,21 @@ public class TasksXmlImporter {
         });
     }
 
+    @Inject
+    public TasksXmlImporter(@ForApplication Context context, TagDataService tagDataService, TagService tagService, MetadataService metadataService, TaskService taskService) {
+        this.context = context;
+        this.tagDataService = tagDataService;
+        this.tagService = tagService;
+        this.metadataService = metadataService;
+        this.taskService = taskService;
+    }
+
     /**
      * Import tasks.
      * @param runAfterImport optional runnable after import
      */
-    private TasksXmlImporter(final Context context, String input, Runnable runAfterImport) {
-        ((Injector) context.getApplicationContext()).inject(this);
-
+    public void importTasks(String input, Runnable runAfterImport) {
         this.input = input;
-        this.context = context;
         this.runAfterImport = runAfterImport;
 
         handler = new Handler();

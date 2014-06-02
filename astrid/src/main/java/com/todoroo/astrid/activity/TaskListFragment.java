@@ -57,6 +57,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.SortHelper;
+import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
@@ -146,6 +147,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     @Inject TaskDuplicator taskDuplicator;
     @Inject @ForActivity Context context;
     @Inject Preferences preferences;
+    @Inject TaskAttachmentDao taskAttachmentDao;
 
     protected Resources resources;
     protected TaskAdapter taskAdapter = null;
@@ -751,7 +753,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
 
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
 
-        return new TaskAdapter(taskService, this, getTaskRowResource(preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0)),
+        return new TaskAdapter(taskAttachmentDao, taskService, this, getTaskRowResource(preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0)),
                 cursor, sqlQueryTemplate,
                 new OnCompletedTaskListener() {
                     @Override

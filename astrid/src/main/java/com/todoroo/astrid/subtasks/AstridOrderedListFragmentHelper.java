@@ -24,6 +24,7 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
@@ -45,13 +46,15 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
     private final DisplayMetrics metrics = new DisplayMetrics();
     private final AstridOrderedListUpdater<LIST> updater;
     private final TaskListFragment fragment;
+    private final TaskAttachmentDao taskAttachmentDao;
     private final TaskService taskService;
 
     private DraggableTaskAdapter taskAdapter;
 
     private LIST list;
 
-    public AstridOrderedListFragmentHelper(TaskService taskService, TaskListFragment fragment, AstridOrderedListUpdater<LIST> updater) {
+    public AstridOrderedListFragmentHelper(TaskAttachmentDao taskAttachmentDao, TaskService taskService, TaskListFragment fragment, AstridOrderedListUpdater<LIST> updater) {
+        this.taskAttachmentDao = taskAttachmentDao;
         this.taskService = taskService;
         this.fragment = fragment;
         this.updater = updater;
@@ -207,7 +210,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
 
         private DraggableTaskAdapter(TaskListFragment activity, int resource,
                 Cursor c, AtomicReference<String> query) {
-            super(taskService, activity, resource, c, query, null);
+            super(taskAttachmentDao, taskService, activity, resource, c, query, null);
         }
 
         @Override

@@ -23,12 +23,9 @@ import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
 import com.todoroo.astrid.ui.DateAndTimePicker;
 
 import org.tasks.R;
-import org.tasks.injection.Injector;
 
 import java.util.Date;
 import java.util.LinkedHashSet;
-
-import javax.inject.Inject;
 
 import static org.tasks.date.DateTimeUtils.newDate;
 
@@ -40,15 +37,14 @@ import static org.tasks.date.DateTimeUtils.newDate;
  */
 public final class AlarmControlSet extends TaskEditControlSet {
 
-    @Inject AlarmService alarmService;
+    private final AlarmService alarmService;
 
     private LinearLayout alertsContainer;
     private DateAndTimeDialog pickerDialog;
 
-    public AlarmControlSet(Activity activity, int layout) {
+    public AlarmControlSet(AlarmService alarmService, Activity activity, int layout) {
         super(activity, layout);
-
-        ((Injector) activity.getApplication()).inject(this);
+        this.alarmService = alarmService;
     }
 
     @Override

@@ -25,9 +25,6 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.ui.ImportanceControlSet.ImportanceChangedListener;
 
 import org.tasks.R;
-import org.tasks.injection.Injector;
-
-import javax.inject.Inject;
 
 /**
  * Control set for mapping a Property to an EditText
@@ -42,11 +39,11 @@ public class EditTitleControlSet extends TaskEditControlSet implements Importanc
     private boolean isRepeating;
     private int importanceValue;
 
-    @Inject TaskService taskService;
+    private final TaskService taskService;
 
-    public EditTitleControlSet(Activity activity, int layout, int editText) {
+    public EditTitleControlSet(TaskService taskService, Activity activity, int layout, int editText) {
         super(activity, layout);
-        ((Injector) activity.getApplication()).inject(this);
+        this.taskService = taskService;
         this.editTextId = editText;
     }
 

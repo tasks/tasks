@@ -49,8 +49,7 @@ public final class TimerFilterExposer extends BroadcastReceiver implements Astri
     }
 
     private FilterListItem[] prepareFilters(Context context) {
-        // TODO: get rid of this
-        ((Injector) context.getApplicationContext()).inject(this);
+        ((Injector) context.getApplicationContext()).inject(this); // TODO: get rid of this
 
         if(taskService.count(Query.select(Task.ID).
                 where(Task.TIMER_START.gt(0))) == 0) {

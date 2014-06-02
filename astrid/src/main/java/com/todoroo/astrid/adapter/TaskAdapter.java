@@ -54,6 +54,7 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.core.LinkActionExposer;
+import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
@@ -173,6 +174,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     // --- instance variables
 
+    private final TaskAttachmentDao taskAttachmentDao;
     private final TaskService taskService;
 
     protected final Context context;
@@ -207,9 +209,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * @param onCompletedTaskListener
      *            task listener. can be null
      */
-    public TaskAdapter(TaskService taskService, TaskListFragment fragment, int resource,
+    public TaskAdapter(TaskAttachmentDao taskAttachmentDao, TaskService taskService, TaskListFragment fragment, int resource,
             Cursor c, AtomicReference<String> query, OnCompletedTaskListener onCompletedTaskListener) {
         super(ContextManager.getContext(), c, false);
+        this.taskAttachmentDao = taskAttachmentDao;
         this.taskService = taskService;
         this.context = ContextManager.getContext();
         this.query = query;
@@ -609,7 +612,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     }
 
     private void showFilesDialog(Task task) {
-        FilesControlSet filesControlSet = new FilesControlSet(fragment.getActivity(), R.layout.control_set_files,
+        FilesControlSet filesControlSet = new FilesControlSet(taskAttachmentDao,
+                fragment.getActivity(), R.layout.control_set_files,
                 R.layout.control_set_files_display, R.string.TEA_control_files);
         filesControlSet.readFromTask(task);
         filesControlSet.getDisplayView().performClick();

@@ -69,7 +69,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
     }
 
     private Filter[] buildSavedFilters(Context context, Resources r) {
-        ((Injector) context.getApplicationContext()).inject(this);
+        ((Injector) context.getApplicationContext()).inject(this); // TODO: get rid of this
 
         int themeFlags = ThemeService.getFilterThemeFlags();
 

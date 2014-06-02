@@ -45,13 +45,10 @@ import com.todoroo.astrid.api.FilterWithUpdate;
 
 import org.tasks.R;
 import org.tasks.filters.FilterCounter;
-import org.tasks.injection.Injector;
 
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.inject.Inject;
 
 public class FilterAdapter extends ArrayAdapter<Filter> {
 
@@ -62,7 +59,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
     // --- instance variables
 
-    @Inject FilterCounter filterCounter;
+    private final FilterCounter filterCounter;
 
     /** parent activity */
     protected final Activity activity;
@@ -90,12 +87,10 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     /** whether rows are selectable */
     private final boolean selectable;
 
-    public FilterAdapter(Activity activity, ListView listView,
+    public FilterAdapter(FilterCounter filterCounter, Activity activity, ListView listView,
             int rowLayout, boolean skipIntentFilters, boolean selectable) {
         super(activity, 0);
-
-        ((Injector) activity.getApplication()).inject(this);
-
+        this.filterCounter = filterCounter;
         this.activity = activity;
         this.listView = listView;
         this.layout = rowLayout;

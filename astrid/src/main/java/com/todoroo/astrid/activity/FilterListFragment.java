@@ -16,7 +16,6 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
@@ -43,6 +42,10 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 
 import org.tasks.R;
+import org.tasks.filters.FilterCounter;
+import org.tasks.injection.InjectingListFragment;
+
+import javax.inject.Inject;
 
 /**
  * Activity that displays a user's task lists and allows users
@@ -51,7 +54,7 @@ import org.tasks.R;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class FilterListFragment extends ListFragment {
+public class FilterListFragment extends InjectingListFragment {
 
     public static final String TAG_FILTERLIST_FRAGMENT = "filterlist_fragment"; //$NON-NLS-1$
 
@@ -77,6 +80,8 @@ public class FilterListFragment extends ListFragment {
 
     private OnFilterItemClickedListener mListener;
 
+    @Inject FilterCounter filterCounter;
+
     /* ======================================================================
      * ======================================================= initialization
      * ====================================================================== */
@@ -94,15 +99,11 @@ public class FilterListFragment extends ListFragment {
         // Check that the container activity has implemented the callback interface
         try {
             mListener = (OnFilterItemClickedListener) activity;
-            adapter = instantiateAdapter();
+            adapter = new FilterAdapter(filterCounter, getActivity(), null, R.layout.filter_adapter_row, false, false);
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFilterItemClickedListener"); //$NON-NLS-1$
         }
-    }
-
-    private FilterAdapter instantiateAdapter() {
-        return new FilterAdapter(getActivity(), null, R.layout.filter_adapter_row, false, false);
     }
 
     /* (non-Javadoc)

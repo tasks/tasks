@@ -31,7 +31,6 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.AstridPreferences;
 
 import org.tasks.R;
-import org.tasks.injection.Injector;
 import org.tasks.preferences.Preferences;
 import org.xmlpull.v1.XmlSerializer;
 
@@ -41,23 +40,13 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
+import static org.tasks.injection.TasksModule.ForApplication;
+
 public class TasksXmlExporter {
 
     private static final String TAG = "TasksXmlExporter";
 
     // --- public interface
-
-    /**
-     * Import tasks from the given file
-     *
-     * @param context context
-     * @param exportType from service, manual, or on upgrade
-     * @param backupDirectoryOverride new backupdirectory, or null to use default
-     */
-    public static void exportTasks(Context context, ExportType exportType,
-            File backupDirectoryOverride) {
-        new TasksXmlExporter(context, exportType, backupDirectoryOverride);
-    }
 
     public static enum ExportType {
         EXPORT_TYPE_SERVICE,
@@ -67,22 +56,21 @@ public class TasksXmlExporter {
 
     // --- implementation
 
-    @Inject TagDataService tagDataService;
-    @Inject MetadataService metadataService;
-    @Inject TaskService taskService;
-    @Inject Preferences preferences;
+    private final TagDataService tagDataService;
+    private final MetadataService metadataService;
+    private final TaskService taskService;
+    private final Preferences preferences;
+    private final Context context;
 
     // 3 is started on Version 4.6.10
     private static final int FORMAT = 3;
-
-    private final Context context;
     private int exportCount = 0;
     private XmlSerializer xml;
 
-    private final ProgressDialog progressDialog;
-    private final Handler handler;
-    private final File backupDirectory;
-    private final String latestSetVersionName;
+    private ProgressDialog progressDialog;
+    private Handler handler;
+    private File backupDirectory;
+    private String latestSetVersionName;
 
     private void setProgress(final int taskNumber, final int total) {
         handler.post(new Runnable() {
@@ -94,10 +82,16 @@ public class TasksXmlExporter {
         });
     }
 
-    private TasksXmlExporter(final Context context, final ExportType exportType, File backupDirectoryOverride) {
-        ((Injector) context.getApplicationContext()).inject(this);
-
+    @Inject
+    public TasksXmlExporter(@ForApplication Context context, TagDataService tagDataService, MetadataService metadataService, TaskService taskService, Preferences preferences) {
         this.context = context;
+        this.tagDataService = tagDataService;
+        this.metadataService = metadataService;
+        this.taskService = taskService;
+        this.preferences = preferences;
+    }
+
+    public void exportTasks(final ExportType exportType, File backupDirectoryOverride) {
         this.exportCount = 0;
         this.backupDirectory = backupDirectoryOverride == null ?
                 BackupConstants.defaultExportDirectory() : backupDirectoryOverride;

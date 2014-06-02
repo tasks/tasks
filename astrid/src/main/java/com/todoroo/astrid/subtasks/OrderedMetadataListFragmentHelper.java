@@ -26,6 +26,7 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
@@ -51,6 +52,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
     private final OrderedMetadataListUpdater<LIST> updater;
     private final TaskListFragment fragment;
 
+    private final TaskAttachmentDao taskAttachmentDao;
     private final TaskService taskService;
     private final MetadataService metadataService;
 
@@ -58,7 +60,8 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
 
     private LIST list;
 
-    public OrderedMetadataListFragmentHelper(TaskService taskService, MetadataService metadataService, TaskListFragment fragment, OrderedMetadataListUpdater<LIST> updater) {
+    public OrderedMetadataListFragmentHelper(TaskAttachmentDao taskAttachmentDao, TaskService taskService, MetadataService metadataService, TaskListFragment fragment, OrderedMetadataListUpdater<LIST> updater) {
+        this.taskAttachmentDao = taskAttachmentDao;
         this.taskService = taskService;
         this.metadataService = metadataService;
         this.fragment = fragment;
@@ -219,7 +222,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
 
         private DraggableTaskAdapter(TaskListFragment activity, int resource,
                 Cursor c, AtomicReference<String> query) {
-            super(taskService, activity, resource, c, query, null);
+            super(taskAttachmentDao, taskService, activity, resource, c, query, null);
         }
 
         @Override

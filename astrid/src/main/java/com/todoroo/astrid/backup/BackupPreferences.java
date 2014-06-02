@@ -41,6 +41,8 @@ public class BackupPreferences extends InjectingTodorooPreferenceActivity {
     private int statusColor = Color.BLACK;
 
     @Inject Preferences preferences;
+    @Inject TasksXmlImporter xmlImporter;
+    @Inject TasksXmlExporter xmlExporter;
 
     @Override
     public int getPreferenceResource() {
@@ -77,7 +79,7 @@ public class BackupPreferences extends InjectingTodorooPreferenceActivity {
         findPreference(getString(R.string.backup_BAc_export)).setOnPreferenceClickListener(new OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                TasksXmlExporter.exportTasks(BackupPreferences.this, TasksXmlExporter.ExportType.EXPORT_TYPE_MANUAL, null);
+                xmlExporter.exportTasks(TasksXmlExporter.ExportType.EXPORT_TYPE_MANUAL, null);
                 return true;
             }
         });
@@ -147,13 +149,12 @@ public class BackupPreferences extends InjectingTodorooPreferenceActivity {
         FilePickerBuilder.OnFilePickedListener listener = new FilePickerBuilder.OnFilePickedListener() {
             @Override
             public void onFilePicked(String filePath) {
-                TasksXmlImporter.importTasks(BackupPreferences.this, filePath,
-                        new Runnable() {
-                            @Override
-                            public void run() {
-                                Flags.set(Flags.REFRESH);
-                            }
-                        });
+                xmlImporter.importTasks(filePath, new Runnable() {
+                    @Override
+                    public void run() {
+                        Flags.set(Flags.REFRESH);
+                    }
+                });
             }
         };
         new FilePickerBuilder(this,

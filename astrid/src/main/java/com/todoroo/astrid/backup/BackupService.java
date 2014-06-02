@@ -7,7 +7,6 @@ package com.todoroo.astrid.backup;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
@@ -18,16 +17,19 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingService;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import javax.inject.Inject;
+
 /**
  * Inspired heavily by SynchronizationService
  */
-public class BackupService extends Service {
+public class BackupService extends InjectingService {
 
     private static final String TAG = "BackupService";
 
@@ -45,6 +47,8 @@ public class BackupService extends Service {
     public static final String BACKUP_ACTION = "backup"; //$NON-NLS-1$
     public static final String BACKUP_FILE_NAME_REGEX = "auto\\.[-\\d]+\\.xml"; //$NON-NLS-1$
     private static final int DAYS_TO_KEEP_BACKUP = 7;
+
+    @Inject TasksXmlExporter xmlExporter;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -83,7 +87,7 @@ public class BackupService extends Service {
                 Log.e("error-deleting", "Error deleting old backups", e); //$NON-NLS-1$ //$NON-NLS-2$
             }
 
-            TasksXmlExporter.exportTasks(context, TasksXmlExporter.ExportType.EXPORT_TYPE_SERVICE,
+            xmlExporter.exportTasks(TasksXmlExporter.ExportType.EXPORT_TYPE_SERVICE,
                     backupDirectorySetting.getBackupDirectory());
 
         } catch (Exception e) {

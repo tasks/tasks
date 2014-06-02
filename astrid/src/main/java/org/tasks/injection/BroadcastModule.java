@@ -28,26 +28,25 @@ import dagger.Provides;
 
 import static org.tasks.injection.TasksModule.ForApplication;
 
-@Module(library = true,
-        injects = {
-                RefreshBroadcastReceiver.class,
-                TasksWidget.class,
-                Notifications.class,
-                GtasksCustomFilterCriteriaExposer.class,
-                GtasksDetailExposer.class,
-                GlobalEventReceiver.class,
-                TagDetailExposer.class,
-                TagCustomFilterCriteriaExposer.class,
-                NotesDetailExposer.class,
-                GCalTaskCompleteListener.class,
-                RepeatDetailExposer.class,
-                TimerTaskCompleteListener.class,
-                RepeatTaskCompleteListener.class,
-                AlarmTaskRepeatListener.class,
-                AlarmDetailExposer.class,
-                GtasksStartupReceiver.class,
-                PhoneStateChangedReceiver.class
-        })
+@Module(injects = {
+        RefreshBroadcastReceiver.class,
+        TasksWidget.class,
+        Notifications.class,
+        GtasksCustomFilterCriteriaExposer.class,
+        GtasksDetailExposer.class,
+        GlobalEventReceiver.class,
+        TagDetailExposer.class,
+        TagCustomFilterCriteriaExposer.class,
+        NotesDetailExposer.class,
+        GCalTaskCompleteListener.class,
+        RepeatDetailExposer.class,
+        TimerTaskCompleteListener.class,
+        RepeatTaskCompleteListener.class,
+        AlarmTaskRepeatListener.class,
+        AlarmDetailExposer.class,
+        GtasksStartupReceiver.class,
+        PhoneStateChangedReceiver.class
+})
 public class BroadcastModule {
 
     private final Context context;

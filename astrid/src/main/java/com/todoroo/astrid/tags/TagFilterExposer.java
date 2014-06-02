@@ -124,7 +124,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
     }
 
     private FilterListItem[] prepareFilters(Context context) {
-        ((Injector) context.getApplicationContext()).inject(this);
+        ((Injector) context.getApplicationContext()).inject(this); // TODO: get rid of this
 
         ContextManager.setContext(context);
 

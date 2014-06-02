@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.todoroo.astrid.actfm.TagCommentsFragment;
 import com.todoroo.astrid.actfm.TagViewFragment;
+import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.gtasks.GtasksListFragment;
@@ -20,17 +21,17 @@ import dagger.Provides;
 import static org.tasks.injection.ActivityModule.ForActivity;
 import static org.tasks.injection.TasksModule.ForApplication;
 
-@Module(library = true,
-        injects = {
-                TaskListFragment.class,
-                GtasksListFragment.class,
-                NotificationFragment.class,
-                SubtasksListFragment.class,
-                SubtasksTagListFragment.class,
-                TagViewFragment.class,
-                TaskEditFragment.class,
-                TagCommentsFragment.class
-        })
+@Module(injects = {
+        TaskListFragment.class,
+        GtasksListFragment.class,
+        NotificationFragment.class,
+        SubtasksListFragment.class,
+        SubtasksTagListFragment.class,
+        TagViewFragment.class,
+        TaskEditFragment.class,
+        TagCommentsFragment.class,
+        FilterListFragment.class
+})
 public class FragmentModule {
 
     private final Activity activity;

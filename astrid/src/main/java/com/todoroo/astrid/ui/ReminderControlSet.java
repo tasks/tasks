@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.todoroo.astrid.alarms.AlarmControlSet;
+import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.ThemeService;
 
@@ -43,9 +44,11 @@ public class ReminderControlSet extends PopupControlSet {
 
     private RandomReminderControlSet randomControlSet;
     private AlarmControlSet alarmControl;
+    private final AlarmService alarmService;
 
-    public ReminderControlSet(Activity activity, int viewLayout, int displayViewLayout) {
+    public ReminderControlSet(AlarmService alarmService, Activity activity, int viewLayout, int displayViewLayout) {
         super(activity, viewLayout, displayViewLayout, R.string.TEA_reminders_group_label);
+        this.alarmService = alarmService;
         extraViews = new ArrayList<>();
         label = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
 
@@ -109,7 +112,7 @@ public class ReminderControlSet extends PopupControlSet {
         });
 
         randomControlSet = new RandomReminderControlSet(activity, getView(), -1);
-        alarmControl = new AlarmControlSet(activity, R.layout.control_set_alarms);
+        alarmControl = new AlarmControlSet(alarmService, activity, R.layout.control_set_alarms);
         alarmControl.readFromTask(model);
 
         remindersBody = (LinearLayout) getView().findViewById(R.id.reminders_body);

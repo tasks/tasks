@@ -5,9 +5,11 @@ import android.content.Context;
 
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.activity.EditPreferences;
+import com.todoroo.astrid.activity.FilterShortcutActivity;
 import com.todoroo.astrid.activity.ShareLinkActivity;
 import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.backup.BackupPreferences;
 import com.todoroo.astrid.calls.MissedCallActivity;
 import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.core.CustomFilterExposer;
@@ -38,27 +40,28 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import static org.tasks.injection.TasksModule.ForApplication;
 
-@Module(library = true,
-        injects = {
-                TaskListActivity.class,
-                TaskEditActivity.class,
-                ShareLinkActivity.class,
-                TagSettingsActivity.class,
-                CustomFilterActivity.class,
-                MissedCallActivity.class,
-                CalendarAlarmListCreator.class,
-                CustomFilterExposer.DeleteActivity.class,
-                CalendarReminderActivity.class,
-                GtasksListAdder.class,
-                TagFilterExposer.DeleteTagActivity.class,
-                TagFilterExposer.RenameTagActivity.class,
-                VoiceCommandActivity.class,
-                GtasksLoginActivity.class,
-                WidgetConfigActivity.class,
-                EditPreferences.class,
-                GtasksPreferences.class,
-                OldTaskPreferences.class
-        })
+@Module(injects = {
+        TaskListActivity.class,
+        TaskEditActivity.class,
+        ShareLinkActivity.class,
+        TagSettingsActivity.class,
+        CustomFilterActivity.class,
+        MissedCallActivity.class,
+        CalendarAlarmListCreator.class,
+        CustomFilterExposer.DeleteActivity.class,
+        CalendarReminderActivity.class,
+        GtasksListAdder.class,
+        TagFilterExposer.DeleteTagActivity.class,
+        TagFilterExposer.RenameTagActivity.class,
+        VoiceCommandActivity.class,
+        GtasksLoginActivity.class,
+        WidgetConfigActivity.class,
+        EditPreferences.class,
+        GtasksPreferences.class,
+        OldTaskPreferences.class,
+        BackupPreferences.class,
+        FilterShortcutActivity.class
+})
 public class ActivityModule {
 
     private final Context context;

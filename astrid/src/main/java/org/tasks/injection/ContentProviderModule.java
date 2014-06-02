@@ -13,12 +13,11 @@ import dagger.Provides;
 
 import static org.tasks.injection.TasksModule.ForApplication;
 
-@Module(library = true,
-        injects = {
-                Astrid2TaskProvider.class,
-                Astrid3ContentProvider.class,
-                SqlContentProvider.class
-        })
+@Module(injects = {
+        Astrid2TaskProvider.class,
+        Astrid3ContentProvider.class,
+        SqlContentProvider.class
+})
 public class ContentProviderModule {
     private final Context context;
 

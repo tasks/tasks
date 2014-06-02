@@ -21,26 +21,19 @@ import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
-import org.tasks.injection.Injector;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 public class TimerActionControlSet extends TaskEditControlSet {
-
-    @Inject TaskService taskService;
 
     private final ImageView timerButton;
     private final Chronometer chronometer;
     private boolean timerActive;
     private final List<TimerActionListener> listeners = new LinkedList<>();
 
-    public TimerActionControlSet(final Activity activity, View parent) {
+    public TimerActionControlSet(final TaskService taskService, final Activity activity, View parent) {
         super(activity, -1);
-
-        ((Injector) activity.getApplication()).inject(this);
 
         LinearLayout timerContainer = (LinearLayout) parent.findViewById(R.id.timer_container);
         timerButton = (ImageView) parent.findViewById(R.id.timer_button);

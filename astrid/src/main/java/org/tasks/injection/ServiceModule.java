@@ -3,6 +3,7 @@ package org.tasks.injection;
 import android.app.Service;
 import android.content.Context;
 
+import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.gtasks.GtasksBackgroundService;
 import com.todoroo.astrid.reminders.ReminderSchedulingService;
 
@@ -15,12 +16,12 @@ import dagger.Provides;
 
 import static org.tasks.injection.TasksModule.ForApplication;
 
-@Module(library = true,
-        injects = {
-                GtasksBackgroundService.class,
-                ReminderSchedulingService.class,
-                ScrollableWidgetUpdateService.class
-        })
+@Module(injects = {
+        GtasksBackgroundService.class,
+        ReminderSchedulingService.class,
+        ScrollableWidgetUpdateService.class,
+        BackupService.class
+})
 public class ServiceModule {
 
     private final Context context;

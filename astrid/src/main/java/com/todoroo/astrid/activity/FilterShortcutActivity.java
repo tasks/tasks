@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.activity;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -19,8 +18,14 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.service.ThemeService;
 
 import org.tasks.R;
+import org.tasks.filters.FilterCounter;
+import org.tasks.injection.InjectingListActivity;
 
-public class FilterShortcutActivity extends ListActivity {
+import javax.inject.Inject;
+
+public class FilterShortcutActivity extends InjectingListActivity {
+
+    @Inject FilterCounter filterCounter;
 
     private FilterAdapter adapter = null;
 
@@ -36,7 +41,7 @@ public class FilterShortcutActivity extends ListActivity {
         setContentView(R.layout.widget_config_activity);
 
         // set up ui
-        adapter = new FilterAdapter(this, getListView(),
+        adapter = new FilterAdapter(filterCounter, this, getListView(),
                 R.layout.filter_adapter_row, true, true);
         adapter.filterStyle = R.style.TextAppearance_FLA_Filter_Widget;
         setListAdapter(adapter);

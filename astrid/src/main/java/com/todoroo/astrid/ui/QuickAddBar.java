@@ -98,7 +98,7 @@ public class QuickAddBar extends LinearLayout {
     public void initialize(AstridActivity myActivity, TaskListFragment myFragment,
             final OnTaskListItemClickedListener mListener) {
 
-        ((Injector) myActivity.getApplication()).inject(this);
+        ((Injector) myActivity.getApplication()).inject(this); // TODO: get rid of this
 
         activity = myActivity;
         fragment = myFragment;
@@ -210,7 +210,7 @@ public class QuickAddBar extends LinearLayout {
                 R.layout.control_set_repeat,
                 R.layout.control_set_repeat_display, R.string.repeat_enabled);
 
-        gcalControl = new GCalControlSet(activity,
+        gcalControl = new GCalControlSet(gcalHelper, activity,
                 R.layout.control_set_gcal, R.layout.control_set_gcal_display,
                 R.string.gcal_TEA_addToCalendar_label);
 

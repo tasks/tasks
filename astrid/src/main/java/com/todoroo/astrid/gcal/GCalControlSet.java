@@ -33,12 +33,9 @@ import com.todoroo.astrid.ui.PopupControlSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
-import org.tasks.injection.Injector;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
-import javax.inject.Inject;
 
 /**
  * Control Set for managing repeats
@@ -52,7 +49,7 @@ public class GCalControlSet extends PopupControlSet {
 
     // --- instance variables
 
-    @Inject GCalHelper gcal;
+    private final GCalHelper gcal;
 
     private Uri calendarUri = null;
 
@@ -62,11 +59,9 @@ public class GCalControlSet extends PopupControlSet {
     private final int title;
     private final ImageView image;
 
-    public GCalControlSet(final Activity activity, int viewLayout, int displayViewLayout, int title) {
+    public GCalControlSet(GCalHelper gcal, final Activity activity, int viewLayout, int displayViewLayout, int title) {
         super(activity, viewLayout, displayViewLayout, title);
-
-        ((Injector)activity.getApplication()).inject(this);
-
+        this.gcal = gcal;
         this.title = title;
         calendars = Calendars.getCalendars();
         getView(); // Hack to force initialized

@@ -19,6 +19,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.StoreObjectDao;
+import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
@@ -46,6 +47,7 @@ public class GtasksListFragment extends SubtasksListFragment {
     @Inject GtasksMetadataService gtasksMetadataService;
     @Inject SyncV2Service syncService;
     @Inject @ForActivity Context context;
+    @Inject TaskAttachmentDao taskAttachmentDao;
 
     private StoreObject list;
 
@@ -60,7 +62,7 @@ public class GtasksListFragment extends SubtasksListFragment {
 
     @Override
     protected OrderedListFragmentHelperInterface<?> createFragmentHelper() {
-        return new OrderedMetadataListFragmentHelper<>(taskService, metadataService, this, gtasksTaskListUpdater);
+        return new OrderedMetadataListFragmentHelper<>(taskAttachmentDao, taskService, metadataService, this, gtasksTaskListUpdater);
     }
 
     @Override

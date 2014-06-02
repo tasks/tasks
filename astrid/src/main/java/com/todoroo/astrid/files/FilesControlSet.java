@@ -41,26 +41,21 @@ import com.todoroo.astrid.voice.RecognizerApi;
 import com.todoroo.astrid.voice.RecognizerApi.PlaybackExceptionHandler;
 
 import org.tasks.R;
-import org.tasks.injection.Injector;
 
 import java.io.File;
 import java.util.ArrayList;
 
-import javax.inject.Inject;
-
 public class FilesControlSet extends PopupControlSet {
-
-    @Inject TaskAttachmentDao taskAttachmentDao;
 
     private final ArrayList<TaskAttachment> files = new ArrayList<>();
     private final LinearLayout fileDisplayList;
     private final LayoutInflater inflater;
     private final ImageView image;
+    private final TaskAttachmentDao taskAttachmentDao;
 
-    public FilesControlSet(Activity activity, int viewLayout, int displayViewLayout, int title) {
+    public FilesControlSet(TaskAttachmentDao taskAttachmentDao, Activity activity, int viewLayout, int displayViewLayout, int title) {
         super(activity, viewLayout, displayViewLayout, title);
-        ((Injector) activity.getApplication()).inject(this);
-
+        this.taskAttachmentDao = taskAttachmentDao;
         fileDisplayList = (LinearLayout) getDisplayView().findViewById(R.id.files_list);
         image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
         inflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);

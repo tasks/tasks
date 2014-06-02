@@ -24,6 +24,7 @@ import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.service.ThemeService;
 
 import org.tasks.R;
+import org.tasks.filters.FilterCounter;
 import org.tasks.injection.InjectingListActivity;
 import org.tasks.widget.WidgetHelper;
 
@@ -43,6 +44,7 @@ public class WidgetConfigActivity extends InjectingListActivity {
     FilterAdapter adapter = null;
 
     @Inject WidgetHelper widgetHelper;
+    @Inject FilterCounter filterCounter;
 
     private void updateWidget() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
@@ -85,7 +87,7 @@ public class WidgetConfigActivity extends InjectingListActivity {
              }
 
              // set up ui
-             adapter = new FilterAdapter(this, getListView(),
+             adapter = new FilterAdapter(filterCounter, this, getListView(),
                      R.layout.filter_adapter_row, true, true);
              adapter.filterStyle = R.style.TextAppearance_FLA_Filter_Widget;
              setListAdapter(adapter);
@@ -167,5 +169,4 @@ public class WidgetConfigActivity extends InjectingListActivity {
             }
         }
     }
-
 }

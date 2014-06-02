@@ -87,7 +87,7 @@ public class GtasksFilterExposer extends BroadcastReceiver implements AstridFilt
     }
 
     private FilterListItem[] prepareFilters(Context context) {
-        ((Injector) context.getApplicationContext()).inject(this);
+        ((Injector) context.getApplicationContext()).inject(this); // TODO: get rid of this
 
         // if we aren't logged in (or we are logged in to astrid.com), don't expose features
         if(!gtasksPreferenceService.isLoggedIn()) {

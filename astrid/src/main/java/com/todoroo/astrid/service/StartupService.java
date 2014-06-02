@@ -78,13 +78,14 @@ public class StartupService {
     private final GtasksSyncService gtasksSyncService;
     private final MetadataService metadataService;
     private final Preferences preferences;
+    private final TasksXmlImporter xmlImporter;
 
     @Inject
     public StartupService(UpgradeService upgradeService, TaskService taskService,
                           TagDataDao tagDataDao, Database database,
                           GtasksPreferenceService gtasksPreferenceService,
                           GtasksSyncService gtasksSyncService, MetadataService metadataService,
-                          Preferences preferences) {
+                          Preferences preferences, TasksXmlImporter xmlImporter) {
         this.upgradeService = upgradeService;
         this.taskService = taskService;
         this.tagDataDao = tagDataDao;
@@ -93,6 +94,7 @@ public class StartupService {
         this.gtasksSyncService = gtasksSyncService;
         this.metadataService = metadataService;
         this.preferences = preferences;
+        this.xmlImporter = xmlImporter;
     }
 
     /**
@@ -264,7 +266,7 @@ public class StartupService {
                 File[] children = directory.listFiles();
                 AndroidUtilities.sortFilesByDateDesc(children);
                 if(children.length > 0) {
-                    TasksXmlImporter.importTasks(context, children[0].getAbsolutePath(), null);
+                    xmlImporter.importTasks(children[0].getAbsolutePath(), null);
                 }
             }
         } catch (Exception e) {

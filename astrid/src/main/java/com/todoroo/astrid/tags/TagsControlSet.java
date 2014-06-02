@@ -34,13 +34,10 @@ import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.utility.Flags;
 
 import org.tasks.R;
-import org.tasks.injection.Injector;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
-
-import javax.inject.Inject;
 
 /**
  * Control set to manage adding and removing tags
@@ -65,11 +62,11 @@ public final class TagsControlSet extends PopupControlSet {
     //private final LinearLayout tagsContainer;
     private final TextView tagsDisplay;
 
-    @Inject TagService tagService;
+    private final TagService tagService;
 
-    public TagsControlSet(Activity activity, int viewLayout, int displayViewLayout, int title) {
+    public TagsControlSet(TagService tagService, Activity activity, int viewLayout, int displayViewLayout, int title) {
         super(activity, viewLayout, displayViewLayout, title);
-        ((Injector) activity.getApplication()).inject(this);
+        this.tagService = tagService;
         tagsDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
         image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
     }
