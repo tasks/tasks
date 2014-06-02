@@ -5,49 +5,27 @@
  */
 package com.todoroo.astrid.test;
 
-import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.test.TodorooTestCaseWithInjector;
+import org.tasks.injection.InjectingTestCase;
+
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.provider.Astrid3ContentProvider;
 
-/**
- * Test case that automatically sets up and tears down a test database
- *
- * @author Tim Su <tim@todoroo.com>
- *
- */
-public class DatabaseTestCase extends TodorooTestCaseWithInjector {
+import javax.inject.Inject;
 
-    public static Database database = new TestDatabase();
+public class DatabaseTestCase extends InjectingTestCase {
+
+    @Inject protected Database database;
 
     @Override
-    protected void addInjectables() {
-        testInjector.addInjectable("database", database);
+    protected void setUp() {
+        super.setUp();
+
+        database.clear();
+        database.openForWriting();
     }
 
-	@Override
-	protected void setUp() throws Exception {
-	    // call upstream setup, which invokes dependency injector
-	    super.setUp();
-
-		// empty out test databases
-	    assertNotNull(ContextManager.getContext());
-	    database.clear();
-		database.openForWriting();
-
-        Astrid3ContentProvider.setDatabaseOverride(database);
-	}
-
     @Override
-	protected void tearDown() throws Exception {
-		database.close();
-		super.tearDown();
-	}
-
-	public static class TestDatabase extends Database {
-        @Override
-	    public String getName() {
-	        return "databasetest";
-	    }
-	}
+    protected void tearDown() {
+        database.close();
+        super.tearDown();
+    }
 }

@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.service;
 
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.test.DatabaseTestCase;
@@ -14,12 +13,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class QuickAddMarkupTest extends DatabaseTestCase {
 
-    @Autowired TagService tagService;
+    @Inject TagService tagService;
 
     @Override
-    protected void setUp() throws Exception {
+    protected void setUp() {
         super.setUp();
     }
 

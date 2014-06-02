@@ -7,13 +7,14 @@ package com.todoroo.astrid.dao;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
+
+import javax.inject.Inject;
 
 public class TaskDaoTests extends DatabaseTestCase {
 
@@ -22,7 +23,7 @@ public class TaskDaoTests extends DatabaseTestCase {
     public static Property<?>[] TITLES = new Property<?>[] { Task.ID,
             Task.TITLE };
 
-    @Autowired TaskDao taskDao;
+    @Inject TaskDao taskDao;
 
     /**
      * Test basic task creation, fetch, and save

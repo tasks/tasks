@@ -9,9 +9,7 @@ import android.content.res.Configuration;
 import android.test.AndroidTestCase;
 import android.util.DisplayMetrics;
 
-import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 
 import java.util.Locale;
 
@@ -21,21 +19,27 @@ import java.util.Locale;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TodorooTestCase extends AndroidTestCase {
+public abstract class TodorooTestCase extends AndroidTestCase {
 
 	@Override
-	protected void setUp() throws Exception {
-	    super.setUp();
+	protected void setUp() {
+        try {
+            super.setUp();
+        } catch(Exception e) {
+            throw new RuntimeException(e);
+        }
 
-	    ContextManager.setContext(this.getContext());
-	    AstridDependencyInjector.reset(getContext());
-	    DependencyInjectionService.getInstance().inject(this);
-	    setLocale(Locale.ENGLISH);
+        ContextManager.setContext(getContext());
+        setLocale(Locale.ENGLISH);
 	}
 
     @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
+    protected void tearDown() {
+        try {
+            super.tearDown();
+        } catch(Exception e) {
+            throw new RuntimeException(e);
+        }
         setLocale(Locale.getDefault());
     }
 

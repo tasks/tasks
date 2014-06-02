@@ -12,7 +12,6 @@ import com.google.ical.values.RRule;
 import com.google.ical.values.Weekday;
 import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -31,14 +30,16 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import static org.tasks.date.DateTimeUtils.newDate;
 
 public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
 
-    @Autowired protected TaskDao taskDao;
+    @Inject TaskDao taskDao;
 
     @Override
-    protected void setUp() throws Exception {
+    protected void setUp() {
         super.setUp();
         Preferences.setStringFromInteger(R.string.p_default_urgency_key, 0);
     }

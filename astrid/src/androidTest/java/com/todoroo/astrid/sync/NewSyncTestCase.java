@@ -1,20 +1,17 @@
 package com.todoroo.astrid.sync;
 
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
-public class NewSyncTestCase extends DatabaseTestCase {
-	@Autowired protected TaskDao taskDao;
-	@Autowired protected TagDataDao tagDataDao;
+import javax.inject.Inject;
 
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
-	}
+public class NewSyncTestCase extends DatabaseTestCase {
+
+    @Inject TaskDao taskDao;
+	@Inject TagDataDao tagDataDao;
 
 	protected Task createTask(String title) {
 		Task task = new Task();

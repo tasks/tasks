@@ -26,7 +26,7 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
     };
 
     @Override
-    protected void setUp() throws Exception {
+    protected void setUp() {
         super.setUp();
 
         // set up database

@@ -9,7 +9,7 @@ public class TestInjector implements Injector {
     ObjectGraph objectGraph;
 
     public TestInjector(Context context) {
-        objectGraph = ObjectGraph.create(new TasksModule(context));
+        objectGraph = ObjectGraph.create(new TestModule(context));
     }
 
     @Override

@@ -1,13 +1,14 @@
 package com.todoroo.astrid.subtasks;
 
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.service.TaskService;
 
+import javax.inject.Inject;
+
 public class SubtasksMovingTest extends SubtasksTestCase {
 
-    @Autowired TaskService taskService;
+    @Inject TaskService taskService;
 
     private Task A, B, C, D, E, F;
 

@@ -8,7 +8,6 @@ package com.todoroo.astrid.reminders;
 import android.app.Notification;
 import android.content.Intent;
 
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -18,24 +17,26 @@ import com.todoroo.astrid.test.DatabaseTestCase;
 
 import org.tasks.R;
 
+import javax.inject.Inject;
+
 import static org.tasks.date.DateTimeUtils.newDate;
 
 public class NotificationTests extends DatabaseTestCase {
 
-    @Autowired TaskDao taskDao;
+    @Inject TaskDao taskDao;
 
     public class MutableBoolean {
         boolean value = false;
     }
 
     @Override
-    protected void setUp() throws Exception {
+    protected void setUp() {
         super.setUp();
-        Notifications.forceNotificationManager();
+
     }
 
     @Override
-    protected void tearDown() throws Exception {
+    protected void tearDown() {
         Notifications.setNotificationManager(null);
     }
 

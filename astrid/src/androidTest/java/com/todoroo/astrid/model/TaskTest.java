@@ -3,23 +3,26 @@ package com.todoroo.astrid.model;
 import android.content.ContentValues;
 
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.test.TodorooTestCase;
+
+import org.tasks.injection.InjectingTestCase;
+
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.Snippet;
 import org.tasks.preferences.Preferences;
 
+import javax.inject.Inject;
+
 import static org.tasks.Freeze.freezeClock;
 import static org.tasks.RemoteModelHelpers.asQueryProperties;
 import static org.tasks.RemoteModelHelpers.compareRemoteModel;
 import static org.tasks.date.DateTimeUtils.currentTimeMillis;
 
-public class TaskTest extends TodorooTestCase {
+public class TaskTest extends InjectingTestCase {
 
-    @Autowired private TaskService taskService;
-    @Autowired private Preferences preferences;
+    @Inject TaskService taskService;
+    @Inject Preferences preferences;
 
     public void testNewTaskHasNoCreationDate() {
         assertFalse(new Task().containsValue(Task.CREATION_DATE));

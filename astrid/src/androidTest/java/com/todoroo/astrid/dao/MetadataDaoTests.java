@@ -7,18 +7,18 @@ package com.todoroo.astrid.dao;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import javax.inject.Inject;
+
 public class MetadataDaoTests extends DatabaseTestCase {
 
-    @Autowired MetadataDao metadataDao;
-
-    @Autowired TaskDao taskDao;
+    @Inject MetadataDao metadataDao;
+    @Inject TaskDao taskDao;
 
     public static Property<?>[] KEYS = new Property<?>[] { Metadata.ID,
             Metadata.KEY };

@@ -8,7 +8,6 @@ package com.todoroo.astrid.service;
 
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.tags.TagService;
@@ -21,18 +20,20 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.inject.Inject;
+
 import static org.tasks.date.DateTimeUtils.newDate;
 
 public class TitleParserTest extends DatabaseTestCase {
 
-    @Autowired TaskService taskService;
+    @Inject TaskService taskService;
 
-    @Autowired TagService tagService;
+    @Inject TagService tagService;
 
-    @Autowired MetadataService metadataService;
+    @Inject MetadataService metadataService;
 
     @Override
-    protected void setUp() throws Exception {
+    protected void setUp() {
         super.setUp();
         Preferences.setStringFromInteger(R.string.p_default_urgency_key, 0);
     }

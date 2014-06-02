@@ -7,12 +7,13 @@ package com.todoroo.astrid.reminders;
 
 import android.content.Context;
 
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.test.TodorooTestCase;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.ReminderService.AlarmScheduler;
+
+import javax.inject.Inject;
 
 import static org.tasks.Freeze.freezeClock;
 import static org.tasks.Freeze.thaw;
@@ -20,15 +21,15 @@ import static org.tasks.date.DateTimeUtils.newDate;
 
 public class ReminderServiceTest extends TodorooTestCase {
 
-    @Autowired TaskDao taskDao;
-    @Autowired ReminderService reminderService;
+    @Inject TaskDao taskDao;
+    @Inject ReminderService reminderService;
 
-    public void setUp() throws Exception {
+    public void setUp() {
         super.setUp();
         freezeClock();
     }
 
-    public void tearDown() throws Exception {
+    public void tearDown() {
         thaw();
     }
 

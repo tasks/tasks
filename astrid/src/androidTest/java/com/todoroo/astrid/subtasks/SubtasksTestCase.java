@@ -1,6 +1,5 @@
 package com.todoroo.astrid.subtasks;
 
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
@@ -12,6 +11,8 @@ import com.todoroo.astrid.test.DatabaseTestCase;
 
 import org.tasks.preferences.Preferences;
 
+import javax.inject.Inject;
+
 /**
  * Contains useful methods common to all subtasks tests
  * @author Sam
@@ -19,9 +20,9 @@ import org.tasks.preferences.Preferences;
  */
 public class SubtasksTestCase extends DatabaseTestCase {
 
-    @Autowired TaskListMetadataDao taskListMetadataDao;
-    @Autowired TaskService taskService;
-    @Autowired Preferences preferences;
+    @Inject TaskListMetadataDao taskListMetadataDao;
+    @Inject TaskService taskService;
+    @Inject Preferences preferences;
 
     protected SubtasksUpdater<TaskListMetadata> updater;
     protected Filter filter;
@@ -38,7 +39,7 @@ public class SubtasksTestCase extends DatabaseTestCase {
     public static final String DEFAULT_SERIALIZED_TREE = "[-1, [1, 2, [3, 4]], 5, 6]".replaceAll("\\s", "");
 
     @Override
-    protected void setUp() throws Exception {
+    protected void setUp() {
         super.setUp();
         filter = CoreFilterExposer.buildInboxFilter(getContext().getResources());
         preferences.clear(SubtasksUpdater.ACTIVE_TASKS_ORDER);

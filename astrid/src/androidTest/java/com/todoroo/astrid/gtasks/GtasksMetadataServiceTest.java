@@ -8,7 +8,6 @@ package com.todoroo.astrid.gtasks;
 import android.content.Context;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Metadata;
@@ -17,13 +16,36 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import dagger.Module;
+import dagger.Provides;
+
 @SuppressWarnings("nls")
 public class GtasksMetadataServiceTest extends DatabaseTestCase {
 
-    private final GtasksTestPreferenceService preferences = new GtasksTestPreferenceService();
-    @Autowired private GtasksMetadataService gtasksMetadataService;
-    @Autowired private MetadataService metadataService;
-    @Autowired TaskService taskService;
+    @Module(complete = false, overrides = true, injects = { GtasksMetadataServiceTest.class })
+    static class GtasksMetadataServiceTestModule {
+        private final GtasksTestPreferenceService service = new GtasksTestPreferenceService();
+
+        @Provides
+        public GtasksTestPreferenceService getGtasksTestPreferenceService() {
+            return service;
+        }
+
+        @Provides
+        public GtasksPreferenceService getGtasksPreferenceService() {
+            return service;
+        }
+    }
+
+    @Inject GtasksTestPreferenceService preferences;
+    @Inject GtasksMetadataService gtasksMetadataService;
+    @Inject MetadataService metadataService;
+    @Inject TaskService taskService;
 
     private Task task;
     private Metadata metadata;
@@ -138,7 +160,7 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
         task.setTitle("cats");
         taskService.save(task);
         Metadata metadata = GtasksMetadata.createEmptyMetadata(task.getId());
-        if(id != null)
+        if (id != null)
             metadata.setValue(GtasksMetadata.ID, id);
         metadata.setTask(task.getId());
         metadataService.save(metadata);
@@ -157,16 +179,16 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
     }
 
     @Override
-    protected void addInjectables() {
-        super.addInjectables();
-        testInjector.addInjectable("gtasksPreferenceService", preferences);
-    }
-
-    @Override
     public void setContext(Context context) {
         super.setContext(context);
-        if(!Preferences.isSet(GtasksPreferenceService.PREF_DEFAULT_LIST))
+        if (!Preferences.isSet(GtasksPreferenceService.PREF_DEFAULT_LIST))
             Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST, "list");
     }
 
+    @Override
+    protected List<Object> getModules() {
+        return new ArrayList<Object>() {{
+            add(new GtasksMetadataServiceTestModule());
+        }};
+    }
 }

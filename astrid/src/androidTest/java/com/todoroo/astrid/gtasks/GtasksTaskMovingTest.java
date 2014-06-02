@@ -7,7 +7,6 @@ package com.todoroo.astrid.gtasks;
 
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
@@ -18,14 +17,16 @@ import com.todoroo.astrid.test.DatabaseTestCase;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 @SuppressWarnings("nls")
 public class GtasksTaskMovingTest extends DatabaseTestCase {
 
-    @Autowired private GtasksListService gtasksListService;
-    @Autowired private GtasksMetadataService gtasksMetadataService;
-    @Autowired private GtasksTaskListUpdater gtasksTaskListUpdater;
-    @Autowired private MetadataService metadataService;
-    @Autowired TaskService taskService;
+    @Inject GtasksListService gtasksListService;
+    @Inject GtasksMetadataService gtasksMetadataService;
+    @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
+    @Inject MetadataService metadataService;
+    @Inject TaskService taskService;
 
     private Task A, B, C, D, E, F;
     private StoreObject list;
@@ -240,7 +241,7 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
     }
 
     @Override
-    protected void setUp() throws Exception {
+    protected void setUp() {
         super.setUp();
 
         TaskLists lists = new TaskLists();

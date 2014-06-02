@@ -1,16 +1,17 @@
 package com.todoroo.astrid.subtasks;
 
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.service.TaskService;
 
+import javax.inject.Inject;
+
 public class SubtasksHelperTest extends SubtasksTestCase {
 
-    @Autowired TaskService taskService;
+    @Inject TaskService taskService;
 
     @Override
-    protected void setUp() throws Exception {
+    protected void setUp() {
         super.setUp();
         createTasks();
         TaskListMetadata m = new TaskListMetadata();

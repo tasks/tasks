@@ -33,7 +33,7 @@ public class AdvancedRepeatTest extends TodorooTestCase {
     private RRule rrule;
 
     @Override
-    public void setUp() throws Exception {
+    public void setUp() {
         super.setUp();
         task = new Task();
         task.setCompletionDate(DateUtilities.now());
