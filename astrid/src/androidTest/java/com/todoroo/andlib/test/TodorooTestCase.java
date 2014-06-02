@@ -29,6 +29,9 @@ public abstract class TodorooTestCase extends AndroidTestCase {
             throw new RuntimeException(e);
         }
 
+        // for mockito: https://code.google.com/p/dexmaker/issues/detail?id=2
+        System.setProperty("dexmaker.dexcache", getContext().getCacheDir().toString());
+
         ContextManager.setContext(getContext());
         setLocale(Locale.ENGLISH);
 	}
