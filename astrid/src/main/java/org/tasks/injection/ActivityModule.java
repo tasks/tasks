@@ -38,7 +38,6 @@ import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
-import static org.tasks.injection.TasksModule.ForApplication;
 
 @Module(injects = {
         TaskListActivity.class,
@@ -65,9 +64,17 @@ import static org.tasks.injection.TasksModule.ForApplication;
 public class ActivityModule {
 
     private final Context context;
+    private Injector injector;
 
-    public ActivityModule(Activity activity) {
+    public ActivityModule(Activity activity, Injector injector) {
+        this.injector = injector;
         context = activity.getApplicationContext();
+    }
+
+    @Singleton
+    @Provides
+    public Injector getInjector() {
+        return injector;
     }
 
     @Singleton

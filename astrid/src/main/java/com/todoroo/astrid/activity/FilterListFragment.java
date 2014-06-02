@@ -44,6 +44,7 @@ import com.todoroo.astrid.api.FilterListItem;
 import org.tasks.R;
 import org.tasks.filters.FilterCounter;
 import org.tasks.injection.InjectingListFragment;
+import org.tasks.injection.Injector;
 
 import javax.inject.Inject;
 
@@ -81,6 +82,7 @@ public class FilterListFragment extends InjectingListFragment {
     private OnFilterItemClickedListener mListener;
 
     @Inject FilterCounter filterCounter;
+    @Inject Injector injector;
 
     /* ======================================================================
      * ======================================================= initialization
@@ -99,7 +101,7 @@ public class FilterListFragment extends InjectingListFragment {
         // Check that the container activity has implemented the callback interface
         try {
             mListener = (OnFilterItemClickedListener) activity;
-            adapter = new FilterAdapter(filterCounter, getActivity(), null, R.layout.filter_adapter_row, false, false);
+            adapter = new FilterAdapter(injector, filterCounter, getActivity(), null, R.layout.filter_adapter_row, false, false);
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFilterItemClickedListener"); //$NON-NLS-1$

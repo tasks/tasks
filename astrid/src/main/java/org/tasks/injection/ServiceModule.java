@@ -14,8 +14,6 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-import static org.tasks.injection.TasksModule.ForApplication;
-
 @Module(injects = {
         GtasksBackgroundService.class,
         ReminderSchedulingService.class,

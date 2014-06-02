@@ -3,10 +3,10 @@ package org.tasks;
 import android.content.Context;
 import android.content.Intent;
 
+import org.tasks.injection.ForApplication;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import static org.tasks.injection.TasksModule.ForApplication;
 
 @Singleton
 public class Broadcaster {

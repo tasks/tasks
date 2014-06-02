@@ -26,13 +26,13 @@ import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.MetadataService.SynchronizeMetadataCallback;
 
+import org.tasks.injection.ForApplication;
+
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import static org.tasks.injection.TasksModule.ForApplication;
 
 /**
  * Provides operations for working with alerts

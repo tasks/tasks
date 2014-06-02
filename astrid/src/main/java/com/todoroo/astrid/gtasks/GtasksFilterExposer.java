@@ -6,7 +6,6 @@
 package com.todoroo.astrid.gtasks;
 
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
@@ -35,6 +34,7 @@ import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.injection.Injector;
 
 import javax.inject.Inject;
@@ -45,7 +45,7 @@ import javax.inject.Inject;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class GtasksFilterExposer extends BroadcastReceiver implements AstridFilterExposer {
+public class GtasksFilterExposer extends InjectingBroadcastReceiver implements AstridFilterExposer {
 
     @Inject GtasksListService gtasksListService;
     @Inject GtasksPreferenceService gtasksPreferenceService;
@@ -78,6 +78,8 @@ public class GtasksFilterExposer extends BroadcastReceiver implements AstridFilt
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+
         ContextManager.setContext(context);
         FilterListItem[] list = prepareFilters(context);
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
@@ -87,8 +89,6 @@ public class GtasksFilterExposer extends BroadcastReceiver implements AstridFilt
     }
 
     private FilterListItem[] prepareFilters(Context context) {
-        ((Injector) context.getApplicationContext()).inject(this); // TODO: get rid of this
-
         // if we aren't logged in (or we are logged in to astrid.com), don't expose features
         if(!gtasksPreferenceService.isLoggedIn()) {
             return null;
@@ -122,10 +122,12 @@ public class GtasksFilterExposer extends BroadcastReceiver implements AstridFilt
     }
 
     @Override
-    public FilterListItem[] getFilters() {
+    public FilterListItem[] getFilters(Injector injector) {
         if (ContextManager.getContext() == null) {
             return null;
         }
+
+        injector.inject(this);
 
         return prepareFilters(ContextManager.getContext());
     }

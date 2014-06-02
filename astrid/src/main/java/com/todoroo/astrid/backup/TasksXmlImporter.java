@@ -54,8 +54,6 @@ import java.util.StringTokenizer;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import static org.tasks.injection.TasksModule.ForApplication;
-
 public class TasksXmlImporter {
 
     private static final String TAG = "TasksXmlImporter";
@@ -64,8 +62,8 @@ public class TasksXmlImporter {
     private final TagService tagService;
     private final MetadataService metadataService;
     private final TaskService taskService;
-    private final Context context;
 
+    private Context context;
     private Handler handler;
     private int taskCount;
     private int importCount = 0;
@@ -85,8 +83,7 @@ public class TasksXmlImporter {
     }
 
     @Inject
-    public TasksXmlImporter(@ForApplication Context context, TagDataService tagDataService, TagService tagService, MetadataService metadataService, TaskService taskService) {
-        this.context = context;
+    public TasksXmlImporter(TagDataService tagDataService, TagService tagService, MetadataService metadataService, TaskService taskService) {
         this.tagDataService = tagDataService;
         this.tagService = tagService;
         this.metadataService = metadataService;
@@ -97,7 +94,8 @@ public class TasksXmlImporter {
      * Import tasks.
      * @param runAfterImport optional runnable after import
      */
-    public void importTasks(String input, Runnable runAfterImport) {
+    public void importTasks(Context context, String input, Runnable runAfterImport) {
+        this.context = context;
         this.input = input;
         this.runAfterImport = runAfterImport;
 

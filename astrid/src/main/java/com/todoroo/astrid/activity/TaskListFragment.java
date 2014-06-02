@@ -86,6 +86,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingListFragment;
+import org.tasks.injection.Injector;
 import org.tasks.preferences.Preferences;
 
 import java.util.List;
@@ -148,6 +149,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     @Inject @ForActivity Context context;
     @Inject Preferences preferences;
     @Inject TaskAttachmentDao taskAttachmentDao;
+    @Inject Injector injector;
 
     protected Resources resources;
     protected TaskAdapter taskAdapter = null;
@@ -475,7 +477,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
 
     protected void setupQuickAddBar() {
         quickAddBar = (QuickAddBar) getView().findViewById(R.id.taskListFooter);
-        quickAddBar.initialize((AstridActivity) getActivity(), this, mListener);
+        quickAddBar.initialize(injector, (AstridActivity) getActivity(), this, mListener);
 
         getListView().setOnTouchListener(new OnTouchListener() {
             @Override

@@ -5,11 +5,13 @@
  */
 package com.todoroo.astrid.api;
 
+import org.tasks.injection.Injector;
+
 /**
  * Common interface for Astrids filter-exposers to provide their FilterListitem instances.
  *
  * @author Arne Jans
  */
 public interface AstridFilterExposer {
-    public FilterListItem[] getFilters();
+    public FilterListItem[] getFilters(Injector injector);
 }

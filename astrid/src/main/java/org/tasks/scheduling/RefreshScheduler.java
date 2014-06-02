@@ -12,13 +12,14 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 
+import org.tasks.injection.ForApplication;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 import static com.todoroo.andlib.utility.DateUtilities.ONE_MINUTE;
 import static org.tasks.date.DateTimeUtils.currentTimeMillis;
-import static org.tasks.injection.TasksModule.ForApplication;
 
 @Singleton
 public class RefreshScheduler {

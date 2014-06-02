@@ -40,6 +40,7 @@ import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
 
 import org.tasks.R;
+import org.tasks.injection.ForApplication;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,7 +53,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import static org.tasks.date.DateTimeUtils.newDate;
-import static org.tasks.injection.TasksModule.ForApplication;
 
 @Singleton
 public class GtasksSyncV2Provider extends SyncV2Provider {

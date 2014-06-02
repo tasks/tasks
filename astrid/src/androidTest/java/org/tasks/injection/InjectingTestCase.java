@@ -8,12 +8,15 @@ import static java.util.Collections.emptyList;
 
 public abstract class InjectingTestCase extends TodorooTestCase {
 
-	@Override
-	protected void setUp() {
+    @Override
+    protected void setUp() {
         super.setUp();
 
-        new TestInjector(getContext()).inject(this, getModules().toArray());
-	}
+        new TestInjector(getContext())
+                .getObjectGraph()
+                .plus(getModules().toArray())
+                .inject(this);
+    }
 
     protected List<Object> getModules() {
         return emptyList();

@@ -45,6 +45,7 @@ import com.todoroo.astrid.api.FilterWithUpdate;
 
 import org.tasks.R;
 import org.tasks.filters.FilterCounter;
+import org.tasks.injection.Injector;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -59,6 +60,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
     // --- instance variables
 
+    private Injector injector;
     private final FilterCounter filterCounter;
 
     /** parent activity */
@@ -87,9 +89,10 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     /** whether rows are selectable */
     private final boolean selectable;
 
-    public FilterAdapter(FilterCounter filterCounter, Activity activity, ListView listView,
+    public FilterAdapter(Injector injector, FilterCounter filterCounter, Activity activity, ListView listView,
             int rowLayout, boolean skipIntentFilters, boolean selectable) {
         super(activity, 0);
+        this.injector = injector;
         this.filterCounter = filterCounter;
         this.activity = activity;
         this.listView = listView;
@@ -283,7 +286,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
                     filterExposer = (AstridFilterExposer) Class.forName(className, true, FilterAdapter.class.getClassLoader()).newInstance();
 
                     if (filterExposer != null) {
-                        populateFiltersToAdapter(filterExposer.getFilters());
+                        populateFiltersToAdapter(filterExposer.getFilters(injector));
                     }
                 }
             } catch (Exception e) {

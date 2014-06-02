@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.timers;
 
-import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +23,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.injection.Injector;
 
 import javax.inject.Inject;
@@ -34,12 +34,14 @@ import javax.inject.Inject;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public final class TimerFilterExposer extends BroadcastReceiver implements AstridFilterExposer {
+public final class TimerFilterExposer extends InjectingBroadcastReceiver implements AstridFilterExposer {
 
     @Inject TaskService taskService;
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+
         ContextManager.setContext(context);
         FilterListItem[] list = prepareFilters(context);
 
@@ -49,8 +51,6 @@ public final class TimerFilterExposer extends BroadcastReceiver implements Astri
     }
 
     private FilterListItem[] prepareFilters(Context context) {
-        ((Injector) context.getApplicationContext()).inject(this); // TODO: get rid of this
-
         if(taskService.count(Query.select(Task.ID).
                 where(Task.TIMER_START.gt(0))) == 0) {
             return null;
@@ -77,10 +77,12 @@ public final class TimerFilterExposer extends BroadcastReceiver implements Astri
     }
 
     @Override
-    public FilterListItem[] getFilters() {
+    public FilterListItem[] getFilters(Injector injector) {
         if (ContextManager.getContext() == null) {
             return null;
         }
+
+        injector.inject(this);
 
         return prepareFilters(ContextManager.getContext());
     }

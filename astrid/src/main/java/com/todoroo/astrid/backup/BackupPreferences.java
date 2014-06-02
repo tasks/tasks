@@ -79,7 +79,7 @@ public class BackupPreferences extends InjectingTodorooPreferenceActivity {
         findPreference(getString(R.string.backup_BAc_export)).setOnPreferenceClickListener(new OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                xmlExporter.exportTasks(TasksXmlExporter.ExportType.EXPORT_TYPE_MANUAL, null);
+                xmlExporter.exportTasks(BackupPreferences.this, TasksXmlExporter.ExportType.EXPORT_TYPE_MANUAL, null);
                 return true;
             }
         });
@@ -149,7 +149,7 @@ public class BackupPreferences extends InjectingTodorooPreferenceActivity {
         FilePickerBuilder.OnFilePickedListener listener = new FilePickerBuilder.OnFilePickedListener() {
             @Override
             public void onFilePicked(String filePath) {
-                xmlImporter.importTasks(filePath, new Runnable() {
+                xmlImporter.importTasks(BackupPreferences.this, filePath, new Runnable() {
                     @Override
                     public void run() {
                         Flags.set(Flags.REFRESH);

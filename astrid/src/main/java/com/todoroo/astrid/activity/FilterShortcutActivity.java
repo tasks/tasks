@@ -20,12 +20,14 @@ import com.todoroo.astrid.service.ThemeService;
 import org.tasks.R;
 import org.tasks.filters.FilterCounter;
 import org.tasks.injection.InjectingListActivity;
+import org.tasks.injection.Injector;
 
 import javax.inject.Inject;
 
 public class FilterShortcutActivity extends InjectingListActivity {
 
     @Inject FilterCounter filterCounter;
+    @Inject Injector injector;
 
     private FilterAdapter adapter = null;
 
@@ -41,7 +43,7 @@ public class FilterShortcutActivity extends InjectingListActivity {
         setContentView(R.layout.widget_config_activity);
 
         // set up ui
-        adapter = new FilterAdapter(filterCounter, this, getListView(),
+        adapter = new FilterAdapter(injector, filterCounter, this, getListView(),
                 R.layout.filter_adapter_row, true, true);
         adapter.filterStyle = R.style.TextAppearance_FLA_Filter_Widget;
         setListAdapter(adapter);

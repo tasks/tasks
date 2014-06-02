@@ -41,6 +41,7 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingBroadcastReceiver;
 
 import java.util.concurrent.ExecutorService;
@@ -50,7 +51,6 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import static org.tasks.date.DateTimeUtils.currentTimeMillis;
-import static org.tasks.injection.TasksModule.ForApplication;
 
 public class Notifications extends InjectingBroadcastReceiver {
 
@@ -60,7 +60,6 @@ public class Notifications extends InjectingBroadcastReceiver {
 
     /** task id extra */
     public static final String ID_KEY = "id"; //$NON-NLS-1$
-
 
     /** preference values */
     public static final int ICON_SET_PINK = 0;

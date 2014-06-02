@@ -8,9 +8,9 @@ import android.preference.PreferenceManager;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.utility.AstridDefaultPreferenceSpec;
 
-import javax.inject.Inject;
+import org.tasks.injection.ForApplication;
 
-import static org.tasks.injection.TasksModule.ForApplication;
+import javax.inject.Inject;
 
 public class Preferences {
 

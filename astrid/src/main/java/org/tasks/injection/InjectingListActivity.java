@@ -3,11 +3,26 @@ package org.tasks.injection;
 import android.app.ListActivity;
 import android.os.Bundle;
 
-public class InjectingListActivity extends ListActivity {
+import dagger.ObjectGraph;
+
+public class InjectingListActivity extends ListActivity implements Injector {
+    private ObjectGraph objectGraph;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ((Injector) getApplication()).inject(this, new ActivityModule(this));
+        objectGraph = ((Injector) getApplication()).getObjectGraph().plus(new ActivityModule(this, this));
+        inject(this);
 
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void inject(Object caller) {
+        objectGraph.inject(caller);
+    }
+
+    @Override
+    public ObjectGraph getObjectGraph() {
+        return objectGraph;
     }
 }

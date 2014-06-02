@@ -95,10 +95,10 @@ public class QuickAddBar extends LinearLayout {
         super(context, attrs, defStyle);
     }
 
-    public void initialize(AstridActivity myActivity, TaskListFragment myFragment,
+    public void initialize(Injector injector, AstridActivity myActivity, TaskListFragment myFragment,
             final OnTaskListItemClickedListener mListener) {
 
-        ((Injector) myActivity.getApplication()).inject(this); // TODO: get rid of this
+        injector.inject(this); // TODO: get rid of this
 
         activity = myActivity;
         fragment = myFragment;

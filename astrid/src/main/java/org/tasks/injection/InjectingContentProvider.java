@@ -7,7 +7,10 @@ public abstract class InjectingContentProvider extends ContentProvider {
     @Override
     public boolean onCreate() {
         Context context = getContext();
-        ((Injector) context.getApplicationContext()).inject(this, new ContentProviderModule(context));
+        ((Injector) context.getApplicationContext())
+                .getObjectGraph()
+                .plus(new ContentProviderModule(context))
+                .inject(this);
 
         return true;
     }

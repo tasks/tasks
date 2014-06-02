@@ -4,11 +4,26 @@ import android.os.Bundle;
 
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 
-public abstract class InjectingTodorooPreferenceActivity extends TodorooPreferenceActivity {
+import dagger.ObjectGraph;
+
+public abstract class InjectingTodorooPreferenceActivity extends TodorooPreferenceActivity implements Injector {
+    private ObjectGraph objectGraph;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        ((Injector) getApplication()).inject(this, new ActivityModule(this));
+        objectGraph = ((Injector) getApplication()).getObjectGraph().plus(new ActivityModule(this, this));
+        inject(this);
 
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void inject(Object caller) {
+        objectGraph.inject(caller);
+    }
+
+    @Override
+    public ObjectGraph getObjectGraph() {
+        return objectGraph;
     }
 }

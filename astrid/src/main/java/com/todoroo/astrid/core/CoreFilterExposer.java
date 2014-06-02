@@ -32,6 +32,7 @@ import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.R;
+import org.tasks.injection.Injector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,7 +115,7 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
     }
 
     @Override
-    public FilterListItem[] getFilters() {
+    public FilterListItem[] getFilters(Injector injector) {
         if (ContextManager.getContext() == null || ContextManager.getContext().getResources() == null) {
             return null;
         }

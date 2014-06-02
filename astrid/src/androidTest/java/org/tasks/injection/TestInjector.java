@@ -13,9 +13,12 @@ public class TestInjector implements Injector {
     }
 
     @Override
-    public void inject(Object caller, Object... modules) {
-        objectGraph
-                .plus(modules)
-                .inject(caller);
+    public void inject(Object caller) {
+        objectGraph.inject(caller);
+    }
+
+    @Override
+    public ObjectGraph getObjectGraph() {
+        return objectGraph;
     }
 }

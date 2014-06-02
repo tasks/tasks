@@ -40,8 +40,6 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
-import static org.tasks.injection.TasksModule.ForApplication;
-
 public class TasksXmlExporter {
 
     private static final String TAG = "TasksXmlExporter";
@@ -60,10 +58,10 @@ public class TasksXmlExporter {
     private final MetadataService metadataService;
     private final TaskService taskService;
     private final Preferences preferences;
-    private final Context context;
 
     // 3 is started on Version 4.6.10
     private static final int FORMAT = 3;
+    private Context context;
     private int exportCount = 0;
     private XmlSerializer xml;
 
@@ -83,15 +81,15 @@ public class TasksXmlExporter {
     }
 
     @Inject
-    public TasksXmlExporter(@ForApplication Context context, TagDataService tagDataService, MetadataService metadataService, TaskService taskService, Preferences preferences) {
-        this.context = context;
+    public TasksXmlExporter(TagDataService tagDataService, MetadataService metadataService, TaskService taskService, Preferences preferences) {
         this.tagDataService = tagDataService;
         this.metadataService = metadataService;
         this.taskService = taskService;
         this.preferences = preferences;
     }
 
-    public void exportTasks(final ExportType exportType, File backupDirectoryOverride) {
+    public void exportTasks(final Context context, final ExportType exportType, File backupDirectoryOverride) {
+        this.context = context;
         this.exportCount = 0;
         this.backupDirectory = backupDirectoryOverride == null ?
                 BackupConstants.defaultExportDirectory() : backupDirectoryOverride;

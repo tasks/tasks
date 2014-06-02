@@ -87,7 +87,7 @@ public class BackupService extends InjectingService {
                 Log.e("error-deleting", "Error deleting old backups", e); //$NON-NLS-1$ //$NON-NLS-2$
             }
 
-            xmlExporter.exportTasks(TasksXmlExporter.ExportType.EXPORT_TYPE_SERVICE,
+            xmlExporter.exportTasks(context, TasksXmlExporter.ExportType.EXPORT_TYPE_SERVICE,
                     backupDirectorySetting.getBackupDirectory());
 
         } catch (Exception e) {

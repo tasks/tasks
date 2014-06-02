@@ -266,7 +266,7 @@ public class StartupService {
                 File[] children = directory.listFiles();
                 AndroidUtilities.sortFilesByDateDesc(children);
                 if(children.length > 0) {
-                    xmlImporter.importTasks(children[0].getAbsolutePath(), null);
+                    xmlImporter.importTasks(context, children[0].getAbsolutePath(), null);
                 }
             }
         } catch (Exception e) {

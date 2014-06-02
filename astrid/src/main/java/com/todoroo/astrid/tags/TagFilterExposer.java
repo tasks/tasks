@@ -6,7 +6,6 @@
 package com.todoroo.astrid.tags;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
@@ -41,6 +40,7 @@ import com.todoroo.astrid.tags.TagService.Tag;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingActivity;
+import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.injection.Injector;
 
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ import javax.inject.Inject;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TagFilterExposer extends BroadcastReceiver implements AstridFilterExposer {
+public class TagFilterExposer extends InjectingBroadcastReceiver implements AstridFilterExposer {
 
     private static final String TAG = "tag"; //$NON-NLS-1$
 
@@ -115,6 +115,8 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+
         FilterListItem[] listAsArray = prepareFilters(context);
 
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
@@ -124,8 +126,6 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
     }
 
     private FilterListItem[] prepareFilters(Context context) {
-        ((Injector) context.getApplicationContext()).inject(this); // TODO: get rid of this
-
         ContextManager.setContext(context);
 
         ArrayList<FilterListItem> list = new ArrayList<>();
@@ -293,10 +293,12 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
     }
 
     @Override
-    public FilterListItem[] getFilters() {
+    public FilterListItem[] getFilters(Injector injector) {
         if (ContextManager.getContext() == null) {
             return null;
         }
+
+        injector.inject(this);
 
         return prepareFilters(ContextManager.getContext());
     }

@@ -9,10 +9,10 @@ import android.util.Log;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 
+import org.tasks.injection.ForApplication;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import static org.tasks.injection.TasksModule.ForApplication;
 
 @Singleton
 public class GtasksScheduler {

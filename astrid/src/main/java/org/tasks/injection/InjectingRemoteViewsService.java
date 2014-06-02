@@ -10,6 +10,9 @@ public abstract class InjectingRemoteViewsService extends RemoteViewsService {
     public void onCreate() {
         super.onCreate();
 
-        ((Injector) getApplication()).inject(this, new ServiceModule(this));
+        ((Injector) getApplication())
+                .getObjectGraph()
+                .plus(new ServiceModule(this))
+                .inject(this);
     }
 }

@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.core;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -33,6 +32,7 @@ import com.todoroo.astrid.service.ThemeService;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingActivity;
+import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.injection.Injector;
 
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ import javax.inject.Inject;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public final class CustomFilterExposer extends BroadcastReceiver implements AstridFilterExposer {
+public final class CustomFilterExposer extends InjectingBroadcastReceiver implements AstridFilterExposer {
 
     private static final String TOKEN_FILTER_ID = "id"; //$NON-NLS-1$
     private static final String TOKEN_FILTER_NAME = "name"; //$NON-NLS-1$
@@ -54,6 +54,8 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+
         FilterListItem[] list = prepareFilters(context);
 
         // transmit filter list
@@ -69,8 +71,6 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
     }
 
     private Filter[] buildSavedFilters(Context context, Resources r) {
-        ((Injector) context.getApplicationContext()).inject(this); // TODO: get rid of this
-
         int themeFlags = ThemeService.getFilterThemeFlags();
 
         TodorooCursor<StoreObject> cursor = storeObjectDao.query(Query.select(StoreObject.PROPERTIES).where(
@@ -161,10 +161,12 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
     }
 
     @Override
-    public FilterListItem[] getFilters() {
+    public FilterListItem[] getFilters(Injector injector) {
         if (ContextManager.getContext() == null) {
             return null;
         }
+
+        injector.inject(this);
 
         return prepareFilters(ContextManager.getContext());
     }

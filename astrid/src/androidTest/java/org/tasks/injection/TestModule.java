@@ -59,7 +59,7 @@ public class TestModule {
 
     @Singleton
     @Provides
-    @TasksModule.ForApplication
+    @ForApplication
     public Context getContext() {
         return context;
     }

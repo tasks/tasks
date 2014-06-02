@@ -8,10 +8,15 @@ import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListFragment;
+import com.todoroo.astrid.core.CustomFilterExposer;
+import com.todoroo.astrid.gtasks.GtasksFilterExposer;
 import com.todoroo.astrid.gtasks.GtasksListFragment;
 import com.todoroo.astrid.reminders.NotificationFragment;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
+import com.todoroo.astrid.tags.TagFilterExposer;
+import com.todoroo.astrid.timers.TimerFilterExposer;
+import com.todoroo.astrid.ui.QuickAddBar;
 
 import javax.inject.Singleton;
 
@@ -19,7 +24,6 @@ import dagger.Module;
 import dagger.Provides;
 
 import static org.tasks.injection.ActivityModule.ForActivity;
-import static org.tasks.injection.TasksModule.ForApplication;
 
 @Module(injects = {
         TaskListFragment.class,
@@ -30,14 +34,27 @@ import static org.tasks.injection.TasksModule.ForApplication;
         TagViewFragment.class,
         TaskEditFragment.class,
         TagCommentsFragment.class,
-        FilterListFragment.class
+        FilterListFragment.class,
+        QuickAddBar.class,
+        TimerFilterExposer.class,
+        CustomFilterExposer.class,
+        GtasksFilterExposer.class,
+        TagFilterExposer.class
 })
 public class FragmentModule {
 
     private final Activity activity;
+    private Injector injector;
 
-    public FragmentModule(Activity activity) {
+    public FragmentModule(Activity activity, Injector injector) {
         this.activity = activity;
+        this.injector = injector;
+    }
+
+    @Singleton
+    @Provides
+    public Injector getInjector() {
+        return injector;
     }
 
     @Singleton

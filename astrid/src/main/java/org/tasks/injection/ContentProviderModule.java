@@ -11,8 +11,6 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-import static org.tasks.injection.TasksModule.ForApplication;
-
 @Module(injects = {
         Astrid2TaskProvider.class,
         Astrid3ContentProvider.class,

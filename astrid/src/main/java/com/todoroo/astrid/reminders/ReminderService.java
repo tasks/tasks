@@ -25,6 +25,7 @@ import com.todoroo.astrid.data.Task;
 
 import org.joda.time.DateTime;
 import org.tasks.R;
+import org.tasks.injection.ForApplication;
 
 import java.util.Date;
 import java.util.Random;
@@ -34,8 +35,6 @@ import javax.inject.Singleton;
 
 import static org.tasks.date.DateTimeUtils.currentTimeMillis;
 import static org.tasks.date.DateTimeUtils.newDate;
-import static org.tasks.injection.TasksModule.ForApplication;
-
 
 /**
  * Data service for reminders
