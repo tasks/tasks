@@ -33,15 +33,15 @@
 		<item quantity="one">1 uppgift</item>
 		<item quantity="other">%d uppgifter</item>
 	</plurals>
+	<string name="today">Idag</string>
+	<string name="tomorrow">Imorgon</string>
 	<string name="yesterday">Igår</string>
 	<string name="tmrw">imorn</string>
 	<string name="yest">Igår</string>
 	<string name="DLG_confirm_title">Bekräfta?</string>
 	<string name="DLG_question_title">Fråga:</string>
-	<string name="DLG_error_title">Fel!</string>
 	<string name="DLG_close">Stäng</string>
 	<string name="DLG_error">Oj, det uppstod ett fel! Detta hände:\n\n%s</string>
-	<string name="DLG_error_generic">Oj, det uppstod ett fel!</string>
 	<string name="DLG_wait">Var god vänta...</string>
 	<string name="SyP_label">Synkronisering</string>
 	<string name="Sync_now_label">Synkronisera nu</string>

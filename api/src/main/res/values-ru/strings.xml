@@ -41,10 +41,8 @@
 	<string name="DLG_confirm_title">Подтвердить?</string>
 	<string name="DLG_question_title">Вопрос:</string>
 	<string name="DLG_information_title">Информация</string>
-	<string name="DLG_error_title">Ошибка!</string>
 	<string name="DLG_close">Закрыть</string>
 	<string name="DLG_error">Ой, похоже произошла ошибка! Подробности ниже:\n\n%s</string>
-	<string name="DLG_error_generic">Ой, похоже произошла ошибка!</string>
 	<string name="DLG_wait">Пожалуйста, подождите…</string>
 	<string name="SyP_label">Синхронизация и резервное копирование</string>
 	<string name="Sync_now_label">Синхронизировать</string>

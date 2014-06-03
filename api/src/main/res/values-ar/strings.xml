@@ -33,7 +33,6 @@
 	<string name="DLG_confirm_title">أكّد</string>
 	<string name="DLG_question_title">سؤال:</string>
 	<string name="DLG_information_title">معلومة</string>
-	<string name="DLG_error_title">خطأ!</string>
 	<string name="DLG_close">إغلاق</string>
 	<string name="DLG_wait">إنتظر من فضلك...</string>
 	<string name="SyP_label">تحيين و نسخ احتياطي</string>

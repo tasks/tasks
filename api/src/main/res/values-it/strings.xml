@@ -41,10 +41,8 @@
 	<string name="DLG_confirm_title">Confermi?</string>
 	<string name="DLG_question_title">Domanda:</string>
 	<string name="DLG_information_title">Informazione</string>
-	<string name="DLG_error_title">Errore!</string>
 	<string name="DLG_close">Chiudi</string>
 	<string name="DLG_error">Oops, sembra che ci sia stato un errore! E\' successo questo:\n\n%s</string>
-	<string name="DLG_error_generic">Oops, sembra che ci sia stato un errore!</string>
 	<string name="DLG_wait">Attendi...</string>
 	<string name="SyP_label">Sincronizza &amp; archivia</string>
 	<string name="SyP_summary">Attività Google, dati salvati, backup locale </string>

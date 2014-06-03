@@ -41,10 +41,8 @@
 	<string name="DLG_confirm_title">Confirmer ?</string>
 	<string name="DLG_question_title">Question :</string>
 	<string name="DLG_information_title">Informations</string>
-	<string name="DLG_error_title">Erreur !</string>
 	<string name="DLG_close">Fermer</string>
 	<string name="DLG_error">Oups, une erreur est survenue ! Voici ce qu\'il s\'est passé :\n\n%s</string>
-	<string name="DLG_error_generic">Oups, une erreur est survenue !</string>
 	<string name="DLG_wait">Veuillez patienter...</string>
 	<string name="SyP_label">Synchronisation</string>
 	<string name="Sync_now_label">Synchroniser maintenant</string>

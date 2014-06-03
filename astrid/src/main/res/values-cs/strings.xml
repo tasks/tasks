@@ -31,7 +31,6 @@
 	<string name="backup_BPr_auto_enabled">Zálohování se bude provádět denně</string>
 	<string name="backup_BAc_import">Importovat úkoly</string>
 	<string name="backup_BAc_export">Exportovat úkoly</string>
-	<string name="backup_TXI_error">Chyba v importu</string>
 	<string name="export_toast">Zálohovány %1$s do %2$s.</string>
 	<string name="export_toast_no_tasks">Žádné úkoly pro export.</string>
 	<string name="export_progress_title">Exportuji...</string>
@@ -55,7 +54,6 @@
 	<string name="DLG_cancel">Storno</string>
 	<string name="DLG_undo">Vrátit změny</string>
 	<string name="WID_dateButtonUnset">Klikni pro nastavení</string>
-	<string name="ENA_refresh_comments">Obnovit komentáře</string>
 	<string name="TLA_no_items">Žádné úkoly!</string>
 	<string name="TLA_menu_sort">Třídit &amp; skryté</string>
 	<string name="TLA_menu_sync">Sychronizovat</string>
@@ -156,7 +154,6 @@
 	<string name="MCA_task_title_name">Zavolat %1$s zpět v %2$s</string>
 	<string name="MCA_task_title_no_name">Zavolat %s zpět</string>
 	<string name="MCA_schedule_dialog_title">Zavolat %s zpět...</string>
-	<string name="UpS_changelog_title">Co je nového v Tasks?</string>
 	<string name="EPr_title">Tasks: Vlastnosti</string>
 	<string name="EPr_appearance_header">Vzhled</string>
 	<string name="EPr_fontSize_title">Velikost seznamu úkolů</string>
@@ -288,7 +285,6 @@
 	<string name="gtasks_GLA_errorAuth">Chyba při autentifikaci! Zkontrolujte prosím uživatelské jméno/heslo ve správci hesel svého mobilu</string>
 	<string name="gtasks_GLA_errorIOAuth">Nastali problémy při komunikaci se servery Google. Zkuste to prosím později.</string>
 	<string name="gtasks_GPr_header">Google Úkoly (Beta!)</string>
-	<string name="gtasks_error_backend">V API služby Google Task (které je ve stadiu beta) byla v něm zjištěna chyba. Služba může být nedostupná, zkuste to později znovu.</string>
 	<string name="gtasks_error_accountNotFound">Účet %s nebyl nalezen -- přes nastavení Google Tasks se odhlašte a znovu přihlaste.</string>
 	<string name="gtasks_error_authRefresh">Nelze se přihlásit ke Google Tasks. Zkontrolujte prosím heslo ke svému účtu, nebo se zkuste znovu přihlásit.</string>
 	<string name="locale_notification">Máš $NUM se značkou $FILTER</string>

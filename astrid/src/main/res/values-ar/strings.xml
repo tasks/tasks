@@ -7,10 +7,6 @@
 <resources>
 	<string name="backup_BPr_group_status">الحالة</string>
 	<string name="backup_BPr_group_options">الخيارات</string>
-	<string name="import_summary_message">File %1$s contained %2$s.\n\n
-%3$s imported,\n
-%4$s already exist\n
-%5$s had errors\n</string>
 	<string name="TAd_actionEditTask">تعديل</string>
 	<string name="TAd_contextDeleteTask">حذف المهمة</string>
 	<string name="SSD_hidden_title">المهمات المخفية</string>
@@ -31,12 +27,8 @@
 	<string name="TEA_control_lists">القوائم</string>
 	<string name="TEA_control_files">الملفات</string>
 	<string name="TEA_control_reminders">مذكرات المهام</string>
-	<string name="MCA_title">%1$s\ncalled at %2$s</string>
 	<string name="MCA_add_task">اتصل لاحقاً</string>
 	<string name="MCA_ignore">تجاهل</string>
-	<string name="task_killer_help">It looks like you are using an app that can kill processes (%s)! If you can,
-add Tasks to the exclusion list so it doesn\'t get killed. Otherwise,
-Tasks might not let you know when your tasks are due.\n</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
       If you see this error regularly, we suggest you clear all
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore

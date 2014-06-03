@@ -40,10 +40,8 @@
 	<string name="yest">Gest.</string>
 	<string name="DLG_confirm_title">Bestätigen?</string>
 	<string name="DLG_question_title">Frage:</string>
-	<string name="DLG_error_title">Fehler!</string>
 	<string name="DLG_close">Schließen</string>
 	<string name="DLG_error">Ups, sieht aus, als ob ein Fehler aufgetreten ist! Folgendes ist passiert:\n\n%s</string>
-	<string name="DLG_error_generic">Ups, sieht aus, als ob ein Fehler aufgetreten ist!</string>
 	<string name="DLG_wait">Bitte warten...</string>
 	<string name="SyP_label">Synchronisation &amp; Backup</string>
 	<string name="Sync_now_label">Jetzt synchronisieren</string>

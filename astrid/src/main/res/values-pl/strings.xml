@@ -28,7 +28,6 @@
 	<string name="backup_BPr_auto_enabled">Kopia zapasowa będzie wykonywana codziennie</string>
 	<string name="backup_BAc_import">Importuj zadania</string>
 	<string name="backup_BAc_export">Eksportuj zadania</string>
-	<string name="backup_TXI_error">Błąd importu</string>
 	<string name="export_toast">Zapisano %1$s do %2$s.</string>
 	<string name="export_toast_no_tasks">Brak zadań do eksportowania.</string>
 	<string name="export_progress_title">Eksportowanie...</string>
@@ -52,7 +51,6 @@
 	<string name="DLG_cancel">Anuluj</string>
 	<string name="DLG_undo">Cofnij</string>
 	<string name="WID_dateButtonUnset">Kliknij, aby ustawić</string>
-	<string name="ENA_refresh_comments">Odśwież komentarze</string>
 	<string name="TLA_no_items">Brak zadań!</string>
 	<string name="TLA_menu_sort">Sortowanie</string>
 	<string name="TLA_menu_sync">Zsynchronizuj</string>
@@ -189,7 +187,6 @@
 	<string name="CRA_dont_invite">Nie, dziękuję</string>
 	<string name="CRA_list_created_title">Lista utworzona!</string>
 	<string name="CRA_default_list_name">Wydarzenia aktywne: %s</string>
-	<string name="UpS_changelog_title">Co nowego w Tasks?</string>
 	<string name="EPr_title">Tasks: Właściwości</string>
 	<string name="EPr_deactivated">niekatywny</string>
 	<string name="EPr_appearance_header">Wygląd</string>
@@ -353,7 +350,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="gtasks_GLA_errorAuth">Błąd uwierzytelnienia! Proszę sprawdzić nazwę użytkownika i hasło w menadżerze kont swojego telefonu.</string>
 	<string name="gtasks_GLA_errorIOAuth">Przepraszamy, mieliśmy problem z porozumieniem się z serwerami Google. Prosimy spróbować ponownie.</string>
 	<string name="gtasks_GPr_header">Zadania Google</string>
-	<string name="gtasks_error_backend">API Zadań Google jest w fazie beta i napotkano błąd. Serwis może być niedostępny, spróbuj ponownie później.</string>
 	<string name="gtasks_error_accountNotFound">Nie znaleziono konta %s --proszę wyloguj się i zaloguj ponownie w ustawieniach Google Zadań.</string>
 	<string name="gtasks_error_authRefresh">Uwierzytelnienie w Google Zadania nieudane. Proszę, sprawdź poprawność swego hasła lub spróbuj ponownie później.</string>
 	<string name="gtasks_error_accountManager">Błąd w menadżerze kont Twojego telefonu. Proszę, wyloguj się i zaloguj ponownie w ustawieniach Google Zadań.</string>
@@ -370,8 +366,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="audio_recording_title">Nagrywanie dźwięku</string>
 	<string name="audio_stop_recording">Zakończ nagrywanie</string>
 	<string name="audio_speak_now">Mów!</string>
-	<string name="audio_encoding">Kodowanie...</string>
-	<string name="audio_err_encoding">Błąd podczas kodowania dźwięku</string>
 	<string name="search_market_audio">Nie znaleziono odtwarzacza, który byłby w stanie odtworzyć ten plik. Czy chciałbyś pobrać odtwarzacz z Android Market?</string>
 	<string name="search_market_audio_title">Nie znaleziono odtwarzacza</string>
 	<string name="search_market_pdf">Nie znaleziono czytnika PDF. Czy chciałbyć pobrać czytnik z Android Market?</string>
@@ -509,10 +503,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="repeat_rescheduling_dialog_bubble">%1$s Przełożyłem to powtarzalne zadanie z %2$s na %3$s</string>
 	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s Przełożyłem to powtarzalne zadanie na %2$s</string>
 	<string name="repeat_rescheduling_dialog_bubble_last_time">To było powtarzane do %1$s, a teraz jest już zakończone. %2$s</string>
-	<string name="subtasks_help_title">Sortowanie i Wcięcie w Tasks</string>
-	<string name="subtasks_help_1">Dotknij i przytrzymaj, by przenieść zadanie</string>
-	<string name="subtasks_help_2">Przenieś w pionie aby przearanżować</string>
-	<string name="subtasks_help_3">Przenieś w poziomie aby zrobić wcięcie</string>
 	<string name="TEA_tags_label_long">Dodaj do list</string>
 	<string name="TEA_tag_hint">Nowa lista</string>
 	<string name="tag_new_list">Nowa lista</string>

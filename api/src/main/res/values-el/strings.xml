@@ -5,6 +5,8 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
+	<string name="today">Σήμερα</string>
+	<string name="tomorrow">Αύριο</string>
 	<string name="sync_SPr_group_status">Κατάσταση</string>
 	<string name="sync_SPr_group_options">Ρυθμίσεις</string>
 </resources>

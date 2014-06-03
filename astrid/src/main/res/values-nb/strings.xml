@@ -18,7 +18,6 @@
 	<string name="backup_BPr_auto_enabled">Sikkerhetskopiering vil skje daglig</string>
 	<string name="backup_BAc_import">Importer oppgaver</string>
 	<string name="backup_BAc_export">Eksporter oppgaver</string>
-	<string name="backup_TXI_error">Importfeil</string>
 	<string name="export_toast">Backup ferdig %1$s av %2$s.</string>
 	<string name="export_toast_no_tasks">Ingen oppgaver å eksportere</string>
 	<string name="export_progress_title">Eksporterer...</string>
@@ -87,8 +86,6 @@
 	<string name="TEA_control_importance">Viktighet</string>
 	<string name="TEA_control_lists">Lister</string>
 	<string name="TEA_control_notes">Notater</string>
-	<string name="MCA_title">%1$s\ncalled at %2$s</string>
-	<string name="UpS_changelog_title">Hva er nytt i Tasks?</string>
 	<string name="EPr_title">Tasks: Innstillinger</string>
 	<string name="EPr_appearance_header">Utseende</string>
 	<string name="EPr_fontSize_title">Tekststørrelse for oppgavelista</string>

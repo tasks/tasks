@@ -41,10 +41,8 @@
 	<string name="DLG_confirm_title">확인?</string>
 	<string name="DLG_question_title">질문:</string>
 	<string name="DLG_information_title">정보</string>
-	<string name="DLG_error_title">에러!</string>
 	<string name="DLG_close">닫기</string>
 	<string name="DLG_error">에러가 발생한 것 같습니다! 발생한 에러는 다음과 같습니다:\n\n%s</string>
-	<string name="DLG_error_generic">에러가 발생한 것 같습니다!</string>
 	<string name="DLG_wait">잠시 기다리세요...</string>
 	<string name="SyP_label">동기화 &amp; 백업</string>
 	<string name="Sync_now_label">지금 동기화하기</string>

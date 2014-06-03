@@ -41,10 +41,8 @@
 	<string name="DLG_confirm_title">确认?</string>
 	<string name="DLG_question_title">问题：</string>
 	<string name="DLG_information_title">信息</string>
-	<string name="DLG_error_title">错误！</string>
 	<string name="DLG_close">关闭</string>
 	<string name="DLG_error">糟糕，发生错误！状况是:\n\n%s</string>
-	<string name="DLG_error_generic">糟糕，发生错误！</string>
 	<string name="DLG_wait">请稍候...</string>
 	<string name="SyP_label">同步和备份</string>
 	<string name="SyP_summary">谷歌任务，已存数据，本地备份</string>

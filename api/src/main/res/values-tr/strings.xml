@@ -41,10 +41,8 @@
 	<string name="DLG_confirm_title">Onayla?</string>
 	<string name="DLG_question_title">Soru:</string>
 	<string name="DLG_information_title">Bilgi</string>
-	<string name="DLG_error_title">Hata!</string>
 	<string name="DLG_close">Kapat</string>
 	<string name="DLG_error">Oops, bir sorun meydana geldi! Olan şu:\n\n%s</string>
-	<string name="DLG_error_generic">Oops, bir sorun meydana geldi!</string>
 	<string name="DLG_wait">Lütfen bekleyin...</string>
 	<string name="sync_SPr_group_status">Durum</string>
 	<string name="sync_SPr_status_subtitle">Durum: %s</string>

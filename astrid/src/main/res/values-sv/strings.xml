@@ -27,7 +27,6 @@
 	<string name="backup_BPr_auto_enabled">Säkerhetskopiering kommer att ske dagligen</string>
 	<string name="backup_BAc_import">Importera uppgifter</string>
 	<string name="backup_BAc_export">Exportera uppgifter</string>
-	<string name="backup_TXI_error">Importfel</string>
 	<string name="export_toast">Säkerhetskopierade %1$s till %2$s.</string>
 	<string name="export_toast_no_tasks">Inga uppgifter att exportera</string>
 	<string name="export_progress_title">Exporterar...</string>
@@ -51,7 +50,6 @@
 	<string name="DLG_cancel">Avbryt</string>
 	<string name="DLG_undo">Ångra</string>
 	<string name="WID_dateButtonUnset">Klicka för att ställa</string>
-	<string name="ENA_refresh_comments">Uppdatera kommentarer</string>
 	<string name="TLA_no_items">Du har inga uppgifter!\n Vill du lägga till någonting?</string>
 	<string name="TLA_menu_sort">Sortera</string>
 	<string name="TLA_menu_sync">Synkronisera nu</string>
@@ -193,7 +191,6 @@
 	<string name="CRA_dont_invite">Nej tack</string>
 	<string name="CRA_list_created_title">Listan skapades!</string>
 	<string name="CRA_default_list_name">Saker att göra: %s</string>
-	<string name="UpS_changelog_title">Vad är nytt i Tasks?</string>
 	<string name="EPr_title">Inställningar</string>
 	<string name="EPr_deactivated">inaktiverad</string>
 	<string name="EPr_appearance_header">Utseende</string>
@@ -352,7 +349,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="gtasks_GLA_errorAuth">Autentisering misslyckad! Kontrollera ditt användarnamn och lösenord i kontoinställningarna i din telefon</string>
 	<string name="gtasks_GLA_errorIOAuth">Vi hade problem med förbindelsen till Googles servrar. Försök igen senare.</string>
 	<string name="gtasks_GPr_header">Google Uppgifter</string>
-	<string name="gtasks_error_backend">Googles API för uppgifter är ännu i betaversion och har råkat ut för ett fel. Kanske är tjänsten otillgänglig för tillfället. Försök igen senare.</string>
 	<string name="gtasks_error_accountNotFound">Kontot %s kunde inte hittas. Logga ut och in på nytt i inställningarna för Google Uppgifter.</string>
 	<string name="gtasks_error_authRefresh">Kunde inte autentisera med Google Uppgifter. Kontrollera ditt lösenord och försök igen.</string>
 	<string name="gtasks_error_accountManager">Fel i din telefons kontohantering. Logga ut och in på nytt i inställningarna för Google Uppgifter.</string>
@@ -369,8 +365,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="audio_recording_title">Spelar in ljud</string>
 	<string name="audio_stop_recording">Avsluta inspelning</string>
 	<string name="audio_speak_now">Prata nu!</string>
-	<string name="audio_encoding">Omkodar...</string>
-	<string name="audio_err_encoding">Omkodning av ljudet misslyckades</string>
 	<string name="search_market_audio">Ingen spelare hittades för denna ljudtyp. Skulle du vilja ladda ned en ljudspelare från Google Play?</string>
 	<string name="search_market_audio_title">Ingen ljudspelare hittades</string>
 	<string name="search_market_pdf">Ingen PDF-läsare hittades. Skulle du vilja ladda ned en från Google Play?</string>
@@ -511,10 +505,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="repeat_rescheduling_dialog_bubble">%1$s Återkommande uppgift ändrad från %2$s till %3$s</string>
 	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s Jag har bokat om den här återkommande uppgiften till %2$s</string>
 	<string name="repeat_rescheduling_dialog_bubble_last_time">Du upprepade denna till %1$s, Nu är du helt färdig. %2$s</string>
-	<string name="subtasks_help_title">Sortera och gör indrag i Tasks</string>
-	<string name="subtasks_help_1">Rör vid och håll kvar fingret för att flytta en uppgift</string>
-	<string name="subtasks_help_2">Dra upp eller ner för att ändra ordningen</string>
-	<string name="subtasks_help_3">Dra åt höger för att göra indrag</string>
 	<string name="TEA_tags_label_long">Lägg till på listor</string>
 	<string name="TEA_tag_hint">Ny lista</string>
 	<string name="tag_new_list">Ny lista</string>

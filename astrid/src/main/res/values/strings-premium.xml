@@ -12,9 +12,7 @@
     <string name="audio_recording_title">Recording Audio</string>
     <string name="audio_stop_recording">Stop Recording</string>
     <string name="audio_speak_now">Speak Now!</string>
-    <string name="audio_encoding">Encoding...</string>
-    <string name="audio_err_encoding">Error encoding audio</string>
-    
+
     <string name="search_market_audio">No player found to handle that audio type. Would you like to download an audio player from the Android Market?</string>
     <string name="search_market_audio_title">No audio player found</string>
 

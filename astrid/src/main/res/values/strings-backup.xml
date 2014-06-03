@@ -38,9 +38,6 @@
   
   <!-- ============================================== Importer / Exporter == -->
   
-  <!-- Message displayed when error occurs -->
-  <string name="backup_TXI_error">Import error</string>
-    
   <string name="export_toast">Backed up %1$s to %2$s.</string>
     
   <string name="export_toast_no_tasks">No tasks to export.</string>

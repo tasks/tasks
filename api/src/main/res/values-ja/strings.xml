@@ -39,7 +39,6 @@
 	<string name="DLG_confirm_title">確認</string>
 	<string name="DLG_question_title">確認</string>
 	<string name="DLG_information_title">インフォメーション</string>
-	<string name="DLG_error_title">エラー</string>
 	<string name="DLG_close">閉じる</string>
 	<string name="DLG_wait">お待ちください</string>
 	<string name="SyP_label">同期</string>

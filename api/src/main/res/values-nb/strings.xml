@@ -39,10 +39,8 @@
 	<string name="DLG_confirm_title">Bekreft?</string>
 	<string name="DLG_question_title">Spørsmål:</string>
 	<string name="DLG_information_title">Informasjon</string>
-	<string name="DLG_error_title">Feil!</string>
 	<string name="DLG_close">Lukk</string>
 	<string name="DLG_error">Oi, det oppstod en feil! Dette skjedde:\n\n%s</string>
-	<string name="DLG_error_generic">Oi, det oppstod en feil!</string>
 	<string name="DLG_wait">Vennligst vent...</string>
 	<string name="sync_status_ongoing">Synkronisering pågår...</string>
 	<string name="sync_status_success">Siste synkronisering:\n%s</string>

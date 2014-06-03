@@ -41,10 +41,8 @@
 	<string name="DLG_confirm_title">Potrdi?</string>
 	<string name="DLG_question_title">Vprašanje:</string>
 	<string name="DLG_information_title">Informacija</string>
-	<string name="DLG_error_title">Napaka!</string>
 	<string name="DLG_close">Zapri</string>
 	<string name="DLG_error">Ups, zdi se, da je prišlo do napake! Tole se je zgodilo:\n\n%s</string>
-	<string name="DLG_error_generic">Ups, zdi se, da je prišlo do napake!</string>
 	<string name="DLG_wait">Prosimo, počakajte...</string>
 	<string name="SyP_label">Uskladitev &amp; varnostna kopija</string>
 	<string name="Sync_now_label">Začni z usklajevanjem</string>

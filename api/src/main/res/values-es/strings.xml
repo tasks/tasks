@@ -41,10 +41,8 @@
 	<string name="DLG_confirm_title">¿Confirmar?</string>
 	<string name="DLG_question_title">Pregunta:</string>
 	<string name="DLG_information_title">Información</string>
-	<string name="DLG_error_title">¡Error!</string>
 	<string name="DLG_close">Cerrar</string>
 	<string name="DLG_error">¡Uy, parece que ocurró un error! Esto es lo que pasó:\n\n%s</string>
-	<string name="DLG_error_generic">¡Uy, parece que ocurrió un error!</string>
 	<string name="DLG_wait">Por favor, espere...</string>
 	<string name="SyP_label">Sincronización y copia de seguridad</string>
 	<string name="Sync_now_label">Sincronizar ahora</string>

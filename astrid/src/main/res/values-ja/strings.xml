@@ -29,7 +29,6 @@
 	<string name="backup_BPr_auto_enabled">バックアップは毎日行われます</string>
 	<string name="backup_BAc_import">タスクのインポート</string>
 	<string name="backup_BAc_export">タスクのエクスポート</string>
-	<string name="backup_TXI_error">インポートに失敗</string>
 	<string name="export_toast">%1$s を %2$s にバックアップしました。</string>
 	<string name="export_toast_no_tasks">エクスポートするタスクがありません</string>
 	<string name="export_progress_title">エクスポート中</string>
@@ -53,7 +52,6 @@
 	<string name="DLG_cancel">取り消す</string>
 	<string name="DLG_undo">動作を取り消す</string>
 	<string name="WID_dateButtonUnset">入力する</string>
-	<string name="ENA_refresh_comments">コメントを更新</string>
 	<string name="TLA_no_items">タスクなし</string>
 	<string name="TLA_menu_settings">設定</string>
 	<string name="TLA_custom">カスタムフィルタ</string>
@@ -122,10 +120,8 @@
 	<string name="TEA_control_notes">概要</string>
 	<string name="TEA_control_reminders">リマインダー</string>
 	<string name="TEA_new_task">新しいタスク</string>
-	<string name="MCA_title">%1$s\ncalled at %2$s</string>
 	<string name="MCA_ignore">無視する</string>
 	<string name="CRA_ignore">無視する</string>
-	<string name="UpS_changelog_title">Tasks の変更点</string>
 	<string name="EPr_title">Tasks: 設定</string>
 	<string name="EPr_appearance_header">外観</string>
 	<string name="EPr_fontSize_title">リストの文字サイズ</string>

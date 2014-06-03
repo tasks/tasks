@@ -31,7 +31,6 @@
 	<string name="backup_BPr_auto_enabled">備份將每天執行</string>
 	<string name="backup_BAc_import">匯入工作</string>
 	<string name="backup_BAc_export">匯出工作</string>
-	<string name="backup_TXI_error">匯入錯誤</string>
 	<string name="export_toast">備份 %1$s 至 %2$s.</string>
 	<string name="export_toast_no_tasks">沒有工作需匯出</string>
 	<string name="export_progress_title">匯出中...</string>
@@ -56,7 +55,6 @@
 	<string name="DLG_cancel">取消</string>
 	<string name="DLG_undo">撤消</string>
 	<string name="WID_dateButtonUnset">點選</string>
-	<string name="ENA_refresh_comments">刷新留言</string>
 	<string name="TLA_no_items">無工作!</string>
 	<string name="TLA_menu_sort">排序</string>
 	<string name="TLA_menu_sync">立即同步</string>
@@ -195,7 +193,6 @@
 	<string name="CRA_dont_invite">不了，謝啦！</string>
 	<string name="CRA_list_created_title">列表建立了！</string>
 	<string name="CRA_default_list_name">行動事項：%s</string>
-	<string name="UpS_changelog_title">Tasks 有哪些最新消息?</string>
 	<string name="EPr_title">Tasks: 偏好</string>
 	<string name="EPr_deactivated">禁用</string>
 	<string name="EPr_appearance_header">外觀</string>
@@ -337,7 +334,6 @@
 	<string name="gtasks_GLA_errorAuth">驗證出錯！請在您手機的帳戶管理器中檢查您的用戶名和密碼</string>
 	<string name="gtasks_GLA_errorIOAuth">對不起，我們在與Google 服務器通訊時遇到了問題。請稍後再嘗試。</string>
 	<string name="gtasks_GPr_header">Google Tasks (測試中!)</string>
-	<string name="gtasks_error_backend">Google 的工作表應用程序界面正處於測試版階段，而且遇到了出錯。這個服務可能已經停止，請稍後再嘗試。</string>
 	<string name="gtasks_error_accountNotFound">找不到帳戶%s——請退出，然後從Google 工作表設置中重新登錄。</string>
 	<string name="gtasks_error_authRefresh">無法用Google 工作表驗證。請檢查您的帳戶密碼或者稍後再嘗試。</string>
 	<string name="gtasks_error_accountManager">您手機的帳戶管理器出錯了。請退出，然後從Google 工作表設置中重新登陸。</string>
@@ -354,8 +350,6 @@
 	<string name="audio_recording_title">正在錄製音頻</string>
 	<string name="audio_stop_recording">停止錄製</string>
 	<string name="audio_speak_now">現在請講！</string>
-	<string name="audio_encoding">正在編碼…</string>
-	<string name="audio_err_encoding">音頻編碼出錯</string>
 	<string name="search_market_audio">找不到播放器來處理這種音頻類型。您想從安卓市場上下載一個音頻播放器嗎？</string>
 	<string name="search_market_audio_title">找不到音頻播放器</string>
 	<string name="search_market_pdf">找不到PDF 閱讀器。您想從安卓市場上下載一個PDF 閱讀器嗎？</string>
@@ -490,10 +484,6 @@
 	<string name="repeat_rescheduling_dialog_bubble">%1$s 我已經重新安排了這項重複任務工作，截止日期由%2$s 變成%3$s</string>
 	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s 我已經重新安排了這項重複任務工作，截止日期為%2$s</string>
 	<string name="repeat_rescheduling_dialog_bubble_last_time">您設置了這項任務工作重複到%1$s，現在您已經圓滿完成。%2$s</string>
-	<string name="subtasks_help_title">在 Tasks 中排序並縮進</string>
-	<string name="subtasks_help_1">輕點並按住一項任務工作來移動它</string>
-	<string name="subtasks_help_2">垂直拖動以重新整理</string>
-	<string name="subtasks_help_3">水平拖動以縮進</string>
 	<string name="TEA_tags_label_long">加入至列表</string>
 	<string name="TEA_tag_hint">新建列表</string>
 	<string name="tag_new_list">新建列表</string>

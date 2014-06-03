@@ -31,7 +31,6 @@
 	<string name="backup_BPr_auto_enabled">매일 백업합니다</string>
 	<string name="backup_BAc_import">일정 가져오기</string>
 	<string name="backup_BAc_export">일정 내보내기</string>
-	<string name="backup_TXI_error">가져오기 오류</string>
 	<string name="export_toast">%1$s 를 %2$s 로 백업함.</string>
 	<string name="export_toast_no_tasks">내보낼 일정 없음.</string>
 	<string name="export_progress_title">내보내는 중...</string>
@@ -59,7 +58,6 @@
 	<string name="DLG_cancel">취소</string>
 	<string name="DLG_undo">실행 취소</string>
 	<string name="WID_dateButtonUnset">누르세요</string>
-	<string name="ENA_refresh_comments">댓글 새로고침</string>
 	<string name="TLA_no_items">일정이 없네요!\n추가할까요?</string>
 	<string name="TLA_menu_sort">정렬</string>
 	<string name="TLA_menu_sync">지금 동기화</string>
@@ -200,7 +198,6 @@
 	<string name="CRA_dont_invite">아니요 괜찮습니다</string>
 	<string name="CRA_list_created_title">목록을 만들었습니다!</string>
 	<string name="CRA_default_list_name">활동 아이템: %s</string>
-	<string name="UpS_changelog_title">Tasks 의 새로운 기능</string>
 	<string name="EPr_title">설정</string>
 	<string name="EPr_deactivated">비활성화됨</string>
 	<string name="EPr_appearance_header">보기 설정</string>
@@ -369,7 +366,6 @@
 	<string name="gtasks_GLA_errorAuth">인증 오류! 휴대폰 계정 관리자의 사용자명과 비밀번호를 확인해 주세요</string>
 	<string name="gtasks_GLA_errorIOAuth">죄송합니다, 구글 서버와 통신하는 데 문제가 있습니다. 잠시 후 다시 시도하세요.</string>
 	<string name="gtasks_GPr_header">구글 일정</string>
-	<string name="gtasks_error_backend">구글 일정 API는 베타 상태이고 에러가 발생했습니다. 이 서비스는 중단될 수 있으니 나중에 다시 시도하세요.</string>
 	<string name="gtasks_error_accountNotFound">%s 계정을 찾을 수 없습니다 - 로그아웃하고 구글 일정 설정에서 다시 로그인해 보세요.</string>
 	<string name="gtasks_error_authRefresh">구글 일정으로 인증할 수 없습니다. 계정 비밀번호를 확인하거나 나중에 다시 시도해 보세요.</string>
 	<string name="gtasks_error_accountManager">휴대폰 계정 관리자에서 에러가 발생했습니다. 로그아웃 후 구글 일정 설정에서 다시 로그인 해 주세요.</string>
@@ -386,8 +382,6 @@
 	<string name="audio_recording_title">오디오 녹음 중</string>
 	<string name="audio_stop_recording">녹음 중단</string>
 	<string name="audio_speak_now">지금 말하세요!</string>
-	<string name="audio_encoding">인코딩...</string>
-	<string name="audio_err_encoding">오디오 인코딩 에러</string>
 	<string name="search_market_audio">이런 형식의 오디오를 다룰 수 있는 재생기가 없습니다. 안드로이드 마켓에서 다운로드할까요?</string>
 	<string name="search_market_audio_title">오디오 재생기 없음</string>
 	<string name="search_market_pdf">PDF 리더가 없습니다. 안드로이드 마켓에서 PDF 리더를 다운로드할까요?</string>
@@ -529,10 +523,6 @@
 	<string name="repeat_rescheduling_dialog_bubble">%1$s 이 반복 일정을 %2$s 에서 %3$s 로 변경했습니다</string>
 	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s 이 반복 일정을 %2$s 로 변경했습니다</string>
 	<string name="repeat_rescheduling_dialog_bubble_last_time">이 반복 일정은 %1$s 까지였는데 지금 다 끝냈습니다. %2$s</string>
-	<string name="subtasks_help_title">Tasks에서 정렬하고 들여쓰기</string>
-	<string name="subtasks_help_1">일정을 옮기려면 길게 누릅니다</string>
-	<string name="subtasks_help_2">재배열하려면 수직으로 드래그합니다</string>
-	<string name="subtasks_help_3">들여쓰기하려면 수평으로 드래그합니다</string>
 	<string name="TEA_tags_label_long">목록에 추가하기</string>
 	<string name="TEA_tag_hint">새 목록</string>
 	<string name="tag_new_list">새 목록</string>

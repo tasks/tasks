@@ -31,14 +31,9 @@
 	<string name="backup_BPr_auto_enabled">Còpies de seguretat diàries</string>
 	<string name="backup_BAc_import">Importa tasques</string>
 	<string name="backup_BAc_export">Exporta tasques</string>
-	<string name="backup_TXI_error">Error d\'importació</string>
 	<string name="export_toast_no_tasks">Sense tasques que exportar</string>
 	<string name="export_progress_title">S\'està exportant...</string>
 	<string name="import_summary_title">Resum de Restauració</string>
-	<string name="import_summary_message">File %1$s contained %2$s.\n\n
-%3$s imported,\n
-%4$s already exist\n
-%5$s had errors\n</string>
 	<string name="import_progress_title">S\'està important...</string>
 	<string name="import_progress_read">S\'està llegint la tasca %d</string>
 	<string name="DLG_error_sdcard">No es pot accedir a la carpeta: %s</string>
@@ -58,7 +53,6 @@
 	<string name="DLG_cancel">Cancel·la</string>
 	<string name="DLG_undo">Desfés</string>
 	<string name="WID_dateButtonUnset">Prem per establir</string>
-	<string name="ENA_refresh_comments">Actualitza els comentaris</string>
 	<string name="TLA_no_items">No teniu tasques! \n Voleu afegir alguna cosa?</string>
 	<string name="TLA_menu_sort">Ordenació i subtasques</string>
 	<string name="TLA_menu_sync">Sincronitza ara</string>
@@ -161,7 +155,6 @@
 	<string name="MCA_task_title_name">Retorna la trucada a en/na %1$s a %2$s</string>
 	<string name="MCA_task_title_no_name">Retorna la trucada a %s</string>
 	<string name="MCA_schedule_dialog_title">Retorna la trucada a %s en...</string>
-	<string name="UpS_changelog_title">Què hi ha de nou en Tasks?</string>
 	<string name="EPr_title">Tasks: Paràmetres</string>
 	<string name="EPr_deactivated">desactivat</string>
 	<string name="EPr_appearance_header">Aparença</string>

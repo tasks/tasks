@@ -49,11 +49,6 @@
   <!-- Label for DateButtons with no value -->
   <string name="WID_dateButtonUnset">Click to set</string>
   
-  <!--  ============================================================= notes -->
-  
-  <!-- EditNoteActivity - refresh comments -->
-  <string name="ENA_refresh_comments">Refresh Comments</string>
-  
   <!-- ================================================= TaskListActivity == -->
   
   <!-- slide 8b: Task List: Displayed instead of list when no items present -->    
@@ -433,11 +428,6 @@
   
   <!-- Calendar reminder: default new list name (%s -> event title) -->
   <string name="CRA_default_list_name">Action Items: %s</string>
-  
-  <!-- ==================================================== UpdateService == -->
-  
-  <!-- Changelog Window Title -->
-  <string name="UpS_changelog_title">What\'s new?</string>
   
   <!-- ================================================== EditPreferences == -->
     

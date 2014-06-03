@@ -25,7 +25,6 @@
 	<string name="backup_BPr_auto_enabled">Backup vil ske dagligt</string>
 	<string name="backup_BAc_import">Importér opgaver</string>
 	<string name="backup_BAc_export">Eksportér opgaver</string>
-	<string name="backup_TXI_error">Importfejl</string>
 	<string name="export_toast">Sikkerhedskopierede %1$s til %2$s.</string>
 	<string name="export_toast_no_tasks">Ingen opgaver at eksportere</string>
 	<string name="export_progress_title">Eksporterer...</string>
@@ -95,7 +94,6 @@
 	<string name="TEA_control_importance">Vigtighed</string>
 	<string name="TEA_control_notes">Noter</string>
 	<string name="MCA_title">%1$s\ncalled at %2$s</string>
-	<string name="UpS_changelog_title">Hvad er nyt i Tasks</string>
 	<string name="EPr_title">Tasks: Opsætning</string>
 	<string name="EPr_appearance_header">Udseende</string>
 	<string name="EPr_fontSize_title">Opgavelistestørrelse</string>

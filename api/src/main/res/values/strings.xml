@@ -72,18 +72,12 @@
   <!-- information dialog title -->
   <string name="DLG_information_title">Information</string>
   
-  <!-- error dialog title -->
-  <string name="DLG_error_title">Error!</string>
-  
   <!-- general dialog close-->
   <string name="DLG_close">Close</string>
   
   <!-- error dialog (%s => error message)-->
   <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s</string>
-  
-  <!-- error dialog (no message indicated)-->
-  <string name="DLG_error_generic">Oops, looks like an error occurred!</string>
-  
+
   <!-- Progress dialog shown when doing something slow -->
   <string name="DLG_wait">Please wait...</string>
 

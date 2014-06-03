@@ -41,10 +41,8 @@
 	<string name="DLG_confirm_title">Potvrdit?</string>
 	<string name="DLG_question_title">Otázka:</string>
 	<string name="DLG_information_title">Informace</string>
-	<string name="DLG_error_title">Chyba!</string>
 	<string name="DLG_close">Zavřít</string>
 	<string name="DLG_error">Jejda, vypadá to, že se vyskytla chyba! Tady je co se stalo:\n\n%s</string>
-	<string name="DLG_error_generic">Jejda, vypadá to, že se vyskytla chyba!</string>
 	<string name="DLG_wait">Čekejte prosím...</string>
 	<string name="SyP_label">Synchronizace</string>
 	<string name="SyP_summary">Google Tasks, uložená data, lokální záloha</string>

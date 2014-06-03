@@ -41,10 +41,8 @@
 	<string name="DLG_confirm_title">Confirmar?</string>
 	<string name="DLG_question_title">Pergunta:</string>
 	<string name="DLG_information_title">Informações</string>
-	<string name="DLG_error_title">Erro!</string>
 	<string name="DLG_close">Fechar</string>
 	<string name="DLG_error">Opa, parece que ocorreu um erro! Aqui está o que aconteceu:\n\n%s</string>
-	<string name="DLG_error_generic">Opa, parece que ocorreu um erro!</string>
 	<string name="DLG_wait">Por favor, aguarde...</string>
 	<string name="SyP_label">Sincronização</string>
 	<string name="SyP_summary">Google Tasks, dados salvos, backup local</string>
