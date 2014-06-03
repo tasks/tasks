@@ -11,12 +11,15 @@ import com.todoroo.astrid.gtasks.GtasksTaskListUpdaterTest;
 import com.todoroo.astrid.gtasks.GtasksTaskMovingTest;
 import com.todoroo.astrid.model.TaskTest;
 import com.todoroo.astrid.provider.Astrid3ProviderTests;
-import com.todoroo.astrid.reminders.NotificationTests;
+import com.todoroo.astrid.reminders.ReminderServiceTest;
 import com.todoroo.astrid.repeats.NewRepeatTests;
 import com.todoroo.astrid.service.QuickAddMarkupTest;
 import com.todoroo.astrid.service.TitleParserTest;
+import com.todoroo.astrid.subtasks.SubtasksHelperTest;
+import com.todoroo.astrid.subtasks.SubtasksMovingTest;
 import com.todoroo.astrid.subtasks.SubtasksTestCase;
 import com.todoroo.astrid.sync.NewSyncTestCase;
+import com.todoroo.astrid.sync.SyncModelTest;
 
 import javax.inject.Singleton;
 
@@ -31,13 +34,16 @@ import dagger.Provides;
         GtasksTaskListUpdaterTest.class,
         GtasksTaskMovingTest.class,
         Astrid3ProviderTests.class,
-        NotificationTests.class,
         NewRepeatTests.class,
         QuickAddMarkupTest.class,
         TitleParserTest.class,
         SubtasksTestCase.class,
         NewSyncTestCase.class,
-        TaskTest.class
+        TaskTest.class,
+        ReminderServiceTest.class,
+        SubtasksHelperTest.class,
+        SubtasksMovingTest.class,
+        SyncModelTest.class
 })
 public class TestModule {
     private Context context;

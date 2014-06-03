@@ -21,11 +21,16 @@ import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
+import org.tasks.notifications.NotificationManager;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class TimerActionControlSet extends TaskEditControlSet {
+
+    @Inject NotificationManager notificationManager;
 
     private final ImageView timerButton;
     private final Chronometer chronometer;
@@ -41,14 +46,14 @@ public class TimerActionControlSet extends TaskEditControlSet {
             @Override
             public void onClick(View v) {
                 if (timerActive) {
-                    TimerPlugin.updateTimer(taskService, activity, model, false);
+                    TimerPlugin.updateTimer(notificationManager, taskService, activity, model, false);
 
                     for (TimerActionListener listener : listeners) {
                         listener.timerStopped(model);
                     }
                     chronometer.stop();
                 } else {
-                    TimerPlugin.updateTimer(taskService, activity, model, true);
+                    TimerPlugin.updateTimer(notificationManager, taskService, activity, model, true);
                     for (TimerActionListener listener : listeners) {
                         listener.timerStarted(model);
                     }

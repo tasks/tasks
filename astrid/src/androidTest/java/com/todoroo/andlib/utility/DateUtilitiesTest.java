@@ -32,11 +32,13 @@ public class DateUtilitiesTest extends AndroidTestCase {
 
     private static Locale defaultLocale;
 
+    @Override
     public void setUp() {
         defaultLocale = Locale.getDefault();
         Locale.setDefault(Locale.US);
     }
 
+    @Override
     public void tearDown() {
         DateUtilities.is24HourOverride = null;
         Locale.setDefault(defaultLocale);

@@ -48,9 +48,6 @@
   <!-- ringtone to use for notifications -->
   <string name="p_rmd_ringtone">notification_ringtone</string>
   
-  <!-- icon theme for notifications -->
-  <string name="p_rmd_icon">notif_theme</string>
-  
   <!-- if true / unset, hh:mm dialog. otherwise, days / hours -->
   <string name="p_rmd_snooze_dialog">snooze_dialog</string>
   

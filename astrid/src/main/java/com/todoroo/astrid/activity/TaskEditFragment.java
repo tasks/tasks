@@ -61,7 +61,6 @@ import com.todoroo.astrid.gcal.GCalControlSet;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.notes.EditNoteActivity;
-import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskDeleter;
@@ -89,6 +88,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingFragment;
+import org.tasks.notifications.NotificationManager;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -179,6 +179,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Inject MetadataService metadataService;
     @Inject UserActivityDao userActivityDao;
     @Inject TaskDeleter taskDeleter;
+    @Inject NotificationManager notificationManager;
     @Inject AlarmService alarmService;
     @Inject GCalHelper gcalHelper;
 
@@ -618,9 +619,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             return;
         }
 
-        // clear notification
-        Notifications.cancelNotifications(model.getId());
-
+        notificationManager.cancel(model.getId());
     }
 
     private void setIsNewTask(boolean isNewTask) {
@@ -785,7 +784,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         // abandon editing in this case
         if (title.getText().length() == 0 || TextUtils.isEmpty(model.getTitle())) {
             if (isNewTask) {
-                TimerPlugin.updateTimer(taskService, getActivity(), model, false);
+                TimerPlugin.updateTimer(notificationManager, taskService, getActivity(), model, false);
                 taskDeleter.delete(model);
                 if (getActivity() instanceof TaskListActivity) {
                     TaskListActivity tla = (TaskListActivity) getActivity();
@@ -806,7 +805,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                                         android.R.string.ok, new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
-                                                TimerPlugin.updateTimer(taskService, getActivity(), model, false);
+                                                TimerPlugin.updateTimer(notificationManager, taskService, getActivity(), model, false);
                                                 taskDeleter.delete(model);
                                                 shouldSaveState = false;
 

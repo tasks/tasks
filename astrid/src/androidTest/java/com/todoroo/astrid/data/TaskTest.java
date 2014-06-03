@@ -32,10 +32,12 @@ public class TaskTest extends AndroidTestCase {
     private static final DateTime now = new DateTime(2013, 12, 31, 16, 10, 53, 452);
     private static final DateTime specificDueDate = new DateTime(2014, 3, 17, 9, 54, 27, 959);
 
+    @Override
     public void setUp() {
         freezeAt(now);
     }
 
+    @Override
     public void tearDown() {
         thaw();
     }

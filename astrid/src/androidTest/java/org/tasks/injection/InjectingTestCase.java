@@ -2,9 +2,7 @@ package org.tasks.injection;
 
 import com.todoroo.andlib.test.TodorooTestCase;
 
-import java.util.List;
-
-import static java.util.Collections.emptyList;
+import dagger.ObjectGraph;
 
 public abstract class InjectingTestCase extends TodorooTestCase {
 
@@ -12,13 +10,15 @@ public abstract class InjectingTestCase extends TodorooTestCase {
     protected void setUp() {
         super.setUp();
 
-        new TestInjector(getContext())
-                .getObjectGraph()
-                .plus(getModules().toArray())
-                .inject(this);
+        ObjectGraph objectGraph = ObjectGraph.create(new TestModule(getContext()));
+        Object extension = getModule();
+        if (extension != null) {
+            objectGraph = objectGraph.plus(extension);
+        }
+        objectGraph.inject(this);
     }
 
-    protected List<Object> getModules() {
-        return emptyList();
+    protected Object getModule() {
+        return null;
     }
 }

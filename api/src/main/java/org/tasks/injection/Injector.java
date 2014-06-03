@@ -4,8 +4,7 @@ import dagger.ObjectGraph;
 
 public interface Injector {
 
-    public void inject(Object caller);
+    void inject(Object caller);
 
-    public ObjectGraph getObjectGraph();
-
+    ObjectGraph getObjectGraph();
 }

@@ -16,12 +16,14 @@ public class RelativeDayTest extends AndroidTestCase {
     private static Locale defaultLocale;
     private static final DateTime now = new DateTime(2013, 12, 31, 11, 9, 42, 357);
 
+    @Override
     public void setUp() {
         defaultLocale = Locale.getDefault();
         Locale.setDefault(Locale.US);
         freezeAt(now);
     }
 
+    @Override
     public void tearDown() {
         Locale.setDefault(defaultLocale);
         thaw();

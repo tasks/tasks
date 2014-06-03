@@ -20,7 +20,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
-import com.todoroo.astrid.reminders.Notifications;
+import org.tasks.notifications.NotificationManager;
 import com.todoroo.astrid.reminders.ReminderService;
 
 import org.tasks.Broadcaster;
@@ -41,14 +41,17 @@ public class TaskDao extends RemoteModelDao<Task> {
     private final MetadataDao metadataDao;
     private final Broadcaster broadcaster;
     private final ReminderService reminderService;
+    private final NotificationManager notificationManager;
 
     @Inject
-	public TaskDao(Database database, MetadataDao metadataDao, Broadcaster broadcaster, ReminderService reminderService) {
+	public TaskDao(Database database, MetadataDao metadataDao, Broadcaster broadcaster,
+                   ReminderService reminderService, NotificationManager notificationManager) {
         super(Task.class);
         setDatabase(database);
         this.metadataDao = metadataDao;
         this.broadcaster = broadcaster;
         this.reminderService = reminderService;
+        this.notificationManager = notificationManager;
     }
 
     // --- SQL clause generators
@@ -384,8 +387,8 @@ public class TaskDao extends RemoteModelDao<Task> {
     /**
      * Called after the task was just completed
      */
-    private static void afterComplete(Task task) {
-        Notifications.cancelNotifications(task.getId());
+    private void afterComplete(Task task) {
+        notificationManager.cancel((int) task.getId());
     }
 }
 

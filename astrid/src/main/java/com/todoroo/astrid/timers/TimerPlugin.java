@@ -13,8 +13,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.NotificationManager;
-import com.todoroo.andlib.service.NotificationManager.AndroidNotificationManager;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.ShortcutActivity;
@@ -22,6 +20,7 @@ import com.todoroo.astrid.api.Addon;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.data.Task;
+import org.tasks.notifications.NotificationManager;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
 
@@ -46,7 +45,7 @@ public class TimerPlugin extends BroadcastReceiver {
      * toggles timer and updates elapsed time.
      * @param start if true, start timer. else, stop it
      */
-    public static void updateTimer(TaskService taskService, Context context, Task task, boolean start) {
+    public static void updateTimer(NotificationManager notificationManager, TaskService taskService, Context context, Task task, boolean start) {
         // if this call comes from tasklist, then we need to fill in the gaps to handle this correctly
         // this is needed just for stopping a task
         if (!task.containsNonNullValue(Task.TIMER_START)) {
@@ -71,16 +70,14 @@ public class TimerPlugin extends BroadcastReceiver {
         taskService.save(task);
 
         // update notification
-        TimerPlugin.updateNotifications(taskService, context);
+        TimerPlugin.updateNotifications(notificationManager, taskService, context);
     }
 
-    private static void updateNotifications(TaskService taskService, Context context) {
-        NotificationManager nm = new AndroidNotificationManager(context);
-
+    private static void updateNotifications(NotificationManager notificationManager, TaskService taskService, Context context) {
         int count = taskService.count(Query.select(Task.ID).
                 where(Task.TIMER_START.gt(0)));
         if(count == 0) {
-            nm.cancel(Constants.NOTIFICATION_TIMER);
+            notificationManager.cancel(Constants.NOTIFICATION_TIMER);
         } else {
             Filter filter = TimerFilterExposer.createFilter(context);
             Intent notifyIntent = ShortcutActivity.createIntent(filter);
@@ -99,7 +96,7 @@ public class TimerPlugin extends BroadcastReceiver {
             notification.flags |= Notification.FLAG_ONGOING_EVENT | Notification.FLAG_NO_CLEAR;
             notification.flags &= ~Notification.FLAG_AUTO_CANCEL;
 
-            nm.notify(Constants.NOTIFICATION_TIMER, notification);
+            notificationManager.notify(Constants.NOTIFICATION_TIMER, notification);
         }
     }
 

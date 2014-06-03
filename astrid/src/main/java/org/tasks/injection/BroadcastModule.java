@@ -13,6 +13,7 @@ import com.todoroo.astrid.gtasks.GtasksFilterExposer;
 import com.todoroo.astrid.gtasks.GtasksStartupReceiver;
 import com.todoroo.astrid.notes.NotesDetailExposer;
 import com.todoroo.astrid.reminders.Notifications;
+import com.todoroo.astrid.reminders.ShowNotificationReceiver;
 import com.todoroo.astrid.repeats.RepeatDetailExposer;
 import com.todoroo.astrid.repeats.RepeatTaskCompleteListener;
 import com.todoroo.astrid.service.GlobalEventReceiver;
@@ -48,6 +49,7 @@ import dagger.Provides;
         AlarmDetailExposer.class,
         GtasksStartupReceiver.class,
         PhoneStateChangedReceiver.class,
+        ShowNotificationReceiver.class,
         TimerFilterExposer.class,
         CustomFilterExposer.class,
         GtasksFilterExposer.class,

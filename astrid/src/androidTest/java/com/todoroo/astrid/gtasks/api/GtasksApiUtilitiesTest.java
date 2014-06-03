@@ -18,11 +18,13 @@ public class GtasksApiUtilitiesTest extends AndroidTestCase {
     private static final Locale defaultLocale = Locale.getDefault();
     private static final DateTimeZone defaultDateTimeZone = DateTimeZone.getDefault();
 
+    @Override
     public void setUp() {
         Locale.setDefault(Locale.US);
         DateTimeZone.setDefault(DateTimeZone.forID("America/Chicago"));
     }
 
+    @Override
     public void tearDown() {
         Locale.setDefault(defaultLocale);
         DateTimeZone.setDefault(defaultDateTimeZone);

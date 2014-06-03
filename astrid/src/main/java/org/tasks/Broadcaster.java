@@ -19,10 +19,10 @@ public class Broadcaster {
     }
 
     public void sendOrderedBroadcast(Intent intent) {
-        sendOrderedBroadcast(context, intent);
+        sendOrderedBroadcast(intent, null);
     }
 
-    public void sendOrderedBroadcast(Context context, Intent intent) {
-        context.sendOrderedBroadcast(intent, null);
+    public void sendOrderedBroadcast(Intent intent, String permissions) {
+        context.sendOrderedBroadcast(intent, permissions);
     }
 }

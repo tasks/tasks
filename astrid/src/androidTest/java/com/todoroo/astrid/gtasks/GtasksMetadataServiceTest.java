@@ -16,8 +16,7 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.tasks.injection.TestModule;
 
 import javax.inject.Inject;
 
@@ -27,7 +26,7 @@ import dagger.Provides;
 @SuppressWarnings("nls")
 public class GtasksMetadataServiceTest extends DatabaseTestCase {
 
-    @Module(complete = false, overrides = true, injects = { GtasksMetadataServiceTest.class })
+    @Module(addsTo = TestModule.class, injects = {GtasksMetadataServiceTest.class})
     static class GtasksMetadataServiceTestModule {
         private final GtasksTestPreferenceService service = new GtasksTestPreferenceService();
 
@@ -186,9 +185,7 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
     }
 
     @Override
-    protected List<Object> getModules() {
-        return new ArrayList<Object>() {{
-            add(new GtasksMetadataServiceTestModule());
-        }};
+    protected Object getModule() {
+        return new GtasksMetadataServiceTestModule();
     }
 }

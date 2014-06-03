@@ -78,7 +78,7 @@ public class BackupServiceTests extends DatabaseTestCase {
         preferences.setBoolean(R.string.backup_BPr_auto_key, setting);
     }
 
-    public void testBackup() {
+    public void disabled_testBackup() {
         assertEquals(0, temporaryDirectory.list().length);
 
         boolean backupSetting = getBackupSetting();

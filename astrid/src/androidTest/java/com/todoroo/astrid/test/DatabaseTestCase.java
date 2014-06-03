@@ -5,13 +5,13 @@
  */
 package com.todoroo.astrid.test;
 
-import org.tasks.injection.InjectingTestCase;
-
 import com.todoroo.astrid.dao.Database;
+
+import org.tasks.injection.InjectingTestCase;
 
 import javax.inject.Inject;
 
-public class DatabaseTestCase extends InjectingTestCase {
+public abstract class DatabaseTestCase extends InjectingTestCase {
 
     @Inject protected Database database;
 

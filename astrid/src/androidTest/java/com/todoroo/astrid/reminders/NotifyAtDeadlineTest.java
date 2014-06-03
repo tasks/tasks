@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 
 import com.todoroo.andlib.test.TodorooTestCase;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 
 import org.joda.time.DateTime;
@@ -12,8 +11,6 @@ import org.tasks.Freeze;
 import org.tasks.R;
 
 import java.util.concurrent.TimeUnit;
-
-import javax.inject.Inject;
 
 import static com.todoroo.astrid.reminders.ReminderService.NO_ALARM;
 import static org.tasks.Freeze.freezeAt;
@@ -25,20 +22,20 @@ public class NotifyAtDeadlineTest extends TodorooTestCase {
     @SuppressLint("NewApi")
     private static final int MILLIS_PER_HOUR = (int) TimeUnit.HOURS.toMillis(1);
 
-    @Inject TaskDao taskDao;
-    @Inject ReminderService reminderService;
-
     private final Task dueAtNoon = new Task() {{
         setDueDate(Task.URGENCY_SPECIFIC_DAY, newDate(2014, 1, 27).getTime());
         setReminderFlags(Task.NOTIFY_AT_DEADLINE);
     }};
 
+    private ReminderService reminderService;
+
+    @Override
     public void setUp() {
-        super.setUp();
+        reminderService = new ReminderService(getContext());
         freezeAt(new DateTime(2014, 1, 24, 17, 23, 37));
-        reminderService.setPreferenceDefaults();
     }
 
+    @Override
     public void tearDown() {
         thaw();
     }

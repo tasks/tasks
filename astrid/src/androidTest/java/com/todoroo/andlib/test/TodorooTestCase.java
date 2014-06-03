@@ -23,12 +23,6 @@ public abstract class TodorooTestCase extends AndroidTestCase {
 
 	@Override
 	protected void setUp() {
-        try {
-            super.setUp();
-        } catch(Exception e) {
-            throw new RuntimeException(e);
-        }
-
         // for mockito: https://code.google.com/p/dexmaker/issues/detail?id=2
         System.setProperty("dexmaker.dexcache", getContext().getCacheDir().toString());
 
@@ -38,11 +32,6 @@ public abstract class TodorooTestCase extends AndroidTestCase {
 
     @Override
     protected void tearDown() {
-        try {
-            super.tearDown();
-        } catch(Exception e) {
-            throw new RuntimeException(e);
-        }
         setLocale(Locale.getDefault());
     }
 

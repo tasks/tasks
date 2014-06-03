@@ -14,12 +14,14 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.injection.InjectingBroadcastReceiver;
+import org.tasks.notifications.NotificationManager;
 
 import javax.inject.Inject;
 
 public class TimerTaskCompleteListener extends InjectingBroadcastReceiver {
 
     @Inject TaskService taskService;
+    @Inject NotificationManager notificationManager;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -37,7 +39,6 @@ public class TimerTaskCompleteListener extends InjectingBroadcastReceiver {
             return;
         }
 
-        TimerPlugin.updateTimer(taskService, context, task, false);
+        TimerPlugin.updateTimer(notificationManager, taskService, context, task, false);
     }
-
 }
