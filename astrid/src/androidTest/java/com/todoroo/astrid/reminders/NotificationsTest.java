@@ -1,8 +1,7 @@
 package com.todoroo.astrid.reminders;
 
 import android.annotation.SuppressLint;
-
-import com.todoroo.andlib.test.TodorooTestCase;
+import android.test.AndroidTestCase;
 
 import org.joda.time.DateTime;
 import org.tasks.R;
@@ -14,7 +13,7 @@ import static com.todoroo.astrid.reminders.ShowNotificationReceiver.isQuietHours
 import static org.tasks.Freeze.freezeAt;
 import static org.tasks.Freeze.thaw;
 
-public class NotificationsTest extends TodorooTestCase{
+public class NotificationsTest extends AndroidTestCase {
 
     @SuppressLint("NewApi")
     private static final int MILLIS_PER_HOUR = (int) TimeUnit.HOURS.toMillis(1);

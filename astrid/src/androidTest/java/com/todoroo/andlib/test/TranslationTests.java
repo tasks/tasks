@@ -6,7 +6,10 @@
 package com.todoroo.andlib.test;
 
 
+import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.test.AndroidTestCase;
+import android.util.DisplayMetrics;
 
 import org.tasks.R;
 
@@ -27,7 +30,7 @@ import static org.tasks.date.DateTimeUtils.newDate;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-abstract public class TranslationTests extends TodorooTestCase {
+abstract public class TranslationTests extends AndroidTestCase {
 
     // --- abstract methods
 
@@ -47,6 +50,29 @@ abstract public class TranslationTests extends TodorooTestCase {
     public abstract int[] getDateFormatStrings();
 
     // --- tests
+
+    /**
+     * Sets locale
+     */
+    private void setLocale(Locale locale) {
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        DisplayMetrics metrics = getContext().getResources().getDisplayMetrics();
+        getContext().getResources().updateConfiguration(config, metrics);
+    }
+
+    /**
+     * Loop through each locale and call runnable
+     */
+    protected void forEachLocale(Runnable r) {
+        Locale[] locales = Locale.getAvailableLocales();
+        for(Locale locale : locales) {
+            setLocale(locale);
+
+            r.run();
+        }
+    }
 
     private static final class FormatStringData {
         private static final char[] scratch = new char[10];

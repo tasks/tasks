@@ -1,8 +1,8 @@
 package com.todoroo.astrid.reminders;
 
 import android.annotation.SuppressLint;
+import android.test.AndroidTestCase;
 
-import com.todoroo.andlib.test.TodorooTestCase;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;
 
@@ -17,7 +17,7 @@ import static org.tasks.Freeze.freezeAt;
 import static org.tasks.Freeze.thaw;
 import static org.tasks.date.DateTimeUtils.newDate;
 
-public class NotifyAtDeadlineTest extends TodorooTestCase {
+public class NotifyAtDeadlineTest extends AndroidTestCase {
 
     @SuppressLint("NewApi")
     private static final int MILLIS_PER_HOUR = (int) TimeUnit.HOURS.toMillis(1);

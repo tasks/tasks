@@ -60,7 +60,6 @@ public class AstridTranslationTest extends TranslationTests {
                 contains(r, R.string.CFC_tag_text, failures, "?");
                 contains(r, R.string.CFC_tag_contains_text, failures, "?");
                 contains(r, R.string.CFC_title_contains_text, failures, "?");
-                contains(r, R.string.CFC_importance_text, failures, "?");
                 contains(r, R.string.CFC_dueBefore_text, failures, "?");
             }
         });

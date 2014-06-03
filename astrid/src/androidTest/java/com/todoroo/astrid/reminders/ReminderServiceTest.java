@@ -33,7 +33,6 @@ public class ReminderServiceTest extends InjectingTestCase {
 
     @Override
     public void tearDown() {
-        super.tearDown();
         thaw();
     }
 

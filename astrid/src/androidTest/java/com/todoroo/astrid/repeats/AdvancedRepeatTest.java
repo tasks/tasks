@@ -5,11 +5,12 @@
  */
 package com.todoroo.astrid.repeats;
 
+import android.test.AndroidTestCase;
+
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.Weekday;
 import com.google.ical.values.WeekdayNum;
-import com.todoroo.andlib.test.TodorooTestCase;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 
@@ -20,7 +21,7 @@ import java.util.Date;
 
 import static org.tasks.date.DateTimeUtils.newDate;
 
-public class AdvancedRepeatTest extends TodorooTestCase {
+public class AdvancedRepeatTest extends AndroidTestCase {
 
     private static final int PREV_PREV = -2;
     private static final int PREV = -1;
@@ -34,7 +35,6 @@ public class AdvancedRepeatTest extends TodorooTestCase {
 
     @Override
     public void setUp() {
-        super.setUp();
         task = new Task();
         task.setCompletionDate(DateUtilities.now());
         rrule = new RRule();

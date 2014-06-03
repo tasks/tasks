@@ -1,14 +1,16 @@
 package org.tasks.injection;
 
-import com.todoroo.andlib.test.TodorooTestCase;
+import android.test.AndroidTestCase;
+
+import com.todoroo.andlib.service.ContextManager;
 
 import dagger.ObjectGraph;
 
-public abstract class InjectingTestCase extends TodorooTestCase {
+public abstract class InjectingTestCase extends AndroidTestCase {
 
     @Override
     protected void setUp() {
-        super.setUp();
+        ContextManager.setContext(getContext());
 
         ObjectGraph objectGraph = ObjectGraph.create(new TestModule(getContext()));
         Object extension = getModule();

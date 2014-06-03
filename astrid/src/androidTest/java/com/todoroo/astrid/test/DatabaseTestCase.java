@@ -26,6 +26,5 @@ public abstract class DatabaseTestCase extends InjectingTestCase {
     @Override
     protected void tearDown() {
         database.close();
-        super.tearDown();
     }
 }
