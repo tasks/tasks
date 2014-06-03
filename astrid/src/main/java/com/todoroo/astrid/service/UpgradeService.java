@@ -7,17 +7,14 @@ package com.todoroo.astrid.service;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.utility.AstridPreferences;
 
 import org.tasks.R;
-import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -27,11 +24,9 @@ public final class UpgradeService {
 
     public static final int V4_6_5 = 306;
     public static final int V3_0_0 = 136;
-    private final Preferences preferences;
 
     @Inject
-    public UpgradeService(Preferences preferences) {
-        this.preferences = preferences;
+    public UpgradeService() {
     }
 
     /**
@@ -40,8 +35,6 @@ public final class UpgradeService {
      * show users a change log.
      */
     public void performUpgrade(final Activity context, final int from) {
-        preferences.setInt(AstridPreferences.P_UPGRADE_FROM, from);
-
         int maxWithUpgrade = V4_6_5;
 
         if(from < maxWithUpgrade) {
@@ -93,47 +86,5 @@ public final class UpgradeService {
                 super.onBackPressed();
             }
         }
-    }
-
-    /**
-     * Return a change log string. Releases occur often enough that we don't
-     * expect change sets to be localized.
-     */
-    public void showChangeLog(Context context, int from) {
-        if(!(context instanceof Activity) || from == 0) {
-            return;
-        }
-
-        preferences.clear(AstridPreferences.P_UPGRADE_FROM);
-        StringBuilder changeLog = new StringBuilder();
-
-        if (from >= 0 && from < V4_6_5) {
-            newVersionString(changeLog, "4.6.5 (4/23/13)", new String[] {
-                 "Improvements to monthly repeating tasks scheduled for the end of the month",
-                 "Minor bugfixes"
-            });
-        }
-
-        if(changeLog.length() == 0) {
-            return;
-        }
-
-        changeLog.append("Enjoy!</body></html>");
-        String color = ThemeService.getDialogTextColorString();
-        String changeLogHtml = "<html><body style='color: " + color +"'>" + changeLog;
-
-        DialogUtilities.htmlDialog(context, changeLogHtml,
-                R.string.UpS_changelog_title);
-    }
-
-    /**
-     * Helper for adding a single version to the changelog
-     */
-    private void newVersionString(StringBuilder changeLog, String version, String[] changes) {
-        changeLog.append("<font style='text-align: center; color=#ffaa00'><b>Version ").append(version).append(":</b></font><br><ul>");
-        for(String change : changes) {
-            changeLog.append("<li>").append(change).append("</li>\n");
-        }
-        changeLog.append("</ul>");
     }
 }

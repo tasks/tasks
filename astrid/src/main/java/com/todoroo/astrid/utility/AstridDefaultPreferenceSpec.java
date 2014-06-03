@@ -78,7 +78,6 @@ public class AstridDefaultPreferenceSpec {
                 if (edit != null) {
                     edit.putInt(SortHelper.PREF_SORT_SORT, SortHelper.SORT_AUTO);
                     edit.commit();
-                    Preferences.setInt(AstridPreferences.P_SUBTASKS_HELP, 1);
                 }
             }
             setBoolean(dragDropTestInitialized, true);

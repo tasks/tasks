@@ -23,10 +23,6 @@ public class AstridPreferences {
 
     public static final String P_FIRST_LIST = "fl"; //$NON-NLS-1$
 
-    public static final String P_UPGRADE_FROM = "uf"; //$NON-NLS-1$
-
-    public static final String P_SUBTASKS_HELP = "sthelp"; //$NON-NLS-1$
-
     /* ======================================================================
      * ========================================================= public prefs
      * ====================================================================== */

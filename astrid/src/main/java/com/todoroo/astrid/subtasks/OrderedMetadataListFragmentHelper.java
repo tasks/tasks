@@ -20,7 +20,6 @@ import com.commonsware.cwac.tlv.TouchListView.SwipeListener;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
@@ -31,11 +30,9 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater.Node;
 import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater.OrderedListNodeVisitor;
 import com.todoroo.astrid.ui.DraggableListView;
-import com.todoroo.astrid.utility.AstridPreferences;
 
 import org.tasks.R;
 
@@ -91,27 +88,6 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
         getTouchListView().setClickListener(rowClickListener);
         getTouchListView().setSwipeListener(swipeListener);
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
-        if(Preferences.getInt(AstridPreferences.P_SUBTASKS_HELP, 0) == 0) {
-            showSubtasksHelp();
-        }
-    }
-
-    private void showSubtasksHelp() {
-        String body = String.format("<h3>%s</h3><img src='%s'>" +
-                "<br>%s<br><br><br><img src='%s'><br>%s",
-                getActivity().getString(R.string.subtasks_help_1),
-                "subtasks_vertical.png",
-                getActivity().getString(R.string.subtasks_help_2),
-                "subtasks_horizontal.png",
-                getActivity().getString(R.string.subtasks_help_3));
-
-        String color = ThemeService.getDialogTextColorString();
-        String html = String.format("<html><body style='text-align:center;color:%s'>%s</body></html>",
-                color, body);
-
-        DialogUtilities.htmlDialog(getActivity(), html, R.string.subtasks_help_title);
-        Preferences.setInt(AstridPreferences.P_SUBTASKS_HELP, 1);
     }
 
     @Override

@@ -299,11 +299,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
             getListView().setItemsCanFocus(false);
         }
 
-        if (preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1) > -1) {
-            upgradeService.showChangeLog(getActivity(),
-                    preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1));
-        }
-
         getListView().setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,

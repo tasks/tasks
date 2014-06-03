@@ -10,10 +10,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
-import android.webkit.WebView;
 
 import org.tasks.api.R;
 
@@ -42,22 +40,6 @@ public class DialogUtilities {
                 .show().setOwnerActivity(activity);
             }
         });
-    }
-
-    /**
-     * Display an OK dialog with HTML content
-     */
-    public static void htmlDialog(Context context, String html, int title) {
-        WebView webView = new WebView(context);
-        webView.loadDataWithBaseURL("file:///android_asset/", html, "text/html", "utf-8", null);
-        webView.setBackgroundColor(0);
-
-        new AlertDialog.Builder(context)
-        .setTitle(title)
-        .setView(webView)
-        .setIcon(android.R.drawable.ic_dialog_info)
-        .setPositiveButton(android.R.string.ok, null)
-        .show();
     }
 
     /**
