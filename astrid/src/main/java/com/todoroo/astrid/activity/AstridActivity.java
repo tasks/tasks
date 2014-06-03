@@ -21,8 +21,6 @@ import android.widget.Toast;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.actfm.CommentsFragment;
-import com.todoroo.astrid.actfm.TagCommentsFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
@@ -82,11 +80,6 @@ public class AstridActivity extends InjectingActionBarActivity
     public TaskEditFragment getTaskEditFragment() {
         return (TaskEditFragment) getSupportFragmentManager()
                 .findFragmentByTag(TaskEditFragment.TAG_TASKEDIT_FRAGMENT);
-    }
-
-    public CommentsFragment getTagUpdatesFragment() {
-        return (CommentsFragment) getSupportFragmentManager()
-                .findFragmentByTag(CommentsFragment.TAG_UPDATES_FRAGMENT);
     }
 
     @Inject TaskService taskService;
@@ -171,12 +164,6 @@ public class AstridActivity extends InjectingActionBarActivity
         if (fragmentLayout == LAYOUT_DOUBLE) {
             findViewById(R.id.taskedit_fragment_container).setVisibility(View.VISIBLE);
         }
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-
-        TagCommentsFragment updates = new TagCommentsFragment(tagData);
-        transaction.replace(R.id.taskedit_fragment_container, updates, CommentsFragment.TAG_UPDATES_FRAGMENT);
-        transaction.commit();
     }
 
     public void setupTasklistFragmentWithFilter(Filter filter, Bundle extras) {

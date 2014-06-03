@@ -3,7 +3,6 @@ package org.tasks.injection;
 import android.app.Activity;
 import android.content.Context;
 
-import com.todoroo.astrid.actfm.TagCommentsFragment;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.TaskEditFragment;
@@ -33,7 +32,6 @@ import static org.tasks.injection.ActivityModule.ForActivity;
         SubtasksTagListFragment.class,
         TagViewFragment.class,
         TaskEditFragment.class,
-        TagCommentsFragment.class,
         FilterListFragment.class,
         QuickAddBar.class,
         TimerFilterExposer.class,

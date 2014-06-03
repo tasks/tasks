@@ -25,7 +25,6 @@ import android.widget.FrameLayout;
 
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.actfm.CommentsFragment;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -288,11 +287,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         if (fragmentLayout != LAYOUT_SINGLE) {
             getIntent().putExtra(OPEN_TASK, taskId);
         }
-        CommentsFragment tuf = getTagUpdatesFragment();
-        if (tuf != null) {
-            tuf.getView().setVisibility(View.INVISIBLE);
-        }
-
         super.onTaskListItemClicked(taskId);
     }
 
@@ -328,11 +322,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         if(taskeditFragmentContainer != null && taskeditFragmentContainer.getVisibility() == View.VISIBLE) {
             Flags.set(Flags.TLA_DISMISSED_FROM_TASK_EDIT);
             onPostResume();
-
-            CommentsFragment tuf = getTagUpdatesFragment();
-            if (tuf != null) {
-                tuf.getView().setVisibility(View.VISIBLE);
-            }
         }
         int drawerState = menuDrawer.getDrawerState();
         if(drawerState == MenuDrawer.STATE_OPEN || drawerState == MenuDrawer.STATE_OPENING) {
