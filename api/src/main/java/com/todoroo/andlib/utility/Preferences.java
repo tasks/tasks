@@ -19,6 +19,7 @@ import com.todoroo.andlib.service.ContextManager;
  * @author Tim Su <tim@todoroo.com>
  *
  */
+@Deprecated
 public class Preferences {
 
     /**

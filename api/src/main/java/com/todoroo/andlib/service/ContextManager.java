@@ -14,6 +14,7 @@ import android.content.Context;
  * @author Tim Su <tim@todoroo.com>
  *
  */
+@Deprecated
 public final class ContextManager {
 
     /**
