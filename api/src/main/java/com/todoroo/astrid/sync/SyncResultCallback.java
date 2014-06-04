@@ -7,16 +7,6 @@ package com.todoroo.astrid.sync;
 
 public interface SyncResultCallback {
     /**
-     * Increment max sync progress
-     */
-    public void incrementMax(int incrementBy);
-
-    /**
-     * Increment current sync progress
-     */
-    public void incrementProgress(int incrementBy);
-
-    /**
      * Provider started sync
      */
     public void started();

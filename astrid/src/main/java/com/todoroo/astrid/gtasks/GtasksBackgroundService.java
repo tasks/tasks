@@ -12,7 +12,7 @@ import android.os.IBinder;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
-import com.todoroo.astrid.sync.SyncResultCallbackAdapter;
+import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
 
 import org.slf4j.Logger;
@@ -58,7 +58,11 @@ public class GtasksBackgroundService extends InjectingService {
 
         SyncV2Provider provider = gtasksSyncV2Provider;
         if (provider.isActive()) {
-            provider.synchronizeActiveTasks(false, new SyncResultCallbackAdapter() {
+            provider.synchronizeActiveTasks(false, new SyncResultCallback() {
+                @Override
+                public void started() {
+                }
+
                 @Override
                 public void finished() {
                     gtasksPreferenceService.recordSuccessfulSync();

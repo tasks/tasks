@@ -16,6 +16,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.widget.ArrayAdapter;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -32,6 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
+import org.tasks.sync.IndeterminateProgressBarSyncResultCallback;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -67,13 +69,12 @@ public class SyncActionHelper {
 
     // --- boilerplate
 
-    public SyncActionHelper(SyncV2Service syncService, final Activity activity, Preferences preferences, Fragment fragment) {
+    public SyncActionHelper(SyncV2Service syncService, final FragmentActivity activity, Preferences preferences, Fragment fragment) {
         this.syncService = syncService;
         this.activity = activity;
         this.preferences = preferences;
         this.fragment = fragment;
-        syncResultCallback = new ProgressBarSyncResultCallback(activity, fragment,
-                R.id.progressBar, new Runnable() {
+        syncResultCallback = new IndeterminateProgressBarSyncResultCallback(activity, new Runnable() {
                     @Override
                     public void run() {
                         activity.sendBroadcast(

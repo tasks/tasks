@@ -22,7 +22,9 @@ import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
+
+import org.tasks.sync.IndeterminateProgressBarSyncResultCallback;
+
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TaskService;
@@ -87,8 +89,7 @@ public class GtasksListFragment extends SubtasksListFragment {
     private void refreshData(final boolean manual) {
         ((TextView)getView().findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
 
-        syncService.synchronizeList(list, manual, new ProgressBarSyncResultCallback(getActivity(), this,
-                R.id.progressBar, new Runnable() {
+        syncService.synchronizeList(list, manual, new IndeterminateProgressBarSyncResultCallback(getActivity(), new Runnable() {
             @Override
             public void run() {
                 if (manual) {

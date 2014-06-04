@@ -468,8 +468,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         sortFlags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
         sortSort = publicPrefs.getInt(SortHelper.PREF_SORT_SORT, 0);
         sortFlags = SortHelper.setManualSort(sortFlags, isDraggable());
-
-        getView().findViewById(R.id.progressBar).setVisibility(View.GONE);
     }
 
     protected void setupQuickAddBar() {

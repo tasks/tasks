@@ -6,7 +6,6 @@
 package com.todoroo.astrid.service;
 
 import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
-import com.todoroo.astrid.service.SyncResultCallbackWrapper.WidgetUpdatingCallbackWrapper;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
 
