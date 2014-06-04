@@ -1,31 +1,21 @@
 package org.tasks;
 
-import android.app.Application;
-
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.astrid.dao.Database;
 
-import org.tasks.injection.Injector;
+import org.tasks.injection.InjectingApplication;
 
-import dagger.ObjectGraph;
+import javax.inject.Inject;
 
-public class Tasks extends Application implements Injector {
+public class Tasks extends InjectingApplication {
 
-    ObjectGraph objectGraph = ObjectGraph.create();
+    @SuppressWarnings("UnusedDeclaration")
+    @Inject Database database;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
         ContextManager.setContext(this);
-    }
-
-    @Override
-    public void inject(Object caller) {
-        getObjectGraph().inject(caller);
-    }
-
-    @Override
-    public ObjectGraph getObjectGraph() {
-        return objectGraph;
     }
 }
