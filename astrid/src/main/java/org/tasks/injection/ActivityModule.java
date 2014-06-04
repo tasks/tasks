@@ -16,10 +16,12 @@ import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.gcal.CalendarAlarmListCreator;
 import com.todoroo.astrid.gcal.CalendarReminderActivity;
+import com.todoroo.astrid.gtasks.GtasksFilterExposer;
 import com.todoroo.astrid.gtasks.GtasksListAdder;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.tags.TagFilterExposer;
+import com.todoroo.astrid.timers.TimerFilterExposer;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
 
 import org.tasks.voice.VoiceCommandActivity;
@@ -59,7 +61,11 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
         GtasksPreferences.class,
         OldTaskPreferences.class,
         BackupPreferences.class,
-        FilterShortcutActivity.class
+        FilterShortcutActivity.class,
+        TimerFilterExposer.class,
+        CustomFilterExposer.class,
+        GtasksFilterExposer.class,
+        TagFilterExposer.class
 })
 public class ActivityModule {
 
