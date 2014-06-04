@@ -5,7 +5,12 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ListView;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class ErrorCatchingListView extends ListView {
+
+    private static final Logger log = LoggerFactory.getLogger(ErrorCatchingListView.class);
 
     public ErrorCatchingListView(Context context) {
         super(context);
@@ -24,6 +29,7 @@ public class ErrorCatchingListView extends ListView {
         try {
             return super.onTouchEvent(ev);
         } catch (Exception e) {
+            log.error(e.getMessage(), e);
             return true;
         }
     }

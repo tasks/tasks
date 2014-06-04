@@ -27,6 +27,12 @@ public class IndeterminateProgressBarSyncResultCallback implements SyncResultCal
 
     @Override
     public void started() {
-        activity.setProgressBarIndeterminateVisibility(true);
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                activity.setProgressBarIndeterminateVisibility(true);
+            }
+        });
+
     }
 }
