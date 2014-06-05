@@ -340,11 +340,11 @@
             android:theme="@style/Tasks.FullTransparent" />
 
         <activity
-            android:name="com.todoroo.astrid.tags.TagFilterExposer$DeleteTagActivity"
+            android:name="com.todoroo.astrid.tags.DeleteTagActivity"
             android:theme="@style/Tasks.FullTransparent" />
 
         <activity
-            android:name="com.todoroo.astrid.tags.TagFilterExposer$RenameTagActivity"
+            android:name="com.todoroo.astrid.tags.RenameTagActivity"
             android:theme="@style/Tasks.FullTransparent" />
 
         <!-- alarms -->

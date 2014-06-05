@@ -39,6 +39,8 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListFragment;
 import com.todoroo.astrid.service.ThemeService;
+import com.todoroo.astrid.tags.DeleteTagActivity;
+import com.todoroo.astrid.tags.RenameTagActivity;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagsPlugin;
@@ -509,14 +511,14 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 return true;
             case R.id.menu_delete_list:
                 TagService.Tag deleteTag = new TagService.Tag(tlf.getActiveTagData());
-                Intent ret = new Intent(this, TagFilterExposer.DeleteTagActivity.class);
+                Intent ret = new Intent(this, DeleteTagActivity.class);
                 ret.putExtra("tag", deleteTag.tag);
                 ret.putExtra(TagViewFragment.EXTRA_TAG_UUID, deleteTag.uuid);
                 startActivityForResult(ret, FilterListFragment.REQUEST_CUSTOM_INTENT);
                 return true;
             case R.id.menu_rename_list:
                 TagService.Tag renameTag = new TagService.Tag(tlf.getActiveTagData());
-                Intent rename = new Intent(this, TagFilterExposer.RenameTagActivity.class);
+                Intent rename = new Intent(this, RenameTagActivity.class);
                 rename.putExtra("tag", renameTag.tag);
                 rename.putExtra(TagViewFragment.EXTRA_TAG_UUID, renameTag.uuid);
                 startActivityForResult(rename, FilterListFragment.REQUEST_CUSTOM_INTENT);

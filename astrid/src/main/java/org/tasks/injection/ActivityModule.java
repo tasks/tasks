@@ -20,6 +20,8 @@ import com.todoroo.astrid.gtasks.GtasksFilterExposer;
 import com.todoroo.astrid.gtasks.GtasksListAdder;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
+import com.todoroo.astrid.tags.DeleteTagActivity;
+import com.todoroo.astrid.tags.RenameTagActivity;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.timers.TimerFilterExposer;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
@@ -52,8 +54,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
         CustomFilterExposer.DeleteActivity.class,
         CalendarReminderActivity.class,
         GtasksListAdder.class,
-        TagFilterExposer.DeleteTagActivity.class,
-        TagFilterExposer.RenameTagActivity.class,
+        DeleteTagActivity.class,
+        RenameTagActivity.class,
         VoiceCommandActivity.class,
         GtasksLoginActivity.class,
         WidgetConfigActivity.class,

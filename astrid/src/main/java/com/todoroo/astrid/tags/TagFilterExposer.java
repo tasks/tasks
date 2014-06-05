@@ -9,14 +9,11 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
@@ -39,7 +36,6 @@ import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagService.Tag;
 
 import org.tasks.R;
-import org.tasks.injection.InjectingActivity;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.injection.Injector;
 
@@ -56,7 +52,7 @@ import javax.inject.Inject;
  */
 public class TagFilterExposer extends InjectingBroadcastReceiver implements AstridFilterExposer {
 
-    private static final String TAG = "tag"; //$NON-NLS-1$
+    public static final String TAG = "tag"; //$NON-NLS-1$
 
     @Inject TagService tagService;
 
@@ -173,123 +169,6 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
 
     protected Filter constructFilter(Context context, Tag tag) {
         return filterFromTag(context, tag, TaskCriteria.activeAndVisible());
-    }
-
-    // --- tag manipulation activities
-
-    public abstract static class TagActivity extends InjectingActivity {
-
-        String tag;
-        String uuid;
-
-        @Inject TagService tagService;
-
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-
-            tag = getIntent().getStringExtra(TAG);
-            uuid = getIntent().getStringExtra(TagViewFragment.EXTRA_TAG_UUID);
-
-            if(tag == null || RemoteModel.isUuidEmpty(uuid)) {
-                finish();
-                return;
-            }
-
-            showDialog();
-        }
-
-        protected DialogInterface.OnClickListener getOkListener() {
-            return new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    try {
-                        Intent result = ok();
-                        if (result != null) {
-                            setResult(RESULT_OK, result);
-                        } else {
-                            toastNoChanges();
-                            setResult(RESULT_CANCELED);
-                        }
-                    } finally {
-                        finish();
-                    }
-                }
-            };
-        }
-
-        protected DialogInterface.OnClickListener getCancelListener() {
-            return new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    try {
-                        toastNoChanges();
-                    } finally {
-                        setResult(RESULT_CANCELED);
-                        finish();
-                    }
-                }
-
-            };
-        }
-
-        private void toastNoChanges() {
-            Toast.makeText(this, R.string.TEA_no_tags_modified,
-                        Toast.LENGTH_SHORT).show();
-        }
-
-        protected abstract void showDialog();
-
-        protected abstract Intent ok();
-    }
-
-    public static class DeleteTagActivity extends TagActivity {
-
-        @Override
-        protected void showDialog() {
-            DialogUtilities.okCancelDialog(this, getString(R.string.DLG_delete_this_tag_question, tag), getOkListener(), getCancelListener());
-        }
-
-        @Override
-        protected Intent ok() {
-            return tagService.deleteOrLeaveTag(this, tag, uuid);
-        }
-
-    }
-
-    public static class RenameTagActivity extends TagActivity {
-
-        private EditText editor;
-
-        @Override
-        protected void showDialog() {
-            editor = new EditText(this);
-            DialogUtilities.viewDialog(this, getString(R.string.DLG_rename_this_tag_header, tag), editor, getOkListener(), getCancelListener());
-        }
-
-        @Override
-        protected Intent ok() {
-            if(editor == null) {
-                return null;
-            }
-
-            String text = editor.getText().toString();
-            if (text == null || text.length() == 0) {
-                return null;
-            } else {
-                int renamed = tagService.rename(uuid, text);
-                Toast.makeText(this, getString(R.string.TEA_tags_renamed, tag, text, renamed),
-                        Toast.LENGTH_SHORT).show();
-
-                if (renamed > 0) {
-                    Intent intent = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED);
-                    intent.putExtra(TagViewFragment.EXTRA_TAG_UUID, uuid);
-                    ContextManager.getContext().sendBroadcast(intent);
-                    return intent;
-                }
-                return null;
-            }
-        }
     }
 
     @Override

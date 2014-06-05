@@ -5,10 +5,7 @@
  */
 package com.todoroo.astrid.tags;
 
-import android.content.Context;
-import android.content.Intent;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.CountProperty;
@@ -21,8 +18,6 @@ import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.actfm.TagViewFragment;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TagDataDao;
@@ -265,21 +260,6 @@ public final class TagService {
         return tagBuilder.toString();
     }
 
-    public Intent deleteOrLeaveTag(Context context, String tag, String uuid) {
-        int deleted = deleteTagMetadata(uuid);
-        TagData tagData = tagDataDao.fetch(uuid, TagData.ID, TagData.UUID, TagData.DELETION_DATE, TagData.MEMBER_COUNT, TagData.USER_ID);
-        Intent tagDeleted = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED);
-        if(tagData != null) {
-            tagData.setDeletionDate(DateUtilities.now());
-            tagDataService.save(tagData);
-            tagDeleted.putExtra(TagViewFragment.EXTRA_TAG_UUID, tagData.getUuid());
-        }
-        Toast.makeText(context, context.getString(R.string.TEA_tags_deleted, tag, deleted), Toast.LENGTH_SHORT).show();
-
-        context.sendBroadcast(tagDeleted);
-        return tagDeleted;
-    }
-
     /**
      * Return all tags (including metadata tags and TagData tags) in an array list
      */
@@ -378,13 +358,6 @@ public final class TagService {
             tagData.close();
         }
         return null;
-    }
-
-    public int deleteTagMetadata(String uuid) {
-        Metadata deleted = new Metadata();
-        deleted.setDeletionDate(DateUtilities.now());
-
-        return metadataDao.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(uuid)), deleted);
     }
 
     public int rename(String uuid, String newName) {
