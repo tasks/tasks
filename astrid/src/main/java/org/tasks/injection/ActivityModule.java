@@ -14,6 +14,7 @@ import com.todoroo.astrid.backup.BackupPreferences;
 import com.todoroo.astrid.calls.MissedCallActivity;
 import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.core.CustomFilterExposer;
+import com.todoroo.astrid.core.DefaultsPreferences;
 import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.gcal.CalendarAlarmListCreator;
 import com.todoroo.astrid.gcal.CalendarReminderActivity;
@@ -69,7 +70,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
         CustomFilterExposer.class,
         GtasksFilterExposer.class,
         TagFilterExposer.class,
-        BeastModePreferences.class
+        BeastModePreferences.class,
+        DefaultsPreferences.class
 })
 public class ActivityModule {
 

@@ -12,11 +12,13 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 import com.todoroo.astrid.gcal.Calendars;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingTodorooPreferenceActivity;
+import org.tasks.preferences.Preferences;
+
+import javax.inject.Inject;
 
 /**
  * Displays the preference screen for users to edit their preferences
@@ -24,7 +26,9 @@ import org.tasks.R;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class DefaultsPreferences extends TodorooPreferenceActivity {
+public class DefaultsPreferences extends InjectingTodorooPreferenceActivity {
+
+    @Inject Preferences preferences;
 
     @Override
     public int getPreferenceResource() {
@@ -77,7 +81,7 @@ public class DefaultsPreferences extends TodorooPreferenceActivity {
                 preference.setSummary(r.getString(R.string.EPr_default_addtocalendar_desc, setting));
             }
         } else if (r.getString(R.string.p_voiceInputCreatesTask).equals(preference.getKey())) {
-            preference.setEnabled(Preferences.getBoolean(R.string.p_voiceInputEnabled, false));
+            preference.setEnabled(preferences.getBoolean(R.string.p_voiceInputEnabled, false));
             if (value != null && !(Boolean)value) {
                 preference.setSummary(R.string.EPr_voiceInputCreatesTask_desc_disabled);
             } else {
@@ -102,8 +106,8 @@ public class DefaultsPreferences extends TodorooPreferenceActivity {
                 setting));
 
         // if user changed the value, refresh task defaults
-        if(!AndroidUtilities.equals(value, Preferences.getStringValue(preference.getKey()))) {
-            Editor editor = Preferences.getPrefs(this).edit();
+        if(!AndroidUtilities.equals(value, preferences.getStringValue(preference.getKey()))) {
+            Editor editor = preferences.getPrefs().edit();
             editor.putString(preference.getKey(), (String)value);
             editor.commit();
         }
