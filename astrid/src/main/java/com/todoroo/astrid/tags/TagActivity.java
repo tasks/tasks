@@ -11,14 +11,10 @@ import com.todoroo.astrid.data.RemoteModel;
 import org.tasks.R;
 import org.tasks.injection.InjectingActivity;
 
-import javax.inject.Inject;
-
 public abstract class TagActivity extends InjectingActivity {
 
     String tag;
     String uuid;
-
-    @Inject TagService tagService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

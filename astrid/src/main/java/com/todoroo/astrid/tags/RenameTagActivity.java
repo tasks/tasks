@@ -11,9 +11,13 @@ import com.todoroo.astrid.api.AstridApiConstants;
 
 import org.tasks.R;
 
+import javax.inject.Inject;
+
 public class RenameTagActivity extends TagActivity {
 
     private EditText editor;
+
+    @Inject TagService tagService;
 
     @Override
     protected void showDialog() {
