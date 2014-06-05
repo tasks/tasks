@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.todoroo.astrid.actfm.TagSettingsActivity;
+import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.activity.EditPreferences;
 import com.todoroo.astrid.activity.FilterShortcutActivity;
 import com.todoroo.astrid.activity.ShareLinkActivity;
@@ -67,7 +68,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
         TimerFilterExposer.class,
         CustomFilterExposer.class,
         GtasksFilterExposer.class,
-        TagFilterExposer.class
+        TagFilterExposer.class,
+        BeastModePreferences.class
 })
 public class ActivityModule {
 

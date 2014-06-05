@@ -44,7 +44,6 @@ import android.widget.Toast;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmCameraModule;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.alarms.AlarmService;
@@ -89,6 +88,7 @@ import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.notifications.NotificationManager;
+import org.tasks.preferences.Preferences;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -182,6 +182,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Inject NotificationManager notificationManager;
     @Inject AlarmService alarmService;
     @Inject GCalHelper gcalHelper;
+    @Inject Preferences preferences;
 
     // --- UI components
 
@@ -241,7 +242,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             }
         }
 
-        showEditComments = Preferences.getBoolean(R.string.p_show_task_edit_comments, true);
+        showEditComments = preferences.getBoolean(R.string.p_show_task_edit_comments, true);
 
         getActivity().setResult(Activity.RESULT_OK);
     }
@@ -457,7 +458,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             basicControls.removeAllViews();
         }
 
-        ArrayList<String> controlOrder = BeastModePreferences.constructOrderedControlList(getActivity());
+        ArrayList<String> controlOrder = BeastModePreferences.constructOrderedControlList(preferences, getActivity());
         String[] itemOrder = controlOrder.toArray(new String[controlOrder.size()]);
 
         String hideAlwaysTrigger = getString(R.string.TEA_ctrl_hide_section_pref);
@@ -963,7 +964,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_discard));
         setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
 
-        boolean useSaveAndCancel = Preferences.getBoolean(R.string.p_save_and_cancel, false);
+        boolean useSaveAndCancel = preferences.getBoolean(R.string.p_save_and_cancel, false);
 
         if (useSaveAndCancel || AstridPreferences.useTabletLayout(getActivity())) {
             if (useSaveAndCancel) {

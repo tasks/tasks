@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.activity;
 
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -19,15 +18,18 @@ import android.widget.TextView;
 
 import com.commonsware.cwac.tlv.TouchListView;
 import com.commonsware.cwac.tlv.TouchListView.DropListener;
-import com.todoroo.andlib.utility.Preferences;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingListActivity;
+import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-public class BeastModePreferences extends ListActivity {
+import javax.inject.Inject;
+
+public class BeastModePreferences extends InjectingListActivity {
 
     private ArrayAdapter<String> adapter;
 
@@ -39,19 +41,7 @@ public class BeastModePreferences extends ListActivity {
 
     private HashMap<String, String> prefsToDescriptions;
 
-    public static void setDefaultOrder(Context context) {
-        if (Preferences.getStringValue(BEAST_MODE_ORDER_PREF) != null) {
-            return;
-        }
-
-        ArrayList<String> list = constructOrderedControlList(context);
-        StringBuilder newSetting = new StringBuilder(30);
-        for (String item : list) {
-            newSetting.append(item);
-            newSetting.append(BEAST_MODE_PREF_ITEM_SEPARATOR);
-        }
-        Preferences.setString(BEAST_MODE_ORDER_PREF, newSetting.toString());
-    }
+    @Inject Preferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +53,7 @@ public class BeastModePreferences extends ListActivity {
         buildDescriptionMap(getResources());
 
         TouchListView touchList = (TouchListView) getListView();
-        items = constructOrderedControlList(this);
+        items = constructOrderedControlList(preferences, this);
 
         adapter = new ArrayAdapter<String>(this, R.layout.preference_draggable_row, R.id.text, items) {
             @Override
@@ -124,12 +114,26 @@ public class BeastModePreferences extends ListActivity {
             newSetting.append(adapter.getItem(i));
             newSetting.append(BEAST_MODE_PREF_ITEM_SEPARATOR);
         }
-        Preferences.setString(BEAST_MODE_ORDER_PREF, newSetting.toString());
+        preferences.setString(BEAST_MODE_ORDER_PREF, newSetting.toString());
         super.finish();
     }
 
-    public static ArrayList<String> constructOrderedControlList(Context context) {
-        String order = Preferences.getStringValue(BEAST_MODE_ORDER_PREF);
+    public static void setDefaultOrder(Preferences preferences, Context context) {
+        if (preferences.getStringValue(BEAST_MODE_ORDER_PREF) != null) {
+            return;
+        }
+
+        ArrayList<String> list = constructOrderedControlList(preferences, context);
+        StringBuilder newSetting = new StringBuilder(30);
+        for (String item : list) {
+            newSetting.append(item);
+            newSetting.append(BEAST_MODE_PREF_ITEM_SEPARATOR);
+        }
+        preferences.setString(BEAST_MODE_ORDER_PREF, newSetting.toString());
+    }
+
+    public static ArrayList<String> constructOrderedControlList(Preferences preferences, Context context) {
+        String order = preferences.getStringValue(BEAST_MODE_ORDER_PREF);
         ArrayList<String> list = new ArrayList<>();
         String[] itemsArray;
         if (order == null) {

@@ -82,7 +82,7 @@ public class AstridDefaultPreferenceSpec {
             }
             preferences.setBoolean(dragDropTestInitialized, true);
         }
-        BeastModePreferences.setDefaultOrder(context);
+        BeastModePreferences.setDefaultOrder(preferences, context);
 
         editor.commit();
 
