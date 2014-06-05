@@ -42,6 +42,7 @@
         <item name="actionBarStyle">@style/AstridActionBarStyle</item>
         <item name="android:actionOverflowButtonStyle">@style/AstridOverflowStyle</item>
         <item name="actionOverflowButtonStyle">@style/AstridOverflowStyle</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
     
     <style name="AstridV11ActionBarStyle" parent="@style/Widget.AppCompat.ActionBar">
@@ -84,6 +85,7 @@
         <item name="actionBarStyle">@style/AstridActionBarStyle.Light</item>
         <item name="android:actionOverflowButtonStyle">@style/AstridOverflowStyle.Light</item>
         <item name="actionOverflowButtonStyle">@style/AstridOverflowStyle.Light</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 
     <style name="AstridV11ActionBarStyle.Light">
