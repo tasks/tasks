@@ -583,7 +583,6 @@
             android:name=".voice.VoiceCommandActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
             <intent-filter>
-                <action android:name="android.intent.action.SEND"/>
                 <action android:name="com.google.android.gm.action.AUTO_SEND"/>
 
                 <category android:name="android.intent.category.DEFAULT"/>
