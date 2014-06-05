@@ -60,6 +60,11 @@
 
     <!-- Footer -->
 
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="?attr/asThemeTextColor"/>
+
     <LinearLayout
         android:id="@+id/updatesFooter"
         style="@style/Content"
