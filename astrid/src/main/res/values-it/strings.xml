@@ -199,7 +199,6 @@
 		<item>Single line title only</item>
 	</string-array>
 	<string name="EPr_taskRowPrefs_title">Aspetto della riga dei task</string>
-	<string name="EPr_force_phone_layout">Usa il layout del telefono</string>
 	<string name="EPr_manage_header">Gestisci compiti vecchi</string>
 	<string name="EPr_manage_delete_completed">Elimina i compiti completati</string>
 	<string name="EPr_manage_delete_completed_message">Vuoi davvero eliminare tutti i compiti completati?</string>

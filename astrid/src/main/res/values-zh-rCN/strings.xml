@@ -181,7 +181,6 @@
 		<item>Single line title only</item>
 	</string-array>
 	<string name="EPr_taskRowPrefs_title">任务栏</string>
-	<string name="EPr_force_phone_layout">使用手机布局</string>
 	<string name="EPr_manage_header">管理旧任务</string>
 	<string name="EPr_manage_delete_completed">删除已完成任务</string>
 	<string name="EPr_manage_delete_completed_message">您真的要删除所有已完成任务吗？</string>

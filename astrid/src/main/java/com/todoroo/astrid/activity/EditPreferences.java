@@ -62,8 +62,6 @@ import javax.inject.Inject;
  */
 public class EditPreferences extends InjectingTodorooPreferenceActivity {
 
-    private static final int APPEARANCE_PREFERENCE = 0;
-
     private static final int REQUEST_CODE_SYNC = 0;
     private static final int REQUEST_CODE_FILES_DIR = 2;
 
@@ -135,11 +133,6 @@ public class EditPreferences extends InjectingTodorooPreferenceActivity {
         });
 
         addPreferenceListeners();
-
-        PreferenceScreen appearance = (PreferenceScreen) screen.getPreference(APPEARANCE_PREFERENCE);
-        if (!AndroidUtilities.isTabletSized(this)) {
-            appearance.removePreference(screen.findPreference(getString(R.string.p_force_phone_layout)));
-        }
 
         preference = screen.findPreference(getString(R.string.p_showNotes));
         preference.setEnabled(preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0) == 0);
@@ -335,8 +328,6 @@ public class EditPreferences extends InjectingTodorooPreferenceActivity {
                 R.string.CRA_calendar_reminders_pref_desc_disabled, R.string.CRA_calendar_reminders_pref_desc_enabled)) {
         } else if (booleanPreference(preference, value, R.string.p_end_at_deadline,
                 R.string.EPr_cal_end_at_due_time, R.string.EPr_cal_start_at_due_time)) {
-        } else if (r.getString(R.string.p_force_phone_layout).equals(preference.getKey())) {
-            preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
         } else if (r.getString(R.string.p_voiceInputEnabled).equals(preference.getKey())) {
             if (value != null && !(Boolean) value) {
                 preference.setSummary(R.string.EPr_voiceInputEnabled_desc_disabled);

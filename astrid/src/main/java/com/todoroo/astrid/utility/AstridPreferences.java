@@ -10,10 +10,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
-
-import org.tasks.R;
 
 public class AstridPreferences {
 
@@ -33,6 +30,6 @@ public class AstridPreferences {
      * ====================================================================== */
 
     public static boolean useTabletLayout(Context context) {
-        return AndroidUtilities.isTabletSized(context) && !Preferences.getBoolean(R.string.p_force_phone_layout, false);
+        return AndroidUtilities.isTabletSized(context);
     }
 }

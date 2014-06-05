@@ -232,7 +232,6 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Heure de l\'évenement dans le calendrier</string>
 	<string name="EPr_cal_end_at_due_time">Terminer les événements dans le calendrier à l\'échéance</string>
 	<string name="EPr_cal_start_at_due_time">Commencer les événements dans le calendrier à l\'échéance</string>
-	<string name="EPr_force_phone_layout">Utiliser la mise en page du téléphone</string>
 	<string name="EPr_show_save_and_cancel">Afficher enregistrer et annuler</string>
 	<string name="EPr_manage_header">Gérer les anciennes tâches</string>
 	<string name="EPr_manage_delete_completed">Supprimer les tâches terminées</string>

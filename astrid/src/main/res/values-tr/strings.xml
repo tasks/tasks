@@ -190,7 +190,6 @@
 	<string name="EPr_fullTask_desc_enabled">Tüm görev başlığı gösterilecek</string>
 	<string name="EPr_fullTask_desc_disabled">Görev başlığının ilk iki satırı gösterilecek</string>
 	<string name="EPr_taskRowPrefs_title">Görev Sırası Görünümü</string>
-	<string name="EPr_force_phone_layout">Telefon yerleşimini kullan</string>
 	<string name="EPr_manage_header">Eski Görevleri Yönet</string>
 	<string name="EPr_manage_delete_completed">Tamamlanan Görevleri Sil</string>
 	<string name="EPr_manage_delete_completed_message">Gerçekten tüm tamamlanmış görevleri silmek istiyor musun?</string>

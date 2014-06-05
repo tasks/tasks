@@ -524,8 +524,6 @@
   <string name="EPr_cal_end_at_due_time">End calendar events at due time</string>
   <string name="EPr_cal_start_at_due_time">Start calendar events at due time</string>
   
-  <string name="EPr_force_phone_layout">Use phone layout</string>
-
   <!-- Preference title for showing save and cancel buttons in task edit page -->
   <string name="EPr_show_save_and_cancel">Show save and cancel </string>
   

@@ -60,9 +60,6 @@
   <!-- calendar reminders preference -->
   <string name="p_calendar_reminders">p_calendar_reminder</string>
 
-  <!-- force tablets to use phone layout -->
-  <string name="p_force_phone_layout">force_phone_layout</string>
-  
   <!-- list view section key -->
   <string name="p_list_view">p_list_view</string>
   

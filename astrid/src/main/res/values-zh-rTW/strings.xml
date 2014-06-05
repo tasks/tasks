@@ -217,7 +217,6 @@
 		<item>Single line title only</item>
 	</string-array>
 	<string name="EPr_taskRowPrefs_title">任務工作欄</string>
-	<string name="EPr_force_phone_layout">使用手機佈局</string>
 	<string name="EPr_manage_header">管理舊任務工作</string>
 	<string name="EPr_manage_delete_completed">刪除已完成任務工作</string>
 	<string name="EPr_manage_delete_completed_message">您真的要刪除所有已完成任務工作嗎？</string>

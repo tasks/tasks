@@ -225,7 +225,6 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Czas zdarzenia kalendarza</string>
 	<string name="EPr_cal_end_at_due_time">Zakończ zadania kalendarza w ustalonym czasie</string>
 	<string name="EPr_cal_start_at_due_time">Rozpocznij zadania kalendarza w ustalonym czasie</string>
-	<string name="EPr_force_phone_layout">Używaj wyglądu komórkowego</string>
 	<string name="EPr_show_save_and_cancel">Pokaż przyciski zapisz i anuluj</string>
 	<string name="EPr_manage_header">Zarządzaj starymi zadaniami</string>
 	<string name="EPr_manage_delete_completed">Usuń zakończone zadania</string>

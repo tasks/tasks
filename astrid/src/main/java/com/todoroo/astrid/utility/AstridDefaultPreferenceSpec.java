@@ -50,8 +50,6 @@ public class AstridDefaultPreferenceSpec {
 
         setPreference(prefs, editor, r, R.string.p_use_dark_theme, false);
 
-        setPreference(prefs, editor, r, R.string.p_force_phone_layout, false);
-
         setPreference(prefs, editor, r, R.string.p_show_quickadd_controls, true);
 
         setPreference(prefs, editor, r, R.string.p_show_task_edit_comments, true);

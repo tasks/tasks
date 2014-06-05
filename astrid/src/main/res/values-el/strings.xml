@@ -180,7 +180,6 @@
 	<string name="EPr_taskRowPrefs_title">Εμφάνιση σειράς καθήκοντος</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Χρόνος event ημερολογίου</string>
 	<string name="EPr_cal_start_at_due_time">Εκκίνηση event ημερολογίου στην ώρα λήξης τους</string>
-	<string name="EPr_force_phone_layout">Χρήση εμφάνισης τηλεφώνου</string>
 	<string name="EPr_show_save_and_cancel">Εμφάνιση αποθήκευσης και ακύρωσης</string>
 	<string name="EPr_manage_header">Διαχείρηση παλιών καθηκόντων</string>
 	<string name="EPr_manage_delete_completed">Διαγραφή ολοκληρωμένων καθηκόντων</string>

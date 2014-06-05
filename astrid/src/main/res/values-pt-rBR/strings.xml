@@ -213,7 +213,6 @@
 		<item>Single line title only</item>
 	</string-array>
 	<string name="EPr_taskRowPrefs_title">Aparência da Tarefa</string>
-	<string name="EPr_force_phone_layout">Usar layout do telefone</string>
 	<string name="EPr_manage_header">Gerenciar tarefas antigas</string>
 	<string name="EPr_manage_delete_completed">Exclui as tarefas concluídas</string>
 	<string name="EPr_manage_delete_completed_message">Você realmente deseja excluir todas as tarefas concluídas?</string>

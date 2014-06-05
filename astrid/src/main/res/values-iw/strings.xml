@@ -233,7 +233,6 @@
 	<string name="EPr_cal_end_or_start_at_due_time">משך אירוע יומן</string>
 	<string name="EPr_cal_end_at_due_time">סיים את אירועי היומן במועד היעד?</string>
 	<string name="EPr_cal_start_at_due_time">התחל את מאורעות היומן במועד היעד</string>
-	<string name="EPr_force_phone_layout">מקלדת טלפון</string>
 	<string name="EPr_show_save_and_cancel">הראה את שמור וביטול</string>
 	<string name="EPr_manage_header">נהל משימות ישנות</string>
 	<string name="EPr_manage_delete_completed">מַחֲקִי משימות שבוצעו</string>

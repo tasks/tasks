@@ -234,7 +234,6 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Час події в календарі</string>
 	<string name="EPr_cal_end_at_due_time">Завершення календарної події при настанні терміну</string>
 	<string name="EPr_cal_start_at_due_time">Початок календарної події при настанні терміну</string>
-	<string name="EPr_force_phone_layout">Використовувати режим телефона</string>
 	<string name="EPr_show_save_and_cancel">Показати зберегти і скасувати</string>
 	<string name="EPr_manage_header">Управління старими завданнями</string>
 	<string name="EPr_manage_delete_completed">Видалити виконані завдання</string>
