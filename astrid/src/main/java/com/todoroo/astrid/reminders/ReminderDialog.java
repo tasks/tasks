@@ -5,7 +5,10 @@
  */
 package com.todoroo.astrid.reminders;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Intent;
 import android.view.View;
@@ -15,6 +18,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Task;
@@ -76,7 +80,7 @@ public class ReminderDialog extends Dialog {
         findViewById(R.id.reminder_snooze).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                NotificationFragment.snooze(activity, onTimeSet, dialogSnooze);
+                snooze(activity, onTimeSet, dialogSnooze);
             }
         });
 
@@ -111,5 +115,29 @@ public class ReminderDialog extends Dialog {
     private void removeSpeechBubble() {
         LinearLayout container = (LinearLayout) findViewById(R.id.speech_bubble_container);
         container.setVisibility(View.GONE);
+    }
+
+    /**
+     * Snooze and re-trigger this alarm
+     */
+    private void snooze(Activity activity, OnTimeSetListener onTimeSet, SnoozeCallback snoozeCallback) {
+        if(Preferences.getBoolean(R.string.p_rmd_snooze_dialog, false)) {
+            Date now = newDate();
+            now.setHours(now.getHours() + 1);
+            int hour = now.getHours();
+            int minute = now.getMinutes();
+            TimePickerDialog tpd = new TimePickerDialog(activity, onTimeSet, hour, minute,
+                    DateUtilities.is24HourFormat(activity));
+            tpd.show();
+            tpd.setOwnerActivity(activity);
+        } else {
+            SnoozeDialog sd = new SnoozeDialog(activity, snoozeCallback);
+            new AlertDialog.Builder(activity)
+                    .setTitle(R.string.rmd_NoA_snooze)
+                    .setView(sd)
+                    .setPositiveButton(android.R.string.ok, sd)
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .show().setOwnerActivity(activity);
+        }
     }
 }
