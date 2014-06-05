@@ -8,6 +8,7 @@ package com.todoroo.astrid.gtasks;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 
 import org.tasks.R;
+import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -23,9 +24,11 @@ public class GtasksPreferenceService extends SyncProviderUtilities {
 
     /** add-on identifier */
     public static final String IDENTIFIER = "gtasks"; //$NON-NLS-1$
+    private final Preferences preferences;
 
     @Inject
-    public GtasksPreferenceService() {
+    public GtasksPreferenceService(Preferences preferences) {
+        this.preferences = preferences;
     }
 
     @Override
@@ -36,6 +39,22 @@ public class GtasksPreferenceService extends SyncProviderUtilities {
     @Override
     public int getSyncIntervalKey() {
         return R.string.gtasks_GPr_interval_key;
+    }
+
+    public String getDefaultList() {
+        return preferences.getStringValue(PREF_DEFAULT_LIST);
+    }
+
+    public void setDefaultList(String defaultList) {
+        preferences.setString(PREF_DEFAULT_LIST, defaultList);
+    }
+
+    public String getUserName() {
+        return preferences.getStringValue(PREF_USER_NAME);
+    }
+
+    public void setUserName(String userName) {
+        preferences.setString(PREF_USER_NAME, userName);
     }
 
     /** GTasks user's default list id */

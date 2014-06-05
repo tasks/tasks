@@ -94,7 +94,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     public void signOut() {
         gtasksPreferenceService.clearLastSyncDate();
         gtasksPreferenceService.setToken(null);
-        Preferences.setString(GtasksPreferenceService.PREF_USER_NAME, null);
+        gtasksPreferenceService.setUserName(null);
         gtasksMetadataService.clearMetadata();
     }
 

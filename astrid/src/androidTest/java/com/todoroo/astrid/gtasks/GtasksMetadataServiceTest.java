@@ -8,9 +8,7 @@ package com.todoroo.astrid.gtasks;
 import android.content.Context;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
@@ -18,6 +16,7 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
 import org.tasks.injection.TestModule;
+import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
@@ -29,7 +28,11 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
 
     @Module(addsTo = TestModule.class, injects = {GtasksMetadataServiceTest.class})
     static class GtasksMetadataServiceTestModule {
-        private final GtasksTestPreferenceService service = new GtasksTestPreferenceService();
+        private final GtasksTestPreferenceService service;
+
+        public GtasksMetadataServiceTestModule(Context context) {
+            service = new GtasksTestPreferenceService(new Preferences(context));
+        }
 
         @Provides
         public GtasksTestPreferenceService getGtasksTestPreferenceService() {
@@ -50,6 +53,15 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
     private Task task;
     private Metadata metadata;
     private TodorooCursor<Task> cursor;
+
+    @Override
+    public void setUp() {
+        super.setUp();
+
+        if (preferences.getDefaultList() == null) {
+            preferences.setDefaultList("list");
+        }
+    }
 
     public void testMetadataFound() {
         givenTask(taskWithMetadata(null));
@@ -179,20 +191,7 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
     }
 
     @Override
-    public void setContext(Context context) {
-        super.setContext(context);
-        if (!isSet(GtasksPreferenceService.PREF_DEFAULT_LIST))
-            Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST, "list");
-    }
-
-    @Override
     protected Object getModule() {
-        return new GtasksMetadataServiceTestModule();
-    }
-
-    /** @return true if given preference is set */
-    public static boolean isSet(String key) {
-        Context context = ContextManager.getContext();
-        return Preferences.getPrefs(context).contains(key);
+        return new GtasksMetadataServiceTestModule(getContext());
     }
 }

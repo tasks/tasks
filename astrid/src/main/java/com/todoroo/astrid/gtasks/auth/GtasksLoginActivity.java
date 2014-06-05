@@ -24,7 +24,6 @@ import android.widget.Toast;
 import com.google.api.client.googleapis.extensions.android2.auth.GoogleAccountManager;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 
@@ -140,7 +139,7 @@ public class GtasksLoginActivity extends InjectingListActivity {
 
     private void onAuthTokenSuccess() {
         gtasksPreferenceService.setToken(authToken);
-        Preferences.setString(GtasksPreferenceService.PREF_USER_NAME, accountName);
+        gtasksPreferenceService.setUserName(accountName);
         setResult(RESULT_OK);
         finish();
     }

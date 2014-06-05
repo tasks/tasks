@@ -13,7 +13,6 @@ import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
@@ -230,12 +229,12 @@ public class GtasksSyncService {
         }
 
         String remoteId;
-        String listId = Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST);
+        String listId = gtasksPreferenceService.getDefaultList();
         if (listId == null) {
             com.google.api.services.tasks.model.TaskList defaultList = invoker.getGtaskList(DEFAULT_LIST);
             if (defaultList != null) {
                 listId = defaultList.getId();
-                Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST, listId);
+                gtasksPreferenceService.setDefaultList(listId);
             } else {
                 listId = DEFAULT_LIST;
             }
