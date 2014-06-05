@@ -29,6 +29,7 @@ public class BackupServiceTests extends DatabaseTestCase {
 
     File temporaryDirectory = null;
 
+    @Inject TasksXmlExporter xmlExporter;
     @Inject TaskDao taskDao;
     @Inject Preferences preferences;
 
@@ -89,7 +90,7 @@ public class BackupServiceTests extends DatabaseTestCase {
             // create a backup
             BackupService service = new BackupService();
             service.setBackupDirectorySetting(setting);
-            service.testBackup(getContext());
+            service.testBackup(xmlExporter, preferences, getContext());
 
             AndroidUtilities.sleepDeep(BACKUP_WAIT_TIME);
 
@@ -122,7 +123,7 @@ public class BackupServiceTests extends DatabaseTestCase {
                     return null;
                 }
             });
-            service.testBackup(getContext());
+            service.testBackup(xmlExporter, preferences, getContext());
 
             AndroidUtilities.sleepDeep(BACKUP_WAIT_TIME);
 
@@ -167,7 +168,7 @@ public class BackupServiceTests extends DatabaseTestCase {
             // backup
             BackupService service = new BackupService();
             service.setBackupDirectorySetting(setting);
-            service.testBackup(getContext());
+            service.testBackup(xmlExporter, preferences, getContext());
 
             AndroidUtilities.sleepDeep(BACKUP_WAIT_TIME);
 
@@ -176,7 +177,7 @@ public class BackupServiceTests extends DatabaseTestCase {
             assertFalse(files[4].exists());
 
             // assert user file still exists
-            service.testBackup(getContext());
+            service.testBackup(xmlExporter, preferences, getContext());
             assertTrue(myFile.exists());
 
         } finally {

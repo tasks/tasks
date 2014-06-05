@@ -186,7 +186,7 @@ public class StartupService {
 
                 // perform initialization
                 ReminderStartupReceiver.startReminderSchedulingService(context);
-                BackupService.scheduleService(context);
+                BackupService.scheduleService(preferences, context);
 
                 gtasksSyncService.initialize();
 

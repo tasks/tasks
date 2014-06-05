@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.todoroo.astrid.alarms.AlarmDetailExposer;
 import com.todoroo.astrid.alarms.AlarmTaskRepeatListener;
+import com.todoroo.astrid.backup.BackupStartupReceiver;
 import com.todoroo.astrid.calls.PhoneStateChangedReceiver;
 import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.gcal.GCalTaskCompleteListener;
@@ -53,7 +54,8 @@ import dagger.Provides;
         TimerFilterExposer.class,
         CustomFilterExposer.class,
         GtasksFilterExposer.class,
-        TagFilterExposer.class
+        TagFilterExposer.class,
+        BackupStartupReceiver.class
 })
 public class BroadcastModule {
 

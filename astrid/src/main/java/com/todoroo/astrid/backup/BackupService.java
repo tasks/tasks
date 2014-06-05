@@ -14,10 +14,10 @@ import android.util.Log;
 
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingService;
+import org.tasks.preferences.Preferences;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -49,6 +49,7 @@ public class BackupService extends InjectingService {
     private static final int DAYS_TO_KEEP_BACKUP = 7;
 
     @Inject TasksXmlExporter xmlExporter;
+    @Inject Preferences preferences;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -68,7 +69,9 @@ public class BackupService extends InjectingService {
     /**
      * Test hook for backup
      */
-    void testBackup(Context context) {
+    void testBackup(TasksXmlExporter xmlExporter, Preferences preferences, Context context) {
+        this.xmlExporter = xmlExporter;
+        this.preferences = preferences;
         startBackup(context);
     }
 
@@ -77,7 +80,7 @@ public class BackupService extends InjectingService {
             return;
         }
         try {
-            if (!Preferences.getBoolean(R.string.backup_BPr_auto_key, true)) {
+            if (!preferences.getBoolean(R.string.backup_BPr_auto_key, true)) {
                 return;
             }
 
@@ -92,16 +95,16 @@ public class BackupService extends InjectingService {
 
         } catch (Exception e) {
             Log.e("error-backup", "Error starting backups", e); //$NON-NLS-1$ //$NON-NLS-2$
-            Preferences.setString(BackupPreferences.PREF_BACKUP_LAST_ERROR, e.toString());
+            preferences.setString(BackupPreferences.PREF_BACKUP_LAST_ERROR, e.toString());
         }
     }
 
-    public static void scheduleService(Context context) {
+    public static void scheduleService(Preferences preferences, Context context) {
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getService(context, 0,
                 createAlarmIntent(context), PendingIntent.FLAG_UPDATE_CURRENT);
         am.cancel(pendingIntent);
-        if (!Preferences.getBoolean(R.string.backup_BPr_auto_key, true)) {
+        if (!preferences.getBoolean(R.string.backup_BPr_auto_key, true)) {
             return;
         }
         am.setInexactRepeating(AlarmManager.RTC, DateUtilities.now() + BACKUP_OFFSET,

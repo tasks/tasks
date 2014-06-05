@@ -88,7 +88,7 @@ public class BackupPreferences extends InjectingTodorooPreferenceActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        BackupService.scheduleService(this);
+        BackupService.scheduleService(preferences, this);
     }
 
     @Override
