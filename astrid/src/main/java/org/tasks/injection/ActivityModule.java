@@ -12,6 +12,7 @@ import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.backup.BackupPreferences;
 import com.todoroo.astrid.calls.MissedCallActivity;
+import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.core.DefaultsPreferences;
@@ -66,6 +67,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
         OldTaskPreferences.class,
         BackupPreferences.class,
         FilterShortcutActivity.class,
+        CoreFilterExposer.class,
         TimerFilterExposer.class,
         CustomFilterExposer.class,
         GtasksFilterExposer.class,

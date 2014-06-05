@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.core;
 
-import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +16,6 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
@@ -32,10 +30,14 @@ import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.injection.Injector;
+import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Exposes Astrid's built in filters to the {@link FilterListFragment}
@@ -43,10 +45,14 @@ import java.util.List;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public final class CoreFilterExposer extends BroadcastReceiver implements AstridFilterExposer {
+public final class CoreFilterExposer extends InjectingBroadcastReceiver implements AstridFilterExposer {
+
+    @Inject Preferences preferences;
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+
         Resources r = context.getResources();
         ContextManager.setContext(context);
 
@@ -61,7 +67,7 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
         List<FilterListItem> filters = new ArrayList<>(3);
 
         filters.add(buildInboxFilter(r));
-        if (Preferences.getBoolean(R.string.p_show_today_filter, true)) {
+        if (preferences.getBoolean(R.string.p_show_today_filter, true)) {
             filters.add(getTodayFilter(r));
         }
 
@@ -119,6 +125,8 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
         if (ContextManager.getContext() == null || ContextManager.getContext().getResources() == null) {
             return null;
         }
+
+        injector.inject(this);
 
         Resources r = ContextManager.getContext().getResources();
         return prepareFilters(r);

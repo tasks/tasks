@@ -7,6 +7,7 @@ import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListFragment;
+import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.gtasks.GtasksFilterExposer;
 import com.todoroo.astrid.gtasks.GtasksListFragment;
@@ -34,6 +35,7 @@ import static org.tasks.injection.ActivityModule.ForActivity;
         TaskEditFragment.class,
         FilterListFragment.class,
         QuickAddBar.class,
+        CoreFilterExposer.class,
         TimerFilterExposer.class,
         CustomFilterExposer.class,
         GtasksFilterExposer.class,

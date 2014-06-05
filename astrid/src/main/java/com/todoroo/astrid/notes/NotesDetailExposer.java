@@ -13,7 +13,6 @@ import android.text.TextUtils;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
@@ -23,6 +22,7 @@ import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingBroadcastReceiver;
+import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
@@ -38,6 +38,7 @@ public class NotesDetailExposer extends InjectingBroadcastReceiver {
 
     @Inject MetadataService metadataService;
     @Inject TaskService taskService;
+    @Inject Preferences preferences;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -63,7 +64,7 @@ public class NotesDetailExposer extends InjectingBroadcastReceiver {
     }
 
     private String getTaskDetails(long id) {
-        if(!Preferences.getBoolean(R.string.p_showNotes, false)) {
+        if(!preferences.getBoolean(R.string.p_showNotes, false)) {
             return null;
         }
 

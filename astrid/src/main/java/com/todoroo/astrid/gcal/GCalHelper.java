@@ -17,11 +17,11 @@ import android.util.Log;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
+import org.tasks.preferences.Preferences;
 
 import java.util.TimeZone;
 
@@ -32,11 +32,14 @@ public class GCalHelper {
     private static final long DEFAULT_CAL_TIME = DateUtilities.ONE_HOUR;
 
     public static final String CALENDAR_ID_COLUMN = "calendar_id"; //$NON-NLS-1$
-    private TaskService taskService;
+
+    private final TaskService taskService;
+    private final Preferences preferences;
 
     @Inject
-    public GCalHelper(TaskService taskService) {
+    public GCalHelper(TaskService taskService, Preferences preferences) {
         this.taskService = taskService;
+        this.preferences = preferences;
     }
 
     public String getTaskEventUri(Task task) {
@@ -62,8 +65,8 @@ public class GCalHelper {
     }
 
     private void createTaskEventIfEnabled(Task t, boolean deleteEventIfExists) {
-        boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null
-            && !Preferences.getStringValue(R.string.gcal_p_default).equals("-1"); //$NON-NLS-1$
+        boolean gcalCreateEventEnabled = preferences.getStringValue(R.string.gcal_p_default) != null
+            && !preferences.getStringValue(R.string.gcal_p_default).equals("-1"); //$NON-NLS-1$
         if (gcalCreateEventEnabled) {
             ContentResolver cr = ContextManager.getContext().getContentResolver();
             Uri calendarUri = createTaskEvent(t, cr, new ContentValues(), deleteEventIfExists);
@@ -189,7 +192,7 @@ public class GCalHelper {
         return eventDeleted;
     }
 
-    static void createStartAndEndDate(Task task, ContentValues values) {
+    void createStartAndEndDate(Task task, ContentValues values) {
         long dueDate = task.getDueDate();
         long tzCorrectedDueDate = dueDate + TimeZone.getDefault().getOffset(dueDate);
         long tzCorrectedDueDateNow = DateUtilities.now() + TimeZone.getDefault().getOffset(DateUtilities.now());
@@ -200,7 +203,7 @@ public class GCalHelper {
                 if(estimatedTime <= 0) {
                     estimatedTime = DEFAULT_CAL_TIME;
                 }
-                if (Preferences.getBoolean(R.string.p_end_at_deadline, true)) {
+                if (preferences.getBoolean(R.string.p_end_at_deadline, true)) {
                     values.put("dtstart", dueDate);
                     values.put("dtend", dueDate + estimatedTime);
                 }else{

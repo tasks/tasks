@@ -183,7 +183,7 @@ public class GCalControlSet extends PopupControlSet {
                     updateValues.put("description", task.getNotes());
                 }
                 if(setValues.containsKey(Task.DUE_DATE.name) || setValues.containsKey(Task.ESTIMATED_SECONDS.name)) {
-                    GCalHelper.createStartAndEndDate(task, updateValues);
+                    gcal.createStartAndEndDate(task, updateValues);
                 }
 
                 ContentResolver cr = activity.getContentResolver();

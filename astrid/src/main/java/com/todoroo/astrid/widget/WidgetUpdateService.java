@@ -14,7 +14,6 @@ import android.widget.RemoteViews;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
@@ -31,6 +30,7 @@ import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingService;
+import org.tasks.preferences.Preferences;
 import org.tasks.widget.WidgetHelper;
 
 import javax.inject.Inject;
@@ -46,6 +46,7 @@ public class WidgetUpdateService extends InjectingService {
     @Inject TaskListMetadataDao taskListMetadataDao;
     @Inject TagDataService tagDataService;
     @Inject WidgetHelper widgetHelper;
+    @Inject Preferences preferences;
 
     @Override
     public void onStart(final Intent intent, int startId) {
@@ -112,7 +113,7 @@ public class WidgetUpdateService extends InjectingService {
             String query = SortHelper.adjustQueryForFlagsAndSort(
                     filter.getSqlQuery(), flags, sort).replaceAll("LIMIT \\d+", "") + " LIMIT " + numberOfTasks;
 
-            String tagName = Preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
+            String tagName = preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
             query = SubtasksHelper.applySubtasksToWidgetFilter(taskService, tagDataService, taskListMetadataDao, filter, query, tagName, numberOfTasks);
 
             database.openForReading();

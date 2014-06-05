@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
@@ -27,6 +26,7 @@ import org.tasks.R;
 import org.tasks.filters.FilterCounter;
 import org.tasks.injection.InjectingListActivity;
 import org.tasks.injection.Injector;
+import org.tasks.preferences.Preferences;
 import org.tasks.widget.WidgetHelper;
 
 import javax.inject.Inject;
@@ -47,6 +47,7 @@ public class WidgetConfigActivity extends InjectingListActivity {
     @Inject WidgetHelper widgetHelper;
     @Inject FilterCounter filterCounter;
     @Inject Injector injector;
+    @Inject Preferences preferences;
 
     private void updateWidget() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
@@ -156,17 +157,17 @@ public class WidgetConfigActivity extends InjectingListActivity {
             title = ((Filter)filterListItem).title;
         }
 
-        Preferences.setString(WidgetConfigActivity.PREF_TITLE + mAppWidgetId, title);
-        Preferences.setString(WidgetConfigActivity.PREF_SQL + mAppWidgetId, sql);
-        Preferences.setString(WidgetConfigActivity.PREF_VALUES + mAppWidgetId, contentValuesString);
+        preferences.setString(WidgetConfigActivity.PREF_TITLE + mAppWidgetId, title);
+        preferences.setString(WidgetConfigActivity.PREF_SQL + mAppWidgetId, sql);
+        preferences.setString(WidgetConfigActivity.PREF_VALUES + mAppWidgetId, contentValuesString);
 
         if(filterListItem instanceof FilterWithCustomIntent) {
             String flattenedName = ((FilterWithCustomIntent)filterListItem).customTaskList.flattenToString();
-            Preferences.setString(WidgetConfigActivity.PREF_CUSTOM_INTENT + mAppWidgetId,
+            preferences.setString(WidgetConfigActivity.PREF_CUSTOM_INTENT + mAppWidgetId,
                     flattenedName);
             String flattenedExtras = AndroidUtilities.bundleToSerializedString(((FilterWithCustomIntent)filterListItem).customExtras);
             if (flattenedExtras != null) {
-                Preferences.setString(WidgetConfigActivity.PREF_CUSTOM_EXTRAS + mAppWidgetId,
+                preferences.setString(WidgetConfigActivity.PREF_CUSTOM_EXTRAS + mAppWidgetId,
                         flattenedExtras);
             }
         }

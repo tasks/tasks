@@ -20,11 +20,11 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
-import org.tasks.notifications.NotificationManager;
 import com.todoroo.astrid.reminders.ReminderService;
 
 import org.tasks.Broadcaster;
 import org.tasks.R;
+import org.tasks.notifications.NotificationManager;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -42,12 +42,15 @@ public class TaskDao extends RemoteModelDao<Task> {
     private final Broadcaster broadcaster;
     private final ReminderService reminderService;
     private final NotificationManager notificationManager;
+    private final org.tasks.preferences.Preferences preferences;
 
     @Inject
 	public TaskDao(Database database, MetadataDao metadataDao, Broadcaster broadcaster,
-                   ReminderService reminderService, NotificationManager notificationManager) {
+                   ReminderService reminderService, NotificationManager notificationManager,
+                   org.tasks.preferences.Preferences preferences) {
         super(Task.class);
         setDatabase(database);
+        this.preferences = preferences;
         this.metadataDao = metadataDao;
         this.broadcaster = broadcaster;
         this.reminderService = reminderService;
@@ -194,11 +197,11 @@ public class TaskDao extends RemoteModelDao<Task> {
 
         // set up task defaults
         if(!item.containsValue(Task.IMPORTANCE)) {
-            item.setImportance(Preferences.getIntegerFromString(
+            item.setImportance(preferences.getIntegerFromString(
                     R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO));
         }
         if(!item.containsValue(Task.DUE_DATE)) {
-            int setting = Preferences.getIntegerFromString(R.string.p_default_urgency_key,
+            int setting = preferences.getIntegerFromString(R.string.p_default_urgency_key,
                     Task.URGENCY_NONE);
             item.setDueDate(Task.createDueDate(setting, 0));
         }

@@ -15,7 +15,6 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskDao;
@@ -40,6 +39,7 @@ import com.todoroo.astrid.sync.SyncV2Provider;
 
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
+import org.tasks.preferences.Preferences;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -64,12 +64,13 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     private final GtasksListService gtasksListService;
     private final GtasksMetadataService gtasksMetadataService;
     private final GtasksTaskListUpdater gtasksTaskListUpdater;
-    private Context context;
+    private final Context context;
+    private final Preferences preferences;
 
     @Inject
     public GtasksSyncV2Provider(TaskService taskService, MetadataService metadataService, StoreObjectDao storeObjectDao, GtasksPreferenceService gtasksPreferenceService,
                                 GtasksSyncService gtasksSyncService, GtasksListService gtasksListService, GtasksMetadataService gtasksMetadataService,
-                                GtasksTaskListUpdater gtasksTaskListUpdater, @ForApplication Context context) {
+                                GtasksTaskListUpdater gtasksTaskListUpdater, @ForApplication Context context, Preferences preferences) {
         this.taskService = taskService;
         this.metadataService = metadataService;
         this.storeObjectDao = storeObjectDao;
@@ -79,6 +80,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         this.gtasksMetadataService = gtasksMetadataService;
         this.gtasksTaskListUpdater = gtasksTaskListUpdater;
         this.context = context;
+        this.preferences = preferences;
     }
 
     @Override
@@ -333,7 +335,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 mergeDates(task.task, local);
             }
         } else { // Set default importance and reminders for remotely created tasks
-            task.task.setImportance(Preferences.getIntegerFromString(
+            task.task.setImportance(preferences.getIntegerFromString(
                     R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO));
             TaskDao.setDefaultReminders(task.task);
         }

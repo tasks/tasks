@@ -2,7 +2,6 @@ package com.todoroo.astrid.gcal;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,16 +11,19 @@ import android.text.TextUtils;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingBroadcastReceiver;
+import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CalendarAlarmReceiver extends BroadcastReceiver {
+import javax.inject.Inject;
+
+public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
 
     public static final int REQUEST_CODE_CAL_REMINDER = 100;
     public static final String BROADCAST_CALENDAR_REMINDER = Constants.PACKAGE + ".CALENDAR_EVENT";
@@ -37,9 +39,13 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
         Calendars.ATTENDEES_EMAIL_COL,
     };
 
+    @Inject Preferences preferences;
+
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (!Preferences.getBoolean(R.string.p_calendar_reminders, true)) {
+        super.onReceive(context, intent);
+
+        if (!preferences.getBoolean(R.string.p_calendar_reminders, true)) {
             return;
         }
         try {

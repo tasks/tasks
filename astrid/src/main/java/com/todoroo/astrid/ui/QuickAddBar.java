@@ -26,7 +26,6 @@ import android.widget.TextView.OnEditorActionListener;
 
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListFragment;
@@ -48,6 +47,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.Injector;
+import org.tasks.preferences.Preferences;
 
 import java.util.HashSet;
 
@@ -77,6 +77,7 @@ public class QuickAddBar extends LinearLayout {
     @Inject MetadataService metadataService;
     @Inject TaskService taskService;
     @Inject GCalHelper gcalHelper;
+    @Inject Preferences preferences;
 
     private VoiceRecognizer voiceRecognizer;
 
@@ -130,10 +131,10 @@ public class QuickAddBar extends LinearLayout {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 final boolean controlsVisible = !TextUtils.isEmpty(s) && quickAddBox.hasFocus();
-                final boolean showControls = Preferences.getBoolean(R.string.p_show_quickadd_controls, true);
+                final boolean showControls = preferences.getBoolean(R.string.p_show_quickadd_controls, true);
 
                 final boolean plusVisible = !TextUtils.isEmpty(s);
-                final boolean hidePlus = Preferences.getBoolean(R.string.p_hide_plus_button, false);
+                final boolean hidePlus = preferences.getBoolean(R.string.p_hide_plus_button, false);
                 quickAddControlsContainer.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -150,12 +151,12 @@ public class QuickAddBar extends LinearLayout {
             public void afterTextChanged(Editable s) {/**/}
         });
 
-        int fontSize = Preferences.getIntegerFromString(R.string.p_fontSize, 18);
+        int fontSize = preferences.getIntegerFromString(R.string.p_fontSize, 18);
         quickAddBox.setTextSize(Math.min(fontSize, 22));
 
         quickAddButton = ((ImageButton) findViewById(
                 R.id.quickAddButton));
-        quickAddButton.setVisibility(Preferences.getBoolean(R.string.p_hide_plus_button, false) ? View.GONE : View.VISIBLE);
+        quickAddButton.setVisibility(preferences.getBoolean(R.string.p_hide_plus_button, false) ? View.GONE : View.VISIBLE);
 
         // set listener for quick add button
         quickAddButton.setOnClickListener(new OnClickListener() {
@@ -194,7 +195,7 @@ public class QuickAddBar extends LinearLayout {
             }
         });
 
-        if (Preferences.getBoolean(R.string.p_voiceInputEnabled, true)
+        if (preferences.getBoolean(R.string.p_voiceInputEnabled, true)
                 && VoiceRecognizer.voiceInputAvailable(activity)) {
             voiceAddButton.setVisibility(View.VISIBLE);
         } else {
@@ -281,7 +282,7 @@ public class QuickAddBar extends LinearLayout {
 
             resetControlSets();
 
-            addToCalendar(gcalHelper, taskService, task, title);
+            addToCalendar(preferences, gcalHelper, taskService, task, title);
 
             TextView quickAdd = (TextView) findViewById(R.id.quickAddText);
             quickAdd.setText(""); //$NON-NLS-1$
@@ -305,9 +306,9 @@ public class QuickAddBar extends LinearLayout {
         }
     }
 
-    private static void addToCalendar(GCalHelper gcalHelper, TaskService taskService, Task task, String title) {
-        boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null
-                && !Preferences.getStringValue(R.string.gcal_p_default).equals("-1") && task.hasDueDate(); //$NON-NLS-1$
+    private static void addToCalendar(Preferences preferences, GCalHelper gcalHelper, TaskService taskService, Task task, String title) {
+        boolean gcalCreateEventEnabled = preferences.getStringValue(R.string.gcal_p_default) != null
+                && !preferences.getStringValue(R.string.gcal_p_default).equals("-1") && task.hasDueDate(); //$NON-NLS-1$
 
         if (!TextUtils.isEmpty(title) && gcalCreateEventEnabled && TextUtils.isEmpty(task.getCalendarURI())) {
             Uri calendarUri = gcalHelper.createTaskEvent(task,
@@ -322,7 +323,7 @@ public class QuickAddBar extends LinearLayout {
      * Static method to quickly add tasks without all the control set nonsense.
      * Used from the share link activity.
      */
-    public static Task basicQuickAddTask(GCalHelper gcalHelper, TaskService taskService, MetadataService metadataService, TagService tagService, String title) {
+    public static Task basicQuickAddTask(Preferences preferences, GCalHelper gcalHelper, TaskService taskService, MetadataService metadataService, TagService tagService, String title) {
         if (TextUtils.isEmpty(title)) {
             return null;
         }
@@ -330,7 +331,7 @@ public class QuickAddBar extends LinearLayout {
         title = title.trim();
 
         Task task = TaskService.createWithValues(taskService, metadataService, tagService, null, title);
-        addToCalendar(gcalHelper, taskService, task, title);
+        addToCalendar(preferences, gcalHelper, taskService, task, title);
 
         return task;
     }
@@ -365,7 +366,7 @@ public class QuickAddBar extends LinearLayout {
             // if user wants, create the task directly (with defaultvalues)
             // after saying it
             Flags.set(Flags.TLA_RESUMED_FROM_VOICE_ADD);
-            if (Preferences.getBoolean(R.string.p_voiceInputCreatesTask, false)) {
+            if (preferences.getBoolean(R.string.p_voiceInputCreatesTask, false)) {
                 quickAddTask(quickAddBox.getText().toString(), true);
             }
 

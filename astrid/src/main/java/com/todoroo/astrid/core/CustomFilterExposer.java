@@ -18,7 +18,6 @@ import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
@@ -34,6 +33,7 @@ import org.tasks.R;
 import org.tasks.injection.InjectingActivity;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.injection.Injector;
+import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 
@@ -51,6 +51,7 @@ public final class CustomFilterExposer extends InjectingBroadcastReceiver implem
     private static final String TOKEN_FILTER_NAME = "name"; //$NON-NLS-1$
 
     @Inject StoreObjectDao storeObjectDao;
+    @Inject Preferences preferences;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -79,7 +80,7 @@ public final class CustomFilterExposer extends InjectingBroadcastReceiver implem
             ArrayList<Filter> list = new ArrayList<>();
 
             // stock filters
-            if (Preferences.getBoolean(R.string.p_show_recently_modified_filter, true)) {
+            if (preferences.getBoolean(R.string.p_show_recently_modified_filter, true)) {
                 Filter recent = new Filter(r.getString(R.string.BFE_Recent),
                         r.getString(R.string.BFE_Recent),
                         new QueryTemplate().where(

@@ -23,7 +23,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.dao.TagMetadataDao;
 import com.todoroo.astrid.data.RemoteModel;
@@ -39,6 +38,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.tasks.R;
 import org.tasks.injection.InjectingActionBarActivity;
+import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
@@ -62,6 +62,7 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
     @Inject TagService tagService;
     @Inject TagDataService tagDataService;
     @Inject TagMetadataDao tagMetadataDao;
+    @Inject Preferences preferences;
 
     private EditText tagName;
     private Bitmap setBitmap;
@@ -264,7 +265,7 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuItem item;
-        if (Preferences.getBoolean(R.string.p_save_and_cancel, false)) {
+        if (preferences.getBoolean(R.string.p_save_and_cancel, false)) {
             item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
             item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_cancel));
             setShowAsAction(item, MenuItem.SHOW_AS_ACTION_IF_ROOM);

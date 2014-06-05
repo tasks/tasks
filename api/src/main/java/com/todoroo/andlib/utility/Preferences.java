@@ -7,7 +7,6 @@ package com.todoroo.andlib.utility;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
 
@@ -85,15 +84,6 @@ public class Preferences {
             return defaultValue;
         }
     }
-
-    public static void setString(String key, String newValue) {
-        Context context = ContextManager.getContext();
-        Editor editor = getPrefs(context).edit();
-        editor.putString(key, newValue);
-        editor.commit();
-    }
-
-    // --- preference fetching (boolean)
 
     public static boolean getBoolean(int keyResources, boolean defValue) {
         Context context = ContextManager.getContext();
