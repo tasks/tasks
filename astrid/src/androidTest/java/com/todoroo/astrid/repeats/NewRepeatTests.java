@@ -15,7 +15,6 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
@@ -24,6 +23,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
 import org.tasks.R;
+import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,14 +34,15 @@ import javax.inject.Inject;
 
 import static org.tasks.date.DateTimeUtils.newDate;
 
-public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
+public class NewRepeatTests extends DatabaseTestCase {
 
     @Inject TaskDao taskDao;
+    @Inject Preferences preferences;
 
     @Override
     protected void setUp() {
         super.setUp();
-        Preferences.setStringFromInteger(R.string.p_default_urgency_key, 0);
+        preferences.setStringFromInteger(R.string.p_default_urgency_key, 0);
     }
 
     private void saveAndTriggerRepeatListener(Task task) {

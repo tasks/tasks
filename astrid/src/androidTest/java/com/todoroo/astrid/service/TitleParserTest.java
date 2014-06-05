@@ -5,16 +5,15 @@
  */
 package com.todoroo.astrid.service;
 
-
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 import com.todoroo.astrid.utility.TitleParser;
 
 import org.tasks.R;
+import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,15 +26,14 @@ import static org.tasks.date.DateTimeUtils.newDate;
 public class TitleParserTest extends DatabaseTestCase {
 
     @Inject TaskService taskService;
-
     @Inject TagService tagService;
-
     @Inject MetadataService metadataService;
+    @Inject Preferences preferences;
 
     @Override
     protected void setUp() {
         super.setUp();
-        Preferences.setStringFromInteger(R.string.p_default_urgency_key, 0);
+        preferences.setStringFromInteger(R.string.p_default_urgency_key, 0);
     }
 
   /** test that completing a task w/ no regular expressions creates a simple task with no date, no repeat, no lists*/

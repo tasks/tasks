@@ -18,7 +18,6 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
@@ -26,6 +25,7 @@ import com.todoroo.astrid.data.Task;
 import org.joda.time.DateTime;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
+import org.tasks.preferences.Preferences;
 
 import java.util.Date;
 import java.util.Random;
@@ -79,10 +79,12 @@ public final class ReminderService  {
 
     private long now = -1; // For tracking when reminders might be scheduled all at once
     private Context context;
+    private Preferences preferences;
 
     @Inject
-    ReminderService(@ForApplication Context context) {
+    ReminderService(@ForApplication Context context, Preferences preferences) {
         this.context = context;
+        this.preferences = preferences;
         setPreferenceDefaults();
     }
 
@@ -98,12 +100,12 @@ public final class ReminderService  {
             return;
         }
 
-        SharedPreferences prefs = Preferences.getPrefs(context);
+        SharedPreferences prefs = preferences.getPrefs();
         Editor editor = prefs.edit();
         Resources r = context.getResources();
 
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_default_random_hours, 0);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_persistent, true);
+        preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_default_random_hours, 0);
+        preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_persistent, true);
 
         editor.commit();
         preferencesInitialized = true;
@@ -293,20 +295,20 @@ public final class ReminderService  {
                 dueDateAlarm = dueDate;
             } else if (DateUtilities.now() > lastReminder + DateUtilities.ONE_DAY) {
                 // return notification time on this day
-                Date date = new DateTime(dueDate).withMillisOfDay(Preferences.getInt(R.string.p_rmd_time, 18 * MILLIS_PER_HOUR)).toDate();
+                Date date = new DateTime(dueDate).withMillisOfDay(preferences.getInt(R.string.p_rmd_time, 18 * MILLIS_PER_HOUR)).toDate();
                 dueDateAlarm = date.getTime();
                 if (dueDate > getNowValue() && dueDateAlarm < getNowValue()) {
                     // this only happens for tasks due today, cause dueDateAlarm wouldn't be in the past otherwise
                     // if the default reminder is in the past, then reschedule it
                     // on this day before start of quiet hours or after quiet hours
                     // randomly placed in this interval
-                    long quietHoursStart = new DateTime().withMillisOfDay(Preferences.getInt(R.string.p_rmd_quietStart, 22 * MILLIS_PER_HOUR)).getMillis();
+                    long quietHoursStart = new DateTime().withMillisOfDay(preferences.getInt(R.string.p_rmd_quietStart, 22 * MILLIS_PER_HOUR)).getMillis();
                     Date quietHoursStartDate = newDate(quietHoursStart);
 
-                    long quietHoursEnd = new DateTime().withMillisOfDay(Preferences.getInt(R.string.p_rmd_quietEnd, 10 * MILLIS_PER_HOUR)).getMillis();
+                    long quietHoursEnd = new DateTime().withMillisOfDay(preferences.getInt(R.string.p_rmd_quietEnd, 10 * MILLIS_PER_HOUR)).getMillis();
                     Date quietHoursEndDate = newDate(quietHoursEnd);
 
-                    boolean quietHoursEnabled = Preferences.getBoolean(R.string.p_rmd_enable_quiet, false);
+                    boolean quietHoursEnabled = preferences.getBoolean(R.string.p_rmd_enable_quiet, false);
 
                     long millisToQuiet;
                     long millisToEndOfDay = dueDate - getNowValue();

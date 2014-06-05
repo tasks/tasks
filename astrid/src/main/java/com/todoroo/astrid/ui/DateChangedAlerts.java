@@ -7,6 +7,7 @@ package com.todoroo.astrid.ui;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.text.Html;
 import android.text.Spanned;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.todoroo.andlib.data.Property;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -236,7 +238,7 @@ public class DateChangedAlerts {
     }
 
     private static void setupHideCheckbox(final Dialog d) {
-        int numShows = Preferences.getInt(PREF_NUM_HELPERS_SHOWN, 0);
+        int numShows = getInt(PREF_NUM_HELPERS_SHOWN, 0);
         numShows++;
         if (numShows >= HIDE_CHECKBOX_AFTER_SHOWS) {
             CheckBox checkbox = (CheckBox) d.findViewById(R.id.reminders_should_show);
@@ -244,11 +246,30 @@ public class DateChangedAlerts {
             checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    Preferences.setBoolean(PREF_SHOW_HELPERS, !isChecked);
+                    setBoolean(PREF_SHOW_HELPERS, !isChecked);
                 }
             });
         }
-        Preferences.setInt(PREF_NUM_HELPERS_SHOWN, numShows);
+        setInt(PREF_NUM_HELPERS_SHOWN, numShows);
+    }
+
+    public static void setBoolean(int keyResource, boolean value) {
+        Context context = ContextManager.getContext();
+        SharedPreferences.Editor editor = Preferences.getPrefs(context).edit();
+        editor.putBoolean(context.getString(keyResource), value);
+        editor.commit();
+    }
+
+    public static int getInt(String key, int defValue) {
+        Context context = ContextManager.getContext();
+        return Preferences.getPrefs(context).getInt(key, defValue);
+    }
+
+    private static void setInt(String key, int value) {
+        Context context = ContextManager.getContext();
+        SharedPreferences.Editor editor = Preferences.getPrefs(context).edit();
+        editor.putInt(key, value);
+        editor.commit();
     }
 
     private static void setupDialogLayoutParams(Context context, Dialog d) {

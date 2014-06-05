@@ -25,7 +25,6 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.files.FileExplore;
@@ -44,6 +43,7 @@ import com.todoroo.astrid.voice.VoiceRecognizer;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingTodorooPreferenceActivity;
+import org.tasks.preferences.Preferences;
 import org.tasks.widget.WidgetHelper;
 
 import java.util.ArrayList;
@@ -74,6 +74,7 @@ public class EditPreferences extends InjectingTodorooPreferenceActivity {
 
     @Inject StartupService startupService;
     @Inject TaskService taskService;
+    @Inject Preferences preferences;
 
     private VoiceInputAssistant voiceInputAssistant;
 
@@ -141,7 +142,7 @@ public class EditPreferences extends InjectingTodorooPreferenceActivity {
         }
 
         preference = screen.findPreference(getString(R.string.p_showNotes));
-        preference.setEnabled(Preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0) == 0);
+        preference.setEnabled(preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0) == 0);
 
         removeForbiddenPreferences(screen, r);
     }
@@ -308,7 +309,7 @@ public class EditPreferences extends InjectingTodorooPreferenceActivity {
             } else {
                 preference.setSummary(R.string.EPr_showNotes_desc_enabled);
             }
-            if ((Boolean) value != Preferences.getBoolean(preference.getKey(), false)) {
+            if ((Boolean) value != preferences.getBoolean(preference.getKey(), false)) {
                 taskService.clearDetails(Criterion.all);
                 Flags.set(Flags.REFRESH);
             }
@@ -322,7 +323,7 @@ public class EditPreferences extends InjectingTodorooPreferenceActivity {
 
         // pp preferences
         else if (r.getString(R.string.p_files_dir).equals(preference.getKey())) {
-            String dir = Preferences.getStringValue(TaskAttachment.FILES_DIRECTORY_PREF);
+            String dir = preferences.getStringValue(TaskAttachment.FILES_DIRECTORY_PREF);
 
             if (TextUtils.isEmpty(dir)) {
                 dir = r.getString(R.string.p_files_dir_desc_default);
@@ -375,7 +376,7 @@ public class EditPreferences extends InjectingTodorooPreferenceActivity {
         } else if (requestCode == REQUEST_CODE_FILES_DIR && resultCode == RESULT_OK) {
             if (data != null) {
                 String dir = data.getStringExtra(FileExplore.RESULT_DIR_SELECTED);
-                Preferences.setString(TaskAttachment.FILES_DIRECTORY_PREF, dir);
+                preferences.setString(TaskAttachment.FILES_DIRECTORY_PREF, dir);
             }
             return;
         }
@@ -443,7 +444,7 @@ public class EditPreferences extends InjectingTodorooPreferenceActivity {
         } catch (VerifyError e) {
             // doesn't work :(
             preference.setEnabled(false);
-            Preferences.setBoolean(preference.getKey(), false);
+            preferences.setBoolean(preference.getKey(), false);
         }
     }
 

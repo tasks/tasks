@@ -8,6 +8,7 @@ package com.todoroo.astrid.gtasks;
 import android.content.Context;
 
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Metadata;
@@ -180,12 +181,18 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
     @Override
     public void setContext(Context context) {
         super.setContext(context);
-        if (!Preferences.isSet(GtasksPreferenceService.PREF_DEFAULT_LIST))
+        if (!isSet(GtasksPreferenceService.PREF_DEFAULT_LIST))
             Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST, "list");
     }
 
     @Override
     protected Object getModule() {
         return new GtasksMetadataServiceTestModule();
+    }
+
+    /** @return true if given preference is set */
+    public static boolean isSet(String key) {
+        Context context = ContextManager.getContext();
+        return Preferences.getPrefs(context).contains(key);
     }
 }

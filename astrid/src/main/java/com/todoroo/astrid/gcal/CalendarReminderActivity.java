@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.EditPreferences;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
@@ -27,6 +26,7 @@ import com.todoroo.astrid.tags.TagFilterExposer;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingActivity;
+import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
@@ -50,6 +50,7 @@ public class CalendarReminderActivity extends InjectingActivity {
 
     @Inject StartupService startupService;
     @Inject TagDataService tagDataService;
+    @Inject Preferences preferences;
 
     private String eventName;
     private long startTime;
@@ -76,7 +77,7 @@ public class CalendarReminderActivity extends InjectingActivity {
         @Override
         public void onClick(final View v) {
             // Check for number of ignore presses
-            int ignorePresses = Preferences.getInt(PREF_IGNORE_PRESSES, 0);
+            int ignorePresses = preferences.getInt(PREF_IGNORE_PRESSES, 0);
             ignorePresses++;
             if (ignorePresses == IGNORE_PROMPT_COUNT) {
                 DialogUtilities.okCancelCustomDialog(CalendarReminderActivity.this,
@@ -88,7 +89,7 @@ public class CalendarReminderActivity extends InjectingActivity {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Preferences.setBoolean(R.string.p_calendar_reminders, false);
+                                preferences.setBoolean(R.string.p_calendar_reminders, false);
                                 dismissListener.onClick(v);
                             }
                         },
@@ -101,7 +102,7 @@ public class CalendarReminderActivity extends InjectingActivity {
             } else {
                 dismissListener.onClick(v);
             }
-            Preferences.setInt(PREF_IGNORE_PRESSES, ignorePresses);
+            preferences.setInt(PREF_IGNORE_PRESSES, ignorePresses);
         }
     };
 

@@ -14,6 +14,9 @@ import javax.inject.Inject;
 
 public class Preferences {
 
+    private static final String P_CURRENT_VERSION = "cv"; //$NON-NLS-1$
+    private static final String P_CURRENT_VERSION_NAME = "cvname"; //$NON-NLS-1$
+
     private final Context context;
     private final SharedPreferences prefs;
 
@@ -21,6 +24,24 @@ public class Preferences {
     public Preferences(@ForApplication Context context) {
         this.context = context;
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
+    }
+
+    public void setIfUnset(SharedPreferences prefs, SharedPreferences.Editor editor, Resources r, int keyResource, int value) {
+        String key = r.getString(keyResource);
+        if(!prefs.contains(key)) {
+            editor.putString(key, Integer.toString(value));
+        }
+    }
+
+    public void setIfUnset(SharedPreferences prefs, SharedPreferences.Editor editor, Resources r, int keyResource, boolean value) {
+        String key = r.getString(keyResource);
+        if(!prefs.contains(key) || !(prefs.getAll().get(key) instanceof Boolean)) {
+            editor.putBoolean(key, value);
+        }
+    }
+
+    public SharedPreferences getPrefs() {
+        return prefs;
     }
 
     public void clear() {
@@ -31,7 +52,7 @@ public class Preferences {
     }
 
     public void setDefaults() {
-        new AstridDefaultPreferenceSpec(context).setIfUnset();
+        new AstridDefaultPreferenceSpec(context, this).setIfUnset();
     }
 
     public void reset() {
@@ -143,5 +164,17 @@ public class Preferences {
         SharedPreferences.Editor editor = prefs.edit();
         editor.remove(key);
         editor.commit();
+    }
+
+    public int getCurrentVersion() {
+        return getInt(P_CURRENT_VERSION, 0);
+    }
+
+    public void setCurrentVersion(int version) {
+        setInt(P_CURRENT_VERSION, version);
+    }
+
+    public void setCurrentVersionName(String versionName) {
+        setString(P_CURRENT_VERSION_NAME, versionName);
     }
 }

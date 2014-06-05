@@ -15,11 +15,8 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.tags.TaskToTagMetadata;
-import com.todoroo.astrid.utility.AstridPreferences;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -125,14 +122,7 @@ public class MetadataDao extends DatabaseDao<Metadata> {
             item.setCreationDate(DateUtilities.now());
         }
 
-        boolean state = super.persist(item);
-        if(Preferences.getBoolean(AstridPreferences.P_FIRST_LIST, true)) {
-            if (state && item.containsNonNullValue(Metadata.KEY) &&
-                    item.getKey().equals(TaskToTagMetadata.KEY)) {
-                Preferences.setBoolean(AstridPreferences.P_FIRST_LIST, false);
-            }
-        }
-        return state;
+        return super.persist(item);
     }
 
     /**

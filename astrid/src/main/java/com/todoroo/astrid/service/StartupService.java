@@ -43,7 +43,6 @@ import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.provider.Astrid3ContentProvider;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
-import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 
 import org.slf4j.Logger;
@@ -141,7 +140,7 @@ public class StartupService {
         // read current version
         int latestSetVersion = 0;
         try {
-            latestSetVersion = AstridPreferences.getCurrentVersion();
+            latestSetVersion = preferences.getCurrentVersion();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
@@ -168,8 +167,8 @@ public class StartupService {
             if(latestSetVersion > 0) {
                 upgradeService.performUpgrade(context, latestSetVersion);
             }
-            AstridPreferences.setCurrentVersion(version);
-            AstridPreferences.setCurrentVersionName(versionName);
+            preferences.setCurrentVersion(version);
+            preferences.setCurrentVersionName(versionName);
         }
 
         final int finalLatestVersion = latestSetVersion;
@@ -256,7 +255,7 @@ public class StartupService {
      */
     private void databaseRestoreIfEmpty(Context context) {
         try {
-            if(AstridPreferences.getCurrentVersion() >= UpgradeService.V3_0_0 &&
+            if(preferences.getCurrentVersion() >= UpgradeService.V3_0_0 &&
                     !context.getDatabasePath(database.getName()).exists()) {
                 // we didn't have a database! restore latest file
                 File directory = BackupConstants.defaultExportDirectory();

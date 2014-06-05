@@ -22,31 +22,6 @@ import com.todoroo.andlib.service.ContextManager;
 @Deprecated
 public class Preferences {
 
-    /**
-     * Helper to write to editor if key specified is null. Writes a String
-     * property with the given integer
-     */
-    public static void setIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, int value) {
-        String key = r.getString(keyResource);
-        if(!prefs.contains(key)) {
-            editor.putString(key, Integer.toString(value));
-        }
-    }
-
-    /**
-     * Helper to write to editor if key specified is null
-     */
-    public static void setIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, boolean value) {
-        String key = r.getString(keyResource);
-        if(!prefs.contains(key) || !(prefs.getAll().get(key) instanceof Boolean)) {
-            editor.putBoolean(key, value);
-        }
-    }
-
-    /* ======================================================================
-     * ======================================================= helper methods
-     * ====================================================================== */
-
     private static SharedPreferences preferences = null;
 
     /** Get preferences object from the context */
@@ -68,12 +43,6 @@ public class Preferences {
         }
 
         return preferences;
-    }
-
-    /** @return true if given preference is set */
-    public static boolean isSet(String key) {
-        Context context = ContextManager.getContext();
-        return getPrefs(context).contains(key);
     }
 
     // --- preference fetching (string)
@@ -117,13 +86,6 @@ public class Preferences {
         }
     }
 
-    /**
-     * Sets string preference
-     */
-    public static void setString(int resourceId, String value) {
-        setString(ContextManager.getContext().getString(resourceId), value);
-    }
-
     public static void setString(String key, String newValue) {
         Context context = ContextManager.getContext();
         Editor editor = getPrefs(context).edit();
@@ -131,89 +93,14 @@ public class Preferences {
         editor.commit();
     }
 
-    /**
-     * Sets string preference from integer value
-     */
-    public static void setStringFromInteger(int keyResource, int newValue) {
-        Context context = ContextManager.getContext();
-        Editor editor = getPrefs(context).edit();
-        editor.putString(context.getString(keyResource), Integer.toString(newValue));
-        editor.commit();
-    }
-
     // --- preference fetching (boolean)
-
-    /** Gets a boolean preference (e.g. a CheckBoxPreference setting)
-     * @return default if value is unset otherwise the value
-     */
-    public static boolean getBoolean(String key, boolean defValue) {
-        Context context = ContextManager.getContext();
-        try {
-            return getPrefs(context).getBoolean(key, defValue);
-        } catch (ClassCastException e) {
-            return defValue;
-        }
-    }
-
-    /** Gets a boolean preference (e.g. a CheckBoxPreference setting)
-     * @return default if value is unset otherwise the value
-     */
-    public static boolean getBoolean(int keyResources) {
-        return getBoolean(keyResources, false);
-    }
 
     public static boolean getBoolean(int keyResources, boolean defValue) {
         Context context = ContextManager.getContext();
-        return getBoolean(context.getString(keyResources), defValue);
-    }
-
-    /**
-     * Sets boolean preference
-     */
-    public static void setBoolean(int keyResource, boolean value) {
-        Context context = ContextManager.getContext();
-        setBoolean(context.getString(keyResource), value);
-    }
-
-    /**
-     * Sets boolean preference
-     */
-    public static void setBoolean(String key, boolean value) {
-        Context context = ContextManager.getContext();
-        Editor editor = getPrefs(context).edit();
-        editor.putBoolean(key, value);
-        editor.commit();
-    }
-
-    // --- preference fetching (int)
-
-    /** Gets a int preference
-     * @return default if value is unset otherwise the value
-     */
-    public static int getInt(int resourceId) {
-        return getInt(resourceId, 0);
-    }
-
-    public static int getInt(int resourceId, int defValue) {
-        return getInt(ContextManager.getContext().getString(resourceId), defValue);
-    }
-
-    public static int getInt(String key, int defValue) {
-        Context context = ContextManager.getContext();
-        return getPrefs(context).getInt(key, defValue);
-    }
-
-    /**
-     * Sets int preference
-     */
-    public static void setInt(int resourceId, int value) {
-        setInt(ContextManager.getContext().getString(resourceId), value);
-    }
-
-    public static void setInt(String key, int value) {
-        Context context = ContextManager.getContext();
-        Editor editor = getPrefs(context).edit();
-        editor.putInt(key, value);
-        editor.commit();
+        try {
+            return getPrefs(context).getBoolean(context.getString(keyResources), defValue);
+        } catch (ClassCastException e) {
+            return defValue;
+        }
     }
 }

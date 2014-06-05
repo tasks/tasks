@@ -23,7 +23,6 @@ import android.widget.TextView;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.EditPreferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.NotificationFragment.SnoozeDialog;
@@ -34,6 +33,7 @@ import com.todoroo.astrid.service.ThemeService;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingActivity;
+import org.tasks.preferences.Preferences;
 
 import java.io.InputStream;
 
@@ -53,6 +53,7 @@ public class MissedCallActivity extends InjectingActivity {
 
     @Inject StartupService startupService;
     @Inject TaskService taskService;
+    @Inject Preferences preferences;
 
     private final OnClickListener dismissListener = new OnClickListener() {
         @Override
@@ -66,7 +67,7 @@ public class MissedCallActivity extends InjectingActivity {
         @Override
         public void onClick(final View v) {
             // Check for number of ignore presses
-            int ignorePresses = Preferences.getInt(PREF_IGNORE_PRESSES, 0);
+            int ignorePresses = preferences.getInt(PREF_IGNORE_PRESSES, 0);
             ignorePresses++;
             if (ignorePresses == IGNORE_PROMPT_COUNT) {
                 DialogUtilities.okCancelCustomDialog(MissedCallActivity.this,
@@ -78,7 +79,7 @@ public class MissedCallActivity extends InjectingActivity {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Preferences.setBoolean(R.string.p_field_missed_calls, false);
+                                preferences.setBoolean(R.string.p_field_missed_calls, false);
                                 dismissListener.onClick(v);
                             }
                         },
@@ -91,7 +92,7 @@ public class MissedCallActivity extends InjectingActivity {
             } else {
                 dismissListener.onClick(v);
             }
-            Preferences.setInt(PREF_IGNORE_PRESSES, ignorePresses);
+            preferences.setInt(PREF_IGNORE_PRESSES, ignorePresses);
         }
     };
 

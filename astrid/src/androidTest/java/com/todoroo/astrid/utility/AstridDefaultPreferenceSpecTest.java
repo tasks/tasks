@@ -3,28 +3,27 @@ package com.todoroo.astrid.utility;
 import android.annotation.SuppressLint;
 import android.test.AndroidTestCase;
 
-import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.andlib.service.ContextManager;
 
 import org.tasks.R;
+import org.tasks.preferences.Preferences;
 
 import java.util.concurrent.TimeUnit;
-
-import static com.todoroo.andlib.utility.Preferences.getBoolean;
-import static com.todoroo.andlib.utility.Preferences.getInt;
-import static com.todoroo.andlib.utility.Preferences.setStringFromInteger;
-import static com.todoroo.astrid.utility.AstridDefaultPreferenceSpec.migrateToNewQuietHours;
-import static org.tasks.TestUtilities.clearPreferences;
 
 public class AstridDefaultPreferenceSpecTest extends AndroidTestCase {
 
     @SuppressLint("NewApi")
     private static final int MILLIS_PER_HOUR = (int) TimeUnit.HOURS.toMillis(1);
 
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
+    Preferences preferences;
+    AstridDefaultPreferenceSpec spec;
 
-        clearPreferences(getContext());
+    @Override
+    public void setUp() {
+        preferences = new Preferences(getContext());
+        spec = new AstridDefaultPreferenceSpec(getContext(), preferences);
+
+        preferences.clear();
 
         assertFalse(hasMigrated());
     }
@@ -32,15 +31,15 @@ public class AstridDefaultPreferenceSpecTest extends AndroidTestCase {
     public void testQuietHoursEnabledAfterMigration() {
         setOldQuietHoursStart(1);
 
-        migrateToNewQuietHours();
+        spec.migrateToNewQuietHours();
 
         assertTrue(quietHoursEnabled());
     }
 
     public void testQuietHoursDisabledAfterMigration() {
-        Preferences.setString(R.string.p_rmd_quietStart_old, "");
+        setString(R.string.p_rmd_quietStart_old, "");
 
-        migrateToNewQuietHours();
+        spec.migrateToNewQuietHours();
 
         assertFalse(quietHoursEnabled());
     }
@@ -48,7 +47,7 @@ public class AstridDefaultPreferenceSpecTest extends AndroidTestCase {
     public void testMigrateFromStartOfDefaultReminderTimeArray() {
         setOldReminderTime(0);
 
-        migrateToNewQuietHours();
+        spec.migrateToNewQuietHours();
 
         assertEquals(0, newReminderTime());
     }
@@ -56,7 +55,7 @@ public class AstridDefaultPreferenceSpecTest extends AndroidTestCase {
     public void testMigrateFromEndOfDefaultReminderTimeArray() {
         setOldReminderTime(23);
 
-        migrateToNewQuietHours();
+        spec.migrateToNewQuietHours();
 
         assertEquals(23 * MILLIS_PER_HOUR, newReminderTime());
     }
@@ -64,7 +63,7 @@ public class AstridDefaultPreferenceSpecTest extends AndroidTestCase {
     public void testMigrateFromStartOfQuietHourStartArray() {
         setOldQuietHoursStart(1);
 
-        migrateToNewQuietHours();
+        spec.migrateToNewQuietHours();
 
         assertEquals(MILLIS_PER_HOUR, newQuietHoursStartTime());
     }
@@ -72,7 +71,7 @@ public class AstridDefaultPreferenceSpecTest extends AndroidTestCase {
     public void testMigrateFromEndOfQuietHoursStartArray() {
         setOldQuietHoursStart(23);
 
-        migrateToNewQuietHours();
+        spec.migrateToNewQuietHours();
 
         assertEquals(23 * MILLIS_PER_HOUR, newQuietHoursStartTime());
     }
@@ -81,7 +80,7 @@ public class AstridDefaultPreferenceSpecTest extends AndroidTestCase {
         setOldQuietHoursStart(1);
         setOldQuietHoursEnd(0);
 
-        migrateToNewQuietHours();
+        spec.migrateToNewQuietHours();
 
         assertEquals(0, newQuietHoursEndTime());
     }
@@ -90,40 +89,47 @@ public class AstridDefaultPreferenceSpecTest extends AndroidTestCase {
         setOldQuietHoursStart(1);
         setOldQuietHoursEnd(23);
 
-        migrateToNewQuietHours();
+        spec.migrateToNewQuietHours();
 
         assertEquals(23 * MILLIS_PER_HOUR, newQuietHoursEndTime());
     }
 
     private boolean quietHoursEnabled() {
-        return getBoolean(R.string.p_rmd_enable_quiet);
+        return preferences.getBoolean(R.string.p_rmd_enable_quiet);
     }
 
     private boolean hasMigrated() {
-        return getBoolean(R.string.p_rmd_hasMigrated);
+        return preferences.getBoolean(R.string.p_rmd_hasMigrated);
     }
 
     private void setOldQuietHoursStart(int index) {
-        setStringFromInteger(R.string.p_rmd_quietStart_old, index);
+        preferences.setStringFromInteger(R.string.p_rmd_quietStart_old, index);
     }
 
     private void setOldQuietHoursEnd(int index) {
-        setStringFromInteger(R.string.p_rmd_quietEnd_old, index);
+        preferences.setStringFromInteger(R.string.p_rmd_quietEnd_old, index);
     }
 
     private void setOldReminderTime(int index) {
-        setStringFromInteger(R.string.p_rmd_time_old, index);
+        preferences.setStringFromInteger(R.string.p_rmd_time_old, index);
     }
 
     private int newQuietHoursStartTime() {
-        return getInt(R.string.p_rmd_quietStart);
+        return preferences.getInt(R.string.p_rmd_quietStart);
     }
 
     private int newQuietHoursEndTime() {
-        return getInt(R.string.p_rmd_quietEnd);
+        return preferences.getInt(R.string.p_rmd_quietEnd);
     }
 
     private int newReminderTime() {
-        return getInt(R.string.p_rmd_time);
+        return preferences.getInt(R.string.p_rmd_time);
+    }
+
+    /**
+     * Sets string preference
+     */
+    private void setString(int resourceId, String value) {
+        preferences.setString(ContextManager.getContext().getString(resourceId), value);
     }
 }

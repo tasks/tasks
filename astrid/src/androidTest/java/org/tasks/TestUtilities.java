@@ -2,8 +2,6 @@ package org.tasks;
 
 import android.content.Context;
 
-import org.tasks.preferences.Preferences;
-
 public class TestUtilities {
     private static boolean mockitoInitialized;
 
@@ -13,9 +11,5 @@ public class TestUtilities {
             System.setProperty("dexmaker.dexcache", context.getCacheDir().toString());
             mockitoInitialized = true;
         }
-    }
-
-    public static void clearPreferences(Context context) {
-        new Preferences(context).clear();
     }
 }

@@ -3,12 +3,12 @@ package com.todoroo.astrid.reminders;
 import android.annotation.SuppressLint;
 import android.test.AndroidTestCase;
 
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;
 
 import org.joda.time.DateTime;
 import org.tasks.Freeze;
 import org.tasks.R;
+import org.tasks.preferences.Preferences;
 
 import java.util.concurrent.TimeUnit;
 
@@ -28,10 +28,12 @@ public class NotifyAtDeadlineTest extends AndroidTestCase {
     }};
 
     private ReminderService reminderService;
+    private Preferences preferences;
 
     @Override
     public void setUp() {
-        reminderService = new ReminderService(getContext());
+        preferences = new Preferences(getContext());
+        reminderService = new ReminderService(getContext(), preferences);
         freezeAt(new DateTime(2014, 1, 24, 17, 23, 37));
     }
 
@@ -87,7 +89,7 @@ public class NotifyAtDeadlineTest extends AndroidTestCase {
     public void testDuringQuietHoursSetNotificationAtEnd() {
         setQuietHours(0, 10);
         Freeze.freezeAt(new DateTime(2014, 1, 27, 9, 13, 37, 501));
-        Preferences.setInt(R.string.p_rmd_time, 8 * MILLIS_PER_HOUR);
+        preferences.setInt(R.string.p_rmd_time, 8 * MILLIS_PER_HOUR);
         Task task = new Task() {{
             setDueDate(Task.URGENCY_SPECIFIC_DAY, newDate(2014, 1, 27).getTime());
             setReminderFlags(Task.NOTIFY_AT_DEADLINE);
@@ -100,7 +102,7 @@ public class NotifyAtDeadlineTest extends AndroidTestCase {
     public void testAfterQuietHoursSetNotificationOnePeriodCloserToDueDate() {
         setQuietHours(0, 10);
         Freeze.freezeAt(new DateTime(2014, 1, 27, 11, 13, 37, 501));
-        Preferences.setInt(R.string.p_rmd_time, 8 * MILLIS_PER_HOUR);
+        preferences.setInt(R.string.p_rmd_time, 8 * MILLIS_PER_HOUR);
         Task task = new Task() {{
             setDueDate(Task.URGENCY_SPECIFIC_DAY, newDate(2014, 1, 27).getTime());
             setReminderFlags(Task.NOTIFY_AT_DEADLINE);
@@ -113,7 +115,7 @@ public class NotifyAtDeadlineTest extends AndroidTestCase {
     public void testBeforeQuietStartDueDateMoreThanOnePeriodAfterEnd() {
         setQuietHours(2, 11);
         Freeze.freezeAt(new DateTime(2014, 1, 27, 1, 53, 37, 509));
-        Preferences.setInt(R.string.p_rmd_time, MILLIS_PER_HOUR);
+        preferences.setInt(R.string.p_rmd_time, MILLIS_PER_HOUR);
         Task task = new Task() {{
             setDueDate(Task.URGENCY_SPECIFIC_DAY, newDate(2014, 1, 27).getTime());
             setReminderFlags(Task.NOTIFY_AT_DEADLINE);
@@ -126,7 +128,7 @@ public class NotifyAtDeadlineTest extends AndroidTestCase {
     public void testBeforeQuietStartDueDateLessThanOnePeriodAfterEnd() {
         setQuietHours(3, 11);
         Freeze.freezeAt(new DateTime(2014, 1, 27, 1, 53, 37, 509));
-        Preferences.setInt(R.string.p_rmd_time, MILLIS_PER_HOUR);
+        preferences.setInt(R.string.p_rmd_time, MILLIS_PER_HOUR);
         assertEquals(
                 new DateTime(2014, 1, 27, 2, 10, 13, 131).getMillis(),
                 reminderService.calculateNextDueDateReminder(dueAtNoon));
@@ -135,7 +137,7 @@ public class NotifyAtDeadlineTest extends AndroidTestCase {
     public void testNoAlarmAfterQuietHoursStartWithWrap() {
         setQuietHours(10, 1);
         Freeze.freezeAt(new DateTime(2014, 1, 27, 10, 0, 0, 0));
-        Preferences.setInt(R.string.p_rmd_time, 8 * MILLIS_PER_HOUR);
+        preferences.setInt(R.string.p_rmd_time, 8 * MILLIS_PER_HOUR);
         assertEquals(
                 NO_ALARM,
                 reminderService.calculateNextDueDateReminder(dueAtNoon));
@@ -144,7 +146,7 @@ public class NotifyAtDeadlineTest extends AndroidTestCase {
     public void testSetToQuietAlarmEndWithWrap() {
         setQuietHours(22, 11);
         Freeze.freezeAt(new DateTime(2014, 1, 27, 10, 59, 59, 999));
-        Preferences.setInt(R.string.p_rmd_time, 8 * MILLIS_PER_HOUR);
+        preferences.setInt(R.string.p_rmd_time, 8 * MILLIS_PER_HOUR);
         assertEquals(
                 new DateTime(2014, 1, 27, 11, 0, 0, 0).getMillis(),
                 reminderService.calculateNextDueDateReminder(dueAtNoon));
@@ -153,7 +155,7 @@ public class NotifyAtDeadlineTest extends AndroidTestCase {
     public void testSetReminderOnePeriodFromNowBeforeQuietHourStartWithWrap() {
         setQuietHours(22, 11);
         Freeze.freezeAt(new DateTime(2014, 1, 27, 11, 0, 0, 0));
-        Preferences.setInt(R.string.p_rmd_time, 8 * MILLIS_PER_HOUR);
+        preferences.setInt(R.string.p_rmd_time, 8 * MILLIS_PER_HOUR);
         assertEquals(
                 // wtf? this is after due date
                 new DateTime(2014, 1, 27, 13, 45, 0, 0).getMillis(),
@@ -162,16 +164,16 @@ public class NotifyAtDeadlineTest extends AndroidTestCase {
 
     public void testSetReminderOnePeriodFromNowNoQuietHours() {
         Freeze.freezeAt(new DateTime(2014, 1, 27, 11, 0, 0, 0));
-        Preferences.setBoolean(R.string.p_rmd_enable_quiet, false);
-        Preferences.setInt(R.string.p_rmd_time, 8 * MILLIS_PER_HOUR);
+        preferences.setBoolean(R.string.p_rmd_enable_quiet, false);
+        preferences.setInt(R.string.p_rmd_time, 8 * MILLIS_PER_HOUR);
         assertEquals(
                 new DateTime(2014, 1, 27, 11, 15, 0, 0).getMillis(),
                 reminderService.calculateNextDueDateReminder(dueAtNoon));
     }
 
     private void setQuietHours(int start, int end) {
-        Preferences.setBoolean(R.string.p_rmd_enable_quiet, true);
-        Preferences.setInt(R.string.p_rmd_quietStart, start * MILLIS_PER_HOUR);
-        Preferences.setInt(R.string.p_rmd_quietEnd, end * MILLIS_PER_HOUR);
+        preferences.setBoolean(R.string.p_rmd_enable_quiet, true);
+        preferences.setInt(R.string.p_rmd_quietStart, start * MILLIS_PER_HOUR);
+        preferences.setInt(R.string.p_rmd_quietEnd, end * MILLIS_PER_HOUR);
     }
 }

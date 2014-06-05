@@ -7,9 +7,9 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 
 import org.tasks.injection.ForApplication;
+import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -22,11 +22,13 @@ public class GtasksScheduler {
 
     private final GtasksPreferenceService gtasksPreferenceService;
     private Context context;
+    private Preferences preferences;
 
     @Inject
-    public GtasksScheduler(GtasksPreferenceService gtasksPreferenceService, @ForApplication Context context) {
+    public GtasksScheduler(GtasksPreferenceService gtasksPreferenceService, @ForApplication Context context, Preferences preferences) {
         this.gtasksPreferenceService = gtasksPreferenceService;
         this.context = context;
+        this.preferences = preferences;
     }
 
     /**
@@ -35,10 +37,10 @@ public class GtasksScheduler {
     public void scheduleService() {
         int syncFrequencySeconds = 0;
         try {
-            syncFrequencySeconds = Preferences.getIntegerFromString(
+            syncFrequencySeconds = preferences.getIntegerFromString(
                     gtasksPreferenceService.getSyncIntervalKey(), -1);
         } catch(ClassCastException e) {
-            Preferences.setStringFromInteger(gtasksPreferenceService.getSyncIntervalKey(), 0);
+            preferences.setStringFromInteger(gtasksPreferenceService.getSyncIntervalKey(), 0);
         }
         if(syncFrequencySeconds <= 0) {
             unscheduleService(context);
