@@ -10,13 +10,17 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.util.Log;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.gcal.Calendars;
+import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.utility.TodorooPreferenceActivity;
 
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.inject.Inject;
 
@@ -29,6 +33,7 @@ import javax.inject.Inject;
 public class DefaultsPreferences extends TodorooPreferenceActivity {
 
     @Inject Preferences preferences;
+    @Inject GCalHelper calendarHelper;
 
     @Override
     public int getPreferenceResource() {
@@ -39,8 +44,7 @@ public class DefaultsPreferences extends TodorooPreferenceActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ListPreference defaultCalendarPreference = (ListPreference) findPreference(getString(R.string.gcal_p_default));
-        Calendars.initCalendarsPreference(this, defaultCalendarPreference);
+        initCalendarsPreference((ListPreference) findPreference(getString(R.string.gcal_p_default)));
     }
 
     @Override
@@ -113,4 +117,61 @@ public class DefaultsPreferences extends TodorooPreferenceActivity {
         }
     }
 
+    /**
+     * Appends all user-modifiable calendars to listPreference.
+     *
+     * @param listPreference
+     *            preference to init
+     */
+    private void initCalendarsPreference(ListPreference listPreference) {
+        Resources r = getResources();
+        GCalHelper.CalendarResult calendars = calendarHelper.getCalendars();
+
+        // Fetch the current setting. Invalid calendar id will
+        // be changed to default value.
+        String currentSetting = preferences.getStringValue(R.string.gcal_p_default);
+
+        int currentSettingIndex = -1;
+
+        ArrayList<CharSequence> entries = new ArrayList<>();
+        entries.addAll(Arrays.asList(r.getStringArray(R.array.EPr_default_addtocalendar)));
+        entries.addAll(Arrays.asList(calendars.calendars));
+
+        ArrayList<CharSequence> entryValues = new ArrayList<>();
+        entryValues.addAll(Arrays.asList(r.getStringArray(R.array.EPr_default_addtocalendar_values)));
+        entryValues.addAll(Arrays.asList(calendars.calendarIds));
+
+        listPreference.setEntries(entries.toArray(new CharSequence[entries.size()]));
+        listPreference.setEntryValues(entryValues.toArray(new CharSequence[entryValues.size()]));
+
+        listPreference.setValueIndex(0);
+        listPreference.setEnabled(true);
+
+        if (calendars.calendarIds.length == 0 || calendars.calendars.length == 0) {
+            // Something went wrong when querying calendars
+            // Leave the preference at disabled.
+            return;
+        }
+
+        // Iterate calendars one by one, and fill up the list preference
+        if (currentSetting != null) {
+            for (int i=0; i<calendars.calendarIds.length; i++) {
+                // We found currently selected calendar
+                if (currentSetting.equals(calendars.calendarIds[i])) {
+                    currentSettingIndex = i+1; // +1 correction for disabled-entry
+                    break;
+                }
+            }
+        }
+
+        if(currentSettingIndex == -1 || currentSettingIndex > calendars.calendarIds.length+1) {
+            // Should not happen!
+            // Leave the preference at disabled.
+            Log.d("astrid", "initCalendarsPreference: Unknown calendar.");
+            currentSettingIndex = 0;
+        }
+
+        listPreference.setValueIndex(currentSettingIndex);
+        listPreference.setEnabled(true);
+    }
 }

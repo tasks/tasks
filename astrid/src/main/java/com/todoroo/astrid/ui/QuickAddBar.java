@@ -283,7 +283,7 @@ public class QuickAddBar extends LinearLayout {
 
             resetControlSets();
 
-            addToCalendar(preferences, gcalHelper, taskService, task, title);
+            addToCalendar(gcalHelper, taskService, task, title);
 
             TextView quickAdd = (TextView) findViewById(R.id.quickAddText);
             quickAdd.setText(""); //$NON-NLS-1$
@@ -307,9 +307,9 @@ public class QuickAddBar extends LinearLayout {
         }
     }
 
-    private static void addToCalendar(Preferences preferences, GCalHelper gcalHelper, TaskService taskService, Task task, String title) {
-        boolean gcalCreateEventEnabled = preferences.getStringValue(R.string.gcal_p_default) != null
-                && !preferences.getStringValue(R.string.gcal_p_default).equals("-1") && task.hasDueDate(); //$NON-NLS-1$
+    private static void addToCalendar(GCalHelper gcalHelper, TaskService taskService, Task task, String title) {
+        boolean gcalCreateEventEnabled = gcalHelper.getDefaultCalendar() != null
+                && !gcalHelper.getDefaultCalendar().equals("-1") && task.hasDueDate(); //$NON-NLS-1$
 
         if (!TextUtils.isEmpty(title) && gcalCreateEventEnabled && TextUtils.isEmpty(task.getCalendarURI())) {
             Uri calendarUri = gcalHelper.createTaskEvent(task,
@@ -324,7 +324,7 @@ public class QuickAddBar extends LinearLayout {
      * Static method to quickly add tasks without all the control set nonsense.
      * Used from the share link activity.
      */
-    public static Task basicQuickAddTask(Preferences preferences, GCalHelper gcalHelper, TaskService taskService, MetadataService metadataService, TagService tagService, String title) {
+    public static Task basicQuickAddTask(GCalHelper gcalHelper, TaskService taskService, MetadataService metadataService, TagService tagService, String title) {
         if (TextUtils.isEmpty(title)) {
             return null;
         }
@@ -332,7 +332,7 @@ public class QuickAddBar extends LinearLayout {
         title = title.trim();
 
         Task task = TaskService.createWithValues(taskService, metadataService, tagService, null, title);
-        addToCalendar(preferences, gcalHelper, taskService, task, title);
+        addToCalendar(gcalHelper, taskService, task, title);
 
         return task;
     }

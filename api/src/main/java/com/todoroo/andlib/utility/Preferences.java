@@ -24,7 +24,7 @@ public class Preferences {
     private static SharedPreferences preferences = null;
 
     /** Get preferences object from the context */
-    public static SharedPreferences getPrefs(Context context) {
+    private static SharedPreferences getPrefs(Context context) {
         if(preferences != null) {
             return preferences;
         }
@@ -53,15 +53,6 @@ public class Preferences {
     public static String getStringValue(String key) {
         Context context = ContextManager.getContext();
         return getPrefs(context).getString(key, null);
-    }
-
-    /** Gets an string value from a string preference. Returns null
-     * if the value is not set
-     * @return integer value, or null on error
-     */
-    public static String getStringValue(int keyResource) {
-        Context context = ContextManager.getContext();
-        return getPrefs(context).getString(context.getResources().getString(keyResource), null);
     }
 
     /** Gets an integer value from a string preference. Returns null

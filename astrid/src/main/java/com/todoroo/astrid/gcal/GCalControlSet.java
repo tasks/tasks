@@ -24,9 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gcal.Calendars.CalendarResult;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.PopupControlSet;
 
@@ -53,7 +51,7 @@ public class GCalControlSet extends PopupControlSet {
 
     private Uri calendarUri = null;
 
-    private final CalendarResult calendars;
+    private final GCalHelper.CalendarResult calendars;
     private boolean hasEvent = false;
     private Spinner calendarSelector;
     private final int title;
@@ -63,7 +61,7 @@ public class GCalControlSet extends PopupControlSet {
         super(activity, viewLayout, displayViewLayout, title);
         this.gcal = gcal;
         this.title = title;
-        calendars = Calendars.getCalendars();
+        this.calendars = gcal.getCalendars();
         getView(); // Hack to force initialized
         image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
     }
@@ -142,8 +140,8 @@ public class GCalControlSet extends PopupControlSet {
             return;
         }
 
-        boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null &&
-                                        !Preferences.getStringValue(R.string.gcal_p_default).equals("-1");
+        boolean gcalCreateEventEnabled = gcal.getDefaultCalendar() != null &&
+                                        !gcal.getDefaultCalendar().equals("-1");
         if ((gcalCreateEventEnabled || calendarSelector.getSelectedItemPosition() != 0) &&
                 calendarUri == null) {
 

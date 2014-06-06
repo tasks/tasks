@@ -23,10 +23,12 @@ import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.utility.Preferences;
 
 import org.tasks.injection.InjectingPreferenceActivity;
+import org.tasks.preferences.Preferences;
 import org.tasks.ui.TimePreference;
+
+import javax.inject.Inject;
 
 /**
  * Displays a preference screen for users to edit their preferences. Override
@@ -49,6 +51,8 @@ abstract public class TodorooPreferenceActivity extends InjectingPreferenceActiv
 
     // --- implementation
 
+    @Inject Preferences preferences;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +63,7 @@ abstract public class TodorooPreferenceActivity extends InjectingPreferenceActiv
 
     @Override
     public SharedPreferences getSharedPreferences(String name, int mode) {
-        return Preferences.getPrefs(this);
+        return preferences.getPrefs();
     }
 
     protected void initializePreference(Preference preference) {
