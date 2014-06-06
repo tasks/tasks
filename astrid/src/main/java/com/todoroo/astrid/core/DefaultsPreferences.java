@@ -13,9 +13,9 @@ import android.preference.Preference;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.gcal.Calendars;
+import com.todoroo.astrid.utility.TodorooPreferenceActivity;
 
 import org.tasks.R;
-import org.tasks.injection.InjectingTodorooPreferenceActivity;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
@@ -26,7 +26,7 @@ import javax.inject.Inject;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class DefaultsPreferences extends InjectingTodorooPreferenceActivity {
+public class DefaultsPreferences extends TodorooPreferenceActivity {
 
     @Inject Preferences preferences;
 

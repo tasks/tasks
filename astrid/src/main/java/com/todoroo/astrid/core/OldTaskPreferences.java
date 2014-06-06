@@ -23,9 +23,9 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.utility.TodorooPreferenceActivity;
 
 import org.tasks.R;
-import org.tasks.injection.InjectingTodorooPreferenceActivity;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
@@ -36,7 +36,7 @@ import javax.inject.Inject;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class OldTaskPreferences extends InjectingTodorooPreferenceActivity {
+public class OldTaskPreferences extends TodorooPreferenceActivity {
 
     @Inject TaskService taskService;
     @Inject MetadataService metadataService;

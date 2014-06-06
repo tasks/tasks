@@ -23,6 +23,7 @@ import com.todoroo.astrid.gtasks.GtasksFilterExposer;
 import com.todoroo.astrid.gtasks.GtasksListAdder;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
+import com.todoroo.astrid.reminders.ReminderPreferences;
 import com.todoroo.astrid.tags.DeleteTagActivity;
 import com.todoroo.astrid.tags.RenameTagActivity;
 import com.todoroo.astrid.tags.TagFilterExposer;
@@ -63,7 +64,8 @@ import dagger.Provides;
         GtasksFilterExposer.class,
         TagFilterExposer.class,
         BeastModePreferences.class,
-        DefaultsPreferences.class
+        DefaultsPreferences.class,
+        ReminderPreferences.class
 })
 public class ActivityModule {
 

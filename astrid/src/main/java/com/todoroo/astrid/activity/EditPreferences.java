@@ -37,12 +37,12 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
+import com.todoroo.astrid.utility.TodorooPreferenceActivity;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 import com.todoroo.astrid.voice.VoiceOutputService;
 import com.todoroo.astrid.voice.VoiceRecognizer;
 
 import org.tasks.R;
-import org.tasks.injection.InjectingTodorooPreferenceActivity;
 import org.tasks.preferences.Preferences;
 import org.tasks.widget.WidgetHelper;
 
@@ -60,7 +60,7 @@ import javax.inject.Inject;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class EditPreferences extends InjectingTodorooPreferenceActivity {
+public class EditPreferences extends TodorooPreferenceActivity {
 
     private static final int REQUEST_CODE_SYNC = 0;
     private static final int REQUEST_CODE_FILES_DIR = 2;

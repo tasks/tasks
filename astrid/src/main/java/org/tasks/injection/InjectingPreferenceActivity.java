@@ -1,12 +1,11 @@
 package org.tasks.injection;
 
 import android.os.Bundle;
-
-import com.todoroo.andlib.utility.TodorooPreferenceActivity;
+import android.preference.PreferenceActivity;
 
 import dagger.ObjectGraph;
 
-public abstract class InjectingTodorooPreferenceActivity extends TodorooPreferenceActivity implements Injector {
+public abstract class InjectingPreferenceActivity extends PreferenceActivity implements Injector {
     private ObjectGraph objectGraph;
 
     @Override

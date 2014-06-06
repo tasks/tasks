@@ -16,9 +16,9 @@ import android.view.ViewGroup.OnHierarchyChangeListener;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.utility.Flags;
+import com.todoroo.astrid.utility.TodorooPreferenceActivity;
 
 import org.tasks.R;
-import org.tasks.injection.InjectingTodorooPreferenceActivity;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
@@ -32,7 +32,7 @@ import static org.tasks.date.DateTimeUtils.newDate;
  * @author timsu
  *
  */
-public class BackupPreferences extends InjectingTodorooPreferenceActivity {
+public class BackupPreferences extends TodorooPreferenceActivity {
 
     static final String PREF_BACKUP_LAST_DATE = "backupDate"; //$NON-NLS-1$
 

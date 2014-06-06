@@ -8,7 +8,7 @@ package com.todoroo.astrid.reminders;
 import android.content.res.Resources;
 import android.preference.Preference;
 
-import com.todoroo.andlib.utility.TodorooPreferenceActivity;
+import com.todoroo.astrid.utility.TodorooPreferenceActivity;
 
 import org.joda.time.DateTime;
 import org.tasks.R;

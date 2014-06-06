@@ -3,7 +3,7 @@
  *
  * See the file "LICENSE" for the full license governing this code.
  */
-package com.todoroo.andlib.utility;
+package com.todoroo.astrid.utility;
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
@@ -18,12 +18,14 @@ import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.utility.Preferences;
+
+import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.ui.TimePreference;
 
 /**
@@ -33,7 +35,7 @@ import org.tasks.ui.TimePreference;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-abstract public class TodorooPreferenceActivity extends PreferenceActivity {
+abstract public class TodorooPreferenceActivity extends InjectingPreferenceActivity {
 
     // --- abstract methods
 
@@ -103,5 +105,4 @@ abstract public class TodorooPreferenceActivity extends PreferenceActivity {
             initializePreference(getPreferenceScreen());
         }
     }
-
 }
