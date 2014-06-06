@@ -35,15 +35,13 @@ public class GtasksInvoker {
 
     private Tasks service;
     private GoogleAccessProtectedResource accessProtectedResource;
+    private final GtasksTokenValidator gtasksTokenValidator;
     private String token;
 
     public static final String AUTH_TOKEN_TYPE = "Manage your tasks"; //"oauth2:https://www.googleapis.com/auth/tasks";
 
-    public GtasksInvoker(String authToken) {
-        authenticate(authToken);
-    }
-
-    public void authenticate(String authToken) {
+    public GtasksInvoker(GtasksTokenValidator gtasksTokenValidator, String authToken) {
+        this.gtasksTokenValidator = gtasksTokenValidator;
         this.token = authToken;
         accessProtectedResource = new GoogleAccessProtectedResource(authToken);
 
@@ -62,7 +60,7 @@ public class GtasksInvoker {
             int statusCode = h.getResponse().getStatusCode();
             if (statusCode == 401 || statusCode == 403) {
                 System.err.println("Encountered " + statusCode + " error");
-                token = GtasksTokenValidator.validateAuthToken(ContextManager.getContext(), token);
+                token = gtasksTokenValidator.validateAuthToken(ContextManager.getContext(), token);
                 if (token != null) {
                     accessProtectedResource.setAccessToken(token);
                 }

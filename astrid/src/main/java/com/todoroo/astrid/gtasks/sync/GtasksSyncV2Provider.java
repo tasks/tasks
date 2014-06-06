@@ -66,11 +66,13 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     private final GtasksTaskListUpdater gtasksTaskListUpdater;
     private final Context context;
     private final Preferences preferences;
+    private final GtasksTokenValidator gtasksTokenValidator;
 
     @Inject
     public GtasksSyncV2Provider(TaskService taskService, MetadataService metadataService, StoreObjectDao storeObjectDao, GtasksPreferenceService gtasksPreferenceService,
                                 GtasksSyncService gtasksSyncService, GtasksListService gtasksListService, GtasksMetadataService gtasksMetadataService,
-                                GtasksTaskListUpdater gtasksTaskListUpdater, @ForApplication Context context, Preferences preferences) {
+                                GtasksTaskListUpdater gtasksTaskListUpdater, @ForApplication Context context, Preferences preferences,
+                                GtasksTokenValidator gtasksTokenValidator) {
         this.taskService = taskService;
         this.metadataService = metadataService;
         this.storeObjectDao = storeObjectDao;
@@ -81,6 +83,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         this.gtasksTaskListUpdater = gtasksTaskListUpdater;
         this.context = context;
         this.preferences = preferences;
+        this.gtasksTokenValidator = gtasksTokenValidator;
     }
 
     @Override
@@ -118,7 +121,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
             @Override
             public void run() {
                 String authToken = getValidatedAuthToken();
-                final GtasksInvoker invoker = new GtasksInvoker(authToken);
+                final GtasksInvoker invoker = new GtasksInvoker(gtasksTokenValidator, authToken);
                 try {
                     gtasksListService.updateLists(invoker.allGtaskLists());
                 } catch (GoogleTasksException e) {
@@ -200,7 +203,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 try {
                     String authToken = getValidatedAuthToken();
                     gtasksSyncService.waitUntilEmpty();
-                    final GtasksInvoker service = new GtasksInvoker(authToken);
+                    final GtasksInvoker service = new GtasksInvoker(gtasksTokenValidator, authToken);
                     synchronizeListHelper(gtasksList, service, manual, null, isImport);
                 } finally {
                     callback.finished();
@@ -212,7 +215,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     private String getValidatedAuthToken() {
         String authToken = gtasksPreferenceService.getToken();
         try {
-            authToken = GtasksTokenValidator.validateAuthToken(context, authToken);
+            authToken = gtasksTokenValidator.validateAuthToken(context, authToken);
             if (authToken != null) {
                 gtasksPreferenceService.setToken(authToken);
             }
@@ -221,7 +224,6 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         }
         return authToken;
     }
-
 
     private synchronized void synchronizeListHelper(StoreObject list, GtasksInvoker invoker,
             boolean manual, SyncExceptionHandler errorHandler, boolean isImport) {

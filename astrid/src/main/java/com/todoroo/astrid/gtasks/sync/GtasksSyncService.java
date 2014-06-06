@@ -25,6 +25,7 @@ import com.todoroo.astrid.gtasks.api.CreateRequest;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.MoveRequest;
+import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 
@@ -45,14 +46,18 @@ public class GtasksSyncService {
     private final GtasksMetadataService gtasksMetadataService;
     private final TaskDao taskDao;
     private final GtasksPreferenceService gtasksPreferenceService;
+    private final GtasksTokenValidator gtasksTokenValidator;
 
     @Inject
-    public GtasksSyncService(MetadataService metadataService, MetadataDao metadataDao, GtasksMetadataService gtasksMetadataService, TaskDao taskDao, GtasksPreferenceService gtasksPreferenceService) {
+    public GtasksSyncService(MetadataService metadataService, MetadataDao metadataDao,
+                             GtasksMetadataService gtasksMetadataService, TaskDao taskDao,
+                             GtasksPreferenceService gtasksPreferenceService, GtasksTokenValidator gtasksTokenValidator) {
         this.metadataService = metadataService;
         this.metadataDao = metadataDao;
         this.gtasksMetadataService = gtasksMetadataService;
         this.taskDao = taskDao;
         this.gtasksPreferenceService = gtasksPreferenceService;
+        this.gtasksTokenValidator = gtasksTokenValidator;
     }
 
     private final LinkedBlockingQueue<SyncOnSaveOperation> operationQueue = new LinkedBlockingQueue<>();
@@ -150,7 +155,7 @@ public class GtasksSyncService {
                     continue;
                 }
                 try {
-                    GtasksInvoker invoker = new GtasksInvoker(gtasksPreferenceService.getToken());
+                    GtasksInvoker invoker = new GtasksInvoker(gtasksTokenValidator, gtasksPreferenceService.getToken());
                     op.op(invoker);
                 } catch (IOException e) {
                     Log.w("gtasks-sync-error", "Sync on save failed", e);

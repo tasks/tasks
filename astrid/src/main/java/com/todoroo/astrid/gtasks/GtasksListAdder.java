@@ -30,6 +30,7 @@ public class GtasksListAdder extends InjectingActivity {
 
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject GtasksListService gtasksListService;
+    @Inject GtasksTokenValidator gtasksTokenValidator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +56,8 @@ public class GtasksListAdder extends InjectingActivity {
                         public void run() {
                             String token = gtasksPreferenceService.getToken();
                             try {
-                                token = GtasksTokenValidator.validateAuthToken(activity, token);
-                                GtasksInvoker service = new GtasksInvoker(token);
+                                token = gtasksTokenValidator.validateAuthToken(activity, token);
+                                GtasksInvoker service = new GtasksInvoker(gtasksTokenValidator, token);
                                 String title = editText.getText().toString();
                                 if (TextUtils.isEmpty(title)) //Don't create a list without a title
                                 {

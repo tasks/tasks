@@ -15,26 +15,37 @@ import android.os.Bundle;
 
 import com.google.api.client.googleapis.extensions.android2.auth.GoogleAccountManager;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.api.GoogleTasksException;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 
 import org.tasks.R;
+import org.tasks.preferences.Preferences;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public class GtasksTokenValidator {
 
     private static final String TOKEN_INTENT_RECEIVED = "intent!"; //$NON-NLS-1$
 
     private static final int REVALIDATION_TRIES = 4;
+    private final Preferences preferences;
+
+    @Inject
+    public GtasksTokenValidator(Preferences preferences) {
+        this.preferences = preferences;
+    }
+
     /**
      * Invalidates and then revalidates the auth token for the currently logged in user
      * Shouldn't be called from the main thread--will block on network calls
      * @return valid token on success, null on failure
      */
-    public static synchronized String validateAuthToken(Context c, String token) throws GoogleTasksException {
+    public synchronized String validateAuthToken(Context c, String token) throws GoogleTasksException {
         GoogleAccountManager accountManager = new GoogleAccountManager(ContextManager.getContext());
 
         if(testToken(token)) {
@@ -42,7 +53,7 @@ public class GtasksTokenValidator {
         }
 
         // If fail, token may have expired -- get a new one and return that
-        String accountName = Preferences.getStringValue(GtasksPreferenceService.PREF_USER_NAME);
+        String accountName = preferences.getStringValue(GtasksPreferenceService.PREF_USER_NAME);
         Account a = accountManager.getAccountByName(accountName);
         if (a == null) {
             throw new GoogleTasksException(c.getString(R.string.gtasks_error_accountNotFound, accountName), "account-not-found");
@@ -66,8 +77,8 @@ public class GtasksTokenValidator {
         throw new GoogleTasksException(c.getString(R.string.gtasks_error_authRefresh), "auth-token-refresh");
     }
 
-    private static boolean testToken(String token) {
-        GtasksInvoker testService = new GtasksInvoker(token);
+    private boolean testToken(String token) {
+        GtasksInvoker testService = new GtasksInvoker(this, token);
         try {
             testService.ping();
             return true;
@@ -76,7 +87,7 @@ public class GtasksTokenValidator {
         }
     }
 
-    private static String getTokenFromFuture(Context c, AccountManagerFuture<Bundle> future)
+    private String getTokenFromFuture(Context c, AccountManagerFuture<Bundle> future)
             throws GoogleTasksException {
         Bundle result;
         try {
