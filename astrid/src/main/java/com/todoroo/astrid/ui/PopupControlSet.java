@@ -16,13 +16,13 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.widget.Button;
 
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.service.ThemeService;
 
 import org.tasks.R;
+import org.tasks.preferences.ActivityPreferences;
 
 public abstract class PopupControlSet extends TaskEditControlSet {
 
@@ -95,11 +95,11 @@ public abstract class PopupControlSet extends TaskEditControlSet {
         params.width = LayoutParams.FILL_PARENT;
         params.height = LayoutParams.WRAP_CONTENT;
 
-        if (AndroidUtilities.isTabletSized(activity)) {
+        if (ActivityPreferences.isTabletSized(activity)) {
             DisplayMetrics metrics = activity.getResources().getDisplayMetrics();
-            if ((metrics.widthPixels / metrics.density) >= AndroidUtilities.MIN_TABLET_HEIGHT) {
+            if ((metrics.widthPixels / metrics.density) >= ActivityPreferences.MIN_TABLET_HEIGHT) {
                 params.width = (3 * metrics.widthPixels) / 5;
-            } else if ((metrics.widthPixels / metrics.density) >= AndroidUtilities.MIN_TABLET_WIDTH) {
+            } else if ((metrics.widthPixels / metrics.density) >= ActivityPreferences.MIN_TABLET_WIDTH) {
                 params.width = (4 * metrics.widthPixels) / 5;
             }
         }

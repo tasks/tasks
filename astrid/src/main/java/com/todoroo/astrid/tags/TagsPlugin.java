@@ -9,11 +9,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.todoroo.astrid.actfm.TagSettingsActivity;
-import com.todoroo.astrid.actfm.TagSettingsActivityTablet;
 import com.todoroo.astrid.api.Addon;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.utility.AstridPreferences;
 
 public class TagsPlugin extends BroadcastReceiver {
 
@@ -28,14 +25,4 @@ public class TagsPlugin extends BroadcastReceiver {
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, plugin);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
-
-
-    /**
-     * Create new tag data
-     */
-    public static Intent newTagDialog(Context context) {
-        Class<?> settingsComponent = AstridPreferences.useTabletLayout(context) ? TagSettingsActivityTablet.class : TagSettingsActivity.class;
-        return new Intent(context, settingsComponent);
-    }
-
 }

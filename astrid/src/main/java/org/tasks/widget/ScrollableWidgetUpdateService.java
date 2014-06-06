@@ -11,6 +11,7 @@ import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.injection.InjectingRemoteViewsService;
+import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
@@ -23,6 +24,7 @@ public class ScrollableWidgetUpdateService extends InjectingRemoteViewsService {
     @Inject TaskService taskService;
     @Inject TaskListMetadataDao taskListMetadataDao;
     @Inject TagDataService tagDataService;
+    @Inject Preferences preferences;
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
@@ -39,7 +41,7 @@ public class ScrollableWidgetUpdateService extends InjectingRemoteViewsService {
         Filter filter = (Filter) bundle.get(FILTER);
         int widgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
         boolean isDarkTheme = extras.getBoolean(IS_DARK_THEME);
-        return new ScrollableViewsFactory(this, filter, widgetId, isDarkTheme,
+        return new ScrollableViewsFactory(preferences, this, filter, widgetId, isDarkTheme,
                 database, taskService, taskListMetadataDao, tagDataService);
     }
 }

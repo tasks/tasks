@@ -1,12 +1,10 @@
 package com.todoroo.astrid.subtasks;
 
-import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.actfm.TagViewFragment;
@@ -23,17 +21,17 @@ import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
-import com.todoroo.astrid.utility.AstridPreferences;
+
+import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SubtasksHelper {
 
-    public static boolean shouldUseSubtasksFragmentForFilter(Filter filter) {
+    public static boolean shouldUseSubtasksFragmentForFilter(Preferences preferences, Filter filter) {
         if(filter == null || CoreFilterExposer.isInbox(filter) || CoreFilterExposer.isTodayFilter(filter) || SubtasksHelper.isTagFilter(filter)) {
-            SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(ContextManager.getContext());
-            int sortFlags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
+            int sortFlags = preferences.getSortFlags();
             if(SortHelper.isManualSort(sortFlags)) {
                 return true;
             }
@@ -60,8 +58,8 @@ public class SubtasksHelper {
         return false;
     }
 
-    public static String applySubtasksToWidgetFilter(TaskService taskService, TagDataService tagDataService, TaskListMetadataDao tlmd, Filter filter, String query, String tagName, int limit) {
-        if (SubtasksHelper.shouldUseSubtasksFragmentForFilter(filter)) {
+    public static String applySubtasksToWidgetFilter(Preferences preferences, TaskService taskService, TagDataService tagDataService, TaskListMetadataDao tlmd, Filter filter, String query, String tagName, int limit) {
+        if (SubtasksHelper.shouldUseSubtasksFragmentForFilter(preferences, filter)) {
             // care for manual ordering
             TagData tagData = tagDataService.getTagByName(tagName, TagData.UUID, TagData.TAG_ORDERING);
             TaskListMetadata tlm = null;

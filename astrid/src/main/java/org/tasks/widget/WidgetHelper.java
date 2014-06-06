@@ -26,13 +26,13 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagFilterExposer;
-import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.widget.TasksWidget;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
 import com.todoroo.astrid.widget.WidgetUpdateService;
 
 import org.tasks.R;
+import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
@@ -138,7 +138,7 @@ public class WidgetHelper {
 
     private PendingIntent getEditTaskIntent(Context context, Filter filter, int widgetId) {
         Intent intent = new Intent(context, TasksWidget.class);
-        if (AstridPreferences.useTabletLayout(context)) {
+        if (ActivityPreferences.isTabletSized(context)) {
             if (filter != null && filter instanceof FilterWithCustomIntent) {
                 Bundle customExtras = ((FilterWithCustomIntent) filter).customExtras;
                 intent.putExtras(customExtras);
@@ -149,7 +149,7 @@ public class WidgetHelper {
 
     public PendingIntent getNewTaskIntent(Context context, Filter filter, int id) {
         Intent intent;
-        boolean tablet = AstridPreferences.useTabletLayout(context);
+        boolean tablet = ActivityPreferences.isTabletSized(context);
         if (tablet) {
             intent = new Intent(context, TaskListActivity.class);
             intent.putExtra(TaskListActivity.OPEN_TASK, 0L);

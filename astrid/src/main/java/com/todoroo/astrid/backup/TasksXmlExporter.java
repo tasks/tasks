@@ -28,7 +28,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.utility.AstridPreferences;
 
 import org.tasks.R;
 import org.tasks.preferences.Preferences;

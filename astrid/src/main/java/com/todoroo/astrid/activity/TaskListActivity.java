@@ -27,6 +27,7 @@ import android.widget.FrameLayout;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
+import com.todoroo.astrid.actfm.TagSettingsActivityTablet;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
@@ -43,22 +44,22 @@ import com.todoroo.astrid.tags.DeleteTagActivity;
 import com.todoroo.astrid.tags.RenameTagActivity;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.tags.TagsPlugin;
 import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.QuickAddBar;
-import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 
 import net.simonvt.menudrawer.MenuDrawer;
 
 import org.tasks.R;
+import org.tasks.preferences.ActivityPreferences;
 
 import javax.inject.Inject;
 
 public class TaskListActivity extends AstridActivity implements OnPageChangeListener {
 
     @Inject TagDataDao tagDataDao;
+    @Inject ActivityPreferences preferences;
 
     MenuDrawer menuDrawer;
 
@@ -163,7 +164,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     }
 
     protected int getContentView() {
-        if (AstridPreferences.useTabletLayout(this)) {
+        if (preferences.useTabletLayout()) {
             return R.layout.task_list_wrapper_activity_3pane;
         } else {
             return R.layout.task_list_wrapper_activity_no_swipe;
@@ -278,12 +279,20 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
 
     private void newListFromLaunch() {
         Intent thisIntent = getIntent();
-        Intent newTagIntent = TagsPlugin.newTagDialog(this);
+        Intent newTagIntent = newTagDialog();
         newTagIntent.putExtra(TagSettingsActivity.TOKEN_AUTOPOPULATE_MEMBERS, thisIntent.getStringExtra(TOKEN_CREATE_NEW_LIST_MEMBERS));
         newTagIntent.putExtra(TagSettingsActivity.TOKEN_AUTOPOPULATE_NAME, thisIntent.getStringExtra(TOKEN_CREATE_NEW_LIST_NAME));
         thisIntent.removeExtra(TOKEN_CREATE_NEW_LIST_MEMBERS);
         thisIntent.removeExtra(TOKEN_CREATE_NEW_LIST_NAME);
         startActivityForResult(newTagIntent, FilterListFragment.REQUEST_NEW_LIST);
+    }
+
+    /**
+     * Create new tag data
+     */
+    private Intent newTagDialog() {
+        Class<?> settingsComponent = preferences.useTabletLayout() ? TagSettingsActivityTablet.class : TagSettingsActivity.class;
+        return new Intent(this, settingsComponent);
     }
 
     @Override
@@ -504,8 +513,8 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 startActivityForResult(intent, TaskListFragment.ACTIVITY_REQUEST_NEW_FILTER);
                 return true;
             case R.id.menu_new_list:
-                startActivityForResult(TagsPlugin.newTagDialog(this), FilterListFragment.REQUEST_NEW_LIST);
-                if (!AstridPreferences.useTabletLayout(this)) {
+                startActivityForResult(newTagDialog(), FilterListFragment.REQUEST_NEW_LIST);
+                if (!preferences.useTabletLayout()) {
                     AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_left_in, R.anim.slide_left_out);
                 }
                 return true;

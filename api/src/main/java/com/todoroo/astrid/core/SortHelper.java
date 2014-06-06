@@ -34,12 +34,6 @@ public class SortHelper {
     public static final int SORT_MODIFIED = 4;
     public static final int SORT_WIDGET = 5;
 
-    /** preference key for sort flags. stored in public prefs */
-    public static final String PREF_SORT_FLAGS = "sort_flags"; //$NON-NLS-1$
-
-    /** preference key for sort sort. stored in public prefs */
-    public static final String PREF_SORT_SORT = "sort_sort"; //$NON-NLS-1$
-
     /**
      * Takes a SQL query, and if there isn't already an order, creates an order.
      */

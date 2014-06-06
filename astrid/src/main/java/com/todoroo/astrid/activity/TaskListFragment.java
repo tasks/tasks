@@ -12,8 +12,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
@@ -70,7 +68,6 @@ import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskDuplicator;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.subtasks.SubtasksUpdater;
@@ -78,16 +75,16 @@ import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.ui.QuickAddBar;
-import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.widget.TasksWidget;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingListFragment;
-import org.tasks.notifications.NotificationManager;
 import org.tasks.injection.Injector;
+import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
 
 import java.util.List;
@@ -96,8 +93,6 @@ import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
-
-import static org.tasks.injection.ActivityModule.ForActivity;
 
 /**
  * Primary activity for the Bente application. Shows a list of upcoming tasks
@@ -142,7 +137,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     // --- instance variables
 
     @Inject TaskService taskService;
-    @Inject UpgradeService upgradeService;
     @Inject TaskListMetadataDao taskListMetadataDao;
     @Inject SyncV2Service syncService;
     @Inject TaskDeleter taskDeleter;
@@ -464,9 +458,8 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
             }
         });
 
-        SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(getActivity());
-        sortFlags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
-        sortSort = publicPrefs.getInt(SortHelper.PREF_SORT_SORT, 0);
+        sortFlags = preferences.getSortFlags();
+        sortSort = preferences.getSortMode();
         sortFlags = SortHelper.setManualSort(sortFlags, isDraggable());
     }
 
@@ -1074,16 +1067,9 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         sortSort = sort;
 
         if (always) {
-            SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(context);
-            if (publicPrefs != null) {
-                Editor editor = publicPrefs.edit();
-                if (editor != null) {
-                    editor.putInt(SortHelper.PREF_SORT_FLAGS, flags);
-                    editor.putInt(SortHelper.PREF_SORT_SORT, sort);
-                    editor.commit();
-                    TasksWidget.updateWidgets(context);
-                }
-            }
+            preferences.setSortFlags(flags);
+            preferences.setSortMode(sort);
+            TasksWidget.updateWidgets(context);
         }
 
         try {

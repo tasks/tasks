@@ -253,14 +253,14 @@ public class DateChangedAlerts {
         setInt(PREF_NUM_HELPERS_SHOWN, numShows);
     }
 
-    public static void setBoolean(int keyResource, boolean value) {
+    private static void setBoolean(int keyResource, boolean value) {
         Context context = ContextManager.getContext();
         SharedPreferences.Editor editor = Preferences.getPrefs(context).edit();
         editor.putBoolean(context.getString(keyResource), value);
         editor.commit();
     }
 
-    public static int getInt(String key, int defValue) {
+    private static int getInt(String key, int defValue) {
         Context context = ContextManager.getContext();
         return Preferences.getPrefs(context).getInt(key, defValue);
     }

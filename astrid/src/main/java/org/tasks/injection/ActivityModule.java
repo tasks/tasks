@@ -31,20 +31,10 @@ import com.todoroo.astrid.widget.WidgetConfigActivity;
 
 import org.tasks.voice.VoiceCommandActivity;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-
-import javax.inject.Qualifier;
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Module(injects = {
         TaskListActivity.class,
@@ -77,12 +67,12 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 })
 public class ActivityModule {
 
-    private final Context context;
-    private Injector injector;
+    private final Activity activity;
+    private final Injector injector;
 
     public ActivityModule(Activity activity, Injector injector) {
+        this.activity = activity;
         this.injector = injector;
-        context = activity.getApplicationContext();
     }
 
     @Singleton
@@ -95,13 +85,13 @@ public class ActivityModule {
     @Provides
     @ForApplication
     public Context getApplicationContext() {
-        return context;
+        return activity.getApplicationContext();
     }
 
-    @Qualifier
-    @Target({FIELD, PARAMETER, METHOD})
-    @Documented
-    @Retention(RUNTIME)
-    public @interface ForActivity {
+    @Singleton
+    @Provides
+    @ForActivity
+    public Context getActivityContext() {
+        return activity;
     }
 }

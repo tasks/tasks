@@ -47,10 +47,10 @@ import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.ThemeService;
-import com.todoroo.astrid.utility.AstridPreferences;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingActionBarActivity;
+import org.tasks.preferences.ActivityPreferences;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -147,6 +147,7 @@ public class CustomFilterActivity extends InjectingActionBarActivity {
 
     @Inject Database database;
     @Inject StoreObjectDao storeObjectDao;
+    @Inject ActivityPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,7 +179,7 @@ public class CustomFilterActivity extends InjectingActionBarActivity {
     }
 
     private void setupForDialogOrFullscreen() {
-        if (AstridPreferences.useTabletLayout(this)) {
+        if (preferences.useTabletLayout()) {
             setTheme(ThemeService.getDialogTheme());
         } else {
             ThemeService.applyTheme(this);
@@ -354,7 +355,7 @@ public class CustomFilterActivity extends InjectingActionBarActivity {
     @Override
     public void finish() {
         super.finish();
-        if (!AstridPreferences.useTabletLayout(this)) {
+        if (!preferences.useTabletLayout()) {
             AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_right_in, R.anim.slide_right_out);
         }
     }

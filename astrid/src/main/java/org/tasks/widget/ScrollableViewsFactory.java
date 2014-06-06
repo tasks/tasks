@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Paint;
 import android.os.Build;
@@ -14,7 +13,6 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -28,12 +26,12 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
-import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.widget.TasksWidget;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
 
 import org.tasks.R;
+import org.tasks.preferences.Preferences;
 
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
@@ -42,6 +40,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
     private final TaskService taskService;
     private final TaskListMetadataDao taskListMetadataDao;
     private final TagDataService tagDataService;
+    private final Preferences preferences;
     private final Context context;
     private final Filter filter;
     private final int widgetId;
@@ -50,6 +49,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
     private TodorooCursor<Task> cursor;
 
     public ScrollableViewsFactory(
+            Preferences preferences,
             Context context,
             Filter filter,
             int widgetId,
@@ -58,6 +58,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             TaskService taskService,
             TaskListMetadataDao taskListMetadataDao,
             TagDataService tagDataService) {
+        this.preferences = preferences;
         this.context = context;
         this.filter = filter;
         this.widgetId = widgetId;
@@ -191,10 +192,9 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             ((FilterWithCustomIntent) filter).customTaskList = new ComponentName(context, TagViewFragment.class); // In case legacy widget was created with subtasks fragment
         }
 
-        SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(context);
-        int flags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
+        int flags = preferences.getSortFlags();
         flags |= SortHelper.FLAG_SHOW_RECENTLY_COMPLETED;
-        int sort = publicPrefs.getInt(SortHelper.PREF_SORT_SORT, 0);
+        int sort = preferences.getSortMode();
         if(sort == 0) {
             sort = SortHelper.SORT_WIDGET;
         }
@@ -202,8 +202,8 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
         String query = SortHelper.adjustQueryForFlagsAndSort(
                 filter.getSqlQuery(), flags, sort).replaceAll("LIMIT \\d+", "");
 
-        String tagName = Preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
+        String tagName = preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
 
-        return SubtasksHelper.applySubtasksToWidgetFilter(taskService, tagDataService, taskListMetadataDao, filter, query, tagName, 0);
+        return SubtasksHelper.applySubtasksToWidgetFilter(preferences, taskService, tagDataService, taskListMetadataDao, filter, query, tagName, 0);
     }
 }

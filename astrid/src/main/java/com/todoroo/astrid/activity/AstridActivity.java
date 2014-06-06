@@ -39,6 +39,7 @@ import com.todoroo.astrid.voice.VoiceRecognizer;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingActionBarActivity;
+import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
@@ -85,6 +86,7 @@ public class AstridActivity extends InjectingActionBarActivity
     @Inject TaskService taskService;
     @Inject StartupService startupService;
     @Inject GCalHelper gcalHelper;
+    @Inject Preferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,7 +171,7 @@ public class AstridActivity extends InjectingActionBarActivity
     public void setupTasklistFragmentWithFilter(Filter filter, Bundle extras) {
         Class<?> customTaskList = null;
 
-        if (SubtasksHelper.shouldUseSubtasksFragmentForFilter(filter)) {
+        if (SubtasksHelper.shouldUseSubtasksFragmentForFilter(preferences, filter)) {
             customTaskList = SubtasksHelper.subtasksClassForFilter(filter);
         }
 

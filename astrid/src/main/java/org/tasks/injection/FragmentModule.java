@@ -23,8 +23,6 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-import static org.tasks.injection.ActivityModule.ForActivity;
-
 @Module(injects = {
         TaskListFragment.class,
         GtasksListFragment.class,

@@ -20,10 +20,10 @@ import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.utility.AstridPreferences;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingAppWidgetProvider;
+import org.tasks.preferences.ActivityPreferences;
 import org.tasks.widget.WidgetHelper;
 
 import javax.inject.Inject;
@@ -51,7 +51,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
                 taskService.setComplete(task, !task.isCompleted());
                 break;
             case EDIT_TASK:
-                if(AstridPreferences.useTabletLayout(context)) {
+                if(ActivityPreferences.isTabletSized(context)) {
                     intent.setClass(context, TaskListActivity.class);
                 } else {
                     intent.setClass(context, TaskEditActivity.class);

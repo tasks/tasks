@@ -78,7 +78,6 @@ import com.todoroo.astrid.ui.HideUntilControlSet;
 import com.todoroo.astrid.ui.ImportanceControlSet;
 import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.ui.ReminderControlSet;
-import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 import com.todoroo.astrid.voice.VoiceRecognizer;
@@ -88,7 +87,7 @@ import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.notifications.NotificationManager;
-import org.tasks.preferences.Preferences;
+import org.tasks.preferences.ActivityPreferences;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -182,7 +181,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Inject NotificationManager notificationManager;
     @Inject AlarmService alarmService;
     @Inject GCalHelper gcalHelper;
-    @Inject Preferences preferences;
+    @Inject ActivityPreferences preferences;
 
     // --- UI components
 
@@ -966,7 +965,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         boolean useSaveAndCancel = preferences.getBoolean(R.string.p_save_and_cancel, false);
 
-        if (useSaveAndCancel || AstridPreferences.useTabletLayout(getActivity())) {
+        if (useSaveAndCancel || preferences.useTabletLayout()) {
             if (useSaveAndCancel) {
                 item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
                 item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_cancel));

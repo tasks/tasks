@@ -18,7 +18,6 @@ import android.text.TextUtils;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
@@ -38,6 +37,7 @@ import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.injection.Injector;
+import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +56,7 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
 
     @Inject TagService tagService;
     @Inject @ForApplication Context context;
+    @Inject Preferences preferences;
 
     /** Create filter from new tag object */
     public static FilterWithCustomIntent filterFromTag(Context context, Tag tag, Criterion criterion) {
@@ -85,7 +86,7 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
                 newTagIntent(context, DeleteTagActivity.class, tag, tag.uuid)
         };
 
-        filter.customTaskList = new ComponentName(ContextManager.getContext(), TagViewFragment.class);
+        filter.customTaskList = new ComponentName(context, TagViewFragment.class);
         if(tag.image != null) {
             filter.imageUrl = tag.image;
         }
@@ -139,7 +140,7 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
     }
 
     private FilterCategory filterFromTags(Tag[] tags, int name) {
-        boolean shouldAddUntagged = Preferences.getBoolean(R.string.p_show_not_in_list_filter, true);
+        boolean shouldAddUntagged = preferences.getBoolean(R.string.p_show_not_in_list_filter, true);
 
         ArrayList<Filter> filters = new ArrayList<>(tags.length);
 

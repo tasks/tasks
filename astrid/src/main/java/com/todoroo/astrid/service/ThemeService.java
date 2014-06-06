@@ -10,10 +10,8 @@ import android.graphics.PixelFormat;
 import android.util.Log;
 import android.view.WindowManager;
 
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.utility.AstridPreferences;
 
 import org.tasks.R;
 
@@ -23,7 +21,6 @@ public class ThemeService {
     public static final String THEME_BLACK = "black";
 
     public static final int FLAG_FORCE_DARK = 1;
-    public static final int FLAG_FORCE_LIGHT = 2;
     public static final int FLAG_INVERT = 3;
 
     // Widget config activities set this flag since they theme differently than the normal
@@ -111,9 +108,6 @@ public class ThemeService {
         if (forceFilterInvert) {
             return ThemeService.FLAG_INVERT;
         }
-        if (AstridPreferences.useTabletLayout(ContextManager.getContext())) {
-            return ThemeService.FLAG_FORCE_LIGHT;
-        }
         return 0;
     }
 
@@ -124,19 +118,11 @@ public class ThemeService {
         case FLAG_FORCE_DARK:
             darkTheme = true;
             break;
-        case FLAG_FORCE_LIGHT:
-            darkTheme = false;
-            break;
         case FLAG_INVERT:
             darkTheme = !darkTheme;
             break;
         default:
             break;
-        }
-
-        if (lightDrawable == R.drawable.icn_menu_refresh &&
-                AstridPreferences.useTabletLayout(ContextManager.getContext())) {
-            return R.drawable.icn_menu_refresh_tablet;
         }
 
         if(!darkTheme) {

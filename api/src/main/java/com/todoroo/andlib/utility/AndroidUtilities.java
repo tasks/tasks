@@ -10,12 +10,10 @@ import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -488,36 +486,6 @@ public class AndroidUtilities {
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         }
     }
-
-    /**
-     * Returns true if the screen is large or xtra large
-     */
-    public static boolean isTabletSized(Context context) {
-        if (context.getPackageManager().hasSystemFeature("com.google.android.tv")) //$NON-NLS-1$
-        {
-            return true;
-        }
-        int size = context.getResources().getConfiguration().screenLayout
-                & Configuration.SCREENLAYOUT_SIZE_MASK;
-
-        if (size == Configuration.SCREENLAYOUT_SIZE_XLARGE) {
-            return true;
-        } else if (size == Configuration.SCREENLAYOUT_SIZE_LARGE) {
-            DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-            float width = metrics.widthPixels / metrics.density;
-            float height = metrics.heightPixels / metrics.density;
-
-            float effectiveWidth = Math.min(width, height);
-            float effectiveHeight = Math.max(width, height);
-
-            return (effectiveWidth >= MIN_TABLET_WIDTH && effectiveHeight >= MIN_TABLET_HEIGHT);
-        } else {
-            return false;
-        }
-    }
-
-    public static final int MIN_TABLET_WIDTH = 550;
-    public static final int MIN_TABLET_HEIGHT = 800;
 
     /**
      * Wraps a call to Activity.unregisterReceiver in a try/catch block to prevent

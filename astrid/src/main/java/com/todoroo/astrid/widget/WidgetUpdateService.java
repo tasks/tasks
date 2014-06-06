@@ -5,7 +5,6 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.IBinder;
 import android.util.Log;
@@ -25,7 +24,6 @@ import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
-import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.R;
@@ -107,14 +105,13 @@ public class WidgetUpdateService extends InjectingService {
             views.setTextViewText(R.id.widget_title, filter.title);
             views.removeAllViews(R.id.taskbody);
 
-            SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(this);
-            int flags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
-            int sort = publicPrefs.getInt(SortHelper.PREF_SORT_SORT, 0);
+            int flags = preferences.getSortFlags();
+            int sort = preferences.getSortMode();
             String query = SortHelper.adjustQueryForFlagsAndSort(
                     filter.getSqlQuery(), flags, sort).replaceAll("LIMIT \\d+", "") + " LIMIT " + numberOfTasks;
 
             String tagName = preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
-            query = SubtasksHelper.applySubtasksToWidgetFilter(taskService, tagDataService, taskListMetadataDao, filter, query, tagName, numberOfTasks);
+            query = SubtasksHelper.applySubtasksToWidgetFilter(preferences, taskService, tagDataService, taskListMetadataDao, filter, query, tagName, numberOfTasks);
 
             database.openForReading();
             cursor = taskService.fetchFiltered(query, null, Task.ID, Task.TITLE, Task.DUE_DATE, Task.COMPLETION_DATE);

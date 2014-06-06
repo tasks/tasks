@@ -32,13 +32,12 @@ import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.utility.AstridPreferences;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.tasks.R;
 import org.tasks.injection.InjectingActionBarActivity;
-import org.tasks.preferences.Preferences;
+import org.tasks.preferences.ActivityPreferences;
 
 import javax.inject.Inject;
 
@@ -62,7 +61,7 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
     @Inject TagService tagService;
     @Inject TagDataService tagDataService;
     @Inject TagMetadataDao tagMetadataDao;
-    @Inject Preferences preferences;
+    @Inject ActivityPreferences preferences;
 
     private EditText tagName;
     private Bitmap setBitmap;
@@ -82,9 +81,9 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
             params.height = LayoutParams.WRAP_CONTENT;
 
             DisplayMetrics metrics = getResources().getDisplayMetrics();
-            if ((metrics.widthPixels / metrics.density) >= AndroidUtilities.MIN_TABLET_HEIGHT) {
+            if ((metrics.widthPixels / metrics.density) >= ActivityPreferences.MIN_TABLET_HEIGHT) {
                 params.width = (3 * metrics.widthPixels) / 5;
-            } else if ((metrics.widthPixels / metrics.density) >= AndroidUtilities.MIN_TABLET_WIDTH) {
+            } else if ((metrics.widthPixels / metrics.density) >= ActivityPreferences.MIN_TABLET_WIDTH) {
                 params.width = (4 * metrics.widthPixels) / 5;
             }
             getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
@@ -106,7 +105,7 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
     }
 
     private void setupForDialogOrFullscreen() {
-        isDialog = AstridPreferences.useTabletLayout(this);
+        isDialog = preferences.useTabletLayout();
         if (isDialog) {
             setTheme(ThemeService.getDialogTheme());
             if (AndroidUtilities.getSdkVersion() < 14) {

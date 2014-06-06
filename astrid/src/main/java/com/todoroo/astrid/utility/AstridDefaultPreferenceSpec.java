@@ -6,7 +6,6 @@ import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 
 import com.todoroo.astrid.activity.BeastModePreferences;
-import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.Task;
 
 import org.joda.time.DateTime;
@@ -68,18 +67,6 @@ public class AstridDefaultPreferenceSpec {
         setIntIfUnset(prefs, editor, r, R.string.p_rmd_quietEnd, r.getInteger(R.integer.default_quiet_hours_end));
         setIntIfUnset(prefs, editor, r, R.string.p_rmd_time, r.getInteger(R.integer.default_remind_time));
 
-        String dragDropTestInitialized = "android_drag_drop_initialized"; //$NON-NLS-1$
-        if (!preferences.getBoolean(dragDropTestInitialized, false)) {
-            SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(context);
-            if (publicPrefs != null) {
-                Editor edit = publicPrefs.edit();
-                if (edit != null) {
-                    edit.putInt(SortHelper.PREF_SORT_SORT, SortHelper.SORT_AUTO);
-                    edit.commit();
-                }
-            }
-            preferences.setBoolean(dragDropTestInitialized, true);
-        }
         BeastModePreferences.setDefaultOrder(preferences, context);
 
         editor.commit();

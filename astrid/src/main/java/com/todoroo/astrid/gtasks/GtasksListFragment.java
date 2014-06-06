@@ -22,9 +22,6 @@ import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
-
-import org.tasks.sync.IndeterminateProgressBarSyncResultCallback;
-
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TaskService;
@@ -33,10 +30,10 @@ import com.todoroo.astrid.subtasks.OrderedMetadataListFragmentHelper;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 
 import org.tasks.R;
+import org.tasks.injection.ForActivity;
+import org.tasks.sync.IndeterminateProgressBarSyncResultCallback;
 
 import javax.inject.Inject;
-
-import static org.tasks.injection.ActivityModule.ForActivity;
 
 public class GtasksListFragment extends SubtasksListFragment {
 
