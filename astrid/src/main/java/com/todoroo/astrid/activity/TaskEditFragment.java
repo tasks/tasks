@@ -182,6 +182,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Inject AlarmService alarmService;
     @Inject GCalHelper gcalHelper;
     @Inject ActivityPreferences preferences;
+    @Inject DateChangedAlerts dateChangedAlerts;
 
     // --- UI components
 
@@ -707,7 +708,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 // since the activity isn't actually finishing
                 TaskListActivity tla = (TaskListActivity) getActivity();
                 if (showRepeatAlert) {
-                    DateChangedAlerts.showRepeatChangedDialog(tla, model);
+                    dateChangedAlerts.showRepeatChangedDialog(tla, model);
                 }
 
                 if (tagsChanged) {

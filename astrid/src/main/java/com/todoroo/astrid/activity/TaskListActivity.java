@@ -44,7 +44,6 @@ import com.todoroo.astrid.tags.DeleteTagActivity;
 import com.todoroo.astrid.tags.RenameTagActivity;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
@@ -375,7 +374,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 if (data != null) {
                     if (data.getParcelableExtra(TaskEditFragment.TOKEN_NEW_REPEATING_TASK) != null) {
                         Task repeating = data.getParcelableExtra(TaskEditFragment.TOKEN_NEW_REPEATING_TASK);
-                        DateChangedAlerts.showRepeatChangedDialog(this, repeating);
+                        dateChangedAlerts.showRepeatChangedDialog(this, repeating);
                     }
                     if (data.getBooleanExtra(TaskEditFragment.TOKEN_TAGS_CHANGED, false)) {
                         tagsChanged(true);

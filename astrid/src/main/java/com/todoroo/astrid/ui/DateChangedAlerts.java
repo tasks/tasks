@@ -5,9 +5,9 @@
  */
 package com.todoroo.astrid.ui;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.text.Html;
 import android.text.Spanned;
@@ -24,11 +24,8 @@ import android.widget.TextView;
 
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
-import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
@@ -38,8 +35,11 @@ import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
 import com.todoroo.astrid.utility.Flags;
 
 import org.tasks.R;
+import org.tasks.preferences.Preferences;
 
 import java.text.ParseException;
+
+import javax.inject.Inject;
 
 import static org.tasks.date.DateTimeUtils.newDate;
 
@@ -51,17 +51,23 @@ import static org.tasks.date.DateTimeUtils.newDate;
 public class DateChangedAlerts {
 
     /** Preference key for how many of these helper dialogs we've shown */
-    public static final String PREF_NUM_HELPERS_SHOWN = "pref_num_date_helpers"; //$NON-NLS-1$
+    private static final String PREF_NUM_HELPERS_SHOWN = "pref_num_date_helpers"; //$NON-NLS-1$
 
     /** Preference key for whether or not we should show such dialogs */
-    public static final int PREF_SHOW_HELPERS = R.string.p_showSmartConfirmation_key;
+    private static final int PREF_SHOW_HELPERS = R.string.p_showSmartConfirmation_key;
 
     /** Start showing the option to hide future notifs after this many confirmation dialogs */
-    public static final int HIDE_CHECKBOX_AFTER_SHOWS = 3;
+    private static final int HIDE_CHECKBOX_AFTER_SHOWS = 3;
 
+    private final Preferences preferences;
 
-    public static void showQuickAddMarkupDialog(final AstridActivity activity, Task task, String originalText) {
-        if (!Preferences.getBoolean(PREF_SHOW_HELPERS, true)) {
+    @Inject
+    public DateChangedAlerts(Preferences preferences) {
+        this.preferences = preferences;
+    }
+
+    public void showQuickAddMarkupDialog(final AstridActivity activity, Task task, String originalText) {
+        if (!preferences.getBoolean(PREF_SHOW_HELPERS, true)) {
             return;
         }
 
@@ -95,8 +101,8 @@ public class DateChangedAlerts {
         d.show();
     }
 
-    public static void showRepeatChangedDialog(final AstridActivity activity, Task task) {
-        if (!Preferences.getBoolean(PREF_SHOW_HELPERS, true)) {
+    public void showRepeatChangedDialog(final Activity activity, Task task) {
+        if (!preferences.getBoolean(PREF_SHOW_HELPERS, true)) {
             return;
         }
 
@@ -122,19 +128,9 @@ public class DateChangedAlerts {
         d.show();
     }
 
-
-    public static final Property<?>[] REPEAT_RESCHEDULED_PROPERTIES =
-            new Property<?>[] {
-                    Task.ID,
-                    Task.TITLE,
-                    Task.DUE_DATE,
-                    Task.HIDE_UNTIL,
-                    Task.REPEAT_UNTIL
-            };
-
-    public static void showRepeatTaskRescheduledDialog(final GCalHelper gcalHelper, final TaskService taskService, final AstridActivity activity, final Task task,
+    public void showRepeatTaskRescheduledDialog(final GCalHelper gcalHelper, final TaskService taskService, final Activity activity, final Task task,
             final long oldDueDate, final long newDueDate, final boolean lastTime) {
-        if (!Preferences.getBoolean(PREF_SHOW_HELPERS, true)) {
+        if (!preferences.getBoolean(PREF_SHOW_HELPERS, true)) {
             return;
         }
 
@@ -222,7 +218,7 @@ public class DateChangedAlerts {
         d.show();
     }
 
-    private static void setupOkAndDismissButtons(final Dialog d) {
+    private void setupOkAndDismissButtons(final Dialog d) {
         d.findViewById(R.id.reminder_complete).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -237,8 +233,8 @@ public class DateChangedAlerts {
         });
     }
 
-    private static void setupHideCheckbox(final Dialog d) {
-        int numShows = getInt(PREF_NUM_HELPERS_SHOWN, 0);
+    private void setupHideCheckbox(final Dialog d) {
+        int numShows = preferences.getInt(PREF_NUM_HELPERS_SHOWN, 0);
         numShows++;
         if (numShows >= HIDE_CHECKBOX_AFTER_SHOWS) {
             CheckBox checkbox = (CheckBox) d.findViewById(R.id.reminders_should_show);
@@ -246,33 +242,14 @@ public class DateChangedAlerts {
             checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    setBoolean(PREF_SHOW_HELPERS, !isChecked);
+                    preferences.setBoolean(PREF_SHOW_HELPERS, !isChecked);
                 }
             });
         }
-        setInt(PREF_NUM_HELPERS_SHOWN, numShows);
+        preferences.setInt(PREF_NUM_HELPERS_SHOWN, numShows);
     }
 
-    private static void setBoolean(int keyResource, boolean value) {
-        Context context = ContextManager.getContext();
-        SharedPreferences.Editor editor = Preferences.getPrefs(context).edit();
-        editor.putBoolean(context.getString(keyResource), value);
-        editor.commit();
-    }
-
-    private static int getInt(String key, int defValue) {
-        Context context = ContextManager.getContext();
-        return Preferences.getPrefs(context).getInt(key, defValue);
-    }
-
-    private static void setInt(String key, int value) {
-        Context context = ContextManager.getContext();
-        SharedPreferences.Editor editor = Preferences.getPrefs(context).edit();
-        editor.putInt(key, value);
-        editor.commit();
-    }
-
-    private static void setupDialogLayoutParams(Context context, Dialog d) {
+    private void setupDialogLayoutParams(Context context, Dialog d) {
         LayoutParams params = d.getWindow().getAttributes();
         params.width = LayoutParams.FILL_PARENT;
         params.height = LayoutParams.WRAP_CONTENT;
@@ -286,8 +263,7 @@ public class DateChangedAlerts {
 
     }
 
-
-    private static Spanned constructSpeechBubbleTextForQuickAdd(Context context, Task task) {
+    private Spanned constructSpeechBubbleTextForQuickAdd(Context context, Task task) {
         String[] priorityStrings = context.getResources().getStringArray(R.array.TLA_priority_strings);
         int[] colorsArray = new int[] { R.color.importance_1, R.color.importance_2, R.color.importance_3, R.color.importance_4 };
 
@@ -319,12 +295,12 @@ public class DateChangedAlerts {
         return Html.fromHtml(fullString);
     }
 
-    private static String constructSpeechBubbleTextForRepeat(Context context, Task task) {
+    private String constructSpeechBubbleTextForRepeat(Context context, Task task) {
         String recurrence = getRecurrenceString(context, task);
         return context.getString(R.string.TLA_repeat_scheduled_speech_bubble, recurrence);
     }
 
-    private static String getRelativeDateAndTimeString(Context context, long date) {
+    private String getRelativeDateAndTimeString(Context context, long date) {
         String dueString = date > 0 ? DateUtilities.getRelativeDay(context, date, false) : "";
         if(Task.hasDueTime(date)) {
             dueString = String.format("%s at %s", dueString, //$NON-NLS-1$
@@ -333,7 +309,7 @@ public class DateChangedAlerts {
         return dueString;
     }
 
-    private static String getRecurrenceString(Context context, Task task) {
+    private String getRecurrenceString(Context context, Task task) {
         try {
             RRule rrule = new RRule(task.sanitizedRecurrence());
 
@@ -372,5 +348,4 @@ public class DateChangedAlerts {
         }
         return "";
     }
-
 }

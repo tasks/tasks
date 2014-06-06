@@ -78,6 +78,7 @@ public class QuickAddBar extends LinearLayout {
     @Inject TaskService taskService;
     @Inject GCalHelper gcalHelper;
     @Inject Preferences preferences;
+    @Inject DateChangedAlerts dateChangedAlerts;
 
     private VoiceRecognizer voiceRecognizer;
 
@@ -336,12 +337,12 @@ public class QuickAddBar extends LinearLayout {
         return task;
     }
 
-    private static void showAlertForMarkupTask(AstridActivity activity, Task task, String originalText) {
-        DateChangedAlerts.showQuickAddMarkupDialog(activity, task, originalText);
+    private void showAlertForMarkupTask(AstridActivity activity, Task task, String originalText) {
+        dateChangedAlerts.showQuickAddMarkupDialog(activity, task, originalText);
     }
 
-    private static void showAlertForRepeatingTask(AstridActivity activity, Task task) {
-        DateChangedAlerts.showRepeatChangedDialog(activity, task);
+    private void showAlertForRepeatingTask(AstridActivity activity, Task task) {
+        dateChangedAlerts.showRepeatChangedDialog(activity, task);
     }
 
     // --- instance methods

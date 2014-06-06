@@ -18,6 +18,7 @@ import android.view.WindowManager.BadTokenException;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -87,6 +88,7 @@ public class AstridActivity extends InjectingActionBarActivity
     @Inject StartupService startupService;
     @Inject GCalHelper gcalHelper;
     @Inject Preferences preferences;
+    @Inject DateChangedAlerts dateChangedAlerts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -352,6 +354,15 @@ public class AstridActivity extends InjectingActionBarActivity
     }
 
     private class RepeatConfirmationReceiver extends BroadcastReceiver {
+        private final Property<?>[] REPEAT_RESCHEDULED_PROPERTIES =
+                new Property<?>[] {
+                        Task.ID,
+                        Task.TITLE,
+                        Task.DUE_DATE,
+                        Task.HIDE_UNTIL,
+                        Task.REPEAT_UNTIL
+                };
+
         @Override
         public void onReceive(Context context, final Intent intent) {
             long taskId = intent.getLongExtra(
@@ -362,11 +373,11 @@ public class AstridActivity extends InjectingActionBarActivity
                         AstridApiConstants.EXTRAS_OLD_DUE_DATE, 0);
                 long newDueDate = intent.getLongExtra(
                         AstridApiConstants.EXTRAS_NEW_DUE_DATE, 0);
-                Task task = taskService.fetchById(taskId, DateChangedAlerts.REPEAT_RESCHEDULED_PROPERTIES);
+                Task task = taskService.fetchById(taskId, REPEAT_RESCHEDULED_PROPERTIES);
 
                 try {
                     boolean lastTime = AstridApiConstants.BROADCAST_EVENT_TASK_REPEAT_FINISHED.equals(intent.getAction());
-                    DateChangedAlerts.showRepeatTaskRescheduledDialog(
+                    dateChangedAlerts.showRepeatTaskRescheduledDialog(
                             gcalHelper, taskService, AstridActivity.this, task, oldDueDate, newDueDate, lastTime);
 
                 } catch (BadTokenException e) { // Activity not running when tried to show dialog--rebroadcast
