@@ -30,6 +30,7 @@ import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.R;
+import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.injection.Injector;
 import org.tasks.preferences.Preferences;
@@ -48,21 +49,22 @@ import javax.inject.Inject;
 public final class CoreFilterExposer extends InjectingBroadcastReceiver implements AstridFilterExposer {
 
     @Inject Preferences preferences;
+    @Inject @ForApplication Context context;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
 
-        Resources r = context.getResources();
         ContextManager.setContext(context);
 
-        FilterListItem[] list = prepareFilters(r);
+        FilterListItem[] list = prepareFilters();
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
-    private FilterListItem[] prepareFilters(Resources r) {
+    private FilterListItem[] prepareFilters() {
+        Resources r = context.getResources();
         // core filters
         List<FilterListItem> filters = new ArrayList<>(3);
 
@@ -122,14 +124,9 @@ public final class CoreFilterExposer extends InjectingBroadcastReceiver implemen
 
     @Override
     public FilterListItem[] getFilters(Injector injector) {
-        if (ContextManager.getContext() == null || ContextManager.getContext().getResources() == null) {
-            return null;
-        }
-
         injector.inject(this);
 
-        Resources r = ContextManager.getContext().getResources();
-        return prepareFilters(r);
+        return prepareFilters();
     }
 
 }

@@ -18,7 +18,6 @@ import android.text.TextUtils;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -36,6 +35,7 @@ import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagService.Tag;
 
 import org.tasks.R;
+import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.injection.Injector;
 
@@ -55,6 +55,7 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
     public static final String TAG = "tag"; //$NON-NLS-1$
 
     @Inject TagService tagService;
+    @Inject @ForApplication Context context;
 
     /** Create filter from new tag object */
     public static FilterWithCustomIntent filterFromTag(Context context, Tag tag, Criterion criterion) {
@@ -113,7 +114,7 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
 
-        FilterListItem[] listAsArray = prepareFilters(context);
+        FilterListItem[] listAsArray = prepareFilters();
 
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, listAsArray);
@@ -121,7 +122,7 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
-    private FilterListItem[] prepareFilters(Context context) {
+    private FilterListItem[] prepareFilters() {
         ContextManager.setContext(context);
 
         ArrayList<FilterListItem> list = new ArrayList<>();
@@ -142,7 +143,6 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
 
         ArrayList<Filter> filters = new ArrayList<>(tags.length);
 
-        Context context = ContextManager.getContext();
         Resources r = context.getResources();
 
         int themeFlags = ThemeService.getFilterThemeFlags();
@@ -173,13 +173,9 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
 
     @Override
     public FilterListItem[] getFilters(Injector injector) {
-        if (ContextManager.getContext() == null) {
-            return null;
-        }
-
         injector.inject(this);
 
-        return prepareFilters(ContextManager.getContext());
+        return prepareFilters();
     }
 
 }

@@ -3,8 +3,6 @@ package com.todoroo.astrid.utility;
 import android.annotation.SuppressLint;
 import android.test.AndroidTestCase;
 
-import com.todoroo.andlib.service.ContextManager;
-
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
 
@@ -37,7 +35,7 @@ public class AstridDefaultPreferenceSpecTest extends AndroidTestCase {
     }
 
     public void testQuietHoursDisabledAfterMigration() {
-        setString(R.string.p_rmd_quietStart_old, "");
+        preferences.setString(getContext().getString(R.string.p_rmd_quietStart_old), "");
 
         spec.migrateToNewQuietHours();
 
@@ -124,12 +122,5 @@ public class AstridDefaultPreferenceSpecTest extends AndroidTestCase {
 
     private int newReminderTime() {
         return preferences.getInt(R.string.p_rmd_time);
-    }
-
-    /**
-     * Sets string preference
-     */
-    private void setString(int resourceId, String value) {
-        preferences.setString(ContextManager.getContext().getString(resourceId), value);
     }
 }

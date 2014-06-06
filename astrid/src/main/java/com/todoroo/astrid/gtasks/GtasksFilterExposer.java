@@ -34,6 +34,7 @@ import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
+import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.injection.Injector;
 
@@ -49,6 +50,7 @@ public class GtasksFilterExposer extends InjectingBroadcastReceiver implements A
 
     @Inject GtasksListService gtasksListService;
     @Inject GtasksPreferenceService gtasksPreferenceService;
+    @Inject @ForApplication Context context;
 
     private StoreObject[] lists;
 
@@ -81,14 +83,14 @@ public class GtasksFilterExposer extends InjectingBroadcastReceiver implements A
         super.onReceive(context, intent);
 
         ContextManager.setContext(context);
-        FilterListItem[] list = prepareFilters(context);
+        FilterListItem[] list = prepareFilters();
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, GtasksPreferenceService.IDENTIFIER);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
-    private FilterListItem[] prepareFilters(Context context) {
+    private FilterListItem[] prepareFilters() {
         // if we aren't logged in (or we are logged in to astrid.com), don't expose features
         if(!gtasksPreferenceService.isLoggedIn()) {
             return null;
@@ -123,13 +125,9 @@ public class GtasksFilterExposer extends InjectingBroadcastReceiver implements A
 
     @Override
     public FilterListItem[] getFilters(Injector injector) {
-        if (ContextManager.getContext() == null) {
-            return null;
-        }
-
         injector.inject(this);
 
-        return prepareFilters(ContextManager.getContext());
+        return prepareFilters();
     }
 
 }

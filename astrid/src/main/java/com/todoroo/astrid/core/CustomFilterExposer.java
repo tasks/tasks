@@ -13,7 +13,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
@@ -30,6 +29,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.ThemeService;
 
 import org.tasks.R;
+import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingActivity;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.injection.Injector;
@@ -52,12 +52,13 @@ public final class CustomFilterExposer extends InjectingBroadcastReceiver implem
 
     @Inject StoreObjectDao storeObjectDao;
     @Inject Preferences preferences;
+    @Inject @ForApplication Context context;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
 
-        FilterListItem[] list = prepareFilters(context);
+        FilterListItem[] list = prepareFilters();
 
         // transmit filter list
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
@@ -65,7 +66,7 @@ public final class CustomFilterExposer extends InjectingBroadcastReceiver implem
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
-    private FilterListItem[] prepareFilters(Context context) {
+    private FilterListItem[] prepareFilters() {
         Resources r = context.getResources();
 
         return buildSavedFilters(context, r);
@@ -163,13 +164,9 @@ public final class CustomFilterExposer extends InjectingBroadcastReceiver implem
 
     @Override
     public FilterListItem[] getFilters(Injector injector) {
-        if (ContextManager.getContext() == null) {
-            return null;
-        }
-
         injector.inject(this);
 
-        return prepareFilters(ContextManager.getContext());
+        return prepareFilters();
     }
 
 }

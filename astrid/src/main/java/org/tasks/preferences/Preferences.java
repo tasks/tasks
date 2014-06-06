@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
 
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.utility.AstridDefaultPreferenceSpec;
 
 import org.tasks.injection.ForApplication;
@@ -87,7 +86,7 @@ public class Preferences {
     }
 
     public void setString(int resourceId, String value) {
-        setString(ContextManager.getContext().getString(resourceId), value);
+        setString(context.getString(resourceId), value);
     }
 
     public void setString(String key, String newValue) {
@@ -133,7 +132,7 @@ public class Preferences {
     }
 
     public int getInt(int resourceId, int defValue) {
-        return getInt(ContextManager.getContext().getString(resourceId), defValue);
+        return getInt(context.getString(resourceId), defValue);
     }
 
     public int getInt(String key, int defValue) {
@@ -141,7 +140,7 @@ public class Preferences {
     }
 
     public void setInt(int resourceId, int value) {
-        setInt(ContextManager.getContext().getString(resourceId), value);
+        setInt(context.getString(resourceId), value);
     }
 
     public void setInt(String key, int value) {

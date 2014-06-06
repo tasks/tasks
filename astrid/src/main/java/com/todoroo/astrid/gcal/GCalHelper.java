@@ -7,6 +7,7 @@ package com.todoroo.astrid.gcal;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
 import android.net.Uri;
@@ -14,13 +15,13 @@ import android.text.TextUtils;
 import android.text.format.Time;
 import android.util.Log;
 
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
+import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 
 import java.util.TimeZone;
@@ -33,11 +34,13 @@ public class GCalHelper {
 
     public static final String CALENDAR_ID_COLUMN = "calendar_id"; //$NON-NLS-1$
 
+    private final Context context;
     private final TaskService taskService;
     private final Preferences preferences;
 
     @Inject
-    public GCalHelper(TaskService taskService, Preferences preferences) {
+    public GCalHelper(@ForApplication Context context, TaskService taskService, Preferences preferences) {
+        this.context = context;
         this.taskService = taskService;
         this.preferences = preferences;
     }
@@ -68,7 +71,7 @@ public class GCalHelper {
         boolean gcalCreateEventEnabled = preferences.getStringValue(R.string.gcal_p_default) != null
             && !preferences.getStringValue(R.string.gcal_p_default).equals("-1"); //$NON-NLS-1$
         if (gcalCreateEventEnabled) {
-            ContentResolver cr = ContextManager.getContext().getContentResolver();
+            ContentResolver cr = context.getContentResolver();
             Uri calendarUri = createTaskEvent(t, cr, new ContentValues(), deleteEventIfExists);
             if (calendarUri != null) {
                 t.setCalendarUri(calendarUri.toString());
@@ -170,7 +173,7 @@ public class GCalHelper {
                 Uri calendarUri = Uri.parse(uri);
 
                 // try to load calendar
-                ContentResolver cr = ContextManager.getContext().getContentResolver();
+                ContentResolver cr = context.getContentResolver();
                 Cursor cursor = cr.query(calendarUri, new String[] { "dtstart" }, null, null, null); //$NON-NLS-1$
                 try {
                     boolean alreadydeleted = cursor.getCount() == 0;

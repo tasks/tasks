@@ -12,7 +12,11 @@ import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 import com.todoroo.astrid.utility.TitleParser;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.tasks.Freeze;
 import org.tasks.R;
+import org.tasks.Snippet;
 import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
@@ -34,6 +38,28 @@ public class TitleParserTest extends DatabaseTestCase {
     protected void setUp() {
         super.setUp();
         preferences.setStringFromInteger(R.string.p_default_urgency_key, 0);
+    }
+
+    public void testTrimParenthesisWithDate() {
+        Freeze.freezeAt(new DateTime(2014, 6, 5, 14, 10, 14)).thawAfter(new Snippet() {{
+            Task task = new Task() {{
+                setTitle("Call mom (tomorrow)");
+            }};
+            TitleParser.parse(tagService, task, new ArrayList<String>());
+            assertEquals("Call mom", task.getTitle());
+            assertEquals(new DateTime(2014, 6, 6, 12, 0, 0, DateTimeZone.UTC).getMillis(), (long) task.getDueDate());
+        }});
+    }
+
+    public void disabled_testTrimParenthesisWithDateAndTime() {
+        Freeze.freezeAt(new DateTime(2014, 6, 5, 14, 10, 14)).thawAfter(new Snippet() {{
+            Task task = new Task() {{
+                setTitle("Call mom (tomorrow 9am)");
+            }};
+            TitleParser.parse(tagService, task, new ArrayList<String>());
+            assertEquals("Call mom", task.getTitle());
+            assertEquals(new DateTime(2014, 6, 6, 14, 0, 0, DateTimeZone.UTC).getMillis(), (long) task.getDueDate());
+        }});
     }
 
   /** test that completing a task w/ no regular expressions creates a simple task with no date, no repeat, no lists*/
