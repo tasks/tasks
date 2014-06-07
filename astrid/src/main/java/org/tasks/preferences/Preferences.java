@@ -9,6 +9,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.utility.AstridDefaultPreferenceSpec;
 
+import org.tasks.R;
 import org.tasks.injection.ForApplication;
 
 import javax.inject.Inject;
@@ -209,5 +210,9 @@ public class Preferences {
                 edit.putInt(key, value).commit();
             }
         }
+    }
+
+    public boolean isDarkWidgetTheme() {
+        return getBoolean(R.string.p_use_dark_theme_widget, false);
     }
 }

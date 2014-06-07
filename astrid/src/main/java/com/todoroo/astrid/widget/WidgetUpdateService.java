@@ -22,7 +22,6 @@ import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.utility.Constants;
 
@@ -124,7 +123,7 @@ public class WidgetUpdateService extends InjectingService {
                 String textContent;
                 Resources r = context.getResources();
                 int textColor = r
-                        .getColor(ThemeService.isDarkWidgetTheme() ? R.color.widget_text_color_dark : R.color.widget_text_color_light);
+                        .getColor(preferences.isDarkWidgetTheme() ? R.color.widget_text_color_dark : R.color.widget_text_color_light);
 
                 textContent = task.getTitle();
 
@@ -191,7 +190,7 @@ public class WidgetUpdateService extends InjectingService {
         int titleColor;
         int buttonDrawable;
 
-        if (ThemeService.isDarkWidgetTheme()) {
+        if (preferences.isDarkWidgetTheme()) {
             layout = R.layout.widget_initialized_dark;
             titleColor = r.getColor(R.color.widget_text_color_dark);
             buttonDrawable = R.drawable.ic_action_new_light;

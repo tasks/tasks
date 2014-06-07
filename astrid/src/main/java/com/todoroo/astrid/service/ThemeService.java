@@ -39,10 +39,6 @@ public class ThemeService {
         return getStyleForSetting(preference);
     }
 
-    public static boolean isDarkWidgetTheme() {
-        return Preferences.getBoolean(R.string.p_use_dark_theme_widget, false);
-    }
-
     private static int getStyleForSetting(String setting) {
         if(THEME_BLACK.equals(setting)) {
             return R.style.Tasks;
