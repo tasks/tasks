@@ -7,7 +7,6 @@ package com.todoroo.astrid.gtasks.sync;
 
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.sync.SyncContainer;
 
 import java.util.ArrayList;
@@ -20,9 +19,6 @@ public class GtasksTaskContainer extends SyncContainer {
         this.task = task;
         this.metadata = metadata;
         this.gtaskMetadata = gtaskMetadata;
-        if(this.gtaskMetadata == null) {
-            this.gtaskMetadata = GtasksMetadata.createEmptyMetadata(task.getId());
-        }
     }
 
     @Override

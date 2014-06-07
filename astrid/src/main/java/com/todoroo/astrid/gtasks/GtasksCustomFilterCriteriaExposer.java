@@ -36,6 +36,7 @@ public class GtasksCustomFilterCriteriaExposer extends InjectingBroadcastReceive
 
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject GtasksListService gtasksListService;
+    @Inject GtasksMetadata gtasksMetadata;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -61,7 +62,7 @@ public class GtasksCustomFilterCriteriaExposer extends InjectingBroadcastReceive
         }
 
         ContentValues values = new ContentValues();
-        values.putAll(GtasksMetadata.createEmptyMetadata(AbstractModel.NO_ID).getMergedValues());
+        values.putAll(gtasksMetadata.createEmptyMetadata(AbstractModel.NO_ID).getMergedValues());
         values.remove(Metadata.TASK.name);
         values.put(GtasksMetadata.LIST_ID.name, "?");
 

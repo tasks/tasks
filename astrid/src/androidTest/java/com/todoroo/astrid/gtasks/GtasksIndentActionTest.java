@@ -27,6 +27,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
     @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
     @Inject MetadataService metadataService;
     @Inject TaskService taskService;
+    @Inject GtasksMetadata gtasksMetadata;
 
     private Task task;
     private StoreObject storeList;
@@ -155,7 +156,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
     private Task taskWithMetadata(long order, int indentation) {
         Task newTask = new Task();
         taskService.save(newTask);
-        Metadata metadata = GtasksMetadata.createEmptyMetadata(newTask.getId());
+        Metadata metadata = gtasksMetadata.createEmptyMetadata(newTask.getId());
         metadata.setValue(GtasksMetadata.INDENT, indentation);
         metadata.setValue(GtasksMetadata.ORDER, order);
         metadata.setValue(GtasksMetadata.LIST_ID, "list");

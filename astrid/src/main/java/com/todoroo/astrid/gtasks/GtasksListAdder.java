@@ -31,6 +31,7 @@ public class GtasksListAdder extends InjectingActivity {
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject GtasksListService gtasksListService;
     @Inject GtasksTokenValidator gtasksTokenValidator;
+    @Inject GtasksMetadata gtasksMetadata;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,7 @@ public class GtasksListAdder extends InjectingActivity {
                                 }
                                 StoreObject newList = gtasksListService.addNewList(service.createGtaskList(title));
                                 if (newList != null) {
-                                    FilterWithCustomIntent listFilter = (FilterWithCustomIntent) GtasksFilterExposer.filterFromList(activity, newList);
+                                    FilterWithCustomIntent listFilter = (FilterWithCustomIntent) GtasksFilterExposer.filterFromList(gtasksMetadata, activity, newList);
                                     listFilter.start(activity, 0);
                                 }
 

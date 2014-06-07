@@ -51,13 +51,14 @@ public class GtasksFilterExposer extends InjectingBroadcastReceiver implements A
     @Inject GtasksListService gtasksListService;
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject @ForApplication Context context;
+    @Inject GtasksMetadata gtasksMetadata;
 
     private StoreObject[] lists;
 
-    public static Filter filterFromList(Context context, StoreObject list) {
+    public static Filter filterFromList(GtasksMetadata gtasksMetadata, Context context, StoreObject list) {
         String listName = list.getValue(GtasksList.NAME);
         ContentValues values = new ContentValues();
-        values.putAll(GtasksMetadata.createEmptyMetadata(AbstractModel.NO_ID).getMergedValues());
+        values.putAll(gtasksMetadata.createEmptyMetadata(AbstractModel.NO_ID).getMergedValues());
         values.remove(Metadata.TASK.name);
         values.put(GtasksMetadata.LIST_ID.name, list.getValue(GtasksList.REMOTE_ID));
         values.put(GtasksMetadata.ORDER.name, PermaSql.VALUE_NOW);
@@ -105,7 +106,7 @@ public class GtasksFilterExposer extends InjectingBroadcastReceiver implements A
 
         Filter[] listFilters = new Filter[lists.length];
         for(int i = 0; i < lists.length; i++) {
-            listFilters[i] = filterFromList(context, lists[i]);
+            listFilters[i] = filterFromList(gtasksMetadata, context, lists[i]);
         }
 
         FilterCategoryWithNewButton listsCategory = new FilterCategoryWithNewButton(context.getString(R.string.gtasks_FEx_header),

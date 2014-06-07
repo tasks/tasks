@@ -10,14 +10,17 @@ import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Metadata;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Metadata entries for a GTasks Task
  * @author Tim Su <tim@todoroo.com>
  *
  */
+@Singleton
 public class GtasksMetadata {
 
     static final int VALUE_UNSET = -1;
@@ -47,17 +50,23 @@ public class GtasksMetadata {
 
     public static final LongProperty LAST_SYNC = new LongProperty(Metadata.TABLE,
             Metadata.VALUE7.name);
+    private final GtasksPreferenceService gtasksPreferenceService;
+
+    @Inject
+    public GtasksMetadata(GtasksPreferenceService gtasksPreferenceService) {
+        this.gtasksPreferenceService = gtasksPreferenceService;
+    }
 
     /**
      * Creates default GTasks metadata item
      * @param taskId if > 0, will set metadata task field
      */
-    public static Metadata createEmptyMetadata(long taskId) {
+    public Metadata createEmptyMetadata(long taskId) {
         Metadata metadata = new Metadata();
         metadata.setKey(GtasksMetadata.METADATA_KEY);
         metadata.setValue(ID, ""); //$NON-NLS-1$
 
-        String defaultList = Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST);
+        String defaultList = gtasksPreferenceService.getDefaultList();
         if(defaultList == null) {
             defaultList = "@default"; //$NON-NLS-1$
         }
@@ -71,5 +80,4 @@ public class GtasksMetadata {
         }
         return metadata;
     }
-
 }

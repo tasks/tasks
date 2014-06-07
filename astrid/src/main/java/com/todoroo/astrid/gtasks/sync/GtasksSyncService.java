@@ -47,17 +47,20 @@ public class GtasksSyncService {
     private final TaskDao taskDao;
     private final GtasksPreferenceService gtasksPreferenceService;
     private final GtasksTokenValidator gtasksTokenValidator;
+    private final GtasksMetadata gtasksMetadataFactory;
 
     @Inject
     public GtasksSyncService(MetadataService metadataService, MetadataDao metadataDao,
                              GtasksMetadataService gtasksMetadataService, TaskDao taskDao,
-                             GtasksPreferenceService gtasksPreferenceService, GtasksTokenValidator gtasksTokenValidator) {
+                             GtasksPreferenceService gtasksPreferenceService,
+                             GtasksTokenValidator gtasksTokenValidator, GtasksMetadata gtasksMetadataFactory) {
         this.metadataService = metadataService;
         this.metadataDao = metadataDao;
         this.gtasksMetadataService = gtasksMetadataService;
         this.taskDao = taskDao;
         this.gtasksPreferenceService = gtasksPreferenceService;
         this.gtasksTokenValidator = gtasksTokenValidator;
+        this.gtasksMetadataFactory = gtasksMetadataFactory;
     }
 
     private final LinkedBlockingQueue<SyncOnSaveOperation> operationQueue = new LinkedBlockingQueue<>();
@@ -248,7 +251,7 @@ public class GtasksSyncService {
         if (gtasksMetadata == null || !gtasksMetadata.containsNonNullValue(GtasksMetadata.ID) ||
                 TextUtils.isEmpty(gtasksMetadata.getValue(GtasksMetadata.ID))) { //Create case
             if (gtasksMetadata == null) {
-                gtasksMetadata = GtasksMetadata.createEmptyMetadata(task.getId());
+                gtasksMetadata = gtasksMetadataFactory.createEmptyMetadata(task.getId());
             }
             if (gtasksMetadata.containsNonNullValue(GtasksMetadata.LIST_ID)) {
                 listId = gtasksMetadata.getValue(GtasksMetadata.LIST_ID);

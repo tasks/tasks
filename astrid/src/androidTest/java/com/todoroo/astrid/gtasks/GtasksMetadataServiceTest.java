@@ -49,6 +49,7 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
     @Inject GtasksMetadataService gtasksMetadataService;
     @Inject MetadataService metadataService;
     @Inject TaskService taskService;
+    @Inject GtasksMetadata gtasksMetadata;
 
     private Task task;
     private Metadata metadata;
@@ -171,7 +172,7 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
         Task task = new Task();
         task.setTitle("cats");
         taskService.save(task);
-        Metadata metadata = GtasksMetadata.createEmptyMetadata(task.getId());
+        Metadata metadata = gtasksMetadata.createEmptyMetadata(task.getId());
         if (id != null)
             metadata.setValue(GtasksMetadata.ID, id);
         metadata.setTask(task.getId());

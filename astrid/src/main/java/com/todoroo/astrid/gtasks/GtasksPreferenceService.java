@@ -58,7 +58,7 @@ public class GtasksPreferenceService extends SyncProviderUtilities {
     }
 
     /** GTasks user's default list id */
-    public static final String PREF_DEFAULT_LIST = IDENTIFIER + "_defaultlist"; //$NON-NLS-1$
+    private static final String PREF_DEFAULT_LIST = IDENTIFIER + "_defaultlist"; //$NON-NLS-1$
 
     /** GTasks user name */
     public static final String PREF_USER_NAME = IDENTIFIER + "_user"; //$NON-NLS-1$

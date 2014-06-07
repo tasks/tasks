@@ -67,12 +67,13 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     private final Context context;
     private final Preferences preferences;
     private final GtasksTokenValidator gtasksTokenValidator;
+    private final GtasksMetadata gtasksMetadataFactory;
 
     @Inject
     public GtasksSyncV2Provider(TaskService taskService, MetadataService metadataService, StoreObjectDao storeObjectDao, GtasksPreferenceService gtasksPreferenceService,
                                 GtasksSyncService gtasksSyncService, GtasksListService gtasksListService, GtasksMetadataService gtasksMetadataService,
                                 GtasksTaskListUpdater gtasksTaskListUpdater, @ForApplication Context context, Preferences preferences,
-                                GtasksTokenValidator gtasksTokenValidator) {
+                                GtasksTokenValidator gtasksTokenValidator, GtasksMetadata gtasksMetadata) {
         this.taskService = taskService;
         this.metadataService = metadataService;
         this.storeObjectDao = storeObjectDao;
@@ -84,6 +85,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         this.context = context;
         this.preferences = preferences;
         this.gtasksTokenValidator = gtasksTokenValidator;
+        this.gtasksMetadataFactory = gtasksMetadata;
     }
 
     @Override
@@ -318,7 +320,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         task.setDueDate(createdDate);
         task.setNotes(remoteTask.getNotes());
 
-        Metadata gtasksMetadata = GtasksMetadata.createEmptyMetadata(AbstractModel.NO_ID);
+        Metadata gtasksMetadata = gtasksMetadataFactory.createEmptyMetadata(AbstractModel.NO_ID);
         gtasksMetadata.setValue(GtasksMetadata.ID, remoteTask.getId());
         gtasksMetadata.setValue(GtasksMetadata.LIST_ID, listId);
 

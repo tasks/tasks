@@ -27,6 +27,7 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
     @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
     @Inject MetadataService metadataService;
     @Inject TaskService taskService;
+    @Inject GtasksMetadata gtasksMetadata;
 
     private Task A, B, C, D, E, F;
     private StoreObject list;
@@ -278,7 +279,7 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         Task task = new Task();
         task.setTitle(title);
         taskService.save(task);
-        Metadata metadata = GtasksMetadata.createEmptyMetadata(task.getId());
+        Metadata metadata = gtasksMetadata.createEmptyMetadata(task.getId());
         metadata.setValue(GtasksMetadata.LIST_ID, "1");
         if(order != GtasksMetadata.VALUE_UNSET)
             metadata.setValue(GtasksMetadata.ORDER, order);

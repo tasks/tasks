@@ -27,6 +27,7 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
     @Inject GtasksMetadataService gtasksMetadataService;
     @Inject MetadataService metadataService;
     @Inject TaskService taskService;
+    @Inject GtasksMetadata gtasksMetadata;
 
     public void testBasicParentComputation() {
         Task[] tasks = givenTasksABCDE();
@@ -169,7 +170,7 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
         Task task = new Task();
         task.setTitle(title);
         taskService.save(task);
-        Metadata metadata = GtasksMetadata.createEmptyMetadata(task.getId());
+        Metadata metadata = gtasksMetadata.createEmptyMetadata(task.getId());
         metadata.setValue(GtasksMetadata.LIST_ID, "1");
         if(order != GtasksMetadata.VALUE_UNSET)
             metadata.setValue(GtasksMetadata.ORDER, order);
