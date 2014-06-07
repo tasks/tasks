@@ -15,7 +15,6 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Task;
@@ -25,6 +24,7 @@ import com.todoroo.astrid.reminders.ReminderService;
 import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.notifications.NotificationManager;
+import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -42,12 +42,12 @@ public class TaskDao extends RemoteModelDao<Task> {
     private final Broadcaster broadcaster;
     private final ReminderService reminderService;
     private final NotificationManager notificationManager;
-    private final org.tasks.preferences.Preferences preferences;
+    private final Preferences preferences;
 
     @Inject
 	public TaskDao(Database database, MetadataDao metadataDao, Broadcaster broadcaster,
                    ReminderService reminderService, NotificationManager notificationManager,
-                   org.tasks.preferences.Preferences preferences) {
+                   Preferences preferences) {
         super(Task.class);
         setDatabase(database);
         this.preferences = preferences;
@@ -205,9 +205,9 @@ public class TaskDao extends RemoteModelDao<Task> {
                     Task.URGENCY_NONE);
             item.setDueDate(Task.createDueDate(setting, 0));
         }
-        createDefaultHideUntil(item);
+        createDefaultHideUntil(preferences, item);
 
-        setDefaultReminders(item);
+        setDefaultReminders(preferences, item);
 
         ContentValues values = item.getSetValues();
         boolean result = super.createNew(item);
@@ -218,9 +218,9 @@ public class TaskDao extends RemoteModelDao<Task> {
         return result;
     }
 
-    public static void createDefaultHideUntil(Task item) {
+    public static void createDefaultHideUntil(Preferences preferences, Task item) {
         if(!item.containsValue(Task.HIDE_UNTIL)) {
-            int setting = Preferences.getIntegerFromString(R.string.p_default_hideUntil_key,
+            int setting = preferences.getIntegerFromString(R.string.p_default_hideUntil_key,
                     Task.HIDE_UNTIL_NONE);
             item.setHideUntil(item.createHideUntil(setting, 0));
         }
@@ -229,16 +229,16 @@ public class TaskDao extends RemoteModelDao<Task> {
     /**
      * Sets default reminders for the given task if reminders are not set
      */
-    public static void setDefaultReminders(Task item) {
+    public static void setDefaultReminders(Preferences preferences, Task item) {
         if(!item.containsValue(Task.REMINDER_PERIOD)) {
             item.setReminderPeriod(DateUtilities.ONE_HOUR *
-                    Preferences.getIntegerFromString(R.string.p_rmd_default_random_hours,
+                    preferences.getIntegerFromString(R.string.p_rmd_default_random_hours,
                             0));
         }
         if(!item.containsValue(Task.REMINDER_FLAGS)) {
-            int reminder_flags = Preferences.getIntegerFromString(R.string.p_default_reminders_key,
+            int reminder_flags = preferences.getIntegerFromString(R.string.p_default_reminders_key,
                     Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE) |
-                    Preferences.getIntegerFromString(R.string.p_default_reminders_mode_key, 0);
+                    preferences.getIntegerFromString(R.string.p_default_reminders_mode_key, 0);
             item.setReminderFlags(reminder_flags);
         }
     }

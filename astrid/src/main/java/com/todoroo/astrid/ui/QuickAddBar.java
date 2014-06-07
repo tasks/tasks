@@ -275,7 +275,7 @@ public class QuickAddBar extends LinearLayout {
             if (deadlineControl.isDeadlineSet()) {
                 task.clearValue(Task.HIDE_UNTIL);
                 deadlineControl.writeToModel(task);
-                TaskDao.createDefaultHideUntil(task);
+                TaskDao.createDefaultHideUntil(preferences, task);
             }
             gcalControl.writeToModel(task);
 

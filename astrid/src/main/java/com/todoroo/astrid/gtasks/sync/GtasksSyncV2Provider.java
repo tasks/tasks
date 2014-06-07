@@ -341,7 +341,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         } else { // Set default importance and reminders for remotely created tasks
             task.task.setImportance(preferences.getIntegerFromString(
                     R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO));
-            TaskDao.setDefaultReminders(task.task);
+            TaskDao.setDefaultReminders(preferences, task.task);
         }
         if (!TextUtils.isEmpty(task.task.getTitle())) {
             task.task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);

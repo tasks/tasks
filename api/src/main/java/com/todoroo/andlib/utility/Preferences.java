@@ -7,7 +7,6 @@ package com.todoroo.andlib.utility;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.preference.PreferenceManager;
 
 import com.todoroo.andlib.service.ContextManager;
@@ -42,29 +41,6 @@ public class Preferences {
         }
 
         return preferences;
-    }
-
-    // --- preference fetching (string)
-
-    /** Gets an integer value from a string preference. Returns null
-     * if the value is not set or not an integer.
-     *
-     * @param keyResource resource from string.xml
-     * @return integer value, or null on error
-     */
-    public static int getIntegerFromString(int keyResource, int defaultValue) {
-        Context context = ContextManager.getContext();
-        Resources r = context.getResources();
-        String value = getPrefs(context).getString(r.getString(keyResource), null);
-        if(value == null) {
-            return defaultValue;
-        }
-
-        try {
-            return Integer.parseInt(value);
-        } catch (Exception e) {
-            return defaultValue;
-        }
     }
 
     public static boolean getBoolean(int keyResources, boolean defValue) {
