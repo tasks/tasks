@@ -6,7 +6,6 @@
 package com.todoroo.astrid.api;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -22,11 +21,6 @@ abstract public class FilterListItem implements Parcelable {
      * Title of this item displayed on the Filters page
      */
     public String listingTitle = null;
-
-    /**
-     * Bitmap for icon used on listing page. <code>null</code> => no icon
-     */
-    public Bitmap listingIcon = null;
 
     /**
      * Text Color. <code>0</code> => default color
@@ -54,7 +48,6 @@ abstract public class FilterListItem implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(listingTitle);
-        dest.writeParcelable(listingIcon, 0);
         dest.writeInt(color);
 
         // write array lengths before arrays
@@ -67,7 +60,6 @@ abstract public class FilterListItem implements Parcelable {
      */
     public void readFromParcel(Parcel source) {
         listingTitle = source.readString();
-        listingIcon = source.readParcelable(Bitmap.class.getClassLoader());
         color = source.readInt();
 
         contextMenuLabels = source.createStringArray();

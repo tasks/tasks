@@ -7,7 +7,6 @@ package com.todoroo.astrid.service;
 
 import android.app.Activity;
 import android.graphics.PixelFormat;
-import android.util.Log;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -78,31 +77,6 @@ public class ThemeService {
             theme = R.style.Tasks_Dialog_Light;
         }
         return theme;
-    }
-
-    public static int getDrawable(int lightDrawable) {
-        int theme = getTheme();
-        boolean darkTheme = theme == R.style.Tasks;
-
-        if(!darkTheme) {
-            return lightDrawable;
-        }
-
-        switch(lightDrawable) {
-        case R.drawable.filter_calendar:
-            return R.drawable.filter_calendar_dark;
-        case R.drawable.filter_inbox:
-            return R.drawable.filter_inbox_dark;
-        case R.drawable.filter_pencil:
-            return R.drawable.filter_pencil_dark;
-        case R.drawable.filter_sliders:
-            return R.drawable.filter_sliders_dark;
-        case R.drawable.gl_lists:
-            return R.drawable.gl_lists_dark;
-        }
-
-        Log.w("ThemeService", "No theme drawable found for " + lightDrawable);
-        return lightDrawable;
     }
 
     public static int getDarkVsLight(int resForLight, int resForDark) {

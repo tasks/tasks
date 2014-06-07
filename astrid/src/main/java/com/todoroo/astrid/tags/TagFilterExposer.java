@@ -152,8 +152,6 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
                     r.getString(R.string.tag_FEx_untagged),
                     tagService.untaggedTemplate(),
                     null);
-            untagged.listingIcon = ((BitmapDrawable)r.getDrawable(
-                    ThemeService.getDrawable(R.drawable.gl_lists))).getBitmap();
             filters.add(untagged);
         }
 

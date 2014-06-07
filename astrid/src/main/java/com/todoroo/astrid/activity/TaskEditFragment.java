@@ -963,7 +963,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
 
         item = menu.add(Menu.NONE, MENU_DELETE_TASK_ID, 0, R.string.delete_task);
-        item.setIcon(ThemeService.getDrawable(resourceResolver.getResource(R.attr.ic_action_discard)));
+        item.setIcon(resourceResolver.getResource(R.attr.ic_action_discard));
         setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         boolean useSaveAndCancel = preferences.getBoolean(R.string.p_save_and_cancel, false);

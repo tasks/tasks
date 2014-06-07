@@ -86,9 +86,6 @@ public final class CustomFilterExposer extends InjectingBroadcastReceiver implem
                                 TaskCriteria.ownedByMe()).orderBy(
                                         Order.desc(Task.MODIFICATION_DATE)).limit(15),
                                         null);
-                recent.listingIcon = ((BitmapDrawable)r.getDrawable(
-                        ThemeService.getDrawable(R.drawable.filter_pencil))).getBitmap();
-
                 list.add(recent);
             }
 
@@ -103,8 +100,6 @@ public final class CustomFilterExposer extends InjectingBroadcastReceiver implem
                     deleteIntent.putExtra(TOKEN_FILTER_NAME, f.title);
                     f.contextMenuLabels = new String[] { context.getString(R.string.BFE_Saved_delete) };
                     f.contextMenuIntents = new Intent[] { deleteIntent };
-                    f.listingIcon = ((BitmapDrawable)r.getDrawable(
-                            ThemeService.getDrawable(R.drawable.filter_sliders))).getBitmap();
                     list.add(f);
                 }
             }

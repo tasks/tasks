@@ -9,7 +9,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.drawable.BitmapDrawable;
 
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
@@ -26,7 +25,6 @@ import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.R;
@@ -81,32 +79,26 @@ public final class CoreFilterExposer extends InjectingBroadcastReceiver implemen
      * Build inbox filter
      */
     public static Filter buildInboxFilter(Resources r) {
-        Filter inbox = new Filter(r.getString(R.string.BFE_Active), r.getString(R.string.BFE_Active),
+        return new Filter(r.getString(R.string.BFE_Active), r.getString(R.string.BFE_Active),
                 new QueryTemplate().where(
                         Criterion.and(TaskCriteria.activeVisibleMine(),
                                 Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(
                                         Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
                                                 TaskToTagMetadata.TAG_NAME.like("x_%", "x"))))))), //$NON-NLS-1$ //$NON-NLS-2$
                                                 null);
-        inbox.listingIcon = ((BitmapDrawable)r.getDrawable(
-                ThemeService.getDrawable(R.drawable.filter_inbox))).getBitmap();
-        return inbox;
     }
 
     private static Filter getTodayFilter(Resources r) {
         String todayTitle = AndroidUtilities.capitalize(r.getString(R.string.today));
         ContentValues todayValues = new ContentValues();
         todayValues.put(Task.DUE_DATE.name, PermaSql.VALUE_NOON);
-        Filter todayFilter = new Filter(todayTitle,
+        return new Filter(todayTitle,
                 todayTitle,
                 new QueryTemplate().where(
                         Criterion.and(TaskCriteria.activeVisibleMine(),
                                 Task.DUE_DATE.gt(0),
                                 Task.DUE_DATE.lte(PermaSql.VALUE_EOD))),
                                 todayValues);
-        todayFilter.listingIcon = ((BitmapDrawable)r.getDrawable(
-                ThemeService.getDrawable(R.drawable.filter_calendar))).getBitmap();
-        return todayFilter;
     }
 
     /**

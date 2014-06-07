@@ -9,7 +9,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.drawable.BitmapDrawable;
 
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Query;
@@ -70,12 +69,10 @@ public final class TimerFilterExposer extends InjectingBroadcastReceiver impleme
         Resources r = context.getResources();
         ContentValues values = new ContentValues();
         values.put(Task.TIMER_START.name, Filter.VALUE_NOW);
-        Filter workingOn = new Filter(r.getString(R.string.TFE_workingOn),
+        return new Filter(r.getString(R.string.TFE_workingOn),
                 r.getString(R.string.TFE_workingOn),
                 new QueryTemplate().where(Task.TIMER_START.gt(0)),
                 values);
-        workingOn.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_clock)).getBitmap();
-        return workingOn;
     }
 
     @Override

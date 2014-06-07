@@ -55,7 +55,7 @@ public class ShortcutActivity extends Activity {
     public static final String TOKEN_CUSTOM_CLASS = "class"; //$NON-NLS-1$
 
     /** token for passing a image url*/
-    public static final String TOKEN_IMAGE_URL = "imageUrl"; //$NON-NLS-1$
+    public static final String TOKEN_IMAGE_URL = "imageUrl"; //$NON-NLS-1$ TODO: Remove this
 
     /** List of the above constants for searching */
     private static final String[] CUSTOM_EXTRAS = {

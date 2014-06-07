@@ -151,8 +151,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     private void transferImageReferences(Filter from, Filter to) {
         if (from instanceof FilterWithUpdate && to instanceof FilterWithUpdate) {
             ((FilterWithUpdate) to).imageUrl = ((FilterWithUpdate) from).imageUrl;
-        } else {
-            to.listingIcon = from.listingIcon;
         }
     }
 
