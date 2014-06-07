@@ -21,9 +21,8 @@ public class TaskEditActivity extends AstridActivity {
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-        ThemeService.applyTheme(this);
-
         super.onCreate(savedInstanceState);
+        ThemeService.applyTheme(this);
 
         ActionBar actionBar = getSupportActionBar();
         setContentView(R.layout.task_edit_wrapper_activity);

@@ -34,7 +34,7 @@ public class ThemeService {
         activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DITHER);
     }
 
-    public static int getTheme() {
+    private static int getTheme() {
         String preference = Preferences.getBoolean(R.string.p_use_dark_theme, false) ? THEME_BLACK : THEME_WHITE;
         return getStyleForSetting(preference);
     }

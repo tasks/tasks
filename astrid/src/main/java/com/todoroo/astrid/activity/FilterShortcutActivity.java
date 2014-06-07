@@ -33,8 +33,8 @@ public class FilterShortcutActivity extends InjectingListActivity {
 
     @Override
     public void onCreate(Bundle icicle) {
-        ThemeService.applyTheme(this);
         super.onCreate(icicle);
+        ThemeService.applyTheme(this);
 
         // Set the result to CANCELED unless a filter is selected.
         setResult(RESULT_CANCELED);
