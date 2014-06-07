@@ -68,4 +68,10 @@ public class FragmentModule {
     public Context getContext() {
         return activity;
     }
+
+    @Singleton
+    @Provides
+    public Activity getActivity() {
+        return activity;
+    }
 }

@@ -88,6 +88,7 @@ import org.tasks.R;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.ResourceResolver;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -183,6 +184,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Inject GCalHelper gcalHelper;
     @Inject ActivityPreferences preferences;
     @Inject DateChangedAlerts dateChangedAlerts;
+    @Inject ResourceResolver resourceResolver;
 
     // --- UI components
 
@@ -948,7 +950,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         MenuItem item;
 
         item = menu.add(Menu.NONE, MENU_ATTACH_ID, 0, R.string.premium_attach_file);
-        item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_new_attachment));
+        item.setIcon(resourceResolver.getResource(R.attr.ic_action_new_attachment));
 
         setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
 
@@ -956,12 +958,12 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             // media recorder aac support requires api level 10
             // approximately 1% of current installs are using api level 7-9
             item = menu.add(Menu.NONE, MENU_RECORD_ID, 0, R.string.premium_record_audio);
-            item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_mic));
+            item.setIcon(resourceResolver.getResource(R.attr.ic_action_mic));
             setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
 
         item = menu.add(Menu.NONE, MENU_DELETE_TASK_ID, 0, R.string.delete_task);
-        item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_discard));
+        item.setIcon(ThemeService.getDrawable(resourceResolver.getResource(R.attr.ic_action_discard)));
         setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         boolean useSaveAndCancel = preferences.getBoolean(R.string.p_save_and_cancel, false);
@@ -969,13 +971,13 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         if (useSaveAndCancel || preferences.useTabletLayout()) {
             if (useSaveAndCancel) {
                 item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
-                item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_cancel));
+                item.setIcon(resourceResolver.getResource(R.attr.ic_action_cancel));
                 setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
             }
 
             if (!(getActivity() instanceof TaskEditActivity)) {
                 item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
-                item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_save));
+                item.setIcon(resourceResolver.getResource(R.attr.ic_action_save));
                 setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
             }
         }

@@ -88,14 +88,12 @@ public final class CoreFilterExposer extends InjectingBroadcastReceiver implemen
                                         Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
                                                 TaskToTagMetadata.TAG_NAME.like("x_%", "x"))))))), //$NON-NLS-1$ //$NON-NLS-2$
                                                 null);
-        int themeFlags = ThemeService.getFilterThemeFlags();
         inbox.listingIcon = ((BitmapDrawable)r.getDrawable(
-                ThemeService.getDrawable(R.drawable.filter_inbox, themeFlags))).getBitmap();
+                ThemeService.getDrawable(R.drawable.filter_inbox))).getBitmap();
         return inbox;
     }
 
-    public static Filter getTodayFilter(Resources r) {
-        int themeFlags = ThemeService.getFilterThemeFlags();
+    private static Filter getTodayFilter(Resources r) {
         String todayTitle = AndroidUtilities.capitalize(r.getString(R.string.today));
         ContentValues todayValues = new ContentValues();
         todayValues.put(Task.DUE_DATE.name, PermaSql.VALUE_NOON);
@@ -107,7 +105,7 @@ public final class CoreFilterExposer extends InjectingBroadcastReceiver implemen
                                 Task.DUE_DATE.lte(PermaSql.VALUE_EOD))),
                                 todayValues);
         todayFilter.listingIcon = ((BitmapDrawable)r.getDrawable(
-                ThemeService.getDrawable(R.drawable.filter_calendar, themeFlags))).getBitmap();
+                ThemeService.getDrawable(R.drawable.filter_calendar))).getBitmap();
         return todayFilter;
     }
 

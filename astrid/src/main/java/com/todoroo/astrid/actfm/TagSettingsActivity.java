@@ -38,6 +38,7 @@ import org.json.JSONObject;
 import org.tasks.R;
 import org.tasks.injection.InjectingActionBarActivity;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.ResourceResolver;
 
 import javax.inject.Inject;
 
@@ -62,6 +63,7 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
     @Inject TagDataService tagDataService;
     @Inject TagMetadataDao tagMetadataDao;
     @Inject ActivityPreferences preferences;
+    @Inject ResourceResolver resourceResolver;
 
     private EditText tagName;
     private Bitmap setBitmap;
@@ -266,13 +268,13 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
         MenuItem item;
         if (preferences.getBoolean(R.string.p_save_and_cancel, false)) {
             item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
-            item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_cancel));
+            item.setIcon(resourceResolver.getResource(R.attr.ic_action_cancel));
             setShowAsAction(item, MenuItem.SHOW_AS_ACTION_IF_ROOM);
         }
 
         if (isDialog) {
             item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
-            item.setIcon(ThemeService.getDrawable(R.drawable.ic_action_save));
+            item.setIcon(resourceResolver.getResource(R.attr.ic_action_save));
             setShowAsAction(item, MenuItem.SHOW_AS_ACTION_IF_ROOM);
         }
         return super.onCreateOptionsMenu(menu);

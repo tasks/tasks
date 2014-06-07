@@ -146,8 +146,6 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
 
         Resources r = context.getResources();
 
-        int themeFlags = ThemeService.getFilterThemeFlags();
-
         // --- untagged
         if (shouldAddUntagged) {
             Filter untagged = new Filter(r.getString(R.string.tag_FEx_untagged),
@@ -155,7 +153,7 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
                     tagService.untaggedTemplate(),
                     null);
             untagged.listingIcon = ((BitmapDrawable)r.getDrawable(
-                    ThemeService.getDrawable(R.drawable.gl_lists, themeFlags))).getBitmap();
+                    ThemeService.getDrawable(R.drawable.gl_lists))).getBitmap();
             filters.add(untagged);
         }
 

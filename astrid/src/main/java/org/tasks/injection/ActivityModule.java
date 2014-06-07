@@ -98,4 +98,10 @@ public class ActivityModule {
     public Context getActivityContext() {
         return activity;
     }
+
+    @Singleton
+    @Provides
+    public Activity getActivity() {
+        return activity;
+    }
 }

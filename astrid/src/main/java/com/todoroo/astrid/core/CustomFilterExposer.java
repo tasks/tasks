@@ -73,8 +73,6 @@ public final class CustomFilterExposer extends InjectingBroadcastReceiver implem
     }
 
     private Filter[] buildSavedFilters(Context context, Resources r) {
-        int themeFlags = ThemeService.getFilterThemeFlags();
-
         TodorooCursor<StoreObject> cursor = storeObjectDao.query(Query.select(StoreObject.PROPERTIES).where(
                 StoreObject.TYPE.eq(SavedFilter.TYPE)).orderBy(Order.asc(SavedFilter.NAME)));
         try {
@@ -89,7 +87,7 @@ public final class CustomFilterExposer extends InjectingBroadcastReceiver implem
                                         Order.desc(Task.MODIFICATION_DATE)).limit(15),
                                         null);
                 recent.listingIcon = ((BitmapDrawable)r.getDrawable(
-                        ThemeService.getDrawable(R.drawable.filter_pencil, themeFlags))).getBitmap();
+                        ThemeService.getDrawable(R.drawable.filter_pencil))).getBitmap();
 
                 list.add(recent);
             }
@@ -106,7 +104,7 @@ public final class CustomFilterExposer extends InjectingBroadcastReceiver implem
                     f.contextMenuLabels = new String[] { context.getString(R.string.BFE_Saved_delete) };
                     f.contextMenuIntents = new Intent[] { deleteIntent };
                     f.listingIcon = ((BitmapDrawable)r.getDrawable(
-                            ThemeService.getDrawable(R.drawable.filter_sliders, themeFlags))).getBitmap();
+                            ThemeService.getDrawable(R.drawable.filter_sliders))).getBitmap();
                     list.add(f);
                 }
             }

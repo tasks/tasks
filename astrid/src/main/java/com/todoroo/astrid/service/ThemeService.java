@@ -8,7 +8,6 @@ package com.todoroo.astrid.service;
 import android.app.Activity;
 import android.graphics.PixelFormat;
 import android.util.Log;
-import android.view.WindowManager;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -20,18 +19,10 @@ public class ThemeService {
     public static final String THEME_WHITE = "white";
     public static final String THEME_BLACK = "black";
 
-    public static final int FLAG_FORCE_DARK = 1;
-    public static final int FLAG_INVERT = 3;
-
-    // Widget config activities set this flag since they theme differently than the normal
-    // filter list. In other cases this should be false
-    private static boolean forceFilterInvert = false;
-
     public static void applyTheme(Activity activity) {
         int currentTheme = getTheme();
         activity.setTheme(currentTheme);
         activity.getWindow().setFormat(PixelFormat.RGBA_8888);
-        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DITHER);
     }
 
     private static int getTheme() {
@@ -90,52 +81,14 @@ public class ThemeService {
     }
 
     public static int getDrawable(int lightDrawable) {
-        return getDrawable(lightDrawable, 0);
-    }
-
-    /**
-     * Only widget config activities should call this (see note on the flag above)
-     */
-    public static void setForceFilterInvert(boolean forceInvert) {
-        forceFilterInvert = forceInvert;
-    }
-
-    public static int getFilterThemeFlags() {
-        if (forceFilterInvert) {
-            return ThemeService.FLAG_INVERT;
-        }
-        return 0;
-    }
-
-    public static int getDrawable(int lightDrawable, int alter) {
         int theme = getTheme();
         boolean darkTheme = theme == R.style.Tasks;
-        switch(alter) {
-        case FLAG_FORCE_DARK:
-            darkTheme = true;
-            break;
-        case FLAG_INVERT:
-            darkTheme = !darkTheme;
-            break;
-        default:
-            break;
-        }
 
         if(!darkTheme) {
             return lightDrawable;
         }
 
         switch(lightDrawable) {
-        case R.drawable.ic_action_mic:
-            return R.drawable.ic_action_mic_light;
-        case R.drawable.ic_action_save:
-            return R.drawable.ic_action_save_light;
-        case R.drawable.ic_action_discard:
-            return R.drawable.ic_action_discard_light;
-        case R.drawable.ic_action_cancel:
-            return R.drawable.ic_action_cancel_light;
-        case R.drawable.ic_action_new_attachment:
-            return R.drawable.ic_action_new_attachment_light;
         case R.drawable.filter_calendar:
             return R.drawable.filter_calendar_dark;
         case R.drawable.filter_inbox:
