@@ -1,35 +1,26 @@
 package com.todoroo.astrid.gcal;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 
-import org.tasks.R;
+import org.tasks.injection.InjectingBroadcastReceiver;
 
-public class CalendarStartupReceiver extends BroadcastReceiver {
+import javax.inject.Inject;
+
+public class CalendarStartupReceiver extends InjectingBroadcastReceiver {
 
     public static final String BROADCAST_RESCHEDULE_CAL_ALARMS = AstridApiConstants.API_PACKAGE + ".SCHEDULE_CAL_REMINDERS"; //$NON-NLS-1$
 
+    @Inject CalendarAlarmScheduler calendarAlarmScheduler;
+
     @Override
     public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+
         ContextManager.setContext(context);
-        scheduleCalendarAlarms(context, false);
+        calendarAlarmScheduler.scheduleCalendarAlarms(context, false);
     }
-
-    public static void scheduleCalendarAlarms(final Context context, boolean force) {
-        if (!Preferences.getBoolean(R.string.p_calendar_reminders, true) && !force) {
-            return;
-        }
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                CalendarAlarmScheduler.scheduleAllCalendarAlarms(context);
-            }
-        }).start();
-    }
-
 }

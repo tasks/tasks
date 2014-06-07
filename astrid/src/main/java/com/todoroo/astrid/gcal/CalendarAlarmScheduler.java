@@ -9,10 +9,14 @@ import android.database.Cursor;
 import android.net.Uri;
 
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 
 import org.tasks.R;
+import org.tasks.preferences.Preferences;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public class CalendarAlarmScheduler {
 
     public static final String TAG = "calendar-alarm";
@@ -20,8 +24,27 @@ public class CalendarAlarmScheduler {
     public static final String URI_PREFIX = "cal-reminder";
     public static final String URI_PREFIX_POSTPONE = "cal-postpone";
 
-    public static void scheduleAllCalendarAlarms(Context context) {
-        if (!Preferences.getBoolean(R.string.p_calendar_reminders, true)) {
+    private final Preferences preferences;
+
+    @Inject
+    public CalendarAlarmScheduler(Preferences preferences) {
+        this.preferences = preferences;
+    }
+
+    public void scheduleCalendarAlarms(final Context context, boolean force) {
+        if (!preferences.getBoolean(R.string.p_calendar_reminders, true) && !force) {
+            return;
+        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                scheduleAllCalendarAlarms(context);
+            }
+        }).start();
+    }
+
+    private void scheduleAllCalendarAlarms(Context context) {
+        if (!preferences.getBoolean(R.string.p_calendar_reminders, true)) {
             return;
         }
 
@@ -57,7 +80,6 @@ public class CalendarAlarmScheduler {
                     long alarmTime = start - DateUtilities.ONE_MINUTE * 15;
                     am.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
                 }
-
             }
 
             // Schedule alarm to recheck and reschedule calendar alarms in 12 hours
@@ -71,7 +93,5 @@ public class CalendarAlarmScheduler {
                 events.close();
             }
         }
-
     }
-
 }

@@ -9,6 +9,7 @@ import com.todoroo.astrid.calls.PhoneStateChangedReceiver;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.gcal.CalendarAlarmReceiver;
+import com.todoroo.astrid.gcal.CalendarStartupReceiver;
 import com.todoroo.astrid.gcal.GCalTaskCompleteListener;
 import com.todoroo.astrid.gtasks.GtasksCustomFilterCriteriaExposer;
 import com.todoroo.astrid.gtasks.GtasksDetailExposer;
@@ -59,7 +60,8 @@ import dagger.Provides;
         GtasksFilterExposer.class,
         TagFilterExposer.class,
         BackupStartupReceiver.class,
-        CalendarAlarmReceiver.class
+        CalendarAlarmReceiver.class,
+        CalendarStartupReceiver.class
 })
 public class BroadcastModule {
 

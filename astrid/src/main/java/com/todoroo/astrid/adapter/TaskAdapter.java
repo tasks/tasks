@@ -483,7 +483,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         if (taskActionLoader.containsKey(task.getId())) {
             return taskActionLoader.get(task.getId());
         } else {
-            TaskAction action = LinkActionExposer.getActionsForTask(context, task, hasFiles, hasNotes);
+            TaskAction action = LinkActionExposer.getActionsForTask(preferences, context, task, hasFiles, hasNotes);
             taskActionLoader.put(task.getId(), action);
             return action;
         }

@@ -36,7 +36,7 @@ import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gcal.CalendarStartupReceiver;
+import com.todoroo.astrid.gcal.CalendarAlarmScheduler;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
@@ -78,13 +78,15 @@ public class StartupService {
     private final MetadataService metadataService;
     private final Preferences preferences;
     private final TasksXmlImporter xmlImporter;
+    private final CalendarAlarmScheduler calendarAlarmScheduler;
 
     @Inject
     public StartupService(UpgradeService upgradeService, TaskService taskService,
                           TagDataDao tagDataDao, Database database,
                           GtasksPreferenceService gtasksPreferenceService,
                           GtasksSyncService gtasksSyncService, MetadataService metadataService,
-                          Preferences preferences, TasksXmlImporter xmlImporter) {
+                          Preferences preferences, TasksXmlImporter xmlImporter,
+                          CalendarAlarmScheduler calendarAlarmScheduler) {
         this.upgradeService = upgradeService;
         this.taskService = taskService;
         this.tagDataDao = tagDataDao;
@@ -94,6 +96,7 @@ public class StartupService {
         this.metadataService = metadataService;
         this.preferences = preferences;
         this.xmlImporter = xmlImporter;
+        this.calendarAlarmScheduler = calendarAlarmScheduler;
     }
 
     /**
@@ -199,7 +202,7 @@ public class StartupService {
 
         preferences.setDefaults();
 
-        CalendarStartupReceiver.scheduleCalendarAlarms(context, false); // This needs to be after set preference defaults for the purposes of ab testing
+        calendarAlarmScheduler.scheduleCalendarAlarms(context, false); // This needs to be after set preference defaults for the purposes of ab testing
 
         showTaskKillerHelp(context);
 

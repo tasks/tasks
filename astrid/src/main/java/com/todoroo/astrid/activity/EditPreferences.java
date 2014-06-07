@@ -28,7 +28,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.files.FileExplore;
-import com.todoroo.astrid.gcal.CalendarStartupReceiver;
+import com.todoroo.astrid.gcal.CalendarAlarmScheduler;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.helper.MetadataHelper;
 import com.todoroo.astrid.service.MarketStrategy.AmazonMarketStrategy;
@@ -73,6 +73,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
     @Inject StartupService startupService;
     @Inject TaskService taskService;
     @Inject Preferences preferences;
+    @Inject CalendarAlarmScheduler calendarAlarmScheduler;
 
     private VoiceInputAssistant voiceInputAssistant;
 
@@ -402,7 +403,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     if (newValue != null && ((Boolean) newValue)) {
-                        CalendarStartupReceiver.scheduleCalendarAlarms(EditPreferences.this, true);
+                        calendarAlarmScheduler.scheduleCalendarAlarms(EditPreferences.this, true);
                     }
                     return true;
                 }
