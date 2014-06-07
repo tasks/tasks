@@ -46,15 +46,6 @@ public class Preferences {
 
     // --- preference fetching (string)
 
-    /** Gets an string value from a string preference. Returns null
-     * if the value is not set
-     * @return integer value, or null on error
-     */
-    public static String getStringValue(String key) {
-        Context context = ContextManager.getContext();
-        return getPrefs(context).getString(key, null);
-    }
-
     /** Gets an integer value from a string preference. Returns null
      * if the value is not set or not an integer.
      *

@@ -863,7 +863,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             return;
         }
 
-        File dst = new File(FileUtilities.getAttachmentsDirectory(getActivity()) + File.separator + src.getName());
+        File dst = new File(FileUtilities.getAttachmentsDirectory(preferences, getActivity()) + File.separator + src.getName());
         try {
             AndroidUtilities.copyFile(src, dst);
         } catch (Exception e) {
@@ -890,7 +890,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private void attachImage(Bitmap bitmap) {
 
         AtomicReference<String> nameRef = new AtomicReference<>();
-        String path = FileUtilities.getNewImageAttachmentPath(getActivity(), nameRef);
+        String path = FileUtilities.getNewImageAttachmentPath(preferences, getActivity(), nameRef);
 
         try {
             FileOutputStream fos = new FileOutputStream(path);

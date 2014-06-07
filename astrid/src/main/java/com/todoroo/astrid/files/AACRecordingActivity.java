@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.files;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,10 +15,14 @@ import com.todoroo.astrid.voice.AACRecorder;
 import com.todoroo.astrid.voice.AACRecorder.AACRecorderCallbacks;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingActivity;
+import org.tasks.preferences.Preferences;
 
 import java.util.concurrent.atomic.AtomicReference;
 
-public class AACRecordingActivity extends Activity implements AACRecorderCallbacks {
+import javax.inject.Inject;
+
+public class AACRecordingActivity extends InjectingActivity implements AACRecorderCallbacks {
 
     public static final String RESULT_OUTFILE = "outfile"; //$NON-NLS-1$
     public static final String RESULT_FILENAME = "filename";  //$NON-NLS-1$
@@ -28,6 +31,8 @@ public class AACRecordingActivity extends Activity implements AACRecorderCallbac
     private Chronometer timer;
     private AtomicReference<String> nameRef;
     private String tempFile;
+
+    @Inject Preferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +43,7 @@ public class AACRecordingActivity extends Activity implements AACRecorderCallbac
         setupUi();
 
         nameRef = new AtomicReference<>();
-        tempFile = FileUtilities.getNewAudioAttachmentPath(this, nameRef);
+        tempFile = FileUtilities.getNewAudioAttachmentPath(preferences, this, nameRef);
 
         recorder = new AACRecorder();
         recorder.setListener(this);

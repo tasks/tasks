@@ -9,10 +9,10 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.TaskAttachment;
 
 import org.tasks.R;
+import org.tasks.preferences.Preferences;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -41,17 +41,17 @@ public class FileUtilities {
         return new SimpleDateFormat(value).format(date);
     }
 
-    public static String getNewImageAttachmentPath(Context context, AtomicReference<String> nameReference) {
-        return getNewAttachmentPath(context, R.string.file_prefix_image, ".png", nameReference); //$NON-NLS-1$
+    public static String getNewImageAttachmentPath(Preferences preferences, Context context, AtomicReference<String> nameReference) {
+        return getNewAttachmentPath(preferences, context, R.string.file_prefix_image, ".png", nameReference); //$NON-NLS-1$
     }
 
-    public static String getNewAudioAttachmentPath(Context context, AtomicReference<String> nameReference) {
-        return getNewAttachmentPath(context, R.string.file_prefix_voice, ".m4a", nameReference); //$NON-NLS-1$
+    public static String getNewAudioAttachmentPath(Preferences preferences, Context context, AtomicReference<String> nameReference) {
+        return getNewAttachmentPath(preferences, context, R.string.file_prefix_voice, ".m4a", nameReference); //$NON-NLS-1$
     }
 
-    private static String getNewAttachmentPath(Context context, int prefixId, String extension, AtomicReference<String> nameReference) {
+    private static String getNewAttachmentPath(Preferences preferences, Context context, int prefixId, String extension, AtomicReference<String> nameReference) {
 
-        String dir = getAttachmentsDirectory(context).getAbsolutePath();
+        String dir = getAttachmentsDirectory(preferences, context).getAbsolutePath();
 
         String name = getNonCollidingFileName(dir, context.getString(prefixId) + " " + getDateStringForFilename(context, newDate()), extension);
 
@@ -62,9 +62,9 @@ public class FileUtilities {
         return dir + File.separator + name;
     }
 
-    public static File getAttachmentsDirectory(Context context) {
+    public static File getAttachmentsDirectory(Preferences preferences, Context context) {
         File directory = null;
-        String customDir = Preferences.getStringValue(TaskAttachment.FILES_DIRECTORY_PREF);
+        String customDir = preferences.getStringValue(TaskAttachment.FILES_DIRECTORY_PREF);
         if (!TextUtils.isEmpty(customDir)) {
             directory = new File(customDir);
         }

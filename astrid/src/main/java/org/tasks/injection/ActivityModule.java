@@ -17,6 +17,7 @@ import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.core.DefaultsPreferences;
 import com.todoroo.astrid.core.OldTaskPreferences;
+import com.todoroo.astrid.files.AACRecordingActivity;
 import com.todoroo.astrid.gcal.CalendarAlarmListCreator;
 import com.todoroo.astrid.gcal.CalendarReminderActivity;
 import com.todoroo.astrid.gtasks.GtasksFilterExposer;
@@ -65,7 +66,8 @@ import dagger.Provides;
         TagFilterExposer.class,
         BeastModePreferences.class,
         DefaultsPreferences.class,
-        ReminderPreferences.class
+        ReminderPreferences.class,
+        AACRecordingActivity.class
 })
 public class ActivityModule {
 
