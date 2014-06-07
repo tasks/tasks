@@ -18,7 +18,6 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
@@ -30,6 +29,7 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.ui.DraggableListView;
 
 import org.tasks.R;
+import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,6 +43,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
     private final DisplayMetrics metrics = new DisplayMetrics();
     private final AstridOrderedListUpdater<LIST> updater;
     private final TaskListFragment fragment;
+    private final Preferences preferences;
     private final TaskAttachmentDao taskAttachmentDao;
     private final TaskService taskService;
 
@@ -50,7 +51,8 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
 
     private LIST list;
 
-    public AstridOrderedListFragmentHelper(TaskAttachmentDao taskAttachmentDao, TaskService taskService, TaskListFragment fragment, AstridOrderedListUpdater<LIST> updater) {
+    public AstridOrderedListFragmentHelper(org.tasks.preferences.Preferences preferences, TaskAttachmentDao taskAttachmentDao, TaskService taskService, TaskListFragment fragment, AstridOrderedListUpdater<LIST> updater) {
+        this.preferences = preferences;
         this.taskAttachmentDao = taskAttachmentDao;
         this.taskService = taskService;
         this.fragment = fragment;
@@ -167,7 +169,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
     public TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor,
             AtomicReference<String> sqlQueryTemplate) {
 
-        taskAdapter = new DraggableTaskAdapter(fragment, TaskListFragment.getTaskRowResource(Preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0)),
+        taskAdapter = new DraggableTaskAdapter(preferences, fragment, TaskListFragment.getTaskRowResource(preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0)),
                 cursor, sqlQueryTemplate);
 
         getTouchListView().setItemHightNormal(taskAdapter.computeFullRowHeight());
@@ -184,9 +186,9 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
 
     private final class DraggableTaskAdapter extends TaskAdapter {
 
-        private DraggableTaskAdapter(TaskListFragment activity, int resource,
+        private DraggableTaskAdapter(org.tasks.preferences.Preferences preferences, TaskListFragment activity, int resource,
                 Cursor c, AtomicReference<String> query) {
-            super(taskAttachmentDao, taskService, activity, resource, c, query, null);
+            super(preferences, taskAttachmentDao, taskService, activity, resource, c, query, null);
         }
 
         @Override

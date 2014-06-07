@@ -20,7 +20,6 @@ import com.commonsware.cwac.tlv.TouchListView.SwipeListener;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
@@ -35,6 +34,7 @@ import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater.OrderedListNodeVis
 import com.todoroo.astrid.ui.DraggableListView;
 
 import org.tasks.R;
+import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,6 +49,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
     private final OrderedMetadataListUpdater<LIST> updater;
     private final TaskListFragment fragment;
 
+    private final Preferences preferences;
     private final TaskAttachmentDao taskAttachmentDao;
     private final TaskService taskService;
     private final MetadataService metadataService;
@@ -57,7 +58,8 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
 
     private LIST list;
 
-    public OrderedMetadataListFragmentHelper(TaskAttachmentDao taskAttachmentDao, TaskService taskService, MetadataService metadataService, TaskListFragment fragment, OrderedMetadataListUpdater<LIST> updater) {
+    public OrderedMetadataListFragmentHelper(Preferences preferences, TaskAttachmentDao taskAttachmentDao, TaskService taskService, MetadataService metadataService, TaskListFragment fragment, OrderedMetadataListUpdater<LIST> updater) {
+        this.preferences = preferences;
         this.taskAttachmentDao = taskAttachmentDao;
         this.taskService = taskService;
         this.metadataService = metadataService;
@@ -97,7 +99,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
     @Override
     public Property<?>[] taskProperties() {
         Property<?>[] baseProperties = TaskAdapter.PROPERTIES;
-        if (Preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0) == 2) {
+        if (preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0) == 2) {
             baseProperties = TaskAdapter.BASIC_PROPERTIES;
         }
 
@@ -181,7 +183,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
     public TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor,
             AtomicReference<String> sqlQueryTemplate) {
 
-        taskAdapter = new DraggableTaskAdapter(fragment, TaskListFragment.getTaskRowResource(Preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0)),
+        taskAdapter = new DraggableTaskAdapter(preferences, fragment, TaskListFragment.getTaskRowResource(preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0)),
                 cursor, sqlQueryTemplate);
 
         taskAdapter.addOnCompletedTaskListener(new OnCompletedTaskListener() {
@@ -196,9 +198,9 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
 
     private final class DraggableTaskAdapter extends TaskAdapter {
 
-        private DraggableTaskAdapter(TaskListFragment activity, int resource,
+        private DraggableTaskAdapter(Preferences preferences, TaskListFragment activity, int resource,
                 Cursor c, AtomicReference<String> query) {
-            super(taskAttachmentDao, taskService, activity, resource, c, query, null);
+            super(preferences, taskAttachmentDao, taskService, activity, resource, c, query, null);
         }
 
         @Override

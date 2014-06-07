@@ -18,6 +18,7 @@ import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
+import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
@@ -26,6 +27,7 @@ public class SubtasksTagListFragment extends TagViewFragment {
     @Inject TaskService taskService;
     @Inject SubtasksFilterUpdater subtasksFilterUpdater;
     @Inject TaskAttachmentDao taskAttachmentDao;
+    @Inject Preferences preferences;
 
     private AstridOrderedListFragmentHelper<TaskListMetadata> helper;
 
@@ -35,7 +37,7 @@ public class SubtasksTagListFragment extends TagViewFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        helper = new AstridOrderedListFragmentHelper<>(taskAttachmentDao, taskService, this, subtasksFilterUpdater);
+        helper = new AstridOrderedListFragmentHelper<>(preferences, taskAttachmentDao, taskService, this, subtasksFilterUpdater);
     }
 
     @Override

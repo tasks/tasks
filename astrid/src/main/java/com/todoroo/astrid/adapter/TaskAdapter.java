@@ -49,7 +49,6 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Pair;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.TaskAction;
@@ -68,6 +67,7 @@ import com.todoroo.astrid.ui.CheckableImageView;
 import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.R;
+import org.tasks.preferences.Preferences;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -174,6 +174,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     // --- instance variables
 
+    private final Preferences preferences;
     private final TaskAttachmentDao taskAttachmentDao;
     private final TaskService taskService;
 
@@ -209,9 +210,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * @param onCompletedTaskListener
      *            task listener. can be null
      */
-    public TaskAdapter(TaskAttachmentDao taskAttachmentDao, TaskService taskService, TaskListFragment fragment, int resource,
+    public TaskAdapter(Preferences preferences, TaskAttachmentDao taskAttachmentDao, TaskService taskService, TaskListFragment fragment, int resource,
             Cursor c, AtomicReference<String> query, OnCompletedTaskListener onCompletedTaskListener) {
         super(ContextManager.getContext(), c, false);
+        this.preferences = preferences;
         this.taskAttachmentDao = taskAttachmentDao;
         this.taskService = taskService;
         this.context = ContextManager.getContext();
@@ -224,7 +226,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         inflater = (LayoutInflater) fragment.getActivity().getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
 
-        fontSize = Preferences.getIntegerFromString(R.string.p_fontSize, 18);
+        fontSize = preferences.getIntegerFromString(R.string.p_fontSize, 18);
         paint = new Paint();
         displayMetrics = new DisplayMetrics();
         fragment.getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -270,7 +272,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     }
 
     private void startDetailThread() {
-        if (Preferences.getBoolean(R.string.p_showNotes, false) && !simpleLayout && !titleOnlyLayout) {
+        if (preferences.getBoolean(R.string.p_showNotes, false) && !simpleLayout && !titleOnlyLayout) {
             DetailLoaderThread detailLoader = new DetailLoaderThread();
             detailLoader.start();
         }
@@ -313,8 +315,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         viewHolder.taskActionContainer = view.findViewById(R.id.taskActionContainer);
         viewHolder.taskActionIcon = (ImageView)view.findViewById(R.id.taskActionIcon);
 
-        boolean showFullTaskTitle = Preferences.getBoolean(R.string.p_fullTaskTitle, false);
-        boolean showNotes = Preferences.getBoolean(R.string.p_showNotes, false);
+        boolean showFullTaskTitle = preferences.getBoolean(R.string.p_fullTaskTitle, false);
+        boolean showNotes = preferences.getBoolean(R.string.p_showNotes, false);
         if (showFullTaskTitle && !titleOnlyLayout) {
             viewHolder.nameView.setMaxLines(Integer.MAX_VALUE);
             viewHolder.nameView.setSingleLine(false);
@@ -445,7 +447,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             if(TextUtils.isEmpty(details) || DETAIL_SEPARATOR.equals(details) || task.isCompleted()) {
                 viewHolder.details1.setVisibility(View.GONE);
                 viewHolder.details2.setVisibility(View.GONE);
-            } else if (Preferences.getBoolean(R.string.p_showNotes, false)) {
+            } else if (preferences.getBoolean(R.string.p_showNotes, false)) {
                 viewHolder.details1.setVisibility(View.VISIBLE);
                 if (details.startsWith(DETAIL_SEPARATOR)) {
                     StringBuilder buffer = new StringBuilder(details);
@@ -834,7 +836,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
-        fontSize = Preferences.getIntegerFromString(R.string.p_fontSize, 18);
+        fontSize = preferences.getIntegerFromString(R.string.p_fontSize, 18);
     }
 
     protected final View.OnClickListener completeBoxListener = new View.OnClickListener() {
