@@ -28,8 +28,6 @@
         <item name="asQuickaddBackgroundColor">?attr/asAbBackgroundColor</item>
         <item name="asFilterSelectedIcon">@drawable/filter_selected_icon</item>
         <item name="asTaskRowSelector">@drawable/task_row_bg_dark</item>
-        <item name="asHeaderTextColor">?attr/asThemeTextColor</item>
-        <item name="asHeaderTextColorInverse">?attr/asAbBackgroundColor</item>
         <item name="ic_action_new_attachment">@drawable/ic_action_new_attachment_light</item>
         <item name="ic_action_discard">@drawable/ic_action_discard_light</item>
         <item name="ic_action_save">@drawable/ic_action_save_light</item>
