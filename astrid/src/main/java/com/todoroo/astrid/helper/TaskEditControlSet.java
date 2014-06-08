@@ -18,7 +18,7 @@ import com.todoroo.astrid.ui.EditDialogOkBackground;
 
 import org.tasks.R;
 
-import static org.tasks.preferences.ResourceResolver.getResource;
+import static org.tasks.preferences.ResourceResolver.getData;
 
 // --- interface
 
@@ -42,7 +42,7 @@ public abstract class TaskEditControlSet {
             initialized = true;
         }
 
-        themeColor = getResource(activity, R.attr.task_edit_theme_color);
+        themeColor = getData(activity, R.attr.task_edit_theme_color);
         unsetColor = activity.getResources().getColor(R.color.task_edit_deadline_gray);
     }
 

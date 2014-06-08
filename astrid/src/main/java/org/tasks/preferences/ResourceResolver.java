@@ -25,4 +25,10 @@ public class ResourceResolver {
         activity.getTheme().resolveAttribute(attr, typedValue, true);
         return typedValue.resourceId;
     }
+
+    public static int getData(Activity activity, int attr) {
+        TypedValue typedValue = new TypedValue();
+        activity.getTheme().resolveAttribute(attr, typedValue, true);
+        return typedValue.data;
+    }
 }
