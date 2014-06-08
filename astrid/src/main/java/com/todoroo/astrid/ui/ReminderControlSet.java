@@ -20,12 +20,13 @@ import android.widget.TextView;
 import com.todoroo.astrid.alarms.AlarmControlSet;
 import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.ThemeService;
 
 import org.tasks.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.tasks.preferences.ResourceResolver.getResource;
 
 /**
  * Control set dealing with reminder settings
@@ -219,7 +220,7 @@ public class ReminderControlSet extends PopupControlSet {
 
             label.setText(toDisplay);
             label.setTextColor(themeColor);
-            image.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_reminder, R.drawable.tea_icn_reminder_lightblue));
+            image.setImageResource(getResource(activity, R.attr.tea_icn_reminder));
         } else {
             label.setText(R.string.TEA_reminders_group_label);
             label.setTextColor(unsetColor);

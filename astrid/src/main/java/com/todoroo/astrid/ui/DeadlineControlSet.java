@@ -22,9 +22,10 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.repeats.RepeatControlSet;
-import com.todoroo.astrid.service.ThemeService;
 
 import org.tasks.R;
+
+import static org.tasks.preferences.ResourceResolver.getResource;
 
 public class DeadlineControlSet extends PopupControlSet {
 
@@ -73,10 +74,9 @@ public class DeadlineControlSet extends PopupControlSet {
                 image.setImageResource(R.drawable.tea_icn_date_red);
             } else {
                 dateDisplay.setTextColor(themeColor);
-                image.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_date, R.drawable.tea_icn_date_lightblue));
+                image.setImageResource(getResource(activity, R.attr.tea_icn_date));
             }
         }
-
     }
 
     @Override

@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
 
 import org.tasks.R;
@@ -26,6 +25,7 @@ import org.tasks.R;
 import java.util.Date;
 
 import static org.tasks.date.DateTimeUtils.newDate;
+import static org.tasks.preferences.ResourceResolver.getResource;
 
 /**
  * Control set for specifying when a task should be hidden
@@ -205,7 +205,7 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
 
             auxDisplay.setText(activity.getString(R.string.TEA_hideUntil_display, display));
             auxDisplay.setTextColor(themeColor);
-            image.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_hide, R.drawable.tea_icn_hide_lightblue));
+            image.setImageResource(getResource(activity, R.attr.tea_icn_hide));
         }
     }
 

@@ -22,6 +22,8 @@ import org.tasks.R;
 import java.util.LinkedList;
 import java.util.List;
 
+import static org.tasks.preferences.ResourceResolver.getResource;
+
 /**
  * Control Set for setting task importance
  *
@@ -48,7 +50,7 @@ public class ImportanceControlSet extends TaskEditControlSet {
         for(CompoundButton b : buttons) {
             if(b.getTag() == i) {
                 b.setChecked(true);
-                b.setBackgroundResource(ThemeService.getDarkVsLight(R.drawable.importance_background_selected, R.drawable.importance_background_selected_dark));
+                b.setBackgroundResource(getResource(activity, R.attr.importance_background_selected));
             } else {
                 b.setChecked(false);
                 b.setBackgroundResource(0);

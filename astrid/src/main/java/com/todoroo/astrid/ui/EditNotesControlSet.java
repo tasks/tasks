@@ -17,9 +17,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.ThemeService;
 
 import org.tasks.R;
+
+import static org.tasks.preferences.ResourceResolver.getResource;
 
 public class EditNotesControlSet extends PopupControlSet {
 
@@ -48,7 +49,7 @@ public class EditNotesControlSet extends PopupControlSet {
         } else {
             notesPreview.setText(textToUse);
             notesPreview.setTextColor(themeColor);
-            image.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_edit, R.drawable.tea_icn_edit_lightblue));
+            image.setImageResource(getResource(activity, R.attr.tea_icn_edit));
         }
 
         linkifyDisplayView();

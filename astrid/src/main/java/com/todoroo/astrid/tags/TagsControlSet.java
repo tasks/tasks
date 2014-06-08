@@ -28,7 +28,6 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.utility.Flags;
@@ -38,6 +37,8 @@ import org.tasks.R;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+
+import static org.tasks.preferences.ResourceResolver.getResource;
 
 /**
  * Control set to manage adding and removing tags
@@ -314,7 +315,7 @@ public final class TagsControlSet extends PopupControlSet {
         if (!TextUtils.isEmpty(tagString)) {
             tagsDisplay.setText(tagString);
             tagsDisplay.setTextColor(themeColor);
-            image.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_lists, R.drawable.tea_icn_lists_lightblue));
+            image.setImageResource(getResource(activity, R.attr.tea_icn_lists));
         } else {
             tagsDisplay.setText(R.string.tag_FEx_untagged);
             tagsDisplay.setTextColor(unsetColor);

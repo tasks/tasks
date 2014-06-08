@@ -28,7 +28,6 @@ import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.DateAndTimeDialog;
 import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
 import com.todoroo.astrid.ui.DateAndTimePicker;
@@ -394,7 +393,7 @@ public class RepeatControlSet extends PopupControlSet {
         if (doRepeat) {
             repeatDisplay.setText(getRepeatString(true));
             repeatDisplay.setTextColor(themeColor);
-            repeatImage.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_repeat, R.drawable.tea_icn_repeat));
+            repeatImage.setImageResource(R.drawable.tea_icn_repeat);
 
         } else {
             repeatDisplay.setTextColor(unsetColor);

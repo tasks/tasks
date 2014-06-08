@@ -15,12 +15,13 @@ import android.widget.TextView;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
-import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.timers.TimerActionControlSet.TimerActionListener;
 import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.ui.TimeDurationControlSet;
 
 import org.tasks.R;
+
+import static org.tasks.preferences.ResourceResolver.getResource;
 
 /**
  * Control Set for managing repeats
@@ -140,7 +141,7 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
         if (!TextUtils.isEmpty(toDisplay)) {
             displayEdit.setText(toDisplay);
             displayEdit.setTextColor(themeColor);
-            image.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_timer, R.drawable.tea_icn_timer_lightblue));
+            image.setImageResource(getResource(activity, R.attr.tea_icn_timer));
         } else {
             displayEdit.setText(R.string.TEA_timer_controls);
             displayEdit.setTextColor(unsetColor);

@@ -34,7 +34,6 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
-import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.voice.RecognizerApi;
@@ -44,6 +43,8 @@ import org.tasks.R;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import static org.tasks.preferences.ResourceResolver.getResource;
 
 public class FilesControlSet extends PopupControlSet {
 
@@ -65,7 +66,7 @@ public class FilesControlSet extends PopupControlSet {
     protected void refreshDisplayView() {
         fileDisplayList.removeAllViews();
         if (files != null && files.size() > 0) {
-            image.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_files, R.drawable.tea_icn_files_lightblue));
+            image.setImageResource(getResource(activity, R.attr.tea_icn_files));
         } else {
             image.setImageResource(R.drawable.tea_icn_files_gray);
         }

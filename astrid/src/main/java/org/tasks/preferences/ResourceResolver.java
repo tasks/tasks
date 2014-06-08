@@ -17,6 +17,10 @@ public class ResourceResolver {
     }
 
     public int getResource(int attr) {
+        return getResource(activity, attr);
+    }
+
+    public static int getResource(Activity activity, int attr) {
         TypedValue typedValue = new TypedValue();
         activity.getTheme().resolveAttribute(attr, typedValue, true);
         return typedValue.resourceId;

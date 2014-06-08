@@ -15,9 +15,6 @@ import org.tasks.R;
 
 public class ThemeService {
 
-    public static final String THEME_WHITE = "white";
-    public static final String THEME_BLACK = "black";
-
     public static void applyTheme(Activity activity) {
         int currentTheme = getTheme();
         activity.setTheme(currentTheme);
@@ -25,16 +22,7 @@ public class ThemeService {
     }
 
     private static int getTheme() {
-        String preference = Preferences.getBoolean(R.string.p_use_dark_theme, false) ? THEME_BLACK : THEME_WHITE;
-        return getStyleForSetting(preference);
-    }
-
-    private static int getStyleForSetting(String setting) {
-        if(THEME_BLACK.equals(setting)) {
-            return R.style.Tasks;
-        } else {
-            return R.style.Tasks_Light;
-        }
+        return Preferences.getBoolean(R.string.p_use_dark_theme, false) ? R.style.Tasks : R.style.Tasks_Light;
     }
 
     public static int getThemeColor() {
@@ -77,21 +65,5 @@ public class ThemeService {
             theme = R.style.Tasks_Dialog_Light;
         }
         return theme;
-    }
-
-    public static int getDarkVsLight(int resForLight, int resForDark) {
-        int theme = getTheme();
-        if (theme == R.style.Tasks) {
-            return resForDark;
-        } else {
-            return resForLight;
-        }
-    }
-    public static int getTaskEditDrawable(int regularDrawable, int lightBlueDrawable) {
-        return getDarkVsLight(regularDrawable, lightBlueDrawable);
-    }
-
-    public static int getTaskEditThemeColor() {
-        return getDarkVsLight(R.color.task_edit_selected, R.color.blue_theme_color);
     }
 }
