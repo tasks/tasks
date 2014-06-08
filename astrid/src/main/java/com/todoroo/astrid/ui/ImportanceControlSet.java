@@ -15,7 +15,6 @@ import android.widget.ToggleButton;
 
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
-import com.todoroo.astrid.service.ThemeService;
 
 import org.tasks.R;
 

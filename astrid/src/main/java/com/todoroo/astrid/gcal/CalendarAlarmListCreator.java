@@ -13,7 +13,6 @@ import com.todoroo.astrid.activity.EditPreferences;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.service.TagDataService;
-import com.todoroo.astrid.service.ThemeService;
 
 import org.json.JSONArray;
 import org.json.JSONException;

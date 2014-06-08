@@ -30,7 +30,6 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagService.Tag;
 
 import org.tasks.R;

@@ -19,7 +19,6 @@ import android.widget.Button;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
-import com.todoroo.astrid.service.ThemeService;
 
 import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
@@ -27,6 +26,7 @@ import org.tasks.preferences.ActivityPreferences;
 public abstract class PopupControlSet extends TaskEditControlSet {
 
     protected final View displayView;
+    protected final ActivityPreferences preferences;
     protected Dialog dialog;
     private final String titleString;
 
@@ -48,8 +48,9 @@ public abstract class PopupControlSet extends TaskEditControlSet {
         }
     };
 
-    public PopupControlSet(Activity activity, int viewLayout, int displayViewLayout, final int title) {
+    public PopupControlSet(ActivityPreferences preferences, Activity activity, int viewLayout, int displayViewLayout, final int title) {
         super(activity, viewLayout);
+        this.preferences = preferences;
         if (displayViewLayout != -1) {
             this.displayView = LayoutInflater.from(activity).inflate(displayViewLayout, null);
         } else {
@@ -68,8 +69,7 @@ public abstract class PopupControlSet extends TaskEditControlSet {
     }
 
     protected Dialog buildDialog(String title, final PopupDialogClickListener okClickListener, DialogInterface.OnCancelListener cancelClickListener) {
-        int theme = ThemeService.getEditDialogTheme();
-        dialog = new Dialog(activity, theme);
+        dialog = new Dialog(activity, preferences.getEditDialogTheme());
         if (title.length() == 0) {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         } else {

@@ -40,6 +40,7 @@ import com.todoroo.astrid.voice.RecognizerApi;
 import com.todoroo.astrid.voice.RecognizerApi.PlaybackExceptionHandler;
 
 import org.tasks.R;
+import org.tasks.preferences.ActivityPreferences;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -54,8 +55,8 @@ public class FilesControlSet extends PopupControlSet {
     private final ImageView image;
     private final TaskAttachmentDao taskAttachmentDao;
 
-    public FilesControlSet(TaskAttachmentDao taskAttachmentDao, Activity activity, int viewLayout, int displayViewLayout, int title) {
-        super(activity, viewLayout, displayViewLayout, title);
+    public FilesControlSet(ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao, Activity activity, int viewLayout, int displayViewLayout, int title) {
+        super(preferences, activity, viewLayout, displayViewLayout, title);
         this.taskAttachmentDao = taskAttachmentDao;
         fileDisplayList = (LinearLayout) getDisplayView().findViewById(R.id.files_list);
         image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);

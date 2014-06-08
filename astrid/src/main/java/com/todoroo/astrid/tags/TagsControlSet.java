@@ -33,6 +33,7 @@ import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.utility.Flags;
 
 import org.tasks.R;
+import org.tasks.preferences.ActivityPreferences;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,8 +66,8 @@ public final class TagsControlSet extends PopupControlSet {
 
     private final TagService tagService;
 
-    public TagsControlSet(TagService tagService, Activity activity, int viewLayout, int displayViewLayout, int title) {
-        super(activity, viewLayout, displayViewLayout, title);
+    public TagsControlSet(ActivityPreferences preferences, TagService tagService, Activity activity, int viewLayout, int displayViewLayout, int title) {
+        super(preferences, activity, viewLayout, displayViewLayout, title);
         this.tagService = tagService;
         tagsDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
         image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);

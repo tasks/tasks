@@ -21,6 +21,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
 
 import org.tasks.R;
+import org.tasks.preferences.ActivityPreferences;
 
 import java.util.Date;
 
@@ -47,8 +48,8 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
 
     private long existingDate = EXISTING_TIME_UNSET;
 
-    public HideUntilControlSet(Activity activity, int viewLayout, int displayViewLayout, int title) {
-        super(activity, viewLayout, displayViewLayout, title);
+    public HideUntilControlSet(ActivityPreferences preferences, Activity activity, int viewLayout, int displayViewLayout, int title) {
+        super(preferences, activity, viewLayout, displayViewLayout, title);
         this.title = title;
         image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
     }
@@ -123,7 +124,7 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
             customDate = newDate(existingDate == EXISTING_TIME_UNSET ? DateUtilities.now() : existingDate);
             customDate.setSeconds(0);
 
-            final DateAndTimeDialog dateAndTimeDialog = new DateAndTimeDialog(activity, customDate.getTime());
+            final DateAndTimeDialog dateAndTimeDialog = new DateAndTimeDialog(preferences, activity, customDate.getTime());
             dateAndTimeDialog.show();
             dateAndTimeDialog.setDateAndTimeDialogListener(new DateAndTimeDialogListener() {
                 @Override

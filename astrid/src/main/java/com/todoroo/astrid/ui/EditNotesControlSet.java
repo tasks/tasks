@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
+import org.tasks.preferences.ActivityPreferences;
 
 import static org.tasks.preferences.ResourceResolver.getResource;
 
@@ -28,8 +29,8 @@ public class EditNotesControlSet extends PopupControlSet {
     protected TextView notesPreview;
     protected ImageView image;
 
-    public EditNotesControlSet(Activity activity, int viewLayout, int displayViewLayout) {
-        super(activity, viewLayout, displayViewLayout, R.string.TEA_note_label);
+    public EditNotesControlSet(ActivityPreferences preferences, Activity activity, int viewLayout, int displayViewLayout) {
+        super(preferences, activity, viewLayout, displayViewLayout, R.string.TEA_note_label);
         image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
     }
 

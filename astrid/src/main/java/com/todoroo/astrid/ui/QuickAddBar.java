@@ -47,7 +47,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.Injector;
-import org.tasks.preferences.Preferences;
+import org.tasks.preferences.ActivityPreferences;
 
 import java.util.HashSet;
 
@@ -77,7 +77,7 @@ public class QuickAddBar extends LinearLayout {
     @Inject MetadataService metadataService;
     @Inject TaskService taskService;
     @Inject GCalHelper gcalHelper;
-    @Inject Preferences preferences;
+    @Inject ActivityPreferences preferences;
     @Inject DateChangedAlerts dateChangedAlerts;
 
     private VoiceRecognizer voiceRecognizer;
@@ -208,15 +208,15 @@ public class QuickAddBar extends LinearLayout {
 
     private void setUpQuickAddControlSets() {
 
-        repeatControl = new RepeatControlSet(activity,
+        repeatControl = new RepeatControlSet(preferences, activity,
                 R.layout.control_set_repeat,
                 R.layout.control_set_repeat_display, R.string.repeat_enabled);
 
-        gcalControl = new GCalControlSet(gcalHelper, activity,
+        gcalControl = new GCalControlSet(preferences, gcalHelper, activity,
                 R.layout.control_set_gcal, R.layout.control_set_gcal_display,
                 R.string.gcal_TEA_addToCalendar_label);
 
-        deadlineControl = new DeadlineControlSet(activity,
+        deadlineControl = new DeadlineControlSet(preferences, activity,
                 R.layout.control_set_deadline,
                 R.layout.control_set_default_display, null,
                 repeatControl.getDisplayView(), gcalControl.getDisplayView());

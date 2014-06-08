@@ -20,6 +20,7 @@ import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.ui.TimeDurationControlSet;
 
 import org.tasks.R;
+import org.tasks.preferences.ActivityPreferences;
 
 import static org.tasks.preferences.ResourceResolver.getResource;
 
@@ -35,8 +36,8 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
     private final TextView displayEdit;
     private final ImageView image;
 
-    public TimerControlSet(final Activity activity, int viewLayout, int displayViewLayout, int title) {
-        super(activity, viewLayout, displayViewLayout, title);
+    public TimerControlSet(ActivityPreferences preferences, final Activity activity, int viewLayout, int displayViewLayout, int title) {
+        super(preferences, activity, viewLayout, displayViewLayout, title);
 
         displayEdit = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
         displayEdit.setText(R.string.TEA_timer_controls);

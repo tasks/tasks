@@ -26,7 +26,6 @@ import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.ThemeService;
 
 import org.tasks.R;
 import org.tasks.injection.ForApplication;

@@ -35,7 +35,7 @@ import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
 import com.todoroo.astrid.utility.Flags;
 
 import org.tasks.R;
-import org.tasks.preferences.Preferences;
+import org.tasks.preferences.ActivityPreferences;
 
 import java.text.ParseException;
 
@@ -59,10 +59,10 @@ public class DateChangedAlerts {
     /** Start showing the option to hide future notifs after this many confirmation dialogs */
     private static final int HIDE_CHECKBOX_AFTER_SHOWS = 3;
 
-    private final Preferences preferences;
+    private final ActivityPreferences preferences;
 
     @Inject
-    public DateChangedAlerts(Preferences preferences) {
+    public DateChangedAlerts(ActivityPreferences preferences) {
         this.preferences = preferences;
     }
 
@@ -150,7 +150,7 @@ public class DateChangedAlerts {
                 @Override
                 public void onClick(View v) {
                     long startDate = 0;
-                    DateAndTimeDialog picker = new DateAndTimeDialog(activity, startDate, R.layout.repeat_until_dialog, R.string.repeat_until_title);
+                    DateAndTimeDialog picker = new DateAndTimeDialog(preferences, activity, startDate, R.layout.repeat_until_dialog, R.string.repeat_until_title);
                     picker.setDateAndTimeDialogListener(new DateAndTimeDialogListener() {
                         @Override
                         public void onDateAndTimeSelected(long date) {

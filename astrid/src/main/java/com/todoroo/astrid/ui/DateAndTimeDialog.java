@@ -13,9 +13,8 @@ import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 
-import com.todoroo.astrid.service.ThemeService;
-
 import org.tasks.R;
+import org.tasks.preferences.ActivityPreferences;
 
 public class DateAndTimeDialog extends Dialog {
 
@@ -29,12 +28,12 @@ public class DateAndTimeDialog extends Dialog {
 
     private DateAndTimeDialogListener listener;
 
-    public DateAndTimeDialog(Context context, long startDate) {
-        this(context, startDate, R.layout.date_time_dialog, 0);
+    public DateAndTimeDialog(ActivityPreferences preferences, Context context, long startDate) {
+        this(preferences, context, startDate, R.layout.date_time_dialog, 0);
     }
 
-    public DateAndTimeDialog(Context context, long startDate, int contentView, int title) {
-        super(context, ThemeService.getEditDialogTheme());
+    public DateAndTimeDialog(ActivityPreferences preferences, Context context, long startDate, int contentView, int title) {
+        super(context, preferences.getEditDialogTheme());
 
         if (title == 0) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);

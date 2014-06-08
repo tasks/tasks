@@ -24,6 +24,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 
 import org.tasks.R;
+import org.tasks.preferences.ActivityPreferences;
 
 import static org.tasks.preferences.ResourceResolver.getResource;
 
@@ -35,9 +36,9 @@ public class DeadlineControlSet extends PopupControlSet {
     private final RepeatControlSet repeatControlSet;
     private final ImageView image;
 
-    public DeadlineControlSet(Activity activity, int viewLayout, int displayViewLayout,
+    public DeadlineControlSet(ActivityPreferences preferences, Activity activity, int viewLayout, int displayViewLayout,
             RepeatControlSet repeatControlSet, View...extraViews) {
-        super(activity, viewLayout, displayViewLayout, 0);
+        super(preferences, activity, viewLayout, displayViewLayout, 0);
         this.extraViews = extraViews;
         this.repeatControlSet = repeatControlSet;
         this.image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);

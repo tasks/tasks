@@ -39,7 +39,6 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListFragment;
-import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.DeleteTagActivity;
 import com.todoroo.astrid.tags.RenameTagActivity;
 import com.todoroo.astrid.tags.TagFilterExposer;

@@ -38,6 +38,7 @@ import com.todoroo.astrid.ui.PopupControlSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.preferences.ActivityPreferences;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
@@ -93,8 +94,8 @@ public class RepeatControlSet extends PopupControlSet {
 
     // --- implementation
 
-    public RepeatControlSet(Activity activity, int viewLayout, int displayViewLayout, int title) {
-        super(activity, viewLayout, displayViewLayout, title);
+    public RepeatControlSet(ActivityPreferences preferences, Activity activity, int viewLayout, int displayViewLayout, int title) {
+        super(preferences, activity, viewLayout, displayViewLayout, title);
     }
 
     /** Set up the repeat value button */
@@ -129,7 +130,7 @@ public class RepeatControlSet extends PopupControlSet {
     }
 
     private void repeatUntilClick() {
-        DateAndTimeDialog d = new DateAndTimeDialog(activity, repeatUntilValue,
+        DateAndTimeDialog d = new DateAndTimeDialog(preferences, activity, repeatUntilValue,
                 R.layout.repeat_until_dialog, R.string.repeat_until_title);
         d.setDateAndTimeDialogListener(new DateAndTimeDialogListener() {
             @Override

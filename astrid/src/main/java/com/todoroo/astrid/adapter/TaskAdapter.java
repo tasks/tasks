@@ -613,7 +613,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     }
 
     private void showFilesDialog(Task task) {
-        FilesControlSet filesControlSet = new FilesControlSet(taskAttachmentDao,
+        FilesControlSet filesControlSet = new FilesControlSet(preferences, taskAttachmentDao,
                 fragment.getActivity(), R.layout.control_set_files,
                 R.layout.control_set_files_display, R.string.TEA_control_files);
         filesControlSet.readFromTask(task);

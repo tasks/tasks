@@ -30,6 +30,7 @@ import com.todoroo.astrid.ui.PopupControlSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.preferences.ActivityPreferences;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -58,8 +59,8 @@ public class GCalControlSet extends PopupControlSet {
     private final int title;
     private final ImageView image;
 
-    public GCalControlSet(GCalHelper gcal, final Activity activity, int viewLayout, int displayViewLayout, int title) {
-        super(activity, viewLayout, displayViewLayout, title);
+    public GCalControlSet(ActivityPreferences preferences, GCalHelper gcal, final Activity activity, int viewLayout, int displayViewLayout, int title) {
+        super(preferences, activity, viewLayout, displayViewLayout, title);
         this.gcal = gcal;
         this.title = title;
         this.calendars = gcal.getCalendars();

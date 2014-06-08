@@ -23,6 +23,7 @@ import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
 import com.todoroo.astrid.ui.DateAndTimePicker;
 
 import org.tasks.R;
+import org.tasks.preferences.ActivityPreferences;
 
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -37,13 +38,15 @@ import static org.tasks.date.DateTimeUtils.newDate;
  */
 public final class AlarmControlSet extends TaskEditControlSet {
 
+    private final ActivityPreferences preferences;
     private final AlarmService alarmService;
 
     private LinearLayout alertsContainer;
     private DateAndTimeDialog pickerDialog;
 
-    public AlarmControlSet(AlarmService alarmService, Activity activity, int layout) {
+    public AlarmControlSet(ActivityPreferences preferences, AlarmService alarmService, Activity activity, int layout) {
         super(activity, layout);
+        this.preferences = preferences;
         this.alarmService = alarmService;
     }
 
@@ -71,7 +74,7 @@ public final class AlarmControlSet extends TaskEditControlSet {
         };
         getView().findViewById(R.id.alarms_add).setOnClickListener(addAlarmListener);
 
-        pickerDialog = new DateAndTimeDialog(activity, 0);
+        pickerDialog = new DateAndTimeDialog(preferences, activity, 0);
     }
 
     @Override
