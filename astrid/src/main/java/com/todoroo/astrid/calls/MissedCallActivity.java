@@ -29,11 +29,11 @@ import com.todoroo.astrid.reminders.SnoozeCallback;
 import com.todoroo.astrid.reminders.SnoozeDialog;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.service.ThemeService;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingActivity;
 import org.tasks.preferences.Preferences;
+import org.tasks.preferences.ResourceResolver;
 
 import java.io.InputStream;
 
@@ -54,6 +54,7 @@ public class MissedCallActivity extends InjectingActivity {
     @Inject StartupService startupService;
     @Inject TaskService taskService;
     @Inject Preferences preferences;
+    @Inject ResourceResolver resourceResolver;
 
     private final OnClickListener dismissListener = new OnClickListener() {
         @Override
@@ -119,7 +120,7 @@ public class MissedCallActivity extends InjectingActivity {
         String timeString = intent.getStringExtra(EXTRA_TIME);
         long contactId = intent.getExtras().getLong(EXTRA_CONTACT_ID);
 
-        int color = ThemeService.getThemeColor();
+        int color = resourceResolver.getResource(R.attr.asThemeTextColor);
 
         returnCallButton = (TextView) findViewById(R.id.call_now);
         callLaterButton = (TextView) findViewById(R.id.call_later);

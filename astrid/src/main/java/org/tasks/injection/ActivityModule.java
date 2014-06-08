@@ -94,13 +94,6 @@ public class ActivityModule {
 
     @Singleton
     @Provides
-    @ForActivity
-    public Context getActivityContext() {
-        return activity;
-    }
-
-    @Singleton
-    @Provides
     public Activity getActivity() {
         return activity;
     }

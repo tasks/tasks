@@ -87,7 +87,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ThemeService.applyTheme(this);
+        preferences.applyTheme();
 
         supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 

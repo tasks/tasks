@@ -21,12 +21,12 @@ import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TagDataService;
-import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingActivity;
 import org.tasks.preferences.Preferences;
+import org.tasks.preferences.ResourceResolver;
 
 import javax.inject.Inject;
 
@@ -51,6 +51,7 @@ public class CalendarReminderActivity extends InjectingActivity {
     @Inject StartupService startupService;
     @Inject TagDataService tagDataService;
     @Inject Preferences preferences;
+    @Inject ResourceResolver resourceResolver;
 
     private String eventName;
     private long startTime;
@@ -146,7 +147,7 @@ public class CalendarReminderActivity extends InjectingActivity {
 
         dialogView.setText(speechText);
 
-        createListButton.setBackgroundColor(getResources().getColor(ThemeService.getThemeColor()));
+        createListButton.setBackgroundColor(resourceResolver.getResource(R.attr.asThemeTextColor));
 
         if (fromPostpone) {
             postponeButton.setVisibility(View.GONE);

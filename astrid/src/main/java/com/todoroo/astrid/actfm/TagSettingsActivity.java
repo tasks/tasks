@@ -29,7 +29,6 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.TagDataService;
-import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService;
 
@@ -73,8 +72,8 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setupForDialogOrFullscreen();
         super.onCreate(savedInstanceState);
+        setupForDialogOrFullscreen();
         setContentView(R.layout.tag_settings_activity);
 
         if (isDialog) {
@@ -109,12 +108,12 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
     private void setupForDialogOrFullscreen() {
         isDialog = preferences.useTabletLayout();
         if (isDialog) {
-            setTheme(ThemeService.getDialogTheme());
+            preferences.applyDialogTheme();
             if (AndroidUtilities.getSdkVersion() < 14) {
                 requestWindowFeature(Window.FEATURE_NO_TITLE);
             }
         } else {
-            ThemeService.applyTheme(this);
+            preferences.applyTheme();
         }
     }
 

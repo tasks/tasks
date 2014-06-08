@@ -15,12 +15,12 @@ import android.widget.ListView;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.service.ThemeService;
 
 import org.tasks.R;
 import org.tasks.filters.FilterCounter;
 import org.tasks.injection.InjectingListActivity;
 import org.tasks.injection.Injector;
+import org.tasks.preferences.ActivityPreferences;
 
 import javax.inject.Inject;
 
@@ -28,13 +28,14 @@ public class FilterShortcutActivity extends InjectingListActivity {
 
     @Inject FilterCounter filterCounter;
     @Inject Injector injector;
+    @Inject ActivityPreferences preferences;
 
     private FilterAdapter adapter = null;
 
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        ThemeService.applyTheme(this);
+        preferences.applyTheme();
 
         // Set the result to CANCELED unless a filter is selected.
         setResult(RESULT_CANCELED);

@@ -20,13 +20,12 @@ import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
-import com.todoroo.astrid.service.ThemeService;
 
 import org.tasks.R;
 import org.tasks.filters.FilterCounter;
 import org.tasks.injection.InjectingListActivity;
 import org.tasks.injection.Injector;
-import org.tasks.preferences.Preferences;
+import org.tasks.preferences.ActivityPreferences;
 import org.tasks.widget.WidgetHelper;
 
 import javax.inject.Inject;
@@ -47,7 +46,7 @@ public class WidgetConfigActivity extends InjectingListActivity {
     @Inject WidgetHelper widgetHelper;
     @Inject FilterCounter filterCounter;
     @Inject Injector injector;
-    @Inject Preferences preferences;
+    @Inject ActivityPreferences preferences;
 
     private void updateWidget() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
@@ -64,7 +63,7 @@ public class WidgetConfigActivity extends InjectingListActivity {
     @Override
          public void onCreate(Bundle icicle) {
              super.onCreate(icicle);
-             ThemeService.applyTheme(this);
+             preferences.applyTheme();
 
              // Set the result to CANCELED.  This will cause the widget host to cancel
              // out of the widget placement if they press the back button.

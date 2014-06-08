@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.tasks.R;
 import org.tasks.injection.InjectingActivity;
+import org.tasks.preferences.ResourceResolver;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,7 @@ public class CalendarAlarmListCreator extends InjectingActivity {
     public static final String TOKEN_LIST_NAME = "listName"; //$NON-NLS-1$
 
     @Inject TagDataService tagDataService;
+    @Inject ResourceResolver resourceResolver;
 
     private ArrayList<String> names;
     private ArrayList<String> emails;
@@ -81,7 +83,7 @@ public class CalendarAlarmListCreator extends InjectingActivity {
         TextView dialogView = (TextView) findViewById(R.id.reminder_message);
         StringBuilder builder = new StringBuilder(getString(R.string.CRA_created_list_dialog, tagName));
         String attendeesString = buildAttendeesString();
-        int color = ThemeService.getThemeColor();
+        int color = resourceResolver.getResource(R.attr.asThemeTextColor);
 
         String title;
         if (!TextUtils.isEmpty(attendeesString)) {

@@ -11,18 +11,23 @@ import android.support.v7.app.ActionBar;
 import android.view.KeyEvent;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.service.ThemeService;
 
 import org.tasks.R;
+import org.tasks.preferences.ActivityPreferences;
+
+import javax.inject.Inject;
 
 public class TaskEditActivity extends AstridActivity {
+
+    @Inject ActivityPreferences preferences;
+
     /**
 	 * @see android.app.Activity#onCreate(Bundle)
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ThemeService.applyTheme(this);
+        preferences.applyTheme();
 
         ActionBar actionBar = getSupportActionBar();
         setContentView(R.layout.task_edit_wrapper_activity);

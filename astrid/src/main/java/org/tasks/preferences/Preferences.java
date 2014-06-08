@@ -212,6 +212,10 @@ public class Preferences {
         }
     }
 
+    public boolean isDarkTheme() {
+        return getBoolean(R.string.p_use_dark_theme, false);
+    }
+
     public boolean isDarkWidgetTheme() {
         return getBoolean(R.string.p_use_dark_theme_widget, false);
     }

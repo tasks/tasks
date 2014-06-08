@@ -46,7 +46,6 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.ThemeService;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingActionBarActivity;
@@ -151,8 +150,8 @@ public class CustomFilterActivity extends InjectingActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setupForDialogOrFullscreen();
         super.onCreate(savedInstanceState);
+        setupForDialogOrFullscreen();
         ContextManager.setContext(this);
 
         ActionBar ab = getSupportActionBar();
@@ -180,9 +179,9 @@ public class CustomFilterActivity extends InjectingActionBarActivity {
 
     private void setupForDialogOrFullscreen() {
         if (preferences.useTabletLayout()) {
-            setTheme(ThemeService.getDialogTheme());
+            preferences.applyDialogTheme();
         } else {
-            ThemeService.applyTheme(this);
+            preferences.applyTheme();
         }
     }
 
