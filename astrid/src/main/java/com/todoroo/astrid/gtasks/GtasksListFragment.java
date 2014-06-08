@@ -31,7 +31,7 @@ import com.todoroo.astrid.subtasks.SubtasksListFragment;
 
 import org.tasks.R;
 import org.tasks.injection.ForActivity;
-import org.tasks.preferences.Preferences;
+import org.tasks.preferences.ActivityPreferences;
 import org.tasks.sync.IndeterminateProgressBarSyncResultCallback;
 
 import javax.inject.Inject;
@@ -48,7 +48,7 @@ public class GtasksListFragment extends SubtasksListFragment {
     @Inject SyncV2Service syncService;
     @Inject @ForActivity Context context;
     @Inject TaskAttachmentDao taskAttachmentDao;
-    @Inject Preferences preferences;
+    @Inject ActivityPreferences preferences;
 
     private StoreObject list;
 

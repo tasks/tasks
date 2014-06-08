@@ -34,7 +34,7 @@ import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater.OrderedListNodeVis
 import com.todoroo.astrid.ui.DraggableListView;
 
 import org.tasks.R;
-import org.tasks.preferences.Preferences;
+import org.tasks.preferences.ActivityPreferences;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,7 +49,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
     private final OrderedMetadataListUpdater<LIST> updater;
     private final TaskListFragment fragment;
 
-    private final Preferences preferences;
+    private final ActivityPreferences preferences;
     private final TaskAttachmentDao taskAttachmentDao;
     private final TaskService taskService;
     private final MetadataService metadataService;
@@ -58,7 +58,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
 
     private LIST list;
 
-    public OrderedMetadataListFragmentHelper(Preferences preferences, TaskAttachmentDao taskAttachmentDao, TaskService taskService, MetadataService metadataService, TaskListFragment fragment, OrderedMetadataListUpdater<LIST> updater) {
+    public OrderedMetadataListFragmentHelper(ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao, TaskService taskService, MetadataService metadataService, TaskListFragment fragment, OrderedMetadataListUpdater<LIST> updater) {
         this.preferences = preferences;
         this.taskAttachmentDao = taskAttachmentDao;
         this.taskService = taskService;
@@ -198,7 +198,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
 
     private final class DraggableTaskAdapter extends TaskAdapter {
 
-        private DraggableTaskAdapter(Preferences preferences, TaskListFragment activity, int resource,
+        private DraggableTaskAdapter(ActivityPreferences preferences, TaskListFragment activity, int resource,
                 Cursor c, AtomicReference<String> query) {
             super(preferences, taskAttachmentDao, taskService, activity, resource, c, query, null);
         }

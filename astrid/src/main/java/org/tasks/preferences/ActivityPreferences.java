@@ -6,6 +6,8 @@ import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.util.DisplayMetrics;
 
+import com.todoroo.andlib.utility.AndroidUtilities;
+
 import org.tasks.R;
 
 import javax.inject.Inject;
@@ -40,6 +42,26 @@ public class ActivityPreferences extends Preferences {
     private void applyTheme(int theme) {
         activity.setTheme(theme);
         activity.getWindow().setFormat(PixelFormat.RGBA_8888);
+    }
+
+    public int getEditDialogTheme() {
+        boolean ics = AndroidUtilities.getSdkVersion() >= 14;
+        int themeSetting = com.todoroo.andlib.utility.Preferences.getBoolean(R.string.p_use_dark_theme, false) ? R.style.Tasks : R.style.Tasks_Light;
+        int theme;
+        if (themeSetting == R.style.Tasks) {
+            if (ics) {
+                theme = R.style.TEA_Dialog_ICS;
+            } else {
+                theme = R.style.TEA_Dialog;
+            }
+        } else {
+            if (ics) {
+                theme = R.style.TEA_Dialog_Light_ICS;
+            } else {
+                theme = R.style.TEA_Dialog_Light;
+            }
+        }
+        return theme;
     }
 
     /**

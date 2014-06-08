@@ -505,8 +505,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     }
 
     private void constructWhenDialog(View whenDialogView) {
-        int theme = ThemeService.getEditDialogTheme();
-        whenDialog = new Dialog(getActivity(), theme);
+        whenDialog = new Dialog(getActivity(), preferences.getEditDialogTheme());
 
         Button dismissDialogButton = (Button) whenDialogView.findViewById(R.id.when_dismiss);
         dismissDialogButton.setOnClickListener(new View.OnClickListener() {

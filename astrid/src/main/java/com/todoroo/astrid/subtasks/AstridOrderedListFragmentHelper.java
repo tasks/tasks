@@ -29,7 +29,7 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.ui.DraggableListView;
 
 import org.tasks.R;
-import org.tasks.preferences.Preferences;
+import org.tasks.preferences.ActivityPreferences;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,7 +43,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
     private final DisplayMetrics metrics = new DisplayMetrics();
     private final AstridOrderedListUpdater<LIST> updater;
     private final TaskListFragment fragment;
-    private final Preferences preferences;
+    private final ActivityPreferences preferences;
     private final TaskAttachmentDao taskAttachmentDao;
     private final TaskService taskService;
 
@@ -51,7 +51,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
 
     private LIST list;
 
-    public AstridOrderedListFragmentHelper(org.tasks.preferences.Preferences preferences, TaskAttachmentDao taskAttachmentDao, TaskService taskService, TaskListFragment fragment, AstridOrderedListUpdater<LIST> updater) {
+    public AstridOrderedListFragmentHelper(ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao, TaskService taskService, TaskListFragment fragment, AstridOrderedListUpdater<LIST> updater) {
         this.preferences = preferences;
         this.taskAttachmentDao = taskAttachmentDao;
         this.taskService = taskService;
@@ -186,7 +186,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
 
     private final class DraggableTaskAdapter extends TaskAdapter {
 
-        private DraggableTaskAdapter(org.tasks.preferences.Preferences preferences, TaskListFragment activity, int resource,
+        private DraggableTaskAdapter(ActivityPreferences preferences, TaskListFragment activity, int resource,
                 Cursor c, AtomicReference<String> query) {
             super(preferences, taskAttachmentDao, taskService, activity, resource, c, query, null);
         }

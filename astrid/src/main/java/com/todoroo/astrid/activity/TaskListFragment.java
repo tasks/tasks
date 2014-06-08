@@ -85,7 +85,7 @@ import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingListFragment;
 import org.tasks.injection.Injector;
 import org.tasks.notifications.NotificationManager;
-import org.tasks.preferences.Preferences;
+import org.tasks.preferences.ActivityPreferences;
 
 import java.util.List;
 import java.util.Timer;
@@ -142,7 +142,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     @Inject TaskDeleter taskDeleter;
     @Inject TaskDuplicator taskDuplicator;
     @Inject @ForActivity Context context;
-    @Inject Preferences preferences;
+    @Inject ActivityPreferences preferences;
     @Inject NotificationManager notificationManager;
     @Inject TaskAttachmentDao taskAttachmentDao;
     @Inject Injector injector;

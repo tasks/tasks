@@ -61,13 +61,12 @@ import com.todoroo.astrid.files.FilesAction;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.notes.NotesAction;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.ui.CheckableImageView;
 import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.R;
-import org.tasks.preferences.Preferences;
+import org.tasks.preferences.ActivityPreferences;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -174,7 +173,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     // --- instance variables
 
-    private final Preferences preferences;
+    private final ActivityPreferences preferences;
     private final TaskAttachmentDao taskAttachmentDao;
     private final TaskService taskService;
 
@@ -210,7 +209,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * @param onCompletedTaskListener
      *            task listener. can be null
      */
-    public TaskAdapter(Preferences preferences, TaskAttachmentDao taskAttachmentDao, TaskService taskService, TaskListFragment fragment, int resource,
+    public TaskAdapter(ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao, TaskService taskService, TaskListFragment fragment, int resource,
             Cursor c, AtomicReference<String> query, OnCompletedTaskListener onCompletedTaskListener) {
         super(ContextManager.getContext(), c, false);
         this.preferences = preferences;
@@ -583,7 +582,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             return;
         }
 
-        int theme = ThemeService.getEditDialogTheme();
+        int theme = preferences.getEditDialogTheme();
         final Dialog dialog = new Dialog(fragment.getActivity(), theme);
         dialog.setTitle(R.string.TEA_note_label);
         View notesView = LayoutInflater.from(fragment.getActivity()).inflate(R.layout.notes_view_dialog, null);
