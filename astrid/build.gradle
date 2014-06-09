@@ -60,7 +60,7 @@ android {
 android.applicationVariants.all { variant ->
     variant.mergeResources.doLast {
         if (project.hasProperty('gapiKey')) {
-            File values = file("${buildDir}/res/all/${variant.dirName}/values/values.xml")
+            File values = file("${buildDir}/intermediates/res/${variant.dirName}/values/values.xml")
             values.write(
                     values.getText('UTF-8').replaceAll(/<string name="gapi_key">.*<\/string>/, "<string name=\"gapi_key\">${project.property('gapiKey')}</string>"),
                     'UTF-8')
