@@ -35,7 +35,6 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmCameraModule;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
@@ -56,6 +55,7 @@ import com.todoroo.astrid.timers.TimerActionControlSet.TimerActionListener;
 
 import org.json.JSONObject;
 import org.tasks.R;
+import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -69,6 +69,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     private Task task;
 
+    private final Preferences preferences;
     private final MetadataService metadataService;
     private final UserActivityDao userActivityDao;
     private final TaskService taskService;
@@ -98,6 +99,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     }
 
     public EditNoteActivity(
+            Preferences preferences,
             MetadataService metadataService,
             UserActivityDao userActivityDao,
             TaskService taskService,
@@ -105,7 +107,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             View parent,
             long t) {
         super(fragment.getActivity());
-
+        this.preferences = preferences;
         this.metadataService = metadataService;
         this.userActivityDao = userActivityDao;
         this.taskService = taskService;
@@ -159,7 +161,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         commentButton = commentsBar.findViewById(R.id.commentButton);
         commentField = (EditText) commentsBar.findViewById(R.id.commentField);
 
-        final boolean showTimerShortcut = Preferences.getBoolean(R.string.p_show_timer_shortcut, false);
+        final boolean showTimerShortcut = preferences.getBoolean(R.string.p_show_timer_shortcut, false);
 
         if (showTimerShortcut) {
             commentField.setOnFocusChangeListener(new OnFocusChangeListener() {

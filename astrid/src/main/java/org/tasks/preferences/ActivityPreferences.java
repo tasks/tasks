@@ -46,7 +46,7 @@ public class ActivityPreferences extends Preferences {
 
     public int getEditDialogTheme() {
         boolean ics = AndroidUtilities.getSdkVersion() >= 14;
-        int themeSetting = com.todoroo.andlib.utility.Preferences.getBoolean(R.string.p_use_dark_theme, false) ? R.style.Tasks : R.style.Tasks_Light;
+        int themeSetting = getBoolean(R.string.p_use_dark_theme, false) ? R.style.Tasks : R.style.Tasks_Light;
         int theme;
         if (themeSetting == R.style.Tasks) {
             if (ics) {

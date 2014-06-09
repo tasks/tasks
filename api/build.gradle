@@ -37,7 +37,8 @@ dependencies {
 
     compile group: 'com.android.support', name: 'support-v4', version: '19.1.+'
 
-    compile group: 'org.slf4j', name: 'slf4j-android', version: '1.7.7', transitive: false
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.7'
+    compile group: 'com.github.tony19', name: 'logback-android-core', version: '1.1.1-2'
+    compile group: 'com.github.tony19', name: 'logback-android-classic', version: '1.1.1-2'
     compile group: 'joda-time', name: 'joda-time', version: '2.3', transitive: false
 }

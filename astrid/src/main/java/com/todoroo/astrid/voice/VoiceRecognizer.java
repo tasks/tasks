@@ -16,12 +16,12 @@ import android.support.v4.app.Fragment;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import com.todoroo.astrid.voice.RecognizerApi.RecognizerApiListener;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.utility.Constants;
+import com.todoroo.astrid.voice.RecognizerApi.RecognizerApiListener;
 
 import org.tasks.R;
+import org.tasks.preferences.Preferences;
 
 import java.util.List;
 
@@ -77,13 +77,13 @@ public class VoiceRecognizer {
         return instance;
     }
 
-    public void startVoiceRecognition(Context context, Fragment fragment) {
+    public void startVoiceRecognition(Preferences preferences, Context context, Fragment fragment) {
         if (speechRecordingAvailable(context) && recognizerApi != null) {
             recognizerApi.start(Constants.PACKAGE,
                     context.getString(R.string.audio_speak_now));
         } else {
             int prompt = R.string.voice_edit_title_prompt;
-            if (Preferences.getBoolean(R.string.p_voiceInputCreatesTask, false)) {
+            if (preferences.getBoolean(R.string.p_voiceInputCreatesTask, false)) {
                 prompt = R.string.voice_create_prompt;
             }
             voiceInputAssistant.startVoiceRecognitionActivity(fragment, prompt);

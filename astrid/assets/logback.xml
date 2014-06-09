@@ -1,0 +1,18 @@
+<configuration>
+    <configuration>
+        <appender
+            name="LOGCAT"
+            class="ch.qos.logback.classic.android.LogcatAppender" >
+            <tagEncoder>
+                <pattern>%logger{0}</pattern>
+            </tagEncoder>
+            <encoder>
+                <pattern>[ %thread ] %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <root level="WARN" >
+            <appender-ref ref="LOGCAT" />
+        </root>
+    </configuration>
+</configuration>

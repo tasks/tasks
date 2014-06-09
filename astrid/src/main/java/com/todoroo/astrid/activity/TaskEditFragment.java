@@ -41,6 +41,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -285,8 +286,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private void instantiateEditNotes() {
         if (showEditComments) {
             long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID, -1L);
-            editNotes = new EditNoteActivity(metadataService, userActivityDao, taskService, this, getView(),
-                    idParam);
+            editNotes = new EditNoteActivity(preferences, metadataService, userActivityDao,
+                    taskService, this, getView(), idParam);
             editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT,
                     LayoutParams.WRAP_CONTENT));
 
@@ -541,7 +542,11 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                     voiceNoteAssistant = new VoiceInputAssistant(voiceAddNoteButton, REQUEST_VOICE_RECOG);
                     voiceNoteAssistant.setAppend();
                     voiceNoteAssistant.setLanguageModel(RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-                    voiceNoteAssistant.configureMicrophoneButton(TaskEditFragment.this, prompt);
+                    if (preferences.getBoolean(R.string.p_voiceInputEnabled, true) && VoiceRecognizer.voiceInputAvailable(ContextManager.getContext())) {
+                        voiceNoteAssistant.configureMicrophoneButton(TaskEditFragment.this, prompt);
+                    } else {
+                        voiceNoteAssistant.hideVoiceButton();
+                    }
                 }
                 loadMoreContainer();
             }

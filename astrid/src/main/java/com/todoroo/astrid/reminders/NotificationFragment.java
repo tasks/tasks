@@ -12,6 +12,7 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
+import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
@@ -32,6 +33,7 @@ public class NotificationFragment extends TaskListFragment {
     // --- implementation
 
     @Inject TaskService taskService;
+    @Inject Preferences preferences;
 
     @Override
     protected void initializeData() {
@@ -48,6 +50,6 @@ public class NotificationFragment extends TaskListFragment {
 
         String title = extras.getString(Notifications.EXTRAS_TEXT);
         long taskId = extras.getLong(TOKEN_ID);
-        new ReminderDialog(taskService, (AstridActivity) getActivity(), taskId, title).show();
+        new ReminderDialog(preferences, taskService, (AstridActivity) getActivity(), taskId, title).show();
     }
 }

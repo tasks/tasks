@@ -23,7 +23,6 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.utility.Constants;
-import com.todoroo.astrid.voice.VoiceOutputService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,12 +89,6 @@ public class Notifications extends InjectingBroadcastReceiver {
 
         if (!showTaskNotification(id, type, reminder)) {
             notificationManager.cancel((int) id);
-        }
-
-        try {
-            VoiceOutputService.getVoiceOutputInstance().onDestroy();
-        } catch (VerifyError e) {
-            // unavailable
         }
     }
 

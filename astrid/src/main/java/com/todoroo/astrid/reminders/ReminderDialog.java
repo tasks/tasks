@@ -18,13 +18,13 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
+import org.tasks.preferences.Preferences;
 
 import java.util.Date;
 
@@ -38,9 +38,12 @@ import static org.tasks.date.DateTimeUtils.newDate;
  */
 public class ReminderDialog extends Dialog {
 
-    public ReminderDialog(final TaskService taskService, final AstridActivity activity, final long taskId,
+    private final Preferences preferences;
+
+    public ReminderDialog(Preferences preferences, final TaskService taskService, final AstridActivity activity, final long taskId,
             String title) {
         super(activity, R.style.ReminderDialog);
+        this.preferences = preferences;
 
         final SnoozeCallback dialogSnooze = new SnoozeCallback() {
             @Override
@@ -121,7 +124,7 @@ public class ReminderDialog extends Dialog {
      * Snooze and re-trigger this alarm
      */
     private void snooze(Activity activity, OnTimeSetListener onTimeSet, SnoozeCallback snoozeCallback) {
-        if(Preferences.getBoolean(R.string.p_rmd_snooze_dialog, false)) {
+        if(preferences.getBoolean(R.string.p_rmd_snooze_dialog, false)) {
             Date now = newDate();
             now.setHours(now.getHours() + 1);
             int hour = now.getHours();

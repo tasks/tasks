@@ -12,7 +12,7 @@ import android.telephony.TelephonyManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.utility.Flags;
-import com.todoroo.astrid.voice.VoiceOutputService;
+import com.todoroo.astrid.voice.VoiceOutputAssistant;
 
 import org.joda.time.DateTime;
 import org.tasks.R;
@@ -40,6 +40,7 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
 
     @Inject NotificationManager notificationManager;
     @Inject Preferences preferences;
+    @Inject VoiceOutputAssistant voiceOutputAssistant;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -194,7 +195,8 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
         }
 
         singleThreadVoicePool.submit(new NotificationRunnable(ringTimes, notificationId, notification, voiceReminder,
-                maxOutVolumeForMultipleRingReminders, audioManager, previousAlarmVolume, text, notificationManager));
+                maxOutVolumeForMultipleRingReminders, audioManager, previousAlarmVolume, text,
+                notificationManager, voiceOutputAssistant));
     }
 
     private static class NotificationRunnable implements Runnable {
@@ -207,11 +209,13 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
         private final int previousAlarmVolume;
         private final String text;
         private NotificationManager notificationManager;
+        private final VoiceOutputAssistant voiceOutputAssistant;
 
         public NotificationRunnable(int ringTimes, int notificationId, Notification notification,
                                     boolean voiceReminder, boolean maxOutVolume,
                                     AudioManager audioManager, int previousAlarmVolume,
-                                    String text, NotificationManager notificationManager) {
+                                    String text, NotificationManager notificationManager,
+                                    VoiceOutputAssistant voiceOutputAssistant) {
             this.ringTimes = ringTimes;
             this.notificationId = notificationId;
             this.notification = notification;
@@ -221,6 +225,7 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
             this.previousAlarmVolume = previousAlarmVolume;
             this.text = text;
             this.notificationManager = notificationManager;
+            this.voiceOutputAssistant = voiceOutputAssistant;
         }
 
         @Override
@@ -230,7 +235,7 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
                 AndroidUtilities.sleepDeep(500);
             }
             Flags.set(Flags.REFRESH); // Forces a reload when app launches
-            if ((voiceReminder || maxOutVolumeForMultipleRingReminders)) {
+            if (voiceReminder || maxOutVolumeForMultipleRingReminders) {
                 AndroidUtilities.sleepDeep(2000);
                 for (int i = 0; i < 50; i++) {
                     AndroidUtilities.sleepDeep(500);
@@ -244,7 +249,7 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
                         audioManager.setStreamVolume(AudioManager.STREAM_ALARM, previousAlarmVolume, 0);
                     }
                     if (voiceReminder) {
-                        VoiceOutputService.getVoiceOutputInstance().queueSpeak(text);
+                        voiceOutputAssistant.speak(text);
                     }
                 } catch (VerifyError e) {
                     // unavailable

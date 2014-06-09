@@ -20,7 +20,6 @@ import android.widget.ImageButton;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.utility.Constants;
 
 import junit.framework.Assert;
@@ -175,17 +174,17 @@ public class VoiceInputAssistant {
     }
 
     public void configureMicrophoneButton(final Fragment fragment, final int prompt) {
-        if (Preferences.getBoolean(R.string.p_voiceInputEnabled, true) && VoiceRecognizer.voiceInputAvailable(ContextManager.getContext())) {
-            voiceButton.setVisibility(View.VISIBLE);
-            voiceButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startVoiceRecognitionActivity(fragment, prompt);
-                }
-            });
-        } else {
-            voiceButton.setVisibility(View.GONE);
-        }
+        voiceButton.setVisibility(View.VISIBLE);
+        voiceButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startVoiceRecognitionActivity(fragment, prompt);
+            }
+        });
+    }
+
+    public void hideVoiceButton() {
+        voiceButton.setVisibility(View.GONE);
     }
 
     public void showVoiceInputMarketSearch(DialogInterface.OnClickListener onFail) {

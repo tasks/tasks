@@ -385,7 +385,7 @@ public class QuickAddBar extends LinearLayout {
         return voiceRecognizer;
     }
     public void startVoiceRecognition() {
-        voiceRecognizer.startVoiceRecognition(activity, fragment);
+        voiceRecognizer.startVoiceRecognition(preferences, activity, fragment);
     }
 
     public void setupRecognizerApi() {

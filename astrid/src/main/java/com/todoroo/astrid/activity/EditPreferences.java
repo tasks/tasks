@@ -19,6 +19,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.speech.tts.TextToSpeech;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.service.ContextManager;
@@ -39,9 +40,11 @@ import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.utility.TodorooPreferenceActivity;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
-import com.todoroo.astrid.voice.VoiceOutputService;
+import com.todoroo.astrid.voice.VoiceOutputAssistant;
 import com.todoroo.astrid.voice.VoiceRecognizer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
 import org.tasks.widget.WidgetHelper;
@@ -62,8 +65,10 @@ import javax.inject.Inject;
  */
 public class EditPreferences extends TodorooPreferenceActivity {
 
+    private static final Logger log = LoggerFactory.getLogger(EditPreferences.class);
     private static final int REQUEST_CODE_SYNC = 0;
     private static final int REQUEST_CODE_FILES_DIR = 2;
+    private static final int REQUEST_CODE_TTS_CHECK = 2534;
 
     public static final int RESULT_CODE_THEME_CHANGED = 1;
     public static final int RESULT_CODE_PERFORMANCE_PREF_CHANGED = 3;
@@ -74,6 +79,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
     @Inject TaskService taskService;
     @Inject Preferences preferences;
     @Inject CalendarAlarmScheduler calendarAlarmScheduler;
+    @Inject VoiceOutputAssistant voiceOutputAssistant;
 
     private VoiceInputAssistant voiceInputAssistant;
 
@@ -360,6 +366,13 @@ public class EditPreferences extends TodorooPreferenceActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        voiceOutputAssistant.shutdown();
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_SYNC && resultCode == SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE) {
             setResult(SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE);
@@ -373,7 +386,17 @@ public class EditPreferences extends TodorooPreferenceActivity {
             return;
         }
         try {
-            VoiceOutputService.getVoiceOutputInstance().handleActivityResult(requestCode, resultCode);
+            if (requestCode == REQUEST_CODE_TTS_CHECK) {
+                if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
+                    // success, create the TTS instance
+                    voiceOutputAssistant.initTTS();
+                } else {
+                    // missing data, install it
+                    Intent installIntent = new Intent();
+                    installIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+                    startActivity(installIntent);
+                }
+            }
         } catch (VerifyError e) {
             // unavailable
         }
@@ -427,14 +450,17 @@ public class EditPreferences extends TodorooPreferenceActivity {
         });
     }
 
-    private void onVoiceReminderStatusChanged(final Preference preference, boolean newValue) {
+    private void onVoiceReminderStatusChanged(final Preference preference, boolean enabled) {
         try {
-            VoiceOutputService.getVoiceOutputInstance();
-            if(newValue) {
-                VoiceOutputService.getVoiceOutputInstance().checkIsTTSInstalled();
+            if(enabled && !voiceOutputAssistant.isTTSInitialized()) {
+                Intent checkIntent = new Intent();
+                checkIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+                startActivityForResult(checkIntent, REQUEST_CODE_TTS_CHECK);
+            } else if (!enabled && voiceOutputAssistant.isTTSInitialized()) {
+                voiceOutputAssistant.shutdown();
             }
         } catch (VerifyError e) {
-            // doesn't work :(
+            log.error(e.getMessage(), e);
             preference.setEnabled(false);
             preferences.setBoolean(preference.getKey(), false);
         }
