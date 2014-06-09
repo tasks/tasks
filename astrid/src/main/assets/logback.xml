@@ -1,0 +1,11 @@
+<configuration debug='true'>
+    <appender name="LOGCAT" class="ch.qos.logback.classic.android.LogcatAppender">
+        <encoder>
+            <pattern>[%thread] %-5level - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="DEBUG">
+        <appender-ref ref="LOGCAT"/>
+    </root>
+</configuration>

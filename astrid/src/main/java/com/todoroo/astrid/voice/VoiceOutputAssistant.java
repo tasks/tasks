@@ -51,7 +51,7 @@ public class VoiceOutputAssistant implements OnInitListener {
     public void speak(String textToSpeak) {
         if (mTts != null && isTTSInitialized) {
             final String id = UUID.randomUUID().toString();
-            log.debug("{}: {} ({})", this, textToSpeak, id);
+            log.debug("{}: {} ({})", mTts, textToSpeak, id);
             mTts.setOnUtteranceCompletedListener(new TextToSpeech.OnUtteranceCompletedListener() {
                 @Override
                 public void onUtteranceCompleted(String utteranceId) {
