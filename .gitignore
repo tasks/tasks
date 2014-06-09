@@ -3,3 +3,4 @@
 .gradle
 build/
 *.apk
+local.properties
