@@ -5,9 +5,13 @@
  */
 package com.todoroo.astrid.service;
 
+import android.content.Context;
+
 import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
+
+import org.tasks.injection.ForApplication;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,9 +36,11 @@ public class SyncV2Service {
      * for responding to sync requests through this new API.
      */
     private final SyncV2Provider[] providers;
+    private final Context context;
 
     @Inject
-    public SyncV2Service(GtasksSyncV2Provider gtasksSyncV2Provider) {
+    public SyncV2Service(@ForApplication Context context, GtasksSyncV2Provider gtasksSyncV2Provider) {
+        this.context = context;
         providers = new SyncV2Provider[] {
                 gtasksSyncV2Provider
         };
@@ -68,9 +74,9 @@ public class SyncV2Service {
         }
 
         if (active.size() > 1) { // This should never happen anymore--they can't be active at the same time, but if for some reason they both are, just use ActFm
-            active.get(1).synchronizeActiveTasks(manual, new WidgetUpdatingCallbackWrapper(callback));
+            active.get(1).synchronizeActiveTasks(manual, new WidgetUpdatingCallbackWrapper(context, callback));
         } else if (active.size() == 1) {
-            active.get(0).synchronizeActiveTasks(manual, new WidgetUpdatingCallbackWrapper(callback));
+            active.get(0).synchronizeActiveTasks(manual, new WidgetUpdatingCallbackWrapper(context, callback));
         }
 
         return true;
@@ -86,7 +92,7 @@ public class SyncV2Service {
     public void synchronizeList(Object list, boolean manual, SyncResultCallback callback) {
         for(SyncV2Provider provider : providers) {
             if(provider.isActive()) {
-                provider.synchronizeList(list, manual, new WidgetUpdatingCallbackWrapper(callback));
+                provider.synchronizeList(list, manual, new WidgetUpdatingCallbackWrapper(context, callback));
             }
         }
     }

@@ -126,10 +126,8 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 final GtasksInvoker invoker = new GtasksInvoker(gtasksTokenValidator, authToken);
                 try {
                     gtasksListService.updateLists(invoker.allGtaskLists());
-                } catch (GoogleTasksException e) {
-                    handler.handleException("gtasks-sync=io", e, e.getType()); //$NON-NLS-1$
                 } catch (IOException e) {
-                    handler.handleException("gtasks-sync=io", e, e.toString()); //$NON-NLS-1$
+                    handler.handleException("gtasks-sync=io", e); //$NON-NLS-1$
                 }
 
                 StoreObject[] lists = gtasksListService.getLists();
@@ -173,10 +171,8 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 task.readFromCursor(queued);
                 try {
                     gtasksSyncService.pushTaskOnSave(task, task.getMergedValues(), invoker);
-                } catch (GoogleTasksException e) {
-                    handler.handleException("gtasks-sync-io", e, e.getType()); //$NON-NLS-1$
                 } catch (IOException e) {
-                    handler.handleException("gtasks-sync-io", e, e.toString()); //$NON-NLS-1$
+                    handler.handleException("gtasks-sync-io", e); //$NON-NLS-1$
                 }
             }
         } finally {
@@ -286,13 +282,9 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
                 gtasksTaskListUpdater.correctOrderAndIndentForList(listId);
             }
-        } catch (GoogleTasksException e) {
-            if (errorHandler != null) {
-                errorHandler.handleException("gtasks-sync-io", e, e.getType()); //$NON-NLS-1$
-            }
         } catch (IOException e) {
             if (errorHandler != null) {
-                errorHandler.handleException("gtasks-sync-io", e, e.toString()); //$NON-NLS-1$
+                errorHandler.handleException("gtasks-sync-io", e); //$NON-NLS-1$
             }
         }
     }

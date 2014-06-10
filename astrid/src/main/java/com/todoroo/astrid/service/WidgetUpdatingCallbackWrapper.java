@@ -1,15 +1,18 @@
 package com.todoroo.astrid.service;
 
-import com.todoroo.andlib.service.ContextManager;
+import android.content.Context;
+
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.widget.TasksWidget;
 
 public class WidgetUpdatingCallbackWrapper implements SyncResultCallback {
 
+    private final Context context;
     private SyncResultCallback wrap;
 
-    public WidgetUpdatingCallbackWrapper(SyncResultCallback wrap) {
+    public WidgetUpdatingCallbackWrapper(Context context, SyncResultCallback wrap) {
+        this.context = context;
         this.wrap = wrap;
     }
 
@@ -23,6 +26,6 @@ public class WidgetUpdatingCallbackWrapper implements SyncResultCallback {
     public void finished() {
         wrap.finished();
         TasksWidget.suppressUpdateFlag = 0L;
-        TasksWidget.updateWidgets(ContextManager.getContext());
+        TasksWidget.updateWidgets(context);
     }
 }

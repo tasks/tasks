@@ -3,6 +3,7 @@
  */
 package com.todoroo.astrid.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -13,7 +14,7 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.QuickAddBar;
 
-import org.tasks.preferences.Preferences;
+import org.tasks.injection.ForApplication;
 
 import javax.inject.Inject;
 
@@ -28,6 +29,7 @@ public final class ShareLinkActivity extends TaskListActivity {
     @Inject TagService tagService;
     @Inject MetadataService metadataService;
     @Inject GCalHelper gcalHelper;
+    @Inject @ForApplication Context context;
 
     private String subject;
     private boolean handled;
@@ -52,7 +54,7 @@ public final class ShareLinkActivity extends TaskListActivity {
         if (!handled) {
             Intent callerIntent = getIntent();
 
-            Task task = QuickAddBar.basicQuickAddTask(gcalHelper, taskService, metadataService, tagService, subject);
+            Task task = QuickAddBar.basicQuickAddTask(context, gcalHelper, taskService, metadataService, tagService, subject);
             if (task != null) {
                 task.setNotes(callerIntent.getStringExtra(Intent.EXTRA_TEXT));
                 taskService.save(task);

@@ -14,8 +14,8 @@ abstract public class SyncV2Provider {
     private static final Logger log = LoggerFactory.getLogger(SyncV2Provider.class);
 
     public class SyncExceptionHandler {
-        public void handleException(String tag, Exception e, String type) {
-            getUtilities().setLastError(e.toString(), type);
+        public void handleException(String tag, Exception e) {
+            getUtilities().setLastError(e.toString());
             log.error("{}: {}", tag, e.getMessage(), e);
         }
     }

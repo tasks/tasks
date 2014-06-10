@@ -22,13 +22,14 @@ import javax.inject.Singleton;
 @Singleton
 public class GtasksPreferenceService extends SyncProviderUtilities {
 
-    /** add-on identifier */
     public static final String IDENTIFIER = "gtasks"; //$NON-NLS-1$
-    private final Preferences preferences;
+
+    private static final String PREF_DEFAULT_LIST = IDENTIFIER + "_defaultlist"; //$NON-NLS-1$
+    private static final String PREF_USER_NAME = IDENTIFIER + "_user"; //$NON-NLS-1$
 
     @Inject
     public GtasksPreferenceService(Preferences preferences) {
-        this.preferences = preferences;
+        super(preferences);
     }
 
     @Override
@@ -56,10 +57,4 @@ public class GtasksPreferenceService extends SyncProviderUtilities {
     public void setUserName(String userName) {
         preferences.setString(PREF_USER_NAME, userName);
     }
-
-    /** GTasks user's default list id */
-    private static final String PREF_DEFAULT_LIST = IDENTIFIER + "_defaultlist"; //$NON-NLS-1$
-
-    /** GTasks user name */
-    public static final String PREF_USER_NAME = IDENTIFIER + "_user"; //$NON-NLS-1$
 }

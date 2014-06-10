@@ -32,7 +32,6 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.ActFmCameraModule;
@@ -145,7 +144,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         try {
             fetchTask(t);
         } catch (SQLiteException e) {
-            StartupService.handleSQLiteError(ContextManager.getContext(), e);
+            StartupService.handleSQLiteError(fragment.getActivity(), e);
         }
         if(task == null) {
             return;

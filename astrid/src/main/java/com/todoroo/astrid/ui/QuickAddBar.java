@@ -24,7 +24,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
@@ -46,6 +45,7 @@ import com.todoroo.astrid.voice.VoiceRecognizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.injection.ForApplication;
 import org.tasks.injection.Injector;
 import org.tasks.preferences.ActivityPreferences;
 
@@ -79,6 +79,7 @@ public class QuickAddBar extends LinearLayout {
     @Inject GCalHelper gcalHelper;
     @Inject ActivityPreferences preferences;
     @Inject DateChangedAlerts dateChangedAlerts;
+    @Inject @ForApplication Context context;
 
     private VoiceRecognizer voiceRecognizer;
 
@@ -283,7 +284,7 @@ public class QuickAddBar extends LinearLayout {
 
             resetControlSets();
 
-            addToCalendar(gcalHelper, taskService, task, title);
+            addToCalendar(context, gcalHelper, taskService, task, title);
 
             TextView quickAdd = (TextView) findViewById(R.id.quickAddText);
             quickAdd.setText(""); //$NON-NLS-1$
@@ -307,13 +308,13 @@ public class QuickAddBar extends LinearLayout {
         }
     }
 
-    private static void addToCalendar(GCalHelper gcalHelper, TaskService taskService, Task task, String title) {
+    private static void addToCalendar(Context context, GCalHelper gcalHelper, TaskService taskService, Task task, String title) {
         boolean gcalCreateEventEnabled = gcalHelper.getDefaultCalendar() != null
                 && !gcalHelper.getDefaultCalendar().equals("-1") && task.hasDueDate(); //$NON-NLS-1$
 
         if (!TextUtils.isEmpty(title) && gcalCreateEventEnabled && TextUtils.isEmpty(task.getCalendarURI())) {
             Uri calendarUri = gcalHelper.createTaskEvent(task,
-                    ContextManager.getContext().getContentResolver(), new ContentValues());
+                    context.getContentResolver(), new ContentValues());
             task.setCalendarUri(calendarUri.toString());
             task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
             taskService.save(task);
@@ -324,7 +325,7 @@ public class QuickAddBar extends LinearLayout {
      * Static method to quickly add tasks without all the control set nonsense.
      * Used from the share link activity.
      */
-    public static Task basicQuickAddTask(GCalHelper gcalHelper, TaskService taskService, MetadataService metadataService, TagService tagService, String title) {
+    public static Task basicQuickAddTask(Context context, GCalHelper gcalHelper, TaskService taskService, MetadataService metadataService, TagService tagService, String title) {
         if (TextUtils.isEmpty(title)) {
             return null;
         }
@@ -332,7 +333,7 @@ public class QuickAddBar extends LinearLayout {
         title = title.trim();
 
         Task task = TaskService.createWithValues(taskService, metadataService, tagService, null, title);
-        addToCalendar(gcalHelper, taskService, task, title);
+        addToCalendar(context, gcalHelper, taskService, task, title);
 
         return task;
     }

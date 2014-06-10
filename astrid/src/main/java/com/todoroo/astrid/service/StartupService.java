@@ -105,19 +105,19 @@ public class StartupService {
     private static boolean hasStartedUp = false;
 
     /** Called when this application is started up */
-    public synchronized void onStartupApplication(final Activity context) {
-        if(hasStartedUp || context == null) {
+    public synchronized void onStartupApplication(final Activity activity) {
+        if(hasStartedUp || activity == null) {
             return;
         }
 
-        // sets up context manager
-        ContextManager.setContext(context);
+        // sets up activity manager
+        ContextManager.setContext(activity);
 
         database.addListener(new AbstractDatabase.DatabaseUpdateListener() {
             @Override
             public void onDatabaseUpdated() {
-                Astrid2TaskProvider.notifyDatabaseModification(context);
-                Astrid3ContentProvider.notifyDatabaseModification(context);
+                Astrid2TaskProvider.notifyDatabaseModification(activity);
+                Astrid3ContentProvider.notifyDatabaseModification(activity);
             }
         });
 
@@ -125,19 +125,16 @@ public class StartupService {
             database.openForWriting();
             checkForMissingColumns();
         } catch (SQLiteException e) {
-            handleSQLiteError(context, e);
+            handleSQLiteError(activity, e);
             return;
         }
 
         // show notification if reminders are silenced
-        if(context instanceof Activity) {
-            AudioManager audioManager = (AudioManager)context.getSystemService(
-                Context.AUDIO_SERVICE);
-            if(!preferences.getBoolean(R.string.p_rmd_enabled, true)) {
-                Toast.makeText(context, R.string.TLA_notification_disabled, Toast.LENGTH_LONG).show();
-            } else if(audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) == 0) {
-                Toast.makeText(context, R.string.TLA_notification_volume_low, Toast.LENGTH_LONG).show();
-            }
+        AudioManager audioManager = (AudioManager)activity.getSystemService( Context.AUDIO_SERVICE);
+        if(!preferences.getBoolean(R.string.p_rmd_enabled, true)) {
+            Toast.makeText(activity, R.string.TLA_notification_disabled, Toast.LENGTH_LONG).show();
+        } else if(audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) == 0) {
+            Toast.makeText(activity, R.string.TLA_notification_volume_low, Toast.LENGTH_LONG).show();
         }
 
         // read current version
@@ -151,7 +148,7 @@ public class StartupService {
         int version = 0;
         String versionName = "0"; //$NON-NLS-1$
         try {
-            PackageManager pm = context.getPackageManager();
+            PackageManager pm = activity.getPackageManager();
             PackageInfo pi = pm.getPackageInfo(Constants.PACKAGE, PackageManager.GET_META_DATA);
             version = pi.versionCode;
             versionName = pi.versionName;
@@ -162,13 +159,13 @@ public class StartupService {
         Log.i("astrid", "Astrid Startup. " + latestSetVersion + //$NON-NLS-1$ //$NON-NLS-2$
                 " => " + version); //$NON-NLS-1$
 
-        databaseRestoreIfEmpty(context);
+        databaseRestoreIfEmpty(activity);
 
         // invoke upgrade service
         boolean justUpgraded = latestSetVersion != version;
         if(justUpgraded && version > 0) {
             if(latestSetVersion > 0) {
-                upgradeService.performUpgrade(context, latestSetVersion);
+                upgradeService.performUpgrade(activity, latestSetVersion);
             }
             preferences.setCurrentVersion(version);
             preferences.setCurrentVersionName(versionName);
@@ -188,23 +185,23 @@ public class StartupService {
                 gtasksPreferenceService.stopOngoing();
 
                 // perform initialization
-                ReminderStartupReceiver.startReminderSchedulingService(context);
-                BackupService.scheduleService(preferences, context);
+                ReminderStartupReceiver.startReminderSchedulingService(activity);
+                BackupService.scheduleService(preferences, activity);
 
                 gtasksSyncService.initialize();
 
                 // get and display update messages
                 if (finalLatestVersion != 0) {
-//                    new UpdateMessageService(context).processUpdates();
+//                    new UpdateMessageService(activity).processUpdates();
                 }
             }
         }).start();
 
         preferences.setDefaults();
 
-        calendarAlarmScheduler.scheduleCalendarAlarms(context, false); // This needs to be after set preference defaults for the purposes of ab testing
+        calendarAlarmScheduler.scheduleCalendarAlarms(activity, false); // This needs to be after set preference defaults for the purposes of ab testing
 
-        showTaskKillerHelp(context);
+        showTaskKillerHelp(activity);
 
         hasStartedUp = true;
     }
@@ -228,13 +225,9 @@ public class StartupService {
         });
     }
 
-    public static void handleSQLiteError(Context context, final SQLiteException e) {
-        if (context instanceof Activity) {
-            Activity activity = (Activity) context;
-            DialogUtilities.okDialog(activity, activity.getString(R.string.DB_corrupted_title),
-                    0, activity.getString(R.string.DB_corrupted_body));
-        }
-        e.printStackTrace();
+    public static void handleSQLiteError(Activity activity, final SQLiteException e) {
+        log.error(e.getMessage(), e);
+        DialogUtilities.okDialog(activity, activity.getString(R.string.DB_corrupted_title), 0, activity.getString(R.string.DB_corrupted_body));
     }
 
     private void checkForMissingColumns() {

@@ -10,7 +10,6 @@ import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
 import com.todoroo.andlib.data.AbstractModel;
@@ -70,7 +69,7 @@ public class GtasksFilterExposer extends InjectingBroadcastReceiver implements A
                         GtasksMetadata.LIST_ID.eq(list.getValue(GtasksList.REMOTE_ID)))).orderBy(
                                 Order.asc(Functions.cast(GtasksMetadata.ORDER, "LONG"))), //$NON-NLS-1$
                 values);
-        filter.customTaskList = new ComponentName(ContextManager.getContext(), GtasksListFragment.class);
+        filter.customTaskList = new ComponentName(context, GtasksListFragment.class);
         Bundle extras = new Bundle();
         extras.putLong(GtasksListFragment.TOKEN_STORE_ID, list.getId());
         filter.customExtras = extras;

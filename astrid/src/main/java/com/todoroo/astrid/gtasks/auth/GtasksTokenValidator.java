@@ -20,7 +20,6 @@ import com.todoroo.astrid.gtasks.api.GoogleTasksException;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 
 import org.tasks.R;
-import org.tasks.preferences.Preferences;
 
 import java.io.IOException;
 
@@ -33,10 +32,10 @@ public class GtasksTokenValidator {
     private static final String TOKEN_INTENT_RECEIVED = "intent!"; //$NON-NLS-1$
 
     private static final int REVALIDATION_TRIES = 4;
-    private final Preferences preferences;
+    private final GtasksPreferenceService preferences;
 
     @Inject
-    public GtasksTokenValidator(Preferences preferences) {
+    public GtasksTokenValidator(GtasksPreferenceService preferences) {
         this.preferences = preferences;
     }
 
@@ -53,7 +52,7 @@ public class GtasksTokenValidator {
         }
 
         // If fail, token may have expired -- get a new one and return that
-        String accountName = preferences.getStringValue(GtasksPreferenceService.PREF_USER_NAME);
+        String accountName = preferences.getUserName();
         Account a = accountManager.getAccountByName(accountName);
         if (a == null) {
             throw new GoogleTasksException(c.getString(R.string.gtasks_error_accountNotFound, accountName), "account-not-found");
