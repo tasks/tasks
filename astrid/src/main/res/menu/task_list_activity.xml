@@ -15,7 +15,6 @@
     <item
         android:id="@+id/menu_rename_list"
         android:title="@string/tag_cm_rename"
-        android:icon="@drawable/filter_pencil"
         android:visible="false"
         tasks:showAsAction="never" />
     <item

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tasks="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_attach"
+        android:title="@string/premium_attach_file"
+        tasks:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_record_note"
+        android:title="@string/premium_record_audio"
+        tasks:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_save"
+        android:title="@string/TEA_menu_save"
+        tasks:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_discard"
+        android:title="@string/TEA_menu_discard"
+        tasks:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_delete"
+        android:title="@string/delete_task"
+        android:icon="?attr/ic_action_discard"
+        tasks:showAsAction="ifRoom"/>
+
+</menu>

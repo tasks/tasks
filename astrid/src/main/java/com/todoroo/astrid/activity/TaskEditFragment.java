@@ -88,7 +88,6 @@ import org.tasks.R;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
-import org.tasks.preferences.ResourceResolver;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -99,8 +98,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
-
-import static android.support.v4.view.MenuItemCompat.setShowAsAction;
 
 /**
  * This activity is responsible for creating new tasks and editing existing
@@ -154,14 +151,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     public static final int REQUEST_CODE_ATTACH_FILE = 40;
     public static final int REQUEST_CODE_BEAST_MODE = 50;
 
-    // --- menu codes
-
-    private static final int MENU_SAVE_ID = R.string.TEA_menu_save;
-    private static final int MENU_DISCARD_ID = R.string.TEA_menu_discard;
-    private static final int MENU_ATTACH_ID = R.string.premium_attach_file;
-    private static final int MENU_RECORD_ID = R.string.premium_record_audio;
-    private static final int MENU_DELETE_TASK_ID = R.string.delete_task;
-
     // --- result codes
 
     public static final String OVERRIDE_FINISH_ANIM = "finishAnim"; //$NON-NLS-1$
@@ -184,7 +173,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Inject GCalHelper gcalHelper;
     @Inject ActivityPreferences preferences;
     @Inject DateChangedAlerts dateChangedAlerts;
-    @Inject ResourceResolver resourceResolver;
 
     // --- UI components
 
@@ -922,19 +910,19 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case MENU_SAVE_ID:
+        case R.id.menu_save:
             saveButtonClick();
             return true;
-        case MENU_DISCARD_ID:
+        case R.id.menu_discard:
             discardButtonClick();
             return true;
-        case MENU_ATTACH_ID:
+        case R.id.menu_attach:
             startAttachFile();
             return true;
-        case MENU_RECORD_ID:
+        case R.id.menu_record_note:
             startRecordingAudio();
             return true;
-        case MENU_DELETE_TASK_ID:
+        case R.id.menu_delete:
             deleteButtonClick();
             return true;
         case android.R.id.home:
@@ -953,39 +941,12 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        MenuItem item;
 
-        item = menu.add(Menu.NONE, MENU_ATTACH_ID, 0, R.string.premium_attach_file);
-        item.setIcon(resourceResolver.getResource(R.attr.ic_action_new_attachment));
-
-        setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD_MR1) {
+        inflater.inflate(R.menu.task_edit_fragment, menu);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD_MR1) {
             // media recorder aac support requires api level 10
             // approximately 1% of current installs are using api level 7-9
-            item = menu.add(Menu.NONE, MENU_RECORD_ID, 0, R.string.premium_record_audio);
-            item.setIcon(resourceResolver.getResource(R.attr.ic_action_mic));
-            setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
-        }
-
-        item = menu.add(Menu.NONE, MENU_DELETE_TASK_ID, 0, R.string.delete_task);
-        item.setIcon(resourceResolver.getResource(R.attr.ic_action_discard));
-        setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
-
-        boolean useSaveAndCancel = preferences.getBoolean(R.string.p_save_and_cancel, false);
-
-        if (useSaveAndCancel || preferences.useTabletLayout()) {
-            if (useSaveAndCancel) {
-                item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
-                item.setIcon(resourceResolver.getResource(R.attr.ic_action_cancel));
-                setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
-            }
-
-            if (!(getActivity() instanceof TaskEditActivity)) {
-                item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
-                item.setIcon(resourceResolver.getResource(R.attr.ic_action_save));
-                setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
-            }
+            menu.findItem(R.id.menu_record_note).setVisible(false);
         }
     }
 
