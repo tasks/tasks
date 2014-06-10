@@ -43,6 +43,7 @@ public class GtasksScheduler {
             syncFrequencySeconds = preferences.getIntegerFromString(
                     gtasksPreferenceService.getSyncIntervalKey(), -1);
         } catch(ClassCastException e) {
+            log.error(e.getMessage(), e);
             preferences.setStringFromInteger(gtasksPreferenceService.getSyncIntervalKey(), 0);
         }
         if(syncFrequencySeconds <= 0) {

@@ -7,7 +7,6 @@ package com.todoroo.astrid.gtasks.sync;
 
 import android.content.ContentValues;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
 import com.todoroo.andlib.data.Property;
@@ -29,6 +28,9 @@ import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.Semaphore;
@@ -38,6 +40,8 @@ import javax.inject.Singleton;
 
 @Singleton
 public class GtasksSyncService {
+
+    private static final Logger log = LoggerFactory.getLogger(GtasksSyncService.class);
 
     private static final String DEFAULT_LIST = "@default"; //$NON-NLS-1$
 
@@ -155,13 +159,14 @@ public class GtasksSyncService {
                 try {
                     op = queue.take();
                 } catch (InterruptedException e) {
+                    log.error(e.getMessage(), e);
                     continue;
                 }
                 try {
                     GtasksInvoker invoker = new GtasksInvoker(gtasksTokenValidator, gtasksPreferenceService.getToken());
                     op.op(invoker);
                 } catch (IOException e) {
-                    Log.w("gtasks-sync-error", "Sync on save failed", e);
+                    log.error(e.getMessage(), e);
                 }
             }
         }
@@ -174,6 +179,7 @@ public class GtasksSyncService {
             sema.acquire();
         } catch (InterruptedException e) {
             // Ignored
+            log.error(e.getMessage(), e);
         }
     }
 
@@ -230,7 +236,7 @@ public class GtasksSyncService {
                     invoker.deleteGtask(gtasksMetadata.getValue(GtasksMetadata.LIST_ID), gtasksMetadata.getValue(GtasksMetadata.ID));
                     metadataDao.delete(gtasksMetadata.getId());
                 } catch (IOException e) {
-                    //
+                    log.error(e.getMessage(), e);
                 }
             }
             return;

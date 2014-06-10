@@ -16,7 +16,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteException;
 import android.media.AudioManager;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.todoroo.andlib.data.AbstractDatabase;
@@ -241,6 +240,7 @@ public class StartupService {
                 tasks.close();
             }
         } catch (SQLiteException e) {
+            log.error(e.getMessage(), e);
             database.tryAddColumn(Task.TABLE, Task.UUID, "'0'"); //$NON-NLS-1$
             database.tryAddColumn(Task.TABLE, Task.USER_ID, "0"); //$NON-NLS-1$
         }
@@ -265,7 +265,7 @@ public class StartupService {
                 }
             }
         } catch (Exception e) {
-            Log.w("astrid-database-restore", e); //$NON-NLS-1$
+            log.error(e.getMessage(), e);
         }
     }
 

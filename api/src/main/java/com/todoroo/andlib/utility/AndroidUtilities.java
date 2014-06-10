@@ -309,6 +309,7 @@ public class AndroidUtilities {
                 } catch (NumberFormatException e) {
                     // failed parse to number
                     putter.put(object, key, 's', value);
+                    log.error(e.getMessage(), e);
                 }
             } catch (IndexOutOfBoundsException e) {
                 log.error(e.getMessage(), e);
@@ -494,6 +495,7 @@ public class AndroidUtilities {
             activity.unregisterReceiver(receiver);
         } catch (IllegalArgumentException e) {
             // Receiver wasn't registered for some reason
+            log.error(e.getMessage(), e);
         }
     }
 

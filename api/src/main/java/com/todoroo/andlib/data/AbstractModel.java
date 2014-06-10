@@ -14,6 +14,9 @@ import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.utility.AndroidUtilities;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -34,11 +37,9 @@ import java.util.Map.Entry;
  */
 public abstract class AbstractModel implements Parcelable, Cloneable {
 
-    // --- static variables
+    private static final Logger log = LoggerFactory.getLogger(AbstractModel.class);
 
     private static final ContentValuesSavingVisitor saver = new ContentValuesSavingVisitor();
-
-    // --- constants
 
     /** id property common to all models */
     protected static final String ID_PROPERTY_NAME = "_id"; //$NON-NLS-1$
@@ -183,6 +184,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
                 saver.save(property, values, cursor.get(property));
             } catch (IllegalArgumentException e) {
                 // underlying cursor may have changed, suppress
+                log.error(e.getMessage(), e);
             }
         }
     }
@@ -214,6 +216,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
             }
             return (TYPE) value;
         } catch (NumberFormatException e) {
+            log.error(e.getMessage(), e);
             return (TYPE) getDefaultValues().get(property.name);
         }
     }

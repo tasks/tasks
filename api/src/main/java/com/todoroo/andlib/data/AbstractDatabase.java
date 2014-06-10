@@ -11,7 +11,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.service.ContextManager;
@@ -288,8 +287,7 @@ abstract public class AbstractDatabase {
          */
         @Override
         public synchronized void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            Log.w("database-" + getName(), String.format("Upgrading database from version %d to %d.",
-                    oldVersion, newVersion));
+            log.info("Upgrading database from version {} to {}.", oldVersion, newVersion);
 
             database = db;
             try {

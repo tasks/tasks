@@ -7,6 +7,9 @@ package com.todoroo.astrid.gtasks.api;
 
 import com.google.api.services.tasks.model.Task;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 
 /**
@@ -15,6 +18,9 @@ import java.io.IOException;
  *
  */
 public abstract class PushRequest {
+
+    private static final Logger log = LoggerFactory.getLogger(PushRequest.class);
+
     protected String listId;
     protected Task toPush;
     protected GtasksInvoker service;
@@ -29,6 +35,7 @@ public abstract class PushRequest {
         try {
             return executePush();
         } catch (IOException e) {
+            log.error(e.getMessage(), e);
             recover();
             return executePush();
         }

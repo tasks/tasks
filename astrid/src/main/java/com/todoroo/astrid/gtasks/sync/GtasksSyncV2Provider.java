@@ -37,6 +37,8 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
@@ -55,6 +57,8 @@ import static org.tasks.date.DateTimeUtils.newDate;
 
 @Singleton
 public class GtasksSyncV2Provider extends SyncV2Provider {
+
+    private static final Logger log = LoggerFactory.getLogger(GtasksSyncV2Provider.class);
 
     private final TaskService taskService;
     private final MetadataService metadataService;
@@ -218,6 +222,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 gtasksPreferenceService.setToken(authToken);
             }
         } catch (GoogleTasksException e) {
+            log.error(e.getMessage(), e);
             authToken = null;
         }
         return authToken;
@@ -285,6 +290,8 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         } catch (IOException e) {
             if (errorHandler != null) {
                 errorHandler.handleException("gtasks-sync-io", e); //$NON-NLS-1$
+            } else {
+                log.error(e.getMessage(), e);
             }
         }
     }

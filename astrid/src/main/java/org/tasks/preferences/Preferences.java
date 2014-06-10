@@ -9,6 +9,8 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.utility.AstridDefaultPreferenceSpec;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
 
@@ -17,6 +19,8 @@ import javax.inject.Inject;
 import static android.content.SharedPreferences.Editor;
 
 public class Preferences {
+
+    private static final Logger log = LoggerFactory.getLogger(Preferences.class);
 
     private static final String P_CURRENT_VERSION = "cv"; //$NON-NLS-1$
     private static final String P_CURRENT_VERSION_NAME = "cvname"; //$NON-NLS-1$
@@ -91,6 +95,7 @@ public class Preferences {
         try {
             return Integer.parseInt(value);
         } catch (Exception e) {
+            log.error(e.getMessage(), e);
             return defaultValue;
         }
     }
@@ -115,6 +120,7 @@ public class Preferences {
         try {
             return prefs.getBoolean(key, defValue);
         } catch (ClassCastException e) {
+            log.error(e.getMessage(), e);
             return defValue;
         }
     }

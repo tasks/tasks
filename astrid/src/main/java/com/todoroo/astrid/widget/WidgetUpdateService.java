@@ -78,6 +78,7 @@ public class WidgetUpdateService extends InjectingService {
                 }
             } catch (RuntimeException e) {
                 // "System server dead" was sometimes thrown here by the OS. Abort if that happens
+                log.error(e.getMessage(), e);
             }
         } else {
             RemoteViews updateViews = buildUpdate(this, extrasId);

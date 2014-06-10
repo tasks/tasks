@@ -19,6 +19,8 @@ import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.api.GoogleTasksException;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 
 import java.io.IOException;
@@ -28,6 +30,8 @@ import javax.inject.Singleton;
 
 @Singleton
 public class GtasksTokenValidator {
+
+    private static final Logger log = LoggerFactory.getLogger(GtasksTokenValidator.class);
 
     private static final String TOKEN_INTENT_RECEIVED = "intent!"; //$NON-NLS-1$
 
@@ -82,6 +86,7 @@ public class GtasksTokenValidator {
             testService.ping();
             return true;
         } catch (IOException i) {
+            log.error(i.getMessage(), i);
             return false;
         }
     }

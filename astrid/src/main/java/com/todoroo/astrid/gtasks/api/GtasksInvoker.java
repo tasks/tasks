@@ -58,20 +58,18 @@ public class GtasksInvoker {
         if (e instanceof HttpResponseException) {
             HttpResponseException h = (HttpResponseException)e;
             int statusCode = h.getResponse().getStatusCode();
+            log.error(statusCode + ": " + h.getResponse().getStatusMessage(), e);
             if (statusCode == 401 || statusCode == 403) {
-                System.err.println("Encountered " + statusCode + " error");
                 token = gtasksTokenValidator.validateAuthToken(ContextManager.getContext(), token);
                 if (token != null) {
                     accessProtectedResource.setAccessToken(token);
                 }
-            } else if (statusCode == 503) { // 503 errors are generally either 1) quota limit reached or 2) problems on Google's end
-                log.error("503: {}", e.getMessage(), e);
             } else if (statusCode == 400 || statusCode == 500) {
-                System.err.println("Encountered " + statusCode + " error");
-                System.err.println(h.getResponse().getStatusMessage());
-                h.printStackTrace();
                 throw h;
             }
+            // 503 errors are generally either 1) quota limit reached or 2) problems on Google's end
+        } else {
+            log.error(e.getMessage(), e);
         }
     }
 

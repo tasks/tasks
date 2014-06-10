@@ -138,6 +138,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
         try {
             m = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
+            log.error(e.getMessage(), e);
             return -1;
         }
 

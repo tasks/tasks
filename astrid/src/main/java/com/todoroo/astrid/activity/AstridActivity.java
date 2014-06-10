@@ -38,6 +38,8 @@ import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.voice.RecognizerApi.RecognizerApiListener;
 import com.todoroo.astrid.voice.VoiceRecognizer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingActionBarActivity;
 import org.tasks.preferences.Preferences;
@@ -59,6 +61,8 @@ public class AstridActivity extends InjectingActionBarActivity
     implements FilterListFragment.OnFilterItemClickedListener,
     TaskListFragment.OnTaskListItemClickedListener,
     RecognizerApiListener {
+
+    private static final Logger log = LoggerFactory.getLogger(AstridActivity.class);
 
     public static final int LAYOUT_SINGLE = 0;
     public static final int LAYOUT_DOUBLE = 1;
@@ -197,7 +201,7 @@ public class AstridActivity extends InjectingActionBarActivity
             });
         } catch (Exception e) {
             // Don't worry about it
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
     }
 
@@ -263,12 +267,10 @@ public class AstridActivity extends InjectingActionBarActivity
         if(fragment == null) {
             try {
                 fragment = cls.newInstance();
-            } catch (InstantiationException e) {
-                return null;
-            } catch (IllegalAccessException e) {
+            } catch (InstantiationException | IllegalAccessException e) {
+                log.error(e.getMessage(), e);
                 return null;
             }
-
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             if (container == 0) {
                 ft.add(fragment, tag);
@@ -381,6 +383,7 @@ public class AstridActivity extends InjectingActionBarActivity
                             gcalHelper, taskService, AstridActivity.this, task, oldDueDate, newDueDate, lastTime);
 
                 } catch (BadTokenException e) { // Activity not running when tried to show dialog--rebroadcast
+                    log.error(e.getMessage(), e);
                     new Thread() {
                         @Override
                         public void run() {

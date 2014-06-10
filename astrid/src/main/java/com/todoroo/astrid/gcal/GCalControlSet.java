@@ -120,7 +120,7 @@ public class GCalControlSet extends PopupControlSet {
 
                 hasEvent = true;
             } catch (Exception e) {
-                log.error("unable-to-parse-calendar: {}", model.getCalendarURI(), e);
+                log.error("unable-to-parse-calendar: " + model.getCalendarURI(), e);
             }
         } else {
             hasEvent = false;
@@ -188,7 +188,7 @@ public class GCalControlSet extends PopupControlSet {
                 ContentResolver cr = activity.getContentResolver();
                 cr.update(calendarUri, updateValues, null, null);
             } catch (Exception e) {
-                log.error("unable-to-update-calendar: {}", task.getCalendarURI(), e);
+                log.error("unable-to-update-calendar: " + task.getCalendarURI(), e);
             }
         }
     }

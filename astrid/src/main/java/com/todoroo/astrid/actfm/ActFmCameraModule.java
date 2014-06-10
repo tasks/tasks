@@ -21,6 +21,8 @@ import android.widget.ArrayAdapter;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 
 import java.io.File;
@@ -28,6 +30,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ActFmCameraModule {
+
+    private static final Logger log = LoggerFactory.getLogger(ActFmCameraModule.class);
 
     protected static final int REQUEST_CODE_CAMERA = 1;
     protected static final int REQUEST_CODE_PICTURE = 2;
@@ -93,6 +97,7 @@ public class ActFmCameraModule {
                 return File.createTempFile("comment_pic_" + DateUtilities.now(), ".jpg", new File(path));
             }
         } catch (IOException e) {
+            log.error(e.getMessage(), e);
             return null;
         }
         return null;

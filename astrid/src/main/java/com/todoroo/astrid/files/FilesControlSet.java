@@ -39,6 +39,8 @@ import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.voice.RecognizerApi;
 import com.todoroo.astrid.voice.RecognizerApi.PlaybackExceptionHandler;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
 
@@ -48,6 +50,8 @@ import java.util.ArrayList;
 import static org.tasks.preferences.ResourceResolver.getResource;
 
 public class FilesControlSet extends PopupControlSet {
+
+    private static final Logger log = LoggerFactory.getLogger(FilesControlSet.class);
 
     private final ArrayList<TaskAttachment> files = new ArrayList<>();
     private final LinearLayout fileDisplayList;
@@ -245,6 +249,7 @@ public class FilesControlSet extends PopupControlSet {
             intent.setDataAndType(Uri.fromFile(new File(file)), type);
             activity.startActivity(intent);
         } catch (ActivityNotFoundException e) {
+            log.error(e.getMessage(), e);
             handleActivityNotFound(type);
         }
     }
@@ -274,6 +279,7 @@ public class FilesControlSet extends PopupControlSet {
                     }
                     activity.startActivity(marketIntent);
                 } catch (ActivityNotFoundException anf) {
+                    log.error(anf.getMessage(), anf);
                     DialogUtilities.okDialog(activity,
                             activity.getString(R.string.market_unavailable),
                             null);

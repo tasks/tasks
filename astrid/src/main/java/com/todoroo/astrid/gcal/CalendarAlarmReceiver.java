@@ -13,6 +13,8 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.utility.Constants;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.preferences.Preferences;
@@ -24,6 +26,8 @@ import java.util.Set;
 import javax.inject.Inject;
 
 public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
+
+    private static final Logger log = LoggerFactory.getLogger(CalendarAlarmReceiver.class);
 
     public static final int REQUEST_CODE_CAL_REMINDER = 100;
     public static final String BROADCAST_CALENDAR_REMINDER = Constants.PACKAGE + ".CALENDAR_EVENT";
@@ -66,8 +70,9 @@ public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
             if (eventId > 0) {
                 showCalReminder(context, eventId, fromPostpone);
             }
-        } catch (IllegalArgumentException e) { // Some cursor read failed, or badly formed uri
-            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            // Some cursor read failed, or badly formed uri
+            log.error(e.getMessage(), e);
         }
     }
 

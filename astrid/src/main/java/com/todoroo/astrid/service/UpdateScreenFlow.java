@@ -5,9 +5,14 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 
 public class UpdateScreenFlow extends Activity {
+
+    private static final Logger log = LoggerFactory.getLogger(UpdateScreenFlow.class);
 
     public static final String TOKEN_SCREENS = "token_screens"; //$NON-NLS-1$
     private static final int REQUEST_CODE_SCREEN_FLOW = 5;
@@ -49,7 +54,7 @@ public class UpdateScreenFlow extends Activity {
             Intent intent = new Intent(this, activityClass);
             startActivityForResult(intent, REQUEST_CODE_SCREEN_FLOW);
         } catch (ClassNotFoundException | ActivityNotFoundException e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
             finish();
         }
     }

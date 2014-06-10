@@ -40,9 +40,13 @@ import com.commonsware.cwac.tlv.TouchListView.GrabberClickListener;
 import com.commonsware.cwac.tlv.TouchListView.SwipeListener;
 import com.todoroo.astrid.utility.Flags;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 
 public class DraggableListView extends ListView {
+
+    private static final Logger log = LoggerFactory.getLogger(DraggableListView.class);
 
     private static final int SWIPE_THRESHOLD = 40;
 
@@ -338,6 +342,7 @@ public class DraggableListView extends ListView {
 
             } catch (InterruptedException e) {
                 // bye!
+                log.error(e.getMessage(), e);
             }
         }
     }

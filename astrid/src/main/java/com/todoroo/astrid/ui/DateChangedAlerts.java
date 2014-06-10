@@ -34,6 +34,8 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
 import com.todoroo.astrid.utility.Flags;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
 
@@ -49,6 +51,8 @@ import static org.tasks.date.DateTimeUtils.newDate;
  *
  */
 public class DateChangedAlerts {
+
+    private static final Logger log = LoggerFactory.getLogger(DateChangedAlerts.class);
 
     /** Preference key for how many of these helper dialogs we've shown */
     private static final String PREF_NUM_HELPERS_SHOWN = "pref_num_date_helpers"; //$NON-NLS-1$
@@ -345,6 +349,7 @@ public class DateChangedAlerts {
 
         } catch (ParseException e) {
             // Eh
+            log.error(e.getMessage(), e);
         }
         return "";
     }

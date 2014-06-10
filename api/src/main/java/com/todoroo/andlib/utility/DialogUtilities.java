@@ -13,9 +13,13 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.view.View;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.api.R;
 
 public class DialogUtilities {
+
+    private static final Logger log = LoggerFactory.getLogger(DialogUtilities.class);
 
     /**
      * Displays a dialog box with a EditText and an ok / cancel
@@ -143,8 +147,8 @@ public class DialogUtilities {
                 try {
                     runnable.run();
                 } catch (Exception e) {
-                    DialogUtilities.okDialog(activity,
-                            activity.getString(R.string.DLG_error, e.toString()), null);
+                    log.error(e.getMessage(), e);
+                    DialogUtilities.okDialog(activity, activity.getString(R.string.DLG_error, e.toString()), null);
                 } finally {
                     DialogUtilities.dismissDialog(activity, progressdiag);
                 }
@@ -181,6 +185,7 @@ public class DialogUtilities {
                     dialog.dismiss();
                 } catch (Exception e) {
                     // could have killed activity
+                    log.error(e.getMessage(), e);
                 }
             }
         });
@@ -195,6 +200,7 @@ public class DialogUtilities {
                     runnable.run();
                 } catch (Exception e) {
                     // probably window was closed
+                    log.error(e.getMessage(), e);
                 }
             }
         });

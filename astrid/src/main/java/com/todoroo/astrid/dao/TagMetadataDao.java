@@ -20,6 +20,8 @@ import com.todoroo.astrid.tags.TagMemberMetadata;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -36,6 +38,8 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class TagMetadataDao extends DatabaseDao<TagMetadata> {
+
+    private static final Logger log = LoggerFactory.getLogger(TagMetadataDao.class);
 
     private final TagDataDao tagDataDao;
 
@@ -132,7 +136,7 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
 
                 }
             } catch (JSONException e) {
-                //
+                log.error(e.getMessage(), e);
             }
             tagData.setMembers(""); //$NON-NLS-1$
             tagDataDao.saveExisting(tagData);

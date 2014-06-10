@@ -190,6 +190,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
                 component = Class.forName(((FilterWithCustomIntent) filter).customTaskList.getClassName());
             } catch (Exception e) {
                 // Invalid
+                log.error(e.getMessage(), e);
             }
         }
         if (component == null) {
@@ -504,6 +505,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
                             refresh();
                         } catch (IllegalStateException e) {
                             // view may have been destroyed
+                            log.error(e.getMessage(), e);
                         }
                     }
                 });
@@ -834,6 +836,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
             // by a strange bug, but there seems to not be any negative side effect.
             // For now, we'll suppress the error
             // See http://astrid.com/home#tags-7tsoi/task-1119pk
+            log.error(e.getMessage(), e);
             return null;
         }
     }

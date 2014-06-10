@@ -10,7 +10,13 @@ import android.preference.ListPreference;
 import android.util.AttributeSet;
 import android.view.View;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class MultilineListPreference extends ListPreference {
+
+    private static final Logger log = LoggerFactory.getLogger(MultilineListPreference.class);
+
     public MultilineListPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -21,6 +27,7 @@ public class MultilineListPreference extends ListPreference {
             super.onBindView(view);
         } catch (Exception e) {
             // happens on 4.0 emulators
+            log.error(e.getMessage(), e);
         }
         MultilineHelper.makeMultiline(view);
     }

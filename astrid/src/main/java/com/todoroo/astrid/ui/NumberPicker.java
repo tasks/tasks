@@ -25,10 +25,14 @@ import android.widget.TextView;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 
 public class NumberPicker extends LinearLayout implements OnClickListener,
         OnFocusChangeListener, OnLongClickListener {
+
+    private static final Logger log = LoggerFactory.getLogger(NumberPicker.class);
 
     public interface OnChangedListener {
         /** return new value */
@@ -385,6 +389,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         try {
             return Integer.parseInt(str);
         } catch (NumberFormatException e) {
+            log.error(e.getMessage(), e);
             return mStart;
         }
     }

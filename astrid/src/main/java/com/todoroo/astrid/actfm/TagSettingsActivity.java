@@ -34,6 +34,8 @@ import com.todoroo.astrid.tags.TagService;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingActionBarActivity;
 import org.tasks.preferences.ActivityPreferences;
@@ -44,6 +46,8 @@ import javax.inject.Inject;
 import static android.support.v4.view.MenuItemCompat.setShowAsAction;
 
 public class TagSettingsActivity extends InjectingActionBarActivity {
+
+    private static final Logger log = LoggerFactory.getLogger(TagSettingsActivity.class);
 
     public static final String TOKEN_NEW_FILTER = "newFilter"; //$NON-NLS-1$
 
@@ -210,7 +214,7 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
             tagData.setPicture(tagPicture);
         }
         catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
     }
 

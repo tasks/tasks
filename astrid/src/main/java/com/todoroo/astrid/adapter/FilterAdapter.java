@@ -43,6 +43,8 @@ import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.FilterWithUpdate;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.filters.FilterCounter;
 import org.tasks.injection.Injector;
@@ -52,6 +54,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FilterAdapter extends ArrayAdapter<Filter> {
+
+    private static final Logger log = LoggerFactory.getLogger(FilterAdapter.class);
 
     // --- style constants
 
@@ -288,7 +292,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                log.error(e.getMessage(), e);
             }
         }
 
@@ -465,6 +469,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
                             }, null);
                         } catch (CanceledException e) {
                             // do nothing
+                            log.error(e.getMessage(), e);
                         }
                     }
                 });

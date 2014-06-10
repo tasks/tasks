@@ -55,7 +55,7 @@ public class GCalTaskCompleteListener extends InjectingBroadcastReceiver {
                         task.getTitle()));
                 cr.update(Uri.parse(calendarUri), values, null, null);
             } catch (Exception e) {
-                log.error(e.getMessage(), e); //$NON-NLS-1$ //$NON-NLS-2$
+                log.error(e.getMessage(), e);
             }
         }
     }

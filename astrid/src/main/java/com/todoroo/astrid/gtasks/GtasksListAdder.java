@@ -19,6 +19,8 @@ import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingActivity;
 
@@ -27,6 +29,8 @@ import java.io.IOException;
 import javax.inject.Inject;
 
 public class GtasksListAdder extends InjectingActivity {
+
+    private static final Logger log = LoggerFactory.getLogger(GtasksListAdder.class);
 
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject GtasksListService gtasksListService;
@@ -71,6 +75,7 @@ public class GtasksListAdder extends InjectingActivity {
                                 }
 
                             } catch (IOException e) {
+                                log.error(e.getMessage(), e);
                                 DialogUtilities.okDialog(activity, activity.getString(R.string.gtasks_FEx_create_list_error), null);
                             } finally {
                                 pd.dismiss();

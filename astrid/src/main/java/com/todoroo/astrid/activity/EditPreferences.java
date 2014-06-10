@@ -235,6 +235,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
                     preference.setIntent(intent);
                 }
             } catch (ClassNotFoundException e) {
+                log.error(e.getMessage(), e);
                 preference.setIntent(intent);
             }
 
@@ -283,7 +284,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 preference.setTitle(getString(R.string.EPr_task_row_style_title, titles[valueInt]));
                 preference.setSummary(descriptions[valueInt]);
             } catch (Exception e) {
-                //
+                log.error(e.getMessage(), e);
             }
 
             preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED) {
@@ -296,7 +297,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
                         fullTitle.setEnabled(newValueInt != 2);
                         notes.setEnabled(newValueInt == 0);
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        log.error(e.getMessage(), e);
                     }
                     return super.onPreferenceChange(p, newValue);
                 }
@@ -399,6 +400,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
             }
         } catch (VerifyError e) {
             // unavailable
+            log.error(e.getMessage(), e);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

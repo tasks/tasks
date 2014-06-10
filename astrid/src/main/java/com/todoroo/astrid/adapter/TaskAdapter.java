@@ -65,6 +65,8 @@ import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.ui.CheckableImageView;
 import com.todoroo.astrid.utility.Constants;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
 
@@ -83,6 +85,8 @@ import static org.tasks.date.DateTimeUtils.newDate;
  *
  */
 public class TaskAdapter extends CursorAdapter implements Filterable {
+
+    private static final Logger log = LoggerFactory.getLogger(TaskAdapter.class);
 
     public interface OnCompletedTaskListener {
         public void onCompletedTask(Task item, boolean newState);
@@ -565,6 +569,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                             action.intent.send();
                         } catch (CanceledException e) {
                             // Oh well
+                            log.error(e.getMessage(), e);
                         }
                     }
                 }
@@ -632,6 +637,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             try {
                 html = Html.fromHtml(string, imageGetter, null);
             } catch (RuntimeException e) {
+                log.error(e.getMessage(), e);
                 html = Spannable.Factory.getInstance().newSpannable(string);
             }
             htmlCache.put(string, html);
@@ -713,6 +719,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 }
             } catch (Exception e) {
                 // suppress silently
+                log.error(e.getMessage(), e);
             } finally {
                 fetchCursor.close();
             }

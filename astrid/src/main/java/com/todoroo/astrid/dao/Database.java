@@ -327,6 +327,7 @@ public class Database extends AbstractDatabase {
             database.execSQL(sql);
         } catch (SQLiteException e) {
             // ignored, column already exists
+            log.error(e.getMessage(), e);
         }
     }
 

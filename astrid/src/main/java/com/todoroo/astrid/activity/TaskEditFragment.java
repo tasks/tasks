@@ -606,6 +606,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 }
             } catch (Exception e) {
                 // oops, can't serialize
+                log.error(e.getMessage(), e);
             }
             model = TaskService.createWithValues(taskService, metadataService, tagService, values, null);
             getActivity().getIntent().putExtra(TOKEN_ID, model.getId());
@@ -872,6 +873,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         try {
             AndroidUtilities.copyFile(src, dst);
         } catch (Exception e) {
+            log.error(e.getMessage(), e);
             Toast.makeText(getActivity(), R.string.file_err_copy, Toast.LENGTH_LONG).show();
             return;
         }
@@ -905,6 +907,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
             createNewFileAttachment(path, nameRef.get(), TaskAttachment.FILE_TYPE_IMAGE + "png");
         } catch (Exception e) {
+            log.error(e.getMessage(), e);
             Toast.makeText(getActivity(), R.string.file_err_copy, Toast.LENGTH_LONG).show();
         }
     }

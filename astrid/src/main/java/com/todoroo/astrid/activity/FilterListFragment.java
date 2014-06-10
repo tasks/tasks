@@ -41,6 +41,8 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.filters.FilterCounter;
 import org.tasks.injection.InjectingListFragment;
@@ -56,6 +58,8 @@ import javax.inject.Inject;
  *
  */
 public class FilterListFragment extends InjectingListFragment {
+
+    private static final Logger log = LoggerFactory.getLogger(FilterListFragment.class);
 
     public static final String TAG_FILTERLIST_FRAGMENT = "filterlist_fragment"; //$NON-NLS-1$
 
@@ -170,6 +174,7 @@ public class FilterListFragment extends InjectingListFragment {
             getActivity().unregisterReceiver(refreshReceiver);
         } catch (IllegalArgumentException e) {
             // Might not have fully initialized
+            log.error(e.getMessage(), e);
         }
     }
 

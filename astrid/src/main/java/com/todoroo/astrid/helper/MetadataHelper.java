@@ -8,10 +8,16 @@ package com.todoroo.astrid.helper;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * @author joshuagross
  */
 public class MetadataHelper {
+
+    private static final Logger log = LoggerFactory.getLogger(MetadataHelper.class);
+
     private static final String CATEGORY_KEY = "category"; //$NON-NLS-1$
 
     public static String resolveActivityCategoryName (ResolveInfo resolveInfo, PackageManager pm) {
@@ -27,7 +33,7 @@ public class MetadataHelper {
                             resolveInfo.activityInfo.applicationInfo).getString(
                             resource);
                 } catch (Exception e) {
-                    //
+                    log.error(e.getMessage(), e);
                 }
             } else {
                 // category stored as String in Manifest

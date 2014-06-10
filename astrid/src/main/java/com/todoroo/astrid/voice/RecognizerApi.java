@@ -11,7 +11,9 @@ import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
-import android.util.Log;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -19,6 +21,8 @@ import java.util.ArrayList;
 
 @TargetApi(8)
 public class RecognizerApi implements RecognitionListener {
+
+    private static final Logger log = LoggerFactory.getLogger(RecognizerApi.class);
 
     public static interface PlaybackExceptionHandler {
         public void playbackFailed();
@@ -52,6 +56,7 @@ public class RecognizerApi implements RecognitionListener {
             mediaPlayer.prepare();
             mediaPlayer.start();
         } catch (Exception e) {
+            log.error(e.getMessage(), e);
             handler.playbackFailed();
         }
     }
@@ -113,7 +118,7 @@ public class RecognizerApi implements RecognitionListener {
             try {
                 baos.write(buffer);
             } catch (IOException e) {
-                //
+                log.error(e.getMessage(), e);
             }
         }
     }
@@ -140,10 +145,10 @@ public class RecognizerApi implements RecognitionListener {
 
     @Override
     public void onError(int error) {
+        log.error("Error code " + error, new RuntimeException());
         if (mListener != null) {
             mListener.onSpeechError(error);
         }
-        Log.w("Speech Error", "Error code: " + error);
     }
 
     @Override

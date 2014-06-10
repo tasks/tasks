@@ -21,6 +21,8 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.reminders.ReminderService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.notifications.NotificationManager;
@@ -37,6 +39,8 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class TaskDao extends RemoteModelDao<Task> {
+
+    private static final Logger log = LoggerFactory.getLogger(TaskDao.class);
 
     private final MetadataDao metadataDao;
     private final Broadcaster broadcaster;
@@ -168,6 +172,7 @@ public class TaskDao extends RemoteModelDao<Task> {
             try {
                 saveSuccessful = createNew(task);
             } catch (SQLiteConstraintException e) {
+                log.error(e.getMessage(), e);
                 saveSuccessful = handleSQLiteConstraintException(task); // Tried to create task with remote id that already exists
             }
         } else {
@@ -279,6 +284,7 @@ public class TaskDao extends RemoteModelDao<Task> {
         try {
             saveExisting(item);
         } catch (SQLiteConstraintException e) {
+            log.error(e.getMessage(), e);
             String uuid = item.getUUID();
             TodorooCursor<Task> tasksWithUUID = query(Query.select(
                     SQL_CONSTRAINT_MERGE_PROPERTIES).where(

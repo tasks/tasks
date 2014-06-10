@@ -16,6 +16,8 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingBroadcastReceiver;
 
@@ -32,6 +34,8 @@ import javax.inject.Inject;
  *
  */
 public class RepeatDetailExposer extends InjectingBroadcastReceiver {
+
+    private static final Logger log = LoggerFactory.getLogger(RepeatDetailExposer.class);
 
     @Inject TaskService taskService;
 
@@ -72,7 +76,7 @@ public class RepeatDetailExposer extends InjectingBroadcastReceiver {
             try {
                 rrule = new RRule(recurrence);
             } catch (ParseException e) {
-                System.err.println(e.toString());
+                log.error(e.getMessage(), e);
                 return null;
             }
 

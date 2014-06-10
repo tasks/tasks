@@ -113,6 +113,7 @@ public class TasksXmlImporter {
             }
         } catch (BadTokenException e) {
             // Running from a unit test or some such thing
+            log.error(e.getMessage(), e);
         }
 
         new Thread(new Runnable() {

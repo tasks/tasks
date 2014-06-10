@@ -15,6 +15,8 @@ import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceOutputAssistant;
 
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.notifications.NotificationManager;
@@ -34,6 +36,8 @@ import static org.tasks.date.DateTimeUtils.currentTimeMillis;
  * @author Sam
  */
 public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
+
+    private static final Logger log = LoggerFactory.getLogger(ShowNotificationReceiver.class);
 
     private static ExecutorService singleThreadVoicePool = Executors.newSingleThreadExecutor();
     private static long lastNotificationSound = 0L;
@@ -253,6 +257,7 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
                     }
                 } catch (VerifyError e) {
                     // unavailable
+                    log.error(e.getMessage(), e);
                 }
             }
         }

@@ -77,6 +77,7 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
                             Calls.DATE + " DESC"
                             );
                     } catch (Exception e) { // Sometimes database is locked, retry once
+                        log.error(e.getMessage(), e);
                         AndroidUtilities.sleepDeep(300L);
                         try {
                             calls = context.getContentResolver().query(
@@ -87,6 +88,7 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
                                     Calls.DATE + " DESC"
                                     );
                         } catch (Exception e2) {
+                            log.error(e2.getMessage(), e2);
                             calls = null;
                         }
                     }

@@ -86,6 +86,7 @@ public class FileExplore extends Activity {
 		try {
 			path.mkdirs();
 		} catch (SecurityException e) {
+            log.error(e.getMessage(), e);
 		    DialogUtilities.okDialog(this, getString(R.string.file_browser_err_permissions), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

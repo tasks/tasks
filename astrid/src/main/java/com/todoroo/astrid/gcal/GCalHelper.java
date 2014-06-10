@@ -14,7 +14,6 @@ import android.database.CursorIndexOutOfBoundsException;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.text.format.Time;
-import android.util.Log;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -129,8 +128,7 @@ public class GCalHelper {
 
         } catch (Exception e) {
             // won't work on emulator
-            Log.v("astrid-gcal",
-                    "error-creating-calendar-event", e);
+            log.error(e.getMessage(), e);
         }
 
         return null;
@@ -161,6 +159,7 @@ public class GCalHelper {
             calendar.moveToFirst();
             return calendar.getString(0);
         } catch (CursorIndexOutOfBoundsException e) {
+            log.error(e.getMessage(), e);
             return null;
         } finally  {
             calendar.close();

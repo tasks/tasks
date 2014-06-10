@@ -30,6 +30,8 @@ import com.todoroo.astrid.reminders.SnoozeDialog;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingActivity;
 import org.tasks.preferences.Preferences;
@@ -40,6 +42,8 @@ import java.io.InputStream;
 import javax.inject.Inject;
 
 public class MissedCallActivity extends InjectingActivity {
+
+    private static final Logger log = LoggerFactory.getLogger(MissedCallActivity.class);
 
     public static final String EXTRA_NUMBER = "number"; //$NON-NLS-1$
     public static final String EXTRA_NAME = "name"; //$NON-NLS-1$
@@ -139,7 +143,7 @@ public class MissedCallActivity extends InjectingActivity {
            try {
                b = BitmapFactory.decodeStream(input);
            } catch (OutOfMemoryError e) {
-               //
+               log.error(e.getMessage(), e);
            }
            if (b != null) {
                pictureView.setImageBitmap(b);

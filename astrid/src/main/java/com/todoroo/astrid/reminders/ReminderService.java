@@ -23,6 +23,8 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
@@ -44,6 +46,8 @@ import static org.tasks.date.DateTimeUtils.newDate;
  */
 @Singleton
 public final class ReminderService  {
+
+    private static final Logger log = LoggerFactory.getLogger(ReminderService.class);
 
     // --- constants
 
@@ -127,6 +131,7 @@ public final class ReminderService  {
             }
         } catch (Exception e) {
             // suppress
+            log.error(e.getMessage(), e);
         } finally {
             cursor.close();
             now = -1; // Signal done with now variable
@@ -438,6 +443,7 @@ public final class ReminderService  {
             try {
                 requestCode = Integer.parseInt(rc);
             } catch (Exception e) {
+                log.error(e.getMessage(), e);
                 requestCode = type;
             }
             AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);

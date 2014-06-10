@@ -207,6 +207,7 @@ public class VoiceInputAssistant {
                 }
                 activity.startActivity(marketIntent);
             } catch (ActivityNotFoundException ane) {
+                log.error(ane.getMessage(), ane);
                 DialogUtilities.okDialog(activity,
                         activity.getString(R.string.EPr_marketUnavailable_dlg),
                         onFail);

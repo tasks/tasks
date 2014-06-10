@@ -135,6 +135,7 @@ public class AlarmService {
             }
         } catch (Exception e) {
             // suppress
+            log.error(e.getMessage(), e);
         } finally {
             cursor.close();
         }
@@ -154,7 +155,7 @@ public class AlarmService {
                 scheduleAlarm(alarm);
             }
         } catch (Exception e) {
-            log.info(e.getMessage(), e); //$NON-NLS-1$ //$NON-NLS-2$
+            log.error(e.getMessage(), e);
         } finally {
             cursor.close();
         }

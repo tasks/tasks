@@ -170,7 +170,9 @@ public class SubtasksHelper {
                 Long localId = -1L;
                 try {
                     localId = Long.parseLong(uuid);
-                } catch (NumberFormatException e) {/**/}
+                } catch (NumberFormatException e) {
+                    log.error(e.getMessage(), e);
+                }
                 return localId;
             }
         });
