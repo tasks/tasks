@@ -12,6 +12,7 @@
 	<string name="actfm_TVA_menu_refresh">Opdater</string>
 	<string name="actfm_TVA_tag_label">Listenavn</string>
 	<string name="actfm_TVA_tag_picture">Liste billede</string>
+	<string name="actfm_GAA_title">Vælg den Google-konto du vil anvende:</string>
 	<string name="alarm_ACS_label">Alarmer</string>
 	<string name="alarm_ACS_button">Tilføj en alarm</string>
 	<string name="backup_BPr_header">Backup</string>
@@ -55,9 +56,11 @@
 	<string name="TAd_contextEditTask">Rediger opgave</string>
 	<string name="TAd_contextUndeleteTask">Gendan opgave</string>
 	<string name="TAd_contextPurgeTask">Ryd opgave</string>
+	<string name="SSD_hidden_title">Skjulte opgaver</string>
 	<string name="SSD_completed">Vis færdiggjorte opgaver</string>
 	<string name="SSD_hidden">Vis skjulte opgaver</string>
 	<string name="SSD_deleted">Vis slettede opgaver</string>
+	<string name="SSD_sort_drag">Manuel ordre med delopgaver</string>
 	<string name="SSD_sort_auto">Tasks Intelligent sortering</string>
 	<string name="SSD_sort_alpha">Efter titel</string>
 	<string name="SSD_sort_due">Efter deadline</string>
@@ -72,8 +75,14 @@
 	<string name="FLA_search_hint">Søg efter opgaver</string>
 	<string name="FLA_search_filter">Matcher \'%s\'</string>
 	<string name="FLA_toast_onCreateShortcut">Oprettede genvej: %s</string>
+	<string name="FLA_new_filter">Nyt filter</string>
+	<string name="FLA_new_list">Ny liste</string>
+	<string name="FLA_no_filter_selected">Der er ikke valgt et filter! Vælg venligst et filter eller en liste.</string>
 	<string name="TEA_title_hint">Opgave Overskrift</string>
 	<string name="TEA_importance_label">Vigtighed</string>
+	<string name="TEA_deadline_hint">Angiv forfaldsdato</string>
+	<string name="TEA_hideUntil_label">Skjul indtil</string>
+	<string name="TEA_hideUntil_display">Skjul indtil %s</string>
 	<string name="TEA_note_label">Noter</string>
 	<string name="TEA_notes_hint">Indtast opgavenoter...</string>
 	<string name="TEA_estimatedDuration_label">Hvor lang tid tager det?</string>
@@ -92,8 +101,20 @@
 		<item>Næste måned</item>
 	</string-array>
 	<string name="TEA_control_importance">Vigtighed</string>
+	<string name="TEA_control_lists">Lister</string>
 	<string name="TEA_control_notes">Noter</string>
+	<string name="TEA_control_files">Filer</string>
+	<string name="TEA_control_reminders">Påmindelser</string>
+	<string name="TEA_control_hidden_section">----Skjul altid----</string>
+	<string name="hide_until_prompt">Vis i min liste</string>
+	<string name="TEA_load_more">Indlæs flere...</string>
+	<string name="TEA_when_dialog_title">Hvornår forfalder denne?</string>
+	<string name="TEA_new_task">Ny opgave</string>
 	<string name="MCA_title">%1$s\ncalled at %2$s</string>
+	<string name="CRA_ignore_all">Ignorér alle begivenheder</string>
+	<string name="CRA_ignore_this">Ignorér kun denne begivenhed</string>
+	<string name="CRA_dont_invite">Nej tak</string>
+	<string name="CRA_list_created_title">Liste blev oprettet!</string>
 	<string name="EPr_title">Tasks: Opsætning</string>
 	<string name="EPr_appearance_header">Udseende</string>
 	<string name="EPr_fontSize_title">Opgavelistestørrelse</string>
@@ -153,18 +174,39 @@
 	</string-array>
 	<string name="CFC_importance_text">Vigtighed mindst ?</string>
 	<string name="CFC_importance_name">Vigtighed...</string>
+	<string name="CFC_tag_text">Liste: ?</string>
+	<string name="CFC_tag_name">Liste...</string>
+	<string name="CFC_tag_contains_name">Listenavn indeholder...</string>
+	<string name="CFC_tag_contains_text">Listenavnet indeholder: ?</string>
 	<string name="CFC_title_contains_name">Titel indeholder...</string>
 	<string name="CFC_title_contains_text">Titel indeholder: ?</string>
 	<string name="gcal_TEA_error">Fejl ved tilføjelse af opgave til kalender!</string>
+	<string name="gcal_TEA_addToCalendar_label">Tilføj til kalender</string>
 	<string name="gcal_TEA_showCalendar_label">Åbn kalender-begivenhed</string>
+	<string name="gcal_TEA_nocal">Tilføj ikke</string>
+	<string name="gcal_TEA_none_selected">Til kalender?</string>
+	<string name="gcal_TEA_has_event">Cal-begivenhed</string>
 	<string name="gcal_completed_title">%s (fuldført)</string>
 	<string name="gcal_GCP_default">Standardkalender</string>
+	<string name="gtasks_FEx_header">Google Opgaver</string>
+	<string name="gtasks_FEx_title">Google Opgaver: %s</string>
+	<string name="gtasks_FEx_creating_list">Opretter liste...</string>
+	<string name="gtasks_FEx_create_list_dialog">Nyt listenavn:</string>
+	<string name="gtasks_FEx_create_list_error">Fejl ved oprettelse af ny liste</string>
 	<string name="gtasks_GPr_header">Google Tasks (beta!)</string>
 	<string name="locale_notification">Du har $NUM der matcher: $FILTER</string>
 	<string name="TEA_reminder_due">når deadline er nået</string>
 	<string name="TEA_reminder_overdue">når deadline er overskredet</string>
 	<string name="TEA_reminder_mode_once">Ring en gang</string>
 	<string name="TEA_reminder_mode_nonstop">Ring indtil jeg slår alarmen fra</string>
+	<string-array name="TEA_reminder_random">
+		<item>en time</item>
+		<item>en dag</item>
+		<item>en uge</item>
+		<item>in two weeks</item>
+		<item>a month</item>
+		<item>in two months</item>
+	</string-array>
 	<string name="rmd_NoA_filter">Påmindelse!</string>
 	<string name="rmd_NoA_done">Allerede udført!</string>
 	<string name="rmd_NoA_snooze">Slumrefunktion...</string>
@@ -179,7 +221,19 @@
 	<string name="rmd_EPr_ringtone_desc_default">Standard ringetone vil blive brugt</string>
 	<string name="rmd_EPr_persistent_desc_true">Påmindelser skal vises individuelt for at blive ryddet</string>
 	<string name="rmd_EPr_vibrate_title">Vibrer ved påmindelse</string>
+	<string name="rmd_EPr_snooze_dialog_title">Snooze-vindue HH:MM</string>
+	<string name="rmd_EPr_snooze_dialog_desc_true">Snooze ved at vælge ny snooze-tid (HH:MM)</string>
+	<string name="rmd_EPr_snooze_dialog_desc_false">Snooze ved at vælge de # dage/timer der skal snoozes</string>
+	<string name="rmd_EPr_defaultRemind_title">Tilfældige påmindelser</string>
+	<string name="rmd_EPr_defaultRemind_desc_disabled">Nye opgaver vil ikke have tilfældige påmindelser</string>
+	<string name="rmd_EPr_defaultRemind_desc">Nye opgaver vil blive påmindet tilfældigt: %s</string>
+	<string name="repeat_plugin">Gentagne opgaver</string>
+	<string name="repeat_plugin_desc">Tillad at opgaver gentages</string>
 	<string name="repeat_enabled">Gentagelser</string>
+	<string name="repeat_every">Hver %d</string>
+	<string name="repeat_interval_prompt">Interval for gentagelse</string>
+	<string name="repeat_never">Gentages ikke</string>
+	<string name="repeat_dont">Gentag ikke</string>
 	<string-array name="repeat_until_shortcuts">
 		<item>Forever</item>
 		<item>Specific Day</item>
@@ -190,4 +244,26 @@
 		<item>In Two Weeks</item>
 		<item>Next Month</item>
 	</string-array>
+	<string name="repeat_until_title">Gentag indtil...</string>
+	<string name="repeat_keep_going">Fortsæt vedvarende</string>
+	<string name="repeat_detail_byday">$I på $D</string>
+	<string name="repeat_detail_duedate">Hver %s</string>
+	<string name="repeat_detail_duedate_until">Hver %1$s\nindtil %2$s</string>
+	<string name="repeat_detail_completion">%s efter fuldførelse</string>
+	<string name="repeat_forever">Gentag uendeligt</string>
+	<string name="repeat_until">Gentag indtil %s</string>
+	<string name="repeat_rescheduling_dialog_title">Skemalægger opgaven \"%s\" påny </string>
+	<string name="TEA_tag_hint">Ny liste</string>
+	<string name="tag_new_list">Ny liste</string>
+	<string name="tag_no_title_error">Start venligst med at give denne liste et navn!</string>
+	<string name="tag_FEx_add_new">Ny</string>
+	<string name="tag_FEx_header">Lister</string>
+	<string name="tag_cm_rename">Omdøb liste</string>
+	<string name="tag_cm_delete">Slet liste</string>
+	<string name="DLG_rename_this_tag_header">Omdøb listen %s til:</string>
+	<string name="TEA_no_tags_modified">Der er ikke foretaget ændringer</string>
+	<string name="TEA_tags_deleted">Listen %1$s blev slettet, påvirker %2$d opgaver</string>
+	<string name="TEA_tags_renamed">Omdøbte %1$s med %2$s for %3$d opgaver</string>
+	<string name="tag_settings_title">Indstillinger for lister</string>
+	<string name="delete_task">Slet opgave</string>
 </resources>
