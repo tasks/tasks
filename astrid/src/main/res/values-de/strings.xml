@@ -230,7 +230,6 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Zeitpunkt Kalendertermin</string>
 	<string name="EPr_cal_end_at_due_time">Kalendereintrag endet zur Fälligkeits-Uhrzeit</string>
 	<string name="EPr_cal_start_at_due_time">Kalendereintrag Startet zur Fälligkeits-Uhrzeit</string>
-	<string name="EPr_show_save_and_cancel">Zeige Speichern und Abbrechen</string>
 	<string name="EPr_manage_header">Alte Aufgaben verwalten</string>
 	<string name="EPr_manage_delete_completed">Erledigte Aufgaben löschen</string>
 	<string name="EPr_manage_delete_completed_message">Willst du wirklich alle erledigten Aufgaben löschen?</string>

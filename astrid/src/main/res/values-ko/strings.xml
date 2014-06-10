@@ -239,7 +239,6 @@
 	<string name="EPr_cal_end_or_start_at_due_time">달력 이벤트 시간</string>
 	<string name="EPr_cal_end_at_due_time">설정한 시간에 달력 이벤트 종료</string>
 	<string name="EPr_cal_start_at_due_time">설정한 시간에 달력 이벤트 시작</string>
-	<string name="EPr_show_save_and_cancel">저장과 취소 보이기</string>
 	<string name="EPr_manage_header">오래된 일정 관리하기</string>
 	<string name="EPr_manage_delete_completed">완료한 일정 지우기</string>
 	<string name="EPr_manage_delete_completed_message">완료한 일정을 모두 삭제하시겠습니까?</string>

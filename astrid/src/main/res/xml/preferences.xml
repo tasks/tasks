@@ -60,11 +60,6 @@
 	            android:defaultValue="true"/>
 	        
 	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	            android:key="@string/p_save_and_cancel"
-	            android:title="@string/EPr_show_save_and_cancel"
-	            android:defaultValue="false"/>
-	        
-	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
 	            android:key="@string/p_use_date_shortcuts"
 	            android:title="@string/EPr_use_date_shortcuts"
 	            android:defaultValue="true"/>

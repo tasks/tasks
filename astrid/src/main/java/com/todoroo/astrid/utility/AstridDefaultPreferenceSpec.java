@@ -57,8 +57,6 @@ public class AstridDefaultPreferenceSpec {
 
         setPreference(prefs, editor, r, R.string.p_use_date_shortcuts, false);
 
-        setPreference(prefs, editor, r, R.string.p_save_and_cancel, false);
-
         setPreference(prefs, editor, r, R.string.p_hide_plus_button, true);
 
         setPreference(prefs, editor, r, R.string.p_rmd_quietStart_old, 22); // enable quiet hours by default

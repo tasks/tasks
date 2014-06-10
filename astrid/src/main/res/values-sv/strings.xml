@@ -226,7 +226,6 @@
 	<string name="EPr_list_view">Listvy</string>
 	<string name="EPr_show_task_edit_comments">Vissa kommentarer i uppgiftsredigering</string>
 	<string name="EPr_taskRowPrefs_title">Utseende på uppgiftsraden</string>
-	<string name="EPr_show_save_and_cancel">Visa spara och avbryt</string>
 	<string name="EPr_manage_header">Hantera gamla uppgifter</string>
 	<string name="EPr_manage_delete_completed">Radera färdiga uppgifter</string>
 	<string name="EPr_manage_delete_completed_message">Vill du verkligen radera alla dina färdiga uppgifter?</string>

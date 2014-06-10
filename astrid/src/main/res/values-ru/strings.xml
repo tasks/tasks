@@ -236,7 +236,6 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Время события в календаре</string>
 	<string name="EPr_cal_end_at_due_time">Завершать события в календаре при наступлении срока</string>
 	<string name="EPr_cal_start_at_due_time">Создавать события в календаре при наступлении срока</string>
-	<string name="EPr_show_save_and_cancel">Показать сохранить и отменить</string>
 	<string name="EPr_manage_header">Управление старыми задачами</string>
 	<string name="EPr_manage_delete_completed">Удалить завершенные задачи</string>
 	<string name="EPr_manage_delete_completed_message">Вы действительно хотите удалить все завершенные задачи?</string>

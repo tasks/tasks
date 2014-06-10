@@ -25,7 +25,6 @@ import android.widget.EditText;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.dao.TagMetadataDao;
-import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.TagDataService;
@@ -33,7 +32,6 @@ import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
@@ -246,12 +244,9 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuItem item;
-        if (preferences.getBoolean(R.string.p_save_and_cancel, false)) {
-            item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
-            item.setIcon(resourceResolver.getResource(R.attr.ic_action_cancel));
-            setShowAsAction(item, MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        }
+        MenuItem item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
+        item.setIcon(resourceResolver.getResource(R.attr.ic_action_cancel));
+        setShowAsAction(item, MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         if (isDialog) {
             item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
