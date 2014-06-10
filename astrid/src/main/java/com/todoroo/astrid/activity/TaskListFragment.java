@@ -21,7 +21,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
@@ -201,10 +200,10 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         try {
             newFragment = (TaskListFragment) component.newInstance();
         } catch (java.lang.InstantiationException e) {
-            Log.e("tla-instantiate", "tla-instantiate", e);
+            log.error(e.getMessage(), e);
             newFragment = new TaskListFragment();
         } catch (IllegalAccessException e) {
-            Log.e("tla-instantiate", "tla-instantiate", e);
+            log.error(e.getMessage(), e);
             newFragment = new TaskListFragment();
         }
         Bundle args = new Bundle();

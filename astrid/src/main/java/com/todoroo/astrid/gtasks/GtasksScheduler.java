@@ -4,10 +4,11 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.todoroo.andlib.utility.DateUtilities;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 
@@ -16,6 +17,8 @@ import javax.inject.Singleton;
 
 @Singleton
 public class GtasksScheduler {
+
+    private static final Logger log = LoggerFactory.getLogger(GtasksScheduler.class);
 
     /** Minimum time before an auto-sync */
     private static final long AUTO_SYNC_MIN_OFFSET = 5*60*1000L;
@@ -58,8 +61,7 @@ public class GtasksScheduler {
         PendingIntent pendingIntent = PendingIntent.getService(context, gtasksPreferenceService.getSyncIntervalKey(),
                 createAlarmIntent(context), PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Log.i("Astrid", "Autosync set for " + offset / 1000 //$NON-NLS-1$ //$NON-NLS-2$
-                + " seconds repeating every " + syncFrequencySeconds); //$NON-NLS-1$
+        log.info("Autosync set for {} seconds repeating every {}", offset / 1000, syncFrequencySeconds); //$NON-NLS-1$
 
         // cancel all existing
         am.cancel(pendingIntent);

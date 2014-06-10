@@ -10,12 +10,13 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.util.Log;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.utility.TodorooPreferenceActivity;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
 
@@ -31,6 +32,8 @@ import javax.inject.Inject;
  *
  */
 public class DefaultsPreferences extends TodorooPreferenceActivity {
+
+    private static final Logger log = LoggerFactory.getLogger(DefaultsPreferences.class);
 
     @Inject Preferences preferences;
     @Inject GCalHelper calendarHelper;
@@ -167,7 +170,7 @@ public class DefaultsPreferences extends TodorooPreferenceActivity {
         if(currentSettingIndex == -1 || currentSettingIndex > calendars.calendarIds.length+1) {
             // Should not happen!
             // Leave the preference at disabled.
-            Log.d("astrid", "initCalendarsPreference: Unknown calendar.");
+            log.debug("initCalendarsPreference: Unknown calendar.");
             currentSettingIndex = 0;
         }
 

@@ -13,7 +13,6 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -26,6 +25,8 @@ import com.google.api.client.googleapis.extensions.android2.auth.GoogleAccountMa
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DialogUtilities;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 
 import java.io.IOException;
@@ -40,6 +41,8 @@ import java.util.concurrent.TimeUnit;
  *
  */
 public class ActFmGoogleAuthActivity extends ListActivity {
+
+    private static final Logger log = LoggerFactory.getLogger(ActFmGoogleAuthActivity.class);
 
     public static final String AUTH_TOKEN_TYPE = "oauth2:https://www.googleapis.com/auth/userinfo.profile"; //$NON-NLS-1$
 
@@ -123,7 +126,7 @@ public class ActFmGoogleAuthActivity extends ListActivity {
                                 dismissDialog = true;
                             }
                         } catch (final Exception e) {
-                            Log.e("actfm-google-auth", "Login Error", e); //$NON-NLS-1$ //$NON-NLS-2$
+                            log.error(e.getMessage(), e);
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {

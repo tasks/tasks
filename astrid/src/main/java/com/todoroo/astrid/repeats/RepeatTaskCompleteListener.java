@@ -8,7 +8,6 @@ package com.todoroo.astrid.repeats;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.google.ical.iter.RecurrenceIterator;
 import com.google.ical.iter.RecurrenceIteratorFactory;
@@ -26,6 +25,8 @@ import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Flags;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.injection.InjectingBroadcastReceiver;
 
 import java.text.ParseException;
@@ -43,7 +44,7 @@ import static org.tasks.date.DateTimeUtils.newDateUtc;
 
 public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
 
-    private static final String TAG = "RepeatTaskCompleteListener";
+    private static final Logger log = LoggerFactory.getLogger(RepeatTaskCompleteListener.class);
 
     @Inject TaskService taskService;
     @Inject GCalHelper gcalHelper;
@@ -74,7 +75,7 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
                     return;
                 }
             } catch (ParseException e) {
-                Log.e(TAG, e.getMessage(), e);
+                log.error(e.getMessage(), e);
                 return;
             }
 

@@ -9,7 +9,6 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ListView;
@@ -33,6 +32,8 @@ import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater.Node;
 import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater.OrderedListNodeVisitor;
 import com.todoroo.astrid.ui.DraggableListView;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragmentHelperInterface<LIST> {
+
+    private static final Logger log = LoggerFactory.getLogger(OrderedMetadataListFragmentHelper.class);
 
     private final DisplayMetrics metrics = new DisplayMetrics();
     private final OrderedMetadataListUpdater<LIST> updater;
@@ -126,7 +129,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
                     updater.moveTo(list, targetTaskId, destinationTaskId);
                 }
             } catch (Exception e) {
-                Log.e("drag", "Drag Error", e); //$NON-NLS-1$ //$NON-NLS-2$
+                log.error(e.getMessage(), e);
             }
 
             fragment.loadTaskListContent(true);
@@ -152,7 +155,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
             try {
                 updater.indent(list, targetTaskId, delta);
             } catch (Exception e) {
-                Log.e("drag", "Indent Error", e); //$NON-NLS-1$ //$NON-NLS-2$
+                log.error(e.getMessage(), e);
             }
             fragment.loadTaskListContent(true);
         }

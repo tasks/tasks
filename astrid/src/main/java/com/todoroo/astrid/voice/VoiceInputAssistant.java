@@ -11,7 +11,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.speech.RecognizerIntent;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -24,6 +23,8 @@ import com.todoroo.astrid.utility.Constants;
 
 import junit.framework.Assert;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 
 import java.security.InvalidParameterException;
@@ -41,6 +42,8 @@ import java.util.ArrayList;
  * @author Arne Jans
  */
 public class VoiceInputAssistant {
+
+    private static final Logger log = LoggerFactory.getLogger(VoiceInputAssistant.class);
 
     /** requestcode for activityresult from voicerecognizer-intent */
     public static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
@@ -127,7 +130,7 @@ public class VoiceInputAssistant {
         } else if (fragment != null) {
             fragment.startActivityForResult(intent, requestCode);
         } else {
-            Log.e("Astrid VoiceInputAssistant", detailMessage, new IllegalStateException(detailMessage));
+            log.error(detailMessage, new IllegalStateException(detailMessage));
         }
     }
 

@@ -6,7 +6,6 @@
 package com.todoroo.astrid.gtasks;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
@@ -23,6 +22,9 @@ import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -33,6 +35,8 @@ import javax.inject.Singleton;
 
 @Singleton
 public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObject> {
+
+    private static final Logger log = LoggerFactory.getLogger(GtasksTaskListUpdater.class);
 
     /** map of task -> parent task */
     final HashMap<Long, Long> parents = new HashMap<>();
@@ -218,7 +222,7 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
                     parents.put(taskId, parent);
                     siblings.put(taskId, sibling);
                 } catch (Exception e) {
-                    Log.e("gtasks-task-updating", "Caught exception", e); //$NON-NLS-1$ //$NON-NLS-2$
+                    log.error(e.getMessage(), e);
                 }
 
                 previousTask.set(taskId);

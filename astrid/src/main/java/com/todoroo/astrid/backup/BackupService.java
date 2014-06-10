@@ -10,11 +10,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
 
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingService;
 import org.tasks.preferences.Preferences;
@@ -31,7 +32,7 @@ import javax.inject.Inject;
  */
 public class BackupService extends InjectingService {
 
-    private static final String TAG = "BackupService";
+    private static final Logger log = LoggerFactory.getLogger(BackupService.class);
 
     // --- constants for backup
 
@@ -62,7 +63,7 @@ public class BackupService extends InjectingService {
             ContextManager.setContext(this);
             startBackup(this);
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage(), e);
+            log.error(e.getMessage(), e);
         }
     }
 
@@ -87,14 +88,14 @@ public class BackupService extends InjectingService {
             try {
                 deleteOldBackups();
             } catch (Exception e) {
-                Log.e("error-deleting", "Error deleting old backups", e); //$NON-NLS-1$ //$NON-NLS-2$
+                log.error(e.getMessage(), e);
             }
 
             xmlExporter.exportTasks(context, TasksXmlExporter.ExportType.EXPORT_TYPE_SERVICE,
                     backupDirectorySetting.getBackupDirectory());
 
         } catch (Exception e) {
-            Log.e("error-backup", "Error starting backups", e); //$NON-NLS-1$ //$NON-NLS-2$
+            log.error(e.getMessage(), e);
             preferences.setString(BackupPreferences.PREF_BACKUP_LAST_ERROR, e.toString());
         }
     }
@@ -146,7 +147,7 @@ public class BackupService extends InjectingService {
         });
         for(int i = DAYS_TO_KEEP_BACKUP; i < files.length; i++) {
             if(!files[i].delete()) {
-                Log.i("astrid-backups", "Unable to delete: " + files[i]); //$NON-NLS-1$ //$NON-NLS-2$
+                log.info("Unable to delete: {}", files[i]);
             }
         }
     }

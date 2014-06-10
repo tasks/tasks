@@ -142,16 +142,15 @@ abstract public class AbstractDatabase {
         try {
             database = helper.getWritableDatabase();
         } catch (NullPointerException e) {
-            // don't know why this happens
+            log.error(e.getMessage(), e);
             throw new IllegalStateException(e);
         } catch (final RuntimeException original) {
-            Log.e("database-" + getName(), "Error opening db",
-                    original);
+            log.error(original.getMessage(), original);
             try {
                 // provide read-only database
                 openForReading();
             } catch (Exception readException) {
-                log.error("database-open-{}", getName(), original);
+                log.error(readException.getMessage(), readException);
                 // throw original write exception
                 throw original;
             }
@@ -223,7 +222,7 @@ abstract public class AbstractDatabase {
         } catch (SQLiteConstraintException e) { // Throw these exceptions
             throw e;
         } catch (Exception e) { // Suppress others
-            Log.e("SQLiteDatabase", "Error inserting " + values, e);
+            log.error(e.getMessage(), e);
             result = -1;
         }
         onDatabaseUpdated();

@@ -1,7 +1,6 @@
 package com.todoroo.astrid.subtasks;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -22,12 +21,16 @@ import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SubtasksHelper {
+
+    private static final Logger log = LoggerFactory.getLogger(SubtasksHelper.class);
 
     public static boolean shouldUseSubtasksFragmentForFilter(Preferences preferences, Filter filter) {
         if(filter == null || CoreFilterExposer.isInbox(filter) || CoreFilterExposer.isTodayFilter(filter) || SubtasksHelper.isTagFilter(filter)) {
@@ -109,7 +112,7 @@ public class SubtasksHelper {
                     ids.add(Long.parseLong(idString));
                 }
             } catch (NumberFormatException e) {
-                Log.e("widget-subtasks", "error parsing id " + idString, e);
+                log.error(e.getMessage(), e);
             }
         }
         return ids.toArray(new Long[ids.size()]);

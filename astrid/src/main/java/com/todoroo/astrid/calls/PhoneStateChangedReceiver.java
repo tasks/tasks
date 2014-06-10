@@ -13,11 +13,12 @@ import android.provider.CallLog.Calls;
 import android.provider.ContactsContract;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.preferences.Preferences;
@@ -27,6 +28,8 @@ import javax.inject.Inject;
 import static org.tasks.date.DateTimeUtils.newDate;
 
 public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
+
+    private static final Logger log = LoggerFactory.getLogger(PhoneStateChangedReceiver.class);
 
     private static final String PREF_LAST_INCOMING_NUMBER = "last_incoming_number";
 
@@ -127,7 +130,7 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
                             context.startActivity(missedCallIntent);
                         }
                     } catch (Exception e) {
-                        Log.e("phone-state", "Unexpected exception in PhoneStateChangedReceiver", e);
+                        log.error(e.getMessage(), e);
                     } finally {
                         if (calls != null) {
                             calls.close();

@@ -7,13 +7,14 @@ package com.todoroo.astrid.reminders;
 
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
 
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.dao.TaskDao;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.injection.InjectingService;
 import org.tasks.scheduling.RefreshScheduler;
 
@@ -26,6 +27,8 @@ import javax.inject.Inject;
  *
  */
 public class ReminderSchedulingService extends InjectingService {
+
+    private static final Logger log = LoggerFactory.getLogger(ReminderSchedulingService.class);
 
     @Inject RefreshScheduler refreshScheduler;
     @Inject AlarmService alarmService;
@@ -56,7 +59,7 @@ public class ReminderSchedulingService extends InjectingService {
             refreshScheduler.scheduleAllAlarms();
 
         } catch (Exception e) {
-            Log.e("reminder-scheduling", "reminder-startup", e);
+            log.error(e.getMessage(), e);
         }
     }
 

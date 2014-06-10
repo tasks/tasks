@@ -14,7 +14,6 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -23,6 +22,8 @@ import android.widget.TextView;
 
 import com.todoroo.andlib.utility.DialogUtilities;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 
 import java.io.File;
@@ -36,13 +37,13 @@ import java.util.ArrayList;
  */
 public class FileExplore extends Activity {
 
+    private static final Logger log = LoggerFactory.getLogger(FileExplore.class);
+
 	// Stores names of traversed directories
 	ArrayList<String> str = new ArrayList<>();
 
 	// Check if the first level of the directory structure is the one showing
 	private Boolean firstLvl = true;
-
-	private static final String TAG = "F_PATH"; //$NON-NLS-1$
 
 	public static final String RESULT_FILE_SELECTED = "fileSelected"; //$NON-NLS-1$
 
@@ -77,7 +78,7 @@ public class FileExplore extends Activity {
 
 		showDialog(DIALOG_LOAD_FILE);
 		upString = getString(R.string.file_browser_up);
-		Log.d(TAG, path.getAbsolutePath());
+		log.debug(path.getAbsolutePath());
 
 	}
 
@@ -127,7 +128,7 @@ public class FileExplore extends Activity {
 				fileList = temp;
 			}
 		} else {
-			Log.e(TAG, "path does not exist"); //$NON-NLS-1$
+			log.error("path {} does not exist", path); //$NON-NLS-1$
 		}
 
 		adapter = new ArrayAdapter<Item>(this,

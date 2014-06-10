@@ -18,7 +18,6 @@ import android.os.Parcelable;
 import android.support.v7.app.ActionBar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
@@ -47,6 +46,8 @@ import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingActionBarActivity;
 import org.tasks.preferences.ActivityPreferences;
@@ -67,6 +68,8 @@ import javax.inject.Inject;
  *
  */
 public class CustomFilterActivity extends InjectingActionBarActivity {
+
+    private static final Logger log = LoggerFactory.getLogger(CustomFilterActivity.class);
 
     private static final String IDENTIFIER_TITLE = "title"; //$NON-NLS-1$
     private static final String IDENTIFIER_IMPORTANCE = "importance"; //$NON-NLS-1$
@@ -562,17 +565,7 @@ public class CustomFilterActivity extends InjectingActionBarActivity {
                     criteria.put(filterCriterion.identifier, filterCriterion);
                 }
             } catch (Exception e) {
-                String addon;
-                try {
-                    addon = intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON);
-                } catch (Exception e1) {
-                    Log.e("receive-custom-filter-criteria-error-retrieving-addon", //$NON-NLS-1$
-                            e.toString(), e);
-                    return;
-                }
-                Log.e("receive-custom-filter-criteria-" +  //$NON-NLS-1$
-                        addon,
-                        e.toString(), e);
+                log.error(e.getMessage(), e);
             }
         }
     }

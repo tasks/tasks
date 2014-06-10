@@ -11,7 +11,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.util.Log;
 
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -21,6 +20,8 @@ import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingAppWidgetProvider;
 import org.tasks.preferences.ActivityPreferences;
@@ -31,6 +32,8 @@ import javax.inject.Inject;
 import static com.todoroo.astrid.api.AstridApiConstants.BROADCAST_EVENT_TASK_LIST_UPDATED;
 
 public class TasksWidget extends InjectingAppWidgetProvider {
+
+    private static final Logger log = LoggerFactory.getLogger(TasksWidget.class);
 
     @Inject TaskService taskService;
     @Inject WidgetHelper widgetHelper;
@@ -84,7 +87,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
                 }
             }
         } catch (Exception e) {
-            Log.e("astrid-update-widget", "widget update error", e); //$NON-NLS-1$ //$NON-NLS-2$
+            log.error(e.getMessage(), e);
         }
     }
 

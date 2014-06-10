@@ -9,7 +9,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 import android.util.Xml;
 import android.widget.Toast;
 
@@ -29,6 +28,8 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
 import org.xmlpull.v1.XmlSerializer;
@@ -41,7 +42,7 @@ import javax.inject.Inject;
 
 public class TasksXmlExporter {
 
-    private static final String TAG = "TasksXmlExporter";
+    private static final Logger log = LoggerFactory.getLogger(TasksXmlExporter.class);
 
     // --- public interface
 
@@ -128,7 +129,7 @@ public class TasksXmlExporter {
                         onFinishExport(output);
                     }
                 } catch (IOException e) {
-                    Log.e(TAG, exportType + ": " + e.getMessage(), e);
+                    log.error(e.getMessage(), e);
                 } finally {
                     handler.post(new Runnable() {
                         @Override
@@ -248,9 +249,7 @@ public class TasksXmlExporter {
             try {
                 property.accept(xmlWritingVisitor, model);
             } catch (Exception e) {
-                Log.e("astrid-exporter", //$NON-NLS-1$
-                        "Caught exception while reading " + property.name + //$NON-NLS-1$
-                        " from " + model.getDatabaseValues(), e); //$NON-NLS-1$
+                log.error(e.getMessage(), e);
             }
         }
     }

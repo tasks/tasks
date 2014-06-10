@@ -11,19 +11,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingBroadcastReceiver;
 
 import javax.inject.Inject;
 
 public class GCalTaskCompleteListener extends InjectingBroadcastReceiver {
+
+    private static final Logger log = LoggerFactory.getLogger(GCalTaskCompleteListener.class);
 
     @Inject TaskService taskService;
 
@@ -52,7 +55,7 @@ public class GCalTaskCompleteListener extends InjectingBroadcastReceiver {
                         task.getTitle()));
                 cr.update(Uri.parse(calendarUri), values, null, null);
             } catch (Exception e) {
-                Log.d("astrid-gcal", "Error updating calendar entry", e); //$NON-NLS-1$ //$NON-NLS-2$
+                log.error(e.getMessage(), e); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
     }

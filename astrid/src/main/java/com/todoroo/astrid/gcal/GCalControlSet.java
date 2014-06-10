@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -215,7 +214,7 @@ public class GCalControlSet extends PopupControlSet {
             intent.putExtra("endTime", cursor.getLong(1));
 
         } catch (Exception e) {
-            Log.e("gcal-error", "Error opening calendar", e); //$NON-NLS-1$ //$NON-NLS-2$
+            log.error(e.getMessage(), e);
             Toast.makeText(activity, R.string.gcal_TEA_error, Toast.LENGTH_LONG).show();
         } finally {
             cursor.close();

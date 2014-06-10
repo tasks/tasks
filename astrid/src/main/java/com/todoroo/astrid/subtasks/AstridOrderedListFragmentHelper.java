@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ListView;
@@ -28,6 +27,8 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.ui.DraggableListView;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
 
@@ -39,6 +40,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmentHelperInterface<LIST> {
 
+    private static final Logger log = LoggerFactory.getLogger(AstridOrderedListFragmentHelper.class);
 
     private final DisplayMetrics metrics = new DisplayMetrics();
     private final AstridOrderedListUpdater<LIST> updater;
@@ -109,7 +111,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
                     updater.moveTo(list, getFilter(), targetTaskId, destinationTaskId);
                 }
             } catch (Exception e) {
-                Log.e("drag", "Drag Error", e); //$NON-NLS-1$ //$NON-NLS-2$
+                log.error(e.getMessage(), e);
             }
 
             fragment.reconstructCursor();
@@ -136,7 +138,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
             try {
                 updater.indent(list, getFilter(), targetTaskId, delta);
             } catch (Exception e) {
-                Log.e("drag", "Indent Error", e); //$NON-NLS-1$ //$NON-NLS-2$
+                log.error(e.getMessage(), e);
             }
 
             fragment.reconstructCursor();

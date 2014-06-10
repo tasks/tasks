@@ -5,7 +5,8 @@
  */
 package com.todoroo.astrid.backup;
 
-import android.util.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -22,6 +23,8 @@ import static org.tasks.date.DateTimeUtils.newDate;
  */
 public class BackupDateUtilities {
 
+    private static final Logger log = LoggerFactory.getLogger(BackupDateUtilities.class);
+
     private static final String ISO_8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ssz";
 
     /**
@@ -33,7 +36,7 @@ public class BackupDateUtilities {
         try {
             return df.parse(s);
         } catch (ParseException e) {
-            Log.e("DateUtilities", "Error parsing ISO 8601 date");
+            log.error(e.getMessage(), e);
             return null;
         }
     }

@@ -7,7 +7,6 @@ package com.todoroo.astrid.dao;
 
 import android.database.sqlite.SQLiteException;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.todoroo.andlib.data.AbstractDatabase;
 import com.todoroo.andlib.data.AbstractModel;
@@ -22,6 +21,9 @@ import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.data.UserActivity;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -33,6 +35,8 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class Database extends AbstractDatabase {
+
+    private static final Logger log = LoggerFactory.getLogger(Database.class);
 
     // --- constants
 
@@ -168,13 +172,13 @@ public class Database extends AbstractDatabase {
                         property.accept(visitor, null) + " DEFAULT 0");
             }
         } catch (SQLiteException e) {
-            Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
+            log.error("db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
         case 10:
         case 11: try {
             database.execSQL(createTableSql(visitor, TagData.TABLE.name, TagData.PROPERTIES));
         } catch (SQLiteException e) {
-            Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
+            log.error("db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
         case 12:
         case 13: try {
@@ -183,31 +187,31 @@ public class Database extends AbstractDatabase {
             database.execSQL("ALTER TABLE " + TagData.TABLE.name + " ADD " +
                     TagData.MEMBER_COUNT.accept(visitor, null) + " DEFAULT 0");
         } catch (SQLiteException e) {
-            Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
+            log.error("db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
         case 14: try {
             database.execSQL("ALTER TABLE " + TagData.TABLE.name + " ADD " +
                     TagData.TASK_COUNT.accept(visitor, null) + " DEFAULT 0");
         } catch (SQLiteException e) {
-            Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
+            log.error("db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
         case 15: try {
             database.execSQL("ALTER TABLE " + Task.TABLE.name + " ADD " +
                     Task.LAST_SYNC.accept(visitor, null) + " DEFAULT 0");
         } catch (SQLiteException e) {
-            Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
+            log.error("db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
         case 16: try {
             database.execSQL("ALTER TABLE " + Task.TABLE.name + " ADD " +
                     Task.CREATOR_ID.accept(visitor, null) + " DEFAULT 0");
         } catch (SQLiteException e) {
-            Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
+            log.error("db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
         case 17: try {
             database.execSQL("ALTER TABLE " + TagData.TABLE.name + " ADD " +
                     TagData.TAG_DESCRIPTION.accept(visitor, null));
         } catch (SQLiteException e) {
-            Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
+            log.error("db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
         case 18: try {
             database.execSQL("ALTER TABLE " + Metadata.TABLE.name + " ADD " +
@@ -215,7 +219,7 @@ public class Database extends AbstractDatabase {
             database.execSQL("ALTER TABLE " + Metadata.TABLE.name + " ADD " +
                     Metadata.VALUE7.accept(visitor, null));
         } catch (SQLiteException e) {
-            Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
+            log.error("db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
         case 19:
         case 20: try {
@@ -235,7 +239,7 @@ public class Database extends AbstractDatabase {
 
             onCreateTables();
         } catch (SQLiteException e) {
-            Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
+            log.error("db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
         case 21:
         case 22:
@@ -244,7 +248,7 @@ public class Database extends AbstractDatabase {
             database.execSQL("ALTER TABLE " + Task.TABLE.name + " ADD " +
                     Task.REPEAT_UNTIL.accept(visitor, null));
         } catch (SQLiteException e) {
-            Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
+            log.error("db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
 
         case 25:
@@ -252,13 +256,13 @@ public class Database extends AbstractDatabase {
             database.execSQL("ALTER TABLE " + TagData.TABLE.name + " ADD " +
                     TagData.TAG_ORDERING.accept(visitor, null));
         } catch (SQLiteException e) {
-            Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
+            log.error("db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
         case 27: try {
             database.execSQL("ALTER TABLE " + Task.TABLE.name + " ADD " +
                     Task.SOCIAL_REMINDER.accept(visitor, null));
         } catch (SQLiteException e) {
-            Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
+            log.error("db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
         case 28:
         case 29:
@@ -296,7 +300,7 @@ public class Database extends AbstractDatabase {
         try {
             database.execSQL(sql);
         } catch (SQLiteException e) {
-            Log.e("astrid", "SQL Error: " + sql, e);
+            log.error("SQL Error: " + sql, e);
         }
     }
 

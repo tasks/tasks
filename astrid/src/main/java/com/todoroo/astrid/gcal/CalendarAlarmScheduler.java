@@ -19,8 +19,6 @@ import javax.inject.Singleton;
 @Singleton
 public class CalendarAlarmScheduler {
 
-    public static final String TAG = "calendar-alarm";
-
     public static final String URI_PREFIX = "cal-reminder";
     public static final String URI_PREFIX_POSTPONE = "cal-postpone";
 

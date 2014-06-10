@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.IBinder;
-import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -25,6 +24,8 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.utility.Constants;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingService;
 import org.tasks.preferences.Preferences;
@@ -33,6 +34,8 @@ import org.tasks.widget.WidgetHelper;
 import javax.inject.Inject;
 
 public class WidgetUpdateService extends InjectingService {
+
+    private static final Logger log = LoggerFactory.getLogger(WidgetUpdateService.class);
 
     private static final int NUM_VISIBLE_TASKS = 25;
 
@@ -153,8 +156,7 @@ public class WidgetUpdateService extends InjectingService {
             }
 
         } catch (Exception e) {
-            // can happen if database is not ready
-            Log.e("WIDGET-UPDATE", "Error updating widget", e);
+            log.error(e.getMessage(), e);
         } finally {
             if(cursor != null) {
                 cursor.close();

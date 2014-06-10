@@ -3,13 +3,15 @@ package com.todoroo.astrid.voice;
 import android.annotation.TargetApi;
 import android.media.MediaRecorder;
 import android.os.Build;
-import android.util.Log;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 public class AACRecorder {
 
-    private static final String TAG = "AACRecorder";
+    private static final Logger log = LoggerFactory.getLogger(AACRecorder.class);
 
     private MediaRecorder mediaRecorder;
 
@@ -34,13 +36,13 @@ public class AACRecorder {
             setOnErrorListener(new OnErrorListener() {
                 @Override
                 public void onError(MediaRecorder mr, int what, int extra) {
-                    Log.e(TAG, "mediaRecorder.onError(mr, " + what + ", " + extra + ")");
+                    log.error("mediaRecorder.onError(mr, {}, {})", what, extra);
                 }
             });
             setOnInfoListener(new OnInfoListener() {
                 @Override
                 public void onInfo(MediaRecorder mr, int what, int extra) {
-                    Log.i(TAG, "mediaRecorder.onInfo(mr, " + what + ", " + extra + ")");
+                    log.info("mediaRecorder.onInfo(mr, {}, {})", what, extra);
                 }
             });
         }};

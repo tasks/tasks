@@ -156,7 +156,7 @@ public class StartupService {
             log.error(e.getMessage(), e);
         }
 
-        Log.i("astrid", "Astrid Startup. " + latestSetVersion + //$NON-NLS-1$ //$NON-NLS-2$
+        log.info("astrid", "Astrid Startup. " + latestSetVersion + //$NON-NLS-1$ //$NON-NLS-2$
                 " => " + version); //$NON-NLS-1$
 
         databaseRestoreIfEmpty(activity);

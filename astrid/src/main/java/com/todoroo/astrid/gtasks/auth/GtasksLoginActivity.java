@@ -12,7 +12,6 @@ import android.accounts.AccountManagerFuture;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -27,6 +26,8 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingListActivity;
 
@@ -44,6 +45,8 @@ import javax.inject.Inject;
  *
  */
 public class GtasksLoginActivity extends InjectingListActivity {
+
+    private static final Logger log = LoggerFactory.getLogger(GtasksLoginActivity.class);
 
     @Inject GtasksPreferenceService gtasksPreferenceService;
 
@@ -111,7 +114,7 @@ public class GtasksLoginActivity extends InjectingListActivity {
                                 onAuthTokenSuccess();
                             }
                         } catch (final Exception e) {
-                            Log.e("gtasks-login", "Login Error", e); //$NON-NLS-1$ //$NON-NLS-2$
+                            log.error(e.getMessage(), e);
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {

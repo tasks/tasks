@@ -8,7 +8,6 @@ import android.content.res.Resources;
 import android.graphics.Paint;
 import android.os.Build;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -30,11 +29,15 @@ import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.widget.TasksWidget;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
 
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
+
+    private static final Logger log = LoggerFactory.getLogger(ScrollableViewsFactory.class);
 
     private final Database database;
     private final TaskService taskService;
@@ -170,8 +173,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
 
             return row;
         } catch (Exception e) {
-            // can happen if database is not ready
-            Log.e("WIDGET-UPDATE", "Error updating widget", e);
+            log.error(e.getMessage(), e);
         }
 
         return null;

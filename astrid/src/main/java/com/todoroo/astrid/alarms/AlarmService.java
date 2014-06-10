@@ -9,7 +9,6 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
@@ -26,6 +25,8 @@ import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.MetadataService.SynchronizeMetadataCallback;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.injection.ForApplication;
 
 import java.util.ArrayList;
@@ -42,6 +43,8 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class AlarmService {
+
+    private static final Logger log = LoggerFactory.getLogger(AlarmService.class);
 
     // --- data retrieval
 
@@ -151,7 +154,7 @@ public class AlarmService {
                 scheduleAlarm(alarm);
             }
         } catch (Exception e) {
-            Log.i("astrid-alarms", "Error scheduling alarm", e); //$NON-NLS-1$ //$NON-NLS-2$
+            log.info(e.getMessage(), e); //$NON-NLS-1$ //$NON-NLS-2$
         } finally {
             cursor.close();
         }

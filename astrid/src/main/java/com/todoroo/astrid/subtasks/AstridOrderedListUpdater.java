@@ -1,7 +1,5 @@
 package com.todoroo.astrid.subtasks;
 
-import android.util.Log;
-
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.data.RemoteModel;
@@ -10,6 +8,8 @@ import com.todoroo.astrid.service.TaskService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Set;
 
 public abstract class AstridOrderedListUpdater<LIST> {
+
+    private static final Logger log = LoggerFactory.getLogger(AstridOrderedListUpdater.class);
 
     private final TaskService taskService;
 
@@ -393,7 +395,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
             JSONArray tree = new JSONArray(serializedTree);
             recursivelyBuildChildren(root, tree, callback);
         } catch (JSONException e) {
-            Log.e("OrderedListUpdater", "Error building tree model", e);  //$NON-NLS-1$//$NON-NLS-2$
+            log.error(e.getMessage(), e);
         }
         return root;
     }

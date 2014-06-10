@@ -14,7 +14,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.WindowManager.BadTokenException;
 
 import com.google.ical.values.RRule;
@@ -40,6 +39,8 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -52,11 +53,10 @@ import java.util.LinkedHashSet;
 import java.util.StringTokenizer;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 public class TasksXmlImporter {
 
-    private static final String TAG = "TasksXmlImporter";
+    private static final Logger log = LoggerFactory.getLogger(TasksXmlImporter.class);
 
     private final TagDataService tagDataService;
     private final TagService tagService;
@@ -121,7 +121,7 @@ public class TasksXmlImporter {
                 try {
                     performImport();
                 } catch (IOException | XmlPullParserException e) {
-                    Log.e(TAG, e.getMessage(), e);
+                    log.error(e.getMessage(), e);
                 }
             }
         }).start();
@@ -229,9 +229,7 @@ public class TasksXmlImporter {
                     }
                 } catch (Exception e) {
                     errorCount++;
-                    Log.e("astrid-importer", //$NON-NLS-1$
-                            "Caught exception while reading from " + //$NON-NLS-1$
-                            xpp.getText(), e);
+                    log.error(e.getMessage(), e);
                 }
             }
         }
@@ -327,9 +325,7 @@ public class TasksXmlImporter {
                 try {
                     property.accept(xmlReadingVisitor, model);
                 } catch (Exception e) {
-                    Log.e("astrid-importer", //$NON-NLS-1$
-                            "Caught exception while writing " + property.name + //$NON-NLS-1$
-                            " from " + xpp.getText(), e); //$NON-NLS-1$
+                    log.error(e.getMessage(), e);
                 }
             }
         }
@@ -399,9 +395,7 @@ public class TasksXmlImporter {
                     }
                 } catch (Exception e) {
                     errorCount++;
-                    Log.e("astrid-importer", //$NON-NLS-1$
-                            "Caught exception while reading from " + //$NON-NLS-1$
-                                    xpp.getText(), e);
+                    log.error(e.getMessage(), e);
                 }
             }
         }
@@ -451,9 +445,7 @@ public class TasksXmlImporter {
                     }
                 } catch (Exception e) {
                     errorCount++;
-                    Log.e("astrid-importer", //$NON-NLS-1$
-                            "Caught exception while reading from " + //$NON-NLS-1$
-                            xpp.getText(), e);
+                    log.error(e.getMessage(), e);
                 }
             }
         }
@@ -528,8 +520,7 @@ public class TasksXmlImporter {
                 String fieldName = xpp.getAttributeName(i);
                 String fieldValue = xpp.getAttributeValue(i);
                 if(!setTaskField(task, fieldName, fieldValue)) {
-                    Log.i("astrid-xml-import", "Task: " + taskName + ": Unknown field '" +
-                            fieldName + "' with value '" + fieldValue + "' disregarded.");
+                    log.info("Task: {}: Unknown field '{}' with value '{}' disregarded.", taskName, fieldName, fieldValue);
                 }
             }
 

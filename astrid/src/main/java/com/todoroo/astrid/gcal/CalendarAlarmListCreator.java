@@ -3,7 +3,6 @@ package com.todoroo.astrid.gcal;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -17,6 +16,8 @@ import com.todoroo.astrid.service.TagDataService;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingActivity;
 import org.tasks.preferences.ResourceResolver;
@@ -26,6 +27,8 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 public class CalendarAlarmListCreator extends InjectingActivity {
+
+    private static final Logger log = LoggerFactory.getLogger(CalendarAlarmListCreator.class);
 
     public static final String TOKEN_LIST_NAME = "listName"; //$NON-NLS-1$
 
@@ -168,7 +171,7 @@ public class CalendarAlarmListCreator extends InjectingActivity {
                 member.put("email", email); //$NON-NLS-1$
                 array.put(member);
             } catch (JSONException e) {
-                Log.e(CalendarAlarmScheduler.TAG, "Error creating json member " + email, e); //$NON-NLS-1$
+                log.error(e.getMessage(), e);
             }
         }
         return array;

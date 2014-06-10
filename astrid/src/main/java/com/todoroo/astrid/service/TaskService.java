@@ -7,7 +7,6 @@ package com.todoroo.astrid.service;
 
 import android.content.ContentValues;
 import android.content.Intent;
-import android.util.Log;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -31,6 +30,8 @@ import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.TitleParser;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.Broadcaster;
 import org.tasks.filters.FilterCounter;
 import org.tasks.scheduling.RefreshScheduler;
@@ -52,7 +53,7 @@ import javax.inject.Singleton;
 @Singleton
 public class TaskService {
 
-    private static final String TAG = "TaskService";
+    private static final Logger log = LoggerFactory.getLogger(TaskService.class);
 
     public static final String TRANS_QUICK_ADD_MARKUP = "markup"; //$NON-NLS-1$
 
@@ -313,7 +314,7 @@ public class TaskService {
         try {
             quickAddMarkup = parseQuickAddMarkup(tagService, task, tags);
         } catch (Throwable e) {
-            Log.e(TAG, e.getMessage(), e);
+            log.error(e.getMessage(), e);
         }
 
         ContentValues forMetadata = null;

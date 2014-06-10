@@ -14,7 +14,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -77,8 +76,7 @@ public class AndroidUtilities {
             try {
                 bitmap = BitmapFactory.decodeFile(file, opts);
             } catch (OutOfMemoryError e) {
-                // Too big
-                Log.e("decode-bitmap", "Out of memory with sample size " + opts.inSampleSize, e);  //$NON-NLS-1$//$NON-NLS-2$
+                log.error(e.getMessage(), e);
             }
             tries++;
         }
@@ -98,7 +96,7 @@ public class AndroidUtilities {
                 context.startActivity(intent);
             }
         } catch (Exception e) {
-            log.error("start-external-intent-{}", intent.toString(), e);
+            log.error(e.getMessage(), e);
         }
     }
 
@@ -313,7 +311,7 @@ public class AndroidUtilities {
                     putter.put(object, key, 's', value);
                 }
             } catch (IndexOutOfBoundsException e) {
-                Log.e("deserialize", "Badly formed serialization: " + string, e);
+                log.error(e.getMessage(), e);
             }
         }
     }

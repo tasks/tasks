@@ -21,6 +21,8 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
@@ -32,6 +34,9 @@ import javax.inject.Inject;
 import static com.todoroo.astrid.gcal.Calendars.getCalendarContentUri;
 
 public class GCalHelper {
+
+    private static final Logger log = LoggerFactory.getLogger(GCalHelper.class);
+
     /** If task has no estimated time, how early to set a task in calendar (seconds)*/
     private static final long DEFAULT_CAL_TIME = DateUtilities.ONE_HOUR;
 
@@ -195,7 +200,7 @@ public class GCalHelper {
 
                 task.setCalendarUri( "");
             } catch (Exception e) {
-                Log.e("astrid-gcal", "error-deleting-calendar-event", e); //$NON-NLS-1$ //$NON-NLS-2$
+                log.error(e.getMessage(), e);
             }
         }
 
