@@ -83,13 +83,11 @@ public final class TagService {
         public String tag;
         public int count;
         public String uuid;
-        public String image;
 
         public Tag(TagData tagData) {
             tag = tagData.getName();
             count = tagData.getTaskCount();
             uuid = tagData.getUUID();
-            image = tagData.getPictureUrl(TagData.PICTURE, RemoteModel.PICTURE_THUMB);
         }
 
         @Override

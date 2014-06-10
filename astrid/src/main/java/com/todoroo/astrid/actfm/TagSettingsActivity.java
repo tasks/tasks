@@ -69,7 +69,6 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
     @Inject ResourceResolver resourceResolver;
 
     private EditText tagName;
-    private Bitmap setBitmap;
 
     private boolean isNewTag = false;
     private boolean isDialog;
@@ -177,13 +176,6 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
             }
         }
 
-        if (setBitmap != null) {
-            JSONObject pictureJson = RemoteModel.PictureHelper.savePictureJson(this, setBitmap);
-            if (pictureJson != null) {
-                tagData.setPicture(pictureJson.toString());
-            }
-        }
-
         JSONArray members = new JSONArray();
 
         tagData.setMemberCount(members.length());
@@ -203,19 +195,6 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
 
         refreshSettingsPage();
         finish();
-    }
-
-    private void saveTagPictureLocally(Bitmap bitmap) {
-        if (bitmap == null) {
-            return;
-        }
-        try {
-            String tagPicture = RemoteModel.PictureHelper.getPictureHash(tagData);
-            tagData.setPicture(tagPicture);
-        }
-        catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
     }
 
     @Override
@@ -253,8 +232,7 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
         CameraResultCallback callback = new CameraResultCallback() {
             @Override
             public void handleCameraResult(Bitmap bitmap) {
-                setBitmap = bitmap;
-                saveTagPictureLocally(bitmap);
+                log.error("Not expecting this");
             }
         };
         if (!ActFmCameraModule.activityResult(this, requestCode, resultCode, data, callback)) {

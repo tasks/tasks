@@ -100,7 +100,6 @@ public class NameMaps {
         putTagPropertyToServerName(TagData.UUID,            "uuid",         false);
         putTagPropertyToServerName(TagData.TASK_COUNT,      "task_count",   false);
         putTagPropertyToServerName(TagData.TAG_DESCRIPTION, "description",  true);
-        putTagPropertyToServerName(TagData.PICTURE,         "picture",      true);
         putTagPropertyToServerName(TagData.IS_FOLDER,       "is_folder",    false);
     }
 

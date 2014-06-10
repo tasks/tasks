@@ -50,10 +50,6 @@ public final class TagData extends RemoteModel {
     public static final StringProperty NAME = new StringProperty(
             TABLE, "name");
 
-    /** Project picture */
-    public static final StringProperty PICTURE = new StringProperty(
-            TABLE, "picture", Property.PROP_FLAG_JSON | Property.PROP_FLAG_PICTURE);
-
     /** Tag team array (JSON) */
     @Deprecated public static final StringProperty MEMBERS = new StringProperty(
             TABLE, "members");
@@ -144,7 +140,6 @@ public final class TagData extends RemoteModel {
         defaultValues.put(USER.name, "");
         defaultValues.put(UUID.name, NO_UUID);
         defaultValues.put(NAME.name, "");
-        defaultValues.put(PICTURE.name, "");
         defaultValues.put(IS_TEAM.name, 1);
         defaultValues.put(MEMBERS.name, "");
         defaultValues.put(MEMBER_COUNT.name, 0);
@@ -265,9 +260,5 @@ public final class TagData extends RemoteModel {
 
     public void setMemberCount(Integer memberCount) {
         setValue(MEMBER_COUNT, memberCount);
-    }
-
-    public void setPicture(String picture) {
-        setValue(PICTURE, picture);
     }
 }

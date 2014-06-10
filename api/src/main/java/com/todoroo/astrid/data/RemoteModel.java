@@ -26,8 +26,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import static org.tasks.date.DateTimeUtils.currentTimeMillis;
-
 /**
  * A model that is synchronized to a remote server and has a remote id
  *
@@ -92,14 +90,6 @@ abstract public class RemoteModel extends AbstractModel {
         return NO_UUID.equals(uuid) || TextUtils.isEmpty(uuid);
     }
 
-    public static final String PICTURE_THUMB = "thumb"; //$NON-NLS-1$
-    public static final String PICTURE_MEDIUM = "medium"; //$NON-NLS-1$
-
-    public String getPictureUrl(StringProperty pictureProperty, String size) {
-        String value = getValue(pictureProperty);
-        return PictureHelper.getPictureUrl(value, size);
-    }
-
     public Bitmap getPictureBitmap(StringProperty pictureProperty) {
         String value = getValue(pictureProperty);
         return PictureHelper.getPictureBitmap(value);
@@ -108,17 +98,6 @@ abstract public class RemoteModel extends AbstractModel {
     public static class PictureHelper {
 
         public static final String PICTURES_DIRECTORY = "pictures"; //$NON-NLS-1$
-
-        public static String getPictureHash(TagData tagData) {
-            long tag_date = 0;
-            if (tagData.containsValue(TagData.CREATION_DATE)) {
-                tag_date = tagData.getCreationDate();
-            }
-            if (tag_date == 0) {
-                tag_date = currentTimeMillis();
-            }
-            return String.format("cached::%s%s", tagData.getName(), tag_date);
-        }
 
         @TargetApi(Build.VERSION_CODES.FROYO)
         public static JSONObject savePictureJson(Context context, Bitmap bitmap) {
@@ -152,23 +131,6 @@ abstract public class RemoteModel extends AbstractModel {
                 log.error(e.getMessage(), e);
             }
             return null;
-        }
-
-        public static String getPictureUrl(String value, String size) {
-            try {
-                if (value == null) {
-                    return null;
-                }
-                JSONObject pictureJson = new JSONObject(value);
-                if (pictureJson.has("path")) // Unpushed encoded bitmap //$NON-NLS-1$
-                {
-                    return null;
-                }
-                return pictureJson.optString(size);
-            } catch (JSONException e) {
-                log.error(e.getMessage(), e);
-                return value;
-            }
         }
 
         public static Bitmap getPictureBitmap(String value) {

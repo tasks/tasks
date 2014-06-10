@@ -13,7 +13,6 @@ import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.Spanned;
-import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.method.LinkMovementMethod;
 import android.util.TypedValue;
@@ -31,7 +30,6 @@ import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
-import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.UserActivity;
 
 import org.tasks.R;
@@ -152,13 +150,8 @@ public class UpdateAdapter extends CursorAdapter {
 
     private void setupUserActivityRow(View view, UserActivity activity) {
         final ImageView commentPictureView = (ImageView)view.findViewById(R.id.comment_picture); {
-            String pictureThumb = activity.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_MEDIUM);
-            Bitmap updateBitmap = null;
-            if (TextUtils.isEmpty(pictureThumb)) {
-                updateBitmap = activity.getPictureBitmap(UserActivity.PICTURE);
-            }
-            setupImagePopupForCommentView(view, commentPictureView, pictureThumb, updateBitmap,
-                    activity.getMessage(), fragment);
+            Bitmap updateBitmap = activity.getPictureBitmap(UserActivity.PICTURE);
+            setupImagePopupForCommentView(view, commentPictureView, updateBitmap, activity.getMessage(), fragment);
         }
 
         // name
@@ -167,7 +160,6 @@ public class UpdateAdapter extends CursorAdapter {
             nameView.setMovementMethod(new LinkMovementMethod());
             nameView.setTextColor(color);
         }
-
 
         // date
         final TextView date = (TextView)view.findViewById(R.id.date); {
@@ -183,13 +175,11 @@ public class UpdateAdapter extends CursorAdapter {
         return false;
     }
 
-    public static void setupImagePopupForCommentView(View view, ImageView commentPictureView, final String pictureThumb, final Bitmap updateBitmap,
+    public static void setupImagePopupForCommentView(View view, ImageView commentPictureView, final Bitmap updateBitmap,
             final String message, final Fragment fragment) {
-        if ((!TextUtils.isEmpty(pictureThumb) && !"null".equals(pictureThumb)) || updateBitmap != null) { //$NON-NLS-1$
+        if (updateBitmap != null) { //$NON-NLS-1$
             commentPictureView.setVisibility(View.VISIBLE);
-            if (updateBitmap != null) {
-                commentPictureView.setImageBitmap(updateBitmap);
-            }
+            commentPictureView.setImageBitmap(updateBitmap);
 
             view.setOnClickListener(new OnClickListener() {
                 @Override
@@ -198,9 +188,7 @@ public class UpdateAdapter extends CursorAdapter {
                     ImageView imageView = new ImageView(fragment.getActivity());
                     imageView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
                     imageView.setImageResource(android.R.drawable.ic_menu_gallery);
-                    if (updateBitmap != null) {
-                        imageView.setImageBitmap(updateBitmap);
-                    }
+                    imageView.setImageBitmap(updateBitmap);
                     image.setView(imageView);
 
                     image.setMessage(message);

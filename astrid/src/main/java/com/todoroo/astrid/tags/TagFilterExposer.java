@@ -11,7 +11,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 
@@ -86,9 +85,6 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
         };
 
         filter.customTaskList = new ComponentName(context, TagViewFragment.class);
-        if(tag.image != null) {
-            filter.imageUrl = tag.image;
-        }
         Bundle extras = new Bundle();
         extras.putString(TagViewFragment.EXTRA_TAG_NAME, tag.tag);
         extras.putString(TagViewFragment.EXTRA_TAG_UUID, tag.uuid);

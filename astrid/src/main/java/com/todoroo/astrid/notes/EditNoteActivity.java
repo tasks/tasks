@@ -358,7 +358,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
         // picture
         final ImageView commentPictureView = (ImageView)view.findViewById(R.id.comment_picture);
-        UpdateAdapter.setupImagePopupForCommentView(view, commentPictureView, item.pictureThumb, item.commentBitmap, item.title.toString(), fragment);
+        UpdateAdapter.setupImagePopupForCommentView(view, commentPictureView, item.commentBitmap, item.title.toString(), fragment);
     }
 
     private void addComment() {
@@ -407,14 +407,12 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     private static class NoteOrUpdate {
         private final Spanned title;
-        private final String pictureThumb;
         private final Bitmap commentBitmap;
         private final long createdAt;
 
-        public NoteOrUpdate(Spanned title, String pictureThumb, Bitmap commentBitmap, long createdAt) {
+        public NoteOrUpdate(Spanned title, Bitmap commentBitmap, long createdAt) {
             super();
             this.title = title;
-            this.pictureThumb = pictureThumb;
             this.commentBitmap = commentBitmap;
             this.createdAt = createdAt;
         }
@@ -428,31 +426,21 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             }
             Spanned title = Html.fromHtml(String.format("%s\n%s", m.getValue(NoteMetadata.TITLE), m.getValue(NoteMetadata.BODY))); //$NON-NLS-1$
             return new NoteOrUpdate(title,
-                    m.getValue(NoteMetadata.COMMENT_PICTURE),
                     null,
                     m.getCreationDate());
         }
 
         public static NoteOrUpdate fromUpdate(UserActivity u) {
-            String pictureThumb;
-            Spanned title;
-            Bitmap commentBitmap = null;
-            long createdAt;
-
             if(u == null) {
                 throw new RuntimeException("UserActivity should never be null");
             }
 
-            pictureThumb = u.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_MEDIUM);
-            if (TextUtils.isEmpty(pictureThumb)) {
-                commentBitmap = u.getPictureBitmap(UserActivity.PICTURE);
-            }
-            title = UpdateAdapter.getUpdateComment(u);
-            createdAt = u.getCreatedAt();
+            Bitmap commentBitmap = u.getPictureBitmap(UserActivity.PICTURE);
+            Spanned title = UpdateAdapter.getUpdateComment(u);
+            long createdAt = u.getCreatedAt();
 
             return new NoteOrUpdate(
                     title,
-                    pictureThumb,
                     commentBitmap,
                     createdAt);
         }
