@@ -12,6 +12,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.TaskAttachment;
 
 import org.tasks.R;
+import org.tasks.files.FileHelper;
 import org.tasks.preferences.Preferences;
 
 import java.io.File;
@@ -70,7 +71,7 @@ public class FileUtilities {
         }
 
         if (directory == null || !directory.exists()) {
-            directory = context.getExternalFilesDir(TaskAttachment.FILES_DIRECTORY_DEFAULT);
+            directory = FileHelper.getExternalFilesDir(context, TaskAttachment.FILES_DIRECTORY_DEFAULT);
         }
 
         return directory;

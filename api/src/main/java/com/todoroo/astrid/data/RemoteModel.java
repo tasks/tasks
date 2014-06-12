@@ -21,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tasks.files.FileHelper;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -99,7 +100,6 @@ abstract public class RemoteModel extends AbstractModel {
 
         public static final String PICTURES_DIRECTORY = "pictures"; //$NON-NLS-1$
 
-        @TargetApi(Build.VERSION_CODES.FROYO)
         public static JSONObject savePictureJson(Context context, Bitmap bitmap) {
             try {
                 String name = DateUtilities.now() + ".jpg";
@@ -107,7 +107,7 @@ abstract public class RemoteModel extends AbstractModel {
                 jsonObject.put("name", name);
                 jsonObject.put("type", "image/jpeg");
 
-                File dir = context.getExternalFilesDir(PICTURES_DIRECTORY);
+                File dir = FileHelper.getExternalFilesDir(context, PICTURES_DIRECTORY);
                 if (dir != null) {
                     File file = new File(dir + File.separator + DateUtilities.now() + ".jpg");
                     if (file.exists()) {
