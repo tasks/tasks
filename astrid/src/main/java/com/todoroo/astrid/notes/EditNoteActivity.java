@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.Html;
@@ -358,7 +359,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
         // picture
         final ImageView commentPictureView = (ImageView)view.findViewById(R.id.comment_picture);
-        UpdateAdapter.setupImagePopupForCommentView(view, commentPictureView, item.commentBitmap, item.title.toString(), fragment);
+        UpdateAdapter.setupImagePopupForCommentView(view, commentPictureView, item.commentBitmap, fragment);
     }
 
     private void addComment() {
@@ -407,10 +408,10 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     private static class NoteOrUpdate {
         private final Spanned title;
-        private final Bitmap commentBitmap;
+        private final Uri commentBitmap;
         private final long createdAt;
 
-        public NoteOrUpdate(Spanned title, Bitmap commentBitmap, long createdAt) {
+        public NoteOrUpdate(Spanned title, Uri commentBitmap, long createdAt) {
             super();
             this.title = title;
             this.commentBitmap = commentBitmap;
@@ -435,7 +436,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 throw new RuntimeException("UserActivity should never be null");
             }
 
-            Bitmap commentBitmap = u.getPictureBitmap(UserActivity.PICTURE);
+            Uri commentBitmap = u.getPictureUri();
             Spanned title = UpdateAdapter.getUpdateComment(u);
             long createdAt = u.getCreatedAt();
 

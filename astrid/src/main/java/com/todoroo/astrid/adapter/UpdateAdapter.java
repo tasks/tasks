@@ -5,11 +5,10 @@
  */
 package com.todoroo.astrid.adapter;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.Spanned;
@@ -20,7 +19,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -150,8 +148,8 @@ public class UpdateAdapter extends CursorAdapter {
 
     private void setupUserActivityRow(View view, UserActivity activity) {
         final ImageView commentPictureView = (ImageView)view.findViewById(R.id.comment_picture); {
-            Bitmap updateBitmap = activity.getPictureBitmap(UserActivity.PICTURE);
-            setupImagePopupForCommentView(view, commentPictureView, updateBitmap, activity.getMessage(), fragment);
+            Uri updateBitmap = activity.getPictureUri();
+            setupImagePopupForCommentView(view, commentPictureView, updateBitmap, fragment);
         }
 
         // name
@@ -175,29 +173,18 @@ public class UpdateAdapter extends CursorAdapter {
         return false;
     }
 
-    public static void setupImagePopupForCommentView(View view, ImageView commentPictureView, final Bitmap updateBitmap,
-            final String message, final Fragment fragment) {
+    public static void setupImagePopupForCommentView(View view, ImageView commentPictureView, final Uri updateBitmap,
+            final Fragment fragment) {
         if (updateBitmap != null) { //$NON-NLS-1$
             commentPictureView.setVisibility(View.VISIBLE);
-            commentPictureView.setImageBitmap(updateBitmap);
+            commentPictureView.setImageURI(updateBitmap);
 
             view.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    AlertDialog image = new AlertDialog.Builder(fragment.getActivity()).create();
-                    ImageView imageView = new ImageView(fragment.getActivity());
-                    imageView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-                    imageView.setImageResource(android.R.drawable.ic_menu_gallery);
-                    imageView.setImageBitmap(updateBitmap);
-                    image.setView(imageView);
-
-                    image.setMessage(message);
-                    image.setButton(fragment.getString(R.string.DLG_close), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
-                    });
-                    image.show();
+                    fragment.startActivity(new Intent(Intent.ACTION_VIEW) {{
+                        setDataAndType(updateBitmap, "image/jpg");
+                    }});
                 }
             });
         } else {

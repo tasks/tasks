@@ -5,12 +5,10 @@
  */
 package com.todoroo.astrid.data;
 
-import android.annotation.TargetApi;
 import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Build;
+import android.net.Uri;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.data.AbstractModel;
@@ -91,11 +89,6 @@ abstract public class RemoteModel extends AbstractModel {
         return NO_UUID.equals(uuid) || TextUtils.isEmpty(uuid);
     }
 
-    public Bitmap getPictureBitmap(StringProperty pictureProperty) {
-        String value = getValue(pictureProperty);
-        return PictureHelper.getPictureBitmap(value);
-    }
-
     public static class PictureHelper {
 
         public static final String PICTURES_DIRECTORY = "pictures"; //$NON-NLS-1$
@@ -133,7 +126,7 @@ abstract public class RemoteModel extends AbstractModel {
             return null;
         }
 
-        public static Bitmap getPictureBitmap(String value) {
+        public static Uri getPictureUri(String value) {
             try {
                 if (value == null) {
                     return null;
@@ -142,7 +135,7 @@ abstract public class RemoteModel extends AbstractModel {
                     JSONObject pictureJson = new JSONObject(value);
                     if (pictureJson.has("path")) {
                         String path = pictureJson.getString("path");
-                        return BitmapFactory.decodeFile(path);
+                        return Uri.fromFile(new File(path));
                     }
                 }
                 return null;
@@ -150,7 +143,6 @@ abstract public class RemoteModel extends AbstractModel {
                 log.error(e.getMessage(), e);
                 return null;
             }
-
         }
     }
 

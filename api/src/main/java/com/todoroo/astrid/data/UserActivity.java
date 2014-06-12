@@ -10,6 +10,8 @@ import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.api.AstridApiConstants;
 
+import java.io.File;
+
 public class UserActivity extends RemoteModel {
 
  // --- table
@@ -146,5 +148,9 @@ public class UserActivity extends RemoteModel {
 
     public void setPicture(String picture) {
         setValue(PICTURE, picture);
+    }
+
+    public Uri getPictureUri() {
+        return PictureHelper.getPictureUri(getValue(PICTURE));
     }
 }
