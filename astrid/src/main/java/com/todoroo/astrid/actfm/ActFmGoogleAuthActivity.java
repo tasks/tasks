@@ -21,7 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.api.client.googleapis.extensions.android2.auth.GoogleAccountManager;
+import com.google.api.client.googleapis.extensions.android.accounts.GoogleAccountManager;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DialogUtilities;
 
@@ -115,7 +115,7 @@ public class ActFmGoogleAuthActivity extends ListActivity {
                             if (bundle.containsKey(AccountManager.KEY_AUTHTOKEN)) {
                                 authToken = bundle.getString(AccountManager.KEY_AUTHTOKEN);
                                 if (!onSuccess) {
-                                    accountManager.manager.invalidateAuthToken(AUTH_TOKEN_TYPE, authToken);
+                                    accountManager.getAccountManager().invalidateAuthToken(AUTH_TOKEN_TYPE, authToken);
                                     getAuthToken(a, pd);
                                     onSuccess = true;
                                 } else {
@@ -146,7 +146,7 @@ public class ActFmGoogleAuthActivity extends ListActivity {
                 }.start();
             }
         };
-        accountManager.manager.getAuthToken(a, AUTH_TOKEN_TYPE, null, this, callback, null);
+        accountManager.getAccountManager().getAuthToken(a, AUTH_TOKEN_TYPE, null, this, callback, null);
     }
 
     private void onAuthCancel() {

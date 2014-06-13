@@ -13,7 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.api.client.googleapis.extensions.android2.auth.GoogleAccountManager;
+import com.google.api.client.googleapis.extensions.android.accounts.GoogleAccountManager;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.api.GoogleTasksException;
@@ -66,7 +66,7 @@ public class GtasksTokenValidator {
             accountManager.invalidateAuthToken(token);
 
             // try with notify-auth-failure = false
-            AccountManagerFuture<Bundle> future = accountManager.manager.getAuthToken(a, GtasksInvoker.AUTH_TOKEN_TYPE, false, null, null);
+            AccountManagerFuture<Bundle> future = accountManager.getAccountManager().getAuthToken(a, GtasksInvoker.AUTH_TOKEN_TYPE, false, null, null);
             token = getTokenFromFuture(c, future);
 
             if(TOKEN_INTENT_RECEIVED.equals(token)) {

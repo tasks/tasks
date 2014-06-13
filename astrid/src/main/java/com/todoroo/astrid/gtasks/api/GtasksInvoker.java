@@ -2,10 +2,9 @@ package com.todoroo.astrid.gtasks.api;
 
 import android.content.Context;
 
-import com.google.api.client.extensions.android2.AndroidHttp;
-import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessProtectedResource;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.http.HttpResponseException;
-import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.tasks.Tasks;
 import com.google.api.services.tasks.Tasks.TasksOperations.Insert;
@@ -34,35 +33,36 @@ public class GtasksInvoker {
     private static final Logger log = LoggerFactory.getLogger(GtasksInvoker.class);
 
     private Tasks service;
-    private GoogleAccessProtectedResource accessProtectedResource;
+    private GoogleCredential credential = new GoogleCredential();
     private final GtasksTokenValidator gtasksTokenValidator;
     private String token;
+
+    private final String key;
 
     public static final String AUTH_TOKEN_TYPE = "Manage your tasks"; //"oauth2:https://www.googleapis.com/auth/tasks";
 
     public GtasksInvoker(GtasksTokenValidator gtasksTokenValidator, String authToken) {
         this.gtasksTokenValidator = gtasksTokenValidator;
         this.token = authToken;
-        accessProtectedResource = new GoogleAccessProtectedResource(authToken);
 
-        JsonFactory jsonFactory = new GsonFactory();
         Context context = ContextManager.getContext();
-        String key = context.getString(R.string.gapi_key);
-        service = new Tasks(AndroidHttp.newCompatibleTransport(), accessProtectedResource, jsonFactory);
-        service.setKey(key);
-        service.setApplicationName("Tasks");
+        key = context.getString(R.string.gapi_key);
+        credential.setAccessToken(authToken);
+        service = new Tasks.Builder(AndroidHttp.newCompatibleTransport(), new GsonFactory(), credential)
+                .setApplicationName("Tasks")
+                .build();
     }
 
     //If we get a 401 or 403, try revalidating the auth token before bailing
     private synchronized void handleException(IOException e) throws IOException {
         if (e instanceof HttpResponseException) {
             HttpResponseException h = (HttpResponseException)e;
-            int statusCode = h.getResponse().getStatusCode();
-            log.error(statusCode + ": " + h.getResponse().getStatusMessage(), e);
+            int statusCode = h.getStatusCode();
+            log.error(statusCode + ": " + h.getStatusMessage(), e);
             if (statusCode == 401 || statusCode == 403) {
                 token = gtasksTokenValidator.validateAuthToken(ContextManager.getContext(), token);
                 if (token != null) {
-                    accessProtectedResource.setAccessToken(token);
+                    credential.setAccessToken(token);
                 }
             } else if (statusCode == 400 || statusCode == 500) {
                 throw h;
@@ -84,16 +84,25 @@ public class GtasksInvoker {
      * @throws IOException
      */
     public void ping() throws IOException {
-        service.tasklists().get("@default").execute();
+        service.tasklists().get("@default")
+                .setOauthToken(token)
+                .setKey(key)
+                .execute();
     }
 
     public TaskLists allGtaskLists() throws IOException {
         TaskLists toReturn = null;
         try {
-            toReturn = service.tasklists().list().execute();
+            toReturn = service
+                    .tasklists()
+                    .list()
+                    .setKey(key)
+                    .execute();
         } catch (IOException e) {
             handleException(e);
-            toReturn = service.tasklists().list().execute();
+            toReturn = service.tasklists().list()
+                    .setKey(key)
+                    .execute();
         } finally {
             log("All gtasks lists", toReturn);
         }
@@ -103,10 +112,14 @@ public class GtasksInvoker {
     public TaskList getGtaskList(String id) throws IOException {
         TaskList toReturn = null;
         try {
-            toReturn = service.tasklists().get(id).execute();
+            toReturn = service.tasklists().get(id)
+                    .setKey(key)
+                    .execute();
         } catch (IOException e) {
             handleException(e);
-            toReturn = service.tasklists().get(id).execute();
+            toReturn = service.tasklists().get(id)
+                    .setKey(key)
+                    .execute();
         } finally {
             log("Get gtask list, id: " + id, toReturn);
         }
@@ -118,10 +131,14 @@ public class GtasksInvoker {
         newList.setTitle(title);
         TaskList toReturn = null;
         try {
-            toReturn = service.tasklists().insert(newList).execute();
+            toReturn = service.tasklists().insert(newList)
+                    .setKey(key)
+                    .execute();
         } catch (IOException e) {
             handleException(e);
-            toReturn = service.tasklists().insert(newList).execute();
+            toReturn = service.tasklists().insert(newList)
+                    .setKey(key)
+                    .execute();
         } finally {
             log("Create gtask list, title: " + title, toReturn);
         }
@@ -135,10 +152,14 @@ public class GtasksInvoker {
         request.setShowHidden(includeHidden);
         request.setUpdatedMin(GtasksApiUtilities.unixTimeToGtasksCompletionTime(lastSyncDate).toStringRfc3339());
         try {
-            toReturn = request.execute();
+            toReturn = request
+                    .setKey(key)
+                    .execute();
         } catch (IOException e) {
             handleException(e);
-            toReturn = request.execute();
+            toReturn = request
+                    .setKey(key)
+                    .execute();
         } finally {
             log("Get all tasks, list: " + listId + ", include deleted: " + includeDeleted, toReturn);
         }
@@ -152,10 +173,14 @@ public class GtasksInvoker {
 
         Task toReturn = null;
         try {
-            toReturn = insertOp.execute();
+            toReturn = insertOp
+                    .setKey(key)
+                    .execute();
         } catch (IOException e) {
             handleException(e);
-            toReturn = insertOp.execute();
+            toReturn = insertOp
+                    .setKey(key)
+                    .execute();
         } finally {
             log("Creating gtask, title: " + task.getTitle(), toReturn);
         }
@@ -165,10 +190,18 @@ public class GtasksInvoker {
     public void updateGtask(String listId, Task task) throws IOException {
         Task toReturn = null;
         try {
-            toReturn = service.tasks().update(listId, task.getId(), task).execute();
+            toReturn = service
+                    .tasks()
+                    .update(listId, task.getId(), task)
+                    .setKey(key)
+                    .execute();
         } catch (IOException e) {
             handleException(e);
-            toReturn = service.tasks().update(listId, task.getId(), task).execute();
+            toReturn = service
+                    .tasks()
+                    .update(listId, task.getId(), task)
+                    .setKey(key)
+                    .execute();
         } finally {
             log("Update gtask, title: " + task.getTitle(), toReturn);
         }
@@ -181,10 +214,14 @@ public class GtasksInvoker {
 
         Task toReturn = null;
         try {
-            toReturn = move.execute();
+            toReturn = move
+                    .setKey(key)
+                    .execute();
         } catch (IOException e) {
             handleException(e);
-            toReturn = move.execute();
+            toReturn = move
+                    .setKey(key)
+                    .execute();
         } finally {
             log("Move task " + taskId + "to parent: " + parentId + ", prior sibling: " + previousId, toReturn);
         }
@@ -193,10 +230,18 @@ public class GtasksInvoker {
 
     public void deleteGtask(String listId, String taskId) throws IOException {
         try {
-            service.tasks().delete(listId, taskId).execute();
+            service
+                    .tasks()
+                    .delete(listId, taskId)
+                    .setKey(key)
+                    .execute();
         } catch (IOException e) {
             handleException(e);
-            service.tasks().delete(listId, taskId).execute();
+            service
+                    .tasks()
+                    .delete(listId, taskId)
+                    .setKey(key)
+                    .execute();
         } finally {
             log("Delete task, id: " + taskId, null);
         }

@@ -20,7 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.api.client.googleapis.extensions.android2.auth.GoogleAccountManager;
+import com.google.api.client.googleapis.extensions.android.accounts.GoogleAccountManager;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
@@ -132,7 +132,7 @@ public class GtasksLoginActivity extends InjectingListActivity {
                 }.start();
             }
         };
-        accountManager.manager.getAuthToken(a, GtasksInvoker.AUTH_TOKEN_TYPE, null, this, callback, null);
+        accountManager.getAccountManager().getAuthToken(a, GtasksInvoker.AUTH_TOKEN_TYPE, null, this, callback, null);
     }
 
     private void onAuthCancel() {
