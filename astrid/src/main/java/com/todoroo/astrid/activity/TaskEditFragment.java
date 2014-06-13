@@ -12,7 +12,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -90,7 +90,6 @@ import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -98,6 +97,9 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
+
+import static org.tasks.files.FileHelper.copyFile;
+import static org.tasks.files.FileHelper.getPathFromUri;
 
 /**
  * This activity is responsible for creating new tasks and editing existing
@@ -882,18 +884,13 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         createNewFileAttachment(path, name, type);
     }
 
-    private void attachImage(Bitmap bitmap) {
-
+    private void attachImage(String input) {
         AtomicReference<String> nameRef = new AtomicReference<>();
-        String path = FileUtilities.getNewImageAttachmentPath(preferences, getActivity(), nameRef);
-
         try {
-            FileOutputStream fos = new FileOutputStream(path);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
-            fos.flush();
-            fos.close();
-
-            createNewFileAttachment(path, nameRef.get(), TaskAttachment.FILE_TYPE_IMAGE + "png");
+            String path = FileUtilities.getNewImageAttachmentPath(preferences, getActivity(), nameRef);
+            copyFile(input, path);
+            String extension = path.substring(path.lastIndexOf('.') + 1);
+            createNewFileAttachment(path, nameRef.get(), TaskAttachment.FILE_TYPE_IMAGE + extension);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             Toast.makeText(getActivity(), R.string.file_err_copy, Toast.LENGTH_LONG).show();
@@ -997,8 +994,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         ActFmCameraModule.activityResult(getActivity(), requestCode, resultCode, data, new CameraResultCallback() {
             @Override
-            public void handleCameraResult(Bitmap bitmap) {
-                attachImage(bitmap);
+            public void handleCameraResult(Uri uri) {
+                attachImage(getPathFromUri(getActivity(), uri));
             }
         });
 

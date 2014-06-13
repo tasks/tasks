@@ -10,15 +10,12 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.widget.ArrayAdapter;
 
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 
 import org.slf4j.Logger;
@@ -28,6 +25,8 @@ import org.tasks.R;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import static org.tasks.files.FileHelper.getPathFromUri;
 
 public class ActFmCameraModule {
 
@@ -103,57 +102,28 @@ public class ActFmCameraModule {
     }
 
     public interface CameraResultCallback {
-        public void handleCameraResult(Bitmap bitmap);
-    }
-
-    private static Bitmap bitmapFromUri(Activity activity, Uri uri) {
-        String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = activity.managedQuery(uri, projection, null, null, null);
-        String path;
-
-        if(cursor != null) {
-            int column_index = cursor
-                    .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            path = cursor.getString(column_index);
-        } else {
-            path = uri.getPath();
-        }
-
-        return AndroidUtilities.readScaledBitmap(path);
+        public void handleCameraResult(Uri uri);
     }
 
     public static boolean activityResult(Activity activity, int requestCode, int resultCode, Intent data,
             CameraResultCallback cameraResult) {
         if(requestCode == ActFmCameraModule.REQUEST_CODE_CAMERA && resultCode == Activity.RESULT_OK) {
-            Bitmap bitmap;
-            if (data == null) { // large from camera
-                if (lastTempFile != null) {
-                    bitmap = bitmapFromUri(activity, Uri.fromFile(lastTempFile));
-                    lastTempFile.deleteOnExit();
-                    lastTempFile = null;
-                }
-                else {
-                    bitmap = null;
-                }
-            } else {
-                bitmap = data.getParcelableExtra("data"); //$NON-NLS-1$
-            }
-            if(bitmap != null) {
+            if (lastTempFile != null) {
+                Uri uri = Uri.fromFile(lastTempFile);
+                lastTempFile = null;
                 activity.setResult(Activity.RESULT_OK);
-                cameraResult.handleCameraResult(bitmap);
+                cameraResult.handleCameraResult(uri);
             }
             return true;
         } else if(requestCode == ActFmCameraModule.REQUEST_CODE_PICTURE && resultCode == Activity.RESULT_OK) {
             Uri uri = data.getData();
-            Bitmap bitmap = bitmapFromUri(activity, uri);
-            if(bitmap != null) {
+            String path = getPathFromUri(activity, uri);
+            if (new File(path).exists()) {
                 activity.setResult(Activity.RESULT_OK);
-                cameraResult.handleCameraResult(bitmap);
+                cameraResult.handleCameraResult(uri);
             }
             return true;
         }
         return false;
     }
-
 }

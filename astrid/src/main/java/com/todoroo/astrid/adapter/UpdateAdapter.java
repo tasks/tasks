@@ -32,6 +32,9 @@ import com.todoroo.astrid.data.UserActivity;
 
 import org.tasks.R;
 
+import static org.tasks.files.FileHelper.getPathFromUri;
+import static org.tasks.files.ImageHelper.sampleBitmap;
+
 /**
  * Adapter for displaying a user's activity
  *
@@ -177,7 +180,8 @@ public class UpdateAdapter extends CursorAdapter {
             final Fragment fragment) {
         if (updateBitmap != null) { //$NON-NLS-1$
             commentPictureView.setVisibility(View.VISIBLE);
-            commentPictureView.setImageURI(updateBitmap);
+            String path = getPathFromUri(fragment.getActivity(), updateBitmap);
+            commentPictureView.setImageBitmap(sampleBitmap(path, commentPictureView.getLayoutParams().width, commentPictureView.getLayoutParams().height));
 
             view.setOnClickListener(new OnClickListener() {
                 @Override

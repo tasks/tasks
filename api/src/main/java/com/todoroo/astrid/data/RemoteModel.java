@@ -6,24 +6,18 @@
 package com.todoroo.astrid.data;
 
 import android.content.ContentValues;
-import android.content.Context;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property.StringProperty;
-import com.todoroo.andlib.utility.DateUtilities;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tasks.files.FileHelper;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 /**
  * A model that is synchronized to a remote server and has a remote id
@@ -91,35 +85,11 @@ abstract public class RemoteModel extends AbstractModel {
 
     public static class PictureHelper {
 
-        public static final String PICTURES_DIRECTORY = "pictures"; //$NON-NLS-1$
-
-        public static JSONObject savePictureJson(Context context, Bitmap bitmap) {
+        public static JSONObject savePictureJson(final Uri uri) {
             try {
-                String name = DateUtilities.now() + ".jpg";
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("name", name);
-                jsonObject.put("type", "image/jpeg");
-
-                File dir = FileHelper.getExternalFilesDir(context, PICTURES_DIRECTORY);
-                if (dir != null) {
-                    File file = new File(dir + File.separator + DateUtilities.now() + ".jpg");
-                    if (file.exists()) {
-                        return null;
-                    }
-
-                    try {
-                        FileOutputStream fos = new FileOutputStream(file);
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fos);
-                        fos.flush();
-                        fos.close();
-                        jsonObject.put("path", file.getAbsolutePath());
-                    } catch (IOException e) {
-                        log.error(e.getMessage(), e);
-                    }
-                    return jsonObject;
-                } else {
-                    return null;
-                }
+                return new JSONObject() {{
+                    put("uri", uri.toString());
+                }};
             } catch (JSONException e) {
                 log.error(e.getMessage(), e);
             }
@@ -131,10 +101,13 @@ abstract public class RemoteModel extends AbstractModel {
                 if (value == null) {
                     return null;
                 }
-                if (value.contains("path")) {
-                    JSONObject pictureJson = new JSONObject(value);
-                    if (pictureJson.has("path")) {
-                        String path = pictureJson.getString("path");
+                if (value.contains("uri") || value.contains("path")) {
+                    JSONObject json = new JSONObject(value);
+                    if (json.has("uri")) {
+                        return Uri.parse(json.getString("uri"));
+                    }
+                    if (json.has("path")) {
+                        String path = json.getString("path");
                         return Uri.fromFile(new File(path));
                     }
                 }

@@ -8,7 +8,7 @@ package com.todoroo.astrid.actfm;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
@@ -229,7 +229,7 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         CameraResultCallback callback = new CameraResultCallback() {
             @Override
-            public void handleCameraResult(Bitmap bitmap) {
+            public void handleCameraResult(Uri uri) {
                 log.error("Not expecting this");
             }
         };

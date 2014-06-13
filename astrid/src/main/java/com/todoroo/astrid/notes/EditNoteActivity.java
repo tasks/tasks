@@ -8,7 +8,6 @@ package com.todoroo.astrid.notes;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
@@ -64,6 +63,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static org.tasks.date.DateTimeUtils.newDate;
+import static org.tasks.files.FileHelper.getPathFromUri;
+import static org.tasks.files.ImageHelper.sampleBitmap;
 
 public class EditNoteActivity extends LinearLayout implements TimerActionListener {
 
@@ -80,7 +81,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     private View commentButton;
     private int commentItems = 10;
     private ImageButton pictureButton;
-    private Bitmap pendingCommentPicture = null;
+    private Uri pendingCommentPicture = null;
     private final Fragment fragment;
 
     private final AstridActivity activity;
@@ -248,10 +249,10 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
 
         if (activity != null) {
-            Bitmap bitmap = activity.getIntent().getParcelableExtra(TaskEditFragment.TOKEN_PICTURE_IN_PROGRESS);
-            if (bitmap != null) {
-                pendingCommentPicture = bitmap;
-                pictureButton.setImageBitmap(pendingCommentPicture);
+            String uri = activity.getIntent().getStringExtra(TaskEditFragment.TOKEN_PICTURE_IN_PROGRESS);
+            if (uri != null) {
+                pendingCommentPicture = Uri.parse(uri);
+                setPictureButtonToPendingPicture();
             }
         }
     }
@@ -379,7 +380,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         userActivity.setTargetName(title);
         userActivity.setCreatedAt(DateUtilities.now());
         if (usePicture && pendingCommentPicture != null) {
-            JSONObject pictureJson = RemoteModel.PictureHelper.savePictureJson(activity, pendingCommentPicture);
+            JSONObject pictureJson = RemoteModel.PictureHelper.savePictureJson(pendingCommentPicture);
             if (pictureJson != null) {
                 userActivity.setPicture(pictureJson.toString());
             }
@@ -485,12 +486,12 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             respondToPicture = false;
             CameraResultCallback callback = new CameraResultCallback() {
                 @Override
-                public void handleCameraResult(Bitmap bitmap) {
+                public void handleCameraResult(Uri uri) {
                     if (activity != null) {
-                        activity.getIntent().putExtra(TaskEditFragment.TOKEN_PICTURE_IN_PROGRESS, bitmap);
+                        activity.getIntent().putExtra(TaskEditFragment.TOKEN_PICTURE_IN_PROGRESS, uri.toString());
                     }
-                    pendingCommentPicture = bitmap;
-                    pictureButton.setImageBitmap(pendingCommentPicture);
+                    pendingCommentPicture = uri;
+                    setPictureButtonToPendingPicture();
                     commentField.requestFocus();
                 }
             };
@@ -502,4 +503,8 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
     }
 
+    private void setPictureButtonToPendingPicture() {
+        String path = getPathFromUri(activity, pendingCommentPicture);
+        pictureButton.setImageBitmap(sampleBitmap(path, pictureButton.getWidth(), pictureButton.getHeight()));
+    }
 }
