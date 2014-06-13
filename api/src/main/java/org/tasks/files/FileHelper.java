@@ -16,8 +16,11 @@ import java.nio.channels.FileChannel;
 public class FileHelper {
     public static File getExternalFilesDir(Context context, String type) {
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            String filesDir = Environment.getExternalStorageDirectory() + "/Android/data/" + context.getPackageName() + "/files/";
-            return new File(type == null ? filesDir : filesDir + "/" + type);
+            String directory = String.format("%s/Android/data/%s/files/%s", Environment.getExternalStorageDirectory(), context.getPackageName(), type);
+            File file = new File(directory);
+            if (file.isDirectory() || file.mkdirs()) {
+                return file;
+            }
         }
 
         return null;

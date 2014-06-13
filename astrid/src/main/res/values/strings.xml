@@ -5,4 +5,5 @@
     <string name="delete_task">Delete task</string>
     <string name="TLA_menu_support">Support</string>
     <string name="voice_command_added_task">Added task</string>
+    <string name="external_storage_unavailable">Cannot access external storage</string>
 </resources>

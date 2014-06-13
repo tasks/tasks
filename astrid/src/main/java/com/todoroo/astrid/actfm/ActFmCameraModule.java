@@ -11,16 +11,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.todoroo.andlib.utility.DateUtilities;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.files.FileHelper;
 
 import java.io.File;
 import java.io.IOException;
@@ -65,10 +66,13 @@ public class ActFmCameraModule {
             public void onClick(DialogInterface d, int which) {
                 if(which == 0 && cameraAvailable) {
                     lastTempFile = getTempFile(fragment.getActivity());
-                    if (lastTempFile != null) {
+                    if (lastTempFile == null) {
+                        Toast.makeText(fragment.getActivity(), R.string.external_storage_unavailable, Toast.LENGTH_LONG).show();
+                        d.dismiss();
+                    } else {
                         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(lastTempFile));
+                        fragment.startActivityForResult(cameraIntent, REQUEST_CODE_CAMERA);
                     }
-                    fragment.startActivityForResult(cameraIntent, REQUEST_CODE_CAMERA);
                 } else if ((which == 1 && cameraAvailable) || (which == 0 && !cameraAvailable)) {
                     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                     intent.setType("image/*");
@@ -90,10 +94,9 @@ public class ActFmCameraModule {
 
     private static File getTempFile(Activity activity) {
         try {
-            String storageState = Environment.getExternalStorageState();
-            if(storageState.equals(Environment.MEDIA_MOUNTED)) {
-                String path = Environment.getExternalStorageDirectory().getPath() + File.separatorChar + "Android/data/" + activity.getPackageName() + "/files/";
-                return File.createTempFile("comment_pic_" + DateUtilities.now(), ".jpg", new File(path));
+            File path = FileHelper.getExternalFilesDir(activity, "pictures");
+            if (path != null) {
+                return File.createTempFile(Long.toString(DateUtilities.now()), ".jpg", path);
             }
         } catch (IOException e) {
             log.error(e.getMessage(), e);
