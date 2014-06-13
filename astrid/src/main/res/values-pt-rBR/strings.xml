@@ -359,7 +359,6 @@
 	<string name="file_browser_err_permissions">Erro de permissões! Certifique-se de que você não bloqueou o Tasks de acessar o cartão SD.</string>
 	<string name="file_add_picture">Anexe uma imagem</string>
 	<string name="file_add_sdcard">Anexe um arquivo do seu cartão SD</string>
-	<string name="file_err_memory">A imagem é muito grande para caber na memória</string>
 	<string name="file_err_copy">Erro ao copiar o arquivo para o anexo</string>
 	<string name="file_dir_dialog_ok">Usar este diretório</string>
 	<string name="file_dir_dialog_default">Restaurar padrões</string>

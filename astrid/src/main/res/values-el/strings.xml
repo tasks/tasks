@@ -298,7 +298,6 @@
 	<string name="file_browser_err_permissions">Σφάλμα αδειών! Παρακαλώ σιγουρεύτείτε οτι δεν έχετε μπλοκάρει τα Καθήκοντα απο το να έχουν πρόσβαση στην SD κάρτα σας.</string>
 	<string name="file_add_picture">Επισύναψη εικόνας</string>
 	<string name="file_add_sdcard">Προσθήκη αρχείου απο την SD κάρτα σας</string>
-	<string name="file_err_memory">Εικόνα πολύ μεγάλη για να χωρέσει στην μνήμη</string>
 	<string name="file_err_copy">Σφάλμα αντιγραφής αρχείου προς επισύναψη</string>
 	<string name="file_dir_dialog_ok">Χρήση αυτού του φακέλου</string>
 	<string name="file_dir_dialog_default">Επαναφορά προεπιλογών</string>

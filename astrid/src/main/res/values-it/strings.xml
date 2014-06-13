@@ -343,7 +343,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="file_browser_err_permissions">Errore di autorizzazioni! Assicurati di non aver bloccato l\'accesso alla scheda SD da parte di Tasks</string>
 	<string name="file_add_picture">Allega una foto</string>
 	<string name="file_add_sdcard">Allega un file dalla tua scheda SD</string>
-	<string name="file_err_memory">L\'immagine è troppo grande per la memoria disponibile</string>
 	<string name="file_err_copy">Errore di copia dei file da allegare</string>
 	<string name="file_dir_dialog_ok">Utilizza questa directory</string>
 	<string name="file_dir_dialog_default">Ripristino impostazioni iniziali</string>

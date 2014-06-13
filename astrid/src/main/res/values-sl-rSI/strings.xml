@@ -391,7 +391,6 @@
 	<string name="file_browser_err_permissions">Napaka pri dovoljenjih! Prosimo, preverite, da niste preprečili aplikaciji Opravki dostopa do SD kartice.</string>
 	<string name="file_add_picture">Pripni sliko</string>
 	<string name="file_add_sdcard">Pripni datoteko z SD kartice</string>
-	<string name="file_err_memory">Slika prevelika za pomnilnik</string>
 	<string name="file_err_copy">Napaka pri kopiranju datoteke za priponko</string>
 	<string name="file_dir_dialog_ok">Uporabi to mapo</string>
 	<string name="file_dir_dialog_default">Ponastavi na privzeto</string>

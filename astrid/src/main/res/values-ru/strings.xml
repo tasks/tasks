@@ -390,7 +390,6 @@
 	<string name="file_browser_err_permissions">Ошибка доступа! Пожалуйста убедитесь, что вы не заблокировали Tasks для доступа к SD карте.</string>
 	<string name="file_add_picture">Прикрепите изображение</string>
 	<string name="file_add_sdcard">Прикрепите файл с Вашей SD карточки.</string>
-	<string name="file_err_memory">Изображение слишком большое, не хватает места в памяти.</string>
 	<string name="file_err_copy">Ошибка копирования прикрепляемого файла.</string>
 	<string name="file_dir_dialog_ok">Использовать этот каталог</string>
 	<string name="file_dir_dialog_default">Сбросить на значения по умолчанию</string>

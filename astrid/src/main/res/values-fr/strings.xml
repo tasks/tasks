@@ -383,7 +383,6 @@
 	<string name="file_browser_err_permissions">Erreur de permissions ! Assurez-vous qu\'Tasks à le droit d\'accéder à la carte SD.</string>
 	<string name="file_add_picture">Joindre une photo</string>
 	<string name="file_add_sdcard">Joindre un fichier à partir de votre carte SD</string>
-	<string name="file_err_memory">L\'image est trop lourde pour la mémoire</string>
 	<string name="file_err_copy">Erreur lors de la copie du fichier à joindre</string>
 	<string name="file_dir_dialog_ok">Utiliser ce dossier</string>
 	<string name="file_dir_dialog_default">Rétablir les valeurs par défaut</string>

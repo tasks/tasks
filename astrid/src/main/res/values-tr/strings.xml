@@ -337,7 +337,6 @@
 	<string name="file_browser_err_permissions">İzin hatası! Tasks\'in SD kartınıza erişiminin engellenmediğinden emin olun lütfen.</string>
 	<string name="file_add_picture">Bir resim ekle</string>
 	<string name="file_add_sdcard">SD kartınızdan bir dosya ekleyin</string>
-	<string name="file_err_memory">Görüntü belleğe kaydedilmek için çok büyük</string>
 	<string name="file_err_copy">Dosyanın ek olarak kopyalanmasında hata</string>
 	<string name="file_dir_dialog_ok">Bu dizini kullan</string>
 	<string name="file_dir_dialog_default">Öntanımlı değere dön</string>

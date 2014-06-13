@@ -365,7 +365,6 @@
 	<string name="file_browser_err_permissions">權限出錯！請確保您沒有阻止Tasks訪問SD 卡。</string>
 	<string name="file_add_picture">附上一幅圖片</string>
 	<string name="file_add_sdcard">附上一份來自您 SD 卡的文件</string>
-	<string name="file_err_memory">圖片太大，無法存入內存</string>
 	<string name="file_err_copy">複製文件添加附件時出錯</string>
 	<string name="file_dir_dialog_ok">使用此目錄</string>
 	<string name="file_dir_dialog_default">重設為默認值</string>

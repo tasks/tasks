@@ -379,7 +379,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="file_browser_err_permissions">Behörighets fel! Vänligen kontrollera att du inte blockat Tasks från att komma åt SD-kortet.</string>
 	<string name="file_add_picture">Bifoga en bild</string>
 	<string name="file_add_sdcard">Bifoga en fil från SD-kortet</string>
-	<string name="file_err_memory">Bilden är för stor och får inte plats i minnet</string>
 	<string name="file_err_copy">Bifoga fil misslyckades: fel vid kopiering</string>
 	<string name="file_dir_dialog_ok">Använd denna mapp</string>
 	<string name="file_dir_dialog_default">Återställ till standard</string>

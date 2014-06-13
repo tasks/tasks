@@ -390,7 +390,6 @@
 	<string name="file_browser_err_permissions">הרשאות לא מספיקות! אנא בדוק שלא חסמת את אסטריד מלגשת לכרטיס הזיכרון</string>
 	<string name="file_add_picture">צרף תמונה</string>
 	<string name="file_add_sdcard">צרף קובץ מכרטיס הזיכרון</string>
-	<string name="file_err_memory">תמונה זו גדולה מכדי להכנס לזכרון...</string>
 	<string name="file_err_copy">שגיאה בהעתקת הקובץ המצורף</string>
 	<string name="file_dir_dialog_ok">השתמש בתיקיה זו</string>
 	<string name="file_dir_dialog_default">אפס לברירת מחדל</string>

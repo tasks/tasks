@@ -6,11 +6,9 @@
 package com.todoroo.astrid.files;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -21,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
@@ -204,25 +201,9 @@ public class FilesControlSet extends PopupControlSet {
                 }
             });
         } else if (fileType.startsWith(TaskAttachment.FILE_TYPE_IMAGE)) {
-            AlertDialog image = new AlertDialog.Builder(activity).create();
-            ImageView imageView = new ImageView(activity);
-            imageView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-            Bitmap bitmap = AndroidUtilities.readScaledBitmap(filePath);
-
-            if (bitmap == null) {
-                Toast.makeText(activity, R.string.file_err_memory, Toast.LENGTH_LONG).show();
-                return;
-            }
-
-            imageView.setImageBitmap(bitmap);
-            image.setView(imageView);
-
-            image.setButton(activity.getString(R.string.DLG_close), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface d, int which) {
-                }
-            });
-            image.show();
+            activity.startActivity(new Intent(Intent.ACTION_VIEW) {{
+                setDataAndType(Uri.fromFile(new File(filePath)), fileType);
+            }});
         } else {
             String useType = fileType;
             if (fileType.equals(TaskAttachment.FILE_TYPE_OTHER)) {

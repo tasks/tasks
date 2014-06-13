@@ -378,7 +378,6 @@
 	<string name="file_browser_err_permissions">Konnte nicht auf die SD-Karte zugreifen. Bitte stellen Sie sicher, das sie den Zugriff auf sie SD Karte nicht eingeschränkt haben.</string>
 	<string name="file_add_picture">Ein Bild anhängen</string>
 	<string name="file_add_sdcard">Eine Datei von der SD-Karte anhängen</string>
-	<string name="file_err_memory">Das Bild ist zu groß um dekodiert zu werden</string>
 	<string name="file_err_copy">Fehler beim Kopieren der anzuhängenden Datei</string>
 	<string name="file_dir_dialog_ok">Dieses Verzeichnis verwenden</string>
 	<string name="file_dir_dialog_default">Auf Standardeinstellungen zurücksetzen</string>
