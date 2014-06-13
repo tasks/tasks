@@ -80,14 +80,14 @@ dependencies {
     compile project(":api")
 
     compile fileTree(dir: "libs", includes: [
-            "CWAC-SackOfViewsAdapter.jar",
             "framework.jar",
             "google-api-services-tasks-v1-1.3.0-beta.jar",
             "googleloginclient-helper.jar",
-            "jchronic-0.2.3.jar", // MIT
             "jsr305.jar", // BSD-new
             "rfc2445-4Mar2011.jar"
     ])
+
+    compile group: 'com.rubiconproject.oss', name: 'jchronic', version: '0.2.6', transitive: false // MIT
 
     compile group: 'com.google.guava', name: 'guava', version: '11.0.1', transitive: false
     compile group: 'com.google.code.gson', name: 'gson', version: '1.7.1', transitive: false
