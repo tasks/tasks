@@ -52,7 +52,6 @@
 	<string name="TEA_importance_label">ความสำคัญ</string>
 	<string name="TEA_note_label">บันทึกย่อ</string>
 	<string name="TEA_menu_save">บันทึกการเปลี่ยนแปลง</string>
-	<string name="TEA_menu_discard">ไม่บันทึก</string>
 	<string-array name="TEA_urgency">
 		<item>No date</item>
 		<item>Specific day</item>

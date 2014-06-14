@@ -240,7 +240,7 @@
   <string name="TEA_menu_save">Save Changes</string>
   
   <!-- Menu: Don't Save -->
-  <string name="TEA_menu_discard">Don\'t Save</string>
+  <string name="TEA_menu_discard_changes">Discard changes</string>
   
   <!-- slide 15b: Task edit tab: activity -->
   <string name="TEA_tab_activity">Activity</string>

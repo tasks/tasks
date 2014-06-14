@@ -112,7 +112,6 @@
 	<string name="TEA_estimatedDuration_label">Jak długo to zajmie?</string>
 	<string name="TEA_elapsedDuration_label">Czas dotychczas spędzony nad tym zadaniem</string>
 	<string name="TEA_menu_save">Zapisz zmiany</string>
-	<string name="TEA_menu_discard">Nie zapisuj</string>
 	<string name="TEA_tab_activity">Aktywność</string>
 	<string-array name="TEA_urgency">
 		<item>Brak daty</item>

@@ -105,7 +105,6 @@
 	<string name="TEA_estimatedDuration_label">Ne kadar sürecek?</string>
 	<string name="TEA_elapsedDuration_label">Görev üzerinde çalışılan zaman</string>
 	<string name="TEA_menu_save">Değişiklikleri Kaydet</string>
-	<string name="TEA_menu_discard">Kaydetme</string>
 	<string name="TEA_tab_activity">Etkinlik</string>
 	<string-array name="TEA_urgency">
 		<item>No date</item>

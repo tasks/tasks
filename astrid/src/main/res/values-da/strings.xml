@@ -88,7 +88,6 @@
 	<string name="TEA_estimatedDuration_label">Hvor lang tid tager det?</string>
 	<string name="TEA_elapsedDuration_label">Tid allerede brugt på denne opgave</string>
 	<string name="TEA_menu_save">Gem ændringer</string>
-	<string name="TEA_menu_discard">Gem ikke</string>
 	<string name="TEA_tab_activity">Aktivitet</string>
 	<string-array name="TEA_urgency">
 		<item>No date</item>

@@ -112,7 +112,6 @@
 	<string name="TEA_estimatedDuration_label">Quant temps us portarà?</string>
 	<string name="TEA_elapsedDuration_label">Temps que ja s\'ha invertit en la Tasca</string>
 	<string name="TEA_menu_save">Desa els canvis</string>
-	<string name="TEA_menu_discard">No ho desis</string>
 	<string name="TEA_tab_activity">Activitat</string>
 	<string-array name="TEA_urgency">
 		<item>Sense venciment</item>

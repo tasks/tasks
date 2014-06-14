@@ -937,13 +937,15 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-
+        menu.clear();
         inflater.inflate(R.menu.task_edit_fragment, menu);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD_MR1) {
             // media recorder aac support requires api level 10
             // approximately 1% of current installs are using api level 7-9
             menu.findItem(R.id.menu_record_note).setVisible(false);
+        }
+        if (preferences.useTabletLayout()) {
+            menu.findItem(R.id.menu_save).setVisible(true);
         }
     }
 

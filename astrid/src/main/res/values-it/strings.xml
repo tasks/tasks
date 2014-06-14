@@ -107,7 +107,6 @@
 	<string name="TEA_estimatedDuration_label">Quanto tempo impiegherà?</string>
 	<string name="TEA_elapsedDuration_label">Tempo già speso per l\'attività</string>
 	<string name="TEA_menu_save">Salva le modifiche</string>
-	<string name="TEA_menu_discard">Non salvare</string>
 	<string name="TEA_tab_activity">Attività</string>
 	<string-array name="TEA_urgency">
 		<item>No date</item>

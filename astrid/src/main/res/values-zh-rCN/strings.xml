@@ -108,7 +108,6 @@
 	<string name="TEA_estimatedDuration_label">要花多久时间?</string>
 	<string name="TEA_elapsedDuration_label">已用于任务的时间</string>
 	<string name="TEA_menu_save">保存更改</string>
-	<string name="TEA_menu_discard">不保存</string>
 	<string name="TEA_tab_activity">活动</string>
 	<string-array name="TEA_urgency">
 		<item>No date</item>

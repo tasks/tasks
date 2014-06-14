@@ -50,7 +50,7 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
     public static final String TOKEN_NEW_FILTER = "newFilter"; //$NON-NLS-1$
 
     private static final int MENU_SAVE_ID = R.string.TEA_menu_save;
-    private static final int MENU_DISCARD_ID = R.string.TEA_menu_discard;
+    private static final int MENU_DISCARD_ID = R.string.TEA_menu_discard_changes;
 
     public static final int REQUEST_ACTFM_LOGIN = 3;
 
@@ -244,7 +244,7 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuItem item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
+        MenuItem item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard_changes);
         item.setIcon(resourceResolver.getResource(R.attr.ic_action_cancel));
         setShowAsAction(item, MenuItem.SHOW_AS_ACTION_IF_ROOM);
 

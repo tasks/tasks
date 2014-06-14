@@ -119,7 +119,6 @@
 	<string name="TEA_estimatedDuration_label">Как долго это продлится?</string>
 	<string name="TEA_elapsedDuration_label">Время уже потраченное на задачу</string>
 	<string name="TEA_menu_save">Сохранить изменения</string>
-	<string name="TEA_menu_discard">Не сохранять</string>
 	<string name="TEA_tab_activity">Действия</string>
 	<string name="TEA_timer_est">Ост. %s</string>
 	<string name="TEA_timer_elap">Прошло %s</string>
