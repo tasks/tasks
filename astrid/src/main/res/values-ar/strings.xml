@@ -5,8 +5,15 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
+	<string name="TVA_add_comment">إضافة تعليق ...</string>
 	<string name="backup_BPr_group_status">الحالة</string>
 	<string name="backup_BPr_group_options">الخيارات</string>
+	<string name="DLG_cancel">الغي</string>
+	<string name="WID_dateButtonUnset">اضغط لتعيين</string>
+	<string name="TLA_no_items">لا يوجد لديك مهام! \n هل تريد أن تضيف شيئا؟</string>
+	<string name="TLA_menu_sort">رتب</string>
+	<string name="TLA_menu_sync">المزامنة الآن</string>
+	<string name="TLA_menu_search">ابحث</string>
 	<string name="TAd_actionEditTask">تعديل</string>
 	<string name="TAd_contextDeleteTask">حذف المهمة</string>
 	<string name="SSD_hidden_title">المهمات المخفية</string>
@@ -53,6 +60,16 @@
 		<item>Next Week</item>
 		<item>Next Month</item>
 	</string-array>
+	<string name="TEA_reminder_display_one">ذكرني %s</string>
+	<string name="TEA_reminder_display_multiple">تذكير %s</string>
+	<string name="rmd_NoA_filter">تذكير!</string>
+	<string name="rmd_NoA_done">اكمل</string>
+	<string name="rmd_NoA_snooze">غفوة</string>
+	<string name="rmd_NoA_completed_toast">مبارك على الانتهاء!</string>
+	<string name="rmd_EPr_alerts_header">إعدادات التذكير</string>
+	<string name="rmd_EPr_alerts_summary">الساعات الهادئة، وخيارات الغفوة، ومستوى الثبات</string>
+	<string name="rmd_EPr_enabled_title">التذكير مفعل؟</string>
+	<string name="rmd_EPr_ringtone_desc_default">سيتم استخدام النغمة المفضلة</string>
 	<string name="rmd_EPr_snooze_dialog_title">غفوة HH:MM</string>
 	<string-array name="repeat_until_shortcuts">
 		<item>Forever</item>
