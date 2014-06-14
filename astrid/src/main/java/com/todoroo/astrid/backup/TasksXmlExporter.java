@@ -299,7 +299,7 @@ public class TasksXmlExporter {
                 xml.attribute(null, property.name, value);
             } catch (UnsupportedOperationException e) {
                 // didn't read this value, do nothing
-                log.error(e.getMessage(), e);
+                log.debug(e.getMessage(), e);
             } catch (IllegalArgumentException | IOException | IllegalStateException e) {
                 throw new RuntimeException(e);
             }
