@@ -358,7 +358,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controls.add(editTitle);
         titleControls.addView(editTitle.getDisplayView(), 0, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1.0f));
 
-        timerAction = new TimerActionControlSet(taskService, getActivity(), getView());
+        timerAction = new TimerActionControlSet(notificationManager, taskService, getActivity(), getView());
         controls.add(timerAction);
 
         TagsControlSet tagsControlSet = new TagsControlSet(preferences, tagService, getActivity(),

@@ -26,18 +26,14 @@ import org.tasks.notifications.NotificationManager;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 public class TimerActionControlSet extends TaskEditControlSet {
-
-    @Inject NotificationManager notificationManager;
 
     private final ImageView timerButton;
     private final Chronometer chronometer;
     private boolean timerActive;
     private final List<TimerActionListener> listeners = new LinkedList<>();
 
-    public TimerActionControlSet(final TaskService taskService, final Activity activity, View parent) {
+    public TimerActionControlSet(final NotificationManager notificationManager, final TaskService taskService, final Activity activity, View parent) {
         super(activity, -1);
 
         LinearLayout timerContainer = (LinearLayout) parent.findViewById(R.id.timer_container);
@@ -69,11 +65,7 @@ public class TimerActionControlSet extends TaskEditControlSet {
 
     @Override
     protected void readFromTaskOnInitialize() {
-        if (model.getTimerStart() == 0) {
-            timerActive = false;
-        } else {
-            timerActive = true;
-        }
+        timerActive = model.getTimerStart() != 0;
 
         updateDisplay();
     }
