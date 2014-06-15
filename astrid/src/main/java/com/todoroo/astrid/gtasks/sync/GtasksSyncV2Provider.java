@@ -119,42 +119,45 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         // TODO: Improve this logic. Should only be able to import from settings or something.
         final boolean isImport = false;
 
-        callback.started();
-
-        gtasksPreferenceService.recordSyncStart();
-
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String authToken = getValidatedAuthToken();
-                final GtasksInvoker invoker = new GtasksInvoker(gtasksTokenValidator, authToken);
+                callback.started();
+
                 try {
-                    gtasksListService.updateLists(invoker.allGtaskLists());
-                } catch (IOException e) {
-                    handler.handleException("gtasks-sync=io", e); //$NON-NLS-1$
-                }
+                    gtasksPreferenceService.recordSyncStart();
 
-                StoreObject[] lists = gtasksListService.getLists();
-                if (lists.length == 0) {
-                    finishSync(callback);
-                    return;
-                }
+                    String authToken = getValidatedAuthToken();
+                    final GtasksInvoker invoker = new GtasksInvoker(gtasksTokenValidator, authToken);
+                    try {
+                        gtasksListService.updateLists(invoker.allGtaskLists());
+                    } catch (IOException e) {
+                        handler.handleException("gtasks-sync=io", e); //$NON-NLS-1$
+                    }
 
-                final AtomicInteger finisher = new AtomicInteger(lists.length);
+                    StoreObject[] lists = gtasksListService.getLists();
+                    if (lists.length == 0) {
+                        finishSync(callback);
+                        return;
+                    }
 
-                for (final StoreObject list : lists) {
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            synchronizeListHelper(list, invoker, manual, handler, isImport);
-                            if (finisher.decrementAndGet() == 0) {
-                                pushUpdated(invoker);
-                                finishSync(callback);
+                    final AtomicInteger finisher = new AtomicInteger(lists.length);
+
+                    for (final StoreObject list : lists) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                synchronizeListHelper(list, invoker, manual, handler, isImport);
+                                if (finisher.decrementAndGet() == 0) {
+                                    pushUpdated(invoker);
+                                    finishSync(callback);
+                                }
                             }
-                        }
-                    }).start();
+                        }).start();
+                    }
+                } finally {
+                    callback.finished();
                 }
-
             }
         }).start();
     }
@@ -182,7 +185,6 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         } finally {
             queued.close();
         }
-
     }
 
     @Override
@@ -197,11 +199,11 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
         final boolean isImport = false;
 
-        callback.started();
-
         new Thread(new Runnable() {
             @Override
             public void run() {
+                callback.started();
+
                 try {
                     String authToken = getValidatedAuthToken();
                     gtasksSyncService.waitUntilEmpty();
