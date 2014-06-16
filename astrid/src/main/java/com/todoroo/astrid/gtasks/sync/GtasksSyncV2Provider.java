@@ -42,6 +42,7 @@ import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
+import org.tasks.sync.SyncExecutor;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -72,12 +73,13 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     private final Preferences preferences;
     private final GtasksTokenValidator gtasksTokenValidator;
     private final GtasksMetadata gtasksMetadataFactory;
+    private final SyncExecutor executor;
 
     @Inject
     public GtasksSyncV2Provider(TaskService taskService, MetadataService metadataService, StoreObjectDao storeObjectDao, GtasksPreferenceService gtasksPreferenceService,
                                 GtasksSyncService gtasksSyncService, GtasksListService gtasksListService, GtasksMetadataService gtasksMetadataService,
                                 GtasksTaskListUpdater gtasksTaskListUpdater, @ForApplication Context context, Preferences preferences,
-                                GtasksTokenValidator gtasksTokenValidator, GtasksMetadata gtasksMetadata) {
+                                GtasksTokenValidator gtasksTokenValidator, GtasksMetadata gtasksMetadata, SyncExecutor executor) {
         this.taskService = taskService;
         this.metadataService = metadataService;
         this.storeObjectDao = storeObjectDao;
@@ -90,6 +92,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         this.preferences = preferences;
         this.gtasksTokenValidator = gtasksTokenValidator;
         this.gtasksMetadataFactory = gtasksMetadata;
+        this.executor = executor;
     }
 
     @Override
@@ -119,47 +122,43 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         // TODO: Improve this logic. Should only be able to import from settings or something.
         final boolean isImport = false;
 
-        new Thread(new Runnable() {
+        callback.started();
+
+        gtasksPreferenceService.recordSyncStart();
+
+        executor.execute(callback, new Runnable() {
             @Override
             public void run() {
-                callback.started();
-
+                String authToken = getValidatedAuthToken();
+                final GtasksInvoker invoker = new GtasksInvoker(gtasksTokenValidator, authToken);
                 try {
-                    gtasksPreferenceService.recordSyncStart();
+                    gtasksListService.updateLists(invoker.allGtaskLists());
+                } catch (IOException e) {
+                    handler.handleException("gtasks-sync=io", e); //$NON-NLS-1$
+                }
 
-                    String authToken = getValidatedAuthToken();
-                    final GtasksInvoker invoker = new GtasksInvoker(gtasksTokenValidator, authToken);
-                    try {
-                        gtasksListService.updateLists(invoker.allGtaskLists());
-                    } catch (IOException e) {
-                        handler.handleException("gtasks-sync=io", e); //$NON-NLS-1$
-                    }
+                StoreObject[] lists = gtasksListService.getLists();
+                if (lists.length == 0) {
+                    finishSync(callback);
+                    return;
+                }
 
-                    StoreObject[] lists = gtasksListService.getLists();
-                    if (lists.length == 0) {
-                        finishSync(callback);
-                        return;
-                    }
+                final AtomicInteger finisher = new AtomicInteger(lists.length);
 
-                    final AtomicInteger finisher = new AtomicInteger(lists.length);
-
-                    for (final StoreObject list : lists) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                synchronizeListHelper(list, invoker, manual, handler, isImport);
-                                if (finisher.decrementAndGet() == 0) {
-                                    pushUpdated(invoker);
-                                    finishSync(callback);
-                                }
+                for (final StoreObject list : lists) {
+                    executor.execute(callback, new Runnable() {
+                        @Override
+                        public void run() {
+                            synchronizeListHelper(list, invoker, manual, handler, isImport);
+                            if (finisher.decrementAndGet() == 0) {
+                                pushUpdated(invoker);
+                                finishSync(callback);
                             }
-                        }).start();
-                    }
-                } finally {
-                    callback.finished();
+                        }
+                    });
                 }
             }
-        }).start();
+        });
     }
 
     private synchronized void pushUpdated(GtasksInvoker invoker) {
@@ -199,11 +198,11 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
         final boolean isImport = false;
 
-        new Thread(new Runnable() {
+        callback.started();
+
+        executor.execute(callback, new Runnable() {
             @Override
             public void run() {
-                callback.started();
-
                 try {
                     String authToken = getValidatedAuthToken();
                     gtasksSyncService.waitUntilEmpty();
@@ -213,7 +212,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                     callback.finished();
                 }
             }
-        }).start();
+        });
     }
 
     private String getValidatedAuthToken() {
