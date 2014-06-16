@@ -48,6 +48,7 @@
 	<string name="TAd_contextEditTask">Rediger oppgave</string>
 	<string name="TAd_contextUndeleteTask">Gjenopprett slettet oppgave</string>
 	<string name="TAd_contextPurgeTask">Rens ut oppgave</string>
+	<string name="SSD_hidden_title">Skjulte oppgaver</string>
 	<string name="SSD_completed">Vis fullførte oppgaver</string>
 	<string name="SSD_hidden">Vis skjulte oppgaver</string>
 	<string name="SSD_deleted">Vis slettede oppgaver</string>
@@ -65,6 +66,7 @@
 	<string name="FLA_search_hint">Søk etter oppgaver</string>
 	<string name="FLA_search_filter">Matcher \'%s\'</string>
 	<string name="FLA_toast_onCreateShortcut">Snarvei opprettet: %s</string>
+	<string name="FLA_new_list">Ny liste</string>
 	<string name="TEA_title_hint">Oppgavesammendrag</string>
 	<string name="TEA_importance_label">Viktighet</string>
 	<string name="TEA_note_label">Notater</string>
@@ -85,7 +87,12 @@
 	<string name="TEA_control_importance">Viktighet</string>
 	<string name="TEA_control_lists">Lister</string>
 	<string name="TEA_control_notes">Notater</string>
+	<string name="TEA_new_task">Ny oppgave</string>
+	<string name="CRA_create_new">Opprett ny</string>
+	<string name="CRA_more_options">Flere alternativer</string>
+	<string name="CRA_dont_invite">Nei takk</string>
 	<string name="EPr_title">Tasks: Innstillinger</string>
+	<string name="EPr_deactivated">deaktivert</string>
 	<string name="EPr_appearance_header">Utseende</string>
 	<string name="EPr_fontSize_title">Tekststørrelse for oppgavelista</string>
 	<string name="EPr_fontSize_desc">Tekststørrelse for hovedlista</string>
@@ -138,7 +145,7 @@
 		<item>I dag</item>
 		<item>I morgen</item>
 		<item>Day After Tomorrow</item>
-		<item>Next Week</item>
+		<item>Neste uke</item>
 		<item>Next Month</item>
 	</string-array>
 	<string name="CFC_importance_text">Viktighet minst ?</string>
@@ -150,6 +157,10 @@
 	<string name="gcal_completed_title">%s (fullført)</string>
 	<string name="gcal_GCP_default">Standardkalender</string>
 	<string name="locale_notification">Du har $NUM som matcher: $FILTER</string>
+	<string name="EPr_powerpack_header">Avanserte innstillinger</string>
+	<string name="file_prefix_voice">Tale</string>
+	<string name="file_browser_up">Opp</string>
+	<string name="file_browser_title">Velg en fil</string>
 	<string name="TEA_reminder_label">Minn meg på...</string>
 	<string name="TEA_reminder_due">...når oppgaven forfaller</string>
 	<string name="TEA_reminder_overdue">... når oppgaven har forfalt</string>
@@ -197,6 +208,9 @@
 	<string name="repeat_detail_byday">$I på $D</string>
 	<string name="repeat_detail_duedate">Hver %s</string>
 	<string name="repeat_detail_completion">%s etter avslutning</string>
+	<string name="TEA_tag_hint">Ny liste</string>
+	<string name="tag_new_list">Ny liste</string>
+	<string name="tag_FEx_add_new">Ny</string>
 	<string name="tag_FEx_header">Lister</string>
 	<string name="TEA_no_tags_modified">Ingen endringer gjort</string>
 	<string name="tag_settings_title">Settings:</string>
@@ -217,4 +231,5 @@
 	<string name="EPr_voiceRemindersEnabled_title">Talepåminnelser</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks vil lese opp oppgaver ved påminnelse</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks vil spille en ringetone ved påminnelse</string>
+	<string name="delete_task">Slett oppgave</string>
 </resources>
