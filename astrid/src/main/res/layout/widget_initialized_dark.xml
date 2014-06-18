@@ -6,11 +6,12 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/widget"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@android:color/transparent">
+              android:id="@+id/widget"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:padding="@dimen/widget_margin"
+              android:background="@android:color/transparent">
 
     <LinearLayout
         android:id="@+id/widget_header"
@@ -32,7 +33,7 @@
             android:maxLines="2"
             android:layout_weight="1"
             android:gravity="left|center_vertical"
-            android:ellipsize="end" />
+            android:ellipsize="end"/>
 
         <ImageButton
             android:id="@+id/widget_button"
@@ -51,7 +52,8 @@
         android:layout_height="1px"
         android:background="@color/dark_blue_theme_color"/>
 
-    <LinearLayout android:id="@+id/taskbody"
+    <LinearLayout
+        android:id="@+id/taskbody"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@color/widget_body_dark"
