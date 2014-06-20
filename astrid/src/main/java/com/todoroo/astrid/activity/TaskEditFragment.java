@@ -419,7 +419,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 R.layout.control_set_default_display,
                 R.string.hide_until_prompt);
         controls.add(hideUntilControls);
-        reminderControl.addViewToBody(hideUntilControls.getDisplayView());
+        controlSetMap.put(getString(R.string.TEA_ctrl_hide_until_pref), hideUntilControls);
 
         // TODO: Fix the fact that hideUntil doesn't update accordingly with date changes when lazy loaded. Until then, don't lazy load.
         hideUntilControls.getView();
