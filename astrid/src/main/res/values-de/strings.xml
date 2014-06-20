@@ -83,8 +83,8 @@
 	<string name="SSD_completed">Erledigte Aufgaben anzeigen</string>
 	<string name="SSD_hidden">Versteckte Aufgaben anzeigen</string>
 	<string name="SSD_deleted">Gelöschte Aufgaben anzeigen</string>
-	<string name="SSD_sort_drag">Manuelle Sortierung mit Teilaufgaben</string>
-	<string name="SSD_sort_auto">Tasks Smart Sort</string>
+	<string name="SSD_sort_drag">Manuelle Sortierung mit Unteraufgaben</string>
+	<string name="SSD_sort_auto">Smarte Sortierung</string>
 	<string name="SSD_sort_alpha">Nach Titel</string>
 	<string name="SSD_sort_due">Nach Fälligkeit</string>
 	<string name="SSD_sort_importance">Nach Priorität</string>
@@ -113,7 +113,9 @@
 	<string name="TEA_estimatedDuration_label">Wie lange wird es dauern?</string>
 	<string name="TEA_elapsedDuration_label">Zeit, die schon für die Aufgabe gebraucht wurde</string>
 	<string name="TEA_menu_save">Änderungen speichern</string>
+	<string name="TEA_menu_discard_changes">Verwerfe Änderungen</string>
 	<string name="TEA_tab_activity">Aktivität</string>
+	<string name="TEA_timer_est">Geschätzt %s</string>
 	<string name="TEA_timer_elap">%s verstrichen</string>
 	<string-array name="TEA_urgency">
 		<item>Kein Datum</item>
@@ -318,7 +320,7 @@
 		<item>Nächste Woche</item>
 		<item>Nächster Monat</item>
 	</string-array>
-	<string name="CFC_importance_text">Mindestpriorität</string>
+	<string name="CFC_importance_text">Mindestpriorität ?</string>
 	<string name="CFC_importance_name">Priorität...</string>
 	<string name="CFC_tag_text">Liste: ?</string>
 	<string name="CFC_tag_name">Liste …</string>
@@ -328,8 +330,8 @@
 	<string name="CFC_title_contains_text">Titel enthält: ?</string>
 	<string name="gcal_TEA_error">Fehler beim Hinzufügen der Aufgabe zum Kalender!</string>
 	<string name="gcal_TEA_addToCalendar_label">In Kalender eintragen</string>
-	<string name="gcal_TEA_showCalendar_label">Öffne Termin im Kalender</string>
-	<string name="gcal_TEA_nocal">Nicht hinzufügen</string>
+	<string name="gcal_TEA_showCalendar_label">Öffne Kalendereintrag</string>
+	<string name="gcal_TEA_nocal">Nicht eintragen</string>
 	<string name="gcal_TEA_none_selected">In den Kalender?</string>
 	<string name="gcal_TEA_has_event">Kalendereintrag</string>
 	<string name="gcal_completed_title">%s (abgeschlossen)</string>
@@ -542,5 +544,6 @@
 	<string name="EPr_use_dark_theme_widget">Dunkles Widget Theme</string>
 	<string name="delete_task">Aufgabe löschen</string>
 	<string name="TLA_menu_support">Unterstützung</string>
-	<string name="voice_command_added_task">Zugefügte Aufgabe</string>
+	<string name="voice_command_added_task">Hinzugefügte Aufgabe</string>
+	<string name="external_storage_unavailable">Kein Zugriff auf externen Speicher</string>
 </resources>
