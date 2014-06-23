@@ -16,7 +16,7 @@ import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.adapter.UpdateAdapter;
+import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.TaskDao;
@@ -52,6 +52,21 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class TaskService {
+
+    private static final Property.StringProperty ACTIVITY_TYPE_PROPERTY = new Property.StringProperty(null, "'" + NameMaps.TABLE_ID_USER_ACTIVITY + "' as type");  //$NON-NLS-1$//$NON-NLS-2$
+
+    public static final Property<?>[] USER_ACTIVITY_PROPERTIES = {
+            UserActivity.CREATED_AT,
+            UserActivity.UUID,
+            UserActivity.ACTION,
+            UserActivity.MESSAGE,
+            UserActivity.TARGET_ID,
+            UserActivity.TARGET_NAME,
+            UserActivity.PICTURE,
+            UserActivity.USER_UUID,
+            UserActivity.ID,
+            ACTIVITY_TYPE_PROPERTY,
+    };
 
     private static final Logger log = LoggerFactory.getLogger(TaskService.class);
 
@@ -366,7 +381,7 @@ public class TaskService {
     }
 
     public TodorooCursor<UserActivity> getActivityForTask(Task task) {
-        Query taskQuery = queryForTask(task, UpdateAdapter.USER_ACTIVITY_PROPERTIES);
+        Query taskQuery = queryForTask(task, USER_ACTIVITY_PROPERTIES);
 
         Query resultQuery = taskQuery.orderBy(Order.desc("1")); //$NON-NLS-1$
 
@@ -377,5 +392,4 @@ public class TaskService {
         return Query.select(AndroidUtilities.addToArray(Property.class, activityProperties))
                 .where(Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TASK_COMMENT), UserActivity.TARGET_ID.eq(task.getUuid()), UserActivity.DELETED_AT.eq(0)));
     }
-
 }

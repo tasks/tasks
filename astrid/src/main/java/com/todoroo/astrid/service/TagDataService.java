@@ -5,22 +5,11 @@
  */
 package com.todoroo.astrid.service;
 
-import android.database.Cursor;
-
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.adapter.UpdateAdapter;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.dao.UserActivityDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.data.UserActivity;
-import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -35,12 +24,10 @@ import javax.inject.Singleton;
 public class TagDataService {
 
     private final TagDataDao tagDataDao;
-    private final UserActivityDao userActivityDao;
 
     @Inject
-    public TagDataService(TagDataDao tagDataDao, UserActivityDao userActivityDao) {
+    public TagDataService(TagDataDao tagDataDao) {
         this.tagDataDao = tagDataDao;
-        this.userActivityDao = userActivityDao;
     }
 
     // --- service layer
@@ -81,29 +68,5 @@ public class TagDataService {
         } finally {
             cursor.close();
         }
-    }
-
-    private static Query queryForTagData(TagData tagData, Property<?>[] activityProperties) {
-        Criterion criteria;
-        if (tagData == null) {
-            criteria = UserActivity.DELETED_AT.eq(0);
-        } else {
-            criteria = Criterion.and(UserActivity.DELETED_AT.eq(0), Criterion.or(
-                    Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TAG_COMMENT), UserActivity.TARGET_ID.eq(tagData.getUuid())),
-                    Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TASK_COMMENT),
-                            UserActivity.TARGET_ID.in(Query.select(TaskToTagMetadata.TASK_UUID)
-                                    .from(Metadata.TABLE).where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(tagData.getUuid())))))));
-        }
-
-        return Query.select(AndroidUtilities.addToArray(Property.class, activityProperties)).where(criteria);
-    }
-
-    public Cursor getActivityForTagData(TagData tagData) {
-        Query activityQuery = queryForTagData(tagData, UpdateAdapter.USER_ACTIVITY_PROPERTIES)
-                .from(UserActivity.TABLE);
-
-        Query resultQuery = activityQuery.orderBy(Order.desc("1")); //$NON-NLS-1$
-
-        return userActivityDao.query(resultQuery);
     }
 }

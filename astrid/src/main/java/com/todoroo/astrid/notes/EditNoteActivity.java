@@ -40,7 +40,6 @@ import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
-import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Metadata;
@@ -67,6 +66,8 @@ import static org.tasks.files.FileHelper.getPathFromUri;
 import static org.tasks.files.ImageHelper.sampleBitmap;
 
 public class EditNoteActivity extends LinearLayout implements TimerActionListener {
+
+    private static final int TYPE_PROPERTY_INDEX = TaskService.USER_ACTIVITY_PROPERTIES.length - 1;
 
     private Task task;
 
@@ -280,10 +281,10 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             for(updates.moveToFirst(); !updates.isAfterLast(); updates.moveToNext()) {
                 update.clear();
 
-                String type = updates.getString(UpdateAdapter.TYPE_PROPERTY_INDEX);
+                String type = updates.getString(TYPE_PROPERTY_INDEX);
                 NoteOrUpdate noa = null;
                 if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(type)) {
-                    UpdateAdapter.readUserActivityProperties(updates, update);
+                    readUserActivityProperties(updates, update);
                     noa = NoteOrUpdate.fromUpdate(update);
                 }
                 if(noa != null) {
@@ -333,6 +334,16 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
     }
 
+    private static void readUserActivityProperties(TodorooCursor<UserActivity> unionCursor, UserActivity activity) {
+        activity.setCreatedAt(unionCursor.getLong(0));
+        activity.setUUID(unionCursor.getString(1));
+        activity.setAction(unionCursor.getString(2));
+        activity.setMessage(unionCursor.getString(3));
+        activity.setTargetId(unionCursor.getString(4));
+        activity.setTargetName(unionCursor.getString(5));
+        activity.setPicture(unionCursor.getString(6));
+        activity.setUserUUID(unionCursor.getString(7));
+    }
 
     public View getUpdateNotes(NoteOrUpdate note, ViewGroup parent) {
         View convertView = ((Activity)getContext()).getLayoutInflater().inflate(
@@ -360,7 +371,27 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
         // picture
         final ImageView commentPictureView = (ImageView)view.findViewById(R.id.comment_picture);
-        UpdateAdapter.setupImagePopupForCommentView(view, commentPictureView, item.commentBitmap, fragment);
+        setupImagePopupForCommentView(view, commentPictureView, item.commentBitmap, fragment);
+    }
+
+    private static void setupImagePopupForCommentView(View view, ImageView commentPictureView, final Uri updateBitmap,
+                                                     final Fragment fragment) {
+        if (updateBitmap != null) { //$NON-NLS-1$
+            commentPictureView.setVisibility(View.VISIBLE);
+            String path = getPathFromUri(fragment.getActivity(), updateBitmap);
+            commentPictureView.setImageBitmap(sampleBitmap(path, commentPictureView.getLayoutParams().width, commentPictureView.getLayoutParams().height));
+
+            view.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    fragment.startActivity(new Intent(Intent.ACTION_VIEW) {{
+                        setDataAndType(updateBitmap, "image/*");
+                    }});
+                }
+            });
+        } else {
+            commentPictureView.setVisibility(View.GONE);
+        }
     }
 
     private void addComment() {
@@ -438,7 +469,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             }
 
             Uri commentBitmap = u.getPictureUri();
-            Spanned title = UpdateAdapter.getUpdateComment(u);
+            Spanned title = getUpdateComment(u);
             long createdAt = u.getCreatedAt();
 
             return new NoteOrUpdate(
@@ -447,6 +478,10 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                     createdAt);
         }
 
+        private static Spanned getUpdateComment(UserActivity activity) {
+            String message = activity.getMessage();
+            return Html.fromHtml(message);
+        }
     }
 
     public void addListener(UpdatesChangedListener listener) {
