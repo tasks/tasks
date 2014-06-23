@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.todoroo.astrid.actfm.TagSettingsActivity;
+import com.todoroo.astrid.actfm.TagSettingsActivityTablet;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.activity.EditPreferences;
 import com.todoroo.astrid.activity.FilterShortcutActivity;
@@ -43,6 +44,7 @@ import dagger.Provides;
         TaskEditActivity.class,
         ShareLinkActivity.class,
         TagSettingsActivity.class,
+        TagSettingsActivityTablet.class,
         CustomFilterActivity.class,
         MissedCallActivity.class,
         CalendarAlarmListCreator.class,
