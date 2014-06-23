@@ -6,8 +6,6 @@
 package com.todoroo.astrid.adapter;
 
 import android.app.Activity;
-import android.app.PendingIntent;
-import android.app.PendingIntent.CanceledException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -15,30 +13,23 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.activity.AstridActivity;
-import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.FilterCategory;
-import com.todoroo.astrid.api.FilterCategoryWithNewButton;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.FilterWithUpdate;
@@ -303,17 +294,11 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
             for (Parcelable item : filters) {
                 FilterListItem filter = (FilterListItem) item;
-                if(skipIntentFilters && !(filter instanceof Filter ||
-                            filter instanceof FilterCategory)) {
+                if(skipIntentFilters && !(filter instanceof Filter)) {
                     continue;
                 }
 
-                if (filter instanceof FilterCategory) {
-                    Filter[] children = ((FilterCategory) filter).children;
-                    for (Filter f : children) {
-                        addOrLookup(f);
-                    }
-                } else if (filter instanceof Filter){
+                if (filter instanceof Filter){
                     addOrLookup((Filter) filter);
                 }
             }
@@ -377,13 +362,8 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
             viewHolder.decoration = null;
         }
 
-        if(viewHolder.item instanceof FilterCategory) {
-            viewHolder.name.setTextAppearance(activity, headerStyle);
-            viewHolder.name.setShadowLayer(1, 1, 1, Color.BLACK);
-        } else {
-            viewHolder.name.setTextAppearance(activity, filterStyle);
-            viewHolder.name.setShadowLayer(0, 0, 0, 0);
-        }
+        viewHolder.name.setTextAppearance(activity, filterStyle);
+        viewHolder.name.setShadowLayer(0, 0, 0, 0);
 
         String title = filter.listingTitle;
         Matcher match = countPattern.matcher(filter.listingTitle);
@@ -429,49 +409,5 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         } else {
             viewHolder.selected.setVisibility(View.GONE);
         }
-
-        if(filter instanceof FilterCategoryWithNewButton) {
-            setupCustomHeader(viewHolder, (FilterCategoryWithNewButton) filter);
-        }
-    }
-
-    private void setupCustomHeader(ViewHolder viewHolder, final FilterCategoryWithNewButton filter) {
-        Button add = new Button(activity);
-        add.setBackgroundResource(R.drawable.filter_btn_background);
-        add.setCompoundDrawablesWithIntrinsicBounds(R.drawable.filter_new,0,0,0);
-        add.setTextColor(Color.WHITE);
-        add.setShadowLayer(1, 1, 1, Color.BLACK);
-        add.setText(filter.label);
-        add.setFocusable(false);
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
-                (int)(32 * metrics.density));
-        lp.rightMargin = (int) (4 * metrics.density);
-        lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        add.setLayoutParams(lp);
-        ((ViewGroup)viewHolder.view).addView(add);
-        viewHolder.decoration = add;
-
-        add.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        try {
-                            filter.intent.send(FilterListFragment.REQUEST_NEW_BUTTON, new PendingIntent.OnFinished() {
-                                @Override
-                                public void onSendFinished(PendingIntent pendingIntent, Intent intent,
-                                        int resultCode, String resultData, Bundle resultExtras) {
-                                    activity.runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            clear();
-                                        }
-                                    });
-                                }
-                            }, null);
-                        } catch (CanceledException e) {
-                            // do nothing
-                            log.error(e.getMessage(), e);
-                        }
-                    }
-                });
     }
 }

@@ -333,11 +333,7 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="gcal_TEA_has_event">Wydarzenie w kalendarzu</string>
 	<string name="gcal_completed_title">%s (ukończono)</string>
 	<string name="gcal_GCP_default">Domyślny kalendarz</string>
-	<string name="gtasks_FEx_header">Zadania Google</string>
 	<string name="gtasks_FEx_title">Zadania Google: %s</string>
-	<string name="gtasks_FEx_creating_list">Tworzenie listy</string>
-	<string name="gtasks_FEx_create_list_dialog">Nowa nazwa listy:</string>
-	<string name="gtasks_FEx_create_list_error">Błąd tworzenia nowej listy</string>
 	<string name="CFC_gtasks_list_text">Na liście: ?</string>
 	<string name="CFC_gtasks_list_name">Na liście GTasks...</string>
 	<string name="gtasks_GTA_clearing">Czyszczenie zakończonych zadań...</string>
@@ -503,8 +499,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="TEA_tag_hint">Nowa lista</string>
 	<string name="tag_new_list">Nowa lista</string>
 	<string name="tag_no_title_error">Wpisz nazwę dla tej listy najpierw!</string>
-	<string name="tag_FEx_add_new">Nowy</string>
-	<string name="tag_FEx_header">Listy</string>
 	<string name="tag_FEx_untagged">Na żadnej liście</string>
 	<string name="tag_cm_rename">Zmień nazwę listy</string>
 	<string name="tag_cm_delete">Usuń listę</string>

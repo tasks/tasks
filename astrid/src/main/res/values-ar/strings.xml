@@ -81,7 +81,6 @@
 		<item>In Two Weeks</item>
 		<item>Next Month</item>
 	</string-array>
-	<string name="tag_FEx_header">القوائم</string>
 	<string name="TEA_timer_controls">مؤقت</string>
 	<string name="delete_task">حذف المهمة</string>
 </resources>

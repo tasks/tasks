@@ -344,10 +344,6 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="gcal_TEA_has_event">Evento de llamada</string>
 	<string name="gcal_completed_title">%s (completado)</string>
 	<string name="gcal_GCP_default">Calendario predeterminado</string>
-	<string name="gtasks_FEx_header">Tareas de Google</string>
-	<string name="gtasks_FEx_creating_list">Creando lista...</string>
-	<string name="gtasks_FEx_create_list_dialog">Nuevo nombre de lista:</string>
-	<string name="gtasks_FEx_create_list_error">Error al crear la nueva lista</string>
 	<string name="CFC_gtasks_list_text">En la Lista: ?</string>
 	<string name="CFC_gtasks_list_name">en la Lista GTasks...</string>
 	<string name="gtasks_GTA_clearing">Limpiando tareas completadas...</string>
@@ -518,8 +514,6 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="TEA_tag_hint">Nueva lista</string>
 	<string name="tag_new_list">Nueva lista</string>
 	<string name="tag_no_title_error">Por favor, ¡introduce un nombre para la primera lista!</string>
-	<string name="tag_FEx_add_new">Nueva</string>
-	<string name="tag_FEx_header">Listas</string>
 	<string name="tag_FEx_untagged">Sin Categoría</string>
 	<string name="tag_cm_rename">Renombrar lista</string>
 	<string name="tag_cm_delete">Eliminar lista</string>

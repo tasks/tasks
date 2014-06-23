@@ -338,11 +338,7 @@
 	<string name="gcal_TEA_has_event">Evènement d\'appel</string>
 	<string name="gcal_completed_title">%s (complété)</string>
 	<string name="gcal_GCP_default">Agenda par défaut</string>
-	<string name="gtasks_FEx_header">Google Tâches</string>
 	<string name="gtasks_FEx_title">Google Tâches : %s</string>
-	<string name="gtasks_FEx_creating_list">Création de la liste...</string>
-	<string name="gtasks_FEx_create_list_dialog">Nom de la nouvelle liste :</string>
-	<string name="gtasks_FEx_create_list_error">Impossible de créer une nouvelle liste</string>
 	<string name="CFC_gtasks_list_text">Dans la liste : ?</string>
 	<string name="CFC_gtasks_list_name">Dans la liste GTasks...</string>
 	<string name="gtasks_GTA_clearing">Suppression des tâches terminés</string>
@@ -513,8 +509,6 @@
 	<string name="TEA_tag_hint">Nouvelle liste</string>
 	<string name="tag_new_list">Nouvelle liste</string>
 	<string name="tag_no_title_error">Veuillez d\'abord entrer un nom pour cette liste.</string>
-	<string name="tag_FEx_add_new">Nouveau</string>
-	<string name="tag_FEx_header">Listes</string>
 	<string name="tag_FEx_untagged">Non classé</string>
 	<string name="tag_cm_rename">Renommer la liste</string>
 	<string name="tag_cm_delete">Supprimer la liste</string>

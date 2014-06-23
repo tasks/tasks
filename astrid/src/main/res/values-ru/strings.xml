@@ -344,11 +344,7 @@
 	<string name="gcal_TEA_has_event">Календарное событие</string>
 	<string name="gcal_completed_title">%s (выполнено)</string>
 	<string name="gcal_GCP_default">Календарь по умолчанию</string>
-	<string name="gtasks_FEx_header">Задачи Google</string>
 	<string name="gtasks_FEx_title">Задачи Google: %s</string>
-	<string name="gtasks_FEx_creating_list">Создание списка...</string>
-	<string name="gtasks_FEx_create_list_dialog">Имя нового списка:</string>
-	<string name="gtasks_FEx_create_list_error">Ошибка при создании нового списка</string>
 	<string name="CFC_gtasks_list_text">В Списке: ?</string>
 	<string name="CFC_gtasks_list_name">В GTask Список...</string>
 	<string name="gtasks_GTA_clearing">Очистка выполненных задач...</string>
@@ -519,8 +515,6 @@
 	<string name="TEA_tag_hint">Новый список</string>
 	<string name="tag_new_list">Новый список</string>
 	<string name="tag_no_title_error">Пожалуйста, для начала введите название списка!</string>
-	<string name="tag_FEx_add_new">Новый</string>
-	<string name="tag_FEx_header">Списки</string>
 	<string name="tag_FEx_untagged">Без категории</string>
 	<string name="tag_cm_rename">Переименовать список</string>
 	<string name="tag_cm_delete">Удалить список</string>

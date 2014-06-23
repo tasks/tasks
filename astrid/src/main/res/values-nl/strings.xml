@@ -339,11 +339,7 @@
 	<string name="gcal_TEA_has_event">Agenda-item</string>
 	<string name="gcal_completed_title">%s (voltooid)</string>
 	<string name="gcal_GCP_default">Standaard agenda</string>
-	<string name="gtasks_FEx_header">Google Taken</string>
 	<string name="gtasks_FEx_title">Google Taken: %s</string>
-	<string name="gtasks_FEx_creating_list">Lijst wordt gemaakt...</string>
-	<string name="gtasks_FEx_create_list_dialog">Naam nieuwe lijst:</string>
-	<string name="gtasks_FEx_create_list_error">Fout bij aanmaken nieuwe lijst</string>
 	<string name="CFC_gtasks_list_text">In lijst: ?</string>
 	<string name="CFC_gtasks_list_name">In GTasks lijst...</string>
 	<string name="gtasks_GTA_clearing">Verwijderen voltooide taken...</string>
@@ -514,8 +510,6 @@
 	<string name="TEA_tag_hint">Nieuwe lijst</string>
 	<string name="tag_new_list">Nieuwe lijst</string>
 	<string name="tag_no_title_error">Voer a.u.b. eerst een naam in voor deze lijst!</string>
-	<string name="tag_FEx_add_new">Nieuw</string>
-	<string name="tag_FEx_header">Lijsten</string>
 	<string name="tag_FEx_untagged">Niet gecategoriseerd</string>
 	<string name="tag_cm_rename">Lijst hernoemen</string>
 	<string name="tag_cm_delete">Lijst verwijderen</string>

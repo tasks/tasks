@@ -349,11 +349,7 @@
 	<string name="gcal_TEA_has_event">달력 이벤트</string>
 	<string name="gcal_completed_title">%s (완료)</string>
 	<string name="gcal_GCP_default">기본 달력</string>
-	<string name="gtasks_FEx_header">구글 일정 (Goodle Tasks)</string>
 	<string name="gtasks_FEx_title">구글 일정: %s</string>
-	<string name="gtasks_FEx_creating_list">목록 만들기...</string>
-	<string name="gtasks_FEx_create_list_dialog">새 목록 이름:</string>
-	<string name="gtasks_FEx_create_list_error">새 목록을 만드는 중 에러가 발생했습니다</string>
 	<string name="CFC_gtasks_list_text">목록에: ?</string>
 	<string name="CFC_gtasks_list_name">GTasks 목록에...</string>
 	<string name="gtasks_GTA_clearing">완료한 일정을 삭제하는 중...</string>
@@ -523,8 +519,6 @@
 	<string name="TEA_tag_hint">새 목록</string>
 	<string name="tag_new_list">새 목록</string>
 	<string name="tag_no_title_error">이 목록의 이름을 먼저 입력하세요!</string>
-	<string name="tag_FEx_add_new">새로 만들기</string>
-	<string name="tag_FEx_header">목록</string>
 	<string name="tag_FEx_untagged">미분류 일정</string>
 	<string name="tag_cm_rename">목록 이름 바꾸기</string>
 	<string name="tag_cm_delete">목록 지우기</string>

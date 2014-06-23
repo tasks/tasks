@@ -291,11 +291,7 @@
 	<string name="gcal_TEA_has_event">Takvim olayı</string>
 	<string name="gcal_completed_title">%s (tamamlandı)</string>
 	<string name="gcal_GCP_default">Öntanımlı Takvim</string>
-	<string name="gtasks_FEx_header">Google Görevleri</string>
 	<string name="gtasks_FEx_title">Google Görevleri: %s</string>
-	<string name="gtasks_FEx_creating_list">Liste oluşturuluyor...</string>
-	<string name="gtasks_FEx_create_list_dialog">Yeni Liste Adı:</string>
-	<string name="gtasks_FEx_create_list_error">Yeni liste oluşturmada hata</string>
 	<string name="CFC_gtasks_list_text">Liste içinde: ?</string>
 	<string name="CFC_gtasks_list_name">Gtasks Listesi içinde...</string>
 	<string name="gtasks_GTA_clearing">Tamamlanan görevler temizleniyor...</string>
@@ -452,8 +448,6 @@
 	<string name="TEA_tag_hint">Yeni liste</string>
 	<string name="tag_new_list">Yeni Liste</string>
 	<string name="tag_no_title_error">Lütfen bu liste için isim girin!</string>
-	<string name="tag_FEx_add_new">Yeni</string>
-	<string name="tag_FEx_header">Listeler</string>
 	<string name="tag_cm_rename">Listeyi yeniden adlandır</string>
 	<string name="tag_cm_delete">Listeyi Sil</string>
 	<string name="DLG_delete_this_tag_question">Bu Listeyi Sil: %s? (Hiçbir görev silinmeyecektir.)</string>

@@ -299,9 +299,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="gcal_TEA_has_event">Evento del calendario</string>
 	<string name="gcal_completed_title">%s (completato)</string>
 	<string name="gcal_GCP_default">Calendario Predefinito</string>
-	<string name="gtasks_FEx_creating_list">Creazione della lista...</string>
-	<string name="gtasks_FEx_create_list_dialog">Nome Nuova Lista:</string>
-	<string name="gtasks_FEx_create_list_error">Errore nel creare un nuovo elenco</string>
 	<string name="CFC_gtasks_list_text">Nella lista: ?</string>
 	<string name="CFC_gtasks_list_name">Nella lista GTasks...</string>
 	<string name="gtasks_GTA_clearing">Pulizia task completi...</string>
@@ -451,8 +448,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="TEA_tag_hint">Nuova lista</string>
 	<string name="tag_new_list">Nuova lista</string>
 	<string name="tag_no_title_error">Per cortesia, prima inserisci un nome per questa lista</string>
-	<string name="tag_FEx_add_new">Nuova</string>
-	<string name="tag_FEx_header">Liste</string>
 	<string name="tag_cm_rename">Rinomina Lista</string>
 	<string name="tag_cm_delete">Cancella Lista</string>
 	<string name="DLG_delete_this_tag_question">Cancellare questa Lista: %s? (Nessuna attività sarà cancellata.)</string>

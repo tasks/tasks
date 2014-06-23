@@ -261,7 +261,6 @@
 	<string name="repeat_detail_duedate">%s</string>
 	<string name="repeat_detail_completion">完了日から %s</string>
 	<string name="tag_new_list">新しいリスト</string>
-	<string name="tag_FEx_header">リスト</string>
 	<string name="TEA_no_tags_modified">変更されませんでした</string>
 	<string name="tag_settings_title">Settings:</string>
 	<string name="TLA_menu_support">サポート</string>

@@ -343,11 +343,7 @@
 	<string name="gcal_TEA_has_event">אירוע יומן</string>
 	<string name="gcal_completed_title">%s (בוצעה)</string>
 	<string name="gcal_GCP_default">ברירת מחדל ליומן</string>
-	<string name="gtasks_FEx_header">״משימות גוגל״</string>
 	<string name="gtasks_FEx_title">״משימות גוגל״: %s</string>
-	<string name="gtasks_FEx_creating_list">יוצרת רשימה...</string>
-	<string name="gtasks_FEx_create_list_dialog">שם הרשימה החדשה:</string>
-	<string name="gtasks_FEx_create_list_error">יצירת משימה חדשה נכשלה</string>
 	<string name="CFC_gtasks_list_text">ברשימה: ?</string>
 	<string name="CFC_gtasks_list_name">ברשימה של ״משימות גוגל״</string>
 	<string name="gtasks_GTA_clearing">מְסִירָה משימות שבוצעו...</string>
@@ -515,8 +511,6 @@
 	<string name="TEA_tag_hint">רשימה חדשה</string>
 	<string name="tag_new_list">רשימה חדשה</string>
 	<string name="tag_no_title_error">אנא הכנס שם לרשימה זו</string>
-	<string name="tag_FEx_add_new">חדש</string>
-	<string name="tag_FEx_header">רשימות</string>
 	<string name="tag_cm_rename">שנה שם רשימה</string>
 	<string name="tag_cm_delete">מַחֲקִי רשימה</string>
 	<string name="DLG_delete_this_tag_question">למחוק את הרשימה %s? (המשימות שברשימה לא תימחקנה.)</string>

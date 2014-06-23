@@ -344,11 +344,7 @@
 	<string name="gcal_TEA_has_event">Kol dogodek</string>
 	<string name="gcal_completed_title">%s (končani)</string>
 	<string name="gcal_GCP_default">Privzeti koledar</string>
-	<string name="gtasks_FEx_header">Google Naloge</string>
 	<string name="gtasks_FEx_title">Google Naloge: %s</string>
-	<string name="gtasks_FEx_creating_list">Ustvarjam seznam</string>
-	<string name="gtasks_FEx_create_list_dialog">Naziv novega seznama</string>
-	<string name="gtasks_FEx_create_list_error">Napaka pri stvaritvi novega seznama</string>
 	<string name="CFC_gtasks_list_text">V seznamu: ?</string>
 	<string name="CFC_gtasks_list_name">Na GNaloge seznamu...</string>
 	<string name="gtasks_GTA_clearing">Brišem dokončane opravke...</string>
@@ -519,8 +515,6 @@
 	<string name="TEA_tag_hint">Nov seznam</string>
 	<string name="tag_new_list">Nov seznam</string>
 	<string name="tag_no_title_error">Prosimo, vnesite naziv tega seznama najprej!</string>
-	<string name="tag_FEx_add_new">Novo</string>
-	<string name="tag_FEx_header">Seznami</string>
 	<string name="tag_FEx_untagged">Nerazvrščen</string>
 	<string name="tag_cm_rename">Preimenuj seznam</string>
 	<string name="tag_cm_delete">Zbriši seznam</string>

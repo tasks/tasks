@@ -223,8 +223,6 @@
 	<string name="gcal_TEA_showCalendar_label">Obrir Event del Calendari</string>
 	<string name="gcal_completed_title">%s (completada)</string>
 	<string name="gcal_GCP_default">Calendari per defecte</string>
-	<string name="gtasks_FEx_create_list_dialog">Nom de la llista nova:</string>
-	<string name="gtasks_FEx_create_list_error">S\'ha produït un error en crear la llista nova</string>
 	<string name="gtasks_GTA_clearing">S\'estan netejant les tasques completades...</string>
 	<string name="gtasks_GTA_clear_completed">Neteja les tasques completades</string>
 	<string name="gtasks_GLA_authenticating">S\'està autenticant...</string>
@@ -280,7 +278,6 @@
 	<string name="repeat_rescheduling_dialog_title_last_time">S\'ha completat la tasca recurrent «%s»</string>
 	<string name="TEA_tag_hint">Llista nova</string>
 	<string name="tag_new_list">Llista nova</string>
-	<string name="tag_FEx_header">Llistes</string>
 	<string name="tag_FEx_untagged">A cap llista</string>
 	<string name="tag_cm_delete">Suprimeix la llista</string>
 	<string name="DLG_delete_this_tag_question">Voleu suprimir aquesta llista: %s? (no se suprimirà cap tasca.)</string>

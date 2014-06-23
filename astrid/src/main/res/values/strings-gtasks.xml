@@ -3,22 +3,8 @@
 
     <!-- ============================================================= UI == -->
 
-    <!-- filters header: GTasks -->
-    <string name="gtasks_FEx_header">Google Tasks</string>
-    
-    <!-- filter category for GTasks lists -->
-    
     <!-- filter title for GTasks lists (%s => list name) -->
     <string name="gtasks_FEx_title">Google Tasks: %s</string>
-    
-    <!-- dialog prompt for creating a new gtasks list -->
-    <string name="gtasks_FEx_creating_list">Creating list...</string>
-    
-    <!-- dialog prompt for creating a new gtasks list -->
-    <string name="gtasks_FEx_create_list_dialog">New List Name:</string>
-    
-    <!-- error to show when list creation fails -->
-    <string name="gtasks_FEx_create_list_error">Error creating new list</string>
     
     <!-- short help title for Gtasks -->
     

@@ -21,7 +21,6 @@ import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.FilterWithUpdate;
@@ -123,21 +122,16 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
 
         ArrayList<FilterListItem> list = new ArrayList<>();
 
-        addTags(list);
+        list.addAll(filterFromTags(tagService.getTagList()));
 
         // transmit filter list
         return list.toArray(new FilterListItem[list.size()]);
     }
 
-    private void addTags(ArrayList<FilterListItem> list) {
-        List<Tag> tagList = tagService.getTagList();
-        list.add(filterFromTags(tagList.toArray(new Tag[tagList.size()]), R.string.tag_FEx_header));
-    }
-
-    private FilterCategory filterFromTags(Tag[] tags, int name) {
+    private List<Filter> filterFromTags(List<Tag> tags) {
         boolean shouldAddUntagged = preferences.getBoolean(R.string.p_show_not_in_list_filter, true);
 
-        ArrayList<Filter> filters = new ArrayList<>(tags.length);
+        List<Filter> filters = new ArrayList<>();
 
         Resources r = context.getResources();
 
@@ -156,7 +150,7 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
                 filters.add(f);
             }
         }
-        return new FilterCategory(context.getString(name), filters.toArray(new Filter[filters.size()]));
+        return filters;
     }
 
     protected Filter constructFilter(Context context, Tag tag) {

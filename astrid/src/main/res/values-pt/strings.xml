@@ -247,11 +247,7 @@
 	<string name="gcal_TEA_has_event">Evento de calendário</string>
 	<string name="gcal_completed_title">%s (terminada)</string>
 	<string name="gcal_GCP_default">Calendário padrão</string>
-	<string name="gtasks_FEx_header">Tarefas Google</string>
 	<string name="gtasks_FEx_title">Tarefas Google: %s</string>
-	<string name="gtasks_FEx_creating_list">Criação de lista...</string>
-	<string name="gtasks_FEx_create_list_dialog">Nome da nova lista:</string>
-	<string name="gtasks_FEx_create_list_error">Erro ao criar a lista</string>
 	<string name="CFC_gtasks_list_text">Na lista: ?</string>
 	<string name="CFC_gtasks_list_name">Na lista GTasks</string>
 	<string name="gtasks_GTA_clearing">Removendo tarefas terminadas</string>
@@ -346,8 +342,6 @@
 	<string name="TEA_tag_hint">Nova lista</string>
 	<string name="tag_new_list">Nova lista</string>
 	<string name="tag_no_title_error">Introduza o nome para esta lista!</string>
-	<string name="tag_FEx_add_new">Nova</string>
-	<string name="tag_FEx_header">Listas</string>
 	<string name="tag_FEx_untagged">Sem categoria</string>
 	<string name="tag_cm_rename">Mudar nome da lista</string>
 	<string name="tag_cm_delete">Eliminar lista</string>

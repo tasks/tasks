@@ -187,11 +187,7 @@
 	<string name="gcal_TEA_has_event">Cal-begivenhed</string>
 	<string name="gcal_completed_title">%s (fuldført)</string>
 	<string name="gcal_GCP_default">Standardkalender</string>
-	<string name="gtasks_FEx_header">Google Opgaver</string>
 	<string name="gtasks_FEx_title">Google Opgaver: %s</string>
-	<string name="gtasks_FEx_creating_list">Opretter liste...</string>
-	<string name="gtasks_FEx_create_list_dialog">Nyt listenavn:</string>
-	<string name="gtasks_FEx_create_list_error">Fejl ved oprettelse af ny liste</string>
 	<string name="gtasks_GPr_header">Google Tasks (beta!)</string>
 	<string name="locale_notification">Du har $NUM der matcher: $FILTER</string>
 	<string name="TEA_reminder_due">når deadline er nået</string>
@@ -255,8 +251,6 @@
 	<string name="TEA_tag_hint">Ny liste</string>
 	<string name="tag_new_list">Ny liste</string>
 	<string name="tag_no_title_error">Start venligst med at give denne liste et navn!</string>
-	<string name="tag_FEx_add_new">Ny</string>
-	<string name="tag_FEx_header">Lister</string>
 	<string name="tag_cm_rename">Omdøb liste</string>
 	<string name="tag_cm_delete">Slet liste</string>
 	<string name="DLG_rename_this_tag_header">Omdøb listen %s til:</string>

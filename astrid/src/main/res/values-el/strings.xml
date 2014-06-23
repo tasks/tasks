@@ -257,11 +257,7 @@
 	<string name="gcal_TEA_has_event">Event ημερολογίου</string>
 	<string name="gcal_completed_title">%s (έχει ολοκληρωθεί)</string>
 	<string name="gcal_GCP_default">Προεπιλεγμένο ημερολόγιο</string>
-	<string name="gtasks_FEx_header">Καθήκοντα Google</string>
 	<string name="gtasks_FEx_title">Καθήκοντα Google: %s</string>
-	<string name="gtasks_FEx_creating_list">Δημιουργία λίστας...</string>
-	<string name="gtasks_FEx_create_list_dialog">Νέο όνομα λίστας:</string>
-	<string name="gtasks_FEx_create_list_error">Σφάλμα κατα την δημιουργία λίστας</string>
 	<string name="CFC_gtasks_list_text">Στην λίστα: ?</string>
 	<string name="CFC_gtasks_list_name">Στην λίστα του GTasks...</string>
 	<string name="gtasks_GTA_clearing">Καθαρισμός ολοκληρωμένων καθηκόντων...</string>
@@ -372,8 +368,6 @@
 	<string name="TEA_tag_hint">Νέα λίστα</string>
 	<string name="tag_new_list">Νέα λίστα</string>
 	<string name="tag_no_title_error">Παρακαλώ εισάγετε ενα όνομα για την λίστα πρώτα!</string>
-	<string name="tag_FEx_add_new">Νέο</string>
-	<string name="tag_FEx_header">Λίστες</string>
 	<string name="tag_FEx_untagged">Μη κατηγοριοποιημένο</string>
 	<string name="tag_cm_rename">Μετονομασία λίστας</string>
 	<string name="tag_cm_delete">Διαγραφή λίστας</string>

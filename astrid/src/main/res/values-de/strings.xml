@@ -336,9 +336,6 @@
 	<string name="gcal_TEA_has_event">Kalendereintrag</string>
 	<string name="gcal_completed_title">%s (abgeschlossen)</string>
 	<string name="gcal_GCP_default">Standardkalender</string>
-	<string name="gtasks_FEx_creating_list">Liste wird erstellt …</string>
-	<string name="gtasks_FEx_create_list_dialog">Neuer Listenname:</string>
-	<string name="gtasks_FEx_create_list_error">Fehler beim Erstllen einer neuen Liste.</string>
 	<string name="CFC_gtasks_list_text">In der Liste: ?</string>
 	<string name="CFC_gtasks_list_name">In GTasks-Liste …</string>
 	<string name="gtasks_GTA_clearing">Erledigte Aufgaben werden entfernt …</string>
@@ -509,8 +506,6 @@
 	<string name="TEA_tag_hint">Wähle eine Liste</string>
 	<string name="tag_new_list">Neue Liste</string>
 	<string name="tag_no_title_error">Bitte gib zuerst einen Namen für die Liste ein!</string>
-	<string name="tag_FEx_add_new">Neu</string>
-	<string name="tag_FEx_header">Listen</string>
 	<string name="tag_FEx_untagged">Nicht kategorisiert</string>
 	<string name="tag_cm_rename">Liste umbenennen</string>
 	<string name="tag_cm_delete">Liste löschen</string>

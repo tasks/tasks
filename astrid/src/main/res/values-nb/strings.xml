@@ -222,8 +222,6 @@
 	<string name="repeat_detail_completion">%s etter avslutning</string>
 	<string name="TEA_tag_hint">Ny liste</string>
 	<string name="tag_new_list">Ny liste</string>
-	<string name="tag_FEx_add_new">Ny</string>
-	<string name="tag_FEx_header">Lister</string>
 	<string name="tag_cm_delete">Slett liste</string>
 	<string name="TEA_no_tags_modified">Ingen endringer gjort</string>
 	<string name="tag_settings_title">Settings:</string>

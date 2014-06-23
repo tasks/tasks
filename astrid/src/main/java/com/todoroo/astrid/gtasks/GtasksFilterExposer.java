@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
@@ -22,7 +21,6 @@ import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.FilterCategoryWithNewButton;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.PermaSql;
@@ -107,15 +105,7 @@ public class GtasksFilterExposer extends InjectingBroadcastReceiver implements A
             listFilters[i] = filterFromList(gtasksMetadata, context, lists[i]);
         }
 
-        FilterCategoryWithNewButton listsCategory = new FilterCategoryWithNewButton(context.getString(R.string.gtasks_FEx_header),
-                listFilters);
-        listsCategory.label = context.getString(R.string.tag_FEx_add_new);
-        listsCategory.intent = PendingIntent.getActivity(context, 0, new Intent(context, GtasksListAdder.class), 0);
-
-        // transmit filter list
-        FilterListItem[] list = new FilterListItem[1];
-        list[0] = listsCategory;
-        return list;
+        return listFilters;
     }
 
     private boolean noListsToShow() {

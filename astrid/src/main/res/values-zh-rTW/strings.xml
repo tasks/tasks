@@ -318,11 +318,7 @@
 	<string name="gcal_TEA_has_event">日曆活動</string>
 	<string name="gcal_completed_title">%s （已完成）</string>
 	<string name="gcal_GCP_default">預設行事曆</string>
-	<string name="gtasks_FEx_header">Google 工作表</string>
 	<string name="gtasks_FEx_title">Google 工作表：%s</string>
-	<string name="gtasks_FEx_creating_list">正在創建列表……</string>
-	<string name="gtasks_FEx_create_list_dialog">新列表名：</string>
-	<string name="gtasks_FEx_create_list_error">創建新列表失敗</string>
 	<string name="CFC_gtasks_list_text">列表內容: ?</string>
 	<string name="CFC_gtasks_list_name">在Google任務工作列表中...</string>
 	<string name="gtasks_GTA_clearing">正在清除已完成任務工作……</string>
@@ -485,8 +481,6 @@
 	<string name="TEA_tag_hint">新建列表</string>
 	<string name="tag_new_list">新建列表</string>
 	<string name="tag_no_title_error">請先為此列表鍵入一個名稱！</string>
-	<string name="tag_FEx_add_new">添加</string>
-	<string name="tag_FEx_header">列表</string>
 	<string name="tag_FEx_untagged">未分類</string>
 	<string name="tag_cm_rename">重命名列表</string>
 	<string name="tag_cm_delete">刪除列表</string>

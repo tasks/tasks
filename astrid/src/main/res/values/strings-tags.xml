@@ -19,12 +19,6 @@
   
   <!-- ========================================================== Filters == -->
   
-  <!-- filter button to add tag -->
-  <string name="tag_FEx_add_new">New</string>
-  
-  <!-- filter header for tags -->
-  <string name="tag_FEx_header">Lists</string>
-  
   <!-- slide 10d: filter for untagged tasks -->
   <string name="tag_FEx_untagged">Uncategorized</string>
   

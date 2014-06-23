@@ -332,11 +332,7 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="gcal_TEA_has_event">Kalenderhändelse</string>
 	<string name="gcal_completed_title">%s (avslutad)</string>
 	<string name="gcal_GCP_default">Standardkalender</string>
-	<string name="gtasks_FEx_header">Google Uppgifter</string>
 	<string name="gtasks_FEx_title">Google Uppgifter: %s</string>
-	<string name="gtasks_FEx_creating_list">Skapar lista...</string>
-	<string name="gtasks_FEx_create_list_dialog">Nytt listnamn:</string>
-	<string name="gtasks_FEx_create_list_error">Det gick inte att skapa en ny lista</string>
 	<string name="CFC_gtasks_list_text">I listan: ?</string>
 	<string name="CFC_gtasks_list_name">I lista på Google Uppgifter...</string>
 	<string name="gtasks_GTA_clearing">Rensar bort färdiga uppgifter...</string>
@@ -505,8 +501,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="TEA_tag_hint">Ny lista</string>
 	<string name="tag_new_list">Ny lista</string>
 	<string name="tag_no_title_error">Ange först ett namn på listan!</string>
-	<string name="tag_FEx_add_new">Ny</string>
-	<string name="tag_FEx_header">Listor</string>
 	<string name="tag_FEx_untagged">Ingen kategori</string>
 	<string name="tag_cm_rename">Byt namn på listan</string>
 	<string name="tag_cm_delete">Radera listan</string>
