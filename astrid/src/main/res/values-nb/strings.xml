@@ -46,6 +46,8 @@
 	<string name="TAd_deletedFormat">%s [slettet]</string>
 	<string name="TAd_actionEditTask">Rediger</string>
 	<string name="TAd_contextEditTask">Rediger oppgave</string>
+	<string name="TAd_contextCopyTask">Kopier oppgave</string>
+	<string name="TAd_contextDeleteTask">Slett oppgave</string>
 	<string name="TAd_contextUndeleteTask">Gjenopprett slettet oppgave</string>
 	<string name="TAd_contextPurgeTask">Rens ut oppgave</string>
 	<string name="SSD_hidden_title">Skjulte oppgaver</string>
@@ -87,8 +89,14 @@
 	<string name="TEA_control_importance">Viktighet</string>
 	<string name="TEA_control_lists">Lister</string>
 	<string name="TEA_control_notes">Notater</string>
+	<string name="TEA_control_files">Filer</string>
+	<string name="TEA_control_reminders">Påminnelser</string>
+	<string name="hide_until_prompt">Vis i min liste</string>
 	<string name="TEA_new_task">Ny oppgave</string>
+	<string name="MCA_ignore">Ignorer</string>
+	<string name="CRA_create_list">Opprett liste</string>
 	<string name="CRA_create_new">Opprett ny</string>
+	<string name="CRA_use_existing">Bruk eksisterende</string>
 	<string name="CRA_more_options">Flere alternativer</string>
 	<string name="CRA_dont_invite">Nei takk</string>
 	<string name="EPr_title">Tasks: Innstillinger</string>
@@ -150,6 +158,9 @@
 	</string-array>
 	<string name="CFC_importance_text">Viktighet minst ?</string>
 	<string name="CFC_importance_name">Viktighet...</string>
+	<string name="CFC_tag_text">Liste: ?</string>
+	<string name="CFC_tag_name">Liste...</string>
+	<string name="CFC_tag_contains_text">Listenavn inneholder: ?</string>
 	<string name="CFC_title_contains_name">Tittel inneholder...</string>
 	<string name="CFC_title_contains_text">Tittel inneholder: ?</string>
 	<string name="gcal_TEA_error">Klarte ikke å legge oppgave til kalender!</string>
@@ -195,6 +206,7 @@
 	<string name="repeat_enabled">Gjentakelser</string>
 	<string name="repeat_every">Hver %d</string>
 	<string name="repeat_interval_prompt">Gjentakelsesintervall</string>
+	<string name="repeat_dont">Ikke gjenta</string>
 	<string-array name="repeat_until_shortcuts">
 		<item>Forever</item>
 		<item>Specific Day</item>
@@ -212,6 +224,7 @@
 	<string name="tag_new_list">Ny liste</string>
 	<string name="tag_FEx_add_new">Ny</string>
 	<string name="tag_FEx_header">Lister</string>
+	<string name="tag_cm_delete">Slett liste</string>
 	<string name="TEA_no_tags_modified">Ingen endringer gjort</string>
 	<string name="tag_settings_title">Settings:</string>
 	<string name="TPl_notification">Tidtaker aktiv for %s!</string>

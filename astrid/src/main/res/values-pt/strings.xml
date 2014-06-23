@@ -5,81 +5,96 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
-	<string name="actfm_picture_camera">Tirar uma Imagem</string>
-	<string name="actfm_picture_gallery">Seleccionar da Galeria</string>
-	<string name="actfm_picture_clear">Limpar Imagem</string>
+	<string name="actfm_picture_camera">Tirar uma foto</string>
+	<string name="actfm_picture_gallery">Escolher da galeria</string>
+	<string name="actfm_picture_clear">Limpar imagem</string>
 	<string name="TVA_add_comment">Adicionar um comentário...</string>
-	<string name="actfm_TVA_menu_refresh">Actualizar</string>
+	<string name="actfm_TVA_menu_refresh">Recarregar</string>
 	<string name="actfm_TVA_tag_label">Lista</string>
-	<string name="actfm_TVA_tag_name_hint">Introduza o nome da lista</string>
+	<string name="actfm_TVA_tag_name_hint">Escreva o nome da lista</string>
+	<string name="actfm_GAA_title">Escolha a conta Google a utilizar:</string>
 	<string name="alarm_ACS_label">Alarmes</string>
-	<string name="alarm_ACS_button">Adicionar um Alarme</string>
-	<string name="backup_BPr_header">Cópias de segurança</string>
+	<string name="alarm_ACS_button">Adicionar alarme</string>
 	<string name="backup_BPr_group_status">Estado</string>
-	<string name="backup_status_success">Ultimo: %s</string>
-	<string name="backup_status_failed">Ultima cópia de segurança falhou.</string>
-	<string name="backup_status_failed_subtitle">(pressione para mostrar o erro)</string>
-	<string name="backup_status_never">Nunca fez uma cópia de segurança!</string>
+	<string name="backup_status_success">Último backup:\n%s</string>
+	<string name="backup_status_failed">Último backup falhou</string>
+	<string name="backup_status_failed_subtitle">(clique para ver o erro)</string>
+	<string name="backup_status_never">Nunca fez um backup!</string>
 	<string name="backup_BPr_group_options">Opções</string>
-	<string name="backup_BPr_auto_title">Cópia de Segurança Automática</string>
-	<string name="backup_BPr_auto_disabled">Cópias de Segurança automáticas desligadas</string>
-	<string name="backup_BPr_auto_enabled">A cópia de segurança irá ocorrer diáriamente</string>
-	<string name="backup_BAc_import">Importar Tarefas</string>
-	<string name="backup_BAc_export">Exportar Tarefas</string>
-	<string name="export_toast">Cópia de Segurança de %1$s para %2$s</string>
-	<string name="export_toast_no_tasks">Não existem Tarefas para Exportar.</string>
+	<string name="backup_BPr_auto_title">Backups automáticos</string>
+	<string name="backup_BPr_auto_disabled">Backups automáticos desativados</string>
+	<string name="backup_BPr_auto_enabled">Backups diários</string>
+	<string name="backup_BAc_import">Importar tarefas</string>
+	<string name="backup_BAc_export">Exportar tarefas</string>
+	<string name="export_toast">Backup de %1$s para %2$s.</string>
+	<string name="export_toast_no_tasks">Nenhuma tarefa para exportar.</string>
 	<string name="export_progress_title">A exportar...</string>
-	<string name="import_summary_title">Sumário de Restauro</string>
-	<string name="import_summary_message">O ficheiro %1$s continha %2$s.\n\n %3$s importadas,\n %4$s já existiam\n %5$s tinham erros\n</string>
+	<string name="import_summary_title">Resumo de restauro</string>
+	<string name="import_summary_message">Ficheiro %1$s continha %2$s.\n\n
+%3$s importadas,\n
+%4$s já existiam\n
+%5$s possuem erros\n</string>
 	<string name="import_progress_title">A importar...</string>
 	<string name="import_progress_read">A ler tarefa %d...</string>
 	<string name="DLG_error_sdcard">Não é possível aceder à pasta: %s</string>
 	<string name="DLG_error_sdcard_general">Não é possível aceder ao seu cartão SD!</string>
-	<string name="import_file_prompt">Seleccione um Ficheiro para Restaurar</string>
-	<string name="app_name">Tarefas Tasks</string>
+	<string name="import_file_prompt">Selecione o ficheiro a restaurar</string>
 	<string name="read_permission_label">Permissões do Tasks</string>
 	<string name="read_permission_desc">ler tarefas, mostrar filtros de tarefas</string>
 	<string name="write_permission_label">Permissões do Tasks</string>
 	<string name="write_permission_desc">criar novas tarefas, editar tarefas existentes</string>
 	<string name="DLG_delete_this_task_question">Remover esta tarefa?</string>
-	<string name="DLG_delete_this_item_question">Apagar este item: %s?</string>
-	<string name="DLG_upgrading">A actualizar as suas tarefas...</string>
-	<string name="DLG_hour_minutes">Tempo (horas : minutos)</string>
+	<string name="DLG_delete_this_item_question">Remover este item: %s?</string>
+	<string name="DLG_upgrading">Atualização de tarefas...</string>
+	<string name="DLG_hour_minutes">Tempo (horas:minutos)</string>
 	<string name="DLG_loading">Carregando...</string>
-	<string name="WID_dateButtonUnset">Pressione para confirmar</string>
-	<string name="TLA_no_items">Sem Tarefas!</string>
-	<string name="TLA_menu_sort">Sort &amp; Hidden</string>
+	<string name="WID_dateButtonUnset">Clique para definir</string>
+	<string name="TLA_no_items">Não existem tarefas!\nQuer adicionar uma?</string>
+	<string name="TLA_menu_sort">Ordenação</string>
 	<string name="TLA_menu_settings">Definições</string>
 	<string name="TLA_custom">Personalizado</string>
-	<string name="TAd_hiddenFormat">%s [omissa]</string>
-	<string name="TAd_deletedFormat">%s [apagado]</string>
-	<string name="TAd_completed">Terminado\n%s</string>
+	<string name="TAd_hiddenFormat">%s [oculta]</string>
+	<string name="TAd_deletedFormat">%s [eliminada]</string>
+	<string name="TAd_completed">Terminada\n%s</string>
 	<string name="TAd_actionEditTask">Editar</string>
-	<string name="TAd_contextEditTask">Editar Tarefa</string>
-	<string name="TAd_contextUndeleteTask">Recuperar Tarefa</string>
-	<string name="SSD_hidden_title">Tarefas escondidas</string>
+	<string name="TAd_contextEditTask">Editar tarefa</string>
+	<string name="TAd_contextUndeleteTask">Recuperar tarefa</string>
+	<string name="SSD_hidden_title">Tarefas ocultas</string>
 	<string name="SSD_completed">Mostrar Tarefas Completas</string>
+	<string name="SSD_hidden">Mostrar tarefas ocultas</string>
 	<string name="SSD_deleted">Mostrar tarefas apagadas</string>
+	<string name="SSD_sort_drag">Ordem manual com subtarefas</string>
 	<string name="SSD_sort_auto">Ordenação Inteligente Tasks</string>
 	<string name="SSD_sort_alpha">Por Título</string>
+	<string name="SSD_sort_due">Por data limite</string>
 	<string name="SSD_sort_importance">Por Importância</string>
 	<string name="SSD_sort_modified">Por Última Modificação</string>
 	<string name="SSD_sort_reverse">Ordem Inversa</string>
 	<string name="SSD_save_temp">Só Uma Vez</string>
 	<string name="SSD_save_always">Sempre</string>
-	<string name="FLA_context_shortcut">Criar atalho no Ambiente de Trabalho</string>
-	<string name="FLA_shortcut_dialog_title">Criar Atalho</string>
+	<string name="FLA_context_shortcut">Criar atalho no ecrã</string>
+	<string name="FLA_shortcut_dialog_title">Criar atalho</string>
 	<string name="FLA_shortcut_dialog">Nome do atalho:</string>
-	<string name="FLA_search_hint">Procurar Tarefas</string>
-	<string name="FLA_search_filter">Coincidentes \'%s\'</string>
-	<string name="FLA_toast_onCreateShortcut">Atalho Criado: %s</string>
-	<string name="TEA_title_hint">Resumo da Tarefa</string>
-	<string name="TEA_importance_label">Importância</string>
-	<string name="TEA_note_label">Notas</string>
-	<string name="TEA_notes_hint">Introduzir notas na tarefa...</string>
+	<string name="FLA_search_hint">Procurar tarefas</string>
+	<string name="FLA_search_filter">Coincidente com %s</string>
+	<string name="FLA_toast_onCreateShortcut">Atalho criado: %s</string>
+	<string name="FLA_new_filter">Novo filtro</string>
+	<string name="FLA_new_list">Nova lista</string>
+	<string name="FLA_no_filter_selected">Não selecionou o filtro! Selecione um filtro ou uma lista.</string>
+	<string name="TEA_title_hint">Nome da tarefa</string>
+	<string name="TEA_importance_label">Prioridade</string>
+	<string name="TEA_deadline_hint">Definir data limite</string>
+	<string name="TEA_hideUntil_label">Ocultar até</string>
+	<string name="TEA_hideUntil_display">Ocultar até %s</string>
+	<string name="TEA_note_label">Descrição</string>
+	<string name="TEA_notes_empty">Descrição...</string>
+	<string name="TEA_notes_hint">Introduzir descrição da tarefa...</string>
 	<string name="TEA_estimatedDuration_label">Quanto tempo irá durar?</string>
-	<string name="TEA_elapsedDuration_label">Tempo já gasto na tarefa</string>
-	<string name="TEA_menu_save">Guardar Alterações</string>
+	<string name="TEA_elapsedDuration_label">Tempo já gasto</string>
+	<string name="TEA_menu_save">Gravar alterações</string>
+	<string name="TEA_menu_discard_changes">Rejeitar alterações</string>
+	<string name="TEA_tab_activity">Atividade</string>
+	<string name="TEA_timer_elap">Decorrido %s</string>
 	<string-array name="TEA_urgency">
 		<item>No date</item>
 		<item>Specific day</item>
@@ -90,32 +105,123 @@
 		<item>In two weeks</item>
 		<item>Next month</item>
 	</string-array>
-	<string name="TEA_control_importance">Importância</string>
+	<string name="TEA_no_time">Sem tempo</string>
+	<string name="TEA_control_when">Quando</string>
+	<string name="TEA_control_importance">Prioridade</string>
 	<string name="TEA_control_lists">Listas</string>
-	<string name="TEA_control_notes">Notas</string>
-	<string name="EPr_appearance_header">Aparência</string>
-	<string name="EPr_fontSize_title">Tamanho da Lista de Tarefas</string>
-	<string name="EPr_fontSize_desc">Tamanho de Letra na página principal de listagem</string>
+	<string name="TEA_control_notes">Descrição</string>
+	<string name="TEA_control_files">Ficheiros</string>
+	<string name="TEA_control_reminders">Lembretes</string>
+	<string name="TEA_control_timer">Controlos temporais</string>
+	<string name="TEA_control_hidden_section">----Ocultar sempre----</string>
+	<string name="hide_until_prompt">Mostrar na minha lista</string>
+	<string name="TEA_load_more">Carregar mais...</string>
+	<string name="TEA_when_dialog_title">Quando é a data limite?</string>
+	<string name="TEA_new_task">Nova tarefa</string>
+	<string name="MCA_title">%1$s\nchamado a %2$s</string>
+	<string name="MCA_return_call">Chamar agora</string>
+	<string name="MCA_add_task">Chamar mais tarde</string>
+	<string name="MCA_ignore">Ignorar</string>
+	<string name="MCA_ignore_title">Ignorar chamadas perdidas?</string>
+	<string name="MCA_ignore_body">Você ignorou várias chamadas perdidas. Pretende que o Tasks não o notifique novamente?</string>
+	<string name="MCA_ignore_all">Ignorar todas as chamadas</string>
+	<string name="MCA_ignore_this">Ignorar apenas esta chamada</string>
+	<string name="CRA_ignore">Ignorar</string>
+	<string name="CRA_title">Precisa de uma lista de encontros?</string>
+	<string name="CRA_ignore_title">Ignorar todos os eventos do calendário?</string>
+	<string name="CRA_ignore_body">Você ignorou vários eventos de calendário. Pretende que o Tasks não o notifique novamente?</string>
+	<string name="CRA_ignore_all">Ignorar todos os eventos</string>
+	<string name="CRA_ignore_this">Ignorar apenas este evento</string>
+	<string name="CRA_speech_bubble_start">Parece que %s está perto de ser iniciada. Quer criar uma lista para os itens da ação?</string>
+	<string name="CRA_speech_bubble_end">Parece que %s está terminada. Quer criar uma lista para os itens da ação?</string>
+	<string name="CRA_create_list">Criar lista</string>
+	<string name="CRA_postpone">Mais tarde</string>
+	<string name="CRA_list_exists_title">Lista existente</string>
+	<string name="CRA_list_exists_body">Já existe uma lista com o nome %s. Pretende utilizar a lista existente ou criar uma para este evento?</string>
+	<string name="CRA_create_new">Criar nova</string>
+	<string name="CRA_use_existing">Usar existente</string>
+	<string name="CRA_created_list_dialog">Lista %s criada.</string>
+	<string name="CRA_one_attendee">%s está presente.</string>
+	<string name="CRA_two_attendees">%1$s e %2$s estão presentes.</string>
+	<string name="CRA_many_attendees">%1$s, %2$s, e %3$d mais estão presentes.</string>
+	<string name="CRA_invitation_prompt">Gostaria de os convidar?</string>
+	<string name="CRA_calendar_reminders_pref_title">Assistente de calendário</string>
+	<string name="CRA_calendar_reminders_pref_desc_disabled">O Tasks não o lembrará sobre os próximos eventos do calendário</string>
+	<string name="CRA_calendar_reminders_pref_desc_enabled">O Tasks irá lembra-lo sobre os próximos eventos de calendário e pedir a sua preparação</string>
+	<string name="CRA_share_list_title">Partilhar lista?</string>
+	<string name="CRA_invite_attendees">Convidar participantes</string>
+	<string name="CRA_more_options">Mais opções</string>
+	<string name="CRA_dont_invite">Não obrigado</string>
+	<string name="CRA_list_created_title">Lista criada!</string>
+	<string name="CRA_default_list_name">Itens de ação: %s</string>
+	<string name="EPr_title">Definições</string>
+	<string name="EPr_deactivated">desativada</string>
+	<string name="EPr_appearance_header">Aspeto</string>
+	<string name="EPr_appearance_summary">Temas, widgets, linhas de tarefa e ecrã de edição</string>
+	<string name="EPr_fontSize_title">Tamanho da lista de tarefas</string>
+	<string name="EPr_filters_to_show_title">Filtros a mostrar</string>
+	<string name="EPr_showSmartConfirmation_title">Mostrar confirmação para lembretes inteligentes</string>
+	<string name="EPr_fontSize_desc">Tamanho da letra na página principal da lista</string>
+	<string name="EPr_showNotes_title">Mostrar descrição na tarefa</string>
+	<string name="EPr_edit_screen_options">Opções do ecrã de edição</string>
+	<string name="EPr_beastMode_title">Ordem do ecrã de edição</string>
+	<string name="EPr_time_increment">Incrementos de 5 minutos</string>
+	<string name="EPr_use_date_shortcuts">Usar atalhos de data</string>
+	<string name="EPr_show_timer_shortcut">Mostrar atalho do temporizador</string>
+	<string name="EPr_beastMode_desc">Personalizar o esquema do ecrã de edição de tarefas</string>
+	<string name="EPr_beastMode_reset">Restaurar definições originas</string>
+	<string-array name="EPr_task_row_styles">
+		<item>Original</item>
+		<item>Simples</item>
+		<item>Apenas título</item>
+	</string-array>
+	<string-array name="EPr_task_row_style_descriptions">
+		<item>Restringir título a duas linhas com data à direita</item>
+		<item>Restringir título a uma linha e com data e lista abaixo</item>
+		<item>Título com uma linha</item>
+	</string-array>
+	<string name="EPr_hide_plus_button">Ocultar botão Mais</string>
+	<string name="EPr_list_view">Vista em lista</string>
+	<string name="EPr_show_task_edit_comments">Mostrar comentários na edição de tarefa</string>
+	<string name="EPr_taskRowPrefs_title">Aspeto da linha de tarefa</string>
 	<string name="TWi_loading">Carregando...</string>
-	<string name="task_killer_help_ok">Eu Não Irei Matar Tasks!</string>
+	<string name="task_killer_help_ok">Não destruirei tarefas!</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
       If you see this error regularly, we suggest you clear all
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
       your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
-	<string name="EPr_default_urgency_title">Defeito da Urgência</string>
+	<string name="EPr_default_urgency_title">Prazo predefinido</string>
+	<string-array name="EPr_default_importance">
+		<item>!!! (Mais alta)</item>
+		<item>!!</item>
+		<item>!</item>
+		<item>o (Lowest)</item>	</string-array>
 	<string-array name="EPr_default_urgency">
-		<item>No deadline</item>
+		<item>Sem data limite</item>
 		<item>Hoje</item>
 		<item>Amanhã</item>
 		<item>Day after tomorrow</item>
 		<item>Next week</item>
 	</string-array>
-	<string name="BFE_Active">Tarefas Activas</string>
-	<string name="CFA_universe_all">Tarefas Activas</string>
+	<string-array name="EPr_default_reminders">
+		<item>Sem lembrete de data limite</item>
+		<item>Na data limite</item>
+		<item>When overdue</item>
+		<item>Na data limite ou ultrapassada</item>
+	</string-array>
+	<string name="BFE_Active">Minhas tarefas</string>
+	<string name="CFA_universe_all">Tarefas ativas</string>
 	<string name="CFA_type_add">ou</string>
 	<string name="CFA_type_subtract">não</string>
 	<string name="CFA_type_intersect">também</string>
+	<string name="CFA_context_chain">%s tem critério</string>
+	<string name="CFA_context_delete">Eliminar linha</string>
+	<string name="CFA_help">Clique longo nos itens para mais opções</string>
 	<string name="CFA_button_add">Adicionar critério</string>
+	<string name="CFA_button_view">Ver</string>
+	<string name="CFA_button_save">Gravar e ver</string>
+	<string name="CFC_dueBefore_text">Data limite: ?</string>
+	<string name="CFC_dueBefore_name">Data limite...</string>
 	<string-array name="CFC_dueBefore_entries">
 		<item>No Due Date</item>
 		<item>Ontem</item>
@@ -125,17 +231,98 @@
 		<item>Next Week</item>
 		<item>Next Month</item>
 	</string-array>
+	<string name="CFC_importance_text">Prioridade mínima?</string>
 	<string name="CFC_importance_name">Importância...</string>
-	<string name="gcal_TEA_showCalendar_label">Abrir Evento De Calendário</string>
-	<string name="gcal_GCP_default">Calendário Predefinido</string>
+	<string name="CFC_tag_text">Lista: ?</string>
+	<string name="CFC_tag_name">Lista...</string>
+	<string name="CFC_tag_contains_name">Nome da lista contém...</string>
+	<string name="CFC_tag_contains_text">Nome da lista contém: ?</string>
+	<string name="CFC_title_contains_name">Título contém...</string>
+	<string name="CFC_title_contains_text">Título contém: ?</string>
+	<string name="gcal_TEA_error">Erro ao adicionar tarefa ao calendário!</string>
+	<string name="gcal_TEA_addToCalendar_label">Adicionar ao calendário</string>
+	<string name="gcal_TEA_showCalendar_label">Abrir evento no calendário</string>
+	<string name="gcal_TEA_nocal">Não adicionar</string>
+	<string name="gcal_TEA_none_selected">Ao calendário?</string>
+	<string name="gcal_TEA_has_event">Evento de calendário</string>
+	<string name="gcal_completed_title">%s (terminada)</string>
+	<string name="gcal_GCP_default">Calendário padrão</string>
+	<string name="gtasks_FEx_header">Tarefas Google</string>
+	<string name="gtasks_FEx_title">Tarefas Google: %s</string>
+	<string name="gtasks_FEx_creating_list">Criação de lista...</string>
+	<string name="gtasks_FEx_create_list_dialog">Nome da nova lista:</string>
+	<string name="gtasks_FEx_create_list_error">Erro ao criar a lista</string>
+	<string name="CFC_gtasks_list_text">Na lista: ?</string>
+	<string name="CFC_gtasks_list_name">Na lista GTasks</string>
+	<string name="gtasks_GTA_clearing">Removendo tarefas terminadas</string>
+	<string name="gtasks_GTA_clear_completed">Remoção terminada</string>
+	<string name="gtasks_GLA_noaccounts">Não possui qualquer conta Google para sincronização.</string>
+	<string name="gtasks_GLA_authenticating">Autenticação...</string>
+	<string name="gtasks_GLA_errorAuth">Erro ao autenticar! Verifique o seu nome de utilizador e senha no gestor de contas do seu dispositivo.</string>
+	<string name="gtasks_GLA_errorIOAuth">Ocorreu um erro ao comunicar com os servidores Google. Tente mais tarde.</string>
+	<string name="gtasks_GPr_header">Tarefas Google</string>
+	<string name="gtasks_error_accountNotFound">Conta %s não encontrada. Termine a sessão e inicie-a novamente nas definições das tarefas Google.</string>
+	<string name="gtasks_error_authRefresh">Não foi possível a autenticação nas tarefas Google. Verifique a senha da sua conta e tente novamente.</string>
+	<string name="gtasks_error_accountManager">Erro no gestor de contas do dispositivo. Termine a sessão e inicie-a novamente nas definições das tarefas Google.</string>
+	<string name="gtasks_error_background_sync_auth">Erro de autenticação em segundo plano. Tente efetuar a sincronização durante a execução do Tasks.</string>
+	<string name="locale_notification">Tem $NUM ocorrências para: $FILTER</string>
+	<string name="EPr_powerpack_header">Definições avançadas</string>
+	<string name="EPr_powerpack_summary">Lembretes de chamadas, entrada por voz e outras definições</string>
+	<string name="speech_err_network">Erro de rede! O reconhecimento de voz requer uma ligação de rede ativa.</string>
+	<string name="speech_err_no_match">Não consegui perceber! Tente novamente.</string>
+	<string name="speech_err_default">O reconhecimento de voz detetou um erro. Tente novamente.</string>
+	<string name="premium_attach_file">Anexar um ficheiro</string>
+	<string name="premium_record_audio">Gravar uma nota</string>
+	<string name="premium_remove_file_confirm">Tem a certeza? A ação não pode ser anulada!</string>
+	<string name="audio_recording_title">Gravação áudio</string>
+	<string name="audio_stop_recording">Parar gravação</string>
+	<string name="file_prefix_image">Imagem</string>
+	<string name="file_prefix_voice">Voz</string>
+	<string name="file_browser_title">Escolha um ficheiro</string>
+	<string name="dir_browser_title">Escolha um diretório</string>
+	<string name="file_browser_err_permissions">Erro de permissões! Certifique-se que o Tasks tem permissões para aceder ao cartão SD:</string>
+	<string name="file_add_picture">Anexar imagem</string>
+	<string name="file_add_sdcard">Anexar um ficheiro do cartão SD</string>
+	<string name="file_err_copy">Erro ao copiar o ficheiro como anexo</string>
+	<string name="file_dir_dialog_ok">Usar este diretório</string>
+	<string name="file_dir_dialog_default">Restaurar definições originais</string>
+	<string name="p_files_dir">Diretório de transferências</string>
+	<string name="p_files_dir_desc">Anexos de tarefa gravadas em: %s</string>
+	<string-array name="TEA_reminder_random">
+		<item>uma hora</item>
+		<item>um dia</item>
+		<item>uma semana</item>
+		<item>em duas semanas</item>
+		<item>um mês</item>
+		<item>em dois meses</item>
+	</string-array>
 	<string name="rmd_NoA_filter">Lembrete!</string>
-	<string name="rmd_NoA_done">Já Terminada!</string>
-	<string name="rmd_NoA_snooze">Parar...</string>
-	<string name="rmd_EPr_quiet_hours_start_title">Início do Período de Inactividade</string>
-	<string name="rmd_EPr_quiet_hours_end_title">Fim do Período de Inactividade</string>
-	<string name="rmd_EPr_ringtone_title">Toque de Notificação</string>
-	<string name="rmd_EPr_vibrate_title">Vibrar ao Alertar</string>
+	<string name="rmd_NoA_done">Terminada</string>
+	<string name="rmd_NoA_snooze">Parar</string>
+	<string name="rmd_EPr_enable_quiet_title">Ativar período de inatividade</string>
+	<string name="rmd_EPr_quiet_hours_start_title">Inicio do período de inatividade</string>
+	<string name="rmd_EPr_quiet_hours_end_title">Fim do período de inatividade</string>
+	<string name="rmd_EPr_ringtone_title">Toque da notificação</string>
+	<string name="rmd_EPr_vibrate_title">Vibrar no alerta</string>
+	<string name="rmd_EPr_defaultRemind_title">Lembretes aleatórios</string>
+	<string name="rmd_EPr_defaultRemind_desc_disabled">As novas tarefas não terão lembretes aleatórios</string>
+	<string name="rmd_EPr_defaultRemind_desc">As novas tarefas terão lembretes aleatórios: %s</string>
+	<string-array name="EPr_reminder_random">
+		<item>desativado</item>
+		<item>horário</item>
+		<item>diário</item>
+		<item>semanal</item>
+		<item>bissemanal</item>
+		<item>mensal</item>
+		<item>bimensal</item>
+	</string-array>
+	<string name="repeat_plugin">Tarefas recorrentes</string>
+	<string name="repeat_plugin_desc">Permitir repetição de tarefas</string>
 	<string name="repeat_enabled">Repete</string>
+	<string name="repeat_every">Cada %d</string>
+	<string name="repeat_interval_prompt">Intervalo de repetição</string>
+	<string name="repeat_never">Não repete</string>
+	<string name="repeat_dont">Não repete</string>
 	<string-array name="repeat_until_shortcuts">
 		<item>Forever</item>
 		<item>Specific Day</item>
@@ -146,6 +333,46 @@
 		<item>In Two Weeks</item>
 		<item>Next Month</item>
 	</string-array>
+	<string name="repeat_until_title">Repetir até...</string>
+	<string name="repeat_keep_going">Manter em curso</string>
+	<string name="repeat_detail_byday">$I em $D</string>
+	<string name="repeat_detail_duedate">Cada %s</string>
+	<string name="repeat_detail_duedate_until">Cada %1$s\naté %2$s</string>
+	<string name="repeat_detail_completion">%s depois da conclusão</string>
+	<string name="repeat_forever">Repetir eternamente</string>
+	<string name="repeat_until">Repetir até %s</string>
+	<string name="repeat_rescheduling_dialog_title">Reagendamento da tarefa %s</string>
+	<string name="TEA_tags_label_long">Adicionar às listas</string>
+	<string name="TEA_tag_hint">Nova lista</string>
+	<string name="tag_new_list">Nova lista</string>
+	<string name="tag_no_title_error">Introduza o nome para esta lista!</string>
+	<string name="tag_FEx_add_new">Nova</string>
 	<string name="tag_FEx_header">Listas</string>
-	<string name="tag_settings_title">Settings:</string>
+	<string name="tag_FEx_untagged">Sem categoria</string>
+	<string name="tag_cm_rename">Mudar nome da lista</string>
+	<string name="tag_cm_delete">Eliminar lista</string>
+	<string name="DLG_delete_this_tag_question">Eliminar a lista: %s? (Tarefas não serão eliminadas)</string>
+	<string name="DLG_rename_this_tag_header">Mudar nome da lista %s para:</string>
+	<string name="TEA_no_tags_modified">Nenhuma alteração efetuada</string>
+	<string name="TEA_tags_deleted">A lista %1$s foi eliminada e afeta %2$d tarefas</string>
+	<string name="TEA_tags_renamed">%1$s renomeado para %2$s em %3$d tarefas</string>
+	<string name="tag_settings_title">Definições de lista</string>
+	<string name="TPl_notification">Temporizador ativo para %s!</string>
+	<string name="TFE_workingOn">Tarefas monitorizadas</string>
+	<string name="TEA_timer_controls">Temporizador</string>
+	<string name="TEA_timer_comment_started">iniciou esta tarefa:</string>
+	<string name="TEA_timer_comment_stopped">parou de fazer esta tarefa:</string>
+	<string name="TEA_timer_comment_spent">Tempo gasto:</string>
+	<string name="voice_create_prompt">Falar para criar uma tarefa</string>
+	<string name="voice_edit_title_prompt">Falar para definir o título</string>
+	<string name="voice_edit_note_prompt">Falar para definir a descrição</string>
+	<string name="EPr_voiceInputInstall_dlg">A introdução por voz não está instalada. Quer aceder à loja Google para a instalar?</string>
+	<string name="EPr_voiceInputUnavailable_dlg">A introdução por voz não está disponível para o seu sistema.\nPara a utilizar, deve instalar o Android 2.1 ou superior.</string>
+	<string name="EPr_marketUnavailable_dlg">A loja Google não está disponível para o seu sistema.\nSe possível, tente transferir a procura por voz de outra fonte.</string>
+	<string name="EPr_voiceInputEnabled_title">Entrada por voz</string>
+	<string name="EPr_voiceInputEnabled_desc_enabled">O botão de introdução por voz será mostrado na lista de tarefas</string>
+	<string name="EPr_use_dark_theme">Tema escuro</string>
+	<string name="EPr_use_dark_theme_widget">Widget escuro</string>
+	<string name="delete_task">Eliminar tarefa</string>
+	<string name="external_storage_unavailable">Não foi possível aceder ao disco externo</string>
 </resources>
