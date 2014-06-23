@@ -397,9 +397,6 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name="com.todoroo.astrid.gtasks.GtasksListAdder"
-            android:theme="@android:style/Theme.Dialog" />
         <receiver android:name="com.todoroo.astrid.gtasks.GtasksDetailExposer">
             <intent-filter>
                 <action android:name="org.tasks.REQUEST_DETAILS" />

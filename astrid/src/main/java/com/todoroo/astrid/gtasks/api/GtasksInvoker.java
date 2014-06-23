@@ -99,14 +99,6 @@ public class GtasksInvoker {
                 .get(id));
     }
 
-    public TaskList createGtaskList(String title) throws IOException {
-        TaskList newList = new TaskList();
-        newList.setTitle(title);
-        return execute(service
-                .tasklists()
-                .insert(newList));
-    }
-
     public com.google.api.services.tasks.model.Tasks getAllGtasksFromListId(String listId, boolean includeDeleted, boolean includeHidden, long lastSyncDate) throws IOException {
         return execute(service
                 .tasks()

@@ -17,7 +17,6 @@
         <item name="asDueDateColor">#878787</item>
         <item name="asDueDateOverdueColor">#ee5555</item>
         <item name="asDueDateCompletedColor">#ff777777</item>
-        <item name="asFilterHeaderColor">#cccccc</item>
         <item name="asSeparatorBackground">#888888</item>
         <item name="asListDividerColor">#555555</item>
         <item name="asEditTextBackground">@null</item>
@@ -78,7 +77,6 @@
         <item name="asTextColorInverse">#ffffff</item>
         <item name="asDetailsColor">#6666aa</item>
         <item name="asDueDateColor">#878787</item>
-        <item name="asFilterHeaderColor">#ffffff</item>
         <item name="asListDividerColor">#dddddd</item>
         <item name="asEditRowBackground">@drawable/task_edit_background_white</item>
         <item name="asFilterSelectedIcon">@drawable/filter_selected_icon_black</item>
@@ -145,7 +143,6 @@
         <item name="asDueDateColor">#ff7777aa</item>
         <item name="asDueDateOverdueColor">#ffee5555</item>
         <item name="asDueDateCompletedColor">#ff777777</item>
-        <item name="asFilterHeaderColor">#ffcccccc</item>
         <item name="asSeparatorBackground">#888888</item>
         <!-- actionbar-styling -->
         <item name="android:actionBarStyle">@style/AstridV11ActionBarStyle.Dialog</item>
@@ -183,7 +180,6 @@
         <item name="asTextColor">#ff000000</item>
         <item name="asDetailsColor">#ff6666aa</item>
         <item name="asDueDateColor">#878787</item>
-        <item name="asFilterHeaderColor">#ffffff</item>
         <!-- actionbar-styling -->
         <item name="android:actionBarStyle">@style/AstridV11ActionBarStyle.Dialog.Light</item>
         <item name="actionBarStyle">@style/AstridActionBarStyle.Dialog.Light</item>
@@ -355,10 +351,6 @@
         <item name="android:textColor">?attr/asTextColor</item>
     </style>
     
-    <style name="TextAppearance.FLA_Header" parent="TextAppearance.FLA_Filter">
-        <item name="android:textColor">?attr/asFilterHeaderColor</item>
-    </style>
-
     <!-- ========================================================= Widget == -->
 
     <style name="TextAppearance.Widget">                                                                                                                                                                                      

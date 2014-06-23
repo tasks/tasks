@@ -19,8 +19,6 @@ import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.api.GoogleTasksException;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 
 import java.io.IOException;
@@ -30,8 +28,6 @@ import javax.inject.Singleton;
 
 @Singleton
 public class GtasksTokenValidator {
-
-    private static final Logger log = LoggerFactory.getLogger(GtasksTokenValidator.class);
 
     private static final String TOKEN_INTENT_RECEIVED = "intent!"; //$NON-NLS-1$
 
@@ -59,7 +55,7 @@ public class GtasksTokenValidator {
         String accountName = preferences.getUserName();
         Account a = accountManager.getAccountByName(accountName);
         if (a == null) {
-            throw new GoogleTasksException(c.getString(R.string.gtasks_error_accountNotFound, accountName), "account-not-found");
+            throw new GoogleTasksException(c.getString(R.string.gtasks_error_accountNotFound, accountName));
         }
 
         for (int i = 0; i < REVALIDATION_TRIES; i++) {
@@ -76,7 +72,7 @@ public class GtasksTokenValidator {
             }
         }
 
-        throw new GoogleTasksException(c.getString(R.string.gtasks_error_authRefresh), "auth-token-refresh");
+        throw new GoogleTasksException(c.getString(R.string.gtasks_error_authRefresh));
     }
 
     private boolean testToken(String token) {
@@ -98,7 +94,7 @@ public class GtasksTokenValidator {
                 throw new NullPointerException("Future result was null."); //$NON-NLS-1$
             }
         } catch (Exception e) {
-            throw new GoogleTasksException(e.getLocalizedMessage(), "future-error");
+            throw new GoogleTasksException(e.getLocalizedMessage());
         }
 
         // check what kind of result was returned
@@ -110,11 +106,11 @@ public class GtasksTokenValidator {
             if (c instanceof Activity) {
                 c.startActivity(intent);
             } else {
-                throw new GoogleTasksException(c.getString(R.string.gtasks_error_background_sync_auth), "background-auth-error");
+                throw new GoogleTasksException(c.getString(R.string.gtasks_error_background_sync_auth));
             }
             return TOKEN_INTENT_RECEIVED;
         } else {
-            throw new GoogleTasksException(c.getString(R.string.gtasks_error_accountManager), "account-manager-error");
+            throw new GoogleTasksException(c.getString(R.string.gtasks_error_accountManager));
         }
         return token;
     }

@@ -9,20 +9,15 @@ import org.tasks.preferences.Preferences;
 
 public class GtasksTestPreferenceService extends GtasksPreferenceService {
 
-    private boolean loggedIn = false;
     private long syncDate = 0;
 
     public GtasksTestPreferenceService(Preferences preferences) {
         super(preferences);
     }
 
-    public void setLoggedIn(boolean loggedIn) {
-        this.loggedIn = loggedIn;
-    }
-
     @Override
     public boolean isLoggedIn() {
-        return loggedIn;
+        return false;
     }
 
     public void setSyncDate(long date) {

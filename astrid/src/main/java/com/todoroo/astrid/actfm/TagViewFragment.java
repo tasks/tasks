@@ -87,16 +87,12 @@ public class TagViewFragment extends TaskListFragment {
      */
     @Override
     protected View getListBody(ViewGroup root) {
-        ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(getTaskListBodyLayout(), root, false);
+        ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.task_list_body_tag, root, false);
 
         taskListView = super.getListBody(parent);
         parent.addView(taskListView);
 
         return parent;
-    }
-
-    protected int getTaskListBodyLayout() {
-        return R.layout.task_list_body_tag;
     }
 
     // --- data loading

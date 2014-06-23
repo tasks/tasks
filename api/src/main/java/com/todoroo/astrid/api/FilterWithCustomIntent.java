@@ -6,7 +6,6 @@
 package com.todoroo.astrid.api;
 
 
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -51,10 +50,6 @@ public class FilterWithCustomIntent extends Filter {
         }
 
         return intent;
-    }
-
-    public void start(Activity activity, int resultCode) {
-        activity.startActivityForResult(getCustomIntent(), resultCode);
     }
 
     // --- parcelable

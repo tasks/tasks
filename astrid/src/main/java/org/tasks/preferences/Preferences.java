@@ -73,10 +73,6 @@ public class Preferences {
         setDefaults();
     }
 
-    public boolean isSet(String key) {
-        return prefs.contains(key);
-    }
-
     public String getStringValue(String key) {
         return prefs.getString(key, null);
     }
@@ -98,10 +94,6 @@ public class Preferences {
             log.error(e.getMessage(), e);
             return defaultValue;
         }
-    }
-
-    public void setString(int resourceId, String value) {
-        setString(context.getString(resourceId), value);
     }
 
     public void setString(String key, String newValue) {

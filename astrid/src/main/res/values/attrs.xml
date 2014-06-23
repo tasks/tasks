@@ -16,7 +16,6 @@
   <attr name="asDueDateColor" format="color"/>
   <attr name="asDueDateOverdueColor" format="color"/>
   <attr name="asDueDateCompletedColor" format="color"/>
-  <attr name="asFilterHeaderColor" format="color"/>
   <attr name="asSeparatorBackground" format="color"/>
   <attr name="asListDividerColor" format="color"/>
   <attr name="asThemeTextColor" format="color"/>

@@ -51,7 +51,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     // --- style constants
 
     public int filterStyle = R.style.TextAppearance_FLA_Filter;
-    public int headerStyle = R.style.TextAppearance_FLA_Header;
 
     // --- instance variables
 

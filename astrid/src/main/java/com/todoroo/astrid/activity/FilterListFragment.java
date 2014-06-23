@@ -74,7 +74,6 @@ public class FilterListFragment extends InjectingListFragment {
     private static final int CONTEXT_MENU_INTENT = Menu.FIRST + 4;
 
     public static final int REQUEST_CUSTOM_INTENT = 10;
-    public static final int REQUEST_NEW_BUTTON = 3;
     public static final int REQUEST_NEW_LIST = 4;
 
     // --- instance variables
@@ -119,12 +118,8 @@ public class FilterListFragment extends InjectingListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         Activity activity = getActivity();
-        int layout = getLayout();
+        int layout = R.layout.filter_list_activity;
         return activity.getLayoutInflater().inflate(layout, container, false);
-    }
-
-    protected int getLayout() {
-        return R.layout.filter_list_activity;
     }
 
     @Override

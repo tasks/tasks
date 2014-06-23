@@ -206,10 +206,6 @@ public final class TagData extends RemoteModel {
         }
     }
 
-    public Long getCreationDate() {
-        return getValue(CREATION_DATE);
-    }
-
     public String getName() {
         return getValue(NAME);
     }
