@@ -76,7 +76,6 @@ public class GtasksTokenValidator {
             }
         }
 
-
         throw new GoogleTasksException(c.getString(R.string.gtasks_error_authRefresh), "auth-token-refresh");
     }
 
@@ -86,7 +85,6 @@ public class GtasksTokenValidator {
             testService.ping();
             return true;
         } catch (IOException i) {
-            log.error(i.getMessage(), i);
             return false;
         }
     }
