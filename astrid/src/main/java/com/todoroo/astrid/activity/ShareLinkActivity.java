@@ -8,9 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gcal.GCalHelper;
+import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.ui.QuickAddBar;
 
 import org.tasks.injection.ForApplication;
 
@@ -24,8 +23,7 @@ import javax.inject.Inject;
 public final class ShareLinkActivity extends TaskListActivity {
 
     @Inject TaskService taskService;
-    @Inject GCalHelper gcalHelper;
-    @Inject @ForApplication Context context;
+    @Inject TaskCreator taskCreator;
 
     private String subject;
     private boolean handled;
@@ -50,7 +48,7 @@ public final class ShareLinkActivity extends TaskListActivity {
         if (!handled) {
             Intent callerIntent = getIntent();
 
-            Task task = QuickAddBar.basicQuickAddTask(context, gcalHelper, taskService, subject);
+            Task task = taskCreator.basicQuickAddTask(subject);
             if (task != null) {
                 task.setNotes(callerIntent.getStringExtra(Intent.EXTRA_TEXT));
                 taskService.save(task);

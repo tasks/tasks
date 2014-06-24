@@ -5,8 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.todoroo.astrid.gcal.GCalHelper;
-import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.service.TaskCreator;
 
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
@@ -14,12 +13,9 @@ import org.tasks.injection.InjectingActivity;
 
 import javax.inject.Inject;
 
-import static com.todoroo.astrid.ui.QuickAddBar.basicQuickAddTask;
-
 public class VoiceCommandActivity extends InjectingActivity {
 
-    @Inject GCalHelper gcalHelper;
-    @Inject TaskService taskService;
+    @Inject TaskCreator taskCreator;
     @Inject @ForApplication Context context;
 
     @Override
@@ -31,11 +27,8 @@ public class VoiceCommandActivity extends InjectingActivity {
         switch (intent.getAction()) {
             case "com.google.android.gm.action.AUTO_SEND":
                 final String text = intent.getStringExtra(Intent.EXTRA_TEXT);
-                basicQuickAddTask(context, gcalHelper, taskService, text);
-                Context context = getApplicationContext();
-                if (context != null) {
-                    Toast.makeText(context, getString(R.string.voice_command_added_task), Toast.LENGTH_LONG).show();
-                }
+                taskCreator.basicQuickAddTask(text);
+                Toast.makeText(context, getString(R.string.voice_command_added_task), Toast.LENGTH_LONG).show();
                 finish();
         }
     }
