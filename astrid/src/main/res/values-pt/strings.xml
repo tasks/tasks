@@ -15,6 +15,9 @@
 	<string name="actfm_GAA_title">Escolha a conta Google a utilizar:</string>
 	<string name="alarm_ACS_label">Alarmes</string>
 	<string name="alarm_ACS_button">Adicionar alarme</string>
+	<string-array name="reminders_alarm">
+		<item>Alarme!</item>
+	</string-array>
 	<string name="backup_BPr_group_status">Estado</string>
 	<string name="backup_status_success">Último backup:\n%s</string>
 	<string name="backup_status_failed">Último backup falhou</string>
@@ -48,17 +51,33 @@
 	<string name="DLG_upgrading">Atualização de tarefas...</string>
 	<string name="DLG_hour_minutes">Tempo (horas:minutos)</string>
 	<string name="DLG_loading">Carregando...</string>
+	<string name="DLG_cancel">Cancelar</string>
+	<string name="DLG_undo">Anular</string>
 	<string name="WID_dateButtonUnset">Clique para definir</string>
 	<string name="TLA_no_items">Não existem tarefas!\nQuer adicionar uma?</string>
 	<string name="TLA_menu_sort">Ordenação</string>
+	<string name="TLA_menu_sync">Sincronizar agora</string>
+	<string name="TLA_menu_search">Procura</string>
 	<string name="TLA_menu_settings">Definições</string>
 	<string name="TLA_custom">Personalizado</string>
+	<string name="TLA_quick_add_hint">Adicionar tarefa</string>
+	<string name="TLA_quickadd_confirm_title">Você disse \"%s\"</string>
+	<string name="TLA_quickadd_confirm_speech_bubble_date">para %s</string>
+	<string-array name="TLA_priority_strings">
+		<item>prioridade mais alta</item>
+		<item>prioridade alta</item>
+		<item>prioridade normal</item>
+		<item>prioridade baixa</item>
+	</string-array>
 	<string name="TAd_hiddenFormat">%s [oculta]</string>
 	<string name="TAd_deletedFormat">%s [eliminada]</string>
 	<string name="TAd_completed">Terminada\n%s</string>
 	<string name="TAd_actionEditTask">Editar</string>
 	<string name="TAd_contextEditTask">Editar tarefa</string>
+	<string name="TAd_contextCopyTask">Copiar tarefa</string>
+	<string name="TAd_contextDeleteTask">Eliminar tarefa</string>
 	<string name="TAd_contextUndeleteTask">Recuperar tarefa</string>
+	<string name="TAd_contextPurgeTask">Remover tarefa</string>
 	<string name="SSD_hidden_title">Tarefas ocultas</string>
 	<string name="SSD_completed">Mostrar Tarefas Completas</string>
 	<string name="SSD_hidden">Mostrar tarefas ocultas</string>
@@ -96,16 +115,24 @@
 	<string name="TEA_tab_activity">Atividade</string>
 	<string name="TEA_timer_elap">Decorrido %s</string>
 	<string-array name="TEA_urgency">
-		<item>No date</item>
+		<item>Sem data</item>
 		<item>Specific day</item>
 		<item>Hoje</item>
 		<item>Amanhã</item>
 		<item>(day after)</item>
-		<item>Next week</item>
-		<item>In two weeks</item>
-		<item>Next month</item>
+		<item>Próxima semana</item>
+		<item>Em duas semanas</item>
+		<item>Próximo mês</item>
 	</string-array>
 	<string name="TEA_no_time">Sem tempo</string>
+	<string-array name="TEA_hideUntil">
+		<item>Nunca</item>
+		<item>Data limite</item>
+		<item>Hora da tarefa</item>
+		<item>Um dia antes</item>
+		<item>Semana anterior</item>
+		<item>Dia/hora especifica</item>
+	</string-array>
 	<string name="TEA_control_when">Quando</string>
 	<string name="TEA_control_importance">Prioridade</string>
 	<string name="TEA_control_lists">Listas</string>
@@ -170,6 +197,11 @@
 	<string name="EPr_show_timer_shortcut">Mostrar atalho do temporizador</string>
 	<string name="EPr_beastMode_desc">Personalizar o esquema do ecrã de edição de tarefas</string>
 	<string name="EPr_beastMode_reset">Restaurar definições originas</string>
+	<string name="EPr_showNotes_desc_disabled">A descrição estará acessível no ecrã de edição de tarefas</string>
+	<string name="EPr_showNotes_desc_enabled">A descrição será mostrada sempre</string>
+	<string name="EPr_fullTask_title">Mostrar título completo das tarefas</string>
+	<string name="EPr_fullTask_desc_enabled">O título completo das tarefas será mostrado</string>
+	<string name="EPr_fullTask_desc_disabled">Primeiras duas linhas do título serão mostradas</string>
 	<string-array name="EPr_task_row_styles">
 		<item>Original</item>
 		<item>Simples</item>
@@ -180,36 +212,69 @@
 		<item>Restringir título a uma linha e com data e lista abaixo</item>
 		<item>Título com uma linha</item>
 	</string-array>
+	<string name="EPr_task_row_style_title">Estilo de linha: %s</string>
+	<string name="EPr_show_quickadd_controls">Controlos avançados de adição rápida</string>
 	<string name="EPr_hide_plus_button">Ocultar botão Mais</string>
 	<string name="EPr_list_view">Vista em lista</string>
 	<string name="EPr_show_task_edit_comments">Mostrar comentários na edição de tarefa</string>
 	<string name="EPr_taskRowPrefs_title">Aspeto da linha de tarefa</string>
+	<string name="EPr_cal_end_or_start_at_due_time">Hora do evento de calendário</string>
+	<string name="EPr_cal_end_at_due_time">Terminar evento do calendário na hora limite</string>
+	<string name="EPr_cal_start_at_due_time">Iniciar eventos de calendário na hora limite</string>
+	<string name="EPr_manage_header">Gerir tarefas antigas</string>
+	<string name="EPr_manage_delete_completed">Eliminar tarefas terminadas</string>
+	<string name="EPr_manage_delete_completed_message">Quer mesmo eliminar todas as tarefas terminadas?</string>
+	<string name="EPr_manage_delete_completed_status">%d tarefas eliminadas!</string>
+	<string name="EPr_manage_purge_deleted">Remover tarefas eliminadas</string>
+	<string name="EPr_manage_purge_deleted_message">Quer mesmo remover todas as tarefas eliminadas?\n\nNunca mais as conseguirá recuperar!</string>
+	<string name="EPr_manage_purge_deleted_status">%d tarefas removidas!</string>
+	<string name="EPr_manage_purge_deleted_summary">Atenção! As tarefas removidas não poderão ser recuperadas sem um backup!</string>
+	<string name="EPr_manage_clear_all">Limpar todos os dados</string>
+	<string name="EPr_manage_clear_all_message">Eliminar tarefas e definições do Tasks?\n\nNão pode anular esta operação!</string>
+	<string name="EPr_manage_delete_all_gcal_status">Eliminados %d eventos de calendário!</string>
 	<string name="TWi_loading">Carregando...</string>
+	<string name="WCA_title">Escolha as tarefas a ver...</string>
 	<string name="task_killer_help_ok">Não destruirei tarefas!</string>
+	<string name="DB_corrupted_title">Base de dados danificada</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
       If you see this error regularly, we suggest you clear all
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
       your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
+	<string name="EPr_defaults_header">Predefinições das novas tarefas</string>
 	<string name="EPr_default_urgency_title">Prazo predefinido</string>
+	<string name="EPr_default_urgency_desc">Atual: %s</string>
+	<string name="EPr_default_importance_desc">Atual: %s</string>
+	<string name="EPr_default_hideUntil_desc">Atual: %s</string>
+	<string name="EPr_default_reminders_title">Lembretes padrão</string>
+	<string name="EPr_default_reminders_desc">Atual: %s</string>
+	<string name="EPr_default_reminders_mode_desc">Atual: %s</string>
 	<string-array name="EPr_default_importance">
 		<item>!!! (Mais alta)</item>
 		<item>!!</item>
 		<item>!</item>
-		<item>o (Lowest)</item>	</string-array>
+		<item>o (mais baixa)</item>	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>Sem data limite</item>
 		<item>Hoje</item>
 		<item>Amanhã</item>
-		<item>Day after tomorrow</item>
-		<item>Next week</item>
+		<item>Depois de amanhã</item>
+		<item>Próxima semana</item>
+	</string-array>
+	<string-array name="EPr_default_hideUntil">
+		<item>Não ocultar</item>
+		<item>Tarefa vencida</item>
+		<item>Dia anterior ao vencimento</item>
+		<item>Semana anterior ao vencimento</item>
 	</string-array>
 	<string-array name="EPr_default_reminders">
 		<item>Sem lembrete de data limite</item>
 		<item>Na data limite</item>
-		<item>When overdue</item>
+		<item>Quando ultrapassada</item>
 		<item>Na data limite ou ultrapassada</item>
 	</string-array>
 	<string name="BFE_Active">Minhas tarefas</string>
+	<string name="BFE_Recent">Alteradas recentemente</string>
+	<string name="BFE_Saved_delete">Eliminar filtro</string>
 	<string name="CFA_universe_all">Tarefas ativas</string>
 	<string name="CFA_type_add">ou</string>
 	<string name="CFA_type_subtract">não</string>
@@ -223,13 +288,13 @@
 	<string name="CFC_dueBefore_text">Data limite: ?</string>
 	<string name="CFC_dueBefore_name">Data limite...</string>
 	<string-array name="CFC_dueBefore_entries">
-		<item>No Due Date</item>
+		<item>Sem data limite</item>
 		<item>Ontem</item>
 		<item>Hoje</item>
 		<item>Amanhã</item>
-		<item>Day After Tomorrow</item>
-		<item>Next Week</item>
-		<item>Next Month</item>
+		<item>Depois de amanhã</item>
+		<item>Próxima semana</item>
+		<item>Próximo mês</item>
 	</string-array>
 	<string name="CFC_importance_text">Prioridade mínima?</string>
 	<string name="CFC_importance_name">Importância...</string>
@@ -272,8 +337,17 @@
 	<string name="premium_remove_file_confirm">Tem a certeza? A ação não pode ser anulada!</string>
 	<string name="audio_recording_title">Gravação áudio</string>
 	<string name="audio_stop_recording">Parar gravação</string>
+	<string name="audio_speak_now">Falar agora!</string>
+	<string name="search_market_audio_title">Reprodutor áudio não encontrado</string>
+	<string name="search_market_pdf">Nenhum leitor PDF encontrado. Gostaria de transferir um leitor de PDF na loja Google?</string>
+	<string name="search_market_pdf_title">Leitor PDF não encontrado</string>
+	<string name="search_market_ms">Nenhum leitor de documento MS Office encontrado. Gostaria de transferir um leitor MS Office na loja Google?</string>
+	<string name="search_market_ms_title">Leitor de documentos MS Office não encontrado</string>
+	<string name="file_type_unhandled">Não foi encontrada qualquer aplicação para gerir ficheiros deste tipo.</string>
+	<string name="file_type_unhandled_title">Aplicação não encontrada</string>
 	<string name="file_prefix_image">Imagem</string>
 	<string name="file_prefix_voice">Voz</string>
+	<string name="file_browser_up">Subir</string>
 	<string name="file_browser_title">Escolha um ficheiro</string>
 	<string name="dir_browser_title">Escolha um diretório</string>
 	<string name="file_browser_err_permissions">Erro de permissões! Certifique-se que o Tasks tem permissões para aceder ao cartão SD:</string>
@@ -284,6 +358,22 @@
 	<string name="file_dir_dialog_default">Restaurar definições originais</string>
 	<string name="p_files_dir">Diretório de transferências</string>
 	<string name="p_files_dir_desc">Anexos de tarefa gravadas em: %s</string>
+	<string name="p_files_dir_desc_default">Diretório padrão</string>
+	<string name="TEA_reminders_group_label">Definições do lembrete</string>
+	<string name="TEA_reminder_label">Lembrar-me</string>
+	<string name="TEA_reminder_due">Na data limite</string>
+	<string name="TEA_reminder_overdue">Se data limite ultrapassada</string>
+	<string name="TEA_reminder_randomly">Uma vez aleatória</string>
+	<string name="TEA_reminder_alarm_label">Tipo de toque/vibração</string>
+	<string name="TEA_reminder_mode_once">Uma vez</string>
+	<string name="TEA_reminder_mode_five">5 vezes</string>
+	<string name="TEA_reminder_mode_nonstop">Até remover o alarme</string>
+	<string name="TEA_reminder_when">quando</string>
+	<string name="TEA_reminder_due_short">data limite</string>
+	<string name="TEA_reminder_overdue_short">ultrapassada</string>
+	<string name="TEA_reminder_randomly_short">aleatoriamente</string>
+	<string name="TEA_reminder_display_one">Lembrar-me %s</string>
+	<string name="TEA_reminder_display_multiple">Lembrar %s</string>
 	<string-array name="TEA_reminder_random">
 		<item>uma hora</item>
 		<item>um dia</item>
@@ -295,11 +385,17 @@
 	<string name="rmd_NoA_filter">Lembrete!</string>
 	<string name="rmd_NoA_done">Terminada</string>
 	<string name="rmd_NoA_snooze">Parar</string>
+	<string name="rmd_NoA_dlg_title">Lembrete:</string>
+	<string name="rmd_EPr_alerts_header">Definições do lembrete</string>
+	<string name="rmd_EPr_enabled_title">Lembretes ativos?</string>
 	<string name="rmd_EPr_enable_quiet_title">Ativar período de inatividade</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Inicio do período de inatividade</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Fim do período de inatividade</string>
 	<string name="rmd_EPr_ringtone_title">Toque da notificação</string>
+	<string name="rmd_EPr_persistent_title">Persistência da notificação</string>
 	<string name="rmd_EPr_vibrate_title">Vibrar no alerta</string>
+	<string name="rmd_EPr_vibrate_desc_true">O Tasks vibrará ao enviar notificações</string>
+	<string name="rmd_EPr_vibrate_desc_false">O Tasks não vibrará ao enviar notificações</string>
 	<string name="rmd_EPr_defaultRemind_title">Lembretes aleatórios</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">As novas tarefas não terão lembretes aleatórios</string>
 	<string name="rmd_EPr_defaultRemind_desc">As novas tarefas terão lembretes aleatórios: %s</string>
@@ -319,18 +415,38 @@
 	<string name="repeat_interval_prompt">Intervalo de repetição</string>
 	<string name="repeat_never">Não repete</string>
 	<string name="repeat_dont">Não repete</string>
+	<string-array name="repeat_interval_short">
+		<item>d</item>
+		<item>sem</item>
+		<item>mês</item>
+		<item>hr</item>
+		<item>min</item>
+		<item>a</item>
+	</string-array>
+	<string-array name="repeat_interval">
+		<item>Dia(s)</item>
+		<item>Semana(s)</item>
+		<item>Mês(es)</item>
+		<item>Hora(s)</item>
+		<item>Minuto(s)</item>
+		<item>Ano(s)</item>
+	</string-array>
 	<string-array name="repeat_until_shortcuts">
-		<item>Forever</item>
-		<item>Specific Day</item>
+		<item>Eternamente</item>
+		<item>Dia concreto</item>
 		<item>Hoje</item>
 		<item>Amanhã</item>
-		<item>(day after)</item>
-		<item>Next Week</item>
-		<item>In Two Weeks</item>
-		<item>Next Month</item>
+		<item>(dia antes)</item>
+		<item>Próxima semana</item>
+		<item>Em duas semanas</item>
+		<item>Próximo mês</item>
 	</string-array>
 	<string name="repeat_until_title">Repetir até...</string>
 	<string name="repeat_keep_going">Manter em curso</string>
+	<string-array name="repeat_type">
+		<item>from due date</item>
+		<item>desde a data de conclusão</item>
+	</string-array>
 	<string name="repeat_detail_byday">$I em $D</string>
 	<string name="repeat_detail_duedate">Cada %s</string>
 	<string name="repeat_detail_duedate_until">Cada %1$s\naté %2$s</string>
@@ -365,8 +481,15 @@
 	<string name="EPr_marketUnavailable_dlg">A loja Google não está disponível para o seu sistema.\nSe possível, tente transferir a procura por voz de outra fonte.</string>
 	<string name="EPr_voiceInputEnabled_title">Entrada por voz</string>
 	<string name="EPr_voiceInputEnabled_desc_enabled">O botão de introdução por voz será mostrado na lista de tarefas</string>
+	<string name="EPr_voiceInputEnabled_desc_disabled">O botão de introdução por voz não será mostrado na lista de tarefas</string>
+	<string name="EPr_voiceInputCreatesTask_title">Criar tarefas diretamente</string>
+	<string name="EPr_voiceInputCreatesTask_desc_enabled">As tarefas serão criadas automaticamente com a introdução por voz</string>
+	<string name="EPr_voiceRemindersEnabled_title">Lembretes de voz</string>
+	<string name="widget_mini">Tarefas</string>
 	<string name="EPr_use_dark_theme">Tema escuro</string>
 	<string name="EPr_use_dark_theme_widget">Widget escuro</string>
 	<string name="delete_task">Eliminar tarefa</string>
+	<string name="TLA_menu_support">Suporte</string>
+	<string name="voice_command_added_task">Tarefa adicionada</string>
 	<string name="external_storage_unavailable">Não foi possível aceder ao disco externo</string>
 </resources>

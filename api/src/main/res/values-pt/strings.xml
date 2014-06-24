@@ -40,11 +40,32 @@
 	<string name="DLG_question_title">Pergunta:</string>
 	<string name="DLG_information_title">Informação</string>
 	<string name="DLG_close">Fechar</string>
+	<string name="DLG_error">Parece que ocorreu um erro! Isto foi o que aconteceu:\n\n%s</string>
 	<string name="DLG_wait">Por favor aguarde...</string>
 	<string name="SyP_label">Sincronização e backup</string>
+	<string name="Sync_now_label">Sincronizar agora</string>
+	<string name="SyP_summary">Tarefas Google, dados e backups</string>
 	<string name="sync_SPr_group_status">Estado</string>
+	<string name="sync_SPr_status_subtitle">Estado: %s</string>
+	<string name="sync_status_loggedout">Sessão não iniciada</string>
+	<string name="sync_status_ongoing">A sincronizar...</string>
+	<string name="sync_status_success">Última sincronização:\n%s</string>
+	<string name="sync_status_failed">Falhou em: %s</string>
+	<string name="sync_status_errors">Sincronização com erros: %s</string>
+	<string name="sync_status_never">Nunca sincronizado!</string>
 	<string name="sync_SPr_group_options">Opções</string>
+	<string name="sync_SPr_interval_title">Sincronização em segundo plano</string>
+	<string name="sync_SPr_interval_desc_disabled">Sincronização em segundo plano desativada</string>
+	<string name="sync_SPr_interval_desc">Atualmente definido para: %s</string>
+	<string name="sync_SPr_sync">Sincronizar agora</string>
+	<string name="sync_SPr_last_error">Relatório de estado</string>
+	<string name="sync_SPr_last_error_subtitle">Clique para enviar um relatório à equipa do Tasks</string>
+	<string name="sync_SPr_send_report">Enviar relatório</string>
 	<string name="sync_SPr_forget">Sair</string>
+	<string name="sync_SPr_forget_description">Remove todos os dados de sincronização</string>
+	<string name="sync_forget_confirm">Sair/limpar dados de sincronização?</string>
+	<string name="sync_error_offline">Ocorreu um erro ao estabelecer ligação à rede durante
+a última sincronização com %s. Tente mais tarde.</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>desativar</item>
 		<item>cada 15 minutos</item>
