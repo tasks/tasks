@@ -36,9 +36,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalControlSet;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.repeats.RepeatControlSet;
-import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceRecognizer;
 
@@ -73,8 +71,6 @@ public class QuickAddBar extends LinearLayout {
     private RepeatControlSet repeatControl;
     private GCalControlSet gcalControl;
 
-    @Inject TagService tagService;
-    @Inject MetadataService metadataService;
     @Inject TaskService taskService;
     @Inject GCalHelper gcalHelper;
     @Inject ActivityPreferences preferences;
@@ -280,7 +276,7 @@ public class QuickAddBar extends LinearLayout {
             }
             gcalControl.writeToModel(task);
 
-            TaskService.createWithValues(taskService, metadataService, tagService, task, fragment.getFilter().valuesForNewTasks, title);
+            taskService.createWithValues(task, fragment.getFilter().valuesForNewTasks, title);
 
             resetControlSets();
 
@@ -325,14 +321,14 @@ public class QuickAddBar extends LinearLayout {
      * Static method to quickly add tasks without all the control set nonsense.
      * Used from the share link activity.
      */
-    public static Task basicQuickAddTask(Context context, GCalHelper gcalHelper, TaskService taskService, MetadataService metadataService, TagService tagService, String title) {
+    public static Task basicQuickAddTask(Context context, GCalHelper gcalHelper, TaskService taskService, String title) {
         if (TextUtils.isEmpty(title)) {
             return null;
         }
 
         title = title.trim();
 
-        Task task = TaskService.createWithValues(taskService, metadataService, tagService, null, title);
+        Task task = taskService.createWithValues(null, title);
         addToCalendar(context, gcalHelper, taskService, task, title);
 
         return task;

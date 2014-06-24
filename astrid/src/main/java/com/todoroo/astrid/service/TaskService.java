@@ -63,15 +63,17 @@ public class TaskService {
     private final FilterCounter filterCounter;
     private final RefreshScheduler refreshScheduler;
     private final TagService tagService;
+    private final MetadataService metadataService;
 
     @Inject
     public TaskService(TaskDao taskDao, Broadcaster broadcaster, FilterCounter filterCounter,
-                       RefreshScheduler refreshScheduler, TagService tagService) {
+                       RefreshScheduler refreshScheduler, TagService tagService, MetadataService metadataService) {
         this.taskDao = taskDao;
         this.broadcaster = broadcaster;
         this.filterCounter = filterCounter;
         this.refreshScheduler = refreshScheduler;
         this.tagService = tagService;
+        this.metadataService = metadataService;
     }
 
     // --- service layer
@@ -243,7 +245,7 @@ public class TaskService {
      * Parse quick add markup for the given task
      * @param tags an empty array to apply tags to
      */
-    public static boolean parseQuickAddMarkup(TagService tagService, Task task, ArrayList<String> tags) {
+    boolean parseQuickAddMarkup(Task task, ArrayList<String> tags) {
         return TitleParser.parse(tagService, task, tags);
     }
 
@@ -251,16 +253,16 @@ public class TaskService {
      * Create task from the given content values, saving it. This version
      * doesn't need to start with a base task model.
      */
-    public static Task createWithValues(TaskService taskService, MetadataService metadataService, TagService tagService, ContentValues values, String title) {
+    public Task createWithValues(ContentValues values, String title) {
         Task task = new Task();
-        return createWithValues(taskService, metadataService, tagService, task, values, title);
+        return createWithValues(task, values, title);
     }
 
     /**
      * Create task from the given content values, saving it.
      * @param task base task to start with
      */
-    public static Task createWithValues(TaskService taskService, MetadataService metadataService, TagService tagService, Task task, ContentValues values, String title) {
+    public Task createWithValues(Task task, ContentValues values, String title) {
         if (title != null) {
             task.setTitle(title);
         }
@@ -268,7 +270,7 @@ public class TaskService {
         ArrayList<String> tags = new ArrayList<>();
         boolean quickAddMarkup = false;
         try {
-            quickAddMarkup = parseQuickAddMarkup(tagService, task, tags);
+            quickAddMarkup = parseQuickAddMarkup(task, tags);
         } catch (Throwable e) {
             log.error(e.getMessage(), e);
         }
@@ -296,7 +298,7 @@ public class TaskService {
             task.mergeWithoutReplacement(forTask);
         }
 
-        taskService.quickAdd(task, tags);
+        quickAdd(task, tags);
         if (quickAddMarkup) {
             task.putTransitory(TRANS_QUICK_ADD_MARKUP, true);
         }

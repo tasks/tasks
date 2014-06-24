@@ -8,7 +8,6 @@ package com.todoroo.astrid.reminders;
 import android.content.Intent;
 
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
@@ -78,7 +77,13 @@ public class NotificationTests extends DatabaseTestCase {
             putExtra(Notifications.EXTRAS_TYPE, ReminderService.TYPE_DUE);
         }});
 
-        verify(broadcaster).sendOrderedBroadcast(any(Intent.class), eq(AstridApiConstants.PERMISSION_READ));
+        verify(broadcaster).requestNotification(
+                eq(task.getId()),
+                any(Intent.class),
+                eq(ReminderService.TYPE_DUE),
+                eq("Tasks"),
+                eq(" rubberduck"),
+                eq(1));
     }
 
     public void testDeletedTaskDoesntTriggerNotification() {

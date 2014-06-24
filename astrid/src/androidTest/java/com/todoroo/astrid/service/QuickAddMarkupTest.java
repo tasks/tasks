@@ -6,7 +6,6 @@
 package com.todoroo.astrid.service;
 
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ import javax.inject.Inject;
 
 public class QuickAddMarkupTest extends DatabaseTestCase {
 
-    @Inject TagService tagService;
+    @Inject TaskService taskService;
 
     @Override
     protected void setUp() {
@@ -90,7 +89,7 @@ public class QuickAddMarkupTest extends DatabaseTestCase {
         task = new Task();
         task.setTitle(title);
         tags.clear();
-        TaskService.parseQuickAddMarkup(tagService, task, tags);
+        taskService.parseQuickAddMarkup(task, tags);
     }
 
     private void assertImportanceIs(int importance) {
