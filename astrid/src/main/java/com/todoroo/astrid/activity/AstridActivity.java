@@ -207,10 +207,6 @@ public class AstridActivity extends InjectingActionBarActivity
 
     @Override
     public void onTaskListItemClicked(long taskId) {
-        editTask(taskId);
-    }
-
-    private void editTask(long taskId) {
         Intent intent = new Intent(this, TaskEditActivity.class);
         intent.putExtra(TaskEditFragment.TOKEN_ID, taskId);
         getIntent().putExtra(TaskEditFragment.TOKEN_ID, taskId); // Needs to be in activity intent so that TEA onResume doesn't create a blank activity

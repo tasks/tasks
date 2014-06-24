@@ -178,7 +178,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
             if(v == null) {
                 return;
             }
-            taskAdapter.getListener().onClick(v);
+            taskAdapter.onClick(v);
         }
     };
 
@@ -207,26 +207,12 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
         }
 
         @Override
-        protected ViewHolder getTagFromCheckBox(View v) {
-            return (ViewHolder)((View)v.getParent()).getTag();
-        }
-
-        @Override
         public synchronized void setFieldContentsAndVisibility(View view) {
             super.setFieldContentsAndVisibility(view);
 
             ViewHolder vh = (ViewHolder) view.getTag();
             int indent = vh.task.getValue(updater.indentProperty());
             vh.rowBody.setPadding(Math.round(indent * 20 * metrics.density), 0, 0, 0);
-        }
-
-        @Override
-        protected void addListeners(View container) {
-            super.addListeners(container);
-        }
-
-        public TaskRowListener getListener() {
-            return listener;
         }
     }
 

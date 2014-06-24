@@ -293,21 +293,23 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
             getListView().setItemsCanFocus(false);
         }
 
-        getListView().setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                    int position, long id) {
-                if (taskAdapter != null) {
-                    TodorooCursor<Task> cursor = (TodorooCursor<Task>)taskAdapter.getItem(position);
-                    Task task = new Task(cursor);
-                    if(task.isDeleted()) {
-                        return;
-                    }
+        if (!(this instanceof SubtasksListFragment)) {
+            getListView().setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view,
+                                        int position, long id) {
+                    if (taskAdapter != null) {
+                        TodorooCursor<Task> cursor = (TodorooCursor<Task>) taskAdapter.getItem(position);
+                        Task task = new Task(cursor);
+                        if (task.isDeleted()) {
+                            return;
+                        }
 
-                    onTaskListItemClicked(id);
+                        onTaskListItemClicked(id);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     /**

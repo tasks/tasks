@@ -163,7 +163,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
             if(v == null) {
                 return;
             }
-            taskAdapter.getListener().onClick(v);
+            taskAdapter.onClick(v);
         }
     };
 
@@ -194,26 +194,12 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         }
 
         @Override
-        protected ViewHolder getTagFromCheckBox(View v) {
-            return (ViewHolder)((View)v.getParent()).getTag();
-        }
-
-        @Override
         public synchronized void setFieldContentsAndVisibility(View view) {
             super.setFieldContentsAndVisibility(view);
 
             ViewHolder vh = (ViewHolder) view.getTag();
             int indent = updater.getIndentForTask(vh.task.getUuid());
             vh.rowBody.setPadding(Math.round(indent * 20 * metrics.density), 0, 0, 0);
-        }
-
-        @Override
-        protected void addListeners(View container) {
-            super.addListeners(container);
-        }
-
-        public TaskRowListener getListener() {
-            return listener;
         }
     }
 

@@ -533,7 +533,16 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         viewHolder.details2.setText(actual);
     }
 
-    protected TaskRowListener listener = new TaskRowListener();
+    public void onClick(View v) {
+        // expand view (unless deleted)
+        final ViewHolder viewHolder = (ViewHolder)v.getTag();
+        if(viewHolder.task.isDeleted()) {
+            return;
+        }
+
+        long taskId = viewHolder.task.getId();
+        fragment.onTaskListItemClicked(taskId);
+    }
 
     private Pair<Float, Float> lastTouchYRawY = new Pair<>(0f, 0f);
 
@@ -541,7 +550,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * Set listeners for this view. This is called once per view when it is
      * created.
      */
-    protected void addListeners(final View container) {
+    private void addListeners(final View container) {
         final ViewHolder viewHolder = (ViewHolder)container.getTag();
 
         // check box listener
@@ -870,22 +879,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
     };
 
-    protected ViewHolder getTagFromCheckBox(View v) {
+    private ViewHolder getTagFromCheckBox(View v) {
         return (ViewHolder)((View)v.getParent()).getTag();
-    }
-
-    public class TaskRowListener implements OnClickListener {
-        @Override
-        public void onClick(View v) {
-            // expand view (unless deleted)
-            final ViewHolder viewHolder = (ViewHolder)v.getTag();
-            if(viewHolder.task.isDeleted()) {
-                return;
-            }
-
-            long taskId = viewHolder.task.getId();
-            fragment.onTaskListItemClicked(taskId);
-        }
     }
 
     /** Helper method to adjust a tasks' appearance if the task is completed or
