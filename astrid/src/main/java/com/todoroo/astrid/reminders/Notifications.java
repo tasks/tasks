@@ -17,7 +17,6 @@ import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
@@ -47,7 +46,6 @@ public class Notifications extends InjectingBroadcastReceiver {
     /**
      * Action name for broadcast intent notifying that task was created from repeating template
      */
-    public static final String BROADCAST_IN_APP_NOTIFY = Constants.PACKAGE + ".IN_APP_NOTIFY"; //$NON-NLS-1$
     public static final String EXTRAS_CUSTOM_INTENT = "intent"; //$NON-NLS-1$
     public static final String EXTRAS_NOTIF_ID = "notifId"; //$NON-NLS-1$
 
@@ -176,19 +174,7 @@ public class Notifications extends InjectingBroadcastReceiver {
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         notifyIntent.putExtra(TaskListActivity.TOKEN_SOURCE, Constants.SOURCE_NOTIFICATION);
 
-        requestNotification((int) id, notifyIntent, type, title, text, ringTimes);
+        broadcaster.requestNotification((int) id, notifyIntent, type, title, text, ringTimes);
         return true;
-    }
-
-    private void requestNotification(long taskId, Intent intent, int type, String title, String text, int ringTimes) {
-        Intent inAppNotify = new Intent(BROADCAST_IN_APP_NOTIFY);
-        inAppNotify.putExtra(EXTRAS_NOTIF_ID, (int) taskId);
-        inAppNotify.putExtra(NotificationFragment.TOKEN_ID, taskId);
-        inAppNotify.putExtra(EXTRAS_CUSTOM_INTENT, intent);
-        inAppNotify.putExtra(EXTRAS_TYPE, type);
-        inAppNotify.putExtra(EXTRAS_TITLE, title);
-        inAppNotify.putExtra(EXTRAS_TEXT, text);
-        inAppNotify.putExtra(EXTRAS_RING_TIMES, ringTimes);
-        broadcaster.sendOrderedBroadcast(inAppNotify, AstridApiConstants.PERMISSION_READ);
     }
 }

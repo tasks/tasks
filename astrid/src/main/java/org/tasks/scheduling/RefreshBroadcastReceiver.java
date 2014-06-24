@@ -3,8 +3,6 @@ package org.tasks.scheduling;
 import android.content.Context;
 import android.content.Intent;
 
-import com.todoroo.astrid.api.AstridApiConstants;
-
 import org.tasks.Broadcaster;
 import org.tasks.injection.InjectingBroadcastReceiver;
 
@@ -18,7 +16,7 @@ public class RefreshBroadcastReceiver extends InjectingBroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
 
-        broadcaster.sendOrderedBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_LIST_UPDATED));
-        broadcaster.sendOrderedBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_FILTER_LIST_UPDATED));
+        broadcaster.taskListUpdated();
+        broadcaster.filterListUpdated();
     }
 }

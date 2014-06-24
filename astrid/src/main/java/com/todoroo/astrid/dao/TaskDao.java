@@ -377,10 +377,7 @@ public class TaskDao extends RemoteModelDao<Task> {
         }
 
         if(values.containsKey(Task.COMPLETION_DATE.name) && task.isCompleted()) {
-            Intent broadcastIntent;
-            broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_COMPLETED);
-            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
-            broadcaster.sendOrderedBroadcast(broadcastIntent);
+            broadcaster.taskCompleted(task.getId());
         }
 
         broadcastTaskChanged();
@@ -390,7 +387,7 @@ public class TaskDao extends RemoteModelDao<Task> {
      * Send broadcast when task list changes. Widgets should update.
      */
     private void broadcastTaskChanged() {
-        broadcaster.sendOrderedBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_LIST_UPDATED));
+        broadcaster.taskListUpdated();
     }
 
     /**

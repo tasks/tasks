@@ -6,7 +6,6 @@
 package com.todoroo.astrid.service;
 
 import android.content.ContentValues;
-import android.content.Intent;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -15,7 +14,6 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
@@ -236,7 +234,7 @@ public class TaskService {
         filterCounter.refreshFilterCounts(new Runnable() {
             @Override
             public void run() {
-                broadcaster.sendOrderedBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_FILTER_LIST_UPDATED));
+                broadcaster.filterListUpdated();
             }
         });
     }
