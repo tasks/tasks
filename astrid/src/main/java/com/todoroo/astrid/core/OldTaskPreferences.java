@@ -22,6 +22,7 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.TodorooPreferenceActivity;
 
@@ -38,6 +39,7 @@ import javax.inject.Inject;
  */
 public class OldTaskPreferences extends TodorooPreferenceActivity {
 
+    @Inject TaskDeleter taskDeleter;
     @Inject TaskService taskService;
     @Inject MetadataService metadataService;
     @Inject Database database;
@@ -194,11 +196,9 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                                 } finally {
                                     cursor.close();
                                 }
-                                int result = taskService.deleteWhere(Task.DELETION_DATE.gt(0));
+                                int result = taskDeleter.purgeDeletedTasks();
                                 metadataService.cleanup();
-                                showResult(
-                                        R.string.EPr_manage_purge_deleted_status,
-                                        result);
+                                showResult(R.string.EPr_manage_purge_deleted_status, result);
                             }
                         });
                     }

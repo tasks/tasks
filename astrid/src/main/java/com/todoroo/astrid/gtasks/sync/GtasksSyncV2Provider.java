@@ -33,6 +33,7 @@ import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
@@ -74,12 +75,13 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     private final GtasksTokenValidator gtasksTokenValidator;
     private final GtasksMetadata gtasksMetadataFactory;
     private final SyncExecutor executor;
+    private final TaskDeleter taskDeleter;
 
     @Inject
     public GtasksSyncV2Provider(TaskService taskService, MetadataService metadataService, StoreObjectDao storeObjectDao, GtasksPreferenceService gtasksPreferenceService,
                                 GtasksSyncService gtasksSyncService, GtasksListService gtasksListService, GtasksMetadataService gtasksMetadataService,
                                 GtasksTaskListUpdater gtasksTaskListUpdater, @ForApplication Context context, Preferences preferences,
-                                GtasksTokenValidator gtasksTokenValidator, GtasksMetadata gtasksMetadata, SyncExecutor executor) {
+                                GtasksTokenValidator gtasksTokenValidator, GtasksMetadata gtasksMetadata, SyncExecutor executor, TaskDeleter taskDeleter) {
         this.taskService = taskService;
         this.metadataService = metadataService;
         this.storeObjectDao = storeObjectDao;
@@ -93,6 +95,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         this.gtasksTokenValidator = gtasksTokenValidator;
         this.gtasksMetadataFactory = gtasksMetadata;
         this.executor = executor;
+        this.taskDeleter = taskDeleter;
     }
 
     @Override
@@ -280,7 +283,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                     Criterion delete = Criterion.and(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY),
                             GtasksMetadata.LIST_ID.eq(listId),
                             Criterion.not(Metadata.TASK.in(localIdArray)));
-                    taskService.deleteWhere(
+                    taskDeleter.deleteWhere(
                             Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).
                                     where(delete)));
                     metadataService.deleteWhere(delete);

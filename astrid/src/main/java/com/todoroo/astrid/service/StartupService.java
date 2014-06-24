@@ -78,6 +78,7 @@ public class StartupService {
     private final Preferences preferences;
     private final TasksXmlImporter xmlImporter;
     private final CalendarAlarmScheduler calendarAlarmScheduler;
+    private final TaskDeleter taskDeleter;
 
     @Inject
     public StartupService(UpgradeService upgradeService, TaskService taskService,
@@ -85,7 +86,7 @@ public class StartupService {
                           GtasksPreferenceService gtasksPreferenceService,
                           GtasksSyncService gtasksSyncService, MetadataService metadataService,
                           Preferences preferences, TasksXmlImporter xmlImporter,
-                          CalendarAlarmScheduler calendarAlarmScheduler) {
+                          CalendarAlarmScheduler calendarAlarmScheduler, TaskDeleter taskDeleter) {
         this.upgradeService = upgradeService;
         this.taskService = taskService;
         this.tagDataDao = tagDataDao;
@@ -96,6 +97,7 @@ public class StartupService {
         this.preferences = preferences;
         this.xmlImporter = xmlImporter;
         this.calendarAlarmScheduler = calendarAlarmScheduler;
+        this.taskDeleter = taskDeleter;
     }
 
     /**
@@ -178,7 +180,7 @@ public class StartupService {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                taskService.cleanup();
+                taskDeleter.deleteTasksWithEmptyTitles();
 
                 // if sync ongoing flag was set, clear it
                 gtasksPreferenceService.stopOngoing();

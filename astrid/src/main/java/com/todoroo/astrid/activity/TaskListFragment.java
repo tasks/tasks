@@ -649,7 +649,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         if (taskAdapter != null) {
             taskAdapter.flushCaches();
         }
-        taskService.cleanup();
+        taskDeleter.deleteTasksWithEmptyTitles();
         loadTaskListContent(true);
     }
 
@@ -999,7 +999,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
             Task task = new Task();
             task.setId(itemId);
             TimerPlugin.updateTimer(notificationManager, taskService, getActivity(), task, false);
-            taskService.purge(itemId);
+            taskDeleter.purge(itemId);
             loadTaskListContent(true);
             return true;
         }

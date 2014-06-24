@@ -12,20 +12,15 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
-import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.TitleParser;
@@ -53,21 +48,6 @@ import javax.inject.Singleton;
 @Singleton
 public class TaskService {
 
-    private static final Property.StringProperty ACTIVITY_TYPE_PROPERTY = new Property.StringProperty(null, "'" + NameMaps.TABLE_ID_USER_ACTIVITY + "' as type");  //$NON-NLS-1$//$NON-NLS-2$
-
-    public static final Property<?>[] USER_ACTIVITY_PROPERTIES = {
-            UserActivity.CREATED_AT,
-            UserActivity.UUID,
-            UserActivity.ACTION,
-            UserActivity.MESSAGE,
-            UserActivity.TARGET_ID,
-            UserActivity.TARGET_NAME,
-            UserActivity.PICTURE,
-            UserActivity.USER_UUID,
-            UserActivity.ID,
-            ACTIVITY_TYPE_PROPERTY,
-    };
-
     private static final Logger log = LoggerFactory.getLogger(TaskService.class);
 
     public static final String TRANS_QUICK_ADD_MARKUP = "markup"; //$NON-NLS-1$
@@ -81,18 +61,15 @@ public class TaskService {
     public static final String TRANS_REPEAT_COMPLETE = "repeat-complete"; //$NON-NLS-1$
 
     private final TaskDao taskDao;
-    private final UserActivityDao userActivityDao;
     private final Broadcaster broadcaster;
     private final FilterCounter filterCounter;
     private final RefreshScheduler refreshScheduler;
     private final TagService tagService;
 
     @Inject
-    public TaskService(TaskDao taskDao, UserActivityDao userActivityDao,
-                       Broadcaster broadcaster, FilterCounter filterCounter,
+    public TaskService(TaskDao taskDao, Broadcaster broadcaster, FilterCounter filterCounter,
                        RefreshScheduler refreshScheduler, TagService tagService) {
         this.taskDao = taskDao;
-        this.userActivityDao = userActivityDao;
         this.broadcaster = broadcaster;
         this.filterCounter = filterCounter;
         this.refreshScheduler = refreshScheduler;
@@ -139,33 +116,6 @@ public class TaskService {
 
     private void saveWithoutPublishingFilterUpdate(Task item) {
         taskDao.save(item);
-    }
-
-    /**
-     * Permanently delete the given task.
-     */
-    public void purge(long taskId) {
-        taskDao.delete(taskId);
-    }
-
-    /**
-     * Clean up tasks. Typically called on startup
-     */
-    public void cleanup() {
-        TodorooCursor<Task> cursor = taskDao.query(
-                Query.select(Task.ID).where(TaskCriteria.hasNoTitle()));
-        try {
-            if(cursor.getCount() == 0) {
-                return;
-            }
-
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                long id = cursor.getLong(0);
-                taskDao.delete(id);
-            }
-        } finally {
-            cursor.close();
-        }
     }
 
     /**
@@ -265,13 +215,6 @@ public class TaskService {
         } finally {
             cursor.close();
         }
-    }
-
-    /**
-     * Delete all tasks matching a given criterion
-     */
-    public int deleteWhere(Criterion criteria) {
-        return taskDao.deleteWhere(criteria);
     }
 
     /**
@@ -378,18 +321,5 @@ public class TaskService {
         }
 
         return task;
-    }
-
-    public TodorooCursor<UserActivity> getActivityForTask(Task task) {
-        Query taskQuery = queryForTask(task, USER_ACTIVITY_PROPERTIES);
-
-        Query resultQuery = taskQuery.orderBy(Order.desc("1")); //$NON-NLS-1$
-
-        return userActivityDao.query(resultQuery);
-    }
-
-    private static Query queryForTask(Task task, Property<?>[] activityProperties) {
-        return Query.select(AndroidUtilities.addToArray(Property.class, activityProperties))
-                .where(Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TASK_COMMENT), UserActivity.TARGET_ID.eq(task.getUuid()), UserActivity.DELETED_AT.eq(0)));
     }
 }
