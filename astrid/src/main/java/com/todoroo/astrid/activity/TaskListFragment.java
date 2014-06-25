@@ -12,8 +12,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
@@ -26,7 +24,6 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -86,7 +83,6 @@ import org.tasks.injection.Injector;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
 
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicReference;
@@ -117,8 +113,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     public static final int ACTIVITY_REQUEST_NEW_FILTER = 5;
 
     // --- menu codes
-
-    protected static final int MENU_ADDON_INTENT_ID = Menu.FIRST + 199;
 
     protected static final int CONTEXT_MENU_EDIT_TASK_ID = R.string.TAd_contextEditTask;
     protected static final int CONTEXT_MENU_COPY_TASK_ID = R.string.TAd_contextCopyTask;
@@ -388,38 +382,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
             MenuItem item = menu.add(Menu.NONE, id, Menu.NONE, title);
             item.setIcon(image);
             item.setIntent(customIntent);
-        }
-    }
-
-    /**
-     * Create options menu (displayed when user presses menu key)
-     */
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        Activity activity = getActivity();
-        if (activity == null) {
-            return;
-        }
-        if (!isCurrentTaskListFragment()) {
-            return;
-        }
-
-        addMenuItems(menu);
-    }
-
-    protected void addMenuItems(Menu menu) {
-        // ask about plug-ins
-        Intent queryIntent = new Intent(
-                AstridApiConstants.ACTION_TASK_LIST_MENU);
-
-        PackageManager pm = getActivity().getPackageManager();
-        List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(
-                queryIntent, 0);
-        for (ResolveInfo resolveInfo : resolveInfoList) {
-            Intent intent = new Intent(AstridApiConstants.ACTION_TASK_LIST_MENU);
-            intent.setClassName(resolveInfo.activityInfo.packageName,
-                    resolveInfo.activityInfo.name);
-            addMenuItem(menu, resolveInfo.loadLabel(pm), resolveInfo.loadIcon(pm), intent, MENU_ADDON_INTENT_ID);
         }
     }
 
@@ -942,30 +904,12 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         return onOptionsItemSelected(item);
     }
 
-    public boolean handleOptionsMenuItemSelected(int id, Intent intent) {
-        Activity activity = getActivity();
-        switch(id) {
-        case MENU_ADDON_INTENT_ID:
-            if (activity != null) {
-                AndroidUtilities.startExternalIntent(activity, intent,
-                        ACTIVITY_MENU_EXTERNAL);
-            }
-            return true;
-        }
-        return false;
-    }
-
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         long itemId;
 
         if (!isCurrentTaskListFragment()) {
             return false;
-        }
-
-        // handle my own menus
-        if (handleOptionsMenuItemSelected(item.getItemId(), item.getIntent())) {
-            return true;
         }
 
         switch (item.getItemId()) {

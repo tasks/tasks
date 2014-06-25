@@ -32,8 +32,6 @@ import com.todoroo.astrid.gtasks.api.GoogleTasksException;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
-import com.todoroo.astrid.service.MetadataService;
-import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
@@ -62,7 +60,6 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     private static final Logger log = LoggerFactory.getLogger(GtasksSyncV2Provider.class);
 
     private final TaskService taskService;
-    private final MetadataService metadataService;
     private final StoreObjectDao storeObjectDao;
     private final GtasksPreferenceService gtasksPreferenceService;
     private final GtasksSyncService gtasksSyncService;
@@ -74,15 +71,13 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     private final GtasksTokenValidator gtasksTokenValidator;
     private final GtasksMetadata gtasksMetadataFactory;
     private final SyncExecutor executor;
-    private final TaskDeleter taskDeleter;
 
     @Inject
-    public GtasksSyncV2Provider(TaskService taskService, MetadataService metadataService, StoreObjectDao storeObjectDao, GtasksPreferenceService gtasksPreferenceService,
+    public GtasksSyncV2Provider(TaskService taskService, StoreObjectDao storeObjectDao, GtasksPreferenceService gtasksPreferenceService,
                                 GtasksSyncService gtasksSyncService, GtasksListService gtasksListService, GtasksMetadataService gtasksMetadataService,
                                 GtasksTaskListUpdater gtasksTaskListUpdater, @ForApplication Context context, Preferences preferences,
-                                GtasksTokenValidator gtasksTokenValidator, GtasksMetadata gtasksMetadata, SyncExecutor executor, TaskDeleter taskDeleter) {
+                                GtasksTokenValidator gtasksTokenValidator, GtasksMetadata gtasksMetadata, SyncExecutor executor) {
         this.taskService = taskService;
-        this.metadataService = metadataService;
         this.storeObjectDao = storeObjectDao;
         this.gtasksPreferenceService = gtasksPreferenceService;
         this.gtasksSyncService = gtasksSyncService;
@@ -94,7 +89,6 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         this.gtasksTokenValidator = gtasksTokenValidator;
         this.gtasksMetadataFactory = gtasksMetadata;
         this.executor = executor;
-        this.taskDeleter = taskDeleter;
     }
 
     @Override

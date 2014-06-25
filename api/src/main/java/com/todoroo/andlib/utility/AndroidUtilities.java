@@ -9,7 +9,6 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.MotionEvent;
@@ -59,22 +58,6 @@ public class AndroidUtilities {
                 return false;
             }
         });
-    }
-
-    /**
-     * Start the given intent, handling security exceptions if they arise
-     * @param request request code. if negative, no request.
-     */
-    public static void startExternalIntent(Context context, Intent intent, int request) {
-        try {
-            if(request > -1 && context instanceof Activity) {
-                ((Activity) context).startActivityForResult(intent, request);
-            } else {
-                context.startActivity(intent);
-            }
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
     }
 
     /**

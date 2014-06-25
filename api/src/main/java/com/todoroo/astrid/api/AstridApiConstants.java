@@ -150,13 +150,6 @@ public class AstridApiConstants {
     // --- Actions API
 
     /**
-     * Action name for intents to be displayed on Astrid's task list menu
-     * <li> EXTRAS_ADDON your add-on identifier
-     * <li> EXTRAS_RESPONSE an array of {@link Intent}s
-     */
-    public static final String ACTION_TASK_LIST_MENU = API_PACKAGE + ".TASK_LIST_MENU";
-
-    /**
      * Action name for intents to be displayed in Astrid's settings. By default,
      * your application will be put into the category named by your application,
      * but you can add a string meta-data with name "category" to override this.
