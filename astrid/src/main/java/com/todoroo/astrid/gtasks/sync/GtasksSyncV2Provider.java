@@ -48,7 +48,6 @@ import org.tasks.sync.SyncExecutor;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -121,10 +120,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     }
 
     @Override
-    public void synchronizeActiveTasks(final boolean manual, final SyncResultCallback callback) {
-        // TODO: Improve this logic. Should only be able to import from settings or something.
-        final boolean isImport = false;
-
+    public void synchronizeActiveTasks(final SyncResultCallback callback) {
         callback.started();
 
         gtasksPreferenceService.recordSyncStart();
@@ -152,7 +148,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                     executor.execute(callback, new Runnable() {
                         @Override
                         public void run() {
-                            synchronizeListHelper(list, invoker, manual, handler, isImport);
+                            synchronizeListHelper(list, invoker, handler);
                             if (finisher.decrementAndGet() == 0) {
                                 pushUpdated(invoker);
                                 finishSync(callback);
@@ -190,7 +186,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     }
 
     @Override
-    public void synchronizeList(Object list, final boolean manual, final SyncResultCallback callback) {
+    public void synchronizeList(Object list, final SyncResultCallback callback) {
         if (!(list instanceof StoreObject)) {
             return;
         }
@@ -198,8 +194,6 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         if (!GtasksList.TYPE.equals(gtasksList.getType())) {
             return;
         }
-
-        final boolean isImport = false;
 
         callback.started();
 
@@ -210,7 +204,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                     String authToken = getValidatedAuthToken();
                     gtasksSyncService.waitUntilEmpty();
                     final GtasksInvoker service = new GtasksInvoker(gtasksTokenValidator, authToken);
-                    synchronizeListHelper(gtasksList, service, manual, null, isImport);
+                    synchronizeListHelper(gtasksList, service, null);
                 } finally {
                     callback.finished();
                 }
@@ -233,13 +227,11 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     }
 
     private synchronized void synchronizeListHelper(StoreObject list, GtasksInvoker invoker,
-            boolean manual, SyncExceptionHandler errorHandler, boolean isImport) {
+            SyncExceptionHandler errorHandler) {
         String listId = list.getValue(GtasksList.REMOTE_ID);
-        long lastSyncDate;
-        if (!manual && list.containsNonNullValue(GtasksList.LAST_SYNC)) {
+        long lastSyncDate = 0;
+        if (list.containsNonNullValue(GtasksList.LAST_SYNC)) {
             lastSyncDate = list.getValue(GtasksList.LAST_SYNC);
-        } else {
-            lastSyncDate = 0;
         }
 
         /**
@@ -262,32 +254,16 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                     includeDeletedAndHidden, lastSyncDate);
             List<com.google.api.services.tasks.model.Task> tasks = taskList.getItems();
             if (tasks != null) {
-                HashSet<Long> localIds = new HashSet<>(tasks.size());
                 for (com.google.api.services.tasks.model.Task t : tasks) {
                     GtasksTaskContainer container = parseRemoteTask(t, listId);
                     gtasksMetadataService.findLocalMatch(container);
-                    container.gtaskMetadata.setValue(GtasksMetadata.GTASKS_ORDER,
-                            Long.parseLong(t.getPosition()));
-                    container.gtaskMetadata.setValue(GtasksMetadata.PARENT_TASK,
-                            gtasksMetadataService.localIdForGtasksId(t.getParent()));
-                    container.gtaskMetadata.setValue(GtasksMetadata.LAST_SYNC,
-                            DateUtilities.now() + 1000L);
+                    container.gtaskMetadata.setValue(GtasksMetadata.GTASKS_ORDER, Long.parseLong(t.getPosition()));
+                    container.gtaskMetadata.setValue(GtasksMetadata.PARENT_TASK, gtasksMetadataService.localIdForGtasksId(t.getParent()));
+                    container.gtaskMetadata.setValue(GtasksMetadata.LAST_SYNC, DateUtilities.now() + 1000L);
                     write(container);
-                    localIds.add(container.task.getId());
                 }
                 list.setValue(GtasksList.LAST_SYNC, DateUtilities.now());
                 storeObjectDao.persist(list);
-
-                if(lastSyncDate == 0 && !isImport) {
-                    Criterion delete = Criterion.and(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY),
-                            GtasksMetadata.LIST_ID.eq(listId),
-                            Criterion.not(Metadata.TASK.in(localIds)));
-                    taskDeleter.deleteWhere(
-                            Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).
-                                    where(delete)));
-                    metadataService.deleteWhere(delete);
-                }
-
                 gtasksTaskListUpdater.correctOrderAndIndentForList(listId);
             }
         } catch (IOException e) {

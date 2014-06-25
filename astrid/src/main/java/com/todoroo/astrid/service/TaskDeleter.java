@@ -1,7 +1,6 @@
 package com.todoroo.astrid.service;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
@@ -44,14 +43,7 @@ public class TaskDeleter {
     }
 
     public int purgeDeletedTasks() {
-        return deleteWhere(Task.DELETION_DATE.gt(0));
-    }
-
-    /**
-     * Delete all tasks matching a given criterion
-     */
-    public int deleteWhere(Criterion criteria) {
-        return taskDao.deleteWhere(criteria);
+        return taskDao.deleteWhere(Task.DELETION_DATE.gt(0));
     }
 
     /**

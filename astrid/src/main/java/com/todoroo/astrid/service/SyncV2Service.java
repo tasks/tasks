@@ -62,11 +62,10 @@ public class SyncV2Service {
     /**
      * Initiate synchronization of active tasks
      *
-     * @param manual if manual sync
      * @param callback result callback
      * @return true if any servide was logged in and initiated a sync
      */
-    public boolean synchronizeActiveTasks(final boolean manual, SyncResultCallback callback) {
+    public boolean synchronizeActiveTasks(SyncResultCallback callback) {
         final List<SyncV2Provider> active = activeProviders();
 
         if (active.size() == 0) {
@@ -74,9 +73,9 @@ public class SyncV2Service {
         }
 
         if (active.size() > 1) { // This should never happen anymore--they can't be active at the same time, but if for some reason they both are, just use ActFm
-            active.get(1).synchronizeActiveTasks(manual, new WidgetUpdatingCallbackWrapper(context, callback));
+            active.get(1).synchronizeActiveTasks(new WidgetUpdatingCallbackWrapper(context, callback));
         } else if (active.size() == 1) {
-            active.get(0).synchronizeActiveTasks(manual, new WidgetUpdatingCallbackWrapper(context, callback));
+            active.get(0).synchronizeActiveTasks(new WidgetUpdatingCallbackWrapper(context, callback));
         }
 
         return true;
@@ -86,13 +85,12 @@ public class SyncV2Service {
      * Initiate synchronization of task list
      *
      * @param list list object
-     * @param manual if manual sync
      * @param callback result callback
      */
-    public void synchronizeList(Object list, boolean manual, SyncResultCallback callback) {
+    public void synchronizeList(Object list, SyncResultCallback callback) {
         for(SyncV2Provider provider : providers) {
             if(provider.isActive()) {
-                provider.synchronizeList(list, manual, new WidgetUpdatingCallbackWrapper(context, callback));
+                provider.synchronizeList(list, new WidgetUpdatingCallbackWrapper(context, callback));
             }
         }
     }

@@ -37,15 +37,14 @@ abstract public class SyncV2Provider {
      * @param manual whether manually triggered
      * @param callback callback object
      */
-    abstract public void synchronizeActiveTasks(boolean manual, SyncResultCallback callback);
+    abstract public void synchronizeActiveTasks(SyncResultCallback callback);
 
     /**
      * Synchronize a single list
      * @param list object representing list (TaskListActivity-dependent)
-     * @param manual whether was manually triggered
      * @param callback callback object
      */
-    abstract public void synchronizeList(Object list, boolean manual, SyncResultCallback callback);
+    abstract public void synchronizeList(Object list, SyncResultCallback callback);
 
     /**
      * @return sync utility instance

@@ -64,6 +64,8 @@ public class GtasksInvoker {
                 }
             } else if (statusCode == 400 || statusCode == 500) {
                 throw h;
+            } else if (statusCode == 404) {
+                throw new HttpNotFoundException(h);
             } else {
                 log.error(statusCode + ": " + h.getStatusMessage(), e);
             }

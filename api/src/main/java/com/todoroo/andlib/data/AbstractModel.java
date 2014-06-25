@@ -209,13 +209,10 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
         // resolve properties that were retrieved with a different type than accessed
         try {
             if(value instanceof String && property instanceof LongProperty) {
-                log.debug("{}={} stored as string instead of long", columnName, value);
                 return (TYPE) Long.valueOf((String) value);
             } else if(value instanceof String && property instanceof IntegerProperty) {
-                log.debug("{}={} stored as string instead of int", columnName, value);
                 return (TYPE) Integer.valueOf((String) value);
             } else if(value instanceof Integer && property instanceof LongProperty) {
-                log.debug("{}={} stored as int instead of long", columnName, value);
                 return (TYPE) Long.valueOf(((Number) value).longValue());
             }
             return (TYPE) value;

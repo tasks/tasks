@@ -137,7 +137,7 @@ public class SyncActionHelper {
     // --- sync logic
 
     protected void performSyncServiceV2Sync() {
-        boolean syncOccurred = syncService.synchronizeActiveTasks(false, syncResultCallback);
+        boolean syncOccurred = syncService.synchronizeActiveTasks(syncResultCallback);
         if (syncOccurred) {
             preferences.setLong(PREF_LAST_AUTO_SYNC, DateUtilities.now());
         }
@@ -215,7 +215,7 @@ public class SyncActionHelper {
             }
 
         } else {
-            syncService.synchronizeActiveTasks(true, syncResultCallback);
+            syncService.synchronizeActiveTasks(syncResultCallback);
         }
     }
 

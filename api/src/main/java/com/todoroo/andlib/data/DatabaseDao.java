@@ -11,6 +11,9 @@ import android.database.Cursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -25,6 +28,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *
  */
 public class DatabaseDao<TYPE extends AbstractModel> {
+
+    private static final Logger log = LoggerFactory.getLogger(DatabaseDao.class);
 
     private final Class<TYPE> modelClass;
 
@@ -139,6 +144,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      * @return # of deleted items
      */
     public int deleteWhere(Criterion where) {
+        log.debug("deleteWhere({})", where);
         return database.delete(table.name,
                 where.toString(), null);
     }

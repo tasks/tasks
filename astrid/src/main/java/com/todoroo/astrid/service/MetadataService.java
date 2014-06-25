@@ -72,13 +72,6 @@ public class MetadataService {
 
     /**
      * Delete from metadata table where rows match a certain condition
-     */
-    public void deleteWhere(Criterion where) {
-        metadataDao.deleteWhere(where);
-    }
-
-    /**
-     * Delete from metadata table where rows match a certain condition
      * @param where predicate for which rows to update
      * @param metadata values to set
      */

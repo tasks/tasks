@@ -23,6 +23,7 @@ import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.api.CreateRequest;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
+import com.todoroo.astrid.gtasks.api.HttpNotFoundException;
 import com.todoroo.astrid.gtasks.api.MoveRequest;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 import com.todoroo.astrid.service.MetadataService;
@@ -305,7 +306,13 @@ public class GtasksSyncService {
         }
 
         if (!newlyCreated) {
-            invoker.updateGtask(listId, remoteModel);
+            try {
+                invoker.updateGtask(listId, remoteModel);
+            } catch(HttpNotFoundException e) {
+                log.error("Received 404 response, deleting {}", gtasksMetadata);
+                metadataDao.delete(gtasksMetadata.getId());
+                return;
+            }
         } else {
             String parent = gtasksMetadataService.getRemoteParentId(gtasksMetadata);
             String priorSibling = gtasksMetadataService.getRemoteSiblingId(listId, gtasksMetadata);

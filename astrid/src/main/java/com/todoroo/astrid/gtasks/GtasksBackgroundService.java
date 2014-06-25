@@ -58,7 +58,7 @@ public class GtasksBackgroundService extends InjectingService {
 
         SyncV2Provider provider = gtasksSyncV2Provider;
         if (provider.isActive()) {
-            provider.synchronizeActiveTasks(false, new SyncResultCallback() {
+            provider.synchronizeActiveTasks(new SyncResultCallback() {
                 @Override
                 public void started() {
                 }
