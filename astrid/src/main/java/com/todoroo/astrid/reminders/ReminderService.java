@@ -249,7 +249,7 @@ public final class ReminderService  {
      */
     private long calculateNextOverdueReminder(Task task) {
      // Uses getNowValue() instead of DateUtilities.now()
-        if(task.hasDueDate() && task.getFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE)) {
+        if(task.hasDueDate() && task.isNotifyAfterDeadline()) {
             Date due = newDate(task.getDueDate());
             if (!task.hasDueTime()) {
                 due.setHours(23);
@@ -290,7 +290,7 @@ public final class ReminderService  {
      */
     long calculateNextDueDateReminder(Task task) {
         // Uses getNowValue() instead of DateUtilities.now()
-        if(task.hasDueDate() && task.getFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AT_DEADLINE)) {
+        if(task.hasDueDate() && task.isNotifyAtDeadline()) {
             long dueDate = task.getDueDate();
             long lastReminder = task.getReminderLast();
 

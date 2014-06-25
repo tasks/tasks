@@ -677,4 +677,24 @@ public class Task extends RemoteModel {
     public void setID(Long id) {
         setValue(ID, id);
     }
+
+    public boolean isNotifyModeNonstop() {
+        return isReminderFlagSet(Task.NOTIFY_MODE_NONSTOP);
+    }
+
+    public boolean isNotifyModeFive() {
+        return isReminderFlagSet(Task.NOTIFY_MODE_FIVE);
+    }
+
+    public boolean isNotifyAfterDeadline() {
+        return isReminderFlagSet(Task.NOTIFY_AFTER_DEADLINE);
+    }
+
+    public boolean isNotifyAtDeadline() {
+        return isReminderFlagSet(Task.NOTIFY_AT_DEADLINE);
+    }
+
+    private boolean isReminderFlagSet(int flag) {
+        return (getReminderFlags() & flag) > 0;
+    }
 }

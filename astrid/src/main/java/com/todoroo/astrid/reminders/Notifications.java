@@ -144,8 +144,8 @@ public class Notifications extends InjectingBroadcastReceiver {
 
         // read properties
         String taskTitle = task.getTitle();
-        boolean nonstopMode = task.getFlag(Task.REMINDER_FLAGS, Task.NOTIFY_MODE_NONSTOP);
-        boolean ringFiveMode = task.getFlag(Task.REMINDER_FLAGS, Task.NOTIFY_MODE_FIVE);
+        boolean nonstopMode = task.isNotifyModeNonstop();
+        boolean ringFiveMode = task.isNotifyModeFive();
         int ringTimes = nonstopMode ? -1 : (ringFiveMode ? 5 : 1);
 
         // update last reminder time

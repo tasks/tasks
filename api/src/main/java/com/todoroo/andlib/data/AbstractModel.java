@@ -368,17 +368,6 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
         }
     }
 
-    /**
-     * Returns the set state of the given flag on the given property
-     * @param property the property to get the set state of the flag
-     * @param flag the flag-descriptor (e.g. <code>Task.FLAG_REPEAT_AFTER_COMPLETION</code>)
-     * @return true if the flag is set
-     */
-    public boolean getFlag(IntegerProperty property, int flag) {
-        return (getValue(property) & flag) > 0;
-    }
-
-
     // --- setting and retrieving flags
 
     public synchronized void putTransitory(String key, Object value) {
