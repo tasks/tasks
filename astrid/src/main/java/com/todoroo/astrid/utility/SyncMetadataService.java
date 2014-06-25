@@ -105,10 +105,7 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
             try {
                 ArrayList<Long> matchingRows = new ArrayList<>();
                 joinRows(tasks, metadata, matchingRows, both);
-
-                return
-                taskDao.query(Query.select(properties).where(Task.ID.in(
-                        matchingRows.toArray(new Long[matchingRows.size()]))));
+                return taskDao.query(Query.select(properties).where(Task.ID.in(matchingRows)));
             } finally {
                 metadata.close();
             }

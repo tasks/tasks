@@ -27,6 +27,7 @@ import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class SubtasksHelper {
 
@@ -103,7 +104,7 @@ public class SubtasksHelper {
     }
 
     @Deprecated
-    private static Long[] getIdArray(String serializedTree) {
+    private static List<Long> getIdList(String serializedTree) {
         ArrayList<Long> ids = new ArrayList<>();
         String[] digitsOnly = serializedTree.split("[\\[\\],\\s]"); // Split on [ ] , or whitespace chars
         for (String idString : digitsOnly) {
@@ -115,7 +116,7 @@ public class SubtasksHelper {
                 log.error(e.getMessage(), e);
             }
         }
-        return ids.toArray(new Long[ids.size()]);
+        return ids;
     }
 
     public static String[] getStringIdArray(String serializedTree) {
@@ -133,7 +134,7 @@ public class SubtasksHelper {
      * Takes a subtasks string containing local ids and remaps it to one containing UUIDs
      */
     public static String convertTreeToRemoteIds(TaskService taskService, String localTree) {
-        Long[] localIds = getIdArray(localTree);
+        List<Long> localIds = getIdList(localTree);
         HashMap<Long, String> idMap = getIdMap(taskService, localIds, Task.ID, Task.UUID);
         idMap.put(-1L, "-1"); //$NON-NLS-1$
 
@@ -178,7 +179,7 @@ public class SubtasksHelper {
         });
     }
 
-    private static <A, B> HashMap<A, B> getIdMap(TaskService taskService, A[] keys, Property<A> keyProperty, Property<B> valueProperty) {
+    private static <A, B> HashMap<A, B> getIdMap(TaskService taskService, Iterable<A> keys, Property<A> keyProperty, Property<B> valueProperty) {
         HashMap<A, B> map = new HashMap<>();
         TodorooCursor<Task> tasks = taskService.query(Query.select(keyProperty, valueProperty).where(keyProperty.in(keys)));
         try {

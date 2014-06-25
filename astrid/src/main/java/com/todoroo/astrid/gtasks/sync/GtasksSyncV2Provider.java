@@ -279,10 +279,9 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 storeObjectDao.persist(list);
 
                 if(lastSyncDate == 0 && !isImport) {
-                    Long[] localIdArray = localIds.toArray(new Long[localIds.size()]);
                     Criterion delete = Criterion.and(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY),
                             GtasksMetadata.LIST_ID.eq(listId),
-                            Criterion.not(Metadata.TASK.in(localIdArray)));
+                            Criterion.not(Metadata.TASK.in(localIds)));
                     taskDeleter.deleteWhere(
                             Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).
                                     where(delete)));

@@ -126,8 +126,7 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
             taskIds.remove(metadata.get(Metadata.TASK));
         }
 
-        return taskDao.query(Query.select(Task.ID).where(
-                Task.ID.in(taskIds.toArray(new Long[taskIds.size()]))));
+        return taskDao.query(Query.select(Task.ID).where(Task.ID.in(taskIds)));
     }
 
     // --- list iterating helpers
