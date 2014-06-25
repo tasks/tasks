@@ -231,7 +231,7 @@ public class AdvancedRepeatTest extends AndroidTestCase {
     }
 
     private void setRRuleDays(RRule rrule, Weekday... weekdays) {
-        ArrayList<WeekdayNum> days = new ArrayList<WeekdayNum>();
+        ArrayList<WeekdayNum> days = new ArrayList<>();
         for(Weekday wd : weekdays)
             days.add(new WeekdayNum(0, wd));
         rrule.setByDay(days);

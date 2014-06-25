@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
 import com.todoroo.andlib.data.TodorooCursor;

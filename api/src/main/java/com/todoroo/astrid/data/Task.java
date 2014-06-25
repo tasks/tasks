@@ -234,7 +234,7 @@ public class Task extends RemoteModel {
 
     static {
         defaultValues.put(TITLE.name, "");
-        defaultValues.put(DUE_DATE.name, 0);
+        defaultValues.put(DUE_DATE.name, 0L);
         defaultValues.put(HIDE_UNTIL.name, 0);
         defaultValues.put(COMPLETION_DATE.name, 0);
         defaultValues.put(DELETION_DATE.name, 0);
@@ -242,7 +242,7 @@ public class Task extends RemoteModel {
 
         defaultValues.put(CALENDAR_URI.name, "");
         defaultValues.put(RECURRENCE.name, "");
-        defaultValues.put(REPEAT_UNTIL.name, 0);
+        defaultValues.put(REPEAT_UNTIL.name, 0L);
         defaultValues.put(REMINDER_PERIOD.name, 0);
         defaultValues.put(REMINDER_FLAGS.name, 0);
         defaultValues.put(REMINDER_LAST.name, 0);

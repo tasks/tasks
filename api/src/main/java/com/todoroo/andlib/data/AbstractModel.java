@@ -194,12 +194,13 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
      */
     public synchronized <TYPE> TYPE getValue(Property<TYPE> property) {
         Object value;
-        if(setValues != null && setValues.containsKey(property.getColumnName())) {
-            value = setValues.get(property.getColumnName());
-        } else if(values != null && values.containsKey(property.getColumnName())) {
-            value = values.get(property.getColumnName());
-        } else if(getDefaultValues().containsKey(property.getColumnName())) {
-            value = getDefaultValues().get(property.getColumnName());
+        String columnName = property.getColumnName();
+        if(setValues != null && setValues.containsKey(columnName)) {
+            value = setValues.get(columnName);
+        } else if(values != null && values.containsKey(columnName)) {
+            value = values.get(columnName);
+        } else if(getDefaultValues().containsKey(columnName)) {
+            value = getDefaultValues().get(columnName);
         } else {
             throw new UnsupportedOperationException(
                     "Model Error: Did not read property " + property.name); //$NON-NLS-1$
@@ -208,10 +209,13 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
         // resolve properties that were retrieved with a different type than accessed
         try {
             if(value instanceof String && property instanceof LongProperty) {
+                log.debug("{}={} stored as string instead of long", columnName, value);
                 return (TYPE) Long.valueOf((String) value);
             } else if(value instanceof String && property instanceof IntegerProperty) {
+                log.debug("{}={} stored as string instead of int", columnName, value);
                 return (TYPE) Integer.valueOf((String) value);
             } else if(value instanceof Integer && property instanceof LongProperty) {
+                log.debug("{}={} stored as int instead of long", columnName, value);
                 return (TYPE) Long.valueOf(((Number) value).longValue());
             }
             return (TYPE) value;

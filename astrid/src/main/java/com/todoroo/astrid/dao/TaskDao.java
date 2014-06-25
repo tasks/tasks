@@ -6,7 +6,6 @@
 package com.todoroo.astrid.dao;
 
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.sqlite.SQLiteConstraintException;
 
 import com.todoroo.andlib.data.Property;
@@ -15,7 +14,6 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;

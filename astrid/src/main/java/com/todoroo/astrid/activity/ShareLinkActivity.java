@@ -3,15 +3,12 @@
  */
 package com.todoroo.astrid.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskService;
-
-import org.tasks.injection.ForApplication;
 
 import javax.inject.Inject;
 

@@ -33,7 +33,6 @@ public class TaskDuplicator {
         Task original = new Task();
         original.setId(itemId);
         Task clone = clone(original);
-        String userId = clone.getUserID();
         clone.setCreationDate(DateUtilities.now());
         clone.setCompletionDate(0L);
         clone.setDeletionDate(0L);
