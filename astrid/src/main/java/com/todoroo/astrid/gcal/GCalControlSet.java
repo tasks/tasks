@@ -45,6 +45,7 @@ import static org.tasks.preferences.ResourceResolver.getResource;
 public class GCalControlSet extends PopupControlSet {
 
     private static final Logger log = LoggerFactory.getLogger(GCalControlSet.class);
+    private static final int title = R.string.gcal_TEA_addToCalendar_label;
 
     // --- instance variables
 
@@ -55,13 +56,11 @@ public class GCalControlSet extends PopupControlSet {
     private final GCalHelper.CalendarResult calendars;
     private boolean hasEvent = false;
     private Spinner calendarSelector;
-    private final int title;
     private final ImageView image;
 
-    public GCalControlSet(ActivityPreferences preferences, GCalHelper gcal, final Activity activity, int viewLayout, int displayViewLayout, int title) {
-        super(preferences, activity, viewLayout, displayViewLayout, title);
+    public GCalControlSet(ActivityPreferences preferences, GCalHelper gcal, final Activity activity) {
+        super(preferences, activity, R.layout.control_set_gcal, R.layout.control_set_gcal_display, title);
         this.gcal = gcal;
-        this.title = title;
         this.calendars = gcal.getCalendars();
         getView(); // Hack to force initialized
         image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);

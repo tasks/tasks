@@ -40,8 +40,8 @@ public class ImportanceControlSet extends TaskEditControlSet {
         public void importanceChanged(int i);
     }
 
-    public ImportanceControlSet(Activity activity, int layout) {
-        super(activity, layout);
+    public ImportanceControlSet(Activity activity) {
+        super(activity, R.layout.control_set_importance);
         colors = Task.getImportanceColors(activity.getResources());
     }
 

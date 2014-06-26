@@ -202,16 +202,11 @@ public class QuickAddBar extends LinearLayout {
 
     private void setUpQuickAddControlSets() {
 
-        repeatControl = new RepeatControlSet(preferences, activity,
-                R.layout.control_set_repeat,
-                R.layout.control_set_repeat_display, R.string.repeat_enabled);
+        repeatControl = new RepeatControlSet(preferences, activity);
 
-        gcalControl = new GCalControlSet(preferences, gcalHelper, activity,
-                R.layout.control_set_gcal, R.layout.control_set_gcal_display,
-                R.string.gcal_TEA_addToCalendar_label);
+        gcalControl = new GCalControlSet(preferences, gcalHelper, activity);
 
         deadlineControl = new DeadlineControlSet(preferences, activity,
-                R.layout.control_set_deadline,
                 R.layout.control_set_default_display, null,
                 repeatControl.getDisplayView(), gcalControl.getDisplayView());
         deadlineControl.setIsQuickadd();

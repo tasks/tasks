@@ -44,8 +44,8 @@ public final class AlarmControlSet extends TaskEditControlSet {
     private LinearLayout alertsContainer;
     private DateAndTimeDialog pickerDialog;
 
-    public AlarmControlSet(ActivityPreferences preferences, AlarmService alarmService, Activity activity, int layout) {
-        super(activity, layout);
+    public AlarmControlSet(ActivityPreferences preferences, AlarmService alarmService, Activity activity) {
+        super(activity, R.layout.control_set_alarms);
         this.preferences = preferences;
         this.alarmService = alarmService;
     }

@@ -352,8 +352,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controlSetMap = new HashMap<>();
 
         // populate control set
-        EditTitleControlSet editTitle = new EditTitleControlSet(taskService, getActivity(),
-                R.layout.control_set_title, R.id.title);
+        EditTitleControlSet editTitle = new EditTitleControlSet(taskService, getActivity());
         title = (EditText) editTitle.getView().findViewById(R.id.title);
         controls.add(editTitle);
         titleControls.addView(editTitle.getDisplayView(), 0, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1.0f));
@@ -361,19 +360,14 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         timerAction = new TimerActionControlSet(notificationManager, taskService, getActivity(), getView());
         controls.add(timerAction);
 
-        TagsControlSet tagsControlSet = new TagsControlSet(preferences, tagService, getActivity(),
-                R.layout.control_set_tags, R.layout.control_set_default_display, R.string.TEA_tags_label_long);
+        TagsControlSet tagsControlSet = new TagsControlSet(preferences, tagService, getActivity());
         controls.add(tagsControlSet);
         controlSetMap.put(getString(R.string.TEA_ctrl_lists_pref),
                 tagsControlSet);
 
-        RepeatControlSet repeatControls = new RepeatControlSet(preferences, getActivity(),
-                R.layout.control_set_repeat,
-                R.layout.control_set_repeat_display, R.string.repeat_enabled);
+        RepeatControlSet repeatControls = new RepeatControlSet(preferences, getActivity());
 
-        GCalControlSet gcalControl = new GCalControlSet(preferences, gcalHelper, getActivity(),
-                R.layout.control_set_gcal, R.layout.control_set_gcal_display,
-                R.string.gcal_TEA_addToCalendar_label);
+        GCalControlSet gcalControl = new GCalControlSet(preferences, gcalHelper, getActivity());
 
         // The deadline control set contains the repeat controls and the
         // calendar controls.
@@ -382,8 +376,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         // otherwise the correct date may not be written to the calendar event.
         // Order matters!
         DeadlineControlSet deadlineControl = new DeadlineControlSet(
-                preferences, getActivity(), R.layout.control_set_deadline,
-                R.layout.control_set_deadline_display, repeatControls,
+                preferences, getActivity(), R.layout.control_set_deadline_display, repeatControls,
                 repeatControls.getDisplayView(), gcalControl.getDisplayView());
         controlSetMap.put(getString(R.string.TEA_ctrl_when_pref),
                 deadlineControl);
@@ -392,32 +385,25 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controls.add(deadlineControl);
         controls.add(gcalControl);
 
-        ImportanceControlSet importanceControl = new ImportanceControlSet(
-                getActivity(), R.layout.control_set_importance);
+        ImportanceControlSet importanceControl = new ImportanceControlSet(getActivity());
         controls.add(importanceControl);
         importanceControl.addListener(editTitle);
         controlSetMap.put(getString(R.string.TEA_ctrl_importance_pref),
                 importanceControl);
 
-        notesControlSet = new EditNotesControlSet(preferences, getActivity(),
-                R.layout.control_set_notes, R.layout.control_set_notes_display);
+        notesControlSet = new EditNotesControlSet(preferences, getActivity());
         notesEditText = (EditText) notesControlSet.getView().findViewById(
                 R.id.notes);
         controls.add(notesControlSet);
         controlSetMap.put(getString(R.string.TEA_ctrl_notes_pref),
                 notesControlSet);
 
-        ReminderControlSet reminderControl = new ReminderControlSet(preferences,
-                alarmService, getActivity(), R.layout.control_set_reminders,
-                R.layout.control_set_default_display);
+        ReminderControlSet reminderControl = new ReminderControlSet(preferences, alarmService, getActivity());
         controls.add(reminderControl);
         controlSetMap.put(getString(R.string.TEA_ctrl_reminders_pref),
                 reminderControl);
 
-        HideUntilControlSet hideUntilControls = new HideUntilControlSet(preferences, getActivity(),
-                R.layout.control_set_hide,
-                R.layout.control_set_default_display,
-                R.string.hide_until_prompt);
+        HideUntilControlSet hideUntilControls = new HideUntilControlSet(preferences, getActivity());
         controls.add(hideUntilControls);
         controlSetMap.put(getString(R.string.TEA_ctrl_hide_until_pref), hideUntilControls);
 
@@ -432,8 +418,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controls.add(timerControl);
         controlSetMap.put(getString(R.string.TEA_ctrl_timer_pref), timerControl);
 
-        filesControlSet = new FilesControlSet(preferences, taskAttachmentDao, getActivity(),
-                R.layout.control_set_files, R.layout.control_set_files_display, R.string.TEA_control_files);
+        filesControlSet = new FilesControlSet(preferences, taskAttachmentDao, getActivity());
         controls.add(filesControlSet);
         controlSetMap.put(getString(R.string.TEA_ctrl_files_pref), filesControlSet);
 

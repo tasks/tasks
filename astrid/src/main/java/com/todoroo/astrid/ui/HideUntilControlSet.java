@@ -36,21 +36,21 @@ import static org.tasks.preferences.ResourceResolver.getResource;
  */
 public class HideUntilControlSet extends PopupControlSet implements OnItemSelectedListener {
 
+    private static final int title = R.string.hide_until_prompt;
+
     private static final int SPECIFIC_DATE = -1;
     private static final int EXISTING_TIME_UNSET = -2;
 
     //private final CheckBox enabled;
     private Spinner spinner;
     private int previousSetting = Task.HIDE_UNTIL_NONE;
-    private final int title;
     private int selection;
     private final ImageView image;
 
     private long existingDate = EXISTING_TIME_UNSET;
 
-    public HideUntilControlSet(ActivityPreferences preferences, Activity activity, int viewLayout, int displayViewLayout, int title) {
-        super(preferences, activity, viewLayout, displayViewLayout, title);
-        this.title = title;
+    public HideUntilControlSet(ActivityPreferences preferences, Activity activity) {
+        super(preferences, activity, R.layout.control_set_hide, R.layout.control_set_default_display, title);
         image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
     }
 

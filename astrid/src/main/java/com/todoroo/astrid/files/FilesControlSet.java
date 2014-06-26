@@ -56,8 +56,8 @@ public class FilesControlSet extends PopupControlSet {
     private final ImageView image;
     private final TaskAttachmentDao taskAttachmentDao;
 
-    public FilesControlSet(ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao, Activity activity, int viewLayout, int displayViewLayout, int title) {
-        super(preferences, activity, viewLayout, displayViewLayout, title);
+    public FilesControlSet(ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao, Activity activity) {
+        super(preferences, activity, R.layout.control_set_files, R.layout.control_set_files_display, R.string.TEA_control_files);
         this.taskAttachmentDao = taskAttachmentDao;
         fileDisplayList = (LinearLayout) getDisplayView().findViewById(R.id.files_list);
         image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);

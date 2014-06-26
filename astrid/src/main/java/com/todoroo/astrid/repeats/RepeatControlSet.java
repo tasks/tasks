@@ -94,8 +94,8 @@ public class RepeatControlSet extends PopupControlSet {
 
     // --- implementation
 
-    public RepeatControlSet(ActivityPreferences preferences, Activity activity, int viewLayout, int displayViewLayout, int title) {
-        super(preferences, activity, viewLayout, displayViewLayout, title);
+    public RepeatControlSet(ActivityPreferences preferences, Activity activity) {
+        super(preferences, activity, R.layout.control_set_repeat, R.layout.control_set_repeat_display, R.string.repeat_enabled);
     }
 
     /** Set up the repeat value button */

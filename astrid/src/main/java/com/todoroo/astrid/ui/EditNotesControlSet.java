@@ -29,8 +29,8 @@ public class EditNotesControlSet extends PopupControlSet {
     protected TextView notesPreview;
     protected ImageView image;
 
-    public EditNotesControlSet(ActivityPreferences preferences, Activity activity, int viewLayout, int displayViewLayout) {
-        super(preferences, activity, viewLayout, displayViewLayout, R.string.TEA_note_label);
+    public EditNotesControlSet(ActivityPreferences preferences, Activity activity) {
+        super(preferences, activity, R.layout.control_set_notes, R.layout.control_set_notes_display, R.string.TEA_note_label);
         image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
     }
 

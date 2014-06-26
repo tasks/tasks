@@ -66,8 +66,8 @@ public final class TagsControlSet extends PopupControlSet {
 
     private final TagService tagService;
 
-    public TagsControlSet(ActivityPreferences preferences, TagService tagService, Activity activity, int viewLayout, int displayViewLayout, int title) {
-        super(preferences, activity, viewLayout, displayViewLayout, title);
+    public TagsControlSet(ActivityPreferences preferences, TagService tagService, Activity activity) {
+        super(preferences, activity, R.layout.control_set_tags, R.layout.control_set_default_display, R.string.TEA_tags_label_long);
         this.tagService = tagService;
         tagsDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
         image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);

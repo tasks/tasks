@@ -45,12 +45,8 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
 
         image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
 
-        estimated = new TimeDurationTaskEditControlSet(activity, getView(), Task.ESTIMATED_SECONDS,
-                R.id.estimatedDuration, 0, R.string.DLG_hour_minutes
-                );
-        elapsed = new TimeDurationTaskEditControlSet(activity, getView(), Task.ELAPSED_SECONDS, R.id.elapsedDuration,
-                0, R.string.DLG_hour_minutes
-                );
+        estimated = new TimeDurationTaskEditControlSet(activity, getView(), Task.ESTIMATED_SECONDS,R.id.estimatedDuration);
+        elapsed = new TimeDurationTaskEditControlSet(activity, getView(), Task.ELAPSED_SECONDS, R.id.elapsedDuration);
     }
 
     @Override
@@ -83,12 +79,10 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
         private final TimeDurationControlSet controlSet;
         private final IntegerProperty property;
 
-        public TimeDurationTaskEditControlSet(Activity activity, View v, IntegerProperty property, int timeButtonId,
-                int prefixResource, int titleResource) {
+        public TimeDurationTaskEditControlSet(Activity activity, View v, IntegerProperty property, int timeButtonId) {
             super(activity, -1);
             this.property = property;
-            this.controlSet = new TimeDurationControlSet(activity, v, property,
-                    timeButtonId, prefixResource, titleResource);
+            this.controlSet = new TimeDurationControlSet(activity, v, property, timeButtonId);
         }
 
         @Override

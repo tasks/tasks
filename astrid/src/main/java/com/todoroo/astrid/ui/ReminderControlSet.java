@@ -49,8 +49,8 @@ public class ReminderControlSet extends PopupControlSet {
     private final AlarmService alarmService;
 
     public ReminderControlSet(ActivityPreferences preferences, AlarmService alarmService,
-                              Activity activity, int viewLayout, int displayViewLayout) {
-        super(preferences, activity, viewLayout, displayViewLayout, R.string.TEA_reminders_group_label);
+                              Activity activity) {
+        super(preferences, activity, R.layout.control_set_reminders, R.layout.control_set_default_display, R.string.TEA_reminders_group_label);
         this.alarmService = alarmService;
         extraViews = new ArrayList<>();
         label = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
@@ -115,7 +115,7 @@ public class ReminderControlSet extends PopupControlSet {
         });
 
         randomControlSet = new RandomReminderControlSet(activity, getView(), -1);
-        alarmControl = new AlarmControlSet(preferences, alarmService, activity, R.layout.control_set_alarms);
+        alarmControl = new AlarmControlSet(preferences, alarmService, activity);
         alarmControl.readFromTask(model);
 
         remindersBody = (LinearLayout) getView().findViewById(R.id.reminders_body);

@@ -32,19 +32,20 @@ import org.tasks.R;
  *
  */
 public class EditTitleControlSet extends TaskEditControlSet implements ImportanceChangedListener, RepeatChangedListener {
+
+    private static final int editTextId = R.id.title;
+
     private EditText editText;
     protected CheckableImageView completeBox;
-    private final int editTextId;
 
     private boolean isRepeating;
     private int importanceValue;
 
     private final TaskService taskService;
 
-    public EditTitleControlSet(TaskService taskService, Activity activity, int layout, int editText) {
-        super(activity, layout);
+    public EditTitleControlSet(TaskService taskService, Activity activity) {
+        super(activity, R.layout.control_set_title);
         this.taskService = taskService;
-        this.editTextId = editText;
     }
 
     @Override

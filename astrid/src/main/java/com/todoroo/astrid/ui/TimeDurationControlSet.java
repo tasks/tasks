@@ -21,20 +21,15 @@ public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnC
 
     private final Activity activity;
     private final TextView timeButton;
-    private final int prefixResource;
     private int timeDuration;
     private int[] initialValues = null;
-    private final int titleResource;
     private NNumberPickerDialog dialog = null;
     private Task model;
     private final IntegerProperty property;
 
     public TimeDurationControlSet(Activity activity, View view, IntegerProperty property,
-            int timeButtonId, int prefixResource, int titleResource) {
-
+            int timeButtonId) {
         this.activity = activity;
-        this.prefixResource = prefixResource;
-        this.titleResource = titleResource;
         this.property = property;
 
         timeButton = (TextView)view.findViewById(timeButtonId);
@@ -63,9 +58,6 @@ public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnC
         }
 
         String prefix = "";
-        if (prefixResource != 0) {
-            prefix = r.getString(prefixResource) + " ";
-        }
         timeButton.setText(prefix + DateUtils.formatElapsedTime(timeDuration));
         int hours = timeDuration / 3600;
         int minutes = timeDuration / 60 - 60 * hours;
@@ -87,7 +79,7 @@ public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnC
     public void onClick(View v) {
         if(dialog == null) {
             dialog = new NNumberPickerDialog(activity, this,
-                    activity.getResources().getString(titleResource),
+                    activity.getResources().getString(R.string.DLG_hour_minutes),
                     new int[] {0, 0}, new int[] {1, 5}, new int[] {0, 0},
                     new int[] {999, 59}, new String[] {":", null});
             final NumberPicker hourPicker = dialog.getPicker(0);
