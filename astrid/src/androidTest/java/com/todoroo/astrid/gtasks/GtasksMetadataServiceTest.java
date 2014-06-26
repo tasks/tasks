@@ -7,8 +7,6 @@ package com.todoroo.astrid.gtasks;
 
 import android.content.Context;
 
-import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
@@ -53,7 +51,6 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
 
     private Task task;
     private Metadata metadata;
-    private TodorooCursor<Task> cursor;
 
     @Override
     public void setUp() {
@@ -80,81 +77,7 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
         thenExpectNoMetadataFound();
     }
 
-    public void disabled_testLocallyCreatedHasItem() {
-        taskWithMetadata("ok");
-        givenTask(taskWithoutMetadata());
-
-        whenReadLocalCreated();
-
-        thenExpectCursorEquals(task);
-    }
-
-    public void disabled_testLocallyCreatedWhenEmptyMetadata() {
-        givenTask(taskWithMetadata(null));
-
-        whenReadLocalCreated();
-
-        thenExpectCursorEquals(task);
-    }
-
-    public void disabled_testLocallyCreatedIsEmpty() {
-        givenTask(taskWithMetadata("ok"));
-
-        whenReadLocalCreated();
-
-        thenExpectCursorIsEmpty();
-    }
-
-    public void disabled_testLocallyUpdatedHasItem() {
-        givenSyncDate(DateUtilities.now() - 5000L);
-        givenTask(taskWithMetadata("ok"));
-
-        whenReadLocalUpdated();
-
-        thenExpectCursorEquals(task);
-    }
-
-    public void testLocallyUpdatedIsEmptyWhenUpToDate() {
-        givenTask(taskWithMetadata("ok"));
-        givenSyncDate(DateUtilities.now());
-
-        whenReadLocalUpdated();
-
-        thenExpectCursorIsEmpty();
-    }
-
-    public void testLocallyUpdatedIsEmptyWhenNoUpdatedTasks() {
-        givenTask(taskWithMetadata(null));
-
-        whenReadLocalUpdated();
-
-        thenExpectCursorIsEmpty();
-    }
-
     // --- helpers
-
-    private void givenSyncDate(long date) {
-        preferences.setSyncDate(date);
-    }
-
-    private void whenReadLocalUpdated() {
-        cursor = gtasksMetadataService.getLocallyUpdated(Task.ID);
-    }
-
-    private void thenExpectCursorIsEmpty() {
-        assertEquals("cursor is empty", 0, cursor.getCount());
-    }
-
-    private void thenExpectCursorEquals(Task expectedTask) {
-        assertEquals("cursor has one item", 1, cursor.getCount());
-        cursor.moveToFirst();
-        Task receivedTask = new Task(cursor);
-        assertEquals("task equals expected", expectedTask.getId(), receivedTask.getId());
-    }
-
-    private void whenReadLocalCreated() {
-        cursor = gtasksMetadataService.getLocallyCreated(Task.ID);
-    }
 
     private void thenExpectNoMetadataFound() {
         assertNull(metadata);

@@ -117,7 +117,6 @@ public class GtasksSyncService {
         }
     }
 
-
     public void initialize() {
         new OperationPushThread(operationQueue).start();
 
