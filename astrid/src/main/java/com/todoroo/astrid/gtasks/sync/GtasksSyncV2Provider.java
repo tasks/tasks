@@ -29,7 +29,6 @@ import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.gtasks.api.GoogleTasksException;
-import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 import com.todoroo.astrid.service.TaskService;
@@ -44,7 +43,6 @@ import org.tasks.preferences.Preferences;
 import org.tasks.sync.SyncExecutor;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -249,7 +247,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
             List<com.google.api.services.tasks.model.Task> tasks = taskList.getItems();
             if (tasks != null) {
                 for (com.google.api.services.tasks.model.Task t : tasks) {
-                    GtasksTaskContainer container = parseRemoteTask(t, listId);
+                    GtasksTaskContainer container = new GtasksTaskContainer(t, listId, gtasksMetadataFactory.createEmptyMetadata(AbstractModel.NO_ID));
                     gtasksMetadataService.findLocalMatch(container);
                     container.gtaskMetadata.setValue(GtasksMetadata.GTASKS_ORDER, Long.parseLong(t.getPosition()));
                     container.gtaskMetadata.setValue(GtasksMetadata.PARENT_TASK, gtasksMetadataService.localIdForGtasksId(t.getParent()));
@@ -267,36 +265,6 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 log.error(e.getMessage(), e);
             }
         }
-    }
-
-    /** Create a task container for the given remote task */
-    private GtasksTaskContainer parseRemoteTask(com.google.api.services.tasks.model.Task remoteTask, String listId) {
-        Task task = new Task();
-
-        ArrayList<Metadata> metadata = new ArrayList<>();
-
-        task.setTitle(remoteTask.getTitle());
-        task.setCreationDate(DateUtilities.now());
-        task.setCompletionDate(GtasksApiUtilities.gtasksCompletedTimeToUnixTime(remoteTask.getCompleted()));
-        if (remoteTask.getDeleted() == null || !remoteTask.getDeleted()) {
-            task.setDeletionDate(0L);
-        } else if (remoteTask.getDeleted()) {
-            task.setDeletionDate(DateUtilities.now());
-        }
-        if (remoteTask.getHidden() != null && remoteTask.getHidden()) {
-            task.setDeletionDate(DateUtilities.now());
-        }
-
-        long dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue());
-        long createdDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate);
-        task.setDueDate(createdDate);
-        task.setNotes(remoteTask.getNotes());
-
-        Metadata gtasksMetadata = gtasksMetadataFactory.createEmptyMetadata(AbstractModel.NO_ID);
-        gtasksMetadata.setValue(GtasksMetadata.ID, remoteTask.getId());
-        gtasksMetadata.setValue(GtasksMetadata.LIST_ID, listId);
-
-        return new GtasksTaskContainer(task, metadata, gtasksMetadata);
     }
 
     private void write(GtasksTaskContainer task) {

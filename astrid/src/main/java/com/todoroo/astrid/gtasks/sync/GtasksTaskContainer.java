@@ -5,8 +5,11 @@
  */
 package com.todoroo.astrid.gtasks.sync;
 
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gtasks.GtasksMetadata;
+import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.sync.SyncContainer;
 
 import java.util.ArrayList;
@@ -15,10 +18,30 @@ public class GtasksTaskContainer extends SyncContainer {
 
     public Metadata gtaskMetadata;
 
-    public GtasksTaskContainer(Task task, ArrayList<Metadata> metadata, Metadata gtaskMetadata) {
-        this.task = task;
-        this.metadata = metadata;
-        this.gtaskMetadata = gtaskMetadata;
+    public GtasksTaskContainer(com.google.api.services.tasks.model.Task remoteTask, String listId, Metadata metadata) {
+        this.task = new Task();
+        this.metadata = new ArrayList<>();
+        this.gtaskMetadata = metadata;
+
+        task.setTitle(remoteTask.getTitle());
+        task.setCreationDate(DateUtilities.now());
+        task.setCompletionDate(GtasksApiUtilities.gtasksCompletedTimeToUnixTime(remoteTask.getCompleted()));
+        if (remoteTask.getDeleted() == null || !remoteTask.getDeleted()) {
+            task.setDeletionDate(0L);
+        } else {
+            task.setDeletionDate(DateUtilities.now());
+        }
+        if (remoteTask.getHidden() != null && remoteTask.getHidden()) {
+            task.setDeletionDate(DateUtilities.now());
+        }
+
+        long dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue());
+        long createdDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate);
+        task.setDueDate(createdDate);
+        task.setNotes(remoteTask.getNotes());
+
+        gtaskMetadata.setValue(GtasksMetadata.ID, remoteTask.getId());
+        gtaskMetadata.setValue(GtasksMetadata.LIST_ID, listId);
     }
 
     @Override
