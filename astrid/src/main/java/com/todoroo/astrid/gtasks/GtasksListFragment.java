@@ -23,6 +23,7 @@ import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.service.SyncThrottle;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.OrderedListFragmentHelperInterface;
@@ -49,6 +50,7 @@ public class GtasksListFragment extends SubtasksListFragment {
     @Inject @ForActivity Context context;
     @Inject TaskAttachmentDao taskAttachmentDao;
     @Inject ActivityPreferences preferences;
+    @Inject SyncThrottle syncThrottle;
 
     private StoreObject list;
 
@@ -80,7 +82,7 @@ public class GtasksListFragment extends SubtasksListFragment {
         if (!isCurrentTaskListFragment()) {
             return;
         }
-        if (list != null && DateUtilities.now() - list.getValue(GtasksList.LAST_SYNC) > DateUtilities.ONE_MINUTE * 10) {
+        if (list != null && syncThrottle.canSync(list.getId())) {
             refreshData(false);
         }
     }
