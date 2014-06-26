@@ -25,7 +25,7 @@ import com.todoroo.astrid.tags.TagFilterExposer;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingActivity;
-import org.tasks.preferences.Preferences;
+import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.ResourceResolver;
 
 import javax.inject.Inject;
@@ -50,7 +50,7 @@ public class CalendarReminderActivity extends InjectingActivity {
 
     @Inject StartupService startupService;
     @Inject TagDataService tagDataService;
-    @Inject Preferences preferences;
+    @Inject ActivityPreferences preferences;
     @Inject ResourceResolver resourceResolver;
 
     private String eventName;
@@ -110,7 +110,7 @@ public class CalendarReminderActivity extends InjectingActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        preferences.applyTranslucentDialogTheme();
         startupService.onStartupApplication(this);
 
         setContentView(R.layout.calendar_reminder_activity);
@@ -147,7 +147,7 @@ public class CalendarReminderActivity extends InjectingActivity {
 
         dialogView.setText(speechText);
 
-        createListButton.setBackgroundColor(resourceResolver.getResource(R.attr.asThemeTextColor));
+        createListButton.setBackgroundColor(resourceResolver.getData(R.attr.asThemeTextColor));
 
         if (fromPostpone) {
             postponeButton.setVisibility(View.GONE);

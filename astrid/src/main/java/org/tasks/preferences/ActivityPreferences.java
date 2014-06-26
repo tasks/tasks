@@ -39,6 +39,10 @@ public class ActivityPreferences extends Preferences {
         applyTheme(isDarkTheme() ? R.style.Tasks_Dialog : R.style.Tasks_Dialog_Light);
     }
 
+    public void applyTranslucentDialogTheme() {
+        applyTheme(R.style.ReminderDialog);
+    }
+
     private void applyTheme(int theme) {
         activity.setTheme(theme);
         activity.getWindow().setFormat(PixelFormat.RGBA_8888);

@@ -9,7 +9,6 @@ import android.app.AlertDialog;
 import android.content.ContentUris;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -34,7 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingActivity;
-import org.tasks.preferences.Preferences;
+import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.ResourceResolver;
 
 import java.io.InputStream;
@@ -57,7 +56,7 @@ public class MissedCallActivity extends InjectingActivity {
 
     @Inject StartupService startupService;
     @Inject TaskService taskService;
-    @Inject Preferences preferences;
+    @Inject ActivityPreferences preferences;
     @Inject ResourceResolver resourceResolver;
 
     private final OnClickListener dismissListener = new OnClickListener() {
@@ -113,6 +112,7 @@ public class MissedCallActivity extends InjectingActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        preferences.applyTranslucentDialogTheme();
         startupService.onStartupApplication(this);
 
         setContentView(R.layout.missed_call_activity);
@@ -124,7 +124,7 @@ public class MissedCallActivity extends InjectingActivity {
         String timeString = intent.getStringExtra(EXTRA_TIME);
         long contactId = intent.getExtras().getLong(EXTRA_CONTACT_ID);
 
-        int color = resourceResolver.getResource(R.attr.asThemeTextColor);
+        int color = resourceResolver.getData(R.attr.asThemeTextColor);
 
         returnCallButton = (TextView) findViewById(R.id.call_now);
         callLaterButton = (TextView) findViewById(R.id.call_later);
@@ -151,9 +151,8 @@ public class MissedCallActivity extends InjectingActivity {
            }
        }
 
-        Resources r = getResources();
-        returnCallButton.setBackgroundColor(r.getColor(color));
-        callLaterButton.setBackgroundColor(r.getColor(color));
+        returnCallButton.setBackgroundColor(color);
+        callLaterButton.setBackgroundColor(color);
 
         addListeners();
 

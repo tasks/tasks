@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingActivity;
+import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.ResourceResolver;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class CalendarAlarmListCreator extends InjectingActivity {
     public static final String TOKEN_LIST_NAME = "listName"; //$NON-NLS-1$
 
     @Inject TagDataService tagDataService;
+    @Inject ActivityPreferences preferences;
     @Inject ResourceResolver resourceResolver;
 
     private ArrayList<String> names;
@@ -63,6 +65,7 @@ public class CalendarAlarmListCreator extends InjectingActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        preferences.applyTranslucentDialogTheme();
         setContentView(R.layout.calendar_alarm_list_creator);
 
         Intent intent = getIntent();
@@ -85,7 +88,7 @@ public class CalendarAlarmListCreator extends InjectingActivity {
         TextView dialogView = (TextView) findViewById(R.id.reminder_message);
         StringBuilder builder = new StringBuilder(getString(R.string.CRA_created_list_dialog, tagName));
         String attendeesString = buildAttendeesString();
-        int color = resourceResolver.getResource(R.attr.asThemeTextColor);
+        int color = resourceResolver.getData(R.attr.asThemeTextColor);
 
         String title;
         if (!TextUtils.isEmpty(attendeesString)) {
@@ -93,11 +96,11 @@ public class CalendarAlarmListCreator extends InjectingActivity {
             .append(attendeesString)
             .append(" ") //$NON-NLS-1$
             .append(getString(R.string.CRA_invitation_prompt));
-            inviteAll.setBackgroundColor(getResources().getColor(color));
+            inviteAll.setBackgroundColor(color);
             title = getString(R.string.CRA_share_list_title);
         } else {
             title = getString(R.string.CRA_list_created_title);
-            moreOptions.setBackgroundColor(getResources().getColor(color));
+            moreOptions.setBackgroundColor(color);
             inviteAll.setVisibility(View.GONE);
             ignoreButton.setVisibility(View.GONE);
             ignoreSettingsButton.setVisibility(View.GONE);
