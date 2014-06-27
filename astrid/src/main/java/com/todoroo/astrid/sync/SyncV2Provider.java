@@ -34,7 +34,6 @@ abstract public class SyncV2Provider {
 
     /**
      * Synchronize all of user's active tasks
-     * @param manual whether manually triggered
      * @param callback callback object
      */
     abstract public void synchronizeActiveTasks(SyncResultCallback callback);
@@ -52,12 +51,8 @@ abstract public class SyncV2Provider {
     abstract protected SyncProviderUtilities getUtilities();
 
     protected void finishSync(SyncResultCallback callback) {
-        SyncProviderUtilities utilities = getUtilities();
-        utilities.recordSuccessfulSync();
-        utilities.stopOngoing();
-        if (callback != null) {
-            callback.finished();
-        }
+        getUtilities().recordSuccessfulSync();
+        callback.finished();
     }
 
     @Override

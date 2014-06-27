@@ -39,6 +39,8 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListFragment;
+import com.todoroo.astrid.gtasks.GtasksPreferenceService;
+import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.tags.DeleteTagActivity;
 import com.todoroo.astrid.tags.RenameTagActivity;
 import com.todoroo.astrid.tags.TagFilterExposer;
@@ -58,6 +60,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
 
     @Inject TagDataDao tagDataDao;
     @Inject ActivityPreferences preferences;
+    @Inject GtasksPreferenceService gtasksPreferenceService;
 
     MenuDrawer menuDrawer;
 
@@ -145,6 +148,13 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         if (getIntent().hasExtra(TOKEN_SOURCE)) {
             trackActivitySource();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        setSupportProgressBarIndeterminateVisibility(gtasksPreferenceService.isOngoing());
     }
 
     @Override

@@ -46,6 +46,7 @@ public class GtasksListFragment extends SubtasksListFragment {
     @Inject StoreObjectDao storeObjectDao;
     @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
     @Inject GtasksMetadataService gtasksMetadataService;
+    @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject SyncV2Service syncService;
     @Inject @ForActivity Context context;
     @Inject TaskAttachmentDao taskAttachmentDao;
@@ -90,7 +91,7 @@ public class GtasksListFragment extends SubtasksListFragment {
     private void refreshData(final boolean manual) {
         ((TextView)getView().findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
 
-        syncService.synchronizeList(list, new IndeterminateProgressBarSyncResultCallback(getActivity(), new Runnable() {
+        syncService.synchronizeList(list, new IndeterminateProgressBarSyncResultCallback(gtasksPreferenceService, getActivity(), new Runnable() {
             @Override
             public void run() {
                 if (manual) {

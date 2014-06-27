@@ -52,6 +52,10 @@ public class Broadcaster {
         sendOrderedBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_FILTER_LIST_UPDATED));
     }
 
+    public void eventRefresh() {
+        context.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+    }
+
     private void sendOrderedBroadcast(Intent intent) {
         sendOrderedBroadcast(intent, null);
     }

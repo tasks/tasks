@@ -58,6 +58,7 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskListMetadata;
+import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.helper.SyncActionHelper;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TaskDeleter;
@@ -137,6 +138,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     @Inject NotificationManager notificationManager;
     @Inject TaskAttachmentDao taskAttachmentDao;
     @Inject Injector injector;
+    @Inject GtasksPreferenceService gtasksPreferenceService;
 
     protected Resources resources;
     protected TaskAdapter taskAdapter = null;
@@ -269,7 +271,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         // We have a menu item to show in action bar.
         resources = getResources();
         setHasOptionsMenu(true);
-        syncActionHelper = new SyncActionHelper(syncService, getActivity(), preferences, this);
+        syncActionHelper = new SyncActionHelper(gtasksPreferenceService, syncService, getActivity(), preferences, this);
         setUpUiComponents();
         initializeData();
         setupQuickAddBar();

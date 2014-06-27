@@ -35,6 +35,7 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
 
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
@@ -113,13 +114,11 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
     @Override
     public void synchronizeActiveTasks(final SyncResultCallback callback) {
-        callback.started();
-
-        gtasksPreferenceService.recordSyncStart();
-
         executor.execute(callback, new Runnable() {
             @Override
             public void run() {
+                callback.started();
+
                 String authToken = getValidatedAuthToken();
                 final GtasksInvoker invoker = new GtasksInvoker(gtasksTokenValidator, authToken);
                 try {
@@ -187,11 +186,11 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
             return;
         }
 
-        callback.started();
-
         executor.execute(callback, new Runnable() {
             @Override
             public void run() {
+                callback.started();
+
                 try {
                     String authToken = getValidatedAuthToken();
                     gtasksSyncService.waitUntilEmpty();
