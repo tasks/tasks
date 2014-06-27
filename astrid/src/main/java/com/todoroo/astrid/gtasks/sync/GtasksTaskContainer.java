@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.gtasks.sync;
 
+import com.google.api.client.util.DateTime;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 public class GtasksTaskContainer extends SyncContainer {
 
     public Metadata gtaskMetadata;
+    private final long updateTime;
 
     public GtasksTaskContainer(com.google.api.services.tasks.model.Task remoteTask, String listId, Metadata metadata) {
         this.task = new Task();
@@ -42,6 +44,13 @@ public class GtasksTaskContainer extends SyncContainer {
 
         gtaskMetadata.setValue(GtasksMetadata.ID, remoteTask.getId());
         gtaskMetadata.setValue(GtasksMetadata.LIST_ID, listId);
+
+        DateTime updated = remoteTask.getUpdated();
+        updateTime = updated == null ? 0 : updated.getValue();
+    }
+
+    public long getUpdateTime() {
+        return updateTime;
     }
 
     @Override

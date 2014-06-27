@@ -253,8 +253,9 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                     container.gtaskMetadata.setValue(GtasksMetadata.PARENT_TASK, gtasksMetadataService.localIdForGtasksId(t.getParent()));
                     container.gtaskMetadata.setValue(GtasksMetadata.LAST_SYNC, DateUtilities.now() + 1000L);
                     write(container);
+                    lastSyncDate = Math.max(lastSyncDate, container.getUpdateTime());
                 }
-                list.setValue(GtasksList.LAST_SYNC, DateUtilities.now());
+                list.setValue(GtasksList.LAST_SYNC, lastSyncDate);
                 storeObjectDao.persist(list);
                 gtasksTaskListUpdater.correctOrderAndIndentForList(listId);
             }
