@@ -6,6 +6,8 @@ env:
 android:
   components:
     - build-tools-20
+  licenses:
+    - android-sdk-license-5be876d5
 
 before_install:
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
