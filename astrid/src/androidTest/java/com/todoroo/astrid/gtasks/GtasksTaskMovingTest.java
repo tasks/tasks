@@ -22,6 +22,8 @@ import javax.inject.Inject;
 @SuppressWarnings("nls")
 public class GtasksTaskMovingTest extends DatabaseTestCase {
 
+    private static final int VALUE_UNSET = -1;
+
     @Inject GtasksListService gtasksListService;
     @Inject GtasksMetadataService gtasksMetadataService;
     @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
@@ -281,9 +283,9 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         taskService.save(task);
         Metadata metadata = gtasksMetadata.createEmptyMetadata(task.getId());
         metadata.setValue(GtasksMetadata.LIST_ID, "1");
-        if(order != GtasksMetadata.VALUE_UNSET)
+        if(order != VALUE_UNSET)
             metadata.setValue(GtasksMetadata.ORDER, order);
-        if(indent != GtasksMetadata.VALUE_UNSET)
+        if(indent != VALUE_UNSET)
             metadata.setValue(GtasksMetadata.INDENT, indent);
         metadataService.save(metadata);
         return task;

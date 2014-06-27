@@ -19,7 +19,8 @@ public abstract class DatabaseTestCase extends InjectingTestCase {
     protected void setUp() {
         super.setUp();
 
-        database.clear();
+        database.close();
+        getContext().deleteDatabase(database.getName());
         database.openForWriting();
     }
 

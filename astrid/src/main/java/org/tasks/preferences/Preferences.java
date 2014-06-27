@@ -117,10 +117,6 @@ public class Preferences {
         }
     }
 
-    public boolean getBoolean(int keyResources) {
-        return getBoolean(keyResources, false);
-    }
-
     public boolean getBoolean(int keyResources, boolean defValue) {
         return getBoolean(context.getString(keyResources), defValue);
     }

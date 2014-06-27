@@ -102,26 +102,6 @@ public class TaskDao extends RemoteModelDao<Task> {
     	    return Task.HIDE_UNTIL.lt(Functions.now());
         }
 
-    	/** @return tasks that have a due date */
-    	public static Criterion hasDeadlines() {
-    	    return Task.DUE_DATE.neq(0);
-    	}
-
-        /** @return tasks that are due before a certain unixtime */
-        public static Criterion dueBeforeNow() {
-            return Criterion.and(Task.DUE_DATE.gt(0), Task.DUE_DATE.lt(Functions.now()));
-        }
-
-        /** @return tasks that are due after a certain unixtime */
-        public static Criterion dueAfterNow() {
-            return Task.DUE_DATE.gt(Functions.now());
-        }
-
-    	/** @return tasks completed before a given unixtime */
-    	public static Criterion completed() {
-    	    return Criterion.and(Task.COMPLETION_DATE.gt(0), Task.COMPLETION_DATE.lt(Functions.now()));
-    	}
-
     	/** @return tasks that have a blank or null title */
         public static Criterion hasNoTitle() {
     	    return Criterion.or(Task.TITLE.isNull(), Task.TITLE.eq(""));
@@ -164,20 +144,17 @@ public class TaskDao extends RemoteModelDao<Task> {
      *
      * @return true if save occurred, false otherwise (i.e. nothing changed)
      */
-    public boolean save(Task task) {
-        boolean saveSuccessful;
+    public void save(Task task) {
         if (task.getId() == Task.NO_ID) {
             try {
-                saveSuccessful = createNew(task);
+                createNew(task);
             } catch (SQLiteConstraintException e) {
                 log.error(e.getMessage(), e);
-                saveSuccessful = handleSQLiteConstraintException(task); // Tried to create task with remote id that already exists
+                handleSQLiteConstraintException(task); // Tried to create task with remote id that already exists
             }
         } else {
-            saveSuccessful = saveExisting(task);
+            saveExisting(task);
         }
-
-        return saveSuccessful;
     }
 
     public boolean handleSQLiteConstraintException(Task task) {

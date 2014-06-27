@@ -26,13 +26,6 @@ public abstract class Criterion {
         }
     };
 
-    public static Criterion none = new Criterion(Operator.exists) {
-        @Override
-        protected void populate(StringBuilder sb) {
-            sb.append(0);
-        }
-    };
-
     public static Criterion and(final Criterion criterion, final Criterion... criterions) {
         return new Criterion(Operator.and) {
 

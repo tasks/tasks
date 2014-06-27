@@ -23,8 +23,6 @@ import javax.inject.Singleton;
 @Singleton
 public class GtasksMetadata {
 
-    static final int VALUE_UNSET = -1;
-
     /** metadata key */
     public static final String METADATA_KEY = "gtasks"; //$NON-NLS-1$
 

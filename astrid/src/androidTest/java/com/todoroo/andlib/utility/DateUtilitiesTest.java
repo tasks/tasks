@@ -26,6 +26,7 @@ import static com.todoroo.andlib.utility.DateUtilities.getWeekdayShort;
 import static com.todoroo.andlib.utility.DateUtilities.isEndOfMonth;
 import static com.todoroo.andlib.utility.DateUtilities.oneMonthFromNow;
 import static org.tasks.Freeze.freezeAt;
+import static org.tasks.TestUtilities.newDateTime;
 import static org.tasks.date.DateTimeUtils.newDate;
 
 public class DateUtilitiesTest extends AndroidTestCase {
@@ -96,23 +97,23 @@ public class DateUtilitiesTest extends AndroidTestCase {
 
     public void testGet24HourTime() {
         DateUtilities.is24HourOverride = true;
-        assertEquals("9:05", getTimeString(null, newDate(2014, 1, 4, 9, 5, 36)));
-        assertEquals("13:00", getTimeString(null, newDate(2014, 1, 4, 13, 0, 1)));
+        assertEquals("9:05", getTimeString(null, newDateTime(2014, 1, 4, 9, 5, 36)));
+        assertEquals("13:00", getTimeString(null, newDateTime(2014, 1, 4, 13, 0, 1)));
     }
 
     public void testGetTime() {
         DateUtilities.is24HourOverride = false;
-        assertEquals("9:05 AM", getTimeString(null, newDate(2014, 1, 4, 9, 5, 36)));
-        assertEquals("1:05 PM", getTimeString(null, newDate(2014, 1, 4, 13, 5, 36)));
+        assertEquals("9:05 AM", getTimeString(null, newDateTime(2014, 1, 4, 9, 5, 36)));
+        assertEquals("1:05 PM", getTimeString(null, newDateTime(2014, 1, 4, 13, 5, 36)));
     }
 
     public void testGetTimeWithNoMinutes() {
         DateUtilities.is24HourOverride = false;
-        assertEquals("1 PM", getTimeString(null, newDate(2014, 1, 4, 13, 0, 59))); // derp?
+        assertEquals("1 PM", getTimeString(null, newDateTime(2014, 1, 4, 13, 0, 59))); // derp?
     }
 
     public void testGetDateStringWithYear() {
-        assertEquals("Jan 4, 2014", getDateString(newDate(2014, 1, 4, 0, 0, 0)));
+        assertEquals("Jan 4, 2014", getDateString(newDateTime(2014, 1, 4, 0, 0, 0)));
     }
 
     public void testGetDateStringHidingYear() {

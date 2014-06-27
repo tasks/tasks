@@ -22,6 +22,8 @@ import javax.inject.Inject;
 @SuppressWarnings("nls")
 public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
 
+    private static final int VALUE_UNSET = -1;
+
     @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
     @Inject GtasksListService gtasksListService;
     @Inject GtasksMetadataService gtasksMetadataService;
@@ -80,7 +82,7 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
     public void disabled_testNewTaskOrder() {
         givenTasksABCDE();
 
-        Task newTask = createTask("F", GtasksMetadata.VALUE_UNSET, 0);
+        Task newTask = createTask("F", VALUE_UNSET, 0);
         whenCalculatingOrder();
 
         thenExpectMetadataIndentAndOrder(newTask, 5, 0);
@@ -139,7 +141,13 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
     }
 
     private void whenCalculatingParentsAndSiblings() {
-        gtasksTaskListUpdater.createParentSiblingMaps();
+        createParentSiblingMaps();
+    }
+
+    void createParentSiblingMaps() {
+        for(StoreObject list : gtasksListService.getLists()) {
+            gtasksTaskListUpdater.updateParentSiblingMapsFor(list);
+        }
     }
 
     private void whenCalculatingOrder() {
@@ -172,9 +180,9 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
         taskService.save(task);
         Metadata metadata = gtasksMetadata.createEmptyMetadata(task.getId());
         metadata.setValue(GtasksMetadata.LIST_ID, "1");
-        if(order != GtasksMetadata.VALUE_UNSET)
+        if(order != VALUE_UNSET)
             metadata.setValue(GtasksMetadata.ORDER, order);
-        if(indent != GtasksMetadata.VALUE_UNSET)
+        if(indent != VALUE_UNSET)
             metadata.setValue(GtasksMetadata.INDENT, indent);
         metadataService.save(metadata);
         return task;

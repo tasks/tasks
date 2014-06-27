@@ -15,7 +15,6 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -109,7 +108,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     private static final long WAIT_BEFORE_AUTOSYNC = 2000L;
     public static final int ACTIVITY_EDIT_TASK = 0;
     public static final int ACTIVITY_SETTINGS = 1;
-    public static final int ACTIVITY_MENU_EXTERNAL = 4;
     public static final int ACTIVITY_REQUEST_NEW_FILTER = 5;
 
     // --- menu codes
@@ -374,15 +372,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
 
     protected void postLoadTaskListMetadata() {
         // Hook
-    }
-
-    protected void addMenuItem(Menu menu, CharSequence title, Drawable image, Intent customIntent, int id) {
-        Activity activity = getActivity();
-        if(!(activity instanceof TaskListActivity)) {
-            MenuItem item = menu.add(Menu.NONE, id, Menu.NONE, title);
-            item.setIcon(image);
-            item.setIntent(customIntent);
-        }
     }
 
     protected void setUpUiComponents() {

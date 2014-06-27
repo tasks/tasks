@@ -7,7 +7,6 @@ package com.todoroo.astrid.dao;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
@@ -37,7 +36,7 @@ public class TaskDaoTests extends DatabaseTestCase {
         // create task "happy"
         Task task = new Task();
         task.setTitle("happy");
-        assertTrue(taskDao.save(task));
+        taskDao.save(task);
         cursor = taskDao.query(
                 Query.select(IDS));
         assertEquals(1, cursor.getCount());
@@ -50,7 +49,7 @@ public class TaskDaoTests extends DatabaseTestCase {
         // create task "sad"
         task = new Task();
         task.setTitle("sad");
-        assertTrue(taskDao.save(task));
+        taskDao.save(task);
         cursor = taskDao.query(
                 Query.select(IDS));
         assertEquals(2, cursor.getCount());
@@ -60,7 +59,7 @@ public class TaskDaoTests extends DatabaseTestCase {
         long sadId = task.getId();
         assertNotSame(Task.NO_ID, sadId);
         task.setTitle("melancholy");
-        assertTrue(taskDao.save(task));
+        taskDao.save(task);
         cursor = taskDao.query(
                 Query.select(IDS));
         assertEquals(2, cursor.getCount());
@@ -80,35 +79,35 @@ public class TaskDaoTests extends DatabaseTestCase {
         // create normal task
         Task task = new Task();
         task.setTitle("normal");
-        assertTrue(taskDao.save(task));
+        taskDao.save(task);
 
         // create blank task
         task = new Task();
         task.setTitle("");
-        assertTrue(taskDao.save(task));
+        taskDao.save(task);
 
         // create hidden task
         task = new Task();
         task.setTitle("hidden");
         task.setHideUntil(DateUtilities.now() + 10000);
-        assertTrue(taskDao.save(task));
+        taskDao.save(task);
 
         // create task with deadlines
         task = new Task();
         task.setTitle("deadlineInFuture");
         task.setDueDate(DateUtilities.now() + 10000);
-        assertTrue(taskDao.save(task));
+        taskDao.save(task);
 
         task = new Task();
         task.setTitle("deadlineInPast");
         task.setDueDate(DateUtilities.now() - 10000);
-        assertTrue(taskDao.save(task));
+        taskDao.save(task);
 
         // create completed task
         task = new Task();
         task.setTitle("completed");
         task.setCompletionDate(DateUtilities.now() - 10000);
-        assertTrue(taskDao.save(task));
+        taskDao.save(task);
 
         // check has no name
         TodorooCursor<Task> cursor = taskDao.query(
@@ -118,37 +117,10 @@ public class TaskDaoTests extends DatabaseTestCase {
         assertEquals("", cursor.getString(1));
         cursor.close();
 
-        // check has deadlines
-        cursor = taskDao.query(Query.select(TITLES).where(
-                TaskCriteria.hasDeadlines()).orderBy(Order.asc(Task.DUE_DATE)));
-        assertEquals(2, cursor.getCount());
-        cursor.moveToNext();
-        assertEquals("deadlineInPast", cursor.getString(1));
-        cursor.moveToNext();
-        assertEquals("deadlineInFuture", cursor.getString(1));
-        cursor.close();
-
         // check is active
         cursor = taskDao.query(Query.select(TITLES).where(TaskCriteria.
                 isActive()));
         assertEquals(5, cursor.getCount());
-        cursor.close();
-
-        // check due before / after
-        cursor = taskDao.query(Query.select(TITLES).where(TaskCriteria.
-                dueBeforeNow()));
-        cursor.moveToNext();
-        assertEquals(1, cursor.getCount());
-        cursor.close();
-        cursor = taskDao.query(Query.select(TITLES).where(TaskCriteria.
-                dueAfterNow()));
-        assertEquals(1, cursor.getCount());
-        cursor.close();
-
-        // check completed before
-        cursor = taskDao.query(Query.select(TITLES).where(TaskCriteria.
-                completed()));
-        assertEquals(1, cursor.getCount());
         cursor.close();
 
         // check is visible
@@ -170,7 +142,7 @@ public class TaskDaoTests extends DatabaseTestCase {
         // create task "happy"
         Task task = new Task();
         task.setTitle("happy");
-        assertTrue(taskDao.save(task));
+        taskDao.save(task);
         cursor = taskDao.query(
                 Query.select(IDS));
         assertEquals(1, cursor.getCount());
@@ -196,7 +168,7 @@ public class TaskDaoTests extends DatabaseTestCase {
         task.setTitle("happy");
         task.setID(1L);
 
-        assertFalse(taskDao.save(task));
+        taskDao.save(task);
 
         cursor = taskDao.query(
                 Query.select(IDS));

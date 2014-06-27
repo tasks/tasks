@@ -113,15 +113,6 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
     // --- used during synchronization
 
     /**
-     * Create a local tree of tasks to expedite sibling and parent lookups
-     */
-    void createParentSiblingMaps() {
-        for(StoreObject list : gtasksListService.getLists()) {
-            updateParentSiblingMapsFor(list);
-        }
-    }
-
-    /**
      * Update order, parent, and indentation fields for all tasks in the given list
      */
     public void correctMetadataForList(String listId) {
@@ -190,7 +181,7 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
         }
     }
 
-    private void updateParentSiblingMapsFor(StoreObject list) {
+    void updateParentSiblingMapsFor(StoreObject list) {
         final AtomicLong previousTask = new AtomicLong(Task.NO_ID);
         final AtomicInteger previousIndent = new AtomicInteger(-1);
 
@@ -233,6 +224,5 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
             }
         });
     }
-
 }
 

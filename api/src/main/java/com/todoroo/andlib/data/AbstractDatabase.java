@@ -178,15 +178,6 @@ abstract public class AbstractDatabase {
     }
 
     /**
-     * Clear all data in database. Warning: this does what it says. Any open
-     * database resources will be abruptly closed.
-     */
-    public synchronized final void clear() {
-        close();
-        ContextManager.getContext().deleteDatabase(getName());
-    }
-
-    /**
      * @return sql database. opens database if not yet open
      */
     public synchronized final SQLiteDatabase getDatabase() {

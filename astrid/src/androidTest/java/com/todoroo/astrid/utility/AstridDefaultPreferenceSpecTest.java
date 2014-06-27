@@ -93,11 +93,11 @@ public class AstridDefaultPreferenceSpecTest extends AndroidTestCase {
     }
 
     private boolean quietHoursEnabled() {
-        return preferences.getBoolean(R.string.p_rmd_enable_quiet);
+        return preferences.getBoolean(R.string.p_rmd_enable_quiet, false);
     }
 
     private boolean hasMigrated() {
-        return preferences.getBoolean(R.string.p_rmd_hasMigrated);
+        return preferences.getBoolean(R.string.p_rmd_hasMigrated, false);
     }
 
     private void setOldQuietHoursStart(int index) {
