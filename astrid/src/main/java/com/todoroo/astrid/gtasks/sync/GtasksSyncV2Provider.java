@@ -243,7 +243,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         boolean includeDeletedAndHidden = lastSyncDate != 0;
         try {
             Tasks taskList = invoker.getAllGtasksFromListId(listId, includeDeletedAndHidden,
-                    includeDeletedAndHidden, lastSyncDate);
+                    includeDeletedAndHidden, lastSyncDate + 1000L);
             List<com.google.api.services.tasks.model.Task> tasks = taskList.getItems();
             if (tasks != null) {
                 for (com.google.api.services.tasks.model.Task t : tasks) {
