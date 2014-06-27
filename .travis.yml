@@ -5,7 +5,7 @@ env:
     - ANDROID_SDKS=android-19,sysimg-19 ANDROID_TARGET=android-19 ANDROID_ABI=armeabi-v7a
 android:
   components:
-    - build-tools-20
+    - build-tools-20.0.0
   licenses:
     - android-sdk-license-5be876d5
     - android-sdk-preview-license-52d11cd2
