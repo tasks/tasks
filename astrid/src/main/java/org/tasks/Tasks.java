@@ -16,6 +16,7 @@ import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.service.MetadataService;
+import org.tasks.sync.SyncThrottle;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
@@ -54,6 +55,7 @@ public class Tasks extends InjectingApplication {
     @Inject Broadcaster broadcaster;
     @Inject FilterCounter filterCounter;
     @Inject RefreshScheduler refreshScheduler;
+    @Inject SyncThrottle syncThrottle;
 
     @Override
     public void onCreate() {

@@ -23,7 +23,7 @@ import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
-import com.todoroo.astrid.service.SyncThrottle;
+import org.tasks.sync.SyncThrottle;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.OrderedListFragmentHelperInterface;

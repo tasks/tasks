@@ -1,4 +1,4 @@
-package com.todoroo.astrid.service;
+package org.tasks.sync;
 
 import org.joda.time.DateTime;
 
