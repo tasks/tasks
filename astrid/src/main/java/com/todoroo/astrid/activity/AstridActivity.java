@@ -238,7 +238,7 @@ public class AstridActivity extends InjectingActionBarActivity
 
             TaskListFragment tlf = getTaskListFragment();
             if (tlf != null) {
-                tlf.loadTaskListContent(true);
+                tlf.loadTaskListContent();
             }
 
         } else {

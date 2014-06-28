@@ -132,7 +132,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
                 log.error(e.getMessage(), e);
             }
 
-            fragment.loadTaskListContent(true);
+            fragment.loadTaskListContent();
         }
     };
 
@@ -157,7 +157,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
             } catch (Exception e) {
                 log.error(e.getMessage(), e);
             }
-            fragment.loadTaskListContent(true);
+            fragment.loadTaskListContent();
         }
     };
 

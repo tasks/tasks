@@ -154,8 +154,8 @@ public class TagViewFragment extends TaskListFragment {
     }
 
     @Override
-    public void loadTaskListContent(boolean requery) {
-        super.loadTaskListContent(requery);
+    public void loadTaskListContent() {
+        super.loadTaskListContent();
         if(taskAdapter == null || taskAdapter.getCursor() == null) {
             return;
         }
@@ -263,8 +263,7 @@ public class TagViewFragment extends TaskListFragment {
 
     @Override
     protected void refresh() {
-        loadTaskListContent(true);
+        loadTaskListContent();
         ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
     }
-
 }

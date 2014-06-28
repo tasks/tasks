@@ -115,7 +115,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
             }
 
             fragment.reconstructCursor();
-            fragment.loadTaskListContent(true);
+            fragment.loadTaskListContent();
         }
     };
 
@@ -142,7 +142,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
             }
 
             fragment.reconstructCursor();
-            fragment.loadTaskListContent(true);
+            fragment.loadTaskListContent();
         }
     };
 
@@ -284,7 +284,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
     public void onCreateTask(Task task) {
         updater.onCreateTask(list, getFilter(), task.getUuid());
         fragment.reconstructCursor();
-        fragment.loadTaskListContent(true);
+        fragment.loadTaskListContent();
         fragment.selectCustomId(task.getId());
     }
 

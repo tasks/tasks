@@ -605,7 +605,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
             taskAdapter.flushCaches();
         }
         taskDeleter.deleteTasksWithEmptyTitles();
-        loadTaskListContent(true);
+        loadTaskListContent();
     }
 
     /**
@@ -659,7 +659,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     /**
      * Load or re-load action items and update views
      */
-    public void loadTaskListContent(boolean requery) {
+    public void loadTaskListContent() {
         if (taskAdapter == null) {
             setUpTaskList();
             return;
@@ -667,11 +667,9 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
 
         Cursor taskCursor = taskAdapter.getCursor();
 
-        if (requery) {
-            taskCursor.requery();
-            taskAdapter.flushCaches();
-            taskAdapter.notifyDataSetChanged();
-        }
+        taskCursor.requery();
+        taskAdapter.flushCaches();
+        taskAdapter.notifyDataSetChanged();
 
         if (getView() != null) { // This was happening sometimes
             int oldListItemSelected = getListView().getSelectedItemPosition();
@@ -732,7 +730,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         setListAdapter(taskAdapter);
         registerForContextMenu(getListView());
 
-        loadTaskListContent(true);
+        loadTaskListContent();
     }
 
     public Property<?>[] taskProperties() {
@@ -854,7 +852,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
                     public void onClick(DialogInterface dialog, int which) {
                         onTaskDelete(task);
                         taskDeleter.delete(task);
-                        loadTaskListContent(true);
+                        loadTaskListContent();
                     }
                 }).setNegativeButton(android.R.string.cancel, null).show();
     }
@@ -928,7 +926,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
             task.setId(itemId);
             task.setDeletionDate(0L);
             taskService.save(task);
-            loadTaskListContent(true);
+            loadTaskListContent();
             return true;
         }
         case CONTEXT_MENU_PURGE_TASK_ID: {
@@ -937,7 +935,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
             task.setId(itemId);
             TimerPlugin.updateTimer(notificationManager, taskService, getActivity(), task, false);
             taskDeleter.purge(itemId);
-            loadTaskListContent(true);
+            loadTaskListContent();
             return true;
         }
             default:

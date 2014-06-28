@@ -278,7 +278,7 @@ public class QuickAddBar extends LinearLayout {
             quickAdd.setText(""); //$NON-NLS-1$
 
             if (selectNewTask) {
-                fragment.loadTaskListContent(true);
+                fragment.loadTaskListContent();
                 fragment.selectCustomId(task.getId());
                 if (task.getTransitory(TaskService.TRANS_QUICK_ADD_MARKUP) != null) {
                     showAlertForMarkupTask(activity, task, title);
