@@ -35,7 +35,6 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
 
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
@@ -135,6 +134,8 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
                 final AtomicInteger finisher = new AtomicInteger(lists.length);
 
+                // TODO: Check timestamps from invoker.allGtaskLists and pare down lists to sync
+
                 for (final StoreObject list : lists) {
                     executor.execute(callback, new Runnable() {
                         @Override
@@ -154,9 +155,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     private synchronized void pushUpdated(GtasksInvoker invoker) {
         TodorooCursor<Task> queued = taskService.query(Query.select(Task.PROPERTIES).
                 join(Join.left(Metadata.TABLE, Criterion.and(MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY), Task.ID.eq(Metadata.TASK)))).where(
-                        Criterion.or(Task.MODIFICATION_DATE.gt(GtasksMetadata.LAST_SYNC),
-                                Criterion.and(Task.USER_ID.neq(Task.USER_ID_SELF), GtasksMetadata.ID.isNotNull()), // XXX: Shouldn't this neq("")?
-                                      Metadata.KEY.isNull())));
+                        Criterion.or(Task.MODIFICATION_DATE.gt(GtasksMetadata.LAST_SYNC), Metadata.KEY.isNull())));
         pushTasks(queued, invoker);
     }
 

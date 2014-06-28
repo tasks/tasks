@@ -668,7 +668,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
 
         boolean tagsChanged = Flags.check(Flags.TAGS_CHANGED);
-        model.putTransitory(TaskService.TRANS_EDIT_SAVE, true);
+        model.putTransitory(TaskService.TRANS_EDIT_SAVE, true); // TODO: not used?
         taskService.save(model);
 
         if (!onPause) {
