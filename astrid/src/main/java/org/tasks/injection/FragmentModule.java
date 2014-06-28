@@ -23,7 +23,8 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = {
+@Module(addsTo = TasksModule.class,
+        injects = {
         TaskListFragment.class,
         GtasksListFragment.class,
         NotificationFragment.class,
@@ -53,13 +54,6 @@ public class FragmentModule {
     @Provides
     public Injector getInjector() {
         return injector;
-    }
-
-    @Singleton
-    @Provides
-    @ForApplication
-    public Context getApplicationContext() {
-        return activity.getApplicationContext();
     }
 
     @Singleton

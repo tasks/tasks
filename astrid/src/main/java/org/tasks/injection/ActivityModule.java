@@ -1,7 +1,6 @@
 package org.tasks.injection;
 
 import android.app.Activity;
-import android.content.Context;
 
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.actfm.TagSettingsActivityTablet;
@@ -38,7 +37,8 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = {
+@Module(addsTo = TasksModule.class,
+        injects = {
         TaskListActivity.class,
         TaskEditActivity.class,
         ShareLinkActivity.class,
@@ -83,13 +83,6 @@ public class ActivityModule {
     @Provides
     public Injector getInjector() {
         return injector;
-    }
-
-    @Singleton
-    @Provides
-    @ForApplication
-    public Context getApplicationContext() {
-        return activity.getApplicationContext();
     }
 
     @Singleton

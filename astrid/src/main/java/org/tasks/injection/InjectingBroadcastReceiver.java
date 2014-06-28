@@ -9,7 +9,7 @@ public class InjectingBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         ((Injector) context.getApplicationContext())
                 .getObjectGraph()
-                .plus(new BroadcastModule(context))
+                .plus(new BroadcastModule())
                 .inject(this);
     }
 }

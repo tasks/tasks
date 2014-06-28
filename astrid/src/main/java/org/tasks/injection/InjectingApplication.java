@@ -6,11 +6,13 @@ import dagger.ObjectGraph;
 
 public class InjectingApplication extends Application implements Injector {
 
-    private final ObjectGraph objectGraph = ObjectGraph.create(new TasksModule());
+    private ObjectGraph objectGraph;
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        objectGraph = Dagger.getObjectGraph(this);
 
         inject(this);
     }

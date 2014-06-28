@@ -12,7 +12,7 @@ public abstract class InjectingRemoteViewsService extends RemoteViewsService {
 
         ((Injector) getApplication())
                 .getObjectGraph()
-                .plus(new ServiceModule(this))
+                .plus(new ServiceModule())
                 .inject(this);
     }
 }

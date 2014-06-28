@@ -9,7 +9,7 @@ public abstract class InjectingService extends Service {
 
         ((Injector) getApplication())
                 .getObjectGraph()
-                .plus(new ServiceModule(this))
+                .plus(new ServiceModule())
                 .inject(this);
     }
 }

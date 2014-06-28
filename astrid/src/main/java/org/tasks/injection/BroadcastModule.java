@@ -1,7 +1,5 @@
 package org.tasks.injection;
 
-import android.content.Context;
-
 import com.todoroo.astrid.alarms.AlarmDetailExposer;
 import com.todoroo.astrid.alarms.AlarmTaskRepeatListener;
 import com.todoroo.astrid.backup.BackupStartupReceiver;
@@ -30,12 +28,10 @@ import com.todoroo.astrid.widget.TasksWidget;
 
 import org.tasks.scheduling.RefreshBroadcastReceiver;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
-import dagger.Provides;
 
-@Module(injects = {
+@Module(addsTo = TasksModule.class,
+        injects = {
         RefreshBroadcastReceiver.class,
         TasksWidget.class,
         Notifications.class,
@@ -64,17 +60,4 @@ import dagger.Provides;
         CalendarStartupReceiver.class
 })
 public class BroadcastModule {
-
-    private final Context context;
-
-    public BroadcastModule(Context context) {
-        this.context = context;
-    }
-
-    @Singleton
-    @Provides
-    @ForApplication
-    public Context getContext() {
-        return context.getApplicationContext();
-    }
 }
