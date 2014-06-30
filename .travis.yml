@@ -3,14 +3,21 @@ jdk: oraclejdk7
 env:
   matrix:
     - ANDROID_SDKS=android-19,sysimg-19 ANDROID_TARGET=android-19 ANDROID_ABI=armeabi-v7a
-android:
-  components:
-    - build-tools-20.0.0
-  licenses:
-    - android-sdk-license-5be876d5
-    - android-sdk-preview-license-52d11cd2
+#android:
+#  components:
+#    - build-tools-20.0.0
 
 before_install:
+# workaround for travis-ci/travis-ci#2279
+  - 'sudo mv /usr/local/android-sdk/tools/android-* /usr/local/bin'
+# Accept all licenses (workaround for travis-ci/travis-ci#2466)
+# Upgrade 'platform-tools' before 'tools' (workaround for travis-ci/travis-ci#2470)
+# Run dinstinct 'android update sdk' commands
+  - "android-update-sdk --components='platform-tools,tools' --accept-licenses='.+'"
+  - "android-update-sdk --components='build-tools-20.0.0' --accept-licenses='.+'"
+  - "android-update-sdk --components='android-19' --accept-licenses='.+'"
+  - "android-update-sdk --components='extra-android-m2repository,extra-google-m2repository' --accept-licenses='.+'"
+
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
   - ./.wait_for_emulator.sh
