@@ -20,7 +20,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
-import com.todoroo.astrid.gtasks.api.CreateRequest;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.HttpNotFoundException;
@@ -316,8 +315,7 @@ public class GtasksSyncService {
             String parent = gtasksMetadataService.getRemoteParentId(gtasksMetadata);
             String priorSibling = gtasksMetadataService.getRemoteSiblingId(listId, gtasksMetadata);
 
-            CreateRequest create = new CreateRequest(invoker, listId, remoteModel, parent, priorSibling);
-            com.google.api.services.tasks.model.Task created = create.executePush();
+            com.google.api.services.tasks.model.Task created = invoker.createGtask(listId, remoteModel, parent, priorSibling);
 
             if (created != null) {
                 //Update the metadata for the newly created task
@@ -354,9 +352,6 @@ public class GtasksSyncService {
     }
 
     private boolean checkForToken() {
-        if (!gtasksPreferenceService.isLoggedIn()) {
-            return false;
-        }
-        return true;
+        return gtasksPreferenceService.isLoggedIn();
     }
 }
