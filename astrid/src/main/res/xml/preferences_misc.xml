@@ -24,5 +24,9 @@
 	    <CheckBoxPreference
 	        android:title="@string/EPr_cal_end_or_start_at_due_time"
 	        android:key = "@string/p_end_at_deadline" />
+
+        <CheckBoxPreference
+            android:title="@string/EPr_enable_debug_logging"
+            android:key="@string/p_debug_logging"/>
 	</PreferenceScreen>
 </PreferenceScreen>

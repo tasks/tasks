@@ -421,6 +421,14 @@ public class EditPreferences extends TodorooPreferenceActivity {
             }
         });
 
+        findPreference(getString(R.string.p_debug_logging)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                preferences.setupLogger((boolean) newValue);
+                return true;
+            }
+        });
+
         if (AndroidUtilities.getSdkVersion() <= 7) {
             searchForAndRemovePreference(getPreferenceScreen(), getString(R.string.p_calendar_reminders));
         } else {

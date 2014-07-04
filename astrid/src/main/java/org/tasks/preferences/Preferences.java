@@ -16,6 +16,8 @@ import org.tasks.injection.ForApplication;
 
 import javax.inject.Inject;
 
+import ch.qos.logback.classic.Level;
+
 import static android.content.SharedPreferences.Editor;
 
 public class Preferences {
@@ -41,14 +43,14 @@ public class Preferences {
 
     public void setIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, int value) {
         String key = r.getString(keyResource);
-        if(!prefs.contains(key)) {
+        if (!prefs.contains(key)) {
             editor.putString(key, Integer.toString(value));
         }
     }
 
     public void setIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, boolean value) {
         String key = r.getString(keyResource);
-        if(!prefs.contains(key) || !(prefs.getAll().get(key) instanceof Boolean)) {
+        if (!prefs.contains(key) || !(prefs.getAll().get(key) instanceof Boolean)) {
             editor.putBoolean(key, value);
         }
     }
@@ -212,5 +214,18 @@ public class Preferences {
 
     public boolean isDarkWidgetTheme() {
         return getBoolean(R.string.p_use_dark_theme_widget, false);
+    }
+
+    public void setupLogger() {
+        setupLogger(getBoolean(R.string.p_debug_logging, false));
+    }
+
+    public void setupLogger(boolean enableDebugLogging) {
+        try {
+            ((ch.qos.logback.classic.Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME))
+                    .setLevel(enableDebugLogging ? Level.DEBUG : Level.INFO);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
     }
 }

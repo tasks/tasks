@@ -279,8 +279,9 @@
   <string name="TEA_ctrl_share_pref">TEA_ctrl_share_pref</string>
     <string name="p_use_dark_theme">use_dark_theme</string>
     <string name="p_use_dark_theme_widget">use_dark_theme_widget</string>
+    <string name="p_debug_logging">debug_logging</string>
     <!-- Deprecated -->
-      
+
   <string-array name="TEA_control_sets_prefs">
       <item>@string/TEA_ctrl_when_pref</item>
       <item>@string/TEA_ctrl_importance_pref</item>
