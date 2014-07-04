@@ -11,6 +11,7 @@
 	<string name="TVA_add_comment">Adicionar um comentário...</string>
 	<string name="actfm_TVA_menu_refresh">Recarregar</string>
 	<string name="actfm_TVA_tag_label">Lista</string>
+	<string name="actfm_TVA_tag_picture">Imagem</string>
 	<string name="actfm_TVA_tag_name_hint">Escreva o nome da lista</string>
 	<string name="actfm_GAA_title">Escolha a conta Google a utilizar:</string>
 	<string name="alarm_ACS_label">Alarmes</string>
@@ -61,8 +62,14 @@
 	<string name="TLA_menu_settings">Definições</string>
 	<string name="TLA_custom">Personalizado</string>
 	<string name="TLA_quick_add_hint">Adicionar tarefa</string>
+	<string name="TLA_notification_volume_low">As notificação estão silenciadas. Não ouvirá o Tasks!</string>
+	<string name="TLA_notification_disabled">Os lembretes estão inativos! Não receberá quaisquer lembretes.</string>
 	<string name="TLA_quickadd_confirm_title">Você disse \"%s\"</string>
+	<string name="TLA_quickadd_confirm_speech_bubble">Criada a tarefa \"%1$s\" %2$s em %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">para %s</string>
+	<string name="TLA_quickadd_confirm_hide_helpers">Não mostrar futuras confirmações</string>
+	<string name="TLA_repeat_scheduled_title">Nova tarefa recorrente %s</string>
+	<string name="TLA_repeat_scheduled_speech_bubble">Será lembrado sobre esta %s</string>
 	<string-array name="TLA_priority_strings">
 		<item>prioridade mais alta</item>
 		<item>prioridade alta</item>
@@ -91,6 +98,7 @@
 	<string name="SSD_sort_reverse">Ordem Inversa</string>
 	<string name="SSD_save_temp">Só Uma Vez</string>
 	<string name="SSD_save_always">Sempre</string>
+	<string name="FSA_label">Lista e filtro de tarefas</string>
 	<string name="FLA_context_shortcut">Criar atalho no ecrã</string>
 	<string name="FLA_shortcut_dialog_title">Criar atalho</string>
 	<string name="FLA_shortcut_dialog">Nome do atalho:</string>
@@ -116,10 +124,10 @@
 	<string name="TEA_timer_elap">Decorrido %s</string>
 	<string-array name="TEA_urgency">
 		<item>Sem data</item>
-		<item>Specific day</item>
+		<item>Dia concreto</item>
 		<item>Hoje</item>
 		<item>Amanhã</item>
-		<item>(day after)</item>
+		<item>(dia depois)</item>
 		<item>Próxima semana</item>
 		<item>Em duas semanas</item>
 		<item>Próximo mês</item>
@@ -153,6 +161,12 @@
 	<string name="MCA_ignore_body">Você ignorou várias chamadas perdidas. Pretende que o Tasks não o notifique novamente?</string>
 	<string name="MCA_ignore_all">Ignorar todas as chamadas</string>
 	<string name="MCA_ignore_this">Ignorar apenas esta chamada</string>
+	<string name="MCA_missed_calls_pref_title">Chamadas perdidas</string>
+	<string name="MCA_missed_calls_pref_desc_enabled">O Tasks irá notificar sobre as chamadas perdidas e lembrar-lhe para fazer as ligações</string>
+	<string name="MCA_missed_calls_pref_desc_disabled">O Tasks não o notificará sobre as chamadas perdidas</string>
+	<string name="MCA_task_title_name">Ligar a %1$s às %2$s</string>
+	<string name="MCA_task_title_no_name">Ligar a %s</string>
+	<string name="MCA_schedule_dialog_title">Ligar a %s em...</string>
 	<string name="CRA_ignore">Ignorar</string>
 	<string name="CRA_title">Precisa de uma lista de encontros?</string>
 	<string name="CRA_ignore_title">Ignorar todos os eventos do calendário?</string>
@@ -197,6 +211,7 @@
 	<string name="EPr_show_timer_shortcut">Mostrar atalho do temporizador</string>
 	<string name="EPr_beastMode_desc">Personalizar o esquema do ecrã de edição de tarefas</string>
 	<string name="EPr_beastMode_reset">Restaurar definições originas</string>
+	<string name="EPr_beastMode_hint">Personalize o ecrã de edição de tarefas arrastando a guia em cada linha</string>
 	<string name="EPr_showNotes_desc_disabled">A descrição estará acessível no ecrã de edição de tarefas</string>
 	<string name="EPr_showNotes_desc_enabled">A descrição será mostrada sempre</string>
 	<string name="EPr_fullTask_title">Mostrar título completo das tarefas</string>
@@ -224,6 +239,7 @@
 	<string name="EPr_manage_header">Gerir tarefas antigas</string>
 	<string name="EPr_manage_delete_completed">Eliminar tarefas terminadas</string>
 	<string name="EPr_manage_delete_completed_message">Quer mesmo eliminar todas as tarefas terminadas?</string>
+	<string name="EPr_manage_delete_completed_summary">As tarefas eliminadas podem ser recuperadas individualmente</string>
 	<string name="EPr_manage_delete_completed_status">%d tarefas eliminadas!</string>
 	<string name="EPr_manage_purge_deleted">Remover tarefas eliminadas</string>
 	<string name="EPr_manage_purge_deleted_message">Quer mesmo remover todas as tarefas eliminadas?\n\nNunca mais as conseguirá recuperar!</string>
@@ -231,28 +247,46 @@
 	<string name="EPr_manage_purge_deleted_summary">Atenção! As tarefas removidas não poderão ser recuperadas sem um backup!</string>
 	<string name="EPr_manage_clear_all">Limpar todos os dados</string>
 	<string name="EPr_manage_clear_all_message">Eliminar tarefas e definições do Tasks?\n\nNão pode anular esta operação!</string>
+	<string name="EPr_manage_delete_completed_gcal">Eliminar eventos de calendário das tarefas terminadas</string>
+	<string name="EPr_manage_delete_completed_gcal_message">Quer mesmo eliminar os eventos das tarefas terminadas?</string>
+	<string name="EPr_manage_delete_completed_gcal_status">%d eventos de calendário eliminados!</string>
+	<string name="EPr_manage_delete_all_gcal">Eliminar todos os eventos de calendário das tarefas</string>
+	<string name="EPr_manage_delete_all_gcal_message">Quer mesmo eliminar todos os eventos das tarefas?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Eliminados %d eventos de calendário!</string>
+	<string name="AOA_internal_author">Equipa do Tasks</string>
 	<string name="TWi_loading">Carregando...</string>
 	<string name="WCA_title">Escolha as tarefas a ver...</string>
+	<string name="task_killer_help">Parece que está a utilizar uma aplicação que pode terminar processos (%s).
+Se puder, adicione o Tasks à lista de exclusões. Se não o fizer, é possível
+que o Tasks não se lembre quando as tarefas vencem.\n</string>
 	<string name="task_killer_help_ok">Não destruirei tarefas!</string>
 	<string name="DB_corrupted_title">Base de dados danificada</string>
-	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
-      If you see this error regularly, we suggest you clear all
-      data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
-      your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
+	<string name="DB_corrupted_body">Parece que a sua base de dados está danificada. 
+Se este erro ocorrer repetidamente sugerimos a eliminação dos dados em
+Definições-&gt;Sincronização e backup-&gt;Gerir tarefas antigas-&gt;Limpar todos os dados e o restauro
+das tarefas através de um backup em Definições-&gt;Sincronização e backup-&gt;Backup-&gt;Importar tarefas.</string>
+	<string name="market_unavailable">Infelizmente, a loja Google não está instalada no seu sistema.</string>
 	<string name="EPr_defaults_header">Predefinições das novas tarefas</string>
+	<string name="EPr_defaults_summary">Prioridade, data limite e adicionar ao calendário</string>
 	<string name="EPr_default_urgency_title">Prazo predefinido</string>
 	<string name="EPr_default_urgency_desc">Atual: %s</string>
+	<string name="EPr_default_importance_title">Prioridade predefinida</string>
 	<string name="EPr_default_importance_desc">Atual: %s</string>
+	<string name="EPr_default_hideUntil_title">Predefinição de ocultar até</string>
 	<string name="EPr_default_hideUntil_desc">Atual: %s</string>
-	<string name="EPr_default_reminders_title">Lembretes padrão</string>
+	<string name="EPr_default_reminders_title">Lembretes predefinidos</string>
 	<string name="EPr_default_reminders_desc">Atual: %s</string>
+	<string name="EPr_default_addtocalendar_title">Predefinição ao adicionar ao calendário</string>
+	<string name="EPr_default_addtocalendar_desc_disabled">Novas tarefas não criarão o evento no calendário Google.</string>
+	<string name="EPr_default_addtocalendar_desc">Novas tarefas serão criadas no calendário: %s</string>
+	<string name="EPr_default_reminders_mode_title">Tipo de vibração/toque predefinido</string>
 	<string name="EPr_default_reminders_mode_desc">Atual: %s</string>
 	<string-array name="EPr_default_importance">
 		<item>!!! (Mais alta)</item>
 		<item>!!</item>
 		<item>!</item>
-		<item>o (mais baixa)</item>	</string-array>
+		<item>o (mais baixa)</item>
+	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>Sem data limite</item>
 		<item>Hoje</item>
@@ -275,6 +309,7 @@
 	<string name="BFE_Active">Minhas tarefas</string>
 	<string name="BFE_Recent">Alteradas recentemente</string>
 	<string name="BFE_Saved_delete">Eliminar filtro</string>
+	<string name="CFA_filterName_hint">Nome do filtro...</string>
 	<string name="CFA_universe_all">Tarefas ativas</string>
 	<string name="CFA_type_add">ou</string>
 	<string name="CFA_type_subtract">não</string>
@@ -311,7 +346,7 @@
 	<string name="gcal_TEA_none_selected">Ao calendário?</string>
 	<string name="gcal_TEA_has_event">Evento de calendário</string>
 	<string name="gcal_completed_title">%s (terminada)</string>
-	<string name="gcal_GCP_default">Calendário padrão</string>
+	<string name="gcal_GCP_default">Calendário predefinido</string>
 	<string name="gtasks_FEx_title">Tarefas Google: %s</string>
 	<string name="CFC_gtasks_list_text">Na lista: ?</string>
 	<string name="CFC_gtasks_list_name">Na lista GTasks</string>
@@ -338,6 +373,7 @@
 	<string name="audio_recording_title">Gravação áudio</string>
 	<string name="audio_stop_recording">Parar gravação</string>
 	<string name="audio_speak_now">Falar agora!</string>
+	<string name="search_market_audio">Não foi encontrado um reprodutor para gerir este tipo de áudio. Gostaria de transferir um reprodutor na loja Google?</string>
 	<string name="search_market_audio_title">Reprodutor áudio não encontrado</string>
 	<string name="search_market_pdf">Nenhum leitor PDF encontrado. Gostaria de transferir um leitor de PDF na loja Google?</string>
 	<string name="search_market_pdf_title">Leitor PDF não encontrado</string>
@@ -358,7 +394,8 @@
 	<string name="file_dir_dialog_default">Restaurar definições originais</string>
 	<string name="p_files_dir">Diretório de transferências</string>
 	<string name="p_files_dir_desc">Anexos de tarefa gravadas em: %s</string>
-	<string name="p_files_dir_desc_default">Diretório padrão</string>
+	<string name="p_files_dir_desc_default">Diretório predefinido</string>
+	<string name="premium_speech_bubble_2">Compre por um ano e poupe 25%!</string>
 	<string name="TEA_reminders_group_label">Definições do lembrete</string>
 	<string name="TEA_reminder_label">Lembrar-me</string>
 	<string name="TEA_reminder_due">Na data limite</string>
@@ -384,16 +421,31 @@
 	</string-array>
 	<string name="rmd_NoA_filter">Lembrete!</string>
 	<string name="rmd_NoA_done">Terminada</string>
+	<string name="rmd_NoA_completed_toast">Parabéns ao terminar!</string>
 	<string name="rmd_NoA_dlg_title">Lembrete:</string>
 	<string name="rmd_EPr_alerts_header">Definições do lembrete</string>
 	<string name="rmd_EPr_alerts_summary">Horas de silêncio, opções de snooze, nível de persistência</string>
 	<string name="rmd_EPr_enabled_title">Lembretes ativos?</string>
+	<string name="rmd_EPr_enabled_desc_true">Lembretes ativos (procedimento normal)</string>
+	<string name="rmd_EPr_enabled_desc_false">O lembretes não aparecerão no telefone</string>
 	<string name="rmd_EPr_enable_quiet_title">Ativar horas de silêncio</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Início da hora de silêncio</string>
+	<string name="rmd_EPr_quiet_hours_start_desc">As notificações serão silenciadas após %s.\nAs vibrações são controladas pela definição \"Vibrar no alerta\"</string>
 	<string name="rmd_EPr_quiet_hours_desc_none">Hora de silêncio desativada</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Fim das horas de silêncio</string>
+	<string name="rmd_EPr_quiet_hours_end_desc">As notificações será restauradas em %s</string>
+	<string name="rmd_EPr_rmd_time_title">Lembrete predefinido</string>
+	<string name="rmd_EPr_rmd_time_desc">As notificações para tarefas sem data limite aparecerão em %s</string>
 	<string name="rmd_EPr_ringtone_title">Toque da notificação</string>
+	<string name="rmd_EPr_ringtone_desc_custom">Toque personalizado definido</string>
+	<string name="rmd_EPr_ringtone_desc_silent">Toque definido para silencioso</string>
+	<string name="rmd_EPr_ringtone_desc_default">Será utilizado o toque predefinido</string>
 	<string name="rmd_EPr_persistent_title">Persistência da notificação</string>
+	<string name="rmd_EPr_persistent_desc_true">Deve ver as notificações individualmente para as poder remover</string>
+	<string name="rmd_EPr_persistent_desc_false">As notificações serão removidas no botão \"Limpar tudo\"</string>
+	<string name="rmd_EPr_multiple_maxvolume_title">Volume máximo para lembretes com vários toques</string>
+	<string name="rmd_EPr_multiple_maxvolume_desc_true">O Tasks irá amplificar o volume para lembretes com vários toques</string>
+	<string name="rmd_EPr_multiple_maxvolume_desc_false">O Tasks irá utilizar as definições do sistema para o volume</string>
 	<string name="rmd_EPr_vibrate_title">Vibrar no alerta</string>
 	<string name="rmd_EPr_vibrate_desc_true">O Tasks vibrará ao enviar notificações</string>
 	<string name="rmd_EPr_vibrate_desc_false">O Tasks não vibrará ao enviar notificações</string>
@@ -448,7 +500,7 @@
 	<string name="repeat_until_title">Repetir até...</string>
 	<string name="repeat_keep_going">Manter em curso</string>
 	<string-array name="repeat_type">
-		<item>from due date</item>
+		<item>da data limite</item>
 		<item>desde a data de conclusão</item>
 	</string-array>
 	<string name="repeat_detail_byday">$I em $D</string>
@@ -458,6 +510,10 @@
 	<string name="repeat_forever">Repetir eternamente</string>
 	<string name="repeat_until">Repetir até %s</string>
 	<string name="repeat_rescheduling_dialog_title">Reagendamento da tarefa %s</string>
+	<string name="repeat_rescheduling_dialog_title_last_time">Terminada a tarefa recorrente %s</string>
+	<string name="repeat_rescheduling_dialog_bubble">%1$s Tarefa recorrente reagendada desde %2$s até %3$s</string>
+	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s Tarefa recorrente reagendada para %2$s</string>
+	<string name="repeat_rescheduling_dialog_bubble_last_time">Esta tarefa repetirá até %1$s, após o que será terminada. %2$s</string>
 	<string name="TEA_tags_label_long">Adicionar às listas</string>
 	<string name="TEA_tag_hint">Nova lista</string>
 	<string name="tag_new_list">Nova lista</string>
@@ -488,7 +544,10 @@
 	<string name="EPr_voiceInputEnabled_desc_disabled">O botão de introdução por voz não será mostrado na lista de tarefas</string>
 	<string name="EPr_voiceInputCreatesTask_title">Criar tarefas diretamente</string>
 	<string name="EPr_voiceInputCreatesTask_desc_enabled">As tarefas serão criadas automaticamente com a introdução por voz</string>
+	<string name="EPr_voiceInputCreatesTask_desc_disabled">Pode editar o título da tarefas ao terminar a introdução por voz</string>
 	<string name="EPr_voiceRemindersEnabled_title">Lembretes de voz</string>
+	<string name="EPr_voiceRemindersEnabled_desc_enabled">O Tasks irá reproduzir o nome da tarefa durante os lembretes</string>
+	<string name="EPr_voiceRemindersEnabled_desc_disabled">O Tasks irá reproduzir um toque durante os lembretes</string>
 	<string name="widget_mini">Tarefas</string>
 	<string name="EPr_use_dark_theme">Tema escuro</string>
 	<string name="EPr_use_dark_theme_widget">Widget escuro</string>

@@ -36,6 +36,8 @@
 	<string name="today">Hoje</string>
 	<string name="tomorrow">Amanhã</string>
 	<string name="yesterday">Ontem</string>
+	<string name="tmrw">Amanhã</string>
+	<string name="yest">Ontem</string>
 	<string name="DLG_confirm_title">Confirma?</string>
 	<string name="DLG_question_title">Pergunta:</string>
 	<string name="DLG_information_title">Informação</string>
