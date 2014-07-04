@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpResponseException;
 import com.google.api.client.json.GenericJson;
 import com.google.api.client.json.gson.GsonFactory;
@@ -47,7 +49,14 @@ public class GtasksInvoker {
         Context context = ContextManager.getContext();
         key = context.getString(R.string.gapi_key);
         credential.setAccessToken(authToken);
-        service = new Tasks.Builder(AndroidHttp.newCompatibleTransport(), new GsonFactory(), credential)
+        HttpRequestInitializer httpRequestInitializer = new HttpRequestInitializer() {
+            @Override
+            public void initialize(HttpRequest request) throws IOException {
+                credential.initialize(request);
+                request.setReadTimeout(0); // infinite
+            }
+        };
+        service = new Tasks.Builder(AndroidHttp.newCompatibleTransport(), new GsonFactory(), httpRequestInitializer)
                 .setApplicationName("Tasks")
                 .build();
     }
