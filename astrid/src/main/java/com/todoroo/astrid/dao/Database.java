@@ -15,7 +15,6 @@ import com.todoroo.andlib.data.Table;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.data.TagMetadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskListMetadata;
@@ -61,7 +60,6 @@ public class Database extends AbstractDatabase {
         StoreObject.TABLE,
         TagData.TABLE,
         UserActivity.TABLE,
-        TagMetadata.TABLE,
         TaskAttachment.TABLE,
         TaskListMetadata.TABLE,
     };
