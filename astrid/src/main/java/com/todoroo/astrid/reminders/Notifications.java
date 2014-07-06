@@ -106,7 +106,7 @@ public class Notifications extends InjectingBroadcastReceiver {
         Task task;
         try {
             task = taskDao.fetch(id, Task.ID, Task.TITLE, Task.HIDE_UNTIL, Task.COMPLETION_DATE,
-                    Task.DUE_DATE, Task.DELETION_DATE, Task.REMINDER_FLAGS, Task.USER_ID);
+                    Task.DUE_DATE, Task.DELETION_DATE, Task.REMINDER_FLAGS);
             if (task == null) {
                 throw new IllegalArgumentException("cound not find item with id"); //$NON-NLS-1$
             }
@@ -120,7 +120,7 @@ public class Notifications extends InjectingBroadcastReceiver {
             return false;
         }
         // you're done, or not yours - don't sound, do delete
-        if (task.isCompleted() || task.isDeleted() || !Task.USER_ID_SELF.equals(task.getUserID())) {
+        if (task.isCompleted() || task.isDeleted()) {
             return false;
         }
 

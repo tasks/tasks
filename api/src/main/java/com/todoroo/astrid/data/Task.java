@@ -152,14 +152,6 @@ public class Task extends RemoteModel {
     public static final StringProperty UUID = new StringProperty(
             TABLE, UUID_PROPERTY_NAME, Property.PROP_FLAG_NULLABLE);
 
-    /** Assigned user id */
-    public static final StringProperty USER_ID = new StringProperty(
-            TABLE, USER_ID_PROPERTY_NAME, Property.PROP_FLAG_USER_ID);
-
-    /** Creator user id */
-    public static final StringProperty CREATOR_ID = new StringProperty(
-            TABLE, "creatorId", Property.PROP_FLAG_USER_ID);
-
     /** Last Sync date */
     @Deprecated
     public static final LongProperty LAST_SYNC = new LongProperty(
@@ -179,11 +171,6 @@ public class Task extends RemoteModel {
 
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(Task.class);
-
-    // --- user id special values
-
-    /** user id = myself */
-    public static final String USER_ID_SELF = "0";
 
     // --- notification flags
 
@@ -261,8 +248,6 @@ public class Task extends RemoteModel {
 
         defaultValues.put(LAST_SYNC.name, 0);
         defaultValues.put(UUID.name, NO_UUID);
-        defaultValues.put(USER_ID.name, "0");
-        defaultValues.put(CREATOR_ID.name, 0);
         defaultValues.put(PUSHED_AT.name, 0L);
         defaultValues.put(ATTACHMENTS_PUSHED_AT.name, 0L);
         defaultValues.put(USER_ACTIVITIES_PUSHED_AT.name, 0L);
@@ -588,10 +573,6 @@ public class Task extends RemoteModel {
 
     public String getCalendarURI() {
         return getValue(CALENDAR_URI);
-    }
-
-    public String getUserID() {
-        return getValue(USER_ID);
     }
 
     public Integer getImportance() {

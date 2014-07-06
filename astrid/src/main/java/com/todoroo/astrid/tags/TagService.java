@@ -121,7 +121,6 @@ public final class TagService {
                 Criterion.not(Task.UUID.in(Query.select(TaskToTagMetadata.TASK_UUID).from(Metadata.TABLE)
                         .where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), Metadata.DELETION_DATE.eq(0))))),
                 TaskCriteria.isActive(),
-                TaskCriteria.ownedByMe(),
                 TaskCriteria.isVisible()));
     }
 

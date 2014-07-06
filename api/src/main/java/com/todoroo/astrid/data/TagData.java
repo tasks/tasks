@@ -34,14 +34,6 @@ public final class TagData extends RemoteModel {
     public static final LongProperty ID = new LongProperty(
             TABLE, ID_PROPERTY_NAME);
 
-    /** User id */
-    public static final StringProperty USER_ID = new StringProperty(
-            TABLE, USER_ID_PROPERTY_NAME, Property.PROP_FLAG_USER_ID);
-
-    /** User Object (JSON) */
-    @Deprecated public static final StringProperty USER = new StringProperty(
-            TABLE, USER_JSON_PROPERTY_NAME);
-
     /** Remote goal id */
     public static final StringProperty UUID = new StringProperty(
             TABLE, UUID_PROPERTY_NAME);
@@ -136,8 +128,6 @@ public final class TagData extends RemoteModel {
     private static final ContentValues defaultValues = new ContentValues();
 
     static {
-        defaultValues.put(USER_ID.name, "0");
-        defaultValues.put(USER.name, "");
         defaultValues.put(UUID.name, NO_UUID);
         defaultValues.put(NAME.name, "");
         defaultValues.put(IS_TEAM.name, 1);

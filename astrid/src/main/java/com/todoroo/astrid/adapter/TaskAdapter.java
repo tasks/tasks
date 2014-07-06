@@ -115,7 +115,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Task.ELAPSED_SECONDS,
         Task.TIMER_START,
         Task.RECURRENCE,
-        Task.USER_ID,
         Task.REMINDER_LAST,
         Task.SOCIAL_REMINDER,
         HAS_NOTES_PROPERTY, // Whether or not the task has notes

@@ -43,10 +43,6 @@ public final class TaskAttachment extends RemoteModel {
     public static final LongProperty PUSHED_AT = new LongProperty(
             TABLE, PUSHED_AT_PROPERTY_NAME);
 
-    /** Creator user id */
-    public static final StringProperty USER_UUID = new StringProperty(
-            TABLE, "user_id");
-
     /** Task uuid */
     public static final StringProperty TASK_UUID = new StringProperty(
             TABLE, "task_id");
@@ -90,7 +86,6 @@ public final class TaskAttachment extends RemoteModel {
     static {
         defaultValues.put(UUID.name, NO_UUID);
         defaultValues.put(PUSHED_AT.name, 0);
-        defaultValues.put(USER_UUID.name, NO_UUID);
         defaultValues.put(TASK_UUID.name, NO_UUID);
         defaultValues.put(NAME.name, "");
         defaultValues.put(URL.name, "");
@@ -137,7 +132,6 @@ public final class TaskAttachment extends RemoteModel {
         TaskAttachment attachment = new TaskAttachment();
         attachment.setTaskUUID(taskUuid);
         attachment.setName(fileName);
-        attachment.setUserUUID(Task.USER_ID_SELF);
         attachment.setFilePath(filePath);
         attachment.setContentType(fileType);
         attachment.setCreatedAt(DateUtilities.now());
@@ -175,10 +169,6 @@ public final class TaskAttachment extends RemoteModel {
 
     public void setCreatedAt(Long createdAt) {
         setValue(CREATED_AT, createdAt);
-    }
-
-    public void setUserUUID(String userUuid) {
-        setValue(USER_UUID, userUuid);
     }
 
     public void setTaskUUID(String taskUuid) {

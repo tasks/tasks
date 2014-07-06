@@ -235,7 +235,7 @@ public class StartupService {
         // For some reason these properties are missing for some users.
         // Make them exist!
         try {
-            TodorooCursor<Task> tasks = taskService.query(Query.select(Task.UUID, Task.USER_ID).limit(1));
+            TodorooCursor<Task> tasks = taskService.query(Query.select(Task.UUID).limit(1));
             try {
                 System.err.println(tasks.getCount());
             } finally {
@@ -244,7 +244,6 @@ public class StartupService {
         } catch (SQLiteException e) {
             log.error(e.getMessage(), e);
             database.tryAddColumn(Task.TABLE, Task.UUID, "'0'"); //$NON-NLS-1$
-            database.tryAddColumn(Task.TABLE, Task.USER_ID, "0"); //$NON-NLS-1$
         }
     }
 

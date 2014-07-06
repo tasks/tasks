@@ -35,12 +35,6 @@ abstract public class RemoteModel extends AbstractModel {
     /** remote id property */
     public static final StringProperty UUID_PROPERTY = new StringProperty(null, UUID_PROPERTY_NAME);
 
-    /** user id property common to all remote models */
-    protected static final String USER_ID_PROPERTY_NAME = "userId"; //$NON-NLS-1$
-
-    /** user json property common to all remote models */
-    protected static final String USER_JSON_PROPERTY_NAME = "user"; //$NON-NLS-1$
-
     /** pushed at date property name */
     public static final String PUSHED_AT_PROPERTY_NAME = "pushedAt"; //$NON-NLS-1$
 

@@ -183,7 +183,7 @@ public class GtasksSyncService {
     }
 
     private static final Property<?>[] TASK_PROPERTIES = { Task.ID, Task.TITLE,
-            Task.NOTES, Task.DUE_DATE, Task.COMPLETION_DATE, Task.DELETION_DATE, Task.USER_ID };
+            Task.NOTES, Task.DUE_DATE, Task.COMPLETION_DATE, Task.DELETION_DATE };
 
     /**
      * Checks to see if any of the values changed are among the properties we sync
@@ -228,18 +228,6 @@ public class GtasksSyncService {
         Metadata gtasksMetadata = gtasksMetadataService.getTaskMetadata(task.getId());
         com.google.api.services.tasks.model.Task remoteModel;
         boolean newlyCreated = false;
-
-        if (values.containsKey(Task.USER_ID.name) && !Task.USER_ID_SELF.equals(values.getAsString(Task.USER_ID.name))) {
-            if (gtasksMetadata != null && !TextUtils.isEmpty(gtasksMetadata.getValue(GtasksMetadata.ID))) {
-                try {
-                    invoker.deleteGtask(gtasksMetadata.getValue(GtasksMetadata.LIST_ID), gtasksMetadata.getValue(GtasksMetadata.ID));
-                    metadataDao.delete(gtasksMetadata.getId());
-                } catch (IOException e) {
-                    log.error(e.getMessage(), e);
-                }
-            }
-            return;
-        }
 
         String remoteId;
         String listId = gtasksPreferenceService.getDefaultList();

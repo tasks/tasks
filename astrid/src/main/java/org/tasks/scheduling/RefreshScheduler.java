@@ -80,7 +80,6 @@ public class RefreshScheduler {
         long now = currentTimeMillis();
         return taskDao.query(Query.select(REFRESH_PROPERTIES).where(Criterion.and(
                 TaskDao.TaskCriteria.isActive(),
-                TaskDao.TaskCriteria.ownedByMe(),
                 Criterion.or(Task.HIDE_UNTIL.gt(now), Task.DUE_DATE.gt(now)))));
     }
 }

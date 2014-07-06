@@ -86,9 +86,8 @@ public class TaskDao extends RemoteModelDao<Task> {
     	/** @return tasks that have not yet been completed or deleted and are assigned to me */
     	public static Criterion activeVisibleMine() {
     	    return Criterion.and(Task.COMPLETION_DATE.eq(0),
-    	            Task.DELETION_DATE.eq(0),
-    	            Task.HIDE_UNTIL.lt(Functions.now()),
-    	            Task.USER_ID.eq(0));
+                    Task.DELETION_DATE.eq(0),
+                    Task.HIDE_UNTIL.lt(Functions.now()));
     	}
 
     	/** @return tasks that have not yet been completed or deleted */
@@ -106,12 +105,6 @@ public class TaskDao extends RemoteModelDao<Task> {
         public static Criterion hasNoTitle() {
     	    return Criterion.or(Task.TITLE.isNull(), Task.TITLE.eq(""));
     	}
-
-    	/** Check if a given task belongs to someone else & is read-only */
-        public static Criterion ownedByMe() {
-             return Task.USER_ID.eq(0);
-        }
-
     }
 
     // --- delete

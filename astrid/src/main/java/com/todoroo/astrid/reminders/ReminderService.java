@@ -180,7 +180,7 @@ public final class ReminderService  {
         // Make sure no alarms are scheduled other than the next one. When that one is shown, it
         // will schedule the next one after it, and so on and so forth.
         clearAllAlarms(task);
-        if(task.isCompleted() || task.isDeleted() || !Task.USER_ID_SELF.equals(task.getUserID())) {
+        if(task.isCompleted() || task.isDeleted()) {
             return;
         }
 
@@ -471,7 +471,6 @@ public final class ReminderService  {
     private TodorooCursor<Task> getTasksWithReminders(TaskDao taskDao, Property<?>... properties) {
         return taskDao.query(Query.select(properties).where(Criterion.and(
                 TaskCriteria.isActive(),
-                TaskCriteria.ownedByMe(),
                 Criterion.or(Task.REMINDER_FLAGS.gt(0), Task.REMINDER_PERIOD.gt(0)))));
     }
 }

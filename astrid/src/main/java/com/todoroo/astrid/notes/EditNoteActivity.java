@@ -81,7 +81,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             UserActivity.TARGET_ID,
             UserActivity.TARGET_NAME,
             UserActivity.PICTURE,
-            UserActivity.USER_UUID,
             UserActivity.ID,
             ACTIVITY_TYPE_PROPERTY,
     };
@@ -370,7 +369,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         activity.setTargetId(unionCursor.getString(4));
         activity.setTargetName(unionCursor.getString(5));
         activity.setPicture(unionCursor.getString(6));
-        activity.setUserUUID(unionCursor.getString(7));
     }
 
     public View getUpdateNotes(NoteOrUpdate note, ViewGroup parent) {
@@ -434,7 +432,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         UserActivity userActivity = new UserActivity();
         userActivity.setMessage(message);
         userActivity.setAction(actionCode);
-        userActivity.setUserUUID(Task.USER_ID_SELF);
         userActivity.setTargetId(uuid);
         userActivity.setTargetName(title);
         userActivity.setCreatedAt(DateUtilities.now());

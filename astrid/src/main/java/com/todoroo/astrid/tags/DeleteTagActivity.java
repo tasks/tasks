@@ -32,7 +32,7 @@ public class DeleteTagActivity extends TagActivity {
     @Override
     protected Intent ok() {
         int deleted = deleteTagMetadata(uuid);
-        TagData tagData = tagDataDao.fetch(uuid, TagData.ID, TagData.UUID, TagData.DELETION_DATE, TagData.MEMBER_COUNT, TagData.USER_ID);
+        TagData tagData = tagDataDao.fetch(uuid, TagData.ID, TagData.UUID, TagData.DELETION_DATE, TagData.MEMBER_COUNT);
         Intent tagDeleted = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED);
         if (tagData != null) {
             tagData.setDeletionDate(DateUtilities.now());

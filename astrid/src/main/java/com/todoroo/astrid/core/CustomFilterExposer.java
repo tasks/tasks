@@ -12,6 +12,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
@@ -22,7 +23,6 @@ import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.dao.StoreObjectDao;
-import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 
@@ -81,7 +81,7 @@ public final class CustomFilterExposer extends InjectingBroadcastReceiver implem
                 Filter recent = new Filter(r.getString(R.string.BFE_Recent),
                         r.getString(R.string.BFE_Recent),
                         new QueryTemplate().where(
-                                TaskCriteria.ownedByMe()).orderBy(
+                                Criterion.all).orderBy(
                                         Order.desc(Task.MODIFICATION_DATE)).limit(15),
                                         null);
                 list.add(recent);

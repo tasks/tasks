@@ -31,10 +31,6 @@ public class UserActivity extends RemoteModel {
     public static final StringProperty UUID = new StringProperty(
             TABLE, UUID_PROPERTY_NAME);
 
-    /** User ID (activity initiator) */
-    public static final StringProperty USER_UUID = new StringProperty(
-            TABLE, "user_uuid", Property.PROP_FLAG_USER_ID);
-
     /** Action */
     public static final StringProperty ACTION = new StringProperty(
             TABLE, "action");
@@ -87,7 +83,6 @@ public class UserActivity extends RemoteModel {
 
     static {
         defaultValues.put(UUID.name, NO_UUID);
-        defaultValues.put(USER_UUID.name, NO_UUID);
         defaultValues.put(ACTION.name, "");
         defaultValues.put(MESSAGE.name, "");
         defaultValues.put(PICTURE.name, "");
@@ -121,10 +116,6 @@ public class UserActivity extends RemoteModel {
 
     public void setMessage(String message) {
         setValue(MESSAGE, message);
-    }
-
-    public void setUserUUID(String userUuid) {
-        setValue(USER_UUID, userUuid);
     }
 
     public void setTargetName(String targetName) {

@@ -67,8 +67,6 @@ public class NameMaps {
         putTaskPropertyToServerName(Task.DELETION_DATE,   "deleted_at",     true);
         putTaskPropertyToServerName(Task.NOTES,           "notes",          true);
         putTaskPropertyToServerName(Task.RECURRENCE,      "repeat",         true);
-        putTaskPropertyToServerName(Task.USER_ID,         "user_id",        true);
-        putTaskPropertyToServerName(Task.CREATOR_ID,      "creator_id",     false);
         putTaskPropertyToServerName(Task.UUID,            "uuid",           false);
         putTaskPropertyToServerName(Task.CLASSIFICATION,  "classification", false);
     }
@@ -93,7 +91,6 @@ public class NameMaps {
         TAG_DATA_COLUMN_NAMES_TO_PROPERTIES = new HashMap<>();
         TAG_PROPERTIES_EXCLUDED = new HashSet<>();
 
-        putTagPropertyToServerName(TagData.USER_ID,         "user_id",      true);
         putTagPropertyToServerName(TagData.NAME,            "name",         true);
         putTagPropertyToServerName(TagData.CREATION_DATE,   "created_at",   true);
         putTagPropertyToServerName(TagData.DELETION_DATE,   "deleted_at",   true);
@@ -123,7 +120,6 @@ public class NameMaps {
         USER_ACTIVITY_PROPERTIES_EXCLUDED = new HashSet<>();
 
         putUserActivityPropertyToServerName(UserActivity.UUID,        "uuid",        false);
-        putUserActivityPropertyToServerName(UserActivity.USER_UUID,   "user_id",     false);
         putUserActivityPropertyToServerName(UserActivity.ACTION,      "action",      true);
         putUserActivityPropertyToServerName(UserActivity.MESSAGE,     "message",     true);
         putUserActivityPropertyToServerName(UserActivity.PICTURE,     "picture",     true);
@@ -153,7 +149,6 @@ public class NameMaps {
         TASK_ATTACHMENT_PROPERTIES_EXCLUDED = new HashSet<>();
 
         putTaskAttachmentPropertyToServerName(TaskAttachment.UUID,         "uuid",         false);
-        putTaskAttachmentPropertyToServerName(TaskAttachment.USER_UUID,    "user_id",      false);
         putTaskAttachmentPropertyToServerName(TaskAttachment.TASK_UUID,    "task_id",      true);
         putTaskAttachmentPropertyToServerName(TaskAttachment.NAME,         "name",         false);
         putTaskAttachmentPropertyToServerName(TaskAttachment.URL,          "url",          false);
