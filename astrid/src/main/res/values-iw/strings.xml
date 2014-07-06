@@ -449,15 +449,15 @@
 	<string name="rmd_EPr_defaultRemind_title">תזכורות אקראיות</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">משימות חדשות לא תכלנה תזכורות אקראיות</string>
 	<string name="rmd_EPr_defaultRemind_desc">משימות חדשות יתזכרו אותך אקראית: %s</string>
-        <string-array name="EPr_reminder_random">
-                <item>לא זמין</item>
-                <item>שעתי</item>
-                <item>יומי</item>
-                <item>שבועי</item>
-                <item>דו שבועי</item>
-                <item>חודשי</item>
-                <item>דו חודשי</item>
-        </string-array>
+	<string-array name="EPr_reminder_random">
+		<item>לא זמין</item>
+		<item>שעתי</item>
+		<item>יומי</item>
+		<item>שבועי</item>
+		<item>דו שבועי</item>
+		<item>חודשי</item>
+		<item>דו חודשי</item>
+	</string-array>
 	<string name="repeat_plugin">משימות חוזרות</string>
 	<string name="repeat_plugin_desc">אפשר למשימות לחזור</string>
 	<string name="repeat_enabled">חזרה</string>

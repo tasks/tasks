@@ -236,6 +236,7 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Hora do evento de calendário</string>
 	<string name="EPr_cal_end_at_due_time">Terminar evento do calendário na hora limite</string>
 	<string name="EPr_cal_start_at_due_time">Iniciar eventos de calendário na hora limite</string>
+	<string name="EPr_enable_debug_logging">Ativar registo de depuração</string>
 	<string name="EPr_manage_header">Gerir tarefas antigas</string>
 	<string name="EPr_manage_delete_completed">Eliminar tarefas terminadas</string>
 	<string name="EPr_manage_delete_completed_message">Quer mesmo eliminar todas as tarefas terminadas?</string>

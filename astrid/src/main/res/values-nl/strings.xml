@@ -117,6 +117,7 @@
 	<string name="TEA_estimatedDuration_label">Tijdsduur</string>
 	<string name="TEA_elapsedDuration_label">Bestede tijd tot nu toe</string>
 	<string name="TEA_menu_save">Wijzigingen opslaan</string>
+	<string name="TEA_menu_discard_changes">Negeer veranderingen</string>
 	<string name="TEA_tab_activity">Activiteit</string>
 	<string name="TEA_timer_est">Gesch. %s</string>
 	<string name="TEA_timer_elap">Verstreken %s</string>
@@ -234,6 +235,7 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Agenda item tijd</string>
 	<string name="EPr_cal_end_at_due_time">Agenda item op tijd afronden</string>
 	<string name="EPr_cal_start_at_due_time">Agenda item op tijd starten</string>
+	<string name="EPr_enable_debug_logging">Bewaar foutenlogboek</string>
 	<string name="EPr_manage_header">Oude taken beheren</string>
 	<string name="EPr_manage_delete_completed">Voltooide taken verwijderen</string>
 	<string name="EPr_manage_delete_completed_message">Alle voltooide taken werkelijk verwijderen?</string>
@@ -421,6 +423,7 @@
 	<string name="rmd_EPr_enabled_title">Herinneringen Ingeschakeld?</string>
 	<string name="rmd_EPr_enabled_desc_true">Tasks herinneringen zijn ingeschakeld (dit is normaal)</string>
 	<string name="rmd_EPr_enabled_desc_false">Tasks herinneringen zullen nooit weergegeven worden op je telefoon</string>
+	<string name="rmd_EPr_enable_quiet_title">Stel stille tijd in</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Rustperiode begint</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">Waarschuwingen geluidloos na %s.\nOpmerking: trillen wordt via onderstaande instellingen ingesteld!</string>
 	<string name="rmd_EPr_quiet_hours_desc_none">Rustperiode is uitgeschakeld</string>
@@ -544,4 +547,6 @@
 	<string name="EPr_use_dark_theme_widget">Donker widget thema</string>
 	<string name="delete_task">Verwijder taak</string>
 	<string name="TLA_menu_support">Ondersteuning</string>
+	<string name="voice_command_added_task">Toegevoegde taak</string>
+	<string name="external_storage_unavailable">Geen toegang tot externe opslag</string>
 </resources>

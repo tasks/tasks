@@ -199,8 +199,7 @@
 		<item>!!! (Υψηλότερο)</item>
 		<item>!!</item>
 		<item>!</item>
-		<item>0 (χαμηλότερο)</item>
-	</string-array>
+		<item>0 (χαμηλότερο)</item>	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>Χωρίς προθεσμία</item>
 		<item>Σήμερα</item>
