@@ -92,12 +92,9 @@ public class NameMaps {
         TAG_PROPERTIES_EXCLUDED = new HashSet<>();
 
         putTagPropertyToServerName(TagData.NAME,            "name",         true);
-        putTagPropertyToServerName(TagData.CREATION_DATE,   "created_at",   true);
         putTagPropertyToServerName(TagData.DELETION_DATE,   "deleted_at",   true);
         putTagPropertyToServerName(TagData.UUID,            "uuid",         false);
         putTagPropertyToServerName(TagData.TASK_COUNT,      "task_count",   false);
-        putTagPropertyToServerName(TagData.TAG_DESCRIPTION, "description",  true);
-        putTagPropertyToServerName(TagData.IS_FOLDER,       "is_folder",    false);
     }
 
     // ----------

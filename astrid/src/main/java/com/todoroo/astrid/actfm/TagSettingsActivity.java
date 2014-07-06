@@ -30,7 +30,6 @@ import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService;
 
-import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
@@ -171,10 +170,6 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
                 }
             }
         }
-
-        JSONArray members = new JSONArray();
-
-        tagData.setMemberCount(members.length());
 
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(tagName.getWindowToken(), 0);
