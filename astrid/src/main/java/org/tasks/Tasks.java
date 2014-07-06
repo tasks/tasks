@@ -5,7 +5,6 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.dao.TagMetadataDao;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
@@ -36,7 +35,6 @@ public class Tasks extends InjectingApplication {
     @Inject Database database;
     @Inject TaskDao taskDao;
     @Inject MetadataDao metadataDao;
-    @Inject TagMetadataDao tagMetadataDao;
     @Inject TagDataDao tagDataDao;
     @Inject StoreObjectDao storeObjectDao;
     @Inject UserActivityDao userActivityDao;
