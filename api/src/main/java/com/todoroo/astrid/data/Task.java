@@ -89,13 +89,6 @@ public class Task extends RemoteModel {
     public static final LongProperty DETAILS_DATE = new LongProperty(
             TABLE, "detailsDate", Property.PROP_FLAG_DATE);
 
-    @Deprecated
-    public static final IntegerProperty FLAGS = new IntegerProperty(
-            TABLE, "flags");
-
-    public static final IntegerProperty IS_READONLY = new IntegerProperty(
-            TABLE, "is_readonly", Property.PROP_FLAG_BOOLEAN);
-
     // --- non-core task metadata
 
     public static final StringProperty NOTES = new StringProperty(
@@ -125,11 +118,6 @@ public class Task extends RemoteModel {
     public static final LongProperty REMINDER_LAST = new LongProperty(
             TABLE, "lastNotified", Property.PROP_FLAG_DATE);
 
-    /** What kind of reminder the last reminder was: private task,
-     *  social with no faces, social with faces */
-    public static final StringProperty SOCIAL_REMINDER = new StringProperty(
-            TABLE, "socialReminder");
-
     /** Unixtime snooze is set (0 -> no snooze) */
     public static final LongProperty REMINDER_SNOOZE = new LongProperty(
             TABLE, "snoozeTime", Property.PROP_FLAG_DATE);
@@ -143,31 +131,11 @@ public class Task extends RemoteModel {
     public static final StringProperty CALENDAR_URI = new StringProperty(
             TABLE, "calendarUri");
 
-    public static final StringProperty CLASSIFICATION = new StringProperty(
-            TABLE, "classification");
-
     // --- for astrid.com
 
     /** Remote id */
     public static final StringProperty UUID = new StringProperty(
             TABLE, UUID_PROPERTY_NAME, Property.PROP_FLAG_NULLABLE);
-
-    /** Last Sync date */
-    @Deprecated
-    public static final LongProperty LAST_SYNC = new LongProperty(
-            TABLE, "lastSync", Property.PROP_FLAG_DATE);
-
-    /** Pushed at date */
-    public static final LongProperty PUSHED_AT = new LongProperty(
-            TABLE, PUSHED_AT_PROPERTY_NAME, Property.PROP_FLAG_DATE);
-
-    /** Attachments pushed at date */
-    public static final LongProperty ATTACHMENTS_PUSHED_AT = new LongProperty(
-            TABLE, "attachments_pushed_at", Property.PROP_FLAG_DATE);
-
-    /** User activities pushed at date */
-    public static final LongProperty USER_ACTIVITIES_PUSHED_AT = new LongProperty(
-            TABLE, "activities_pushed_at", Property.PROP_FLAG_DATE);
 
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(Task.class);
@@ -192,10 +160,6 @@ public class Task extends RemoteModel {
     public static final int IMPORTANCE_MUST_DO = 1;
     public static final int IMPORTANCE_SHOULD_DO = 2;
     public static final int IMPORTANCE_NONE = 3;
-
-    // --- social reminder types
-
-    public static final String REMINDER_SOCIAL_UNSEEN = "unseen";
 
     /**
      * @return colors that correspond to importance values
@@ -226,31 +190,21 @@ public class Task extends RemoteModel {
         defaultValues.put(COMPLETION_DATE.name, 0);
         defaultValues.put(DELETION_DATE.name, 0);
         defaultValues.put(IMPORTANCE.name, IMPORTANCE_NONE);
-
         defaultValues.put(CALENDAR_URI.name, "");
         defaultValues.put(RECURRENCE.name, "");
         defaultValues.put(REPEAT_UNTIL.name, 0L);
         defaultValues.put(REMINDER_PERIOD.name, 0);
         defaultValues.put(REMINDER_FLAGS.name, 0);
         defaultValues.put(REMINDER_LAST.name, 0);
-        defaultValues.put(SOCIAL_REMINDER.name, REMINDER_SOCIAL_UNSEEN);
         defaultValues.put(REMINDER_SNOOZE.name, 0);
         defaultValues.put(ESTIMATED_SECONDS.name, 0);
         defaultValues.put(ELAPSED_SECONDS.name, 0);
         defaultValues.put(POSTPONE_COUNT.name, 0);
         defaultValues.put(NOTES.name, "");
-        defaultValues.put(FLAGS.name, 0);
         defaultValues.put(TIMER_START.name, 0);
         defaultValues.put(DETAILS.name, (String)null);
         defaultValues.put(DETAILS_DATE.name, 0);
-        defaultValues.put(IS_READONLY.name, 0);
-        defaultValues.put(CLASSIFICATION.name, "");
-
-        defaultValues.put(LAST_SYNC.name, 0);
         defaultValues.put(UUID.name, NO_UUID);
-        defaultValues.put(PUSHED_AT.name, 0L);
-        defaultValues.put(ATTACHMENTS_PUSHED_AT.name, 0L);
-        defaultValues.put(USER_ACTIVITIES_PUSHED_AT.name, 0L);
     }
 
     @Override
@@ -637,10 +591,6 @@ public class Task extends RemoteModel {
 
     public void setEstimatedSeconds(Integer estimatedSeconds) {
         setValue(ESTIMATED_SECONDS, estimatedSeconds);
-    }
-
-    public void setSocialReminder(String socialReminder) {
-        setValue(SOCIAL_REMINDER, socialReminder);
     }
 
     public void setPostponeCount(Integer postponeCount) {

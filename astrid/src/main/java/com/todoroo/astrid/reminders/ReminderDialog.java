@@ -90,7 +90,7 @@ public class ReminderDialog extends Dialog {
         findViewById(R.id.reminder_complete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                Task task = taskService.fetchById(taskId, Task.ID, Task.REMINDER_LAST, Task.SOCIAL_REMINDER);
+                Task task = taskService.fetchById(taskId, Task.ID, Task.REMINDER_LAST);
                 if (task != null) {
                     taskService.setComplete(task, true);
                 }

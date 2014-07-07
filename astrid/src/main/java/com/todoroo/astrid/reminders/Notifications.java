@@ -150,7 +150,6 @@ public class Notifications extends InjectingBroadcastReceiver {
 
         // update last reminder time
         task.setReminderLast(DateUtilities.now());
-        task.setSocialReminder(Task.REMINDER_SOCIAL_UNSEEN);
         taskDao.saveExisting(task);
 
         String title = context.getString(R.string.app_name);

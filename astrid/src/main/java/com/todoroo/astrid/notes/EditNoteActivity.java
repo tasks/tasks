@@ -156,7 +156,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     }
 
     private void fetchTask(long id) {
-        task = taskService.fetchById(id, Task.NOTES, Task.ID, Task.UUID, Task.TITLE, Task.USER_ACTIVITIES_PUSHED_AT, Task.ATTACHMENTS_PUSHED_AT);
+        task = taskService.fetchById(id, Task.NOTES, Task.ID, Task.UUID, Task.TITLE);
     }
 
     public void loadViewForTaskID(long t){

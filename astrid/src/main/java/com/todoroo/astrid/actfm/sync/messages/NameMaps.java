@@ -68,7 +68,6 @@ public class NameMaps {
         putTaskPropertyToServerName(Task.NOTES,           "notes",          true);
         putTaskPropertyToServerName(Task.RECURRENCE,      "repeat",         true);
         putTaskPropertyToServerName(Task.UUID,            "uuid",           false);
-        putTaskPropertyToServerName(Task.CLASSIFICATION,  "classification", false);
     }
 
     // ----------
