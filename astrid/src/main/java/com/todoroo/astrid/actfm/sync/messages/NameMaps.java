@@ -174,13 +174,8 @@ public class NameMaps {
         TASK_LIST_METADATA_COLUMNS_LOCAL_TO_SERVER = new HashMap<>();
         TASK_LIST_METADATA_PROPERTIES_EXCLUDED = new HashSet<>();
 
-        putTaskListMetadataPropertyToServerName(TaskListMetadata.UUID,          "uuid",          false);
         putTaskListMetadataPropertyToServerName(TaskListMetadata.TAG_UUID,      "tag_id",        true);
         putTaskListMetadataPropertyToServerName(TaskListMetadata.FILTER,        "filter",        true);
         putTaskListMetadataPropertyToServerName(TaskListMetadata.TASK_IDS,      "task_ids",      true);
-        putTaskListMetadataPropertyToServerName(TaskListMetadata.SORT,          "sort",          false);
-        putTaskListMetadataPropertyToServerName(TaskListMetadata.SETTINGS,      "settings",      false);
-        putTaskListMetadataPropertyToServerName(TaskListMetadata.CHILD_TAG_IDS, "child_tag_ids", false);
-        putTaskListMetadataPropertyToServerName(TaskListMetadata.IS_COLLAPSED,  "is_collapsed",  false);
     }
 }
