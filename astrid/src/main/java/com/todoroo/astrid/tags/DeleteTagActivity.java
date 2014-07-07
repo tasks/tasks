@@ -12,7 +12,6 @@ import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.service.TagDataService;
 
 import org.tasks.R;
 
@@ -21,7 +20,6 @@ import javax.inject.Inject;
 public class DeleteTagActivity extends TagActivity {
 
     @Inject TagDataDao tagDataDao;
-    @Inject TagDataService tagDataService;
     @Inject MetadataDao metadataDao;
 
     @Override
@@ -32,11 +30,10 @@ public class DeleteTagActivity extends TagActivity {
     @Override
     protected Intent ok() {
         int deleted = deleteTagMetadata(uuid);
-        TagData tagData = tagDataDao.fetch(uuid, TagData.ID, TagData.UUID, TagData.DELETION_DATE);
+        TagData tagData = tagDataDao.fetch(uuid, TagData.ID, TagData.UUID);
         Intent tagDeleted = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED);
         if (tagData != null) {
-            tagData.setDeletionDate(DateUtilities.now());
-            tagDataService.save(tagData);
+            tagDataDao.delete(tagData.getId());
             tagDeleted.putExtra(TagViewFragment.EXTRA_TAG_UUID, tagData.getUuid());
         }
         Toast.makeText(this, getString(R.string.TEA_tags_deleted, tag, deleted), Toast.LENGTH_SHORT).show();

@@ -330,10 +330,6 @@ public class AstridActivity extends InjectingActionBarActivity
         }
     }
 
-    public void switchToActiveTasks() {
-        onFilterItemClicked(CoreFilterExposer.buildInboxFilter(getResources()));
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_RESTART_ACTIVITY) {

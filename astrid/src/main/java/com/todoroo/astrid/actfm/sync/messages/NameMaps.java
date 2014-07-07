@@ -91,7 +91,6 @@ public class NameMaps {
         TAG_PROPERTIES_EXCLUDED = new HashSet<>();
 
         putTagPropertyToServerName(TagData.NAME,            "name",         true);
-        putTagPropertyToServerName(TagData.DELETION_DATE,   "deleted_at",   true);
         putTagPropertyToServerName(TagData.UUID,            "uuid",         false);
     }
 

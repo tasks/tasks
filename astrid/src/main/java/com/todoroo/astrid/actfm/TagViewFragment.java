@@ -59,8 +59,6 @@ public class TagViewFragment extends TaskListFragment {
 
     private boolean dataLoaded = false;
 
-    protected boolean justDeleted = false;
-
     // --- UI initialization
 
     @Override
@@ -168,31 +166,11 @@ public class TagViewFragment extends TaskListFragment {
         }
     }
 
-    @Override
-    public void onResume() {
-        if (justDeleted) {
-            parentOnResume();
-            // tag was deleted locally in settings
-            // go back to active tasks
-            AstridActivity activity = ((AstridActivity) getActivity());
-            FilterListFragment fl = activity.getFilterListFragment();
-            if (fl != null) {
-                fl.clear(); // Should auto refresh
-                activity.switchToActiveTasks();
-            }
-            return;
-        }
-        super.onResume();
-    }
-
     protected void reloadTagData() {
         tagData = tagDataService.fetchById(tagData.getId(), TagData.PROPERTIES); // refetch
         if (tagData == null) {
             // This can happen if a tag has been deleted as part of a sync
             taskListMetadata = null;
-            return;
-        } else if (tagData.isDeleted()) {
-            justDeleted = true;
             return;
         }
         initializeTaskListMetadata();

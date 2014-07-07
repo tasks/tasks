@@ -486,15 +486,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         quickAddBar.destroyRecognizerApi();
     }
 
-    /**
-     * Crazy hack so that tag view fragment won't automatically initiate an autosync after a tag
-     * is deleted. TagViewFragment has to call onResume, but we don't want it to call
-     * the normal tasklist onResume.
-     */
-    protected void parentOnResume() {
-        super.onResume();
-    }
-
     @Override
     public void onResume() {
         super.onResume();

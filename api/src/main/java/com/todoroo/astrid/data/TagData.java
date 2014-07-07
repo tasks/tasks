@@ -9,7 +9,6 @@ package com.todoroo.astrid.data;
 import android.content.ContentValues;
 
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
@@ -43,6 +42,7 @@ public final class TagData extends RemoteModel {
             TABLE, "name");
 
     /** Unixtime Project was deleted. 0 means not deleted */
+    @Deprecated
     public static final LongProperty DELETION_DATE = new LongProperty(
             TABLE, "deleted", Property.PROP_FLAG_DATE);
 
@@ -106,12 +106,6 @@ public final class TagData extends RemoteModel {
 
     // --- data access methods
 
-    /** Checks whether task is deleted. Will return false if DELETION_DATE not read */
-    public boolean isDeleted() {
-        // assume false if we didn't load deletion date
-        return containsValue(DELETION_DATE) && getValue(DELETION_DATE) > 0;
-    }
-
     public String getName() {
         return getValue(NAME);
     }
@@ -138,9 +132,5 @@ public final class TagData extends RemoteModel {
 
     public void setUUID(String uuid) {
         setValue(UUID, uuid);
-    }
-
-    public void setDeletionDate(Long deletionDate) {
-        setValue(DELETION_DATE, deletionDate);
     }
 }
