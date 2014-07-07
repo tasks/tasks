@@ -46,10 +46,6 @@ public final class TagData extends RemoteModel {
     public static final LongProperty DELETION_DATE = new LongProperty(
             TABLE, "deleted", Property.PROP_FLAG_DATE);
 
-    /** Task count */
-    public static final IntegerProperty TASK_COUNT = new IntegerProperty(
-            TABLE, "taskCount");
-
     /** Tag ordering */
     @Deprecated
     public static final StringProperty TAG_ORDERING = new StringProperty(
@@ -72,7 +68,6 @@ public final class TagData extends RemoteModel {
         defaultValues.put(NAME.name, "");
         defaultValues.put(DELETION_DATE.name, 0);
         defaultValues.put(LAST_AUTOSYNC.name, 0);
-        defaultValues.put(TASK_COUNT.name, 0);
         defaultValues.put(TAG_ORDERING.name, "[]");
     }
 
@@ -143,14 +138,6 @@ public final class TagData extends RemoteModel {
 
     public void setUUID(String uuid) {
         setValue(UUID, uuid);
-    }
-
-    public Integer getTaskCount() {
-        return getValue(TASK_COUNT);
-    }
-
-    public void setTaskCount(Integer taskCount) {
-        setValue(TASK_COUNT, taskCount);
     }
 
     public void setDeletionDate(Long deletionDate) {

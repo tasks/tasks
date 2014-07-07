@@ -81,12 +81,10 @@ public final class TagService {
      */
     public static final class Tag {
         public String tag;
-        public int count;
         public String uuid;
 
         public Tag(TagData tagData) {
             tag = tagData.getName();
-            count = tagData.getTaskCount();
             uuid = tagData.getUUID();
         }
 

@@ -93,7 +93,6 @@ public class NameMaps {
         putTagPropertyToServerName(TagData.NAME,            "name",         true);
         putTagPropertyToServerName(TagData.DELETION_DATE,   "deleted_at",   true);
         putTagPropertyToServerName(TagData.UUID,            "uuid",         false);
-        putTagPropertyToServerName(TagData.TASK_COUNT,      "task_count",   false);
     }
 
     // ----------

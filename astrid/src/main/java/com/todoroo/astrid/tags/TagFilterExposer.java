@@ -26,7 +26,6 @@ import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.FilterWithUpdate;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.tags.TagService.Tag;
 
@@ -70,9 +69,6 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
         FilterWithUpdate filter = new FilterWithUpdate(tag.tag,
                 title, tagTemplate,
                 contentValues);
-        if(!RemoteModel.NO_UUID.equals(tag.uuid)) {
-            filter.listingTitle += " (" + tag.count + ")";
-        }
 
         filter.contextMenuLabels = new String[] {
             context.getString(R.string.tag_cm_rename),

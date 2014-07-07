@@ -23,7 +23,6 @@ import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
-import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
@@ -153,24 +152,7 @@ public class TagViewFragment extends TaskListFragment {
         return tagData;
     }
 
-    @Override
-    public void loadTaskListContent() {
-        super.loadTaskListContent();
-        if(taskAdapter == null || taskAdapter.getCursor() == null) {
-            return;
-        }
-
-        int count = taskAdapter.getCursor().getCount();
-
-        if(tagData != null && sortFlags <= SortHelper.FLAG_REVERSE_SORT &&
-                count != tagData.getTaskCount()) {
-            tagData.setTaskCount(count);
-            tagDataService.save(tagData);
-        }
-    }
-
     // --------------------------------------------------------- refresh data
-
 
     @Override
     protected void initiateAutomaticSyncImpl() {
