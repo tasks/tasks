@@ -117,13 +117,10 @@ public class FilesControlSet extends PopupControlSet {
                 File f = new File(m.getFilePath());
                 if (!f.exists()) {
                     m.setFilePath(""); //$NON-NLS-1$
-                    if (m.containsNonNullValue(TaskAttachment.URL)) { // We're ok, just the local file was deleted
-                        taskAttachmentDao.saveExisting(m);
-                    } else { // No local file and no url -- delete the metadata
-                        taskAttachmentDao.delete(m.getId());
-                        files.remove(i);
-                        i--;
-                    }
+                    // No local file and no url -- delete the metadata
+                    taskAttachmentDao.delete(m.getId());
+                    files.remove(i);
+                    i--;
                 }
             }
 

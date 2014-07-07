@@ -146,10 +146,7 @@ public class NameMaps {
         putTaskAttachmentPropertyToServerName(TaskAttachment.UUID,         "uuid",         false);
         putTaskAttachmentPropertyToServerName(TaskAttachment.TASK_UUID,    "task_id",      true);
         putTaskAttachmentPropertyToServerName(TaskAttachment.NAME,         "name",         false);
-        putTaskAttachmentPropertyToServerName(TaskAttachment.URL,          "url",          false);
-        putTaskAttachmentPropertyToServerName(TaskAttachment.SIZE,         "size",         false);
         putTaskAttachmentPropertyToServerName(TaskAttachment.CONTENT_TYPE, "content_type", false);
-        putTaskAttachmentPropertyToServerName(TaskAttachment.CREATED_AT,   "created_at",   true);
         putTaskAttachmentPropertyToServerName(TaskAttachment.DELETED_AT,   "deleted_at",   true);
     }
 

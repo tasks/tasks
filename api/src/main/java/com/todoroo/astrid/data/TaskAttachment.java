@@ -9,7 +9,6 @@ package com.todoroo.astrid.data;
 import android.content.ContentValues;
 
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
@@ -39,10 +38,6 @@ public final class TaskAttachment extends RemoteModel {
     public static final StringProperty UUID = new StringProperty(
             TABLE, UUID_PROPERTY_NAME);
 
-    /** Pushed at date */
-    public static final LongProperty PUSHED_AT = new LongProperty(
-            TABLE, PUSHED_AT_PROPERTY_NAME);
-
     /** Task uuid */
     public static final StringProperty TASK_UUID = new StringProperty(
             TABLE, "task_id");
@@ -51,25 +46,13 @@ public final class TaskAttachment extends RemoteModel {
     public static final StringProperty NAME = new StringProperty(
             TABLE, "name");
 
-    /** File url (for downloading) */
-    public static final StringProperty URL = new StringProperty(
-            TABLE, "url");
-
     /** File path (on local storage) */
     public static final StringProperty FILE_PATH = new StringProperty(
             TABLE, "path");
 
-    /** File size (in bytes) */
-    public static final IntegerProperty SIZE = new IntegerProperty(
-            TABLE, "size");
-
     /** File mimetype */
     public static final StringProperty CONTENT_TYPE = new StringProperty(
             TABLE, "content_type");
-
-    /** Attachment creation date */
-    public static final LongProperty CREATED_AT = new LongProperty(
-            TABLE, "created_at", Property.PROP_FLAG_DATE);
 
     /** Attachment deletion date */
     public static final LongProperty DELETED_AT = new LongProperty(
@@ -84,15 +67,10 @@ public final class TaskAttachment extends RemoteModel {
     private static final ContentValues defaultValues = new ContentValues();
 
     static {
-        defaultValues.put(UUID.name, NO_UUID);
-        defaultValues.put(PUSHED_AT.name, 0);
         defaultValues.put(TASK_UUID.name, NO_UUID);
         defaultValues.put(NAME.name, "");
-        defaultValues.put(URL.name, "");
         defaultValues.put(FILE_PATH.name, "");
-        defaultValues.put(SIZE.name, 0);
         defaultValues.put(CONTENT_TYPE.name, "");
-        defaultValues.put(CREATED_AT.name, 0);
         defaultValues.put(DELETED_AT.name, 0);
     }
 
@@ -134,7 +112,6 @@ public final class TaskAttachment extends RemoteModel {
         attachment.setName(fileName);
         attachment.setFilePath(filePath);
         attachment.setContentType(fileType);
-        attachment.setCreatedAt(DateUtilities.now());
         attachment.setDeletedAt(0L);
         return attachment;
     }
@@ -165,10 +142,6 @@ public final class TaskAttachment extends RemoteModel {
 
     public void setDeletedAt(Long deletedAt) {
         setValue(DELETED_AT, deletedAt);
-    }
-
-    public void setCreatedAt(Long createdAt) {
-        setValue(CREATED_AT, createdAt);
     }
 
     public void setTaskUUID(String taskUuid) {
