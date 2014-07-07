@@ -33,6 +33,10 @@ public final class TaskListMetadata extends RemoteModel {
     public static final LongProperty ID = new LongProperty(
             TABLE, ID_PROPERTY_NAME);
 
+    /** Remote id */
+    public static final StringProperty UUID = new StringProperty(
+            TABLE, UUID_PROPERTY_NAME);
+
     /** Tag UUID */
     public static final StringProperty TAG_UUID = new StringProperty(
             TABLE, "tag_uuid");
@@ -57,6 +61,7 @@ public final class TaskListMetadata extends RemoteModel {
     private static final ContentValues defaultValues = new ContentValues();
 
     static {
+        defaultValues.put(UUID.name, NO_UUID);
         defaultValues.put(TAG_UUID.name, NO_UUID);
         defaultValues.put(FILTER.name, "");
         defaultValues.put(TASK_IDS.name, "[]");
