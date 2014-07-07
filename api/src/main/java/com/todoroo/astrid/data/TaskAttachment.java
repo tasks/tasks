@@ -13,7 +13,6 @@ import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.utility.DateUtilities;
 
 /**
  * Data Model which represents a user.
@@ -67,6 +66,7 @@ public final class TaskAttachment extends RemoteModel {
     private static final ContentValues defaultValues = new ContentValues();
 
     static {
+        defaultValues.put(UUID.name, NO_UUID);
         defaultValues.put(TASK_UUID.name, NO_UUID);
         defaultValues.put(NAME.name, "");
         defaultValues.put(FILE_PATH.name, "");

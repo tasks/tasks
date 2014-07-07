@@ -75,6 +75,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     private static final Property<?>[] USER_ACTIVITY_PROPERTIES = {
             UserActivity.CREATED_AT,
+            UserActivity.UUID,
             UserActivity.ACTION,
             UserActivity.MESSAGE,
             UserActivity.TARGET_ID,
@@ -361,10 +362,11 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     private static void readUserActivityProperties(TodorooCursor<UserActivity> unionCursor, UserActivity activity) {
         activity.setCreatedAt(unionCursor.getLong(0));
-        activity.setAction(unionCursor.getString(1));
-        activity.setMessage(unionCursor.getString(2));
-        activity.setTargetId(unionCursor.getString(3));
-        activity.setPicture(unionCursor.getString(4));
+        activity.setUUID(unionCursor.getString(1));
+        activity.setAction(unionCursor.getString(2));
+        activity.setMessage(unionCursor.getString(3));
+        activity.setTargetId(unionCursor.getString(4));
+        activity.setPicture(unionCursor.getString(5));
     }
 
     public View getUpdateNotes(NoteOrUpdate note, ViewGroup parent) {
