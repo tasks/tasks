@@ -27,10 +27,6 @@ public class UserActivity extends RemoteModel {
     public static final LongProperty ID = new LongProperty(
             TABLE, ID_PROPERTY_NAME);
 
-    /** Remote ID */
-    public static final StringProperty UUID = new StringProperty(
-            TABLE, UUID_PROPERTY_NAME);
-
     /** Action */
     public static final StringProperty ACTION = new StringProperty(
             TABLE, "action");
@@ -46,10 +42,6 @@ public class UserActivity extends RemoteModel {
     /** Target id */
     public static final StringProperty TARGET_ID = new StringProperty(
             TABLE, "target_id");
-
-    /** Target name */
-    public static final StringProperty TARGET_NAME = new StringProperty(
-            TABLE, "target_name");
 
     /** Created at */
     public static final LongProperty CREATED_AT = new LongProperty(
@@ -82,12 +74,10 @@ public class UserActivity extends RemoteModel {
     }
 
     static {
-        defaultValues.put(UUID.name, NO_UUID);
         defaultValues.put(ACTION.name, "");
         defaultValues.put(MESSAGE.name, "");
         defaultValues.put(PICTURE.name, "");
         defaultValues.put(TARGET_ID.name, NO_UUID);
-        defaultValues.put(TARGET_NAME.name, "");
         defaultValues.put(CREATED_AT.name, 0L);
         defaultValues.put(DELETED_AT.name, 0L);
     }
@@ -118,20 +108,12 @@ public class UserActivity extends RemoteModel {
         setValue(MESSAGE, message);
     }
 
-    public void setTargetName(String targetName) {
-        setValue(TARGET_NAME, targetName);
-    }
-
     public void setTargetId(String targetId) {
         setValue(TARGET_ID, targetId);
     }
 
     public void setAction(String action) {
         setValue(ACTION, action);
-    }
-
-    public void setUUID(String uuid) {
-        setValue(UUID, uuid);
     }
 
     public void setPicture(String picture) {

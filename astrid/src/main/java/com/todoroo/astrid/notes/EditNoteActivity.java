@@ -75,11 +75,9 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     private static final Property<?>[] USER_ACTIVITY_PROPERTIES = {
             UserActivity.CREATED_AT,
-            UserActivity.UUID,
             UserActivity.ACTION,
             UserActivity.MESSAGE,
             UserActivity.TARGET_ID,
-            UserActivity.TARGET_NAME,
             UserActivity.PICTURE,
             UserActivity.ID,
             ACTIVITY_TYPE_PROPERTY,
@@ -363,12 +361,10 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     private static void readUserActivityProperties(TodorooCursor<UserActivity> unionCursor, UserActivity activity) {
         activity.setCreatedAt(unionCursor.getLong(0));
-        activity.setUUID(unionCursor.getString(1));
-        activity.setAction(unionCursor.getString(2));
-        activity.setMessage(unionCursor.getString(3));
-        activity.setTargetId(unionCursor.getString(4));
-        activity.setTargetName(unionCursor.getString(5));
-        activity.setPicture(unionCursor.getString(6));
+        activity.setAction(unionCursor.getString(1));
+        activity.setMessage(unionCursor.getString(2));
+        activity.setTargetId(unionCursor.getString(3));
+        activity.setPicture(unionCursor.getString(4));
     }
 
     public View getUpdateNotes(NoteOrUpdate note, ViewGroup parent) {
@@ -433,7 +429,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         userActivity.setMessage(message);
         userActivity.setAction(actionCode);
         userActivity.setTargetId(uuid);
-        userActivity.setTargetName(title);
         userActivity.setCreatedAt(DateUtilities.now());
         if (usePicture && pendingCommentPicture != null) {
             JSONObject pictureJson = RemoteModel.PictureHelper.savePictureJson(pendingCommentPicture);

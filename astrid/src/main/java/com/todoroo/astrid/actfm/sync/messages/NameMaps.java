@@ -116,12 +116,10 @@ public class NameMaps {
         USER_ACTIVITY_COLUMNS_LOCAL_TO_SERVER = new HashMap<>();
         USER_ACTIVITY_PROPERTIES_EXCLUDED = new HashSet<>();
 
-        putUserActivityPropertyToServerName(UserActivity.UUID,        "uuid",        false);
         putUserActivityPropertyToServerName(UserActivity.ACTION,      "action",      true);
         putUserActivityPropertyToServerName(UserActivity.MESSAGE,     "message",     true);
         putUserActivityPropertyToServerName(UserActivity.PICTURE,     "picture",     true);
         putUserActivityPropertyToServerName(UserActivity.TARGET_ID,   "target_id",   true);
-        putUserActivityPropertyToServerName(UserActivity.TARGET_NAME, "target_name", false);
         putUserActivityPropertyToServerName(UserActivity.CREATED_AT,  "created_at",  true);
         putUserActivityPropertyToServerName(UserActivity.DELETED_AT,  "deleted_at",  true);
     }
