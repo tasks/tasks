@@ -28,7 +28,6 @@ import android.view.animation.ScaleAnimation;
 import android.widget.CursorAdapter;
 import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.todoroo.andlib.data.Property;
@@ -373,6 +372,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             }
             nameView.setText(nameValue);
         }
+
+        setupDueDateAndTags(viewHolder, task);
 
         if(viewHolder.details1 != null) {
             viewHolder.details1.setVisibility(View.GONE);
