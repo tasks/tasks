@@ -42,16 +42,6 @@
 
     <!-- ============================================== Exported Permissions = -->
 
-    <!-- for v2 tasks provider -->
-    <permission
-        android:name="org.tasks.permission.READ_TASKS"
-        android:permissionGroup="android.permission-group.MESSAGES"
-        android:protectionLevel="normal"
-        android:label="@string/read_permission_label"
-        android:description="@string/read_permission_desc" />
-
-    <uses-permission android:name="org.tasks.permission.READ_TASKS" />
-
     <!-- for reading data from add-ons or astrid via v3 content provider -->
     <permission
         android:name="org.tasks.READ"
@@ -229,14 +219,6 @@
             android:permission="android.permission.BIND_REMOTEVIEWS"/>
 
         <!-- ======================================================= Providers = -->
-
-        <provider
-            android:name="com.todoroo.astrid.provider.Astrid2TaskProvider"
-            android:authorities="org.tasks.tasksprovider"
-            android:exported="true"
-            android:multiprocess="true"
-            android:grantUriPermissions="true"
-            android:readPermission="org.tasks.permission.READ_TASKS" />
 
         <provider
             android:name="com.todoroo.astrid.provider.Astrid3ContentProvider"
