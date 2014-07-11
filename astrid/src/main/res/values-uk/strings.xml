@@ -205,7 +205,6 @@
 	<string name="EPr_filters_to_show_title">Показати фільтри</string>
 	<string name="EPr_showSmartConfirmation_title">Показати підтвердження для розумного нагадування</string>
 	<string name="EPr_fontSize_desc">Розмір шрифта на головній сторінці оголошень</string>
-	<string name="EPr_showNotes_title">Показувати опис в завданні</string>
 	<string name="EPr_edit_screen_options">Редагувати налаштування екрану</string>
 	<string name="EPr_beastMode_title">Редагувати порядок екранів</string>
 	<string name="EPr_time_increment">Крок 5 хвилин</string>
@@ -214,17 +213,9 @@
 	<string name="EPr_beastMode_desc">Налаштувати зовнішній вигляд екрану редагування завдань</string>
 	<string name="EPr_beastMode_reset">Налаштування за замовчуванням</string>
 	<string name="EPr_beastMode_hint">Налаштуйте Ваш екран редагування нотатки перетягуванням лівої частини рядків</string>
-	<string name="EPr_showNotes_desc_disabled">Опис буде доступно на екрані редагування завдання</string>
-	<string name="EPr_showNotes_desc_enabled">Завжди показувати опис</string>
 	<string name="EPr_fullTask_title">Показувати повну назву завдання</string>
 	<string name="EPr_fullTask_desc_enabled">Повна назва завдання буде показана</string>
 	<string name="EPr_fullTask_desc_disabled">Перші дві стрічки назви завдання будуть показані</string>
-	<string-array name="EPr_task_row_styles">
-		<item>Оригінальний</item>
-		<item>Простий</item>
-		<item>Title only</item>
-	</string-array>
-	<string name="EPr_task_row_style_title">Стиль стрічки: %s</string>
 	<string name="EPr_show_quickadd_controls">Розширені можливості швидкого додавання</string>
 	<string name="EPr_hide_plus_button">Прибрати кнопку плюс</string>
 	<string name="EPr_list_view">Вигляд списку</string>
@@ -250,7 +241,6 @@
 	<string name="EPr_manage_delete_all_gcal">Видалити всі календарні події для завдань</string>
 	<string name="EPr_manage_delete_all_gcal_message">Ви дійсно хочете видалити всі події для завдань?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Видалено %d календарних подій!</string>
-	<string name="AOA_internal_author">Команда Tasks</string>
 	<string name="TWi_loading">Завантаження...</string>
 	<string name="WCA_title">Виберіть завдання для перегляду...</string>
 	<string name="task_killer_help">Можливо ви використовуєте менеджер завдань (%s)!
@@ -461,8 +451,6 @@
 		<item>щомісяця</item>
 		<item>два рази на місяць</item>
 	</string-array>
-	<string name="repeat_plugin">Повторювані завдання</string>
-	<string name="repeat_plugin_desc">Дозволяє завданням повторюватися</string>
 	<string name="repeat_enabled">Повторення</string>
 	<string name="repeat_every">З інтервалом в %d</string>
 	<string name="repeat_interval_prompt">Інтервал повторення</string>
@@ -491,7 +479,6 @@
 	<string name="repeat_detail_byday">$I кожен $D</string>
 	<string name="repeat_detail_duedate">З інтервалом в %s</string>
 	<string name="repeat_detail_duedate_until">Кожні %1$s\nпоки %2$s</string>
-	<string name="repeat_detail_completion">%s після завершення</string>
 	<string name="repeat_forever">Повторювати завжди</string>
 	<string name="repeat_until">Повторювати до %s</string>
 	<string name="repeat_rescheduling_dialog_title">Перепланування завдання \"%s\"</string>

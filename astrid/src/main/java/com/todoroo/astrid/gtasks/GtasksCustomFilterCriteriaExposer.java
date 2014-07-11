@@ -85,7 +85,6 @@ public class GtasksCustomFilterCriteriaExposer extends InjectingBroadcastReceive
 
         // transmit filter list
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_CUSTOM_FILTER_CRITERIA);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, GtasksPreferenceService.IDENTIFIER);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, result);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }

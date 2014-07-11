@@ -162,16 +162,6 @@ public class TaskService {
     }
 
     /**
-     * Clear details cache. Useful if user performs some operation that
-     * affects details
-     */
-    public void clearDetails(Criterion criterion) {
-        Task template = new Task();
-        template.setDetailsDate(0L);
-        taskDao.update(criterion, template);
-    }
-
-    /**
      * Update all matching a clause to have the values set on template object.
      * <p>
      * Example (updates "joe" => "bob" in metadata value1):

@@ -205,7 +205,6 @@
 	<string name="EPr_filters_to_show_title">Filtri za prikaz</string>
 	<string name="EPr_showSmartConfirmation_title">Pokaži potrditev za pametne opomnike</string>
 	<string name="EPr_fontSize_desc">Velikost črk na strani z glavnim seznamom</string>
-	<string name="EPr_showNotes_title">Prikaži opis pri opravku</string>
 	<string name="EPr_edit_screen_options">Uredi možnosti zaslona</string>
 	<string name="EPr_beastMode_title">Uredi vrstni red zaslonov</string>
 	<string name="EPr_time_increment">5-minutni podaljški</string>
@@ -214,22 +213,9 @@
 	<string name="EPr_beastMode_desc">Po meri postavi stran za urejevanje opravkov </string>
 	<string name="EPr_beastMode_reset">Povrni privzeto nastavitev</string>
 	<string name="EPr_beastMode_hint">Stran za urejanje opravkov se postavi po meri s potegom leve ročke posamezne vrstice</string>
-	<string name="EPr_showNotes_desc_disabled">Opis bo dosegljiv na zaslonu za urejanje opravkov</string>
-	<string name="EPr_showNotes_desc_enabled">Opis bo vedno prikazan</string>
 	<string name="EPr_fullTask_title">Prikaži celoten naziv opravka</string>
 	<string name="EPr_fullTask_desc_enabled">Celoten naziv opravka bo prikazan</string>
 	<string name="EPr_fullTask_desc_disabled">Prikazani bosta prvi dve vrstici naziva opravka</string>
-	<string-array name="EPr_task_row_styles">
-		<item>Originalni</item>
-		<item>Enostavni</item>
-		<item>Samo naziv</item>
-	</string-array>
-	<string-array name="EPr_task_row_style_descriptions">
-		<item>Skajšaj naziv v dve vrstici z datumom na desni strani</item>
-		<item>Skrajšaj naziv na eno vrstico z datumom in seznami pod njo.</item>
-		<item>Enovrstični naziv</item>
-	</string-array>
-	<string name="EPr_task_row_style_title">Slog vrstice:%s</string>
 	<string name="EPr_show_quickadd_controls">Napredni kontrolniki za hitro dodajanje</string>
 	<string name="EPr_hide_plus_button">Skrij gumb s plusom</string>
 	<string name="EPr_list_view">Seznamski prikaz</string>
@@ -255,7 +241,6 @@
 	<string name="EPr_manage_delete_all_gcal">Zbriši vse dogodke na koledarju z opravki</string>
 	<string name="EPr_manage_delete_all_gcal_message">Ste prepričani, da želite zbrisati vse opravke iz vaših dogodkov?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Število zbrisanih dogodkov na koledarju: %d </string>
-	<string name="AOA_internal_author">Sodelujoči pri izdelavi aplikacije Opravki</string>
 	<string name="TWi_loading">Nalagam...</string>
 	<string name="WCA_title">Izberi in prikaži opravke...</string>
 	<string name="task_killer_help">Zdi se, da uporabljate neko aplikacijo, ki ima pravico prekinjati procese(%s)! Prosimo, dodajte aplikacijo Opravki na seznam izjem, kajti sicer vas Opravki morda ne bodo mogli pravočano obvestiti o dospelosti opravkov.\n</string>
@@ -461,8 +446,6 @@
 		<item>mesečno</item>
 		<item>vsake dva meseca</item>
 	</string-array>
-	<string name="repeat_plugin">Ponavljajoča se opravila</string>
-	<string name="repeat_plugin_desc">Omogoči ponavljanje opravil</string>
 	<string name="repeat_enabled">Ponovitve</string>
 	<string name="repeat_every">Vsakih %d</string>
 	<string name="repeat_interval_prompt">Pogostost ponovitev</string>
@@ -503,7 +486,6 @@
 	<string name="repeat_detail_byday">$I dne $D</string>
 	<string name="repeat_detail_duedate">Vsak %s</string>
 	<string name="repeat_detail_duedate_until">Vsak %1$s\n do  %2$s</string>
-	<string name="repeat_detail_completion">%s po dokončanju</string>
 	<string name="repeat_forever">Ponavljaj do preklica</string>
 	<string name="repeat_until">Ponavljaj do %s</string>
 	<string name="repeat_rescheduling_dialog_title">Spremenjen čas opravka \"%s\"</string>

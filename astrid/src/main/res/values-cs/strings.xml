@@ -158,10 +158,7 @@
 	<string name="EPr_fontSize_title">Velikost seznamu úkolů</string>
 	<string name="EPr_showSmartConfirmation_title">Zobrazovat potvrzení chytrých upomínek</string>
 	<string name="EPr_fontSize_desc">Velikost písma na hlavní straně seznamu</string>
-	<string name="EPr_showNotes_title">Zobrazit poznámky v úkolu</string>
 	<string name="EPr_beastMode_reset">Obnovit výchozí hodnoty</string>
-	<string name="EPr_showNotes_desc_disabled">Poznámky budou zobrazeny v liště rychlého přístupu</string>
-	<string name="EPr_showNotes_desc_enabled">Poznámky budou vždy zobrazeny</string>
 	<string name="EPr_fullTask_title">Zobrazit úplný název úkolu</string>
 	<string name="EPr_fullTask_desc_enabled">Zobrazí se úplný název úkolu</string>
 	<string name="EPr_fullTask_desc_disabled">Zobrazí se první dva řádky názvu úkolu</string>
@@ -183,7 +180,6 @@
 	<string name="EPr_manage_delete_completed_gcal">Smazat události v kalendáři pro hotové úkoly</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Opravdu chcete smazat všechny události pro dokončené úkoly?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">Smazáno %d událostí z kalendáře!</string>
-	<string name="AOA_internal_author">Tasks tým</string>
 	<string name="TWi_loading">Nahrávám...</string>
 	<string name="WCA_title">Označte úkol pro zobrazení...</string>
 	<string name="task_killer_help">Vypadá to, že používate aplikaci, která ukončuje programy(%s)! Pokud můžete, přidejte Tasks do vyjímek, aby nebyla ukončována. Jinak se může stát, že vás nebude upozorňovat na úkoly.\n</string>
@@ -342,8 +338,6 @@
 		<item>měsíčně</item>
 		<item>každý druhý měsíc</item>
 	</string-array>
-	<string name="repeat_plugin">Opakování úkolů</string>
-	<string name="repeat_plugin_desc">Povolit opakování úkolů</string>
 	<string name="repeat_enabled">Opakování</string>
 	<string name="repeat_every">Každý %d</string>
 	<string name="repeat_interval_prompt">Opakovací interval</string>
@@ -371,7 +365,6 @@
 	</string-array>
 	<string name="repeat_detail_byday">$I na $D</string>
 	<string name="repeat_detail_duedate">Každý %s</string>
-	<string name="repeat_detail_completion">%s po dokončení</string>
 	<string name="TEA_no_tags_modified">Nebyly provedeny žádné změny.</string>
 	<string name="tag_settings_title">Settings:</string>
 	<string name="TPl_notification">Aktivní časovače pro %s!</string>

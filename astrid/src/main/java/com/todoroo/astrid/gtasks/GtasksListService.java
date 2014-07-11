@@ -22,7 +22,6 @@ import javax.inject.Singleton;
 @Singleton
 public class GtasksListService {
 
-    public static final String LIST_NOT_FOUND = null;
     public static final StoreObject LIST_NOT_FOUND_OBJECT = null;
 
     private final StoreObjectDao storeObjectDao;
@@ -56,18 +55,6 @@ public class GtasksListService {
     public StoreObject[] getLists() {
         readLists();
         return lists;
-    }
-
-    /**
-     * Get list name
-     * @return NOT_FOUND if no list by this id exists, otherwise list name
-     */
-    public String getListName(String listId) {
-        StoreObject list = getList(listId);
-        if(list != LIST_NOT_FOUND_OBJECT) {
-            return list.getValue(GtasksList.NAME);
-        }
-        return LIST_NOT_FOUND;
     }
 
     /**

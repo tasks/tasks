@@ -197,7 +197,6 @@
 	<string name="EPr_fontSize_title">Tamanho do texto</string>
 	<string name="EPr_showSmartConfirmation_title">Mostrar confirmação para lembretes espertos</string>
 	<string name="EPr_fontSize_desc">Tamanho do texto nas listagens</string>
-	<string name="EPr_showNotes_title">Mostrar descrição na tarefa</string>
 	<string name="EPr_edit_screen_options">Editar opções da tela</string>
 	<string name="EPr_time_increment">Incrementos de 5 minutos</string>
 	<string name="EPr_use_date_shortcuts">Usar atalhos de data</string>
@@ -206,11 +205,6 @@
 	<string name="EPr_fullTask_title">Exibir título completo</string>
 	<string name="EPr_fullTask_desc_enabled">O título completo será exibido</string>
 	<string name="EPr_fullTask_desc_disabled">Somente as primeiras duas linhas serão exibidas</string>
-	<string-array name="EPr_task_row_style_descriptions">
-		<item>Truncar título para duas linhas com data à direita</item>
-		<item>Truncar título para uma única linha com data e lista abaixo</item>
-		<item>Single line title only</item>
-	</string-array>
 	<string name="EPr_taskRowPrefs_title">Aparência da Tarefa</string>
 	<string name="EPr_manage_header">Gerenciar tarefas antigas</string>
 	<string name="EPr_manage_delete_completed">Exclui as tarefas concluídas</string>
@@ -229,7 +223,6 @@
 	<string name="EPr_manage_delete_all_gcal">Apaga todos os eventos de calendário das tarefas</string>
 	<string name="EPr_manage_delete_all_gcal_message">Você quer mesmo apagar todos os eventos de calendário das tarefas?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d eventos de agenda apagados!</string>
-	<string name="AOA_internal_author">Equipe do Tasks</string>
 	<string name="TWi_loading">Carregando...</string>
 	<string name="WCA_title">Selecionar tarefas para visualização...</string>
 	<string name="task_killer_help">Parece que você está usando um aplicativo que pode eliminar processos (%s)! Se você puder, adicione o Tasks à lista de exclusão para que ele não seja eliminado. Caso contrário, o Tasks pode não avisar para você quando suas tarefas estiverem vencidas.\n</string>
@@ -419,8 +412,6 @@
 		<item>mensalmente</item>
 		<item>a cada dois meses</item>
 	</string-array>
-	<string name="repeat_plugin">Tarefas recorrentes</string>
-	<string name="repeat_plugin_desc">Permitir tarefas recorrentes</string>
 	<string name="repeat_enabled">Repetir</string>
 	<string name="repeat_every">A cada %d</string>
 	<string name="repeat_interval_prompt">Intervalo de repetição</string>
@@ -460,7 +451,6 @@
 	<string name="repeat_detail_byday">$I na $D</string>
 	<string name="repeat_detail_duedate">a cada %s</string>
 	<string name="repeat_detail_duedate_until">Todo %1$s\naté %2$s</string>
-	<string name="repeat_detail_completion">%s após a conclusão</string>
 	<string name="repeat_forever">Repetir para sempre</string>
 	<string name="repeat_until">Repetir até %s</string>
 	<string name="repeat_rescheduling_dialog_title">Reagendando tarefa \"%s\"</string>

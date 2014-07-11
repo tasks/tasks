@@ -33,7 +33,6 @@ public class AstridDefaultPreferenceSpec {
         setPreference(prefs, editor, r, R.string.p_default_reminders_key, Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE);
         setPreference(prefs, editor, r, R.string.p_rmd_default_random_hours, 0);
         setPreference(prefs, editor, r, R.string.p_fontSize, 16);
-        setPreference(prefs, editor, r, R.string.p_showNotes, false);
 
         setPreference(prefs, editor, r, R.string.p_field_missed_calls, true);
 
@@ -52,8 +51,6 @@ public class AstridDefaultPreferenceSpec {
         setPreference(prefs, editor, r, R.string.p_show_quickadd_controls, true);
 
         setPreference(prefs, editor, r, R.string.p_show_task_edit_comments, true);
-
-        setPreference(prefs, editor, r, R.string.p_taskRowStyle_v2, "1"); //$NON-NLS-1$
 
         setPreference(prefs, editor, r, R.string.p_use_date_shortcuts, false);
 
@@ -94,17 +91,6 @@ public class AstridDefaultPreferenceSpec {
 
     private static void setPreference(SharedPreferences prefs, Editor editor, Resources r, int key, boolean value) {
         setIfUnset(prefs, editor, r, key, value);
-    }
-
-    private static void setPreference(SharedPreferences prefs, Editor editor, Resources r, int key, String value) {
-        setIfUnset(prefs, editor, r, key, value);
-    }
-
-    private static void setIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, String value) {
-        String key = r.getString(keyResource);
-        if(!prefs.contains(key) || !(prefs.getAll().get(key) instanceof String)) {
-            editor.putString(key, value);
-        }
     }
 
     private static void setIntIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, int value) {

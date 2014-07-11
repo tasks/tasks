@@ -192,11 +192,6 @@
 	<string name="EPr_fullTask_title">Visualizza titolo completo dell\'attività</string>
 	<string name="EPr_fullTask_desc_enabled">Sarà mostrato il titolo completo</string>
 	<string name="EPr_fullTask_desc_disabled">Saranno mostrate le prime due righe del titolo dell\'attività</string>
-	<string-array name="EPr_task_row_style_descriptions">
-		<item>Riduci il titolo a due righe con la data a destra</item>
-		<item>Riduci il titolo a una riga con la data e gli elenchi sotto</item>
-		<item>Single line title only</item>
-	</string-array>
 	<string name="EPr_taskRowPrefs_title">Aspetto della riga dei task</string>
 	<string name="EPr_manage_header">Gestisci compiti vecchi</string>
 	<string name="EPr_manage_delete_completed">Elimina i compiti completati</string>
@@ -215,7 +210,6 @@
 	<string name="EPr_manage_delete_all_gcal">Elimina tutti gli eventi del calendario in programmi</string>
 	<string name="EPr_manage_delete_all_gcal_message">Vuoi davvero eliminare tutti i tuoi eventi in programmi?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Eliminato il %d degli eventi del calendario!</string>
-	<string name="AOA_internal_author">Team Tasks</string>
 	<string name="TWi_loading">Caricamento...</string>
 	<string name="WCA_title">Seleziona le attività da visualizzare...</string>
 	<string name="task_killer_help">Sembra che si stia utilizzando un\'applicazione che può terminare i processi (%s)! Se è possibile, aggiungere Tasks all\'elenco di esclusione in modo che non venga terminato. Contrariamente, Tasks potrebbe non avvisarti quando le tue attività saranno compiute.\n</string>
@@ -404,8 +398,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 		<item>mensilmente</item>
 		<item>bi-mensilmente</item>
 	</string-array>
-	<string name="repeat_plugin">Attività ricorrente</string>
-	<string name="repeat_plugin_desc">Permette di ripetere le attività</string>
 	<string name="repeat_enabled">Ripeti</string>
 	<string name="repeat_every">Ogni %d</string>
 	<string name="repeat_interval_prompt">Intervallo di ripetizione</string>
@@ -437,7 +429,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="repeat_detail_byday">$I su $D</string>
 	<string name="repeat_detail_duedate">Ogni %s</string>
 	<string name="repeat_detail_duedate_until">Ogni %1$s\nfino %2$s</string>
-	<string name="repeat_detail_completion">%s dopo il completamento</string>
 	<string name="repeat_forever">Ripeti all\'infinito</string>
 	<string name="repeat_until">Ripeti fino %s</string>
 	<string name="repeat_rescheduling_dialog_title">Ripianifica attività \"%s\"</string>

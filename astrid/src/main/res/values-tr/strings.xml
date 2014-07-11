@@ -206,7 +206,6 @@
 	<string name="EPr_manage_delete_all_gcal">Görevlerdeki Bütün Takvim Olaylarını Sil</string>
 	<string name="EPr_manage_delete_all_gcal_message">Görevlerdeki bütün olayları silmek istediğinize emin misiniz?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d takvim olayı silindi!</string>
-	<string name="AOA_internal_author">Tasks Takımı</string>
 	<string name="TWi_loading">Yükleniyor...</string>
 	<string name="WCA_title">Görüntülenecek görevi seç...</string>
 	<string name="task_killer_help">Gönürüyor ki, işlemleri kapatabilen bir uygulama kullanıyorsunuz (%s)! Mümkünse, Tasks\'i programın muafiyet listesine ekleyin ki kapatılamasın. Aksi takdirde, Tasks görevlerin tarihi geldiğinde size bildiremeyebilir.\n</string>
@@ -396,8 +395,6 @@
 		<item>ayda bir</item>
 		<item>ayda 2 kez</item>
 	</string-array>
-	<string name="repeat_plugin">Tekrarlanan Görevler</string>
-	<string name="repeat_plugin_desc">Görevlerin tekrarlanmasına izin ver</string>
 	<string name="repeat_enabled">Tekrarlar</string>
 	<string name="repeat_every">Her %d</string>
 	<string name="repeat_interval_prompt">Yineleme Aralığı</string>
@@ -437,7 +434,6 @@
 	<string name="repeat_detail_byday">$I gün: $D</string>
 	<string name="repeat_detail_duedate">Her %s</string>
 	<string name="repeat_detail_duedate_until">Her %1$s\n%2$s \'e kadar</string>
-	<string name="repeat_detail_completion">Tamamlandıktan sonra %s</string>
 	<string name="repeat_forever">Sürekli yinele</string>
 	<string name="repeat_until">%s\'e kadar yinele</string>
 	<string name="repeat_rescheduling_dialog_title">Görev zamanı güncelleniyor: \"%s\"</string>

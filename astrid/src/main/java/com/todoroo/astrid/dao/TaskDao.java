@@ -221,7 +221,6 @@ public class TaskDao extends RemoteModelDao<Task> {
             return false;
         }
         if(!TaskApiDao.insignificantChange(values)) {
-            item.setDetails(null);
             if(!values.containsKey(Task.MODIFICATION_DATE.name)) {
                 item.setModificationDate(DateUtilities.now());
             }

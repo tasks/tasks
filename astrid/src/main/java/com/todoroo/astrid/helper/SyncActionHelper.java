@@ -112,7 +112,7 @@ public class SyncActionHelper {
                 SyncAction syncAction = extras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
                 syncActions.add(syncAction);
             } catch (Exception e) {
-                log.error("receive-sync-action-" + intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON), e);
+                log.error(e.getMessage(), e);
             }
         }
     }

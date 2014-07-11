@@ -160,15 +160,12 @@
 	<string name="EPr_fontSize_title">Mida de la llista de tasques</string>
 	<string name="EPr_showSmartConfirmation_title">Mostra la confirmació per als recordatoris intel·ligents</string>
 	<string name="EPr_fontSize_desc">Mida de lletra en la pàgina de llista principal</string>
-	<string name="EPr_showNotes_title">Mostra notes a tasques</string>
 	<string name="EPr_beastMode_reset">Restableix els valors predeterminats</string>
-	<string name="EPr_showNotes_desc_enabled">Es mostraran sempre les anotacions</string>
 	<string name="EPr_fullTask_title">Mostra el títol sencer de la tasca</string>
 	<string name="EPr_fullTask_desc_enabled">Es mostrarà el títol sencer de la tasca</string>
 	<string name="EPr_manage_delete_completed_message">Segur que voleu suprimir totes les tasques completades?</string>
 	<string name="EPr_manage_delete_completed_status">S\'han suprimit %d tasques</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Segur que voleu suprimir els esdeveniments de calendari de les tasques completades?</string>
-	<string name="AOA_internal_author">Equip d\'Tasks</string>
 	<string name="TWi_loading">S\'està carregant…</string>
 	<string name="WCA_title">Seleccionar les tasques a veure ...</string>
 	<string name="task_killer_help">Sembla que utilitzes una aplicació que pot matar pocessos (%s)! Si pots, afegeix l\'Tasks a la llista d\'exclusió per tal de no ser morta. En cas contrari podria ser que l\'Tasks no t\'informés de les tasques quan vencin.\n</string>
@@ -257,8 +254,6 @@
 	<string name="rmd_EPr_defaultRemind_title">Notificacions al Atzar</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Les tasques noves no mostraran notificacions a l\'atzar</string>
 	<string name="rmd_EPr_defaultRemind_desc">Les tasques noves notificaràn al atzar: %s</string>
-	<string name="repeat_plugin">Repetició de Tasques</string>
-	<string name="repeat_plugin_desc">Permetre tasques repetides</string>
 	<string name="repeat_enabled">Repeticions</string>
 	<string name="repeat_every">Cada %d</string>
 	<string name="repeat_interval_prompt">Interval de Repecitiò</string>
@@ -274,7 +269,6 @@
 	</string-array>
 	<string name="repeat_detail_byday">$I en $D</string>
 	<string name="repeat_detail_duedate">Cada %s</string>
-	<string name="repeat_detail_completion">%s després de finalització</string>
 	<string name="repeat_rescheduling_dialog_title_last_time">S\'ha completat la tasca recurrent «%s»</string>
 	<string name="TEA_tag_hint">Llista nova</string>
 	<string name="tag_new_list">Llista nova</string>

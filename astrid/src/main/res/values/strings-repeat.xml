@@ -3,12 +3,6 @@
 
   <!-- Resources for built-in repeat plug-in -->
 
-  <!-- repeating plugin name -->
-  <string name="repeat_plugin">Repeating Tasks</string>
-  
-  <!-- repeating plugin description -->
-  <string name="repeat_plugin_desc">Allows tasks to repeat</string>
-  
   <!-- slide 20a: checkbox for turning on/off repeats -->
   <string name="repeat_enabled">Repeats</string>
   
@@ -73,9 +67,6 @@
 
   <!-- task detail for repeat until a specific date (%1$s -> interval, %2$s -> finish date)-->
   <string name="repeat_detail_duedate_until">Every %1$s\nuntil %2$s</string>
-  
-  <!-- task detail for repeat from completion date (%s -> interval) -->
-  <string name="repeat_detail_completion">%s after completion</string>
   
   <!-- text for button when repeating task indefinitely -->
   <string name="repeat_forever">Repeat forever</string>

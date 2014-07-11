@@ -31,21 +31,11 @@
 	            android:title="@string/EPr_fontSize_title"
 	            android:summary="@string/EPr_fontSize_desc" />
 	        
-	        <com.todoroo.astrid.ui.MultilineListPreference
-	            android:key="@string/p_taskRowStyle_v2"
-	            android:entries="@array/EPr_task_row_styles"
-	            android:entryValues="@array/EPr_task_row_style_values" />
-	        
 	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
 	            android:key="@string/p_fullTaskTitle"
 	            android:title="@string/EPr_fullTask_title"
 	            android:defaultValue="false" />
-	        
-	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	            android:key="@string/p_showNotes"
-	            android:title="@string/EPr_showNotes_title"
-	            android:defaultValue="false" />
-        
+
         </PreferenceScreen>
         
         <PreferenceScreen android:title="@string/EPr_edit_screen_options" 

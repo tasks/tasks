@@ -48,8 +48,6 @@ public class AlarmService {
 
     // --- data retrieval
 
-    public static final String IDENTIFIER = "alarms"; //$NON-NLS-1$
-
     private final MetadataService metadataService;
     private final Context context;
 

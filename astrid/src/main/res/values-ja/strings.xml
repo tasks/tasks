@@ -259,7 +259,6 @@
 	</string-array>
 	<string name="repeat_detail_byday">$I ($D 曜日)</string>
 	<string name="repeat_detail_duedate">%s</string>
-	<string name="repeat_detail_completion">完了日から %s</string>
 	<string name="tag_new_list">新しいリスト</string>
 	<string name="TEA_no_tags_modified">変更されませんでした</string>
 	<string name="tag_settings_title">Settings:</string>

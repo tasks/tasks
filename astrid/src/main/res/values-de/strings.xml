@@ -198,7 +198,6 @@
 	<string name="EPr_filters_to_show_title">Angezeigte Filter</string>
 	<string name="EPr_showSmartConfirmation_title">Bestätigung für Smart-Erinnerungen anzeigen</string>
 	<string name="EPr_fontSize_desc">Schriftgröße auf der Hauptseite</string>
-	<string name="EPr_showNotes_title">Zeige Beschreibung in der Aufgabe</string>
 	<string name="EPr_edit_screen_options">Bildschirmeinstellungen bearbeiten</string>
 	<string name="EPr_beastMode_title">Bearbeite Anordnung</string>
 	<string name="EPr_time_increment">5 Minuten Steigerung</string>
@@ -207,22 +206,9 @@
 	<string name="EPr_beastMode_desc">Erscheinungsbild Aufgabenseite anpassen</string>
 	<string name="EPr_beastMode_reset">Auf Standardeinstellungen zurücksetzen</string>
 	<string name="EPr_beastMode_hint">Du kannst die Eingabeseite für Aufgaben mit den Schiebereglern links anpassen</string>
-	<string name="EPr_showNotes_desc_disabled">Beschreibung vom Eingabeschirm für Aufgaben aus erreichbar </string>
-	<string name="EPr_showNotes_desc_enabled">Beschreibung wird immer angezeigt</string>
 	<string name="EPr_fullTask_title">Gesamten Aufgabentitel anzeigen</string>
 	<string name="EPr_fullTask_desc_enabled">Aufgabentitel wird vollständig angezeigt</string>
 	<string name="EPr_fullTask_desc_disabled">Die ersten beiden Zeilen des Aufgabentitels werden angezeigt</string>
-	<string-array name="EPr_task_row_styles">
-		<item>Original</item>
-		<item>Einfach</item>
-		<item>Nur Titel</item>
-	</string-array>
-	<string-array name="EPr_task_row_style_descriptions">
-		<item>Titel auf zwei Zeilen begrenzen mit Datum rechts</item>
-		<item>Titel auf eine Zeile begrenzen, Datum und Listen darunter</item>
-		<item>Einzeilig, nur Titel</item>
-	</string-array>
-	<string name="EPr_task_row_style_title">Zeilenart: %s</string>
 	<string name="EPr_show_quickadd_controls">Erweiterte Einstellungen für Schnelleingabe</string>
 	<string name="EPr_hide_plus_button">Verstecke den +-Knopf</string>
 	<string name="EPr_list_view">Listenansicht</string>
@@ -452,8 +438,6 @@
 		<item>monatlich</item>
 		<item>alle zwei Monate</item>
 	</string-array>
-	<string name="repeat_plugin">Wiederkehrende Aufgaben</string>
-	<string name="repeat_plugin_desc">Aufgaben erlauben sich zu wiederholen</string>
 	<string name="repeat_enabled">Wiederholungen</string>
 	<string name="repeat_every">Jeden %d</string>
 	<string name="repeat_interval_prompt">Wiederholungsintervall</string>
@@ -462,7 +446,7 @@
 	<string-array name="repeat_interval_short">
 		<item>t</item>
 		<item>w</item>
-		<item>Mo</item>
+		<item>M</item>
 		<item>Std</item>
 		<item>Min</item>
 		<item>Jahr</item>
@@ -494,7 +478,6 @@
 	<string name="repeat_detail_byday">$D jede $I</string>
 	<string name="repeat_detail_duedate">Jede(n) %s</string>
 	<string name="repeat_detail_duedate_until">Jede(n) %1$s\nbis %2$s</string>
-	<string name="repeat_detail_completion">%s nach Abschluss</string>
 	<string name="repeat_forever">Endlos wiederholen</string>
 	<string name="repeat_until">Wiederhole bis %s</string>
 	<string name="repeat_rescheduling_dialog_title">Aufgabe \"%s\" erneut planen</string>

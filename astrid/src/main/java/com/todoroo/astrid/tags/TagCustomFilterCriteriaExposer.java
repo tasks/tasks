@@ -89,7 +89,6 @@ public class TagCustomFilterCriteriaExposer extends InjectingBroadcastReceiver {
         // transmit filter list
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_CUSTOM_FILTER_CRITERIA);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, ret);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, TagsPlugin.IDENTIFIER);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
 
     }

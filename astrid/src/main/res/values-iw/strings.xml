@@ -201,29 +201,15 @@
 	<string name="EPr_filters_to_show_title">אילו מַסְנְנִים להציג</string>
 	<string name="EPr_showSmartConfirmation_title">הצג אישור על תזכורות חכמות</string>
 	<string name="EPr_fontSize_desc">גודל הגופן בדף הרישום הראשי</string>
-	<string name="EPr_showNotes_title">הצג תיאור עם המשימה</string>
 	<string name="EPr_edit_screen_options">עריכת אפשרויות מסך</string>
 	<string name="EPr_beastMode_title">עריכת סדר מסך</string>
 	<string name="EPr_time_increment">צעדים של 5 דקות</string>
 	<string name="EPr_use_date_shortcuts">הצג קיצורי תאריך</string>
 	<string name="EPr_beastMode_desc">התאם אישית את מסך עריכת משימה</string>
 	<string name="EPr_beastMode_reset">אפס להגדרות ברירת מחדל</string>
-	<string name="EPr_showNotes_desc_disabled">התיאור יהיה נגיש ממסך עריכת המשימה</string>
-	<string name="EPr_showNotes_desc_enabled">התיאור יוצג תמיד</string>
 	<string name="EPr_fullTask_title">הצג כותרת מלאה</string>
 	<string name="EPr_fullTask_desc_enabled">כותרות משימה מלאות תוצגנה</string>
 	<string name="EPr_fullTask_desc_disabled">שתי השורות הראשונות של שם המשימה תוצגנה</string>
-	<string-array name="EPr_task_row_styles">
-		<item>מקורי</item>
-		<item>פשוט</item>
-		<item>כותרת בלבד</item>
-	</string-array>
-	<string-array name="EPr_task_row_style_descriptions">
-		<item>צמצם את הכותרת לשתי שורות עם תאריך מצד ימין</item>
-		<item>צמצם את הכותרת לשורה אחת כולל תאריך ורשימות מתחת</item>
-		<item>שורת כותרת פשוטה בלבד</item>
-	</string-array>
-	<string name="EPr_task_row_style_title">סגנון שורה: %s</string>
 	<string name="EPr_show_quickadd_controls">בקרת הוספה מהירה מתקדם</string>
 	<string name="EPr_hide_plus_button">הסתר את כפתור ה-פלוס</string>
 	<string name="EPr_list_view">תצוגת רשימה</string>
@@ -249,7 +235,6 @@
 	<string name="EPr_manage_delete_all_gcal">מַחֲקִי את כל אירועי היומן הקשורים למשימות</string>
 	<string name="EPr_manage_delete_all_gcal_message">האם אתה בטוח שברצונך למחוק את כל אירועי היומן בעבור המשימות?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d אירועי יומן נמחקו</string>
-	<string name="AOA_internal_author">הצוות של אסטריד</string>
 	<string name="TWi_loading">טוענת...</string>
 	<string name="WCA_title">בחר משימות להצגה...</string>
 	<string name="task_killer_help">ככל הנראה הנך משתמש ביישום אשר יכול להרוג תהליכים (%s)!
@@ -458,8 +443,6 @@
 		<item>חודשי</item>
 		<item>דו חודשי</item>
 	</string-array>
-	<string name="repeat_plugin">משימות חוזרות</string>
-	<string name="repeat_plugin_desc">אפשר למשימות לחזור</string>
 	<string name="repeat_enabled">חזרה</string>
 	<string name="repeat_every">כל %d</string>
 	<string name="repeat_interval_prompt">אינטרוול חזרות</string>
@@ -499,7 +482,6 @@
 	<string name="repeat_detail_byday">$I על $D</string>
 	<string name="repeat_detail_duedate">כל %s</string>
 	<string name="repeat_detail_duedate_until">כל %1$s\nעד %2$s</string>
-	<string name="repeat_detail_completion">%s אחרי שהמשימה הושלמה</string>
 	<string name="repeat_forever">חזור לנצח</string>
 	<string name="repeat_until">חזרה עד %s</string>
 	<string name="repeat_rescheduling_dialog_title">תזמון מחדש של משימה «%s\»</string>

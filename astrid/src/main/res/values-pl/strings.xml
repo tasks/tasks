@@ -194,29 +194,15 @@
 	<string name="EPr_filters_to_show_title">Pokazywane filtry</string>
 	<string name="EPr_showSmartConfirmation_title">Pokaż potwierdzenie dla inteligentnych powiadomień</string>
 	<string name="EPr_fontSize_desc">Rozmiar czcionki głównej listy zadań</string>
-	<string name="EPr_showNotes_title">Pokazuj opis w zadaniu</string>
 	<string name="EPr_edit_screen_options">Edytuj ustawienia ekranu</string>
 	<string name="EPr_beastMode_title">Edytuj kolejność</string>
 	<string name="EPr_time_increment">Krok co 5-minut</string>
 	<string name="EPr_use_date_shortcuts">Użyj skrótów dat</string>
 	<string name="EPr_beastMode_desc">Dostosuj układ strony edycji zadania</string>
 	<string name="EPr_beastMode_reset">Przywróć domyślne</string>
-	<string name="EPr_showNotes_desc_disabled">Opis będzie dostępny na ekranie edycji zadania</string>
-	<string name="EPr_showNotes_desc_enabled">Opis będzie zawsze wyświetlany</string>
 	<string name="EPr_fullTask_title">Pokaż pełną nazwę zadania</string>
 	<string name="EPr_fullTask_desc_enabled">Pełna nazwa zadania będzie wyświetlana</string>
 	<string name="EPr_fullTask_desc_disabled">Pierwsze dwie linie nazwy zadania będą wyświetlane</string>
-	<string-array name="EPr_task_row_styles">
-		<item>Oryginalny</item>
-		<item>Prosty</item>
-		<item>Tylko tytuł</item>
-	</string-array>
-	<string-array name="EPr_task_row_style_descriptions">
-		<item>Skróć tytuł do dwóch linii z datą na prawo</item>
-		<item>Skróć tytuł do jednej lini z datą i listami poniżej</item>
-		<item>Tytuł tylko w jednej linii</item>
-	</string-array>
-	<string name="EPr_task_row_style_title">Styl wiersza: %s</string>
 	<string name="EPr_show_quickadd_controls">Zaawansowane kontrolki szybkiego dodawania</string>
 	<string name="EPr_list_view">Widok listy</string>
 	<string name="EPr_show_task_edit_comments">Pokaż komentarze w edycji zadania</string>
@@ -241,7 +227,6 @@
 	<string name="EPr_manage_delete_all_gcal">Usuń wszystkie zdarzenia kalendarza dla zadań</string>
 	<string name="EPr_manage_delete_all_gcal_message">Na pewno chcesz usunąć wszystkie wydarzenia dla zadań?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Usunięto %d wydarzeń kalendarza!</string>
-	<string name="AOA_internal_author">Zespół Tasks</string>
 	<string name="TWi_loading">Ładowanie...</string>
 	<string name="WCA_title">Wybierz zadania do wyświetlenia</string>
 	<string name="task_killer_help">Wygląda na to, że używasz aplikacji, która zabija procesy (%s)! Jeśli możesz, dodaj Tasks do listy wyjątków. Nieaktywny program Tasks nie będzie Ci przypominać o zadaniach do wykonania.\n</string>
@@ -446,8 +431,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 		<item>raz w miesiącu</item>
 		<item>raz na dwa miesiące</item>
 	</string-array>
-	<string name="repeat_plugin">Powtarzanie zadań</string>
-	<string name="repeat_plugin_desc">Zewzwól zadaniom na powtarzanie</string>
 	<string name="repeat_enabled">Powtarza się</string>
 	<string name="repeat_every">Co %d</string>
 	<string name="repeat_interval_prompt">Odstęp powtarzania</string>
@@ -487,7 +470,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="repeat_detail_byday">$I w $D</string>
 	<string name="repeat_detail_duedate">Każdy %s</string>
 	<string name="repeat_detail_duedate_until">Co %1$s\ndo %2$s</string>
-	<string name="repeat_detail_completion">%s po ukończeniu</string>
 	<string name="repeat_forever">Powtarzaj bez końca</string>
 	<string name="repeat_until">Powtarzaj do %s</string>
 	<string name="repeat_rescheduling_dialog_title">Przekładanie zadania \"%s\"</string>

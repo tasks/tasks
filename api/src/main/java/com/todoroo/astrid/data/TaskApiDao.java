@@ -37,11 +37,6 @@ public class TaskApiDao {
             return true;
         }
 
-        if(values.containsKey(Task.DETAILS_DATE.name) &&
-                values.size() <= 3) {
-            return true;
-        }
-
         if(values.containsKey(Task.REMINDER_LAST.name) &&
                 values.size() <= 2) {
             return true;

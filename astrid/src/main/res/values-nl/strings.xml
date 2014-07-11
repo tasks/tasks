@@ -202,7 +202,6 @@
 	<string name="EPr_filters_to_show_title">Te tonen filters</string>
 	<string name="EPr_showSmartConfirmation_title">Laat bevestiging zien voor slimme herinneringen</string>
 	<string name="EPr_fontSize_desc">Grootte van Lettertype op hoofd takenlijst</string>
-	<string name="EPr_showNotes_title">Toon omschrijving in taak</string>
 	<string name="EPr_edit_screen_options">Scherm opties bewerken</string>
 	<string name="EPr_beastMode_title">Scherm volgorde bewerken</string>
 	<string name="EPr_time_increment">stappen van 5 minuten</string>
@@ -211,22 +210,9 @@
 	<string name="EPr_beastMode_desc">Pas de layout van het Taak Wijzigingsscherm aan</string>
 	<string name="EPr_beastMode_reset">Standaardinstellingen herstellen</string>
 	<string name="EPr_beastMode_hint">Pas uw taak bewerken scherm aan door de linker handle van elke rij te verslepen</string>
-	<string name="EPr_showNotes_desc_disabled">Omschrijving zal toegankelijk zijn vanaf het bewerk taak scherm</string>
-	<string name="EPr_showNotes_desc_enabled">Omschrijving zal altijd worden getoond</string>
 	<string name="EPr_fullTask_title">Laat volledige taak titel zien</string>
 	<string name="EPr_fullTask_desc_enabled">Volledige taak titel zal worden weergegeven</string>
 	<string name="EPr_fullTask_desc_disabled">Eerste twee lijnen van taak titel zullen worden weergegeven</string>
-	<string-array name="EPr_task_row_styles">
-		<item>Origineel</item>
-		<item>Simpel</item>
-		<item>Enkel titel</item>
-	</string-array>
-	<string-array name="EPr_task_row_style_descriptions">
-		<item>Titel afkappen naar twee regels met datum aan rechterkant</item>
-		<item>Titel afkappen tot één regel met datum en onderstaande lijsten</item>
-		<item>Enkele regel enkel titel</item>
-	</string-array>
-	<string name="EPr_task_row_style_title">Regel stijl %s</string>
 	<string name="EPr_show_quickadd_controls">Geavanceerde snel toevoegen controls</string>
 	<string name="EPr_hide_plus_button">Verberg plus knop</string>
 	<string name="EPr_list_view">Lijst weergave</string>
@@ -459,8 +445,6 @@
 		<item>maandelijks</item>
 		<item>tweemaandelijks</item>
 	</string-array>
-	<string name="repeat_plugin">Herhalende taken</string>
-	<string name="repeat_plugin_desc">Herhalende taken toestaan</string>
 	<string name="repeat_enabled">Herhalingen</string>
 	<string name="repeat_every">Elke %d</string>
 	<string name="repeat_interval_prompt">Herhaal interval</string>
@@ -501,7 +485,6 @@
 	<string name="repeat_detail_byday">$I op $D</string>
 	<string name="repeat_detail_duedate">Elke %s</string>
 	<string name="repeat_detail_duedate_until">Elke %1$s\ntot %2$s</string>
-	<string name="repeat_detail_completion">%s na voltooing</string>
 	<string name="repeat_forever">Altijd herhalen</string>
 	<string name="repeat_until">Herhalen tot %s</string>
 	<string name="repeat_rescheduling_dialog_title">Verplaatsen taak \"%s\"</string>

@@ -455,9 +455,6 @@
   <!-- slide 34g: Preference: Task List Font Size Description -->                                                                                                                                                  
   <string name="EPr_fontSize_desc">Font size on the main listing page</string>  
   
-  <!-- slide 34c: Preference: Task List Show Notes -->
-  <string name="EPr_showNotes_title">Show description in task</string>
-  
   <!-- Edit screen preference category -->
   <string name="EPr_edit_screen_options">Edit screen options</string>
   
@@ -477,33 +474,12 @@
   
   <string name="EPr_beastMode_hint">Customize your task edit screen by dragging the left handle on each row</string>
       
-  <!-- slide 34i: Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">Description will be accessible from the task edit screen</string>  
-  <!-- Preference: Task List Show Notes Description (enabled) -->
-  <string name="EPr_showNotes_desc_enabled">Description will always be displayed</string>
-  
   <!-- slide 34b: Preferences: Wrap task titles to two lines -->
   <string name="EPr_fullTask_title">Show full task title</string>
   <string name="EPr_fullTask_desc_enabled">Full task title will be shown</string>
   <!-- slide 34h -->
   <string name="EPr_fullTask_desc_disabled">First two lines of task title will be shown</string>
-  
-  <!-- Preferences: task row style -->
-  <string-array name="EPr_task_row_styles">
-      <item>Original</item>
-      <item>Simple</item>
-      <item>Title only</item>
-  </string-array>
-  
-  <string-array name="EPr_task_row_style_descriptions">
-      <item>Truncate title to two lines with date on right</item>
-      <item>Truncate title to one line with date and lists below</item>
-      <item>Single line title only</item>
-  </string-array>
-  
-  <!-- task row style title (%s -> style) -->
-  <string name="EPr_task_row_style_title">Row style: %s</string>
-  
+
   <!-- Preference: simple input box style -->
   <string name="EPr_show_quickadd_controls">Advanced quickadd controls</string>
 
@@ -562,11 +538,6 @@
   <string name="EPr_manage_delete_all_gcal_message">Do you really want to delete all your events for tasks?</string>
   <string name="EPr_manage_delete_all_gcal_status">Deleted %d calendar events!</string>
       
-  <!-- ==================================================== AddOnActivity == -->
-  
-  <!-- Add-on Activity: author for internal authors  -->
-  <string name="AOA_internal_author">Tasks Team</string>
-    
   <!-- ====================================================== TasksWidget == -->
 
   <!-- Widget text when loading tasks -->

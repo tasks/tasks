@@ -224,37 +224,6 @@ public final class TagService {
     }
 
     /**
-     * Return tags as a comma-separated list of strings
-     * @return empty string if no tags, otherwise string
-     */
-    public String getTagsAsString(long taskId) {
-        return getTagsAsString(taskId, ", ");
-    }
-
-    /**
-     * Return tags as a list of strings separated by given separator
-     * @return empty string if no tags, otherwise string
-     */
-    public String getTagsAsString(long taskId, String separator) {
-        StringBuilder tagBuilder = new StringBuilder();
-        TodorooCursor<Metadata> tags = getTags(taskId);
-        try {
-            int length = tags.getCount();
-            for (int i = 0; i < length; i++) {
-                tags.moveToNext();
-                Metadata metadata = new Metadata(tags);
-                tagBuilder.append(metadata.getValue(TaskToTagMetadata.TAG_NAME));
-                if (i < length - 1) {
-                    tagBuilder.append(separator);
-                }
-            }
-        } finally {
-            tags.close();
-        }
-        return tagBuilder.toString();
-    }
-
-    /**
      * Return all tags (including metadata tags and TagData tags) in an array list
      */
     public ArrayList<Tag> getTagList() {

@@ -204,7 +204,6 @@
 	<string name="EPr_filters_to_show_title">Показать фильтры</string>
 	<string name="EPr_showSmartConfirmation_title">Показывать подтверждения для умных напоминаний</string>
 	<string name="EPr_fontSize_desc">Размер шрифта основного экрана</string>
-	<string name="EPr_showNotes_title">Показать описание в задаче</string>
 	<string name="EPr_edit_screen_options">Редактировать настройки экрана</string>
 	<string name="EPr_beastMode_title">Редактировать порядок экранов</string>
 	<string name="EPr_time_increment">Шаг 5 минут</string>
@@ -213,22 +212,9 @@
 	<string name="EPr_beastMode_desc">Настроить внешний вид экрана правки задачи</string>
 	<string name="EPr_beastMode_reset">Настройки по умолчанию</string>
 	<string name="EPr_beastMode_hint">Настройте экран редактирования задачи, перетаскивая элементы ниже</string>
-	<string name="EPr_showNotes_desc_disabled">Описание будет доступно на экране редактирования задачи</string>
-	<string name="EPr_showNotes_desc_enabled">Всегда показывать описание</string>
 	<string name="EPr_fullTask_title">Показывать полное название задачи</string>
 	<string name="EPr_fullTask_desc_enabled">Будет показано полное название задачи</string>
 	<string name="EPr_fullTask_desc_disabled">Будут показаны первые две строки названия</string>
-	<string-array name="EPr_task_row_styles">
-		<item>Оригинальный</item>
-		<item>Простой</item>
-		<item>Только заголовки</item>
-	</string-array>
-	<string-array name="EPr_task_row_style_descriptions">
-		<item>Сократить заголовок до двух строк с указанием даты справа</item>
-		<item>Сократить заголовок до одной строки с указанием даты и списков ниже</item>
-		<item>В одну линию с заголовками</item>
-	</string-array>
-	<string name="EPr_task_row_style_title">Стиль строки: %s</string>
 	<string name="EPr_show_quickadd_controls">Расширенные возможности быстрого добавления</string>
 	<string name="EPr_hide_plus_button">Убрать кнопку плюс</string>
 	<string name="EPr_list_view">Списком</string>
@@ -255,7 +241,6 @@
 	<string name="EPr_manage_delete_all_gcal">Удалить все календарные события для задач</string>
 	<string name="EPr_manage_delete_all_gcal_message">Вы уверены, что хотите удалить все ваши события для задач?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Удалено %d календарных событий!</string>
-	<string name="AOA_internal_author">Команда Tasks</string>
 	<string name="TWi_loading">Загрузка...</string>
 	<string name="WCA_title">Выберите задачи для просмотра…</string>
 	<string name="task_killer_help">Возможно вы используете менеджер задач (%s). По возможности добавьте Tasks в список исключений иначе возможны сложности с напоминаниями.\n</string>
@@ -464,8 +449,6 @@
 		<item>ежемесячно</item>
 		<item>каждые два месяца</item>
 	</string-array>
-	<string name="repeat_plugin">Повторяющиеся задачи</string>
-	<string name="repeat_plugin_desc">Позволяет задачам повторяться</string>
 	<string name="repeat_enabled">Повторения</string>
 	<string name="repeat_every">С интервалом в %d</string>
 	<string name="repeat_interval_prompt">Интервал повтора</string>
@@ -506,7 +489,6 @@
 	<string name="repeat_detail_byday">$I каждый $D</string>
 	<string name="repeat_detail_duedate">С интервалом %s</string>
 	<string name="repeat_detail_duedate_until">\"Каждые  %1$s пока %2$s\"</string>
-	<string name="repeat_detail_completion">%s после завершения</string>
 	<string name="repeat_forever">Повторять всегда</string>
 	<string name="repeat_until">Повторять пока %s</string>
 	<string name="repeat_rescheduling_dialog_title">Перепланирование задачи \"%s\"</string>

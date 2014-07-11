@@ -79,16 +79,6 @@ public class Task extends RemoteModel {
     public static final LongProperty DELETION_DATE = new LongProperty(
             TABLE, "deleted", Property.PROP_FLAG_DATE);
 
-    /** Cached Details Column - built from add-on detail exposers. A null
-     * value means there is no value in the cache and it needs to be
-     * refreshed */
-    public static final StringProperty DETAILS = new StringProperty(
-            TABLE, "details");
-
-    /** Date details were last updated */
-    public static final LongProperty DETAILS_DATE = new LongProperty(
-            TABLE, "detailsDate", Property.PROP_FLAG_DATE);
-
     // --- non-core task metadata
 
     public static final StringProperty NOTES = new StringProperty(
@@ -198,8 +188,6 @@ public class Task extends RemoteModel {
         defaultValues.put(ELAPSED_SECONDS.name, 0);
         defaultValues.put(NOTES.name, "");
         defaultValues.put(TIMER_START.name, 0);
-        defaultValues.put(DETAILS.name, (String)null);
-        defaultValues.put(DETAILS_DATE.name, 0);
         defaultValues.put(UUID.name, NO_UUID);
     }
 
@@ -453,14 +441,6 @@ public class Task extends RemoteModel {
         setValue(TITLE, title);
     }
 
-    public String getDetails() {
-        return getValue(DETAILS);
-    }
-
-    public void setDetails(String details) {
-        setValue(DETAILS, details);
-    }
-
     public Long getDeletionDate() {
         return getValue(DELETION_DATE);
     }
@@ -533,24 +513,12 @@ public class Task extends RemoteModel {
         setValue(COMPLETION_DATE, completionDate);
     }
 
-    public Long getDetailsDate() {
-        return getValue(DETAILS_DATE);
-    }
-
-    public void setDetailsDate(Long detailsDate) {
-        setValue(DETAILS_DATE, detailsDate);
-    }
-
     public String getNotes() {
         return getValue(NOTES);
     }
 
     public void setNotes(String notes) {
         setValue(NOTES, notes);
-    }
-
-    public Long getModificationDate() {
-        return getValue(MODIFICATION_DATE);
     }
 
     public void setModificationDate(Long modificationDate) {

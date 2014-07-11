@@ -9,19 +9,12 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.PendingIntent.CanceledException;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
-import android.text.Html;
-import android.text.Html.ImageGetter;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.TextUtils.TruncateAt;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -30,14 +23,12 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.view.ViewGroup.MarginLayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.CursorAdapter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.todoroo.andlib.data.Property;
@@ -50,7 +41,6 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Pair;
 import com.todoroo.astrid.activity.TaskListFragment;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.core.LinkActionExposer;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
@@ -63,7 +53,6 @@ import com.todoroo.astrid.notes.NotesAction;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.ui.CheckableImageView;
-import com.todoroo.astrid.utility.Constants;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,7 +62,6 @@ import org.tasks.preferences.ActivityPreferences;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static org.tasks.date.DateTimeUtils.newDate;
@@ -92,8 +80,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public void onCompletedTask(Task item, boolean newState);
     }
 
-    public static final String DETAIL_SEPARATOR = " | "; //$NON-NLS-1$
-
     private static final StringProperty TAGS = new StringProperty(null, "group_concat(nullif(" + TaskListFragment.TAGS_METADATA_JOIN + "." + TaskToTagMetadata.TAG_NAME.name + ", '')"+ ", '  |  ')").as("tags");
     private static final LongProperty FILE_ID_PROPERTY = TaskAttachment.ID.cloneAs(TaskListFragment.FILE_METADATA_JOIN, "fileId");
     private static final IntegerProperty HAS_NOTES_PROPERTY = new IntegerProperty(null, "length(" + Task.NOTES + ") > 0").as("hasNotes");
@@ -111,7 +97,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Task.MODIFICATION_DATE,
         Task.HIDE_UNTIL,
         Task.DELETION_DATE,
-        Task.DETAILS,
         Task.ELAPSED_SECONDS,
         Task.TIMER_START,
         Task.RECURRENCE,
@@ -119,17 +104,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         HAS_NOTES_PROPERTY, // Whether or not the task has notes
         TAGS, // Concatenated list of tags
         FILE_ID_PROPERTY // File id
-    };
-
-    public static final Property<?>[] BASIC_PROPERTIES = new Property<?>[] {
-        Task.ID,
-        Task.UUID,
-        Task.TITLE,
-        Task.IMPORTANCE,
-        Task.RECURRENCE,
-        Task.COMPLETION_DATE,
-        Task.HIDE_UNTIL,
-        Task.DELETION_DATE
     };
 
     public static final int[] IMPORTANCE_RESOURCES = new int[] {
@@ -195,8 +169,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     protected final Paint paint;
     protected final DisplayMetrics displayMetrics;
 
-    private final boolean simpleLayout;
-    private final boolean titleOnlyLayout;
     protected final int minRowHeight;
 
     private final Map<Long, TaskAction> taskActionLoader = Collections.synchronizedMap(new HashMap<Long, TaskAction>());
@@ -220,7 +192,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         this.context = ContextManager.getContext();
         this.query = query;
         this.resource = resource;
-        this.titleOnlyLayout = resource == R.layout.task_adapter_row_title_only;
         this.fragment = fragment;
         this.resources = fragment.getResources();
         this.onCompletedTaskListener = onCompletedTaskListener;
@@ -232,10 +203,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         displayMetrics = new DisplayMetrics();
         fragment.getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
-        this.simpleLayout = (resource == R.layout.task_adapter_row_simple);
         this.minRowHeight = computeMinRowHeight();
-
-        startDetailThread();
 
         scaleAnimation = new ScaleAnimation(1.4f, 1.0f, 1.4f, 1.0f,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
@@ -256,11 +224,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     protected int computeMinRowHeight() {
         DisplayMetrics metrics = resources.getDisplayMetrics();
-        if (simpleLayout || titleOnlyLayout) {
-            return (int) (metrics.density * 40);
-        } else {
-            return (int) (metrics.density * 45);
-        }
+        return (int) (metrics.density * 40);
     }
 
     public int computeFullRowHeight() {
@@ -269,13 +233,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             return (int) (39 * metrics.density);
         } else {
             return minRowHeight + (int) (10 * metrics.density);
-        }
-    }
-
-    private void startDetailThread() {
-        if (preferences.getBoolean(R.string.p_showNotes, false) && !simpleLayout && !titleOnlyLayout) {
-            DetailLoaderThread detailLoader = new DetailLoaderThread();
-            detailLoader.start();
         }
     }
 
@@ -312,25 +269,14 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         viewHolder.tagsView = (TextView)view.findViewById(R.id.tagsDisplay);
         viewHolder.details1 = (TextView)view.findViewById(R.id.details1);
         viewHolder.details2 = (TextView)view.findViewById(R.id.details2);
-        viewHolder.taskRow = (LinearLayout)view.findViewById(R.id.task_row);
         viewHolder.taskActionContainer = view.findViewById(R.id.taskActionContainer);
         viewHolder.taskActionIcon = (ImageView)view.findViewById(R.id.taskActionIcon);
 
         boolean showFullTaskTitle = preferences.getBoolean(R.string.p_fullTaskTitle, false);
-        boolean showNotes = preferences.getBoolean(R.string.p_showNotes, false);
-        if (showFullTaskTitle && !titleOnlyLayout) {
+        if (showFullTaskTitle) {
             viewHolder.nameView.setMaxLines(Integer.MAX_VALUE);
             viewHolder.nameView.setSingleLine(false);
             viewHolder.nameView.setEllipsize(null);
-        } else if (titleOnlyLayout) {
-            viewHolder.nameView.setMaxLines(1);
-            viewHolder.nameView.setSingleLine(true);
-            viewHolder.nameView.setEllipsize(TruncateAt.END);
-        }
-
-        if (showNotes && !simpleLayout && !titleOnlyLayout) {
-            RelativeLayout.LayoutParams taskRowParams = (RelativeLayout.LayoutParams)viewHolder.taskRow.getLayoutParams();
-            taskRowParams.addRule(RelativeLayout.CENTER_VERTICAL, 0);
         }
 
 
@@ -354,11 +300,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         TodorooCursor<Task> cursor = (TodorooCursor<Task>)c;
         ViewHolder viewHolder = ((ViewHolder)view.getTag());
 
-        if (!titleOnlyLayout) {
-            viewHolder.tagsString = cursor.get(TAGS);
-            viewHolder.hasFiles = cursor.get(FILE_ID_PROPERTY) > 0;
-            viewHolder.hasNotes = cursor.get(HAS_NOTES_PROPERTY) > 0;
-        }
+        viewHolder.tagsString = cursor.get(TAGS);
+        viewHolder.hasFiles = cursor.get(FILE_ID_PROPERTY) > 0;
+        viewHolder.hasNotes = cursor.get(HAS_NOTES_PROPERTY) > 0;
 
         // TODO: see if this is a performance issue
         viewHolder.task = new Task(cursor);
@@ -395,7 +339,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public TextView dueDate;
         public TextView tagsView;
         public TextView details1, details2;
-        public LinearLayout taskRow;
         public View taskActionContainer;
         public ImageView taskActionIcon;
         public String tagsString; // From join query, not part of the task model
@@ -407,7 +350,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public synchronized void setFieldContentsAndVisibility(View view) {
         ViewHolder viewHolder = (ViewHolder)view.getTag();
         Task task = viewHolder.task;
-        if (fontSize < 16 || titleOnlyLayout) {
+        if (fontSize < 16) {
             viewHolder.rowBody.setMinimumHeight(0);
             viewHolder.completeBox.setMinimumHeight(0);
         } else {
@@ -431,34 +374,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             nameView.setText(nameValue);
         }
 
-        if (titleOnlyLayout) {
-            return;
-        }
-
-        float dueDateTextWidth = setupDueDateAndTags(viewHolder, task);
-
-        String details;
         if(viewHolder.details1 != null) {
-            if(taskDetailLoader.containsKey(task.getId())) {
-                details = taskDetailLoader.get(task.getId()).toString();
-            } else {
-                details = task.getDetails();
-            }
-            if(TextUtils.isEmpty(details) || DETAIL_SEPARATOR.equals(details) || task.isCompleted()) {
-                viewHolder.details1.setVisibility(View.GONE);
-                viewHolder.details2.setVisibility(View.GONE);
-            } else if (preferences.getBoolean(R.string.p_showNotes, false)) {
-                viewHolder.details1.setVisibility(View.VISIBLE);
-                if (details.startsWith(DETAIL_SEPARATOR)) {
-                    StringBuilder buffer = new StringBuilder(details);
-                    int length = DETAIL_SEPARATOR.length();
-                    while(buffer.lastIndexOf(DETAIL_SEPARATOR, length) == 0) {
-                        buffer.delete(0, length);
-                    }
-                    details = buffer.toString(); //details.substring(DETAIL_SEPARATOR.length());
-                }
-                drawDetails(viewHolder, details, dueDateTextWidth);
-            }
+            viewHolder.details1.setVisibility(View.GONE);
+            viewHolder.details2.setVisibility(View.GONE);
         }
 
         // Task action
@@ -477,57 +395,16 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     }
 
     private TaskAction getTaskAction(Task task, boolean hasFiles, boolean hasNotes) {
-        if (titleOnlyLayout || task.isCompleted()) {
+        if (task.isCompleted()) {
             return null;
         }
         if (taskActionLoader.containsKey(task.getId())) {
             return taskActionLoader.get(task.getId());
         } else {
-            TaskAction action = LinkActionExposer.getActionsForTask(preferences, context, task, hasFiles, hasNotes);
+            TaskAction action = LinkActionExposer.getActionsForTask(context, task, hasFiles, hasNotes);
             taskActionLoader.put(task.getId(), action);
             return action;
         }
-    }
-
-    private void drawDetails(ViewHolder viewHolder, String details, float rightWidth) {
-        SpannableStringBuilder prospective = new SpannableStringBuilder();
-        SpannableStringBuilder actual = new SpannableStringBuilder();
-
-        details = details.trim().replace("\n", "<br>");
-        String[] splitDetails = details.split("\\|");
-        viewHolder.completeBox.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-        rightWidth = rightWidth + viewHolder.dueDate.getPaddingRight();
-        float left = viewHolder.completeBox.getMeasuredWidth() +
-        ((MarginLayoutParams)viewHolder.completeBox.getLayoutParams()).leftMargin;
-        int availableWidth = (int) (displayMetrics.widthPixels - left - (rightWidth + 16) * displayMetrics.density);
-
-        int i = 0;
-        for(; i < splitDetails.length; i++) {
-            Spanned spanned = convertToHtml(splitDetails[i] + "  ", detailImageGetter);
-            prospective.insert(prospective.length(), spanned);
-            viewHolder.details1.setText(prospective);
-            viewHolder.details1.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-
-            if(rightWidth > 0 && viewHolder.details1.getMeasuredWidth() > availableWidth) {
-                break;
-            }
-
-            actual.insert(actual.length(), spanned);
-        }
-        viewHolder.details1.setText(actual);
-        actual.clear();
-
-        if(i >= splitDetails.length) {
-            viewHolder.details2.setVisibility(View.GONE);
-            return;
-        } else {
-            viewHolder.details2.setVisibility(View.VISIBLE);
-        }
-
-        for(; i < splitDetails.length; i++) {
-            actual.insert(actual.length(), convertToHtml(splitDetails[i] + "  ", detailImageGetter));
-        }
-        viewHolder.details2.setText(actual);
     }
 
     public void onClick(View v) {
@@ -634,23 +511,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * ============================================================== details
      * ====================================================================== */
 
-    private final HashMap<String, Spanned> htmlCache = new HashMap<>(8);
-
-    private Spanned convertToHtml(String string, ImageGetter imageGetter) {
-        if(!htmlCache.containsKey(string)) {
-            Spanned html;
-            try {
-                html = Html.fromHtml(string, imageGetter, null);
-            } catch (RuntimeException e) {
-                log.error(e.getMessage(), e);
-                html = Spannable.Factory.getInstance().newSpannable(string);
-            }
-            htmlCache.put(string, html);
-            return html;
-        }
-        return htmlCache.get(string);
-    }
-
     private final HashMap<Long, String> dateCache = new HashMap<>(8);
 
     private String formatDate(long date) {
@@ -658,7 +518,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             return dateCache.get(date);
         }
 
-        String formatString = "%s" + (simpleLayout ? " " : "\n") + "%s";
+        String formatString = "%s %s";
         String string = DateUtilities.getRelativeDay(fragment.getActivity(), date);
         if(Task.hasDueTime(date)) {
             string = String.format(formatString, string, //$NON-NLS-1$
@@ -669,157 +529,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         return string;
     }
 
-    // implementation note: this map is really costly if users have
-    // a large number of tasks to load, since it all goes into memory.
-    // it's best to do this, though, in order to append details to each other
-    private final Map<Long, StringBuilder> taskDetailLoader = Collections.synchronizedMap(new HashMap<Long, StringBuilder>(0));
-
-    public class DetailLoaderThread extends Thread {
-        @Override
-        public void run() {
-            // for all of the tasks returned by our cursor, verify details
-            AndroidUtilities.sleepDeep(500L);
-            TodorooCursor<Task> fetchCursor = taskService.fetchFiltered(
-                    query.get(), null, Task.ID, Task.TITLE, Task.DETAILS, Task.DETAILS_DATE,
-                    Task.MODIFICATION_DATE, Task.COMPLETION_DATE);
-            try {
-                Random random = new Random();
-
-                for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
-                    Task task = new Task(fetchCursor);
-                    if(task.isCompleted()) {
-                        continue;
-                    }
-
-                    if(detailsAreRecentAndUpToDate(task)) {
-                        // even if we are up to date, randomly load a fraction
-                        if(random.nextFloat() < 0.1) {
-                            taskDetailLoader.put(task.getId(),
-                                    new StringBuilder(task.getDetails()));
-                            requestNewDetails(task);
-                        }
-                        continue;
-                    }
-                    addTaskToLoadingArray(task);
-
-                    task.setDetails(DETAIL_SEPARATOR);
-                    task.setDetailsDate(DateUtilities.now());
-                    taskService.save(task);
-
-                    requestNewDetails(task);
-                }
-                if(taskDetailLoader.size() > 0) {
-                    Activity activity = fragment.getActivity();
-                    if (activity != null) {
-                        activity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                notifyDataSetChanged();
-                            }
-                        });
-                    }
-                }
-            } catch (Exception e) {
-                // suppress silently
-                log.error(e.getMessage(), e);
-            } finally {
-                fetchCursor.close();
-            }
-        }
-
-        private boolean detailsAreRecentAndUpToDate(Task task) {
-            return task.getDetailsDate() >= task.getModificationDate() &&
-            !TextUtils.isEmpty(task.getDetails());
-        }
-
-        private void addTaskToLoadingArray(Task task) {
-            StringBuilder detailStringBuilder = new StringBuilder();
-            taskDetailLoader.put(task.getId(), detailStringBuilder);
-        }
-
-        private void requestNewDetails(Task task) {
-            Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
-            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
-            Activity activity = fragment.getActivity();
-            if (activity != null) {
-                activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
-            }
-        }
-    }
-
-    /**
-     * Add detail to a task
-     */
-    public void addDetails(long id, String detail) {
-        final StringBuilder details = taskDetailLoader.get(id);
-        if(details == null) {
-            return;
-        }
-        synchronized(details) {
-            if(details.toString().contains(detail)) {
-                return;
-            }
-            if(details.length() > 0) {
-                details.append(DETAIL_SEPARATOR);
-            }
-            details.append(detail);
-            Task task = new Task();
-            task.setId(id);
-            task.setDetails(details.toString());
-            task.setDetailsDate(DateUtilities.now());
-            taskService.save(task);
-        }
-
-        Activity activity = fragment.getActivity();
-        if (activity != null) {
-            activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    notifyDataSetChanged();
-                }
-            });
-        }
-    }
-
-    private final ImageGetter detailImageGetter = new ImageGetter() {
-        private final HashMap<Integer, Drawable> cache =
-            new HashMap<>(3);
-        @Override
-        public Drawable getDrawable(String source) {
-            int drawable = 0;
-            switch (source) {
-                case "silk_clock":
-                    drawable = R.drawable.details_alarm;
-                    break;
-                case "silk_tag_pink":
-                    drawable = R.drawable.details_tag;
-                    break;
-                case "silk_date":
-                    drawable = R.drawable.details_repeat;
-                    break;
-                case "silk_note":
-                    drawable = R.drawable.details_note;
-                    break;
-            }
-
-            if (drawable == 0) {
-                drawable = resources.getIdentifier("drawable/" + source, null, Constants.PACKAGE);
-            }
-            if(drawable == 0) {
-                return null;
-            }
-            Drawable d;
-            if(!cache.containsKey(drawable)) {
-                d = resources.getDrawable(drawable);
-                d.setBounds(0,0,d.getIntrinsicWidth(),d.getIntrinsicHeight());
-                cache.put(drawable, d);
-            } else {
-                d = cache.get(drawable);
-            }
-            return d;
-        }
-    };
-
     /* ======================================================================
      * ============================================================== add-ons
      * ====================================================================== */
@@ -829,8 +538,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      */
     public void flushCaches() {
         completedItems.clear();
-        taskDetailLoader.clear();
-        startDetailThread();
     }
 
     public HashMap<Object, Boolean> getCompletedItems() {
@@ -905,30 +612,24 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
         name.setTextSize(fontSize);
 
-        if (!titleOnlyLayout) {
-            setupDueDateAndTags(viewHolder, task);
+        setupDueDateAndTags(viewHolder, task);
 
-            float detailTextSize = Math.max(10, fontSize * 14 / 20);
-            if(viewHolder.details1 != null) {
-                viewHolder.details1.setTextSize(detailTextSize);
-            }
-            if(viewHolder.details2 != null) {
-                viewHolder.details2.setTextSize(detailTextSize);
-            }
-            if(viewHolder.dueDate != null) {
-                viewHolder.dueDate.setTextSize(detailTextSize);
-                if (simpleLayout) {
-                    viewHolder.dueDate.setTypeface(null, 0);
-                }
-            }
-            if (viewHolder.tagsView != null) {
-                viewHolder.tagsView.setTextSize(detailTextSize);
-                if (simpleLayout) {
-                    viewHolder.tagsView.setTypeface(null, 0);
-                }
-            }
-            paint.setTextSize(detailTextSize);
+        float detailTextSize = Math.max(10, fontSize * 14 / 20);
+        if(viewHolder.details1 != null) {
+            viewHolder.details1.setTextSize(detailTextSize);
         }
+        if(viewHolder.details2 != null) {
+            viewHolder.details2.setTextSize(detailTextSize);
+        }
+        if(viewHolder.dueDate != null) {
+            viewHolder.dueDate.setTextSize(detailTextSize);
+            viewHolder.dueDate.setTypeface(null, 0);
+        }
+        if (viewHolder.tagsView != null) {
+            viewHolder.tagsView.setTextSize(detailTextSize);
+            viewHolder.tagsView.setTypeface(null, 0);
+        }
+        paint.setTextSize(detailTextSize);
 
         setupCompleteBox(viewHolder);
 
@@ -953,18 +654,14 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 boxes = completed ? IMPORTANCE_DRAWABLES_CHECKED : IMPORTANCE_DRAWABLES;
             }
             checkBoxView.setImageDrawable(boxes[value]);
-            if (titleOnlyLayout) {
-                return;
-            }
 
             checkBoxView.setVisibility(View.VISIBLE);
         }
     }
 
     // Returns due date text width
-    private float setupDueDateAndTags(ViewHolder viewHolder, Task task) {
+    private void setupDueDateAndTags(ViewHolder viewHolder, Task task) {
         // due date / completion date
-        float dueDateTextWidth = 0;
         final TextView dueDateView = viewHolder.dueDate; {
             Activity activity = fragment.getActivity();
             if (activity != null) {
@@ -977,13 +674,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     }
                     String dateValue = formatDate(dueDate);
                     dueDateView.setText(dateValue);
-                    dueDateTextWidth = paint.measureText(dateValue);
                     dueDateView.setVisibility(View.VISIBLE);
                 } else if(task.isCompleted()) {
                     String dateValue = formatDate(task.getCompletionDate());
                     dueDateView.setText(resources.getString(R.string.TAd_completed, dateValue));
                     dueDateView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDueDate_Completed);
-                    dueDateTextWidth = paint.measureText(dateValue);
                     dueDateView.setVisibility(View.VISIBLE);
                 } else {
                     dueDateView.setVisibility(View.GONE);
@@ -1004,7 +699,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 }
             }
         }
-        return dueDateTextWidth;
     }
 
     /**

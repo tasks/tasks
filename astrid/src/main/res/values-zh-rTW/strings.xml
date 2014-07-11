@@ -199,22 +199,14 @@
 	<string name="EPr_fontSize_title">工作清單大小</string>
 	<string name="EPr_showSmartConfirmation_title">在智能提示上顯示確認消息</string>
 	<string name="EPr_fontSize_desc">清單主頁面字型大小</string>
-	<string name="EPr_showNotes_title">顯示工作描述</string>
 	<string name="EPr_edit_screen_options">編輯畫面選項</string>
 	<string name="EPr_beastMode_title">編輯畫面順序</string>
 	<string name="EPr_use_date_shortcuts">使用日期捷徑</string>
 	<string name="EPr_beastMode_desc">自定義設定菜單屏幕</string>
 	<string name="EPr_beastMode_reset">恢復默認值</string>
-	<string name="EPr_showNotes_desc_disabled">描述可在工作編輯畫面下存取</string>
-	<string name="EPr_showNotes_desc_enabled">描述永遠顯示</string>
 	<string name="EPr_fullTask_title">顯示完整的任務工作標題</string>
 	<string name="EPr_fullTask_desc_enabled">將顯示完整的任務工作標題</string>
 	<string name="EPr_fullTask_desc_disabled">將顯示任務工作標題的頭兩行</string>
-	<string-array name="EPr_task_row_style_descriptions">
-		<item>截取標題至兩行，並在右邊顯示日期</item>
-		<item>截取標題為一行，並在下方顯示日期和列表</item>
-		<item>Single line title only</item>
-	</string-array>
 	<string name="EPr_taskRowPrefs_title">任務工作欄</string>
 	<string name="EPr_manage_header">管理舊任務工作</string>
 	<string name="EPr_manage_delete_completed">刪除已完成任務工作</string>
@@ -233,7 +225,6 @@
 	<string name="EPr_manage_delete_all_gcal">刪除所有日程表</string>
 	<string name="EPr_manage_delete_all_gcal_message">您真的想刪除您所有事件中的各項任務工作嗎？</string>
 	<string name="EPr_manage_delete_all_gcal_status">已經刪除了 %d 個日曆事件了！</string>
-	<string name="AOA_internal_author">Tasks 團隊</string>
 	<string name="TWi_loading">載入中...</string>
 	<string name="WCA_title">選擇工作顯示...</string>
 	<string name="task_killer_help">似乎您正在使用會刪除進程的應用程序(%s)！可以的話，請將Tasks 加入到例外列表避免被殺死。否則Tasks可能無法通知您任​​務已到期。\n</string>
@@ -428,8 +419,6 @@
 		<item>每月</item>
 		<item>每2個月</item>
 	</string-array>
-	<string name="repeat_plugin">重複工作</string>
-	<string name="repeat_plugin_desc">允許工作重複</string>
 	<string name="repeat_enabled">重複</string>
 	<string name="repeat_every">每 %d</string>
 	<string name="repeat_interval_prompt">重複間隔</string>
@@ -469,7 +458,6 @@
 	<string name="repeat_detail_byday">$I 的 $D</string>
 	<string name="repeat_detail_duedate">每隔 %s</string>
 	<string name="repeat_detail_duedate_until">每隔 %1$s\n直到 %2$s</string>
-	<string name="repeat_detail_completion">完成後 %s</string>
 	<string name="repeat_forever">永遠重複</string>
 	<string name="repeat_until">重複到 %s</string>
 	<string name="repeat_rescheduling_dialog_title">重新安排“%s”這項任務工作</string>

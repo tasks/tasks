@@ -155,23 +155,11 @@
 	<string name="EPr_fontSize_title">Μέγεθος λίστας καθηκόντων</string>
 	<string name="EPr_filters_to_show_title">Φίλτρα που θα εμφανιστούν</string>
 	<string name="EPr_showSmartConfirmation_title">Εμφάνιση επιβεβαίωσης για έξυπνες ειδοποιήσεις</string>
-	<string name="EPr_showNotes_title">Εμφάνιση περιγραφής στο καθήκον</string>
 	<string name="EPr_edit_screen_options">Ρύθμιση επιλογών εμφάνισης</string>
 	<string name="EPr_beastMode_title">Αλλαγή σειράς επιλογών</string>
 	<string name="EPr_time_increment">5λεπτες αυξήσεις </string>
 	<string name="EPr_beastMode_reset">Επαναφορά προεπιλογών</string>
 	<string name="EPr_fullTask_title">Εμφάνισε πλήρη τίτλο καθήκοντος</string>
-	<string-array name="EPr_task_row_styles">
-		<item>Πρωτότυπο</item>
-		<item>Απλό</item>
-		<item>Τίτλος μόνο</item>
-	</string-array>
-	<string-array name="EPr_task_row_style_descriptions">
-		<item>Επέκταση τίτλου σε δύο σειρές με την ημερομηνία στα δεξια</item>
-		<item>Επέκταση τίτλου σε μια γραμμή με ημερομηνία και λίστες απο κάτω</item>
-		<item>Τίτλος μονής γραμμής μόνο</item>
-	</string-array>
-	<string name="EPr_task_row_style_title">Στύλ γραμμής: %s</string>
 	<string name="EPr_show_quickadd_controls">Προηγμένα χειριστήρια γρήγορης πρόσθεσης</string>
 	<string name="EPr_hide_plus_button">Απόκρυψη κουμπιού πρόσθεσης</string>
 	<string name="EPr_list_view">Εμφάνιση λίστας</string>
@@ -323,8 +311,6 @@
 		<item>μηνιαία</item>
 		<item>διμηνιαία</item>
 	</string-array>
-	<string name="repeat_plugin">Επαναλαμβανόμενα καθήκοντα</string>
-	<string name="repeat_plugin_desc">Επιτρέπει στα καθήκοντα να επαναλαμβάνονται</string>
 	<string name="repeat_enabled">Επαναλήψεις</string>
 	<string name="repeat_every">Κάθε %d</string>
 	<string name="repeat_interval_prompt">Διάστημα επανάληψης</string>
@@ -357,7 +343,6 @@
 	<string name="repeat_detail_byday">$I στο $D</string>
 	<string name="repeat_detail_duedate">Κάθε %s</string>
 	<string name="repeat_detail_duedate_until">Κάθε %1$s\nμέχρι %2$s</string>
-	<string name="repeat_detail_completion">%s μετά την ολοκλήρωση</string>
 	<string name="repeat_forever">Επανάληψη επ\'αορίστου</string>
 	<string name="repeat_until">Επανάληψη μέχρι %s</string>
 	<string name="repeat_rescheduling_dialog_title">Επανακαθορισμός καθήκοντος \"%s\"</string>

@@ -23,7 +23,6 @@ import android.speech.tts.TextToSpeech;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -37,7 +36,6 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.utility.Constants;
-import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.utility.TodorooPreferenceActivity;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 import com.todoroo.astrid.voice.VoiceOutputAssistant;
@@ -140,9 +138,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
         });
 
         addPreferenceListeners();
-
-        preference = screen.findPreference(getString(R.string.p_showNotes));
-        preference.setEnabled(preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0) == 0);
 
         removeForbiddenPreferences(screen, r);
     }
@@ -276,46 +271,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
     public void updatePreferences(final Preference preference, Object value) {
         final Resources r = getResources();
 
-        if (r.getString(R.string.p_taskRowStyle_v2).equals(preference.getKey())) {
-            try {
-                Integer valueInt = Integer.parseInt((String) value);
-                String[] titles = getResources().getStringArray(R.array.EPr_task_row_styles);
-                String[] descriptions = getResources().getStringArray(R.array.EPr_task_row_style_descriptions);
-
-                preference.setTitle(getString(R.string.EPr_task_row_style_title, titles[valueInt]));
-                preference.setSummary(descriptions[valueInt]);
-            } catch (Exception e) {
-                log.error(e.getMessage(), e);
-            }
-
-            preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED) {
-                @Override
-                public boolean onPreferenceChange(Preference p, Object newValue) {
-                    Preference notes = findPreference(getString(R.string.p_showNotes));
-                    Preference fullTitle = findPreference(getString(R.string.p_fullTaskTitle));
-                    try {
-                        int newValueInt = Integer.parseInt((String) newValue);
-                        fullTitle.setEnabled(newValueInt != 2);
-                        notes.setEnabled(newValueInt == 0);
-                    } catch (Exception e) {
-                        log.error(e.getMessage(), e);
-                    }
-                    return super.onPreferenceChange(p, newValue);
-                }
-
-            });
-
-        } else if (r.getString(R.string.p_showNotes).equals(preference.getKey())) {
-            if (value != null && !(Boolean) value) {
-                preference.setSummary(R.string.EPr_showNotes_desc_disabled);
-            } else {
-                preference.setSummary(R.string.EPr_showNotes_desc_enabled);
-            }
-            if ((Boolean) value != preferences.getBoolean(preference.getKey(), false)) {
-                taskService.clearDetails(Criterion.all);
-                Flags.set(Flags.REFRESH);
-            }
-        } else if (r.getString(R.string.p_fullTaskTitle).equals(preference.getKey())) {
+        if (r.getString(R.string.p_fullTaskTitle).equals(preference.getKey())) {
             if (value != null && (Boolean) value) {
                 preference.setSummary(R.string.EPr_fullTask_desc_enabled);
             } else {
@@ -443,14 +399,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 }
             });
         }
-
-        findPreference(getString(R.string.p_showNotes)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                updatePreferences(preference, newValue);
-                return true;
-            }
-        });
 
         findPreference(getString(R.string.p_fullTaskTitle)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             @Override

@@ -66,8 +66,6 @@
 	<string name="TEA_control_notes">บันทึกย่อ</string>
 	<string name="EPr_appearance_header">รูปโฉม</string>
 	<string name="EPr_fontSize_desc">ขนาดฟอนต์บนหน้ารายการหลัก</string>
-	<string name="EPr_showNotes_desc_enabled">บันทึกจะแสดงให้เห็นตลอดเวลา</string>
-	<string name="AOA_internal_author">ทีมงาน Tasks</string>
 	<string name="TWi_loading">กำลังโหลด...</string>
 	<string name="WCA_title">เลือกแผนงานเพื่อดู...</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 

@@ -102,10 +102,6 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
     @Override
     public Property<?>[] taskProperties() {
         Property<?>[] baseProperties = TaskAdapter.PROPERTIES;
-        if (preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0) == 2) {
-            baseProperties = TaskAdapter.BASIC_PROPERTIES;
-        }
-
         ArrayList<Property<?>> properties = new ArrayList<>(Arrays.asList(baseProperties));
         properties.add(updater.indentProperty());
         properties.add(updater.orderProperty());
@@ -186,7 +182,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
     public TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor,
             AtomicReference<String> sqlQueryTemplate) {
 
-        taskAdapter = new DraggableTaskAdapter(preferences, fragment, TaskListFragment.getTaskRowResource(preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0)),
+        taskAdapter = new DraggableTaskAdapter(preferences, fragment, TaskListFragment.getTaskRowResource(),
                 cursor, sqlQueryTemplate);
 
         taskAdapter.addOnCompletedTaskListener(new OnCompletedTaskListener() {

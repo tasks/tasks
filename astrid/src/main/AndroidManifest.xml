@@ -241,13 +241,6 @@
         <!-- ========================================================= Plugins = -->
 
         <!-- core -->
-        <receiver android:name="com.todoroo.astrid.core.CorePlugin">
-            <intent-filter>
-                <action android:name="org.tasks.REQUEST_ADDONS" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
-
         <receiver android:name="com.todoroo.astrid.core.CoreFilterExposer">
             <intent-filter android:priority="9000">
                 <action android:name="org.tasks.REQUEST_FILTERS" />
@@ -277,13 +270,6 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
         <!-- tags -->
-        <receiver android:name="com.todoroo.astrid.tags.TagsPlugin">
-            <intent-filter>
-                <action android:name="org.tasks.REQUEST_ADDONS" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
-
         <receiver android:name="com.todoroo.astrid.tags.TagFilterExposer">
             <intent-filter>
                 <action android:name="org.tasks.REQUEST_FILTERS" />
@@ -294,13 +280,6 @@
         <receiver android:name="com.todoroo.astrid.tags.TagCustomFilterCriteriaExposer">
             <intent-filter>
                 <action android:name="org.tasks.REQUEST_CUSTOM_FILTER_CRITERIA" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
-
-        <receiver android:name="com.todoroo.astrid.tags.TagDetailExposer">
-            <intent-filter>
-                <action android:name="org.tasks.REQUEST_DETAILS" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
@@ -333,13 +312,6 @@
         <receiver android:name="com.todoroo.astrid.alarms.AlarmTaskRepeatListener">
             <intent-filter>
                 <action android:name="org.tasks.TASK_REPEATED" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
-
-        <receiver android:name="com.todoroo.astrid.alarms.AlarmDetailExposer">
-            <intent-filter>
-                <action android:name="org.tasks.REQUEST_DETAILS" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
@@ -379,13 +351,6 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name="com.todoroo.astrid.gtasks.GtasksDetailExposer">
-            <intent-filter>
-                <action android:name="org.tasks.REQUEST_DETAILS" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
-
         <activity
             android:name="com.todoroo.astrid.gtasks.GtasksPreferences"
             android:theme="@android:style/Theme"
@@ -419,23 +384,10 @@
         </receiver>
 
         <!-- repeats -->
-        <receiver android:name="com.todoroo.astrid.repeats.RepeatsPlugin">
-            <intent-filter>
-                <action android:name="org.tasks.REQUEST_ADDONS" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
 
         <receiver android:name="com.todoroo.astrid.repeats.RepeatTaskCompleteListener">
             <intent-filter android:priority="1">
                 <action android:name="org.tasks.TASK_COMPLETED" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
-
-        <receiver android:name="com.todoroo.astrid.repeats.RepeatDetailExposer">
-            <intent-filter>
-                <action android:name="org.tasks.REQUEST_DETAILS" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
@@ -514,14 +466,6 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <activity android:name="com.todoroo.astrid.files.FileExplore" />
-
-        <!-- notes -->
-        <receiver android:name="com.todoroo.astrid.notes.NotesDetailExposer">
-            <intent-filter>
-                <action android:name="org.tasks.REQUEST_DETAILS" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
 
         <receiver android:name="com.todoroo.astrid.timers.TimerFilterExposer">
             <intent-filter android:priority="10000">

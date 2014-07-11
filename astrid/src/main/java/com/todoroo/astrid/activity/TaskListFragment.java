@@ -142,7 +142,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
 
     protected Resources resources;
     protected TaskAdapter taskAdapter = null;
-    protected DetailReceiver detailReceiver = new DetailReceiver();
     protected RefreshReceiver refreshReceiver = new RefreshReceiver();
     protected final AtomicReference<String> sqlQueryTemplate = new AtomicReference<>();
     protected SyncActionHelper syncActionHelper;
@@ -490,8 +489,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     public void onResume() {
         super.onResume();
 
-        getActivity().registerReceiver(detailReceiver,
-                new IntentFilter(AstridApiConstants.BROADCAST_SEND_DETAILS));
         getActivity().registerReceiver(refreshReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
         syncActionHelper.register();
@@ -554,7 +551,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     public void onPause() {
         super.onPause();
 
-        AndroidUtilities.tryUnregisterReceiver(getActivity(), detailReceiver);
         AndroidUtilities.tryUnregisterReceiver(getActivity(), refreshReceiver);
         syncActionHelper.unregister();
 
@@ -597,28 +593,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         }
         taskDeleter.deleteTasksWithEmptyTitles();
         loadTaskListContent();
-    }
-
-    /**
-     * Receiver which receives detail or decoration intents
-     *
-     * @author Tim Su <tim@todoroo.com>
-     *
-     */
-    protected class DetailReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            try {
-                Bundle receivedExtras = intent.getExtras();
-                long taskId = receivedExtras.getLong(AstridApiConstants.EXTRAS_TASK_ID);
-                if (AstridApiConstants.BROADCAST_SEND_DETAILS.equals(intent.getAction())) {
-                    String detail = receivedExtras.getString(AstridApiConstants.EXTRAS_RESPONSE);
-                    taskAdapter.addDetails(taskId, detail);
-                }
-            } catch (Exception e) {
-                log.error("receive-detail-{}", intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON), e);
-            }
-        }
     }
 
     @Override
@@ -674,21 +648,13 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         syncActionHelper.request();
     }
 
-    public static int getTaskRowResource(int rowStyle) {
-        switch(rowStyle) {
-        case 1:
-            return R.layout.task_adapter_row_simple;
-        case 2:
-            return R.layout.task_adapter_row_title_only;
-        case 0:
-        default:
-            return R.layout.task_adapter_row;
-        }
+    public static int getTaskRowResource() {
+        return R.layout.task_adapter_row_simple;
     }
 
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
 
-        return new TaskAdapter(preferences, taskAttachmentDao, taskService, this, getTaskRowResource(preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0)),
+        return new TaskAdapter(preferences, taskAttachmentDao, taskService, this, getTaskRowResource(),
                 cursor, sqlQueryTemplate,
                 new OnCompletedTaskListener() {
                     @Override
@@ -725,9 +691,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     }
 
     public Property<?>[] taskProperties() {
-        if (preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0) == 2) {
-            return TaskAdapter.BASIC_PROPERTIES;
-        }
         return TaskAdapter.PROPERTIES;
     }
 

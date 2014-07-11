@@ -82,7 +82,6 @@ public class GtasksFilterExposer extends InjectingBroadcastReceiver implements A
         ContextManager.setContext(context);
         FilterListItem[] list = prepareFilters();
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, GtasksPreferenceService.IDENTIFIER);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }

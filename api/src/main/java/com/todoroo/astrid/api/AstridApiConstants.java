@@ -59,11 +59,6 @@ public class AstridApiConstants {
     public static final String EXTRAS_RESPONSE = "response";
 
     /**
-     * Extras name for plug-in identifier
-     */
-    public static final String EXTRAS_ADDON = "addon";
-
-    /**
      * Extras name for old task due date
      */
     public static final String EXTRAS_OLD_DUE_DATE= "oldDueDate";
@@ -72,14 +67,6 @@ public class AstridApiConstants {
      * Extras name for new task due date
      */
     public static final String EXTRAS_NEW_DUE_DATE = "newDueDate";
-
-    // --- Add-ons API
-
-    /**
-     * Action name for broadcast intent sending add-ons back to Astrid
-     * <li> EXTRAS_RESPONSE an {@link Addon} object
-     */
-    public static final String BROADCAST_SEND_ADDONS = API_PACKAGE + ".SEND_ADDONS";
 
     // --- Filters API
 
@@ -109,26 +96,6 @@ public class AstridApiConstants {
      * <li> EXTRAS_RESPONSE an array of {@link CustomFilterCriterion} </li>
      */
     public static final String BROADCAST_SEND_CUSTOM_FILTER_CRITERIA = API_PACKAGE + ".SEND_CUSTOM_FILTER_CRITERIA";
-
-    // --- Task Details API
-
-    /**
-     * Action name for broadcast intent requesting details for a task.
-     * Extended details are displayed when a user presses on a task.
-     *
-     * <li> EXTRAS_TASK_ID id of the task
-     * <li> EXTRAS_EXTENDED whether request is for standard or extended details
-     */
-    public static final String BROADCAST_REQUEST_DETAILS = API_PACKAGE + ".REQUEST_DETAILS";
-
-    /**
-     * Action name for broadcast intent sending details back to Astrid
-     * <li> EXTRAS_ADDON your add-on identifier
-     * <li> EXTRAS_TASK_ID id of the task
-     * <li> EXTRAS_EXTENDED whether request is for standard or extended details
-     * <li> EXTRAS_RESPONSE a String
-     */
-    public static final String BROADCAST_SEND_DETAILS = API_PACKAGE + ".SEND_DETAILS";
 
     // --- Sync Action API
 
@@ -160,14 +127,6 @@ public class AstridApiConstants {
      * Action name for broadcast intent notifying Astrid task list to refresh
      */
     public static final String BROADCAST_EVENT_REFRESH = API_PACKAGE + ".REFRESH";
-
-    /**
-     * Action name for broadcast intent notifying Astrid to clear detail cache
-     * because an event occurred that potentially affects all tasks (e.g.
-     * logging out of a sync provider). Use this call carefully, as loading
-     * details can degrade the performance of Astrid.
-     */
-    public static final String BROADCAST_EVENT_FLUSH_DETAILS = API_PACKAGE + ".FLUSH_DETAILS";
 
     /**
      * Action name for broadcast intent notifying that task was created or

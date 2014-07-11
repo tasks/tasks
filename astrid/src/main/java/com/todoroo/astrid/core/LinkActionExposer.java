@@ -24,7 +24,6 @@ import com.todoroo.astrid.files.FilesAction;
 import com.todoroo.astrid.notes.NotesAction;
 
 import org.tasks.R;
-import org.tasks.preferences.Preferences;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,7 +36,7 @@ import java.util.List;
  */
 public class LinkActionExposer {
 
-    public static TaskAction getActionsForTask(Preferences preferences, Context context, Task task, boolean hasAttachments, boolean hasNotes) {
+    public static TaskAction getActionsForTask(Context context, Task task, boolean hasAttachments, boolean hasNotes) {
         if (task == null) {
             return null;
         }
@@ -70,7 +69,7 @@ public class LinkActionExposer {
             return new FilesAction(icon);
         }
 
-        if (hasNotes && !preferences.getBoolean(R.string.p_showNotes, false)) {
+        if (hasNotes) {
             BitmapDrawable icon = getBitmapDrawable(R.drawable.action_notes, r);
             return new NotesAction(icon);
         }
