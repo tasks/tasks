@@ -555,13 +555,11 @@
   <!-- slide 47f -->
   <string name="EPr_manage_delete_completed_gcal">Delete calendar events for completed tasks</string>
   <string name="EPr_manage_delete_completed_gcal_message">Do you really want to delete all your events for completed tasks?</string>
-  <string name="EPr_manage_delete_completed_gcal_summary"></string>
   <string name="EPr_manage_delete_completed_gcal_status">Deleted %d calendar events!</string>
       
   <!-- slide 47g-->
   <string name="EPr_manage_delete_all_gcal">Delete all calendar events for tasks</string>
   <string name="EPr_manage_delete_all_gcal_message">Do you really want to delete all your events for tasks?</string>
-  <string name="EPr_manage_delete_all_gcal_summary"></string>
   <string name="EPr_manage_delete_all_gcal_status">Deleted %d calendar events!</string>
       
   <!-- ==================================================== AddOnActivity == -->

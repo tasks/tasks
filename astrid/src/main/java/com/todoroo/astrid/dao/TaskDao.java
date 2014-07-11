@@ -135,7 +135,6 @@ public class TaskDao extends RemoteModelDao<Task> {
      * Saves the given task to the database.getDatabase(). Task must already
      * exist. Returns true on success.
      *
-     * @return true if save occurred, false otherwise (i.e. nothing changed)
      */
     public void save(Task task) {
         if (task.getId() == Task.NO_ID) {

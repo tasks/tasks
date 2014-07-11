@@ -419,10 +419,10 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     }
 
     private void addComment() {
-        addComment(commentField.getText().toString(), UserActivity.ACTION_TASK_COMMENT, task.getUuid(), task.getTitle(), true);
+        addComment(commentField.getText().toString(), UserActivity.ACTION_TASK_COMMENT, task.getUuid(), true);
     }
 
-    private void addComment(String message, String actionCode, String uuid, String title, boolean usePicture) {
+    private void addComment(String message, String actionCode, String uuid, boolean usePicture) {
         // Allow for users to just add picture
         if (TextUtils.isEmpty(message) && usePicture) {
             message = " ";
@@ -517,7 +517,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 DateUtilities.getTimeString(getContext(), newDate())),
                 UserActivity.ACTION_TASK_COMMENT,
                 t.getUuid(),
-                t.getTitle(),
                 false);
     }
 
@@ -530,7 +529,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 getContext().getString(R.string.TEA_timer_comment_spent),
                 elapsedTime), UserActivity.ACTION_TASK_COMMENT,
                 t.getUuid(),
-                t.getTitle(),
                 false);
     }
 

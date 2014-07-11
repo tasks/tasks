@@ -35,9 +35,6 @@ abstract public class RemoteModel extends AbstractModel {
     /** remote id property */
     public static final StringProperty UUID_PROPERTY = new StringProperty(null, UUID_PROPERTY_NAME);
 
-    /** pushed at date property name */
-    public static final String PUSHED_AT_PROPERTY_NAME = "pushedAt"; //$NON-NLS-1$
-
     /** constant value for no uuid */
     public static final String NO_UUID = "0"; //$NON-NLS-1$
 

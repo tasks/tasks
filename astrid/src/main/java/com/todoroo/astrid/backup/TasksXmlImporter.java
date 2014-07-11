@@ -580,9 +580,7 @@ public class TasksXmlImporter {
                     break;
                 case LegacyTaskModel.PREFERRED_DUE_DATE:
                     String definite = xpp.getAttributeValue(null, LegacyTaskModel.DEFINITE_DUE_DATE);
-                    if (definite != null) {
-                        // handled above
-                    } else {
+                    if (definite == null) {
                         task.setDueDate(
                                 BackupDateUtilities.getTaskDueDateFromIso8601String(value).getTime());
                     }

@@ -271,6 +271,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
         }
     }
 
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public void updatePreferences(final Preference preference, Object value) {
         final Resources r = getResources();

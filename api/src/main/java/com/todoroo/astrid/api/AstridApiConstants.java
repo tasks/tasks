@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.api;
 
-import android.content.Intent;
-
 /**
  * Constants for interfacing with Astrid.
  *

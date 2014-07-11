@@ -204,9 +204,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
             }
         }
 
-        if (selected != null && selected.equals(viewHolder.item)) {
-//            convertView.setBackgroundColor(activity.getResources().getColor(R.color.tablet_list_selected));
-        } else {
+        if (selected == null || !selected.equals(viewHolder.item)) {
             convertView.setBackgroundColor(activity.getResources().getColor(android.R.color.transparent));
         }
 
