@@ -5,30 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
-	<plurals name="DUt_years">
-		<item quantity="one">1 год</item>
-		<item quantity="other">%d года/лет</item>
-	</plurals>
-	<plurals name="DUt_months">
-		<item quantity="one">1 месяц</item>
-		<item quantity="other">%d месяца/месяцев</item>
-	</plurals>
-	<plurals name="DUt_weeks">
-		<item quantity="one">1 неделя</item>
-		<item quantity="other">%d недели/недель</item>
-	</plurals>
-	<plurals name="DUt_days">
-		<item quantity="one">1 день</item>
-		<item quantity="other">%d дня/дней</item>
-	</plurals>
-	<plurals name="DUt_hours">
-		<item quantity="one">1 час</item>
-		<item quantity="other">%d часа/часов</item>
-	</plurals>
-	<plurals name="DUt_minutes">
-		<item quantity="one">1 минута</item>
-		<item quantity="other">%d минуты/минут</item>
-	</plurals>
 	<plurals name="Ntasks">
 		<item quantity="one">1 задача</item>
 		<item quantity="other">%d задач(а/и)</item>

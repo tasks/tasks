@@ -5,30 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
-	<plurals name="DUt_years">
-		<item quantity="one">שנה</item>
-		<item quantity="other">%d שנים</item>
-	</plurals>
-	<plurals name="DUt_months">
-		<item quantity="one">חודש</item>
-		<item quantity="other">%d חודשים</item>
-	</plurals>
-	<plurals name="DUt_weeks">
-		<item quantity="one">שבוע אחד</item>
-		<item quantity="other">%d שבועות</item>
-	</plurals>
-	<plurals name="DUt_days">
-		<item quantity="one">יום אחד</item>
-		<item quantity="other">%d ימים</item>
-	</plurals>
-	<plurals name="DUt_hours">
-		<item quantity="one">שעה אחת</item>
-		<item quantity="other">%d שעות</item>
-	</plurals>
-	<plurals name="DUt_minutes">
-		<item quantity="one">דקה אחת</item>
-		<item quantity="other">%d דקות</item>
-	</plurals>
 	<plurals name="Ntasks">
 		<item quantity="one">משימה אחת</item>
 		<item quantity="other">%d משימות</item>

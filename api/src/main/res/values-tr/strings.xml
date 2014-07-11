@@ -5,30 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
-	<plurals name="DUt_years">
-		<item quantity="one">1 Yıl</item>
-		<item quantity="other">%d Yıl</item>
-	</plurals>
-	<plurals name="DUt_months">
-		<item quantity="one">1 Ay</item>
-		<item quantity="other">%d Ay</item>
-	</plurals>
-	<plurals name="DUt_weeks">
-		<item quantity="one">1 Hafta</item>
-		<item quantity="other">%d hafta</item>
-	</plurals>
-	<plurals name="DUt_days">
-		<item quantity="one">1 Gün</item>
-		<item quantity="other">%d gün</item>
-	</plurals>
-	<plurals name="DUt_hours">
-		<item quantity="one">1 Saat</item>
-		<item quantity="other">%d saat</item>
-	</plurals>
-	<plurals name="DUt_minutes">
-		<item quantity="one">1 Dakika</item>
-		<item quantity="other">%d dakika</item>
-	</plurals>
 	<plurals name="Ntasks">
 		<item quantity="one">1 görev</item>
 		<item quantity="other">%d görev</item>

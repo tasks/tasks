@@ -5,18 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
-	<plurals name="DUt_days">
-		<item quantity="one">1 วัน</item>
-		<item quantity="other">%d วัน</item>
-	</plurals>
-	<plurals name="DUt_hours">
-		<item quantity="one">1 ชั่วโมง</item>
-		<item quantity="other">%d ชั่วโมง</item>
-	</plurals>
-	<plurals name="DUt_minutes">
-		<item quantity="one">1 นาที</item>
-		<item quantity="other">%d นาที</item>
-	</plurals>
 	<string name="today">วันนี้</string>
 	<string name="tomorrow">พรุ่งนี้</string>
 	<string name="yesterday">เมื่อวาน</string>

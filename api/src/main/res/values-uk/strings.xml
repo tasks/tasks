@@ -5,22 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
-	<plurals name="DUt_years">
-		<item quantity="one">1 Рік</item>
-		<item quantity="other">%d років</item>
-	</plurals>
-	<plurals name="DUt_months">
-		<item quantity="one">1 місяць</item>
-		<item quantity="other">%d місяців</item>
-	</plurals>
-	<plurals name="DUt_weeks">
-		<item quantity="one">1 тиждень</item>
-		<item quantity="other">%d тижнів</item>
-	</plurals>
-	<plurals name="DUt_days">
-		<item quantity="one">1 день</item>
-		<item quantity="other">%d днів</item>
-	</plurals>
 	<plurals name="Ntasks">
 		<item quantity="one">1 завдання</item>
 		<item quantity="other">%d завдань</item>

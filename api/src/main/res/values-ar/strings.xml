@@ -5,26 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
-	<plurals name="DUt_months">
-		<item quantity="one">شهر واحد</item>
-		<item quantity="other">%d Months</item>
-	</plurals>
-	<plurals name="DUt_weeks">
-		<item quantity="one">إسبوع واحد</item>
-		<item quantity="other">%d Weeks</item>
-	</plurals>
-	<plurals name="DUt_days">
-		<item quantity="one">يوم واحد</item>
-		<item quantity="other">%d Days</item>
-	</plurals>
-	<plurals name="DUt_hours">
-		<item quantity="one">ساعة واحدة</item>
-		<item quantity="other">%d Hours</item>
-	</plurals>
-	<plurals name="DUt_minutes">
-		<item quantity="one">دقيقة واحدة</item>
-		<item quantity="other">%d Minutes</item>
-	</plurals>
 	<string name="today">اليوم</string>
 	<string name="tomorrow">غدا</string>
 	<string name="yesterday">أمس</string>

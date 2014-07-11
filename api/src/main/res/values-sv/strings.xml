@@ -5,30 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
-	<plurals name="DUt_years">
-		<item quantity="one">1 år</item>
-		<item quantity="other">%d år</item>
-	</plurals>
-	<plurals name="DUt_months">
-		<item quantity="one">1 månad</item>
-		<item quantity="other">%d månader</item>
-	</plurals>
-	<plurals name="DUt_weeks">
-		<item quantity="one">1 vecka</item>
-		<item quantity="other">%d veckor</item>
-	</plurals>
-	<plurals name="DUt_days">
-		<item quantity="one">1 dag</item>
-		<item quantity="other">%d dagar</item>
-	</plurals>
-	<plurals name="DUt_hours">
-		<item quantity="one">1 timme</item>
-		<item quantity="other">%d timmar</item>
-	</plurals>
-	<plurals name="DUt_minutes">
-		<item quantity="one">1 minut</item>
-		<item quantity="other">%d minuter</item>
-	</plurals>
 	<plurals name="Ntasks">
 		<item quantity="one">1 uppgift</item>
 		<item quantity="other">%d uppgifter</item>

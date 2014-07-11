@@ -5,30 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
-	<plurals name="DUt_years">
-		<item quantity="one">1 leto</item>
-		<item quantity="other">Št. let: %d</item>
-	</plurals>
-	<plurals name="DUt_months">
-		<item quantity="one">1 mesec</item>
-		<item quantity="other">Št. mesecev: %d</item>
-	</plurals>
-	<plurals name="DUt_weeks">
-		<item quantity="one">1 teden</item>
-		<item quantity="other">Št. tednov: %d</item>
-	</plurals>
-	<plurals name="DUt_days">
-		<item quantity="one">1 dan</item>
-		<item quantity="other">Št. dni: %d</item>
-	</plurals>
-	<plurals name="DUt_hours">
-		<item quantity="one">1 ura</item>
-		<item quantity="other">Št. ur: %d</item>
-	</plurals>
-	<plurals name="DUt_minutes">
-		<item quantity="one">1 minuta</item>
-		<item quantity="other">Št. minut: %d</item>
-	</plurals>
 	<plurals name="Ntasks">
 		<item quantity="one">1 opravek</item>
 		<item quantity="other">Št. opravkov: %d</item>

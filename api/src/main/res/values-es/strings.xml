@@ -5,30 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
-	<plurals name="DUt_years">
-		<item quantity="one">1 año</item>
-		<item quantity="other">%d años</item>
-	</plurals>
-	<plurals name="DUt_months">
-		<item quantity="one">1 mes</item>
-		<item quantity="other">%d meses</item>
-	</plurals>
-	<plurals name="DUt_weeks">
-		<item quantity="one">1 semana</item>
-		<item quantity="other">%d semanas</item>
-	</plurals>
-	<plurals name="DUt_days">
-		<item quantity="one">Un día</item>
-		<item quantity="other">%d días</item>
-	</plurals>
-	<plurals name="DUt_hours">
-		<item quantity="one">1 hora</item>
-		<item quantity="other">%d horas</item>
-	</plurals>
-	<plurals name="DUt_minutes">
-		<item quantity="one">1 minuto</item>
-		<item quantity="other">%d minutos</item>
-	</plurals>
 	<plurals name="Ntasks">
 		<item quantity="one">1 tarea</item>
 		<item quantity="other">%d tareas</item>

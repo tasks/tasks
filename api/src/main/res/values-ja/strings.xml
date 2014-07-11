@@ -5,30 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
-	<plurals name="DUt_years">
-		<item quantity="one">1年</item>
-		<item quantity="other">%d 年</item>
-	</plurals>
-	<plurals name="DUt_months">
-		<item quantity="one">1か月</item>
-		<item quantity="other">%d か月</item>
-	</plurals>
-	<plurals name="DUt_weeks">
-		<item quantity="one">1週間</item>
-		<item quantity="other">%d 週間</item>
-	</plurals>
-	<plurals name="DUt_days">
-		<item quantity="one">1 日</item>
-		<item quantity="other">%d 日</item>
-	</plurals>
-	<plurals name="DUt_hours">
-		<item quantity="one">1 時間</item>
-		<item quantity="other">%d 時間</item>
-	</plurals>
-	<plurals name="DUt_minutes">
-		<item quantity="one">1 分</item>
-		<item quantity="other">%d 分</item>
-	</plurals>
 	<plurals name="Ntasks">
 		<item quantity="one">タスク 1 件</item>
 		<item quantity="other">タスク %d 件</item>
