@@ -149,20 +149,4 @@ public class Metadata extends AbstractModel {
     public void setKey(String key) {
         setValue(KEY, key);
     }
-
-    public void setValue1(String value1) {
-        setValue(VALUE1, value1);
-    }
-
-    public void setValue2(String value2) {
-        setValue(VALUE2, value2);
-    }
-
-    public void setValue3(String value3) {
-        setValue(VALUE3, value3);
-    }
-
-    public void setValue4(String value4) {
-        setValue(VALUE4, value4);
-    }
 }

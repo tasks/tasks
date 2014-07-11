@@ -149,15 +149,14 @@ public class TaskDao extends RemoteModelDao<Task> {
         }
     }
 
-    public boolean handleSQLiteConstraintException(Task task) {
+    public void handleSQLiteConstraintException(Task task) {
         TodorooCursor<Task> cursor = query(Query.select(Task.ID).where(
                 Task.UUID.eq(task.getUUID())));
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             task.setId(cursor.get(Task.ID));
-            return saveExisting(task);
+            saveExisting(task);
         }
-        return false;
     }
 
     @Override

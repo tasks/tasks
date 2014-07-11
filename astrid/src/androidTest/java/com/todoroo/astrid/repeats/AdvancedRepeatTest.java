@@ -28,7 +28,6 @@ public class AdvancedRepeatTest extends AndroidTestCase {
     private static final int PREV = -1;
     private static final int THIS = 1;
     private static final int NEXT = 2;
-    private static final int NEXT_NEXT = 3;
 
     private Task task;
     private long nextDueDate;

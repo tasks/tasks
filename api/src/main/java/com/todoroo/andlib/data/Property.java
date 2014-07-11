@@ -43,8 +43,6 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
     public static final int PROP_FLAG_NULLABLE = 1;
     /** Is this field a date? */
     public static final int PROP_FLAG_DATE = 1 << 1;
-    /** Is this field a boolean? */
-    public static final int PROP_FLAG_BOOLEAN = 1 << 3;
     /** Is this field a serialized JSON object? */
     public static final int PROP_FLAG_JSON = 1 << 4;
     /** Is this field for pictures? (usually as a json object containing "path" key or urls) */
@@ -145,10 +143,6 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
 
         public IntegerProperty(Table table, String name) {
             super(table, name);
-        }
-
-        public IntegerProperty(Table table, String name, int flags) {
-            super(table, name, flags);
         }
 
         protected IntegerProperty(String name, String expression) {

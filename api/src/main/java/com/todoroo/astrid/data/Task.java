@@ -103,9 +103,6 @@ public class Task extends RemoteModel {
     public static final LongProperty TIMER_START = new LongProperty(
             TABLE, "timerStart", Property.PROP_FLAG_DATE);
 
-    public static final IntegerProperty POSTPONE_COUNT = new IntegerProperty(
-            TABLE, "postponeCount");
-
     /** Flags for when to send reminders */
     public static final IntegerProperty REMINDER_FLAGS = new IntegerProperty(
             TABLE, "notificationFlags");
@@ -199,7 +196,6 @@ public class Task extends RemoteModel {
         defaultValues.put(REMINDER_SNOOZE.name, 0);
         defaultValues.put(ESTIMATED_SECONDS.name, 0);
         defaultValues.put(ELAPSED_SECONDS.name, 0);
-        defaultValues.put(POSTPONE_COUNT.name, 0);
         defaultValues.put(NOTES.name, "");
         defaultValues.put(TIMER_START.name, 0);
         defaultValues.put(DETAILS.name, (String)null);
@@ -392,10 +388,7 @@ public class Task extends RemoteModel {
      * Checks whether this due date has a due time or only a date
      */
     public boolean hasDueTime() {
-        if(!hasDueDate()) {
-            return false;
-        }
-        return hasDueTime(getDueDate());
+        return hasDueDate() && hasDueTime(getDueDate());
     }
 
     public boolean isOverdue() {
@@ -582,14 +575,6 @@ public class Task extends RemoteModel {
 
     public Integer getEstimatedSeconds() {
         return getValue(ESTIMATED_SECONDS);
-    }
-
-    public void setEstimatedSeconds(Integer estimatedSeconds) {
-        setValue(ESTIMATED_SECONDS, estimatedSeconds);
-    }
-
-    public void setPostponeCount(Integer postponeCount) {
-        setValue(POSTPONE_COUNT, postponeCount);
     }
 
     public void setELAPSED_SECONDS(Integer elapsedSeconds) {

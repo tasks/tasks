@@ -16,27 +16,20 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.view.WindowManager.BadTokenException;
 
-import com.google.ical.values.RRule;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.legacy.LegacyImportance;
-import com.todoroo.astrid.legacy.LegacyRepeatInfo;
-import com.todoroo.astrid.legacy.LegacyRepeatInfo.LegacyRepeatInterval;
-import com.todoroo.astrid.legacy.LegacyTaskModel;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.slf4j.Logger;
@@ -48,9 +41,6 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.StringTokenizer;
 
 import javax.inject.Inject;
 
@@ -59,7 +49,6 @@ public class TasksXmlImporter {
     private static final Logger log = LoggerFactory.getLogger(TasksXmlImporter.class);
 
     private final TagDataService tagDataService;
-    private final TagService tagService;
     private final MetadataService metadataService;
     private final TaskService taskService;
 
@@ -83,9 +72,8 @@ public class TasksXmlImporter {
     }
 
     @Inject
-    public TasksXmlImporter(TagDataService tagDataService, TagService tagService, MetadataService metadataService, TaskService taskService) {
+    public TasksXmlImporter(TagDataService tagDataService, MetadataService metadataService, TaskService taskService) {
         this.tagDataService = tagDataService;
-        this.tagService = tagService;
         this.metadataService = metadataService;
         this.taskService = taskService;
     }
@@ -144,9 +132,7 @@ public class TasksXmlImporter {
                     // Process <astrid ... >
                     if (tag.equals(BackupConstants.ASTRID_TAG)) {
                         String format = xpp.getAttributeValue(null, BackupConstants.ASTRID_ATTR_FORMAT);
-                        if(TextUtils.equals(format, FORMAT1)) {
-                            new Format1TaskImporter(xpp);
-                        } else if(TextUtils.equals(format, FORMAT2)) {
+                        if(TextUtils.equals(format, FORMAT2)) {
                             new Format2TaskImporter(xpp);
                         } else if(TextUtils.equals(format, FORMAT3)) {
                             new Format3TaskImporter(xpp);
@@ -407,239 +393,4 @@ public class TasksXmlImporter {
             tagDataService.save(tagdata);
         }
     }
-
-    // =============================================================== FORMAT1
-
-    private static final String FORMAT1 = null;
-    private class Format1TaskImporter {
-
-        private final XmlPullParser xpp;
-        private Task currentTask = null;
-        private String upgradeNotes = null;
-        private boolean syncOnComplete = false;
-
-        private final LinkedHashSet<String> tags = new LinkedHashSet<>();
-
-        public Format1TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {
-            this.xpp = xpp;
-
-            while (xpp.next() != XmlPullParser.END_DOCUMENT) {
-                String tag = xpp.getName();
-
-                try {
-                    if(BackupConstants.TASK_TAG.equals(tag) && xpp.getEventType() == XmlPullParser.END_TAG) {
-                        saveTags();
-                    } else if (tag == null || xpp.getEventType() == XmlPullParser.END_TAG) {
-                    } else if (tag.equals(BackupConstants.TASK_TAG)) {
-                        // Parse <task ... >
-                        currentTask = parseTask();
-                    } else if (currentTask != null) {
-                        // These tags all require that we have a task to associate
-                        // them with.
-                        if (tag.equals(BackupConstants.TAG_TAG)) {
-                            // Process <tag ... >
-                            parseTag();
-                        } else if (tag.equals(BackupConstants.SYNC_TAG)) {
-                            // Process <sync ... >
-                            parseSync();
-                        }
-                    }
-                } catch (Exception e) {
-                    errorCount++;
-                    log.error(e.getMessage(), e);
-                }
-            }
-        }
-
-        private void parseSync() {
-            String service = xpp.getAttributeValue(null, BackupConstants.SYNC_ATTR_SERVICE);
-            String remoteId = xpp.getAttributeValue(null, BackupConstants.SYNC_ATTR_REMOTE_ID);
-            if (service != null && remoteId != null) {
-                StringTokenizer strtok = new StringTokenizer(remoteId, "|"); //$NON-NLS-1$
-                String taskId = strtok.nextToken();
-                String taskSeriesId = strtok.nextToken();
-                String listId = strtok.nextToken();
-
-                Metadata metadata = new Metadata();
-                metadata.setTask(currentTask.getId());
-                metadata.setValue1(listId);
-                metadata.setValue2(taskSeriesId);
-                metadata.setValue3(taskId);
-                metadata.setValue4(syncOnComplete ? "1" : "0"); //$NON-NLS-1$ //$NON-NLS-2$
-                metadataService.save(metadata);
-            }
-        }
-
-        private void parseTag() {
-            String tagName = xpp.getAttributeValue(null, BackupConstants.TAG_ATTR_NAME);
-            tags.add(tagName);
-        }
-
-        private void saveTags() {
-            if(currentTask != null && tags.size() > 0) {
-                tagService.synchronizeTags(currentTask.getId(), currentTask.getUUID(), tags);
-            }
-            tags.clear();
-        }
-
-        private Task parseTask() {
-            taskCount++;
-            setProgressMessage(context.getString(R.string.import_progress_read,
-                    taskCount));
-
-            String taskName = xpp.getAttributeValue(null, LegacyTaskModel.NAME);
-            Date creationDate = null;
-            String createdString = xpp.getAttributeValue(null,
-                    LegacyTaskModel.CREATION_DATE);
-            if (createdString != null) {
-                creationDate = BackupDateUtilities.getDateFromIso8601String(createdString);
-            }
-
-            // if we don't have task name or creation date, skip
-            if (creationDate == null || taskName == null) {
-                skipCount++;
-                return null;
-            }
-
-            // if the task's name and creation date match an existing task, skip
-            TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID).
-                    where(Criterion.and(Task.TITLE.eq(taskName),
-                            Task.CREATION_DATE.like(creationDate.getTime()/1000L + "%"))));
-            try {
-                if(cursor.getCount() > 0) {
-                    skipCount++;
-                    return null;
-                }
-            } finally {
-                cursor.close();
-            }
-
-            // else, make a new task model and add away.
-            Task task = new Task();
-            int numAttributes = xpp.getAttributeCount();
-            for (int i = 0; i < numAttributes; i++) {
-                String fieldName = xpp.getAttributeName(i);
-                String fieldValue = xpp.getAttributeValue(i);
-                if(!setTaskField(task, fieldName, fieldValue)) {
-                    log.info("Task: {}: Unknown field '{}' with value '{}' disregarded.", taskName, fieldName, fieldValue);
-                }
-            }
-
-            if(upgradeNotes != null) {
-                if(task.containsValue(Task.NOTES) && task.getNotes().length() > 0) {
-                    task.setNotes(task.getNotes() + "\n" + upgradeNotes);
-                } else {
-                    task.setNotes(upgradeNotes);
-                }
-                upgradeNotes = null;
-            }
-
-            // Save the task to the database.
-            taskService.save(task);
-            importCount++;
-            return task;
-        }
-
-        /** helper method to set field on a task */
-        private boolean setTaskField(Task task, String field, String value) {
-            switch (field) {
-                case LegacyTaskModel.ID:
-                    // ignore
-                    break;
-                case LegacyTaskModel.NAME:
-                    task.setTitle(value);
-                    break;
-                case LegacyTaskModel.NOTES:
-                    task.setNotes(value);
-                    break;
-                case LegacyTaskModel.PROGRESS_PERCENTAGE:
-                    // ignore
-                    break;
-                case LegacyTaskModel.IMPORTANCE:
-                    task.setImportance(LegacyImportance.valueOf(value).ordinal());
-                    break;
-                case LegacyTaskModel.ESTIMATED_SECONDS:
-                    task.setEstimatedSeconds(Integer.parseInt(value));
-                    break;
-                case LegacyTaskModel.ELAPSED_SECONDS:
-                    task.setELAPSED_SECONDS(Integer.parseInt(value));
-                    break;
-                case LegacyTaskModel.TIMER_START:
-                    task.setTimerStart(
-                            BackupDateUtilities.getDateFromIso8601String(value).getTime());
-                    break;
-                case LegacyTaskModel.DEFINITE_DUE_DATE:
-                    String preferred = xpp.getAttributeValue(null, LegacyTaskModel.PREFERRED_DUE_DATE);
-                    if (preferred != null) {
-                        Date preferredDate = BackupDateUtilities.getDateFromIso8601String(value);
-                        upgradeNotes = "Project Deadline: " +
-                                DateUtilities.getDateString(preferredDate);
-                    }
-                    task.setDueDate(
-                            BackupDateUtilities.getTaskDueDateFromIso8601String(value).getTime());
-                    break;
-                case LegacyTaskModel.PREFERRED_DUE_DATE:
-                    String definite = xpp.getAttributeValue(null, LegacyTaskModel.DEFINITE_DUE_DATE);
-                    if (definite == null) {
-                        task.setDueDate(
-                                BackupDateUtilities.getTaskDueDateFromIso8601String(value).getTime());
-                    }
-                    break;
-                case LegacyTaskModel.HIDDEN_UNTIL:
-                    task.setHideUntil(
-                            BackupDateUtilities.getDateFromIso8601String(value).getTime());
-                    break;
-                case LegacyTaskModel.BLOCKING_ON:
-                    // ignore
-                    break;
-                case LegacyTaskModel.POSTPONE_COUNT:
-                    task.setPostponeCount(Integer.parseInt(value));
-                    break;
-                case LegacyTaskModel.NOTIFICATIONS:
-                    task.setReminderPeriod(Integer.parseInt(value) * 1000L);
-                    break;
-                case LegacyTaskModel.CREATION_DATE:
-                    task.setCreationDate(
-                            BackupDateUtilities.getDateFromIso8601String(value).getTime());
-                    break;
-                case LegacyTaskModel.COMPLETION_DATE:
-                    String completion = xpp.getAttributeValue(null, LegacyTaskModel.PROGRESS_PERCENTAGE);
-                    if ("100".equals(completion)) {
-                        task.setCompletionDate(
-                                BackupDateUtilities.getDateFromIso8601String(value).getTime());
-                    }
-                    break;
-                case LegacyTaskModel.NOTIFICATION_FLAGS:
-                    task.setReminderFlags(Integer.parseInt(value));
-                    break;
-                case LegacyTaskModel.LAST_NOTIFIED:
-                    task.setReminderLast(
-                            BackupDateUtilities.getDateFromIso8601String(value).getTime());
-                    break;
-                case "repeat_interval":
-                    // handled below
-                    break;
-                case "repeat_value":
-                    int repeatValue = Integer.parseInt(value);
-                    String repeatInterval = xpp.getAttributeValue(null, "repeat_interval");
-                    if (repeatValue > 0 && repeatInterval != null) {
-                        LegacyRepeatInterval interval = LegacyRepeatInterval.valueOf(repeatInterval);
-                        LegacyRepeatInfo repeatInfo = new LegacyRepeatInfo(interval, repeatValue);
-                        RRule rrule = repeatInfo.toRRule();
-                        task.setRecurrence(rrule.toIcal());
-                    }
-                    break;
-                case LegacyTaskModel.FLAGS:
-                    if (Integer.parseInt(value) == LegacyTaskModel.FLAG_SYNC_ON_COMPLETE) {
-                        syncOnComplete = true;
-                    }
-                    break;
-                default:
-                    return false;
-            }
-
-            return true;
-        }
-    }
-
 }
