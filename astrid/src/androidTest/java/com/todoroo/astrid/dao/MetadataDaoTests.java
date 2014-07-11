@@ -75,7 +75,7 @@ public class MetadataDaoTests extends DatabaseTestCase {
                 Query.select(KEYS));
         assertEquals(1, cursor.getCount());
         cursor.moveToFirst();
-        metadata.readFromCursor(cursor);
+        metadata = new Metadata(cursor);
         assertEquals("happy", metadata.getKey());
         cursor.close();
     }
@@ -105,10 +105,10 @@ public class MetadataDaoTests extends DatabaseTestCase {
                 Query.select(KEYS).where(MetadataCriteria.byTask(1)));
         assertEquals(2, cursor.getCount());
         cursor.moveToFirst();
-        metadata.readFromCursor(cursor);
+        metadata = new Metadata(cursor);
         assertEquals("with1", metadata.getKey());
         cursor.moveToNext();
-        metadata.readFromCursor(cursor);
+        metadata = new Metadata(cursor);
         assertEquals("with1", metadata.getKey());
         cursor.close();
 
@@ -185,7 +185,7 @@ public class MetadataDaoTests extends DatabaseTestCase {
         cursor = metadataDao.fetchDangling(KEYS);
         assertEquals(1, cursor.getCount());
         cursor.moveToFirst();
-        metadata.readFromCursor(cursor);
+        metadata = new Metadata(cursor);
         assertEquals("with2", metadata.getKey());
         cursor.close();
     }

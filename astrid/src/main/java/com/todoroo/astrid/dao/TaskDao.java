@@ -258,10 +258,8 @@ public class TaskDao extends RemoteModelDao<Task> {
                     Task.UUID.eq(uuid)));
             try {
                 if (tasksWithUUID.getCount() > 0) {
-                    Task curr = new Task();
-                    for (tasksWithUUID.moveToFirst();
-                            !tasksWithUUID.isAfterLast(); tasksWithUUID.moveToNext()) {
-                        curr.readFromCursor(tasksWithUUID);
+                    for (tasksWithUUID.moveToFirst(); !tasksWithUUID.isAfterLast(); tasksWithUUID.moveToNext()) {
+                        Task curr = new Task(tasksWithUUID);
                         if (curr.getId() == item.getId()) {
                             continue;
                         }

@@ -118,11 +118,10 @@ public class WidgetUpdateService extends InjectingService {
 
             database.openForReading();
             cursor = taskService.fetchFiltered(query, null, Task.ID, Task.TITLE, Task.DUE_DATE, Task.COMPLETION_DATE);
-            Task task = new Task();
             int i;
             for (i = 0; i < cursor.getCount() && i < numberOfTasks; i++) {
                 cursor.moveToPosition(i);
-                task.readFromCursor(cursor);
+                Task task = new Task(cursor);
 
                 String textContent;
                 Resources r = context.getResources();

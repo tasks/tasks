@@ -360,12 +360,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             viewHolder.hasNotes = cursor.get(HAS_NOTES_PROPERTY) > 0;
         }
 
-        Task task = viewHolder.task;
-        task.clear();
-        task.readFromCursor(cursor);
+        // TODO: see if this is a performance issue
+        viewHolder.task = new Task(cursor);
 
         setFieldContentsAndVisibility(view);
-        setTaskAppearance(viewHolder, task);
+        setTaskAppearance(viewHolder, viewHolder.task);
     }
 
     public String getItemUuid(int position) {
@@ -686,11 +685,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             try {
                 Random random = new Random();
 
-                Task task = new Task();
-
                 for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
-                    task.clear();
-                    task.readFromCursor(fetchCursor);
+                    Task task = new Task(fetchCursor);
                     if(task.isCompleted()) {
                         continue;
                     }

@@ -88,10 +88,9 @@ public class NotesDetailExposer extends InjectingBroadcastReceiver {
                 Query.select(Metadata.PROPERTIES).where(
                         MetadataCriteria.byTaskAndwithKey(task.getId(),
                                 NoteMetadata.METADATA_KEY)).orderBy(Order.asc(Metadata.CREATION_DATE)));
-        Metadata metadata = new Metadata();
         try {
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                metadata.readFromCursor(cursor);
+                Metadata metadata = new Metadata(cursor);
 
                 if(notesBuilder.length() > 0) {
                     notesBuilder.append("\n");

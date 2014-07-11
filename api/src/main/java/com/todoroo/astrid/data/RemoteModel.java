@@ -11,6 +11,7 @@ import android.text.TextUtils;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property.StringProperty;
+import com.todoroo.andlib.data.TodorooCursor;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,6 +27,14 @@ import java.io.File;
  *
  */
 abstract public class RemoteModel extends AbstractModel {
+
+    public RemoteModel() {
+        super();
+    }
+
+    public RemoteModel(TodorooCursor<? extends AbstractModel> cursor) {
+        super(cursor);
+    }
 
     private static final Logger log = LoggerFactory.getLogger(RemoteModel.class);
 

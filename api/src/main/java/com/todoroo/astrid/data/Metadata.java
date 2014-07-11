@@ -106,12 +106,7 @@ public class Metadata extends AbstractModel {
     }
 
     public Metadata(TodorooCursor<Metadata> cursor) {
-        this();
-        readPropertiesFromCursor(cursor);
-    }
-
-    public void readFromCursor(TodorooCursor<Metadata> cursor) {
-        super.readPropertiesFromCursor(cursor);
+        super(cursor);
     }
 
     @Override

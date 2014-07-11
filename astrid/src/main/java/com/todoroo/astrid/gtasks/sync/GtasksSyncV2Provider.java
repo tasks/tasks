@@ -161,9 +161,8 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
     private synchronized void pushTasks(TodorooCursor<Task> queued, GtasksInvoker invoker) {
         try {
-            Task task = new Task();
             for (queued.moveToFirst(); !queued.isAfterLast(); queued.moveToNext()) {
-                task.readFromCursor(queued);
+                Task task = new Task(queued);
                 try {
                     gtasksSyncService.pushTaskOnSave(task, task.getMergedValues(), invoker);
                 } catch (IOException e) {

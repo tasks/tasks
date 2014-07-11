@@ -80,12 +80,7 @@ public class StoreObject extends AbstractModel {
     }
 
     public StoreObject(TodorooCursor<StoreObject> cursor) {
-        this();
-        readPropertiesFromCursor(cursor);
-    }
-
-    public void readFromCursor(TodorooCursor<StoreObject> cursor) {
-        super.readPropertiesFromCursor(cursor);
+        super(cursor);
     }
 
     @Override

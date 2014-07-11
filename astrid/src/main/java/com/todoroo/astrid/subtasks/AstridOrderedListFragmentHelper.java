@@ -247,11 +247,9 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
                     Criterion.and(Task.UUID.in(chained.toArray(new String[chained.size()])),
                                    Task.RECURRENCE.isNotNull(), Functions.length(Task.RECURRENCE).gt(0))));
             try {
-                Task t = new Task();
                 boolean madeChanges = false;
                 for (recurring.moveToFirst(); !recurring.isAfterLast(); recurring.moveToNext()) {
-                    t.clear();
-                    t.readFromCursor(recurring);
+                    Task t = new Task(recurring);
                     if (!TextUtils.isEmpty(t.getRecurrence())) {
                         updater.moveToParentOf(t.getUuid(), itemId);
                         madeChanges = true;

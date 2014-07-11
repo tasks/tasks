@@ -123,10 +123,9 @@ public final class ReminderService  {
     public void scheduleAllAlarms(TaskDao taskDao) {
         TodorooCursor<Task> cursor = getTasksWithReminders(taskDao, NOTIFICATION_PROPERTIES);
         try {
-            Task task = new Task();
             now = DateUtilities.now(); // Before mass scheduling, initialize now variable
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                task.readFromCursor(cursor);
+                Task task = new Task(cursor);
                 scheduleAlarm(task, null);
             }
         } catch (Exception e) {

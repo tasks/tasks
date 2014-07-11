@@ -144,7 +144,7 @@ public class NewRepeatTests extends DatabaseTestCase {
             }
             assertEquals(1, cursor.getCount());
             cursor.moveToFirst();
-            t.readFromCursor(cursor);
+            t = new Task(cursor);
 
             assertEquals(title, t.getTitle());
             assertFalse(t.isCompleted());

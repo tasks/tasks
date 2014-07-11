@@ -83,12 +83,7 @@ public final class TagData extends RemoteModel {
     }
 
     public TagData(TodorooCursor<TagData> cursor) {
-        this();
-        readPropertiesFromCursor(cursor);
-    }
-
-    public void readFromCursor(TodorooCursor<TagData> cursor) {
-        super.readPropertiesFromCursor(cursor);
+        super(cursor);
     }
 
     @Override

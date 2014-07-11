@@ -125,14 +125,14 @@ public class TagViewFragment extends TaskListFragment {
         }
 
         try {
-            tagData = new TagData();
             if(cursor.getCount() == 0) {
+                tagData = new TagData();
                 tagData.setName(tag);
                 tagData.setUUID(uuid);
                 tagDataService.save(tagData);
             } else {
                 cursor.moveToFirst();
-                tagData.readFromCursor(cursor);
+                tagData = new TagData(cursor);
             }
         } finally {
             cursor.close();

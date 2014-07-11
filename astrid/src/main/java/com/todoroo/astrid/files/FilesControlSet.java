@@ -96,8 +96,7 @@ public class FilesControlSet extends PopupControlSet {
             try {
                 files.clear();
                 for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                    TaskAttachment attachment = new TaskAttachment();
-                    attachment.readFromCursor(cursor);
+                    TaskAttachment attachment = new TaskAttachment(cursor);
                     files.add(attachment);
                 }
             } finally {

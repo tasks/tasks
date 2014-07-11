@@ -54,12 +54,11 @@ public class TaskDuplicator {
                 Query.select(Metadata.PROPERTIES).where(MetadataDao.MetadataCriteria.byTask(task.getId())));
         try {
             if(cursor.getCount() > 0) {
-                Metadata metadata = new Metadata();
                 newTask.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
                 taskService.save(newTask);
                 long newId = newTask.getId();
                 for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                    metadata.readFromCursor(cursor);
+                    Metadata metadata = new Metadata(cursor);
 
                     if(!metadata.containsNonNullValue(Metadata.KEY)) {
                         continue;

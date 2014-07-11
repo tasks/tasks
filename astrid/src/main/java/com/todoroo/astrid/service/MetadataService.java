@@ -113,13 +113,12 @@ public class MetadataService {
             newMetadataValues.add(values);
         }
 
-        Metadata item = new Metadata();
         TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(Metadata.PROPERTIES).where(Criterion.and(MetadataCriteria.byTask(taskId),
                 metadataCriterion)));
         try {
             // try to find matches within our metadata list
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                item.readFromCursor(cursor);
+                Metadata item = new Metadata(cursor);
                 long id = item.getId();
 
                 // clear item id when matching with incoming values
@@ -146,7 +145,7 @@ public class MetadataService {
 
         // everything that remains shall be written
         for(ContentValues values : newMetadataValues) {
-            item.clear();
+            Metadata item = new Metadata();
             item.setCreationDate(DateUtilities.now());
             item.mergeWith(values);
             metadataDao.persist(item);

@@ -123,12 +123,7 @@ public final class TaskAttachment extends RemoteModel {
     }
 
     public TaskAttachment(TodorooCursor<TaskAttachment> cursor) {
-        this();
-        readPropertiesFromCursor(cursor);
-    }
-
-    public void readFromCursor(TodorooCursor<TaskAttachment> cursor) {
-        super.readPropertiesFromCursor(cursor);
+        super(cursor);
     }
 
     @Override

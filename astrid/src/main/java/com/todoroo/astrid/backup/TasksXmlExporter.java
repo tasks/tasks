@@ -176,11 +176,10 @@ public class TasksXmlExporter {
                 TagData.PROPERTIES).orderBy(Order.asc(TagData.ID)));
 
         try {
-            TagData tag = new TagData();
             int length = cursor.getCount();
             for(int i = 0; i < length; i++) {
                 cursor.moveToNext();
-                tag.readFromCursor(cursor);
+                TagData tag = new TagData(cursor);
 
                 //TODO setProgress(i, length);
 
@@ -199,11 +198,10 @@ public class TasksXmlExporter {
         cursor = taskService.query(Query.select(
                 Task.PROPERTIES).orderBy(Order.asc(Task.ID)));
         try {
-            Task task = new Task();
             int length = cursor.getCount();
             for(int i = 0; i < length; i++) {
                 cursor.moveToNext();
-                task.readFromCursor(cursor);
+                Task task = new Task(cursor);
 
                 setProgress(i, length);
 
@@ -222,9 +220,8 @@ public class TasksXmlExporter {
         TodorooCursor<Metadata> cursor = metadataService.query(Query.select(
                 Metadata.PROPERTIES).where(MetadataCriteria.byTask(task.getId())));
         try {
-            Metadata metadata = new Metadata();
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                metadata.readFromCursor(cursor);
+                Metadata metadata = new Metadata(cursor);
 
                 xml.startTag(null, BackupConstants.METADATA_TAG);
                 serializeModel(metadata, Metadata.PROPERTIES, Metadata.ID, Metadata.TASK);

@@ -63,8 +63,7 @@ public class UserActivity extends RemoteModel {
     public static final String ACTION_TASK_COMMENT = "task_comment";
 
     public UserActivity(TodorooCursor<UserActivity> cursor) {
-        this();
-        readPropertiesFromCursor(cursor);
+        super(cursor);
     }
 
     // --- helpers

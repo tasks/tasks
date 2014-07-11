@@ -283,9 +283,8 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                         MetadataCriteria.byTaskAndwithKey(task.getId(),
                                 NoteMetadata.METADATA_KEY)));
         try {
-            Metadata metadata = new Metadata();
             for(notes.moveToFirst(); !notes.isAfterLast(); notes.moveToNext()) {
-                metadata.readFromCursor(notes);
+                Metadata metadata = new Metadata(notes);
                 items.add(NoteOrUpdate.fromMetadata(metadata));
             }
         } finally {

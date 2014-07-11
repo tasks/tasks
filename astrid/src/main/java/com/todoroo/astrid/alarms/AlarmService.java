@@ -128,9 +128,8 @@ public class AlarmService {
     public void scheduleAllAlarms() {
         TodorooCursor<Metadata> cursor = getActiveAlarms();
         try {
-            Metadata alarm = new Metadata();
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                alarm.readFromCursor(cursor);
+                Metadata alarm = new Metadata(cursor);
                 scheduleAlarm(alarm);
             }
         } catch (Exception e) {
@@ -149,9 +148,8 @@ public class AlarmService {
     public void scheduleAlarms(long taskId) {
         TodorooCursor<Metadata> cursor = getActiveAlarmsForTask(taskId);
         try {
-            Metadata alarm = new Metadata();
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                alarm.readFromCursor(cursor);
+                Metadata alarm = new Metadata(cursor);
                 scheduleAlarm(alarm);
             }
         } catch (Exception e) {

@@ -147,11 +147,10 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                                 TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.CALENDAR_URI).where(
                                         Criterion.and(Task.COMPLETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull())));
                                 try {
-                                    Task task = new Task();
                                     int length = cursor.getCount();
                                     for(int i = 0; i < length; i++) {
                                         cursor.moveToNext();
-                                        task.readFromCursor(cursor);
+                                        Task task = new Task(cursor);
                                         gcalHelper.deleteTaskEvent(task);
                                     }
                                 } finally {
@@ -186,11 +185,10 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                                 TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.TITLE, Task.CALENDAR_URI).where(
                                         Criterion.and(Task.DELETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull())));
                                 try {
-                                    Task task = new Task();
                                     int length = cursor.getCount();
                                     for(int i = 0; i < length; i++) {
                                         cursor.moveToNext();
-                                        task.readFromCursor(cursor);
+                                        Task task = new Task(cursor);
                                         gcalHelper.deleteTaskEvent(task);
                                     }
                                 } finally {
@@ -221,11 +219,10 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                                 TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.CALENDAR_URI).where(
                                         Criterion.and(Task.COMPLETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull())));
                                 try {
-                                    Task task = new Task();
                                     int length = cursor.getCount();
                                     for(int i = 0; i < length; i++) {
                                         cursor.moveToNext();
-                                        task.readFromCursor(cursor);
+                                        Task task = new Task(cursor);
                                         if (gcalHelper.deleteTaskEvent(task)) {
                                             deletedEventCount++;
                                         }
@@ -263,11 +260,10 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                                 TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.CALENDAR_URI).where(
                                         Task.CALENDAR_URI.isNotNull()));
                                 try {
-                                    Task task = new Task();
                                     int length = cursor.getCount();
                                     for(int i = 0; i < length; i++) {
                                         cursor.moveToNext();
-                                        task.readFromCursor(cursor);
+                                        Task task = new Task(cursor);
                                         if (gcalHelper.deleteTaskEvent(task)) {
                                             deletedEventCount++;
                                         }

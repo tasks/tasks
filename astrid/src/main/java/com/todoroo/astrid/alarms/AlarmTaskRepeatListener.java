@@ -49,10 +49,9 @@ public class AlarmTaskRepeatListener extends InjectingBroadcastReceiver {
                 return;
             }
 
-            Metadata metadata = new Metadata();
             LinkedHashSet<Long> alarms = new LinkedHashSet<>(cursor.getCount());
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                metadata.readFromCursor(cursor);
+                Metadata metadata = new Metadata(cursor);
                 alarms.add(metadata.getValue(AlarmFields.TIME) + (newDueDate - oldDueDate));
             }
             alarmService.synchronizeAlarms(taskId, alarms);

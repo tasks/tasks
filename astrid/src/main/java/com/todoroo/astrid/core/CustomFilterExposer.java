@@ -88,9 +88,8 @@ public final class CustomFilterExposer extends InjectingBroadcastReceiver implem
             }
 
             if (cursor != null) {
-                StoreObject savedFilter = new StoreObject();
                 for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                    savedFilter.readFromCursor(cursor);
+                    StoreObject savedFilter = new StoreObject(cursor);
                     Filter f = SavedFilter.load(savedFilter);
 
                     Intent deleteIntent = new Intent(context, DeleteActivity.class);

@@ -161,9 +161,8 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
                 .orderBy(Order.asc(Functions.cast(GtasksMetadata.GTASKS_ORDER, "INTEGER")))); //$NON-NLS-1$
         try {
             if (metadata.getCount() > 0) {
-                Metadata curr = new Metadata();
                 for (metadata.moveToFirst(); !metadata.isAfterLast(); metadata.moveToNext()) {
-                    curr.readFromCursor(metadata);
+                    Metadata curr = new Metadata(metadata);
                     if(alreadyChecked.contains(curr.getTask())) {
                         continue;
                     }

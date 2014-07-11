@@ -57,12 +57,14 @@ public class SavedFilter {
         }
 
         // if filter of this name exists, edit it
-        StoreObject storeObject = new StoreObject();
+        StoreObject storeObject;
         TodorooCursor<StoreObject> cursor = dao.query(Query.select(StoreObject.ID).where(NAME.eq(title)));
         try {
-            if(!cursor.isAfterLast()) {
+            if (cursor.isAfterLast()) {
+                storeObject = new StoreObject();
+            } else {
                 cursor.moveToNext();
-                storeObject.readFromCursor(cursor);
+                storeObject = new StoreObject(cursor);
             }
         } finally {
             cursor.close();

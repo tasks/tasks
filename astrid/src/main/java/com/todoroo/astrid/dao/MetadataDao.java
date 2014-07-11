@@ -84,13 +84,12 @@ public class MetadataDao extends DatabaseDao<Metadata> {
             newMetadataValues.add(metadatum.getMergedValues());
         }
 
-        Metadata item = new Metadata();
         TodorooCursor<Metadata> cursor = query(Query.select(Metadata.PROPERTIES).where(Criterion.and(MetadataCriteria.byTask(taskId),
                 metadataCriteria)));
         try {
             // try to find matches within our metadata list
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                item.readFromCursor(cursor);
+                Metadata item = new Metadata(cursor);
                 long id = item.getId();
 
                 // clear item id when matching with incoming values
@@ -110,7 +109,7 @@ public class MetadataDao extends DatabaseDao<Metadata> {
 
         // everything that remains shall be written
         for(ContentValues values : newMetadataValues) {
-            item.clear();
+            Metadata item = new Metadata();
             item.mergeWith(values);
             persist(item);
         }

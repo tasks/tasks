@@ -240,10 +240,9 @@ public final class TagService {
         TodorooCursor<Metadata> tags = getTags(taskId);
         try {
             int length = tags.getCount();
-            Metadata metadata = new Metadata();
             for (int i = 0; i < length; i++) {
                 tags.moveToNext();
-                metadata.readFromCursor(tags);
+                Metadata metadata = new Metadata(tags);
                 tagBuilder.append(metadata.getValue(TaskToTagMetadata.TAG_NAME));
                 if (i < length - 1) {
                     tagBuilder.append(separator);
@@ -264,9 +263,8 @@ public final class TagService {
                 TagData.DELETION_DATE.eq(0),
                 TagData.NAME.isNotNull())).orderBy(Order.asc(Functions.upper(TagData.NAME))));
         try {
-            TagData tagData = new TagData();
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                tagData.readFromCursor(cursor);
+                TagData tagData = new TagData(cursor);
                 Tag tag = new Tag(tagData);
                 if(TextUtils.isEmpty(tag.tag)) {
                     continue;

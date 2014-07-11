@@ -219,12 +219,7 @@ public class Task extends RemoteModel {
     }
 
     public Task(TodorooCursor<Task> cursor) {
-        this();
-        readPropertiesFromCursor(cursor);
-    }
-
-    public void readFromCursor(TodorooCursor<Task> cursor) {
-        super.readPropertiesFromCursor(cursor);
+        super(cursor);
     }
 
     @Override

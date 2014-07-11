@@ -79,8 +79,7 @@ public final class TaskListMetadata extends RemoteModel {
     }
 
     public TaskListMetadata(TodorooCursor<TaskListMetadata> cursor) {
-        this();
-        readPropertiesFromCursor(cursor);
+        super(cursor);
     }
 
     @Override

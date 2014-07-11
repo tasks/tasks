@@ -76,6 +76,13 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
     /** Transitory Metadata (not saved in database) */
     protected HashMap<String, Object> transitoryData = null;
 
+    public AbstractModel() {
+    }
+
+    public AbstractModel(TodorooCursor<? extends AbstractModel> cursor) {
+        readPropertiesFromCursor(cursor);
+    }
+
     /** Get database-read values for this object */
     public ContentValues getDatabaseValues() {
         return values;
@@ -165,12 +172,10 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
         return clone;
     }
 
-    // --- data retrieval
-
     /**
      * Reads all properties from the supplied cursor and store
      */
-    public synchronized void readPropertiesFromCursor(TodorooCursor<? extends AbstractModel> cursor) {
+    private void readPropertiesFromCursor(TodorooCursor<? extends AbstractModel> cursor) {
         if (values == null) {
             values = new ContentValues();
         }

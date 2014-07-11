@@ -41,9 +41,8 @@ public class RefreshScheduler {
     public void scheduleAllAlarms() {
         TodorooCursor<Task> cursor = getTasks();
         try {
-            Task task = new Task();
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                task.readFromCursor(cursor);
+                Task task = new Task(cursor);
                 scheduleRefresh(task);
             }
         } finally {
