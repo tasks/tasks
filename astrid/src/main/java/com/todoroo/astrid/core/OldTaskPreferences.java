@@ -195,7 +195,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                                     cursor.close();
                                 }
                                 int result = taskDeleter.purgeDeletedTasks();
-                                metadataService.cleanup();
+                                metadataService.removeDanglingMetadata();
                                 showResult(R.string.EPr_manage_purge_deleted_status, result);
                             }
                         });

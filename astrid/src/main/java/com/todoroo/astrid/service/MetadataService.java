@@ -9,11 +9,13 @@ import android.content.ContentValues;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.Task;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -47,20 +49,9 @@ public class MetadataService {
     /**
      * Clean up metadata. Typically called on startup
      */
-    public void cleanup() {
-        TodorooCursor<Metadata> cursor = metadataDao.fetchDangling(Metadata.ID);
-        try {
-            if(cursor.getCount() == 0) {
-                return;
-            }
-
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                long id = cursor.getLong(0);
-                metadataDao.delete(id);
-            }
-        } finally {
-            cursor.close();
-        }
+    public void removeDanglingMetadata() {
+        metadataDao.deleteWhere(Metadata.ID.in(Query.select(Metadata.ID).from(Metadata.TABLE).join(Join.left(Task.TABLE,
+                Metadata.TASK.eq(Task.ID))).where(Task.TITLE.isNull())));
     }
 
     /**

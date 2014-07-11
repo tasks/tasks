@@ -6,17 +6,13 @@
 package com.todoroo.astrid.dao;
 
 import android.content.ContentValues;
-import android.database.Cursor;
 
 import com.todoroo.andlib.data.DatabaseDao;
-import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.Task;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -122,16 +118,6 @@ public class MetadataDao extends DatabaseDao<Metadata> {
         }
 
         return super.persist(item);
-    }
-
-    /**
-     * Fetch all metadata that are unattached to the task
-     */
-    public TodorooCursor<Metadata> fetchDangling(Property<?>... properties) {
-        Query sql = Query.select(properties).from(Metadata.TABLE).join(Join.left(Task.TABLE,
-                Metadata.TASK.eq(Task.ID))).where(Task.TITLE.isNull());
-        Cursor cursor = database.rawQuery(sql.toString());
-        return new TodorooCursor<>(cursor, properties);
     }
 }
 

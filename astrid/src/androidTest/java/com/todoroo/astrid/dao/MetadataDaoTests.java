@@ -10,7 +10,6 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
 import javax.inject.Inject;
@@ -124,70 +123,4 @@ public class MetadataDaoTests extends DatabaseTestCase {
         assertEquals(1, cursor.getCount());
         cursor.close();
     }
-
-    /**
-     * Test metadata deletion
-     */
-    public void disabled_testFetchDangling() throws Exception {
-        // fetch with nothing in db
-        TodorooCursor<Metadata> cursor = metadataDao.fetchDangling(KEYS);
-        assertEquals(0, cursor.getCount());
-        cursor.close();
-
-        Task task1 = new Task();
-        taskDao.persist(task1);
-        Task task2 = new Task();
-        taskDao.persist(task2);
-        Task task3 = new Task();
-        taskDao.persist(task3);
-
-        // fetch with only tasks
-        cursor = metadataDao.fetchDangling(KEYS);
-        assertEquals(0, cursor.getCount());
-        cursor.close();
-
-        Metadata metadata = new Metadata();
-        metadata.setKey("with1");
-        metadata.setTask(task1.getId());
-        assertTrue(metadataDao.persist(metadata));
-
-        metadata = new Metadata();
-        metadata.setKey("with2");
-        metadata.setTask(task2.getId());
-        assertTrue(metadataDao.persist(metadata));
-
-        metadata = new Metadata();
-        metadata.setKey("with3");
-        metadata.setTask(task3.getId());
-        assertTrue(metadataDao.persist(metadata));
-
-        // fetch with tasks and corresponding metadata
-        cursor = metadataDao.fetchDangling(KEYS);
-        assertEquals(0, cursor.getCount());
-        cursor.close();
-
-        long task2Id = task2.getId();
-        taskDao.delete(task2.getId());
-
-        // note: we should not have any dangling, since deleting a task
-        // will automatically delete metadata
-        cursor = metadataDao.fetchDangling(KEYS);
-        assertEquals(0, cursor.getCount());
-        cursor.close();
-
-        metadata = new Metadata();
-        metadata.setKey("with2");
-        metadata.setTask(task2Id);
-        assertTrue(metadataDao.persist(metadata));
-
-        // but if we simulate something bad happening by creating
-        // it manually.. well, what can i say, it should be broken
-        cursor = metadataDao.fetchDangling(KEYS);
-        assertEquals(1, cursor.getCount());
-        cursor.moveToFirst();
-        metadata = new Metadata(cursor);
-        assertEquals("with2", metadata.getKey());
-        cursor.close();
-    }
-
 }
