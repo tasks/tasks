@@ -32,6 +32,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
     private static final Logger log = LoggerFactory.getLogger(DatabaseDao.class);
 
     private final Class<TYPE> modelClass;
+    private final Constructor<TYPE> cursorConstructor;
 
     private Table table;
 
@@ -39,6 +40,11 @@ public class DatabaseDao<TYPE extends AbstractModel> {
 
     public DatabaseDao(Class<TYPE> modelClass) {
         this.modelClass = modelClass;
+        try {
+            this.cursorConstructor = modelClass.getConstructor(TodorooCursor.class);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /** Gets table associated with this DAO */
@@ -107,9 +113,8 @@ public class DatabaseDao<TYPE extends AbstractModel> {
             if (cursor.getCount() == 0) {
                 return null;
             }
-            Constructor<TYPE> constructor = modelClass.getConstructor(TodorooCursor.class);
-            return constructor.newInstance(cursor);
-        } catch (SecurityException | InvocationTargetException | IllegalAccessException | InstantiationException | IllegalArgumentException | NoSuchMethodException e) {
+            return cursorConstructor.newInstance(cursor);
+        } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         } finally {
             cursor.close();
