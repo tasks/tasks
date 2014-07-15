@@ -14,8 +14,6 @@ import com.todoroo.andlib.sql.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -33,7 +31,6 @@ public class DatabaseDao<TYPE extends AbstractModel> {
     private static final Logger log = LoggerFactory.getLogger(DatabaseDao.class);
 
     private final Class<TYPE> modelClass;
-    private final Constructor<TYPE> cursorConstructor;
 
     private Table table;
 
@@ -42,7 +39,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
     public DatabaseDao(Class<TYPE> modelClass) {
         this.modelClass = modelClass;
         try {
-            this.cursorConstructor = modelClass.getConstructor(TodorooCursor.class);
+            modelClass.getConstructor(); // check for default constructor
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
@@ -156,9 +153,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
             if (cursor.getCount() == 0) {
                 return null;
             }
-            return cursorConstructor.newInstance(cursor);
-        } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
-            throw new RuntimeException(e);
+            return fromCursor(cursor);
         } finally {
             cursor.close();
         }
