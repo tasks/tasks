@@ -54,11 +54,6 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
     }
 
     @Override
-    public Criterion getMetadataCriteria() {
-        return MetadataCriteria.withKey(getMetadataKey());
-    }
-
-    @Override
     public String getMetadataKey() {
         return GtasksMetadata.METADATA_KEY;
     }

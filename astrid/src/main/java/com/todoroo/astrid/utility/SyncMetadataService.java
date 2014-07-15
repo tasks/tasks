@@ -6,7 +6,6 @@
 package com.todoroo.astrid.utility;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -23,9 +22,6 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
 
     /** @return metadata key identifying this sync provider's metadata */
     abstract public String getMetadataKey();
-
-    /** @return criterion for matching all metadata keys that your provider synchronizes */
-    abstract public Criterion getMetadataCriteria();
 
     // --- implementation
 
@@ -47,8 +43,7 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
     public void saveTaskAndMetadata(TYPE task) {
         task.prepareForSaving();
         taskDao.save(task.task);
-        metadataDao.synchronizeMetadata(task.task.getId(), task.metadata,
-                getMetadataCriteria());
+        metadataDao.synchronizeMetadata(task.task.getId(), task.metadata, getMetadataKey());
     }
 
     /**

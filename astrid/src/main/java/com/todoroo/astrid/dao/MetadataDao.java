@@ -69,10 +69,9 @@ public class MetadataDao extends DatabaseDao<Metadata> {
      *
      * @param taskId id of task to perform synchronization on
      * @param metadata list of new metadata items to save
-     * @param metadataCriteria criteria to load data for comparison from metadata
+     * @param metadataKey metadata key
      */
-    public void synchronizeMetadata(long taskId, ArrayList<Metadata> metadata,
-            Criterion metadataCriteria) {
+    public void synchronizeMetadata(long taskId, ArrayList<Metadata> metadata, String metadataKey) {
         HashSet<ContentValues> newMetadataValues = new HashSet<>();
         for(Metadata metadatum : metadata) {
             metadatum.setTask(taskId);
@@ -80,8 +79,8 @@ public class MetadataDao extends DatabaseDao<Metadata> {
             newMetadataValues.add(metadatum.getMergedValues());
         }
 
-        TodorooCursor<Metadata> cursor = query(Query.select(Metadata.PROPERTIES).where(Criterion.and(MetadataCriteria.byTask(taskId),
-                metadataCriteria)));
+        TodorooCursor<Metadata> cursor = query(Query.select(Metadata.PROPERTIES).where(
+                MetadataCriteria.byTaskAndwithKey(taskId, metadataKey)));
         try {
             // try to find matches within our metadata list
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
