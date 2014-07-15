@@ -320,7 +320,7 @@ abstract public class TranslationTests extends AndroidTestCase {
     /**
      * @return an array of all string resource id's
      */
-    public int[] getResourceIds(Class<?> resources) throws Exception {
+    public int[] getResourceIds(Class<?> resources) {
         Field[] fields = resources.getDeclaredFields();
         List<Integer> ids = new ArrayList<>(fields.length);
         for (Field field : fields) {

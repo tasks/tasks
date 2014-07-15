@@ -648,14 +648,9 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         syncActionHelper.request();
     }
 
-    public static int getTaskRowResource() {
-        return R.layout.task_adapter_row_simple;
-    }
-
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
 
-        return new TaskAdapter(preferences, taskAttachmentDao, taskService, this, getTaskRowResource(),
-                cursor, sqlQueryTemplate,
+        return new TaskAdapter(preferences, taskAttachmentDao, taskService, this, cursor, sqlQueryTemplate,
                 new OnCompletedTaskListener() {
                     @Override
                     public void onCompletedTask(Task item, boolean newState) {

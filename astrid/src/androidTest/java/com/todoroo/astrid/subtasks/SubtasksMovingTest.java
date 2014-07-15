@@ -13,7 +13,7 @@ public class SubtasksMovingTest extends SubtasksTestCase {
     private Task A, B, C, D, E, F;
 
 //    @Override
-    protected void disabled_setUp() throws Exception {
+    protected void disabled_setUp() {
         super.setUp();
         createTasks();
         TaskListMetadata m = new TaskListMetadata();

@@ -157,7 +157,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     protected final Resources resources;
     protected final HashMap<Object, Boolean> completedItems = new HashMap<>(0);
     protected OnCompletedTaskListener onCompletedTaskListener = null;
-    protected final int resource;
+    protected final int resource = R.layout.task_adapter_row_simple;
     protected final LayoutInflater inflater;
     private int fontSize;
     private final ScaleAnimation scaleAnimation;
@@ -172,17 +172,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     private final Map<Long, TaskAction> taskActionLoader = Collections.synchronizedMap(new HashMap<Long, TaskAction>());
 
-    /**
-     * Constructor
-     *
-     * @param resource
-     *            layout resource to inflate
-     * @param c
-     *            database cursor
-     * @param onCompletedTaskListener
-     *            task listener. can be null
-     */
-    public TaskAdapter(ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao, TaskService taskService, TaskListFragment fragment, int resource,
+    public TaskAdapter(ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao, TaskService taskService, TaskListFragment fragment,
             Cursor c, AtomicReference<String> query, OnCompletedTaskListener onCompletedTaskListener) {
         super(ContextManager.getContext(), c, false);
         this.preferences = preferences;
@@ -190,7 +180,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         this.taskService = taskService;
         this.context = ContextManager.getContext();
         this.query = query;
-        this.resource = resource;
         this.fragment = fragment;
         this.resources = fragment.getResources();
         this.onCompletedTaskListener = onCompletedTaskListener;

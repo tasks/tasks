@@ -115,10 +115,6 @@ public class UserActivity extends RemoteModel {
         setValue(ACTION, action);
     }
 
-    public void setUUID(String uuid) {
-        setValue(UUID, uuid);
-    }
-
     public void setPicture(String picture) {
         setValue(PICTURE, picture);
     }

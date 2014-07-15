@@ -30,7 +30,8 @@ public class Freeze {
         DateTimeUtils.setCurrentMillisSystem();
     }
 
-    public void thawAfter(@SuppressWarnings("UnusedParameters") Snippet snippet) {
+    @SuppressWarnings("UnusedParameters")
+    public void thawAfter(Snippet snippet) {
         thaw();
     }
 }

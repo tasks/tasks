@@ -29,12 +29,9 @@ import javax.inject.Singleton;
 @Singleton
 public class MetadataDao extends DatabaseDao<Metadata> {
 
-    private final Database database;
-
     @Inject
 	public MetadataDao(Database database) {
         super(Metadata.class);
-        this.database = database;
         setDatabase(database);
     }
 

@@ -175,7 +175,7 @@ public class TasksXmlExporter {
         fos.close();
     }
 
-    private void serializeTagDatas() throws IOException {
+    private void serializeTagDatas() {
         tagDataDao.allTags(new Callback<TagData>() {
             @Override
             public void apply(TagData tag) {

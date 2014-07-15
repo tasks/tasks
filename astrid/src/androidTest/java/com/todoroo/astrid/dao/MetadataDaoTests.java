@@ -82,7 +82,7 @@ public class MetadataDaoTests extends DatabaseTestCase {
     /**
      * Test metadata bound to task
      */
-    public void disabled_testMetadataConditions() throws Exception {
+    public void disabled_testMetadataConditions() {
         // create "happy"
         Metadata metadata = new Metadata();
         metadata.setKey("with1");
