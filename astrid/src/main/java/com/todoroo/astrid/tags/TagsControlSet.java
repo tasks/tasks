@@ -38,6 +38,7 @@ import org.tasks.preferences.ActivityPreferences;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 import static org.tasks.preferences.ResourceResolver.getResource;
 
@@ -74,7 +75,7 @@ public final class TagsControlSet extends PopupControlSet {
     }
 
     private Tag[] getTagArray() {
-        ArrayList<Tag> tagsList = tagService.getTagList();
+        List<Tag> tagsList = tagService.getTagList();
         return tagsList.toArray(new Tag[tagsList.size()]);
     }
 

@@ -15,8 +15,6 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.FilterListFragment;
@@ -115,25 +113,15 @@ public class TagViewFragment extends TaskListFragment {
             return;
         }
 
-        TodorooCursor<TagData> cursor;
-        if (!RemoteModel.isUuidEmpty(uuid)) {
-            cursor = tagDataDao.query(Query.select(TagData.PROPERTIES).where(TagData.UUID.eq(uuid)));
-        } else {
-            cursor = tagDataDao.query(Query.select(TagData.PROPERTIES).where(TagData.NAME.eqCaseInsensitive(tag)));
-        }
+        TagData tagData = RemoteModel.isUuidEmpty(uuid)
+                ? tagDataDao.getTagByName(tag, TagData.PROPERTIES)
+                : tagDataDao.getByUuid(uuid, TagData.PROPERTIES);
 
-        try {
-            if(cursor.getCount() == 0) {
-                tagData = new TagData();
-                tagData.setName(tag);
-                tagData.setUUID(uuid);
-                tagDataDao.persist(tagData);
-            } else {
-                cursor.moveToFirst();
-                tagData = new TagData(cursor);
-            }
-        } finally {
-            cursor.close();
+        if (tagData == null) {
+            tagData = new TagData();
+            tagData.setName(tag);
+            tagData.setUUID(uuid);
+            tagDataDao.persist(tagData);
         }
 
         super.initializeData();

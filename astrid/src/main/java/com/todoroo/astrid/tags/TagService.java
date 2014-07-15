@@ -7,7 +7,7 @@ package com.todoroo.astrid.tags;
 
 import android.text.TextUtils;
 
-import com.todoroo.andlib.data.Property;
+import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
@@ -32,6 +32,7 @@ import org.tasks.R;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -149,37 +150,18 @@ public final class TagService {
     }
 
     private Tag tagFromUUID(String uuid) {
-        TodorooCursor<TagData> tagData = tagDataDao.query(Query.select(TagData.PROPERTIES).where(TagData.UUID.eq(uuid)));
-        try {
-            if (tagData.getCount() > 0) {
-                tagData.moveToFirst();
-                return new Tag(new TagData(tagData));
-            } else {
-                return null;
-            }
-        } finally {
-            tagData.close();
-        }
-
+        TagData tagData = tagDataDao.getByUuid(uuid, TagData.PROPERTIES);
+        return tagData == null ? null : new Tag(tagData);
     }
 
     public void createLink(Task task, String tagName) {
-        TodorooCursor<TagData> existingTag = tagDataDao.query(Query.select(TagData.NAME, TagData.UUID)
-                .where(TagData.NAME.eqCaseInsensitive(tagName)));
-        try {
-            TagData tagData;
-            if (existingTag.getCount() == 0) {
-                tagData = new TagData();
-                tagData.setName(tagName);
-                tagDataDao.persist(tagData);
-            } else {
-                existingTag.moveToFirst();
-                tagData = new TagData(existingTag);
-            }
-            createLink(task, tagData.getName(), tagData.getUUID());
-        } finally {
-            existingTag.close();
+        TagData tagData = tagDataDao.getTagByName(tagName, TagData.NAME, TagData.UUID);
+        if (tagData == null) {
+            tagData = new TagData();
+            tagData.setName(tagName);
+            tagDataDao.persist(tagData);
         }
+        createLink(task, tagData.getName(), tagData.getUUID());
     }
 
     public void createLink(Task task, String tagName, String tagUuid) {
@@ -223,23 +205,16 @@ public final class TagService {
     /**
      * Return all tags (including metadata tags and TagData tags) in an array list
      */
-    public ArrayList<Tag> getTagList() {
-        ArrayList<Tag> tagList = new ArrayList<>();
-        TodorooCursor<TagData> cursor = tagDataDao.query(Query.select(TagData.PROPERTIES).where(Criterion.and(
-                TagData.DELETION_DATE.eq(0),
-                TagData.NAME.isNotNull())).orderBy(Order.asc(Functions.upper(TagData.NAME))));
-        try {
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                TagData tagData = new TagData(cursor);
-                Tag tag = new Tag(tagData);
-                if(TextUtils.isEmpty(tag.tag)) {
-                    continue;
+    public List<Tag> getTagList() {
+        final List<Tag> tagList = new ArrayList<>();
+        tagDataDao.tagDataOrderedByName(new Callback<TagData>() {
+            @Override
+            public void apply(TagData tagData) {
+                if (!TextUtils.isEmpty(tagData.getName())) {
+                    tagList.add(new Tag(tagData));
                 }
-                tagList.add(tag);
             }
-        } finally {
-            cursor.close();
-        }
+        });
         return tagList;
     }
 
@@ -260,7 +235,7 @@ public final class TagService {
         }
 
         for (String tag : tags) {
-            TagData tagData = getTagDataWithCase(tag, TagData.NAME, TagData.UUID);
+            TagData tagData = tagDataDao.getTagByName(tag, TagData.NAME, TagData.UUID);
             if (tagData == null) {
                 tagData = new TagData();
                 tagData.setName(tag);
@@ -291,33 +266,15 @@ public final class TagService {
                 Metadata tagMatch = new Metadata(tagMetadata);
                 tagWithCase = tagMatch.getValue(TaskToTagMetadata.TAG_NAME);
             } else {
-                TodorooCursor<TagData> tagData = tagDataDao.query(Query.select(TagData.NAME).where(TagData.NAME.eqCaseInsensitive(tag)));
-                try {
-                    if (tagData.getCount() > 0) {
-                        tagData.moveToFirst();
-                        tagWithCase = new TagData(tagData).getName();
-                    }
-                } finally {
-                    tagData.close();
+                TagData tagData = tagDataDao.getTagByName(tag, TagData.NAME);
+                if (tagData != null) {
+                    tagWithCase = tagData.getName();
                 }
             }
         } finally {
             tagMetadata.close();
         }
         return tagWithCase;
-    }
-
-    public TagData getTagDataWithCase(String tag, Property<?>... properties) {
-        TodorooCursor<TagData> tagData = tagDataDao.query(Query.select(properties).where(TagData.NAME.eqCaseInsensitive(tag)));
-        try {
-            if (tagData.getCount() > 0) {
-                tagData.moveToFirst();
-                return new TagData(tagData);
-            }
-        } finally {
-            tagData.close();
-        }
-        return null;
     }
 
     public int rename(String uuid, String newName) {

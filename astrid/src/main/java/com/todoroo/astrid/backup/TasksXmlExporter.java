@@ -13,6 +13,7 @@ import android.util.Xml;
 import android.widget.Toast;
 
 import com.todoroo.andlib.data.AbstractModel;
+import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -174,27 +175,19 @@ public class TasksXmlExporter {
         fos.close();
     }
 
-    private void  serializeTagDatas() throws IOException {
-        TodorooCursor<TagData> cursor;
-        cursor = tagDataDao.query(Query.select(
-                TagData.PROPERTIES).orderBy(Order.asc(TagData.ID)));
-
-        try {
-            int length = cursor.getCount();
-            for(int i = 0; i < length; i++) {
-                cursor.moveToNext();
-                TagData tag = new TagData(cursor);
-
-                //TODO setProgress(i, length);
-
-                xml.startTag(null, BackupConstants.TAGDATA_TAG);
-                serializeModel(tag, TagData.PROPERTIES, TagData.ID);
-                xml.endTag(null, BackupConstants.TAGDATA_TAG);
-                //this.exportCount++;
+    private void serializeTagDatas() throws IOException {
+        tagDataDao.allTags(new Callback<TagData>() {
+            @Override
+            public void apply(TagData tag) {
+                try {
+                    xml.startTag(null, BackupConstants.TAGDATA_TAG);
+                    serializeModel(tag, TagData.PROPERTIES, TagData.ID);
+                    xml.endTag(null, BackupConstants.TAGDATA_TAG);
+                } catch(IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
-        } finally {
-            cursor.close();
-        }
+        });
     }
 
     private void serializeTasks() throws IOException {
