@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -85,6 +86,30 @@ public class DatabaseDao<TYPE extends AbstractModel> {
     }
 
     // --- dao methods
+
+    public List<TYPE> toList(Query query) {
+        final List<TYPE> result = new ArrayList<>();
+        query(new Callback<TYPE>() {
+            @Override
+            public void apply(TYPE entry) {
+                result.add(entry);
+            }
+        }, query);
+        return result;
+    }
+
+    public void query(Callback<TYPE> callback, Query query) {
+        TodorooCursor<TYPE> cursor = query(query);
+        try {
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                callback.apply(cursorConstructor.newInstance(cursor));
+            }
+        } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        } finally {
+            cursor.close();
+        }
+    }
 
     /**
      * Construct a query with SQL DSL objects
