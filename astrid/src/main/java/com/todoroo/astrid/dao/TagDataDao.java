@@ -6,7 +6,6 @@
 package com.todoroo.astrid.dao;
 
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
@@ -32,21 +31,7 @@ public class TagDataDao extends RemoteModelDao<TagData> {
      * Fetch a model object by UUID
      */
     public TagData fetch(String uuid, Property<?>... properties) {
-        TodorooCursor<TagData> cursor = fetchItem(uuid, properties);
-        return returnFetchResult(cursor);
-    }
-
-    /**
-     * Returns cursor to object corresponding to the given identifier
-     *
-     * @param properties
-     *            properties to read
-     */
-    private TodorooCursor<TagData> fetchItem(String uuid, Property<?>... properties) {
-        TodorooCursor<TagData> cursor = query(
-                Query.select(properties).where(RemoteModel.UUID_PROPERTY.eq(uuid)));
-        cursor.moveToFirst();
-        return new TodorooCursor<>(cursor, properties);
+        return getFirst(Query.select(properties).where(RemoteModel.UUID_PROPERTY.eq(uuid)));
     }
 }
 

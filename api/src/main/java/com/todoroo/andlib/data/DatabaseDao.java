@@ -144,19 +144,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      * @return null if no item found
      */
     public TYPE fetch(long id, Property<?>... properties) {
-        TodorooCursor<TYPE> cursor = fetchItem(id, properties);
-        return returnFetchResult(cursor);
-    }
-
-    protected TYPE returnFetchResult(TodorooCursor<TYPE> cursor) {
-        try {
-            if (cursor.getCount() == 0) {
-                return null;
-            }
-            return fromCursor(cursor);
-        } finally {
-            cursor.close();
-        }
+        return getFirst(Query.select(properties).where(AbstractModel.ID_PROPERTY.eq(id)));
     }
 
     /**
@@ -281,20 +269,6 @@ public class DatabaseDao<TYPE extends AbstractModel> {
     }
 
     // --- helper methods
-
-    /**
-     * Returns cursor to object corresponding to the given identifier
-     * @param properties
-     *            properties to read
-     * @param id
-     *            id of item
-     */
-    protected TodorooCursor<TYPE> fetchItem(long id, Property<?>... properties) {
-        TodorooCursor<TYPE> cursor = query(
-                Query.select(properties).where(AbstractModel.ID_PROPERTY.eq(id)));
-        cursor.moveToFirst();
-        return new TodorooCursor<>(cursor, properties);
-    }
 
     public int count(Query query) {
         TodorooCursor<TYPE> cursor = query(query);
