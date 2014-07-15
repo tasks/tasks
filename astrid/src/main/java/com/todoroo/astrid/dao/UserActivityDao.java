@@ -2,6 +2,10 @@ package com.todoroo.astrid.dao;
 
 import android.content.ContentValues;
 
+import com.todoroo.andlib.data.Callback;
+import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Order;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.UserActivity;
 
@@ -28,9 +32,17 @@ public class UserActivityDao extends RemoteModelDao<UserActivity> {
     @Override
     public boolean saveExisting(UserActivity item) {
         ContentValues values = item.getSetValues();
-        if(values == null || values.size() == 0) {
+        if (values == null || values.size() == 0) {
             return false;
         }
         return super.saveExisting(item);
+    }
+
+    public void getCommentsForTask(String taskUuid, Callback<UserActivity> callback) {
+        query(callback, Query.select(UserActivity.PROPERTIES).where(
+                Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TASK_COMMENT),
+                        UserActivity.TARGET_ID.eq(taskUuid),
+                        UserActivity.DELETED_AT.eq(0))
+        ).orderBy(Order.desc("1")));
     }
 }

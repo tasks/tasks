@@ -405,30 +405,6 @@ public class AndroidUtilities {
     }
 
     /**
-     * Join items to a list
-     */
-    public static <T> T[] addToArray(Class<T> type, T[] list, T... newItems) {
-        int originalListLength = 0;
-        int length = 0;
-        if (list != null) {
-            originalListLength = list.length;
-            length += list.length;
-        }
-        if (newItems != null) {
-            length += newItems.length;
-        }
-
-        T[] newList = (T[]) Array.newInstance(type, length);
-        if (list != null) {
-            System.arraycopy(list, 0, newList, 0, list.length);
-        }
-        if (newItems != null) {
-            System.arraycopy(newItems, 0, newList, originalListLength, newItems.length);
-        }
-        return newList;
-    }
-
-    /**
      * Capitalize the first character
      */
     public static String capitalize(String string) {

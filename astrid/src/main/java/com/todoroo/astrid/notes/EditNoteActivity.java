@@ -31,17 +31,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-import com.todoroo.andlib.data.Property;
+import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.ActFmCameraModule;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
-import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -70,21 +66,6 @@ import static org.tasks.files.FileHelper.getPathFromUri;
 import static org.tasks.files.ImageHelper.sampleBitmap;
 
 public class EditNoteActivity extends LinearLayout implements TimerActionListener {
-
-    private static final Property.StringProperty ACTIVITY_TYPE_PROPERTY = new Property.StringProperty(null, "'" + NameMaps.TABLE_ID_USER_ACTIVITY + "' as type");  //$NON-NLS-1$//$NON-NLS-2$
-
-    private static final Property<?>[] USER_ACTIVITY_PROPERTIES = {
-            UserActivity.CREATED_AT,
-            UserActivity.UUID,
-            UserActivity.ACTION,
-            UserActivity.MESSAGE,
-            UserActivity.TARGET_ID,
-            UserActivity.PICTURE,
-            UserActivity.ID,
-            ACTIVITY_TYPE_PROPERTY,
-    };
-
-    private static final int TYPE_PROPERTY_INDEX = USER_ACTIVITY_PROPERTIES.length - 1;
 
     private Task task;
 
@@ -215,6 +196,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //
@@ -224,7 +206,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         commentField.setOnEditorActionListener(new OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
-                if(actionId == EditorInfo.IME_NULL && commentField.getText().length() > 0) {
+                if (actionId == EditorInfo.IME_NULL && commentField.getText().length() > 0) {
                     addComment();
                     return true;
                 }
@@ -291,30 +273,17 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             notes.close();
         }
 
-        TodorooCursor<UserActivity> updates = getActivityForTask(task);
-        try {
-            UserActivity update = new UserActivity();
-            for(updates.moveToFirst(); !updates.isAfterLast(); updates.moveToNext()) {
-                update.clear();
-
-                String type = updates.getString(TYPE_PROPERTY_INDEX);
-                NoteOrUpdate noa = null;
-                if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(type)) {
-                    readUserActivityProperties(updates, update);
-                    noa = NoteOrUpdate.fromUpdate(update);
-                }
-                if(noa != null) {
-                    items.add(noa);
-                }
+        userActivityDao.getCommentsForTask(task.getUuid(), new Callback<UserActivity>() {
+            @Override
+            public void apply(UserActivity update) {
+                items.add(NoteOrUpdate.fromUpdate(update));
             }
-        } finally {
-            updates.close();
-        }
+        });
 
         Collections.sort(items, new Comparator<NoteOrUpdate>() {
             @Override
             public int compare(NoteOrUpdate a, NoteOrUpdate b) {
-                if(a.createdAt < b.createdAt) {
+                if (a.createdAt < b.createdAt) {
                     return 1;
                 } else if (a.createdAt == b.createdAt) {
                     return 0;
@@ -348,24 +317,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         for (UpdatesChangedListener l : listeners) {
             l.updatesChanged();
         }
-    }
-
-    public TodorooCursor<UserActivity> getActivityForTask(Task task) {
-        Query taskQuery = Query.select(AndroidUtilities.addToArray(Property.class, USER_ACTIVITY_PROPERTIES))
-                .where(Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TASK_COMMENT), UserActivity.TARGET_ID.eq(task.getUuid()), UserActivity.DELETED_AT.eq(0)));
-
-        Query resultQuery = taskQuery.orderBy(Order.desc("1")); //$NON-NLS-1$
-
-        return userActivityDao.query(resultQuery);
-    }
-
-    private static void readUserActivityProperties(TodorooCursor<UserActivity> unionCursor, UserActivity activity) {
-        activity.setCreatedAt(unionCursor.getLong(0));
-        activity.setUUID(unionCursor.getString(1));
-        activity.setAction(unionCursor.getString(2));
-        activity.setMessage(unionCursor.getString(3));
-        activity.setTargetId(unionCursor.getString(4));
-        activity.setPicture(unionCursor.getString(5));
     }
 
     public View getUpdateNotes(NoteOrUpdate note, ViewGroup parent) {
