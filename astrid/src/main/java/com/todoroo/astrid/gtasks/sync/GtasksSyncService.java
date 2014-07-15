@@ -25,7 +25,6 @@ import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.HttpNotFoundException;
 import com.todoroo.astrid.gtasks.api.MoveRequest;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
-import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 
 import org.slf4j.Logger;
@@ -45,7 +44,6 @@ public class GtasksSyncService {
 
     private static final String DEFAULT_LIST = "@default"; //$NON-NLS-1$
 
-    private final MetadataService metadataService;
     private final MetadataDao metadataDao;
     private final GtasksMetadataService gtasksMetadataService;
     private final TaskDao taskDao;
@@ -54,11 +52,9 @@ public class GtasksSyncService {
     private final GtasksMetadata gtasksMetadataFactory;
 
     @Inject
-    public GtasksSyncService(MetadataService metadataService, MetadataDao metadataDao,
-                             GtasksMetadataService gtasksMetadataService, TaskDao taskDao,
-                             GtasksPreferenceService gtasksPreferenceService,
+    public GtasksSyncService(MetadataDao metadataDao, GtasksMetadataService gtasksMetadataService,
+                             TaskDao taskDao, GtasksPreferenceService gtasksPreferenceService,
                              GtasksTokenValidator gtasksTokenValidator, GtasksMetadata gtasksMetadataFactory) {
-        this.metadataService = metadataService;
         this.metadataDao = metadataDao;
         this.gtasksMetadataService = gtasksMetadataService;
         this.taskDao = taskDao;
@@ -316,7 +312,7 @@ public class GtasksSyncService {
 
         task.setModificationDate(DateUtilities.now());
         gtasksMetadata.setValue(GtasksMetadata.LAST_SYNC, DateUtilities.now() + 1000L);
-        metadataService.save(gtasksMetadata);
+        metadataDao.persist(gtasksMetadata);
         task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
         taskDao.saveExistingWithSqlConstraintCheck(task);
     }

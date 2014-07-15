@@ -7,10 +7,10 @@ package com.todoroo.astrid.gtasks;
 
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
+import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
@@ -25,7 +25,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
     @Inject GtasksMetadataService gtasksMetadataService;
     @Inject GtasksListService gtasksListService;
     @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
-    @Inject MetadataService metadataService;
+    @Inject MetadataDao metadataDao;
     @Inject TaskService taskService;
     @Inject GtasksMetadata gtasksMetadata;
 
@@ -161,7 +161,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         metadata.setValue(GtasksMetadata.ORDER, order);
         metadata.setValue(GtasksMetadata.LIST_ID, "list");
         metadata.setTask(newTask.getId());
-        metadataService.save(metadata);
+        metadataDao.persist(metadata);
         return newTask;
     }
 

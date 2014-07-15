@@ -10,6 +10,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
 import javax.inject.Inject;
@@ -19,8 +20,15 @@ public class MetadataDaoTests extends DatabaseTestCase {
     @Inject MetadataDao metadataDao;
     @Inject TaskDao taskDao;
 
-    public static Property<?>[] KEYS = new Property<?>[] { Metadata.ID,
-            Metadata.KEY };
+    private Metadata metadata;
+
+    public static Property<?>[] KEYS = new Property<?>[] { Metadata.ID, Metadata.KEY };
+
+    @Override
+    public void setUp() {
+        super.setUp();
+        metadata = new Metadata();
+    }
 
     /**
      * Test basic creation, fetch, and save
@@ -33,6 +41,7 @@ public class MetadataDaoTests extends DatabaseTestCase {
 
         // create "happy"
         Metadata metadata = new Metadata();
+        metadata.setTask(1L);
         metadata.setKey("happy");
         assertTrue(metadataDao.persist(metadata));
         cursor = metadataDao.query(
@@ -46,6 +55,7 @@ public class MetadataDaoTests extends DatabaseTestCase {
 
         // create "sad"
         metadata = new Metadata();
+        metadata.setTask(1L);
         metadata.setKey("sad");
         assertTrue(metadataDao.persist(metadata));
         cursor = metadataDao.query(Query.select(Metadata.ID));
@@ -122,5 +132,41 @@ public class MetadataDaoTests extends DatabaseTestCase {
                 Query.select(KEYS));
         assertEquals(1, cursor.getCount());
         cursor.close();
+    }
+
+    public void testDontSaveMetadataWithoutTaskId() {
+        try {
+            metadataDao.persist(metadata);
+            fail("expected exception");
+        } catch(IllegalArgumentException e) {
+            assertTrue(e.getMessage().startsWith("metadata needs to be attached to a task"));
+        }
+    }
+
+    public void testSaveMetadata() {
+        metadata.setTask(1L);
+        metadataDao.persist(metadata);
+
+        assertNotNull(metadataDao.fetch(metadata.getId()));
+    }
+
+    public void testDontDeleteValidMetadata() {
+        final Task task = new Task();
+        taskDao.save(task);
+        metadata.setTask(task.getId());
+        metadataDao.persist(metadata);
+
+        metadataDao.removeDanglingMetadata();
+
+        assertNotNull(metadataDao.fetch(metadata.getId()));
+    }
+
+    public void testDeleteDangling() {
+        metadata.setTask(1L);
+        metadataDao.persist(metadata);
+
+        metadataDao.removeDanglingMetadata();
+
+        assertNull(metadataDao.fetch(1));
     }
 }

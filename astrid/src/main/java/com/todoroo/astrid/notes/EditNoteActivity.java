@@ -40,13 +40,13 @@ import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
+import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
-import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.timers.TimerActionControlSet.TimerActionListener;
@@ -70,7 +70,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     private Task task;
 
     private final Preferences preferences;
-    private final MetadataService metadataService;
+    private final MetadataDao metadataDao;
     private final UserActivityDao userActivityDao;
     private final TaskService taskService;
     private final ArrayList<NoteOrUpdate> items = new ArrayList<>();
@@ -100,7 +100,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     public EditNoteActivity(
             Preferences preferences,
-            MetadataService metadataService,
+            MetadataDao metadataDao,
             UserActivityDao userActivityDao,
             TaskService taskService,
             Fragment fragment,
@@ -108,7 +108,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             long t) {
         super(fragment.getActivity());
         this.preferences = preferences;
-        this.metadataService = metadataService;
+        this.metadataDao = metadataDao;
         this.userActivityDao = userActivityDao;
         this.taskService = taskService;
 
@@ -260,7 +260,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     private void setUpListAdapter() {
         items.clear();
         this.removeAllViews();
-        TodorooCursor<Metadata> notes = metadataService.query(
+        TodorooCursor<Metadata> notes = metadataDao.query(
                 Query.select(Metadata.PROPERTIES).where(
                         MetadataCriteria.byTaskAndwithKey(task.getId(),
                                 NoteMetadata.METADATA_KEY)));

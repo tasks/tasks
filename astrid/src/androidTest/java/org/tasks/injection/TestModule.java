@@ -13,7 +13,6 @@ import com.todoroo.astrid.model.TaskTest;
 import com.todoroo.astrid.provider.Astrid3ProviderTests;
 import com.todoroo.astrid.reminders.ReminderServiceTest;
 import com.todoroo.astrid.repeats.NewRepeatTests;
-import com.todoroo.astrid.service.MetadataServiceTest;
 import com.todoroo.astrid.service.QuickAddMarkupTest;
 import com.todoroo.astrid.service.TitleParserTest;
 import com.todoroo.astrid.subtasks.SubtasksHelperTest;
@@ -44,8 +43,7 @@ import dagger.Provides;
         ReminderServiceTest.class,
         SubtasksHelperTest.class,
         SubtasksMovingTest.class,
-        SyncModelTest.class,
-        MetadataServiceTest.class
+        SyncModelTest.class
 })
 public class TestModule {
     private Context context;

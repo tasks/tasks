@@ -23,10 +23,10 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater.Node;
 import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater.OrderedListNodeVisitor;
@@ -55,17 +55,17 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
     private final ActivityPreferences preferences;
     private final TaskAttachmentDao taskAttachmentDao;
     private final TaskService taskService;
-    private final MetadataService metadataService;
+    private final MetadataDao metadataDao;
 
     private DraggableTaskAdapter taskAdapter;
 
     private LIST list;
 
-    public OrderedMetadataListFragmentHelper(ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao, TaskService taskService, MetadataService metadataService, TaskListFragment fragment, OrderedMetadataListUpdater<LIST> updater) {
+    public OrderedMetadataListFragmentHelper(ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao, TaskService taskService, MetadataDao metadataDao, TaskListFragment fragment, OrderedMetadataListUpdater<LIST> updater) {
         this.preferences = preferences;
         this.taskAttachmentDao = taskAttachmentDao;
         this.taskService = taskService;
-        this.metadataService = metadataService;
+        this.metadataDao = metadataDao;
         this.fragment = fragment;
         this.updater = updater;
     }
@@ -245,7 +245,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
                 if(!TextUtils.isEmpty(childTask.getRecurrence())) {
                     Metadata metadata = updater.getTaskMetadata(node.taskId);
                     metadata.setValue(updater.indentProperty(), parentIndent);
-                    metadataService.save(metadata);
+                    metadataDao.persist(metadata);
                 }
 
                 model.setId(node.taskId);

@@ -7,9 +7,9 @@ package com.todoroo.astrid.gtasks;
 
 import android.content.Context;
 
+import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
@@ -45,7 +45,7 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
 
     @Inject GtasksTestPreferenceService preferences;
     @Inject GtasksMetadataService gtasksMetadataService;
-    @Inject MetadataService metadataService;
+    @Inject MetadataDao metadataDao;
     @Inject TaskService taskService;
     @Inject GtasksMetadata gtasksMetadata;
 
@@ -99,7 +99,7 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
         if (id != null)
             metadata.setValue(GtasksMetadata.ID, id);
         metadata.setTask(task.getId());
-        metadataService.save(metadata);
+        metadataDao.persist(metadata);
         return task;
     }
 

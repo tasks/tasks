@@ -18,12 +18,11 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.MetadataService;
-import org.tasks.sync.SyncThrottle;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.OrderedListFragmentHelperInterface;
@@ -34,6 +33,7 @@ import org.tasks.R;
 import org.tasks.injection.ForActivity;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.sync.IndeterminateProgressBarSyncResultCallback;
+import org.tasks.sync.SyncThrottle;
 
 import javax.inject.Inject;
 
@@ -42,7 +42,7 @@ public class GtasksListFragment extends SubtasksListFragment {
     public static final String TOKEN_STORE_ID = "storeId"; //$NON-NLS-1$
 
     @Inject TaskService taskService;
-    @Inject MetadataService metadataService;
+    @Inject MetadataDao metadataDao;
     @Inject StoreObjectDao storeObjectDao;
     @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
     @Inject GtasksMetadataService gtasksMetadataService;
@@ -66,7 +66,7 @@ public class GtasksListFragment extends SubtasksListFragment {
 
     @Override
     protected OrderedListFragmentHelperInterface<?> createFragmentHelper() {
-        return new OrderedMetadataListFragmentHelper<>(preferences, taskAttachmentDao, taskService, metadataService, this, gtasksTaskListUpdater);
+        return new OrderedMetadataListFragmentHelper<>(preferences, taskAttachmentDao, taskService, metadataDao, this, gtasksTaskListUpdater);
     }
 
     @Override

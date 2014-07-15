@@ -10,9 +10,11 @@ import android.content.ContentValues;
 import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.Task;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -109,11 +111,22 @@ public class MetadataDao extends DatabaseDao<Metadata> {
 
     @Override
     public boolean persist(Metadata item) {
+        if(!item.containsNonNullValue(Metadata.TASK)) {
+            throw new IllegalArgumentException("metadata needs to be attached to a task: " + item.getMergedValues()); //$NON-NLS-1$
+        }
         if(!item.containsValue(Metadata.CREATION_DATE)) {
             item.setCreationDate(DateUtilities.now());
         }
 
         return super.persist(item);
+    }
+
+    /**
+     * Clean up metadata. Typically called on startup
+     */
+    public void removeDanglingMetadata() {
+        deleteWhere(Metadata.ID.in(Query.select(Metadata.ID).from(Metadata.TABLE).join(Join.left(Task.TABLE,
+                Metadata.TASK.eq(Task.ID))).where(Task.TITLE.isNull())));
     }
 }
 

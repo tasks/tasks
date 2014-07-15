@@ -19,9 +19,9 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
-import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.TodorooPreferenceActivity;
@@ -41,7 +41,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
 
     @Inject TaskDeleter taskDeleter;
     @Inject TaskService taskService;
-    @Inject MetadataService metadataService;
+    @Inject MetadataDao metadataDao;
     @Inject Database database;
     @Inject GCalHelper gcalHelper;
     @Inject Preferences preferences;
@@ -195,7 +195,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                                     cursor.close();
                                 }
                                 int result = taskDeleter.purgeDeletedTasks();
-                                metadataService.removeDanglingMetadata();
+                                metadataDao.removeDanglingMetadata();
                                 showResult(R.string.EPr_manage_purge_deleted_status, result);
                             }
                         });

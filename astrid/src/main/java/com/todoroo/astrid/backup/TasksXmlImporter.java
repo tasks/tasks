@@ -24,11 +24,11 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
@@ -49,7 +49,7 @@ public class TasksXmlImporter {
     private static final Logger log = LoggerFactory.getLogger(TasksXmlImporter.class);
 
     private final TagDataDao tagDataDao;
-    private final MetadataService metadataService;
+    private final MetadataDao metadataDao;
     private final TaskService taskService;
 
     private Context context;
@@ -72,9 +72,9 @@ public class TasksXmlImporter {
     }
 
     @Inject
-    public TasksXmlImporter(TagDataDao tagDataDao, MetadataService metadataService, TaskService taskService) {
+    public TasksXmlImporter(TagDataDao tagDataDao, MetadataDao metadataDao, TaskService taskService) {
         this.tagDataDao = tagDataDao;
-        this.metadataService = metadataService;
+        this.metadataDao = metadataDao;
         this.taskService = taskService;
     }
 
@@ -276,7 +276,7 @@ public class TasksXmlImporter {
             deserializeModel(metadata, Metadata.PROPERTIES);
             metadata.setId(Metadata.NO_ID);
             metadata.setTask(currentTask.getId());
-            metadataService.save(metadata);
+            metadataDao.persist(metadata);
 
             // Construct the TagData from Metadata
             // Fix for failed backup, Version before 4.6.10

@@ -15,6 +15,7 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.PermaSql;
+import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
@@ -63,17 +64,17 @@ public class TaskService {
     private final FilterCounter filterCounter;
     private final RefreshScheduler refreshScheduler;
     private final TagService tagService;
-    private final MetadataService metadataService;
+    private final MetadataDao metadataDao;
 
     @Inject
     public TaskService(TaskDao taskDao, Broadcaster broadcaster, FilterCounter filterCounter,
-                       RefreshScheduler refreshScheduler, TagService tagService, MetadataService metadataService) {
+                       RefreshScheduler refreshScheduler, TagService tagService, MetadataDao metadataDao) {
         this.taskDao = taskDao;
         this.broadcaster = broadcaster;
         this.filterCounter = filterCounter;
         this.refreshScheduler = refreshScheduler;
         this.tagService = tagService;
-        this.metadataService = metadataService;
+        this.metadataDao = metadataDao;
     }
 
     // --- service layer
@@ -289,7 +290,7 @@ public class TaskService {
                     tagService.createLink(task, metadata.getValue(TaskToTagMetadata.TAG_NAME));
                 }
             } else {
-                metadataService.save(metadata);
+                metadataDao.persist(metadata);
             }
         }
 

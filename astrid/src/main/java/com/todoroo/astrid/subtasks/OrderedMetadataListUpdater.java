@@ -7,9 +7,9 @@ package com.todoroo.astrid.subtasks;
 
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
+import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.MetadataService;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 abstract public class OrderedMetadataListUpdater<LIST> {
 
-    private MetadataService metadataService;
+    private MetadataDao metadataDao;
 
     public interface OrderedListIterator {
         public void processTask(long taskId, Metadata metadata);
@@ -39,8 +39,8 @@ abstract public class OrderedMetadataListUpdater<LIST> {
 
     abstract protected Metadata createEmptyMetadata(LIST list, long taskId);
 
-    public OrderedMetadataListUpdater(MetadataService metadataService) {
-        this.metadataService = metadataService;
+    public OrderedMetadataListUpdater(MetadataDao metadataDao) {
+        this.metadataDao = metadataDao;
     }
 
     protected void beforeIndent(LIST list) {
@@ -291,7 +291,7 @@ abstract public class OrderedMetadataListUpdater<LIST> {
         if(metadata.getSetValues().size() == 0) {
             return;
         }
-        metadataService.save(metadata);
+        metadataDao.persist(metadata);
     }
 
     // --- task cascading operations

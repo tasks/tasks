@@ -19,7 +19,6 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
-import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater;
 
 import org.slf4j.Logger;
@@ -51,19 +50,16 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
     private final GtasksMetadataService gtasksMetadataService;
     private final GtasksSyncService gtasksSyncService;
     private final MetadataDao metadataDao;
-    private final MetadataService metadataService;
     private final GtasksMetadata gtasksMetadata;
 
     @Inject
     public GtasksTaskListUpdater(GtasksListService gtasksListService, GtasksMetadataService gtasksMetadataService,
-                                 GtasksSyncService gtasksSyncService, MetadataDao metadataDao, MetadataService metadataService,
-                                 GtasksMetadata gtasksMetadata) {
-        super(metadataService);
+                                 GtasksSyncService gtasksSyncService, MetadataDao metadataDao, GtasksMetadata gtasksMetadata) {
+        super(metadataDao);
         this.gtasksListService = gtasksListService;
         this.gtasksMetadataService = gtasksMetadataService;
         this.gtasksSyncService = gtasksSyncService;
         this.metadataDao = metadataDao;
-        this.metadataService = metadataService;
         this.gtasksMetadata = gtasksMetadata;
     }
 
@@ -142,7 +138,7 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
                 }
                 metadata.setValue(GtasksMetadata.PARENT_TASK, parent);
 
-                metadataService.save(metadata);
+                metadataDao.persist(metadata);
                 previousIndent.set(indent);
             }
         });

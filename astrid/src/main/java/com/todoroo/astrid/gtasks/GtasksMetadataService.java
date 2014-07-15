@@ -21,7 +21,6 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.sync.GtasksTaskContainer;
-import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater.OrderedListIterator;
 import com.todoroo.astrid.utility.SyncMetadataService;
 
@@ -41,12 +40,9 @@ import javax.inject.Singleton;
 @Singleton
 public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskContainer> {
 
-    private MetadataService metadataService;
-
     @Inject
-    public GtasksMetadataService(TaskDao taskDao, MetadataDao metadataDao, MetadataService metadataService) {
+    public GtasksMetadataService(TaskDao taskDao, MetadataDao metadataDao) {
         super(taskDao, metadataDao);
-        this.metadataService = metadataService;
     }
 
     public Criterion getLocalMatchCriteria(GtasksTaskContainer remoteTask) {
@@ -111,7 +107,7 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
                         GtasksMetadata.LIST_ID.eq(listId),
                         startAtCriterion)).
                         orderBy(order);
-        TodorooCursor<Metadata> cursor = metadataService.query(query);
+        TodorooCursor<Metadata> cursor = metadataDao.query(query);
         try {
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 long taskId = cursor.get(Metadata.TASK);

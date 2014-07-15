@@ -30,6 +30,7 @@ import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.Metadata;
@@ -73,7 +74,7 @@ public class StartupService {
     private final Database database;
     private final GtasksPreferenceService gtasksPreferenceService;
     private final GtasksSyncService gtasksSyncService;
-    private final MetadataService metadataService;
+    private final MetadataDao metadataDao;
     private final Preferences preferences;
     private final TasksXmlImporter xmlImporter;
     private final CalendarAlarmScheduler calendarAlarmScheduler;
@@ -83,7 +84,7 @@ public class StartupService {
     public StartupService(UpgradeService upgradeService, TaskService taskService,
                           TagDataDao tagDataDao, Database database,
                           GtasksPreferenceService gtasksPreferenceService,
-                          GtasksSyncService gtasksSyncService, MetadataService metadataService,
+                          GtasksSyncService gtasksSyncService, MetadataDao metadataDao,
                           Preferences preferences, TasksXmlImporter xmlImporter,
                           CalendarAlarmScheduler calendarAlarmScheduler, TaskDeleter taskDeleter) {
         this.upgradeService = upgradeService;
@@ -92,7 +93,7 @@ public class StartupService {
         this.database = database;
         this.gtasksPreferenceService = gtasksPreferenceService;
         this.gtasksSyncService = gtasksSyncService;
-        this.metadataService = metadataService;
+        this.metadataDao = metadataDao;
         this.preferences = preferences;
         this.xmlImporter = xmlImporter;
         this.calendarAlarmScheduler = calendarAlarmScheduler;
@@ -216,7 +217,7 @@ public class StartupService {
                 if (values != null) {
                     if (values.containsKey(TagData.NAME.name)) {
                         m.setValue(TaskToTagMetadata.TAG_NAME, model.getName());
-                        metadataService.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
+                        metadataDao.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
                                 TaskToTagMetadata.TAG_UUID.eq(model.getUUID())), m);
                     }
                 }

@@ -21,12 +21,12 @@ import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 
 import org.slf4j.Logger;
@@ -60,7 +60,7 @@ public class TasksXmlExporter {
     // --- implementation
 
     private final TagDataDao tagDataDao;
-    private final MetadataService metadataService;
+    private final MetadataDao metadataDao;
     private final TaskService taskService;
     private final Preferences preferences;
 
@@ -86,9 +86,9 @@ public class TasksXmlExporter {
     }
 
     @Inject
-    public TasksXmlExporter(TagDataDao tagDataDao, MetadataService metadataService, TaskService taskService, Preferences preferences) {
+    public TasksXmlExporter(TagDataDao tagDataDao, MetadataDao metadataDao, TaskService taskService, Preferences preferences) {
         this.tagDataDao = tagDataDao;
-        this.metadataService = metadataService;
+        this.metadataDao = metadataDao;
         this.taskService = taskService;
         this.preferences = preferences;
     }
@@ -214,7 +214,7 @@ public class TasksXmlExporter {
     }
 
     private synchronized void serializeMetadata(Task task) throws IOException {
-        TodorooCursor<Metadata> cursor = metadataService.query(Query.select(
+        TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(
                 Metadata.PROPERTIES).where(MetadataCriteria.byTask(task.getId())));
         try {
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {

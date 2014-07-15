@@ -14,7 +14,6 @@ import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
-import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.UpgradeService;
@@ -40,7 +39,6 @@ public class Tasks extends InjectingApplication {
     @Inject TaskAttachmentDao taskAttachmentDao;
     @Inject TaskListMetadataDao taskListMetadataDao;
     @Inject TaskService taskService;
-    @Inject MetadataService metadataService;
     @Inject UpgradeService upgradeService;
     @Inject SyncV2Service syncV2Service;
     @Inject GtasksPreferenceService gtasksPreferenceService;

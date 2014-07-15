@@ -7,6 +7,7 @@ package com.todoroo.astrid.alarms;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 
@@ -16,21 +17,23 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ReminderService;
-import com.todoroo.astrid.service.MetadataService;
-import com.todoroo.astrid.service.MetadataService.SynchronizeMetadataCallback;
+import com.todoroo.astrid.service.SynchronizeMetadataCallback;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.injection.ForApplication;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -48,12 +51,12 @@ public class AlarmService {
 
     // --- data retrieval
 
-    private final MetadataService metadataService;
+    private MetadataDao metadataDao;
     private final Context context;
 
     @Inject
-    public AlarmService(MetadataService metadataService, @ForApplication Context context) {
-        this.metadataService = metadataService;
+    public AlarmService(MetadataDao metadataDao, @ForApplication Context context) {
+        this.metadataDao = metadataDao;
         this.context = context;
     }
 
@@ -61,7 +64,7 @@ public class AlarmService {
      * Return alarms for the given task. PLEASE CLOSE THE CURSOR!
      */
     public TodorooCursor<Metadata> getAlarms(long taskId) {
-        return metadataService.query(Query.select(
+        return metadataDao.query(Query.select(
                 Metadata.PROPERTIES).where(MetadataCriteria.byTaskAndwithKey(
                 taskId, AlarmFields.METADATA_KEY)).orderBy(Order.asc(AlarmFields.TIME)));
     }
@@ -82,7 +85,7 @@ public class AlarmService {
 
         final AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 
-        boolean changed = metadataService.synchronizeMetadata(taskId, metadata, Metadata.KEY.eq(AlarmFields.METADATA_KEY), new SynchronizeMetadataCallback() {
+        boolean changed = synchronizeMetadata(taskId, metadata, Metadata.KEY.eq(AlarmFields.METADATA_KEY), new SynchronizeMetadataCallback() {
             @Override
             public void beforeDeleteMetadata(Metadata m) {
                 // Cancel the alarm before the metadata is deleted
@@ -104,7 +107,7 @@ public class AlarmService {
      * @return todoroo cursor. PLEASE CLOSE THIS CURSOR!
      */
     private TodorooCursor<Metadata> getActiveAlarms() {
-        return metadataService.query(Query.select(Metadata.ID, Metadata.TASK, AlarmFields.TIME).
+        return metadataDao.query(Query.select(Metadata.ID, Metadata.TASK, AlarmFields.TIME).
                 join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
                 where(Criterion.and(TaskCriteria.isActive(), MetadataCriteria.withKey(AlarmFields.METADATA_KEY))));
     }
@@ -114,7 +117,7 @@ public class AlarmService {
      * @return todoroo cursor. PLEASE CLOSE THIS CURSOR!
      */
     private TodorooCursor<Metadata> getActiveAlarmsForTask(long taskId) {
-        return metadataService.query(Query.select(Metadata.ID, Metadata.TASK, AlarmFields.TIME).
+        return metadataDao.query(Query.select(Metadata.ID, Metadata.TASK, AlarmFields.TIME).
                 join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
                 where(Criterion.and(TaskCriteria.isActive(),
                         MetadataCriteria.byTaskAndwithKey(taskId, AlarmFields.METADATA_KEY))));
@@ -186,5 +189,66 @@ public class AlarmService {
         } else if(time > DateUtilities.now()) {
             am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
         }
+    }
+
+    private boolean synchronizeMetadata(long taskId, ArrayList<Metadata> metadata,
+                                       Criterion metadataCriterion, SynchronizeMetadataCallback callback) {
+        boolean dirty = false;
+        HashSet<ContentValues> newMetadataValues = new HashSet<>();
+        for(Metadata metadatum : metadata) {
+            metadatum.setTask(taskId);
+            metadatum.clearValue(Metadata.CREATION_DATE);
+            metadatum.clearValue(Metadata.ID);
+
+            ContentValues values = metadatum.getMergedValues();
+            for(Map.Entry<String, Object> entry : values.valueSet()) {
+                if(entry.getKey().startsWith("value")) //$NON-NLS-1$
+                {
+                    values.put(entry.getKey(), entry.getValue().toString());
+                }
+            }
+            newMetadataValues.add(values);
+        }
+
+        TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(Metadata.PROPERTIES).where(Criterion.and(MetadataCriteria.byTask(taskId),
+                metadataCriterion)));
+        try {
+            // try to find matches within our metadata list
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                Metadata item = new Metadata(cursor);
+                long id = item.getId();
+
+                // clear item id when matching with incoming values
+                item.clearValue(Metadata.ID);
+                item.clearValue(Metadata.CREATION_DATE);
+                ContentValues itemMergedValues = item.getMergedValues();
+
+                if(newMetadataValues.contains(itemMergedValues)) {
+                    newMetadataValues.remove(itemMergedValues);
+                    continue;
+                }
+
+                // not matched. cut it
+                item.setId(id);
+                if (callback != null) {
+                    callback.beforeDeleteMetadata(item);
+                }
+                metadataDao.delete(id);
+                dirty = true;
+            }
+        } finally {
+            cursor.close();
+        }
+
+        // everything that remains shall be written
+        for(ContentValues values : newMetadataValues) {
+            Metadata item = new Metadata();
+            item.setCreationDate(DateUtilities.now());
+            item.mergeWith(values);
+            metadataDao.persist(item);
+            dirty = true;
+        }
+
+        return dirty;
     }
 }

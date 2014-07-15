@@ -26,7 +26,6 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.MetadataService;
 
 import org.tasks.R;
 
@@ -55,13 +54,11 @@ public final class TagService {
     };
 
     private final MetadataDao metadataDao;
-    private final MetadataService metadataService;
     private final TagDataDao tagDataDao;
 
     @Inject
-    public TagService(MetadataDao metadataDao, MetadataService metadataService, TagDataDao tagDataDao) {
+    public TagService(MetadataDao metadataDao, TagDataDao tagDataDao) {
         this.metadataDao = metadataDao;
-        this.metadataService = metadataService;
         this.tagDataDao = tagDataDao;
     }
 
@@ -259,7 +256,7 @@ public final class TagService {
      */
     public String getTagWithCase(String tag) {
         String tagWithCase = tag;
-        TodorooCursor<Metadata> tagMetadata = metadataService.query(Query.select(TaskToTagMetadata.TAG_NAME).where(TagService.tagEqIgnoreCase(tag, Criterion.all)).limit(1));
+        TodorooCursor<Metadata> tagMetadata = metadataDao.query(Query.select(TaskToTagMetadata.TAG_NAME).where(TagService.tagEqIgnoreCase(tag, Criterion.all)).limit(1));
         try {
             if (tagMetadata.getCount() > 0) {
                 tagMetadata.moveToFirst();
