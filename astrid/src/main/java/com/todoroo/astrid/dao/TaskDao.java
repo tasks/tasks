@@ -8,6 +8,7 @@ package com.todoroo.astrid.dao;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteConstraintException;
 
+import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
@@ -15,6 +16,7 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.reminders.ReminderService;
@@ -105,6 +107,19 @@ public class TaskDao extends RemoteModelDao<Task> {
         public static Criterion hasNoTitle() {
     	    return Criterion.or(Task.TITLE.isNull(), Task.TITLE.eq(""));
     	}
+    }
+
+    public String uuidFromLocalId(long localId) {
+        TodorooCursor<Task> cursor = query(Query.select(RemoteModel.UUID_PROPERTY).where(AbstractModel.ID_PROPERTY.eq(localId)));
+        try {
+            if (cursor.getCount() == 0) {
+                return RemoteModel.NO_UUID;
+            }
+            cursor.moveToFirst();
+            return cursor.get(RemoteModel.UUID_PROPERTY);
+        } finally {
+            cursor.close();
+        }
     }
 
     // --- delete
