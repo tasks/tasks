@@ -22,8 +22,8 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.core.CoreFilterExposer;
+import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.widget.TasksWidget;
@@ -69,12 +69,12 @@ public class WidgetHelper {
         context.sendBroadcast(intent);
     }
 
-    private final TagDataService tagDataService;
+    private final TagDataDao tagDataDao;
     private final Preferences preferences;
 
     @Inject
-    public WidgetHelper(TagDataService tagDataService, Preferences preferences) {
-        this.tagDataService = tagDataService;
+    public WidgetHelper(TagDataDao tagDataDao, Preferences preferences) {
+        this.tagDataDao = tagDataDao;
         this.preferences = preferences;
     }
 
@@ -211,7 +211,7 @@ public class WidgetHelper {
         long id = preferences.getLong(WidgetConfigActivity.PREF_TAG_ID + widgetId, 0);
         TagData tagData;
         if (id > 0) {
-            tagData = tagDataService.fetchById(id, TagData.ID, TagData.NAME, TagData.UUID);
+            tagData = tagDataDao.fetch(id, TagData.ID, TagData.NAME, TagData.UUID);
             if (tagData != null && !tagData.getName().equals(filter.title)) { // Tag has been renamed; rebuild filter
                 filter = TagFilterExposer.filterFromTagData(context, tagData);
                 preferences.setString(WidgetConfigActivity.PREF_SQL + widgetId, filter.getSqlQuery());
@@ -231,7 +231,7 @@ public class WidgetHelper {
                 }
             }
         } else {
-            tagData = tagDataService.getTagByName(filter.title, TagData.ID);
+            tagData = tagDataDao.getTagByName(filter.title, TagData.ID);
             if (tagData != null) {
                 preferences.setLong(WidgetConfigActivity.PREF_TAG_ID + widgetId, tagData.getId());
             }

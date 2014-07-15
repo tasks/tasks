@@ -27,7 +27,6 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
-import com.todoroo.astrid.service.TagDataService;
 
 import org.tasks.R;
 
@@ -56,14 +55,12 @@ public final class TagService {
 
     private final MetadataDao metadataDao;
     private final MetadataService metadataService;
-    private final TagDataService tagDataService;
     private final TagDataDao tagDataDao;
 
     @Inject
-    public TagService(MetadataDao metadataDao, MetadataService metadataService, TagDataService tagDataService, TagDataDao tagDataDao) {
+    public TagService(MetadataDao metadataDao, MetadataService metadataService, TagDataDao tagDataDao) {
         this.metadataDao = metadataDao;
         this.metadataService = metadataService;
-        this.tagDataService = tagDataService;
         this.tagDataDao = tagDataDao;
     }
 
@@ -152,7 +149,7 @@ public final class TagService {
     }
 
     private Tag tagFromUUID(String uuid) {
-        TodorooCursor<TagData> tagData = tagDataService.query(Query.select(TagData.PROPERTIES).where(TagData.UUID.eq(uuid)));
+        TodorooCursor<TagData> tagData = tagDataDao.query(Query.select(TagData.PROPERTIES).where(TagData.UUID.eq(uuid)));
         try {
             if (tagData.getCount() > 0) {
                 tagData.moveToFirst();
@@ -167,14 +164,14 @@ public final class TagService {
     }
 
     public void createLink(Task task, String tagName) {
-        TodorooCursor<TagData> existingTag = tagDataService.query(Query.select(TagData.NAME, TagData.UUID)
+        TodorooCursor<TagData> existingTag = tagDataDao.query(Query.select(TagData.NAME, TagData.UUID)
                 .where(TagData.NAME.eqCaseInsensitive(tagName)));
         try {
             TagData tagData;
             if (existingTag.getCount() == 0) {
                 tagData = new TagData();
                 tagData.setName(tagName);
-                tagDataService.save(tagData);
+                tagDataDao.persist(tagData);
             } else {
                 existingTag.moveToFirst();
                 tagData = new TagData(existingTag);
@@ -228,7 +225,7 @@ public final class TagService {
      */
     public ArrayList<Tag> getTagList() {
         ArrayList<Tag> tagList = new ArrayList<>();
-        TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES).where(Criterion.and(
+        TodorooCursor<TagData> cursor = tagDataDao.query(Query.select(TagData.PROPERTIES).where(Criterion.and(
                 TagData.DELETION_DATE.eq(0),
                 TagData.NAME.isNotNull())).orderBy(Order.asc(Functions.upper(TagData.NAME))));
         try {
@@ -267,7 +264,7 @@ public final class TagService {
             if (tagData == null) {
                 tagData = new TagData();
                 tagData.setName(tag);
-                tagDataService.save(tagData);
+                tagDataDao.persist(tagData);
             }
             if (existingLinks.contains(tagData.getUUID())) {
                 existingLinks.remove(tagData.getUUID());
@@ -294,7 +291,7 @@ public final class TagService {
                 Metadata tagMatch = new Metadata(tagMetadata);
                 tagWithCase = tagMatch.getValue(TaskToTagMetadata.TAG_NAME);
             } else {
-                TodorooCursor<TagData> tagData = tagDataService.query(Query.select(TagData.NAME).where(TagData.NAME.eqCaseInsensitive(tag)));
+                TodorooCursor<TagData> tagData = tagDataDao.query(Query.select(TagData.NAME).where(TagData.NAME.eqCaseInsensitive(tag)));
                 try {
                     if (tagData.getCount() > 0) {
                         tagData.moveToFirst();
@@ -311,7 +308,7 @@ public final class TagService {
     }
 
     public TagData getTagDataWithCase(String tag, Property<?>... properties) {
-        TodorooCursor<TagData> tagData = tagDataService.query(Query.select(properties).where(TagData.NAME.eqCaseInsensitive(tag)));
+        TodorooCursor<TagData> tagData = tagDataDao.query(Query.select(properties).where(TagData.NAME.eqCaseInsensitive(tag)));
         try {
             if (tagData.getCount() > 0) {
                 tagData.moveToFirst();

@@ -33,5 +33,9 @@ public class TagDataDao extends RemoteModelDao<TagData> {
     public TagData fetch(String uuid, Property<?>... properties) {
         return getFirst(Query.select(properties).where(RemoteModel.UUID_PROPERTY.eq(uuid)));
     }
+
+    public TagData getTagByName(String name, Property<?>... properties) {
+        return getFirst(Query.select(properties).where(TagData.NAME.eqCaseInsensitive(name)));
+    }
 }
 

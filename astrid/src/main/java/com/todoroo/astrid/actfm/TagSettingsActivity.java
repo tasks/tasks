@@ -24,9 +24,9 @@ import android.widget.EditText;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
+import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.helper.UUIDHelper;
-import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService;
 
@@ -59,7 +59,7 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
     private TagData tagData;
 
     @Inject TagService tagService;
-    @Inject TagDataService tagDataService;
+    @Inject TagDataDao tagDataDao;
     @Inject ActivityPreferences preferences;
     @Inject ResourceResolver resourceResolver;
 
@@ -174,7 +174,7 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(tagName.getWindowToken(), 0);
 
-        tagDataService.save(tagData);
+        tagDataDao.persist(tagData);
 
         if (isNewTag) {
             setResult(RESULT_OK, new Intent().putExtra(TOKEN_NEW_FILTER,

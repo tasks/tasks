@@ -17,9 +17,9 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.utility.Constants;
@@ -44,7 +44,7 @@ public class WidgetUpdateService extends InjectingService {
     @Inject Database database;
     @Inject TaskService taskService;
     @Inject TaskListMetadataDao taskListMetadataDao;
-    @Inject TagDataService tagDataService;
+    @Inject TagDataDao tagDataDao;
     @Inject WidgetHelper widgetHelper;
     @Inject Preferences preferences;
 
@@ -114,7 +114,7 @@ public class WidgetUpdateService extends InjectingService {
                     filter.getSqlQuery(), flags, sort).replaceAll("LIMIT \\d+", "") + " LIMIT " + numberOfTasks;
 
             String tagName = preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
-            query = SubtasksHelper.applySubtasksToWidgetFilter(preferences, taskService, tagDataService, taskListMetadataDao, filter, query, tagName, numberOfTasks);
+            query = SubtasksHelper.applySubtasksToWidgetFilter(preferences, taskService, tagDataDao, taskListMetadataDao, filter, query, tagName, numberOfTasks);
 
             database.openForReading();
             cursor = taskService.fetchFiltered(query, null, Task.ID, Task.TITLE, Task.DUE_DATE, Task.COMPLETION_DATE);

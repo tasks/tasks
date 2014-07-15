@@ -10,8 +10,8 @@ import android.widget.TextView;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.activity.EditPreferences;
 import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.service.TagDataService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +33,7 @@ public class CalendarAlarmListCreator extends InjectingActivity {
 
     public static final String TOKEN_LIST_NAME = "listName"; //$NON-NLS-1$
 
-    @Inject TagDataService tagDataService;
+    @Inject TagDataDao tagDataDao;
     @Inject ActivityPreferences preferences;
     @Inject ResourceResolver resourceResolver;
 
@@ -52,7 +52,7 @@ public class CalendarAlarmListCreator extends InjectingActivity {
         public void onClick(View v) {
             TagData tagData = new TagData();
             tagData.setName(tagName);
-            tagDataService.save(tagData);
+            tagDataDao.persist(tagData);
             dismissWithAnimation();
         }
     };

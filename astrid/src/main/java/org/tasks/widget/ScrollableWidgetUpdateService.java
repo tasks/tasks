@@ -6,8 +6,8 @@ import android.os.Bundle;
 
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
-import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.injection.InjectingRemoteViewsService;
@@ -23,7 +23,7 @@ public class ScrollableWidgetUpdateService extends InjectingRemoteViewsService {
     @Inject Database database;
     @Inject TaskService taskService;
     @Inject TaskListMetadataDao taskListMetadataDao;
-    @Inject TagDataService tagDataService;
+    @Inject TagDataDao tagDataDao;
     @Inject Preferences preferences;
 
     @Override
@@ -42,6 +42,6 @@ public class ScrollableWidgetUpdateService extends InjectingRemoteViewsService {
         int widgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
         boolean isDarkTheme = extras.getBoolean(IS_DARK_THEME);
         return new ScrollableViewsFactory(preferences, this, filter, widgetId, isDarkTheme,
-                database, taskService, taskListMetadataDao, tagDataService);
+                database, taskService, taskListMetadataDao, tagDataDao);
     }
 }

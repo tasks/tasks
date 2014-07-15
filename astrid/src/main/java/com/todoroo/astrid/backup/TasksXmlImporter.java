@@ -24,11 +24,11 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
-import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
@@ -48,7 +48,7 @@ public class TasksXmlImporter {
 
     private static final Logger log = LoggerFactory.getLogger(TasksXmlImporter.class);
 
-    private final TagDataService tagDataService;
+    private final TagDataDao tagDataDao;
     private final MetadataService metadataService;
     private final TaskService taskService;
 
@@ -72,8 +72,8 @@ public class TasksXmlImporter {
     }
 
     @Inject
-    public TasksXmlImporter(TagDataService tagDataService, MetadataService metadataService, TaskService taskService) {
-        this.tagDataService = tagDataService;
+    public TasksXmlImporter(TagDataDao tagDataDao, MetadataService metadataService, TaskService taskService) {
+        this.tagDataDao = tagDataDao;
         this.metadataService = metadataService;
         this.taskService = taskService;
     }
@@ -286,7 +286,7 @@ public class TasksXmlImporter {
                 String uuid = metadata.getValue(Metadata.VALUE2);
                 long deletionDate = metadata.getDeletionDate();
                 // UUID is uniquely for every TagData, so we don't need to test the name
-                TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.ID).
+                TodorooCursor<TagData> cursor = tagDataDao.query(Query.select(TagData.ID).
                         where(TagData.UUID.eq(uuid)));
                 try {
                     //If you sync with Google tasks it adds some Google task metadata.
@@ -296,7 +296,7 @@ public class TasksXmlImporter {
                         tagdata.setId(TagData.NO_ID);
                         tagdata.setUuid(uuid);
                         tagdata.setName(name);
-                        tagDataService.save(tagdata);
+                        tagDataDao.persist(tagdata);
                     }
                 } finally {
                     cursor.close();
@@ -390,7 +390,7 @@ public class TasksXmlImporter {
         private void parseTagdata() {
             tagdata.clear();
             deserializeModel(tagdata, TagData.PROPERTIES);
-            tagDataService.save(tagdata);
+            tagDataDao.persist(tagdata);
         }
     }
 }

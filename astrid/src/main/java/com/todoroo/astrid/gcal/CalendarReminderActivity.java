@@ -18,9 +18,9 @@ import com.todoroo.astrid.activity.EditPreferences;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
+import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.service.StartupService;
-import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 
 import org.tasks.R;
@@ -49,7 +49,7 @@ public class CalendarReminderActivity extends InjectingActivity {
     private static final int IGNORE_PROMPT_COUNT = 3;
 
     @Inject StartupService startupService;
-    @Inject TagDataService tagDataService;
+    @Inject TagDataDao tagDataDao;
     @Inject ActivityPreferences preferences;
     @Inject ResourceResolver resourceResolver;
 
@@ -180,7 +180,7 @@ public class CalendarReminderActivity extends InjectingActivity {
             @Override
             public void onClick(View v) {
                 String listName = getString(R.string.CRA_default_list_name, eventName);
-                TagData existing = tagDataService.getTagByName(listName, TagData.PROPERTIES);
+                TagData existing = tagDataDao.getTagByName(listName, TagData.PROPERTIES);
                 if (existing != null) {
                     listExists(existing);
                 } else {

@@ -150,7 +150,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         lists.setItems(items);
         gtasksListService.updateLists(lists);
 
-        storeList = gtasksListService.getLists()[0];
+        storeList = gtasksListService.getLists().get(0);
     }
 
     private Task taskWithMetadata(long order, int indentation) {

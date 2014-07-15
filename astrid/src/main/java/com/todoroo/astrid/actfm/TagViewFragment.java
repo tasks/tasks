@@ -26,7 +26,6 @@ import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.utility.Flags;
@@ -52,7 +51,6 @@ public class TagViewFragment extends TaskListFragment {
 
     protected TagData tagData;
 
-    @Inject TagDataService tagDataService;
     @Inject TagDataDao tagDataDao;
 
     protected View taskListView;
@@ -119,9 +117,9 @@ public class TagViewFragment extends TaskListFragment {
 
         TodorooCursor<TagData> cursor;
         if (!RemoteModel.isUuidEmpty(uuid)) {
-            cursor = tagDataService.query(Query.select(TagData.PROPERTIES).where(TagData.UUID.eq(uuid)));
+            cursor = tagDataDao.query(Query.select(TagData.PROPERTIES).where(TagData.UUID.eq(uuid)));
         } else {
-            cursor = tagDataService.query(Query.select(TagData.PROPERTIES).where(TagData.NAME.eqCaseInsensitive(tag)));
+            cursor = tagDataDao.query(Query.select(TagData.PROPERTIES).where(TagData.NAME.eqCaseInsensitive(tag)));
         }
 
         try {
@@ -129,7 +127,7 @@ public class TagViewFragment extends TaskListFragment {
                 tagData = new TagData();
                 tagData.setName(tag);
                 tagData.setUUID(uuid);
-                tagDataService.save(tagData);
+                tagDataDao.persist(tagData);
             } else {
                 cursor.moveToFirst();
                 tagData = new TagData(cursor);
@@ -167,7 +165,7 @@ public class TagViewFragment extends TaskListFragment {
     }
 
     protected void reloadTagData() {
-        tagData = tagDataService.fetchById(tagData.getId(), TagData.PROPERTIES); // refetch
+        tagData = tagDataDao.fetch(tagData.getId(), TagData.PROPERTIES); // refetch
         if (tagData == null) {
             // This can happen if a tag has been deleted as part of a sync
             taskListMetadata = null;

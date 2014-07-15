@@ -11,13 +11,13 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.SortHelper;
+import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
-import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
 
@@ -62,10 +62,10 @@ public class SubtasksHelper {
         return false;
     }
 
-    public static String applySubtasksToWidgetFilter(Preferences preferences, TaskService taskService, TagDataService tagDataService, TaskListMetadataDao tlmd, Filter filter, String query, String tagName, int limit) {
+    public static String applySubtasksToWidgetFilter(Preferences preferences, TaskService taskService, TagDataDao tagDataDao, TaskListMetadataDao tlmd, Filter filter, String query, String tagName, int limit) {
         if (SubtasksHelper.shouldUseSubtasksFragmentForFilter(preferences, filter)) {
             // care for manual ordering
-            TagData tagData = tagDataService.getTagByName(tagName, TagData.UUID, TagData.TAG_ORDERING);
+            TagData tagData = tagDataDao.getTagByName(tagName, TagData.UUID, TagData.TAG_ORDERING);
             TaskListMetadata tlm = null;
             if (tagData != null) {
                 tlm = tlmd.fetchByTagId(tagData.getUuid(), TaskListMetadata.TASK_IDS);

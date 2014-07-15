@@ -256,7 +256,7 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         lists.setItems(items);
         gtasksListService.updateLists(lists);
 
-        list = gtasksListService.getLists()[0];
+        list = gtasksListService.getLists().get(0);
     }
 
     /**
