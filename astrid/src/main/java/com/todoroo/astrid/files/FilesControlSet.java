@@ -20,9 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
-import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -89,19 +87,13 @@ public class FilesControlSet extends PopupControlSet {
 
     public void refreshMetadata() {
         if (model != null) {
-            TodorooCursor<TaskAttachment> cursor = taskAttachmentDao.query(
-                    Query.select(TaskAttachment.PROPERTIES)
-                    .where(Criterion.and(TaskAttachment.TASK_UUID.eq(model.getUuid()),
-                            TaskAttachment.DELETED_AT.eq(0))));
-            try {
-                files.clear();
-                for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                    TaskAttachment attachment = new TaskAttachment(cursor);
+            files.clear();
+            taskAttachmentDao.getAttachments(model.getUuid(), new Callback<TaskAttachment>() {
+                @Override
+                public void apply(TaskAttachment attachment) {
                     files.add(attachment);
                 }
-            } finally {
-                cursor.close();
-            }
+            });
             validateFiles();
             if (initialized) {
                 afterInflate();
@@ -128,7 +120,6 @@ public class FilesControlSet extends PopupControlSet {
 
     @Override
     protected void readFromTaskOnInitialize() {
-        // TODO Auto-generated method stub
     }
 
     @Override
@@ -165,6 +156,7 @@ public class FilesControlSet extends PopupControlSet {
                         @Override
                         public void onClick(DialogInterface d, int which) {
                             if (RemoteModel.isValidUuid(m.getUUID())) {
+                                // TODO: delete
                                 m.setDeletedAt(DateUtilities.now());
                                 taskAttachmentDao.saveExisting(m);
                             } else {
@@ -297,7 +289,5 @@ public class FilesControlSet extends PopupControlSet {
             return "";
         }
         return name.substring(extension + 1).toUpperCase();
-
     }
-
 }

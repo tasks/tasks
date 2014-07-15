@@ -12,7 +12,6 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
-import com.todoroo.andlib.data.TodorooCursor;
 
 /**
  * Data Model which represents a user.
@@ -70,16 +69,6 @@ public final class TaskListMetadata extends RemoteModel {
     @Override
     public ContentValues getDefaultValues() {
         return defaultValues;
-    }
-
-    // --- data access boilerplate
-
-    public TaskListMetadata() {
-        super();
-    }
-
-    public TaskListMetadata(TodorooCursor<TaskListMetadata> cursor) {
-        super(cursor);
     }
 
     @Override

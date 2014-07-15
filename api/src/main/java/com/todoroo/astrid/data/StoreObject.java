@@ -72,12 +72,6 @@ public class StoreObject extends AbstractModel {
         return defaultValues;
     }
 
-    // --- data access boilerplate
-
-    public StoreObject() {
-        super();
-    }
-
     @Override
     public long getId() {
         return getIdHelper(ID);

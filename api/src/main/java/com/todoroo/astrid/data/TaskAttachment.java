@@ -12,7 +12,6 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
-import com.todoroo.andlib.data.TodorooCursor;
 
 /**
  * Data Model which represents a user.
@@ -114,16 +113,6 @@ public final class TaskAttachment extends RemoteModel {
         attachment.setContentType(fileType);
         attachment.setDeletedAt(0L);
         return attachment;
-    }
-
-    // --- data access boilerplate
-
-    public TaskAttachment() {
-        super();
-    }
-
-    public TaskAttachment(TodorooCursor<TaskAttachment> cursor) {
-        super(cursor);
     }
 
     @Override
