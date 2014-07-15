@@ -11,10 +11,9 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 
-import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Order;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.activity.FilterListFragment;
@@ -34,6 +33,7 @@ import org.tasks.injection.Injector;
 import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -70,43 +70,36 @@ public final class CustomFilterExposer extends InjectingBroadcastReceiver implem
         return buildSavedFilters(context, r);
     }
 
-    private Filter[] buildSavedFilters(Context context, Resources r) {
-        TodorooCursor<StoreObject> cursor = storeObjectDao.query(Query.select(StoreObject.PROPERTIES).where(
-                StoreObject.TYPE.eq(SavedFilter.TYPE)).orderBy(Order.asc(SavedFilter.NAME)));
-        try {
-            ArrayList<Filter> list = new ArrayList<>();
+    private Filter[] buildSavedFilters(final Context context, Resources r) {
+        final List<Filter> list = new ArrayList<>();
 
-            // stock filters
-            if (preferences.getBoolean(R.string.p_show_recently_modified_filter, true)) {
-                Filter recent = new Filter(r.getString(R.string.BFE_Recent),
-                        r.getString(R.string.BFE_Recent),
-                        new QueryTemplate().where(
-                                Criterion.all).orderBy(
-                                        Order.desc(Task.MODIFICATION_DATE)).limit(15),
-                                        null);
-                list.add(recent);
-            }
-
-            if (cursor != null) {
-                for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                    StoreObject savedFilter = new StoreObject(cursor);
-                    Filter f = SavedFilter.load(savedFilter);
-
-                    Intent deleteIntent = new Intent(context, DeleteActivity.class);
-                    deleteIntent.putExtra(TOKEN_FILTER_ID, savedFilter.getId());
-                    deleteIntent.putExtra(TOKEN_FILTER_NAME, f.title);
-                    f.contextMenuLabels = new String[] { context.getString(R.string.BFE_Saved_delete) };
-                    f.contextMenuIntents = new Intent[] { deleteIntent };
-                    list.add(f);
-                }
-            }
-
-            return list.toArray(new Filter[list.size()]);
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
+        // stock filters
+        if (preferences.getBoolean(R.string.p_show_recently_modified_filter, true)) {
+            Filter recent = new Filter(r.getString(R.string.BFE_Recent),
+                    r.getString(R.string.BFE_Recent),
+                    new QueryTemplate().where(
+                            Criterion.all).orderBy(
+                                    Order.desc(Task.MODIFICATION_DATE)).limit(15),
+                                    null);
+            list.add(recent);
         }
+
+        storeObjectDao.getSavedFilters(new Callback<StoreObject>() {
+            @Override
+            public void apply(StoreObject savedFilter) {
+                Filter f = SavedFilter.load(savedFilter);
+
+                Intent deleteIntent = new Intent(context, DeleteActivity.class);
+                deleteIntent.putExtra(TOKEN_FILTER_ID, savedFilter.getId());
+                deleteIntent.putExtra(TOKEN_FILTER_NAME, f.title);
+                f.contextMenuLabels = new String[] { context.getString(R.string.BFE_Saved_delete) };
+                f.contextMenuIntents = new Intent[] { deleteIntent };
+                list.add(f);
+
+            }
+        });
+
+        return list.toArray(new Filter[list.size()]);
     }
 
     /**

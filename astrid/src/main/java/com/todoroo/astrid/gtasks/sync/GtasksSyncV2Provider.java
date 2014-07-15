@@ -126,13 +126,13 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                     handler.handleException("gtasks-sync=io", e); //$NON-NLS-1$
                 }
 
-                StoreObject[] lists = gtasksListService.getLists();
-                if (lists.length == 0) {
+                List<StoreObject> lists = gtasksListService.getLists();
+                if (lists.isEmpty()) {
                     finishSync(callback);
                     return;
                 }
 
-                final AtomicInteger finisher = new AtomicInteger(lists.length);
+                final AtomicInteger finisher = new AtomicInteger(lists.size());
 
                 // TODO: Check timestamps from invoker.allGtaskLists and pare down lists to sync
 

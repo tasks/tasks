@@ -79,6 +79,7 @@ public class StoreObject extends AbstractModel {
         super();
     }
 
+    @Deprecated
     public StoreObject(TodorooCursor<StoreObject> cursor) {
         super(cursor);
     }

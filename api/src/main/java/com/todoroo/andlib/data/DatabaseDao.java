@@ -102,13 +102,31 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         TodorooCursor<TYPE> cursor = query(query);
         try {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                callback.apply(cursorConstructor.newInstance(cursor));
+                callback.apply(fromCursor(cursor));
             }
-        } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
-            throw new RuntimeException(e);
         } finally {
             cursor.close();
         }
+    }
+
+    public TYPE getFirst(Query query) {
+        TodorooCursor<TYPE> cursor = query(query);
+        try {
+            return cursor.moveToFirst() ? fromCursor(cursor) : null;
+        } finally {
+            cursor.close();
+        }
+    }
+
+    private TYPE fromCursor(TodorooCursor<TYPE> cursor) {
+        TYPE instance;
+        try {
+            instance = modelClass.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+        instance.readPropertiesFromCursor(cursor);
+        return instance;
     }
 
     /**

@@ -9,8 +9,6 @@ import android.content.ContentValues;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.data.Property.StringProperty;
-import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.CustomFilterActivity.CriterionInstance;
@@ -57,17 +55,9 @@ public class SavedFilter {
         }
 
         // if filter of this name exists, edit it
-        StoreObject storeObject;
-        TodorooCursor<StoreObject> cursor = dao.query(Query.select(StoreObject.ID).where(NAME.eq(title)));
-        try {
-            if (cursor.isAfterLast()) {
-                storeObject = new StoreObject();
-            } else {
-                cursor.moveToNext();
-                storeObject = new StoreObject(cursor);
-            }
-        } finally {
-            cursor.close();
+        StoreObject storeObject = dao.getSavedFilterByName(title);
+        if (storeObject == null) {
+            storeObject = new StoreObject();
         }
 
         // populate saved filter properties

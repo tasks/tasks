@@ -28,6 +28,8 @@ import com.todoroo.astrid.data.Task;
 import org.tasks.R;
 import org.tasks.injection.InjectingBroadcastReceiver;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 public class GtasksCustomFilterCriteriaExposer extends InjectingBroadcastReceiver {
@@ -51,14 +53,14 @@ public class GtasksCustomFilterCriteriaExposer extends InjectingBroadcastReceive
 
         Resources r = context.getResources();
 
-        StoreObject[] lists = gtasksListService.getLists();
+        List<StoreObject> lists = gtasksListService.getLists();
 
         CustomFilterCriterion[] result = new CustomFilterCriterion[1];
-        String[] listNames = new String[lists.length];
-        String[] listIds = new String[lists.length];
-        for (int i = 0; i < lists.length; i++) {
-            listNames[i] = lists[i].getValue(GtasksList.NAME);
-            listIds[i] = lists[i].getValue(GtasksList.REMOTE_ID);
+        String[] listNames = new String[lists.size()];
+        String[] listIds = new String[lists.size()];
+        for (int i = 0; i < lists.size(); i++) {
+            listNames[i] = lists.get(i).getValue(GtasksList.NAME);
+            listIds[i] = lists.get(i).getValue(GtasksList.REMOTE_ID);
         }
 
         ContentValues values = new ContentValues();

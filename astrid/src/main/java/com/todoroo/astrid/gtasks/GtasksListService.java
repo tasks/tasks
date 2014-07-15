@@ -7,14 +7,13 @@ package com.todoroo.astrid.gtasks;
 
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
-import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.StoreObjectDao;
-import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
 import com.todoroo.astrid.data.StoreObject;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -26,7 +25,7 @@ public class GtasksListService {
 
     private final StoreObjectDao storeObjectDao;
 
-    private StoreObject[] lists = null;
+    private List<StoreObject> lists;
 
     @Inject
     public GtasksListService(StoreObjectDao storeObjectDao) {
@@ -38,21 +37,10 @@ public class GtasksListService {
             return;
         }
 
-        TodorooCursor<StoreObject> cursor = storeObjectDao.query(Query.select(StoreObject.PROPERTIES).
-                where(StoreObjectCriteria.byType(GtasksList.TYPE)));
-        try {
-            lists = new StoreObject[cursor.getCount()];
-            for(int i = 0; i < lists.length; i++) {
-                cursor.moveToNext();
-                StoreObject dashboard = new StoreObject(cursor);
-                lists[i] = dashboard;
-            }
-        } finally {
-            cursor.close();
-        }
+        lists = storeObjectDao.getByType(GtasksList.TYPE);
     }
 
-    public StoreObject[] getLists() {
+    public List<StoreObject> getLists() {
         readLists();
         return lists;
     }
@@ -65,13 +53,13 @@ public class GtasksListService {
     public synchronized void updateLists(TaskLists remoteLists) {
         readLists();
 
-        HashSet<Long> previousLists = new HashSet<>(lists.length);
+        Set<Long> previousLists = new HashSet<>();
         for(StoreObject list : lists) {
             previousLists.add(list.getId());
         }
 
         List<TaskList> items = remoteLists.getItems();
-        StoreObject[] newLists = new StoreObject[items.size()];
+        List<StoreObject> newLists = new ArrayList<>();
         for(int i = 0; i < items.size(); i++) {
             com.google.api.services.tasks.model.TaskList remote = items.get(i);
 
@@ -94,7 +82,7 @@ public class GtasksListService {
             local.setValue(GtasksList.ORDER, i);
             storeObjectDao.persist(local);
             previousLists.remove(local.getId());
-            newLists[i] = local;
+            newLists.add(local);
         }
         lists = newLists;
 

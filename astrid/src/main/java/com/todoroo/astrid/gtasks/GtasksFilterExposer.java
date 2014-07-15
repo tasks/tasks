@@ -35,6 +35,8 @@ import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.injection.Injector;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 /**
@@ -50,7 +52,7 @@ public class GtasksFilterExposer extends InjectingBroadcastReceiver implements A
     @Inject @ForApplication Context context;
     @Inject GtasksMetadata gtasksMetadata;
 
-    private StoreObject[] lists;
+    private List<StoreObject> lists;
 
     public static Filter filterFromList(GtasksMetadata gtasksMetadata, Context context, StoreObject list) {
         String listName = list.getValue(GtasksList.NAME);
@@ -99,16 +101,16 @@ public class GtasksFilterExposer extends InjectingBroadcastReceiver implements A
             return null;
         }
 
-        Filter[] listFilters = new Filter[lists.length];
-        for(int i = 0; i < lists.length; i++) {
-            listFilters[i] = filterFromList(gtasksMetadata, context, lists[i]);
+        Filter[] listFilters = new Filter[lists.size()];
+        for(int i = 0; i < lists.size(); i++) {
+            listFilters[i] = filterFromList(gtasksMetadata, context, lists.get(i));
         }
 
         return listFilters;
     }
 
     private boolean noListsToShow() {
-        return lists.length == 0;
+        return lists.isEmpty();
     }
 
     @Override
@@ -117,5 +119,4 @@ public class GtasksFilterExposer extends InjectingBroadcastReceiver implements A
 
         return prepareFilters();
     }
-
 }
