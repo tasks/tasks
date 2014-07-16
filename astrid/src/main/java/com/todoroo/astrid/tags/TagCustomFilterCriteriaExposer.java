@@ -31,6 +31,12 @@ import javax.inject.Inject;
 
 public class TagCustomFilterCriteriaExposer extends InjectingBroadcastReceiver {
 
+    private static int[] default_tag_images = new int[] {
+            R.drawable.default_list_0,
+            R.drawable.default_list_1,
+            R.drawable.default_list_2,
+            R.drawable.default_list_3
+    };
     private static final String IDENTIFIER_TAG_IS = "tag_is"; //$NON-NLS-1$
     private static final String IDENTIFIER_TAG_CONTAINS = "tag_contains"; //$NON-NLS-1$
 
@@ -65,7 +71,7 @@ public class TagCustomFilterCriteriaExposer extends InjectingBroadcastReceiver {
                             MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY),
                             TaskToTagMetadata.TAG_NAME.eq("?"), Metadata.DELETION_DATE.eq(0))).toString(),
                     values, tagNames, tagNames,
-                    ((BitmapDrawable)r.getDrawable(TagService.getDefaultImageIDForTag(RemoteModel.NO_UUID))).getBitmap(),
+                    ((BitmapDrawable)r.getDrawable(getDefaultImageIDForTag(RemoteModel.NO_UUID))).getBitmap(),
                     context.getString(R.string.CFC_tag_name));
             ret[j++] = criterion;
         }
@@ -81,7 +87,7 @@ public class TagCustomFilterCriteriaExposer extends InjectingBroadcastReceiver {
                                             MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY),
                                             TaskToTagMetadata.TAG_NAME.like("%?%"), Metadata.DELETION_DATE.eq(0))).toString(),
                                             context.getString(R.string.CFC_tag_contains_name), "",
-                                            ((BitmapDrawable)r.getDrawable(TagService.getDefaultImageIDForTag(RemoteModel.NO_UUID))).getBitmap(),
+                                            ((BitmapDrawable)r.getDrawable(getDefaultImageIDForTag(RemoteModel.NO_UUID))).getBitmap(),
                                             context.getString(R.string.CFC_tag_contains_name));
             ret[j] = criterion;
         }
@@ -91,5 +97,13 @@ public class TagCustomFilterCriteriaExposer extends InjectingBroadcastReceiver {
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, ret);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
 
+    }
+
+    private static int getDefaultImageIDForTag(String nameOrUUID) {
+        if (RemoteModel.NO_UUID.equals(nameOrUUID)) {
+            int random = (int)(Math.random()*4);
+            return default_tag_images[random];
+        }
+        return default_tag_images[(Math.abs(nameOrUUID.hashCode()))%4];
     }
 }

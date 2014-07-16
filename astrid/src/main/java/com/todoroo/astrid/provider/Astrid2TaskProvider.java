@@ -18,10 +18,12 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagService.Tag;
+import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -174,7 +176,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
     			cursor.moveToNext();
                 Task task = new Task(cursor);
 
-    			String taskTags = tagService.get().getTagsAsString(task.getId(), TAG_SEPARATOR);
+                String taskTags = getTagsAsString(task.getId(), TAG_SEPARATOR);
 
     			Object[] values = new Object[7];
     			values[0] = task.getTitle();
@@ -263,4 +265,27 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
             log.error(e.getMessage(), e);
 		}
 	}
+
+    /**
+     * Return tags as a list of strings separated by given separator
+     * @return empty string if no tags, otherwise string
+     */
+    private String getTagsAsString(long taskId, String separator) {
+        StringBuilder tagBuilder = new StringBuilder();
+        TodorooCursor<Metadata> tags = tagService.get().getTags(taskId);
+        try {
+            int length = tags.getCount();
+            for (int i = 0; i < length; i++) {
+                tags.moveToNext();
+                Metadata metadata = new Metadata(tags);
+                tagBuilder.append(metadata.getValue(TaskToTagMetadata.TAG_NAME));
+                if (i < length - 1) {
+                    tagBuilder.append(separator);
+                }
+            }
+        } finally {
+            tags.close();
+        }
+        return tagBuilder.toString();
+    }
 }

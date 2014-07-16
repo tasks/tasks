@@ -16,9 +16,11 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.MetadataDao;
+import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
@@ -59,6 +61,7 @@ public class TaskService {
 
     public static final String TRANS_REPEAT_COMPLETE = "repeat-complete"; //$NON-NLS-1$
 
+    private final TagDataDao tagDataDao;
     private final TaskDao taskDao;
     private final Broadcaster broadcaster;
     private final FilterCounter filterCounter;
@@ -67,8 +70,9 @@ public class TaskService {
     private final MetadataDao metadataDao;
 
     @Inject
-    public TaskService(TaskDao taskDao, Broadcaster broadcaster, FilterCounter filterCounter,
+    public TaskService(TagDataDao tagDataDao, TaskDao taskDao, Broadcaster broadcaster, FilterCounter filterCounter,
                        RefreshScheduler refreshScheduler, TagService tagService, MetadataDao metadataDao) {
+        this.tagDataDao = tagDataDao;
         this.taskDao = taskDao;
         this.broadcaster = broadcaster;
         this.filterCounter = filterCounter;
@@ -218,7 +222,7 @@ public class TaskService {
     private void quickAdd(Task task, List<String> tags) {
         saveWithoutPublishingFilterUpdate(task);
         for(String tag : tags) {
-            tagService.createLink(task, tag);
+            createLink(task, tag);
         }
         broadcastFilterListUpdated();
     }
@@ -301,10 +305,10 @@ public class TaskService {
             if (TaskToTagMetadata.KEY.equals(metadata.getKey())) {
                 if (metadata.containsNonNullValue(TaskToTagMetadata.TAG_UUID) && !RemoteModel.NO_UUID.equals(metadata.getValue(TaskToTagMetadata.TAG_UUID))) {
                     // This is more efficient
-                    tagService.createLink(task, metadata.getValue(TaskToTagMetadata.TAG_NAME), metadata.getValue(TaskToTagMetadata.TAG_UUID));
+                    createLink(task, metadata.getValue(TaskToTagMetadata.TAG_NAME), metadata.getValue(TaskToTagMetadata.TAG_UUID));
                 } else {
                     // This is necessary for backwards compatibility
-                    tagService.createLink(task, metadata.getValue(TaskToTagMetadata.TAG_NAME));
+                    createLink(task, metadata.getValue(TaskToTagMetadata.TAG_NAME));
                 }
             } else {
                 metadataDao.persist(metadata);
@@ -312,5 +316,23 @@ public class TaskService {
         }
 
         return task;
+    }
+
+    private void createLink(Task task, String tagName) {
+        TagData tagData = tagDataDao.getTagByName(tagName, TagData.NAME, TagData.UUID);
+        if (tagData == null) {
+            tagData = new TagData();
+            tagData.setName(tagName);
+            tagDataDao.persist(tagData);
+        }
+        createLink(task, tagData.getName(), tagData.getUUID());
+    }
+
+    private void createLink(Task task, String tagName, String tagUuid) {
+        Metadata link = TaskToTagMetadata.newTagMetadata(task.getId(), task.getUuid(), tagName, tagUuid);
+        if (metadataDao.update(Criterion.and(MetadataDao.MetadataCriteria.byTaskAndwithKey(task.getId(), TaskToTagMetadata.KEY),
+                TaskToTagMetadata.TASK_UUID.eq(task.getUUID()), TaskToTagMetadata.TAG_UUID.eq(tagUuid)), link) <= 0) {
+            metadataDao.createNew(link);
+        }
     }
 }

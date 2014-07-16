@@ -49,6 +49,7 @@ import com.todoroo.astrid.actfm.ActFmCameraModule;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.dao.MetadataDao;
+import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.RemoteModel;
@@ -175,6 +176,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Inject GCalHelper gcalHelper;
     @Inject ActivityPreferences preferences;
     @Inject DateChangedAlerts dateChangedAlerts;
+    @Inject TagDataDao tagDataDao;
 
     // --- UI components
 
@@ -360,7 +362,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         timerAction = new TimerActionControlSet(notificationManager, taskService, getActivity(), getView());
         controls.add(timerAction);
 
-        TagsControlSet tagsControlSet = new TagsControlSet(preferences, tagService, getActivity());
+        TagsControlSet tagsControlSet = new TagsControlSet(metadataDao, tagDataDao, preferences, tagService, getActivity());
         controls.add(tagsControlSet);
         controlSetMap.put(getString(R.string.TEA_ctrl_lists_pref),
                 tagsControlSet);

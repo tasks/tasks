@@ -25,8 +25,13 @@ import android.widget.TextView.OnEditorActionListener;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.dao.MetadataDao;
+import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.ui.PopupControlSet;
@@ -37,8 +42,10 @@ import org.tasks.preferences.ActivityPreferences;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.tasks.preferences.ResourceResolver.getResource;
 
@@ -65,10 +72,14 @@ public final class TagsControlSet extends PopupControlSet {
     //private final LinearLayout tagsContainer;
     private final TextView tagsDisplay;
 
+    private final MetadataDao metadataDao;
+    private final TagDataDao tagDataDao;
     private final TagService tagService;
 
-    public TagsControlSet(ActivityPreferences preferences, TagService tagService, Activity activity) {
+    public TagsControlSet(MetadataDao metadataDao, TagDataDao tagDataDao, ActivityPreferences preferences, TagService tagService, Activity activity) {
         super(preferences, activity, R.layout.control_set_tags, R.layout.control_set_default_display, R.string.TEA_tags_label_long);
+        this.metadataDao = metadataDao;
+        this.tagDataDao = tagDataDao;
         this.tagService = tagService;
         tagsDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
         image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
@@ -308,7 +319,7 @@ public final class TagsControlSet extends PopupControlSet {
 
         LinkedHashSet<String> tags = getTagSet();
 
-        tagService.synchronizeTags(task.getId(), task.getUUID(), tags);
+        synchronizeTags(task.getId(), task.getUUID(), tags);
         Flags.set(Flags.TAGS_CHANGED);
         task.setModificationDate(DateUtilities.now());
     }
@@ -324,6 +335,59 @@ public final class TagsControlSet extends PopupControlSet {
             tagsDisplay.setText(R.string.tag_FEx_untagged);
             tagsDisplay.setTextColor(unsetColor);
             image.setImageResource(R.drawable.tea_icn_lists_gray);
+        }
+    }
+
+    /**
+     * Save the given array of tags into the database
+     */
+    private void synchronizeTags(long taskId, String taskUuid, Set<String> tags) {
+        HashSet<String> existingLinks = new HashSet<>();
+        TodorooCursor<Metadata> links = metadataDao.query(Query.select(Metadata.PROPERTIES)
+                .where(Criterion.and(TaskToTagMetadata.TASK_UUID.eq(taskUuid), Metadata.DELETION_DATE.eq(0))));
+        try {
+            for (links.moveToFirst(); !links.isAfterLast(); links.moveToNext()) {
+                Metadata link = new Metadata(links);
+                existingLinks.add(link.getValue(TaskToTagMetadata.TAG_UUID));
+            }
+        } finally {
+            links.close();
+        }
+
+        for (String tag : tags) {
+            TagData tagData = tagDataDao.getTagByName(tag, TagData.NAME, TagData.UUID);
+            if (tagData == null) {
+                tagData = new TagData();
+                tagData.setName(tag);
+                tagDataDao.persist(tagData);
+            }
+            if (existingLinks.contains(tagData.getUUID())) {
+                existingLinks.remove(tagData.getUUID());
+            } else {
+                Metadata newLink = TaskToTagMetadata.newTagMetadata(taskId, taskUuid, tag, tagData.getUUID());
+                metadataDao.createNew(newLink);
+            }
+        }
+
+        // Mark as deleted links that don't exist anymore
+        deleteLinks(taskId, taskUuid, existingLinks.toArray(new String[existingLinks.size()]));
+    }
+
+    /**
+     * Delete all links between the specified task and the list of tags
+     */
+    private void deleteLinks(long taskId, String taskUuid, String[] tagUuids) {
+        Metadata deleteTemplate = new Metadata();
+        deleteTemplate.setTask(taskId); // Need this for recording changes in outstanding table
+        deleteTemplate.setDeletionDate(DateUtilities.now());
+        if (tagUuids != null) {
+            for (String uuid : tagUuids) {
+                // TODO: Right now this is in a loop because each deleteTemplate needs the individual tagUuid in order to record
+                // the outstanding entry correctly. If possible, this should be improved to a single query
+                deleteTemplate.setValue(TaskToTagMetadata.TAG_UUID, uuid); // Need this for recording changes in outstanding table
+                metadataDao.update(Criterion.and(MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY), Metadata.DELETION_DATE.eq(0),
+                        TaskToTagMetadata.TASK_UUID.eq(taskUuid), TaskToTagMetadata.TAG_UUID.eq(uuid)), deleteTemplate);
+            }
         }
     }
 }

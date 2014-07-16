@@ -16,6 +16,7 @@ import android.text.TextUtils;
 
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -24,9 +25,11 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.FilterWithUpdate;
+import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.tags.TagService.Tag;
 
 import org.tasks.R;
@@ -134,7 +137,7 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
         if (shouldAddUntagged) {
             Filter untagged = new Filter(r.getString(R.string.tag_FEx_untagged),
                     r.getString(R.string.tag_FEx_untagged),
-                    tagService.untaggedTemplate(),
+                    untaggedTemplate(),
                     null);
             filters.add(untagged);
         }
@@ -159,4 +162,11 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
         return prepareFilters();
     }
 
+    private QueryTemplate untaggedTemplate() {
+        return new QueryTemplate().where(Criterion.and(
+                Criterion.not(Task.UUID.in(Query.select(TaskToTagMetadata.TASK_UUID).from(Metadata.TABLE)
+                        .where(Criterion.and(MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY), Metadata.DELETION_DATE.eq(0))))),
+                TaskCriteria.isActive(),
+                TaskCriteria.isVisible()));
+    }
 }
