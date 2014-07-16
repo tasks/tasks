@@ -163,6 +163,23 @@ public class TaskService {
     }
 
     /**
+     * Update database based on selection and values
+     */
+    public int updateBySelection(String selection, String[] selectionArgs,
+            Task taskValues) {
+        TodorooCursor<Task> cursor = taskDao.rawQuery(selection, selectionArgs, Task.ID);
+        try {
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                taskValues.setID(cursor.get(Task.ID));
+                save(taskValues);
+            }
+            return cursor.getCount();
+        } finally {
+            cursor.close();
+        }
+    }
+
+    /**
      * Update all matching a clause to have the values set on template object.
      * <p>
      * Example (updates "joe" => "bob" in metadata value1):

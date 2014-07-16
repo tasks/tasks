@@ -39,6 +39,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.CalendarAlarmScheduler;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
+import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.provider.Astrid3ContentProvider;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
@@ -117,6 +118,7 @@ public class StartupService {
         database.addListener(new AbstractDatabase.DatabaseUpdateListener() {
             @Override
             public void onDatabaseUpdated() {
+                Astrid2TaskProvider.notifyDatabaseModification(activity);
                 Astrid3ContentProvider.notifyDatabaseModification(activity);
             }
         });

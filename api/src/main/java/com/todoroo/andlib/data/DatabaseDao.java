@@ -136,6 +136,19 @@ public class DatabaseDao<TYPE extends AbstractModel> {
     }
 
     /**
+     * Construct a query with raw SQL
+     */
+    public TodorooCursor<TYPE> rawQuery(String selection, String[] selectionArgs, Property<?>... properties) {
+        String[] fields = new String[properties.length];
+        for(int i = 0; i < properties.length; i++) {
+            fields[i] = properties[i].name;
+        }
+        return new TodorooCursor<>(database.getDatabase().query(table.name,
+                fields, selection, selectionArgs, null, null, null),
+                properties);
+    }
+
+    /**
      * Returns object corresponding to the given identifier
      * @param properties
      *            properties to read
