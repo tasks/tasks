@@ -8,7 +8,7 @@ package com.todoroo.astrid.gtasks;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.data.AbstractModel;
-import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Functions;
@@ -45,10 +45,6 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
         super(taskDao, metadataDao);
     }
 
-    public Criterion getLocalMatchCriteria(GtasksTaskContainer remoteTask) {
-        return GtasksMetadata.ID.eq(remoteTask.gtaskMetadata.getValue(GtasksMetadata.ID));
-    }
-
     @Override
     public String getMetadataKey() {
         return GtasksMetadata.METADATA_KEY;
@@ -58,35 +54,23 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
         if(remoteTask.task.getId() != Task.NO_ID) {
             return;
         }
-        TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(Metadata.PROPERTIES).
-                where(Criterion.and(MetadataCriteria.withKey(getMetadataKey()),
-                        getLocalMatchCriteria(remoteTask))));
-        try {
-            if(cursor.getCount() == 0) {
-                return;
-            }
-            cursor.moveToFirst();
-            remoteTask.task.setId(cursor.get(Metadata.TASK));
+        Metadata metadata = getMetadataByGtaskId(remoteTask.gtaskMetadata.getValue(GtasksMetadata.ID));
+        if (metadata != null) {
+            remoteTask.task.setId(metadata.getValue(Metadata.TASK));
             remoteTask.task.setUuid(taskDao.uuidFromLocalId(remoteTask.task.getId()));
-            remoteTask.gtaskMetadata = new Metadata(cursor);
-        } finally {
-            cursor.close();
+            remoteTask.gtaskMetadata = metadata;
         }
     }
 
     public long localIdForGtasksId(String gtasksId) {
-        TodorooCursor<Metadata> metadata = metadataDao.query(Query.select(Metadata.TASK).where(
-                Criterion.and(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY), GtasksMetadata.ID.eq(gtasksId))));
-        try {
-            if (metadata.getCount() > 0) {
-                metadata.moveToFirst();
-                return (new Metadata(metadata).getTask());
-            } else {
-                return AbstractModel.NO_ID;
-            }
-        } finally {
-            metadata.close();
-        }
+        Metadata metadata = getMetadataByGtaskId(gtasksId);
+        return metadata == null ? AbstractModel.NO_ID : metadata.getTask();
+    }
+
+    private Metadata getMetadataByGtaskId(String gtaskId) {
+        return metadataDao.getFirst(Query.select(Metadata.PROPERTIES).where(Criterion.and(
+                Metadata.KEY.eq(getMetadataKey()),
+                GtasksMetadata.ID.eq(gtaskId))));
     }
 
     // --- list iterating helpers
@@ -96,7 +80,7 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
         iterateThroughList(listId, iterator, 0, false);
     }
 
-    public void iterateThroughList(String listId, OrderedListIterator iterator, long startAtOrder, boolean reverse) {
+    private void iterateThroughList(String listId, final OrderedListIterator iterator, long startAtOrder, boolean reverse) {
         Field orderField = Functions.cast(GtasksMetadata.ORDER, "LONG");
         Order order = reverse ? Order.desc(orderField) : Order.asc(orderField);
         Criterion startAtCriterion = reverse ?  Functions.cast(GtasksMetadata.ORDER, "LONG").lt(startAtOrder) :
@@ -107,20 +91,17 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
                         GtasksMetadata.LIST_ID.eq(listId),
                         startAtCriterion)).
                         orderBy(order);
-        TodorooCursor<Metadata> cursor = metadataDao.query(query);
-        try {
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                long taskId = cursor.get(Metadata.TASK);
-                Metadata metadata = getTaskMetadata(taskId);
-                if(metadata == null) {
-                    continue;
-                }
-                iterator.processTask(taskId, metadata);
-            }
 
-        } finally {
-            cursor.close();
-        }
+        metadataDao.query(query, new Callback<Metadata>() {
+            @Override
+            public void apply(Metadata entry) {
+                long taskId = entry.getValue(Metadata.TASK);
+                Metadata metadata = getTaskMetadata(taskId);
+                if(metadata != null) {
+                    iterator.processTask(taskId, metadata);
+                }
+            }
+        });
     }
 
     /**

@@ -95,6 +95,10 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         return result;
     }
 
+    public void query(Query query, Callback<TYPE> callback) {
+        query(callback, query);
+    }
+
     public void query(Callback<TYPE> callback, Query query) {
         TodorooCursor<TYPE> cursor = query(query);
         try {

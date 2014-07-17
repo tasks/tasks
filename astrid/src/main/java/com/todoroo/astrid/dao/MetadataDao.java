@@ -75,6 +75,10 @@ public class MetadataDao extends DatabaseDao<Metadata> {
                 Metadata.TASK.eq(Task.ID))).where(Task.TITLE.isNull())));
     }
 
+    public void byTask(long taskId, Callback<Metadata> callback) {
+        query(callback, Query.select(Metadata.PROPERTIES).where(Metadata.TASK.eq(taskId)));
+    }
+
     public void byTaskAndKey(long taskId, String key, Callback<Metadata> callback) {
         query(callback, Query.select(Metadata.PROPERTIES).where(
                 Criterion.and(Metadata.TASK.eq(taskId), Metadata.KEY.eq(key))));

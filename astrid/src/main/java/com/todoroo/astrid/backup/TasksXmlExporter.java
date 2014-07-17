@@ -22,7 +22,6 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
@@ -214,19 +213,18 @@ public class TasksXmlExporter {
     }
 
     private synchronized void serializeMetadata(Task task) throws IOException {
-        TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(
-                Metadata.PROPERTIES).where(MetadataCriteria.byTask(task.getId())));
-        try {
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                Metadata metadata = new Metadata(cursor);
-
-                xml.startTag(null, BackupConstants.METADATA_TAG);
-                serializeModel(metadata, Metadata.PROPERTIES, Metadata.ID, Metadata.TASK);
-                xml.endTag(null, BackupConstants.METADATA_TAG);
+        metadataDao.byTask(task.getId(), new Callback<Metadata>() {
+            @Override
+            public void apply(Metadata metadata) {
+                try {
+                    xml.startTag(null, BackupConstants.METADATA_TAG);
+                    serializeModel(metadata, Metadata.PROPERTIES, Metadata.ID, Metadata.TASK);
+                    xml.endTag(null, BackupConstants.METADATA_TAG);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
-        } finally {
-            cursor.close();
-        }
+        });
     }
 
     /**

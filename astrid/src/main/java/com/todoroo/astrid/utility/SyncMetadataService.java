@@ -7,7 +7,7 @@ package com.todoroo.astrid.utility;
 
 import android.content.ContentValues;
 
-import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -17,6 +17,7 @@ import com.todoroo.astrid.sync.SyncContainer;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
 
 abstract public class SyncMetadataService<TYPE extends SyncContainer> {
 
@@ -56,17 +57,8 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
      * @return null if no metadata found
      */
     public Metadata getTaskMetadata(long taskId) {
-        TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(Metadata.PROPERTIES).where(
+        return metadataDao.getFirst(Query.select(Metadata.PROPERTIES).where(
                 MetadataCriteria.byTaskAndwithKey(taskId, getMetadataKey())));
-        try {
-            if(cursor.getCount() == 0) {
-                return null;
-            }
-            cursor.moveToFirst();
-            return new Metadata(cursor);
-        } finally {
-            cursor.close();
-        }
     }
 
     /**
@@ -79,19 +71,16 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
      * @param metadataKey metadata key
      */
     private void synchronizeMetadata(long taskId, ArrayList<Metadata> metadata, String metadataKey) {
-        HashSet<ContentValues> newMetadataValues = new HashSet<>();
+        final Set<ContentValues> newMetadataValues = new HashSet<>();
         for(Metadata metadatum : metadata) {
             metadatum.setTask(taskId);
             metadatum.clearValue(Metadata.ID);
             newMetadataValues.add(metadatum.getMergedValues());
         }
 
-        TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(Metadata.PROPERTIES).where(
-                MetadataCriteria.byTaskAndwithKey(taskId, metadataKey)));
-        try {
-            // try to find matches within our metadata list
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                Metadata item = new Metadata(cursor);
+        metadataDao.byTaskAndKey(taskId, metadataKey, new Callback<Metadata>() {
+            @Override
+            public void apply(Metadata item) {
                 long id = item.getId();
 
                 // clear item id when matching with incoming values
@@ -99,15 +88,12 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
                 ContentValues itemMergedValues = item.getMergedValues();
                 if(newMetadataValues.contains(itemMergedValues)) {
                     newMetadataValues.remove(itemMergedValues);
-                    continue;
+                } else {
+                    // not matched. cut it
+                    metadataDao.delete(id);
                 }
-
-                // not matched. cut it
-                metadataDao.delete(id);
             }
-        } finally {
-            cursor.close();
-        }
+        });
 
         // everything that remains shall be written
         for(ContentValues values : newMetadataValues) {
