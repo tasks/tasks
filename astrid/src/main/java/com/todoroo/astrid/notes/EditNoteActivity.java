@@ -32,8 +32,6 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.todoroo.andlib.data.Callback;
-import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.ActFmCameraModule;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
@@ -41,7 +39,6 @@ import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
@@ -260,18 +257,12 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     private void setUpListAdapter() {
         items.clear();
         this.removeAllViews();
-        TodorooCursor<Metadata> notes = metadataDao.query(
-                Query.select(Metadata.PROPERTIES).where(
-                        MetadataCriteria.byTaskAndwithKey(task.getId(),
-                                NoteMetadata.METADATA_KEY)));
-        try {
-            for(notes.moveToFirst(); !notes.isAfterLast(); notes.moveToNext()) {
-                Metadata metadata = new Metadata(notes);
+        metadataDao.byTaskAndKey(task.getId(), NoteMetadata.METADATA_KEY, new Callback<Metadata>() {
+            @Override
+            public void apply(Metadata metadata) {
                 items.add(NoteOrUpdate.fromMetadata(metadata));
             }
-        } finally {
-            notes.close();
-        }
+        });
 
         userActivityDao.getCommentsForTask(task.getUuid(), new Callback<UserActivity>() {
             @Override

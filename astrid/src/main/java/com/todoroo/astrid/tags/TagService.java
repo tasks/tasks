@@ -9,7 +9,6 @@ import android.text.TextUtils;
 
 import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.data.Property.CountProperty;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Join;
@@ -60,41 +59,44 @@ public final class TagService {
      * @return empty array if no tags, otherwise array
      */
     public TagData[] getGroupedTags(Order order, Criterion activeStatus) {
-        Criterion criterion = Criterion.and(activeStatus, MetadataCriteria.withKey(TaskToTagMetadata.KEY));
         Query query = Query.select(TaskToTagMetadata.TAG_NAME, TaskToTagMetadata.TAG_UUID, COUNT).
-            join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
-            where(criterion).
-            orderBy(order).groupBy(TaskToTagMetadata.TAG_NAME);
-        TodorooCursor<Metadata> cursor = metadataDao.query(query);
-        try {
-            ArrayList<TagData> array = new ArrayList<>();
-            for (int i = 0; i < cursor.getCount(); i++) {
-                cursor.moveToNext();
-                TagData tag = tagFromUUID(cursor.get(TaskToTagMetadata.TAG_UUID));
+                join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
+                where(Criterion.and(
+                        activeStatus,
+                        MetadataCriteria.withKey(TaskToTagMetadata.KEY))).
+                orderBy(order).groupBy(TaskToTagMetadata.TAG_NAME);
+        final List<TagData> array = new ArrayList<>();
+        metadataDao.query(query, new Callback<Metadata>() {
+            @Override
+            public void apply(Metadata metadata) {
+                TagData tag = tagFromUUID(metadata.getValue(TaskToTagMetadata.TAG_UUID));
                 if (tag != null) {
                     array.add(tag);
                 }
             }
-            return (TagData[]) array.toArray();
-        } finally {
-            cursor.close();
-        }
+        });
+        return (TagData[]) array.toArray();
     }
 
     private TagData tagFromUUID(String uuid) {
         return tagDataDao.getByUuid(uuid, TagData.PROPERTIES);
     }
 
-    /**
-     * Return tags on the given task
-     * @return cursor. PLEASE CLOSE THE CURSOR!
-     */
-    public TodorooCursor<Metadata> getTags(long taskId) {
-        Criterion criterion = Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
+    public List<String> getTagNames(long taskId) {
+        Query query = Query.select(TaskToTagMetadata.TAG_NAME, TaskToTagMetadata.TAG_UUID).where(
+                Criterion.and(
+                    MetadataCriteria.withKey(TaskToTagMetadata.KEY),
                     Metadata.DELETION_DATE.eq(0),
-                    MetadataCriteria.byTask(taskId));
-        Query query = Query.select(TaskToTagMetadata.TAG_NAME, TaskToTagMetadata.TAG_UUID).where(criterion).orderBy(Order.asc(Functions.upper(TaskToTagMetadata.TAG_NAME)));
-        return metadataDao.query(query);
+                    MetadataCriteria.byTask(taskId)))
+                .orderBy(Order.asc(Functions.upper(TaskToTagMetadata.TAG_NAME)));
+        final List<String> tagNames = new ArrayList<>();
+        metadataDao.query(query,  new Callback<Metadata>() {
+            @Override
+            public void apply(Metadata entry) {
+                tagNames.add(entry.getValue(TaskToTagMetadata.TAG_NAME));
+            }
+        });
+        return tagNames;
     }
 
     /**
@@ -118,23 +120,16 @@ public final class TagService {
      * given tag, return that. Otherwise, return the argument
      */
     public String getTagWithCase(String tag) {
-        String tagWithCase = tag;
-        TodorooCursor<Metadata> tagMetadata = metadataDao.query(Query.select(TaskToTagMetadata.TAG_NAME).where(TagService.tagEqIgnoreCase(tag, Criterion.all)).limit(1));
-        try {
-            if (tagMetadata.getCount() > 0) {
-                tagMetadata.moveToFirst();
-                Metadata tagMatch = new Metadata(tagMetadata);
-                tagWithCase = tagMatch.getValue(TaskToTagMetadata.TAG_NAME);
-            } else {
-                TagData tagData = tagDataDao.getTagByName(tag, TagData.NAME);
-                if (tagData != null) {
-                    tagWithCase = tagData.getName();
-                }
-            }
-        } finally {
-            tagMetadata.close();
+        Metadata tagMetadata = metadataDao.getFirst(Query.select(TaskToTagMetadata.TAG_NAME).where(tagEqIgnoreCase(tag, Criterion.all)).limit(1));
+        if (tagMetadata != null) {
+            return tagMetadata.getValue(TaskToTagMetadata.TAG_NAME);
         }
-        return tagWithCase;
+
+        TagData tagData = tagDataDao.getTagByName(tag, TagData.NAME);
+        if (tagData != null) {
+            return tagData.getName();
+        }
+        return tag;
     }
 
     private static Criterion tagEqIgnoreCase(String tag, Criterion additionalCriterion) {

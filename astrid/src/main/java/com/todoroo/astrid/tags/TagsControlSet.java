@@ -24,7 +24,7 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.todoroo.andlib.data.AbstractModel;
-import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -248,17 +248,7 @@ public final class TagsControlSet extends PopupControlSet {
     public void readFromTask(Task task) {
         super.readFromTask(task);
         if(model.getId() != AbstractModel.NO_ID) {
-            TodorooCursor<Metadata> cursor = tagService.getTags(model.getId());
-            LinkedHashSet<String> tags = new LinkedHashSet<>(cursor.getCount());
-            try {
-                for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                    String tag = cursor.get(TaskToTagMetadata.TAG_NAME);
-                    tags.add(tag);
-                }
-            } finally {
-                cursor.close();
-            }
-            model.putTransitory(TRANSITORY_TAGS, tags);
+            model.putTransitory(TRANSITORY_TAGS, new LinkedHashSet<>(tagService.getTagNames(model.getId())));
             refreshDisplayView();
         }
     }
@@ -339,17 +329,18 @@ public final class TagsControlSet extends PopupControlSet {
      * Save the given array of tags into the database
      */
     private void synchronizeTags(long taskId, String taskUuid, Set<String> tags) {
-        HashSet<String> existingLinks = new HashSet<>();
-        TodorooCursor<Metadata> links = metadataDao.query(Query.select(Metadata.PROPERTIES)
-                .where(Criterion.and(TaskToTagMetadata.TASK_UUID.eq(taskUuid), Metadata.DELETION_DATE.eq(0))));
-        try {
-            for (links.moveToFirst(); !links.isAfterLast(); links.moveToNext()) {
-                Metadata link = new Metadata(links);
+        Query query = Query.select(Metadata.PROPERTIES).where(
+                Criterion.and(
+                        TaskToTagMetadata.TASK_UUID.eq(taskUuid),
+                        Metadata.DELETION_DATE.eq(0))
+        );
+        final HashSet<String> existingLinks = new HashSet<>();
+        metadataDao.query(query, new Callback<Metadata>() {
+            @Override
+            public void apply(Metadata link) {
                 existingLinks.add(link.getValue(TaskToTagMetadata.TAG_UUID));
             }
-        } finally {
-            links.close();
-        }
+        });
 
         for (String tag : tags) {
             TagData tagData = tagDataDao.getTagByName(tag, TagData.NAME, TagData.UUID);

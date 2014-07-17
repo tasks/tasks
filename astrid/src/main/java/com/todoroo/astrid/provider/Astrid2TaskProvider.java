@@ -12,18 +12,17 @@ import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
 
+import com.google.common.base.Joiner;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -271,21 +270,6 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
      * @return empty string if no tags, otherwise string
      */
     private String getTagsAsString(long taskId, String separator) {
-        StringBuilder tagBuilder = new StringBuilder();
-        TodorooCursor<Metadata> tags = tagService.get().getTags(taskId);
-        try {
-            int length = tags.getCount();
-            for (int i = 0; i < length; i++) {
-                tags.moveToNext();
-                Metadata metadata = new Metadata(tags);
-                tagBuilder.append(metadata.getValue(TaskToTagMetadata.TAG_NAME));
-                if (i < length - 1) {
-                    tagBuilder.append(separator);
-                }
-            }
-        } finally {
-            tags.close();
-        }
-        return tagBuilder.toString();
+        return Joiner.on(separator).join(tagService.get().getTagNames(taskId));
     }
 }

@@ -6,12 +6,13 @@
 package com.todoroo.astrid.dao;
 
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -34,20 +35,14 @@ public class MetadataDaoTests extends DatabaseTestCase {
      * Test basic creation, fetch, and save
      */
     public void testCrud() throws Exception {
-        TodorooCursor<Metadata> cursor = metadataDao.query(
-                Query.select(Metadata.ID));
-        assertEquals(0, cursor.getCount());
-        cursor.close();
+        assertTrue(metadataDao.toList(Query.select(Metadata.ID)).isEmpty());
 
         // create "happy"
         Metadata metadata = new Metadata();
         metadata.setTask(1L);
         metadata.setKey("happy");
         assertTrue(metadataDao.persist(metadata));
-        cursor = metadataDao.query(
-                Query.select(Metadata.ID));
-        assertEquals(1, cursor.getCount());
-        cursor.close();
+        assertEquals(1, metadataDao.toList(Query.select(Metadata.ID)).size());
         long happyId = metadata.getId();
         assertNotSame(Metadata.NO_ID, happyId);
         metadata = metadataDao.fetch(happyId, KEYS);
@@ -58,19 +53,14 @@ public class MetadataDaoTests extends DatabaseTestCase {
         metadata.setTask(1L);
         metadata.setKey("sad");
         assertTrue(metadataDao.persist(metadata));
-        cursor = metadataDao.query(Query.select(Metadata.ID));
-        assertEquals(2, cursor.getCount());
-        cursor.close();
+        assertEquals(2, metadataDao.toList(Query.select(Metadata.ID)).size());
 
         // rename sad to melancholy
         long sadId = metadata.getId();
         assertNotSame(Metadata.NO_ID, sadId);
         metadata.setKey("melancholy");
         assertTrue(metadataDao.persist(metadata));
-        cursor = metadataDao.query(
-                Query.select(Metadata.ID));
-        assertEquals(2, cursor.getCount());
-        cursor.close();
+        assertEquals(2, metadataDao.toList(Query.select(Metadata.ID)).size());
 
         // check state
         metadata = metadataDao.fetch(happyId, KEYS);
@@ -80,13 +70,9 @@ public class MetadataDaoTests extends DatabaseTestCase {
 
         // delete sad
         assertTrue(metadataDao.delete(sadId));
-        cursor = metadataDao.query(
-                Query.select(KEYS));
-        assertEquals(1, cursor.getCount());
-        cursor.moveToFirst();
-        metadata = new Metadata(cursor);
-        assertEquals("happy", metadata.getKey());
-        cursor.close();
+        List<Metadata> metadataList = metadataDao.toList(Query.select(KEYS));
+        assertEquals(1, metadataList.size());
+        assertEquals("happy", metadataList.get(0).getKey());
     }
 
     /**
@@ -109,29 +95,15 @@ public class MetadataDaoTests extends DatabaseTestCase {
         metadata.setTask(1L);
         assertTrue(metadataDao.persist(metadata));
 
+        List<Metadata> metadataList = metadataDao.toList(Query.select(KEYS).where(MetadataCriteria.byTask(1)));
+        assertEquals(2, metadataList.size());
+        assertEquals("with1", metadataList.get(0).getKey());
+        assertEquals("with1", metadataList.get(1).getKey());
 
-        TodorooCursor<Metadata> cursor = metadataDao.query(
-                Query.select(KEYS).where(MetadataCriteria.byTask(1)));
-        assertEquals(2, cursor.getCount());
-        cursor.moveToFirst();
-        metadata = new Metadata(cursor);
-        assertEquals("with1", metadata.getKey());
-        cursor.moveToNext();
-        metadata = new Metadata(cursor);
-        assertEquals("with1", metadata.getKey());
-        cursor.close();
+        assertTrue(metadataDao.toList(Query.select(KEYS).where(MetadataCriteria.byTask(3))).isEmpty());
 
-        cursor = metadataDao.query(
-                Query.select(KEYS).where(MetadataCriteria.byTask(3)));
-        assertEquals(0, cursor.getCount());
-        cursor.close();
-
-        int deleted = metadataDao.deleteWhere(MetadataCriteria.byTask(1));
-        assertEquals(2, deleted);
-        cursor = metadataDao.query(
-                Query.select(KEYS));
-        assertEquals(1, cursor.getCount());
-        cursor.close();
+        assertEquals(2, metadataDao.deleteWhere(MetadataCriteria.byTask(1)));
+        assertEquals(1, metadataDao.toList(Query.select(KEYS)).size());
     }
 
     public void testDontSaveMetadataWithoutTaskId() {

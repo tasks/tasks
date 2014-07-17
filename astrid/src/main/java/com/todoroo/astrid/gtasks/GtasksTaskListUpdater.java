@@ -7,9 +7,9 @@ package com.todoroo.astrid.gtasks;
 
 import android.text.TextUtils;
 
+import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -149,31 +150,26 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
                 new HashSet<Long>());
     }
 
-    private void orderAndIndentHelper(String listId, AtomicLong order, long parent, int indentLevel,
-            HashSet<Long> alreadyChecked) {
-        TodorooCursor<Metadata> metadata = metadataDao.query(Query.select(Metadata.PROPERTIES)
-                .where(Criterion.and(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY),
-                        GtasksMetadata.LIST_ID.eq(listId), GtasksMetadata.PARENT_TASK.eq(parent)))
-                .orderBy(Order.asc(Functions.cast(GtasksMetadata.GTASKS_ORDER, "INTEGER")))); //$NON-NLS-1$
-        try {
-            if (metadata.getCount() > 0) {
-                for (metadata.moveToFirst(); !metadata.isAfterLast(); metadata.moveToNext()) {
-                    Metadata curr = new Metadata(metadata);
-                    if(alreadyChecked.contains(curr.getTask())) {
-                        continue;
+    private void orderAndIndentHelper(final String listId, final AtomicLong order, final long parent, final int indentLevel, final Set<Long> alreadyChecked) {
+        Query query = Query.select(Metadata.PROPERTIES).where(Criterion.and(
+                Metadata.KEY.eq(GtasksMetadata.METADATA_KEY),
+                GtasksMetadata.LIST_ID.eq(listId),
+                GtasksMetadata.PARENT_TASK.eq(parent)))
+                .orderBy(Order.asc(Functions.cast(GtasksMetadata.GTASKS_ORDER, "INTEGER")));
+        metadataDao.query(query, new Callback<Metadata>() {
+                    @Override
+                    public void apply(Metadata curr) {
+                        if (!alreadyChecked.contains(curr.getTask())) {
+                            curr.setValue(GtasksMetadata.INDENT, indentLevel);
+                            curr.setValue(GtasksMetadata.ORDER, order.getAndIncrement());
+                            metadataDao.saveExisting(curr);
+                            alreadyChecked.add(curr.getTask());
+
+                            orderAndIndentHelper(listId, order, curr.getTask(), indentLevel + 1, alreadyChecked);
+                        }
                     }
-
-                    curr.setValue(GtasksMetadata.INDENT, indentLevel);
-                    curr.setValue(GtasksMetadata.ORDER, order.getAndIncrement());
-                    metadataDao.saveExisting(curr);
-                    alreadyChecked.add(curr.getTask());
-
-                    orderAndIndentHelper(listId, order, curr.getTask(), indentLevel + 1, alreadyChecked);
                 }
-            }
-        } finally {
-            metadata.close();
-        }
+        );
     }
 
     void updateParentSiblingMapsFor(StoreObject list) {

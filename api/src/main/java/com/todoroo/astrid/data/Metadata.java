@@ -14,7 +14,6 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.api.AstridApiConstants;
 
 /**
@@ -97,16 +96,6 @@ public class Metadata extends AbstractModel {
     @Override
     public ContentValues getDefaultValues() {
         return defaultValues;
-    }
-
-    // --- data access boilerplate
-
-    public Metadata() {
-        super();
-    }
-
-    public Metadata(TodorooCursor<Metadata> cursor) {
-        super(cursor);
     }
 
     @Override
