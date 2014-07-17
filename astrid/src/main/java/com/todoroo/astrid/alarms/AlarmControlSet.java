@@ -13,7 +13,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
@@ -53,14 +53,12 @@ public final class AlarmControlSet extends TaskEditControlSet {
     @Override
     protected void readFromTaskOnInitialize() {
         alertsContainer.removeAllViews();
-        TodorooCursor<Metadata> cursor = alarmService.getAlarms(model.getId());
-        try {
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                addAlarm(newDate(cursor.get(AlarmFields.TIME)));
+        alarmService.getAlarms(model.getId(), new Callback<Metadata>() {
+            @Override
+            public void apply(Metadata entry) {
+                addAlarm(newDate(entry.getValue(AlarmFields.TIME)));
             }
-        } finally {
-            cursor.close();
-        }
+        });
     }
 
     @Override

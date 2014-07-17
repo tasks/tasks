@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.dao;
 
+import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
@@ -52,7 +53,6 @@ public class MetadataDao extends DatabaseDao<Metadata> {
     	public static Criterion byTaskAndwithKey(long taskId, String key) {
     	    return Criterion.and(withKey(key), byTask(taskId));
     	}
-
     }
 
     @Override
@@ -73,6 +73,11 @@ public class MetadataDao extends DatabaseDao<Metadata> {
     public void removeDanglingMetadata() {
         deleteWhere(Metadata.ID.in(Query.select(Metadata.ID).from(Metadata.TABLE).join(Join.left(Task.TABLE,
                 Metadata.TASK.eq(Task.ID))).where(Task.TITLE.isNull())));
+    }
+
+    public void byTaskAndKey(long taskId, String key, Callback<Metadata> callback) {
+        query(callback, Query.select(Metadata.PROPERTIES).where(
+                Criterion.and(Metadata.TASK.eq(taskId), Metadata.KEY.eq(key))));
     }
 }
 

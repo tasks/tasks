@@ -11,7 +11,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 
-import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
@@ -26,14 +26,13 @@ import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.service.SynchronizeMetadataCallback;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.injection.ForApplication;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -47,12 +46,16 @@ import javax.inject.Singleton;
 @Singleton
 public class AlarmService {
 
-    private static final Logger log = LoggerFactory.getLogger(AlarmService.class);
+    private static final long NO_ALARM = Long.MAX_VALUE;
 
-    // --- data retrieval
-
-    private MetadataDao metadataDao;
+    private final MetadataDao metadataDao;
     private final Context context;
+    private final Callback<Metadata> scheduleAlarm = new Callback<Metadata>() {
+        @Override
+        public void apply(Metadata alarm) {
+            scheduleAlarm(alarm);
+        }
+    };
 
     @Inject
     public AlarmService(MetadataDao metadataDao, @ForApplication Context context) {
@@ -60,11 +63,8 @@ public class AlarmService {
         this.context = context;
     }
 
-    /**
-     * Return alarms for the given task. PLEASE CLOSE THE CURSOR!
-     */
-    public TodorooCursor<Metadata> getAlarms(long taskId) {
-        return metadataDao.query(Query.select(
+    public void getAlarms(long taskId, Callback<Metadata> callback) {
+        metadataDao.query(callback, Query.select(
                 Metadata.PROPERTIES).where(MetadataCriteria.byTaskAndwithKey(
                 taskId, AlarmFields.METADATA_KEY)).orderBy(Order.asc(AlarmFields.TIME)));
     }
@@ -73,8 +73,8 @@ public class AlarmService {
      * Save the given array of alarms into the database
      * @return true if data was changed
      */
-    public boolean synchronizeAlarms(final long taskId, LinkedHashSet<Long> alarms) {
-        ArrayList<Metadata> metadata = new ArrayList<>();
+    public boolean synchronizeAlarms(final long taskId, Set<Long> alarms) {
+        List<Metadata> metadata = new ArrayList<>();
         for(Long alarm : alarms) {
             Metadata item = new Metadata();
             item.setKey(AlarmFields.METADATA_KEY);
@@ -85,7 +85,7 @@ public class AlarmService {
 
         final AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 
-        boolean changed = synchronizeMetadata(taskId, metadata, Metadata.KEY.eq(AlarmFields.METADATA_KEY), new SynchronizeMetadataCallback() {
+        boolean changed = synchronizeMetadata(taskId, metadata, new SynchronizeMetadataCallback() {
             @Override
             public void beforeDeleteMetadata(Metadata m) {
                 // Cancel the alarm before the metadata is deleted
@@ -102,22 +102,14 @@ public class AlarmService {
 
     // --- alarm scheduling
 
-    /**
-     * Gets a listing of all alarms that are active
-     * @return todoroo cursor. PLEASE CLOSE THIS CURSOR!
-     */
-    private TodorooCursor<Metadata> getActiveAlarms() {
-        return metadataDao.query(Query.select(Metadata.ID, Metadata.TASK, AlarmFields.TIME).
+    private void getActiveAlarms(Callback<Metadata> callback) {
+        metadataDao.query(callback, Query.select(Metadata.ID, Metadata.TASK, AlarmFields.TIME).
                 join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
                 where(Criterion.and(TaskCriteria.isActive(), MetadataCriteria.withKey(AlarmFields.METADATA_KEY))));
     }
 
-    /**
-     * Gets a listing of alarms by task
-     * @return todoroo cursor. PLEASE CLOSE THIS CURSOR!
-     */
-    private TodorooCursor<Metadata> getActiveAlarmsForTask(long taskId) {
-        return metadataDao.query(Query.select(Metadata.ID, Metadata.TASK, AlarmFields.TIME).
+    private void getActiveAlarmsForTask(long taskId, Callback<Metadata> callback) {
+        metadataDao.query(callback, Query.select(Metadata.ID, Metadata.TASK, AlarmFields.TIME).
                 join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
                 where(Criterion.and(TaskCriteria.isActive(),
                         MetadataCriteria.byTaskAndwithKey(taskId, AlarmFields.METADATA_KEY))));
@@ -127,37 +119,14 @@ public class AlarmService {
      * Schedules all alarms
      */
     public void scheduleAllAlarms() {
-        TodorooCursor<Metadata> cursor = getActiveAlarms();
-        try {
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                Metadata alarm = new Metadata(cursor);
-                scheduleAlarm(alarm);
-            }
-        } catch (Exception e) {
-            // suppress
-            log.error(e.getMessage(), e);
-        } finally {
-            cursor.close();
-        }
+        getActiveAlarms(scheduleAlarm);
     }
-
-    private static final long NO_ALARM = Long.MAX_VALUE;
 
     /**
      * Schedules alarms for a single task
      */
-    public void scheduleAlarms(long taskId) {
-        TodorooCursor<Metadata> cursor = getActiveAlarmsForTask(taskId);
-        try {
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                Metadata alarm = new Metadata(cursor);
-                scheduleAlarm(alarm);
-            }
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        } finally {
-            cursor.close();
-        }
+    private void scheduleAlarms(long taskId) {
+        getActiveAlarmsForTask(taskId, scheduleAlarm);
     }
 
     private PendingIntent pendingIntentForAlarm(Metadata alarm, long taskId) {
@@ -191,10 +160,9 @@ public class AlarmService {
         }
     }
 
-    private boolean synchronizeMetadata(long taskId, ArrayList<Metadata> metadata,
-                                       Criterion metadataCriterion, SynchronizeMetadataCallback callback) {
-        boolean dirty = false;
-        HashSet<ContentValues> newMetadataValues = new HashSet<>();
+    private boolean synchronizeMetadata(long taskId, List<Metadata> metadata, final SynchronizeMetadataCallback callback) {
+        final boolean[] dirty = new boolean[1];
+        final Set<ContentValues> newMetadataValues = new HashSet<>();
         for(Metadata metadatum : metadata) {
             metadatum.setTask(taskId);
             metadatum.clearValue(Metadata.CREATION_DATE);
@@ -210,12 +178,9 @@ public class AlarmService {
             newMetadataValues.add(values);
         }
 
-        TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(Metadata.PROPERTIES).where(Criterion.and(MetadataCriteria.byTask(taskId),
-                metadataCriterion)));
-        try {
-            // try to find matches within our metadata list
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                Metadata item = new Metadata(cursor);
+        metadataDao.byTaskAndKey(taskId, AlarmFields.METADATA_KEY, new Callback<Metadata>() {
+            @Override
+            public void apply(Metadata item) {
                 long id = item.getId();
 
                 // clear item id when matching with incoming values
@@ -225,20 +190,17 @@ public class AlarmService {
 
                 if(newMetadataValues.contains(itemMergedValues)) {
                     newMetadataValues.remove(itemMergedValues);
-                    continue;
+                } else {
+                    // not matched. cut it
+                    item.setId(id);
+                    if (callback != null) {
+                        callback.beforeDeleteMetadata(item);
+                    }
+                    metadataDao.delete(id);
+                    dirty[0] = true;
                 }
-
-                // not matched. cut it
-                item.setId(id);
-                if (callback != null) {
-                    callback.beforeDeleteMetadata(item);
-                }
-                metadataDao.delete(id);
-                dirty = true;
             }
-        } finally {
-            cursor.close();
-        }
+        });
 
         // everything that remains shall be written
         for(ContentValues values : newMetadataValues) {
@@ -246,9 +208,9 @@ public class AlarmService {
             item.setCreationDate(DateUtilities.now());
             item.mergeWith(values);
             metadataDao.persist(item);
-            dirty = true;
+            dirty[0] = true;
         }
 
-        return dirty;
+        return dirty[0];
     }
 }

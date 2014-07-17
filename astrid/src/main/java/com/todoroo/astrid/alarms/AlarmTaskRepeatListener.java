@@ -8,7 +8,7 @@ package com.todoroo.astrid.alarms;
 import android.content.Context;
 import android.content.Intent;
 
-import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -17,6 +17,7 @@ import com.todoroo.astrid.data.Metadata;
 import org.tasks.injection.InjectingBroadcastReceiver;
 
 import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -34,31 +35,23 @@ public class AlarmTaskRepeatListener extends InjectingBroadcastReceiver {
             return;
         }
 
-        long oldDueDate = intent.getLongExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, 0);
-        if(oldDueDate == 0) {
-            oldDueDate = DateUtilities.now();
-        }
-        long newDueDate = intent.getLongExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, -1);
+        long oldDueDateExtra = intent.getLongExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, 0);
+        final long oldDueDate = oldDueDateExtra == 0 ? DateUtilities.now() : oldDueDateExtra;
+        final long newDueDate = intent.getLongExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, -1);
+
         if(newDueDate <= 0 || newDueDate <= oldDueDate) {
             return;
         }
 
-        TodorooCursor<Metadata> cursor = alarmService.getAlarms(taskId);
-        try {
-            if(cursor.getCount() == 0) {
-                return;
-            }
-
-            LinkedHashSet<Long> alarms = new LinkedHashSet<>(cursor.getCount());
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                Metadata metadata = new Metadata(cursor);
+        final Set<Long> alarms = new LinkedHashSet<>();
+        alarmService.getAlarms(taskId, new Callback<Metadata>() {
+            @Override
+            public void apply(Metadata metadata) {
                 alarms.add(metadata.getValue(AlarmFields.TIME) + (newDueDate - oldDueDate));
             }
+        });
+        if (!alarms.isEmpty()) {
             alarmService.synchronizeAlarms(taskId, alarms);
-
-        } finally {
-            cursor.close();
         }
     }
-
 }
