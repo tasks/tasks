@@ -19,10 +19,10 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.slf4j.Logger;
@@ -119,15 +119,15 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 	 */
 	public Cursor getTags() {
 
-		Tag[] tags = tagService.get().getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE,
+		TagData[] tags = tagService.get().getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE,
                 Criterion.all);
 
 		MatrixCursor ret = new MatrixCursor(TAGS_FIELD_LIST);
 
-        for (Tag tag : tags) {
+        for (TagData tag : tags) {
             Object[] values = new Object[2];
-            values[0] = tagNameToLong(tag.tag);
-            values[1] = tag.tag;
+            values[0] = tagNameToLong(tag.getName());
+            values[1] = tag.getName();
 
             ret.addRow(values);
         }

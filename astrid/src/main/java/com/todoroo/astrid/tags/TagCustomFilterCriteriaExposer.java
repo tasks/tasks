@@ -22,6 +22,7 @@ import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
@@ -53,11 +54,11 @@ public class TagCustomFilterCriteriaExposer extends InjectingBroadcastReceiver {
 
         // built in criteria: tags
         {
-            TagService.Tag[] tags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE,
+            TagData[] tags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE,
                             TaskDao.TaskCriteria.activeAndVisible());
             String[] tagNames = new String[tags.length];
             for(int i = 0; i < tags.length; i++) {
-                tagNames[i] = tags[i].tag;
+                tagNames[i] = tags[i].getName();
             }
             ContentValues values = new ContentValues();
             values.put(Metadata.KEY.name, TaskToTagMetadata.KEY);

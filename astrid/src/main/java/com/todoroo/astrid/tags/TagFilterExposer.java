@@ -16,6 +16,8 @@ import android.text.TextUtils;
 
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Field;
+import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.actfm.TagViewFragment;
@@ -30,7 +32,6 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.tags.TagService.Tag;
 
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
@@ -58,18 +59,18 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
     @Inject Preferences preferences;
 
     /** Create filter from new tag object */
-    public static FilterWithCustomIntent filterFromTag(Context context, Tag tag, Criterion criterion) {
-        String title = tag.tag;
+    public static FilterWithCustomIntent filterFromTag(Context context, TagData tag, Criterion criterion) {
+        String title = tag.getName();
         if (TextUtils.isEmpty(title)) {
             return null;
         }
-        QueryTemplate tagTemplate = tag.queryTemplate(criterion);
+        QueryTemplate tagTemplate = queryTemplate(tag.getUuid(), criterion);
         ContentValues contentValues = new ContentValues();
         contentValues.put(Metadata.KEY.name, TaskToTagMetadata.KEY);
-        contentValues.put(TaskToTagMetadata.TAG_NAME.name, tag.tag);
-        contentValues.put(TaskToTagMetadata.TAG_UUID.name, tag.uuid);
+        contentValues.put(TaskToTagMetadata.TAG_NAME.name, tag.getName());
+        contentValues.put(TaskToTagMetadata.TAG_UUID.name, tag.getUuid());
 
-        FilterWithUpdate filter = new FilterWithUpdate(tag.tag,
+        FilterWithUpdate filter = new FilterWithUpdate(tag.getName(),
                 title, tagTemplate,
                 contentValues);
 
@@ -78,14 +79,14 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
             context.getString(R.string.tag_cm_delete)
         };
         filter.contextMenuIntents = new Intent[] {
-                newTagIntent(context, RenameTagActivity.class, tag, tag.uuid),
-                newTagIntent(context, DeleteTagActivity.class, tag, tag.uuid)
+                newTagIntent(context, RenameTagActivity.class, tag, tag.getUuid()),
+                newTagIntent(context, DeleteTagActivity.class, tag, tag.getUuid())
         };
 
         filter.customTaskList = new ComponentName(context, TagViewFragment.class);
         Bundle extras = new Bundle();
-        extras.putString(TagViewFragment.EXTRA_TAG_NAME, tag.tag);
-        extras.putString(TagViewFragment.EXTRA_TAG_UUID, tag.uuid);
+        extras.putString(TagViewFragment.EXTRA_TAG_NAME, tag.getName());
+        extras.putString(TagViewFragment.EXTRA_TAG_UUID, tag.getUuid());
         filter.customExtras = extras;
 
         return filter;
@@ -93,13 +94,12 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
 
     /** Create a filter from tag data object */
     public static FilterWithCustomIntent filterFromTagData(Context context, TagData tagData) {
-        Tag tag = new Tag(tagData);
-        return filterFromTag(context, tag, TaskCriteria.activeAndVisible());
+        return filterFromTag(context, tagData, TaskCriteria.activeAndVisible());
     }
 
-    private static Intent newTagIntent(Context context, Class<? extends Activity> activity, Tag tag, String uuid) {
+    private static Intent newTagIntent(Context context, Class<? extends Activity> activity, TagData tag, String uuid) {
         Intent ret = new Intent(context, activity);
-        ret.putExtra(TAG, tag.tag);
+        ret.putExtra(TAG, tag.getName());
         ret.putExtra(TagViewFragment.EXTRA_TAG_UUID, uuid);
         return ret;
     }
@@ -126,7 +126,7 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
         return list.toArray(new FilterListItem[list.size()]);
     }
 
-    private List<Filter> filterFromTags(List<Tag> tags) {
+    private List<Filter> filterFromTags(List<TagData> tags) {
         boolean shouldAddUntagged = preferences.getBoolean(R.string.p_show_not_in_list_filter, true);
 
         List<Filter> filters = new ArrayList<>();
@@ -142,7 +142,7 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
             filters.add(untagged);
         }
 
-        for (Tag tag : tags) {
+        for (TagData tag : tags) {
             Filter f = constructFilter(context, tag);
             if (f != null) {
                 filters.add(f);
@@ -151,7 +151,7 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
         return filters;
     }
 
-    protected Filter constructFilter(Context context, Tag tag) {
+    protected Filter constructFilter(Context context, TagData tag) {
         return filterFromTag(context, tag, TaskCriteria.activeAndVisible());
     }
 
@@ -168,5 +168,15 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
                         .where(Criterion.and(MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY), Metadata.DELETION_DATE.eq(0))))),
                 TaskCriteria.isActive(),
                 TaskCriteria.isVisible()));
+    }
+
+    private static QueryTemplate queryTemplate(String uuid, Criterion criterion) {
+        Criterion fullCriterion = Criterion.and(
+                Field.field("mtags." + Metadata.KEY.name).eq(TaskToTagMetadata.KEY),
+                Field.field("mtags." + TaskToTagMetadata.TAG_UUID.name).eq(uuid),
+                Field.field("mtags." + Metadata.DELETION_DATE.name).eq(0),
+                criterion);
+        return new QueryTemplate().join(Join.inner(Metadata.TABLE.as("mtags"), Task.UUID.eq(Field.field("mtags." + TaskToTagMetadata.TASK_UUID.name))))
+                .where(fullCriterion);
     }
 }

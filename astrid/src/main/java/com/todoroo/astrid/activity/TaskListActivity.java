@@ -43,7 +43,6 @@ import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.tags.DeleteTagActivity;
 import com.todoroo.astrid.tags.RenameTagActivity;
 import com.todoroo.astrid.tags.TagFilterExposer;
-import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
@@ -527,17 +526,17 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 }
                 return true;
             case R.id.menu_delete_list:
-                TagService.Tag deleteTag = new TagService.Tag(tlf.getActiveTagData());
+                TagData deleteTag = tlf.getActiveTagData();
                 Intent ret = new Intent(this, DeleteTagActivity.class);
-                ret.putExtra("tag", deleteTag.tag);
-                ret.putExtra(TagViewFragment.EXTRA_TAG_UUID, deleteTag.uuid);
+                ret.putExtra("tag", deleteTag.getName());
+                ret.putExtra(TagViewFragment.EXTRA_TAG_UUID, deleteTag.getUuid());
                 startActivityForResult(ret, FilterListFragment.REQUEST_CUSTOM_INTENT);
                 return true;
             case R.id.menu_rename_list:
-                TagService.Tag renameTag = new TagService.Tag(tlf.getActiveTagData());
+                TagData renameTag = tlf.getActiveTagData();
                 Intent rename = new Intent(this, RenameTagActivity.class);
-                rename.putExtra("tag", renameTag.tag);
-                rename.putExtra(TagViewFragment.EXTRA_TAG_UUID, renameTag.uuid);
+                rename.putExtra("tag", renameTag.getName());
+                rename.putExtra(TagViewFragment.EXTRA_TAG_UUID, renameTag.getUuid());
                 startActivityForResult(rename, FilterListFragment.REQUEST_CUSTOM_INTENT);
                 return true;
             case R.id.menu_support:

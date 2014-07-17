@@ -33,7 +33,6 @@ import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.utility.Flags;
 
@@ -44,7 +43,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 import static org.tasks.preferences.ResourceResolver.getResource;
@@ -85,9 +83,8 @@ public final class TagsControlSet extends PopupControlSet {
         image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
     }
 
-    private Tag[] getTagArray() {
-        List<Tag> tagsList = tagService.getTagList();
-        return tagsList.toArray(new Tag[tagsList.size()]);
+    private TagData[] getTagArray() {
+        return (TagData[]) tagService.getTagList().toArray();
     }
 
     private HashMap<String, Integer> buildTagIndices(ArrayList<String> tagNames) {
@@ -98,11 +95,11 @@ public final class TagsControlSet extends PopupControlSet {
         return indices;
     }
 
-    private ArrayList<String> getTagNames(Tag[] tags) {
+    private ArrayList<String> getTagNames(TagData[] tags) {
         ArrayList<String> names = new ArrayList<>();
-        for (Tag tag : tags) {
-            if (!names.contains(tag.tag)) {
-                names.add(tag.tag);
+        for (TagData tag : tags) {
+            if (!names.contains(tag.getName())) {
+                names.add(tag.getName());
             }
         }
         return names;
@@ -298,7 +295,7 @@ public final class TagsControlSet extends PopupControlSet {
 
     @Override
     protected void afterInflate() {
-        Tag[] allTags = getTagArray();
+        TagData[] allTags = getTagArray();
         allTagNames = getTagNames(allTags);
         tagIndices = buildTagIndices(allTagNames);
 

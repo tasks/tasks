@@ -11,12 +11,10 @@ import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TagDataDao;
@@ -55,48 +53,13 @@ public final class TagService {
     public static final Order GROUPED_TAGS_BY_SIZE = Order.desc(COUNT);
 
     /**
-     * Helper class for returning a tag/task count pair
-     *
-     * @author Tim Su <tim@todoroo.com>
-     *
-     */
-    // TODO: get rid of this
-    public static final class Tag {
-        public String tag;
-        public String uuid;
-
-        public Tag(TagData tagData) {
-            tag = tagData.getName();
-            uuid = tagData.getUUID();
-        }
-
-        @Override
-        public String toString() {
-            return tag;
-        }
-
-        /**
-         * Return SQL selector query for getting tasks with a given tagData
-         */
-        public QueryTemplate queryTemplate(Criterion criterion) {
-            Criterion fullCriterion = Criterion.and(
-                    Field.field("mtags." + Metadata.KEY.name).eq(TaskToTagMetadata.KEY),
-                    Field.field("mtags." + TaskToTagMetadata.TAG_UUID.name).eq(uuid),
-                    Field.field("mtags." + Metadata.DELETION_DATE.name).eq(0),
-                    criterion);
-            return new QueryTemplate().join(Join.inner(Metadata.TABLE.as("mtags"), Task.UUID.eq(Field.field("mtags." + TaskToTagMetadata.TASK_UUID.name))))
-                    .where(fullCriterion);
-        }
-    }
-
-    /**
      * Return all tags ordered by given clause
      *
      * @param order ordering
      * @param activeStatus criterion for specifying completed or uncompleted
      * @return empty array if no tags, otherwise array
      */
-    public Tag[] getGroupedTags(Order order, Criterion activeStatus) {
+    public TagData[] getGroupedTags(Order order, Criterion activeStatus) {
         Criterion criterion = Criterion.and(activeStatus, MetadataCriteria.withKey(TaskToTagMetadata.KEY));
         Query query = Query.select(TaskToTagMetadata.TAG_NAME, TaskToTagMetadata.TAG_UUID, COUNT).
             join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
@@ -104,23 +67,22 @@ public final class TagService {
             orderBy(order).groupBy(TaskToTagMetadata.TAG_NAME);
         TodorooCursor<Metadata> cursor = metadataDao.query(query);
         try {
-            ArrayList<Tag> array = new ArrayList<>();
+            ArrayList<TagData> array = new ArrayList<>();
             for (int i = 0; i < cursor.getCount(); i++) {
                 cursor.moveToNext();
-                Tag tag = tagFromUUID(cursor.get(TaskToTagMetadata.TAG_UUID));
+                TagData tag = tagFromUUID(cursor.get(TaskToTagMetadata.TAG_UUID));
                 if (tag != null) {
                     array.add(tag);
                 }
             }
-            return array.toArray(new Tag[array.size()]);
+            return (TagData[]) array.toArray();
         } finally {
             cursor.close();
         }
     }
 
-    private Tag tagFromUUID(String uuid) {
-        TagData tagData = tagDataDao.getByUuid(uuid, TagData.PROPERTIES);
-        return tagData == null ? null : new Tag(tagData);
+    private TagData tagFromUUID(String uuid) {
+        return tagDataDao.getByUuid(uuid, TagData.PROPERTIES);
     }
 
     /**
@@ -138,13 +100,13 @@ public final class TagService {
     /**
      * Return all tags (including metadata tags and TagData tags) in an array list
      */
-    public List<Tag> getTagList() {
-        final List<Tag> tagList = new ArrayList<>();
+    public List<TagData> getTagList() {
+        final List<TagData> tagList = new ArrayList<>();
         tagDataDao.tagDataOrderedByName(new Callback<TagData>() {
             @Override
             public void apply(TagData tagData) {
                 if (!TextUtils.isEmpty(tagData.getName())) {
-                    tagList.add(new Tag(tagData));
+                    tagList.add(tagData);
                 }
             }
         });
