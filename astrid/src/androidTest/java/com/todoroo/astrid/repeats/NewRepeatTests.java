@@ -11,7 +11,6 @@ import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.Weekday;
 import com.google.ical.values.WeekdayNum;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -95,12 +94,7 @@ public class NewRepeatTests extends DatabaseTestCase {
         t.setCompletionDate(DateUtilities.now());
         saveAndTriggerRepeatListener(t);
 
-        TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.ID));
-        try {
-            assertEquals(1, cursor.getCount());
-        } finally {
-            cursor.close();
-        }
+        assertEquals(1, taskDao.toList(Query.select(Task.ID)).size());
     }
 
     protected void testRepeating(boolean completeBefore, boolean fromCompletion,
@@ -136,31 +130,21 @@ public class NewRepeatTests extends DatabaseTestCase {
 
         waitAndSync();
 
-        TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.PROPERTIES).where(TaskCriteria.notDeleted()));
-        try {
-            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                Task task = new Task(cursor);
-                System.err.println("Task: " + task.getTitle() + ", due: " + task.getDueDate());
-            }
-            assertEquals(1, cursor.getCount());
-            cursor.moveToFirst();
-            t = new Task(cursor);
+        List<Task> tasks = taskDao.toList(Query.select(Task.PROPERTIES).where(TaskCriteria.notDeleted()));
+        assertEquals(1, tasks.size());
+        t = tasks.get(0);
+        assertEquals(title, t.getTitle());
+        assertFalse(t.isCompleted());
+        long newDueDate = t.getDueDate();
+        assertTrue(t.hasDueTime());
 
-            assertEquals(title, t.getTitle());
-            assertFalse(t.isCompleted());
-            long newDueDate = t.getDueDate();
-            assertTrue(t.hasDueTime());
+        long fromDate = (fromCompletion? completionDate : dueDate);
+        long expectedTime = computeNextDueDateFromDate(fromDate, rrule, fromCompletion);
 
-            long fromDate = (fromCompletion? completionDate : dueDate);
-            long expectedTime = computeNextDueDateFromDate(fromDate, rrule, fromCompletion);
-
-            if (frequency == Frequency.WEEKLY) // We do this because DST was making the results be off by an hour
-                assertTimesWithinOneHour(expectedTime, newDueDate);
-            else
-                assertTimesMatch(expectedTime, newDueDate);
-        } finally {
-            cursor.close();
-        }
+        if (frequency == Frequency.WEEKLY) // We do this because DST was making the results be off by an hour
+            assertTimesWithinOneHour(expectedTime, newDueDate);
+        else
+            assertTimesMatch(expectedTime, newDueDate);
     }
 
     private long computeWeeklyCaseDueDate(long fromDate, RRule rrule, boolean fromCompletion) {
