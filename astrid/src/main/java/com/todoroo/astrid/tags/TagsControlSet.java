@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.tasks.preferences.ResourceResolver.getResource;
@@ -84,7 +85,8 @@ public final class TagsControlSet extends PopupControlSet {
     }
 
     private TagData[] getTagArray() {
-        return (TagData[]) tagService.getTagList().toArray();
+        List<TagData> tagList = tagService.getTagList();
+        return tagList.toArray(new TagData[tagList.size()]);
     }
 
     private HashMap<String, Integer> buildTagIndices(ArrayList<String> tagNames) {

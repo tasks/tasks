@@ -75,7 +75,7 @@ public final class TagService {
                 }
             }
         });
-        return (TagData[]) array.toArray();
+        return array.toArray(new TagData[array.size()]);
     }
 
     private TagData tagFromUUID(String uuid) {
