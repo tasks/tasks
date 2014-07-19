@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.gtasks;
 
+import android.content.ContentValues;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.data.AbstractModel;
@@ -22,8 +23,10 @@ import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.sync.GtasksTaskContainer;
 import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater.OrderedListIterator;
-import com.todoroo.astrid.utility.SyncMetadataService;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
@@ -38,15 +41,85 @@ import javax.inject.Singleton;
  *
  */
 @Singleton
-public final class GtasksMetadataService extends SyncMetadataService {
+public final class GtasksMetadataService {
+
+    private final TaskDao taskDao;
+    private final MetadataDao metadataDao;
 
     @Inject
     public GtasksMetadataService(TaskDao taskDao, MetadataDao metadataDao) {
-        super(taskDao, metadataDao);
+        this.taskDao = taskDao;
+        this.metadataDao = metadataDao;
     }
 
-    @Override
-    public String getMetadataKey() {
+    /**
+     * Clears metadata information. Used when user logs out of sync provider
+     */
+    public void clearMetadata() {
+        metadataDao.deleteWhere(Metadata.KEY.eq(getMetadataKey()));
+    }
+
+    /**
+     * Saves a task and its metadata
+     */
+    public void saveTaskAndMetadata(GtasksTaskContainer task) {
+        task.prepareForSaving();
+        taskDao.save(task.task);
+        synchronizeMetadata(task.task.getId(), task.metadata, getMetadataKey());
+    }
+
+    /**
+     * Reads metadata out of a task
+     * @return null if no metadata found
+     */
+    public Metadata getTaskMetadata(long taskId) {
+        return metadataDao.getFirst(Query.select(Metadata.PROPERTIES).where(
+                MetadataCriteria.byTaskAndwithKey(taskId, getMetadataKey())));
+    }
+
+    /**
+     * Synchronize metadata for given task id. Deletes rows in database that
+     * are not identical to those in the metadata list, creates rows that
+     * have no match.
+     *
+     * @param taskId id of task to perform synchronization on
+     * @param metadata list of new metadata items to save
+     * @param metadataKey metadata key
+     */
+    private void synchronizeMetadata(long taskId, ArrayList<Metadata> metadata, String metadataKey) {
+        final Set<ContentValues> newMetadataValues = new HashSet<>();
+        for(Metadata metadatum : metadata) {
+            metadatum.setTask(taskId);
+            metadatum.clearValue(Metadata.ID);
+            newMetadataValues.add(metadatum.getMergedValues());
+        }
+
+        metadataDao.byTaskAndKey(taskId, metadataKey, new Callback<Metadata>() {
+            @Override
+            public void apply(Metadata item) {
+                long id = item.getId();
+
+                // clear item id when matching with incoming values
+                item.clearValue(Metadata.ID);
+                ContentValues itemMergedValues = item.getMergedValues();
+                if(newMetadataValues.contains(itemMergedValues)) {
+                    newMetadataValues.remove(itemMergedValues);
+                } else {
+                    // not matched. cut it
+                    metadataDao.delete(id);
+                }
+            }
+        });
+
+        // everything that remains shall be written
+        for(ContentValues values : newMetadataValues) {
+            Metadata item = new Metadata();
+            item.mergeWith(values);
+            metadataDao.persist(item);
+        }
+    }
+
+    private String getMetadataKey() {
         return GtasksMetadata.METADATA_KEY;
     }
 
