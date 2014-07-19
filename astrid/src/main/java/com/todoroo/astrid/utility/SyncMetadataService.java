@@ -13,13 +13,13 @@ import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.sync.SyncContainer;
+import com.todoroo.astrid.gtasks.sync.GtasksTaskContainer;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-abstract public class SyncMetadataService<TYPE extends SyncContainer> {
+abstract public class SyncMetadataService {
 
     protected final TaskDao taskDao;
     protected final MetadataDao metadataDao;
@@ -46,7 +46,7 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
     /**
      * Saves a task and its metadata
      */
-    public void saveTaskAndMetadata(TYPE task) {
+    public void saveTaskAndMetadata(GtasksTaskContainer task) {
         task.prepareForSaving();
         taskDao.save(task.task);
         synchronizeMetadata(task.task.getId(), task.metadata, getMetadataKey());

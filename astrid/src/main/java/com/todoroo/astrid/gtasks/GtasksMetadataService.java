@@ -38,7 +38,7 @@ import javax.inject.Singleton;
  *
  */
 @Singleton
-public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskContainer> {
+public final class GtasksMetadataService extends SyncMetadataService {
 
     @Inject
     public GtasksMetadataService(TaskDao taskDao, MetadataDao metadataDao) {

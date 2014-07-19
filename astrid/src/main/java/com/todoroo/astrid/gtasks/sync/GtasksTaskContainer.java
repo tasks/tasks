@@ -11,11 +11,13 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
-import com.todoroo.astrid.sync.SyncContainer;
 
 import java.util.ArrayList;
 
-public class GtasksTaskContainer extends SyncContainer {
+public class GtasksTaskContainer {
+
+    public Task task;
+    public ArrayList<Metadata> metadata;
 
     public Metadata gtaskMetadata;
     private final long updateTime;
@@ -53,9 +55,7 @@ public class GtasksTaskContainer extends SyncContainer {
         return updateTime;
     }
 
-    @Override
     public void prepareForSaving() {
-        super.prepareForSaving();
         metadata.add(gtaskMetadata);
     }
 }
