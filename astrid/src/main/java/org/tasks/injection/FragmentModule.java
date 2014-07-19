@@ -12,7 +12,6 @@ import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.gtasks.GtasksFilterExposer;
 import com.todoroo.astrid.gtasks.GtasksListFragment;
 import com.todoroo.astrid.reminders.NotificationFragment;
-import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.timers.TimerFilterExposer;
@@ -28,7 +27,6 @@ import dagger.Provides;
         TaskListFragment.class,
         GtasksListFragment.class,
         NotificationFragment.class,
-        SubtasksListFragment.class,
         SubtasksTagListFragment.class,
         TagViewFragment.class,
         TaskEditFragment.class,
