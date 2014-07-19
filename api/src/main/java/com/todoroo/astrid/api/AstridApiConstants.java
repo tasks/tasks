@@ -97,14 +97,6 @@ public class AstridApiConstants {
      */
     public static final String BROADCAST_SEND_CUSTOM_FILTER_CRITERIA = API_PACKAGE + ".SEND_CUSTOM_FILTER_CRITERIA";
 
-    // --- Sync Action API
-
-    /**
-     * Action name for broadcast intent requesting a listing of active
-     * sync actions users can activate from the menu
-     */
-    public static final String BROADCAST_REQUEST_SYNC_ACTIONS = API_PACKAGE + ".REQUEST_SYNC_ACTIONS";
-
     // --- Actions API
 
     /**

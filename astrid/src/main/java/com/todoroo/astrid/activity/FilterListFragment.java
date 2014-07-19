@@ -147,9 +147,6 @@ public class FilterListFragment extends InjectingListFragment {
         // also load sync actions
         Activity activity = getActivity();
 
-        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_SYNC_ACTIONS);
-        activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
-
         if (activity instanceof TaskListActivity) {
             ((TaskListActivity) activity).setupPopoverWithFilterList(this);
         }

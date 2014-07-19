@@ -78,13 +78,6 @@ public class SyncActionHelper {
         }
     }
 
-    public void request() {
-        Intent broadcastIntent = new Intent(
-                AstridApiConstants.BROADCAST_REQUEST_SYNC_ACTIONS);
-        activity.sendOrderedBroadcast(broadcastIntent,
-                AstridApiConstants.PERMISSION_READ);
-    }
-
     // --- sync logic
 
     protected void performSyncServiceV2Sync() {

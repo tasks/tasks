@@ -641,9 +641,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
                 getListView().setSelection(oldListItemSelected);
             }
         }
-
-        // also load sync actions
-        syncActionHelper.request();
     }
 
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
