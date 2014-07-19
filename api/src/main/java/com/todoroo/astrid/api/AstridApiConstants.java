@@ -105,13 +105,6 @@ public class AstridApiConstants {
      */
     public static final String BROADCAST_REQUEST_SYNC_ACTIONS = API_PACKAGE + ".REQUEST_SYNC_ACTIONS";
 
-    /**
-     * Action name for broadcast intent sending sync provider information back to Astrid
-     * <li> EXTRAS_ADDON your add-on identifier
-     * <li> EXTRAS_RESPONSE a {@link SyncAction} to invoke synchronization
-     */
-    public static final String BROADCAST_SEND_SYNC_ACTIONS = API_PACKAGE + ".SEND_SYNC_ACTIONS";
-
     // --- Actions API
 
     /**

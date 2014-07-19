@@ -491,7 +491,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
 
         getActivity().registerReceiver(refreshReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-        syncActionHelper.register();
 
         if (Flags.checkAndClear(Flags.REFRESH)) {
             refresh();
@@ -552,7 +551,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         super.onPause();
 
         AndroidUtilities.tryUnregisterReceiver(getActivity(), refreshReceiver);
-        syncActionHelper.unregister();
 
         backgroundTimer.cancel();
     }

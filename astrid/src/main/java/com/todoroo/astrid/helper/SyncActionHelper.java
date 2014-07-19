@@ -7,11 +7,8 @@ package com.todoroo.astrid.helper;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
@@ -19,24 +16,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.widget.ArrayAdapter;
 
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.api.SyncAction;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.sync.SyncResultCallback;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
 import org.tasks.sync.IndeterminateProgressBarSyncResultCallback;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
 
 /**
@@ -52,15 +44,9 @@ import java.util.List;
  */
 public class SyncActionHelper {
 
-    private static final Logger log = LoggerFactory.getLogger(SyncActionHelper.class);
-
     public static final String PREF_LAST_AUTO_SYNC = "taskListLastAutoSync"; //$NON-NLS-1$
 
-    private final LinkedHashSet<SyncAction> syncActions = new LinkedHashSet<>();
-
     public final SyncResultCallback syncResultCallback;
-
-    protected SyncActionReceiver syncActionReceiver = new SyncActionReceiver();
 
     private final SyncV2Service syncService;
     private final Activity activity;
@@ -93,42 +79,7 @@ public class SyncActionHelper {
         }
     }
 
-    // --- sync action receiver logic
-
-    /**
-     * Receiver which receives sync provider intents
-     *
-     */
-    protected class SyncActionReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent == null
-                    || !AstridApiConstants.BROADCAST_SEND_SYNC_ACTIONS.equals(intent.getAction())) {
-                return;
-            }
-
-            try {
-                Bundle extras = intent.getExtras();
-                SyncAction syncAction = extras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
-                syncActions.add(syncAction);
-            } catch (Exception e) {
-                log.error(e.getMessage(), e);
-            }
-        }
-    }
-
-    public void register() {
-        activity.registerReceiver(
-                syncActionReceiver,
-                new IntentFilter(AstridApiConstants.BROADCAST_SEND_SYNC_ACTIONS));
-    }
-
-    public void unregister() {
-        AndroidUtilities.tryUnregisterReceiver(activity, syncActionReceiver);
-    }
-
     public void request() {
-        syncActions.clear();
         Intent broadcastIntent = new Intent(
                 AstridApiConstants.BROADCAST_REQUEST_SYNC_ACTIONS);
         activity.sendOrderedBroadcast(broadcastIntent,
@@ -165,7 +116,7 @@ public class SyncActionHelper {
 
     public void performSyncAction() {
         List<GtasksSyncV2Provider> activeV2Providers = syncService.activeProviders();
-        int activeSyncs = syncActions.size() + activeV2Providers.size();
+        int activeSyncs = activeV2Providers.size();
 
         if (activeSyncs == 0) {
             String desiredCategory = activity.getString(R.string.SyP_label);
