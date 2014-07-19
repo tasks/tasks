@@ -20,7 +20,6 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
-import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.sync.SyncResultCallback;
 
@@ -115,10 +114,9 @@ public class SyncActionHelper {
     }
 
     public void performSyncAction() {
-        List<GtasksSyncV2Provider> activeV2Providers = syncService.activeProviders();
-        int activeSyncs = activeV2Providers.size();
-
-        if (activeSyncs == 0) {
+        if (syncService.isActive()) {
+            syncService.synchronizeActiveTasks(syncResultCallback);
+        } else {
             String desiredCategory = activity.getString(R.string.SyP_label);
 
             // Get a list of all sync plugins and bring user to the prefs pane
@@ -165,9 +163,6 @@ public class SyncActionHelper {
             } else {
                 showSyncOptionMenu(actions, listener);
             }
-
-        } else {
-            syncService.synchronizeActiveTasks(syncResultCallback);
         }
     }
 
@@ -175,8 +170,7 @@ public class SyncActionHelper {
      * Show menu of sync options. This is shown when you're not logged into any
      * services, or logged into more than one.
      */
-    private <TYPE> void showSyncOptionMenu(TYPE[] items,
-            DialogInterface.OnClickListener listener) {
+    private <TYPE> void showSyncOptionMenu(TYPE[] items, DialogInterface.OnClickListener listener) {
         if (items.length == 1) {
             listener.onClick(null, 0);
             return;
@@ -189,7 +183,6 @@ public class SyncActionHelper {
         new AlertDialog.Builder(activity).setTitle(R.string.Sync_now_label).setAdapter(
                 adapter, listener).show().setOwnerActivity(activity);
     }
-
 }
 
 
