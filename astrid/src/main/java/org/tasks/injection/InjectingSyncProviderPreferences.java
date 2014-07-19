@@ -2,11 +2,11 @@ package org.tasks.injection;
 
 import android.os.Bundle;
 
-import com.todoroo.astrid.sync.SyncProviderPreferences;
+import com.todoroo.astrid.utility.TodorooPreferenceActivity;
 
 import dagger.ObjectGraph;
 
-public abstract class InjectingSyncProviderPreferences extends SyncProviderPreferences implements Injector {
+public abstract class InjectingSyncProviderPreferences extends TodorooPreferenceActivity implements Injector {
     private ObjectGraph objectGraph;
 
     @Override

@@ -59,6 +59,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
+import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.helper.SyncActionHelper;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TaskDeleter;
@@ -67,7 +68,6 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.subtasks.SubtasksUpdater;
-import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.ui.QuickAddBar;
@@ -607,7 +607,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
                 getActivity().startActivity(getActivity().getIntent());
                 TasksWidget.updateWidgets(getActivity());
                 return;
-            } else if (resultCode == SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE) {
+            } else if (resultCode == GtasksPreferences.RESULT_CODE_SYNCHRONIZE) {
                 preferences.setLong(SyncActionHelper.PREF_LAST_AUTO_SYNC, 0); // Forces autosync to occur after login
             }
         }

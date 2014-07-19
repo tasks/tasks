@@ -34,7 +34,6 @@ import com.todoroo.astrid.helper.MetadataHelper;
 import com.todoroo.astrid.service.MarketStrategy.AmazonMarketStrategy;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.TodorooPreferenceActivity;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
@@ -180,7 +179,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     private static final HashMap<Class<?>, Integer> PREFERENCE_REQUEST_CODES = new HashMap<>();
     static {
-        PREFERENCE_REQUEST_CODES.put(SyncProviderPreferences.class, REQUEST_CODE_SYNC);
+        PREFERENCE_REQUEST_CODES.put(GtasksPreferences.class, REQUEST_CODE_SYNC);
     }
 
     private void addPluginPreferences(PreferenceScreen screen) {
@@ -214,8 +213,8 @@ public class EditPreferences extends TodorooPreferenceActivity {
             }
             try {
                 Class<?> intentComponent = Class.forName(intent.getComponent().getClassName());
-                if (intentComponent.getSuperclass().equals(SyncProviderPreferences.class)) {
-                    intentComponent = SyncProviderPreferences.class;
+                if (intentComponent.getSuperclass().equals(GtasksPreferences.class)) {
+                    intentComponent = GtasksPreferences.class;
                 }
                 if (PREFERENCE_REQUEST_CODES.containsKey(intentComponent)) {
                     final int code = PREFERENCE_REQUEST_CODES.get(intentComponent);
@@ -332,8 +331,8 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE_SYNC && resultCode == SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE) {
-            setResult(SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE);
+        if (requestCode == REQUEST_CODE_SYNC && resultCode == GtasksPreferences.RESULT_CODE_SYNCHRONIZE) {
+            setResult(GtasksPreferences.RESULT_CODE_SYNCHRONIZE);
             finish();
             return;
         } else if (requestCode == REQUEST_CODE_FILES_DIR && resultCode == RESULT_OK) {
