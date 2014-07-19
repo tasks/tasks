@@ -24,8 +24,8 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.SyncAction;
+import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.SyncV2Service;
-import com.todoroo.astrid.sync.SyncProviderUtilities;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
 
@@ -69,12 +69,12 @@ public class SyncActionHelper {
 
     // --- boilerplate
 
-    public SyncActionHelper(SyncProviderUtilities syncProviderUtilities, SyncV2Service syncService, final FragmentActivity activity, Preferences preferences, Fragment fragment) {
+    public SyncActionHelper(GtasksPreferenceService gtasksPreferenceService, SyncV2Service syncService, final FragmentActivity activity, Preferences preferences, Fragment fragment) {
         this.syncService = syncService;
         this.activity = activity;
         this.preferences = preferences;
         this.fragment = fragment;
-        syncResultCallback = new IndeterminateProgressBarSyncResultCallback(syncProviderUtilities, activity, new Runnable() {
+        syncResultCallback = new IndeterminateProgressBarSyncResultCallback(gtasksPreferenceService, activity, new Runnable() {
                     @Override
                     public void run() {
                         activity.sendBroadcast(

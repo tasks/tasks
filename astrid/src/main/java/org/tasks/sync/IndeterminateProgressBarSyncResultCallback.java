@@ -2,7 +2,7 @@ package org.tasks.sync;
 
 import android.support.v4.app.FragmentActivity;
 
-import com.todoroo.astrid.sync.SyncProviderUtilities;
+import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +14,8 @@ public class IndeterminateProgressBarSyncResultCallback extends RecordSyncStatus
     private final FragmentActivity activity;
     private Runnable onFinished;
 
-    public IndeterminateProgressBarSyncResultCallback(SyncProviderUtilities syncProviderUtilities, FragmentActivity activity, Runnable onFinished) {
-        super(syncProviderUtilities);
+    public IndeterminateProgressBarSyncResultCallback(GtasksPreferenceService gtasksPreferenceService, FragmentActivity activity, Runnable onFinished) {
+        super(gtasksPreferenceService);
 
         this.activity = activity;
         this.onFinished = onFinished;

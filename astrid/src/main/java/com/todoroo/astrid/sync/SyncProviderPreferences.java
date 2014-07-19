@@ -21,6 +21,7 @@ import android.view.ViewGroup.OnHierarchyChangeListener;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.utility.TodorooPreferenceActivity;
 
 import org.tasks.api.R;
@@ -62,7 +63,7 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
     /**
      * @return get preference utilities
      */
-    abstract public SyncProviderUtilities getUtilities();
+    abstract public GtasksPreferenceService getUtilities();
 
 
     protected static final int REQUEST_LOGIN = 0;

@@ -5,6 +5,8 @@
  */
 package com.todoroo.astrid.sync;
 
+import com.todoroo.astrid.gtasks.GtasksPreferenceService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,7 +50,7 @@ abstract public class SyncV2Provider {
     /**
      * @return sync utility instance
      */
-    abstract protected SyncProviderUtilities getUtilities();
+    abstract protected GtasksPreferenceService getUtilities();
 
     protected void finishSync(SyncResultCallback callback) {
         getUtilities().recordSuccessfulSync();

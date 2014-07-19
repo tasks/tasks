@@ -9,7 +9,6 @@ import android.content.Intent;
 
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
-import com.todoroo.astrid.sync.SyncProviderUtilities;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingSyncProviderPreferences;
@@ -71,7 +70,7 @@ public class GtasksPreferences extends InjectingSyncProviderPreferences {
     }
 
     @Override
-    public SyncProviderUtilities getUtilities() {
+    public GtasksPreferenceService getUtilities() {
         return gtasksPreferenceService;
     }
 

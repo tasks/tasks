@@ -1,32 +1,32 @@
 package org.tasks.sync;
 
-import com.todoroo.astrid.sync.SyncProviderUtilities;
+import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 
 import org.tasks.Broadcaster;
 
 public class RecordSyncStatusCallback implements SyncResultCallback {
 
-    private SyncProviderUtilities syncProviderUtilities;
+    private GtasksPreferenceService gtasksPreferenceService;
     private Broadcaster broadcaster;
 
-    public RecordSyncStatusCallback(SyncProviderUtilities syncProviderUtilities) {
-        this(syncProviderUtilities, null);
+    public RecordSyncStatusCallback(GtasksPreferenceService gtasksPreferenceService) {
+        this(gtasksPreferenceService, null);
     }
 
-    public RecordSyncStatusCallback(SyncProviderUtilities syncProviderUtilities, Broadcaster broadcaster) {
-        this.syncProviderUtilities = syncProviderUtilities;
+    public RecordSyncStatusCallback(GtasksPreferenceService gtasksPreferenceService, Broadcaster broadcaster) {
+        this.gtasksPreferenceService = gtasksPreferenceService;
         this.broadcaster = broadcaster;
     }
 
     @Override
     public void started() {
-        syncProviderUtilities.recordSyncStart();
+        gtasksPreferenceService.recordSyncStart();
     }
 
     @Override
     public void finished() {
-        syncProviderUtilities.stopOngoing();
+        gtasksPreferenceService.stopOngoing();
         if (broadcaster != null) {
             broadcaster.eventRefresh();
         }
