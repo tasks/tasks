@@ -25,9 +25,9 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.SyncAction;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
+import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.sync.SyncResultCallback;
-import com.todoroo.astrid.sync.SyncV2Provider;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -164,7 +164,7 @@ public class SyncActionHelper {
     }
 
     public void performSyncAction() {
-        List<SyncV2Provider> activeV2Providers = syncService.activeProviders();
+        List<GtasksSyncV2Provider> activeV2Providers = syncService.activeProviders();
         int activeSyncs = syncActions.size() + activeV2Providers.size();
 
         if (activeSyncs == 0) {

@@ -9,7 +9,6 @@ import android.content.Context;
 
 import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 import com.todoroo.astrid.sync.SyncResultCallback;
-import com.todoroo.astrid.sync.SyncV2Provider;
 
 import org.tasks.injection.ForApplication;
 
@@ -35,13 +34,13 @@ public class SyncV2Service {
      * there is enough interest, the Astrid team could create an interface
      * for responding to sync requests through this new API.
      */
-    private final SyncV2Provider[] providers;
+    private final GtasksSyncV2Provider[] providers;
     private final Context context;
 
     @Inject
     public SyncV2Service(@ForApplication Context context, GtasksSyncV2Provider gtasksSyncV2Provider) {
         this.context = context;
-        providers = new SyncV2Provider[] {
+        providers = new GtasksSyncV2Provider[] {
                 gtasksSyncV2Provider
         };
     }
@@ -49,9 +48,9 @@ public class SyncV2Service {
     /**
      * Returns active sync providers
      */
-    public List<SyncV2Provider> activeProviders() {
-        ArrayList<SyncV2Provider> actives = new ArrayList<>();
-        for(SyncV2Provider provider : providers) {
+    public List<GtasksSyncV2Provider> activeProviders() {
+        ArrayList<GtasksSyncV2Provider> actives = new ArrayList<>();
+        for(GtasksSyncV2Provider provider : providers) {
             if(provider.isActive()) {
                 actives.add(provider);
             }
@@ -66,7 +65,7 @@ public class SyncV2Service {
      * @return true if any servide was logged in and initiated a sync
      */
     public boolean synchronizeActiveTasks(SyncResultCallback callback) {
-        final List<SyncV2Provider> active = activeProviders();
+        final List<GtasksSyncV2Provider> active = activeProviders();
 
         if (active.size() == 0) {
             return false;
@@ -88,7 +87,7 @@ public class SyncV2Service {
      * @param callback result callback
      */
     public void synchronizeList(Object list, SyncResultCallback callback) {
-        for(SyncV2Provider provider : providers) {
+        for(GtasksSyncV2Provider provider : providers) {
             if(provider.isActive()) {
                 provider.synchronizeList(list, new WidgetUpdatingCallbackWrapper(context, callback));
             }

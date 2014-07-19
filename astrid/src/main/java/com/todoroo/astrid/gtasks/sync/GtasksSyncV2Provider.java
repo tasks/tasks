@@ -33,7 +33,6 @@ import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncResultCallback;
-import com.todoroo.astrid.sync.SyncV2Provider;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +52,26 @@ import javax.inject.Singleton;
 import static org.tasks.date.DateTimeUtils.newDate;
 
 @Singleton
-public class GtasksSyncV2Provider extends SyncV2Provider {
+public class GtasksSyncV2Provider {
+
+    public class SyncExceptionHandler {
+        public void handleException(String tag, Exception e) {
+            getUtilities().setLastError(e.toString());
+            log.error("{}: {}", tag, e.getMessage(), e);
+        }
+    }
+
+    private final SyncExceptionHandler handler = new SyncExceptionHandler();
+
+    private void finishSync(SyncResultCallback callback) {
+        getUtilities().recordSuccessfulSync();
+        callback.finished();
+    }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 
     private static final Logger log = LoggerFactory.getLogger(GtasksSyncV2Provider.class);
 
@@ -89,12 +107,10 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         this.executor = executor;
     }
 
-    @Override
-    public String getName() {
+    private String getName() {
         return context.getString(R.string.gtasks_GPr_header);
     }
 
-    @Override
     public GtasksPreferenceService getUtilities() {
         return gtasksPreferenceService;
     }
@@ -106,12 +122,10 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         gtasksMetadataService.clearMetadata();
     }
 
-    @Override
     public boolean isActive() {
         return gtasksPreferenceService.isLoggedIn();
     }
 
-    @Override
     public void synchronizeActiveTasks(final SyncResultCallback callback) {
         executor.execute(callback, new Runnable() {
             @Override
@@ -174,7 +188,6 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         }
     }
 
-    @Override
     public void synchronizeList(Object list, final SyncResultCallback callback) {
         if (!(list instanceof StoreObject)) {
             return;
