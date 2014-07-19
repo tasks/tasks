@@ -3,7 +3,7 @@
  *
  * See the file "LICENSE" for the full license governing this code.
  */
-package com.todoroo.astrid.subtasks;
+package com.todoroo.astrid.gtasks;
 
 import android.app.Activity;
 import android.database.Cursor;
@@ -28,8 +28,7 @@ import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater.Node;
-import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater.OrderedListNodeVisitor;
+import com.todoroo.astrid.subtasks.OrderedListFragmentHelperInterface;
 import com.todoroo.astrid.ui.DraggableListView;
 
 import org.slf4j.Logger;
@@ -238,9 +237,9 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
 
         final ArrayList<Long> chained = new ArrayList<>();
         final int parentIndent = item.getValue(updater.indentProperty());
-        updater.applyToChildren(list, itemId, new OrderedListNodeVisitor() {
+        updater.applyToChildren(list, itemId, new OrderedMetadataListUpdater.OrderedListNodeVisitor() {
             @Override
-            public void visitNode(Node node) {
+            public void visitNode(OrderedMetadataListUpdater.Node node) {
                 Task childTask = taskService.fetchById(node.taskId, Task.RECURRENCE);
                 if(!TextUtils.isEmpty(childTask.getRecurrence())) {
                     Metadata metadata = updater.getTaskMetadata(node.taskId);

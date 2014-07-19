@@ -32,7 +32,6 @@ import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.AstridOrderedListFragmentHelper;
 import com.todoroo.astrid.subtasks.OrderedListFragmentHelperInterface;
-import com.todoroo.astrid.subtasks.OrderedMetadataListFragmentHelper;
 
 import org.tasks.R;
 import org.tasks.injection.ForActivity;

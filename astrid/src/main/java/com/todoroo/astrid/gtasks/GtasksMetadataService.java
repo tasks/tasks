@@ -22,7 +22,7 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.sync.GtasksTaskContainer;
-import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater.OrderedListIterator;
+import com.todoroo.astrid.gtasks.OrderedMetadataListUpdater.OrderedListIterator;
 
 import java.util.ArrayList;
 import java.util.HashSet;

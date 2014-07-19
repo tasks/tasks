@@ -19,7 +19,6 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
-import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
