@@ -11,7 +11,6 @@
 	<string name="TVA_add_comment">Dodaj komentarz...</string>
 	<string name="actfm_TVA_menu_refresh">Odśwież</string>
 	<string name="actfm_TVA_tag_label">Lista</string>
-	<string name="actfm_TVA_tag_picture">Obrazek listy</string>
 	<string name="actfm_TVA_tag_name_hint">Podaj nazwę listy</string>
 	<string name="actfm_GAA_title">Wybierz konto Google, którego chcesz użyć:</string>
 	<string name="alarm_ACS_label">Alarmy</string>
@@ -352,8 +351,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="search_market_ms_title">Nie znaleziono czytnika MS Office</string>
 	<string name="file_type_unhandled">Przepraszamy! Nie znaleziono aplikacji do obsługi tego typu pliku.</string>
 	<string name="file_type_unhandled_title">Nie znaleziono aplikacji</string>
-	<string name="file_prefix_image">Grafika</string>
-	<string name="file_prefix_voice">Głos</string>
 	<string name="file_browser_up">Do góry</string>
 	<string name="file_browser_title">Wybierz plik</string>
 	<string name="dir_browser_title">Wybierz katalog</string>

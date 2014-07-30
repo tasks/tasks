@@ -11,7 +11,6 @@
 	<string name="TVA_add_comment">Aggiungi un commento...</string>
 	<string name="actfm_TVA_menu_refresh">Aggiorna</string>
 	<string name="actfm_TVA_tag_label">Lista</string>
-	<string name="actfm_TVA_tag_picture">Elenco Immagini</string>
 	<string name="actfm_TVA_tag_name_hint">Inserisci il nome della lista</string>
 	<string name="actfm_GAA_title">Seleziona l\'account Google che vuoi utilizzare:</string>
 	<string name="alarm_ACS_label">Promemoria</string>
@@ -325,8 +324,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="search_market_ms_title">Non è stato trovato nessun lettore di documenti MS Office</string>
 	<string name="file_type_unhandled">Spiacente! Non è stata trovata nessuna applicazione per gestire questo tipo di file</string>
 	<string name="file_type_unhandled_title">Spiacente! Non è stata trovata nessuna applicazione</string>
-	<string name="file_prefix_image">Immagine</string>
-	<string name="file_prefix_voice">Voce</string>
 	<string name="file_browser_up">Su</string>
 	<string name="file_browser_title">Scegli un file</string>
 	<string name="dir_browser_title">Scegli una cartella</string>

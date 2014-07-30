@@ -11,7 +11,6 @@
 	<string name="TVA_add_comment">댓글 쓰기...</string>
 	<string name="actfm_TVA_menu_refresh">새로고침</string>
 	<string name="actfm_TVA_tag_label">목록</string>
-	<string name="actfm_TVA_tag_picture">목록 사진</string>
 	<string name="actfm_TVA_tag_name_hint">목록 이름을 입력하세요</string>
 	<string name="actfm_GAA_title">사용하려는 구글 계정을 선택해 주십시오:</string>
 	<string name="alarm_ACS_label">알람</string>
@@ -368,8 +367,6 @@
 	<string name="search_market_ms_title">MS 오피스 리더 없음</string>
 	<string name="file_type_unhandled">죄송하지만 이 파일 형식을 다룰 수 있는 프로그램이 없습니다.</string>
 	<string name="file_type_unhandled_title">프로그램이 없음</string>
-	<string name="file_prefix_image">이미지</string>
-	<string name="file_prefix_voice">음성</string>
 	<string name="file_browser_up">위로</string>
 	<string name="file_browser_title">파일 선택하기</string>
 	<string name="dir_browser_title">디렉토리 선택하기</string>

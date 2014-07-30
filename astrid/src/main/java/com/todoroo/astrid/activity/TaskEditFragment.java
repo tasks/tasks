@@ -86,6 +86,7 @@ import com.todoroo.astrid.voice.VoiceRecognizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
@@ -95,11 +96,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
-import static org.tasks.files.FileHelper.copyFile;
 import static org.tasks.files.FileHelper.getPathFromUri;
 
 /**
@@ -177,6 +176,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Inject ActivityPreferences preferences;
     @Inject DateChangedAlerts dateChangedAlerts;
     @Inject TagDataDao tagDataDao;
+    @Inject @ForApplication Context context;
 
     // --- UI components
 
@@ -820,7 +820,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             @Override
             public void onClick(DialogInterface d, int which) {
                 if(which == 0) {
-                    ActFmCameraModule.showPictureLauncher(TaskEditFragment.this, null);
+                    ActFmCameraModule.showPictureLauncher(TaskEditFragment.this, preferences, null);
                 } else if (which == 1) {
                     Intent attachFile = new Intent(getActivity(), FileExplore.class);
                     startActivityForResult(attachFile, REQUEST_CODE_ATTACH_FILE);
@@ -871,13 +871,12 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         createNewFileAttachment(path, name, type);
     }
 
-    private void attachImage(String input) {
-        AtomicReference<String> nameRef = new AtomicReference<>();
+    private void attachImage(Uri uri) {
         try {
-            String path = FileUtilities.getNewImageAttachmentPath(preferences, getActivity(), nameRef);
-            copyFile(input, path);
+            String path = getPathFromUri(getActivity(), uri);
+            File file = new File(path);
             String extension = path.substring(path.lastIndexOf('.') + 1);
-            createNewFileAttachment(path, nameRef.get(), TaskAttachment.FILE_TYPE_IMAGE + extension);
+            createNewFileAttachment(path, file.getName(), TaskAttachment.FILE_TYPE_IMAGE + extension);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             Toast.makeText(getActivity(), R.string.file_err_copy, Toast.LENGTH_LONG).show();
@@ -981,10 +980,10 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             return;
         }
 
-        ActFmCameraModule.activityResult(getActivity(), requestCode, resultCode, data, new CameraResultCallback() {
+        ActFmCameraModule.activityResult(getActivity(), preferences, requestCode, resultCode, data, new CameraResultCallback() {
             @Override
             public void handleCameraResult(Uri uri) {
-                attachImage(getPathFromUri(getActivity(), uri));
+                attachImage(uri);
             }
         });
 

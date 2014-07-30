@@ -11,7 +11,6 @@
 	<string name="TVA_add_comment">Ajouter un commentaire</string>
 	<string name="actfm_TVA_menu_refresh">Mettre à jour</string>
 	<string name="actfm_TVA_tag_label">Nom de la liste :</string>
-	<string name="actfm_TVA_tag_picture">Liste des Images</string>
 	<string name="actfm_TVA_tag_name_hint">Entrez un nom de liste</string>
 	<string name="actfm_GAA_title">Sélectionnez le compte Google que vous voulez utiliser :</string>
 	<string name="alarm_ACS_label">Alarmes</string>
@@ -357,7 +356,6 @@
 	<string name="search_market_ms_title">Aucun lecteur MS Office n\'a été trouvé</string>
 	<string name="file_type_unhandled">Désolé ! Aucune application n\'a été trouvé pour gérer ce type de fichier.</string>
 	<string name="file_type_unhandled_title">Aucune application trouvée</string>
-	<string name="file_prefix_voice">Voix</string>
 	<string name="file_browser_up">Remonter</string>
 	<string name="file_browser_title">Choisissez un fichier</string>
 	<string name="dir_browser_title">Choisissez un dossier</string>

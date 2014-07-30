@@ -11,7 +11,6 @@
 	<string name="TVA_add_comment">添加評論</string>
 	<string name="actfm_TVA_menu_refresh">重新整理</string>
 	<string name="actfm_TVA_tag_label">列表名稱：</string>
-	<string name="actfm_TVA_tag_picture">清單圖片</string>
 	<string name="actfm_TVA_tag_name_hint">添加列表名稱</string>
 	<string name="actfm_GAA_title">選擇您要使用的Google帳戶：</string>
 	<string name="alarm_ACS_label">警示</string>
@@ -343,8 +342,6 @@
 	<string name="search_market_ms_title">找不到微軟 Office</string>
 	<string name="file_type_unhandled">對不起！找不到應用程序處理這種文件類型。</string>
 	<string name="file_type_unhandled_title">找不到應用程序</string>
-	<string name="file_prefix_image">圖片</string>
-	<string name="file_prefix_voice">語音</string>
 	<string name="file_browser_up">向上</string>
 	<string name="file_browser_title">選擇一個文件</string>
 	<string name="dir_browser_title">選擇一個目錄</string>

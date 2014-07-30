@@ -11,7 +11,6 @@
 	<string name="TVA_add_comment">Añadir un comentario...</string>
 	<string name="actfm_TVA_menu_refresh">Actualizar</string>
 	<string name="actfm_TVA_tag_label">Lista</string>
-	<string name="actfm_TVA_tag_picture">Imagen de Lista</string>
 	<string name="actfm_TVA_tag_name_hint">Indique nombre de lista</string>
 	<string name="actfm_GAA_title">Seleccione la cuenta de Google que desea usar:</string>
 	<string name="alarm_ACS_label">Alarmas</string>
@@ -361,8 +360,6 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="search_market_ms_title">No se encontró lector para archivos de MS Office</string>
 	<string name="file_type_unhandled">Lo sentimos! No se encontró ninguna aplicación para abrir este tipo de archivo.</string>
 	<string name="file_type_unhandled_title">No se encontró ninguna aplicación</string>
-	<string name="file_prefix_image">Imagen</string>
-	<string name="file_prefix_voice">Voz</string>
 	<string name="file_browser_up">Arriba</string>
 	<string name="file_browser_title">Elija un archivo</string>
 	<string name="dir_browser_title">Elija un directorio</string>

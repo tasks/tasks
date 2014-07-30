@@ -11,7 +11,6 @@
 	<string name="TVA_add_comment">Dodaj komentar...</string>
 	<string name="actfm_TVA_menu_refresh">Osveži</string>
 	<string name="actfm_TVA_tag_label">Seznam</string>
-	<string name="actfm_TVA_tag_picture">Seznami slik</string>
 	<string name="actfm_TVA_tag_name_hint">Vnesi ime seznama</string>
 	<string name="actfm_GAA_title">Izberite želeni Google račun:</string>
 	<string name="alarm_ACS_label">Glasna opozorila</string>
@@ -363,8 +362,6 @@
 	<string name="search_market_ms_title">Ne najdem bralnika MS Office</string>
 	<string name="file_type_unhandled">Žal nobena aplikacija ne ustreza takim datotekam.</string>
 	<string name="file_type_unhandled_title">Ni ustrezne aplikacije</string>
-	<string name="file_prefix_image">Slika</string>
-	<string name="file_prefix_voice">Glas</string>
 	<string name="file_browser_up">Gor</string>
 	<string name="file_browser_title">Izberite datoteko</string>
 	<string name="dir_browser_title">Izberite mapo</string>

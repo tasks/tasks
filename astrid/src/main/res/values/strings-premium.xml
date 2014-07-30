@@ -25,8 +25,6 @@
     <string name="file_type_unhandled">Sorry! No application was found to handle this file type.</string>
     <string name="file_type_unhandled_title">No application found</string>
     
-    <string name="file_prefix_image">Image</string>
-    <string name="file_prefix_voice">Voice</string>
     <string name="file_browser_up">Up</string>
     <string name="file_browser_title">Choose a file</string>
     <string name="dir_browser_title">Choose a directory</string>

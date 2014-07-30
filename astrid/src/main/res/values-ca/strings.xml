@@ -11,7 +11,6 @@
 	<string name="TVA_add_comment">Afegiu un comentari...</string>
 	<string name="actfm_TVA_menu_refresh">Actualitza</string>
 	<string name="actfm_TVA_tag_label">Llista</string>
-	<string name="actfm_TVA_tag_picture">Imatge de la llista</string>
 	<string name="actfm_TVA_tag_name_hint">Escriviu el nom de la llista</string>
 	<string name="actfm_GAA_title">Trieu el compte de Google que vulgueu utilitzar:</string>
 	<string name="alarm_ACS_label">Alarmes</string>

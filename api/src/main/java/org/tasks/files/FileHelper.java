@@ -8,10 +8,9 @@ import android.os.Environment;
 import android.provider.MediaStore;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.channels.FileChannel;
+import java.io.InputStream;
 
 public class FileHelper {
     public static File getExternalFilesDir(Context context, String type) {
@@ -40,11 +39,13 @@ public class FileHelper {
         }
     }
 
-    public static void copyFile(String from, String to) throws IOException {
-        FileChannel source = new FileInputStream(from).getChannel();
-        FileChannel destination = new FileOutputStream(to).getChannel();
-        destination.transferFrom(source, 0, source.size());
-        destination.close();
-        source.close();
+    public static void copyFile(InputStream inputStream, String to) throws IOException {
+        FileOutputStream fos = new FileOutputStream(to);
+        byte[] buf = new byte[1024];
+        int len;
+        while ((len = inputStream.read(buf)) != -1) {
+            fos.write(buf, 0, len);
+        }
+        fos.close();
     }
 }

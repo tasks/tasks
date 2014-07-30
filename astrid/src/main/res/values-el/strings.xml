@@ -272,8 +272,6 @@
 	<string name="search_market_ms_title">Δεν βρέθηκε αναγνώστης αρχείων MS Office.</string>
 	<string name="file_type_unhandled">Συγγνώμη! Δεν βρέθηκε εφαρμογή που να χειρίζεται τέτοιο τύπο αρχείου</string>
 	<string name="file_type_unhandled_title">Δεν βρέθηκε εφαρμογή</string>
-	<string name="file_prefix_image">Εικόνα</string>
-	<string name="file_prefix_voice">Φωνή</string>
 	<string name="file_browser_up">Πάνω</string>
 	<string name="file_browser_title">Επιλογή αρχείου</string>
 	<string name="dir_browser_title">Επιλογή φακέλου</string>

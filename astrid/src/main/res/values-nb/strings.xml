@@ -174,7 +174,6 @@
 	<string name="CFC_gtasks_list_text">I liste: ?</string>
 	<string name="locale_notification">Du har $NUM som matcher: $FILTER</string>
 	<string name="EPr_powerpack_header">Avanserte innstillinger</string>
-	<string name="file_prefix_voice">Tale</string>
 	<string name="file_browser_up">Opp</string>
 	<string name="file_browser_title">Velg en fil</string>
 	<string name="TEA_reminder_label">Minn meg på...</string>

@@ -229,9 +229,9 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             @Override
             public void onClick(View v) {
                 if (pendingCommentPicture != null) {
-                    ActFmCameraModule.showPictureLauncher(fragment, clearImage);
+                    ActFmCameraModule.showPictureLauncher(fragment, preferences, clearImage);
                 } else {
-                    ActFmCameraModule.showPictureLauncher(fragment, null);
+                    ActFmCameraModule.showPictureLauncher(fragment, preferences, null);
                 }
                 respondToPicture = true;
             }
@@ -492,7 +492,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 }
             };
 
-            return (ActFmCameraModule.activityResult((Activity)getContext(),
+            return (ActFmCameraModule.activityResult((Activity)getContext(), preferences,
                     requestCode, resultCode, data, callback));
         } else {
             return false;

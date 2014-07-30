@@ -8,53 +8,26 @@ package com.todoroo.astrid.files;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.TaskAttachment;
 
-import org.tasks.R;
+import org.joda.time.DateTime;
 import org.tasks.files.FileHelper;
 import org.tasks.preferences.Preferences;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.concurrent.atomic.AtomicReference;
-
-import static org.tasks.date.DateTimeUtils.newDate;
 
 public class FileUtilities {
 
-    /**
-     * @return Date string for use with file attachment names
-     */
-    public static String getDateStringForFilename(Context context, Date date) {
-        return DateUtilities.getDateStringHideYear(date) + ", " + getTimeStringForFilename(context, date); //$NON-NLS-1$
-    }
-
-    private static String getTimeStringForFilename(Context context, Date date) {
-        String value;
-        if (DateUtilities.is24HourFormat(context)) {
-            value = "HH.mm";
-        }
-        else {
-            value = "hh.mma";
-        }
-        return new SimpleDateFormat(value).format(date);
-    }
-
-    public static String getNewImageAttachmentPath(Preferences preferences, Context context, AtomicReference<String> nameReference) {
-        return getNewAttachmentPath(preferences, context, R.string.file_prefix_image, ".png", nameReference); //$NON-NLS-1$
-    }
-
     public static String getNewAudioAttachmentPath(Preferences preferences, Context context, AtomicReference<String> nameReference) {
-        return getNewAttachmentPath(preferences, context, R.string.file_prefix_voice, ".m4a", nameReference); //$NON-NLS-1$
+        return getNewAttachmentPath(preferences, context, ".m4a", nameReference); //$NON-NLS-1$
     }
 
-    private static String getNewAttachmentPath(Preferences preferences, Context context, int prefixId, String extension, AtomicReference<String> nameReference) {
+    public static String getNewAttachmentPath(Preferences preferences, Context context, String extension, AtomicReference<String> nameReference) {
 
         String dir = getAttachmentsDirectory(preferences, context).getAbsolutePath();
 
-        String name = getNonCollidingFileName(dir, context.getString(prefixId) + " " + getDateStringForFilename(context, newDate()), extension);
+        String name = getNonCollidingFileName(dir, new DateTime().toString("yyyyMMddHHmm"), extension);
 
         if (nameReference != null) {
             nameReference.set(name);

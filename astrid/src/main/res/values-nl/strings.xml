@@ -11,7 +11,6 @@
 	<string name="TVA_add_comment">Voeg een opmerking toe</string>
 	<string name="actfm_TVA_menu_refresh">Vernieuwen</string>
 	<string name="actfm_TVA_tag_label">Lijst</string>
-	<string name="actfm_TVA_tag_picture">Lijstafbeelding</string>
 	<string name="actfm_TVA_tag_name_hint">Geef de lijst een naam</string>
 	<string name="actfm_GAA_title">Selecteer de Google account die je wil gebruiken:</string>
 	<string name="alarm_ACS_label">Herinneringen</string>
@@ -361,8 +360,6 @@
 	<string name="search_market_ms_title">Geen MS Office-lezer gevonden</string>
 	<string name="file_type_unhandled">Sorry! Er is geen applicatie gevonden die dit bestandtype ondersteunt.</string>
 	<string name="file_type_unhandled_title">Geen applicatie gevonden</string>
-	<string name="file_prefix_image">Afbeelding</string>
-	<string name="file_prefix_voice">Spraak</string>
 	<string name="file_browser_up">Omhoog</string>
 	<string name="file_browser_title">Bestand kiezen</string>
 	<string name="dir_browser_title">Kies een directory</string>

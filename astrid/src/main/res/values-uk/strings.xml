@@ -11,7 +11,6 @@
 	<string name="TVA_add_comment">Додати коментар</string>
 	<string name="actfm_TVA_menu_refresh">Оновити</string>
 	<string name="actfm_TVA_tag_label">Список</string>
-	<string name="actfm_TVA_tag_picture">Зображення Списку</string>
 	<string name="actfm_TVA_tag_name_hint">Введіть назву списку</string>
 	<string name="actfm_GAA_title">Виберіть обліковий запис Google для використання:</string>
 	<string name="alarm_ACS_label">Сигнали</string>
@@ -368,8 +367,6 @@
 	<string name="search_market_ms_title">Не знайдено програма для перегляду файлів MS Office.</string>
 	<string name="file_type_unhandled">Вибачте! Не знайдено програму для перегляду файлів цього типу.</string>
 	<string name="file_type_unhandled_title">Програму не знайдено</string>
-	<string name="file_prefix_image">Зображення</string>
-	<string name="file_prefix_voice">Голос</string>
 	<string name="file_browser_up">Нагору</string>
 	<string name="file_browser_title">Вибрати файл</string>
 	<string name="dir_browser_title">Вибрати каталог</string>

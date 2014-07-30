@@ -11,7 +11,6 @@
 	<string name="TVA_add_comment">Lägg till en kommentar...</string>
 	<string name="actfm_TVA_menu_refresh">Uppdatera</string>
 	<string name="actfm_TVA_tag_label">Lista</string>
-	<string name="actfm_TVA_tag_picture">Listbild</string>
 	<string name="actfm_TVA_tag_name_hint">Ange listnamn</string>
 	<string name="actfm_GAA_title">Välj vilket Googlekonto du vill använda:</string>
 	<string name="alarm_ACS_label">Alarm</string>
@@ -351,8 +350,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="search_market_ms_title">Ingen MS Office-läsare hittades</string>
 	<string name="file_type_unhandled">Tyvärr hittades ingen applikation för att hantera den här filtypen</string>
 	<string name="file_type_unhandled_title">Ingen passande applikation hittades</string>
-	<string name="file_prefix_image">Bild</string>
-	<string name="file_prefix_voice">Röst</string>
 	<string name="file_browser_up">Upp</string>
 	<string name="file_browser_title">Välj en fil</string>
 	<string name="dir_browser_title">Välj sökväg</string>

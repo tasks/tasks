@@ -11,7 +11,6 @@
 	<string name="TVA_add_comment">Přidej comment...</string>
 	<string name="actfm_TVA_menu_refresh">Obnovit</string>
 	<string name="actfm_TVA_tag_label">Název listu:</string>
-	<string name="actfm_TVA_tag_picture">Obrázek listu</string>
 	<string name="actfm_TVA_tag_name_hint">Název seznamu</string>
 	<string name="actfm_GAA_title">Vyberte, který účet Google chcete použít:</string>
 	<string name="alarm_ACS_label">Alarmy</string>
@@ -293,7 +292,6 @@
 	<string name="search_market_ms_title">Chybí prohlížeč MS Office</string>
 	<string name="file_type_unhandled">Pro tento typ souborů nebyla nalezena žádná aplikace.</string>
 	<string name="file_type_unhandled_title">Chybí aplikace</string>
-	<string name="file_prefix_voice">Hlas</string>
 	<string name="file_browser_up">O úroveň výš</string>
 	<string name="file_browser_err_permissions">Chyba oprávnění! Ujistěte se prosím, že jste Tasks nezabránil v přístupu k SD kartě.</string>
 	<string name="file_add_picture">Připojit obrázek</string>

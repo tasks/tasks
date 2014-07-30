@@ -7,27 +7,30 @@ package com.todoroo.astrid.actfm;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
-
-import com.todoroo.andlib.utility.DateUtilities;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
-import org.tasks.files.FileHelper;
+import org.tasks.preferences.Preferences;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
 
-import static org.tasks.files.FileHelper.getPathFromUri;
+import static com.todoroo.astrid.files.FileUtilities.getNewAttachmentPath;
+import static org.tasks.files.FileHelper.copyFile;
 
 public class ActFmCameraModule {
 
@@ -42,7 +45,7 @@ public class ActFmCameraModule {
         public void clearImage();
     }
 
-    public static void showPictureLauncher(final Fragment fragment, final ClearImageCallback clearImageOption) {
+    public static void showPictureLauncher(final Fragment fragment, final Preferences preferences, final ClearImageCallback clearImageOption) {
         ArrayList<String> options = new ArrayList<>();
 
         final Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -65,7 +68,7 @@ public class ActFmCameraModule {
             @Override
             public void onClick(DialogInterface d, int which) {
                 if(which == 0 && cameraAvailable) {
-                    lastTempFile = getTempFile(fragment.getActivity());
+                    lastTempFile = getFilename(fragment.getActivity(), preferences, ".jpeg");
                     if (lastTempFile == null) {
                         Toast.makeText(fragment.getActivity(), R.string.external_storage_unavailable, Toast.LENGTH_LONG).show();
                         d.dismiss();
@@ -76,8 +79,7 @@ public class ActFmCameraModule {
                 } else if ((which == 1 && cameraAvailable) || (which == 0 && !cameraAvailable)) {
                     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                     intent.setType("image/*");
-                    fragment.startActivityForResult(Intent.createChooser(intent,
-                            fragment.getString(R.string.actfm_TVA_tag_picture)), REQUEST_CODE_PICTURE);
+                    fragment.startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI), REQUEST_CODE_PICTURE);
                 } else {
                     if (clearImageOption != null) {
                         clearImageOption.clearImage();
@@ -92,12 +94,19 @@ public class ActFmCameraModule {
         .show().setOwnerActivity(fragment.getActivity());
     }
 
-    private static File getTempFile(Activity activity) {
+    private static File getFilename(Activity activity, Preferences preferences, String extension) {
+        AtomicReference<String> nameRef = new AtomicReference<>();
+        if (!extension.startsWith(".")) {
+            extension = "." + extension;
+        }
         try {
-            File path = FileHelper.getExternalFilesDir(activity, "pictures");
-            if (path != null) {
-                return File.createTempFile(Long.toString(DateUtilities.now()), ".jpg", path);
+            String path = getNewAttachmentPath(preferences, activity, extension, nameRef);
+            File file = new File(path);
+            file.getParentFile().mkdirs();
+            if (!file.createNewFile()) {
+                throw new RuntimeException("Failed to create " + file.getPath());
             }
+            return file;
         } catch (IOException e) {
             log.error(e.getMessage(), e);
         }
@@ -108,7 +117,7 @@ public class ActFmCameraModule {
         public void handleCameraResult(Uri uri);
     }
 
-    public static boolean activityResult(Activity activity, int requestCode, int resultCode, Intent data,
+    public static boolean activityResult(Activity activity, Preferences preferences, int requestCode, int resultCode, Intent data,
             CameraResultCallback cameraResult) {
         if(requestCode == ActFmCameraModule.REQUEST_CODE_CAMERA && resultCode == Activity.RESULT_OK) {
             if (lastTempFile != null) {
@@ -120,11 +129,19 @@ public class ActFmCameraModule {
             return true;
         } else if(requestCode == ActFmCameraModule.REQUEST_CODE_PICTURE && resultCode == Activity.RESULT_OK) {
             Uri uri = data.getData();
-            String path = getPathFromUri(activity, uri);
-            if (new File(path).exists()) {
-                activity.setResult(Activity.RESULT_OK);
-                cameraResult.handleCameraResult(uri);
+            ContentResolver contentResolver = activity.getContentResolver();
+            MimeTypeMap mime = MimeTypeMap.getSingleton();
+            String extension = mime.getExtensionFromMimeType(contentResolver.getType(uri));
+            File tempFile = getFilename(activity, preferences, extension);
+            log.debug("Writing {} to {}", uri, tempFile);
+            try {
+                InputStream inputStream = activity.getContentResolver().openInputStream(uri);
+                copyFile(inputStream, tempFile.getPath());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
+            activity.setResult(Activity.RESULT_OK);
+            cameraResult.handleCameraResult(Uri.fromFile(tempFile));
             return true;
         }
         return false;

@@ -11,7 +11,6 @@
 	<string name="TVA_add_comment">Yorum Gir</string>
 	<string name="actfm_TVA_menu_refresh">Yenile</string>
 	<string name="actfm_TVA_tag_label">Liste İsmi:</string>
-	<string name="actfm_TVA_tag_picture">Liste Resmi</string>
 	<string name="actfm_TVA_tag_name_hint">Liste adı girin</string>
 	<string name="actfm_GAA_title">Kullanmak istediğiniz Google hesabını seçin:</string>
 	<string name="alarm_ACS_label">Alarmlar</string>
@@ -323,8 +322,6 @@
 	<string name="search_market_ms_title">MS Office okuyucu bulunamadı</string>
 	<string name="file_type_unhandled">Üzgünüm! Bu dosya türünü destekleyen bir uygulama bulunamadı.</string>
 	<string name="file_type_unhandled_title">Uygulama bulunamadı</string>
-	<string name="file_prefix_image">Görüntü</string>
-	<string name="file_prefix_voice">Ses</string>
 	<string name="file_browser_up">Yukarı</string>
 	<string name="file_browser_title">Bir dosya seçin</string>
 	<string name="dir_browser_title">Bir dizin seçin</string>

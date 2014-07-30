@@ -225,7 +225,7 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
                 log.error("Not expecting this");
             }
         };
-        if (!ActFmCameraModule.activityResult(this, requestCode, resultCode, data, callback)) {
+        if (!ActFmCameraModule.activityResult(this, preferences, requestCode, resultCode, data, callback)) {
             if(requestCode == REQUEST_ACTFM_LOGIN && resultCode == Activity.RESULT_OK) {
                 saveSettings();
             } else {

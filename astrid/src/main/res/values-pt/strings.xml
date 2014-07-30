@@ -11,7 +11,6 @@
 	<string name="TVA_add_comment">Adicionar um comentário...</string>
 	<string name="actfm_TVA_menu_refresh">Recarregar</string>
 	<string name="actfm_TVA_tag_label">Lista</string>
-	<string name="actfm_TVA_tag_picture">Imagem</string>
 	<string name="actfm_TVA_tag_name_hint">Escreva o nome da lista</string>
 	<string name="actfm_GAA_title">Escolha a conta Google a utilizar:</string>
 	<string name="alarm_ACS_label">Alarmes</string>
@@ -367,8 +366,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="search_market_ms_title">Leitor de documentos MS Office não encontrado</string>
 	<string name="file_type_unhandled">Não foi encontrada qualquer aplicação para gerir ficheiros deste tipo.</string>
 	<string name="file_type_unhandled_title">Aplicação não encontrada</string>
-	<string name="file_prefix_image">Imagem</string>
-	<string name="file_prefix_voice">Voz</string>
 	<string name="file_browser_up">Subir</string>
 	<string name="file_browser_title">Escolha um ficheiro</string>
 	<string name="dir_browser_title">Escolha um diretório</string>
