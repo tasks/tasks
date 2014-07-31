@@ -86,7 +86,6 @@ import com.todoroo.astrid.voice.VoiceRecognizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
-import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
@@ -176,7 +175,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Inject ActivityPreferences preferences;
     @Inject DateChangedAlerts dateChangedAlerts;
     @Inject TagDataDao tagDataDao;
-    @Inject @ForApplication Context context;
+    @Inject ActFmCameraModule actFmCameraModule;
 
     // --- UI components
 
@@ -278,7 +277,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private void instantiateEditNotes() {
         if (showEditComments) {
             long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID, -1L);
-            editNotes = new EditNoteActivity(preferences, metadataDao, userActivityDao,
+            editNotes = new EditNoteActivity(actFmCameraModule, preferences, metadataDao, userActivityDao,
                     taskService, this, getView(), idParam);
             editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT,
                     LayoutParams.WRAP_CONTENT));
@@ -820,7 +819,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             @Override
             public void onClick(DialogInterface d, int which) {
                 if(which == 0) {
-                    ActFmCameraModule.showPictureLauncher(TaskEditFragment.this, preferences, null);
+                    actFmCameraModule.showPictureLauncher(null);
                 } else if (which == 1) {
                     Intent attachFile = new Intent(getActivity(), FileExplore.class);
                     startActivityForResult(attachFile, REQUEST_CODE_ATTACH_FILE);
@@ -980,7 +979,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             return;
         }
 
-        ActFmCameraModule.activityResult(getActivity(), preferences, requestCode, resultCode, data, new CameraResultCallback() {
+        actFmCameraModule.activityResult(requestCode, resultCode, data, new CameraResultCallback() {
             @Override
             public void handleCameraResult(Uri uri) {
                 attachImage(uri);

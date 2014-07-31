@@ -66,6 +66,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     private Task task;
 
+    private ActFmCameraModule actFmCameraModule;
     private final Preferences preferences;
     private final MetadataDao metadataDao;
     private final UserActivityDao userActivityDao;
@@ -96,6 +97,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     }
 
     public EditNoteActivity(
+            ActFmCameraModule actFmCameraModule,
             Preferences preferences,
             MetadataDao metadataDao,
             UserActivityDao userActivityDao,
@@ -104,6 +106,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             View parent,
             long t) {
         super(fragment.getActivity());
+        this.actFmCameraModule = actFmCameraModule;
         this.preferences = preferences;
         this.metadataDao = metadataDao;
         this.userActivityDao = userActivityDao;
@@ -229,9 +232,9 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             @Override
             public void onClick(View v) {
                 if (pendingCommentPicture != null) {
-                    ActFmCameraModule.showPictureLauncher(fragment, preferences, clearImage);
+                    actFmCameraModule.showPictureLauncher(clearImage);
                 } else {
-                    ActFmCameraModule.showPictureLauncher(fragment, preferences, null);
+                    actFmCameraModule.showPictureLauncher(null);
                 }
                 respondToPicture = true;
             }
@@ -492,8 +495,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 }
             };
 
-            return (ActFmCameraModule.activityResult((Activity)getContext(), preferences,
-                    requestCode, resultCode, data, callback));
+            return actFmCameraModule.activityResult(requestCode, resultCode, data, callback);
         } else {
             return false;
         }

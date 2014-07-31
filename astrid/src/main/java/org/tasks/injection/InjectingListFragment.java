@@ -15,7 +15,7 @@ public class InjectingListFragment extends ListFragment implements Injector {
         super.onAttach(activity);
 
         if (!injected) {
-            objectGraph = ((Injector) activity).getObjectGraph().plus(new FragmentModule(activity, this));
+            objectGraph = ((Injector) activity).getObjectGraph().plus(new FragmentModule(this, this));
             inject(this);
             injected = true;
         }

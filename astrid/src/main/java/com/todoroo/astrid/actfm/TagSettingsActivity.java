@@ -5,10 +5,8 @@
  */
 package com.todoroo.astrid.actfm;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
@@ -23,7 +21,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.helper.UUIDHelper;
@@ -49,8 +46,6 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
 
     private static final int MENU_SAVE_ID = R.string.TEA_menu_save;
     private static final int MENU_DISCARD_ID = R.string.TEA_menu_discard_changes;
-
-    public static final int REQUEST_ACTFM_LOGIN = 3;
 
     public static final String TOKEN_AUTOPOPULATE_MEMBERS = "autopopulateMembers"; //$NON-NLS-1$
 
@@ -213,23 +208,6 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
                 setTitle(getString(R.string.tag_new_list));
             } else {
                 setTitle(getString(R.string.tag_settings_title));
-            }
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        CameraResultCallback callback = new CameraResultCallback() {
-            @Override
-            public void handleCameraResult(Uri uri) {
-                log.error("Not expecting this");
-            }
-        };
-        if (!ActFmCameraModule.activityResult(this, preferences, requestCode, resultCode, data, callback)) {
-            if(requestCode == REQUEST_ACTFM_LOGIN && resultCode == Activity.RESULT_OK) {
-                saveSettings();
-            } else {
-                super.onActivityResult(requestCode, resultCode, data);
             }
         }
     }

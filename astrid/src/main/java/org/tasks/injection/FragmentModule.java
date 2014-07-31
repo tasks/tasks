@@ -2,6 +2,7 @@ package org.tasks.injection;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.Fragment;
 
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.activity.FilterListFragment;
@@ -40,11 +41,11 @@ import dagger.Provides;
 })
 public class FragmentModule {
 
-    private final Activity activity;
-    private Injector injector;
+    private final Fragment fragment;
+    private final Injector injector;
 
-    public FragmentModule(Activity activity, Injector injector) {
-        this.activity = activity;
+    public FragmentModule(Fragment fragment, Injector injector) {
+        this.fragment = fragment;
         this.injector = injector;
     }
 
@@ -54,16 +55,20 @@ public class FragmentModule {
         return injector;
     }
 
-    @Singleton
     @Provides
     @ForActivity
     public Context getContext() {
-        return activity;
+        return fragment.getActivity();
+    }
+
+    @Provides
+    public Activity getActivity() {
+        return fragment.getActivity();
     }
 
     @Singleton
     @Provides
-    public Activity getActivity() {
-        return activity;
+    public Fragment getFragment() {
+        return fragment;
     }
 }

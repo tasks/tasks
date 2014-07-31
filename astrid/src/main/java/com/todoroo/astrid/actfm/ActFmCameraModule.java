@@ -29,6 +29,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
+import javax.inject.Inject;
+
 import static com.todoroo.astrid.files.FileUtilities.getNewAttachmentPath;
 import static org.tasks.files.FileHelper.copyFile;
 
@@ -41,11 +43,20 @@ public class ActFmCameraModule {
 
     private static File lastTempFile = null;
 
+    private final Fragment fragment;
+    private final Preferences preferences;
+
     public interface ClearImageCallback {
         public void clearImage();
     }
 
-    public static void showPictureLauncher(final Fragment fragment, final Preferences preferences, final ClearImageCallback clearImageOption) {
+    @Inject
+    public ActFmCameraModule(Fragment fragment, Preferences preferences) {
+        this.fragment = fragment;
+        this.preferences = preferences;
+    }
+
+    public void showPictureLauncher(final ClearImageCallback clearImageOption) {
         ArrayList<String> options = new ArrayList<>();
 
         final Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -68,7 +79,7 @@ public class ActFmCameraModule {
             @Override
             public void onClick(DialogInterface d, int which) {
                 if(which == 0 && cameraAvailable) {
-                    lastTempFile = getFilename(fragment.getActivity(), preferences, ".jpeg");
+                    lastTempFile = getFilename(".jpeg");
                     if (lastTempFile == null) {
                         Toast.makeText(fragment.getActivity(), R.string.external_storage_unavailable, Toast.LENGTH_LONG).show();
                         d.dismiss();
@@ -94,13 +105,13 @@ public class ActFmCameraModule {
         .show().setOwnerActivity(fragment.getActivity());
     }
 
-    private static File getFilename(Activity activity, Preferences preferences, String extension) {
+    private File getFilename(String extension) {
         AtomicReference<String> nameRef = new AtomicReference<>();
         if (!extension.startsWith(".")) {
             extension = "." + extension;
         }
         try {
-            String path = getNewAttachmentPath(preferences, activity, extension, nameRef);
+            String path = getNewAttachmentPath(preferences, fragment.getActivity(), extension, nameRef);
             File file = new File(path);
             file.getParentFile().mkdirs();
             if (!file.createNewFile()) {
@@ -117,30 +128,30 @@ public class ActFmCameraModule {
         public void handleCameraResult(Uri uri);
     }
 
-    public static boolean activityResult(Activity activity, Preferences preferences, int requestCode, int resultCode, Intent data,
+    public boolean activityResult(int requestCode, int resultCode, Intent data,
             CameraResultCallback cameraResult) {
         if(requestCode == ActFmCameraModule.REQUEST_CODE_CAMERA && resultCode == Activity.RESULT_OK) {
             if (lastTempFile != null) {
                 Uri uri = Uri.fromFile(lastTempFile);
                 lastTempFile = null;
-                activity.setResult(Activity.RESULT_OK);
+                fragment.getActivity().setResult(Activity.RESULT_OK);
                 cameraResult.handleCameraResult(uri);
             }
             return true;
         } else if(requestCode == ActFmCameraModule.REQUEST_CODE_PICTURE && resultCode == Activity.RESULT_OK) {
             Uri uri = data.getData();
-            ContentResolver contentResolver = activity.getContentResolver();
+            ContentResolver contentResolver = fragment.getActivity().getContentResolver();
             MimeTypeMap mime = MimeTypeMap.getSingleton();
             String extension = mime.getExtensionFromMimeType(contentResolver.getType(uri));
-            File tempFile = getFilename(activity, preferences, extension);
+            File tempFile = getFilename(extension);
             log.debug("Writing {} to {}", uri, tempFile);
             try {
-                InputStream inputStream = activity.getContentResolver().openInputStream(uri);
+                InputStream inputStream = fragment.getActivity().getContentResolver().openInputStream(uri);
                 copyFile(inputStream, tempFile.getPath());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            activity.setResult(Activity.RESULT_OK);
+            fragment.getActivity().setResult(Activity.RESULT_OK);
             cameraResult.handleCameraResult(Uri.fromFile(tempFile));
             return true;
         }
