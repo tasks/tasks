@@ -1,12 +1,3 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:0.12.+'
-    }
-}
-
 apply plugin: 'com.android.application'
 
 repositories {
@@ -66,7 +57,7 @@ android.applicationVariants.all { variant ->
 }
 
 dependencies {
-    provided group: 'com.squareup.dagger', name: 'dagger-compiler', version: '1.2.1'
+    provided group: 'com.squareup.dagger', name: 'dagger-compiler', version: '1.2.2'
 
     compile group: 'com.android.support', name: 'appcompat-v7', version: '19.1.+'
 
@@ -77,10 +68,18 @@ dependencies {
     compile group: 'com.rubiconproject.oss', name: 'jchronic', version: '0.2.6', transitive: false
     compile group: 'org.scala-saddle', name: 'google-rfc-2445', version: '20110304', transitive: false
 
-    compile group: 'com.google.apis', name: 'google-api-services-tasks', version: 'v1-rev33-1.18.0-rc'
-    compile group: 'com.google.api-client', name: 'google-api-client-android', version: '1.18.0-rc'
-    compile group: 'com.google.http-client', name: 'google-http-client-android', version: '1.18.0-rc'
-    compile group: 'com.google.http-client', name: 'google-http-client-gson', version: '1.18.0-rc'
+    compile(group: 'com.google.apis', name: 'google-api-services-tasks', version: 'v1-rev33-1.18.0-rc') {
+        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+    }
+    compile(group: 'com.google.api-client', name: 'google-api-client-android', version: '1.18.0-rc') {
+        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+    }
+    compile(group: 'com.google.http-client', name: 'google-http-client-gson', version: '1.18.0-rc') {
+        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+    }
+
+    compile group: 'com.github.tony19', name: 'logback-android-classic', version: '1.1.1-2'
+    apk group: 'com.github.tony19', name: 'logback-android-core', version: '1.1.1-2'
 
     androidTestCompile group: 'org.mockito', name: 'mockito-core', version: '1.9.5', transitive: false
     androidTestCompile group: 'com.google.dexmaker', name: 'dexmaker', version: '1.1'
