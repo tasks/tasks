@@ -113,7 +113,7 @@ public class TagViewFragment extends TaskListFragment {
             return;
         }
 
-        TagData tagData = RemoteModel.isUuidEmpty(uuid)
+        tagData = RemoteModel.isUuidEmpty(uuid)
                 ? tagDataDao.getTagByName(tag, TagData.PROPERTIES)
                 : tagDataDao.getByUuid(uuid, TagData.PROPERTIES);
 
