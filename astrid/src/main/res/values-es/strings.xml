@@ -118,6 +118,7 @@
 	<string name="TEA_estimatedDuration_label">¿Cuanto tiempo llevará?</string>
 	<string name="TEA_elapsedDuration_label">Tiempo ya empleado en la tarea</string>
 	<string name="TEA_menu_save">Guardar cambios</string>
+	<string name="TEA_menu_discard_changes">Descartar cambios</string>
 	<string name="TEA_tab_activity">Actividad</string>
 	<string name="TEA_timer_est">Estimado %s</string>
 	<string name="TEA_timer_elap">Transcurrido %s</string>
@@ -135,7 +136,7 @@
 	<string-array name="TEA_hideUntil">
 		<item>Nunca</item>
 		<item>Fecha de vencimiento</item>
-		<item>Fecha de vencimiento</item>
+		<item>Hora de vencimiento</item>
 		<item>Día previo al vencimiento</item>
 		<item>Semana previa al vencimiento</item>
 		<item>Día/Hora específicos</item>
@@ -221,6 +222,7 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Momento del evento en calendario</string>
 	<string name="EPr_cal_end_at_due_time">Finalizar los eventos del calendario en su fecha de vencimiento</string>
 	<string name="EPr_cal_start_at_due_time">Iniciar los eventos del calendario en su fecha de vencimiento</string>
+	<string name="EPr_enable_debug_logging">Habilitar registro de depuración</string>
 	<string name="EPr_manage_header">Administrar tareas antiguas</string>
 	<string name="EPr_manage_delete_completed">Borrar tareas completadas</string>
 	<string name="EPr_manage_delete_completed_message">¿Seguro que desea borrar todas las tareas completadas?</string>
@@ -529,4 +531,5 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="delete_task">Eliminar tarea</string>
 	<string name="TLA_menu_support">Soporte</string>
 	<string name="voice_command_added_task">Tarea agregada</string>
+	<string name="external_storage_unavailable">Almacenamiento externo inaccesible</string>
 </resources>
