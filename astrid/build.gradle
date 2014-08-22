@@ -77,6 +77,7 @@ dependencies {
     compile(group: 'com.google.http-client', name: 'google-http-client-gson', version: '1.18.0-rc') {
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
     }
+    compile group: 'com.google.guava', name: 'guava-jdk5', version: '13.0'
 
     compile group: 'com.github.tony19', name: 'logback-android-classic', version: '1.1.1-2'
     apk group: 'com.github.tony19', name: 'logback-android-core', version: '1.1.1-2'
