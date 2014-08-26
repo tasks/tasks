@@ -9,6 +9,8 @@
 		<item quantity="one">タスク 1 件</item>
 		<item quantity="other">タスク %d 件</item>
 	</plurals>
+	<string name="today">今日</string>
+	<string name="tomorrow">明日</string>
 	<string name="yesterday">昨日</string>
 	<string name="tmrw">明日</string>
 	<string name="yest">昨日</string>
@@ -16,20 +18,32 @@
 	<string name="DLG_question_title">確認</string>
 	<string name="DLG_information_title">インフォメーション</string>
 	<string name="DLG_close">閉じる</string>
+	<string name="DLG_error">エラーが発生しました! 発生した内容\n\n%s</string>
 	<string name="DLG_wait">お待ちください</string>
 	<string name="SyP_label">同期</string>
+	<string name="Sync_now_label">いますぐ同期</string>
+	<string name="SyP_summary">Google Tasks, 保存したデータ, ローカルのバックアップ</string>
 	<string name="sync_SPr_group_status">状況</string>
+	<string name="sync_SPr_status_subtitle">状況: %s</string>
+	<string name="sync_status_loggedout">ログインしていません</string>
 	<string name="sync_status_ongoing">同期中</string>
 	<string name="sync_status_success">前回の同期:\n%s</string>
 	<string name="sync_status_failed">失敗: %s</string>
+	<string name="sync_status_errors">同期でエラー: %s</string>
 	<string name="sync_status_never">同期していません</string>
 	<string name="sync_SPr_group_options">オプション</string>
 	<string name="sync_SPr_interval_title">バックグラウンド同期</string>
 	<string name="sync_SPr_interval_desc_disabled">バックグラウンド同期は無効になっています</string>
 	<string name="sync_SPr_interval_desc">現在の設定: %s</string>
+	<string name="sync_SPr_sync">すぐに同期</string>
+	<string name="sync_SPr_last_error">状況レポート</string>
+	<string name="sync_SPr_last_error_subtitle">クリックするとTasks チームにレポートを送信します</string>
+	<string name="sync_SPr_send_report">レポートを送信</string>
 	<string name="sync_SPr_forget">ログアウト</string>
 	<string name="sync_SPr_forget_description">すべての同期データを消去します</string>
 	<string name="sync_forget_confirm">ログアウトと同期データを消去しますか?</string>
+	<string name="sync_error_offline">%s と前回の同期中にネットワークの接続の問題がありました.
+後で再度実行してください.</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>無効</item>
 		<item>15分毎</item>
