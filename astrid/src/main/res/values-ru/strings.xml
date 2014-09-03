@@ -89,12 +89,12 @@
 	<string name="SSD_hidden">Показать скрытые задачи</string>
 	<string name="SSD_deleted">Показать удалённые задачи</string>
 	<string name="SSD_sort_drag">Ручной порядок с подзадачами</string>
-	<string name="SSD_sort_auto">Умная сортировка Tasks</string>
+	<string name="SSD_sort_auto">Умная сортировка Astrid</string>
 	<string name="SSD_sort_alpha">По названию</string>
 	<string name="SSD_sort_due">По намеченному сроку</string>
 	<string name="SSD_sort_importance">По приоритету</string>
 	<string name="SSD_sort_modified">Последние изменённые</string>
-	<string name="SSD_sort_reverse">В обратном порядке</string>
+	<string name="SSD_sort_reverse">Обратныйй порядок сортировки</string>
 	<string name="SSD_save_temp">Только один раз</string>
 	<string name="SSD_save_always">Всегда</string>
 	<string name="FSA_label">Список задач или фильтр</string>
@@ -118,7 +118,7 @@
 	<string name="TEA_estimatedDuration_label">Как долго это продлится?</string>
 	<string name="TEA_elapsedDuration_label">Время уже потраченное на задачу</string>
 	<string name="TEA_menu_save">Сохранить изменения</string>
-	<string name="TEA_menu_discard_changes">Отменить изменения</string>
+	<string name="TEA_menu_discard_changes">Отменить ваши изменения?</string>
 	<string name="TEA_tab_activity">Действия</string>
 	<string name="TEA_timer_est">Ост. %s</string>
 	<string name="TEA_timer_elap">Прошло %s</string>
@@ -222,7 +222,7 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Время события в календаре</string>
 	<string name="EPr_cal_end_at_due_time">Завершать события в календаре при наступлении срока</string>
 	<string name="EPr_cal_start_at_due_time">Создавать события в календаре при наступлении срока</string>
-	<string name="EPr_enable_debug_logging">Разрешить лог отладки</string>
+	<string name="EPr_enable_debug_logging">Включить журнал расширенной отладки?</string>
 	<string name="EPr_manage_header">Управление старыми задачами</string>
 	<string name="EPr_manage_delete_completed">Удалить завершенные задачи</string>
 	<string name="EPr_manage_delete_completed_message">Вы действительно хотите удалить все завершенные задачи?</string>
@@ -315,7 +315,7 @@
 		<item>Через неделю</item>
 		<item>Через месяц</item>
 	</string-array>
-	<string name="CFC_importance_text">Приоритет?</string>
+	<string name="CFC_importance_text">Приоритет меньшего?</string>
 	<string name="CFC_importance_name">Приоритет...</string>
 	<string name="CFC_tag_text">Список: ?</string>
 	<string name="CFC_tag_name">Назовите...</string>
@@ -532,6 +532,6 @@
 	<string name="EPr_use_dark_theme_widget">Темная тема виджета</string>
 	<string name="delete_task">Удалить задачу</string>
 	<string name="TLA_menu_support">Поддержка</string>
-	<string name="voice_command_added_task">Добавленная задача</string>
+	<string name="voice_command_added_task">добавлена Задача</string>
 	<string name="external_storage_unavailable">Не могу открыть внешний накопитель</string>
 </resources>

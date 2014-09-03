@@ -86,6 +86,7 @@
 	<string name="SSD_completed">Mostra les tasques completades</string>
 	<string name="SSD_hidden">Mostra les tasques ocultes</string>
 	<string name="SSD_deleted">Mostra les tasques suprimides</string>
+	<string name="SSD_sort_drag">Ordre manual amb subtasques</string>
 	<string name="SSD_sort_auto">Classificació intel·ligent Tasks</string>
 	<string name="SSD_sort_alpha">Per títol</string>
 	<string name="SSD_sort_due">Per data de venciment</string>
@@ -105,12 +106,14 @@
 	<string name="FLA_no_filter_selected">No heu seleccionat cap filtre. Seleccioneu un filtre o una llista.</string>
 	<string name="TEA_title_hint">Resum de la tasca</string>
 	<string name="TEA_importance_label">Importància</string>
+	<string name="TEA_deadline_hint">Establir data de venciment</string>
 	<string name="TEA_hideUntil_label">Mostra la tasca</string>
 	<string name="TEA_note_label">Notes</string>
 	<string name="TEA_notes_hint">Introdueix notes a la tasca...</string>
 	<string name="TEA_estimatedDuration_label">Quant temps us portarà?</string>
 	<string name="TEA_elapsedDuration_label">Temps que ja s\'ha invertit en la Tasca</string>
 	<string name="TEA_menu_save">Desa els canvis</string>
+	<string name="TEA_menu_discard_changes">Descartar canvis</string>
 	<string name="TEA_tab_activity">Activitat</string>
 	<string-array name="TEA_urgency">
 		<item>Sense venciment</item>
@@ -211,14 +214,19 @@
 	</string-array>
 	<string name="CFC_importance_text">Per menys important?</string>
 	<string name="CFC_importance_name">Importància...</string>
+	<string name="CFC_tag_text">Enumerar</string>
 	<string name="CFC_tag_name">Llista...</string>
 	<string name="CFC_title_contains_name">El títol conté...</string>
 	<string name="CFC_title_contains_text">Títol conté: ?</string>
 	<string name="gcal_TEA_error">Error afegint la tasca al calendari!</string>
 	<string name="gcal_TEA_addToCalendar_label">Afegeix al calendari</string>
 	<string name="gcal_TEA_showCalendar_label">Obrir Event del Calendari</string>
+	<string name="gcal_TEA_nocal">No afegir</string>
+	<string name="gcal_TEA_none_selected">Al calenari?</string>
+	<string name="gcal_TEA_has_event">Event del calendari</string>
 	<string name="gcal_completed_title">%s (completada)</string>
 	<string name="gcal_GCP_default">Calendari per defecte</string>
+	<string name="gtasks_FEx_title">Tasques de Google:%s</string>
 	<string name="gtasks_GTA_clearing">S\'estan netejant les tasques completades...</string>
 	<string name="gtasks_GTA_clear_completed">Neteja les tasques completades</string>
 	<string name="gtasks_GLA_authenticating">S\'està autenticant...</string>
@@ -256,6 +264,7 @@
 	<string name="repeat_enabled">Repeticions</string>
 	<string name="repeat_every">Cada %d</string>
 	<string name="repeat_interval_prompt">Interval de Repecitiò</string>
+	<string name="repeat_never">Sense repetir</string>
 	<string-array name="repeat_until_shortcuts">
 		<item>Forever</item>
 		<item>Specific Day</item>
@@ -266,8 +275,14 @@
 		<item>In Two Weeks</item>
 		<item>El mes que ve</item>
 	</string-array>
+	<string name="repeat_until_title">Repetir fins...</string>
+	<string name="repeat_keep_going">Segueix així</string>
 	<string name="repeat_detail_byday">$I en $D</string>
 	<string name="repeat_detail_duedate">Cada %s</string>
+	<string name="repeat_detail_duedate_until">Cada %1$s\nfins %2$s</string>
+	<string name="repeat_forever">Repeteix indefinidament</string>
+	<string name="repeat_until">Repeteix fins %s</string>
+	<string name="repeat_rescheduling_dialog_title">Reprogramar tasca \"%s\"</string>
 	<string name="repeat_rescheduling_dialog_title_last_time">S\'ha completat la tasca recurrent «%s»</string>
 	<string name="TEA_tag_hint">Llista nova</string>
 	<string name="tag_new_list">Llista nova</string>
@@ -279,5 +294,6 @@
 	<string name="TFE_workingOn">Tasques sent cronometrades</string>
 	<string name="TEA_timer_comment_started">inici d\'aquesta tasca:</string>
 	<string name="TEA_timer_comment_stopped">finalització d\'aquesta tasca:</string>
+	<string name="delete_task">Eliminar tasca</string>
 	<string name="TLA_menu_support">Assistència</string>
 </resources>
