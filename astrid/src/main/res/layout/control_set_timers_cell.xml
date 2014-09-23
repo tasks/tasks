@@ -2,17 +2,17 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dip"
-    android:layout_marginLeft="10dip"
-    android:layout_marginRight="10dip"
-    android:gravity="center_vertical"
-    android:orientation="horizontal">
+    android:layout_height="100dip"
+    android:padding="7dp"
+    android:gravity="top|left"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/durationLabel"
         style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:maxLines="1"
         android:text="@string/TEA_elapsedDuration_label" />
 
     <TextView
@@ -20,7 +20,9 @@
         style="@style/TextAppearance.EditRowDisplay"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_weight="1"
-        android:gravity="right"
-        android:paddingLeft="10dip" />
+        android:gravity="left"
+        android:text="1:10:10" />
 </LinearLayout>
+

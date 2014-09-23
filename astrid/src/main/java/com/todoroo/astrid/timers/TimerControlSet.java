@@ -34,6 +34,8 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
     private final TextView displayEdit;
     private final ImageView image;
 
+    private TimeLogControlSet timeLogControlSet;
+
     public TimerControlSet(final Activity activity, int viewLayout, int displayViewLayout, int title) {
         super(activity, viewLayout, displayViewLayout, title);
 
@@ -46,18 +48,20 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
         estimated = new TimeDurationTaskEditControlSet(activity, getView(), Task.ESTIMATED_SECONDS,
                 R.id.estimatedDurationLayout, 0, R.string.DLG_hour_minutes, R.string.TEA_estimatedDuration_label
                 );
-        elapsed = new TimeDurationTaskEditControlSet(activity, getView(), Task.ELAPSED_SECONDS, R.id.elapsedDurationLayout,
-                0, R.string.DLG_hour_minutes,
-                R.string.TEA_elapsedDuration_label);
-        remaining = new TimeDurationTaskEditControlSet(activity, getView(), Task.ELAPSED_SECONDS, R.id.remainingDurationLayout,
+//        elapsed = new TimeDurationTaskEditControlSet(activity, getView(), Task.ELAPSED_SECONDS, R.id.elapsedDurationLayout,
+//                0, R.string.DLG_hour_minutes,
+//                R.string.TEA_elapsedDuration_label);
+        remaining = new TimeDurationTaskEditControlSet(activity, getView(), Task.REMAINING_SECONDS, R.id.remainingDurationLayout,
                 0, R.string.DLG_hour_minutes,
                 R.string.TEA_remainingDuration_label);//TODO zmienic kolumne z Task.ELAPSED_SECONDS na remaining
+
+        timeLogControlSet = new TimeLogControlSet(activity);
     }
 
     @Override
     protected void readFromTaskOnInitialize() {
         estimated.readFromTask(model);
-        elapsed.readFromTask(model);
+//        elapsed.readFromTask(model);
         remaining.readFromTask(model);
     }
 
@@ -70,7 +74,7 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
     protected void writeToModelAfterInitialized(Task task) {
         if (initialized) {
             estimated.writeToModel(task);
-            elapsed.writeToModel(task);
+//            elapsed.writeToModel(task);
             remaining.writeToModel(task);
         }
     }
@@ -126,7 +130,7 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
 //            est = activity.getString(R.string.TEA_timer_est, est);
 //            est = est.substring(0,est.length()-3);
 //        }
-        String elaps = elapsed.getDisplayString();
+        String elaps = "";//elapsed.getDisplayString();
         if (!TextUtils.isEmpty(elaps)) {
             elaps = activity.getString(R.string.TEA_timer_elap, elaps);
             elaps = elaps.substring(0,elaps.length()-3);
@@ -159,7 +163,7 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
 
     @Override
     public void timerStopped(Task task) {
-        elapsed.readFromTask(task);
+//        elapsed.readFromTask(task);
     }
 
     @Override

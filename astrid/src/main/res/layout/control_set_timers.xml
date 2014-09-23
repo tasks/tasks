@@ -1,36 +1,60 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<?xml version="1.0" encoding="utf-8"?><!--
 ** Copyright (c) 2012 Todoroo Inc
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="vertical"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent"
-  android:paddingLeft="5dip"
-  android:paddingRight="5dip">
-        
-    <!-- estimated time -->
-    <include android:id="@+id/estimatedDurationLayout"
-        layout="@layout/control_set_timers_row"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="5dip"
+    android:paddingRight="5dip">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal">
+
+        <include
+            android:id="@+id/estimatedDurationLayout"
+            layout="@layout/control_set_timers_cell"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <View
+            style="@style/TEA_Separator"
+            android:layout_width="1px"
+            android:layout_height="match_parent" />
+
+        <include
+            android:id="@+id/remainingDurationLayout"
+            layout="@layout/control_set_timers_cell"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
     <View
-          android:id="@+id/TEA_Separator"
-          android:layout_width="fill_parent"
-          android:layout_height="1px"
-          style="@style/TEA_Separator" />
-    <include android:id="@+id/elapsedDurationLayout"
-        layout="@layout/control_set_timers_row"/>
+        style="@style/TEA_Separator"
+        android:layout_width="match_parent"
+        android:layout_height="1px" />
+
+    <include layout="@layout/control_set_time_log"/>
+
     <View
-        android:id="@+id/TEA_Separator2"
-        android:layout_width="fill_parent"
-        android:layout_height="1px"
-        style="@style/TEA_Separator" />
-    <include android:id="@+id/remainingDurationLayout"
-        layout="@layout/control_set_timers_row"/>
-    <!-- elapsed time -->
-    <include layout="@layout/control_dialog_ok"/>
-  
+        style="@style/TEA_Separator"
+        android:layout_width="match_parent"
+        android:layout_height="1px" />
+
+
+
+
+    <include layout="@layout/control_dialog_ok" />
+
+    <!-- !!!!!!!!!!!!!!!!! NOTE: !!!!!!!!!!!!!!!!!!!!!
+    to jest prototyp, zamiast powyzszych kliku linear layoutów powinien zostać wstawiony wypełniany dynamicznie ListView -->
+
 </LinearLayout>
 
