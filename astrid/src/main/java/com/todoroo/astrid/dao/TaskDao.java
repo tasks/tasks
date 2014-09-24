@@ -21,6 +21,9 @@ import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
+import com.todoroo.astrid.data.TaskTimeLog;
+import com.todoroo.astrid.helper.UUIDHelper;
+import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ReminderService;
 
 import org.slf4j.Logger;
@@ -32,6 +35,9 @@ import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Data Access layer for {@link Task}-related operations.
@@ -377,15 +383,26 @@ public class TaskDao extends RemoteModelDao<Task> {
         notificationManager.cancel((int) task.getId());
     }
     public static void migrateLoggedTime(SQLiteDatabase database){
-        database.beginTransaction();
 
-        Cursor cursor = database.query(Task.TABLE.name, new String[] {Task.ID.name, Task.ELAPSED_SECONDS.name}, null, null, null, null, null);
+        Property[] properties = {Task.ID, Task.ELAPSED_SECONDS, Task.COMPLETION_DATE, Task.CREATION_DATE, Task.UUID};
+        List<String> strings = new ArrayList<String>();
+        for (Property property : properties) {
+            strings.add(property.name);
+        }
+        Cursor cursor = database.query(Task.TABLE.name, strings.toArray(new String[0]), null, null, null, null, null);
+        TodorooCursor<Task> todorooCursor = new TodorooCursor<>(cursor, properties);
+
+
         try {
-            while (cursor.moveToNext()){
-                int index = cursor.getColumnIndex(Task.ELAPSED_SECONDS.name);
-                long elapsed = cursor.getLong(index);
-                long id = cursor.getLong(index);
-                //TODO insert new row to table TimeLog
+            while (todorooCursor.moveToNext()){
+                TaskTimeLog taskTimeLog = new TaskTimeLog();
+                taskTimeLog.setTaskId(todorooCursor.get(Task.ID));
+                taskTimeLog.setTaskUuid(todorooCursor.get(Task.UUID));
+                taskTimeLog.setTime(todorooCursor.get(Task.COMPLETION_DATE) != null ? todorooCursor.get(Task.COMPLETION_DATE) : todorooCursor.get(Task.CREATION_DATE));
+                taskTimeLog.setTimeSpent(todorooCursor.get(Task.ELAPSED_SECONDS) * 1000l);
+                taskTimeLog.setUuid(UUIDHelper.newUUID());
+                taskTimeLog.setID(null);
+                database.insert(TaskTimeLog.TABLE.name, AbstractModel.ID_PROPERTY.name, taskTimeLog.getMergedValues());
 }
         } finally {
             cursor.close();
