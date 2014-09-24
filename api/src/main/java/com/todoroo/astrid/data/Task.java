@@ -87,6 +87,9 @@ public class Task extends RemoteModel {
     public static final IntegerProperty ESTIMATED_SECONDS = new IntegerProperty(
             TABLE, "estimatedSeconds");
 
+    public static final IntegerProperty REMAINING_SECONDS = new IntegerProperty(
+            TABLE, "remainingSeconds");
+
     public static final IntegerProperty ELAPSED_SECONDS = new IntegerProperty(
             TABLE, "elapsedSeconds");
 
@@ -185,7 +188,7 @@ public class Task extends RemoteModel {
         defaultValues.put(REMINDER_LAST.name, 0);
         defaultValues.put(REMINDER_SNOOZE.name, 0);
         defaultValues.put(ESTIMATED_SECONDS.name, 0);
-        defaultValues.put(ELAPSED_SECONDS.name, 0);
+        defaultValues.put(REMAINING_SECONDS.name, 0);
         defaultValues.put(NOTES.name, "");
         defaultValues.put(TIMER_START.name, 0);
         defaultValues.put(UUID.name, NO_UUID);

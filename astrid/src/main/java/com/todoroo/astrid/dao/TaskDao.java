@@ -6,7 +6,9 @@
 package com.todoroo.astrid.dao;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
+import android.database.sqlite.SQLiteDatabase;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
@@ -374,5 +376,21 @@ public class TaskDao extends RemoteModelDao<Task> {
     private void afterComplete(Task task) {
         notificationManager.cancel((int) task.getId());
     }
+    public static void migrateLoggedTime(SQLiteDatabase database){
+        database.beginTransaction();
+
+        Cursor cursor = database.query(Task.TABLE.name, new String[] {Task.ID.name, Task.ELAPSED_SECONDS.name}, null, null, null, null, null);
+        try {
+            while (cursor.moveToNext()){
+                int index = cursor.getColumnIndex(Task.ELAPSED_SECONDS.name);
+                long elapsed = cursor.getLong(index);
+                long id = cursor.getLong(index);
+                //TODO insert new row to table TimeLog
+}
+        } finally {
+            cursor.close();
+        }
+    }
+
 }
 
