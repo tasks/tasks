@@ -89,6 +89,7 @@ import org.tasks.R;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.timelog.TimeLogService;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -164,6 +165,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     public static final int TAB_VIEW_UPDATES = 0;
 
     @Inject TaskService taskService;
+    @Inject TimeLogService timeLogService;
     @Inject TaskAttachmentDao taskAttachmentDao;
     @Inject TagService tagService;
     @Inject MetadataDao metadataDao;
@@ -414,7 +416,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         TimerControlSet timerControl = new TimerControlSet(preferences, getActivity(),
                 R.layout.control_set_timers,
                 R.layout.control_set_default_display,
-                R.string.TEA_timer_controls);
+                R.string.TEA_timer_controls,
+                timeLogService);
         timerAction.addListener(timerControl);
         controls.add(timerControl);
         controlSetMap.put(getString(R.string.TEA_ctrl_timer_pref), timerControl);

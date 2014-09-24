@@ -8,6 +8,8 @@ import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.api.AstridApiConstants;
 
+import java.util.Objects;
+
 public class TaskTimeLog extends RemoteModel  {
     /** table for this model */
     public static final Table TABLE = new Table("taskTimeLog", TaskTimeLog.class);
@@ -100,10 +102,5 @@ public class TaskTimeLog extends RemoteModel  {
     public void setUuid(String uuid){
         setValue(UUID, uuid);
     }
-
-
-
-
-
 
 }
