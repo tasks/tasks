@@ -54,9 +54,10 @@
 	<string name="DLG_undo">Vrátit změny</string>
 	<string name="WID_dateButtonUnset">Klikni pro nastavení</string>
 	<string name="TLA_no_items">Žádné úkoly!</string>
-	<string name="TLA_menu_sort">Třídit &amp; skryté</string>
+	<string name="TLA_menu_sort">Třídit</string>
 	<string name="TLA_menu_sync">Sychronizovat</string>
 	<string name="TLA_menu_search">Hledat</string>
+	<string name="TLA_menu_settings">Nastavení</string>
 	<string name="TLA_custom">Vlastní</string>
 	<string name="TLA_quick_add_hint">Přidat úkol</string>
 	<string name="TLA_notification_volume_low">Upozornění jsou ztlumena. Neuslyšíte Tasks!</string>
@@ -83,12 +84,13 @@
 	<string name="SSD_completed">Ukázat dokončené úkoly</string>
 	<string name="SSD_hidden">Ukázat skryté úkoly</string>
 	<string name="SSD_deleted">Ukázat smazané úkoly</string>
-	<string name="SSD_sort_auto">Tasks-chytré třídění</string>
+	<string name="SSD_sort_drag">Ručně nebo s podúkoly</string>
+	<string name="SSD_sort_auto">Chytré třídění</string>
 	<string name="SSD_sort_alpha">Podle názvu</string>
 	<string name="SSD_sort_due">Podle data ukončení</string>
 	<string name="SSD_sort_importance">Podle důležitosti</string>
 	<string name="SSD_sort_modified">Podle naposled upraveného</string>
-	<string name="SSD_sort_reverse">Obrácené třídění</string>
+	<string name="SSD_sort_reverse">Třídit</string>
 	<string name="SSD_save_temp">Pouze jednou</string>
 	<string name="SSD_save_always">Vždy</string>
 	<string name="FLA_context_shortcut">Vytvořit zástupce na ploše</string>
@@ -102,12 +104,15 @@
 	<string name="FLA_no_filter_selected">Není vybrán žádný filtr! Vyberte prosím filtr nebo seznam.</string>
 	<string name="TEA_title_hint">Souhrn úkolu</string>
 	<string name="TEA_importance_label">Důležitost</string>
-	<string name="TEA_hideUntil_label">Zobrazit úkol</string>
+	<string name="TEA_deadline_hint">Termín dokončení</string>
+	<string name="TEA_hideUntil_label">Skrýt až do</string>
+	<string name="TEA_hideUntil_display">Skrýt až do %s</string>
 	<string name="TEA_note_label">Poznámky</string>
 	<string name="TEA_notes_hint">Poznámky k úkolu...</string>
 	<string name="TEA_estimatedDuration_label">Kolik času asi zabere?</string>
 	<string name="TEA_elapsedDuration_label">Jak dlouho už na úkolu pracujete</string>
 	<string name="TEA_menu_save">Uložit změny</string>
+	<string name="TEA_menu_discard_changes">Zrušit změny</string>
 	<string name="TEA_tab_activity">Činnost</string>
 	<string-array name="TEA_urgency">
 		<item>Bez termínu</item>
@@ -147,12 +152,14 @@
 	<string name="MCA_ignore_body">Ignoroval jste několik zmeškaných hovorů. Má Tasks ignorovat všechny?</string>
 	<string name="MCA_ignore_all">Ignorovat vše</string>
 	<string name="MCA_ignore_this">Ignorovat pouze tento</string>
+	<string name="MCA_missed_calls_pref_title">Hlídat zmeškané hovory</string>
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks Vás upozorní na zmeškané hovory a připomene Vám, abyste zavolal zpět</string>
 	<string name="MCA_missed_calls_pref_desc_disabled">Tasks Vás nebude upozorňovat na zmeškané hovory</string>
 	<string name="MCA_task_title_name">Zavolat %1$s zpět v %2$s</string>
 	<string name="MCA_task_title_no_name">Zavolat %s zpět</string>
 	<string name="MCA_schedule_dialog_title">Zavolat %s zpět...</string>
-	<string name="EPr_title">Tasks: Vlastnosti</string>
+	<string name="CRA_more_options">Další nastavení</string>
+	<string name="EPr_title">Nastavení</string>
 	<string name="EPr_appearance_header">Vzhled</string>
 	<string name="EPr_fontSize_title">Velikost seznamu úkolů</string>
 	<string name="EPr_showSmartConfirmation_title">Zobrazovat potvrzení chytrých upomínek</string>
@@ -165,6 +172,7 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Čas události v kalendáři</string>
 	<string name="EPr_cal_end_at_due_time">Událost v kalendáři končí splněním úkolu</string>
 	<string name="EPr_cal_start_at_due_time">Událost v kalendáři začíná splněním úkolu</string>
+	<string name="EPr_enable_debug_logging">Povolit logovaní</string>
 	<string name="EPr_manage_header">Spravovat staré úkoly</string>
 	<string name="EPr_manage_delete_completed">Odstranit dokončené úkoly</string>
 	<string name="EPr_manage_delete_completed_message">Opravdu chcete odstranit všechny dokončené úkoly?</string>
@@ -175,7 +183,7 @@
 	<string name="EPr_manage_purge_deleted_status">Vymyzáno %d úkolů!</string>
 	<string name="EPr_manage_purge_deleted_summary">Pozor! Vymazané úkoly nemohou být obnoveny bez souboru zálohy!</string>
 	<string name="EPr_manage_clear_all">Smazat vše</string>
-	<string name="EPr_manage_clear_all_message">Smazat všechny úkoly a nastavení Tasks?\n\nPozor: nelze vzít zpět!</string>
+	<string name="EPr_manage_clear_all_message">Smazat všechny úkoly a nastavení úkolů?\n\nPozor: nelze vzít zpět!</string>
 	<string name="EPr_manage_delete_completed_gcal">Smazat události v kalendáři pro hotové úkoly</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Opravdu chcete smazat všechny události pro dokončené úkoly?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">Smazáno %d událostí z kalendáře!</string>
@@ -188,7 +196,7 @@
       If you see this error regularly, we suggest you clear all
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
       your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
-	<string name="EPr_defaults_header">Výchozí nastavení nového úkolu</string>
+	<string name="EPr_defaults_header">Nastavení nového úkolu</string>
 	<string name="EPr_default_urgency_desc">Aktuální: %s</string>
 	<string name="EPr_default_importance_title">Výchozí důležitost</string>
 	<string name="EPr_default_importance_desc">Aktuální: %s</string>
@@ -278,6 +286,7 @@
 	<string name="gtasks_error_accountNotFound">Účet %s nebyl nalezen -- přes nastavení Google Tasks se odhlašte a znovu přihlaste.</string>
 	<string name="gtasks_error_authRefresh">Nelze se přihlásit ke Google Tasks. Zkontrolujte prosím heslo ke svému účtu, nebo se zkuste znovu přihlásit.</string>
 	<string name="locale_notification">Máš $NUM se značkou $FILTER</string>
+	<string name="EPr_powerpack_header">Další nastavení</string>
 	<string name="speech_err_network">Chyba sítě! Rozpoznávání řeči vyžaduje funkční síťové připojení.</string>
 	<string name="speech_err_no_match">Je mi líto, ale nerozuměla jsem! Zkuste to znovu.</string>
 	<string name="speech_err_default">Rozpoznávání řeči narazilo na problém. Zkuste to prosím znovu.</string>
@@ -297,7 +306,7 @@
 	<string name="file_add_picture">Připojit obrázek</string>
 	<string name="file_add_sdcard">Připojit soubor z SD karty</string>
 	<string name="file_err_copy">Chyba při kopírování souboru jako přílohy</string>
-	<string name="TEA_reminders_group_label">Upomínky</string>
+	<string name="TEA_reminders_group_label">Nastavení upomínek</string>
 	<string name="TEA_reminder_label">Upozorni mě...</string>
 	<string name="TEA_reminder_due">Při termínu</string>
 	<string name="TEA_reminder_overdue">Úkol po termínu</string>
@@ -310,7 +319,9 @@
 	<string name="rmd_NoA_done">Dokončeno!</string>
 	<string name="rmd_NoA_snooze">Později...</string>
 	<string name="rmd_NoA_completed_toast">Hotovo! Gratuluji!</string>
-	<string name="rmd_EPr_alerts_header">Nastavení upozornění</string>
+	<string name="rmd_EPr_alerts_header">Nastavení upomínek</string>
+	<string name="rmd_EPr_enabled_desc_true">Upomínky jsou zapnuté (to je obvyklé)</string>
+	<string name="rmd_EPr_enable_quiet_title">Zapnout klidový režim</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Nerušit od</string>
 	<string name="rmd_EPr_quiet_hours_desc_none">Tichý režim zakázán</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Nerušit do</string>
@@ -339,6 +350,8 @@
 	<string name="repeat_enabled">Opakování</string>
 	<string name="repeat_every">Každý %d</string>
 	<string name="repeat_interval_prompt">Opakovací interval</string>
+	<string name="repeat_never">Bez opakování</string>
+	<string name="repeat_dont">Neopakujte</string>
 	<string-array name="repeat_interval">
 		<item>Dnů</item>
 		<item>Týdnů</item>
@@ -357,16 +370,33 @@
 		<item>In Two Weeks</item>
 		<item>Next Month</item>
 	</string-array>
+	<string name="repeat_until_title">Opakuje dokud ...</string>
+	<string name="repeat_keep_going">Další</string>
 	<string-array name="repeat_type">
 		<item>od data splnění</item>
 		<item>od data dokončení</item>
 	</string-array>
 	<string name="repeat_detail_byday">$I na $D</string>
 	<string name="repeat_detail_duedate">Každý %s</string>
+	<string name="repeat_detail_duedate_until">Každý %1$s\n až do %2$s</string>
+	<string name="repeat_forever">Opakovat stále</string>
+	<string name="repeat_until">Opakovat až do %s</string>
+	<string name="repeat_rescheduling_dialog_title_last_time">Zopakuje celý úkol \"%s\"</string>
+	<string name="TEA_tags_label_long">Přidat na seznam</string>
+	<string name="TEA_tag_hint">Nový seznam</string>
+	<string name="tag_new_list">Nový seznam</string>
+	<string name="tag_no_title_error">Prosím zadejte jméno pro první seznam</string>
+	<string name="tag_FEx_untagged">Nezařazené</string>
+	<string name="tag_cm_rename">Přejmenovat seznam</string>
+	<string name="tag_cm_delete">Smazat list</string>
 	<string name="TEA_no_tags_modified">Nebyly provedeny žádné změny.</string>
-	<string name="tag_settings_title">Settings:</string>
+	<string name="tag_settings_title">Nastavení seznamů</string>
 	<string name="TPl_notification">Aktivní časovače pro %s!</string>
-	<string name="TFE_workingOn">Úkol je časován</string>
+	<string name="TFE_workingOn">Termínované úkoly</string>
+	<string name="TEA_timer_controls">Časovač</string>
 	<string name="voice_create_prompt">Mluvte pro vytvoření úkolu</string>
+	<string name="EPr_use_dark_theme">Tmavé téma</string>
+	<string name="EPr_use_dark_theme_widget">Tmavé téma widgetu</string>
+	<string name="delete_task">Smazat úkol</string>
 	<string name="TLA_menu_support">Podpora</string>
 </resources>

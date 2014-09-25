@@ -93,6 +93,7 @@
 	<string name="SSD_sort_reverse">Odwrotna kolejność</string>
 	<string name="SSD_save_temp">Tylko teraz</string>
 	<string name="SSD_save_always">Zawsze</string>
+	<string name="FSA_label">Lista Zadań lub Filtr</string>
 	<string name="FLA_context_shortcut">Utwórz skrót na pulpicie</string>
 	<string name="FLA_shortcut_dialog_title">Utwórz skrót</string>
 	<string name="FLA_shortcut_dialog">Nazwa skrótu:</string>
@@ -104,14 +105,18 @@
 	<string name="FLA_no_filter_selected">Nie wybraon filtra! Wybierz filtr lub listę.</string>
 	<string name="TEA_title_hint">Tytuł zadania</string>
 	<string name="TEA_importance_label">Priorytet</string>
+	<string name="TEA_deadline_hint">Ustaw termin</string>
 	<string name="TEA_hideUntil_label">Ukrywanie</string>
+	<string name="TEA_hideUntil_display">Ukryj do %s</string>
 	<string name="TEA_note_label">Opis</string>
 	<string name="TEA_notes_empty">Opis...</string>
 	<string name="TEA_notes_hint">Podaj opis zadania...</string>
 	<string name="TEA_estimatedDuration_label">Jak długo to zajmie?</string>
 	<string name="TEA_elapsedDuration_label">Czas dotychczas spędzony nad tym zadaniem</string>
 	<string name="TEA_menu_save">Zapisz zmiany</string>
+	<string name="TEA_menu_discard_changes">Odrzuć zmiany</string>
 	<string name="TEA_tab_activity">Aktywność</string>
+	<string name="TEA_timer_elap">Minęło %s</string>
 	<string-array name="TEA_urgency">
 		<item>Brak daty</item>
 		<item>Konkretny dzień</item>
@@ -126,9 +131,9 @@
 	<string-array name="TEA_hideUntil">
 		<item>Nigdy</item>
 		<item>W terminie</item>
-		<item>Due time</item>
+		<item>Termin</item>
 		<item>Day before due</item>
-		<item>Week before due</item>
+		<item>Tydzień przed terminem</item>
 		<item>Konkretny dzień/godzina</item>
 	</string-array>
 	<string name="TEA_control_when">Kiedy</string>
@@ -197,18 +202,22 @@
 	<string name="EPr_beastMode_title">Edytuj kolejność</string>
 	<string name="EPr_time_increment">Krok co 5-minut</string>
 	<string name="EPr_use_date_shortcuts">Użyj skrótów dat</string>
+	<string name="EPr_show_timer_shortcut">Pokaż skrót minutnika</string>
 	<string name="EPr_beastMode_desc">Dostosuj układ strony edycji zadania</string>
 	<string name="EPr_beastMode_reset">Przywróć domyślne</string>
+	<string name="EPr_beastMode_hint">Dostosuj swój ekran edycji zadania przez przeciąganie za uchwyt po prawej w każdym wierszu</string>
 	<string name="EPr_fullTask_title">Pokaż pełną nazwę zadania</string>
 	<string name="EPr_fullTask_desc_enabled">Pełna nazwa zadania będzie wyświetlana</string>
 	<string name="EPr_fullTask_desc_disabled">Pierwsze dwie linie nazwy zadania będą wyświetlane</string>
 	<string name="EPr_show_quickadd_controls">Zaawansowane kontrolki szybkiego dodawania</string>
+	<string name="EPr_hide_plus_button">Ukryj przycisk plusa</string>
 	<string name="EPr_list_view">Widok listy</string>
 	<string name="EPr_show_task_edit_comments">Pokaż komentarze w edycji zadania</string>
 	<string name="EPr_taskRowPrefs_title">Wygląd rzędu zadań</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Czas zdarzenia kalendarza</string>
 	<string name="EPr_cal_end_at_due_time">Zakończ zadania kalendarza w ustalonym czasie</string>
 	<string name="EPr_cal_start_at_due_time">Rozpocznij zadania kalendarza w ustalonym czasie</string>
+	<string name="EPr_enable_debug_logging">Włącz lrejestrowanie debuggowania</string>
 	<string name="EPr_manage_header">Zarządzaj starymi zadaniami</string>
 	<string name="EPr_manage_delete_completed">Usuń zakończone zadania</string>
 	<string name="EPr_manage_delete_completed_message">Czy na pewno chcesz usunąć wszystkie zadania wykonane?</string>
@@ -364,6 +373,7 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="p_files_dir_desc">Załącznik zadania zapisano w: %s</string>
 	<string name="p_files_dir_desc_default">Domyślny folder</string>
 	<string name="premium_speech_bubble_2">Zamów na rok i oszczędź 25%%!</string>
+	<string name="TEA_reminders_group_label">Ustawienia przypomnień</string>
 	<string name="TEA_reminder_label">Przypomnij mi:</string>
 	<string name="TEA_reminder_due">W terminie</string>
 	<string name="TEA_reminder_overdue">Gdy zadanie jest zaległe</string>
@@ -373,8 +383,11 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="TEA_reminder_mode_five">Pięć razy</string>
 	<string name="TEA_reminder_mode_nonstop">Aż odwołam alarm</string>
 	<string name="TEA_reminder_when">kiedy</string>
+	<string name="TEA_reminder_due_short">termin</string>
 	<string name="TEA_reminder_overdue_short">zaległe</string>
 	<string name="TEA_reminder_randomly_short">losowo</string>
+	<string name="TEA_reminder_display_one">Przypomnij za %s</string>
+	<string name="TEA_reminder_display_multiple">Przypomnij %s</string>
 	<string-array name="TEA_reminder_random">
 		<item>na godzinę</item>
 		<item>dziennie</item>
@@ -393,6 +406,7 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="rmd_EPr_enabled_title">Przypomnienia włączone?</string>
 	<string name="rmd_EPr_enabled_desc_true">Przypomnienia Tasks są włączone (to normalne)</string>
 	<string name="rmd_EPr_enabled_desc_false">Przypomnienia Tasks nigdy nie pojawią się na Twoim telefonie</string>
+	<string name="rmd_EPr_enable_quiet_title">Włącz ciche godziny</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Początek czasu wyciszenia</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">Powiadomienia będą wyciszone po %s.\nUwaga: wibracje są kontrolowane przez ustawienia poniżej!</string>
 	<string name="rmd_EPr_quiet_hours_desc_none">Wyciszenie jest nieaktywne</string>
@@ -431,6 +445,7 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="repeat_enabled">Powtarza się</string>
 	<string name="repeat_every">Co %d</string>
 	<string name="repeat_interval_prompt">Odstęp powtarzania</string>
+	<string name="repeat_never">Jednorazowo</string>
 	<string name="repeat_dont">Nie powtarzaj</string>
 	<string-array name="repeat_interval_short">
 		<item>d</item>
@@ -446,7 +461,7 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 		<item>Miesiąc/Miesiący(e)</item>
 		<item>Godzinę(y)/Godzin</item>
 		<item>Minut(a/y)</item>
-		<item>Year(s)</item>
+		<item>Rok/lata</item>
 	</string-array>
 	<string-array name="repeat_until_shortcuts">
 		<item>Zawsze</item>
@@ -508,5 +523,11 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="EPr_voiceRemindersEnabled_title">Przypomnienia głosowe</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks będzie mówił nazwę zadania podczas przypomnienia</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks będzie uruchamiał dzwonek podczas przypomnienia zadania</string>
+	<string name="widget_mini">Zadania</string>
+	<string name="EPr_use_dark_theme">Ciemny motyw</string>
+	<string name="EPr_use_dark_theme_widget">Ciemny motyw widgetu</string>
+	<string name="delete_task">Usuń zadanie</string>
 	<string name="TLA_menu_support">Wsparcie</string>
+	<string name="voice_command_added_task">Dodane zadanie</string>
+	<string name="external_storage_unavailable">Brak dostępu do pamięci zewnętrznej</string>
 </resources>
