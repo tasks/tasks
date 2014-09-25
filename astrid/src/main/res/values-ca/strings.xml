@@ -214,7 +214,7 @@
 	</string-array>
 	<string name="CFC_importance_text">Per menys important?</string>
 	<string name="CFC_importance_name">Importància...</string>
-	<string name="CFC_tag_text">Enumerar</string>
+	<string name="CFC_tag_text">Enumerar: ?</string>
 	<string name="CFC_tag_name">Llista...</string>
 	<string name="CFC_title_contains_name">El títol conté...</string>
 	<string name="CFC_title_contains_text">Títol conté: ?</string>
