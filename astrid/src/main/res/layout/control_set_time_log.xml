@@ -25,22 +25,24 @@
         android:padding="5dp">
 
         <TextView
+            android:id="@+id/taskTimeLog_sum_label"
             style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:textStyle="bold"
-            android:text="Sum" />
+            android:text="Sum"
+            android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/taskTimeLog_sum_value"
             style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
-            android:textStyle="bold"
-            android:text="2:10:25" />
-    </LinearLayout>Z
+            android:text="0:00"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <View
         style="@style/TEA_Separator"
@@ -52,10 +54,10 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="5dip"/>
+        android:paddingLeft="5dip" />
 
     <LinearLayout
-        android:id="@+id/time_log_add"
+        android:id="@+id/taskTimeLog_add"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical">

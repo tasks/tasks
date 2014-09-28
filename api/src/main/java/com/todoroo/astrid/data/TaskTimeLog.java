@@ -8,8 +8,6 @@ import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.api.AstridApiConstants;
 
-import java.util.Objects;
-
 public class TaskTimeLog extends RemoteModel  {
     /** table for this model */
     public static final Table TABLE = new Table("taskTimeLog", TaskTimeLog.class);
@@ -20,11 +18,15 @@ public class TaskTimeLog extends RemoteModel  {
     public static final Property.LongProperty ID = new Property.LongProperty(
             TABLE, ID_PROPERTY_NAME);
 
+    //TODO wywalić uuid taska i może uuid timeLogu, jako niepotrzebny
     public static final Property.StringProperty UUID = new Property.StringProperty(
             TABLE, UUID_PROPERTY_NAME);
 
-    public static final Property.LongProperty TIME_SPENT = new Property.LongProperty(
-            TABLE, "timeSpent", Property.PROP_FLAG_DATE);
+    /**
+     * time spent in seconds
+     */
+    public static final Property.IntegerProperty TIME_SPENT = new Property.IntegerProperty(
+            TABLE, "timeSpent");
     public static final Property.LongProperty TIME = new Property.LongProperty(
             TABLE, "time", Property.PROP_FLAG_DATE);
     public static final Property.StringProperty DESCRIPTION = new Property.StringProperty(
@@ -39,6 +41,40 @@ public class TaskTimeLog extends RemoteModel  {
     private static final ContentValues defaultValues = new ContentValues();
 
     public static final Property<?>[] PROPERTIES = generateProperties(TaskTimeLog.class);
+
+    Integer timeSpent;
+    Long time;
+    String description;
+    String uuid;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        TaskTimeLog timeLog = (TaskTimeLog) o;
+
+        if (getDescription() != null ? !getDescription().equals(timeLog.getDescription()) : timeLog.getDescription() != null)
+            return false;
+        if (getTime() != null ? !getTime().equals(timeLog.getTime()) : timeLog.getTime() != null)
+            return false;
+        if (getTimeSpent() != null ? !getTimeSpent().equals(timeLog.getTimeSpent()) : timeLog.getTimeSpent() != null)
+            return false;
+        if (!getUuid().equals(timeLog.getUuid())) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (getTimeSpent() != null ? getTimeSpent().hashCode() : 0);
+        result = 31 * result + (getTime() != null ? getTime().hashCode() : 0);
+        result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
+        result = 31 * result + getUuid().hashCode();
+        return result;
+    }
 
     static {
         defaultValues.put(TIME_SPENT.name, 0);
@@ -72,7 +108,8 @@ public class TaskTimeLog extends RemoteModel  {
     public Long getID() {
         return getValue(ID);
     }
-    public Long getTimeSpent() {
+
+    public Integer getTimeSpent() {
         return getValue(TIME_SPENT);
     }
     public Long getTime() {
@@ -90,7 +127,10 @@ public class TaskTimeLog extends RemoteModel  {
     }
 
     public void setID(Long id) {setValue(ID, id);}
-    public void setTimeSpent(Long timeSpent) {setValue(TIME_SPENT, timeSpent);}
+
+    public void setTimeSpent(Integer timeSpent) {
+        setValue(TIME_SPENT, timeSpent);
+    }
     public void setTime(Long time) {setValue(TIME, time);}
     public void setDescription(String description) {
         setValue(DESCRIPTION, description);
@@ -102,5 +142,6 @@ public class TaskTimeLog extends RemoteModel  {
     public void setUuid(String uuid){
         setValue(UUID, uuid);
     }
+
 
 }

@@ -11,29 +11,43 @@
     android:paddingRight="5dip">
 
     <LinearLayout
+        android:id="@+id/timers_mainLayout"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="wrap_content">
 
-        android:orientation="horizontal">
-
-        <include
-            android:id="@+id/estimatedDurationLayout"
-            layout="@layout/control_set_timers_cell"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/estimatedDurationLayout"
+                layout="@layout/control_set_timers_cell"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <View
+                style="@style/TEA_Separator"
+                android:layout_width="1px"
+                android:layout_height="match_parent" />
+
+            <include
+                android:id="@+id/remainingDurationLayout"
+                layout="@layout/control_set_timers_cell"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
 
         <View
             style="@style/TEA_Separator"
-            android:layout_width="1px"
-            android:layout_height="match_parent" />
+            android:layout_width="match_parent"
+            android:layout_height="1px" />
 
-        <include
-            android:id="@+id/remainingDurationLayout"
-            layout="@layout/control_set_timers_cell"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+
     </LinearLayout>
 
     <View
@@ -41,20 +55,11 @@
         android:layout_width="match_parent"
         android:layout_height="1px" />
 
-    <include layout="@layout/control_set_time_log"/>
-
-    <View
-        style="@style/TEA_Separator"
-        android:layout_width="match_parent"
-        android:layout_height="1px" />
-
-
-
 
     <include layout="@layout/control_dialog_ok" />
 
     <!-- !!!!!!!!!!!!!!!!! NOTE: !!!!!!!!!!!!!!!!!!!!!
-    to jest prototyp, zamiast powyzszych kliku linear layoutów powinien zostać wstawiony wypełniany dynamicznie ListView -->
+    todo to jest prototyp, zamiast powyzszych kliku linear layoutów powinien zostać wstawiony wypełniany dynamicznie ListView -->
 
 </LinearLayout>
 

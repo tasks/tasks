@@ -8,7 +8,6 @@ package com.todoroo.astrid.ui;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,41 +20,46 @@ import org.tasks.R;
 import java.util.LinkedList;
 import java.util.List;
 
-/** Dialog box with an arbitrary number of number pickers */
-public class NNumberPickerDialog extends AlertDialog implements OnClickListener {
+/**
+ * Dialog box with an arbitrary number of number pickers
+ */
+public class NNumberPickerDialog extends AlertDialog {
+
+    protected final View view;
 
     public interface OnNNumberPickedListener {
         void onNumbersPicked(int[] number);
     }
 
-    private final List<NumberPicker>      pickers = new LinkedList<>();
+    private final List<NumberPicker> pickers = new LinkedList<>();
     private final OnNNumberPickedListener mCallback;
 
-    /** Instantiate the dialog box.
+    /**
+     * Instantiate the dialog box.
      *
-     * @param callBack callback function to get the numbers you requested
-     * @param title title of the dialog box
+     * @param callBack     callback function to get the numbers you requested
+     * @param title        title of the dialog box
      * @param initialValue initial picker values array
-     * @param incrementBy picker increment by array
-     * @param start picker range start array
-     * @param end picker range end array
-     * @param separators text separating the spinners. whole array, or individual
-     *        elements can be null
+     * @param incrementBy  picker increment by array
+     * @param start        picker range start array
+     * @param end          picker range end array
+     * @param separators   text separating the spinners. whole array, or individual
+     *                     elements can be null
+     * @param layoutId
      */
     public NNumberPickerDialog(Context context, OnNNumberPickedListener callBack,
-            String title, int[] initialValue, int[] incrementBy, int[] start,
-            int[] end, String[] separators) {
+                               String title, int[] initialValue, int[] incrementBy, int[] start,
+                               int[] end, String[] separators, int layoutId) {
         super(context);
         mCallback = callBack;
 
-        setButton(context.getText(android.R.string.ok), this);
-        setButton2(context.getText(android.R.string.cancel), (OnClickListener) null);
+        setButtons(context);
 
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.n_number_picker_dialog, null);
+        view = inflater.inflate(layoutId, null);
         setView(view);
-        LinearLayout container = (LinearLayout)view;
+        LinearLayout container = (LinearLayout) view.findViewById(R.id.container);
 
         setTitle(title);
         LayoutParams npLayout = new LayoutParams(LayoutParams.WRAP_CONTENT,
@@ -63,7 +67,7 @@ public class NNumberPickerDialog extends AlertDialog implements OnClickListener 
         npLayout.gravity = 1;
         LayoutParams sepLayout = new LayoutParams(LayoutParams.WRAP_CONTENT,
                 LayoutParams.FILL_PARENT);
-        for(int i = 0; i < incrementBy.length; i++) {
+        for (int i = 0; i < incrementBy.length; i++) {
             NumberPicker np = new NumberPicker(context, null);
             np.setIncrementBy(incrementBy[i]);
             np.setLayoutParams(npLayout);
@@ -73,10 +77,10 @@ public class NNumberPickerDialog extends AlertDialog implements OnClickListener 
             container.addView(np);
             pickers.add(np);
 
-            if(separators != null && separators[i] != null) {
+            if (separators != null && separators[i] != null) {
                 TextView text = new TextView(context);
                 text.setText(separators[i]);
-                if(separators[i].length() < 3) {
+                if (separators[i].length() < 3) {
                     text.setTextSize(48);
                 } else {
                     text.setTextSize(20);
@@ -88,25 +92,36 @@ public class NNumberPickerDialog extends AlertDialog implements OnClickListener 
         }
     }
 
+    protected void setButtons(Context context) {
+        setButton(BUTTON_POSITIVE, context.getText(android.R.string.ok), new NNumberPickerOnClickListener());
+        setButton(BUTTON_NEGATIVE, context.getText(android.R.string.cancel), (OnClickListener) null);
+    }
+
     public NumberPicker getPicker(int index) {
         return pickers.get(index);
     }
 
+    public View getView() {
+        return view;
+    }
+
     public void setInitialValues(int[] values) {
-        for(int i = 0; i < pickers.size(); i++) {
+        for (int i = 0; i < pickers.size(); i++) {
             pickers.get(i).setCurrent(values[i]);
         }
     }
 
-    @Override
-    public void onClick(DialogInterface dialog, int which) {
-        if (mCallback != null) {
-            int[] values = new int[pickers.size()];
-            for(int i = 0; i < pickers.size(); i++) {
-                pickers.get(i).clearFocus();
-                values[i] = pickers.get(i).getCurrent();
+    protected class NNumberPickerOnClickListener implements OnClickListener {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            if (mCallback != null) {
+                int[] values = new int[pickers.size()];
+                for (int i = 0; i < pickers.size(); i++) {
+                    pickers.get(i).clearFocus();
+                    values[i] = pickers.get(i).getCurrent();
+                }
+                mCallback.onNumbersPicked(values);
             }
-            mCallback.onNumbersPicked(values);
         }
     }
 }

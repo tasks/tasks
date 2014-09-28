@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.todoroo.andlib.data.Property.IntegerProperty;
@@ -29,18 +30,19 @@ import static org.tasks.preferences.ResourceResolver.getResource;
  * Control Set for managing repeats
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
-public class TimerControlSet extends PopupControlSet implements TimerActionListener {
+public class TimerControlSet extends PopupControlSet implements TimerActionListener, TimeLogControlSet.OnTimeSpentChangeListener {
 
-    TimeDurationTaskEditControlSet estimated, elapsed, remaining;
+    TimeDurationTaskEditControlSet estimated, remaining;
     private final TextView displayEdit;
     private final ImageView image;
 
     private TimeLogControlSet timeLogControlSet;
+    private TimeLogService timeLogService;
 
     public TimerControlSet(ActivityPreferences preferences, final Activity activity, int viewLayout, int displayViewLayout, int title, TimeLogService timeLogService) {
         super(preferences, activity, viewLayout, displayViewLayout, title);
+        this.timeLogService = timeLogService;
 
         displayEdit = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
         displayEdit.setText(R.string.TEA_timer_controls);
@@ -48,21 +50,23 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
 
         image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
 
-        estimated = new TimeDurationTaskEditControlSet(activity, getView(), Task.ESTIMATED_SECONDS,R.id.estimatedDurationLayout, R.string.TEA_estimatedDuration_label);
-//        elapsed = new TimeDurationTaskEditControlSet(activity, getView(), Task.ELAPSED_SECONDS, R.id.elapsedDurationLayout, R.string.TEA_elapsedDuration_label);
-        remaining = new TimeDurationTaskEditControlSet(activity, getView(), Task.ELAPSED_SECONDS, R.id.remainingDurationLayout, R.string.TEA_remainingDuration_label);//TODO zmienic kolumne z Task.ELAPSED_SECONDS na remaining
-        timeLogControlSet = new TimeLogControlSet(timeLogService,activity);
+        estimated = new TimeDurationTaskEditControlSet(activity, getView(), Task.ESTIMATED_SECONDS, R.id.estimatedDurationLayout, R.string.TEA_estimatedDuration_label);
+        remaining = new TimeDurationTaskEditControlSet(activity, getView(), Task.REMAINING_SECONDS, R.id.remainingDurationLayout, R.string.TEA_remainingDuration_label);
+        estimated.setTimeDurationChangeListener(new EstimatedTimeListener());
     }
 
     @Override
     protected void readFromTaskOnInitialize() {
         estimated.readFromTask(model);
-//        elapsed.readFromTask(model);
         remaining.readFromTask(model);
+        timeLogControlSet.readFromTask(model);
     }
 
     @Override
     protected void afterInflate() {
+        timeLogControlSet = new TimeLogControlSet(preferences, timeLogService, activity, this);
+        LinearLayout mainLayout = (LinearLayout) getView().findViewById(R.id.timers_mainLayout);
+        mainLayout.addView(timeLogControlSet.getView());
         // Nothing to do here
     }
 
@@ -72,15 +76,33 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
             estimated.writeToModel(task);
 //            elapsed.writeToModel(task);
             remaining.writeToModel(task);
+            timeLogControlSet.writeToModel(task);
         }
+    }
+
+    @Override
+    public void timeSpentChanged(int fromInSeconds, int toInSeconds) {
+        model.setElapsedSeconds((int) toInSeconds);
+        int timeSpentChange = toInSeconds - fromInSeconds;
+
+        int remainingSeconds = model.getRemainingSeconds() - timeSpentChange;
+        setRemainingTime(remainingSeconds);
+    }
+
+    private void setRemainingTime(int remainingSeconds) {
+        if (remainingSeconds < 0) {
+            remainingSeconds = 0;
+        }
+        model.setRemainingSeconds(remainingSeconds);
+        remaining.readFromTaskOnInitialize();
     }
 
     // --- TimeDurationTaskEditControlSet
 
     /**
      * Control set for mapping a Property to a TimeDurationControlSet
-     * @author Tim Su <tim@todoroo.com>
      *
+     * @author Tim Su <tim@todoroo.com>
      */
     public class TimeDurationTaskEditControlSet extends TaskEditControlSet {
         private final TimeDurationControlSet controlSet;
@@ -115,6 +137,10 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
             }
             return null;
         }
+
+        public void setTimeDurationChangeListener(TimeDurationControlSet.TimeDurationChangeListener timeDurationChangeListener) {
+            controlSet.setTimeDurationChangeListener(timeDurationChangeListener);
+        }
     }
 
     @Override
@@ -127,16 +153,16 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
         String elaps = "";//elapsed.getDisplayString();
         if (!TextUtils.isEmpty(elaps)) {
             elaps = activity.getString(R.string.TEA_timer_elap, elaps);
-            elaps = elaps.substring(0,elaps.length()-3);
+            elaps = elaps.substring(0, elaps.length() - 3);
         }
 
         String remain = remaining.getDisplayString();
         if (!TextUtils.isEmpty(remain)) {
             remain = activity.getString(R.string.TEA_timer_remain, remain);
-            remain = remain.substring(0,remain.length()-3);
+            remain = remain.substring(0, remain.length() - 3);
         }
 
-        String toDisplay="";
+        String toDisplay = "";
         if (!TextUtils.isEmpty(elaps))
             toDisplay += elaps;
         if (!TextUtils.isEmpty(toDisplay))
@@ -164,4 +190,12 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
     public void timerStarted(Task task) {
     }
 
+    private class EstimatedTimeListener implements TimeDurationControlSet.TimeDurationChangeListener {
+        @Override
+        public void timeDurationChanged(int newDurationInSeconds) {
+            int elapsedSeconds = model.getElapsedSeconds();
+            int timeLeft = newDurationInSeconds - elapsedSeconds;
+            setRemainingTime(timeLeft);
+        }
+    }
 }

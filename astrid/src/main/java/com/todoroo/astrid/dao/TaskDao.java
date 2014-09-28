@@ -23,7 +23,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.data.TaskTimeLog;
 import com.todoroo.astrid.helper.UUIDHelper;
-import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ReminderService;
 
 import org.slf4j.Logger;
@@ -33,11 +32,11 @@ import org.tasks.R;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Data Access layer for {@link Task}-related operations.
@@ -399,7 +398,7 @@ public class TaskDao extends RemoteModelDao<Task> {
                 taskTimeLog.setTaskId(todorooCursor.get(Task.ID));
                 taskTimeLog.setTaskUuid(todorooCursor.get(Task.UUID));
                 taskTimeLog.setTime(todorooCursor.get(Task.COMPLETION_DATE) != null ? todorooCursor.get(Task.COMPLETION_DATE) : todorooCursor.get(Task.CREATION_DATE));
-                taskTimeLog.setTimeSpent(todorooCursor.get(Task.ELAPSED_SECONDS) * 1000l);
+                taskTimeLog.setTimeSpent(todorooCursor.get(Task.ELAPSED_SECONDS));
                 taskTimeLog.setUuid(UUIDHelper.newUUID());
                 taskTimeLog.setID(null);
                 database.insert(TaskTimeLog.TABLE.name, AbstractModel.ID_PROPERTY.name, taskTimeLog.getMergedValues());

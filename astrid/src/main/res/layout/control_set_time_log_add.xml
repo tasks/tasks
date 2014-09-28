@@ -5,54 +5,35 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="5dip"
+        android:orientation="horizontal" />
+
+    <EditText
+        android:id="@+id/addTimeLog_description"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter what you did" />
+
+    <View
+        style="@style/TEA_Separator"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="3dp" />
 
     <TextView
-        android:id="@+id/time_log_date"
+        android:id="@+id/addTimeLog_date"
         style="@style/TextAppearance.EditRowDisplay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="26 maj, 2014, 11:30" />
-
-    <View
-        style="@style/TEA_Separator"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginBottom="3dp"
-        android:layout_marginTop="3dp" />
-
-    <TextView
-        android:id="@+id/time_log_time_spend_label"
-        style="@style/TextAppearance.EditRowDisplay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Time spend on the task" />
-
-    <TextView
-        android:id="@+id/time_log_time_spend"
-        style="@style/TextAppearance.EditRowDisplay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="1d 10h:10m" />
-
-    <View
-        style="@style/TEA_Separator"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginBottom="3dp"
-        android:layout_marginTop="3dp" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter what you did"/>
-    <!-- to jest okno dialogowe do dodawnia pojedynczego wpisu czasu
-    musi zawierać następujące elementy:
-    1. pole czasu zakończenia wykonywania czynności - domyślnie aktualny czas - zwykłe pole tekstowe, które po kliknięciu odpala wybór czasu
-    2. pole czasu, ile zajęła czynność - obowiązkowe -
-    3. pole opisu czynności
-
-    po zamknięciu okna czas pozostały jest zmniejszany o czas przepracowany, ale tak by był nieujemny-->
+    <!--     po zamknięciu okna czas pozostały jest zmniejszany o czas przepracowany, ale tak by był nieujemny-->
 
 
 </LinearLayout>

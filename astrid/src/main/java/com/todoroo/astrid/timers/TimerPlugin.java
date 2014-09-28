@@ -26,6 +26,7 @@ public class TimerPlugin {
 
     /**
      * toggles timer and updates elapsed time.
+     *
      * @param start if true, start timer. else, stop it
      */
     public static void updateTimer(NotificationManager notificationManager, TaskService taskService, Context context, Task task, boolean start) {
@@ -38,15 +39,15 @@ public class TimerPlugin {
             return;
         }
 
-        if(start) {
-            if(task.getTimerStart() == 0) {
+        if (start) {
+            if (task.getTimerStart() == 0) {
                 task.setTimerStart(DateUtilities.now());
             }
         } else {
-            if(task.getTimerStart() > 0) {
-                int newElapsed = (int)((DateUtilities.now() - task.getTimerStart()) / 1000L);
+            if (task.getTimerStart() > 0) {
+                int newElapsed = (int) ((DateUtilities.now() - task.getTimerStart()) / 1000L);
                 task.setTimerStart(0L);
-                task.setELAPSED_SECONDS(
+                task.setElapsedSeconds(
                         task.getElapsedSeconds() + newElapsed);
             }
         }
@@ -59,7 +60,7 @@ public class TimerPlugin {
     private static void updateNotifications(NotificationManager notificationManager, TaskService taskService, Context context) {
         int count = taskService.count(Query.select(Task.ID).
                 where(Task.TIMER_START.gt(0)));
-        if(count == 0) {
+        if (count == 0) {
             notificationManager.cancel(Constants.NOTIFICATION_TIMER);
         } else {
             Filter filter = TimerFilterExposer.createFilter(context);
