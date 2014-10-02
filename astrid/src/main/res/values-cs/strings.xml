@@ -62,6 +62,7 @@
 	<string name="TLA_quick_add_hint">Přidat úkol</string>
 	<string name="TLA_notification_volume_low">Upozornění jsou ztlumena. Neuslyšíte Tasks!</string>
 	<string name="TLA_notification_disabled">Upomínky Tasks jsou vypnuté! Nedostanete žádná upozornění</string>
+	<string name="TLA_quickadd_confirm_title">Říkal jsi, že \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Vytvořila jsem úkol s názvem \"%1$s\", %3$s priorita, do %2$s</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">Nezobrazovat budoucí potvrzení</string>
 	<string name="TLA_repeat_scheduled_title">Nový opakující se úkol %s</string>
@@ -78,6 +79,7 @@
 	<string name="TAd_actionEditTask">Upravit</string>
 	<string name="TAd_contextEditTask">Upravit úkol</string>
 	<string name="TAd_contextCopyTask">Kopírovat úkol</string>
+	<string name="TAd_contextDeleteTask">Smazat úkol</string>
 	<string name="TAd_contextUndeleteTask">Obnovit úkol</string>
 	<string name="TAd_contextPurgeTask">Smazat úkol</string>
 	<string name="SSD_hidden_title">Skryté úkoly</string>
@@ -93,6 +95,7 @@
 	<string name="SSD_sort_reverse">Třídit</string>
 	<string name="SSD_save_temp">Pouze jednou</string>
 	<string name="SSD_save_always">Vždy</string>
+	<string name="FSA_label">Seznam úkolů nebo filtrování</string>
 	<string name="FLA_context_shortcut">Vytvořit zástupce na ploše</string>
 	<string name="FLA_shortcut_dialog_title">Vytvořit zástupce</string>
 	<string name="FLA_shortcut_dialog">Název zástupce:</string>
@@ -131,7 +134,7 @@
 	<string-array name="TEA_hideUntil">
 		<item>Vždy</item>
 		<item>Do termínu</item>
-		<item>Due time</item>
+		<item>Čas dokončení</item>
 		<item>Den před ukončením</item>
 		<item>Týden před ukončením</item>
 		<item>Určitý den/čas</item>
@@ -204,6 +207,10 @@
 	<string name="EPr_fullTask_title">Zobrazit úplný název úkolu</string>
 	<string name="EPr_fullTask_desc_enabled">Zobrazí se úplný název úkolu</string>
 	<string name="EPr_fullTask_desc_disabled">Zobrazí se první dva řádky názvu úkolu</string>
+	<string name="EPr_show_quickadd_controls">Rozšířená nastavení rychlého přidání</string>
+	<string name="EPr_hide_plus_button">Skrýt tlačítko plus</string>
+	<string name="EPr_list_view">Zobrazit seznam</string>
+	<string name="EPr_show_task_edit_comments">Zobrazit komentáře při úpravě úkolu</string>
 	<string name="EPr_taskRowPrefs_title">Vzhled řádku úkolu</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Čas události v kalendáři</string>
 	<string name="EPr_cal_end_at_due_time">Událost v kalendáři končí splněním úkolu</string>
@@ -223,16 +230,19 @@
 	<string name="EPr_manage_delete_completed_gcal">Smazat události v kalendáři pro hotové úkoly</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Opravdu chcete smazat všechny události pro dokončené úkoly?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">Smazáno %d událostí z kalendáře!</string>
+	<string name="EPr_manage_delete_all_gcal">Smazat v kalendáři všechny upomínky z úkolů</string>
+	<string name="EPr_manage_delete_all_gcal_message">Opravdu chcete odstranit všechny události z úkolů?</string>
+	<string name="EPr_manage_delete_all_gcal_status">Smazány %d upomínky v kalendáři</string>
 	<string name="TWi_loading">Nahrávám...</string>
 	<string name="WCA_title">Označte úkol pro zobrazení...</string>
 	<string name="task_killer_help">Vypadá to, že používate aplikaci, která ukončuje programy(%s)! Pokud můžete, přidejte Tasks do vyjímek, aby nebyla ukončována. Jinak se může stát, že vás nebude upozorňovat na úkoly.\n</string>
 	<string name="task_killer_help_ok">Neukončím Tasks!</string>
 	<string name="DB_corrupted_title">Poškozená databáze</string>
-	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
-      If you see this error regularly, we suggest you clear all
-      data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
-      your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
+	<string name="DB_corrupted_body">OJ! Může být poškozená databáze. Zobrazuje-li se tato chyba znovu,  vymaž všechny údaje v (Nastavení-&gt;Synchronizace a zálohy-&gt;Správa starých úkolů-&gt;Vymazat vše) a obnov své úkoly ze zálohy (Nastavení-&gt;Synchronizace a zálohy-&gt;Zálohy-&gt;Import úkolů) v úkolech.</string>
+	<string name="market_unavailable">Bohužel na trhu není k dispozici pro váš systém.</string>
 	<string name="EPr_defaults_header">Nastavení nového úkolu</string>
+	<string name="EPr_defaults_summary">Upřednostnění, datum dokončení, přidání do kalendáře</string>
+	<string name="EPr_default_urgency_title">Výchozí termín dokončení</string>
 	<string name="EPr_default_urgency_desc">Aktuální: %s</string>
 	<string name="EPr_default_importance_title">Výchozí důležitost</string>
 	<string name="EPr_default_importance_desc">Aktuální: %s</string>
@@ -240,8 +250,10 @@
 	<string name="EPr_default_hideUntil_desc">Aktuální: %s</string>
 	<string name="EPr_default_reminders_title">Výchozí připomenutí</string>
 	<string name="EPr_default_reminders_desc">Aktuální: %s</string>
+	<string name="EPr_default_addtocalendar_title">Výchozí přidání do kalendáře</string>
 	<string name="EPr_default_addtocalendar_desc_disabled">Nový úkol nevytvoří událost v Kalendáři Google</string>
 	<string name="EPr_default_addtocalendar_desc">Nové úkoly se vloží do kalendáře: \"%s\"</string>
+	<string name="EPr_default_reminders_mode_title">Výchozí vyzvánění / vybrace</string>
 	<string name="EPr_default_reminders_mode_desc">Aktuální: %s</string>
 	<string-array name="EPr_default_importance">
 		<item>!!! (Nejvyšší)</item>
@@ -335,16 +347,24 @@
 	<string name="audio_recording_title">Nahrávám zvuk</string>
 	<string name="audio_stop_recording">Ukončit záznam</string>
 	<string name="audio_speak_now">Hovořte!</string>
+	<string name="search_market_audio_title">Audio přehrávač nebyl nalezen</string>
 	<string name="search_market_pdf_title">Chybí prohlížeč PDF</string>
 	<string name="search_market_ms">Chybí prohlížeč MS Office. Přejete si ho stáhnout z Android Marketu?</string>
 	<string name="search_market_ms_title">Chybí prohlížeč MS Office</string>
 	<string name="file_type_unhandled">Pro tento typ souborů nebyla nalezena žádná aplikace.</string>
 	<string name="file_type_unhandled_title">Chybí aplikace</string>
 	<string name="file_browser_up">O úroveň výš</string>
+	<string name="file_browser_title">Vybrat soubor</string>
+	<string name="dir_browser_title">Vytvořit složku</string>
 	<string name="file_browser_err_permissions">Chyba oprávnění! Ujistěte se prosím, že jste Tasks nezabránil v přístupu k SD kartě.</string>
 	<string name="file_add_picture">Připojit obrázek</string>
 	<string name="file_add_sdcard">Připojit soubor z SD karty</string>
 	<string name="file_err_copy">Chyba při kopírování souboru jako přílohy</string>
+	<string name="file_dir_dialog_ok">Použít tento adresář</string>
+	<string name="file_dir_dialog_default">Obnovit výchozí nastavení</string>
+	<string name="p_files_dir_desc">Příloha úkolu uložena do: %s</string>
+	<string name="p_files_dir_desc_default">Výchozí adresář</string>
+	<string name="premium_speech_bubble_2">Objednejte na rok a ušetříte 25%!</string>
 	<string name="TEA_reminders_group_label">Nastavení upomínek</string>
 	<string name="TEA_reminder_label">Upozorni mě...</string>
 	<string name="TEA_reminder_due">Při termínu</string>
@@ -354,17 +374,36 @@
 	<string name="TEA_reminder_mode_once">Vyzvánět jednou</string>
 	<string name="TEA_reminder_mode_five">Pět zazvonění</string>
 	<string name="TEA_reminder_mode_nonstop">Vyzvánět dokud nezruším Alarm</string>
+	<string name="TEA_reminder_due_short">končí</string>
+	<string name="TEA_reminder_overdue_short">po termínu</string>
+	<string name="TEA_reminder_randomly_short">náhodně</string>
+	<string name="TEA_reminder_display_one">Připomínat mi %s</string>
+	<string name="TEA_reminder_display_multiple">Připomenout %s</string>
+	<string-array name="TEA_reminder_random">
+		<item>hodina</item>
+		<item>den</item>
+		<item>týden</item>
+		<item>za dva týdny</item>
+		<item>měsíc</item>
+		<item>za dva měsíce</item>
+	</string-array>
 	<string name="rmd_NoA_filter">Připomínka!</string>
 	<string name="rmd_NoA_done">Dokončeno!</string>
 	<string name="rmd_NoA_snooze">Později...</string>
 	<string name="rmd_NoA_completed_toast">Hotovo! Gratuluji!</string>
+	<string name="rmd_NoA_dlg_title">Připomenutí:</string>
 	<string name="rmd_EPr_alerts_header">Nastavení upomínek</string>
 	<string name="rmd_EPr_alerts_summary">Čas klidu, nastavení odložení, úroveň vytrvalosti</string>
+	<string name="rmd_EPr_enabled_title">Povolit upomínky?</string>
 	<string name="rmd_EPr_enabled_desc_true">Upomínky jsou zapnuté (to je obvyklé)</string>
+	<string name="rmd_EPr_enabled_desc_false">Upomínky se nikdy neobjeví ve tvém telefonu</string>
 	<string name="rmd_EPr_enable_quiet_title">Zapnout klidový režim</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Nerušit od</string>
 	<string name="rmd_EPr_quiet_hours_desc_none">Tichý režim zakázán</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Nerušit do</string>
+	<string name="rmd_EPr_quiet_hours_end_desc">Upozorňování začne upomínat od %s</string>
+	<string name="rmd_EPr_rmd_time_title">Výchozí upomínka</string>
+	<string name="rmd_EPr_rmd_time_desc">Upozornění na úkoly bez času dokončení se objeví v %s</string>
 	<string name="rmd_EPr_ringtone_title">Zvuk upozornění</string>
 	<string name="rmd_EPr_ringtone_desc_custom">Vlastní vyzvánění bylo nastaveno</string>
 	<string name="rmd_EPr_ringtone_desc_silent">Vyzvánění ztišeno</string>
@@ -372,6 +411,8 @@
 	<string name="rmd_EPr_persistent_title">Trvání upozornění</string>
 	<string name="rmd_EPr_persistent_desc_true">Pro smazání musí být upozornění zobrazeno každé zvlášť</string>
 	<string name="rmd_EPr_persistent_desc_false">Upozornění mohou být smazána s tlačítkem \"Smazat vše\"</string>
+	<string name="rmd_EPr_multiple_maxvolume_title">Nejvyšší hlasitost pro opakované zvonění upomínky</string>
+	<string name="rmd_EPr_multiple_maxvolume_desc_false">Úkoly budou pro hlasitost používat nastavení systému</string>
 	<string name="rmd_EPr_vibrate_title">Vibruj při upozornění</string>
 	<string name="rmd_EPr_vibrate_desc_true">Tasks bude vibrovat při odesílání upozornění</string>
 	<string name="rmd_EPr_vibrate_desc_false">Tasks nebude vibrovat při odesílání upozornění</string>
@@ -395,23 +436,31 @@
 	<string name="repeat_interval_prompt">Opakovací interval</string>
 	<string name="repeat_never">Bez opakování</string>
 	<string name="repeat_dont">Neopakujte</string>
+	<string-array name="repeat_interval_short">
+		<item>d</item>
+		<item>td</item>
+		<item>měs</item>
+		<item>h</item>
+		<item>min</item>
+		<item>rok</item>
+	</string-array>
 	<string-array name="repeat_interval">
 		<item>Dnů</item>
 		<item>Týdnů</item>
 		<item>Měsíců</item>
 		<item>Hodin</item>
-		<item>Minute(s)</item>
-		<item>Year(s)</item>
+		<item>Minuta(-y)</item>
+		<item>Rok(y)</item>
 	</string-array>
 	<string-array name="repeat_until_shortcuts">
-		<item>Forever</item>
-		<item>Specific Day</item>
+		<item>Vždy</item>
+		<item>Určitý den</item>
 		<item>Dnes</item>
 		<item>Zítra</item>
-		<item>(day after)</item>
-		<item>Next Week</item>
-		<item>In Two Weeks</item>
-		<item>Next Month</item>
+		<item>(den poté)</item>
+		<item>Příští týden</item>
+		<item>Za dva týdny</item>
+		<item>Příští měsíc</item>
 	</string-array>
 	<string name="repeat_until_title">Opakuje dokud ...</string>
 	<string name="repeat_keep_going">Další</string>
@@ -452,8 +501,12 @@
 	<string name="voice_edit_title_prompt">Namluvit název úkolu</string>
 	<string name="voice_edit_note_prompt">Namluvit popis úkolu</string>
 	<string name="EPr_voiceInputInstall_dlg">Halový vstup není nainstalován.\nChcete přejít do obchodu a nainstalovat jej?</string>
+	<string name="EPr_voiceRemindersEnabled_title">Hlasové upomínky</string>
+	<string name="widget_mini">Úkoly</string>
 	<string name="EPr_use_dark_theme">Tmavé téma</string>
 	<string name="EPr_use_dark_theme_widget">Tmavé téma widgetu</string>
 	<string name="delete_task">Smazat úkol</string>
 	<string name="TLA_menu_support">Podpora</string>
+	<string name="voice_command_added_task">Přidán úkol</string>
+	<string name="external_storage_unavailable">Není přístup k externí databázi</string>
 </resources>
