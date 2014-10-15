@@ -78,7 +78,7 @@ public class AddTimeLogTimePickerDialog extends NNumberPickerDialog {
             }
         });
         //TODO set string
-        setButton(BUTTON_NEUTRAL, "delete", new OnClickListener() {
+        setButton(BUTTON_NEUTRAL, context.getText(R.string.TEA_timer_button_deleteTimeLog), new OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 onTimeLogPickedListener.onTimeLogDeleted();

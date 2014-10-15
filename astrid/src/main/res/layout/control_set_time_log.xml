@@ -16,7 +16,7 @@
         android:layout_margin="5dp"
         android:layout_marginBottom="10dp"
         android:gravity="center"
-        android:text="Elapsed time" />
+        android:text="@string/TEA_timer_comment_spent" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:text="Sum"
+            android:text="@string/TEA_timer_comment_spentSum"
             android:textStyle="bold" />
 
         <TextView
@@ -40,7 +40,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
-            android:text="0:00"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -74,7 +73,7 @@
             style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/alarm_ACS_button" />
+            android:text="@string/TEA_timer_button_addTimeLog" />
     </LinearLayout>
 </LinearLayout>
 

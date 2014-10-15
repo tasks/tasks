@@ -231,17 +231,14 @@
   <string name="TEA_notes_hint">Enter task description...</string>
   
   <!-- Estimated time label -->
-  <string name="TEA_estimatedDuration_label">Initial estimate</string>
+    <string name="TEA_estimatedDuration_label">Estimated time</string>
 
-  <string name="TEA_remainingDuration_label">How much time have left?</string>
-  
-  <!-- Elapsed time label -->
-  <string name="TEA_elapsedDuration_label">Time already spent</string>
+    <string name="TEA_remainingDuration_label">Time left:</string>
 
-  <!-- Menu: Save -->    
-  <string name="TEA_menu_save">Save Changes</string>
-  
-  <!-- Menu: Don't Save -->
+    <!-- Menu: Save -->
+    <string name="TEA_menu_save">Save Changes</string>
+
+    <!-- Menu: Don't Save -->
   <string name="TEA_menu_discard_changes">Discard changes</string>
   
   <!-- slide 15b: Task edit tab: activity -->

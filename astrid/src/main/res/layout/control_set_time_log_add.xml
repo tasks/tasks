@@ -29,10 +29,11 @@
 
     <TextView
         android:id="@+id/addTimeLog_date"
-        style="@style/TextAppearance.EditRowDisplay"
+        style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="26 maj, 2014, 11:30" />
+        android:layout_margin="5dp"
+        android:paddingLeft="2dp" />
     <!--     po zamknięciu okna czas pozostały jest zmniejszany o czas przepracowany, ale tak by był nieujemny-->
 
 

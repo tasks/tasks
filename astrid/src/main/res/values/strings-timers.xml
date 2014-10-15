@@ -1,22 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+
     <!-- Android Notification Title (%s => # tasks) -->
     <string name="TPl_notification">Timers Active for %s!</string>
-    
+
     <!-- Filter for Timed Tasks -->
     <string name="TFE_workingOn">Tasks Being Timed</string>
-    
+
     <!-- Title for TEA -->
     <string name="TEA_timer_controls">Timer</string>
-    
+
     <!-- Edit Notes: create comment for when timer is started -->
     <string name="TEA_timer_comment_started">started this task:</string>
-    
+
     <!-- Edit Notes: create comment for when timer is stopped -->
     <string name="TEA_timer_comment_stopped">stopped doing this task:</string>
-    
+
     <!-- Edit Notes: comment to notify how long was spent on task -->
     <string name="TEA_timer_comment_spent">Time spent:</string>
-    
+
+    <!-- Label for a row with the sum of the spent time -->
+    <string name="TEA_timer_comment_spentSum">Sum</string>
+
+    <!-- Label for a button that shows a popup to add new time log entry-->
+    <string name="TEA_timer_button_addTimeLog">Add time spent</string>
+
+    <string name="TEA_timer_title_timeSpentHoursMinutes">Time spent (hours : minutes)</string>
+
+    <string name="TEA_timer_button_deleteTimeLog">Delete</string>
+
+    <string name="TEA_timer_addTimeLog_hint">Enter what you did</string>
 </resources>

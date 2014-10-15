@@ -12,8 +12,7 @@
         style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxLines="1"
-        android:text="@string/TEA_elapsedDuration_label" />
+        android:maxLines="1" />
 
     <TextView
         android:id="@+id/duration"
@@ -22,7 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_weight="1"
-        android:gravity="left"
-        android:text="1:10:10" />
+        android:gravity="left" />
 </LinearLayout>
 

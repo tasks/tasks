@@ -80,7 +80,7 @@ public class TimeLogControlSet extends TaskEditControlSet{
             @Override
             public void onClick(View v) {
                 //TODO change string
-                AddTimeLogTimePickerDialog dialog = new AddTimeLogTimePickerDialog(preferences, activity, new MyTimeLogPickedListener(timeLogRow, timeLog), "time log hours:minutes", timeLog.getTimeSpent(), timeLog.getTime(), timeLog.getDescription());
+                AddTimeLogTimePickerDialog dialog = new AddTimeLogTimePickerDialog(preferences, activity, new MyTimeLogPickedListener(timeLogRow, timeLog), activity.getString(R.string.TEA_timer_title_timeSpentHoursMinutes), timeLog.getTimeSpent(), timeLog.getTime(), timeLog.getDescription());
                 dialog.show();
             }
         });
