@@ -246,14 +246,12 @@
   
   <!-- slide 15b: Task edit tab: activity -->
   <string name="TEA_tab_activity">Activity</string>
-  
-  <string name="TEA_timer_est">Est. %s</string>
 
-  <string name="TEA_timer_elap">Spent %s</string>
+    <string name="TEA_timer_elap">Elapsed %s</string>
 
-  <string name="TEA_timer_remain">Left %s</string>
-  
-  <string-array name="TEA_urgency">
+    <string name="TEA_timer_remain">Left %s</string>
+
+    <string-array name="TEA_urgency">
       <!-- slide 19: urgency: labels for edit page. item #4 -> auto filled -->
       <item>No date</item>
       <item>Specific day</item>

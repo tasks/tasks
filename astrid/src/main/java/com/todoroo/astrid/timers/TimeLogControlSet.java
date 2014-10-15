@@ -2,6 +2,7 @@ package com.todoroo.astrid.timers;
 
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskTimeLog;
 import com.todoroo.astrid.helper.TaskEditControlSet;
+import com.todoroo.astrid.ui.DateAndTimePicker;
 
 import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
@@ -40,13 +42,13 @@ public class TimeLogControlSet extends TaskEditControlSet{
 
     private int timeSpent = 0;
 
-
     public TimeLogControlSet(ActivityPreferences preferences, TimeLogService timeLogService, Activity activity, OnTimeSpentChangeListener timeSpentChangeListener) {
         super(activity, R.layout.control_set_time_log);
         this.preferences = preferences;
         this.timeLogService = timeLogService;
         this.timeSpentChangeListener = timeSpentChangeListener;
     }
+
 
     @Override
     protected void readFromTaskOnInitialize() {
@@ -87,7 +89,11 @@ public class TimeLogControlSet extends TaskEditControlSet{
 
     private void showInView(TaskTimeLog timeLog, LinearLayout timeLogRow) {
         TextView descriptionView = (TextView) timeLogRow.findViewById(R.id.timeLogRow_description);
-        descriptionView.setText(timeLog.getDescription());
+        String description = timeLog.getDescription();
+        if (TextUtils.isEmpty(description)) {
+            description = DateAndTimePicker.getDisplayString(activity, timeLog.getTime());
+        }
+        descriptionView.setText(description);
         TextView timeSpentView = (TextView) timeLogRow.findViewById(R.id.timeLogRow_timeSpent);
         timeSpentView.setText(DateUtils.formatElapsedTime(timeLog.getTimeSpent()));
 
@@ -143,6 +149,10 @@ public class TimeLogControlSet extends TaskEditControlSet{
             }
         });
 
+    }
+
+    public int getTimeSpent() {
+        return timeSpent;
     }
 
 

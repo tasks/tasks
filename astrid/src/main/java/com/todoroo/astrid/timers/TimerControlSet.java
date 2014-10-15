@@ -24,6 +24,9 @@ import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.timelog.TimeLogService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.tasks.preferences.ResourceResolver.getResource;
 
 /**
@@ -127,15 +130,11 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
 
         @Override
         protected void writeToModelAfterInitialized(Task task) {
-            task.setValue(property, controlSet.getTimeDurationInSeconds());
+            task.setValue(property, getTimeDurationInSeconds());
         }
 
-        public String getDisplayString() {
-            int seconds = controlSet.getTimeDurationInSeconds();
-            if (seconds > 0) {
-                return DateUtils.formatElapsedTime(controlSet.getTimeDurationInSeconds());
-            }
-            return null;
+        public int getTimeDurationInSeconds() {
+            return controlSet.getTimeDurationInSeconds();
         }
 
         public void setTimeDurationChangeListener(TimeDurationControlSet.TimeDurationChangeListener timeDurationChangeListener) {
@@ -145,30 +144,18 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
 
     @Override
     protected void refreshDisplayView() {
-//        String est = estimated.getDisplayString();
-//        if (!TextUtils.isEmpty(est)) {
-//            est = activity.getString(R.string.TEA_timer_est, est);
-//            est = est.substring(0,est.length()-3);
-//        }
-        String elaps = "";//elapsed.getDisplayString();
-        if (!TextUtils.isEmpty(elaps)) {
-            elaps = activity.getString(R.string.TEA_timer_elap, elaps);
-            elaps = elaps.substring(0, elaps.length() - 3);
+        int spent = timeLogControlSet.getTimeSpent();
+        int remaining = this.remaining.getTimeDurationInSeconds();
+
+        List<String> toJoin = new ArrayList<>();
+        if (spent > 0) {
+            toJoin.add(activity.getString(R.string.TEA_timer_elap, DateUtils.formatElapsedTime(spent)));
+        }
+        if (remaining > 0) {
+            toJoin.add(activity.getString(R.string.TEA_timer_remain, DateUtils.formatElapsedTime(remaining)));
         }
 
-        String remain = remaining.getDisplayString();
-        if (!TextUtils.isEmpty(remain)) {
-            remain = activity.getString(R.string.TEA_timer_remain, remain);
-            remain = remain.substring(0, remain.length() - 3);
-        }
-
-        String toDisplay = "";
-        if (!TextUtils.isEmpty(elaps))
-            toDisplay += elaps;
-        if (!TextUtils.isEmpty(toDisplay))
-            toDisplay += ", ";
-        if (!TextUtils.isEmpty(remain))
-            toDisplay += remain;
+        String toDisplay = TextUtils.join(", ", toJoin);
 
         if (!TextUtils.isEmpty(toDisplay)) {
             displayEdit.setText(toDisplay);
