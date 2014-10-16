@@ -22,13 +22,13 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.data.TaskTimeLog;
-import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.reminders.ReminderService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.Broadcaster;
 import org.tasks.R;
+import org.tasks.helper.UUIDHelper;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
 

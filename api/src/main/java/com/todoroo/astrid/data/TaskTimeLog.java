@@ -8,6 +8,8 @@ import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.api.AstridApiConstants;
 
+import org.tasks.helper.UUIDHelper;
+
 public class TaskTimeLog extends RemoteModel  {
     /** table for this model */
     public static final Table TABLE = new Table("taskTimeLog", TaskTimeLog.class);
@@ -42,10 +44,7 @@ public class TaskTimeLog extends RemoteModel  {
 
     public static final Property<?>[] PROPERTIES = generateProperties(TaskTimeLog.class);
 
-    Integer timeSpent;
-    Long time;
-    String description;
-    String uuid;
+
 
     @Override
     public boolean equals(Object o) {
@@ -89,6 +88,7 @@ public class TaskTimeLog extends RemoteModel  {
     }
     public TaskTimeLog() {
         super();
+        setUuid(UUIDHelper.newUUID());
     }
 
     public TaskTimeLog(TodorooCursor<TaskTimeLog> cursor) {

@@ -23,13 +23,13 @@ import android.widget.EditText;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.helper.UUIDHelper;
 import org.tasks.injection.InjectingActionBarActivity;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.ResourceResolver;

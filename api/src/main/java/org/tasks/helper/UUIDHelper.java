@@ -1,4 +1,4 @@
-package com.todoroo.astrid.helper;
+package org.tasks.helper;
 
 import java.util.UUID;
 
