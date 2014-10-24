@@ -8,8 +8,8 @@ android {
     lintOptions {
         lintConfig file("../lint.xml")
     }
-    compileSdkVersion 19
-    buildToolsVersion "20"
+    compileSdkVersion 21
+    buildToolsVersion "21.0.2"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7

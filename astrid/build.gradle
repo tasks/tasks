@@ -9,8 +9,8 @@ android {
         lintConfig file("../lint.xml")
     }
 
-    compileSdkVersion 19
-    buildToolsVersion "20"
+    compileSdkVersion 21
+    buildToolsVersion "21.0.2"
 
     defaultConfig {
         minSdkVersion 7
