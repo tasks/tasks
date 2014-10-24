@@ -112,7 +112,7 @@
 	<string name="TEA_estimatedDuration_label">Wie lange wird es dauern?</string>
 	<string name="TEA_elapsedDuration_label">Zeit, die schon für die Aufgabe gebraucht wurde</string>
 	<string name="TEA_menu_save">Änderungen speichern</string>
-	<string name="TEA_menu_discard_changes">Verwerfe Änderungen</string>
+	<string name="TEA_menu_discard_changes">Änderungen verwerfen</string>
 	<string name="TEA_tab_activity">Aktivität</string>
 	<string name="TEA_timer_est">Geschätzt %s</string>
 	<string name="TEA_timer_elap">%s verstrichen</string>
@@ -216,6 +216,7 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Zeitpunkt Kalendertermin</string>
 	<string name="EPr_cal_end_at_due_time">Kalendereintrag endet zur Fälligkeits-Uhrzeit</string>
 	<string name="EPr_cal_start_at_due_time">Kalendereintrag Startet zur Fälligkeits-Uhrzeit</string>
+	<string name="EPr_enable_debug_logging">Debug logging aktivieren</string>
 	<string name="EPr_manage_header">Alte Aufgaben verwalten</string>
 	<string name="EPr_manage_delete_completed">Erledigte Aufgaben löschen</string>
 	<string name="EPr_manage_delete_completed_message">Willst du wirklich alle erledigten Aufgaben löschen?</string>

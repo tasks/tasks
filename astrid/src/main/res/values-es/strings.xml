@@ -120,7 +120,6 @@
 	<string name="TEA_menu_save">Guardar cambios</string>
 	<string name="TEA_menu_discard_changes">Descartar cambios</string>
 	<string name="TEA_tab_activity">Actividad</string>
-	<string name="TEA_timer_est">Estimado %s</string>
 	<string name="TEA_timer_elap">Transcurrido %s</string>
 	<string-array name="TEA_urgency">
 		<item>Sin fecha</item>
