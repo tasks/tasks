@@ -41,6 +41,9 @@ public class BackupConstants {
     /** Tag containing a tagdata item */
     public static final String TAGDATA_TAG = "tagdata";
 
+    /** Tag containing a timelog item */
+    public static final String TIMELOG_TAG = "timelog";
+
     // --- general
 
     public static final String XML_ENCODING = "utf-8";

@@ -134,7 +134,7 @@ public class Database extends AbstractDatabase {
         case 35:
             tryExecSQL(addColumnSql(Task.TABLE, Task.REMAINING_SECONDS, visitor, "0"));
             database.execSQL(createTableSql(visitor, TaskTimeLog.TABLE.name, TaskTimeLog.PROPERTIES));
-            TaskDao.migrateLoggedTime(database);
+            TaskTimeLogDao.migrateLoggedTime(database);
 
         return true;
         }

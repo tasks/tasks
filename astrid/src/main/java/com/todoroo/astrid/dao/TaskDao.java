@@ -6,9 +6,7 @@
 package com.todoroo.astrid.dao;
 
 import android.content.ContentValues;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
-import android.database.sqlite.SQLiteDatabase;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
@@ -21,19 +19,14 @@ import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
-import com.todoroo.astrid.data.TaskTimeLog;
 import com.todoroo.astrid.reminders.ReminderService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.Broadcaster;
 import org.tasks.R;
-import org.tasks.helper.UUIDHelper;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -380,32 +373,6 @@ public class TaskDao extends RemoteModelDao<Task> {
      */
     private void afterComplete(Task task) {
         notificationManager.cancel((int) task.getId());
-    }
-    public static void migrateLoggedTime(SQLiteDatabase database){
-
-        Property[] properties = {Task.ID, Task.ELAPSED_SECONDS, Task.COMPLETION_DATE, Task.CREATION_DATE, Task.UUID};
-        List<String> strings = new ArrayList<String>();
-        for (Property property : properties) {
-            strings.add(property.name);
-        }
-        Cursor cursor = database.query(Task.TABLE.name, strings.toArray(new String[0]), null, null, null, null, null);
-        TodorooCursor<Task> todorooCursor = new TodorooCursor<>(cursor, properties);
-
-
-        try {
-            while (todorooCursor.moveToNext()){
-                TaskTimeLog taskTimeLog = new TaskTimeLog();
-                taskTimeLog.setTaskId(todorooCursor.get(Task.ID));
-                taskTimeLog.setTaskUuid(todorooCursor.get(Task.UUID));
-                taskTimeLog.setTime(todorooCursor.get(Task.COMPLETION_DATE) != null ? todorooCursor.get(Task.COMPLETION_DATE) : todorooCursor.get(Task.CREATION_DATE));
-                taskTimeLog.setTimeSpent(todorooCursor.get(Task.ELAPSED_SECONDS));
-                taskTimeLog.setUuid(UUIDHelper.newUUID());
-                taskTimeLog.setID(null);
-                database.insert(TaskTimeLog.TABLE.name, AbstractModel.ID_PROPERTY.name, taskTimeLog.getMergedValues());
-}
-        } finally {
-            cursor.close();
-        }
     }
 
 }

@@ -106,7 +106,6 @@
 	<string name="TEA_note_label">Poznámky</string>
 	<string name="TEA_notes_hint">Poznámky k úkolu...</string>
 	<string name="TEA_estimatedDuration_label">Kolik času asi zabere?</string>
-	<string name="TEA_elapsedDuration_label">Jak dlouho už na úkolu pracujete</string>
 	<string name="TEA_menu_save">Uložit změny</string>
 	<string name="TEA_tab_activity">Činnost</string>
 	<string-array name="TEA_urgency">
