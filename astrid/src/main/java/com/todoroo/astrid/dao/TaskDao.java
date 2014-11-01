@@ -43,19 +43,21 @@ public class TaskDao extends RemoteModelDao<Task> {
     private static final Logger log = LoggerFactory.getLogger(TaskDao.class);
 
     private final MetadataDao metadataDao;
+    private final TaskTimeLogDao taskTimeLogDao;
     private final Broadcaster broadcaster;
     private final ReminderService reminderService;
     private final NotificationManager notificationManager;
     private final Preferences preferences;
 
     @Inject
-	public TaskDao(Database database, MetadataDao metadataDao, Broadcaster broadcaster,
+	public TaskDao(Database database, MetadataDao metadataDao, TaskTimeLogDao taskTimeLogDao, Broadcaster broadcaster,
                    ReminderService reminderService, NotificationManager notificationManager,
                    Preferences preferences) {
         super(Task.class);
         setDatabase(database);
         this.preferences = preferences;
         this.metadataDao = metadataDao;
+        this.taskTimeLogDao = taskTimeLogDao;
         this.broadcaster = broadcaster;
         this.reminderService = reminderService;
         this.notificationManager = notificationManager;
@@ -138,6 +140,7 @@ public class TaskDao extends RemoteModelDao<Task> {
 
         // delete all metadata
         metadataDao.deleteWhere(MetadataCriteria.byTask(id));
+        taskTimeLogDao.deleteWhere(TaskTimeLogDao.TaskTimeLogCriteria.byTaskId(id));
 
         broadcastTaskChanged();
 
