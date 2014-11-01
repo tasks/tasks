@@ -32,7 +32,7 @@ public class TimeLogService {
     public void getTimeLogs(long taskId, Callback<TaskTimeLog> callback) {
         timeLogDao.query(callback, Query.select(TaskTimeLog.PROPERTIES)
                 .where(TaskTimeLogDao.TaskTimeLogCriteria.byTaskId(taskId))
-                .orderBy(Order.asc(TaskTimeLog.TIME)));
+                .orderBy(Order.desc(TaskTimeLog.TIME)));
     }
 
     public boolean synchronizeTimeLogs(long taskId, Set<TaskTimeLog> timeLogs) {
