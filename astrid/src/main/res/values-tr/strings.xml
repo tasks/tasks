@@ -102,7 +102,6 @@
 	<string name="FLA_no_filter_selected">Süzgeç seçilmemiş! Lütfen bir süzgeç ya da liste seçin.</string>
 	<string name="TEA_note_label">Açıklama</string>
 	<string name="TEA_estimatedDuration_label">Ne kadar sürecek?</string>
-	<string name="TEA_elapsedDuration_label">Görev üzerinde çalışılan zaman</string>
 	<string name="TEA_menu_save">Değişiklikleri Kaydet</string>
 	<string name="TEA_tab_activity">Etkinlik</string>
 	<string-array name="TEA_urgency">

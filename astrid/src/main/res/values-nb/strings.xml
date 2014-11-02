@@ -77,7 +77,6 @@
 	<string name="TEA_note_label">Notater</string>
 	<string name="TEA_notes_hint">Legg inn oppgavenotater...</string>
 	<string name="TEA_estimatedDuration_label">Hvor lang tid vil det ta?</string>
-	<string name="TEA_elapsedDuration_label">Tid brukt på oppgaven til nå</string>
 	<string name="TEA_menu_save">Lagre endringer</string>
 	<string name="TEA_menu_discard_changes">Forkast endringer</string>
 	<string-array name="TEA_urgency">

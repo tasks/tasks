@@ -111,10 +111,8 @@
 	<string name="TEA_notes_empty">Beskrivning</string>
 	<string name="TEA_notes_hint">Ange uppgiftsbeskrivning...</string>
 	<string name="TEA_estimatedDuration_label">Hur lång tid kommer det att ta?</string>
-	<string name="TEA_elapsedDuration_label">Tid redan spenderad på uppgiften</string>
 	<string name="TEA_menu_save">Spara ändringar</string>
 	<string name="TEA_tab_activity">Aktivitet</string>
-	<string name="TEA_timer_est">Ung. %s</string>
 	<string name="TEA_timer_elap">Förfluten %s</string>
 	<string-array name="TEA_urgency">
 		<item>Inget datum</item>
