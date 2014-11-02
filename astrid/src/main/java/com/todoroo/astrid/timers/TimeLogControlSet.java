@@ -70,7 +70,7 @@ public class TimeLogControlSet extends TaskEditControlSet{
      */
     private LinearLayout addTimeLog(final TaskTimeLog timeLog) {
         final LinearLayout timeLogRow = (LinearLayout) LayoutInflater.from(activity).inflate(R.layout.control_set_time_log_row, null);
-        timeLogContainer.addView(timeLogRow);
+        timeLogContainer.addView(timeLogRow, 0);
 
         showInView(timeLog, timeLogRow);
 
