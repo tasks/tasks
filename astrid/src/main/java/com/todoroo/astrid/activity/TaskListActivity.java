@@ -74,13 +74,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
 
     public static final String OPEN_TASK = "openTask"; //$NON-NLS-1$
 
-    private static final String FILTER_MODE = "filterMode"; //$NON-NLS-1$
-
-    public static final int FILTER_MODE_NORMAL = 0;
-
-    private int filterMode;
-    private FilterModeSpec filterModeSpec;
-
     /**
      * @see android.app.Activity#onCreate(Bundle)
      */
@@ -179,21 +172,11 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     }
 
     protected Filter getDefaultFilter() {
-        return filterModeSpec.getDefaultFilter(this);
-    }
-
-    @Override
-    protected Bundle configureIntentAndExtrasWithFilter(Intent intent,
-            Filter filter) {
-        Bundle extras = super.configureIntentAndExtrasWithFilter(intent, filter);
-        getIntent().putExtra(FILTER_MODE, filterMode);
-        return extras;
+        return CoreFilterExposer.buildInboxFilter(getResources());
     }
 
     protected void initializeFragments() {
         View editFragment = findViewById(R.id.taskedit_fragment_container);
-        filterMode = getIntent().getIntExtra(FILTER_MODE, FILTER_MODE_NORMAL);
-        updateFilterModeSpec(filterMode);
 
         if(editFragment != null) {
             fragmentLayout = LAYOUT_DOUBLE;
@@ -202,7 +185,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         }
 
         setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0,
-                filterModeSpec.getFilterListClass()));
+                FilterListFragment.class));
     }
 
     private void setupPopoverWithFragment(Fragment frag) {
@@ -544,14 +527,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-        }
-    }
-
-    private void updateFilterModeSpec(int mode) {
-        switch(mode) {
-        case FILTER_MODE_NORMAL:
-        default:
-            filterModeSpec = new DefaultFilterMode();
         }
     }
 
