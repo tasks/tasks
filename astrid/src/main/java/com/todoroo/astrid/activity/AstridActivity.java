@@ -254,36 +254,6 @@ public class AstridActivity extends InjectingActionBarActivity
         super.onBackPressed();
     }
 
-    // --- fragment helpers
-
-    protected Fragment setupFragment(String tag, int container, Class<? extends Fragment> cls) {
-        final FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentByTag(tag);
-        if(fragment == null) {
-            try {
-                fragment = cls.newInstance();
-            } catch (InstantiationException | IllegalAccessException e) {
-                log.error(e.getMessage(), e);
-                return null;
-            }
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            if (container == 0) {
-                ft.add(fragment, tag);
-            }
-            else {
-                ft.replace(container, fragment, tag);
-            }
-            ft.commit();
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    fm.executePendingTransactions();
-                }
-            });
-        }
-        return fragment;
-    }
-
     // Voice recognizer callbacks
     @Override
     public void onSpeechResult(String result) {

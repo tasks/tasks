@@ -13,6 +13,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBar;
 import android.util.TypedValue;
@@ -49,12 +51,16 @@ import com.todoroo.astrid.utility.Flags;
 
 import net.simonvt.menudrawer.MenuDrawer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
 
 import javax.inject.Inject;
 
 public class TaskListActivity extends AstridActivity implements OnPageChangeListener {
+
+    private static final Logger log = LoggerFactory.getLogger(TaskListActivity.class);
 
     @Inject TagDataDao tagDataDao;
     @Inject ActivityPreferences preferences;
@@ -188,8 +194,36 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 FilterListFragment.class));
     }
 
-    private void setupPopoverWithFragment(Fragment frag) {
-        View view = frag.getView();
+    protected Fragment setupFragment(String tag, int container, Class<? extends Fragment> cls) {
+        final FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentByTag(tag);
+        if(fragment == null) {
+            try {
+                fragment = cls.newInstance();
+            } catch (InstantiationException | IllegalAccessException e) {
+                log.error(e.getMessage(), e);
+                return null;
+            }
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            if (container == 0) {
+                ft.add(fragment, tag);
+            }
+            else {
+                ft.replace(container, fragment, tag);
+            }
+            ft.commit();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    fm.executePendingTransactions();
+                }
+            });
+        }
+        return fragment;
+    }
+
+    public void setupPopoverWithFilterList(FilterListFragment fla) {
+        View view = fla.getView();
         if (view != null) {
             FrameLayout parent = (FrameLayout) view.getParent();
             if (parent != null) {
@@ -197,10 +231,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
             }
             menuDrawer.setMenuView(view);
         }
-    }
-
-    public void setupPopoverWithFilterList(FilterListFragment fla) {
-        setupPopoverWithFragment(fla);
     }
 
     @Override
