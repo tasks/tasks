@@ -24,7 +24,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-public class TimeLogControlSet extends TaskEditControlSet{
+public class TimeLogControlSet extends TaskEditControlSet implements TimerActionControlSet.TimerActionListener{
 
     public interface OnTimeSpentChangeListener {
         void timeSpentChanged(int fromInSeconds, int toInSeconds);
@@ -153,6 +153,17 @@ public class TimeLogControlSet extends TaskEditControlSet{
 
     public int getTimeSpent() {
         return timeSpent;
+    }
+
+    @Override
+    public void timerStopped(Task task, TaskTimeLog timeLog) {
+        addTimeLog(timeLog);
+        changeTimeSpent(timeLog.getTimeSpent(), false);
+    }
+
+    @Override
+    public void timerStarted(Task task) {
+
     }
 
 

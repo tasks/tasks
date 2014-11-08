@@ -614,6 +614,17 @@ public class Task extends RemoteModel {
         setValue(ELAPSED_SECONDS, elapsedSeconds);
     }
 
+    public void lowerRemainingSeconds(int bySeconds){
+        Integer remainingSeconds = getRemainingSeconds();
+        if (remainingSeconds != null) {
+            remainingSeconds -= bySeconds;
+            if (remainingSeconds < 0){
+                remainingSeconds = 0;
+            }
+            setRemainingSeconds(remainingSeconds);
+        }
+    }
+
     public void setCalendarUri(String calendarUri) {
         setValue(CALENDAR_URI, calendarUri);
     }

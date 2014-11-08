@@ -305,11 +305,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             editNotes.loadViewForTaskID(idParam);
         }
 
-        if (timerAction != null && editNotes != null) {
-            timerAction.removeListener(editNotes);
-            timerAction.addListener(editNotes);
-        }
-
         if (editNotes != null) {
             editNotes.addListener(this);
         }
@@ -360,7 +355,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controls.add(editTitle);
         titleControls.addView(editTitle.getDisplayView(), 0, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1.0f));
 
-        timerAction = new TimerActionControlSet(notificationManager, taskService, getActivity(), getView());
+        timerAction = new TimerActionControlSet(notificationManager, taskService, timeLogService,  getActivity(), getView());
         controls.add(timerAction);
 
         TagsControlSet tagsControlSet = new TagsControlSet(metadataDao, tagDataDao, preferences, tagService, getActivity());
@@ -770,7 +765,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         // abandon editing in this case
         if (title.getText().length() == 0 || TextUtils.isEmpty(model.getTitle())) {
             if (isNewTask) {
-                TimerPlugin.updateTimer(notificationManager, taskService, getActivity(), model, false);
+                TimerPlugin.updateTimer(notificationManager, taskService, timeLogService, getActivity(), model, false);
                 taskDeleter.delete(model);
                 if (getActivity() instanceof TaskListActivity) {
                     TaskListActivity tla = (TaskListActivity) getActivity();
@@ -791,7 +786,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                                         android.R.string.ok, new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
-                                                TimerPlugin.updateTimer(notificationManager, taskService, getActivity(), model, false);
+                                                TimerPlugin.updateTimer(notificationManager, taskService, timeLogService, getActivity(), model, false);
                                                 taskDeleter.delete(model);
                                                 shouldSaveState = false;
 

@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskTimeLog;
 import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.timers.TimerActionControlSet.TimerActionListener;
 import com.todoroo.astrid.ui.PopupControlSet;
@@ -86,16 +87,11 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
     @Override
     public void timeSpentChanged(int fromInSeconds, int toInSeconds) {
         model.setElapsedSeconds((int) toInSeconds);
-        int timeSpentChange = toInSeconds - fromInSeconds;
-
-        int remainingSeconds = model.getRemainingSeconds() - timeSpentChange;
-        setRemainingTime(remainingSeconds);
+        model.lowerRemainingSeconds(toInSeconds - fromInSeconds);
+        remaining.readFromTaskOnInitialize();
     }
 
     private void setRemainingTime(int remainingSeconds) {
-        if (remainingSeconds < 0) {
-            remainingSeconds = 0;
-        }
         model.setRemainingSeconds(remainingSeconds);
         remaining.readFromTaskOnInitialize();
     }
@@ -169,7 +165,10 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
     }
 
     @Override
-    public void timerStopped(Task task) {
+    public void timerStopped(Task task, TaskTimeLog timeLog) {
+        timeLogControlSet.timerStopped(task, timeLog);
+        remaining.readFromTaskOnInitialize();
+        refreshDisplayView();
 //        elapsed.readFromTask(task);
     }
 

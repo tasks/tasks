@@ -82,6 +82,7 @@ import org.tasks.injection.InjectingListFragment;
 import org.tasks.injection.Injector;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.timelog.TimeLogService;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -129,6 +130,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     // --- instance variables
 
     @Inject TaskService taskService;
+    @Inject TimeLogService timeLogService;
     @Inject TaskListMetadataDao taskListMetadataDao;
     @Inject SyncV2Service syncService;
     @Inject TaskDeleter taskDeleter;
@@ -815,7 +817,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
                 }
             }
         }
-        TimerPlugin.updateTimer(notificationManager, taskService, context, task, false);
+        TimerPlugin.updateTimer(notificationManager, taskService, timeLogService, context, task, false);
     }
 
     public void refreshFilterCount() {
@@ -877,7 +879,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
             itemId = item.getGroupId();
             Task task = new Task();
             task.setId(itemId);
-            TimerPlugin.updateTimer(notificationManager, taskService, getActivity(), task, false);
+            TimerPlugin.updateTimer(notificationManager, taskService, timeLogService, getActivity(), task, false);
             taskDeleter.purge(itemId);
             loadTaskListContent();
             return true;

@@ -35,6 +35,10 @@ public class TimeLogService {
                 .orderBy(Order.desc(TaskTimeLog.TIME)));
     }
 
+    public void addTimeLog(TaskTimeLog taskTimeLog){
+        timeLogDao.createNew(taskTimeLog);
+    }
+
     public boolean synchronizeTimeLogs(long taskId, Set<TaskTimeLog> timeLogs) {
         Set<TaskTimeLog> oldTimeLogs = Sets.newHashSet();
         TodorooCursor<TaskTimeLog> cursor = timeLogDao.query(Query
