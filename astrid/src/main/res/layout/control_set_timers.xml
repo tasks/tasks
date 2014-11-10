@@ -5,16 +5,16 @@
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="fill_parent"
     android:orientation="vertical"
     android:paddingLeft="5dip"
     android:paddingRight="5dip">
-
     <LinearLayout
         android:id="@+id/timers_mainLayout"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="fill_parent"
+        android:layout_weight="100">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,10 +56,9 @@
         android:layout_height="1px" />
 
 
-    <include layout="@layout/control_dialog_ok" />
+    <include layout="@layout/control_dialog_ok"
+        android:layout_weight="1"/>
 
-    <!-- !!!!!!!!!!!!!!!!! NOTE: !!!!!!!!!!!!!!!!!!!!!
-    todo to jest prototyp, zamiast powyzszych kliku linear layoutów powinien zostać wstawiony wypełniany dynamicznie ListView -->
 
 </LinearLayout>
 

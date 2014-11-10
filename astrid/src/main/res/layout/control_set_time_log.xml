@@ -48,12 +48,18 @@
         android:layout_width="match_parent"
         android:layout_height="1px" />
 
-    <LinearLayout
-        android:id="@+id/time_log_container"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="5dip" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="100">
+
+        <LinearLayout
+            android:id="@+id/time_log_container"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="5dip" />
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/taskTimeLog_add"

@@ -20,8 +20,12 @@ import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.timelog.TimeLogService;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class TimeLogControlSet extends TaskEditControlSet implements TimerActionControlSet.TimerActionListener{
@@ -57,7 +61,7 @@ public class TimeLogControlSet extends TaskEditControlSet implements TimerAction
         timeLogService.getTimeLogs(model.getId(), new Callback<TaskTimeLog>() {
             @Override
             public void apply(TaskTimeLog timeLog) {
-                addTimeLog(timeLog);
+                addTimeLog(timeLog, false);
                 changeTimeSpent(timeLog.getTimeSpent(), false);
             }
         });
@@ -68,9 +72,13 @@ public class TimeLogControlSet extends TaskEditControlSet implements TimerAction
      * @param timeLog
      * @return added row with provided time log
      */
-    private LinearLayout addTimeLog(final TaskTimeLog timeLog) {
+    private LinearLayout addTimeLog(final TaskTimeLog timeLog, boolean asFirst) {
         final LinearLayout timeLogRow = (LinearLayout) LayoutInflater.from(activity).inflate(R.layout.control_set_time_log_row, null);
-        timeLogContainer.addView(timeLogRow, 0);
+        if (asFirst) {
+            timeLogContainer.addView(timeLogRow, 0);
+        } else {
+            timeLogContainer.addView(timeLogRow);
+        }
 
         showInView(timeLog, timeLogRow);
 
@@ -79,7 +87,6 @@ public class TimeLogControlSet extends TaskEditControlSet implements TimerAction
         timeLogRow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO change string
                 AddTimeLogTimePickerDialog dialog = new AddTimeLogTimePickerDialog(preferences, activity, new MyTimeLogPickedListener(timeLogRow, timeLog), activity.getString(R.string.TEA_timer_title_timeSpentHoursMinutes), timeLog.getTimeSpent(), timeLog.getTime(), timeLog.getDescription());
                 dialog.show();
             }
@@ -131,6 +138,29 @@ public class TimeLogControlSet extends TaskEditControlSet implements TimerAction
         return timeLogs;
     }
 
+
+    private void sortTimeLogs(){
+        List<View> children = new ArrayList<>();
+        for (int i = 0; i < timeLogContainer.getChildCount(); i++) {
+            children.add(timeLogContainer.getChildAt(i));
+        }
+        timeLogContainer.removeAllViews();
+        Collections.sort(children, new Comparator<View>() {
+            @Override
+            public int compare(View lhs, View rhs) {
+                return -(getTime(lhs).compareTo(getTime(rhs)));
+            }
+
+            public Long getTime(View lhs) {
+                return ((TaskTimeLog)lhs.getTag()).getTime();
+            }
+        });
+        for (View child : children) {
+            timeLogContainer.addView(child);
+        }
+
+    }
+
     @Override
     protected void afterInflate() {
         timeLogContainer = (LinearLayout) getView().findViewById(R.id.time_log_container);
@@ -144,7 +174,7 @@ public class TimeLogControlSet extends TaskEditControlSet implements TimerAction
                 timeLog.setTimeSpent(0);
                 timeLog.setDescription("");
                 timeLog.setTaskId(model.getId());
-                LinearLayout timeLogRow = addTimeLog(timeLog);
+                LinearLayout timeLogRow = addTimeLog(timeLog, true);
                 timeLogRow.performClick();
             }
         });
@@ -157,7 +187,7 @@ public class TimeLogControlSet extends TaskEditControlSet implements TimerAction
 
     @Override
     public void timerStopped(Task task, TaskTimeLog timeLog) {
-        addTimeLog(timeLog);
+        addTimeLog(timeLog, true);
         changeTimeSpent(timeLog.getTimeSpent(), false);
     }
 
@@ -179,10 +209,14 @@ public class TimeLogControlSet extends TaskEditControlSet implements TimerAction
 
         @Override
         public void onTimeLogChanged(int timeSpentInSeconds, Date time, String description) {
+            Long oldTime = timeLog.getTime();
             changeTimeSpent(timeSpentInSeconds - timeLog.getTimeSpent(), true);
             timeLog.setTimeSpent(timeSpentInSeconds);
             timeLog.setDescription(description);
-            timeLog.setTime(time.getTime());
+            if (oldTime != time.getTime()){
+                timeLog.setTime(time.getTime());
+                sortTimeLogs();
+            }
             showInView(timeLog, timeLogRow);
         }
 
