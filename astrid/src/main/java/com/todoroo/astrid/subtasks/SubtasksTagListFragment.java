@@ -47,14 +47,8 @@ public class SubtasksTagListFragment extends TagViewFragment {
 
     @Override
     protected View getListBody(ViewGroup root) {
-        ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(
-                R.layout.task_list_body_tag, root, false);
-
-        taskListView =
-            getActivity().getLayoutInflater().inflate(R.layout.task_list_body_subtasks, root, false);
-        parent.addView(taskListView);
-
-        return parent;
+        taskListView = getActivity().getLayoutInflater().inflate(R.layout.task_list_body_subtasks, root, false);
+        return taskListView;
     }
 
     @Override

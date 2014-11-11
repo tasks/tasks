@@ -75,19 +75,6 @@ public class TagViewFragment extends TaskListFragment {
         getView().findViewById(R.id.quickAddText).setOnTouchListener(onTouch);
     }
 
-    /* (non-Javadoc)
-     * @see com.todoroo.astrid.activity.TaskListActivity#getListBody(android.view.ViewGroup)
-     */
-    @Override
-    protected View getListBody(ViewGroup root) {
-        ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.task_list_body_tag, root, false);
-
-        taskListView = super.getListBody(parent);
-        parent.addView(taskListView);
-
-        return parent;
-    }
-
     // --- data loading
 
     @Override
