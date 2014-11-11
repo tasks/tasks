@@ -922,6 +922,11 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        Activity activity = getActivity();
+        if (activity instanceof TaskListActivity && ((TaskListActivity)activity).isDrawerOpen()) {
+            return;
+        }
+
         menu.clear();
         inflater.inflate(R.menu.task_edit_fragment, menu);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD_MR1) {

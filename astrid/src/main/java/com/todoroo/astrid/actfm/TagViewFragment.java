@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.AstridActivity;
-import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
@@ -29,6 +28,7 @@ import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.utility.Flags;
 
 import org.tasks.R;
+import org.tasks.ui.NavigationDrawerFragment;
 
 import javax.inject.Inject;
 
@@ -166,9 +166,9 @@ public class TagViewFragment extends TaskListFragment {
         Activity activity = getActivity();
         if (activity instanceof TaskListActivity) {
             ((TaskListActivity) activity).setListsTitle(filter.title);
-            FilterListFragment flf = ((TaskListActivity) activity).getFilterListFragment();
-            if (flf != null) {
-                flf.clear();
+            NavigationDrawerFragment navigationDrawer = ((TaskListActivity) activity).getNavigationDrawerFragment();
+            if (navigationDrawer != null) {
+                navigationDrawer.clear();
             }
         }
         taskAdapter = null;

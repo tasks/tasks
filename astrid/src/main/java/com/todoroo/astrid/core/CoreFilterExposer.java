@@ -15,7 +15,6 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
@@ -39,7 +38,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
- * Exposes Astrid's built in filters to the {@link FilterListFragment}
+ * Exposes Astrid's built in filters to the NavigationDrawerFragment
  *
  * @author Tim Su <tim@todoroo.com>
  *

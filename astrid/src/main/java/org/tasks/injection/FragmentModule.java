@@ -5,7 +5,6 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 
 import com.todoroo.astrid.actfm.TagViewFragment;
-import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.core.CoreFilterExposer;
@@ -17,6 +16,8 @@ import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.timers.TimerFilterExposer;
 import com.todoroo.astrid.ui.QuickAddBar;
+
+import org.tasks.ui.NavigationDrawerFragment;
 
 import javax.inject.Singleton;
 
@@ -31,7 +32,7 @@ import dagger.Provides;
         SubtasksTagListFragment.class,
         TagViewFragment.class,
         TaskEditFragment.class,
-        FilterListFragment.class,
+        NavigationDrawerFragment.class,
         QuickAddBar.class,
         CoreFilterExposer.class,
         TimerFilterExposer.class,

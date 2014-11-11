@@ -1,39 +1,49 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    style="@style/Content"
-    android:orientation="horizontal">
-  
-	<View
-        android:layout_width="1px"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@style/Content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/asSeparatorBackground"/>
-  
-    <!-- Task List -->
-	<FrameLayout
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-        android:layout_weight="60"
-        android:id="@+id/tasklist_fragment_container" />
-  
-	<View 
-        android:layout_width="1px"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="?attr/asSeparatorBackground" />
+
+        <!-- Task List -->
+        <FrameLayout
+            android:id="@+id/tasklist_fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="60" />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="?attr/asSeparatorBackground" />
+
+        <!-- Task Edit -->
+        <FrameLayout
+            android:id="@+id/taskedit_fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="40"
+            android:visibility="invisible" />
+
+    </LinearLayout>
+
+    <fragment
+        android:id="@+id/navigation_drawer"
+        android:name="org.tasks.ui.NavigationDrawerFragment"
+        android:layout_width="@dimen/navigation_drawer_width"
         android:layout_height="match_parent"
-        android:background="?attr/asSeparatorBackground"/>
-  
-    <!-- Task Edit -->
-	<FrameLayout
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-        android:layout_weight="40"
-        android:id="@+id/taskedit_fragment_container"
-        android:visibility="invisible" />
-  
-</LinearLayout>
+        android:layout_gravity="start"
+        tools:layout="@layout/fragment_navigation_drawer" />
+
+</android.support.v4.widget.DrawerLayout>
+

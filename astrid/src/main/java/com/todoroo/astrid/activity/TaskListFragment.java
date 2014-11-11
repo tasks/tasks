@@ -82,6 +82,7 @@ import org.tasks.injection.InjectingListFragment;
 import org.tasks.injection.Injector;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.ui.NavigationDrawerFragment;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -275,8 +276,8 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         initializeData();
         setupQuickAddBar();
 
-        Fragment filterlistFrame = getFragmentManager().findFragmentByTag(
-                FilterListFragment.TAG_FILTERLIST_FRAGMENT);
+        Fragment filterlistFrame = getFragmentManager().findFragmentById(
+                NavigationDrawerFragment.FRAGMENT_NAVIGATION_DRAWER);
         mDualFragments = (filterlistFrame != null)
                 && filterlistFrame.isInLayout();
 

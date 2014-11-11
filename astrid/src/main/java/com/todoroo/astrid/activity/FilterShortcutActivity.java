@@ -21,6 +21,7 @@ import org.tasks.filters.FilterCounter;
 import org.tasks.injection.InjectingListActivity;
 import org.tasks.injection.Injector;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.ui.NavigationDrawerFragment;
 
 import javax.inject.Inject;
 
@@ -63,7 +64,7 @@ public class FilterShortcutActivity extends InjectingListActivity {
             }
             Intent shortcutIntent = ShortcutActivity.createIntent(filter);
 
-            Bitmap bitmap = FilterListFragment.superImposeListIcon(FilterShortcutActivity.this);
+            Bitmap bitmap = NavigationDrawerFragment.superImposeListIcon(FilterShortcutActivity.this);
             Intent intent = new Intent();
             intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
             intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, filter.title);

@@ -42,6 +42,7 @@ import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingActionBarActivity;
 import org.tasks.preferences.Preferences;
+import org.tasks.ui.NavigationDrawerFragment;
 
 import javax.inject.Inject;
 
@@ -57,7 +58,7 @@ import javax.inject.Inject;
  *
  */
 public class AstridActivity extends InjectingActionBarActivity
-    implements FilterListFragment.OnFilterItemClickedListener,
+    implements NavigationDrawerFragment.OnFilterItemClickedListener,
     TaskListFragment.OnTaskListItemClickedListener,
     RecognizerApiListener {
 
@@ -71,11 +72,6 @@ public class AstridActivity extends InjectingActionBarActivity
     protected int fragmentLayout = LAYOUT_SINGLE;
 
     private final RepeatConfirmationReceiver repeatConfirmationReceiver = new RepeatConfirmationReceiver();
-
-    public FilterListFragment getFilterListFragment() {
-        return (FilterListFragment) getSupportFragmentManager()
-                .findFragmentByTag(FilterListFragment.TAG_FILTERLIST_FRAGMENT);
-    }
 
     public TaskListFragment getTaskListFragment() {
         return (TaskListFragment) getSupportFragmentManager()
@@ -147,9 +143,9 @@ public class AstridActivity extends InjectingActionBarActivity
 
     protected Bundle configureIntentAndExtrasWithFilter(Intent intent, Filter filter) {
         if(filter instanceof FilterWithCustomIntent) {
-            int lastSelectedList = intent.getIntExtra(FilterListFragment.TOKEN_LAST_SELECTED, 0);
+            int lastSelectedList = intent.getIntExtra(NavigationDrawerFragment.TOKEN_LAST_SELECTED, 0);
             intent = ((FilterWithCustomIntent)filter).getCustomIntent();
-            intent.putExtra(FilterListFragment.TOKEN_LAST_SELECTED, lastSelectedList);
+            intent.putExtra(NavigationDrawerFragment.TOKEN_LAST_SELECTED, lastSelectedList);
         } else {
             intent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
         }
@@ -355,5 +351,4 @@ public class AstridActivity extends InjectingActionBarActivity
             }
         }
     }
-
 }

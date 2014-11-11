@@ -2,6 +2,7 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tasks="http://schemas.android.com/apk/res-auto">
+
     <item
         android:id="@+id/menu_search"
         android:title="@string/TLA_menu_search"
@@ -29,21 +30,5 @@
         android:id="@+id/menu_clear_completed"
         android:title="@string/gtasks_GTA_clear_completed"
         android:visible="false"
-        tasks:showAsAction="never" />
-    <item
-        android:id="@+id/menu_new_list"
-        android:title="@string/FLA_new_list"
-        tasks:showAsAction="never" />
-    <item
-        android:id="@+id/menu_new_filter"
-        android:title="@string/FLA_new_filter"
-        tasks:showAsAction="never" />
-    <item
-        android:id="@+id/menu_support"
-        android:title="@string/TLA_menu_support"
-        tasks:showAsAction="never"/>
-    <item
-        android:id="@+id/menu_settings"
-        android:title="@string/TLA_menu_settings"
         tasks:showAsAction="never" />
 </menu>

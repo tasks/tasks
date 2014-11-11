@@ -10,13 +10,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
-import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
@@ -27,25 +22,15 @@ import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingActionBarActivity;
 import org.tasks.preferences.ActivityPreferences;
-import org.tasks.preferences.ResourceResolver;
 
 import javax.inject.Inject;
 
-import static android.support.v4.view.MenuItemCompat.setShowAsAction;
-
 public class TagSettingsActivity extends InjectingActionBarActivity {
 
-    private static final Logger log = LoggerFactory.getLogger(TagSettingsActivity.class);
-
     public static final String TOKEN_NEW_FILTER = "newFilter"; //$NON-NLS-1$
-
-    private static final int MENU_SAVE_ID = R.string.TEA_menu_save;
-    private static final int MENU_DISCARD_ID = R.string.TEA_menu_discard_changes;
 
     public static final String TOKEN_AUTOPOPULATE_MEMBERS = "autopopulateMembers"; //$NON-NLS-1$
 
@@ -56,32 +41,16 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
     @Inject TagService tagService;
     @Inject TagDataDao tagDataDao;
     @Inject ActivityPreferences preferences;
-    @Inject ResourceResolver resourceResolver;
 
     private EditText tagName;
 
     private boolean isNewTag = false;
-    private boolean isDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupForDialogOrFullscreen();
+        preferences.applyTheme();
         setContentView(R.layout.tag_settings_activity);
-
-        if (isDialog) {
-            LayoutParams params = getWindow().getAttributes();
-            params.width = LayoutParams.FILL_PARENT;
-            params.height = LayoutParams.WRAP_CONTENT;
-
-            DisplayMetrics metrics = getResources().getDisplayMetrics();
-            if ((metrics.widthPixels / metrics.density) >= ActivityPreferences.MIN_TABLET_HEIGHT) {
-                params.width = (3 * metrics.widthPixels) / 5;
-            } else if ((metrics.widthPixels / metrics.density) >= ActivityPreferences.MIN_TABLET_WIDTH) {
-                params.width = (4 * metrics.widthPixels) / 5;
-            }
-            getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
-        }
 
         tagData = getIntent().getParcelableExtra(TagViewFragment.EXTRA_TAG_DATA);
         if (tagData == null) {
@@ -98,35 +67,7 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
         setUpSettingsPage();
     }
 
-    private void setupForDialogOrFullscreen() {
-        isDialog = preferences.useTabletLayout();
-        if (isDialog) {
-            preferences.applyDialogTheme();
-            if (AndroidUtilities.getSdkVersion() < 14) {
-                requestWindowFeature(Window.FEATURE_NO_TITLE);
-            }
-        } else {
-            preferences.applyTheme();
-        }
-    }
-
     protected void setUpSettingsPage() {
-        if (isDialog) {
-            findViewById(R.id.save_and_cancel).setVisibility(View.VISIBLE);
-            findViewById(R.id.cancel).setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            });
-            findViewById(R.id.save).setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    saveSettings();
-                }
-            });
-        }
-
         tagName = (EditText) findViewById(R.id.tag_name);
 
         refreshSettingsPage();
@@ -184,7 +125,7 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
 
     @Override
     public void finish() {
-        finishWithAnimation(!isDialog);
+        finishWithAnimation(true);
     }
 
     private void finishWithAnimation(boolean backAnimation) {
@@ -214,15 +155,7 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuItem item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard_changes);
-        item.setIcon(resourceResolver.getResource(R.attr.ic_action_cancel));
-        setShowAsAction(item, MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
-        if (isDialog) {
-            item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
-            item.setIcon(resourceResolver.getResource(R.attr.ic_action_save));
-            setShowAsAction(item, MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        }
+        getMenuInflater().inflate(R.menu.tag_settings_activity, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -238,10 +171,10 @@ public class TagSettingsActivity extends InjectingActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-        case MENU_DISCARD_ID:
+        case R.id.menu_discard:
             finish();
             break;
-        case MENU_SAVE_ID:
+        case R.id.menu_save:
             saveSettings();
             break;
         case android.R.id.home:

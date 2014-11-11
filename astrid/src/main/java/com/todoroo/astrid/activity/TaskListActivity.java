@@ -12,10 +12,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.util.TypedValue;
 import android.view.KeyEvent;
@@ -24,7 +22,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.FrameLayout;
 
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -49,24 +46,21 @@ import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 
-import net.simonvt.menudrawer.MenuDrawer;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.ui.NavigationDrawerFragment;
 
 import javax.inject.Inject;
 
-public class TaskListActivity extends AstridActivity implements OnPageChangeListener {
+import static org.tasks.ui.NavigationDrawerFragment.OnFilterItemClickedListener;
 
-    private static final Logger log = LoggerFactory.getLogger(TaskListActivity.class);
+public class TaskListActivity extends AstridActivity implements OnPageChangeListener, OnFilterItemClickedListener {
 
     @Inject TagDataDao tagDataDao;
     @Inject ActivityPreferences preferences;
     @Inject GtasksPreferenceService gtasksPreferenceService;
 
-    MenuDrawer menuDrawer;
+    private NavigationDrawerFragment navigationDrawer;
 
     /** token for indicating source of TLA launch */
     public static final String TOKEN_SOURCE = "source"; //$NON-NLS-1$
@@ -97,15 +91,11 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setLogo(null);
 
-        menuDrawer = MenuDrawer.attach(this, MenuDrawer.Type.OVERLAY);
-        menuDrawer.setDrawerIndicatorEnabled(true);
-        menuDrawer.setContentView(contentView);
-        // cannot use full screen until next menudrawer release
-        // menuDrawer.setTouchMode(MenuDrawer.TOUCH_MODE_FULLSCREEN);
+        navigationDrawer = getNavigationDrawerFragment();
+        navigationDrawer.setUp((DrawerLayout) findViewById(R.id.drawer_layout));
+
         TypedValue typedValue = new TypedValue();
         getTheme().resolveAttribute(R.attr.ic_drawer, typedValue, true);
-        menuDrawer.setSlideDrawable(typedValue.resourceId);
-        menuDrawer.setHardwareLayerEnabled(true);
 
         initializeFragments();
 
@@ -147,6 +137,11 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         }
     }
 
+    public NavigationDrawerFragment getNavigationDrawerFragment() {
+        return (NavigationDrawerFragment) getSupportFragmentManager()
+                .findFragmentById(NavigationDrawerFragment.FRAGMENT_NAVIGATION_DRAWER);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -156,6 +151,10 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        if (isDrawerOpen()) {
+            return super.onCreateOptionsMenu(menu);
+        }
+
         getMenuInflater().inflate(R.menu.task_list_activity, menu);
         TaskListFragment tlf = getTaskListFragment();
         if(tlf instanceof TagViewFragment) {
@@ -169,7 +168,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         return true;
     }
 
-    protected int getContentView() {
+    private int getContentView() {
         if (preferences.useTabletLayout()) {
             return R.layout.task_list_wrapper_activity_3pane;
         } else {
@@ -189,48 +188,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         } else {
             fragmentLayout = LAYOUT_SINGLE;
         }
-
-        setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0,
-                FilterListFragment.class));
-    }
-
-    protected Fragment setupFragment(String tag, int container, Class<? extends Fragment> cls) {
-        final FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentByTag(tag);
-        if(fragment == null) {
-            try {
-                fragment = cls.newInstance();
-            } catch (InstantiationException | IllegalAccessException e) {
-                log.error(e.getMessage(), e);
-                return null;
-            }
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            if (container == 0) {
-                ft.add(fragment, tag);
-            }
-            else {
-                ft.replace(container, fragment, tag);
-            }
-            ft.commit();
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    fm.executePendingTransactions();
-                }
-            });
-        }
-        return fragment;
-    }
-
-    public void setupPopoverWithFilterList(FilterListFragment fla) {
-        View view = fla.getView();
-        if (view != null) {
-            FrameLayout parent = (FrameLayout) view.getParent();
-            if (parent != null) {
-                parent.removeView(view);
-            }
-            menuDrawer.setMenuView(view);
-        }
     }
 
     @Override
@@ -240,7 +197,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         if (tef != null) {
             onBackPressed();
         }
-        menuDrawer.closeMenu();
 
         return super.onFilterItemClicked(item);
     }
@@ -304,7 +260,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         newTagIntent.putExtra(TagSettingsActivity.TOKEN_AUTOPOPULATE_NAME, thisIntent.getStringExtra(TOKEN_CREATE_NEW_LIST_NAME));
         thisIntent.removeExtra(TOKEN_CREATE_NEW_LIST_MEMBERS);
         thisIntent.removeExtra(TOKEN_CREATE_NEW_LIST_NAME);
-        startActivityForResult(newTagIntent, FilterListFragment.REQUEST_NEW_LIST);
+        startActivityForResult(newTagIntent, NavigationDrawerFragment.REQUEST_NEW_LIST);
     }
 
     /**
@@ -343,23 +299,12 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     public void onPageScrollStateChanged(int state) { /* Nothing */ }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        menuDrawer.closeMenu();
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
     public void onBackPressed() {
         // manage task edit visibility
         View taskeditFragmentContainer = findViewById(R.id.taskedit_fragment_container);
         if(taskeditFragmentContainer != null && taskeditFragmentContainer.getVisibility() == View.VISIBLE) {
             Flags.set(Flags.TLA_DISMISSED_FROM_TASK_EDIT);
             onPostResume();
-        }
-        int drawerState = menuDrawer.getDrawerState();
-        if(drawerState == MenuDrawer.STATE_OPEN || drawerState == MenuDrawer.STATE_OPENING) {
-            menuDrawer.closeMenu();
-            return;
         }
         super.onBackPressed();
     }
@@ -372,7 +317,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if ((requestCode == FilterListFragment.REQUEST_NEW_LIST ||
+        if ((requestCode == NavigationDrawerFragment.REQUEST_NEW_LIST ||
                 requestCode == TaskListFragment.ACTIVITY_REQUEST_NEW_FILTER) &&
                 resultCode == Activity.RESULT_OK) {
             if(data == null) {
@@ -382,9 +327,9 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
             Filter newList = data.getParcelableExtra(TagSettingsActivity.TOKEN_NEW_FILTER);
             if (newList != null) {
                 getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, newList); // Handle in onPostResume()
-                FilterListFragment fla = getFilterListFragment();
-                if (fla != null) {
-                    fla.clear();
+                NavigationDrawerFragment navigationDrawer = getNavigationDrawerFragment();
+                if (navigationDrawer != null) {
+                    navigationDrawer.clear();
                 }
             }
         } else if (requestCode == TaskListFragment.ACTIVITY_EDIT_TASK && resultCode != Activity.RESULT_CANCELED) {
@@ -403,14 +348,14 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 }
                 tlf.refresh();
             }
-        } else if (requestCode == FilterListFragment.REQUEST_CUSTOM_INTENT && resultCode == RESULT_OK && data != null) {
+        } else if (requestCode == NavigationDrawerFragment.REQUEST_CUSTOM_INTENT && resultCode == RESULT_OK && data != null) {
             // Tag renamed or deleted
             String action = data.getAction();
             String uuid = data.getStringExtra(TagViewFragment.EXTRA_TAG_UUID);
 
             if (AstridApiConstants.BROADCAST_EVENT_TAG_DELETED.equals(action)) {
                 TaskListFragment tlf = getTaskListFragment();
-                FilterListFragment fl = getFilterListFragment();
+                NavigationDrawerFragment navigationDrawer = getNavigationDrawerFragment();
                 if (tlf != null) {
                     TagData tagData = tlf.getActiveTagData();
                     String activeUuid = RemoteModel.NO_UUID;
@@ -420,14 +365,14 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
 
                     if (activeUuid.equals(uuid)) {
                         getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, CoreFilterExposer.buildInboxFilter(getResources())); // Handle in onPostResume()
-                        fl.clear(); // Should auto refresh
+                        navigationDrawer.clear(); // Should auto refresh
                     } else {
                         tlf.refresh();
                     }
                 }
 
-                if (fl != null) {
-                    fl.refresh();
+                if (navigationDrawer != null) {
+                    navigationDrawer.refresh();
                 }
             } else if (AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED.equals(action)) {
                 TaskListFragment tlf = getTaskListFragment();
@@ -444,9 +389,9 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                     }
                 }
 
-                FilterListFragment flf = getFilterListFragment();
-                if (flf != null) {
-                    flf.refresh();
+                NavigationDrawerFragment navigationDrawer = getNavigationDrawerFragment();
+                if (navigationDrawer != null) {
+                    navigationDrawer.refresh();
                 }
             }
         }
@@ -459,12 +404,12 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     }
 
     private void tagsChanged(boolean onActivityResult) {
-        FilterListFragment flf = getFilterListFragment();
-        if (flf != null) {
+        NavigationDrawerFragment navigationDrawer = getNavigationDrawerFragment();
+        if (navigationDrawer != null) {
             if (onActivityResult) {
-                flf.clear();
+                navigationDrawer.clear();
             } else {
-                flf.refresh();
+                navigationDrawer.refresh();
             }
         }
     }
@@ -477,9 +422,9 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     }
 
     public void refreshFilterCount() {
-        FilterListFragment flf = getFilterListFragment();
-        if (flf != null) {
-            flf.adapter.refreshFilterCount();
+        NavigationDrawerFragment navigationDrawer = getNavigationDrawerFragment();
+        if (navigationDrawer != null) {
+            navigationDrawer.refreshFilterCount();
         }
     }
 
@@ -506,14 +451,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     public boolean onOptionsItemSelected(MenuItem item) {
         TaskListFragment tlf = getTaskListFragment();
         switch(item.getItemId()) {
-            case android.R.id.home:
-                if(menuDrawer.getDrawerState() != MenuDrawer.STATE_CLOSED) {
-                    menuDrawer.closeMenu();
-                } else {
-                    menuDrawer.openMenu();
-                }
-                hideKeyboard();
-                return true;
             case R.id.menu_settings:
                 tlf.showSettings();
                 return true;
@@ -533,7 +470,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 startActivityForResult(intent, TaskListFragment.ACTIVITY_REQUEST_NEW_FILTER);
                 return true;
             case R.id.menu_new_list:
-                startActivityForResult(newTagDialog(), FilterListFragment.REQUEST_NEW_LIST);
+                startActivityForResult(newTagDialog(), NavigationDrawerFragment.REQUEST_NEW_LIST);
                 if (!preferences.useTabletLayout()) {
                     AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_left_in, R.anim.slide_left_out);
                 }
@@ -543,14 +480,14 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 Intent ret = new Intent(this, DeleteTagActivity.class);
                 ret.putExtra("tag", deleteTag.getName());
                 ret.putExtra(TagViewFragment.EXTRA_TAG_UUID, deleteTag.getUuid());
-                startActivityForResult(ret, FilterListFragment.REQUEST_CUSTOM_INTENT);
+                startActivityForResult(ret, NavigationDrawerFragment.REQUEST_CUSTOM_INTENT);
                 return true;
             case R.id.menu_rename_list:
                 TagData renameTag = tlf.getActiveTagData();
                 Intent rename = new Intent(this, RenameTagActivity.class);
                 rename.putExtra("tag", renameTag.getName());
                 rename.putExtra(TagViewFragment.EXTRA_TAG_UUID, renameTag.getUuid());
-                startActivityForResult(rename, FilterListFragment.REQUEST_CUSTOM_INTENT);
+                startActivityForResult(rename, NavigationDrawerFragment.REQUEST_CUSTOM_INTENT);
                 return true;
             case R.id.menu_support:
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://abaker.github.io/tasks/")));
@@ -560,7 +497,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         }
     }
 
-    private void hideKeyboard() {
+    public void hideKeyboard() {
         TaskListFragment tlf = getTaskListFragment();
         if (tlf == null)
             return;
@@ -580,5 +517,9 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
             }
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    public boolean isDrawerOpen() {
+        return navigationDrawer.isDrawerOpen();
     }
 }

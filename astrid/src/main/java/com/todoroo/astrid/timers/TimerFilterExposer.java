@@ -13,7 +13,6 @@ import android.content.res.Resources;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
-import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
@@ -29,7 +28,7 @@ import org.tasks.injection.Injector;
 import javax.inject.Inject;
 
 /**
- * Exposes "working on" filter to the {@link FilterListFragment}
+ * Exposes "working on" filter to the NavigationDrawerFragment
  *
  * @author Tim Su <tim@todoroo.com>
  *
