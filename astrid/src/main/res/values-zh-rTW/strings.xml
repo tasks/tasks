@@ -9,7 +9,6 @@
 	<string name="actfm_picture_gallery">從圖庫選擇</string>
 	<string name="actfm_picture_clear">清除圖片</string>
 	<string name="TVA_add_comment">添加評論</string>
-	<string name="actfm_TVA_menu_refresh">重新整理</string>
 	<string name="actfm_TVA_tag_label">列表名稱：</string>
 	<string name="actfm_TVA_tag_name_hint">添加列表名稱</string>
 	<string name="actfm_GAA_title">選擇您要使用的Google帳戶：</string>
@@ -56,7 +55,6 @@
 	<string name="WID_dateButtonUnset">點選</string>
 	<string name="TLA_no_items">無工作!</string>
 	<string name="TLA_menu_sort">排序</string>
-	<string name="TLA_menu_sync">立即同步</string>
 	<string name="TLA_menu_search">搜索</string>
 	<string name="TLA_menu_settings">設定</string>
 	<string name="TLA_custom">自訂</string>

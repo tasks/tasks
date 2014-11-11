@@ -82,8 +82,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         super.onCreate(savedInstanceState);
         preferences.applyTheme();
 
-        supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-
         int contentView = getContentView();
         setContentView(contentView);
 
@@ -146,7 +144,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     protected void onResume() {
         super.onResume();
 
-        setSupportProgressBarIndeterminateVisibility(gtasksPreferenceService.isOngoing());
+        getTaskListFragment().setSyncOngoing(gtasksPreferenceService.isOngoing());
     }
 
     @Override
@@ -161,7 +159,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
             menu.findItem(R.id.menu_delete_list).setVisible(true);
             menu.findItem(R.id.menu_rename_list).setVisible(true);
         } else if(tlf instanceof GtasksListFragment) {
-            menu.findItem(R.id.menu_sync).setTitle(R.string.actfm_TVA_menu_refresh);
             menu.findItem(R.id.menu_clear_completed).setVisible(true);
             menu.findItem(R.id.menu_sort).setVisible(false);
         }
@@ -461,9 +458,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 AlertDialog dialog = SortSelectionActivity.createDialog(
                         this, tlf.hasDraggableOption(), tlf, tlf.getSortFlags(), tlf.getSort());
                 dialog.show();
-                return true;
-            case R.id.menu_sync:
-                tlf.syncActionHelper.performSyncAction();
                 return true;
             case R.id.menu_new_filter:
                 Intent intent = new Intent(this, CustomFilterActivity.class);

@@ -9,7 +9,6 @@
 	<string name="actfm_picture_gallery">ギャラリーから選択</string>
 	<string name="actfm_picture_clear">写真を削除</string>
 	<string name="TVA_add_comment">コメントする</string>
-	<string name="actfm_TVA_menu_refresh">更新</string>
 	<string name="actfm_TVA_tag_label">リスト</string>
 	<string name="actfm_TVA_tag_name_hint">リスト名を記入してください</string>
 	<string name="actfm_GAA_title">使用したいGoogleアカウントを選択してください:</string>
@@ -55,7 +54,6 @@
 	<string name="WID_dateButtonUnset">入力する</string>
 	<string name="TLA_no_items">タスクなし</string>
 	<string name="TLA_menu_sort">ソート</string>
-	<string name="TLA_menu_sync">いますぐ同期</string>
 	<string name="TLA_menu_search">検索</string>
 	<string name="TLA_menu_settings">設定</string>
 	<string name="TLA_custom">カスタムフィルタ</string>

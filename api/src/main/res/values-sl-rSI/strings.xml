@@ -21,7 +21,6 @@
 	<string name="DLG_error">Ups, zdi se, da je prišlo do napake! Tole se je zgodilo:\n\n%s</string>
 	<string name="DLG_wait">Prosimo, počakajte...</string>
 	<string name="SyP_label">Uskladitev &amp; varnostna kopija</string>
-	<string name="Sync_now_label">Začni z usklajevanjem</string>
 	<string name="SyP_summary">Google Naloge, shranjeni podatki, varnostna kopija na napravi</string>
 	<string name="sync_status_loggedout">Niste prijavljeni</string>
 	<string name="sync_status_ongoing">Usklajevanje poteka...</string>

@@ -21,7 +21,6 @@
 	<string name="DLG_error">אוּפְּס, נראה שארעה שגיאה! הנה מה שקה:\n\n%s</string>
 	<string name="DLG_wait">אנא המתן...</string>
 	<string name="SyP_label">סינכרון וגיבוי</string>
-	<string name="Sync_now_label">סנכרני כעת</string>
 	<string name="SyP_summary">אתר אסטריד, ״משימות גוגל״, מידע שמור, גיבוי מקומי</string>
 	<string name="sync_SPr_group_status">מצב</string>
 	<string name="sync_SPr_status_subtitle">מצב: %s</string>

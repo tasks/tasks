@@ -9,7 +9,6 @@
 	<string name="actfm_picture_gallery">Izberi iz Galerije</string>
 	<string name="actfm_picture_clear">Zbriši fotografijo</string>
 	<string name="TVA_add_comment">Dodaj komentar...</string>
-	<string name="actfm_TVA_menu_refresh">Osveži</string>
 	<string name="actfm_TVA_tag_label">Seznam</string>
 	<string name="actfm_TVA_tag_name_hint">Vnesi ime seznama</string>
 	<string name="actfm_GAA_title">Izberite želeni Google račun:</string>
@@ -58,7 +57,6 @@
 	<string name="WID_dateButtonUnset">Klikni za nastavitev</string>
 	<string name="TLA_no_items">Nimate zabeleženih opravkov!\n Dodava kakega?</string>
 	<string name="TLA_menu_sort">Razvrsti</string>
-	<string name="TLA_menu_sync">Začni z usklajevanjem</string>
 	<string name="TLA_menu_search">Iskanje</string>
 	<string name="TLA_menu_settings">Nastavitve</string>
 	<string name="TLA_custom">Po meri</string>

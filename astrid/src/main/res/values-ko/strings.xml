@@ -9,7 +9,6 @@
 	<string name="actfm_picture_gallery">갤러리에서 가져오기</string>
 	<string name="actfm_picture_clear">사진 제거하기</string>
 	<string name="TVA_add_comment">댓글 쓰기...</string>
-	<string name="actfm_TVA_menu_refresh">새로고침</string>
 	<string name="actfm_TVA_tag_label">목록</string>
 	<string name="actfm_TVA_tag_name_hint">목록 이름을 입력하세요</string>
 	<string name="actfm_GAA_title">사용하려는 구글 계정을 선택해 주십시오:</string>
@@ -59,7 +58,6 @@
 	<string name="WID_dateButtonUnset">누르세요</string>
 	<string name="TLA_no_items">일정이 없네요!\n추가할까요?</string>
 	<string name="TLA_menu_sort">정렬</string>
-	<string name="TLA_menu_sync">지금 동기화</string>
 	<string name="TLA_menu_search">검색</string>
 	<string name="TLA_menu_settings">설정</string>
 	<string name="TLA_custom">사용자 설정</string>

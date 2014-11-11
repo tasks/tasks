@@ -9,7 +9,6 @@
 	<string name="actfm_picture_gallery">בחר מגלריה</string>
 	<string name="actfm_picture_clear">הסר תמונה</string>
 	<string name="TVA_add_comment">הוסף הערה</string>
-	<string name="actfm_TVA_menu_refresh">רַעְנֵן</string>
 	<string name="actfm_TVA_tag_label">רשימה</string>
 	<string name="actfm_TVA_tag_name_hint">הכנס שם רשימה</string>
 	<string name="actfm_GAA_title">בחר חשבון גוגל</string>
@@ -56,7 +55,6 @@
 	<string name="WID_dateButtonUnset">הקלק כדי לקבוע</string>
 	<string name="TLA_no_items">אין לך משימות!\n הֲתִּרְצֶה להוסיף משימה?</string>
 	<string name="TLA_menu_sort">מיון</string>
-	<string name="TLA_menu_sync">סנכרני כעת</string>
 	<string name="TLA_menu_search">חיפוש</string>
 	<string name="TLA_menu_settings">הגדרות</string>
 	<string name="TLA_custom">מותאם אישית</string>

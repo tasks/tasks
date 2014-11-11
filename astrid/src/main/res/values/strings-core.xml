@@ -57,9 +57,6 @@
   <!-- Menu: Adjust Sort and Hidden Task Settings -->
   <string name="TLA_menu_sort">Sort</string>
   
-  <!-- Menu: Sync Now -->    
-  <string name="TLA_menu_sync">Sync Now</string>
-  
   <!-- Menu: Search -->
   <string name="TLA_menu_search">Search</string>
   

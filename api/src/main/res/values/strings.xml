@@ -50,9 +50,6 @@
   <!-- Sync Label: used in menu to denote synchronization -->
   <string name="SyP_label">Sync &amp; backup</string>  
 
-  <!-- Sync Label: used in menu to denote synchronization -->
-  <string name="Sync_now_label">Sync now</string>  
-
   <!-- Sync label subtitle -->
   <string name="SyP_summary">Google Tasks, saved data, local backup</string>  
 

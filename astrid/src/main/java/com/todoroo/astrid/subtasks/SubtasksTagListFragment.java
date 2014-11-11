@@ -6,6 +6,7 @@
 package com.todoroo.astrid.subtasks;
 
 import android.app.Activity;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -107,6 +108,7 @@ public class SubtasksTagListFragment extends TagViewFragment {
     protected void refresh() {
         initializeTaskListMetadata();
         setUpTaskList();
+        setSyncOngoing(false);
     }
 
 }

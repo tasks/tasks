@@ -9,7 +9,6 @@
 	<string name="actfm_picture_gallery">Välj från galleri</string>
 	<string name="actfm_picture_clear">Rensa bild</string>
 	<string name="TVA_add_comment">Lägg till en kommentar...</string>
-	<string name="actfm_TVA_menu_refresh">Uppdatera</string>
 	<string name="actfm_TVA_tag_label">Lista</string>
 	<string name="actfm_TVA_tag_name_hint">Ange listnamn</string>
 	<string name="actfm_GAA_title">Välj vilket Googlekonto du vill använda:</string>
@@ -51,7 +50,6 @@
 	<string name="WID_dateButtonUnset">Klicka för att ställa</string>
 	<string name="TLA_no_items">Du har inga uppgifter!\n Vill du lägga till någonting?</string>
 	<string name="TLA_menu_sort">Sortera</string>
-	<string name="TLA_menu_sync">Synkronisera nu</string>
 	<string name="TLA_menu_search">Sök</string>
 	<string name="TLA_menu_settings">Inställningar</string>
 	<string name="TLA_custom">Egendefinierad</string>

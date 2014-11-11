@@ -21,7 +21,6 @@
 	<string name="DLG_error">На жаль, схоже, сталася помилка! Ось що вийшло:\n\n%s</string>
 	<string name="DLG_wait">Будь ласка, зачекайте...</string>
 	<string name="SyP_label">Синхронізація і резерв. копіювання</string>
-	<string name="Sync_now_label">Синхронізувати</string>
 	<string name="SyP_summary">Google Tasks, збережені дані, локальне резервне копіювання</string>
 	<string name="sync_SPr_group_status">Статус</string>
 	<string name="sync_SPr_status_subtitle">Статус: %s</string>

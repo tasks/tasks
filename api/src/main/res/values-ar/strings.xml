@@ -16,7 +16,6 @@
 	<string name="DLG_close">إغلاق</string>
 	<string name="DLG_wait">إنتظر من فضلك...</string>
 	<string name="SyP_label">تحيين و نسخ احتياطي</string>
-	<string name="Sync_now_label">مزامنة فورية</string>
 	<string name="sync_SPr_group_status">الحالة</string>
 	<string name="sync_SPr_status_subtitle">الحالة: %s</string>
 	<string name="sync_status_loggedout">لم يتم تسجيل الدخول</string>

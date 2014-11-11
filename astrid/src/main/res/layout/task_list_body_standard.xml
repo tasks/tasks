@@ -1,31 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_weight="100">
-        
-    <!-- No Tasks label -->
-	<TextView android:id="@android:id/empty"
-	    android:drawableTop="@drawable/icon"
-	    android:layout_width="wrap_content" 
-	    android:layout_height="wrap_content"
-	    android:layout_gravity="center"
-	    android:gravity="center"
-	    android:visibility="gone"
-	    android:clickable="true"
-        android:text="@string/TLA_no_items"
-	    style="@style/TextAppearance.TLA_NoItems"/>
-    
-    <!-- Task List -->
-    <ListView android:id="@android:id/list"
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_layout"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        style="@style/ListView" />
-    
-    
-</FrameLayout>
+        android:layout_height="wrap_content">
+
+        <ListView
+            android:id="@android:id/list"
+            style="@style/ListView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_layout_empty"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/empty_text"
+                style="@style/TextAppearance.TLA_NoItems"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:drawableTop="@drawable/icon"
+                android:gravity="center"
+                android:text="@string/TLA_no_items" />
+        </ScrollView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</RelativeLayout>

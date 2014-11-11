@@ -21,7 +21,6 @@
 	<string name="DLG_error">¡Uy, parece que ocurró un error! Esto es lo que pasó:\n\n%s</string>
 	<string name="DLG_wait">Por favor, espere...</string>
 	<string name="SyP_label">Sincronización y copia de seguridad</string>
-	<string name="Sync_now_label">Sincronizar ahora</string>
 	<string name="SyP_summary">Google Tasks, información guardada, copia de seguridad local</string>
 	<string name="sync_SPr_group_status">Estado</string>
 	<string name="sync_SPr_status_subtitle">Estado: %s</string>

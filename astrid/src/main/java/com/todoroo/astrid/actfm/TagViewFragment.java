@@ -197,6 +197,7 @@ public class TagViewFragment extends TaskListFragment {
     @Override
     protected void refresh() {
         loadTaskListContent();
-        ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
+        ((TextView) emptyView.findViewById(R.id.empty_text)).setText(R.string.TLA_no_items);
+        setSyncOngoing(false);
     }
 }

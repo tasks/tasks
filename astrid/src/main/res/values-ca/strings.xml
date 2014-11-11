@@ -9,7 +9,6 @@
 	<string name="actfm_picture_gallery">Tria una imatge de la galeria</string>
 	<string name="actfm_picture_clear">Neteja la selecció d\'imatge</string>
 	<string name="TVA_add_comment">Afegiu un comentari...</string>
-	<string name="actfm_TVA_menu_refresh">Actualitza</string>
 	<string name="actfm_TVA_tag_label">Llista</string>
 	<string name="actfm_TVA_tag_name_hint">Escriviu el nom de la llista</string>
 	<string name="actfm_GAA_title">Trieu el compte de Google que vulgueu utilitzar:</string>
@@ -54,7 +53,6 @@
 	<string name="WID_dateButtonUnset">Prem per establir</string>
 	<string name="TLA_no_items">No teniu tasques! \n Voleu afegir alguna cosa?</string>
 	<string name="TLA_menu_sort">Ordenació i subtasques</string>
-	<string name="TLA_menu_sync">Sincronitza ara</string>
 	<string name="TLA_menu_search">Cerca</string>
 	<string name="TLA_menu_settings">Paràmetres</string>
 	<string name="TLA_custom">Personalitzat</string>

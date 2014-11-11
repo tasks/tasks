@@ -12,7 +12,6 @@
 	<string name="WID_dateButtonUnset">اضغط لتعيين</string>
 	<string name="TLA_no_items">لا يوجد لديك مهام! \n هل تريد أن تضيف شيئا؟</string>
 	<string name="TLA_menu_sort">رتب</string>
-	<string name="TLA_menu_sync">المزامنة الآن</string>
 	<string name="TLA_menu_search">ابحث</string>
 	<string name="TAd_actionEditTask">تعديل</string>
 	<string name="TAd_contextDeleteTask">حذف المهمة</string>

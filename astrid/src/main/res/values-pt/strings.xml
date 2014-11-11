@@ -9,7 +9,6 @@
 	<string name="actfm_picture_gallery">Escolher da galeria</string>
 	<string name="actfm_picture_clear">Limpar imagem</string>
 	<string name="TVA_add_comment">Adicionar um comentário...</string>
-	<string name="actfm_TVA_menu_refresh">Recarregar</string>
 	<string name="actfm_TVA_tag_label">Lista</string>
 	<string name="actfm_TVA_tag_name_hint">Escreva o nome da lista</string>
 	<string name="actfm_GAA_title">Escolha a conta Google a utilizar:</string>
@@ -56,7 +55,6 @@
 	<string name="WID_dateButtonUnset">Clique para definir</string>
 	<string name="TLA_no_items">Não existem tarefas!\nQuer adicionar uma?</string>
 	<string name="TLA_menu_sort">Ordenação</string>
-	<string name="TLA_menu_sync">Sincronizar agora</string>
 	<string name="TLA_menu_search">Procura</string>
 	<string name="TLA_menu_settings">Definições</string>
 	<string name="TLA_custom">Personalizado</string>

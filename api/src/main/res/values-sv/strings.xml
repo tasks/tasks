@@ -20,7 +20,6 @@
 	<string name="DLG_error">Oj, det uppstod ett fel! Detta hände:\n\n%s</string>
 	<string name="DLG_wait">Var god vänta...</string>
 	<string name="SyP_label">Synkronisering</string>
-	<string name="Sync_now_label">Synkronisera nu</string>
 	<string name="SyP_summary">Google Aktiviteter, sparad data, lokal backup</string>
 	<string name="sync_status_loggedout">Ej inloggad</string>
 	<string name="sync_status_ongoing">Synkronisering pågår...</string>

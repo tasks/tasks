@@ -23,10 +23,6 @@
         android:title="@string/TLA_menu_sort"
         tasks:showAsAction="never" />
     <item
-        android:id="@+id/menu_sync"
-        android:title="@string/TLA_menu_sync"
-        tasks:showAsAction="never" />
-    <item
         android:id="@+id/menu_clear_completed"
         android:title="@string/gtasks_GTA_clear_completed"
         android:visible="false"

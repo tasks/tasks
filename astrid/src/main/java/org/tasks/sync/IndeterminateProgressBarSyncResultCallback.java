@@ -22,23 +22,6 @@ public class IndeterminateProgressBarSyncResultCallback extends RecordSyncStatus
     }
 
     @Override
-    public void started() {
-        super.started();
-
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    activity.setProgressBarIndeterminateVisibility(true);
-                } catch (IllegalStateException e) {
-                    log.error(e.getMessage(), e);
-                }
-            }
-        });
-
-    }
-
-    @Override
     public void finished() {
         super.finished();
 
@@ -46,7 +29,6 @@ public class IndeterminateProgressBarSyncResultCallback extends RecordSyncStatus
             @Override
             public void run() {
                 try {
-                    activity.setProgressBarIndeterminateVisibility(false);
                     onFinished.run();
                 } catch (IllegalStateException e) {
                     log.error(e.getMessage(), e);

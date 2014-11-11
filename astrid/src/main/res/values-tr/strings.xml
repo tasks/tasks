@@ -9,7 +9,6 @@
 	<string name="actfm_picture_gallery">Galeriden Seç</string>
 	<string name="actfm_picture_clear">Resmi sil</string>
 	<string name="TVA_add_comment">Yorum Gir</string>
-	<string name="actfm_TVA_menu_refresh">Yenile</string>
 	<string name="actfm_TVA_tag_label">Liste İsmi:</string>
 	<string name="actfm_TVA_tag_name_hint">Liste adı girin</string>
 	<string name="actfm_GAA_title">Kullanmak istediğiniz Google hesabını seçin:</string>
@@ -52,7 +51,6 @@
 	<string name="DLG_undo">Geri al</string>
 	<string name="WID_dateButtonUnset">Ayar İçin Dokun</string>
 	<string name="TLA_no_items">Hiç göreviniz yok! \n Bir şeyler eklemek nasıl olur?</string>
-	<string name="TLA_menu_sync">Şimdi Eşle</string>
 	<string name="TLA_menu_search">Ara</string>
 	<string name="TLA_menu_settings">Ayarlar</string>
 	<string name="TLA_custom">Özel</string>

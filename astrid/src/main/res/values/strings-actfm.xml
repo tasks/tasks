@@ -17,9 +17,6 @@
   <!-- Tag View Activity: Add Comment hint -->    
   <string name="TVA_add_comment">Add a comment...</string>
 
-  <!-- Tag View Menu: refresh -->
-  <string name="actfm_TVA_menu_refresh">Refresh</string>
-
   <!-- Tag Settings: tag name label -->
   <string name="actfm_TVA_tag_label">List</string>
 

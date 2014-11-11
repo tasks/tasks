@@ -10,6 +10,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,7 +97,7 @@ public class GtasksListFragment extends TaskListFragment {
     }
 
     private void refreshData(final boolean manual) {
-        ((TextView)getView().findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
+        ((TextView) emptyView.findViewById(R.id.empty_text)).setText(R.string.DLG_loading);
 
         syncService.synchronizeList(list, new IndeterminateProgressBarSyncResultCallback(gtasksPreferenceService, getActivity(), new Runnable() {
             @Override
@@ -106,7 +107,7 @@ public class GtasksListFragment extends TaskListFragment {
                 } else {
                     refresh();
                 }
-                ((TextView)getView().findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
+                ((TextView)emptyView.findViewById(R.id.empty_text)).setText(R.string.TLA_no_items);
             }
         }));
     }
@@ -119,9 +120,6 @@ public class GtasksListFragment extends TaskListFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.menu_sync:
-                refreshData(true);
-                return true;
             case R.id.menu_clear_completed:
                 clearCompletedTasks();
                 return true;
@@ -243,5 +241,6 @@ public class GtasksListFragment extends TaskListFragment {
     protected void refresh() {
         initializeTaskListMetadata();
         setUpTaskList();
+        setSyncOngoing(false);
     }
 }

@@ -9,7 +9,6 @@
 	<string name="actfm_picture_gallery">Взять из галереи</string>
 	<string name="actfm_picture_clear">Убрать изображение</string>
 	<string name="TVA_add_comment">Добавить комментарий...</string>
-	<string name="actfm_TVA_menu_refresh">Обновить</string>
 	<string name="actfm_TVA_tag_label">Список</string>
 	<string name="actfm_TVA_tag_name_hint">Введите имя списка</string>
 	<string name="actfm_GAA_title">Выберите аккаунт Google, который вы хотите использовать:</string>
@@ -56,7 +55,6 @@
 	<string name="WID_dateButtonUnset">Нажмите для установки</string>
 	<string name="TLA_no_items">Нет задач! \n Добавить?</string>
 	<string name="TLA_menu_sort">Сортировка</string>
-	<string name="TLA_menu_sync">Синхронизация</string>
 	<string name="TLA_menu_search">Поиск</string>
 	<string name="TLA_menu_settings">Настройки</string>
 	<string name="TLA_custom">Другой</string>

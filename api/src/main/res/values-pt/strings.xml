@@ -21,7 +21,6 @@
 	<string name="DLG_error">Parece que ocorreu um erro! Isto foi o que aconteceu:\n\n%s</string>
 	<string name="DLG_wait">Por favor aguarde...</string>
 	<string name="SyP_label">Sincronização e backup</string>
-	<string name="Sync_now_label">Sincronizar agora</string>
 	<string name="SyP_summary">Tarefas Google, dados e backups</string>
 	<string name="sync_SPr_group_status">Estado</string>
 	<string name="sync_SPr_status_subtitle">Estado: %s</string>

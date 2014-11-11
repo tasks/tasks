@@ -17,6 +17,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -97,7 +98,7 @@ import javax.inject.Inject;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TaskListFragment extends InjectingListFragment implements OnSortSelectedListener {
+public class TaskListFragment extends InjectingListFragment implements OnSortSelectedListener, SwipeRefreshLayout.OnRefreshListener {
 
     private static final Logger log = LoggerFactory.getLogger(TaskListFragment.class);
 
@@ -161,6 +162,9 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     protected OnTaskListItemClickedListener mListener;
     private boolean mDualFragments = false;
 
+    protected SwipeRefreshLayout listView;
+    protected SwipeRefreshLayout emptyView;
+
     /*
      * ======================================================================
      * ======================================================= initialization
@@ -205,6 +209,18 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         args.putBundle(TOKEN_EXTRAS, extras);
         newFragment.setArguments(args);
         return newFragment;
+    }
+
+    @Override
+    public void onRefresh() {
+        if (!syncActionHelper.performSyncAction()) {
+            refresh();
+        }
+    }
+
+    public void setSyncOngoing(boolean ongoing) {
+        listView.setRefreshing(ongoing);
+        emptyView.setRefreshing(ongoing);
     }
 
     /**
@@ -260,9 +276,23 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
             Bundle savedInstanceState) {
         ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(
                 R.layout.task_list_activity, container, false);
-        parent.addView(getListBody(parent), 0);
-
+        View body = getListBody(parent);
+        listView = (SwipeRefreshLayout) body.findViewById(R.id.swipe_layout);
+        emptyView = (SwipeRefreshLayout) body.findViewById(R.id.swipe_layout_empty);
+        setupRefresh(listView);
+        setupRefresh(emptyView);
+        ((ListView) listView.findViewById(android.R.id.list)).setEmptyView(emptyView);
+        parent.addView(body, 0);
         return parent;
+    }
+
+    private void setupRefresh(SwipeRefreshLayout layout) {
+        layout.setOnRefreshListener(this);
+        layout.setColorScheme(
+                R.color.refresh_color_1,
+                R.color.refresh_color_2,
+                R.color.refresh_color_3,
+                R.color.refresh_color_4);
     }
 
     @Override
@@ -271,7 +301,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         // We have a menu item to show in action bar.
         resources = getResources();
         setHasOptionsMenu(true);
-        syncActionHelper = new SyncActionHelper(gtasksPreferenceService, syncService, getActivity(), preferences, this);
+        syncActionHelper = new SyncActionHelper(gtasksPreferenceService, syncService, getActivity(), preferences);
         setUpUiComponents();
         initializeData();
         setupQuickAddBar();
@@ -422,19 +452,19 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         quickAddBar = (QuickAddBar) getView().findViewById(R.id.taskListFooter);
         quickAddBar.initialize(injector, (AstridActivity) getActivity(), this, mListener);
 
+        // set listener for astrid icon
+        emptyView.findViewById(R.id.empty_text).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quickAddBar.performButtonClick();
+            }
+        });
+
         getListView().setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 quickAddBar.clearFocus();
                 return false;
-            }
-        });
-
-        // set listener for astrid icon
-        getView().findViewById(android.R.id.empty).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                quickAddBar.performButtonClick();
             }
         });
     }
@@ -592,6 +622,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         }
         taskDeleter.deleteTasksWithEmptyTitles();
         loadTaskListContent();
+        setSyncOngoing(false);
     }
 
     @Override
