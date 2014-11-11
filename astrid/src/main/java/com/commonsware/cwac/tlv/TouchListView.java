@@ -31,12 +31,11 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-
-import com.todoroo.astrid.ui.ErrorCatchingListView;
+import android.widget.ListView;
 
 import org.tasks.R;
 
-public class TouchListView extends ErrorCatchingListView {
+public class TouchListView extends ListView {
 	private ImageView mDragView;
 	private WindowManager mWindowManager;
 	private WindowManager.LayoutParams mWindowParams;

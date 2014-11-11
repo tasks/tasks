@@ -26,7 +26,7 @@
       android:layout_height="1px"
       android:padding="5dip"
       android:background="@android:drawable/divider_horizontal_dark"/>  
-  <com.todoroo.astrid.ui.ErrorCatchingListView
+  <ListView
       android:id="@+id/existingTags"
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"

@@ -9,7 +9,7 @@
     android:layout_height="fill_parent"
     style="@style/Content">
 
-  <com.todoroo.astrid.ui.ErrorCatchingListView android:id="@android:id/list"
+  <ListView android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"/>
         
