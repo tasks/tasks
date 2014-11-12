@@ -58,6 +58,7 @@ import org.tasks.ui.NavigationDrawerFragment;
 import javax.inject.Inject;
 
 import static com.todoroo.astrid.voice.RecognizerApi.RecognizerApiListener;
+import static com.todoroo.astrid.voice.VoiceRecognizer.voiceInputAvailable;
 import static org.tasks.ui.NavigationDrawerFragment.OnFilterItemClickedListener;
 
 public class TaskListActivity extends AstridActivity implements OnPageChangeListener, OnFilterItemClickedListener, RecognizerApiListener {
@@ -158,6 +159,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
             menu.findItem(R.id.menu_clear_completed).setVisible(true);
             menu.findItem(R.id.menu_sort).setVisible(false);
         }
+        menu.findItem(R.id.menu_voice_add).setVisible(voiceInputAvailable(this));
         final MenuItem item = menu.findItem(R.id.menu_search);
         final SearchView actionView = (SearchView) MenuItemCompat.getActionView(item);
         actionView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -471,6 +473,9 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
             case R.id.menu_settings:
                 tlf.showSettings();
                 return true;
+            case R.id.menu_voice_add:
+                getTaskListFragment().startVoiceRecognition();
+                return true;
             case R.id.menu_sort:
                 AlertDialog dialog = SortSelectionActivity.createDialog(
                         this, tlf.hasDraggableOption(), tlf, tlf.getSortFlags(), tlf.getSort());
@@ -550,7 +555,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         if (tlf != null) {
             QuickAddBar quickAdd = tlf.quickAddBar;
             if (quickAdd != null) {
-                VoiceRecognizer vr = quickAdd.getVoiceRecognizer();
+                VoiceRecognizer vr = getTaskListFragment().getVoiceRecognizer();
                 if (vr != null) {
                     vr.cancel();
                 }

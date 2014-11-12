@@ -6,6 +6,7 @@
 package com.todoroo.astrid.voice;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -56,22 +57,22 @@ public class VoiceRecognizer {
 
     private static VoiceRecognizer instance = null;
 
-    public static VoiceRecognizer instantiateVoiceRecognizer(Context context, RecognizerApiListener listener, ImageButton voiceAddButton) {
+    public static VoiceRecognizer instantiateVoiceRecognizer(Activity activity, RecognizerApiListener listener) {
         synchronized(VoiceRecognizer.class) {
             if (instance == null) {
                 instance = new VoiceRecognizer();
             }
         }
 
-        if (speechRecordingAvailable(context)) {
+        if (speechRecordingAvailable(activity)) {
             if (instance.recognizerApi != null) {
                 instance.recognizerApi.destroy();
             }
 
-            instance.recognizerApi = new RecognizerApi(context);
+            instance.recognizerApi = new RecognizerApi(activity);
             instance.recognizerApi.setListener(listener);
         } else {
-            instance.voiceInputAssistant = new VoiceInputAssistant(voiceAddButton);
+            instance.voiceInputAssistant = new VoiceInputAssistant(activity);
         }
         return instance;
     }

@@ -36,8 +36,6 @@ import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.utility.Flags;
-import com.todoroo.astrid.voice.VoiceRecognizer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +57,6 @@ public class QuickAddBar extends LinearLayout {
 
     private static final Logger log = LoggerFactory.getLogger(QuickAddBar.class);
 
-    private ImageButton voiceAddButton;
     private ImageButton quickAddButton;
     private EditText quickAddBox;
     private LinearLayout quickAddControls;
@@ -74,8 +71,6 @@ public class QuickAddBar extends LinearLayout {
     @Inject GCalHelper gcalHelper;
     @Inject ActivityPreferences preferences;
     @Inject DateChangedAlerts dateChangedAlerts;
-
-    private VoiceRecognizer voiceRecognizer;
 
     private TaskListActivity activity;
     private TaskListFragment fragment;
@@ -165,17 +160,6 @@ public class QuickAddBar extends LinearLayout {
             }
         });
 
-        // prepare and set listener for voice add button
-        voiceAddButton = (ImageButton) findViewById(
-                R.id.voiceAddButton);
-
-        voiceAddButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startVoiceRecognition();
-            }
-        });
-
         // set listener for extended addbutton
         quickAddButton.setOnLongClickListener(new OnLongClickListener() {
             @Override
@@ -190,12 +174,6 @@ public class QuickAddBar extends LinearLayout {
                 return true;
             }
         });
-
-        if (VoiceRecognizer.voiceInputAvailable(activity)) {
-            voiceAddButton.setVisibility(View.VISIBLE);
-        } else {
-            voiceAddButton.setVisibility(View.GONE);
-        }
 
         setUpQuickAddControlSets();
     }
@@ -321,34 +299,10 @@ public class QuickAddBar extends LinearLayout {
     }
 
     public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
-        // handle the result of voice recognition, put it into the textfield
-        if (voiceRecognizer.handleActivityResult(requestCode, resultCode, data, quickAddBox)) {
-            // if user wants, create the task directly (with defaultvalues)
-            // after saying it
-            quickAddTask(quickAddBox.getText().toString(), true);
-
-            // the rest of onActivityResult is totally unrelated to
-            // voicerecognition, so bail out
-            return true;
-        } else if (requestCode == TaskEditFragment.REQUEST_CODE_CONTACT) {
+        if (requestCode == TaskEditFragment.REQUEST_CODE_CONTACT) {
             return true;
         }
 
         return false;
-    }
-
-    public VoiceRecognizer getVoiceRecognizer() {
-        return voiceRecognizer;
-    }
-    public void startVoiceRecognition() {
-        voiceRecognizer.startVoiceRecognition(activity, fragment);
-    }
-
-    public void setupRecognizerApi() {
-        voiceRecognizer = VoiceRecognizer.instantiateVoiceRecognizer(activity, activity, voiceAddButton);
-    }
-
-    public void destroyRecognizerApi() {
-        voiceRecognizer.destroyRecognizerApi();
     }
 }

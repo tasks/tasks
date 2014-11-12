@@ -4,6 +4,11 @@
     xmlns:tasks="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/menu_voice_add"
+        android:title="@string/EPr_voiceInputEnabled_title"
+        android:icon="?attr/ic_action_mic"
+        tasks:showAsAction="ifRoom"/>
+    <item
         android:id="@+id/menu_search"
         android:title="@string/TLA_menu_search"
         android:icon="?attr/ic_action_search"
