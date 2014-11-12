@@ -225,6 +225,8 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
             Filter newList = getIntent().getParcelableExtra(TOKEN_SWITCH_TO_FILTER);
             getIntent().removeExtra(TOKEN_SWITCH_TO_FILTER);
             onFilterItemClicked(newList);
+        } else {
+            navigationDrawer.restoreLastSelected();
         }
 
         if (getIntent().hasExtra(OPEN_TASK)) {

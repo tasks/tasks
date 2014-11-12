@@ -96,9 +96,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
         if (savedInstanceState != null) {
             mCurrentSelectedPosition = savedInstanceState.getInt(TOKEN_LAST_SELECTED);
         }
-
-        // Select either the default item (0) or the last selected item.
-//        selectItem(mCurrentSelectedPosition);
     }
 
     @Override
@@ -438,6 +435,10 @@ public class NavigationDrawerFragment extends InjectingFragment {
         // also load sync actions
         getActivity().registerReceiver(refreshReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+    }
+
+    public void restoreLastSelected() {
+        selectItem(mCurrentSelectedPosition);
     }
 
     /**
