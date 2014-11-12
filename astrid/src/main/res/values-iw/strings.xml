@@ -504,6 +504,7 @@
 	<string name="TEA_timer_comment_spent">זמן שהושקע:</string>
 	<string name="voice_create_prompt">דַּבֵּר כדי ליצור משימה</string>
 	<string name="voice_edit_note_prompt">דַּבֵּר כדי לקבוע את ההערות למשימה</string>
+	<string name="EPr_voiceInputEnabled_title">קלט קולי</string>
 	<string name="EPr_voiceRemindersEnabled_title">תזכורות קוליות</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">אסטריד תאמר את שם המשימה כחלק מהתזכורת</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">אסטריד תשמיע נְעִימוֹן במתן תזכורות למשימות</string>

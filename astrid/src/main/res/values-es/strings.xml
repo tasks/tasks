@@ -509,6 +509,7 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="TEA_timer_comment_spent">Tiempo dedicado:</string>
 	<string name="voice_create_prompt">Hable para crear una tarea</string>
 	<string name="voice_edit_note_prompt">Hable para establecer notas de tarea</string>
+	<string name="EPr_voiceInputEnabled_title">Ingreso por voz</string>
 	<string name="EPr_voiceRemindersEnabled_title">Avisos de voz</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks dirá los nombres de las tareas durante los avisos</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks reproducirá un tono durante los recordatorios</string>

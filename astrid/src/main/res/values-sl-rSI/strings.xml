@@ -509,6 +509,7 @@
 	<string name="TEA_timer_comment_spent">Porabljen čas:</string>
 	<string name="voice_create_prompt">Glasovno ustvari opravek</string>
 	<string name="voice_edit_note_prompt">Govorite za opis opravka</string>
+	<string name="EPr_voiceInputEnabled_title">Vnos glasu</string>
 	<string name="EPr_voiceRemindersEnabled_title">Glasovni opomniki</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Aplikacija Opravki bo med opominjanjem glede opravkov izgovarjala nazive opravkov</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Aplikacija Opravki bo med opominjanjem glede opravkov zvonila.</string>

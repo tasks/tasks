@@ -503,6 +503,7 @@
 	<string name="TEA_timer_comment_spent">Temps passé :</string>
 	<string name="voice_create_prompt">Parlez pour créer une nouvelle tâche</string>
 	<string name="voice_edit_note_prompt">Parlez pour définir les notes de la tâche</string>
+	<string name="EPr_voiceInputEnabled_title">Entrée voix</string>
 	<string name="EPr_voiceRemindersEnabled_title">Rappels vocaux</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks donnera le nom de la tâche</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks sonnera pendant les rappels</string>

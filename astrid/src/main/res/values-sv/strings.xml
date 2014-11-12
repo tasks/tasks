@@ -494,6 +494,7 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="TEA_timer_comment_spent">Nedlagt tid:</string>
 	<string name="voice_create_prompt">Prata för att skapa uppgift</string>
 	<string name="voice_edit_note_prompt">Prata för att sätta uppgiftens anteckningar</string>
+	<string name="EPr_voiceInputEnabled_title">Röstindata</string>
 	<string name="EPr_voiceRemindersEnabled_title">Röstpåminnelser</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks läser upp uppgifterna vid påminnelse</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks kommer att spela en ringsignal vid påminnelse</string>

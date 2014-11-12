@@ -480,6 +480,7 @@
 	<string name="TEA_timer_comment_spent">已經花費時間：</string>
 	<string name="voice_create_prompt">請說話以建立工作</string>
 	<string name="voice_edit_note_prompt">請說話以設定工作備註</string>
+	<string name="EPr_voiceInputEnabled_title">語音輸入</string>
 	<string name="EPr_voiceRemindersEnabled_title">語音提醒</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks在工作提醒時會以語音說出工作名稱</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks在工作提醒時將會播放鈴聲</string>

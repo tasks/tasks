@@ -34,6 +34,7 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.QuickAddBar;
+import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.RecognizerApi.RecognizerApiListener;
 import com.todoroo.astrid.voice.VoiceRecognizer;
 
@@ -59,8 +60,7 @@ import javax.inject.Inject;
  */
 public class AstridActivity extends InjectingActionBarActivity
     implements NavigationDrawerFragment.OnFilterItemClickedListener,
-    TaskListFragment.OnTaskListItemClickedListener,
-    RecognizerApiListener {
+    TaskListFragment.OnTaskListItemClickedListener {
 
     private static final Logger log = LoggerFactory.getLogger(AstridActivity.class);
 
@@ -248,51 +248,6 @@ public class AstridActivity extends InjectingActionBarActivity
             return;
         }
         super.onBackPressed();
-    }
-
-    // Voice recognizer callbacks
-    @Override
-    public void onSpeechResult(String result) {
-        TaskListFragment tlf = getTaskListFragment();
-        if (tlf != null) {
-            EditText box = tlf.quickAddBar.getQuickAddBox();
-            if (box != null) {
-                box.setText(result);
-            }
-        }
-
-    }
-
-    @Override
-    public void onSpeechError(int error) {
-        TaskListFragment tlf = getTaskListFragment();
-        if (tlf != null) {
-            QuickAddBar quickAdd = tlf.quickAddBar;
-            if (quickAdd != null) {
-                VoiceRecognizer vr = quickAdd.getVoiceRecognizer();
-                if (vr != null) {
-                    vr.cancel();
-                }
-            }
-        }
-
-        int errorStr = 0;
-        switch(error) {
-        case SpeechRecognizer.ERROR_NETWORK:
-        case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
-            errorStr = R.string.speech_err_network;
-            break;
-        case SpeechRecognizer.ERROR_NO_MATCH:
-            Toast.makeText(this, R.string.speech_err_no_match, Toast.LENGTH_LONG).show();
-            break;
-        default:
-            errorStr = R.string.speech_err_default;
-            break;
-        }
-
-        if (errorStr > 0) {
-            DialogUtilities.okDialog(this, getString(errorStr), null);
-        }
     }
 
     @Override

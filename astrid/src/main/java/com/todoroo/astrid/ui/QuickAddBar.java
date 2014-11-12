@@ -25,6 +25,7 @@ import android.widget.TextView.OnEditorActionListener;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.activity.TaskListFragment.OnTaskListItemClickedListener;
 import com.todoroo.astrid.dao.TaskDao;
@@ -76,7 +77,7 @@ public class QuickAddBar extends LinearLayout {
 
     private VoiceRecognizer voiceRecognizer;
 
-    private AstridActivity activity;
+    private TaskListActivity activity;
     private TaskListFragment fragment;
 
     public QuickAddBar(Context context) {
@@ -91,7 +92,7 @@ public class QuickAddBar extends LinearLayout {
         super(context, attrs, defStyle);
     }
 
-    public void initialize(Injector injector, AstridActivity myActivity, TaskListFragment myFragment,
+    public void initialize(Injector injector, TaskListActivity myActivity, TaskListFragment myFragment,
             final OnTaskListItemClickedListener mListener) {
 
         injector.inject(this); // TODO: get rid of this

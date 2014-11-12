@@ -508,6 +508,7 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="TEA_timer_comment_spent">Czas spędzony:</string>
 	<string name="voice_create_prompt">Mów by utworzyć zadanie</string>
 	<string name="voice_edit_note_prompt">Mów by ustawić notatkę zadania</string>
+	<string name="EPr_voiceInputEnabled_title">Polecenia głosowe</string>
 	<string name="EPr_voiceRemindersEnabled_title">Przypomnienia głosowe</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks będzie mówił nazwę zadania podczas przypomnienia</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks będzie uruchamiał dzwonek podczas przypomnienia zadania</string>

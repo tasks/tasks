@@ -507,6 +507,7 @@
 	<string name="TEA_timer_comment_spent">Gebruikte tijd:</string>
 	<string name="voice_create_prompt">Spreek om taak te maken</string>
 	<string name="voice_edit_note_prompt">Spreek notities van taak in</string>
+	<string name="EPr_voiceInputEnabled_title">Spraakinvoer</string>
 	<string name="EPr_voiceRemindersEnabled_title">Gesproken herinneringen</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Bij herinneringen zullen de taaknamen uitgesproken worden</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Er wordt een geluid weergegeven bij herinneringen</string>

@@ -21,7 +21,6 @@ import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.voice.RecognizerApi.RecognizerApiListener;
 
 import org.tasks.R;
-import org.tasks.preferences.Preferences;
 
 import java.util.List;
 
@@ -79,8 +78,7 @@ public class VoiceRecognizer {
 
     public void startVoiceRecognition(Context context, Fragment fragment) {
         if (speechRecordingAvailable(context) && recognizerApi != null) {
-            recognizerApi.start(Constants.PACKAGE,
-                    context.getString(R.string.audio_speak_now));
+            recognizerApi.start(Constants.PACKAGE, context.getString(R.string.audio_speak_now));
         } else {
             int prompt = R.string.voice_create_prompt;
             voiceInputAssistant.startVoiceRecognitionActivity(fragment, prompt);

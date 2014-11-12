@@ -511,6 +511,7 @@
 	<string name="TEA_timer_comment_spent">消費時間:</string>
 	<string name="voice_create_prompt">話してタスクを作成してください</string>
 	<string name="voice_edit_note_prompt">話してタスク概要を設定してください</string>
+	<string name="EPr_voiceInputEnabled_title">音声入力</string>
 	<string name="EPr_voiceRemindersEnabled_title">音声リマインダー</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks はタスクリマインダーでタスク名を話します</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks はタスクリマインダーで通知音を鳴らします</string>

@@ -501,6 +501,7 @@
 	<string name="TEA_timer_comment_spent">Benötigte Zeit:</string>
 	<string name="voice_create_prompt">Sprechen Sie, um eine Aufgabe anzulegen</string>
 	<string name="voice_edit_note_prompt">Sprechen Sie, um Aufgabennotizen zu setzen</string>
+	<string name="EPr_voiceInputEnabled_title">Spracheingabe aktivieren</string>
 	<string name="EPr_voiceRemindersEnabled_title">Sprach-Erinnerungen</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks wird Aufgabennamen bei der Erinnerung aussprechen</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks wird bei der Erinnerung einen Klingelton abspielen</string>

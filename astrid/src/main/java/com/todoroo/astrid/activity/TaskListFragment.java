@@ -450,7 +450,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
 
     protected void setupQuickAddBar() {
         quickAddBar = (QuickAddBar) getView().findViewById(R.id.taskListFooter);
-        quickAddBar.initialize(injector, (AstridActivity) getActivity(), this, mListener);
+        quickAddBar.initialize(injector, (TaskListActivity) getActivity(), this, mListener);
 
         // set listener for astrid icon
         emptyView.findViewById(R.id.empty_text).setOnClickListener(new OnClickListener() {

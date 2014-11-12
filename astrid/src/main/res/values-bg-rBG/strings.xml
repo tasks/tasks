@@ -312,6 +312,7 @@
 	<string name="TEA_timer_comment_spent">Отделено време:</string>
 	<string name="voice_create_prompt">Говорете за да създадете задача</string>
 	<string name="voice_edit_note_prompt">Говорете за да зададете описание на задача</string>
+	<string name="EPr_voiceInputEnabled_title">Гласово въвеждане</string>
 	<string name="EPr_voiceRemindersEnabled_title">Гласови напомняния</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks ще изтоваря имената на задачите по време на напомняния за задача</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks ще изпълнява мелодия по време на напомняния за задача </string>
