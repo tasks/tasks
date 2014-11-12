@@ -6,12 +6,6 @@
   <string name="voice_edit_title_prompt">Speak to set task title</string>
   <string name="voice_edit_note_prompt">Speak to set task description</string>
     
-  <!-- slide 38d:  Preference: Task List Show Voice-button if recognition-service is available -->
-  <string name="EPr_voiceInputEnabled_title">Voice input</string>
-  <!-- slide 38a: Preference: voice button description (true) -->
-  <string name="EPr_voiceInputEnabled_desc_enabled">Voice input button will be displayed in task list page</string>
-  <!-- Preference: voice button description (false) -->
-  <string name="EPr_voiceInputEnabled_desc_disabled">Voice input button will be hidden on task list page</string>
   <!-- slide 38e: Preference: Task List Voice-button directly creates tasks -->
   <string name="EPr_voiceInputCreatesTask_title">Directly create tasks</string>
   <!-- Preference: Task List Voice-creation description (true) -->

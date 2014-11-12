@@ -505,9 +505,6 @@
 	<string name="voice_create_prompt">דַּבֵּר כדי ליצור משימה</string>
 	<string name="voice_edit_title_prompt">דַּבֵּר כדי לקבוע את כותרת המשימה</string>
 	<string name="voice_edit_note_prompt">דַּבֵּר כדי לקבוע את ההערות למשימה</string>
-	<string name="EPr_voiceInputEnabled_title">קלט קולי</string>
-	<string name="EPr_voiceInputEnabled_desc_enabled">כפתור קלט קולי יוצג ברשימת המשימות</string>
-	<string name="EPr_voiceInputEnabled_desc_disabled">כפתור קלט קולי לא יוצג ברשימת המשימות</string>
 	<string name="EPr_voiceInputCreatesTask_title">צור משימות ישירות</string>
 	<string name="EPr_voiceInputCreatesTask_desc_enabled">משימות תיווצרנה באופן אוטומטי מקלט קולי</string>
 	<string name="EPr_voiceInputCreatesTask_desc_disabled">תוכל לערוך את כותרת המשימה אחרי שהתזכורת הקולית תסתיים</string>

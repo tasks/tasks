@@ -508,9 +508,6 @@
 	<string name="voice_create_prompt">Spreek om taak te maken</string>
 	<string name="voice_edit_title_prompt">Spreek titel van taak in</string>
 	<string name="voice_edit_note_prompt">Spreek notities van taak in</string>
-	<string name="EPr_voiceInputEnabled_title">Spraakinvoer</string>
-	<string name="EPr_voiceInputEnabled_desc_enabled">Spraakinvoer knop weergeven in takenlijst</string>
-	<string name="EPr_voiceInputEnabled_desc_disabled">Spraakinvoer knop verbergen in takenlijst</string>
 	<string name="EPr_voiceInputCreatesTask_title">Direct taak maken bij inspreken</string>
 	<string name="EPr_voiceInputCreatesTask_desc_enabled">Taken worden automatisch gemaakt bij inspreken</string>
 	<string name="EPr_voiceInputCreatesTask_desc_disabled">De titel van de taak kan achteraf worden gewijzigd</string>

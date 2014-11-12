@@ -456,9 +456,6 @@
 	<string name="voice_create_prompt">Yeni görev için konuş</string>
 	<string name="voice_edit_title_prompt">Görev başlığı için konuş</string>
 	<string name="voice_edit_note_prompt">Görev notları için konuş</string>
-	<string name="EPr_voiceInputEnabled_title">Ses Girişi</string>
-	<string name="EPr_voiceInputEnabled_desc_enabled">Ses girişi düğmesi görev listesi sayfasında görüntülenecek</string>
-	<string name="EPr_voiceInputEnabled_desc_disabled">Ses girişi düğmesi görev listesinde görünmeyecek</string>
 	<string name="EPr_voiceInputCreatesTask_title">Görevleri Doğrudan Oluştur</string>
 	<string name="EPr_voiceInputCreatesTask_desc_enabled">Görevler kendiliğinden ses komutu ile oluşturulacak</string>
 	<string name="EPr_voiceInputCreatesTask_desc_disabled">Ses komutu bittikten hemen sonra görev başlığını düzenleyebilirsin</string>

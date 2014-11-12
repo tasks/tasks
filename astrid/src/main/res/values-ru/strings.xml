@@ -513,9 +513,6 @@
 	<string name="voice_create_prompt">Говорите чтобы создать задачу</string>
 	<string name="voice_edit_title_prompt">Произнесите название задачи</string>
 	<string name="voice_edit_note_prompt">Произнесите заметки задачи</string>
-	<string name="EPr_voiceInputEnabled_title">Голосовой ввод</string>
-	<string name="EPr_voiceInputEnabled_desc_enabled">Кнопка голосового ввода будет показана на странице списка задач</string>
-	<string name="EPr_voiceInputEnabled_desc_disabled">Кнопка голосового ввода будет скрыта со страницы списка задач</string>
 	<string name="EPr_voiceInputCreatesTask_title">Прямое создание задач</string>
 	<string name="EPr_voiceInputCreatesTask_desc_enabled">Задачи будут автоматически созданы с помощью голосового ввода</string>
 	<string name="EPr_voiceInputCreatesTask_desc_disabled">Вы сможете редактировать заголовок после завершения голосового ввода</string>

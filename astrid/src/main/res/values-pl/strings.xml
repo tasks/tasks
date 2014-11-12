@@ -509,9 +509,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="voice_create_prompt">Mów by utworzyć zadanie</string>
 	<string name="voice_edit_title_prompt">Mów by ustawić tytuł zadania</string>
 	<string name="voice_edit_note_prompt">Mów by ustawić notatkę zadania</string>
-	<string name="EPr_voiceInputEnabled_title">Polecenia głosowe</string>
-	<string name="EPr_voiceInputEnabled_desc_enabled">Przycisk poleceń głosowych będzie wyświetlany na stronie listy zadań</string>
-	<string name="EPr_voiceInputEnabled_desc_disabled">Przycisk poleceń głosowych będzie ukryty na stronie listy zadań</string>
 	<string name="EPr_voiceInputCreatesTask_title">Bezpośrednie tworzenie zadań</string>
 	<string name="EPr_voiceInputCreatesTask_desc_enabled">Zadania zostanie automatycznie utworzona z poleceń głosowych</string>
 	<string name="EPr_voiceInputCreatesTask_desc_disabled">Można edytować tytuł zadania po zakończeniu wprowadzania głosem</string>

@@ -502,9 +502,6 @@
 	<string name="voice_create_prompt">Sprechen Sie, um eine Aufgabe anzulegen</string>
 	<string name="voice_edit_title_prompt">Sprechen Sie, um einen Namen für die Aufgabe zu vergeben</string>
 	<string name="voice_edit_note_prompt">Sprechen Sie, um Aufgabennotizen zu setzen</string>
-	<string name="EPr_voiceInputEnabled_title">Spracheingabe aktivieren</string>
-	<string name="EPr_voiceInputEnabled_desc_enabled">Mikrofon-Button wird angezeigt</string>
-	<string name="EPr_voiceInputEnabled_desc_disabled">Mikrofon-Button wird ausgeblendet</string>
 	<string name="EPr_voiceInputCreatesTask_title">Aufgaben direkt erzeugen</string>
 	<string name="EPr_voiceInputCreatesTask_desc_enabled">Aufgaben werden direkt aus Spracheingaben erzeugt</string>
 	<string name="EPr_voiceInputCreatesTask_desc_disabled">Sie können den Aufgabentitel nach dem Beenden der Spracheingabe bearbeiten</string>

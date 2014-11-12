@@ -96,11 +96,6 @@
 	                android:key="@string/p_hide_plus_button"
 	                android:title="@string/EPr_hide_plus_button"
 	                android:defaultValue="false"/>
-	        
-	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	            android:key="@string/p_voiceInputEnabled"
-	            android:title="@string/EPr_voiceInputEnabled_title"
-	            android:defaultValue="true" />
         </PreferenceScreen>
         
         <com.todoroo.astrid.ui.MultilineCheckboxPreference

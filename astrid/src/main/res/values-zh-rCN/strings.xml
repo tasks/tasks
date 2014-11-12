@@ -438,9 +438,6 @@
 	<string name="voice_create_prompt">请说话以建立任务</string>
 	<string name="voice_edit_title_prompt">请说话以设定任务主旨</string>
 	<string name="voice_edit_note_prompt">请说话以设定任务备注</string>
-	<string name="EPr_voiceInputEnabled_title">语音输入</string>
-	<string name="EPr_voiceInputEnabled_desc_enabled">语音输入按键会在任务清单画面上显示。</string>
-	<string name="EPr_voiceInputEnabled_desc_disabled">语音输入按键会在任务清单画面上隐藏。</string>
 	<string name="EPr_voiceInputCreatesTask_title">直接建立任务</string>
 	<string name="EPr_voiceInputCreatesTask_desc_enabled">任务将会自动从语音输入建立。</string>
 	<string name="EPr_voiceInputCreatesTask_desc_disabled">语音输入结束后您可以编辑任务标题。</string>

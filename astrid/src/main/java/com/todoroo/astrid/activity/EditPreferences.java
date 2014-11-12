@@ -292,12 +292,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 R.string.CRA_calendar_reminders_pref_desc_disabled, R.string.CRA_calendar_reminders_pref_desc_enabled)) {
         } else if (booleanPreference(preference, value, R.string.p_end_at_deadline,
                 R.string.EPr_cal_end_at_due_time, R.string.EPr_cal_start_at_due_time)) {
-        } else if (r.getString(R.string.p_voiceInputEnabled).equals(preference.getKey())) {
-            if (value != null && !(Boolean) value) {
-                preference.setSummary(R.string.EPr_voiceInputEnabled_desc_disabled);
-            } else {
-                preference.setSummary(R.string.EPr_voiceInputEnabled_desc_enabled);
-            }
         } else if (r.getString(R.string.p_voiceRemindersEnabled).equals(preference.getKey())) {
             if (value != null && !(Boolean) value) {
                 preference.setSummary(R.string.EPr_voiceRemindersEnabled_desc_disabled);

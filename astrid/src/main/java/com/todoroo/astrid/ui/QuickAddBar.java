@@ -190,8 +190,7 @@ public class QuickAddBar extends LinearLayout {
             }
         });
 
-        if (preferences.getBoolean(R.string.p_voiceInputEnabled, true)
-                && VoiceRecognizer.voiceInputAvailable(activity)) {
+        if (VoiceRecognizer.voiceInputAvailable(activity)) {
             voiceAddButton.setVisibility(View.VISIBLE);
         } else {
             voiceAddButton.setVisibility(View.GONE);

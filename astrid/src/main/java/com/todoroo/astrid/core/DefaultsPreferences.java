@@ -88,7 +88,7 @@ public class DefaultsPreferences extends TodorooPreferenceActivity {
                 preference.setSummary(r.getString(R.string.EPr_default_addtocalendar_desc, setting));
             }
         } else if (r.getString(R.string.p_voiceInputCreatesTask).equals(preference.getKey())) {
-            preference.setEnabled(preferences.getBoolean(R.string.p_voiceInputEnabled, false));
+            preference.setEnabled(true);
             if (value != null && !(Boolean)value) {
                 preference.setSummary(R.string.EPr_voiceInputCreatesTask_desc_disabled);
             } else {

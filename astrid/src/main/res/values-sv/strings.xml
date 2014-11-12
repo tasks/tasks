@@ -495,9 +495,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="voice_create_prompt">Prata för att skapa uppgift</string>
 	<string name="voice_edit_title_prompt">Prata för att sätta uppgiftens titel</string>
 	<string name="voice_edit_note_prompt">Prata för att sätta uppgiftens anteckningar</string>
-	<string name="EPr_voiceInputEnabled_title">Röstindata</string>
-	<string name="EPr_voiceInputEnabled_desc_enabled">Röstindata ikonen kommer att visas på sidan med uppgifter</string>
-	<string name="EPr_voiceInputEnabled_desc_disabled">Röstindata ikonen kommer att vara dold på sidan med uppgifter</string>
 	<string name="EPr_voiceInputCreatesTask_title">Skapa en uppgift direkt</string>
 	<string name="EPr_voiceInputCreatesTask_desc_enabled">Uppgift kommer automatiskt att skapas baserad på röstindatan.</string>
 	<string name="EPr_voiceInputCreatesTask_desc_disabled">Du kan redigera titeln när inspelningen är klar.</string>

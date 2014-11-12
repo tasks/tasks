@@ -514,9 +514,6 @@
 	<string name="voice_create_prompt">일정을 만들려면 말하세요</string>
 	<string name="voice_edit_title_prompt">일정 제목을 말하세요</string>
 	<string name="voice_edit_note_prompt">일정의 내용을 말하세요</string>
-	<string name="EPr_voiceInputEnabled_title">음성 입력</string>
-	<string name="EPr_voiceInputEnabled_desc_enabled">일정 목록 페이지에 음성 입력 버튼을 출력합니다</string>
-	<string name="EPr_voiceInputEnabled_desc_disabled">일정 목록 페이지에서 음성 입력 버튼을 숨깁니다</string>
 	<string name="EPr_voiceInputCreatesTask_title">일정을 직접 만들기</string>
 	<string name="EPr_voiceInputCreatesTask_desc_enabled">음성 입력으로 일정을 자동으로 만듭니다</string>
 	<string name="EPr_voiceInputCreatesTask_desc_disabled">음성 입력이 끝난 후에 일정 제목을 편집할 수 있습니다</string>

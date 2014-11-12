@@ -518,7 +518,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                     voiceNoteAssistant = new VoiceInputAssistant(voiceAddNoteButton, REQUEST_VOICE_RECOG);
                     voiceNoteAssistant.setAppend();
                     voiceNoteAssistant.setLanguageModel(RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-                    if (preferences.getBoolean(R.string.p_voiceInputEnabled, true) && VoiceRecognizer.voiceInputAvailable(ContextManager.getContext())) {
+                    if (VoiceRecognizer.voiceInputAvailable(ContextManager.getContext())) {
                         voiceNoteAssistant.configureMicrophoneButton(TaskEditFragment.this, prompt);
                     } else {
                         voiceNoteAssistant.hideVoiceButton();

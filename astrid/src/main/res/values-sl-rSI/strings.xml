@@ -510,9 +510,6 @@
 	<string name="voice_create_prompt">Glasovno ustvari opravek</string>
 	<string name="voice_edit_title_prompt">Glasovno določi naziv opravka</string>
 	<string name="voice_edit_note_prompt">Govorite za opis opravka</string>
-	<string name="EPr_voiceInputEnabled_title">Vnos glasu</string>
-	<string name="EPr_voiceInputEnabled_desc_enabled">Gumb za vnos glasu bo prikazan s seznamom opravkov</string>
-	<string name="EPr_voiceInputEnabled_desc_disabled">Gumb za vnos glasu ne bo viden ob seznamu opravkov</string>
 	<string name="EPr_voiceInputCreatesTask_title">Opravke ustvari neposredno</string>
 	<string name="EPr_voiceInputCreatesTask_desc_enabled">Opravki bodo ustvarjeni na podlagi snemanja glasu</string>
 	<string name="EPr_voiceInputCreatesTask_desc_disabled">Naziv opravka lahko uredite, ko se konča vnos glasu</string>

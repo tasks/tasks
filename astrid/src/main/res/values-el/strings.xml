@@ -368,7 +368,6 @@
 	<string name="voice_create_prompt">Μιλήστε για να δημιουργήσετε καθήκον</string>
 	<string name="voice_edit_title_prompt">Μιλήστε για να ορίσετε τίτλο καθήκοντος</string>
 	<string name="voice_edit_note_prompt">Μιλήστε για να οριίσετε περιγραφή καθήκοντος</string>
-	<string name="EPr_voiceInputEnabled_title">Εισαγωγή φωνής</string>
 	<string name="EPr_voiceInputCreatesTask_title">Δημιούργησε απευθείας καθήκοντα</string>
 	<string name="EPr_voiceRemindersEnabled_title">Φωνητικές υπενθυμίσεις</string>
 	<string name="widget_mini">Καθήκοντα</string>

@@ -481,9 +481,6 @@
 	<string name="voice_create_prompt">請說話以建立工作</string>
 	<string name="voice_edit_title_prompt">請說話以設定工作主旨</string>
 	<string name="voice_edit_note_prompt">請說話以設定工作備註</string>
-	<string name="EPr_voiceInputEnabled_title">語音輸入</string>
-	<string name="EPr_voiceInputEnabled_desc_enabled">語音輸入按鍵會在工作清單畫面上顯示。</string>
-	<string name="EPr_voiceInputEnabled_desc_disabled">語音輸入按鍵會在工作清單畫面上隱藏。</string>
 	<string name="EPr_voiceInputCreatesTask_title">直接建立工作</string>
 	<string name="EPr_voiceInputCreatesTask_desc_enabled">工作將會自動從語音輸入建立。</string>
 	<string name="EPr_voiceInputCreatesTask_desc_disabled">語音輸入結束後您可以編輯工作主旨。</string>

@@ -510,9 +510,6 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="voice_create_prompt">Hable para crear una tarea</string>
 	<string name="voice_edit_title_prompt">Hable para establecer título de tarea</string>
 	<string name="voice_edit_note_prompt">Hable para establecer notas de tarea</string>
-	<string name="EPr_voiceInputEnabled_title">Ingreso por voz</string>
-	<string name="EPr_voiceInputEnabled_desc_enabled">El botón de ingreso por voz se mostrará en la página de tareas</string>
-	<string name="EPr_voiceInputEnabled_desc_disabled">El botón de ingreso por voz se ocultará en la página de tareas</string>
 	<string name="EPr_voiceInputCreatesTask_title">Crear tarea directamente</string>
 	<string name="EPr_voiceInputCreatesTask_desc_enabled">Las tareas se crearán automáticamente por medio de su voz</string>
 	<string name="EPr_voiceInputCreatesTask_desc_disabled">Puede editar el título de la tarea al finalizar la introducción por voz</string>
