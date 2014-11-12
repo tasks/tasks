@@ -8,7 +8,7 @@
      are defined in FilterAdapter.java -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="40dip"
+    android:layout_height="45dip"
     android:paddingLeft="7dip"
     android:orientation="horizontal">
         

@@ -347,7 +347,7 @@
     <!-- ============================================== FilterListAdapter == -->
 
     <style name="TextAppearance.FLA_Filter">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">16sp</item>
     </style>
     
     <style name="TextAppearance.FLA_Filter_Widget" parent="TextAppearance.FLA_Filter">
