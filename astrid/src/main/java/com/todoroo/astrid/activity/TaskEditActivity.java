@@ -34,13 +34,7 @@ public class TaskEditActivity extends AstridActivity {
 
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setDisplayShowTitleEnabled(true);
-	}
-
-	public void updateTitle(boolean isNewTask) {
-	    ActionBar actionBar = getSupportActionBar();
-	    if (actionBar != null) {
-            actionBar.setTitle(isNewTask ? R.string.TEA_new_task : R.string.TAd_contextEditTask);
-        }
+        actionBar.setTitle("");
 	}
 
     /* (non-Javadoc)

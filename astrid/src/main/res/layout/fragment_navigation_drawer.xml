@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:choiceMode="singleChoice"
-    android:dividerHeight="1px"
+    android:divider="@android:color/transparent"
     android:background="?attr/drawer_background"
     android:scrollbars="vertical"
     android:layout_alignParentTop="true"

@@ -607,10 +607,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     private void setIsNewTask(boolean isNewTask) {
         this.isNewTask = isNewTask;
-        Activity activity = getActivity();
-        if (activity instanceof TaskEditActivity) {
-            ((TaskEditActivity) activity).updateTitle(isNewTask);
-        }
     }
 
     /** Convenience method to populate fields after setting model to null */

@@ -14,7 +14,7 @@ android {
 
     defaultConfig {
         minSdkVersion 7
-        targetSdkVersion 19
+        targetSdkVersion 21
     }
 
     signingConfigs {
@@ -59,7 +59,7 @@ android.applicationVariants.all { variant ->
 dependencies {
     provided group: 'com.squareup.dagger', name: 'dagger-compiler', version: '1.2.2'
 
-    compile group: 'com.android.support', name: 'appcompat-v7', version: '19.1.+'
+    compile group: 'com.android.support', name: 'appcompat-v7', version: '21.0.0'
 
     compile project(":api")
 
