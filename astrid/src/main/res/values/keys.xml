@@ -103,7 +103,6 @@
   <string name="p_beastMode">beastMode</string>
 
   <string name="p_voicePrefSection">voicePrefSection</string>
-  <string name="p_voiceInputCreatesTask">voiceInputCreatesTask</string>
   <string name="p_voiceRemindersEnabled">voiceRemindersEnabled</string>
 
   <string-array name="EPr_font_size">

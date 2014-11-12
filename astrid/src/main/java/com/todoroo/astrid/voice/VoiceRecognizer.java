@@ -77,15 +77,12 @@ public class VoiceRecognizer {
         return instance;
     }
 
-    public void startVoiceRecognition(Preferences preferences, Context context, Fragment fragment) {
+    public void startVoiceRecognition(Context context, Fragment fragment) {
         if (speechRecordingAvailable(context) && recognizerApi != null) {
             recognizerApi.start(Constants.PACKAGE,
                     context.getString(R.string.audio_speak_now));
         } else {
-            int prompt = R.string.voice_edit_title_prompt;
-            if (preferences.getBoolean(R.string.p_voiceInputCreatesTask, false)) {
-                prompt = R.string.voice_create_prompt;
-            }
+            int prompt = R.string.voice_create_prompt;
             voiceInputAssistant.startVoiceRecognitionActivity(fragment, prompt);
         }
     }

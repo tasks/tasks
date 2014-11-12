@@ -324,10 +324,7 @@ public class QuickAddBar extends LinearLayout {
         if (voiceRecognizer.handleActivityResult(requestCode, resultCode, data, quickAddBox)) {
             // if user wants, create the task directly (with defaultvalues)
             // after saying it
-            Flags.set(Flags.TLA_RESUMED_FROM_VOICE_ADD);
-            if (preferences.getBoolean(R.string.p_voiceInputCreatesTask, false)) {
-                quickAddTask(quickAddBox.getText().toString(), true);
-            }
+            quickAddTask(quickAddBox.getText().toString(), true);
 
             // the rest of onActivityResult is totally unrelated to
             // voicerecognition, so bail out
@@ -343,7 +340,7 @@ public class QuickAddBar extends LinearLayout {
         return voiceRecognizer;
     }
     public void startVoiceRecognition() {
-        voiceRecognizer.startVoiceRecognition(preferences, activity, fragment);
+        voiceRecognizer.startVoiceRecognition(activity, fragment);
     }
 
     public void setupRecognizerApi() {

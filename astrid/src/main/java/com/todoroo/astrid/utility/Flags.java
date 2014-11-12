@@ -27,11 +27,6 @@ public class Flags {
     public static final int TLA_DISMISSED_FROM_TASK_EDIT = 1 << 5;
 
     /**
-     * If set, indicates that task list activity was resumed after voice add (so don't replace refresh list fragment)
-     */
-    public static final int TLA_RESUMED_FROM_VOICE_ADD = 1 << 6;
-
-    /**
      * If set, indicates that TaskListFragmentPager should not intercept touch events
      */
     public static final int TLFP_NO_INTERCEPT_TOUCH = 1 << 7;

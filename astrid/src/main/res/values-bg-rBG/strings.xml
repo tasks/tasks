@@ -311,11 +311,7 @@
 	<string name="TEA_timer_comment_stopped">тази задача е приключена на:</string>
 	<string name="TEA_timer_comment_spent">Отделено време:</string>
 	<string name="voice_create_prompt">Говорете за да създадете задача</string>
-	<string name="voice_edit_title_prompt">Говорете за да зададете заглавие на задача</string>
 	<string name="voice_edit_note_prompt">Говорете за да зададете описание на задача</string>
-	<string name="EPr_voiceInputCreatesTask_title">Директно създаване на задачи</string>
-	<string name="EPr_voiceInputCreatesTask_desc_enabled">Задачите автоматично ще бъдат създадени от гласово въвеждане</string>
-	<string name="EPr_voiceInputCreatesTask_desc_disabled">Можете да редактирате заглавието на задачата след приключване на гласовото въвеждане</string>
 	<string name="EPr_voiceRemindersEnabled_title">Гласови напомняния</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks ще изтоваря имената на задачите по време на напомняния за задача</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks ще изпълнява мелодия по време на напомняния за задача </string>

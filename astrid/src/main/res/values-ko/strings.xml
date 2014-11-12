@@ -512,11 +512,7 @@
 	<string name="TEA_timer_comment_stopped">이 일정 중지:</string>
 	<string name="TEA_timer_comment_spent">소요 시간:</string>
 	<string name="voice_create_prompt">일정을 만들려면 말하세요</string>
-	<string name="voice_edit_title_prompt">일정 제목을 말하세요</string>
 	<string name="voice_edit_note_prompt">일정의 내용을 말하세요</string>
-	<string name="EPr_voiceInputCreatesTask_title">일정을 직접 만들기</string>
-	<string name="EPr_voiceInputCreatesTask_desc_enabled">음성 입력으로 일정을 자동으로 만듭니다</string>
-	<string name="EPr_voiceInputCreatesTask_desc_disabled">음성 입력이 끝난 후에 일정 제목을 편집할 수 있습니다</string>
 	<string name="EPr_voiceRemindersEnabled_title">음성 알림</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">일정 알림기간 동안 일정 이름을 직접 말해 줍니다</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">일정 알림기간 동안 벨소리를 울려줍니다</string>

@@ -506,11 +506,7 @@
 	<string name="TEA_timer_comment_stopped">taak gestopt:</string>
 	<string name="TEA_timer_comment_spent">Gebruikte tijd:</string>
 	<string name="voice_create_prompt">Spreek om taak te maken</string>
-	<string name="voice_edit_title_prompt">Spreek titel van taak in</string>
 	<string name="voice_edit_note_prompt">Spreek notities van taak in</string>
-	<string name="EPr_voiceInputCreatesTask_title">Direct taak maken bij inspreken</string>
-	<string name="EPr_voiceInputCreatesTask_desc_enabled">Taken worden automatisch gemaakt bij inspreken</string>
-	<string name="EPr_voiceInputCreatesTask_desc_disabled">De titel van de taak kan achteraf worden gewijzigd</string>
 	<string name="EPr_voiceRemindersEnabled_title">Gesproken herinneringen</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Bij herinneringen zullen de taaknamen uitgesproken worden</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Er wordt een geluid weergegeven bij herinneringen</string>

@@ -507,11 +507,7 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="TEA_timer_comment_stopped">zakończono zadanie:</string>
 	<string name="TEA_timer_comment_spent">Czas spędzony:</string>
 	<string name="voice_create_prompt">Mów by utworzyć zadanie</string>
-	<string name="voice_edit_title_prompt">Mów by ustawić tytuł zadania</string>
 	<string name="voice_edit_note_prompt">Mów by ustawić notatkę zadania</string>
-	<string name="EPr_voiceInputCreatesTask_title">Bezpośrednie tworzenie zadań</string>
-	<string name="EPr_voiceInputCreatesTask_desc_enabled">Zadania zostanie automatycznie utworzona z poleceń głosowych</string>
-	<string name="EPr_voiceInputCreatesTask_desc_disabled">Można edytować tytuł zadania po zakończeniu wprowadzania głosem</string>
 	<string name="EPr_voiceRemindersEnabled_title">Przypomnienia głosowe</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks będzie mówił nazwę zadania podczas przypomnienia</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks będzie uruchamiał dzwonek podczas przypomnienia zadania</string>

@@ -42,8 +42,4 @@
         android:key="@string/gcal_p_default"
         android:entries="@array/EPr_default_addtocalendar"
         android:entryValues="@array/EPr_default_addtocalendar_values" />
-    <com.todoroo.astrid.ui.MultilineCheckboxPreference
-        android:key="@string/p_voiceInputCreatesTask"
-        android:title="@string/EPr_voiceInputCreatesTask_title"
-        android:defaultValue="false" />
 </PreferenceScreen>

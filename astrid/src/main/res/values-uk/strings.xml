@@ -495,9 +495,6 @@
 	<string name="TPl_notification">Для %s діють таймери!</string>
 	<string name="TEA_timer_controls">Таймер</string>
 	<string name="voice_create_prompt">Горовіть щоб створити завдання</string>
-	<string name="EPr_voiceInputCreatesTask_title">Пряме створення завдання</string>
-	<string name="EPr_voiceInputCreatesTask_desc_enabled">Завдання будуть автоматично створені за допомогою голосового введення</string>
-	<string name="EPr_voiceInputCreatesTask_desc_disabled">Ви зможете редагувати заголовок після завершення голосового введення</string>
 	<string name="EPr_voiceRemindersEnabled_title">Голосові нагадування</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks повинен вимовляти назву завдань під час нагадувань</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Оповіщення звуком під час нагадування</string>

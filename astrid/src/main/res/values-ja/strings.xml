@@ -510,11 +510,7 @@
 	<string name="TEA_timer_comment_stopped">このタスクの実行を中止しました:</string>
 	<string name="TEA_timer_comment_spent">消費時間:</string>
 	<string name="voice_create_prompt">話してタスクを作成してください</string>
-	<string name="voice_edit_title_prompt">話してタスク見出しを設定してください</string>
 	<string name="voice_edit_note_prompt">話してタスク概要を設定してください</string>
-	<string name="EPr_voiceInputCreatesTask_title">直接タスクを作成</string>
-	<string name="EPr_voiceInputCreatesTask_desc_enabled">音声入力でタスクは自動的に作成されます</string>
-	<string name="EPr_voiceInputCreatesTask_desc_disabled">音声入力が完了するとタスク見出しを編集することができます</string>
 	<string name="EPr_voiceRemindersEnabled_title">音声リマインダー</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks はタスクリマインダーでタスク名を話します</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks はタスクリマインダーで通知音を鳴らします</string>

@@ -471,11 +471,7 @@
 	<string name="TEA_timer_comment_stopped">parou a tarefa:</string>
 	<string name="TEA_timer_comment_spent">Tempo gasto:</string>
 	<string name="voice_create_prompt">Fale para criar uma tarefa</string>
-	<string name="voice_edit_title_prompt">Fale para completar o título</string>
 	<string name="voice_edit_note_prompt">Fale para completar as notas da tarefa</string>
-	<string name="EPr_voiceInputCreatesTask_title">Criar tarefas imediatamente</string>
-	<string name="EPr_voiceInputCreatesTask_desc_enabled">Tarefas serão criadas automaticamente pela entrada de voz</string>
-	<string name="EPr_voiceInputCreatesTask_desc_disabled">Você pode editar o título da tarefa após a entrada por voz terminar.</string>
 	<string name="EPr_voiceRemindersEnabled_title">Lembretes de voz</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks irá falar o nome das tarefas durante os lembretes</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks irá tocar um som durante o lembrete</string>

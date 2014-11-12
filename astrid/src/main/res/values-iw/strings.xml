@@ -503,11 +503,7 @@
 	<string name="TEA_timer_comment_stopped">הפסק ביצוע של משימה זו:</string>
 	<string name="TEA_timer_comment_spent">זמן שהושקע:</string>
 	<string name="voice_create_prompt">דַּבֵּר כדי ליצור משימה</string>
-	<string name="voice_edit_title_prompt">דַּבֵּר כדי לקבוע את כותרת המשימה</string>
 	<string name="voice_edit_note_prompt">דַּבֵּר כדי לקבוע את ההערות למשימה</string>
-	<string name="EPr_voiceInputCreatesTask_title">צור משימות ישירות</string>
-	<string name="EPr_voiceInputCreatesTask_desc_enabled">משימות תיווצרנה באופן אוטומטי מקלט קולי</string>
-	<string name="EPr_voiceInputCreatesTask_desc_disabled">תוכל לערוך את כותרת המשימה אחרי שהתזכורת הקולית תסתיים</string>
 	<string name="EPr_voiceRemindersEnabled_title">תזכורות קוליות</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">אסטריד תאמר את שם המשימה כחלק מהתזכורת</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">אסטריד תשמיע נְעִימוֹן במתן תזכורות למשימות</string>

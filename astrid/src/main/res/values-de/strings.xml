@@ -500,11 +500,7 @@
 	<string name="TEA_timer_comment_stopped">Bearbeitung abgebrochen:</string>
 	<string name="TEA_timer_comment_spent">Benötigte Zeit:</string>
 	<string name="voice_create_prompt">Sprechen Sie, um eine Aufgabe anzulegen</string>
-	<string name="voice_edit_title_prompt">Sprechen Sie, um einen Namen für die Aufgabe zu vergeben</string>
 	<string name="voice_edit_note_prompt">Sprechen Sie, um Aufgabennotizen zu setzen</string>
-	<string name="EPr_voiceInputCreatesTask_title">Aufgaben direkt erzeugen</string>
-	<string name="EPr_voiceInputCreatesTask_desc_enabled">Aufgaben werden direkt aus Spracheingaben erzeugt</string>
-	<string name="EPr_voiceInputCreatesTask_desc_disabled">Sie können den Aufgabentitel nach dem Beenden der Spracheingabe bearbeiten</string>
 	<string name="EPr_voiceRemindersEnabled_title">Sprach-Erinnerungen</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks wird Aufgabennamen bei der Erinnerung aussprechen</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks wird bei der Erinnerung einen Klingelton abspielen</string>

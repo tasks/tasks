@@ -512,11 +512,7 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="TEA_timer_comment_stopped">parou de fazer esta tarefa:</string>
 	<string name="TEA_timer_comment_spent">Tempo gasto:</string>
 	<string name="voice_create_prompt">Falar para criar uma tarefa</string>
-	<string name="voice_edit_title_prompt">Falar para definir o título</string>
 	<string name="voice_edit_note_prompt">Falar para definir a descrição</string>
-	<string name="EPr_voiceInputCreatesTask_title">Criar tarefas diretamente</string>
-	<string name="EPr_voiceInputCreatesTask_desc_enabled">As tarefas serão criadas automaticamente com a introdução por voz</string>
-	<string name="EPr_voiceInputCreatesTask_desc_disabled">Pode editar o título da tarefas ao terminar a introdução por voz</string>
 	<string name="EPr_voiceRemindersEnabled_title">Lembretes de voz</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">O Tasks irá reproduzir o nome da tarefa durante os lembretes</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">O Tasks irá reproduzir um toque durante os lembretes</string>

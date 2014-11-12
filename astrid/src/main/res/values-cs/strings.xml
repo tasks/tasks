@@ -496,7 +496,6 @@
 	<string name="TEA_timer_comment_stopped">skončil tento úkol:</string>
 	<string name="TEA_timer_comment_spent">Strávený čas:</string>
 	<string name="voice_create_prompt">Mluvte pro vytvoření úkolu</string>
-	<string name="voice_edit_title_prompt">Namluvit název úkolu</string>
 	<string name="voice_edit_note_prompt">Namluvit popis úkolu</string>
 	<string name="EPr_voiceRemindersEnabled_title">Hlasové upomínky</string>
 	<string name="widget_mini">Úkoly</string>

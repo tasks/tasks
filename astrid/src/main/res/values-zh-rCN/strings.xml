@@ -436,11 +436,7 @@
 	<string name="TEA_timer_comment_stopped">已经停止了这项任务：</string>
 	<string name="TEA_timer_comment_spent">已经花费时间：</string>
 	<string name="voice_create_prompt">请说话以建立任务</string>
-	<string name="voice_edit_title_prompt">请说话以设定任务主旨</string>
 	<string name="voice_edit_note_prompt">请说话以设定任务备注</string>
-	<string name="EPr_voiceInputCreatesTask_title">直接建立任务</string>
-	<string name="EPr_voiceInputCreatesTask_desc_enabled">任务将会自动从语音输入建立。</string>
-	<string name="EPr_voiceInputCreatesTask_desc_disabled">语音输入结束后您可以编辑任务标题。</string>
 	<string name="EPr_voiceRemindersEnabled_title">语音提醒</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks在任务提醒时会以语音说出任务名称</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks在任务提醒时将会播放铃声</string>

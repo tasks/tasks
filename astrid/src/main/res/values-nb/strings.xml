@@ -229,11 +229,7 @@
 	<string name="TPl_notification">Tidtaker aktiv for %s!</string>
 	<string name="TFE_workingOn">Oppgaver med tidtaker</string>
 	<string name="voice_create_prompt">Snakk for å skape en oppgave</string>
-	<string name="voice_edit_title_prompt">Snakk for å sette tittelen til oppgaven</string>
 	<string name="voice_edit_note_prompt">Snakk for å sette oppgavenotater</string>
-	<string name="EPr_voiceInputCreatesTask_title">Skap en oppgave direkte</string>
-	<string name="EPr_voiceInputCreatesTask_desc_enabled">Oppgaver vil bli skapt automatisk fra taleinndata</string>
-	<string name="EPr_voiceInputCreatesTask_desc_disabled">Du kan redigere tittelen når innspillingen er klar</string>
 	<string name="EPr_voiceRemindersEnabled_title">Talepåminnelser</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks vil lese opp oppgaver ved påminnelse</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks vil spille en ringetone ved påminnelse</string>

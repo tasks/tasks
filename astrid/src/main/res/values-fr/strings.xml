@@ -502,11 +502,7 @@
 	<string name="TEA_timer_comment_stopped">Cette tâche a été arretée :</string>
 	<string name="TEA_timer_comment_spent">Temps passé :</string>
 	<string name="voice_create_prompt">Parlez pour créer une nouvelle tâche</string>
-	<string name="voice_edit_title_prompt">Parlez pour définir un titre</string>
 	<string name="voice_edit_note_prompt">Parlez pour définir les notes de la tâche</string>
-	<string name="EPr_voiceInputCreatesTask_title">Créer les tâches directement</string>
-	<string name="EPr_voiceInputCreatesTask_desc_enabled">Les tâches seront crées automatiquement à partir de la reconnaissance vocale</string>
-	<string name="EPr_voiceInputCreatesTask_desc_disabled">Editer le titre de la tâche après la reconnaissance vocale</string>
 	<string name="EPr_voiceRemindersEnabled_title">Rappels vocaux</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks donnera le nom de la tâche</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks sonnera pendant les rappels</string>

@@ -3,15 +3,8 @@
     
   <!-- Voice Add Prompt Text -->
   <string name="voice_create_prompt">Speak to create a task</string>
-  <string name="voice_edit_title_prompt">Speak to set task title</string>
   <string name="voice_edit_note_prompt">Speak to set task description</string>
     
-  <!-- slide 38e: Preference: Task List Voice-button directly creates tasks -->
-  <string name="EPr_voiceInputCreatesTask_title">Directly create tasks</string>
-  <!-- Preference: Task List Voice-creation description (true) -->
-  <string name="EPr_voiceInputCreatesTask_desc_enabled">Tasks will automatically be created from voice input</string>
-  <!-- slide 38b: Preference: Task List Voice-creation description (false) -->
-  <string name="EPr_voiceInputCreatesTask_desc_disabled">You can edit the task title after voice input finishes</string>
   <!-- slide 38f: Preference: Voice reminders if TTS-service is available -->
   <string name="EPr_voiceRemindersEnabled_title">Voice reminders</string>
   <!-- Preference: Voice reminders description (true) -->

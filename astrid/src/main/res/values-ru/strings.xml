@@ -511,11 +511,7 @@
 	<string name="TEA_timer_comment_stopped">зада завершилась:</string>
 	<string name="TEA_timer_comment_spent">Времени потрачено:</string>
 	<string name="voice_create_prompt">Говорите чтобы создать задачу</string>
-	<string name="voice_edit_title_prompt">Произнесите название задачи</string>
 	<string name="voice_edit_note_prompt">Произнесите заметки задачи</string>
-	<string name="EPr_voiceInputCreatesTask_title">Прямое создание задач</string>
-	<string name="EPr_voiceInputCreatesTask_desc_enabled">Задачи будут автоматически созданы с помощью голосового ввода</string>
-	<string name="EPr_voiceInputCreatesTask_desc_disabled">Вы сможете редактировать заголовок после завершения голосового ввода</string>
 	<string name="EPr_voiceRemindersEnabled_title">Голосовые напоминания</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks должен произносить название задач во время напоминаний</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Оповещение звуком во время напоминания</string>
