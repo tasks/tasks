@@ -8,5 +8,6 @@
     android:background="?attr/drawer_background"
     android:scrollbars="vertical"
     android:layout_alignParentTop="true"
-    android:cacheColorHint="#00000000"
+    android:cacheColorHint="@android:color/transparent"
+    android:scrollingCache="false"
     tools:context=".NavigationDrawerFragment" />
