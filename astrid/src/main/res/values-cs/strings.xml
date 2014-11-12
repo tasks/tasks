@@ -498,7 +498,6 @@
 	<string name="voice_create_prompt">Mluvte pro vytvoření úkolu</string>
 	<string name="voice_edit_title_prompt">Namluvit název úkolu</string>
 	<string name="voice_edit_note_prompt">Namluvit popis úkolu</string>
-	<string name="EPr_voiceInputInstall_dlg">Halový vstup není nainstalován.\nChcete přejít do obchodu a nainstalovat jej?</string>
 	<string name="EPr_voiceRemindersEnabled_title">Hlasové upomínky</string>
 	<string name="widget_mini">Úkoly</string>
 	<string name="EPr_use_dark_theme">Tmavé téma</string>

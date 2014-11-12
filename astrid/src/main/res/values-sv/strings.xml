@@ -495,9 +495,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="voice_create_prompt">Prata för att skapa uppgift</string>
 	<string name="voice_edit_title_prompt">Prata för att sätta uppgiftens titel</string>
 	<string name="voice_edit_note_prompt">Prata för att sätta uppgiftens anteckningar</string>
-	<string name="EPr_voiceInputInstall_dlg">Röstigenkänning är inte installerad.\nVill du gå till marknaden och installera?</string>
-	<string name="EPr_voiceInputUnavailable_dlg">Tyvärr är inte röstigenkänning tillgänligt på ditt system.\nOm möjligt, uppgradera till Android 2.1 eller senare.</string>
-	<string name="EPr_marketUnavailable_dlg">Tyvärr är inte marknaden tillgänlig för ditt system.\nOm möjligt, försök ladda ner röstigenkänning från en annan källa.</string>
 	<string name="EPr_voiceInputEnabled_title">Röstindata</string>
 	<string name="EPr_voiceInputEnabled_desc_enabled">Röstindata ikonen kommer att visas på sidan med uppgifter</string>
 	<string name="EPr_voiceInputEnabled_desc_disabled">Röstindata ikonen kommer att vara dold på sidan med uppgifter</string>

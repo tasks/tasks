@@ -298,7 +298,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
             } else {
                 preference.setSummary(R.string.EPr_voiceInputEnabled_desc_enabled);
             }
-            onVoiceInputStatusChanged(preference, (Boolean) value);
         } else if (r.getString(R.string.p_voiceRemindersEnabled).equals(preference.getKey())) {
             if (value != null && !(Boolean) value) {
                 preference.setSummary(R.string.EPr_voiceRemindersEnabled_desc_disabled);
@@ -421,54 +420,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
             log.error(e.getMessage(), e);
             preference.setEnabled(false);
             preferences.setBoolean(preference.getKey(), false);
-        }
-    }
-
-    private void onVoiceInputStatusChanged(final Preference preference, boolean newValue) {
-        if(!newValue) {
-            return;
-        }
-        int[] excludedSettings = Constants.MARKET_STRATEGY.excludedSettings();
-        if (excludedSettings != null && AndroidUtilities.indexOf(excludedSettings, R.string.p_voiceInputEnabled) >= 0) {
-            return;
-        }
-
-        final Resources r = getResources();
-        if (!VoiceRecognizer.voiceInputAvailable(this)) {
-            if (AndroidUtilities.getSdkVersion() > 6) {
-                DialogUtilities.okCancelDialog(this,
-                        r.getString(R.string.EPr_voiceInputInstall_dlg),
-                        new OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                    int which) {
-                                voiceInputAssistant.showVoiceInputMarketSearch(new OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog1,
-                                            int which1) {
-                                        ((CheckBoxPreference)preference).setChecked(false);
-                                    }
-                                });
-                            }
-                        },
-                        new OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                    int which) {
-                                ((CheckBoxPreference)preference).setChecked(false);
-                            }
-                        });
-            } else {
-                DialogUtilities.okDialog(this,
-                        r.getString(R.string.EPr_voiceInputUnavailable_dlg),
-                        new OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog1,
-                                    int which1) {
-                                ((CheckBoxPreference)preference).setChecked(false);
-                            }
-                        });
-            }
         }
     }
 }

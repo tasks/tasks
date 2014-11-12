@@ -231,9 +231,6 @@
 	<string name="voice_create_prompt">Snakk for å skape en oppgave</string>
 	<string name="voice_edit_title_prompt">Snakk for å sette tittelen til oppgaven</string>
 	<string name="voice_edit_note_prompt">Snakk for å sette oppgavenotater</string>
-	<string name="EPr_voiceInputInstall_dlg">Talegjenkjenning er ikke installert.\nVil du gå til Markedet og installere?</string>
-	<string name="EPr_voiceInputUnavailable_dlg">Dessverre er talegjenkjenning ikke tilgjengelig på ditt system.\nHvis mulig, vennligst oppdater til Android 2.1 eller senere.</string>
-	<string name="EPr_marketUnavailable_dlg">Dessverre er Markedet ikke tilgjengelig på ditt system.\nHvis mulig, prøv å laste ned talegjenkjenning fra en annen kilde.</string>
 	<string name="EPr_voiceInputEnabled_title">Taleinndata</string>
 	<string name="EPr_voiceInputEnabled_desc_enabled">Taleinndataknappen vil vises på siden med oppgavelista</string>
 	<string name="EPr_voiceInputEnabled_desc_disabled">Taleinndataknappen vil skjules på siden med oppgavelista</string>

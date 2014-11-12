@@ -450,9 +450,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="voice_create_prompt">Parla per creare un\'attività</string>
 	<string name="voice_edit_title_prompt">Parla per aggiungere il titolo</string>
 	<string name="voice_edit_note_prompt">Parla per aggiungere le note</string>
-	<string name="EPr_voiceInputInstall_dlg">Riconoscimento vocale non installato.\nVuoi andare al market e installarlo?</string>
-	<string name="EPr_voiceInputUnavailable_dlg">Sfortunatamente il riconoscimento vocale non è disponibile per il tuo sistema.\nSe possibile, aggiorna Android alla versione 2.1 o superiore.</string>
-	<string name="EPr_marketUnavailable_dlg">Sfortunatamente il market non è dsponibile sul tuo sistema.\nSe possibile, prova a scaricare il riconoscimento vocale da un\'altra fonte.</string>
 	<string name="EPr_voiceInputEnabled_title">Voce</string>
 	<string name="EPr_voiceInputEnabled_desc_enabled">Il pulsante per il riconoscimento vocale sarà visibile nella lista delle attività</string>
 	<string name="EPr_voiceInputEnabled_desc_disabled">Il pulsante per il riconoscimento vocale sarà nascosto nella lista delle attività</string>

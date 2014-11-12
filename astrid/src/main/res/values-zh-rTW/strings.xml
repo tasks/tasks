@@ -481,9 +481,6 @@
 	<string name="voice_create_prompt">請說話以建立工作</string>
 	<string name="voice_edit_title_prompt">請說話以設定工作主旨</string>
 	<string name="voice_edit_note_prompt">請說話以設定工作備註</string>
-	<string name="EPr_voiceInputInstall_dlg">語音輸入功能尚未安裝。您要連上市集並安裝嗎?</string>
-	<string name="EPr_voiceInputUnavailable_dlg">很抱歉語音輸入功能不支援您的系統。\n如果可能，請升級至Android 2.1或更新的版本。</string>
-	<string name="EPr_marketUnavailable_dlg">很抱歉您的系統無法使用市集。\n如果可能，請嘗試從其他來源下載語音搜尋功能。</string>
 	<string name="EPr_voiceInputEnabled_title">語音輸入</string>
 	<string name="EPr_voiceInputEnabled_desc_enabled">語音輸入按鍵會在工作清單畫面上顯示。</string>
 	<string name="EPr_voiceInputEnabled_desc_disabled">語音輸入按鍵會在工作清單畫面上隱藏。</string>

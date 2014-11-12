@@ -313,9 +313,6 @@
 	<string name="voice_create_prompt">Говорете за да създадете задача</string>
 	<string name="voice_edit_title_prompt">Говорете за да зададете заглавие на задача</string>
 	<string name="voice_edit_note_prompt">Говорете за да зададете описание на задача</string>
-	<string name="EPr_voiceInputInstall_dlg">Гласов-вход не е инсталиран.\nЖелаете ли да посетите маркета и да го инсталирате?</string>
-	<string name="EPr_voiceInputUnavailable_dlg">За съжаление гласово въвеждане не е достъпно за вашата система.\nАко е възможно, моля обновете до Android 2.1 или по-нова.</string>
-	<string name="EPr_marketUnavailable_dlg">За съжаление маркет не е достъпен за вашата система.\nАко е възможно, опитайте се да изтеглите гласово търсене от друг източник.</string>
 	<string name="EPr_voiceInputEnabled_title">Гласово въвеждане</string>
 	<string name="EPr_voiceInputEnabled_desc_enabled">Бутон Гласово въвеждане ще бъде показван в страницата със задачи</string>
 	<string name="EPr_voiceInputEnabled_desc_disabled">Бутон Гласово въвеждане ще бъде скрит от страницата със задачи</string>

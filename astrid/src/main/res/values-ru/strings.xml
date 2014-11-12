@@ -513,9 +513,6 @@
 	<string name="voice_create_prompt">Говорите чтобы создать задачу</string>
 	<string name="voice_edit_title_prompt">Произнесите название задачи</string>
 	<string name="voice_edit_note_prompt">Произнесите заметки задачи</string>
-	<string name="EPr_voiceInputInstall_dlg">Голосовой ввод не установлен.\n Хотите перейти на Market и установить?</string>
-	<string name="EPr_voiceInputUnavailable_dlg">К сожалению голосовой ввод недоступен для вашей системы.\n Если возможно, обновитесь до версии 2.1 или выше.</string>
-	<string name="EPr_marketUnavailable_dlg">К сожалению Market не доступен для вашей системы.\nЕсли возможно, установите его из другого источника.</string>
 	<string name="EPr_voiceInputEnabled_title">Голосовой ввод</string>
 	<string name="EPr_voiceInputEnabled_desc_enabled">Кнопка голосового ввода будет показана на странице списка задач</string>
 	<string name="EPr_voiceInputEnabled_desc_disabled">Кнопка голосового ввода будет скрыта со страницы списка задач</string>

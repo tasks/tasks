@@ -514,9 +514,6 @@
 	<string name="voice_create_prompt">일정을 만들려면 말하세요</string>
 	<string name="voice_edit_title_prompt">일정 제목을 말하세요</string>
 	<string name="voice_edit_note_prompt">일정의 내용을 말하세요</string>
-	<string name="EPr_voiceInputInstall_dlg">음성입력이 설치되어 있지 않습니다. 마켓에 가서 지금 설치할까요?</string>
-	<string name="EPr_voiceInputUnavailable_dlg">당신의 기기에서 음성입력을 사용할 수 없습니다. 안드로이드 2.1 이상으로 업데이트하세요.</string>
-	<string name="EPr_marketUnavailable_dlg">이 시스템에서 아직 마켓을 사용할 수 없습니다. 다른 곳에서 음성 검색을 다운로드하세요.</string>
 	<string name="EPr_voiceInputEnabled_title">음성 입력</string>
 	<string name="EPr_voiceInputEnabled_desc_enabled">일정 목록 페이지에 음성 입력 버튼을 출력합니다</string>
 	<string name="EPr_voiceInputEnabled_desc_disabled">일정 목록 페이지에서 음성 입력 버튼을 숨깁니다</string>

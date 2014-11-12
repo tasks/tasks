@@ -473,9 +473,6 @@
 	<string name="voice_create_prompt">Fale para criar uma tarefa</string>
 	<string name="voice_edit_title_prompt">Fale para completar o título</string>
 	<string name="voice_edit_note_prompt">Fale para completar as notas da tarefa</string>
-	<string name="EPr_voiceInputInstall_dlg">Entrada por voz não está instalado.\n Você quer ir ao Market instalar?</string>
-	<string name="EPr_voiceInputUnavailable_dlg">Infelizmente a entrada por voz não está disponível no seu sistema.\nSe possível, atualize o Android para 2.1 ou superior</string>
-	<string name="EPr_marketUnavailable_dlg">Infelizmente o Market não está disponível no seu sistema.\nSe possível, tente baixar o Voice Search de outro lugar</string>
 	<string name="EPr_voiceInputEnabled_title">Entrada de voz</string>
 	<string name="EPr_voiceInputEnabled_desc_enabled">O botão de entrada por voz será mostrado na tela de listagem de tarefas</string>
 	<string name="EPr_voiceInputEnabled_desc_disabled">O botão de entrada por voz não será exibido na tela de listagem de tarefas</string>

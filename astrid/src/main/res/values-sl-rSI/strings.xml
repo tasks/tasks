@@ -510,9 +510,6 @@
 	<string name="voice_create_prompt">Glasovno ustvari opravek</string>
 	<string name="voice_edit_title_prompt">Glasovno določi naziv opravka</string>
 	<string name="voice_edit_note_prompt">Govorite za opis opravka</string>
-	<string name="EPr_voiceInputInstall_dlg">Vnos glasu ni nameščen.\n Želite to možnosti nabaviti in namestiti?</string>
-	<string name="EPr_voiceInputUnavailable_dlg">Vnos glasu žal ni na razpolago vašemu sistemu.\n Če je mogoče, nadgradite svojega Androida vsaj na verzijo 2.1.</string>
-	<string name="EPr_marketUnavailable_dlg">Trg žal ne podpira vašega sistema.\n Poskusite naložiti glasovno iskanje z drugega vira.</string>
 	<string name="EPr_voiceInputEnabled_title">Vnos glasu</string>
 	<string name="EPr_voiceInputEnabled_desc_enabled">Gumb za vnos glasu bo prikazan s seznamom opravkov</string>
 	<string name="EPr_voiceInputEnabled_desc_disabled">Gumb za vnos glasu ne bo viden ob seznamu opravkov</string>

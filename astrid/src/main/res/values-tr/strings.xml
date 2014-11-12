@@ -456,9 +456,6 @@
 	<string name="voice_create_prompt">Yeni görev için konuş</string>
 	<string name="voice_edit_title_prompt">Görev başlığı için konuş</string>
 	<string name="voice_edit_note_prompt">Görev notları için konuş</string>
-	<string name="EPr_voiceInputInstall_dlg">Ses-girişi kurulu değil.\nGoogle Play\'e gidip yüklemek ister misin?</string>
-	<string name="EPr_voiceInputUnavailable_dlg">Malesef ses-komutu, işletim sisteminiz için mevcut değil.\nMümkünse sisteminizi Android 2.1 ya da üzerine yükseltin.</string>
-	<string name="EPr_marketUnavailable_dlg">Malesef market işletim sisteminiz için mevcut değil.\nMümkünse sesli aramayı başka bir kaynaktan indirin.</string>
 	<string name="EPr_voiceInputEnabled_title">Ses Girişi</string>
 	<string name="EPr_voiceInputEnabled_desc_enabled">Ses girişi düğmesi görev listesi sayfasında görüntülenecek</string>
 	<string name="EPr_voiceInputEnabled_desc_disabled">Ses girişi düğmesi görev listesinde görünmeyecek</string>

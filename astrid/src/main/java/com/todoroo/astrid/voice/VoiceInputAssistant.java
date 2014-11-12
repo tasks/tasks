@@ -189,29 +189,4 @@ public class VoiceInputAssistant {
     public void hideVoiceButton() {
         voiceButton.setVisibility(View.GONE);
     }
-
-    public void showVoiceInputMarketSearch(DialogInterface.OnClickListener onFail) {
-        String packageName;
-        if(AndroidUtilities.getSdkVersion() <= 7) {
-            packageName = "com.google.android.voicesearch.x";
-        } else {
-            packageName = "com.google.android.voicesearch";
-        }
-
-        // User wants to install voice search, take them to the market
-        Intent marketIntent = Constants.MARKET_STRATEGY.generateMarketLink(packageName);
-        if (activity != null) {
-            try {
-                if (marketIntent == null) {
-                    throw new ActivityNotFoundException("No market link supplied"); //$NON-NLS-1$
-                }
-                activity.startActivity(marketIntent);
-            } catch (ActivityNotFoundException ane) {
-                log.error(ane.getMessage(), ane);
-                DialogUtilities.okDialog(activity,
-                        activity.getString(R.string.EPr_marketUnavailable_dlg),
-                        onFail);
-            }
-        }
-    }
 }

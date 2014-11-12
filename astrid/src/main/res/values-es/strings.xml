@@ -510,9 +510,6 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="voice_create_prompt">Hable para crear una tarea</string>
 	<string name="voice_edit_title_prompt">Hable para establecer título de tarea</string>
 	<string name="voice_edit_note_prompt">Hable para establecer notas de tarea</string>
-	<string name="EPr_voiceInputInstall_dlg">El ingreso de datos por voz no está instalado.\n¿Desea ir al market e instalarlo?</string>
-	<string name="EPr_voiceInputUnavailable_dlg">Desafortunadamente, el reconocimiento de voz no está disponible para su sistema.\nSi es posible, actualice a Android 2.1 o superior.</string>
-	<string name="EPr_marketUnavailable_dlg">Lamentablemente el market no está disponible para su sistema.\nDe ser posible, descargue \"búsqueda por voz\" desde otra fuente.</string>
 	<string name="EPr_voiceInputEnabled_title">Ingreso por voz</string>
 	<string name="EPr_voiceInputEnabled_desc_enabled">El botón de ingreso por voz se mostrará en la página de tareas</string>
 	<string name="EPr_voiceInputEnabled_desc_disabled">El botón de ingreso por voz se ocultará en la página de tareas</string>

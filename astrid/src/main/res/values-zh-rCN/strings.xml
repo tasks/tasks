@@ -438,9 +438,6 @@
 	<string name="voice_create_prompt">请说话以建立任务</string>
 	<string name="voice_edit_title_prompt">请说话以设定任务主旨</string>
 	<string name="voice_edit_note_prompt">请说话以设定任务备注</string>
-	<string name="EPr_voiceInputInstall_dlg">语音输入功能尚未安装。\n您要连上市场并安装吗？</string>
-	<string name="EPr_voiceInputUnavailable_dlg">很抱歉语音输入功能不支持您的系统。\n如果可能，请升级至Android 2.1或更新的版本。</string>
-	<string name="EPr_marketUnavailable_dlg">很抱歉您的系统无法使用市场。\n如果可能，请尝试从其他来源下载语音查找功能。</string>
 	<string name="EPr_voiceInputEnabled_title">语音输入</string>
 	<string name="EPr_voiceInputEnabled_desc_enabled">语音输入按键会在任务清单画面上显示。</string>
 	<string name="EPr_voiceInputEnabled_desc_disabled">语音输入按键会在任务清单画面上隐藏。</string>

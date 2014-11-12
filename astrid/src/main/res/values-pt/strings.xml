@@ -514,9 +514,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="voice_create_prompt">Falar para criar uma tarefa</string>
 	<string name="voice_edit_title_prompt">Falar para definir o título</string>
 	<string name="voice_edit_note_prompt">Falar para definir a descrição</string>
-	<string name="EPr_voiceInputInstall_dlg">A introdução por voz não está instalada. Quer aceder à loja Google para a instalar?</string>
-	<string name="EPr_voiceInputUnavailable_dlg">A introdução por voz não está disponível para o seu sistema.\nPara a utilizar, deve instalar o Android 2.1 ou superior.</string>
-	<string name="EPr_marketUnavailable_dlg">A loja Google não está disponível para o seu sistema.\nSe possível, tente transferir a procura por voz de outra fonte.</string>
 	<string name="EPr_voiceInputEnabled_title">Entrada por voz</string>
 	<string name="EPr_voiceInputEnabled_desc_enabled">O botão de introdução por voz será mostrado na lista de tarefas</string>
 	<string name="EPr_voiceInputEnabled_desc_disabled">O botão de introdução por voz não será mostrado na lista de tarefas</string>

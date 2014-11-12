@@ -504,9 +504,6 @@
 	<string name="voice_create_prompt">Parlez pour créer une nouvelle tâche</string>
 	<string name="voice_edit_title_prompt">Parlez pour définir un titre</string>
 	<string name="voice_edit_note_prompt">Parlez pour définir les notes de la tâche</string>
-	<string name="EPr_voiceInputInstall_dlg">La reconnaissance vocale n\'est pas installé.\nVoulez-vous l\'installer depuis le market ?</string>
-	<string name="EPr_voiceInputUnavailable_dlg">Malheureusement, la reconnaissance vocale n\'est pas disponible pour votre système.\nSi possible, faites une mise à jour vers Android 2.1 ou ultérieur.</string>
-	<string name="EPr_marketUnavailable_dlg">Malheureusement, le market n\'est pas accessible sur votre système.\nSi possible, essayez de télécharger le module de reconnaissance vocale depuis une autre source.</string>
 	<string name="EPr_voiceInputEnabled_title">Entrée voix</string>
 	<string name="EPr_voiceInputEnabled_desc_enabled">Le bouton de la reconnaissance vocale sera affiché sur la page d\'accueil</string>
 	<string name="EPr_voiceInputEnabled_desc_disabled">Le bouton de la reconnaissance vocale ne sera pas affiché sur la page d\'accueil</string>

@@ -6,12 +6,6 @@
   <string name="voice_edit_title_prompt">Speak to set task title</string>
   <string name="voice_edit_note_prompt">Speak to set task description</string>
     
-  <!-- Preference: Task List recognition-service is not installed, but available -->
-  <string name="EPr_voiceInputInstall_dlg">Voice-input is not installed.\nDo you want to go to the market and install it?</string>
-  <!-- Preference: Task List recognition-service is not available for this system -->
-  <string name="EPr_voiceInputUnavailable_dlg">Unfortunately voice-input is not available for your system.\nIf possible, please update Android to 2.1 or later.</string>
-  <!-- Preference: Market is not available for this system -->
-  <string name="EPr_marketUnavailable_dlg">Unfortunately the market is not available for your system.\nIf possible, try downloading voice search from another source.</string>
   <!-- slide 38d:  Preference: Task List Show Voice-button if recognition-service is available -->
   <string name="EPr_voiceInputEnabled_title">Voice input</string>
   <!-- slide 38a: Preference: voice button description (true) -->

@@ -505,9 +505,6 @@
 	<string name="voice_create_prompt">דַּבֵּר כדי ליצור משימה</string>
 	<string name="voice_edit_title_prompt">דַּבֵּר כדי לקבוע את כותרת המשימה</string>
 	<string name="voice_edit_note_prompt">דַּבֵּר כדי לקבוע את ההערות למשימה</string>
-	<string name="EPr_voiceInputInstall_dlg">קלט קולי אינו מותקן עדיין.\nהֲתִּרְצֶה ללכת לחנות של גוגל ולהתקינו משם?</string>
-	<string name="EPr_voiceInputUnavailable_dlg">לצערי, קלט קולי איוו נתמשך על המערכת שלך. \nאם אפשרי, נסה לעדכן לגירסת 2.1 ומעלה של אנדרואיד.</string>
-	<string name="EPr_marketUnavailable_dlg">לרוע המזל, חנות היישומים אינה נגישה כעת,נסה אולי להוריד את החיפוש הקולי ממקור אחר</string>
 	<string name="EPr_voiceInputEnabled_title">קלט קולי</string>
 	<string name="EPr_voiceInputEnabled_desc_enabled">כפתור קלט קולי יוצג ברשימת המשימות</string>
 	<string name="EPr_voiceInputEnabled_desc_disabled">כפתור קלט קולי לא יוצג ברשימת המשימות</string>

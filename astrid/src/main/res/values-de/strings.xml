@@ -502,9 +502,6 @@
 	<string name="voice_create_prompt">Sprechen Sie, um eine Aufgabe anzulegen</string>
 	<string name="voice_edit_title_prompt">Sprechen Sie, um einen Namen für die Aufgabe zu vergeben</string>
 	<string name="voice_edit_note_prompt">Sprechen Sie, um Aufgabennotizen zu setzen</string>
-	<string name="EPr_voiceInputInstall_dlg">Spracheingabe ist nicht installiert.\nWollen Sie zu Google Play wechseln und das nachholen?</string>
-	<string name="EPr_voiceInputUnavailable_dlg">Leider ist die Spracheingabe für Ihr System nicht verfügbar.\nWenn möglich, aktualisieren Sie bitte auf Android 2.1 oder höher.</string>
-	<string name="EPr_marketUnavailable_dlg">Leider ist der Marktplatz für Ihr System nicht verfügbar.\nWenn möglich, laden Sie die sprachgestützte Suchfunktion bitte aus einer anderen Quelle herunter.</string>
 	<string name="EPr_voiceInputEnabled_title">Spracheingabe aktivieren</string>
 	<string name="EPr_voiceInputEnabled_desc_enabled">Mikrofon-Button wird angezeigt</string>
 	<string name="EPr_voiceInputEnabled_desc_disabled">Mikrofon-Button wird ausgeblendet</string>

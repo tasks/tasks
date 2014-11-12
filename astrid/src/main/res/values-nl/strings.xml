@@ -508,9 +508,6 @@
 	<string name="voice_create_prompt">Spreek om taak te maken</string>
 	<string name="voice_edit_title_prompt">Spreek titel van taak in</string>
 	<string name="voice_edit_note_prompt">Spreek notities van taak in</string>
-	<string name="EPr_voiceInputInstall_dlg">Spraakmodule niet geïnstalleerd.\nWil je naar de Market gaan en deze installeren?</string>
-	<string name="EPr_voiceInputUnavailable_dlg">Helaas is de spraakmodule niet beschikbaar voor je toestel.\nIndien mogelijk, update naar Android 2.1 of hoger.</string>
-	<string name="EPr_marketUnavailable_dlg">Helaas is de Android Market niet beschikbaar voor dit toestel.\nIndien mogelijk, probeer Voice Search via een andere bron te downloaden.</string>
 	<string name="EPr_voiceInputEnabled_title">Spraakinvoer</string>
 	<string name="EPr_voiceInputEnabled_desc_enabled">Spraakinvoer knop weergeven in takenlijst</string>
 	<string name="EPr_voiceInputEnabled_desc_disabled">Spraakinvoer knop verbergen in takenlijst</string>

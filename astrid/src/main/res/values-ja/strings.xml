@@ -512,9 +512,6 @@
 	<string name="voice_create_prompt">話してタスクを作成してください</string>
 	<string name="voice_edit_title_prompt">話してタスク見出しを設定してください</string>
 	<string name="voice_edit_note_prompt">話してタスク概要を設定してください</string>
-	<string name="EPr_voiceInputInstall_dlg">音声入力はインストールされていません.\nGoogle Play からインストールしますか?</string>
-	<string name="EPr_voiceInputUnavailable_dlg">残念ながらあなたのシステムで音声入力は使用できません.\n可能であれば Android 2.1 以降にアップデートしてください.</string>
-	<string name="EPr_marketUnavailable_dlg">残念ながらあなたのシステムで Google Play は利用できません.\n可能であれば別の場所から音声検索をダウンロードしてください.</string>
 	<string name="EPr_voiceInputEnabled_title">音声入力</string>
 	<string name="EPr_voiceInputEnabled_desc_enabled">音声入力ボタンはタスクリストのページに表示されます</string>
 	<string name="EPr_voiceInputEnabled_desc_disabled">音声入力ボタンはタスクリストのページで表示されません</string>

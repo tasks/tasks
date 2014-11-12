@@ -509,9 +509,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="voice_create_prompt">Mów by utworzyć zadanie</string>
 	<string name="voice_edit_title_prompt">Mów by ustawić tytuł zadania</string>
 	<string name="voice_edit_note_prompt">Mów by ustawić notatkę zadania</string>
-	<string name="EPr_voiceInputInstall_dlg">Voice-input nie jest zainstalowany.\nCzy chcesz iść do marketu i zainstalować go?</string>
-	<string name="EPr_voiceInputUnavailable_dlg">Niestety sterowania głosem nie jest dostępne dla systemu.\nJęśli możliwe, zaktualizuj system do Android 2.1 lub nowszego.</string>
-	<string name="EPr_marketUnavailable_dlg">Niestety w market nie jest dostępny dla twojego systemu.\nJęśli możliwe, należy pobrać wyszukiwanie głosowe z innego źródła.</string>
 	<string name="EPr_voiceInputEnabled_title">Polecenia głosowe</string>
 	<string name="EPr_voiceInputEnabled_desc_enabled">Przycisk poleceń głosowych będzie wyświetlany na stronie listy zadań</string>
 	<string name="EPr_voiceInputEnabled_desc_disabled">Przycisk poleceń głosowych będzie ukryty na stronie listy zadań</string>
