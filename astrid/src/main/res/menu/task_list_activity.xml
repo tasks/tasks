@@ -7,7 +7,9 @@
         android:id="@+id/menu_search"
         android:title="@string/TLA_menu_search"
         android:icon="?attr/ic_action_search"
-        tasks:showAsAction="ifRoom" />
+        tasks:showAsAction="ifRoom|collapseActionView"
+        tasks:actionViewClass="android.support.v7.widget.SearchView"/>
+
     <item
         android:id="@+id/menu_delete_list"
         android:title="@string/tag_cm_delete"

@@ -13,15 +13,16 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.speech.SpeechRecognizer;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.SearchView;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
@@ -48,7 +49,6 @@ import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
-import com.todoroo.astrid.voice.RecognizerApi;
 import com.todoroo.astrid.voice.VoiceRecognizer;
 
 import org.tasks.R;
@@ -113,16 +113,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         }
 
         Filter savedFilter = getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER);
-        if (Intent.ACTION_SEARCH.equals(getIntent().getAction())) {
-            String query = getIntent().getStringExtra(SearchManager.QUERY).trim();
-            String title = getString(R.string.FLA_search_filter, query);
-            savedFilter = new Filter(title, title,
-                    new QueryTemplate().where(Task.TITLE.like(
-                            "%" + //$NON-NLS-1$
-                                    query + "%")), //$NON-NLS-1$
-                    null);
-        }
-
         if (savedFilter == null) {
             savedFilter = getDefaultFilter();
             extras.putAll(configureIntentAndExtrasWithFilter(getIntent(), savedFilter));
@@ -168,6 +158,28 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
             menu.findItem(R.id.menu_clear_completed).setVisible(true);
             menu.findItem(R.id.menu_sort).setVisible(false);
         }
+        final MenuItem item = menu.findItem(R.id.menu_search);
+        final SearchView actionView = (SearchView) MenuItemCompat.getActionView(item);
+        actionView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                query = query.trim();
+                String title = getString(R.string.FLA_search_filter, query);
+                Filter savedFilter = new Filter(title, title,
+                        new QueryTemplate().where(Task.TITLE.like(
+                                "%" + //$NON-NLS-1$
+                                        query + "%")), //$NON-NLS-1$
+                        null);
+                onFilterItemClicked(savedFilter);
+                MenuItemCompat.collapseActionView(item);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                return false;
+            }
+        });
         return true;
     }
 
@@ -458,9 +470,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         switch(item.getItemId()) {
             case R.id.menu_settings:
                 tlf.showSettings();
-                return true;
-            case R.id.menu_search:
-                onSearchRequested();
                 return true;
             case R.id.menu_sort:
                 AlertDialog dialog = SortSelectionActivity.createDialog(
