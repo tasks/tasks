@@ -44,6 +44,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.tasks.preferences.ResourceResolver.getData;
+
 public class FilterAdapter extends ArrayAdapter<Filter> {
 
     private static final Logger log = LoggerFactory.getLogger(FilterAdapter.class);
@@ -197,15 +199,12 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
         Filter selected = null;
         if (activity instanceof AstridActivity) {
-            boolean shouldHighlightSelected = ((AstridActivity) activity).getFragmentLayout() != AstridActivity.LAYOUT_SINGLE;
-            if (shouldHighlightSelected) {
-                TaskListFragment tlf = ((AstridActivity) activity).getTaskListFragment();
-                selected = tlf.getFilter();
-            }
+            TaskListFragment tlf = ((AstridActivity) activity).getTaskListFragment();
+            selected = tlf.getFilter();
         }
 
-        if (selected == null || !selected.equals(viewHolder.item)) {
-            convertView.setBackgroundColor(activity.getResources().getColor(android.R.color.transparent));
+        if (selected != null && selected.equals(viewHolder.item)) {
+            convertView.setBackgroundColor(getData(activity, R.attr.drawer_selected));
         }
 
         return convertView;
@@ -390,7 +389,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         }
 
         if(countInt == 0 && filter instanceof FilterWithCustomIntent) {
-            viewHolder.name.setTextColor(Color.GRAY);
+            viewHolder.size.setVisibility(View.GONE);
         }
 
         viewHolder.name.getLayoutParams().height = (int) (58 * metrics.density);

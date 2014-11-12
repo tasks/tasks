@@ -48,6 +48,7 @@
         <item name="tea_icn_reminder">@drawable/tea_icn_reminder_lightblue</item>
         <item name="drawer_background">#303030</item>
         <item name="drawer_text">#ffffff</item>
+        <item name="drawer_selected">#555555</item>
         <!-- actionbar-styling -->
         <item name="android:actionBarStyle">@style/AstridV11ActionBarStyle</item>
         <item name="actionBarStyle">@style/AstridActionBarStyle</item>
@@ -105,6 +106,7 @@
 
         <item name="drawer_background">#efefef</item>
         <item name="drawer_text">#000</item>
+        <item name="drawer_selected">#dddddd</item>
         <!-- actionbar-styling -->
         <item name="android:actionBarStyle">@style/AstridV11ActionBarStyle.Light</item>
         <item name="actionBarStyle">@style/AstridActionBarStyle.Light</item>

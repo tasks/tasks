@@ -37,6 +37,7 @@
     <attr name="drawer_text" format="color"/>
     <attr name="task_edit_theme_color" format="color"/>
     <attr name="importance_background_selected" format="reference"/>
+    <attr name="drawer_selected" format="color"/>
 
     <attr name="tea_icn_files" format="reference"/>
     <attr name="tea_icn_addcal" format="reference"/>
