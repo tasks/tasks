@@ -54,7 +54,6 @@
 	<string name="TLA_menu_search">Ara</string>
 	<string name="TLA_menu_settings">Ayarlar</string>
 	<string name="TLA_custom">Özel</string>
-	<string name="TLA_quick_add_hint">Görev ekle</string>
 	<string name="TLA_notification_volume_low">Uyarılar susturuldu. Tasks \'i duyamayacaksın!</string>
 	<string name="TLA_notification_disabled">Tasks hatırlatıcıları devre dışı. Hatırlatma almayacaksınız.</string>
 	<string name="TLA_quickadd_confirm_title">Dediniz ki, \"%s\"</string>
@@ -92,7 +91,6 @@
 	<string name="FLA_context_shortcut">Masaüstünde Kısayol Oluştur</string>
 	<string name="FLA_shortcut_dialog_title">Kısayol Oluştur</string>
 	<string name="FLA_shortcut_dialog">Kısayol adı:</string>
-	<string name="FLA_search_hint">Görevleri ara</string>
 	<string name="FLA_search_filter">\'%s\' ile eşleşenler</string>
 	<string name="FLA_toast_onCreateShortcut">Oluşturulan Kısayol: %s</string>
 	<string name="FLA_new_filter">Yeni Filtre</string>
@@ -132,7 +130,6 @@
 	<string name="hide_until_prompt">Listemde göster</string>
 	<string name="TEA_load_more">Daha yükle...</string>
 	<string name="TEA_when_dialog_title">Son zamanı nedir?</string>
-	<string name="TEA_new_task">Yeni Görev</string>
 	<string name="MCA_title">%1$s aradı\nzamanı: %2$s</string>
 	<string name="MCA_return_call">Şimdi ara</string>
 	<string name="MCA_add_task">Sonra ara</string>

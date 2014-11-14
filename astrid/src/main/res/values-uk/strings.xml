@@ -61,7 +61,6 @@
 	<string name="TLA_menu_search">Пошук</string>
 	<string name="TLA_menu_settings">Налаштування</string>
 	<string name="TLA_custom">Користувальницький</string>
-	<string name="TLA_quick_add_hint">Додати завдання</string>
 	<string name="TLA_notification_volume_low">Сповіщення приглушені. Ви не зможете почути Tasks!</string>
 	<string name="TLA_notification_disabled">Нагадування відключені! Ви не будете отримувати нагадування</string>
 	<string name="TLA_quickadd_confirm_title">Ти сказав, \\"%s\\"</string>
@@ -101,7 +100,6 @@
 	<string name="FLA_context_shortcut">Створити ярлик на стільниці</string>
 	<string name="FLA_shortcut_dialog_title">Створити ярлик на стільниці</string>
 	<string name="FLA_shortcut_dialog">Ім’я ярлика:</string>
-	<string name="FLA_search_hint">Пошук завдань</string>
 	<string name="FLA_search_filter">Відповідності до %s</string>
 	<string name="FLA_toast_onCreateShortcut">Створений Ярлик: %s</string>
 	<string name="FLA_new_filter">Новий фільтр</string>
@@ -151,7 +149,6 @@
 	<string name="hide_until_prompt">Показувати в мому списку</string>
 	<string name="TEA_load_more">Завантажити більше...</string>
 	<string name="TEA_when_dialog_title">Коли це потрібно виконати?</string>
-	<string name="TEA_new_task">Нове завдання</string>
 	<string name="MCA_title">%1$s\nтелефонував о %2$s</string>
 	<string name="MCA_return_call">Зателефонувати зараз</string>
 	<string name="MCA_add_task">Зателефонувати пізніше</string>
@@ -213,8 +210,6 @@
 	<string name="EPr_fullTask_title">Показувати повну назву завдання</string>
 	<string name="EPr_fullTask_desc_enabled">Повна назва завдання буде показана</string>
 	<string name="EPr_fullTask_desc_disabled">Перші дві стрічки назви завдання будуть показані</string>
-	<string name="EPr_show_quickadd_controls">Розширені можливості швидкого додавання</string>
-	<string name="EPr_hide_plus_button">Прибрати кнопку плюс</string>
 	<string name="EPr_list_view">Вигляд списку</string>
 	<string name="EPr_show_task_edit_comments">Показувати коментарі в редакторі завдання</string>
 	<string name="EPr_taskRowPrefs_title">Зовнішній вигляд завдань у списку</string>

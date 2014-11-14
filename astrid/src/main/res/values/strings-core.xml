@@ -180,9 +180,6 @@
   <!-- Create Shortcut Dialog (asks to name shortcut) -->    
   <string name="FLA_shortcut_dialog">Name of shortcut:</string>
   
-  <!-- Search Hint-->
-  <string name="FLA_search_hint">Search For Tasks</string>
-  
   <!-- Search Filter name (%s => query) -->
   <string name="FLA_search_filter">Matching \'%s\'</string>
   

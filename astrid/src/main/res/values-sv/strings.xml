@@ -53,7 +53,6 @@
 	<string name="TLA_menu_search">Sök</string>
 	<string name="TLA_menu_settings">Inställningar</string>
 	<string name="TLA_custom">Egendefinierad</string>
-	<string name="TLA_quick_add_hint">Lägg till uppgift</string>
 	<string name="TLA_notification_volume_low">Påminnelseljudet är avstängt! Du kommer inte att höra Tasks!</string>
 	<string name="TLA_notification_disabled">Påminnelserna från Tasks är avstängda! Du kommer inte att få några påminnelser</string>
 	<string name="TLA_quickadd_confirm_title">Du sa: \"%s\"</string>
@@ -94,7 +93,6 @@
 	<string name="FLA_context_shortcut">Skapa genväg på skrivbordet</string>
 	<string name="FLA_shortcut_dialog_title">Skapa genväg</string>
 	<string name="FLA_shortcut_dialog">Genvägens namn:</string>
-	<string name="FLA_search_hint">Sök efter uppgifter</string>
 	<string name="FLA_search_filter">Matchar \'%s\'</string>
 	<string name="FLA_toast_onCreateShortcut">Skapad genväg: %s</string>
 	<string name="FLA_new_filter">Nytt filter</string>
@@ -144,7 +142,6 @@
 	<string name="hide_until_prompt">Visa i min lista</string>
 	<string name="TEA_load_more">Ladda mer...</string>
 	<string name="TEA_when_dialog_title">När ska uppgiften vara slutförd?</string>
-	<string name="TEA_new_task">Ny uppgift</string>
 	<string name="MCA_title">%1$s\nringde kl %2$s</string>
 	<string name="MCA_return_call">Ring nu</string>
 	<string name="MCA_add_task">Ring senare</string>
@@ -203,8 +200,6 @@
 	<string name="EPr_fullTask_title">Visa hela namnet på uppgiften</string>
 	<string name="EPr_fullTask_desc_enabled">Uppgiftens namn kommer att visas i sin helhet</string>
 	<string name="EPr_fullTask_desc_disabled">De första två raderna i uppgiftens namn kommer att visas</string>
-	<string name="EPr_show_quickadd_controls">Avancerade quickadd kontroller.</string>
-	<string name="EPr_hide_plus_button">Dölj plusknappen</string>
 	<string name="EPr_list_view">Listvy</string>
 	<string name="EPr_show_task_edit_comments">Vissa kommentarer i uppgiftsredigering</string>
 	<string name="EPr_taskRowPrefs_title">Utseende på uppgiftsraden</string>

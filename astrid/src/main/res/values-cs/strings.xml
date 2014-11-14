@@ -57,7 +57,6 @@
 	<string name="TLA_menu_search">Hledat</string>
 	<string name="TLA_menu_settings">Nastavení</string>
 	<string name="TLA_custom">Vlastní</string>
-	<string name="TLA_quick_add_hint">Přidat úkol</string>
 	<string name="TLA_notification_volume_low">Upozornění jsou ztlumena. Neuslyšíte Tasks!</string>
 	<string name="TLA_notification_disabled">Upomínky Tasks jsou vypnuté! Nedostanete žádná upozornění</string>
 	<string name="TLA_quickadd_confirm_title">Říkal jsi, že \"%s\"</string>
@@ -97,7 +96,6 @@
 	<string name="FLA_context_shortcut">Vytvořit zástupce na ploše</string>
 	<string name="FLA_shortcut_dialog_title">Vytvořit zástupce</string>
 	<string name="FLA_shortcut_dialog">Název zástupce:</string>
-	<string name="FLA_search_hint">Hledat úkoly</string>
 	<string name="FLA_search_filter">Hledanému \'%s\' odpovídá:</string>
 	<string name="FLA_toast_onCreateShortcut">Vytvořen zástupce: %s</string>
 	<string name="FLA_new_filter">Nový Filtr</string>
@@ -148,7 +146,6 @@
 	<string name="hide_until_prompt">Zobrazit v mém seznamu</string>
 	<string name="TEA_load_more">Více...</string>
 	<string name="TEA_when_dialog_title">Kdy je termín?</string>
-	<string name="TEA_new_task">Nový úkol</string>
 	<string name="MCA_title">V %2$s volal\n%1$s</string>
 	<string name="MCA_return_call">Hned zavolat</string>
 	<string name="MCA_add_task">Zavolat později</string>
@@ -205,8 +202,6 @@
 	<string name="EPr_fullTask_title">Zobrazit úplný název úkolu</string>
 	<string name="EPr_fullTask_desc_enabled">Zobrazí se úplný název úkolu</string>
 	<string name="EPr_fullTask_desc_disabled">Zobrazí se první dva řádky názvu úkolu</string>
-	<string name="EPr_show_quickadd_controls">Rozšířená nastavení rychlého přidání</string>
-	<string name="EPr_hide_plus_button">Skrýt tlačítko plus</string>
 	<string name="EPr_list_view">Zobrazit seznam</string>
 	<string name="EPr_show_task_edit_comments">Zobrazit komentáře při úpravě úkolu</string>
 	<string name="EPr_taskRowPrefs_title">Vzhled řádku úkolu</string>

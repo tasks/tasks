@@ -65,7 +65,6 @@
 	<string name="FLA_context_shortcut">Lag snarvei på skrivebordet</string>
 	<string name="FLA_shortcut_dialog_title">Create Shortcut</string>
 	<string name="FLA_shortcut_dialog">Snarveiens navn:</string>
-	<string name="FLA_search_hint">Søk etter oppgaver</string>
 	<string name="FLA_search_filter">Matcher \'%s\'</string>
 	<string name="FLA_toast_onCreateShortcut">Snarvei opprettet: %s</string>
 	<string name="FLA_new_filter">Nytt filter</string>
@@ -96,7 +95,6 @@
 	<string name="TEA_control_files">Filer</string>
 	<string name="TEA_control_reminders">Påminnelser</string>
 	<string name="hide_until_prompt">Vis i min liste</string>
-	<string name="TEA_new_task">Ny oppgave</string>
 	<string name="MCA_ignore">Ignorer</string>
 	<string name="CRA_create_list">Opprett liste</string>
 	<string name="CRA_create_new">Opprett ny</string>

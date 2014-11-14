@@ -56,7 +56,6 @@
 	<string name="TLA_menu_search">Cerca</string>
 	<string name="TLA_menu_settings">Paràmetres</string>
 	<string name="TLA_custom">Personalitzat</string>
-	<string name="TLA_quick_add_hint">Afegeix una tasca</string>
 	<string name="TLA_notification_volume_low">S\'han silenciat les notificacions. No sentireu res més d\'Tasks!</string>
 	<string name="TLA_notification_disabled">Els recordatoris de l\'Tasks estan inhabilitats. No rebreu cap recordatori</string>
 	<string name="TLA_quickadd_confirm_title">Heu dit «%s»</string>
@@ -96,7 +95,6 @@
 	<string name="FLA_context_shortcut">Afegir un enllaç al escriptori...</string>
 	<string name="FLA_shortcut_dialog_title">Crea una drecera a l\'escriptori</string>
 	<string name="FLA_shortcut_dialog">Nom del enllaç</string>
-	<string name="FLA_search_hint">Cerca tasques</string>
 	<string name="FLA_search_filter">Coincidència \'%s\'</string>
 	<string name="FLA_toast_onCreateShortcut">S\'ha creat l\'enllaç: %s</string>
 	<string name="FLA_new_filter">Filtre nou</string>
@@ -143,7 +141,6 @@
 	<string name="hide_until_prompt">Mostra a la meva llista</string>
 	<string name="TEA_load_more">Carrega més...</string>
 	<string name="TEA_when_dialog_title">Quan venç?</string>
-	<string name="TEA_new_task">Tasca nova</string>
 	<string name="MCA_title">En/na %1$s\nha trucat a les %2$s</string>
 	<string name="MCA_return_call">Truca ara</string>
 	<string name="MCA_add_task">Truca després</string>

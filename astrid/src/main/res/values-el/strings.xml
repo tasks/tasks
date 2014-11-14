@@ -62,7 +62,6 @@
 	<string name="FLA_context_shortcut">Δημιουργία συντόμευσης στην Επιφάνεια Εργασίας</string>
 	<string name="FLA_shortcut_dialog_title">Δημιουργία συντόμευσης στην Επιφάνεια Εργασίας</string>
 	<string name="FLA_shortcut_dialog">Όνομα συντόμευσης:</string>
-	<string name="FLA_search_hint">Αναζήτηση για καθήκοντα</string>
 	<string name="FLA_search_filter">Ταιριάζουν \'%s\'</string>
 	<string name="FLA_toast_onCreateShortcut">Δημιουργία συντόμευσης: %s</string>
 	<string name="FLA_new_filter">Νέο φίλτρο</string>
@@ -112,7 +111,6 @@
 	<string name="hide_until_prompt">Εμφάνιση στην λίστα μου</string>
 	<string name="TEA_load_more">Φόρτωση περισσότερων</string>
 	<string name="TEA_when_dialog_title">Πότε λήγει?</string>
-	<string name="TEA_new_task">Νέο καθήκον</string>
 	<string name="MCA_title">%1$s\nκάλεσε στίς %2$s</string>
 	<string name="MCA_return_call">Κλήση τώρα</string>
 	<string name="MCA_add_task">Κλήση αργότερα</string>
@@ -160,8 +158,6 @@
 	<string name="EPr_time_increment">5λεπτες αυξήσεις </string>
 	<string name="EPr_beastMode_reset">Επαναφορά προεπιλογών</string>
 	<string name="EPr_fullTask_title">Εμφάνισε πλήρη τίτλο καθήκοντος</string>
-	<string name="EPr_show_quickadd_controls">Προηγμένα χειριστήρια γρήγορης πρόσθεσης</string>
-	<string name="EPr_hide_plus_button">Απόκρυψη κουμπιού πρόσθεσης</string>
 	<string name="EPr_list_view">Εμφάνιση λίστας</string>
 	<string name="EPr_show_task_edit_comments">Εμφάνιση σχόλιων στην επεξεργασία καθήκοντος</string>
 	<string name="EPr_taskRowPrefs_title">Εμφάνιση σειράς καθήκοντος</string>

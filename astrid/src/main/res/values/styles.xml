@@ -49,13 +49,18 @@
         <item name="drawer_text">#ffffff</item>
         <item name="drawer_selected">#555555</item>
         <!-- actionbar-styling -->
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="android:actionBarStyle">@style/AstridV11ActionBarStyle</item>
         <item name="actionBarStyle">@style/AstridActionBarStyle</item>
         <item name="android:actionOverflowButtonStyle">@style/AstridOverflowStyle</item>
         <item name="actionOverflowButtonStyle">@style/AstridOverflowStyle</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
-    
+
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">false</item>
+    </style>
+
     <style name="AstridV11ActionBarStyle" parent="@style/Widget.AppCompat.ActionBar">
         <item name="android:background">@drawable/header_blue</item>
         <item name="android:displayOptions">showHome|showTitle</item>
@@ -107,6 +112,7 @@
         <item name="drawer_text">#000</item>
         <item name="drawer_selected">#dddddd</item>
         <!-- actionbar-styling -->
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="android:actionBarStyle">@style/AstridV11ActionBarStyle.Light</item>
         <item name="actionBarStyle">@style/AstridActionBarStyle.Light</item>
         <item name="android:actionOverflowButtonStyle">@style/AstridOverflowStyle.Light</item>

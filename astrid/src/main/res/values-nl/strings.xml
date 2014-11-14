@@ -56,7 +56,6 @@
 	<string name="TLA_menu_search">Zoek</string>
 	<string name="TLA_menu_settings">Instellingen</string>
 	<string name="TLA_custom">Aangepast</string>
-	<string name="TLA_quick_add_hint">Taak toevoegen</string>
 	<string name="TLA_notification_volume_low">Meldingsgeluid uitgeschakeld. U kunt Tasks niet horen!</string>
 	<string name="TLA_notification_disabled">Tasks herinneringen zijn uitgeschakeld! Je ontvangt geen herinneringen.</string>
 	<string name="TLA_quickadd_confirm_title">Jij zei, \"%s\"</string>
@@ -97,7 +96,6 @@
 	<string name="FLA_context_shortcut">Snelkoppeling op bureaublad maken</string>
 	<string name="FLA_shortcut_dialog_title">Snelkoppeling maken</string>
 	<string name="FLA_shortcut_dialog">Naam snelkoppeling:</string>
-	<string name="FLA_search_hint">Naar taken zoeken</string>
 	<string name="FLA_search_filter">Bevat \'%s\'</string>
 	<string name="FLA_toast_onCreateShortcut">Gemaakte snelkoppeling: %s</string>
 	<string name="FLA_new_filter">Nieuw Filter</string>
@@ -148,7 +146,6 @@
 	<string name="hide_until_prompt">Laat zien in mijn lijst</string>
 	<string name="TEA_load_more">Laad meer...</string>
 	<string name="TEA_when_dialog_title">Wanneer moet dit gedaan zijn?</string>
-	<string name="TEA_new_task">Nieuwe Taak</string>
 	<string name="MCA_title">%1$s\nheeft gebeld op (%2$s)</string>
 	<string name="MCA_return_call">Bel nu</string>
 	<string name="MCA_add_task">Bel later</string>
@@ -210,8 +207,6 @@
 	<string name="EPr_fullTask_title">Laat volledige taak titel zien</string>
 	<string name="EPr_fullTask_desc_enabled">Volledige taak titel zal worden weergegeven</string>
 	<string name="EPr_fullTask_desc_disabled">Eerste twee lijnen van taak titel zullen worden weergegeven</string>
-	<string name="EPr_show_quickadd_controls">Geavanceerde snel toevoegen controls</string>
-	<string name="EPr_hide_plus_button">Verberg plus knop</string>
 	<string name="EPr_list_view">Lijst weergave</string>
 	<string name="EPr_show_task_edit_comments">Toon opmerkingen in taak bewerken</string>
 	<string name="EPr_taskRowPrefs_title">Taakrij Weergave</string>

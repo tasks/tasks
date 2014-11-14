@@ -58,7 +58,6 @@
 	<string name="TLA_menu_search">Поиск</string>
 	<string name="TLA_menu_settings">Настройки</string>
 	<string name="TLA_custom">Другой</string>
-	<string name="TLA_quick_add_hint">Добавить задачу</string>
 	<string name="TLA_notification_volume_low">Звуковые извещения заглушены. Вы не услышите Tasks!</string>
 	<string name="TLA_notification_disabled">Напоминания Tasks отключены! Вы не будете получать никаких напоминаний</string>
 	<string name="TLA_quickadd_confirm_title">Вы сказали, \"%s\"</string>
@@ -99,7 +98,6 @@
 	<string name="FLA_context_shortcut">Создать ярлык на рабочем столе…</string>
 	<string name="FLA_shortcut_dialog_title">Создать ярлык</string>
 	<string name="FLA_shortcut_dialog">Имя ярлыка:</string>
-	<string name="FLA_search_hint">Найти задачи</string>
 	<string name="FLA_search_filter">Соответствия для \'%s\'</string>
 	<string name="FLA_toast_onCreateShortcut">Ярлык %s создан</string>
 	<string name="FLA_new_filter">Новый фильтр</string>
@@ -150,7 +148,6 @@
 	<string name="hide_until_prompt">Показать в моем листе</string>
 	<string name="TEA_load_more">Загрузить больше...</string>
 	<string name="TEA_when_dialog_title">Когда это должно произойти?</string>
-	<string name="TEA_new_task">Новая задача</string>
 	<string name="MCA_title">%1$s\nзвонил(а) в %2$s</string>
 	<string name="MCA_return_call">Позвонить сейчас</string>
 	<string name="MCA_add_task">Позвонить позже</string>
@@ -212,8 +209,6 @@
 	<string name="EPr_fullTask_title">Показывать полное название задачи</string>
 	<string name="EPr_fullTask_desc_enabled">Будет показано полное название задачи</string>
 	<string name="EPr_fullTask_desc_disabled">Будут показаны первые две строки названия</string>
-	<string name="EPr_show_quickadd_controls">Расширенные возможности быстрого добавления</string>
-	<string name="EPr_hide_plus_button">Убрать кнопку плюс</string>
 	<string name="EPr_list_view">Списком</string>
 	<string name="EPr_show_task_edit_comments">Показывать комментарии в редакторе задачи</string>
 	<string name="EPr_taskRowPrefs_title">Внешний вид задач в списке</string>

@@ -61,7 +61,6 @@
 	<string name="TLA_menu_search">검색</string>
 	<string name="TLA_menu_settings">설정</string>
 	<string name="TLA_custom">사용자 설정</string>
-	<string name="TLA_quick_add_hint">일정 추가하기</string>
 	<string name="TLA_notification_volume_low">알림를 껐습니다. 아스트리드 알림 소리를 들을 수 없습니다!</string>
 	<string name="TLA_notification_disabled">Tasks 알림을 사용하지 않습니다! 어떤 알림도 받을 수 없을 것입니다.</string>
 	<string name="TLA_quickadd_confirm_title">\"%s\" 라고 말했습니다</string>
@@ -101,7 +100,6 @@
 	<string name="FLA_context_shortcut">바탕화면에 바로가기 만들기</string>
 	<string name="FLA_shortcut_dialog_title">바탕화면에 바로가기 만들기</string>
 	<string name="FLA_shortcut_dialog">바로가기 이름:</string>
-	<string name="FLA_search_hint">일정 검색하기</string>
 	<string name="FLA_search_filter">\'%s\' 검색 중</string>
 	<string name="FLA_toast_onCreateShortcut">바로가기 생성: %s</string>
 	<string name="FLA_new_filter">새 필터</string>
@@ -151,7 +149,6 @@
 	<string name="hide_until_prompt">내 목록에 표시</string>
 	<string name="TEA_load_more">더 불러오기...</string>
 	<string name="TEA_when_dialog_title">마감일이 언제입니까?</string>
-	<string name="TEA_new_task">새 일정</string>
 	<string name="MCA_title">%1$s\n받은 시간: %2$s</string>
 	<string name="MCA_return_call">지금 전화하기</string>
 	<string name="MCA_add_task">나중에 전화하기</string>
@@ -213,8 +210,6 @@
 	<string name="EPr_fullTask_title">전체 일정 제목 보기</string>
 	<string name="EPr_fullTask_desc_enabled">전체 일정 제목을 표시합니다</string>
 	<string name="EPr_fullTask_desc_disabled">일정 제목의 첫 두 줄을 표시합니다</string>
-	<string name="EPr_show_quickadd_controls">고급 빠른추가 조정</string>
-	<string name="EPr_hide_plus_button">플러스 버튼 감추기</string>
 	<string name="EPr_list_view">목록 보기</string>
 	<string name="EPr_show_task_edit_comments">일정 편집에서 댓글 보기</string>
 	<string name="EPr_taskRowPrefs_title">일정 표시줄 보기 설정</string>

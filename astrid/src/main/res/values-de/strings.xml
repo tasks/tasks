@@ -52,7 +52,6 @@
 	<string name="TLA_menu_search">Suchen</string>
 	<string name="TLA_menu_settings">Einstellungen</string>
 	<string name="TLA_custom">Benutzerdefiniert</string>
-	<string name="TLA_quick_add_hint">Aufgabe hinzufügen</string>
 	<string name="TLA_notification_volume_low">Erinnerungen sind stummgeschaltet. Du wirst Tasks nicht hören!</string>
 	<string name="TLA_notification_disabled">Erinnerungen durch Tasks sind ausgeschaltet! Du wirst keine Erinnerungen mehr erhalten!</string>
 	<string name="TLA_quickadd_confirm_title">Sie sagten: \"%s\"</string>
@@ -93,7 +92,6 @@
 	<string name="FLA_context_shortcut">Verknüpfung auf dem Desktop erstellen</string>
 	<string name="FLA_shortcut_dialog_title">Desktop-Verküpfung erstellen</string>
 	<string name="FLA_shortcut_dialog">Name der Verknüpfung:</string>
-	<string name="FLA_search_hint">Suche nach Aufgaben</string>
 	<string name="FLA_search_filter">Übereinstimmung mit %s</string>
 	<string name="FLA_toast_onCreateShortcut">Verknüpfung erstellt: %s</string>
 	<string name="FLA_new_filter">Neuer Filter</string>
@@ -144,7 +142,6 @@
 	<string name="hide_until_prompt">Anzeigen in meiner Liste</string>
 	<string name="TEA_load_more">Weitere laden …</string>
 	<string name="TEA_when_dialog_title">Wann ist das fällig?</string>
-	<string name="TEA_new_task">Neue Aufgabe</string>
 	<string name="MCA_title">%1$s hat um %2$s angerufen</string>
 	<string name="MCA_return_call">Jetzt anrufen</string>
 	<string name="MCA_add_task">Später anrufen</string>
@@ -206,8 +203,6 @@
 	<string name="EPr_fullTask_title">Gesamten Aufgabentitel anzeigen</string>
 	<string name="EPr_fullTask_desc_enabled">Aufgabentitel wird vollständig angezeigt</string>
 	<string name="EPr_fullTask_desc_disabled">Die ersten beiden Zeilen des Aufgabentitels werden angezeigt</string>
-	<string name="EPr_show_quickadd_controls">Erweiterte Einstellungen für Schnelleingabe</string>
-	<string name="EPr_hide_plus_button">Verstecke den +-Knopf</string>
 	<string name="EPr_list_view">Listenansicht</string>
 	<string name="EPr_show_task_edit_comments">Kommentare bei Aufgabeneingabe anzeigen </string>
 	<string name="EPr_taskRowPrefs_title">Aussehen der Aufgabenzeilen</string>

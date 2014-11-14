@@ -60,7 +60,6 @@
 	<string name="TLA_menu_search">Iskanje</string>
 	<string name="TLA_menu_settings">Nastavitve</string>
 	<string name="TLA_custom">Po meri</string>
-	<string name="TLA_quick_add_hint">Dodaj opravek</string>
 	<string name="TLA_notification_volume_low">Obvestila so utišana. Aplikacija Opravki bo neslišna!</string>
 	<string name="TLA_notification_disabled">Opomniki so onemogočeni, zato se ne bodo pojavljali.</string>
 	<string name="TLA_quickadd_confirm_title">Rekli ste, \"%s\"</string>
@@ -101,7 +100,6 @@
 	<string name="FLA_context_shortcut">Ustvari bližnjico na namizju</string>
 	<string name="FLA_shortcut_dialog_title">Ustvari bližnjico za namizje</string>
 	<string name="FLA_shortcut_dialog">Ime bližnjice:</string>
-	<string name="FLA_search_hint">Išči po opravilih</string>
 	<string name="FLA_search_filter">Ujemanje za \'%s\'</string>
 	<string name="FLA_toast_onCreateShortcut">Ustvarjena bližnjica: %s</string>
 	<string name="FLA_new_filter">Nov filter</string>
@@ -151,7 +149,6 @@
 	<string name="hide_until_prompt">Pokaži v mojem seznamu</string>
 	<string name="TEA_load_more">Naloži še...</string>
 	<string name="TEA_when_dialog_title">Do kdaj je treba tole opraviti?</string>
-	<string name="TEA_new_task">Nov opravek</string>
 	<string name="MCA_title">%1$s\nbil klican ob%2$s</string>
 	<string name="MCA_return_call">Kliči zdaj</string>
 	<string name="MCA_add_task">Kliči kasneje</string>
@@ -213,8 +210,6 @@
 	<string name="EPr_fullTask_title">Prikaži celoten naziv opravka</string>
 	<string name="EPr_fullTask_desc_enabled">Celoten naziv opravka bo prikazan</string>
 	<string name="EPr_fullTask_desc_disabled">Prikazani bosta prvi dve vrstici naziva opravka</string>
-	<string name="EPr_show_quickadd_controls">Napredni kontrolniki za hitro dodajanje</string>
-	<string name="EPr_hide_plus_button">Skrij gumb s plusom</string>
 	<string name="EPr_list_view">Seznamski prikaz</string>
 	<string name="EPr_show_task_edit_comments">Prikaži opombe pri urejanju opravkov</string>
 	<string name="EPr_taskRowPrefs_title">Izgled vrstic z opravki</string>

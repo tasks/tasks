@@ -57,7 +57,6 @@
 	<string name="TLA_menu_search">検索</string>
 	<string name="TLA_menu_settings">設定</string>
 	<string name="TLA_custom">カスタムフィルタ</string>
-	<string name="TLA_quick_add_hint">タスクを追加する</string>
 	<string name="TLA_notification_volume_low">通知はミュートされています. Tasks から通知を受け取ることができません!</string>
 	<string name="TLA_notification_disabled">リマインダーは無効になっています! リマインダーを受け取りません</string>
 	<string name="TLA_quickadd_confirm_title">\"%s\" と言いました</string>
@@ -98,7 +97,6 @@
 	<string name="FLA_context_shortcut">ショートカットの作成</string>
 	<string name="FLA_shortcut_dialog_title">ショートカットを作る</string>
 	<string name="FLA_shortcut_dialog">ショートカットの名称</string>
-	<string name="FLA_search_hint">タスクの検索</string>
 	<string name="FLA_search_filter">「%s」の検索結果</string>
 	<string name="FLA_toast_onCreateShortcut">ショートカット %s を作成しました</string>
 	<string name="FLA_new_filter">新しいフィルタ</string>
@@ -149,7 +147,6 @@
 	<string name="hide_until_prompt">私のリストに表示</string>
 	<string name="TEA_load_more">さらに読み込む...</string>
 	<string name="TEA_when_dialog_title">期限はいつですか?</string>
-	<string name="TEA_new_task">新しいタスク</string>
 	<string name="MCA_title">%1$s\n%2$s に呼び出しがありました</string>
 	<string name="MCA_return_call">いますぐ呼び出し</string>
 	<string name="MCA_add_task">後で呼び出し</string>
@@ -211,8 +208,6 @@
 	<string name="EPr_fullTask_title">完全なタスク見出しを表示</string>
 	<string name="EPr_fullTask_desc_enabled">完全なタスク見出しが表示されます</string>
 	<string name="EPr_fullTask_desc_disabled">タスク見出しの最初の 2 行が表示されます</string>
-	<string name="EPr_show_quickadd_controls">拡張クイック追加コントロール</string>
-	<string name="EPr_hide_plus_button">プラスボタンを表示しない</string>
 	<string name="EPr_list_view">リスト表示</string>
 	<string name="EPr_show_task_edit_comments">タスク編集でコメントを表示</string>
 	<string name="EPr_taskRowPrefs_title">タスク行の外観</string>

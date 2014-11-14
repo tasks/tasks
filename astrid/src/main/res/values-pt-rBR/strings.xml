@@ -56,7 +56,6 @@
 	<string name="TLA_menu_search">Buscar</string>
 	<string name="TLA_menu_settings">Configurações</string>
 	<string name="TLA_custom">Personalizar</string>
-	<string name="TLA_quick_add_hint">Inserir tarefa</string>
 	<string name="TLA_notification_volume_low">As notificações estão silenciadas. Você não ouvirá o Tasks!</string>
 	<string name="TLA_notification_disabled">Os lembretes estão desligados! Você não receberá nenhum lembrete</string>
 	<string name="TLA_quickadd_confirm_title">Você disse, \"%s\"</string>
@@ -96,7 +95,6 @@
 	<string name="FLA_context_shortcut">Criar atalho no desktop</string>
 	<string name="FLA_shortcut_dialog_title">Criar atalho</string>
 	<string name="FLA_shortcut_dialog">Nome do atalho</string>
-	<string name="FLA_search_hint">Procurar por tarefas</string>
 	<string name="FLA_search_filter">Encontradas para \'%s\'</string>
 	<string name="FLA_toast_onCreateShortcut">Atalho criado: %s</string>
 	<string name="FLA_new_filter">Novo Filtro</string>
@@ -144,7 +142,6 @@
 	<string name="hide_until_prompt">Mostrar na minha lista</string>
 	<string name="TEA_load_more">Carregar mais...</string>
 	<string name="TEA_when_dialog_title">Quando vence?</string>
-	<string name="TEA_new_task">Nova Tarefa</string>
 	<string name="MCA_title">%1$s\nligou às %2$s</string>
 	<string name="MCA_return_call">Ligar agora</string>
 	<string name="MCA_add_task">Ligar mais tarde</string>

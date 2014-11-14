@@ -56,7 +56,6 @@
 	<string name="TLA_menu_search">Rechercher</string>
 	<string name="TLA_menu_settings">Paramètres</string>
 	<string name="TLA_custom">Personnalisé</string>
-	<string name="TLA_quick_add_hint">Ajouter une tâche</string>
 	<string name="TLA_notification_volume_low">Les notifications sont désactivées. Vous ne pourrez plus entendre Tasks !</string>
 	<string name="TLA_notification_disabled">Les rappels d\'Tasks sont désactivés ! Vous ne recevrez plus de rappels</string>
 	<string name="TLA_quickadd_confirm_title">Vous avez dit \"%s\"</string>
@@ -97,7 +96,6 @@
 	<string name="FLA_context_shortcut">Créer un raccourci sur le bureau</string>
 	<string name="FLA_shortcut_dialog_title">Créer un raccourci</string>
 	<string name="FLA_shortcut_dialog">Nom du raccourci :</string>
-	<string name="FLA_search_hint">Rechercher des tâches</string>
 	<string name="FLA_search_filter">Correspondant \'%s\'</string>
 	<string name="FLA_toast_onCreateShortcut">Raccourci créé : %s</string>
 	<string name="FLA_new_filter">Nouveau filtre</string>
@@ -145,7 +143,6 @@
 	<string name="hide_until_prompt">Montrer dans ma liste</string>
 	<string name="TEA_load_more">Charger plus...</string>
 	<string name="TEA_when_dialog_title">Pour quand est-ce prévu ?</string>
-	<string name="TEA_new_task">Nouvelle tâche</string>
 	<string name="MCA_title">\"%1$s\na appelé à  %2$s\"</string>
 	<string name="MCA_return_call">Appeler maintenant</string>
 	<string name="MCA_add_task">Appeler plus tard</string>
@@ -207,8 +204,6 @@
 	<string name="EPr_fullTask_title">Voir le titre complet de la tâche</string>
 	<string name="EPr_fullTask_desc_enabled">Le titre entier de la tâche sera montré</string>
 	<string name="EPr_fullTask_desc_disabled">Les deux premières lignes du titre de la tâche seront montrées</string>
-	<string name="EPr_show_quickadd_controls">Contrôles d\'ajouts rapides avancés</string>
-	<string name="EPr_hide_plus_button">Masquer le bouton \"+\"</string>
 	<string name="EPr_list_view">Vue sous forme de liste</string>
 	<string name="EPr_show_task_edit_comments">Afficher les commentaires dans l\'édition de tâches</string>
 	<string name="EPr_taskRowPrefs_title">Style des lignes de tâche</string>

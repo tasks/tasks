@@ -58,7 +58,6 @@
 	<string name="TLA_menu_search">Buscar</string>
 	<string name="TLA_menu_settings">Configuración</string>
 	<string name="TLA_custom">Personalizar</string>
-	<string name="TLA_quick_add_hint">Añadir una tarea</string>
 	<string name="TLA_notification_volume_low">Las notificaciones están silenciadas. ¡No podrá oír Tasks!</string>
 	<string name="TLA_notification_disabled">¡Los recordatorios de Tasks están deshabilitados! No recibirás ningún recordatorio</string>
 	<string name="TLA_quickadd_confirm_title">Dijiste, \"%s\"</string>
@@ -99,7 +98,6 @@
 	<string name="FLA_context_shortcut">Crear enlace en escritorio</string>
 	<string name="FLA_shortcut_dialog_title">Crear acceso directo</string>
 	<string name="FLA_shortcut_dialog">Nombre del acceso directo:</string>
-	<string name="FLA_search_hint">Buscar tareas</string>
 	<string name="FLA_search_filter">Coincidencias con \'%s\'</string>
 	<string name="FLA_toast_onCreateShortcut">Acceso directo creado: %s</string>
 	<string name="FLA_new_filter">Nuevo filtro</string>
@@ -149,7 +147,6 @@
 	<string name="hide_until_prompt">Mostrar en mi lista</string>
 	<string name="TEA_load_more">Cargar mas...</string>
 	<string name="TEA_when_dialog_title">¿Para cuando esta previsto?</string>
-	<string name="TEA_new_task">Nueva Tarea</string>
 	<string name="MCA_title">%1$s\nllamó a las %2$s</string>
 	<string name="MCA_return_call">Llamar ahora</string>
 	<string name="MCA_add_task">Llamar luego</string>
@@ -211,8 +208,6 @@
 	<string name="EPr_fullTask_title">Mostrar completo el título de la tarea</string>
 	<string name="EPr_fullTask_desc_enabled">Se mostrará completo el título de la tarea</string>
 	<string name="EPr_fullTask_desc_disabled">Las primeras dos lineas de las tareas serán mostradas</string>
-	<string name="EPr_show_quickadd_controls">Controles avanzados de agregado rápido</string>
-	<string name="EPr_hide_plus_button">Ocultar botón de agregado</string>
 	<string name="EPr_list_view">Vista de listas</string>
 	<string name="EPr_show_task_edit_comments">Mostrar comentarios durante la edición de tareas</string>
 	<string name="EPr_taskRowPrefs_title">Apariencia de la fila de tareas</string>

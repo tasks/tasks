@@ -57,7 +57,6 @@
 	<string name="TLA_menu_search">搜索</string>
 	<string name="TLA_menu_settings">设置</string>
 	<string name="TLA_custom">自定义</string>
-	<string name="TLA_quick_add_hint">添加任务</string>
 	<string name="TLA_notification_volume_low">已静音。你不会再听到了！</string>
 	<string name="TLA_notification_disabled">清单小助理提醒功能被关闭，你不会收到任何提醒。</string>
 	<string name="TLA_quickadd_confirm_title">你说到：“%s”</string>
@@ -95,7 +94,6 @@
 	<string name="FLA_context_shortcut">在桌面建立快捷方式</string>
 	<string name="FLA_shortcut_dialog_title">建立快捷方式</string>
 	<string name="FLA_shortcut_dialog">快捷方式名称：</string>
-	<string name="FLA_search_hint">搜索任务</string>
 	<string name="FLA_search_filter">比对 \'%s\'</string>
 	<string name="FLA_toast_onCreateShortcut">建立快捷方式: %s</string>
 	<string name="FLA_new_filter">新建过滤器</string>
@@ -135,7 +133,6 @@
 	<string name="hide_until_prompt">在我的列表中显示</string>
 	<string name="TEA_load_more">加载更多……</string>
 	<string name="TEA_when_dialog_title">这项活动定在什么时候呀？</string>
-	<string name="TEA_new_task">新建任务</string>
 	<string name="MCA_title">%1$s\n在 %2$s 给您打过电话</string>
 	<string name="MCA_return_call">现在回电</string>
 	<string name="MCA_add_task">稍后回电</string>

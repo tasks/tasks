@@ -58,7 +58,6 @@
 	<string name="TLA_menu_search">חיפוש</string>
 	<string name="TLA_menu_settings">הגדרות</string>
 	<string name="TLA_custom">מותאם אישית</string>
-	<string name="TLA_quick_add_hint">הוסף משימה</string>
 	<string name="TLA_notification_volume_low">ההתראות מוחרשות. לא תשמע את אסטריד יותר!</string>
 	<string name="TLA_notification_disabled">התזכורות של אסטריד מושתקות! לא תקבל תזכורות נוספות</string>
 	<string name="TLA_quickadd_confirm_title">אמרת ״%s״</string>
@@ -98,7 +97,6 @@
 	<string name="FLA_context_shortcut">יצירת קיצור על שולחן העבודה</string>
 	<string name="FLA_shortcut_dialog_title">יצירת קיצור על שולחן העבודה</string>
 	<string name="FLA_shortcut_dialog">שם הקיצור:</string>
-	<string name="FLA_search_hint">חיפוש אחר משימות</string>
 	<string name="FLA_search_filter">התאים ל\'%s\'</string>
 	<string name="FLA_toast_onCreateShortcut">נוצר קיצור: %s</string>
 	<string name="FLA_new_filter">מַסְנֵן חדש</string>
@@ -147,7 +145,6 @@
 	<string name="hide_until_prompt">הצג ברשימה שלי</string>
 	<string name="TEA_load_more">טען עוד...</string>
 	<string name="TEA_when_dialog_title">למתי?</string>
-	<string name="TEA_new_task">משימה חדשה</string>
 	<string name="MCA_title">%1$s \nהתקשר ב־%2$s</string>
 	<string name="MCA_return_call">התקשר כעת</string>
 	<string name="MCA_add_task">התקשר מאוחר יותר</string>
@@ -207,8 +204,6 @@
 	<string name="EPr_fullTask_title">הצג כותרת מלאה</string>
 	<string name="EPr_fullTask_desc_enabled">כותרות משימה מלאות תוצגנה</string>
 	<string name="EPr_fullTask_desc_disabled">שתי השורות הראשונות של שם המשימה תוצגנה</string>
-	<string name="EPr_show_quickadd_controls">בקרת הוספה מהירה מתקדם</string>
-	<string name="EPr_hide_plus_button">הסתר את כפתור ה-פלוס</string>
 	<string name="EPr_list_view">תצוגת רשימה</string>
 	<string name="EPr_show_task_edit_comments">הצגת הערות בעריכת משימה</string>
 	<string name="EPr_taskRowPrefs_title">חזות שורת המשימה</string>

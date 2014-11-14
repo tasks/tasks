@@ -57,7 +57,6 @@
 	<string name="SSD_sort_reverse">В обратен ред</string>
 	<string name="SSD_save_temp">Само веднъж</string>
 	<string name="SSD_save_always">Винаги</string>
-	<string name="FLA_search_hint">Търсене на задачи</string>
 	<string name="FLA_search_filter">Съвпада с \'%s\'</string>
 	<string name="FLA_new_filter">Нов филтър</string>
 	<string name="FLA_new_list">Нов списък</string>
@@ -96,7 +95,6 @@
 	<string name="hide_until_prompt">Покажи в моят списък</string>
 	<string name="TEA_load_more">Зареди повече...</string>
 	<string name="TEA_when_dialog_title">Докога е крайният срок?</string>
-	<string name="TEA_new_task">Нова задача</string>
 	<string name="MCA_return_call">Обади се сега</string>
 	<string name="MCA_add_task">Обади се по-късно</string>
 	<string name="MCA_ignore">Игнорирай</string>
@@ -141,7 +139,6 @@
 	<string name="EPr_fullTask_title">Покажи пълното име на задачата</string>
 	<string name="EPr_fullTask_desc_enabled">Ще бъде показвано пълно име на задачата</string>
 	<string name="EPr_fullTask_desc_disabled">Ще бъдат показвани първите два реда от имета на задачата</string>
-	<string name="EPr_hide_plus_button">Скрий бутона \"плюс\"</string>
 	<string name="EPr_list_view">Изглед на списъка</string>
 	<string name="EPr_show_task_edit_comments">Покажи коментари при редакция на задача</string>
 	<string name="EPr_manage_header">Управление на стари задачи</string>

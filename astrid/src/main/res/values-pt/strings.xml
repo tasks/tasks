@@ -58,7 +58,6 @@
 	<string name="TLA_menu_search">Procura</string>
 	<string name="TLA_menu_settings">Definições</string>
 	<string name="TLA_custom">Personalizado</string>
-	<string name="TLA_quick_add_hint">Adicionar tarefa</string>
 	<string name="TLA_notification_volume_low">As notificação estão silenciadas. Não ouvirá o Tasks!</string>
 	<string name="TLA_notification_disabled">Os lembretes estão inativos! Não receberá quaisquer lembretes.</string>
 	<string name="TLA_quickadd_confirm_title">Você disse \"%s\"</string>
@@ -99,7 +98,6 @@
 	<string name="FLA_context_shortcut">Criar atalho no ecrã</string>
 	<string name="FLA_shortcut_dialog_title">Criar atalho</string>
 	<string name="FLA_shortcut_dialog">Nome do atalho:</string>
-	<string name="FLA_search_hint">Procurar tarefas</string>
 	<string name="FLA_search_filter">Coincidente com %s</string>
 	<string name="FLA_toast_onCreateShortcut">Atalho criado: %s</string>
 	<string name="FLA_new_filter">Novo filtro</string>
@@ -149,7 +147,6 @@
 	<string name="hide_until_prompt">Mostrar na minha lista</string>
 	<string name="TEA_load_more">Carregar mais...</string>
 	<string name="TEA_when_dialog_title">Quando é a data limite?</string>
-	<string name="TEA_new_task">Nova tarefa</string>
 	<string name="MCA_title">%1$s\nchamado a %2$s</string>
 	<string name="MCA_return_call">Chamar agora</string>
 	<string name="MCA_add_task">Chamar mais tarde</string>
@@ -211,8 +208,6 @@
 	<string name="EPr_fullTask_title">Mostrar título completo das tarefas</string>
 	<string name="EPr_fullTask_desc_enabled">O título completo das tarefas será mostrado</string>
 	<string name="EPr_fullTask_desc_disabled">Primeiras duas linhas do título serão mostradas</string>
-	<string name="EPr_show_quickadd_controls">Controlos avançados de adição rápida</string>
-	<string name="EPr_hide_plus_button">Ocultar botão Mais</string>
 	<string name="EPr_list_view">Vista em lista</string>
 	<string name="EPr_show_task_edit_comments">Mostrar comentários na edição de tarefa</string>
 	<string name="EPr_taskRowPrefs_title">Aspeto da linha de tarefa</string>
