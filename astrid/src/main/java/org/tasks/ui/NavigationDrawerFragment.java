@@ -263,7 +263,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
-            ((TaskListActivity) getActivity()).hideKeyboard();
             return true;
         }
 

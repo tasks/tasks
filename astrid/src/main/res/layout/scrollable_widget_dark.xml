@@ -41,7 +41,7 @@
             android:layout_height="39dip"
             android:layout_gravity="right|center_vertical"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_action_new_light"
+            android:src="@drawable/ic_action_add_light"
             android:scaleType="fitCenter"/>
       
     </LinearLayout>

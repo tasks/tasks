@@ -151,7 +151,7 @@
             android:layout_marginLeft="3dip"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:src="?attr/ic_action_new"
+            android:src="?attr/ic_action_add"
             android:scaleType="center"
             android:visibility="gone" />
     </LinearLayout>

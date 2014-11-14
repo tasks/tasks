@@ -66,38 +66,26 @@
             
         </PreferenceScreen>
         
-        <PreferenceScreen android:title="@string/EPr_list_view" android:key="@string/p_list_view">
-	        <PreferenceScreen android:title="@string/EPr_filters_to_show_title" android:key="@string/p_filters_to_show">
-	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	                android:key="@string/p_show_my_tasks_filter"
-	                android:title="@string/BFE_Active"
-	                android:defaultValue="true"
-	                android:enabled="false" />
-	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	                android:key="@string/p_show_today_filter"
-	                android:title="@string/today"
-	                android:defaultValue="true"/>
-	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	                android:key="@string/p_show_recently_modified_filter"
-	                android:title="@string/BFE_Recent"
-	                android:defaultValue="true"/>
-	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	                android:key="@string/p_show_not_in_list_filter"
-	                android:title="@string/tag_FEx_untagged"
-	                android:defaultValue="true"/>
-	        </PreferenceScreen>
-	        
-	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	            android:key="@string/p_show_quickadd_controls"
-	            android:title="@string/EPr_show_quickadd_controls"
-	            android:defaultValue="true" />
-	        
-	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	                android:key="@string/p_hide_plus_button"
-	                android:title="@string/EPr_hide_plus_button"
-	                android:defaultValue="false"/>
+        <PreferenceScreen android:title="@string/EPr_filters_to_show_title" android:key="@string/p_filters_to_show">
+            <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                android:key="@string/p_show_my_tasks_filter"
+                android:title="@string/BFE_Active"
+                android:defaultValue="true"
+                android:enabled="false" />
+            <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                android:key="@string/p_show_today_filter"
+                android:title="@string/today"
+                android:defaultValue="true"/>
+            <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                android:key="@string/p_show_recently_modified_filter"
+                android:title="@string/BFE_Recent"
+                android:defaultValue="true"/>
+            <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                android:key="@string/p_show_not_in_list_filter"
+                android:title="@string/tag_FEx_untagged"
+                android:defaultValue="true"/>
         </PreferenceScreen>
-        
+
         <com.todoroo.astrid.ui.MultilineCheckboxPreference
             android:key="@string/p_showSmartConfirmation_key"
             android:title="@string/EPr_showSmartConfirmation_title"

@@ -66,9 +66,6 @@
   <!-- Window title for displaying Custom Filter -->
   <string name="TLA_custom">Custom</string>
   
-  <!-- slide 8d: Quick Add Edit Box Hint-->
-  <string name="TLA_quick_add_hint">Add a task</string>
-  
   <!-- Notification Volumne notification-->
   <string name="TLA_notification_volume_low">Notifications are muted. You won\'t be able to hear Tasks!</string>
   
@@ -474,12 +471,6 @@
   <string name="EPr_fullTask_desc_enabled">Full task title will be shown</string>
   <!-- slide 34h -->
   <string name="EPr_fullTask_desc_disabled">First two lines of task title will be shown</string>
-
-  <!-- Preference: simple input box style -->
-  <string name="EPr_show_quickadd_controls">Advanced quickadd controls</string>
-
-  <!-- Preference: don't show plus button until input present -->
-  <string name="EPr_hide_plus_button">Hide plus button</string>
 
   <!-- Preference: list view -->
   <string name="EPr_list_view">List view</string>

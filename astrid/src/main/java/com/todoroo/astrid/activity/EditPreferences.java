@@ -5,14 +5,11 @@
  */
 package com.todoroo.astrid.activity;
 
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -24,7 +21,6 @@ import android.text.TextUtils;
 
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.files.FileExplore;
@@ -33,12 +29,9 @@ import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.helper.MetadataHelper;
 import com.todoroo.astrid.service.MarketStrategy.AmazonMarketStrategy;
 import com.todoroo.astrid.service.StartupService;
-import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.TodorooPreferenceActivity;
-import com.todoroo.astrid.voice.VoiceInputAssistant;
 import com.todoroo.astrid.voice.VoiceOutputAssistant;
-import com.todoroo.astrid.voice.VoiceRecognizer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,12 +66,9 @@ public class EditPreferences extends TodorooPreferenceActivity {
     // --- instance variables
 
     @Inject StartupService startupService;
-    @Inject TaskService taskService;
     @Inject Preferences preferences;
     @Inject CalendarAlarmScheduler calendarAlarmScheduler;
     @Inject VoiceOutputAssistant voiceOutputAssistant;
-
-    private VoiceInputAssistant voiceInputAssistant;
 
     private class SetResultOnPreferenceChangeListener implements OnPreferenceChangeListener {
         private final int resultCode;
@@ -106,7 +96,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
         ContextManager.setContext(this);
 
         PreferenceScreen screen = getPreferenceScreen();
-        voiceInputAssistant = new VoiceInputAssistant(this);
 
         addPluginPreferences(screen);
 
@@ -358,8 +347,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
         findPreference(getString(R.string.p_use_dark_theme)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
 
         findPreference(getString(R.string.p_fontSize)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
-
-        findPreference(getString(R.string.p_hide_plus_button)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
 
         findPreference(getString(R.string.p_use_dark_theme_widget)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             @Override

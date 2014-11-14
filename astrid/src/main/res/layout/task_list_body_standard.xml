@@ -12,7 +12,9 @@
             android:id="@android:id/list"
             style="@style/ListView"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" />
+            android:layout_height="fill_parent"
+            android:paddingBottom="104dp"
+            android:clipToPadding="false"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

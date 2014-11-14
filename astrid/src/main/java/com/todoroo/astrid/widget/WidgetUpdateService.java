@@ -195,11 +195,11 @@ public class WidgetUpdateService extends InjectingService {
         if (preferences.isDarkWidgetTheme()) {
             layout = R.layout.widget_initialized_dark;
             titleColor = r.getColor(R.color.widget_text_color_dark);
-            buttonDrawable = R.drawable.ic_action_new_light;
+            buttonDrawable = R.drawable.ic_action_add_light;
         } else {
             layout = R.layout.widget_initialized;
             titleColor = r.getColor(R.color.widget_text_color_light);
-            buttonDrawable = R.drawable.ic_action_new;
+            buttonDrawable = R.drawable.ic_action_add;
         }
 
         views = new RemoteViews(packageName, layout);

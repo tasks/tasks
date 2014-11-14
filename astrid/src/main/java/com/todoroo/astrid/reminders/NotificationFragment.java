@@ -45,9 +45,6 @@ public class NotificationFragment extends TaskListFragment {
      * Set up the UI for this activity
      */
     private void displayNotificationPopup() {
-        // hide quick add
-        getView().findViewById(R.id.taskListFooter).setVisibility(View.GONE);
-
         String title = extras.getString(Notifications.EXTRAS_TEXT);
         long taskId = extras.getLong(TOKEN_ID);
         new ReminderDialog(preferences, taskService, (AstridActivity) getActivity(), taskId, title).show();

@@ -60,9 +60,6 @@
   <!-- calendar reminders preference -->
   <string name="p_calendar_reminders">p_calendar_reminder</string>
 
-  <!-- list view section key -->
-  <string name="p_list_view">p_list_view</string>
-  
   <!-- filters to show -->
   <string name="p_filters_to_show">p_filters_to_show</string>
   <string name="p_show_my_tasks_filter">p_show_my_tasks_f</string>
@@ -70,9 +67,6 @@
   <string name="p_show_recently_modified_filter">p_show_recently_modified_f</string>
   <string name="p_show_not_in_list_filter">p_show_no_list_f</string>
   
-  <!-- show quickadd controls -->
-  <string name="p_show_quickadd_controls">p_show_quickadd_controls</string>
-
   <!-- show comments in task edit -->
   <string name="p_show_task_edit_comments">p_show_task_edit_comments</string>
 
@@ -134,8 +128,6 @@
   <string name="p_time_increment">p_time_increment</string>
   
   <string name="p_use_date_shortcuts">p_use_date_shortcuts</string>
-  
-  <string name="p_hide_plus_button">p_hide_plus_button</string>
   
   <string name="p_show_timer_shortcut">p_show_timer_shortcut</string>
 

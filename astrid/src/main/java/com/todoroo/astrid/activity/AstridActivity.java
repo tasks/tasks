@@ -9,19 +9,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.speech.SpeechRecognizer;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.WindowManager.BadTokenException;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
@@ -33,10 +28,6 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.ui.DateChangedAlerts;
-import com.todoroo.astrid.ui.QuickAddBar;
-import com.todoroo.astrid.utility.Flags;
-import com.todoroo.astrid.voice.RecognizerApi.RecognizerApiListener;
-import com.todoroo.astrid.voice.VoiceRecognizer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -258,13 +249,6 @@ public class AstridActivity extends InjectingActionBarActivity
             return;
         }
         super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    /**
-     * @return LAYOUT_SINGLE or LAYOUT_DOUBLE
-     */
-    public int getFragmentLayout() {
-        return fragmentLayout;
     }
 
     private class RepeatConfirmationReceiver extends BroadcastReceiver {

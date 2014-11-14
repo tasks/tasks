@@ -25,17 +25,16 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.faizmalkani.floatingactionbutton.FloatingActionButton;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
@@ -151,7 +150,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     protected Filter filter;
     protected int sortFlags;
     protected int sortSort;
-    protected QuickAddBar quickAddBar;
+    protected QuickAddBar quickAddBar = new QuickAddBar();
 
     private Timer backgroundTimer;
     protected Bundle extras;
@@ -281,6 +280,14 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
             Bundle savedInstanceState) {
         ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(
                 R.layout.task_list_activity, container, false);
+        FloatingActionButton fab = (FloatingActionButton) parent.findViewById(R.id.fab);
+        fab.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Task task = quickAddBar.quickAddTask("", true);
+
+            }
+        });
         View body = getListBody(parent);
         listView = (SwipeRefreshLayout) body.findViewById(R.id.swipe_layout);
         emptyView = (SwipeRefreshLayout) body.findViewById(R.id.swipe_layout_empty);
@@ -309,7 +316,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         syncActionHelper = new SyncActionHelper(gtasksPreferenceService, syncService, getActivity(), preferences);
         setUpUiComponents();
         initializeData();
-        setupQuickAddBar();
+        quickAddBar.initialize(injector, (TaskListActivity) getActivity(), this);
 
         Fragment filterlistFrame = getFragmentManager().findFragmentById(
                 NavigationDrawerFragment.FRAGMENT_NAVIGATION_DRAWER);
@@ -451,27 +458,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         sortFlags = preferences.getSortFlags();
         sortSort = preferences.getSortMode();
         sortFlags = SortHelper.setManualSort(sortFlags, isDraggable());
-    }
-
-    protected void setupQuickAddBar() {
-        quickAddBar = (QuickAddBar) getView().findViewById(R.id.taskListFooter);
-        quickAddBar.initialize(injector, (TaskListActivity) getActivity(), this, mListener);
-
-        // set listener for astrid icon
-        emptyView.findViewById(R.id.empty_text).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                quickAddBar.performButtonClick();
-            }
-        });
-
-        getListView().setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                quickAddBar.clearFocus();
-                return false;
-            }
-        });
     }
 
     public void transitionForTaskEdit() {
@@ -645,10 +631,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(quickAddBar.onActivityResult(requestCode, resultCode, data)) {
-            return;
-        }
-
         if (requestCode == ACTIVITY_SETTINGS) {
             if (resultCode == EditPreferences.RESULT_CODE_THEME_CHANGED || resultCode == EditPreferences.RESULT_CODE_PERFORMANCE_PREF_CHANGED) {
                 getActivity().finish();

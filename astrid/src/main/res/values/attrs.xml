@@ -21,15 +21,14 @@
   <attr name="asThemeTextColor" format="color"/>
   <attr name="asEditTextBackground" format="reference"/>
   <attr name="asAbBackgroundColor" format="color"/>
-  <attr name="asQuickaddBackgroundColor" format="color" />
   <attr name="asFilterSelectedIcon" format="reference"/>
   <attr name="asTaskRowSelector" format="reference" />
+    <attr name="ic_action_add" format="reference" />
     <attr name="ic_action_new_attachment" format="reference"/>
     <attr name="ic_action_discard" format="reference"/>
     <attr name="ic_action_save" format="reference"/>
     <attr name="ic_action_cancel" format="reference"/>
     <attr name="ic_action_camera" format="reference"/>
-    <attr name="ic_action_new" format="reference"/>
     <attr name="ic_action_mic" format="reference" />
     <attr name="ic_action_search" format="reference"/>
     <attr name="ic_drawer" format="reference"/>
@@ -52,4 +51,12 @@
       <attr name="shortcutLabels" format="reference"/>
   </declare-styleable>
 
+    <declare-styleable name="FloatingActionButton">
+        <attr name="drawable" format="integer"/>
+        <attr name="tint" format="color"/>
+        <attr name="shadowRadius" format="float"/>
+        <attr name="shadowDx" format="float"/>
+        <attr name="shadowDy" format="float"/>
+        <attr name="shadowColor" format="integer"/>
+    </declare-styleable>
 </resources>

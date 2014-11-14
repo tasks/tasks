@@ -147,7 +147,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     // --- request codes
 
     private static final int REQUEST_VOICE_RECOG = 10;
-    public static final int REQUEST_CODE_CONTACT = 20;
     public static final int REQUEST_CODE_RECORD = 30;
     public static final int REQUEST_CODE_ATTACH_FILE = 40;
     public static final int REQUEST_CODE_BEAST_MODE = 50;

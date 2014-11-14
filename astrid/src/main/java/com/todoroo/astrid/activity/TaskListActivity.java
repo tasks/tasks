@@ -513,17 +513,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         }
     }
 
-    public void hideKeyboard() {
-        TaskListFragment tlf = getTaskListFragment();
-        if (tlf == null)
-            return;
-        InputMethodManager imm = (InputMethodManager)getSystemService(
-                Context.INPUT_METHOD_SERVICE);
-        QuickAddBar qab = tlf.quickAddBar;
-        if (qab != null)
-            imm.hideSoftInputFromWindow(qab.getQuickAddBox().getWindowToken(), 0);
-    }
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {

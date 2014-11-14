@@ -1,27 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<?xml version="1.0" encoding="utf-8"?><!--
 ** Copyright (c) 2012 Todoroo Inc
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tasks="http://schemas.android.com/apk/res-auto"
     android:id="@+id/taskListParent"
-    android:layout_width="fill_parent" 
+    style="@style/Content"
+    android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:descendantFocusability="beforeDescendants"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:descendantFocusability="beforeDescendants"
-    style="@style/Content"
     android:orientation="vertical">
-    
+
     <!-- Body goes here -->
-        
-    <!-- Footer -->
-    <com.todoroo.astrid.ui.QuickAddBar 
-        android:id="@+id/taskListFooter"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        style="@style/Content" />
-        
-</LinearLayout>
+
+    <com.faizmalkani.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_gravity="end|bottom"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        tasks:drawable="?attr/ic_action_add"
+        tasks:tint="?attr/asAbBackgroundColor"/>
+
+</FrameLayout>
