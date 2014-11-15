@@ -28,16 +28,16 @@
 	      android:layout_weight="1"
 	      android:gravity="left"
 	      android:paddingLeft="5dip"
-	      style="@style/TextAppearance.EditRowDisplay" />
+          android:textColor="?attr/asThemeTextColor" />
 	  <View
 	      android:layout_width="1px"
 	      android:layout_height="fill_parent"
-	      style="@style/TEA_Separator" />
+          android:background="?android:attr/listDivider" />
   </LinearLayout>
   <View
       android:layout_width="fill_parent"
       android:layout_height="1px"
       android:padding="5dip"
-      style="@style/TEA_Separator" />
+      android:background="?android:attr/listDivider" />
     
 </LinearLayout>

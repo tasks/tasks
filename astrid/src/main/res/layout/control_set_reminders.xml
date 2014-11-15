@@ -63,7 +63,7 @@
 		      <View
 		          android:layout_width="fill_parent"
 		          android:layout_height="1px"
-		          style="@style/TEA_Separator" />
+                  android:background="?android:attr/listDivider" />
 		      <LinearLayout
 		          android:id="@+id/reminder_alarm_container"
 		          android:layout_width="fill_parent"
@@ -84,7 +84,7 @@
 		             android:layout_weight="1"
 		             android:gravity="right"
 		             android:paddingLeft="10dip"
-		             style="@style/TextAppearance.EditRowDisplay" />
+                     android:textColor="?attr/asThemeTextColor" />
 			      <com.todoroo.astrid.ui.ErrorCatchingSpinner
 			        android:id="@+id/reminder_alarm"
 			        android:layout_width="0dip"
@@ -94,7 +94,7 @@
 		          android:id="@+id/TEA_Separator"
 		          android:layout_width="fill_parent"
 		          android:layout_height="1px"
-		          style="@style/TEA_Separator" />
+                  android:background="?android:attr/listDivider" />
 		    
 		</LinearLayout>
 	</ScrollView>

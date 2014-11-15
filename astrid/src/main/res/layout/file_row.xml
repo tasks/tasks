@@ -20,7 +20,7 @@
         android:paddingRight="5dip"
         android:paddingLeft="3dip"
         android:layout_weight="1"
-        android:textAppearance="@style/TextAppearance.EditRowDisplay"
+        android:textColor="?attr/asThemeTextColor"
         android:gravity="left|center_vertical"/>
     <TextView
         android:id="@+id/file_type"

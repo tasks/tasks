@@ -7,7 +7,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tasks="http://schemas.android.com/apk/res-auto"
     android:id="@+id/taskListParent"
-    style="@style/Content"
+    android:background="?attr/asContentBackground"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:descendantFocusability="beforeDescendants"

@@ -36,7 +36,7 @@ public class ActivityPreferences extends Preferences {
     }
 
     public void applyDialogTheme() {
-        applyTheme(R.style.Tasks_Dialog_Light);
+        applyTheme(R.style.Tasks_Dialog);
     }
 
     public void applyTranslucentDialogTheme() {
@@ -50,7 +50,7 @@ public class ActivityPreferences extends Preferences {
 
     public int getEditDialogTheme() {
         boolean ics = AndroidUtilities.getSdkVersion() >= 14;
-        return ics ? R.style.TEA_Dialog_Light_ICS : R.style.TEA_Dialog_Light;
+        return ics ? R.style.TEA_Dialog_Light_ICS : R.style.TEA_Dialog;
     }
 
     /**

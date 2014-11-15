@@ -18,7 +18,7 @@
         android:maxLines="1"
         android:singleLine="true"
         android:ellipsize="end"
-        android:textAppearance="@style/TextAppearance.EditRowDisplay"/>
+        android:textColor="?attr/asThemeTextColor" />
     <TextView
         android:id="@+id/file_type"
         android:minWidth="37dip"

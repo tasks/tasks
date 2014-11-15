@@ -2,26 +2,11 @@
 <resources>
     <style name="AstridActionBarStyle" parent="@style/Widget.AppCompat.ActionBar">
         <item name="android:displayOptions">showHome|showTitle</item>
-        <item name="android:background">@drawable/header_day_blue</item>
     </style>
 
     <style name="AstridActionBarStyle.Dialog">
-        <item name="android:background">@drawable/header_background</item>
-        <item name="android:displayOptions">showHome|showTitle</item>
-    </style>
-
-    <style name="AstridActionBarStyle.Dialog.Light">
         <item name="android:background">@android:color/white</item>
         <item name="android:displayOptions">showHome|showTitle</item>
-    </style>
-
-    <style name="TEA_Dialog_ICS" parent="@android:style/Theme.Holo.Dialog">
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowTitleStyle">@style/TEA_DialogWindowTitle</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
-        <item name="android:windowSoftInputMode">stateUnspecified|adjustResize</item>
-        <item name="asTextColor">#ffffff</item>
     </style>
 
     <style name="TEA_Dialog_Light_ICS" parent="@android:style/Theme.Holo.Light.Dialog">

@@ -31,7 +31,6 @@
     <attr name="ic_action_camera" format="reference"/>
     <attr name="ic_action_mic" format="reference" />
     <attr name="ic_action_search" format="reference"/>
-    <attr name="ic_drawer" format="reference"/>
     <attr name="drawer_background" format="color"/>
     <attr name="drawer_text" format="color"/>
     <attr name="task_edit_theme_color" format="color"/>

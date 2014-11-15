@@ -9,7 +9,7 @@
 
         <TextView
             android:id="@+id/empty_text"
-            style="@style/TextAppearance.TLA_NoItems"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

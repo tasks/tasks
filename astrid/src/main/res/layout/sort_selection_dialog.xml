@@ -9,7 +9,7 @@
   android:layout_height="wrap_content"
   android:paddingLeft="10dip"
   android:paddingRight="10dip"
-  style="@style/Content">
+    android:background="?attr/asContentBackground">
 
     <LinearLayout
       android:layout_width="fill_parent"
@@ -64,7 +64,7 @@
       
       <View
           android:id="@+id/TEA_Separator"
-          style="@style/TEA_Separator"
+          android:background="?android:attr/listDivider"
           android:layout_width="fill_parent"
           android:layout_height="1px" />
 

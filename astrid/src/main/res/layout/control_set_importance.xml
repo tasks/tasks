@@ -32,7 +32,6 @@
 	         android:layout_height="wrap_content"
 	         android:gravity="left"
 	         android:text="@string/TEA_importance_label"
-		     style="@style/TextAppearance.EditRowDisplay" 
 		     android:textColor="@color/task_edit_deadline_gray"/>
       </LinearLayout>
       
@@ -40,6 +39,6 @@
 	      android:id="@+id/TEA_Separator"
 	      android:layout_width="fill_parent"
 	      android:layout_height="1px"
-	      style="@style/TEA_Separator" />
+          android:background="?android:attr/listDivider" />
     
 </LinearLayout>

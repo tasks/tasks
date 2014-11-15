@@ -27,7 +27,7 @@
 	          android:layout_width="fill_parent"
 	          android:layout_height="1px"
 	          android:layout_marginBottom="1dip"
-	          style="@style/TEA_Separator" />
+              android:background="?android:attr/listDivider" />
 		  <LinearLayout
 		      android:layout_width="fill_parent"
 		      android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
 	          android:layout_width="fill_parent"
 	          android:layout_height="1px"
 	          android:layout_marginTop="1dip"
-	          style="@style/TEA_Separator" />
+              android:background="?android:attr/listDivider" />
 		  <LinearLayout
               android:id="@+id/datetime_extras"
               android:layout_width="fill_parent"

@@ -6,7 +6,7 @@
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/taskEditParent"
-    style="@style/Content"
+    android:background="?attr/asContentBackground"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
@@ -15,7 +15,7 @@
 
     <ScrollView
         android:id="@+id/edit_scroll"
-        style="@style/Content_EditScroll"
+        android:background="?attr/asEditBackground"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="100" >
@@ -29,7 +29,7 @@
 
             <LinearLayout
                 android:id="@+id/title_controls"
-                style="@style/EditRow"
+                android:background="?attr/asEditRowBackground"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="3dip"
@@ -41,7 +41,7 @@
 
             <LinearLayout
                 android:id="@+id/basic_controls"
-                style="@style/EditRow"
+                android:background="?attr/asEditRowBackground"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_margin="3dip"
@@ -50,7 +50,7 @@
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/pager"
-                style="@style/EditRow"
+                android:background="?attr/asEditRowBackground"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="3dip"
@@ -69,7 +69,6 @@
 
     <LinearLayout
         android:id="@+id/updatesFooter"
-        style="@style/Content"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"

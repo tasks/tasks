@@ -27,7 +27,7 @@
             android:scaleType="fitCenter"/>
         <TextView
             android:id="@+id/display_row_edit"
-            style="@style/TextAppearance.EditRowDisplay"
+            android:textColor="?attr/asThemeTextColor"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dip"
@@ -37,7 +37,7 @@
 
     <View
         android:id="@+id/TEA_Separator"
-        style="@style/TEA_Separator"
+        android:background="?android:attr/listDivider"
         android:layout_width="fill_parent"
         android:layout_height="1px" />
 

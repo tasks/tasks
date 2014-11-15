@@ -298,7 +298,7 @@
 
         <activity
             android:name="com.todoroo.astrid.core.CustomFilterActivity"
-            android:theme="@style/Tasks.Dialog.Light" />
+            android:theme="@style/Tasks.Dialog" />
 
         <activity
             android:name="com.todoroo.astrid.core.CustomFilterExposer$DeleteActivity"
@@ -333,7 +333,7 @@
         <activity
             android:name="com.todoroo.astrid.actfm.TagSettingsActivityTablet"
             android:windowSoftInputMode="stateHidden"
-            android:theme="@style/Tasks.Dialog.Light" />
+            android:theme="@style/Tasks.Dialog" />
 
         <!-- gtasks -->
         <activity

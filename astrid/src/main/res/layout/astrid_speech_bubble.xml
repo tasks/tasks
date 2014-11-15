@@ -39,8 +39,9 @@
 	            android:id="@+id/reminder_message"
 	            android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"
-	            style="@style/TextAppearance.TLA_Reminder"
-	            android:gravity="center_vertical"/>
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:gravity="center_vertical"/>
 	    </LinearLayout>
 	</LinearLayout>
 </merge>

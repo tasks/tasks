@@ -101,9 +101,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         navigationDrawer.setUp(drawerLayout);
 //        drawerLayout.setStatusBarBackgroundColor(getResources().getColor(android.R.color.holo_blue_bright));
 
-        TypedValue typedValue = new TypedValue();
-        getTheme().resolveAttribute(R.attr.ic_drawer, typedValue, true);
-
         initializeFragments();
 
         Bundle extras = getIntent().getExtras();
@@ -239,8 +236,8 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
             Filter newList = getIntent().getParcelableExtra(TOKEN_SWITCH_TO_FILTER);
             getIntent().removeExtra(TOKEN_SWITCH_TO_FILTER);
             onFilterItemClicked(newList);
-        } else {
-            navigationDrawer.restoreLastSelected();
+//        } else {
+//            navigationDrawer.restoreLastSelected();
         }
 
         if (getIntent().hasExtra(OPEN_TASK)) {

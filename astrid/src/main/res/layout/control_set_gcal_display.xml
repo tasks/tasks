@@ -29,13 +29,13 @@
 	      android:gravity="left"
 	      android:maxLines="1"
 	      android:ellipsize="end"
-	      style="@style/TextAppearance.EditRowDisplay" />
+          android:textColor="?attr/asThemeTextColor" />
   </LinearLayout>
   <View
       android:layout_width="fill_parent"
       android:layout_height="1px"
       android:padding="5dip"
-      style="@style/TEA_Separator" />
+      android:background="?android:attr/listDivider" />
     
 </LinearLayout>
 
