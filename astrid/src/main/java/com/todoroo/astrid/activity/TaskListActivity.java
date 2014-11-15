@@ -16,6 +16,7 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -56,6 +57,7 @@ import javax.inject.Inject;
 
 import static com.todoroo.astrid.voice.RecognizerApi.RecognizerApiListener;
 import static com.todoroo.astrid.voice.VoiceRecognizer.voiceInputAvailable;
+import static org.tasks.preferences.ResourceResolver.getData;
 import static org.tasks.ui.NavigationDrawerFragment.OnFilterItemClickedListener;
 
 public class TaskListActivity extends AstridActivity implements OnPageChangeListener, OnFilterItemClickedListener, RecognizerApiListener {
@@ -86,15 +88,18 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         super.onCreate(savedInstanceState);
         preferences.applyTheme();
 
-        int contentView = getContentView();
-        setContentView(contentView);
+        setContentView(preferences.useTabletLayout()
+                ? R.layout.task_list_wrapper_activity_3pane
+                : R.layout.task_list_wrapper_activity_no_swipe);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setLogo(null);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         navigationDrawer = getNavigationDrawerFragment();
-        navigationDrawer.setUp((DrawerLayout) findViewById(R.id.drawer_layout));
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        navigationDrawer.setUp(drawerLayout);
+//        drawerLayout.setStatusBarBackgroundColor(getResources().getColor(android.R.color.holo_blue_bright));
 
         TypedValue typedValue = new TypedValue();
         getTheme().resolveAttribute(R.attr.ic_drawer, typedValue, true);
@@ -180,14 +185,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
             }
         });
         return true;
-    }
-
-    private int getContentView() {
-        if (preferences.useTabletLayout()) {
-            return R.layout.task_list_wrapper_activity_3pane;
-        } else {
-            return R.layout.task_list_wrapper_activity_no_swipe;
-        }
     }
 
     protected Filter getDefaultFilter() {

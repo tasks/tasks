@@ -10,4 +10,5 @@
     android:layout_alignParentTop="true"
     android:cacheColorHint="@android:color/transparent"
     android:scrollingCache="false"
+    android:fitsSystemWindows="true"
     tools:context=".NavigationDrawerFragment" />

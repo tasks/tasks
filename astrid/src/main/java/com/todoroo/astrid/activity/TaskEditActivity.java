@@ -8,6 +8,7 @@ package com.todoroo.astrid.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -29,12 +30,14 @@ public class TaskEditActivity extends AstridActivity {
         super.onCreate(savedInstanceState);
         preferences.applyTheme();
 
-        ActionBar actionBar = getSupportActionBar();
         setContentView(R.layout.task_edit_wrapper_activity);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle("");
+		actionBar.setDisplayShowTitleEnabled(false);
 	}
 
     /* (non-Javadoc)

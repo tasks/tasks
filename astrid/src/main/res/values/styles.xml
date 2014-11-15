@@ -8,7 +8,9 @@
 
     <!-- ========================================================== General  -->
     
-    <style name="Tasks" parent="@style/Theme.AppCompat">
+    <style name="Tasks" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowBackground">@null</item>
         <item name="asContentBackground">@android:color/black</item>
         <item name="asTextColor">#ffffff</item>
@@ -57,6 +59,8 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
+    <style name="ActionBarPopupThemeOverlay" parent="Widget.AppCompat.Light.PopupMenu" />
+
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">false</item>
     </style>
@@ -75,9 +79,11 @@
         <item name="android:src">@drawable/ic_action_overflow_light</item>
     </style>
 
-    <style name="Tasks.Light" parent="@style/Theme.AppCompat.Light">
+    <style name="Tasks.Light" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="asContentBackground">@android:color/white</item>
-        <item name="asEditBackground">#e5e5e5</item>
+        <item name="asEditBackground">@android:color/white</item>
         <item name="asTextColor">#000000</item>
         <item name="asTextColorInverse">#ffffff</item>
         <item name="asDetailsColor">#6666aa</item>
@@ -111,6 +117,11 @@
         <item name="drawer_background">#efefef</item>
         <item name="drawer_text">#000</item>
         <item name="drawer_selected">#dddddd</item>
+
+        <item name="android:popupMenuStyle">@style/Widget.AppCompat.Light.PopupMenu</item>
+        <item name="android:listPopupWindowStyle">@style/Widget.AppCompat.Light.PopupMenu</item>
+        <item name="android:dropDownListViewStyle">@style/Widget.AppCompat.Light.ListView.DropDown</item>
+
         <!-- actionbar-styling -->
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="android:actionBarStyle">@style/AstridV11ActionBarStyle.Light</item>
@@ -133,7 +144,6 @@
     <style name="AstridOverflowStyle.Light" parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="android:src">@drawable/ic_action_overflow</item>
     </style>
-
 
     <style name="Tasks.FullTransparent" parent="@style/Theme.AppCompat">
         <item name="android:windowIsTranslucent">true</item>

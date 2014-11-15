@@ -10,7 +10,9 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-    
+
+    <include layout="@layout/toolbar" />
+
     <ScrollView
         android:id="@+id/edit_scroll"
         style="@style/Content_EditScroll"
