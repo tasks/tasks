@@ -29,16 +29,16 @@
 		        android:paddingLeft="10dip"
 		        android:text="@string/TEA_reminder_label"
 		        android:paddingTop="10dip"
-		        style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel" />
+		        style="@style/TextAppearance" />
 		      <CheckBox
-		        style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel" 
+		        style="@style/TextAppearance"
 		        android:id="@+id/reminder_due"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:layout_marginLeft="10dip"   
 		        android:text="@string/TEA_reminder_due" />
 		      <CheckBox
-		        style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel" 
+		        style="@style/TextAppearance"
 		        android:id="@+id/reminder_overdue"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
 		        android:layout_width="fill_parent"
 		        android:layout_height="fill_parent">
 		        <CheckBox
-		          style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel"   
+		          style="@style/TextAppearance"
 		          android:id="@+id/reminder_random"
 		          android:layout_width="wrap_content"
 		          android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
 			        android:text="@string/TEA_reminder_alarm_label"
-			        style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel" />
+			        style="@style/TextAppearance" />
 			      <TextView
 		             android:id="@+id/reminder_alarm_display"
 		             android:layout_width="fill_parent"

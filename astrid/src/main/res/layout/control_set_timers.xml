@@ -24,7 +24,7 @@
 	      android:layout_width="wrap_content"
 	      android:layout_height="wrap_content"
 	      android:text="@string/TEA_estimatedDuration_label"
-	      style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel" />
+	      style="@style/TextAppearance" />
 	    <TextView
              android:id="@+id/estimatedDuration"
              android:layout_width="fill_parent"
@@ -51,7 +51,7 @@
 	      android:layout_width="wrap_content"
 	      android:layout_height="wrap_content"
 	      android:text="@string/TEA_elapsedDuration_label"
-	      style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel" />
+	      style="@style/TextAppearance" />
 	    <TextView
              android:id="@+id/elapsedDuration"
              android:layout_width="fill_parent"

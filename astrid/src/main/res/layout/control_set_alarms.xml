@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/alarm_ACS_label"
-            style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel" />
+            style="@style/TextAppearance" />
   <LinearLayout android:id="@+id/alert_container"
       android:paddingLeft="5dip"
                 android:orientation="vertical"
@@ -41,7 +41,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/alarm_ACS_button"
-            style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel" />
+            style="@style/TextAppearance" />
   </LinearLayout>
 </LinearLayout>
 

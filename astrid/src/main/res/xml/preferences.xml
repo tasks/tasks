@@ -9,13 +9,7 @@
     android:title="@string/EPr_title">
 
     <PreferenceScreen
-        android:title="@string/EPr_appearance_header"
-        android:summary="@string/EPr_appearance_summary">
-
-        <CheckBoxPreference
-            android:title="@string/EPr_use_dark_theme"
-            android:key="@string/p_use_dark_theme"
-            android:defaultValue="false"/>
+        android:title="@string/EPr_appearance_header">
 
         <CheckBoxPreference
             android:title="@string/EPr_use_dark_theme_widget"

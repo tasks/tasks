@@ -274,7 +274,7 @@ public class RepeatControlSet extends PopupControlSet {
             checkBox.setButtonDrawable(R.drawable.btn_check_small);
 
             TextView label = new TextView(activity);
-            label.setTextAppearance(activity, R.style.TextAppearance_GEN_EditLabel);
+            label.setTextAppearance(activity, R.style.TextAppearance);
             label.setLayoutParams(textLp);
             label.setTextSize(14);
             label.setText(dfs.getShortWeekdays()[dayOfWeek].substring(0, 1));

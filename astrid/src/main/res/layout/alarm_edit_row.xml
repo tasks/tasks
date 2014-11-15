@@ -33,7 +33,7 @@
 	        android:layout_weight="100"
 	        android:paddingTop="15dip"
 	        android:paddingBottom="15dip"
-	        style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel"/>
+	        style="@style/TextAppearance"/>
 	        
 	    <ImageButton android:id="@+id/button1"
 	        android:background="@drawable/btn_dismiss"

@@ -428,10 +428,7 @@
 
   <!-- slide 30i: Preference Category: Appearance Title -->
   <string name="EPr_appearance_header">Appearance</string>
-  
-  <!-- Preference Category: Appearance Summary -->
-  <string name="EPr_appearance_summary">Themes, widgets, task rows, edit screen</string>
-  
+
   <!-- slide 34a: Preference: Task List Font Size Title -->
   <string name="EPr_fontSize_title">Task list size</string>
   
@@ -468,9 +465,6 @@
   <string name="EPr_fullTask_desc_enabled">Full task title will be shown</string>
   <!-- slide 34h -->
   <string name="EPr_fullTask_desc_disabled">First two lines of task title will be shown</string>
-
-  <!-- Preference: list view -->
-  <string name="EPr_list_view">List view</string>
 
   <!-- Preference: task edit comments -->
   <string name="EPr_show_task_edit_comments">Show comments in task edit</string>

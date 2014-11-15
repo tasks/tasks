@@ -200,12 +200,6 @@
                 android:resource="@xml/scrollable_widget_provider_info" />
         </receiver>
 
-        <receiver android:name="com.todoroo.astrid.service.GlobalEventReceiver">
-            <intent-filter>
-                <action android:name="org.tasks.FLUSH_DETAILS" />
-            </intent-filter>
-        </receiver>
-
         <receiver android:name="com.todoroo.astrid.calls.PhoneStateChangedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
@@ -304,7 +298,7 @@
 
         <activity
             android:name="com.todoroo.astrid.core.CustomFilterActivity"
-            android:theme="@style/Tasks.Dialog" />
+            android:theme="@style/Tasks.Dialog.Light" />
 
         <activity
             android:name="com.todoroo.astrid.core.CustomFilterExposer$DeleteActivity"
@@ -339,7 +333,7 @@
         <activity
             android:name="com.todoroo.astrid.actfm.TagSettingsActivityTablet"
             android:windowSoftInputMode="stateHidden"
-            android:theme="@style/Tasks.Dialog" />
+            android:theme="@style/Tasks.Dialog.Light" />
 
         <!-- gtasks -->
         <activity

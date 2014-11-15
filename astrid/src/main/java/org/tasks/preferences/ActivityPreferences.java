@@ -32,11 +32,11 @@ public class ActivityPreferences extends Preferences {
     }
 
     public void applyTheme() {
-        applyTheme(isDarkTheme() ? R.style.Tasks : R.style.Tasks_Light);
+        applyTheme(R.style.Tasks);
     }
 
     public void applyDialogTheme() {
-        applyTheme(isDarkTheme() ? R.style.Tasks_Dialog : R.style.Tasks_Dialog_Light);
+        applyTheme(R.style.Tasks_Dialog_Light);
     }
 
     public void applyTranslucentDialogTheme() {
@@ -50,22 +50,7 @@ public class ActivityPreferences extends Preferences {
 
     public int getEditDialogTheme() {
         boolean ics = AndroidUtilities.getSdkVersion() >= 14;
-        int themeSetting = getBoolean(R.string.p_use_dark_theme, false) ? R.style.Tasks : R.style.Tasks_Light;
-        int theme;
-        if (themeSetting == R.style.Tasks) {
-            if (ics) {
-                theme = R.style.TEA_Dialog_ICS;
-            } else {
-                theme = R.style.TEA_Dialog;
-            }
-        } else {
-            if (ics) {
-                theme = R.style.TEA_Dialog_Light_ICS;
-            } else {
-                theme = R.style.TEA_Dialog_Light;
-            }
-        }
-        return theme;
+        return ics ? R.style.TEA_Dialog_Light_ICS : R.style.TEA_Dialog_Light;
     }
 
     /**

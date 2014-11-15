@@ -69,7 +69,7 @@
           android:layout_height="1px" />
 
       <TextView
-          style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel"
+          style="@style/TextAppearance"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
           android:paddingTop="10dip"
