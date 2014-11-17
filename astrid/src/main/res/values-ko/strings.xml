@@ -79,7 +79,6 @@
 	<string name="TAd_deletedFormat">%s [지움]</string>
 	<string name="TAd_completed">일정 완료\n%s</string>
 	<string name="TAd_actionEditTask">편집</string>
-	<string name="TAd_contextEditTask">일정 편집하기</string>
 	<string name="TAd_contextCopyTask">일정 복사하기</string>
 	<string name="TAd_contextDeleteTask">일정 지우기</string>
 	<string name="TAd_contextUndeleteTask">일정 복구하기</string>
@@ -194,7 +193,6 @@
 	<string name="EPr_title">설정</string>
 	<string name="EPr_deactivated">비활성화됨</string>
 	<string name="EPr_appearance_header">보기 설정</string>
-	<string name="EPr_appearance_summary">테마, 위젯, 일정 표시줄, 화면 편집</string>
 	<string name="EPr_fontSize_title">일정 목록 크기</string>
 	<string name="EPr_filters_to_show_title">표시할 필터</string>
 	<string name="EPr_showSmartConfirmation_title">스마트 알림시 확인하기</string>
@@ -210,7 +208,6 @@
 	<string name="EPr_fullTask_title">전체 일정 제목 보기</string>
 	<string name="EPr_fullTask_desc_enabled">전체 일정 제목을 표시합니다</string>
 	<string name="EPr_fullTask_desc_disabled">일정 제목의 첫 두 줄을 표시합니다</string>
-	<string name="EPr_list_view">목록 보기</string>
 	<string name="EPr_show_task_edit_comments">일정 편집에서 댓글 보기</string>
 	<string name="EPr_taskRowPrefs_title">일정 표시줄 보기 설정</string>
 	<string name="EPr_cal_end_or_start_at_due_time">달력 이벤트 시간</string>

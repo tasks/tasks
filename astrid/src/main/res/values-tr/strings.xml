@@ -72,7 +72,6 @@
 	<string name="TAd_deletedFormat">%s [silinmiş]</string>
 	<string name="TAd_completed">Bitti\n%s</string>
 	<string name="TAd_actionEditTask">Düzenle</string>
-	<string name="TAd_contextEditTask">Görevi Düzenle</string>
 	<string name="TAd_contextCopyTask">Görevi Kopyala</string>
 	<string name="TAd_contextDeleteTask">Görevi Sil</string>
 	<string name="TAd_contextUndeleteTask">Görevi Kurtar</string>

@@ -73,7 +73,6 @@
 	<string name="TAd_deletedFormat">%s [eliminato]</string>
 	<string name="TAd_completed">Terminata\n%s</string>
 	<string name="TAd_actionEditTask">Modifica</string>
-	<string name="TAd_contextEditTask">Modifica attività</string>
 	<string name="TAd_contextCopyTask">Copia Attività</string>
 	<string name="TAd_contextDeleteTask">Elimina attività</string>
 	<string name="TAd_contextUndeleteTask">Ripristina Attività</string>
@@ -177,7 +176,6 @@
 	<string name="EPr_title">Tasks: Preferenze</string>
 	<string name="EPr_deactivated">disattivato</string>
 	<string name="EPr_appearance_header">Aspetto</string>
-	<string name="EPr_appearance_summary">Temi, widgets, righe delle attività, modifica schermo</string>
 	<string name="EPr_fontSize_title">Dimensione dell\'elenco di attività</string>
 	<string name="EPr_showSmartConfirmation_title">Mostra conferma per promemoria rapidi</string>
 	<string name="EPr_fontSize_desc">Dimensione carattere nella pagina principale</string>

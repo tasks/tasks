@@ -14,10 +14,8 @@ import android.speech.SpeechRecognizer;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,8 +39,6 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListFragment;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
-import com.todoroo.astrid.tags.DeleteTagActivity;
-import com.todoroo.astrid.tags.RenameTagActivity;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.utility.Constants;
@@ -57,7 +53,6 @@ import javax.inject.Inject;
 
 import static com.todoroo.astrid.voice.RecognizerApi.RecognizerApiListener;
 import static com.todoroo.astrid.voice.VoiceRecognizer.voiceInputAvailable;
-import static org.tasks.preferences.ResourceResolver.getData;
 import static org.tasks.ui.NavigationDrawerFragment.OnFilterItemClickedListener;
 
 public class TaskListActivity extends AstridActivity implements OnPageChangeListener, OnFilterItemClickedListener, RecognizerApiListener {
@@ -151,10 +146,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
 
         getMenuInflater().inflate(R.menu.task_list_activity, menu);
         TaskListFragment tlf = getTaskListFragment();
-        if(tlf instanceof TagViewFragment) {
-            menu.findItem(R.id.menu_delete_list).setVisible(true);
-            menu.findItem(R.id.menu_rename_list).setVisible(true);
-        } else if(tlf instanceof GtasksListFragment) {
+        if (tlf instanceof GtasksListFragment) {
             menu.findItem(R.id.menu_clear_completed).setVisible(true);
             menu.findItem(R.id.menu_sort).setVisible(false);
         }
@@ -481,20 +473,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 if (!preferences.useTabletLayout()) {
                     AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_left_in, R.anim.slide_left_out);
                 }
-                return true;
-            case R.id.menu_delete_list:
-                TagData deleteTag = tlf.getActiveTagData();
-                Intent ret = new Intent(this, DeleteTagActivity.class);
-                ret.putExtra("tag", deleteTag.getName());
-                ret.putExtra(TagViewFragment.EXTRA_TAG_UUID, deleteTag.getUuid());
-                startActivityForResult(ret, NavigationDrawerFragment.REQUEST_CUSTOM_INTENT);
-                return true;
-            case R.id.menu_rename_list:
-                TagData renameTag = tlf.getActiveTagData();
-                Intent rename = new Intent(this, RenameTagActivity.class);
-                rename.putExtra("tag", renameTag.getName());
-                rename.putExtra(TagViewFragment.EXTRA_TAG_UUID, renameTag.getUuid());
-                startActivityForResult(rename, NavigationDrawerFragment.REQUEST_CUSTOM_INTENT);
                 return true;
             case R.id.menu_support:
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://abaker.github.io/tasks/")));

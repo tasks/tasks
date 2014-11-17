@@ -71,7 +71,6 @@
 	<string name="TAd_deletedFormat">%s [raderad]</string>
 	<string name="TAd_completed">Avslutad\n%s</string>
 	<string name="TAd_actionEditTask">Redigera</string>
-	<string name="TAd_contextEditTask">Redigera uppgift</string>
 	<string name="TAd_contextCopyTask">Kopiera uppgift</string>
 	<string name="TAd_contextDeleteTask">Radera uppgift</string>
 	<string name="TAd_contextUndeleteTask">Återställ raderad uppgift</string>
@@ -187,7 +186,6 @@
 	<string name="EPr_title">Inställningar</string>
 	<string name="EPr_deactivated">inaktiverad</string>
 	<string name="EPr_appearance_header">Utseende</string>
-	<string name="EPr_appearance_summary">Teman, widgets, uppgiftsrader, redigeringsskärmen</string>
 	<string name="EPr_fontSize_title">Storlek på uppgiftslista</string>
 	<string name="EPr_filters_to_show_title">Filter att visa</string>
 	<string name="EPr_showSmartConfirmation_title">Visa bekräftelse vid smarta påminnelser</string>
@@ -200,7 +198,6 @@
 	<string name="EPr_fullTask_title">Visa hela namnet på uppgiften</string>
 	<string name="EPr_fullTask_desc_enabled">Uppgiftens namn kommer att visas i sin helhet</string>
 	<string name="EPr_fullTask_desc_disabled">De första två raderna i uppgiftens namn kommer att visas</string>
-	<string name="EPr_list_view">Listvy</string>
 	<string name="EPr_show_task_edit_comments">Vissa kommentarer i uppgiftsredigering</string>
 	<string name="EPr_taskRowPrefs_title">Utseende på uppgiftsraden</string>
 	<string name="EPr_manage_header">Hantera gamla uppgifter</string>

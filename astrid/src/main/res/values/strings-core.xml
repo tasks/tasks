@@ -110,9 +110,6 @@
   <!-- slide 15a: Action Button: edit task -->
   <string name="TAd_actionEditTask">Edit</string>
   
-  <!-- Context Item: edit task -->
-  <string name="TAd_contextEditTask">Edit Task</string>
-
   <!-- Context Item: copy task -->
   <string name="TAd_contextCopyTask">Copy Task</string>
 

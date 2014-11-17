@@ -115,7 +115,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
 
     // --- menu codes
 
-    protected static final int CONTEXT_MENU_EDIT_TASK_ID = R.string.TAd_contextEditTask;
     protected static final int CONTEXT_MENU_COPY_TASK_ID = R.string.TAd_contextCopyTask;
     protected static final int CONTEXT_MENU_DELETE_TASK_ID = R.string.TAd_contextDeleteTask;
     protected static final int CONTEXT_MENU_UNDELETE_TASK_ID = R.string.TAd_contextUndeleteTask;
@@ -284,8 +283,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         fab.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Task task = quickAddBar.quickAddTask("", true);
-
+                quickAddBar.quickAddTask("", true);
             }
         });
         View body = getListBody(parent);
@@ -811,7 +809,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
             menu.add(id, CONTEXT_MENU_UNDELETE_TASK_ID, Menu.NONE, R.string.TAd_contextUndeleteTask);
             menu.add(id, CONTEXT_MENU_PURGE_TASK_ID, Menu.NONE, R.string.TAd_contextPurgeTask);
         } else {
-            menu.add(id, CONTEXT_MENU_EDIT_TASK_ID, Menu.NONE, R.string.TAd_contextEditTask);
             menu.add(id, CONTEXT_MENU_COPY_TASK_ID, Menu.NONE, R.string.TAd_contextCopyTask);
             menu.add(id, CONTEXT_MENU_DELETE_TASK_ID, Menu.NONE, R.string.TAd_contextDeleteTask);
         }
@@ -880,10 +877,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         switch (item.getItemId()) {
         // --- context menu items
 
-        case CONTEXT_MENU_EDIT_TASK_ID:
-            itemId = item.getGroupId();
-            mListener.onTaskListItemClicked(itemId);
-            return true;
         case CONTEXT_MENU_COPY_TASK_ID:
             itemId = item.getGroupId();
             duplicateTask(itemId);

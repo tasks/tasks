@@ -74,7 +74,6 @@
 	<string name="TAd_deletedFormat">%s [smazán]</string>
 	<string name="TAd_completed">Dokončeno\n%s</string>
 	<string name="TAd_actionEditTask">Upravit</string>
-	<string name="TAd_contextEditTask">Upravit úkol</string>
 	<string name="TAd_contextCopyTask">Kopírovat úkol</string>
 	<string name="TAd_contextDeleteTask">Smazat úkol</string>
 	<string name="TAd_contextUndeleteTask">Obnovit úkol</string>
@@ -190,7 +189,6 @@
 	<string name="EPr_title">Nastavení</string>
 	<string name="EPr_deactivated">deaktivován</string>
 	<string name="EPr_appearance_header">Vzhled</string>
-	<string name="EPr_appearance_summary">Témata, widgety, řádky úkolu, nastavení zobrazení</string>
 	<string name="EPr_fontSize_title">Velikost seznamu úkolů</string>
 	<string name="EPr_filters_to_show_title">Filtry pro zobrazení</string>
 	<string name="EPr_showSmartConfirmation_title">Zobrazovat potvrzení chytrých upomínek</string>
@@ -202,7 +200,6 @@
 	<string name="EPr_fullTask_title">Zobrazit úplný název úkolu</string>
 	<string name="EPr_fullTask_desc_enabled">Zobrazí se úplný název úkolu</string>
 	<string name="EPr_fullTask_desc_disabled">Zobrazí se první dva řádky názvu úkolu</string>
-	<string name="EPr_list_view">Zobrazit seznam</string>
 	<string name="EPr_show_task_edit_comments">Zobrazit komentáře při úpravě úkolu</string>
 	<string name="EPr_taskRowPrefs_title">Vzhled řádku úkolu</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Čas události v kalendáři</string>
@@ -494,7 +491,6 @@
 	<string name="voice_edit_note_prompt">Namluvit popis úkolu</string>
 	<string name="EPr_voiceRemindersEnabled_title">Hlasové upomínky</string>
 	<string name="widget_mini">Úkoly</string>
-	<string name="EPr_use_dark_theme">Tmavé téma</string>
 	<string name="EPr_use_dark_theme_widget">Tmavé téma widgetu</string>
 	<string name="delete_task">Smazat úkol</string>
 	<string name="TLA_menu_support">Podpora</string>

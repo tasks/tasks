@@ -76,7 +76,6 @@
 	<string name="TAd_deletedFormat">%s [удалена]</string>
 	<string name="TAd_completed">Завершена\n%s</string>
 	<string name="TAd_actionEditTask">Редактировать</string>
-	<string name="TAd_contextEditTask">Правка задачи</string>
 	<string name="TAd_contextCopyTask">Копировать задачу</string>
 	<string name="TAd_contextDeleteTask">Удалить задачу</string>
 	<string name="TAd_contextUndeleteTask">Отменить удаление задачи</string>
@@ -193,7 +192,6 @@
 	<string name="EPr_title">Tasks: Настройки</string>
 	<string name="EPr_deactivated">выключен</string>
 	<string name="EPr_appearance_header">Интерфейс</string>
-	<string name="EPr_appearance_summary">Темы, виджеты, пункты списка, экран правки</string>
 	<string name="EPr_fontSize_title">Размер списка задач</string>
 	<string name="EPr_filters_to_show_title">Показать фильтры</string>
 	<string name="EPr_showSmartConfirmation_title">Показывать подтверждения для умных напоминаний</string>
@@ -209,7 +207,6 @@
 	<string name="EPr_fullTask_title">Показывать полное название задачи</string>
 	<string name="EPr_fullTask_desc_enabled">Будет показано полное название задачи</string>
 	<string name="EPr_fullTask_desc_disabled">Будут показаны первые две строки названия</string>
-	<string name="EPr_list_view">Списком</string>
 	<string name="EPr_show_task_edit_comments">Показывать комментарии в редакторе задачи</string>
 	<string name="EPr_taskRowPrefs_title">Внешний вид задач в списке</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Время события в календаре</string>
@@ -512,7 +509,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks должен произносить название задач во время напоминаний</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Оповещение звуком во время напоминания</string>
 	<string name="widget_mini">Задачи</string>
-	<string name="EPr_use_dark_theme">Тёмная тема</string>
 	<string name="EPr_use_dark_theme_widget">Темная тема виджета</string>
 	<string name="delete_task">Удалить задачу</string>
 	<string name="TLA_menu_support">Поддержка</string>

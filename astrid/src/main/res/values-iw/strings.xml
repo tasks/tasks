@@ -76,7 +76,6 @@
 	<string name="TAd_deletedFormat">%s [נמחקה]</string>
 	<string name="TAd_completed">הסתיימה\n%s</string>
 	<string name="TAd_actionEditTask">עריכה</string>
-	<string name="TAd_contextEditTask">עריכת משימה</string>
 	<string name="TAd_contextCopyTask">העתק משימה</string>
 	<string name="TAd_contextDeleteTask">מַחֲקֵי משימה</string>
 	<string name="TAd_contextUndeleteTask">בטלי מחיקת משימה</string>
@@ -190,7 +189,6 @@
 	<string name="EPr_title">הגדרות אסטריד</string>
 	<string name="EPr_deactivated">מופסק</string>
 	<string name="EPr_appearance_header">חזות</string>
-	<string name="EPr_appearance_summary">ערכות נושא, חֲפִיצִים, שורת משימות, ערוך מסך</string>
 	<string name="EPr_fontSize_title">אורך רשימת משימות</string>
 	<string name="EPr_filters_to_show_title">אילו מַסְנְנִים להציג</string>
 	<string name="EPr_showSmartConfirmation_title">הצג אישור על תזכורות חכמות</string>
@@ -204,7 +202,6 @@
 	<string name="EPr_fullTask_title">הצג כותרת מלאה</string>
 	<string name="EPr_fullTask_desc_enabled">כותרות משימה מלאות תוצגנה</string>
 	<string name="EPr_fullTask_desc_disabled">שתי השורות הראשונות של שם המשימה תוצגנה</string>
-	<string name="EPr_list_view">תצוגת רשימה</string>
 	<string name="EPr_show_task_edit_comments">הצגת הערות בעריכת משימה</string>
 	<string name="EPr_taskRowPrefs_title">חזות שורת המשימה</string>
 	<string name="EPr_cal_end_or_start_at_due_time">משך אירוע יומן</string>

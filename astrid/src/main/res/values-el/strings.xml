@@ -149,7 +149,6 @@
 	<string name="EPr_title">Ρυθμίσεις</string>
 	<string name="EPr_deactivated">απενεργοποίησε</string>
 	<string name="EPr_appearance_header">Εμφάνιση</string>
-	<string name="EPr_appearance_summary">Θέματα, wdigets, σειρές καθηκόντων, επεξεργασία οθόνης</string>
 	<string name="EPr_fontSize_title">Μέγεθος λίστας καθηκόντων</string>
 	<string name="EPr_filters_to_show_title">Φίλτρα που θα εμφανιστούν</string>
 	<string name="EPr_showSmartConfirmation_title">Εμφάνιση επιβεβαίωσης για έξυπνες ειδοποιήσεις</string>
@@ -158,7 +157,6 @@
 	<string name="EPr_time_increment">5λεπτες αυξήσεις </string>
 	<string name="EPr_beastMode_reset">Επαναφορά προεπιλογών</string>
 	<string name="EPr_fullTask_title">Εμφάνισε πλήρη τίτλο καθήκοντος</string>
-	<string name="EPr_list_view">Εμφάνιση λίστας</string>
 	<string name="EPr_show_task_edit_comments">Εμφάνιση σχόλιων στην επεξεργασία καθήκοντος</string>
 	<string name="EPr_taskRowPrefs_title">Εμφάνιση σειράς καθήκοντος</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Χρόνος event ημερολογίου</string>
@@ -366,7 +364,6 @@
 	<string name="EPr_voiceInputEnabled_title">Εισαγωγή φωνής</string>
 	<string name="EPr_voiceRemindersEnabled_title">Φωνητικές υπενθυμίσεις</string>
 	<string name="widget_mini">Καθήκοντα</string>
-	<string name="EPr_use_dark_theme">Σκοτεινό θέμα</string>
 	<string name="EPr_use_dark_theme_widget">Widget σκοτεινού θέματος</string>
 	<string name="delete_task">Διαγραφή καθήκοντος</string>
 </resources>

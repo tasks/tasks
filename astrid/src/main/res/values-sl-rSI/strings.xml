@@ -78,7 +78,6 @@
 	<string name="TAd_deletedFormat">%s [zbrisan]</string>
 	<string name="TAd_completed">Opravljen\n%s</string>
 	<string name="TAd_actionEditTask">Uredi</string>
-	<string name="TAd_contextEditTask">Uredi opravek</string>
 	<string name="TAd_contextCopyTask">Naredi kopijo opravka</string>
 	<string name="TAd_contextDeleteTask">Zbriši opravek</string>
 	<string name="TAd_contextUndeleteTask">Razveljavi izbris opravka</string>
@@ -194,7 +193,6 @@
 	<string name="EPr_title">Nastavitve</string>
 	<string name="EPr_deactivated">deaktivirano</string>
 	<string name="EPr_appearance_header">Izgled</string>
-	<string name="EPr_appearance_summary">Teme, pripomočki, zaporedja opravkov, uredi zaslon</string>
 	<string name="EPr_fontSize_title">Velikost seznama opravkov</string>
 	<string name="EPr_filters_to_show_title">Filtri za prikaz</string>
 	<string name="EPr_showSmartConfirmation_title">Pokaži potrditev za pametne opomnike</string>
@@ -210,7 +208,6 @@
 	<string name="EPr_fullTask_title">Prikaži celoten naziv opravka</string>
 	<string name="EPr_fullTask_desc_enabled">Celoten naziv opravka bo prikazan</string>
 	<string name="EPr_fullTask_desc_disabled">Prikazani bosta prvi dve vrstici naziva opravka</string>
-	<string name="EPr_list_view">Seznamski prikaz</string>
 	<string name="EPr_show_task_edit_comments">Prikaži opombe pri urejanju opravkov</string>
 	<string name="EPr_taskRowPrefs_title">Izgled vrstic z opravki</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Čas dogodka iz koledarja</string>
@@ -509,7 +506,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Aplikacija Opravki bo med opominjanjem glede opravkov izgovarjala nazive opravkov</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Aplikacija Opravki bo med opominjanjem glede opravkov zvonila.</string>
 	<string name="widget_mini">Opravki</string>
-	<string name="EPr_use_dark_theme">Temni videz</string>
 	<string name="EPr_use_dark_theme_widget">Temni videz gradnika</string>
 	<string name="delete_task">Zbriši opravek</string>
 </resources>

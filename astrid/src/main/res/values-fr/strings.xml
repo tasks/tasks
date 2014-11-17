@@ -74,7 +74,6 @@
 	<string name="TAd_deletedFormat">%s [supprimé(e)]</string>
 	<string name="TAd_completed">Accomplie\n%s</string>
 	<string name="TAd_actionEditTask">Modifier</string>
-	<string name="TAd_contextEditTask">Modifier la tâche</string>
 	<string name="TAd_contextCopyTask">Copier la tâche</string>
 	<string name="TAd_contextDeleteTask">Supprimer la tâche</string>
 	<string name="TAd_contextUndeleteTask">Récupérer la tâche</string>
@@ -188,7 +187,6 @@
 	<string name="EPr_title">Tasks : Paramètres</string>
 	<string name="EPr_deactivated">désactivé</string>
 	<string name="EPr_appearance_header">Apparence</string>
-	<string name="EPr_appearance_summary">Thèmes, gadgets, ligne de tâche, écran d\'édition</string>
 	<string name="EPr_fontSize_title">Taille de la liste de tâches</string>
 	<string name="EPr_filters_to_show_title">Filtres à afficher</string>
 	<string name="EPr_showSmartConfirmation_title">Montrer une confirmation pour les rappels intelligents</string>
@@ -204,7 +202,6 @@
 	<string name="EPr_fullTask_title">Voir le titre complet de la tâche</string>
 	<string name="EPr_fullTask_desc_enabled">Le titre entier de la tâche sera montré</string>
 	<string name="EPr_fullTask_desc_disabled">Les deux premières lignes du titre de la tâche seront montrées</string>
-	<string name="EPr_list_view">Vue sous forme de liste</string>
 	<string name="EPr_show_task_edit_comments">Afficher les commentaires dans l\'édition de tâches</string>
 	<string name="EPr_taskRowPrefs_title">Style des lignes de tâche</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Heure de l\'évenement dans le calendrier</string>
@@ -503,7 +500,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks donnera le nom de la tâche</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks sonnera pendant les rappels</string>
 	<string name="widget_mini">Tâches</string>
-	<string name="EPr_use_dark_theme">Thème foncé</string>
 	<string name="EPr_use_dark_theme_widget">Thème de widget foncé</string>
 	<string name="delete_task">Supprimer la tâche ? </string>
 	<string name="TLA_menu_support">Assistance</string>

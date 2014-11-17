@@ -40,7 +40,6 @@
 		<item>нисък приоритет</item>
 	</string-array>
 	<string name="TAd_actionEditTask">Редактирай</string>
-	<string name="TAd_contextEditTask">Редактирай задача</string>
 	<string name="TAd_contextCopyTask">Копирай задача</string>
 	<string name="TAd_contextDeleteTask">Изтрий задача</string>
 	<string name="TAd_contextUndeleteTask">Възстанови Задача</string>
@@ -139,7 +138,6 @@
 	<string name="EPr_fullTask_title">Покажи пълното име на задачата</string>
 	<string name="EPr_fullTask_desc_enabled">Ще бъде показвано пълно име на задачата</string>
 	<string name="EPr_fullTask_desc_disabled">Ще бъдат показвани първите два реда от имета на задачата</string>
-	<string name="EPr_list_view">Изглед на списъка</string>
 	<string name="EPr_show_task_edit_comments">Покажи коментари при редакция на задача</string>
 	<string name="EPr_manage_header">Управление на стари задачи</string>
 	<string name="EPr_manage_delete_completed">Изтрий приключени задачи</string>
@@ -314,7 +312,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks ще изтоваря имената на задачите по време на напомняния за задача</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks ще изпълнява мелодия по време на напомняния за задача </string>
 	<string name="widget_mini">Задачи</string>
-	<string name="EPr_use_dark_theme">Тъмна тема</string>
 	<string name="delete_task">Изтрий задача</string>
 	<string name="voice_command_added_task">Добавена задача</string>
 	<string name="external_storage_unavailable">Не може да достъпвате до външната памет</string>

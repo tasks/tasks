@@ -32,7 +32,6 @@
 	<string name="TLA_menu_sort">Sort &amp; Hidden</string>
 	<string name="TLA_custom">ปรับแต่ง</string>
 	<string name="TAd_actionEditTask">แก้ไข</string>
-	<string name="TAd_contextEditTask">แก้ไขงาน</string>
 	<string name="TAd_contextUndeleteTask">แผนงานที่ลบไม่ได้</string>
 	<string name="SSD_completed">แสดงแผนงานที่เสร็จแล้ว</string>
 	<string name="SSD_hidden">แสดงแผนงานที่ซ่อนไว้</string>

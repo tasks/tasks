@@ -79,7 +79,6 @@
 	<string name="TAd_deletedFormat">%s [видалено]</string>
 	<string name="TAd_completed">Завершено\n%s</string>
 	<string name="TAd_actionEditTask">Редагувати</string>
-	<string name="TAd_contextEditTask">Редагувати завдання</string>
 	<string name="TAd_contextCopyTask">Копіювати завдання</string>
 	<string name="TAd_contextDeleteTask">Видалити завдання</string>
 	<string name="TAd_contextUndeleteTask">Відмінити видалення завдання</string>
@@ -194,7 +193,6 @@
 	<string name="EPr_title">Налаштування</string>
 	<string name="EPr_deactivated">деактивовані</string>
 	<string name="EPr_appearance_header">Інтерфейс</string>
-	<string name="EPr_appearance_summary">Теми, віджети, завдання рядків, екран редагування</string>
 	<string name="EPr_fontSize_title">Розмір списку завдань</string>
 	<string name="EPr_filters_to_show_title">Показати фільтри</string>
 	<string name="EPr_showSmartConfirmation_title">Показати підтвердження для розумного нагадування</string>
@@ -210,7 +208,6 @@
 	<string name="EPr_fullTask_title">Показувати повну назву завдання</string>
 	<string name="EPr_fullTask_desc_enabled">Повна назва завдання буде показана</string>
 	<string name="EPr_fullTask_desc_disabled">Перші дві стрічки назви завдання будуть показані</string>
-	<string name="EPr_list_view">Вигляд списку</string>
 	<string name="EPr_show_task_edit_comments">Показувати коментарі в редакторі завдання</string>
 	<string name="EPr_taskRowPrefs_title">Зовнішній вигляд завдань у списку</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Час події в календарі</string>

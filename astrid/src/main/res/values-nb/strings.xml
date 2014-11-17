@@ -45,7 +45,6 @@
 	<string name="TAd_hiddenFormat">%s [skjult]</string>
 	<string name="TAd_deletedFormat">%s [slettet]</string>
 	<string name="TAd_actionEditTask">Rediger</string>
-	<string name="TAd_contextEditTask">Rediger oppgave</string>
 	<string name="TAd_contextCopyTask">Kopier oppgave</string>
 	<string name="TAd_contextDeleteTask">Slett oppgave</string>
 	<string name="TAd_contextUndeleteTask">Gjenopprett slettet oppgave</string>

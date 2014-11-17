@@ -74,7 +74,6 @@
 	<string name="TAd_deletedFormat">%s [verwijderd]</string>
 	<string name="TAd_completed">Afgerond\n%s</string>
 	<string name="TAd_actionEditTask">Bewerken</string>
-	<string name="TAd_contextEditTask">Taak bewerken</string>
 	<string name="TAd_contextCopyTask">Taak kopiëren</string>
 	<string name="TAd_contextDeleteTask">Taak wissen</string>
 	<string name="TAd_contextUndeleteTask">Taak herstellen</string>
@@ -191,7 +190,6 @@
 	<string name="EPr_title">Tasks: Instellingen</string>
 	<string name="EPr_deactivated">uitgeschakeld</string>
 	<string name="EPr_appearance_header">Uiterlijk</string>
-	<string name="EPr_appearance_summary">Thema\'s, widgets, taken, scherm aanpassen</string>
 	<string name="EPr_fontSize_title">Taaklijst grootte</string>
 	<string name="EPr_filters_to_show_title">Te tonen filters</string>
 	<string name="EPr_showSmartConfirmation_title">Laat bevestiging zien voor slimme herinneringen</string>
@@ -207,7 +205,6 @@
 	<string name="EPr_fullTask_title">Laat volledige taak titel zien</string>
 	<string name="EPr_fullTask_desc_enabled">Volledige taak titel zal worden weergegeven</string>
 	<string name="EPr_fullTask_desc_disabled">Eerste twee lijnen van taak titel zullen worden weergegeven</string>
-	<string name="EPr_list_view">Lijst weergave</string>
 	<string name="EPr_show_task_edit_comments">Toon opmerkingen in taak bewerken</string>
 	<string name="EPr_taskRowPrefs_title">Taakrij Weergave</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Agenda item tijd</string>
@@ -507,7 +504,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Bij herinneringen zullen de taaknamen uitgesproken worden</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Er wordt een geluid weergegeven bij herinneringen</string>
 	<string name="widget_mini">Taken</string>
-	<string name="EPr_use_dark_theme">Donker thema</string>
 	<string name="EPr_use_dark_theme_widget">Donker widget thema</string>
 	<string name="delete_task">Verwijder taak</string>
 	<string name="TLA_menu_support">Ondersteuning</string>

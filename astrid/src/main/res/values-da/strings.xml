@@ -51,7 +51,6 @@
 	<string name="TAd_hiddenFormat">%s [skjult]</string>
 	<string name="TAd_deletedFormat">%s [slettet]</string>
 	<string name="TAd_actionEditTask">Rediger</string>
-	<string name="TAd_contextEditTask">Rediger opgave</string>
 	<string name="TAd_contextUndeleteTask">Gendan opgave</string>
 	<string name="TAd_contextPurgeTask">Ryd opgave</string>
 	<string name="SSD_hidden_title">Skjulte opgaver</string>

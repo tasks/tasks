@@ -70,7 +70,6 @@
 	<string name="TAd_deletedFormat">%s [gelöscht]</string>
 	<string name="TAd_completed">Abgeschlossen\n%s</string>
 	<string name="TAd_actionEditTask">Bearbeiten</string>
-	<string name="TAd_contextEditTask">Aufgabe bearbeiten</string>
 	<string name="TAd_contextCopyTask">Aufgabe kopieren</string>
 	<string name="TAd_contextDeleteTask">Aufgabe löschen</string>
 	<string name="TAd_contextUndeleteTask">Aufgabe wiederherstellen</string>
@@ -187,7 +186,6 @@
 	<string name="EPr_title">Tasks: Einstellungen</string>
 	<string name="EPr_deactivated">deaktiviert</string>
 	<string name="EPr_appearance_header">Erscheinungsbild</string>
-	<string name="EPr_appearance_summary">Themes, Widgets, Aufgabenzeilen, Bearbeitungsansicht</string>
 	<string name="EPr_fontSize_title">Größe der Aufgabenliste</string>
 	<string name="EPr_filters_to_show_title">Angezeigte Filter</string>
 	<string name="EPr_showSmartConfirmation_title">Bestätigung für Smart-Erinnerungen anzeigen</string>
@@ -203,7 +201,6 @@
 	<string name="EPr_fullTask_title">Gesamten Aufgabentitel anzeigen</string>
 	<string name="EPr_fullTask_desc_enabled">Aufgabentitel wird vollständig angezeigt</string>
 	<string name="EPr_fullTask_desc_disabled">Die ersten beiden Zeilen des Aufgabentitels werden angezeigt</string>
-	<string name="EPr_list_view">Listenansicht</string>
 	<string name="EPr_show_task_edit_comments">Kommentare bei Aufgabeneingabe anzeigen </string>
 	<string name="EPr_taskRowPrefs_title">Aussehen der Aufgabenzeilen</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Zeitpunkt Kalendertermin</string>
@@ -500,7 +497,6 @@
 	<string name="EPr_voiceRemindersEnabled_title">Sprach-Erinnerungen</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks wird Aufgabennamen bei der Erinnerung aussprechen</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks wird bei der Erinnerung einen Klingelton abspielen</string>
-	<string name="EPr_use_dark_theme">Dunkles Theme</string>
 	<string name="EPr_use_dark_theme_widget">Dunkles Widget Theme</string>
 	<string name="delete_task">Aufgabe löschen</string>
 	<string name="TLA_menu_support">Unterstützung</string>

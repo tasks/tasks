@@ -75,7 +75,6 @@
 	<string name="TAd_deletedFormat">%s [已删除]</string>
 	<string name="TAd_completed">完成\n%s 项</string>
 	<string name="TAd_actionEditTask">编辑</string>
-	<string name="TAd_contextEditTask">编辑任务</string>
 	<string name="TAd_contextCopyTask">复制任务</string>
 	<string name="TAd_contextDeleteTask">删除任务</string>
 	<string name="TAd_contextUndeleteTask">未删除任务</string>
@@ -159,7 +158,6 @@
 	<string name="EPr_title">清单小助理：设置</string>
 	<string name="EPr_deactivated">禁用</string>
 	<string name="EPr_appearance_header">外观</string>
-	<string name="EPr_appearance_summary">主题，小工具，任务栏，编辑屏幕列表</string>
 	<string name="EPr_fontSize_title">任务列表字体大小</string>
 	<string name="EPr_showSmartConfirmation_title">显示智能提示确认消息</string>
 	<string name="EPr_fontSize_desc">主列表页面字体大小</string>

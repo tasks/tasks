@@ -75,7 +75,6 @@
 	<string name="TAd_deletedFormat">%s [削除済]</string>
 	<string name="TAd_completed">%s\nに完了</string>
 	<string name="TAd_actionEditTask">編集する</string>
-	<string name="TAd_contextEditTask">タスクを編集</string>
 	<string name="TAd_contextCopyTask">タスクをコピー</string>
 	<string name="TAd_contextDeleteTask">タスクを削除</string>
 	<string name="TAd_contextUndeleteTask">元に戻す</string>
@@ -192,7 +191,6 @@
 	<string name="EPr_title">Tasks: 設定</string>
 	<string name="EPr_deactivated">非アクティブ化されました</string>
 	<string name="EPr_appearance_header">外観</string>
-	<string name="EPr_appearance_summary">テーマ, ウィジット, タスク行, 編集画面</string>
 	<string name="EPr_fontSize_title">リストの文字サイズ</string>
 	<string name="EPr_filters_to_show_title">表示のフィルター</string>
 	<string name="EPr_showSmartConfirmation_title">スマート通知用の確認を表示</string>
@@ -208,7 +206,6 @@
 	<string name="EPr_fullTask_title">完全なタスク見出しを表示</string>
 	<string name="EPr_fullTask_desc_enabled">完全なタスク見出しが表示されます</string>
 	<string name="EPr_fullTask_desc_disabled">タスク見出しの最初の 2 行が表示されます</string>
-	<string name="EPr_list_view">リスト表示</string>
 	<string name="EPr_show_task_edit_comments">タスク編集でコメントを表示</string>
 	<string name="EPr_taskRowPrefs_title">タスク行の外観</string>
 	<string name="EPr_cal_end_or_start_at_due_time">カレンダーイベント時間</string>
@@ -511,7 +508,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks はタスクリマインダーでタスク名を話します</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks はタスクリマインダーで通知音を鳴らします</string>
 	<string name="widget_mini">タスク</string>
-	<string name="EPr_use_dark_theme">ダークテーマ</string>
 	<string name="EPr_use_dark_theme_widget">ダークウィジットテーマ</string>
 	<string name="delete_task">タスクを削除</string>
 	<string name="TLA_menu_support">サポート</string>

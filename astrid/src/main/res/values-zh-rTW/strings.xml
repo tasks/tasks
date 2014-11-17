@@ -76,7 +76,6 @@
 	<string name="TAd_deletedFormat">%s [刪除]</string>
 	<string name="TAd_completed">%s\n完成</string>
 	<string name="TAd_actionEditTask">編輯</string>
-	<string name="TAd_contextEditTask">編輯工作</string>
 	<string name="TAd_contextCopyTask">複製任務工作</string>
 	<string name="TAd_contextDeleteTask">刪除任務工作</string>
 	<string name="TAd_contextUndeleteTask">還原工作刪除</string>
@@ -189,7 +188,6 @@
 	<string name="EPr_title">Tasks: 偏好</string>
 	<string name="EPr_deactivated">禁用</string>
 	<string name="EPr_appearance_header">外觀</string>
-	<string name="EPr_appearance_summary">主題，小工具，任務工作欄，編輯屏幕列表</string>
 	<string name="EPr_fontSize_title">工作清單大小</string>
 	<string name="EPr_showSmartConfirmation_title">在智能提示上顯示確認消息</string>
 	<string name="EPr_fontSize_desc">清單主頁面字型大小</string>
@@ -481,7 +479,6 @@
 	<string name="EPr_voiceRemindersEnabled_title">語音提醒</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks在工作提醒時會以語音說出工作名稱</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks在工作提醒時將會播放鈴聲</string>
-	<string name="EPr_use_dark_theme">暗色主題</string>
 	<string name="EPr_use_dark_theme_widget">暗色小工具主題</string>
 	<string name="delete_task">刪除工作</string>
 	<string name="TLA_menu_support">支持</string>

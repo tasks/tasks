@@ -76,7 +76,6 @@
 	<string name="TAd_deletedFormat">%s [eliminada]</string>
 	<string name="TAd_completed">Terminada\n%s</string>
 	<string name="TAd_actionEditTask">Editar</string>
-	<string name="TAd_contextEditTask">Editar tarefa</string>
 	<string name="TAd_contextCopyTask">Copiar tarefa</string>
 	<string name="TAd_contextDeleteTask">Eliminar tarefa</string>
 	<string name="TAd_contextUndeleteTask">Recuperar tarefa</string>
@@ -192,7 +191,6 @@
 	<string name="EPr_title">Definições</string>
 	<string name="EPr_deactivated">desativada</string>
 	<string name="EPr_appearance_header">Aspeto</string>
-	<string name="EPr_appearance_summary">Temas, widgets, linhas de tarefa e ecrã de edição</string>
 	<string name="EPr_fontSize_title">Tamanho da lista de tarefas</string>
 	<string name="EPr_filters_to_show_title">Filtros a mostrar</string>
 	<string name="EPr_showSmartConfirmation_title">Mostrar confirmação para lembretes inteligentes</string>
@@ -208,7 +206,6 @@
 	<string name="EPr_fullTask_title">Mostrar título completo das tarefas</string>
 	<string name="EPr_fullTask_desc_enabled">O título completo das tarefas será mostrado</string>
 	<string name="EPr_fullTask_desc_disabled">Primeiras duas linhas do título serão mostradas</string>
-	<string name="EPr_list_view">Vista em lista</string>
 	<string name="EPr_show_task_edit_comments">Mostrar comentários na edição de tarefa</string>
 	<string name="EPr_taskRowPrefs_title">Aspeto da linha de tarefa</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Hora do evento de calendário</string>
@@ -513,7 +510,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">O Tasks irá reproduzir o nome da tarefa durante os lembretes</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">O Tasks irá reproduzir um toque durante os lembretes</string>
 	<string name="widget_mini">Tarefas</string>
-	<string name="EPr_use_dark_theme">Tema escuro</string>
 	<string name="EPr_use_dark_theme_widget">Widget escuro</string>
 	<string name="delete_task">Eliminar tarefa</string>
 	<string name="TLA_menu_support">Suporte</string>

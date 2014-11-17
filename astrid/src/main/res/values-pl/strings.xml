@@ -72,7 +72,6 @@
 	<string name="TAd_deletedFormat">%s [usunięte]</string>
 	<string name="TAd_completed">Ukończono\n%s</string>
 	<string name="TAd_actionEditTask">Edytuj</string>
-	<string name="TAd_contextEditTask">Edytuj zadanie</string>
 	<string name="TAd_contextCopyTask">Kopiuj zadanie</string>
 	<string name="TAd_contextDeleteTask">Usuń zadanie</string>
 	<string name="TAd_contextUndeleteTask">Przywrócone zadanie</string>
@@ -188,7 +187,6 @@
 	<string name="EPr_title">Tasks: Właściwości</string>
 	<string name="EPr_deactivated">niekatywny</string>
 	<string name="EPr_appearance_header">Wygląd</string>
-	<string name="EPr_appearance_summary">Motywy, widżety, zadania w rzędach, edycja wyświetlacza</string>
 	<string name="EPr_fontSize_title">Rozmiar listy zadań</string>
 	<string name="EPr_filters_to_show_title">Pokazywane filtry</string>
 	<string name="EPr_showSmartConfirmation_title">Pokaż potwierdzenie dla inteligentnych powiadomień</string>
@@ -204,7 +202,6 @@
 	<string name="EPr_fullTask_title">Pokaż pełną nazwę zadania</string>
 	<string name="EPr_fullTask_desc_enabled">Pełna nazwa zadania będzie wyświetlana</string>
 	<string name="EPr_fullTask_desc_disabled">Pierwsze dwie linie nazwy zadania będą wyświetlane</string>
-	<string name="EPr_list_view">Widok listy</string>
 	<string name="EPr_show_task_edit_comments">Pokaż komentarze w edycji zadania</string>
 	<string name="EPr_taskRowPrefs_title">Wygląd rzędu zadań</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Czas zdarzenia kalendarza</string>
@@ -508,7 +505,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks będzie mówił nazwę zadania podczas przypomnienia</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks będzie uruchamiał dzwonek podczas przypomnienia zadania</string>
 	<string name="widget_mini">Zadania</string>
-	<string name="EPr_use_dark_theme">Ciemny motyw</string>
 	<string name="EPr_use_dark_theme_widget">Ciemny motyw widgetu</string>
 	<string name="delete_task">Usuń zadanie</string>
 	<string name="TLA_menu_support">Wsparcie</string>

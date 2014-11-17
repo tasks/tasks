@@ -74,7 +74,6 @@
 	<string name="TAd_deletedFormat">%s [excluída]</string>
 	<string name="TAd_completed">Concluída\n%s</string>
 	<string name="TAd_actionEditTask">Editar</string>
-	<string name="TAd_contextEditTask">Editar tarefa</string>
 	<string name="TAd_contextCopyTask">Copiar tarefa</string>
 	<string name="TAd_contextDeleteTask">Excluir tarefa</string>
 	<string name="TAd_contextUndeleteTask">Restaurar tarefa</string>
@@ -187,7 +186,6 @@
 	<string name="EPr_title">Tasks: Configurações</string>
 	<string name="EPr_deactivated">desativado</string>
 	<string name="EPr_appearance_header">Aparência</string>
-	<string name="EPr_appearance_summary">Temas, widgets, linhas de tarefas, tela de edição</string>
 	<string name="EPr_fontSize_title">Tamanho do texto</string>
 	<string name="EPr_showSmartConfirmation_title">Mostrar confirmação para lembretes espertos</string>
 	<string name="EPr_fontSize_desc">Tamanho do texto nas listagens</string>

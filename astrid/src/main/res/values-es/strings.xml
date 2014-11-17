@@ -76,7 +76,6 @@
 	<string name="TAd_deletedFormat">%s [borrado]</string>
 	<string name="TAd_completed">Terminado\n%s</string>
 	<string name="TAd_actionEditTask">Editar</string>
-	<string name="TAd_contextEditTask">Editar tarea</string>
 	<string name="TAd_contextCopyTask">Copiar tarea</string>
 	<string name="TAd_contextDeleteTask">Eliminar tarea</string>
 	<string name="TAd_contextUndeleteTask">Restaurar Tarea</string>
@@ -192,7 +191,6 @@
 	<string name="EPr_title">Tasks: Preferencias</string>
 	<string name="EPr_deactivated">desactivada</string>
 	<string name="EPr_appearance_header">Apariencia</string>
-	<string name="EPr_appearance_summary">Temas, widgets, filas de tareas, editar pantalla</string>
 	<string name="EPr_fontSize_title">Tamaño de la lista de tareas</string>
 	<string name="EPr_filters_to_show_title">Filtros a mostrar</string>
 	<string name="EPr_showSmartConfirmation_title">Mostrar confirmación para recordatorios inteligentes</string>
@@ -208,7 +206,6 @@
 	<string name="EPr_fullTask_title">Mostrar completo el título de la tarea</string>
 	<string name="EPr_fullTask_desc_enabled">Se mostrará completo el título de la tarea</string>
 	<string name="EPr_fullTask_desc_disabled">Las primeras dos lineas de las tareas serán mostradas</string>
-	<string name="EPr_list_view">Vista de listas</string>
 	<string name="EPr_show_task_edit_comments">Mostrar comentarios durante la edición de tareas</string>
 	<string name="EPr_taskRowPrefs_title">Apariencia de la fila de tareas</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Momento del evento en calendario</string>
@@ -509,7 +506,6 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks dirá los nombres de las tareas durante los avisos</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks reproducirá un tono durante los recordatorios</string>
 	<string name="widget_mini">Tareas</string>
-	<string name="EPr_use_dark_theme">Estilo oscuro</string>
 	<string name="EPr_use_dark_theme_widget">Estilo de componentes oscuros</string>
 	<string name="delete_task">Eliminar tarea</string>
 	<string name="TLA_menu_support">Soporte</string>
