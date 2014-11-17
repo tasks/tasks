@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AstridActionBarStyle" parent="@style/Widget.AppCompat.ActionBar">
-        <item name="android:displayOptions">showHome|showTitle</item>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
 
-    <style name="AstridActionBarStyle.Dialog">
-        <item name="android:background">@android:color/white</item>
-        <item name="android:displayOptions">showHome|showTitle</item>
+    <style name="DialogTheme" parent="@android:style/Theme.Dialog">
     </style>
 
     <style name="TEA_Dialog_Light_ICS" parent="@android:style/Theme.Holo.Light.Dialog">

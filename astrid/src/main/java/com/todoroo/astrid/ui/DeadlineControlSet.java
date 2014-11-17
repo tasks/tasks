@@ -30,7 +30,6 @@ import static org.tasks.preferences.ResourceResolver.getResource;
 
 public class DeadlineControlSet extends PopupControlSet {
 
-    private boolean isQuickadd = false;
     private DateAndTimePicker dateAndTimePicker;
     private final View[] extraViews;
     private final RepeatControlSet repeatControlSet;
@@ -50,13 +49,13 @@ public class DeadlineControlSet extends PopupControlSet {
         boolean isOverdue;
         if (initialized) {
             isOverdue = !dateAndTimePicker.isAfterNow();
-            displayString.append(dateAndTimePicker.getDisplayString(activity, isQuickadd, isQuickadd));
+            displayString.append(dateAndTimePicker.getDisplayString(activity));
         } else {
             isOverdue = model.getDueDate() < DateUtilities.now();
-            displayString.append(DateAndTimePicker.getDisplayString(activity, model.getDueDate(), isQuickadd, isQuickadd, false));
+            displayString.append(DateAndTimePicker.getDisplayString(activity, model.getDueDate(), false, false));
         }
 
-        if (!isQuickadd && repeatControlSet != null) {
+        if (repeatControlSet != null) {
             String repeatString = repeatControlSet.getStringForExternalDisplay();
             if (!TextUtils.isEmpty(repeatString)) {
                 displayString.append("\n"); //$NON-NLS-1$
@@ -129,17 +128,5 @@ public class DeadlineControlSet extends PopupControlSet {
 
     private void initializeWithDate(long dueDate) {
         dateAndTimePicker.initializeWithDate(dueDate);
-    }
-
-    public boolean isDeadlineSet() {
-        return (dateAndTimePicker != null && dateAndTimePicker.constructDueDate() != 0);
-    }
-
-    /**
-     * Set whether date and time should be separated by a newline or a comma
-     * in the display view
-     */
-    public void setIsQuickadd() {
-        this.isQuickadd = true;
     }
 }

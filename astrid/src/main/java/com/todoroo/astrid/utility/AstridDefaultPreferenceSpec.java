@@ -48,8 +48,6 @@ public class AstridDefaultPreferenceSpec {
 
         setPreference(prefs, editor, r, R.string.p_show_task_edit_comments, true);
 
-        setPreference(prefs, editor, r, R.string.p_use_date_shortcuts, false);
-
         setPreference(prefs, editor, r, R.string.p_rmd_quietStart_old, 22); // enable quiet hours by default
 
         setIntIfUnset(prefs, editor, r, R.string.p_rmd_quietStart, r.getInteger(R.integer.default_quiet_hours_start));

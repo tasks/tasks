@@ -16,10 +16,6 @@ public class ResourceResolver {
         this.activity = activity;
     }
 
-    public int getResource(int attr) {
-        return getResource(activity, attr);
-    }
-
     public int getData(int attr) {
         return getData(activity, attr);
     }

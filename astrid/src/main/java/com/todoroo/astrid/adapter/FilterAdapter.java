@@ -44,8 +44,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.tasks.preferences.ResourceResolver.getData;
-
 public class FilterAdapter extends ArrayAdapter<Filter> {
 
     private static final Logger log = LoggerFactory.getLogger(FilterAdapter.class);
@@ -204,7 +202,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         }
 
         if (selected != null && selected.equals(viewHolder.item)) {
-            convertView.setBackgroundColor(getData(activity, R.attr.drawer_selected));
+            convertView.setBackgroundColor(activity.getResources().getColor(R.color.drawer_background_selected));
         }
 
         return convertView;

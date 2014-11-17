@@ -415,7 +415,7 @@ public class RepeatControlSet extends PopupControlSet {
                     arrayResource);
         String date = String.format("%s %s", repeatValue, dates[intervalValue]); //$NON-NLS-1$
         if (repeatUntilValue > 0) {
-            return activity.getString(R.string.repeat_detail_duedate_until, date, DateAndTimePicker.getDisplayString(activity, repeatUntilValue, false, useAbbrev, useAbbrev));
+            return activity.getString(R.string.repeat_detail_duedate_until, date, DateAndTimePicker.getDisplayString(activity, repeatUntilValue, useAbbrev, useAbbrev));
         } else {
             return activity.getString(R.string.repeat_detail_duedate, date); // Every freq int
         }

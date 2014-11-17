@@ -5,13 +5,10 @@
  */
 package com.todoroo.astrid.reminders;
 
-import android.view.View;
-
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.service.TaskService;
 
-import org.tasks.R;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;

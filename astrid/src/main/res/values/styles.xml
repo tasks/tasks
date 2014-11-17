@@ -2,7 +2,13 @@
 
     <!-- ========================================================== General  -->
 
-    <style name="Tasks" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    </style>
+
+    <style name="DialogTheme" parent="@android:style/Theme.Dialog">
+    </style>
+
+    <style name="Tasks" parent="AppTheme">
         <!--<item name="colorPrimary">@android:color/holo_orange_light</item>-->
         <item name="colorPrimaryDark">#636363</item>
         <!--<item name="colorAccent">@android:color/holo_purple</item>-->
@@ -13,7 +19,6 @@
         <item name="asSeparatorBackground">#888888</item>
         <item name="asEditTextBackground">@null</item>
 
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
         <item name="asContentBackground">@android:color/white</item>
         <item name="asEditBackground">@android:color/white</item>
@@ -47,14 +52,10 @@
         <item name="tea_icn_hide">@drawable/tea_icn_hide</item>
         <item name="tea_icn_reminder">@drawable/tea_icn_reminder</item>
 
-        <item name="drawer_background">#efefef</item>
         <item name="drawer_text">#000</item>
-        <item name="drawer_selected">#dddddd</item>
 
         <!-- actionbar-styling -->
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
-        <item name="android:actionBarStyle">@style/AstridActionBarStyle</item>
-        <item name="actionBarStyle">@style/AstridActionBarStyle</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
@@ -64,10 +65,6 @@
         <item name="spinBars">false</item>
     </style>
 
-    <style name="AstridActionBarStyle" parent="@style/Widget.AppCompat.ActionBar">
-        <item name="displayOptions">showHome|showTitle</item>
-    </style>
-
     <style name="Tasks.FullTransparent" parent="@style/Theme.AppCompat">
         <item name="android:windowIsTranslucent">true</item>
 	    <item name="android:windowBackground">@android:color/transparent</item>
@@ -75,12 +72,7 @@
 	    <item name="android:windowIsFloating">true</item>
 	</style>
 
-    <style name="AstridActionBarStyle.Dialog">
-        <item name="background">@android:color/white</item>
-        <item name="displayOptions">showHome|showTitle</item>
-    </style>
-    
-    <style name="Tasks.Dialog" parent="@android:style/Theme.Dialog">
+    <style name="Tasks.Dialog" parent="DialogTheme">
         <!--<item name="android:windowBackground">@null</item>-->
         <item name="asDueDateOverdueColor">#ffee5555</item>
         <item name="asDueDateCompletedColor">#ff777777</item>
@@ -103,10 +95,7 @@
         <item name="asTextColor">#ff000000</item>
         <item name="asDetailsColor">#ff6666aa</item>
         <item name="asDueDateColor">#878787</item>
-        <!-- actionbar-styling -->
-        <item name="android:actionBarStyle">@style/AstridActionBarStyle.Dialog</item>
-        <item name="actionBarStyle">@style/AstridActionBarStyle.Dialog</item>
-        
+
         <item name="asEditBackground">#dddddd</item>
         <item name="asEditRowBackground">@drawable/task_edit_background_transparent_white</item>
         <item name="asThemeTextColor">@color/blue_theme_color</item>

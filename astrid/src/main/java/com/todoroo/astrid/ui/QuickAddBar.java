@@ -22,8 +22,6 @@ import org.tasks.R;
 import org.tasks.injection.Injector;
 import org.tasks.preferences.ActivityPreferences;
 
-import java.util.HashSet;
-
 import javax.inject.Inject;
 
 /**
@@ -48,30 +46,23 @@ public class QuickAddBar {
         injector.inject(this); // TODO: get rid of this
         activity = myActivity;
         fragment = myFragment;
-        resetControlSets();
-    }
-
-    private void resetControlSets() {
-        Task empty = new Task();
-        TagData tagData = fragment.getActiveTagData();
-        if (tagData != null) {
-            HashSet<String> tagsTransitory = new HashSet<>();
-            tagsTransitory.add(tagData.getName());
-            empty.putTransitory(TaskService.TRANS_TAGS, tagsTransitory);
-        }
     }
 
     // --- quick add task logic
 
+    public void quickAddTask() {
+        quickAddTask("");
+    }
+
     /**
      * Quick-add a new task
      */
-    public Task quickAddTask(String title, boolean selectNewTask) {
+    public void quickAddTask(String title) {
         TagData tagData = fragment.getActiveTagData();
         if(tagData != null && (!tagData.containsNonNullValue(TagData.NAME) ||
                 tagData.getName().length() == 0)) {
             DialogUtilities.okDialog(activity, activity.getString(R.string.tag_no_title_error), null);
-            return null;
+            return;
         }
 
         try {
@@ -86,27 +77,20 @@ public class QuickAddBar {
 
             taskService.createWithValues(task, fragment.getFilter().valuesForNewTasks, title);
 
-            resetControlSets();
-
             taskCreator.addToCalendar(task, title);
 
-            if (selectNewTask) {
-                fragment.loadTaskListContent();
-                fragment.selectCustomId(task.getId());
-                if (task.getTransitory(TaskService.TRANS_QUICK_ADD_MARKUP) != null) {
-                    showAlertForMarkupTask(activity, task, title);
-                } else if (!TextUtils.isEmpty(task.getRecurrence())) {
-                    showAlertForRepeatingTask(activity, task);
-                }
-                activity.onTaskListItemClicked(task.getId());
+            fragment.loadTaskListContent();
+            fragment.selectCustomId(task.getId());
+            if (task.getTransitory(TaskService.TRANS_QUICK_ADD_MARKUP) != null) {
+                showAlertForMarkupTask(activity, task, title);
+            } else if (!TextUtils.isEmpty(task.getRecurrence())) {
+                showAlertForRepeatingTask(activity, task);
             }
+            activity.onTaskListItemClicked(task.getId());
 
             fragment.onTaskCreated(task);
-
-            return task;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            return new Task();
         }
     }
 

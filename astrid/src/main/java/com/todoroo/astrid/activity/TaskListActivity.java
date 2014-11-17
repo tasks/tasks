@@ -83,9 +83,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         super.onCreate(savedInstanceState);
         preferences.applyTheme();
 
-        setContentView(preferences.useTabletLayout()
-                ? R.layout.task_list_wrapper_activity_3pane
-                : R.layout.task_list_wrapper_activity_no_swipe);
+        setContentView(R.layout.task_list_wrapper);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -239,10 +237,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
             } else {
                 TaskListFragment tlf = getTaskListFragment();
                 if (tlf != null) {
-                    Task result = tlf.quickAddBar.quickAddTask("", true); //$NON-NLS-1$
-                    if (result != null) {
-                        onTaskListItemClicked(result.getId());
-                    }
+                    tlf.quickAddBar.quickAddTask(); //$NON-NLS-1$
                 }
             }
             if (fragmentLayout == LAYOUT_SINGLE) {
@@ -302,6 +297,11 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
 
     @Override
     public void onBackPressed() {
+        if (navigationDrawer.isDrawerOpen()) {
+            navigationDrawer.closeMenu();
+            return;
+        }
+
         // manage task edit visibility
         View taskeditFragmentContainer = findViewById(R.id.taskedit_fragment_container);
         if(taskeditFragmentContainer != null && taskeditFragmentContainer.getVisibility() == View.VISIBLE) {
@@ -499,8 +499,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     public void onSpeechResult(String result) {
         TaskListFragment tlf = getTaskListFragment();
         if (tlf != null) {
-            Task task = tlf.quickAddBar.quickAddTask(result, true);
-            onTaskListItemClicked(task.getId());
+            tlf.quickAddBar.quickAddTask(result);
         }
     }
 

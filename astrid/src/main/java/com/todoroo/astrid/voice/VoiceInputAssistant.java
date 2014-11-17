@@ -6,8 +6,6 @@
 package com.todoroo.astrid.voice;
 
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.speech.RecognizerIntent;
 import android.support.v4.app.Fragment;
@@ -17,15 +15,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.utility.Constants;
 
 import junit.framework.Assert;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tasks.R;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;

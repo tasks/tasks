@@ -14,8 +14,6 @@ import android.content.pm.ResolveInfo;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.support.v4.app.Fragment;
-import android.widget.EditText;
-import android.widget.ImageButton;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.utility.Constants;
@@ -84,13 +82,6 @@ public class VoiceRecognizer {
             int prompt = R.string.voice_create_prompt;
             voiceInputAssistant.startVoiceRecognitionActivity(fragment, prompt);
         }
-    }
-
-    public boolean handleActivityResult(int requestCode, int resultCode, Intent data, EditText textField) {
-        if (instance != null && instance.voiceInputAssistant != null) {
-            return instance.voiceInputAssistant.handleActivityResult(requestCode, resultCode, data, textField);
-        }
-        return false;
     }
 
     public void destroyRecognizerApi() {

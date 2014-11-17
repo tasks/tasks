@@ -11,8 +11,6 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <include layout="@layout/toolbar" />
-
     <ScrollView
         android:id="@+id/edit_scroll"
         android:background="?attr/asEditBackground"

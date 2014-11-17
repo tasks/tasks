@@ -29,5 +29,8 @@
     <color name="refresh_color_2">#ffffbb33</color>
     <color name="refresh_color_3">#ff99cc00</color>
     <color name="refresh_color_4">#ffff4444</color>
+
+    <color name="drawer_background_selected">#dddddd</color>
+    <color name="drawer_background">#efefef</color>
 </resources>
 

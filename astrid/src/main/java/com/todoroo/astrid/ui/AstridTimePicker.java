@@ -35,19 +35,15 @@ public class AstridTimePicker extends LinearLayout {
     private boolean is24Hour;
 
     private boolean lastSelectionWasPm; // false for AM, true for PM
-    private final boolean useShortcuts;
 
     public interface TimePickerEnabledChangedListener {
         public void timePickerEnabledChanged(boolean hasTime);
     }
 
-
-
     public AstridTimePicker(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        useShortcuts = Preferences.getBoolean(R.string.p_use_date_shortcuts, true);
-        int layout = useShortcuts ? R.layout.astrid_time_picker : R.layout.astrid_time_picker_horizontal;
+        int layout = R.layout.astrid_time_picker_horizontal;
         inflater.inflate(layout, this, true);
 
         noTimeCheck = (ToggleButton) findViewById(R.id.hasTime);
@@ -95,13 +91,11 @@ public class AstridTimePicker extends LinearLayout {
         minutes.findViewById(R.id.decrement).setBackgroundDrawable(
                 CustomBorderDrawable.customButton(0, 0, cornerRadius, 0, onColorValue, offColorValue, borderColorValue, strokeWidth));
 
-        if (!useShortcuts) {
-            View[] pickers = new View[] { hours, minutes };
-            for (View view : pickers) {
-                View v = view.findViewById(R.id.timepicker_input);
-                LayoutParams lp = (LinearLayout.LayoutParams) v.getLayoutParams();
-                lp.height = (int) (46 * r.getDisplayMetrics().density);
-            }
+        View[] pickers = new View[] { hours, minutes };
+        for (View view : pickers) {
+            View v = view.findViewById(R.id.timepicker_input);
+            LayoutParams lp = (LayoutParams) v.getLayoutParams();
+            lp.height = (int) (46 * r.getDisplayMetrics().density);
         }
     }
 
