@@ -35,8 +35,4 @@
         android:id="@+id/menu_support"
         android:title="@string/TLA_menu_support"
         tasks:showAsAction="never" />
-    <item
-        android:id="@+id/menu_settings"
-        android:title="@string/TLA_menu_settings"
-        tasks:showAsAction="never" />
 </menu>

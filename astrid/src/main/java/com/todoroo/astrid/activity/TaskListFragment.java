@@ -110,7 +110,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     private static final long BACKGROUND_REFRESH_INTERVAL = 120000L;
     private static final long WAIT_BEFORE_AUTOSYNC = 2000L;
     public static final int ACTIVITY_EDIT_TASK = 0;
-    public static final int ACTIVITY_SETTINGS = 1;
     public static final int ACTIVITY_REQUEST_NEW_FILTER = 5;
 
     // --- menu codes
@@ -627,22 +626,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         setSyncOngoing(false);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == ACTIVITY_SETTINGS) {
-            if (resultCode == EditPreferences.RESULT_CODE_THEME_CHANGED || resultCode == EditPreferences.RESULT_CODE_PERFORMANCE_PREF_CHANGED) {
-                getActivity().finish();
-                getActivity().startActivity(getActivity().getIntent());
-                TasksWidget.updateWidgets(getActivity());
-                return;
-            } else if (resultCode == GtasksPreferences.RESULT_CODE_SYNCHRONIZE) {
-                preferences.setLong(SyncActionHelper.PREF_LAST_AUTO_SYNC, 0); // Forces autosync to occur after login
-            }
-        }
-
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
     /*
      * ======================================================================
      * =================================================== managing list view
@@ -920,16 +903,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         intent.putExtra(TOKEN_FILTER, filter);
         getActivity().startActivityForResult(intent, ACTIVITY_EDIT_TASK);
         transitionForTaskEdit();
-    }
-
-    public void showSettings() {
-        Activity activity = getActivity();
-        if (activity == null) {
-            return;
-        }
-
-        Intent intent = new Intent(activity, EditPreferences.class);
-        startActivityForResult(intent, ACTIVITY_SETTINGS);
     }
 
     public void onTaskListItemClicked(long taskId) {

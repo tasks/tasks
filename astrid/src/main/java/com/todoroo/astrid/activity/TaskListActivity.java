@@ -453,9 +453,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     public boolean onOptionsItemSelected(MenuItem item) {
         TaskListFragment tlf = getTaskListFragment();
         switch(item.getItemId()) {
-            case R.id.menu_settings:
-                tlf.showSettings();
-                return true;
             case R.id.menu_voice_add:
                 getTaskListFragment().startVoiceRecognition();
                 return true;

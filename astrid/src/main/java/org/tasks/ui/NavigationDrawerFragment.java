@@ -8,9 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.content.res.Configuration;
@@ -20,7 +18,6 @@ import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,13 +29,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.todoroo.astrid.activity.EditPreferences;
 import com.todoroo.astrid.activity.ShortcutActivity;
-import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.gtasks.GtasksPreferences;
+import com.todoroo.astrid.helper.SyncActionHelper;
+import com.todoroo.astrid.widget.TasksWidget;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,6 +46,7 @@ import org.tasks.R;
 import org.tasks.filters.FilterCounter;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.injection.Injector;
+import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
@@ -60,6 +61,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
     private static final int CONTEXT_MENU_SHORTCUT = R.string.FLA_context_shortcut;
     private static final int CONTEXT_MENU_INTENT = Menu.FIRST + 4;
 
+    public static final int ACTIVITY_SETTINGS = 1;
     public static final int REQUEST_CUSTOM_INTENT = 10;
     public static final int REQUEST_NEW_LIST = 4;
 
@@ -85,6 +87,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
 
     @Inject FilterCounter filterCounter;
     @Inject Injector injector;
+    @Inject Preferences preferences;
 
     public NavigationDrawerFragment() {
     }
@@ -110,18 +113,40 @@ public class NavigationDrawerFragment extends InjectingFragment {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ACTIVITY_SETTINGS) {
+            if (resultCode == EditPreferences.RESULT_CODE_PERFORMANCE_PREF_CHANGED) {
+                getActivity().finish();
+                getActivity().startActivity(getActivity().getIntent());
+                TasksWidget.updateWidgets(getActivity());
+            } else if (resultCode == GtasksPreferences.RESULT_CODE_SYNCHRONIZE) {
+                preferences.setLong(SyncActionHelper.PREF_LAST_AUTO_SYNC, 0); // Forces autosync to occur after login
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mDrawerListView = (ListView) inflater.inflate(
-                R.layout.fragment_navigation_drawer, container, false);
+        View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        mDrawerListView = (ListView) layout.findViewById(android.R.id.list);
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectItem(position);
             }
         });
+        layout.findViewById(R.id.settings_row).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), EditPreferences.class);
+                startActivityForResult(intent, ACTIVITY_SETTINGS);
+            }
+        });
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
-        return mDrawerListView;
+        return layout;
     }
 
     protected void setUpList() {

@@ -35,6 +35,7 @@
         <item name="ic_action_camera">@drawable/ic_action_camera</item>
         <item name="ic_action_mic">@drawable/ic_action_mic</item>
         <item name="ic_action_search">@drawable/ic_action_search</item>
+        <item name="ic_action_settings">@drawable/ic_action_gear</item>
         <item name="task_edit_theme_color">@color/task_edit_selected</item>
         <item name="importance_background_selected">@drawable/importance_background_selected</item>
         <item name="tea_icn_files">@drawable/tea_icn_files</item>

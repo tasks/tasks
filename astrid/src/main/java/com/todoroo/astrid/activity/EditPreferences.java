@@ -60,7 +60,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
     private static final int REQUEST_CODE_FILES_DIR = 2;
     private static final int REQUEST_CODE_TTS_CHECK = 2534;
 
-    public static final int RESULT_CODE_THEME_CHANGED = 1;
     public static final int RESULT_CODE_PERFORMANCE_PREF_CHANGED = 3;
 
     // --- instance variables
