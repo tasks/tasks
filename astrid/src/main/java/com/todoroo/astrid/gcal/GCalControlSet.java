@@ -158,7 +158,7 @@ public class GCalControlSet extends PopupControlSet {
 
                     if (calendarSelector.getSelectedItemPosition() != 0 && !hasEvent) {
                         // pop up the new event
-                        Intent intent = new Intent(Intent.ACTION_EDIT, calendarUri);
+                        Intent intent = new Intent(Intent.ACTION_VIEW, calendarUri);
                         intent.putExtra("beginTime", values.getAsLong("dtstart"));
                         intent.putExtra("endTime", values.getAsLong("dtend"));
                         activity.startActivity(intent);
