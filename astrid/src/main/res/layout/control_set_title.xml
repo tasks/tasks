@@ -26,6 +26,7 @@
 
     <com.todoroo.astrid.ui.ErrorCatchingEditText
         android:id="@+id/title"
+        android:cursorVisible="false"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="100"
@@ -34,7 +35,7 @@
         android:capitalize="sentences"
         android:freezesText="true"
         android:hint="@string/TEA_title_hint"
-        android:inputType="textMultiLine|textCapSentences"
+        android:inputType="textCapSentences"
         android:scrollbars="vertical"
         android:imeOptions="flagNoExtractUi"
         android:text=""

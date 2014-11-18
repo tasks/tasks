@@ -14,7 +14,9 @@ import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.adapter.TaskAdapter;
@@ -57,6 +59,22 @@ public class EditTitleControlSet extends TaskEditControlSet implements Importanc
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
                     AndroidUtilities.hideSoftInputForViews(activity, editText);
                     return true;
+                }
+                return false;
+            }
+        });
+        editText.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editText.setCursorVisible(true);
+                editText.moveCursorToVisibleOffset();
+            }
+        });
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    editText.setCursorVisible(false);
                 }
                 return false;
             }
