@@ -244,14 +244,6 @@
 
         <!-- ========================================================= Plugins = -->
 
-        <!-- core -->
-        <receiver android:name="com.todoroo.astrid.core.CoreFilterExposer">
-            <intent-filter android:priority="9000">
-                <action android:name="org.tasks.REQUEST_FILTERS" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
-
         <activity
             android:name="com.todoroo.astrid.core.DefaultsPreferences"
             android:theme="@android:style/Theme"
@@ -274,13 +266,6 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
         <!-- tags -->
-        <receiver android:name="com.todoroo.astrid.tags.TagFilterExposer">
-            <intent-filter>
-                <action android:name="org.tasks.REQUEST_FILTERS" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
-
         <receiver android:name="com.todoroo.astrid.tags.TagCustomFilterCriteriaExposer">
             <intent-filter>
                 <action android:name="org.tasks.REQUEST_CUSTOM_FILTER_CRITERIA" />
@@ -289,13 +274,6 @@
         </receiver>
 
         <!-- custom filters -->
-        <receiver android:name="com.todoroo.astrid.core.CustomFilterExposer">
-            <intent-filter android:priority="9000">
-                <action android:name="org.tasks.REQUEST_FILTERS" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
-
         <activity
             android:name="com.todoroo.astrid.core.CustomFilterActivity"
             android:theme="@style/Tasks.Dialog" />
@@ -344,13 +322,6 @@
         <receiver android:name="com.todoroo.astrid.gtasks.GtasksCustomFilterCriteriaExposer">
             <intent-filter>
                 <action android:name="org.tasks.REQUEST_CUSTOM_FILTER_CRITERIA" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
-
-        <receiver android:name="com.todoroo.astrid.gtasks.GtasksFilterExposer">
-            <intent-filter>
-                <action android:name="org.tasks.REQUEST_FILTERS" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
@@ -470,13 +441,6 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <activity android:name="com.todoroo.astrid.files.FileExplore" />
-
-        <receiver android:name="com.todoroo.astrid.timers.TimerFilterExposer">
-            <intent-filter android:priority="10000">
-                <action android:name="org.tasks.REQUEST_FILTERS" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
 
         <receiver android:name="com.todoroo.astrid.timers.TimerTaskCompleteListener">
             <intent-filter>

@@ -89,7 +89,7 @@ public class WidgetConfigActivity extends InjectingListActivity {
 
              // set up ui
              adapter = new FilterAdapter(injector, filterCounter, this, getListView(),
-                     R.layout.filter_adapter_row, true, true);
+                     R.layout.filter_adapter_row, true);
              adapter.filterStyle = R.style.TextAppearance_FLA_Filter_Widget;
              setListAdapter(adapter);
 

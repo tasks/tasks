@@ -7,13 +7,10 @@ package com.todoroo.astrid.timers;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
@@ -37,18 +34,6 @@ public final class TimerFilterExposer extends InjectingBroadcastReceiver impleme
 
     @Inject TaskService taskService;
     @Inject @ForApplication Context context;
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        super.onReceive(context, intent);
-
-        ContextManager.setContext(context);
-        FilterListItem[] list = prepareFilters();
-
-        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
-        context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
-    }
 
     private FilterListItem[] prepareFilters() {
         if(taskService.count(Query.select(Task.ID).

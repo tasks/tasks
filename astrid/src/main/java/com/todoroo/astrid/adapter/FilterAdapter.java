@@ -10,8 +10,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.os.Parcelable;
 import android.text.TextUtils;
@@ -20,11 +18,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -33,20 +29,20 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.FilterWithUpdate;
+import com.todoroo.astrid.core.CoreFilterExposer;
+import com.todoroo.astrid.core.CustomFilterExposer;
+import com.todoroo.astrid.gtasks.GtasksFilterExposer;
+import com.todoroo.astrid.tags.TagFilterExposer;
+import com.todoroo.astrid.timers.TimerFilterExposer;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.filters.FilterCounter;
 import org.tasks.injection.Injector;
 
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FilterAdapter extends ArrayAdapter<Filter> {
-
-    private static final Logger log = LoggerFactory.getLogger(FilterAdapter.class);
 
     // --- style constants
 
@@ -66,9 +62,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     /** display metrics for scaling icons */
     protected final DisplayMetrics metrics = new DisplayMetrics();
 
-    /** receiver for new filters */
-    protected final FilterReceiver filterReceiver = new FilterReceiver();
-
     private final FilterListUpdateReceiver filterListUpdateReceiver = new FilterListUpdateReceiver();
 
     /** row layout to inflate */
@@ -80,11 +73,8 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     /** whether to skip Filters that launch intents instead of being real filters */
     private final boolean skipIntentFilters;
 
-    /** whether rows are selectable */
-    private final boolean selectable;
-
     public FilterAdapter(Injector injector, FilterCounter filterCounter, Activity activity, ListView listView,
-            int rowLayout, boolean skipIntentFilters, boolean selectable) {
+            int rowLayout, boolean skipIntentFilters) {
         super(activity, 0);
         this.injector = injector;
         this.filterCounter = filterCounter;
@@ -92,18 +82,11 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         this.listView = listView;
         this.layout = rowLayout;
         this.skipIntentFilters = skipIntentFilters;
-        this.selectable = selectable;
 
         inflater = (LayoutInflater) activity.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
 
         activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
-    }
-
-    private void offerFilter(final Filter filter) {
-        if(selectable && selection == null) {
-            setSelection(filter);
-        }
     }
 
     @Override
@@ -116,7 +99,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         super.add(item);
         // load sizes
         filterCounter.registerFilter(item);
-        offerFilter(item);
         notifyDataSetChanged();
     }
 
@@ -170,7 +152,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
             ViewHolder viewHolder = new ViewHolder();
             viewHolder.view = convertView;
             viewHolder.name = (TextView)convertView.findViewById(R.id.name);
-            viewHolder.selected = (ImageView)convertView.findViewById(R.id.selected);
             viewHolder.size = (TextView)convertView.findViewById(R.id.size);
             viewHolder.decoration = null;
             convertView.setTag(viewHolder);
@@ -182,7 +163,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         public FilterListItem item;
         public TextView name;
         public TextView size;
-        public ImageView selected;
         public View view;
         public View decoration;
     }
@@ -247,81 +227,43 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         }
     }
 
-    /**
-     * Receiver which receives intents to add items to the filter list
-     *
-     * @author Tim Su <tim@todoroo.com>
-     *
-     */
-    public class FilterReceiver extends BroadcastReceiver {
-        private final List<ResolveInfo> filterExposerList;
-
-        public FilterReceiver() {
-            // query astrids AndroidManifest.xml for all registered default-receivers to expose filters
-            PackageManager pm = ContextManager.getContext().getPackageManager();
-            filterExposerList = pm.queryBroadcastReceivers(
-                    new Intent(AstridApiConstants.BROADCAST_REQUEST_FILTERS),
-                    PackageManager.MATCH_DEFAULT_ONLY);
+    protected void populateFiltersToAdapter(AstridFilterExposer astridFilterExposer) {
+        Parcelable[] filters = astridFilterExposer.getFilters(injector);
+        if (filters == null) {
+            return;
         }
 
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            try {
-                for (ResolveInfo filterExposerInfo : filterExposerList) {
-                    String className = filterExposerInfo.activityInfo.name;
-                    AstridFilterExposer filterExposer;
-                    filterExposer = (AstridFilterExposer) Class.forName(className, true, FilterAdapter.class.getClassLoader()).newInstance();
+        for (Parcelable item : filters) {
+            FilterListItem filter = (FilterListItem) item;
+            if(skipIntentFilters && !(filter instanceof Filter)) {
+                continue;
+            }
 
-                    if (filterExposer != null) {
-                        populateFiltersToAdapter(filterExposer.getFilters(injector));
-                    }
-                }
-            } catch (Exception e) {
-                log.error(e.getMessage(), e);
+            if (filter instanceof Filter){
+                addOrLookup((Filter) filter);
             }
         }
 
-        protected void populateFiltersToAdapter(final Parcelable[] filters) {
-            if (filters == null) {
-                return;
+        filterCounter.refreshFilterCounts(new Runnable() {
+            @Override
+            public void run() {
+                notifyDataSetChanged();
             }
-
-            for (Parcelable item : filters) {
-                FilterListItem filter = (FilterListItem) item;
-                if(skipIntentFilters && !(filter instanceof Filter)) {
-                    continue;
-                }
-
-                if (filter instanceof Filter){
-                    addOrLookup((Filter) filter);
-                }
-            }
-
-            filterCounter.refreshFilterCounts(new Runnable() {
-                @Override
-                public void run() {
-                    notifyDataSetChanged();
-                }
-            });
-        }
+        });
     }
 
-    /**
-     * Broadcast a request for lists. The request is sent to every
-     * application registered to listen for this broadcast. Each application
-     * can then add lists to this activity
-     */
     public void getLists() {
-        filterReceiver.onReceive(activity, null);
+        populateFiltersToAdapter(new CoreFilterExposer());
+        populateFiltersToAdapter(new TimerFilterExposer());
+        populateFiltersToAdapter(new CustomFilterExposer());
+        populateFiltersToAdapter(new TagFilterExposer());
+        populateFiltersToAdapter(new GtasksFilterExposer());
     }
 
     /**
      * Call this method from your activity's onResume() method
      */
     public void registerRecevier() {
-        IntentFilter regularFilter = new IntentFilter(AstridApiConstants.BROADCAST_SEND_FILTERS);
-        regularFilter.setPriority(2);
-        activity.registerReceiver(filterReceiver, regularFilter);
         activity.registerReceiver(filterListUpdateReceiver, new IntentFilter(AstridApiConstants.BROADCAST_EVENT_FILTER_LIST_UPDATED));
         getLists();
 
@@ -332,7 +274,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
      * Call this method from your activity's onResume() method
      */
     public void unregisterRecevier() {
-        activity.unregisterReceiver(filterReceiver);
         activity.unregisterReceiver(filterListUpdateReceiver);
     }
 
@@ -398,10 +339,8 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
         // selection
         if(selection == viewHolder.item) {
-            viewHolder.selected.setVisibility(View.VISIBLE);
+            // TODO: convert to color
             viewHolder.view.setBackgroundColor(Color.rgb(128, 230, 0));
-        } else {
-            viewHolder.selected.setVisibility(View.GONE);
         }
     }
 }

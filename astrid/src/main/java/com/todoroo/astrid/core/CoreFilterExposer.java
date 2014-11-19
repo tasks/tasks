@@ -7,7 +7,6 @@ package com.todoroo.astrid.core;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 
 import com.todoroo.andlib.service.ContextManager;
@@ -15,7 +14,6 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
@@ -47,18 +45,6 @@ public final class CoreFilterExposer extends InjectingBroadcastReceiver implemen
 
     @Inject Preferences preferences;
     @Inject @ForApplication Context context;
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        super.onReceive(context, intent);
-
-        ContextManager.setContext(context);
-
-        FilterListItem[] list = prepareFilters();
-        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
-        context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
-    }
 
     private FilterListItem[] prepareFilters() {
         Resources r = context.getResources();

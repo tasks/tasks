@@ -48,8 +48,6 @@ public class TagViewFragment extends TaskListFragment {
 
     @Inject TagDataDao tagDataDao;
 
-    protected View taskListView;
-
     private boolean dataLoaded = false;
 
     // --- UI initialization

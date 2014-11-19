@@ -68,20 +68,6 @@ public class AstridApiConstants {
      */
     public static final String EXTRAS_NEW_DUE_DATE = "newDueDate";
 
-    // --- Filters API
-
-    /**
-     * Action name for broadcast intent requesting filters
-     */
-    public static final String BROADCAST_REQUEST_FILTERS = API_PACKAGE + ".REQUEST_FILTERS";
-
-    /**
-     * Action name for broadcast intent sending filters back to Astrid
-     * <li> EXTRAS_ADDON your add-on identifier </li>
-     * <li> EXTRAS_RESPONSE an array of {@link FilterListItem}s </li>
-     */
-    public static final String BROADCAST_SEND_FILTERS = API_PACKAGE + ".SEND_FILTERS";
-
     // -- Custom criteria API
 
     /**

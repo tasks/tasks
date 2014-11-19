@@ -241,7 +241,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mCallbacks = (OnFilterItemClickedListener) activity;
-        adapter = new FilterAdapter(injector, filterCounter, getActivity(), null, R.layout.filter_adapter_row, false, false);
+        adapter = new FilterAdapter(injector, filterCounter, getActivity(), null, R.layout.filter_adapter_row, false);
     }
 
     @Override

@@ -16,7 +16,6 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
@@ -50,18 +49,6 @@ public final class CustomFilterExposer extends InjectingBroadcastReceiver implem
     @Inject StoreObjectDao storeObjectDao;
     @Inject Preferences preferences;
     @Inject @ForApplication Context context;
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        super.onReceive(context, intent);
-
-        FilterListItem[] list = prepareFilters();
-
-        // transmit filter list
-        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
-        context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
-    }
 
     private FilterListItem[] prepareFilters() {
         Resources r = context.getResources();

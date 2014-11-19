@@ -21,7 +21,6 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.actfm.TagViewFragment;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
@@ -102,17 +101,6 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
         ret.putExtra(TAG, tag.getName());
         ret.putExtra(TagViewFragment.EXTRA_TAG_UUID, uuid);
         return ret;
-    }
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        super.onReceive(context, intent);
-
-        FilterListItem[] listAsArray = prepareFilters();
-
-        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, listAsArray);
-        context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
     private FilterListItem[] prepareFilters() {
