@@ -53,6 +53,8 @@ public class EditTitleControlSet extends TaskEditControlSet implements Importanc
     @Override
     protected void afterInflate() {
         this.editText = (EditText) getView().findViewById(editTextId);
+        editText.setHorizontallyScrolling(false);
+        editText.setMaxLines(Integer.MAX_VALUE);
         editText.setOnKeyListener(new OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
