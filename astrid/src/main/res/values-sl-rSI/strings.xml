@@ -200,7 +200,6 @@
 	<string name="EPr_edit_screen_options">Uredi možnosti zaslona</string>
 	<string name="EPr_beastMode_title">Uredi vrstni red zaslonov</string>
 	<string name="EPr_time_increment">5-minutni podaljški</string>
-	<string name="EPr_use_date_shortcuts">Uporabi bližnjice za datum</string>
 	<string name="EPr_show_timer_shortcut">Prikaži bližnjico za štoparico</string>
 	<string name="EPr_beastMode_desc">Po meri postavi stran za urejevanje opravkov </string>
 	<string name="EPr_beastMode_reset">Povrni privzeto nastavitev</string>

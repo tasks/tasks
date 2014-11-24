@@ -7,9 +7,13 @@
 <resources>
 	<string name="TVA_add_comment">Добави коментар...</string>
 	<string name="actfm_TVA_tag_label">Списък</string>
+	<string name="actfm_TVA_tag_name_hint">Въведете името на списъка</string>
 	<string name="actfm_GAA_title">Изберете Google акаунт, който искате да използвате:</string>
 	<string name="alarm_ACS_label">Аларми</string>
 	<string name="alarm_ACS_button">Добави Аларма</string>
+	<string-array name="reminders_alarm">
+		<item>Аларма!</item>
+	</string-array>
 	<string name="backup_BPr_header">Резервни копия</string>
 	<string name="backup_BPr_group_status">Състояние</string>
 	<string name="backup_status_success">Последно резервно копие:\n%s</string>
@@ -24,6 +28,8 @@
 	<string name="export_toast_no_tasks">Няма задачи за експортиране</string>
 	<string name="export_progress_title">Експортиране...</string>
 	<string name="import_progress_title">Импортиране...</string>
+	<string name="import_progress_read">Прочитане на задачи %d...</string>
+	<string name="DLG_error_sdcard_general">SD картата не може да бъде достъпена!</string>
 	<string name="import_file_prompt">Изберете файл за възстановяване</string>
 	<string name="app_name">Задачи</string>
 	<string name="DLG_loading">Зареждане...</string>
@@ -33,16 +39,21 @@
 	<string name="TLA_quickadd_confirm_speech_bubble_date">за %s</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">Не показвай бъдещи потвърждения</string>
 	<string name="TLA_repeat_scheduled_title">Нова повтаряща се задача %s</string>
+	<string name="TLA_repeat_scheduled_speech_bubble">Ще Ви напомня относно това %s.</string>
 	<string-array name="TLA_priority_strings">
 		<item>най-висок приоритет</item>
 		<item>висок приоритет</item>
 		<item>среден приоритет</item>
 		<item>нисък приоритет</item>
 	</string-array>
+	<string name="TAd_hiddenFormat">%s [скрито]</string>
+	<string name="TAd_deletedFormat">%s [изтрити]</string>
+	<string name="TAd_completed">Приключена\n%s</string>
 	<string name="TAd_actionEditTask">Редактирай</string>
 	<string name="TAd_contextCopyTask">Копирай задача</string>
 	<string name="TAd_contextDeleteTask">Изтрий задача</string>
 	<string name="TAd_contextUndeleteTask">Възстанови Задача</string>
+	<string name="TAd_contextPurgeTask">Изчистване на задачите</string>
 	<string name="SSD_hidden_title">Скрити задачи</string>
 	<string name="SSD_completed">Покажи завършени задачи</string>
 	<string name="SSD_hidden">Покажи скрити задачи</string>
@@ -56,6 +67,7 @@
 	<string name="SSD_sort_reverse">В обратен ред</string>
 	<string name="SSD_save_temp">Само веднъж</string>
 	<string name="SSD_save_always">Винаги</string>
+	<string name="FSA_label">Списък със задачи или филътр</string>
 	<string name="FLA_search_filter">Съвпада с \'%s\'</string>
 	<string name="FLA_new_filter">Нов филтър</string>
 	<string name="FLA_new_list">Нов списък</string>
@@ -78,7 +90,7 @@
 		<item>Определен ден</item>
 		<item>Днес</item>
 		<item>Утре</item>
-		<item>(day after)</item>
+		<item>(ден след)</item>
 		<item>Следваща седмица</item>
 		<item>In two weeks</item>
 		<item>Next month</item>
@@ -90,6 +102,7 @@
 	<string name="TEA_control_notes">Описание</string>
 	<string name="TEA_control_files">Файлове</string>
 	<string name="TEA_control_reminders">Напомняния</string>
+	<string name="TEA_control_timer">Управление на таймера</string>
 	<string name="TEA_control_hidden_section">----Винаги скрито----</string>
 	<string name="hide_until_prompt">Покажи в моят списък</string>
 	<string name="TEA_load_more">Зареди повече...</string>
@@ -139,8 +152,17 @@
 	<string name="EPr_fullTask_desc_enabled">Ще бъде показвано пълно име на задачата</string>
 	<string name="EPr_fullTask_desc_disabled">Ще бъдат показвани първите два реда от имета на задачата</string>
 	<string name="EPr_show_task_edit_comments">Покажи коментари при редакция на задача</string>
+	<string name="EPr_taskRowPrefs_title">Изглед на реда със задачата</string>
 	<string name="EPr_manage_header">Управление на стари задачи</string>
 	<string name="EPr_manage_delete_completed">Изтрий приключени задачи</string>
+	<string name="EPr_manage_delete_completed_summary">Изтритите задачи могат да бъдат възстановени една по една</string>
+	<string name="EPr_manage_delete_completed_status">Изтрити %d задачи!</string>
+	<string name="EPr_manage_purge_deleted">Изчистване на изтритите задачи</string>
+	<string name="EPr_manage_purge_deleted_status">Изчистени %d задачи!</string>
+	<string name="EPr_manage_clear_all">Изчистване на всички данни</string>
+	<string name="EPr_manage_clear_all_message">Изтриване на всички задачи и настройки в Tasks?\n\nВнимание: не може да бъде отменено!</string>
+	<string name="EPr_manage_delete_completed_gcal">Изтрий събитията в календара за приключени задачи</string>
+	<string name="EPr_manage_delete_all_gcal">Изтрий всички събития в календара за задачи</string>
 	<string name="TWi_loading">Зареждане...</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
       If you see this error regularly, we suggest you clear all
@@ -157,14 +179,14 @@
 		<item>Без краен срок</item>
 		<item>Днес</item>
 		<item>Утре</item>
-		<item>Day after tomorrow</item>
+		<item>Ден след утрешния</item>
 		<item>Следваща седмица</item>
 	</string-array>
 	<string-array name="EPr_default_hideUntil">
 		<item>Не скривай</item>
 		<item>Задачата е до</item>
-		<item>Day before due</item>
-		<item>Week before due</item>
+		<item>Ден преди крайния срок</item>
+		<item>Седмица преди крайния срок</item>
 	</string-array>
 	<string-array name="EPr_default_reminders">
 		<item>Няма напомняния за краен срок</item>
@@ -173,6 +195,7 @@
 		<item>At deadline or overdue</item>
 	</string-array>
 	<string name="BFE_Active">Моите задачи</string>
+	<string name="BFE_Recent">Наскоро променени</string>
 	<string name="BFE_Saved_delete">Изтрий филътр</string>
 	<string name="CFA_filterName_hint">Именувайте този филтър, за да го запазите...</string>
 	<string name="CFA_universe_all">Активни Задачи</string>
@@ -187,11 +210,11 @@
 	<string name="CFC_dueBefore_text">Краен срок: ?</string>
 	<string name="CFC_dueBefore_name">Краен срок...</string>
 	<string-array name="CFC_dueBefore_entries">
-		<item>No Due Date</item>
+		<item>Без крайна дата</item>
 		<item>Вчера</item>
 		<item>Днес</item>
 		<item>Утре</item>
-		<item>Day After Tomorrow</item>
+		<item>Ден след утрешния</item>
 		<item>Следваща седмица</item>
 		<item>Следващия месец</item>
 	</string-array>
@@ -247,14 +270,25 @@
 	<string name="file_browser_err_permissions">Грешка в Разрешения! Моля, проверете дали не сте блокирани Tasks от достъп до SD картата.</string>
 	<string name="file_add_picture">Прикачи снимка</string>
 	<string name="file_add_sdcard">Прикачи файл от SD карта</string>
+	<string name="file_err_copy">Грешка при копиране на файла за прикачване</string>
 	<string name="file_dir_dialog_ok">Използвай тази директория</string>
 	<string name="file_dir_dialog_default">Възстанови по подразбиране</string>
+	<string name="p_files_dir">Главна директория за изтегляния</string>
 	<string name="p_files_dir_desc_default">Директория по подразбиране</string>
 	<string name="TEA_reminder_mode_once">Веднъж</string>
 	<string name="TEA_reminder_when">кога</string>
+	<string-array name="TEA_reminder_random">
+		<item>час</item>
+		<item>ден</item>
+		<item>седмица</item>
+		<item>in two weeks</item>
+		<item>a month</item>
+		<item>in two months</item>
+	</string-array>
 	<string name="rmd_EPr_enable_quiet_title">Активиране на тихи часове</string>
 	<string name="rmd_EPr_persistent_desc_true">Уведомленията трябва да се разглеждат поотделно, за да бъдат изчистени</string>
 	<string name="rmd_EPr_persistent_desc_false">Уведомленията могат да се изчистят с бутона \"Изчисти всичко\"</string>
+	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks ще използва системните настройки за звука</string>
 	<string name="rmd_EPr_vibrate_desc_false">Tasks няма да вибрира при изпращане на уведомления</string>
 	<string name="rmd_EPr_defaultRemind_title">Случайни напомняния</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Нови задачи няма да имат случайни напомняния</string>
@@ -289,6 +323,10 @@
 	<string name="repeat_detail_duedate_until">Всеки %1$s\nдо %2$s</string>
 	<string name="repeat_forever">Повтаряй завинаги</string>
 	<string name="repeat_until">Повтаряй до %s</string>
+	<string name="repeat_rescheduling_dialog_title">Пренасрочване на задача \"%s\"</string>
+	<string name="repeat_rescheduling_dialog_title_last_time">Приключена повтаряща се задача \"%s\"</string>
+	<string name="repeat_rescheduling_dialog_bubble">%1$s Вие пренасрочихте тази повтаряща се задача от %2$s на %3$s</string>
+	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s  Вие пренасрочихте тази повтаряща се задача на %2$s</string>
 	<string name="TEA_tags_label_long">Добави към списъци</string>
 	<string name="TEA_tag_hint">Нов списък</string>
 	<string name="tag_new_list">Нов списък</string>

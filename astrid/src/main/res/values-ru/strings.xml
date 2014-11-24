@@ -199,7 +199,6 @@
 	<string name="EPr_edit_screen_options">Редактировать настройки экрана</string>
 	<string name="EPr_beastMode_title">Редактировать порядок экранов</string>
 	<string name="EPr_time_increment">Шаг 5 минут</string>
-	<string name="EPr_use_date_shortcuts">Использовать ярлыки дат</string>
 	<string name="EPr_show_timer_shortcut">Показывать вкладку таймера</string>
 	<string name="EPr_beastMode_desc">Настроить внешний вид экрана правки задачи</string>
 	<string name="EPr_beastMode_reset">Настройки по умолчанию</string>

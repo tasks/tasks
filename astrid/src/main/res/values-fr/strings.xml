@@ -194,7 +194,6 @@
 	<string name="EPr_edit_screen_options">Edition des options d\'affichage</string>
 	<string name="EPr_beastMode_title">Edition de l\'ordre d\'affichage</string>
 	<string name="EPr_time_increment">Incrément de 5 minutes</string>
-	<string name="EPr_use_date_shortcuts">Utiliser les raccourcis de données</string>
 	<string name="EPr_show_timer_shortcut">Afficher le raccourci de minuterie</string>
 	<string name="EPr_beastMode_desc">Personnaliser la disposition de l\'écran d\'édition de tâche</string>
 	<string name="EPr_beastMode_reset">Rétablir les valeurs par défaut</string>

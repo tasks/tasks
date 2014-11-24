@@ -195,7 +195,6 @@
 	<string name="EPr_fontSize_desc">Velikost písma na hlavní straně seznamu</string>
 	<string name="EPr_edit_screen_options">Možnosti úprav zobrazení</string>
 	<string name="EPr_time_increment">Posunout o 5 minut</string>
-	<string name="EPr_use_date_shortcuts">Použít zkrácené datum</string>
 	<string name="EPr_beastMode_reset">Obnovit výchozí hodnoty</string>
 	<string name="EPr_fullTask_title">Zobrazit úplný název úkolu</string>
 	<string name="EPr_fullTask_desc_enabled">Zobrazí se úplný název úkolu</string>

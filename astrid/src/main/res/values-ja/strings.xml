@@ -198,7 +198,6 @@
 	<string name="EPr_edit_screen_options">編集画面オプション</string>
 	<string name="EPr_beastMode_title">編集画面順</string>
 	<string name="EPr_time_increment">5 分増加</string>
-	<string name="EPr_use_date_shortcuts">データのショートカットを使用</string>
 	<string name="EPr_show_timer_shortcut">タイマーのショートカットを表示</string>
 	<string name="EPr_beastMode_desc">タスク編集画面のレイアウトをカスタマイズ</string>
 	<string name="EPr_beastMode_reset">デフォルトにリセット</string>

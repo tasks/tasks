@@ -200,7 +200,6 @@
 	<string name="EPr_edit_screen_options">Редагувати налаштування екрану</string>
 	<string name="EPr_beastMode_title">Редагувати порядок екранів</string>
 	<string name="EPr_time_increment">Крок 5 хвилин</string>
-	<string name="EPr_use_date_shortcuts">Використовувати ярлики дат</string>
 	<string name="EPr_show_timer_shortcut">Показати ярлик таймера</string>
 	<string name="EPr_beastMode_desc">Налаштувати зовнішній вигляд екрану редагування завдань</string>
 	<string name="EPr_beastMode_reset">Налаштування за замовчуванням</string>

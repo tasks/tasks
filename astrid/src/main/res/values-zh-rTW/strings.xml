@@ -193,7 +193,6 @@
 	<string name="EPr_fontSize_desc">清單主頁面字型大小</string>
 	<string name="EPr_edit_screen_options">編輯畫面選項</string>
 	<string name="EPr_beastMode_title">編輯畫面順序</string>
-	<string name="EPr_use_date_shortcuts">使用日期捷徑</string>
 	<string name="EPr_beastMode_desc">自定義設定菜單屏幕</string>
 	<string name="EPr_beastMode_reset">恢復默認值</string>
 	<string name="EPr_fullTask_title">顯示完整的任務工作標題</string>

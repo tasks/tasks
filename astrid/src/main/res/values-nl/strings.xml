@@ -197,7 +197,6 @@
 	<string name="EPr_edit_screen_options">Scherm opties bewerken</string>
 	<string name="EPr_beastMode_title">Scherm volgorde bewerken</string>
 	<string name="EPr_time_increment">stappen van 5 minuten</string>
-	<string name="EPr_use_date_shortcuts">Gebruik datum snelkoppelingen</string>
 	<string name="EPr_show_timer_shortcut">Toon timer snelkoppeling</string>
 	<string name="EPr_beastMode_desc">Pas de layout van het Taak Wijzigingsscherm aan</string>
 	<string name="EPr_beastMode_reset">Standaardinstellingen herstellen</string>

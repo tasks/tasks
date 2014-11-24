@@ -191,7 +191,6 @@
 	<string name="EPr_fontSize_desc">Tamanho do texto nas listagens</string>
 	<string name="EPr_edit_screen_options">Editar opções da tela</string>
 	<string name="EPr_time_increment">Incrementos de 5 minutos</string>
-	<string name="EPr_use_date_shortcuts">Usar atalhos de data</string>
 	<string name="EPr_beastMode_desc">Personalize o layout da tela de edição</string>
 	<string name="EPr_beastMode_reset">Restaurar valores padrão</string>
 	<string name="EPr_fullTask_title">Exibir título completo</string>

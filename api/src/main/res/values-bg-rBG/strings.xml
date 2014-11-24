@@ -25,6 +25,7 @@
 	<string name="sync_SPr_status_subtitle">Състояние: %s</string>
 	<string name="sync_status_ongoing">Синхронизирането продължава ...</string>
 	<string name="sync_status_success">Последна синхронизация:\n%s</string>
+	<string name="sync_status_failed">Грешка при: %s</string>
 	<string name="sync_status_never">Никога не е синхронизиран!</string>
 	<string name="sync_SPr_group_options">Опции</string>
 	<string name="sync_SPr_interval_title">Синхронзиране във фонов режим</string>
