@@ -11,27 +11,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.activity.TaskListFragment;
-import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.subtasks.AstridOrderedListFragmentHelper;
 import com.todoroo.astrid.subtasks.OrderedListFragmentHelperInterface;
+import com.todoroo.astrid.subtasks.SubtasksListFragment;
 
 import org.tasks.R;
 import org.tasks.injection.ForActivity;
@@ -41,11 +36,7 @@ import org.tasks.sync.SyncThrottle;
 
 import javax.inject.Inject;
 
-public class GtasksListFragment extends TaskListFragment {
-
-    protected OrderedListFragmentHelperInterface<?> helper;
-
-    private int lastVisibleIndex = -1;
+public class GtasksListFragment extends SubtasksListFragment {
 
     public static final String TOKEN_STORE_ID = "storeId"; //$NON-NLS-1$
 
@@ -72,6 +63,7 @@ public class GtasksListFragment extends TaskListFragment {
         GtasksList.LAST_SYNC
     };
 
+    @Override
     protected OrderedListFragmentHelperInterface<?> createFragmentHelper() {
         return new OrderedMetadataListFragmentHelper<>(preferences, taskAttachmentDao, taskService, metadataDao, this, gtasksTaskListUpdater);
     }
@@ -173,73 +165,5 @@ public class GtasksListFragment extends TaskListFragment {
     @Override
     public Property<?>[] taskProperties() {
         return helper.taskProperties();
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        helper = createFragmentHelper();
-    }
-
-    @Override
-    protected View getListBody(ViewGroup root) {
-        return getActivity().getLayoutInflater().inflate(R.layout.task_list_body_subtasks, root, false);
-    }
-
-    @Override
-    protected void setUpUiComponents() {
-        super.setUpUiComponents();
-
-        helper.setUpUiComponents();
-    }
-
-    @Override
-    public void setUpTaskList() {
-        if (helper instanceof AstridOrderedListFragmentHelper) {
-            ((AstridOrderedListFragmentHelper<TaskListMetadata>) helper).setList(taskListMetadata);
-        }
-        helper.beforeSetUpTaskList(filter);
-
-        super.setUpTaskList();
-
-        unregisterForContextMenu(getListView());
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        lastVisibleIndex = getListView().getFirstVisiblePosition();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (lastVisibleIndex >=0) {
-            getListView().setSelection(lastVisibleIndex);
-        }
-    }
-
-    @Override
-    protected boolean isDraggable() {
-        return true;
-    }
-
-    @Override
-    public void onTaskCreated(Task task) {
-        super.onTaskCreated(task);
-        helper.onCreateTask(task);
-    }
-
-    @Override
-    protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
-        return helper.createTaskAdapter(cursor, sqlQueryTemplate);
-    }
-
-    @Override
-    protected void refresh() {
-        initializeTaskListMetadata();
-        setUpTaskList();
-        setSyncOngoing(false);
     }
 }

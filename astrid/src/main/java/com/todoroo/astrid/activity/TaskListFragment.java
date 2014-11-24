@@ -58,7 +58,6 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskListMetadata;
-import com.todoroo.astrid.gtasks.GtasksListFragment;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.helper.SyncActionHelper;
 import com.todoroo.astrid.service.SyncV2Service;
@@ -66,6 +65,7 @@ import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskDuplicator;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
+import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.subtasks.SubtasksUpdater;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.timers.TimerPlugin;
@@ -325,7 +325,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
             getListView().setItemsCanFocus(false);
         }
 
-        if (!(this instanceof GtasksListFragment)) {
+        if (!(this instanceof SubtasksListFragment)) {
             getListView().setOnItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,
@@ -912,7 +912,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         extras.putParcelable(TOKEN_FILTER, filter);
         if(newState) {
             ((AstridActivity) getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(filter,
-                    extras, GtasksListFragment.class);
+                    extras, SubtasksListFragment.class);
         } else {
             filter.setFilterQueryOverride(null);
             ((AstridActivity)getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(filter,
