@@ -18,7 +18,6 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
-import com.todoroo.astrid.gtasks.GtasksListFragment;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
 
@@ -48,7 +47,7 @@ public class SubtasksHelper {
         if (SubtasksHelper.isTagFilter(filter)) {
             return SubtasksTagListFragment.class;
         }
-        return GtasksListFragment.class;
+        return SubtasksListFragment.class;
     }
 
     public static boolean isTagFilter(Filter filter) {
