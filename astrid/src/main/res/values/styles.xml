@@ -2,15 +2,15 @@
 
     <!-- ========================================================== General  -->
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
     </style>
 
     <style name="DialogTheme" parent="@android:style/Theme.Dialog">
     </style>
 
     <style name="Tasks" parent="AppTheme">
-        <!--<item name="colorPrimary">@android:color/holo_orange_light</item>-->
-        <item name="colorPrimaryDark">#636363</item>
+        <item name="colorPrimary">#607d8b</item>
+        <item name="colorPrimaryDark">#4d646f</item>
         <!--<item name="colorAccent">@android:color/holo_purple</item>-->
 
         <item name="android:windowBackground">@null</item>
@@ -31,9 +31,9 @@
         <item name="asFilterSelectedIcon">@drawable/filter_selected_icon_black</item>
         <item name="asTaskRowSelector">@drawable/task_row_bg_white</item>
         <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
-        <item name="asAbBackgroundColor">#e9e9e9</item>
-        <item name="ic_action_add">@drawable/ic_action_add</item>
-        <item name="ic_action_new_attachment">@drawable/ic_action_new_attachment</item>
+        <item name="asAbBackgroundColor">#607d8b</item>
+        <item name="ic_action_add">@drawable/ic_action_add_light</item>
+        <item name="ic_action_new_attachment">@drawable/ic_action_attachment_2</item>
         <item name="ic_action_discard">@drawable/ic_action_discard</item>
         <item name="ic_action_save">@drawable/ic_action_save</item>
         <item name="ic_action_cancel">@drawable/ic_action_cancel</item>
