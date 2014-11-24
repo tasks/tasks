@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     android:layout_weight="100">
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <org.tasks.ui.DraggableSwipeRefreshLayout
         android:id="@+id/swipe_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
@@ -17,7 +17,7 @@
             android:paddingBottom="104dp"
             android:clipToPadding="false" />
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </org.tasks.ui.DraggableSwipeRefreshLayout>
 
     <include layout="@layout/task_list_swipe_layout_empty" />
 
