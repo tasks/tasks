@@ -332,15 +332,11 @@
 	<string name="locale_notification">Er zijn $NUM taken voor: $FILTER</string>
 	<string name="EPr_powerpack_header">Premium en diverse instellingen</string>
 	<string name="EPr_powerpack_summary">Gemiste oproepen herinneringen, spraakinvoer en diverse instellingen</string>
-	<string name="speech_err_network">Netwerkfout! Spraakherkenning heeft een netwerkverbinding nodig.</string>
-	<string name="speech_err_no_match">Sorry, ik begrijp je niet! Probeer het opnieuw.</string>
-	<string name="speech_err_default">Sorry, spraakherkenning ondervond een fout. Graag opnieuw proberen.</string>
 	<string name="premium_attach_file">Een bestand bijvoegen</string>
 	<string name="premium_record_audio">Een notitie opnemen</string>
 	<string name="premium_remove_file_confirm">Weet je het zeker? Dit kan niet ongedaan gemaakt worden</string>
 	<string name="audio_recording_title">Bezig met opname</string>
 	<string name="audio_stop_recording">Opname stoppen</string>
-	<string name="audio_speak_now">Spreek nu!</string>
 	<string name="search_market_audio">Geen mediaspeler gevonden die dit type audio-bestand ondersteunt. Wil je een mediaspeler downloaden via de Android Market?</string>
 	<string name="search_market_audio_title">Geen mediaspeler gevonden</string>
 	<string name="search_market_pdf">Geen PDF-lezer gevonden. Wil je een PDF-lezer downloaden via de Android Market?</string>
@@ -497,7 +493,6 @@
 	<string name="TEA_timer_comment_stopped">taak gestopt:</string>
 	<string name="TEA_timer_comment_spent">Gebruikte tijd:</string>
 	<string name="voice_create_prompt">Spreek om taak te maken</string>
-	<string name="voice_edit_note_prompt">Spreek notities van taak in</string>
 	<string name="EPr_voiceInputEnabled_title">Spraakinvoer</string>
 	<string name="EPr_voiceRemindersEnabled_title">Gesproken herinneringen</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Bij herinneringen zullen de taaknamen uitgesproken worden</string>

@@ -335,15 +335,11 @@
 	<string name="locale_notification">$FILTER の検索結果: $NUM 件</string>
 	<string name="EPr_powerpack_header">拡張設定</string>
 	<string name="EPr_powerpack_summary">応答しなかった呼び出しのリマインダー, 音声入力, およびその他の設定</string>
-	<string name="speech_err_network">ネットワークエラー! 音声認識の動作はネットワーク接続が必要です</string>
-	<string name="speech_err_no_match">申し訳ありません, 認識できませんでした! もう一度試してください.</string>
-	<string name="speech_err_default">申し訳ありません, 音声認識でエラーが発生しました. もう一度試してください.</string>
 	<string name="premium_attach_file">ファイルを添付</string>
 	<string name="premium_record_audio">注釈を記録</string>
 	<string name="premium_remove_file_confirm">よろしいですか? 取り消しできません</string>
 	<string name="audio_recording_title">音声を録音中</string>
 	<string name="audio_stop_recording">録音を停止</string>
-	<string name="audio_speak_now">話してください!</string>
 	<string name="search_market_audio">そのオーディオ形式を再生するプレイヤーがありません. Google Play からオーディオプレイヤーをダウンロードしますか?</string>
 	<string name="search_market_audio_title">オーディオプレイヤーがありません</string>
 	<string name="search_market_pdf">PDF リーダーがありません. PDF リーダーを Google Play からダウンロードしますか?</string>
@@ -501,7 +497,6 @@
 	<string name="TEA_timer_comment_stopped">このタスクの実行を中止しました:</string>
 	<string name="TEA_timer_comment_spent">消費時間:</string>
 	<string name="voice_create_prompt">話してタスクを作成してください</string>
-	<string name="voice_edit_note_prompt">話してタスク概要を設定してください</string>
 	<string name="EPr_voiceInputEnabled_title">音声入力</string>
 	<string name="EPr_voiceRemindersEnabled_title">音声リマインダー</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks はタスクリマインダーでタスク名を話します</string>

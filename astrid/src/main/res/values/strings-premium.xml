@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <string name="speech_err_network">Network error! Speech recognition requires a network connection to work.</string>
-    <string name="speech_err_no_match">Sorry, I couldn\'t understand that! Please try again.</string>
-    <string name="speech_err_default">Sorry, speech recognition encountered an error. Please try again.</string>
-    
     <string name="premium_attach_file">Attach a file</string>
     <string name="premium_record_audio">Record a note</string>
     <string name="premium_remove_file_confirm">Are you sure? Cannot be undone</string>
     
     <string name="audio_recording_title">Recording Audio</string>
     <string name="audio_stop_recording">Stop Recording</string>
-    <string name="audio_speak_now">Speak Now!</string>
 
     <string name="search_market_audio">No player found to handle that audio type. Would you like to download an audio player from the Android Market?</string>
     <string name="search_market_audio_title">No audio player found</string>

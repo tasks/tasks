@@ -226,7 +226,6 @@
 	<string name="TPl_notification">Tidtaker aktiv for %s!</string>
 	<string name="TFE_workingOn">Oppgaver med tidtaker</string>
 	<string name="voice_create_prompt">Snakk for å skape en oppgave</string>
-	<string name="voice_edit_note_prompt">Snakk for å sette oppgavenotater</string>
 	<string name="EPr_voiceInputEnabled_title">Taleinndata</string>
 	<string name="EPr_voiceRemindersEnabled_title">Talepåminnelser</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks vil lese opp oppgaver ved påminnelse</string>

@@ -332,15 +332,11 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="locale_notification">Masz $NUM pasujących: $FILTER</string>
 	<string name="EPr_powerpack_header">Ustawienia Premium i inne</string>
 	<string name="EPr_powerpack_summary">Przypomniania nieodebranych połączeń, polecenia głosowe i inne ustawienia</string>
-	<string name="speech_err_network">Błąd sieci! Rozpoznawanie mowy wymaga połączenia z siecią.</string>
-	<string name="speech_err_no_match">Przepraszam, nie zrozumiałem! Powtórz, proszę.</string>
-	<string name="speech_err_default">Przepraszamy, rozpoznawanie mowy napotkało na błąd. Proszę spróbować ponownie.</string>
 	<string name="premium_attach_file">Dołącz plik</string>
 	<string name="premium_record_audio">Nagraj notatkę</string>
 	<string name="premium_remove_file_confirm">Jesteś pewny? Tych zmian nie można odwrócić</string>
 	<string name="audio_recording_title">Nagrywanie dźwięku</string>
 	<string name="audio_stop_recording">Zakończ nagrywanie</string>
-	<string name="audio_speak_now">Mów!</string>
 	<string name="search_market_audio">Nie znaleziono odtwarzacza, który byłby w stanie odtworzyć ten plik. Czy chciałbyś pobrać odtwarzacz z Android Market?</string>
 	<string name="search_market_audio_title">Nie znaleziono odtwarzacza</string>
 	<string name="search_market_pdf">Nie znaleziono czytnika PDF. Czy chciałbyć pobrać czytnik z Android Market?</string>
@@ -498,7 +494,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="TEA_timer_comment_stopped">zakończono zadanie:</string>
 	<string name="TEA_timer_comment_spent">Czas spędzony:</string>
 	<string name="voice_create_prompt">Mów by utworzyć zadanie</string>
-	<string name="voice_edit_note_prompt">Mów by ustawić notatkę zadania</string>
 	<string name="EPr_voiceInputEnabled_title">Polecenia głosowe</string>
 	<string name="EPr_voiceRemindersEnabled_title">Przypomnienia głosowe</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks będzie mówił nazwę zadania podczas przypomnienia</string>

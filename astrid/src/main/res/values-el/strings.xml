@@ -253,8 +253,6 @@
 	<string name="gtasks_error_accountManager">Σφάλμα στον διαχειριστή επαφών της συσκευής σας. Παρακαλώ αποσυνδεθείτε και συνδεθείτε ξανά απο τις ρυθμίσεις του Google Tasks.</string>
 	<string name="gtasks_error_background_sync_auth">Σφάλμα αυθεντικοποίησης στο παρασκήνιο. Παρακαλώ δοκιμάστε να συγχρονίσετε όσο τρέχει το Tasks.</string>
 	<string name="EPr_powerpack_header">Προηγμένες ρυθμίσεις</string>
-	<string name="speech_err_no_match">Συγγνώμη δεν το κατάλαβα αυτό! Ξαναπροσπάθησε.</string>
-	<string name="speech_err_default">Συγγνώμη η αναγνώριση φωνής αντιμετώπισε σφάλμα. Παρακαλώ ξαναπροσπαθήστε.</string>
 	<string name="premium_attach_file">Προσθήκη αρχείου</string>
 	<string name="premium_record_audio">Καταγραφή σημείωσης</string>
 	<string name="premium_remove_file_confirm">Είστε σίγουρος; Δεν μπορεί να ακυρωθεί</string>
@@ -360,7 +358,6 @@
 	<string name="TEA_timer_comment_stopped">σταμάτησε να εκτελεί το καθήκον:</string>
 	<string name="TEA_timer_comment_spent">Χρόνος που πέρασε</string>
 	<string name="voice_create_prompt">Μιλήστε για να δημιουργήσετε καθήκον</string>
-	<string name="voice_edit_note_prompt">Μιλήστε για να οριίσετε περιγραφή καθήκοντος</string>
 	<string name="EPr_voiceInputEnabled_title">Εισαγωγή φωνής</string>
 	<string name="EPr_voiceRemindersEnabled_title">Φωνητικές υπενθυμίσεις</string>
 	<string name="widget_mini">Καθήκοντα</string>

@@ -323,15 +323,11 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="locale_notification">Du har $NUM som matchar: $FILTER</string>
 	<string name="EPr_powerpack_header">Premium och övriga inställningar</string>
 	<string name="EPr_powerpack_summary">Påminnelser för missade samtal, röstinmatning samt övriga inställningar</string>
-	<string name="speech_err_network">Nätverksfel! Taligenkänning kräver internetaccess för att fungera.</string>
-	<string name="speech_err_no_match">Ursäkta, jag förstod inte det där. Vänligen försök igen.</string>
-	<string name="speech_err_default">Taligenkänning misslyckades. Vänligen försök igen.</string>
 	<string name="premium_attach_file">Bifoga fil</string>
 	<string name="premium_record_audio">Spela in en anteckning</string>
 	<string name="premium_remove_file_confirm">Är du säker? Detta kan inte ångras</string>
 	<string name="audio_recording_title">Spelar in ljud</string>
 	<string name="audio_stop_recording">Avsluta inspelning</string>
-	<string name="audio_speak_now">Prata nu!</string>
 	<string name="search_market_audio">Ingen spelare hittades för denna ljudtyp. Skulle du vilja ladda ned en ljudspelare från Google Play?</string>
 	<string name="search_market_audio_title">Ingen ljudspelare hittades</string>
 	<string name="search_market_pdf">Ingen PDF-läsare hittades. Skulle du vilja ladda ned en från Google Play?</string>
@@ -485,7 +481,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="TEA_timer_comment_stopped">slutade arbeta med uppgiften:</string>
 	<string name="TEA_timer_comment_spent">Nedlagt tid:</string>
 	<string name="voice_create_prompt">Prata för att skapa uppgift</string>
-	<string name="voice_edit_note_prompt">Prata för att sätta uppgiftens anteckningar</string>
 	<string name="EPr_voiceInputEnabled_title">Röstindata</string>
 	<string name="EPr_voiceRemindersEnabled_title">Röstpåminnelser</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks läser upp uppgifterna vid påminnelse</string>

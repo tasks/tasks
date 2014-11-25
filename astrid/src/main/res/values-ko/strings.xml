@@ -339,15 +339,11 @@
 	<string name="locale_notification">$NUM 개의 일정이 일치합니다: $FILTER</string>
 	<string name="EPr_powerpack_header">프리미엄과 기타 설정</string>
 	<string name="EPr_powerpack_summary">부재중 전화 알림, 음성 입력과 기타 설정</string>
-	<string name="speech_err_network">네트워크 에러! 음성인식이 동작하려면 네트워크 연결이 필요합니다.</string>
-	<string name="speech_err_no_match">죄송하지만 알아듣지 못했습니다! 다시 말해 주세요.</string>
-	<string name="speech_err_default">죄송하지만 음성 인식에 에러가 발생했습니다. 다시 시도해 주세요.</string>
 	<string name="premium_attach_file">파일 첨부</string>
 	<string name="premium_record_audio">노트 기록</string>
 	<string name="premium_remove_file_confirm">정말입니까? 되돌릴 수 없습니다</string>
 	<string name="audio_recording_title">오디오 녹음 중</string>
 	<string name="audio_stop_recording">녹음 중단</string>
-	<string name="audio_speak_now">지금 말하세요!</string>
 	<string name="search_market_audio">이런 형식의 오디오를 다룰 수 있는 재생기가 없습니다. 안드로이드 마켓에서 다운로드할까요?</string>
 	<string name="search_market_audio_title">오디오 재생기 없음</string>
 	<string name="search_market_pdf">PDF 리더가 없습니다. 안드로이드 마켓에서 PDF 리더를 다운로드할까요?</string>
@@ -503,7 +499,6 @@
 	<string name="TEA_timer_comment_stopped">이 일정 중지:</string>
 	<string name="TEA_timer_comment_spent">소요 시간:</string>
 	<string name="voice_create_prompt">일정을 만들려면 말하세요</string>
-	<string name="voice_edit_note_prompt">일정의 내용을 말하세요</string>
 	<string name="EPr_voiceInputEnabled_title">음성 입력</string>
 	<string name="EPr_voiceRemindersEnabled_title">음성 알림</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">일정 알림기간 동안 일정 이름을 직접 말해 줍니다</string>

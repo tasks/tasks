@@ -328,15 +328,11 @@
 	<string name="locale_notification">Vous avez $NUM correspondant(s) : $FILTER</string>
 	<string name="EPr_powerpack_header">Premium et réglages divers</string>
 	<string name="EPr_powerpack_summary">Rappel des appels manqués, commande vocale et paramètres divers</string>
-	<string name="speech_err_network">Problème de connexion réseau. La reconaissance vocale demande une connexion internet pour fonctionner.</string>
-	<string name="speech_err_no_match">Excusez-moi, je n\'ais pas compris! Veuillez répeter.</string>
-	<string name="speech_err_default">Excusez-moi, la reconaissance vocale a rencontrer une erreur. Veuillez réessayer.</string>
 	<string name="premium_attach_file">Joindre un fichier</string>
 	<string name="premium_record_audio">Enregistrer un commentaire</string>
 	<string name="premium_remove_file_confirm">Ètes-vous certain? Cette opération est irréversible</string>
 	<string name="audio_recording_title">Enregistrement Audio</string>
 	<string name="audio_stop_recording">Arrêter l\'enregistrement</string>
-	<string name="audio_speak_now">Veuillez parler!</string>
 	<string name="search_market_audio">Aucun lecteur supporte ce format audio. Voulez-vous télécharger un lecteur audio du Play Store?</string>
 	<string name="search_market_audio_title">Aucun lecteur audio trouvé</string>
 	<string name="search_market_pdf">Aucun logiciel permettant de lire les fichiers PDF n\'a été trouvé. Souhaitez vous en télécharger un à partir de Android Market ?</string>
@@ -493,7 +489,6 @@
 	<string name="TEA_timer_comment_stopped">Cette tâche a été arretée :</string>
 	<string name="TEA_timer_comment_spent">Temps passé :</string>
 	<string name="voice_create_prompt">Parlez pour créer une nouvelle tâche</string>
-	<string name="voice_edit_note_prompt">Parlez pour définir les notes de la tâche</string>
 	<string name="EPr_voiceInputEnabled_title">Entrée voix</string>
 	<string name="EPr_voiceRemindersEnabled_title">Rappels vocaux</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks donnera le nom de la tâche</string>

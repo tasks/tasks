@@ -334,15 +334,11 @@
 	<string name="locale_notification">$NUM jih ustreza: $FILTER</string>
 	<string name="EPr_powerpack_header">Napredne nastavitve</string>
 	<string name="EPr_powerpack_summary">Opomniki zgrešenih klicev, vnos glasu in razne nastavitve</string>
-	<string name="speech_err_network">Napaka na omrežju! Prepoznava govora za delovanje potrebuje omrežno povezavo.</string>
-	<string name="speech_err_no_match">Žal tega nisem razumel. Prosim poskusite ponovno.</string>
-	<string name="speech_err_default">Žal je pri prepoznavi govora prišlo do napake. Prosimo poskusite ponovno.</string>
 	<string name="premium_attach_file">Pripni datoteko</string>
 	<string name="premium_record_audio">Posnemi opombo</string>
 	<string name="premium_remove_file_confirm">Ste prepričani? Tega ni mogoče razveljaviti</string>
 	<string name="audio_recording_title">Snemam zvok</string>
 	<string name="audio_stop_recording">Prekini snemanje</string>
-	<string name="audio_speak_now">Začnite govoriti!</string>
 	<string name="search_market_audio">Ni ustreznega predvajalnika. Želite naložiti predvajalnik zvoka z Android tržnice?</string>
 	<string name="search_market_audio_title">Nisem našel predvajalnika zvoka</string>
 	<string name="search_market_pdf">Ne najdem PDF bralnika. Ga želite naložiti z Android tržnice?</string>
@@ -499,7 +495,6 @@
 	<string name="TEA_timer_comment_stopped">ta opravek končal:</string>
 	<string name="TEA_timer_comment_spent">Porabljen čas:</string>
 	<string name="voice_create_prompt">Glasovno ustvari opravek</string>
-	<string name="voice_edit_note_prompt">Govorite za opis opravka</string>
 	<string name="EPr_voiceInputEnabled_title">Vnos glasu</string>
 	<string name="EPr_voiceRemindersEnabled_title">Glasovni opomniki</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Aplikacija Opravki bo med opominjanjem glede opravkov izgovarjala nazive opravkov</string>

@@ -280,15 +280,11 @@
 	<string name="locale_notification">您有 $NUM 符合: $FILTER</string>
 	<string name="EPr_powerpack_header">高级和其它设置</string>
 	<string name="EPr_powerpack_summary">未接电话提醒，语音输入和其它设置</string>
-	<string name="speech_err_network">网络出错！语音识别需要网络连接才能运作。</string>
-	<string name="speech_err_no_match">对不起，我听不明白喔！请再说一次吧。</string>
-	<string name="speech_err_default">对不起，语音识别遇到出错。请重新再试。</string>
 	<string name="premium_attach_file">附上一份文件</string>
 	<string name="premium_record_audio">录制一条便笺</string>
 	<string name="premium_remove_file_confirm">您确定吗？无法恢复的喔</string>
 	<string name="audio_recording_title">正在录制音频</string>
 	<string name="audio_stop_recording">停止录制</string>
-	<string name="audio_speak_now">现在请讲！</string>
 	<string name="search_market_audio">找不到播放器来处理这种音频类型。您想从安卓市场上下载一个音频播放器吗？</string>
 	<string name="search_market_audio_title">找不到音频播放器</string>
 	<string name="search_market_pdf">找不到 PDF 阅读器。您想从安卓市场上下载一个PDF 阅读器吗？</string>
@@ -431,7 +427,6 @@
 	<string name="TEA_timer_comment_stopped">已经停止了这项任务：</string>
 	<string name="TEA_timer_comment_spent">已经花费时间：</string>
 	<string name="voice_create_prompt">请说话以建立任务</string>
-	<string name="voice_edit_note_prompt">请说话以设定任务备注</string>
 	<string name="EPr_voiceInputEnabled_title">语音输入</string>
 	<string name="EPr_voiceRemindersEnabled_title">语音提醒</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks在任务提醒时会以语音说出任务名称</string>

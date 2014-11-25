@@ -6,7 +6,10 @@
 package com.todoroo.astrid.voice;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.speech.RecognizerIntent;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -14,6 +17,7 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.service.ContextManager;
 
 import junit.framework.Assert;
@@ -23,6 +27,10 @@ import org.slf4j.LoggerFactory;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * This class handles taking voice-input and appends the text to the registered EditText-instance.
@@ -35,12 +43,26 @@ import java.util.ArrayList;
  *
  * @author Arne Jans
  */
+@Singleton
 public class VoiceInputAssistant {
-
-    private static final Logger log = LoggerFactory.getLogger(VoiceInputAssistant.class);
 
     /** requestcode for activityresult from voicerecognizer-intent */
     public static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
+
+    /**
+     * Call this to see if your phone supports voiceinput in its current configuration.
+     * If this method returns false, it could also mean that Google Voicesearch is simply
+     * not installed.
+     * If this method returns true, internal use of it enables the registered microphone-button.
+     *
+     * @return whether this phone supports voiceinput
+     */
+    public static boolean voiceInputAvailable(Context context) {
+        PackageManager pm = context.getPackageManager();
+        List<ResolveInfo> activities = pm.queryIntentActivities(
+                new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
+        return (activities.size() != 0);
+    }
 
     /**
      * This requestcode is used to differentiate between multiple microphone-buttons on a single fragment.
@@ -49,62 +71,15 @@ public class VoiceInputAssistant {
      */
     private int requestCode = VOICE_RECOGNITION_REQUEST_CODE;
     private Activity activity;
-    private final ImageButton voiceButton;
-    private boolean append = false;
-
-    private String languageModel = RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH;
-
-    /**
-     * @param languageModel the languageModel to set
-     */
-    public void setLanguageModel(String languageModel) {
-        this.languageModel = languageModel;
-    }
-
-    /** Sets whether voice input will append into field */
-    public void setAppend() {
-        this.append = true;
-    }
 
     /**
      * This constructor can be called from a widget with a voice-button calling a dummy-activity.
      *
      * @param activity dummy-activity that starts the voice-request.
      */
+    @Inject
     public VoiceInputAssistant(Activity activity) {
         this.activity = activity;
-        this.voiceButton = null;
-    }
-
-    /**
-     * Creates a new VoiceInputAssistance-instance for use with a specified button and textfield.
-     * If you need more than one microphone-button on a given fragment, use the other constructor.
-     *
-     * @param voiceButton the microphone-Button
-     */
-    public VoiceInputAssistant(ImageButton voiceButton) {
-        Assert.assertNotNull("A VoiceInputAssistant without a voiceButton makes no sense!", voiceButton);
-        this.voiceButton = voiceButton;
-    }
-
-    /**
-     * The param requestCode is used to differentiate between multiple
-     * microphone-buttons on a single fragment.
-     * Use the this constructor to specify your own requestCode in
-     * this case for every additional use on a fragment.
-     * If you only use one microphone-button on a fragment,
-     * you can leave it to its default, VOICE_RECOGNITION_REQUEST_CODE.
-     *
-     *
-     * @param requestCode has to be unique in a single fragment-context,
-     *   dont use VOICE_RECOGNITION_REQUEST_CODE, this is reserved for the other constructor
-     */
-    public VoiceInputAssistant(ImageButton voiceButton, int requestCode) {
-        this(voiceButton);
-        if (requestCode == VOICE_RECOGNITION_REQUEST_CODE) {
-            throw new InvalidParameterException("You have to specify a unique requestCode for this VoiceInputAssistant!");
-        }
-        this.requestCode = requestCode;
     }
 
     /**
@@ -113,19 +88,12 @@ public class VoiceInputAssistant {
      *
      * @param prompt Specify the R.string.string_id resource for the prompt-text during voice-recognition here
      */
-    public void startVoiceRecognitionActivity(Fragment fragment, int prompt) {
+    public void startVoiceRecognitionActivity(int prompt) {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, languageModel);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, ContextManager.getContext().getString(prompt));
-        String detailMessage = "Error! No Fragment or Activity was registered to handle this voiceinput-request!";
-        if (activity != null) {
-            activity.startActivityForResult(intent, requestCode);
-        } else if (fragment != null) {
-            fragment.startActivityForResult(intent, requestCode);
-        } else {
-            log.error(detailMessage, new IllegalStateException(detailMessage));
-        }
+        activity.startActivityForResult(intent, requestCode);
     }
 
     /**
@@ -140,7 +108,7 @@ public class VoiceInputAssistant {
      *
      * @param activityRequestCode if this equals the requestCode specified by constructor, then results of voice-recognition
      */
-    public boolean handleActivityResult(int activityRequestCode, int resultCode, Intent data, EditText textField) {
+    public boolean handleActivityResult(int activityRequestCode, int resultCode, Intent data, Callback<String> onVoiceRecognition) {
         boolean result = false;
         // handle the result of voice recognition, put it into the textfield
         if (activityRequestCode == this.requestCode) {
@@ -158,29 +126,11 @@ public class VoiceInputAssistant {
                     recognizedSpeech = recognizedSpeech.substring(0, 1).toUpperCase() +
                         recognizedSpeech.substring(1).toLowerCase();
 
-                    if(append) {
-                        textField.setText((textField.getText() + " " + recognizedSpeech).trim());
-                    } else {
-                        textField.setText(recognizedSpeech);
-                    }
+                    onVoiceRecognition.apply(recognizedSpeech);
                 }
             }
         }
 
         return result;
-    }
-
-    public void configureMicrophoneButton(final Fragment fragment, final int prompt) {
-        voiceButton.setVisibility(View.VISIBLE);
-        voiceButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startVoiceRecognitionActivity(fragment, prompt);
-            }
-        });
-    }
-
-    public void hideVoiceButton() {
-        voiceButton.setVisibility(View.GONE);
     }
 }

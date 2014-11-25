@@ -317,15 +317,11 @@
 	<string name="locale_notification">您有 $NUM 符合: $FILTER</string>
 	<string name="EPr_powerpack_header">高級和其它設置</string>
 	<string name="EPr_powerpack_summary">未接電話提醒，語音輸入和其它設置</string>
-	<string name="speech_err_network">網絡出錯！語音識別需要網絡連接才能運作。</string>
-	<string name="speech_err_no_match">對不起，我聽不明白喔！請再說一次吧。</string>
-	<string name="speech_err_default">對不起，語音識別遇到出錯。請重新再試。</string>
 	<string name="premium_attach_file">附上一份文件</string>
 	<string name="premium_record_audio">錄製一條便箋</string>
 	<string name="premium_remove_file_confirm">您確定嗎？無法恢復的喔</string>
 	<string name="audio_recording_title">正在錄製音頻</string>
 	<string name="audio_stop_recording">停止錄製</string>
-	<string name="audio_speak_now">現在請講！</string>
 	<string name="search_market_audio">找不到播放器來處理這種音頻類型。您想從安卓市場上下載一個音頻播放器嗎？</string>
 	<string name="search_market_audio_title">找不到音頻播放器</string>
 	<string name="search_market_pdf">找不到PDF 閱讀器。您想從安卓市場上下載一個PDF 閱讀器嗎？</string>
@@ -473,7 +469,6 @@
 	<string name="TEA_timer_comment_stopped">已經停止了這項任務工作：</string>
 	<string name="TEA_timer_comment_spent">已經花費時間：</string>
 	<string name="voice_create_prompt">請說話以建立工作</string>
-	<string name="voice_edit_note_prompt">請說話以設定工作備註</string>
 	<string name="EPr_voiceInputEnabled_title">語音輸入</string>
 	<string name="EPr_voiceRemindersEnabled_title">語音提醒</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks在工作提醒時會以語音說出工作名稱</string>

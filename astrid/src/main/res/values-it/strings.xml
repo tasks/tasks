@@ -300,15 +300,11 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="locale_notification">Hai $NUM corrispondenti: $FILTER</string>
 	<string name="EPr_powerpack_header">Impostazioni Premium e varie</string>
 	<string name="EPr_powerpack_summary">Promemoria chiamate mancate, comandi vocali e impostazioni varie</string>
-	<string name="speech_err_network">Errore di rete! Il riconoscimento vocale richiede una connessione di rete per funzionare.</string>
-	<string name="speech_err_no_match">Mi dispiace, non riesco a capire! Si prega di riprovare.</string>
-	<string name="speech_err_default">Ci dispiace, si è verificato un errore nel riconoscimento vocale. Si prega di riprovare.</string>
 	<string name="premium_attach_file">Allega un file</string>
 	<string name="premium_record_audio">Registra una nota</string>
 	<string name="premium_remove_file_confirm">Se sicuro? Non può essere eseguito</string>
 	<string name="audio_recording_title">Registrazione Audio</string>
 	<string name="audio_stop_recording">Fine Registrazione</string>
-	<string name="audio_speak_now">Parla ora!</string>
 	<string name="search_market_audio">Non è stato trovato nessun lettore per quel tipo di audio. Vuoi scaricarne uno da Android Market?</string>
 	<string name="search_market_audio_title">Non è stato trovato nessun riproduttore audio</string>
 	<string name="search_market_pdf">Non è stato trovato nessun lettore di file PDF. Vuoi scaricare un lettore di file PDF da Google Play (Android Market)?</string>
@@ -443,7 +439,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="TEA_timer_comment_stopped">fine attività</string>
 	<string name="TEA_timer_comment_spent">Tempo speso:</string>
 	<string name="voice_create_prompt">Parla per creare un\'attività</string>
-	<string name="voice_edit_note_prompt">Parla per aggiungere le note</string>
 	<string name="EPr_voiceInputEnabled_title">Voce</string>
 	<string name="EPr_voiceRemindersEnabled_title">Promemoria vocali</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks pronuncerà il nome dell\'attività durante i promemoria</string>

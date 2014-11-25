@@ -3,8 +3,7 @@
     
   <!-- Voice Add Prompt Text -->
   <string name="voice_create_prompt">Speak to create a task</string>
-  <string name="voice_edit_note_prompt">Speak to set task description</string>
-    
+
   <string name="EPr_voiceInputEnabled_title">Voice input</string>
   <!-- slide 38f: Preference: Voice reminders if TTS-service is available -->
   <string name="EPr_voiceRemindersEnabled_title">Voice reminders</string>

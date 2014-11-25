@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -31,8 +32,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.utility.Constants;
-import com.todoroo.astrid.voice.RecognizerApi;
-import com.todoroo.astrid.voice.RecognizerApi.PlaybackExceptionHandler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -177,12 +176,29 @@ public class FilesControlSet extends PopupControlSet {
         }
     }
 
+    public static interface PlaybackExceptionHandler {
+        public void playbackFailed();
+    }
+
+    private static void play(String file, PlaybackExceptionHandler handler) {
+        MediaPlayer mediaPlayer = new MediaPlayer();
+
+        try {
+            mediaPlayer.setDataSource(file);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            handler.playbackFailed();
+        }
+    }
+
     private void showFile(final TaskAttachment m) {
         final String fileType = m.containsNonNullValue(TaskAttachment.CONTENT_TYPE) ? m.getContentType() : TaskAttachment.FILE_TYPE_OTHER;
         final String filePath = m.getFilePath();
 
         if (fileType.startsWith(TaskAttachment.FILE_TYPE_AUDIO)) {
-            RecognizerApi.play(m.getFilePath(), new PlaybackExceptionHandler() {
+            play(m.getFilePath(), new PlaybackExceptionHandler() {
                 @Override
                 public void playbackFailed() {
                     showFromIntent(filePath, fileType);

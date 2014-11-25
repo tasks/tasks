@@ -313,15 +313,11 @@
 	<string name="locale_notification">Você tem $NUM resultados: $FILTER</string>
 	<string name="EPr_powerpack_header">Configurações de Premium e misc.</string>
 	<string name="EPr_powerpack_summary">Lembretes de chamadas perdidas, entrada de voz e configurações diversas</string>
-	<string name="speech_err_network">Erro de rede! Reconhecimento de fala requer uma conexão com a rede para funcionar.</string>
-	<string name="speech_err_no_match">Desculpe, eu não consegui entender! Por favor tente de novo.</string>
-	<string name="speech_err_default">Desculpa, reconhecimento de fala encontrou um erro. Por favor, tente novamente.</string>
 	<string name="premium_attach_file">Anexar um arquivo</string>
 	<string name="premium_record_audio">Gravar uma nota</string>
 	<string name="premium_remove_file_confirm">Você tem certeza? Não pode ser desfeito</string>
 	<string name="audio_recording_title">Gravando Áudio</string>
 	<string name="audio_stop_recording">Parar Gravação</string>
-	<string name="audio_speak_now">Fale Agora!</string>
 	<string name="search_market_audio">\"Não foi encontrado um reprodutor que manipule este tipo de áudio.  Você gostaria de baixar um reprodutor de áudio no Android Market?\"</string>
 	<string name="search_market_audio_title">Não foi encontrado um reprodutor de áudio</string>
 	<string name="search_market_pdf">Nenhum leitor de PDF foi encontrado. Você gostaria de baixar um leitor de PDF no Android Market?</string>
@@ -465,7 +461,6 @@
 	<string name="TEA_timer_comment_stopped">parou a tarefa:</string>
 	<string name="TEA_timer_comment_spent">Tempo gasto:</string>
 	<string name="voice_create_prompt">Fale para criar uma tarefa</string>
-	<string name="voice_edit_note_prompt">Fale para completar as notas da tarefa</string>
 	<string name="EPr_voiceInputEnabled_title">Entrada de voz</string>
 	<string name="EPr_voiceRemindersEnabled_title">Lembretes de voz</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks irá falar o nome das tarefas durante os lembretes</string>

@@ -73,15 +73,13 @@ import com.todoroo.astrid.timers.TimerControlSet;
 import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.DeadlineControlSet;
-import com.todoroo.astrid.ui.EditNotesControlSet;
+import com.todoroo.astrid.ui.DescriptionControlSet;
 import com.todoroo.astrid.ui.EditTitleControlSet;
 import com.todoroo.astrid.ui.HideUntilControlSet;
 import com.todoroo.astrid.ui.ImportanceControlSet;
 import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.ui.ReminderControlSet;
 import com.todoroo.astrid.utility.Flags;
-import com.todoroo.astrid.voice.VoiceInputAssistant;
-import com.todoroo.astrid.voice.VoiceRecognizer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -146,7 +144,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     // --- request codes
 
-    private static final int REQUEST_VOICE_RECOG = 10;
     public static final int REQUEST_CODE_RECORD = 30;
     public static final int REQUEST_CODE_ATTACH_FILE = 40;
     public static final int REQUEST_CODE_BEAST_MODE = 50;
@@ -178,7 +175,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     // --- UI components
 
-    private EditNotesControlSet notesControlSet = null;
+    private DescriptionControlSet notesControlSet = null;
     private FilesControlSet filesControlSet = null;
     private TimerActionControlSet timerAction;
     private EditText title;
@@ -198,9 +195,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     /** whether task should be saved when this activity exits */
     private boolean shouldSaveState = true;
-
-    /** voice assistant for notes-creation */
-    private VoiceInputAssistant voiceNoteAssistant;
 
     private EditText notesEditText;
 
@@ -391,7 +385,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controlSetMap.put(getString(R.string.TEA_ctrl_importance_pref),
                 importanceControl);
 
-        notesControlSet = new EditNotesControlSet(preferences, getActivity());
+        notesControlSet = new DescriptionControlSet(preferences, getActivity());
         notesEditText = (EditText) notesControlSet.getView().findViewById(
                 R.id.notes);
         controls.add(notesControlSet);
@@ -507,22 +501,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private class TaskEditBackgroundLoader extends Thread {
 
         public void onUiThread() {
-            // prepare and set listener for voice-button
             if (getActivity() != null) {
-                if (VoiceRecognizer.voiceInputAvailable(getActivity())) {
-                    ImageButton voiceAddNoteButton = (ImageButton) notesControlSet.getView().findViewById(
-                            R.id.voiceAddNoteButton);
-                    voiceAddNoteButton.setVisibility(View.VISIBLE);
-                    int prompt = R.string.voice_edit_note_prompt;
-                    voiceNoteAssistant = new VoiceInputAssistant(voiceAddNoteButton, REQUEST_VOICE_RECOG);
-                    voiceNoteAssistant.setAppend();
-                    voiceNoteAssistant.setLanguageModel(RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-                    if (VoiceRecognizer.voiceInputAvailable(ContextManager.getContext())) {
-                        voiceNoteAssistant.configureMicrophoneButton(TaskEditFragment.this, prompt);
-                    } else {
-                        voiceNoteAssistant.hideVoiceButton();
-                    }
-                }
+                // todo: is this necessary?
                 loadMoreContainer();
             }
         }
@@ -542,7 +522,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                     onUiThread();
                 }
             });
-
         }
     }
 
@@ -957,16 +936,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         if (editNotes != null && editNotes.activityResult(requestCode, resultCode, data)) {
             return;
-        } else if (requestCode == REQUEST_VOICE_RECOG
-                && resultCode == Activity.RESULT_OK) {
-            // handle the result of voice recognition, put it into the
-            // appropiate textfield
-            voiceNoteAssistant.handleActivityResult(requestCode, resultCode, data, notesEditText);
-
-            // write the voicenote into the model, or it will be deleted by
-            // onResume.populateFields
-            // (due to the activity-change)
-            notesControlSet.writeToModel(model);
         } else if (requestCode == REQUEST_CODE_RECORD && resultCode == Activity.RESULT_OK) {
             String recordedAudioPath = data.getStringExtra(AACRecordingActivity.RESULT_OUTFILE);
             String recordedAudioName = data.getStringExtra(AACRecordingActivity.RESULT_FILENAME);

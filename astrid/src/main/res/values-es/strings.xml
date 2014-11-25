@@ -333,15 +333,11 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="locale_notification">Tiene $NUM que coincide con: $FILTER</string>
 	<string name="EPr_powerpack_header">Premium y configuraciones varias</string>
 	<string name="EPr_powerpack_summary">Recordatorios de llamadas perdidas, reconocimiento de voz y ajustes varios</string>
-	<string name="speech_err_network">¡Error en la red! El reconocimiento de voz requiere una conexión de red para funcionar.</string>
-	<string name="speech_err_no_match">Lo siento. ¡No lo comprendo! Por favor, inténtalo de nuevo.</string>
-	<string name="speech_err_default">Lo siento. Ha habido un error en el reconocimiento de voz. Por favor, Inténtalo de nuevo.</string>
 	<string name="premium_attach_file">Adjuntar un archivo</string>
 	<string name="premium_record_audio">Grabar una nota</string>
 	<string name="premium_remove_file_confirm">Está seguro? No se puede deshacer</string>
 	<string name="audio_recording_title">Grabando Audio</string>
 	<string name="audio_stop_recording">Detener grabación</string>
-	<string name="audio_speak_now">Hable ahora!</string>
 	<string name="search_market_audio">No se ha encontrado programa para reproducir ese tipo de audio. ¿Te gustaría descargar un reproductor de audio desde el Android Market?</string>
 	<string name="search_market_audio_title">No se encontró reproductor de audio</string>
 	<string name="search_market_pdf">No se encontró lector de archivos PDF. ¿Desea descargar uno de Android Market?</string>
@@ -499,7 +495,6 @@ Tasks podría no avisarle cuanto venza una tarea.\n</string>
 	<string name="TEA_timer_comment_stopped">dejó de hacer esta tarea:</string>
 	<string name="TEA_timer_comment_spent">Tiempo dedicado:</string>
 	<string name="voice_create_prompt">Hable para crear una tarea</string>
-	<string name="voice_edit_note_prompt">Hable para establecer notas de tarea</string>
 	<string name="EPr_voiceInputEnabled_title">Ingreso por voz</string>
 	<string name="EPr_voiceRemindersEnabled_title">Avisos de voz</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks dirá los nombres de las tareas durante los avisos</string>

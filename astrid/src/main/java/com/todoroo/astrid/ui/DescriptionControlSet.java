@@ -23,13 +23,13 @@ import org.tasks.preferences.ActivityPreferences;
 
 import static org.tasks.preferences.ResourceResolver.getResource;
 
-public class EditNotesControlSet extends PopupControlSet {
+public class DescriptionControlSet extends PopupControlSet {
 
     protected EditText editText;
     protected TextView notesPreview;
     protected ImageView image;
 
-    public EditNotesControlSet(ActivityPreferences preferences, Activity activity) {
+    public DescriptionControlSet(ActivityPreferences preferences, Activity activity) {
         super(preferences, activity, R.layout.control_set_notes, R.layout.control_set_notes_display, R.string.TEA_note_label);
         image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
     }

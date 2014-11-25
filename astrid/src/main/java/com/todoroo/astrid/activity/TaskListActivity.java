@@ -10,7 +10,6 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.speech.SpeechRecognizer;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v4.widget.DrawerLayout;
@@ -20,11 +19,10 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
+import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.actfm.TagSettingsActivityTablet;
 import com.todoroo.astrid.actfm.TagViewFragment;
@@ -40,10 +38,9 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListFragment;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.tags.TagFilterExposer;
-import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
-import com.todoroo.astrid.voice.VoiceRecognizer;
+import com.todoroo.astrid.voice.VoiceInputAssistant;
 
 import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
@@ -51,15 +48,15 @@ import org.tasks.ui.NavigationDrawerFragment;
 
 import javax.inject.Inject;
 
-import static com.todoroo.astrid.voice.RecognizerApi.RecognizerApiListener;
-import static com.todoroo.astrid.voice.VoiceRecognizer.voiceInputAvailable;
+import static com.todoroo.astrid.voice.VoiceInputAssistant.voiceInputAvailable;
 import static org.tasks.ui.NavigationDrawerFragment.OnFilterItemClickedListener;
 
-public class TaskListActivity extends AstridActivity implements OnPageChangeListener, OnFilterItemClickedListener, RecognizerApiListener {
+public class TaskListActivity extends AstridActivity implements OnPageChangeListener, OnFilterItemClickedListener {
 
     @Inject TagDataDao tagDataDao;
     @Inject ActivityPreferences preferences;
     @Inject GtasksPreferenceService gtasksPreferenceService;
+    @Inject VoiceInputAssistant voiceInputAssistant;
 
     private NavigationDrawerFragment navigationDrawer;
 
@@ -319,6 +316,16 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Callback<String> quickAddTask = new Callback<String>() {
+            @Override
+            public void apply(String title) {
+                getTaskListFragment().quickAddBar.quickAddTask(title);
+            }
+        };
+        if (voiceInputAssistant.handleActivityResult(requestCode, resultCode, data, quickAddTask)) {
+            return;
+        }
+
         if ((requestCode == NavigationDrawerFragment.REQUEST_NEW_LIST ||
                 requestCode == TaskListFragment.ACTIVITY_REQUEST_NEW_FILTER) &&
                 resultCode == Activity.RESULT_OK) {
@@ -454,7 +461,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         TaskListFragment tlf = getTaskListFragment();
         switch(item.getItemId()) {
             case R.id.menu_voice_add:
-                getTaskListFragment().startVoiceRecognition();
+                voiceInputAssistant.startVoiceRecognitionActivity(R.string.voice_create_prompt);
                 return true;
             case R.id.menu_sort:
                 AlertDialog dialog = SortSelectionActivity.createDialog(
@@ -492,46 +499,5 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
 
     public boolean isDrawerOpen() {
         return navigationDrawer.isDrawerOpen();
-    }
-
-    // Voice recognizer callbacks
-    @Override
-    public void onSpeechResult(String result) {
-        TaskListFragment tlf = getTaskListFragment();
-        if (tlf != null) {
-            tlf.quickAddBar.quickAddTask(result);
-        }
-    }
-
-    @Override
-    public void onSpeechError(int error) {
-        TaskListFragment tlf = getTaskListFragment();
-        if (tlf != null) {
-            QuickAddBar quickAdd = tlf.quickAddBar;
-            if (quickAdd != null) {
-                VoiceRecognizer vr = getTaskListFragment().getVoiceRecognizer();
-                if (vr != null) {
-                    vr.cancel();
-                }
-            }
-        }
-
-        int errorStr = 0;
-        switch(error) {
-            case SpeechRecognizer.ERROR_NETWORK:
-            case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
-                errorStr = R.string.speech_err_network;
-                break;
-            case SpeechRecognizer.ERROR_NO_MATCH:
-                Toast.makeText(this, R.string.speech_err_no_match, Toast.LENGTH_LONG).show();
-                break;
-            default:
-                errorStr = R.string.speech_err_default;
-                break;
-        }
-
-        if (errorStr > 0) {
-            DialogUtilities.okDialog(this, getString(errorStr), null);
-        }
     }
 }

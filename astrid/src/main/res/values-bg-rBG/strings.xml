@@ -247,15 +247,11 @@
 	<string name="locale_notification">Вие имате $NUM съвпадения: $FILTER</string>
 	<string name="EPr_powerpack_header">Резервни копия</string>
 	<string name="EPr_powerpack_summary">Напомняния за пропуснати повиквания, гласово въвеждане и разни настройки</string>
-	<string name="speech_err_network">Мрежова грешка! Разпознаване на говор изисква връзка с мрежата за да работи.</string>
-	<string name="speech_err_no_match">За съжаление, аз не можах да разбера това! Моля, опитайте отново.</string>
-	<string name="speech_err_default">Съжаляваме, възникна грешка при разпознаване на говор. Моля, опитайте отново.</string>
 	<string name="premium_attach_file">Прикачи файл</string>
 	<string name="premium_record_audio">Запис на бележка</string>
 	<string name="premium_remove_file_confirm">Сигурни ли сте? Не може да бъде отменено</string>
 	<string name="audio_recording_title">Записване на Аудио</string>
 	<string name="audio_stop_recording">Спри Записването</string>
-	<string name="audio_speak_now">Говорете Сега!</string>
 	<string name="search_market_audio"> Не е намерен плейър, който да работи с този тип аудио. Бихте ли искали да изтеглите аудио плейър от Android Market?</string>
 	<string name="search_market_audio_title">Не е намерен аудио плейър</string>
 	<string name="search_market_pdf">Не е намерен PDF четец. Бихте ли искали да си изтеглите PDF четец от Android Market?</string>
@@ -344,7 +340,6 @@
 	<string name="TEA_timer_comment_stopped">тази задача е приключена на:</string>
 	<string name="TEA_timer_comment_spent">Отделено време:</string>
 	<string name="voice_create_prompt">Говорете за да създадете задача</string>
-	<string name="voice_edit_note_prompt">Говорете за да зададете описание на задача</string>
 	<string name="EPr_voiceInputEnabled_title">Гласово въвеждане</string>
 	<string name="EPr_voiceRemindersEnabled_title">Гласови напомняния</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks ще изтоваря имената на задачите по време на напомняния за задача</string>

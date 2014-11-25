@@ -338,15 +338,11 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="locale_notification">Tem $NUM ocorrências para: $FILTER</string>
 	<string name="EPr_powerpack_header">Definições avançadas</string>
 	<string name="EPr_powerpack_summary">Lembretes de chamadas, entrada por voz e outras definições</string>
-	<string name="speech_err_network">Erro de rede! O reconhecimento de voz requer uma ligação de rede ativa.</string>
-	<string name="speech_err_no_match">Não consegui perceber! Tente novamente.</string>
-	<string name="speech_err_default">O reconhecimento de voz detetou um erro. Tente novamente.</string>
 	<string name="premium_attach_file">Anexar um ficheiro</string>
 	<string name="premium_record_audio">Gravar uma nota</string>
 	<string name="premium_remove_file_confirm">Tem a certeza? A ação não pode ser anulada!</string>
 	<string name="audio_recording_title">Gravação áudio</string>
 	<string name="audio_stop_recording">Parar gravação</string>
-	<string name="audio_speak_now">Falar agora!</string>
 	<string name="search_market_audio">Não foi encontrado um reprodutor para gerir este tipo de áudio. Gostaria de transferir um reprodutor na loja Google?</string>
 	<string name="search_market_audio_title">Reprodutor áudio não encontrado</string>
 	<string name="search_market_pdf">Nenhum leitor PDF encontrado. Gostaria de transferir um leitor de PDF na loja Google?</string>
@@ -503,7 +499,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="TEA_timer_comment_stopped">parou de fazer esta tarefa:</string>
 	<string name="TEA_timer_comment_spent">Tempo gasto:</string>
 	<string name="voice_create_prompt">Falar para criar uma tarefa</string>
-	<string name="voice_edit_note_prompt">Falar para definir a descrição</string>
 	<string name="EPr_voiceInputEnabled_title">Entrada por voz</string>
 	<string name="EPr_voiceRemindersEnabled_title">Lembretes de voz</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">O Tasks irá reproduzir o nome da tarefa durante os lembretes</string>

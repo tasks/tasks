@@ -339,15 +339,11 @@
 	<string name="locale_notification">Число відповідностей $FILTER: $NUM</string>
 	<string name="EPr_powerpack_header">Розширені налаштування</string>
 	<string name="EPr_powerpack_summary">Нагадування про пропущені дзвінки, голосове введення та інші установки</string>
-	<string name="speech_err_network">Помилка підключення! Для голосового розпізнавання потрібно інтернет з\'єднання.</string>
-	<string name="speech_err_no_match">Вибачте, я не розчув! Повторіть, будь ласка.</string>
-	<string name="speech_err_default">Вибачте, помилка служби голосового розпізнавання. Спробуйте, ще раз.</string>
 	<string name="premium_attach_file">Прикріпити файл</string>
 	<string name="premium_record_audio">Записати замітку</string>
 	<string name="premium_remove_file_confirm">Ви впевнені? Це не може бути скасовано.</string>
 	<string name="audio_recording_title">Запис аудіо</string>
 	<string name="audio_stop_recording">Зупинити запис</string>
-	<string name="audio_speak_now">Говоріть зараз!</string>
 	<string name="search_market_audio">Не знайдене програвач для цього типу аудіо. Хочете завантажити його з Play Market?</string>
 	<string name="search_market_audio_title">Не знайдено погравача</string>
 	<string name="search_market_pdf">Не знайдено програма для перегляду PDF файлів. Хочете завантажити її з Android Play Market?</string>

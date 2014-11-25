@@ -71,7 +71,6 @@ import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.utility.Flags;
-import com.todoroo.astrid.voice.VoiceRecognizer;
 import com.todoroo.astrid.widget.TasksWidget;
 
 import org.slf4j.Logger;
@@ -218,10 +217,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     public void setSyncOngoing(boolean ongoing) {
         listView.setRefreshing(ongoing);
         emptyView.setRefreshing(ongoing);
-    }
-
-    public VoiceRecognizer getVoiceRecognizer() {
-        return voiceRecognizer;
     }
 
     /**
@@ -491,31 +486,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
      * ======================================================================
      */
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        setupRecognizerApi();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        destroyRecognizerApi();
-    }
-
-    private VoiceRecognizer voiceRecognizer;
-
-    public void setupRecognizerApi() {
-        voiceRecognizer = VoiceRecognizer.instantiateVoiceRecognizer(getActivity(), (TaskListActivity) getActivity());
-    }
-
-    public void destroyRecognizerApi() {
-        voiceRecognizer.destroyRecognizerApi();
-    }
-
-    public void startVoiceRecognition() {
-        voiceRecognizer.startVoiceRecognition(getActivity(), this);
-    }
     @Override
     public void onResume() {
         super.onResume();

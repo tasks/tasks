@@ -327,15 +327,11 @@
 	<string name="locale_notification">Máš $NUM se značkou $FILTER</string>
 	<string name="EPr_powerpack_header">Další nastavení</string>
 	<string name="EPr_powerpack_summary">Upomínky na zmeškané hovory, nastavení pro hlasové zadávání a další</string>
-	<string name="speech_err_network">Chyba sítě! Rozpoznávání řeči vyžaduje funkční síťové připojení.</string>
-	<string name="speech_err_no_match">Je mi líto, ale nerozuměla jsem! Zkuste to znovu.</string>
-	<string name="speech_err_default">Rozpoznávání řeči narazilo na problém. Zkuste to prosím znovu.</string>
 	<string name="premium_attach_file">Přiložit soubor</string>
 	<string name="premium_record_audio">Nahrát poznámku</string>
 	<string name="premium_remove_file_confirm">Skutečně? Nebude cesty zpět</string>
 	<string name="audio_recording_title">Nahrávám zvuk</string>
 	<string name="audio_stop_recording">Ukončit záznam</string>
-	<string name="audio_speak_now">Hovořte!</string>
 	<string name="search_market_audio_title">Audio přehrávač nebyl nalezen</string>
 	<string name="search_market_pdf_title">Chybí prohlížeč PDF</string>
 	<string name="search_market_ms">Chybí prohlížeč MS Office. Přejete si ho stáhnout z Android Marketu?</string>
@@ -487,7 +483,6 @@
 	<string name="TEA_timer_comment_stopped">skončil tento úkol:</string>
 	<string name="TEA_timer_comment_spent">Strávený čas:</string>
 	<string name="voice_create_prompt">Mluvte pro vytvoření úkolu</string>
-	<string name="voice_edit_note_prompt">Namluvit popis úkolu</string>
 	<string name="EPr_voiceRemindersEnabled_title">Hlasové upomínky</string>
 	<string name="widget_mini">Úkoly</string>
 	<string name="EPr_use_dark_theme_widget">Tmavé téma widgetu</string>

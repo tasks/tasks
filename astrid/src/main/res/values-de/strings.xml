@@ -326,15 +326,11 @@
 	<string name="locale_notification">Du hast $NUM Übereinstimmungen mit: $FILTER</string>
 	<string name="EPr_powerpack_header">Premium und erweiterte Einstellungen</string>
 	<string name="EPr_powerpack_summary">Verpasste Anruf Erinnerungen, Spracheingabe und Andere Einstellungen</string>
-	<string name="speech_err_network">Netzwerkfehler! Spracherkennung benötigt eine Internetverbindung um zu funktionieren.</string>
-	<string name="speech_err_no_match">Entschuldigung! Ich konnte das nicht verstehen! Bitte versuchen Sie es erneut.</string>
-	<string name="speech_err_default">Tut uns leid, die Spracherkennung konnte das nicht verarbeiten. Bitte versuchen Sie es erneut.</string>
 	<string name="premium_attach_file">Datei anhängen</string>
 	<string name="premium_record_audio">Notiz aufzeichnen</string>
 	<string name="premium_remove_file_confirm">Sind Sie sicher? Das kann nicht rückgängig gemacht werden</string>
 	<string name="audio_recording_title">Audio aufnehmen</string>
 	<string name="audio_stop_recording">Aufnahme stoppen</string>
-	<string name="audio_speak_now">Sprechen Sie jetzt!</string>
 	<string name="search_market_audio">Dieser Dateityp kann nicht geöffnet werden. Möchten Sie einen Audio-Player von Google Play herunterladen?</string>
 	<string name="search_market_audio_title">Es wurde kein Audio-Player gefunden</string>
 	<string name="search_market_pdf">Dieser Dateityp kann nicht geöffnet werden. Möchten Sie einen PDF-Reader von Google Play herunterladen?</string>
@@ -491,7 +487,6 @@
 	<string name="TEA_timer_comment_stopped">Bearbeitung abgebrochen:</string>
 	<string name="TEA_timer_comment_spent">Benötigte Zeit:</string>
 	<string name="voice_create_prompt">Sprechen Sie, um eine Aufgabe anzulegen</string>
-	<string name="voice_edit_note_prompt">Sprechen Sie, um Aufgabennotizen zu setzen</string>
 	<string name="EPr_voiceInputEnabled_title">Spracheingabe aktivieren</string>
 	<string name="EPr_voiceRemindersEnabled_title">Sprach-Erinnerungen</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks wird Aufgabennamen bei der Erinnerung aussprechen</string>

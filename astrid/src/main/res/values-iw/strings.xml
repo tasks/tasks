@@ -333,15 +333,11 @@
 	<string name="locale_notification">יש לך $NUM המתאימים: $FILTER</string>
 	<string name="EPr_powerpack_header">פרימיום והגדרות שונות</string>
 	<string name="EPr_powerpack_summary">תזכורת קולית הוחמצה, קלט קולי והגדרות כלליות</string>
-	<string name="speech_err_network">שגיאת חיבור! זיהוי דיבור דורש חיבור לאינטרנט.</string>
-	<string name="speech_err_no_match">סליחה, לא הבנתי! אנא נסה שוב.</string>
-	<string name="speech_err_default">סליחה, מזהה הדיבור נתקל בבעיה. אנא נסה שנית.</string>
 	<string name="premium_attach_file">צרף קובץ</string>
 	<string name="premium_record_audio">הקלד הערה</string>
 	<string name="premium_remove_file_confirm">בטוח? לא ניתן לבטל את הפעולה</string>
 	<string name="audio_recording_title">מקליטה שֵׁמַע</string>
 	<string name="audio_stop_recording">הפסק הקלטה</string>
-	<string name="audio_speak_now">דַּבֵּר כעת!</string>
 	<string name="search_market_audio">לא מצאתי נגן לסוג זה של קובץ שֵׁמַע. הֲתִּרְצֶה להוריד נגן מחנות גוגל?</string>
 	<string name="search_market_audio_title">לא נמצא נגן לקבצי שֵׁמַע</string>
 	<string name="search_market_pdf">לא מצאתי קורא קבצי PDF. הֲתִּרְצֶה להוריד קורא קבצי PDF מחנות היישומים?</string>
@@ -494,7 +490,6 @@
 	<string name="TEA_timer_comment_stopped">הפסק ביצוע של משימה זו:</string>
 	<string name="TEA_timer_comment_spent">זמן שהושקע:</string>
 	<string name="voice_create_prompt">דַּבֵּר כדי ליצור משימה</string>
-	<string name="voice_edit_note_prompt">דַּבֵּר כדי לקבוע את ההערות למשימה</string>
 	<string name="EPr_voiceInputEnabled_title">קלט קולי</string>
 	<string name="EPr_voiceRemindersEnabled_title">תזכורות קוליות</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">אסטריד תאמר את שם המשימה כחלק מהתזכורת</string>

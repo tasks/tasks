@@ -22,19 +22,7 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:gravity="center_vertical">
-	    <!-- Voice Add Note Button -->
 
-	    <ImageButton
-	        android:id="@+id/voiceAddNoteButton"
-	        android:layout_width="39dip"
-	        android:layout_height="39dip"
-	        android:paddingLeft="10dip"
-            android:paddingRight="10dip"
-	        android:background="@android:color/transparent"
-	        android:scaleType="center"
-	        android:src="?attr/ic_action_mic"
-	        android:layout_gravity="top"
-	        android:visibility="gone" />
         <EditText
 	      android:id="@+id/notes"
 	      android:layout_width="wrap_content"

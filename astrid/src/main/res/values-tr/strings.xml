@@ -300,15 +300,11 @@
 	<string name="locale_notification">$FILTER konumunda $NUM var</string>
 	<string name="EPr_powerpack_header">Gelişmiş ayarlar</string>
 	<string name="EPr_powerpack_summary">Çağrı hatırlatıcılar, ses girdileri ve çeşitli ayarlar</string>
-	<string name="speech_err_network">Ağ hatası! Konuşmanın tanınması çalışması için bir ağ bağlantısına gerek duyar.</string>
-	<string name="speech_err_no_match">Üzgünüm, bunu anlayamadım! Lütfen yeniden deneyin.</string>
-	<string name="speech_err_default">Üzgünüm, konuşma tanınma işlevi hata verdi. Lütfen yeniden deneyin.</string>
 	<string name="premium_attach_file">Bir dosya ekle</string>
 	<string name="premium_record_audio">Bir not kaydet</string>
 	<string name="premium_remove_file_confirm">Emin misiniz? Geri döndürülemez</string>
 	<string name="audio_recording_title">Ses Kaydediliyor</string>
 	<string name="audio_stop_recording">Kaydı Durdur</string>
-	<string name="audio_speak_now">Şimdi Konuşun!</string>
 	<string name="search_market_audio">Bu ses türünü çalan bir oynatıcı bulunamadı. Google Play\'den bir ses yürütücüsü indirmek iste misiniz?</string>
 	<string name="search_market_audio_title">Ses oynatıcı bulunamadı</string>
 	<string name="search_market_pdf">PDF okuyucu bulunamadı. Google Play\'den bir PDF okuyucu indirmek iste misiniz?</string>
@@ -450,7 +446,6 @@
 	<string name="TEA_timer_comment_stopped">bu görevden vazgeç:</string>
 	<string name="TEA_timer_comment_spent">Harcanan zaman:</string>
 	<string name="voice_create_prompt">Yeni görev için konuş</string>
-	<string name="voice_edit_note_prompt">Görev notları için konuş</string>
 	<string name="EPr_voiceInputEnabled_title">Ses Girişi</string>
 	<string name="EPr_voiceRemindersEnabled_title">Sesli Hatırlatmalar</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks görev isimlerini görev hatırlatmaları sırasında söyleyecek</string>
