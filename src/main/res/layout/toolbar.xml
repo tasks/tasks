@@ -1,5 +1,9 @@
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tasks="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="?attr/asAbBackgroundColor" />
+    android:background="?attr/asAbBackgroundColor"
+    tasks:theme="@style/ActionBarThemeOverlay"
+    tasks:popupTheme="@style/ActionBarPopupThemeOverlay"
+    tasks:titleTextAppearance="@style/ActionBar.TitleText" />

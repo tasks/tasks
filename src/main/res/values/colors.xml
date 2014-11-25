@@ -7,7 +7,6 @@
 <resources>
     <color name="task_list_overdue">#FFFB6666</color>
     <color name="task_list_done">#ff777777</color>
-    <color name="text_color_hint">#dde0e0e0</color>
     <color name="task_edit_deadline_gray">#888888</color>
     
     <color name="blue_theme_color">#33b5e5</color>
@@ -27,6 +26,8 @@
 
     <color name="drawer_background_selected">#dddddd</color>
     <color name="drawer_background">#efefef</color>
+    <color name="white_text">#fff</color>
+    <color name="white_text_hint">#eee</color>
 
     <color name="importance_1">#ffff5555</color>
     <color name="importance_2">#fffea400</color>

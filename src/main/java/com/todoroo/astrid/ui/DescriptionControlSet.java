@@ -30,7 +30,7 @@ public class DescriptionControlSet extends PopupControlSet {
     protected ImageView image;
 
     public DescriptionControlSet(ActivityPreferences preferences, Activity activity) {
-        super(preferences, activity, R.layout.control_set_notes, R.layout.control_set_notes_display, R.string.TEA_note_label);
+        super(preferences, activity, R.layout.control_set_description, R.layout.control_set_notes_display, R.string.TEA_note_label);
         image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
     }
 

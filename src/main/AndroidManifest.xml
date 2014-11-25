@@ -5,8 +5,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.tasks"
-    android:versionName="4.6.18"
-    android:versionCode="333">
+    android:versionName="4.7"
+    android:versionCode="334">
 
     <!-- widgets, alarms, and services will break if Astrid is installed on SD card -->
     <!--    android:installLocation="internalOnly"> -->

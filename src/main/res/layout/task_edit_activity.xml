@@ -107,6 +107,8 @@
             android:capitalize="sentences"
             android:imeOptions="flagNoExtractUi"
             android:hint="@string/TVA_add_comment"
+            android:textColor="@color/white_text"
+            android:textColorHint="@color/white_text_hint"
             android:paddingLeft="10dip"
             android:textSize="16sp" />
 

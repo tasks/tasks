@@ -39,7 +39,6 @@
         android:scrollbars="vertical"
         android:imeOptions="flagNoExtractUi"
         android:text=""
-        android:textColorHint="@color/text_color_hint"
         android:textColor="?attr/asTextColor" />
 
 </LinearLayout>
