@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+** Copyright (c) 2012 Todoroo Inc
+**
+** See the file "LICENSE" for the full license governing this code. 
+-->
+<resources>
+    <color name="task_list_overdue">#FFFB6666</color>
+    <color name="task_list_done">#ff777777</color>
+    
+    <color name="task_edit_deadline_gray">#888888</color>
+    
+    <color name="blue_theme_color">#33b5e5</color>
+    <color name="red_theme_color">#d90000</color>
+    <color name="dark_blue_theme_color">#1f78b4</color>
+    <color name="reminder_background">#262626</color>
+    <color name="task_edit_selected">#385487</color>
+    
+    <color name="widget_text_color_light">#535353</color>
+    <color name="widget_text_color_dark">#ffffff</color>
+    <color name="widget_header_light">#dde0e0e0</color>
+    <color name="widget_header_dark">#dd000000</color>
+    <color name="widget_body_light">#ddffffff</color>
+    <color name="widget_body_dark">#dd000000</color>
+    <color name="task_row_bg_dark_pressed">#303030</color>
+    <color name="task_row_bg_white_pressed">#dde1eb</color>
+
+    <color name="drawer_background_selected">#dddddd</color>
+    <color name="drawer_background">#efefef</color>
+
+    <color name="importance_1">#ffff5555</color>
+    <color name="importance_2">#fffea400</color>
+    <color name="importance_3">#ff33a5e8</color>
+    <color name="importance_4">#ff808080</color>
+    <color name="importance_5">#ff505050</color>
+    <color name="importance_6">#ff202020</color>
+
+</resources>
+

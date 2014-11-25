@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="EPr_use_dark_theme_widget">Dark widget theme</string>
+    <string name="delete_task">Delete task</string>
+    <string name="TLA_menu_support">Support</string>
+    <string name="voice_command_added_task">Added task</string>
+    <string name="external_storage_unavailable">Cannot access external storage</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- ==================================================== Generic Units == -->
+
+    <plurals name="Ntasks">
+        <!-- plurals: tasks -->
+        <item quantity="one">1 task</item>
+        <!-- plurals: tasks -->
+        <item quantity="other">%d tasks</item>
+    </plurals>
+
+    <!-- slide 10a, 12c: today -->
+    <string name="today">Today</string>
+
+    <!-- tomorrow -->
+    <string name="tomorrow">Tomorrow</string>
+
+    <!-- yesterday -->
+    <string name="yesterday">Yesterday</string>
+
+    <!-- slide 12c: tomorrow, abbreviated -->
+    <string name="tmrw">Tmrw</string>
+
+    <!-- slide 12c: yesterday, abbreviated -->
+    <string name="yest">Yest</string>
+
+    <!-- ================================================== Generic Dialogs == -->
+
+    <!-- confirmation dialog title -->
+    <string name="DLG_confirm_title">Confirm?</string>
+
+    <!-- question dialog title -->
+    <string name="DLG_question_title">Question:</string>
+
+    <!-- information dialog title -->
+    <string name="DLG_information_title">Information</string>
+
+    <!-- general dialog close-->
+    <string name="DLG_close">Close</string>
+
+    <!-- error dialog (%s => error message)-->
+    <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s</string>
+
+    <!-- Progress dialog shown when doing something slow -->
+    <string name="DLG_wait">Please wait...</string>
+
+    <!-- ====================================================== SyncProvider == -->
+
+    <!-- Sync Label: used in menu to denote synchronization -->
+    <string name="SyP_label">Sync &amp; backup</string>
+
+    <!-- Sync label subtitle -->
+    <string name="SyP_summary">Google Tasks, saved data, local backup</string>
+
+    <!-- ================================================== SyncPreferences == -->
+
+    <!-- Status Group Label -->
+    <string name="sync_SPr_group_status">Status</string>
+
+    <!-- Sync status subtitle, %s-> status message -->
+    <string name="sync_SPr_status_subtitle">Status: %s</string>
+    <!-- Sync Status: log in -->
+    <string name="sync_status_loggedout">Not logged in</string>
+    <!-- Status: ongoing -->
+    <string name="sync_status_ongoing">Sync ongoing...</string>
+    <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->
+    <string name="sync_status_success">Last sync:\n%s</string>
+    <!-- Sync Status: failure status (%s -> last attempted sync date) -->
+    <string name="sync_status_failed">Failed on: %s</string>
+    <!-- Sync Status: error status (%s -> last sync date) -->
+    <string name="sync_status_errors">Sync w/ errors: %s</string>
+    <!-- Sync Status: never sync'd -->
+    <string name="sync_status_never">Never synchronized!</string>
+
+    <!-- Options Group Label -->
+    <string name="sync_SPr_group_options">Options</string>
+
+    <!-- Preference: Synchronization Interval Title -->
+    <string name="sync_SPr_interval_title">Background sync</string>
+    <!-- Preference: Synchronization Interval Description (when disabled) -->
+    <string name="sync_SPr_interval_desc_disabled">Background synchronization is disabled</string>
+    <!-- Preference: Synchronization Interval Description (%s => setting) -->
+    <string name="sync_SPr_interval_desc">Currently set to: %s</string>
+
+    <!-- Synchronize Now Button -->
+    <string name="sync_SPr_sync">Synchronize now</string>
+
+    <!-- Sync: Last error -->
+    <string name="sync_SPr_last_error">Status report</string>
+
+    <!-- Sync: last error click for more -->
+    <string name="sync_SPr_last_error_subtitle">Click to send a report to the Tasks team</string>
+    <!-- Sync: send error report button -->
+    <string name="sync_SPr_send_report">Send report</string>
+
+    <!-- Sync: Clear Data Title -->
+    <string name="sync_SPr_forget">Log out</string>
+    <!-- Sync: Clear Data Description -->
+    <string name="sync_SPr_forget_description">Clears all synchronization data</string>
+
+    <!-- confirmation dialog for sync log out -->
+    <string name="sync_forget_confirm">Log out/clear synchronization data?</string>
+
+    <!-- Sync error: network connectivity problems. %s-> name of sync service-->
+  <string name="sync_error_offline">There was a problem connecting to the network
+      during the last sync with %s. Please try again later.</string>
+
+    <string-array name="sync_SPr_interval_entries">
+        <!-- sync_SPr_interval_entries: Synchronization Intervals -->
+        <item>disable</item>
+        <item>every fifteen minutes</item>
+        <item>every thirty minutes</item>
+        <item>every hour</item>
+        <item>every three hours</item>
+        <item>every six hours</item>
+        <item>every twelve hours</item>
+        <item>every day</item>
+        <item>every three days</item>
+        <item>every week</item>
+    </string-array>
+
+</resources>

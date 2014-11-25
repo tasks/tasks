@@ -2,7 +2,7 @@
 
 INPUT="$1"
 FILENAME="$2"
-RESOURCES=../astrid/src/main/res
+RESOURCES=../src/main/res
 
 convert -resize 144x144 ${INPUT} ${RESOURCES}/drawable-xxhdpi/${FILENAME}
 convert -resize 96x96 ${INPUT} ${RESOURCES}/drawable-xhdpi/${FILENAME}

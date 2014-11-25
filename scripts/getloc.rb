@@ -106,15 +106,15 @@ end
 class Android
   def self.tmp_files
       FileUtils.mkdir_p "translations"
-    ["translations/strings.xml", "translations/strings-api.xml"]
+    ["translations/strings.xml"]
   end
 
   def self.src_files(cmd, type)
     if cmd == :export && type == "master"
-      %x[./scripts/catxml astrid/src/main/res/values/strings*.xml > #{self.tmp_files[0]}]
-      lambda { |l| ["translations/strings.xml", "api/src/main/res/values/strings.xml"] }
+      %x[./scripts/catxml src/main/res/values/strings*.xml > #{self.tmp_files[0]}]
+      lambda { |l| ["translations/strings.xml"] }
     else
-      lambda { |l| ["astrid/src/main/res/values-#{l}/strings.xml", "api/src/main/res/values-#{l}/strings.xml"] }
+      lambda { |l| ["src/main/res/values-#{l}/strings.xml"] }
     end
   end
 end
