@@ -55,7 +55,7 @@
 		          android:layout_height="wrap_content"
 		          android:layout_marginLeft="10dip"   
 		          android:text="@string/TEA_reminder_randomly" />
-		        <com.todoroo.astrid.ui.ErrorCatchingSpinner
+		        <Spinner
 		          android:id="@+id/reminder_random_interval"
 		          android:layout_width="fill_parent"
 		          android:layout_height="wrap_content" />
@@ -85,7 +85,7 @@
 		             android:gravity="right"
 		             android:paddingLeft="10dip"
                      android:textColor="?attr/asThemeTextColor" />
-			      <com.todoroo.astrid.ui.ErrorCatchingSpinner
+			      <Spinner
 			        android:id="@+id/reminder_alarm"
 			        android:layout_width="0dip"
 			        android:layout_height="wrap_content" />

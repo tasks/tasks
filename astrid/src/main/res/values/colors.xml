@@ -25,11 +25,6 @@
     <color name="task_row_bg_dark_pressed">#303030</color>
     <color name="task_row_bg_white_pressed">#dde1eb</color>
 
-    <color name="refresh_color_1">#ff33b5e5</color>
-    <color name="refresh_color_2">#ffffbb33</color>
-    <color name="refresh_color_3">#ff99cc00</color>
-    <color name="refresh_color_4">#ffff4444</color>
-
     <color name="drawer_background_selected">#dddddd</color>
     <color name="drawer_background">#efefef</color>
 </resources>

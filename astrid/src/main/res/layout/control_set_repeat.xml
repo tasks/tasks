@@ -37,7 +37,8 @@
           
     </LinearLayout>
     
-    <com.todoroo.astrid.ui.ErrorCatchingSpinner android:id="@+id/repeatType"
+    <Spinner
+        android:id="@+id/repeatType"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" 
         android:entries="@array/repeat_type"/>

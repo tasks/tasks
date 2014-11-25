@@ -9,7 +9,7 @@
   android:orientation="vertical"
   android:layout_width="0dip"
   android:layout_height="0dip">
-  <com.todoroo.astrid.ui.ErrorCatchingSpinner
+  <Spinner
     android:id="@+id/hideUntil"
     android:layout_width="0dip"
     android:layout_height="0dip" />

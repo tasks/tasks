@@ -292,10 +292,10 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     private void setupRefresh(SwipeRefreshLayout layout) {
         layout.setOnRefreshListener(this);
         layout.setColorScheme(
-                R.color.refresh_color_1,
-                R.color.refresh_color_2,
-                R.color.refresh_color_3,
-                R.color.refresh_color_4);
+                R.color.importance_1,
+                R.color.importance_2,
+                R.color.importance_3,
+                R.color.importance_4);
     }
 
     @Override

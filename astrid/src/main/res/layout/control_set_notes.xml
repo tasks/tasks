@@ -39,6 +39,7 @@
 	      android:autoText="true"
 	      android:capitalize="sentences"
 	      android:singleLine="false"
+          android:textColorHint="@color/widget_text_color_light"
 	      android:textColor="?attr/asTextColor"
 	      android:freezesText="true" />
 	  </LinearLayout>

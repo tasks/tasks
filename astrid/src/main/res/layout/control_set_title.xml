@@ -24,7 +24,7 @@
         android:scaleType="center"
         android:src="@drawable/btn_check" />
 
-    <com.todoroo.astrid.ui.ErrorCatchingEditText
+    <EditText
         android:id="@+id/title"
         android:cursorVisible="false"
         android:layout_width="fill_parent"
