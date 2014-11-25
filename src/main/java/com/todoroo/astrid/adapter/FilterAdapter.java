@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Parcelable;
-import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,9 +38,6 @@ import org.tasks.R;
 import org.tasks.filters.FilterCounter;
 import org.tasks.injection.Injector;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class FilterAdapter extends ArrayAdapter<Filter> {
 
     // --- style constants
@@ -54,13 +50,13 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     private final FilterCounter filterCounter;
 
     /** parent activity */
-    protected final Activity activity;
+    private final Activity activity;
 
     /** owner listview */
-    protected ListView listView;
+    private ListView listView;
 
     /** display metrics for scaling icons */
-    protected final DisplayMetrics metrics = new DisplayMetrics();
+    private final DisplayMetrics metrics = new DisplayMetrics();
 
     private final FilterListUpdateReceiver filterListUpdateReceiver = new FilterListUpdateReceiver();
 
@@ -112,7 +108,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         });
     }
 
-    public void addOrLookup(Filter filter) {
+    private void addOrLookup(Filter filter) {
         int index = getPosition(filter);
         if (index >= 0) {
             Filter existing = getItem(index);
@@ -146,14 +142,13 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     /**
      * Create or reuse a view
      */
-    protected View newView(View convertView, ViewGroup parent) {
+    private View newView(View convertView, ViewGroup parent) {
         if(convertView == null) {
             convertView = inflater.inflate(layout, parent, false);
             ViewHolder viewHolder = new ViewHolder();
             viewHolder.view = convertView;
             viewHolder.name = (TextView)convertView.findViewById(R.id.name);
             viewHolder.size = (TextView)convertView.findViewById(R.id.size);
-            viewHolder.decoration = null;
             convertView.setTag(viewHolder);
         }
         return convertView;
@@ -164,7 +159,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         public TextView name;
         public TextView size;
         public View view;
-        public View decoration;
     }
 
 
@@ -227,7 +221,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         }
     }
 
-    protected void populateFiltersToAdapter(AstridFilterExposer astridFilterExposer) {
+    private void populateFiltersToAdapter(AstridFilterExposer astridFilterExposer) {
         Parcelable[] filters = astridFilterExposer.getFilters(injector);
         if (filters == null) {
             return;
@@ -243,13 +237,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
                 addOrLookup((Filter) filter);
             }
         }
-
-        filterCounter.refreshFilterCounts(new Runnable() {
-            @Override
-            public void run() {
-                notifyDataSetChanged();
-            }
-        });
     }
 
     public void getLists() {
@@ -258,6 +245,13 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         populateFiltersToAdapter(new CustomFilterExposer());
         populateFiltersToAdapter(new TagFilterExposer());
         populateFiltersToAdapter(new GtasksFilterExposer());
+
+        filterCounter.refreshFilterCounts(new Runnable() {
+            @Override
+            public void run() {
+                notifyDataSetChanged();
+            }
+        });
     }
 
     /**
@@ -281,53 +275,32 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
      * ================================================================ views
      * ====================================================================== */
 
-    /** Pattern for matching filter counts in listing titles */
-    private final Pattern countPattern = Pattern.compile(".* \\((\\d+)\\)$"); //$NON-NLS-1$
-
-    public void populateView(ViewHolder viewHolder) {
+    private void populateView(ViewHolder viewHolder) {
         FilterListItem filter = viewHolder.item;
         if(filter == null) {
             return;
         }
 
         viewHolder.view.setBackgroundResource(0);
-
-        if(viewHolder.decoration != null) {
-            ((ViewGroup)viewHolder.view).removeView(viewHolder.decoration);
-            viewHolder.decoration = null;
-        }
-
         viewHolder.name.setTextAppearance(activity, filterStyle);
         viewHolder.name.setShadowLayer(0, 0, 0, 0);
 
         String title = filter.listingTitle;
-        Matcher match = countPattern.matcher(filter.listingTitle);
-        if(match.matches()) {
-            title = title.substring(0, title.lastIndexOf(' '));
-        }
         if(!title.equals(viewHolder.name.getText())) {
             viewHolder.name.setText(title);
         }
 
-        // title / size
-        int countInt = -1;
-        if(filterCounter.containsKey(filter) || (!TextUtils.isEmpty(filter.listingTitle) && filter.listingTitle.matches(".* \\(\\d+\\)$"))) { //$NON-NLS-1$
+        int countInt;
+        if(filterCounter.containsKey(filter)) {
             viewHolder.size.setVisibility(View.VISIBLE);
-            String count = "";
-            if (filterCounter.containsKey(filter)) {
-                Integer c = filterCounter.get(filter);
-                countInt = c;
-                count = c.toString();
-            }
-            if(!count.equals(viewHolder.size.getText())) {
-                viewHolder.size.setText(count);
-            }
+            countInt = filterCounter.get(filter);
+            viewHolder.size.setText(Integer.toString(countInt));
         } else {
             viewHolder.size.setVisibility(View.GONE);
             countInt = -1;
         }
 
-        if(countInt == 0 && filter instanceof FilterWithCustomIntent) {
+        if(countInt == 0) {
             viewHolder.size.setVisibility(View.GONE);
         }
 
