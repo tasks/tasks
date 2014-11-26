@@ -8,6 +8,7 @@ android:
     - android-21
     - platform-tools-21
     - build-tools-21.1.1
+    - extra-android-m2repository
   licenses:
     - 'android-sdk-license-.+'
 
@@ -18,4 +19,4 @@ before_install:
   - adb shell input keyevent 82 &
 
 script:
-  - ./gradlew :astrid:connectedAndroidTest
+  - ./gradlew :connectedAndroidTest
