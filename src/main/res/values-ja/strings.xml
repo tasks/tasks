@@ -507,54 +507,56 @@
 	<string name="TLA_menu_support">サポート</string>
 	<string name="voice_command_added_task">追加されたタスク</string>
 	<string name="external_storage_unavailable">外部メモリーにアクセスできません</string>
-    <plurals name="Ntasks">
-        <item quantity="one">タスク 1 件</item>
-        <item quantity="other">タスク %d 件</item>
-    </plurals>
-    <string name="today">今日</string>
-    <string name="tomorrow">明日</string>
-    <string name="yesterday">昨日</string>
-    <string name="tmrw">明日</string>
-    <string name="yest">昨日</string>
-    <string name="DLG_confirm_title">確認</string>
-    <string name="DLG_question_title">確認</string>
-    <string name="DLG_information_title">インフォメーション</string>
-    <string name="DLG_close">閉じる</string>
-    <string name="DLG_error">エラーが発生しました! 発生した内容\n\n%s</string>
-    <string name="DLG_wait">お待ちください</string>
-    <string name="SyP_label">同期</string>
-    <string name="SyP_summary">Google Tasks, 保存したデータ, ローカルのバックアップ</string>
-    <string name="sync_SPr_group_status">状況</string>
-    <string name="sync_SPr_status_subtitle">状況: %s</string>
-    <string name="sync_status_loggedout">ログインしていません</string>
-    <string name="sync_status_ongoing">同期中</string>
-    <string name="sync_status_success">前回の同期:\n%s</string>
-    <string name="sync_status_failed">失敗: %s</string>
-    <string name="sync_status_errors">同期でエラー: %s</string>
-    <string name="sync_status_never">同期していません</string>
-    <string name="sync_SPr_group_options">オプション</string>
-    <string name="sync_SPr_interval_title">バックグラウンド同期</string>
-    <string name="sync_SPr_interval_desc_disabled">バックグラウンド同期は無効になっています</string>
-    <string name="sync_SPr_interval_desc">現在の設定: %s</string>
-    <string name="sync_SPr_sync">すぐに同期</string>
-    <string name="sync_SPr_last_error">状況レポート</string>
-    <string name="sync_SPr_last_error_subtitle">クリックするとTasks チームにレポートを送信します</string>
-    <string name="sync_SPr_send_report">レポートを送信</string>
-    <string name="sync_SPr_forget">ログアウト</string>
-    <string name="sync_SPr_forget_description">すべての同期データを消去します</string>
-    <string name="sync_forget_confirm">ログアウトと同期データを消去しますか?</string>
+	<string name="navigation_drawer_open">ナビゲーションドロワーを開く</string>
+	<string name="navigation_drawer_close">ナビゲーションドロワーを閉じる</string>
+	<plurals name="Ntasks">
+		<item quantity="one">タスク 1 件</item>
+		<item quantity="other">タスク %d 件</item>
+	</plurals>
+	<string name="today">今日</string>
+	<string name="tomorrow">明日</string>
+	<string name="yesterday">昨日</string>
+	<string name="tmrw">明日</string>
+	<string name="yest">昨日</string>
+	<string name="DLG_confirm_title">確認</string>
+	<string name="DLG_question_title">確認</string>
+	<string name="DLG_information_title">インフォメーション</string>
+	<string name="DLG_close">閉じる</string>
+	<string name="DLG_error">エラーが発生しました! 発生した内容\n\n%s</string>
+	<string name="DLG_wait">お待ちください</string>
+	<string name="SyP_label">同期</string>
+	<string name="SyP_summary">Google Tasks, 保存したデータ, ローカルのバックアップ</string>
+	<string name="sync_SPr_group_status">状況</string>
+	<string name="sync_SPr_status_subtitle">状況: %s</string>
+	<string name="sync_status_loggedout">ログインしていません</string>
+	<string name="sync_status_ongoing">同期中</string>
+	<string name="sync_status_success">前回の同期:\n%s</string>
+	<string name="sync_status_failed">失敗: %s</string>
+	<string name="sync_status_errors">同期でエラー: %s</string>
+	<string name="sync_status_never">同期していません</string>
+	<string name="sync_SPr_group_options">オプション</string>
+	<string name="sync_SPr_interval_title">バックグラウンド同期</string>
+	<string name="sync_SPr_interval_desc_disabled">バックグラウンド同期は無効になっています</string>
+	<string name="sync_SPr_interval_desc">現在の設定: %s</string>
+	<string name="sync_SPr_sync">すぐに同期</string>
+	<string name="sync_SPr_last_error">状況レポート</string>
+	<string name="sync_SPr_last_error_subtitle">クリックするとTasks チームにレポートを送信します</string>
+	<string name="sync_SPr_send_report">レポートを送信</string>
+	<string name="sync_SPr_forget">ログアウト</string>
+	<string name="sync_SPr_forget_description">すべての同期データを消去します</string>
+	<string name="sync_forget_confirm">ログアウトと同期データを消去しますか?</string>
 	<string name="sync_error_offline">%s と前回の同期中にネットワークの接続の問題がありました.
 後で再度実行してください.</string>
-    <string-array name="sync_SPr_interval_entries">
-        <item>無効</item>
-        <item>15分毎</item>
-        <item>30分毎</item>
-        <item>1時間毎</item>
-        <item>3時間毎</item>
-        <item>6時間毎</item>
-        <item>12時間毎</item>
-        <item>毎日</item>
-        <item>3日に一度</item>
-        <item>毎週</item>
-    </string-array>
+	<string-array name="sync_SPr_interval_entries">
+		<item>無効</item>
+		<item>15分毎</item>
+		<item>30分毎</item>
+		<item>1時間毎</item>
+		<item>3時間毎</item>
+		<item>6時間毎</item>
+		<item>12時間毎</item>
+		<item>毎日</item>
+		<item>3日に一度</item>
+		<item>毎週</item>
+	</string-array>
 </resources>

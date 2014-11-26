@@ -466,52 +466,52 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks irá falar o nome das tarefas durante os lembretes</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks irá tocar um som durante o lembrete</string>
 	<string name="TLA_menu_support">Suporte</string>
-    <plurals name="Ntasks">
-        <item quantity="one">1 tarefa</item>
-        <item quantity="other">%d tarefas</item>
-    </plurals>
-    <string name="today">Hoje</string>
-    <string name="tomorrow">Amanhã</string>
-    <string name="yesterday">Ontem</string>
-    <string name="tmrw">amanhã</string>
-    <string name="yest">ontem</string>
-    <string name="DLG_confirm_title">Confirmar?</string>
-    <string name="DLG_question_title">Pergunta:</string>
-    <string name="DLG_information_title">Informações</string>
-    <string name="DLG_close">Fechar</string>
-    <string name="DLG_error">Opa, parece que ocorreu um erro! Aqui está o que aconteceu:\n\n%s</string>
-    <string name="DLG_wait">Por favor, aguarde...</string>
-    <string name="SyP_label">Sincronização</string>
-    <string name="SyP_summary">Google Tasks, dados salvos, backup local</string>
-    <string name="sync_SPr_group_status">Estado</string>
-    <string name="sync_status_loggedout">Não Registrado</string>
-    <string name="sync_status_ongoing">Sincronizando...</string>
-    <string name="sync_status_success">Última sincronização:\n%s</string>
-    <string name="sync_status_failed">Falhou em: %s</string>
-    <string name="sync_status_errors">Sicronizou com erros: %s</string>
-    <string name="sync_status_never">Nunca sincronizado!</string>
-    <string name="sync_SPr_group_options">Opções</string>
-    <string name="sync_SPr_interval_title">Sincronização em segundo plano</string>
-    <string name="sync_SPr_interval_desc_disabled">O serviço de sincronização em segundo plano está desativado</string>
-    <string name="sync_SPr_interval_desc">Atualmente definido para: %s</string>
-    <string name="sync_SPr_sync">Sincronizar agora</string>
-    <string name="sync_SPr_last_error">Relatório de status</string>
-    <string name="sync_SPr_last_error_subtitle">Clique para enviar um relatório para a equipe do Tasks</string>
-    <string name="sync_SPr_send_report">Enviar relatório</string>
-    <string name="sync_SPr_forget">Desconectar</string>
-    <string name="sync_SPr_forget_description">Limpar todos os dados de sincronização</string>
-    <string name="sync_forget_confirm">Desconectar / limpar dados de sincronização?</string>
-    <string name="sync_error_offline">Houve um problema na conexão durante a última sincronia com %s. Por favor tente novamente mais tarde.</string>
-    <string-array name="sync_SPr_interval_entries">
-        <item>desabilitar</item>
-        <item>a cada quinze minutos</item>
-        <item>a cada trinta minutos</item>
-        <item>a cada hora</item>
-        <item>a cada três horas</item>
-        <item>a cada seis horas</item>
-        <item>a cada doze horas</item>
-        <item>diariamente</item>
-        <item>a cada três dias</item>
-        <item>semanalmente</item>
-    </string-array>
+	<plurals name="Ntasks">
+		<item quantity="one">1 tarefa</item>
+		<item quantity="other">%d tarefas</item>
+	</plurals>
+	<string name="today">Hoje</string>
+	<string name="tomorrow">Amanhã</string>
+	<string name="yesterday">Ontem</string>
+	<string name="tmrw">amanhã</string>
+	<string name="yest">ontem</string>
+	<string name="DLG_confirm_title">Confirmar?</string>
+	<string name="DLG_question_title">Pergunta:</string>
+	<string name="DLG_information_title">Informações</string>
+	<string name="DLG_close">Fechar</string>
+	<string name="DLG_error">Opa, parece que ocorreu um erro! Aqui está o que aconteceu:\n\n%s</string>
+	<string name="DLG_wait">Por favor, aguarde...</string>
+	<string name="SyP_label">Sincronização</string>
+	<string name="SyP_summary">Google Tasks, dados salvos, backup local</string>
+	<string name="sync_SPr_group_status">Estado</string>
+	<string name="sync_status_loggedout">Não Registrado</string>
+	<string name="sync_status_ongoing">Sincronizando...</string>
+	<string name="sync_status_success">Última sincronização:\n%s</string>
+	<string name="sync_status_failed">Falhou em: %s</string>
+	<string name="sync_status_errors">Sicronizou com erros: %s</string>
+	<string name="sync_status_never">Nunca sincronizado!</string>
+	<string name="sync_SPr_group_options">Opções</string>
+	<string name="sync_SPr_interval_title">Sincronização em segundo plano</string>
+	<string name="sync_SPr_interval_desc_disabled">O serviço de sincronização em segundo plano está desativado</string>
+	<string name="sync_SPr_interval_desc">Atualmente definido para: %s</string>
+	<string name="sync_SPr_sync">Sincronizar agora</string>
+	<string name="sync_SPr_last_error">Relatório de status</string>
+	<string name="sync_SPr_last_error_subtitle">Clique para enviar um relatório para a equipe do Tasks</string>
+	<string name="sync_SPr_send_report">Enviar relatório</string>
+	<string name="sync_SPr_forget">Desconectar</string>
+	<string name="sync_SPr_forget_description">Limpar todos os dados de sincronização</string>
+	<string name="sync_forget_confirm">Desconectar / limpar dados de sincronização?</string>
+	<string name="sync_error_offline">Houve um problema na conexão durante a última sincronia com %s. Por favor tente novamente mais tarde.</string>
+	<string-array name="sync_SPr_interval_entries">
+		<item>desabilitar</item>
+		<item>a cada quinze minutos</item>
+		<item>a cada trinta minutos</item>
+		<item>a cada hora</item>
+		<item>a cada três horas</item>
+		<item>a cada seis horas</item>
+		<item>a cada doze horas</item>
+		<item>diariamente</item>
+		<item>a cada três dias</item>
+		<item>semanalmente</item>
+	</string-array>
 </resources>

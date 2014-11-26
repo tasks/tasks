@@ -503,51 +503,51 @@
 	<string name="TLA_menu_support">Ondersteuning</string>
 	<string name="voice_command_added_task">Toegevoegde taak</string>
 	<string name="external_storage_unavailable">Geen toegang tot externe opslag</string>
-    <plurals name="Ntasks">
-        <item quantity="one">1 taak</item>
-        <item quantity="other">%d taken</item>
-    </plurals>
-    <string name="today">Vandaag</string>
-    <string name="tomorrow">Morgen</string>
-    <string name="yesterday">Gisteren</string>
-    <string name="tmrw">mrgn</string>
-    <string name="yest">gisteren</string>
-    <string name="DLG_confirm_title">OK?</string>
-    <string name="DLG_question_title">Vraag:</string>
-    <string name="DLG_information_title">Informatie</string>
-    <string name="DLG_close">Sluit</string>
-    <string name="DLG_error">Er is een fout opgetreden:\n\n%s</string>
-    <string name="DLG_wait">Even geduld a.u.b.</string>
-    <string name="SyP_label">Synchronisatie</string>
-    <string name="SyP_summary">Google Taken, opgeslagen data, lokale back-up</string>
-    <string name="sync_status_loggedout">Niet aangemeld</string>
-    <string name="sync_status_ongoing">Synchronisatie bezig...</string>
-    <string name="sync_status_success">Vorige:\n%s</string>
-    <string name="sync_status_failed">Mislukt op: %s</string>
-    <string name="sync_status_errors">Gesync. met fouten: %s</string>
-    <string name="sync_status_never">Nooit gesynct!</string>
-    <string name="sync_SPr_group_options">Opties</string>
-    <string name="sync_SPr_interval_title">Achtergrond synchronisatie</string>
-    <string name="sync_SPr_interval_desc_disabled">Achtergrond synchronisatie uitgeschakeld</string>
-    <string name="sync_SPr_interval_desc">Huidige instelling: %s</string>
-    <string name="sync_SPr_sync">Nu synchroniseren</string>
-    <string name="sync_SPr_last_error">Statusrapport</string>
-    <string name="sync_SPr_last_error_subtitle">Klik om een rapport naar het Tasks team te versturen</string>
-    <string name="sync_SPr_send_report">Rapport verzenden</string>
-    <string name="sync_SPr_forget">Afmelden</string>
-    <string name="sync_SPr_forget_description">Alle synchronisatie gegevens verwijderen</string>
-    <string name="sync_forget_confirm">Afmelden / synchronisatie gegevens verwijderen?</string>
-    <string name="sync_error_offline">Er was een probleem met de netwerkverbinding tijdens de laatste synchronisatie met %s. Probeer het a.u.b. later nog eens.</string>
-    <string-array name="sync_SPr_interval_entries">
-        <item>uitschakelen</item>
-        <item>elke 15 min.</item>
-        <item>elke 30 min.</item>
-        <item>elk uur</item>
-        <item>elke 3 uur</item>
-        <item>elke 6 uur</item>
-        <item>elke 12 uur</item>
-        <item>elke dag</item>
-        <item>elke 3 dagen</item>
-        <item>elke week</item>
-    </string-array>
+	<plurals name="Ntasks">
+		<item quantity="one">1 taak</item>
+		<item quantity="other">%d taken</item>
+	</plurals>
+	<string name="today">Vandaag</string>
+	<string name="tomorrow">Morgen</string>
+	<string name="yesterday">Gisteren</string>
+	<string name="tmrw">mrgn</string>
+	<string name="yest">gisteren</string>
+	<string name="DLG_confirm_title">OK?</string>
+	<string name="DLG_question_title">Vraag:</string>
+	<string name="DLG_information_title">Informatie</string>
+	<string name="DLG_close">Sluit</string>
+	<string name="DLG_error">Er is een fout opgetreden:\n\n%s</string>
+	<string name="DLG_wait">Even geduld a.u.b.</string>
+	<string name="SyP_label">Synchronisatie</string>
+	<string name="SyP_summary">Google Taken, opgeslagen data, lokale back-up</string>
+	<string name="sync_status_loggedout">Niet aangemeld</string>
+	<string name="sync_status_ongoing">Synchronisatie bezig...</string>
+	<string name="sync_status_success">Vorige:\n%s</string>
+	<string name="sync_status_failed">Mislukt op: %s</string>
+	<string name="sync_status_errors">Gesync. met fouten: %s</string>
+	<string name="sync_status_never">Nooit gesynct!</string>
+	<string name="sync_SPr_group_options">Opties</string>
+	<string name="sync_SPr_interval_title">Achtergrond synchronisatie</string>
+	<string name="sync_SPr_interval_desc_disabled">Achtergrond synchronisatie uitgeschakeld</string>
+	<string name="sync_SPr_interval_desc">Huidige instelling: %s</string>
+	<string name="sync_SPr_sync">Nu synchroniseren</string>
+	<string name="sync_SPr_last_error">Statusrapport</string>
+	<string name="sync_SPr_last_error_subtitle">Klik om een rapport naar het Tasks team te versturen</string>
+	<string name="sync_SPr_send_report">Rapport verzenden</string>
+	<string name="sync_SPr_forget">Afmelden</string>
+	<string name="sync_SPr_forget_description">Alle synchronisatie gegevens verwijderen</string>
+	<string name="sync_forget_confirm">Afmelden / synchronisatie gegevens verwijderen?</string>
+	<string name="sync_error_offline">Er was een probleem met de netwerkverbinding tijdens de laatste synchronisatie met %s. Probeer het a.u.b. later nog eens.</string>
+	<string-array name="sync_SPr_interval_entries">
+		<item>uitschakelen</item>
+		<item>elke 15 min.</item>
+		<item>elke 30 min.</item>
+		<item>elk uur</item>
+		<item>elke 3 uur</item>
+		<item>elke 6 uur</item>
+		<item>elke 12 uur</item>
+		<item>elke dag</item>
+		<item>elke 3 dagen</item>
+		<item>elke week</item>
+	</string-array>
 </resources>

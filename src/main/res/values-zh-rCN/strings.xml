@@ -432,53 +432,53 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks在任务提醒时会以语音说出任务名称</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks在任务提醒时将会播放铃声</string>
 	<string name="TLA_menu_support">支持</string>
-    <plurals name="Ntasks">
-        <item quantity="one">1 个任务</item>
-        <item quantity="other">%d 个任务</item>
-    </plurals>
-    <string name="today">今天</string>
-    <string name="tomorrow">明天</string>
-    <string name="yesterday">昨天</string>
-    <string name="tmrw">明天</string>
-    <string name="yest">昨天</string>
-    <string name="DLG_confirm_title">确认?</string>
-    <string name="DLG_question_title">问题：</string>
-    <string name="DLG_information_title">信息</string>
-    <string name="DLG_close">关闭</string>
-    <string name="DLG_error">糟糕，发生错误！状况是:\n\n%s</string>
-    <string name="DLG_wait">请稍候...</string>
-    <string name="SyP_label">同步和备份</string>
-    <string name="SyP_summary">谷歌任务，已存数据，本地备份</string>
-    <string name="sync_SPr_group_status">状态</string>
-    <string name="sync_SPr_status_subtitle">状态：%s</string>
-    <string name="sync_status_loggedout">未登陆</string>
-    <string name="sync_status_ongoing">同步中...</string>
-    <string name="sync_status_success">上次同步：\n%s</string>
-    <string name="sync_status_failed">失败：%s</string>
-    <string name="sync_status_errors">同步 w/ 错误： %s 上次同步日期</string>
-    <string name="sync_status_never">未同步过！</string>
-    <string name="sync_SPr_group_options">选项</string>
-    <string name="sync_SPr_interval_title">后台同步</string>
-    <string name="sync_SPr_interval_desc_disabled">后台同步已关闭</string>
-    <string name="sync_SPr_interval_desc">目前同步间隔：%s</string>
-    <string name="sync_SPr_sync">现在同步</string>
-    <string name="sync_SPr_last_error">状态报告</string>
-    <string name="sync_SPr_last_error_subtitle">点击给 Tasks 团队发送报告</string>
-    <string name="sync_SPr_send_report">发送报告</string>
-    <string name="sync_SPr_forget">登出</string>
-    <string name="sync_SPr_forget_description">清除所有同步资料</string>
-    <string name="sync_forget_confirm">登出/清除同步资料?</string>
-    <string name="sync_error_offline">在最近与 %s 同步时网络连接发生问题。请重试。</string>
-    <string-array name="sync_SPr_interval_entries">
-        <item>停用</item>
-        <item>每15分钟</item>
-        <item>每30分钟</item>
-        <item>每小时</item>
-        <item>每3小时</item>
-        <item>每6小时</item>
-        <item>每12小时</item>
-        <item>每天</item>
-        <item>每3天</item>
-        <item>每周</item>
-    </string-array>
+	<plurals name="Ntasks">
+		<item quantity="one">1 个任务</item>
+		<item quantity="other">%d 个任务</item>
+	</plurals>
+	<string name="today">今天</string>
+	<string name="tomorrow">明天</string>
+	<string name="yesterday">昨天</string>
+	<string name="tmrw">明天</string>
+	<string name="yest">昨天</string>
+	<string name="DLG_confirm_title">确认?</string>
+	<string name="DLG_question_title">问题：</string>
+	<string name="DLG_information_title">信息</string>
+	<string name="DLG_close">关闭</string>
+	<string name="DLG_error">糟糕，发生错误！状况是:\n\n%s</string>
+	<string name="DLG_wait">请稍候...</string>
+	<string name="SyP_label">同步和备份</string>
+	<string name="SyP_summary">谷歌任务，已存数据，本地备份</string>
+	<string name="sync_SPr_group_status">状态</string>
+	<string name="sync_SPr_status_subtitle">状态：%s</string>
+	<string name="sync_status_loggedout">未登陆</string>
+	<string name="sync_status_ongoing">同步中...</string>
+	<string name="sync_status_success">上次同步：\n%s</string>
+	<string name="sync_status_failed">失败：%s</string>
+	<string name="sync_status_errors">同步 w/ 错误： %s 上次同步日期</string>
+	<string name="sync_status_never">未同步过！</string>
+	<string name="sync_SPr_group_options">选项</string>
+	<string name="sync_SPr_interval_title">后台同步</string>
+	<string name="sync_SPr_interval_desc_disabled">后台同步已关闭</string>
+	<string name="sync_SPr_interval_desc">目前同步间隔：%s</string>
+	<string name="sync_SPr_sync">现在同步</string>
+	<string name="sync_SPr_last_error">状态报告</string>
+	<string name="sync_SPr_last_error_subtitle">点击给 Tasks 团队发送报告</string>
+	<string name="sync_SPr_send_report">发送报告</string>
+	<string name="sync_SPr_forget">登出</string>
+	<string name="sync_SPr_forget_description">清除所有同步资料</string>
+	<string name="sync_forget_confirm">登出/清除同步资料?</string>
+	<string name="sync_error_offline">在最近与 %s 同步时网络连接发生问题。请重试。</string>
+	<string-array name="sync_SPr_interval_entries">
+		<item>停用</item>
+		<item>每15分钟</item>
+		<item>每30分钟</item>
+		<item>每小时</item>
+		<item>每3小时</item>
+		<item>每6小时</item>
+		<item>每12小时</item>
+		<item>每天</item>
+		<item>每3天</item>
+		<item>每周</item>
+	</string-array>
 </resources>

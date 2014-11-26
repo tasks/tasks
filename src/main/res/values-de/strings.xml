@@ -496,50 +496,50 @@
 	<string name="TLA_menu_support">Unterstützung</string>
 	<string name="voice_command_added_task">Hinzugefügte Aufgabe</string>
 	<string name="external_storage_unavailable">Kein Zugriff auf externen Speicher</string>
-    <plurals name="Ntasks">
-        <item quantity="one">1 Aufgabe</item>
-        <item quantity="other">%d Aufgaben</item>
-    </plurals>
-    <string name="today">Heute</string>
-    <string name="tomorrow">Morgen</string>
-    <string name="yesterday">Gestern</string>
-    <string name="tmrw">Morg.</string>
-    <string name="yest">Gest.</string>
-    <string name="DLG_confirm_title">Bestätigen?</string>
-    <string name="DLG_question_title">Frage:</string>
-    <string name="DLG_close">Schließen</string>
-    <string name="DLG_error">Ups, sieht aus, als ob ein Fehler aufgetreten ist! Folgendes ist passiert:\n\n%s</string>
-    <string name="DLG_wait">Bitte warten...</string>
-    <string name="SyP_label">Synchronisation &amp; Backup</string>
-    <string name="SyP_summary">Google Tasks, Gespeicherte Daten, Lokale Backups</string>
-    <string name="sync_status_loggedout">Nicht angemeldet</string>
-    <string name="sync_status_ongoing">Synchronisierung läuft...</string>
-    <string name="sync_status_success">Letzte Synchronisierung:\n%s</string>
-    <string name="sync_status_failed">Fehlgeschlagen am: %s</string>
-    <string name="sync_status_errors">Synchronisation m. Fehler: %s</string>
-    <string name="sync_status_never">Noch nie synchronisiert!</string>
-    <string name="sync_SPr_group_options">Optionen</string>
-    <string name="sync_SPr_interval_title">Hintergrund-Synchronisierung</string>
-    <string name="sync_SPr_interval_desc_disabled">Hintergrund-Synchronisierung ist deaktiviert</string>
-    <string name="sync_SPr_interval_desc">Gesetzt auf: %s</string>
-    <string name="sync_SPr_sync">Jetzt synchronisieren</string>
-    <string name="sync_SPr_last_error">Statusbericht</string>
-    <string name="sync_SPr_last_error_subtitle">Klicke um einen Bericht ans Tasks-Team zu senden</string>
-    <string name="sync_SPr_send_report">Bericht senden</string>
-    <string name="sync_SPr_forget">Abmelden</string>
-    <string name="sync_SPr_forget_description">Alle Synchronisationsdaten löschen</string>
-    <string name="sync_forget_confirm">Ausloggen / Synchronisierte Daten löschen?</string>
-    <string name="sync_error_offline">Es gab ein Problem mit der Netzwerkverbindung während der letzten Synchronisation mit %s. Versuche es bitte später noch einmal.</string>
-    <string-array name="sync_SPr_interval_entries">
-        <item>deaktivieren</item>
-        <item>alle 15 Minuten</item>
-        <item>alle 30 Minuten</item>
-        <item>stündlich</item>
-        <item>alle 3 Stunden</item>
-        <item>alle 6 Stunden</item>
-        <item>alle 12 Stunden</item>
-        <item>täglich</item>
-        <item>jeden dritten Tag</item>
-        <item>wöchentlich</item>
-    </string-array>
+	<plurals name="Ntasks">
+		<item quantity="one">1 Aufgabe</item>
+		<item quantity="other">%d Aufgaben</item>
+	</plurals>
+	<string name="today">Heute</string>
+	<string name="tomorrow">Morgen</string>
+	<string name="yesterday">Gestern</string>
+	<string name="tmrw">Morg.</string>
+	<string name="yest">Gest.</string>
+	<string name="DLG_confirm_title">Bestätigen?</string>
+	<string name="DLG_question_title">Frage:</string>
+	<string name="DLG_close">Schließen</string>
+	<string name="DLG_error">Ups, sieht aus, als ob ein Fehler aufgetreten ist! Folgendes ist passiert:\n\n%s</string>
+	<string name="DLG_wait">Bitte warten...</string>
+	<string name="SyP_label">Synchronisation &amp; Backup</string>
+	<string name="SyP_summary">Google Tasks, Gespeicherte Daten, Lokale Backups</string>
+	<string name="sync_status_loggedout">Nicht angemeldet</string>
+	<string name="sync_status_ongoing">Synchronisierung läuft...</string>
+	<string name="sync_status_success">Letzte Synchronisierung:\n%s</string>
+	<string name="sync_status_failed">Fehlgeschlagen am: %s</string>
+	<string name="sync_status_errors">Synchronisation m. Fehler: %s</string>
+	<string name="sync_status_never">Noch nie synchronisiert!</string>
+	<string name="sync_SPr_group_options">Optionen</string>
+	<string name="sync_SPr_interval_title">Hintergrund-Synchronisierung</string>
+	<string name="sync_SPr_interval_desc_disabled">Hintergrund-Synchronisierung ist deaktiviert</string>
+	<string name="sync_SPr_interval_desc">Gesetzt auf: %s</string>
+	<string name="sync_SPr_sync">Jetzt synchronisieren</string>
+	<string name="sync_SPr_last_error">Statusbericht</string>
+	<string name="sync_SPr_last_error_subtitle">Klicke um einen Bericht ans Tasks-Team zu senden</string>
+	<string name="sync_SPr_send_report">Bericht senden</string>
+	<string name="sync_SPr_forget">Abmelden</string>
+	<string name="sync_SPr_forget_description">Alle Synchronisationsdaten löschen</string>
+	<string name="sync_forget_confirm">Ausloggen / Synchronisierte Daten löschen?</string>
+	<string name="sync_error_offline">Es gab ein Problem mit der Netzwerkverbindung während der letzten Synchronisation mit %s. Versuche es bitte später noch einmal.</string>
+	<string-array name="sync_SPr_interval_entries">
+		<item>deaktivieren</item>
+		<item>alle 15 Minuten</item>
+		<item>alle 30 Minuten</item>
+		<item>stündlich</item>
+		<item>alle 3 Stunden</item>
+		<item>alle 6 Stunden</item>
+		<item>alle 12 Stunden</item>
+		<item>täglich</item>
+		<item>jeden dritten Tag</item>
+		<item>wöchentlich</item>
+	</string-array>
 </resources>

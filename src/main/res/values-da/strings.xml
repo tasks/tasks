@@ -248,33 +248,33 @@
 	<string name="TEA_tags_renamed">Omdøbte %1$s med %2$s for %3$d opgaver</string>
 	<string name="tag_settings_title">Indstillinger for lister</string>
 	<string name="delete_task">Slet opgave</string>
-    <plurals name="Ntasks">
-        <item quantity="one">1 opgave</item>
-        <item quantity="other">%d opgaver</item>
-    </plurals>
-    <string name="today">I dag</string>
-    <string name="tomorrow">I morgen</string>
-    <string name="yesterday">I går</string>
-    <string name="DLG_confirm_title">Bekræft?</string>
-    <string name="DLG_question_title">Spørsmål:</string>
-    <string name="DLG_close">Luk</string>
-    <string name="DLG_wait">Vent venligst...</string>
-    <string name="SyP_label">Synkronisering</string>
-    <string name="sync_SPr_group_options">Indstillinger</string>
-    <string name="sync_SPr_interval_title">Baggrunds Synk</string>
-    <string name="sync_SPr_interval_desc_disabled">Baggrunds synkronisering er slået fra</string>
-    <string name="sync_SPr_forget">Log af</string>
-    <string name="sync_SPr_forget_description">Sletter al synkroniserings data</string>
-    <string-array name="sync_SPr_interval_entries">
-        <item>disable</item>
-        <item>every fifteen minutes</item>
-        <item>every thirty minutes</item>
-        <item>hver time</item>
-        <item>hver 3. time</item>
-        <item>hver 6. time</item>
-        <item>hver 12. time</item>
-        <item>hver dag</item>
-        <item>hver 3. dag</item>
-        <item>hver uge</item>
-    </string-array>
+	<plurals name="Ntasks">
+		<item quantity="one">1 opgave</item>
+		<item quantity="other">%d opgaver</item>
+	</plurals>
+	<string name="today">I dag</string>
+	<string name="tomorrow">I morgen</string>
+	<string name="yesterday">I går</string>
+	<string name="DLG_confirm_title">Bekræft?</string>
+	<string name="DLG_question_title">Spørsmål:</string>
+	<string name="DLG_close">Luk</string>
+	<string name="DLG_wait">Vent venligst...</string>
+	<string name="SyP_label">Synkronisering</string>
+	<string name="sync_SPr_group_options">Indstillinger</string>
+	<string name="sync_SPr_interval_title">Baggrunds Synk</string>
+	<string name="sync_SPr_interval_desc_disabled">Baggrunds synkronisering er slået fra</string>
+	<string name="sync_SPr_forget">Log af</string>
+	<string name="sync_SPr_forget_description">Sletter al synkroniserings data</string>
+	<string-array name="sync_SPr_interval_entries">
+		<item>disable</item>
+		<item>every fifteen minutes</item>
+		<item>every thirty minutes</item>
+		<item>hver time</item>
+		<item>hver 3. time</item>
+		<item>hver 6. time</item>
+		<item>hver 12. time</item>
+		<item>hver dag</item>
+		<item>hver 3. dag</item>
+		<item>hver uge</item>
+	</string-array>
 </resources>

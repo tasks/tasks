@@ -488,49 +488,49 @@
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Оповіщення звуком під час нагадування</string>
 	<string name="delete_task">Видалити завдання</string>
 	<string name="TLA_menu_support">Підтримка</string>
-    <plurals name="Ntasks">
-        <item quantity="one">1 завдання</item>
-        <item quantity="other">%d завдань</item>
-    </plurals>
-    <string name="today">Сьогодні</string>
-    <string name="tomorrow">Завтра</string>
-    <string name="yesterday">Вчора</string>
-    <string name="tmrw">Завт.</string>
-    <string name="yest">Вчор.</string>
-    <string name="DLG_confirm_title">Підтверджуєте?</string>
-    <string name="DLG_question_title">Питання:</string>
-    <string name="DLG_information_title">Інформація</string>
-    <string name="DLG_close">Закрити</string>
-    <string name="DLG_error">На жаль, схоже, сталася помилка! Ось що вийшло:\n\n%s</string>
-    <string name="DLG_wait">Будь ласка, зачекайте...</string>
-    <string name="SyP_label">Синхронізація і резерв. копіювання</string>
-    <string name="SyP_summary">Google Tasks, збережені дані, локальне резервне копіювання</string>
-    <string name="sync_SPr_group_status">Статус</string>
-    <string name="sync_SPr_status_subtitle">Статус: %s</string>
-    <string name="sync_status_loggedout">Не залогований</string>
-    <string name="sync_status_ongoing">Процес синхронізації</string>
-    <string name="sync_status_success">Остання синхр.:\n%s</string>
-    <string name="sync_status_errors">Синхр. з помилками: %s</string>
-    <string name="sync_status_never">Ніколи не було синхронізовано!</string>
-    <string name="sync_SPr_group_options">Опції</string>
-    <string name="sync_SPr_interval_title">Фонова синхронізація</string>
-    <string name="sync_SPr_interval_desc_disabled">Фонова синхронізація відключена</string>
-    <string name="sync_SPr_sync">Синхронізувати зараз</string>
-    <string name="sync_SPr_send_report">Відіслати звіт</string>
-    <string name="sync_SPr_forget">Вийти</string>
+	<plurals name="Ntasks">
+		<item quantity="one">1 завдання</item>
+		<item quantity="other">%d завдань</item>
+	</plurals>
+	<string name="today">Сьогодні</string>
+	<string name="tomorrow">Завтра</string>
+	<string name="yesterday">Вчора</string>
+	<string name="tmrw">Завт.</string>
+	<string name="yest">Вчор.</string>
+	<string name="DLG_confirm_title">Підтверджуєте?</string>
+	<string name="DLG_question_title">Питання:</string>
+	<string name="DLG_information_title">Інформація</string>
+	<string name="DLG_close">Закрити</string>
+	<string name="DLG_error">На жаль, схоже, сталася помилка! Ось що вийшло:\n\n%s</string>
+	<string name="DLG_wait">Будь ласка, зачекайте...</string>
+	<string name="SyP_label">Синхронізація і резерв. копіювання</string>
+	<string name="SyP_summary">Google Tasks, збережені дані, локальне резервне копіювання</string>
+	<string name="sync_SPr_group_status">Статус</string>
+	<string name="sync_SPr_status_subtitle">Статус: %s</string>
+	<string name="sync_status_loggedout">Не залогований</string>
+	<string name="sync_status_ongoing">Процес синхронізації</string>
+	<string name="sync_status_success">Остання синхр.:\n%s</string>
+	<string name="sync_status_errors">Синхр. з помилками: %s</string>
+	<string name="sync_status_never">Ніколи не було синхронізовано!</string>
+	<string name="sync_SPr_group_options">Опції</string>
+	<string name="sync_SPr_interval_title">Фонова синхронізація</string>
+	<string name="sync_SPr_interval_desc_disabled">Фонова синхронізація відключена</string>
+	<string name="sync_SPr_sync">Синхронізувати зараз</string>
+	<string name="sync_SPr_send_report">Відіслати звіт</string>
+	<string name="sync_SPr_forget">Вийти</string>
 	<string name="sync_error_offline">У процесі останньої синхронізації %s.
  Виникли проблеми підключення до мережі.
  Будь ласка, спробуйте ще раз пізніше.</string>
-    <string-array name="sync_SPr_interval_entries">
-        <item>вимкнути</item>
-        <item>що 15 хвилин</item>
-        <item>що 30 хвилин</item>
-        <item>кожну годину</item>
-        <item>кожних 3 години</item>
-        <item>кожних 6 годин</item>
-        <item>кожних 12 годин</item>
-        <item>щодня</item>
-        <item>кожного 3-го дня</item>
-        <item>кожного тижня</item>
-    </string-array>
+	<string-array name="sync_SPr_interval_entries">
+		<item>вимкнути</item>
+		<item>що 15 хвилин</item>
+		<item>що 30 хвилин</item>
+		<item>кожну годину</item>
+		<item>кожних 3 години</item>
+		<item>кожних 6 годин</item>
+		<item>кожних 12 годин</item>
+		<item>щодня</item>
+		<item>кожного 3-го дня</item>
+		<item>кожного тижня</item>
+	</string-array>
 </resources>

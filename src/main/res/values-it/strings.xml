@@ -444,52 +444,52 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks pronuncerà il nome dell\'attività durante i promemoria</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks emetterà una suoneria durante i promemoria</string>
 	<string name="TLA_menu_support">Supporto</string>
-    <plurals name="Ntasks">
-        <item quantity="one">1 attività</item>
-        <item quantity="other">%d attività</item>
-    </plurals>
-    <string name="today">Oggi</string>
-    <string name="tomorrow">Domani</string>
-    <string name="yesterday">Ieri</string>
-    <string name="tmrw">Domani</string>
-    <string name="yest">Ieri</string>
-    <string name="DLG_confirm_title">Confermi?</string>
-    <string name="DLG_question_title">Domanda:</string>
-    <string name="DLG_information_title">Informazione</string>
-    <string name="DLG_close">Chiudi</string>
-    <string name="DLG_error">Oops, sembra che ci sia stato un errore! E\' successo questo:\n\n%s</string>
-    <string name="DLG_wait">Attendi...</string>
-    <string name="SyP_label">Sincronizza &amp; archivia</string>
-    <string name="SyP_summary">Attività Google, dati salvati, backup locale </string>
-    <string name="sync_SPr_group_status">Stato</string>
-    <string name="sync_SPr_status_subtitle">Stato: %s</string>
-    <string name="sync_status_loggedout">Non connesso</string>
-    <string name="sync_status_ongoing">Sincronizzazione in corso...</string>
-    <string name="sync_status_success">Ultima Sincronizzazione:\n%s</string>
-    <string name="sync_status_failed">Fallita Su: %s</string>
-    <string name="sync_status_errors">Sincronizza con gli errori: %s</string>
-    <string name="sync_status_never">Mai sincronizzato!</string>
-    <string name="sync_SPr_group_options">Preferenze</string>
-    <string name="sync_SPr_interval_title">Sincronizzazione eseguita in background</string>
-    <string name="sync_SPr_interval_desc_disabled">La sincronizzazione in background è disattivata</string>
-    <string name="sync_SPr_interval_desc">Attualmente impostata su: %s</string>
-    <string name="sync_SPr_sync">Sincronizza ora</string>
-    <string name="sync_SPr_last_error_subtitle">\"Clicca  per inviare un rapporto al team Tasks\"</string>
-    <string name="sync_SPr_send_report">Invia rapporto</string>
-    <string name="sync_SPr_forget">Esci</string>
-    <string name="sync_SPr_forget_description">Cancella tutti i dati di sincronizzazione</string>
-    <string name="sync_forget_confirm">Esci / cancella i file di sincronizzazione?</string>
-    <string name="sync_error_offline">Problema di connessione alla rete durante l\'ultima sincronizzazione con %s. Riprova dopo.</string>
-    <string-array name="sync_SPr_interval_entries">
-        <item>disabilita</item>
-        <item>ogni quindici minuti</item>
-        <item>ogni trenta minuti</item>
-        <item>ogni ora</item>
-        <item>ogni tre ore</item>
-        <item>ogni sei ore</item>
-        <item>ogni dodici ore</item>
-        <item>ogni giorno</item>
-        <item>ogni tre giorni</item>
-        <item>Ogni settimana</item>
-    </string-array>
+	<plurals name="Ntasks">
+		<item quantity="one">1 attività</item>
+		<item quantity="other">%d attività</item>
+	</plurals>
+	<string name="today">Oggi</string>
+	<string name="tomorrow">Domani</string>
+	<string name="yesterday">Ieri</string>
+	<string name="tmrw">Domani</string>
+	<string name="yest">Ieri</string>
+	<string name="DLG_confirm_title">Confermi?</string>
+	<string name="DLG_question_title">Domanda:</string>
+	<string name="DLG_information_title">Informazione</string>
+	<string name="DLG_close">Chiudi</string>
+	<string name="DLG_error">Oops, sembra che ci sia stato un errore! E\' successo questo:\n\n%s</string>
+	<string name="DLG_wait">Attendi...</string>
+	<string name="SyP_label">Sincronizza &amp; archivia</string>
+	<string name="SyP_summary">Attività Google, dati salvati, backup locale </string>
+	<string name="sync_SPr_group_status">Stato</string>
+	<string name="sync_SPr_status_subtitle">Stato: %s</string>
+	<string name="sync_status_loggedout">Non connesso</string>
+	<string name="sync_status_ongoing">Sincronizzazione in corso...</string>
+	<string name="sync_status_success">Ultima Sincronizzazione:\n%s</string>
+	<string name="sync_status_failed">Fallita Su: %s</string>
+	<string name="sync_status_errors">Sincronizza con gli errori: %s</string>
+	<string name="sync_status_never">Mai sincronizzato!</string>
+	<string name="sync_SPr_group_options">Preferenze</string>
+	<string name="sync_SPr_interval_title">Sincronizzazione eseguita in background</string>
+	<string name="sync_SPr_interval_desc_disabled">La sincronizzazione in background è disattivata</string>
+	<string name="sync_SPr_interval_desc">Attualmente impostata su: %s</string>
+	<string name="sync_SPr_sync">Sincronizza ora</string>
+	<string name="sync_SPr_last_error_subtitle">\"Clicca  per inviare un rapporto al team Tasks\"</string>
+	<string name="sync_SPr_send_report">Invia rapporto</string>
+	<string name="sync_SPr_forget">Esci</string>
+	<string name="sync_SPr_forget_description">Cancella tutti i dati di sincronizzazione</string>
+	<string name="sync_forget_confirm">Esci / cancella i file di sincronizzazione?</string>
+	<string name="sync_error_offline">Problema di connessione alla rete durante l\'ultima sincronizzazione con %s. Riprova dopo.</string>
+	<string-array name="sync_SPr_interval_entries">
+		<item>disabilita</item>
+		<item>ogni quindici minuti</item>
+		<item>ogni trenta minuti</item>
+		<item>ogni ora</item>
+		<item>ogni tre ore</item>
+		<item>ogni sei ore</item>
+		<item>ogni dodici ore</item>
+		<item>ogni giorno</item>
+		<item>ogni tre giorni</item>
+		<item>Ogni settimana</item>
+	</string-array>
 </resources>

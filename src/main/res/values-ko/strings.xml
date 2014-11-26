@@ -504,53 +504,53 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">일정 알림기간 동안 일정 이름을 직접 말해 줍니다</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">일정 알림기간 동안 벨소리를 울려줍니다</string>
 	<string name="TLA_menu_support">지원</string>
-    <plurals name="Ntasks">
-        <item quantity="one">1 일정</item>
-        <item quantity="other">%d 일정</item>
-    </plurals>
-    <string name="today">오늘</string>
-    <string name="tomorrow">내일</string>
-    <string name="yesterday">어제</string>
-    <string name="tmrw">내일</string>
-    <string name="yest">어제</string>
-    <string name="DLG_confirm_title">확인?</string>
-    <string name="DLG_question_title">질문:</string>
-    <string name="DLG_information_title">정보</string>
-    <string name="DLG_close">닫기</string>
-    <string name="DLG_error">에러가 발생한 것 같습니다! 발생한 에러는 다음과 같습니다:\n\n%s</string>
-    <string name="DLG_wait">잠시 기다리세요...</string>
-    <string name="SyP_label">동기화 &amp; 백업</string>
-    <string name="SyP_summary">구글 일정, 저장한 자료, 로컬 백업</string>
-    <string name="sync_SPr_group_status">상태</string>
-    <string name="sync_SPr_status_subtitle">상태: %s</string>
-    <string name="sync_status_loggedout">로그인 안 됨</string>
-    <string name="sync_status_ongoing">동기화 진행 중...</string>
-    <string name="sync_status_success">마지막 동기화: \n%s</string>
-    <string name="sync_status_failed">실패: %s</string>
-    <string name="sync_status_errors">동기화 중 에러: %s</string>
-    <string name="sync_status_never">동기화 한 적이 없습니다!</string>
-    <string name="sync_SPr_group_options">설정</string>
-    <string name="sync_SPr_interval_title">백그라운드 동기화</string>
-    <string name="sync_SPr_interval_desc_disabled">백그라운드 동기화를 사용하지 않습니다.</string>
-    <string name="sync_SPr_interval_desc">현재 설정: %s</string>
-    <string name="sync_SPr_sync">지금 동기화하기</string>
-    <string name="sync_SPr_last_error">상태 보고</string>
-    <string name="sync_SPr_last_error_subtitle">아스트리드 팀에게 보고서를 보내려면 클릭하세요</string>
-    <string name="sync_SPr_send_report">보고서 보내기</string>
-    <string name="sync_SPr_forget">로그아웃</string>
-    <string name="sync_SPr_forget_description">모든 동기화 자료 삭제</string>
-    <string name="sync_forget_confirm">로그아웃 / 모든 동기화 데이터 삭제?</string>
-    <string name="sync_error_offline">%s 과 마지막 동기화 중에 네트워크 연결 문제가 있었습니다.나중에 다시 시도해 주세요.</string>
-    <string-array name="sync_SPr_interval_entries">
-        <item>사용안함</item>
-        <item>15분마다</item>
-        <item>30분마다</item>
-        <item>매시간</item>
-        <item>3시간마다</item>
-        <item>6시간마다</item>
-        <item>12시간마다</item>
-        <item>매일</item>
-        <item>3일마다</item>
-        <item>일주일마다</item>
-    </string-array>
+	<plurals name="Ntasks">
+		<item quantity="one">1 일정</item>
+		<item quantity="other">%d 일정</item>
+	</plurals>
+	<string name="today">오늘</string>
+	<string name="tomorrow">내일</string>
+	<string name="yesterday">어제</string>
+	<string name="tmrw">내일</string>
+	<string name="yest">어제</string>
+	<string name="DLG_confirm_title">확인?</string>
+	<string name="DLG_question_title">질문:</string>
+	<string name="DLG_information_title">정보</string>
+	<string name="DLG_close">닫기</string>
+	<string name="DLG_error">에러가 발생한 것 같습니다! 발생한 에러는 다음과 같습니다:\n\n%s</string>
+	<string name="DLG_wait">잠시 기다리세요...</string>
+	<string name="SyP_label">동기화 &amp; 백업</string>
+	<string name="SyP_summary">구글 일정, 저장한 자료, 로컬 백업</string>
+	<string name="sync_SPr_group_status">상태</string>
+	<string name="sync_SPr_status_subtitle">상태: %s</string>
+	<string name="sync_status_loggedout">로그인 안 됨</string>
+	<string name="sync_status_ongoing">동기화 진행 중...</string>
+	<string name="sync_status_success">마지막 동기화: \n%s</string>
+	<string name="sync_status_failed">실패: %s</string>
+	<string name="sync_status_errors">동기화 중 에러: %s</string>
+	<string name="sync_status_never">동기화 한 적이 없습니다!</string>
+	<string name="sync_SPr_group_options">설정</string>
+	<string name="sync_SPr_interval_title">백그라운드 동기화</string>
+	<string name="sync_SPr_interval_desc_disabled">백그라운드 동기화를 사용하지 않습니다.</string>
+	<string name="sync_SPr_interval_desc">현재 설정: %s</string>
+	<string name="sync_SPr_sync">지금 동기화하기</string>
+	<string name="sync_SPr_last_error">상태 보고</string>
+	<string name="sync_SPr_last_error_subtitle">아스트리드 팀에게 보고서를 보내려면 클릭하세요</string>
+	<string name="sync_SPr_send_report">보고서 보내기</string>
+	<string name="sync_SPr_forget">로그아웃</string>
+	<string name="sync_SPr_forget_description">모든 동기화 자료 삭제</string>
+	<string name="sync_forget_confirm">로그아웃 / 모든 동기화 데이터 삭제?</string>
+	<string name="sync_error_offline">%s 과 마지막 동기화 중에 네트워크 연결 문제가 있었습니다.나중에 다시 시도해 주세요.</string>
+	<string-array name="sync_SPr_interval_entries">
+		<item>사용안함</item>
+		<item>15분마다</item>
+		<item>30분마다</item>
+		<item>매시간</item>
+		<item>3시간마다</item>
+		<item>6시간마다</item>
+		<item>12시간마다</item>
+		<item>매일</item>
+		<item>3일마다</item>
+		<item>일주일마다</item>
+	</string-array>
 </resources>

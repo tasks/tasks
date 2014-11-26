@@ -82,39 +82,39 @@
 	</string-array>
 	<string name="TEA_timer_controls">مؤقت</string>
 	<string name="delete_task">حذف المهمة</string>
-    <string name="today">اليوم</string>
-    <string name="tomorrow">غدا</string>
-    <string name="yesterday">أمس</string>
-    <string name="tmrw">غدا</string>
-    <string name="yest">أمس</string>
-    <string name="DLG_confirm_title">أكّد</string>
-    <string name="DLG_question_title">سؤال:</string>
-    <string name="DLG_information_title">معلومة</string>
-    <string name="DLG_close">إغلاق</string>
-    <string name="DLG_wait">إنتظر من فضلك...</string>
-    <string name="SyP_label">تحيين و نسخ احتياطي</string>
-    <string name="sync_SPr_group_status">الحالة</string>
-    <string name="sync_SPr_status_subtitle">الحالة: %s</string>
-    <string name="sync_status_loggedout">لم يتم تسجيل الدخول</string>
-    <string name="sync_status_ongoing">جاري التحيين...</string>
-    <string name="sync_status_success">آخر تحيين:\n%s</string>
-    <string name="sync_status_failed">فشل في: %s</string>
-    <string name="sync_status_errors">فشل مع أخطاء في: %s</string>
-    <string name="sync_status_never">لم يتم التحيين قَطّ</string>
-    <string name="sync_SPr_group_options">الخيارات</string>
-    <string name="sync_SPr_interval_title">تحيين في الخلفية</string>
-    <string name="sync_SPr_send_report">إرسال تقرير</string>
-    <string name="sync_SPr_forget">خروج</string>
-    <string-array name="sync_SPr_interval_entries">
-        <item>تعطيل</item>
-        <item>كل 15 دقيقة</item>
-        <item>every thirty minutes</item>
-        <item>every hour</item>
-        <item>every three hours</item>
-        <item>every six hours</item>
-        <item>كل 12 ساعة</item>
-        <item>every day</item>
-        <item>every three days</item>
-        <item>every week</item>
-    </string-array>
+	<string name="today">اليوم</string>
+	<string name="tomorrow">غدا</string>
+	<string name="yesterday">أمس</string>
+	<string name="tmrw">غدا</string>
+	<string name="yest">أمس</string>
+	<string name="DLG_confirm_title">أكّد</string>
+	<string name="DLG_question_title">سؤال:</string>
+	<string name="DLG_information_title">معلومة</string>
+	<string name="DLG_close">إغلاق</string>
+	<string name="DLG_wait">إنتظر من فضلك...</string>
+	<string name="SyP_label">تحيين و نسخ احتياطي</string>
+	<string name="sync_SPr_group_status">الحالة</string>
+	<string name="sync_SPr_status_subtitle">الحالة: %s</string>
+	<string name="sync_status_loggedout">لم يتم تسجيل الدخول</string>
+	<string name="sync_status_ongoing">جاري التحيين...</string>
+	<string name="sync_status_success">آخر تحيين:\n%s</string>
+	<string name="sync_status_failed">فشل في: %s</string>
+	<string name="sync_status_errors">فشل مع أخطاء في: %s</string>
+	<string name="sync_status_never">لم يتم التحيين قَطّ</string>
+	<string name="sync_SPr_group_options">الخيارات</string>
+	<string name="sync_SPr_interval_title">تحيين في الخلفية</string>
+	<string name="sync_SPr_send_report">إرسال تقرير</string>
+	<string name="sync_SPr_forget">خروج</string>
+	<string-array name="sync_SPr_interval_entries">
+		<item>تعطيل</item>
+		<item>كل 15 دقيقة</item>
+		<item>كل ثلاثين دقيقة</item>
+		<item>كل ساعة</item>
+		<item>every three hours</item>
+		<item>every six hours</item>
+		<item>كل 12 ساعة</item>
+		<item>every day</item>
+		<item>every three days</item>
+		<item>every week</item>
+	</string-array>
 </resources>

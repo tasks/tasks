@@ -231,43 +231,43 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks vil lese opp oppgaver ved påminnelse</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks vil spille en ringetone ved påminnelse</string>
 	<string name="delete_task">Slett oppgave</string>
-    <plurals name="Ntasks">
-        <item quantity="one">1 oppgave</item>
-        <item quantity="other">%d oppgaver</item>
-    </plurals>
-    <string name="today">I dag</string>
-    <string name="tomorrow">I morgen</string>
-    <string name="yesterday">I går</string>
-    <string name="DLG_confirm_title">Bekreft?</string>
-    <string name="DLG_question_title">Spørsmål:</string>
-    <string name="DLG_information_title">Informasjon</string>
-    <string name="DLG_close">Lukk</string>
-    <string name="DLG_error">Oi, det oppstod en feil! Dette skjedde:\n\n%s</string>
-    <string name="DLG_wait">Vennligst vent...</string>
-    <string name="sync_status_ongoing">Synkronisering pågår...</string>
-    <string name="sync_status_success">Siste synkronisering:\n%s</string>
-    <string name="sync_status_failed">Mislykket: %s</string>
-    <string name="sync_status_never">Aldri synkronisert!</string>
-    <string name="sync_SPr_group_options">Alternativer</string>
-    <string name="sync_SPr_interval_title">Bakgrunnssynkronisering</string>
-    <string name="sync_SPr_interval_desc_disabled">Bakgrunnssynkronisering er deaktivert</string>
-    <string name="sync_SPr_interval_desc">Aktuell innstilling: %s</string>
-    <string name="sync_SPr_sync">Synkronisere nå</string>
-    <string name="sync_SPr_last_error">Statusrapport</string>
-    <string name="sync_SPr_send_report">Send rapport</string>
-    <string name="sync_SPr_forget">Logg ut</string>
-    <string name="sync_SPr_forget_description">Sletter all synkroniseringsdata</string>
-    <string name="sync_forget_confirm">Logg ut / slett synkroniseringsdata?</string>
-    <string-array name="sync_SPr_interval_entries">
-        <item>deaktiver</item>
-        <item>hvert kvarter</item>
-        <item>hver halvtime</item>
-        <item>hver time</item>
-        <item>hver tredje time</item>
-        <item>hver sjette time</item>
-        <item>hver tolvte time</item>
-        <item>daglig</item>
-        <item>hver tredje dag</item>
-        <item>hver uke</item>
-    </string-array>
+	<plurals name="Ntasks">
+		<item quantity="one">1 oppgave</item>
+		<item quantity="other">%d oppgaver</item>
+	</plurals>
+	<string name="today">I dag</string>
+	<string name="tomorrow">I morgen</string>
+	<string name="yesterday">I går</string>
+	<string name="DLG_confirm_title">Bekreft?</string>
+	<string name="DLG_question_title">Spørsmål:</string>
+	<string name="DLG_information_title">Informasjon</string>
+	<string name="DLG_close">Lukk</string>
+	<string name="DLG_error">Oi, det oppstod en feil! Dette skjedde:\n\n%s</string>
+	<string name="DLG_wait">Vennligst vent...</string>
+	<string name="sync_status_ongoing">Synkronisering pågår...</string>
+	<string name="sync_status_success">Siste synkronisering:\n%s</string>
+	<string name="sync_status_failed">Mislykket: %s</string>
+	<string name="sync_status_never">Aldri synkronisert!</string>
+	<string name="sync_SPr_group_options">Alternativer</string>
+	<string name="sync_SPr_interval_title">Bakgrunnssynkronisering</string>
+	<string name="sync_SPr_interval_desc_disabled">Bakgrunnssynkronisering er deaktivert</string>
+	<string name="sync_SPr_interval_desc">Aktuell innstilling: %s</string>
+	<string name="sync_SPr_sync">Synkronisere nå</string>
+	<string name="sync_SPr_last_error">Statusrapport</string>
+	<string name="sync_SPr_send_report">Send rapport</string>
+	<string name="sync_SPr_forget">Logg ut</string>
+	<string name="sync_SPr_forget_description">Sletter all synkroniseringsdata</string>
+	<string name="sync_forget_confirm">Logg ut / slett synkroniseringsdata?</string>
+	<string-array name="sync_SPr_interval_entries">
+		<item>deaktiver</item>
+		<item>hvert kvarter</item>
+		<item>hver halvtime</item>
+		<item>hver time</item>
+		<item>hver tredje time</item>
+		<item>hver sjette time</item>
+		<item>hver tolvte time</item>
+		<item>daglig</item>
+		<item>hver tredje dag</item>
+		<item>hver uke</item>
+	</string-array>
 </resources>

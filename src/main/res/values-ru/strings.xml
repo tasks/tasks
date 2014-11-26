@@ -67,7 +67,7 @@
 	<string name="TLA_repeat_scheduled_title">Новая повторяющаяся задача %s</string>
 	<string name="TLA_repeat_scheduled_speech_bubble">Я напомню вам об этом %s.</string>
 	<string-array name="TLA_priority_strings">
-		<item>наивысший приоритет</item>
+		<item>высший приоритет</item>
 		<item>высокий приоритет</item>
 		<item>средний приоритет</item>
 		<item>низкий приоритет</item>
@@ -85,19 +85,19 @@
 	<string name="SSD_hidden">Показать скрытые задачи</string>
 	<string name="SSD_deleted">Показать удалённые задачи</string>
 	<string name="SSD_sort_drag">Ручной порядок с подзадачами</string>
-	<string name="SSD_sort_auto">Умная сортировка Astrid</string>
+	<string name="SSD_sort_auto">Умная сортировка</string>
 	<string name="SSD_sort_alpha">По названию</string>
 	<string name="SSD_sort_due">По намеченному сроку</string>
 	<string name="SSD_sort_importance">По приоритету</string>
 	<string name="SSD_sort_modified">Последние изменённые</string>
-	<string name="SSD_sort_reverse">Обратныйй порядок сортировки</string>
+	<string name="SSD_sort_reverse">Обратный порядок сортировки</string>
 	<string name="SSD_save_temp">Только один раз</string>
 	<string name="SSD_save_always">Всегда</string>
 	<string name="FSA_label">Список задач или фильтр</string>
 	<string name="FLA_context_shortcut">Создать ярлык на рабочем столе…</string>
 	<string name="FLA_shortcut_dialog_title">Создать ярлык</string>
 	<string name="FLA_shortcut_dialog">Имя ярлыка:</string>
-	<string name="FLA_search_filter">Соответствия для \'%s\'</string>
+	<string name="FLA_search_filter">Соответствует \'%s\'</string>
 	<string name="FLA_toast_onCreateShortcut">Ярлык %s создан</string>
 	<string name="FLA_new_filter">Новый фильтр</string>
 	<string name="FLA_new_list">Новый список</string>
@@ -113,7 +113,7 @@
 	<string name="TEA_estimatedDuration_label">Как долго это продлится?</string>
 	<string name="TEA_elapsedDuration_label">Время уже потраченное на задачу</string>
 	<string name="TEA_menu_save">Сохранить изменения</string>
-	<string name="TEA_menu_discard_changes">Отменить ваши изменения?</string>
+	<string name="TEA_menu_discard_changes">Отменить изменения?</string>
 	<string name="TEA_tab_activity">Действия</string>
 	<string name="TEA_timer_est">Ост. %s</string>
 	<string name="TEA_timer_elap">Прошло %s</string>
@@ -199,7 +199,7 @@
 	<string name="EPr_edit_screen_options">Редактировать настройки экрана</string>
 	<string name="EPr_beastMode_title">Редактировать порядок экранов</string>
 	<string name="EPr_time_increment">Шаг 5 минут</string>
-	<string name="EPr_show_timer_shortcut">Показывать вкладку таймера</string>
+	<string name="EPr_show_timer_shortcut">Показать вкладку таймера</string>
 	<string name="EPr_beastMode_desc">Настроить внешний вид экрана правки задачи</string>
 	<string name="EPr_beastMode_reset">Настройки по умолчанию</string>
 	<string name="EPr_beastMode_hint">Настройте экран редактирования задачи, перетаскивая элементы ниже</string>
@@ -211,7 +211,7 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Время события в календаре</string>
 	<string name="EPr_cal_end_at_due_time">Завершать события в календаре при наступлении срока</string>
 	<string name="EPr_cal_start_at_due_time">Создавать события в календаре при наступлении срока</string>
-	<string name="EPr_enable_debug_logging">Включить журнал расширенной отладки?</string>
+	<string name="EPr_enable_debug_logging">Разрешить лог отладки</string>
 	<string name="EPr_manage_header">Управление старыми задачами</string>
 	<string name="EPr_manage_delete_completed">Удалить завершенные задачи</string>
 	<string name="EPr_manage_delete_completed_message">Вы действительно хотите удалить все завершенные задачи?</string>
@@ -255,7 +255,7 @@
 	<string name="EPr_default_reminders_mode_title">Тип звонка/вибрации по умолчанию</string>
 	<string name="EPr_default_reminders_mode_desc">Текущая: %s</string>
 	<string-array name="EPr_default_importance">
-		<item>!!! (Наивысшая)</item>
+		<item>!!! (Высшая)</item>
 		<item>!!</item>
 		<item>!</item>
 		<item>o (Низшая)</item>
@@ -290,7 +290,7 @@
 	<string name="CFA_context_chain">%s содержит критерий</string>
 	<string name="CFA_context_delete">Удалить строку</string>
 	<string name="CFA_help">Долгое нажатие на пункт для дополнительных опций</string>
-	<string name="CFA_button_add">Добавить критерий</string>
+	<string name="CFA_button_add">Добавить условие</string>
 	<string name="CFA_button_view">Просмотр</string>
 	<string name="CFA_button_save">Сохранить и просмотреть</string>
 	<string name="CFC_dueBefore_text">Конечный срок: ?</string>
@@ -307,7 +307,7 @@
 	<string name="CFC_importance_text">Приоритет меньшего?</string>
 	<string name="CFC_importance_name">Приоритет...</string>
 	<string name="CFC_tag_text">Список: ?</string>
-	<string name="CFC_tag_name">Назовите...</string>
+	<string name="CFC_tag_name">Список...</string>
 	<string name="CFC_tag_contains_name">Название содержит...</string>
 	<string name="CFC_tag_contains_text">Название содержит: ?</string>
 	<string name="CFC_title_contains_name">Название содержит...</string>
@@ -368,7 +368,7 @@
 	<string name="TEA_reminder_overdue">Когда задание просрочено</string>
 	<string name="TEA_reminder_randomly">Случайно один раз</string>
 	<string name="TEA_reminder_alarm_label">Тип звонка/вибрации</string>
-	<string name="TEA_reminder_mode_once">раз</string>
+	<string name="TEA_reminder_mode_once">Один раз</string>
 	<string name="TEA_reminder_mode_five">Пять раз</string>
 	<string name="TEA_reminder_mode_nonstop">Пока я не отключу сигнал</string>
 	<string name="TEA_reminder_when">Когда</string>
@@ -434,7 +434,7 @@
 	<string name="repeat_enabled">Повторения</string>
 	<string name="repeat_every">С интервалом в %d</string>
 	<string name="repeat_interval_prompt">Интервал повтора</string>
-	<string name="repeat_never">Не повторять</string>
+	<string name="repeat_never">Без повторений</string>
 	<string name="repeat_dont">Не повторять</string>
 	<string-array name="repeat_interval_short">
 		<item>д.</item>
@@ -506,55 +506,57 @@
 	<string name="EPr_use_dark_theme_widget">Темная тема виджета</string>
 	<string name="delete_task">Удалить задачу</string>
 	<string name="TLA_menu_support">Поддержка</string>
-	<string name="voice_command_added_task">добавлена Задача</string>
+	<string name="voice_command_added_task">Добавленная задача</string>
 	<string name="external_storage_unavailable">Не могу открыть внешний накопитель</string>
-    <plurals name="Ntasks">
-        <item quantity="one">1 задача</item>
-        <item quantity="other">%d задач(а/и)</item>
-    </plurals>
-    <string name="today">Сегодня</string>
-    <string name="tomorrow">Завтра</string>
-    <string name="yesterday">Вчера</string>
-    <string name="tmrw">Завт</string>
-    <string name="yest">Вчера</string>
-    <string name="DLG_confirm_title">Подтвердить?</string>
-    <string name="DLG_question_title">Вопрос:</string>
-    <string name="DLG_information_title">Информация</string>
-    <string name="DLG_close">Закрыть</string>
-    <string name="DLG_error">Ой, похоже произошла ошибка! Подробности ниже:\n\n%s</string>
-    <string name="DLG_wait">Пожалуйста, подождите…</string>
-    <string name="SyP_label">Синхронизация и резервное копирование</string>
-    <string name="SyP_summary">Задачи Google, сохраненные данные, локальная резервная копия</string>
-    <string name="sync_SPr_group_status">Состояние</string>
-    <string name="sync_SPr_status_subtitle">Состояние: %s</string>
-    <string name="sync_status_loggedout">Вход не выполнен</string>
-    <string name="sync_status_ongoing">Процесс синхронизации…</string>
-    <string name="sync_status_success">Последняя синхронизация\n%s</string>
-    <string name="sync_status_failed">Ошибка: %s</string>
-    <string name="sync_status_errors">Синхронизировано с ошибками: %s</string>
-    <string name="sync_status_never">Синхронизаций не выполнялось!</string>
-    <string name="sync_SPr_group_options">Параметры</string>
-    <string name="sync_SPr_interval_title">Фоновая синхронизация</string>
-    <string name="sync_SPr_interval_desc_disabled">Фоновая синхронизация отключена</string>
-    <string name="sync_SPr_interval_desc">Сейчас установлено: %s</string>
-    <string name="sync_SPr_sync">Синхронизировать</string>
-    <string name="sync_SPr_last_error">Отчёт о состоянии</string>
-    <string name="sync_SPr_last_error_subtitle">Нажмите, чтобы отправить отчет команде Tasks</string>
-    <string name="sync_SPr_send_report">Отправить отчет</string>
-    <string name="sync_SPr_forget">Выйти</string>
-    <string name="sync_SPr_forget_description">Очищает все данные синхронизации</string>
-    <string name="sync_forget_confirm">Выйти / очистить данные синхронизации?</string>
-    <string name="sync_error_offline">В процессе последней синхронизации с %s возникли проблемы подключения к сети. Пожалуйста, повторите попытку позже.</string>
-    <string-array name="sync_SPr_interval_entries">
-        <item>отключить</item>
-        <item>каждые 15 минут</item>
-        <item>каждые 30 минут</item>
-        <item>каждый час</item>
-        <item>каждые 3 часа</item>
-        <item>каждые 6 часов</item>
-        <item>каждые 12 часов</item>
-        <item>каждый день</item>
-        <item>каждые 3 дня</item>
-        <item>каждую неделю</item>
-    </string-array>
+	<string name="navigation_drawer_open">Открыть боковую панель</string>
+	<string name="navigation_drawer_close">Закрыть боковую панель</string>
+	<plurals name="Ntasks">
+		<item quantity="one">1 задача</item>
+		<item quantity="other">%d задач(а/и)</item>
+	</plurals>
+	<string name="today">Сегодня</string>
+	<string name="tomorrow">Завтра</string>
+	<string name="yesterday">Вчера</string>
+	<string name="tmrw">Завт</string>
+	<string name="yest">Вчера</string>
+	<string name="DLG_confirm_title">Подтвердить?</string>
+	<string name="DLG_question_title">Вопрос:</string>
+	<string name="DLG_information_title">Информация</string>
+	<string name="DLG_close">Закрыть</string>
+	<string name="DLG_error">Ой, похоже произошла ошибка! Подробности ниже:\n\n%s</string>
+	<string name="DLG_wait">Пожалуйста, подождите…</string>
+	<string name="SyP_label">Синхронизация и резервное копирование</string>
+	<string name="SyP_summary">Задачи Google, сохраненные данные, локальная резервная копия</string>
+	<string name="sync_SPr_group_status">Состояние</string>
+	<string name="sync_SPr_status_subtitle">Состояние: %s</string>
+	<string name="sync_status_loggedout">Вход не выполнен</string>
+	<string name="sync_status_ongoing">Процесс синхронизации…</string>
+	<string name="sync_status_success">Последняя синхронизация\n%s</string>
+	<string name="sync_status_failed">Ошибка: %s</string>
+	<string name="sync_status_errors">Синхронизировано с ошибками: %s</string>
+	<string name="sync_status_never">Синхронизаций не выполнялось!</string>
+	<string name="sync_SPr_group_options">Параметры</string>
+	<string name="sync_SPr_interval_title">Фоновая синхронизация</string>
+	<string name="sync_SPr_interval_desc_disabled">Фоновая синхронизация отключена</string>
+	<string name="sync_SPr_interval_desc">Сейчас установлено: %s</string>
+	<string name="sync_SPr_sync">Синхронизировать</string>
+	<string name="sync_SPr_last_error">Отчёт о состоянии</string>
+	<string name="sync_SPr_last_error_subtitle">Нажмите, чтобы отправить отчет команде Tasks</string>
+	<string name="sync_SPr_send_report">Отправить отчет</string>
+	<string name="sync_SPr_forget">Выйти</string>
+	<string name="sync_SPr_forget_description">Очищает все данные синхронизации</string>
+	<string name="sync_forget_confirm">Выйти / очистить данные синхронизации?</string>
+	<string name="sync_error_offline">В процессе последней синхронизации с %s возникли проблемы подключения к сети. Пожалуйста, повторите попытку позже.</string>
+	<string-array name="sync_SPr_interval_entries">
+		<item>отключить</item>
+		<item>каждые 15 минут</item>
+		<item>каждые 30 минут</item>
+		<item>каждый час</item>
+		<item>каждые 3 часа</item>
+		<item>каждые 6 часов</item>
+		<item>каждые 12 часов</item>
+		<item>каждый день</item>
+		<item>каждые 3 дня</item>
+		<item>каждую неделю</item>
+	</string-array>
 </resources>
