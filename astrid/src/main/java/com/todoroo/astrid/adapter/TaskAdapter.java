@@ -541,6 +541,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
+        dateCache.clear();
         fontSize = preferences.getIntegerFromString(R.string.p_fontSize, 18);
     }
 

@@ -41,6 +41,7 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.SortSelectionActivity.OnSortSelectedListener;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
@@ -83,6 +84,7 @@ import org.tasks.injection.Injector;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
 
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicReference;
@@ -159,6 +161,8 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     // --- fragment handling variables
     protected OnTaskListItemClickedListener mListener;
     private boolean mDualFragments = false;
+
+    private Date refreshDate;
 
     /*
      * ======================================================================
@@ -245,6 +249,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         if (extras == null) {
             extras = new Bundle(); // Just need an empty one to prevent potential null pointers
         }
+        refreshDate = new Date();
     }
 
     /*
@@ -488,9 +493,9 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     @Override
     public void onResume() {
         super.onResume();
-
         getActivity().registerReceiver(refreshReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+        checkDayChange();
 
         if (Flags.checkAndClear(Flags.REFRESH)) {
             refresh();
@@ -501,6 +506,12 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         refreshFilterCount();
 
         initiateAutomaticSync();
+    }
+
+    private void checkDayChange() {
+        if (DateUtilities.getStartOfDay(refreshDate.getTime()) != DateUtilities.getStartOfDay(new Date().getTime())){
+            getActivity().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+        }
     }
 
     protected boolean isCurrentTaskListFragment() {
@@ -591,6 +602,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         }
         taskDeleter.deleteTasksWithEmptyTitles();
         loadTaskListContent();
+        refreshDate = new Date();
     }
 
     @Override
