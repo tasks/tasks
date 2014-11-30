@@ -18,12 +18,12 @@ import android.widget.Button;
 
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.helper.TaskEditControlSet;
+import com.todoroo.astrid.helper.TaskEditControlSetBase;
 
 import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
 
-public abstract class PopupControlSet extends TaskEditControlSet {
+public abstract class PopupControlSet extends TaskEditControlSetBase {
 
     protected final View displayView;
     protected final ActivityPreferences preferences;

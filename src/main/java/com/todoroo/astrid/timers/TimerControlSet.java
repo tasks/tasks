@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.helper.TaskEditControlSet;
+import com.todoroo.astrid.helper.TaskEditControlSetBase;
 import com.todoroo.astrid.timers.TimerActionControlSet.TimerActionListener;
 import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.ui.TimeDurationControlSet;
@@ -75,7 +75,7 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
      * @author Tim Su <tim@todoroo.com>
      *
      */
-    public class TimeDurationTaskEditControlSet extends TaskEditControlSet {
+    public class TimeDurationTaskEditControlSet extends TaskEditControlSetBase {
         private final TimeDurationControlSet controlSet;
         private final IntegerProperty property;
 

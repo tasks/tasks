@@ -15,7 +15,7 @@ import android.widget.Spinner;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.helper.TaskEditControlSet;
+import com.todoroo.astrid.helper.TaskEditControlSetBase;
 
 import org.tasks.R;
 
@@ -25,7 +25,7 @@ import org.tasks.R;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class RandomReminderControlSet extends TaskEditControlSet {
+public class RandomReminderControlSet extends TaskEditControlSetBase {
 
     private final CheckBox settingCheckbox;
     private final Spinner periodSpinner;

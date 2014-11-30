@@ -68,6 +68,7 @@ import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.timers.TimerActionControlSet;
 import com.todoroo.astrid.timers.TimerControlSet;
 import com.todoroo.astrid.timers.TimerPlugin;
+import com.todoroo.astrid.ui.CheckableImageView;
 import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.DeadlineControlSet;
 import com.todoroo.astrid.ui.DescriptionControlSet;
@@ -192,8 +193,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     /** whether task should be saved when this activity exits */
     private boolean shouldSaveState = true;
-
-    private EditText notesEditText;
 
     private Dialog whenDialog;
 
@@ -332,9 +331,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     /** Initialize UI components */
     private void setUpUIComponents() {
-
-        LinearLayout titleControls = (LinearLayout) getView().findViewById(
-                R.id.title_controls);
         LinearLayout whenDialogView = (LinearLayout) LayoutInflater.from(
                 getActivity()).inflate(R.layout.task_edit_when_controls, null);
 
@@ -343,10 +339,13 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controlSetMap = new HashMap<>();
 
         // populate control set
-        EditTitleControlSet editTitle = new EditTitleControlSet(taskService, getActivity());
-        title = (EditText) editTitle.getView().findViewById(R.id.title);
+        title = (EditText) getView().findViewById(R.id.title);
+        EditTitleControlSet editTitle = new EditTitleControlSet(
+                taskService,
+                getActivity(),
+                title,
+                (CheckableImageView) getView().findViewById(R.id.completeBox));
         controls.add(editTitle);
-        titleControls.addView(editTitle.getDisplayView(), 0, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1.0f));
 
         timerAction = new TimerActionControlSet(notificationManager, taskService, getActivity(), getView());
         controls.add(timerAction);
@@ -383,7 +382,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 importanceControl);
 
         notesControlSet = new DescriptionControlSet(preferences, getActivity());
-        notesEditText = (EditText) notesControlSet.getView().findViewById(
+        EditText notesEditText = (EditText) notesControlSet.getView().findViewById(
                 R.id.notes);
         controls.add(notesControlSet);
         controlSetMap.put(getString(R.string.TEA_ctrl_notes_pref),
@@ -501,6 +500,12 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             if (getActivity() != null) {
                 // todo: is this necessary?
                 loadMoreContainer();
+                if (isNewTask) {
+                    title.requestFocus();
+                    title.setCursorVisible(true);
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+                }
             }
         }
 

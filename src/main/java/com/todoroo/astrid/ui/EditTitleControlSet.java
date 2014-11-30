@@ -26,33 +26,26 @@ import com.todoroo.astrid.repeats.RepeatControlSet.RepeatChangedListener;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.ui.ImportanceControlSet.ImportanceChangedListener;
 
-import org.tasks.R;
-
 /**
  * Control set for mapping a Property to an EditText
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class EditTitleControlSet extends TaskEditControlSet implements ImportanceChangedListener, RepeatChangedListener {
+public class EditTitleControlSet implements TaskEditControlSet, ImportanceChangedListener, RepeatChangedListener {
 
-    private static final int editTextId = R.id.title;
-
-    private EditText editText;
-    protected CheckableImageView completeBox;
+    private final EditText editText;
+    private CheckableImageView completeBox;
 
     private boolean isRepeating;
     private int importanceValue;
-
+    private Task model;
     private final TaskService taskService;
 
-    public EditTitleControlSet(TaskService taskService, Activity activity) {
-        super(activity, R.layout.control_set_title);
+    public EditTitleControlSet(TaskService taskService, final Activity activity, final EditText editText, CheckableImageView completeBox) {
+        this.editText = editText;
+        this.completeBox = completeBox;
         this.taskService = taskService;
-    }
 
-    @Override
-    protected void afterInflate() {
-        this.editText = (EditText) getView().findViewById(editTextId);
         editText.setHorizontallyScrolling(false);
         editText.setMaxLines(Integer.MAX_VALUE);
         editText.setOnKeyListener(new OnKeyListener() {
@@ -81,10 +74,8 @@ public class EditTitleControlSet extends TaskEditControlSet implements Importanc
                 return false;
             }
         });
-        this.completeBox = (CheckableImageView) getView().findViewById(R.id.completeBox);
     }
 
-    @Override
     protected void readFromTaskOnInitialize() {
         editText.setTextKeepState(model.getTitle());
         completeBox.setChecked(model.isCompleted());
@@ -102,15 +93,6 @@ public class EditTitleControlSet extends TaskEditControlSet implements Importanc
     }
 
     @Override
-    protected void writeToModelAfterInitialized(Task task) {
-        task.setTitle(editText.getText().toString());
-        boolean newState = completeBox.isChecked();
-        if (newState != task.isCompleted()) {
-            taskService.setComplete(task, newState);
-        }
-    }
-
-    @Override
     public void importanceChanged(int i) {
         importanceValue = i;
         updateCompleteBox();
@@ -121,16 +103,15 @@ public class EditTitleControlSet extends TaskEditControlSet implements Importanc
     public void repeatChanged(boolean repeat) {
         isRepeating = repeat;
         updateCompleteBox();
-
     }
 
     @Override
     public void readFromTask(Task task) {
-        super.readFromTask(task);
+        this.model = task;
+        readFromTaskOnInitialize();
         isRepeating = !TextUtils.isEmpty(task.getRecurrence());
         importanceValue = model.getImportance();
     }
-
 
     private void updateCompleteBox() {
         boolean checked = completeBox.isChecked();
@@ -155,4 +136,22 @@ public class EditTitleControlSet extends TaskEditControlSet implements Importanc
         }
     }
 
+    @Override
+    public void writeToModel(Task task) {
+        task.setTitle(editText.getText().toString());
+        boolean newState = completeBox.isChecked();
+        if (newState != task.isCompleted()) {
+            taskService.setComplete(task, newState);
+        }
+    }
+
+    @Override
+    public View getView() {
+        throw new RuntimeException();
+    }
+
+    @Override
+    public View getDisplayView() {
+        throw new RuntimeException();
+    }
 }

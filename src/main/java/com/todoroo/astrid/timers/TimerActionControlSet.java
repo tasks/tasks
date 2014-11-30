@@ -17,7 +17,7 @@ import android.widget.LinearLayout;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.helper.TaskEditControlSet;
+import com.todoroo.astrid.helper.TaskEditControlSetBase;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
@@ -26,7 +26,7 @@ import org.tasks.notifications.NotificationManager;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TimerActionControlSet extends TaskEditControlSet {
+public class TimerActionControlSet extends TaskEditControlSetBase {
 
     private final ImageView timerButton;
     private final Chronometer chronometer;

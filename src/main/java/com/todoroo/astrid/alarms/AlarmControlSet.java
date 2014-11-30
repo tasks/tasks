@@ -17,7 +17,7 @@ import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.helper.TaskEditControlSet;
+import com.todoroo.astrid.helper.TaskEditControlSetBase;
 import com.todoroo.astrid.ui.DateAndTimeDialog;
 import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
 import com.todoroo.astrid.ui.DateAndTimePicker;
@@ -36,7 +36,7 @@ import static org.tasks.date.DateTimeUtils.newDate;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public final class AlarmControlSet extends TaskEditControlSet {
+public final class AlarmControlSet extends TaskEditControlSetBase {
 
     private final ActivityPreferences preferences;
     private final AlarmService alarmService;

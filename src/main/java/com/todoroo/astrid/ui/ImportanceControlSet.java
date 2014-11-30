@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.ToggleButton;
 
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.helper.TaskEditControlSet;
+import com.todoroo.astrid.helper.TaskEditControlSetBase;
 
 import org.tasks.R;
 
@@ -29,7 +29,7 @@ import static org.tasks.preferences.ResourceResolver.getResource;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class ImportanceControlSet extends TaskEditControlSet {
+public class ImportanceControlSet extends TaskEditControlSetBase {
     private final List<CompoundButton> buttons = new LinkedList<>();
     private final int[] colors;
     private final List<ImportanceChangedListener> listeners = new LinkedList<>();
