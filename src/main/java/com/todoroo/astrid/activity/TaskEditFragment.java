@@ -504,7 +504,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                     title.requestFocus();
                     title.setCursorVisible(true);
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+                    imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,0);
                 }
             }
         }
