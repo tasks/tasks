@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<astrid version="335" format="3">
+  <task calendarUri="" completed="0" created="1417551321182" deleted="0" dueDate="0" elapsedSeconds="0" estimatedSeconds="0" hideUntil="0" importance="2" modified="1417553024844" notes="" recurrence="" notificationFlags="6" lastNotified="0" notifications="0" snoozeTime="0" repeatUntil="0" timerStart="0" title="Pick up dry cleaning" remoteId="133782773930938436">
+    <metadata created="0" deleted="0" key="tags-tag" value="Errands" value2="2897444787088657972" value3="133782773930938436" />
+    <metadata created="0" deleted="0" key="tags-tag" value="Office" value2="2420148479398577777" value3="133782773930938436" />
+  </task>
+  <task calendarUri="" completed="0" created="1417551329313" deleted="0" dueDate="1417716000000" elapsedSeconds="0" estimatedSeconds="0" hideUntil="0" importance="1" modified="1417553868229" notes="" recurrence="RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TH" notificationFlags="6" lastNotified="0" notifications="0" snoozeTime="0" repeatUntil="0" timerStart="0" title="Take out the trash" remoteId="4317275025040816663">
+    <metadata created="0" deleted="1417553774420" key="tags-tag" value="Chores" value2="333819150464009127" value3="4317275025040816663" />
+    <metadata created="0" deleted="1417553862367" key="tags-tag" value="Chores" value2="506322051329938728" value3="4317275025040816663" />
+    <metadata created="0" deleted="0" key="tags-tag" value="Home" value2="1625835829806617352" value3="4317275025040816663" />
+  </task>
+  <task calendarUri="" completed="0" created="1417551350659" deleted="0" dueDate="1417629600000" elapsedSeconds="0" estimatedSeconds="0" hideUntil="0" importance="0" modified="1417551486960" notes="" recurrence="" notificationFlags="6" lastNotified="0" notifications="0" snoozeTime="0" repeatUntil="0" timerStart="0" title="Return movie" remoteId="1374046331562929600">
+    <metadata created="0" deleted="0" key="tags-tag" value="Errands" value2="2897444787088657972" value3="1374046331562929600" />
+  </task>
+  <task calendarUri="" completed="0" created="1417551365816" deleted="0" dueDate="0" elapsedSeconds="0" estimatedSeconds="0" hideUntil="0" importance="3" modified="1417553958215" notes="" recurrence="" notificationFlags="6" lastNotified="0" notifications="0" snoozeTime="0" repeatUntil="0" timerStart="0" title="Buy milk &amp; eggs" remoteId="870172748511988672">
+    <metadata created="0" deleted="1417551463966" key="tags-tag" value="Shopping" value2="2800317104257140109" value3="870172748511988672" />
+    <metadata created="0" deleted="1417553801876" key="tags-tag" value="Groceries" value2="536185249637936431" value3="870172748511988672" />
+  </task>
+  <task calendarUri="" completed="0" created="1417551488224" deleted="0" dueDate="1417543200000" elapsedSeconds="0" estimatedSeconds="0" hideUntil="0" importance="3" modified="1417551508877" notes="" recurrence="RRULE:FREQ=DAILY;INTERVAL=1;FROM=COMPLETION" notificationFlags="6" lastNotified="0" notifications="0" snoozeTime="0" repeatUntil="0" timerStart="0" title="Walk the dog" remoteId="341249039803689330" />
+  <task calendarUri="" completed="0" created="1417551834055" deleted="0" dueDate="1417802400000" elapsedSeconds="0" estimatedSeconds="0" hideUntil="0" importance="0" modified="1417553014480" notes="" recurrence="" notificationFlags="6" lastNotified="0" notifications="0" snoozeTime="0" repeatUntil="0" timerStart="0" title="New TPS coversheets" remoteId="4522800366354368462">
+    <metadata created="0" deleted="0" key="tags-tag" value="Office" value2="2420148479398577777" value3="4522800366354368462" />
+  </task>
+  <task calendarUri="" completed="0" created="1417552986074" deleted="0" dueDate="0" elapsedSeconds="0" estimatedSeconds="0" hideUntil="0" importance="1" modified="1417553001265" notes="" recurrence="" notificationFlags="6" lastNotified="0" notifications="0" snoozeTime="0" repeatUntil="0" timerStart="0" title="Pick up prescription" remoteId="2889554587067625099">
+    <metadata created="0" deleted="0" key="tags-tag" value="Errands" value2="2897444787088657972" value3="2889554587067625099" />
+  </task>
+  <task calendarUri="" completed="0" created="1417553061278" deleted="0" dueDate="0" elapsedSeconds="0" estimatedSeconds="0" hideUntil="0" importance="1" modified="1417553892866" notes="" recurrence="" notificationFlags="6" lastNotified="0" notifications="0" snoozeTime="0" repeatUntil="0" timerStart="0" title="Call Matt re: proposal" remoteId="2222765867738895702">
+    <metadata created="0" deleted="0" key="tags-tag" value="Office" value2="2420148479398577777" value3="2222765867738895702" />
+    <metadata created="0" deleted="0" key="tags-tag" value="Calls" value2="2560732460978813501" value3="2222765867738895702" />
+  </task>
+  <task calendarUri="" completed="0" created="1417553994222" deleted="0" dueDate="0" elapsedSeconds="0" estimatedSeconds="0" hideUntil="0" importance="0" modified="1417554082065" notes="" recurrence="" notificationFlags="6" lastNotified="0" notifications="0" snoozeTime="0" repeatUntil="0" timerStart="0" title="Book hotel" remoteId="230462949598811989">
+    <metadata created="0" deleted="1417554082053" key="tags-tag" value="Computer" value2="4219015281807071921" value3="230462949598811989" />
+    <metadata created="0" deleted="1417554017878" key="tags-tag" value="Projects" value2="4171420469470941389" value3="230462949598811989" />
+    <metadata created="0" deleted="0" key="tags-tag" value="Office" value2="2420148479398577777" value3="230462949598811989" />
+    <metadata created="0" deleted="0" key="tags-tag" value="Calls" value2="2560732460978813501" value3="230462949598811989" />
+  </task>
+  <task calendarUri="" completed="0" created="1417554042757" deleted="0" dueDate="0" elapsedSeconds="0" estimatedSeconds="0" hideUntil="0" importance="0" modified="1417554077704" notes="" recurrence="" notificationFlags="6" lastNotified="0" notifications="0" snoozeTime="0" repeatUntil="0" timerStart="0" title="Book car rental" remoteId="2160143386302867747">
+    <metadata created="0" deleted="0" key="tags-tag" value="Office" value2="2420148479398577777" value3="2160143386302867747" />
+    <metadata created="0" deleted="1417554077692" key="tags-tag" value="Computer" value2="4219015281807071921" value3="2160143386302867747" />
+    <metadata created="0" deleted="0" key="tags-tag" value="Calls" value2="2560732460978813501" value3="2160143386302867747" />
+  </task>
+  <task calendarUri="" completed="0" created="1417554097503" deleted="0" dueDate="0" elapsedSeconds="0" estimatedSeconds="0" hideUntil="0" importance="3" modified="1417554105349" notes="" recurrence="" notificationFlags="6" lastNotified="0" notifications="0" snoozeTime="0" repeatUntil="0" timerStart="0" title="Ski trip" remoteId="2910828546772529065">
+    <metadata created="0" deleted="0" key="tags-tag" value="Someday" value2="2780234708231068681" value3="2910828546772529065" />
+  </task>
+  <tagdata deleted="0" lastAutosync="1417554150117" name="Errands" tagOrdering="[]" remoteId="2897444787088657972" />
+  <tagdata deleted="0" lastAutosync="1417553624981" name="Office" tagOrdering="[]" remoteId="2420148479398577777" />
+  <tagdata deleted="0" lastAutosync="1417554146510" name="Calls" tagOrdering="[]" remoteId="2560732460978813501" />
+  <tagdata deleted="0" lastAutosync="0" name="Home" tagOrdering="[]" remoteId="1625835829806617352" />
+  <tagdata deleted="0" lastAutosync="1417553757534" name="Agendas" tagOrdering="[]" remoteId="3045974110512512707" />
+  <tagdata deleted="0" lastAutosync="1417553786777" name="Anywhere" tagOrdering="[]" remoteId="4399444017799786896" />
+  <tagdata deleted="0" lastAutosync="1417553797183" name="Computer" tagOrdering="[]" remoteId="4219015281807071921" />
+  <tagdata deleted="0" lastAutosync="1417553818035" name="Waiting For" tagOrdering="[]" remoteId="2462917657773618853" />
+  <tagdata deleted="0" lastAutosync="1417554098529" name="Someday" tagOrdering="[]" remoteId="2780234708231068681" />
+  <tagdata deleted="0" lastAutosync="0" name="Projects" tagOrdering="[]" remoteId="4171420469470941389" />
+</astrid>

@@ -65,7 +65,6 @@
         android:orientation="horizontal"
         android:background="?attr/asAbBackgroundColor"
         android:padding="3dip" 
-        android:visibility="gone"
         android:paddingBottom="0dip">
 
         <!-- Voice Add Button -->

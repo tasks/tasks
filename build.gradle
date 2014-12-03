@@ -74,6 +74,8 @@ dependencies {
     provided group: 'com.squareup.dagger', name: 'dagger-compiler', version: '1.2.2'
     compile group: 'com.squareup.dagger', name: 'dagger', version: '1.2.2'
 
+    compile group: 'com.jakewharton', name: 'butterknife', version: '6.0.0'
+
     compile group: 'com.android.support', name: 'support-v4', version: '21.0.2'
     compile group: 'com.android.support', name: 'appcompat-v7', version: '21.0.2'
 

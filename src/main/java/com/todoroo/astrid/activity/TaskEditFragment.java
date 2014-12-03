@@ -94,6 +94,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 import static org.tasks.files.FileHelper.getPathFromUri;
 
 /**
@@ -173,13 +176,18 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     // --- UI components
 
-    private DescriptionControlSet notesControlSet = null;
-    private FilesControlSet filesControlSet = null;
+    private FilesControlSet filesControlSet;
     private TimerActionControlSet timerAction;
-    private EditText title;
     private EditNoteActivity editNotes;
-    private ViewPager mPager;
     private HashMap<String, TaskEditControlSet> controlSetMap = new HashMap<>();
+
+    @InjectView(R.id.title) EditText title;
+    @InjectView(R.id.pager) ViewPager mPager;
+    @InjectView(R.id.updatesFooter) View commentsBar;
+    @InjectView(R.id.completeBox) CheckableImageView checkbox;
+    @InjectView(R.id.timer_container) LinearLayout timerShortcut;
+    @InjectView(R.id.basic_controls) LinearLayout basicControls;
+    @InjectView(R.id.edit_scroll) ScrollView scrollView;
 
     private final List<TaskEditControlSet> controls = Collections.synchronizedList(new ArrayList<TaskEditControlSet>());
 
@@ -201,6 +209,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private String uuid = RemoteModel.NO_UUID;
 
     private boolean showEditComments;
+    private boolean showTimerShortcut;
 
     /*
      * ======================================================================
@@ -225,6 +234,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
 
         showEditComments = preferences.getBoolean(R.string.p_show_task_edit_comments, true);
+        showTimerShortcut = preferences.getBoolean(R.string.p_show_timer_shortcut, false);
 
         getActivity().setResult(Activity.RESULT_OK);
     }
@@ -238,9 +248,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-
-        return inflater.inflate(R.layout.task_edit_activity, container, false);
+        View view = inflater.inflate(R.layout.task_edit_activity, container, false);
+        ButterKnife.inject(this, view);
+        return view;
     }
 
     @Override
@@ -276,8 +286,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     }
 
     private void loadMoreContainer() {
-        View commentsBar = getView().findViewById(R.id.updatesFooter);
-
         long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID, -1L);
 
         int tabStyle = TaskEditViewPager.TAB_SHOW_ACTIVITY;
@@ -308,12 +316,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         TaskEditViewPager adapter = new TaskEditViewPager(getActivity(), tabStyle);
         adapter.parent = this;
 
-        mPager = (ViewPager) getView().findViewById(R.id.pager);
         mPager.setAdapter(adapter);
 
-        if (showEditComments) {
-            commentsBar.setVisibility(View.VISIBLE);
-        }
         setCurrentTab(TAB_VIEW_UPDATES);
         setPagerHeightForPosition();
         Handler handler = new Handler();
@@ -339,12 +343,11 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controlSetMap = new HashMap<>();
 
         // populate control set
-        title = (EditText) getView().findViewById(R.id.title);
         EditTitleControlSet editTitle = new EditTitleControlSet(
                 taskService,
                 getActivity(),
                 title,
-                (CheckableImageView) getView().findViewById(R.id.completeBox));
+                checkbox);
         controls.add(editTitle);
 
         timerAction = new TimerActionControlSet(notificationManager, taskService, getActivity(), getView());
@@ -381,9 +384,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controlSetMap.put(getString(R.string.TEA_ctrl_importance_pref),
                 importanceControl);
 
-        notesControlSet = new DescriptionControlSet(preferences, getActivity());
-        EditText notesEditText = (EditText) notesControlSet.getView().findViewById(
-                R.id.notes);
+        DescriptionControlSet notesControlSet = new DescriptionControlSet(preferences, getActivity());
+        EditText notesEditText = (EditText) notesControlSet.getView().findViewById(R.id.notes);
         controls.add(notesControlSet);
         controlSetMap.put(getString(R.string.TEA_ctrl_notes_pref),
                 notesControlSet);
@@ -414,13 +416,18 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         loadEditPageOrder(false);
 
+        if (!showEditComments) {
+            commentsBar.setVisibility(View.GONE);
+        }
+        if (!showTimerShortcut) {
+            timerShortcut.setVisibility(View.GONE);
+        }
+
         // Load task data in background
         new TaskEditBackgroundLoader().start();
     }
 
     private void loadEditPageOrder(boolean removeViews) {
-        LinearLayout basicControls = (LinearLayout) getView().findViewById(
-                R.id.basic_controls);
         if (removeViews) {
             basicControls.removeAllViews();
         }
@@ -1032,7 +1039,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     // Scroll to view in edit task
     public void scrollToView(View v) {
         View child = v;
-        ScrollView scrollView = (ScrollView) getView().findViewById(R.id.edit_scroll);
         int top = v.getTop();
         while (!child.equals(scrollView) ) {
             top += child.getTop();

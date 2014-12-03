@@ -177,8 +177,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                     }
                 }
             });
-        } else {
-            timerView.setVisibility(View.GONE);
         }
 
         commentField.addTextChangedListener(new TextWatcher() {
