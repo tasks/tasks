@@ -89,7 +89,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         navigationDrawer.setUp(drawerLayout);
-//        drawerLayout.setStatusBarBackgroundColor(getResources().getColor(android.R.color.holo_blue_bright));
 
         initializeFragments();
 

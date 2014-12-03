@@ -188,6 +188,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @InjectView(R.id.timer_container) LinearLayout timerShortcut;
     @InjectView(R.id.basic_controls) LinearLayout basicControls;
     @InjectView(R.id.edit_scroll) ScrollView scrollView;
+    @InjectView(R.id.commentField) EditText commentField;
 
     private final List<TaskEditControlSet> controls = Collections.synchronizedList(new ArrayList<TaskEditControlSet>());
 
@@ -874,6 +875,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        hideKeyboard();
+
         switch (item.getItemId()) {
         case R.id.menu_save:
             saveButtonClick();
@@ -896,7 +899,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             } else {
                 saveButtonClick();
             }
-            hideKeyboard();
             return true;
         }
 
@@ -1054,8 +1056,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     }
 
     private void hideKeyboard() {
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
-                Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(title.getWindowToken(), 0);
+        AndroidUtilities.hideSoftInputForViews(getActivity(), title, commentField);
+        title.setCursorVisible(false);
+        commentField.setCursorVisible(false);
     }
 }

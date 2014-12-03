@@ -32,6 +32,7 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.todoroo.andlib.data.Callback;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.ActFmCameraModule;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
@@ -170,14 +171,31 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                     if (hasFocus) {
                         timerView.setVisibility(View.GONE);
                         commentButton.setVisibility(View.VISIBLE);
-                    }
-                    else {
+                    } else {
                         timerView.setVisibility(View.VISIBLE);
                         commentButton.setVisibility(View.GONE);
                     }
                 }
             });
         }
+        commentField.setHorizontallyScrolling(false);
+        commentField.setMaxLines(Integer.MAX_VALUE);
+        commentField.setOnKeyListener(new OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    AndroidUtilities.hideSoftInputForViews(activity, commentField);
+                    return true;
+                }
+                return false;
+            }
+        });
+        commentField.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                commentField.setCursorVisible(true);
+            }
+        });
 
         commentField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -204,13 +222,16 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         commentField.setOnEditorActionListener(new OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_NULL && commentField.getText().length() > 0) {
-                    addComment();
-                    return true;
+                if (commentField.getText().length() > 0) {
+                    if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_NULL) {
+//                        commentField.setCursorVisible(false);
+                        addComment();
+                    }
                 }
                 return false;
             }
         });
+
         commentButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -362,6 +383,8 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     private void addComment() {
         addComment(commentField.getText().toString(), UserActivity.ACTION_TASK_COMMENT, task.getUuid(), true);
+        AndroidUtilities.hideSoftInputForViews(getContext(), commentField);
+        commentField.setCursorVisible(false);
     }
 
     private void addComment(String message, String actionCode, String uuid, boolean usePicture) {

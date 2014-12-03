@@ -35,7 +35,7 @@
         android:capitalize="sentences"
         android:freezesText="true"
         android:hint="@string/TEA_title_hint"
-        android:inputType="textCapSentences"
+        android:inputType="textCapSentences|textNoSuggestions"
         android:scrollbars="vertical"
         android:imeOptions="flagNoExtractUi|actionDone"
         android:text=""

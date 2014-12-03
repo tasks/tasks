@@ -9,8 +9,8 @@
     </style>
 
     <style name="Tasks" parent="AppTheme">
-        <item name="colorPrimary">#607d8b</item>
-        <item name="colorPrimaryDark">#4d646f</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
         <!--<item name="colorAccent">@android:color/holo_purple</item>-->
 
         <item name="android:windowBackground">@null</item>
@@ -19,6 +19,8 @@
         <item name="asSeparatorBackground">#888888</item>
         <item name="asEditTextBackground">@null</item>
 
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:actionModeBackground">@color/primary</item>
         <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
         <item name="asContentBackground">@android:color/white</item>
         <item name="asEditBackground">@android:color/white</item>

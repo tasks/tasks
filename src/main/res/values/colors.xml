@@ -5,6 +5,9 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <resources>
+    <color name="primary">#607d8b</color>
+    <color name="primary_dark">#4d646f</color>
+
     <color name="task_list_overdue">#FFFB6666</color>
     <color name="task_list_done">#ff777777</color>
     <color name="task_edit_deadline_gray">#888888</color>
