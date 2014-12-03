@@ -37,7 +37,7 @@
         android:hint="@string/TEA_title_hint"
         android:inputType="textCapSentences"
         android:scrollbars="vertical"
-        android:imeOptions="flagNoExtractUi"
+        android:imeOptions="flagNoExtractUi|actionDone"
         android:text=""
         android:textColor="?attr/asTextColor" />
 

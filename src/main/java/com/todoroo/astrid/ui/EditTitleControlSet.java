@@ -62,7 +62,6 @@ public class EditTitleControlSet implements TaskEditControlSet, ImportanceChange
             @Override
             public void onClick(View v) {
                 editText.setCursorVisible(true);
-                editText.moveCursorToVisibleOffset();
             }
         });
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
