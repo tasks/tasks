@@ -216,7 +216,7 @@ public class CustomFilterActivity extends InjectingActionBarActivity {
                     getString(R.string.CFC_dueBefore_text),
                     Query.select(Task.ID).from(Task.TABLE).where(
                             Criterion.and(
-                                    TaskCriteria.activeVisibleMine(),
+                                    TaskCriteria.activeAndVisible(),
                                     Criterion.or(
                                             Field.field("?").eq(0),
                                             Task.DUE_DATE.gt(0)),
@@ -244,7 +244,7 @@ public class CustomFilterActivity extends InjectingActionBarActivity {
                     IDENTIFIER_IMPORTANCE,
                     getString(R.string.CFC_importance_text),
                     Query.select(Task.ID).from(Task.TABLE).where(
-                            Criterion.and(TaskCriteria.activeVisibleMine(),
+                            Criterion.and(TaskCriteria.activeAndVisible(),
                                     Task.IMPORTANCE.lte("?"))).toString(),
                     values, entries,
                     entryValues, ((BitmapDrawable)r.getDrawable(R.drawable.tango_warning)).getBitmap(),
@@ -260,7 +260,7 @@ public class CustomFilterActivity extends InjectingActionBarActivity {
                     IDENTIFIER_TITLE,
                     getString(R.string.CFC_title_contains_text),
                     Query.select(Task.ID).from(Task.TABLE).where(
-                            Criterion.and(TaskCriteria.activeVisibleMine(),
+                            Criterion.and(TaskCriteria.activeAndVisible(),
                                     Task.TITLE.like("%?%"))).toString(),
                         getString(R.string.CFC_title_contains_name), "",
                         ((BitmapDrawable)r.getDrawable(R.drawable.tango_alpha)).getBitmap(),
@@ -411,7 +411,7 @@ public class CustomFilterActivity extends InjectingActionBarActivity {
 
             // special code for all tasks universe
             if(instance.criterion.sql == null) {
-                sql.append(TaskCriteria.activeVisibleMine()).append(' ');
+                sql.append(TaskCriteria.activeAndVisible()).append(' ');
             } else {
                 String subSql = instance.criterion.sql.replace("?", UnaryCriterion.sanitize(value));
                 sql.append(Task.ID).append(" IN (").append(subSql).append(") ");
@@ -473,7 +473,7 @@ public class CustomFilterActivity extends InjectingActionBarActivity {
 
             // special code for all tasks universe
             if(instance.criterion.sql == null) {
-                sql.append(TaskCriteria.activeVisibleMine()).append(' ');
+                sql.append(TaskCriteria.activeAndVisible()).append(' ');
             } else {
                 String subSql = instance.criterion.sql.replace("?", UnaryCriterion.sanitize(value));
                 subSql = PermaSql.replacePlaceholders(subSql);

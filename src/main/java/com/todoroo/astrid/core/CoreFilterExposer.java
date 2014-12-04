@@ -66,7 +66,7 @@ public final class CoreFilterExposer extends InjectingBroadcastReceiver implemen
     public static Filter buildInboxFilter(Resources r) {
         return new Filter(r.getString(R.string.BFE_Active), r.getString(R.string.BFE_Active),
                 new QueryTemplate().where(
-                        Criterion.and(TaskCriteria.activeVisibleMine(),
+                        Criterion.and(TaskCriteria.activeAndVisible(),
                                 Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(
                                         Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
                                                 TaskToTagMetadata.TAG_NAME.like("x_%", "x"))))))), //$NON-NLS-1$ //$NON-NLS-2$
@@ -80,7 +80,7 @@ public final class CoreFilterExposer extends InjectingBroadcastReceiver implemen
         return new Filter(todayTitle,
                 todayTitle,
                 new QueryTemplate().where(
-                        Criterion.and(TaskCriteria.activeVisibleMine(),
+                        Criterion.and(TaskCriteria.activeAndVisible(),
                                 Task.DUE_DATE.gt(0),
                                 Task.DUE_DATE.lte(PermaSql.VALUE_EOD))),
                                 todayValues);
