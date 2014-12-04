@@ -120,6 +120,8 @@ public class SavedFilter {
             contentValues = AndroidUtilities.contentValuesFromSerializedString(values);
         }
 
+        sql = sql.replace("tasks.userId=0", "1"); // TODO: replace dirty hack for missing column
+
         return new Filter(title, title, sql, contentValues);
     }
 
