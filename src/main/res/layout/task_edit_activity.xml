@@ -91,7 +91,7 @@
             android:layout_marginBottom="2dip"
             android:layout_marginTop="2dip"
             android:layout_weight="100"
-            android:inputType="textCapSentences|textNoSuggestions"
+            android:inputType="textCapSentences"
             android:autoText="true"
             android:background="?attr/asEditTextBackground"
             android:capitalize="sentences"
