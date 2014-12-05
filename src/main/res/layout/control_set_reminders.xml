@@ -1,102 +1,40 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<?xml version="1.0" encoding="utf-8"?><!--
 ** Copyright (c) 2012 Todoroo Inc
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent"
-  android:orientation="vertical"
-  android:paddingLeft="5dip"
-  android:paddingRight="5dip">
-	<ScrollView
-	  android:layout_width="fill_parent"
-	  android:layout_height="fill_parent"
-	  android:layout_weight="100"
-	  android:minWidth="320dip">
-		<LinearLayout
-		  android:id="@+id/reminders_body"
-		  android:orientation="vertical"
-		  android:layout_width="fill_parent"
-		  android:layout_height="fill_parent">
-		  
-		  <!-- reminders -->
-		      <TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:paddingLeft="10dip"
-		        android:text="@string/TEA_reminder_label"
-		        android:paddingTop="10dip"
-		        style="@style/TextAppearance" />
-		      <CheckBox
-		        style="@style/TextAppearance"
-		        android:id="@+id/reminder_due"
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_marginLeft="10dip"   
-		        android:text="@string/TEA_reminder_due" />
-		      <CheckBox
-		        style="@style/TextAppearance"
-		        android:id="@+id/reminder_overdue"
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_marginLeft="10dip"   
-		        android:text="@string/TEA_reminder_overdue" />
-		      <LinearLayout
-		        android:orientation="horizontal"
-		        android:layout_width="fill_parent"
-		        android:layout_height="fill_parent">
-		        <CheckBox
-		          style="@style/TextAppearance"
-		          android:id="@+id/reminder_random"
-		          android:layout_width="wrap_content"
-		          android:layout_height="wrap_content"
-		          android:layout_marginLeft="10dip"   
-		          android:text="@string/TEA_reminder_randomly" />
-		        <Spinner
-		          android:id="@+id/reminder_random_interval"
-		          android:layout_width="fill_parent"
-		          android:layout_height="wrap_content" />
-		      </LinearLayout>
-		      <View
-		          android:layout_width="fill_parent"
-		          android:layout_height="1px"
-                  android:background="?android:attr/listDivider" />
-		      <LinearLayout
-		          android:id="@+id/reminder_alarm_container"
-		          android:layout_width="fill_parent"
-		          android:layout_height="50dip"
-		          android:layout_marginLeft="10dip"
-		          android:layout_marginRight="10dip"
-		          android:gravity="center_vertical"
-		          android:orientation="horizontal">
-			      <TextView
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:text="@string/TEA_reminder_alarm_label"
-			        style="@style/TextAppearance" />
-			      <TextView
-		             android:id="@+id/reminder_alarm_display"
-		             android:layout_width="fill_parent"
-		             android:layout_height="wrap_content"
-		             android:layout_weight="1"
-		             android:gravity="right"
-		             android:paddingLeft="10dip"
-                     android:textColor="?attr/asThemeTextColor" />
-			      <Spinner
-			        android:id="@+id/reminder_alarm"
-			        android:layout_width="0dip"
-			        android:layout_height="wrap_content" />
-		      </LinearLayout>
-		      <View
-		          android:id="@+id/TEA_Separator"
-		          android:layout_width="fill_parent"
-		          android:layout_height="1px"
-                  android:background="?android:attr/listDivider" />
-		    
-		</LinearLayout>
-	</ScrollView>
-	<include layout="@layout/control_dialog_ok"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:src="@drawable/ic_action_bell"
+        android:contentDescription="@string/TEA_control_reminders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:padding="@dimen/task_edit_drawable_padding" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/display_row_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:text="@string/TEA_importance_label"
+            android:textColor="?attr/asThemeTextColor"
+            android:textSize="@dimen/task_edit_text_size"
+            android:paddingTop="@dimen/task_edit_padding_top_bottom"
+            android:paddingBottom="@dimen/task_edit_padding_top_bottom"
+            android:layout_marginTop="@dimen/task_edit_padding_top_bottom"
+            android:layout_marginBottom="@dimen/task_edit_padding_top_bottom" />
+
+        <include layout="@layout/task_edit_divider" />
+
+    </LinearLayout>
 </LinearLayout>

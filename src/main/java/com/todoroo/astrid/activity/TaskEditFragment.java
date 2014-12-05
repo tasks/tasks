@@ -356,8 +356,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         TagsControlSet tagsControlSet = new TagsControlSet(metadataDao, tagDataDao, preferences, tagService, getActivity());
         controls.add(tagsControlSet);
-        controlSetMap.put(getString(R.string.TEA_ctrl_lists_pref),
-                tagsControlSet);
+        controlSetMap.put(getString(R.string.TEA_ctrl_lists_pref), tagsControlSet);
 
         RepeatControlSet repeatControls = new RepeatControlSet(preferences, getActivity());
 
@@ -370,7 +369,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         // otherwise the correct date may not be written to the calendar event.
         // Order matters!
         DeadlineControlSet deadlineControl = new DeadlineControlSet(
-                preferences, getActivity(), R.layout.control_set_deadline_display, repeatControls,
+                preferences, getActivity(), R.layout.control_set_deadline, repeatControls,
                 repeatControls.getDisplayView(), gcalControl.getDisplayView());
         controlSetMap.put(getString(R.string.TEA_ctrl_when_pref),
                 deadlineControl);
@@ -404,8 +403,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         hideUntilControls.getView();
 
         TimerControlSet timerControl = new TimerControlSet(preferences, getActivity(),
+                R.layout.control_set_timers_dialog,
                 R.layout.control_set_timers,
-                R.layout.control_set_default_display,
                 R.string.TEA_timer_controls);
         timerAction.addListener(timerControl);
         controls.add(timerControl);
@@ -453,9 +452,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 }
 
                 if (controlSet != null) {
-                    if ((i + 1 >= itemOrder.length)) {
-                        removeTeaSeparator(controlSet);
-                    }
                     basicControls.addView(controlSet);
                 }
 
@@ -466,15 +462,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
 
         getActivity().getIntent().removeExtra(TOKEN_OPEN_CONTROL);
-    }
-
-    private void removeTeaSeparator(View view) {
-
-        View teaSeparator = view.findViewById(R.id.TEA_Separator);
-
-        if (teaSeparator != null) {
-            teaSeparator.setVisibility(View.GONE);
-        }
     }
 
     private void constructWhenDialog(View whenDialogView) {

@@ -33,6 +33,7 @@
     <color name="white_text_hint">#eee</color>
     <color name="black_text">#000</color>
     <color name="black_text_hint">#535353</color>
+    <color name="task_edit_divider">#343434</color>
 
     <color name="importance_1">#ffff5555</color>
     <color name="importance_2">#fffea400</color>

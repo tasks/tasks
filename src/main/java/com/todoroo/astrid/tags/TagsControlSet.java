@@ -17,7 +17,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -46,8 +45,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.tasks.preferences.ResourceResolver.getResource;
-
 /**
  * Control set to manage adding and removing tags
  *
@@ -66,7 +63,6 @@ public final class TagsControlSet extends PopupControlSet {
     private ListView selectedTags;
     private boolean populated = false;
     private HashMap<String, Integer> tagIndices;
-    private final ImageView image;
 
     //private final LinearLayout tagsContainer;
     private final TextView tagsDisplay;
@@ -76,12 +72,11 @@ public final class TagsControlSet extends PopupControlSet {
     private final TagService tagService;
 
     public TagsControlSet(MetadataDao metadataDao, TagDataDao tagDataDao, ActivityPreferences preferences, TagService tagService, Activity activity) {
-        super(preferences, activity, R.layout.control_set_tags, R.layout.control_set_default_display, R.string.TEA_tags_label_long);
+        super(preferences, activity, R.layout.control_set_tag_list, R.layout.control_set_tags, R.string.TEA_tags_label_long);
         this.metadataDao = metadataDao;
         this.tagDataDao = tagDataDao;
         this.tagService = tagService;
         tagsDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
-        image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
     }
 
     private TagData[] getTagArray() {
@@ -319,11 +314,9 @@ public final class TagsControlSet extends PopupControlSet {
         if (!TextUtils.isEmpty(tagString)) {
             tagsDisplay.setText(tagString);
             tagsDisplay.setTextColor(themeColor);
-            image.setImageResource(getResource(activity, R.attr.tea_icn_lists));
         } else {
             tagsDisplay.setText(R.string.tag_FEx_untagged);
             tagsDisplay.setTextColor(unsetColor);
-            image.setImageResource(R.drawable.tea_icn_lists_gray);
         }
     }
 

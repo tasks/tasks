@@ -45,13 +45,11 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
     private Spinner spinner;
     private int previousSetting = Task.HIDE_UNTIL_NONE;
     private int selection;
-    private final ImageView image;
 
     private long existingDate = EXISTING_TIME_UNSET;
 
     public HideUntilControlSet(ActivityPreferences preferences, Activity activity) {
-        super(preferences, activity, R.layout.control_set_hide, R.layout.control_set_default_display, title);
-        image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
+        super(preferences, activity, R.layout.control_set_hide_spinner, R.layout.control_set_hide, title);
     }
 
     private ArrayAdapter<HideUntilValue> adapter;
@@ -197,7 +195,6 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
         if (value.setting == Task.HIDE_UNTIL_NONE) {
             auxDisplay.setText(R.string.TEA_hideUntil_label);
             auxDisplay.setTextColor(unsetColor);
-            image.setImageResource(R.drawable.tea_icn_hide_gray);
         } else {
             String display = value.toString();
             if (value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY && value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY_TIME) {
@@ -206,7 +203,6 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
 
             auxDisplay.setText(activity.getString(R.string.TEA_hideUntil_display, display));
             auxDisplay.setTextColor(themeColor);
-            image.setImageResource(getResource(activity, R.attr.tea_icn_hide));
         }
     }
 

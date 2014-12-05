@@ -42,7 +42,6 @@ public class ReminderControlSet extends PopupControlSet {
     private LinearLayout remindersBody;
     private final List<View> extraViews;
     private final TextView label;
-    private final ImageView image;
 
     private RandomReminderControlSet randomControlSet;
     private AlarmControlSet alarmControl;
@@ -50,12 +49,10 @@ public class ReminderControlSet extends PopupControlSet {
 
     public ReminderControlSet(ActivityPreferences preferences, AlarmService alarmService,
                               Activity activity) {
-        super(preferences, activity, R.layout.control_set_reminders, R.layout.control_set_default_display, R.string.TEA_reminders_group_label);
+        super(preferences, activity, R.layout.control_set_reminders_dialog, R.layout.control_set_reminders, R.string.TEA_reminders_group_label);
         this.alarmService = alarmService;
         extraViews = new ArrayList<>();
         label = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
-
-        image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
     }
 
     public void addViewToBody(View v) {
@@ -222,11 +219,9 @@ public class ReminderControlSet extends PopupControlSet {
 
             label.setText(toDisplay);
             label.setTextColor(themeColor);
-            image.setImageResource(getResource(activity, R.attr.tea_icn_reminder));
         } else {
             label.setText(R.string.TEA_reminders_group_label);
             label.setTextColor(unsetColor);
-            image.setImageResource(R.drawable.tea_icn_reminder_gray);
         }
     }
 }

@@ -1,44 +1,52 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<?xml version="1.0" encoding="utf-8"?><!--
 ** Copyright (c) 2012 Todoroo Inc
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="vertical"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
-  
-      <LinearLayout
-        android:id="@+id/importance_container"
-        android:orientation="horizontal"
-        android:paddingTop="5dip"
-        android:paddingBottom="5dip"
-        android:gravity="center_vertical"
-        android:layout_width="fill_parent"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip"
-        android:layout_height="50dip">
-	      <ImageView android:id="@+id/display_row_icon"
-	         android:layout_marginRight="10dip"
-             android:layout_width="20dip"
-             android:layout_height="20dip"
-             android:scaleType="fitCenter"
-             android:src="@drawable/tea_icn_priority_gray"/>
-	      <TextView
-	         android:id="@+id/display_row_edit"
-		     android:layout_width="wrap_content"
-	         android:layout_height="wrap_content"
-	         android:gravity="left"
-	         android:text="@string/TEA_importance_label"
-		     android:textColor="@color/task_edit_deadline_gray"/>
-      </LinearLayout>
-      
-      <View
-	      android:id="@+id/TEA_Separator"
-	      android:layout_width="fill_parent"
-	      android:layout_height="1px"
-          android:background="?android:attr/listDivider" />
-    
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:src="@drawable/ic_action_flag"
+        android:contentDescription="@string/TEA_importance_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:padding="@dimen/task_edit_drawable_padding" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/importance_container"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/task_edit_padding_right"
+            android:paddingEnd="@dimen/task_edit_padding_right">
+
+            <TextView
+                android:id="@+id/display_row_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/task_edit_padding_top_bottom"
+                android:layout_marginBottom="@dimen/task_edit_padding_top_bottom"
+                android:paddingTop="@dimen/task_edit_padding_top_bottom"
+                android:paddingBottom="@dimen/task_edit_padding_top_bottom"
+                android:gravity="start|center_vertical"
+                android:text="@string/TEA_importance_label"
+                android:textColor="@color/black_text"
+                android:textSize="@dimen/task_edit_text_size" />
+
+        </LinearLayout>
+
+        <include layout="@layout/task_edit_divider" />
+
+    </LinearLayout>
+
 </LinearLayout>

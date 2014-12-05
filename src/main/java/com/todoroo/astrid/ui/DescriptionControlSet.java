@@ -13,7 +13,6 @@ import android.text.util.Linkify;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.todoroo.astrid.data.Task;
@@ -21,17 +20,13 @@ import com.todoroo.astrid.data.Task;
 import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
 
-import static org.tasks.preferences.ResourceResolver.getResource;
-
 public class DescriptionControlSet extends PopupControlSet {
 
     protected EditText editText;
     protected TextView notesPreview;
-    protected ImageView image;
 
     public DescriptionControlSet(ActivityPreferences preferences, Activity activity) {
-        super(preferences, activity, R.layout.control_set_description, R.layout.control_set_notes_display, R.string.TEA_note_label);
-        image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
+        super(preferences, activity, R.layout.control_set_description_edit, R.layout.control_set_description, R.string.TEA_note_label);
     }
 
     @Override
@@ -46,11 +41,9 @@ public class DescriptionControlSet extends PopupControlSet {
         if (TextUtils.isEmpty(textToUse)) {
             notesPreview.setText(R.string.TEA_notes_empty);
             notesPreview.setTextColor(unsetColor);
-            image.setImageResource(R.drawable.tea_icn_edit_gray);
         } else {
             notesPreview.setText(textToUse);
             notesPreview.setTextColor(themeColor);
-            image.setImageResource(getResource(activity, R.attr.tea_icn_edit));
         }
 
         linkifyDisplayView();

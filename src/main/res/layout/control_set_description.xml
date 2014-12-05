@@ -1,47 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<?xml version="1.0" encoding="utf-8"?><!--
 ** Copyright (c) 2012 Todoroo Inc
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="vertical"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent"
-  android:paddingLeft="5dip"
-  android:paddingRight="5dip">
-  
-  <!-- notes -->
-  <ScrollView
-      android:layout_width="fill_parent"
-   	  android:layout_height="wrap_content"
-      android:layout_weight="100">
-	  <LinearLayout
-	    android:orientation="horizontal"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:gravity="center_vertical">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
-        <EditText
-	      android:id="@+id/notes"
-	      android:layout_width="wrap_content"
-	      android:layout_height="wrap_content"
-	      android:minHeight="100dip"
-	      android:layout_marginLeft="9dip"
-	      android:layout_marginRight="9dip"
-	      android:layout_marginTop="5dip"
-	      android:layout_weight="100"
-	      android:scrollbars="vertical"
-	      android:gravity="top"
-	      android:background="@null"
-	      android:hint="@string/TEA_notes_hint"
-	      android:autoText="true"
-	      android:capitalize="sentences"
-	      android:singleLine="false"
-	      android:textColor="?attr/asTextColor"
-	      android:freezesText="true" />
-	  </LinearLayout>
-  </ScrollView>
-  <include layout="@layout/control_dialog_ok"/>
+    <ImageView
+        android:src="@drawable/ic_action_list"
+        android:contentDescription="@string/TEA_note_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:padding="@dimen/task_edit_drawable_padding" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/display_row_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="start"
+            android:textColor="?attr/asThemeTextColor"
+            android:textSize="@dimen/task_edit_text_size"
+            android:paddingTop="@dimen/task_edit_padding_top_bottom"
+            android:paddingBottom="@dimen/task_edit_padding_top_bottom"
+            android:layout_marginTop="@dimen/task_edit_padding_top_bottom"
+            android:layout_marginBottom="@dimen/task_edit_padding_top_bottom"
+            android:paddingRight="@dimen/task_edit_padding_right"
+            android:paddingEnd="@dimen/task_edit_padding_right" />
+
+        <include layout="@layout/task_edit_divider" />
+
+    </LinearLayout>
 </LinearLayout>

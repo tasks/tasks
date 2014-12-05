@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,21 +25,17 @@ import com.todoroo.astrid.repeats.RepeatControlSet;
 import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
 
-import static org.tasks.preferences.ResourceResolver.getResource;
-
 public class DeadlineControlSet extends PopupControlSet {
 
     private DateAndTimePicker dateAndTimePicker;
     private final View[] extraViews;
     private final RepeatControlSet repeatControlSet;
-    private final ImageView image;
 
     public DeadlineControlSet(ActivityPreferences preferences, Activity activity, int displayViewLayout,
             RepeatControlSet repeatControlSet, View...extraViews) {
-        super(preferences, activity, R.layout.control_set_deadline, displayViewLayout, 0);
+        super(preferences, activity, R.layout.control_set_deadline_dialog, displayViewLayout, 0);
         this.extraViews = extraViews;
         this.repeatControlSet = repeatControlSet;
-        this.image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
     }
 
     @Override
@@ -66,15 +61,12 @@ public class DeadlineControlSet extends PopupControlSet {
         if (TextUtils.isEmpty(displayString)) {
             dateDisplay.setText(R.string.TEA_deadline_hint);
             dateDisplay.setTextColor(unsetColor);
-            image.setImageResource(R.drawable.tea_icn_date_gray);
         } else {
             dateDisplay.setText(displayString);
             if (isOverdue) {
                 dateDisplay.setTextColor(activity.getResources().getColor(R.color.red_theme_color));
-                image.setImageResource(R.drawable.tea_icn_date_red);
             } else {
                 dateDisplay.setTextColor(themeColor);
-                image.setImageResource(getResource(activity, R.attr.tea_icn_date));
             }
         }
     }

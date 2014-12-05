@@ -20,25 +20,25 @@
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="600dip"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:padding="10dip" >
+            android:gravity="center_horizontal" >
 
             <include layout="@layout/control_set_title"/>
 
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:background="@color/task_edit_divider"/>
+
             <LinearLayout
                 android:id="@+id/basic_controls"
-                android:background="?attr/asEditRowBackground"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_margin="3dip"
-                android:layout_marginTop="10dip"
                 android:orientation="vertical"/>
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/pager"
-                android:background="?attr/asEditRowBackground"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="3dip"

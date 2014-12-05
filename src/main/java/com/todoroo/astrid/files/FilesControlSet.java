@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.MimeTypeMap;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
@@ -41,8 +40,6 @@ import org.tasks.preferences.ActivityPreferences;
 import java.io.File;
 import java.util.ArrayList;
 
-import static org.tasks.preferences.ResourceResolver.getResource;
-
 public class FilesControlSet extends PopupControlSet {
 
     private static final Logger log = LoggerFactory.getLogger(FilesControlSet.class);
@@ -50,25 +47,18 @@ public class FilesControlSet extends PopupControlSet {
     private final ArrayList<TaskAttachment> files = new ArrayList<>();
     private final LinearLayout fileDisplayList;
     private final LayoutInflater inflater;
-    private final ImageView image;
     private final TaskAttachmentDao taskAttachmentDao;
 
     public FilesControlSet(ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao, Activity activity) {
-        super(preferences, activity, R.layout.control_set_files, R.layout.control_set_files_display, R.string.TEA_control_files);
+        super(preferences, activity, R.layout.control_set_files_dialog, R.layout.control_set_files, R.string.TEA_control_files);
         this.taskAttachmentDao = taskAttachmentDao;
         fileDisplayList = (LinearLayout) getDisplayView().findViewById(R.id.files_list);
-        image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
         inflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     protected void refreshDisplayView() {
         fileDisplayList.removeAllViews();
-        if (files != null && files.size() > 0) {
-            image.setImageResource(getResource(activity, R.attr.tea_icn_files));
-        } else {
-            image.setImageResource(R.drawable.tea_icn_files_gray);
-        }
         for (final TaskAttachment m : files) {
             View fileRow = inflater.inflate(R.layout.file_display_row, null);
             LayoutParams lp = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);

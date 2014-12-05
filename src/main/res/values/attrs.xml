@@ -35,15 +35,7 @@
     <attr name="drawer_text" format="color"/>
     <attr name="task_edit_theme_color" format="color"/>
     <attr name="importance_background_selected" format="reference"/>
-
-    <attr name="tea_icn_files" format="reference"/>
     <attr name="tea_icn_addcal" format="reference"/>
-    <attr name="tea_icn_lists" format="reference"/>
-    <attr name="tea_icn_timer" format="reference"/>
-    <attr name="tea_icn_date" format="reference"/>
-    <attr name="tea_icn_edit" format="reference"/>
-    <attr name="tea_icn_hide" format="reference"/>
-    <attr name="tea_icn_reminder" format="reference"/>
 
   <declare-styleable name="DateAndTimePicker">
       <attr name="shortcutLabels" format="reference"/>

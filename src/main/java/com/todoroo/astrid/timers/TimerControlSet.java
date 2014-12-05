@@ -9,7 +9,6 @@ import android.app.Activity;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.todoroo.andlib.data.Property.IntegerProperty;
@@ -22,8 +21,6 @@ import com.todoroo.astrid.ui.TimeDurationControlSet;
 import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
 
-import static org.tasks.preferences.ResourceResolver.getResource;
-
 /**
  * Control Set for managing repeats
  *
@@ -34,7 +31,6 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
 
     TimeDurationTaskEditControlSet estimated, elapsed;
     private final TextView displayEdit;
-    private final ImageView image;
 
     public TimerControlSet(ActivityPreferences preferences, final Activity activity, int viewLayout, int displayViewLayout, int title) {
         super(preferences, activity, viewLayout, displayViewLayout, title);
@@ -42,8 +38,6 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
         displayEdit = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
         displayEdit.setText(R.string.TEA_timer_controls);
         displayEdit.setTextColor(unsetColor);
-
-        image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
 
         estimated = new TimeDurationTaskEditControlSet(activity, getView(), Task.ESTIMATED_SECONDS,R.id.estimatedDuration);
         elapsed = new TimeDurationTaskEditControlSet(activity, getView(), Task.ELAPSED_SECONDS, R.id.elapsedDuration);
@@ -136,11 +130,9 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
         if (!TextUtils.isEmpty(toDisplay)) {
             displayEdit.setText(toDisplay);
             displayEdit.setTextColor(themeColor);
-            image.setImageResource(getResource(activity, R.attr.tea_icn_timer));
         } else {
             displayEdit.setText(R.string.TEA_timer_controls);
             displayEdit.setTextColor(unsetColor);
-            image.setImageResource(R.drawable.tea_icn_timer_gray);
         }
     }
 
