@@ -102,6 +102,7 @@ public class ShortcutActivity extends Activity {
             // launched from desktop shortcut, must create a fake filter
             String title = extras.getString(TOKEN_FILTER_TITLE);
             String sql = extras.getString(TOKEN_FILTER_SQL);
+            sql = sql.replace("tasks.userId=0", "1"); // TODO: replace dirty hack for missing column
             ContentValues values;
             if(extras.containsKey(TOKEN_FILTER_VALUES)) {
                 values = AndroidUtilities.contentValuesFromString(extras.getString(TOKEN_FILTER_VALUES));

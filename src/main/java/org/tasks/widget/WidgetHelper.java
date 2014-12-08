@@ -185,6 +185,7 @@ public class WidgetHelper {
         Filter filter = CoreFilterExposer.buildInboxFilter(context.getResources());
         String sql = preferences.getStringValue(WidgetConfigActivity.PREF_SQL + widgetId);
         if (sql != null) {
+            sql = sql.replace("tasks.userId=0", "1"); // TODO: replace dirty hack for missing column
             filter.setSqlQuery(sql);
         }
         String title = preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
