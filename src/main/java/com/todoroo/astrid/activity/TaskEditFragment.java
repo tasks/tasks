@@ -9,7 +9,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -29,7 +28,7 @@ import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewParent;
-import android.view.inputmethod.InputMethodManager;
+import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -491,19 +490,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
      */
     private class TaskEditBackgroundLoader extends Thread {
 
-        public void onUiThread() {
-            if (getActivity() != null) {
-                // todo: is this necessary?
-                loadMoreContainer();
-                if (isNewTask) {
-                    title.requestFocus();
-                    title.setCursorVisible(true);
-                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,0);
-                }
-            }
-        }
-
         @Override
         public void run() {
             AndroidUtilities.sleepDeep(500L);
@@ -516,7 +502,10 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    onUiThread();
+                    if (getActivity() != null) {
+                        // todo: is this necessary?
+                        loadMoreContainer();
+                    }
                 }
             });
         }
@@ -605,11 +594,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             }
         }
 
-    }
-
-    /** Populate UI component values from the model */
-    private void populateFields() {
-        populateFields(getActivity().getIntent());
     }
 
     /** Save task model from values in UI components */
@@ -923,7 +907,14 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Override
     public void onResume() {
         super.onResume();
-        populateFields();
+        populateFields(getActivity().getIntent());
+        if (isNewTask) {
+            title.requestFocus();
+            title.setCursorVisible(true);
+            getActivity().getWindow()
+                    .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
+                            | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        }
     }
 
     @Override
