@@ -12,7 +12,7 @@
 
         <include layout="@layout/toolbar"/>
 
-        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <FrameLayout
             android:id="@+id/tasklist_fragment_container"
             android:background="?attr/asContentBackground"
             android:layout_width="match_parent"

@@ -6,4 +6,5 @@
     <issue id="InvalidPackage" severity="ignore"/>
     <issue id="NewApi" severity="ignore"/>
     <issue id="ValidFragment" severity="ignore"/>
+    <issue id="ImpliedQuantity" severity="ignore"/>
 </lint>
