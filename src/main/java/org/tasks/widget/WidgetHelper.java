@@ -39,6 +39,7 @@ import javax.inject.Singleton;
 
 import static android.content.Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static com.todoroo.andlib.utility.AndroidUtilities.preIceCreamSandwich;
 
 @Singleton
 public class WidgetHelper {
@@ -46,7 +47,7 @@ public class WidgetHelper {
     public static int flags = FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_MULTIPLE_TASK;
 
     public static void startWidgetService(Context context) {
-        Class widgetServiceClass = android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH
+        Class widgetServiceClass = preIceCreamSandwich()
                 ? WidgetUpdateService.class
                 : ScrollableWidgetUpdateService.class;
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

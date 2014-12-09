@@ -96,6 +96,7 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.preGingerbreadMR1;
 import static org.tasks.files.FileHelper.getPathFromUri;
 
 /**
@@ -885,7 +886,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         menu.clear();
         inflater.inflate(R.menu.task_edit_fragment, menu);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD_MR1) {
+        if (preGingerbreadMR1()) {
             // media recorder aac support requires api level 10
             // approximately 1% of current installs are using api level 7-9
             menu.findItem(R.id.menu_record_note).setVisible(false);

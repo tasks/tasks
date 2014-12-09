@@ -13,6 +13,8 @@ import org.tasks.R;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastIceCreamSandwich;
+
 @Singleton
 public class ActivityPreferences extends Preferences {
 
@@ -49,8 +51,7 @@ public class ActivityPreferences extends Preferences {
     }
 
     public int getEditDialogTheme() {
-        boolean ics = AndroidUtilities.getSdkVersion() >= 14;
-        return ics ? R.style.TEA_Dialog_Light_ICS : R.style.TEA_Dialog;
+        return atLeastIceCreamSandwich() ? R.style.TEA_Dialog_Light_ICS : R.style.TEA_Dialog;
     }
 
     /**

@@ -47,6 +47,8 @@ import java.util.Map.Entry;
 
 import javax.inject.Inject;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.preFroyo;
+
 /**
  * Displays the preference screen for users to edit their preferences
  *
@@ -362,7 +364,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
             }
         });
 
-        if (AndroidUtilities.getSdkVersion() <= 7) {
+        if (preFroyo()) {
             searchForAndRemovePreference(getPreferenceScreen(), getString(R.string.p_calendar_reminders));
         } else {
             findPreference(getString(R.string.p_calendar_reminders)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {

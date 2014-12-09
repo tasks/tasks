@@ -15,6 +15,8 @@ import android.view.View;
 
 import org.tasks.R;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastHoneycomb;
+
 public class FloatingActionButton extends View {
 
     private final Paint mButtonPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -49,7 +51,7 @@ public class FloatingActionButton extends View {
             mBitmap = ((BitmapDrawable) drawable).getBitmap();
         }
         setWillNotDraw(false);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+        if (atLeastHoneycomb()) {
             setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
     }

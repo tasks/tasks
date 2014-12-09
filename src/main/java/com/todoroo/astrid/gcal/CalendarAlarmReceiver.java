@@ -9,7 +9,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.text.TextUtils;
 
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.utility.Constants;
 
@@ -24,6 +23,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.inject.Inject;
+
+import static com.todoroo.andlib.utility.AndroidUtilities.preFroyo;
 
 public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
 
@@ -80,7 +81,7 @@ public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
         ContentResolver cr = context.getContentResolver();
         Uri eventUri = Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_EVENTS);
 
-        if (AndroidUtilities.getSdkVersion() <= 7) {
+        if (preFroyo()) {
             return;
         }
 

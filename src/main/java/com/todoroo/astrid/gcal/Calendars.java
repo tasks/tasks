@@ -12,6 +12,9 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 
 import javax.inject.Singleton;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastFroyo;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastIceCreamSandwich;
+
 @Singleton
 public class Calendars {
 
@@ -19,7 +22,7 @@ public class Calendars {
     public static final String CALENDAR_CONTENT_EVENTS = "events";
     public static final String CALENDAR_CONTENT_ATTENDEES = "attendees";
 
-	private static final boolean USE_ICS_NAMES = AndroidUtilities.getSdkVersion() >= 14;
+	private static final boolean USE_ICS_NAMES = AndroidUtilities.atLeastIceCreamSandwich();
 
 	public static final String ID_COLUMN_NAME = "_id";
 	public static final String CALENDARS_DISPLAY_COL = (USE_ICS_NAMES ? CalendarContract.Calendars.CALENDAR_DISPLAY_NAME : "displayName");
@@ -48,11 +51,11 @@ public class Calendars {
 	 * @param table provider table, something like calendars, events
 	 */
 	public static Uri getCalendarContentUri(String table) {
-	    if (AndroidUtilities.getSdkVersion() >= 14) {
+	    if (atLeastIceCreamSandwich()) {
 	        return getIcsUri(table);
 	    }
 
-	    if(AndroidUtilities.getSdkVersion() >= 8) {
+	    if(atLeastFroyo()) {
             return Uri.parse("content://com.android.calendar/" + table);
         } else {
             return Uri.parse("content://calendar/" + table);

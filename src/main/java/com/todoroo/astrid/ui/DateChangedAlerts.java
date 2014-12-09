@@ -43,6 +43,7 @@ import java.text.ParseException;
 
 import javax.inject.Inject;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastGingerbread;
 import static org.tasks.date.DateTimeUtils.newDate;
 
 /**
@@ -259,7 +260,7 @@ public class DateChangedAlerts {
         params.height = LayoutParams.WRAP_CONTENT;
         Configuration config = context.getResources().getConfiguration();
         int size = config.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-        if (AndroidUtilities.getSdkVersion() >= 9 && size == Configuration.SCREENLAYOUT_SIZE_XLARGE || size == Configuration.SCREENLAYOUT_SIZE_LARGE) {
+        if (atLeastGingerbread() && size == Configuration.SCREENLAYOUT_SIZE_XLARGE || size == Configuration.SCREENLAYOUT_SIZE_LARGE) {
             DisplayMetrics metrics = context.getResources().getDisplayMetrics();
             params.width = metrics.widthPixels / 2;
         }

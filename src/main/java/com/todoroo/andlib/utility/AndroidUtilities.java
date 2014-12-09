@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.MotionEvent;
@@ -346,11 +347,36 @@ public class AndroidUtilities {
         }
     }
 
-    /**
-     * @return Android SDK version as an integer. Works on all versions
-     */
-    public static int getSdkVersion() {
-        return Integer.parseInt(android.os.Build.VERSION.SDK);
+    public static boolean preFroyo() {
+        return !atLeastFroyo();
+    }
+
+    public static boolean preGingerbreadMR1() {
+        return !atLeastGingerbreadMR1();
+    }
+
+    public static boolean preIceCreamSandwich() {
+        return !atLeastIceCreamSandwich();
+    }
+
+    public static boolean atLeastFroyo() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO;
+    }
+
+    public static boolean atLeastGingerbread() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD;
+    }
+
+    public static boolean atLeastGingerbreadMR1() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD_MR1;
+    }
+
+    public static boolean atLeastHoneycomb() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
+    }
+
+    public static boolean atLeastIceCreamSandwich() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH;
     }
 
     /**

@@ -29,6 +29,7 @@ import org.tasks.widget.WidgetHelper;
 
 import javax.inject.Inject;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.preIceCreamSandwich;
 import static com.todoroo.astrid.api.AstridApiConstants.BROADCAST_EVENT_TASK_LIST_UPDATED;
 
 public class TasksWidget extends InjectingAppWidgetProvider {
@@ -76,7 +77,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
             ContextManager.setContext(context);
             super.onUpdate(context, appWidgetManager, appWidgetIds);
 
-            if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            if (preIceCreamSandwich()) {
                 // Start in service to prevent Application Not Responding timeout
                 updateWidgets(context);
             } else {
@@ -97,7 +98,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
         }
         suppressUpdateFlag = 0;
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+        if (preIceCreamSandwich()) {
             context.startService(new Intent(context, WidgetUpdateService.class));
         } else {
             updateScrollableWidgets(context, null);

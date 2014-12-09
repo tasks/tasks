@@ -63,6 +63,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastGingerbread;
 import static org.tasks.date.DateTimeUtils.newDate;
 
 /**
@@ -481,7 +482,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         params.height = LayoutParams.WRAP_CONTENT;
         Configuration config = fragment.getResources().getConfiguration();
         int size = config.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-        if (AndroidUtilities.getSdkVersion() >= 9 && size == Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+        if (atLeastGingerbread() && size == Configuration.SCREENLAYOUT_SIZE_XLARGE) {
             DisplayMetrics metrics = fragment.getResources().getDisplayMetrics();
             params.width = metrics.widthPixels / 2;
         }

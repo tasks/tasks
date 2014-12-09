@@ -30,6 +30,8 @@ import java.util.TimeZone;
 
 import javax.inject.Inject;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastIceCreamSandwich;
+import static com.todoroo.andlib.utility.AndroidUtilities.preIceCreamSandwich;
 import static com.todoroo.astrid.gcal.Calendars.getCalendarContentUri;
 
 public class GCalHelper {
@@ -106,7 +108,7 @@ public class GCalHelper {
             values.put("title", task.getTitle());
             values.put("description", task.getNotes());
             values.put("hasAlarm", 0);
-            if (AndroidUtilities.getSdkVersion() < 14) {
+            if (preIceCreamSandwich()) {
                 values.put("transparency", 0);
                 values.put("visibility", 0);
             }
@@ -241,7 +243,7 @@ public class GCalHelper {
     }
 
     private static void adjustDateForIcs(ContentValues values) {
-        if (AndroidUtilities.getSdkVersion() >= 14) {
+        if (atLeastIceCreamSandwich()) {
             if ("1".equals(values.get("allDay"))) {
                 values.put("eventTimezone", Time.TIMEZONE_UTC);
             } else {

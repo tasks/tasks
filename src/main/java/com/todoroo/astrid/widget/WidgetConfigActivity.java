@@ -30,6 +30,8 @@ import org.tasks.widget.WidgetHelper;
 
 import javax.inject.Inject;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.preIceCreamSandwich;
+
 public class WidgetConfigActivity extends InjectingListActivity {
 
     public static final String PREF_TITLE = "widget-title-";
@@ -49,7 +51,7 @@ public class WidgetConfigActivity extends InjectingListActivity {
     @Inject ActivityPreferences preferences;
 
     private void updateWidget() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+        if (preIceCreamSandwich()) {
             Intent intent = new Intent(this, WidgetUpdateService.class);
             intent.putExtra(WidgetUpdateService.EXTRA_WIDGET_ID, mAppWidgetId);
             startService(intent);
