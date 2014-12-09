@@ -384,7 +384,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controlSetMap.put(getString(R.string.TEA_ctrl_importance_pref),
                 importanceControl);
 
-        DescriptionControlSet notesControlSet = new DescriptionControlSet(preferences, getActivity());
+        DescriptionControlSet notesControlSet = new DescriptionControlSet(getActivity());
         EditText notesEditText = (EditText) notesControlSet.getView().findViewById(R.id.notes);
         controls.add(notesControlSet);
         controlSetMap.put(getString(R.string.TEA_ctrl_notes_pref),
