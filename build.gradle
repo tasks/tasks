@@ -24,7 +24,7 @@ android {
     }
 
     compileSdkVersion 21
-    buildToolsVersion "21.1.1"
+    buildToolsVersion "21.1.2"
 
     defaultConfig {
         minSdkVersion 7
@@ -76,8 +76,8 @@ dependencies {
 
     compile group: 'com.jakewharton', name: 'butterknife', version: '6.0.0'
 
-    compile group: 'com.android.support', name: 'support-v4', version: '21.0.2'
-    compile group: 'com.android.support', name: 'appcompat-v7', version: '21.0.2'
+    compile group: 'com.android.support', name: 'support-v4', version: '21.0.3'
+    compile group: 'com.android.support', name: 'appcompat-v7', version: '21.0.3'
 
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.7'
     compile group: 'joda-time', name: 'joda-time', version: '2.3', transitive: false
