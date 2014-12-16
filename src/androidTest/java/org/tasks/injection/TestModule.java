@@ -2,7 +2,7 @@ package org.tasks.injection;
 
 import android.content.Context;
 
-import com.todoroo.astrid.backup.BackupServiceTests;
+import org.tasks.scheduling.BackupServiceTests;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDaoTests;
 import com.todoroo.astrid.dao.TaskDaoTests;

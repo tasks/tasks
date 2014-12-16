@@ -22,10 +22,6 @@
 	<string name="backup_status_failed">Laatste back-up mislukt</string>
 	<string name="backup_status_failed_subtitle">(tik om foutmelding te zien)</string>
 	<string name="backup_status_never">Nooit eerder back-up van gemaakt!</string>
-	<string name="backup_BPr_group_options">Opties</string>
-	<string name="backup_BPr_auto_title">Automatische back-ups</string>
-	<string name="backup_BPr_auto_disabled">Automatische back-ups uitgeschakeld</string>
-	<string name="backup_BPr_auto_enabled">Back-up dagelijks uitvoeren</string>
 	<string name="backup_BAc_import">Taken importeren</string>
 	<string name="backup_BAc_export">Taken exporteren</string>
 	<string name="export_toast">Back-up gemaakt van %1$s naar %2$s.</string>

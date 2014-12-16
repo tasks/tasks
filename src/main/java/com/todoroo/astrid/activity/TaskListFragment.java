@@ -490,8 +490,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     public void onResume() {
         super.onResume();
 
-        getActivity().registerReceiver(refreshReceiver,
-                new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+        getActivity().registerReceiver(refreshReceiver, new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
 
         if (Flags.checkAndClear(Flags.REFRESH)) {
             refresh();
@@ -565,8 +564,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     protected class RefreshReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent == null
-                    || !AstridApiConstants.BROADCAST_EVENT_REFRESH.equals(intent.getAction())) {
+            if (intent == null || !AstridApiConstants.BROADCAST_EVENT_REFRESH.equals(intent.getAction())) {
                 return;
             }
 

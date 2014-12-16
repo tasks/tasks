@@ -9,6 +9,7 @@ import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.injection.ForApplication;
+import org.tasks.receivers.FirstLaunchReceiver;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -44,15 +45,7 @@ public class Broadcaster {
         }});
     }
 
-    public void taskListUpdated() {
-        sendOrderedBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_LIST_UPDATED));
-    }
-
-    public void filterListUpdated() {
-        sendOrderedBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_FILTER_LIST_UPDATED));
-    }
-
-    public void eventRefresh() {
+    public void refresh() {
         context.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
     }
 
@@ -62,5 +55,9 @@ public class Broadcaster {
 
     void sendOrderedBroadcast(Intent intent, String permissions) {
         context.sendOrderedBroadcast(intent, permissions);
+    }
+
+    public void firstLaunch() {
+        context.sendBroadcast(new Intent(context, FirstLaunchReceiver.class));
     }
 }

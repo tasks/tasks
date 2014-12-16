@@ -20,10 +20,6 @@
 	<string name="backup_status_failed">Son Yedekleme Başarısız</string>
 	<string name="backup_status_failed_subtitle">(hatayı görmek için dokunun)</string>
 	<string name="backup_status_never">Hiç Yedeklenmemiş!</string>
-	<string name="backup_BPr_group_options">Seçenekler</string>
-	<string name="backup_BPr_auto_title">Kendiliğinden Yedeklemeler</string>
-	<string name="backup_BPr_auto_disabled">Kendiliğinden Yedekleme Etkisiz</string>
-	<string name="backup_BPr_auto_enabled">Günlük yedekleme yapılacak</string>
 	<string name="backup_BAc_import">Görevleri İçe Aktar</string>
 	<string name="backup_BAc_export">Görevleri Dışa Aktar</string>
 	<string name="export_toast">%1$s şuraya yedeklendi: %2$s.</string>

@@ -229,7 +229,7 @@ public class TaskService {
         filterCounter.refreshFilterCounts(new Runnable() {
             @Override
             public void run() {
-                broadcaster.filterListUpdated();
+                broadcaster.refresh();
             }
         });
     }

@@ -23,10 +23,6 @@
 	<string name="backup_status_failed">上次備份失敗</string>
 	<string name="backup_status_failed_subtitle">(點選查看錯誤)</string>
 	<string name="backup_status_never">從未備份</string>
-	<string name="backup_BPr_group_options">選項</string>
-	<string name="backup_BPr_auto_title">自動備份</string>
-	<string name="backup_BPr_auto_disabled">停用自動備份</string>
-	<string name="backup_BPr_auto_enabled">備份將每天執行</string>
 	<string name="backup_BAc_import">匯入工作</string>
 	<string name="backup_BAc_export">匯出工作</string>
 	<string name="export_toast">備份 %1$s 至 %2$s.</string>

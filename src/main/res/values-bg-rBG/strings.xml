@@ -19,10 +19,6 @@
 	<string name="backup_status_success">Последно резервно копие:\n%s</string>
 	<string name="backup_status_failed">Последното резервно копиране се провали</string>
 	<string name="backup_status_never">Никога не е правено резевно копиране!</string>
-	<string name="backup_BPr_group_options">Опции</string>
-	<string name="backup_BPr_auto_title">Автоматично резервно копиране</string>
-	<string name="backup_BPr_auto_disabled">Автоматичното резервно копиране е изключено</string>
-	<string name="backup_BPr_auto_enabled">Резервно копиране ще се случва всеки ден</string>
 	<string name="backup_BAc_import">Импортиране на задачи</string>
 	<string name="backup_BAc_export">Експортиране на задачи</string>
 	<string name="export_toast_no_tasks">Няма задачи за експортиране</string>

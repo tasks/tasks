@@ -22,10 +22,6 @@
 	<string name="backup_status_failed">Najnovejša varnostna kopija neuspešna</string>
 	<string name="backup_status_failed_subtitle">(hitri dotik pokaže napako)</string>
 	<string name="backup_status_never">Varnostna kopija še NIkoli SHRANJENA!</string>
-	<string name="backup_BPr_group_options">Možnosti</string>
-	<string name="backup_BPr_auto_title">Samodejne varnostne kopije</string>
-	<string name="backup_BPr_auto_disabled">Samodejne varnostne kopije onemogočene</string>
-	<string name="backup_BPr_auto_enabled">Varnostna kopija bo shranjena vsak dan</string>
 	<string name="backup_BAc_import">Uvozi opravke</string>
 	<string name="backup_BAc_export">Izvozi opravke</string>
 	<string name="export_toast">Varnostna kopija za %1$s shranjena v %2$s.</string>

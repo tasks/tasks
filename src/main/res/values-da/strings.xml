@@ -18,10 +18,6 @@
 	<string name="backup_status_failed">Seneste backup fejlede</string>
 	<string name="backup_status_failed_subtitle">(tryk for at vise fejl)</string>
 	<string name="backup_status_never">Har aldrig taget backup!</string>
-	<string name="backup_BPr_group_options">Indstillinger</string>
-	<string name="backup_BPr_auto_title">Automatisk backup</string>
-	<string name="backup_BPr_auto_disabled">Automatisk backup deaktiveret</string>
-	<string name="backup_BPr_auto_enabled">Backup vil ske dagligt</string>
 	<string name="backup_BAc_import">Importér opgaver</string>
 	<string name="backup_BAc_export">Eksportér opgaver</string>
 	<string name="export_toast">Sikkerhedskopierede %1$s til %2$s.</string>

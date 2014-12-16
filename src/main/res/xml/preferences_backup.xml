@@ -17,16 +17,6 @@
             android:gravity="center"/>
         
     </PreferenceCategory>
-            
-    <PreferenceCategory
-        android:title="@string/backup_BPr_group_options">
-    
-        <com.todoroo.astrid.ui.MultilineCheckboxPreference  
-            android:key="@string/backup_BPr_auto_key"   
-            android:title="@string/backup_BPr_auto_title" 
-            android:defaultValue="true" />
-            
-    </PreferenceCategory>
 
     <Preference
         android:key="@string/backup_BAc_import"

@@ -20,10 +20,6 @@
 	<string name="backup_status_failed">Błąd zapisu ostatniej kopii</string>
 	<string name="backup_status_failed_subtitle">(puknij, aby zobaczyć błąd)</string>
 	<string name="backup_status_never">Kopia zapasowa nigdy nie wykonana!</string>
-	<string name="backup_BPr_group_options">Opcje</string>
-	<string name="backup_BPr_auto_title">Automatyczne kopie zapasowe</string>
-	<string name="backup_BPr_auto_disabled">Automatyczne kopie zapasowe wyłączone</string>
-	<string name="backup_BPr_auto_enabled">Kopia zapasowa będzie wykonywana codziennie</string>
 	<string name="backup_BAc_import">Importuj zadania</string>
 	<string name="backup_BAc_export">Eksportuj zadania</string>
 	<string name="export_toast">Zapisano %1$s do %2$s.</string>

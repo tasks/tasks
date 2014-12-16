@@ -23,10 +23,6 @@
 	<string name="backup_status_failed">Předchozí zálohování selhalo</string>
 	<string name="backup_status_failed_subtitle">klikněte pro zobrazení chyby</string>
 	<string name="backup_status_never">Nikdy nezálohováno!</string>
-	<string name="backup_BPr_group_options">Nastavení</string>
-	<string name="backup_BPr_auto_title">Automatické zálohování</string>
-	<string name="backup_BPr_auto_disabled">Automatické zálohování je zakázáno</string>
-	<string name="backup_BPr_auto_enabled">Zálohování se bude provádět denně</string>
 	<string name="backup_BAc_import">Importovat úkoly</string>
 	<string name="backup_BAc_export">Exportovat úkoly</string>
 	<string name="export_toast">Zálohovány %1$s do %2$s.</string>

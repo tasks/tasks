@@ -1,7 +1,6 @@
 package org.tasks.injection;
 
 import com.todoroo.astrid.alarms.AlarmTaskRepeatListener;
-import com.todoroo.astrid.backup.BackupStartupReceiver;
 import com.todoroo.astrid.calls.PhoneStateChangedReceiver;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.CustomFilterExposer;
@@ -20,32 +19,39 @@ import com.todoroo.astrid.timers.TimerFilterExposer;
 import com.todoroo.astrid.timers.TimerTaskCompleteListener;
 import com.todoroo.astrid.widget.TasksWidget;
 
-import org.tasks.scheduling.RefreshBroadcastReceiver;
+import org.tasks.receivers.BootCompletedReceiver;
+import org.tasks.receivers.FirstLaunchReceiver;
+import org.tasks.receivers.MyPackageReplacedReceiver;
+import org.tasks.receivers.PackageReplacedReceiver;
+import org.tasks.receivers.RefreshReceiver;
 
 import dagger.Module;
 
 @Module(addsTo = TasksModule.class,
         injects = {
-        RefreshBroadcastReceiver.class,
-        TasksWidget.class,
-        Notifications.class,
-        GtasksCustomFilterCriteriaExposer.class,
-        TagCustomFilterCriteriaExposer.class,
-        GCalTaskCompleteListener.class,
-        TimerTaskCompleteListener.class,
-        RepeatTaskCompleteListener.class,
-        AlarmTaskRepeatListener.class,
-        GtasksStartupReceiver.class,
-        PhoneStateChangedReceiver.class,
-        ShowNotificationReceiver.class,
-        CoreFilterExposer.class,
-        TimerFilterExposer.class,
-        CustomFilterExposer.class,
-        GtasksFilterExposer.class,
-        TagFilterExposer.class,
-        BackupStartupReceiver.class,
-        CalendarAlarmReceiver.class,
-        CalendarStartupReceiver.class
-})
+                TasksWidget.class,
+                Notifications.class,
+                GtasksCustomFilterCriteriaExposer.class,
+                TagCustomFilterCriteriaExposer.class,
+                GCalTaskCompleteListener.class,
+                TimerTaskCompleteListener.class,
+                RepeatTaskCompleteListener.class,
+                AlarmTaskRepeatListener.class,
+                GtasksStartupReceiver.class,
+                PhoneStateChangedReceiver.class,
+                ShowNotificationReceiver.class,
+                CoreFilterExposer.class,
+                TimerFilterExposer.class,
+                CustomFilterExposer.class,
+                GtasksFilterExposer.class,
+                TagFilterExposer.class,
+                CalendarAlarmReceiver.class,
+                CalendarStartupReceiver.class,
+                BootCompletedReceiver.class,
+                FirstLaunchReceiver.class,
+                MyPackageReplacedReceiver.class,
+                PackageReplacedReceiver.class,
+                RefreshReceiver.class
+        })
 public class BroadcastModule {
 }

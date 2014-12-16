@@ -23,10 +23,6 @@
 	<string name="backup_status_failed">Резервирование не удалось</string>
 	<string name="backup_status_failed_subtitle">(нажмите для просмотра ошибки)</string>
 	<string name="backup_status_never">Резервное копирование ещё не совершалось!</string>
-	<string name="backup_BPr_group_options">Параметры</string>
-	<string name="backup_BPr_auto_title">Резервное копирование: автоматическое</string>
-	<string name="backup_BPr_auto_disabled">Резервное копирование: отключено</string>
-	<string name="backup_BPr_auto_enabled">Резервное копирование будет производиться ежедневно</string>
 	<string name="backup_BAc_import">Импортировать задачи</string>
 	<string name="backup_BAc_export">Экспортировать задачи</string>
 	<string name="export_toast">Восстановлено %1$s в %2$s.</string>

@@ -22,10 +22,6 @@
 	<string name="backup_status_failed">O último backup falhou</string>
 	<string name="backup_status_failed_subtitle">(toque para exibir o erro)</string>
 	<string name="backup_status_never">O Backup nunca foi executado!</string>
-	<string name="backup_BPr_group_options">Opções</string>
-	<string name="backup_BPr_auto_title">Backups automáticos</string>
-	<string name="backup_BPr_auto_disabled">Backups automáticos desativados</string>
-	<string name="backup_BPr_auto_enabled">O Backup ocorrerá diariamente</string>
 	<string name="backup_BAc_import">Importar tarefas</string>
 	<string name="backup_BAc_export">Exportar tarefas</string>
 	<string name="export_toast">Backups feitos: de %1$s para %2$s.</string>

@@ -176,7 +176,7 @@
 
         <receiver android:name="com.todoroo.astrid.reminders.Notifications" />
 
-        <receiver android:name="org.tasks.scheduling.RefreshBroadcastReceiver" />
+        <receiver android:name=".receivers.RefreshReceiver" />
 
         <receiver android:name="com.todoroo.astrid.reminders.ShowNotificationReceiver">
             <intent-filter>
@@ -411,7 +411,6 @@
         </activity>
 
         <!-- backup -->
-        <service android:name="com.todoroo.astrid.backup.BackupService" />
 
         <activity
             android:name="com.todoroo.astrid.backup.BackupPreferences"
@@ -425,13 +424,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-        <receiver android:name="com.todoroo.astrid.backup.BackupStartupReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
 
         <!-- premium -->
         <activity
@@ -463,13 +455,6 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name="com.todoroo.astrid.reminders.ReminderStartupReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
-
         <activity
             android:name=".voice.VoiceCommandActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
@@ -481,7 +466,47 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.todoroo.astrid.reminders.ReminderSchedulingService" />
+        <receiver android:name=".receivers.BootCompletedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".receivers.FirstLaunchReceiver"/>
+
+        <receiver
+            android:name=".receivers.PackageReplacedReceiver"
+            android:enabled="@bool/at_most_honeycomb">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".receivers.MyPackageReplacedReceiver"
+            android:enabled="@bool/at_least_honeycomb_mr1">
+            <intent-filter>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".scheduling.AlarmSchedulingIntentService"
+            android:exported="false" />
+        <service
+            android:name=".scheduling.ReminderSchedulerIntentService"
+            android:exported="false" />
+        <service
+            android:name=".scheduling.RefreshSchedulerIntentService"
+            android:exported="false" />
+        <service
+            android:name=".scheduling.BackupIntentService"
+            android:exported="false" />
+        <service
+            android:name=".scheduling.MidnightRefreshService"
+            android:exported="false" />
 
         <!-- Uses Library -->
         <uses-library

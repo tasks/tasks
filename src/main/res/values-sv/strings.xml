@@ -19,10 +19,6 @@
 	<string name="backup_status_failed">Senaste säkerhetskopieringen misslyckades</string>
 	<string name="backup_status_failed_subtitle">(klicka för att se felet)</string>
 	<string name="backup_status_never">Aldrig säkerhetskopierat!</string>
-	<string name="backup_BPr_group_options">Alternativ</string>
-	<string name="backup_BPr_auto_title">Automatisk säkerhetskopiering</string>
-	<string name="backup_BPr_auto_disabled">Automatisk säkerhetskopiering avaktiverad</string>
-	<string name="backup_BPr_auto_enabled">Säkerhetskopiering kommer att ske dagligen</string>
 	<string name="backup_BAc_import">Importera uppgifter</string>
 	<string name="backup_BAc_export">Exportera uppgifter</string>
 	<string name="export_toast">Säkerhetskopierade %1$s till %2$s.</string>

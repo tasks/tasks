@@ -23,10 +23,6 @@
 	<string name="backup_status_failed">Ultimo Backup Fallito</string>
 	<string name="backup_status_failed_subtitle">(clicca per visualizzare l\'errore)</string>
 	<string name="backup_status_never">Mai eseguito!</string>
-	<string name="backup_BPr_group_options">Preferenze</string>
-	<string name="backup_BPr_auto_title">Backup automatici</string>
-	<string name="backup_BPr_auto_disabled">Backup Automatico Disabilitato</string>
-	<string name="backup_BPr_auto_enabled">I Backup verranno eseguiti giornalmente</string>
 	<string name="backup_BAc_import">Importa compiti</string>
 	<string name="backup_BAc_export">Esporta compiti</string>
 	<string name="export_toast">Backup di %1$s su %2$s eseguito.</string>

@@ -14,8 +14,6 @@
 	<string name="backup_BPr_header">สำรองข้อมูล</string>
 	<string name="backup_BPr_group_status">สถานะ</string>
 	<string name="backup_status_failed_subtitle">(แตะเพื่อแสดงข้อผิดพลาด)</string>
-	<string name="backup_BPr_group_options">ตัวเลือก</string>
-	<string name="backup_BPr_auto_enabled">จะทำการสำรองข้อมูลทุกวัน</string>
 	<string name="export_progress_title">กำลังส่งออก...</string>
 	<string name="import_progress_title">กำลังนำเข้า...</string>
 	<string name="import_progress_read">กำลังอ่านแผนงาน %d...</string>

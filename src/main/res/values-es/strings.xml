@@ -23,10 +23,6 @@
 	<string name="backup_status_failed">La última copia de seguridad falló</string>
 	<string name="backup_status_failed_subtitle">(toque para visualizar los errores)</string>
 	<string name="backup_status_never">Nunca se hizo copia de seguridad!</string>
-	<string name="backup_BPr_group_options">Opciones</string>
-	<string name="backup_BPr_auto_title">Copias de seguridad automáticas</string>
-	<string name="backup_BPr_auto_disabled">Copias de seguridad automáticas desactivadas</string>
-	<string name="backup_BPr_auto_enabled">La copia de seguridad se hará diariamente</string>
 	<string name="backup_BAc_import">Importar tareas</string>
 	<string name="backup_BAc_export">Exportar tareas</string>
 	<string name="export_toast">Respaldadas %1$s de %2$s.</string>

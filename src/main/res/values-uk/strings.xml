@@ -23,10 +23,6 @@
 	<string name="backup_status_failed">Створення останньої резервної копії не вдалось</string>
 	<string name="backup_status_failed_subtitle">(торкніться щоб подивитись помилку)</string>
 	<string name="backup_status_never">Резервна копія не створена!</string>
-	<string name="backup_BPr_group_options">Налаштування</string>
-	<string name="backup_BPr_auto_title">Автоматичне резервне копіювання</string>
-	<string name="backup_BPr_auto_disabled">Автоматичне резервне копіювання заборонене</string>
-	<string name="backup_BPr_auto_enabled">Резервне копіювання буде здійснюватись щоденно</string>
 	<string name="backup_BAc_import">Імпортувати завдання</string>
 	<string name="backup_BAc_export">Експорт завдань</string>
 	<string name="export_toast">Резервні копії %1$s для %2$s.</string>

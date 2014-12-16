@@ -23,10 +23,6 @@
 	<string name="backup_status_failed">前回のバックアップが失敗しました</string>
 	<string name="backup_status_failed_subtitle">（タップでエラーを表示）</string>
 	<string name="backup_status_never">一度もバックアップされていません!</string>
-	<string name="backup_BPr_group_options">オプション</string>
-	<string name="backup_BPr_auto_title">自動的なバックアップ</string>
-	<string name="backup_BPr_auto_disabled">自動的なバックアップは無効です</string>
-	<string name="backup_BPr_auto_enabled">バックアップは毎日行われます</string>
 	<string name="backup_BAc_import">タスクのインポート</string>
 	<string name="backup_BAc_export">タスクのエクスポート</string>
 	<string name="export_toast">%1$s を %2$s にバックアップしました。</string>

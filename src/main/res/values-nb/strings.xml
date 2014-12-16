@@ -12,10 +12,6 @@
 	<string name="backup_status_failed">Siste sikkerhetskopiering mislyktes</string>
 	<string name="backup_status_failed_subtitle">(klikk for å vise feil)</string>
 	<string name="backup_status_never">Sikkerhetskopi aldri utført!</string>
-	<string name="backup_BPr_group_options">Alternativer</string>
-	<string name="backup_BPr_auto_title">Automatisk sikkerhetskopiering</string>
-	<string name="backup_BPr_auto_disabled">Automatisk sikkerhetskopiering deaktivert</string>
-	<string name="backup_BPr_auto_enabled">Sikkerhetskopiering vil skje daglig</string>
 	<string name="backup_BAc_import">Importer oppgaver</string>
 	<string name="backup_BAc_export">Eksporter oppgaver</string>
 	<string name="export_toast">Backup ferdig %1$s av %2$s.</string>

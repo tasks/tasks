@@ -20,16 +20,6 @@
     <!-- slide 48a: Backup Status: never backed up -->    
     <string name="backup_status_never">Never backed up!</string>
 
-    <!-- slide 48f/ 50e: Backup Options Group Label -->    
-    <string name="backup_BPr_group_options">Options</string>
-
-    <!-- slide 48b: Preference: Automatic Backup Title -->    
-    <string name="backup_BPr_auto_title">Automatic backups</string>
-    <!-- Preference: Automatic Backup Description (when disabled) -->
-    <string name="backup_BPr_auto_disabled">Automatic backups disabled</string>    
-    <!-- slide 48g: Preference: Automatic Backup Description (when enabled) -->
-    <string name="backup_BPr_auto_enabled">Backup will occur daily</string>
-    
   <!-- backup activity import button -->
   <string name="backup_BAc_import">Import tasks</string>
 

@@ -228,8 +228,6 @@
   
     <!-- Preference Key (do not translate) -->
     <string name="backup_BPr_status_key">backup_status</string>
-    <!-- Preference Key (do not translate) -->
-    <string name="backup_BPr_auto_key">backup</string>  
 
   <!-- Default Calendar Preference Key (do not translate) -->
   <string name="gcal_p_default">default_calendar_id</string>

@@ -28,7 +28,7 @@ public class RecordSyncStatusCallback implements SyncResultCallback {
     public void finished() {
         gtasksPreferenceService.stopOngoing();
         if (broadcaster != null) {
-            broadcaster.eventRefresh();
+            broadcaster.refresh();
         }
     }
 }

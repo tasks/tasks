@@ -23,10 +23,6 @@
 	<string name="backup_status_failed">Còpia de seguretat Fallida</string>
 	<string name="backup_status_failed_subtitle">Feu clic per veure l\'error</string>
 	<string name="backup_status_never">Encara sense Còpies!</string>
-	<string name="backup_BPr_group_options">Opcions</string>
-	<string name="backup_BPr_auto_title">Còpies de seguretat automàtiques</string>
-	<string name="backup_BPr_auto_disabled">Còpies de seguretat automàtiques desactivades</string>
-	<string name="backup_BPr_auto_enabled">Còpies de seguretat diàries</string>
 	<string name="backup_BAc_import">Importa tasques</string>
 	<string name="backup_BAc_export">Exporta tasques</string>
 	<string name="export_toast_no_tasks">Sense tasques que exportar</string>

@@ -1,5 +1,7 @@
 package org.tasks.date;
 
+import org.joda.time.DateTime;
+
 import java.util.Date;
 
 public class DateTimeUtils {
@@ -24,4 +26,7 @@ public class DateTimeUtils {
         return newDate(Date.UTC(year - 1900, month - 1, day, hour, minute, second));
     }
 
+    public static DateTime newDateTime(long timestamp) {
+        return new DateTime(timestamp);
+    }
 }

@@ -74,8 +74,14 @@ public class TasksXmlExporter {
     private File backupDirectory;
     private String latestSetVersionName;
 
+    private void post(Runnable runnable) {
+        if (handler != null) {
+            handler.post(runnable);
+        }
+    }
+
     private void setProgress(final int taskNumber, final int total) {
-        handler.post(new Runnable() {
+        post(new Runnable() {
             @Override
             public void run() {
                 progressDialog.setMax(total);
@@ -99,7 +105,7 @@ public class TasksXmlExporter {
                 BackupConstants.defaultExportDirectory() : backupDirectoryOverride;
         this.latestSetVersionName = null;
 
-        handler = new Handler();
+        handler = exportType == ExportType.EXPORT_TYPE_MANUAL ? new Handler() : null;
         progressDialog = new ProgressDialog(context);
         if(exportType == ExportType.EXPORT_TYPE_MANUAL) {
             progressDialog.setIcon(android.R.drawable.ic_dialog_info);
@@ -135,7 +141,7 @@ public class TasksXmlExporter {
                 } catch (IOException e) {
                     log.error(e.getMessage(), e);
                 } finally {
-                    handler.post(new Runnable() {
+                    post(new Runnable() {
                         @Override
                         public void run() {
                             if(progressDialog.isShowing() && context instanceof Activity) {
@@ -291,7 +297,7 @@ public class TasksXmlExporter {
                 xml.attribute(null, property.name, value);
             } catch (UnsupportedOperationException e) {
                 // didn't read this value, do nothing
-                log.debug(e.getMessage(), e);
+                log.trace(e.getMessage(), e);
             } catch (IllegalArgumentException | IOException | IllegalStateException e) {
                 throw new RuntimeException(e);
             }
@@ -300,7 +306,7 @@ public class TasksXmlExporter {
     }
 
     private void onFinishExport(final String outputFile) {
-        handler.post(new Runnable() {
+        post(new Runnable() {
             @Override
             public void run() {
                 if(exportCount == 0) {

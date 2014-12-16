@@ -30,7 +30,7 @@ import org.tasks.widget.WidgetHelper;
 import javax.inject.Inject;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.preIceCreamSandwich;
-import static com.todoroo.astrid.api.AstridApiConstants.BROADCAST_EVENT_TASK_LIST_UPDATED;
+import static com.todoroo.astrid.api.AstridApiConstants.BROADCAST_EVENT_REFRESH;
 
 public class TasksWidget extends InjectingAppWidgetProvider {
 
@@ -65,7 +65,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
                 context.startActivity(intent);
 
                 break;
-            case BROADCAST_EVENT_TASK_LIST_UPDATED:
+            case BROADCAST_EVENT_REFRESH:
                 updateWidgets(context);
                 break;
         }

@@ -23,10 +23,6 @@
 	<string name="backup_status_failed">마지막 백업 실패함</string>
 	<string name="backup_status_failed_subtitle">(오류 내용을 보려면 누르세요)</string>
 	<string name="backup_status_never">백업한 적이 없습니다!</string>
-	<string name="backup_BPr_group_options">설정</string>
-	<string name="backup_BPr_auto_title">자동 백업</string>
-	<string name="backup_BPr_auto_disabled">자동으로 백업하지 않습니다</string>
-	<string name="backup_BPr_auto_enabled">매일 백업합니다</string>
 	<string name="backup_BAc_import">일정 가져오기</string>
 	<string name="backup_BAc_export">일정 내보내기</string>
 	<string name="export_toast">%1$s 를 %2$s 로 백업함.</string>

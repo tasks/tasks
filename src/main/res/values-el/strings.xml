@@ -18,10 +18,6 @@
 	<string name="backup_status_failed">Το τελευταίο αντίγραφο ασφαλείας απέτυχε</string>
 	<string name="backup_status_failed_subtitle">(πατήστε για να δείξετε σφάλμα)</string>
 	<string name="backup_status_never">Δεν έγινε ποτέ αντίγραφο ασφαλείας!</string>
-	<string name="backup_BPr_group_options">Ρυθμίσεις</string>
-	<string name="backup_BPr_auto_title">Αυτόματα αντίγραφα ασφαλείας</string>
-	<string name="backup_BPr_auto_disabled">Αυτόματα αντίγραφα ασφαλείας απενεργοποιήθηκαν</string>
-	<string name="backup_BPr_auto_enabled">Aντίγραφα ασφαλείας θα παίρνονται καθημερινά</string>
 	<string name="backup_BAc_import">Εισαγωγή καθηκόντων</string>
 	<string name="backup_BAc_export">Εξαγωγή καθηκόντων</string>
 	<string name="export_toast">Αποθηκεύση ασφαλείας %1$s στο %2$s.</string>

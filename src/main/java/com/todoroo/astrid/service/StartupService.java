@@ -27,7 +27,6 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.backup.BackupConstants;
-import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
@@ -41,12 +40,12 @@ import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.provider.Astrid3ContentProvider;
-import com.todoroo.astrid.reminders.ReminderStartupReceiver;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.Constants;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
 
@@ -80,6 +79,7 @@ public class StartupService {
     private final TasksXmlImporter xmlImporter;
     private final CalendarAlarmScheduler calendarAlarmScheduler;
     private final TaskDeleter taskDeleter;
+    private Broadcaster broadcaster;
 
     @Inject
     public StartupService(UpgradeService upgradeService, TaskService taskService,
@@ -87,7 +87,8 @@ public class StartupService {
                           GtasksPreferenceService gtasksPreferenceService,
                           GtasksSyncService gtasksSyncService, MetadataDao metadataDao,
                           Preferences preferences, TasksXmlImporter xmlImporter,
-                          CalendarAlarmScheduler calendarAlarmScheduler, TaskDeleter taskDeleter) {
+                          CalendarAlarmScheduler calendarAlarmScheduler, TaskDeleter taskDeleter,
+                          Broadcaster broadcaster) {
         this.upgradeService = upgradeService;
         this.taskService = taskService;
         this.tagDataDao = tagDataDao;
@@ -99,6 +100,7 @@ public class StartupService {
         this.xmlImporter = xmlImporter;
         this.calendarAlarmScheduler = calendarAlarmScheduler;
         this.taskDeleter = taskDeleter;
+        this.broadcaster = broadcaster;
     }
 
     /**
@@ -186,10 +188,6 @@ public class StartupService {
                 // if sync ongoing flag was set, clear it
                 gtasksPreferenceService.stopOngoing();
 
-                // perform initialization
-                ReminderStartupReceiver.startReminderSchedulingService(activity);
-                BackupService.scheduleService(preferences, activity);
-
                 gtasksSyncService.initialize();
 
                 // get and display update messages
@@ -200,6 +198,10 @@ public class StartupService {
         }).start();
 
         preferences.setDefaults();
+
+        if (latestSetVersion == 0) {
+            broadcaster.firstLaunch();
+        }
 
         calendarAlarmScheduler.scheduleCalendarAlarms(activity, false); // This needs to be after set preference defaults for the purposes of ab testing
 

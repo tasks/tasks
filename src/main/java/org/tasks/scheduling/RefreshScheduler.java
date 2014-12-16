@@ -13,6 +13,7 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.injection.ForApplication;
+import org.tasks.receivers.RefreshReceiver;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -38,7 +39,7 @@ public class RefreshScheduler {
         this.context = context;
     }
 
-    public void scheduleAllAlarms() {
+    public void scheduleApplicationRefreshes() {
         TodorooCursor<Task> cursor = getTasks();
         try {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
@@ -68,7 +69,7 @@ public class RefreshScheduler {
         }
 
         dueDate += 1000; // this is ghetto
-        Intent intent = new Intent(context, RefreshBroadcastReceiver.class);
+        Intent intent = new Intent(context, RefreshReceiver.class);
         intent.setAction(Long.toString(dueDate));
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, FLAG_UPDATE_CURRENT);

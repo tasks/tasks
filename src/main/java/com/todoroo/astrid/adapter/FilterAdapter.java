@@ -258,7 +258,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
      * Call this method from your activity's onResume() method
      */
     public void registerRecevier() {
-        activity.registerReceiver(filterListUpdateReceiver, new IntentFilter(AstridApiConstants.BROADCAST_EVENT_FILTER_LIST_UPDATED));
+        activity.registerReceiver(filterListUpdateReceiver, new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
         getLists();
 
         refreshFilterCount();

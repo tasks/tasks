@@ -34,9 +34,9 @@ import static org.tasks.date.DateTimeUtils.newDate;
  */
 public class BackupPreferences extends TodorooPreferenceActivity {
 
-    static final String PREF_BACKUP_LAST_DATE = "backupDate"; //$NON-NLS-1$
+    public static final String PREF_BACKUP_LAST_DATE = "backupDate"; //$NON-NLS-1$
 
-    static final String PREF_BACKUP_LAST_ERROR = "backupError"; //$NON-NLS-1$
+    public static final String PREF_BACKUP_LAST_ERROR = "backupError"; //$NON-NLS-1$
 
     private int statusColor = Color.BLACK;
 
@@ -86,27 +86,10 @@ public class BackupPreferences extends TodorooPreferenceActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        BackupService.scheduleService(preferences, this);
-    }
-
-    @Override
     public void updatePreferences(Preference preference, Object value) {
         final Resources r = getResources();
 
-        // auto
-        if (r.getString(R.string.backup_BPr_auto_key).equals(
-                preference.getKey())) {
-            if (value != null && !(Boolean)value) {
-                preference.setSummary(R.string.backup_BPr_auto_disabled);
-            } else {
-                preference.setSummary(R.string.backup_BPr_auto_enabled);
-            }
-        }
-
-        // status
-        else if (r.getString(R.string.backup_BPr_status_key).equals(preference.getKey())) {
+        if (r.getString(R.string.backup_BPr_status_key).equals(preference.getKey())) {
             String status;
             String subtitle = ""; //$NON-NLS-1$
 

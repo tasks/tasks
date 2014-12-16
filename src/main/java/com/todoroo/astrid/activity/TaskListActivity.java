@@ -7,7 +7,10 @@ package com.todoroo.astrid.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -72,6 +75,13 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
 
     public static final String OPEN_TASK = "openTask"; //$NON-NLS-1$
 
+    private final BroadcastReceiver refreshReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            refreshTaskList();
+        }
+    };
+
     /**
      * @see android.app.Activity#onCreate(Bundle)
      */
@@ -129,7 +139,16 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     protected void onResume() {
         super.onResume();
 
+        registerReceiver(refreshReceiver, new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+
         getTaskListFragment().setSyncOngoing(gtasksPreferenceService.isOngoing());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        unregisterReceiver(refreshReceiver);
     }
 
     @Override

@@ -45,9 +45,7 @@ public class SyncActionHelper {
         syncResultCallback = new IndeterminateProgressBarSyncResultCallback(gtasksPreferenceService, activity, new Runnable() {
             @Override
             public void run() {
-                activity.sendBroadcast(
-                        new Intent(
-                                AstridApiConstants.BROADCAST_EVENT_REFRESH));
+                activity.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
             }
         });
     }

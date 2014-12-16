@@ -18,10 +18,6 @@
 	<string name="backup_status_failed">Letzte Datensicherung gescheitert</string>
 	<string name="backup_status_failed_subtitle">(Anklicken, um Fehler anzuzeigen)</string>
 	<string name="backup_status_never">Bisher keine Datensicherung erstellt!</string>
-	<string name="backup_BPr_group_options">Optionen</string>
-	<string name="backup_BPr_auto_title">Automatische Backups</string>
-	<string name="backup_BPr_auto_disabled">Automatische Backups deaktiviert</string>
-	<string name="backup_BPr_auto_enabled">Backup täglich durchführen</string>
 	<string name="backup_BAc_import">Aufgaben importieren</string>
 	<string name="backup_BAc_export">Aufgaben exportieren</string>
 	<string name="export_toast">Gesichert von %1$s bis %2$s.</string>

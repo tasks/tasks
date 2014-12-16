@@ -7,7 +7,6 @@
 <resources>
 	<string name="TVA_add_comment">إضافة تعليق ...</string>
 	<string name="backup_BPr_group_status">الحالة</string>
-	<string name="backup_BPr_group_options">الخيارات</string>
 	<string name="DLG_cancel">الغي</string>
 	<string name="WID_dateButtonUnset">اضغط لتعيين</string>
 	<string name="TLA_no_items">لا يوجد لديك مهام! \n هل تريد أن تضيف شيئا؟</string>

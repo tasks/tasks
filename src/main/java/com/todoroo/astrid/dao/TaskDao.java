@@ -358,7 +358,7 @@ public class TaskDao extends RemoteModelDao<Task> {
      * Send broadcast when task list changes. Widgets should update.
      */
     private void broadcastTaskChanged() {
-        broadcaster.taskListUpdated();
+        broadcaster.refresh();
     }
 
     /**
