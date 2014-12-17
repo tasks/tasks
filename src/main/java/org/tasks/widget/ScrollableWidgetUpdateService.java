@@ -27,6 +27,13 @@ public class ScrollableWidgetUpdateService extends InjectingRemoteViewsService {
     @Inject Preferences preferences;
 
     @Override
+    public void onStart(Intent intent, int startId) {
+        super.onStart(intent, startId);
+
+        stopSelf();
+    }
+
+    @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
         if (intent == null) {
             return null;

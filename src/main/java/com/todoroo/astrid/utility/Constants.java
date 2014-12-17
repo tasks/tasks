@@ -21,12 +21,6 @@ public final class Constants {
      */
     public static final MarketStrategy MARKET_STRATEGY = new MarketStrategy.AndroidMarketStrategy();
 
-    /**
-     * Interval to update the widget (in order to detect hidden tasks
-     * becoming visible)
-     */
-    public static final long WIDGET_UPDATE_INTERVAL = 30 * 60 * 1000L;
-
     // --- task list activity source strings
 
     public static final int SOURCE_OTHER = -1;

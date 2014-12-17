@@ -59,7 +59,12 @@ public class WidgetUpdateService extends InjectingService {
         }).start();
     }
 
-    public void startServiceInBackgroundThread(Intent intent) {
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    private void startServiceInBackgroundThread(Intent intent) {
         ComponentName thisWidget = new ComponentName(this,
                 TasksWidget.class);
         AppWidgetManager manager = AppWidgetManager.getInstance(this);
@@ -88,12 +93,7 @@ public class WidgetUpdateService extends InjectingService {
         stopSelf();
     }
 
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-
-    public RemoteViews buildUpdate(Context context, int widgetId) {
+    private RemoteViews buildUpdate(Context context, int widgetId) {
         RemoteViews views = getThemedRemoteViews(context);
 
         int numberOfTasks = NUM_VISIBLE_TASKS;

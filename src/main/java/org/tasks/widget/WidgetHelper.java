@@ -34,29 +34,18 @@ import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.Preferences;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import static android.content.Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
-import static com.todoroo.andlib.utility.AndroidUtilities.preIceCreamSandwich;
 
 @Singleton
 public class WidgetHelper {
 
     public static int flags = FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_MULTIPLE_TASK;
-
-    public static void startWidgetService(Context context) {
-        Class widgetServiceClass = preIceCreamSandwich()
-                ? WidgetUpdateService.class
-                : ScrollableWidgetUpdateService.class;
-        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, widgetServiceClass);
-        PendingIntent pendingIntent = PendingIntent.getService(context,
-                0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        am.setInexactRepeating(AlarmManager.RTC, 0,
-                Constants.WIDGET_UPDATE_INTERVAL, pendingIntent);
-    }
 
     public static void triggerUpdate(Context context) {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
@@ -81,7 +70,10 @@ public class WidgetHelper {
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     public RemoteViews createScrollableWidget(Context context, int id) {
-        startWidgetService(context);
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, ScrollableWidgetUpdateService.class);
+        PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        am.setInexactRepeating(AlarmManager.RTC, 0, TimeUnit.MINUTES.toMillis(30), pendingIntent);
 
         Filter filter = getFilter(context, id);
         Intent rvIntent = new Intent(context, ScrollableWidgetUpdateService.class);
