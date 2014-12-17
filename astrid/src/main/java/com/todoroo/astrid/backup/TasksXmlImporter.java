@@ -26,9 +26,11 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
+import com.todoroo.astrid.dao.TaskTimeLogDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskTimeLog;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
@@ -51,6 +53,7 @@ public class TasksXmlImporter {
     private final TagDataDao tagDataDao;
     private final MetadataDao metadataDao;
     private final TaskService taskService;
+    private final TaskTimeLogDao taskTimeLogDao;
 
     private Context context;
     private Handler handler;
@@ -72,10 +75,11 @@ public class TasksXmlImporter {
     }
 
     @Inject
-    public TasksXmlImporter(TagDataDao tagDataDao, MetadataDao metadataDao, TaskService taskService) {
+    public TasksXmlImporter(TagDataDao tagDataDao, MetadataDao metadataDao, TaskService taskService, TaskTimeLogDao taskTimeLogDao) {
         this.tagDataDao = tagDataDao;
         this.metadataDao = metadataDao;
         this.taskService = taskService;
+        this.taskTimeLogDao = taskTimeLogDao;
     }
 
     /**
@@ -136,6 +140,8 @@ public class TasksXmlImporter {
                             new Format2TaskImporter(xpp);
                         } else if(TextUtils.equals(format, FORMAT3)) {
                             new Format3TaskImporter(xpp);
+                        } else if (TextUtils.equals(format, FORMAT4)) {
+                            new Format4TaskImporter(xpp);
                         } else {
                             throw new UnsupportedOperationException(
                                     "Did not know how to import tasks with xml format '" +
@@ -191,15 +197,17 @@ public class TasksXmlImporter {
     private static final String FORMAT2 = "2"; //$NON-NLS-1$
     private class Format2TaskImporter {
 
+        protected int format;
         protected XmlPullParser xpp;
         protected Task currentTask = new Task();
         protected Metadata metadata = new Metadata();
         protected TagData tagdata = new TagData();
 
-        public Format2TaskImporter() { }
+        public Format2TaskImporter() {}
         public Format2TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {
+            format = 2;
             this.xpp = xpp;
-
+            int appVersion = parseAppVersion(xpp);
             while (xpp.next() != XmlPullParser.END_DOCUMENT) {
                 String tag = xpp.getName();
                 if (tag == null || xpp.getEventType() == XmlPullParser.END_TAG) {
@@ -212,7 +220,7 @@ public class TasksXmlImporter {
                         parseTask();
                     } else if (tag.equals(BackupConstants.METADATA_TAG)) {
                         // Process <metadata ... >
-                        parseMetadata(2);
+                        parseMetadata();
                     }
                 } catch (Exception e) {
                     errorCount++;
@@ -237,7 +245,7 @@ public class TasksXmlImporter {
             }
 
             // if the task's name and creation date match an existing task, skip
-            long existingTask = 0;
+            long existingTask = 0; //FIXME existingTask is always 0
             TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID,
                         Task.COMPLETION_DATE, Task.DELETION_DATE).
                     where(Criterion.and(Task.TITLE.eq(title), Task.CREATION_DATE.eq(created))));
@@ -257,7 +265,8 @@ public class TasksXmlImporter {
             // else, make a new task model and add away.
             deserializeModel(currentTask, Task.PROPERTIES);
 
-            if(existingTask > 0) {
+            boolean isExistingTask = existingTask > 0;
+            if(isExistingTask) {
                 currentTask.setId(existingTask);
             } else {
                 currentTask.setId(Task.NO_ID);
@@ -265,10 +274,24 @@ public class TasksXmlImporter {
 
             // Save the task to the database.
             taskService.save(currentTask);
+
+            if (!isExistingTask){
+                switch (format){
+                    case 2:
+                    case 3:
+                        TaskTimeLog timeLog = TaskTimeLogDao.createTimeLogFromTask(currentTask);
+                        if (timeLog != null) {
+                            taskTimeLogDao.persist(timeLog);
+                            taskService.save(currentTask);
+                        }
+                    case 4:
+                }
+
+            }
             importCount++;
         }
 
-        protected void parseMetadata(int format) {
+        protected void parseMetadata() {
             if(!currentTask.isSaved()) {
                 return;
             }
@@ -355,8 +378,17 @@ public class TasksXmlImporter {
     private static final String FORMAT3 = "3"; //$NON-NLS-1$
     private class Format3TaskImporter extends Format2TaskImporter {
 
+        public Format3TaskImporter(){
+        }
+
         public Format3TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {
             this.xpp = xpp;
+            this.format = 3;
+            readFromXml(xpp);
+
+        }
+
+        protected void readFromXml(XmlPullParser xpp) throws XmlPullParserException, IOException {
             while (xpp.next() != XmlPullParser.END_DOCUMENT) {
                 String tag = xpp.getName();
                 if (tag == null || xpp.getEventType() == XmlPullParser.END_TAG) {
@@ -364,21 +396,25 @@ public class TasksXmlImporter {
                 }
 
                 try {
-                    switch (tag) {
-                        case BackupConstants.TASK_TAG:
-                            parseTask();
-                            break;
-                        case BackupConstants.METADATA_TAG:
-                            parseMetadata(3);
-                            break;
-                        case BackupConstants.TAGDATA_TAG:
-                            parseTagdata();
-                            break;
-                    }
+                    parseXmlTag(tag);
                 } catch (Exception e) {
                     errorCount++;
                     log.error(e.getMessage(), e);
                 }
+            }
+        }
+
+        protected void parseXmlTag(String tag) {
+            switch (tag) {
+                case BackupConstants.TASK_TAG:
+                    parseTask();
+                    break;
+                case BackupConstants.METADATA_TAG:
+                    parseMetadata();
+                    break;
+                case BackupConstants.TAGDATA_TAG:
+                    parseTagdata();
+                    break;
             }
         }
 
@@ -387,5 +423,42 @@ public class TasksXmlImporter {
             deserializeModel(tagdata, TagData.PROPERTIES);
             tagDataDao.persist(tagdata);
         }
+    }
+
+    private static final String FORMAT4 = "4";
+
+    private class Format4TaskImporter extends Format3TaskImporter {
+
+        protected TaskTimeLog taskTimeLog = new TaskTimeLog();
+
+        public Format4TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {
+            this.xpp = xpp;
+            this.format = 4;
+            readFromXml(xpp);
+        }
+
+        @Override
+        protected void parseXmlTag(String tag) {
+            if (BackupConstants.TIMELOG_TAG.equals(tag)){
+                parseTimeLog();
+            } else {
+                super.parseXmlTag(tag);
+            }
+        }
+
+        protected void parseTimeLog(){
+            if(!currentTask.isSaved()) {
+                return;
+            }
+            taskTimeLog.clear();
+            deserializeModel(taskTimeLog, TaskTimeLog.PROPERTIES);
+            taskTimeLog.setID(TaskTimeLog.NO_ID);
+            taskTimeLog.setTaskId(currentTask.getId());
+            taskTimeLogDao.persist(taskTimeLog);
+        }
+    }
+
+    public int parseAppVersion(XmlPullParser xpp) {
+        return Integer.parseInt(xpp.getAttributeValue(null, BackupConstants.ASTRID_ATTR_VERSION));
     }
 }

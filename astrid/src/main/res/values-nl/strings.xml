@@ -114,11 +114,9 @@
 	<string name="TEA_notes_empty">Omschrijving...</string>
 	<string name="TEA_notes_hint">Voer taakomschrijving in</string>
 	<string name="TEA_estimatedDuration_label">Tijdsduur</string>
-	<string name="TEA_elapsedDuration_label">Bestede tijd tot nu toe</string>
 	<string name="TEA_menu_save">Wijzigingen opslaan</string>
 	<string name="TEA_menu_discard_changes">Negeer veranderingen</string>
 	<string name="TEA_tab_activity">Activiteit</string>
-	<string name="TEA_timer_est">Gesch. %s</string>
 	<string name="TEA_timer_elap">Verstreken %s</string>
 	<string-array name="TEA_urgency">
 		<item>Geen datum</item>

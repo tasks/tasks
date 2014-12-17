@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:orientation="horizontal">
+
+    <TextView
+        style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel"
+        android:id="@+id/timeLogRow_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="left"
+        android:text="Sprzątanie pokoju" />
+
+    <TextView
+        style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel"
+        android:id="@+id/timeLogRow_timeSpent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:gravity="right"
+        android:text="10h:20" />
+
+
+    <!-- TODO mamy trzy parametry, opis, czas trwania, oraz datę; dla przejrzystości w mojej opinii możemy nie wyświetlać daty
+
+    szerokość prawej kolumny (czasu) jest stała, lewa z opisem zajmuje resztę
+
+    może w przypadku, gdy opis jest pusty wpisywany jest czas,
+
+    ew. można zastąpić opis czasem i dać ikonę notatki, jeśli takowa została dodana-->
+
+</LinearLayout>

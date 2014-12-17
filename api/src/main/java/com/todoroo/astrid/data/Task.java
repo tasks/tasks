@@ -87,6 +87,9 @@ public class Task extends RemoteModel {
     public static final IntegerProperty ESTIMATED_SECONDS = new IntegerProperty(
             TABLE, "estimatedSeconds");
 
+    public static final IntegerProperty REMAINING_SECONDS = new IntegerProperty(
+            TABLE, "remainingSeconds");
+
     public static final IntegerProperty ELAPSED_SECONDS = new IntegerProperty(
             TABLE, "elapsedSeconds");
 
@@ -185,7 +188,7 @@ public class Task extends RemoteModel {
         defaultValues.put(REMINDER_LAST.name, 0);
         defaultValues.put(REMINDER_SNOOZE.name, 0);
         defaultValues.put(ESTIMATED_SECONDS.name, 0);
-        defaultValues.put(ELAPSED_SECONDS.name, 0);
+        defaultValues.put(REMAINING_SECONDS.name, 0);
         defaultValues.put(NOTES.name, "");
         defaultValues.put(TIMER_START.name, 0);
         defaultValues.put(UUID.name, NO_UUID);
@@ -477,6 +480,10 @@ public class Task extends RemoteModel {
         return getValue(ELAPSED_SECONDS);
     }
 
+    public Integer getRemainingSeconds() {
+        return getValue(REMAINING_SECONDS);
+    }
+
     public Long getTimerStart() {
         return getValue(TIMER_START);
     }
@@ -545,8 +552,27 @@ public class Task extends RemoteModel {
         return getValue(ESTIMATED_SECONDS);
     }
 
-    public void setELAPSED_SECONDS(Integer elapsedSeconds) {
+    public void setEstimatedSeconds(Integer estimatedSeconds) {
+        setValue(ESTIMATED_SECONDS, estimatedSeconds);
+    }
+
+    public void setRemainingSeconds(Integer remainingSeconds) {
+        setValue(REMAINING_SECONDS, remainingSeconds);
+    }
+
+    public void setElapsedSeconds(Integer elapsedSeconds) {
         setValue(ELAPSED_SECONDS, elapsedSeconds);
+    }
+
+    public void lowerRemainingSeconds(int bySeconds){
+        Integer remainingSeconds = getRemainingSeconds();
+        if (remainingSeconds != null) {
+            remainingSeconds -= bySeconds;
+            if (remainingSeconds < 0){
+                remainingSeconds = 0;
+            }
+            setRemainingSeconds(remainingSeconds);
+        }
     }
 
     public void setCalendarUri(String calendarUri) {

@@ -118,10 +118,8 @@
 	<string name="TEA_notes_empty">Опис</string>
 	<string name="TEA_notes_hint">Ввести опис завдання...</string>
 	<string name="TEA_estimatedDuration_label">Як довго це триватиме?</string>
-	<string name="TEA_elapsedDuration_label">Час вже потрачео</string>
 	<string name="TEA_menu_save">Зберегти зміни</string>
 	<string name="TEA_tab_activity">Активність</string>
-	<string name="TEA_timer_est">Зал. %s</string>
 	<string name="TEA_timer_elap">Час, що минув %s</string>
 	<string-array name="TEA_urgency">
 		<item>Немає дати</item>

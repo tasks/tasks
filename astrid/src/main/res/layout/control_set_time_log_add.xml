@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="5dip"
+        android:orientation="horizontal" />
+
+    <EditText
+        android:id="@+id/addTimeLog_description"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter what you did" />
+
+    <View
+        style="@style/TEA_Separator"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="3dp" />
+
+    <TextView
+        android:id="@+id/addTimeLog_date"
+        style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:paddingLeft="2dp" />
+    <!--     po zamknięciu okna czas pozostały jest zmniejszany o czas przepracowany, ale tak by był nieujemny-->
+
+
+</LinearLayout>

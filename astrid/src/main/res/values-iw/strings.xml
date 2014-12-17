@@ -115,7 +115,6 @@
 	<string name="TEA_notes_empty">תיאור</string>
 	<string name="TEA_notes_hint">הזן את תיאור המשימה...</string>
 	<string name="TEA_estimatedDuration_label">כמה זמן תיקח המשימה?</string>
-	<string name="TEA_elapsedDuration_label">זמן שכבר הושקע במשימה</string>
 	<string name="TEA_menu_save">שמירת השינויים</string>
 	<string name="TEA_tab_activity">פעילות</string>
 	<string name="TEA_timer_elap">זמן שעבר %s</string>

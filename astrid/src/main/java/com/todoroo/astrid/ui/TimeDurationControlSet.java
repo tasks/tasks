@@ -19,20 +19,27 @@ import org.tasks.R;
 
 public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnClickListener {
 
+    public interface TimeDurationChangeListener {
+
+        void timeDurationChanged(int newDurationInSeconds);
+    }
     private final Activity activity;
+
     private final TextView timeButton;
     private int timeDuration;
     private int[] initialValues = null;
     private NNumberPickerDialog dialog = null;
     private Task model;
     private final IntegerProperty property;
-
+    private TimeDurationChangeListener timeDurationChangeListener;
     public TimeDurationControlSet(Activity activity, View view, IntegerProperty property,
-            int timeButtonId) {
+            int layoutId, int labelId) {
         this.activity = activity;
         this.property = property;
 
-        timeButton = (TextView)view.findViewById(timeButtonId);
+        View layout = view.findViewById(layoutId);
+        timeButton = (TextView) layout.findViewById(R.id.duration);
+        ((TextView)layout.findViewById(R.id.durationLabel)).setText(labelId);
         ((View) timeButton.getParent()).setOnClickListener(this);
     }
 
@@ -66,12 +73,20 @@ public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnC
         if (model != null) {
             model.setValue(property, timeDuration);
         }
+
     }
 
     /** Called when NumberPicker activity is completed */
     @Override
     public void onNumbersPicked(int[] values) {
         setTimeDuration(values[0] * 3600 + values[1] * 60);
+        callListener();
+    }
+
+    private void callListener() {
+        if (timeDurationChangeListener != null) {
+            timeDurationChangeListener.timeDurationChanged(timeDuration);
+        }
     }
 
     /** Called when time button is clicked */
@@ -81,31 +96,10 @@ public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnC
             dialog = new NNumberPickerDialog(activity, this,
                     activity.getResources().getString(R.string.DLG_hour_minutes),
                     new int[] {0, 0}, new int[] {1, 5}, new int[] {0, 0},
-                    new int[] {999, 59}, new String[] {":", null});
+                    new int[]{999, 59}, new String[]{":", null}, R.layout.n_number_picker_dialog);
             final NumberPicker hourPicker = dialog.getPicker(0);
             final NumberPicker minutePicker = dialog.getPicker(1);
-            minutePicker.setFormatter(new NumberPicker.Formatter() {
-                @Override
-                public String toString(int value) {
-                    return String.format("%02d", value);
-                }
-            });
-            minutePicker.setOnChangeListener(new NumberPicker.OnChangedListener() {
-                @Override
-                public int onChanged(int newVal) {
-                    if(newVal < 0) {
-                        if(hourPicker.getCurrent() == 0) {
-                            return 0;
-                        }
-                        hourPicker.setCurrent(hourPicker.getCurrent() - 1);
-                        return 60 + newVal;
-                    } else if(newVal > 59) {
-                        hourPicker.setCurrent(hourPicker.getCurrent() + 1);
-                        return newVal % 60;
-                    }
-                    return newVal;
-                }
-            });
+            prepareMinutePicker(hourPicker, minutePicker);
         }
 
         if(initialValues != null) {
@@ -113,6 +107,35 @@ public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnC
         }
 
         dialog.show();
+    }
+
+    private void prepareMinutePicker(final NumberPicker hourPicker, NumberPicker minutePicker) {
+        minutePicker.setFormatter(new NumberPicker.Formatter() {
+            @Override
+            public String toString(int value) {
+                return String.format("%02d", value);
+            }
+        });
+        minutePicker.setOnChangeListener(new NumberPicker.OnChangedListener() {
+            @Override
+            public int onChanged(int newVal) {
+                if (newVal < 0) {
+                    if (hourPicker.getCurrent() == 0) {
+                        return 0;
+                    }
+                    hourPicker.setCurrent(hourPicker.getCurrent() - 1);
+                    return 60 + newVal;
+                } else if (newVal > 59) {
+                    hourPicker.setCurrent(hourPicker.getCurrent() + 1);
+                    return newVal % 60;
+                }
+                return newVal;
+            }
+        });
+    }
+
+    public void setTimeDurationChangeListener(TimeDurationChangeListener timeDurationChangeListener) {
+        this.timeDurationChangeListener = timeDurationChangeListener;
     }
 
 

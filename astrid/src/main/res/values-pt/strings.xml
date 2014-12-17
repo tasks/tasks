@@ -116,7 +116,6 @@
 	<string name="TEA_notes_empty">Descrição...</string>
 	<string name="TEA_notes_hint">Introduzir descrição da tarefa...</string>
 	<string name="TEA_estimatedDuration_label">Quanto tempo irá durar?</string>
-	<string name="TEA_elapsedDuration_label">Tempo já gasto</string>
 	<string name="TEA_menu_save">Gravar alterações</string>
 	<string name="TEA_menu_discard_changes">Rejeitar alterações</string>
 	<string name="TEA_tab_activity">Atividade</string>
