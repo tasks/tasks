@@ -192,7 +192,7 @@
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="com.todoroo.astrid.widget.TasksWidget.COMPLETE_TASK"/>
                 <action android:name="com.todoroo.astrid.widget.TasksWidget.EDIT_TASK"/>
-                <action android:name="org.tasks.TASK_LIST_UPDATED"/>
+                <action android:name="org.tasks.REFRESH"/>
             </intent-filter>
 
             <meta-data
