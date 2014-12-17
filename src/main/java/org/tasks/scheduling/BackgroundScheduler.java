@@ -21,6 +21,7 @@ public class BackgroundScheduler {
         context.startService(new Intent(context, ReminderSchedulerIntentService.class));
         scheduleBackupService();
         scheduleMidnightRefresh();
+        scheduleGtaskSync();
     }
 
     public void scheduleBackupService() {
@@ -29,5 +30,9 @@ public class BackgroundScheduler {
 
     public void scheduleMidnightRefresh() {
         context.startService(new Intent(context, MidnightRefreshService.class));
+    }
+
+    public void scheduleGtaskSync() {
+        context.startService(new Intent(context, GtasksBackgroundService.class));
     }
 }

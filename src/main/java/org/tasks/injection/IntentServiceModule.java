@@ -8,6 +8,7 @@ import dagger.Module;
         injects = {
                 AlarmSchedulingIntentService.class,
                 BackupIntentService.class,
+                GtasksBackgroundService.class,
                 MidnightRefreshService.class,
                 RefreshSchedulerIntentService.class,
                 ReminderSchedulerIntentService.class

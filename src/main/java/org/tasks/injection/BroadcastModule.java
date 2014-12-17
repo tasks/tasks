@@ -9,7 +9,6 @@ import com.todoroo.astrid.gcal.CalendarStartupReceiver;
 import com.todoroo.astrid.gcal.GCalTaskCompleteListener;
 import com.todoroo.astrid.gtasks.GtasksCustomFilterCriteriaExposer;
 import com.todoroo.astrid.gtasks.GtasksFilterExposer;
-import com.todoroo.astrid.gtasks.GtasksStartupReceiver;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ShowNotificationReceiver;
 import com.todoroo.astrid.repeats.RepeatTaskCompleteListener;
@@ -37,7 +36,6 @@ import dagger.Module;
                 TimerTaskCompleteListener.class,
                 RepeatTaskCompleteListener.class,
                 AlarmTaskRepeatListener.class,
-                GtasksStartupReceiver.class,
                 PhoneStateChangedReceiver.class,
                 ShowNotificationReceiver.class,
                 CoreFilterExposer.class,

@@ -98,6 +98,10 @@ public class Preferences {
         }
     }
 
+    public void setString(int key, String newValue) {
+        setString(context.getString(key), newValue);
+    }
+
     public void setString(String key, String newValue) {
         Editor editor = prefs.edit();
         editor.putString(key, newValue);

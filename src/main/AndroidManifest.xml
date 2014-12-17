@@ -344,20 +344,6 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.todoroo.astrid.gtasks.GtasksBackgroundService">
-            <intent-filter>
-                <action android:name="org.tasks.gtasks.SYNC" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </service>
-
-        <receiver android:name="com.todoroo.astrid.gtasks.GtasksStartupReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
-
         <!-- repeats -->
 
         <receiver android:name="com.todoroo.astrid.repeats.RepeatTaskCompleteListener">
@@ -496,16 +482,19 @@
             android:name=".scheduling.AlarmSchedulingIntentService"
             android:exported="false" />
         <service
-            android:name=".scheduling.ReminderSchedulerIntentService"
+            android:name=".scheduling.BackupIntentService"
+            android:exported="false" />
+        <service
+            android:name=".scheduling.GtasksBackgroundService"
+            android:exported="false" />
+        <service
+            android:name=".scheduling.MidnightRefreshService"
             android:exported="false" />
         <service
             android:name=".scheduling.RefreshSchedulerIntentService"
             android:exported="false" />
         <service
-            android:name=".scheduling.BackupIntentService"
-            android:exported="false" />
-        <service
-            android:name=".scheduling.MidnightRefreshService"
+            android:name=".scheduling.ReminderSchedulerIntentService"
             android:exported="false" />
 
         <!-- Uses Library -->

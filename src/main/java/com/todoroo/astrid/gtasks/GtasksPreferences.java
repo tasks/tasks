@@ -24,6 +24,7 @@ import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingSyncProviderPreferences;
+import org.tasks.scheduling.BackgroundScheduler;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -43,7 +44,7 @@ public class GtasksPreferences extends InjectingSyncProviderPreferences {
 
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject GtasksSyncV2Provider gtasksSyncV2Provider;
-    @Inject GtasksScheduler gtasksScheduler;
+    @Inject BackgroundScheduler backgroundScheduler;
 
     @Override
     public int getPreferenceResource() {
@@ -88,7 +89,7 @@ public class GtasksPreferences extends InjectingSyncProviderPreferences {
     @Override
     protected void onPause() {
         super.onPause();
-        gtasksScheduler.scheduleService();
+        backgroundScheduler.scheduleGtaskSync();
     }
 
     public static final int RESULT_CODE_SYNCHRONIZE = 2;
