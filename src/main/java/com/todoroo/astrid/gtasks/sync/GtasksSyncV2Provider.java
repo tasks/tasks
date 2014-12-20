@@ -8,6 +8,8 @@ package com.todoroo.astrid.gtasks.sync;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.google.api.services.tasks.model.TaskList;
+import com.google.api.services.tasks.model.TaskLists;
 import com.google.api.services.tasks.model.Tasks;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -49,7 +51,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static org.tasks.date.DateTimeUtils.newDate;
+import static org.tasks.date.DateTimeUtils.newDateTime;
 
 @Singleton
 public class GtasksSyncV2Provider {
@@ -132,35 +136,58 @@ public class GtasksSyncV2Provider {
             public void run() {
                 callback.started();
 
-                String authToken = getValidatedAuthToken();
-                final GtasksInvoker invoker = new GtasksInvoker(gtasksTokenValidator, authToken);
                 try {
-                    gtasksListService.updateLists(invoker.allGtaskLists());
-                } catch (IOException e) {
-                    handler.handleException("gtasks-sync=io", e); //$NON-NLS-1$
-                }
+                    String authToken = getValidatedAuthToken();
+                    final GtasksInvoker invoker = new GtasksInvoker(gtasksTokenValidator, authToken);
+                    TaskLists remoteLists = null;
+                    try {
+                        remoteLists = invoker.allGtaskLists();
+                        gtasksListService.updateLists(remoteLists);
+                    } catch (IOException e) {
+                        handler.handleException("gtasks-sync=io", e); //$NON-NLS-1$
+                    }
 
-                List<StoreObject> lists = gtasksListService.getLists();
-                if (lists.isEmpty()) {
-                    finishSync(callback);
-                    return;
-                }
+                    if (remoteLists == null) {
+                        finishSync(callback);
+                        return;
+                    }
 
-                final AtomicInteger finisher = new AtomicInteger(lists.size());
-
-                // TODO: Check timestamps from invoker.allGtaskLists and pare down lists to sync
-
-                for (final StoreObject list : lists) {
-                    executor.execute(callback, new Runnable() {
-                        @Override
-                        public void run() {
-                            synchronizeListHelper(list, invoker, handler);
-                            if (finisher.decrementAndGet() == 0) {
-                                pushUpdated(invoker);
-                                finishSync(callback);
-                            }
+                    List<StoreObject> listsToUpdate = newArrayList();
+                    for (TaskList remoteList : remoteLists.getItems()) {
+                        StoreObject localList = gtasksListService.getList(remoteList.getId());
+                        String listName = localList.getValue(GtasksList.NAME);
+                        Long lastSync = localList.getValue(GtasksList.LAST_SYNC);
+                        long lastUpdate = remoteList.getUpdated().getValue();
+                        if (lastSync < lastUpdate) {
+                            listsToUpdate.add(localList);
+                            log.debug("{} out of date [local={}] [remote={}]", listName, newDateTime(lastSync), newDateTime(lastUpdate));
+                        } else {
+                            log.debug("{} up to date", listName);
                         }
-                    });
+                    }
+
+                    if (listsToUpdate.isEmpty()) {
+                        finishSync(callback);
+                        return;
+                    }
+
+                    final AtomicInteger finisher = new AtomicInteger(listsToUpdate.size());
+
+                    for (final StoreObject list : listsToUpdate) {
+                        executor.execute(callback, new Runnable() {
+                            @Override
+                            public void run() {
+                                synchronizeListHelper(list, invoker, handler);
+                                if (finisher.decrementAndGet() == 0) {
+                                    pushUpdated(invoker);
+                                    finishSync(callback);
+                                }
+                            }
+                        });
+                    }
+                } catch(Exception e) {
+                    handler.handleException("gtasks-sync=io", e); //$NON-NLS-1$
+                    callback.finished();
                 }
             }
         });

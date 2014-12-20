@@ -10,6 +10,9 @@ import com.google.api.services.tasks.model.TaskLists;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.data.StoreObject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,28 +24,19 @@ import javax.inject.Singleton;
 @Singleton
 public class GtasksListService {
 
+    private static final Logger log = LoggerFactory.getLogger(GtasksListService.class);
+
     public static final StoreObject LIST_NOT_FOUND_OBJECT = null;
 
     private final StoreObjectDao storeObjectDao;
-
-    private List<StoreObject> lists;
 
     @Inject
     public GtasksListService(StoreObjectDao storeObjectDao) {
         this.storeObjectDao = storeObjectDao;
     }
 
-    private void readLists() {
-        if(lists != null) {
-            return;
-        }
-
-        lists = storeObjectDao.getByType(GtasksList.TYPE);
-    }
-
     public List<StoreObject> getLists() {
-        readLists();
-        return lists;
+        return storeObjectDao.getByType(GtasksList.TYPE);
     }
 
     /**
@@ -51,7 +45,7 @@ public class GtasksListService {
      * @param remoteLists remote information about your lists
      */
     public synchronized void updateLists(TaskLists remoteLists) {
-        readLists();
+        List<StoreObject> lists = getLists();
 
         Set<Long> previousLists = new HashSet<>();
         for(StoreObject list : lists) {
@@ -59,7 +53,6 @@ public class GtasksListService {
         }
 
         List<TaskList> items = remoteLists.getItems();
-        List<StoreObject> newLists = new ArrayList<>();
         for(int i = 0; i < items.size(); i++) {
             com.google.api.services.tasks.model.TaskList remote = items.get(i);
 
@@ -72,19 +65,20 @@ public class GtasksListService {
                 }
             }
 
+            String title = remote.getTitle();
             if(local == null) {
+                log.debug("Adding new gtask list {}", title);
                 local = new StoreObject();
+                local.setValue(GtasksList.LAST_SYNC, 0L);
             }
 
             local.setType(GtasksList.TYPE);
             local.setValue(GtasksList.REMOTE_ID, id);
-            local.setValue(GtasksList.NAME, remote.getTitle());
+            local.setValue(GtasksList.NAME, title);
             local.setValue(GtasksList.ORDER, i);
             storeObjectDao.persist(local);
             previousLists.remove(local.getId());
-            newLists.add(local);
         }
-        lists = newLists;
 
         // check for lists that aren't on remote server
         for(Long listId : previousLists) {
@@ -93,8 +87,7 @@ public class GtasksListService {
     }
 
     public StoreObject getList(String listId) {
-        readLists();
-        for(StoreObject list : lists) {
+        for(StoreObject list : getLists()) {
             if (list != null && list.getValue(GtasksList.REMOTE_ID).equals(listId)) {
                 return list;
             }
