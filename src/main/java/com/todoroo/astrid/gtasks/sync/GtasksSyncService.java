@@ -50,6 +50,7 @@ public class GtasksSyncService {
     private final GtasksPreferenceService gtasksPreferenceService;
     private final GtasksTokenValidator gtasksTokenValidator;
     private final GtasksMetadata gtasksMetadataFactory;
+    private final LinkedBlockingQueue<SyncOnSaveOperation> operationQueue = new LinkedBlockingQueue<>();
 
     @Inject
     public GtasksSyncService(MetadataDao metadataDao, GtasksMetadataService gtasksMetadataService,
@@ -62,8 +63,6 @@ public class GtasksSyncService {
         this.gtasksTokenValidator = gtasksTokenValidator;
         this.gtasksMetadataFactory = gtasksMetadataFactory;
     }
-
-    private final LinkedBlockingQueue<SyncOnSaveOperation> operationQueue = new LinkedBlockingQueue<>();
 
     private abstract class SyncOnSaveOperation {
         abstract public void op(GtasksInvoker invoker) throws IOException;
@@ -121,16 +120,14 @@ public class GtasksSyncService {
                 if(model.checkAndClearTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC)) {
                     return;
                 }
-                if (gtasksPreferenceService.isOngoing() && !model.checkTransitory(TaskService.TRANS_REPEAT_COMPLETE)) //Don't try and sync changes that occur during a normal sync
-                {
+                if (gtasksPreferenceService.isOngoing() && !model.checkTransitory(TaskService.TRANS_REPEAT_COMPLETE)) { //Don't try and sync changes that occur during a normal sync
                     return;
                 }
                 final ContentValues setValues = model.getSetValues();
                 if(setValues == null || !checkForToken()) {
                     return;
                 }
-                if (!checkValuesForProperties(setValues, TASK_PROPERTIES)) //None of the properties we sync were updated
-                {
+                if (!checkValuesForProperties(setValues, TASK_PROPERTIES)) { //None of the properties we sync were updated
                     return;
                 }
 

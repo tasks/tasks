@@ -9,6 +9,7 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteConstraintException;
 
 import com.todoroo.andlib.data.AbstractModel;
+import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
@@ -28,6 +29,9 @@ import org.tasks.R;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
 
+import java.io.ByteArrayOutputStream;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -38,9 +42,11 @@ import javax.inject.Singleton;
  *
  */
 @Singleton
-public class TaskDao extends RemoteModelDao<Task> {
+public class TaskDao {
 
     private static final Logger log = LoggerFactory.getLogger(TaskDao.class);
+
+    private final RemoteModelDao<Task> dao;
 
     private final MetadataDao metadataDao;
     private final Broadcaster broadcaster;
@@ -52,13 +58,48 @@ public class TaskDao extends RemoteModelDao<Task> {
 	public TaskDao(Database database, MetadataDao metadataDao, Broadcaster broadcaster,
                    ReminderService reminderService, NotificationManager notificationManager,
                    Preferences preferences) {
-        super(Task.class);
-        setDatabase(database);
+        dao = new RemoteModelDao<>(database, Task.class);
         this.preferences = preferences;
         this.metadataDao = metadataDao;
         this.broadcaster = broadcaster;
         this.reminderService = reminderService;
         this.notificationManager = notificationManager;
+    }
+
+    public TodorooCursor<Task> query(Query query) {
+        return dao.query(query);
+    }
+
+    public Task fetch(long id, Property<?>... properties) {
+        return dao.fetch(id, properties);
+    }
+
+    public int count(Query query) {
+        return dao.count(query);
+    }
+
+    public TodorooCursor<Task> rawQuery(String selection, String[] selectionArgs, Property.LongProperty id) {
+        return dao.rawQuery(selection, selectionArgs, id);
+    }
+
+    public int update(Criterion where, Task template) {
+        return dao.update(where, template);
+    }
+
+    public int deleteWhere(Criterion criterion) {
+        return dao.deleteWhere(criterion);
+    }
+
+    public void addListener(DatabaseDao.ModelUpdateListener<Task> modelUpdateListener) {
+        dao.addListener(modelUpdateListener);
+    }
+
+    public List<Task> toList(Query query) {
+        return dao.toList(query);
+    }
+
+    public void persist(Task task) {
+        dao.persist(task);
     }
 
     // --- SQL clause generators
@@ -103,7 +144,7 @@ public class TaskDao extends RemoteModelDao<Task> {
     }
 
     public String uuidFromLocalId(long localId) {
-        TodorooCursor<Task> cursor = query(Query.select(RemoteModel.UUID_PROPERTY).where(AbstractModel.ID_PROPERTY.eq(localId)));
+        TodorooCursor<Task> cursor = dao.query(Query.select(RemoteModel.UUID_PROPERTY).where(AbstractModel.ID_PROPERTY.eq(localId)));
         try {
             if (cursor.getCount() == 0) {
                 return RemoteModel.NO_UUID;
@@ -122,9 +163,8 @@ public class TaskDao extends RemoteModelDao<Task> {
      *
      * @return true if delete was successful
      */
-    @Override
     public boolean delete(long id) {
-        boolean result = super.delete(id);
+        boolean result = dao.delete(id);
         if(!result) {
             return false;
         }
@@ -158,7 +198,7 @@ public class TaskDao extends RemoteModelDao<Task> {
     }
 
     public void handleSQLiteConstraintException(Task task) {
-        TodorooCursor<Task> cursor = query(Query.select(Task.ID).where(
+        TodorooCursor<Task> cursor = dao.query(Query.select(Task.ID).where(
                 Task.UUID.eq(task.getUUID())));
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -167,7 +207,6 @@ public class TaskDao extends RemoteModelDao<Task> {
         }
     }
 
-    @Override
     public boolean createNew(Task item) {
         if(!item.containsValue(Task.CREATION_DATE)) {
             item.setCreationDate(DateUtilities.now());
@@ -189,7 +228,7 @@ public class TaskDao extends RemoteModelDao<Task> {
         setDefaultReminders(preferences, item);
 
         ContentValues values = item.getSetValues();
-        boolean result = super.createNew(item);
+        boolean result = dao.createNew(item);
         if(result) {
             afterSave(item, values);
         }
@@ -222,7 +261,6 @@ public class TaskDao extends RemoteModelDao<Task> {
         }
     }
 
-    @Override
     public boolean saveExisting(Task item) {
         ContentValues values = item.getSetValues();
         if(values == null || values.size() == 0) {
@@ -233,7 +271,7 @@ public class TaskDao extends RemoteModelDao<Task> {
                 item.setModificationDate(DateUtilities.now());
             }
         }
-        boolean result = super.saveExisting(item);
+        boolean result = dao.saveExisting(item);
         if(result) {
             afterSave(item, values);
         }
@@ -259,7 +297,7 @@ public class TaskDao extends RemoteModelDao<Task> {
         } catch (SQLiteConstraintException e) {
             log.error(e.getMessage(), e);
             String uuid = item.getUUID();
-            TodorooCursor<Task> tasksWithUUID = query(Query.select(
+            TodorooCursor<Task> tasksWithUUID = dao.query(Query.select(
                     SQL_CONSTRAINT_MERGE_PROPERTIES).where(
                     Task.UUID.eq(uuid)));
             try {
@@ -270,7 +308,7 @@ public class TaskDao extends RemoteModelDao<Task> {
                             continue;
                         }
 
-                        compareAndMergeAfterConflict(curr, fetch(item.getId(),
+                        compareAndMergeAfterConflict(curr, dao.fetch(item.getId(),
                                 tasksWithUUID.getProperties()));
                         return;
                     }

@@ -16,15 +16,12 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
 
-import com.todoroo.andlib.data.AbstractDatabase;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.StoreObjectDao;
+import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
@@ -80,16 +77,13 @@ public class Astrid3ContentProvider extends InjectingContentProvider {
 
     private static final UriMatcher uriMatcher;
 
-    private static AbstractDatabase databaseOverride;
+    private static Database databaseOverride;
 
     // --- instance variables
 
     private boolean open;
     @Inject Lazy<Database> database;
     @Inject Lazy<TaskDao> taskDao;
-    @Inject Lazy<MetadataDao> metadataDao;
-    @Inject Lazy<StoreObjectDao> storeObjectDao;
-    @Inject Lazy<UserActivityDao> userActivityDao;
 
     static {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -150,41 +144,37 @@ public class Astrid3ContentProvider extends InjectingContentProvider {
     }
 
     private UriHelper<?> generateHelper(Uri uri, boolean populateModel) {
-        AbstractDatabase db = getDatabase();
+        final Database db = getDatabase();
         if(uri.toString().startsWith(Task.CONTENT_URI.toString())) {
             UriHelper<Task> helper = new UriHelper<>();
             helper.model = populateModel ? new Task() : null;
-            helper.dao = taskDao.get();
-            helper.dao.setDatabase(db);
+            helper.dao = new RemoteModelDao<>(db, Task.class);
             return helper;
         } else if(uri.toString().startsWith(Metadata.CONTENT_URI.toString())) {
             UriHelper<Metadata> helper = new UriHelper<>();
             helper.model = populateModel ? new Metadata() : null;
-            helper.dao = metadataDao.get();
-            helper.dao.setDatabase(db);
+            helper.dao = new DatabaseDao<>(db, Metadata.class);
             return helper;
         } else if(uri.toString().startsWith(StoreObject.CONTENT_URI.toString())) {
             UriHelper<StoreObject> helper = new UriHelper<>();
             helper.model = populateModel ? new StoreObject() : null;
-            helper.dao = storeObjectDao.get();
-            helper.dao.setDatabase(db);
+            helper.dao = new DatabaseDao<>(db, StoreObject.class);
             return helper;
         } else if(uri.toString().startsWith(UserActivity.CONTENT_URI.toString())) {
             UriHelper<UserActivity> helper = new UriHelper<>();
             helper.model = populateModel ? new UserActivity() : null;
-            helper.dao = userActivityDao.get();
-            helper.dao.setDatabase(db);
+            helper.dao = new RemoteModelDao<>(db, UserActivity.class);
             return helper;
         }
 
         throw new UnsupportedOperationException("Unknown URI " + uri);
     }
 
-    public static void setDatabaseOverride(AbstractDatabase override) {
+    public static void setDatabaseOverride(Database override) {
         databaseOverride = override;
     }
 
-    private AbstractDatabase getDatabase() {
+    private Database getDatabase() {
         if (!open) {
             database.get().openForWriting();
             open = true;

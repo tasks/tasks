@@ -12,23 +12,22 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.data.TaskAttachment;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
-@Singleton
-public class TaskAttachmentDao extends RemoteModelDao<TaskAttachment> {
+public class TaskAttachmentDao {
+
+    private final RemoteModelDao<TaskAttachment> dao;
 
     @Inject
     public TaskAttachmentDao(Database database) {
-        super(TaskAttachment.class);
-        setDatabase(database);
+        dao = new RemoteModelDao<>(database, TaskAttachment.class);
     }
 
     public boolean taskHasAttachments(String taskUuid) {
-        return count(byUuid(taskUuid, TaskAttachment.TASK_UUID).limit(1)) > 0;
+        return dao.count(byUuid(taskUuid, TaskAttachment.TASK_UUID).limit(1)) > 0;
     }
 
     public void getAttachments(String taskUuid, Callback<TaskAttachment> callback) {
-        query(callback, byUuid(taskUuid, TaskAttachment.PROPERTIES));
+        dao.query(callback, byUuid(taskUuid, TaskAttachment.PROPERTIES));
     }
 
     private static Query byUuid(String taskUuid, Property<?>... properties) {
@@ -36,6 +35,18 @@ public class TaskAttachmentDao extends RemoteModelDao<TaskAttachment> {
                 Criterion.and(TaskAttachment.TASK_UUID.eq(taskUuid),
                         TaskAttachment.DELETED_AT.eq(0))
         );
+    }
+
+    public void createNew(TaskAttachment attachment) {
+        dao.createNew(attachment);
+    }
+
+    public void delete(long id) {
+        dao.delete(id);
+    }
+
+    public void saveExisting(TaskAttachment m) {
+        dao.saveExisting(m);
     }
 }
 

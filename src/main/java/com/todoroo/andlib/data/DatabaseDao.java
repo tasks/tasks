@@ -36,8 +36,10 @@ public class DatabaseDao<TYPE extends AbstractModel> {
 
     private AbstractDatabase database;
 
-    public DatabaseDao(Class<TYPE> modelClass) {
+    public DatabaseDao(AbstractDatabase database, Class<TYPE> modelClass) {
         this.modelClass = modelClass;
+        this.database = database;
+        table = database.getTable(this.modelClass);
         try {
             modelClass.getConstructor(); // check for default constructor
         } catch (NoSuchMethodException e) {
@@ -50,26 +52,13 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         return table;
     }
 
-    /**
-     * Sets database accessed by this DAO. Used for dependency-injected
-     * initialization by child classes and unit tests
-     */
-    public void setDatabase(AbstractDatabase database) {
-        if(database == this.database) {
-            return;
-        }
-        this.database = database;
-        table = database.getTable(modelClass);
-    }
-
     // --- listeners
 
     public interface ModelUpdateListener<MTYPE> {
         public void onModelUpdated(MTYPE model);
     }
 
-    private final ArrayList<ModelUpdateListener<TYPE>> listeners =
-        new ArrayList<>();
+    private final ArrayList<ModelUpdateListener<TYPE>> listeners = new ArrayList<>();
 
     public void addListener(ModelUpdateListener<TYPE> listener) {
         listeners.add(listener);

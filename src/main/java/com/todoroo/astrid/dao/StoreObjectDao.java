@@ -17,32 +17,31 @@ import com.todoroo.astrid.gtasks.GtasksList;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.sql.Criterion.and;
 import static com.todoroo.andlib.sql.Query.select;
 
-@Singleton
-public class StoreObjectDao extends DatabaseDao<StoreObject> {
+public class StoreObjectDao {
+
+    private final DatabaseDao<StoreObject> dao;
 
     private static Criterion isSavedFilter = StoreObject.TYPE.eq(SavedFilter.TYPE);
 
     @Inject
     public StoreObjectDao(Database database) {
-        super(StoreObject.class);
-        setDatabase(database);
+        dao = new DatabaseDao<>(database, StoreObject.class);
     }
 
     public void getSavedFilters(Callback<StoreObject> callback) {
-        query(callback, select(StoreObject.PROPERTIES)
+        dao.query(callback, select(StoreObject.PROPERTIES)
                 .where(isSavedFilter)
                 .orderBy(Order.asc(SavedFilter.NAME)));
     }
 
     public GtasksList getGtasksList(long id) {
-        StoreObject result = fetch(id, StoreObject.PROPERTIES);
+        StoreObject result = dao.fetch(id, StoreObject.PROPERTIES);
         if (!result.getType().equals(GtasksList.TYPE)) {
             throw new RuntimeException("Not a google task list");
         }
@@ -58,18 +57,30 @@ public class StoreObjectDao extends DatabaseDao<StoreObject> {
         }));
     }
 
+    public void persist(StoreObject storeObject) {
+        dao.persist(storeObject);
+    }
+
     public void persist(GtasksList list) {
         persist(list.getStoreObject());
     }
 
     public List<StoreObject> getByType(String type) {
-        return toList(select(StoreObject.PROPERTIES)
+        return dao.toList(select(StoreObject.PROPERTIES)
                 .where(StoreObject.TYPE.eq(type)));
     }
 
     public StoreObject getSavedFilterByName(String title) {
-        return getFirst(select(StoreObject.ID)
+        return dao.getFirst(select(StoreObject.ID)
                 .where(and(isSavedFilter, SavedFilter.NAME.eq(title))));
+    }
+
+    public void delete(long id) {
+        dao.delete(id);
+    }
+
+    public void createNew(StoreObject storeObject) {
+        dao.createNew(storeObject);
     }
 }
 

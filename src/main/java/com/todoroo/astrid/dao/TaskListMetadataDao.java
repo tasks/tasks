@@ -19,18 +19,26 @@ import javax.inject.Singleton;
  *
  * @author Tim Su <tim@todoroo.com>
  */
-@Singleton
-public class TaskListMetadataDao extends RemoteModelDao<TaskListMetadata> {
+public class TaskListMetadataDao {
+
+    private final RemoteModelDao<TaskListMetadata> dao;
 
     @Inject
     public TaskListMetadataDao(Database database) {
-        super(TaskListMetadata.class);
-        setDatabase(database);
+        dao = new RemoteModelDao<>(database, TaskListMetadata.class);
     }
 
     public TaskListMetadata fetchByTagId(String tagUuid, Property<?>... properties) {
-        return getFirst(Query.select(properties).where(Criterion.or(TaskListMetadata.TAG_UUID.eq(tagUuid),
+        return dao.getFirst(Query.select(properties).where(Criterion.or(TaskListMetadata.TAG_UUID.eq(tagUuid),
                 TaskListMetadata.FILTER.eq(tagUuid))));
+    }
+
+    public void createNew(TaskListMetadata taskListMetadata) {
+        dao.createNew(taskListMetadata);
+    }
+
+    public void saveExisting(TaskListMetadata list) {
+        dao.saveExisting(list);
     }
 }
 
