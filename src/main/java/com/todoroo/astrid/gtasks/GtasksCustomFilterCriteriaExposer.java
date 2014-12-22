@@ -22,7 +22,6 @@ import com.todoroo.astrid.api.MultipleSelectCriterion;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
@@ -53,14 +52,14 @@ public class GtasksCustomFilterCriteriaExposer extends InjectingBroadcastReceive
 
         Resources r = context.getResources();
 
-        List<StoreObject> lists = gtasksListService.getLists();
+        List<GtasksList> lists = gtasksListService.getLists();
 
         CustomFilterCriterion[] result = new CustomFilterCriterion[1];
         String[] listNames = new String[lists.size()];
         String[] listIds = new String[lists.size()];
         for (int i = 0; i < lists.size(); i++) {
-            listNames[i] = lists.get(i).getValue(GtasksList.NAME);
-            listIds[i] = lists.get(i).getValue(GtasksList.REMOTE_ID);
+            listNames[i] = lists.get(i).getName();
+            listIds[i] = lists.get(i).getRemoteId();
         }
 
         ContentValues values = new ContentValues();

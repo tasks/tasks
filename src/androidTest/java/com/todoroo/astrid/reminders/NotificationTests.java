@@ -27,7 +27,6 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.tasks.TestUtilities.initializeMockito;
 
 public class NotificationTests extends DatabaseTestCase {
 
@@ -50,12 +49,6 @@ public class NotificationTests extends DatabaseTestCase {
     @Inject Notifications notifications;
     @Inject NotificationManager notificationManager;
     @Inject Broadcaster broadcaster;
-
-    @Override
-    public void setUp() {
-        initializeMockito(getContext());
-        super.setUp();
-    }
 
     @Override
     protected void tearDown() {

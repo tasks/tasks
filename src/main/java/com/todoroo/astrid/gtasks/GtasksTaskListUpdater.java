@@ -16,7 +16,6 @@ import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 
@@ -33,7 +32,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObject> {
+public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<GtasksList> {
 
     private static final Logger log = LoggerFactory.getLogger(GtasksTaskListUpdater.class);
 
@@ -85,19 +84,19 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
         return gtasksMetadataService.getTaskMetadata(taskId);
     }
     @Override
-    protected Metadata createEmptyMetadata(StoreObject list, long taskId) {
+    protected Metadata createEmptyMetadata(GtasksList list, long taskId) {
         Metadata metadata = gtasksMetadata.createEmptyMetadata(taskId);
-        metadata.setValue(GtasksMetadata.LIST_ID, list.getValue(GtasksList.REMOTE_ID));
+        metadata.setValue(GtasksMetadata.LIST_ID, list.getRemoteId());
         return metadata;
     }
 
     @Override
-    protected void beforeIndent(StoreObject list) {
+    protected void beforeIndent(GtasksList list) {
         updateParentSiblingMapsFor(list);
     }
 
     @Override
-    protected void iterateThroughList(StoreObject list, OrderedListIterator iterator) {
+    protected void iterateThroughList(GtasksList list, OrderedListIterator iterator) {
         gtasksMetadataService.iterateThroughList(list, iterator);
     }
 
@@ -112,8 +111,8 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
      * Update order, parent, and indentation fields for all tasks in the given list
      */
     public void correctMetadataForList(String listId) {
-        StoreObject list = gtasksListService.getList(listId);
-        if(list == GtasksListService.LIST_NOT_FOUND_OBJECT) {
+        GtasksList list = gtasksListService.getList(listId);
+        if(list == null) {
             return;
         }
 
@@ -171,7 +170,7 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
         );
     }
 
-    void updateParentSiblingMapsFor(StoreObject list) {
+    void updateParentSiblingMapsFor(GtasksList list) {
         final AtomicLong previousTask = new AtomicLong(Task.NO_ID);
         final AtomicInteger previousIndent = new AtomicInteger(-1);
 

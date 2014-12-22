@@ -8,25 +8,22 @@ package com.todoroo.astrid.gtasks;
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
 import com.todoroo.astrid.dao.StoreObjectDao;
-import com.todoroo.astrid.data.StoreObject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
-@Singleton
+import static com.google.common.collect.Lists.newArrayList;
+import static org.tasks.date.DateTimeUtils.newDateTime;
+
 public class GtasksListService {
 
     private static final Logger log = LoggerFactory.getLogger(GtasksListService.class);
-
-    public static final StoreObject LIST_NOT_FOUND_OBJECT = null;
 
     private final StoreObjectDao storeObjectDao;
 
@@ -35,8 +32,8 @@ public class GtasksListService {
         this.storeObjectDao = storeObjectDao;
     }
 
-    public List<StoreObject> getLists() {
-        return storeObjectDao.getByType(GtasksList.TYPE);
+    public List<GtasksList> getLists() {
+        return storeObjectDao.getGtasksLists();
     }
 
     /**
@@ -45,10 +42,10 @@ public class GtasksListService {
      * @param remoteLists remote information about your lists
      */
     public synchronized void updateLists(TaskLists remoteLists) {
-        List<StoreObject> lists = getLists();
+        List<GtasksList> lists = getLists();
 
         Set<Long> previousLists = new HashSet<>();
-        for(StoreObject list : lists) {
+        for(GtasksList list : lists) {
             previousLists.add(list.getId());
         }
 
@@ -57,9 +54,9 @@ public class GtasksListService {
             com.google.api.services.tasks.model.TaskList remote = items.get(i);
 
             String id = remote.getId();
-            StoreObject local = null;
-            for(StoreObject list : lists) {
-                if(list.getValue(GtasksList.REMOTE_ID).equals(id)) {
+            GtasksList local = null;
+            for(GtasksList list : lists) {
+                if(list.getRemoteId().equals(id)) {
                     local = list;
                     break;
                 }
@@ -68,14 +65,11 @@ public class GtasksListService {
             String title = remote.getTitle();
             if(local == null) {
                 log.debug("Adding new gtask list {}", title);
-                local = new StoreObject();
-                local.setValue(GtasksList.LAST_SYNC, 0L);
+                local = new GtasksList(id);
             }
 
-            local.setType(GtasksList.TYPE);
-            local.setValue(GtasksList.REMOTE_ID, id);
-            local.setValue(GtasksList.NAME, title);
-            local.setValue(GtasksList.ORDER, i);
+            local.setName(title);
+            local.setOrder(i);
             storeObjectDao.persist(local);
             previousLists.remove(local.getId());
         }
@@ -86,12 +80,29 @@ public class GtasksListService {
         }
     }
 
-    public StoreObject getList(String listId) {
-        for(StoreObject list : getLists()) {
-            if (list != null && list.getValue(GtasksList.REMOTE_ID).equals(listId)) {
+    public List<GtasksList> getListsToUpdate(TaskLists remoteLists) {
+        List<GtasksList> listsToUpdate = newArrayList();
+        for (TaskList remoteList : remoteLists.getItems()) {
+            GtasksList localList = getList(remoteList.getId());
+            String listName = localList.getName();
+            Long lastSync = localList.getLastSync();
+            long lastUpdate = remoteList.getUpdated().getValue();
+            if (lastSync < lastUpdate) {
+                listsToUpdate.add(localList);
+                log.debug("{} out of date [local={}] [remote={}]", listName, newDateTime(lastSync), newDateTime(lastUpdate));
+            } else {
+                log.debug("{} up to date", listName);
+            }
+        }
+        return listsToUpdate;
+    }
+
+    public GtasksList getList(String listId) {
+        for(GtasksList list : getLists()) {
+            if (list != null && list.getRemoteId().equals(listId)) {
                 return list;
             }
         }
-        return LIST_NOT_FOUND_OBJECT;
+        return null;
     }
 }

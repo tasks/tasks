@@ -21,7 +21,6 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
-import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TaskService;
@@ -52,16 +51,7 @@ public class GtasksListFragment extends SubtasksListFragment {
     @Inject ActivityPreferences preferences;
     @Inject SyncThrottle syncThrottle;
 
-    private StoreObject list;
-
-    private static final Property<?>[] LIST_PROPERTIES = new Property<?>[] {
-        StoreObject.ID,
-        StoreObject.TYPE,
-        GtasksList.REMOTE_ID,
-        GtasksList.ORDER,
-        GtasksList.NAME,
-        GtasksList.LAST_SYNC
-    };
+    private GtasksList list;
 
     @Override
     protected OrderedListFragmentHelperInterface<?> createFragmentHelper() {
@@ -73,8 +63,8 @@ public class GtasksListFragment extends SubtasksListFragment {
         super.onActivityCreated(icicle);
 
         long storeObjectId = extras.getLong(TOKEN_STORE_ID, 0);
-        list = storeObjectDao.fetch(storeObjectId, LIST_PROPERTIES);
-        ((OrderedMetadataListFragmentHelper<StoreObject>)helper).setList(list);
+        list = storeObjectDao.getGtasksList(storeObjectId);
+        ((OrderedMetadataListFragmentHelper<GtasksList>)helper).setList(list);
     }
 
     @Override

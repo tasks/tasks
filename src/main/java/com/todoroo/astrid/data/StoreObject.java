@@ -88,4 +88,14 @@ public class StoreObject extends AbstractModel {
     public void setType(String type) {
         setValue(TYPE, type);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof StoreObject)) return false;
+
+        StoreObject that = (StoreObject) o;
+
+        return getMergedValues().equals(that.getMergedValues());
+    }
 }

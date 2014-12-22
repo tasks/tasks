@@ -24,7 +24,6 @@ import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
@@ -49,21 +48,21 @@ public class GtasksFilterExposer extends InjectingBroadcastReceiver implements A
     @Inject @ForApplication Context context;
     @Inject GtasksMetadata gtasksMetadata;
 
-    private List<StoreObject> lists;
+    private List<GtasksList> lists;
 
-    public static Filter filterFromList(GtasksMetadata gtasksMetadata, Context context, StoreObject list) {
-        String listName = list.getValue(GtasksList.NAME);
+    public static Filter filterFromList(GtasksMetadata gtasksMetadata, Context context, GtasksList list) {
+        String listName = list.getName();
         ContentValues values = new ContentValues();
         values.putAll(gtasksMetadata.createEmptyMetadata(AbstractModel.NO_ID).getMergedValues());
         values.remove(Metadata.TASK.name);
-        values.put(GtasksMetadata.LIST_ID.name, list.getValue(GtasksList.REMOTE_ID));
+        values.put(GtasksMetadata.LIST_ID.name, list.getRemoteId());
         values.put(GtasksMetadata.ORDER.name, PermaSql.VALUE_NOW);
         FilterWithCustomIntent filter = new FilterWithCustomIntent(listName,
                 context.getString(R.string.gtasks_FEx_title, listName), new QueryTemplate().join(
                 Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK))).where(Criterion.and(
                         MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
                         TaskCriteria.notDeleted(),
-                        GtasksMetadata.LIST_ID.eq(list.getValue(GtasksList.REMOTE_ID)))).orderBy(
+                        GtasksMetadata.LIST_ID.eq(list.getRemoteId()))).orderBy(
                                 Order.asc(Functions.cast(GtasksMetadata.ORDER, "LONG"))), //$NON-NLS-1$
                 values);
         filter.customTaskList = new ComponentName(context, GtasksListFragment.class);

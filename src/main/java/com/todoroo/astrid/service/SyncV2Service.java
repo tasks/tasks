@@ -7,6 +7,7 @@ package com.todoroo.astrid.service;
 
 import android.content.Context;
 
+import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 import com.todoroo.astrid.sync.SyncResultCallback;
 
@@ -63,7 +64,7 @@ public class SyncV2Service {
      * @param list list object
      * @param callback result callback
      */
-    public void synchronizeList(Object list, SyncResultCallback callback) {
+    public void synchronizeList(GtasksList list, SyncResultCallback callback) {
         if(provider.isActive()) {
             provider.synchronizeList(list, new WidgetUpdatingCallbackWrapper(context, callback));
         }

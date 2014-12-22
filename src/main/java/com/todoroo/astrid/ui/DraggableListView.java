@@ -342,7 +342,7 @@ public class DraggableListView extends ListView {
 
             } catch (InterruptedException e) {
                 // bye!
-                log.debug(e.getMessage(), e);
+                log.trace(e.getMessage(), e);
             }
         }
     }

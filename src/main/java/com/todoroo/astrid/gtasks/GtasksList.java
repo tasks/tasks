@@ -5,35 +5,94 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import com.todoroo.andlib.data.Property.IntegerProperty;
-import com.todoroo.andlib.data.Property.LongProperty;
-import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.astrid.data.StoreObject;
 
 /**
  * {@link StoreObject} entries for a GTasks List
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class GtasksList {
 
-    /** type*/
+    private StoreObject storeObject;
+
+    public GtasksList(final String remoteId) {
+        this(new StoreObject() {{
+            setType(GtasksList.TYPE);
+        }});
+        setLastSync(0L);
+        setRemoteId(remoteId);
+    }
+
+    public GtasksList(StoreObject storeObject) {
+        if (!storeObject.getType().equals(TYPE)) {
+            throw new RuntimeException("Type is not " + TYPE);
+        }
+        this.storeObject = storeObject;
+    }
+
+    /**
+     * type
+     */
     public static final String TYPE = "gtasks-list"; //$NON-NLS-1$
 
-    /** list id in g-tasks */
-    public static final StringProperty REMOTE_ID = new StringProperty(StoreObject.TABLE,
-            StoreObject.ITEM.name);
+    public Long getId() {
+        return storeObject.getId();
+    }
 
-    /** list name */
-    public static final StringProperty NAME = new StringProperty(StoreObject.TABLE,
-            StoreObject.VALUE1.name);
+    public String getRemoteId() {
+        return storeObject.getValue(StoreObject.ITEM);
+    }
 
-    /** list order */
-    public static final IntegerProperty ORDER = new IntegerProperty(StoreObject.TABLE,
-            StoreObject.VALUE2.name);
+    public void setRemoteId(String remoteId) {
+        storeObject.setValue(StoreObject.ITEM, remoteId);
+    }
 
-    public static final LongProperty LAST_SYNC = new LongProperty(StoreObject.TABLE,
-            StoreObject.VALUE3.name);
+    public String getName() {
+        return storeObject.getValue(StoreObject.VALUE1);
+    }
 
+    public void setName(String name) {
+        storeObject.setValue(StoreObject.VALUE1, name);
+    }
+
+    public int getOrder() {
+        return Integer.parseInt(storeObject.getValue(StoreObject.VALUE2));
+    }
+
+    public void setOrder(int order) {
+        storeObject.setValue(StoreObject.VALUE2, Integer.toString(order));
+    }
+
+    public long getLastSync() {
+        return storeObject.containsNonNullValue(StoreObject.VALUE3)
+                ? Long.parseLong(storeObject.getValue(StoreObject.VALUE3))
+                : 0;
+    }
+
+    public void setLastSync(long timestamp) {
+        storeObject.setValue(StoreObject.VALUE3, Long.toString(timestamp));
+    }
+
+    public StoreObject getStoreObject() {
+        return storeObject;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GtasksList)) return false;
+
+        GtasksList that = (GtasksList) o;
+
+        if (storeObject != null ? !storeObject.equals(that.storeObject) : that.storeObject != null)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return storeObject != null ? storeObject.hashCode() : 0;
+    }
 }

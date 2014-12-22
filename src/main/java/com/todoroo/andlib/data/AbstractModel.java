@@ -138,11 +138,11 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
      */
     @Override
     public boolean equals(Object other) {
-        if(other == null || other.getClass() !=  getClass()) {
+        if(other == null || other.getClass() != getClass()) {
             return false;
         }
 
-        return getMergedValues().equals(((AbstractModel)other).getMergedValues());
+        return getMergedValues().equals(((AbstractModel) other).getMergedValues());
     }
 
     @Override

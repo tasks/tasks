@@ -8,7 +8,6 @@ package com.todoroo.astrid.gtasks.sync;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
 import com.google.api.services.tasks.model.Tasks;
 import com.todoroo.andlib.data.AbstractModel;
@@ -21,7 +20,6 @@ import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksList;
@@ -51,9 +49,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static org.tasks.date.DateTimeUtils.newDate;
-import static org.tasks.date.DateTimeUtils.newDateTime;
 
 @Singleton
 public class GtasksSyncV2Provider {
@@ -152,19 +148,7 @@ public class GtasksSyncV2Provider {
                         return;
                     }
 
-                    List<StoreObject> listsToUpdate = newArrayList();
-                    for (TaskList remoteList : remoteLists.getItems()) {
-                        StoreObject localList = gtasksListService.getList(remoteList.getId());
-                        String listName = localList.getValue(GtasksList.NAME);
-                        Long lastSync = localList.getValue(GtasksList.LAST_SYNC);
-                        long lastUpdate = remoteList.getUpdated().getValue();
-                        if (lastSync < lastUpdate) {
-                            listsToUpdate.add(localList);
-                            log.debug("{} out of date [local={}] [remote={}]", listName, newDateTime(lastSync), newDateTime(lastUpdate));
-                        } else {
-                            log.debug("{} up to date", listName);
-                        }
-                    }
+                    List<GtasksList> listsToUpdate = gtasksListService.getListsToUpdate(remoteLists);
 
                     if (listsToUpdate.isEmpty()) {
                         finishSync(callback);
@@ -173,7 +157,7 @@ public class GtasksSyncV2Provider {
 
                     final AtomicInteger finisher = new AtomicInteger(listsToUpdate.size());
 
-                    for (final StoreObject list : listsToUpdate) {
+                    for (final GtasksList list : listsToUpdate) {
                         executor.execute(callback, new Runnable() {
                             @Override
                             public void run() {
@@ -215,15 +199,7 @@ public class GtasksSyncV2Provider {
         }
     }
 
-    public void synchronizeList(Object list, final SyncResultCallback callback) {
-        if (!(list instanceof StoreObject)) {
-            return;
-        }
-        final StoreObject gtasksList = (StoreObject) list;
-        if (!GtasksList.TYPE.equals(gtasksList.getType())) {
-            return;
-        }
-
+    public void synchronizeList(final GtasksList gtasksList, final SyncResultCallback callback) {
         executor.execute(callback, new Runnable() {
             @Override
             public void run() {
@@ -255,13 +231,10 @@ public class GtasksSyncV2Provider {
         return authToken;
     }
 
-    private synchronized void synchronizeListHelper(StoreObject list, GtasksInvoker invoker,
+    private synchronized void synchronizeListHelper(GtasksList list, GtasksInvoker invoker,
             SyncExceptionHandler errorHandler) {
-        String listId = list.getValue(GtasksList.REMOTE_ID);
-        long lastSyncDate = 0;
-        if (list.containsNonNullValue(GtasksList.LAST_SYNC)) {
-            lastSyncDate = list.getValue(GtasksList.LAST_SYNC);
-        }
+        String listId = list.getRemoteId();
+        long lastSyncDate = list.getLastSync();
 
         /**
          * Find tasks which have been associated with the list internally, but have not yet been
@@ -292,7 +265,7 @@ public class GtasksSyncV2Provider {
                     write(container);
                     lastSyncDate = Math.max(lastSyncDate, container.getUpdateTime());
                 }
-                list.setValue(GtasksList.LAST_SYNC, lastSyncDate);
+                list.setLastSync(lastSyncDate);
                 storeObjectDao.persist(list);
                 gtasksTaskListUpdater.correctOrderAndIndentForList(listId);
             }

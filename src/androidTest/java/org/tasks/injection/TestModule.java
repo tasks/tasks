@@ -7,6 +7,7 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDaoTests;
 import com.todoroo.astrid.dao.TaskDaoTests;
 import com.todoroo.astrid.gtasks.GtasksIndentActionTest;
+import com.todoroo.astrid.gtasks.GtasksListServiceTest;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdaterTest;
 import com.todoroo.astrid.gtasks.GtasksTaskMovingTest;
 import com.todoroo.astrid.model.TaskTest;
@@ -43,7 +44,8 @@ import dagger.Provides;
         ReminderServiceTest.class,
         SubtasksHelperTest.class,
         SubtasksMovingTest.class,
-        SyncModelTest.class
+        SyncModelTest.class,
+        GtasksListServiceTest.class
 })
 public class TestModule {
     private Context context;

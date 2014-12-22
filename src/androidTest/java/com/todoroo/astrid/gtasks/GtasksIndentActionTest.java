@@ -30,7 +30,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
     @Inject GtasksMetadata gtasksMetadata;
 
     private Task task;
-    private StoreObject storeList;
+    private GtasksList storeList;
 
     public void testIndentWithoutMetadata() {
         givenTask(taskWithoutMetadata());

@@ -9,7 +9,6 @@ import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
@@ -145,14 +144,14 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
     }
 
     void createParentSiblingMaps() {
-        for(StoreObject list : gtasksListService.getLists()) {
+        for(GtasksList list : gtasksListService.getLists()) {
             gtasksTaskListUpdater.updateParentSiblingMapsFor(list);
         }
     }
 
     private void whenCalculatingOrder() {
-        for(StoreObject list : gtasksListService.getLists())
-            gtasksTaskListUpdater.correctMetadataForList(list.getValue(GtasksList.REMOTE_ID));
+        for(GtasksList list : gtasksListService.getLists())
+            gtasksTaskListUpdater.correctMetadataForList(list.getRemoteId());
     }
 
 
