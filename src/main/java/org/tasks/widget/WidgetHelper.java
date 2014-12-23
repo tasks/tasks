@@ -154,7 +154,6 @@ public class WidgetHelper {
             intent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
             if (filter.valuesForNewTasks != null) {
                 String values = AndroidUtilities.contentValuesToSerializedString(filter.valuesForNewTasks);
-                values = PermaSql.replacePlaceholders(values);
                 intent.putExtra(TaskEditFragment.TOKEN_VALUES, values);
                 intent.setAction("E" + id + values);
             }

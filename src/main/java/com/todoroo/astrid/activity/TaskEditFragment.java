@@ -44,6 +44,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.ActFmCameraModule;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.alarms.AlarmService;
+import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
@@ -543,6 +544,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             ContentValues values = null;
             try {
                 if (valuesAsString != null) {
+                    valuesAsString = PermaSql.replacePlaceholders(valuesAsString);
                     values = AndroidUtilities.contentValuesFromSerializedString(valuesAsString);
                 }
             } catch (Exception e) {
