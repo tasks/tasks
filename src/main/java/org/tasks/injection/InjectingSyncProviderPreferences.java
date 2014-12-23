@@ -11,7 +11,7 @@ public abstract class InjectingSyncProviderPreferences extends TodorooPreference
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        objectGraph = ((Injector) getApplication()).getObjectGraph().plus(new ActivityModule(this, this));
+        objectGraph = ((Injector) getApplication()).getObjectGraph().plus(new ActivityModule(this));
         inject(this);
 
         super.onCreate(savedInstanceState);

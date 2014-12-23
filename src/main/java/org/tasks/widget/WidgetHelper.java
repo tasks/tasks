@@ -21,14 +21,13 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.PermaSql;
-import com.todoroo.astrid.core.CoreFilterExposer;
+import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.widget.TasksWidget;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
-import com.todoroo.astrid.widget.WidgetUpdateService;
 
 import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
@@ -175,7 +174,7 @@ public class WidgetHelper {
     public Filter getFilter(Context context, int widgetId) {
 
         // base our filter off the inbox filter, replace stuff if we have it
-        Filter filter = CoreFilterExposer.buildInboxFilter(context.getResources());
+        Filter filter = BuiltInFilterExposer.getMyTasksFilter(context.getResources());
         String sql = preferences.getStringValue(WidgetConfigActivity.PREF_SQL + widgetId);
         if (sql != null) {
             sql = sql.replace("tasks.userId=0", "1"); // TODO: replace dirty hack for missing column

@@ -44,8 +44,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.filters.FilterCounter;
+import org.tasks.filters.FilterProvider;
 import org.tasks.injection.InjectingFragment;
-import org.tasks.injection.Injector;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
@@ -86,8 +86,8 @@ public class NavigationDrawerFragment extends InjectingFragment {
     private int mCurrentSelectedPosition = 0;
 
     @Inject FilterCounter filterCounter;
-    @Inject Injector injector;
     @Inject Preferences preferences;
+    @Inject FilterProvider filterProvider;
 
     public NavigationDrawerFragment() {
     }
@@ -241,7 +241,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mCallbacks = (OnFilterItemClickedListener) activity;
-        adapter = new FilterAdapter(injector, filterCounter, getActivity(), null, R.layout.filter_adapter_row, false);
+        adapter = new FilterAdapter(filterProvider, filterCounter, getActivity(), null, R.layout.filter_adapter_row, false);
     }
 
     @Override

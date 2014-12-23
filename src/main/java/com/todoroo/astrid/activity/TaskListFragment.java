@@ -48,7 +48,7 @@ import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
-import com.todoroo.astrid.core.CoreFilterExposer;
+import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
@@ -351,13 +351,13 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
             filter = extras.getParcelable(TOKEN_FILTER);
             extras.remove(TOKEN_FILTER); // Otherwise writing this filter to parcel gives infinite recursion
         } else {
-            filter = CoreFilterExposer.buildInboxFilter(resources);
+            filter = BuiltInFilterExposer.getMyTasksFilter(resources);
         }
         filter.setFilterQueryOverride(null);
-        isInbox = CoreFilterExposer.isInbox(filter);
+        isInbox = BuiltInFilterExposer.isInbox(filter);
         isTodayFilter = false;
         if (!isInbox) {
-            isTodayFilter = CoreFilterExposer.isTodayFilter(filter);
+            isTodayFilter = BuiltInFilterExposer.isTodayFilter(filter);
         }
 
         initializeTaskListMetadata();

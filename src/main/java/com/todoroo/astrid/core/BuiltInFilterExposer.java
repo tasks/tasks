@@ -11,13 +11,14 @@ import android.content.res.Resources;
 
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.PermaSql;
+import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
@@ -26,8 +27,6 @@ import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
-import org.tasks.injection.InjectingBroadcastReceiver;
-import org.tasks.injection.Injector;
 import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
@@ -41,36 +40,47 @@ import javax.inject.Inject;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public final class CoreFilterExposer extends InjectingBroadcastReceiver implements AstridFilterExposer {
+public final class BuiltInFilterExposer {
 
-    @Inject Preferences preferences;
-    @Inject @ForApplication Context context;
+    private final Preferences preferences;
+    private final Context context;
 
-    private FilterListItem[] prepareFilters() {
+    @Inject
+    public BuiltInFilterExposer(@ForApplication Context context, Preferences preferences) {
+        this.context = context;
+        this.preferences = preferences;
+    }
+
+    public List<FilterListItem> getFilters() {
         Resources r = context.getResources();
         // core filters
         List<FilterListItem> filters = new ArrayList<>(3);
 
-        filters.add(buildInboxFilter(r));
+        filters.add(getMyTasksFilter(r));
         if (preferences.getBoolean(R.string.p_show_today_filter, true)) {
             filters.add(getTodayFilter(r));
         }
-
+        if (preferences.getBoolean(R.string.p_show_recently_modified_filter, true)) {
+            filters.add(getRecentlyModifiedFilter(r));
+        }
+        if (preferences.getBoolean(R.string.p_show_not_in_list_filter, true)) {
+            filters.add(getUncategorizedFilter(r));
+        }
         // transmit filter list
-        return filters.toArray(new FilterListItem[filters.size()]);
+        return filters;
     }
 
     /**
      * Build inbox filter
      */
-    public static Filter buildInboxFilter(Resources r) {
+    public static Filter getMyTasksFilter(Resources r) {
         return new Filter(r.getString(R.string.BFE_Active), r.getString(R.string.BFE_Active),
                 new QueryTemplate().where(
                         Criterion.and(TaskCriteria.activeAndVisible(),
                                 Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(
                                         Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
                                                 TaskToTagMetadata.TAG_NAME.like("x_%", "x"))))))), //$NON-NLS-1$ //$NON-NLS-2$
-                                                null);
+                null);
     }
 
     private static Filter getTodayFilter(Resources r) {
@@ -83,25 +93,37 @@ public final class CoreFilterExposer extends InjectingBroadcastReceiver implemen
                         Criterion.and(TaskCriteria.activeAndVisible(),
                                 Task.DUE_DATE.gt(0),
                                 Task.DUE_DATE.lte(PermaSql.VALUE_EOD))),
-                                todayValues);
+                todayValues);
+    }
+
+    private static Filter getRecentlyModifiedFilter(Resources r) {
+        return new Filter(r.getString(R.string.BFE_Recent),
+                r.getString(R.string.BFE_Recent),
+                new QueryTemplate().where(
+                        Criterion.all).orderBy(
+                        Order.desc(Task.MODIFICATION_DATE)).limit(15),
+                null);
+    }
+
+    private static Filter getUncategorizedFilter(Resources r) {
+        return new Filter(r.getString(R.string.tag_FEx_untagged),
+                r.getString(R.string.tag_FEx_untagged),
+                new QueryTemplate().where(Criterion.and(
+                        Criterion.not(Task.UUID.in(Query.select(TaskToTagMetadata.TASK_UUID).from(Metadata.TABLE)
+                                .where(Criterion.and(MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY), Metadata.DELETION_DATE.eq(0))))),
+                        TaskCriteria.isActive(),
+                        TaskCriteria.isVisible())),
+                null);
     }
 
     /**
      * Is this the inbox?
      */
     public static boolean isInbox(Filter filter) {
-        return (filter != null && filter.equals(buildInboxFilter(ContextManager.getContext().getResources())));
+        return (filter != null && filter.equals(getMyTasksFilter(ContextManager.getContext().getResources())));
     }
 
     public static boolean isTodayFilter(Filter filter) {
         return (filter != null && filter.equals(getTodayFilter(ContextManager.getContext().getResources())));
     }
-
-    @Override
-    public FilterListItem[] getFilters(Injector injector) {
-        injector.inject(this);
-
-        return prepareFilters();
-    }
-
 }

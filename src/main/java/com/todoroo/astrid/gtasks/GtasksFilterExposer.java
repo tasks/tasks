@@ -16,9 +16,7 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.QueryTemplate;
-import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -28,12 +26,14 @@ import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
-import org.tasks.injection.InjectingBroadcastReceiver;
-import org.tasks.injection.Injector;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import static com.google.common.collect.Lists.newArrayList;
+import static java.util.Collections.*;
 
 /**
  * Exposes filters based on lists
@@ -41,14 +41,34 @@ import javax.inject.Inject;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class GtasksFilterExposer extends InjectingBroadcastReceiver implements AstridFilterExposer {
+public class GtasksFilterExposer {
 
-    @Inject GtasksListService gtasksListService;
-    @Inject GtasksPreferenceService gtasksPreferenceService;
-    @Inject @ForApplication Context context;
-    @Inject GtasksMetadata gtasksMetadata;
+    private final GtasksListService gtasksListService;
+    private final GtasksPreferenceService gtasksPreferenceService;
+    private final Context context;
+    private final GtasksMetadata gtasksMetadata;
 
-    private List<GtasksList> lists;
+    @Inject
+    public GtasksFilterExposer(@ForApplication Context context, GtasksListService gtasksListService,
+                               GtasksPreferenceService gtasksPreferenceService, GtasksMetadata gtasksMetadata) {
+        this.context = context;
+        this.gtasksListService = gtasksListService;
+        this.gtasksPreferenceService = gtasksPreferenceService;
+        this.gtasksMetadata = gtasksMetadata;
+    }
+
+    public List<Filter> getFilters() {
+        // if we aren't logged in (or we are logged in to astrid.com), don't expose features
+        if(!gtasksPreferenceService.isLoggedIn()) {
+            return emptyList();
+        }
+
+        List<Filter> listFilters = newArrayList();
+        for (GtasksList list : gtasksListService.getLists()) {
+            listFilters.add(filterFromList(gtasksMetadata, context, list));
+        }
+        return listFilters;
+    }
 
     public static Filter filterFromList(GtasksMetadata gtasksMetadata, Context context, GtasksList list) {
         String listName = list.getName();
@@ -71,37 +91,5 @@ public class GtasksFilterExposer extends InjectingBroadcastReceiver implements A
         filter.customExtras = extras;
 
         return filter;
-    }
-
-    private FilterListItem[] prepareFilters() {
-        // if we aren't logged in (or we are logged in to astrid.com), don't expose features
-        if(!gtasksPreferenceService.isLoggedIn()) {
-            return null;
-        }
-
-        lists = gtasksListService.getLists();
-
-        // If user does not have any lists, don't show this section at all
-        if(noListsToShow()) {
-            return null;
-        }
-
-        Filter[] listFilters = new Filter[lists.size()];
-        for(int i = 0; i < lists.size(); i++) {
-            listFilters[i] = filterFromList(gtasksMetadata, context, lists.get(i));
-        }
-
-        return listFilters;
-    }
-
-    private boolean noListsToShow() {
-        return lists.isEmpty();
-    }
-
-    @Override
-    public FilterListItem[] getFilters(Injector injector) {
-        injector.inject(this);
-
-        return prepareFilters();
     }
 }

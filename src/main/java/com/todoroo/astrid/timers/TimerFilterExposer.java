@@ -11,18 +11,20 @@ import android.content.res.Resources;
 
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
-import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
-import org.tasks.injection.InjectingBroadcastReceiver;
-import org.tasks.injection.Injector;
+
+import java.util.Collections;
+import java.util.List;
 
 import javax.inject.Inject;
+
+import static com.google.common.collect.Lists.newArrayList;
+import static java.util.Collections.emptyList;
 
 /**
  * Exposes "working on" filter to the NavigationDrawerFragment
@@ -30,23 +32,23 @@ import javax.inject.Inject;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public final class TimerFilterExposer extends InjectingBroadcastReceiver implements AstridFilterExposer {
+public final class TimerFilterExposer {
 
-    @Inject TaskService taskService;
-    @Inject @ForApplication Context context;
+    private final TaskService taskService;
+    private final Context context;
 
-    private FilterListItem[] prepareFilters() {
-        if(taskService.count(Query.select(Task.ID).
-                where(Task.TIMER_START.gt(0))) == 0) {
-            return null;
+    @Inject
+    public TimerFilterExposer(@ForApplication Context context, TaskService taskService) {
+        this.context = context;
+        this.taskService = taskService;
+    }
+
+    public List<Filter> getFilters() {
+        if(taskService.count(Query.select(Task.ID).where(Task.TIMER_START.gt(0))) == 0) {
+            return emptyList();
         }
 
-        Filter workingOn = createFilter(context);
-
-        // transmit filter list
-        FilterListItem[] list = new FilterListItem[1];
-        list[0] = workingOn;
-        return list;
+        return newArrayList(createFilter(context));
     }
 
     public static Filter createFilter(Context context) {
@@ -57,12 +59,5 @@ public final class TimerFilterExposer extends InjectingBroadcastReceiver impleme
                 r.getString(R.string.TFE_workingOn),
                 new QueryTemplate().where(Task.TIMER_START.gt(0)),
                 values);
-    }
-
-    @Override
-    public FilterListItem[] getFilters(Injector injector) {
-        injector.inject(this);
-
-        return prepareFilters();
     }
 }

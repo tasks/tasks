@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.Injector;
-import org.tasks.preferences.ActivityPreferences;
 
 import javax.inject.Inject;
 
@@ -36,7 +35,6 @@ public class QuickAddBar {
 
     @Inject TaskService taskService;
     @Inject TaskCreator taskCreator;
-    @Inject ActivityPreferences preferences;
     @Inject DateChangedAlerts dateChangedAlerts;
 
     private TaskListActivity activity;

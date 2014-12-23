@@ -8,7 +8,6 @@ package com.todoroo.astrid.widget;
 import android.appwidget.AppWidgetManager;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -23,8 +22,8 @@ import com.todoroo.astrid.api.FilterWithCustomIntent;
 
 import org.tasks.R;
 import org.tasks.filters.FilterCounter;
+import org.tasks.filters.FilterProvider;
 import org.tasks.injection.InjectingListActivity;
-import org.tasks.injection.Injector;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.widget.WidgetHelper;
 
@@ -47,8 +46,8 @@ public class WidgetConfigActivity extends InjectingListActivity {
 
     @Inject WidgetHelper widgetHelper;
     @Inject FilterCounter filterCounter;
-    @Inject Injector injector;
     @Inject ActivityPreferences preferences;
+    @Inject FilterProvider filterProvider;
 
     private void updateWidget() {
         if (preIceCreamSandwich()) {
@@ -90,7 +89,7 @@ public class WidgetConfigActivity extends InjectingListActivity {
              }
 
              // set up ui
-             adapter = new FilterAdapter(injector, filterCounter, this, getListView(),
+             adapter = new FilterAdapter(filterProvider, filterCounter, this, getListView(),
                      R.layout.filter_adapter_row, true);
              adapter.filterStyle = R.style.TextAppearance_FLA_Filter_Widget;
              setListAdapter(adapter);

@@ -9,7 +9,7 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
-import com.todoroo.astrid.core.CoreFilterExposer;
+import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
@@ -34,7 +34,7 @@ public class SubtasksHelper {
     private static final Logger log = LoggerFactory.getLogger(SubtasksHelper.class);
 
     public static boolean shouldUseSubtasksFragmentForFilter(Preferences preferences, Filter filter) {
-        if(filter == null || CoreFilterExposer.isInbox(filter) || CoreFilterExposer.isTodayFilter(filter) || SubtasksHelper.isTagFilter(filter)) {
+        if(filter == null || BuiltInFilterExposer.isInbox(filter) || BuiltInFilterExposer.isTodayFilter(filter) || SubtasksHelper.isTagFilter(filter)) {
             int sortFlags = preferences.getSortFlags();
             if(SortHelper.isManualSort(sortFlags)) {
                 return true;
@@ -69,9 +69,9 @@ public class SubtasksHelper {
             TaskListMetadata tlm = null;
             if (tagData != null) {
                 tlm = tlmd.fetchByTagId(tagData.getUuid(), TaskListMetadata.TASK_IDS);
-            } else if (CoreFilterExposer.isInbox(filter)) {
+            } else if (BuiltInFilterExposer.isInbox(filter)) {
                 tlm = tlmd.fetchByTagId(TaskListMetadata.FILTER_ID_ALL, TaskListMetadata.TASK_IDS);
-            } else if (CoreFilterExposer.isTodayFilter(filter)) {
+            } else if (BuiltInFilterExposer.isTodayFilter(filter)) {
                 tlm = tlmd.fetchByTagId(TaskListMetadata.FILTER_ID_TODAY, TaskListMetadata.TASK_IDS);
             }
 

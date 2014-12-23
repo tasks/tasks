@@ -10,7 +10,7 @@ public class InjectingActionBarActivity extends ActionBarActivity implements Inj
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        objectGraph = ((Injector) getApplication()).getObjectGraph().plus(new ActivityModule(this, this));
+        objectGraph = ((Injector) getApplication()).getObjectGraph().plus(new ActivityModule(this));
         inject(this);
 
         super.onCreate(savedInstanceState);

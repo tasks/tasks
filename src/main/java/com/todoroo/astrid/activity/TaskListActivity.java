@@ -32,7 +32,7 @@ import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.core.CoreFilterExposer;
+import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.RemoteModel;
@@ -190,7 +190,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     }
 
     protected Filter getDefaultFilter() {
-        return CoreFilterExposer.buildInboxFilter(getResources());
+        return BuiltInFilterExposer.getMyTasksFilter(getResources());
     }
 
     protected void initializeFragments() {
@@ -391,7 +391,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                     }
 
                     if (activeUuid.equals(uuid)) {
-                        getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, CoreFilterExposer.buildInboxFilter(getResources())); // Handle in onPostResume()
+                        getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, BuiltInFilterExposer.getMyTasksFilter(getResources())); // Handle in onPostResume()
                         navigationDrawer.clear(); // Should auto refresh
                     } else {
                         tlf.refresh();

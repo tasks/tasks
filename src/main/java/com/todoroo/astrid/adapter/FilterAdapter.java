@@ -11,7 +11,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
-import android.os.Parcelable;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,20 +22,13 @@ import android.widget.TextView;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.FilterWithUpdate;
-import com.todoroo.astrid.core.CoreFilterExposer;
-import com.todoroo.astrid.core.CustomFilterExposer;
-import com.todoroo.astrid.gtasks.GtasksFilterExposer;
-import com.todoroo.astrid.tags.TagFilterExposer;
-import com.todoroo.astrid.timers.TimerFilterExposer;
 
 import org.tasks.R;
 import org.tasks.filters.FilterCounter;
-import org.tasks.injection.Injector;
+import org.tasks.filters.FilterProvider;
 
 public class FilterAdapter extends ArrayAdapter<Filter> {
 
@@ -46,7 +38,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
     // --- instance variables
 
-    private Injector injector;
+    private final FilterProvider filterProvider;
     private final FilterCounter filterCounter;
 
     /** parent activity */
@@ -69,10 +61,10 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     /** whether to skip Filters that launch intents instead of being real filters */
     private final boolean skipIntentFilters;
 
-    public FilterAdapter(Injector injector, FilterCounter filterCounter, Activity activity, ListView listView,
+    public FilterAdapter(FilterProvider filterProvider, FilterCounter filterCounter, Activity activity, ListView listView,
             int rowLayout, boolean skipIntentFilters) {
         super(activity, 0);
-        this.injector = injector;
+        this.filterProvider = filterProvider;
         this.filterCounter = filterCounter;
         this.activity = activity;
         this.listView = listView;
@@ -221,14 +213,8 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         }
     }
 
-    private void populateFiltersToAdapter(AstridFilterExposer astridFilterExposer) {
-        Parcelable[] filters = astridFilterExposer.getFilters(injector);
-        if (filters == null) {
-            return;
-        }
-
-        for (Parcelable item : filters) {
-            FilterListItem filter = (FilterListItem) item;
+    public void getLists() {
+        for (FilterListItem filter : filterProvider.getFilters()) {
             if(skipIntentFilters && !(filter instanceof Filter)) {
                 continue;
             }
@@ -237,15 +223,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
                 addOrLookup((Filter) filter);
             }
         }
-    }
-
-    public void getLists() {
-        populateFiltersToAdapter(new CoreFilterExposer());
-        populateFiltersToAdapter(new TimerFilterExposer());
-        populateFiltersToAdapter(new CustomFilterExposer());
-        populateFiltersToAdapter(new TagFilterExposer());
-        populateFiltersToAdapter(new GtasksFilterExposer());
-
         filterCounter.refreshFilterCounts(new Runnable() {
             @Override
             public void run() {

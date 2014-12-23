@@ -10,7 +10,6 @@ import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils;
 
@@ -18,15 +17,12 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.actfm.TagViewFragment;
-import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.FilterWithUpdate;
-import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
@@ -34,9 +30,6 @@ import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
-import org.tasks.injection.InjectingBroadcastReceiver;
-import org.tasks.injection.Injector;
-import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,13 +42,29 @@ import javax.inject.Inject;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TagFilterExposer extends InjectingBroadcastReceiver implements AstridFilterExposer {
+public class TagFilterExposer {
 
     public static final String TAG = "tag"; //$NON-NLS-1$
 
-    @Inject TagService tagService;
-    @Inject @ForApplication Context context;
-    @Inject Preferences preferences;
+    private final TagService tagService;
+    private final Context context;
+
+    @Inject
+    public TagFilterExposer(@ForApplication Context context, TagService tagService) {
+        this.context = context;
+        this.tagService = tagService;
+    }
+
+    public List<FilterListItem> getFilters() {
+        ContextManager.setContext(context);
+
+        ArrayList<FilterListItem> list = new ArrayList<>();
+
+        list.addAll(filterFromTags(tagService.getTagList()));
+
+        // transmit filter list
+        return list;
+    }
 
     /** Create filter from new tag object */
     public static FilterWithCustomIntent filterFromTag(Context context, TagData tag, Criterion criterion) {
@@ -103,32 +112,9 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
         return ret;
     }
 
-    private FilterListItem[] prepareFilters() {
-        ContextManager.setContext(context);
-
-        ArrayList<FilterListItem> list = new ArrayList<>();
-
-        list.addAll(filterFromTags(tagService.getTagList()));
-
-        // transmit filter list
-        return list.toArray(new FilterListItem[list.size()]);
-    }
-
     private List<Filter> filterFromTags(List<TagData> tags) {
-        boolean shouldAddUntagged = preferences.getBoolean(R.string.p_show_not_in_list_filter, true);
 
         List<Filter> filters = new ArrayList<>();
-
-        Resources r = context.getResources();
-
-        // --- untagged
-        if (shouldAddUntagged) {
-            Filter untagged = new Filter(r.getString(R.string.tag_FEx_untagged),
-                    r.getString(R.string.tag_FEx_untagged),
-                    untaggedTemplate(),
-                    null);
-            filters.add(untagged);
-        }
 
         for (TagData tag : tags) {
             Filter f = constructFilter(context, tag);
@@ -141,21 +127,6 @@ public class TagFilterExposer extends InjectingBroadcastReceiver implements Astr
 
     protected Filter constructFilter(Context context, TagData tag) {
         return filterFromTag(context, tag, TaskCriteria.activeAndVisible());
-    }
-
-    @Override
-    public FilterListItem[] getFilters(Injector injector) {
-        injector.inject(this);
-
-        return prepareFilters();
-    }
-
-    private QueryTemplate untaggedTemplate() {
-        return new QueryTemplate().where(Criterion.and(
-                Criterion.not(Task.UUID.in(Query.select(TaskToTagMetadata.TASK_UUID).from(Metadata.TABLE)
-                        .where(Criterion.and(MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY), Metadata.DELETION_DATE.eq(0))))),
-                TaskCriteria.isActive(),
-                TaskCriteria.isVisible()));
     }
 
     private static QueryTemplate queryTemplate(String uuid, Criterion criterion) {
