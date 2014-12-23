@@ -195,7 +195,6 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
         }
 
         int flags = preferences.getSortFlags();
-        flags |= SortHelper.FLAG_SHOW_RECENTLY_COMPLETED;
         int sort = preferences.getSortMode();
         if(sort == 0) {
             sort = SortHelper.SORT_WIDGET;
