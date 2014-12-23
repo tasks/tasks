@@ -522,7 +522,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     /**
      * Loads action item from the given intent
      */
-    protected void loadItem(Intent intent) {
+    private void loadItem(Intent intent) {
         if (model != null) {
             // came from bundle
             setIsNewTask(model.getTitle().length() == 0);

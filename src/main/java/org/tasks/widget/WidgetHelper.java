@@ -30,6 +30,7 @@ import com.todoroo.astrid.widget.TasksWidget;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
 
 import org.tasks.R;
+import org.tasks.intents.NewTaskIntent;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.Preferences;
 
@@ -139,34 +140,8 @@ public class WidgetHelper {
     }
 
     public PendingIntent getNewTaskIntent(Context context, Filter filter, int id) {
-        Intent intent;
-        boolean tablet = ActivityPreferences.isTabletSized(context);
-        if (tablet) {
-            intent = new Intent(context, TaskListActivity.class);
-            intent.putExtra(TaskListActivity.OPEN_TASK, 0L);
-        } else {
-            intent = new Intent(context, TaskEditActivity.class);
-        }
-
+        Intent intent = NewTaskIntent.getNewTaskIntent(context, filter);
         intent.setFlags(flags);
-        intent.putExtra(TaskEditFragment.OVERRIDE_FINISH_ANIM, false);
-        if (filter != null) {
-            intent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
-            if (filter.valuesForNewTasks != null) {
-                String values = AndroidUtilities.contentValuesToSerializedString(filter.valuesForNewTasks);
-                intent.putExtra(TaskEditFragment.TOKEN_VALUES, values);
-                intent.setAction("E" + id + values);
-            }
-            if (tablet) {
-                if (filter instanceof FilterWithCustomIntent) {
-                    Bundle customExtras = ((FilterWithCustomIntent) filter).customExtras;
-                    intent.putExtras(customExtras);
-                }
-            }
-        } else {
-            intent.setAction("E" + id);
-        }
-
         return PendingIntent.getActivity(context, -id, intent, 0);
     }
 

@@ -89,6 +89,8 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
+import static org.tasks.intents.NewTaskIntent.getNewTaskIntent;
+
 /**
  * Primary activity for the Bente application. Shows a list of upcoming tasks
  * and a user's coaches.
@@ -276,7 +278,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         fab.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                quickAddBar.quickAddTask();
+                ((AstridActivity) getActivity()).startEditActivity(getNewTaskIntent(getActivity(), filter));
             }
         });
         View body = getListBody(parent);

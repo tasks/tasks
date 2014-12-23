@@ -21,7 +21,6 @@ import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.RemoteModelDao;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
@@ -83,7 +82,6 @@ public class Astrid3ContentProvider extends InjectingContentProvider {
 
     private boolean open;
     @Inject Lazy<Database> database;
-    @Inject Lazy<TaskDao> taskDao;
 
     static {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);

@@ -200,7 +200,14 @@ public class AstridActivity extends InjectingActionBarActivity
             intent.putExtra(TaskListFragment.TOKEN_FILTER, getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER));
         }
 
-        if (fragmentLayout != LAYOUT_SINGLE) {
+        startEditActivity(intent);
+    }
+
+    protected void startEditActivity(Intent intent) {
+        if (fragmentLayout == LAYOUT_SINGLE) {
+            startActivityForResult(intent, TaskListFragment.ACTIVITY_EDIT_TASK);
+            AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_left_in, R.anim.slide_left_out);
+        } else {
             TaskEditFragment editActivity = getTaskEditFragment();
             findViewById(R.id.taskedit_fragment_container).setVisibility(View.VISIBLE);
 
@@ -226,10 +233,6 @@ public class AstridActivity extends InjectingActionBarActivity
             if (tlf != null) {
                 tlf.loadTaskListContent();
             }
-
-        } else {
-            startActivityForResult(intent, TaskListFragment.ACTIVITY_EDIT_TASK);
-            AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_left_in, R.anim.slide_left_out);
         }
     }
 
