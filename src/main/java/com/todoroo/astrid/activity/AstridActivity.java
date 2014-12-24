@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.WindowManager.BadTokenException;
 
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
@@ -33,7 +32,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingActionBarActivity;
-import org.tasks.preferences.Preferences;
 import org.tasks.ui.NavigationDrawerFragment;
 
 import javax.inject.Inject;
@@ -77,13 +75,12 @@ public class AstridActivity extends InjectingActionBarActivity
     @Inject TaskService taskService;
     @Inject StartupService startupService;
     @Inject GCalHelper gcalHelper;
-    @Inject Preferences preferences;
     @Inject DateChangedAlerts dateChangedAlerts;
+    @Inject SubtasksHelper subtasksHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ContextManager.setContext(this);
 
         startupService.onStartupApplication(this);
     }
@@ -163,7 +160,7 @@ public class AstridActivity extends InjectingActionBarActivity
     public void setupTasklistFragmentWithFilter(Filter filter, Bundle extras) {
         Class<?> customTaskList = null;
 
-        if (SubtasksHelper.shouldUseSubtasksFragmentForFilter(preferences, filter)) {
+        if (subtasksHelper.shouldUseSubtasksFragmentForFilter(filter)) {
             customTaskList = SubtasksHelper.subtasksClassForFilter(filter);
         }
 

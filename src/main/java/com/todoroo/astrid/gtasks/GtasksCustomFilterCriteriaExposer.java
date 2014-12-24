@@ -12,7 +12,6 @@ import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 
 import com.todoroo.andlib.data.AbstractModel;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
@@ -42,8 +41,6 @@ public class GtasksCustomFilterCriteriaExposer extends InjectingBroadcastReceive
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
-
-        ContextManager.setContext(context);
 
         // if we aren't logged in, don't expose sync action
         if(!gtasksPreferenceService.isLoggedIn()) {

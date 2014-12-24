@@ -6,6 +6,7 @@
 package com.todoroo.astrid.gtasks.sync;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
@@ -29,6 +30,7 @@ import com.todoroo.astrid.service.TaskService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tasks.injection.ForApplication;
 
 import java.io.IOException;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -44,6 +46,7 @@ public class GtasksSyncService {
 
     private static final String DEFAULT_LIST = "@default"; //$NON-NLS-1$
 
+    private Context context;
     private final MetadataDao metadataDao;
     private final GtasksMetadataService gtasksMetadataService;
     private final TaskDao taskDao;
@@ -53,9 +56,10 @@ public class GtasksSyncService {
     private final LinkedBlockingQueue<SyncOnSaveOperation> operationQueue = new LinkedBlockingQueue<>();
 
     @Inject
-    public GtasksSyncService(MetadataDao metadataDao, GtasksMetadataService gtasksMetadataService,
+    public GtasksSyncService(@ForApplication Context context, MetadataDao metadataDao, GtasksMetadataService gtasksMetadataService,
                              TaskDao taskDao, GtasksPreferenceService gtasksPreferenceService,
                              GtasksTokenValidator gtasksTokenValidator, GtasksMetadata gtasksMetadataFactory) {
+        this.context = context;
         this.metadataDao = metadataDao;
         this.gtasksMetadataService = gtasksMetadataService;
         this.taskDao = taskDao;
@@ -155,7 +159,7 @@ public class GtasksSyncService {
                     continue;
                 }
                 try {
-                    GtasksInvoker invoker = new GtasksInvoker(gtasksTokenValidator, gtasksPreferenceService.getToken());
+                    GtasksInvoker invoker = new GtasksInvoker(context, gtasksTokenValidator, gtasksPreferenceService.getToken());
                     op.op(invoker);
                 } catch (IOException e) {
                     log.error(e.getMessage(), e);

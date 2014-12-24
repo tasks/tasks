@@ -6,6 +6,7 @@
 package com.todoroo.astrid.subtasks;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -18,6 +19,7 @@ import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
+import org.tasks.injection.ForApplication;
 import org.tasks.preferences.ActivityPreferences;
 
 import javax.inject.Inject;
@@ -28,6 +30,7 @@ public class SubtasksTagListFragment extends TagViewFragment {
     @Inject SubtasksFilterUpdater subtasksFilterUpdater;
     @Inject TaskAttachmentDao taskAttachmentDao;
     @Inject ActivityPreferences preferences;
+    @Inject @ForApplication Context context;
 
     private AstridOrderedListFragmentHelper<TaskListMetadata> helper;
 
@@ -100,7 +103,7 @@ public class SubtasksTagListFragment extends TagViewFragment {
 
     @Override
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
-        return helper.createTaskAdapter(cursor, sqlQueryTemplate);
+        return helper.createTaskAdapter(context, cursor, sqlQueryTemplate);
     }
 
     @Override

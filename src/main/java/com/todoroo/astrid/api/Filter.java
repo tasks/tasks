@@ -220,6 +220,10 @@ public class Filter extends FilterListItem {
         }
     };
 
+    public boolean isTagFilter() {
+        return false;
+    }
+
     @Override
     public String toString() {
         return title;

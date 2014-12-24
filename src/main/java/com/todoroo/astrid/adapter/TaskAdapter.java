@@ -35,8 +35,6 @@ import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Pair;
 import com.todoroo.astrid.activity.TaskListFragment;
@@ -173,13 +171,13 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     private final Map<Long, TaskAction> taskActionLoader = Collections.synchronizedMap(new HashMap<Long, TaskAction>());
 
-    public TaskAdapter(ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao, TaskService taskService, TaskListFragment fragment,
+    public TaskAdapter(Context context, ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao, TaskService taskService, TaskListFragment fragment,
             Cursor c, AtomicReference<String> query, OnCompletedTaskListener onCompletedTaskListener) {
-        super(ContextManager.getContext(), c, false);
+        super(context, c, false);
         this.preferences = preferences;
         this.taskAttachmentDao = taskAttachmentDao;
         this.taskService = taskService;
-        this.context = ContextManager.getContext();
+        this.context = context;
         this.query = query;
         this.fragment = fragment;
         this.resources = fragment.getResources();

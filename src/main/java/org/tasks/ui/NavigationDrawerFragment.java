@@ -45,6 +45,7 @@ import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
+import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.preferences.Preferences;
 
@@ -88,6 +89,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
     @Inject FilterCounter filterCounter;
     @Inject Preferences preferences;
     @Inject FilterProvider filterProvider;
+    @Inject @ForApplication Context context;
 
     public NavigationDrawerFragment() {
     }
@@ -149,7 +151,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
         return layout;
     }
 
-    protected void setUpList() {
+    private void setUpList() {
         adapter.setListView(mDrawerListView);
         mDrawerListView.setAdapter(adapter);
         registerForContextMenu(mDrawerListView);
@@ -403,7 +405,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
         Filter item = adapter.getItem(info.position);
 
         MenuItem menuItem = menu.add(0, CONTEXT_MENU_SHORTCUT, 0, R.string.FLA_context_shortcut);
-        menuItem.setIntent(ShortcutActivity.createIntent(item));
+        menuItem.setIntent(ShortcutActivity.createIntent(context, item));
 
         for(int i = 0; i < item.contextMenuLabels.length; i++) {
             if(item.contextMenuIntents.length <= i) {

@@ -14,12 +14,12 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.api.client.googleapis.extensions.android.accounts.GoogleAccountManager;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.api.GoogleTasksException;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 
 import org.tasks.R;
+import org.tasks.injection.ForApplication;
 
 import java.io.IOException;
 
@@ -30,12 +30,14 @@ import javax.inject.Singleton;
 public class GtasksTokenValidator {
 
     private static final String TOKEN_INTENT_RECEIVED = "intent!"; //$NON-NLS-1$
-
     private static final int REVALIDATION_TRIES = 4;
+
+    private final Context context;
     private final GtasksPreferenceService preferences;
 
     @Inject
-    public GtasksTokenValidator(GtasksPreferenceService preferences) {
+    public GtasksTokenValidator(@ForApplication Context context, GtasksPreferenceService preferences) {
+        this.context = context;
         this.preferences = preferences;
     }
 
@@ -45,7 +47,7 @@ public class GtasksTokenValidator {
      * @return valid token on success, null on failure
      */
     public synchronized String validateAuthToken(Context c, String token) throws GoogleTasksException {
-        GoogleAccountManager accountManager = new GoogleAccountManager(ContextManager.getContext());
+        GoogleAccountManager accountManager = new GoogleAccountManager(context);
 
         if(testToken(token)) {
             return token;
@@ -76,7 +78,7 @@ public class GtasksTokenValidator {
     }
 
     private boolean testToken(String token) {
-        GtasksInvoker testService = new GtasksInvoker(this, token);
+        GtasksInvoker testService = new GtasksInvoker(context, this, token);
         try {
             testService.ping();
             return true;

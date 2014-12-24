@@ -14,7 +14,6 @@ import com.google.api.services.tasks.TasksRequest;
 import com.google.api.services.tasks.model.Task;
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 
 import org.slf4j.Logger;
@@ -33,20 +32,21 @@ public class GtasksInvoker {
 
     private static final Logger log = LoggerFactory.getLogger(GtasksInvoker.class);
 
+    private final Context context;
+    private final GtasksTokenValidator gtasksTokenValidator;
     private Tasks service;
     private GoogleCredential credential = new GoogleCredential();
-    private final GtasksTokenValidator gtasksTokenValidator;
     private String token;
 
     private final String key;
 
     public static final String AUTH_TOKEN_TYPE = "Manage your tasks"; //"oauth2:https://www.googleapis.com/auth/tasks";
 
-    public GtasksInvoker(GtasksTokenValidator gtasksTokenValidator, String authToken) {
+    public GtasksInvoker(Context context, GtasksTokenValidator gtasksTokenValidator, String authToken) {
+        this.context = context;
         this.gtasksTokenValidator = gtasksTokenValidator;
         this.token = authToken;
 
-        Context context = ContextManager.getContext();
         key = context.getString(R.string.gapi_key);
         credential.setAccessToken(authToken);
         HttpRequestInitializer httpRequestInitializer = new HttpRequestInitializer() {
@@ -67,7 +67,7 @@ public class GtasksInvoker {
             HttpResponseException h = (HttpResponseException) e;
             int statusCode = h.getStatusCode();
             if (statusCode == 401 || statusCode == 403) {
-                token = gtasksTokenValidator.validateAuthToken(ContextManager.getContext(), token);
+                token = gtasksTokenValidator.validateAuthToken(context, token);
                 if (token != null) {
                     credential.setAccessToken(token);
                 }

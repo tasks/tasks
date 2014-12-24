@@ -11,14 +11,11 @@ import android.view.View;
 import android.widget.RemoteViews;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
@@ -43,14 +40,12 @@ public class WidgetUpdateService extends InjectingService {
 
     @Inject Database database;
     @Inject TaskService taskService;
-    @Inject TaskListMetadataDao taskListMetadataDao;
-    @Inject TagDataDao tagDataDao;
     @Inject WidgetHelper widgetHelper;
     @Inject Preferences preferences;
+    @Inject SubtasksHelper subtasksHelper;
 
     @Override
     public void onStart(final Intent intent, int startId) {
-        ContextManager.setContext(this);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -102,7 +97,7 @@ public class WidgetUpdateService extends InjectingService {
         Filter filter = null;
         try {
             filter = widgetHelper.getFilter(context, widgetId);
-            if (SubtasksHelper.isTagFilter(filter)) {
+            if (filter.isTagFilter()) {
                 ((FilterWithCustomIntent) filter).customTaskList = new ComponentName(context, TagViewFragment.class); // In case legacy widget was created with subtasks fragment
             }
             views.setTextViewText(R.id.widget_title, filter.title);
@@ -114,7 +109,7 @@ public class WidgetUpdateService extends InjectingService {
                     filter.getSqlQuery(), flags, sort).replaceAll("LIMIT \\d+", "") + " LIMIT " + numberOfTasks;
 
             String tagName = preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
-            query = SubtasksHelper.applySubtasksToWidgetFilter(preferences, taskService, tagDataDao, taskListMetadataDao, filter, query, tagName, numberOfTasks);
+            query = subtasksHelper.applySubtasksToWidgetFilter(filter, query, tagName, numberOfTasks);
 
             database.openForReading();
             cursor = taskService.fetchFiltered(query, null, Task.ID, Task.TITLE, Task.DUE_DATE, Task.COMPLETION_DATE);

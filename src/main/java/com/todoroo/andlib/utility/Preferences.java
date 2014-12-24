@@ -9,8 +9,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.todoroo.andlib.service.ContextManager;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,8 +47,7 @@ public class Preferences {
         return preferences;
     }
 
-    public static boolean getBoolean(int keyResources, boolean defValue) {
-        Context context = ContextManager.getContext();
+    public static boolean getBoolean(Context context, int keyResources, boolean defValue) {
         try {
             return getPrefs(context).getBoolean(context.getString(keyResources), defValue);
         } catch (ClassCastException e) {

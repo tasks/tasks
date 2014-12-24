@@ -8,10 +8,10 @@ package com.todoroo.astrid.activity;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.Filter;
@@ -73,7 +73,6 @@ public class ShortcutActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ContextManager.setContext(this);
 
         launchTaskList(getIntent());
     }
@@ -168,9 +167,8 @@ public class ShortcutActivity extends Activity {
         finish();
     }
 
-    public static Intent createIntent(Filter filter) {
-        Intent shortcutIntent = new Intent(ContextManager.getContext(),
-                ShortcutActivity.class);
+    public static Intent createIntent(Context context, Filter filter) {
+        Intent shortcutIntent = new Intent(context, ShortcutActivity.class);
 
         if(filter instanceof FilterWithCustomIntent) {
             FilterWithCustomIntent customFilter = ((FilterWithCustomIntent)filter);

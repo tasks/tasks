@@ -3,7 +3,6 @@ package com.todoroo.astrid.gcal;
 import android.content.Context;
 import android.content.Intent;
 
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.api.AstridApiConstants;
 
 import org.tasks.injection.InjectingBroadcastReceiver;
@@ -20,7 +19,6 @@ public class CalendarStartupReceiver extends InjectingBroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
 
-        ContextManager.setContext(context);
         calendarAlarmScheduler.scheduleCalendarAlarms(context, false);
     }
 }

@@ -20,8 +20,6 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
@@ -41,8 +39,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
 
     private final Database database;
     private final TaskService taskService;
-    private final TaskListMetadataDao taskListMetadataDao;
-    private final TagDataDao tagDataDao;
+    private SubtasksHelper subtasksHelper;
     private final Preferences preferences;
     private final Context context;
     private final Filter filter;
@@ -52,15 +49,15 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
     private TodorooCursor<Task> cursor;
 
     public ScrollableViewsFactory(
+            SubtasksHelper subtasksHelper,
             Preferences preferences,
             Context context,
             Filter filter,
             int widgetId,
             boolean dark,
             Database database,
-            TaskService taskService,
-            TaskListMetadataDao taskListMetadataDao,
-            TagDataDao tagDataDao) {
+            TaskService taskService) {
+        this.subtasksHelper = subtasksHelper;
         this.preferences = preferences;
         this.context = context;
         this.filter = filter;
@@ -68,8 +65,6 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
         this.dark = dark;
         this.database = database;
         this.taskService = taskService;
-        this.taskListMetadataDao = taskListMetadataDao;
-        this.tagDataDao = tagDataDao;
     }
 
     @Override
@@ -190,7 +185,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
     }
 
     private String getQuery(Context context) {
-        if (SubtasksHelper.isTagFilter(filter)) {
+        if (filter.isTagFilter()) {
             ((FilterWithCustomIntent) filter).customTaskList = new ComponentName(context, TagViewFragment.class); // In case legacy widget was created with subtasks fragment
         }
 
@@ -205,6 +200,6 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
 
         String tagName = preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
 
-        return SubtasksHelper.applySubtasksToWidgetFilter(preferences, taskService, tagDataDao, taskListMetadataDao, filter, query, tagName, 0);
+        return subtasksHelper.applySubtasksToWidgetFilter(filter, query, tagName, 0);
     }
 }

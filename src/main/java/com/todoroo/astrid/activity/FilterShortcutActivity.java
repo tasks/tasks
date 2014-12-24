@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.todoroo.astrid.api.Filter;
 import org.tasks.R;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
+import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingListActivity;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.ui.NavigationDrawerFragment;
@@ -30,6 +32,7 @@ public class FilterShortcutActivity extends InjectingListActivity {
     @Inject FilterCounter filterCounter;
     @Inject ActivityPreferences preferences;
     @Inject FilterProvider filterProvider;
+    @Inject @ForApplication Context context;
 
     private FilterAdapter adapter = null;
 
@@ -62,7 +65,7 @@ public class FilterShortcutActivity extends InjectingListActivity {
                 DialogUtilities.okDialog(FilterShortcutActivity.this, getString(R.string.FLA_no_filter_selected), null);
                 return;
             }
-            Intent shortcutIntent = ShortcutActivity.createIntent(filter);
+            Intent shortcutIntent = ShortcutActivity.createIntent(context, filter);
 
             Bitmap bitmap = NavigationDrawerFragment.superImposeListIcon(FilterShortcutActivity.this);
             Intent intent = new Intent();

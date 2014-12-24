@@ -37,6 +37,7 @@ import com.todoroo.astrid.utility.Flags;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.injection.ForApplication;
 import org.tasks.preferences.ActivityPreferences;
 
 import java.text.ParseException;
@@ -64,10 +65,12 @@ public class DateChangedAlerts {
     /** Start showing the option to hide future notifs after this many confirmation dialogs */
     private static final int HIDE_CHECKBOX_AFTER_SHOWS = 3;
 
+    private final Context context;
     private final ActivityPreferences preferences;
 
     @Inject
-    public DateChangedAlerts(ActivityPreferences preferences) {
+    public DateChangedAlerts(@ForApplication Context context, ActivityPreferences preferences) {
+        this.context = context;
         this.preferences = preferences;
     }
 
@@ -161,7 +164,7 @@ public class DateChangedAlerts {
                         public void onDateAndTimeSelected(long date) {
                             d.dismiss();
                             task.setRepeatUntil(date);
-                            RepeatTaskCompleteListener.rescheduleTask(gcalHelper, taskService, task, newDueDate);
+                            RepeatTaskCompleteListener.rescheduleTask(context, gcalHelper, taskService, task, newDueDate);
                             Flags.set(Flags.REFRESH);
                         }
 

@@ -13,7 +13,6 @@ import android.content.pm.ResolveInfo;
 import android.speech.RecognizerIntent;
 
 import com.todoroo.andlib.data.Callback;
-import com.todoroo.andlib.service.ContextManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +80,7 @@ public class VoiceInputAssistant {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, ContextManager.getContext().getString(prompt));
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, activity.getString(prompt));
         activity.startActivityForResult(intent, requestCode);
     }
 

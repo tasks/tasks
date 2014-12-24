@@ -63,7 +63,7 @@ public class TimerPlugin {
             notificationManager.cancel(Constants.NOTIFICATION_TIMER);
         } else {
             Filter filter = TimerFilterExposer.createFilter(context);
-            Intent notifyIntent = ShortcutActivity.createIntent(filter);
+            Intent notifyIntent = ShortcutActivity.createIntent(context, filter);
             notifyIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(context,
                     Constants.NOTIFICATION_TIMER, notifyIntent, 0);

@@ -28,7 +28,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.todoroo.andlib.data.Property.CountProperty;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Query;
@@ -155,7 +154,6 @@ public class CustomFilterActivity extends InjectingActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupForDialogOrFullscreen();
-        ContextManager.setContext(this);
 
         ActionBar ab = getSupportActionBar();
         if (ab != null) {

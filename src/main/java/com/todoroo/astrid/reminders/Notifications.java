@@ -12,7 +12,6 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -66,8 +65,6 @@ public class Notifications extends InjectingBroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
-
-        ContextManager.setContext(context);
 
         handle(intent);
     }

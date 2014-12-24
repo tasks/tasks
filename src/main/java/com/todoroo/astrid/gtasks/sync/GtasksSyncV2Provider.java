@@ -134,7 +134,7 @@ public class GtasksSyncV2Provider {
 
                 try {
                     String authToken = getValidatedAuthToken();
-                    final GtasksInvoker invoker = new GtasksInvoker(gtasksTokenValidator, authToken);
+                    final GtasksInvoker invoker = new GtasksInvoker(context, gtasksTokenValidator, authToken);
                     TaskLists remoteLists = null;
                     try {
                         remoteLists = invoker.allGtaskLists();
@@ -208,7 +208,7 @@ public class GtasksSyncV2Provider {
                 try {
                     String authToken = getValidatedAuthToken();
                     gtasksSyncService.waitUntilEmpty();
-                    final GtasksInvoker service = new GtasksInvoker(gtasksTokenValidator, authToken);
+                    final GtasksInvoker service = new GtasksInvoker(context, gtasksTokenValidator, authToken);
                     synchronizeListHelper(gtasksList, service, null);
                 } finally {
                     callback.finished();

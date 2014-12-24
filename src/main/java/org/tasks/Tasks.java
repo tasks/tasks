@@ -1,6 +1,5 @@
 package org.tasks;
 
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.StoreObjectDao;
@@ -58,7 +57,5 @@ public class Tasks extends InjectingApplication {
         super.onCreate();
 
         preferences.setupLogger();
-
-        ContextManager.setContext(this);
     }
 }

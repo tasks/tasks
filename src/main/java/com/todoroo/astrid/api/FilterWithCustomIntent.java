@@ -14,6 +14,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.todoroo.andlib.sql.QueryTemplate;
+import com.todoroo.astrid.actfm.TagViewFragment;
+import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 
 public class FilterWithCustomIntent extends Filter {
 
@@ -104,4 +106,11 @@ public class FilterWithCustomIntent extends Filter {
 
     };
 
+    @Override
+    public boolean isTagFilter() {
+        String className = customTaskList.getClassName();
+        // Need to check this subclass because some shortcuts/widgets may have been saved with it
+        return TagViewFragment.class.getName().equals(className)
+                || SubtasksTagListFragment.class.getName().equals(className);
+    }
 }

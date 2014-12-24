@@ -17,7 +17,6 @@ import com.google.ical.values.DateValueImpl;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.WeekdayNum;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Task;
@@ -53,7 +52,6 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
 
-        ContextManager.setContext(context);
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
         if(taskId == -1) {
             return;
@@ -92,7 +90,7 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
                 return;
             }
 
-            rescheduleTask(gcalHelper, taskService, task, newDueDate);
+            rescheduleTask(context, gcalHelper, taskService, task, newDueDate);
 
             // send a broadcast
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_REPEATED);
@@ -104,7 +102,7 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
         }
     }
 
-    public static void rescheduleTask(GCalHelper gcalHelper, TaskService taskService, Task task, long newDueDate) {
+    public static void rescheduleTask(Context context, GCalHelper gcalHelper, TaskService taskService, Task task, long newDueDate) {
         long hideUntil = task.getHideUntil();
         if(hideUntil > 0 && task.getDueDate() > 0) {
             hideUntil += newDueDate - task.getDueDate();
@@ -115,7 +113,7 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
         task.setHideUntil(hideUntil);
         task.putTransitory(TaskService.TRANS_REPEAT_COMPLETE, true);
 
-        ContentResolver cr = ContextManager.getContext().getContentResolver();
+        ContentResolver cr = context.getContentResolver();
         gcalHelper.rescheduleRepeatingTask(task, cr);
         taskService.save(task);
     }

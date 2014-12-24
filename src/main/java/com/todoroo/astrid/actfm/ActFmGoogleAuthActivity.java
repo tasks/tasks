@@ -22,7 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.api.client.googleapis.extensions.android.accounts.GoogleAccountManager;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DialogUtilities;
 
 import org.slf4j.Logger;
@@ -63,7 +62,6 @@ public class ActFmGoogleAuthActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ContextManager.setContext(this);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.gtasks_login_activity);

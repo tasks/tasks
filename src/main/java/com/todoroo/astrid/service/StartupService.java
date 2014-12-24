@@ -15,7 +15,6 @@ import android.media.AudioManager;
 import android.widget.Toast;
 
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -102,9 +101,6 @@ public class StartupService {
         if(hasStartedUp || activity == null) {
             return;
         }
-
-        // sets up activity manager
-        ContextManager.setContext(activity);
 
         database.addListener(new DatabaseUpdateListener() {
             @Override

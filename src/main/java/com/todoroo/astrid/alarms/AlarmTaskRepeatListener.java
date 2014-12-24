@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.todoroo.andlib.data.Callback;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Metadata;
@@ -29,7 +28,6 @@ public class AlarmTaskRepeatListener extends InjectingBroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
 
-        ContextManager.setContext(context);
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
         if(taskId == -1) {
             return;

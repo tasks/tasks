@@ -6,6 +6,7 @@
 package com.todoroo.astrid.gtasks;
 
 import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -178,10 +179,10 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
     };
 
     @Override
-    public TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor,
+    public TaskAdapter createTaskAdapter(Context context, TodorooCursor<Task> cursor,
             AtomicReference<String> sqlQueryTemplate) {
 
-        taskAdapter = new DraggableTaskAdapter(preferences, fragment, cursor, sqlQueryTemplate);
+        taskAdapter = new DraggableTaskAdapter(context, preferences, fragment, cursor, sqlQueryTemplate);
 
         taskAdapter.addOnCompletedTaskListener(new OnCompletedTaskListener() {
             @Override
@@ -195,9 +196,9 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
 
     private final class DraggableTaskAdapter extends TaskAdapter {
 
-        private DraggableTaskAdapter(ActivityPreferences preferences, TaskListFragment activity,
+        private DraggableTaskAdapter(Context context, ActivityPreferences preferences, TaskListFragment activity,
                 Cursor c, AtomicReference<String> query) {
-            super(preferences, taskAttachmentDao, taskService, activity, c, query, null);
+            super(context, preferences, taskAttachmentDao, taskService, activity, c, query, null);
         }
 
         @Override

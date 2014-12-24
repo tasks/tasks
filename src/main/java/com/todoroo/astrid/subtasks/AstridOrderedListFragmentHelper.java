@@ -1,6 +1,7 @@
 package com.todoroo.astrid.subtasks;
 
 import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -168,10 +169,10 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
     };
 
     @Override
-    public TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor,
+    public TaskAdapter createTaskAdapter(Context context, TodorooCursor<Task> cursor,
             AtomicReference<String> sqlQueryTemplate) {
 
-        taskAdapter = new DraggableTaskAdapter(preferences, fragment, cursor, sqlQueryTemplate);
+        taskAdapter = new DraggableTaskAdapter(context, preferences, fragment, cursor, sqlQueryTemplate);
 
         getTouchListView().setItemHightNormal(taskAdapter.computeFullRowHeight());
 
@@ -187,9 +188,9 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
 
     private final class DraggableTaskAdapter extends TaskAdapter {
 
-        private DraggableTaskAdapter(ActivityPreferences preferences, TaskListFragment activity,
+        private DraggableTaskAdapter(Context context, ActivityPreferences preferences, TaskListFragment activity,
                 Cursor c, AtomicReference<String> query) {
-            super(preferences, taskAttachmentDao, taskService, activity, c, query, null);
+            super(context, preferences, taskAttachmentDao, taskService, activity, c, query, null);
         }
 
         @Override

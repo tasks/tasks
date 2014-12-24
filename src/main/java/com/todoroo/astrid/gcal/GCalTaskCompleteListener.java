@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
 
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
@@ -34,7 +33,6 @@ public class GCalTaskCompleteListener extends InjectingBroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
 
-        ContextManager.setContext(context);
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
         if(taskId == -1) {
             return;

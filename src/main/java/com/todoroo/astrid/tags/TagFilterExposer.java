@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
@@ -56,8 +55,6 @@ public class TagFilterExposer {
     }
 
     public List<FilterListItem> getFilters() {
-        ContextManager.setContext(context);
-
         ArrayList<FilterListItem> list = new ArrayList<>();
 
         list.addAll(filterFromTags(tagService.getTagList()));

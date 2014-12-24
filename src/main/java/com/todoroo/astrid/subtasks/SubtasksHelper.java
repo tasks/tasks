@@ -1,14 +1,13 @@
 package com.todoroo.astrid.subtasks;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TagDataDao;
@@ -23,18 +22,36 @@ import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class SubtasksHelper {
 
     private static final Logger log = LoggerFactory.getLogger(SubtasksHelper.class);
 
-    public static boolean shouldUseSubtasksFragmentForFilter(Preferences preferences, Filter filter) {
-        if(filter == null || BuiltInFilterExposer.isInbox(filter) || BuiltInFilterExposer.isTodayFilter(filter) || SubtasksHelper.isTagFilter(filter)) {
+    private final Context context;
+    private final Preferences preferences;
+    private final TaskService taskService;
+    private final TagDataDao tagDataDao;
+    private final TaskListMetadataDao taskListMetadataDao;
+
+    @Inject
+    public SubtasksHelper(@ForApplication Context context, Preferences preferences, TaskService taskService, TagDataDao tagDataDao, TaskListMetadataDao taskListMetadataDao) {
+        this.context = context;
+        this.preferences = preferences;
+        this.taskService = taskService;
+        this.tagDataDao = tagDataDao;
+        this.taskListMetadataDao = taskListMetadataDao;
+    }
+
+    public boolean shouldUseSubtasksFragmentForFilter(Filter filter) {
+        if(filter == null || BuiltInFilterExposer.isInbox(context, filter) || BuiltInFilterExposer.isTodayFilter(context, filter) || filter.isTagFilter()) {
             int sortFlags = preferences.getSortFlags();
             if(SortHelper.isManualSort(sortFlags)) {
                 return true;
@@ -44,41 +61,29 @@ public class SubtasksHelper {
     }
 
     public static Class<?> subtasksClassForFilter(Filter filter) {
-        if (SubtasksHelper.isTagFilter(filter)) {
+        if (filter.isTagFilter()) {
             return SubtasksTagListFragment.class;
         }
         return SubtasksListFragment.class;
     }
 
-    public static boolean isTagFilter(Filter filter) {
-        if (filter instanceof FilterWithCustomIntent) {
-            String className = ((FilterWithCustomIntent) filter).customTaskList.getClassName();
-            if (TagViewFragment.class.getName().equals(className)
-                    || SubtasksTagListFragment.class.getName().equals(className)) // Need to check this subclass because some shortcuts/widgets may have been saved with it
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static String applySubtasksToWidgetFilter(Preferences preferences, TaskService taskService, TagDataDao tagDataDao, TaskListMetadataDao tlmd, Filter filter, String query, String tagName, int limit) {
-        if (SubtasksHelper.shouldUseSubtasksFragmentForFilter(preferences, filter)) {
+    public String applySubtasksToWidgetFilter(Filter filter, String query, String tagName, int limit) {
+        if (shouldUseSubtasksFragmentForFilter(filter)) {
             // care for manual ordering
             TagData tagData = tagDataDao.getTagByName(tagName, TagData.UUID, TagData.TAG_ORDERING);
             TaskListMetadata tlm = null;
             if (tagData != null) {
-                tlm = tlmd.fetchByTagId(tagData.getUuid(), TaskListMetadata.TASK_IDS);
-            } else if (BuiltInFilterExposer.isInbox(filter)) {
-                tlm = tlmd.fetchByTagId(TaskListMetadata.FILTER_ID_ALL, TaskListMetadata.TASK_IDS);
-            } else if (BuiltInFilterExposer.isTodayFilter(filter)) {
-                tlm = tlmd.fetchByTagId(TaskListMetadata.FILTER_ID_TODAY, TaskListMetadata.TASK_IDS);
+                tlm = taskListMetadataDao.fetchByTagId(tagData.getUuid(), TaskListMetadata.TASK_IDS);
+            } else if (BuiltInFilterExposer.isInbox(context, filter)) {
+                tlm = taskListMetadataDao.fetchByTagId(TaskListMetadata.FILTER_ID_ALL, TaskListMetadata.TASK_IDS);
+            } else if (BuiltInFilterExposer.isTodayFilter(context, filter)) {
+                tlm = taskListMetadataDao.fetchByTagId(TaskListMetadata.FILTER_ID_TODAY, TaskListMetadata.TASK_IDS);
             }
 
             query = query.replaceAll("ORDER BY .*", "");
             query = query + String.format(" ORDER BY %s, %s, %s, %s",
                     Task.DELETION_DATE, Task.COMPLETION_DATE,
-                    getOrderString(taskService, tagData, tlm), Task.CREATION_DATE);
+                    getOrderString(tagData, tlm), Task.CREATION_DATE);
             if (limit > 0) {
                 query = query + " LIMIT " + limit;
             }
@@ -90,7 +95,7 @@ public class SubtasksHelper {
         return query;
     }
 
-    private static String getOrderString(TaskService taskService, TagData tagData, TaskListMetadata tlm) {
+    private String getOrderString(TagData tagData, TaskListMetadata tlm) {
         String serialized;
         if (tlm != null) {
             serialized = tlm.getTaskIDs();

@@ -19,7 +19,6 @@ import android.preference.PreferenceScreen;
 import android.speech.tts.TextToSpeech;
 import android.text.TextUtils;
 
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.TaskAttachment;
@@ -94,7 +93,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         startupService.onStartupApplication(this);
-        ContextManager.setContext(this);
 
         PreferenceScreen screen = getPreferenceScreen();
 

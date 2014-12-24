@@ -52,7 +52,7 @@ public class AstridTimePicker extends LinearLayout {
         hours = (NumberPicker) findViewById(R.id.hours);
         minutes = (NumberPicker) findViewById(R.id.minutes);
 
-        if (Preferences.getBoolean(R.string.p_time_increment, false)) {
+        if (Preferences.getBoolean(context, R.string.p_time_increment, false)) {
             minutes.setIncrementBy(5);
         } else {
             minutes.setIncrementBy(1);

@@ -356,10 +356,10 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
             filter = BuiltInFilterExposer.getMyTasksFilter(resources);
         }
         filter.setFilterQueryOverride(null);
-        isInbox = BuiltInFilterExposer.isInbox(filter);
+        isInbox = BuiltInFilterExposer.isInbox(context, filter);
         isTodayFilter = false;
         if (!isInbox) {
-            isTodayFilter = BuiltInFilterExposer.isTodayFilter(filter);
+            isTodayFilter = BuiltInFilterExposer.isTodayFilter(context, filter);
         }
 
         initializeTaskListMetadata();
@@ -627,7 +627,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
 
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
 
-        return new TaskAdapter(preferences, taskAttachmentDao, taskService, this, cursor, sqlQueryTemplate,
+        return new TaskAdapter(context, preferences, taskAttachmentDao, taskService, this, cursor, sqlQueryTemplate,
                 new OnCompletedTaskListener() {
                     @Override
                     public void onCompletedTask(Task item, boolean newState) {

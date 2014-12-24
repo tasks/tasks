@@ -9,7 +9,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
 
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
@@ -119,11 +118,11 @@ public final class BuiltInFilterExposer {
     /**
      * Is this the inbox?
      */
-    public static boolean isInbox(Filter filter) {
-        return (filter != null && filter.equals(getMyTasksFilter(ContextManager.getContext().getResources())));
+    public static boolean isInbox(Context context, Filter filter) {
+        return (filter != null && filter.equals(getMyTasksFilter(context.getResources())));
     }
 
-    public static boolean isTodayFilter(Filter filter) {
-        return (filter != null && filter.equals(getTodayFilter(ContextManager.getContext().getResources())));
+    public static boolean isTodayFilter(Context context, Filter filter) {
+        return (filter != null && filter.equals(getTodayFilter(context.getResources())));
     }
 }

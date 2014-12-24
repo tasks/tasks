@@ -1,5 +1,7 @@
 package com.todoroo.astrid.subtasks;
 
+import android.content.Context;
+
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.adapter.TaskAdapter;
@@ -14,7 +16,7 @@ public interface OrderedListFragmentHelperInterface<T> {
     void beforeSetUpTaskList(Filter filter);
     void onCreateTask(Task task);
     void onDeleteTask(Task task);
-    TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor, AtomicReference<String> queryTemplate);
+    TaskAdapter createTaskAdapter(Context context, TodorooCursor<Task> cursor, AtomicReference<String> queryTemplate);
     Property<?>[] taskProperties();
 
 }

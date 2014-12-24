@@ -12,7 +12,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
@@ -74,7 +73,6 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         try {
-            ContextManager.setContext(context);
             super.onUpdate(context, appWidgetManager, appWidgetIds);
 
             if (preIceCreamSandwich()) {

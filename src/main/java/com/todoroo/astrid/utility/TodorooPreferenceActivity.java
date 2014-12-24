@@ -22,8 +22,6 @@ import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 
-import com.todoroo.andlib.service.ContextManager;
-
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.TimePreference;
@@ -57,7 +55,6 @@ abstract public class TodorooPreferenceActivity extends InjectingPreferenceActiv
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ContextManager.setContext(this);
         addPreferencesFromResource(getPreferenceResource());
     }
 
