@@ -57,7 +57,7 @@ public class TestModule {
     @Singleton
     @Provides
     public Database getDatabase() {
-        return new Database() {
+        return new Database(context) {
             @Override
             public String getName() {
                 return "databasetest";
