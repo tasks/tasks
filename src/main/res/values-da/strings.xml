@@ -111,8 +111,6 @@
 	<string name="EPr_fontSize_desc">Skriftstørrelse på den centrale liste</string>
 	<string name="TWi_loading">Indlæser...</string>
 	<string name="WCA_title">Vælg opgaver der skal vises...</string>
-	<string name="task_killer_help">Det ser ud som om du bruger en app der kan dræbe processer (%s)! Hvis du kan, så tilføj Tasks til udelukkelseslisten så den ikke bliver dræbt. Ellers kan Tasks muligvis ikke fortælle dig hvornår dine opgaver tidsfrist er.\n</string>
-	<string name="task_killer_help_ok">Jeg vil ikke dræbe Tasks!</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
       If you see this error regularly, we suggest you clear all
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore

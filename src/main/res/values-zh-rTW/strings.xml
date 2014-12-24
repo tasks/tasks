@@ -214,8 +214,6 @@
 	<string name="EPr_manage_delete_all_gcal_status">已經刪除了 %d 個日曆事件了！</string>
 	<string name="TWi_loading">載入中...</string>
 	<string name="WCA_title">選擇工作顯示...</string>
-	<string name="task_killer_help">似乎您正在使用會刪除進程的應用程序(%s)！可以的話，請將Tasks 加入到例外列表避免被殺死。否則Tasks可能無法通知您任​​務已到期。\n</string>
-	<string name="task_killer_help_ok">我不會中止 Tasks!</string>
 	<string name="DB_corrupted_title">數據庫已經受損</string>
 	<string name="DB_corrupted_body">啊喔！您有一個毀損的資料庫。如果您經常看見這個錯誤出現，我們建議您清除所有數據（在設置-&gt;同步和備份-&amp;gt；管理舊任務工作-&gt;清楚所有數據）並在Tasks備份中重新存入您的任務工作（設置-&gt;同步和備份-&gt;備份-&gt;導入任務工作）</string>
 	<string name="market_unavailable">非常抱歉，我們的軟件無法在您的系統中成功運行。</string>

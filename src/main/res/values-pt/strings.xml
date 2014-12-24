@@ -226,10 +226,6 @@
 	<string name="EPr_manage_delete_all_gcal_status">Eliminados %d eventos de calendário!</string>
 	<string name="TWi_loading">Carregando...</string>
 	<string name="WCA_title">Escolha as tarefas a ver...</string>
-	<string name="task_killer_help">Parece que está a utilizar uma aplicação que pode terminar processos (%s).
-Se puder, adicione o Tasks à lista de exclusões. Se não o fizer, é possível
-que o Tasks não se lembre quando as tarefas vencem.\n</string>
-	<string name="task_killer_help_ok">Não destruirei tarefas!</string>
 	<string name="DB_corrupted_title">Base de dados danificada</string>
 	<string name="DB_corrupted_body">Parece que a sua base de dados está danificada. 
 Se este erro ocorrer repetidamente sugerimos a eliminação dos dados em

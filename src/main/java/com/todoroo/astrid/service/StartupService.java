@@ -5,13 +5,9 @@
  */
 package com.todoroo.astrid.service;
 
-import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteException;
@@ -47,7 +43,6 @@ import org.tasks.R;
 import org.tasks.preferences.Preferences;
 
 import java.io.File;
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -168,8 +163,6 @@ public class StartupService {
             preferences.setCurrentVersionName(versionName);
         }
 
-        final int finalLatestVersion = latestSetVersion;
-
         initializeDatabaseListeners();
 
         // perform startup activities in a background thread
@@ -182,11 +175,6 @@ public class StartupService {
                 gtasksPreferenceService.stopOngoing();
 
                 gtasksSyncService.initialize();
-
-                // get and display update messages
-                if (finalLatestVersion != 0) {
-//                    new UpdateMessageService(activity).processUpdates();
-                }
             }
         }).start();
 
@@ -197,8 +185,6 @@ public class StartupService {
         }
 
         calendarAlarmScheduler.scheduleCalendarAlarms(activity, false); // This needs to be after set preference defaults for the purposes of ab testing
-
-        showTaskKillerHelp(activity);
 
         hasStartedUp = true;
     }
@@ -249,52 +235,4 @@ public class StartupService {
             log.error(e.getMessage(), e);
         }
     }
-
-    private static final String P_TASK_KILLER_HELP = "taskkiller"; //$NON-NLS-1$
-
-    /**
-     * Show task killer helper
-     */
-    private void showTaskKillerHelp(final Context context) {
-        if(!preferences.getBoolean(P_TASK_KILLER_HELP, false)) {
-            return;
-        }
-
-        // search for task killers. if they exist, show the help!
-        PackageManager pm = context.getPackageManager();
-        List<PackageInfo> apps = pm
-                .getInstalledPackages(PackageManager.GET_PERMISSIONS);
-        outer: for (PackageInfo app : apps) {
-            if(app == null || app.requestedPermissions == null) {
-                continue;
-            }
-            if(app.packageName.startsWith("com.android")) //$NON-NLS-1$
-            {
-                continue;
-            }
-            for (String permission : app.requestedPermissions) {
-                if (Manifest.permission.RESTART_PACKAGES.equals(permission)) {
-                    CharSequence appName = app.applicationInfo.loadLabel(pm);
-                    OnClickListener listener = new OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface arg0,
-                                int arg1) {
-                            preferences.setBoolean(P_TASK_KILLER_HELP, true);
-                        }
-                    };
-
-                    new AlertDialog.Builder(context)
-                    .setTitle(R.string.DLG_information_title)
-                    .setMessage(context.getString(R.string.task_killer_help,
-                            appName))
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setPositiveButton(R.string.task_killer_help_ok, listener)
-                    .show();
-
-                    break outer;
-                }
-            }
-        }
-    }
-
 }

@@ -225,8 +225,6 @@
 	<string name="EPr_manage_delete_all_gcal_status">%d agenda-items verwijderd!</string>
 	<string name="TWi_loading">Laden…</string>
 	<string name="WCA_title">Selecteer weer te geven taken...</string>
-	<string name="task_killer_help">U gebruikt waarschijnlijk een applicatie die processen kan afsluiten (%s)! Voeg Tasks indien mogelijk toe aan de lijst met uitgezonderde programma\'s. Als u dit niet doet kan Tasks u niet helpen met taken herinneren!\n</string>
-	<string name="task_killer_help_ok">Tasks niet afsluiten</string>
 	<string name="DB_corrupted_title">Database Corrupt</string>
 	<string name="DB_corrupted_body">Oh oh! Het lijkt erop dat je een corrupte database hebt. Als je deze error vaker ziet raden we je aan alle data te verwijderen (Instellingen-&gt;Beheer Alle Taken-&gt;Wis alle data) en je taken uit een backup te herstellen (Instellingen-&gt;Backup-&gt;Importeer Taken) in Tasks.</string>
 	<string name="market_unavailable">Helaas is de Android Market niet beschikbaar voor jouw systeem.</string>

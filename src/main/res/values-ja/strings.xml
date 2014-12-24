@@ -226,8 +226,6 @@
 	<string name="EPr_manage_delete_all_gcal_status">%d カレンダーイベントが削除されました!</string>
 	<string name="TWi_loading">読み込んでいます・・・</string>
 	<string name="WCA_title">ウィジェットに表示する項目</string>
-	<string name="task_killer_help">タスクキラー (%s) を使用中です。Tasks が終了しないように、除外リストに登録してください。そうしないと、期限が来たタスクを通知できなくなります。\n</string>
-	<string name="task_killer_help_ok">タスクを中断しません!</string>
 	<string name="DB_corrupted_title">不正なデータベース</string>
 	<string name="DB_corrupted_body">データベースが正しくないようです.
 このエラーが何度も表示される場合, データのクリア

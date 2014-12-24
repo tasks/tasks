@@ -160,8 +160,6 @@
 	<string name="EPr_manage_delete_completed_gcal_message">Segur que voleu suprimir els esdeveniments de calendari de les tasques completades?</string>
 	<string name="TWi_loading">S\'està carregant…</string>
 	<string name="WCA_title">Seleccionar les tasques a veure ...</string>
-	<string name="task_killer_help">Sembla que utilitzes una aplicació que pot matar pocessos (%s)! Si pots, afegeix l\'Tasks a la llista d\'exclusió per tal de no ser morta. En cas contrari podria ser que l\'Tasks no t\'informés de les tasques quan vencin.\n</string>
-	<string name="task_killer_help_ok">No mataré l\'Tasks!</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
       If you see this error regularly, we suggest you clear all
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore

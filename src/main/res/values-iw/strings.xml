@@ -221,10 +221,6 @@
 	<string name="EPr_manage_delete_all_gcal_status">%d אירועי יומן נמחקו</string>
 	<string name="TWi_loading">טוענת...</string>
 	<string name="WCA_title">בחר משימות להצגה...</string>
-	<string name="task_killer_help">ככל הנראה הנך משתמש ביישום אשר יכול להרוג תהליכים (%s)!
-.אם הדבר אפשרי, אנא הוסף את אסטריד לרשימת היישומים אשר ישום זה לא יהרוג. 
-אחרת , יתכן שאסטריד לא תוכל להודיע לך כאשר זמן היעד של המשימות שלך יגיע.</string>
-	<string name="task_killer_help_ok">אני לא אהרוג את אסטריד!</string>
 	<string name="DB_corrupted_title">בסיס נתונים פגום</string>
 	<string name="DB_corrupted_body">הו לא! נראה כי בסיס הנתונים אינו תקין.
 אם אתה נתקל השגיאה זאת האופן תדיר, אנו מציעים שתמחק את כל הנתונים

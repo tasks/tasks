@@ -197,8 +197,6 @@
 	<string name="EPr_manage_delete_all_gcal_status">%d takvim olayı silindi!</string>
 	<string name="TWi_loading">Yükleniyor...</string>
 	<string name="WCA_title">Görüntülenecek görevi seç...</string>
-	<string name="task_killer_help">Gönürüyor ki, işlemleri kapatabilen bir uygulama kullanıyorsunuz (%s)! Mümkünse, Tasks\'i programın muafiyet listesine ekleyin ki kapatılamasın. Aksi takdirde, Tasks görevlerin tarihi geldiğinde size bildiremeyebilir.\n</string>
-	<string name="task_killer_help_ok">Tasks\'i Kapatmayacağım!</string>
 	<string name="DB_corrupted_title">Bozuk Veritabanı</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
       If you see this error regularly, we suggest you clear all

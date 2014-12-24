@@ -226,10 +226,6 @@
 	<string name="EPr_manage_delete_all_gcal_status">¡Borrados %d eventos del calendario!</string>
 	<string name="TWi_loading">Cargando…</string>
 	<string name="WCA_title">Seleccione las tareas que ver...</string>
-	<string name="task_killer_help">¡Parece que está usando una app que puede matar procesos (%s)! Si puede, 
-agregue Tasks a la lista de exclusión para que no se cierre. Si no lo hace, 
-Tasks podría no avisarle cuanto venza una tarea.\n</string>
-	<string name="task_killer_help_ok">¡No cerraré Tasks!</string>
 	<string name="DB_corrupted_title">Base de datos corrupta</string>
 	<string name="DB_corrupted_body">\"¡Oh-oh! Es posible que tu base de datos esté corrupta. Si ves éste error con frecuencia, te sugerimos que limpies toda la información  (Configuración-&gt;Sincronización y respaldos-&gt;Administrar tareas pasadas-&gt;Limpiar toda la información) y recuperar tus tareas de un respaldo (Configuración-&gt;Sincronización y respaldos-&gt;Respaldos-&gt;Importar tareas) en Tasks.\"</string>
 	<string name="market_unavailable">Desafortunadamente el Market no está disponible para tu sistema</string>

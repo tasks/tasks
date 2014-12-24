@@ -200,8 +200,6 @@
 	<string name="EPr_manage_delete_all_gcal_status">Eliminato il %d degli eventi del calendario!</string>
 	<string name="TWi_loading">Caricamento...</string>
 	<string name="WCA_title">Seleziona le attività da visualizzare...</string>
-	<string name="task_killer_help">Sembra che si stia utilizzando un\'applicazione che può terminare i processi (%s)! Se è possibile, aggiungere Tasks all\'elenco di esclusione in modo che non venga terminato. Contrariamente, Tasks potrebbe non avvisarti quando le tue attività saranno compiute.\n</string>
-	<string name="task_killer_help_ok">Voglio terminare Tasks!</string>
 	<string name="DB_corrupted_title">Database corrotto</string>
 	<string name="DB_corrupted_body">Oh, oh! Pare che tu abbia un database danneggiato.
 Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dati (Impostazioni-&gt;Sincronizzazione e backup-&gt;Gestire tutti i dati-&gt;Cancellare tutti i dati) e ripristinare i tuoi task da un backup in Tasks (Impostazioni-&gt;Sincronizzazione e backup-&gt;Backup-&gt;Importa task).</string>

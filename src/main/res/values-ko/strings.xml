@@ -227,10 +227,6 @@
 	<string name="EPr_manage_delete_all_gcal_status">%d 달력 이벤트를 삭제했습니다!</string>
 	<string name="TWi_loading">로드 중…</string>
 	<string name="WCA_title">열람할 일정 선택...</string>
-	<string name="task_killer_help">프로세스(%s)를 강제종료할 수 있는 앱을 사용하고 있는 것 같습니다! 
-가능하면 강제종료되지 않도록 제외목록에 포함시켜 주시기바랍니다. 
-강제종료시 일정이 완료되어도 알려줄 수 없습니다.\n</string>
-	<string name="task_killer_help_ok">아스트리드를 강제로 종료하지 않습니다!</string>
 	<string name="DB_corrupted_title">손상된 데이터베이스</string>
 	<string name="DB_corrupted_body">데이터베이스가 손상된 것 같습니다. 이 에러 메시지가 주기적으로 나타나면, 
 자료를 모두 지우고 (설정-&gt;동기화 &amp; 백업-&gt;오래된 일정 관리-&gt;모든 자료 삭제) 

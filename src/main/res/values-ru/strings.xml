@@ -227,8 +227,6 @@
 	<string name="EPr_manage_delete_all_gcal_status">Удалено %d календарных событий!</string>
 	<string name="TWi_loading">Загрузка...</string>
 	<string name="WCA_title">Выберите задачи для просмотра…</string>
-	<string name="task_killer_help">Возможно вы используете менеджер задач (%s). По возможности добавьте Tasks в список исключений иначе возможны сложности с напоминаниями.\n</string>
-	<string name="task_killer_help_ok">Я не хочу убивать Tasks!</string>
 	<string name="DB_corrupted_title">Поврежденная база данных</string>
 	<string name="DB_corrupted_body">Упс! Похоже, ваша база данных повреждена.
 Если вы получаете эту ошибку регулярно, рекомендуется стереть
