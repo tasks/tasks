@@ -1,6 +1,5 @@
 package com.todoroo.astrid.dao;
 
-import com.todoroo.andlib.data.AbstractDatabase;
 import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.helper.UUIDHelper;
@@ -16,7 +15,7 @@ import com.todoroo.astrid.helper.UUIDHelper;
  */
 public class RemoteModelDao<RTYPE extends RemoteModel> extends DatabaseDao<RTYPE> {
 
-    public RemoteModelDao(AbstractDatabase database, Class<RTYPE> modelClass) {
+    public RemoteModelDao(Database database, Class<RTYPE> modelClass) {
         super(database, modelClass);
     }
 

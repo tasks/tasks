@@ -18,23 +18,20 @@ import android.database.sqlite.SQLiteException;
 import android.media.AudioManager;
 import android.widget.Toast;
 
-import com.todoroo.andlib.data.AbstractDatabase;
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.DatabaseUpdateListener;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.CalendarAlarmScheduler;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
@@ -69,7 +66,6 @@ public class StartupService {
     // --- application startup
 
     private final UpgradeService upgradeService;
-    private final TaskService taskService;
     private final TagDataDao tagDataDao;
     private final Database database;
     private final GtasksPreferenceService gtasksPreferenceService;
@@ -82,15 +78,13 @@ public class StartupService {
     private Broadcaster broadcaster;
 
     @Inject
-    public StartupService(UpgradeService upgradeService, TaskService taskService,
-                          TagDataDao tagDataDao, Database database,
+    public StartupService(UpgradeService upgradeService, TagDataDao tagDataDao, Database database,
                           GtasksPreferenceService gtasksPreferenceService,
                           GtasksSyncService gtasksSyncService, MetadataDao metadataDao,
                           Preferences preferences, TasksXmlImporter xmlImporter,
                           CalendarAlarmScheduler calendarAlarmScheduler, TaskDeleter taskDeleter,
                           Broadcaster broadcaster) {
         this.upgradeService = upgradeService;
-        this.taskService = taskService;
         this.tagDataDao = tagDataDao;
         this.database = database;
         this.gtasksPreferenceService = gtasksPreferenceService;
@@ -117,7 +111,7 @@ public class StartupService {
         // sets up activity manager
         ContextManager.setContext(activity);
 
-        database.addListener(new AbstractDatabase.DatabaseUpdateListener() {
+        database.addListener(new DatabaseUpdateListener() {
             @Override
             public void onDatabaseUpdated() {
                 Astrid2TaskProvider.notifyDatabaseModification(activity);
@@ -127,7 +121,6 @@ public class StartupService {
 
         try {
             database.openForWriting();
-            checkForMissingColumns();
         } catch (SQLiteException e) {
             handleSQLiteError(activity, e);
             return;
@@ -232,22 +225,6 @@ public class StartupService {
     public static void handleSQLiteError(Activity activity, final SQLiteException e) {
         log.error(e.getMessage(), e);
         DialogUtilities.okDialog(activity, activity.getString(R.string.DB_corrupted_title), 0, activity.getString(R.string.DB_corrupted_body));
-    }
-
-    private void checkForMissingColumns() {
-        // For some reason these properties are missing for some users.
-        // Make them exist!
-        try {
-            TodorooCursor<Task> tasks = taskService.query(Query.select(Task.UUID).limit(1));
-            try {
-                System.err.println(tasks.getCount());
-            } finally {
-                tasks.close();
-            }
-        } catch (SQLiteException e) {
-            log.error(e.getMessage(), e);
-            database.tryAddColumn(Task.TABLE, Task.UUID, "'0'"); //$NON-NLS-1$
-        }
     }
 
     /**

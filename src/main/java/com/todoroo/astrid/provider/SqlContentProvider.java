@@ -10,7 +10,6 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
 
-import com.todoroo.andlib.data.AbstractDatabase;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 
@@ -113,7 +112,7 @@ public class SqlContentProvider extends InjectingContentProvider {
         return getDatabase().rawQuery(selection);
     }
 
-    private AbstractDatabase getDatabase() {
+    private Database getDatabase() {
         if (!open) {
             database.get().openForWriting();
             open = true;

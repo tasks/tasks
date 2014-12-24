@@ -480,7 +480,7 @@ public class CustomFilterActivity extends InjectingActionBarActivity {
                 sql.append(Task.ID).append(" IN (").append(subSql).append(") ");
             }
 
-            Cursor cursor = database.getDatabase().rawQuery(sql.toString(), null);
+            Cursor cursor = database.rawQuery(sql.toString());
             try {
                 cursor.moveToNext();
                 instance.start = last == -1 ? cursor.getInt(0) : last;

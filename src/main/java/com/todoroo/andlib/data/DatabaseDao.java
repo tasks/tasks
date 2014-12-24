@@ -10,6 +10,7 @@ import android.database.Cursor;
 
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.astrid.dao.Database;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * DAO for reading data from an instance of {@link AbstractDatabase}. If you
+ * DAO for reading data from an instance of {@link Database}. If you
  * are writing an add-on for Astrid, you probably want to be using a subclass
  * of ContentResolverDao instead.
  *
@@ -34,9 +35,9 @@ public class DatabaseDao<TYPE extends AbstractModel> {
 
     private Table table;
 
-    private AbstractDatabase database;
+    private Database database;
 
-    public DatabaseDao(AbstractDatabase database, Class<TYPE> modelClass) {
+    public DatabaseDao(Database database, Class<TYPE> modelClass) {
         this.modelClass = modelClass;
         this.database = database;
         table = database.getTable(this.modelClass);
