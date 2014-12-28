@@ -5,6 +5,9 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
+	<string name="actfm_picture_camera">Направете снимка</string>
+	<string name="actfm_picture_gallery">Изберете от Галерия</string>
+	<string name="actfm_picture_clear">Изчисти Картинка</string>
 	<string name="TVA_add_comment">Добави коментар...</string>
 	<string name="actfm_TVA_tag_label">Списък</string>
 	<string name="actfm_TVA_tag_name_hint">Въведете името на списъка</string>
@@ -18,20 +21,46 @@
 	<string name="backup_BPr_group_status">Състояние</string>
 	<string name="backup_status_success">Последно резервно копие:\n%s</string>
 	<string name="backup_status_failed">Последното резервно копиране се провали</string>
+	<string name="backup_status_failed_subtitle">(докосни за да видиш грешката)</string>
 	<string name="backup_status_never">Никога не е правено резевно копиране!</string>
 	<string name="backup_BAc_import">Импортиране на задачи</string>
 	<string name="backup_BAc_export">Експортиране на задачи</string>
+	<string name="export_toast">Създадено е резервно копие %1$s на %2$s.</string>
 	<string name="export_toast_no_tasks">Няма задачи за експортиране</string>
 	<string name="export_progress_title">Експортиране...</string>
+	<string name="import_summary_title">Възстановяване на описанието</string>
+	<string name="import_summary_message">Файлът %1$s съдържа %2$s.\n\n
+%3$s импортирани,\n
+%4$s вече съществуват\n
+%5$s имат грешки\n</string>
 	<string name="import_progress_title">Импортиране...</string>
 	<string name="import_progress_read">Прочитане на задачи %d...</string>
+	<string name="DLG_error_sdcard">Нямате достъп до папка: %s</string>
 	<string name="DLG_error_sdcard_general">SD картата не може да бъде достъпена!</string>
 	<string name="import_file_prompt">Изберете файл за възстановяване</string>
 	<string name="app_name">Задачи</string>
+	<string name="read_permission_label">Tasks Разрешение</string>
+	<string name="read_permission_desc">прочети задачи, покажи филтрите на задачата</string>
+	<string name="write_permission_label">Tasks Разрешение</string>
+	<string name="write_permission_desc">създаване на нови задачи, редактиране на съществуващи задачи</string>
+	<string name="DLG_delete_this_task_question">Изтриване на тази задача?</string>
+	<string name="DLG_delete_this_item_question">Изтриване на този елемент: %s?</string>
+	<string name="DLG_upgrading">Обновяване на твоите задачи...</string>
+	<string name="DLG_hour_minutes">Време (часове: минути)</string>
 	<string name="DLG_loading">Зареждане...</string>
+	<string name="DLG_ok">ОК</string>
+	<string name="DLG_cancel">Отказ</string>
+	<string name="DLG_undo">Върни</string>
+	<string name="WID_dateButtonUnset">Кликнете, за да зададете</string>
+	<string name="TLA_no_items">Вие нямате задачи! \n Искате ли да добавите нещо?</string>
 	<string name="TLA_menu_sort">Сортирай</string>
 	<string name="TLA_menu_search">Търсене</string>
 	<string name="TLA_menu_settings">Настройки</string>
+	<string name="TLA_custom">Други</string>
+	<string name="TLA_notification_volume_low">Уведомления са заглушени. Вие няма да можете да чуете Tasks!</string>
+	<string name="TLA_notification_disabled">Напомняния за изключени! Вие няма да получавате напомняния</string>
+	<string name="TLA_quickadd_confirm_title">Ти каза, \"%s\"</string>
+	<string name="TLA_quickadd_confirm_speech_bubble">Създадох задача наречена \"%1$s\" %2$s на %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">за %s</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">Не показвай бъдещи потвърждения</string>
 	<string name="TLA_repeat_scheduled_title">Нова повтаряща се задача %s</string>
@@ -64,7 +93,11 @@
 	<string name="SSD_save_temp">Само веднъж</string>
 	<string name="SSD_save_always">Винаги</string>
 	<string name="FSA_label">Списък със задачи или филътр</string>
+	<string name="FLA_context_shortcut">Създай пряк път на десктопа</string>
+	<string name="FLA_shortcut_dialog_title">Създай пряк път на десктопа</string>
+	<string name="FLA_shortcut_dialog">Име на прекия път:</string>
 	<string name="FLA_search_filter">Съвпада с \'%s\'</string>
+	<string name="FLA_toast_onCreateShortcut">Създаден пряк път: %s</string>
 	<string name="FLA_new_filter">Нов филтър</string>
 	<string name="FLA_new_list">Нов списък</string>
 	<string name="FLA_no_filter_selected">Няма избран филтър! Моля изберете филтър или списък.</string>
@@ -80,6 +113,7 @@
 	<string name="TEA_elapsedDuration_label">Време, което вече е отделено</string>
 	<string name="TEA_menu_save">Запази промените</string>
 	<string name="TEA_menu_discard_changes">Откажи промените</string>
+	<string name="TEA_timer_est">Приблизително %s</string>
 	<string name="TEA_timer_elap">Изминали %s</string>
 	<string-array name="TEA_urgency">
 		<item>Без дата</item>
@@ -88,10 +122,18 @@
 		<item>Утре</item>
 		<item>(ден след)</item>
 		<item>Следваща седмица</item>
-		<item>In two weeks</item>
-		<item>Next month</item>
+		<item>за две седмици</item>
+		<item>Следващия месец</item>
 	</string-array>
 	<string name="TEA_no_time">Без време</string>
+	<string-array name="TEA_hideUntil">
+		<item>Никога</item>
+		<item>Краен срок</item>
+		<item>До време</item>
+		<item>Ден преди крайния срок</item>
+		<item>Седмица преди крайния срок</item>
+		<item>Определен ден/час</item>
+	</string-array>
 	<string name="TEA_control_when">Кога</string>
 	<string name="TEA_control_importance">Приоритет</string>
 	<string name="TEA_control_lists">Списъци</string>
@@ -103,6 +145,7 @@
 	<string name="hide_until_prompt">Покажи в моят списък</string>
 	<string name="TEA_load_more">Зареди повече...</string>
 	<string name="TEA_when_dialog_title">Докога е крайният срок?</string>
+	<string name="MCA_title">%1$s\n се обади на %2$s</string>
 	<string name="MCA_return_call">Обади се сега</string>
 	<string name="MCA_add_task">Обади се по-късно</string>
 	<string name="MCA_ignore">Игнорирай</string>
@@ -110,14 +153,19 @@
 	<string name="MCA_ignore_body">Вие пренебрегнахте няколко пропуснати повиквания. Трябва ли Tasks да спре да пита за тях?</string>
 	<string name="MCA_ignore_all">Игнорирай всички обаждания</string>
 	<string name="MCA_ignore_this">Игнорирай само това обаждане</string>
+	<string name="MCA_missed_calls_pref_title">Пропуснати обаждания</string>
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks ще ви уведомява за пропуснати повиквания и ще предлага да напомни да се обадите</string>
 	<string name="MCA_missed_calls_pref_desc_disabled">Tasks няма да ви уведомява за пропуснати повиквания</string>
+	<string name="MCA_task_title_name">Обади се на %1$s на %2$s</string>
+	<string name="MCA_task_title_no_name">Обади се на %s </string>
+	<string name="MCA_schedule_dialog_title">Обади се на %s в...</string>
 	<string name="CRA_ignore">Игнорирай</string>
 	<string name="CRA_title">Нуждаете се от списък за среща?</string>
 	<string name="CRA_ignore_title">Игнориране на всички събития в календара?</string>
 	<string name="CRA_ignore_body">Вие пренебрегнахте няколко събития в календара. Трябва ли Tasks да спре да пита за тях?</string>
 	<string name="CRA_ignore_all">Игнорирай всички събития</string>
 	<string name="CRA_ignore_this">Игнорирай само това събитие</string>
+	<string name="CRA_speech_bubble_start">Изглежда, че %s започва скоро. Искате ли да създадете списък с действия?</string>
 	<string name="CRA_speech_bubble_end">Изглежда, че току-що сте завършили %s. Искате ли да създадете списък с действия?</string>
 	<string name="CRA_create_list">Създай списък</string>
 	<string name="CRA_postpone">Може би по-късно</string>
@@ -126,7 +174,11 @@
 	<string name="CRA_create_new">Създай нова</string>
 	<string name="CRA_use_existing">Използвайте съществуващата</string>
 	<string name="CRA_created_list_dialog">Създаден е списък %s.</string>
+	<string name="CRA_one_attendee">%s присъства</string>
+	<string name="CRA_two_attendees">%1$s и %2$s присъстват.</string>
+	<string name="CRA_many_attendees">%1$s, %2$s, и %3$d други присъстват.</string>
 	<string name="CRA_invitation_prompt">Искате ли да ги поканите?</string>
+	<string name="CRA_calendar_reminders_pref_title">Календар асистент</string>
 	<string name="CRA_calendar_reminders_pref_desc_disabled">Tasks няма да ви напомня за предстоящите събития в календара</string>
 	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks ще ви напомня за предстоящи събития в календара и ще ви подканва да се подготвите за тях</string>
 	<string name="CRA_share_list_title">Споделяне на списъка?</string>
@@ -137,40 +189,73 @@
 	<string name="CRA_default_list_name">Действия: %s</string>
 	<string name="EPr_title">Настройки</string>
 	<string name="EPr_deactivated">деактивирано</string>
+	<string name="EPr_appearance_header">Изглед</string>
 	<string name="EPr_fontSize_title">Размер на списъка със задачи</string>
 	<string name="EPr_filters_to_show_title">Филтри за показване</string>
 	<string name="EPr_showSmartConfirmation_title">Покажи потвърждение за умни напомняния</string>
 	<string name="EPr_fontSize_desc">Размер на шрифта на основната страница със списък</string>
 	<string name="EPr_edit_screen_options">Редактиране на опциите екрана</string>
 	<string name="EPr_beastMode_title">Редактирай подредбата на екрана</string>
+	<string name="EPr_time_increment">5 минути нарастване</string>
+	<string name="EPr_show_timer_shortcut">Покажи прекия път към таймера</string>
+	<string name="EPr_beastMode_desc">Настройване изгледа на екрана за редактиране на задача</string>
 	<string name="EPr_beastMode_reset">Възстанови по подразбиране</string>
+	<string name="EPr_beastMode_hint">Настройване изгледа на екрана за редактиране на задача чрез изтегляне на елементите във всеки ред</string>
 	<string name="EPr_fullTask_title">Покажи пълното име на задачата</string>
 	<string name="EPr_fullTask_desc_enabled">Ще бъде показвано пълно име на задачата</string>
 	<string name="EPr_fullTask_desc_disabled">Ще бъдат показвани първите два реда от имета на задачата</string>
 	<string name="EPr_show_task_edit_comments">Покажи коментари при редакция на задача</string>
 	<string name="EPr_taskRowPrefs_title">Изглед на реда със задачата</string>
+	<string name="EPr_cal_end_or_start_at_due_time">Време на събитие в календара</string>
+	<string name="EPr_cal_end_at_due_time">Приключване на събития в календара на крайния срок</string>
+	<string name="EPr_cal_start_at_due_time">Започване на събития в календара на крайния срок</string>
+	<string name="EPr_enable_debug_logging">Активиране на логването на грешки за дебъгване</string>
 	<string name="EPr_manage_header">Управление на стари задачи</string>
 	<string name="EPr_manage_delete_completed">Изтрий приключени задачи</string>
+	<string name="EPr_manage_delete_completed_message">Наистина ли искате да изтриете всичките си приключени задачи?</string>
 	<string name="EPr_manage_delete_completed_summary">Изтритите задачи могат да бъдат възстановени една по една</string>
 	<string name="EPr_manage_delete_completed_status">Изтрити %d задачи!</string>
 	<string name="EPr_manage_purge_deleted">Изчистване на изтритите задачи</string>
+	<string name="EPr_manage_purge_deleted_message">Наистина ли искате да изчистите всичките си приключени задачи?\n\nТези задачи ще изчезнат завинаги!</string>
 	<string name="EPr_manage_purge_deleted_status">Изчистени %d задачи!</string>
+	<string name="EPr_manage_purge_deleted_summary">Внимание! Изчистени задачи не могат да бъдат възстановени без резервно копие!</string>
 	<string name="EPr_manage_clear_all">Изчистване на всички данни</string>
 	<string name="EPr_manage_clear_all_message">Изтриване на всички задачи и настройки в Tasks?\n\nВнимание: не може да бъде отменено!</string>
 	<string name="EPr_manage_delete_completed_gcal">Изтрий събитията в календара за приключени задачи</string>
+	<string name="EPr_manage_delete_completed_gcal_message">Наистина ли искате да изтриете всичките си събития за изпълнени задачи?</string>
+	<string name="EPr_manage_delete_completed_gcal_status">Изтрити %d събития от календара!</string>
 	<string name="EPr_manage_delete_all_gcal">Изтрий всички събития в календара за задачи</string>
+	<string name="EPr_manage_delete_all_gcal_message">Наистина ли искате да изтриете всичките си събития за задачи?</string>
+	<string name="EPr_manage_delete_all_gcal_status">Изтрити %d събития от календара!</string>
 	<string name="TWi_loading">Зареждане...</string>
-	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
-      If you see this error regularly, we suggest you clear all
-      data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
-      your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
+	<string name="WCA_title">Изберете задачи за показване...</string>
+	<string name="DB_corrupted_title">Развалена База от данни</string>
+	<string name="DB_corrupted_body">Ами сега! Изглежда, че базата от данни е развалена.
+Ако виждате тази грешка редовно, ние ви предлагаме да изчистите всички
+данни (Настройки-&gt;Синхронизиране и резервни копия-&gt;Управление на стари задачи-&gt;Изчисти всички данни) 
+и да възстановите вашите задачи от резервно копие Настройки-&gt;Синхронизиране и резервни копия-&gt;Импортиране на задачи) в Tasks.</string>
+	<string name="market_unavailable">За съжаление маркет не е достъпен за вашата система.</string>
+	<string name="EPr_defaults_header">Нови задачи - настройки по подразбиране</string>
+	<string name="EPr_defaults_summary">Приоритет, до краен срок, добави към календара</string>
+	<string name="EPr_default_urgency_title">Краен срок по подразбиране</string>
+	<string name="EPr_default_urgency_desc">В момента: %s</string>
+	<string name="EPr_default_importance_title">Приоритет по подразбиране</string>
+	<string name="EPr_default_importance_desc">В момента: %s</string>
+	<string name="EPr_default_hideUntil_title">Скрий до - по подразбиране </string>
 	<string name="EPr_default_hideUntil_desc">В момента: %s</string>
 	<string name="EPr_default_reminders_title">Напомняния по подразбиране</string>
+	<string name="EPr_default_reminders_desc">В момента: %s</string>
+	<string name="EPr_default_addtocalendar_title">Добави към календара по подразбиране</string>
+	<string name="EPr_default_addtocalendar_desc_disabled">Новите задачи няма да създадат събитие в Google Calendar</string>
+	<string name="EPr_default_addtocalendar_desc">Нови задачи ще бъдат в календара: \"%s\"</string>
+	<string name="EPr_default_reminders_mode_title">Тон на звънене/вибрация по подразбиране</string>
+	<string name="EPr_default_reminders_mode_desc">В момента: %s</string>
 	<string-array name="EPr_default_importance">
 		<item>!!! (Най-висок)</item>
 		<item>!!</item>
 		<item>!</item>
-		<item>o (Най-нисък)</item>	</string-array>
+		<item>o (Най-нисък)</item>
+	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>Без краен срок</item>
 		<item>Днес</item>
@@ -187,8 +272,8 @@
 	<string-array name="EPr_default_reminders">
 		<item>Няма напомняния за краен срок</item>
 		<item>При краен срок</item>
-		<item>When overdue</item>
-		<item>At deadline or overdue</item>
+		<item>Когато е просрочено</item>
+		<item>При крайния срок или просрочване</item>
 	</string-array>
 	<string name="BFE_Active">Моите задачи</string>
 	<string name="BFE_Recent">Наскоро променени</string>
@@ -200,6 +285,7 @@
 	<string name="CFA_type_intersect">и</string>
 	<string name="CFA_context_chain">%s има критерий</string>
 	<string name="CFA_context_delete">Изтрий реда</string>
+	<string name="CFA_help">Дълго докосване върху елементите за допълнителни опции</string>
 	<string name="CFA_button_add">Добави Критерий</string>
 	<string name="CFA_button_view">Изглед</string>
 	<string name="CFA_button_save">Запази и Покажи</string>
@@ -227,6 +313,7 @@
 	<string name="gcal_TEA_showCalendar_label">Добави събитие към календара</string>
 	<string name="gcal_TEA_nocal">Не добавяй</string>
 	<string name="gcal_TEA_none_selected">Към календара?</string>
+	<string name="gcal_TEA_has_event">Събитие обаждане</string>
 	<string name="gcal_completed_title">%s (завършено)</string>
 	<string name="gcal_GCP_default">Календар по подразбиране</string>
 	<string name="CFC_gtasks_list_text">В списък: ?</string>
@@ -239,6 +326,7 @@
 	<string name="gtasks_GLA_errorIOAuth">Съжаляваме, ние имахме проблем с комуникацията със сървърите на Google. Моля, опитайте отново по-късно.</string>
 	<string name="gtasks_error_accountNotFound">Акаунт %s не е намерен-моля да излезнете и да влязнете отново от настройките на Google Tasks.</string>
 	<string name="gtasks_error_authRefresh">Не може да се удостовери с Google Tasks. Моля, проверете паролата на профила си или опитате отново по-късно.</string>
+	<string name="gtasks_error_accountManager">Грешка в мениджъра на акаунти във вашия телефон. Моля за излезнете и да влезнете пак от настройките на Google Tasks.</string>
 	<string name="gtasks_error_background_sync_auth">Грешка при удостоверяване във фонов режим. Моля, опитайте се да започване синхронизация, докато Tasks се изпълнява.</string>
 	<string name="locale_notification">Вие имате $NUM съвпадения: $FILTER</string>
 	<string name="EPr_powerpack_header">Резервни копия</string>
@@ -266,51 +354,115 @@
 	<string name="file_dir_dialog_ok">Използвай тази директория</string>
 	<string name="file_dir_dialog_default">Възстанови по подразбиране</string>
 	<string name="p_files_dir">Главна директория за изтегляния</string>
+	<string name="p_files_dir_desc">Прикачени файлове към задача са запазени в: %s</string>
 	<string name="p_files_dir_desc_default">Директория по подразбиране</string>
+	<string name="premium_speech_bubble_2">Поръчай една година и спести 25%!</string>
+	<string name="TEA_reminders_group_label">Настройки на напомняне</string>
+	<string name="TEA_reminder_label">Напомни ми</string>
+	<string name="TEA_reminder_due">Когато задачата е към крайния срок</string>
+	<string name="TEA_reminder_overdue">Когато задачата е просрочена</string>
+	<string name="TEA_reminder_randomly">Случайно веднъж</string>
+	<string name="TEA_reminder_alarm_label">Тип на Тон на звънене/вибрация</string>
 	<string name="TEA_reminder_mode_once">Веднъж</string>
+	<string name="TEA_reminder_mode_five">Пет пъти</string>
+	<string name="TEA_reminder_mode_nonstop">Докато не отхвърля алармата</string>
 	<string name="TEA_reminder_when">кога</string>
+	<string name="TEA_reminder_due_short">до</string>
+	<string name="TEA_reminder_overdue_short">просрочен</string>
+	<string name="TEA_reminder_randomly_short">произволно</string>
+	<string name="TEA_reminder_display_one">Напомни ми %s</string>
+	<string name="TEA_reminder_display_multiple">Напомни %s</string>
 	<string-array name="TEA_reminder_random">
 		<item>час</item>
 		<item>ден</item>
 		<item>седмица</item>
-		<item>in two weeks</item>
-		<item>a month</item>
-		<item>in two months</item>
+		<item>за две седмици</item>
+		<item>месец</item>
+		<item>за два месеца</item>
 	</string-array>
+	<string name="rmd_NoA_filter">Напомняне!</string>
+	<string name="rmd_NoA_done">Завършен</string>
+	<string name="rmd_NoA_snooze">Отложи</string>
+	<string name="rmd_NoA_completed_toast">Поздравления за завършване!</string>
+	<string name="rmd_NoA_dlg_title">Напомняне:</string>
+	<string name="rmd_EPr_alerts_header">Настройки на напомняне</string>
+	<string name="rmd_EPr_alerts_summary">Тихи часове, опции за отлагане, ниво на настойчивост</string>
+	<string name="rmd_EPr_enabled_title">Активиране на напомняния?</string>
+	<string name="rmd_EPr_enabled_desc_true">Напомняния са активирани (това е нормално)</string>
+	<string name="rmd_EPr_enabled_desc_false">Напомняния никога няма да се появяват на вашия телефон</string>
 	<string name="rmd_EPr_enable_quiet_title">Активиране на тихи часове</string>
+	<string name="rmd_EPr_quiet_hours_start_title">Тихи часове начало</string>
+	<string name="rmd_EPr_quiet_hours_start_desc">Уведомленията ще бъдат тихи след %s.\nЗабележка: вибрациите се контролират от настройките по-долу</string>
+	<string name="rmd_EPr_quiet_hours_desc_none">Тихи часове е деактивирано</string>
+	<string name="rmd_EPr_quiet_hours_end_title">Тихи часове край</string>
+	<string name="rmd_EPr_quiet_hours_end_desc">Уведомления ще престанат да бъдат тихи на %s</string>
+	<string name="rmd_EPr_rmd_time_title">Напомняне по подразбиране</string>
+	<string name="rmd_EPr_rmd_time_desc">Уведомления за задачи без крайни срокове ще се показват на %s</string>
+	<string name="rmd_EPr_ringtone_title">Мелодия на Уведомление</string>
+	<string name="rmd_EPr_ringtone_desc_custom">Зададен е потребителски тон на звънене</string>
+	<string name="rmd_EPr_ringtone_desc_silent">Тонът на звънене е установен в безшумен режим</string>
+	<string name="rmd_EPr_ringtone_desc_default">Ще бъде използван тон на звънене по подразбиране</string>
+	<string name="rmd_EPr_persistent_title">Настойчивост на уведомленията</string>
 	<string name="rmd_EPr_persistent_desc_true">Уведомленията трябва да се разглеждат поотделно, за да бъдат изчистени</string>
 	<string name="rmd_EPr_persistent_desc_false">Уведомленията могат да се изчистят с бутона \"Изчисти всичко\"</string>
+	<string name="rmd_EPr_multiple_maxvolume_title">Максимизирай нивото на звука при няколкократни напомняния</string>
+	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks ще максимизира нивото на звука при няколкократни напомняния</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks ще използва системните настройки за звука</string>
+	<string name="rmd_EPr_vibrate_title">Вибриране при уведомление</string>
+	<string name="rmd_EPr_vibrate_desc_true">Tasks ще вибрира при изпращане на уведомления</string>
 	<string name="rmd_EPr_vibrate_desc_false">Tasks няма да вибрира при изпращане на уведомления</string>
+	<string name="rmd_EPr_snooze_dialog_desc_true">Отлагане чрез избор на ново време на отлагане (ЧЧ:ММ)</string>
+	<string name="rmd_EPr_snooze_dialog_desc_false">Отлагане чрез избор на # дни/часове за отлагане</string>
 	<string name="rmd_EPr_defaultRemind_title">Случайни напомняния</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Нови задачи няма да имат случайни напомняния</string>
 	<string name="rmd_EPr_defaultRemind_desc">Нови задачи ще напомнят на случаен принцип: %s</string>
 	<string-array name="EPr_reminder_random">
-		<item>disabled</item>
-		<item>hourly</item>
+		<item>изключено</item>
+		<item>всеки час</item>
 		<item>дневно</item>
 		<item>седмично</item>
-		<item>bi-weekly</item>
-		<item>monthly</item>
-		<item>bi-monthly</item>
+		<item>два пъти седмично</item>
+		<item>месечно</item>
+		<item>на два месеца</item>
 	</string-array>
 	<string name="repeat_enabled">Повторения</string>
 	<string name="repeat_every">Всеки %d</string>
 	<string name="repeat_interval_prompt">Интервал на повторение</string>
 	<string name="repeat_never">Без повторение</string>
 	<string name="repeat_dont">Не повтаряй</string>
+	<string-array name="repeat_interval_short">
+		<item>д</item>
+		<item>сд</item>
+		<item>мс</item>
+		<item>час</item>
+		<item>мин</item>
+		<item>г</item>
+	</string-array>
+	<string-array name="repeat_interval">
+		<item>Ден(дни)</item>
+		<item>Седмица(и)</item>
+		<item>Месец(и)</item>
+		<item>Час(ове)</item>
+		<item>Минута(и)</item>
+		<item>Година(и)</item>
+	</string-array>
 	<string-array name="repeat_until_shortcuts">
-		<item>Forever</item>
-		<item>Specific Day</item>
+		<item>Завинаги</item>
+		<item>Определен ден</item>
 		<item>Днес</item>
 		<item>Утре</item>
-		<item>(day after)</item>
-		<item>Next Week</item>
-		<item>In Two Weeks</item>
-		<item>Next Month</item>
+		<item>(ден след)</item>
+		<item>Следваща седмица</item>
+		<item>За две седмици</item>
+		<item>Следващия месец</item>
 	</string-array>
 	<string name="repeat_until_title">Повтаряй до...</string>
 	<string name="repeat_keep_going">Продължавай</string>
+	<string-array name="repeat_type">
+		<item>от краен срок</item>
+		<item>от датата на завършване</item>
+	</string-array>
+	<string name="repeat_detail_byday">$I на $D</string>
 	<string name="repeat_detail_duedate">Всеки %s</string>
 	<string name="repeat_detail_duedate_until">Всеки %1$s\nдо %2$s</string>
 	<string name="repeat_forever">Повтаряй завинаги</string>
@@ -319,6 +471,7 @@
 	<string name="repeat_rescheduling_dialog_title_last_time">Приключена повтаряща се задача \"%s\"</string>
 	<string name="repeat_rescheduling_dialog_bubble">%1$s Вие пренасрочихте тази повтаряща се задача от %2$s на %3$s</string>
 	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s  Вие пренасрочихте тази повтаряща се задача на %2$s</string>
+	<string name="repeat_rescheduling_dialog_bubble_last_time">Това се повтаряше до %1$s, и сега всичките неща са завършени. %2$s</string>
 	<string name="TEA_tags_label_long">Добави към списъци</string>
 	<string name="TEA_tag_hint">Нов списък</string>
 	<string name="tag_new_list">Нов списък</string>
@@ -329,8 +482,11 @@
 	<string name="DLG_delete_this_tag_question">Изтриване на този списък: %s? (Няма да бъдат изтрити задачи.)</string>
 	<string name="DLG_rename_this_tag_header">Преименувай списъка %s на:</string>
 	<string name="TEA_no_tags_modified">Няма извършени промени</string>
+	<string name="TEA_tags_deleted">Списъкът %1$s е бил изтрит, засегнати са %2$d задачи</string>
+	<string name="TEA_tags_renamed">Преименувани %1$s с %2$s за %3$d  задачи</string>
 	<string name="tag_settings_title">Настройки на списъка</string>
 	<string name="TPl_notification">Таймерите са Активни за %s!</string>
+	<string name="TFE_workingOn">Tasks за отмерване на време</string>
 	<string name="TEA_timer_controls">Таймер</string>
 	<string name="TEA_timer_comment_started">тази задача е започната на:</string>
 	<string name="TEA_timer_comment_stopped">тази задача е приключена на:</string>
@@ -341,9 +497,13 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks ще изтоваря имената на задачите по време на напомняния за задача</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks ще изпълнява мелодия по време на напомняния за задача </string>
 	<string name="widget_mini">Задачи</string>
+	<string name="EPr_use_dark_theme_widget">Тъмна тема на виджета</string>
 	<string name="delete_task">Изтрий задача</string>
+	<string name="TLA_menu_support">Поддръжка</string>
 	<string name="voice_command_added_task">Добавена задача</string>
 	<string name="external_storage_unavailable">Не може да достъпвате до външната памет</string>
+	<string name="navigation_drawer_open">Отвори панела за навигация</string>
+	<string name="navigation_drawer_close">Затвори панела за навигация</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 задача</item>
 		<item quantity="other">%d задачи</item>
@@ -360,17 +520,21 @@
 	<string name="DLG_error">Ами сега, изглежда е станала грешка! Ето какво се случи:\n\n%s</string>
 	<string name="DLG_wait">Моля, изчакайте...</string>
 	<string name="SyP_label">Синхронизиране и Резервни копия</string>
+	<string name="SyP_summary">Google Tasks, запазени данни, локални резервни копия</string>
 	<string name="sync_SPr_group_status">Състояние</string>
 	<string name="sync_SPr_status_subtitle">Състояние: %s</string>
+	<string name="sync_status_loggedout">Не сте влезнали</string>
 	<string name="sync_status_ongoing">Синхронизирането продължава ...</string>
 	<string name="sync_status_success">Последна синхронизация:\n%s</string>
 	<string name="sync_status_failed">Грешка при: %s</string>
+	<string name="sync_status_errors">Синхронизирано с грешки: %s</string>
 	<string name="sync_status_never">Никога не е синхронизиран!</string>
 	<string name="sync_SPr_group_options">Опции</string>
 	<string name="sync_SPr_interval_title">Синхронзиране във фонов режим</string>
 	<string name="sync_SPr_interval_desc_disabled">Синхронизация във фонов режим е изключена</string>
 	<string name="sync_SPr_interval_desc">В момента е зададено на: %s</string>
 	<string name="sync_SPr_sync">Синхронизирай сега</string>
+	<string name="sync_SPr_last_error">Отчет за състоянието</string>
 	<string name="sync_SPr_last_error_subtitle">Кликнете, за да изпрати доклад до екипа на Tasks</string>
 	<string name="sync_SPr_send_report">Изпрати отчет</string>
 	<string name="sync_SPr_forget">Излизане</string>
