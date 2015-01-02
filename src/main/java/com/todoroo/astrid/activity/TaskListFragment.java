@@ -278,7 +278,12 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         fab.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((AstridActivity) getActivity()).startEditActivity(getNewTaskIntent(getActivity(), filter));
+                if (ActivityPreferences.isTabletSized(context)) {
+                    Task task = quickAddBar.quickAddTask();
+                    onTaskListItemClicked(task.getId());
+                } else {
+                    ((AstridActivity) getActivity()).startEditActivity(getNewTaskIntent(getActivity(), filter));
+                }
             }
         });
         View body = getListBody(parent);
@@ -590,7 +595,9 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         if (taskAdapter != null) {
             taskAdapter.flushCaches();
         }
-        taskDeleter.deleteTasksWithEmptyTitles();
+        TaskEditFragment taskEditFragment = ((AstridActivity) getActivity()).getTaskEditFragment();
+        Task model = taskEditFragment == null ? null : taskEditFragment.model;
+        taskDeleter.deleteTasksWithEmptyTitles(model == null ? null : model.getId());
         loadTaskListContent();
         setSyncOngoing(false);
     }

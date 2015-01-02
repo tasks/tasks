@@ -25,7 +25,7 @@ public class TaskDeleter {
     /**
      * Clean up tasks. Typically called on startup
      */
-    public void deleteTasksWithEmptyTitles() {
+    public void deleteTasksWithEmptyTitles(Long suppress) {
         TodorooCursor<Task> cursor = taskDao.query(
                 Query.select(Task.ID).where(TaskDao.TaskCriteria.hasNoTitle()));
         try {
@@ -35,7 +35,9 @@ public class TaskDeleter {
 
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 long id = cursor.getLong(0);
-                taskDao.delete(id);
+                if (suppress == null || suppress != id) {
+                    taskDao.delete(id);
+                }
             }
         } finally {
             cursor.close();

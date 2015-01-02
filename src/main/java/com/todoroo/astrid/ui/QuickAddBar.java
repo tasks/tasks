@@ -48,19 +48,19 @@ public class QuickAddBar {
 
     // --- quick add task logic
 
-    public void quickAddTask() {
-        quickAddTask("");
+    public Task quickAddTask() {
+        return quickAddTask("");
     }
 
     /**
      * Quick-add a new task
      */
-    public void quickAddTask(String title) {
+    public Task quickAddTask(String title) {
         TagData tagData = fragment.getActiveTagData();
         if(tagData != null && (!tagData.containsNonNullValue(TagData.NAME) ||
                 tagData.getName().length() == 0)) {
             DialogUtilities.okDialog(activity, activity.getString(R.string.tag_no_title_error), null);
-            return;
+            return null;
         }
 
         try {
@@ -87,9 +87,11 @@ public class QuickAddBar {
             activity.onTaskListItemClicked(task.getId());
 
             fragment.onTaskCreated(task);
+            return task;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
+        return null;
     }
 
     private void showAlertForMarkupTask(AstridActivity activity, Task task, String originalText) {

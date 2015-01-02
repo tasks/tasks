@@ -165,7 +165,7 @@ public class StartupService {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                taskDeleter.deleteTasksWithEmptyTitles();
+                taskDeleter.deleteTasksWithEmptyTitles(null);
 
                 // if sync ongoing flag was set, clear it
                 gtasksPreferenceService.stopOngoing();
