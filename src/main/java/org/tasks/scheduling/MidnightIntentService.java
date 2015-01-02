@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.tasks.date.DateTimeUtils.currentTimeMillis;
 import static org.tasks.date.DateTimeUtils.newDateTime;
+import static org.tasks.date.DateTimeUtils.printTimestamp;
 
 public abstract class MidnightIntentService extends InjectingIntentService {
 
@@ -38,11 +39,11 @@ public abstract class MidnightIntentService extends InjectingIntentService {
 
         if (nextRun <= now) {
             nextRun = nextMidnight(now);
-            log.debug("running now [nextRun={}]", newDateTime(nextRun));
+            log.debug("running now [nextRun={}]", printTimestamp(nextRun));
             preferences.setLong(getLastRunPreference(), now);
             run();
         } else {
-            log.debug("will run at {} [lastRun={}]", newDateTime(nextRun), newDateTime(lastRun));
+            log.debug("will run at {} [lastRun={}]", printTimestamp(nextRun), printTimestamp(lastRun));
         }
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);

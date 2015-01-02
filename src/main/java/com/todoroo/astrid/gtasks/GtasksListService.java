@@ -19,7 +19,7 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static org.tasks.date.DateTimeUtils.newDateTime;
+import static org.tasks.date.DateTimeUtils.printTimestamp;
 
 public class GtasksListService {
 
@@ -89,7 +89,7 @@ public class GtasksListService {
             long lastUpdate = remoteList.getUpdated().getValue();
             if (lastSync < lastUpdate) {
                 listsToUpdate.add(localList);
-                log.debug("{} out of date [local={}] [remote={}]", listName, newDateTime(lastSync), newDateTime(lastUpdate));
+                log.debug("{} out of date [local={}] [remote={}]", listName, printTimestamp(lastSync), printTimestamp(lastUpdate));
             } else {
                 log.debug("{} up to date", listName);
             }

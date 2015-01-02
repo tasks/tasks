@@ -29,4 +29,8 @@ public class DateTimeUtils {
     public static DateTime newDateTime(long timestamp) {
         return new DateTime(timestamp);
     }
+
+    public static String printTimestamp(long timestamp) {
+        return new Date(timestamp).toString();
+    }
 }
