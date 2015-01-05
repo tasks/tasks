@@ -64,7 +64,7 @@
 	<string-array name="TLA_priority_strings">
 		<item>Priorité max</item>
 		<item>Priorité haute</item>
-		<item>Priorité ,oyenne</item>
+		<item>Priorité moyenne</item>
 		<item>Priorité basse</item>
 	</string-array>
 	<string name="TAd_hiddenFormat">%s [masqué(e)]</string>
@@ -203,6 +203,7 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Heure de l\'évenement dans le calendrier</string>
 	<string name="EPr_cal_end_at_due_time">Terminer les événements dans le calendrier à l\'échéance</string>
 	<string name="EPr_cal_start_at_due_time">Commencer les événements dans le calendrier à l\'échéance</string>
+	<string name="EPr_enable_debug_logging">Activer les traces de débogage</string>
 	<string name="EPr_manage_header">Gérer les anciennes tâches</string>
 	<string name="EPr_manage_delete_completed">Supprimer les tâches terminées</string>
 	<string name="EPr_manage_delete_completed_message">Confirmer la suppression de toutes vos tâches ?</string>
@@ -325,7 +326,7 @@
 	<string name="EPr_powerpack_summary">Rappel des appels manqués, commande vocale et paramètres divers</string>
 	<string name="premium_attach_file">Joindre un fichier</string>
 	<string name="premium_record_audio">Enregistrer un commentaire</string>
-	<string name="premium_remove_file_confirm">Ètes-vous certain? Cette opération est irréversible</string>
+	<string name="premium_remove_file_confirm">Êtes-vous certain(e)? Cette opération est irréversible</string>
 	<string name="audio_recording_title">Enregistrement Audio</string>
 	<string name="audio_stop_recording">Arrêter l\'enregistrement</string>
 	<string name="search_market_audio">Aucun lecteur supporte ce format audio. Voulez-vous télécharger un lecteur audio du Play Store?</string>
@@ -350,7 +351,7 @@
 	<string name="p_files_dir_desc_default">Dossier par défaut</string>
 	<string name="premium_speech_bubble_2">Commandez pour un an et économisez 25%%!</string>
 	<string name="TEA_reminders_group_label">Paramètres de rappel</string>
-	<string name="TEA_reminder_label">Rappel moi :</string>
+	<string name="TEA_reminder_label">Rappelle-moi</string>
 	<string name="TEA_reminder_due">... lorsque la tâche est échue</string>
 	<string name="TEA_reminder_overdue">... lorsque la tâche est en retard</string>
 	<string name="TEA_reminder_randomly">Une fois aléatoirement</string>
@@ -494,6 +495,8 @@
 	<string name="TLA_menu_support">Assistance</string>
 	<string name="voice_command_added_task">Tâche ajoutée</string>
 	<string name="external_storage_unavailable">Impossible d\'accéder au stockage externe</string>
+	<string name="navigation_drawer_open">Ouvrir le panneau de navigation</string>
+	<string name="navigation_drawer_close">Fermer le panneau de navigation</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 tâche</item>
 		<item quantity="other">%d tâches</item>
