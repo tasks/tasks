@@ -37,17 +37,15 @@ public class RenameTagActivity extends TagActivity {
         if (text == null || text.length() == 0) {
             return null;
         } else {
-            int renamed = tagService.rename(uuid, text);
-            Toast.makeText(this, getString(R.string.TEA_tags_renamed, tag, text, renamed),
+            int tasksAffected = tagService.rename(uuid, text);
+            Toast.makeText(this, getString(R.string.TEA_tags_renamed, tag, text, tasksAffected),
                     Toast.LENGTH_SHORT).show();
 
-            if (renamed > 0) {
-                Intent intent = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED);
-                intent.putExtra(TagViewFragment.EXTRA_TAG_UUID, uuid);
-                context.sendBroadcast(intent);
-                return intent;
-            }
-            return null;
+            Intent intent = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED) {{
+                putExtra(TagViewFragment.EXTRA_TAG_UUID, uuid);
+            }};
+            context.sendBroadcast(intent);
+            return intent;
         }
     }
 }
