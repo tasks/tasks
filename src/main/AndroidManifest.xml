@@ -279,7 +279,7 @@
             android:theme="@style/Tasks.Dialog" />
 
         <activity
-            android:name="com.todoroo.astrid.core.CustomFilterExposer$DeleteActivity"
+            android:name="com.todoroo.astrid.core.DeleteFilterActivity"
             android:theme="@style/Tasks.FullTransparent" />
 
         <activity

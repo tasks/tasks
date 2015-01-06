@@ -79,7 +79,7 @@ public class StoreObject extends AbstractModel {
 
     // --- parcelable helpers
 
-    private static final Creator<StoreObject> CREATOR = new ModelCreator<>(StoreObject.class);
+    public static final Creator<StoreObject> CREATOR = new ModelCreator<>(StoreObject.class);
 
     public String getType() {
         return getValue(TYPE);

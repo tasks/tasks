@@ -31,8 +31,11 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.core.CustomFilterActivity;
+import com.todoroo.astrid.core.DeleteFilterActivity;
+import com.todoroo.astrid.core.SavedFilter;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListFragment;
@@ -360,9 +363,9 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
             // Tag renamed or deleted
             String action = data.getAction();
             String uuid = data.getStringExtra(TagViewFragment.EXTRA_TAG_UUID);
+            TaskListFragment tlf = getTaskListFragment();
 
             if (AstridApiConstants.BROADCAST_EVENT_TAG_DELETED.equals(action)) {
-                TaskListFragment tlf = getTaskListFragment();
                 NavigationDrawerFragment navigationDrawer = getNavigationDrawerFragment();
                 if (tlf != null) {
                     TagData tagData = tlf.getActiveTagData();
@@ -383,7 +386,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                     navigationDrawer.refresh();
                 }
             } else if (AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED.equals(action)) {
-                TaskListFragment tlf = getTaskListFragment();
                 if (tlf != null) {
                     TagData td = tlf.getActiveTagData();
                     if (td != null && td.getUuid().equals(uuid)) {
@@ -397,6 +399,16 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                     }
                 }
 
+                NavigationDrawerFragment navigationDrawer = getNavigationDrawerFragment();
+                if (navigationDrawer != null) {
+                    navigationDrawer.refresh();
+                }
+            } else if (AstridApiConstants.BROADCAST_EVENT_FILTER_DELETED.equals(action)) {
+                StoreObject storeObject = (StoreObject) data.getExtras().get(DeleteFilterActivity.TOKEN_STORE_OBJECT);
+                Filter filter = SavedFilter.load(storeObject);
+                if (tlf.getFilter().equals(filter)) {
+                    getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, BuiltInFilterExposer.getMyTasksFilter(getResources())); // Handle in onPostResume()
+                }
                 NavigationDrawerFragment navigationDrawer = getNavigationDrawerFragment();
                 if (navigationDrawer != null) {
                     navigationDrawer.refresh();

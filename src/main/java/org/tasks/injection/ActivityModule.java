@@ -13,8 +13,8 @@ import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.backup.BackupPreferences;
 import com.todoroo.astrid.calls.MissedCallActivity;
 import com.todoroo.astrid.core.CustomFilterActivity;
-import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.core.DefaultsPreferences;
+import com.todoroo.astrid.core.DeleteFilterActivity;
 import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.files.AACRecordingActivity;
 import com.todoroo.astrid.gcal.CalendarAlarmListCreator;
@@ -43,7 +43,7 @@ import dagger.Provides;
                 CustomFilterActivity.class,
                 MissedCallActivity.class,
                 CalendarAlarmListCreator.class,
-                CustomFilterExposer.DeleteActivity.class,
+                DeleteFilterActivity.class,
                 CalendarReminderActivity.class,
                 DeleteTagActivity.class,
                 RenameTagActivity.class,
