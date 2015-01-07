@@ -494,6 +494,7 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Aplikacija Opravki bo med opominjanjem glede opravkov izgovarjala nazive opravkov</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Aplikacija Opravki bo med opominjanjem glede opravkov zvonila.</string>
 	<string name="widget_mini">Opravki</string>
+	<string name="EPr_use_dark_theme">Temni videz</string>
 	<string name="EPr_use_dark_theme_widget">Temni videz gradnika</string>
 	<string name="delete_task">Zbriši opravek</string>
 	<plurals name="Ntasks">

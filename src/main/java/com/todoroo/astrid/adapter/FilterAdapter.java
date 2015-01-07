@@ -30,6 +30,9 @@ import org.tasks.R;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
 
+import static org.tasks.preferences.ResourceResolver.getData;
+import static org.tasks.preferences.ResourceResolver.getResource;
+
 public class FilterAdapter extends ArrayAdapter<Filter> {
 
     // --- style constants
@@ -168,7 +171,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         }
 
         if (selected != null && selected.equals(viewHolder.item)) {
-            convertView.setBackgroundColor(activity.getResources().getColor(R.color.drawer_background_selected));
+            convertView.setBackgroundColor(getData(activity, R.attr.drawer_background_selected));
         }
 
         return convertView;

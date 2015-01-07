@@ -479,6 +479,7 @@
 	<string name="voice_create_prompt">Mluvte pro vytvoření úkolu</string>
 	<string name="EPr_voiceRemindersEnabled_title">Hlasové upomínky</string>
 	<string name="widget_mini">Úkoly</string>
+	<string name="EPr_use_dark_theme">Tmavé téma</string>
 	<string name="EPr_use_dark_theme_widget">Tmavé téma widgetu</string>
 	<string name="delete_task">Smazat úkol</string>
 	<string name="TLA_menu_support">Podpora</string>

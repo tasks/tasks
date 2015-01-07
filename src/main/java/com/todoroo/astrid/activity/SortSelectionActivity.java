@@ -9,6 +9,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
@@ -16,6 +18,7 @@ import android.widget.RadioButton;
 import com.todoroo.astrid.core.SortHelper;
 
 import org.tasks.R;
+import org.tasks.preferences.ActivityPreferences;
 
 /**
  * Shows the sort / hidden dialog
@@ -32,9 +35,12 @@ public class SortSelectionActivity {
     /**
      * Create the dialog
      */
-    public static AlertDialog createDialog(Activity activity, boolean showDragDrop,
+    public static AlertDialog createDialog(Activity activity, boolean showDragDrop, ActivityPreferences activityPreferences,
             OnSortSelectedListener listener, int flags, int sort) {
-        View body = activity.getLayoutInflater().inflate(R.layout.sort_selection_dialog, null);
+        int editDialogTheme = activityPreferences.getEditDialogTheme();
+        ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(activity, editDialogTheme);
+        LayoutInflater themedInflater = activity.getLayoutInflater().cloneInContext(contextThemeWrapper);
+        View body = themedInflater.inflate(R.layout.sort_selection_dialog, null);
 
         if((flags & SortHelper.FLAG_REVERSE_SORT) > 0) {
             ((CheckBox) body.findViewById(R.id.reverse)).setChecked(true);
@@ -81,7 +87,7 @@ public class SortSelectionActivity {
             }
         });
 
-        AlertDialog dialog = new AlertDialog.Builder(activity).
+        AlertDialog dialog = new AlertDialog.Builder(activity, editDialogTheme).
             setTitle(R.string.TLA_menu_sort).
             setView(body).
             setPositiveButton(R.string.SSD_save_always,
@@ -146,6 +152,4 @@ public class SortSelectionActivity {
             listener.onSortSelected(always, flags, sort);
         }
     }
-
-
 }

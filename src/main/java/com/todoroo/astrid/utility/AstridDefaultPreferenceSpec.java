@@ -46,6 +46,8 @@ public class AstridDefaultPreferenceSpec {
 
         setPreference(prefs, editor, r, R.string.p_calendar_reminders, true);
 
+        setPreference(prefs, editor, r, R.string.p_use_dark_theme, false);
+
         setPreference(prefs, editor, r, R.string.p_show_task_edit_comments, true);
 
         setPreference(prefs, editor, r, R.string.p_rmd_quietStart_old, 22); // enable quiet hours by default

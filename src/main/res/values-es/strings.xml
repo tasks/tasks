@@ -492,6 +492,7 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks dirá los nombres de las tareas durante los avisos</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks reproducirá un tono durante los recordatorios</string>
 	<string name="widget_mini">Tareas</string>
+	<string name="EPr_use_dark_theme">Estilo oscuro</string>
 	<string name="EPr_use_dark_theme_widget">Estilo de componentes oscuros</string>
 	<string name="delete_task">Eliminar tarea</string>
 	<string name="TLA_menu_support">Soporte</string>

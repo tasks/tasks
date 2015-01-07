@@ -29,7 +29,7 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1px"
-                android:background="@color/task_edit_divider"/>
+                android:background="?attr/task_edit_divider"/>
 
             <LinearLayout
                 android:id="@+id/basic_controls"
@@ -53,7 +53,7 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="1px"
-        android:background="?attr/asThemeTextColor"/>
+        android:background="?attr/asToolbarSeparator"/>
 
     <LinearLayout
         android:id="@+id/updatesFooter"

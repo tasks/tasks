@@ -24,8 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_gravity="center_vertical"
-        android:textColor="@color/black_text"
-        android:textColorHint="@color/black_text_hint"
+        style="@style/TextBoxText"
+        android:textColorHint="?attr/asTextColorHint"
         android:inputType="textCapSentences"/>
         
     <ImageButton android:id="@+id/button1"

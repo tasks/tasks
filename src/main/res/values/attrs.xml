@@ -7,20 +7,26 @@
 <resources>
 
   <!-- theme attributes -->
+    <attr name="drawer_background" format="color" />
+    <attr name="drawer_background_selected" format="color" />
+    <attr name="task_edit_divider" format="color" />
   <attr name="asContentBackground" format="color"/>
   <attr name="asEditBackground" format="color"/>
   <attr name="asEditRowBackground" format="reference"/>
   <attr name="asTextColor" format="color"/>
   <attr name="asTextColorInverse" format="color"/>
+    <attr name="asTextColorHint" format="color"/>
   <attr name="asDetailsColor" format="color"/>
   <attr name="asDueDateColor" format="color"/>
   <attr name="asDueDateOverdueColor" format="color"/>
   <attr name="asDueDateCompletedColor" format="color"/>
   <attr name="asSeparatorBackground" format="color"/>
+    <attr name="asToolbarSeparator" format="color"/>
   <attr name="asListDividerColor" format="color"/>
   <attr name="asThemeTextColor" format="color"/>
   <attr name="asEditTextBackground" format="reference"/>
   <attr name="asAbBackgroundColor" format="color"/>
+    <attr name="floatingActionButtonStroke" format="color"/>
   <attr name="asFilterSelectedIcon" format="reference"/>
   <attr name="asTaskRowSelector" format="reference" />
     <attr name="ic_action_add" format="reference" />
@@ -32,10 +38,18 @@
     <attr name="ic_action_mic" format="reference" />
     <attr name="ic_action_search" format="reference"/>
     <attr name="ic_action_settings" format="reference"/>
+    <attr name="ic_action_attachment" format="reference" />
+    <attr name="ic_action_clock" format="reference" />
+    <attr name="ic_action_flag" format="reference" />
+    <attr name="ic_action_tags" format="reference" />
+    <attr name="ic_action_list" format="reference" />
+    <attr name="ic_action_box" format="reference" />
+    <attr name="ic_action_bell" format="reference" />
+    <attr name="ic_action_alarm" format="reference" />
     <attr name="drawer_text" format="color"/>
-    <attr name="task_edit_theme_color" format="color"/>
     <attr name="importance_background_selected" format="reference"/>
     <attr name="tea_icn_addcal" format="reference"/>
+    <attr name="asFilterRowSelected" format="reference"/>
 
   <declare-styleable name="DateAndTimePicker">
       <attr name="shortcutLabels" format="reference"/>
@@ -44,6 +58,7 @@
     <declare-styleable name="FloatingActionButton">
         <attr name="drawable" format="integer"/>
         <attr name="tint" format="color"/>
+        <attr name="stroke" format="color" />
         <attr name="shadowRadius" format="float"/>
         <attr name="shadowDx" format="float"/>
         <attr name="shadowDy" format="float"/>

@@ -3,10 +3,10 @@ package org.tasks.preferences;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.PixelFormat;
 import android.util.DisplayMetrics;
-
-import com.todoroo.andlib.utility.AndroidUtilities;
+import android.view.Window;
 
 import org.tasks.R;
 
@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastIceCreamSandwich;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
 @Singleton
 public class ActivityPreferences extends Preferences {
@@ -34,11 +35,23 @@ public class ActivityPreferences extends Preferences {
     }
 
     public void applyTheme() {
-        applyTheme(R.style.Tasks);
+        Window window = activity.getWindow();
+        Resources resources = activity.getResources();
+        if (isDarkTheme()) {
+            if (atLeastLollipop()) {
+                window.setStatusBarColor(resources.getColor(android.R.color.black));
+            }
+            applyTheme(R.style.Tasks_Dark);
+        } else {
+            if (atLeastLollipop()) {
+                window.setStatusBarColor(resources.getColor(R.color.primary_dark));
+            }
+            applyTheme(R.style.Tasks);
+        }
     }
 
     public void applyDialogTheme() {
-        applyTheme(R.style.Tasks_Dialog);
+        applyTheme(R.style.TasksDialog);
     }
 
     public void applyTranslucentDialogTheme() {
@@ -51,7 +64,11 @@ public class ActivityPreferences extends Preferences {
     }
 
     public int getEditDialogTheme() {
-        return atLeastIceCreamSandwich() ? R.style.TEA_Dialog_Light_ICS : R.style.TEA_Dialog;
+        return isDarkTheme() ? R.style.TEA_Dialog_Dark : R.style.TEA_Dialog;
+    }
+
+    public boolean isDarkTheme() {
+        return getBoolean(R.string.p_use_dark_theme, false);
     }
 
     /**

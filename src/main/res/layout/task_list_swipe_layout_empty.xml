@@ -16,6 +16,7 @@
             android:clickable="true"
             android:drawableTop="@drawable/icon"
             android:gravity="center"
+            android:textColor="?attr/asTextColor"
             android:text="@string/TLA_no_items" />
     </ScrollView>
 

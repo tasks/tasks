@@ -492,6 +492,7 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Bij herinneringen zullen de taaknamen uitgesproken worden</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Er wordt een geluid weergegeven bij herinneringen</string>
 	<string name="widget_mini">Taken</string>
+	<string name="EPr_use_dark_theme">Donker thema</string>
 	<string name="EPr_use_dark_theme_widget">Donker widget thema</string>
 	<string name="delete_task">Verwijder taak</string>
 	<string name="TLA_menu_support">Ondersteuning</string>

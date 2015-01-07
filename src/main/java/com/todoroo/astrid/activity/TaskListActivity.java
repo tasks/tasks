@@ -476,7 +476,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 return true;
             case R.id.menu_sort:
                 AlertDialog dialog = SortSelectionActivity.createDialog(
-                        this, tlf.hasDraggableOption(), tlf, tlf.getSortFlags(), tlf.getSort());
+                        this, tlf.hasDraggableOption(), preferences, tlf, tlf.getSortFlags(), tlf.getSort());
                 dialog.show();
                 return true;
             case R.id.menu_new_filter:

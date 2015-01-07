@@ -6,7 +6,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.tasks"
     android:versionName="4.7.5"
-    android:versionCode="345">
+    android:versionCode="346">
 
     <!-- widgets, alarms, and services will break if Astrid is installed on SD card -->
     <!--    android:installLocation="internalOnly"> -->
@@ -276,7 +276,7 @@
         <!-- custom filters -->
         <activity
             android:name="com.todoroo.astrid.core.CustomFilterActivity"
-            android:theme="@style/Tasks.Dialog" />
+            android:theme="@style/TasksDialog" />
 
         <activity
             android:name="com.todoroo.astrid.core.DeleteFilterActivity"
@@ -311,7 +311,7 @@
         <activity
             android:name="com.todoroo.astrid.actfm.TagSettingsActivityTablet"
             android:windowSoftInputMode="stateHidden"
-            android:theme="@style/Tasks.Dialog" />
+            android:theme="@style/TasksDialog" />
 
         <!-- gtasks -->
         <activity

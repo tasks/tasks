@@ -9,7 +9,7 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:src="@drawable/ic_action_attachment_2_dark"
+        android:src="?attr/ic_action_attachment"
         android:contentDescription="@string/TEA_control_files"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -45,7 +45,7 @@
 
                 <EditText
                     android:id="@+id/tag_name"
-                    style="@style/TextAppearance"
+                    android:textColor="@android:color/black"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:background="#00000000"

@@ -32,16 +32,14 @@
           android:layout_weight="1"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content" 
-          android:prompt="@string/repeat_interval_prompt"
-          android:entries="@array/repeat_interval"/>
+          android:prompt="@string/repeat_interval_prompt"/>
           
     </LinearLayout>
     
     <Spinner
         android:id="@+id/repeatType"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
-        android:entries="@array/repeat_type"/>
+        android:layout_height="wrap_content"/>
     
     <LinearLayout android:id="@+id/repeatDayOfWeekContainer"
         android:orientation="horizontal"

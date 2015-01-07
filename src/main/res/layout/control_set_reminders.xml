@@ -9,7 +9,7 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:src="@drawable/ic_action_bell"
+        android:src="?attr/ic_action_bell"
         android:contentDescription="@string/TEA_control_reminders"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

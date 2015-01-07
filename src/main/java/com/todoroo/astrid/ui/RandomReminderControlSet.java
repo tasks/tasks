@@ -55,7 +55,7 @@ public class RandomReminderControlSet extends TaskEditControlSetBase {
 
         // create adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                activity, android.R.layout.simple_spinner_item,
+                activity, R.layout.simple_spinner_item,
                 activity.getResources().getStringArray(R.array.TEA_reminder_random));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         periodSpinner.setAdapter(adapter);

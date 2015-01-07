@@ -86,8 +86,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     private final int cameraButton;
 
-    private final int color;
-
     private static boolean respondToPicture = false;
 
     private final List<UpdatesChangedListener> listeners = new LinkedList<>();
@@ -116,12 +114,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         this.fragment = fragment;
 
         this.activity = (AstridActivity) fragment.getActivity();
-
-        TypedValue tv = new TypedValue();
-        fragment.getActivity().getTheme().resolveAttribute(R.attr.asTextColor, tv, false);
-        color = tv.data;
-
-        fragment.getActivity().getTheme().resolveAttribute(R.attr.asDueDateColor, tv, false);
 
         cameraButton = getDefaultCameraButton();
 
@@ -334,7 +326,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     public View getUpdateNotes(NoteOrUpdate note, ViewGroup parent) {
         View convertView = ((Activity)getContext()).getLayoutInflater().inflate(
-                    R.layout.update_adapter_row, parent, false);
+                    R.layout.comment_adapter_row, parent, false);
         bindView(convertView, note);
         return convertView;
     }
@@ -344,7 +336,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         // name
         final TextView nameView = (TextView)view.findViewById(R.id.title); {
             nameView.setText(item.title);
-            nameView.setTextColor(color);
             Linkify.addLinks(nameView, Linkify.ALL);
         }
 

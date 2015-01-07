@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -253,7 +254,13 @@ public class RepeatControlSet extends PopupControlSet {
     protected void afterInflate() {
         value = (Button) getView().findViewById(R.id.repeatValue);
         interval = (Spinner) getView().findViewById(R.id.repeatInterval);
+        interval.setAdapter(new ArrayAdapter<String>(activity, R.layout.simple_spinner_item, activity.getResources().getStringArray(R.array.repeat_interval)) {{
+            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        }});
         type = (Spinner) getView().findViewById(R.id.repeatType);
+        type.setAdapter(new ArrayAdapter<String>(activity, R.layout.simple_spinner_item, activity.getResources().getStringArray(R.array.repeat_type)) {{
+            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        }});
         daysOfWeekContainer = (LinearLayout) getView().findViewById(R.id.repeatDayOfWeekContainer);
         repeatUntil = (Button) getView().findViewById(R.id.repeatUntil);
         setRepeatValue(1);

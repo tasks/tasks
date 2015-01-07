@@ -493,6 +493,7 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks będzie mówił nazwę zadania podczas przypomnienia</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks będzie uruchamiał dzwonek podczas przypomnienia zadania</string>
 	<string name="widget_mini">Zadania</string>
+	<string name="EPr_use_dark_theme">Ciemny motyw</string>
 	<string name="EPr_use_dark_theme_widget">Ciemny motyw widgetu</string>
 	<string name="delete_task">Usuń zadanie</string>
 	<string name="TLA_menu_support">Wsparcie</string>

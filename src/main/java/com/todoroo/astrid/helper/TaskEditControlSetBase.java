@@ -42,8 +42,8 @@ public abstract class TaskEditControlSetBase implements TaskEditControlSet {
             initialized = true;
         }
 
-        themeColor = getData(activity, R.attr.task_edit_theme_color);
-        unsetColor = activity.getResources().getColor(R.color.task_edit_deadline_gray);
+        themeColor = getData(activity, R.attr.asTextColor);
+        unsetColor = getData(activity, R.attr.asTextColorHint);
     }
 
     @Override

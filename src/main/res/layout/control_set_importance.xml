@@ -9,7 +9,7 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:src="@drawable/ic_action_flag"
+        android:src="?attr/ic_action_flag"
         android:contentDescription="@string/TEA_importance_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
                 android:paddingBottom="@dimen/task_edit_padding_top_bottom"
                 android:gravity="start|center_vertical"
                 android:text="@string/TEA_importance_label"
-                android:textColor="@color/black_text"
+                android:textColor="?attr/asTextColor"
                 android:textSize="@dimen/task_edit_text_size" />
 
         </LinearLayout>

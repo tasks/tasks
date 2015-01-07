@@ -9,7 +9,7 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:src="@drawable/ic_action_clock"
+        android:src="?attr/ic_action_clock"
         android:contentDescription="@string/TEA_deadline_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

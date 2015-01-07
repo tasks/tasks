@@ -9,7 +9,7 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:src="@drawable/ic_action_list"
+        android:src="?attr/ic_action_list"
         android:contentDescription="@string/TEA_note_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,6 +33,8 @@
             android:paddingEnd="@dimen/task_edit_padding_right"
             android:scrollbars="vertical"
             android:hint="@string/TEA_notes_empty"
+            android:textColorHint="?attr/asTextColorHint"
+            android:textSize="@dimen/task_edit_text_size"
             android:inputType="textCapSentences|textMultiLine"
             android:imeOptions="flagNoExtractUi"
             android:textColor="?attr/asTextColor"

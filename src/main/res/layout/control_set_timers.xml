@@ -9,7 +9,7 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:src="@drawable/ic_action_alarm"
+        android:src="?attr/ic_action_alarm"
         android:contentDescription="@string/TEA_timer_controls"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

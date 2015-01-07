@@ -12,6 +12,11 @@
         android:title="@string/EPr_appearance_header">
 
         <CheckBoxPreference
+            android:title="@string/EPr_use_dark_theme"
+            android:key="@string/p_use_dark_theme"
+            android:defaultValue="false" />
+
+        <CheckBoxPreference
             android:title="@string/EPr_use_dark_theme_widget"
             android:key="@string/p_use_dark_theme_widget"
             android:defaultValue="false"/>

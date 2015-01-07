@@ -496,6 +496,7 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">O Tasks irá reproduzir o nome da tarefa durante os lembretes</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">O Tasks irá reproduzir um toque durante os lembretes</string>
 	<string name="widget_mini">Tarefas</string>
+	<string name="EPr_use_dark_theme">Tema escuro</string>
 	<string name="EPr_use_dark_theme_widget">Widget escuro</string>
 	<string name="delete_task">Eliminar tarefa</string>
 	<string name="TLA_menu_support">Suporte</string>

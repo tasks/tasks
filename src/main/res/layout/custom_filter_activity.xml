@@ -21,6 +21,8 @@
         android:layout_weight="1"
         android:background="@null"
         android:hint="@string/CFA_filterName_hint"
+        android:textColor="?attr/asTextColor"
+        android:textColorHint="?attr/asTextColorHint"
         android:capitalize="sentences" />
     
     <View 
