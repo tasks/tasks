@@ -20,6 +20,8 @@ import com.todoroo.astrid.core.SortHelper;
 import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastHoneycomb;
+
 /**
  * Shows the sort / hidden dialog
  *
@@ -87,7 +89,10 @@ public class SortSelectionActivity {
             }
         });
 
-        AlertDialog dialog = new AlertDialog.Builder(activity, editDialogTheme).
+        AlertDialog.Builder builder = atLeastHoneycomb()
+                ? new AlertDialog.Builder(activity, editDialogTheme)
+                : new AlertDialog.Builder(activity);
+        AlertDialog dialog = builder.
             setTitle(R.string.TLA_menu_sort).
             setView(body).
             setPositiveButton(R.string.SSD_save_always,
