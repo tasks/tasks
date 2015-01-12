@@ -50,10 +50,6 @@ public class ActivityPreferences extends Preferences {
         }
     }
 
-    public void applyDialogTheme() {
-        applyTheme(R.style.TasksDialog);
-    }
-
     public void applyTranslucentDialogTheme() {
         applyTheme(R.style.ReminderDialog);
     }

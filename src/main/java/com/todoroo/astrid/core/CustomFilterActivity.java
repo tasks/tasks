@@ -153,7 +153,7 @@ public class CustomFilterActivity extends InjectingActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupForDialogOrFullscreen();
+        preferences.applyTheme();
 
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
@@ -176,14 +176,6 @@ public class CustomFilterActivity extends InjectingActionBarActivity {
         updateList();
 
         setUpListeners();
-    }
-
-    private void setupForDialogOrFullscreen() {
-        if (preferences.useTabletLayout()) {
-            preferences.applyDialogTheme();
-        } else {
-            preferences.applyTheme();
-        }
     }
 
     /**
