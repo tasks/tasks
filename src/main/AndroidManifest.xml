@@ -1,44 +1,59 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
+<?xml version="1.0" encoding="utf-8"?>
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.tasks"
-    android:versionName="4.7.7"
-    android:versionCode="348">
+    package="org.tasks">
 
     <!-- widgets, alarms, and services will break if Astrid is installed on SD card -->
     <!--    android:installLocation="internalOnly"> -->
 
     <!-- ================================================== Used Permissions = -->
 
-    <!-- for notifications -->
+    <!-- ************* -->
+    <!-- notifications -->
+    <!-- ************* -->
     <uses-permission android:name="android.permission.VIBRATE" />
-    <!-- for synchronization -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- for google calendar integration -->
+
+    <!-- *************************** -->
+    <!-- google calendar integration -->
+    <!-- *************************** -->
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
-    <!-- for creating shortcuts -->
+
+    <!-- ****************** -->
+    <!-- creating shortcuts -->
+    <!-- ****************** -->
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
-    <!-- for backup -->
+
+    <!-- **************************************** -->
+    <!-- write backups and attachments to storage -->
+    <!-- **************************************** -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- for google tasks -->
+
+    <!-- **************** -->
+    <!-- google task sync -->
+    <!-- **************** -->
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
     <uses-permission android:name="com.google.android.googleapps.permission.GOOGLE_AUTH" />
-    <!-- for task sharing -->
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <!-- for missed call reminders -->
+
+    <!-- ********************* -->
+    <!-- missed call reminders -->
+    <!-- ********************* -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
-    <!-- required for ics -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <!-- ******************************************* -->
+    <!-- scheduling reminders after rebooting device -->
+    <!-- ******************************************* -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- ********************* -->
+    <!-- recording voice notes -->
+    <!-- ********************* -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <!-- Used to initiate sync when device comes back online -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!-- ============================================== Exported Permissions = -->
 
