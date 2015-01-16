@@ -25,6 +25,7 @@
         android:src="@drawable/btn_check" />
 
     <EditText
+        style="@style/edit_text_style"
         android:id="@+id/title"
         android:cursorVisible="false"
         android:layout_width="0dp"
@@ -38,6 +39,6 @@
         android:imeOptions="flagNoExtractUi|actionDone"
         android:text=""
         android:textColor="?attr/asTextColor"
-        android:textColorHint="?attr/asTextColorHint"/>
+        android:textColorHint="?attr/asTextColorHint" />
 
 </LinearLayout>

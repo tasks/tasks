@@ -22,6 +22,7 @@
         android:orientation="vertical">
 
         <EditText
+            style="@style/edit_text_style"
             android:id="@+id/notes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,7 +40,7 @@
             android:imeOptions="flagNoExtractUi"
             android:textColor="?attr/asTextColor"
             android:freezesText="true"
-            android:background="@android:color/transparent"/>
+            android:background="@android:color/transparent" />
 
         <include layout="@layout/task_edit_divider" />
 

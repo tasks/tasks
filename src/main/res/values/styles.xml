@@ -156,7 +156,10 @@
     <style name="TextAppearance" parent="android:TextAppearance">
         <item name="android:textColor">?attr/asTextColor</item>    
     </style>
-    
+
+    <style name="edit_text_style">
+    </style>
+
     <!--================================================== Custom Dialogs == -->
     
      <style name="DialogTitle">
