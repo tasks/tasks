@@ -108,6 +108,7 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
             hideUntil += newDueDate - task.getDueDate();
         }
 
+        task.setReminderSnooze(0L);
         task.setCompletionDate(0L);
         task.setDueDate(newDueDate);
         task.setHideUntil(hideUntil);
