@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'FileUtils'
+require 'fileutils'
 
 $:.unshift File.dirname(__FILE__)
 require 'clean_translations'
@@ -38,7 +38,7 @@ def export(tmp_files, lang, src_files_block)
   end
 
   tmp_files.each do |f|
-    %x(/usr/bin/sed -i '' "s/\\\\\\'/'/g" #{f})
+    %x(sed -i "s/\\\\\\'/'/g" #{f})
   end
 
   if lang == "master"
@@ -79,7 +79,7 @@ def import(tmp_files, lang, dst_files_block)
 
         for i in 0...tmp_files.length
           file = File.join(tmp_all_dir, l, File.basename(tmp_files[i]))
-          %x(/usr/bin/sed -i '' "s/\\([^\\\\\\]\\)'/\\1\\\\\\'/g" #{file})
+          %x(sed -i "s/\\([^\\\\\\]\\)'/\\1\\\\\\'/g" #{file})
           puts "Moving #{file} to #{dst_files[i]}"
           %x(mv #{file} #{dst_files[i]})
         end
@@ -93,8 +93,8 @@ def import(tmp_files, lang, dst_files_block)
     for i in 0...tmp_files.length
       name = File.basename(tmp_files[i])
       %x(curl --user "#{@user}:#{@password}" https://api.getlocalization.com/#{PROJECT_NAME}/api/translations/file/#{name}/#{lang_tmp}/ -o #{tmp_files[i]})
-      %x(/usr/bin/sed -i '' "s/\\([^\\\\\\]\\)'/\\1\\\\\\'/g" #{tmp_files[i]})
-      `/usr/bin/sed -i '' '/\s*<!--.*-->\s*$/d' #{tmp_files[i]}` # strip comments
+      %x(sed -i "s/\\([^\\\\\\]\\)'/\\1\\\\\\'/g" #{tmp_files[i]})
+      `sed -i '/\s*<!--.*-->\s*$/d' #{tmp_files[i]}` # strip comments
       puts "Moving #{tmp_files[i]} to #{dst_files[i]}"
       %x(mv #{tmp_files[i]} #{dst_files[i]})
     end
