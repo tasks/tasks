@@ -3,12 +3,12 @@ sudo: false
 jdk: oraclejdk7
 env:
   matrix:
-    - ANDROID_SDKS=android-21,sysimg-19 ANDROID_TARGET=android-19 ANDROID_ABI=armeabi-v7a
+    - ANDROID_SDKS=android-22,sysimg-19 ANDROID_TARGET=android-19 ANDROID_ABI=armeabi-v7a
 android:
   components:
-    - android-21
-    - platform-tools-21
-    - build-tools-21.1.2
+    - android-22
+    - platform-tools-22
+    - build-tools-22
     - extra-android-m2repository
   licenses:
     - 'android-sdk-license-.+'
