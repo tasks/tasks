@@ -3,6 +3,7 @@ package org.tasks.preferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -17,6 +18,12 @@ import org.tasks.injection.ForApplication;
 import javax.inject.Inject;
 
 import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.rolling.FixedWindowRollingPolicy;
+import ch.qos.logback.core.rolling.RollingFileAppender;
+import ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy;
 
 import static android.content.SharedPreferences.Editor;
 
@@ -29,6 +36,8 @@ public class Preferences {
 
     private static final String PREF_SORT_FLAGS = "sort_flags"; //$NON-NLS-1$
     private static final String PREF_SORT_SORT = "sort_sort"; //$NON-NLS-1$
+
+    private static final String FILE_APPENDER_NAME = "FILE";
 
     protected final Context context;
     private final SharedPreferences prefs;
@@ -222,10 +231,48 @@ public class Preferences {
 
     public void setupLogger(boolean enableDebugLogging) {
         try {
-            ((ch.qos.logback.classic.Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME))
-                    .setLevel(enableDebugLogging ? Level.DEBUG : Level.INFO);
+            ch.qos.logback.classic.Logger rootLogger = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+            if (enableDebugLogging) {
+                rootLogger.setLevel(Level.DEBUG);
+                if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+                    attachRollingFileAppender(rootLogger);
+                }
+            } else {
+                rootLogger.setLevel(Level.INFO);
+                rootLogger.detachAppender(FILE_APPENDER_NAME);
+            }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
+    }
+
+    private void attachRollingFileAppender(ch.qos.logback.classic.Logger rootLogger) {
+        final String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+        final LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
+        final RollingFileAppender<ILoggingEvent> rfa = new RollingFileAppender<ILoggingEvent>() {{
+            setName(FILE_APPENDER_NAME);
+            setContext(loggerContext);
+            setFile(path + "/tasks-debug.log");
+            setEncoder(new PatternLayoutEncoder() {{
+                setContext(loggerContext);
+                setPattern("%date [%thread] %-5level %logger{35} - %msg%n");
+                start();
+            }});
+            setTriggeringPolicy(new SizeBasedTriggeringPolicy<ILoggingEvent>() {{
+                setMaxFileSize("5MB");
+                start();
+            }});
+        }};
+        FixedWindowRollingPolicy rollingPolicy = new FixedWindowRollingPolicy() {{
+            setContext(loggerContext);
+            setParent(rfa);
+            setMinIndex(1);
+            setMaxIndex(3);
+            setFileNamePattern(path + "/tasks-debug.%i.log.zip");
+            start();
+        }};
+        rfa.setRollingPolicy(rollingPolicy);
+        rfa.start();
+        rootLogger.addAppender(rfa);
     }
 }
