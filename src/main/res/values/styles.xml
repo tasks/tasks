@@ -250,6 +250,11 @@
         <item name="android:textColor">@color/widget_text_color_light</item>                                                                                                                                                   
     </style>
 
+    <style name="TextAppearance.WidgetDueDate">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/widget_text_color_light</item>
+    </style>
+
     <!-- ========================================================= Premium == -->
 
     <style name="TextAppearance.Medium">

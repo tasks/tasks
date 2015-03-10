@@ -2,27 +2,38 @@
 <!-- See the file "LICENSE" for the full license governing this code.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent" 
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:background="?attr/asContentBackground">
-        
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/asContentBackground"
+    android:orientation="vertical">
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:checked="true"
+        android:id="@+id/showDueDate"
+        android:text="@string/widget_show_due_date"
+        android:textSize="18sp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" />
+
     <!-- Title -->
     <TextView
+        style="TextAppearance.ActionBar_ListsHeader"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:padding="10dp"
         android:text="@string/WCA_title"
-        android:padding="10dip"
-        style="TextAppearance.ActionBar_ListsHeader" />
-        
+        android:textSize="18sp" />
+
     <!-- List -->
     <ListView android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="100"
-        android:scrollbars="vertical"
-        android:cacheColorHint="#00000000"/>
+        android:cacheColorHint="#00000000"
+        android:scrollbars="vertical"/>
 
     <!-- List -->
     <Button android:id="@+id/ok"
@@ -30,6 +41,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@android:string/ok"/>
-    
+
 </LinearLayout>
     

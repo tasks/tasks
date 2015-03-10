@@ -383,7 +383,7 @@ public class Task extends RemoteModel {
         long dueDate = getDueDate();
         long compareTo = hasDueTime() ? DateUtilities.now() : DateUtilities.getStartOfDay(DateUtilities.now());
 
-        return dueDate < compareTo;
+        return dueDate < compareTo && !isCompleted();
     }
 
     public boolean repeatAfterCompletion() {

@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -39,6 +40,7 @@ public class WidgetConfigActivity extends InjectingListActivity {
     public static final String PREF_CUSTOM_INTENT = "widget-intent-";
     public static final String PREF_CUSTOM_EXTRAS = "widget-extras-";
     public static final String PREF_TAG_ID = "widget-tag-id-";
+    public static final String PREF_DUE_DATE = "widget-due-date-";
 
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
@@ -64,7 +66,6 @@ public class WidgetConfigActivity extends InjectingListActivity {
     @Override
          public void onCreate(Bundle icicle) {
              super.onCreate(icicle);
-             preferences.applyTheme();
 
              // Set the result to CANCELED.  This will cause the widget host to cancel
              // out of the widget placement if they press the back button.
@@ -95,25 +96,23 @@ public class WidgetConfigActivity extends InjectingListActivity {
              setListAdapter(adapter);
 
              Button button = (Button)findViewById(R.id.ok);
-             button.setOnClickListener(mOnClickListener);
+             button.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     // Save configuration options
+                     CheckBox checkBox = (CheckBox) findViewById(R.id.showDueDate);
+                     saveConfiguration(adapter.getSelection(), checkBox.isChecked());
+
+                     updateWidget();
+
+                     // Make sure we pass back the original appWidgetId
+                     Intent resultValue = new Intent();
+                     resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
+                     setResult(RESULT_OK, resultValue);
+                     finish();
+                 }
+             });
          }
-
-    View.OnClickListener mOnClickListener = new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 // Save configuration options
-                 saveConfiguration(adapter.getSelection());
-
-                 updateWidget();
-
-                 // Make sure we pass back the original appWidgetId
-                 Intent resultValue = new Intent();
-                 resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
-                 setResult(RESULT_OK, resultValue);
-                 finish();
-             }
-         };
-
 
 
     @Override
@@ -135,11 +134,13 @@ public class WidgetConfigActivity extends InjectingListActivity {
              adapter.unregisterRecevier();
          }
 
-    private void saveConfiguration(FilterListItem filterListItem){
+    private void saveConfiguration(FilterListItem filterListItem, boolean showDueDate){
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-        String sql = null, contentValuesString = null, title = null;
+        String sql = null;
+        String contentValuesString = null;
+        String title = null;
 
         if(filterListItem != null && filterListItem instanceof Filter) {
             sql = ((Filter)filterListItem).getSqlQuery();
@@ -153,6 +154,7 @@ public class WidgetConfigActivity extends InjectingListActivity {
         preferences.setString(WidgetConfigActivity.PREF_TITLE + mAppWidgetId, title);
         preferences.setString(WidgetConfigActivity.PREF_SQL + mAppWidgetId, sql);
         preferences.setString(WidgetConfigActivity.PREF_VALUES + mAppWidgetId, contentValuesString);
+        preferences.setBoolean(WidgetConfigActivity.PREF_DUE_DATE + mAppWidgetId, showDueDate);
 
         if(filterListItem instanceof FilterWithCustomIntent) {
             String flattenedName = ((FilterWithCustomIntent)filterListItem).customTaskList.flattenToString();

@@ -45,6 +45,8 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
     private final Filter filter;
     private final int widgetId;
     private boolean dark;
+    private boolean showDueDates;
+    private final DueDateFormatter dueDateFormatter;
 
     private TodorooCursor<Task> cursor;
 
@@ -65,10 +67,13 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
         this.dark = dark;
         this.database = database;
         this.taskService = taskService;
+
+        dueDateFormatter = new DueDateFormatter(context);
     }
 
     @Override
     public void onCreate() {
+        showDueDates = preferences.getBoolean(WidgetConfigActivity.PREF_DUE_DATE + widgetId, false);
         database.openForReading();
         cursor = getCursor();
     }
@@ -146,9 +151,12 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
                 row.setInt(R.id.text, "setPaintFlags", Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
             } else {
                 row.setInt(R.id.text, "setPaintFlags", Paint.ANTI_ALIAS_FLAG);
-                if (task.hasDueDate() && task.isOverdue()) {
-                    textColor = r.getColor(R.color.task_list_overdue);
-                }
+            }
+
+            if (showDueDates) {
+                dueDateFormatter.formatDueDate(row, task, textColor);
+            } else if (task.hasDueDate() && task.isOverdue()) {
+                textColor = r.getColor(R.color.task_list_overdue);
             }
 
             row.setTextViewText(R.id.text, textContent);

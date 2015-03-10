@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingService;
 import org.tasks.preferences.Preferences;
+import org.tasks.widget.DueDateFormatter;
 import org.tasks.widget.WidgetHelper;
 
 import javax.inject.Inject;
@@ -43,6 +44,7 @@ public class WidgetUpdateService extends InjectingService {
     @Inject WidgetHelper widgetHelper;
     @Inject Preferences preferences;
     @Inject SubtasksHelper subtasksHelper;
+    @Inject DueDateFormatter dueDateFormatter;
 
     @Override
     public void onStart(final Intent intent, int startId) {
@@ -109,29 +111,31 @@ public class WidgetUpdateService extends InjectingService {
                     filter.getSqlQuery(), flags, sort).replaceAll("LIMIT \\d+", "") + " LIMIT " + numberOfTasks;
 
             String tagName = preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
+            boolean showDueDates = preferences.getBoolean(WidgetConfigActivity.PREF_DUE_DATE + widgetId, false);
             query = subtasksHelper.applySubtasksToWidgetFilter(filter, query, tagName, numberOfTasks);
 
             database.openForReading();
             cursor = taskService.fetchFiltered(query, null, Task.ID, Task.TITLE, Task.DUE_DATE, Task.COMPLETION_DATE);
             int i;
+            Resources r = context.getResources();
             for (i = 0; i < cursor.getCount() && i < numberOfTasks; i++) {
                 cursor.moveToPosition(i);
                 Task task = new Task(cursor);
-
-                String textContent;
-                Resources r = context.getResources();
-                int textColor = r
-                        .getColor(preferences.isDarkWidgetTheme() ? R.color.widget_text_color_dark : R.color.widget_text_color_light);
-
-                textContent = task.getTitle();
-
+                String textContent = task.getTitle();
+                int textColor = r.getColor(preferences.isDarkWidgetTheme()
+                        ? R.color.widget_text_color_dark
+                        : R.color.widget_text_color_light);
                 if(task.isCompleted()) {
                     textColor = r.getColor(R.color.task_list_done);
-                } else if(task.hasDueDate() && task.isOverdue()) {
-                    textColor = r.getColor(R.color.task_list_overdue);
                 }
 
                 RemoteViews row = new RemoteViews(Constants.PACKAGE, R.layout.widget_row);
+
+                if (showDueDates) {
+                    dueDateFormatter.formatDueDate(row, task, textColor);
+                } else if(task.hasDueDate() && task.isOverdue()) {
+                    textColor = r.getColor(R.color.task_list_overdue);
+                }
 
                 row.setTextViewText(R.id.text, textContent);
                 row.setTextColor(R.id.text, textColor);

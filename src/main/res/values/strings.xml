@@ -114,6 +114,7 @@
     <!-- Sync error: network connectivity problems. %s-> name of sync service-->
   <string name="sync_error_offline">There was a problem connecting to the network
       during the last sync with %s. Please try again later.</string>
+    <string name="widget_show_due_date">Show due date</string>
 
     <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->

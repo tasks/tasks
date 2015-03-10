@@ -14,13 +14,10 @@ import android.os.Bundle;
 import android.widget.RemoteViews;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.activity.TaskEditActivity;
-import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
-import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.TagData;
