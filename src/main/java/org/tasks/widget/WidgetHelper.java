@@ -109,7 +109,6 @@ public class WidgetHelper {
             Bundle extras = AndroidUtilities.bundleFromSerializedString(serializedExtras);
             listIntent.putExtras(extras);
         }
-        listIntent.putExtra(TaskListActivity.TOKEN_SOURCE, Constants.SOURCE_WIDGET);
         listIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         if (filter != null) {
             listIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);

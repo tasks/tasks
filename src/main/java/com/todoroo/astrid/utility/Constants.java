@@ -21,15 +21,6 @@ public final class Constants {
      */
     public static final MarketStrategy MARKET_STRATEGY = new MarketStrategy.AndroidMarketStrategy();
 
-    // --- task list activity source strings
-
-    public static final int SOURCE_OTHER = -1;
-    public static final int SOURCE_DEFAULT = 0;
-    public static final int SOURCE_NOTIFICATION = 1;
-    public static final int SOURCE_WIDGET = 2;
-    public static final int SOURCE_PPWIDGET = 3;
-    public static final int SOURCE_C2DM = 4;
-
     // --- notification id's
 
     /** Notification Manager id for timing */

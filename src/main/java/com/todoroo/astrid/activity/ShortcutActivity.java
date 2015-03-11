@@ -89,10 +89,6 @@ public class ShortcutActivity extends Activity {
 
         Intent taskListIntent = new Intent(this, TaskListActivity.class);
 
-        if(extras != null && extras.containsKey(TaskListActivity.TOKEN_SOURCE)) {
-            taskListIntent.putExtra(TaskListActivity.TOKEN_SOURCE, extras.getInt(TaskListActivity.TOKEN_SOURCE));
-        }
-
         if(extras != null && extras.containsKey(TOKEN_CUSTOM_CLASS)) {
             taskListIntent.putExtras(intent.getExtras());
         }

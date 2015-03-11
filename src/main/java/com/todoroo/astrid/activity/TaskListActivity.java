@@ -41,7 +41,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListFragment;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.tags.TagFilterExposer;
-import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 
@@ -62,9 +61,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     @Inject VoiceInputAssistant voiceInputAssistant;
 
     private NavigationDrawerFragment navigationDrawer;
-
-    /** token for indicating source of TLA launch */
-    public static final String TOKEN_SOURCE = "source"; //$NON-NLS-1$
 
     public static final String TOKEN_SWITCH_TO_FILTER = "newListCreated"; //$NON-NLS-1$
 
@@ -116,10 +112,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
 
         if (savedFilter != null) {
             setListsTitle(savedFilter.title);
-        }
-
-        if (getIntent().hasExtra(TOKEN_SOURCE)) {
-            trackActivitySource();
         }
     }
 
@@ -446,25 +438,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         if (navigationDrawer != null) {
             navigationDrawer.refreshFilterCount();
         }
-    }
-
-    /**
-     * Report who launched this activity
-     */
-    protected void trackActivitySource() {
-        switch (getIntent().getIntExtra(TOKEN_SOURCE, Constants.SOURCE_DEFAULT)) {
-        case Constants.SOURCE_NOTIFICATION:
-            break;
-        case Constants.SOURCE_OTHER:
-            break;
-        case Constants.SOURCE_PPWIDGET:
-            break;
-        case Constants.SOURCE_WIDGET:
-            break;
-        case Constants.SOURCE_C2DM:
-            break;
-        }
-        getIntent().putExtra(TOKEN_SOURCE, Constants.SOURCE_DEFAULT); // Only report source once
     }
 
     @Override
