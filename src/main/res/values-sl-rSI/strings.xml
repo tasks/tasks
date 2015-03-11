@@ -377,7 +377,6 @@
 	<string name="rmd_NoA_filter">Opomnik!</string>
 	<string name="rmd_NoA_done">Končano</string>
 	<string name="rmd_NoA_snooze">Dremež</string>
-	<string name="rmd_NoA_completed_toast">Čestitke za dokončanje!</string>
 	<string name="rmd_NoA_dlg_title">Opomnik:</string>
 	<string name="rmd_EPr_alerts_header">Nastavitve opomnika</string>
 	<string name="rmd_EPr_alerts_summary">Tihi čas, možnosti dremeža, stopnja vztrajnosti</string>

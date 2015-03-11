@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.net.Uri;
+import android.support.v4.app.NotificationCompat;
 import android.telephony.TelephonyManager;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -112,7 +113,7 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context, notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Notification notification = new Notification.Builder(context)
+        Notification notification = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.notif_astrid)
                 .setTicker(text)
                 .setWhen(System.currentTimeMillis())

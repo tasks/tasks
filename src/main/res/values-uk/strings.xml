@@ -380,7 +380,6 @@
 	<string name="rmd_NoA_filter">Нагадування!</string>
 	<string name="rmd_NoA_done">Виконано!</string>
 	<string name="rmd_NoA_snooze">Відкласти</string>
-	<string name="rmd_NoA_completed_toast">Вітаю з завершенням!</string>
 	<string name="rmd_NoA_dlg_title">Нагадування:</string>
 	<string name="rmd_EPr_alerts_header">Налаштування нагадувань</string>
 	<string name="rmd_EPr_alerts_summary">Тихі години, опції короткого сну, рівень наполегливості</string>

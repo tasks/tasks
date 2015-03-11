@@ -335,7 +335,6 @@
 	<string name="rmd_NoA_filter">Hatırlatıcı!</string>
 	<string name="rmd_NoA_done">Tamamlandı</string>
 	<string name="rmd_NoA_snooze">Ertele</string>
-	<string name="rmd_NoA_completed_toast">Bitirdiğin için tebrikler!</string>
 	<string name="rmd_NoA_dlg_title">Hatırlatıcı:</string>
 	<string name="rmd_EPr_alerts_header">Hatırlatıcı Ayarları</string>
 	<string name="rmd_EPr_alerts_summary">Sessiz saatler, erteleme seçenekleri, süreklilik düzeyi</string>

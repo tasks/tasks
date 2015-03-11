@@ -372,7 +372,6 @@
 	<string name="rmd_NoA_filter">Lembrete!</string>
 	<string name="rmd_NoA_done">Concluída</string>
 	<string name="rmd_NoA_snooze">Adiar</string>
-	<string name="rmd_NoA_completed_toast">Parabéns!</string>
 	<string name="rmd_NoA_dlg_title">Lembrete:</string>
 	<string name="rmd_EPr_alerts_header">Configurações de lembretes</string>
 	<string name="rmd_EPr_alerts_summary">Horas quieto, opções de soneca, nível de persistência</string>

@@ -63,7 +63,6 @@
 	<string name="rmd_NoA_filter">تذكير!</string>
 	<string name="rmd_NoA_done">اكمل</string>
 	<string name="rmd_NoA_snooze">غفوة</string>
-	<string name="rmd_NoA_completed_toast">مبارك على الانتهاء!</string>
 	<string name="rmd_EPr_alerts_header">إعدادات التذكير</string>
 	<string name="rmd_EPr_alerts_summary">الساعات الهادئة، وخيارات الغفوة، ومستوى الثبات</string>
 	<string name="rmd_EPr_enabled_title">التذكير مفعل؟</string>

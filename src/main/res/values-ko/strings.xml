@@ -380,7 +380,6 @@
 	<string name="rmd_NoA_filter">알림!</string>
 	<string name="rmd_NoA_done">완료</string>
 	<string name="rmd_NoA_snooze">알림 잠시 미루기</string>
-	<string name="rmd_NoA_completed_toast">완료를 축하합니다!</string>
 	<string name="rmd_NoA_dlg_title">알림:</string>
 	<string name="rmd_EPr_alerts_header">알림 설정</string>
 	<string name="rmd_EPr_alerts_summary">알람 꺼짐 시간, 스누즈 설정, 알람 지속 레벨</string>

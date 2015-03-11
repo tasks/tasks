@@ -10,16 +10,13 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
-import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.AstridActivity;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
@@ -94,10 +91,6 @@ public class ReminderDialog extends Dialog {
                 if (task != null) {
                     taskService.setComplete(task, true);
                 }
-                activity.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-                Toast.makeText(activity,
-                        R.string.rmd_NoA_completed_toast,
-                        Toast.LENGTH_LONG).show();
                 dismiss();
             }
         });
