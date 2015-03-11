@@ -50,13 +50,14 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
 
-        int notificationId = intent.getIntExtra(Notifications.EXTRAS_NOTIF_ID, 0);
-        Intent customIntent = intent.getParcelableExtra(Notifications.EXTRAS_CUSTOM_INTENT);
-        int type = intent.getIntExtra(Notifications.EXTRAS_TYPE, 0);
-        String title = intent.getStringExtra(Notifications.EXTRAS_TITLE);
-        String text = intent.getStringExtra(Notifications.EXTRAS_TEXT);
-        int ringTimes = intent.getIntExtra(Notifications.EXTRAS_RING_TIMES, 1);
-        showNotification(context, notificationId, customIntent, type, title, text, ringTimes);
+        showNotification(
+                context,
+                intent.getIntExtra(Notifications.EXTRAS_NOTIF_ID, 0),
+                intent.<Intent>getParcelableExtra(Notifications.EXTRAS_CUSTOM_INTENT),
+                intent.getIntExtra(Notifications.EXTRAS_TYPE, 0),
+                intent.getStringExtra(Notifications.EXTRAS_TITLE),
+                intent.getStringExtra(Notifications.EXTRAS_TEXT),
+                intent.getIntExtra(Notifications.EXTRAS_RING_TIMES, 1));
     }
 
     /**
@@ -107,22 +108,21 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
         }
 
         // quiet hours? unless alarm clock
-        boolean quietHours = (type == ReminderService.TYPE_ALARM || type == ReminderService.TYPE_DUE) ? false : isQuietHours(preferences);
+        boolean quietHours = !(type == ReminderService.TYPE_ALARM || type == ReminderService.TYPE_DUE) && isQuietHours(preferences);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(context,
-                notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        // create notification object
-        final Notification notification = new Notification(
-                R.drawable.notif_astrid, text, System.currentTimeMillis());
-        notification.setLatestEventInfo(context,
-                title,
-                text,
-                pendingIntent);
+        Notification notification = new Notification.Builder(context)
+                .setSmallIcon(R.drawable.notif_astrid)
+                .setTicker(text)
+                .setWhen(System.currentTimeMillis())
+                .setContentTitle(title)
+                .setContentText(text)
+                .setContentIntent(pendingIntent)
+                .build();
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
         if (preferences.getBoolean(R.string.p_rmd_persistent, true)) {
-            notification.flags |= Notification.FLAG_NO_CLEAR |
-                    Notification.FLAG_SHOW_LIGHTS;
+            notification.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_SHOW_LIGHTS;
             notification.ledOffMS = 5000;
             notification.ledOnMS = 700;
             notification.ledARGB = Color.YELLOW;
@@ -130,8 +130,7 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
             notification.defaults = Notification.DEFAULT_LIGHTS;
         }
 
-        AudioManager audioManager = (AudioManager) context.getSystemService(
-                Context.AUDIO_SERVICE);
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
         // detect call state
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
