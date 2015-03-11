@@ -31,6 +31,8 @@ import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
+
 public class Notifications extends InjectingBroadcastReceiver {
 
     private static final Logger log = LoggerFactory.getLogger(Notifications.class);
@@ -131,8 +133,16 @@ public class Notifications extends InjectingBroadcastReceiver {
 
         String title = context.getString(R.string.app_name);
 
-        Intent notifyIntent = new Intent(context, TaskListActivity.class);
-        FilterWithCustomIntent itemFilter = new FilterWithCustomIntent(context.getString(R.string.rmd_NoA_filter),
+        Intent intent = atLeastJellybean()
+                ? createEditIntent(id, task)
+                : createNotificationIntent(id, taskTitle);
+
+        broadcaster.requestNotification((int) id, intent, type, title, taskTitle, ringTimes);
+        return true;
+    }
+
+    public Intent createNotificationIntent(final long id, final String taskTitle) {
+        final FilterWithCustomIntent itemFilter = new FilterWithCustomIntent(context.getString(R.string.rmd_NoA_filter),
                 context.getString(R.string.rmd_NoA_filter),
                 new QueryTemplate().where(TaskCriteria.byId(id)),
                 null);
@@ -142,13 +152,20 @@ public class Notifications extends InjectingBroadcastReceiver {
         itemFilter.customExtras = customExtras;
         itemFilter.customTaskList = new ComponentName(context, NotificationFragment.class);
 
-        notifyIntent.setAction("NOTIFY" + id); //$NON-NLS-1$
-        notifyIntent.putExtra(TaskListFragment.TOKEN_FILTER, itemFilter);
-        notifyIntent.putExtra(NotificationFragment.TOKEN_ID, id);
-        notifyIntent.putExtra(EXTRAS_TEXT, taskTitle);
-        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        return new Intent(context, TaskListActivity.class) {{
+            setAction("NOTIFY" + id); //$NON-NLS-1$
+            putExtra(TaskListFragment.TOKEN_FILTER, itemFilter);
+            putExtra(NotificationFragment.TOKEN_ID, id);
+            putExtra(EXTRAS_TEXT, taskTitle);
+            setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        }};
+    }
 
-        broadcaster.requestNotification((int) id, notifyIntent, type, title, taskTitle, ringTimes);
-        return true;
+    public Intent createEditIntent(final long id, final Task task) {
+        return new Intent(context, TaskListActivity.class) {{
+            setAction("NOTIFY" + id);
+            putExtra(TaskListActivity.OPEN_TASK, task.getId());
+            setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        }};
     }
 }

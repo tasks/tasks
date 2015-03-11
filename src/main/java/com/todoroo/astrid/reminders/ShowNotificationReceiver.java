@@ -12,6 +12,7 @@ import android.telephony.TelephonyManager;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceOutputAssistant;
 
@@ -22,12 +23,15 @@ import org.tasks.R;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
+import org.tasks.receivers.CompleteTaskReceiver;
+import org.tasks.reminders.SnoozeActivity;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
 import static org.tasks.date.DateTimeUtils.currentTimeMillis;
 
 /**
@@ -101,7 +105,7 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
      *
      * @param ringTimes number of times to ring (-1 = nonstop)
      */
-    private void showNotification(Context context, int notificationId, Intent intent, int type, String title,
+    private void showNotification(Context context, int notificationId, final Intent intent, int type, String title,
                                   String text, int ringTimes) {
         // don't ring multiple times if random reminder
         if (type == ReminderService.TYPE_RANDOM) {
@@ -113,14 +117,30 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context, notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Notification notification = new NotificationCompat.Builder(context)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.notif_astrid)
                 .setTicker(text)
                 .setWhen(System.currentTimeMillis())
                 .setContentTitle(title)
                 .setContentText(text)
-                .setContentIntent(pendingIntent)
-                .build();
+                .setContentIntent(pendingIntent);
+        if (atLeastJellybean()) {
+            final long taskId = intent.getLongExtra(TaskListActivity.OPEN_TASK, 0L);
+            PendingIntent completeIntent = PendingIntent.getBroadcast(context, notificationId, new Intent(context, CompleteTaskReceiver.class) {{
+                putExtra(CompleteTaskReceiver.TASK_ID, taskId);
+            }}, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            PendingIntent snoozePendingIntent = PendingIntent.getActivity(context, notificationId, new Intent(context, SnoozeActivity.class) {{
+                setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                putExtra(SnoozeActivity.TASK_ID, taskId);
+            }}, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            builder.addAction(R.drawable.ic_action_tick, context.getResources().getString(R.string.rmd_NoA_done), completeIntent)
+                    .addAction(R.drawable.ic_action_alarm, context.getResources().getString(R.string.rmd_NoA_snooze), snoozePendingIntent);
+        }
+
+
+        Notification notification = builder.build();
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
         if (preferences.getBoolean(R.string.p_rmd_persistent, true)) {
             notification.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_SHOW_LIGHTS;

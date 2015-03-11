@@ -280,6 +280,10 @@
             android:name="com.todoroo.astrid.calls.MissedCallActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
+        <activity
+            android:name=".reminders.SnoozeActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
         <!-- tags -->
         <receiver android:name="com.todoroo.astrid.tags.TagCustomFilterCriteriaExposer">
             <intent-filter>
