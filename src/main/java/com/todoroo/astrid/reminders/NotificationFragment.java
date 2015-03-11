@@ -9,6 +9,7 @@ import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.service.TaskService;
 
+import org.tasks.Broadcaster;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
@@ -22,13 +23,9 @@ import javax.inject.Inject;
  */
 public class NotificationFragment extends TaskListFragment {
 
-    // --- constants
-
-    /** task id from notification */
     public static final String TOKEN_ID = "id"; //$NON-NLS-1$
 
-    // --- implementation
-
+    @Inject Broadcaster broadcaster;
     @Inject TaskService taskService;
     @Inject Preferences preferences;
 
@@ -38,12 +35,9 @@ public class NotificationFragment extends TaskListFragment {
         super.initializeData();
     }
 
-    /**
-     * Set up the UI for this activity
-     */
     private void displayNotificationPopup() {
         String title = extras.getString(Notifications.EXTRAS_TEXT);
         long taskId = extras.getLong(TOKEN_ID);
-        new ReminderDialog(preferences, taskService, (AstridActivity) getActivity(), taskId, title).show();
+        new ReminderDialog(preferences, broadcaster, taskService, (AstridActivity) getActivity(), taskId, title).show();
     }
 }

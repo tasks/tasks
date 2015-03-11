@@ -9,6 +9,7 @@ import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.injection.ForApplication;
+import org.tasks.receivers.CompleteTaskReceiver;
 import org.tasks.receivers.FirstLaunchReceiver;
 
 import javax.inject.Inject;
@@ -24,6 +25,21 @@ public class Broadcaster {
     @Inject
     public Broadcaster(@ForApplication Context context) {
         this.context = context;
+    }
+
+    public void flipCompleteState(long taskId) {
+        completeTask(taskId, true);
+    }
+
+    public void completeTask(long taskId) {
+        completeTask(taskId, false);
+    }
+
+    private void completeTask(final long taskId, final boolean flipState) {
+        sendOrderedBroadcast(new Intent(context, CompleteTaskReceiver.class) {{
+            putExtra(CompleteTaskReceiver.TASK_ID, taskId);
+            putExtra(CompleteTaskReceiver.FLIP_STATE, flipState);
+        }});
     }
 
     public void requestNotification(final long taskId, final Intent intent, final int type,

@@ -16,11 +16,10 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
-import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TaskService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.injection.InjectingAppWidgetProvider;
 import org.tasks.preferences.ActivityPreferences;
@@ -35,7 +34,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
 
     private static final Logger log = LoggerFactory.getLogger(TasksWidget.class);
 
-    @Inject TaskService taskService;
+    @Inject Broadcaster broadcaster;
     @Inject WidgetHelper widgetHelper;
 
     public static final String COMPLETE_TASK = "COMPLETE_TASK";
@@ -50,8 +49,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
 
         switch(intent.getAction()) {
             case COMPLETE_TASK:
-                Task task = taskService.fetchById(intent.getLongExtra(TaskEditFragment.TOKEN_ID, 0), Task.ID, Task.COMPLETION_DATE);
-                taskService.setComplete(task, !task.isCompleted());
+                broadcaster.flipCompleteState(intent.getLongExtra(TaskEditFragment.TOKEN_ID, 0));
                 break;
             case EDIT_TASK:
                 if(ActivityPreferences.isTabletSized(context)) {

@@ -20,6 +20,7 @@ import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
+import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
 
@@ -37,7 +38,7 @@ public class ReminderDialog extends Dialog {
 
     private final Preferences preferences;
 
-    public ReminderDialog(Preferences preferences, final TaskService taskService, final AstridActivity activity, final long taskId,
+    public ReminderDialog(Preferences preferences, final Broadcaster broadcaster, final TaskService taskService, final AstridActivity activity, final long taskId,
             String title) {
         super(activity, R.style.ReminderDialog);
         this.preferences = preferences;
@@ -87,10 +88,7 @@ public class ReminderDialog extends Dialog {
         findViewById(R.id.reminder_complete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                Task task = taskService.fetchById(taskId, Task.ID, Task.REMINDER_LAST);
-                if (task != null) {
-                    taskService.setComplete(task, true);
-                }
+                broadcaster.completeTask(taskId);
                 dismiss();
             }
         });

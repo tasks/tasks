@@ -14,6 +14,7 @@ import com.todoroo.astrid.timers.TimerTaskCompleteListener;
 import com.todoroo.astrid.widget.TasksWidget;
 
 import org.tasks.receivers.BootCompletedReceiver;
+import org.tasks.receivers.CompleteTaskReceiver;
 import org.tasks.receivers.FirstLaunchReceiver;
 import org.tasks.receivers.MyPackageReplacedReceiver;
 import org.tasks.receivers.PackageReplacedReceiver;
@@ -39,7 +40,8 @@ import dagger.Module;
                 FirstLaunchReceiver.class,
                 MyPackageReplacedReceiver.class,
                 PackageReplacedReceiver.class,
-                RefreshReceiver.class
+                RefreshReceiver.class,
+                CompleteTaskReceiver.class
         })
 public class BroadcastModule {
 }
