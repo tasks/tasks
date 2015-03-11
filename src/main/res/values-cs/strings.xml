@@ -14,9 +14,6 @@
 	<string name="actfm_GAA_title">Vyberte, který účet Google chcete použít:</string>
 	<string name="alarm_ACS_label">Alarmy</string>
 	<string name="alarm_ACS_button">Přidat alarm</string>
-	<string-array name="reminders_alarm">
-		<item>Budík!</item>
-	</string-array>
 	<string name="backup_BPr_header">Zálohy</string>
 	<string name="backup_BPr_group_status">Stav</string>
 	<string name="backup_status_success">Předchozí:\n%s</string>

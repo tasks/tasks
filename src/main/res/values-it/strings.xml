@@ -14,9 +14,6 @@
 	<string name="actfm_GAA_title">Seleziona l\'account Google che vuoi utilizzare:</string>
 	<string name="alarm_ACS_label">Promemoria</string>
 	<string name="alarm_ACS_button">Aggiungi un promemoria</string>
-	<string-array name="reminders_alarm">
-		<item>Avviso!</item>
-	</string-array>
 	<string name="backup_BPr_header">Salvataggi</string>
 	<string name="backup_BPr_group_status">Stato</string>
 	<string name="backup_status_success">Backup più recente:\n%s</string>

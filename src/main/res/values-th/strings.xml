@@ -8,9 +8,6 @@
 	<string name="actfm_picture_camera">ถ่ายภาพ</string>
 	<string name="actfm_picture_gallery">เลือกจากคลังภาพ</string>
 	<string name="actfm_picture_clear">ล้างภาพ</string>
-	<string-array name="reminders_alarm">
-		<item>แจ้งเตือน!</item>
-	</string-array>
 	<string name="backup_BPr_header">สำรองข้อมูล</string>
 	<string name="backup_BPr_group_status">สถานะ</string>
 	<string name="backup_status_failed_subtitle">(แตะเพื่อแสดงข้อผิดพลาด)</string>

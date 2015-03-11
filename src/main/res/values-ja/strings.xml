@@ -14,9 +14,6 @@
 	<string name="actfm_GAA_title">使用したいGoogleアカウントを選択してください:</string>
 	<string name="alarm_ACS_label">アラーム</string>
 	<string name="alarm_ACS_button">アラームを追加する</string>
-	<string-array name="reminders_alarm">
-		<item>アラーム</item>
-	</string-array>
 	<string name="backup_BPr_header">バックアップ</string>
 	<string name="backup_BPr_group_status">状況</string>
 	<string name="backup_status_success">最新: %s</string>

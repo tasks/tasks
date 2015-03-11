@@ -14,9 +14,6 @@
 	<string name="actfm_GAA_title">Изберете Google акаунт, който искате да използвате:</string>
 	<string name="alarm_ACS_label">Аларми</string>
 	<string name="alarm_ACS_button">Добави Аларма</string>
-	<string-array name="reminders_alarm">
-		<item>Аларма!</item>
-	</string-array>
 	<string name="backup_BPr_header">Резервни копия</string>
 	<string name="backup_BPr_group_status">Състояние</string>
 	<string name="backup_status_success">Последно резервно копие:\n%s</string>

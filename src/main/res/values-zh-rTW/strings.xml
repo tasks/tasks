@@ -14,9 +14,6 @@
 	<string name="actfm_GAA_title">選擇您要使用的Google帳戶：</string>
 	<string name="alarm_ACS_label">警示</string>
 	<string name="alarm_ACS_button">加入警示</string>
-	<string-array name="reminders_alarm">
-		<item>警示!</item>
-	</string-array>
 	<string name="backup_BPr_header">備份</string>
 	<string name="backup_BPr_group_status">狀態</string>
 	<string name="backup_status_success">上次備份:\n%s</string>

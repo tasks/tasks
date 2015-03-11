@@ -14,9 +14,6 @@
 	<string name="actfm_GAA_title">Виберіть обліковий запис Google для використання:</string>
 	<string name="alarm_ACS_label">Сигнали</string>
 	<string name="alarm_ACS_button">Додати сигнал</string>
-	<string-array name="reminders_alarm">
-		<item>Нагадування!</item>
-	</string-array>
 	<string name="backup_BPr_header">Резервні копії</string>
 	<string name="backup_BPr_group_status">Статус</string>
 	<string name="backup_status_success">Остання резервна копія:\n%s</string>

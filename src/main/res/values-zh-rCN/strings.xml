@@ -14,9 +14,6 @@
 	<string name="actfm_GAA_title">选择你要使用的Google账户</string>
 	<string name="alarm_ACS_label">闹钟</string>
 	<string name="alarm_ACS_button">添加闹钟</string>
-	<string-array name="reminders_alarm">
-		<item>闹钟！</item>
-	</string-array>
 	<string name="backup_BPr_header">备份</string>
 	<string name="backup_BPr_group_status">状态</string>
 	<string name="backup_status_success">最近一次:%s</string>

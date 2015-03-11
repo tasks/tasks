@@ -13,9 +13,6 @@
 	<string name="actfm_GAA_title">Επιλέξτε τον λογαριασμό Google που θέλετε να χρησιμοποιήσετε:</string>
 	<string name="alarm_ACS_label">Ξυπνητήρια</string>
 	<string name="alarm_ACS_button">Προσθήκη ξυπνητηριού</string>
-	<string-array name="reminders_alarm">
-		<item>Ξυπνητήρι!</item>
-	</string-array>
 	<string name="backup_BPr_header">Αντίγραφα ασφαλείας</string>
 	<string name="backup_BPr_group_status">Κατάσταση</string>
 	<string name="backup_status_success">Τελευταίο αντίγραφο ασφαλείας:\n%s</string>

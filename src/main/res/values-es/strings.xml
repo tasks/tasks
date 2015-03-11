@@ -14,9 +14,6 @@
 	<string name="actfm_GAA_title">Seleccione la cuenta de Google que desea usar:</string>
 	<string name="alarm_ACS_label">Alarmas</string>
 	<string name="alarm_ACS_button">Añadir una alarma</string>
-	<string-array name="reminders_alarm">
-		<item>¡Alarma!</item>
-	</string-array>
 	<string name="backup_BPr_header">Copias de seguridad</string>
 	<string name="backup_BPr_group_status">Estado</string>
 	<string name="backup_status_success">Última copia:\n%s</string>

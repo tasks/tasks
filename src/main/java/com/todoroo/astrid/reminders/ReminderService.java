@@ -75,7 +75,7 @@ public final class ReminderService  {
     /** flag for an alarm reminder */
     public static final int TYPE_ALARM = 4;
 
-    static final Random random = new Random();
+    private static final Random random = new Random();
 
     // --- instance variables
 

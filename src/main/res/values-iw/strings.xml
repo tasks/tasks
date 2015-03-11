@@ -14,9 +14,6 @@
 	<string name="actfm_GAA_title">בחר חשבון גוגל</string>
 	<string name="alarm_ACS_label">התראות</string>
 	<string name="alarm_ACS_button">הוסף התראה</string>
-	<string-array name="reminders_alarm">
-		<item>התראה!</item>
-	</string-array>
 	<string name="backup_BPr_header">גיבויים</string>
 	<string name="backup_BPr_group_status">מצב</string>
 	<string name="backup_status_success">גיבוי אחרון: %s</string>

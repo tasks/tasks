@@ -14,9 +14,6 @@
 	<string name="actfm_GAA_title">Выберите аккаунт Google, который вы хотите использовать:</string>
 	<string name="alarm_ACS_label">Напоминания</string>
 	<string name="alarm_ACS_button">Добавить напоминание</string>
-	<string-array name="reminders_alarm">
-		<item>Напоминание!</item>
-	</string-array>
 	<string name="backup_BPr_header">Резервные копии</string>
 	<string name="backup_BPr_group_status">Состояние</string>
 	<string name="backup_status_success">Последняя: %s</string>

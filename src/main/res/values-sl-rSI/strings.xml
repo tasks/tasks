@@ -14,9 +14,6 @@
 	<string name="actfm_GAA_title">Izberite želeni Google račun:</string>
 	<string name="alarm_ACS_label">Glasna opozorila</string>
 	<string name="alarm_ACS_button">Dodaj glasno opozorilo</string>
-	<string-array name="reminders_alarm">
-		<item>Glasno opozorilo!</item>
-	</string-array>
 	<string name="backup_BPr_header">Varnostne kopije</string>
 	<string name="backup_status_success">Najnovejša varnostna kopija:\n%s</string>
 	<string name="backup_status_failed">Najnovejša varnostna kopija neuspešna</string>

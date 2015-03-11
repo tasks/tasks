@@ -8,7 +8,6 @@ package com.todoroo.astrid.reminders;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils;
 
@@ -20,7 +19,6 @@ import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.utility.Constants;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,34 +70,16 @@ public class Notifications extends InjectingBroadcastReceiver {
     void handle(Intent intent) {
         long id = intent.getLongExtra(ID_KEY, 0);
         int type = intent.getIntExtra(EXTRAS_TYPE, (byte) 0);
-
-        Resources r = context.getResources();
-        String reminder;
-
-        if (type == ReminderService.TYPE_ALARM) {
-            reminder = getRandomReminder(r.getStringArray(R.array.reminders_alarm));
-        } else {
-            reminder = ""; //$NON-NLS-1$
-        }
-
-        if (!showTaskNotification(id, type, reminder)) {
+        if (!showTaskNotification(id, type)) {
             notificationManager.cancel((int) id);
         }
-    }
-
-    /**
-     * @return a random reminder string
-     */
-    private String getRandomReminder(String[] reminders) {
-        int next = ReminderService.random.nextInt(reminders.length);
-        return reminders[next];
     }
 
     /**
      * Show a new notification about the given task. Returns false if there was
      * some sort of error or the alarm should be disabled.
      */
-    private boolean showTaskNotification(long id, int type, String reminder) {
+    private boolean showTaskNotification(long id, int type) {
         Task task;
         try {
             task = taskDao.fetch(id, Task.ID, Task.TITLE, Task.HIDE_UNTIL, Task.COMPLETION_DATE,
@@ -150,7 +130,6 @@ public class Notifications extends InjectingBroadcastReceiver {
         taskDao.saveExisting(task);
 
         String title = context.getString(R.string.app_name);
-        String text = reminder + " " + taskTitle; //$NON-NLS-1$
 
         Intent notifyIntent = new Intent(context, TaskListActivity.class);
         FilterWithCustomIntent itemFilter = new FilterWithCustomIntent(context.getString(R.string.rmd_NoA_filter),
@@ -159,17 +138,17 @@ public class Notifications extends InjectingBroadcastReceiver {
                 null);
         Bundle customExtras = new Bundle();
         customExtras.putLong(NotificationFragment.TOKEN_ID, id);
-        customExtras.putString(EXTRAS_TEXT, text);
+        customExtras.putString(EXTRAS_TEXT, taskTitle);
         itemFilter.customExtras = customExtras;
         itemFilter.customTaskList = new ComponentName(context, NotificationFragment.class);
 
         notifyIntent.setAction("NOTIFY" + id); //$NON-NLS-1$
         notifyIntent.putExtra(TaskListFragment.TOKEN_FILTER, itemFilter);
         notifyIntent.putExtra(NotificationFragment.TOKEN_ID, id);
-        notifyIntent.putExtra(EXTRAS_TEXT, text);
+        notifyIntent.putExtra(EXTRAS_TEXT, taskTitle);
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
 
-        broadcaster.requestNotification((int) id, notifyIntent, type, title, text, ringTimes);
+        broadcaster.requestNotification((int) id, notifyIntent, type, title, taskTitle, ringTimes);
         return true;
     }
 }
