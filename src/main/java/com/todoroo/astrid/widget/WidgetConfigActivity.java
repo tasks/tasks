@@ -41,6 +41,7 @@ public class WidgetConfigActivity extends InjectingListActivity {
     public static final String PREF_CUSTOM_EXTRAS = "widget-extras-";
     public static final String PREF_TAG_ID = "widget-tag-id-";
     public static final String PREF_DUE_DATE = "widget-due-date-";
+    public static final String PREF_DARK_THEME = "widget-dark-theme-";
 
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
@@ -100,8 +101,9 @@ public class WidgetConfigActivity extends InjectingListActivity {
                  @Override
                  public void onClick(View v) {
                      // Save configuration options
-                     CheckBox checkBox = (CheckBox) findViewById(R.id.showDueDate);
-                     saveConfiguration(adapter.getSelection(), checkBox.isChecked());
+                     CheckBox showDueDate = (CheckBox) findViewById(R.id.showDueDate);
+                     CheckBox darkTheme = (CheckBox) findViewById(R.id.darkTheme);
+                     saveConfiguration(adapter.getSelection(), showDueDate.isChecked(), darkTheme.isChecked());
 
                      updateWidget();
 
@@ -134,7 +136,7 @@ public class WidgetConfigActivity extends InjectingListActivity {
              adapter.unregisterRecevier();
          }
 
-    private void saveConfiguration(FilterListItem filterListItem, boolean showDueDate){
+    private void saveConfiguration(FilterListItem filterListItem, boolean showDueDate, boolean darkTheme){
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
@@ -155,6 +157,7 @@ public class WidgetConfigActivity extends InjectingListActivity {
         preferences.setString(WidgetConfigActivity.PREF_SQL + mAppWidgetId, sql);
         preferences.setString(WidgetConfigActivity.PREF_VALUES + mAppWidgetId, contentValuesString);
         preferences.setBoolean(WidgetConfigActivity.PREF_DUE_DATE + mAppWidgetId, showDueDate);
+        preferences.setBoolean(WidgetConfigActivity.PREF_DARK_THEME + mAppWidgetId, darkTheme);
 
         if(filterListItem instanceof FilterWithCustomIntent) {
             String flattenedName = ((FilterWithCustomIntent)filterListItem).customTaskList.flattenToString();

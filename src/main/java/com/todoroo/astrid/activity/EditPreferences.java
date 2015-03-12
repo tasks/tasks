@@ -35,7 +35,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
-import org.tasks.widget.WidgetHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -345,15 +344,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
         findPreference(getString(R.string.p_use_dark_theme)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
 
         findPreference(getString(R.string.p_fontSize)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
-
-        findPreference(getString(R.string.p_use_dark_theme_widget)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                WidgetHelper.triggerUpdate(EditPreferences.this);
-                updatePreferences(preference, newValue);
-                return true;
-            }
-        });
 
         findPreference(getString(R.string.p_debug_logging)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             @Override

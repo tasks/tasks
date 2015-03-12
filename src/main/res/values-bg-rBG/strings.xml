@@ -487,7 +487,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks ще изпълнява мелодия по време на напомняния за задача </string>
 	<string name="widget_mini">Задачи</string>
 	<string name="EPr_use_dark_theme">Тъмна тема</string>
-	<string name="EPr_use_dark_theme_widget">Тъмна тема на виджета</string>
 	<string name="delete_task">Изтрий задача</string>
 	<string name="TLA_menu_support">Поддръжка</string>
 	<string name="voice_command_added_task">Добавена задача</string>

@@ -479,7 +479,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks irá tocar um som durante o lembrete</string>
 	<string name="widget_mini">Tarefas</string>
 	<string name="EPr_use_dark_theme">Tema escuro</string>
-	<string name="EPr_use_dark_theme_widget">Tema escura para widget</string>
 	<string name="delete_task">Excluir tarefa</string>
 	<string name="TLA_menu_support">Suporte</string>
 	<string name="voice_command_added_task">Tarefa adicionada</string>

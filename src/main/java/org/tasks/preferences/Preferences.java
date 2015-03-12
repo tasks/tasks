@@ -221,10 +221,6 @@ public class Preferences {
         }
     }
 
-    public boolean isDarkWidgetTheme() {
-        return getBoolean(R.string.p_use_dark_theme_widget, false);
-    }
-
     public void setupLogger() {
         setupLogger(getBoolean(R.string.p_debug_logging, false));
     }

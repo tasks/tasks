@@ -16,11 +16,6 @@
             android:key="@string/p_use_dark_theme"
             android:defaultValue="false" />
 
-        <CheckBoxPreference
-            android:title="@string/EPr_use_dark_theme_widget"
-            android:key="@string/p_use_dark_theme_widget"
-            android:defaultValue="false"/>
-
         <PreferenceScreen android:title="@string/EPr_taskRowPrefs_title" android:key="@string/p_taskRowPrefs">
         
 	        <com.todoroo.astrid.ui.MultilineListPreference

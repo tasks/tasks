@@ -485,7 +485,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks はタスクリマインダーで通知音を鳴らします</string>
 	<string name="widget_mini">タスク</string>
 	<string name="EPr_use_dark_theme">ダークテーマ</string>
-	<string name="EPr_use_dark_theme_widget">ダークウィジットテーマ</string>
 	<string name="delete_task">タスクを削除</string>
 	<string name="TLA_menu_support">サポート</string>
 	<string name="voice_command_added_task">追加されたタスク</string>

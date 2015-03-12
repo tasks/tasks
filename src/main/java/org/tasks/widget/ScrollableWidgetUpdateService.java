@@ -16,7 +16,6 @@ import javax.inject.Inject;
 
 public class ScrollableWidgetUpdateService extends InjectingRemoteViewsService {
 
-    public static final String IS_DARK_THEME = "org.tasks.widget.IS_DARK_THEME";
     public static final String FILTER = "org.tasks.widget.FILTER";
 
     @Inject Database database;
@@ -45,8 +44,7 @@ public class ScrollableWidgetUpdateService extends InjectingRemoteViewsService {
         Bundle bundle = extras.getBundle(FILTER);
         Filter filter = (Filter) bundle.get(FILTER);
         int widgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
-        boolean isDarkTheme = extras.getBoolean(IS_DARK_THEME);
-        return new ScrollableViewsFactory(subtasksHelper, preferences, this, filter, widgetId, isDarkTheme,
-                database, taskService);
+        return new ScrollableViewsFactory(subtasksHelper, preferences, this, filter,
+                widgetId, database, taskService);
     }
 }

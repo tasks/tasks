@@ -39,13 +39,13 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
 
     private final Database database;
     private final TaskService taskService;
-    private SubtasksHelper subtasksHelper;
+    private final SubtasksHelper subtasksHelper;
     private final Preferences preferences;
     private final Context context;
     private final Filter filter;
     private final int widgetId;
-    private boolean dark;
-    private boolean showDueDates;
+    private final boolean dark;
+    private final boolean showDueDates;
     private final DueDateFormatter dueDateFormatter;
 
     private TodorooCursor<Task> cursor;
@@ -56,7 +56,6 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             Context context,
             Filter filter,
             int widgetId,
-            boolean dark,
             Database database,
             TaskService taskService) {
         this.subtasksHelper = subtasksHelper;
@@ -64,16 +63,16 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
         this.context = context;
         this.filter = filter;
         this.widgetId = widgetId;
-        this.dark = dark;
         this.database = database;
         this.taskService = taskService;
 
         dueDateFormatter = new DueDateFormatter(context);
+        dark = preferences.getBoolean(WidgetConfigActivity.PREF_DARK_THEME + widgetId, false);
+        showDueDates = preferences.getBoolean(WidgetConfigActivity.PREF_DUE_DATE + widgetId, false);
     }
 
     @Override
     public void onCreate() {
-        showDueDates = preferences.getBoolean(WidgetConfigActivity.PREF_DUE_DATE + widgetId, false);
         database.openForReading();
         cursor = getCursor();
     }

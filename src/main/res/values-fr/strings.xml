@@ -479,7 +479,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks sonnera pendant les rappels</string>
 	<string name="widget_mini">Tâches</string>
 	<string name="EPr_use_dark_theme">Thème foncé</string>
-	<string name="EPr_use_dark_theme_widget">Thème de widget foncé</string>
 	<string name="delete_task">Supprimer la tâche ? </string>
 	<string name="TLA_menu_support">Assistance</string>
 	<string name="voice_command_added_task">Tâche ajoutée</string>

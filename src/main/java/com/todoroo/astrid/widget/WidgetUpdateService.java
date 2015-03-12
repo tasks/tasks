@@ -91,7 +91,8 @@ public class WidgetUpdateService extends InjectingService {
     }
 
     private RemoteViews buildUpdate(Context context, int widgetId) {
-        RemoteViews views = getThemedRemoteViews(context);
+        boolean darkTheme = preferences.getBoolean(WidgetConfigActivity.PREF_DARK_THEME + widgetId, false);
+        RemoteViews views = getThemedRemoteViews(context, darkTheme);
 
         int numberOfTasks = NUM_VISIBLE_TASKS;
 
@@ -122,7 +123,7 @@ public class WidgetUpdateService extends InjectingService {
                 cursor.moveToPosition(i);
                 Task task = new Task(cursor);
                 String textContent = task.getTitle();
-                int textColor = r.getColor(preferences.isDarkWidgetTheme()
+                int textColor = r.getColor(darkTheme
                         ? R.color.widget_text_color_dark
                         : R.color.widget_text_color_light);
                 if(task.isCompleted()) {
@@ -182,7 +183,7 @@ public class WidgetUpdateService extends InjectingService {
      * but I didn't see a better solution. Alternatively, we could disallow theming widgets on
      * Android 2.1.
      */
-    private RemoteViews getThemedRemoteViews(Context context) {
+    private RemoteViews getThemedRemoteViews(Context context, boolean darkTheme) {
         String packageName = context.getPackageName();
         Resources r = context.getResources();
         int layout;
@@ -191,7 +192,7 @@ public class WidgetUpdateService extends InjectingService {
         int titleColor;
         int buttonDrawable;
 
-        if (preferences.isDarkWidgetTheme()) {
+        if (darkTheme) {
             layout = R.layout.widget_initialized_dark;
             titleColor = r.getColor(R.color.widget_text_color_dark);
             buttonDrawable = R.drawable.ic_action_add_light;

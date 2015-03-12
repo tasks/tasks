@@ -476,7 +476,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Η εφαρμογή θα ηχεί ένα ringtone κατά την διάρκεια των υπενθυμίσεων</string>
 	<string name="widget_mini">Εργασίες</string>
 	<string name="EPr_use_dark_theme">Σκοτεινό θέμα</string>
-	<string name="EPr_use_dark_theme_widget">Widget σκοτεινού θέματος</string>
 	<string name="delete_task">Διαγραφή καθήκοντος</string>
 	<string name="TLA_menu_support">Υποστήριξη</string>
 	<string name="voice_command_added_task">Η εργασία προστέθηκε</string>

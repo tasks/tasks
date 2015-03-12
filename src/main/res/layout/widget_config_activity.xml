@@ -17,6 +17,16 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp" />
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:checked="false"
+        android:id="@+id/darkTheme"
+        android:text="@string/EPr_use_dark_theme"
+        android:textSize="18sp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" />
+
     <!-- Title -->
     <TextView
         style="TextAppearance.ActionBar_ListsHeader"

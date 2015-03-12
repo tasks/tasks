@@ -43,18 +43,6 @@ public class WidgetHelper {
 
     public static int flags = FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_MULTIPLE_TASK;
 
-    public static void triggerUpdate(Context context) {
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-        if (appWidgetManager == null) {
-            return;
-        }
-        ComponentName thisWidget = new ComponentName(context, TasksWidget.class);
-        Intent intent = new Intent(context, TasksWidget.class);
-        intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetManager.getAppWidgetIds(thisWidget));
-        context.sendBroadcast(intent);
-    }
-
     private final TagDataDao tagDataDao;
     private final Preferences preferences;
 
@@ -76,10 +64,10 @@ public class WidgetHelper {
         Bundle filterBundle = new Bundle(com.todoroo.astrid.api.Filter.class.getClassLoader());
         filterBundle.putParcelable(ScrollableWidgetUpdateService.FILTER, filter);
         rvIntent.putExtra(ScrollableWidgetUpdateService.FILTER, filterBundle);
-        rvIntent.putExtra(ScrollableWidgetUpdateService.IS_DARK_THEME, preferences.isDarkWidgetTheme());
         rvIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id);
         rvIntent.setData(Uri.parse(rvIntent.toUri(Intent.URI_INTENT_SCHEME)));
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), preferences.isDarkWidgetTheme() ? R.layout.scrollable_widget_dark : R.layout.scrollable_widget_light);
+        boolean darkTheme = preferences.getBoolean(WidgetConfigActivity.PREF_DARK_THEME + id, false);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), darkTheme ? R.layout.scrollable_widget_dark : R.layout.scrollable_widget_light);
         remoteViews.setTextViewText(R.id.widget_title, filter.title);
         remoteViews.setRemoteAdapter(R.id.list_view, rvIntent);
         remoteViews.setEmptyView(R.id.list_view, R.id.empty_view);
