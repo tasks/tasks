@@ -119,7 +119,7 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.notif_astrid)
-                .setTicker(text)
+                .setTicker(title)
                 .setWhen(System.currentTimeMillis())
                 .setContentTitle(title)
                 .setContentText(text)
@@ -219,7 +219,7 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
         }
 
         singleThreadVoicePool.submit(new NotificationRunnable(ringTimes, notificationId, notification, voiceReminder,
-                maxOutVolumeForMultipleRingReminders, audioManager, previousAlarmVolume, text,
+                maxOutVolumeForMultipleRingReminders, audioManager, previousAlarmVolume, title,
                 notificationManager, voiceOutputAssistant));
     }
 

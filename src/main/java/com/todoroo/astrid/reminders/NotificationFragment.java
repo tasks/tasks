@@ -39,7 +39,7 @@ public class NotificationFragment extends TaskListFragment {
     }
 
     private void displayNotificationPopup() {
-        final String title = extras.getString(Notifications.EXTRAS_TEXT);
+        final String title = extras.getString(Notifications.EXTRAS_TITLE);
         final long taskId = extras.getLong(TOKEN_ID);
         final AstridActivity activity = (AstridActivity) getActivity();
 

@@ -126,13 +126,13 @@ public class Notifications extends InjectingBroadcastReceiver {
         task.setReminderLast(DateUtilities.now());
         taskDao.saveExisting(task);
 
-        String title = context.getString(R.string.app_name);
+        String text = context.getString(R.string.app_name);
 
         Intent intent = atLeastJellybean()
                 ? createEditIntent(id, task)
                 : createNotificationIntent(id, taskTitle);
 
-        broadcaster.requestNotification((int) id, intent, type, title, taskTitle, ringTimes);
+        broadcaster.requestNotification((int) id, intent, type, taskTitle, text, ringTimes);
         return true;
     }
 
@@ -143,7 +143,7 @@ public class Notifications extends InjectingBroadcastReceiver {
                 null);
         Bundle customExtras = new Bundle();
         customExtras.putLong(NotificationFragment.TOKEN_ID, id);
-        customExtras.putString(EXTRAS_TEXT, taskTitle);
+        customExtras.putString(EXTRAS_TITLE, taskTitle);
         itemFilter.customExtras = customExtras;
         itemFilter.customTaskList = new ComponentName(context, NotificationFragment.class);
 
@@ -151,7 +151,7 @@ public class Notifications extends InjectingBroadcastReceiver {
             setAction("NOTIFY" + id); //$NON-NLS-1$
             putExtra(TaskListFragment.TOKEN_FILTER, itemFilter);
             putExtra(NotificationFragment.TOKEN_ID, id);
-            putExtra(EXTRAS_TEXT, taskTitle);
+            putExtra(EXTRAS_TITLE, taskTitle);
             setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         }};
     }
