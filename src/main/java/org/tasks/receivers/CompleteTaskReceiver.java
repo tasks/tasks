@@ -17,7 +17,7 @@ public class CompleteTaskReceiver extends InjectingBroadcastReceiver {
     private static final Logger log = LoggerFactory.getLogger(CompleteTaskReceiver.class);
 
     public static final String TASK_ID = "id";
-    public static final String  FLIP_STATE = "flip_state";
+    public static final String TOGGLE_STATE = "flip_state";
 
     @Inject TaskService taskService;
 
@@ -26,7 +26,7 @@ public class CompleteTaskReceiver extends InjectingBroadcastReceiver {
         super.onReceive(context, intent);
 
         long taskId = intent.getLongExtra(TASK_ID, 0);
-        boolean flipState = intent.getBooleanExtra(FLIP_STATE, false);
+        boolean flipState = intent.getBooleanExtra(TOGGLE_STATE, false);
         log.info("Completing {}", taskId);
         Task task = taskService.fetchById(taskId, Task.ID, Task.COMPLETION_DATE);
         taskService.setComplete(task, !flipState || !task.isCompleted());

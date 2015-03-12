@@ -15,7 +15,6 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.text.format.Time;
 
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;

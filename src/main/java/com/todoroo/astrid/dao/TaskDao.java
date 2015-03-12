@@ -29,7 +29,6 @@ import org.tasks.R;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
 
-import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 import javax.inject.Inject;

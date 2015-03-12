@@ -13,7 +13,6 @@ import org.tasks.R;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastIceCreamSandwich;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
 @Singleton

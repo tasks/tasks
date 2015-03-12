@@ -22,7 +22,6 @@ import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.tags.TagFilterExposer;
-import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.widget.TasksWidget;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
 

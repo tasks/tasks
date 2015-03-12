@@ -2,7 +2,6 @@ package org.tasks.widget;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.opengl.Visibility;
 import android.view.View;
 import android.widget.RemoteViews;
 

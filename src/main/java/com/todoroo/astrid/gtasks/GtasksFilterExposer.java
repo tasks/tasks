@@ -27,7 +27,6 @@ import com.todoroo.astrid.data.Task;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;

@@ -12,7 +12,6 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TaskListMetadata;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 /**
  * Data Access layer for {@link TagData}-related operations.

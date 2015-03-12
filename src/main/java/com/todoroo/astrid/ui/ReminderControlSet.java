@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -26,8 +25,6 @@ import org.tasks.preferences.ActivityPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.tasks.preferences.ResourceResolver.getResource;
 
 /**
  * Control set dealing with reminder settings

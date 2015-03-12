@@ -10,11 +10,8 @@ import org.tasks.R;
 import org.tasks.preferences.Preferences;
 import org.tasks.sync.RecordSyncStatusCallback;
 
-import java.util.concurrent.TimeUnit;
-
 import javax.inject.Inject;
 
-import static java.util.concurrent.TimeUnit.MINUTES;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class GtasksBackgroundService extends RecurringIntervalIntentService {

@@ -49,7 +49,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
 
         switch(intent.getAction()) {
             case COMPLETE_TASK:
-                broadcaster.flipCompleteState(intent.getLongExtra(TaskEditFragment.TOKEN_ID, 0));
+                broadcaster.toggleCompletedState(intent.getLongExtra(TaskEditFragment.TOKEN_ID, 0));
                 break;
             case EDIT_TASK:
                 if(ActivityPreferences.isTabletSized(context)) {

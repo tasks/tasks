@@ -27,7 +27,7 @@ public class Broadcaster {
         this.context = context;
     }
 
-    public void flipCompleteState(long taskId) {
+    public void toggleCompletedState(long taskId) {
         completeTask(taskId, true);
     }
 
@@ -38,7 +38,7 @@ public class Broadcaster {
     private void completeTask(final long taskId, final boolean flipState) {
         sendOrderedBroadcast(new Intent(context, CompleteTaskReceiver.class) {{
             putExtra(CompleteTaskReceiver.TASK_ID, taskId);
-            putExtra(CompleteTaskReceiver.FLIP_STATE, flipState);
+            putExtra(CompleteTaskReceiver.TOGGLE_STATE, flipState);
         }});
     }
 

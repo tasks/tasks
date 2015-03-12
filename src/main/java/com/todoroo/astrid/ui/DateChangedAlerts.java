@@ -24,7 +24,6 @@ import android.widget.TextView;
 
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.data.Task;

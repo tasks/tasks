@@ -19,7 +19,6 @@ import android.preference.PreferenceScreen;
 import android.speech.tts.TextToSpeech;
 import android.text.TextUtils;
 
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.files.FileExplore;

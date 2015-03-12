@@ -18,7 +18,6 @@ import com.todoroo.astrid.service.TaskService;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;

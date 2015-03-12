@@ -27,7 +27,6 @@ import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.notifications.NotificationManager;
-import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
@@ -59,7 +58,6 @@ public class Notifications extends InjectingBroadcastReceiver {
     @Inject TaskDao taskDao;
     @Inject @ForApplication Context context;
     @Inject NotificationManager notificationManager;
-    @Inject Preferences preferences;
     @Inject Broadcaster broadcaster;
 
     @Override

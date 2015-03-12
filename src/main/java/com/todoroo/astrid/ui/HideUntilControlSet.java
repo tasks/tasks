@@ -11,7 +11,6 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -26,7 +25,6 @@ import org.tasks.preferences.ActivityPreferences;
 import java.util.Date;
 
 import static org.tasks.date.DateTimeUtils.newDate;
-import static org.tasks.preferences.ResourceResolver.getResource;
 
 /**
  * Control set for specifying when a task should be hidden
