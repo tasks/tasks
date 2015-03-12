@@ -53,7 +53,6 @@
 	<string name="TLA_menu_search">Αναζήτηση</string>
 	<string name="TLA_menu_settings">Ρυθμίσεις</string>
 	<string name="TLA_custom">Προσαρμοσμένο</string>
-	<string name="TLA_notification_volume_low">Οι ειδοποιήσεις είναι σε σίγαση. Δε θα λαμβάνεται νέα από την εφαρμογή!</string>
 	<string name="TLA_quickadd_confirm_title">Είπες, \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Δημιούργησα μια λίστα  \"%1$s\" %2$s at %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">για %s</string>

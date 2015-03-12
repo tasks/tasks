@@ -50,7 +50,6 @@
 	<string name="TLA_menu_search">検索</string>
 	<string name="TLA_menu_settings">設定</string>
 	<string name="TLA_custom">カスタムフィルタ</string>
-	<string name="TLA_notification_volume_low">通知はミュートされています. Tasks から通知を受け取ることができません!</string>
 	<string name="TLA_quickadd_confirm_title">\"%s\" と言いました</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">\"%1$s\" %2$s というタスクを %3$s に作成しました</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">%s に</string>

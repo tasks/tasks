@@ -50,7 +50,6 @@
 	<string name="TLA_menu_search">Rechercher</string>
 	<string name="TLA_menu_settings">Paramètres</string>
 	<string name="TLA_custom">Personnalisé</string>
-	<string name="TLA_notification_volume_low">Les notifications sont désactivées. Vous ne pourrez plus entendre Tasks !</string>
 	<string name="TLA_quickadd_confirm_title">Vous avez dit \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">J\'ai créé une tâche appelée \"%1$s\" %2$s à %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">pour %s</string>

@@ -50,7 +50,6 @@
 	<string name="TLA_menu_search">Ara</string>
 	<string name="TLA_menu_settings">Ayarlar</string>
 	<string name="TLA_custom">Özel</string>
-	<string name="TLA_notification_volume_low">Uyarılar susturuldu. Tasks \'i duyamayacaksın!</string>
 	<string name="TLA_quickadd_confirm_title">Dediniz ki, \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Bir görev oluşturdum; \"%1$s\" tarih; %2$s öncelik; %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">%s için</string>

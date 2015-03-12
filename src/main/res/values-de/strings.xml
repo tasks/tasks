@@ -48,7 +48,6 @@
 	<string name="TLA_menu_search">Suchen</string>
 	<string name="TLA_menu_settings">Einstellungen</string>
 	<string name="TLA_custom">Benutzerdefiniert</string>
-	<string name="TLA_notification_volume_low">Erinnerungen sind stummgeschaltet. Du wirst Tasks nicht hören!</string>
 	<string name="TLA_quickadd_confirm_title">Sie sagten: \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Ich habe die Aufgabe \"%1$s\" %2$s mit %3$s angelegt</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">für %s</string>

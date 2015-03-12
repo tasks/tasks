@@ -49,7 +49,6 @@
 	<string name="TLA_menu_search">Sök</string>
 	<string name="TLA_menu_settings">Inställningar</string>
 	<string name="TLA_custom">Egendefinierad</string>
-	<string name="TLA_notification_volume_low">Påminnelseljudet är avstängt! Du kommer inte att höra Tasks!</string>
 	<string name="TLA_quickadd_confirm_title">Du sa: \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Jag skapade en uppgift med namnet \"%1$s\" %2$s med %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">för %s</string>

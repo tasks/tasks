@@ -51,7 +51,6 @@
 	<string name="TLA_menu_search">Buscar</string>
 	<string name="TLA_menu_settings">Configuración</string>
 	<string name="TLA_custom">Personalizar</string>
-	<string name="TLA_notification_volume_low">Las notificaciones están silenciadas. ¡No podrá oír Tasks!</string>
 	<string name="TLA_quickadd_confirm_title">Dijiste, \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">He creado una tarea llamada \"%1$s\" %2$s con prioridad %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">para %s</string>

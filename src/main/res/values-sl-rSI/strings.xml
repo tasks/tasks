@@ -53,7 +53,6 @@
 	<string name="TLA_menu_search">Iskanje</string>
 	<string name="TLA_menu_settings">Nastavitve</string>
 	<string name="TLA_custom">Po meri</string>
-	<string name="TLA_notification_volume_low">Obvestila so utišana. Aplikacija Opravki bo neslišna!</string>
 	<string name="TLA_quickadd_confirm_title">Rekli ste, \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Ustvaril sem opravek imenovan \"%1$s\" %2$s at %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">za %s</string>

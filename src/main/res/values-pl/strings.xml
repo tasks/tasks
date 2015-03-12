@@ -50,7 +50,6 @@
 	<string name="TLA_menu_search">Szukaj</string>
 	<string name="TLA_menu_settings">Ustawienia</string>
 	<string name="TLA_custom">Własny filtr</string>
-	<string name="TLA_notification_volume_low">Powiadomienia są wyciszone. Nie będziesz w stanie usłyszeć Tasks!</string>
 	<string name="TLA_quickadd_confirm_title">Powiedziałeś, \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Stworzyłem\\-am zadanie o nazwie \"%1$s\" %2$s at %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">dla %s</string>

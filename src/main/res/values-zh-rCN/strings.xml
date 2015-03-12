@@ -50,7 +50,6 @@
 	<string name="TLA_menu_search">搜索</string>
 	<string name="TLA_menu_settings">设置</string>
 	<string name="TLA_custom">自定义</string>
-	<string name="TLA_notification_volume_low">已静音。你不会再听到了！</string>
 	<string name="TLA_quickadd_confirm_title">你说到：“%s”</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">我创建了一项叫做“%1$s”的任务，截止日期为 %2$s，优先级为 %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">执行人为 %s</string>

@@ -54,7 +54,6 @@
 	<string name="TLA_menu_search">Търсене</string>
 	<string name="TLA_menu_settings">Настройки</string>
 	<string name="TLA_custom">Други</string>
-	<string name="TLA_notification_volume_low">Уведомления са заглушени. Вие няма да можете да чуете Tasks!</string>
 	<string name="TLA_quickadd_confirm_title">Ти каза, \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Създадох задача наречена \"%1$s\" %2$s на %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">за %s</string>

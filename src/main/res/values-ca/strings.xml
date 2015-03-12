@@ -49,7 +49,6 @@
 	<string name="TLA_menu_search">Cerca</string>
 	<string name="TLA_menu_settings">Paràmetres</string>
 	<string name="TLA_custom">Personalitzat</string>
-	<string name="TLA_notification_volume_low">S\'han silenciat les notificacions. No sentireu res més d\'Tasks!</string>
 	<string name="TLA_quickadd_confirm_title">Heu dit «%s»</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">He creat una tasca anomenada «%1$s» %2$s com a %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">per a %s</string>

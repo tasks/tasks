@@ -11,8 +11,6 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteException;
-import android.media.AudioManager;
-import android.widget.Toast;
 
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
 import com.todoroo.andlib.sql.Criterion;
@@ -115,12 +113,6 @@ public class StartupService {
         } catch (SQLiteException e) {
             handleSQLiteError(activity, e);
             return;
-        }
-
-        // show notification if reminders are silenced
-        AudioManager audioManager = (AudioManager)activity.getSystemService( Context.AUDIO_SERVICE);
-        if(audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) == 0) {
-            Toast.makeText(activity, R.string.TLA_notification_volume_low, Toast.LENGTH_LONG).show();
         }
 
         // read current version

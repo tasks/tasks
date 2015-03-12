@@ -51,7 +51,6 @@
 	<string name="TLA_menu_search">חיפוש</string>
 	<string name="TLA_menu_settings">הגדרות</string>
 	<string name="TLA_custom">מותאם אישית</string>
-	<string name="TLA_notification_volume_low">ההתראות מוחרשות. לא תשמע את אסטריד יותר!</string>
 	<string name="TLA_quickadd_confirm_title">אמרת ״%s״</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">\"יצרתי את המשימה \'%1$s\' עם תאריך יעד \'%2$s\'  בעדיפות \'%3$s\'\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">לתאריך יעד %s</string>
