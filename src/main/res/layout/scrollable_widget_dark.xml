@@ -14,43 +14,19 @@
     <LinearLayout
         android:id="@+id/widget_header"
         android:layout_width="match_parent"
-        android:layout_height="39dip"
-        android:layout_gravity="top"
-        android:gravity="top"
-        android:orientation="horizontal"
-        android:padding="3dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:background="@color/widget_header_dark">
-        
-        <TextView
-            android:id="@+id/widget_title"
-            android:layout_width="fill_parent" 
-            android:layout_height="39dip"
-            android:layout_gravity="left|center_vertical" 
-            android:paddingLeft="2dip"
-            android:textColor="@color/widget_text_color_dark"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:maxLines="2"
-            android:layout_weight="1"
-            android:gravity="left|center_vertical"
-            android:ellipsize="end" />
-    
-        <ImageButton
-            android:id="@+id/widget_button"
-            android:layout_width="33dip"
-            android:layout_height="39dip"
-            android:layout_gravity="right|center_vertical"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_action_add_light"
-            android:scaleType="fitCenter"/>
-      
+
+        <include layout="@layout/widget_toolbar"/>
+
+        <ImageView
+            android:id="@+id/widget_header_separator"
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="@android:color/white"/>
+
     </LinearLayout>
-    
-    <ImageView
-        android:id="@+id/widget_header_separator"
-        android:layout_width="fill_parent"
-        android:layout_height="1px"
-        android:background="@android:color/white"/>
 
     <ListView
         android:id="@+id/list_view"

@@ -16,34 +16,11 @@
     <LinearLayout
         android:id="@+id/widget_header"
         android:layout_width="fill_parent"
-        android:layout_height="39dip"
-        android:orientation="horizontal"
-        android:padding="3dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:background="@color/primary">
 
-        <TextView
-            android:id="@+id/widget_title"
-            android:layout_width="0dp"
-            android:layout_height="39dip"
-            android:layout_gravity="left|center_vertical"
-            android:paddingLeft="2dip"
-            android:paddingRight="0dp"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:maxLines="2"
-            android:layout_weight="1"
-            android:gravity="left|center_vertical"
-            android:ellipsize="end"/>
-
-        <ImageButton
-            android:id="@+id/widget_button"
-            android:layout_width="33dip"
-            android:layout_height="39dip"
-            android:layout_gravity="right|center_vertical"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_action_add_light"
-            android:scaleType="fitCenter"/>
+        <include layout="@layout/widget_toolbar"/>
 
     </LinearLayout>
 
