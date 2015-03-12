@@ -20,10 +20,9 @@
     
     <color name="widget_text_color_light">#535353</color>
     <color name="widget_text_color_dark">#ffffff</color>
-    <color name="widget_header_light">#dde0e0e0</color>
-    <color name="widget_header_dark">#dd000000</color>
-    <color name="widget_body_light">#ddffffff</color>
-    <color name="widget_body_dark">#dd000000</color>
+    <color name="widget_header_dark">#000000</color>
+    <color name="widget_body_light">#ffffff</color>
+    <color name="widget_body_dark">#000000</color>
     <color name="task_row_bg_dark_pressed">#303030</color>
     <color name="task_row_bg_white_pressed">#dde1eb</color>
 

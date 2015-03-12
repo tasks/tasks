@@ -19,15 +19,16 @@
         android:layout_height="39dip"
         android:orientation="horizontal"
         android:padding="3dp"
-        android:background="@color/widget_header_light">
+        android:background="@color/primary">
 
         <TextView
             android:id="@+id/widget_title"
-            android:layout_width="fill_parent"
+            android:layout_width="0dp"
             android:layout_height="39dip"
             android:layout_gravity="left|center_vertical"
             android:paddingLeft="2dip"
-            android:textColor="@color/widget_text_color_light"
+            android:paddingRight="0dp"
+            android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold"
             android:maxLines="2"
@@ -41,16 +42,10 @@
             android:layout_height="39dip"
             android:layout_gravity="right|center_vertical"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_action_add"
+            android:src="@drawable/ic_action_add_light"
             android:scaleType="fitCenter"/>
 
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/widget_header_separator"
-        android:layout_width="fill_parent"
-        android:layout_height="1px"
-        android:background="@color/dark_blue_theme_color"/>
 
     <LinearLayout
         android:id="@+id/taskbody"

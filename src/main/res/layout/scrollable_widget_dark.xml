@@ -50,13 +50,13 @@
         android:id="@+id/widget_header_separator"
         android:layout_width="fill_parent"
         android:layout_height="1px"
-        android:background="@color/dark_blue_theme_color"/>
+        android:background="@android:color/white"/>
 
     <ListView
         android:id="@+id/list_view"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:background="@color/widget_body_dark"/>
+        android:background="@color/widget_body_dark" />
 
     <TextView
         android:id="@+id/empty_view"

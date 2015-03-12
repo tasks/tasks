@@ -92,7 +92,15 @@ public class WidgetUpdateService extends InjectingService {
 
     private RemoteViews buildUpdate(Context context, int widgetId) {
         boolean darkTheme = preferences.getBoolean(WidgetConfigActivity.PREF_DARK_THEME + widgetId, false);
-        RemoteViews views = getThemedRemoteViews(context, darkTheme);
+        /**
+         * The reason we use a bunch of different but almost identical layouts is that there is a bug with
+         * Android 2.1 (level 7) that doesn't allow setting backgrounds on remote views. I know it's lame,
+         * but I didn't see a better solution. Alternatively, we could disallow theming widgets on
+         * Android 2.1.
+         */
+        RemoteViews views = new RemoteViews(context.getPackageName(), darkTheme
+                ? R.layout.widget_initialized_dark
+                : R.layout.widget_initialized);
 
         int numberOfTasks = NUM_VISIBLE_TASKS;
 
@@ -174,37 +182,6 @@ public class WidgetUpdateService extends InjectingService {
             views.setOnClickPendingIntent(R.id.widget_title, pEditIntent);
         }
 
-        return views;
-    }
-
-    /**
-     * The reason we use a bunch of different but almost identical layouts is that there is a bug with
-     * Android 2.1 (level 7) that doesn't allow setting backgrounds on remote views. I know it's lame,
-     * but I didn't see a better solution. Alternatively, we could disallow theming widgets on
-     * Android 2.1.
-     */
-    private RemoteViews getThemedRemoteViews(Context context, boolean darkTheme) {
-        String packageName = context.getPackageName();
-        Resources r = context.getResources();
-        int layout;
-        RemoteViews views;
-
-        int titleColor;
-        int buttonDrawable;
-
-        if (darkTheme) {
-            layout = R.layout.widget_initialized_dark;
-            titleColor = r.getColor(R.color.widget_text_color_dark);
-            buttonDrawable = R.drawable.ic_action_add_light;
-        } else {
-            layout = R.layout.widget_initialized;
-            titleColor = r.getColor(R.color.widget_text_color_light);
-            buttonDrawable = R.drawable.ic_action_add;
-        }
-
-        views = new RemoteViews(packageName, layout);
-        views.setTextColor(R.id.widget_title, titleColor);
-        views.setInt(R.id.widget_button, "setImageResource", buttonDrawable);
         return views;
     }
 }
