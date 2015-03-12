@@ -105,6 +105,10 @@ public class WidgetUpdateService extends InjectingService {
         if (preferences.getBoolean(WidgetConfigActivity.PREF_HIDE_HEADER + widgetId, false)) {
             views.setViewVisibility(R.id.widget_header, View.GONE);
         }
+        if (preferences.getBoolean(WidgetConfigActivity.PREF_WIDGET_TRANSPARENT + widgetId, false)) {
+            views.setInt(R.id.widget_header, "setBackgroundColor", android.R.color.transparent);
+            views.setInt(R.id.taskbody, "setBackgroundColor", android.R.color.transparent);
+        }
 
         int numberOfTasks = NUM_VISIBLE_TASKS;
 

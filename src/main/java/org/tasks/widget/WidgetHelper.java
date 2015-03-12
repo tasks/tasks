@@ -72,6 +72,11 @@ public class WidgetHelper {
         if (preferences.getBoolean(WidgetConfigActivity.PREF_HIDE_HEADER + id, false)) {
             remoteViews.setViewVisibility(R.id.widget_header, View.GONE);
         }
+        if (preferences.getBoolean(WidgetConfigActivity.PREF_WIDGET_TRANSPARENT + id, false)) {
+            remoteViews.setInt(R.id.widget_header, "setBackgroundColor", android.R.color.transparent);
+            remoteViews.setInt(R.id.list_view, "setBackgroundColor", android.R.color.transparent);
+            remoteViews.setInt(R.id.empty_view, "setBackgroundColor", android.R.color.transparent);
+        }
         remoteViews.setTextViewText(R.id.widget_title, filter.title);
         remoteViews.setRemoteAdapter(R.id.list_view, rvIntent);
         remoteViews.setEmptyView(R.id.list_view, R.id.empty_view);

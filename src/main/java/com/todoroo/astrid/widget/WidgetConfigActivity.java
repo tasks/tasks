@@ -45,6 +45,7 @@ public class WidgetConfigActivity extends InjectingListActivity {
     public static final String PREF_HIDE_CHECKBOXES = "widget-hide-checkboxes-";
     public static final String PREF_DARK_THEME = "widget-dark-theme-";
     public static final String PREF_HIDE_HEADER = "widget-hide-header-";
+    public static final String PREF_WIDGET_TRANSPARENT = "widget-transparent-";
 
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
@@ -112,8 +113,10 @@ public class WidgetConfigActivity extends InjectingListActivity {
                 CheckBox darkTheme = (CheckBox) findViewById(R.id.darkTheme);
                 CheckBox hideCheckboxes = (CheckBox) findViewById(R.id.hideCheckboxes);
                 CheckBox hideHeader = (CheckBox) findViewById(R.id.hideHeader);
+                CheckBox transparent = (CheckBox) findViewById(R.id.transparentBackground);
                 saveConfiguration(adapter.getSelection(), !hideDueDate.isChecked(),
-                        darkTheme.isChecked(), hideCheckboxes.isChecked(), hideHeader.isChecked());
+                        darkTheme.isChecked(), hideCheckboxes.isChecked(), hideHeader.isChecked(),
+                        transparent.isChecked());
 
                 updateWidget();
 
@@ -147,7 +150,8 @@ public class WidgetConfigActivity extends InjectingListActivity {
     }
 
     private void saveConfiguration(FilterListItem filterListItem, boolean showDueDate,
-                                   boolean darkTheme, boolean hideCheckboxes, boolean hideHeader){
+                                   boolean darkTheme, boolean hideCheckboxes, boolean hideHeader,
+                                   boolean transparent){
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
@@ -171,6 +175,7 @@ public class WidgetConfigActivity extends InjectingListActivity {
         preferences.setBoolean(WidgetConfigActivity.PREF_DARK_THEME + mAppWidgetId, darkTheme);
         preferences.setBoolean(WidgetConfigActivity.PREF_HIDE_CHECKBOXES + mAppWidgetId, hideCheckboxes);
         preferences.setBoolean(WidgetConfigActivity.PREF_HIDE_HEADER + mAppWidgetId, hideHeader);
+        preferences.setBoolean(WidgetConfigActivity.PREF_WIDGET_TRANSPARENT + mAppWidgetId, transparent);
 
         if(filterListItem instanceof FilterWithCustomIntent) {
             String flattenedName = ((FilterWithCustomIntent)filterListItem).customTaskList.flattenToString();
