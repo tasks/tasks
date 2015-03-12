@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.RemoteViews;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -68,6 +69,9 @@ public class WidgetHelper {
         rvIntent.setData(Uri.parse(rvIntent.toUri(Intent.URI_INTENT_SCHEME)));
         boolean darkTheme = preferences.getBoolean(WidgetConfigActivity.PREF_DARK_THEME + id, false);
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), darkTheme ? R.layout.scrollable_widget_dark : R.layout.scrollable_widget_light);
+        if (preferences.getBoolean(WidgetConfigActivity.PREF_HIDE_HEADER + id, false)) {
+            remoteViews.setViewVisibility(R.id.widget_header, View.GONE);
+        }
         remoteViews.setTextViewText(R.id.widget_title, filter.title);
         remoteViews.setRemoteAdapter(R.id.list_view, rvIntent);
         remoteViews.setEmptyView(R.id.list_view, R.id.empty_view);

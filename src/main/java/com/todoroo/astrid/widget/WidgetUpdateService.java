@@ -102,6 +102,10 @@ public class WidgetUpdateService extends InjectingService {
                 ? R.layout.widget_initialized_dark
                 : R.layout.widget_initialized);
 
+        if (preferences.getBoolean(WidgetConfigActivity.PREF_HIDE_HEADER + widgetId, false)) {
+            views.setViewVisibility(R.id.widget_header, View.GONE);
+        }
+
         int numberOfTasks = NUM_VISIBLE_TASKS;
 
         TodorooCursor<Task> cursor = null;
