@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.graphics.Paint;
 import android.os.Build;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -46,6 +47,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
     private final int widgetId;
     private final boolean dark;
     private final boolean showDueDates;
+    private final boolean hideCheckboxes;
     private final DueDateFormatter dueDateFormatter;
 
     private TodorooCursor<Task> cursor;
@@ -68,7 +70,8 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
 
         dueDateFormatter = new DueDateFormatter(context);
         dark = preferences.getBoolean(WidgetConfigActivity.PREF_DARK_THEME + widgetId, false);
-        showDueDates = preferences.getBoolean(WidgetConfigActivity.PREF_DUE_DATE + widgetId, false);
+        showDueDates = preferences.getBoolean(WidgetConfigActivity.PREF_SHOW_DUE_DATE + widgetId, false);
+        hideCheckboxes = preferences.getBoolean(WidgetConfigActivity.PREF_HIDE_CHECKBOXES + widgetId, false);
     }
 
     @Override
@@ -168,10 +171,14 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             editIntent.putExtra(TaskListActivity.OPEN_TASK, task.getId());
             row.setOnClickFillInIntent(R.id.text, editIntent);
 
-            Intent completeIntent = new Intent();
-            completeIntent.setAction(TasksWidget.COMPLETE_TASK);
-            completeIntent.putExtra(TaskEditFragment.TOKEN_ID, task.getId());
-            row.setOnClickFillInIntent(R.id.completeBox, completeIntent);
+            if (hideCheckboxes) {
+                row.setViewVisibility(R.id.completeBox, View.GONE);
+            } else {
+                Intent completeIntent = new Intent();
+                completeIntent.setAction(TasksWidget.COMPLETE_TASK);
+                completeIntent.putExtra(TaskEditFragment.TOKEN_ID, task.getId());
+                row.setOnClickFillInIntent(R.id.completeBox, completeIntent);
+            }
 
             return row;
         } catch (Exception e) {

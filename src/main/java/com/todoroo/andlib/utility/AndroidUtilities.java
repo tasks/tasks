@@ -359,6 +359,10 @@ public class AndroidUtilities {
         return !atLeastIceCreamSandwich();
     }
 
+    public static boolean preHoneycomb() {
+        return !atLeastHoneycomb();
+    }
+
     public static boolean atLeastFroyo() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO;
     }

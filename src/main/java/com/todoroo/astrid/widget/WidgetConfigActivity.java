@@ -30,6 +30,7 @@ import org.tasks.widget.WidgetHelper;
 
 import javax.inject.Inject;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.preHoneycomb;
 import static com.todoroo.andlib.utility.AndroidUtilities.preIceCreamSandwich;
 
 public class WidgetConfigActivity extends InjectingListActivity {
@@ -40,7 +41,8 @@ public class WidgetConfigActivity extends InjectingListActivity {
     public static final String PREF_CUSTOM_INTENT = "widget-intent-";
     public static final String PREF_CUSTOM_EXTRAS = "widget-extras-";
     public static final String PREF_TAG_ID = "widget-tag-id-";
-    public static final String PREF_DUE_DATE = "widget-due-date-";
+    public static final String PREF_SHOW_DUE_DATE = "widget-show-due-date-";
+    public static final String PREF_HIDE_CHECKBOXES = "widget-hide-checkboxes-";
     public static final String PREF_DARK_THEME = "widget-dark-theme-";
 
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
@@ -65,78 +67,84 @@ public class WidgetConfigActivity extends InjectingListActivity {
     }
 
     @Override
-         public void onCreate(Bundle icicle) {
-             super.onCreate(icicle);
+    public void onCreate(Bundle icicle) {
+        super.onCreate(icicle);
 
-             // Set the result to CANCELED.  This will cause the widget host to cancel
-             // out of the widget placement if they press the back button.
-             setResult(RESULT_CANCELED);
+        // Set the result to CANCELED.  This will cause the widget host to cancel
+        // out of the widget placement if they press the back button.
+        setResult(RESULT_CANCELED);
 
-             // Set the view layout resource to use.
-             setContentView(R.layout.widget_config_activity);
+        // Set the view layout resource to use.
+        setContentView(R.layout.widget_config_activity);
 
-             setTitle(R.string.WCA_title);
+        if (preHoneycomb()) {
+            findViewById(R.id.hideCheckboxes).setVisibility(View.GONE);
+        }
 
-             // Find the widget id from the intent.
-             Intent intent = getIntent();
-             Bundle extras = intent.getExtras();
-             if (extras != null) {
-                 mAppWidgetId = extras.getInt(
-                         AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-             }
+        setTitle(R.string.WCA_title);
 
-             // If they gave us an intent without the widget id, just bail.
-             if (mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
-                 finish();
-             }
+        // Find the widget id from the intent.
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            mAppWidgetId = extras.getInt(
+                    AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+        }
 
-             // set up ui
-             adapter = new FilterAdapter(filterProvider, filterCounter, this, getListView(),
-                     R.layout.filter_adapter_row, true);
-             adapter.filterStyle = R.style.TextAppearance_FLA_Filter_Widget;
-             setListAdapter(adapter);
+        // If they gave us an intent without the widget id, just bail.
+        if (mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
+            finish();
+        }
 
-             Button button = (Button)findViewById(R.id.ok);
-             button.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-                     // Save configuration options
-                     CheckBox showDueDate = (CheckBox) findViewById(R.id.showDueDate);
-                     CheckBox darkTheme = (CheckBox) findViewById(R.id.darkTheme);
-                     saveConfiguration(adapter.getSelection(), showDueDate.isChecked(), darkTheme.isChecked());
+        // set up ui
+        adapter = new FilterAdapter(filterProvider, filterCounter, this, getListView(),
+                R.layout.filter_adapter_row, true);
+        adapter.filterStyle = R.style.TextAppearance_FLA_Filter_Widget;
+        setListAdapter(adapter);
 
-                     updateWidget();
+        Button button = (Button) findViewById(R.id.ok);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Save configuration options
+                CheckBox hideDueDate = (CheckBox) findViewById(R.id.hideDueDate);
+                CheckBox darkTheme = (CheckBox) findViewById(R.id.darkTheme);
+                CheckBox hideCheckboxes = (CheckBox) findViewById(R.id.hideCheckboxes);
+                saveConfiguration(adapter.getSelection(), !hideDueDate.isChecked(),
+                        darkTheme.isChecked(), hideCheckboxes.isChecked());
 
-                     // Make sure we pass back the original appWidgetId
-                     Intent resultValue = new Intent();
-                     resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
-                     setResult(RESULT_OK, resultValue);
-                     finish();
-                 }
-             });
-         }
+                updateWidget();
 
+                // Make sure we pass back the original appWidgetId
+                Intent resultValue = new Intent();
+                resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
+                setResult(RESULT_OK, resultValue);
+                finish();
+            }
+        });
+    }
 
-    @Override
-         protected void onListItemClick(ListView l, View v, int position, long id) {
-             super.onListItemClick(l, v, position, id);
-             Filter item = adapter.getItem(position);
-             adapter.setSelection(item);
-         }
-
-    @Override
-         protected void onResume() {
-             super.onResume();
-             adapter.registerRecevier();
-         }
 
     @Override
-         protected void onPause() {
-             super.onPause();
-             adapter.unregisterRecevier();
-         }
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        Filter item = adapter.getItem(position);
+        adapter.setSelection(item);
+    }
 
-    private void saveConfiguration(FilterListItem filterListItem, boolean showDueDate, boolean darkTheme){
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.registerRecevier();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        adapter.unregisterRecevier();
+    }
+
+    private void saveConfiguration(FilterListItem filterListItem, boolean showDueDate, boolean darkTheme, boolean hideCheckboxes){
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
@@ -156,8 +164,9 @@ public class WidgetConfigActivity extends InjectingListActivity {
         preferences.setString(WidgetConfigActivity.PREF_TITLE + mAppWidgetId, title);
         preferences.setString(WidgetConfigActivity.PREF_SQL + mAppWidgetId, sql);
         preferences.setString(WidgetConfigActivity.PREF_VALUES + mAppWidgetId, contentValuesString);
-        preferences.setBoolean(WidgetConfigActivity.PREF_DUE_DATE + mAppWidgetId, showDueDate);
+        preferences.setBoolean(WidgetConfigActivity.PREF_SHOW_DUE_DATE + mAppWidgetId, showDueDate);
         preferences.setBoolean(WidgetConfigActivity.PREF_DARK_THEME + mAppWidgetId, darkTheme);
+        preferences.setBoolean(WidgetConfigActivity.PREF_HIDE_CHECKBOXES + mAppWidgetId, hideCheckboxes);
 
         if(filterListItem instanceof FilterWithCustomIntent) {
             String flattenedName = ((FilterWithCustomIntent)filterListItem).customTaskList.flattenToString();

@@ -10,9 +10,19 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:checked="true"
-        android:id="@+id/showDueDate"
-        android:text="@string/widget_show_due_date"
+        android:checked="false"
+        android:id="@+id/hideDueDate"
+        android:text="@string/widget_hide_due_date"
+        android:textSize="18sp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:checked="false"
+        android:id="@+id/hideCheckboxes"
+        android:text="@string/widget_hide_checkboxes"
         android:textSize="18sp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp" />
