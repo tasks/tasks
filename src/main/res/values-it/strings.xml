@@ -49,7 +49,6 @@
 	<string name="TLA_menu_settings">Impostazioni</string>
 	<string name="TLA_custom">Personalizzato</string>
 	<string name="TLA_notification_volume_low">Le notifiche sono mutate. Non dovresti essere più in grado di sentire Tasks!</string>
-	<string name="TLA_notification_disabled">I promemoria di Tasks sono disabilitati! Non riceverai nessun promemoria</string>
 	<string name="TLA_quickadd_confirm_title">Hai detto, \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Ho creato un\'attività chiamata \"%1$s\" %2$s con %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">per %s</string>
@@ -336,9 +335,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="rmd_NoA_dlg_title">Promemoria:</string>
 	<string name="rmd_EPr_alerts_header">Impostazioni promemoria</string>
 	<string name="rmd_EPr_alerts_summary">Ore tranquille, funzione di ripetizione, livello di persistenza</string>
-	<string name="rmd_EPr_enabled_title">I promemoria sono abilitati?</string>
-	<string name="rmd_EPr_enabled_desc_true">I promemoria di Tasks sono abilitati (impostazione di default)</string>
-	<string name="rmd_EPr_enabled_desc_false">I promemoria Tasks non appariranno mai sul tuo telefono</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Ora inizio silenzio</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">Nessuna notifica apparirà dopo le %s</string>
 	<string name="rmd_EPr_quiet_hours_desc_none">Ora inizio silenzio non abilitato</string>

@@ -119,9 +119,7 @@ public class StartupService {
 
         // show notification if reminders are silenced
         AudioManager audioManager = (AudioManager)activity.getSystemService( Context.AUDIO_SERVICE);
-        if(!preferences.getBoolean(R.string.p_rmd_enabled, true)) {
-            Toast.makeText(activity, R.string.TLA_notification_disabled, Toast.LENGTH_LONG).show();
-        } else if(audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) == 0) {
+        if(audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) == 0) {
             Toast.makeText(activity, R.string.TLA_notification_volume_low, Toast.LENGTH_LONG).show();
         }
 

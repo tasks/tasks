@@ -84,12 +84,6 @@ public class ReminderPreferences extends TodorooPreferenceActivity {
             } else {
                 preference.setSummary(r.getString(R.string.rmd_EPr_snooze_dialog_desc_false));
             }
-        } else if (r.getString(R.string.p_rmd_enabled).equals(preference.getKey())) {
-            if( (Boolean)value ) {
-                preference.setSummary(R.string.rmd_EPr_enabled_desc_true);
-            } else {
-                preference.setSummary(R.string.rmd_EPr_enabled_desc_false);
-            }
         }
     }
 }

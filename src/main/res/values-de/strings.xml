@@ -49,7 +49,6 @@
 	<string name="TLA_menu_settings">Einstellungen</string>
 	<string name="TLA_custom">Benutzerdefiniert</string>
 	<string name="TLA_notification_volume_low">Erinnerungen sind stummgeschaltet. Du wirst Tasks nicht hören!</string>
-	<string name="TLA_notification_disabled">Erinnerungen durch Tasks sind ausgeschaltet! Du wirst keine Erinnerungen mehr erhalten!</string>
 	<string name="TLA_quickadd_confirm_title">Sie sagten: \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Ich habe die Aufgabe \"%1$s\" %2$s mit %3$s angelegt</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">für %s</string>
@@ -375,9 +374,6 @@
 	<string name="rmd_NoA_dlg_title">Erinnerung:</string>
 	<string name="rmd_EPr_alerts_header">Erinnerungs-Einstellungen</string>
 	<string name="rmd_EPr_alerts_summary">Ruhezeiten, Schlummer-Einstellungen, Hartnäckigkeit</string>
-	<string name="rmd_EPr_enabled_title">Erinnerungen aktiviert?</string>
-	<string name="rmd_EPr_enabled_desc_true">Erinnerungen durch Tasks sind aktiviert (Standard)</string>
-	<string name="rmd_EPr_enabled_desc_false">Tasks wird keine Erinnerungen auf deinem Telefon anzeigen</string>
 	<string name="rmd_EPr_enable_quiet_title">Stille Stunden aktivieren</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Stille Stunden beginnen.</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">Benachrichtigungen sind lautlos nach %s.\nHinweis: Vibrieren wird durch Einstellungen weiter unten gesteuert!</string>

@@ -51,7 +51,6 @@
 	<string name="TLA_menu_settings">Ayarlar</string>
 	<string name="TLA_custom">Özel</string>
 	<string name="TLA_notification_volume_low">Uyarılar susturuldu. Tasks \'i duyamayacaksın!</string>
-	<string name="TLA_notification_disabled">Tasks hatırlatıcıları devre dışı. Hatırlatma almayacaksınız.</string>
 	<string name="TLA_quickadd_confirm_title">Dediniz ki, \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Bir görev oluşturdum; \"%1$s\" tarih; %2$s öncelik; %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">%s için</string>
@@ -338,9 +337,6 @@
 	<string name="rmd_NoA_dlg_title">Hatırlatıcı:</string>
 	<string name="rmd_EPr_alerts_header">Hatırlatıcı Ayarları</string>
 	<string name="rmd_EPr_alerts_summary">Sessiz saatler, erteleme seçenekleri, süreklilik düzeyi</string>
-	<string name="rmd_EPr_enabled_title">Hatırlatmalar etkin mi?</string>
-	<string name="rmd_EPr_enabled_desc_true">Tasks hatırlatmaları etkin. (varsayılan)</string>
-	<string name="rmd_EPr_enabled_desc_false">Tasks hatırlatmaları telefonda gözükmeyecek</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Sessiz saatlerin başlangıcı</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">%s sonrasında bildirimler sessizleştirilecek.\n Not: titreşimler aşağıdaki ayarla belirlenecek.</string>
 	<string name="rmd_EPr_quiet_hours_desc_none">Sessiz saatler kapalı</string>

@@ -69,9 +69,6 @@
   <!-- Notification Volumne notification-->
   <string name="TLA_notification_volume_low">Notifications are muted. You won\'t be able to hear Tasks!</string>
   
-  <!-- Notifications disabled warning -->
-  <string name="TLA_notification_disabled">Reminders are disabled! You will not receive any reminders</string>
-  
   <!-- Title for confirmation dialog after quick add markup -->
   <string name="TLA_quickadd_confirm_title">You said, \"%s\"</string>
   

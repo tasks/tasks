@@ -51,7 +51,6 @@
 	<string name="TLA_menu_settings">Paramètres</string>
 	<string name="TLA_custom">Personnalisé</string>
 	<string name="TLA_notification_volume_low">Les notifications sont désactivées. Vous ne pourrez plus entendre Tasks !</string>
-	<string name="TLA_notification_disabled">Les rappels d\'Tasks sont désactivés ! Vous ne recevrez plus de rappels</string>
 	<string name="TLA_quickadd_confirm_title">Vous avez dit \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">J\'ai créé une tâche appelée \"%1$s\" %2$s à %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">pour %s</string>
@@ -376,9 +375,6 @@
 	<string name="rmd_NoA_dlg_title">Rappel :</string>
 	<string name="rmd_EPr_alerts_header">Paramètres de rappel</string>
 	<string name="rmd_EPr_alerts_summary">Heures de repos, options de report, niveau de persistance</string>
-	<string name="rmd_EPr_enabled_title">Activer les rappels ?</string>
-	<string name="rmd_EPr_enabled_desc_true">Les rappels d\'Tasks sont activés (c\'est normal)</string>
-	<string name="rmd_EPr_enabled_desc_false">Les rappels d\'Tasks n\' apparaîtront jamais sur votre téléphone</string>
 	<string name="rmd_EPr_enable_quiet_title">Activer le mode silencieux</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Début des heures de repos</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">Les notifications seront silencieuses après %s.\nNote : les vibrations sont contrôlées par le paramètre Vibrations</string>

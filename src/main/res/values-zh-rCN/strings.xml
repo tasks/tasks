@@ -51,7 +51,6 @@
 	<string name="TLA_menu_settings">设置</string>
 	<string name="TLA_custom">自定义</string>
 	<string name="TLA_notification_volume_low">已静音。你不会再听到了！</string>
-	<string name="TLA_notification_disabled">清单小助理提醒功能被关闭，你不会收到任何提醒。</string>
 	<string name="TLA_quickadd_confirm_title">你说到：“%s”</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">我创建了一项叫做“%1$s”的任务，截止日期为 %2$s，优先级为 %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">执行人为 %s</string>
@@ -316,9 +315,6 @@
 	<string name="rmd_NoA_dlg_title">提醒：</string>
 	<string name="rmd_EPr_alerts_header">提醒设置</string>
 	<string name="rmd_EPr_alerts_summary">勿扰模式，稍候提醒，持续提醒</string>
-	<string name="rmd_EPr_enabled_title">允许提醒？</string>
-	<string name="rmd_EPr_enabled_desc_true">清单小助理提示功能已经启用（这是正常的）</string>
-	<string name="rmd_EPr_enabled_desc_false">清单小助理清单小助理提示功能将不再显示在您的手机上</string>
 	<string name="rmd_EPr_quiet_hours_start_title">静音开始时间</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">%s 后提示将静止。\n注意：震动在下面的选项中控制！</string>
 	<string name="rmd_EPr_quiet_hours_desc_none">未设定无声时间</string>

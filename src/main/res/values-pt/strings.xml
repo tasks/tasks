@@ -52,7 +52,6 @@
 	<string name="TLA_menu_settings">Definições</string>
 	<string name="TLA_custom">Personalizado</string>
 	<string name="TLA_notification_volume_low">As notificação estão silenciadas. Não ouvirá o Tasks!</string>
-	<string name="TLA_notification_disabled">Os lembretes estão inativos! Não receberá quaisquer lembretes.</string>
 	<string name="TLA_quickadd_confirm_title">Você disse \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Criada a tarefa \"%1$s\" %2$s em %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">para %s</string>
@@ -381,9 +380,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="rmd_NoA_dlg_title">Lembrete:</string>
 	<string name="rmd_EPr_alerts_header">Definições do lembrete</string>
 	<string name="rmd_EPr_alerts_summary">Horas de silêncio, opções de snooze, nível de persistência</string>
-	<string name="rmd_EPr_enabled_title">Lembretes ativos?</string>
-	<string name="rmd_EPr_enabled_desc_true">Lembretes ativos (procedimento normal)</string>
-	<string name="rmd_EPr_enabled_desc_false">O lembretes não aparecerão no telefone</string>
 	<string name="rmd_EPr_enable_quiet_title">Ativar horas de silêncio</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Início da hora de silêncio</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">As notificações serão silenciadas após %s.\nAs vibrações são controladas pela definição \"Vibrar no alerta\"</string>

@@ -50,7 +50,6 @@
 	<string name="TLA_menu_settings">Inställningar</string>
 	<string name="TLA_custom">Egendefinierad</string>
 	<string name="TLA_notification_volume_low">Påminnelseljudet är avstängt! Du kommer inte att höra Tasks!</string>
-	<string name="TLA_notification_disabled">Påminnelserna från Tasks är avstängda! Du kommer inte att få några påminnelser</string>
 	<string name="TLA_quickadd_confirm_title">Du sa: \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Jag skapade en uppgift med namnet \"%1$s\" %2$s med %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">för %s</string>
@@ -370,9 +369,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="rmd_NoA_dlg_title">Påminnelse:</string>
 	<string name="rmd_EPr_alerts_header">Påminnelseinställningar</string>
 	<string name="rmd_EPr_alerts_summary">Tysta timmar, snooze alternativ, envishets-nivå</string>
-	<string name="rmd_EPr_enabled_title">Påminnelser valda?</string>
-	<string name="rmd_EPr_enabled_desc_true">Påminnelser från Tasks är valda (normalt)</string>
-	<string name="rmd_EPr_enabled_desc_false">Påminnelser från Tasks visas inte i telefonen</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Tyst period börjar</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">Inga varsel visas efter %s</string>
 	<string name="rmd_EPr_quiet_hours_desc_none">Tyst period är inaktiverad</string>

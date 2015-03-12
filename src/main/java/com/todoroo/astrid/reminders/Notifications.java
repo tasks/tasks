@@ -95,9 +95,6 @@ public class Notifications extends InjectingBroadcastReceiver {
             return false;
         }
 
-        if (!preferences.getBoolean(R.string.p_rmd_enabled, true)) {
-            return false;
-        }
         // you're done, or not yours - don't sound, do delete
         if (task.isCompleted() || task.isDeleted()) {
             return false;

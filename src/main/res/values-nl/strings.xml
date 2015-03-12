@@ -50,7 +50,6 @@
 	<string name="TLA_menu_settings">Instellingen</string>
 	<string name="TLA_custom">Aangepast</string>
 	<string name="TLA_notification_volume_low">Meldingsgeluid uitgeschakeld. U kunt Tasks niet horen!</string>
-	<string name="TLA_notification_disabled">Tasks herinneringen zijn uitgeschakeld! Je ontvangt geen herinneringen.</string>
 	<string name="TLA_quickadd_confirm_title">Jij zei, \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Ik heb een taak gemaakt genaamd \"%1$s\" %2$s op %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">voor %s</string>
@@ -378,9 +377,6 @@
 	<string name="rmd_NoA_dlg_title">Herinnering:</string>
 	<string name="rmd_EPr_alerts_header">Instellingen herinneringen</string>
 	<string name="rmd_EPr_alerts_summary">Rustige uren, snooze opties, niveau volhouden</string>
-	<string name="rmd_EPr_enabled_title">Herinneringen Ingeschakeld?</string>
-	<string name="rmd_EPr_enabled_desc_true">Tasks herinneringen zijn ingeschakeld (dit is normaal)</string>
-	<string name="rmd_EPr_enabled_desc_false">Tasks herinneringen zullen nooit weergegeven worden op je telefoon</string>
 	<string name="rmd_EPr_enable_quiet_title">Stel stille tijd in</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Rustperiode begint</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">Waarschuwingen geluidloos na %s.\nOpmerking: trillen wordt via onderstaande instellingen ingesteld!</string>

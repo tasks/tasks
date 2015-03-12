@@ -52,7 +52,6 @@
 	<string name="TLA_menu_settings">設定</string>
 	<string name="TLA_custom">自訂</string>
 	<string name="TLA_notification_volume_low">已靜音。你不會再聽到了！</string>
-	<string name="TLA_notification_disabled">Tasks提醒功能被關閉，你不會收到任何提醒。</string>
 	<string name="TLA_quickadd_confirm_title">你說: \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">我建立的「%1$s」%3$s 將於 %2$s 到期</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">為 %s</string>
@@ -356,9 +355,6 @@
 	<string name="rmd_NoA_dlg_title">提醒：</string>
 	<string name="rmd_EPr_alerts_header">提醒設置</string>
 	<string name="rmd_EPr_alerts_summary">勿擾模式，稍候提醒，持續提醒</string>
-	<string name="rmd_EPr_enabled_title">允許提醒？</string>
-	<string name="rmd_EPr_enabled_desc_true">Tasks 提示功能已經啟用（這是正常的）</string>
-	<string name="rmd_EPr_enabled_desc_false">Tasks 提示功能將不再出現在您的手機裡</string>
 	<string name="rmd_EPr_quiet_hours_start_title">無聲開始時間</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">%s 後提示將靜止。\n注意：震動在下面的選項中控制！</string>
 	<string name="rmd_EPr_quiet_hours_desc_none">未設定無聲功能</string>

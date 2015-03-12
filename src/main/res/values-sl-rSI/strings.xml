@@ -54,7 +54,6 @@
 	<string name="TLA_menu_settings">Nastavitve</string>
 	<string name="TLA_custom">Po meri</string>
 	<string name="TLA_notification_volume_low">Obvestila so utišana. Aplikacija Opravki bo neslišna!</string>
-	<string name="TLA_notification_disabled">Opomniki so onemogočeni, zato se ne bodo pojavljali.</string>
 	<string name="TLA_quickadd_confirm_title">Rekli ste, \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Ustvaril sem opravek imenovan \"%1$s\" %2$s at %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">za %s</string>
@@ -380,9 +379,6 @@
 	<string name="rmd_NoA_dlg_title">Opomnik:</string>
 	<string name="rmd_EPr_alerts_header">Nastavitve opomnika</string>
 	<string name="rmd_EPr_alerts_summary">Tihi čas, možnosti dremeža, stopnja vztrajnosti</string>
-	<string name="rmd_EPr_enabled_title">Opomniki omogočeni?</string>
-	<string name="rmd_EPr_enabled_desc_true">Opomniki so omogočeni (to je običajno)</string>
-	<string name="rmd_EPr_enabled_desc_false">Opomniki se ne bodo nikoli pojavili na vaši napravi</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Tihe ure se začnejo ob</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">Obvestila bodo utišana po %s.\n Obvestilo: vibriranje določajo nastavitve \"Vibriranje ob opozorilih\"</string>
 	<string name="rmd_EPr_quiet_hours_desc_none">Tihe ure onemogočene</string>

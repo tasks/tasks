@@ -51,7 +51,6 @@
 	<string name="TLA_menu_settings">Nastavení</string>
 	<string name="TLA_custom">Vlastní</string>
 	<string name="TLA_notification_volume_low">Upozornění jsou ztlumena. Neuslyšíte Tasks!</string>
-	<string name="TLA_notification_disabled">Upomínky Tasks jsou vypnuté! Nedostanete žádná upozornění</string>
 	<string name="TLA_quickadd_confirm_title">Říkal jsi, že \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Vytvořila jsem úkol s názvem \"%1$s\", %3$s priorita, do %2$s</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">Nezobrazovat budoucí potvrzení</string>
@@ -369,9 +368,6 @@
 	<string name="rmd_NoA_dlg_title">Připomenutí:</string>
 	<string name="rmd_EPr_alerts_header">Nastavení upomínek</string>
 	<string name="rmd_EPr_alerts_summary">Čas klidu, nastavení odložení, úroveň vytrvalosti</string>
-	<string name="rmd_EPr_enabled_title">Povolit upomínky?</string>
-	<string name="rmd_EPr_enabled_desc_true">Upomínky jsou zapnuté (to je obvyklé)</string>
-	<string name="rmd_EPr_enabled_desc_false">Upomínky se nikdy neobjeví ve tvém telefonu</string>
 	<string name="rmd_EPr_enable_quiet_title">Zapnout klidový režim</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Nerušit od</string>
 	<string name="rmd_EPr_quiet_hours_desc_none">Tichý režim zakázán</string>

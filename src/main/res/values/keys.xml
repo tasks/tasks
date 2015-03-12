@@ -9,9 +9,6 @@
 
   <!-- ======================================================== REMINDERS == -->
 
-  <!-- whether reminders should appear at all -->
-  <string name="p_rmd_enabled">notif_enabled</string>
-
   <!-- boolean : whether to enable quiet hours or not -->
   <string name="p_rmd_enable_quiet">enable_qhours</string>
 

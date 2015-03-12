@@ -55,7 +55,6 @@
 	<string name="TLA_menu_settings">Налаштування</string>
 	<string name="TLA_custom">Користувальницький</string>
 	<string name="TLA_notification_volume_low">Сповіщення приглушені. Ви не зможете почути Tasks!</string>
-	<string name="TLA_notification_disabled">Нагадування відключені! Ви не будете отримувати нагадування</string>
 	<string name="TLA_quickadd_confirm_title">Ти сказав, \\"%s\\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Я створив задачу названу  \"%1$s\" %2$s на %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">для %s</string>
@@ -383,9 +382,6 @@
 	<string name="rmd_NoA_dlg_title">Нагадування:</string>
 	<string name="rmd_EPr_alerts_header">Налаштування нагадувань</string>
 	<string name="rmd_EPr_alerts_summary">Тихі години, опції короткого сну, рівень наполегливості</string>
-	<string name="rmd_EPr_enabled_title">Увімкнути нагадування?</string>
-	<string name="rmd_EPr_enabled_desc_true">Нагадування увімкенні (це нормально)</string>
-	<string name="rmd_EPr_enabled_desc_false">Нагадування ніколи не з\'являться на вашому телефоні</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Тихі години стартують</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">Повідомлення будуть беззвучними після %s.\n Примітка:. Вібрація управляється налаштуваннями нижче!</string>
 	<string name="rmd_EPr_quiet_hours_desc_none">Тихі години вимкнено</string>

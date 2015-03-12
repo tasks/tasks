@@ -51,7 +51,6 @@
 	<string name="TLA_menu_settings">設定</string>
 	<string name="TLA_custom">カスタムフィルタ</string>
 	<string name="TLA_notification_volume_low">通知はミュートされています. Tasks から通知を受け取ることができません!</string>
-	<string name="TLA_notification_disabled">リマインダーは無効になっています! リマインダーを受け取りません</string>
 	<string name="TLA_quickadd_confirm_title">\"%s\" と言いました</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">\"%1$s\" %2$s というタスクを %3$s に作成しました</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">%s に</string>
@@ -381,9 +380,6 @@
 	<string name="rmd_NoA_dlg_title">お知らせ.</string>
 	<string name="rmd_EPr_alerts_header">通知の設定</string>
 	<string name="rmd_EPr_alerts_summary">消音時間帯, スヌーズオプション, 持続レベル</string>
-	<string name="rmd_EPr_enabled_title">リマインダーは有効にされていますか?</string>
-	<string name="rmd_EPr_enabled_desc_true">リマインダーは有効にされています (通常)</string>
-	<string name="rmd_EPr_enabled_desc_false">通知はもう電話に表示されません</string>
 	<string name="rmd_EPr_enable_quiet_title">消音時間帯を有効にする</string>
 	<string name="rmd_EPr_quiet_hours_start_title">消音時間の始まり</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">%s 以降、通知音は鳴りません</string>

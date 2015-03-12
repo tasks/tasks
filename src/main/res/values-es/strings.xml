@@ -52,7 +52,6 @@
 	<string name="TLA_menu_settings">Configuración</string>
 	<string name="TLA_custom">Personalizar</string>
 	<string name="TLA_notification_volume_low">Las notificaciones están silenciadas. ¡No podrá oír Tasks!</string>
-	<string name="TLA_notification_disabled">¡Los recordatorios de Tasks están deshabilitados! No recibirás ningún recordatorio</string>
 	<string name="TLA_quickadd_confirm_title">Dijiste, \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">He creado una tarea llamada \"%1$s\" %2$s con prioridad %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">para %s</string>
@@ -377,9 +376,6 @@
 	<string name="rmd_NoA_dlg_title">Recordatorio:</string>
 	<string name="rmd_EPr_alerts_header">Configurar recordatorios</string>
 	<string name="rmd_EPr_alerts_summary">Horario en silencio, opciones al posponer, nivel de persistencia</string>
-	<string name="rmd_EPr_enabled_title">¿Habilitar recordatorios?</string>
-	<string name="rmd_EPr_enabled_desc_true">Los avisos de Tasks están habilitados (esto es lo normal)</string>
-	<string name="rmd_EPr_enabled_desc_false">Los avisos de Tasks no aparecerán nunca en el teléfono</string>
 	<string name="rmd_EPr_enable_quiet_title">Habilitar horario en silencio</string>
 	<string name="rmd_EPr_quiet_hours_start_title">El horario en silencio empieza</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">Notificaciones serán silenciadas después de %s.\nNota: las vibraciones están controladas según la configuración \"Vibrar en alerta\"</string>

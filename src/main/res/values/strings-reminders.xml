@@ -74,13 +74,6 @@
   <string name="rmd_EPr_alerts_header">Reminder settings</string>
   <string name="rmd_EPr_alerts_summary">Quiet hours, snooze options, persistence level</string>
     
-  <!-- Reminder Preference: Reminders Enabled Title -->
-  <string name="rmd_EPr_enabled_title">Reminders enabled?</string>
-  <!-- Reminder Preference Reminders Enabled Description (true) -->
-  <string name="rmd_EPr_enabled_desc_true">Reminders are enabled (this is normal)</string>
-  <!-- Reminder Preference Reminders Enabled Description (false) -->
-  <string name="rmd_EPr_enabled_desc_false">Reminders will never appear on your phone</string>
-
   <!-- Reminder Preference: Quiet Hours Start Title -->
   <string name="rmd_EPr_enable_quiet_title">Enable quiet hours</string>
   <!-- Reminder Preference: Quiet Hours Start Title -->

@@ -54,7 +54,6 @@
 	<string name="TLA_menu_settings">Ρυθμίσεις</string>
 	<string name="TLA_custom">Προσαρμοσμένο</string>
 	<string name="TLA_notification_volume_low">Οι ειδοποιήσεις είναι σε σίγαση. Δε θα λαμβάνεται νέα από την εφαρμογή!</string>
-	<string name="TLA_notification_disabled">Απενεργοποιημένες ειδοποιήσεις! Δε θα λαμβάνεται καμία ειδοποίηση</string>
 	<string name="TLA_quickadd_confirm_title">Είπες, \"%s\"</string>
 	<string name="TLA_quickadd_confirm_speech_bubble">Δημιούργησα μια λίστα  \"%1$s\" %2$s at %3$s</string>
 	<string name="TLA_quickadd_confirm_speech_bubble_date">για %s</string>
@@ -377,9 +376,6 @@
 	<string name="rmd_NoA_dlg_title">Υπενθύμιση:</string>
 	<string name="rmd_EPr_alerts_header">Ρυθμίσεις υπενθυμίσεων</string>
 	<string name="rmd_EPr_alerts_summary">Ώρες ησυχίας, ρυθμίσεις αναβολής, επίπεδο επιμονής</string>
-	<string name="rmd_EPr_enabled_title">Ενεργοποίηση  υπενθυμίσεων;</string>
-	<string name="rmd_EPr_enabled_desc_true">Υπενθυμίσεις ενεργές (κανονικό)</string>
-	<string name="rmd_EPr_enabled_desc_false">Υπενθυμίσεις δεν θα εμφανιστούν ποτέ στο τηλέφωνό σας</string>
 	<string name="rmd_EPr_enable_quiet_title">Ενεργοποίηση ωρών ησυχίας</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Ξεκίνησε η ώρα ησυχίας </string>
 	<string name="rmd_EPr_quiet_hours_start_desc">Σίγαση υπενθυμίσεων μετά τις %s.\nΣημείωση: η δόνηση ελέγχεται από τη ρύθμιση   \"Δόνηση ειδοποιήσεων\"</string>
