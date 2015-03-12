@@ -397,9 +397,6 @@
 	<string name="rmd_EPr_vibrate_title">Trillen bij herinnering</string>
 	<string name="rmd_EPr_vibrate_desc_true">Tasks laat telefoon trillen bij herinnering</string>
 	<string name="rmd_EPr_vibrate_desc_false">Tasks laat telefoon niet trillen bij herinnering</string>
-	<string name="rmd_EPr_snooze_dialog_title">Sluimeren dialoog UU:MM</string>
-	<string name="rmd_EPr_snooze_dialog_desc_true">Sluimeren door selecteren nieuwe sluimertijd (UU:MM)</string>
-	<string name="rmd_EPr_snooze_dialog_desc_false">Sluimeren door selecteren aantal dagen/uren sluimertijd</string>
 	<string name="rmd_EPr_defaultRemind_title">Willekeurige herinneringen</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Nieuwe taken hebben geen willekeurige herinneringen</string>
 	<string name="rmd_EPr_defaultRemind_desc">Nieuwe taken willekeurig herinneren: %s</string>

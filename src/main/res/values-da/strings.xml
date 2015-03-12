@@ -202,9 +202,6 @@
 	<string name="rmd_EPr_ringtone_desc_default">Standard ringetone vil blive brugt</string>
 	<string name="rmd_EPr_persistent_desc_true">Påmindelser skal vises individuelt for at blive ryddet</string>
 	<string name="rmd_EPr_vibrate_title">Vibrer ved påmindelse</string>
-	<string name="rmd_EPr_snooze_dialog_title">Snooze-vindue HH:MM</string>
-	<string name="rmd_EPr_snooze_dialog_desc_true">Snooze ved at vælge ny snooze-tid (HH:MM)</string>
-	<string name="rmd_EPr_snooze_dialog_desc_false">Snooze ved at vælge de # dage/timer der skal snoozes</string>
 	<string name="rmd_EPr_defaultRemind_title">Tilfældige påmindelser</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Nye opgaver vil ikke have tilfældige påmindelser</string>
 	<string name="rmd_EPr_defaultRemind_desc">Nye opgaver vil blive påmindet tilfældigt: %s</string>

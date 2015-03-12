@@ -400,9 +400,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="rmd_EPr_vibrate_title">Ostrzeżenie wibracyjne</string>
 	<string name="rmd_EPr_vibrate_desc_true">Tasks powiadomi wibracjami podczas wysyłania powiadomienia</string>
 	<string name="rmd_EPr_vibrate_desc_false">Tasks nie będzie powiadamiał wibracjami podczas wysyłania powiadomienia</string>
-	<string name="rmd_EPr_snooze_dialog_title">Tekst drzemki HH:MM</string>
-	<string name="rmd_EPr_snooze_dialog_desc_true">Uśpij wybierając nową godzinę drzemki (HH:MM)</string>
-	<string name="rmd_EPr_snooze_dialog_desc_false">Uśpij wybierając # dni/godziny uśpienia</string>
 	<string name="rmd_EPr_defaultRemind_title">Losowe przypomnienia</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Nowe zadania nie będą miały losowych przypomnień</string>
 	<string name="rmd_EPr_defaultRemind_desc">Nowe zadania będą przypominane losowo: %s</string>

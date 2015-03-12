@@ -401,9 +401,6 @@
 	<string name="rmd_EPr_vibrate_title">알림시 진동</string>
 	<string name="rmd_EPr_vibrate_desc_true">알림시 진동합니다.</string>
 	<string name="rmd_EPr_vibrate_desc_false">알림시 진동하지 않습니다.</string>
-	<string name="rmd_EPr_snooze_dialog_title">알림 지연 HH:MM</string>
-	<string name="rmd_EPr_snooze_dialog_desc_true">새 지연 시간을 선택하여 알림 연기 (HH:MM)</string>
-	<string name="rmd_EPr_snooze_dialog_desc_false">미룰 날짜/시간을 선택하여 알림 연기</string>
 	<string name="rmd_EPr_defaultRemind_title">랜덤 알림</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">새 일정은 무작위로 알리지 않습니다</string>
 	<string name="rmd_EPr_defaultRemind_desc">새 일정을 무작위로 알려 줍니다: %s</string>

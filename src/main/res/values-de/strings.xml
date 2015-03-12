@@ -394,9 +394,6 @@
 	<string name="rmd_EPr_vibrate_title">Vibrieren beim Alarm</string>
 	<string name="rmd_EPr_vibrate_desc_true">Tasks wird beim Senden von Benachrichtigungen vibrieren</string>
 	<string name="rmd_EPr_vibrate_desc_false">Tasks wird beim Senden von Erinnerungen nicht vibrieren</string>
-	<string name="rmd_EPr_snooze_dialog_title">Schlummer-Dialog HH:MM</string>
-	<string name="rmd_EPr_snooze_dialog_desc_true">Schlummerfunktion durch Auswahl neuer Zeit (HH:MM) aktivieren</string>
-	<string name="rmd_EPr_snooze_dialog_desc_false">Schlummern durch Auswahl von # Tagen/Stunden</string>
 	<string name="rmd_EPr_defaultRemind_title">Zufällige Erinnerungen</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Neue Aufgaben sollen keine zufälligen Erinnerungen haben</string>
 	<string name="rmd_EPr_defaultRemind_desc">Neue Aufgaben werden zufällig erinnern: %s</string>

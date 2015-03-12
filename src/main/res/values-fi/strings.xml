@@ -38,9 +38,6 @@
 	<string name="CFC_importance_name">Prioriteetti...</string>
 	<string name="CFC_tag_text">Lista: ?</string>
 	<string name="CFC_tag_name">Lista...</string>
-	<string name="rmd_EPr_snooze_dialog_title">Torkuta ilmoitus HH:MM</string>
-	<string name="rmd_EPr_snooze_dialog_desc_true">Torkuta valitsemalla uusi torkkuajastin (HH: MM)</string>
-	<string name="rmd_EPr_snooze_dialog_desc_false">Torkuta valitsemalla # päivää / tuntia torkkua</string>
 	<string name="rmd_EPr_defaultRemind_title">Satunnainen muistutus</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Uusia tehtäviä ei ole satunnaisia muistutuksia</string>
 	<string name="rmd_EPr_defaultRemind_desc">Uudet tehtävät muistuttaa satunnaisesti: %s</string>

@@ -123,13 +123,6 @@
   <!-- Reminder Preference: Vibrate Description (false) -->
   <string name="rmd_EPr_vibrate_desc_false">Tasks will not vibrate when sending notifications</string>
 
-  <!-- Reminder Preference: Snooze Dialog Title -->  
-  <string name="rmd_EPr_snooze_dialog_title">Snooze dialog HH:MM</string>
-  <!-- Reminder Preference: Snooze Dialog Description (true) -->
-  <string name="rmd_EPr_snooze_dialog_desc_true">Snooze by selecting new snooze time (HH:MM)</string>
-  <!-- Reminder Preference: Nagging Description (false) -->
-  <string name="rmd_EPr_snooze_dialog_desc_false">Snooze by selecting # days/hours to snooze</string>
-  
   <!-- slide 44g: Reminder Preference: Default Reminders Title -->
   <string name="rmd_EPr_defaultRemind_title">Random reminders</string>
   <!-- Reminder Preference: Default Reminders Setting (disabled) -->

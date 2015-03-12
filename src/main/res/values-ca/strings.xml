@@ -236,9 +236,6 @@
 	<string name="rmd_EPr_vibrate_title">Vibrar amb les Alertes</string>
 	<string name="rmd_EPr_vibrate_desc_true">Tasks vibrarà quan enviï notificacions</string>
 	<string name="rmd_EPr_vibrate_desc_false">Tasks no vibrarà quan enviï notificacions</string>
-	<string name="rmd_EPr_snooze_dialog_title">Diàleg de retard HH:MM</string>
-	<string name="rmd_EPr_snooze_dialog_desc_true">Silencia seleccionant un nou temps límit (HH:MM)</string>
-	<string name="rmd_EPr_snooze_dialog_desc_false">Silencia seleccionant # dies/hores a adormir</string>
 	<string name="rmd_EPr_defaultRemind_title">Notificacions al Atzar</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Les tasques noves no mostraran notificacions a l\'atzar</string>
 	<string name="rmd_EPr_defaultRemind_desc">Les tasques noves notificaràn al atzar: %s</string>

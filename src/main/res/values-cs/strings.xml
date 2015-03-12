@@ -386,9 +386,6 @@
 	<string name="rmd_EPr_vibrate_title">Vibruj při upozornění</string>
 	<string name="rmd_EPr_vibrate_desc_true">Tasks bude vibrovat při odesílání upozornění</string>
 	<string name="rmd_EPr_vibrate_desc_false">Tasks nebude vibrovat při odesílání upozornění</string>
-	<string name="rmd_EPr_snooze_dialog_title">Dialog pro odložení HH:MM</string>
-	<string name="rmd_EPr_snooze_dialog_desc_true">Odložení - výběr nového času (HH:MM)</string>
-	<string name="rmd_EPr_snooze_dialog_desc_false">Odložení - výběr času a dne</string>
 	<string name="rmd_EPr_defaultRemind_title">Náhodná upozornění</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Nové úkoly nebudou mít náhodné upozornění</string>
 	<string name="rmd_EPr_defaultRemind_desc">Na nové úkoly bude upozorňováno náhodně: %s</string>

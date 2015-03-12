@@ -395,9 +395,6 @@
 	<string name="rmd_EPr_vibrate_title">Vibre lors d\'une alerte</string>
 	<string name="rmd_EPr_vibrate_desc_true">Tasks vibrera lors de l\'envoi de notifications</string>
 	<string name="rmd_EPr_vibrate_desc_false">Tasks ne vibrera pas lors de l\'envoi de notifications</string>
-	<string name="rmd_EPr_snooze_dialog_title">Info-bulle de report HH:MM</string>
-	<string name="rmd_EPr_snooze_dialog_desc_true">Reporter en sélectionnant un nouvel horaire de report (HH:MM)</string>
-	<string name="rmd_EPr_snooze_dialog_desc_false">Reporter en sélectionnant # jours/heures à reporter</string>
 	<string name="rmd_EPr_defaultRemind_title">Rappels aléatoires</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Les nouvelles tâches n\'auront pas de rappels aléatoires</string>
 	<string name="rmd_EPr_defaultRemind_desc">Les nouvelles tâches rappèleront aléatoirement : %s</string>

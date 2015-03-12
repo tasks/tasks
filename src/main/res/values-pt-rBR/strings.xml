@@ -394,9 +394,6 @@
 	<string name="rmd_EPr_vibrate_title">Vibração de alerta</string>
 	<string name="rmd_EPr_vibrate_desc_true">Tasks irá vibrar quando enviar notificações</string>
 	<string name="rmd_EPr_vibrate_desc_false">Tasks não irá vibrar quando enviar notificações</string>
-	<string name="rmd_EPr_snooze_dialog_title">Soneca HH:MM</string>
-	<string name="rmd_EPr_snooze_dialog_desc_true">Adiar em horas/minutos</string>
-	<string name="rmd_EPr_snooze_dialog_desc_false">Adiar em # dias/horas</string>
 	<string name="rmd_EPr_defaultRemind_title">Lembretes aleatórios</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Novas tarefas não terão lembretes aleatórios</string>
 	<string name="rmd_EPr_defaultRemind_desc">Novas tarefas irão lembrar aleatoriamente: %s</string>

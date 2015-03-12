@@ -400,9 +400,6 @@
 	<string name="rmd_EPr_vibrate_title">アラート時に振動する</string>
 	<string name="rmd_EPr_vibrate_desc_true">通知するときに振動します</string>
 	<string name="rmd_EPr_vibrate_desc_false">通知するときに振動しません</string>
-	<string name="rmd_EPr_snooze_dialog_title">スヌーズの時刻指定</string>
-	<string name="rmd_EPr_snooze_dialog_desc_true">次のスヌーズ時刻を 時:分 で指定します</string>
-	<string name="rmd_EPr_snooze_dialog_desc_false">次のスヌーズまでの時間間隔を指定します</string>
 	<string name="rmd_EPr_defaultRemind_title">ランダムな通知</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">新規タスクにランダムな通知を設定しません</string>
 	<string name="rmd_EPr_defaultRemind_desc">新規タスクにランダムな通知を設定します:%s</string>

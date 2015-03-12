@@ -393,9 +393,6 @@
 	<string name="rmd_EPr_vibrate_title">רטט בזמן אתראה</string>
 	<string name="rmd_EPr_vibrate_desc_true">אסטריד תצרף רטט להתראות</string>
 	<string name="rmd_EPr_vibrate_desc_false">אסטריד לא תצרף רטט להתראות</string>
-	<string name="rmd_EPr_snooze_dialog_title">בקרת השתקה HH:MM</string>
-	<string name="rmd_EPr_snooze_dialog_desc_true">השתק עד לשעה מסויימת (HH:MM)</string>
-	<string name="rmd_EPr_snooze_dialog_desc_false">השתק ע״י בחירת שקט למס\' שעות/ימים</string>
 	<string name="rmd_EPr_defaultRemind_title">תזכורות אקראיות</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">משימות חדשות לא תכלנה תזכורות אקראיות</string>
 	<string name="rmd_EPr_defaultRemind_desc">משימות חדשות יתזכרו אותך אקראית: %s</string>

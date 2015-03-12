@@ -374,9 +374,6 @@
 	<string name="rmd_EPr_vibrate_title">震動提醒</string>
 	<string name="rmd_EPr_vibrate_desc_true">傳送通知時會震動</string>
 	<string name="rmd_EPr_vibrate_desc_false">傳送通知震動關閉</string>
-	<string name="rmd_EPr_snooze_dialog_title">晚點提醒對話框 小時:分鐘</string>
-	<string name="rmd_EPr_snooze_dialog_desc_true">選擇晚點提醒的時間(小時:分鐘)</string>
-	<string name="rmd_EPr_snooze_dialog_desc_false">選擇幾天/小時後再提醒</string>
 	<string name="rmd_EPr_defaultRemind_title">隨機提醒</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">隨機提醒功能關閉</string>
 	<string name="rmd_EPr_defaultRemind_desc">工作將隨機提醒: %s</string>

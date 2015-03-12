@@ -402,8 +402,6 @@
 	<string name="rmd_EPr_vibrate_title">Вибриране при уведомление</string>
 	<string name="rmd_EPr_vibrate_desc_true">Tasks ще вибрира при изпращане на уведомления</string>
 	<string name="rmd_EPr_vibrate_desc_false">Tasks няма да вибрира при изпращане на уведомления</string>
-	<string name="rmd_EPr_snooze_dialog_desc_true">Отлагане чрез избор на ново време на отлагане (ЧЧ:ММ)</string>
-	<string name="rmd_EPr_snooze_dialog_desc_false">Отлагане чрез избор на # дни/часове за отлагане</string>
 	<string name="rmd_EPr_defaultRemind_title">Случайни напомняния</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Нови задачи няма да имат случайни напомняния</string>
 	<string name="rmd_EPr_defaultRemind_desc">Нови задачи ще напомнят на случаен принцип: %s</string>

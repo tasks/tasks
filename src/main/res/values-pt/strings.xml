@@ -400,9 +400,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="rmd_EPr_vibrate_title">Vibrar no alerta</string>
 	<string name="rmd_EPr_vibrate_desc_true">O Tasks vibrará ao enviar notificações</string>
 	<string name="rmd_EPr_vibrate_desc_false">O Tasks não vibrará ao enviar notificações</string>
-	<string name="rmd_EPr_snooze_dialog_title">Diálogo de snooze HH:MM</string>
-	<string name="rmd_EPr_snooze_dialog_desc_true">Parar escolhendo um período (HH:MM)</string>
-	<string name="rmd_EPr_snooze_dialog_desc_false">Parar escolhendo # dias/horas</string>
 	<string name="rmd_EPr_defaultRemind_title">Lembretes aleatórios</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">As novas tarefas não terão lembretes aleatórios</string>
 	<string name="rmd_EPr_defaultRemind_desc">As novas tarefas terão lembretes aleatórios: %s</string>

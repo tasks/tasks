@@ -398,9 +398,6 @@
 	<string name="rmd_EPr_vibrate_title">Vibriraj ob opozorilih</string>
 	<string name="rmd_EPr_vibrate_desc_true">Aplikacija Opravki bo vibrirala ob pošiljanju obvestil</string>
 	<string name="rmd_EPr_vibrate_desc_false">Aplikacija Opravki ne bo vibrirala ob pošiljanju obvestil</string>
-	<string name="rmd_EPr_snooze_dialog_title">Pogovor o dremežu UU:MM</string>
-	<string name="rmd_EPr_snooze_dialog_desc_true">Začni dremež z nastavitvijo novega časa za dremež (UU:MM)</string>
-	<string name="rmd_EPr_snooze_dialog_desc_false">Začni dremež z nastavitvijo števila dni/ur dremeža</string>
 	<string name="rmd_EPr_defaultRemind_title">Naključni opomniki</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Novi opravki bodo brez naključnih opomnikov</string>
 	<string name="rmd_EPr_defaultRemind_desc">Nova opravila bodo opominjala naključno: %s</string>

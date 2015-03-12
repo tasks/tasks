@@ -45,9 +45,6 @@
   <!-- ringtone to use for notifications -->
   <string name="p_rmd_ringtone">notification_ringtone</string>
   
-  <!-- if true / unset, hh:mm dialog. otherwise, days / hours -->
-  <string name="p_rmd_snooze_dialog">snooze_dialog</string>
-  
   <!-- default random reminder setting (in hours) -->
   <string name="p_rmd_default_random_hours">notif_default_reminder</string>
 

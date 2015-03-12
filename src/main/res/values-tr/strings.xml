@@ -356,9 +356,6 @@
 	<string name="rmd_EPr_vibrate_title">Uyarı esnasında titreşim</string>
 	<string name="rmd_EPr_vibrate_desc_true">Tasks bildirimleri gönderirken titreyecek</string>
 	<string name="rmd_EPr_vibrate_desc_false">Tasks bildirimleri gönderirken titremeyecek</string>
-	<string name="rmd_EPr_snooze_dialog_title">Erteleme İletisi SS:DD</string>
-	<string name="rmd_EPr_snooze_dialog_desc_true">Yeni erteleme süresi ile ertele (SS:DD)</string>
-	<string name="rmd_EPr_snooze_dialog_desc_false">Ertelemeyi # gün/saat seçerek yap</string>
 	<string name="rmd_EPr_defaultRemind_title">Rastgele Hatırlatmalar</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Yeni görev rastgele hatırlatmayacak</string>
 	<string name="rmd_EPr_defaultRemind_desc">Yeni görevler rastgele hatırlatacak: %s</string>

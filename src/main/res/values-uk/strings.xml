@@ -401,9 +401,6 @@
 	<string name="rmd_EPr_vibrate_title">Будильник з вібрацією</string>
 	<string name="rmd_EPr_vibrate_desc_true">Tasks буде вібувати при сповіщені</string>
 	<string name="rmd_EPr_vibrate_desc_false">Tasks не буде вібувати при сповіщені</string>
-	<string name="rmd_EPr_snooze_dialog_title">Дрімати dialog HH:MM</string>
-	<string name="rmd_EPr_snooze_dialog_desc_true">Дрімати ввівши новий час  (HH:MM)</string>
-	<string name="rmd_EPr_snooze_dialog_desc_false">Відкласти вибравши #днів/годин</string>
 	<string name="rmd_EPr_defaultRemind_title">Випадкові нагадування</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">У нових завдань не буде випадкових нагадувань</string>
 	<string name="rmd_EPr_defaultRemind_desc">Випадково нагадувати про нові завдання: %s</string>
