@@ -69,7 +69,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
         this.taskService = taskService;
 
         dueDateFormatter = new DueDateFormatter(context);
-        dark = preferences.getBoolean(WidgetConfigActivity.PREF_DARK_THEME + widgetId, false);
+        dark = preferences.useDarkWidgetTheme(widgetId);
         showDueDates = preferences.getBoolean(WidgetConfigActivity.PREF_SHOW_DUE_DATE + widgetId, false);
         hideCheckboxes = preferences.getBoolean(WidgetConfigActivity.PREF_HIDE_CHECKBOXES + widgetId, false);
     }

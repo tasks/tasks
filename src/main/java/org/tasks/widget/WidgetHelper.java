@@ -67,7 +67,7 @@ public class WidgetHelper {
         rvIntent.putExtra(ScrollableWidgetUpdateService.FILTER, filterBundle);
         rvIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id);
         rvIntent.setData(Uri.parse(rvIntent.toUri(Intent.URI_INTENT_SCHEME)));
-        boolean darkTheme = preferences.getBoolean(WidgetConfigActivity.PREF_DARK_THEME + id, false);
+        boolean darkTheme = preferences.useDarkWidgetTheme(id);
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), darkTheme ? R.layout.scrollable_widget_dark : R.layout.scrollable_widget_light);
         if (preferences.getBoolean(WidgetConfigActivity.PREF_HIDE_HEADER + id, false)) {
             remoteViews.setViewVisibility(R.id.widget_header, View.GONE);

@@ -91,7 +91,7 @@ public class WidgetUpdateService extends InjectingService {
     }
 
     private RemoteViews buildUpdate(Context context, int widgetId) {
-        boolean darkTheme = preferences.getBoolean(WidgetConfigActivity.PREF_DARK_THEME + widgetId, false);
+        boolean darkTheme = preferences.useDarkWidgetTheme(widgetId);
         /**
          * The reason we use a bunch of different but almost identical layouts is that there is a bug with
          * Android 2.1 (level 7) that doesn't allow setting backgrounds on remote views. I know it's lame,

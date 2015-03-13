@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.utility.AstridDefaultPreferenceSpec;
+import com.todoroo.astrid.widget.WidgetConfigActivity;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,6 +49,11 @@ public class Preferences {
         this.context = context;
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
         publicPrefs = context.getSharedPreferences(AstridApiConstants.PUBLIC_PREFS, Context.MODE_WORLD_READABLE);
+    }
+
+    public boolean useDarkWidgetTheme(int widgetId) {
+        boolean legacySetting = getBoolean(R.string.p_use_dark_theme_widget, false);
+        return getBoolean(WidgetConfigActivity.PREF_DARK_THEME + widgetId, legacySetting);
     }
 
     public void setIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, int value) {
