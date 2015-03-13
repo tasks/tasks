@@ -1,47 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<?xml version="1.0" encoding="utf-8"?><!--
 ** Copyright (c) 2012 Todoroo Inc
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/rmd_EPr_alerts_header">
 
     <CheckBoxPreference
+        android:defaultValue="false"
         android:key="@string/p_rmd_enable_quiet"
-        android:title="@string/rmd_EPr_enable_quiet_title"
-        android:defaultValue="false"/>
+        android:title="@string/rmd_EPr_enable_quiet_title" />
     <org.tasks.ui.TimePreference
-        android:key="@string/p_rmd_quietStart"
         android:defaultValue="@integer/default_quiet_hours_start"
         android:dependency="@string/p_rmd_enable_quiet"
-        android:title="@string/rmd_EPr_quiet_hours_start_title"/>
+        android:key="@string/p_rmd_quietStart"
+        android:title="@string/rmd_EPr_quiet_hours_start_title" />
     <org.tasks.ui.TimePreference
-        android:key="@string/p_rmd_quietEnd"
         android:defaultValue="@integer/default_quiet_hours_end"
         android:dependency="@string/p_rmd_enable_quiet"
-        android:title="@string/rmd_EPr_quiet_hours_end_title"/>
-<org.tasks.ui.TimePreference
-    android:key="@string/p_rmd_time"
-    android:defaultValue="@integer/default_remind_time"
-    android:title="@string/rmd_EPr_rmd_time_title"/>
-<com.todoroo.astrid.ui.MultilineCheckboxPreference
-    android:key="@string/p_rmd_persistent"
-    android:title="@string/rmd_EPr_persistent_title"/>
-<com.todoroo.astrid.ui.MultilineCheckboxPreference
-    android:key="@string/p_rmd_maxvolume"
-    android:title="@string/rmd_EPr_multiple_maxvolume_title"
-    android:defaultValue="false"  />
-<com.todoroo.astrid.ui.MultilineCheckboxPreference
-    android:key="@string/p_rmd_vibrate"
-    android:title="@string/rmd_EPr_vibrate_title"
-    android:defaultValue="true"  />
-<RingtonePreference
-    android:key="@string/p_rmd_ringtone"
-    android:title="@string/rmd_EPr_ringtone_title"
-    android:ringtoneType="notification"
-    android:showDefault="true"
-    android:showSilent="true" />
+        android:key="@string/p_rmd_quietEnd"
+        android:title="@string/rmd_EPr_quiet_hours_end_title" />
+    <org.tasks.ui.TimePreference
+        android:defaultValue="@integer/default_remind_time"
+        android:key="@string/p_rmd_time"
+        android:title="@string/rmd_EPr_rmd_time_title" />
+    <com.todoroo.astrid.ui.MultilineCheckboxPreference
+        android:key="@string/p_rmd_persistent"
+        android:title="@string/rmd_EPr_persistent_title" />
+    <com.todoroo.astrid.ui.MultilineCheckboxPreference
+        android:defaultValue="false"
+        android:key="@string/p_rmd_maxvolume"
+        android:title="@string/rmd_EPr_multiple_maxvolume_title" />
+    <com.todoroo.astrid.ui.MultilineCheckboxPreference
+        android:defaultValue="true"
+        android:key="@string/p_rmd_vibrate"
+        android:title="@string/rmd_EPr_vibrate_title" />
+    <RingtonePreference
+        android:key="@string/p_rmd_ringtone"
+        android:ringtoneType="notification"
+        android:showDefault="true"
+        android:showSilent="true"
+        android:title="@string/rmd_EPr_ringtone_title" />
 
 </PreferenceScreen>

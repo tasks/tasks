@@ -81,7 +81,7 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
      * @return whether we're in quiet hours
      */
     static boolean isQuietHours(Preferences preferences) {
-        boolean quietHoursEnabled = preferences.getBoolean(R.string.p_rmd_enable_quiet, false);
+        boolean quietHoursEnabled = preferences.quietHoursEnabled();
         if (quietHoursEnabled) {
             long quietHoursStart = new DateTime().withMillisOfDay(preferences.getInt(R.string.p_rmd_quietStart)).getMillis();
             long quietHoursEnd = new DateTime().withMillisOfDay(preferences.getInt(R.string.p_rmd_quietEnd)).getMillis();

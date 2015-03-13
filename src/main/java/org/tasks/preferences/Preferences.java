@@ -27,6 +27,7 @@ import ch.qos.logback.core.rolling.RollingFileAppender;
 import ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy;
 
 import static android.content.SharedPreferences.Editor;
+import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
 
 public class Preferences {
 
@@ -49,6 +50,10 @@ public class Preferences {
         this.context = context;
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
         publicPrefs = context.getSharedPreferences(AstridApiConstants.PUBLIC_PREFS, Context.MODE_WORLD_READABLE);
+    }
+
+    public boolean quietHoursEnabled() {
+        return preLollipop() && getBoolean(R.string.p_rmd_enable_quiet, false);
     }
 
     public boolean useDarkWidgetTheme(int widgetId) {

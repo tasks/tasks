@@ -27,10 +27,10 @@ android {
     buildToolsVersion "22"
 
     defaultConfig {
-        versionCode 350
+        versionCode 351
         versionName "4.7.8"
         minSdkVersion 7
-        targetSdkVersion 22
+        targetSdkVersion 21
     }
 
     signingConfigs {

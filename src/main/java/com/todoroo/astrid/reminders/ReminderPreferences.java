@@ -6,7 +6,9 @@
 package com.todoroo.astrid.reminders;
 
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.PreferenceScreen;
 
 import com.todoroo.astrid.utility.TodorooPreferenceActivity;
 
@@ -15,6 +17,8 @@ import org.tasks.R;
 
 import java.text.DateFormat;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
+
 /**
  * Displays the preference screen for users to edit their preferences
  *
@@ -22,6 +26,19 @@ import java.text.DateFormat;
  *
  */
 public class ReminderPreferences extends TodorooPreferenceActivity {
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (atLeastLollipop()) {
+            Resources resources = getResources();
+            PreferenceScreen preferenceScreen = getPreferenceScreen();
+            preferenceScreen.removePreference(findPreference(resources.getString(R.string.p_rmd_enable_quiet)));
+            preferenceScreen.removePreference(findPreference(resources.getString(R.string.p_rmd_quietStart)));
+            preferenceScreen.removePreference(findPreference(resources.getString(R.string.p_rmd_quietEnd)));
+        }
+    }
 
     @Override
     public int getPreferenceResource() {

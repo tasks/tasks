@@ -363,6 +363,10 @@ public class AndroidUtilities {
         return !atLeastHoneycomb();
     }
 
+    public static boolean preLollipop() {
+        return !atLeastLollipop();
+    }
+
     public static boolean atLeastFroyo() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO;
     }

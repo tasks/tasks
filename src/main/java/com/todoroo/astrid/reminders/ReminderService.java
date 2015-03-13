@@ -312,7 +312,7 @@ public final class ReminderService  {
                     long quietHoursEnd = new DateTime().withMillisOfDay(preferences.getInt(R.string.p_rmd_quietEnd, 10 * MILLIS_PER_HOUR)).getMillis();
                     Date quietHoursEndDate = newDate(quietHoursEnd);
 
-                    boolean quietHoursEnabled = preferences.getBoolean(R.string.p_rmd_enable_quiet, false);
+                    boolean quietHoursEnabled = preferences.quietHoursEnabled();
 
                     long millisToQuiet;
                     long millisToEndOfDay = dueDate - getNowValue();
