@@ -237,35 +237,36 @@
       <item >@string/TEA_control_timer</item>
       <item >@string/TEA_control_hidden_section</item>
   </string-array>
-  
-  <string name="TEA_ctrl_title_pref">TEA_ctrl_title_pref</string> <!-- Deprecated -->
-  <string name="TEA_ctrl_when_pref">TEA_ctrl_when_pref</string>
-  <string name="TEA_ctrl_more_pref">TEA_ctrl_more_pref</string>
-  <string name="TEA_ctrl_importance_pref">TEA_ctrl_importance_pref</string>
-  <string name="TEA_ctrl_lists_pref">TEA_ctrl_lists_pref</string>
-  <string name="TEA_ctrl_notes_pref">TEA_ctrl_notes_pref</string>
-  <string name="TEA_ctrl_files_pref">TEA_ctrl_files_pref</string>
-    <string name="TEA_ctrl_hide_until_pref">TEA_ctrl_hide_until_pref</string>
-  <string name="TEA_ctrl_hide_section_pref">TEA_ctrl_hide_section_pref</string>
-  <string name="TEA_ctrl_reminders_pref">TEA_ctrl_reminders_pref</string>
-  <string name="TEA_ctrl_timer_pref">TEA_ctrl_timer_pref</string>
-  <string name="TEA_ctrl_share_pref">TEA_ctrl_share_pref</string>
+
     <string name="p_use_dark_theme">use_dark_theme</string>
     <string name="p_use_dark_theme_widget">use_dark_theme_widget</string>
     <string name="p_debug_logging">debug_logging</string>
-    <!-- Deprecated -->
 
-  <string-array name="TEA_control_sets_prefs">
-      <item>@string/TEA_ctrl_when_pref</item>
-      <item>@string/TEA_ctrl_importance_pref</item>
-      <item>@string/TEA_ctrl_lists_pref</item>
-      <item>@string/TEA_ctrl_notes_pref</item>
-      <item>@string/TEA_ctrl_files_pref</item>
-      <item>@string/TEA_ctrl_hide_until_pref</item>
-      <item>@string/TEA_ctrl_reminders_pref</item>
-      <item>@string/TEA_ctrl_timer_pref</item>
-      <item>@string/TEA_ctrl_hide_section_pref</item>
-  </string-array>
-  
-  
+    <string name="TEA_ctrl_title_pref">TEA_ctrl_title_pref</string> <!-- Deprecated -->
+    <string name="TEA_ctrl_when_pref">TEA_ctrl_when_pref</string>
+    <string name="TEA_ctrl_repeat_pref">TEA_ctrl_repeat_pref</string>
+    <string name="TEA_ctrl_more_pref">TEA_ctrl_more_pref</string>
+    <string name="TEA_ctrl_importance_pref">TEA_ctrl_importance_pref</string>
+    <string name="TEA_ctrl_lists_pref">TEA_ctrl_lists_pref</string>
+    <string name="TEA_ctrl_notes_pref">TEA_ctrl_notes_pref</string>
+    <string name="TEA_ctrl_files_pref">TEA_ctrl_files_pref</string>
+    <string name="TEA_ctrl_hide_until_pref">TEA_ctrl_hide_until_pref</string>
+    <string name="TEA_ctrl_hide_section_pref">TEA_ctrl_hide_section_pref</string>
+    <string name="TEA_ctrl_reminders_pref">TEA_ctrl_reminders_pref</string>
+    <string name="TEA_ctrl_timer_pref">TEA_ctrl_timer_pref</string>
+    <string name="TEA_ctrl_share_pref">TEA_ctrl_share_pref</string>
+
+    <string-array name="TEA_control_sets_prefs">
+        <item>@string/TEA_ctrl_when_pref</item>
+        <item>@string/TEA_ctrl_repeat_pref</item>
+        <item>@string/TEA_ctrl_importance_pref</item>
+        <item>@string/TEA_ctrl_lists_pref</item>
+        <item>@string/TEA_ctrl_notes_pref</item>
+        <item>@string/TEA_ctrl_files_pref</item>
+        <item>@string/TEA_ctrl_hide_until_pref</item>
+        <item>@string/TEA_ctrl_reminders_pref</item>
+        <item>@string/TEA_ctrl_timer_pref</item>
+        <item>@string/TEA_ctrl_hide_section_pref</item>
+    </string-array>
+
 </resources>

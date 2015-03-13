@@ -17,7 +17,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -379,50 +378,26 @@ public class RepeatControlSet extends PopupControlSet {
         }
     }
 
-    public boolean isRecurrenceSet() {
-        return doRepeat;
-    }
-
-    /**
-     * @return the recurrence display string if set, null
-     * if not set
-     */
-    public String getStringForExternalDisplay() {
-        if (isRecurrenceSet()) {
-            return getRepeatString(false);
-        }
-        return null;
-    }
-
     @Override
     protected void refreshDisplayView() {
         TextView repeatDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
-        ImageView repeatImage = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
         if (doRepeat) {
-            repeatDisplay.setText(getRepeatString(true));
+            repeatDisplay.setText(getRepeatString());
             repeatDisplay.setTextColor(themeColor);
-            repeatImage.setImageResource(R.drawable.tea_icn_repeat);
-
         } else {
             repeatDisplay.setTextColor(unsetColor);
             repeatDisplay.setText(R.string.repeat_never);
-            repeatImage.setImageResource(R.drawable.tea_icn_repeat_gray);
         }
     }
 
-    private String getRepeatString(boolean useAbbrev) {
-        int arrayResource;
-        if (useAbbrev) {
-            arrayResource = R.array.repeat_interval_short;
-        } else {
-            arrayResource = R.array.repeat_interval;
-        }
+    private String getRepeatString() {
+        int arrayResource = R.array.repeat_interval;
 
         String[] dates = activity.getResources().getStringArray(
                     arrayResource);
         String date = String.format("%s %s", repeatValue, dates[intervalValue]); //$NON-NLS-1$
         if (repeatUntilValue > 0) {
-            return activity.getString(R.string.repeat_detail_duedate_until, date, DateAndTimePicker.getDisplayString(activity, repeatUntilValue, useAbbrev, useAbbrev));
+            return activity.getString(R.string.repeat_detail_duedate_until, date, DateAndTimePicker.getDisplayString(activity, repeatUntilValue, false, false));
         } else {
             return activity.getString(R.string.repeat_detail_duedate, date); // Every freq int
         }

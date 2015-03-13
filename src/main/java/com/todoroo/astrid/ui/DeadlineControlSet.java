@@ -20,7 +20,6 @@ import android.widget.TextView;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.repeats.RepeatControlSet;
 
 import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
@@ -28,14 +27,12 @@ import org.tasks.preferences.ActivityPreferences;
 public class DeadlineControlSet extends PopupControlSet {
 
     private DateAndTimePicker dateAndTimePicker;
-    private final View[] extraViews;
-    private final RepeatControlSet repeatControlSet;
+    private final View extraView;
 
     public DeadlineControlSet(ActivityPreferences preferences, Activity activity, int displayViewLayout,
-            RepeatControlSet repeatControlSet, View...extraViews) {
+            View extraViews) {
         super(preferences, activity, R.layout.control_set_deadline_dialog, displayViewLayout, 0);
-        this.extraViews = extraViews;
-        this.repeatControlSet = repeatControlSet;
+        this.extraView = extraViews;
     }
 
     @Override
@@ -50,13 +47,6 @@ public class DeadlineControlSet extends PopupControlSet {
             displayString.append(DateAndTimePicker.getDisplayString(activity, model.getDueDate(), false, false));
         }
 
-        if (repeatControlSet != null) {
-            String repeatString = repeatControlSet.getStringForExternalDisplay();
-            if (!TextUtils.isEmpty(repeatString)) {
-                displayString.append("\n"); //$NON-NLS-1$
-                displayString.append(repeatString);
-            }
-        }
         TextView dateDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
         if (TextUtils.isEmpty(displayString)) {
             dateDisplay.setText(R.string.TEA_deadline_hint);
@@ -75,9 +65,9 @@ public class DeadlineControlSet extends PopupControlSet {
     protected void afterInflate() {
         dateAndTimePicker = (DateAndTimePicker) getView().findViewById(R.id.date_and_time);
         LinearLayout extras = (LinearLayout) getView().findViewById(R.id.datetime_extras);
-        for (View v : extraViews) {
+        if (extraView != null) {
             LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1.0f);
-            extras.addView(v, lp);
+            extras.addView(extraView, lp);
         }
 
         LinearLayout body = (LinearLayout) getView().findViewById(R.id.datetime_body);

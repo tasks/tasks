@@ -65,6 +65,7 @@
         <item name="ic_action_box">@drawable/ic_action_box</item>
         <item name="ic_action_bell">@drawable/ic_action_bell</item>
         <item name="ic_action_alarm">@drawable/ic_action_alarm</item>
+        <item name="ic_action_reload">@drawable/ic_action_reload</item>
     </style>
 
     <style name="Tasks.Dark">
@@ -93,6 +94,7 @@
         <item name="ic_action_box">@drawable/ic_action_box_white</item>
         <item name="ic_action_bell">@drawable/ic_action_bell_white</item>
         <item name="ic_action_alarm">@drawable/ic_action_alarm_white</item>
+        <item name="ic_action_reload">@drawable/ic_action_reload_white</item>
         <item name="asDueDateColor">#c3c3c3</item>
     </style>
 
