@@ -517,6 +517,10 @@
 	<string name="sync_SPr_forget_description">Alle Synchronisationsdaten löschen</string>
 	<string name="sync_forget_confirm">Ausloggen / Synchronisierte Daten löschen?</string>
 	<string name="sync_error_offline">Es gab ein Problem mit der Netzwerkverbindung während der letzten Synchronisation mit %s. Versuche es bitte später noch einmal.</string>
+	<string name="widget_hide_due_date">Fälligkeitsdatum ausblenden</string>
+	<string name="widget_hide_checkboxes">Kontrollkästchen ausblenden</string>
+	<string name="widget_hide_header">Kopfzeile ausblenden</string>
+	<string name="widget_transparent_background">Transparenter Hintergrund</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>deaktivieren</item>
 		<item>alle 15 Minuten</item>

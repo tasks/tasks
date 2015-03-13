@@ -444,7 +444,7 @@
 		<item>В течении двух недель</item>
 		<item>Следующий месяц</item>
 	</string-array>
-	<string name="repeat_until_title">Повторять пока ...</string>
+	<string name="repeat_until_title">Повторять до ...</string>
 	<string name="repeat_keep_going">Так держать</string>
 	<string-array name="repeat_type">
 		<item>с намеченного времени</item>

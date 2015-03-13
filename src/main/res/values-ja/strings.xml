@@ -529,6 +529,10 @@
 	<string name="sync_forget_confirm">ログアウトと同期データを消去しますか?</string>
 	<string name="sync_error_offline">%s と前回の同期中にネットワークの接続の問題がありました.
 後で再度実行してください.</string>
+	<string name="widget_hide_due_date">期限を表示しない</string>
+	<string name="widget_hide_checkboxes">チェックボックスを表示しない</string>
+	<string name="widget_hide_header">ヘッダーを表示しない</string>
+	<string name="widget_transparent_background">透明の背景</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>無効</item>
 		<item>15分毎</item>
