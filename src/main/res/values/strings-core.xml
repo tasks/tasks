@@ -259,6 +259,8 @@
 
   <!-- slide 9c/ 35a -->
   <string name="TEA_control_when">When</string>
+    <string name="TEA_control_repeat">Repeat</string>
+    <string name="TEA_control_gcal">Calendar</string>
   <!-- slide 16a/35c -->
   <string name="TEA_control_importance">Priority</string>  
   <!-- slide 16b/35d -->

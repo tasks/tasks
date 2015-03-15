@@ -27,12 +27,9 @@ import org.tasks.preferences.ActivityPreferences;
 public class DeadlineControlSet extends PopupControlSet {
 
     private DateAndTimePicker dateAndTimePicker;
-    private final View extraView;
 
-    public DeadlineControlSet(ActivityPreferences preferences, Activity activity, int displayViewLayout,
-            View extraViews) {
+    public DeadlineControlSet(ActivityPreferences preferences, Activity activity, int displayViewLayout) {
         super(preferences, activity, R.layout.control_set_deadline_dialog, displayViewLayout, 0);
-        this.extraView = extraViews;
     }
 
     @Override
@@ -64,12 +61,6 @@ public class DeadlineControlSet extends PopupControlSet {
     @Override
     protected void afterInflate() {
         dateAndTimePicker = (DateAndTimePicker) getView().findViewById(R.id.date_and_time);
-        LinearLayout extras = (LinearLayout) getView().findViewById(R.id.datetime_extras);
-        if (extraView != null) {
-            LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1.0f);
-            extras.addView(extraView, lp);
-        }
-
         LinearLayout body = (LinearLayout) getView().findViewById(R.id.datetime_body);
         body.setGravity(Gravity.CENTER_HORIZONTAL);
         Button okButton = (Button) LayoutInflater.from(activity).inflate(R.layout.control_dialog_ok, null);

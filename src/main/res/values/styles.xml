@@ -24,7 +24,6 @@
         <item name="ic_action_mic">@drawable/ic_action_mic</item>
         <item name="ic_action_search">@drawable/ic_action_search</item>
         <item name="ic_action_settings">@drawable/ic_action_gear</item>
-        <item name="tea_icn_addcal">@drawable/tea_icn_addcal</item>
 
         <!-- actionbar-styling -->
         <item name="homeAsUpIndicator">@drawable/ic_up</item>
@@ -66,6 +65,7 @@
         <item name="ic_action_bell">@drawable/ic_action_bell</item>
         <item name="ic_action_alarm">@drawable/ic_action_alarm</item>
         <item name="ic_action_reload">@drawable/ic_action_reload</item>
+        <item name="ic_action_calendar_month">@drawable/ic_action_calendar_month</item>
     </style>
 
     <style name="Tasks.Dark">
@@ -95,6 +95,7 @@
         <item name="ic_action_bell">@drawable/ic_action_bell_white</item>
         <item name="ic_action_alarm">@drawable/ic_action_alarm_white</item>
         <item name="ic_action_reload">@drawable/ic_action_reload_white</item>
+        <item name="ic_action_calendar_month">@drawable/ic_action_calendar_month_white</item>
         <item name="asDueDateColor">#c3c3c3</item>
     </style>
 

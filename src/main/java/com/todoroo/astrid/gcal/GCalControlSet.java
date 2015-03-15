@@ -17,7 +17,6 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -33,8 +32,6 @@ import org.tasks.preferences.ActivityPreferences;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
-import static org.tasks.preferences.ResourceResolver.getResource;
 
 /**
  * Control Set for managing repeats
@@ -56,14 +53,12 @@ public class GCalControlSet extends PopupControlSet {
     private final GCalHelper.CalendarResult calendars;
     private boolean hasEvent = false;
     private Spinner calendarSelector;
-    private final ImageView image;
 
     public GCalControlSet(ActivityPreferences preferences, GCalHelper gcal, final Activity activity) {
         super(preferences, activity, R.layout.control_set_gcal, R.layout.control_set_gcal_display, title);
         this.gcal = gcal;
         this.calendars = gcal.getCalendars();
         getView(); // Hack to force initialized
-        image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
     }
 
     @Override
@@ -226,7 +221,6 @@ public class GCalControlSet extends PopupControlSet {
     protected void refreshDisplayView() {
         TextView calendar = (TextView) getDisplayView().findViewById(R.id.calendar_display_which);
         calendar.setTextColor(themeColor);
-        image.setImageResource(getResource(activity, R.attr.tea_icn_addcal));
         if (initialized) {
             if (hasEvent) {
                 calendar.setText(R.string.gcal_TEA_has_event);
@@ -234,7 +228,6 @@ public class GCalControlSet extends PopupControlSet {
                 calendar.setText((String)calendarSelector.getSelectedItem());
             } else {
                 calendar.setTextColor(unsetColor);
-                image.setImageResource(R.drawable.tea_icn_addcal_gray);
                 calendar.setText(R.string.gcal_TEA_none_selected);
             }
         } else {
@@ -245,7 +238,6 @@ public class GCalControlSet extends PopupControlSet {
                 calendar.setText(calendars.calendars[index]);
             } else {
                 calendar.setTextColor(unsetColor);
-                image.setImageResource(R.drawable.tea_icn_addcal_gray);
                 calendar.setText(R.string.gcal_TEA_none_selected);
             }
         }

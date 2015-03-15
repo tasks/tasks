@@ -19,7 +19,6 @@
 		  android:layout_width="fill_parent"
 		  android:layout_height="fill_parent">
 		<LinearLayout
-		    android:id="@+id/datetime_extras"
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
 		    android:orientation="horizontal"/>
