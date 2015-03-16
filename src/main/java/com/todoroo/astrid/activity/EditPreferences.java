@@ -8,8 +8,6 @@ package com.todoroo.astrid.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceScreen;
 
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -22,6 +20,8 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.utility.TodorooPreferenceActivity;
 
 import org.tasks.R;
+import org.tasks.injection.InjectingPreferenceActivity;
+import org.tasks.preferences.AppearancePreferences;
 import org.tasks.preferences.MiscellaneousPreferences;
 
 import java.util.ArrayList;
@@ -35,59 +35,21 @@ import javax.inject.Inject;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class EditPreferences extends TodorooPreferenceActivity {
-
-    public static final int RESULT_CODE_PERFORMANCE_PREF_CHANGED = 3;
+public class EditPreferences extends InjectingPreferenceActivity {
 
     // --- instance variables
 
     @Inject StartupService startupService;
-
-    private class SetResultOnPreferenceChangeListener implements OnPreferenceChangeListener {
-        private final int resultCode;
-        public SetResultOnPreferenceChangeListener(int resultCode) {
-            this.resultCode = resultCode;
-        }
-
-        @Override
-        public boolean onPreferenceChange(Preference p, Object newValue) {
-            setResult(resultCode);
-            updatePreferences(p, newValue);
-            return true;
-        }
-    }
-
-    @Override
-    public int getPreferenceResource() {
-        return R.xml.preferences;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         startupService.onStartupApplication(this);
 
-        PreferenceScreen screen = getPreferenceScreen();
+        addPreferencesFromResource(R.xml.preferences);
 
-        addPreferences(screen);
-
-        // first-order preferences
-
-        findPreference(getString(R.string.p_beastMode)).setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference p) {
-                startActivity(new Intent(EditPreferences.this, BeastModePreferences.class) {{
-                    setAction(AstridApiConstants.ACTION_SETTINGS);
-                }});
-                return true;
-            }
-        });
-
-        addPreferenceListeners();
-    }
-
-    private void addPreferences(PreferenceScreen screen) {
         List<Preference> preferences = new ArrayList<Preference>() {{
+            add(getPreference(AppearancePreferences.class, R.string.EPr_appearance_header));
             add(getPreference(ReminderPreferences.class, R.string.notifications));
             add(getPreference(DefaultsPreferences.class, R.string.task_defaults));
             add(getPreference(GtasksPreferences.class, R.string.gtasks_GPr_header));
@@ -96,6 +58,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
             add(getPreference(MiscellaneousPreferences.class, R.string.miscellaneous));
         }};
 
+        PreferenceScreen screen= getPreferenceScreen();
         for (Preference preference : preferences) {
             screen.addPreference(preference);
         }
@@ -108,23 +71,5 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 setAction(AstridApiConstants.ACTION_SETTINGS);
             }});
         }};
-    }
-
-    @Override
-    public void updatePreferences(final Preference preference, Object value) {
-    }
-
-    private void addPreferenceListeners() {
-        findPreference(getString(R.string.p_use_dark_theme)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
-
-        findPreference(getString(R.string.p_fontSize)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
-
-        findPreference(getString(R.string.p_fullTaskTitle)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                updatePreferences(preference, newValue);
-                return true;
-            }
-        });
     }
 }

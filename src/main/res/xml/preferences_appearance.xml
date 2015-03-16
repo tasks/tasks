@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/EPr_appearance_header">
+
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="@string/p_use_dark_theme"
+        android:title="@string/EPr_use_dark_theme" />
+
+    <PreferenceCategory android:title="@string/task_list_options">
+        <com.todoroo.astrid.ui.MultilineListPreference
+            android:entries="@array/EPr_font_size"
+            android:entryValues="@array/EPr_font_size"
+            android:key="@string/p_fontSize"
+            android:summary="@string/EPr_fontSize_desc"
+            android:title="@string/EPr_fontSize_title" />
+
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:defaultValue="false"
+            android:key="@string/p_fullTaskTitle"
+            android:summaryOff="@string/EPr_fullTask_desc_disabled"
+            android:summaryOn="@string/EPr_fullTask_desc_enabled"
+            android:title="@string/EPr_fullTask_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/EPr_edit_screen_options">
+        <PreferenceScreen
+            android:key="@string/p_beastMode"
+            android:title="@string/EPr_beastMode_title" />
+
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:defaultValue="true"
+            android:key="@string/p_show_task_edit_comments"
+            android:title="@string/EPr_show_task_edit_comments" />
+
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:defaultValue="true"
+            android:key="@string/p_time_increment"
+            android:title="@string/EPr_time_increment" />
+
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:defaultValue="false"
+            android:key="@string/p_show_timer_shortcut"
+            android:title="@string/EPr_show_timer_shortcut" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/EPr_filters_to_show_title">
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:defaultValue="true"
+            android:enabled="false"
+            android:key="@string/p_show_my_tasks_filter"
+            android:title="@string/BFE_Active" />
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:defaultValue="true"
+            android:key="@string/p_show_today_filter"
+            android:title="@string/today" />
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:defaultValue="true"
+            android:key="@string/p_show_recently_modified_filter"
+            android:title="@string/BFE_Recent" />
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:defaultValue="true"
+            android:key="@string/p_show_not_in_list_filter"
+            android:title="@string/tag_FEx_untagged" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

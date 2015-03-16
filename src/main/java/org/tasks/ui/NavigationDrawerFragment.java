@@ -1,18 +1,18 @@
 package org.tasks.ui;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.app.Activity;
+import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.content.res.Configuration;
-import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
@@ -36,9 +36,6 @@ import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.gtasks.GtasksPreferences;
-import com.todoroo.astrid.helper.SyncActionHelper;
-import com.todoroo.astrid.widget.TasksWidget;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -117,13 +114,8 @@ public class NavigationDrawerFragment extends InjectingFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == ACTIVITY_SETTINGS) {
-            if (resultCode == EditPreferences.RESULT_CODE_PERFORMANCE_PREF_CHANGED) {
-                getActivity().finish();
-                getActivity().startActivity(getActivity().getIntent());
-                TasksWidget.updateWidgets(getActivity());
-            } else if (resultCode == GtasksPreferences.RESULT_CODE_SYNCHRONIZE) {
-                preferences.setLong(SyncActionHelper.PREF_LAST_AUTO_SYNC, 0); // Forces autosync to occur after login
-            }
+            getActivity().finish();
+            getActivity().startActivity(getActivity().getIntent());
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }

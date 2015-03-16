@@ -172,6 +172,10 @@
             android:theme="@android:style/Theme" />
 
         <activity
+            android:name=".preferences.AppearancePreferences"
+            android:theme="@android:style/Theme"/>
+
+        <activity
             android:name=".preferences.MiscellaneousPreferences"
             android:theme="@android:style/Theme" />
 
