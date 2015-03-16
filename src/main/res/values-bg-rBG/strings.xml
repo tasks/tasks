@@ -200,7 +200,6 @@
 	<string name="EPr_fullTask_desc_enabled">Ще бъде показвано пълно име на задачата</string>
 	<string name="EPr_fullTask_desc_disabled">Ще бъдат показвани първите два реда от имета на задачата</string>
 	<string name="EPr_show_task_edit_comments">Покажи коментари при редакция на задача</string>
-	<string name="EPr_taskRowPrefs_title">Изглед на реда със задачата</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Време на събитие в календара</string>
 	<string name="EPr_cal_end_at_due_time">Приключване на събития в календара на крайния срок</string>
 	<string name="EPr_cal_start_at_due_time">Започване на събития в календара на крайния срок</string>

@@ -196,7 +196,6 @@
 	<string name="EPr_fullTask_desc_enabled">O título completo será exibido</string>
 	<string name="EPr_fullTask_desc_disabled">Somente as primeiras duas linhas serão exibidas</string>
 	<string name="EPr_show_task_edit_comments">Mostrar comentários na edição de tarefas</string>
-	<string name="EPr_taskRowPrefs_title">Aparência da Tarefa</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Hora do evento</string>
 	<string name="EPr_cal_end_at_due_time">Eventos da agenda terminou no devido tempo</string>
 	<string name="EPr_cal_start_at_due_time">Eventos da agenda iniciaram no devido tempo</string>

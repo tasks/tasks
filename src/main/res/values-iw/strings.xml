@@ -193,7 +193,6 @@
 	<string name="EPr_fullTask_desc_enabled">כותרות משימה מלאות תוצגנה</string>
 	<string name="EPr_fullTask_desc_disabled">שתי השורות הראשונות של שם המשימה תוצגנה</string>
 	<string name="EPr_show_task_edit_comments">הצגת הערות בעריכת משימה</string>
-	<string name="EPr_taskRowPrefs_title">חזות שורת המשימה</string>
 	<string name="EPr_cal_end_or_start_at_due_time">משך אירוע יומן</string>
 	<string name="EPr_cal_end_at_due_time">סיים את אירועי היומן במועד היעד?</string>
 	<string name="EPr_cal_start_at_due_time">התחל את מאורעות היומן במועד היעד</string>

@@ -193,7 +193,6 @@
 	<string name="EPr_fullTask_desc_enabled">Uppgiftens namn kommer att visas i sin helhet</string>
 	<string name="EPr_fullTask_desc_disabled">De första två raderna i uppgiftens namn kommer att visas</string>
 	<string name="EPr_show_task_edit_comments">Vissa kommentarer i uppgiftsredigering</string>
-	<string name="EPr_taskRowPrefs_title">Utseende på uppgiftsraden</string>
 	<string name="EPr_manage_header">Hantera gamla uppgifter</string>
 	<string name="EPr_manage_delete_completed">Radera färdiga uppgifter</string>
 	<string name="EPr_manage_delete_completed_message">Vill du verkligen radera alla dina färdiga uppgifter?</string>

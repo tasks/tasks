@@ -196,7 +196,6 @@
 	<string name="EPr_fullTask_desc_enabled">Pełna nazwa zadania będzie wyświetlana</string>
 	<string name="EPr_fullTask_desc_disabled">Pierwsze dwie linie nazwy zadania będą wyświetlane</string>
 	<string name="EPr_show_task_edit_comments">Pokaż komentarze w edycji zadania</string>
-	<string name="EPr_taskRowPrefs_title">Wygląd rzędu zadań</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Czas zdarzenia kalendarza</string>
 	<string name="EPr_cal_end_at_due_time">Zakończ zadania kalendarza w ustalonym czasie</string>
 	<string name="EPr_cal_start_at_due_time">Rozpocznij zadania kalendarza w ustalonym czasie</string>

@@ -57,7 +57,6 @@
   <string name="p_calendar_reminders">p_calendar_reminder</string>
 
   <!-- filters to show -->
-  <string name="p_filters_to_show">p_filters_to_show</string>
   <string name="p_show_my_tasks_filter">p_show_my_tasks_f</string>
   <string name="p_show_today_filter">p_show_today_f</string>
   <string name="p_show_recently_modified_filter">p_show_recently_modified_f</string>
@@ -114,12 +113,8 @@
   </string-array>
   
   <string name="p_showSmartConfirmation_key">showSmartConfirmation</string>
-  
-  <string name="p_taskRowPrefs">taskRowPrefs</string>
-  
+
   <string name="p_fullTaskTitle">fullTaskTitle</string>
-  
-  <string name="p_edit_screen">p_edit_screen</string>
   
   <string name="p_time_increment">p_time_increment</string>
   

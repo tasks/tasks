@@ -459,10 +459,9 @@
 
   <!-- Preference: task edit comments -->
   <string name="EPr_show_task_edit_comments">Show comments in task edit</string>
-  
-  <!-- slide 30d/ 34f: Preference screen: all task row settings -->
-  <string name="EPr_taskRowPrefs_title">Task row appearance</string>
-  
+
+    <string name="task_list_options">Task list options</string>
+
   <!-- Preferences: calendar event start time -->
   <string name="EPr_cal_end_or_start_at_due_time">Calendar event time</string>
   <string name="EPr_cal_end_at_due_time">End calendar events at due time</string>

@@ -175,7 +175,6 @@
 	<string name="EPr_fullTask_title">Visualizza titolo completo dell\'attività</string>
 	<string name="EPr_fullTask_desc_enabled">Sarà mostrato il titolo completo</string>
 	<string name="EPr_fullTask_desc_disabled">Saranno mostrate le prime due righe del titolo dell\'attività</string>
-	<string name="EPr_taskRowPrefs_title">Aspetto della riga dei task</string>
 	<string name="EPr_manage_header">Gestisci compiti vecchi</string>
 	<string name="EPr_manage_delete_completed">Elimina i compiti completati</string>
 	<string name="EPr_manage_delete_completed_message">Vuoi davvero eliminare tutti i compiti completati?</string>

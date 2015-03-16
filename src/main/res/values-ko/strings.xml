@@ -199,7 +199,6 @@
 	<string name="EPr_fullTask_desc_enabled">전체 일정 제목을 표시합니다</string>
 	<string name="EPr_fullTask_desc_disabled">일정 제목의 첫 두 줄을 표시합니다</string>
 	<string name="EPr_show_task_edit_comments">일정 편집에서 댓글 보기</string>
-	<string name="EPr_taskRowPrefs_title">일정 표시줄 보기 설정</string>
 	<string name="EPr_cal_end_or_start_at_due_time">달력 이벤트 시간</string>
 	<string name="EPr_cal_end_at_due_time">설정한 시간에 달력 이벤트 종료</string>
 	<string name="EPr_cal_start_at_due_time">설정한 시간에 달력 이벤트 시작</string>

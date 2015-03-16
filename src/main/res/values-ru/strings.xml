@@ -198,7 +198,6 @@
 	<string name="EPr_fullTask_desc_enabled">Будет показано полное название задачи</string>
 	<string name="EPr_fullTask_desc_disabled">Будут показаны первые две строки названия</string>
 	<string name="EPr_show_task_edit_comments">Показывать комментарии в редакторе задачи</string>
-	<string name="EPr_taskRowPrefs_title">Внешний вид задач в списке</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Время события в календаре</string>
 	<string name="EPr_cal_end_at_due_time">Завершать события в календаре при наступлении срока</string>
 	<string name="EPr_cal_start_at_due_time">Создавать события в календаре при наступлении срока</string>

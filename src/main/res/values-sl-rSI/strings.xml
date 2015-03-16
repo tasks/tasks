@@ -199,7 +199,6 @@
 	<string name="EPr_fullTask_desc_enabled">Celoten naziv opravka bo prikazan</string>
 	<string name="EPr_fullTask_desc_disabled">Prikazani bosta prvi dve vrstici naziva opravka</string>
 	<string name="EPr_show_task_edit_comments">Prikaži opombe pri urejanju opravkov</string>
-	<string name="EPr_taskRowPrefs_title">Izgled vrstic z opravki</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Čas dogodka iz koledarja</string>
 	<string name="EPr_cal_end_at_due_time">Končaj dogodke na koledarju ob dospelosti</string>
 	<string name="EPr_cal_start_at_due_time">Začni dogodke na koledarju ob dospelosti</string>

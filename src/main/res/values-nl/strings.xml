@@ -196,7 +196,6 @@
 	<string name="EPr_fullTask_desc_enabled">Volledige taak titel zal worden weergegeven</string>
 	<string name="EPr_fullTask_desc_disabled">Eerste twee lijnen van taak titel zullen worden weergegeven</string>
 	<string name="EPr_show_task_edit_comments">Toon opmerkingen in taak bewerken</string>
-	<string name="EPr_taskRowPrefs_title">Taakrij Weergave</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Agenda item tijd</string>
 	<string name="EPr_cal_end_at_due_time">Agenda item op tijd afronden</string>
 	<string name="EPr_cal_start_at_due_time">Agenda item op tijd starten</string>

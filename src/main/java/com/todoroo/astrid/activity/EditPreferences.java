@@ -92,12 +92,9 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
         addPreferencesFromResource(R.xml.preferences_misc);
 
-        final Resources r = getResources();
-
         // first-order preferences
 
-        Preference beastMode = findPreference(getString(R.string.p_beastMode));
-        beastMode.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+        findPreference(getString(R.string.p_beastMode)).setOnPreferenceClickListener(new OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference p) {
                 showBeastMode();
@@ -105,8 +102,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
             }
         });
 
-        Preference preference = screen.findPreference(getString(R.string.p_files_dir));
-        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+        screen.findPreference(getString(R.string.p_files_dir)).setOnPreferenceClickListener(new OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference p) {
                 Intent filesDir = new Intent(EditPreferences.this, FileExplore.class);

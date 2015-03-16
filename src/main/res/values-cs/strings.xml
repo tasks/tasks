@@ -191,7 +191,6 @@
 	<string name="EPr_fullTask_desc_enabled">Zobrazí se úplný název úkolu</string>
 	<string name="EPr_fullTask_desc_disabled">Zobrazí se první dva řádky názvu úkolu</string>
 	<string name="EPr_show_task_edit_comments">Zobrazit komentáře při úpravě úkolu</string>
-	<string name="EPr_taskRowPrefs_title">Vzhled řádku úkolu</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Čas události v kalendáři</string>
 	<string name="EPr_cal_end_at_due_time">Událost v kalendáři končí splněním úkolu</string>
 	<string name="EPr_cal_start_at_due_time">Událost v kalendáři začíná splněním úkolu</string>
