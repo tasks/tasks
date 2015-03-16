@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/EPr_powerpack_header">
+    android:title="@string/miscellaneous">
 	<PreferenceScreen
-	    android:title="@string/EPr_powerpack_header"
-	    android:summary="@string/EPr_powerpack_summary">
+	    android:title="@string/miscellaneous">
 	    
-	    <PreferenceScreen android:title="@string/p_files_dir" android:key="@string/p_files_dir" />
+	    <PreferenceScreen
+            android:title="@string/attachment_directory"
+            android:key="@string/p_files_dir" />
 	    
 	    <com.todoroo.astrid.ui.MultilineCheckboxPreference
 	        android:key="@string/p_voiceRemindersEnabled"
@@ -34,7 +35,7 @@
 	        android:key = "@string/p_end_at_deadline" />
 
         <CheckBoxPreference
-            android:title="@string/EPr_enable_debug_logging"
+            android:title="@string/debug_logging"
             android:key="@string/p_debug_logging"/>
 	</PreferenceScreen>
 </PreferenceScreen>

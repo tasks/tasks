@@ -200,7 +200,6 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Czas zdarzenia kalendarza</string>
 	<string name="EPr_cal_end_at_due_time">Zakończ zadania kalendarza w ustalonym czasie</string>
 	<string name="EPr_cal_start_at_due_time">Rozpocznij zadania kalendarza w ustalonym czasie</string>
-	<string name="EPr_enable_debug_logging">Włącz lrejestrowanie debuggowania</string>
 	<string name="EPr_manage_header">Zarządzaj starymi zadaniami</string>
 	<string name="EPr_manage_delete_completed">Usuń zakończone zadania</string>
 	<string name="EPr_manage_delete_completed_message">Czy na pewno chcesz usunąć wszystkie zadania wykonane?</string>
@@ -227,7 +226,6 @@ wszystkich danych (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear a
 i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) Tasks.</string>
 	<string name="market_unavailable">Niestety sklep nie jest dostępny dla twojego systemu.</string>
 	<string name="EPr_defaults_header">Nowe zadanie (domyślnie)</string>
-	<string name="EPr_defaults_summary">Priorytet, określony czas, dodaj do kalendarza</string>
 	<string name="EPr_default_urgency_title">Termin końcowy (domyślnie)</string>
 	<string name="EPr_default_urgency_desc">Aktualnie: %s</string>
 	<string name="EPr_default_importance_title">Domyślny priorytet</string>
@@ -322,8 +320,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="gtasks_error_accountManager">Błąd w menadżerze kont Twojego telefonu. Proszę, wyloguj się i zaloguj ponownie w ustawieniach Google Zadań.</string>
 	<string name="gtasks_error_background_sync_auth">Błąd uwierzytelniania w tle. Spróbuj zainicjalizować synchronizację, gdy aplikacja Tasks będzie włączone.</string>
 	<string name="locale_notification">Masz $NUM pasujących: $FILTER</string>
-	<string name="EPr_powerpack_header">Ustawienia Premium i inne</string>
-	<string name="EPr_powerpack_summary">Przypomniania nieodebranych połączeń, polecenia głosowe i inne ustawienia</string>
 	<string name="premium_attach_file">Dołącz plik</string>
 	<string name="premium_record_audio">Nagraj notatkę</string>
 	<string name="premium_remove_file_confirm">Jesteś pewny? Tych zmian nie można odwrócić</string>
@@ -346,7 +342,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="file_err_copy">Błąd kopiowania pliku do załącznika</string>
 	<string name="file_dir_dialog_ok">Użycie tego katalogu</string>
 	<string name="file_dir_dialog_default">Przywróć ustawienia domyślne</string>
-	<string name="p_files_dir">Katalog pobranych plików Premium</string>
 	<string name="p_files_dir_desc">Załącznik zadania zapisano w: %s</string>
 	<string name="p_files_dir_desc_default">Domyślny folder</string>
 	<string name="premium_speech_bubble_2">Zamów na rok i oszczędź 25%%!</string>
@@ -494,7 +489,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="DLG_error">Ups! Wygląda na to, że wystąpił jakiś błąd! Oto, co się stało:\n\n%s</string>
 	<string name="DLG_wait">Proszę czekać...</string>
 	<string name="SyP_label">Synchronizacja</string>
-	<string name="SyP_summary">Zadania Google, zapisane dane, lokalna kopia zapasowa</string>
 	<string name="sync_SPr_group_status">Stan</string>
 	<string name="sync_status_loggedout">Niezalogowany</string>
 	<string name="sync_status_ongoing">Synchronizacja trwa...</string>

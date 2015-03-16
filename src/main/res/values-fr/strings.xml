@@ -198,7 +198,6 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Heure de l\'évenement dans le calendrier</string>
 	<string name="EPr_cal_end_at_due_time">Terminer les événements dans le calendrier à l\'échéance</string>
 	<string name="EPr_cal_start_at_due_time">Commencer les événements dans le calendrier à l\'échéance</string>
-	<string name="EPr_enable_debug_logging">Activer les traces de débogage</string>
 	<string name="EPr_manage_header">Gérer les anciennes tâches</string>
 	<string name="EPr_manage_delete_completed">Supprimer les tâches terminées</string>
 	<string name="EPr_manage_delete_completed_message">Confirmer la suppression de toutes vos tâches ?</string>
@@ -222,7 +221,6 @@
 	<string name="DB_corrupted_body">Oh oh ! On dirait que vous avez une base de données corrompues. Si vous voyez souvent cette erreur, nous vous suggérons d\'effacer toutes vos données (Paramètres-&gt;Synchronisation et sauvegarde-&gt;Gérer les anciennes tâches-&gt;Effacer toutes les données) et restaurer vos tâches d\'une sauvegarde (Paramètres-&gt;Synchronisation et sauvegarde-&gt;Sauvegarde-&gt;Importer des tâches) dans Tasks</string>
 	<string name="market_unavailable">Malheureusement le Play Store n\'est pas disponible sur votre système</string>
 	<string name="EPr_defaults_header">Valeurs par défaut pour une nouvelle tâche</string>
-	<string name="EPr_defaults_summary">Priorité, date d\'échéance, ajouter au calendrier</string>
 	<string name="EPr_default_urgency_title">Échéance par défaut</string>
 	<string name="EPr_default_urgency_desc">Actuellement : %s</string>
 	<string name="EPr_default_importance_title">Priorité par défaut</string>
@@ -317,8 +315,6 @@
 	<string name="gtasks_error_accountManager">Une erreur est apparue dans le gestionnaire de comptes de votre téléphone. Veuillez vous deconnecter de votre compte Google Task puis vous reconnecter.</string>
 	<string name="gtasks_error_background_sync_auth">\"Erreur d\'authentification en arrière plan.  Réessayez de vous synchroniser quand Tasks est lancé.\"</string>
 	<string name="locale_notification">Vous avez $NUM correspondant(s) : $FILTER</string>
-	<string name="EPr_powerpack_header">Premium et réglages divers</string>
-	<string name="EPr_powerpack_summary">Rappel des appels manqués, commande vocale et paramètres divers</string>
 	<string name="premium_attach_file">Joindre un fichier</string>
 	<string name="premium_record_audio">Enregistrer un commentaire</string>
 	<string name="premium_remove_file_confirm">Êtes-vous certain(e)? Cette opération est irréversible</string>
@@ -341,7 +337,6 @@
 	<string name="file_err_copy">Erreur lors de la copie du fichier à joindre</string>
 	<string name="file_dir_dialog_ok">Utiliser ce dossier</string>
 	<string name="file_dir_dialog_default">Rétablir les valeurs par défaut</string>
-	<string name="p_files_dir">Dossier de téléchargements premium</string>
 	<string name="p_files_dir_desc">Les fichiers joints des tâches sont sauvegardés vers : %s</string>
 	<string name="p_files_dir_desc_default">Dossier par défaut</string>
 	<string name="premium_speech_bubble_2">Commandez pour un an et économisez 25%%!</string>
@@ -490,7 +485,6 @@
 	<string name="DLG_error">Oups, une erreur est survenue ! Voici ce qu\'il s\'est passé :\n\n%s</string>
 	<string name="DLG_wait">Veuillez patienter...</string>
 	<string name="SyP_label">Synchronisation</string>
-	<string name="SyP_summary">Tâches Google, données enregistrées, sauvegarde locale</string>
 	<string name="sync_SPr_group_status">Statut</string>
 	<string name="sync_SPr_status_subtitle">État : %s</string>
 	<string name="sync_status_loggedout">Non connecté</string>

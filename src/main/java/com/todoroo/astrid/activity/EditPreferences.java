@@ -190,13 +190,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
             Preference preference = new Preference(this);
             preference.setTitle(resolveInfo.activityInfo.loadLabel(pm));
-            Bundle metadata = resolveInfo.activityInfo.metaData;
-            if (metadata != null) {
-                int resource = metadata.getInt("summary", 0); //$NON-NLS-1$
-                if (resource > 0) {
-                    preference.setSummary(resource);
-                }
-            }
             try {
                 Class<?> intentComponent = Class.forName(intent.getComponent().getClassName());
                 if (intentComponent.getSuperclass().equals(GtasksPreferences.class)) {
@@ -237,9 +230,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 PreferenceManager manager = getPreferenceManager();
                 PreferenceScreen header = manager.createPreferenceScreen(this);
                 header.setTitle(entry.getKey());
-                if (entry.getKey().equals(getString(R.string.SyP_label))) {
-                    header.setSummary(R.string.SyP_summary);
-                }
                 screen.addPreference(header);
 
                 for(Preference preference : entry.getValue()) {
@@ -258,11 +248,9 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
         if (r.getString(R.string.p_files_dir).equals(preference.getKey())) {
             String dir = preferences.getStringValue(TaskAttachment.FILES_DIRECTORY_PREF);
-
-            if (TextUtils.isEmpty(dir)) {
-                dir = r.getString(R.string.p_files_dir_desc_default);
-            }
-            preference.setSummary(r.getString(R.string.p_files_dir_desc, dir));
+            preference.setSummary(TextUtils.isEmpty(dir)
+                    ? r.getString(R.string.p_files_dir_desc_default)
+                    : dir);
         } else if (r.getString(R.string.p_voiceRemindersEnabled).equals(preference.getKey())) {
             onVoiceReminderStatusChanged(preference, (Boolean) value);
         }

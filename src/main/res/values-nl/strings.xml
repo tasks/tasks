@@ -200,7 +200,6 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Agenda item tijd</string>
 	<string name="EPr_cal_end_at_due_time">Agenda item op tijd afronden</string>
 	<string name="EPr_cal_start_at_due_time">Agenda item op tijd starten</string>
-	<string name="EPr_enable_debug_logging">Bewaar foutenlogboek</string>
 	<string name="EPr_manage_header">Oude taken beheren</string>
 	<string name="EPr_manage_delete_completed">Voltooide taken verwijderen</string>
 	<string name="EPr_manage_delete_completed_message">Alle voltooide taken werkelijk verwijderen?</string>
@@ -224,7 +223,6 @@
 	<string name="DB_corrupted_body">Oh oh! Het lijkt erop dat je een corrupte database hebt. Als je deze error vaker ziet raden we je aan alle data te verwijderen (Instellingen-&gt;Beheer Alle Taken-&gt;Wis alle data) en je taken uit een backup te herstellen (Instellingen-&gt;Backup-&gt;Importeer Taken) in Tasks.</string>
 	<string name="market_unavailable">Helaas is de Android Market niet beschikbaar voor jouw systeem.</string>
 	<string name="EPr_defaults_header">Basisinstellingen nieuwe taak</string>
-	<string name="EPr_defaults_summary">Prioriteit, eind datum, toevoegen aan agenda</string>
 	<string name="EPr_default_urgency_title">Standaard prioriteit</string>
 	<string name="EPr_default_urgency_desc">Nu: %s</string>
 	<string name="EPr_default_importance_title">Standaard prioriteit</string>
@@ -319,8 +317,6 @@
 	<string name="gtasks_error_accountManager">Error in uw telefoon account manager. Log uit en log opnieuw in vanuit de Google Task instellingen.</string>
 	<string name="gtasks_error_background_sync_auth">Error authenticatie op achtergrond bezig. Probeer alstublieft een synchronisatie te starten wanneer Tasks is gestart.</string>
 	<string name="locale_notification">Er zijn $NUM taken voor: $FILTER</string>
-	<string name="EPr_powerpack_header">Premium en diverse instellingen</string>
-	<string name="EPr_powerpack_summary">Gemiste oproepen herinneringen, spraakinvoer en diverse instellingen</string>
 	<string name="premium_attach_file">Een bestand bijvoegen</string>
 	<string name="premium_record_audio">Een notitie opnemen</string>
 	<string name="premium_remove_file_confirm">Weet je het zeker? Dit kan niet ongedaan gemaakt worden</string>
@@ -343,7 +339,6 @@
 	<string name="file_err_copy">Fout bij kopiëren toe te voegen bestand</string>
 	<string name="file_dir_dialog_ok">Gebruik deze directory.</string>
 	<string name="file_dir_dialog_default">Stel opnieuw in naar standaardinstellingen</string>
-	<string name="p_files_dir">Doneer</string>
 	<string name="p_files_dir_desc">Taak bijlagen opgeslagen op: %s</string>
 	<string name="p_files_dir_desc_default">Standaard directory</string>
 	<string name="premium_speech_bubble_2">Bestel voor een jaar en bespaar 25%%!</string>
@@ -490,7 +485,6 @@
 	<string name="DLG_error">Er is een fout opgetreden:\n\n%s</string>
 	<string name="DLG_wait">Even geduld a.u.b.</string>
 	<string name="SyP_label">Synchronisatie</string>
-	<string name="SyP_summary">Google Taken, opgeslagen data, lokale back-up</string>
 	<string name="sync_status_loggedout">Niet aangemeld</string>
 	<string name="sync_status_ongoing">Synchronisatie bezig...</string>
 	<string name="sync_status_success">Vorige:\n%s</string>

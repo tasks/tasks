@@ -202,7 +202,6 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Время события в календаре</string>
 	<string name="EPr_cal_end_at_due_time">Завершать события в календаре при наступлении срока</string>
 	<string name="EPr_cal_start_at_due_time">Создавать события в календаре при наступлении срока</string>
-	<string name="EPr_enable_debug_logging">Разрешить лог отладки</string>
 	<string name="EPr_manage_header">Управление старыми задачами</string>
 	<string name="EPr_manage_delete_completed">Удалить завершенные задачи</string>
 	<string name="EPr_manage_delete_completed_message">Вы действительно хотите удалить все завершенные задачи?</string>
@@ -229,7 +228,6 @@
 задачи из резервной копии (Параметры-&gt;Синхронизация-&gt;Резервные копии-&gt;Импортировать задачи)</string>
 	<string name="market_unavailable">К сожалению, этот магазин недоступен для вашей системы.</string>
 	<string name="EPr_defaults_header">Параметры по умолчанию для новых задач</string>
-	<string name="EPr_defaults_summary">Приоритет, срок выполнения, добавить в календарь</string>
 	<string name="EPr_default_urgency_title">Актуальность по умолчанию</string>
 	<string name="EPr_default_urgency_desc">Текущая: %s</string>
 	<string name="EPr_default_importance_title">Приоритет по умолчанию</string>
@@ -323,8 +321,6 @@
 	<string name="gtasks_error_accountManager">Ошибка в менеджере учетных записей вашего телефона. Пожалуйста, выйдите и войдите снова в настройках Google Tasks.</string>
 	<string name="gtasks_error_background_sync_auth">Ошибка фоновой авторизации. Пожалуйста, попробуйте синхронизироваться вручную.</string>
 	<string name="locale_notification">Число соответствий для  $FILTER: $NUM</string>
-	<string name="EPr_powerpack_header">Расширенные настройки</string>
-	<string name="EPr_powerpack_summary">Напоминания о пропущенных звонках, голосовой ввод и другие настройки</string>
 	<string name="premium_attach_file">Прикрепить файл</string>
 	<string name="premium_record_audio">Записать заметку</string>
 	<string name="premium_remove_file_confirm">Вы уверены? Это действия нельзя отменить.</string>
@@ -347,7 +343,6 @@
 	<string name="file_err_copy">Ошибка копирования прикрепляемого файла.</string>
 	<string name="file_dir_dialog_ok">Использовать эту папку</string>
 	<string name="file_dir_dialog_default">Сбросить настройки</string>
-	<string name="p_files_dir">Папка Премиум-загрузок</string>
 	<string name="p_files_dir_desc">Прикрепления к задаче сохранены в: %s</string>
 	<string name="p_files_dir_desc_default">Папка по умолчанию</string>
 	<string name="premium_speech_bubble_2">Подпишитесь на год и сэкономьте 25%%!</string>
@@ -497,7 +492,6 @@
 	<string name="DLG_error">Ой, похоже произошла ошибка! Подробности ниже:\n\n%s</string>
 	<string name="DLG_wait">Пожалуйста, подождите…</string>
 	<string name="SyP_label">Синхронизация и резервное копирование</string>
-	<string name="SyP_summary">Задачи Google, сохраненные данные, локальная резервная копия</string>
 	<string name="sync_SPr_group_status">Состояние</string>
 	<string name="sync_SPr_status_subtitle">Состояние: %s</string>
 	<string name="sync_status_loggedout">Вход не выполнен</string>

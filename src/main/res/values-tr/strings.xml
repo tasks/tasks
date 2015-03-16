@@ -290,8 +290,6 @@
 	<string name="gtasks_error_accountManager">Telefon hesap yöneticisinde hata oluştu. Lütfen çıkış yapıp Google Görevler Ayarlarından tekrar giriş yapın.</string>
 	<string name="gtasks_error_background_sync_auth">Artalanda kimlik doğrulama hatası. Lütfen Tasks çalışırken bir eşlemeyi sıfırlamayı deneyin.</string>
 	<string name="locale_notification">$FILTER konumunda $NUM var</string>
-	<string name="EPr_powerpack_header">Gelişmiş ayarlar</string>
-	<string name="EPr_powerpack_summary">Çağrı hatırlatıcılar, ses girdileri ve çeşitli ayarlar</string>
 	<string name="premium_attach_file">Bir dosya ekle</string>
 	<string name="premium_record_audio">Bir not kaydet</string>
 	<string name="premium_remove_file_confirm">Emin misiniz? Geri döndürülemez</string>

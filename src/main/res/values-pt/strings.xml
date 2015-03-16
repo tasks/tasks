@@ -201,7 +201,6 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Hora do evento de calendário</string>
 	<string name="EPr_cal_end_at_due_time">Terminar evento do calendário na hora limite</string>
 	<string name="EPr_cal_start_at_due_time">Iniciar eventos de calendário na hora limite</string>
-	<string name="EPr_enable_debug_logging">Ativar registo de depuração</string>
 	<string name="EPr_manage_header">Gerir tarefas antigas</string>
 	<string name="EPr_manage_delete_completed">Eliminar tarefas terminadas</string>
 	<string name="EPr_manage_delete_completed_message">Quer mesmo eliminar todas as tarefas terminadas?</string>
@@ -228,7 +227,6 @@ Definições-&gt;Sincronização e backup-&gt;Gerir tarefas antigas-&gt;Limpar t
 das tarefas através de um backup em Definições-&gt;Sincronização e backup-&gt;Backup-&gt;Importar tarefas.</string>
 	<string name="market_unavailable">Infelizmente, a loja Google não está instalada no seu sistema.</string>
 	<string name="EPr_defaults_header">Predefinições das novas tarefas</string>
-	<string name="EPr_defaults_summary">Prioridade, data limite e adicionar ao calendário</string>
 	<string name="EPr_default_urgency_title">Prazo predefinido</string>
 	<string name="EPr_default_urgency_desc">Atual: %s</string>
 	<string name="EPr_default_importance_title">Prioridade predefinida</string>
@@ -323,8 +321,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="gtasks_error_accountManager">Erro no gestor de contas do dispositivo. Termine a sessão e inicie-a novamente nas definições das tarefas Google.</string>
 	<string name="gtasks_error_background_sync_auth">Erro de autenticação em segundo plano. Tente efetuar a sincronização durante a execução do Tasks.</string>
 	<string name="locale_notification">Tem $NUM ocorrências para: $FILTER</string>
-	<string name="EPr_powerpack_header">Definições avançadas</string>
-	<string name="EPr_powerpack_summary">Lembretes de chamadas, entrada por voz e outras definições</string>
 	<string name="premium_attach_file">Anexar um ficheiro</string>
 	<string name="premium_record_audio">Gravar uma nota</string>
 	<string name="premium_remove_file_confirm">Tem a certeza? A ação não pode ser anulada!</string>
@@ -347,7 +343,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="file_err_copy">Erro ao copiar o ficheiro como anexo</string>
 	<string name="file_dir_dialog_ok">Usar este diretório</string>
 	<string name="file_dir_dialog_default">Restaurar definições originais</string>
-	<string name="p_files_dir">Diretório de transferências</string>
 	<string name="p_files_dir_desc">Anexos de tarefa gravadas em: %s</string>
 	<string name="p_files_dir_desc_default">Diretório predefinido</string>
 	<string name="premium_speech_bubble_2">Compre por um ano e poupe 25%!</string>
@@ -496,7 +491,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="DLG_error">Parece que ocorreu um erro! Isto foi o que aconteceu:\n\n%s</string>
 	<string name="DLG_wait">Por favor aguarde...</string>
 	<string name="SyP_label">Sincronização e backup</string>
-	<string name="SyP_summary">Tarefas Google, dados e backups</string>
 	<string name="sync_SPr_group_status">Estado</string>
 	<string name="sync_SPr_status_subtitle">Estado: %s</string>
 	<string name="sync_status_loggedout">Sessão não iniciada</string>

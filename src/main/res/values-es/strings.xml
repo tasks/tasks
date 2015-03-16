@@ -201,7 +201,6 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Momento del evento en calendario</string>
 	<string name="EPr_cal_end_at_due_time">Finalizar los eventos del calendario en su fecha de vencimiento</string>
 	<string name="EPr_cal_start_at_due_time">Iniciar los eventos del calendario en su fecha de vencimiento</string>
-	<string name="EPr_enable_debug_logging">Habilitar registro de depuración</string>
 	<string name="EPr_manage_header">Administrar tareas antiguas</string>
 	<string name="EPr_manage_delete_completed">Borrar tareas completadas</string>
 	<string name="EPr_manage_delete_completed_message">¿Seguro que desea borrar todas las tareas completadas?</string>
@@ -225,7 +224,6 @@
 	<string name="DB_corrupted_body">\"¡Oh-oh! Es posible que tu base de datos esté corrupta. Si ves éste error con frecuencia, te sugerimos que limpies toda la información  (Configuración-&gt;Sincronización y respaldos-&gt;Administrar tareas pasadas-&gt;Limpiar toda la información) y recuperar tus tareas de un respaldo (Configuración-&gt;Sincronización y respaldos-&gt;Respaldos-&gt;Importar tareas) en Tasks.\"</string>
 	<string name="market_unavailable">Desafortunadamente el Market no está disponible para tu sistema</string>
 	<string name="EPr_defaults_header">Configuración por defecto de nuevas tareas.</string>
-	<string name="EPr_defaults_summary">Prioridad, fecha limite, añadir al calendario</string>
 	<string name="EPr_default_urgency_title">Fecha límite por defecto</string>
 	<string name="EPr_default_urgency_desc">Actualmente: %s</string>
 	<string name="EPr_default_importance_title">Prioridad predeterminada</string>
@@ -318,8 +316,6 @@
 	<string name="gtasks_error_accountManager">Error en el administrador de cuentas de tu teléfono. Por favor reinicia sesión desde la configuración de Google Tasks.</string>
 	<string name="gtasks_error_background_sync_auth">Error al autenticarse en un segundo plano. Por favor, intente iniciar la sincronización mientras Tasks está ejecutándose.</string>
 	<string name="locale_notification">Tiene $NUM que coincide con: $FILTER</string>
-	<string name="EPr_powerpack_header">Premium y configuraciones varias</string>
-	<string name="EPr_powerpack_summary">Recordatorios de llamadas perdidas, reconocimiento de voz y ajustes varios</string>
 	<string name="premium_attach_file">Adjuntar un archivo</string>
 	<string name="premium_record_audio">Grabar una nota</string>
 	<string name="premium_remove_file_confirm">Está seguro? No se puede deshacer</string>
@@ -342,7 +338,6 @@
 	<string name="file_err_copy">Error al copiar el archivo a adjuntar</string>
 	<string name="file_dir_dialog_ok">Usar este directorio</string>
 	<string name="file_dir_dialog_default">Restaurar a valores por defecto</string>
-	<string name="p_files_dir">Directorio de descargas Premium</string>
 	<string name="p_files_dir_desc">Archivos adjuntos de tareas guardados en: %s</string>
 	<string name="p_files_dir_desc_default">Directorio predeterminado</string>
 	<string name="premium_speech_bubble_2">¡Ordena un año y ahorra un 25%%!</string>
@@ -490,7 +485,6 @@
 	<string name="DLG_error">¡Uy, parece que ocurró un error! Esto es lo que pasó:\n\n%s</string>
 	<string name="DLG_wait">Por favor, espere...</string>
 	<string name="SyP_label">Sincronización y copia de seguridad</string>
-	<string name="SyP_summary">Google Tasks, información guardada, copia de seguridad local</string>
 	<string name="sync_SPr_group_status">Estado</string>
 	<string name="sync_SPr_status_subtitle">Estado: %s</string>
 	<string name="sync_status_loggedout">Sesión no iniciada</string>

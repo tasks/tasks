@@ -9,6 +9,7 @@
 
   <!-- ======================================================== REMINDERS == -->
 
+    <string name="p_files_dir">p_download_dir</string>
     <string name="p_rmd_enabled">notif_enabled</string>
   <!-- boolean : whether to enable quiet hours or not -->
   <string name="p_rmd_enable_quiet">enable_qhours</string>

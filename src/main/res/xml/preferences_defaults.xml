@@ -6,7 +6,7 @@
 -->
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/EPr_defaults_header">
+    android:title="@string/task_defaults">
     <com.todoroo.astrid.ui.MultilineListPreference
         android:key="@string/p_default_importance_key"
         android:entries="@array/EPr_default_importance"

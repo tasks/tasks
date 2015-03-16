@@ -58,9 +58,6 @@
     <!-- Sync Label: used in menu to denote synchronization -->
     <string name="SyP_label">Sync &amp; backup</string>
 
-    <!-- Sync label subtitle -->
-    <string name="SyP_summary">Google Tasks, saved data, local backup</string>
-
     <!-- ================================================== SyncPreferences == -->
 
     <!-- Status Group Label -->
@@ -122,6 +119,9 @@
     <string name="sound">Sound</string>
     <string name="vibrate">Vibrate</string>
     <string name="quiet_hours">Quiet hours</string>
+    <string name="attachment_directory">Attachment directory</string>
+    <string name="debug_logging">Debug logging</string>
+    <string name="miscellaneous">Miscellaneous</string>
 
     <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->

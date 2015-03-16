@@ -200,7 +200,6 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Ώρα γεγονότος ημερολογίου</string>
 	<string name="EPr_cal_end_at_due_time">Τερματισμός γεγονότων ημερολογίου στην ώρα λήξης τους</string>
 	<string name="EPr_cal_start_at_due_time">Εκκίνηση γεγονότων ημερολογίου στην ώρα λήξης τους</string>
-	<string name="EPr_enable_debug_logging">Ενεργοποίηση της καταγραφής εντοπισμού σφαλμάτων</string>
 	<string name="EPr_manage_header">Διαχείριση παλιών εργασιών</string>
 	<string name="EPr_manage_delete_completed">Διαγραφή ολοκληρωμένων εργασιών</string>
 	<string name="EPr_manage_delete_completed_message">Θέλετε στα αλήθεια την διαγραφή όλων των ολοκληρωμένων εργασιών σας;</string>
@@ -227,7 +226,6 @@
 καθηκόντων σας από ένα αντίγραφο ασφαλείας (Ρυθμίσεις-&gt; Sync και Backup-&gt; Backup-&gt; Εισαγωγή εργασίες) στις εργασίες.</string>
 	<string name="market_unavailable">Δυστυχώς το market δεν είναι διαθέσιμο για το λειτουργικό σου.</string>
 	<string name="EPr_defaults_header">Προκαθορισμένα στοιχεία νέας εργασίας</string>
-	<string name="EPr_defaults_summary">Προτεραιότητα, ημ/νία λήξης, προσθήκη σε ημερολόγιο</string>
 	<string name="EPr_default_urgency_title">Προκαθοσρισμένη προθεσμία</string>
 	<string name="EPr_default_urgency_desc">Σήμερα: %s</string>
 	<string name="EPr_default_importance_title">Προκαθορισμένη προτεραιότητα</string>
@@ -318,8 +316,6 @@
 	<string name="gtasks_error_accountManager">Σφάλμα στον διαχειριστή επαφών της συσκευής σας. Παρακαλώ αποσυνδεθείτε και συνδεθείτε ξανά απο τις ρυθμίσεις του Google Tasks.</string>
 	<string name="gtasks_error_background_sync_auth">Σφάλμα αυθεντικοποίησης στο παρασκήνιο. Παρακαλώ δοκιμάστε να συγχρονίσετε όσο τρέχει η εφαρμογή.</string>
 	<string name="locale_notification">Έχεις $NUM να ταιριάζει: $FILTER</string>
-	<string name="EPr_powerpack_header">Προηγμένες ρυθμίσεις</string>
-	<string name="EPr_powerpack_summary">Υπενθυμίσεις αναπάντητων κλήσεων , φωνητική είσοδος και διάφορες ρυθμίσεις</string>
 	<string name="premium_attach_file">Επισύναψη αρχείου</string>
 	<string name="premium_record_audio">Ηχογράφηση σημείωσης</string>
 	<string name="premium_remove_file_confirm">Είστε σίγουρος; Δεν μπορεί να ακυρωθεί</string>
@@ -342,7 +338,6 @@
 	<string name="file_err_copy">Σφάλμα αντιγραφής αρχείου προς επισύναψη</string>
 	<string name="file_dir_dialog_ok">Χρήση αυτού του φακέλου</string>
 	<string name="file_dir_dialog_default">Επαναφορά προεπιλογών</string>
-	<string name="p_files_dir">Premium φάκελος λήψεων</string>
 	<string name="p_files_dir_desc">Συνημμένα εργασιών σώθηκαν στο: %s</string>
 	<string name="p_files_dir_desc_default">Προεπιλεγμένος φάκελος</string>
 	<string name="premium_speech_bubble_2">Παραγγείλετε ένα χρόνο και εξοικονομήστε 25%!</string>
@@ -486,7 +481,6 @@
 	<string name="DLG_error">Ωπ, προέκυψε σφάλμα!! Νά τι έγινε :\n\n%s</string>
 	<string name="DLG_wait">Παρακαλώ περιμένετε...</string>
 	<string name="SyP_label">Συγχρονισμός και αντίγ.ασφαλείας</string>
-	<string name="SyP_summary">Google Tasks, σωσμένα δεδομένα , τοπικά αντίγραφα ασφαλείας</string>
 	<string name="sync_SPr_group_status">Κατάσταση</string>
 	<string name="sync_SPr_status_subtitle">Κατάσταση: %s</string>
 	<string name="sync_status_loggedout">Δεν συνδέθηκατε</string>

@@ -287,8 +287,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="gtasks_error_accountManager">Account non trovato--per favore fai logout e di nuovo login dalla configurazione di Google Tasks.</string>
 	<string name="gtasks_error_background_sync_auth">Errore di autenticazione in background. Per favore prova ad avviare una sincronizzazione durante l\'esecuzione di Tasks.</string>
 	<string name="locale_notification">Hai $NUM corrispondenti: $FILTER</string>
-	<string name="EPr_powerpack_header">Impostazioni Premium e varie</string>
-	<string name="EPr_powerpack_summary">Promemoria chiamate mancate, comandi vocali e impostazioni varie</string>
 	<string name="premium_attach_file">Allega un file</string>
 	<string name="premium_record_audio">Registra una nota</string>
 	<string name="premium_remove_file_confirm">Se sicuro? Non può essere eseguito</string>
@@ -311,7 +309,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="file_err_copy">Errore di copia dei file da allegare</string>
 	<string name="file_dir_dialog_ok">Utilizza questa directory</string>
 	<string name="file_dir_dialog_default">Ripristino impostazioni iniziali</string>
-	<string name="p_files_dir">Cartella download Premium</string>
 	<string name="p_files_dir_desc">Allegati dell\'attivitá salvati in: %s</string>
 	<string name="p_files_dir_desc_default">Cartella predefinita</string>
 	<string name="premium_speech_bubble_2">Sottoscrivi 1 anno e risparmia il 25%%!</string>
@@ -432,7 +429,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="DLG_error">Oops, sembra che ci sia stato un errore! E\' successo questo:\n\n%s</string>
 	<string name="DLG_wait">Attendi...</string>
 	<string name="SyP_label">Sincronizza &amp; archivia</string>
-	<string name="SyP_summary">Attività Google, dati salvati, backup locale </string>
 	<string name="sync_SPr_group_status">Stato</string>
 	<string name="sync_SPr_status_subtitle">Stato: %s</string>
 	<string name="sync_status_loggedout">Non connesso</string>

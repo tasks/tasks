@@ -229,7 +229,6 @@
 (설정-&gt;동기화 &amp; 백업-&gt;백업-&gt;일정 불러오기)</string>
 	<string name="market_unavailable">이 기기에서 마켓을 사용할 수 없습니다.</string>
 	<string name="EPr_defaults_header">새 일정 기본값</string>
-	<string name="EPr_defaults_summary">우선순위, 마감일, 달력에 추가하기</string>
 	<string name="EPr_default_urgency_title">기본 중요도</string>
 	<string name="EPr_default_urgency_desc">현재: %s</string>
 	<string name="EPr_default_importance_title">기본 우선순위</string>
@@ -324,8 +323,6 @@
 	<string name="gtasks_error_accountManager">휴대폰 계정 관리자에서 에러가 발생했습니다. 로그아웃 후 구글 일정 설정에서 다시 로그인 해 주세요.</string>
 	<string name="gtasks_error_background_sync_auth">백그라운드에서 인증 에러가 발생했습니다. 아스트리드가 실행중일 때 동기화를 시작해 보세요.</string>
 	<string name="locale_notification">$NUM 개의 일정이 일치합니다: $FILTER</string>
-	<string name="EPr_powerpack_header">프리미엄과 기타 설정</string>
-	<string name="EPr_powerpack_summary">부재중 전화 알림, 음성 입력과 기타 설정</string>
 	<string name="premium_attach_file">파일 첨부</string>
 	<string name="premium_record_audio">노트 기록</string>
 	<string name="premium_remove_file_confirm">정말입니까? 되돌릴 수 없습니다</string>
@@ -348,7 +345,6 @@
 	<string name="file_err_copy">첨부용 파일 복사 에러</string>
 	<string name="file_dir_dialog_ok">이 디렉토리 사용</string>
 	<string name="file_dir_dialog_default">기본값으로 초기화</string>
-	<string name="p_files_dir">프리미엄 다운로드 디렉토리</string>
 	<string name="p_files_dir_desc">일정 첨부 파일 저장됨: %s</string>
 	<string name="p_files_dir_desc_default">기본 디렉토리</string>
 	<string name="premium_speech_bubble_2">1년 사용권 구매시 25%% 할인!</string>
@@ -490,7 +486,6 @@
 	<string name="DLG_error">에러가 발생한 것 같습니다! 발생한 에러는 다음과 같습니다:\n\n%s</string>
 	<string name="DLG_wait">잠시 기다리세요...</string>
 	<string name="SyP_label">동기화 &amp; 백업</string>
-	<string name="SyP_summary">구글 일정, 저장한 자료, 로컬 백업</string>
 	<string name="sync_SPr_group_status">상태</string>
 	<string name="sync_SPr_status_subtitle">상태: %s</string>
 	<string name="sync_status_loggedout">로그인 안 됨</string>

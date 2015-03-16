@@ -223,7 +223,6 @@
 מגיבוי (הגדרות-&gt;סנכרון וגיבוי-&gt;גיבוי-&gt;יבא משימות).</string>
 	<string name="market_unavailable">לרוע המזל חנות היישומים אינה זמינה</string>
 	<string name="EPr_defaults_header">ברירות המחדל למשימה חדשה</string>
-	<string name="EPr_defaults_summary">עדיפות, מועד יעד, הוספה ליומן</string>
 	<string name="EPr_default_urgency_title">דחיפות ברירת המחדל</string>
 	<string name="EPr_default_urgency_desc">כעת: %s</string>
 	<string name="EPr_default_importance_title">עדיפות מחדל</string>
@@ -318,8 +317,6 @@
 	<string name="gtasks_error_accountManager">מנהל החשבונות של הטלפון שלך נתקל בשגיאה. אנא התנתק והתחבר מתוך הגדרות ״משימות גוגל״.</string>
 	<string name="gtasks_error_background_sync_auth">האימות המתבצע ברקע נכשל. אנא נסה להתחיל את הסינכרון בזמן שאסטריד פועלת.</string>
 	<string name="locale_notification">יש לך $NUM המתאימים: $FILTER</string>
-	<string name="EPr_powerpack_header">פרימיום והגדרות שונות</string>
-	<string name="EPr_powerpack_summary">תזכורת קולית הוחמצה, קלט קולי והגדרות כלליות</string>
 	<string name="premium_attach_file">צרף קובץ</string>
 	<string name="premium_record_audio">הקלד הערה</string>
 	<string name="premium_remove_file_confirm">בטוח? לא ניתן לבטל את הפעולה</string>
@@ -342,7 +339,6 @@
 	<string name="file_err_copy">שגיאה בהעתקת הקובץ המצורף</string>
 	<string name="file_dir_dialog_ok">השתמש בתיקיה זו</string>
 	<string name="file_dir_dialog_default">אפס לברירת מחדל</string>
-	<string name="p_files_dir">תיקיית הורדות פרימיום</string>
 	<string name="p_files_dir_desc">צְרוּפוֹת נשמרו בתיקיה %s</string>
 	<string name="p_files_dir_desc_default">תיקייית ברירת מחדל</string>
 	<string name="premium_speech_bubble_2">הזמן לשנה וחסוך !25%%</string>
@@ -483,7 +479,6 @@
 	<string name="DLG_error">אוּפְּס, נראה שארעה שגיאה! הנה מה שקה:\n\n%s</string>
 	<string name="DLG_wait">אנא המתן...</string>
 	<string name="SyP_label">סינכרון וגיבוי</string>
-	<string name="SyP_summary">אתר אסטריד, ״משימות גוגל״, מידע שמור, גיבוי מקומי</string>
 	<string name="sync_SPr_group_status">מצב</string>
 	<string name="sync_SPr_status_subtitle">מצב: %s</string>
 	<string name="sync_status_loggedout">לא מחובר</string>

@@ -231,7 +231,6 @@
 ї копії (Параметри-&gt; Синхронізація-&gt; Резервні копії-&gt; Імпортувати задачі)</string>
 	<string name="market_unavailable">Нажаль магазин недоступний для вашої системи.</string>
 	<string name="EPr_defaults_header">Параметри по замовчуванню для нових завдань</string>
-	<string name="EPr_defaults_summary">Пріоритет, термін виконання, додати до календаря</string>
 	<string name="EPr_default_urgency_title">Актуальність по замовчуванню</string>
 	<string name="EPr_default_urgency_desc">Поточна: %s</string>
 	<string name="EPr_default_importance_title">Пріоритет по замовчуванню</string>
@@ -324,8 +323,6 @@
 	<string name="gtasks_error_accountManager">Помилка в менеджері акаунтів вашого телефону, ласка вийдіть і увійдіть знову в налаштуваннях Google Tasks</string>
 	<string name="gtasks_error_background_sync_auth">Не вдалося пройти аутентифікацію у фоні. Будь ласка, попробуйте при запущеному Tasks.</string>
 	<string name="locale_notification">Число відповідностей $FILTER: $NUM</string>
-	<string name="EPr_powerpack_header">Розширені налаштування</string>
-	<string name="EPr_powerpack_summary">Нагадування про пропущені дзвінки, голосове введення та інші установки</string>
 	<string name="premium_attach_file">Прикріпити файл</string>
 	<string name="premium_record_audio">Записати замітку</string>
 	<string name="premium_remove_file_confirm">Ви впевнені? Це не може бути скасовано.</string>
@@ -348,7 +345,6 @@
 	<string name="file_err_copy">Помилка копіювання доданого файлу.</string>
 	<string name="file_dir_dialog_ok">Використовувати цю папку</string>
 	<string name="file_dir_dialog_default">Скинути налаштування за замовчуванням</string>
-	<string name="p_files_dir">Папка Преміум-завантажень</string>
 	<string name="p_files_dir_desc">Прикріплення до задачі збережені в: %s</string>
 	<string name="p_files_dir_desc_default">Папка за замовчуванням</string>
 	<string name="premium_speech_bubble_2">Підпишіться на рік і заощаджуйте 25%%!</string>
@@ -474,7 +470,6 @@
 	<string name="DLG_error">На жаль, схоже, сталася помилка! Ось що вийшло:\n\n%s</string>
 	<string name="DLG_wait">Будь ласка, зачекайте...</string>
 	<string name="SyP_label">Синхронізація і резерв. копіювання</string>
-	<string name="SyP_summary">Google Tasks, збережені дані, локальне резервне копіювання</string>
 	<string name="sync_SPr_group_status">Статус</string>
 	<string name="sync_SPr_status_subtitle">Статус: %s</string>
 	<string name="sync_status_loggedout">Не залогований</string>

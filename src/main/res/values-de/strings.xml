@@ -199,7 +199,6 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Zeitpunkt Kalendertermin</string>
 	<string name="EPr_cal_end_at_due_time">Kalendereintrag endet zur Fälligkeits-Uhrzeit</string>
 	<string name="EPr_cal_start_at_due_time">Kalendereintrag Startet zur Fälligkeits-Uhrzeit</string>
-	<string name="EPr_enable_debug_logging">Debug logging aktivieren</string>
 	<string name="EPr_manage_header">Alte Aufgaben verwalten</string>
 	<string name="EPr_manage_delete_completed">Erledigte Aufgaben löschen</string>
 	<string name="EPr_manage_delete_completed_message">Willst du wirklich alle erledigten Aufgaben löschen?</string>
@@ -223,7 +222,6 @@
 	<string name="DB_corrupted_body">Oh-oh! Sieht aus aIs könnte deine Datenbank beschädigt sein. Falls Du diesen Fehler regelmäßig siehst, empfehlen wir, alle Daten zu löschen (Einstellungen-&gt;Synchronisation-&gt;Alte Aufgaben verwalten-&gt;Alle Daten löschen) und deine Aufgaben aus einem Backup in Tasks wiederherzustellen (Einstellungen-&gt;Synchronisation-&gt;Backups-&gt;-Backups verwalten&gt;Aufgaben importieren).</string>
 	<string name="market_unavailable">Leider ist der Market nicht für dein System verfügbar.</string>
 	<string name="EPr_defaults_header">Standardeinstellungen für neue Aufgaben</string>
-	<string name="EPr_defaults_summary">Priorität, Fälligkeitsdatum, in Kalender eintragen</string>
 	<string name="EPr_default_urgency_title">Standard Dringlichkeit</string>
 	<string name="EPr_default_urgency_desc">Momentan: %s</string>
 	<string name="EPr_default_importance_title">Standard Priorität</string>
@@ -316,8 +314,6 @@
 	<string name="gtasks_error_accountManager">Fehler in den</string>
 	<string name="gtasks_error_background_sync_auth">Fehler bei der Hintergrundauthentifizierung. Starte eine Synchronisation in der App.</string>
 	<string name="locale_notification">Du hast $NUM Übereinstimmungen mit: $FILTER</string>
-	<string name="EPr_powerpack_header">Premium und erweiterte Einstellungen</string>
-	<string name="EPr_powerpack_summary">Verpasste Anruf Erinnerungen, Spracheingabe und Andere Einstellungen</string>
 	<string name="premium_attach_file">Datei anhängen</string>
 	<string name="premium_record_audio">Notiz aufzeichnen</string>
 	<string name="premium_remove_file_confirm">Sind Sie sicher? Das kann nicht rückgängig gemacht werden</string>
@@ -340,7 +336,6 @@
 	<string name="file_err_copy">Fehler beim Kopieren der anzuhängenden Datei</string>
 	<string name="file_dir_dialog_ok">Dieses Verzeichnis verwenden</string>
 	<string name="file_dir_dialog_default">Auf Standardeinstellungen zurücksetzen</string>
-	<string name="p_files_dir">Premium-Downloadverzeichnis</string>
 	<string name="p_files_dir_desc">Aufgaben-Anhänge gespeichert in: %s</string>
 	<string name="p_files_dir_desc_default">Standard-Verzeichnis</string>
 	<string name="premium_speech_bubble_2">Bestelle für ein ganzes Jahr und spare 25%!</string>
@@ -487,7 +482,6 @@
 	<string name="DLG_error">Ups, sieht aus, als ob ein Fehler aufgetreten ist! Folgendes ist passiert:\n\n%s</string>
 	<string name="DLG_wait">Bitte warten...</string>
 	<string name="SyP_label">Synchronisation &amp; Backup</string>
-	<string name="SyP_summary">Google Tasks, Gespeicherte Daten, Lokale Backups</string>
 	<string name="sync_status_loggedout">Nicht angemeldet</string>
 	<string name="sync_status_ongoing">Synchronisierung läuft...</string>
 	<string name="sync_status_success">Letzte Synchronisierung:\n%s</string>

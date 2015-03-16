@@ -262,10 +262,7 @@
         <activity
             android:name="com.todoroo.astrid.core.DefaultsPreferences"
             android:theme="@android:style/Theme"
-            android:label="@string/EPr_defaults_header">
-            <meta-data
-                android:name="summary"
-                android:resource="@string/EPr_defaults_summary" />
+            android:label="@string/task_defaults">
             <intent-filter>
                 <action android:name="org.tasks.SETTINGS" />
                 <category android:name="android.intent.category.DEFAULT" />

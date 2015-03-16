@@ -313,8 +313,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="gtasks_error_accountManager">Fel i din telefons kontohantering. Logga ut och in på nytt i inställningarna för Google Uppgifter.</string>
 	<string name="gtasks_error_background_sync_auth">Autentisering i bakgrunden misslyckades. Vänligen försök starta en synkronisering medan Tasks körs.</string>
 	<string name="locale_notification">Du har $NUM som matchar: $FILTER</string>
-	<string name="EPr_powerpack_header">Premium och övriga inställningar</string>
-	<string name="EPr_powerpack_summary">Påminnelser för missade samtal, röstinmatning samt övriga inställningar</string>
 	<string name="premium_attach_file">Bifoga fil</string>
 	<string name="premium_record_audio">Spela in en anteckning</string>
 	<string name="premium_remove_file_confirm">Är du säker? Detta kan inte ångras</string>
@@ -337,7 +335,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="file_err_copy">Bifoga fil misslyckades: fel vid kopiering</string>
 	<string name="file_dir_dialog_ok">Använd denna mapp</string>
 	<string name="file_dir_dialog_default">Återställ till standard</string>
-	<string name="p_files_dir">Mapp för Premium-nedladdningar</string>
 	<string name="p_files_dir_desc">Uppgiftens bifogade filer sparades till: %s</string>
 	<string name="p_files_dir_desc_default">Standardmapp</string>
 	<string name="premium_speech_bubble_2">Beställ för helår och spara 25%!</string>
@@ -477,7 +474,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="DLG_error">Oj, det uppstod ett fel! Detta hände:\n\n%s</string>
 	<string name="DLG_wait">Var god vänta...</string>
 	<string name="SyP_label">Synkronisering</string>
-	<string name="SyP_summary">Google Aktiviteter, sparad data, lokal backup</string>
 	<string name="sync_status_loggedout">Ej inloggad</string>
 	<string name="sync_status_ongoing">Synkronisering pågår...</string>
 	<string name="sync_status_success">Synkroniserades senast:\n%s</string>

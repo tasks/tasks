@@ -267,8 +267,6 @@
 	<string name="gtasks_error_accountManager">您手机的帐户管理器出错了。请退出，然后从 Google Tasks设置中重新登录。</string>
 	<string name="gtasks_error_background_sync_auth">后台验证出错了。请在清单小助理运行时尝试启动同步。</string>
 	<string name="locale_notification">您有 $NUM 符合: $FILTER</string>
-	<string name="EPr_powerpack_header">高级和其它设置</string>
-	<string name="EPr_powerpack_summary">未接电话提醒，语音输入和其它设置</string>
 	<string name="premium_attach_file">附上一份文件</string>
 	<string name="premium_record_audio">录制一条便笺</string>
 	<string name="premium_remove_file_confirm">您确定吗？无法恢复的喔</string>
@@ -291,7 +289,6 @@
 	<string name="file_err_copy">复制文件添加附件时出错</string>
 	<string name="file_dir_dialog_ok">使用此目录</string>
 	<string name="file_dir_dialog_default">重设为默认值</string>
-	<string name="p_files_dir">高级下载设置</string>
 	<string name="p_files_dir_desc">将任务附件保存至：%s</string>
 	<string name="p_files_dir_desc_default">默认目录</string>
 	<string name="premium_speech_bubble_2">购买一年的服务并且得到25%%的折扣</string>
@@ -420,7 +417,6 @@
 	<string name="DLG_error">糟糕，发生错误！状况是:\n\n%s</string>
 	<string name="DLG_wait">请稍候...</string>
 	<string name="SyP_label">同步和备份</string>
-	<string name="SyP_summary">谷歌任务，已存数据，本地备份</string>
 	<string name="sync_SPr_group_status">状态</string>
 	<string name="sync_SPr_status_subtitle">状态：%s</string>
 	<string name="sync_status_loggedout">未登陆</string>

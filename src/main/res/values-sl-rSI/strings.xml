@@ -226,7 +226,6 @@
 	<string name="DB_corrupted_body">O, ne! Zdi se, da imate okvarjeno bazo podatkov. Če se ta napaka pogosto pojavlja, vam predlagamo, da zbrišete vse podatke (Nastavitve-&gt;Usklajevanje in varnostna kopija-&gt; Upravljanje s preteklimi opravki-&gt;Zbriši vse podatke) in obnovite svoje opravke s pomočjo varnostne kopije aplikacije Opravki. (Nastavitve-&gt;Usklajevanje in varnostna kopija-&gt;Varnostna kopija-&gt;Uvozi opravke)</string>
 	<string name="market_unavailable">Žal trg ne podpira vašega sistema.</string>
 	<string name="EPr_defaults_header">Privzete nastavitve novih opravkov</string>
-	<string name="EPr_defaults_summary">Prioriteta, dospelost, dodaj na koledar</string>
 	<string name="EPr_default_urgency_title">Privzeta dospelost</string>
 	<string name="EPr_default_urgency_desc">Trenutno: %s</string>
 	<string name="EPr_default_importance_title">Privzeta dospelost</string>
@@ -321,8 +320,6 @@
 	<string name="gtasks_error_accountManager">Napaka pri upravitelju računov na vašem telefonu. Prosimo, odjavite se, nato pa ponovno prijavite skozi nastavitve Google Nalog.</string>
 	<string name="gtasks_error_background_sync_auth">Napaka pri overjanju v ozadju. Prosimo, poskusite začeti z usklajevanjem med delovanjem aplikacije Opravki.</string>
 	<string name="locale_notification">$NUM jih ustreza: $FILTER</string>
-	<string name="EPr_powerpack_header">Napredne nastavitve</string>
-	<string name="EPr_powerpack_summary">Opomniki zgrešenih klicev, vnos glasu in razne nastavitve</string>
 	<string name="premium_attach_file">Pripni datoteko</string>
 	<string name="premium_record_audio">Posnemi opombo</string>
 	<string name="premium_remove_file_confirm">Ste prepričani? Tega ni mogoče razveljaviti</string>
@@ -345,7 +342,6 @@
 	<string name="file_err_copy">Napaka pri kopiranju datoteke za priponko</string>
 	<string name="file_dir_dialog_ok">Uporabi to mapo</string>
 	<string name="file_dir_dialog_default">Ponastavi na privzeto</string>
-	<string name="p_files_dir">Mapa za posebna snemanja</string>
 	<string name="p_files_dir_desc">Priponke opravku shranjene v:%s</string>
 	<string name="p_files_dir_desc_default">Privzeta mapa</string>
 	<string name="premium_speech_bubble_2">Enoletna naročnina prihrani 25%!</string>
@@ -490,7 +486,6 @@
 	<string name="DLG_error">Ups, zdi se, da je prišlo do napake! Tole se je zgodilo:\n\n%s</string>
 	<string name="DLG_wait">Prosimo, počakajte...</string>
 	<string name="SyP_label">Uskladitev &amp; varnostna kopija</string>
-	<string name="SyP_summary">Google Naloge, shranjeni podatki, varnostna kopija na napravi</string>
 	<string name="sync_status_loggedout">Niste prijavljeni</string>
 	<string name="sync_status_ongoing">Usklajevanje poteka...</string>
 	<string name="sync_status_success">Najnovejše usklajevanje:\n%s</string>
