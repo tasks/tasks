@@ -450,10 +450,7 @@
         <activity
             android:name="com.todoroo.astrid.reminders.ReminderPreferences"
             android:theme="@android:style/Theme"
-            android:label="@string/rmd_EPr_alerts_header">
-            <meta-data
-                android:name="summary"
-                android:resource="@string/rmd_EPr_alerts_summary" />
+            android:label="@string/notifications">
             <intent-filter>
                 <action android:name="org.tasks.SETTINGS" />
                 <category android:name="android.intent.category.DEFAULT" />

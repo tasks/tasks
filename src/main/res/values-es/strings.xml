@@ -373,8 +373,6 @@
 	<string name="rmd_NoA_done">¡Terminada!</string>
 	<string name="rmd_NoA_snooze">Dilación</string>
 	<string name="rmd_NoA_dlg_title">Recordatorio:</string>
-	<string name="rmd_EPr_alerts_header">Configurar recordatorios</string>
-	<string name="rmd_EPr_alerts_summary">Horario en silencio, opciones al posponer, nivel de persistencia</string>
 	<string name="rmd_EPr_enable_quiet_title">Habilitar horario en silencio</string>
 	<string name="rmd_EPr_quiet_hours_start_title">El horario en silencio empieza</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">Notificaciones serán silenciadas después de %s.\nNota: las vibraciones están controladas según la configuración \"Vibrar en alerta\"</string>

@@ -70,10 +70,6 @@
   
   <!-- ============================================= reminder preferences == -->
   
-  <!-- slide 33d: Reminder Preference Screen Title -->
-  <string name="rmd_EPr_alerts_header">Reminder settings</string>
-  <string name="rmd_EPr_alerts_summary">Quiet hours, snooze options, persistence level</string>
-    
   <!-- Reminder Preference: Quiet Hours Start Title -->
   <string name="rmd_EPr_enable_quiet_title">Enable quiet hours</string>
   <!-- Reminder Preference: Quiet Hours Start Title -->

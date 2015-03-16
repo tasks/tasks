@@ -332,8 +332,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="rmd_NoA_done">Completata</string>
 	<string name="rmd_NoA_snooze">Rimanda...</string>
 	<string name="rmd_NoA_dlg_title">Promemoria:</string>
-	<string name="rmd_EPr_alerts_header">Impostazioni promemoria</string>
-	<string name="rmd_EPr_alerts_summary">Ore tranquille, funzione di ripetizione, livello di persistenza</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Ora inizio silenzio</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">Nessuna notifica apparirà dopo le %s</string>
 	<string name="rmd_EPr_quiet_hours_desc_none">Ora inizio silenzio non abilitato</string>

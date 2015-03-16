@@ -378,8 +378,6 @@
 	<string name="rmd_NoA_done">Уже готово!</string>
 	<string name="rmd_NoA_snooze">Повтор</string>
 	<string name="rmd_NoA_dlg_title">Напоминания:</string>
-	<string name="rmd_EPr_alerts_header">Настройки напоминаний</string>
-	<string name="rmd_EPr_alerts_summary">Тихие часы, повторные напоминания и уровень настойчивости</string>
 	<string name="rmd_EPr_enable_quiet_title">Настроить тихие часы</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Начало тихих часов</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">Уведомления будут беззвучными после %s.\nПримечание: вибрация управляется настройками ниже!</string>

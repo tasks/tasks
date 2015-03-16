@@ -379,8 +379,6 @@
 	<string name="rmd_NoA_done">완료</string>
 	<string name="rmd_NoA_snooze">알림 잠시 미루기</string>
 	<string name="rmd_NoA_dlg_title">알림:</string>
-	<string name="rmd_EPr_alerts_header">알림 설정</string>
-	<string name="rmd_EPr_alerts_summary">알람 꺼짐 시간, 스누즈 설정, 알람 지속 레벨</string>
 	<string name="rmd_EPr_quiet_hours_start_title">알림 꺼짐 시작 시간</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">%s 후에는 알림을 끕니다. (진동은 알람 설정의 진동 설정을 따릅니다)</string>
 	<string name="rmd_EPr_quiet_hours_desc_none">알림 꺼짐을 사용하지 않습니다</string>

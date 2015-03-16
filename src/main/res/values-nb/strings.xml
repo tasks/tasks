@@ -176,7 +176,6 @@
 	<string name="rmd_NoA_filter">Påminnelse!</string>
 	<string name="rmd_NoA_done">Allerede utført!</string>
 	<string name="rmd_NoA_snooze">Slumre</string>
-	<string name="rmd_EPr_alerts_header">Påminnelseinnstillinger</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Stilletimer start</string>
 	<string name="rmd_EPr_quiet_hours_desc_none">Stilletimer er deaktivert</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Stilletimer slutt</string>

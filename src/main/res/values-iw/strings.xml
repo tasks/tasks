@@ -371,8 +371,6 @@
 	<string name="rmd_NoA_done">בוצעה</string>
 	<string name="rmd_NoA_snooze">השתק</string>
 	<string name="rmd_NoA_dlg_title">תזכורת:</string>
-	<string name="rmd_EPr_alerts_header">הגדרות תזכורת</string>
-	<string name="rmd_EPr_alerts_summary">שעות שקטות, אשפרויות נימנום, רמת המשכות</string>
 	<string name="rmd_EPr_quiet_hours_start_title">תחילת שעות השקט</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">האתראות תוחרשנה אחרי %s.\nשים לב: הגדרות הן חתחת \"רטט  בזמן התראה\"!</string>
 	<string name="rmd_EPr_quiet_hours_desc_none">תכונת «שעות שקט» אינה פעילה</string>

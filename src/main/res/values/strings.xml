@@ -117,6 +117,7 @@
     <string name="widget_hide_checkboxes">Hide checkboxes</string>
     <string name="widget_hide_header">Hide header</string>
     <string name="widget_transparent_background">Transparent background</string>
+    <string name="notifications">Notifications</string>
 
     <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->

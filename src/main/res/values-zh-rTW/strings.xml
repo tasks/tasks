@@ -352,8 +352,6 @@
 	<string name="rmd_NoA_done">已完成!</string>
 	<string name="rmd_NoA_snooze">晚點提醒...</string>
 	<string name="rmd_NoA_dlg_title">提醒：</string>
-	<string name="rmd_EPr_alerts_header">提醒設置</string>
-	<string name="rmd_EPr_alerts_summary">勿擾模式，稍候提醒，持續提醒</string>
 	<string name="rmd_EPr_quiet_hours_start_title">無聲開始時間</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">%s 後提示將靜止。\n注意：震動在下面的選項中控制！</string>
 	<string name="rmd_EPr_quiet_hours_desc_none">未設定無聲功能</string>

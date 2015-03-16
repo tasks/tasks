@@ -374,8 +374,6 @@
 	<string name="rmd_NoA_done">Reeds voltooid!</string>
 	<string name="rmd_NoA_snooze">Sluimeren...</string>
 	<string name="rmd_NoA_dlg_title">Herinnering:</string>
-	<string name="rmd_EPr_alerts_header">Instellingen herinneringen</string>
-	<string name="rmd_EPr_alerts_summary">Rustige uren, snooze opties, niveau volhouden</string>
 	<string name="rmd_EPr_enable_quiet_title">Stel stille tijd in</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Rustperiode begint</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">Waarschuwingen geluidloos na %s.\nOpmerking: trillen wordt via onderstaande instellingen ingesteld!</string>

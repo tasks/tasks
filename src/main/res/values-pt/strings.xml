@@ -377,8 +377,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="rmd_NoA_filter">Lembrete!</string>
 	<string name="rmd_NoA_done">Terminada</string>
 	<string name="rmd_NoA_dlg_title">Lembrete:</string>
-	<string name="rmd_EPr_alerts_header">Definições do lembrete</string>
-	<string name="rmd_EPr_alerts_summary">Horas de silêncio, opções de snooze, nível de persistência</string>
 	<string name="rmd_EPr_enable_quiet_title">Ativar horas de silêncio</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Início da hora de silêncio</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">As notificações serão silenciadas após %s.\nAs vibrações são controladas pela definição \"Vibrar no alerta\"</string>

@@ -365,8 +365,6 @@
 	<string name="rmd_NoA_done">Dokončeno!</string>
 	<string name="rmd_NoA_snooze">Později...</string>
 	<string name="rmd_NoA_dlg_title">Připomenutí:</string>
-	<string name="rmd_EPr_alerts_header">Nastavení upomínek</string>
-	<string name="rmd_EPr_alerts_summary">Čas klidu, nastavení odložení, úroveň vytrvalosti</string>
 	<string name="rmd_EPr_enable_quiet_title">Zapnout klidový režim</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Nerušit od</string>
 	<string name="rmd_EPr_quiet_hours_desc_none">Tichý režim zakázán</string>

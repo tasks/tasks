@@ -4,10 +4,15 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/rmd_EPr_alerts_header">
+    android:title="@string/notifications">
 
     <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/p_rmd_enabled"
+        android:title="@string/notifications" />
+    <CheckBoxPreference
         android:defaultValue="false"
+        android:dependency="@string/p_rmd_enabled"
         android:key="@string/p_rmd_enable_quiet"
         android:title="@string/rmd_EPr_enable_quiet_title" />
     <org.tasks.ui.TimePreference
@@ -22,20 +27,25 @@
         android:title="@string/rmd_EPr_quiet_hours_end_title" />
     <org.tasks.ui.TimePreference
         android:defaultValue="@integer/default_remind_time"
+        android:dependency="@string/p_rmd_enabled"
         android:key="@string/p_rmd_time"
         android:title="@string/rmd_EPr_rmd_time_title" />
     <com.todoroo.astrid.ui.MultilineCheckboxPreference
+        android:dependency="@string/p_rmd_enabled"
         android:key="@string/p_rmd_persistent"
         android:title="@string/rmd_EPr_persistent_title" />
     <com.todoroo.astrid.ui.MultilineCheckboxPreference
         android:defaultValue="false"
+        android:dependency="@string/p_rmd_enabled"
         android:key="@string/p_rmd_maxvolume"
         android:title="@string/rmd_EPr_multiple_maxvolume_title" />
     <com.todoroo.astrid.ui.MultilineCheckboxPreference
         android:defaultValue="true"
+        android:dependency="@string/p_rmd_enabled"
         android:key="@string/p_rmd_vibrate"
         android:title="@string/rmd_EPr_vibrate_title" />
     <RingtonePreference
+        android:dependency="@string/p_rmd_enabled"
         android:key="@string/p_rmd_ringtone"
         android:ringtoneType="notification"
         android:showDefault="true"

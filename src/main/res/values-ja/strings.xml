@@ -377,8 +377,6 @@
 	<string name="rmd_NoA_done">既に完了しています!</string>
 	<string name="rmd_NoA_snooze">スヌーズ</string>
 	<string name="rmd_NoA_dlg_title">お知らせ.</string>
-	<string name="rmd_EPr_alerts_header">通知の設定</string>
-	<string name="rmd_EPr_alerts_summary">消音時間帯, スヌーズオプション, 持続レベル</string>
 	<string name="rmd_EPr_enable_quiet_title">消音時間帯を有効にする</string>
 	<string name="rmd_EPr_quiet_hours_start_title">消音時間の始まり</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">%s 以降、通知音は鳴りません</string>

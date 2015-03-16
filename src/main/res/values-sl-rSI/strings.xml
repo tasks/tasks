@@ -376,8 +376,6 @@
 	<string name="rmd_NoA_done">Končano</string>
 	<string name="rmd_NoA_snooze">Dremež</string>
 	<string name="rmd_NoA_dlg_title">Opomnik:</string>
-	<string name="rmd_EPr_alerts_header">Nastavitve opomnika</string>
-	<string name="rmd_EPr_alerts_summary">Tihi čas, možnosti dremeža, stopnja vztrajnosti</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Tihe ure se začnejo ob</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">Obvestila bodo utišana po %s.\n Obvestilo: vibriranje določajo nastavitve \"Vibriranje ob opozorilih\"</string>
 	<string name="rmd_EPr_quiet_hours_desc_none">Tihe ure onemogočene</string>
