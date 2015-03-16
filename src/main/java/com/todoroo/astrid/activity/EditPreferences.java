@@ -26,7 +26,6 @@ import com.todoroo.astrid.gcal.CalendarAlarmScheduler;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.reminders.ReminderPreferences;
 import com.todoroo.astrid.service.StartupService;
-import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.TodorooPreferenceActivity;
 import com.todoroo.astrid.voice.VoiceOutputAssistant;
 
@@ -118,18 +117,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
         });
 
         addPreferenceListeners();
-
-        removeForbiddenPreferences(screen, r);
-    }
-
-    public static void removeForbiddenPreferences(PreferenceScreen screen, Resources r) {
-        int[] forbiddenPrefs = Constants.MARKET_STRATEGY.excludedSettings();
-        if (forbiddenPrefs == null) {
-            return;
-        }
-        for (int i : forbiddenPrefs) {
-            searchForAndRemovePreference(screen, r.getString(i));
-        }
     }
 
     private static boolean searchForAndRemovePreference(PreferenceGroup group, String key) {
