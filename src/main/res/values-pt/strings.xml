@@ -391,9 +391,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="rmd_EPr_multiple_maxvolume_title">Volume máximo para lembretes com vários toques</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">O Tasks irá amplificar o volume para lembretes com vários toques</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">O Tasks irá utilizar as definições do sistema para o volume</string>
-	<string name="rmd_EPr_vibrate_title">Vibrar no alerta</string>
-	<string name="rmd_EPr_vibrate_desc_true">O Tasks vibrará ao enviar notificações</string>
-	<string name="rmd_EPr_vibrate_desc_false">O Tasks não vibrará ao enviar notificações</string>
 	<string name="rmd_EPr_defaultRemind_title">Lembretes aleatórios</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">As novas tarefas não terão lembretes aleatórios</string>
 	<string name="rmd_EPr_defaultRemind_desc">As novas tarefas terão lembretes aleatórios: %s</string>

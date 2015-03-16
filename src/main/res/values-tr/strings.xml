@@ -347,9 +347,6 @@
 	<string name="rmd_EPr_multiple_maxvolume_title">Çoklu çalan hatırlatmalar için en yüksek ses seviyesi</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Çoklu çalan hatırlatmalar için Tasks ses seviyesini en yükseğe çıkaracaktır</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks ses için sistem ayarlarını kullanacak</string>
-	<string name="rmd_EPr_vibrate_title">Uyarı esnasında titreşim</string>
-	<string name="rmd_EPr_vibrate_desc_true">Tasks bildirimleri gönderirken titreyecek</string>
-	<string name="rmd_EPr_vibrate_desc_false">Tasks bildirimleri gönderirken titremeyecek</string>
 	<string name="rmd_EPr_defaultRemind_title">Rastgele Hatırlatmalar</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Yeni görev rastgele hatırlatmayacak</string>
 	<string name="rmd_EPr_defaultRemind_desc">Yeni görevler rastgele hatırlatacak: %s</string>

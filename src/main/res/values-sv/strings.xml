@@ -379,9 +379,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="rmd_EPr_multiple_maxvolume_title">Maxvolym för flera ringande påminnelser</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks sätter volymen på max för flera ringande påminnelser</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks använder systeminställningen för volym</string>
-	<string name="rmd_EPr_vibrate_title">Vibrera vid varsel</string>
-	<string name="rmd_EPr_vibrate_desc_true">Tasks kommer att vibrera vid varsel</string>
-	<string name="rmd_EPr_vibrate_desc_false">Tasks kommer inte att vibrera vid varsel</string>
 	<string name="rmd_EPr_defaultRemind_title">Tillfälliga påminnelser</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Nya uppgifter påminns ej slumpmässigt</string>
 	<string name="rmd_EPr_defaultRemind_desc">Nya uppgifter påminns tillfälligtvis: %s</string>

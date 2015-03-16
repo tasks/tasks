@@ -103,13 +103,6 @@
   <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (false) -->
   <string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks will use the system setting for the volume</string>
 
-  <!-- Reminder Preference: Vibrate Title -->
-  <string name="rmd_EPr_vibrate_title">Vibrate on alert</string>
-  <!-- Reminder Preference: Vibrate Description (true) -->
-  <string name="rmd_EPr_vibrate_desc_true">Tasks will vibrate when sending notifications</string>
-  <!-- Reminder Preference: Vibrate Description (false) -->
-  <string name="rmd_EPr_vibrate_desc_false">Tasks will not vibrate when sending notifications</string>
-
   <!-- slide 44g: Reminder Preference: Default Reminders Title -->
   <string name="rmd_EPr_defaultRemind_title">Random reminders</string>
   <!-- Reminder Preference: Default Reminders Setting (disabled) -->

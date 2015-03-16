@@ -377,9 +377,6 @@
 	<string name="rmd_EPr_persistent_desc_false">Upozornění mohou být smazána s tlačítkem \"Smazat vše\"</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Nejvyšší hlasitost pro opakované zvonění upomínky</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">Úkoly budou pro hlasitost používat nastavení systému</string>
-	<string name="rmd_EPr_vibrate_title">Vibruj při upozornění</string>
-	<string name="rmd_EPr_vibrate_desc_true">Tasks bude vibrovat při odesílání upozornění</string>
-	<string name="rmd_EPr_vibrate_desc_false">Tasks nebude vibrovat při odesílání upozornění</string>
 	<string name="rmd_EPr_defaultRemind_title">Náhodná upozornění</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Nové úkoly nebudou mít náhodné upozornění</string>
 	<string name="rmd_EPr_defaultRemind_desc">Na nové úkoly bude upozorňováno náhodně: %s</string>

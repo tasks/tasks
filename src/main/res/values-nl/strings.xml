@@ -388,9 +388,6 @@
 	<string name="rmd_EPr_multiple_maxvolume_title">Max. volume voor multiple-ring herinneringen</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks zal het volume voor multi-ring herinneringen maximaliseren</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks zal de systeem-instellingen voor het volume gebruiken</string>
-	<string name="rmd_EPr_vibrate_title">Trillen bij herinnering</string>
-	<string name="rmd_EPr_vibrate_desc_true">Tasks laat telefoon trillen bij herinnering</string>
-	<string name="rmd_EPr_vibrate_desc_false">Tasks laat telefoon niet trillen bij herinnering</string>
 	<string name="rmd_EPr_defaultRemind_title">Willekeurige herinneringen</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Nieuwe taken hebben geen willekeurige herinneringen</string>
 	<string name="rmd_EPr_defaultRemind_desc">Nieuwe taken willekeurig herinneren: %s</string>

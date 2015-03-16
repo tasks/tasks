@@ -385,9 +385,6 @@
 	<string name="rmd_EPr_multiple_maxvolume_title">Volume máximo para lembretes com múltiplos sons</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks irá aumentar o volume para alertas com múltiplos sons</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks usará os ajustes de sistema para o volume</string>
-	<string name="rmd_EPr_vibrate_title">Vibração de alerta</string>
-	<string name="rmd_EPr_vibrate_desc_true">Tasks irá vibrar quando enviar notificações</string>
-	<string name="rmd_EPr_vibrate_desc_false">Tasks não irá vibrar quando enviar notificações</string>
 	<string name="rmd_EPr_defaultRemind_title">Lembretes aleatórios</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Novas tarefas não terão lembretes aleatórios</string>
 	<string name="rmd_EPr_defaultRemind_desc">Novas tarefas irão lembrar aleatoriamente: %s</string>

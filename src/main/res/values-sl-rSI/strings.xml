@@ -389,9 +389,6 @@
 	<string name="rmd_EPr_multiple_maxvolume_title">Največja jakost zvoka opomnikov z večkratnim zvonenjem</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Aplikacija Opravki bo izvajala opomnike z večkratnim zvonenjem pri polni jakosti zvoka.</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">Aplikacija Opravki bo uporabljala sistemske nastavitve jakosti zvoka</string>
-	<string name="rmd_EPr_vibrate_title">Vibriraj ob opozorilih</string>
-	<string name="rmd_EPr_vibrate_desc_true">Aplikacija Opravki bo vibrirala ob pošiljanju obvestil</string>
-	<string name="rmd_EPr_vibrate_desc_false">Aplikacija Opravki ne bo vibrirala ob pošiljanju obvestil</string>
 	<string name="rmd_EPr_defaultRemind_title">Naključni opomniki</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Novi opravki bodo brez naključnih opomnikov</string>
 	<string name="rmd_EPr_defaultRemind_desc">Nova opravila bodo opominjala naključno: %s</string>

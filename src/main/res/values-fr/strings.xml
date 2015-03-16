@@ -386,9 +386,6 @@
 	<string name="rmd_EPr_multiple_maxvolume_title">Volume maximum pour les rappels multi sonneries</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks va maximiser le volume de multiples anneaux rappels</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks utilisera les réglages du système pour le volume</string>
-	<string name="rmd_EPr_vibrate_title">Vibre lors d\'une alerte</string>
-	<string name="rmd_EPr_vibrate_desc_true">Tasks vibrera lors de l\'envoi de notifications</string>
-	<string name="rmd_EPr_vibrate_desc_false">Tasks ne vibrera pas lors de l\'envoi de notifications</string>
 	<string name="rmd_EPr_defaultRemind_title">Rappels aléatoires</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Les nouvelles tâches n\'auront pas de rappels aléatoires</string>
 	<string name="rmd_EPr_defaultRemind_desc">Les nouvelles tâches rappèleront aléatoirement : %s</string>

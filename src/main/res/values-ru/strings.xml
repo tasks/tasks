@@ -392,9 +392,6 @@
 	<string name="rmd_EPr_multiple_maxvolume_title">Максимальная громкость для многоразовых напоминаний</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks будет максимизировать громкость для многоразовых напоминаний</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks будет использовать системные настройки громкости</string>
-	<string name="rmd_EPr_vibrate_title">Будильник с вибрацией</string>
-	<string name="rmd_EPr_vibrate_desc_true">Tasks будет вызывать вибрацию при уведомлении</string>
-	<string name="rmd_EPr_vibrate_desc_false">Tasks не будет вызывать вибрацию при уведомлениях</string>
 	<string name="rmd_EPr_defaultRemind_title">Случайные напоминания</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">У новых задач не будет случайных напоминаний</string>
 	<string name="rmd_EPr_defaultRemind_desc">Случайно напоминать о новых задачах %s</string>

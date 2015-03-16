@@ -384,9 +384,6 @@
 	<string name="rmd_EPr_multiple_maxvolume_title">עוצמת קול מירבית לתזכורות מרובות צילצולים</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">אסטריד תשתמש בעוצמת קול מירבית לתזכורות רבות צלצולים</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">אסטריד תשתמש בהגדרת המערכת לקביעת עוצמת הצליל</string>
-	<string name="rmd_EPr_vibrate_title">רטט בזמן אתראה</string>
-	<string name="rmd_EPr_vibrate_desc_true">אסטריד תצרף רטט להתראות</string>
-	<string name="rmd_EPr_vibrate_desc_false">אסטריד לא תצרף רטט להתראות</string>
 	<string name="rmd_EPr_defaultRemind_title">תזכורות אקראיות</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">משימות חדשות לא תכלנה תזכורות אקראיות</string>
 	<string name="rmd_EPr_defaultRemind_desc">משימות חדשות יתזכרו אותך אקראית: %s</string>

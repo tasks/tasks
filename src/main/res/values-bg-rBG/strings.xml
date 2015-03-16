@@ -393,9 +393,6 @@
 	<string name="rmd_EPr_multiple_maxvolume_title">Максимизирай нивото на звука при няколкократни напомняния</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks ще максимизира нивото на звука при няколкократни напомняния</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks ще използва системните настройки за звука</string>
-	<string name="rmd_EPr_vibrate_title">Вибриране при уведомление</string>
-	<string name="rmd_EPr_vibrate_desc_true">Tasks ще вибрира при изпращане на уведомления</string>
-	<string name="rmd_EPr_vibrate_desc_false">Tasks няма да вибрира при изпращане на уведомления</string>
 	<string name="rmd_EPr_defaultRemind_title">Случайни напомняния</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Нови задачи няма да имат случайни напомняния</string>
 	<string name="rmd_EPr_defaultRemind_desc">Нови задачи ще напомнят на случаен принцип: %s</string>

@@ -229,9 +229,6 @@
 	<string name="rmd_EPr_persistent_title">Persistència de Notificació</string>
 	<string name="rmd_EPr_persistent_desc_true">Les notificacions han que ser vistes individualment per ser descartades</string>
 	<string name="rmd_EPr_persistent_desc_false">Les notificacions poden ser descartades amb el botó \"Descarta Tot\"</string>
-	<string name="rmd_EPr_vibrate_title">Vibrar amb les Alertes</string>
-	<string name="rmd_EPr_vibrate_desc_true">Tasks vibrarà quan enviï notificacions</string>
-	<string name="rmd_EPr_vibrate_desc_false">Tasks no vibrarà quan enviï notificacions</string>
 	<string name="rmd_EPr_defaultRemind_title">Notificacions al Atzar</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Les tasques noves no mostraran notificacions a l\'atzar</string>
 	<string name="rmd_EPr_defaultRemind_desc">Les tasques noves notificaràn al atzar: %s</string>

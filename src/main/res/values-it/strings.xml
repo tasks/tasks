@@ -345,9 +345,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="rmd_EPr_multiple_maxvolume_title">Volume massimo per promemoria \"ring-multipli\"</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks metterà il volume al massimo per i promemoria \"ring-multipli\"</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks userà le impostazioni di sistema per il volume</string>
-	<string name="rmd_EPr_vibrate_title">Vibrazione telefono</string>
-	<string name="rmd_EPr_vibrate_desc_true">Tasks vibrerà durante l\'invio di notifiche</string>
-	<string name="rmd_EPr_vibrate_desc_false">Tasks non vibrerà durante l\'invio di notifiche</string>
 	<string name="rmd_EPr_defaultRemind_title">Promemoria Casuali</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Le nuove attività non avranno promemoria casuali</string>
 	<string name="rmd_EPr_defaultRemind_desc">Le nuove attività saranno ricordate a caso: %s</string>

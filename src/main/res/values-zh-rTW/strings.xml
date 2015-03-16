@@ -365,9 +365,6 @@
 	<string name="rmd_EPr_multiple_maxvolume_title">多重提醒最大音量</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks將會以最大音量進行多重提醒</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks使用系統音量設置</string>
-	<string name="rmd_EPr_vibrate_title">震動提醒</string>
-	<string name="rmd_EPr_vibrate_desc_true">傳送通知時會震動</string>
-	<string name="rmd_EPr_vibrate_desc_false">傳送通知震動關閉</string>
 	<string name="rmd_EPr_defaultRemind_title">隨機提醒</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">隨機提醒功能關閉</string>
 	<string name="rmd_EPr_defaultRemind_desc">工作將隨機提醒: %s</string>

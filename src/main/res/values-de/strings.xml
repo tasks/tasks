@@ -385,9 +385,6 @@
 	<string name="rmd_EPr_multiple_maxvolume_title">Maximale Lautstärke für mehrfachläutende Erinnerungen</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks wird die Lautstärke für mehrfachläutende Erinnerungen maximalisieren</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks wird die Systemeinstellungen für die Lautstärke benutzen</string>
-	<string name="rmd_EPr_vibrate_title">Vibrieren beim Alarm</string>
-	<string name="rmd_EPr_vibrate_desc_true">Tasks wird beim Senden von Benachrichtigungen vibrieren</string>
-	<string name="rmd_EPr_vibrate_desc_false">Tasks wird beim Senden von Erinnerungen nicht vibrieren</string>
 	<string name="rmd_EPr_defaultRemind_title">Zufällige Erinnerungen</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Neue Aufgaben sollen keine zufälligen Erinnerungen haben</string>
 	<string name="rmd_EPr_defaultRemind_desc">Neue Aufgaben werden zufällig erinnern: %s</string>

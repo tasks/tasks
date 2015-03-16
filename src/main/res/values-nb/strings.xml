@@ -182,9 +182,6 @@
 	<string name="rmd_EPr_persistent_title">Påminnelse intensitet</string>
 	<string name="rmd_EPr_persistent_desc_true">Varsler må ses individuelt for å kunne fjernes</string>
 	<string name="rmd_EPr_persistent_desc_false">Varsler kan slettes ved \"Slett alt\"-knappen</string>
-	<string name="rmd_EPr_vibrate_title">Vibrer ved varsel</string>
-	<string name="rmd_EPr_vibrate_desc_true">Tasks vil vibrere ved varsler</string>
-	<string name="rmd_EPr_vibrate_desc_false">Tasks vil ikke vibrere ved varsler</string>
 	<string name="rmd_EPr_defaultRemind_title">Tilfeldige påminnelser</string>
 	<string name="rmd_EPr_defaultRemind_desc_disabled">Nye oppgaver skal ikke påminnes tifeldig</string>
 	<string name="rmd_EPr_defaultRemind_desc">Nye oppgaver påminnes tilfeldig: %s</string>
