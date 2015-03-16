@@ -485,7 +485,6 @@
 	<string name="DLG_close">닫기</string>
 	<string name="DLG_error">에러가 발생한 것 같습니다! 발생한 에러는 다음과 같습니다:\n\n%s</string>
 	<string name="DLG_wait">잠시 기다리세요...</string>
-	<string name="SyP_label">동기화 &amp; 백업</string>
 	<string name="sync_SPr_group_status">상태</string>
 	<string name="sync_SPr_status_subtitle">상태: %s</string>
 	<string name="sync_status_loggedout">로그인 안 됨</string>

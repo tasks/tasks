@@ -416,7 +416,6 @@
 	<string name="DLG_close">关闭</string>
 	<string name="DLG_error">糟糕，发生错误！状况是:\n\n%s</string>
 	<string name="DLG_wait">请稍候...</string>
-	<string name="SyP_label">同步和备份</string>
 	<string name="sync_SPr_group_status">状态</string>
 	<string name="sync_SPr_status_subtitle">状态：%s</string>
 	<string name="sync_status_loggedout">未登陆</string>

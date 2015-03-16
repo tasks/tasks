@@ -484,7 +484,6 @@
 	<string name="DLG_close">Fechar</string>
 	<string name="DLG_error">Opa, parece que ocorreu um erro! Aqui está o que aconteceu:\n\n%s</string>
 	<string name="DLG_wait">Por favor, aguarde...</string>
-	<string name="SyP_label">Sincronização</string>
 	<string name="sync_SPr_group_status">Estado</string>
 	<string name="sync_SPr_status_subtitle">Estado: %s</string>
 	<string name="sync_status_loggedout">Não Registrado</string>

@@ -261,13 +261,7 @@
 
         <activity
             android:name="com.todoroo.astrid.core.DefaultsPreferences"
-            android:theme="@android:style/Theme"
-            android:label="@string/task_defaults">
-            <intent-filter>
-                <action android:name="org.tasks.SETTINGS" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+            android:theme="@android:style/Theme"/>
 
         <activity
             android:name="com.todoroo.astrid.activity.BeastModePreferences"
@@ -345,20 +339,7 @@
         <activity
             android:name="com.todoroo.astrid.gtasks.GtasksPreferences"
             android:theme="@android:style/Theme"
-            android:label="@string/gtasks_GPr_header"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="category"
-                android:resource="@string/SyP_label" />
-            <meta-data
-                android:name="syncAction"
-                android:value="true" />
-
-            <intent-filter>
-                <action android:name="org.tasks.SETTINGS" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+            android:screenOrientation="portrait"/>
 
         <!-- repeats -->
 
@@ -401,31 +382,13 @@
         <!-- old tasks -->
         <activity
             android:name="com.todoroo.astrid.core.OldTaskPreferences"
-            android:theme="@android:style/Theme"
-            android:label="@string/EPr_manage_header">
-            <meta-data
-                android:name="category"
-                android:resource="@string/SyP_label" />
-            <intent-filter>
-                <action android:name="org.tasks.SETTINGS" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+            android:theme="@android:style/Theme"/>
 
         <!-- backup -->
 
         <activity
             android:name="com.todoroo.astrid.backup.BackupPreferences"
-            android:theme="@android:style/Theme"
-            android:label="@string/backup_BPr_header">
-            <meta-data
-                android:name="category"
-                android:resource="@string/SyP_label" />
-            <intent-filter>
-                <action android:name="org.tasks.SETTINGS" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+            android:theme="@android:style/Theme"/>
 
         <!-- premium -->
         <activity
@@ -446,13 +409,7 @@
         <!-- reminders -->
         <activity
             android:name="com.todoroo.astrid.reminders.ReminderPreferences"
-            android:theme="@android:style/Theme"
-            android:label="@string/notifications">
-            <intent-filter>
-                <action android:name="org.tasks.SETTINGS" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+            android:theme="@android:style/Theme"/>
 
         <activity
             android:name=".voice.VoiceCommandActivity"

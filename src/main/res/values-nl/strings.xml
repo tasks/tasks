@@ -484,7 +484,6 @@
 	<string name="DLG_close">Sluit</string>
 	<string name="DLG_error">Er is een fout opgetreden:\n\n%s</string>
 	<string name="DLG_wait">Even geduld a.u.b.</string>
-	<string name="SyP_label">Synchronisatie</string>
 	<string name="sync_status_loggedout">Niet aangemeld</string>
 	<string name="sync_status_ongoing">Synchronisatie bezig...</string>
 	<string name="sync_status_success">Vorige:\n%s</string>

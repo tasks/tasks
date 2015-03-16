@@ -484,7 +484,6 @@
 	<string name="DLG_close">Cerrar</string>
 	<string name="DLG_error">¡Uy, parece que ocurró un error! Esto es lo que pasó:\n\n%s</string>
 	<string name="DLG_wait">Por favor, espere...</string>
-	<string name="SyP_label">Sincronización y copia de seguridad</string>
 	<string name="sync_SPr_group_status">Estado</string>
 	<string name="sync_SPr_status_subtitle">Estado: %s</string>
 	<string name="sync_status_loggedout">Sesión no iniciada</string>

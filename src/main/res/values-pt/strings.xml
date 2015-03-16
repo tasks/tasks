@@ -490,7 +490,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="DLG_close">Fechar</string>
 	<string name="DLG_error">Parece que ocorreu um erro! Isto foi o que aconteceu:\n\n%s</string>
 	<string name="DLG_wait">Por favor aguarde...</string>
-	<string name="SyP_label">Sincronização e backup</string>
 	<string name="sync_SPr_group_status">Estado</string>
 	<string name="sync_SPr_status_subtitle">Estado: %s</string>
 	<string name="sync_status_loggedout">Sessão não iniciada</string>

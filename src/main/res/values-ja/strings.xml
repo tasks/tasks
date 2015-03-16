@@ -490,7 +490,6 @@
 	<string name="DLG_close">閉じる</string>
 	<string name="DLG_error">エラーが発生しました! 発生した内容\n\n%s</string>
 	<string name="DLG_wait">お待ちください</string>
-	<string name="SyP_label">同期</string>
 	<string name="sync_SPr_group_status">状況</string>
 	<string name="sync_SPr_status_subtitle">状況: %s</string>
 	<string name="sync_status_loggedout">ログインしていません</string>

@@ -460,7 +460,6 @@
 	<string name="DLG_close">關閉</string>
 	<string name="DLG_error">糟糕，發生錯誤！狀況是:\n\n%s</string>
 	<string name="DLG_wait">請稍候...</string>
-	<string name="SyP_label">同步和備份</string>
 	<string name="sync_SPr_group_status">狀態</string>
 	<string name="sync_SPr_status_subtitle">狀態：%s</string>
 	<string name="sync_status_loggedout">未登陸</string>

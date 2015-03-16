@@ -473,7 +473,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="DLG_close">Stäng</string>
 	<string name="DLG_error">Oj, det uppstod ett fel! Detta hände:\n\n%s</string>
 	<string name="DLG_wait">Var god vänta...</string>
-	<string name="SyP_label">Synkronisering</string>
 	<string name="sync_status_loggedout">Ej inloggad</string>
 	<string name="sync_status_ongoing">Synkronisering pågår...</string>
 	<string name="sync_status_success">Synkroniserades senast:\n%s</string>

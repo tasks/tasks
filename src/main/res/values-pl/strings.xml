@@ -488,7 +488,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="DLG_close">Zamknij</string>
 	<string name="DLG_error">Ups! Wygląda na to, że wystąpił jakiś błąd! Oto, co się stało:\n\n%s</string>
 	<string name="DLG_wait">Proszę czekać...</string>
-	<string name="SyP_label">Synchronizacja</string>
 	<string name="sync_SPr_group_status">Stan</string>
 	<string name="sync_status_loggedout">Niezalogowany</string>
 	<string name="sync_status_ongoing">Synchronizacja trwa...</string>

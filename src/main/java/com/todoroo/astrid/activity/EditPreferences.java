@@ -6,26 +6,25 @@
 package com.todoroo.astrid.activity;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceGroup;
-import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.speech.tts.TextToSpeech;
 import android.text.TextUtils;
 
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.backup.BackupPreferences;
+import com.todoroo.astrid.core.DefaultsPreferences;
+import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.files.FileExplore;
 import com.todoroo.astrid.gcal.CalendarAlarmScheduler;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
-import com.todoroo.astrid.helper.MetadataHelper;
-import com.todoroo.astrid.service.MarketStrategy.AmazonMarketStrategy;
+import com.todoroo.astrid.reminders.ReminderPreferences;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.TodorooPreferenceActivity;
@@ -37,10 +36,7 @@ import org.tasks.R;
 import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map.Entry;
 
 import javax.inject.Inject;
 
@@ -55,7 +51,6 @@ import static com.todoroo.andlib.utility.AndroidUtilities.preFroyo;
 public class EditPreferences extends TodorooPreferenceActivity {
 
     private static final Logger log = LoggerFactory.getLogger(EditPreferences.class);
-    private static final int REQUEST_CODE_SYNC = 0;
     private static final int REQUEST_CODE_FILES_DIR = 2;
     private static final int REQUEST_CODE_TTS_CHECK = 2534;
 
@@ -94,7 +89,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
         PreferenceScreen screen = getPreferenceScreen();
 
-        addPluginPreferences(screen);
+        addPreferences(screen);
 
         addPreferencesFromResource(R.xml.preferences_misc);
 
@@ -163,82 +158,27 @@ public class EditPreferences extends TodorooPreferenceActivity {
         startActivity(intent);
     }
 
-    private static final HashMap<Class<?>, Integer> PREFERENCE_REQUEST_CODES = new HashMap<>();
-    static {
-        PREFERENCE_REQUEST_CODES.put(GtasksPreferences.class, REQUEST_CODE_SYNC);
+    private void addPreferences(PreferenceScreen screen) {
+        List<Preference> preferences = new ArrayList<Preference>() {{
+            add(getPreference(ReminderPreferences.class, R.string.notifications));
+            add(getPreference(DefaultsPreferences.class, R.string.task_defaults));
+            add(getPreference(GtasksPreferences.class, R.string.gtasks_GPr_header));
+            add(getPreference(BackupPreferences.class, R.string.backup_BPr_header));
+            add(getPreference(OldTaskPreferences.class, R.string.EPr_manage_header));
+        }};
+
+        for (Preference preference : preferences) {
+            screen.addPreference(preference);
+        }
     }
 
-    private void addPluginPreferences(PreferenceScreen screen) {
-        Intent queryIntent = new Intent(AstridApiConstants.ACTION_SETTINGS);
-        PackageManager pm = getPackageManager();
-        List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(queryIntent,
-                PackageManager.GET_META_DATA);
-        LinkedHashMap<String, ArrayList<Preference>> categoryPreferences =
-            new LinkedHashMap<>();
-
-        // Loop through a list of all packages (including plugins, addons)
-        // that have a settings action
-        for (ResolveInfo resolveInfo : resolveInfoList) {
-            final Intent intent = new Intent(AstridApiConstants.ACTION_SETTINGS);
-            intent.setClassName(resolveInfo.activityInfo.packageName,
-                    resolveInfo.activityInfo.name);
-
-            if (GtasksPreferences.class.getName().equals(resolveInfo.activityInfo.name)
-                    && AmazonMarketStrategy.isKindleFire()) {
-                continue;
-            }
-
-            Preference preference = new Preference(this);
-            preference.setTitle(resolveInfo.activityInfo.loadLabel(pm));
-            try {
-                Class<?> intentComponent = Class.forName(intent.getComponent().getClassName());
-                if (intentComponent.getSuperclass().equals(GtasksPreferences.class)) {
-                    intentComponent = GtasksPreferences.class;
-                }
-                if (PREFERENCE_REQUEST_CODES.containsKey(intentComponent)) {
-                    final int code = PREFERENCE_REQUEST_CODES.get(intentComponent);
-                    preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                        @Override
-                        public boolean onPreferenceClick(Preference pref) {
-                            startActivityForResult(intent, code);
-                            return true;
-                        }
-                    });
-                } else {
-                    preference.setIntent(intent);
-                }
-            } catch (ClassNotFoundException e) {
-                log.error(e.getMessage(), e);
-                preference.setIntent(intent);
-            }
-
-            String category = MetadataHelper.resolveActivityCategoryName(resolveInfo, pm);
-
-            if (!categoryPreferences.containsKey(category)) {
-                categoryPreferences.put(category, new ArrayList<Preference>());
-            }
-            ArrayList<Preference> arrayList = categoryPreferences.get(category);
-            arrayList.add(preference);
-        }
-
-        for(Entry<String, ArrayList<Preference>> entry : categoryPreferences.entrySet()) {
-            if (entry.getKey().equals(getString(R.string.app_name))) {
-                for(Preference preference : entry.getValue()) {
-                    screen.addPreference(preference);
-                }
-            } else {
-                PreferenceManager manager = getPreferenceManager();
-                PreferenceScreen header = manager.createPreferenceScreen(this);
-                header.setTitle(entry.getKey());
-                screen.addPreference(header);
-
-                for(Preference preference : entry.getValue()) {
-                    header.addPreference(preference);
-                }
-            }
-
-
-        }
+    private Preference getPreference(final Class<? extends TodorooPreferenceActivity> klass, final int label) {
+        return new Preference(this) {{
+            setTitle(getResources().getString(label));
+            setIntent(new Intent(EditPreferences.this, klass) {{
+                setAction(AstridApiConstants.ACTION_SETTINGS);
+            }});
+        }};
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -265,11 +205,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE_SYNC && resultCode == GtasksPreferences.RESULT_CODE_SYNCHRONIZE) {
-            setResult(GtasksPreferences.RESULT_CODE_SYNCHRONIZE);
-            finish();
-            return;
-        } else if (requestCode == REQUEST_CODE_FILES_DIR && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_CODE_FILES_DIR && resultCode == RESULT_OK) {
             if (data != null) {
                 String dir = data.getStringExtra(FileExplore.RESULT_DIR_SELECTED);
                 preferences.setString(TaskAttachment.FILES_DIRECTORY_PREF, dir);

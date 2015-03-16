@@ -53,11 +53,6 @@
     <!-- Progress dialog shown when doing something slow -->
     <string name="DLG_wait">Please wait...</string>
 
-    <!-- ====================================================== SyncProvider == -->
-
-    <!-- Sync Label: used in menu to denote synchronization -->
-    <string name="SyP_label">Sync &amp; backup</string>
-
     <!-- ================================================== SyncPreferences == -->
 
     <!-- Status Group Label -->

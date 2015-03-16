@@ -492,7 +492,6 @@
 	<string name="DLG_close">Затвори</string>
 	<string name="DLG_error">Ами сега, изглежда е станала грешка! Ето какво се случи:\n\n%s</string>
 	<string name="DLG_wait">Моля, изчакайте...</string>
-	<string name="SyP_label">Синхронизиране и Резервни копия</string>
 	<string name="sync_SPr_group_status">Състояние</string>
 	<string name="sync_SPr_status_subtitle">Състояние: %s</string>
 	<string name="sync_status_loggedout">Не сте влезнали</string>

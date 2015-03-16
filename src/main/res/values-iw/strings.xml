@@ -478,7 +478,6 @@
 	<string name="DLG_close">סגור</string>
 	<string name="DLG_error">אוּפְּס, נראה שארעה שגיאה! הנה מה שקה:\n\n%s</string>
 	<string name="DLG_wait">אנא המתן...</string>
-	<string name="SyP_label">סינכרון וגיבוי</string>
 	<string name="sync_SPr_group_status">מצב</string>
 	<string name="sync_SPr_status_subtitle">מצב: %s</string>
 	<string name="sync_status_loggedout">לא מחובר</string>
