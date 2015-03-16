@@ -386,10 +386,6 @@
 	<string name="rmd_EPr_quiet_hours_end_desc">%s 부터 알림 기능이 켜집니다</string>
 	<string name="rmd_EPr_rmd_time_title">기본 알림 설정</string>
 	<string name="rmd_EPr_rmd_time_desc">마감일이 없는 일정 알림은 %s 에 나타날 것입니다.</string>
-	<string name="rmd_EPr_ringtone_title">알림 벨소리</string>
-	<string name="rmd_EPr_ringtone_desc_custom">사용자 벨소리가 설정되었습니다</string>
-	<string name="rmd_EPr_ringtone_desc_silent">벨소리가 나지 않도록 설정되었습니다</string>
-	<string name="rmd_EPr_ringtone_desc_default">기본 벨소리가 사용됩니다</string>
 	<string name="rmd_EPr_persistent_title">알림 지속 시간</string>
 	<string name="rmd_EPr_persistent_desc_true">알림은 반드시 개별적으로 봐야 지워집니다.</string>
 	<string name="rmd_EPr_persistent_desc_false">\"모두 지우기\" 버튼으로 알림을 일괄삭제합니다.</string>

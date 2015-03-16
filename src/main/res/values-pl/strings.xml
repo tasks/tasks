@@ -385,10 +385,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="rmd_EPr_quiet_hours_end_desc">Powiadomienia przestaną być wyciszonre, począwszy od %s</string>
 	<string name="rmd_EPr_rmd_time_title">Domyślne przypomnienie</string>
 	<string name="rmd_EPr_rmd_time_desc">Powiadomienia zadań bez odpowiedniego czasu pojawi się na %s</string>
-	<string name="rmd_EPr_ringtone_title">Dźwięk powiadomienia</string>
-	<string name="rmd_EPr_ringtone_desc_custom">Własy dzwonek ustawiony</string>
-	<string name="rmd_EPr_ringtone_desc_silent">Dzwonek ustawiony na milczenie</string>
-	<string name="rmd_EPr_ringtone_desc_default">Zostanie użyty dzwonek domyślny</string>
 	<string name="rmd_EPr_persistent_title">Wytrwałość powiadomienia</string>
 	<string name="rmd_EPr_persistent_desc_true">Powiadomienia muszą być wyświetlane pojedyńczo aby były wyczyszczone</string>
 	<string name="rmd_EPr_persistent_desc_false">Powiadomienia mogą zostać wyczyszczone przyciskiem \"Wyczyść wszystkie\"</string>

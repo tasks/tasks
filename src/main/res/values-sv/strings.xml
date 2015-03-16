@@ -373,10 +373,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="rmd_EPr_quiet_hours_end_desc">Påminnelser är ljudlösa med början %s</string>
 	<string name="rmd_EPr_rmd_time_title">Standardpåminnelse</string>
 	<string name="rmd_EPr_rmd_time_desc">Påminnelser om uppgifter utan sluttid visas %s</string>
-	<string name="rmd_EPr_ringtone_title">Ringsignal för påminnelser</string>
-	<string name="rmd_EPr_ringtone_desc_custom">Egendefinierad ringsignal har ställts in</string>
-	<string name="rmd_EPr_ringtone_desc_silent">Ringsignal ställdes till tyst</string>
-	<string name="rmd_EPr_ringtone_desc_default">Standardringsignal används</string>
 	<string name="rmd_EPr_persistent_title">Varselinställningar</string>
 	<string name="rmd_EPr_persistent_desc_true">Varsel måste ses individuellt för att kunna rensas</string>
 	<string name="rmd_EPr_persistent_desc_false">Varsel kan rensas med \"Rensa alla\"-knappen</string>

@@ -372,10 +372,6 @@
 	<string name="rmd_EPr_quiet_hours_end_desc">Upozorňování začne upomínat od %s</string>
 	<string name="rmd_EPr_rmd_time_title">Výchozí upomínka</string>
 	<string name="rmd_EPr_rmd_time_desc">Upozornění na úkoly bez času dokončení se objeví v %s</string>
-	<string name="rmd_EPr_ringtone_title">Zvuk upozornění</string>
-	<string name="rmd_EPr_ringtone_desc_custom">Vlastní vyzvánění bylo nastaveno</string>
-	<string name="rmd_EPr_ringtone_desc_silent">Vyzvánění ztišeno</string>
-	<string name="rmd_EPr_ringtone_desc_default">Bude použito výchozí vyzvánění</string>
 	<string name="rmd_EPr_persistent_title">Trvání upozornění</string>
 	<string name="rmd_EPr_persistent_desc_true">Pro smazání musí být upozornění zobrazeno každé zvlášť</string>
 	<string name="rmd_EPr_persistent_desc_false">Upozornění mohou být smazána s tlačítkem \"Smazat vše\"</string>

@@ -6,6 +6,9 @@
 package com.todoroo.astrid.reminders;
 
 import android.content.res.Resources;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
@@ -68,14 +71,12 @@ public class ReminderPreferences extends TodorooPreferenceActivity {
             String setting = DateFormat.getTimeInstance(DateFormat.SHORT).format(new DateTime().withMillisOfDay(millisOfDay).toDate());
             preference.setSummary(r.getString(R.string.rmd_EPr_rmd_time_desc, setting));
         } else if(r.getString(R.string.p_rmd_ringtone).equals(preference.getKey())) {
-            if(value == null || "content://settings/system/notification_sound".equals(value)) //$NON-NLS-1$
-            {
-                preference.setSummary(r.getString(R.string.rmd_EPr_ringtone_desc_default));
-            } else if("".equals(value)) //$NON-NLS-1$
-            {
-                preference.setSummary(r.getString(R.string.rmd_EPr_ringtone_desc_silent));
+            if ("".equals(value)) {
+                preference.setSummary(R.string.silent);
             } else {
-                preference.setSummary(r.getString(R.string.rmd_EPr_ringtone_desc_custom));
+                Ringtone ringtone = RingtoneManager.getRingtone(this, Uri.parse((String) (value == null ? "" : value)));
+                String ringtoneTitle = ringtone.getTitle(this);
+                preference.setSummary(ringtoneTitle);
             }
         } else if(r.getString(R.string.p_rmd_persistent).equals(preference.getKey())) {
             if((Boolean)value) {

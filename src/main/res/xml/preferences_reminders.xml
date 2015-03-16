@@ -10,6 +10,13 @@
         android:defaultValue="true"
         android:key="@string/p_rmd_enabled"
         android:title="@string/notifications" />
+    <RingtonePreference
+        android:dependency="@string/p_rmd_enabled"
+        android:key="@string/p_rmd_ringtone"
+        android:ringtoneType="notification"
+        android:showDefault="true"
+        android:showSilent="true"
+        android:title="@string/sound" />
     <CheckBoxPreference
         android:defaultValue="false"
         android:dependency="@string/p_rmd_enabled"
@@ -44,12 +51,5 @@
         android:dependency="@string/p_rmd_enabled"
         android:key="@string/p_rmd_vibrate"
         android:title="@string/rmd_EPr_vibrate_title" />
-    <RingtonePreference
-        android:dependency="@string/p_rmd_enabled"
-        android:key="@string/p_rmd_ringtone"
-        android:ringtoneType="notification"
-        android:showDefault="true"
-        android:showSilent="true"
-        android:title="@string/rmd_EPr_ringtone_title" />
 
 </PreferenceScreen>

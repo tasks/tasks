@@ -381,10 +381,6 @@
 	<string name="rmd_EPr_quiet_hours_end_desc">Las notificaciones dejarán de estar en silencio desde las %s</string>
 	<string name="rmd_EPr_rmd_time_title">Aviso por defecto</string>
 	<string name="rmd_EPr_rmd_time_desc">Notificaciones para tareas sin fecha límites aparecerán a %s</string>
-	<string name="rmd_EPr_ringtone_title">Tono de notificación</string>
-	<string name="rmd_EPr_ringtone_desc_custom">Tono personalizado establecido</string>
-	<string name="rmd_EPr_ringtone_desc_silent">Tono configurado como silencio</string>
-	<string name="rmd_EPr_ringtone_desc_default">Se usará el tono por defecto</string>
 	<string name="rmd_EPr_persistent_title">Persistencia de notificación</string>
 	<string name="rmd_EPr_persistent_desc_true">Las notificaciones deben verse individualmente para quitarlas</string>
 	<string name="rmd_EPr_persistent_desc_false">Las notificaciones se pueden borrar con el botón \"Borrar Todo\"</string>

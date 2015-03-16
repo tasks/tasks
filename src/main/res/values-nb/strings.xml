@@ -179,10 +179,6 @@
 	<string name="rmd_EPr_quiet_hours_start_title">Stilletimer start</string>
 	<string name="rmd_EPr_quiet_hours_desc_none">Stilletimer er deaktivert</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Stilletimer slutt</string>
-	<string name="rmd_EPr_ringtone_title">Ringetone for påminnelser</string>
-	<string name="rmd_EPr_ringtone_desc_custom">Egendefinert ringetone er satt</string>
-	<string name="rmd_EPr_ringtone_desc_silent">Ringetone satt på Stille</string>
-	<string name="rmd_EPr_ringtone_desc_default">Standardringetone vil bli brukt</string>
 	<string name="rmd_EPr_persistent_title">Påminnelse intensitet</string>
 	<string name="rmd_EPr_persistent_desc_true">Varsler må ses individuelt for å kunne fjernes</string>
 	<string name="rmd_EPr_persistent_desc_false">Varsler kan slettes ved \"Slett alt\"-knappen</string>

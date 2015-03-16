@@ -226,10 +226,6 @@
 	<string name="rmd_EPr_quiet_hours_desc_none">Silenci desactivat</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Final de Silenci</string>
 	<string name="rmd_EPr_quiet_hours_end_desc">Les notificacions sortirant començant a %s</string>
-	<string name="rmd_EPr_ringtone_title">So de Notificació</string>
-	<string name="rmd_EPr_ringtone_desc_custom">To personalitzat establert</string>
-	<string name="rmd_EPr_ringtone_desc_silent">To en mode silenciós</string>
-	<string name="rmd_EPr_ringtone_desc_default">Es farà servir el so predeterminat</string>
 	<string name="rmd_EPr_persistent_title">Persistència de Notificació</string>
 	<string name="rmd_EPr_persistent_desc_true">Les notificacions han que ser vistes individualment per ser descartades</string>
 	<string name="rmd_EPr_persistent_desc_false">Les notificacions poden ser descartades amb el botó \"Descarta Tot\"</string>

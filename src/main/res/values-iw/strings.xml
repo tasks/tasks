@@ -378,10 +378,6 @@
 	<string name="rmd_EPr_quiet_hours_end_desc">החרשת האתראות תחדל החל מ %s</string>
 	<string name="rmd_EPr_rmd_time_title">תזכורת ברירת מחדל</string>
 	<string name="rmd_EPr_rmd_time_desc">התראות משימות ללא מועד יעד תגענה ב-%s</string>
-	<string name="rmd_EPr_ringtone_title">נְעִימוֹן אתראות</string>
-	<string name="rmd_EPr_ringtone_desc_custom">נְעִימוֹן מוגדר אישית נקבע</string>
-	<string name="rmd_EPr_ringtone_desc_silent">נְעִימוֹן נקבע להיות שקט</string>
-	<string name="rmd_EPr_ringtone_desc_default">יעשה שימוש בִּנְעִימוֹן ברירת מחדל</string>
 	<string name="rmd_EPr_persistent_title">התמדת התראות</string>
 	<string name="rmd_EPr_persistent_desc_true">יש לצפות בכל התראה בנפרד כדי להסירה</string>
 	<string name="rmd_EPr_persistent_desc_false">כפתור «הָסִירִי הכל» יסיר את כל ההתראות</string>

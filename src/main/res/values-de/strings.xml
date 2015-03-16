@@ -379,10 +379,6 @@
 	<string name="rmd_EPr_quiet_hours_end_desc">Benachrichtigungen werden nicht mehr lautlos sein ab %s</string>
 	<string name="rmd_EPr_rmd_time_title">Standard-Erinnerung</string>
 	<string name="rmd_EPr_rmd_time_desc">Benachrichtigungen für Aufgaben ohne Fälligkeit werden um %s angezeigt</string>
-	<string name="rmd_EPr_ringtone_title">Erinnerungs-Klingelton</string>
-	<string name="rmd_EPr_ringtone_desc_custom">Eigener Klingelton eingestellt</string>
-	<string name="rmd_EPr_ringtone_desc_silent">Klingelton auf Lautlos eingestellt</string>
-	<string name="rmd_EPr_ringtone_desc_default">Standard-Klingelton wird benutzt</string>
 	<string name="rmd_EPr_persistent_title">Hartnäckigkeit von Meldungen</string>
 	<string name="rmd_EPr_persistent_desc_true">Benachrichtigungen müssen einzeln angesehen werden um sie zu löschen</string>
 	<string name="rmd_EPr_persistent_desc_false">Erinnerungen können mit dem \"Alle Löschen\" Button gelöscht werden</string>

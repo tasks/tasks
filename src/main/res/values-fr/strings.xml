@@ -380,10 +380,6 @@
 	<string name="rmd_EPr_quiet_hours_end_desc">Les notifications ne seront plus silencieuses à partir de %s</string>
 	<string name="rmd_EPr_rmd_time_title">Rappel par défaut</string>
 	<string name="rmd_EPr_rmd_time_desc">Les notifications pour les tâches sans échéances apparaîtront à %s</string>
-	<string name="rmd_EPr_ringtone_title">Sonnerie de notification</string>
-	<string name="rmd_EPr_ringtone_desc_custom">La sonnerie personnalisée a été configurée</string>
-	<string name="rmd_EPr_ringtone_desc_silent">Configurer la sonnerie en mode silencieux</string>
-	<string name="rmd_EPr_ringtone_desc_default">La sonnerie par défaut sera utilisée</string>
 	<string name="rmd_EPr_persistent_title">Persistance de la notification</string>
 	<string name="rmd_EPr_persistent_desc_true">Les notifications doivent être affichées séparément afin d\'être purgées</string>
 	<string name="rmd_EPr_persistent_desc_false">Les notifications peuvent être purgées grâce au bouton « Tout purger »</string>

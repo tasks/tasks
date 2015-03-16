@@ -381,10 +381,6 @@
 	<string name="rmd_EPr_quiet_hours_end_desc">Οι ειδοποιήσεις θα σταματήσουν να είναι σε σίγαση στις %s</string>
 	<string name="rmd_EPr_rmd_time_title">Προκαθορισμένη υπενθύμιση</string>
 	<string name="rmd_EPr_rmd_time_desc">Ειδοποιήσεις για εργασίες χωρίς ώρα λήξης θα φαίνονται στις %s</string>
-	<string name="rmd_EPr_ringtone_title">Μελωδία ειδοποιήσεων</string>
-	<string name="rmd_EPr_ringtone_desc_custom">Προσαρμοσμένος ήχος έχει οριστεί</string>
-	<string name="rmd_EPr_ringtone_desc_silent">Ήχος ορίστηκε σε αθόρυβο</string>
-	<string name="rmd_EPr_ringtone_desc_default">Θα χρησιμοποιηθεί προκαθορισμένος ήχος</string>
 	<string name="rmd_EPr_persistent_title">Επιμονή ειδοποίησης</string>
 	<string name="rmd_EPr_persistent_desc_true">Οι ειδοποιήσεις πρέπει να προβληθούν χωριστά για να καθαριστούν</string>
 	<string name="rmd_EPr_persistent_desc_false">Οι ειδοποιήσεις μπορούν να καθαριστούν με το κουμπί \"Καθαρισμός Όλων\"</string>

@@ -89,15 +89,6 @@
   <!-- Reminder Preference: Default Reminder Description (%s => time set) -->
   <string name="rmd_EPr_rmd_time_desc">Notifications for tasks without due times will appear at %s</string>
 
-  <!-- Reminder Preference: Notification Ringtone Title -->
-  <string name="rmd_EPr_ringtone_title">Notification ringtone</string>
-  <!-- Reminder Preference: Notification Ringtone Description (when custom tone is set) -->
-  <string name="rmd_EPr_ringtone_desc_custom">Custom ringtone has been set</string>
-  <!-- Reminder Preference: Notification Ringtone Description (when silence is set) -->
-  <string name="rmd_EPr_ringtone_desc_silent">Ringtone set to silent</string>
-  <!-- Reminder Preference: Notification Ringtone Description (when custom tone is not set) -->
-  <string name="rmd_EPr_ringtone_desc_default">Default ringtone will be used</string>
-  
   <!-- Reminder Preference: Notification Persistence Title -->
   <string name="rmd_EPr_persistent_title">Notification persistence</string>
   <!-- Reminder Preference: Notification Persistence Description (true) -->

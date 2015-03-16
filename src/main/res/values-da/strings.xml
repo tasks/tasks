@@ -195,10 +195,6 @@
 	<string name="rmd_EPr_quiet_hours_start_desc">Ingen påmindelser vil blive vist efter %s</string>
 	<string name="rmd_EPr_quiet_hours_desc_none">Stille timer er deaktiveret</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Stille timer slut</string>
-	<string name="rmd_EPr_ringtone_title">Påmindelsesringetone</string>
-	<string name="rmd_EPr_ringtone_desc_custom">Tilpasset ringetone er blevet sat</string>
-	<string name="rmd_EPr_ringtone_desc_silent">Ringetone sat til stille</string>
-	<string name="rmd_EPr_ringtone_desc_default">Standard ringetone vil blive brugt</string>
 	<string name="rmd_EPr_persistent_desc_true">Påmindelser skal vises individuelt for at blive ryddet</string>
 	<string name="rmd_EPr_vibrate_title">Vibrer ved påmindelse</string>
 	<string name="rmd_EPr_defaultRemind_title">Tilfældige påmindelser</string>

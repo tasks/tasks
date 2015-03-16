@@ -386,10 +386,6 @@
 	<string name="rmd_EPr_quiet_hours_end_desc">Сповіщення перестануть бути беззвучними починаючи з %s.</string>
 	<string name="rmd_EPr_rmd_time_title">Нагадування по замовчуванню</string>
 	<string name="rmd_EPr_rmd_time_desc">Сповіщення для задач без терміну виконання з\'являться у %s</string>
-	<string name="rmd_EPr_ringtone_title">Мелодія сповіщення</string>
-	<string name="rmd_EPr_ringtone_desc_custom">Користувацька мелодія була встановлена</string>
-	<string name="rmd_EPr_ringtone_desc_silent">Мелодія відключена</string>
-	<string name="rmd_EPr_ringtone_desc_default">Буде використана мелодія за замовчуванням</string>
 	<string name="rmd_EPr_persistent_title">Постійність сповіщення</string>
 	<string name="rmd_EPr_persistent_desc_true">Кожне повідомлення має бути переглянуто перед очищенням</string>
 	<string name="rmd_EPr_persistent_desc_false">Сповіщення можна очистити кнопкою \"Очистити все\"</string>

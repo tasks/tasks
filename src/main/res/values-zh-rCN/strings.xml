@@ -319,10 +319,6 @@
 	<string name="rmd_EPr_quiet_hours_end_desc">静音时间将在%s后结束</string>
 	<string name="rmd_EPr_rmd_time_title">默认提示</string>
 	<string name="rmd_EPr_rmd_time_desc">未设定截止日期任务的通知会于 %s 出现</string>
-	<string name="rmd_EPr_ringtone_title">提醒铃声</string>
-	<string name="rmd_EPr_ringtone_desc_custom">自定铃声已设定</string>
-	<string name="rmd_EPr_ringtone_desc_silent">铃声设定为静音</string>
-	<string name="rmd_EPr_ringtone_desc_default">使用默认铃声</string>
 	<string name="rmd_EPr_persistent_title">持续提醒</string>
 	<string name="rmd_EPr_persistent_desc_true">提醒必须逐个清除</string>
 	<string name="rmd_EPr_persistent_desc_false">通知可经由点选“清除全部”清除</string>

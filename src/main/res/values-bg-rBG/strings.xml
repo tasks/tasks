@@ -387,10 +387,6 @@
 	<string name="rmd_EPr_quiet_hours_end_desc">Уведомления ще престанат да бъдат тихи на %s</string>
 	<string name="rmd_EPr_rmd_time_title">Напомняне по подразбиране</string>
 	<string name="rmd_EPr_rmd_time_desc">Уведомления за задачи без крайни срокове ще се показват на %s</string>
-	<string name="rmd_EPr_ringtone_title">Мелодия на Уведомление</string>
-	<string name="rmd_EPr_ringtone_desc_custom">Зададен е потребителски тон на звънене</string>
-	<string name="rmd_EPr_ringtone_desc_silent">Тонът на звънене е установен в безшумен режим</string>
-	<string name="rmd_EPr_ringtone_desc_default">Ще бъде използван тон на звънене по подразбиране</string>
 	<string name="rmd_EPr_persistent_title">Настойчивост на уведомленията</string>
 	<string name="rmd_EPr_persistent_desc_true">Уведомленията трябва да се разглеждат поотделно, за да бъдат изчистени</string>
 	<string name="rmd_EPr_persistent_desc_false">Уведомленията могат да се изчистят с бутона \"Изчисти всичко\"</string>

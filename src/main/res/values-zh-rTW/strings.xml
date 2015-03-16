@@ -359,10 +359,6 @@
 	<string name="rmd_EPr_quiet_hours_end_desc">通知將在 %s</string>
 	<string name="rmd_EPr_rmd_time_title">默認提示</string>
 	<string name="rmd_EPr_rmd_time_desc">未設定截止日期任務工作的通知會於%s 出現</string>
-	<string name="rmd_EPr_ringtone_title">提醒鈴聲</string>
-	<string name="rmd_EPr_ringtone_desc_custom">自定鈴聲已設定</string>
-	<string name="rmd_EPr_ringtone_desc_silent">鈴聲設定為靜音</string>
-	<string name="rmd_EPr_ringtone_desc_default">使用預設鈴聲</string>
 	<string name="rmd_EPr_persistent_title">持續通知</string>
 	<string name="rmd_EPr_persistent_desc_true">通知必須個別地清除</string>
 	<string name="rmd_EPr_persistent_desc_false">通知可經由點選“清除全部”清除</string>

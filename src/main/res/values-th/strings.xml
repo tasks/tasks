@@ -103,9 +103,6 @@
 	<string name="rmd_NoA_filter">เตือนความจำ!</string>
 	<string name="rmd_NoA_done">เสร็จเรียบร้อยแล้ว!</string>
 	<string name="rmd_NoA_snooze">หลับ..</string>
-	<string name="rmd_EPr_ringtone_desc_custom">เสียงเตือนถูกตั้งค่าเองแล้ว</string>
-	<string name="rmd_EPr_ringtone_desc_silent">เสียงเตือนเปลี่ยนเป็นเงียบ</string>
-	<string name="rmd_EPr_ringtone_desc_default">เสียงเตือนตั้งต้นจะถูกใช้</string>
 	<string name="repeat_enabled">การเกิดซ้ำ</string>
 	<string-array name="repeat_until_shortcuts">
 		<item>Forever</item>

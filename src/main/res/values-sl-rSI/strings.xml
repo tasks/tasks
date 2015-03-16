@@ -383,10 +383,6 @@
 	<string name="rmd_EPr_quiet_hours_end_desc">Obvestila ne bodo več utišana od %s</string>
 	<string name="rmd_EPr_rmd_time_title">Privzeti opomnik ob</string>
 	<string name="rmd_EPr_rmd_time_desc">Obvestila o opravkih brez dospelosti se prikažejo ob %s</string>
-	<string name="rmd_EPr_ringtone_title">Zvonenje ob obvestilu</string>
-	<string name="rmd_EPr_ringtone_desc_custom">Zvonenje po meri je nastavljeno</string>
-	<string name="rmd_EPr_ringtone_desc_silent">Zvonenje utišano</string>
-	<string name="rmd_EPr_ringtone_desc_default">Uporabljeno bo privzeto zvonenje</string>
 	<string name="rmd_EPr_persistent_title">Vztrajnost obvestil</string>
 	<string name="rmd_EPr_persistent_desc_true">Obvestila je potrebno pogledati eno po eno, da se zbrišejo</string>
 	<string name="rmd_EPr_persistent_desc_false">Obvestila je mogoče zbrisati z gumbom \"Briši vse\"</string>

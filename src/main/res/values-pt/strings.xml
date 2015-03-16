@@ -385,10 +385,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="rmd_EPr_quiet_hours_end_desc">As notificações será restauradas em %s</string>
 	<string name="rmd_EPr_rmd_time_title">Lembrete predefinido</string>
 	<string name="rmd_EPr_rmd_time_desc">As notificações para tarefas sem data limite aparecerão em %s</string>
-	<string name="rmd_EPr_ringtone_title">Toque da notificação</string>
-	<string name="rmd_EPr_ringtone_desc_custom">Toque personalizado definido</string>
-	<string name="rmd_EPr_ringtone_desc_silent">Toque definido para silencioso</string>
-	<string name="rmd_EPr_ringtone_desc_default">Será utilizado o toque predefinido</string>
 	<string name="rmd_EPr_persistent_title">Persistência da notificação</string>
 	<string name="rmd_EPr_persistent_desc_true">Deve ver as notificações individualmente para as poder remover</string>
 	<string name="rmd_EPr_persistent_desc_false">As notificações serão removidas no botão \"Limpar tudo\"</string>

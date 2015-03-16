@@ -385,10 +385,6 @@
 	<string name="rmd_EPr_quiet_hours_end_desc">通知を行う時間帯の開始 %s</string>
 	<string name="rmd_EPr_rmd_time_title">標準リマインダー</string>
 	<string name="rmd_EPr_rmd_time_desc">期限の時間がないタスクの通知は %s に表示されます</string>
-	<string name="rmd_EPr_ringtone_title">通知音</string>
-	<string name="rmd_EPr_ringtone_desc_custom">カスタム通知音を使用</string>
-	<string name="rmd_EPr_ringtone_desc_silent">通知音は無効</string>
-	<string name="rmd_EPr_ringtone_desc_default">デフォルトの通知音を使用</string>
 	<string name="rmd_EPr_persistent_title">通知の持続</string>
 	<string name="rmd_EPr_persistent_desc_true">通知はひとつひとつ削除する必要があります</string>
 	<string name="rmd_EPr_persistent_desc_false">通知は\"通知を消去\"ボタンで消えます</string>

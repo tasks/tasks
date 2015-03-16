@@ -339,10 +339,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="rmd_EPr_quiet_hours_end_desc">Le notifiche smetteranno di essere silenziose dopo le %s</string>
 	<string name="rmd_EPr_rmd_time_title">Promemoria predefiniti</string>
 	<string name="rmd_EPr_rmd_time_desc">Le notifiche per le attività senza scadenza appariranno alle %s</string>
-	<string name="rmd_EPr_ringtone_title">Suoneria notifiche</string>
-	<string name="rmd_EPr_ringtone_desc_custom">La suoneria personalizzata è stata impostata</string>
-	<string name="rmd_EPr_ringtone_desc_silent">Suoneria impostata in modalità silenziosa</string>
-	<string name="rmd_EPr_ringtone_desc_default">Verrà utilizzata la suoneria predefinita</string>
 	<string name="rmd_EPr_persistent_title">Notifica Persistente</string>
 	<string name="rmd_EPr_persistent_desc_true">Le notifiche devono essere visualizzate singolarmente per essere cancellate</string>
 	<string name="rmd_EPr_persistent_desc_false">Le notifiche possono essere cancellate attraverso il pulsante \"Canella tutto\"</string>

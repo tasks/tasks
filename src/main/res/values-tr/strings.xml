@@ -341,10 +341,6 @@
 	<string name="rmd_EPr_quiet_hours_end_desc">Bildirim sesleri %s den itibaren sessiz olmayacak</string>
 	<string name="rmd_EPr_rmd_time_title">Öntanımlı Hatırlatma</string>
 	<string name="rmd_EPr_rmd_time_desc">Görev bildirimleri son tarihler olmadan gösterilecek: %s</string>
-	<string name="rmd_EPr_ringtone_title">Bildirim Sesi</string>
-	<string name="rmd_EPr_ringtone_desc_custom">Özel ses tonu atandı</string>
-	<string name="rmd_EPr_ringtone_desc_silent">Sestonu sessiz konumda</string>
-	<string name="rmd_EPr_ringtone_desc_default">Varsayılan zil sesi kullanılacak</string>
 	<string name="rmd_EPr_persistent_title">Bildirim Sürekliliği</string>
 	<string name="rmd_EPr_persistent_desc_true">Bildirimlerin temizlenmesi için tek tek görüntülenmeleri gerekir.</string>
 	<string name="rmd_EPr_persistent_desc_false">Bildirimler \"Tümünü Temizle\" düğmesiyle temizlenebilir</string>

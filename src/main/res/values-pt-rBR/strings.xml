@@ -379,10 +379,6 @@
 	<string name="rmd_EPr_quiet_hours_end_desc">As notificações ficarão normais (sonoras) a partir de %s</string>
 	<string name="rmd_EPr_rmd_time_title">Lembrete padrão</string>
 	<string name="rmd_EPr_rmd_time_desc">Notificações de tarefas sem tempo de vencimento vão aparecer em %s</string>
-	<string name="rmd_EPr_ringtone_title">Toque de notificação</string>
-	<string name="rmd_EPr_ringtone_desc_custom">Toque personalizado foi definido</string>
-	<string name="rmd_EPr_ringtone_desc_silent">Campainha definida para silencioso</string>
-	<string name="rmd_EPr_ringtone_desc_default">Campainha padrão será utilizada</string>
 	<string name="rmd_EPr_persistent_title">Notificação persistente</string>
 	<string name="rmd_EPr_persistent_desc_true">Cada notificação precisa ser vista individualmente</string>
 	<string name="rmd_EPr_persistent_desc_false">Notificações podem ser eliminadas com o botão \"Eliminar Todas\"</string>

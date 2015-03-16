@@ -382,10 +382,6 @@
 	<string name="rmd_EPr_quiet_hours_end_desc">Waarschuwingsgeluid weer geactiveerd om %s</string>
 	<string name="rmd_EPr_rmd_time_title">Standaard herinnering</string>
 	<string name="rmd_EPr_rmd_time_desc">Waarschuwingen voor taken zonder eindtijd verschijnen om %s</string>
-	<string name="rmd_EPr_ringtone_title">Geluid voor herinneringen</string>
-	<string name="rmd_EPr_ringtone_desc_custom">Aangepast geluid ingesteld</string>
-	<string name="rmd_EPr_ringtone_desc_silent">Geluid op stil gezet</string>
-	<string name="rmd_EPr_ringtone_desc_default">Standaard geluid wordt gebruikt</string>
 	<string name="rmd_EPr_persistent_title">Herinneringen aanhouden</string>
 	<string name="rmd_EPr_persistent_desc_true">Herinneringen moeten individueel worden gewist</string>
 	<string name="rmd_EPr_persistent_desc_false">Herinneringen kunnen met de \"Alles wissen\" knop worden uitgezet</string>
