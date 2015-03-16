@@ -22,12 +22,6 @@ import java.text.DateFormat;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
-/**
- * Displays the preference screen for users to edit their preferences
- *
- * @author Tim Su <tim@todoroo.com>
- *
- */
 public class ReminderPreferences extends TodorooPreferenceActivity {
 
     @Override
@@ -52,13 +46,7 @@ public class ReminderPreferences extends TodorooPreferenceActivity {
     public void updatePreferences(Preference preference, Object value) {
         Resources r = getResources();
 
-        if(r.getString(R.string.p_rmd_enable_quiet).equals(preference.getKey())) {
-            if( !(Boolean) value) {
-                preference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_desc_none));
-            } else {
-                preference.setSummary("");
-            }
-        } else if(r.getString(R.string.p_rmd_quietStart).equals(preference.getKey())) {
+        if(r.getString(R.string.p_rmd_quietStart).equals(preference.getKey())) {
             int millisOfDay = (int) value;
             String setting = DateFormat.getTimeInstance(DateFormat.SHORT).format(new DateTime().withMillisOfDay(millisOfDay).toDate());
             preference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_start_desc, setting));
@@ -77,18 +65,6 @@ public class ReminderPreferences extends TodorooPreferenceActivity {
                 Ringtone ringtone = RingtoneManager.getRingtone(this, Uri.parse((String) (value == null ? "" : value)));
                 String ringtoneTitle = ringtone.getTitle(this);
                 preference.setSummary(ringtoneTitle);
-            }
-        } else if(r.getString(R.string.p_rmd_persistent).equals(preference.getKey())) {
-            if((Boolean)value) {
-                preference.setSummary(r.getString(R.string.rmd_EPr_persistent_desc_true));
-            } else {
-                preference.setSummary(r.getString(R.string.rmd_EPr_persistent_desc_false));
-            }
-        } else if(r.getString(R.string.p_rmd_maxvolume).equals(preference.getKey())) {
-            if((Boolean)value) {
-                preference.setSummary(r.getString(R.string.rmd_EPr_multiple_maxvolume_desc_true));
-            } else {
-                preference.setSummary(r.getString(R.string.rmd_EPr_multiple_maxvolume_desc_false));
             }
         }
     }

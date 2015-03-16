@@ -354,7 +354,6 @@
 	<string name="rmd_NoA_dlg_title">提醒：</string>
 	<string name="rmd_EPr_quiet_hours_start_title">無聲開始時間</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">%s 後提示將靜止。\n注意：震動在下面的選項中控制！</string>
-	<string name="rmd_EPr_quiet_hours_desc_none">未設定無聲功能</string>
 	<string name="rmd_EPr_quiet_hours_end_title">無聲結束時間</string>
 	<string name="rmd_EPr_quiet_hours_end_desc">通知將在 %s</string>
 	<string name="rmd_EPr_rmd_time_title">默認提示</string>

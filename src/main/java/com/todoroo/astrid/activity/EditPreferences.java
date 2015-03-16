@@ -256,49 +256,16 @@ public class EditPreferences extends TodorooPreferenceActivity {
     public void updatePreferences(final Preference preference, Object value) {
         final Resources r = getResources();
 
-        if (r.getString(R.string.p_fullTaskTitle).equals(preference.getKey())) {
-            if (value != null && (Boolean) value) {
-                preference.setSummary(R.string.EPr_fullTask_desc_enabled);
-            } else {
-                preference.setSummary(R.string.EPr_fullTask_desc_disabled);
-            }
-        }
-
-        // pp preferences
-        else if (r.getString(R.string.p_files_dir).equals(preference.getKey())) {
+        if (r.getString(R.string.p_files_dir).equals(preference.getKey())) {
             String dir = preferences.getStringValue(TaskAttachment.FILES_DIRECTORY_PREF);
 
             if (TextUtils.isEmpty(dir)) {
                 dir = r.getString(R.string.p_files_dir_desc_default);
             }
             preference.setSummary(r.getString(R.string.p_files_dir_desc, dir));
-        } else if (booleanPreference(preference, value, R.string.p_field_missed_calls,
-                R.string.MCA_missed_calls_pref_desc_disabled, R.string.MCA_missed_calls_pref_desc_enabled)) {
-        } else if (booleanPreference(preference, value, R.string.p_calendar_reminders,
-                R.string.CRA_calendar_reminders_pref_desc_disabled, R.string.CRA_calendar_reminders_pref_desc_enabled)) {
-        } else if (booleanPreference(preference, value, R.string.p_end_at_deadline,
-                R.string.EPr_cal_end_at_due_time, R.string.EPr_cal_start_at_due_time)) {
         } else if (r.getString(R.string.p_voiceRemindersEnabled).equals(preference.getKey())) {
-            if (value != null && !(Boolean) value) {
-                preference.setSummary(R.string.EPr_voiceRemindersEnabled_desc_disabled);
-            } else {
-                preference.setSummary(R.string.EPr_voiceRemindersEnabled_desc_enabled);
-            }
             onVoiceReminderStatusChanged(preference, (Boolean) value);
         }
-    }
-
-    protected boolean booleanPreference(Preference preference, Object value,
-            int key, int disabledString, int enabledString) {
-        if(getString(key).equals(preference.getKey())) {
-            if (value != null && !(Boolean)value) {
-                preference.setSummary(disabledString);
-            } else {
-                preference.setSummary(enabledString);
-            }
-            return true;
-        }
-        return false;
     }
 
     @Override

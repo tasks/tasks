@@ -334,7 +334,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="rmd_NoA_dlg_title">Promemoria:</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Ora inizio silenzio</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">Nessuna notifica apparirà dopo le %s</string>
-	<string name="rmd_EPr_quiet_hours_desc_none">Ora inizio silenzio non abilitato</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Ora fine silenzio</string>
 	<string name="rmd_EPr_quiet_hours_end_desc">Le notifiche smetteranno di essere silenziose dopo le %s</string>
 	<string name="rmd_EPr_rmd_time_title">Promemoria predefiniti</string>

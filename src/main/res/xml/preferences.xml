@@ -27,6 +27,8 @@
 	        
 	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
 	            android:key="@string/p_fullTaskTitle"
+                android:summaryOff="@string/EPr_fullTask_desc_disabled"
+                android:summaryOn="@string/EPr_fullTask_desc_enabled"
 	            android:title="@string/EPr_fullTask_title"
 	            android:defaultValue="false" />
 

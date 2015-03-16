@@ -371,10 +371,8 @@
 	<string name="rmd_NoA_done">Concluída</string>
 	<string name="rmd_NoA_snooze">Adiar</string>
 	<string name="rmd_NoA_dlg_title">Lembrete:</string>
-	<string name="rmd_EPr_enable_quiet_title">Ativar horas de silêncio</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Começam as horas calmas</string>
 	<string name="rmd_EPr_quiet_hours_start_desc">Notificações irão silenciar depois de %s.\nNota: vibrações são controladas pelo Vibrate na configuração de alarme.</string>
-	<string name="rmd_EPr_quiet_hours_desc_none">Horário de silêncio está desativado</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Fim das horas calmas</string>
 	<string name="rmd_EPr_quiet_hours_end_desc">As notificações ficarão normais (sonoras) a partir de %s</string>
 	<string name="rmd_EPr_rmd_time_title">Lembrete padrão</string>

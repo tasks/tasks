@@ -71,14 +71,10 @@
   <!-- ============================================= reminder preferences == -->
   
   <!-- Reminder Preference: Quiet Hours Start Title -->
-  <string name="rmd_EPr_enable_quiet_title">Enable quiet hours</string>
-  <!-- Reminder Preference: Quiet Hours Start Title -->
   <string name="rmd_EPr_quiet_hours_start_title">Quiet hours start</string>
   <!-- Reminder Preference: Quiet Hours Start Description (%s => time set) -->
   <string name="rmd_EPr_quiet_hours_start_desc">Notifications will be silent after %s.\nNote: vibrations are controlled by the "Vibrate on alert" setting</string>
-  <!-- Reminder Preference: Quiet Hours Start/End Description (disabled) -->
-  <string name="rmd_EPr_quiet_hours_desc_none">Quiet hours is disabled</string>
-  
+
   <!-- Reminder Preference: Quiet Hours End Title -->
   <string name="rmd_EPr_quiet_hours_end_title">Quiet hours end</string>
   <!-- Reminder Preference: Quiet Hours End Description (%s => time set) -->

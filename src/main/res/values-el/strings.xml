@@ -373,10 +373,8 @@
 	<string name="rmd_NoA_done">Ολοκληρωμένο</string>
 	<string name="rmd_NoA_snooze">Αναβολή</string>
 	<string name="rmd_NoA_dlg_title">Υπενθύμιση:</string>
-	<string name="rmd_EPr_enable_quiet_title">Ενεργοποίηση ωρών ησυχίας</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Ξεκίνησε η ώρα ησυχίας </string>
 	<string name="rmd_EPr_quiet_hours_start_desc">Σίγαση υπενθυμίσεων μετά τις %s.\nΣημείωση: η δόνηση ελέγχεται από τη ρύθμιση   \"Δόνηση ειδοποιήσεων\"</string>
-	<string name="rmd_EPr_quiet_hours_desc_none">Η ώρα κοινής ησυχίας είναι απενεργοποιημένη</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Τέλος ώρας κοινής ησυχίας</string>
 	<string name="rmd_EPr_quiet_hours_end_desc">Οι ειδοποιήσεις θα σταματήσουν να είναι σε σίγαση στις %s</string>
 	<string name="rmd_EPr_rmd_time_title">Προκαθορισμένη υπενθύμιση</string>

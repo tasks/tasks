@@ -25,6 +25,8 @@
     <com.todoroo.astrid.ui.MultilineCheckboxPreference
         android:dependency="@string/p_rmd_enabled"
         android:key="@string/p_rmd_persistent"
+        android:summaryOff="@string/rmd_EPr_persistent_desc_false"
+        android:summaryOn="@string/rmd_EPr_persistent_desc_true"
         android:title="@string/rmd_EPr_persistent_title" />
     <org.tasks.ui.TimePreference
         android:defaultValue="@integer/default_remind_time"
@@ -35,7 +37,7 @@
         android:defaultValue="false"
         android:dependency="@string/p_rmd_enabled"
         android:key="@string/p_rmd_enable_quiet"
-        android:title="@string/rmd_EPr_enable_quiet_title" />
+        android:title="@string/quiet_hours" />
     <org.tasks.ui.TimePreference
         android:defaultValue="@integer/default_quiet_hours_start"
         android:dependency="@string/p_rmd_enable_quiet"
@@ -50,6 +52,8 @@
         android:defaultValue="false"
         android:dependency="@string/p_rmd_enabled"
         android:key="@string/p_rmd_maxvolume"
+        android:summaryOff="@string/rmd_EPr_multiple_maxvolume_desc_false"
+        android:summaryOn="@string/rmd_EPr_multiple_maxvolume_desc_true"
         android:title="@string/rmd_EPr_multiple_maxvolume_title" />
 
 </PreferenceScreen>
