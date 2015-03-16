@@ -26,6 +26,7 @@ import com.todoroo.astrid.tags.DeleteTagActivity;
 import com.todoroo.astrid.tags.RenameTagActivity;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
 
+import org.tasks.preferences.MiscellaneousPreferences;
 import org.tasks.reminders.SnoozeActivity;
 import org.tasks.voice.VoiceCommandActivity;
 
@@ -60,7 +61,8 @@ import dagger.Provides;
                 DefaultsPreferences.class,
                 ReminderPreferences.class,
                 AACRecordingActivity.class,
-                SnoozeActivity.class
+                SnoozeActivity.class,
+                MiscellaneousPreferences.class
         })
 public class ActivityModule {
 

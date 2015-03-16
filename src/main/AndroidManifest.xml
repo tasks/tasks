@@ -171,6 +171,10 @@
             android:name="com.todoroo.astrid.activity.EditPreferences"
             android:theme="@android:style/Theme" />
 
+        <activity
+            android:name=".preferences.MiscellaneousPreferences"
+            android:theme="@android:style/Theme" />
+
         <!-- Activity that configures widget -->
         <activity android:name="com.todoroo.astrid.widget.WidgetConfigActivity">
             <intent-filter>

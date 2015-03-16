@@ -1,46 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/miscellaneous">
-	<PreferenceScreen
-	    android:title="@string/miscellaneous">
-	    
-	    <PreferenceScreen
-            android:title="@string/attachment_directory"
-            android:key="@string/p_files_dir" />
-	    
-	    <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	        android:key="@string/p_voiceRemindersEnabled"
-            android:summaryOff="@string/EPr_voiceRemindersEnabled_desc_disabled"
-            android:summaryOn="@string/EPr_voiceRemindersEnabled_desc_enabled"
-	        android:title="@string/EPr_voiceRemindersEnabled_title"
-	        android:defaultValue="false" />
-	
-	    <CheckBoxPreference
-	        android:key="@string/p_field_missed_calls"
-            android:summaryOff="@string/MCA_missed_calls_pref_desc_disabled"
-            android:summaryOn="@string/MCA_missed_calls_pref_desc_enabled"
-	        android:title="@string/MCA_missed_calls_pref_title"/>
-	    
-	    <CheckBoxPreference
-	        android:key="@string/p_calendar_reminders"
-            android:summaryOff="@string/CRA_calendar_reminders_pref_desc_disabled"
-            android:summaryOn="@string/CRA_calendar_reminders_pref_desc_enabled"
-	        android:title="@string/CRA_calendar_reminders_pref_title" />
-	    
-	    <CheckBoxPreference
-	        android:title="@string/EPr_cal_end_or_start_at_due_time"
-            android:summaryOff="@string/EPr_cal_end_at_due_time"
-            android:summaryOn="@string/EPr_cal_start_at_due_time"
-	        android:key = "@string/p_end_at_deadline" />
 
-        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-            android:key="@string/p_showSmartConfirmation_key"
-            android:title="@string/EPr_showSmartConfirmation_title"
-            android:defaultValue="true"/>
+    <PreferenceScreen
+        android:key="@string/p_files_dir"
+        android:title="@string/attachment_directory" />
 
-        <CheckBoxPreference
-            android:title="@string/debug_logging"
-            android:key="@string/p_debug_logging"/>
-	</PreferenceScreen>
+    <com.todoroo.astrid.ui.MultilineCheckboxPreference
+        android:defaultValue="false"
+        android:key="@string/p_voiceRemindersEnabled"
+        android:summaryOff="@string/EPr_voiceRemindersEnabled_desc_disabled"
+        android:summaryOn="@string/EPr_voiceRemindersEnabled_desc_enabled"
+        android:title="@string/EPr_voiceRemindersEnabled_title" />
+
+    <CheckBoxPreference
+        android:key="@string/p_field_missed_calls"
+        android:summaryOff="@string/MCA_missed_calls_pref_desc_disabled"
+        android:summaryOn="@string/MCA_missed_calls_pref_desc_enabled"
+        android:title="@string/MCA_missed_calls_pref_title" />
+
+    <CheckBoxPreference
+        android:key="@string/p_calendar_reminders"
+        android:summaryOff="@string/CRA_calendar_reminders_pref_desc_disabled"
+        android:summaryOn="@string/CRA_calendar_reminders_pref_desc_enabled"
+        android:title="@string/CRA_calendar_reminders_pref_title" />
+
+    <CheckBoxPreference
+        android:key="@string/p_end_at_deadline"
+        android:summaryOff="@string/EPr_cal_end_at_due_time"
+        android:summaryOn="@string/EPr_cal_start_at_due_time"
+        android:title="@string/EPr_cal_end_or_start_at_due_time" />
+
+    <com.todoroo.astrid.ui.MultilineCheckboxPreference
+        android:defaultValue="true"
+        android:key="@string/p_showSmartConfirmation_key"
+        android:title="@string/EPr_showSmartConfirmation_title" />
+
+    <CheckBoxPreference
+        android:key="@string/p_debug_logging"
+        android:title="@string/debug_logging" />
 </PreferenceScreen>
