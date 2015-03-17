@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/miscellaneous">
 
-    <PreferenceScreen
+    <Preference
         android:key="@string/p_files_dir"
         android:title="@string/attachment_directory" />
 
