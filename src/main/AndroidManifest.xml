@@ -345,6 +345,10 @@
             android:theme="@android:style/Theme"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name=".activities.ClearGtaskDataActivity"
+            android:theme="@style/ReminderDialog" />
+
         <!-- repeats -->
 
         <receiver android:name="com.todoroo.astrid.repeats.RepeatTaskCompleteListener">

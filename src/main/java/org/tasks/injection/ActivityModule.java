@@ -25,6 +25,7 @@ import com.todoroo.astrid.tags.RenameTagActivity;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
 
 import org.tasks.activities.ClearAllDataActivity;
+import org.tasks.activities.ClearGtaskDataActivity;
 import org.tasks.activities.DeleteAllCalendarEventsActivity;
 import org.tasks.activities.DeleteCompletedActivity;
 import org.tasks.activities.DeleteCompletedEventsActivity;
@@ -72,7 +73,8 @@ import dagger.Provides;
                 PurgeDeletedActivity.class,
                 DeleteCompletedActivity.class,
                 DeleteCompletedEventsActivity.class,
-                DeleteAllCalendarEventsActivity.class
+                DeleteAllCalendarEventsActivity.class,
+                ClearGtaskDataActivity.class
         })
 public class ActivityModule {
 

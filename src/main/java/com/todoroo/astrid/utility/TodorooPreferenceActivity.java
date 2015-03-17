@@ -12,7 +12,6 @@ package com.todoroo.astrid.utility;
 
 
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -33,10 +32,6 @@ import javax.inject.Inject;
  */
 abstract public class TodorooPreferenceActivity extends InjectingPreferenceActivity {
 
-    // --- abstract methods
-
-    public abstract int getPreferenceResource();
-
     /**
      * Update preferences for the given preference
      * @param value setting. may be null.
@@ -46,13 +41,6 @@ abstract public class TodorooPreferenceActivity extends InjectingPreferenceActiv
     // --- implementation
 
     @Inject Preferences preferences;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        addPreferencesFromResource(getPreferenceResource());
-    }
 
     @Override
     public SharedPreferences getSharedPreferences(String name, int mode) {

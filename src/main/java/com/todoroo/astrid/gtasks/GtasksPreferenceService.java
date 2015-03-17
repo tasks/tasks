@@ -7,7 +7,6 @@ package com.todoroo.astrid.gtasks;
 
 import com.todoroo.andlib.utility.DateUtilities;
 
-import org.tasks.R;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
@@ -36,10 +35,6 @@ public class GtasksPreferenceService {
 
     public String getIdentifier() {
         return IDENTIFIER;
-    }
-
-    public int getSyncIntervalKey() {
-        return R.string.gtasks_GPr_interval_key;
     }
 
     public String getDefaultList() {
