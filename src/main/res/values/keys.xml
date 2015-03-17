@@ -89,7 +89,6 @@
   <!-- ======================================================= APPEARANCE == -->
 
   <string name="p_fontSize">font_size</string>
-  <string name="p_beastMode">beastMode</string>
 
   <string name="p_voicePrefSection">voicePrefSection</string>
   <string name="p_voiceRemindersEnabled">voiceRemindersEnabled</string>
@@ -228,12 +227,12 @@
       <item>@string/TEA_control_repeat</item>
       <item>@string/TEA_control_importance</item>
       <item>@string/TEA_control_lists</item>
-      <item>@string/TEA_control_notes</item>
-      <item>@string/TEA_control_files</item>
-      <item>@string/TEA_hideUntil_label</item>
       <item>@string/TEA_control_reminders</item>
-      <item>@string/TEA_control_timer</item>
+      <item>@string/TEA_control_files</item>
+      <item>@string/TEA_control_notes</item>
+      <item>@string/TEA_hideUntil_label</item>
       <item>@string/TEA_control_gcal</item>
+      <item>@string/TEA_control_timer</item>
       <item>@string/TEA_control_hidden_section</item>
   </string-array>
 
@@ -261,8 +260,8 @@
         <item>@string/TEA_ctrl_repeat_pref</item>
         <item>@string/TEA_ctrl_importance_pref</item>
         <item>@string/TEA_ctrl_lists_pref</item>
-        <item>@string/TEA_ctrl_files_pref</item>
         <item>@string/TEA_ctrl_reminders_pref</item>
+        <item>@string/TEA_ctrl_files_pref</item>
         <item>@string/TEA_ctrl_notes_pref</item>
         <item>@string/TEA_ctrl_hide_until_pref</item>
         <item>@string/TEA_ctrl_gcal</item>

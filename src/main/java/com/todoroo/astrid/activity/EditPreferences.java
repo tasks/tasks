@@ -8,6 +8,7 @@ package com.todoroo.astrid.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -17,7 +18,6 @@ import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.reminders.ReminderPreferences;
 import com.todoroo.astrid.service.StartupService;
-import com.todoroo.astrid.utility.TodorooPreferenceActivity;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingPreferenceActivity;
@@ -64,7 +64,7 @@ public class EditPreferences extends InjectingPreferenceActivity {
         }
     }
 
-    private Preference getPreference(final Class<? extends TodorooPreferenceActivity> klass, final int label) {
+    private Preference getPreference(final Class<? extends PreferenceActivity> klass, final int label) {
         return new Preference(this) {{
             setTitle(getResources().getString(label));
             setIntent(new Intent(EditPreferences.this, klass) {{
