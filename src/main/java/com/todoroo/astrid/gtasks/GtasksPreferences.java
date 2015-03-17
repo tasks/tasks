@@ -247,7 +247,7 @@ public class GtasksPreferences extends TodorooPreferenceActivity {
                                 public void onClick(DialogInterface dialog,
                                                     int which) {
                                     logOut();
-                                    initializePreference(getPreferenceScreen());
+                                    finish();
                                 }
                             }, null
                     );

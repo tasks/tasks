@@ -20,7 +20,6 @@ import com.todoroo.astrid.gcal.CalendarAlarmListCreator;
 import com.todoroo.astrid.gcal.CalendarReminderActivity;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
-import com.todoroo.astrid.reminders.ReminderPreferences;
 import com.todoroo.astrid.tags.DeleteTagActivity;
 import com.todoroo.astrid.tags.RenameTagActivity;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
@@ -59,7 +58,6 @@ import dagger.Provides;
                 FilterShortcutActivity.class,
                 BeastModePreferences.class,
                 DefaultsPreferences.class,
-                ReminderPreferences.class,
                 AACRecordingActivity.class,
                 SnoozeActivity.class,
                 MiscellaneousPreferences.class,

@@ -14,17 +14,13 @@ package com.todoroo.astrid.utility;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
-import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceGroup;
-import android.preference.PreferenceManager;
-import android.preference.RingtonePreference;
 
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.preferences.Preferences;
-import org.tasks.ui.TimePreference;
 
 import javax.inject.Inject;
 
@@ -63,7 +59,7 @@ abstract public class TodorooPreferenceActivity extends InjectingPreferenceActiv
         return preferences.getPrefs();
     }
 
-    protected void initializePreference(Preference preference) {
+    private void initializePreference(Preference preference) {
         if(preference instanceof PreferenceGroup) {
             PreferenceGroup group = (PreferenceGroup)preference;
             for(int i = 0; i < group.getPreferenceCount(); i++) {
@@ -76,13 +72,6 @@ abstract public class TodorooPreferenceActivity extends InjectingPreferenceActiv
                 value = ((ListPreference) preference).getValue();
             } else if(preference instanceof CheckBoxPreference) {
                 value = ((CheckBoxPreference) preference).isChecked();
-            } else if(preference instanceof EditTextPreference) {
-                value = ((EditTextPreference) preference).getText();
-            } else if(preference instanceof RingtonePreference) {
-                value = PreferenceManager.getDefaultSharedPreferences(preference.getContext())
-                        .getString(preference.getKey(), null);
-            } else if(preference instanceof TimePreference) {
-                value = ((TimePreference) preference).getMillisOfDay();
             }
 
             updatePreferences(preference, value);
