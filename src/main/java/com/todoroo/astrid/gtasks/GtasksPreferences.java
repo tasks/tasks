@@ -21,9 +21,9 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
+import com.todoroo.astrid.utility.TodorooPreferenceActivity;
 
 import org.tasks.R;
-import org.tasks.injection.InjectingSyncProviderPreferences;
 import org.tasks.scheduling.BackgroundScheduler;
 
 import java.util.HashMap;
@@ -40,7 +40,7 @@ import static org.tasks.date.DateTimeUtils.newDate;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class GtasksPreferences extends InjectingSyncProviderPreferences {
+public class GtasksPreferences extends TodorooPreferenceActivity {
 
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject GtasksSyncV2Provider gtasksSyncV2Provider;
