@@ -24,8 +24,13 @@ import com.todoroo.astrid.tags.DeleteTagActivity;
 import com.todoroo.astrid.tags.RenameTagActivity;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
 
+import org.tasks.activities.ClearAllDataActivity;
+import org.tasks.activities.DeleteAllCalendarEventsActivity;
+import org.tasks.activities.DeleteCompletedActivity;
+import org.tasks.activities.DeleteCompletedEventsActivity;
 import org.tasks.activities.ExportTaskActivity;
 import org.tasks.activities.ImportTaskActivity;
+import org.tasks.activities.PurgeDeletedActivity;
 import org.tasks.preferences.MiscellaneousPreferences;
 import org.tasks.reminders.SnoozeActivity;
 import org.tasks.voice.VoiceCommandActivity;
@@ -62,7 +67,12 @@ import dagger.Provides;
                 SnoozeActivity.class,
                 MiscellaneousPreferences.class,
                 ImportTaskActivity.class,
-                ExportTaskActivity.class
+                ExportTaskActivity.class,
+                ClearAllDataActivity.class,
+                PurgeDeletedActivity.class,
+                DeleteCompletedActivity.class,
+                DeleteCompletedEventsActivity.class,
+                DeleteAllCalendarEventsActivity.class
         })
 public class ActivityModule {
 

@@ -388,6 +388,26 @@
             android:name="com.todoroo.astrid.core.OldTaskPreferences"
             android:theme="@android:style/Theme"/>
 
+        <activity
+            android:name=".activities.ClearAllDataActivity"
+            android:theme="@style/ReminderDialog" />
+
+        <activity
+            android:name=".activities.PurgeDeletedActivity"
+            android:theme="@style/ReminderDialog" />
+
+        <activity
+            android:name=".activities.DeleteCompletedActivity"
+            android:theme="@style/ReminderDialog" />
+
+        <activity
+            android:name=".activities.DeleteCompletedEventsActivity"
+            android:theme="@style/ReminderDialog" />
+
+        <activity
+            android:name=".activities.DeleteAllCalendarEventsActivity"
+            android:theme="@style/ReminderDialog" />
+
         <!-- backup -->
 
         <activity
