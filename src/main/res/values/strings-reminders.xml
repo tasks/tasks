@@ -101,10 +101,6 @@
 
   <!-- slide 44g: Reminder Preference: Default Reminders Title -->
   <string name="rmd_EPr_defaultRemind_title">Random reminders</string>
-  <!-- Reminder Preference: Default Reminders Setting (disabled) -->
-  <string name="rmd_EPr_defaultRemind_desc_disabled">New tasks will have no random reminders</string>
-  <!-- Reminder Preference: Default Reminders Setting (%s => setting) -->
-  <string name="rmd_EPr_defaultRemind_desc">New tasks will remind randomly: %s</string>
 
   <!-- slide 39a: Defaults Title -->
   

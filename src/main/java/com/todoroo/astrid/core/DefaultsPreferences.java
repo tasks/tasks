@@ -13,11 +13,11 @@ import android.preference.Preference;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.gcal.GCalHelper;
-import com.todoroo.astrid.utility.TodorooPreferenceActivity;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import javax.inject.Inject;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class DefaultsPreferences extends TodorooPreferenceActivity {
+public class DefaultsPreferences extends InjectingPreferenceActivity {
 
     private static final Logger log = LoggerFactory.getLogger(DefaultsPreferences.class);
 
@@ -39,71 +39,58 @@ public class DefaultsPreferences extends TodorooPreferenceActivity {
     @Inject GCalHelper calendarHelper;
 
     @Override
-    public int getPreferenceResource() {
-        return R.xml.preferences_defaults;
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        addPreferencesFromResource(R.xml.preferences_defaults);
+
         initCalendarsPreference((ListPreference) findPreference(getString(R.string.gcal_p_default)));
+
+        initListPreference(R.string.p_default_urgency_key, R.array.EPr_default_urgency,
+                R.array.EPr_default_urgency_values);
+        initListPreference(R.string.p_default_importance_key, R.array.EPr_default_importance,
+                R.array.EPr_default_importance_values);
+        initListPreference(R.string.p_default_hideUntil_key, R.array.EPr_default_hideUntil,
+                R.array.EPr_default_hideUntil_values);
+        initListPreference(R.string.p_default_reminders_key, R.array.EPr_default_reminders,
+                R.array.EPr_default_reminders_values);
+        initListPreference(R.string.p_default_reminders_mode_key, R.array.EPr_default_reminders_mode,
+                R.array.EPr_default_reminders_mode_values);
+        initListPreference(R.string.p_rmd_default_random_hours, R.array.EPr_reminder_random,
+                R.array.EPr_reminder_random_hours);
     }
 
-    @Override
-    public void updatePreferences(Preference preference, Object value) {
+    private void setCalendarSummary(Object value) {
+        ListPreference listPreference = (ListPreference) findPreference(getString(R.string.gcal_p_default));
+        int index = AndroidUtilities.indexOf(listPreference.getEntryValues(), value);
+        String setting = listPreference.getEntries()[index].toString();
+        listPreference.setSummary(setting);
+    }
+
+    private void initListPreference(int key, final int keyArray, final int valueArray) {
+        Preference preference = findPreference(getString(key));
+        preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                updateTaskListPreference(preference, newValue, keyArray, valueArray);
+                return true;
+            }
+        });
+        updateTaskListPreference(preference, ((ListPreference) preference).getValue(), keyArray, valueArray);
+    }
+
+    private void updateTaskListPreference(Preference preference, Object value, int keyArray, int valueArray) {
         Resources r = getResources();
-
-        // defaults options
-        if(r.getString(R.string.p_default_urgency_key).equals(preference.getKey())) {
-            updateTaskListPreference(preference, value, r, R.array.EPr_default_urgency,
-                    R.array.EPr_default_urgency_values, R.string.EPr_default_urgency_desc);
-        } else if(r.getString(R.string.p_default_importance_key).equals(preference.getKey())) {
-            updateTaskListPreference(preference, value, r, R.array.EPr_default_importance,
-                    R.array.EPr_default_importance_values, R.string.EPr_default_importance_desc);
-        } else if(r.getString(R.string.p_default_hideUntil_key).equals(preference.getKey())) {
-            updateTaskListPreference(preference, value, r, R.array.EPr_default_hideUntil,
-                    R.array.EPr_default_hideUntil_values, R.string.EPr_default_hideUntil_desc);
-        } else if(r.getString(R.string.p_default_reminders_key).equals(preference.getKey())) {
-            updateTaskListPreference(preference, value, r, R.array.EPr_default_reminders,
-                    R.array.EPr_default_reminders_values, R.string.EPr_default_reminders_desc);
-        } else if(r.getString(R.string.p_default_reminders_mode_key).equals(preference.getKey())) {
-            updateTaskListPreference(preference, value, r, R.array.EPr_default_reminders_mode,
-                    R.array.EPr_default_reminders_mode_values, R.string.EPr_default_reminders_mode_desc);
-        } else if(r.getString(R.string.p_rmd_default_random_hours).equals(preference.getKey())) {
-            int index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_reminder_random_hours), value);
-            if(index <= 0) {
-                preference.setSummary(r.getString(R.string.rmd_EPr_defaultRemind_desc_disabled));
-            } else {
-                String setting = r.getStringArray(R.array.EPr_reminder_random)[index];
-                preference.setSummary(r.getString(R.string.rmd_EPr_defaultRemind_desc, setting));
-            }
-        } else if(r.getString(R.string.gcal_p_default).equals(preference.getKey())) {
-            ListPreference listPreference = (ListPreference) preference;
-            int index = AndroidUtilities.indexOf(listPreference.getEntryValues(), value);
-            if(index <= 0) {
-                preference.setSummary(r.getString(R.string.EPr_default_addtocalendar_desc_disabled));
-            } else {
-                String setting = listPreference.getEntries()[index].toString();
-                preference.setSummary(r.getString(R.string.EPr_default_addtocalendar_desc, setting));
-            }
-        }
-    }
-
-    private void updateTaskListPreference(Preference preference, Object value,
-            Resources r, int keyArray, int valueArray, int summaryResource) {
         int index = AndroidUtilities.indexOf(r.getStringArray(valueArray), value);
         if(index == -1) {
             // force the zeroth index
             index = 0;
             Editor editor = preference.getEditor();
-            editor.putString(preference.getKey(),
-                    r.getStringArray(valueArray)[0]);
+            editor.putString(preference.getKey(), r.getStringArray(valueArray)[0]);
             editor.commit();
         }
         String setting = r.getStringArray(keyArray)[index];
-        preference.setSummary(r.getString(summaryResource,
-                setting));
+        preference.setSummary(setting);
 
         // if user changed the value, refresh task defaults
         if(!AndroidUtilities.equals(value, preferences.getStringValue(preference.getKey()))) {
@@ -169,5 +156,14 @@ public class DefaultsPreferences extends TodorooPreferenceActivity {
 
         listPreference.setValueIndex(currentSettingIndex);
         listPreference.setEnabled(true);
+
+        listPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                setCalendarSummary(newValue);
+                return true;
+            }
+        });
+        setCalendarSummary(listPreference.getValue());
     }
 }

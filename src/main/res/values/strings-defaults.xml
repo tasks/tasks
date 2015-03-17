@@ -7,36 +7,22 @@
     <string name="task_defaults">Task defaults</string>
   <!-- slide 41f:  Preference: Default Urgency Title -->
   <string name="EPr_default_urgency_title">Default deadline</string>
-  <!-- Preference: Default Urgency Description (%s => setting) -->
-  <string name="EPr_default_urgency_desc">Currently: %s</string>
-  
+
   <!-- slide 40a: Preference: Default Importance Title -->
   <string name="EPr_default_importance_title">Default priority</string>
-  <!-- Preference: Default Importance Description (%s => setting) -->
-  <string name="EPr_default_importance_desc">Currently: %s</string>
-  
+
   <!-- slide 42e: Preference: Default Hide Until Title -->
   <string name="EPr_default_hideUntil_title">Default hide until</string>
-  <!-- Preference: Default Hide Until Description (%s => setting) -->
-  <string name="EPr_default_hideUntil_desc">Currently: %s</string>
-  
+
   <!-- slide 43e: Preference: Default Reminders Title -->
   <string name="EPr_default_reminders_title">Default reminders</string>
-  <!-- Preference: Default Reminders Description (%s => setting) -->
-  <string name="EPr_default_reminders_desc">Currently: %s</string>
-  
+
   <!-- slide 19a/46c: Preference: Default Add To Calendar Title -->
   <string name="EPr_default_addtocalendar_title">Default add to calendar</string>
-  <!-- Preference: Default Add To Calendar Setting Description (disabled) -->
-  <string name="EPr_default_addtocalendar_desc_disabled">New tasks will not create an event in the Google Calendar</string>
-  <!-- Preference: Default Add To Calendar Setting Description (%s => setting) -->
-  <string name="EPr_default_addtocalendar_desc">New tasks will be in the calendar: \"%s\"</string>
-  
+
   <!-- slide 45d: Reminder Mode Preference: Default Reminders Duration -->
   <string name="EPr_default_reminders_mode_title">Default ring/vibrate type</string>
-  <!-- Preference: Default Reminders Description (%s => setting) -->
-  <string name="EPr_default_reminders_mode_desc">Currently: %s</string>
-  
+
   <string-array name="EPr_default_importance">
     <!-- importance: labels for "Task Defaults" preference item. -->
     <!-- slide 40b -->
