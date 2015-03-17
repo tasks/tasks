@@ -48,6 +48,8 @@ public class TasksXmlExporter {
 
     private static final Logger log = LoggerFactory.getLogger(TasksXmlExporter.class);
 
+    public static final String PREF_BACKUP_LAST_DATE = "backupDate"; //$NON-NLS-1$
+
     // --- public interface
 
     public static enum ExportType {
@@ -132,8 +134,7 @@ public class TasksXmlExporter {
                         doTasksExport(output);
                     }
 
-                    preferences.setLong(BackupPreferences.PREF_BACKUP_LAST_DATE, DateUtilities.now());
-                    preferences.setString(BackupPreferences.PREF_BACKUP_LAST_ERROR, null);
+                    preferences.setLong(PREF_BACKUP_LAST_DATE, DateUtilities.now());
 
                     if (exportType == ExportType.EXPORT_TYPE_MANUAL) {
                         onFinishExport(output);
@@ -146,6 +147,7 @@ public class TasksXmlExporter {
                         public void run() {
                             if(progressDialog.isShowing() && context instanceof Activity) {
                                 DialogUtilities.dismissDialog((Activity) context, progressDialog);
+                                ((Activity) context).finish();
                             }
                         }
                     });

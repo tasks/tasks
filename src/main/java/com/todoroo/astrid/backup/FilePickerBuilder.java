@@ -26,12 +26,12 @@ public class FilePickerBuilder extends AlertDialog.Builder implements DialogInte
         void onFilePicked(String filePath);
     }
 
-    private final OnFilePickedListener callback;
+    private OnFilePickedListener onFilePickedListener;
+    private File path;
     private String[] files;
-    private String path;
     private FilenameFilter filter;
 
-    public FilePickerBuilder(Context ctx, String title, File path, OnFilePickedListener callback) {
+    public FilePickerBuilder(Context ctx, int titleRes, File path) {
         super(ctx);
         filter = new FilenameFilter() {
             @Override
@@ -40,15 +40,17 @@ public class FilePickerBuilder extends AlertDialog.Builder implements DialogInte
                 return file.isFile();
             }
         };
-        this.callback = callback;
-        setTitle(title);
+        setTitle(ctx.getString(titleRes));
         setPath(path);
     }
 
-    private void setPath(File path) {
-        if (path != null && path.exists()) {
-            this.path = path.getAbsolutePath();
+    public void setOnFilePickedListener(OnFilePickedListener onFilePickedListener) {
+        this.onFilePickedListener = onFilePickedListener;
+    }
 
+    private void setPath(final File path) {
+        if (path != null && path.exists()) {
+            this.path = path;
             File[] filesAsFile = path.listFiles(filter);
             AndroidUtilities.sortFilesByDateDesc(filesAsFile);
 
@@ -65,9 +67,9 @@ public class FilePickerBuilder extends AlertDialog.Builder implements DialogInte
     }
 
     @Override
-    public void onClick(DialogInterface dialogInterface, int i) {
-        if (callback != null) {
-            callback.onFilePicked(path + "/" + files[i]);
+    public void onClick(DialogInterface dialog, int which) {
+        if (onFilePickedListener != null) {
+            onFilePickedListener.onFilePicked(path.getAbsolutePath() + "/" + files[which]);
         }
     }
 }

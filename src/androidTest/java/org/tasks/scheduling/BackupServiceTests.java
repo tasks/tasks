@@ -6,7 +6,6 @@
 package org.tasks.scheduling;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.backup.BackupPreferences;
 import com.todoroo.astrid.backup.TasksXmlExporter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
@@ -74,7 +73,7 @@ public class BackupServiceTests extends DatabaseTestCase {
     public void disabled_testBackup() {
         assertEquals(0, temporaryDirectory.list().length);
 
-        preferences.setLong(BackupPreferences.PREF_BACKUP_LAST_DATE, 0);
+        preferences.setLong(TasksXmlExporter.PREF_BACKUP_LAST_DATE, 0);
 
         // create a backup
         BackupIntentService service = new BackupIntentService();
@@ -89,7 +88,7 @@ public class BackupServiceTests extends DatabaseTestCase {
         assertTrue(files[0].getName().matches(BackupIntentService.BACKUP_FILE_NAME_REGEX));
 
         // assert summary updated
-        assertTrue(preferences.getLong(BackupPreferences.PREF_BACKUP_LAST_DATE, 0) > 0);
+        assertTrue(preferences.getLong(TasksXmlExporter.PREF_BACKUP_LAST_DATE, 0) > 0);
     }
 
     public void testDeletion() throws IOException {

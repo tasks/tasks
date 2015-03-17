@@ -172,10 +172,6 @@
             android:theme="@android:style/Theme" />
 
         <activity
-            android:name=".preferences.AppearancePreferences"
-            android:theme="@android:style/Theme"/>
-
-        <activity
             android:name=".preferences.MiscellaneousPreferences"
             android:theme="@android:style/Theme" />
 
@@ -395,8 +391,11 @@
         <!-- backup -->
 
         <activity
-            android:name="com.todoroo.astrid.backup.BackupPreferences"
-            android:theme="@android:style/Theme"/>
+            android:name="org.tasks.activities.ExportTaskActivity"
+            android:theme="@style/ReminderDialog" />
+        <activity
+            android:name="org.tasks.activities.ImportTaskActivity"
+            android:theme="@style/ReminderDialog" />
 
         <!-- premium -->
         <activity

@@ -10,7 +10,6 @@ import com.todoroo.astrid.activity.FilterShortcutActivity;
 import com.todoroo.astrid.activity.ShareLinkActivity;
 import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
-import com.todoroo.astrid.backup.BackupPreferences;
 import com.todoroo.astrid.calls.MissedCallActivity;
 import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.core.DefaultsPreferences;
@@ -26,6 +25,8 @@ import com.todoroo.astrid.tags.DeleteTagActivity;
 import com.todoroo.astrid.tags.RenameTagActivity;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
 
+import org.tasks.activities.ExportTaskActivity;
+import org.tasks.activities.ImportTaskActivity;
 import org.tasks.preferences.MiscellaneousPreferences;
 import org.tasks.reminders.SnoozeActivity;
 import org.tasks.voice.VoiceCommandActivity;
@@ -55,14 +56,15 @@ import dagger.Provides;
                 EditPreferences.class,
                 GtasksPreferences.class,
                 OldTaskPreferences.class,
-                BackupPreferences.class,
                 FilterShortcutActivity.class,
                 BeastModePreferences.class,
                 DefaultsPreferences.class,
                 ReminderPreferences.class,
                 AACRecordingActivity.class,
                 SnoozeActivity.class,
-                MiscellaneousPreferences.class
+                MiscellaneousPreferences.class,
+                ImportTaskActivity.class,
+                ExportTaskActivity.class
         })
 public class ActivityModule {
 

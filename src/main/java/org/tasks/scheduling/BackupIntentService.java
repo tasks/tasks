@@ -3,7 +3,6 @@ package org.tasks.scheduling;
 import android.content.Context;
 
 import com.todoroo.astrid.backup.BackupConstants;
-import com.todoroo.astrid.backup.BackupPreferences;
 import com.todoroo.astrid.backup.TasksXmlExporter;
 
 import org.slf4j.Logger;
@@ -38,7 +37,7 @@ public class BackupIntentService extends MidnightIntentService {
 
     @Override
     String getLastRunPreference() {
-        return BackupPreferences.PREF_BACKUP_LAST_DATE;
+        return TasksXmlExporter.PREF_BACKUP_LAST_DATE;
     }
 
     /**
@@ -65,7 +64,6 @@ public class BackupIntentService extends MidnightIntentService {
                     backupDirectorySetting.getBackupDirectory());
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            preferences.setString(BackupPreferences.PREF_BACKUP_LAST_ERROR, e.toString());
         }
     }
 

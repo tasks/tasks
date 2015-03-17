@@ -12,7 +12,6 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.backup.BackupPreferences;
 import com.todoroo.astrid.core.DefaultsPreferences;
 import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
@@ -21,11 +20,7 @@ import com.todoroo.astrid.service.StartupService;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingPreferenceActivity;
-import org.tasks.preferences.AppearancePreferences;
 import org.tasks.preferences.MiscellaneousPreferences;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -48,20 +43,14 @@ public class EditPreferences extends InjectingPreferenceActivity {
 
         addPreferencesFromResource(R.xml.preferences);
 
-        List<Preference> preferences = new ArrayList<Preference>() {{
-            add(getPreference(AppearancePreferences.class, R.string.EPr_appearance_header));
-            add(getPreference(ReminderPreferences.class, R.string.notifications));
-            add(getPreference(DefaultsPreferences.class, R.string.task_defaults));
-            add(getPreference(GtasksPreferences.class, R.string.gtasks_GPr_header));
-            add(getPreference(BackupPreferences.class, R.string.backup_BPr_header));
-            add(getPreference(OldTaskPreferences.class, R.string.EPr_manage_header));
-            add(getPreference(MiscellaneousPreferences.class, R.string.miscellaneous));
-        }};
-
         PreferenceScreen screen= getPreferenceScreen();
-        for (Preference preference : preferences) {
-            screen.addPreference(preference);
-        }
+        addPreferencesFromResource(R.xml.preferences_appearance);
+        screen.addPreference(getPreference(ReminderPreferences.class, R.string.notifications));
+        screen.addPreference(getPreference(DefaultsPreferences.class, R.string.task_defaults));
+        screen.addPreference(getPreference(GtasksPreferences.class, R.string.gtasks_GPr_header));
+        addPreferencesFromResource(R.xml.preferences_backup);
+        screen.addPreference(getPreference(OldTaskPreferences.class, R.string.EPr_manage_header));
+        screen.addPreference(getPreference(MiscellaneousPreferences.class, R.string.miscellaneous));
     }
 
     private Preference getPreference(final Class<? extends PreferenceActivity> klass, final int label) {

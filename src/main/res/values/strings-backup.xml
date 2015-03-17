@@ -8,18 +8,6 @@
     <!-- slide 33c/48d: Backup Preferences Title -->    
     <string name="backup_BPr_header">Backups</string>
 
-    <!-- slide 48e/50c: Backup: Status Header -->    
-    <string name="backup_BPr_group_status">Status</string>
-    
-    <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
-    <string name="backup_status_success">Latest backup:\n%s</string>
-    <!-- Backup Status: last error failed. Keep it short! -->    
-    <string name="backup_status_failed">Last backup failed</string>
-    <!-- Backup Status: error subtitle -->    
-    <string name="backup_status_failed_subtitle">(tap to show error)</string>
-    <!-- slide 48a: Backup Status: never backed up -->    
-    <string name="backup_status_never">Never backed up!</string>
-
   <!-- backup activity import button -->
   <string name="backup_BAc_import">Import tasks</string>
 
