@@ -15,11 +15,6 @@
 	<string name="alarm_ACS_label">Promemoria</string>
 	<string name="alarm_ACS_button">Aggiungi un promemoria</string>
 	<string name="backup_BPr_header">Salvataggi</string>
-	<string name="backup_BPr_group_status">Stato</string>
-	<string name="backup_status_success">Backup più recente:\n%s</string>
-	<string name="backup_status_failed">Ultimo Backup Fallito</string>
-	<string name="backup_status_failed_subtitle">(clicca per visualizzare l\'errore)</string>
-	<string name="backup_status_never">Mai eseguito!</string>
 	<string name="backup_BAc_import">Importa compiti</string>
 	<string name="backup_BAc_export">Esporta compiti</string>
 	<string name="export_toast">Backup di %1$s su %2$s eseguito.</string>
@@ -169,7 +164,6 @@
 	<string name="EPr_appearance_header">Aspetto</string>
 	<string name="EPr_fontSize_title">Dimensione dell\'elenco di attività</string>
 	<string name="EPr_showSmartConfirmation_title">Mostra conferma per promemoria rapidi</string>
-	<string name="EPr_fontSize_desc">Dimensione carattere nella pagina principale</string>
 	<string name="EPr_beastMode_desc">Personalizza il layout della schermata di modifica attività</string>
 	<string name="EPr_beastMode_reset">Ripristina predefiniti</string>
 	<string name="EPr_fullTask_title">Visualizza titolo completo dell\'attività</string>
@@ -178,12 +172,10 @@
 	<string name="EPr_manage_header">Gestisci compiti vecchi</string>
 	<string name="EPr_manage_delete_completed">Elimina i compiti completati</string>
 	<string name="EPr_manage_delete_completed_message">Vuoi davvero eliminare tutti i compiti completati?</string>
-	<string name="EPr_manage_delete_completed_summary">I compiti eliminati possono essere ripristinati uno ad uno</string>
 	<string name="EPr_manage_delete_completed_status">Eliminate %d attività!</string>
 	<string name="EPr_manage_purge_deleted">Elimina definitivamente i compiti eliminati</string>
 	<string name="EPr_manage_purge_deleted_message">Vuoi davvero eliminare definitivamente i compiti eliminati?\n\nQuesti compiti saranno persi per sempre!</string>
 	<string name="EPr_manage_purge_deleted_status">Rimosse %d attività!</string>
-	<string name="EPr_manage_purge_deleted_summary">Attenzione! I compiti eliminati definitivamente non possono essere recuperati senza file di backup!</string>
 	<string name="EPr_manage_clear_all">Elimina tutti i dati</string>
 	<string name="EPr_manage_clear_all_message">Elimina tutti i programmi e tutte le impostazioni in Tasks?\n\nWarning: non può essere annullato!</string>
 	<string name="EPr_manage_delete_completed_gcal">Elimina gli eventi del calendario in programmi completati</string>
@@ -200,17 +192,10 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="market_unavailable">Sfortunatamente il market non è disponibile sul tuo sistema.</string>
 	<string name="EPr_defaults_header">Nuove impostazioni predefinite attività</string>
 	<string name="EPr_default_urgency_title">Urgenza Predefinita</string>
-	<string name="EPr_default_urgency_desc">Attualmente: %s</string>
-	<string name="EPr_default_importance_desc">Attualmente: %s</string>
 	<string name="EPr_default_hideUntil_title">Nascondi Fino Predefinito</string>
-	<string name="EPr_default_hideUntil_desc">Attualmente: %s</string>
 	<string name="EPr_default_reminders_title">Promemoria predefiniti</string>
-	<string name="EPr_default_reminders_desc">Attualmente: %s</string>
 	<string name="EPr_default_addtocalendar_title">Aggiungi automaticamente al calendario</string>
-	<string name="EPr_default_addtocalendar_desc_disabled">Nuovi programmi non creerà alcun evento in Google Calendar</string>
-	<string name="EPr_default_addtocalendar_desc">Le nuove attività verranno inserite nel calendario: \"%s\"</string>
 	<string name="EPr_default_reminders_mode_title">Tipo di squillo/vibrazione predefinito</string>
-	<string name="EPr_default_reminders_mode_desc">Attualmente: %s</string>
 	<string-array name="EPr_default_importance">
 		<item>!!! (Massima)</item>
 		<item>!!</item>
@@ -341,8 +326,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks metterà il volume al massimo per i promemoria \"ring-multipli\"</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks userà le impostazioni di sistema per il volume</string>
 	<string name="rmd_EPr_defaultRemind_title">Promemoria Casuali</string>
-	<string name="rmd_EPr_defaultRemind_desc_disabled">Le nuove attività non avranno promemoria casuali</string>
-	<string name="rmd_EPr_defaultRemind_desc">Le nuove attività saranno ricordate a caso: %s</string>
 	<string-array name="EPr_reminder_random">
 		<item>disabilitato</item>
 		<item>ogni ora</item>
@@ -424,28 +407,13 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="DLG_confirm_title">Confermi?</string>
 	<string name="DLG_question_title">Domanda:</string>
 	<string name="DLG_information_title">Informazione</string>
-	<string name="DLG_close">Chiudi</string>
 	<string name="DLG_error">Oops, sembra che ci sia stato un errore! E\' successo questo:\n\n%s</string>
 	<string name="DLG_wait">Attendi...</string>
-	<string name="sync_SPr_group_status">Stato</string>
-	<string name="sync_SPr_status_subtitle">Stato: %s</string>
-	<string name="sync_status_loggedout">Non connesso</string>
-	<string name="sync_status_ongoing">Sincronizzazione in corso...</string>
 	<string name="sync_status_success">Ultima Sincronizzazione:\n%s</string>
-	<string name="sync_status_failed">Fallita Su: %s</string>
-	<string name="sync_status_errors">Sincronizza con gli errori: %s</string>
-	<string name="sync_status_never">Mai sincronizzato!</string>
-	<string name="sync_SPr_group_options">Preferenze</string>
 	<string name="sync_SPr_interval_title">Sincronizzazione eseguita in background</string>
-	<string name="sync_SPr_interval_desc_disabled">La sincronizzazione in background è disattivata</string>
-	<string name="sync_SPr_interval_desc">Attualmente impostata su: %s</string>
-	<string name="sync_SPr_sync">Sincronizza ora</string>
-	<string name="sync_SPr_last_error_subtitle">\"Clicca  per inviare un rapporto al team Tasks\"</string>
-	<string name="sync_SPr_send_report">Invia rapporto</string>
 	<string name="sync_SPr_forget">Esci</string>
 	<string name="sync_SPr_forget_description">Cancella tutti i dati di sincronizzazione</string>
 	<string name="sync_forget_confirm">Esci / cancella i file di sincronizzazione?</string>
-	<string name="sync_error_offline">Problema di connessione alla rete durante l\'ultima sincronizzazione con %s. Riprova dopo.</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>disabilita</item>
 		<item>ogni quindici minuti</item>

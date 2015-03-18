@@ -15,11 +15,6 @@
 	<string name="alarm_ACS_label">アラーム</string>
 	<string name="alarm_ACS_button">アラームを追加する</string>
 	<string name="backup_BPr_header">バックアップ</string>
-	<string name="backup_BPr_group_status">状況</string>
-	<string name="backup_status_success">最新: %s</string>
-	<string name="backup_status_failed">前回のバックアップが失敗しました</string>
-	<string name="backup_status_failed_subtitle">（タップでエラーを表示）</string>
-	<string name="backup_status_never">一度もバックアップされていません!</string>
 	<string name="backup_BAc_import">タスクのインポート</string>
 	<string name="backup_BAc_export">タスクのエクスポート</string>
 	<string name="export_toast">%1$s を %2$s にバックアップしました。</string>
@@ -185,7 +180,6 @@
 	<string name="EPr_fontSize_title">リストの文字サイズ</string>
 	<string name="EPr_filters_to_show_title">表示のフィルター</string>
 	<string name="EPr_showSmartConfirmation_title">スマート通知用の確認を表示</string>
-	<string name="EPr_fontSize_desc">メインのリスト画面の文字サイズ</string>
 	<string name="EPr_edit_screen_options">編集画面オプション</string>
 	<string name="EPr_beastMode_title">編集画面順</string>
 	<string name="EPr_time_increment">5 分増加</string>
@@ -203,12 +197,10 @@
 	<string name="EPr_manage_header">古いタスクを管理</string>
 	<string name="EPr_manage_delete_completed">完了したタスクを削除</string>
 	<string name="EPr_manage_delete_completed_message">完了したタスクをすべて削除してもよろしいですか?</string>
-	<string name="EPr_manage_delete_completed_summary">削除済タスクは1つづつ取り消しできます</string>
 	<string name="EPr_manage_delete_completed_status">%d タスクが削除されました!</string>
 	<string name="EPr_manage_purge_deleted">削除済のタスクを消去</string>
 	<string name="EPr_manage_purge_deleted_message">削除済のタスクをすべて消去してもよろしいですか?\n\nこれらのタスクは永久になくなります!</string>
 	<string name="EPr_manage_purge_deleted_status">%d タスクを消去しました!</string>
-	<string name="EPr_manage_purge_deleted_summary">注意! 消去したタスクはバックアップがないと回復できません!</string>
 	<string name="EPr_manage_clear_all">データをすべてクリア</string>
 	<string name="EPr_manage_clear_all_message">Tasks のすべてのタスクとタスクの設定を削除しますか?\n\n警告: 取り消しできません!</string>
 	<string name="EPr_manage_delete_completed_gcal">完了したタスクのカレンダーイベントを削除</string>
@@ -227,18 +219,11 @@
 	<string name="market_unavailable">残念ながらあなたのシステムで Google Play は利用できません.</string>
 	<string name="EPr_defaults_header">タスクのデフォルト設定</string>
 	<string name="EPr_default_urgency_title">期限</string>
-	<string name="EPr_default_urgency_desc">現在の設定: %s</string>
 	<string name="EPr_default_importance_title">標準の優先順位</string>
-	<string name="EPr_default_importance_desc">現在の設定: %s</string>
 	<string name="EPr_default_hideUntil_title">表示期間</string>
-	<string name="EPr_default_hideUntil_desc">現在の設定: %s</string>
 	<string name="EPr_default_reminders_title">標準リマインダー</string>
-	<string name="EPr_default_reminders_desc">現在の設定: %s</string>
 	<string name="EPr_default_addtocalendar_title">デフォルトでカレンダーに登録</string>
-	<string name="EPr_default_addtocalendar_desc_disabled">Google カレンダーに新しいタスクを作成しません</string>
-	<string name="EPr_default_addtocalendar_desc">新しいタスクはカレンダーにあります: \"%s\"</string>
 	<string name="EPr_default_reminders_mode_title">標準の通知音、振動種類</string>
-	<string name="EPr_default_reminders_mode_desc">現在の設定: %s</string>
 	<string-array name="EPr_default_importance">
 		<item>!!! (最高)</item>
 		<item>!!</item>
@@ -384,8 +369,6 @@
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks は複数の通知音の最大音量です</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks はシステム設定の音量を使用します</string>
 	<string name="rmd_EPr_defaultRemind_title">ランダムな通知</string>
-	<string name="rmd_EPr_defaultRemind_desc_disabled">新規タスクにランダムな通知を設定しません</string>
-	<string name="rmd_EPr_defaultRemind_desc">新規タスクにランダムな通知を設定します:%s</string>
 	<string-array name="EPr_reminder_random">
 		<item>無効</item>
 		<item>1時間毎</item>
@@ -486,30 +469,13 @@
 	<string name="DLG_confirm_title">確認</string>
 	<string name="DLG_question_title">確認</string>
 	<string name="DLG_information_title">インフォメーション</string>
-	<string name="DLG_close">閉じる</string>
 	<string name="DLG_error">エラーが発生しました! 発生した内容\n\n%s</string>
 	<string name="DLG_wait">お待ちください</string>
-	<string name="sync_SPr_group_status">状況</string>
-	<string name="sync_SPr_status_subtitle">状況: %s</string>
-	<string name="sync_status_loggedout">ログインしていません</string>
-	<string name="sync_status_ongoing">同期中</string>
 	<string name="sync_status_success">前回の同期:\n%s</string>
-	<string name="sync_status_failed">失敗: %s</string>
-	<string name="sync_status_errors">同期でエラー: %s</string>
-	<string name="sync_status_never">同期していません</string>
-	<string name="sync_SPr_group_options">オプション</string>
 	<string name="sync_SPr_interval_title">バックグラウンド同期</string>
-	<string name="sync_SPr_interval_desc_disabled">バックグラウンド同期は無効になっています</string>
-	<string name="sync_SPr_interval_desc">現在の設定: %s</string>
-	<string name="sync_SPr_sync">すぐに同期</string>
-	<string name="sync_SPr_last_error">状況レポート</string>
-	<string name="sync_SPr_last_error_subtitle">クリックするとTasks チームにレポートを送信します</string>
-	<string name="sync_SPr_send_report">レポートを送信</string>
 	<string name="sync_SPr_forget">ログアウト</string>
 	<string name="sync_SPr_forget_description">すべての同期データを消去します</string>
 	<string name="sync_forget_confirm">ログアウトと同期データを消去しますか?</string>
-	<string name="sync_error_offline">%s と前回の同期中にネットワークの接続の問題がありました.
-後で再度実行してください.</string>
 	<string name="widget_hide_due_date">期限を表示しない</string>
 	<string name="widget_hide_checkboxes">チェックボックスを表示しない</string>
 	<string name="widget_hide_header">ヘッダーを表示しない</string>

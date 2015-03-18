@@ -15,10 +15,6 @@
 	<string name="alarm_ACS_label">Alarm</string>
 	<string name="alarm_ACS_button">Lägg till ett alarm</string>
 	<string name="backup_BPr_header">Säkerhetskopior</string>
-	<string name="backup_status_success">Senaste: %s</string>
-	<string name="backup_status_failed">Senaste säkerhetskopieringen misslyckades</string>
-	<string name="backup_status_failed_subtitle">(klicka för att se felet)</string>
-	<string name="backup_status_never">Aldrig säkerhetskopierat!</string>
 	<string name="backup_BAc_import">Importera uppgifter</string>
 	<string name="backup_BAc_export">Exportera uppgifter</string>
 	<string name="export_toast">Säkerhetskopierade %1$s till %2$s.</string>
@@ -183,7 +179,6 @@
 	<string name="EPr_fontSize_title">Storlek på uppgiftslista</string>
 	<string name="EPr_filters_to_show_title">Filter att visa</string>
 	<string name="EPr_showSmartConfirmation_title">Visa bekräftelse vid smarta påminnelser</string>
-	<string name="EPr_fontSize_desc">Textstorlek för huvudlistan</string>
 	<string name="EPr_edit_screen_options">Ändra skärminställningar</string>
 	<string name="EPr_beastMode_title">Redigera skärmordning</string>
 	<string name="EPr_time_increment">5 minuters steg</string>
@@ -196,12 +191,10 @@
 	<string name="EPr_manage_header">Hantera gamla uppgifter</string>
 	<string name="EPr_manage_delete_completed">Radera färdiga uppgifter</string>
 	<string name="EPr_manage_delete_completed_message">Vill du verkligen radera alla dina färdiga uppgifter?</string>
-	<string name="EPr_manage_delete_completed_summary">Raderade uppgifter kan tas tillbaka en och en</string>
 	<string name="EPr_manage_delete_completed_status">%d uppgifter raderade!</string>
 	<string name="EPr_manage_purge_deleted">Rensa bort raderade uppgifter</string>
 	<string name="EPr_manage_purge_deleted_message">Vill du verkligen rensa bort alla dina raderade uppgifter?\n\nDe här uppgifterna kommer att tas bort för alltid!</string>
 	<string name="EPr_manage_purge_deleted_status">%d uppgifter bortrensade!</string>
-	<string name="EPr_manage_purge_deleted_summary">Varning! Bortrensade uppgifter kan inte återställas utan en säkerhetskopia!</string>
 	<string name="EPr_manage_clear_all">Radera alla data</string>
 	<string name="EPr_manage_clear_all_message">Radera alla uppgifter och inställningar i Tasks?\n\nVarning: denna åtgärd kan inte ångras!</string>
 	<string name="EPr_manage_delete_completed_gcal">Radera kalenderhändelser för färdiga uppgifter</string>
@@ -221,18 +214,11 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="market_unavailable">Tyvärr är inte denna funktion tillgänglig där du befinner dig.</string>
 	<string name="EPr_defaults_header">Standardinställningar för nya uppgifter</string>
 	<string name="EPr_default_urgency_title">Standardfrist</string>
-	<string name="EPr_default_urgency_desc">Aktuellt: %s</string>
 	<string name="EPr_default_importance_title">Standard prioritet</string>
-	<string name="EPr_default_importance_desc">Aktuellt: %s</string>
 	<string name="EPr_default_hideUntil_title">Standard Dölj tills</string>
-	<string name="EPr_default_hideUntil_desc">Aktuellt: %s</string>
 	<string name="EPr_default_reminders_title">Standardpåminnelser</string>
-	<string name="EPr_default_reminders_desc">Aktuellt: %s</string>
 	<string name="EPr_default_addtocalendar_title">Standardkalender för att lägga till händelser</string>
-	<string name="EPr_default_addtocalendar_desc_disabled">Nya uppgifter skapar inga händelser i Googlekalendern</string>
-	<string name="EPr_default_addtocalendar_desc">Nya uppgifter hamnar i kalendern \"%s\"</string>
 	<string name="EPr_default_reminders_mode_title">Standardtyp av ringsignal/vibration</string>
-	<string name="EPr_default_reminders_mode_desc">Aktuellt: %s</string>
 	<string-array name="EPr_default_importance">
 		<item>!!! (Högst)</item>
 		<item>!!</item>
@@ -375,8 +361,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks sätter volymen på max för flera ringande påminnelser</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks använder systeminställningen för volym</string>
 	<string name="rmd_EPr_defaultRemind_title">Tillfälliga påminnelser</string>
-	<string name="rmd_EPr_defaultRemind_desc_disabled">Nya uppgifter påminns ej slumpmässigt</string>
-	<string name="rmd_EPr_defaultRemind_desc">Nya uppgifter påminns tillfälligtvis: %s</string>
 	<string-array name="EPr_reminder_random">
 		<item>inaktiverad</item>
 		<item>varje timme</item>
@@ -469,28 +453,13 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="yest">Igår</string>
 	<string name="DLG_confirm_title">Bekräfta?</string>
 	<string name="DLG_question_title">Fråga:</string>
-	<string name="DLG_close">Stäng</string>
 	<string name="DLG_error">Oj, det uppstod ett fel! Detta hände:\n\n%s</string>
 	<string name="DLG_wait">Var god vänta...</string>
-	<string name="sync_status_loggedout">Ej inloggad</string>
-	<string name="sync_status_ongoing">Synkronisering pågår...</string>
 	<string name="sync_status_success">Synkroniserades senast:\n%s</string>
-	<string name="sync_status_failed">Misslyckades: %s</string>
-	<string name="sync_status_errors">Synkade med fel: %s</string>
-	<string name="sync_status_never">Aldrig synkroniserad!</string>
-	<string name="sync_SPr_group_options">Alternativ</string>
 	<string name="sync_SPr_interval_title">Bakgrundssynkronisering</string>
-	<string name="sync_SPr_interval_desc_disabled">Bakgrundssynkronisering är inaktiverad</string>
-	<string name="sync_SPr_interval_desc">Aktuell inställning: %s</string>
-	<string name="sync_SPr_sync">Synkronisera nu</string>
-	<string name="sync_SPr_last_error">Status rapport</string>
-	<string name="sync_SPr_last_error_subtitle">Klicka för att skicka en rapport till Tasks-teamet</string>
-	<string name="sync_SPr_send_report">Skicka rapport</string>
 	<string name="sync_SPr_forget">Logga ut</string>
 	<string name="sync_SPr_forget_description">Rensar alla synkroniseringsdata</string>
 	<string name="sync_forget_confirm">Logga ut / rensa synkroniseringsdata?</string>
-	<string name="sync_error_offline">Ett nätverksproblem uppstod 
-vid senaste synkroniseringen med %s. Vänligen försök igen.</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>inaktivera</item>
 		<item>varje kvartstimme</item>

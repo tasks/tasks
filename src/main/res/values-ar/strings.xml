@@ -6,7 +6,6 @@
 <!-- ************************************************************** -->
 <resources>
 	<string name="TVA_add_comment">إضافة تعليق ...</string>
-	<string name="backup_BPr_group_status">الحالة</string>
 	<string name="DLG_cancel">الغي</string>
 	<string name="WID_dateButtonUnset">اضغط لتعيين</string>
 	<string name="TLA_no_items">لا يوجد لديك مهام! \n هل تريد أن تضيف شيئا؟</string>
@@ -83,19 +82,9 @@
 	<string name="DLG_confirm_title">أكّد</string>
 	<string name="DLG_question_title">سؤال:</string>
 	<string name="DLG_information_title">معلومة</string>
-	<string name="DLG_close">إغلاق</string>
 	<string name="DLG_wait">إنتظر من فضلك...</string>
-	<string name="sync_SPr_group_status">الحالة</string>
-	<string name="sync_SPr_status_subtitle">الحالة: %s</string>
-	<string name="sync_status_loggedout">لم يتم تسجيل الدخول</string>
-	<string name="sync_status_ongoing">جاري التحيين...</string>
 	<string name="sync_status_success">آخر تحيين:\n%s</string>
-	<string name="sync_status_failed">فشل في: %s</string>
-	<string name="sync_status_errors">فشل مع أخطاء في: %s</string>
-	<string name="sync_status_never">لم يتم التحيين قَطّ</string>
-	<string name="sync_SPr_group_options">الخيارات</string>
 	<string name="sync_SPr_interval_title">تحيين في الخلفية</string>
-	<string name="sync_SPr_send_report">إرسال تقرير</string>
 	<string name="sync_SPr_forget">خروج</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>تعطيل</item>

@@ -15,11 +15,6 @@
 	<string name="alarm_ACS_label">Сигнали</string>
 	<string name="alarm_ACS_button">Додати сигнал</string>
 	<string name="backup_BPr_header">Резервні копії</string>
-	<string name="backup_BPr_group_status">Статус</string>
-	<string name="backup_status_success">Остання резервна копія:\n%s</string>
-	<string name="backup_status_failed">Створення останньої резервної копії не вдалось</string>
-	<string name="backup_status_failed_subtitle">(торкніться щоб подивитись помилку)</string>
-	<string name="backup_status_never">Резервна копія не створена!</string>
 	<string name="backup_BAc_import">Імпортувати завдання</string>
 	<string name="backup_BAc_export">Експорт завдань</string>
 	<string name="export_toast">Резервні копії %1$s для %2$s.</string>
@@ -187,7 +182,6 @@
 	<string name="EPr_fontSize_title">Розмір списку завдань</string>
 	<string name="EPr_filters_to_show_title">Показати фільтри</string>
 	<string name="EPr_showSmartConfirmation_title">Показати підтвердження для розумного нагадування</string>
-	<string name="EPr_fontSize_desc">Розмір шрифта на головній сторінці оголошень</string>
 	<string name="EPr_edit_screen_options">Редагувати налаштування екрану</string>
 	<string name="EPr_beastMode_title">Редагувати порядок екранів</string>
 	<string name="EPr_time_increment">Крок 5 хвилин</string>
@@ -205,12 +199,10 @@
 	<string name="EPr_manage_header">Управління старими завданнями</string>
 	<string name="EPr_manage_delete_completed">Видалити виконані завдання</string>
 	<string name="EPr_manage_delete_completed_message">Ви дійсно хочете видалити всі завершені завдання?</string>
-	<string name="EPr_manage_delete_completed_summary">Видалені завдання можуть бути відновлені по одній</string>
 	<string name="EPr_manage_delete_completed_status">Видалено %d завдань!</string>
 	<string name="EPr_manage_purge_deleted">Очистити видалені завдання</string>
 	<string name="EPr_manage_purge_deleted_message">Ви дійсно хочете очистити всі видалені завдання?\n\nЦя операція незворотна!</string>
 	<string name="EPr_manage_purge_deleted_status">Очищено %d завдань!</string>
-	<string name="EPr_manage_purge_deleted_summary">Увага! Очищені завдання не можна відновити без файлу резервної копії!</string>
 	<string name="EPr_manage_clear_all">Очистити всі данні</string>
 	<string name="EPr_manage_clear_all_message">Видалити всі завдання в Tasks?\n\nУвага: ця операція незворотня!</string>
 	<string name="EPr_manage_delete_completed_gcal">Видалити календарні події для завершених завдань</string>
@@ -231,18 +223,11 @@
 	<string name="market_unavailable">Нажаль магазин недоступний для вашої системи.</string>
 	<string name="EPr_defaults_header">Параметри по замовчуванню для нових завдань</string>
 	<string name="EPr_default_urgency_title">Актуальність по замовчуванню</string>
-	<string name="EPr_default_urgency_desc">Поточна: %s</string>
 	<string name="EPr_default_importance_title">Пріоритет по замовчуванню</string>
-	<string name="EPr_default_importance_desc">Поточна: %s</string>
 	<string name="EPr_default_hideUntil_title">Термін приховування за замовчуванням</string>
-	<string name="EPr_default_hideUntil_desc">Поточна: %s</string>
 	<string name="EPr_default_reminders_title">Нагадування по замовчуванню</string>
-	<string name="EPr_default_reminders_desc">Поточна: %s</string>
 	<string name="EPr_default_addtocalendar_title">Додавати в календар по замовчуванню</string>
-	<string name="EPr_default_addtocalendar_desc_disabled">Нові завдання будуть створювати події в календарі Google</string>
-	<string name="EPr_default_addtocalendar_desc">Нові завдання будуть в календарі: \"%s\"</string>
 	<string name="EPr_default_reminders_mode_title">Тип дзвінка/вібрація по замовчуванню</string>
-	<string name="EPr_default_reminders_mode_desc">Поточна: %s</string>
 	<string-array name="EPr_default_importance">
 		<item>!!! (найвищий)</item>
 		<item>!!</item>
@@ -387,8 +372,6 @@
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks буде максимізувати гучність для багаторазових нагадувань</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks буде використовувати системні налаштування гучності</string>
 	<string name="rmd_EPr_defaultRemind_title">Випадкові нагадування</string>
-	<string name="rmd_EPr_defaultRemind_desc_disabled">У нових завдань не буде випадкових нагадувань</string>
-	<string name="rmd_EPr_defaultRemind_desc">Випадково нагадувати про нові завдання: %s</string>
 	<string-array name="EPr_reminder_random">
 		<item>disabled</item>
 		<item>щогодинно</item>
@@ -465,25 +448,11 @@
 	<string name="DLG_confirm_title">Підтверджуєте?</string>
 	<string name="DLG_question_title">Питання:</string>
 	<string name="DLG_information_title">Інформація</string>
-	<string name="DLG_close">Закрити</string>
 	<string name="DLG_error">На жаль, схоже, сталася помилка! Ось що вийшло:\n\n%s</string>
 	<string name="DLG_wait">Будь ласка, зачекайте...</string>
-	<string name="sync_SPr_group_status">Статус</string>
-	<string name="sync_SPr_status_subtitle">Статус: %s</string>
-	<string name="sync_status_loggedout">Не залогований</string>
-	<string name="sync_status_ongoing">Процес синхронізації</string>
 	<string name="sync_status_success">Остання синхр.:\n%s</string>
-	<string name="sync_status_errors">Синхр. з помилками: %s</string>
-	<string name="sync_status_never">Ніколи не було синхронізовано!</string>
-	<string name="sync_SPr_group_options">Опції</string>
 	<string name="sync_SPr_interval_title">Фонова синхронізація</string>
-	<string name="sync_SPr_interval_desc_disabled">Фонова синхронізація відключена</string>
-	<string name="sync_SPr_sync">Синхронізувати зараз</string>
-	<string name="sync_SPr_send_report">Відіслати звіт</string>
 	<string name="sync_SPr_forget">Вийти</string>
-	<string name="sync_error_offline">У процесі останньої синхронізації %s.
- Виникли проблеми підключення до мережі.
- Будь ласка, спробуйте ще раз пізніше.</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>вимкнути</item>
 		<item>що 15 хвилин</item>

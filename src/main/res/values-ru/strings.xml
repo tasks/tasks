@@ -15,11 +15,6 @@
 	<string name="alarm_ACS_label">Напоминания</string>
 	<string name="alarm_ACS_button">Добавить напоминание</string>
 	<string name="backup_BPr_header">Резервные копии</string>
-	<string name="backup_BPr_group_status">Состояние</string>
-	<string name="backup_status_success">Последняя: %s</string>
-	<string name="backup_status_failed">Резервирование не удалось</string>
-	<string name="backup_status_failed_subtitle">(нажмите для просмотра ошибки)</string>
-	<string name="backup_status_never">Резервное копирование ещё не совершалось!</string>
 	<string name="backup_BAc_import">Импортировать задачи</string>
 	<string name="backup_BAc_export">Экспортировать задачи</string>
 	<string name="export_toast">Восстановлено %1$s в %2$s.</string>
@@ -186,7 +181,6 @@
 	<string name="EPr_fontSize_title">Размер списка задач</string>
 	<string name="EPr_filters_to_show_title">Показать фильтры</string>
 	<string name="EPr_showSmartConfirmation_title">Показывать подтверждения для умных напоминаний</string>
-	<string name="EPr_fontSize_desc">Размер шрифта основного экрана</string>
 	<string name="EPr_edit_screen_options">Редактировать настройки экрана</string>
 	<string name="EPr_beastMode_title">Редактировать порядок экранов</string>
 	<string name="EPr_time_increment">Шаг 5 минут</string>
@@ -204,12 +198,10 @@
 	<string name="EPr_manage_header">Управление старыми задачами</string>
 	<string name="EPr_manage_delete_completed">Удалить завершенные задачи</string>
 	<string name="EPr_manage_delete_completed_message">Вы действительно хотите удалить все завершенные задачи?</string>
-	<string name="EPr_manage_delete_completed_summary">Удаленные задачи могут быть восстановлены по одной</string>
 	<string name="EPr_manage_delete_completed_status">Удалено %d задач!</string>
 	<string name="EPr_manage_purge_deleted">Очистить удаленные задачи?</string>
 	<string name="EPr_manage_purge_deleted_message">Действительно хотите убрать все удалённые задачи?\n\nЭта операция необратима!</string>
 	<string name="EPr_manage_purge_deleted_status">Убрано %d задач!</string>
-	<string name="EPr_manage_purge_deleted_summary">Внимание! Убранные задачи нельзя восстановить без файла резервной копии!</string>
 	<string name="EPr_manage_clear_all">Очистить все данные</string>
 	<string name="EPr_manage_clear_all_message">\"Удалить  все задачи и настройки в Tasks?\n\nВнимание: действие необратимо!\"</string>
 	<string name="EPr_manage_delete_completed_gcal">Удалить календарные события для завершенных задач</string>
@@ -228,18 +220,11 @@
 	<string name="market_unavailable">К сожалению, этот магазин недоступен для вашей системы.</string>
 	<string name="EPr_defaults_header">Параметры по умолчанию для новых задач</string>
 	<string name="EPr_default_urgency_title">Актуальность по умолчанию</string>
-	<string name="EPr_default_urgency_desc">Текущая: %s</string>
 	<string name="EPr_default_importance_title">Приоритет по умолчанию</string>
-	<string name="EPr_default_importance_desc">Текущая: %s</string>
 	<string name="EPr_default_hideUntil_title">Срок скрытия по умолчанию</string>
-	<string name="EPr_default_hideUntil_desc">Текущая: %s</string>
 	<string name="EPr_default_reminders_title">Напоминания по умолчанию</string>
-	<string name="EPr_default_reminders_desc">Текущая: %s</string>
 	<string name="EPr_default_addtocalendar_title">Добавлять в календарь по умолчанию</string>
-	<string name="EPr_default_addtocalendar_desc_disabled">Новые задачи не будут создавать события в Календаре Google</string>
-	<string name="EPr_default_addtocalendar_desc">Новые задачи будут в календаре: \"%s\"</string>
 	<string name="EPr_default_reminders_mode_title">Тип звонка/вибрации по умолчанию</string>
-	<string name="EPr_default_reminders_mode_desc">Текущая: %s</string>
 	<string-array name="EPr_default_importance">
 		<item>!!! (Высшая)</item>
 		<item>!!</item>
@@ -385,8 +370,6 @@
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks будет максимизировать громкость для многоразовых напоминаний</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks будет использовать системные настройки громкости</string>
 	<string name="rmd_EPr_defaultRemind_title">Случайные напоминания</string>
-	<string name="rmd_EPr_defaultRemind_desc_disabled">У новых задач не будет случайных напоминаний</string>
-	<string name="rmd_EPr_defaultRemind_desc">Случайно напоминать о новых задачах %s</string>
 	<string-array name="EPr_reminder_random">
 		<item>отключено</item>
 		<item>ежечасно</item>
@@ -487,29 +470,13 @@
 	<string name="DLG_confirm_title">Подтвердить?</string>
 	<string name="DLG_question_title">Вопрос:</string>
 	<string name="DLG_information_title">Информация</string>
-	<string name="DLG_close">Закрыть</string>
 	<string name="DLG_error">Ой, похоже произошла ошибка! Подробности ниже:\n\n%s</string>
 	<string name="DLG_wait">Пожалуйста, подождите…</string>
-	<string name="sync_SPr_group_status">Состояние</string>
-	<string name="sync_SPr_status_subtitle">Состояние: %s</string>
-	<string name="sync_status_loggedout">Вход не выполнен</string>
-	<string name="sync_status_ongoing">Процесс синхронизации…</string>
 	<string name="sync_status_success">Последняя синхронизация\n%s</string>
-	<string name="sync_status_failed">Ошибка: %s</string>
-	<string name="sync_status_errors">Синхронизировано с ошибками: %s</string>
-	<string name="sync_status_never">Синхронизаций не выполнялось!</string>
-	<string name="sync_SPr_group_options">Параметры</string>
 	<string name="sync_SPr_interval_title">Фоновая синхронизация</string>
-	<string name="sync_SPr_interval_desc_disabled">Фоновая синхронизация отключена</string>
-	<string name="sync_SPr_interval_desc">Сейчас установлено: %s</string>
-	<string name="sync_SPr_sync">Синхронизировать</string>
-	<string name="sync_SPr_last_error">Отчёт о состоянии</string>
-	<string name="sync_SPr_last_error_subtitle">Нажмите, чтобы отправить отчет команде Tasks</string>
-	<string name="sync_SPr_send_report">Отправить отчет</string>
 	<string name="sync_SPr_forget">Выйти</string>
 	<string name="sync_SPr_forget_description">Очищает все данные синхронизации</string>
 	<string name="sync_forget_confirm">Выйти / очистить данные синхронизации?</string>
-	<string name="sync_error_offline">В процессе последней синхронизации с %s возникли проблемы подключения к сети. Пожалуйста, повторите попытку позже.</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>отключить</item>
 		<item>каждые 15 минут</item>

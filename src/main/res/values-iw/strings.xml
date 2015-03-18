@@ -15,11 +15,6 @@
 	<string name="alarm_ACS_label">התראות</string>
 	<string name="alarm_ACS_button">הוסף התראה</string>
 	<string name="backup_BPr_header">גיבויים</string>
-	<string name="backup_BPr_group_status">מצב</string>
-	<string name="backup_status_success">גיבוי אחרון: %s</string>
-	<string name="backup_status_failed">הגיבוי האחרון נכשל</string>
-	<string name="backup_status_failed_subtitle">\"(טפח  כדי להציג את השגיאה)\"</string>
-	<string name="backup_status_never">לא נעשו גיבויים מעולם!</string>
 	<string name="backup_BAc_import">ייבוא משימות</string>
 	<string name="backup_BAc_export">ייצוא משימות</string>
 	<string name="export_toast">בוצע גיבוי של %1$s אל %2$s.</string>
@@ -183,7 +178,6 @@
 	<string name="EPr_fontSize_title">אורך רשימת משימות</string>
 	<string name="EPr_filters_to_show_title">אילו מַסְנְנִים להציג</string>
 	<string name="EPr_showSmartConfirmation_title">הצג אישור על תזכורות חכמות</string>
-	<string name="EPr_fontSize_desc">גודל הגופן בדף הרישום הראשי</string>
 	<string name="EPr_edit_screen_options">עריכת אפשרויות מסך</string>
 	<string name="EPr_beastMode_title">עריכת סדר מסך</string>
 	<string name="EPr_time_increment">צעדים של 5 דקות</string>
@@ -199,12 +193,10 @@
 	<string name="EPr_manage_header">נהל משימות ישנות</string>
 	<string name="EPr_manage_delete_completed">מַחֲקִי משימות שבוצעו</string>
 	<string name="EPr_manage_delete_completed_message">האם אתה בטוח שברצונך למחוק את כל המשימות שבוצעו?</string>
-	<string name="EPr_manage_delete_completed_summary">ניתן לבטל את המחיקה של המשימות שנמחקו, יש לעשות זאת משימה-אחר-משימה.</string>
 	<string name="EPr_manage_delete_completed_status">%d משימות נמחקו!</string>
 	<string name="EPr_manage_purge_deleted">אַיְּנִי משימות שנמחקו</string>
 	<string name="EPr_manage_purge_deleted_message">האם אתה בטוח שברצונך לְאַיֵּן את כל המשימות שנמחקו?</string>
 	<string name="EPr_manage_purge_deleted_status">%d משימות אֻיְּנוּ!</string>
-	<string name="EPr_manage_purge_deleted_summary">\"שים לב! לא  ניתן לאחזר משימות  שֶׁאֻיְּנוּ בלי קובץ גיבוי!\"</string>
 	<string name="EPr_manage_clear_all">הָסִירִי את כל הנתונים</string>
 	<string name="EPr_manage_clear_all_message">למחוק את כל המשימות ואת כל ההגדרות?\nאזהרה: לא ניתן לבטל פעולה זו!</string>
 	<string name="EPr_manage_delete_completed_gcal">מחקי אירועי יומן בעבור משימות שבוצעו</string>
@@ -223,18 +215,11 @@
 	<string name="market_unavailable">לרוע המזל חנות היישומים אינה זמינה</string>
 	<string name="EPr_defaults_header">ברירות המחדל למשימה חדשה</string>
 	<string name="EPr_default_urgency_title">דחיפות ברירת המחדל</string>
-	<string name="EPr_default_urgency_desc">כעת: %s</string>
 	<string name="EPr_default_importance_title">עדיפות מחדל</string>
-	<string name="EPr_default_importance_desc">כעת: %s</string>
 	<string name="EPr_default_hideUntil_title">ברירת מחדל לזמן הסתרה</string>
-	<string name="EPr_default_hideUntil_desc">כעת: %s</string>
 	<string name="EPr_default_reminders_title">תזכורות ברירת מחדל</string>
-	<string name="EPr_default_reminders_desc">כעת: %s</string>
 	<string name="EPr_default_addtocalendar_title">הוספה ליומן כברירת מחדל</string>
-	<string name="EPr_default_addtocalendar_desc_disabled">משימות חדשות לא תיצורנה אירוע בלוח השנה של גוגל</string>
-	<string name="EPr_default_addtocalendar_desc">משימות חדשות תיווצרנה ביומן \'%s\'</string>
 	<string name="EPr_default_reminders_mode_title">ברירת מחדל לסוג צלצול/רטט</string>
-	<string name="EPr_default_reminders_mode_desc">כעת: %s</string>
 	<string-array name="EPr_default_importance">
 		<item>!!!</item>
 		<item>!!</item>
@@ -379,8 +364,6 @@
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">אסטריד תשתמש בעוצמת קול מירבית לתזכורות רבות צלצולים</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">אסטריד תשתמש בהגדרת המערכת לקביעת עוצמת הצליל</string>
 	<string name="rmd_EPr_defaultRemind_title">תזכורות אקראיות</string>
-	<string name="rmd_EPr_defaultRemind_desc_disabled">משימות חדשות לא תכלנה תזכורות אקראיות</string>
-	<string name="rmd_EPr_defaultRemind_desc">משימות חדשות יתזכרו אותך אקראית: %s</string>
 	<string-array name="EPr_reminder_random">
 		<item>לא זמין</item>
 		<item>שעתי</item>
@@ -474,29 +457,13 @@
 	<string name="DLG_confirm_title">האם לאשר?</string>
 	<string name="DLG_question_title">שאלה:</string>
 	<string name="DLG_information_title">פרטים</string>
-	<string name="DLG_close">סגור</string>
 	<string name="DLG_error">אוּפְּס, נראה שארעה שגיאה! הנה מה שקה:\n\n%s</string>
 	<string name="DLG_wait">אנא המתן...</string>
-	<string name="sync_SPr_group_status">מצב</string>
-	<string name="sync_SPr_status_subtitle">מצב: %s</string>
-	<string name="sync_status_loggedout">לא מחובר</string>
-	<string name="sync_status_ongoing">הסינכרון מתבצע</string>
 	<string name="sync_status_success">סנכרון אחרון:\n%s</string>
-	<string name="sync_status_failed">נכשל ב: %s</string>
-	<string name="sync_status_errors">סנכרון עם שגיאות: %s</string>
-	<string name="sync_status_never">לעולם לא סונכרן!</string>
-	<string name="sync_SPr_group_options">אפשרויות</string>
 	<string name="sync_SPr_interval_title">סנכרון ברקע</string>
-	<string name="sync_SPr_interval_desc_disabled">סנכרון ברקע אינו מופעל</string>
-	<string name="sync_SPr_interval_desc">כרגע מוגדר ל: %s</string>
-	<string name="sync_SPr_sync">מסנכרן כעת</string>
-	<string name="sync_SPr_last_error">דו\"ח מצב</string>
-	<string name="sync_SPr_last_error_subtitle">הקלק כדי לשלוח דוח לצוות של אסטריד</string>
-	<string name="sync_SPr_send_report">שלח דו\"ח</string>
 	<string name="sync_SPr_forget">התנתק</string>
 	<string name="sync_SPr_forget_description">מסיר את כל נתוני הסנכרון</string>
 	<string name="sync_forget_confirm">צא מהחשבון \\ הסר נתוני סנכרון?</string>
-	<string name="sync_error_offline">נתקלתי בבעית חיבור לרשת בזמן הסינכרון האחרון עם %s. אנא נסה מאוחר יותר.</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>מִנְעִי</item>
 		<item>כל רבע שעה</item>

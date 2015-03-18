@@ -14,11 +14,6 @@
 	<string name="alarm_ACS_label">Ξυπνητήρια</string>
 	<string name="alarm_ACS_button">Προσθήκη ξυπνητηριού</string>
 	<string name="backup_BPr_header">Αντίγραφα ασφαλείας</string>
-	<string name="backup_BPr_group_status">Κατάσταση</string>
-	<string name="backup_status_success">Τελευταίο αντίγραφο ασφαλείας:\n%s</string>
-	<string name="backup_status_failed">Το τελευταίο αντίγραφο ασφαλείας απέτυχε</string>
-	<string name="backup_status_failed_subtitle">(πατήστε για να δείτε το σφάλμα)</string>
-	<string name="backup_status_never">Δεν έγινε ποτέ αντίγραφο ασφαλείας!</string>
 	<string name="backup_BAc_import">Εισαγωγή εργασιών</string>
 	<string name="backup_BAc_export">Εξαγωγή εργασιών</string>
 	<string name="export_toast">Αποθηκεύση ασφαλείας %1$s στο %2$s.</string>
@@ -184,7 +179,6 @@
 	<string name="EPr_fontSize_title">Μέγεθος λίστας εργασιών</string>
 	<string name="EPr_filters_to_show_title">Φίλτρα για εμφάνιση</string>
 	<string name="EPr_showSmartConfirmation_title">Εμφάνιση επιβεβαίωσης για έξυπνες ειδοποιήσεις</string>
-	<string name="EPr_fontSize_desc">Μέγεθος γραμματοσειράς στην κεντρική σελίδα λίστας</string>
 	<string name="EPr_edit_screen_options">Επεξεργασία επιλογών εμφάνισης</string>
 	<string name="EPr_beastMode_title">Αλλαγή σειράς εμφάνισης</string>
 	<string name="EPr_time_increment">5λεπτα διαστήματα</string>
@@ -202,12 +196,10 @@
 	<string name="EPr_manage_header">Διαχείριση παλιών εργασιών</string>
 	<string name="EPr_manage_delete_completed">Διαγραφή ολοκληρωμένων εργασιών</string>
 	<string name="EPr_manage_delete_completed_message">Θέλετε στα αλήθεια την διαγραφή όλων των ολοκληρωμένων εργασιών σας;</string>
-	<string name="EPr_manage_delete_completed_summary">Διεγραμμένες εργασίες  μπορούν να επαναφερθούν ένα ενα</string>
 	<string name="EPr_manage_delete_completed_status">Διαγράφηκαν %d εργασίες!</string>
 	<string name="EPr_manage_purge_deleted">Εκκαθάριση διεγραμμένων εργασιών</string>
 	<string name="EPr_manage_purge_deleted_message">Θέλετε πραγματικά να καθαρίσετε όλες τις διαγραμμένες εργασίες;\n\nΑυτές οι εργασίες θα χαθούν για πάντα!</string>
 	<string name="EPr_manage_purge_deleted_status">Εκκαθαρίστηκαν %d εργασίες!</string>
-	<string name="EPr_manage_purge_deleted_summary">Προσοχή! Εκκαθαρισμένες εργασίες δεν μπορούν να ανακτηθούν χωρίς αντίγραφο ασφαλείας!</string>
 	<string name="EPr_manage_clear_all">Εκκαθάριση όλων των δεδομένων</string>
 	<string name="EPr_manage_clear_all_message">Διαγραφή όλων των εργασιών και των ρυθμίσεων της εφαρμογής;\n\nΠροσοχή: είναι μη αναστρέψιμο!</string>
 	<string name="EPr_manage_delete_completed_gcal">Διαγραφή των γεγονότων ημερολογίου για ολοκληρωμένες εργασίες</string>
@@ -226,18 +218,11 @@
 	<string name="market_unavailable">Δυστυχώς το market δεν είναι διαθέσιμο για το λειτουργικό σου.</string>
 	<string name="EPr_defaults_header">Προκαθορισμένα στοιχεία νέας εργασίας</string>
 	<string name="EPr_default_urgency_title">Προκαθοσρισμένη προθεσμία</string>
-	<string name="EPr_default_urgency_desc">Σήμερα: %s</string>
 	<string name="EPr_default_importance_title">Προκαθορισμένη προτεραιότητα</string>
-	<string name="EPr_default_importance_desc">Σήμερα: %s</string>
 	<string name="EPr_default_hideUntil_title">Προκαθορισμένη απόκρυψη μέχρι</string>
-	<string name="EPr_default_hideUntil_desc">Σήμερα: %s</string>
 	<string name="EPr_default_reminders_title">Προκαθορισμένες υπενθυμίσεις</string>
-	<string name="EPr_default_reminders_desc">Σήμερα: %s</string>
 	<string name="EPr_default_addtocalendar_title">Προκαθορισμένη προσθήκη σε ημερολόγιο</string>
-	<string name="EPr_default_addtocalendar_desc_disabled">Νέες εργασίες δεν θα δημιουργήσουν ένα συμβάν στο Ημερολόγιο Google</string>
-	<string name="EPr_default_addtocalendar_desc">Νέες εργασίες θα βρίσκονται στο Ημερολόγιο: \"%s\"</string>
 	<string name="EPr_default_reminders_mode_title">Προκαθορισμένος ήχος/τύπος δόνησης</string>
-	<string name="EPr_default_reminders_mode_desc">Σήμερα: %s</string>
 	<string-array name="EPr_default_importance">
 		<item>!!! (Υψηλότερο)</item>
 		<item>!!</item>
@@ -378,8 +363,6 @@
 	<string name="rmd_EPr_persistent_desc_false">Οι ειδοποιήσεις μπορούν να καθαριστούν με το κουμπί \"Καθαρισμός Όλων\"</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Μέγιστος ήχος για πολλαπλούς ήχους υπενθυμίσεων</string>
 	<string name="rmd_EPr_defaultRemind_title">Τυχαίες υπενθυμίσεις</string>
-	<string name="rmd_EPr_defaultRemind_desc_disabled">Τα νέα καθήκοντα δεν θα έχουν τυχαίες υπενθυμίσεις</string>
-	<string name="rmd_EPr_defaultRemind_desc">Τα νέα καθήκοντα θα υπενθυμίζουν τυχαία: %s</string>
 	<string-array name="EPr_reminder_random">
 		<item>απενεργοποιημένο</item>
 		<item>ωριαία</item>
@@ -476,25 +459,10 @@
 	<string name="DLG_confirm_title">Επιβεβαίωση</string>
 	<string name="DLG_question_title">Ερώτηση:</string>
 	<string name="DLG_information_title">Πληροφορίες</string>
-	<string name="DLG_close">Κλείσε</string>
 	<string name="DLG_error">Ωπ, προέκυψε σφάλμα!! Νά τι έγινε :\n\n%s</string>
 	<string name="DLG_wait">Παρακαλώ περιμένετε...</string>
-	<string name="sync_SPr_group_status">Κατάσταση</string>
-	<string name="sync_SPr_status_subtitle">Κατάσταση: %s</string>
-	<string name="sync_status_loggedout">Δεν συνδέθηκατε</string>
-	<string name="sync_status_ongoing">Συγχρονισμός σε εξέλιξη...</string>
 	<string name="sync_status_success">Τελευταίος συγχρονισμός:\n%s</string>
-	<string name="sync_status_failed">Αποτυχία σε: %s</string>
-	<string name="sync_status_errors">Σγχρονισμός w/ σφαλμάτων: %s</string>
-	<string name="sync_status_never">Ποτέ δε συγχρονίστηκε!</string>
-	<string name="sync_SPr_group_options">Ρυθμίσεις</string>
 	<string name="sync_SPr_interval_title">Συγχρονισμός παρασκηνίου</string>
-	<string name="sync_SPr_interval_desc_disabled">Απενεργοποιημένος συγχρονισμός παρασκηνίου</string>
-	<string name="sync_SPr_interval_desc">Προς το παρόν ορίστηκε σε: %s</string>
-	<string name="sync_SPr_sync">Συγχρονισμός τώρα</string>
-	<string name="sync_SPr_last_error">Αναφορά κατάστασης</string>
-	<string name="sync_SPr_last_error_subtitle">Κλικ για να στείλετε αναφορά στην ομάδα της εφαρμογής</string>
-	<string name="sync_SPr_send_report">Αποστολή αναφοράς</string>
 	<string name="sync_SPr_forget">Αποσύνδεση</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>disable</item>

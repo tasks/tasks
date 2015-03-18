@@ -15,11 +15,6 @@
 	<string name="alarm_ACS_label">Alarmes</string>
 	<string name="alarm_ACS_button">Ajouter une alarme</string>
 	<string name="backup_BPr_header">Sauvegardes</string>
-	<string name="backup_BPr_group_status">Statut</string>
-	<string name="backup_status_success">Dernière sauvegarde : \n%s</string>
-	<string name="backup_status_failed">La dernière sauvegarde a échoué</string>
-	<string name="backup_status_failed_subtitle">(appuyer pour afficher l\'erreur)</string>
-	<string name="backup_status_never">Aucune sauvegarde !</string>
 	<string name="backup_BAc_import">Importer des tâches</string>
 	<string name="backup_BAc_export">Exporter des tâches</string>
 	<string name="export_toast">Sauvegardé %1$s dans %2$s.</string>
@@ -182,7 +177,6 @@
 	<string name="EPr_fontSize_title">Taille de la liste de tâches</string>
 	<string name="EPr_filters_to_show_title">Filtres à afficher</string>
 	<string name="EPr_showSmartConfirmation_title">Montrer une confirmation pour les rappels intelligents</string>
-	<string name="EPr_fontSize_desc">Taille de la police pour la page principale des listes</string>
 	<string name="EPr_edit_screen_options">Edition des options d\'affichage</string>
 	<string name="EPr_beastMode_title">Edition de l\'ordre d\'affichage</string>
 	<string name="EPr_time_increment">Incrément de 5 minutes</string>
@@ -200,12 +194,10 @@
 	<string name="EPr_manage_header">Gérer les anciennes tâches</string>
 	<string name="EPr_manage_delete_completed">Supprimer les tâches terminées</string>
 	<string name="EPr_manage_delete_completed_message">Confirmer la suppression de toutes vos tâches ?</string>
-	<string name="EPr_manage_delete_completed_summary">Les tâches supprimées peuvent être restaurées une par une</string>
 	<string name="EPr_manage_delete_completed_status">%d tâches supprimées !</string>
 	<string name="EPr_manage_purge_deleted">Purger les tâches supprimées</string>
 	<string name="EPr_manage_purge_deleted_message">Voulez vous vraiment purger toutes vos tâches supprimées ?\n\nCes tâches seront perdues pour toujours !</string>
 	<string name="EPr_manage_purge_deleted_status">%d tâches purgées!</string>
-	<string name="EPr_manage_purge_deleted_summary">Attention! Les tâches purgées ne peuvent pas être restaurées sans fichier de sauvegarde!</string>
 	<string name="EPr_manage_clear_all">Effacer toutes les données</string>
 	<string name="EPr_manage_clear_all_message">Supprimer toutes les tâches et configuration?\n\nAttention: cela est irréversible!</string>
 	<string name="EPr_manage_delete_completed_gcal">Supprimer les entrées de calendrier des tâches terminées</string>
@@ -221,18 +213,11 @@
 	<string name="market_unavailable">Malheureusement le Play Store n\'est pas disponible sur votre système</string>
 	<string name="EPr_defaults_header">Valeurs par défaut pour une nouvelle tâche</string>
 	<string name="EPr_default_urgency_title">Échéance par défaut</string>
-	<string name="EPr_default_urgency_desc">Actuellement : %s</string>
 	<string name="EPr_default_importance_title">Priorité par défaut</string>
-	<string name="EPr_default_importance_desc">Actuellement : %s</string>
 	<string name="EPr_default_hideUntil_title">Masquer par défaut jusqu\'à</string>
-	<string name="EPr_default_hideUntil_desc">Actuellement : %s</string>
 	<string name="EPr_default_reminders_title">Rappels par défaut</string>
-	<string name="EPr_default_reminders_desc">Actuellement : %s</string>
 	<string name="EPr_default_addtocalendar_title">Ajout au calendrier par défaut</string>
-	<string name="EPr_default_addtocalendar_desc_disabled">Les nouvelles tâches ne vont pas créer d\'évènement dans Google Calendar</string>
-	<string name="EPr_default_addtocalendar_desc">Les nouvelles tâches seront dans le calendrier \"%s\"</string>
 	<string name="EPr_default_reminders_mode_title">Type de sonnerie/vibration par défaut</string>
-	<string name="EPr_default_reminders_mode_desc">Actuellement : %s</string>
 	<string-array name="EPr_default_importance">
 		<item>!!! (la plus haute)</item>
 		<item>!!</item>
@@ -379,8 +364,6 @@
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks va maximiser le volume de multiples anneaux rappels</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks utilisera les réglages du système pour le volume</string>
 	<string name="rmd_EPr_defaultRemind_title">Rappels aléatoires</string>
-	<string name="rmd_EPr_defaultRemind_desc_disabled">Les nouvelles tâches n\'auront pas de rappels aléatoires</string>
-	<string name="rmd_EPr_defaultRemind_desc">Les nouvelles tâches rappèleront aléatoirement : %s</string>
 	<string-array name="EPr_reminder_random">
 		<item>désactivé</item>
 		<item>chaque heure</item>
@@ -480,28 +463,13 @@
 	<string name="DLG_confirm_title">Confirmer ?</string>
 	<string name="DLG_question_title">Question :</string>
 	<string name="DLG_information_title">Informations</string>
-	<string name="DLG_close">Fermer</string>
 	<string name="DLG_error">Oups, une erreur est survenue ! Voici ce qu\'il s\'est passé :\n\n%s</string>
 	<string name="DLG_wait">Veuillez patienter...</string>
-	<string name="sync_SPr_group_status">Statut</string>
-	<string name="sync_SPr_status_subtitle">État : %s</string>
-	<string name="sync_status_loggedout">Non connecté</string>
-	<string name="sync_status_ongoing">Synchronisation en cours...</string>
 	<string name="sync_status_success">Dernière synchro. :\n%s</string>
-	<string name="sync_status_failed">Échec sur : %s</string>
-	<string name="sync_status_errors">Synchro avec Erreurs: %s</string>
-	<string name="sync_status_never">Jamais synchronisé !</string>
 	<string name="sync_SPr_interval_title">Synchro. en arrière-plan</string>
-	<string name="sync_SPr_interval_desc_disabled">Synchronisation en arrière-plan désactivée</string>
-	<string name="sync_SPr_interval_desc">Actuellement configuré sur : %s</string>
-	<string name="sync_SPr_sync">Synchroniser maintenant</string>
-	<string name="sync_SPr_last_error">Rapport d\'état</string>
-	<string name="sync_SPr_last_error_subtitle">Cliquez pour envoyer un rapport à l\'équipe Tasks</string>
-	<string name="sync_SPr_send_report">Envoyer le rapport</string>
 	<string name="sync_SPr_forget">Se déconnecter</string>
 	<string name="sync_SPr_forget_description">Purger toutes les données de synchronisation</string>
 	<string name="sync_forget_confirm">Se déconnecter/purger les données de synchronisation ?</string>
-	<string name="sync_error_offline">Un problème de connexion réseau est survenu lors de la dernière synchronisation avec %s. Merci de réessayer plus tard.</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>désactiver</item>
 		<item>toutes les quinze minutes</item>

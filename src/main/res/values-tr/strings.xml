@@ -15,11 +15,6 @@
 	<string name="alarm_ACS_label">Alarmlar</string>
 	<string name="alarm_ACS_button">Alarm Ekle</string>
 	<string name="backup_BPr_header">Yedekler</string>
-	<string name="backup_BPr_group_status">Durum</string>
-	<string name="backup_status_success">Son yedek:\n%s</string>
-	<string name="backup_status_failed">Son Yedekleme Başarısız</string>
-	<string name="backup_status_failed_subtitle">(hatayı görmek için dokunun)</string>
-	<string name="backup_status_never">Hiç Yedeklenmemiş!</string>
 	<string name="backup_BAc_import">Görevleri İçe Aktar</string>
 	<string name="backup_BAc_export">Görevleri Dışa Aktar</string>
 	<string name="export_toast">%1$s şuraya yedeklendi: %2$s.</string>
@@ -169,7 +164,6 @@
 	<string name="EPr_appearance_header">Görünüm</string>
 	<string name="EPr_fontSize_title">Görev Listesi Boyutu</string>
 	<string name="EPr_showSmartConfirmation_title">Akıllı hatırlatıcılar için doğrulamayı göster</string>
-	<string name="EPr_fontSize_desc">Ana listedeki yazı boyutu</string>
 	<string name="EPr_beastMode_desc">Görev Düzenleme Ekranı yerleşimini özelleştir</string>
 	<string name="EPr_beastMode_reset">Varsayılanlara sıfırla</string>
 	<string name="EPr_fullTask_title">Tüm görev başlığını göster</string>
@@ -178,12 +172,10 @@
 	<string name="EPr_manage_header">Eski Görevleri Yönet</string>
 	<string name="EPr_manage_delete_completed">Tamamlanan Görevleri Sil</string>
 	<string name="EPr_manage_delete_completed_message">Gerçekten tüm tamamlanmış görevleri silmek istiyor musun?</string>
-	<string name="EPr_manage_delete_completed_summary">Silinen görevler tek tek yeniden yüklenebilir</string>
 	<string name="EPr_manage_delete_completed_status">%d görev silindi!</string>
 	<string name="EPr_manage_purge_deleted">Silinen Görevleri Temizle</string>
 	<string name="EPr_manage_purge_deleted_message">Tüm silinen görevleri temizlemek istediğine emin misin?\n\nBu görevler tamamen silinecek!</string>
 	<string name="EPr_manage_purge_deleted_status">%d görev temizlendi!</string>
-	<string name="EPr_manage_purge_deleted_summary">Uyarı! Temizlenen görevler yedek dosyası olmadan kurtarılamaz!</string>
 	<string name="EPr_manage_clear_all">Tüm Veriyi Temizle</string>
 	<string name="EPr_manage_clear_all_message">Tasks ayarları ve tüm görevler silinsin mi?\n\nUyarı: geri alınamaz!</string>
 	<string name="EPr_manage_delete_completed_gcal">Tamamlanan görevler için Takvim olaylarını sil</string>
@@ -202,17 +194,10 @@
 	<string name="market_unavailable">Ne yazık ki market sisteminiz için kullanılabilir değil.</string>
 	<string name="EPr_defaults_header">Yeni Görev Öntanımlıları</string>
 	<string name="EPr_default_urgency_title">Öntanımlı Aciliyet</string>
-	<string name="EPr_default_urgency_desc">Geçerli: %s</string>
-	<string name="EPr_default_importance_desc">Geçerli: %s</string>
 	<string name="EPr_default_hideUntil_title">Öntanımlı Gizlenme</string>
-	<string name="EPr_default_hideUntil_desc">Geçerli: %s</string>
 	<string name="EPr_default_reminders_title">Öntanımlı Hatırlatmalar</string>
-	<string name="EPr_default_reminders_desc">Geçerli: %s</string>
 	<string name="EPr_default_addtocalendar_title">Öntanımlı olarak Takvime Ekle</string>
-	<string name="EPr_default_addtocalendar_desc_disabled">Yeni görevler Google Takvim\'de yeni bir olay oluşturmayacak</string>
-	<string name="EPr_default_addtocalendar_desc">Yeni görevlerin olacağı takvim: \"%s\"</string>
 	<string name="EPr_default_reminders_mode_title">Varsayılan Zil/Titreşim tipi</string>
-	<string name="EPr_default_reminders_mode_desc">Geçerli: %s</string>
 	<string-array name="EPr_default_importance">
 		<item>!!! (En yüksek)</item>
 		<item>!!</item>
@@ -344,8 +329,6 @@
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Çoklu çalan hatırlatmalar için Tasks ses seviyesini en yükseğe çıkaracaktır</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks ses için sistem ayarlarını kullanacak</string>
 	<string name="rmd_EPr_defaultRemind_title">Rastgele Hatırlatmalar</string>
-	<string name="rmd_EPr_defaultRemind_desc_disabled">Yeni görev rastgele hatırlatmayacak</string>
-	<string name="rmd_EPr_defaultRemind_desc">Yeni görevler rastgele hatırlatacak: %s</string>
 	<string-array name="EPr_reminder_random">
 		<item>devre dışı</item>
 		<item>saat başı</item>
@@ -435,29 +418,13 @@
 	<string name="DLG_confirm_title">Onayla?</string>
 	<string name="DLG_question_title">Soru:</string>
 	<string name="DLG_information_title">Bilgi</string>
-	<string name="DLG_close">Kapat</string>
 	<string name="DLG_error">Oops, bir sorun meydana geldi! Olan şu:\n\n%s</string>
 	<string name="DLG_wait">Lütfen bekleyin...</string>
-	<string name="sync_SPr_group_status">Durum</string>
-	<string name="sync_SPr_status_subtitle">Durum: %s</string>
-	<string name="sync_status_loggedout">Oturum açılmadı</string>
-	<string name="sync_status_ongoing">Senkronizasyon devam ediyor...</string>
 	<string name="sync_status_success">Son Senk.\n%s</string>
-	<string name="sync_status_failed">Başarısız: %s</string>
-	<string name="sync_status_errors">Hatalı Senkron: %s</string>
-	<string name="sync_status_never">Hiç Eşleme Yapılmamış!</string>
-	<string name="sync_SPr_group_options">Ayarlar</string>
 	<string name="sync_SPr_interval_title">Arkaplanda senkronizasyon</string>
-	<string name="sync_SPr_interval_desc_disabled">Arkaplanda senkronizasyon devre dışı</string>
-	<string name="sync_SPr_interval_desc">Mevcut ayar: %s</string>
-	<string name="sync_SPr_sync">Şimdi Eşle</string>
-	<string name="sync_SPr_last_error">Durum Raporu</string>
-	<string name="sync_SPr_last_error_subtitle">Tasks takımına bildirmek için tıklayın</string>
-	<string name="sync_SPr_send_report">Rapor Gönder</string>
 	<string name="sync_SPr_forget">Çıkış Yap</string>
 	<string name="sync_SPr_forget_description">Bütün eşleme verilerini temizle</string>
 	<string name="sync_forget_confirm">Çıkış Yap / Senkron verisini sil?</string>
-	<string name="sync_error_offline">%s ile son eşleme yapılırken bir ağ bağlantı sorunu oluştu. Lütfen daha sonra yeniden deneyin.</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>devre dışı bırak</item>
 		<item>her 15 dakika</item>

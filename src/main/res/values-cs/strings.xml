@@ -15,11 +15,6 @@
 	<string name="alarm_ACS_label">Alarmy</string>
 	<string name="alarm_ACS_button">Přidat alarm</string>
 	<string name="backup_BPr_header">Zálohy</string>
-	<string name="backup_BPr_group_status">Stav</string>
-	<string name="backup_status_success">Předchozí:\n%s</string>
-	<string name="backup_status_failed">Předchozí zálohování selhalo</string>
-	<string name="backup_status_failed_subtitle">klikněte pro zobrazení chyby</string>
-	<string name="backup_status_never">Nikdy nezálohováno!</string>
 	<string name="backup_BAc_import">Importovat úkoly</string>
 	<string name="backup_BAc_export">Exportovat úkoly</string>
 	<string name="export_toast">Zálohovány %1$s do %2$s.</string>
@@ -183,7 +178,6 @@
 	<string name="EPr_fontSize_title">Velikost seznamu úkolů</string>
 	<string name="EPr_filters_to_show_title">Filtry pro zobrazení</string>
 	<string name="EPr_showSmartConfirmation_title">Zobrazovat potvrzení chytrých upomínek</string>
-	<string name="EPr_fontSize_desc">Velikost písma na hlavní straně seznamu</string>
 	<string name="EPr_edit_screen_options">Možnosti úprav zobrazení</string>
 	<string name="EPr_time_increment">Posunout o 5 minut</string>
 	<string name="EPr_beastMode_reset">Obnovit výchozí hodnoty</string>
@@ -197,12 +191,10 @@
 	<string name="EPr_manage_header">Spravovat staré úkoly</string>
 	<string name="EPr_manage_delete_completed">Odstranit dokončené úkoly</string>
 	<string name="EPr_manage_delete_completed_message">Opravdu chcete odstranit všechny dokončené úkoly?</string>
-	<string name="EPr_manage_delete_completed_summary">Odstraněné úkoly mohou být jeden po jednom obnoveny</string>
 	<string name="EPr_manage_delete_completed_status">Odstraněno %d úkolů!</string>
 	<string name="EPr_manage_purge_deleted">Vymazat smazané úkoly</string>
 	<string name="EPr_manage_purge_deleted_message">Opravdu chcete vymazat vaše smazané úkoly?\n\nTyto úkoly budou vymazány navždy!</string>
 	<string name="EPr_manage_purge_deleted_status">Vymyzáno %d úkolů!</string>
-	<string name="EPr_manage_purge_deleted_summary">Pozor! Vymazané úkoly nemohou být obnoveny bez souboru zálohy!</string>
 	<string name="EPr_manage_clear_all">Smazat vše</string>
 	<string name="EPr_manage_clear_all_message">Smazat všechny úkoly a nastavení úkolů?\n\nPozor: nelze vzít zpět!</string>
 	<string name="EPr_manage_delete_completed_gcal">Smazat události v kalendáři pro hotové úkoly</string>
@@ -218,18 +210,11 @@
 	<string name="market_unavailable">Bohužel na trhu není k dispozici pro váš systém.</string>
 	<string name="EPr_defaults_header">Nastavení nového úkolu</string>
 	<string name="EPr_default_urgency_title">Výchozí termín dokončení</string>
-	<string name="EPr_default_urgency_desc">Aktuální: %s</string>
 	<string name="EPr_default_importance_title">Výchozí důležitost</string>
-	<string name="EPr_default_importance_desc">Aktuální: %s</string>
 	<string name="EPr_default_hideUntil_title">Výchozí Skrýt do</string>
-	<string name="EPr_default_hideUntil_desc">Aktuální: %s</string>
 	<string name="EPr_default_reminders_title">Výchozí připomenutí</string>
-	<string name="EPr_default_reminders_desc">Aktuální: %s</string>
 	<string name="EPr_default_addtocalendar_title">Výchozí přidání do kalendáře</string>
-	<string name="EPr_default_addtocalendar_desc_disabled">Nový úkol nevytvoří událost v Kalendáři Google</string>
-	<string name="EPr_default_addtocalendar_desc">Nové úkoly se vloží do kalendáře: \"%s\"</string>
 	<string name="EPr_default_reminders_mode_title">Výchozí vyzvánění / vybrace</string>
-	<string name="EPr_default_reminders_mode_desc">Aktuální: %s</string>
 	<string-array name="EPr_default_importance">
 		<item>!!! (Nejvyšší)</item>
 		<item>!!</item>
@@ -371,8 +356,6 @@
 	<string name="rmd_EPr_multiple_maxvolume_title">Nejvyšší hlasitost pro opakované zvonění upomínky</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">Úkoly budou pro hlasitost používat nastavení systému</string>
 	<string name="rmd_EPr_defaultRemind_title">Náhodná upozornění</string>
-	<string name="rmd_EPr_defaultRemind_desc_disabled">Nové úkoly nebudou mít náhodné upozornění</string>
-	<string name="rmd_EPr_defaultRemind_desc">Na nové úkoly bude upozorňováno náhodně: %s</string>
 	<string-array name="EPr_reminder_random">
 		<item>zakázáno</item>
 		<item>každou hodinu</item>
@@ -468,29 +451,13 @@
 	<string name="DLG_confirm_title">Potvrdit?</string>
 	<string name="DLG_question_title">Otázka:</string>
 	<string name="DLG_information_title">Informace</string>
-	<string name="DLG_close">Zavřít</string>
 	<string name="DLG_error">Jejda, vypadá to, že se vyskytla chyba! Tady je co se stalo:\n\n%s</string>
 	<string name="DLG_wait">Čekejte prosím...</string>
-	<string name="sync_SPr_group_status">Stav</string>
-	<string name="sync_SPr_status_subtitle">Stav: %s</string>
-	<string name="sync_status_loggedout">Nepřihlášen</string>
-	<string name="sync_status_ongoing">Probíhá synchronizace...</string>
 	<string name="sync_status_success">Poslední synchronizace:\n%s</string>
-	<string name="sync_status_failed">Selhalo: %s</string>
-	<string name="sync_status_errors">Sync w/ chyby: %s</string>
-	<string name="sync_status_never">Nikdo nesynchronizováno!</string>
-	<string name="sync_SPr_group_options">Možnosti</string>
 	<string name="sync_SPr_interval_title">Synchronizace na pozadí</string>
-	<string name="sync_SPr_interval_desc_disabled">Synchronizace na pozadí je zakázána</string>
-	<string name="sync_SPr_interval_desc">Současně nastaveno na: %s</string>
-	<string name="sync_SPr_sync">Synchronizovat nyní</string>
-	<string name="sync_SPr_last_error">Stavové hlášení</string>
-	<string name="sync_SPr_last_error_subtitle">Klepnutím odešlete zprávu týmu Tasks</string>
-	<string name="sync_SPr_send_report">Odeslat zprávu</string>
 	<string name="sync_SPr_forget">Odhlásit se</string>
 	<string name="sync_SPr_forget_description">Smazat všechny synchronizační data</string>
 	<string name="sync_forget_confirm">Odhlásit se / vymazat synchronizační data?</string>
-	<string name="sync_error_offline">Během posledního pokusu o synchronizaci se službou %s nastal problém s připojením k síti. Zkuste to prosím později.</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>zakázat</item>
 		<item>každých patnáct minut</item>

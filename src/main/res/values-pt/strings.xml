@@ -14,11 +14,6 @@
 	<string name="actfm_GAA_title">Escolha a conta Google a utilizar:</string>
 	<string name="alarm_ACS_label">Alarmes</string>
 	<string name="alarm_ACS_button">Adicionar alarme</string>
-	<string name="backup_BPr_group_status">Estado</string>
-	<string name="backup_status_success">Último backup:\n%s</string>
-	<string name="backup_status_failed">Último backup falhou</string>
-	<string name="backup_status_failed_subtitle">(clique para ver o erro)</string>
-	<string name="backup_status_never">Nunca fez um backup!</string>
 	<string name="backup_BAc_import">Importar tarefas</string>
 	<string name="backup_BAc_export">Exportar tarefas</string>
 	<string name="export_toast">Backup de %1$s para %2$s.</string>
@@ -185,7 +180,6 @@
 	<string name="EPr_fontSize_title">Tamanho da lista de tarefas</string>
 	<string name="EPr_filters_to_show_title">Filtros a mostrar</string>
 	<string name="EPr_showSmartConfirmation_title">Mostrar confirmação para lembretes inteligentes</string>
-	<string name="EPr_fontSize_desc">Tamanho da letra na página principal da lista</string>
 	<string name="EPr_edit_screen_options">Opções do ecrã de edição</string>
 	<string name="EPr_beastMode_title">Ordem do ecrã de edição</string>
 	<string name="EPr_time_increment">Incrementos de 5 minutos</string>
@@ -203,12 +197,10 @@
 	<string name="EPr_manage_header">Gerir tarefas antigas</string>
 	<string name="EPr_manage_delete_completed">Eliminar tarefas terminadas</string>
 	<string name="EPr_manage_delete_completed_message">Quer mesmo eliminar todas as tarefas terminadas?</string>
-	<string name="EPr_manage_delete_completed_summary">As tarefas eliminadas podem ser recuperadas individualmente</string>
 	<string name="EPr_manage_delete_completed_status">%d tarefas eliminadas!</string>
 	<string name="EPr_manage_purge_deleted">Remover tarefas eliminadas</string>
 	<string name="EPr_manage_purge_deleted_message">Quer mesmo remover todas as tarefas eliminadas?\n\nNunca mais as conseguirá recuperar!</string>
 	<string name="EPr_manage_purge_deleted_status">%d tarefas removidas!</string>
-	<string name="EPr_manage_purge_deleted_summary">Atenção! As tarefas removidas não poderão ser recuperadas sem um backup!</string>
 	<string name="EPr_manage_clear_all">Limpar todos os dados</string>
 	<string name="EPr_manage_clear_all_message">Eliminar tarefas e definições do Tasks?\n\nNão pode anular esta operação!</string>
 	<string name="EPr_manage_delete_completed_gcal">Eliminar eventos de calendário das tarefas terminadas</string>
@@ -227,18 +219,11 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="market_unavailable">Infelizmente, a loja Google não está instalada no seu sistema.</string>
 	<string name="EPr_defaults_header">Predefinições das novas tarefas</string>
 	<string name="EPr_default_urgency_title">Prazo predefinido</string>
-	<string name="EPr_default_urgency_desc">Atual: %s</string>
 	<string name="EPr_default_importance_title">Prioridade predefinida</string>
-	<string name="EPr_default_importance_desc">Atual: %s</string>
 	<string name="EPr_default_hideUntil_title">Predefinição de ocultar até</string>
-	<string name="EPr_default_hideUntil_desc">Atual: %s</string>
 	<string name="EPr_default_reminders_title">Lembretes predefinidos</string>
-	<string name="EPr_default_reminders_desc">Atual: %s</string>
 	<string name="EPr_default_addtocalendar_title">Predefinição ao adicionar ao calendário</string>
-	<string name="EPr_default_addtocalendar_desc_disabled">Novas tarefas não criarão o evento no calendário Google.</string>
-	<string name="EPr_default_addtocalendar_desc">Novas tarefas serão criadas no calendário: %s</string>
 	<string name="EPr_default_reminders_mode_title">Tipo de vibração/toque predefinido</string>
-	<string name="EPr_default_reminders_mode_desc">Atual: %s</string>
 	<string-array name="EPr_default_importance">
 		<item>!!! (Mais alta)</item>
 		<item>!!</item>
@@ -384,8 +369,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">O Tasks irá amplificar o volume para lembretes com vários toques</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">O Tasks irá utilizar as definições do sistema para o volume</string>
 	<string name="rmd_EPr_defaultRemind_title">Lembretes aleatórios</string>
-	<string name="rmd_EPr_defaultRemind_desc_disabled">As novas tarefas não terão lembretes aleatórios</string>
-	<string name="rmd_EPr_defaultRemind_desc">As novas tarefas terão lembretes aleatórios: %s</string>
 	<string-array name="EPr_reminder_random">
 		<item>desativado</item>
 		<item>horário</item>
@@ -486,30 +469,13 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="DLG_confirm_title">Confirma?</string>
 	<string name="DLG_question_title">Pergunta:</string>
 	<string name="DLG_information_title">Informação</string>
-	<string name="DLG_close">Fechar</string>
 	<string name="DLG_error">Parece que ocorreu um erro! Isto foi o que aconteceu:\n\n%s</string>
 	<string name="DLG_wait">Por favor aguarde...</string>
-	<string name="sync_SPr_group_status">Estado</string>
-	<string name="sync_SPr_status_subtitle">Estado: %s</string>
-	<string name="sync_status_loggedout">Sessão não iniciada</string>
-	<string name="sync_status_ongoing">A sincronizar...</string>
 	<string name="sync_status_success">Última sincronização:\n%s</string>
-	<string name="sync_status_failed">Falhou em: %s</string>
-	<string name="sync_status_errors">Sincronização com erros: %s</string>
-	<string name="sync_status_never">Nunca sincronizado!</string>
-	<string name="sync_SPr_group_options">Opções</string>
 	<string name="sync_SPr_interval_title">Sincronização em segundo plano</string>
-	<string name="sync_SPr_interval_desc_disabled">Sincronização em segundo plano desativada</string>
-	<string name="sync_SPr_interval_desc">Atualmente definido para: %s</string>
-	<string name="sync_SPr_sync">Sincronizar agora</string>
-	<string name="sync_SPr_last_error">Relatório de estado</string>
-	<string name="sync_SPr_last_error_subtitle">Clique para enviar um relatório à equipa do Tasks</string>
-	<string name="sync_SPr_send_report">Enviar relatório</string>
 	<string name="sync_SPr_forget">Sair</string>
 	<string name="sync_SPr_forget_description">Remove todos os dados de sincronização</string>
 	<string name="sync_forget_confirm">Sair/limpar dados de sincronização?</string>
-	<string name="sync_error_offline">Ocorreu um erro ao estabelecer ligação à rede durante
-a última sincronização com %s. Tente mais tarde.</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>desativar</item>
 		<item>cada 15 minutos</item>

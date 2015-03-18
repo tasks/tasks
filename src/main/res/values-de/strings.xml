@@ -14,10 +14,6 @@
 	<string name="actfm_GAA_title">Wählen Sie den zu verwendenden Google-Account aus:</string>
 	<string name="alarm_ACS_label">Alarme</string>
 	<string name="alarm_ACS_button">Einen Alarm hinzufügen</string>
-	<string name="backup_status_success">Letzte Datensicherung:\n%s</string>
-	<string name="backup_status_failed">Letzte Datensicherung gescheitert</string>
-	<string name="backup_status_failed_subtitle">(Anklicken, um Fehler anzuzeigen)</string>
-	<string name="backup_status_never">Bisher keine Datensicherung erstellt!</string>
 	<string name="backup_BAc_import">Aufgaben importieren</string>
 	<string name="backup_BAc_export">Aufgaben exportieren</string>
 	<string name="export_toast">Gesichert von %1$s bis %2$s.</string>
@@ -183,7 +179,6 @@
 	<string name="EPr_fontSize_title">Größe der Aufgabenliste</string>
 	<string name="EPr_filters_to_show_title">Angezeigte Filter</string>
 	<string name="EPr_showSmartConfirmation_title">Bestätigung für Smart-Erinnerungen anzeigen</string>
-	<string name="EPr_fontSize_desc">Schriftgröße auf der Hauptseite</string>
 	<string name="EPr_edit_screen_options">Bildschirmeinstellungen bearbeiten</string>
 	<string name="EPr_beastMode_title">Bearbeite Anordnung</string>
 	<string name="EPr_time_increment">5 Minuten Steigerung</string>
@@ -201,12 +196,10 @@
 	<string name="EPr_manage_header">Alte Aufgaben verwalten</string>
 	<string name="EPr_manage_delete_completed">Erledigte Aufgaben löschen</string>
 	<string name="EPr_manage_delete_completed_message">Willst du wirklich alle erledigten Aufgaben löschen?</string>
-	<string name="EPr_manage_delete_completed_summary">Gelöschte Aufgaben können einzeln wiederhergestellt werden.</string>
 	<string name="EPr_manage_delete_completed_status">%d Aufgaben gelöscht</string>
 	<string name="EPr_manage_purge_deleted">Gelöschte Aufgaben endgültig löschen</string>
 	<string name="EPr_manage_purge_deleted_message">Willst du wirklich alle gelöschten Aufgaben bereinigen?\n\nDiese Aufgaben werden für immer gelöscht bleiben!</string>
 	<string name="EPr_manage_purge_deleted_status">%d Aufgaben bereinigt!</string>
-	<string name="EPr_manage_purge_deleted_summary">Vorsicht! Endgültig gelöschte Aufgaben können ohne Backup-Datei nicht wiederhergestellt werden!</string>
 	<string name="EPr_manage_clear_all">Alle Daten löschen</string>
 	<string name="EPr_manage_clear_all_message">Alle Aufgaben und Einstellungen von Tasks löschen?\n\nWarnung: Dies kann nicht rückgängig gemacht werden!</string>
 	<string name="EPr_manage_delete_completed_gcal">Lösche Kalendereinträge von erledigten Aufgaben</string>
@@ -222,18 +215,11 @@
 	<string name="market_unavailable">Leider ist der Market nicht für dein System verfügbar.</string>
 	<string name="EPr_defaults_header">Standardeinstellungen für neue Aufgaben</string>
 	<string name="EPr_default_urgency_title">Standard Dringlichkeit</string>
-	<string name="EPr_default_urgency_desc">Momentan: %s</string>
 	<string name="EPr_default_importance_title">Standard Priorität</string>
-	<string name="EPr_default_importance_desc">Momentan: %s</string>
 	<string name="EPr_default_hideUntil_title">Standardmäßig verstecken bis</string>
-	<string name="EPr_default_hideUntil_desc">Momentan: %s</string>
 	<string name="EPr_default_reminders_title">Standard-Erinnerungen</string>
-	<string name="EPr_default_reminders_desc">Momentan: %s</string>
 	<string name="EPr_default_addtocalendar_title">Standardmäßig in Kalender eintragen</string>
-	<string name="EPr_default_addtocalendar_desc_disabled">Neue Aufgaben legen keinen Eintrag in den Google Kalender an.</string>
-	<string name="EPr_default_addtocalendar_desc">Neue Aufgaben werden in Kalender eingetragen: \"%s\"</string>
 	<string name="EPr_default_reminders_mode_title">Standard-Alarm/Vibrationssignal</string>
-	<string name="EPr_default_reminders_mode_desc">Momentan: %s</string>
 	<string-array name="EPr_default_importance">
 		<item>!!! (Höchste)</item>
 		<item>!!</item>
@@ -378,8 +364,6 @@
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks wird die Lautstärke für mehrfachläutende Erinnerungen maximalisieren</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks wird die Systemeinstellungen für die Lautstärke benutzen</string>
 	<string name="rmd_EPr_defaultRemind_title">Zufällige Erinnerungen</string>
-	<string name="rmd_EPr_defaultRemind_desc_disabled">Neue Aufgaben sollen keine zufälligen Erinnerungen haben</string>
-	<string name="rmd_EPr_defaultRemind_desc">Neue Aufgaben werden zufällig erinnern: %s</string>
 	<string-array name="EPr_reminder_random">
 		<item>deaktiviert</item>
 		<item>stündlich</item>
@@ -477,27 +461,13 @@
 	<string name="yest">Gest.</string>
 	<string name="DLG_confirm_title">Bestätigen?</string>
 	<string name="DLG_question_title">Frage:</string>
-	<string name="DLG_close">Schließen</string>
 	<string name="DLG_error">Ups, sieht aus, als ob ein Fehler aufgetreten ist! Folgendes ist passiert:\n\n%s</string>
 	<string name="DLG_wait">Bitte warten...</string>
-	<string name="sync_status_loggedout">Nicht angemeldet</string>
-	<string name="sync_status_ongoing">Synchronisierung läuft...</string>
 	<string name="sync_status_success">Letzte Synchronisierung:\n%s</string>
-	<string name="sync_status_failed">Fehlgeschlagen am: %s</string>
-	<string name="sync_status_errors">Synchronisation m. Fehler: %s</string>
-	<string name="sync_status_never">Noch nie synchronisiert!</string>
-	<string name="sync_SPr_group_options">Optionen</string>
 	<string name="sync_SPr_interval_title">Hintergrund-Synchronisierung</string>
-	<string name="sync_SPr_interval_desc_disabled">Hintergrund-Synchronisierung ist deaktiviert</string>
-	<string name="sync_SPr_interval_desc">Gesetzt auf: %s</string>
-	<string name="sync_SPr_sync">Jetzt synchronisieren</string>
-	<string name="sync_SPr_last_error">Statusbericht</string>
-	<string name="sync_SPr_last_error_subtitle">Klicke um einen Bericht ans Tasks-Team zu senden</string>
-	<string name="sync_SPr_send_report">Bericht senden</string>
 	<string name="sync_SPr_forget">Abmelden</string>
 	<string name="sync_SPr_forget_description">Alle Synchronisationsdaten löschen</string>
 	<string name="sync_forget_confirm">Ausloggen / Synchronisierte Daten löschen?</string>
-	<string name="sync_error_offline">Es gab ein Problem mit der Netzwerkverbindung während der letzten Synchronisation mit %s. Versuche es bitte später noch einmal.</string>
 	<string name="widget_hide_due_date">Fälligkeitsdatum ausblenden</string>
 	<string name="widget_hide_checkboxes">Kontrollkästchen ausblenden</string>
 	<string name="widget_hide_header">Kopfzeile ausblenden</string>

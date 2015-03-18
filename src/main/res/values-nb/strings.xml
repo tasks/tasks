@@ -8,10 +8,6 @@
 	<string name="alarm_ACS_label">Varsler</string>
 	<string name="alarm_ACS_button">Legg til nytt varsel</string>
 	<string name="backup_BPr_header">Sikkerhetskopier</string>
-	<string name="backup_status_success">Siste: %s</string>
-	<string name="backup_status_failed">Siste sikkerhetskopiering mislyktes</string>
-	<string name="backup_status_failed_subtitle">(klikk for å vise feil)</string>
-	<string name="backup_status_never">Sikkerhetskopi aldri utført!</string>
 	<string name="backup_BAc_import">Importer oppgaver</string>
 	<string name="backup_BAc_export">Eksporter oppgaver</string>
 	<string name="export_toast">Backup ferdig %1$s av %2$s.</string>
@@ -100,7 +96,6 @@
 	<string name="EPr_deactivated">deaktivert</string>
 	<string name="EPr_appearance_header">Utseende</string>
 	<string name="EPr_fontSize_title">Tekststørrelse for oppgavelista</string>
-	<string name="EPr_fontSize_desc">Tekststørrelse for hovedlista</string>
 	<string name="TWi_loading">Laster ...</string>
 	<string name="WCA_title">Velg oppgaver å se på</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
@@ -109,14 +104,9 @@
       your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
 	<string name="EPr_defaults_header">Standardinnstillinger for nye oppgaver</string>
 	<string name="EPr_default_urgency_title">Standardfrist</string>
-	<string name="EPr_default_urgency_desc">For tiden: %s</string>
 	<string name="EPr_default_importance_title">Standardviktighet</string>
-	<string name="EPr_default_importance_desc">For tiden: %s</string>
 	<string name="EPr_default_hideUntil_title">Standard skjul frem til</string>
-	<string name="EPr_default_hideUntil_desc">For tiden: %s</string>
 	<string name="EPr_default_reminders_title">Standardpåminnelser</string>
-	<string name="EPr_default_reminders_desc">For tiden: %s</string>
-	<string name="EPr_default_reminders_mode_desc">For tiden: %s</string>
 	<string-array name="EPr_default_urgency">
 		<item>No deadline</item>
 		<item>I dag</item>
@@ -181,8 +171,6 @@
 	<string name="rmd_EPr_persistent_desc_true">Varsler må ses individuelt for å kunne fjernes</string>
 	<string name="rmd_EPr_persistent_desc_false">Varsler kan slettes ved \"Slett alt\"-knappen</string>
 	<string name="rmd_EPr_defaultRemind_title">Tilfeldige påminnelser</string>
-	<string name="rmd_EPr_defaultRemind_desc_disabled">Nye oppgaver skal ikke påminnes tifeldig</string>
-	<string name="rmd_EPr_defaultRemind_desc">Nye oppgaver påminnes tilfeldig: %s</string>
 	<string name="repeat_enabled">Gjentakelser</string>
 	<string name="repeat_every">Hver %d</string>
 	<string name="repeat_interval_prompt">Gjentakelsesintervall</string>
@@ -222,20 +210,10 @@
 	<string name="DLG_confirm_title">Bekreft?</string>
 	<string name="DLG_question_title">Spørsmål:</string>
 	<string name="DLG_information_title">Informasjon</string>
-	<string name="DLG_close">Lukk</string>
 	<string name="DLG_error">Oi, det oppstod en feil! Dette skjedde:\n\n%s</string>
 	<string name="DLG_wait">Vennligst vent...</string>
-	<string name="sync_status_ongoing">Synkronisering pågår...</string>
 	<string name="sync_status_success">Siste synkronisering:\n%s</string>
-	<string name="sync_status_failed">Mislykket: %s</string>
-	<string name="sync_status_never">Aldri synkronisert!</string>
-	<string name="sync_SPr_group_options">Alternativer</string>
 	<string name="sync_SPr_interval_title">Bakgrunnssynkronisering</string>
-	<string name="sync_SPr_interval_desc_disabled">Bakgrunnssynkronisering er deaktivert</string>
-	<string name="sync_SPr_interval_desc">Aktuell innstilling: %s</string>
-	<string name="sync_SPr_sync">Synkronisere nå</string>
-	<string name="sync_SPr_last_error">Statusrapport</string>
-	<string name="sync_SPr_send_report">Send rapport</string>
 	<string name="sync_SPr_forget">Logg ut</string>
 	<string name="sync_SPr_forget_description">Sletter all synkroniseringsdata</string>
 	<string name="sync_forget_confirm">Logg ut / slett synkroniseringsdata?</string>

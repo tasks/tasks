@@ -15,11 +15,6 @@
 	<string name="alarm_ACS_label">알람</string>
 	<string name="alarm_ACS_button">알람 추가</string>
 	<string name="backup_BPr_header">백업</string>
-	<string name="backup_BPr_group_status">상태</string>
-	<string name="backup_status_success">최근 백업:\n%s</string>
-	<string name="backup_status_failed">마지막 백업 실패함</string>
-	<string name="backup_status_failed_subtitle">(오류 내용을 보려면 누르세요)</string>
-	<string name="backup_status_never">백업한 적이 없습니다!</string>
 	<string name="backup_BAc_import">일정 가져오기</string>
 	<string name="backup_BAc_export">일정 내보내기</string>
 	<string name="export_toast">%1$s 를 %2$s 로 백업함.</string>
@@ -187,7 +182,6 @@
 	<string name="EPr_fontSize_title">일정 목록 크기</string>
 	<string name="EPr_filters_to_show_title">표시할 필터</string>
 	<string name="EPr_showSmartConfirmation_title">스마트 알림시 확인하기</string>
-	<string name="EPr_fontSize_desc">주 목록 페이지 폰트 크기</string>
 	<string name="EPr_edit_screen_options">화면 설정 편집하기</string>
 	<string name="EPr_beastMode_title">화면 정렬 순서 편집하기</string>
 	<string name="EPr_time_increment">5분 증가</string>
@@ -205,12 +199,10 @@
 	<string name="EPr_manage_header">오래된 일정 관리하기</string>
 	<string name="EPr_manage_delete_completed">완료한 일정 지우기</string>
 	<string name="EPr_manage_delete_completed_message">완료한 일정을 모두 삭제하시겠습니까?</string>
-	<string name="EPr_manage_delete_completed_summary">삭제한 일정은 하나씩 삭제를 취소할 수 있습니다</string>
 	<string name="EPr_manage_delete_completed_status">%d 일정을 삭제했습니다!</string>
 	<string name="EPr_manage_purge_deleted">삭제한 일정을 비우기</string>
 	<string name="EPr_manage_purge_deleted_message">삭제한 일정을 모두 비울까요?\n\n비운 일정은 다시 살릴 수 없습니다!</string>
 	<string name="EPr_manage_purge_deleted_status">%d 일정을 비웠습니다!</string>
-	<string name="EPr_manage_purge_deleted_summary">주의! 비운 일정은 백업 파일 없이 복구할 수 없습니다!</string>
 	<string name="EPr_manage_clear_all">모든 자료 삭제하기</string>
 	<string name="EPr_manage_clear_all_message">아스트리드의 모든 일정과 설정을 삭제할까요?\n\n경고: 되돌릴 수 없음!</string>
 	<string name="EPr_manage_delete_completed_gcal">완료한 일정의 달력 이벤트를 삭제하기</string>
@@ -229,18 +221,11 @@
 	<string name="market_unavailable">이 기기에서 마켓을 사용할 수 없습니다.</string>
 	<string name="EPr_defaults_header">새 일정 기본값</string>
 	<string name="EPr_default_urgency_title">기본 중요도</string>
-	<string name="EPr_default_urgency_desc">현재: %s</string>
 	<string name="EPr_default_importance_title">기본 우선순위</string>
-	<string name="EPr_default_importance_desc">현재: %s</string>
 	<string name="EPr_default_hideUntil_title">기본 숨기기 기간:</string>
-	<string name="EPr_default_hideUntil_desc">현재: %s</string>
 	<string name="EPr_default_reminders_title">기본 알림</string>
-	<string name="EPr_default_reminders_desc">현재: %s</string>
 	<string name="EPr_default_addtocalendar_title">달력에 추가하기 (기본값)</string>
-	<string name="EPr_default_addtocalendar_desc_disabled">새 일정은 구글 달력에 이벤트를 만들지 않을 것입니다</string>
-	<string name="EPr_default_addtocalendar_desc">새 일정을 달력에 추가합니다: \"%s\"</string>
 	<string name="EPr_default_reminders_mode_title">기본 벨소리/진동 형식</string>
-	<string name="EPr_default_reminders_mode_desc">현재: %s</string>
 	<string-array name="EPr_default_importance">
 		<item>!!! (최우선)</item>
 		<item>!!</item>
@@ -387,8 +372,6 @@
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">아스트리드는 다중-링 알림을 최대 볼륨으로 출력합니다</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">아스트리드에서 소리 크기는 시스템 설정을 따릅니다.</string>
 	<string name="rmd_EPr_defaultRemind_title">랜덤 알림</string>
-	<string name="rmd_EPr_defaultRemind_desc_disabled">새 일정은 무작위로 알리지 않습니다</string>
-	<string name="rmd_EPr_defaultRemind_desc">새 일정을 무작위로 알려 줍니다: %s</string>
 	<string-array name="EPr_reminder_random">
 		<item>사용안함</item>
 		<item>매시간</item>
@@ -481,29 +464,13 @@
 	<string name="DLG_confirm_title">확인?</string>
 	<string name="DLG_question_title">질문:</string>
 	<string name="DLG_information_title">정보</string>
-	<string name="DLG_close">닫기</string>
 	<string name="DLG_error">에러가 발생한 것 같습니다! 발생한 에러는 다음과 같습니다:\n\n%s</string>
 	<string name="DLG_wait">잠시 기다리세요...</string>
-	<string name="sync_SPr_group_status">상태</string>
-	<string name="sync_SPr_status_subtitle">상태: %s</string>
-	<string name="sync_status_loggedout">로그인 안 됨</string>
-	<string name="sync_status_ongoing">동기화 진행 중...</string>
 	<string name="sync_status_success">마지막 동기화: \n%s</string>
-	<string name="sync_status_failed">실패: %s</string>
-	<string name="sync_status_errors">동기화 중 에러: %s</string>
-	<string name="sync_status_never">동기화 한 적이 없습니다!</string>
-	<string name="sync_SPr_group_options">설정</string>
 	<string name="sync_SPr_interval_title">백그라운드 동기화</string>
-	<string name="sync_SPr_interval_desc_disabled">백그라운드 동기화를 사용하지 않습니다.</string>
-	<string name="sync_SPr_interval_desc">현재 설정: %s</string>
-	<string name="sync_SPr_sync">지금 동기화하기</string>
-	<string name="sync_SPr_last_error">상태 보고</string>
-	<string name="sync_SPr_last_error_subtitle">아스트리드 팀에게 보고서를 보내려면 클릭하세요</string>
-	<string name="sync_SPr_send_report">보고서 보내기</string>
 	<string name="sync_SPr_forget">로그아웃</string>
 	<string name="sync_SPr_forget_description">모든 동기화 자료 삭제</string>
 	<string name="sync_forget_confirm">로그아웃 / 모든 동기화 데이터 삭제?</string>
-	<string name="sync_error_offline">%s 과 마지막 동기화 중에 네트워크 연결 문제가 있었습니다.나중에 다시 시도해 주세요.</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>사용안함</item>
 		<item>15분마다</item>

@@ -15,10 +15,6 @@
 	<string name="alarm_ACS_label">Herinneringen</string>
 	<string name="alarm_ACS_button">Voeg Herinnering toe</string>
 	<string name="backup_BPr_header">Back-ups</string>
-	<string name="backup_status_success">Laatste: back-up\n%s</string>
-	<string name="backup_status_failed">Laatste back-up mislukt</string>
-	<string name="backup_status_failed_subtitle">(tik om foutmelding te zien)</string>
-	<string name="backup_status_never">Nooit eerder back-up van gemaakt!</string>
 	<string name="backup_BAc_import">Taken importeren</string>
 	<string name="backup_BAc_export">Taken exporteren</string>
 	<string name="export_toast">Back-up gemaakt van %1$s naar %2$s.</string>
@@ -184,7 +180,6 @@
 	<string name="EPr_fontSize_title">Taaklijst grootte</string>
 	<string name="EPr_filters_to_show_title">Te tonen filters</string>
 	<string name="EPr_showSmartConfirmation_title">Laat bevestiging zien voor slimme herinneringen</string>
-	<string name="EPr_fontSize_desc">Grootte van Lettertype op hoofd takenlijst</string>
 	<string name="EPr_edit_screen_options">Scherm opties bewerken</string>
 	<string name="EPr_beastMode_title">Scherm volgorde bewerken</string>
 	<string name="EPr_time_increment">stappen van 5 minuten</string>
@@ -202,12 +197,10 @@
 	<string name="EPr_manage_header">Oude taken beheren</string>
 	<string name="EPr_manage_delete_completed">Voltooide taken verwijderen</string>
 	<string name="EPr_manage_delete_completed_message">Alle voltooide taken werkelijk verwijderen?</string>
-	<string name="EPr_manage_delete_completed_summary">Verwijderde taken kunnen één-voor-één worden teruggehaald</string>
 	<string name="EPr_manage_delete_completed_status">%d taken verwijderd!</string>
 	<string name="EPr_manage_purge_deleted">Verwijderde taken opruimen</string>
 	<string name="EPr_manage_purge_deleted_message">Alle verwijderde taken werkelijk opschonen?\n\nDeze taken zijn dan definitief verwijderd!</string>
 	<string name="EPr_manage_purge_deleted_status">%d verwijderde taken opgeruimd!</string>
-	<string name="EPr_manage_purge_deleted_summary">Waarschuwing: Opgeruimde taken kunnen zonder backup-bestand niet worden hersteld!</string>
 	<string name="EPr_manage_clear_all">Wis Alle Gegevens</string>
 	<string name="EPr_manage_clear_all_message">Verwijder alle taken en instellingen in Tasks?\n\nWaarschuwing: kan niet ongedaan gemaakt worden!</string>
 	<string name="EPr_manage_delete_completed_gcal">Verwijder Agenda-items voor voltooide taken</string>
@@ -223,18 +216,11 @@
 	<string name="market_unavailable">Helaas is de Android Market niet beschikbaar voor jouw systeem.</string>
 	<string name="EPr_defaults_header">Basisinstellingen nieuwe taak</string>
 	<string name="EPr_default_urgency_title">Standaard prioriteit</string>
-	<string name="EPr_default_urgency_desc">Nu: %s</string>
 	<string name="EPr_default_importance_title">Standaard prioriteit</string>
-	<string name="EPr_default_importance_desc">Nu: %s</string>
 	<string name="EPr_default_hideUntil_title">Standaard verbergen tot</string>
-	<string name="EPr_default_hideUntil_desc">Nu: %s</string>
 	<string name="EPr_default_reminders_title">Standaard herinneringen</string>
-	<string name="EPr_default_reminders_desc">Nu: %s</string>
 	<string name="EPr_default_addtocalendar_title">Standaard Toevoegen aan Agenda</string>
-	<string name="EPr_default_addtocalendar_desc_disabled">Nieuwe taken maken geen gebeurtenis in de Google Agenda</string>
-	<string name="EPr_default_addtocalendar_desc">Nieuwe taken worden toegevoegd aan de agenda: \"%s\"</string>
 	<string name="EPr_default_reminders_mode_title">Standaard toon/tril type</string>
-	<string name="EPr_default_reminders_mode_desc">Nu: %s</string>
 	<string-array name="EPr_default_importance">
 		<item>!!! (Hoogste)</item>
 		<item>!!</item>
@@ -381,8 +367,6 @@
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks zal het volume voor multi-ring herinneringen maximaliseren</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks zal de systeem-instellingen voor het volume gebruiken</string>
 	<string name="rmd_EPr_defaultRemind_title">Willekeurige herinneringen</string>
-	<string name="rmd_EPr_defaultRemind_desc_disabled">Nieuwe taken hebben geen willekeurige herinneringen</string>
-	<string name="rmd_EPr_defaultRemind_desc">Nieuwe taken willekeurig herinneren: %s</string>
 	<string-array name="EPr_reminder_random">
 		<item>uitgeschakeld</item>
 		<item>uurlijks</item>
@@ -480,27 +464,13 @@
 	<string name="DLG_confirm_title">OK?</string>
 	<string name="DLG_question_title">Vraag:</string>
 	<string name="DLG_information_title">Informatie</string>
-	<string name="DLG_close">Sluit</string>
 	<string name="DLG_error">Er is een fout opgetreden:\n\n%s</string>
 	<string name="DLG_wait">Even geduld a.u.b.</string>
-	<string name="sync_status_loggedout">Niet aangemeld</string>
-	<string name="sync_status_ongoing">Synchronisatie bezig...</string>
 	<string name="sync_status_success">Vorige:\n%s</string>
-	<string name="sync_status_failed">Mislukt op: %s</string>
-	<string name="sync_status_errors">Gesync. met fouten: %s</string>
-	<string name="sync_status_never">Nooit gesynct!</string>
-	<string name="sync_SPr_group_options">Opties</string>
 	<string name="sync_SPr_interval_title">Achtergrond synchronisatie</string>
-	<string name="sync_SPr_interval_desc_disabled">Achtergrond synchronisatie uitgeschakeld</string>
-	<string name="sync_SPr_interval_desc">Huidige instelling: %s</string>
-	<string name="sync_SPr_sync">Nu synchroniseren</string>
-	<string name="sync_SPr_last_error">Statusrapport</string>
-	<string name="sync_SPr_last_error_subtitle">Klik om een rapport naar het Tasks team te versturen</string>
-	<string name="sync_SPr_send_report">Rapport verzenden</string>
 	<string name="sync_SPr_forget">Afmelden</string>
 	<string name="sync_SPr_forget_description">Alle synchronisatie gegevens verwijderen</string>
 	<string name="sync_forget_confirm">Afmelden / synchronisatie gegevens verwijderen?</string>
-	<string name="sync_error_offline">Er was een probleem met de netwerkverbinding tijdens de laatste synchronisatie met %s. Probeer het a.u.b. later nog eens.</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>uitschakelen</item>
 		<item>elke 15 min.</item>

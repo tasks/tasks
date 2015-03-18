@@ -15,11 +15,6 @@
 	<string name="alarm_ACS_label">Alarmes</string>
 	<string name="alarm_ACS_button">Afegeix una alarma</string>
 	<string name="backup_BPr_header">Còpies de seguretat</string>
-	<string name="backup_BPr_group_status">Estat</string>
-	<string name="backup_status_success">Còpia de seguretat més recent:\n%s</string>
-	<string name="backup_status_failed">Còpia de seguretat Fallida</string>
-	<string name="backup_status_failed_subtitle">Feu clic per veure l\'error</string>
-	<string name="backup_status_never">Encara sense Còpies!</string>
 	<string name="backup_BAc_import">Importa tasques</string>
 	<string name="backup_BAc_export">Exporta tasques</string>
 	<string name="export_toast_no_tasks">Sense tasques que exportar</string>
@@ -146,7 +141,6 @@
 	<string name="EPr_appearance_header">Aparença</string>
 	<string name="EPr_fontSize_title">Mida de la llista de tasques</string>
 	<string name="EPr_showSmartConfirmation_title">Mostra la confirmació per als recordatoris intel·ligents</string>
-	<string name="EPr_fontSize_desc">Mida de lletra en la pàgina de llista principal</string>
 	<string name="EPr_beastMode_reset">Restableix els valors predeterminats</string>
 	<string name="EPr_fullTask_title">Mostra el títol sencer de la tasca</string>
 	<string name="EPr_fullTask_desc_enabled">Es mostrarà el títol sencer de la tasca</string>
@@ -159,11 +153,6 @@
       If you see this error regularly, we suggest you clear all
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
       your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
-	<string name="EPr_default_urgency_desc">Actualment: %s</string>
-	<string name="EPr_default_importance_desc">Actualment: %s</string>
-	<string name="EPr_default_hideUntil_desc">Actualment: %s</string>
-	<string name="EPr_default_reminders_desc">Actualment: %s</string>
-	<string name="EPr_default_reminders_mode_desc">Actualment: %s</string>
 	<string-array name="EPr_default_urgency">
 		<item>No deadline</item>
 		<item>Avui</item>
@@ -229,8 +218,6 @@
 	<string name="rmd_EPr_persistent_desc_true">Les notificacions han que ser vistes individualment per ser descartades</string>
 	<string name="rmd_EPr_persistent_desc_false">Les notificacions poden ser descartades amb el botó \"Descarta Tot\"</string>
 	<string name="rmd_EPr_defaultRemind_title">Notificacions al Atzar</string>
-	<string name="rmd_EPr_defaultRemind_desc_disabled">Les tasques noves no mostraran notificacions a l\'atzar</string>
-	<string name="rmd_EPr_defaultRemind_desc">Les tasques noves notificaràn al atzar: %s</string>
 	<string name="repeat_enabled">Repeticions</string>
 	<string name="repeat_every">Cada %d</string>
 	<string name="repeat_interval_prompt">Interval de Repecitiò</string>
@@ -276,18 +263,10 @@
 	<string name="DLG_confirm_title">Confirmar?</string>
 	<string name="DLG_question_title">Pregunta:</string>
 	<string name="DLG_information_title">Informació</string>
-	<string name="DLG_close">Tancar</string>
 	<string name="DLG_error">¡Ui, sembla que hi ha hagut un problema! Això es el que ha passat:\n\n%s</string>
 	<string name="DLG_wait">Si us plau, espera...</string>
-	<string name="sync_SPr_group_status">Estat</string>
-	<string name="sync_status_ongoing">Sincronització en curs...</string>
 	<string name="sync_status_success">Última sincronització:\n%s</string>
-	<string name="sync_status_failed">Fallida el: %s</string>
-	<string name="sync_status_never">Mai sincronitzat!</string>
-	<string name="sync_SPr_group_options">Opcions</string>
 	<string name="sync_SPr_interval_title">Sincronitzar en segon pla</string>
-	<string name="sync_SPr_interval_desc_disabled">Desactivada la sincronització en segon pla</string>
-	<string name="sync_SPr_interval_desc">Actualment configurat en: %s</string>
 	<string name="sync_SPr_forget">Surt</string>
 	<string name="sync_SPr_forget_description">Esborra tota la informació de sincronització</string>
 	<string name="sync_forget_confirm">Tancar sessió / esborra la informació de sincronització?</string>

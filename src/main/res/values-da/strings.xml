@@ -14,10 +14,6 @@
 	<string name="alarm_ACS_label">Alarmer</string>
 	<string name="alarm_ACS_button">Tilføj en alarm</string>
 	<string name="backup_BPr_header">Backup</string>
-	<string name="backup_status_success">Sidste sikkerhedskopi:\n%s</string>
-	<string name="backup_status_failed">Seneste backup fejlede</string>
-	<string name="backup_status_failed_subtitle">(tryk for at vise fejl)</string>
-	<string name="backup_status_never">Har aldrig taget backup!</string>
 	<string name="backup_BAc_import">Importér opgaver</string>
 	<string name="backup_BAc_export">Eksportér opgaver</string>
 	<string name="export_toast">Sikkerhedskopierede %1$s til %2$s.</string>
@@ -108,7 +104,6 @@
 	<string name="EPr_title">Tasks: Opsætning</string>
 	<string name="EPr_appearance_header">Udseende</string>
 	<string name="EPr_fontSize_title">Opgavelistestørrelse</string>
-	<string name="EPr_fontSize_desc">Skriftstørrelse på den centrale liste</string>
 	<string name="TWi_loading">Indlæser...</string>
 	<string name="WCA_title">Vælg opgaver der skal vises...</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
@@ -117,14 +112,9 @@
       your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
 	<string name="EPr_defaults_header">Standard for nye opgaver</string>
 	<string name="EPr_default_urgency_title">Standard Deadline</string>
-	<string name="EPr_default_urgency_desc">Nuværende: %s</string>
 	<string name="EPr_default_importance_title">Standard Vigtighed</string>
-	<string name="EPr_default_importance_desc">Nuværende: %s</string>
 	<string name="EPr_default_hideUntil_title">Standard Skjul Indtil</string>
-	<string name="EPr_default_hideUntil_desc">Nuværende: %s</string>
 	<string name="EPr_default_reminders_title">Standardpåmindelser</string>
-	<string name="EPr_default_reminders_desc">Nuværende: %s</string>
-	<string name="EPr_default_reminders_mode_desc">Nuværende: %s</string>
 	<string-array name="EPr_default_urgency">
 		<item>No deadline</item>
 		<item>I dag</item>
@@ -196,8 +186,6 @@
 	<string name="rmd_EPr_quiet_hours_end_title">Stille timer slut</string>
 	<string name="rmd_EPr_persistent_desc_true">Påmindelser skal vises individuelt for at blive ryddet</string>
 	<string name="rmd_EPr_defaultRemind_title">Tilfældige påmindelser</string>
-	<string name="rmd_EPr_defaultRemind_desc_disabled">Nye opgaver vil ikke have tilfældige påmindelser</string>
-	<string name="rmd_EPr_defaultRemind_desc">Nye opgaver vil blive påmindet tilfældigt: %s</string>
 	<string name="repeat_enabled">Gentagelser</string>
 	<string name="repeat_every">Hver %d</string>
 	<string name="repeat_interval_prompt">Interval for gentagelse</string>
@@ -241,11 +229,8 @@
 	<string name="yesterday">I går</string>
 	<string name="DLG_confirm_title">Bekræft?</string>
 	<string name="DLG_question_title">Spørsmål:</string>
-	<string name="DLG_close">Luk</string>
 	<string name="DLG_wait">Vent venligst...</string>
-	<string name="sync_SPr_group_options">Indstillinger</string>
 	<string name="sync_SPr_interval_title">Baggrunds Synk</string>
-	<string name="sync_SPr_interval_desc_disabled">Baggrunds synkronisering er slået fra</string>
 	<string name="sync_SPr_forget">Log af</string>
 	<string name="sync_SPr_forget_description">Sletter al synkroniserings data</string>
 	<string-array name="sync_SPr_interval_entries">

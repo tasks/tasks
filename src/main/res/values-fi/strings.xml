@@ -39,8 +39,6 @@
 	<string name="CFC_tag_text">Lista: ?</string>
 	<string name="CFC_tag_name">Lista...</string>
 	<string name="rmd_EPr_defaultRemind_title">Satunnainen muistutus</string>
-	<string name="rmd_EPr_defaultRemind_desc_disabled">Uusia tehtäviä ei ole satunnaisia muistutuksia</string>
-	<string name="rmd_EPr_defaultRemind_desc">Uudet tehtävät muistuttaa satunnaisesti: %s</string>
 	<string name="repeat_enabled">Ei toistoa</string>
 	<string name="repeat_every">Toista %d</string>
 	<string name="repeat_interval_prompt">Toistoväli</string>

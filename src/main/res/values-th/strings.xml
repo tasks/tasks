@@ -9,8 +9,6 @@
 	<string name="actfm_picture_gallery">เลือกจากคลังภาพ</string>
 	<string name="actfm_picture_clear">ล้างภาพ</string>
 	<string name="backup_BPr_header">สำรองข้อมูล</string>
-	<string name="backup_BPr_group_status">สถานะ</string>
-	<string name="backup_status_failed_subtitle">(แตะเพื่อแสดงข้อผิดพลาด)</string>
 	<string name="export_progress_title">กำลังส่งออก...</string>
 	<string name="import_progress_title">กำลังนำเข้า...</string>
 	<string name="import_progress_read">กำลังอ่านแผนงาน %d...</string>
@@ -58,7 +56,6 @@
 	<string name="TEA_control_importance">ความสำคัญ</string>
 	<string name="TEA_control_notes">บันทึกย่อ</string>
 	<string name="EPr_appearance_header">รูปโฉม</string>
-	<string name="EPr_fontSize_desc">ขนาดฟอนต์บนหน้ารายการหลัก</string>
 	<string name="TWi_loading">กำลังโหลด...</string>
 	<string name="WCA_title">เลือกแผนงานเพื่อดู...</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
@@ -119,6 +116,4 @@
 	<string name="tomorrow">พรุ่งนี้</string>
 	<string name="yesterday">เมื่อวาน</string>
 	<string name="DLG_information_title">ข้อมูล</string>
-	<string name="sync_SPr_group_status">สถานะ</string>
-	<string name="sync_SPr_group_options">ตัวเลือก</string>
 </resources>

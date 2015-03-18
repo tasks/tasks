@@ -8,7 +8,6 @@
 
     <com.todoroo.astrid.ui.MultilinePreference
         android:key="@string/EPr_manage_delete_completed"
-        android:summary="@string/EPr_manage_delete_completed_summary"
         android:title="@string/EPr_manage_delete_completed">
         <intent
             android:targetClass="org.tasks.activities.DeleteCompletedActivity"
@@ -17,7 +16,6 @@
 
     <com.todoroo.astrid.ui.MultilinePreference
         android:key="@string/EPr_manage_purge_deleted"
-        android:summary="@string/EPr_manage_purge_deleted_summary"
         android:title="@string/EPr_manage_purge_deleted">
         <intent
             android:targetClass="org.tasks.activities.PurgeDeletedActivity"

@@ -479,14 +479,11 @@
   <string name="EPr_manage_delete_completed">Delete completed tasks</string>
   <string name="EPr_manage_delete_completed_message">Do you really want to delete all your completed tasks?</string>
   <!-- slide 47a -->
-  <string name="EPr_manage_delete_completed_summary">Deleted tasks can be undeleted one-by-one</string>
   <string name="EPr_manage_delete_completed_status">Deleted %d tasks!</string>
   <!-- slide 47e -->
   <string name="EPr_manage_purge_deleted">Purge deleted tasks</string>
   <string name="EPr_manage_purge_deleted_message">Do you really want to purge all your deleted tasks?\n\nThese tasks will be gone forever!</string>
   <string name="EPr_manage_purge_deleted_status">Purged %d tasks!</string>
-  <!-- slide 47b-->
-  <string name="EPr_manage_purge_deleted_summary">Caution! Purged tasks can\'t be recovered without backup file!</string>
   <!-- slide 47h-->
   <string name="EPr_manage_clear_all">Clear all data</string>
   <string name="EPr_manage_clear_all_message">Delete all tasks and settings in Tasks?\n\nWarning: can\'t be undone!</string>
