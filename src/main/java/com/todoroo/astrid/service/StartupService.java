@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteException;
+import android.preference.PreferenceManager;
 
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
 import com.todoroo.andlib.sql.Criterion;
@@ -164,7 +165,9 @@ public class StartupService {
             }
         }).start();
 
-        preferences.setDefaults();
+        if (!preferences.getBoolean(PreferenceManager.KEY_HAS_SET_DEFAULT_VALUES, false)) {
+            preferences.setDefaults();
+        }
 
         if (latestSetVersion == 0) {
             broadcaster.firstLaunch();
