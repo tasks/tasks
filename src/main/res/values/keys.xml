@@ -200,9 +200,8 @@
         <item>259200</item>
         <item>604800</item>
     </string-array>
-  
-      <!-- Preference Key (do not translate) -->
-    <string name="sync_SPr_status_key">sync_status</string>
+
+    <string name="sync_SPr_forget_key">sync_forget</string>
 
   <!-- =========================================================== GTASKS == -->
   
@@ -245,6 +244,7 @@
     <string name="TEA_ctrl_timer_pref">TEA_ctrl_timer_pref</string>
     <string name="TEA_ctrl_share_pref">TEA_ctrl_share_pref</string>
     <string name="TEA_ctrl_gcal">TEA_ctrl_gcal</string>
+    <string name="sync_gtasks">sync_gtasks</string>
 
     <string-array name="TEA_control_sets_prefs">
         <item>@string/TEA_ctrl_when_pref</item>

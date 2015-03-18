@@ -47,7 +47,7 @@ public class EditPreferences extends InjectingPreferenceActivity {
         addPreferencesFromResource(R.xml.preferences_appearance);
         screen.addPreference(getPreference(ReminderPreferences.class, R.string.notifications));
         screen.addPreference(getPreference(DefaultsPreferences.class, R.string.task_defaults));
-        screen.addPreference(getPreference(GtasksPreferences.class, R.string.gtasks_GPr_header));
+        screen.addPreference(getPreference(GtasksPreferences.class, R.string.synchronization));
         addPreferencesFromResource(R.xml.preferences_backup);
         screen.addPreference(getPreference(OldTaskPreferences.class, R.string.EPr_manage_header));
         screen.addPreference(getPreference(MiscellaneousPreferences.class, R.string.miscellaneous));

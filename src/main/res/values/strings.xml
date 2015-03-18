@@ -52,26 +52,11 @@
 
     <!-- ================================================== SyncPreferences == -->
 
-    <!-- Sync status subtitle, %s-> status message -->
-    <string name="sync_SPr_status_subtitle">Status: %s</string>
-    <!-- Sync Status: log in -->
-    <string name="sync_status_loggedout">Not logged in</string>
-    <!-- Status: ongoing -->
-    <string name="sync_status_ongoing">Sync ongoing...</string>
     <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->
     <string name="sync_status_success">Last sync:\n%s</string>
-    <!-- Sync Status: failure status (%s -> last attempted sync date) -->
-    <string name="sync_status_failed">Failed on: %s</string>
-    <!-- Sync Status: error status (%s -> last sync date) -->
-    <string name="sync_status_errors">Sync w/ errors: %s</string>
-    <!-- Sync Status: never sync'd -->
-    <string name="sync_status_never">Never synchronized!</string>
 
     <!-- Preference: Synchronization Interval Title -->
     <string name="sync_SPr_interval_title">Background sync</string>
-
-    <!-- Synchronize Now Button -->
-    <string name="sync_SPr_sync">Synchronize now</string>
 
     <!-- Sync: Clear Data Title -->
     <string name="sync_SPr_forget">Log out</string>
@@ -93,6 +78,8 @@
     <string name="attachment_directory">Attachment directory</string>
     <string name="debug_logging">Debug logging</string>
     <string name="miscellaneous">Miscellaneous</string>
+    <string name="synchronization">Synchronization</string>
+    <string name="enabled">Enabled</string>
 
     <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->

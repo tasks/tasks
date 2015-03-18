@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.api.client.googleapis.extensions.android.accounts.GoogleAccountManager;
+import com.google.common.base.Predicate;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
@@ -35,6 +36,9 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
+
+import static com.google.common.collect.Iterables.tryFind;
+import static com.google.common.collect.Lists.newArrayList;
 
 /**
  * This activity allows users to sign in or log in to Google Tasks
@@ -59,6 +63,23 @@ public class GtasksLoginActivity extends InjectingListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        accountManager = new GoogleAccountManager(this);
+        Account[] accounts = accountManager.getAccounts();
+
+        final String existingUsername = gtasksPreferenceService.getUserName();
+        if (existingUsername != null) {
+            Account account = tryFind(newArrayList(accounts), new Predicate<Account>() {
+                @Override
+                public boolean apply(Account account) {
+                    return existingUsername.equals(account.name);
+                }
+            }).orNull();
+            if (account != null) {
+                getAuthToken(account);
+                return;
+            }
+        }
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.gtasks_login_activity);
         TextView header = new TextView(this);
@@ -67,8 +88,6 @@ public class GtasksLoginActivity extends InjectingListActivity {
         header.setPadding(10, 0, 10, 50);
         getListView().addHeaderView(header);
 
-        accountManager = new GoogleAccountManager(this);
-        Account[] accounts = accountManager.getAccounts();
         ArrayList<String> accountNames = new ArrayList<>();
         for (Account a : accounts) {
             accountNames.add(a.name);
@@ -90,12 +109,15 @@ public class GtasksLoginActivity extends InjectingListActivity {
         super.onListItemClick(l, v, position, id);
         int offsetPosition = position - 1; // Subtract 1 because apparently android counts the header view as part of the adapter.
         if (offsetPosition >= 0 && offsetPosition < nameArray.length) {
-            final ProgressDialog pd = DialogUtilities.progressDialog(this, this.getString(R.string.gtasks_GLA_authenticating));
-            pd.show();
-            final Account a = accountManager.getAccountByName(nameArray[offsetPosition]);
-            accountName = a.name;
-            getAuthToken(a, pd);
+            getAuthToken(accountManager.getAccountByName(nameArray[offsetPosition]));
         }
+    }
+
+    private void getAuthToken(Account account) {
+        final ProgressDialog pd = DialogUtilities.progressDialog(this, this.getString(R.string.gtasks_GLA_authenticating));
+        pd.show();
+        accountName = account.name;
+        getAuthToken(account, pd);
     }
 
     private void getAuthToken(Account a, final ProgressDialog pd) {

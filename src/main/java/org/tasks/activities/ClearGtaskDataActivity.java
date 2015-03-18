@@ -24,11 +24,13 @@ public class ClearGtaskDataActivity extends InjectingActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         gtasksSyncV2Provider.signOut();
+                        setResult(RESULT_OK);
                         finish();
                     }
                 }, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        setResult(RESULT_CANCELED);
                         finish();
                     }
                 }
