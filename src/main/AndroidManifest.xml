@@ -168,12 +168,14 @@
 
         <!-- Activity for preferences -->
         <activity
-            android:name="com.todoroo.astrid.activity.EditPreferences"
-            android:theme="@android:style/Theme" />
+            android:name=".preferences.BasicPreferences"
+            android:label="@string/TLA_menu_settings"
+            android:theme="@style/Tasks" />
 
         <activity
             android:name=".preferences.MiscellaneousPreferences"
-            android:theme="@android:style/Theme" />
+            android:label="@string/miscellaneous"
+            android:theme="@style/Tasks" />
 
         <!-- Activity that configures widget -->
         <activity android:name="com.todoroo.astrid.widget.WidgetConfigActivity">
@@ -265,7 +267,8 @@
 
         <activity
             android:name="com.todoroo.astrid.core.DefaultsPreferences"
-            android:theme="@android:style/Theme"/>
+            android:label="@string/task_defaults"
+            android:theme="@style/Tasks"/>
 
         <activity
             android:name="com.todoroo.astrid.activity.BeastModePreferences"
@@ -340,7 +343,8 @@
 
         <activity
             android:name="com.todoroo.astrid.gtasks.GtasksPreferences"
-            android:theme="@android:style/Theme"
+            android:label="@string/synchronization"
+            android:theme="@style/Tasks"
             android:screenOrientation="portrait"/>
 
         <activity
@@ -388,7 +392,8 @@
         <!-- old tasks -->
         <activity
             android:name="com.todoroo.astrid.core.OldTaskPreferences"
-            android:theme="@android:style/Theme"/>
+            android:label="@string/EPr_manage_header"
+            android:theme="@style/Tasks"/>
 
         <activity
             android:name=".activities.ClearAllDataActivity"
@@ -434,7 +439,8 @@
         <!-- reminders -->
         <activity
             android:name="com.todoroo.astrid.reminders.ReminderPreferences"
-            android:theme="@android:style/Theme"/>
+            android:label="@string/notifications"
+            android:theme="@style/Tasks"/>
 
         <activity
             android:name=".voice.VoiceCommandActivity"

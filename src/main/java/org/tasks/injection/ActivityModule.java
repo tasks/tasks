@@ -5,7 +5,7 @@ import android.app.Activity;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.actfm.TagSettingsActivityTablet;
 import com.todoroo.astrid.activity.BeastModePreferences;
-import com.todoroo.astrid.activity.EditPreferences;
+import org.tasks.preferences.BasicPreferences;
 import com.todoroo.astrid.activity.FilterShortcutActivity;
 import com.todoroo.astrid.activity.ShareLinkActivity;
 import com.todoroo.astrid.activity.TaskEditActivity;
@@ -20,6 +20,7 @@ import com.todoroo.astrid.gcal.CalendarAlarmListCreator;
 import com.todoroo.astrid.gcal.CalendarReminderActivity;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
+import com.todoroo.astrid.reminders.ReminderPreferences;
 import com.todoroo.astrid.tags.DeleteTagActivity;
 import com.todoroo.astrid.tags.RenameTagActivity;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
@@ -58,7 +59,7 @@ import dagger.Provides;
                 VoiceCommandActivity.class,
                 GtasksLoginActivity.class,
                 WidgetConfigActivity.class,
-                EditPreferences.class,
+                BasicPreferences.class,
                 GtasksPreferences.class,
                 OldTaskPreferences.class,
                 FilterShortcutActivity.class,
@@ -74,7 +75,8 @@ import dagger.Provides;
                 DeleteCompletedActivity.class,
                 DeleteCompletedEventsActivity.class,
                 DeleteAllCalendarEventsActivity.class,
-                ClearGtaskDataActivity.class
+                ClearGtaskDataActivity.class,
+                ReminderPreferences.class
         })
 public class ActivityModule {
 

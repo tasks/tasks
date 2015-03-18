@@ -29,7 +29,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.todoroo.astrid.activity.EditPreferences;
+import org.tasks.preferences.BasicPreferences;
 import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.FilterAdapter;
@@ -135,7 +135,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
         layout.findViewById(R.id.settings_row).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), EditPreferences.class);
+                Intent intent = new Intent(getActivity(), BasicPreferences.class);
                 startActivityForResult(intent, ACTIVITY_SETTINGS);
             }
         });

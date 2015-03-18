@@ -10,19 +10,19 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 
 import org.joda.time.DateTime;
 import org.tasks.R;
+import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.ui.TimePreference;
 
 import java.text.DateFormat;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
-public class ReminderPreferences extends PreferenceActivity {
+public class ReminderPreferences extends InjectingPreferenceActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

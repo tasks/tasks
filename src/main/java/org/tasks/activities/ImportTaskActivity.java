@@ -1,5 +1,6 @@
 package org.tasks.activities;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -20,32 +21,31 @@ public class ImportTaskActivity extends InjectingActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FilePickerBuilder filePickerBuilder = new FilePickerBuilder(this,
-                R.string.import_file_prompt, BackupConstants.defaultExportDirectory());
-        filePickerBuilder.setOnFilePickedListener(new FilePickerBuilder.OnFilePickedListener() {
-            @Override
-            public void onFilePicked(String filePath) {
-                xmlImporter.importTasks(ImportTaskActivity.this, filePath, new Runnable() {
-                    @Override
-                    public void run() {
-                        Flags.set(Flags.REFRESH);
-                        finish();
-                    }
-                });
-            }
-        });
-        filePickerBuilder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+        AlertDialog filePicker =
+                new FilePickerBuilder(this, R.string.import_file_prompt, BackupConstants.defaultExportDirectory())
+                        .setOnFilePickedListener(new FilePickerBuilder.OnFilePickedListener() {
+                            @Override
+                            public void onFilePicked(String filePath) {
+                                xmlImporter.importTasks(ImportTaskActivity.this, filePath, new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Flags.set(Flags.REFRESH);
+                                        finish();
+                                    }
+                                });
+                            }
+                        })
+                        .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                            @Override
+                            public void onCancel(DialogInterface dialog) {
+                                finish();
+                            }
+                        }).show();
+        filePicker.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 finish();
             }
         });
-        filePickerBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                finish();
-            }
-        });
-        filePickerBuilder.show();
     }
 }

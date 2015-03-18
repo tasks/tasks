@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.activity.EditPreferences;
+import org.tasks.preferences.BasicPreferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.SnoozeCallback;
 import com.todoroo.astrid.reminders.SnoozeDialog;
@@ -166,7 +166,7 @@ public class MissedCallActivity extends InjectingActivity {
         ignoreSettingsButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent editPreferences = new Intent(MissedCallActivity.this, EditPreferences.class);
+                Intent editPreferences = new Intent(MissedCallActivity.this, BasicPreferences.class);
                 startActivity(editPreferences);
                 finish();
             }

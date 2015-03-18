@@ -8,7 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.activity.EditPreferences;
+import org.tasks.preferences.BasicPreferences;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.TagData;
@@ -119,7 +119,7 @@ public class CalendarAlarmListCreator extends InjectingActivity {
         ignoreSettingsButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent editPreferences = new Intent(CalendarAlarmListCreator.this, EditPreferences.class);
+                Intent editPreferences = new Intent(CalendarAlarmListCreator.this, BasicPreferences.class);
                 startActivity(editPreferences);
                 dismissListener.onClick(v);
             }

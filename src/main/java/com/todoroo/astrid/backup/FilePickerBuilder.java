@@ -44,8 +44,9 @@ public class FilePickerBuilder extends AlertDialog.Builder implements DialogInte
         setPath(path);
     }
 
-    public void setOnFilePickedListener(OnFilePickedListener onFilePickedListener) {
+    public FilePickerBuilder setOnFilePickedListener(OnFilePickedListener onFilePickedListener) {
         this.onFilePickedListener = onFilePickedListener;
+        return this;
     }
 
     private void setPath(final File path) {

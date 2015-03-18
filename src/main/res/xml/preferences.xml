@@ -1,11 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/EPr_title">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference android:title="@string/EPr_appearance_header">
+        <intent
+            android:action="@string/EPr_appearance_header"
+            android:targetClass="org.tasks.preferences.BasicPreferences"
+            android:targetPackage="org.tasks" />
+    </Preference>
+
+    <Preference android:title="@string/notifications">
+        <intent
+            android:targetClass="com.todoroo.astrid.reminders.ReminderPreferences"
+            android:targetPackage="org.tasks" />
+    </Preference>
+
+    <Preference android:title="@string/task_defaults">
+        <intent
+            android:targetClass="com.todoroo.astrid.core.DefaultsPreferences"
+            android:targetPackage="org.tasks" />
+    </Preference>
+
+    <Preference android:title="@string/synchronization">
+        <intent
+            android:targetClass="com.todoroo.astrid.gtasks.GtasksPreferences"
+            android:targetPackage="org.tasks" />
+    </Preference>
+
+    <Preference android:title="@string/backup_BPr_header">
+        <intent
+            android:action="@string/backup_BPr_header"
+            android:targetClass="org.tasks.preferences.BasicPreferences"
+            android:targetPackage="org.tasks" />
+    </Preference>
+
+    <Preference android:title="@string/EPr_manage_header">
+        <intent
+            android:targetClass="com.todoroo.astrid.core.OldTaskPreferences"
+            android:targetPackage="org.tasks" />
+    </Preference>
+
+    <Preference android:title="@string/miscellaneous">
+        <intent
+            android:targetClass="org.tasks.preferences.MiscellaneousPreferences"
+            android:targetPackage="org.tasks" />
+    </Preference>
 
 </PreferenceScreen>

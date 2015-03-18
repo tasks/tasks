@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.activity.EditPreferences;
+import org.tasks.preferences.BasicPreferences;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
@@ -161,7 +161,7 @@ public class CalendarReminderActivity extends InjectingActivity {
         ignoreSettingsButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent editPreferences = new Intent(CalendarReminderActivity.this, EditPreferences.class);
+                Intent editPreferences = new Intent(CalendarReminderActivity.this, BasicPreferences.class);
                 startActivity(editPreferences);
                 dismissListener.onClick(v);
             }
