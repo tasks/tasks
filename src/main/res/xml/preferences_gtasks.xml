@@ -16,7 +16,8 @@
         android:entries="@array/sync_SPr_interval_entries"
         android:entryValues="@array/sync_SPr_interval_values"
         android:key="@string/gtasks_GPr_interval_key"
-        android:title="@string/sync_SPr_interval_title" />
+        android:title="@string/sync_SPr_interval_title"
+        android:defaultValue="0"/>
 
     <com.todoroo.astrid.ui.MultilinePreference
         android:summary="@string/sync_SPr_forget_description"

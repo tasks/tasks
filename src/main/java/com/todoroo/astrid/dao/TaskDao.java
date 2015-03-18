@@ -253,10 +253,7 @@ public class TaskDao {
                             0));
         }
         if(!item.containsValue(Task.REMINDER_FLAGS)) {
-            int reminder_flags = preferences.getIntegerFromString(R.string.p_default_reminders_key,
-                    Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE) |
-                    preferences.getIntegerFromString(R.string.p_default_reminders_mode_key, 0);
-            item.setReminderFlags(reminder_flags);
+            item.setReminderFlags(preferences.getDefaultReminders() | preferences.getDefaultRingMode());
         }
     }
 

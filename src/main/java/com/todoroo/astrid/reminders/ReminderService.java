@@ -9,9 +9,6 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.content.res.Resources;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -89,31 +86,9 @@ public final class ReminderService  {
     ReminderService(@ForApplication Context context, Preferences preferences) {
         this.context = context;
         this.preferences = preferences;
-        setPreferenceDefaults();
     }
-
-    // --- preference handling
-
-    private static boolean preferencesInitialized = false;
 
     private static final int MILLIS_PER_HOUR = 60 * 60 * 1000;
-
-    /** Set preference defaults, if unset. called at startup */
-    public void setPreferenceDefaults() {
-        if(preferencesInitialized) {
-            return;
-        }
-
-        SharedPreferences prefs = preferences.getPrefs();
-        Editor editor = prefs.edit();
-        Resources r = context.getResources();
-
-        preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_default_random_hours, 0);
-        preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_persistent, true);
-
-        editor.commit();
-        preferencesInitialized = true;
-    }
 
     // --- reminder scheduling logic
 

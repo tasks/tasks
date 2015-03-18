@@ -6,9 +6,10 @@ import android.content.res.Resources;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 
+import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.SortHelper;
-import com.todoroo.astrid.utility.AstridDefaultPreferenceSpec;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
 
 import org.slf4j.Logger;
@@ -61,20 +62,6 @@ public class Preferences {
         return getBoolean(WidgetConfigActivity.PREF_DARK_THEME + widgetId, legacySetting);
     }
 
-    public void setIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, int value) {
-        String key = r.getString(keyResource);
-        if (!prefs.contains(key)) {
-            editor.putString(key, Integer.toString(value));
-        }
-    }
-
-    public void setIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, boolean value) {
-        String key = r.getString(keyResource);
-        if (!prefs.contains(key) || !(prefs.getAll().get(key) instanceof Boolean)) {
-            editor.putBoolean(key, value);
-        }
-    }
-
     public SharedPreferences getPrefs() {
         return prefs;
     }
@@ -87,7 +74,12 @@ public class Preferences {
     }
 
     public void setDefaults() {
-        new AstridDefaultPreferenceSpec(context, this).setIfUnset();
+        PreferenceManager.setDefaultValues(context, R.xml.preferences_defaults, true);
+        PreferenceManager.setDefaultValues(context, R.xml.preferences_appearance, true);
+        PreferenceManager.setDefaultValues(context, R.xml.preferences_misc, true);
+        PreferenceManager.setDefaultValues(context, R.xml.preferences_reminders, true);
+
+        BeastModePreferences.setDefaultOrder(this, context);
     }
 
     public void reset() {
@@ -101,6 +93,14 @@ public class Preferences {
 
     public String getStringValue(int keyResource) {
         return prefs.getString(context.getResources().getString(keyResource), null);
+    }
+
+    public int getDefaultReminders() {
+        return getIntegerFromString(R.string.p_default_reminders_key, Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE);
+    }
+
+    public int getDefaultRingMode() {
+        return getIntegerFromString(R.string.p_default_reminders_mode_key, 0);
     }
 
     public int getIntegerFromString(int keyResource, int defaultValue) {

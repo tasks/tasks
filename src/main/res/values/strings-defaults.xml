@@ -61,13 +61,9 @@
   
   <string-array name="EPr_default_reminders">
     <!-- reminders: labels for "Task Defaults" preference item. -->
-    <!-- slide 43a -->
     <item>No deadline reminders</item>
-    <!-- slide 43b -->
     <item>At deadline</item>
-    <!-- slide 43c -->
     <item>When overdue</item>
-    <!-- slide 43d -->
     <item>At deadline or overdue</item>
   </string-array>
   

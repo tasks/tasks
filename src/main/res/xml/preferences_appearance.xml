@@ -15,7 +15,8 @@
                 android:entryValues="@array/EPr_font_size"
                 android:key="@string/p_fontSize"
                 android:summary="@string/EPr_fontSize_desc"
-                android:title="@string/EPr_fontSize_title" />
+                android:title="@string/EPr_fontSize_title"
+                android:defaultValue="16"/>
 
             <com.todoroo.astrid.ui.MultilineCheckboxPreference
                 android:defaultValue="false"
