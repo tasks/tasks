@@ -126,14 +126,21 @@ public class DialogUtilities {
         tryOnUiThread(activity, new Runnable() {
             @Override
             public void run() {
-                new AlertDialog.Builder(activity)
-                .setTitle(R.string.DLG_confirm_title)
-                .setMessage(text)
-                .setTitle(title)
-                .setIcon(icon)
-                .setPositiveButton(okTitleId, okListener)
-                .setNegativeButton(cancelTitleId, cancelListener)
-                .show().setOwnerActivity(activity);
+                AlertDialog dialog = new AlertDialog.Builder(activity)
+                        .setTitle(R.string.DLG_confirm_title)
+                        .setMessage(text)
+                        .setTitle(title)
+                        .setIcon(icon)
+                        .setPositiveButton(okTitleId, okListener)
+                        .setNegativeButton(cancelTitleId, cancelListener)
+                        .show();
+                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        cancelListener.onClick(dialog, Dialog.BUTTON_NEGATIVE);
+                    }
+                });
+                dialog.setOwnerActivity(activity);
             }
         });
     }

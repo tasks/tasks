@@ -143,16 +143,11 @@
 
     <style name="ActionBarPopupThemeOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="Tasks.Dialog" parent="@style/Theme.AppCompat.Light.Dialog"/>
+
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">false</item>
     </style>
-
-    <style name="Tasks.FullTransparent" parent="@style/Theme.AppCompat">
-        <item name="android:windowIsTranslucent">true</item>
-	    <item name="android:windowBackground">@android:color/transparent</item>
-	    <item name="android:backgroundDimEnabled">false</item>
-	    <item name="android:windowIsFloating">true</item>
-	</style>
 
     <!--================================================== General == -->
 

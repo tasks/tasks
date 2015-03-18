@@ -294,15 +294,13 @@
 
         <activity
             android:name="com.todoroo.astrid.core.DeleteFilterActivity"
-            android:theme="@style/Tasks.FullTransparent" />
-
+            android:theme="@style/Tasks.Dialog" />
         <activity
             android:name="com.todoroo.astrid.tags.DeleteTagActivity"
-            android:theme="@style/Tasks.FullTransparent" />
-
+            android:theme="@style/Tasks.Dialog" />
         <activity
             android:name="com.todoroo.astrid.tags.RenameTagActivity"
-            android:theme="@style/Tasks.FullTransparent" />
+            android:theme="@style/Tasks.Dialog" />
 
         <!-- alarms -->
         <receiver android:name="com.todoroo.astrid.alarms.AlarmTaskRepeatListener">
@@ -347,7 +345,7 @@
 
         <activity
             android:name=".activities.ClearGtaskDataActivity"
-            android:theme="@style/ReminderDialog" />
+            android:theme="@style/Tasks.Dialog" />
 
         <!-- repeats -->
 
@@ -394,23 +392,19 @@
 
         <activity
             android:name=".activities.ClearAllDataActivity"
-            android:theme="@style/ReminderDialog" />
-
+            android:theme="@style/Tasks.Dialog" />
         <activity
             android:name=".activities.PurgeDeletedActivity"
-            android:theme="@style/ReminderDialog" />
-
+            android:theme="@style/Tasks.Dialog" />
         <activity
             android:name=".activities.DeleteCompletedActivity"
-            android:theme="@style/ReminderDialog" />
-
+            android:theme="@style/Tasks.Dialog" />
         <activity
             android:name=".activities.DeleteCompletedEventsActivity"
-            android:theme="@style/ReminderDialog" />
-
+            android:theme="@style/Tasks.Dialog" />
         <activity
             android:name=".activities.DeleteAllCalendarEventsActivity"
-            android:theme="@style/ReminderDialog" />
+            android:theme="@style/Tasks.Dialog" />
 
         <!-- backup -->
 

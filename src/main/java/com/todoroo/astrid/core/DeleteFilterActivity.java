@@ -28,7 +28,6 @@ public class DeleteFilterActivity extends InjectingActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(android.R.style.Theme_Dialog);
         super.onCreate(savedInstanceState);
 
         final long id = getIntent().getLongExtra(CustomFilterExposer.TOKEN_FILTER_ID, -1);
