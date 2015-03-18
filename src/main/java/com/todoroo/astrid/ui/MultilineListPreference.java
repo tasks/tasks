@@ -31,4 +31,10 @@ public class MultilineListPreference extends ListPreference {
         }
         MultilineHelper.makeMultiline(view);
     }
+
+    @Override
+    public void setValue(String value) {
+        super.setValue(value);
+        setSummary(getEntry());
+    }
 }

@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.core;
 
-import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -44,20 +43,12 @@ public class DefaultsPreferences extends InjectingPreferenceActivity {
 
         addPreferencesFromResource(R.xml.preferences_defaults);
 
-        initCalendarsPreference((ListPreference) findPreference(getString(R.string.gcal_p_default)));
-
-        initListPreference(R.string.p_default_urgency_key, R.array.EPr_default_urgency,
-                R.array.EPr_default_urgency_values);
-        initListPreference(R.string.p_default_importance_key, R.array.EPr_default_importance,
-                R.array.EPr_default_importance_values);
-        initListPreference(R.string.p_default_hideUntil_key, R.array.EPr_default_hideUntil,
-                R.array.EPr_default_hideUntil_values);
-        initListPreference(R.string.p_default_reminders_key, R.array.EPr_default_reminders,
-                R.array.EPr_default_reminders_values);
-        initListPreference(R.string.p_default_reminders_mode_key, R.array.EPr_default_reminders_mode,
-                R.array.EPr_default_reminders_mode_values);
-        initListPreference(R.string.p_rmd_default_random_hours, R.array.EPr_reminder_random,
-                R.array.EPr_reminder_random_hours);
+        Preference defaultCalendarPref = findPreference(getString(R.string.gcal_p_default));
+        try {
+            initCalendarsPreference((ListPreference) defaultCalendarPref);
+        } catch(Exception e) {
+            log.error(e.getMessage(), e);
+        }
     }
 
     private void setCalendarSummary(Object value) {
@@ -65,39 +56,6 @@ public class DefaultsPreferences extends InjectingPreferenceActivity {
         int index = AndroidUtilities.indexOf(listPreference.getEntryValues(), value);
         String setting = listPreference.getEntries()[index].toString();
         listPreference.setSummary(setting);
-    }
-
-    private void initListPreference(int key, final int keyArray, final int valueArray) {
-        Preference preference = findPreference(getString(key));
-        preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                updateTaskListPreference(preference, newValue, keyArray, valueArray);
-                return true;
-            }
-        });
-        updateTaskListPreference(preference, ((ListPreference) preference).getValue(), keyArray, valueArray);
-    }
-
-    private void updateTaskListPreference(Preference preference, Object value, int keyArray, int valueArray) {
-        Resources r = getResources();
-        int index = AndroidUtilities.indexOf(r.getStringArray(valueArray), value);
-        if(index == -1) {
-            // force the zeroth index
-            index = 0;
-            Editor editor = preference.getEditor();
-            editor.putString(preference.getKey(), r.getStringArray(valueArray)[0]);
-            editor.commit();
-        }
-        String setting = r.getStringArray(keyArray)[index];
-        preference.setSummary(setting);
-
-        // if user changed the value, refresh task defaults
-        if(!AndroidUtilities.equals(value, preferences.getStringValue(preference.getKey()))) {
-            Editor editor = preferences.getPrefs().edit();
-            editor.putString(preference.getKey(), (String)value);
-            editor.commit();
-        }
     }
 
     /**

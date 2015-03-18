@@ -12,10 +12,8 @@ import android.preference.Preference;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
-import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 import com.todoroo.astrid.utility.TodorooPreferenceActivity;
 
 import org.tasks.R;
@@ -28,7 +26,6 @@ import static org.tasks.date.DateTimeUtils.newDate;
 public class GtasksPreferences extends TodorooPreferenceActivity {
 
     @Inject GtasksPreferenceService gtasksPreferenceService;
-    @Inject GtasksSyncV2Provider gtasksSyncV2Provider;
     @Inject BackgroundScheduler backgroundScheduler;
 
     private void startSync() {
@@ -101,20 +98,9 @@ public class GtasksPreferences extends TodorooPreferenceActivity {
 
     @Override
     public void updatePreferences(Preference preference, Object value) {
-        // interval
-        if (getString(R.string.gtasks_GPr_interval_key).equals(preference.getKey())) {
-            updateSyncInterval(preference, value);
-        } else if (getString(R.string.sync_SPr_status_key).equals(preference.getKey())) {
+        if (getString(R.string.sync_SPr_status_key).equals(preference.getKey())) {
             updateStatus(preference);
         }
-    }
-
-    private void updateSyncInterval(Preference preference, Object value) {
-        int index = AndroidUtilities.indexOf(getResources().getStringArray(R.array.sync_SPr_interval_values), value);
-        if (index == -1) {
-            index = 0;
-        }
-        preference.setSummary(getResources().getStringArray(R.array.sync_SPr_interval_entries)[index]);
     }
 
     private void updateStatus(Preference preference) {

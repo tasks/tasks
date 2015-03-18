@@ -431,9 +431,6 @@
   <!-- slide 32a: Preference: Show confirmation for smart reminders -->
   <string name="EPr_showSmartConfirmation_title">Show confirmation for smart reminders</string>
   
-  <!-- slide 34g: Preference: Task List Font Size Description -->                                                                                                                                                  
-  <string name="EPr_fontSize_desc">Font size on the main listing page</string>  
-  
   <!-- Edit screen preference category -->
   <string name="EPr_edit_screen_options">Edit screen options</string>
   
