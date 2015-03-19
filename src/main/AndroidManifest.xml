@@ -344,8 +344,7 @@
         <activity
             android:name="com.todoroo.astrid.gtasks.GtasksPreferences"
             android:label="@string/synchronization"
-            android:theme="@style/Tasks"
-            android:screenOrientation="portrait"/>
+            android:theme="@style/Tasks" />
 
         <activity
             android:name=".activities.ClearGtaskDataActivity"

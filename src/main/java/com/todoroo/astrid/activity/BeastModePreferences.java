@@ -35,7 +35,7 @@ public class BeastModePreferences extends InjectingListActivity {
 
     private ArrayList<String> items;
 
-    public static final String BEAST_MODE_ORDER_PREF = "beast_mode_order"; //$NON-NLS-1$
+    public static final String BEAST_MODE_ORDER_PREF = "beast_mode_order_v2"; //$NON-NLS-1$
 
     public static final String BEAST_MODE_PREF_ITEM_SEPARATOR = ";"; //$NON-NLS-1$
 

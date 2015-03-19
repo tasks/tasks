@@ -62,10 +62,6 @@ public class Preferences {
         return getBoolean(WidgetConfigActivity.PREF_DARK_THEME + widgetId, legacySetting);
     }
 
-    public SharedPreferences getPrefs() {
-        return prefs;
-    }
-
     public void clear() {
         prefs
                 .edit()

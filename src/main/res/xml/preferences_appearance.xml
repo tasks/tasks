@@ -48,11 +48,6 @@
     <PreferenceCategory android:title="@string/EPr_filters_to_show_title">
         <com.todoroo.astrid.ui.MultilineCheckboxPreference
             android:defaultValue="true"
-            android:enabled="false"
-            android:key="@string/p_show_my_tasks_filter"
-            android:title="@string/BFE_Active" />
-        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-            android:defaultValue="true"
             android:key="@string/p_show_today_filter"
             android:title="@string/today" />
         <com.todoroo.astrid.ui.MultilineCheckboxPreference
