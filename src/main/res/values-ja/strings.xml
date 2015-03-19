@@ -122,6 +122,8 @@
 		<item>日時を指定</item>
 	</string-array>
 	<string name="TEA_control_when">いつ</string>
+	<string name="TEA_control_repeat">繰り返し</string>
+	<string name="TEA_control_gcal">カレンダー</string>
 	<string name="TEA_control_importance">優先順位</string>
 	<string name="TEA_control_lists">リスト</string>
 	<string name="TEA_control_notes">概要</string>
@@ -185,6 +187,7 @@
 	<string name="EPr_beastMode_hint">各行の左側をドラッグしてタスク編集画面をカスタマイズしてください</string>
 	<string name="EPr_fullTask_title">完全なタスク見出しを表示</string>
 	<string name="EPr_show_task_edit_comments">タスク編集でコメントを表示</string>
+	<string name="task_list_options">タスクリスト オプション</string>
 	<string name="EPr_cal_end_or_start_at_due_time">カレンダーイベント時間</string>
 	<string name="EPr_cal_end_at_due_time">カレンダーイベント終了時間</string>
 	<string name="EPr_cal_start_at_due_time">カレンダーイベント開始時間</string>
@@ -212,6 +215,7 @@
 バックアップからタスクを復元 (設定-&gt;同期およびバックアップ-&gt;バックアップ-&gt;タスクをインポート) することを推奨します.</string>
 	<string name="market_unavailable">残念ながらあなたのシステムで Google Play は利用できません.</string>
 	<string name="EPr_defaults_header">タスクのデフォルト設定</string>
+	<string name="task_defaults">タスクのデフォルト</string>
 	<string name="EPr_default_urgency_title">期限</string>
 	<string name="EPr_default_importance_title">標準の優先順位</string>
 	<string name="EPr_default_hideUntil_title">表示期間</string>
@@ -472,6 +476,16 @@
 	<string name="widget_hide_checkboxes">チェックボックスを表示しない</string>
 	<string name="widget_hide_header">ヘッダーを表示しない</string>
 	<string name="widget_transparent_background">透明の背景</string>
+	<string name="notifications">通知</string>
+	<string name="silent">サイレント</string>
+	<string name="sound">サウンド</string>
+	<string name="vibrate">バイブレート</string>
+	<string name="quiet_hours">消音時間</string>
+	<string name="attachment_directory">添付ディレクトリ</string>
+	<string name="debug_logging">デバッグログ</string>
+	<string name="miscellaneous">その他</string>
+	<string name="synchronization">同期</string>
+	<string name="enabled">有効</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>無効</item>
 		<item>15分毎</item>

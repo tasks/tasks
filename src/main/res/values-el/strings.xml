@@ -231,16 +231,16 @@
 		<item>Επόμενη εβδομάδα</item>
 	</string-array>
 	<string-array name="EPr_default_hideUntil">
-		<item>Μη κρύψεις</item>
+		<item>Μη απόκρυψη</item>
 		<item>Η εργασία λήγει </item>
 		<item>Μια μέρα πρίν την λήξη</item>
-		<item>Μια εβδομάδα πρίν λήξει</item>
+		<item>Μια εβδομάδα πρίν ληξει</item>
 	</string-array>
 	<string-array name="EPr_default_reminders">
-		<item>Χωρίς υπενθύμιση προθεσμίας</item>
+		<item>Όχι υπενθυμίσεις προθεσμίας</item>
 		<item>Στην προθεσμία</item>
 		<item>Όταν λήξει</item>
-		<item>Στην προθεσμία ή τη λήξη</item>
+		<item>Στην λήξη η και μετά</item>
 	</string-array>
 	<string name="BFE_Saved_delete">Διαγραφή φίλτρου</string>
 	<string name="CFA_type_add">ή</string>
@@ -337,7 +337,7 @@
 	<string-array name="TEA_reminder_random">
 		<item>μια ώρα</item>
 		<item>μια μέρα</item>
-		<item>μία εβδομάδα</item>
+		<item>μια εβδομάδα</item>
 		<item>σε δύο εβδομάδες</item>
 		<item>εναν μήνα</item>
 		<item>σε δύο μήνες</item>
@@ -380,7 +380,7 @@
 		<item>έτ</item>
 	</string-array>
 	<string-array name="repeat_interval">
-		<item>Ημέρα(ες)</item>
+		<item>Μέρα(ες)</item>
 		<item>Εβδομαδα(ές)</item>
 		<item>Μήνας(ές)</item>
 		<item>Ώρα(ές)</item>

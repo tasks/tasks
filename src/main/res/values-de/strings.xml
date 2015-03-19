@@ -121,6 +121,8 @@
 		<item>Bestimmter Tag/Uhrzeit</item>
 	</string-array>
 	<string name="TEA_control_when">Wann</string>
+	<string name="TEA_control_repeat">Wiederholen</string>
+	<string name="TEA_control_gcal">Kalender</string>
 	<string name="TEA_control_importance">Priorität</string>
 	<string name="TEA_control_lists">Listen</string>
 	<string name="TEA_control_notes">Beschreibung</string>
@@ -184,6 +186,7 @@
 	<string name="EPr_beastMode_hint">Du kannst die Eingabeseite für Aufgaben mit den Schiebereglern links anpassen</string>
 	<string name="EPr_fullTask_title">Gesamten Aufgabentitel anzeigen</string>
 	<string name="EPr_show_task_edit_comments">Kommentare bei Aufgabeneingabe anzeigen </string>
+	<string name="task_list_options">Aufgabenlistenoptionen</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Zeitpunkt Kalendertermin</string>
 	<string name="EPr_cal_end_at_due_time">Kalendereintrag endet zur Fälligkeits-Uhrzeit</string>
 	<string name="EPr_cal_start_at_due_time">Kalendereintrag Startet zur Fälligkeits-Uhrzeit</string>
@@ -208,6 +211,7 @@
 	<string name="DB_corrupted_body">Oh-oh! Sieht aus aIs könnte deine Datenbank beschädigt sein. Falls Du diesen Fehler regelmäßig siehst, empfehlen wir, alle Daten zu löschen (Einstellungen-&gt;Synchronisation-&gt;Alte Aufgaben verwalten-&gt;Alle Daten löschen) und deine Aufgaben aus einem Backup in Tasks wiederherzustellen (Einstellungen-&gt;Synchronisation-&gt;Backups-&gt;-Backups verwalten&gt;Aufgaben importieren).</string>
 	<string name="market_unavailable">Leider ist der Market nicht für dein System verfügbar.</string>
 	<string name="EPr_defaults_header">Standardeinstellungen für neue Aufgaben</string>
+	<string name="task_defaults">Aufgabenstandards</string>
 	<string name="EPr_default_urgency_title">Standard Dringlichkeit</string>
 	<string name="EPr_default_importance_title">Standard Priorität</string>
 	<string name="EPr_default_hideUntil_title">Standardmäßig verstecken bis</string>
@@ -464,6 +468,18 @@
 	<string name="widget_hide_checkboxes">Kontrollkästchen ausblenden</string>
 	<string name="widget_hide_header">Kopfzeile ausblenden</string>
 	<string name="widget_transparent_background">Transparenter Hintergrund</string>
+	<string name="notifications">Benachrichtigungen</string>
+	<string name="silent">Ton Aus</string>
+	<string name="sound">Ton</string>
+	<string name="vibrate">Vibrieren</string>
+	<string name="quiet_hours">Ruhezeiten</string>
+	<string name="attachment_directory">Anhängeordner</string>
+	<string name="debug_logging">Debug Logging</string>
+	<string name="miscellaneous">Verschiedenes</string>
+	<string name="synchronization">Synchronisierung</string>
+	<string name="enabled">Aktiviert</string>
+	<string name="font_size">Schriftgröße</string>
+	<string name="customize_edit_screen">Änderungsbildschirm anpassen</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>deaktivieren</item>
 		<item>alle 15 Minuten</item>
