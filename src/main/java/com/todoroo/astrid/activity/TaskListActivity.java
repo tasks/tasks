@@ -8,7 +8,6 @@ package com.todoroo.astrid.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -461,9 +460,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 if (!preferences.useTabletLayout()) {
                     AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_left_in, R.anim.slide_left_out);
                 }
-                return true;
-            case R.id.menu_support:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://abaker.github.io/tasks/")));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

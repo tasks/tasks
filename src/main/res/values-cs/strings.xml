@@ -430,7 +430,6 @@
 	<string name="widget_mini">Úkoly</string>
 	<string name="EPr_use_dark_theme">Tmavé téma</string>
 	<string name="delete_task">Smazat úkol</string>
-	<string name="TLA_menu_support">Podpora</string>
 	<string name="voice_command_added_task">Přidán úkol</string>
 	<string name="external_storage_unavailable">Není přístup k externí databázi</string>
 	<plurals name="Ntasks">

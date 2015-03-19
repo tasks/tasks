@@ -250,7 +250,6 @@
 	<string name="TEA_timer_comment_started">inici d\'aquesta tasca:</string>
 	<string name="TEA_timer_comment_stopped">finalització d\'aquesta tasca:</string>
 	<string name="delete_task">Eliminar tasca</string>
-	<string name="TLA_menu_support">Assistència</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 tasca</item>
 		<item quantity="other">%d tasques</item>

@@ -31,8 +31,4 @@
         android:id="@+id/menu_new_filter"
         android:title="@string/FLA_new_filter"
         tasks:showAsAction="never" />
-    <item
-        android:id="@+id/menu_support"
-        android:title="@string/TLA_menu_support"
-        tasks:showAsAction="never" />
 </menu>

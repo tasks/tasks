@@ -448,7 +448,6 @@
 	<string name="widget_mini">タスク</string>
 	<string name="EPr_use_dark_theme">ダークテーマ</string>
 	<string name="delete_task">タスクを削除</string>
-	<string name="TLA_menu_support">サポート</string>
 	<string name="voice_command_added_task">追加されたタスク</string>
 	<string name="external_storage_unavailable">外部メモリーにアクセスできません</string>
 	<string name="navigation_drawer_open">ナビゲーションドロワーを開く</string>

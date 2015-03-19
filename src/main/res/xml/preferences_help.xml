@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference android:title="@string/source_code">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://github.com/abaker/tasks" />
+    </Preference>
+
+    <Preference android:title="@string/translations">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://github.com/abaker/tasks/wiki/Translations" />
+    </Preference>
+
+    <Preference android:title="@string/report_an_issue">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://github.com/abaker/tasks/issues" />
+    </Preference>
+
+    <Preference
+        android:key="@string/rate_tasks"
+        android:title="@string/rate_tasks">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="market://details?id=org.tasks" />
+    </Preference>
+
+    <Preference
+        android:key="@string/contact_developer"
+        android:title="@string/contact_developer" />
+
+</PreferenceScreen>

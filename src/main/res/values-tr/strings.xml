@@ -398,7 +398,6 @@
 	<string name="EPr_voiceInputEnabled_title">Ses Girişi</string>
 	<string name="EPr_voiceRemindersEnabled_title">Sesli Hatırlatmalar</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks görev isimlerini görev hatırlatmaları sırasında söyleyecek</string>
-	<string name="TLA_menu_support">Destek</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 görev</item>
 		<item quantity="other">%d görev</item>

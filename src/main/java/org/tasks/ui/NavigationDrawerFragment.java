@@ -29,7 +29,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.tasks.preferences.BasicPreferences;
 import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.FilterAdapter;
@@ -44,6 +43,8 @@ import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingFragment;
+import org.tasks.preferences.BasicPreferences;
+import org.tasks.preferences.HelpAndFeedbackActivity;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
@@ -135,8 +136,13 @@ public class NavigationDrawerFragment extends InjectingFragment {
         layout.findViewById(R.id.settings_row).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), BasicPreferences.class);
-                startActivityForResult(intent, ACTIVITY_SETTINGS);
+                startActivityForResult(new Intent(getActivity(), BasicPreferences.class), ACTIVITY_SETTINGS);
+            }
+        });
+        layout.findViewById(R.id.help_row).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), HelpAndFeedbackActivity.class));
             }
         });
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);

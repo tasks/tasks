@@ -440,7 +440,6 @@
 	<string name="widget_mini">Tareas</string>
 	<string name="EPr_use_dark_theme">Estilo oscuro</string>
 	<string name="delete_task">Eliminar tarea</string>
-	<string name="TLA_menu_support">Soporte</string>
 	<string name="voice_command_added_task">Tarea agregada</string>
 	<string name="external_storage_unavailable">Almacenamiento externo inaccesible</string>
 	<plurals name="Ntasks">

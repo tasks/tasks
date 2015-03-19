@@ -436,7 +436,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">אסטריד תאמר את שם המשימה כחלק מהתזכורת</string>
 	<string name="widget_mini">משימות</string>
 	<string name="delete_task">מחק משימה</string>
-	<string name="TLA_menu_support">תמיכה</string>
 	<plurals name="Ntasks">
 		<item quantity="one">משימה אחת</item>
 		<item quantity="other">%d משימות</item>

@@ -441,7 +441,6 @@
 	<string name="widget_mini">Taken</string>
 	<string name="EPr_use_dark_theme">Donker thema</string>
 	<string name="delete_task">Verwijder taak</string>
-	<string name="TLA_menu_support">Ondersteuning</string>
 	<string name="voice_command_added_task">Toegevoegde taak</string>
 	<string name="external_storage_unavailable">Geen toegang tot externe opslag</string>
 	<plurals name="Ntasks">

@@ -53,7 +53,6 @@ public class DeviceInfo {
         try {
             return Joiner.on("\n").join(asList(
                     "",
-                    "",
                     "----------",
                     "Tasks: " + BuildConfig.VERSION_NAME + " (build " + BuildConfig.VERSION_CODE + ")",
                     "Android: " + Build.VERSION.RELEASE,
@@ -61,7 +60,6 @@ public class DeviceInfo {
                     "Product: " + Build.PRODUCT + " (" + Build.DEVICE + ")",
                     "Kernel: " + System.getProperty("os.version") + " (" + Build.VERSION.INCREMENTAL + ")",
                     "----------",
-                    "",
                     ""
             ));
         } catch(Exception e) {

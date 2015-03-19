@@ -439,7 +439,6 @@
 	<string name="widget_mini">Εργασίες</string>
 	<string name="EPr_use_dark_theme">Σκοτεινό θέμα</string>
 	<string name="delete_task">Διαγραφή καθήκοντος</string>
-	<string name="TLA_menu_support">Υποστήριξη</string>
 	<string name="voice_command_added_task">Η εργασία προστέθηκε</string>
 	<string name="external_storage_unavailable">Δεν είναι δυνατή η πρόσβαση σε εξωτερικά μέσα αποθήκευσης</string>
 	<string name="navigation_drawer_open">Άνοιγμα συρταριού πλοήγησης</string>

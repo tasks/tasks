@@ -376,7 +376,6 @@
 	<string name="EPr_voiceInputEnabled_title">语音输入</string>
 	<string name="EPr_voiceRemindersEnabled_title">语音提醒</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks在任务提醒时会以语音说出任务名称</string>
-	<string name="TLA_menu_support">支持</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 个任务</item>
 		<item quantity="other">%d 个任务</item>

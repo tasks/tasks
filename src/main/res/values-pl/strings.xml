@@ -444,7 +444,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="widget_mini">Zadania</string>
 	<string name="EPr_use_dark_theme">Ciemny motyw</string>
 	<string name="delete_task">Usuń zadanie</string>
-	<string name="TLA_menu_support">Wsparcie</string>
 	<string name="voice_command_added_task">Dodane zadanie</string>
 	<string name="external_storage_unavailable">Brak dostępu do pamięci zewnętrznej</string>
 	<plurals name="Ntasks">

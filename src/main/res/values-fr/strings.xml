@@ -438,7 +438,6 @@
 	<string name="widget_mini">Tâches</string>
 	<string name="EPr_use_dark_theme">Thème foncé</string>
 	<string name="delete_task">Supprimer la tâche ? </string>
-	<string name="TLA_menu_support">Assistance</string>
 	<string name="voice_command_added_task">Tâche ajoutée</string>
 	<string name="external_storage_unavailable">Impossible d\'accéder au stockage externe</string>
 	<string name="navigation_drawer_open">Ouvrir le panneau de navigation</string>

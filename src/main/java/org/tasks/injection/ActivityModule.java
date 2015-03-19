@@ -5,7 +5,6 @@ import android.app.Activity;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.actfm.TagSettingsActivityTablet;
 import com.todoroo.astrid.activity.BeastModePreferences;
-import org.tasks.preferences.BasicPreferences;
 import com.todoroo.astrid.activity.FilterShortcutActivity;
 import com.todoroo.astrid.activity.ShareLinkActivity;
 import com.todoroo.astrid.activity.TaskEditActivity;
@@ -33,6 +32,8 @@ import org.tasks.activities.DeleteCompletedEventsActivity;
 import org.tasks.activities.ExportTaskActivity;
 import org.tasks.activities.ImportTaskActivity;
 import org.tasks.activities.PurgeDeletedActivity;
+import org.tasks.preferences.BasicPreferences;
+import org.tasks.preferences.HelpAndFeedbackActivity;
 import org.tasks.preferences.MiscellaneousPreferences;
 import org.tasks.reminders.SnoozeActivity;
 import org.tasks.voice.VoiceCommandActivity;
@@ -76,7 +77,8 @@ import dagger.Provides;
                 DeleteCompletedEventsActivity.class,
                 DeleteAllCalendarEventsActivity.class,
                 ClearGtaskDataActivity.class,
-                ReminderPreferences.class
+                ReminderPreferences.class,
+                HelpAndFeedbackActivity.class
         })
 public class ActivityModule {
 

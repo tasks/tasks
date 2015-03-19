@@ -446,7 +446,6 @@
 	<string name="widget_mini">Задачи</string>
 	<string name="EPr_use_dark_theme">Тъмна тема</string>
 	<string name="delete_task">Изтрий задача</string>
-	<string name="TLA_menu_support">Поддръжка</string>
 	<string name="voice_command_added_task">Добавена задача</string>
 	<string name="external_storage_unavailable">Не може да достъпвате до външната памет</string>
 	<string name="navigation_drawer_open">Отвори панела за навигация</string>
