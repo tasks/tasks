@@ -139,11 +139,9 @@
 	<string name="EPr_title">Tasks: Paràmetres</string>
 	<string name="EPr_deactivated">desactivat</string>
 	<string name="EPr_appearance_header">Aparença</string>
-	<string name="EPr_fontSize_title">Mida de la llista de tasques</string>
 	<string name="EPr_showSmartConfirmation_title">Mostra la confirmació per als recordatoris intel·ligents</string>
 	<string name="EPr_beastMode_reset">Restableix els valors predeterminats</string>
 	<string name="EPr_fullTask_title">Mostra el títol sencer de la tasca</string>
-	<string name="EPr_fullTask_desc_enabled">Es mostrarà el títol sencer de la tasca</string>
 	<string name="EPr_manage_delete_completed_message">Segur que voleu suprimir totes les tasques completades?</string>
 	<string name="EPr_manage_delete_completed_status">S\'han suprimit %d tasques</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Segur que voleu suprimir els esdeveniments de calendari de les tasques completades?</string>

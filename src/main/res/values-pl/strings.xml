@@ -141,7 +141,6 @@
 	<string name="MCA_ignore_this">Zignoruj tylko to połączenie.</string>
 	<string name="MCA_missed_calls_pref_title">Obszar nieodebranych połączeń</string>
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks będzie powiadamiał Cię o nieodebranych połączeniach i przypomni Ci o oddzwonieniu.</string>
-	<string name="MCA_missed_calls_pref_desc_disabled">Tasks nie będzie Cię informował o nieodebranych połączeniach.</string>
 	<string name="MCA_task_title_name">Oddzwoń do %1$s o %2$s</string>
 	<string name="MCA_task_title_no_name">Oddzwoń do %s</string>
 	<string name="MCA_schedule_dialog_title">Oddzwoń do %s za...</string>
@@ -165,7 +164,6 @@
 	<string name="CRA_many_attendees">%1$s, %2$s i %3$d innych uczestniczy.</string>
 	<string name="CRA_invitation_prompt">Czy chcesz ich zaprosić?</string>
 	<string name="CRA_calendar_reminders_pref_title">Asystent kalendarza</string>
-	<string name="CRA_calendar_reminders_pref_desc_disabled">Tasks nie będzie ci przypominał o nadchodzących wydarzeniach w kalendarzu</string>
 	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks będzie przypominał ci o nadchodzących wydarzeniach w kalendarzu oraz będzie nakłaniał do przygotowania się do nich</string>
 	<string name="CRA_share_list_title">Udostępnić listę?</string>
 	<string name="CRA_invite_attendees">Zaproś uczestników</string>
@@ -176,19 +174,15 @@
 	<string name="EPr_title">Tasks: Właściwości</string>
 	<string name="EPr_deactivated">niekatywny</string>
 	<string name="EPr_appearance_header">Wygląd</string>
-	<string name="EPr_fontSize_title">Rozmiar listy zadań</string>
 	<string name="EPr_filters_to_show_title">Pokazywane filtry</string>
 	<string name="EPr_showSmartConfirmation_title">Pokaż potwierdzenie dla inteligentnych powiadomień</string>
 	<string name="EPr_edit_screen_options">Edytuj ustawienia ekranu</string>
-	<string name="EPr_beastMode_title">Edytuj kolejność</string>
 	<string name="EPr_time_increment">Krok co 5-minut</string>
 	<string name="EPr_show_timer_shortcut">Pokaż skrót minutnika</string>
 	<string name="EPr_beastMode_desc">Dostosuj układ strony edycji zadania</string>
 	<string name="EPr_beastMode_reset">Przywróć domyślne</string>
 	<string name="EPr_beastMode_hint">Dostosuj swój ekran edycji zadania przez przeciąganie za uchwyt po prawej w każdym wierszu</string>
 	<string name="EPr_fullTask_title">Pokaż pełną nazwę zadania</string>
-	<string name="EPr_fullTask_desc_enabled">Pełna nazwa zadania będzie wyświetlana</string>
-	<string name="EPr_fullTask_desc_disabled">Pierwsze dwie linie nazwy zadania będą wyświetlane</string>
 	<string name="EPr_show_task_edit_comments">Pokaż komentarze w edycji zadania</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Czas zdarzenia kalendarza</string>
 	<string name="EPr_cal_end_at_due_time">Zakończ zadania kalendarza w ustalonym czasie</string>
@@ -367,7 +361,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="rmd_EPr_persistent_desc_false">Powiadomienia mogą zostać wyczyszczone przyciskiem \"Wyczyść wszystkie\"</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Maksymalna głośność dla wielu dzwonków przypomnień</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks ustawi maksymalną głośność dla wielu dzwonków przypomnień</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks będzie korzystał z systemowego ustawienia głośności</string>
 	<string name="rmd_EPr_defaultRemind_title">Losowe przypomnienia</string>
 	<string-array name="EPr_reminder_random">
 		<item>wyłączone</item>
@@ -448,7 +441,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="EPr_voiceInputEnabled_title">Polecenia głosowe</string>
 	<string name="EPr_voiceRemindersEnabled_title">Przypomnienia głosowe</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks będzie mówił nazwę zadania podczas przypomnienia</string>
-	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks będzie uruchamiał dzwonek podczas przypomnienia zadania</string>
 	<string name="widget_mini">Zadania</string>
 	<string name="EPr_use_dark_theme">Ciemny motyw</string>
 	<string name="delete_task">Usuń zadanie</string>

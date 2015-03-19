@@ -13,19 +13,17 @@
             android:entries="@array/EPr_font_size"
             android:entryValues="@array/EPr_font_size"
             android:key="@string/p_fontSize"
-            android:title="@string/EPr_fontSize_title" />
+            android:title="@string/font_size" />
 
         <com.todoroo.astrid.ui.MultilineCheckboxPreference
             android:defaultValue="false"
             android:key="@string/p_fullTaskTitle"
-            android:summaryOff="@string/EPr_fullTask_desc_disabled"
-            android:summaryOn="@string/EPr_fullTask_desc_enabled"
             android:title="@string/EPr_fullTask_title" />
 
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/EPr_edit_screen_options">
-        <Preference android:title="@string/EPr_beastMode_title">
+        <Preference android:title="@string/customize_edit_screen">
             <intent
                 android:targetClass="com.todoroo.astrid.activity.BeastModePreferences"
                 android:targetPackage="org.tasks" />

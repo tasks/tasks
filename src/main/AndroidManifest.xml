@@ -272,7 +272,7 @@
 
         <activity
             android:name="com.todoroo.astrid.activity.BeastModePreferences"
-            android:theme="@android:style/Theme"/>
+            android:theme="@style/Tasks"/>
 
         <activity
             android:name="com.todoroo.astrid.calls.MissedCallActivity"

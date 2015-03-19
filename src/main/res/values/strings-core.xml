@@ -317,7 +317,6 @@
 
   <!-- slide 49c: Missed call: preference description -->
   <string name="MCA_missed_calls_pref_desc_enabled">Tasks will notify you about missed calls and offer to remind you to call back</string>
-  <string name="MCA_missed_calls_pref_desc_disabled">Tasks will not notify you about missed calls</string>
 
   <!-- Missed call: task title with name (%1$s -> name, %2$s -> number)-->
   <string name="MCA_task_title_name">Call %1$s back at %2$s</string>
@@ -390,9 +389,6 @@
   <!-- Calendar reminder: preference title -->
   <string name="CRA_calendar_reminders_pref_title">Calendar assistant</string>
 
-  <!-- Calendar reminder: pref description disabled -->
-  <string name="CRA_calendar_reminders_pref_desc_disabled">Tasks will not remind you about upcoming calendar events</string>
-
   <!-- Calendar reminder: pref description enabled -->
   <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks will remind you about upcoming calendar events and prompt you to prepare for them</string>
   
@@ -422,9 +418,6 @@
   <!-- slide 30i: Preference Category: Appearance Title -->
   <string name="EPr_appearance_header">Appearance</string>
 
-  <!-- slide 34a: Preference: Task List Font Size Title -->
-  <string name="EPr_fontSize_title">Task list size</string>
-  
   <!-- Preference: Filters to show pref screen title -->
   <string name="EPr_filters_to_show_title">Filters to show</string>
   
@@ -433,10 +426,7 @@
   
   <!-- Edit screen preference category -->
   <string name="EPr_edit_screen_options">Edit screen options</string>
-  
-  <!-- slide 30e: Preference: Beast mode (auto-expand edit page) -->
-  <string name="EPr_beastMode_title">Edit screen order</string>
-  
+
   <string name="EPr_time_increment">5 minute increments</string>
   
   <string name="EPr_show_timer_shortcut">Show timer shortcut</string>
@@ -450,9 +440,6 @@
       
   <!-- slide 34b: Preferences: Wrap task titles to two lines -->
   <string name="EPr_fullTask_title">Show full task title</string>
-  <string name="EPr_fullTask_desc_enabled">Full task title will be shown</string>
-  <!-- slide 34h -->
-  <string name="EPr_fullTask_desc_disabled">First two lines of task title will be shown</string>
 
   <!-- Preference: task edit comments -->
   <string name="EPr_show_task_edit_comments">Show comments in task edit</string>

@@ -142,7 +142,6 @@
 	<string name="MCA_ignore_this">Negeer alleen deze oproep</string>
 	<string name="MCA_missed_calls_pref_title">Veld gemiste oproepen</string>
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks zal gemiste oproepen laten zien en een herinnering weergeven om terug te bellen</string>
-	<string name="MCA_missed_calls_pref_desc_disabled">Tasks zal gemiste oproepen niet laten zien</string>
 	<string name="MCA_task_title_name">Bel %1$s terug op %2$s</string>
 	<string name="MCA_task_title_no_name">Bel %s terug</string>
 	<string name="MCA_schedule_dialog_title">Bel %s terug over...</string>
@@ -166,7 +165,6 @@
 	<string name="CRA_many_attendees">%1$s, %2$s en %3$d anderen nemen deel</string>
 	<string name="CRA_invitation_prompt">Wil je hen uitnodigen?</string>
 	<string name="CRA_calendar_reminders_pref_title">Agenda assistent</string>
-	<string name="CRA_calendar_reminders_pref_desc_disabled">Tasks herinnert je niet aan aankomende agenda gebeurtenissen</string>
 	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks herinnert je aan aankomende agenda gebeurtenissen en fluistert je in je voor te bereiden</string>
 	<string name="CRA_share_list_title">De lijst delen?</string>
 	<string name="CRA_invite_attendees">Nodig aanwezigen uit</string>
@@ -177,19 +175,15 @@
 	<string name="EPr_title">Tasks: Instellingen</string>
 	<string name="EPr_deactivated">uitgeschakeld</string>
 	<string name="EPr_appearance_header">Uiterlijk</string>
-	<string name="EPr_fontSize_title">Taaklijst grootte</string>
 	<string name="EPr_filters_to_show_title">Te tonen filters</string>
 	<string name="EPr_showSmartConfirmation_title">Laat bevestiging zien voor slimme herinneringen</string>
 	<string name="EPr_edit_screen_options">Scherm opties bewerken</string>
-	<string name="EPr_beastMode_title">Scherm volgorde bewerken</string>
 	<string name="EPr_time_increment">stappen van 5 minuten</string>
 	<string name="EPr_show_timer_shortcut">Toon timer snelkoppeling</string>
 	<string name="EPr_beastMode_desc">Pas de layout van het Taak Wijzigingsscherm aan</string>
 	<string name="EPr_beastMode_reset">Standaardinstellingen herstellen</string>
 	<string name="EPr_beastMode_hint">Pas uw taak bewerken scherm aan door de linker handle van elke rij te verslepen</string>
 	<string name="EPr_fullTask_title">Laat volledige taak titel zien</string>
-	<string name="EPr_fullTask_desc_enabled">Volledige taak titel zal worden weergegeven</string>
-	<string name="EPr_fullTask_desc_disabled">Eerste twee lijnen van taak titel zullen worden weergegeven</string>
 	<string name="EPr_show_task_edit_comments">Toon opmerkingen in taak bewerken</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Agenda item tijd</string>
 	<string name="EPr_cal_end_at_due_time">Agenda item op tijd afronden</string>
@@ -365,7 +359,6 @@
 	<string name="rmd_EPr_persistent_desc_false">Herinneringen kunnen met de \"Alles wissen\" knop worden uitgezet</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Max. volume voor multiple-ring herinneringen</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks zal het volume voor multi-ring herinneringen maximaliseren</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks zal de systeem-instellingen voor het volume gebruiken</string>
 	<string name="rmd_EPr_defaultRemind_title">Willekeurige herinneringen</string>
 	<string-array name="EPr_reminder_random">
 		<item>uitgeschakeld</item>
@@ -445,7 +438,6 @@
 	<string name="EPr_voiceInputEnabled_title">Spraakinvoer</string>
 	<string name="EPr_voiceRemindersEnabled_title">Gesproken herinneringen</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Bij herinneringen zullen de taaknamen uitgesproken worden</string>
-	<string name="EPr_voiceRemindersEnabled_desc_disabled">Er wordt een geluid weergegeven bij herinneringen</string>
 	<string name="widget_mini">Taken</string>
 	<string name="EPr_use_dark_theme">Donker thema</string>
 	<string name="delete_task">Verwijder taak</string>

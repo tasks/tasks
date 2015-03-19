@@ -145,7 +145,6 @@
 	<string name="MCA_ignore_this">Игнорирай само това обаждане</string>
 	<string name="MCA_missed_calls_pref_title">Пропуснати обаждания</string>
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks ще ви уведомява за пропуснати повиквания и ще предлага да напомни да се обадите</string>
-	<string name="MCA_missed_calls_pref_desc_disabled">Tasks няма да ви уведомява за пропуснати повиквания</string>
 	<string name="MCA_task_title_name">Обади се на %1$s на %2$s</string>
 	<string name="MCA_task_title_no_name">Обади се на %s </string>
 	<string name="MCA_schedule_dialog_title">Обади се на %s в...</string>
@@ -169,7 +168,6 @@
 	<string name="CRA_many_attendees">%1$s, %2$s, и %3$d други присъстват.</string>
 	<string name="CRA_invitation_prompt">Искате ли да ги поканите?</string>
 	<string name="CRA_calendar_reminders_pref_title">Календар асистент</string>
-	<string name="CRA_calendar_reminders_pref_desc_disabled">Tasks няма да ви напомня за предстоящите събития в календара</string>
 	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks ще ви напомня за предстоящи събития в календара и ще ви подканва да се подготвите за тях</string>
 	<string name="CRA_share_list_title">Споделяне на списъка?</string>
 	<string name="CRA_invite_attendees">Поканете участниците</string>
@@ -180,19 +178,15 @@
 	<string name="EPr_title">Настройки</string>
 	<string name="EPr_deactivated">деактивирано</string>
 	<string name="EPr_appearance_header">Изглед</string>
-	<string name="EPr_fontSize_title">Размер на списъка със задачи</string>
 	<string name="EPr_filters_to_show_title">Филтри за показване</string>
 	<string name="EPr_showSmartConfirmation_title">Покажи потвърждение за умни напомняния</string>
 	<string name="EPr_edit_screen_options">Редактиране на опциите екрана</string>
-	<string name="EPr_beastMode_title">Редактирай подредбата на екрана</string>
 	<string name="EPr_time_increment">5 минути нарастване</string>
 	<string name="EPr_show_timer_shortcut">Покажи прекия път към таймера</string>
 	<string name="EPr_beastMode_desc">Настройване изгледа на екрана за редактиране на задача</string>
 	<string name="EPr_beastMode_reset">Възстанови по подразбиране</string>
 	<string name="EPr_beastMode_hint">Настройване изгледа на екрана за редактиране на задача чрез изтегляне на елементите във всеки ред</string>
 	<string name="EPr_fullTask_title">Покажи пълното име на задачата</string>
-	<string name="EPr_fullTask_desc_enabled">Ще бъде показвано пълно име на задачата</string>
-	<string name="EPr_fullTask_desc_disabled">Ще бъдат показвани първите два реда от имета на задачата</string>
 	<string name="EPr_show_task_edit_comments">Покажи коментари при редакция на задача</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Време на събитие в календара</string>
 	<string name="EPr_cal_end_at_due_time">Приключване на събития в календара на крайния срок</string>
@@ -369,7 +363,6 @@
 	<string name="rmd_EPr_persistent_desc_false">Уведомленията могат да се изчистят с бутона \"Изчисти всичко\"</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Максимизирай нивото на звука при няколкократни напомняния</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks ще максимизира нивото на звука при няколкократни напомняния</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks ще използва системните настройки за звука</string>
 	<string name="rmd_EPr_defaultRemind_title">Случайни напомняния</string>
 	<string-array name="EPr_reminder_random">
 		<item>изключено</item>
@@ -450,7 +443,6 @@
 	<string name="EPr_voiceInputEnabled_title">Гласово въвеждане</string>
 	<string name="EPr_voiceRemindersEnabled_title">Гласови напомняния</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks ще изтоваря имената на задачите по време на напомняния за задача</string>
-	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks ще изпълнява мелодия по време на напомняния за задача </string>
 	<string name="widget_mini">Задачи</string>
 	<string name="EPr_use_dark_theme">Тъмна тема</string>
 	<string name="delete_task">Изтрий задача</string>

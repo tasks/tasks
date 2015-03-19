@@ -141,7 +141,6 @@
 	<string name="MCA_ignore_this">Ignorar esta chamada apenas</string>
 	<string name="MCA_missed_calls_pref_title">Campo chamadas perdidas</string>
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks notificará sobre chamadas perdidas e oferecerá para lhe lembrar para ligar de volta</string>
-	<string name="MCA_missed_calls_pref_desc_disabled">Tasks não vai notificá-lo sobre chamadas perdidas</string>
 	<string name="MCA_task_title_name">Retornar ligação de %1$s às %2$s</string>
 	<string name="MCA_task_title_no_name">Retornar ligação de %s</string>
 	<string name="MCA_schedule_dialog_title">Retornar ligação de %s em ...</string>
@@ -165,7 +164,6 @@
 	<string name="CRA_many_attendees">%1$s, %2$s, e %3$d outros estão participando.</string>
 	<string name="CRA_invitation_prompt">Gostaria de convidá-los?</string>
 	<string name="CRA_calendar_reminders_pref_title">Assistente de calendário</string>
-	<string name="CRA_calendar_reminders_pref_desc_disabled">O Astrit não voltará a lembrá-lo sobre eventos futuros do calendário.</string>
 	<string name="CRA_calendar_reminders_pref_desc_enabled">O Tasks irá lembrá-lo de futuros eventos do calendário e pedir-lhe para se preparar para eles.</string>
 	<string name="CRA_share_list_title">Compartilhar esta lista?</string>
 	<string name="CRA_invite_attendees">Convidar participantes</string>
@@ -176,19 +174,15 @@
 	<string name="EPr_title">Tasks: Configurações</string>
 	<string name="EPr_deactivated">desativado</string>
 	<string name="EPr_appearance_header">Aparência</string>
-	<string name="EPr_fontSize_title">Tamanho do texto</string>
 	<string name="EPr_filters_to_show_title">Filtros a mostrar</string>
 	<string name="EPr_showSmartConfirmation_title">Mostrar confirmação para lembretes espertos</string>
 	<string name="EPr_edit_screen_options">Editar opções da tela</string>
-	<string name="EPr_beastMode_title">Editar opções de tela</string>
 	<string name="EPr_time_increment">Incrementos de 5 minutos</string>
 	<string name="EPr_show_timer_shortcut">Exibir atalho para temporizador</string>
 	<string name="EPr_beastMode_desc">Personalize o layout da tela de edição</string>
 	<string name="EPr_beastMode_reset">Restaurar valores padrão</string>
 	<string name="EPr_beastMode_hint">Personalize suas tarefas na tela de edição arrastando-as para a esquerda</string>
 	<string name="EPr_fullTask_title">Exibir título completo</string>
-	<string name="EPr_fullTask_desc_enabled">O título completo será exibido</string>
-	<string name="EPr_fullTask_desc_disabled">Somente as primeiras duas linhas serão exibidas</string>
 	<string name="EPr_show_task_edit_comments">Mostrar comentários na edição de tarefas</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Hora do evento</string>
 	<string name="EPr_cal_end_at_due_time">Eventos da agenda terminou no devido tempo</string>
@@ -361,7 +355,6 @@
 	<string name="rmd_EPr_persistent_desc_false">Notificações podem ser eliminadas com o botão \"Eliminar Todas\"</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Volume máximo para lembretes com múltiplos sons</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks irá aumentar o volume para alertas com múltiplos sons</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks usará os ajustes de sistema para o volume</string>
 	<string name="rmd_EPr_defaultRemind_title">Lembretes aleatórios</string>
 	<string-array name="EPr_reminder_random">
 		<item>desabilitado</item>
@@ -442,7 +435,6 @@
 	<string name="EPr_voiceInputEnabled_title">Entrada de voz</string>
 	<string name="EPr_voiceRemindersEnabled_title">Lembretes de voz</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks irá falar o nome das tarefas durante os lembretes</string>
-	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks irá tocar um som durante o lembrete</string>
 	<string name="widget_mini">Tarefas</string>
 	<string name="EPr_use_dark_theme">Tema escuro</string>
 	<string name="delete_task">Excluir tarefa</string>

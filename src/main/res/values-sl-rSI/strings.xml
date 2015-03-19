@@ -145,7 +145,6 @@
 	<string name="MCA_ignore_this">Ignoriraj samo ta klic</string>
 	<string name="MCA_missed_calls_pref_title">Zabeleži zgrešene klice</string>
 	<string name="MCA_missed_calls_pref_desc_enabled">Aplikacija Opravki vas bo obvestila o zgrešenih klicih in ponudila opomnik za vrnitev klicev</string>
-	<string name="MCA_missed_calls_pref_desc_disabled">Aplikacija Opravki vas ne bo obveščala o zgrešenih klicih</string>
 	<string name="MCA_task_title_name">%1$s pokliči nazaj ob %2$s</string>
 	<string name="MCA_task_title_no_name">Vrni klic %s </string>
 	<string name="MCA_schedule_dialog_title">Pokliči nazaj %s čez...</string>
@@ -169,7 +168,6 @@
 	<string name="CRA_many_attendees">%1$s, %2$s, in še %3$d se udeležujejo.</string>
 	<string name="CRA_invitation_prompt">Naj povabim?</string>
 	<string name="CRA_calendar_reminders_pref_title">Pomočnik za koledar</string>
-	<string name="CRA_calendar_reminders_pref_desc_disabled">Aplikacija Opravki vas ne bo opominjala o prihajajočih dogodkih na koledarju</string>
 	<string name="CRA_calendar_reminders_pref_desc_enabled">Aplikacija Opravki vas bo opominjala o prihajajočih dogodkih na koledarju in vas pozivala, da se nanje pripravite</string>
 	<string name="CRA_share_list_title">Naj se ta seznam deli s kom?</string>
 	<string name="CRA_invite_attendees">Povabi udeležence</string>
@@ -180,19 +178,15 @@
 	<string name="EPr_title">Nastavitve</string>
 	<string name="EPr_deactivated">deaktivirano</string>
 	<string name="EPr_appearance_header">Izgled</string>
-	<string name="EPr_fontSize_title">Velikost seznama opravkov</string>
 	<string name="EPr_filters_to_show_title">Filtri za prikaz</string>
 	<string name="EPr_showSmartConfirmation_title">Pokaži potrditev za pametne opomnike</string>
 	<string name="EPr_edit_screen_options">Uredi možnosti zaslona</string>
-	<string name="EPr_beastMode_title">Uredi vrstni red zaslonov</string>
 	<string name="EPr_time_increment">5-minutni podaljški</string>
 	<string name="EPr_show_timer_shortcut">Prikaži bližnjico za štoparico</string>
 	<string name="EPr_beastMode_desc">Po meri postavi stran za urejevanje opravkov </string>
 	<string name="EPr_beastMode_reset">Povrni privzeto nastavitev</string>
 	<string name="EPr_beastMode_hint">Stran za urejanje opravkov se postavi po meri s potegom leve ročke posamezne vrstice</string>
 	<string name="EPr_fullTask_title">Prikaži celoten naziv opravka</string>
-	<string name="EPr_fullTask_desc_enabled">Celoten naziv opravka bo prikazan</string>
-	<string name="EPr_fullTask_desc_disabled">Prikazani bosta prvi dve vrstici naziva opravka</string>
 	<string name="EPr_show_task_edit_comments">Prikaži opombe pri urejanju opravkov</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Čas dogodka iz koledarja</string>
 	<string name="EPr_cal_end_at_due_time">Končaj dogodke na koledarju ob dospelosti</string>
@@ -368,7 +362,6 @@
 	<string name="rmd_EPr_persistent_desc_false">Obvestila je mogoče zbrisati z gumbom \"Briši vse\"</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Največja jakost zvoka opomnikov z večkratnim zvonenjem</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Aplikacija Opravki bo izvajala opomnike z večkratnim zvonenjem pri polni jakosti zvoka.</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_false">Aplikacija Opravki bo uporabljala sistemske nastavitve jakosti zvoka</string>
 	<string name="rmd_EPr_defaultRemind_title">Naključni opomniki</string>
 	<string-array name="EPr_reminder_random">
 		<item>onemogočen</item>
@@ -449,7 +442,6 @@
 	<string name="EPr_voiceInputEnabled_title">Vnos glasu</string>
 	<string name="EPr_voiceRemindersEnabled_title">Glasovni opomniki</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Aplikacija Opravki bo med opominjanjem glede opravkov izgovarjala nazive opravkov</string>
-	<string name="EPr_voiceRemindersEnabled_desc_disabled">Aplikacija Opravki bo med opominjanjem glede opravkov zvonila.</string>
 	<string name="widget_mini">Opravki</string>
 	<string name="EPr_use_dark_theme">Temni videz</string>
 	<string name="delete_task">Zbriši opravek</string>

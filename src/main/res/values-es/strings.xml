@@ -142,7 +142,6 @@
 	<string name="MCA_ignore_this">Ignorar solamente esta llamada</string>
 	<string name="MCA_missed_calls_pref_title">Campo de llamadas perdidas</string>
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks le notificará de las llamadas perdidas y le recordará que devuelva la llamada.</string>
-	<string name="MCA_missed_calls_pref_desc_disabled">Tasks no te notificara acerca de las llamadas perdidas</string>
 	<string name="MCA_task_title_name">Devolver la llamada a %1$s al %2$s</string>
 	<string name="MCA_task_title_no_name">Devolver la llamada a %s</string>
 	<string name="MCA_schedule_dialog_title">Devolver la llamada a %s en...</string>
@@ -166,7 +165,6 @@
 	<string name="CRA_many_attendees">%1$s, %2$s y %3$d más asistirán.</string>
 	<string name="CRA_invitation_prompt">¿Quiere invitarlos?</string>
 	<string name="CRA_calendar_reminders_pref_title">Asistente de calendario</string>
-	<string name="CRA_calendar_reminders_pref_desc_disabled">Tasks no le volverá a recordar los próximos eventos de calendario</string>
 	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks le recordará los próximos eventos de calendario y le pedirá que se prepare para ellos</string>
 	<string name="CRA_share_list_title">¿Compartir la lista?</string>
 	<string name="CRA_invite_attendees">Invitar asistentes</string>
@@ -177,19 +175,15 @@
 	<string name="EPr_title">Tasks: Preferencias</string>
 	<string name="EPr_deactivated">desactivada</string>
 	<string name="EPr_appearance_header">Apariencia</string>
-	<string name="EPr_fontSize_title">Tamaño de la lista de tareas</string>
 	<string name="EPr_filters_to_show_title">Filtros a mostrar</string>
 	<string name="EPr_showSmartConfirmation_title">Mostrar confirmación para recordatorios inteligentes</string>
 	<string name="EPr_edit_screen_options">Editar opciones de pantalla</string>
-	<string name="EPr_beastMode_title">Editar el orden de pantalla</string>
 	<string name="EPr_time_increment">Incrementos de 5 minutos</string>
 	<string name="EPr_show_timer_shortcut">Mostrar atajo del temporizador</string>
 	<string name="EPr_beastMode_desc">Personalizar la disposición de la pantalla de edición de tareas</string>
 	<string name="EPr_beastMode_reset">Restablecer valores predeterminados</string>
 	<string name="EPr_beastMode_hint">Personalice su pantalla de edición de tareas arrastrando el asa izquierda en cada fila</string>
 	<string name="EPr_fullTask_title">Mostrar completo el título de la tarea</string>
-	<string name="EPr_fullTask_desc_enabled">Se mostrará completo el título de la tarea</string>
-	<string name="EPr_fullTask_desc_disabled">Las primeras dos lineas de las tareas serán mostradas</string>
 	<string name="EPr_show_task_edit_comments">Mostrar comentarios durante la edición de tareas</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Momento del evento en calendario</string>
 	<string name="EPr_cal_end_at_due_time">Finalizar los eventos del calendario en su fecha de vencimiento</string>
@@ -363,7 +357,6 @@
 	<string name="rmd_EPr_persistent_desc_false">Las notificaciones se pueden borrar con el botón \"Borrar Todo\"</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Máximo volumen para recordatorios con tonos múltiples</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks fijará el volumen máximo para avisos con tonos múltiples</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks usará la configuración del sistema para el volumen</string>
 	<string name="rmd_EPr_defaultRemind_title">Recordatorios aleatorios</string>
 	<string-array name="EPr_reminder_random">
 		<item>deshabilitado</item>
@@ -444,7 +437,6 @@
 	<string name="EPr_voiceInputEnabled_title">Ingreso por voz</string>
 	<string name="EPr_voiceRemindersEnabled_title">Avisos de voz</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks dirá los nombres de las tareas durante los avisos</string>
-	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks reproducirá un tono durante los recordatorios</string>
 	<string name="widget_mini">Tareas</string>
 	<string name="EPr_use_dark_theme">Estilo oscuro</string>
 	<string name="delete_task">Eliminar tarea</string>

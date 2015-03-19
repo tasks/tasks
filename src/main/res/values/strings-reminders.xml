@@ -96,8 +96,6 @@
   <string name="rmd_EPr_multiple_maxvolume_title">Max volume for multiple-ring reminders</string>
   <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (true) -->
   <string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks will max out the volume for multiple-ring reminders</string>
-  <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (false) -->
-  <string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks will use the system setting for the volume</string>
 
   <!-- slide 44g: Reminder Preference: Default Reminders Title -->
   <string name="rmd_EPr_defaultRemind_title">Random reminders</string>

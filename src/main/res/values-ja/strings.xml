@@ -142,7 +142,6 @@
 	<string name="MCA_ignore_this">この呼び出しのみ無視する</string>
 	<string name="MCA_missed_calls_pref_title">応答しなかった呼び出しの項目</string>
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks は応答しなかった呼び出しを通知して折り返し連絡するようにリマインドします</string>
-	<string name="MCA_missed_calls_pref_desc_disabled">Tasks は応答しなかった呼び出しを通知しません</string>
 	<string name="MCA_task_title_name">%1$s に %2$s 折り返し連絡</string>
 	<string name="MCA_task_title_no_name">%s に折り返し連絡</string>
 	<string name="MCA_schedule_dialog_title">%s に折り返し連絡...</string>
@@ -166,7 +165,6 @@
 	<string name="CRA_many_attendees">%1$s, %2$s, および %3$d その他が参加しています.</string>
 	<string name="CRA_invitation_prompt">招待しますか?</string>
 	<string name="CRA_calendar_reminders_pref_title">カレンダーアシスタント</string>
-	<string name="CRA_calendar_reminders_pref_desc_disabled">Tasks は近づいているカレンダーイベントを通知しません</string>
 	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks は近づいているカレンダーイベントを通知して準備するように促します</string>
 	<string name="CRA_share_list_title">リストを共有しますか?</string>
 	<string name="CRA_invite_attendees">参加者を招待</string>
@@ -177,19 +175,15 @@
 	<string name="EPr_title">Tasks: 設定</string>
 	<string name="EPr_deactivated">非アクティブ化されました</string>
 	<string name="EPr_appearance_header">外観</string>
-	<string name="EPr_fontSize_title">リストの文字サイズ</string>
 	<string name="EPr_filters_to_show_title">表示のフィルター</string>
 	<string name="EPr_showSmartConfirmation_title">スマート通知用の確認を表示</string>
 	<string name="EPr_edit_screen_options">編集画面オプション</string>
-	<string name="EPr_beastMode_title">編集画面順</string>
 	<string name="EPr_time_increment">5 分増加</string>
 	<string name="EPr_show_timer_shortcut">タイマーのショートカットを表示</string>
 	<string name="EPr_beastMode_desc">タスク編集画面のレイアウトをカスタマイズ</string>
 	<string name="EPr_beastMode_reset">デフォルトにリセット</string>
 	<string name="EPr_beastMode_hint">各行の左側をドラッグしてタスク編集画面をカスタマイズしてください</string>
 	<string name="EPr_fullTask_title">完全なタスク見出しを表示</string>
-	<string name="EPr_fullTask_desc_enabled">完全なタスク見出しが表示されます</string>
-	<string name="EPr_fullTask_desc_disabled">タスク見出しの最初の 2 行が表示されます</string>
 	<string name="EPr_show_task_edit_comments">タスク編集でコメントを表示</string>
 	<string name="EPr_cal_end_or_start_at_due_time">カレンダーイベント時間</string>
 	<string name="EPr_cal_end_at_due_time">カレンダーイベント終了時間</string>
@@ -367,7 +361,6 @@
 	<string name="rmd_EPr_persistent_desc_false">通知は\"通知を消去\"ボタンで消えます</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">複数の通知音の最大音量</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks は複数の通知音の最大音量です</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks はシステム設定の音量を使用します</string>
 	<string name="rmd_EPr_defaultRemind_title">ランダムな通知</string>
 	<string-array name="EPr_reminder_random">
 		<item>無効</item>
@@ -448,7 +441,6 @@
 	<string name="EPr_voiceInputEnabled_title">音声入力</string>
 	<string name="EPr_voiceRemindersEnabled_title">音声リマインダー</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks はタスクリマインダーでタスク名を話します</string>
-	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks はタスクリマインダーで通知音を鳴らします</string>
 	<string name="widget_mini">タスク</string>
 	<string name="EPr_use_dark_theme">ダークテーマ</string>
 	<string name="delete_task">タスクを削除</string>

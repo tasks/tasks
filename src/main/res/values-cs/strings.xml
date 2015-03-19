@@ -141,7 +141,6 @@
 	<string name="MCA_ignore_this">Ignorovat pouze tento</string>
 	<string name="MCA_missed_calls_pref_title">Hlídat zmeškané hovory</string>
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks Vás upozorní na zmeškané hovory a připomene Vám, abyste zavolal zpět</string>
-	<string name="MCA_missed_calls_pref_desc_disabled">Tasks Vás nebude upozorňovat na zmeškané hovory</string>
 	<string name="MCA_task_title_name">Zavolat %1$s zpět v %2$s</string>
 	<string name="MCA_task_title_no_name">Zavolat %s zpět</string>
 	<string name="MCA_schedule_dialog_title">Zavolat %s zpět...</string>
@@ -165,7 +164,6 @@
 	<string name="CRA_many_attendees">%1$s, %2$s, a %3$d další byly navštíveny.</string>
 	<string name="CRA_invitation_prompt">Chcete je pozvat?</string>
 	<string name="CRA_calendar_reminders_pref_title">Asistent pro kalendář</string>
-	<string name="CRA_calendar_reminders_pref_desc_disabled">Úkoly nebudou připomínány jako událost v kalendáři.</string>
 	<string name="CRA_calendar_reminders_pref_desc_enabled">Úkoly budou připomínány jako událost v kalendáři a budete vyzváni, na jejich plnění.</string>
 	<string name="CRA_share_list_title">Sdílet seznam?</string>
 	<string name="CRA_invite_attendees">Přizvat účastníky?</string>
@@ -175,15 +173,12 @@
 	<string name="EPr_title">Nastavení</string>
 	<string name="EPr_deactivated">deaktivován</string>
 	<string name="EPr_appearance_header">Vzhled</string>
-	<string name="EPr_fontSize_title">Velikost seznamu úkolů</string>
 	<string name="EPr_filters_to_show_title">Filtry pro zobrazení</string>
 	<string name="EPr_showSmartConfirmation_title">Zobrazovat potvrzení chytrých upomínek</string>
 	<string name="EPr_edit_screen_options">Možnosti úprav zobrazení</string>
 	<string name="EPr_time_increment">Posunout o 5 minut</string>
 	<string name="EPr_beastMode_reset">Obnovit výchozí hodnoty</string>
 	<string name="EPr_fullTask_title">Zobrazit úplný název úkolu</string>
-	<string name="EPr_fullTask_desc_enabled">Zobrazí se úplný název úkolu</string>
-	<string name="EPr_fullTask_desc_disabled">Zobrazí se první dva řádky názvu úkolu</string>
 	<string name="EPr_show_task_edit_comments">Zobrazit komentáře při úpravě úkolu</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Čas události v kalendáři</string>
 	<string name="EPr_cal_end_at_due_time">Událost v kalendáři končí splněním úkolu</string>
@@ -354,7 +349,6 @@
 	<string name="rmd_EPr_persistent_desc_true">Pro smazání musí být upozornění zobrazeno každé zvlášť</string>
 	<string name="rmd_EPr_persistent_desc_false">Upozornění mohou být smazána s tlačítkem \"Smazat vše\"</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Nejvyšší hlasitost pro opakované zvonění upomínky</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_false">Úkoly budou pro hlasitost používat nastavení systému</string>
 	<string name="rmd_EPr_defaultRemind_title">Náhodná upozornění</string>
 	<string-array name="EPr_reminder_random">
 		<item>zakázáno</item>

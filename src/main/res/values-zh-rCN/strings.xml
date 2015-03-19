@@ -128,7 +128,6 @@
 	<string name="MCA_ignore_this">只忽略这个来电</string>
 	<string name="MCA_missed_calls_pref_title">及时回复未接电话</string>
 	<string name="MCA_missed_calls_pref_desc_enabled">清单小助理会向您报告未接电话，还会提供回电的提醒</string>
-	<string name="MCA_missed_calls_pref_desc_disabled">清单小助理将不会向您报告未接电话</string>
 	<string name="MCA_task_title_name">请回电给 %1$s，电话是 %2$s</string>
 	<string name="MCA_task_title_no_name">请回电给 %s</string>
 	<string name="MCA_schedule_dialog_title">请给 %s 回个电话过去……</string>
@@ -144,13 +143,10 @@
 	<string name="EPr_title">清单小助理：设置</string>
 	<string name="EPr_deactivated">禁用</string>
 	<string name="EPr_appearance_header">外观</string>
-	<string name="EPr_fontSize_title">任务列表字体大小</string>
 	<string name="EPr_showSmartConfirmation_title">显示智能提示确认消息</string>
 	<string name="EPr_beastMode_desc">自定义设定菜单屏幕</string>
 	<string name="EPr_beastMode_reset">恢复默认值</string>
 	<string name="EPr_fullTask_title">显示完整的任务标题</string>
-	<string name="EPr_fullTask_desc_enabled">将显示完整的任务标题</string>
-	<string name="EPr_fullTask_desc_disabled">将显示任务标题的头两行</string>
 	<string name="EPr_manage_header">管理旧任务</string>
 	<string name="EPr_manage_delete_completed">删除已完成任务</string>
 	<string name="EPr_manage_delete_completed_message">您真的要删除所有已完成任务吗？</string>
@@ -304,7 +300,6 @@
 	<string name="rmd_EPr_persistent_desc_false">通知可经由点选“清除全部”清除</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">多重提醒最大音量</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">清单小助理将会以最大音量进行多重提醒</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_false">清单小助理使用系统音量设置</string>
 	<string name="rmd_EPr_defaultRemind_title">随机提醒</string>
 	<string-array name="EPr_reminder_random">
 		<item>停用</item>
@@ -381,7 +376,6 @@
 	<string name="EPr_voiceInputEnabled_title">语音输入</string>
 	<string name="EPr_voiceRemindersEnabled_title">语音提醒</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks在任务提醒时会以语音说出任务名称</string>
-	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks在任务提醒时将会播放铃声</string>
 	<string name="TLA_menu_support">支持</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 个任务</item>

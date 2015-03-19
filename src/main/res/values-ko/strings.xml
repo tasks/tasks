@@ -144,7 +144,6 @@
 	<string name="MCA_ignore_this">이 전화만 무시하기</string>
 	<string name="MCA_missed_calls_pref_title">부재중 전화 처리</string>
 	<string name="MCA_missed_calls_pref_desc_enabled">아스트리드는 부재중 전화를 알려주고 회신할 수 있도록 알려줍니다</string>
-	<string name="MCA_missed_calls_pref_desc_disabled">아스트리드는 부재중 전화에 대해서 알리지 않습니다</string>
 	<string name="MCA_task_title_name">%1$s 님에게 %2$s 에 다시 연락하세요</string>
 	<string name="MCA_task_title_no_name">%s 님에게 다시 연락하세요</string>
 	<string name="MCA_schedule_dialog_title">%s 님에게 다시 연락하세요...</string>
@@ -168,7 +167,6 @@
 	<string name="CRA_many_attendees">%1$s, %2$s, %3$d 님과 다른 분들이 참석 중입니다.</string>
 	<string name="CRA_invitation_prompt">초대할까요?</string>
 	<string name="CRA_calendar_reminders_pref_title">달력 도우미</string>
-	<string name="CRA_calendar_reminders_pref_desc_disabled">아스트리드는 다가오는 달력 이벤트를 알리지 않을 것입니다.</string>
 	<string name="CRA_calendar_reminders_pref_desc_enabled">아스트리드는 다가오는 달력 이벤트를 알리고 당신이 준비하도록 할 것입니다</string>
 	<string name="CRA_share_list_title">목록을 공유할까요?</string>
 	<string name="CRA_invite_attendees">참석자 초대하기</string>
@@ -179,19 +177,15 @@
 	<string name="EPr_title">설정</string>
 	<string name="EPr_deactivated">비활성화됨</string>
 	<string name="EPr_appearance_header">보기 설정</string>
-	<string name="EPr_fontSize_title">일정 목록 크기</string>
 	<string name="EPr_filters_to_show_title">표시할 필터</string>
 	<string name="EPr_showSmartConfirmation_title">스마트 알림시 확인하기</string>
 	<string name="EPr_edit_screen_options">화면 설정 편집하기</string>
-	<string name="EPr_beastMode_title">화면 정렬 순서 편집하기</string>
 	<string name="EPr_time_increment">5분 증가</string>
 	<string name="EPr_show_timer_shortcut">타이머 바로가기 보기</string>
 	<string name="EPr_beastMode_desc">일정 편집화면 레이아웃 설정하기</string>
 	<string name="EPr_beastMode_reset">기본값으로 초기화하기</string>
 	<string name="EPr_beastMode_hint">각 줄의 왼쪽 손잡이를 끌어서 일정 편집 화면을 사용자 정의하기</string>
 	<string name="EPr_fullTask_title">전체 일정 제목 보기</string>
-	<string name="EPr_fullTask_desc_enabled">전체 일정 제목을 표시합니다</string>
-	<string name="EPr_fullTask_desc_disabled">일정 제목의 첫 두 줄을 표시합니다</string>
 	<string name="EPr_show_task_edit_comments">일정 편집에서 댓글 보기</string>
 	<string name="EPr_cal_end_or_start_at_due_time">달력 이벤트 시간</string>
 	<string name="EPr_cal_end_at_due_time">설정한 시간에 달력 이벤트 종료</string>
@@ -370,7 +364,6 @@
 	<string name="rmd_EPr_persistent_desc_false">\"모두 지우기\" 버튼으로 알림을 일괄삭제합니다.</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">다중-링 알림의 최대 볼륨</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">아스트리드는 다중-링 알림을 최대 볼륨으로 출력합니다</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_false">아스트리드에서 소리 크기는 시스템 설정을 따릅니다.</string>
 	<string name="rmd_EPr_defaultRemind_title">랜덤 알림</string>
 	<string-array name="EPr_reminder_random">
 		<item>사용안함</item>
@@ -450,7 +443,6 @@
 	<string name="EPr_voiceInputEnabled_title">음성 입력</string>
 	<string name="EPr_voiceRemindersEnabled_title">음성 알림</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">일정 알림기간 동안 일정 이름을 직접 말해 줍니다</string>
-	<string name="EPr_voiceRemindersEnabled_desc_disabled">일정 알림기간 동안 벨소리를 울려줍니다</string>
 	<string name="TLA_menu_support">지원</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 일정</item>

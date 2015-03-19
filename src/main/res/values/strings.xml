@@ -80,6 +80,8 @@
     <string name="miscellaneous">Miscellaneous</string>
     <string name="synchronization">Synchronization</string>
     <string name="enabled">Enabled</string>
+    <string name="font_size">Font size</string>
+    <string name="customize_edit_screen">Customize edit screen</string>
 
     <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->

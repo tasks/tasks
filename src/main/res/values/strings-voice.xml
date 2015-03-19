@@ -9,7 +9,5 @@
   <string name="EPr_voiceRemindersEnabled_title">Voice reminders</string>
   <!-- Preference: Voice reminders description (true) -->
   <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks will speak task names during task reminders</string>
-  <!-- slide 38c: Preference: Voice reminders description (false) -->
-  <string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks will sound a ringtone during task reminders</string>    
-  
+
 </resources>

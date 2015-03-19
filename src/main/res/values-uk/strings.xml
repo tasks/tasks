@@ -144,7 +144,6 @@
 	<string name="MCA_ignore_this">Ігнорувати лише цей дзвінок</string>
 	<string name="MCA_missed_calls_pref_title">Область пропущених викликів</string>
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks буде повідомляти вас про пропущені дзвінки і запропонує вам передзвонити</string>
-	<string name="MCA_missed_calls_pref_desc_disabled">Tasks не буде нагадувати вам про пропущені дзвінки</string>
 	<string name="MCA_task_title_name">Перетелефонувати  %1$s о %2$s</string>
 	<string name="MCA_task_title_no_name">Перетелефонувати %s </string>
 	<string name="MCA_schedule_dialog_title">Перетелефонувати  %s через...</string>
@@ -168,7 +167,6 @@
 	<string name="CRA_many_attendees">%1$s, %2$s, та %3$d інших беруть участь.</string>
 	<string name="CRA_invitation_prompt">Хочете їх запросити?</string>
 	<string name="CRA_calendar_reminders_pref_title">Асистент календаря</string>
-	<string name="CRA_calendar_reminders_pref_desc_disabled">Tasks не буде нагадувати про майбутні календарні події</string>
 	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks буде нагадувати вам про майбутні календарні події і нагадає вам приготуватися до них</string>
 	<string name="CRA_share_list_title">Поділитись цим списком?</string>
 	<string name="CRA_invite_attendees">Запросити прийняти участь</string>
@@ -179,19 +177,15 @@
 	<string name="EPr_title">Налаштування</string>
 	<string name="EPr_deactivated">деактивовані</string>
 	<string name="EPr_appearance_header">Інтерфейс</string>
-	<string name="EPr_fontSize_title">Розмір списку завдань</string>
 	<string name="EPr_filters_to_show_title">Показати фільтри</string>
 	<string name="EPr_showSmartConfirmation_title">Показати підтвердження для розумного нагадування</string>
 	<string name="EPr_edit_screen_options">Редагувати налаштування екрану</string>
-	<string name="EPr_beastMode_title">Редагувати порядок екранів</string>
 	<string name="EPr_time_increment">Крок 5 хвилин</string>
 	<string name="EPr_show_timer_shortcut">Показати ярлик таймера</string>
 	<string name="EPr_beastMode_desc">Налаштувати зовнішній вигляд екрану редагування завдань</string>
 	<string name="EPr_beastMode_reset">Налаштування за замовчуванням</string>
 	<string name="EPr_beastMode_hint">Налаштуйте Ваш екран редагування нотатки перетягуванням лівої частини рядків</string>
 	<string name="EPr_fullTask_title">Показувати повну назву завдання</string>
-	<string name="EPr_fullTask_desc_enabled">Повна назва завдання буде показана</string>
-	<string name="EPr_fullTask_desc_disabled">Перші дві стрічки назви завдання будуть показані</string>
 	<string name="EPr_show_task_edit_comments">Показувати коментарі в редакторі завдання</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Час події в календарі</string>
 	<string name="EPr_cal_end_at_due_time">Завершення календарної події при настанні терміну</string>
@@ -370,7 +364,6 @@
 	<string name="rmd_EPr_persistent_desc_false">Сповіщення можна очистити кнопкою \"Очистити все\"</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Максимальна гучність для багаторазових нагадувань</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks буде максимізувати гучність для багаторазових нагадувань</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks буде використовувати системні налаштування гучності</string>
 	<string name="rmd_EPr_defaultRemind_title">Випадкові нагадування</string>
 	<string-array name="EPr_reminder_random">
 		<item>disabled</item>
@@ -433,7 +426,6 @@
 	<string name="EPr_voiceInputEnabled_title">Голосове введення</string>
 	<string name="EPr_voiceRemindersEnabled_title">Голосові нагадування</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks повинен вимовляти назву завдань під час нагадувань</string>
-	<string name="EPr_voiceRemindersEnabled_desc_disabled">Оповіщення звуком під час нагадування</string>
 	<string name="delete_task">Видалити завдання</string>
 	<string name="TLA_menu_support">Підтримка</string>
 	<plurals name="Ntasks">

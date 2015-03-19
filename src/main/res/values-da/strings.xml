@@ -103,7 +103,6 @@
 	<string name="CRA_list_created_title">Liste blev oprettet!</string>
 	<string name="EPr_title">Tasks: Opsætning</string>
 	<string name="EPr_appearance_header">Udseende</string>
-	<string name="EPr_fontSize_title">Opgavelistestørrelse</string>
 	<string name="TWi_loading">Indlæser...</string>
 	<string name="WCA_title">Vælg opgaver der skal vises...</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 

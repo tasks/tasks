@@ -139,7 +139,6 @@
 	<string name="MCA_ignore_this">Ignorer cet appel seulement</string>
 	<string name="MCA_missed_calls_pref_title">Champ des appels manqués.</string>
 	<string name="MCA_missed_calls_pref_desc_enabled">Atrid vous avertira en cas d\'appels manqués et vous proposera de rappeler.</string>
-	<string name="MCA_missed_calls_pref_desc_disabled">Tasks ne vous avertira pas en cas d\'appels manqués</string>
 	<string name="MCA_task_title_name">Rappeler %1$s au %2$s</string>
 	<string name="MCA_task_title_no_name">Rappeler %s</string>
 	<string name="MCA_schedule_dialog_title">Rappeler %s dans...</string>
@@ -163,7 +162,6 @@
 	<string name="CRA_many_attendees">%1$s, %2$s, et %3$d autres participent.</string>
 	<string name="CRA_invitation_prompt">Voulez-vous les inviter ? </string>
 	<string name="CRA_calendar_reminders_pref_title">Assistant du calendrier</string>
-	<string name="CRA_calendar_reminders_pref_desc_disabled">Tasks n’émettra pas de rappel au sujet des prochains événements. </string>
 	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks émettra un rappel au sujet des prochains événements et vous proposera de vous y préparer. </string>
 	<string name="CRA_share_list_title">Partager la liste ?</string>
 	<string name="CRA_invite_attendees">Inviter des participants</string>
@@ -174,19 +172,15 @@
 	<string name="EPr_title">Tasks : Paramètres</string>
 	<string name="EPr_deactivated">désactivé</string>
 	<string name="EPr_appearance_header">Apparence</string>
-	<string name="EPr_fontSize_title">Taille de la liste de tâches</string>
 	<string name="EPr_filters_to_show_title">Filtres à afficher</string>
 	<string name="EPr_showSmartConfirmation_title">Montrer une confirmation pour les rappels intelligents</string>
 	<string name="EPr_edit_screen_options">Edition des options d\'affichage</string>
-	<string name="EPr_beastMode_title">Edition de l\'ordre d\'affichage</string>
 	<string name="EPr_time_increment">Incrément de 5 minutes</string>
 	<string name="EPr_show_timer_shortcut">Afficher le raccourci de minuterie</string>
 	<string name="EPr_beastMode_desc">Personnaliser la disposition de l\'écran d\'édition de tâche</string>
 	<string name="EPr_beastMode_reset">Rétablir les valeurs par défaut</string>
 	<string name="EPr_beastMode_hint">Personnalisez votre écran d\'ajout de tâche en faisant glisser chaque ligne vers la gauche</string>
 	<string name="EPr_fullTask_title">Voir le titre complet de la tâche</string>
-	<string name="EPr_fullTask_desc_enabled">Le titre entier de la tâche sera montré</string>
-	<string name="EPr_fullTask_desc_disabled">Les deux premières lignes du titre de la tâche seront montrées</string>
 	<string name="EPr_show_task_edit_comments">Afficher les commentaires dans l\'édition de tâches</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Heure de l\'évenement dans le calendrier</string>
 	<string name="EPr_cal_end_at_due_time">Terminer les événements dans le calendrier à l\'échéance</string>
@@ -362,7 +356,6 @@
 	<string name="rmd_EPr_persistent_desc_false">Les notifications peuvent être purgées grâce au bouton « Tout purger »</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Volume maximum pour les rappels multi sonneries</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks va maximiser le volume de multiples anneaux rappels</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks utilisera les réglages du système pour le volume</string>
 	<string name="rmd_EPr_defaultRemind_title">Rappels aléatoires</string>
 	<string-array name="EPr_reminder_random">
 		<item>désactivé</item>
@@ -442,7 +435,6 @@
 	<string name="EPr_voiceInputEnabled_title">Entrée voix</string>
 	<string name="EPr_voiceRemindersEnabled_title">Rappels vocaux</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks donnera le nom de la tâche</string>
-	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks sonnera pendant les rappels</string>
 	<string name="widget_mini">Tâches</string>
 	<string name="EPr_use_dark_theme">Thème foncé</string>
 	<string name="delete_task">Supprimer la tâche ? </string>

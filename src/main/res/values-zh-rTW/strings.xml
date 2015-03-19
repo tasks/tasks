@@ -139,7 +139,6 @@
 	<string name="MCA_ignore_this">只忽略這個來電</string>
 	<string name="MCA_missed_calls_pref_title">及時回复未接電話</string>
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks 會向您報告未接電話，還會提供回電的提醒</string>
-	<string name="MCA_missed_calls_pref_desc_disabled">Tasks 將不會向您報告未接電話</string>
 	<string name="MCA_task_title_name">請回電給 %1$s，電話是 %2$s</string>
 	<string name="MCA_task_title_no_name">請回電給 %s</string>
 	<string name="MCA_schedule_dialog_title">請給 %s 回個電話過去……</string>
@@ -163,7 +162,6 @@
 	<string name="CRA_many_attendees">%1$s, %2$s, 還有 %3$d 等等其他人會出席</string>
 	<string name="CRA_invitation_prompt">您想要邀請他們嗎？</string>
 	<string name="CRA_calendar_reminders_pref_title">月曆小助理</string>
-	<string name="CRA_calendar_reminders_pref_desc_disabled">Tasks不會提醒您關於月曆上將要到來的事件</string>
 	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks會提醒您關於月曆上將要到來的事件，並且會提示您做好準備。</string>
 	<string name="CRA_share_list_title">分享此列表？</string>
 	<string name="CRA_invite_attendees">邀請出席者</string>
@@ -174,15 +172,11 @@
 	<string name="EPr_title">Tasks: 偏好</string>
 	<string name="EPr_deactivated">禁用</string>
 	<string name="EPr_appearance_header">外觀</string>
-	<string name="EPr_fontSize_title">工作清單大小</string>
 	<string name="EPr_showSmartConfirmation_title">在智能提示上顯示確認消息</string>
 	<string name="EPr_edit_screen_options">編輯畫面選項</string>
-	<string name="EPr_beastMode_title">編輯畫面順序</string>
 	<string name="EPr_beastMode_desc">自定義設定菜單屏幕</string>
 	<string name="EPr_beastMode_reset">恢復默認值</string>
 	<string name="EPr_fullTask_title">顯示完整的任務工作標題</string>
-	<string name="EPr_fullTask_desc_enabled">將顯示完整的任務工作標題</string>
-	<string name="EPr_fullTask_desc_disabled">將顯示任務工作標題的頭兩行</string>
 	<string name="EPr_manage_header">管理舊任務工作</string>
 	<string name="EPr_manage_delete_completed">刪除已完成任務工作</string>
 	<string name="EPr_manage_delete_completed_message">您真的要刪除所有已完成任務工作嗎？</string>
@@ -344,7 +338,6 @@
 	<string name="rmd_EPr_persistent_desc_false">通知可經由點選“清除全部”清除</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">多重提醒最大音量</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks將會以最大音量進行多重提醒</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks使用系統音量設置</string>
 	<string name="rmd_EPr_defaultRemind_title">隨機提醒</string>
 	<string-array name="EPr_reminder_random">
 		<item>停用</item>
@@ -423,7 +416,6 @@
 	<string name="EPr_voiceInputEnabled_title">語音輸入</string>
 	<string name="EPr_voiceRemindersEnabled_title">語音提醒</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks在工作提醒時會以語音說出工作名稱</string>
-	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks在工作提醒時將會播放鈴聲</string>
 	<string name="EPr_use_dark_theme">暗色主題</string>
 	<string name="delete_task">刪除工作</string>
 	<string name="TLA_menu_support">支持</string>

@@ -141,7 +141,6 @@
 	<string name="MCA_ignore_this">Nur diesen Anruf ignorieren</string>
 	<string name="MCA_missed_calls_pref_title">Verpasste Anrufe</string>
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks wird Sie über versäumte Anrufe informieren und an Rückrufe erinnern</string>
-	<string name="MCA_missed_calls_pref_desc_disabled">Tasks wird dich nicht über versäumte Anrufe informieren</string>
 	<string name="MCA_task_title_name">%1$s unter %2$s zurückrufen</string>
 	<string name="MCA_task_title_no_name">%s zurückrufen</string>
 	<string name="MCA_schedule_dialog_title">%s zurückrufen in ...</string>
@@ -165,7 +164,6 @@
 	<string name="CRA_many_attendees">%1$s, %2$s, und %3$d weitere nehmen teil.</string>
 	<string name="CRA_invitation_prompt">Diese Personen einladen? </string>
 	<string name="CRA_calendar_reminders_pref_title">Kalender-Assistent</string>
-	<string name="CRA_calendar_reminders_pref_desc_disabled">Tasks wird sie nicht an zukünftige Kalendertermine erinnern.</string>
 	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks wird Sie an zukünftige Kalenderterrmine erinnern und Sie auf die Vorbereitung hinweisen.</string>
 	<string name="CRA_share_list_title">Liste zum Bearbeiten oder Teilen anklicken</string>
 	<string name="CRA_invite_attendees">Teilnehmer einladen</string>
@@ -176,19 +174,15 @@
 	<string name="EPr_title">Tasks: Einstellungen</string>
 	<string name="EPr_deactivated">deaktiviert</string>
 	<string name="EPr_appearance_header">Erscheinungsbild</string>
-	<string name="EPr_fontSize_title">Größe der Aufgabenliste</string>
 	<string name="EPr_filters_to_show_title">Angezeigte Filter</string>
 	<string name="EPr_showSmartConfirmation_title">Bestätigung für Smart-Erinnerungen anzeigen</string>
 	<string name="EPr_edit_screen_options">Bildschirmeinstellungen bearbeiten</string>
-	<string name="EPr_beastMode_title">Bearbeite Anordnung</string>
 	<string name="EPr_time_increment">5 Minuten Steigerung</string>
 	<string name="EPr_show_timer_shortcut">Verknüpfung zu Timer anzeigen</string>
 	<string name="EPr_beastMode_desc">Erscheinungsbild Aufgabenseite anpassen</string>
 	<string name="EPr_beastMode_reset">Auf Standardeinstellungen zurücksetzen</string>
 	<string name="EPr_beastMode_hint">Du kannst die Eingabeseite für Aufgaben mit den Schiebereglern links anpassen</string>
 	<string name="EPr_fullTask_title">Gesamten Aufgabentitel anzeigen</string>
-	<string name="EPr_fullTask_desc_enabled">Aufgabentitel wird vollständig angezeigt</string>
-	<string name="EPr_fullTask_desc_disabled">Die ersten beiden Zeilen des Aufgabentitels werden angezeigt</string>
 	<string name="EPr_show_task_edit_comments">Kommentare bei Aufgabeneingabe anzeigen </string>
 	<string name="EPr_cal_end_or_start_at_due_time">Zeitpunkt Kalendertermin</string>
 	<string name="EPr_cal_end_at_due_time">Kalendereintrag endet zur Fälligkeits-Uhrzeit</string>
@@ -362,7 +356,6 @@
 	<string name="rmd_EPr_persistent_desc_false">Erinnerungen können mit dem \"Alle Löschen\" Button gelöscht werden</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Maximale Lautstärke für mehrfachläutende Erinnerungen</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks wird die Lautstärke für mehrfachläutende Erinnerungen maximalisieren</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks wird die Systemeinstellungen für die Lautstärke benutzen</string>
 	<string name="rmd_EPr_defaultRemind_title">Zufällige Erinnerungen</string>
 	<string-array name="EPr_reminder_random">
 		<item>deaktiviert</item>
@@ -442,7 +435,6 @@
 	<string name="EPr_voiceInputEnabled_title">Spracheingabe aktivieren</string>
 	<string name="EPr_voiceRemindersEnabled_title">Sprach-Erinnerungen</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks wird Aufgabennamen bei der Erinnerung aussprechen</string>
-	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks wird bei der Erinnerung einen Klingelton abspielen</string>
 	<string name="EPr_use_dark_theme">Dunkles Theme</string>
 	<string name="delete_task">Aufgabe löschen</string>
 	<string name="TLA_menu_support">Unterstützung</string>

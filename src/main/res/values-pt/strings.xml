@@ -142,7 +142,6 @@
 	<string name="MCA_ignore_this">Ignorar apenas esta chamada</string>
 	<string name="MCA_missed_calls_pref_title">Chamadas perdidas</string>
 	<string name="MCA_missed_calls_pref_desc_enabled">O Tasks irá notificar sobre as chamadas perdidas e lembrar-lhe para fazer as ligações</string>
-	<string name="MCA_missed_calls_pref_desc_disabled">O Tasks não o notificará sobre as chamadas perdidas</string>
 	<string name="MCA_task_title_name">Ligar a %1$s às %2$s</string>
 	<string name="MCA_task_title_no_name">Ligar a %s</string>
 	<string name="MCA_schedule_dialog_title">Ligar a %s em...</string>
@@ -166,7 +165,6 @@
 	<string name="CRA_many_attendees">%1$s, %2$s, e %3$d mais estão presentes.</string>
 	<string name="CRA_invitation_prompt">Gostaria de os convidar?</string>
 	<string name="CRA_calendar_reminders_pref_title">Assistente de calendário</string>
-	<string name="CRA_calendar_reminders_pref_desc_disabled">O Tasks não o lembrará sobre os próximos eventos do calendário</string>
 	<string name="CRA_calendar_reminders_pref_desc_enabled">O Tasks irá lembra-lo sobre os próximos eventos de calendário e pedir a sua preparação</string>
 	<string name="CRA_share_list_title">Partilhar lista?</string>
 	<string name="CRA_invite_attendees">Convidar participantes</string>
@@ -177,19 +175,15 @@
 	<string name="EPr_title">Definições</string>
 	<string name="EPr_deactivated">desativada</string>
 	<string name="EPr_appearance_header">Aspeto</string>
-	<string name="EPr_fontSize_title">Tamanho da lista de tarefas</string>
 	<string name="EPr_filters_to_show_title">Filtros a mostrar</string>
 	<string name="EPr_showSmartConfirmation_title">Mostrar confirmação para lembretes inteligentes</string>
 	<string name="EPr_edit_screen_options">Opções do ecrã de edição</string>
-	<string name="EPr_beastMode_title">Ordem do ecrã de edição</string>
 	<string name="EPr_time_increment">Incrementos de 5 minutos</string>
 	<string name="EPr_show_timer_shortcut">Mostrar atalho do temporizador</string>
 	<string name="EPr_beastMode_desc">Personalizar o esquema do ecrã de edição de tarefas</string>
 	<string name="EPr_beastMode_reset">Restaurar definições originas</string>
 	<string name="EPr_beastMode_hint">Personalize o ecrã de edição de tarefas arrastando a guia em cada linha</string>
 	<string name="EPr_fullTask_title">Mostrar título completo das tarefas</string>
-	<string name="EPr_fullTask_desc_enabled">O título completo das tarefas será mostrado</string>
-	<string name="EPr_fullTask_desc_disabled">Primeiras duas linhas do título serão mostradas</string>
 	<string name="EPr_show_task_edit_comments">Mostrar comentários na edição de tarefa</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Hora do evento de calendário</string>
 	<string name="EPr_cal_end_at_due_time">Terminar evento do calendário na hora limite</string>
@@ -367,7 +361,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="rmd_EPr_persistent_desc_false">As notificações serão removidas no botão \"Limpar tudo\"</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Volume máximo para lembretes com vários toques</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">O Tasks irá amplificar o volume para lembretes com vários toques</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_false">O Tasks irá utilizar as definições do sistema para o volume</string>
 	<string name="rmd_EPr_defaultRemind_title">Lembretes aleatórios</string>
 	<string-array name="EPr_reminder_random">
 		<item>desativado</item>
@@ -448,7 +441,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="EPr_voiceInputEnabled_title">Entrada por voz</string>
 	<string name="EPr_voiceRemindersEnabled_title">Lembretes de voz</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">O Tasks irá reproduzir o nome da tarefa durante os lembretes</string>
-	<string name="EPr_voiceRemindersEnabled_desc_disabled">O Tasks irá reproduzir um toque durante os lembretes</string>
 	<string name="widget_mini">Tarefas</string>
 	<string name="EPr_use_dark_theme">Tema escuro</string>
 	<string name="delete_task">Eliminar tarefa</string>

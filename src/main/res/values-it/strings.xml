@@ -127,7 +127,6 @@
 	<string name="MCA_ignore_this">Ignora solo questa chiamata</string>
 	<string name="MCA_missed_calls_pref_title">Campo chiamate perse</string>
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks ti notificherà per le chiamate perse e ti offrirà di ricordarti di richiamare</string>
-	<string name="MCA_missed_calls_pref_desc_disabled">Tasks non ti notificherà per le chiamate perse</string>
 	<string name="MCA_task_title_name">Richiama %1$s al %2$s</string>
 	<string name="MCA_task_title_no_name">Richiama %s</string>
 	<string name="MCA_schedule_dialog_title">Richiama %s tra...</string>
@@ -151,7 +150,6 @@
 	<string name="CRA_many_attendees">%1$s, %2$s, e %3$d altre sono in attesa.</string>
 	<string name="CRA_invitation_prompt">Vuoi invitarli?</string>
 	<string name="CRA_calendar_reminders_pref_title">Assistente del Calendario</string>
-	<string name="CRA_calendar_reminders_pref_desc_disabled">Tasks non ti avviserà dei prossimi eventi sul calendario</string>
 	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks ti avviserà dei prossimi eventi sul calendario e ti chiederà di prepararti a questi</string>
 	<string name="CRA_share_list_title">Condividi la lista?</string>
 	<string name="CRA_invite_attendees">Invita partecipanti</string>
@@ -162,13 +160,10 @@
 	<string name="EPr_title">Tasks: Preferenze</string>
 	<string name="EPr_deactivated">disattivato</string>
 	<string name="EPr_appearance_header">Aspetto</string>
-	<string name="EPr_fontSize_title">Dimensione dell\'elenco di attività</string>
 	<string name="EPr_showSmartConfirmation_title">Mostra conferma per promemoria rapidi</string>
 	<string name="EPr_beastMode_desc">Personalizza il layout della schermata di modifica attività</string>
 	<string name="EPr_beastMode_reset">Ripristina predefiniti</string>
 	<string name="EPr_fullTask_title">Visualizza titolo completo dell\'attività</string>
-	<string name="EPr_fullTask_desc_enabled">Sarà mostrato il titolo completo</string>
-	<string name="EPr_fullTask_desc_disabled">Saranno mostrate le prime due righe del titolo dell\'attività</string>
 	<string name="EPr_manage_header">Gestisci compiti vecchi</string>
 	<string name="EPr_manage_delete_completed">Elimina i compiti completati</string>
 	<string name="EPr_manage_delete_completed_message">Vuoi davvero eliminare tutti i compiti completati?</string>
@@ -324,7 +319,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="rmd_EPr_persistent_desc_false">Le notifiche possono essere cancellate attraverso il pulsante \"Canella tutto\"</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Volume massimo per promemoria \"ring-multipli\"</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks metterà il volume al massimo per i promemoria \"ring-multipli\"</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks userà le impostazioni di sistema per il volume</string>
 	<string name="rmd_EPr_defaultRemind_title">Promemoria Casuali</string>
 	<string-array name="EPr_reminder_random">
 		<item>disabilitato</item>
@@ -393,7 +387,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="EPr_voiceInputEnabled_title">Voce</string>
 	<string name="EPr_voiceRemindersEnabled_title">Promemoria vocali</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks pronuncerà il nome dell\'attività durante i promemoria</string>
-	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks emetterà una suoneria durante i promemoria</string>
 	<string name="TLA_menu_support">Supporto</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 attività</item>

@@ -141,7 +141,6 @@
 	<string name="MCA_ignore_this">Άγνόηση μόνο αυτής της κλήσης</string>
 	<string name="MCA_missed_calls_pref_title">Πεδίο αναπάντητων κλήσεων</string>
 	<string name="MCA_missed_calls_pref_desc_enabled">Η εφαρμογή θα σας ενημερώσει για αναπάντητες κλήσεις και θα σας υπενθυμίσει για να τις απαντήσετε μετά</string>
-	<string name="MCA_missed_calls_pref_desc_disabled">Η εφαρμογή  θα σας ενημερώσει για αναπάντητες κλήσεις</string>
 	<string name="MCA_task_title_name">Ξανακαλέστε %1$s στίς %2$s</string>
 	<string name="MCA_task_title_no_name">Ξανακαλέστε %s</string>
 	<string name="MCA_schedule_dialog_title">Ξανακαλέστε %s σε...</string>
@@ -165,7 +164,6 @@
 	<string name="CRA_many_attendees">%1$s, %2$s, και %3$d συμμετέχουν.</string>
 	<string name="CRA_invitation_prompt">Θέλετε να τους προσκαλέσετε;</string>
 	<string name="CRA_calendar_reminders_pref_title">Βοηθός ημερολογίου</string>
-	<string name="CRA_calendar_reminders_pref_desc_disabled">Η εφαρμογή δεν θα σας υπενθυμίσει για επερχόμενα γεγονότα ημερολογίου</string>
 	<string name="CRA_calendar_reminders_pref_desc_enabled">Η εφαρμογή θα σας υπενθυμίσει για επερχόμενα γεγονότα ημερολογίου και θα σας ειδοποιήσουν για να προετοιμαστείτε για αυτα</string>
 	<string name="CRA_share_list_title">Διαμοιρασμός της λίστας;</string>
 	<string name="CRA_invite_attendees">Πρόσκληση παρεβρισκόμενων; </string>
@@ -176,19 +174,15 @@
 	<string name="EPr_title">Ρυθμίσεις</string>
 	<string name="EPr_deactivated">απενεργοποιημένο</string>
 	<string name="EPr_appearance_header">Εμφάνιση</string>
-	<string name="EPr_fontSize_title">Μέγεθος λίστας εργασιών</string>
 	<string name="EPr_filters_to_show_title">Φίλτρα για εμφάνιση</string>
 	<string name="EPr_showSmartConfirmation_title">Εμφάνιση επιβεβαίωσης για έξυπνες ειδοποιήσεις</string>
 	<string name="EPr_edit_screen_options">Επεξεργασία επιλογών εμφάνισης</string>
-	<string name="EPr_beastMode_title">Αλλαγή σειράς εμφάνισης</string>
 	<string name="EPr_time_increment">5λεπτα διαστήματα</string>
 	<string name="EPr_show_timer_shortcut">Εμφάνιση συντόμευσης χρονομέτρου</string>
 	<string name="EPr_beastMode_desc">Προσαρμόστε τη διάταξη της οθόνης επεξεργασίας της εργασίας</string>
 	<string name="EPr_beastMode_reset">Επαναφορά προεπιλογών</string>
 	<string name="EPr_beastMode_hint">Προσαρμόστε τη διάταξη της οθόνης επεξεργασίας της εργασίας τραβώντας την αριστερή λαβή σε κάθε σειρά</string>
 	<string name="EPr_fullTask_title">Εμφάνισε πλήρη τίτλο εργασίας</string>
-	<string name="EPr_fullTask_desc_enabled">Εμφάνισε πλήρη τίτλο εργασίας</string>
-	<string name="EPr_fullTask_desc_disabled">Εμφάνισε τις δύο πρώτες γραμμές της εργασίας</string>
 	<string name="EPr_show_task_edit_comments">Εμφάνιση σχόλιων στην επεξεργασία εργασίας</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Ώρα γεγονότος ημερολογίου</string>
 	<string name="EPr_cal_end_at_due_time">Τερματισμός γεγονότων ημερολογίου στην ώρα λήξης τους</string>
@@ -442,7 +436,6 @@
 	<string name="EPr_voiceInputEnabled_title">Εισαγωγή φωνής</string>
 	<string name="EPr_voiceRemindersEnabled_title">Φωνητικές υπενθυμίσεις</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Η εφαρμογή θα λέει να ονόματα των εργασιών κατά την διάρκεια των υπενθυμίσεων</string>
-	<string name="EPr_voiceRemindersEnabled_desc_disabled">Η εφαρμογή θα ηχεί ένα ringtone κατά την διάρκεια των υπενθυμίσεων</string>
 	<string name="widget_mini">Εργασίες</string>
 	<string name="EPr_use_dark_theme">Σκοτεινό θέμα</string>
 	<string name="delete_task">Διαγραφή καθήκοντος</string>
