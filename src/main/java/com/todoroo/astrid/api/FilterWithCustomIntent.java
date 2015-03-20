@@ -17,6 +17,8 @@ import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 
+import org.tasks.BuildConfig;
+
 public class FilterWithCustomIntent extends Filter {
 
     /**
@@ -46,7 +48,7 @@ public class FilterWithCustomIntent extends Filter {
     public Intent getCustomIntent() {
         Intent intent = new Intent();
         intent.putExtra("filter", this); //$NON-NLS-1$
-        intent.setComponent(new ComponentName(AstridApiConstants.ASTRID_PACKAGE, "com.todoroo.astrid.activity.TaskListActivity")); //$NON-NLS-1$
+        intent.setComponent(new ComponentName(BuildConfig.APPLICATION_ID, "com.todoroo.astrid.activity.TaskListActivity")); //$NON-NLS-1$
         if(customExtras != null) {
             intent.putExtras(customExtras);
         }

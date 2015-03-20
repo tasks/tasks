@@ -14,7 +14,8 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
-import com.todoroo.astrid.api.AstridApiConstants;
+
+import org.tasks.BuildConfig;
 
 /**
  * Data Model which represents a piece of metadata associated with a task
@@ -30,7 +31,7 @@ public class Metadata extends AbstractModel {
     public static final Table TABLE = new Table("metadata", Metadata.class);
 
     /** content uri for this model */
-    public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.API_PACKAGE + "/" +
+    public static final Uri CONTENT_URI = Uri.parse("content://" + BuildConfig.APPLICATION_ID + "/" +
             TABLE.name);
 
     // --- properties

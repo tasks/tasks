@@ -17,8 +17,8 @@ import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.api.AstridApiConstants;
 
+import org.tasks.BuildConfig;
 import org.tasks.R;
 
 import java.util.Date;
@@ -38,7 +38,7 @@ public class Task extends RemoteModel {
     /** table for this model */
     public static final Table TABLE = new Table("tasks", Task.class);
 
-    public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.API_PACKAGE + "/" +
+    public static final Uri CONTENT_URI = Uri.parse("content://" + BuildConfig.APPLICATION_ID + "/" +
             TABLE.name);
 
     // --- properties

@@ -13,6 +13,7 @@ import android.net.Uri;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 
+import org.tasks.BuildConfig;
 import org.tasks.injection.InjectingContentProvider;
 
 import javax.inject.Inject;
@@ -38,7 +39,7 @@ public class SqlContentProvider extends InjectingContentProvider {
     static {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-        uriMatcher.addURI(AstridApiConstants.API_PACKAGE + ".private",
+        uriMatcher.addURI(BuildConfig.APPLICATION_ID + ".private",
                 "sql", 0);
     }
 

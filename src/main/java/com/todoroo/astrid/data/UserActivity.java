@@ -7,7 +7,8 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
-import com.todoroo.astrid.api.AstridApiConstants;
+
+import org.tasks.BuildConfig;
 
 public class UserActivity extends RemoteModel {
 
@@ -17,7 +18,7 @@ public class UserActivity extends RemoteModel {
     public static final Table TABLE = new Table("userActivity", UserActivity.class);
 
     /** content uri for this model */
-    public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.API_PACKAGE + "/" +
+    public static final Uri CONTENT_URI = Uri.parse("content://" + BuildConfig.APPLICATION_ID + "/" +
             TABLE.name);
 
     // --- properties

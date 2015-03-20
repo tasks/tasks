@@ -26,6 +26,7 @@ import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
 
+import org.tasks.BuildConfig;
 import org.tasks.injection.InjectingContentProvider;
 
 import java.util.HashSet;
@@ -87,7 +88,7 @@ public class Astrid3ContentProvider extends InjectingContentProvider {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
         for(Uri uri : new Uri[] { Task.CONTENT_URI, Metadata.CONTENT_URI, StoreObject.CONTENT_URI, UserActivity.CONTENT_URI }) {
-            String authority = AstridApiConstants.API_PACKAGE;
+            String authority = BuildConfig.APPLICATION_ID;
 
             String table = uri.toString();
             table = table.substring(table.indexOf('/', 11) + 1);
