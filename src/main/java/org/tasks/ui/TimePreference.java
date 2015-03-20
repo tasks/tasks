@@ -1,6 +1,7 @@
 package org.tasks.ui;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.preference.DialogPreference;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
@@ -69,13 +70,18 @@ public class TimePreference extends DialogPreference {
     }
 
     @Override
-    public void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-        int def = (defaultValue == null) ? 0 : (int) defaultValue;
+    protected Object onGetDefaultValue(TypedArray a, int index) {
+        return a.getString(index);
+    }
 
+    @Override
+    public void onSetInitialValue(boolean restoreValue, Object defaultValue) {
         if (restoreValue) {
-            millisOfDay = getPersistedInt(def);
+            int noon = new DateTime().withMillisOfDay(0).withHourOfDay(12).getMillisOfDay();
+            int persistedString = getPersistedInt(noon);
+            millisOfDay = persistedString;
         } else {
-            millisOfDay = def;
+            millisOfDay = Integer.parseInt((String) defaultValue);
         }
     }
 
