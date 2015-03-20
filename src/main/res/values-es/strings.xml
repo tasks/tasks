@@ -347,9 +347,7 @@
 	<string name="rmd_NoA_snooze">Dilación</string>
 	<string name="rmd_NoA_dlg_title">Recordatorio:</string>
 	<string name="rmd_EPr_quiet_hours_start_title">El horario en silencio empieza</string>
-	<string name="rmd_EPr_quiet_hours_start_desc">Notificaciones serán silenciadas después de %s.\nNota: las vibraciones están controladas según la configuración \"Vibrar en alerta\"</string>
 	<string name="rmd_EPr_quiet_hours_end_title">El horario en silencio termina</string>
-	<string name="rmd_EPr_quiet_hours_end_desc">Las notificaciones dejarán de estar en silencio desde las %s</string>
 	<string name="rmd_EPr_rmd_time_title">Aviso por defecto</string>
 	<string name="rmd_EPr_rmd_time_desc">Notificaciones para tareas sin fecha límites aparecerán a %s</string>
 	<string name="rmd_EPr_persistent_title">Persistencia de notificación</string>

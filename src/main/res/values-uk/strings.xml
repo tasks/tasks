@@ -354,9 +354,7 @@
 	<string name="rmd_NoA_snooze">Відкласти</string>
 	<string name="rmd_NoA_dlg_title">Нагадування:</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Тихі години стартують</string>
-	<string name="rmd_EPr_quiet_hours_start_desc">Повідомлення будуть беззвучними після %s.\n Примітка:. Вібрація управляється налаштуваннями нижче!</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Тихі години закінчуються</string>
-	<string name="rmd_EPr_quiet_hours_end_desc">Сповіщення перестануть бути беззвучними починаючи з %s.</string>
 	<string name="rmd_EPr_rmd_time_title">Нагадування по замовчуванню</string>
 	<string name="rmd_EPr_rmd_time_desc">Сповіщення для задач без терміну виконання з\'являться у %s</string>
 	<string name="rmd_EPr_persistent_title">Постійність сповіщення</string>

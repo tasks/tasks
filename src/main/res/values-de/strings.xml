@@ -350,9 +350,7 @@
 	<string name="rmd_NoA_snooze">Schlummern</string>
 	<string name="rmd_NoA_dlg_title">Erinnerung:</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Stille Stunden beginnen.</string>
-	<string name="rmd_EPr_quiet_hours_start_desc">Benachrichtigungen sind lautlos nach %s.\nHinweis: Vibrieren wird durch Einstellungen weiter unten gesteuert!</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Ruhezeiten enden</string>
-	<string name="rmd_EPr_quiet_hours_end_desc">Benachrichtigungen werden nicht mehr lautlos sein ab %s</string>
 	<string name="rmd_EPr_rmd_time_title">Standard-Erinnerung</string>
 	<string name="rmd_EPr_rmd_time_desc">Benachrichtigungen für Aufgaben ohne Fälligkeit werden um %s angezeigt</string>
 	<string name="rmd_EPr_persistent_title">Hartnäckigkeit von Meldungen</string>

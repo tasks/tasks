@@ -343,9 +343,7 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="rmd_NoA_snooze">Vänta...</string>
 	<string name="rmd_NoA_dlg_title">Påminnelse:</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Tyst period börjar</string>
-	<string name="rmd_EPr_quiet_hours_start_desc">Inga varsel visas efter %s</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Tyst period slutar</string>
-	<string name="rmd_EPr_quiet_hours_end_desc">Påminnelser är ljudlösa med början %s</string>
 	<string name="rmd_EPr_rmd_time_title">Standardpåminnelse</string>
 	<string name="rmd_EPr_rmd_time_desc">Påminnelser om uppgifter utan sluttid visas %s</string>
 	<string name="rmd_EPr_persistent_title">Varselinställningar</string>

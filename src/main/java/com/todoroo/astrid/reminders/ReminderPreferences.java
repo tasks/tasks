@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
 
 import org.joda.time.DateTime;
 import org.tasks.R;
@@ -19,8 +18,6 @@ import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.ui.TimePreference;
 
 import java.text.DateFormat;
-
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
 public class ReminderPreferences extends InjectingPreferenceActivity {
 
@@ -32,19 +29,11 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
 
         initializeRingtonePreference();
         initializeTimePreference(R.string.p_rmd_time, R.string.rmd_EPr_rmd_time_desc);
-
-        if (atLeastLollipop()) {
-            PreferenceScreen preferenceScreen = getPreferenceScreen();
-            preferenceScreen.removePreference(findPreference(getString(R.string.p_rmd_enable_quiet)));
-            preferenceScreen.removePreference(findPreference(getString(R.string.p_rmd_quietStart)));
-            preferenceScreen.removePreference(findPreference(getString(R.string.p_rmd_quietEnd)));
-        } else {
-            initializeTimePreference(R.string.p_rmd_quietStart, R.string.rmd_EPr_quiet_hours_start_desc);
-            initializeTimePreference(R.string.p_rmd_quietEnd, R.string.rmd_EPr_quiet_hours_end_desc);
-        }
+        initializeTimePreference(R.string.p_rmd_quietStart, null);
+        initializeTimePreference(R.string.p_rmd_quietEnd, null);
     }
 
-    private void initializeTimePreference(int key, final int summaryRes) {
+    private void initializeTimePreference(int key, final Integer summaryRes) {
         Preference preference = findPreference(getString(key));
         preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
@@ -56,9 +45,9 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
         setPreference(preference, summaryRes, ((TimePreference) preference).getMillisOfDay());
     }
 
-    private void setPreference(Preference preference, final int summaryRes, int millisOfDay) {
+    private void setPreference(Preference preference, final Integer summaryRes, int millisOfDay) {
         String setting = DateFormat.getTimeInstance(DateFormat.SHORT).format(new DateTime().withMillisOfDay(millisOfDay).toDate());
-        preference.setSummary(getString(summaryRes, setting));
+        preference.setSummary(summaryRes == null ? setting : getString(summaryRes, setting));
     }
 
     private void initializeRingtonePreference() {

@@ -354,9 +354,7 @@
 	<string name="rmd_NoA_snooze">알림 잠시 미루기</string>
 	<string name="rmd_NoA_dlg_title">알림:</string>
 	<string name="rmd_EPr_quiet_hours_start_title">알림 꺼짐 시작 시간</string>
-	<string name="rmd_EPr_quiet_hours_start_desc">%s 후에는 알림을 끕니다. (진동은 알람 설정의 진동 설정을 따릅니다)</string>
 	<string name="rmd_EPr_quiet_hours_end_title">알림 꺼짐 종료 시간</string>
-	<string name="rmd_EPr_quiet_hours_end_desc">%s 부터 알림 기능이 켜집니다</string>
 	<string name="rmd_EPr_rmd_time_title">기본 알림 설정</string>
 	<string name="rmd_EPr_rmd_time_desc">마감일이 없는 일정 알림은 %s 에 나타날 것입니다.</string>
 	<string name="rmd_EPr_persistent_title">알림 지속 시간</string>

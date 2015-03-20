@@ -328,9 +328,7 @@
 	<string name="rmd_NoA_snooze">晚點提醒...</string>
 	<string name="rmd_NoA_dlg_title">提醒：</string>
 	<string name="rmd_EPr_quiet_hours_start_title">無聲開始時間</string>
-	<string name="rmd_EPr_quiet_hours_start_desc">%s 後提示將靜止。\n注意：震動在下面的選項中控制！</string>
 	<string name="rmd_EPr_quiet_hours_end_title">無聲結束時間</string>
-	<string name="rmd_EPr_quiet_hours_end_desc">通知將在 %s</string>
 	<string name="rmd_EPr_rmd_time_title">默認提示</string>
 	<string name="rmd_EPr_rmd_time_desc">未設定截止日期任務工作的通知會於%s 出現</string>
 	<string name="rmd_EPr_persistent_title">持續通知</string>

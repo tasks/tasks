@@ -342,7 +342,6 @@
 	<string name="rmd_NoA_dlg_title">Připomenutí:</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Nerušit od</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Nerušit do</string>
-	<string name="rmd_EPr_quiet_hours_end_desc">Upozorňování začne upomínat od %s</string>
 	<string name="rmd_EPr_rmd_time_title">Výchozí upomínka</string>
 	<string name="rmd_EPr_rmd_time_desc">Upozornění na úkoly bez času dokončení se objeví v %s</string>
 	<string name="rmd_EPr_persistent_title">Trvání upozornění</string>

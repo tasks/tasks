@@ -351,9 +351,7 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="rmd_NoA_snooze">Wstrzymaj...</string>
 	<string name="rmd_NoA_dlg_title">Przypomnienie:</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Początek czasu wyciszenia</string>
-	<string name="rmd_EPr_quiet_hours_start_desc">Powiadomienia będą wyciszone po %s.\nUwaga: wibracje są kontrolowane przez ustawienia poniżej!</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Koniec czasu wyciszenia</string>
-	<string name="rmd_EPr_quiet_hours_end_desc">Powiadomienia przestaną być wyciszonre, począwszy od %s</string>
 	<string name="rmd_EPr_rmd_time_title">Domyślne przypomnienie</string>
 	<string name="rmd_EPr_rmd_time_desc">Powiadomienia zadań bez odpowiedniego czasu pojawi się na %s</string>
 	<string name="rmd_EPr_persistent_title">Wytrwałość powiadomienia</string>

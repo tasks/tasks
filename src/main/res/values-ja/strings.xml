@@ -355,9 +355,7 @@
 	<string name="rmd_NoA_snooze">スヌーズ</string>
 	<string name="rmd_NoA_dlg_title">お知らせ.</string>
 	<string name="rmd_EPr_quiet_hours_start_title">消音時間の始まり</string>
-	<string name="rmd_EPr_quiet_hours_start_desc">%s 以降、通知音は鳴りません</string>
 	<string name="rmd_EPr_quiet_hours_end_title">消音時間の終わり</string>
-	<string name="rmd_EPr_quiet_hours_end_desc">通知を行う時間帯の開始 %s</string>
 	<string name="rmd_EPr_rmd_time_title">標準リマインダー</string>
 	<string name="rmd_EPr_rmd_time_desc">期限の時間がないタスクの通知は %s に表示されます</string>
 	<string name="rmd_EPr_persistent_title">通知の持続</string>

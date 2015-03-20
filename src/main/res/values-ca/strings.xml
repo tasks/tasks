@@ -209,9 +209,7 @@
 	<string name="rmd_NoA_done">Acabat</string>
 	<string name="rmd_NoA_snooze">Adorm</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Inici de Silenci</string>
-	<string name="rmd_EPr_quiet_hours_start_desc">Cap notificació apareixerà després %s</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Final de Silenci</string>
-	<string name="rmd_EPr_quiet_hours_end_desc">Les notificacions sortirant començant a %s</string>
 	<string name="rmd_EPr_persistent_title">Persistència de Notificació</string>
 	<string name="rmd_EPr_persistent_desc_true">Les notificacions han que ser vistes individualment per ser descartades</string>
 	<string name="rmd_EPr_persistent_desc_false">Les notificacions poden ser descartades amb el botó \"Descarta Tot\"</string>

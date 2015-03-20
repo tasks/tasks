@@ -312,9 +312,7 @@
 	<string name="rmd_NoA_snooze">Ertele</string>
 	<string name="rmd_NoA_dlg_title">Hatırlatıcı:</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Sessiz saatlerin başlangıcı</string>
-	<string name="rmd_EPr_quiet_hours_start_desc">%s sonrasında bildirimler sessizleştirilecek.\n Not: titreşimler aşağıdaki ayarla belirlenecek.</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Sessiz saatlerin sonu</string>
-	<string name="rmd_EPr_quiet_hours_end_desc">Bildirim sesleri %s den itibaren sessiz olmayacak</string>
 	<string name="rmd_EPr_rmd_time_title">Öntanımlı Hatırlatma</string>
 	<string name="rmd_EPr_rmd_time_desc">Görev bildirimleri son tarihler olmadan gösterilecek: %s</string>
 	<string name="rmd_EPr_persistent_title">Bildirim Sürekliliği</string>

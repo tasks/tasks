@@ -113,7 +113,7 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
         }
 
         // quiet hours? unless alarm clock
-        boolean quietHours = !(type == ReminderService.TYPE_ALARM || type == ReminderService.TYPE_DUE) && isQuietHours(preferences);
+        boolean quietHours = isQuietHours(preferences);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context, notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -138,7 +138,6 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
             builder.addAction(R.drawable.ic_action_tick_white, context.getResources().getString(R.string.rmd_NoA_done), completeIntent)
                     .addAction(R.drawable.ic_action_alarm_white, context.getResources().getString(R.string.rmd_NoA_snooze), snoozePendingIntent);
         }
-
 
         Notification notification = builder.build();
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
@@ -184,11 +183,7 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
 
         boolean soundIntervalOk = checkLastNotificationSound();
 
-        // quiet hours = no sound
-        if (quietHours || callState != TelephonyManager.CALL_STATE_IDLE) {
-            notification.sound = null;
-            voiceReminder = false;
-        } else {
+        if (!quietHours && callState == TelephonyManager.CALL_STATE_IDLE) {
             String notificationPreference = preferences.getStringValue(R.string.p_rmd_ringtone);
             if (audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) == 0) {
                 notification.sound = null;
@@ -204,18 +199,16 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
             }
         }
 
-        // quiet hours && ! due date or snooze = no vibrate
-        if (quietHours && !(type == ReminderService.TYPE_DUE || type == ReminderService.TYPE_SNOOZE)) {
-            notification.vibrate = null;
-        } else if (callState != TelephonyManager.CALL_STATE_IDLE) {
-            notification.vibrate = null;
+        if (preferences.getBoolean(R.string.p_rmd_vibrate, true) && soundIntervalOk) {
+            notification.vibrate = new long[]{0, 1000, 500, 1000, 500, 1000};
         } else {
-            if (preferences.getBoolean(R.string.p_rmd_vibrate, true)
-                    && audioManager.shouldVibrate(AudioManager.VIBRATE_TYPE_NOTIFICATION) && soundIntervalOk) {
-                notification.vibrate = new long[]{0, 1000, 500, 1000, 500, 1000};
-            } else {
-                notification.vibrate = null;
-            }
+            notification.vibrate = null;
+        }
+
+        if (quietHours || callState != TelephonyManager.CALL_STATE_IDLE) {
+            notification.sound = null;
+            notification.vibrate = null;
+            voiceReminder = false;
         }
 
         singleThreadVoicePool.submit(new NotificationRunnable(ringTimes, notificationId, notification, voiceReminder,

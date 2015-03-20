@@ -353,9 +353,7 @@
 	<string name="rmd_NoA_snooze">Отложи</string>
 	<string name="rmd_NoA_dlg_title">Напомняне:</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Тихи часове начало</string>
-	<string name="rmd_EPr_quiet_hours_start_desc">Уведомленията ще бъдат тихи след %s.\nЗабележка: вибрациите се контролират от настройките по-долу</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Тихи часове край</string>
-	<string name="rmd_EPr_quiet_hours_end_desc">Уведомления ще престанат да бъдат тихи на %s</string>
 	<string name="rmd_EPr_rmd_time_title">Напомняне по подразбиране</string>
 	<string name="rmd_EPr_rmd_time_desc">Уведомления за задачи без крайни срокове ще се показват на %s</string>
 	<string name="rmd_EPr_persistent_title">Настойчивост на уведомленията</string>

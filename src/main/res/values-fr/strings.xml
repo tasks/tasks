@@ -346,9 +346,7 @@
 	<string name="rmd_NoA_snooze">Rappeler ultérieurement...</string>
 	<string name="rmd_NoA_dlg_title">Rappel :</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Début des heures de repos</string>
-	<string name="rmd_EPr_quiet_hours_start_desc">Les notifications seront silencieuses après %s.\nNote : les vibrations sont contrôlées par le paramètre Vibrations</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Fin des heures de repos</string>
-	<string name="rmd_EPr_quiet_hours_end_desc">Les notifications ne seront plus silencieuses à partir de %s</string>
 	<string name="rmd_EPr_rmd_time_title">Rappel par défaut</string>
 	<string name="rmd_EPr_rmd_time_desc">Les notifications pour les tâches sans échéances apparaîtront à %s</string>
 	<string name="rmd_EPr_persistent_title">Persistance de la notification</string>

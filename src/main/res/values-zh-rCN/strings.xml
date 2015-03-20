@@ -290,9 +290,7 @@
 	<string name="rmd_NoA_snooze">晚点提醒...</string>
 	<string name="rmd_NoA_dlg_title">提醒：</string>
 	<string name="rmd_EPr_quiet_hours_start_title">静音开始时间</string>
-	<string name="rmd_EPr_quiet_hours_start_desc">%s 后提示将静止。\n注意：震动在下面的选项中控制！</string>
 	<string name="rmd_EPr_quiet_hours_end_title">静音时间结束</string>
-	<string name="rmd_EPr_quiet_hours_end_desc">静音时间将在%s后结束</string>
 	<string name="rmd_EPr_rmd_time_title">默认提示</string>
 	<string name="rmd_EPr_rmd_time_desc">未设定截止日期任务的通知会于 %s 出现</string>
 	<string name="rmd_EPr_persistent_title">持续提醒</string>
