@@ -483,6 +483,14 @@
 	<string name="miscellaneous">その他</string>
 	<string name="synchronization">同期</string>
 	<string name="enabled">有効</string>
+	<string name="font_size">フォントサイズ</string>
+	<string name="customize_edit_screen">編集画面をカスタマイズ</string>
+	<string name="source_code">ソースコード</string>
+	<string name="translations">翻訳</string>
+	<string name="report_an_issue">問題を報告</string>
+	<string name="help_and_feedback">ヘルプ &amp; フィードバック</string>
+	<string name="contact_developer">開発者に連絡</string>
+	<string name="rate_tasks">Tasks を評価</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>無効</item>
 		<item>15分毎</item>
