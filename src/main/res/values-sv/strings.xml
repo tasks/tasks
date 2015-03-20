@@ -450,6 +450,7 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="sync_SPr_forget">Logga ut</string>
 	<string name="sync_SPr_forget_description">Rensar alla synkroniseringsdata</string>
 	<string name="sync_forget_confirm">Logga ut / rensa synkroniseringsdata?</string>
+	<string name="TLA_menu_donate">Donera</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>inaktivera</item>
 		<item>varje kvartstimme</item>

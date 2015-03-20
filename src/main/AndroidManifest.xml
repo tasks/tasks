@@ -8,6 +8,11 @@
 
     <!-- ================================================== Used Permissions = -->
 
+    <!-- **************** -->
+    <!-- in-app donations -->
+    <!-- **************** -->
+    <uses-permission android:name="com.android.vending.BILLING" />
+
     <!-- ************* -->
     <!-- notifications -->
     <!-- ************* -->
@@ -181,6 +186,10 @@
             android:name=".preferences.HelpAndFeedbackActivity"
             android:label="@string/help_and_feedback"
             android:theme="@style/Tasks" />
+
+        <activity
+            android:name=".activities.DonationActivity"
+            android:theme="@style/Tasks.Dialog" />
 
         <!-- Activity that configures widget -->
         <activity android:name="com.todoroo.astrid.widget.WidgetConfigActivity">

@@ -88,6 +88,9 @@
     <string name="contact_developer">Contact developer</string>
     <string name="rate_tasks">Rate Tasks</string>
     <string name="quiet_hours_summary">No sound or vibration during quiet hours</string>
+    <string name="TLA_menu_donate">Donate</string>
+    <string name="error">Error</string>
+    <string name="select_amount">Select amount</string>
 
     <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->

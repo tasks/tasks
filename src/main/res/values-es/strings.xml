@@ -459,6 +459,7 @@
 	<string name="sync_SPr_forget">Cerrar sesión</string>
 	<string name="sync_SPr_forget_description">Limpia todos los datos de la sincronización</string>
 	<string name="sync_forget_confirm">Cerrar sesión/Limpiar datos de sincronización?</string>
+	<string name="TLA_menu_donate">Donar</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>deshabilitar</item>
 		<item>cada quince minutos</item>

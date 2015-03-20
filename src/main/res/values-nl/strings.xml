@@ -460,6 +460,7 @@
 	<string name="sync_SPr_forget">Afmelden</string>
 	<string name="sync_SPr_forget_description">Alle synchronisatie gegevens verwijderen</string>
 	<string name="sync_forget_confirm">Afmelden / synchronisatie gegevens verwijderen?</string>
+	<string name="TLA_menu_donate">Doneer</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>uitschakelen</item>
 		<item>elke 15 min.</item>

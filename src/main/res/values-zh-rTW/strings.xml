@@ -435,6 +435,7 @@
 	<string name="sync_SPr_forget">登出</string>
 	<string name="sync_SPr_forget_description">清除所有同步資料</string>
 	<string name="sync_forget_confirm">登出/清除同步資料?</string>
+	<string name="TLA_menu_donate">贊助</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>停用</item>
 		<item>每15分鐘</item>

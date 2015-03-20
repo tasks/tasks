@@ -24,8 +24,15 @@ public class HelpAndFeedbackActivity extends InjectingPreferenceActivity {
                     putExtra(Intent.EXTRA_SUBJECT, "Tasks Feedback");
                     putExtra(Intent.EXTRA_TEXT, deviceInfo.getDebugInfo());
                 }});
-        if (!deviceInfo.isPlayStoreAvailable()) {
-            getPreferenceScreen().removePreference(findPreference(getString(R.string.rate_tasks)));
+        if (!deviceInfo.supportsBilling()) {
+            remove(R.string.TLA_menu_donate);
         }
+        if (!deviceInfo.isPlayStoreAvailable()) {
+            remove(R.string.rate_tasks);
+        }
+    }
+
+    private void remove(int resId) {
+        getPreferenceScreen().removePreference(findPreference(getString(resId)));
     }
 }

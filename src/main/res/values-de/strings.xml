@@ -477,6 +477,7 @@
 	<string name="enabled">Aktiviert</string>
 	<string name="font_size">Schriftgröße</string>
 	<string name="customize_edit_screen">Änderungsbildschirm anpassen</string>
+	<string name="TLA_menu_donate">Spenden</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>deaktivieren</item>
 		<item>alle 15 Minuten</item>

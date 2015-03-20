@@ -454,6 +454,7 @@
 	<string name="sync_status_success">Τελευταίος συγχρονισμός:\n%s</string>
 	<string name="sync_SPr_interval_title">Συγχρονισμός παρασκηνίου</string>
 	<string name="sync_SPr_forget">Αποσύνδεση</string>
+	<string name="TLA_menu_donate">Δωρίστε</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>disable</item>
 		<item>every fifteen minutes</item>

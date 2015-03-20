@@ -459,6 +459,7 @@
 	<string name="sync_SPr_forget">Se déconnecter</string>
 	<string name="sync_SPr_forget_description">Purger toutes les données de synchronisation</string>
 	<string name="sync_forget_confirm">Se déconnecter/purger les données de synchronisation ?</string>
+	<string name="TLA_menu_donate">Remercier</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>désactiver</item>
 		<item>toutes les quinze minutes</item>

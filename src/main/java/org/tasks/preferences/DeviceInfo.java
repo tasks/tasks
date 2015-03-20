@@ -17,6 +17,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastFroyo;
 import static java.util.Arrays.asList;
 
 @Singleton
@@ -39,6 +40,10 @@ public class DeviceInfo {
         }
 
         return isPlayStoreAvailable;
+    }
+
+    public boolean supportsBilling() {
+        return atLeastFroyo() && isPlayStoreAvailable();
     }
 
     public String getDebugInfo() {

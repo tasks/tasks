@@ -1,5 +1,3 @@
-[![Make a contribution](https://pledgie.com/campaigns/24281.png?skin_name=chrome)](https://pledgie.com/campaigns/24281)
-
 [![Get it on Google Play](https://developer.android.com/images/brand/en_generic_rgb_wo_45.png)](https://play.google.com/store/apps/details?id=org.tasks)
 
 [![Get it on Amazon App Store](https://images-na.ssl-images-amazon.com/images/G/01/AmazonMobileApps/amazon-apps-store-us-black.png)](https://www.amazon.com/gp/product/B00QHGTL7O/ref=mas_pm_tasks_astrid_to_do_list_clone)
