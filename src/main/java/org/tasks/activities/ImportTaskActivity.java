@@ -18,6 +18,8 @@ public class ImportTaskActivity extends InjectingActivity {
 
     @Inject TasksXmlImporter xmlImporter;
 
+    private boolean initiatedImport;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +28,7 @@ public class ImportTaskActivity extends InjectingActivity {
                         .setOnFilePickedListener(new FilePickerBuilder.OnFilePickedListener() {
                             @Override
                             public void onFilePicked(String filePath) {
+                                initiatedImport = true;
                                 xmlImporter.importTasks(ImportTaskActivity.this, filePath, new Runnable() {
                                     @Override
                                     public void run() {
@@ -44,7 +47,9 @@ public class ImportTaskActivity extends InjectingActivity {
         filePicker.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                finish();
+                if (!initiatedImport) {
+                    finish();
+                }
             }
         });
     }
