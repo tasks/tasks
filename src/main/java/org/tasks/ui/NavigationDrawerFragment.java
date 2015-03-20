@@ -43,6 +43,7 @@ import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingFragment;
+import org.tasks.preferences.AppearancePreferences;
 import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.HelpAndFeedbackActivity;
 import org.tasks.preferences.Preferences;
@@ -115,8 +116,10 @@ public class NavigationDrawerFragment extends InjectingFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == ACTIVITY_SETTINGS) {
-            getActivity().finish();
-            getActivity().startActivity(getActivity().getIntent());
+            if (resultCode == Activity.RESULT_OK && data.getBooleanExtra(AppearancePreferences.FORCE_REFRESH, false)) {
+                getActivity().finish();
+                getActivity().startActivity(getActivity().getIntent());
+            }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -136,12 +139,14 @@ public class NavigationDrawerFragment extends InjectingFragment {
         layout.findViewById(R.id.settings_row).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                closeMenu();
                 startActivityForResult(new Intent(getActivity(), BasicPreferences.class), ACTIVITY_SETTINGS);
             }
         });
         layout.findViewById(R.id.help_row).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                closeMenu();
                 startActivity(new Intent(getActivity(), HelpAndFeedbackActivity.class));
             }
         });

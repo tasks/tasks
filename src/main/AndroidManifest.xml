@@ -280,6 +280,11 @@
         <!-- ========================================================= Plugins = -->
 
         <activity
+            android:name=".preferences.AppearancePreferences"
+            android:label="@string/EPr_appearance_header"
+            android:theme="@style/Tasks" />
+
+        <activity
             android:name="com.todoroo.astrid.core.DefaultsPreferences"
             android:label="@string/task_defaults"
             android:theme="@style/Tasks"/>

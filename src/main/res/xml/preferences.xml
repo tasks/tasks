@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <Preference android:title="@string/EPr_appearance_header">
-        <intent
-            android:action="@string/EPr_appearance_header"
-            android:targetClass="org.tasks.preferences.BasicPreferences"
-            android:targetPackage="org.tasks" />
-    </Preference>
+    <Preference
+        android:key="@string/EPr_appearance_header"
+        android:title="@string/EPr_appearance_header" />
 
     <Preference android:title="@string/notifications">
         <intent
