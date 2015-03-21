@@ -124,6 +124,7 @@ public class DialogUtilities {
         }
 
         tryOnUiThread(activity, new Runnable() {
+            final boolean[] selectedOk = new boolean[1];
             @Override
             public void run() {
                 AlertDialog dialog = new AlertDialog.Builder(activity)
@@ -131,13 +132,21 @@ public class DialogUtilities {
                         .setMessage(text)
                         .setTitle(title)
                         .setIcon(icon)
-                        .setPositiveButton(okTitleId, okListener)
+                        .setPositiveButton(okTitleId, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                selectedOk[0] = true;
+                                okListener.onClick(dialog, which);
+                            }
+                        })
                         .setNegativeButton(cancelTitleId, cancelListener)
                         .show();
                 dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
-                        cancelListener.onClick(dialog, Dialog.BUTTON_NEGATIVE);
+                        if (!selectedOk[0]) {
+                            cancelListener.onClick(dialog, Dialog.BUTTON_NEGATIVE);
+                        }
                     }
                 });
                 dialog.setOwnerActivity(activity);
