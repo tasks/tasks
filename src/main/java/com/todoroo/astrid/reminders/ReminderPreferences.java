@@ -57,7 +57,9 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
                 if ("".equals(value)) {
                     preference.setSummary(R.string.silent);
                 } else {
-                    Ringtone ringtone = RingtoneManager.getRingtone(ReminderPreferences.this, Uri.parse((String) (value == null ? "" : value)));
+                    Ringtone ringtone = RingtoneManager.getRingtone(ReminderPreferences.this, value == null
+                            ? RingtoneManager.getActualDefaultRingtoneUri(getApplicationContext(), RingtoneManager.TYPE_NOTIFICATION)
+                            : Uri.parse((String) value));
                     String ringtoneTitle = ringtone.getTitle(ReminderPreferences.this);
                     preference.setSummary(ringtoneTitle);
                 }
