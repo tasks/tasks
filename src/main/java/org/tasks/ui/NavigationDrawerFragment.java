@@ -115,10 +115,12 @@ public class NavigationDrawerFragment extends InjectingFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == ACTIVITY_SETTINGS) {
-            if (resultCode == Activity.RESULT_OK && data.getBooleanExtra(AppearancePreferences.FORCE_REFRESH, false)) {
+        if (requestCode == ACTIVITY_SETTINGS && resultCode == Activity.RESULT_OK) {
+            if (data.getBooleanExtra(AppearancePreferences.FORCE_REFRESH, false)) {
                 getActivity().finish();
                 getActivity().startActivity(getActivity().getIntent());
+            } else if (data.getBooleanExtra(AppearancePreferences.FILTERS_CHANGED, false)) {
+                refresh();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
