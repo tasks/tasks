@@ -186,6 +186,7 @@
 	<string name="EPr_beastMode_hint">Настройте экран редактирования задачи, перетаскивая элементы ниже</string>
 	<string name="EPr_fullTask_title">Показывать полное название задачи</string>
 	<string name="EPr_show_task_edit_comments">Показывать комментарии в редакторе задачи</string>
+	<string name="task_list_options">Настройка списка задач</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Время события в календаре</string>
 	<string name="EPr_cal_end_at_due_time">Завершать события в календаре при наступлении срока</string>
 	<string name="EPr_cal_start_at_due_time">Создавать события в календаре при наступлении срока</string>
@@ -466,6 +467,22 @@
 	<string name="sync_SPr_forget">Выйти</string>
 	<string name="sync_SPr_forget_description">Очищает все данные синхронизации</string>
 	<string name="sync_forget_confirm">Выйти / очистить данные синхронизации?</string>
+	<string name="notifications">Уведомления</string>
+	<string name="sound">Звук</string>
+	<string name="vibrate">Вибрация</string>
+	<string name="quiet_hours">Тихие часы</string>
+	<string name="attachment_directory">Папка с прикреплёнными материалами</string>
+	<string name="miscellaneous">Прочие настройки</string>
+	<string name="synchronization">Синхронизация</string>
+	<string name="enabled">Включить</string>
+	<string name="font_size">Размер шрифта</string>
+	<string name="customize_edit_screen">Настройки экрана редактирования задачи</string>
+	<string name="source_code">Исходный код</string>
+	<string name="translations">Язык программы</string>
+	<string name="report_an_issue">Сообщить о проблеме</string>
+	<string name="help_and_feedback">Помощь и обратная связь</string>
+	<string name="rate_tasks">Оставить отзыв</string>
+	<string name="quiet_hours_summary">Выкл. звук или вибрацию в тихие часы</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>отключить</item>
 		<item>каждые 15 минут</item>

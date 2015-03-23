@@ -476,7 +476,7 @@
 	<string name="notifications">通知</string>
 	<string name="silent">サイレント</string>
 	<string name="sound">サウンド</string>
-	<string name="vibrate">バイブレート</string>
+	<string name="vibrate">振動</string>
 	<string name="quiet_hours">消音時間</string>
 	<string name="attachment_directory">添付ディレクトリ</string>
 	<string name="debug_logging">デバッグログ</string>
@@ -491,6 +491,10 @@
 	<string name="help_and_feedback">ヘルプ &amp; フィードバック</string>
 	<string name="contact_developer">開発者に連絡</string>
 	<string name="rate_tasks">Tasks を評価</string>
+	<string name="quiet_hours_summary">消音時間の間はサウンドも振動も行いません</string>
+	<string name="TLA_menu_donate">寄付</string>
+	<string name="error">エラー</string>
+	<string name="select_amount">金額を選択</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>無効</item>
 		<item>15分毎</item>
