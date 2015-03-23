@@ -17,6 +17,7 @@
         android:summary="@string/notification_actions_summary"
         android:title="@string/notification_actions" />
     <RingtonePreference
+        android:defaultValue="content://settings/system/notification_sound"
         android:dependency="@string/p_rmd_enabled"
         android:key="@string/p_rmd_ringtone"
         android:ringtoneType="notification"
