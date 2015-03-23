@@ -28,6 +28,7 @@ import ch.qos.logback.core.rolling.RollingFileAppender;
 import ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy;
 
 import static android.content.SharedPreferences.Editor;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
 import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
 
 public class Preferences {
@@ -277,5 +278,9 @@ public class Preferences {
         rfa.setRollingPolicy(rollingPolicy);
         rfa.start();
         rootLogger.addAppender(rfa);
+    }
+
+    public boolean useNotificationActions() {
+        return atLeastJellybean() && getBoolean(R.string.p_rmd_notif_actions_enabled, true);
     }
 }

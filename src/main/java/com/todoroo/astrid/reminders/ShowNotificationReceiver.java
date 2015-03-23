@@ -31,7 +31,6 @@ import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
 import static org.tasks.date.DateTimeUtils.currentTimeMillis;
 
 /**
@@ -124,7 +123,7 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
                 .setContentTitle(title)
                 .setContentText(text)
                 .setContentIntent(pendingIntent);
-        if (atLeastJellybean()) {
+        if (preferences.useNotificationActions()) {
             final long taskId = intent.getLongExtra(TaskListActivity.OPEN_TASK, 0L);
             PendingIntent completeIntent = PendingIntent.getBroadcast(context, notificationId, new Intent(context, CompleteTaskReceiver.class) {{
                 putExtra(CompleteTaskReceiver.TASK_ID, taskId);

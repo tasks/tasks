@@ -245,6 +245,7 @@
     <string name="TEA_ctrl_share_pref">TEA_ctrl_share_pref</string>
     <string name="TEA_ctrl_gcal">TEA_ctrl_gcal</string>
     <string name="sync_gtasks">sync_gtasks</string>
+    <string name="p_rmd_notif_actions_enabled">p_rmd_notif_actions_enabled</string>
 
     <string-array name="TEA_control_sets_prefs">
         <item>@string/TEA_ctrl_when_pref</item>

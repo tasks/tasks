@@ -9,7 +9,13 @@
     <CheckBoxPreference
         android:defaultValue="true"
         android:key="@string/p_rmd_enabled"
-        android:title="@string/notifications" />
+        android:title="@string/enabled" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:dependency="@string/p_rmd_enabled"
+        android:key="@string/p_rmd_notif_actions_enabled"
+        android:summary="@string/notification_actions_summary"
+        android:title="@string/notification_actions" />
     <RingtonePreference
         android:dependency="@string/p_rmd_enabled"
         android:key="@string/p_rmd_ringtone"
@@ -23,12 +29,12 @@
         android:key="@string/p_rmd_vibrate"
         android:title="@string/vibrate" />
     <com.todoroo.astrid.ui.MultilineCheckboxPreference
+        android:defaultValue="true"
         android:dependency="@string/p_rmd_enabled"
         android:key="@string/p_rmd_persistent"
         android:summaryOff="@string/rmd_EPr_persistent_desc_false"
         android:summaryOn="@string/rmd_EPr_persistent_desc_true"
-        android:title="@string/rmd_EPr_persistent_title"
-        android:defaultValue="true"/>
+        android:title="@string/rmd_EPr_persistent_title" />
     <org.tasks.ui.TimePreference
         android:defaultValue="@integer/default_remind_time"
         android:dependency="@string/p_rmd_enabled"

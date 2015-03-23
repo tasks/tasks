@@ -27,6 +27,7 @@ import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.notifications.NotificationManager;
+import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
@@ -59,6 +60,7 @@ public class Notifications extends InjectingBroadcastReceiver {
     @Inject @ForApplication Context context;
     @Inject NotificationManager notificationManager;
     @Inject Broadcaster broadcaster;
+    @Inject Preferences preferences;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -128,7 +130,7 @@ public class Notifications extends InjectingBroadcastReceiver {
 
         String text = context.getString(R.string.app_name);
 
-        Intent intent = atLeastJellybean()
+        Intent intent = preferences.useNotificationActions()
                 ? createEditIntent(id, task)
                 : createNotificationIntent(id, taskTitle);
 

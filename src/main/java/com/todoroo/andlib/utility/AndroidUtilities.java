@@ -363,6 +363,10 @@ public class AndroidUtilities {
         return !atLeastHoneycomb();
     }
 
+    public static boolean preJellybean() {
+        return !atLeastJellybean();
+    }
+
     public static boolean preLollipop() {
         return !atLeastLollipop();
     }

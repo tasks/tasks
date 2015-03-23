@@ -19,6 +19,8 @@ import org.tasks.ui.TimePreference;
 
 import java.text.DateFormat;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.preJellybean;
+
 public class ReminderPreferences extends InjectingPreferenceActivity {
 
     @Override
@@ -26,6 +28,10 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.preferences_reminders);
+
+        if (preJellybean()) {
+            getPreferenceScreen().removePreference(findPreference(getString(R.string.p_rmd_notif_actions_enabled)));
+        }
 
         initializeRingtonePreference();
         initializeTimePreference(R.string.p_rmd_time, R.string.rmd_EPr_rmd_time_desc);
