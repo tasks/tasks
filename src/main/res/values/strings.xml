@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="EPr_use_dark_theme">Dark theme</string>
+    <string name="delete_task">Delete task</string>
+    <string name="voice_command_added_task">Added task</string>
+    <string name="external_storage_unavailable">Cannot access external storage</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- ==================================================== Generic Units == -->
+
+    <plurals name="Ntasks">
+        <!-- plurals: tasks -->
+        <item quantity="one">1 task</item>
+        <!-- plurals: tasks -->
+        <item quantity="other">%d tasks</item>
+    </plurals>
+
+    <!-- slide 10a, 12c: today -->
+    <string name="today">Today</string>
+
+    <!-- tomorrow -->
+    <string name="tomorrow">Tomorrow</string>
+
+    <!-- yesterday -->
+    <string name="yesterday">Yesterday</string>
+
+    <!-- slide 12c: tomorrow, abbreviated -->
+    <string name="tmrw">Tmrw</string>
+
+    <!-- slide 12c: yesterday, abbreviated -->
+    <string name="yest">Yest</string>
+
+    <!-- ================================================== Generic Dialogs == -->
+
+    <!-- confirmation dialog title -->
+    <string name="DLG_confirm_title">Confirm?</string>
+
+    <!-- question dialog title -->
+    <string name="DLG_question_title">Question:</string>
+
+    <!-- information dialog title -->
+    <string name="DLG_information_title">Information</string>
+
+    <!-- error dialog (%s => error message)-->
+    <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s</string>
+
+    <!-- Progress dialog shown when doing something slow -->
+    <string name="DLG_wait">Please wait...</string>
+
+    <!-- ================================================== SyncPreferences == -->
+
+    <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->
+    <string name="sync_status_success">Last sync:\n%s</string>
+
+    <!-- Preference: Synchronization Interval Title -->
+    <string name="sync_SPr_interval_title">Background sync</string>
+
+    <!-- Sync: Clear Data Title -->
+    <string name="sync_SPr_forget">Log out</string>
+    <!-- Sync: Clear Data Description -->
+    <string name="sync_SPr_forget_description">Clears all synchronization data</string>
+
+    <!-- confirmation dialog for sync log out -->
+    <string name="sync_forget_confirm">Log out/clear synchronization data?</string>
+
+    <string name="widget_hide_due_date">Hide due dates</string>
+    <string name="widget_hide_checkboxes">Hide checkboxes</string>
+    <string name="widget_hide_header">Hide header</string>
+    <string name="widget_transparent_background">Transparent background</string>
+    <string name="notifications">Notifications</string>
+    <string name="silent">Silent</string>
+    <string name="sound">Sound</string>
+    <string name="vibrate">Vibrate</string>
+    <string name="quiet_hours">Quiet hours</string>
+    <string name="attachment_directory">Attachment directory</string>
+    <string name="debug_logging">Debug logging</string>
+    <string name="miscellaneous">Miscellaneous</string>
+    <string name="synchronization">Synchronization</string>
+    <string name="enabled">Enabled</string>
+    <string name="font_size">Font size</string>
+    <string name="customize_edit_screen">Customize edit screen</string>
+    <string name="source_code">Source code</string>
+    <string name="translations">Translations</string>
+    <string name="report_an_issue">Report an issue</string>
+    <string name="help_and_feedback">Help &amp; Feedback</string>
+    <string name="contact_developer">Contact developer</string>
+    <string name="rate_tasks">Rate Tasks</string>
+    <string name="quiet_hours_summary">No sound or vibration during quiet hours</string>
+    <string name="TLA_menu_donate">Donate</string>
+    <string name="error">Error</string>
+    <string name="select_amount">Select amount</string>
+    <string name="notification_actions">Notification Actions</string>
+    <string name="notification_actions_summary">Show snooze and complete actions in notification</string>
+
+    <string-array name="sync_SPr_interval_entries">
+        <!-- sync_SPr_interval_entries: Synchronization Intervals -->
+        <item>disable</item>
+        <item>every fifteen minutes</item>
+        <item>every thirty minutes</item>
+        <item>every hour</item>
+        <item>every three hours</item>
+        <item>every six hours</item>
+        <item>every twelve hours</item>
+        <item>every day</item>
+        <item>every three days</item>
+        <item>every week</item>
+    </string-array>
+
+</resources>

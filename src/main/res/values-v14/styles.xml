@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TEA_Dialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustResize</item>
+        <item name="asTextColor">@android:color/black</item>
+    </style>
+
+    <style name="TEA_Dialog_Dark" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustResize</item>
+        <item name="asTextColor">@android:color/white</item>
+    </style>
+
+    <style name="TextBoxText">
+        <item name="android:textColor">?attr/asTextColor</item>
+    </style>
+
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="navigation_drawer_width">300dp</dimen>
+    <dimen name="widget_margin">8dp</dimen>
+
+    <dimen name="task_edit_title_padding_top_bottom">18dp</dimen>
+    <dimen name="task_edit_padding_top_bottom">10dp</dimen>
+    <dimen name="task_edit_drawable_padding">15dp</dimen>
+    <dimen name="task_edit_padding_left">10dp</dimen>
+    <dimen name="task_edit_padding_right">10dp</dimen>
+    <dimen name="task_edit_text_size">16sp</dimen>
+    <dimen name="task_edit_divider_width">307dp</dimen>
+</resources>

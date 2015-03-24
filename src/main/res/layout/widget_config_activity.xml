@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/asContentBackground"
+    android:orientation="vertical">
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:checked="false"
+        android:id="@+id/hideDueDate"
+        android:text="@string/widget_hide_due_date"
+        android:textSize="18sp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:checked="false"
+        android:id="@+id/hideCheckboxes"
+        android:text="@string/widget_hide_checkboxes"
+        android:textSize="18sp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:checked="false"
+        android:id="@+id/hideHeader"
+        android:text="@string/widget_hide_header"
+        android:textSize="18sp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:checked="false"
+        android:id="@+id/transparentBackground"
+        android:text="@string/widget_transparent_background"
+        android:textSize="18sp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:checked="false"
+        android:id="@+id/darkTheme"
+        android:text="@string/EPr_use_dark_theme"
+        android:textSize="18sp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" />
+
+    <!-- Title -->
+    <TextView
+        style="TextAppearance.ActionBar_ListsHeader"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="10dp"
+        android:text="@string/WCA_title"
+        android:textSize="18sp" />
+
+    <!-- List -->
+    <ListView android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="100"
+        android:cacheColorHint="#00000000"
+        android:scrollbars="vertical"/>
+
+    <!-- List -->
+    <Button android:id="@+id/ok"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@android:string/ok"/>
+
+</LinearLayout>
+    

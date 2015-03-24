@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="premium_attach_file">Attach a file</string>
+    <string name="premium_record_audio">Record a note</string>
+    <string name="premium_remove_file_confirm">Are you sure? Cannot be undone</string>
+    
+    <string name="audio_recording_title">Recording Audio</string>
+    <string name="audio_stop_recording">Stop Recording</string>
+
+    <string name="search_market_audio">No player found to handle that audio type. Would you like to download an audio player from the Android Market?</string>
+    <string name="search_market_audio_title">No audio player found</string>
+
+    <string name="search_market_pdf">No PDF reader was found. Would you like to download a PDF reader from the Android Market?</string>
+    <string name="search_market_pdf_title">No PDF reader found</string>
+
+    <string name="search_market_ms">No MS Office reader was found. Would you like to download an MS Office reader from the Android Market?</string>
+    <string name="search_market_ms_title">No MS Office reader found</string>
+    
+    <string name="file_type_unhandled">Sorry! No application was found to handle this file type.</string>
+    <string name="file_type_unhandled_title">No application found</string>
+    
+    <string name="file_browser_up">Up</string>
+    <string name="file_browser_title">Choose a file</string>
+    <string name="dir_browser_title">Choose a directory</string>
+    <string name="file_browser_err_permissions">Permissions error! Please make sure you have not blocked Tasks from accessing the SD card.</string>
+    <string name="file_add_picture">Attach a picture</string>
+    <string name="file_add_sdcard">Attach a file from your SD card</string>
+    <string name="file_err_copy">Error copying file for attachment</string>
+
+    <string name="file_dir_dialog_ok">Use this directory</string>
+    <string name="file_dir_dialog_default">Reset to default</string>
+    
+    <!-- Description for file download directory preference. %s -> chosen directory -->
+    <string name="p_files_dir_desc">Task attachments saved to: %s</string>
+    <string name="p_files_dir_desc_default">Default directory</string>
+    
+    <!-- in app billing -->
+    
+    <string name="premium_speech_bubble_2">Order one year and save 25%!</string>
+    
+</resources>

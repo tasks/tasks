@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+** Copyright (c) 2012 Todoroo Inc
+**
+** See the file "LICENSE" for the full license governing this code. 
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:src="?attr/ic_action_flag"
+        android:contentDescription="@string/TEA_importance_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:padding="@dimen/task_edit_drawable_padding" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/importance_container"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/task_edit_padding_right"
+            android:paddingEnd="@dimen/task_edit_padding_right">
+
+            <TextView
+                android:id="@+id/display_row_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/task_edit_padding_top_bottom"
+                android:layout_marginBottom="@dimen/task_edit_padding_top_bottom"
+                android:paddingTop="@dimen/task_edit_padding_top_bottom"
+                android:paddingBottom="@dimen/task_edit_padding_top_bottom"
+                android:gravity="start|center_vertical"
+                android:text="@string/TEA_importance_label"
+                android:textColor="?attr/asTextColor"
+                android:textSize="@dimen/task_edit_text_size" />
+
+        </LinearLayout>
+
+        <include layout="@layout/task_edit_divider" />
+
+    </LinearLayout>
+
+</LinearLayout>

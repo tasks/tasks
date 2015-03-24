@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+** Copyright (c) 2012 Todoroo Inc
+**
+** See the file "LICENSE" for the full license governing this code. 
+-->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/task_defaults">
+    <com.todoroo.astrid.ui.MultilineListPreference
+        android:defaultValue="2"
+        android:entries="@array/EPr_default_importance"
+        android:entryValues="@array/EPr_default_importance_values"
+        android:key="@string/p_default_importance_key"
+        android:title="@string/EPr_default_importance_title" />
+    <com.todoroo.astrid.ui.MultilineListPreference
+        android:defaultValue="0"
+        android:entries="@array/EPr_default_urgency"
+        android:entryValues="@array/EPr_default_urgency_values"
+        android:key="@string/p_default_urgency_key"
+        android:title="@string/EPr_default_urgency_title" />
+    <com.todoroo.astrid.ui.MultilineListPreference
+        android:defaultValue="0"
+        android:entries="@array/EPr_default_hideUntil"
+        android:entryValues="@array/EPr_default_hideUntil_values"
+        android:key="@string/p_default_hideUntil_key"
+        android:title="@string/EPr_default_hideUntil_title" />
+    <com.todoroo.astrid.ui.MultilineListPreference
+        android:defaultValue="6"
+        android:entries="@array/EPr_default_reminders"
+        android:entryValues="@array/EPr_default_reminders_values"
+        android:key="@string/p_default_reminders_key"
+        android:title="@string/EPr_default_reminders_title" />
+    <com.todoroo.astrid.ui.MultilineListPreference
+        android:defaultValue="0"
+        android:entries="@array/EPr_reminder_random"
+        android:entryValues="@array/EPr_reminder_random_hours"
+        android:key="@string/p_rmd_default_random_hours"
+        android:title="@string/rmd_EPr_defaultRemind_title" />
+    <com.todoroo.astrid.ui.MultilineListPreference
+        android:defaultValue="0"
+        android:entries="@array/EPr_default_reminders_mode"
+        android:entryValues="@array/EPr_default_reminders_mode_values"
+        android:key="@string/p_default_reminders_mode_key"
+        android:title="@string/EPr_default_reminders_mode_title" />
+    <com.todoroo.astrid.ui.MultilineListPreference
+        android:defaultValue="0"
+        android:entries="@array/EPr_default_addtocalendar"
+        android:entryValues="@array/EPr_default_addtocalendar_values"
+        android:key="@string/gcal_p_default"
+        android:title="@string/EPr_default_addtocalendar_title" />
+</PreferenceScreen>

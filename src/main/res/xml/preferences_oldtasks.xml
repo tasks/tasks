@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+** Copyright (c) 2012 Todoroo Inc
+**
+** See the file "LICENSE" for the full license governing this code. 
+-->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/EPr_manage_header">
+
+    <com.todoroo.astrid.ui.MultilinePreference
+        android:key="@string/EPr_manage_delete_completed"
+        android:title="@string/EPr_manage_delete_completed">
+        <intent
+            android:targetClass="org.tasks.activities.DeleteCompletedActivity"
+            android:targetPackage="org.tasks" />
+    </com.todoroo.astrid.ui.MultilinePreference>
+
+    <com.todoroo.astrid.ui.MultilinePreference
+        android:key="@string/EPr_manage_purge_deleted"
+        android:title="@string/EPr_manage_purge_deleted">
+        <intent
+            android:targetClass="org.tasks.activities.PurgeDeletedActivity"
+            android:targetPackage="org.tasks" />
+    </com.todoroo.astrid.ui.MultilinePreference>
+
+    <com.todoroo.astrid.ui.MultilinePreference
+        android:key="@string/EPr_manage_delete_completed_gcal"
+        android:title="@string/EPr_manage_delete_completed_gcal">
+        <intent
+            android:targetClass="org.tasks.activities.DeleteCompletedEventsActivity"
+            android:targetPackage="org.tasks" />
+    </com.todoroo.astrid.ui.MultilinePreference>
+
+    <com.todoroo.astrid.ui.MultilinePreference
+        android:key="@string/EPr_manage_delete_all_gcal"
+        android:title="@string/EPr_manage_delete_all_gcal">
+        <intent
+            android:targetClass="org.tasks.activities.DeleteAllCalendarEventsActivity"
+            android:targetPackage="org.tasks" />
+    </com.todoroo.astrid.ui.MultilinePreference>
+
+    <Preference
+        android:key="@string/EPr_manage_clear_all"
+        android:title="@string/EPr_manage_clear_all">
+        <intent
+            android:targetClass="org.tasks.activities.ClearAllDataActivity"
+            android:targetPackage="org.tasks" />
+    </Preference>
+
+</PreferenceScreen>

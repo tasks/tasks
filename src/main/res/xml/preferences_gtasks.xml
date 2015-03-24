@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+** Copyright (c) 2012 Todoroo Inc
+**
+** See the file "LICENSE" for the full license governing this code. 
+-->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/synchronization">
+
+    <PreferenceCategory android:title="@string/gtasks_GPr_header">
+
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:defaultValue="false"
+            android:key="@string/sync_gtasks"
+            android:title="@string/enabled" />
+
+        <com.todoroo.astrid.ui.MultilineListPreference
+            android:defaultValue="0"
+            android:dependency="@string/sync_gtasks"
+            android:entries="@array/sync_SPr_interval_entries"
+            android:entryValues="@array/sync_SPr_interval_values"
+            android:key="@string/gtasks_GPr_interval_key"
+            android:title="@string/sync_SPr_interval_title" />
+
+        <com.todoroo.astrid.ui.MultilinePreference
+            android:dependency="@string/sync_gtasks"
+            android:key="@string/sync_SPr_forget_key"
+            android:summary="@string/sync_SPr_forget_description"
+            android:title="@string/sync_SPr_forget">
+        </com.todoroo.astrid.ui.MultilinePreference>
+
+    </PreferenceCategory>
+</PreferenceScreen>  

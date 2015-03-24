@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+** Copyright (c) 2012 Todoroo Inc
+**
+** See the file "LICENSE" for the full license governing this code. 
+-->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/notifications">
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/p_rmd_enabled"
+        android:title="@string/enabled" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:dependency="@string/p_rmd_enabled"
+        android:key="@string/p_rmd_notif_actions_enabled"
+        android:summary="@string/notification_actions_summary"
+        android:title="@string/notification_actions" />
+    <RingtonePreference
+        android:defaultValue="content://settings/system/notification_sound"
+        android:dependency="@string/p_rmd_enabled"
+        android:key="@string/p_rmd_ringtone"
+        android:ringtoneType="notification"
+        android:showDefault="true"
+        android:showSilent="true"
+        android:title="@string/sound" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:dependency="@string/p_rmd_enabled"
+        android:key="@string/p_rmd_vibrate"
+        android:title="@string/vibrate" />
+    <com.todoroo.astrid.ui.MultilineCheckboxPreference
+        android:defaultValue="true"
+        android:dependency="@string/p_rmd_enabled"
+        android:key="@string/p_rmd_persistent"
+        android:summaryOff="@string/rmd_EPr_persistent_desc_false"
+        android:summaryOn="@string/rmd_EPr_persistent_desc_true"
+        android:title="@string/rmd_EPr_persistent_title" />
+    <org.tasks.ui.TimePreference
+        android:defaultValue="@integer/default_remind_time"
+        android:dependency="@string/p_rmd_enabled"
+        android:key="@string/p_rmd_time"
+        android:title="@string/rmd_EPr_rmd_time_title" />
+    <com.todoroo.astrid.ui.MultilineCheckboxPreference
+        android:defaultValue="false"
+        android:dependency="@string/p_rmd_enabled"
+        android:key="@string/p_rmd_maxvolume"
+        android:summary="@string/rmd_EPr_multiple_maxvolume_desc_true"
+        android:title="@string/rmd_EPr_multiple_maxvolume_title" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:dependency="@string/p_rmd_enabled"
+        android:key="@string/p_rmd_enable_quiet"
+        android:summary="@string/quiet_hours_summary"
+        android:title="@string/quiet_hours" />
+    <org.tasks.ui.TimePreference
+        android:defaultValue="@integer/default_quiet_hours_start"
+        android:dependency="@string/p_rmd_enable_quiet"
+        android:key="@string/p_rmd_quietStart"
+        android:title="@string/rmd_EPr_quiet_hours_start_title" />
+    <org.tasks.ui.TimePreference
+        android:defaultValue="@integer/default_quiet_hours_end"
+        android:dependency="@string/p_rmd_enable_quiet"
+        android:key="@string/p_rmd_quietEnd"
+        android:title="@string/rmd_EPr_quiet_hours_end_title" />
+
+</PreferenceScreen>

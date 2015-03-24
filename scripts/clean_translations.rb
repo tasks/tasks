@@ -84,12 +84,11 @@ def clean(path)
 end
 
 def remove_untranslated_strings(*string_files)
-  index_elements(load("api/src/main/res/values/strings.xml"))
-  Dir.glob("astrid/src/main/res/values/strings*.xml").each { |path| index_elements(load(path)) }
+  Dir.glob("src/main/res/values/strings*.xml").each { |path| index_elements(load(path)) }
   string_files.each { |path| clean path }
 end
 
 if __FILE__ == $0
   lang = ARGV[0]
-  remove_untranslated_strings("api/src/main/res/values-#{lang}/strings.xml", "astrid/src/main/res/values-#{lang}/strings.xml")
+  remove_untranslated_strings("src/main/res/values-#{lang}/strings.xml")
 end

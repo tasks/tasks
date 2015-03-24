@@ -1,10 +1,10 @@
 #!/bin/bash
 # combine multiple android resource xml's to one
 
-cat $1 | /usr/bin/sed 's/<\/resources.*//'
+cat $1 | sed 's/<\/resources.*//'
 shift
 if [ "$*" != "" ]; then
-    cat $* | /usr/bin/sed 's/<\/resources.*//;s/<?xml.*//;s/<resources.*//'
+    cat $* | sed 's/<\/resources.*//;s/<?xml.*//;s/<resources.*//'
 fi
 echo '</resources>'
 

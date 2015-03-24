@@ -1,0 +1,265 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- ========================================================== General  -->
+
+    <style name="AppThemeBase" parent="Theme.AppCompat.Light.NoActionBar">
+    </style>
+
+    <style name="Tasks" parent="AppThemeBase">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <!--<item name="colorAccent">@android:color/holo_purple</item>-->
+
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="asDueDateOverdueColor">#ee5555</item>
+        <item name="asEditTextBackground">@null</item>
+        <item name="windowActionModeOverlay">true</item>
+
+        <item name="ic_action_add">@drawable/ic_action_add_light</item>
+        <item name="ic_action_new_attachment">@drawable/ic_action_attachment_2</item>
+        <item name="ic_action_discard">@drawable/ic_action_discard</item>
+        <item name="ic_action_save">@drawable/ic_action_save</item>
+        <item name="ic_action_cancel">@drawable/ic_action_cancel</item>
+        <item name="ic_action_camera">@drawable/ic_action_camera</item>
+        <item name="ic_action_mic">@drawable/ic_action_mic</item>
+        <item name="ic_action_search">@drawable/ic_action_search</item>
+        <item name="ic_action_settings">@drawable/ic_action_gear</item>
+
+        <!-- actionbar-styling -->
+        <item name="homeAsUpIndicator">@drawable/ic_up</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_up</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="android:windowContentOverlay">@null</item>
+
+        <item name="drawer_background">@color/drawer_background</item>
+        <item name="drawer_background_selected">@color/drawer_background_selected</item>
+        <item name="asDueDateCompletedColor">#ff777777</item>
+        <item name="asToolbarSeparator">@android:color/transparent</item>
+        <item name="asSeparatorBackground">#888888</item>
+
+        <item name="android:actionModeBackground">@color/primary</item>
+        <item name="asContentBackground">@android:color/white</item>
+        <item name="asEditBackground">@android:color/white</item>
+        <item name="asTextColor">@android:color/black</item>
+        <item name="asTextColorHint">@android:color/darker_gray</item>
+        <item name="asTextColorInverse">@android:color/white</item>
+        <item name="asDetailsColor">#6666aa</item>
+        <item name="asDueDateColor">#878787</item>
+        <item name="asListDividerColor">#dddddd</item>
+        <item name="asEditRowBackground">@drawable/task_edit_background_white</item>
+        <item name="asFilterSelectedIcon">@drawable/filter_selected_icon_black</item>
+        <item name="asFilterRowSelected">@drawable/filter_row_selector</item>
+        <item name="asTaskRowSelector">@drawable/task_row_bg_white</item>
+        <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
+        <item name="asAbBackgroundColor">#607d8b</item>
+        <item name="floatingActionButtonStroke">@android:color/transparent</item>
+        <item name="importance_background_selected">@drawable/importance_background_selected</item>
+        <item name="task_edit_divider">@color/task_edit_divider</item>
+        <item name="drawer_text">@android:color/black</item>
+        <item name="ic_action_attachment">@drawable/ic_action_attachment_2_dark</item>
+        <item name="ic_action_clock">@drawable/ic_action_clock</item>
+        <item name="ic_action_flag">@drawable/ic_action_flag</item>
+        <item name="ic_action_tags">@drawable/ic_action_tags</item>
+        <item name="ic_action_list">@drawable/ic_action_list</item>
+        <item name="ic_action_box">@drawable/ic_action_box</item>
+        <item name="ic_action_bell">@drawable/ic_action_bell</item>
+        <item name="ic_action_alarm">@drawable/ic_action_alarm</item>
+        <item name="ic_action_reload">@drawable/ic_action_reload</item>
+        <item name="ic_action_calendar_month">@drawable/ic_action_calendar_month</item>
+        <item name="ic_action_help">@drawable/ic_action_help</item>
+    </style>
+
+    <style name="Tasks.Dark">
+        <item name="colorPrimary">@android:color/black</item>
+        <item name="colorPrimaryDark">@android:color/black</item>
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="drawer_background">@color/drawer_background_dark</item>
+        <item name="drawer_background_selected">@color/drawer_background_selected_dark</item>
+        <item name="asToolbarSeparator">@android:color/white</item>
+        <item name="android:actionModeBackground">@android:color/black</item>
+        <item name="asContentBackground">@android:color/black</item>
+        <item name="asEditBackground">@android:color/black</item>
+        <item name="asTextColor">@android:color/white</item>
+        <item name="asTextColorHint">@android:color/darker_gray</item>
+        <item name="asTextColorInverse">@android:color/black</item>
+        <item name="asAbBackgroundColor">@android:color/black</item>
+        <item name="floatingActionButtonStroke">@android:color/white</item>
+        <item name="drawer_text">@android:color/white</item>
+        <item name="ic_action_settings">@drawable/ic_action_gear_white</item>
+        <item name="asFilterRowSelected">@drawable/filter_row_selector_dark</item>
+        <item name="task_edit_divider">@color/task_edit_divider_dark</item>
+        <item name="ic_action_attachment">@drawable/ic_action_attachment_2</item>
+        <item name="ic_action_clock">@drawable/ic_action_clock_white</item>
+        <item name="ic_action_flag">@drawable/ic_action_flag_white</item>
+        <item name="ic_action_tags">@drawable/ic_action_tags_white</item>
+        <item name="ic_action_list">@drawable/ic_action_list_white</item>
+        <item name="ic_action_box">@drawable/ic_action_box_white</item>
+        <item name="ic_action_bell">@drawable/ic_action_bell_white</item>
+        <item name="ic_action_alarm">@drawable/ic_action_alarm_white</item>
+        <item name="ic_action_reload">@drawable/ic_action_reload_white</item>
+        <item name="ic_action_calendar_month">@drawable/ic_action_calendar_month_white</item>
+        <item name="ic_action_help">@drawable/ic_action_help_white</item>
+        <item name="asDueDateColor">#c3c3c3</item>
+    </style>
+
+    <style name="TasksDialog" parent="@android:style/Theme.Dialog">
+        <item name="asDueDateOverdueColor">#ffee5555</item>
+        <item name="asDueDateCompletedColor">#ff777777</item>
+        <item name="asSeparatorBackground">#888888</item>
+
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowBackground">@drawable/panel_background</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:layout_width">fill_parent</item>
+
+        <item name="android:windowTitleSize">18dip</item>
+        <item name="android:windowTitleStyle">@style/DialogTitle</item>
+        <item name="android:windowTitleBackgroundStyle">@style/DialogTitle</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+
+        <item name="windowActionBar">false</item>
+
+        <item name="asContentBackground">@android:color/white</item>
+        <item name="asTextColor">#ff000000</item>
+        <item name="asDetailsColor">#ff6666aa</item>
+        <item name="asDueDateColor">#878787</item>
+
+        <item name="asEditBackground">#dddddd</item>
+        <item name="asEditRowBackground">@drawable/task_edit_background_transparent_white</item>
+        <item name="asThemeTextColor">@color/blue_theme_color</item>
+    </style>
+
+    <style name="ActionBar.TitleText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">#fff</item>
+    </style>
+
+    <style name="TextBoxText">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="ActionBarThemeOverlay" parent="">
+        <item name="android:textColorPrimary">#fff</item>
+        <item name="colorControlNormal">#fff</item>
+        <item name="colorControlHighlight">#3fff</item>
+    </style>
+
+    <style name="ActionBarPopupThemeOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Tasks.Dialog" parent="@style/Theme.AppCompat.Light.Dialog"/>
+
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">false</item>
+    </style>
+
+    <!--================================================== General == -->
+
+    <style name="TextAppearance" parent="android:TextAppearance">
+        <item name="android:textColor">?attr/asTextColor</item>    
+    </style>
+
+    <style name="edit_text_style">
+    </style>
+
+    <!--================================================== Custom Dialogs == -->
+    
+     <style name="DialogTitle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:background">#323331</item>
+    </style>
+    
+    <style name="ReminderDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/reminder_dialog_inset_background</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
+    </style>
+
+    <!--=============================================== TaskListActivity == -->
+    
+    <style name="ListView">
+        <item name="android:divider">?attr/asListDividerColor</item>
+        <item name="android:dividerHeight">1px</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:cacheColorHint">#00000000</item>
+        <item name="android:smoothScrollbar">true</item>
+    </style>
+
+    <!-- =============================================== TaskEditActivity == -->
+
+    <style name="TEA_Dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustResize</item>
+        <item name="android:windowBackground">@drawable/dialog_full_holo_light</item>
+        <item name="asTextColor">#000000</item>
+    </style>
+
+    <style name="TEA_Dialog_Dark" parent="TEA_Dialog">
+        <item name="android:windowBackground">@drawable/dialog_full_holo_dark</item>
+        <item name="asTextColor">#ffffff</item>
+    </style>
+
+    <!-- ==================================================== TaskAdapter == -->
+
+    <style name="TextAppearance.TAd_ItemTitle">
+        <item name="android:textColorLink">#ff88aaff</item>
+    </style>
+    
+    <style name="TextAppearance.TAd_ItemTitle_Completed" parent="TextAppearance.TAd_ItemTitle">
+        <item name="android:textColor">#ff555555</item>
+    </style>
+    
+    <style name="TextAppearance.TAd_ItemDetails">
+        <item name="android:textColor">?attr/asDetailsColor</item>
+        <item name="android:textColorLink">#ff88aaff</item>
+    </style>
+    
+    <style name="TextAppearance.TAd_ItemDueDate" parent="TextAppearance.TAd_ItemDetails">
+        <item name="android:textColor">?attr/asDueDateColor</item>
+    </style>
+    
+    <style name="TextAppearance.TAd_ItemDueDate_Overdue" parent="TextAppearance.TAd_ItemDueDate">
+        <item name="android:textColor">?attr/asDueDateOverdueColor</item>
+    </style>
+    
+    <style name="TextAppearance.TAd_ItemDueDate_Completed" parent="TextAppearance.TAd_ItemDueDate">
+        <item name="android:textColor">?attr/asDueDateCompletedColor</item>
+    </style>
+
+    <!-- ============================================== FilterListAdapter == -->
+
+    <style name="TextAppearance.FLA_Filter">
+        <item name="android:textSize">16sp</item>
+    </style>
+    
+    <style name="TextAppearance.FLA_Filter_Widget" parent="TextAppearance.FLA_Filter">
+        <item name="android:textColor">?attr/asTextColor</item>
+    </style>
+    
+    <!-- ========================================================= Widget == -->
+
+    <style name="TextAppearance.Widget">                                                                                                                                                                                      
+        <item name="android:textSize">16sp</item>                                                                                                                                                                    
+        <item name="android:textColor">@color/widget_text_color_light</item>                                                                                                                                                   
+    </style>
+
+    <style name="TextAppearance.WidgetDueDate">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/widget_text_color_light</item>
+    </style>
+
+    <!-- ========================================================= Premium == -->
+
+    <style name="TextAppearance.Medium">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+</resources>

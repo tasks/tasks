@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tasks="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_voice_add"
+        android:title="@string/EPr_voiceInputEnabled_title"
+        android:icon="?attr/ic_action_mic"
+        tasks:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/menu_search"
+        android:title="@string/TLA_menu_search"
+        android:icon="?attr/ic_action_search"
+        tasks:showAsAction="ifRoom|collapseActionView"
+        tasks:actionViewClass="android.support.v7.widget.SearchView"/>
+    <item
+        android:id="@+id/menu_sort"
+        android:title="@string/TLA_menu_sort"
+        tasks:showAsAction="never" />
+    <item
+        android:id="@+id/menu_clear_completed"
+        android:title="@string/gtasks_GTA_clear_completed"
+        android:visible="false"
+        tasks:showAsAction="never" />
+    <item
+        android:id="@+id/menu_new_list"
+        android:title="@string/FLA_new_list"
+        tasks:showAsAction="never" />
+    <item
+        android:id="@+id/menu_new_filter"
+        android:title="@string/FLA_new_filter"
+        tasks:showAsAction="never" />
+</menu>

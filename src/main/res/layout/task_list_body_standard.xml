@@ -1,0 +1,23 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="100">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <ListView
+            android:id="@android:id/list"
+            style="@style/ListView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingBottom="104dp"
+            android:clipToPadding="false"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <include layout="@layout/task_list_swipe_layout_empty" />
+
+</RelativeLayout>

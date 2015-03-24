@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+** Copyright (c) 2012 Todoroo Inc
+**
+** See the file "LICENSE" for the full license governing this code. 
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:src="?attr/ic_action_reload"
+        android:contentDescription="@string/repeat_until_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:padding="@dimen/task_edit_drawable_padding" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/display_row_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:gravity="start"
+            android:textColor="?attr/asThemeTextColor"
+            android:textSize="@dimen/task_edit_text_size"
+            android:paddingTop="@dimen/task_edit_padding_top_bottom"
+            android:paddingBottom="@dimen/task_edit_padding_top_bottom"
+            android:layout_marginTop="@dimen/task_edit_padding_top_bottom"
+            android:layout_marginBottom="@dimen/task_edit_padding_top_bottom"
+            android:paddingRight="@dimen/task_edit_padding_right"
+            android:paddingEnd="@dimen/task_edit_padding_right" />
+
+        <include layout="@layout/task_edit_divider"/>
+
+    </LinearLayout>
+
+</LinearLayout>
