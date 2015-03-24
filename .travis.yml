@@ -8,7 +8,7 @@ android:
   components:
     - android-22
     - platform-tools-22
-    - build-tools-22
+    - build-tools-22.0.1
     - extra-android-m2repository
   licenses:
     - 'android-sdk-license-.+'

@@ -74,8 +74,8 @@ public class NotificationTests extends DatabaseTestCase {
                 eq(task.getId()),
                 any(Intent.class),
                 eq(ReminderService.TYPE_DUE),
+                eq("rubberduck"),
                 eq("Tasks"),
-                eq(" rubberduck"),
                 eq(1));
     }
 
