@@ -52,18 +52,12 @@
     <attr name="drawer_text" format="color"/>
     <attr name="importance_background_selected" format="reference"/>
     <attr name="asFilterRowSelected" format="reference"/>
+    <attr name="fab_background" format="color" />
+    <attr name="fab_background_pressed" format="color" />
+    <attr name="fab_plus" format="color" />
 
-  <declare-styleable name="DateAndTimePicker">
+    <declare-styleable name="DateAndTimePicker">
       <attr name="shortcutLabels" format="reference"/>
   </declare-styleable>
 
-    <declare-styleable name="FloatingActionButton">
-        <attr name="drawable" format="integer"/>
-        <attr name="tint" format="color"/>
-        <attr name="stroke" format="color" />
-        <attr name="shadowRadius" format="float"/>
-        <attr name="shadowDx" format="float"/>
-        <attr name="shadowDy" format="float"/>
-        <attr name="shadowColor" format="integer"/>
-    </declare-styleable>
 </resources>

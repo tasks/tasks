@@ -34,7 +34,6 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import com.faizmalkani.floatingactionbutton.FloatingActionButton;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
@@ -274,8 +273,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
             Bundle savedInstanceState) {
         ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(
                 R.layout.task_list_activity, container, false);
-        FloatingActionButton fab = (FloatingActionButton) parent.findViewById(R.id.fab);
-        fab.setOnClickListener(new OnClickListener() {
+        parent.findViewById(R.id.fab).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (ActivityPreferences.isTabletSized(context)) {

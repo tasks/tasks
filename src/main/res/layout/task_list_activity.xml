@@ -3,9 +3,8 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tasks="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:id="@+id/taskListParent"
     android:background="?attr/asContentBackground"
     android:layout_width="fill_parent"
@@ -17,15 +16,19 @@
 
     <!-- Body goes here -->
 
-    <com.faizmalkani.floatingactionbutton.FloatingActionButton
+    <net.i2p.android.ext.floatingactionbutton.AddFloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:layout_gravity="end|bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        fab:fab_colorNormal="?attr/fab_background"
+        fab:fab_colorPressed="?attr/fab_background_pressed"
+        fab:fab_plusIconColor="?attr/fab_plus"
+        fab:fab_stroke_visible="false"
         android:layout_marginBottom="16dp"
         android:layout_marginRight="16dp"
-        tasks:drawable="?attr/ic_action_add"
-        tasks:tint="?attr/asAbBackgroundColor"
-        tasks:stroke="?attr/floatingActionButtonStroke"/>
+        android:layout_marginEnd="16dp" />
 
-</FrameLayout>
+</RelativeLayout>
