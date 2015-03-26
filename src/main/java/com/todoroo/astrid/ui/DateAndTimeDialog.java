@@ -20,17 +20,12 @@ public class DateAndTimeDialog extends Dialog {
 
     public interface DateAndTimeDialogListener {
         public void onDateAndTimeSelected(long date);
-        public void onDateAndTimeCancelled();
     }
 
     private final DateAndTimePicker dateAndTimePicker;
     private boolean cancelled = false;
 
     private DateAndTimeDialogListener listener;
-
-    public DateAndTimeDialog(ActivityPreferences preferences, Context context, long startDate) {
-        this(preferences, context, startDate, R.layout.date_time_dialog, 0);
-    }
 
     public DateAndTimeDialog(ActivityPreferences preferences, Context context, long startDate, int contentView, int title) {
         super(context, preferences.getEditDialogTheme());
@@ -69,9 +64,6 @@ public class DateAndTimeDialog extends Dialog {
             public void onClick(View v) {
                 cancelled = true;
                 cancel();
-                if (listener != null) {
-                    listener.onDateAndTimeCancelled();
-                }
             }
         });
 
@@ -87,14 +79,6 @@ public class DateAndTimeDialog extends Dialog {
                 }
             }
         });
-    }
-
-    public void setSelectedDateAndTime(long date) {
-        dateAndTimePicker.initializeWithDate(date);
-    }
-
-    public boolean hasTime() {
-        return dateAndTimePicker.hasTime();
     }
 
     public void setDateAndTimeDialogListener(DateAndTimeDialogListener listener) {

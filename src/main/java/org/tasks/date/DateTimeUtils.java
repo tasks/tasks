@@ -26,6 +26,14 @@ public class DateTimeUtils {
         return newDate(Date.UTC(year - 1900, month - 1, day, hour, minute, second));
     }
 
+    public static DateTime newDateTime() {
+        return new DateTime();
+    }
+
+    public static DateTime newDateTime(Date date) {
+        return newDateTime(date.getTime());
+    }
+
     public static DateTime newDateTime(long timestamp) {
         return new DateTime(timestamp);
     }

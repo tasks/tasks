@@ -60,4 +60,8 @@
       <attr name="shortcutLabels" format="reference"/>
   </declare-styleable>
 
+    <declare-styleable name="TimePreference">
+        <attr name="summary" format="string"/>
+    </declare-styleable>
+
 </resources>

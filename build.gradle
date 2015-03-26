@@ -91,6 +91,11 @@ dependencies {
 
     compile group: 'net.i2p.android.ext', name: 'floatingactionbutton', version: '1.8.0'
 
+    compile ("com.doomonafireball.betterpickers:library:1.5.4") {
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'org.jraf', module: 'android-switch-backport'
+    }
+
     compile(group: 'com.google.apis', name: 'google-api-services-tasks', version: 'v1-rev33-1.18.0-rc') {
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
     }

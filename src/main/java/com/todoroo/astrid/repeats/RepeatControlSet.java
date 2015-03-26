@@ -110,7 +110,7 @@ public class RepeatControlSet extends PopupControlSet {
         if (newValue == 0) {
             repeatUntil.setText(activity.getString(R.string.repeat_forever));
         } else {
-            repeatUntil.setText(activity.getString(R.string.repeat_until, DateAndTimePicker.getDisplayString(activity, newValue)));
+            repeatUntil.setText(activity.getString(R.string.repeat_until, DateAndTimePicker.getDisplayString(activity, newValue, false, false)));
         }
     }
 
@@ -137,15 +137,9 @@ public class RepeatControlSet extends PopupControlSet {
             public void onDateAndTimeSelected(long date) {
                 setRepeatUntilValue(date);
             }
-
-            @Override
-            public void onDateAndTimeCancelled() {
-                //
-            }
         });
         d.show();
     }
-
 
     public void addListener(RepeatChangedListener listener) {
         listeners.add(listener);

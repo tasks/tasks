@@ -5,7 +5,7 @@
  */
 package com.todoroo.astrid.ui;
 
-import android.app.Activity;
+import android.content.DialogInterface;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -16,15 +16,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
 
+import org.joda.time.DateTime;
 import org.tasks.R;
+import org.tasks.dialogs.DateAndTimePickerDialog;
 import org.tasks.preferences.ActivityPreferences;
 
 import java.util.Date;
 
 import static org.tasks.date.DateTimeUtils.newDate;
+import static org.tasks.date.DateTimeUtils.newDateTime;
 
 /**
  * Control set for specifying when a task should be hidden
@@ -45,9 +48,11 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
     private int selection;
 
     private long existingDate = EXISTING_TIME_UNSET;
+    private TaskEditFragment taskEditFragment;
 
-    public HideUntilControlSet(ActivityPreferences preferences, Activity activity) {
-        super(preferences, activity, R.layout.control_set_hide_spinner, R.layout.control_set_hide, title);
+    public HideUntilControlSet(ActivityPreferences preferences, TaskEditFragment taskEditFragment) {
+        super(preferences, taskEditFragment.getActivity(), R.layout.control_set_hide_spinner, R.layout.control_set_hide, title);
+        this.taskEditFragment = taskEditFragment;
     }
 
     private ArrayAdapter<HideUntilValue> adapter;
@@ -120,25 +125,15 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
             customDate = newDate(existingDate == EXISTING_TIME_UNSET ? DateUtilities.now() : existingDate);
             customDate.setSeconds(0);
 
-            final DateAndTimeDialog dateAndTimeDialog = new DateAndTimeDialog(preferences, activity, customDate.getTime());
-            dateAndTimeDialog.show();
-            dateAndTimeDialog.setDateAndTimeDialogListener(new DateAndTimeDialogListener() {
+            DateAndTimePickerDialog.dateAndTimePickerDialog(taskEditFragment.getFragmentManager(), taskEditFragment.getActivity(), newDateTime(customDate), new DateAndTimePickerDialog.OnDateTimePicked() {
                 @Override
-                public void onDateAndTimeSelected(long date) {
-                    if (date > 0) {
-                        customDate = newDate(date);
-                        if (!dateAndTimeDialog.hasTime()) {
-                            customDate.setHours(0);
-                            customDate.setMinutes(0);
-                            customDate.setSeconds(0);
-                        }
-                        customDateFinished();
-                    }
+                public void onDateTimePicked(DateTime dateTime) {
+                    customDate = dateTime.toDate();
+                    customDateFinished();
                 }
-
+            }, new DialogInterface.OnDismissListener() {
                 @Override
-                public void onDateAndTimeCancelled() {
-                    // user canceled, restore previous choice
+                public void onDismiss(DialogInterface dialog) {
                     spinner.setSelection(previousSetting);
                     refreshDisplayView();
                 }

@@ -1,72 +1,30 @@
 package org.tasks.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
-import android.preference.DialogPreference;
-import android.text.format.DateFormat;
+import android.preference.Preference;
 import android.util.AttributeSet;
-import android.view.View;
-import android.widget.TimePicker;
 
 import org.joda.time.DateTime;
+import org.tasks.R;
+import org.tasks.activities.TimePickerActivity;
 
-public class TimePreference extends DialogPreference {
+import java.text.DateFormat;
+
+import static org.tasks.date.DateTimeUtils.newDateTime;
+
+public class TimePreference extends Preference {
 
     private int millisOfDay;
-    private TimePicker picker = null;
-    private int defaultFocusability;
+    private String summary;
 
     public TimePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        setPositiveButtonText(android.R.string.ok);
-        setNegativeButtonText(android.R.string.cancel);
-    }
-
-    @Override
-    public View onCreateDialogView() {
-        picker = new TimePicker(getContext());
-        defaultFocusability = picker.getDescendantFocusability();
-        refreshPicker();
-        return picker;
-    }
-
-    @Override
-    public void onBindDialogView(View v) {
-        super.onBindDialogView(v);
-
-        refreshPicker();
-    }
-
-    private void refreshPicker() {
-        DateTime dateTime = DateTime.now().withMillisOfDay(millisOfDay);
-        picker.setCurrentHour(dateTime.getHourOfDay());
-        picker.setCurrentMinute(dateTime.getMinuteOfHour());
-        picker.setIs24HourView(DateFormat.is24HourFormat(getContext()));
-        if(picker.is24HourView()) {
-            // Disable keyboard input on time picker to avoid this:
-            // https://code.google.com/p/android/issues/detail?id=24387
-            picker.setDescendantFocusability(TimePicker.FOCUS_BLOCK_DESCENDANTS);
-        } else {
-            picker.setDescendantFocusability(defaultFocusability);
-        }
-    }
-
-    @Override
-    public void onDialogClosed(boolean positiveResult) {
-        super.onDialogClosed(positiveResult);
-        if (positiveResult) {
-            picker.clearFocus();
-            millisOfDay = new DateTime()
-                    .withMillisOfDay(0)
-                    .withHourOfDay(picker.getCurrentHour())
-                    .withMinuteOfHour(picker.getCurrentMinute())
-                    .getMillisOfDay();
-
-            if (callChangeListener(millisOfDay)) {
-                persistInt(millisOfDay);
-            }
-        }
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TimePreference);
+        summary = a.getString(R.styleable.TimePreference_summary);
+        a.recycle();
     }
 
     @Override
@@ -78,14 +36,31 @@ public class TimePreference extends DialogPreference {
     public void onSetInitialValue(boolean restoreValue, Object defaultValue) {
         if (restoreValue) {
             int noon = new DateTime().withMillisOfDay(0).withHourOfDay(12).getMillisOfDay();
-            int persistedString = getPersistedInt(noon);
-            millisOfDay = persistedString;
+            millisOfDay = getPersistedInt(noon);
         } else {
             millisOfDay = Integer.parseInt((String) defaultValue);
         }
+
+        setMillisOfDay(millisOfDay);
     }
 
     public int getMillisOfDay() {
         return millisOfDay;
+    }
+
+    public void handleTimePickerActivityIntent(Intent data) {
+        int hour = data.getIntExtra(TimePickerActivity.EXTRA_HOURS, 0);
+        int minute = data.getIntExtra(TimePickerActivity.EXTRA_MINUTES, 0);
+        int millisOfDay = newDateTime().withMillisOfDay(0).withHourOfDay(hour).withMinuteOfHour(minute).getMillisOfDay();
+        if (callChangeListener(millisOfDay)) {
+            persistInt(millisOfDay);
+            setMillisOfDay(millisOfDay);
+        }
+    }
+
+    private void setMillisOfDay(int millisOfDay) {
+        this.millisOfDay = millisOfDay;
+        String setting = DateFormat.getTimeInstance(DateFormat.SHORT).format(new DateTime().withMillisOfDay(millisOfDay).toDate());
+        setSummary(summary == null ? setting : String.format(summary, setting));
     }
 }

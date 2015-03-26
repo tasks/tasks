@@ -166,11 +166,6 @@ public class DateChangedAlerts {
                             RepeatTaskCompleteListener.rescheduleTask(context, gcalHelper, taskService, task, newDueDate);
                             Flags.set(Flags.REFRESH);
                         }
-
-                        @Override
-                        public void onDateAndTimeCancelled() {
-                            //
-                        }
                     });
                     picker.show();
                 }

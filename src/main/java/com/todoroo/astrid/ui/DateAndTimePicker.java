@@ -234,10 +234,6 @@ public class DateAndTimePicker extends LinearLayout {
         return calendarDate.getTime();
     }
 
-    public boolean hasTime() {
-        return timePicker.hasTime();
-    }
-
     public boolean isAfterNow() {
         long dueDate = constructDueDate();
         return dueDate > DateUtilities.now();
@@ -246,10 +242,6 @@ public class DateAndTimePicker extends LinearLayout {
     public String getDisplayString(Context context) {
         long dueDate = constructDueDate();
         return getDisplayString(context, dueDate, false, false);
-    }
-
-    public static String getDisplayString(Context context, long forDate) {
-        return getDisplayString(context, forDate, false, false);
     }
 
     public static String getDisplayString(Context context, long forDate, boolean hideYear, boolean hideTime) {

@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.ui;
 
-import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -16,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.alarms.AlarmControlSet;
 import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.data.Task;
@@ -43,11 +43,12 @@ public class ReminderControlSet extends PopupControlSet {
     private RandomReminderControlSet randomControlSet;
     private AlarmControlSet alarmControl;
     private final AlarmService alarmService;
+    private TaskEditFragment taskEditFragment;
 
-    public ReminderControlSet(ActivityPreferences preferences, AlarmService alarmService,
-                              Activity activity) {
-        super(preferences, activity, R.layout.control_set_reminders_dialog, R.layout.control_set_reminders, R.string.TEA_reminders_group_label);
+    public ReminderControlSet(ActivityPreferences preferences, AlarmService alarmService, TaskEditFragment taskEditFragment) {
+        super(preferences, taskEditFragment.getActivity(), R.layout.control_set_reminders_dialog, R.layout.control_set_reminders, R.string.TEA_reminders_group_label);
         this.alarmService = alarmService;
+        this.taskEditFragment = taskEditFragment;
         extraViews = new ArrayList<>();
         label = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
     }
@@ -109,7 +110,7 @@ public class ReminderControlSet extends PopupControlSet {
         });
 
         randomControlSet = new RandomReminderControlSet(activity, getView(), -1);
-        alarmControl = new AlarmControlSet(preferences, alarmService, activity);
+        alarmControl = new AlarmControlSet(alarmService, taskEditFragment);
         alarmControl.readFromTask(model);
 
         remindersBody = (LinearLayout) getView().findViewById(R.id.reminders_body);

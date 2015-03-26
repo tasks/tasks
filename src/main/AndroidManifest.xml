@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="org.tasks">
-
-    <!-- widgets, alarms, and services will break if Astrid is installed on SD card -->
-    <!--    android:installLocation="internalOnly"> -->
 
     <!-- ================================================== Used Permissions = -->
 
@@ -100,6 +99,8 @@
         android:name="android.hardware.touchscreen"
         android:required="false" />
 
+    <uses-sdk tools:overrideLibrary="com.doomonafireball.betterpickers"/>
+
     <application
         android:icon="@drawable/icon"
         android:label="@string/app_name"
@@ -110,6 +111,10 @@
         android:manageSpaceActivity="com.todoroo.astrid.core.OldTaskPreferences">
 
         <!-- ====================================================== Activities = -->
+
+        <activity
+            android:name=".activities.TimePickerActivity"
+            android:theme="@style/Tasks.Dialog" />
 
         <!-- Activity that displays task list -->
         <activity
