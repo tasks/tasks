@@ -23,9 +23,6 @@ import com.todoroo.astrid.data.Task;
 import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Control set dealing with reminder settings
  *
@@ -36,30 +33,17 @@ public class ReminderControlSet extends PopupControlSet {
     private CheckBox during, after;
     private Spinner mode;
     private TextView modeDisplay;
-    private LinearLayout remindersBody;
-    private final List<View> extraViews;
     private final TextView label;
 
     private RandomReminderControlSet randomControlSet;
     private AlarmControlSet alarmControl;
-    private final AlarmService alarmService;
-    private TaskEditFragment taskEditFragment;
 
     public ReminderControlSet(ActivityPreferences preferences, AlarmService alarmService, TaskEditFragment taskEditFragment) {
         super(preferences, taskEditFragment.getActivity(), R.layout.control_set_reminders_dialog, R.layout.control_set_reminders, R.string.TEA_reminders_group_label);
-        this.alarmService = alarmService;
-        this.taskEditFragment = taskEditFragment;
-        extraViews = new ArrayList<>();
         label = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
-    }
-
-    public void addViewToBody(View v) {
-        if (remindersBody != null) {
-            remindersBody.addView(v, 0);
-        } else {
-            extraViews.add(v);
-        }
-
+        alarmControl = new AlarmControlSet(alarmService, taskEditFragment);
+        LinearLayout reminderRow = (LinearLayout) getDisplayView().findViewById(R.id.reminder_row);
+        reminderRow.addView(alarmControl.getView());
     }
 
     public void setValue(int flags) {
@@ -110,14 +94,6 @@ public class ReminderControlSet extends PopupControlSet {
         });
 
         randomControlSet = new RandomReminderControlSet(activity, getView(), -1);
-        alarmControl = new AlarmControlSet(alarmService, taskEditFragment);
-        alarmControl.readFromTask(model);
-
-        remindersBody = (LinearLayout) getView().findViewById(R.id.reminders_body);
-        remindersBody.addView(alarmControl.getView());
-        while (extraViews.size() > 0) {
-            addViewToBody(extraViews.remove(0));
-        }
 
         String[] list = new String[] {
                 activity.getString(R.string.TEA_reminder_mode_once),
@@ -221,5 +197,7 @@ public class ReminderControlSet extends PopupControlSet {
             label.setText(R.string.TEA_reminders_group_label);
             label.setTextColor(unsetColor);
         }
+
+        alarmControl.readFromTask(model);
     }
 }

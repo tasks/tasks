@@ -12,8 +12,6 @@
 	<string name="actfm_TVA_tag_label">Lista</string>
 	<string name="actfm_TVA_tag_name_hint">Inserisci il nome della lista</string>
 	<string name="actfm_GAA_title">Seleziona l\'account Google che vuoi utilizzare:</string>
-	<string name="alarm_ACS_label">Promemoria</string>
-	<string name="alarm_ACS_button">Aggiungi un promemoria</string>
 	<string name="backup_BPr_header">Salvataggi</string>
 	<string name="backup_BAc_import">Importa compiti</string>
 	<string name="backup_BAc_export">Esporta compiti</string>

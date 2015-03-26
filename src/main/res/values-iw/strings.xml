@@ -12,8 +12,6 @@
 	<string name="actfm_TVA_tag_label">רשימה</string>
 	<string name="actfm_TVA_tag_name_hint">הכנס שם רשימה</string>
 	<string name="actfm_GAA_title">בחר חשבון גוגל</string>
-	<string name="alarm_ACS_label">התראות</string>
-	<string name="alarm_ACS_button">הוסף התראה</string>
 	<string name="backup_BPr_header">גיבויים</string>
 	<string name="backup_BAc_import">ייבוא משימות</string>
 	<string name="backup_BAc_export">ייצוא משימות</string>

@@ -11,8 +11,6 @@
 	<string name="TVA_add_comment">Tilføj en kommentar</string>
 	<string name="actfm_TVA_tag_label">Listenavn</string>
 	<string name="actfm_GAA_title">Vælg den Google-konto du vil anvende:</string>
-	<string name="alarm_ACS_label">Alarmer</string>
-	<string name="alarm_ACS_button">Tilføj en alarm</string>
 	<string name="backup_BPr_header">Backup</string>
 	<string name="backup_BAc_import">Importér opgaver</string>
 	<string name="backup_BAc_export">Eksportér opgaver</string>

@@ -21,18 +21,31 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/display_row_edit"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:gravity="start|center_vertical"
-            android:text="@string/TEA_importance_label"
-            android:textColor="?attr/asThemeTextColor"
-            android:textSize="@dimen/task_edit_text_size"
-            android:paddingTop="@dimen/task_edit_padding_top_bottom"
-            android:paddingBottom="@dimen/task_edit_padding_top_bottom"
-            android:layout_marginTop="@dimen/task_edit_padding_top_bottom"
-            android:layout_marginBottom="@dimen/task_edit_padding_top_bottom" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/display_row_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
+                android:text="@string/TEA_importance_label"
+                android:textColor="?attr/asThemeTextColor"
+                android:textSize="@dimen/task_edit_text_size"
+                android:paddingTop="@dimen/task_edit_padding_top_bottom"
+                android:paddingBottom="@dimen/task_edit_padding_top_bottom"
+                android:layout_marginTop="@dimen/task_edit_padding_top_bottom"
+                android:layout_marginBottom="@dimen/task_edit_padding_top_bottom" />
+
+            <LinearLayout
+                android:id="@+id/reminder_row"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+        </LinearLayout>
 
         <include layout="@layout/task_edit_divider" />
 

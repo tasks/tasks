@@ -5,8 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
-	<string name="alarm_ACS_label">Varsler</string>
-	<string name="alarm_ACS_button">Legg til nytt varsel</string>
 	<string name="backup_BPr_header">Sikkerhetskopier</string>
 	<string name="backup_BAc_import">Importer oppgaver</string>
 	<string name="backup_BAc_export">Eksporter oppgaver</string>

@@ -51,7 +51,7 @@ public final class AlarmControlSet extends TaskEditControlSetBase {
     }
 
     @Override
-    protected void readFromTaskOnInitialize() {
+    public void readFromTaskOnInitialize() {
         alertsContainer.removeAllViews();
         alarmService.getAlarms(model.getId(), new Callback<Metadata>() {
             @Override

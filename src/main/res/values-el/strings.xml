@@ -11,8 +11,6 @@
 	<string name="actfm_TVA_tag_label">Λίστα</string>
 	<string name="actfm_TVA_tag_name_hint">Εισάγετε ένα όνομα για την λίστα</string>
 	<string name="actfm_GAA_title">Επιλέξτε τον λογαριασμό Google που θέλετε να χρησιμοποιήσετε:</string>
-	<string name="alarm_ACS_label">Ξυπνητήρια</string>
-	<string name="alarm_ACS_button">Προσθήκη ξυπνητηριού</string>
 	<string name="backup_BPr_header">Αντίγραφα ασφαλείας</string>
 	<string name="backup_BAc_import">Εισαγωγή εργασιών</string>
 	<string name="backup_BAc_export">Εξαγωγή εργασιών</string>

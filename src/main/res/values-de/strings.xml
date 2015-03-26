@@ -12,8 +12,6 @@
 	<string name="actfm_TVA_tag_label">Liste</string>
 	<string name="actfm_TVA_tag_name_hint">Vergebe einen Listennamen</string>
 	<string name="actfm_GAA_title">Wählen Sie den zu verwendenden Google-Account aus:</string>
-	<string name="alarm_ACS_label">Alarme</string>
-	<string name="alarm_ACS_button">Einen Alarm hinzufügen</string>
 	<string name="backup_BAc_import">Aufgaben importieren</string>
 	<string name="backup_BAc_export">Aufgaben exportieren</string>
 	<string name="export_toast">Gesichert von %1$s bis %2$s.</string>

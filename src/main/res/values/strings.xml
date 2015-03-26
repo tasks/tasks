@@ -93,6 +93,7 @@
     <string name="select_amount">Select amount</string>
     <string name="notification_actions">Notification Actions</string>
     <string name="notification_actions_summary">Show snooze and complete actions in notification</string>
+    <string name="add_a_reminder">Add a reminder</string>
 
     <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->

@@ -12,8 +12,6 @@
 	<string name="actfm_TVA_tag_label">목록</string>
 	<string name="actfm_TVA_tag_name_hint">목록 이름을 입력하세요</string>
 	<string name="actfm_GAA_title">사용하려는 구글 계정을 선택해 주십시오:</string>
-	<string name="alarm_ACS_label">알람</string>
-	<string name="alarm_ACS_button">알람 추가</string>
 	<string name="backup_BPr_header">백업</string>
 	<string name="backup_BAc_import">일정 가져오기</string>
 	<string name="backup_BAc_export">일정 내보내기</string>

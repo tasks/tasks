@@ -12,8 +12,6 @@
 	<string name="actfm_TVA_tag_label">Списък</string>
 	<string name="actfm_TVA_tag_name_hint">Въведете името на списъка</string>
 	<string name="actfm_GAA_title">Изберете Google акаунт, който искате да използвате:</string>
-	<string name="alarm_ACS_label">Аларми</string>
-	<string name="alarm_ACS_button">Добави Аларма</string>
 	<string name="backup_BPr_header">Резервни копия</string>
 	<string name="backup_BAc_import">Импортиране на задачи</string>
 	<string name="backup_BAc_export">Експортиране на задачи</string>

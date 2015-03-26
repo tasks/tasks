@@ -12,8 +12,6 @@
 	<string name="actfm_TVA_tag_label">Název listu:</string>
 	<string name="actfm_TVA_tag_name_hint">Název seznamu</string>
 	<string name="actfm_GAA_title">Vyberte, který účet Google chcete použít:</string>
-	<string name="alarm_ACS_label">Alarmy</string>
-	<string name="alarm_ACS_button">Přidat alarm</string>
 	<string name="backup_BPr_header">Zálohy</string>
 	<string name="backup_BAc_import">Importovat úkoly</string>
 	<string name="backup_BAc_export">Exportovat úkoly</string>
