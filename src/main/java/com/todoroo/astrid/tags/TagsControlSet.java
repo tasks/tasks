@@ -76,7 +76,7 @@ public final class TagsControlSet extends PopupControlSet {
         this.metadataDao = metadataDao;
         this.tagDataDao = tagDataDao;
         this.tagService = tagService;
-        tagsDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
+        tagsDisplay = (TextView) getView().findViewById(R.id.display_row_edit);
     }
 
     private TagData[] getTagArray() {
@@ -286,12 +286,12 @@ public final class TagsControlSet extends PopupControlSet {
         allTagNames = getTagNames(allTags);
         tagIndices = buildTagIndices(allTagNames);
 
-        selectedTags = (ListView) getView().findViewById(R.id.existingTags);
+        selectedTags = (ListView) getDialogView().findViewById(R.id.existingTags);
         selectedTags.setAdapter(new ArrayAdapter<>(activity,
                 R.layout.simple_list_item_multiple_choice_themed, allTagNames));
         selectedTags.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
-        this.newTags = (LinearLayout) getView().findViewById(R.id.newTags);
+        this.newTags = (LinearLayout) getDialogView().findViewById(R.id.newTags);
     }
 
     @Override

@@ -62,11 +62,6 @@ public abstract class TaskEditControlSetBase implements TaskEditControlSet {
         return view;
     }
 
-    @Override
-    public View getDisplayView() {
-        return getView();
-    }
-
     /**
      * Read data from model to update the control set
      */

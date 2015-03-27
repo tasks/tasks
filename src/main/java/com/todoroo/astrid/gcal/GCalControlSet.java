@@ -58,14 +58,14 @@ public class GCalControlSet extends PopupControlSet {
         super(preferences, activity, R.layout.control_set_gcal, R.layout.control_set_gcal_display, title);
         this.gcal = gcal;
         this.calendars = gcal.getCalendars();
-        getView(); // Hack to force initialized
+        getDialogView(); // Hack to force initialized
     }
 
     @Override
     protected void afterInflate() {
-        ((LinearLayout) getDisplayView()).addView(getView()); //hack for spinner
+        ((LinearLayout) getView()).addView(getDialogView()); //hack for spinner
 
-        this.calendarSelector = (Spinner) getView().findViewById(R.id.calendars);
+        this.calendarSelector = (Spinner) getDialogView().findViewById(R.id.calendars);
         ArrayList<String> items = new ArrayList<>();
         Collections.addAll(items, calendars.calendars);
         items.add(0, activity.getString(R.string.gcal_TEA_nocal));
@@ -219,7 +219,7 @@ public class GCalControlSet extends PopupControlSet {
 
     @Override
     protected void refreshDisplayView() {
-        TextView calendar = (TextView) getDisplayView().findViewById(R.id.calendar_display_which);
+        TextView calendar = (TextView) getView().findViewById(R.id.calendar_display_which);
         calendar.setTextColor(themeColor);
         if (initialized) {
             if (hasEvent) {
@@ -249,7 +249,7 @@ public class GCalControlSet extends PopupControlSet {
             @Override
             public void onClick(View v) {
                 if (calendarSelector == null) {
-                    getView(); // Force load
+                    getDialogView(); // Force load
                 }
                 if (!hasEvent) {
                     calendarSelector.performClick();

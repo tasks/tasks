@@ -52,7 +52,7 @@ public class FilesControlSet extends PopupControlSet {
     public FilesControlSet(ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao, Activity activity) {
         super(preferences, activity, R.layout.control_set_files_dialog, R.layout.control_set_files, R.string.TEA_control_files);
         this.taskAttachmentDao = taskAttachmentDao;
-        fileDisplayList = (LinearLayout) getDisplayView().findViewById(R.id.files_list);
+        fileDisplayList = (LinearLayout) getView().findViewById(R.id.files_list);
         inflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -118,7 +118,7 @@ public class FilesControlSet extends PopupControlSet {
 
     @Override
     protected void afterInflate() {
-        LinearLayout fileList = (LinearLayout) getView().findViewById(R.id.files_list);
+        LinearLayout fileList = (LinearLayout) getDialogView().findViewById(R.id.files_list);
         final LinearLayout finalList = fileList;
         fileList.removeAllViews();
         LayoutParams lp = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);

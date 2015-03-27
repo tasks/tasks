@@ -245,17 +245,17 @@ public class RepeatControlSet extends PopupControlSet {
 
     @Override
     protected void afterInflate() {
-        value = (Button) getView().findViewById(R.id.repeatValue);
-        interval = (Spinner) getView().findViewById(R.id.repeatInterval);
+        value = (Button) getDialogView().findViewById(R.id.repeatValue);
+        interval = (Spinner) getDialogView().findViewById(R.id.repeatInterval);
         interval.setAdapter(new ArrayAdapter<String>(activity, R.layout.simple_spinner_item, activity.getResources().getStringArray(R.array.repeat_interval)) {{
             setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         }});
-        type = (Spinner) getView().findViewById(R.id.repeatType);
+        type = (Spinner) getDialogView().findViewById(R.id.repeatType);
         type.setAdapter(new ArrayAdapter<String>(activity, R.layout.simple_spinner_item, activity.getResources().getStringArray(R.array.repeat_type)) {{
             setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         }});
-        daysOfWeekContainer = (LinearLayout) getView().findViewById(R.id.repeatDayOfWeekContainer);
-        repeatUntil = (Button) getView().findViewById(R.id.repeatUntil);
+        daysOfWeekContainer = (LinearLayout) getDialogView().findViewById(R.id.repeatDayOfWeekContainer);
+        repeatUntil = (Button) getDialogView().findViewById(R.id.repeatUntil);
         setRepeatValue(1);
         setRepeatUntilValue(0);
 
@@ -374,7 +374,7 @@ public class RepeatControlSet extends PopupControlSet {
 
     @Override
     protected void refreshDisplayView() {
-        TextView repeatDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
+        TextView repeatDisplay = (TextView) getView().findViewById(R.id.display_row_edit);
         if (doRepeat) {
             repeatDisplay.setText(getRepeatString());
             repeatDisplay.setTextColor(themeColor);
@@ -425,7 +425,7 @@ public class RepeatControlSet extends PopupControlSet {
                 }
             }
         };
-        getView().findViewById(R.id.edit_dont_repeat).setOnClickListener(dontRepeatButton);
+        getDialogView().findViewById(R.id.edit_dont_repeat).setOnClickListener(dontRepeatButton);
 
         return d;
     }

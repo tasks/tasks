@@ -493,7 +493,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         FilesControlSet filesControlSet = new FilesControlSet(preferences, taskAttachmentDao,
                 fragment.getActivity());
         filesControlSet.readFromTask(task);
-        filesControlSet.getDisplayView().performClick();
+        filesControlSet.getView().performClick();
     }
 
     /* ======================================================================

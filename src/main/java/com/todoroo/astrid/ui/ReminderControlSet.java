@@ -40,9 +40,9 @@ public class ReminderControlSet extends PopupControlSet {
 
     public ReminderControlSet(ActivityPreferences preferences, AlarmService alarmService, TaskEditFragment taskEditFragment) {
         super(preferences, taskEditFragment.getActivity(), R.layout.control_set_reminders_dialog, R.layout.control_set_reminders, R.string.TEA_reminders_group_label);
-        label = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
+        label = (TextView) getView().findViewById(R.id.display_row_edit);
         alarmControl = new AlarmControlSet(alarmService, taskEditFragment);
-        LinearLayout reminderRow = (LinearLayout) getDisplayView().findViewById(R.id.reminder_row);
+        LinearLayout reminderRow = (LinearLayout) getView().findViewById(R.id.reminder_row);
         reminderRow.addView(alarmControl.getView());
     }
 
@@ -81,11 +81,11 @@ public class ReminderControlSet extends PopupControlSet {
 
     @Override
     protected void afterInflate() {
-        during = (CheckBox) getView().findViewById(R.id.reminder_due);
-        after = (CheckBox) getView().findViewById(R.id.reminder_overdue);
-        modeDisplay = (TextView) getView().findViewById(R.id.reminder_alarm_display);
-        mode = (Spinner) getView().findViewById(R.id.reminder_alarm);
-        View modeContainer = getView().findViewById(R.id.reminder_alarm_container);
+        during = (CheckBox) getDialogView().findViewById(R.id.reminder_due);
+        after = (CheckBox) getDialogView().findViewById(R.id.reminder_overdue);
+        modeDisplay = (TextView) getDialogView().findViewById(R.id.reminder_alarm_display);
+        mode = (Spinner) getDialogView().findViewById(R.id.reminder_alarm);
+        View modeContainer = getDialogView().findViewById(R.id.reminder_alarm_container);
         modeContainer.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +93,7 @@ public class ReminderControlSet extends PopupControlSet {
             }
         });
 
-        randomControlSet = new RandomReminderControlSet(activity, getView(), -1);
+        randomControlSet = new RandomReminderControlSet(activity, getDialogView(), -1);
 
         String[] list = new String[] {
                 activity.getString(R.string.TEA_reminder_mode_once),

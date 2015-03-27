@@ -44,7 +44,7 @@ public class DeadlineControlSet extends PopupControlSet {
             displayString.append(DateAndTimePicker.getDisplayString(activity, model.getDueDate(), false, false));
         }
 
-        TextView dateDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
+        TextView dateDisplay = (TextView) getView().findViewById(R.id.display_row_edit);
         if (TextUtils.isEmpty(displayString)) {
             dateDisplay.setText(R.string.TEA_deadline_hint);
             dateDisplay.setTextColor(unsetColor);
@@ -60,8 +60,8 @@ public class DeadlineControlSet extends PopupControlSet {
 
     @Override
     protected void afterInflate() {
-        dateAndTimePicker = (DateAndTimePicker) getView().findViewById(R.id.date_and_time);
-        LinearLayout body = (LinearLayout) getView().findViewById(R.id.datetime_body);
+        dateAndTimePicker = (DateAndTimePicker) getDialogView().findViewById(R.id.date_and_time);
+        LinearLayout body = (LinearLayout) getDialogView().findViewById(R.id.datetime_body);
         body.setGravity(Gravity.CENTER_HORIZONTAL);
         Button okButton = (Button) LayoutInflater.from(activity).inflate(R.layout.control_dialog_ok, null);
         DisplayMetrics metrics = activity.getResources().getDisplayMetrics();

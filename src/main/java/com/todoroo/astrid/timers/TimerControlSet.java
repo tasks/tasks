@@ -35,12 +35,12 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
     public TimerControlSet(ActivityPreferences preferences, final Activity activity, int viewLayout, int displayViewLayout, int title) {
         super(preferences, activity, viewLayout, displayViewLayout, title);
 
-        displayEdit = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
+        displayEdit = (TextView) getView().findViewById(R.id.display_row_edit);
         displayEdit.setText(R.string.TEA_timer_controls);
         displayEdit.setTextColor(unsetColor);
 
-        estimated = new TimeDurationTaskEditControlSet(activity, getView(), Task.ESTIMATED_SECONDS,R.id.estimatedDuration);
-        elapsed = new TimeDurationTaskEditControlSet(activity, getView(), Task.ELAPSED_SECONDS, R.id.elapsedDuration);
+        estimated = new TimeDurationTaskEditControlSet(activity, getDialogView(), Task.ESTIMATED_SECONDS,R.id.estimatedDuration);
+        elapsed = new TimeDurationTaskEditControlSet(activity, getDialogView(), Task.ELAPSED_SECONDS, R.id.elapsedDuration);
     }
 
     @Override

@@ -447,7 +447,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 TaskEditControlSet curr = controlSetMap.get(item);
 
                 if (curr != null) {
-                    controlSet = curr.getDisplayView();
+                    controlSet = curr.getView();
                 }
 
                 if (controlSet != null) {
@@ -455,7 +455,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 }
 
                 if (curr != null && curr.getClass().equals(openControl) && curr instanceof PopupControlSet) {
-                    curr.getDisplayView().performClick();
+                    curr.getView().performClick();
                 }
             }
         }
@@ -588,7 +588,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         synchronized (controls) {
             if (!taskAttachmentDao.taskHasAttachments(model.getUuid())) {
-                filesControlSet.getDisplayView().setVisibility(View.GONE);
+                filesControlSet.getView().setVisibility(View.GONE);
             }
             for (TaskEditControlSet controlSet : controls) {
                 controlSet.readFromTask(model);
@@ -842,7 +842,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         TaskAttachment attachment = TaskAttachment.createNewAttachment(model.getUuid(), path, fileName, fileType);
         taskAttachmentDao.createNew(attachment);
         filesControlSet.refreshMetadata();
-        filesControlSet.getDisplayView().setVisibility(View.VISIBLE);
+        filesControlSet.getView().setVisibility(View.VISIBLE);
     }
 
     @Override

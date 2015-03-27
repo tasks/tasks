@@ -48,11 +48,11 @@ public abstract class PopupControlSet extends TaskEditControlSetBase {
         }
     };
 
-    public PopupControlSet(ActivityPreferences preferences, Activity activity, int viewLayout, int displayViewLayout, final int title) {
+    public PopupControlSet(ActivityPreferences preferences, Activity activity, int viewLayout, int taskEditViewLayout, final int title) {
         super(activity, viewLayout);
         this.preferences = preferences;
-        if (displayViewLayout != -1) {
-            this.displayView = LayoutInflater.from(activity).inflate(displayViewLayout, null);
+        if (taskEditViewLayout != -1) {
+            this.displayView = LayoutInflater.from(activity).inflate(taskEditViewLayout, null);
         } else {
             this.displayView = null;
         }
@@ -64,8 +64,12 @@ public abstract class PopupControlSet extends TaskEditControlSetBase {
         }
     }
     @Override
-    public View getDisplayView() {
+    public View getView() {
         return displayView;
+    }
+
+    protected View getDialogView() {
+        return super.getView();
     }
 
     protected Dialog buildDialog(String title, final PopupDialogClickListener okClickListener, DialogInterface.OnCancelListener cancelClickListener) {
@@ -76,7 +80,7 @@ public abstract class PopupControlSet extends TaskEditControlSetBase {
             dialog.setTitle(title);
         }
 
-        View v = getView();
+        View v = getDialogView();
 
         dialog.setContentView(v, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
         Button dismiss = (Button) v.findViewById(R.id.edit_dlg_ok);
