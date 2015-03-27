@@ -4,21 +4,37 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/task_edit_padding_top_bottom"
-    android:layout_marginBottom="@dimen/task_edit_padding_top_bottom" >
+    android:layout_marginBottom="@dimen/task_edit_padding_top_bottom">
 
-    <TextView
-        style="@android:style/TextAppearance"
-        android:id="@+id/alarm_string"
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="100"
-        android:textColor="?attr/asTextColor" />
+        android:orientation="horizontal"
+        android:layout_weight="100">
 
-    <ImageButton
+        <TextView
+            style="@android:style/TextAppearance"
+            android:id="@+id/alarm_string"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/asTextColor" />
+
+        <Spinner
+            android:id="@+id/reminder_random_interval"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+    <ImageView
         android:id="@+id/button1"
-        android:background="@drawable/btn_dismiss"
+        android:src="?attr/ic_action_cancel"
+        android:contentDescription="@string/remove"
         android:layout_width="32dip"
         android:layout_height="32dip"
-        android:layout_gravity="center"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:paddingRight="3dp"
+        android:paddingEnd="3dp" />
+
 </LinearLayout>

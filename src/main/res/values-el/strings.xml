@@ -321,16 +321,6 @@
 	<string name="TEA_reminder_due">Πότε λήγει η εργασία</string>
 	<string name="TEA_reminder_overdue">Όταν η εργασία είναι καθυστερούμενη</string>
 	<string name="TEA_reminder_randomly">Τυχαία μια φορά</string>
-	<string name="TEA_reminder_alarm_label">Ήχος/τύπος δόνησης</string>
-	<string name="TEA_reminder_mode_once">Μία φορά</string>
-	<string name="TEA_reminder_mode_five">Πέντε φορές</string>
-	<string name="TEA_reminder_mode_nonstop">Μέχρι να κλείσω την ειδοποίηση </string>
-	<string name="TEA_reminder_when">Όταν</string>
-	<string name="TEA_reminder_due_short">λήξη</string>
-	<string name="TEA_reminder_overdue_short">καθυστερούμενη</string>
-	<string name="TEA_reminder_randomly_short">τυχαία</string>
-	<string name="TEA_reminder_display_one">Υπενθύμισε μου %s</string>
-	<string name="TEA_reminder_display_multiple">Υπενθύμιση %s</string>
 	<string-array name="TEA_reminder_random">
 		<item>μια ώρα</item>
 		<item>μια μέρα</item>

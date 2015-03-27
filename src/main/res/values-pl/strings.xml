@@ -325,16 +325,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="TEA_reminder_due">W terminie</string>
 	<string name="TEA_reminder_overdue">Gdy zadanie jest zaległe</string>
 	<string name="TEA_reminder_randomly">Losowo raz</string>
-	<string name="TEA_reminder_alarm_label">Rodzaj dzwonka/wibracji:</string>
-	<string name="TEA_reminder_mode_once">Pojedynczy</string>
-	<string name="TEA_reminder_mode_five">Pięć razy</string>
-	<string name="TEA_reminder_mode_nonstop">Aż odwołam alarm</string>
-	<string name="TEA_reminder_when">kiedy</string>
-	<string name="TEA_reminder_due_short">termin</string>
-	<string name="TEA_reminder_overdue_short">zaległe</string>
-	<string name="TEA_reminder_randomly_short">losowo</string>
-	<string name="TEA_reminder_display_one">Przypomnij za %s</string>
-	<string name="TEA_reminder_display_multiple">Przypomnij %s</string>
 	<string-array name="TEA_reminder_random">
 		<item>na godzinę</item>
 		<item>dziennie</item>

@@ -328,16 +328,6 @@
 	<string name="TEA_reminder_due">При наступлении срока выполнения задания</string>
 	<string name="TEA_reminder_overdue">Когда задание просрочено</string>
 	<string name="TEA_reminder_randomly">Случайно один раз</string>
-	<string name="TEA_reminder_alarm_label">Тип звонка/вибрации</string>
-	<string name="TEA_reminder_mode_once">Один раз</string>
-	<string name="TEA_reminder_mode_five">Пять раз</string>
-	<string name="TEA_reminder_mode_nonstop">Пока я не отключу сигнал</string>
-	<string name="TEA_reminder_when">Когда</string>
-	<string name="TEA_reminder_due_short">Срок</string>
-	<string name="TEA_reminder_overdue_short">просрочена</string>
-	<string name="TEA_reminder_randomly_short">случайно</string>
-	<string name="TEA_reminder_display_one">Напомнить мне %s</string>
-	<string name="TEA_reminder_display_multiple">Напомнить %s</string>
 	<string-array name="TEA_reminder_random">
 		<item>час</item>
 		<item>день</item>

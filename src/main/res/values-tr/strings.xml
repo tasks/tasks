@@ -295,7 +295,6 @@
 	<string name="TEA_reminder_due">Görev son tarihinde</string>
 	<string name="TEA_reminder_overdue">Görev son tarihi aşıldığında</string>
 	<string name="TEA_reminder_randomly">Bir kere gelişigüzel</string>
-	<string name="TEA_reminder_alarm_label">Çalma/Titreme Tipi:</string>
 	<string-array name="TEA_reminder_random">
 		<item>bir saat</item>
 		<item>bir gün</item>

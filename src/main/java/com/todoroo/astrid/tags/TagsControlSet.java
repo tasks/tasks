@@ -16,7 +16,6 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -211,9 +210,7 @@ public final class TagsControlSet extends PopupControlSet {
             }
         });
 
-        ImageButton reminderRemoveButton;
-        reminderRemoveButton = (ImageButton)tagItem.findViewById(R.id.button1);
-        reminderRemoveButton.setOnClickListener(new View.OnClickListener() {
+        tagItem.findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TextView lastView = getLastTextView();

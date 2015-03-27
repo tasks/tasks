@@ -319,14 +319,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="TEA_reminder_due">...när uppgiften förfaller</string>
 	<string name="TEA_reminder_overdue">...när uppgiften har förfallit</string>
 	<string name="TEA_reminder_randomly">En gång slumpmässigt</string>
-	<string name="TEA_reminder_alarm_label">Ring/Vibrationsinställning:</string>
-	<string name="TEA_reminder_mode_once">En</string>
-	<string name="TEA_reminder_mode_five">Fem gånger</string>
-	<string name="TEA_reminder_mode_nonstop">Tills jag stänger av alarmet</string>
-	<string name="TEA_reminder_when">när</string>
-	<string name="TEA_reminder_randomly_short">slumpvis</string>
-	<string name="TEA_reminder_display_one">Påminn mig %s</string>
-	<string name="TEA_reminder_display_multiple">Påminn %s</string>
 	<string-array name="TEA_reminder_random">
 		<item>en timme</item>
 		<item>ett dygn</item>

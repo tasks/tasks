@@ -24,26 +24,71 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/display_row_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="start|center_vertical"
-                android:text="@string/TEA_importance_label"
-                android:textColor="?attr/asThemeTextColor"
-                android:textSize="@dimen/task_edit_text_size"
-                android:paddingTop="@dimen/task_edit_padding_top_bottom"
-                android:paddingBottom="@dimen/task_edit_padding_top_bottom"
-                android:layout_marginTop="@dimen/task_edit_padding_top_bottom"
-                android:layout_marginBottom="@dimen/task_edit_padding_top_bottom" />
+            android:orientation="vertical"
+            android:paddingTop="@dimen/task_edit_padding_top_bottom"
+            android:paddingBottom="@dimen/task_edit_padding_top_bottom"
+            android:layout_marginTop="@dimen/task_edit_padding_top_bottom"
+            android:layout_marginBottom="@dimen/task_edit_padding_top_bottom">
 
             <LinearLayout
-                android:id="@+id/reminder_row"
+                android:id="@+id/alert_container"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" />
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="start"
+                    android:gravity="start"
+                    android:layout_weight="50">
+
+                    <TextView
+                        android:textSize="@dimen/task_edit_text_size"
+                        android:id="@+id/alarms_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add_a_reminder"
+                        android:textColor="?attr/asTextColorHint" />
+
+                    <Spinner
+                        android:id="@+id/alarms_add_spinner"
+                        android:layout_width="0dip"
+                        android:layout_height="0dip" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="end"
+                    android:gravity="end"
+                    android:layout_weight="50">
+
+                    <TextView
+                        android:id="@+id/reminder_alarm_display"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/task_edit_text_size"
+                        android:paddingRight="10dip"
+                        android:paddingEnd="10dip"
+                        android:textColor="?attr/asTextColor" />
+
+                    <Spinner
+                        android:id="@+id/reminder_alarm"
+                        android:layout_width="0dip"
+                        android:layout_height="0dip" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 

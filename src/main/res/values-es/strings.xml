@@ -321,16 +321,6 @@
 	<string name="TEA_reminder_due">Cuando la tarea es finalizada</string>
 	<string name="TEA_reminder_overdue">Cuando la tarea está retrasada</string>
 	<string name="TEA_reminder_randomly">Aleatorio, una sola vez</string>
-	<string name="TEA_reminder_alarm_label">Tipo de Tono/Vibración:</string>
-	<string name="TEA_reminder_mode_once">Una vez</string>
-	<string name="TEA_reminder_mode_five">Cinco veces</string>
-	<string name="TEA_reminder_mode_nonstop">Hasta que cancele la alarma</string>
-	<string name="TEA_reminder_when">cuando</string>
-	<string name="TEA_reminder_due_short">límite</string>
-	<string name="TEA_reminder_overdue_short">retrasado</string>
-	<string name="TEA_reminder_randomly_short">aleatoriamente</string>
-	<string name="TEA_reminder_display_one">Recordarme %s</string>
-	<string name="TEA_reminder_display_multiple">Recordar %s</string>
 	<string-array name="TEA_reminder_random">
 		<item>una hora</item>
 		<item>un día</item>

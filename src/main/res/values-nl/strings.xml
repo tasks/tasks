@@ -323,16 +323,6 @@
 	<string name="TEA_reminder_due">op einddatum taak</string>
 	<string name="TEA_reminder_overdue">op of na einddatum taak</string>
 	<string name="TEA_reminder_randomly">Willekeurig eenmalig</string>
-	<string name="TEA_reminder_alarm_label">Geluid/Trillen:</string>
-	<string name="TEA_reminder_mode_once">Eenmaal</string>
-	<string name="TEA_reminder_mode_five">Vijf maal</string>
-	<string name="TEA_reminder_mode_nonstop">Totdat ik het alarm stop</string>
-	<string name="TEA_reminder_when">wanneer</string>
-	<string name="TEA_reminder_due_short">einddatum</string>
-	<string name="TEA_reminder_overdue_short">te laat</string>
-	<string name="TEA_reminder_randomly_short">willekeurig</string>
-	<string name="TEA_reminder_display_one">Herinner me %s</string>
-	<string name="TEA_reminder_display_multiple">Herinner %s</string>
 	<string-array name="TEA_reminder_random">
 		<item>een uur</item>
 		<item>een dag</item>

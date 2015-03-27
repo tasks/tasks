@@ -309,9 +309,6 @@
 	<string name="TEA_reminder_due">當任務工作到期時</string>
 	<string name="TEA_reminder_overdue">當任務工作過期時</string>
 	<string name="TEA_reminder_randomly">隨機一次</string>
-	<string name="TEA_reminder_alarm_label">鈴響/震動類型：</string>
-	<string name="TEA_reminder_display_one">提醒我 %s</string>
-	<string name="TEA_reminder_display_multiple">提醒 %s</string>
 	<string-array name="TEA_reminder_random">
 		<item>一個小時</item>
 		<item>一天</item>

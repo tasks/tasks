@@ -164,8 +164,6 @@
 	<string name="locale_notification">Du har $NUM der matcher: $FILTER</string>
 	<string name="TEA_reminder_due">når deadline er nået</string>
 	<string name="TEA_reminder_overdue">når deadline er overskredet</string>
-	<string name="TEA_reminder_mode_once">Ring en gang</string>
-	<string name="TEA_reminder_mode_nonstop">Ring indtil jeg slår alarmen fra</string>
 	<string-array name="TEA_reminder_random">
 		<item>en time</item>
 		<item>en dag</item>

@@ -389,7 +389,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controlSetMap.put(getString(R.string.TEA_ctrl_notes_pref),
                 notesControlSet);
 
-        ReminderControlSet reminderControl = new ReminderControlSet(preferences, alarmService, this);
+        ReminderControlSet reminderControl = new ReminderControlSet(alarmService, this);
         controls.add(reminderControl);
         controlSetMap.put(getString(R.string.TEA_ctrl_reminders_pref),
                 reminderControl);

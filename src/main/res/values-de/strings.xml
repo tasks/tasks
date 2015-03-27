@@ -324,16 +324,6 @@
 	<string name="TEA_reminder_due">Wenn Aufgabe fällig ist</string>
 	<string name="TEA_reminder_overdue">Wenn Aufgabe überfällig ist</string>
 	<string name="TEA_reminder_randomly">Einmal zufällig</string>
-	<string name="TEA_reminder_alarm_label">Klingeln/Vibrieren Typ:</string>
-	<string name="TEA_reminder_mode_once">Einmal</string>
-	<string name="TEA_reminder_mode_five">Fünfmal</string>
-	<string name="TEA_reminder_mode_nonstop">Bis ich den Alarm abschalte</string>
-	<string name="TEA_reminder_when">wenn</string>
-	<string name="TEA_reminder_due_short">fällig</string>
-	<string name="TEA_reminder_overdue_short">überfällig</string>
-	<string name="TEA_reminder_randomly_short">zufällig</string>
-	<string name="TEA_reminder_display_one">Erinnere mich %s</string>
-	<string name="TEA_reminder_display_multiple">Erinnern %s</string>
 	<string-array name="TEA_reminder_random">
 		<item>einer Stunde</item>
 		<item>einem Tag</item>

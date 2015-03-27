@@ -320,16 +320,6 @@
 	<string name="TEA_reminder_due">... lorsque la tâche est échue</string>
 	<string name="TEA_reminder_overdue">... lorsque la tâche est en retard</string>
 	<string name="TEA_reminder_randomly">Une fois aléatoirement</string>
-	<string name="TEA_reminder_alarm_label">Type de sonnerie/vibration :</string>
-	<string name="TEA_reminder_mode_once">Une fois</string>
-	<string name="TEA_reminder_mode_five">Cinq fois</string>
-	<string name="TEA_reminder_mode_nonstop">Jusqu\'à ce que j\'annule l\'alarme</string>
-	<string name="TEA_reminder_when">Quand</string>
-	<string name="TEA_reminder_due_short">prévu</string>
-	<string name="TEA_reminder_overdue_short">en retard</string>
-	<string name="TEA_reminder_randomly_short">Aléatoirement</string>
-	<string name="TEA_reminder_display_one">Me rappeler %s</string>
-	<string name="TEA_reminder_display_multiple">Rappel %s</string>
 	<string-array name="TEA_reminder_random">
 		<item>Une heure</item>
 		<item>Un jour</item>

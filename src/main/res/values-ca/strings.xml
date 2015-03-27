@@ -199,9 +199,6 @@
 	<string name="gtasks_GLA_authenticating">S\'està autenticant...</string>
 	<string name="locale_notification">Té $NUM coincidència: $FILTER</string>
 	<string name="TEA_reminders_group_label">Recordatoris</string>
-	<string name="TEA_reminder_alarm_label">Tipus de So/Vibració</string>
-	<string name="TEA_reminder_mode_once">Sona una vegada</string>
-	<string name="TEA_reminder_mode_nonstop">Sona fins que es cancel·la l\'alarma</string>
 	<string name="rmd_NoA_filter">¡Recordatori!</string>
 	<string name="rmd_NoA_done">Acabat</string>
 	<string name="rmd_NoA_snooze">Adorm</string>

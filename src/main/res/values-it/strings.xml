@@ -292,7 +292,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="TEA_reminder_due">Alla scadenza dell\'attività</string>
 	<string name="TEA_reminder_overdue">Quando l\'attività è in ritardo</string>
 	<string name="TEA_reminder_randomly">In modo casuale</string>
-	<string name="TEA_reminder_alarm_label">Tipo di squillo/vibrazione:</string>
 	<string-array name="TEA_reminder_random">
 		<item>an hour</item>
 		<item>ogni giorno</item>

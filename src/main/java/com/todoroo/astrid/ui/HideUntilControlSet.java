@@ -156,9 +156,7 @@ public class HideUntilControlSet extends TaskEditControlSetBase implements OnIte
 
     private void customDateFinished() {
         HideUntilValue[] list = createHideUntilList(customDate.getTime());
-        adapter = new ArrayAdapter<>(
-                activity, android.R.layout.simple_spinner_item,
-                list);
+        adapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setSelection(0);

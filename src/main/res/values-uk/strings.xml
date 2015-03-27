@@ -328,16 +328,6 @@
 	<string name="TEA_reminder_due">Коли настане термін виконання завдання</string>
 	<string name="TEA_reminder_overdue">Коли завдання прострочено</string>
 	<string name="TEA_reminder_randomly">Випадково раз</string>
-	<string name="TEA_reminder_alarm_label">Тип дзвінка/вібрації</string>
-	<string name="TEA_reminder_mode_once">Тільки раз</string>
-	<string name="TEA_reminder_mode_five">5 раз</string>
-	<string name="TEA_reminder_mode_nonstop">Поки я не відключу сигнал</string>
-	<string name="TEA_reminder_when">коли</string>
-	<string name="TEA_reminder_due_short">до</string>
-	<string name="TEA_reminder_overdue_short">прострочено</string>
-	<string name="TEA_reminder_randomly_short">випадково</string>
-	<string name="TEA_reminder_display_one">Нагадати мені %s</string>
-	<string name="TEA_reminder_display_multiple">Нагадати %s</string>
 	<string-array name="TEA_reminder_random">
 		<item>година</item>
 		<item>дня</item>

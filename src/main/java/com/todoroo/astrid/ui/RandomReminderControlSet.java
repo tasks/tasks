@@ -7,15 +7,11 @@ package com.todoroo.astrid.ui;
 
 import android.app.Activity;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.Spinner;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.helper.TaskEditControlSetBase;
 
 import org.tasks.R;
 
@@ -25,34 +21,15 @@ import org.tasks.R;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class RandomReminderControlSet extends TaskEditControlSetBase {
+public class RandomReminderControlSet {
 
-    private final CheckBox settingCheckbox;
     private final Spinner periodSpinner;
 
-    private boolean periodSpinnerInitialized = false;
     private final int[] hours;
 
-    public RandomReminderControlSet(Activity activity, View parentView, int layout) {
-        super(activity, layout);
-        settingCheckbox = (CheckBox) parentView.findViewById(R.id.reminder_random);
+    public RandomReminderControlSet(Activity activity, View parentView) {
         periodSpinner = (Spinner) parentView.findViewById(R.id.reminder_random_interval);
-        periodSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1,
-                    int arg2, long arg3) {
-                if(periodSpinnerInitialized) {
-                    settingCheckbox.setChecked(true);
-                }
-                periodSpinnerInitialized = true;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                // ignore
-            }
-        });
-
+        periodSpinner.setVisibility(View.VISIBLE);
         // create adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 activity, R.layout.simple_spinner_item,
@@ -68,16 +45,9 @@ public class RandomReminderControlSet extends TaskEditControlSetBase {
         }
     }
 
-    @Override
-    protected void afterInflate() {
-        // Nothing to do here
-    }
-
-    @Override
-    protected void readFromTaskOnInitialize() {
+    public void readFromTaskOnInitialize(Task model) {
         long time = model.getReminderPeriod();
 
-        boolean enabled = time > 0;
         if(time <= 0) {
             /* default interval for spinner if date is unselected */
             time = DateUtilities.ONE_WEEK * 2;
@@ -90,20 +60,10 @@ public class RandomReminderControlSet extends TaskEditControlSetBase {
             }
         }
         periodSpinner.setSelection(i);
-        settingCheckbox.setChecked(enabled);
     }
 
-    @Override
-    protected void writeToModelAfterInitialized(Task task) {
-        if(settingCheckbox.isChecked()) {
-            int hourValue = hours[periodSpinner.getSelectedItemPosition()];
-            task.setReminderPeriod(hourValue * DateUtilities.ONE_HOUR);
-        } else {
-            task.setReminderPeriod(0L);
-        }
-    }
-
-    public boolean hasRandomReminder() {
-        return settingCheckbox.isChecked();
+    public long getReminderPeriod() {
+        int hourValue = hours[periodSpinner.getSelectedItemPosition()];
+        return hourValue * DateUtilities.ONE_HOUR;
     }
 }

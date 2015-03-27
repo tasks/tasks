@@ -316,15 +316,6 @@
 	<string name="TEA_reminder_due">Při termínu</string>
 	<string name="TEA_reminder_overdue">Úkol po termínu</string>
 	<string name="TEA_reminder_randomly">Jednou náhodně</string>
-	<string name="TEA_reminder_alarm_label">Typ vyzvánění/vybrací:</string>
-	<string name="TEA_reminder_mode_once">Vyzvánět jednou</string>
-	<string name="TEA_reminder_mode_five">Pět zazvonění</string>
-	<string name="TEA_reminder_mode_nonstop">Vyzvánět dokud nezruším Alarm</string>
-	<string name="TEA_reminder_due_short">končí</string>
-	<string name="TEA_reminder_overdue_short">po termínu</string>
-	<string name="TEA_reminder_randomly_short">náhodně</string>
-	<string name="TEA_reminder_display_one">Připomínat mi %s</string>
-	<string name="TEA_reminder_display_multiple">Připomenout %s</string>
 	<string-array name="TEA_reminder_random">
 		<item>hodina</item>
 		<item>den</item>

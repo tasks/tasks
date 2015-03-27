@@ -67,8 +67,4 @@
     <item>At deadline or overdue</item>
   </string-array>
   
-  <string-array name="EPr_default_addtocalendar">
-    <!-- addtocalendar: labels for "Task Defaults" preference item. -->
-    <item>@string/EPr_deactivated</item>
-  </string-array>      
 </resources>

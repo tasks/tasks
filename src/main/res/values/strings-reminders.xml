@@ -20,30 +20,15 @@
   <!-- Task Edit: Reminder at random times (%s => time plural)-->
   <string name="TEA_reminder_randomly">Randomly once</string>
 
-  <!-- Task Edit: Reminder alarm clock label -->  
-  <string name="TEA_reminder_alarm_label">Ring/vibrate type</string>
-
-  <!--  slide 45a: Task Edit: Reminder mode: ring once -->  
-  <string name="TEA_reminder_mode_once">Once</string>
+  <!--  slide 45a: Task Edit: Reminder mode: ring once -->
+  <string name="ring_once">Ring once</string>
 
   <!-- slide 45b: Task Edit: Reminder mode: ring five times -->  
-  <string name="TEA_reminder_mode_five">Five times</string>
+  <string name="ring_five_times">Ring five times</string>
 
   <!-- slide 45c: Task Edit: Reminder mode: ring nonstop -->  
-  <string name="TEA_reminder_mode_nonstop">Until I dismiss alarm</string>
+  <string name="ring_nonstop">Ring nonstop</string>
   
-  <string name="TEA_reminder_when">when</string>
-  
-  <string name="TEA_reminder_due_short">due</string>
-
-  <string name="TEA_reminder_overdue_short">overdue</string>
-
-  <string name="TEA_reminder_randomly_short">randomly</string>
-
-  <string name="TEA_reminder_display_one">Remind me %s</string>
-  
-  <string name="TEA_reminder_display_multiple">Remind %s</string>
-
   <string-array name="TEA_reminder_random">
     <!-- random reminder choices for task edit page. -->
     <item>an hour</item>

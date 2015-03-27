@@ -322,14 +322,6 @@
 	<string name="TEA_reminder_due">כאשר הגיע מועד היעד</string>
 	<string name="TEA_reminder_overdue">כשעבר מועד היעד</string>
 	<string name="TEA_reminder_randomly">אקראי יחיד</string>
-	<string name="TEA_reminder_alarm_label">סוג צלצול/רטט:</string>
-	<string name="TEA_reminder_mode_once">פעם אחת</string>
-	<string name="TEA_reminder_mode_five">חמש פעמים</string>
-	<string name="TEA_reminder_mode_nonstop">עד אשר אבטל את התזכורות</string>
-	<string name="TEA_reminder_when">מתי</string>
-	<string name="TEA_reminder_due_short">מועד יעד</string>
-	<string name="TEA_reminder_randomly_short">באקראיות</string>
-	<string name="TEA_reminder_display_one">הזכר לי %s</string>
 	<string-array name="TEA_reminder_random">
 		<item>שעה</item>
 		<item>יום</item>

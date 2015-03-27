@@ -27,11 +27,13 @@
         style="@style/TextBoxText"
         android:textColorHint="?attr/asTextColorHint"
         android:inputType="textCapSentences"/>
-        
-    <ImageButton android:id="@+id/button1"
-        android:layout_width="32dip"
-        android:layout_height="32dip"
-        android:background="@drawable/btn_dismiss"
+
+    <ImageView
+        android:id="@+id/button1"
+        android:src="?attr/ic_action_cancel"
+        android:contentDescription="@string/remove"
         android:layout_gravity="center_vertical"
-        android:layout_margin="4dip"/>
+        android:layout_margin="4dip"
+        android:layout_width="32dip"
+        android:layout_height="32dip" />
 </LinearLayout>

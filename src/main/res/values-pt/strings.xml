@@ -326,16 +326,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="TEA_reminder_due">Na data limite</string>
 	<string name="TEA_reminder_overdue">Se data limite ultrapassada</string>
 	<string name="TEA_reminder_randomly">Uma vez aleatória</string>
-	<string name="TEA_reminder_alarm_label">Tipo de toque/vibração</string>
-	<string name="TEA_reminder_mode_once">Uma vez</string>
-	<string name="TEA_reminder_mode_five">5 vezes</string>
-	<string name="TEA_reminder_mode_nonstop">Até remover o alarme</string>
-	<string name="TEA_reminder_when">quando</string>
-	<string name="TEA_reminder_due_short">data limite</string>
-	<string name="TEA_reminder_overdue_short">ultrapassada</string>
-	<string name="TEA_reminder_randomly_short">aleatoriamente</string>
-	<string name="TEA_reminder_display_one">Lembrar-me %s</string>
-	<string name="TEA_reminder_display_multiple">Lembrar %s</string>
 	<string-array name="TEA_reminder_random">
 		<item>uma hora</item>
 		<item>um dia</item>

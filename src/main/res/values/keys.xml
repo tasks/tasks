@@ -261,4 +261,14 @@
         <item>@string/TEA_ctrl_hide_section_pref</item>
     </string-array>
 
+    <string-array name="EPr_default_reminders_mode">
+        <item>@string/ring_once</item>
+        <item>@string/ring_five_times</item>
+        <item>@string/ring_nonstop</item>
+    </string-array>
+
+    <string-array name="EPr_default_addtocalendar">
+        <item>@string/EPr_deactivated</item>
+    </string-array>
+
 </resources>

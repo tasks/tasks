@@ -451,13 +451,6 @@
   <string name="EPr_cal_end_at_due_time">End calendar events at due time</string>
   <string name="EPr_cal_start_at_due_time">Start calendar events at due time</string>
 
-  <string-array name="EPr_default_reminders_mode">
-      <!-- reminders duration: labels for "Task Defaults" preference item. -->
-      <item>@string/TEA_reminder_mode_once</item>
-      <item>@string/TEA_reminder_mode_five</item>
-      <item>@string/TEA_reminder_mode_nonstop</item>
-  </string-array>
-    
   <!-- ========================================== Task Management Settings == -->
 
   <!-- slide 33a/47c: Preference Screen Header: Old Task Management -->

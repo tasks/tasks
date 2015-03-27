@@ -328,16 +328,6 @@
 	<string name="TEA_reminder_due">일정 마감일에</string>
 	<string name="TEA_reminder_overdue">일정 마감일이 지났을 때</string>
 	<string name="TEA_reminder_randomly">무작위로 한 번</string>
-	<string name="TEA_reminder_alarm_label">소리/진동 선택:</string>
-	<string name="TEA_reminder_mode_once">한 번</string>
-	<string name="TEA_reminder_mode_five">다섯 번</string>
-	<string name="TEA_reminder_mode_nonstop">알람을 직접 끌 때까지</string>
-	<string name="TEA_reminder_when">언제</string>
-	<string name="TEA_reminder_due_short">마감</string>
-	<string name="TEA_reminder_overdue_short">기한 초과</string>
-	<string name="TEA_reminder_randomly_short">임의로</string>
-	<string name="TEA_reminder_display_one">%s를 알려주세요</string>
-	<string name="TEA_reminder_display_multiple">%s 알리기</string>
 	<string-array name="TEA_reminder_random">
 		<item>한 시간</item>
 		<item>하루</item>

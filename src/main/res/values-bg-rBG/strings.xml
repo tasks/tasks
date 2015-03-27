@@ -331,16 +331,6 @@
 	<string name="TEA_reminder_due">Когато задачата е към крайния срок</string>
 	<string name="TEA_reminder_overdue">Когато задачата е просрочена</string>
 	<string name="TEA_reminder_randomly">Случайно веднъж</string>
-	<string name="TEA_reminder_alarm_label">Тип на Тон на звънене/вибрация</string>
-	<string name="TEA_reminder_mode_once">Веднъж</string>
-	<string name="TEA_reminder_mode_five">Пет пъти</string>
-	<string name="TEA_reminder_mode_nonstop">Докато не отхвърля алармата</string>
-	<string name="TEA_reminder_when">кога</string>
-	<string name="TEA_reminder_due_short">до</string>
-	<string name="TEA_reminder_overdue_short">просрочен</string>
-	<string name="TEA_reminder_randomly_short">произволно</string>
-	<string name="TEA_reminder_display_one">Напомни ми %s</string>
-	<string name="TEA_reminder_display_multiple">Напомни %s</string>
 	<string-array name="TEA_reminder_random">
 		<item>час</item>
 		<item>ден</item>

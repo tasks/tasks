@@ -94,6 +94,12 @@
     <string name="notification_actions">Notification Actions</string>
     <string name="notification_actions_summary">Show snooze and complete actions in notification</string>
     <string name="add_a_reminder">Add a reminder</string>
+    <string name="remove">Remove</string>
+    <string name="randomly_once">Randomly once</string>
+    <string name="randomly">Randomly</string>
+    <string name="pick_a_date_and_time">Pick a date and time</string>
+    <string name="when_overdue">When overdue</string>
+    <string name="when_due">When due</string>
 
     <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->

@@ -326,16 +326,6 @@
 	<string name="TEA_reminder_due">Ko opravek dospe</string>
 	<string name="TEA_reminder_overdue">Po dospelosti opravka</string>
 	<string name="TEA_reminder_randomly">Naključno enkrat</string>
-	<string name="TEA_reminder_alarm_label">Način zvonenja/vibriranja</string>
-	<string name="TEA_reminder_mode_once">Enkrat</string>
-	<string name="TEA_reminder_mode_five">Petkrat</string>
-	<string name="TEA_reminder_mode_nonstop">Dokler ne ugasnem</string>
-	<string name="TEA_reminder_when">kdaj</string>
-	<string name="TEA_reminder_due_short">dospelo</string>
-	<string name="TEA_reminder_overdue_short">že dospelo</string>
-	<string name="TEA_reminder_randomly_short">naključno</string>
-	<string name="TEA_reminder_display_one">Opomni me %s</string>
-	<string name="TEA_reminder_display_multiple">Opomni %s</string>
 	<string-array name="TEA_reminder_random">
 		<item>na uro</item>
 		<item>dan</item>

@@ -329,16 +329,6 @@
 	<string name="TEA_reminder_due">何時がタスクの期限ですか？</string>
 	<string name="TEA_reminder_overdue">何時タスクが期限切れになりますか？</string>
 	<string name="TEA_reminder_randomly">ランダムに1回</string>
-	<string name="TEA_reminder_alarm_label">通知音、振動</string>
-	<string name="TEA_reminder_mode_once">1回</string>
-	<string name="TEA_reminder_mode_five">5回</string>
-	<string name="TEA_reminder_mode_nonstop">私がアラームを止めるまで</string>
-	<string name="TEA_reminder_when">時</string>
-	<string name="TEA_reminder_due_short">期限</string>
-	<string name="TEA_reminder_overdue_short">期限過ぎ</string>
-	<string name="TEA_reminder_randomly_short">ランダムに</string>
-	<string name="TEA_reminder_display_one">通知する %s</string>
-	<string name="TEA_reminder_display_multiple">通知する %s</string>
 	<string-array name="TEA_reminder_random">
 		<item>1時間</item>
 		<item>1日</item>

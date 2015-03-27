@@ -57,8 +57,6 @@
 		<item>Next Week</item>
 		<item>Next Month</item>
 	</string-array>
-	<string name="TEA_reminder_display_one">ذكرني %s</string>
-	<string name="TEA_reminder_display_multiple">تذكير %s</string>
 	<string name="rmd_NoA_filter">تذكير!</string>
 	<string name="rmd_NoA_done">اكمل</string>
 	<string name="rmd_NoA_snooze">غفوة</string>
