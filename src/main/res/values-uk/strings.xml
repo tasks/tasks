@@ -283,7 +283,6 @@
 	<string name="gcal_TEA_showCalendar_label">Відкрити календарну подію</string>
 	<string name="gcal_TEA_nocal">Не додавати</string>
 	<string name="gcal_TEA_none_selected">До календаря?</string>
-	<string name="gcal_TEA_has_event">Кал. подія</string>
 	<string name="gcal_completed_title">%s (завершено)</string>
 	<string name="gcal_GCP_default">Календар по замовчуванню</string>
 	<string name="CFC_gtasks_list_text">В списку: ?</string>

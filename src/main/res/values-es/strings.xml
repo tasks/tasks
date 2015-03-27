@@ -276,7 +276,6 @@
 	<string name="gcal_TEA_showCalendar_label">Abrir evento del calendario</string>
 	<string name="gcal_TEA_nocal">No agregar</string>
 	<string name="gcal_TEA_none_selected">¿Al calendario?</string>
-	<string name="gcal_TEA_has_event">Evento de llamada</string>
 	<string name="gcal_completed_title">%s (completado)</string>
 	<string name="gcal_GCP_default">Calendario predeterminado</string>
 	<string name="CFC_gtasks_list_text">En la Lista: ?</string>

@@ -275,7 +275,6 @@
 	<string name="gcal_TEA_showCalendar_label">פתח אירוע ביומן</string>
 	<string name="gcal_TEA_nocal">אל תוסיף</string>
 	<string name="gcal_TEA_none_selected">ליומן?</string>
-	<string name="gcal_TEA_has_event">אירוע יומן</string>
 	<string name="gcal_completed_title">%s (בוצעה)</string>
 	<string name="gcal_GCP_default">ברירת מחדל ליומן</string>
 	<string name="gtasks_FEx_title">״משימות גוגל״: %s</string>

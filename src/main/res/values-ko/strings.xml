@@ -281,7 +281,6 @@
 	<string name="gcal_TEA_showCalendar_label">달력 이벤트 열기</string>
 	<string name="gcal_TEA_nocal">추가하지 않기</string>
 	<string name="gcal_TEA_none_selected">달력에?</string>
-	<string name="gcal_TEA_has_event">달력 이벤트</string>
 	<string name="gcal_completed_title">%s (완료)</string>
 	<string name="gcal_GCP_default">기본 달력</string>
 	<string name="gtasks_FEx_title">구글 일정: %s</string>

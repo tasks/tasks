@@ -248,7 +248,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="gcal_TEA_addToCalendar_label">Aggiungi al Calendario</string>
 	<string name="gcal_TEA_showCalendar_label">Apri Calendario Eventi</string>
 	<string name="gcal_TEA_nocal">Non aggiungere</string>
-	<string name="gcal_TEA_has_event">Evento del calendario</string>
 	<string name="gcal_completed_title">%s (completato)</string>
 	<string name="gcal_GCP_default">Calendario Predefinito</string>
 	<string name="CFC_gtasks_list_text">Nella lista: ?</string>

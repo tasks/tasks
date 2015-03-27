@@ -14,29 +14,39 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:padding="@dimen/task_edit_drawable_padding"/>
+        android:padding="@dimen/task_edit_drawable_padding" />
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/calendar_display_which"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:gravity="start"
-            android:textColor="?attr/asThemeTextColor"
-            android:textSize="@dimen/task_edit_text_size"
+            android:orientation="horizontal"
             android:paddingTop="@dimen/task_edit_padding_top_bottom"
             android:paddingBottom="@dimen/task_edit_padding_top_bottom"
             android:layout_marginTop="@dimen/task_edit_padding_top_bottom"
-            android:layout_marginBottom="@dimen/task_edit_padding_top_bottom"
-            android:paddingRight="@dimen/task_edit_padding_right"
-            android:paddingEnd="@dimen/task_edit_padding_right"/>
+            android:layout_marginBottom="@dimen/task_edit_padding_top_bottom">
 
-        <include layout="@layout/task_edit_divider"/>
+            <TextView
+                android:id="@+id/calendar_display_which"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:gravity="start"
+                android:textColor="?attr/asThemeTextColor"
+                android:textSize="@dimen/task_edit_text_size" />
+
+            <Spinner
+                android:id="@+id/calendars"
+                android:layout_width="0dip"
+                android:layout_height="0dip" />
+
+        </LinearLayout>
+
+        <include layout="@layout/task_edit_divider" />
 
     </LinearLayout>
 

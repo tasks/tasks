@@ -272,7 +272,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="gcal_TEA_showCalendar_label">Öppna kalenderhändelse</string>
 	<string name="gcal_TEA_nocal">Lägg inte till</string>
 	<string name="gcal_TEA_none_selected">Till kalender</string>
-	<string name="gcal_TEA_has_event">Kalenderhändelse</string>
 	<string name="gcal_completed_title">%s (avslutad)</string>
 	<string name="gcal_GCP_default">Standardkalender</string>
 	<string name="gtasks_FEx_title">Google Uppgifter: %s</string>

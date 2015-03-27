@@ -279,7 +279,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="gcal_TEA_showCalendar_label">Abrir evento no calendário</string>
 	<string name="gcal_TEA_nocal">Não adicionar</string>
 	<string name="gcal_TEA_none_selected">Ao calendário?</string>
-	<string name="gcal_TEA_has_event">Evento de calendário</string>
 	<string name="gcal_completed_title">%s (terminada)</string>
 	<string name="gcal_GCP_default">Calendário predefinido</string>
 	<string name="gtasks_FEx_title">Tarefas Google: %s</string>

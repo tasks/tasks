@@ -17,18 +17,16 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.ui.PopupControlSet;
+import com.todoroo.astrid.helper.TaskEditControlSetBase;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
-import org.tasks.preferences.ActivityPreferences;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,7 +37,7 @@ import java.util.Collections;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class GCalControlSet extends PopupControlSet {
+public class GCalControlSet extends TaskEditControlSetBase {
 
     private static final Logger log = LoggerFactory.getLogger(GCalControlSet.class);
     private static final int title = R.string.gcal_TEA_addToCalendar_label;
@@ -53,19 +51,28 @@ public class GCalControlSet extends PopupControlSet {
     private final GCalHelper.CalendarResult calendars;
     private boolean hasEvent = false;
     private Spinner calendarSelector;
+    private TextView calendar;
 
-    public GCalControlSet(ActivityPreferences preferences, GCalHelper gcal, final Activity activity) {
-        super(preferences, activity, R.layout.control_set_gcal, R.layout.control_set_gcal_display, title);
+    public GCalControlSet(GCalHelper gcal, final Activity activity) {
+        super(activity, R.layout.control_set_gcal_display);
         this.gcal = gcal;
         this.calendars = gcal.getCalendars();
-        getDialogView(); // Hack to force initialized
     }
 
     @Override
     protected void afterInflate() {
-        ((LinearLayout) getView()).addView(getDialogView()); //hack for spinner
-
-        this.calendarSelector = (Spinner) getDialogView().findViewById(R.id.calendars);
+        calendarSelector = (Spinner) getView().findViewById(R.id.calendars);
+        calendar = (TextView) getView().findViewById(R.id.calendar_display_which);
+        calendar.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!hasEvent) {
+                    calendarSelector.performClick();
+                } else {
+                    viewCalendarEvent();
+                }
+            }
+        });
         ArrayList<String> items = new ArrayList<>();
         Collections.addAll(items, calendars.calendars);
         items.add(0, activity.getString(R.string.gcal_TEA_nocal));
@@ -79,8 +86,7 @@ public class GCalControlSet extends PopupControlSet {
         resetCalendarSelector();
         calendarSelector.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1,
-                    int arg2, long arg3) {
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 refreshDisplayView();
             }
 
@@ -217,13 +223,11 @@ public class GCalControlSet extends PopupControlSet {
         activity.startActivity(intent);
     }
 
-    @Override
-    protected void refreshDisplayView() {
-        TextView calendar = (TextView) getView().findViewById(R.id.calendar_display_which);
+    private void refreshDisplayView() {
         calendar.setTextColor(themeColor);
         if (initialized) {
             if (hasEvent) {
-                calendar.setText(R.string.gcal_TEA_has_event);
+                calendar.setText(R.string.gcal_TEA_showCalendar_label);
             } else if (calendarSelector.getSelectedItemPosition() != 0) {
                 calendar.setText((String)calendarSelector.getSelectedItem());
             } else {
@@ -233,7 +237,7 @@ public class GCalControlSet extends PopupControlSet {
         } else {
             int index = calendars.defaultIndex;
             if (!TextUtils.isEmpty(model.getCalendarURI())) {
-                calendar.setText(R.string.gcal_TEA_has_event);
+                calendar.setText(R.string.gcal_TEA_showCalendar_label);
             } else if (index >= 0 && index < calendars.calendars.length) {
                 calendar.setText(calendars.calendars[index]);
             } else {
@@ -241,22 +245,5 @@ public class GCalControlSet extends PopupControlSet {
                 calendar.setText(R.string.gcal_TEA_none_selected);
             }
         }
-    }
-
-    @Override
-    protected OnClickListener getDisplayClickListener() {
-        return new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (calendarSelector == null) {
-                    getDialogView(); // Force load
-                }
-                if (!hasEvent) {
-                    calendarSelector.performClick();
-                } else {
-                    viewCalendarEvent();
-                }
-            }
-        };
     }
 }

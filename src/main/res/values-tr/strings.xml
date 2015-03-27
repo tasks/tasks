@@ -249,7 +249,6 @@
 	<string name="gcal_TEA_addToCalendar_label">Takvime Ekle</string>
 	<string name="gcal_TEA_showCalendar_label">Takvim Olayı Aç</string>
 	<string name="gcal_TEA_nocal">Ekleme</string>
-	<string name="gcal_TEA_has_event">Takvim olayı</string>
 	<string name="gcal_completed_title">%s (tamamlandı)</string>
 	<string name="gcal_GCP_default">Öntanımlı Takvim</string>
 	<string name="gtasks_FEx_title">Google Görevleri: %s</string>

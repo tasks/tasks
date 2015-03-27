@@ -361,7 +361,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         RepeatControlSet repeatControls = new RepeatControlSet(preferences, getActivity());
         controlSetMap.put(getString(R.string.TEA_ctrl_repeat_pref), repeatControls);
 
-        GCalControlSet gcalControl = new GCalControlSet(preferences, gcalHelper, getActivity());
+        GCalControlSet gcalControl = new GCalControlSet(gcalHelper, getActivity());
         controlSetMap.put(getString(R.string.TEA_ctrl_gcal), gcalControl);
 
         // The deadline control set contains the repeat controls and the

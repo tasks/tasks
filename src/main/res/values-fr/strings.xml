@@ -273,7 +273,6 @@
 	<string name="gcal_TEA_showCalendar_label">Ouvrir l\'événement de l\'agenda</string>
 	<string name="gcal_TEA_nocal">Ne pas ajouter</string>
 	<string name="gcal_TEA_none_selected">Ajouter au calendrier?</string>
-	<string name="gcal_TEA_has_event">Evènement d\'appel</string>
 	<string name="gcal_completed_title">%s (complété)</string>
 	<string name="gcal_GCP_default">Agenda par défaut</string>
 	<string name="gtasks_FEx_title">Google Tâches : %s</string>

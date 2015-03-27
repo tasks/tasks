@@ -279,7 +279,6 @@
 	<string name="gcal_TEA_showCalendar_label">Öffne Kalendereintrag</string>
 	<string name="gcal_TEA_nocal">Nicht eintragen</string>
 	<string name="gcal_TEA_none_selected">In den Kalender?</string>
-	<string name="gcal_TEA_has_event">Kalendereintrag</string>
 	<string name="gcal_completed_title">%s (abgeschlossen)</string>
 	<string name="gcal_GCP_default">Standardkalender</string>
 	<string name="CFC_gtasks_list_text">In der Liste: ?</string>

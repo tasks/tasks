@@ -68,7 +68,6 @@
 	<string name="gcal_TEA_showCalendar_label">Avaa tapahtumakalenteri</string>
 	<string name="gcal_TEA_nocal">Älä lisää</string>
 	<string name="gcal_TEA_none_selected">Kalenteriin?</string>
-	<string name="gcal_TEA_has_event">Kalenteri tapahtuma</string>
 	<string name="gcal_completed_title">%s (valmistunut)</string>
 	<string name="gcal_GCP_default">Oletus kalenteri</string>
 	<string name="gtasks_FEx_title">Google tehtävä: %s</string>

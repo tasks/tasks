@@ -279,7 +279,6 @@
 	<string name="gcal_TEA_showCalendar_label">Odpri dogodek v koledarju</string>
 	<string name="gcal_TEA_nocal">Ne dodaj</string>
 	<string name="gcal_TEA_none_selected">Na koledar?</string>
-	<string name="gcal_TEA_has_event">Kol dogodek</string>
 	<string name="gcal_completed_title">%s (končani)</string>
 	<string name="gcal_GCP_default">Privzeti koledar</string>
 	<string name="gtasks_FEx_title">Google Naloge: %s</string>
