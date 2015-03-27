@@ -493,6 +493,8 @@
 	<string name="TLA_menu_donate">寄付</string>
 	<string name="error">エラー</string>
 	<string name="select_amount">金額を選択</string>
+	<string name="notification_actions">通知アクション</string>
+	<string name="notification_actions_summary">通知にスヌーズと完了アクションを表示します</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>無効</item>
 		<item>15分毎</item>

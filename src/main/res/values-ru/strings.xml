@@ -212,6 +212,7 @@
 задачи из резервной копии (Параметры-&gt;Синхронизация-&gt;Резервные копии-&gt;Импортировать задачи)</string>
 	<string name="market_unavailable">К сожалению, этот магазин недоступен для вашей системы.</string>
 	<string name="EPr_defaults_header">Параметры по умолчанию для новых задач</string>
+	<string name="task_defaults">Параметры по умолчанию</string>
 	<string name="EPr_default_urgency_title">Актуальность по умолчанию</string>
 	<string name="EPr_default_importance_title">Приоритет по умолчанию</string>
 	<string name="EPr_default_hideUntil_title">Срок скрытия по умолчанию</string>
@@ -233,7 +234,7 @@
 	</string-array>
 	<string-array name="EPr_default_hideUntil">
 		<item>Не скрывать</item>
-		<item>Времени начала выполнения</item>
+		<item>До намеченного срока</item>
 		<item>За день до намеченного срока</item>
 		<item>За неделю до намеченного срока</item>
 	</string-array>
@@ -469,18 +470,23 @@
 	<string name="sound">Звук</string>
 	<string name="vibrate">Вибрация</string>
 	<string name="quiet_hours">Тихие часы</string>
-	<string name="attachment_directory">Папка с прикреплёнными материалами</string>
+	<string name="attachment_directory">Путь к вложениям</string>
+	<string name="debug_logging">Разрешить лог отладки</string>
 	<string name="miscellaneous">Прочие настройки</string>
 	<string name="synchronization">Синхронизация</string>
-	<string name="enabled">Включить</string>
+	<string name="enabled">Показывать уведомления</string>
 	<string name="font_size">Размер шрифта</string>
-	<string name="customize_edit_screen">Настройки экрана редактирования задачи</string>
+	<string name="customize_edit_screen">Порядок полей в задаче</string>
 	<string name="source_code">Исходный код</string>
-	<string name="translations">Язык программы</string>
+	<string name="translations">Язык интерфейса</string>
 	<string name="report_an_issue">Сообщить о проблеме</string>
 	<string name="help_and_feedback">Помощь и обратная связь</string>
+	<string name="contact_developer">Связь с разработчиком</string>
 	<string name="rate_tasks">Оставить отзыв</string>
 	<string name="quiet_hours_summary">Выкл. звук или вибрацию в тихие часы</string>
+	<string name="TLA_menu_donate">Поддержать автора ($)</string>
+	<string name="notification_actions">Команды в уведомлении</string>
+	<string name="notification_actions_summary">Показывать «Повтор» и «Уже готово!» в уведомлении</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>отключить</item>
 		<item>каждые 15 минут</item>

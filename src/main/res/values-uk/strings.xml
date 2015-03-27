@@ -12,8 +12,6 @@
 	<string name="actfm_TVA_tag_label">Список</string>
 	<string name="actfm_TVA_tag_name_hint">Введіть назву списку</string>
 	<string name="actfm_GAA_title">Виберіть обліковий запис Google для використання:</string>
-	<string name="alarm_ACS_label">Сигнали</string>
-	<string name="alarm_ACS_button">Додати сигнал</string>
 	<string name="backup_BPr_header">Резервні копії</string>
 	<string name="backup_BAc_import">Імпортувати завдання</string>
 	<string name="backup_BAc_export">Експорт завдань</string>

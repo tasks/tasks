@@ -12,8 +12,6 @@
 	<string name="actfm_TVA_tag_label">列表名稱：</string>
 	<string name="actfm_TVA_tag_name_hint">添加列表名稱</string>
 	<string name="actfm_GAA_title">選擇您要使用的Google帳戶：</string>
-	<string name="alarm_ACS_label">警示</string>
-	<string name="alarm_ACS_button">加入警示</string>
 	<string name="backup_BPr_header">備份</string>
 	<string name="backup_BAc_import">匯入工作</string>
 	<string name="backup_BAc_export">匯出工作</string>
