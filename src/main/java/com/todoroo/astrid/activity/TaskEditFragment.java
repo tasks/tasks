@@ -394,7 +394,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controlSetMap.put(getString(R.string.TEA_ctrl_reminders_pref),
                 reminderControl);
 
-        HideUntilControlSet hideUntilControls = new HideUntilControlSet(preferences, this);
+        HideUntilControlSet hideUntilControls = new HideUntilControlSet(this);
         controls.add(hideUntilControls);
         controlSetMap.put(getString(R.string.TEA_ctrl_hide_until_pref), hideUntilControls);
 

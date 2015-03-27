@@ -11,18 +11,17 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.helper.TaskEditControlSetBase;
 
 import org.joda.time.DateTime;
 import org.tasks.R;
 import org.tasks.dialogs.DateAndTimePickerDialog;
-import org.tasks.preferences.ActivityPreferences;
 
 import java.util.Date;
 
@@ -35,7 +34,7 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class HideUntilControlSet extends PopupControlSet implements OnItemSelectedListener {
+public class HideUntilControlSet extends TaskEditControlSetBase implements OnItemSelectedListener {
 
     private static final int title = R.string.hide_until_prompt;
 
@@ -49,9 +48,10 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
 
     private long existingDate = EXISTING_TIME_UNSET;
     private TaskEditFragment taskEditFragment;
+    private TextView textDisplay;
 
-    public HideUntilControlSet(ActivityPreferences preferences, TaskEditFragment taskEditFragment) {
-        super(preferences, taskEditFragment.getActivity(), R.layout.control_set_hide_spinner, R.layout.control_set_hide, title);
+    public HideUntilControlSet(TaskEditFragment taskEditFragment) {
+        super(taskEditFragment.getActivity(), R.layout.control_set_hide);
         this.taskEditFragment = taskEditFragment;
     }
 
@@ -167,44 +167,37 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
 
     // --- setting up values
 
-    @Override
-    protected OnClickListener getDisplayClickListener() {
-        return new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (spinner == null) // Force load
-                {
-                    getView();
-                }
-                spinner.performClick();
-            }
-        };
-    }
-
-    @Override
-    protected void refreshDisplayView() {
-        TextView auxDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
+    private void refreshDisplayView() {
         HideUntilValue value = adapter.getItem(selection);
         if (value.setting == Task.HIDE_UNTIL_NONE) {
-            auxDisplay.setText(R.string.TEA_hideUntil_label);
-            auxDisplay.setTextColor(unsetColor);
+            textDisplay.setText(R.string.TEA_hideUntil_label);
+            textDisplay.setTextColor(unsetColor);
         } else {
             String display = value.toString();
             if (value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY && value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY_TIME) {
                 display = display.toLowerCase();
             }
 
-            auxDisplay.setText(activity.getString(R.string.TEA_hideUntil_display, display));
-            auxDisplay.setTextColor(themeColor);
+            textDisplay.setText(activity.getString(R.string.TEA_hideUntil_display, display));
+            textDisplay.setTextColor(themeColor);
         }
     }
 
     @Override
     protected void afterInflate() {
+        textDisplay = (TextView) getView().findViewById(R.id.display_row_edit);
+        textDisplay.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (spinner == null) {
+                    getView();
+                }
+                spinner.performClick();
+            }
+        });
         this.spinner = (Spinner) getView().findViewById(R.id.hideUntil);
         this.spinner.setOnItemSelectedListener(this);
         this.spinner.setPromptId(title);
-        ((LinearLayout) getDisplayView()).addView(getView()); // hack to make listeners work
     }
 
     @Override
