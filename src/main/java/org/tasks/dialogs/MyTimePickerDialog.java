@@ -2,9 +2,9 @@ package org.tasks.dialogs;
 
 import android.content.DialogInterface;
 
-import com.doomonafireball.betterpickers.calendardatepicker.CalendarDatePickerDialog;
+import com.sleepbot.datetimepicker.time.TimePickerDialog;
 
-public class MyCalendarDatePickerDialog extends CalendarDatePickerDialog {
+public class MyTimePickerDialog extends TimePickerDialog {
 
     private DialogInterface.OnDismissListener listener;
 

@@ -2,7 +2,6 @@
 
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="org.tasks">
 
     <!-- ================================================== Used Permissions = -->
@@ -98,8 +97,6 @@
     <uses-feature
         android:name="android.hardware.touchscreen"
         android:required="false" />
-
-    <uses-sdk tools:overrideLibrary="com.doomonafireball.betterpickers"/>
 
     <application
         android:icon="@drawable/icon"
