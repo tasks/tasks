@@ -484,6 +484,7 @@
 	<string name="select_amount">金額を選択</string>
 	<string name="notification_actions">通知アクション</string>
 	<string name="notification_actions_summary">通知にスヌーズと完了アクションを表示します</string>
+	<string name="add_a_reminder">リマインダーを追加</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>無効</item>
 		<item>15分毎</item>

@@ -484,6 +484,9 @@
 	<string name="TLA_menu_donate">Дарете</string>
 	<string name="error">Грешка</string>
 	<string name="select_amount">Изберете размер</string>
+	<string name="notification_actions">Уведомление - Действия</string>
+	<string name="notification_actions_summary">Покажи опция за отлагане и пълни действия в уведомлението</string>
+	<string name="add_a_reminder">Добави напомняне</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>изключено</item>
 		<item>на всеки 15 минути</item>
