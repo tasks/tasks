@@ -37,7 +37,7 @@ public class DateAndTimePickerDialog {
             public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
                 onDatePicked.onDatePicked(newDateTime().withYear(year).withMonthOfYear(month + 1).withDayOfMonth(day).withMillisOfDay(0));
             }
-        }, initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth(), true);
+        }, initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth(), false);
         dialog.setOnDismissListener(dismissed);
         dialog.show(fragmentManager, FRAG_TAG_DATE_PICKER);
     }
@@ -49,7 +49,7 @@ public class DateAndTimePickerDialog {
             public void onTimeSet(RadialPickerLayout radialPickerLayout, int hours, int minutes) {
                 onTimePicked.onTimePicked(newDateTime().withMillisOfDay(0).withHourOfDay(hours).withMinuteOfHour(minutes).getMillisOfDay());
             }
-        }, initial.getHourOfDay(), initial.getMinuteOfHour(), DateFormat.is24HourFormat(context), true);
+        }, initial.getHourOfDay(), initial.getMinuteOfHour(), DateFormat.is24HourFormat(context), false);
         dialog.setOnDismissListener(dismissed);
         dialog.show(fragmentManager, FRAG_TAG_TIME_PICKER);
     }

@@ -88,11 +88,10 @@ public class DateUtilities {
     public static String getTimeString(Context context, Date date) {
         String value;
         if (is24HourFormat(context)) {
-            value = "H:mm";
+            value = "HH:mm";
         } else if (date.getMinutes() == 0){
             value = "h a";
-        }
-        else {
+        } else {
             value = "h:mm a";
         }
         return new SimpleDateFormat(value).format(date);
@@ -104,12 +103,21 @@ public class DateUtilities {
         return Arrays.binarySearch(sortedValues, search) >= 0;
     }
 
+
+    public static String getLongDateString(Date date) {
+        return getDateString(new SimpleDateFormat("MMMM"), date);
+    }
+
     /**
      * @param date date to format
      * @return date, with month, day, and year
      */
     public static String getDateString(Date date) {
-        String month = new SimpleDateFormat("MMM").format(date);
+        return getDateString(new SimpleDateFormat("MMM"), date);
+    }
+
+    private static String getDateString(SimpleDateFormat simpleDateFormat, Date date) {
+        String month = simpleDateFormat.format(date);
         String value;
         String standardDate;
         Locale locale = Locale.getDefault();
@@ -130,12 +138,20 @@ public class DateUtilities {
         return standardDate;
     }
 
+    public static String getLongDateStringHideYear(Date date) {
+        return getDateStringHideYear(new SimpleDateFormat("MMMM"), date);
+    }
+
     /**
      * @param date date to format
      * @return date, with month, day, and year
      */
     public static String getDateStringHideYear(Date date) {
-        String month = new SimpleDateFormat("MMM").format(date);
+        return getDateStringHideYear(new SimpleDateFormat("MMM"), date);
+    }
+
+    private static String getDateStringHideYear(SimpleDateFormat simpleDateFormat, Date date) {
+        String month = simpleDateFormat.format(date);
         String value;
         Locale locale = Locale.getDefault();
         if (arrayBinaryContains(locale.getLanguage(), "ja", "ko", "zh")

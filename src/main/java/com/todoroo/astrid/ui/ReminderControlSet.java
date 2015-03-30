@@ -86,17 +86,45 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
         return value;
     }
 
-    private void addAlarmRow(Long timestamp) {
-        addAlarmRow(getDisplayString(timestamp), timestamp, new OnClickListener() {
+    private void addNewAlarm() {
+        pickNewAlarm(newDateTime().withMillisOfDay(0), new DateAndTimePickerDialog.OnDateTimePicked() {
             @Override
-            public void onClick(View v) {
+            public void onDateTimePicked(DateTime dateTime) {
+                addAlarmRow(dateTime.getMillis());
             }
         });
     }
 
-    private View addAlarmRow(String text, Long timestamp, final View.OnClickListener onRemove) {
+    private void pickNewAlarm(DateTime initial, DateAndTimePickerDialog.OnDateTimePicked onDateTimePicked) {
+        DateAndTimePickerDialog.dateAndTimePickerDialog(taskEditFragment.getFragmentManager(),
+                taskEditFragment.getActivity(), initial, onDateTimePicked, null);
+    }
+
+    private void addAlarmRow(final Long timestamp) {
+        final View alertItem = addAlarmRow(getDisplayString(timestamp), timestamp, null);
+        TextView display = (TextView) alertItem.findViewById(R.id.alarm_string);
+        display.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pickNewAlarm(newDateTime(timestamp), new DateAndTimePickerDialog.OnDateTimePicked() {
+                    @Override
+                    public void onDateTimePicked(DateTime dateTime) {
+                        long millis = dateTime.getMillis();
+                        addAlarmRow(alertItem, getDisplayString(millis), millis, null);
+                    }
+                });
+            }
+        });
+    }
+
+    private View addAlarmRow(String text, Long timestamp, final OnClickListener onRemove) {
         final View alertItem = LayoutInflater.from(activity).inflate(R.layout.alarm_edit_row, null);
         alertContainer.addView(alertItem);
+        addAlarmRow(alertItem, text, timestamp, onRemove);
+        return alertItem;
+    }
+
+    private View addAlarmRow(final View alertItem, String text, Long timestamp, final View.OnClickListener onRemove) {
         alertItem.setTag(timestamp);
         TextView display = (TextView) alertItem.findViewById(R.id.alarm_string);
         display.setText(text);
@@ -104,23 +132,14 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
             @Override
             public void onClick(View v) {
                 alertContainer.removeView(alertItem);
-                onRemove.onClick(v);
+                if (onRemove != null) {
+                    onRemove.onClick(v);
+                }
                 updateSpinner();
             }
         });
         updateSpinner();
         return alertItem;
-    }
-
-    private void addNewAlarm() {
-        DateAndTimePickerDialog.dateAndTimePickerDialog(taskEditFragment.getFragmentManager(),
-                taskEditFragment.getActivity(), newDateTime().withMillisOfDay(0),
-                new DateAndTimePickerDialog.OnDateTimePicked() {
-            @Override
-            public void onDateTimePicked(DateTime dateTime) {
-                addAlarmRow(dateTime.getMillis());
-            }
-        }, null);
     }
 
     private void updateSpinner() {
@@ -149,12 +168,12 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
                 if (spinnerOptions.size() == 2) {
                     addNewAlarm();
                 } else {
-                    addSpinner.setOnItemSelectedListener(ReminderControlSet.this);
                     addSpinner.performClick();
                 }
             }
         });
         addSpinner = (Spinner) getView().findViewById(R.id.alarms_add_spinner);
+        addSpinner.setOnItemSelectedListener(ReminderControlSet.this);
         remindAdapter = new ArrayAdapter<String>(activity, R.layout.simple_spinner_item, spinnerOptions) {
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
@@ -309,15 +328,14 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
         DateTime dateTime = newDateTime(forDate);
         Date d = dateTime.toDate();
         return (dateTime.getYear() == newDateTime().getYear()
-                ? DateUtilities.getDateStringHideYear(d)
-                : DateUtilities.getDateString(d)) +
+                ? DateUtilities.getLongDateStringHideYear(d)
+                : DateUtilities.getLongDateString(d)) +
                 ", " + DateUtilities.getTimeString(activity, d);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         log.info("onItemSelected({}, {}, {}, {})", parent, view, position, id);
-        addSpinner.setOnItemSelectedListener(null);
         String selected = spinnerOptions.get(position);
         if (selected.equals(taskEditFragment.getString(R.string.when_due))) {
             addDue();
@@ -335,6 +353,5 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        addSpinner.setOnItemSelectedListener(null);
     }
 }
