@@ -329,6 +329,9 @@
 	<string name="TEA_reminder_due">何時がタスクの期限ですか？</string>
 	<string name="TEA_reminder_overdue">何時タスクが期限切れになりますか？</string>
 	<string name="TEA_reminder_randomly">ランダムに1回</string>
+	<string name="ring_once">1回通知音を鳴らす</string>
+	<string name="ring_five_times">5回通知音を鳴らす</string>
+	<string name="ring_nonstop">通知音を鳴らし続ける</string>
 	<string-array name="TEA_reminder_random">
 		<item>1時間</item>
 		<item>1日</item>
@@ -484,7 +487,12 @@
 	<string name="select_amount">金額を選択</string>
 	<string name="notification_actions">通知アクション</string>
 	<string name="notification_actions_summary">通知にスヌーズと完了アクションを表示します</string>
-	<string name="add_a_reminder">リマインダーを追加</string>
+	<string name="remove">削除</string>
+	<string name="randomly_once">1回ランダムに</string>
+	<string name="randomly">ランダムに</string>
+	<string name="pick_a_date_and_time">日付と時間を選択</string>
+	<string name="when_overdue">期限を過ぎたとき</string>
+	<string name="when_due">期限に</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>無効</item>
 		<item>15分毎</item>

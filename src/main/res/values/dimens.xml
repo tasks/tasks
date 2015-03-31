@@ -5,6 +5,7 @@
 
     <dimen name="task_edit_title_padding_top_bottom">18dp</dimen>
     <dimen name="task_edit_padding_top_bottom">10dp</dimen>
+    <dimen name="task_edit_double_padding_top_bottom">20dp</dimen>
     <dimen name="task_edit_drawable_padding">15dp</dimen>
     <dimen name="task_edit_padding_left">10dp</dimen>
     <dimen name="task_edit_padding_right">10dp</dimen>

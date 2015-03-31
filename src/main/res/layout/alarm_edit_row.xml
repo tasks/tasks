@@ -3,8 +3,8 @@
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/task_edit_padding_top_bottom"
-    android:layout_marginBottom="@dimen/task_edit_padding_top_bottom">
+    android:paddingBottom="@dimen/task_edit_double_padding_top_bottom"
+    android:layout_marginBottom="@dimen/task_edit_double_padding_top_bottom">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -30,9 +30,10 @@
     <ImageView
         android:id="@+id/button1"
         android:src="?attr/ic_action_cancel"
+        android:layout_gravity="center"
         android:contentDescription="@string/remove"
-        android:layout_width="32dip"
-        android:layout_height="32dip"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_weight="1"
         android:paddingRight="3dp"
         android:paddingEnd="3dp" />
