@@ -1,5 +1,6 @@
 package org.tasks.activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,14 +15,13 @@ import org.tasks.billing.IabHelper;
 import org.tasks.billing.IabResult;
 import org.tasks.billing.Inventory;
 import org.tasks.billing.Purchase;
-import org.tasks.injection.InjectingActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DonationActivity extends InjectingActivity implements IabHelper.OnIabSetupFinishedListener,
+public class DonationActivity extends Activity implements IabHelper.OnIabSetupFinishedListener,
         IabHelper.QueryInventoryFinishedListener, IabHelper.OnIabPurchaseFinishedListener,
         IabHelper.OnConsumeFinishedListener, IabHelper.OnConsumeMultiFinishedListener {
 

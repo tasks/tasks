@@ -2,4 +2,6 @@
 <resources>
     <bool name="at_most_honeycomb">true</bool>
     <bool name="at_least_honeycomb_mr1">false</bool>
+    <bool name="billing_enabled">false</bool>
+    <bool name="sync_enabled">false</bool>
 </resources>

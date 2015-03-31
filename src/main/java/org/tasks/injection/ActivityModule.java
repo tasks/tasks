@@ -29,7 +29,6 @@ import org.tasks.activities.ClearGtaskDataActivity;
 import org.tasks.activities.DeleteAllCalendarEventsActivity;
 import org.tasks.activities.DeleteCompletedActivity;
 import org.tasks.activities.DeleteCompletedEventsActivity;
-import org.tasks.activities.DonationActivity;
 import org.tasks.activities.ExportTaskActivity;
 import org.tasks.activities.ImportTaskActivity;
 import org.tasks.activities.PurgeDeletedActivity;
@@ -81,7 +80,6 @@ import dagger.Provides;
                 ClearGtaskDataActivity.class,
                 ReminderPreferences.class,
                 HelpAndFeedbackActivity.class,
-                DonationActivity.class,
                 AppearancePreferences.class
         })
 public class ActivityModule {

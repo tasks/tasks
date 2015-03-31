@@ -6,11 +6,6 @@
 
     <!-- ================================================== Used Permissions = -->
 
-    <!-- **************** -->
-    <!-- in-app donations -->
-    <!-- **************** -->
-    <uses-permission android:name="com.android.vending.BILLING" />
-
     <!-- ************* -->
     <!-- notifications -->
     <!-- ************* -->
@@ -31,15 +26,6 @@
     <!-- write backups and attachments to storage -->
     <!-- **************************************** -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-    <!-- **************** -->
-    <!-- google task sync -->
-    <!-- **************** -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
-    <uses-permission android:name="com.google.android.googleapps.permission.GOOGLE_AUTH" />
 
     <!-- ********************* -->
     <!-- missed call reminders -->
@@ -188,10 +174,6 @@
             android:name=".preferences.HelpAndFeedbackActivity"
             android:label="@string/help_and_feedback"
             android:theme="@style/Tasks" />
-
-        <activity
-            android:name=".activities.DonationActivity"
-            android:theme="@style/Tasks.Dialog" />
 
         <!-- Activity that configures widget -->
         <activity android:name="com.todoroo.astrid.widget.WidgetConfigActivity">

@@ -18,6 +18,9 @@ public class BasicPreferences extends InjectingPreferenceActivity {
         String action = getIntent().getAction();
         if (action == null) {
             addPreferencesFromResource(R.xml.preferences);
+            if (!getResources().getBoolean(R.bool.sync_enabled)) {
+                getPreferenceScreen().removePreference(findPreference(getString(R.string.synchronization)));
+            }
             findPreference(getString(R.string.EPr_appearance_header)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {

@@ -61,6 +61,11 @@ android {
     } else {
         buildTypes.release.signingConfig = null
     }
+
+    productFlavors {
+        generic
+        googleplay
+    }
 }
 
 android.applicationVariants.all { variant ->

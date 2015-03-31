@@ -10,6 +10,7 @@ import com.google.api.client.repackaged.com.google.common.base.Joiner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.BuildConfig;
+import org.tasks.R;
 import org.tasks.injection.ForApplication;
 
 import java.util.List;
@@ -17,7 +18,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastFroyo;
 import static java.util.Arrays.asList;
 
 @Singleton
@@ -43,7 +43,7 @@ public class DeviceInfo {
     }
 
     public boolean supportsBilling() {
-        return atLeastFroyo() && isPlayStoreAvailable();
+        return context.getResources().getBoolean(R.bool.billing_enabled) && isPlayStoreAvailable();
     }
 
     public String getDebugInfo() {
@@ -59,7 +59,7 @@ public class DeviceInfo {
             return Joiner.on("\n").join(asList(
                     "",
                     "----------",
-                    "Tasks: " + BuildConfig.VERSION_NAME + " (build " + BuildConfig.VERSION_CODE + ")",
+                    "Tasks: " + BuildConfig.VERSION_NAME + " (" + BuildConfig.FLAVOR + " build " + BuildConfig.VERSION_CODE + ")",
                     "Android: " + Build.VERSION.RELEASE,
                     "Model: " + Build.MANUFACTURER + " " + Build.MODEL,
                     "Product: " + Build.PRODUCT + " (" + Build.DEVICE + ")",
