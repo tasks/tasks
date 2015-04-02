@@ -128,6 +128,8 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
 
         public RETURN visitLong(Property<Long> property, PARAMETER data);
 
+        public RETURN visitDouble(Property<Double> property, PARAMETER data);
+
         public RETURN visitString(Property<String> property, PARAMETER data);
     }
 
@@ -211,6 +213,39 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
                     sb.deleteCharAt(sb.length() - 1).append(RIGHT_PARENTHESIS);
                 }
             };
+        }
+    }
+
+    /**
+     * Double property type. See {@link Property}
+     *
+     * @author Tim Su <tim@todoroo.com>
+     *
+     */
+    public static class DoubleProperty extends Property<Double> {
+
+        public DoubleProperty(Table table, String name) {
+            super(table, name);
+        }
+
+        public DoubleProperty(Table table, String name, int flags) {
+            super(table, name, flags);
+        }
+
+        protected DoubleProperty(Table table, String name, String expression) {
+            super(table, name, expression);
+        }
+
+
+        @Override
+        public <RETURN, PARAMETER> RETURN accept(
+                PropertyVisitor<RETURN, PARAMETER> visitor, PARAMETER data) {
+            return visitor.visitDouble(this, data);
+        }
+
+        @Override
+        public DoubleProperty cloneAs(String tableAlias, String columnAlias) {
+            return (DoubleProperty) super.cloneAs(tableAlias, columnAlias);
         }
     }
 

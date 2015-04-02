@@ -338,6 +338,16 @@ public class TasksXmlImporter {
             }
 
             @Override
+            public Void visitDouble(Property<Double> property, AbstractModel data) {
+                String value = xpp.getAttributeValue(null, property.name);
+                if (value != null) {
+                    data.setValue(property, TasksXmlExporter.XML_NULL.equals(value) ?
+                            null : Double.parseDouble(value));
+                }
+                return null;
+            }
+
+            @Override
             public Void visitString(Property<String> property,
                     AbstractModel data) {
                 String value = xpp.getAttributeValue(null, property.name);

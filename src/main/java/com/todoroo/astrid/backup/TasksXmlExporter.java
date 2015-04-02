@@ -290,6 +290,24 @@ public class TasksXmlExporter {
         }
 
         @Override
+        public Void visitDouble(Property<Double> property, AbstractModel data) {
+            try {
+                Double value = data.getValue(property);
+                String valueString = (value == null) ? XML_NULL : value.toString();
+                xml.attribute(null, property.name, valueString);
+            } catch (UnsupportedOperationException e) {
+                // didn't read this value, do nothing
+            } catch (IllegalArgumentException e) {
+                throw new RuntimeException(e);
+            } catch (IllegalStateException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            return null;
+        }
+
+        @Override
         public Void visitString(Property<String> property, AbstractModel data) {
             try {
                 String value = data.getValue(property);

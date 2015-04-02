@@ -25,6 +25,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import static com.todoroo.andlib.data.Property.DoubleProperty;
+
 /**
  * <code>AbstractModel</code> represents a row in a database.
  * <p>
@@ -219,6 +221,8 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
                 return (TYPE) Integer.valueOf((String) value);
             } else if(value instanceof Integer && property instanceof LongProperty) {
                 return (TYPE) Long.valueOf(((Number) value).longValue());
+            } else if(value instanceof String && property instanceof DoubleProperty) {
+                return (TYPE) Double.valueOf((String) value);
             }
             return (TYPE) value;
         } catch (NumberFormatException e) {
@@ -470,6 +474,12 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
         @Override
         public Void visitLong(Property<Long> property, Object value) {
             store.put(property.getColumnName(), (Long) value);
+            return null;
+        }
+
+        @Override
+        public Void visitDouble(Property<Double> property, Object value) {
+            store.put(property.getColumnName(), (Double) value);
             return null;
         }
 

@@ -9,6 +9,11 @@ package com.todoroo.andlib.data;
 public class SqlConstructorVisitor implements Property.PropertyVisitor<String, Void> {
 
     @Override
+    public String visitDouble(Property<Double> property, Void data) {
+        return String.format("%s REAL", property.getColumnName());
+    }
+
+    @Override
     public String visitInteger(Property<Integer> property, Void data) {
         return String.format("%s INTEGER", property.getColumnName());
     }
