@@ -487,6 +487,7 @@
 	<string name="select_amount">金額を選択</string>
 	<string name="notification_actions">通知アクション</string>
 	<string name="notification_actions_summary">通知にスヌーズと完了アクションを表示します</string>
+	<string name="add_reminder">リマインダーを追加</string>
 	<string name="remove">削除</string>
 	<string name="randomly_once">1回ランダムに</string>
 	<string name="randomly">ランダムに</string>

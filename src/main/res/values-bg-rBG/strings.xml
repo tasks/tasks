@@ -331,6 +331,9 @@
 	<string name="TEA_reminder_due">Когато задачата е към крайния срок</string>
 	<string name="TEA_reminder_overdue">Когато задачата е просрочена</string>
 	<string name="TEA_reminder_randomly">Случайно веднъж</string>
+	<string name="ring_once">Звънене веднъж</string>
+	<string name="ring_five_times">Звънене пет пъти</string>
+	<string name="ring_nonstop">Звънене без спиране</string>
 	<string-array name="TEA_reminder_random">
 		<item>час</item>
 		<item>ден</item>
@@ -486,6 +489,13 @@
 	<string name="select_amount">Изберете размер</string>
 	<string name="notification_actions">Уведомление - Действия</string>
 	<string name="notification_actions_summary">Покажи опция за отлагане и пълни действия в уведомлението</string>
+	<string name="add_reminder">Добави напомняне</string>
+	<string name="remove">Изтрий</string>
+	<string name="randomly_once">Произволно веднъж</string>
+	<string name="randomly">Произволно</string>
+	<string name="pick_a_date_and_time">Избери дата и време</string>
+	<string name="when_overdue">След крайния срок</string>
+	<string name="when_due">При краен срок</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>изключено</item>
 		<item>на всеки 15 минути</item>
