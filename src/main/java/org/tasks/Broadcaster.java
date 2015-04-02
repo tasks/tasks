@@ -6,6 +6,7 @@ import android.content.Intent;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.reminders.NotificationFragment;
 import com.todoroo.astrid.reminders.Notifications;
+import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.injection.ForApplication;
@@ -53,6 +54,14 @@ public class Broadcaster {
             putExtra(Notifications.EXTRAS_TEXT, text);
             putExtra(Notifications.EXTRAS_RING_TIMES, ringTimes);
         }}, AstridApiConstants.PERMISSION_READ);
+    }
+
+    public void requestNotification(final long alarmId, final long taskId) {
+        sendOrderedBroadcast(new Intent(context, Notifications.class) {{
+            setAction("ALARM" + alarmId); //$NON-NLS-1$
+            putExtra(Notifications.ID_KEY, taskId);
+            putExtra(Notifications.EXTRAS_TYPE, ReminderService.TYPE_ALARM);
+        }});
     }
 
     public void taskCompleted(final long id) {

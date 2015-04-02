@@ -4,4 +4,5 @@
     <bool name="at_least_honeycomb_mr1">false</bool>
     <bool name="billing_enabled">false</bool>
     <bool name="sync_enabled">false</bool>
+    <bool name="location_enabled">false</bool>
 </resources>

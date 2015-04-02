@@ -100,6 +100,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-v4'
     }
 
+    googleplayCompile group: 'com.google.android.gms', name: 'play-services-location', version: '7.0.0'
+
     compile(group: 'com.google.apis', name: 'google-api-services-tasks', version: 'v1-rev33-1.18.0-rc') {
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
     }

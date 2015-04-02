@@ -1,0 +1,6 @@
+<resources>
+
+    <dimen name="horizontal_page_margin">@dimen/margin_huge</dimen>
+    <dimen name="vertical_page_margin">@dimen/margin_medium</dimen>
+
+</resources>

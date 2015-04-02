@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="org.tasks">
 
     <!-- **************** -->
@@ -16,11 +17,29 @@
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
     <uses-permission android:name="com.google.android.googleapps.permission.GOOGLE_AUTH" />
 
+    <!-- ************************ -->
+    <!-- location based reminders -->
+    <!-- ************************ -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.LOCATION_HARDWARE" />
+
+    <uses-sdk tools:overrideLibrary="com.google.android.gms,com.google.android.gms.location,com.google.android.gms.maps" />
+
     <application>
+
+        <meta-data android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBXGYNWNQcfse4JS5gI9teTSKMzinWzL2M"/>
 
         <activity
             android:name=".activities.DonationActivity"
             android:theme="@style/Tasks.Dialog" />
+
+        <service android:name=".location.GeofenceTransitionsIntentService"/>
 
     </application>
 

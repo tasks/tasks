@@ -1,5 +1,6 @@
 package org.tasks.injection;
 
+import org.tasks.location.GeofenceTransitionsIntentService;
 import org.tasks.scheduling.*;
 
 import dagger.Module;
@@ -11,7 +12,8 @@ import dagger.Module;
                 GtasksBackgroundService.class,
                 MidnightRefreshService.class,
                 RefreshSchedulerIntentService.class,
-                ReminderSchedulerIntentService.class
+                ReminderSchedulerIntentService.class,
+                GeofenceTransitionsIntentService.class
         })
 public class IntentServiceModule {
 }

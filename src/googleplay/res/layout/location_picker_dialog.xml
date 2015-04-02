@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/horizontal_page_margin"
+    android:paddingRight="@dimen/horizontal_page_margin"
+    android:paddingTop="@dimen/vertical_page_margin"
+    android:paddingBottom="@dimen/vertical_page_margin">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:layout_gravity="top"
+        android:inputType="textPostalAddress"
+        android:imeOptions="actionSearch"
+        android:hint="@string/type_a_location"
+        android:ems="10"
+        android:id="@+id/address_entry" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/powered_by_google_light"
+        android:layout_gravity="end"/>
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

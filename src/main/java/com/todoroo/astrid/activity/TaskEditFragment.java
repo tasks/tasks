@@ -82,6 +82,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingFragment;
+import org.tasks.location.GeofenceService;
+import org.tasks.location.LocationApi;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
 
@@ -173,6 +175,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Inject DateChangedAlerts dateChangedAlerts;
     @Inject TagDataDao tagDataDao;
     @Inject ActFmCameraModule actFmCameraModule;
+    @Inject GeofenceService geofenceService;
+    @Inject LocationApi locationApi;
 
     // --- UI components
 
@@ -389,10 +393,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controlSetMap.put(getString(R.string.TEA_ctrl_notes_pref),
                 notesControlSet);
 
-        ReminderControlSet reminderControl = new ReminderControlSet(alarmService, this);
-        controls.add(reminderControl);
-        controlSetMap.put(getString(R.string.TEA_ctrl_reminders_pref),
-                reminderControl);
+        ReminderControlSet reminderControlSet = new ReminderControlSet(locationApi, alarmService, geofenceService, this);
+        controls.add(reminderControlSet);
+        controlSetMap.put(getString(R.string.TEA_ctrl_reminders_pref), reminderControlSet);
 
         HideUntilControlSet hideUntilControls = new HideUntilControlSet(this);
         controls.add(hideUntilControls);

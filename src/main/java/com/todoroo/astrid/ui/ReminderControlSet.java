@@ -29,11 +29,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.dialogs.DateAndTimePickerDialog;
+import org.tasks.dialogs.LocationPickerDialog;
+import org.tasks.location.Geofence;
+import org.tasks.location.GeofenceService;
+import org.tasks.location.LocationApi;
+import org.tasks.location.OnLocationPickedHandler;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
@@ -55,15 +61,19 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
     private LinearLayout alertContainer;
     private boolean whenDue;
     private boolean whenOverdue;
+    private LocationApi locationApi;
     private AlarmService alarmService;
+    private GeofenceService geofenceService;
     private TaskEditFragment taskEditFragment;
     private List<String> spinnerOptions = new ArrayList<>();
     private ArrayAdapter<String> remindAdapter;
 
 
-    public ReminderControlSet(AlarmService alarmService, TaskEditFragment taskEditFragment) {
+    public ReminderControlSet(LocationApi locationApi, AlarmService alarmService, GeofenceService geofenceService, TaskEditFragment taskEditFragment) {
         super(taskEditFragment.getActivity(), R.layout.control_set_reminders);
+        this.locationApi = locationApi;
         this.alarmService = alarmService;
+        this.geofenceService = geofenceService;
         this.taskEditFragment = taskEditFragment;
     }
 
@@ -117,6 +127,15 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
         });
     }
 
+    public void addGeolocationReminder(final Geofence geofence) {
+        View alertItem = addAlarmRow(geofence.getName(), null, new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+        alertItem.setTag(geofence);
+    }
+
     private View addAlarmRow(String text, Long timestamp, final OnClickListener onRemove) {
         final View alertItem = LayoutInflater.from(activity).inflate(R.layout.alarm_edit_row, null);
         alertContainer.addView(alertItem);
@@ -154,6 +173,9 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
         }
         if (randomControlSet == null) {
             spinnerOptions.add(taskEditFragment.getString(R.string.randomly));
+        }
+        if (taskEditFragment.getResources().getBoolean(R.bool.location_enabled)) {
+            spinnerOptions.add(taskEditFragment.getString(R.string.pick_a_location));
         }
         spinnerOptions.add(taskEditFragment.getString(R.string.pick_a_date_and_time));
         remindAdapter.notifyDataSetChanged();
@@ -257,6 +279,9 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
                 addAlarmRow(entry.getValue(AlarmFields.TIME));
             }
         });
+        for (Geofence geofence : geofenceService.getGeofences(model.getId())) {
+            addGeolocationReminder(geofence);
+        }
         updateSpinner();
     }
 
@@ -310,16 +335,26 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
 
         task.setReminderPeriod(randomControlSet == null ? 0L : randomControlSet.getReminderPeriod());
 
-        LinkedHashSet<Long> alarms = new LinkedHashSet<>();
+        Set<Long> alarms = new LinkedHashSet<>();
+        Set<Geofence> geofences = new LinkedHashSet<>();
+
         for(int i = 0; i < alertContainer.getChildCount(); i++) {
-            Long dateValue = (Long) alertContainer.getChildAt(i).getTag();
-            if(dateValue == null) {
-                continue;
+            Object tag = alertContainer.getChildAt(i).getTag();
+            //noinspection StatementWithEmptyBody
+            if (tag == null) {
+            } else if (tag instanceof Long) {
+                alarms.add((Long) tag);
+            } else if (tag instanceof Geofence) {
+                geofences.add((Geofence) tag);
+            } else {
+                log.error("Unexpected tag: {}", tag);
             }
-            alarms.add(dateValue);
         }
 
         if(alarmService.synchronizeAlarms(task.getId(), alarms)) {
+            task.setModificationDate(DateUtilities.now());
+        }
+        if (geofenceService.synchronizeGeofences(task.getId(), geofences)) {
             task.setModificationDate(DateUtilities.now());
         }
     }
@@ -345,6 +380,13 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
             addRandomReminder();
         } else if (selected.equals(taskEditFragment.getString(R.string.pick_a_date_and_time))) {
             addNewAlarm();
+        } else if (selected.equals(taskEditFragment.getString(R.string.pick_a_location))) {
+            LocationPickerDialog.pickLocation(locationApi, taskEditFragment, new OnLocationPickedHandler() {
+                @Override
+                public void onLocationPicked(Geofence geofence) {
+                    addGeolocationReminder(geofence);
+                }
+            });
         }
         if (position != 0) {
             updateSpinner();

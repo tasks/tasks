@@ -492,6 +492,8 @@
 	<string name="randomly_once">1回ランダムに</string>
 	<string name="randomly">ランダムに</string>
 	<string name="pick_a_date_and_time">日付と時間を選択</string>
+	<string name="pick_a_location">場所を選択</string>
+	<string name="type_a_location">場所を入力</string>
 	<string name="when_overdue">期限を過ぎたとき</string>
 	<string name="when_due">期限に</string>
 	<string-array name="sync_SPr_interval_entries">
