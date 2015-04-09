@@ -31,6 +31,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
@@ -83,6 +84,7 @@ import org.tasks.location.GeofenceService;
 import org.tasks.location.LocationApi;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.ResourceResolver;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -174,6 +176,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Inject ActFmCameraModule actFmCameraModule;
     @Inject GeofenceService geofenceService;
     @Inject LocationApi locationApi;
+    @Inject ResourceResolver resourceResolver;
 
     // --- UI components
 
@@ -362,7 +365,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         // deadline control, because
         // otherwise the correct date may not be written to the calendar event.
         // Order matters!
-        DeadlineControlSet deadlineControl = new DeadlineControlSet(preferences, getActivity(), R.layout.control_set_deadline);
+        DeadlineControlSet deadlineControl = new DeadlineControlSet(preferences, getActivity());
         controlSetMap.put(getString(R.string.TEA_ctrl_when_pref), deadlineControl);
         controls.add(repeatControls);
 
@@ -392,10 +395,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         // TODO: Fix the fact that hideUntil doesn't update accordingly with date changes when lazy loaded. Until then, don't lazy load.
         hideUntilControls.getView();
 
-        TimerControlSet timerControl = new TimerControlSet(preferences, getActivity(),
-                R.layout.control_set_timers_dialog,
-                R.layout.control_set_timers,
-                R.string.TEA_timer_controls);
+        TimerControlSet timerControl = new TimerControlSet(preferences, getActivity());
         timerAction.addListener(timerControl);
         controls.add(timerControl);
         controlSetMap.put(getString(R.string.TEA_ctrl_timer_pref), timerControl);
@@ -442,6 +442,10 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 }
 
                 if (controlSet != null) {
+                    ImageView icon = (ImageView) controlSet.findViewById(R.id.icon);
+                    if (icon != null) {
+                        icon.setImageResource(resourceResolver.getResource(curr.getIcon()));
+                    }
                     basicControls.addView(controlSet);
                 }
 
@@ -566,7 +570,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 controlSet.readFromTask(model);
             }
         }
-
     }
 
     /** Save task model from values in UI components */

@@ -248,6 +248,11 @@ public final class TagsControlSet extends PopupControlSet {
     }
 
     @Override
+    public int getIcon() {
+        return R.attr.ic_action_tags;
+    }
+
+    @Override
     protected void readFromTaskOnInitialize() {
         newTags.removeAllViews();
 

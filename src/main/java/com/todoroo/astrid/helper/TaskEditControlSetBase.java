@@ -12,6 +12,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.ui.EditDialogOkBackground;
@@ -29,6 +30,7 @@ public abstract class TaskEditControlSetBase implements TaskEditControlSet {
 
     protected final Activity activity;
     private final int viewLayout;
+    private boolean useTemplate;
     private View view;
     protected Task model;
     protected boolean initialized = false;
@@ -36,8 +38,13 @@ public abstract class TaskEditControlSetBase implements TaskEditControlSet {
     protected final int unsetColor;
 
     public TaskEditControlSetBase(Activity activity, int viewLayout) {
+        this(activity, viewLayout, true);
+    }
+
+    public TaskEditControlSetBase(Activity activity, int viewLayout, boolean useTemplate) {
         this.activity = activity;
         this.viewLayout = viewLayout;
+        this.useTemplate = useTemplate;
         if (viewLayout == -1) {
             initialized = true;
         }
@@ -46,11 +53,19 @@ public abstract class TaskEditControlSetBase implements TaskEditControlSet {
         unsetColor = getData(activity, R.attr.asTextColorHint);
     }
 
+    protected View inflateWithTemplate(int layout) {
+        LayoutInflater layoutInflater = LayoutInflater.from(activity);
+        View template = layoutInflater.inflate(R.layout.control_set_template, null);
+        LinearLayout content = (LinearLayout) template.findViewById(R.id.content);
+        content.addView(layoutInflater.inflate(layout, null));
+        return template;
+    }
+
     @Override
     public View getView() {
         if (view == null && !initialized) {
             if (viewLayout != -1) {
-                view = LayoutInflater.from(activity).inflate(viewLayout, null);
+                view = useTemplate ? inflateWithTemplate(viewLayout) : LayoutInflater.from(activity).inflate(viewLayout, null);
                 afterInflate();
                 setupOkButton(view);
             }

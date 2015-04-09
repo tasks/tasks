@@ -37,7 +37,7 @@ public class ImportanceControlSet extends TaskEditControlSetBase {
     private static final int TEXT_SIZE = 18;
 
     public interface ImportanceChangedListener {
-        public void importanceChanged(int i);
+        void importanceChanged(int i);
     }
 
     public ImportanceControlSet(Activity activity) {
@@ -88,7 +88,7 @@ public class ImportanceControlSet extends TaskEditControlSetBase {
             final ToggleButton button = new ToggleButton(activity);
             LinearLayout.LayoutParams params;
 
-            int dimension = 38;
+            int dimension = 25;
             params = new LinearLayout.LayoutParams((int) (metrics.density * dimension), (int) (metrics.density * dimension));
             button.setLayoutParams(params);
 
@@ -117,7 +117,7 @@ public class ImportanceControlSet extends TaskEditControlSetBase {
             buttons.add(button);
 
             View padding = new View(activity);
-            LinearLayout.LayoutParams paddingParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams paddingParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 0);
             paddingParams.weight = 1.0f;
             padding.setLayoutParams(paddingParams);
             container.addView(padding);
@@ -129,6 +129,11 @@ public class ImportanceControlSet extends TaskEditControlSetBase {
     public void readFromTask(Task task) {
         super.readFromTask(task);
         setImportance(model.getImportance());
+    }
+
+    @Override
+    public int getIcon() {
+        return R.attr.ic_action_flag;
     }
 
     // Same as above because we need the setImportance listeners to fire even in

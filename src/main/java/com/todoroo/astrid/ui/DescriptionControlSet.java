@@ -35,4 +35,9 @@ public class DescriptionControlSet extends TaskEditControlSetBase {
     protected void writeToModelAfterInitialized(Task task) {
         task.setNotes(editText.getText().toString().trim());
     }
+
+    @Override
+    public int getIcon() {
+        return R.attr.ic_action_list;
+    }
 }

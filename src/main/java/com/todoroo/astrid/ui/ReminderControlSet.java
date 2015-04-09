@@ -396,4 +396,9 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
     }
+
+    @Override
+    public int getIcon() {
+        return R.attr.ic_action_bell;
+    }
 }

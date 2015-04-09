@@ -4,95 +4,68 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
-
-    <ImageView
-        android:src="?attr/ic_action_bell"
-        android:contentDescription="@string/TEA_control_reminders"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:padding="@dimen/task_edit_drawable_padding" />
+    android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/alert_container"
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="@dimen/task_edit_padding_top_bottom"
-            android:paddingBottom="@dimen/task_edit_padding_top_bottom"
-            android:layout_marginTop="@dimen/task_edit_padding_top_bottom"
-            android:layout_marginBottom="@dimen/task_edit_padding_top_bottom">
+            android:orientation="horizontal"
+            android:layout_gravity="start"
+            android:gravity="start"
+            android:layout_weight="50">
 
-            <LinearLayout
-                android:id="@+id/alert_container"
-                android:orientation="vertical"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:layout_width="fill_parent"
+            <TextView
+                android:textSize="@dimen/task_edit_text_size"
+                android:id="@+id/alarms_add"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:text="@string/add_reminder"
+                android:textColor="?attr/asTextColorHint" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="start"
-                    android:gravity="start"
-                    android:layout_weight="50">
-
-                    <TextView
-                        android:textSize="@dimen/task_edit_text_size"
-                        android:id="@+id/alarms_add"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/add_reminder"
-                        android:textColor="?attr/asTextColorHint" />
-
-                    <Spinner
-                        android:id="@+id/alarms_add_spinner"
-                        android:layout_width="0dip"
-                        android:layout_height="0dip" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="end"
-                    android:gravity="end"
-                    android:layout_weight="50">
-
-                    <TextView
-                        android:id="@+id/reminder_alarm_display"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/task_edit_text_size"
-                        android:paddingRight="10dip"
-                        android:paddingEnd="10dip"
-                        android:textColor="?attr/asTextColor" />
-
-                    <Spinner
-                        android:id="@+id/reminder_alarm"
-                        android:layout_width="0dip"
-                        android:layout_height="0dip" />
-
-                </LinearLayout>
-
-            </LinearLayout>
+            <Spinner
+                android:id="@+id/alarms_add_spinner"
+                android:layout_width="0dip"
+                android:layout_height="0dip" />
 
         </LinearLayout>
 
-        <include layout="@layout/task_edit_divider" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:layout_weight="50">
+
+            <TextView
+                android:id="@+id/reminder_alarm_display"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/task_edit_text_size"
+                android:paddingRight="10dip"
+                android:paddingEnd="10dip"
+                android:textColor="?attr/asTextColor" />
+
+            <Spinner
+                android:id="@+id/reminder_alarm"
+                android:layout_width="0dip"
+                android:layout_height="0dip" />
+
+        </LinearLayout>
 
     </LinearLayout>
+
 </LinearLayout>

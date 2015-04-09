@@ -10,4 +10,6 @@ public interface TaskEditControlSet {
     void readFromTask(Task task);
 
     void writeToModel(Task task);
+
+    int getIcon();
 }

@@ -112,9 +112,14 @@ public class TimerActionControlSet extends TaskEditControlSetBase {
         }
     }
 
+    @Override
+    public int getIcon() {
+        return -1;
+    }
+
     public interface TimerActionListener {
-        public void timerStopped(Task task);
-        public void timerStarted(Task task);
+        void timerStopped(Task task);
+        void timerStarted(Task task);
     }
 
     public void addListener(TimerActionListener listener) {

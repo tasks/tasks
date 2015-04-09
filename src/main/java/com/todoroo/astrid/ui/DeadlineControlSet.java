@@ -28,8 +28,8 @@ public class DeadlineControlSet extends PopupControlSet {
 
     private DateAndTimePicker dateAndTimePicker;
 
-    public DeadlineControlSet(ActivityPreferences preferences, Activity activity, int displayViewLayout) {
-        super(preferences, activity, R.layout.control_set_deadline_dialog, displayViewLayout, 0);
+    public DeadlineControlSet(ActivityPreferences preferences, Activity activity) {
+        super(preferences, activity, R.layout.control_set_deadline_dialog, R.layout.control_set_deadline, 0);
     }
 
     @Override
@@ -101,5 +101,10 @@ public class DeadlineControlSet extends PopupControlSet {
 
     private void initializeWithDate(long dueDate) {
         dateAndTimePicker.initializeWithDate(dueDate);
+    }
+
+    @Override
+    public int getIcon() {
+        return R.attr.ic_action_clock;
     }
 }

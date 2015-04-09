@@ -74,6 +74,11 @@ public class FilesControlSet extends PopupControlSet {
         refreshDisplayView();
     }
 
+    @Override
+    public int getIcon() {
+        return R.attr.ic_action_attachment;
+    }
+
     public void refreshMetadata() {
         if (model != null) {
             files.clear();

@@ -1,48 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<EditText xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/edit_text_style"
+    android:id="@+id/notes"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
-
-    <ImageView
-        android:src="?attr/ic_action_list"
-        android:contentDescription="@string/TEA_note_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:padding="@dimen/task_edit_drawable_padding" />
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <EditText
-            style="@style/edit_text_style"
-            android:id="@+id/notes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/task_edit_padding_top_bottom"
-            android:paddingBottom="@dimen/task_edit_padding_top_bottom"
-            android:layout_marginTop="@dimen/task_edit_padding_top_bottom"
-            android:layout_marginBottom="@dimen/task_edit_padding_top_bottom"
-            android:paddingRight="@dimen/task_edit_padding_right"
-            android:paddingEnd="@dimen/task_edit_padding_right"
-            android:scrollbars="vertical"
-            android:hint="@string/TEA_notes_empty"
-            android:textColorHint="?attr/asTextColorHint"
-            android:textSize="@dimen/task_edit_text_size"
-            android:inputType="textCapSentences|textMultiLine"
-            android:imeOptions="flagNoExtractUi"
-            android:textColor="?attr/asTextColor"
-            android:freezesText="true"
-            android:background="@android:color/transparent" />
-
-        <include layout="@layout/task_edit_divider" />
-
-    </LinearLayout>
-</LinearLayout>
+    android:paddingRight="@dimen/task_edit_padding_right"
+    android:paddingEnd="@dimen/task_edit_padding_right"
+    android:scrollbars="vertical"
+    android:hint="@string/TEA_notes_empty"
+    android:textColorHint="?attr/asTextColorHint"
+    android:textSize="@dimen/task_edit_text_size"
+    android:inputType="textCapSentences|textMultiLine"
+    android:imeOptions="flagNoExtractUi"
+    android:textColor="?attr/asTextColor"
+    android:freezesText="true"
+    android:background="@android:color/transparent" />

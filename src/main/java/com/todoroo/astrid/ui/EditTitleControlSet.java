@@ -145,6 +145,11 @@ public class EditTitleControlSet implements TaskEditControlSet, ImportanceChange
     }
 
     @Override
+    public int getIcon() {
+        return -1;
+    }
+
+    @Override
     public View getView() {
         throw new RuntimeException();
     }

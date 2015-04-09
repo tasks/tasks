@@ -236,6 +236,11 @@ public class HideUntilControlSet extends TaskEditControlSetBase implements OnIte
     }
 
     @Override
+    public int getIcon() {
+        return R.attr.ic_action_box;
+    }
+
+    @Override
     protected void readFromTaskOnInitialize() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);

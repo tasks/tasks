@@ -9,7 +9,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -31,7 +30,7 @@ public abstract class PopupControlSet extends TaskEditControlSetBase {
     private final String titleString;
 
     public interface PopupDialogClickListener {
-        public boolean onClick(DialogInterface d, int which);
+        boolean onClick(DialogInterface d, int which);
     }
 
     final PopupDialogClickListener okListener = new PopupDialogClickListener() {
@@ -49,10 +48,10 @@ public abstract class PopupControlSet extends TaskEditControlSetBase {
     };
 
     public PopupControlSet(ActivityPreferences preferences, Activity activity, int viewLayout, int taskEditViewLayout, final int title) {
-        super(activity, viewLayout);
+        super(activity, viewLayout, false);
         this.preferences = preferences;
         if (taskEditViewLayout != -1) {
-            this.displayView = LayoutInflater.from(activity).inflate(taskEditViewLayout, null);
+            this.displayView = inflateWithTemplate(taskEditViewLayout);
         } else {
             this.displayView = null;
         }
@@ -63,6 +62,7 @@ public abstract class PopupControlSet extends TaskEditControlSetBase {
             displayView.setOnClickListener(getDisplayClickListener());
         }
     }
+
     @Override
     public View getView() {
         return displayView;

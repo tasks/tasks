@@ -4,49 +4,22 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <ImageView
-        android:src="?attr/ic_action_box"
-        android:contentDescription="@string/TEA_hideUntil_label"
+    <TextView
+        android:id="@+id/display_row_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:padding="@dimen/task_edit_drawable_padding" />
+        android:gravity="start|center_vertical"
+        android:textColor="?attr/asTextColor"
+        android:textColorHint="?attr/asTextColorHint"
+        android:textSize="@dimen/task_edit_text_size" />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+    <Spinner
+        android:id="@+id/hideUntil"
+        android:layout_width="0dip"
+        android:layout_height="0dip" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="@dimen/task_edit_padding_top_bottom"
-            android:paddingBottom="@dimen/task_edit_padding_top_bottom"
-            android:layout_marginTop="@dimen/task_edit_padding_top_bottom"
-            android:layout_marginBottom="@dimen/task_edit_padding_top_bottom">
-
-            <TextView
-                android:id="@+id/display_row_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="start|center_vertical"
-                android:textColor="?attr/asTextColor"
-                android:textColorHint="?attr/asTextColorHint"
-                android:textSize="@dimen/task_edit_text_size" />
-
-            <Spinner
-                android:id="@+id/hideUntil"
-                android:layout_width="0dip"
-                android:layout_height="0dip" />
-
-        </LinearLayout>
-
-        <include layout="@layout/task_edit_divider" />
-
-    </LinearLayout>
 </LinearLayout>

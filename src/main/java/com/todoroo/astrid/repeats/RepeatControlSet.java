@@ -89,7 +89,7 @@ public class RepeatControlSet extends PopupControlSet {
     private final List<RepeatChangedListener> listeners = new LinkedList<>();
 
     public interface RepeatChangedListener {
-        public void repeatChanged(boolean repeat);
+        void repeatChanged(boolean repeat);
     }
 
     // --- implementation
@@ -190,6 +190,11 @@ public class RepeatControlSet extends PopupControlSet {
         }
         doRepeat = recurrence.length() > 0;
         refreshDisplayView();
+    }
+
+    @Override
+    public int getIcon() {
+        return R.attr.ic_action_reload;
     }
 
     @Override

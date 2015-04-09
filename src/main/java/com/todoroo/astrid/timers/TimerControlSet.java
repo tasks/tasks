@@ -32,8 +32,8 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
     TimeDurationTaskEditControlSet estimated, elapsed;
     private final TextView displayEdit;
 
-    public TimerControlSet(ActivityPreferences preferences, final Activity activity, int viewLayout, int displayViewLayout, int title) {
-        super(preferences, activity, viewLayout, displayViewLayout, title);
+    public TimerControlSet(ActivityPreferences preferences, final Activity activity) {
+        super(preferences, activity, R.layout.control_set_timers_dialog, R.layout.control_set_timers, R.string.TEA_timer_controls);
 
         displayEdit = (TextView) getView().findViewById(R.id.display_row_edit);
         displayEdit.setText(R.string.TEA_timer_controls);
@@ -60,6 +60,11 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
             estimated.writeToModel(task);
             elapsed.writeToModel(task);
         }
+    }
+
+    @Override
+    public int getIcon() {
+        return R.attr.ic_action_alarm;
     }
 
     // --- TimeDurationTaskEditControlSet
@@ -101,6 +106,11 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
                 return DateUtils.formatElapsedTime(controlSet.getTimeDurationInSeconds());
             }
             return null;
+        }
+
+        @Override
+        public int getIcon() {
+            return -1;
         }
     }
 
