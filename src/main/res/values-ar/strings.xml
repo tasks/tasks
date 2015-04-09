@@ -6,72 +6,247 @@
 <!-- ************************************************************** -->
 <resources>
 	<string name="TVA_add_comment">إضافة تعليق ...</string>
+	<string name="actfm_TVA_tag_name_hint">ادخل اسم القائمة</string>
+	<string name="actfm_GAA_title">اختر حساب قوقل المراد استخدامة</string>
+	<string name="backup_BPr_header">النسخ الإحتياطي</string>
+	<string name="backup_BAc_import">إستيراد مهام</string>
+	<string name="export_toast_no_tasks">لا يوجد مهام للتصدير.</string>
+	<string name="export_progress_title">تصدير...</string>
+	<string name="import_summary_title"> إستعادة المُلخَّص</string>
+	<string name="import_progress_title">إستيراد...</string>
+	<string name="app_name">مهام</string>
+	<string name="read_permission_label">إذن المهام</string>
+	<string name="read_permission_desc">قراءة المهام، عرض فلتر المهمه</string>
+	<string name="DLG_delete_this_task_question">حذف هذه المهمه؟</string>
 	<string name="DLG_cancel">الغي</string>
 	<string name="WID_dateButtonUnset">اضغط لتعيين</string>
 	<string name="TLA_no_items">لا يوجد لديك مهام! \n هل تريد أن تضيف شيئا؟</string>
 	<string name="TLA_menu_sort">رتب</string>
 	<string name="TLA_menu_search">ابحث</string>
 	<string name="TAd_actionEditTask">تعديل</string>
+	<string name="TAd_contextCopyTask">نسخ المهمه</string>
 	<string name="TAd_contextDeleteTask">حذف المهمة</string>
+	<string name="TAd_contextUndeleteTask">الغاء حذف المهمة</string>
 	<string name="SSD_hidden_title">المهمات المخفية</string>
+	<string name="SSD_completed">عرض المهام المنجزه</string>
+	<string name="SSD_hidden">عرض المهام المخفيه</string>
+	<string name="SSD_deleted">عرض المهام المحذوفة</string>
+	<string name="SSD_sort_auto">الترتيب الذكي</string>
+	<string name="SSD_sort_alpha">بالعنوان</string>
+	<string name="SSD_sort_modified">بواسطة التعديل الأخير</string>
+	<string name="SSD_save_temp">مره واحده فقط</string>
 	<string name="SSD_save_always">دائماً</string>
+	<string name="FLA_context_shortcut">إحداث اختصار في الصفحة الرئيسية</string>
+	<string name="FLA_shortcut_dialog">اسم الاختصار:</string>
 	<string name="FLA_new_list">قائمة جديدة</string>
+	<string name="FLA_no_filter_selected">لم يتم اختيار فلتر! ارجو اختيار فلتر او قائمة</string>
+	<string name="TEA_title_hint">اسم المهمة</string>
 	<string name="TEA_deadline_hint">تعيين تاريخ الاستحقاق</string>
+	<string name="TEA_hideUntil_label">إخفاء حتى...</string>
+	<string name="TEA_note_label">وصف</string>
+	<string name="TEA_notes_empty">وصف...</string>
+	<string name="TEA_notes_hint">ادخل وصف المهمة</string>
+	<string name="TEA_estimatedDuration_label">كم من الوقت ستأخذ؟</string>
+	<string name="TEA_menu_save">حفظ التغيرات</string>
+	<string name="TEA_tab_activity">نشاط</string>
 	<string-array name="TEA_urgency">
 		<item>No date</item>
-		<item>Specific day</item>
+		<item>يوم محدد</item>
 		<item>اليوم</item>
 		<item>غدا</item>
-		<item>(day after)</item>
-		<item>Next week</item>
-		<item>In two weeks</item>
-		<item>Next month</item>
+		<item>(اليوم القادم)</item>
+		<item>الأسبوع القادم</item>
+		<item>خلال أسبوعين</item>
+		<item>الشهر القادم</item>
 	</string-array>
+	<string-array name="TEA_hideUntil">
+		<item>قط</item>
+		<item>التاريخ المحدد</item>
+		<item>الوقت المحدد</item>
+		<item>يوم قبل الموعد</item>
+		<item>أسبوع قبل الموعد</item>
+		<item>يوم/وقت محدد</item>
+	</string-array>
+	<string name="TEA_control_when">متى</string>
+	<string name="TEA_control_repeat">إعادة</string>
 	<string name="TEA_control_importance">الأولوية</string>
 	<string name="TEA_control_lists">القوائم</string>
+	<string name="TEA_control_notes">وصف</string>
 	<string name="TEA_control_files">الملفات</string>
 	<string name="TEA_control_reminders">مذكرات المهام</string>
+	<string name="TEA_control_hidden_section">---إخفاء دائما---</string>
+	<string name="MCA_return_call">اتصل الان</string>
 	<string name="MCA_add_task">اتصل لاحقاً</string>
 	<string name="MCA_ignore">تجاهل</string>
+	<string name="MCA_ignore_title">تجاهل جميع المكالمات الفائتة؟</string>
+	<string name="MCA_ignore_all">تجاهل جميع المكالمات</string>
+	<string name="MCA_ignore_this">تجاهل هذه المكالمة فقط</string>
+	<string name="CRA_ignore">تجاهل</string>
+	<string name="CRA_title">تريد قائمة للمقابلات؟</string>
+	<string name="CRA_ignore_title">تجاهل جميع أنشطة التقويم؟</string>
+	<string name="CRA_ignore_all">تجاهل جميع الأحداث</string>
+	<string name="CRA_ignore_this">تجاهل هذا الحدث فقط</string>
+	<string name="CRA_create_list">إنشاء قائمة</string>
+	<string name="CRA_postpone">من المحتمل لاحقاً</string>
+	<string name="CRA_list_exists_title">القائمة موجودة مسبقاً</string>
+	<string name="CRA_create_new">إنشاء جديد</string>
+	<string name="CRA_invitation_prompt">تريد دعوتهم؟</string>
+	<string name="CRA_calendar_reminders_pref_desc_enabled">المهام سوف تذكرك في الاحداث القادمة وسوف تحثك لتكون جاهزاً.</string>
+	<string name="CRA_share_list_title">مشاركة القائمة؟</string>
+	<string name="CRA_more_options">خيارات أكثر</string>
+	<string name="CRA_dont_invite">لا شكرا.</string>
+	<string name="CRA_list_created_title">أنشئت القائمة</string>
+	<string name="EPr_appearance_header">ظهور</string>
+	<string name="EPr_showSmartConfirmation_title">إظهار التأكيد للمنبه الذكي</string>
+	<string name="EPr_edit_screen_options">تعديل خيارات الشاشه</string>
+	<string name="EPr_time_increment">٥ دقائق إضافية</string>
+	<string name="EPr_show_timer_shortcut">إظهار إختصار المنبه</string>
+	<string name="EPr_beastMode_reset">الإعادة إلى الإفتراضي</string>
+	<string name="EPr_fullTask_title">إظهار عنوان المهمه</string>
+	<string name="task_list_options">خيارات قائمة المهام</string>
+	<string name="EPr_manage_header"> إدارة المهام القديمة</string>
+	<string name="EPr_manage_delete_completed">حذف المهمه المٌتمَمه</string>
+	<string name="EPr_manage_delete_completed_message">هل فعلا تريد حذف كل المهام المُتَممه؟</string>
+	<string name="EPr_manage_clear_all">حذف جميع المعلومات</string>
+	<string name="EPr_manage_delete_completed_gcal">حذف أحداث التقويم للمهام المُتَممه</string>
+	<string name="EPr_manage_delete_all_gcal_message">هل فعلا تريد حذف جميع الأحداث للمهام ؟</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
       If you see this error regularly, we suggest you clear all
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
       your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
+	<string name="task_defaults">افتراضيات المهمه</string>
+	<string name="EPr_default_reminders_title">منبهات افتراضية</string>
+	<string name="EPr_default_addtocalendar_title">أضف إلى التقويم بشكل افتراضي</string>
+	<string name="EPr_default_reminders_mode_title">نوع رنين/اهتزاز افتراضي</string>
+	<string-array name="EPr_default_importance">
+		<item>!!! (الأعلى)</item>
+		<item>!!</item>
+		<item>!</item>
+		<item>o (Lowest)</item>	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>No deadline</item>
 		<item>اليوم</item>
 		<item>غدا</item>
-		<item>Day after tomorrow</item>
-		<item>Next week</item>
+		<item>بعد غد</item>
+		<item>الأسبوع القادم</item>
 	</string-array>
+	<string-array name="EPr_default_hideUntil">
+		<item>لا تُخبئ</item>
+		<item>Task is due</item>
+		<item>يوم قبل الموعد</item>
+		<item>أسبوع قبل الموعد</item>
+	</string-array>
+	<string name="BFE_Active">مهامي</string>
+	<string name="BFE_Saved_delete">حذف الفلتر</string>
+	<string name="CFA_universe_all">مهام نشطة</string>
 	<string name="CFA_type_add">أو</string>
 	<string name="CFA_type_subtract">ليس</string>
 	<string name="CFA_type_intersect">أيضا</string>
+	<string name="CFA_context_delete">حذف الصف</string>
 	<string name="CFA_button_view">عرض</string>
+	<string name="CFA_button_save">حفظ وعرض</string>
 	<string-array name="CFC_dueBefore_entries">
 		<item>No Due Date</item>
 		<item>أمس</item>
 		<item>اليوم</item>
 		<item>غدا</item>
 		<item>Day After Tomorrow</item>
-		<item>Next Week</item>
-		<item>Next Month</item>
+		<item>الإسبوع القادم</item>
+		<item>الشهر القادم</item>
+	</string-array>
+	<string name="CFC_tag_name">قائمة...</string>
+	<string name="CFC_title_contains_name">العنوان يحتوي على..</string>
+	<string name="gcal_TEA_nocal">لا تضيف</string>
+	<string name="gtasks_GTA_clearing">حذف المهام المنتهية...</string>
+	<string name="gtasks_GTA_clear_completed">انتهاء الحذف</string>
+	<string name="gtasks_GLA_noaccounts">لا يوجد حساب قوقل للتزامن مع.</string>
+	<string name="gtasks_GLA_errorIOAuth">عذرا، لم نتمكن من الاتصال مع خادم قوقل. أعد المحاولة مرة أخرى لاحقا.</string>
+	<string name="gtasks_GPr_header">مهام قوقل</string>
+	<string name="gtasks_error_accountManager">خطأ من اعدادات هاتفك. يرجى تسجيل الخروج ثم الدخول مره اخرى من اعدادات المهام لقوقل</string>
+	<string name="premium_attach_file">إرفاق ملف</string>
+	<string name="premium_record_audio">تسجيل ملاحظة</string>
+	<string name="premium_remove_file_confirm">هل أنت متأكد؟ لن تستطيع العودة</string>
+	<string name="audio_recording_title">تسجيل صوت</string>
+	<string name="audio_stop_recording">توقف عن التسجيل</string>
+	<string name="search_market_audio_title">لم يوجد مقطع صوت</string>
+	<string name="search_market_pdf">لا يوجد قارئ ملف البي دي اف. هل تريد تحميل قارئ البي دي اف من سوق الاندوريد؟</string>
+	<string name="search_market_pdf_title">لا يوجد قارئ ل البي دي اف</string>
+	<string name="file_type_unhandled_title">لا يوجد برنامج</string>
+	<string name="file_browser_up">أعلى</string>
+	<string name="file_browser_title">أختر ملف</string>
+	<string name="dir_browser_title">أختار المسار</string>
+	<string name="file_add_picture">ارفق صورة</string>
+	<string name="file_add_sdcard">ارفق ملف من الذاكرة الخارجية</string>
+	<string name="file_dir_dialog_ok">استخدم هذا المسار</string>
+	<string name="file_dir_dialog_default">إعادة إلى الافتراضي</string>
+	<string name="p_files_dir_desc_default">المسار الافتراضي</string>
+	<string-array name="TEA_reminder_random">
+		<item>ساعه</item>
+		<item>يوم</item>
+		<item>اسبوع</item>
+		<item>خلال إسبوعين</item>
+		<item>شهر</item>
+		<item>خلال شهرين</item>
 	</string-array>
 	<string name="rmd_NoA_filter">تذكير!</string>
 	<string name="rmd_NoA_done">اكمل</string>
 	<string name="rmd_NoA_snooze">غفوة</string>
+	<string name="rmd_EPr_defaultRemind_title">منبه عشوائي</string>
+	<string-array name="EPr_reminder_random">
+		<item>إعطال</item>
+		<item>hourly</item>
+		<item>يومي</item>
+		<item>اسبوعي</item>
+		<item>مرتين في الاسبوع</item>
+		<item>شهري</item>
+		<item>مرتين في الشهر</item>
+	</string-array>
+	<string name="repeat_dont">لا تكرر</string>
+	<string-array name="repeat_interval">
+		<item>أيام</item>
+		<item>أسابيع</item>
+		<item>أشهُر</item>
+		<item>ساعات</item>
+		<item>دقائق</item>
+		<item>سنين</item>
+	</string-array>
 	<string-array name="repeat_until_shortcuts">
-		<item>Forever</item>
-		<item>Specific Day</item>
+		<item>للأبد</item>
+		<item>يوم محدد</item>
 		<item>اليوم</item>
 		<item>غدا</item>
 		<item>(day after)</item>
-		<item>Next Week</item>
-		<item>In Two Weeks</item>
-		<item>Next Month</item>
+		<item>الأسبوع القادم</item>
+		<item>خلال أسبوعين</item>
+		<item>الشهر القادم</item>
 	</string-array>
+	<string name="repeat_keep_going">أكمل</string>
+	<string-array name="repeat_type">
+		<item>من تاريخ الموعد</item>
+		<item>من تاريخ الاتمام</item>
+	</string-array>
+	<string name="TEA_tags_label_long">أضف للقائمة</string>
+	<string name="TEA_tag_hint">قائمة جديدة</string>
+	<string name="tag_new_list">قائمة جديدة</string>
+	<string name="tag_no_title_error">أدخل اسم للقائمة أولاً</string>
+	<string name="tag_FEx_untagged">غير مصنف</string>
+	<string name="tag_cm_rename">إعادة تسمية القائمة</string>
+	<string name="tag_cm_delete">حذف القائمة</string>
+	<string name="TEA_no_tags_modified">لم يتم التغيير</string>
+	<string name="tag_settings_title">اعدادات القائمة</string>
 	<string name="TEA_timer_controls">مؤقت</string>
+	<string name="TEA_timer_comment_started">بدء هذه المهمة:</string>
+	<string name="TEA_timer_comment_spent">الوقت المنقضي</string>
+	<string name="voice_create_prompt">تحدث لإنشاء مهمه</string>
+	<string name="EPr_voiceRemindersEnabled_title">منبهات الصوت</string>
+	<string name="widget_mini">مهام</string>
+	<string name="EPr_use_dark_theme">خلفية داكنه</string>
 	<string name="delete_task">حذف المهمة</string>
+	<string name="voice_command_added_task">مهام مضافه</string>
+	<plurals name="Ntasks">
+		<item quantity="one">١ مهمه</item>
+		<item quantity="other">%d tasks</item>
+	</plurals>
 	<string name="today">اليوم</string>
 	<string name="tomorrow">غدا</string>
 	<string name="yesterday">أمس</string>
@@ -84,16 +259,32 @@
 	<string name="sync_status_success">آخر تحيين:\n%s</string>
 	<string name="sync_SPr_interval_title">تحيين في الخلفية</string>
 	<string name="sync_SPr_forget">خروج</string>
+	<string name="silent">الصمت</string>
+	<string name="sound">صوت</string>
+	<string name="vibrate">اهتزاز</string>
+	<string name="quiet_hours">الساعات الهادئة</string>
+	<string name="font_size">حجم الخط</string>
+	<string name="help_and_feedback">المساعدة والتقييم</string>
+	<string name="contact_developer">الاتصال بالمطورين</string>
+	<string name="rate_tasks">تقييم المهمات</string>
+	<string name="TLA_menu_donate">تبرع</string>
+	<string name="select_amount">أختر الكمية</string>
+	<string name="add_reminder">أضف منبه</string>
+	<string name="remove">حذف</string>
+	<string name="randomly">عشوائياً</string>
+	<string name="pick_a_date_and_time">اختر تاريخ و وقت</string>
+	<string name="pick_a_location">أختر الموقع</string>
+	<string name="type_a_location">أدخل الموقع</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>تعطيل</item>
 		<item>كل 15 دقيقة</item>
 		<item>كل ثلاثين دقيقة</item>
 		<item>كل ساعة</item>
-		<item>every three hours</item>
-		<item>every six hours</item>
+		<item>كل ثلاث ساعات</item>
+		<item>كل ست ساعات</item>
 		<item>كل 12 ساعة</item>
-		<item>every day</item>
-		<item>every three days</item>
-		<item>every week</item>
+		<item>كل يوم</item>
+		<item>كل ثلاث أيام</item>
+		<item>كل أسبوع</item>
 	</string-array>
 </resources>
