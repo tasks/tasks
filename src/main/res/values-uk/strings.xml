@@ -131,7 +131,6 @@
 	<string name="TEA_control_hidden_section">----Приховувати завжди----</string>
 	<string name="hide_until_prompt">Показувати в мому списку</string>
 	<string name="TEA_load_more">Завантажити більше...</string>
-	<string name="TEA_when_dialog_title">Коли це потрібно виконати?</string>
 	<string name="MCA_title">%1$s\nтелефонував о %2$s</string>
 	<string name="MCA_return_call">Зателефонувати зараз</string>
 	<string name="MCA_add_task">Зателефонувати пізніше</string>

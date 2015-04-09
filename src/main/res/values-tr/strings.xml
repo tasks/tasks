@@ -115,7 +115,6 @@
 	<string name="TEA_control_hidden_section">----Her Zaman Gizle----</string>
 	<string name="hide_until_prompt">Listemde göster</string>
 	<string name="TEA_load_more">Daha yükle...</string>
-	<string name="TEA_when_dialog_title">Son zamanı nedir?</string>
 	<string name="MCA_title">%1$s aradı\nzamanı: %2$s</string>
 	<string name="MCA_return_call">Şimdi ara</string>
 	<string name="MCA_add_task">Sonra ara</string>

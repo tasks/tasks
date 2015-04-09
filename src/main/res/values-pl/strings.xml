@@ -128,7 +128,6 @@
 	<string name="TEA_control_hidden_section">----Zawsze Ukryte----</string>
 	<string name="hide_until_prompt">Pokaż na mojej liście</string>
 	<string name="TEA_load_more">Wczytaj więcej...</string>
-	<string name="TEA_when_dialog_title">Na kiedy ma być zrobione?</string>
 	<string name="MCA_title">%1$s\ndzwonił\\-a o %2$s</string>
 	<string name="MCA_return_call">Zadzwoń teraz</string>
 	<string name="MCA_add_task">Zadzwoń później</string>

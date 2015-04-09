@@ -126,7 +126,6 @@
 	<string name="TEA_control_hidden_section">----始終隱藏----</string>
 	<string name="hide_until_prompt">在我的列表中顯示</string>
 	<string name="TEA_load_more">加載更多……</string>
-	<string name="TEA_when_dialog_title">這項活動定在什麼時候呀？</string>
 	<string name="MCA_title">%1$s\n在 %2$s 給您打過電話</string>
 	<string name="MCA_return_call">現在回電</string>
 	<string name="MCA_add_task">稍後回電</string>

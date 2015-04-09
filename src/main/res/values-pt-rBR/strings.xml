@@ -128,7 +128,6 @@
 	<string name="TEA_control_hidden_section">----Esconder Sempre---</string>
 	<string name="hide_until_prompt">Mostrar na minha lista</string>
 	<string name="TEA_load_more">Carregar mais...</string>
-	<string name="TEA_when_dialog_title">Quando vence?</string>
 	<string name="MCA_title">%1$s\nligou às %2$s</string>
 	<string name="MCA_return_call">Ligar agora</string>
 	<string name="MCA_add_task">Ligar mais tarde</string>

@@ -130,7 +130,6 @@
 	<string name="TEA_control_hidden_section">Всегда скрывать</string>
 	<string name="hide_until_prompt">Показать в моем листе</string>
 	<string name="TEA_load_more">Загрузить больше...</string>
-	<string name="TEA_when_dialog_title">Когда это должно произойти?</string>
 	<string name="MCA_title">%1$s\nзвонил(а) в %2$s</string>
 	<string name="MCA_return_call">Позвонить сейчас</string>
 	<string name="MCA_add_task">Позвонить позже</string>

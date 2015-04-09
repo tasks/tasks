@@ -123,7 +123,6 @@
 	<string name="TEA_control_hidden_section">----Oculta-ho sempre----</string>
 	<string name="hide_until_prompt">Mostra a la meva llista</string>
 	<string name="TEA_load_more">Carrega més...</string>
-	<string name="TEA_when_dialog_title">Quan venç?</string>
 	<string name="MCA_title">En/na %1$s\nha trucat a les %2$s</string>
 	<string name="MCA_return_call">Truca ara</string>
 	<string name="MCA_add_task">Truca després</string>

@@ -128,7 +128,6 @@
 	<string name="TEA_control_hidden_section">-----Απόκρυψη πάντα-----</string>
 	<string name="hide_until_prompt">Εμφάνιση στην λίστα μου</string>
 	<string name="TEA_load_more">Φόρτωση περισσότερων</string>
-	<string name="TEA_when_dialog_title">Πότε λήγει?</string>
 	<string name="MCA_title">%1$s\nκάλεσε στίς %2$s</string>
 	<string name="MCA_return_call">Κάλεσε τώρα</string>
 	<string name="MCA_add_task">Κάλεσε αργότερα</string>

@@ -16,7 +16,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -30,7 +29,6 @@ import android.view.ViewParent;
 import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -39,7 +37,6 @@ import android.widget.Toast;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.ActFmCameraModule;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.alarms.AlarmService;
@@ -180,10 +177,10 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     // --- UI components
 
+    private final HashMap<String, TaskEditControlSet> controlSetMap = new HashMap<>();
     private FilesControlSet filesControlSet;
     private TimerActionControlSet timerAction;
     private EditNoteActivity editNotes;
-    private HashMap<String, TaskEditControlSet> controlSetMap = new HashMap<>();
 
     @InjectView(R.id.title) EditText title;
     @InjectView(R.id.pager) ViewPager mPager;
@@ -206,8 +203,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     /** whether task should be saved when this activity exits */
     private boolean shouldSaveState = true;
-
-    private Dialog whenDialog;
 
     private boolean overrideFinishAnim;
 
@@ -340,13 +335,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     /** Initialize UI components */
     private void setUpUIComponents() {
-        LinearLayout whenDialogView = (LinearLayout) LayoutInflater.from(
-                getActivity()).inflate(R.layout.task_edit_when_controls, null);
-
-        constructWhenDialog(whenDialogView);
-
-        controlSetMap = new HashMap<>();
-
         // populate control set
         EditTitleControlSet editTitle = new EditTitleControlSet(
                 taskService,
@@ -464,25 +452,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
 
         getActivity().getIntent().removeExtra(TOKEN_OPEN_CONTROL);
-    }
-
-    private void constructWhenDialog(View whenDialogView) {
-        whenDialog = new Dialog(getActivity(), preferences.getEditDialogTheme());
-
-        Button dismissDialogButton = (Button) whenDialogView.findViewById(R.id.when_dismiss);
-        dismissDialogButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogUtilities.dismissDialog(getActivity(), whenDialog);
-            }
-        });
-
-        DisplayMetrics metrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        whenDialog.setTitle(R.string.TEA_when_dialog_title);
-        whenDialog.addContentView(whenDialogView, new LayoutParams(
-                metrics.widthPixels - (int) (30 * metrics.density),
-                LayoutParams.WRAP_CONTENT));
     }
 
     /**

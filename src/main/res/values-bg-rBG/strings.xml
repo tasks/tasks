@@ -134,7 +134,6 @@
 	<string name="TEA_control_hidden_section">----Винаги скрито----</string>
 	<string name="hide_until_prompt">Покажи в моят списък</string>
 	<string name="TEA_load_more">Зареди повече...</string>
-	<string name="TEA_when_dialog_title">Докога е крайният срок?</string>
 	<string name="MCA_title">%1$s\n се обади на %2$s</string>
 	<string name="MCA_return_call">Обади се сега</string>
 	<string name="MCA_add_task">Обади се по-късно</string>

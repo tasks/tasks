@@ -283,9 +283,6 @@
   <!-- Text to load more activity -->
   <string name="TEA_load_more">Load more...</string>
   
-  <!-- When controls dialog -->
-  <string name="TEA_when_dialog_title">When is this due?</string>
-
   <!-- ===================================================== MissedCallActivity == -->
   
   <!-- Missed call: return call (%1$s -> caller, %2$s -> time of call)-->

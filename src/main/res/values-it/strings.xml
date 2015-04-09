@@ -114,7 +114,6 @@
 	<string name="TEA_control_hidden_section">----Nascondi Sempre----</string>
 	<string name="hide_until_prompt">Mostra nella mia lista</string>
 	<string name="TEA_load_more">Caricane di più...</string>
-	<string name="TEA_when_dialog_title">Quando dovrà terminare?</string>
 	<string name="MCA_title">%1$s\nha chiamato alle %2$s</string>
 	<string name="MCA_return_call">Chiama ora</string>
 	<string name="MCA_add_task">Chiama più tardi</string>

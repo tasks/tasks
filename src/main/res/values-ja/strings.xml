@@ -131,7 +131,6 @@
 	<string name="TEA_control_hidden_section">----常に隠す----</string>
 	<string name="hide_until_prompt">私のリストに表示</string>
 	<string name="TEA_load_more">さらに読み込む...</string>
-	<string name="TEA_when_dialog_title">期限はいつですか?</string>
 	<string name="MCA_title">%1$s\n%2$s に呼び出しがありました</string>
 	<string name="MCA_return_call">いますぐ呼び出し</string>
 	<string name="MCA_add_task">後で呼び出し</string>

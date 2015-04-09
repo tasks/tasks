@@ -132,7 +132,6 @@
 	<string name="TEA_control_hidden_section">----Vedno skrij----</string>
 	<string name="hide_until_prompt">Pokaži v mojem seznamu</string>
 	<string name="TEA_load_more">Naloži še...</string>
-	<string name="TEA_when_dialog_title">Do kdaj je treba tole opraviti?</string>
 	<string name="MCA_title">%1$s\nbil klican ob%2$s</string>
 	<string name="MCA_return_call">Kliči zdaj</string>
 	<string name="MCA_add_task">Kliči kasneje</string>

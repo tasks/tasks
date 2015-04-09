@@ -130,7 +130,6 @@
 	<string name="TEA_control_hidden_section">----Immer Verbergen----</string>
 	<string name="hide_until_prompt">Anzeigen in meiner Liste</string>
 	<string name="TEA_load_more">Weitere laden …</string>
-	<string name="TEA_when_dialog_title">Wann ist das fällig?</string>
 	<string name="MCA_title">%1$s hat um %2$s angerufen</string>
 	<string name="MCA_return_call">Jetzt anrufen</string>
 	<string name="MCA_add_task">Später anrufen</string>
