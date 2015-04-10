@@ -43,7 +43,7 @@ public class AACRecordingActivity extends InjectingActivity implements AACRecord
         setupUi();
 
         nameRef = new AtomicReference<>();
-        tempFile = FileUtilities.getNewAudioAttachmentPath(preferences, this, nameRef);
+        tempFile = preferences.getNewAudioAttachmentPath(nameRef);
 
         recorder = new AACRecorder();
         recorder.setListener(this);

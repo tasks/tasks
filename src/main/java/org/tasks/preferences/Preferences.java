@@ -5,17 +5,23 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
 
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
+
+import java.io.File;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
@@ -282,5 +288,59 @@ public class Preferences {
 
     public boolean useNotificationActions() {
         return atLeastJellybean() && getBoolean(R.string.p_rmd_notif_actions_enabled, true);
+    }
+
+    public File getAttachmentsDirectory() {
+        File directory = null;
+        String customDir = getStringValue(TaskAttachment.FILES_DIRECTORY_PREF);
+        if (!TextUtils.isEmpty(customDir)) {
+            directory = new File(customDir);
+        }
+
+        if (directory == null || !directory.exists()) {
+            directory = getExternalFilesDir(TaskAttachment.FILES_DIRECTORY_DEFAULT);
+        }
+
+        return directory;
+    }
+
+    private File getExternalFilesDir(String type) {
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            String directory = String.format("%s/Android/data/%s/files/%s", Environment.getExternalStorageDirectory(), context.getPackageName(), type);
+            File file = new File(directory);
+            if (file.isDirectory() || file.mkdirs()) {
+                return file;
+            }
+        }
+
+        return null;
+    }
+
+    public String getNewAudioAttachmentPath(AtomicReference<String> nameReference) {
+        return getNewAttachmentPath(".m4a", nameReference); //$NON-NLS-1$
+    }
+
+    public String getNewAttachmentPath(String extension, AtomicReference<String> nameReference) {
+        String dir = getAttachmentsDirectory().getAbsolutePath();
+
+        String name = getNonCollidingFileName(dir, new DateTime().toString("yyyyMMddHHmm"), extension);
+
+        if (nameReference != null) {
+            nameReference.set(name);
+        }
+
+        return dir + File.separator + name;
+    }
+
+    private static String getNonCollidingFileName(String dir, String baseName, String extension) {
+        int tries = 1;
+        File f = new File(dir + File.separator + baseName + extension);
+        String tempName = baseName;
+        while (f.exists()) {
+            tempName = baseName + "-" + tries; //$NON-NLS-1$
+            f = new File(dir + File.separator + tempName + extension);
+            tries++;
+        }
+        return tempName + extension;
     }
 }

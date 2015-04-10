@@ -51,7 +51,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.files.AACRecordingActivity;
 import com.todoroo.astrid.files.FileExplore;
-import com.todoroo.astrid.files.FileUtilities;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.gcal.GCalControlSet;
 import com.todoroo.astrid.gcal.GCalHelper;
@@ -776,7 +775,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             return;
         }
 
-        File dst = new File(FileUtilities.getAttachmentsDirectory(preferences, getActivity()) + File.separator + src.getName());
+        File dst = new File(preferences.getAttachmentsDirectory() + File.separator + src.getName());
         try {
             AndroidUtilities.copyFile(src, dst);
         } catch (Exception e) {

@@ -24,15 +24,13 @@ import org.tasks.R;
 import org.tasks.preferences.Preferences;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
-
-import static com.todoroo.astrid.files.FileUtilities.getNewAttachmentPath;
-import static org.tasks.files.FileHelper.copyFile;
 
 public class ActFmCameraModule {
 
@@ -111,7 +109,7 @@ public class ActFmCameraModule {
             extension = "." + extension;
         }
         try {
-            String path = getNewAttachmentPath(preferences, fragment.getActivity(), extension, nameRef);
+            String path = preferences.getNewAttachmentPath(extension, nameRef);
             File file = new File(path);
             file.getParentFile().mkdirs();
             if (!file.createNewFile()) {
@@ -125,7 +123,7 @@ public class ActFmCameraModule {
     }
 
     public interface CameraResultCallback {
-        public void handleCameraResult(Uri uri);
+        void handleCameraResult(Uri uri);
     }
 
     public boolean activityResult(int requestCode, int resultCode, Intent data,
@@ -156,5 +154,15 @@ public class ActFmCameraModule {
             return true;
         }
         return false;
+    }
+
+    private static void copyFile(InputStream inputStream, String to) throws IOException {
+        FileOutputStream fos = new FileOutputStream(to);
+        byte[] buf = new byte[1024];
+        int len;
+        while ((len = inputStream.read(buf)) != -1) {
+            fos.write(buf, 0, len);
+        }
+        fos.close();
     }
 }
