@@ -164,7 +164,6 @@
 	<string name="DB_corrupted_title">数据库已经受损</string>
 	<string name="DB_corrupted_body">啊喔！您有一个毁损的资料库。如果您经常看见这个错误出现，我们建议您清除所有数据（在设置-&gt;同步和备份-&amp;gt；管理旧任务-&gt;清楚所有数据）并在清单小助理备份中重新存入您的任务（设置-&gt;同步和备份-&gt;备份-&gt;导入任务）</string>
 	<string name="market_unavailable">非常抱歉，我们的软件无法在您的系统中成功运行。</string>
-	<string name="EPr_defaults_header">新任务默认设置</string>
 	<string name="EPr_default_urgency_title">默认截止期</string>
 	<string name="EPr_default_hideUntil_title">默认隐藏直到</string>
 	<string name="EPr_default_reminders_title">默认提醒</string>
@@ -266,10 +265,6 @@
 	<string name="file_dir_dialog_ok">使用此目录</string>
 	<string name="file_dir_dialog_default">重设为默认值</string>
 	<string name="premium_speech_bubble_2">购买一年的服务并且得到25%%的折扣</string>
-	<string name="TEA_reminder_label">提醒我：</string>
-	<string name="TEA_reminder_due">当任务到期时</string>
-	<string name="TEA_reminder_overdue">当任务过期时</string>
-	<string name="TEA_reminder_randomly">随机一次</string>
 	<string-array name="TEA_reminder_random">
 		<item>一个小时</item>
 		<item>一天</item>
@@ -305,14 +300,6 @@
 	<string name="repeat_every">每 %d</string>
 	<string name="repeat_interval_prompt">重复间隔</string>
 	<string name="repeat_dont">不重复</string>
-	<string-array name="repeat_interval_short">
-		<item>日</item>
-		<item>周</item>
-		<item>月</item>
-		<item>时</item>
-		<item>分</item>
-		<item>年</item>
-	</string-array>
 	<string-array name="repeat_interval">
 		<item>日</item>
 		<item>星期</item>

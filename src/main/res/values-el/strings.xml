@@ -91,7 +91,6 @@
 	<string name="TEA_hideUntil_display">Απόκρυψη μέχρι %s</string>
 	<string name="TEA_note_label">Περιγραφή</string>
 	<string name="TEA_notes_empty">Περιγραφή...</string>
-	<string name="TEA_notes_hint">Εισάγετε περιγραφή εργασίας...</string>
 	<string name="TEA_estimatedDuration_label">Πόσο θα διαρκέσει?</string>
 	<string name="TEA_elapsedDuration_label">Χρόνος που ήδη πέρασε</string>
 	<string name="TEA_menu_save">Αποθήκευση αλλαγών</string>
@@ -207,7 +206,6 @@
 δεδομένων (Ρυθμίσεις-&gt; Sync και Backup-&gt; Διαχείριση παλιά tasks-&gt; Διαγραφή όλων των δεδομένων) και να αποκαταστήσει
 καθηκόντων σας από ένα αντίγραφο ασφαλείας (Ρυθμίσεις-&gt; Sync και Backup-&gt; Backup-&gt; Εισαγωγή εργασίες) στις εργασίες.</string>
 	<string name="market_unavailable">Δυστυχώς το market δεν είναι διαθέσιμο για το λειτουργικό σου.</string>
-	<string name="EPr_defaults_header">Προκαθορισμένα στοιχεία νέας εργασίας</string>
 	<string name="EPr_default_urgency_title">Προκαθοσρισμένη προθεσμία</string>
 	<string name="EPr_default_importance_title">Προκαθορισμένη προτεραιότητα</string>
 	<string name="EPr_default_hideUntil_title">Προκαθορισμένη απόκρυψη μέχρι</string>
@@ -313,11 +311,6 @@
 	<string name="file_dir_dialog_ok">Χρήση αυτού του φακέλου</string>
 	<string name="file_dir_dialog_default">Επαναφορά προεπιλογών</string>
 	<string name="premium_speech_bubble_2">Παραγγείλετε ένα χρόνο και εξοικονομήστε 25%!</string>
-	<string name="TEA_reminders_group_label">Ρυθμίσεις υπενθυμίσεων</string>
-	<string name="TEA_reminder_label">Υπενθύμισε μου </string>
-	<string name="TEA_reminder_due">Πότε λήγει η εργασία</string>
-	<string name="TEA_reminder_overdue">Όταν η εργασία είναι καθυστερούμενη</string>
-	<string name="TEA_reminder_randomly">Τυχαία μια φορά</string>
 	<string-array name="TEA_reminder_random">
 		<item>μια ώρα</item>
 		<item>μια μέρα</item>
@@ -353,14 +346,6 @@
 	<string name="repeat_interval_prompt">Διάστημα επανάληψης</string>
 	<string name="repeat_never">Μή επαναλαμβανόμενα</string>
 	<string name="repeat_dont">Να μήν επαναληφθεί</string>
-	<string-array name="repeat_interval_short">
-		<item>η</item>
-		<item>εβ</item>
-		<item>μή</item>
-		<item>ώρ</item>
-		<item>λεπ</item>
-		<item>έτ</item>
-	</string-array>
 	<string-array name="repeat_interval">
 		<item>Μέρα(ες)</item>
 		<item>Εβδομαδα(ές)</item>

@@ -96,7 +96,6 @@
 	<string name="TEA_hideUntil_display">Скрий до %s</string>
 	<string name="TEA_note_label">Описание</string>
 	<string name="TEA_notes_empty">Описание...</string>
-	<string name="TEA_notes_hint">Въведете описание на задачата...</string>
 	<string name="TEA_estimatedDuration_label">Колко време ще отнеме?</string>
 	<string name="TEA_elapsedDuration_label">Време, което вече е отделено</string>
 	<string name="TEA_menu_save">Запази промените</string>
@@ -214,7 +213,6 @@
 данни (Настройки-&gt;Синхронизиране и резервни копия-&gt;Управление на стари задачи-&gt;Изчисти всички данни) 
 и да възстановите вашите задачи от резервно копие Настройки-&gt;Синхронизиране и резервни копия-&gt;Импортиране на задачи) в Tasks.</string>
 	<string name="market_unavailable">За съжаление маркет не е достъпен за вашата система.</string>
-	<string name="EPr_defaults_header">Нови задачи - настройки по подразбиране</string>
 	<string name="task_defaults">Настройки по подразбиране</string>
 	<string name="EPr_default_urgency_title">Краен срок по подразбиране</string>
 	<string name="EPr_default_importance_title">Приоритет по подразбиране</string>
@@ -323,11 +321,6 @@
 	<string name="file_dir_dialog_ok">Използвай тази директория</string>
 	<string name="file_dir_dialog_default">Възстанови по подразбиране</string>
 	<string name="premium_speech_bubble_2">Поръчай една година и спести 25%!</string>
-	<string name="TEA_reminders_group_label">Настройки на напомняне</string>
-	<string name="TEA_reminder_label">Напомни ми</string>
-	<string name="TEA_reminder_due">Когато задачата е към крайния срок</string>
-	<string name="TEA_reminder_overdue">Когато задачата е просрочена</string>
-	<string name="TEA_reminder_randomly">Случайно веднъж</string>
 	<string name="ring_once">Звънене веднъж</string>
 	<string name="ring_five_times">Звънене пет пъти</string>
 	<string name="ring_nonstop">Звънене без спиране</string>
@@ -367,14 +360,6 @@
 	<string name="repeat_interval_prompt">Интервал на повторение</string>
 	<string name="repeat_never">Без повторение</string>
 	<string name="repeat_dont">Не повтаряй</string>
-	<string-array name="repeat_interval_short">
-		<item>д</item>
-		<item>сд</item>
-		<item>мс</item>
-		<item>час</item>
-		<item>мин</item>
-		<item>г</item>
-	</string-array>
 	<string-array name="repeat_interval">
 		<item>Ден(дни)</item>
 		<item>Седмица(и)</item>

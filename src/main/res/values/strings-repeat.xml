@@ -17,16 +17,6 @@
   <!-- slide 20f-->
   <string name="repeat_dont">Don\'t repeat</string>
       
-  <string-array name="repeat_interval_short">
-    <!-- repeat interval (days,weeks,months,hours,minutes,years) -->
-    <item>d</item>
-    <item>wk</item>
-    <item>mo</item>
-    <item>hr</item>
-    <item>min</item>
-    <item>yr</item>
-  </string-array>
-  
   <string-array name="repeat_interval">
     <!-- slide 20e: repeat interval (days,weeks,months,hours,minutes,years) -->
     <item>Day(s)</item>

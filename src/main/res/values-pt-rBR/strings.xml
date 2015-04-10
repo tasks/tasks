@@ -92,7 +92,6 @@
 	<string name="TEA_hideUntil_display">Esconder até %s</string>
 	<string name="TEA_note_label">Descrição</string>
 	<string name="TEA_notes_empty">Descrição...</string>
-	<string name="TEA_notes_hint">Insira a descrição da tarefa...</string>
 	<string name="TEA_estimatedDuration_label">Quanto tempo isto vai levar?</string>
 	<string name="TEA_elapsedDuration_label">Tempo já gasto na tarefa</string>
 	<string name="TEA_menu_save">Salvar alterações</string>
@@ -204,7 +203,6 @@
 	<string name="DB_corrupted_title">Banco de Dados Corrompido</string>
 	<string name="DB_corrupted_body">Uh oh! Parece que você possui banco de dados corrompido. Se você vê esse erro regularmente, nós sugerimos que você limpe todos os dados (Configurações-&gt; Sincronização e backup-&gt; Manutenção de tarefas antigas-&gt; Limpar todos os dados) e restaurar suas tarefas através do backup no Tasks (Configurações-&gt; Sincronização e backup-&gt; Backup-&gt; Importar tarefas).</string>
 	<string name="market_unavailable">Infelizmente o market está indisponível para o seu sistema.</string>
-	<string name="EPr_defaults_header">Padrão para novas tarefas</string>
 	<string name="EPr_default_urgency_title">Urgência</string>
 	<string name="EPr_default_importance_title">Prioridade padrão</string>
 	<string name="EPr_default_hideUntil_title">Ocultar até</string>
@@ -314,11 +312,6 @@
 	<string name="file_dir_dialog_ok">Usar este diretório</string>
 	<string name="file_dir_dialog_default">Restaurar padrões</string>
 	<string name="premium_speech_bubble_2">Contrate um ano e tenha 25%% de desconto</string>
-	<string name="TEA_reminders_group_label">Lembrar configurações</string>
-	<string name="TEA_reminder_label">Lembre me:</string>
-	<string name="TEA_reminder_due">no dia que a tarefa vencer</string>
-	<string name="TEA_reminder_overdue">quando a tarefa estiver atrasada</string>
-	<string name="TEA_reminder_randomly">Aleatoriamente uma vez</string>
 	<string-array name="TEA_reminder_random">
 		<item>por hora</item>
 		<item>por dia</item>
@@ -355,14 +348,6 @@
 	<string name="repeat_interval_prompt">Intervalo de repetição</string>
 	<string name="repeat_never">Não repetir</string>
 	<string name="repeat_dont">Não repetir</string>
-	<string-array name="repeat_interval_short">
-		<item>d</item>
-		<item>sem</item>
-		<item>mo</item>
-		<item>hr</item>
-		<item>min</item>
-		<item>ano</item>
-	</string-array>
 	<string-array name="repeat_interval">
 		<item>Dia(s)</item>
 		<item>Semana(s)</item>

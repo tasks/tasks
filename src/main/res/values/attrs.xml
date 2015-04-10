@@ -26,12 +26,9 @@
   <attr name="asThemeTextColor" format="color"/>
   <attr name="asEditTextBackground" format="reference"/>
   <attr name="asAbBackgroundColor" format="color"/>
-    <attr name="floatingActionButtonStroke" format="color"/>
-  <attr name="asFilterSelectedIcon" format="reference"/>
   <attr name="asTaskRowSelector" format="reference" />
     <attr name="ic_action_add" format="reference" />
     <attr name="ic_action_new_attachment" format="reference"/>
-    <attr name="ic_action_discard" format="reference"/>
     <attr name="ic_action_save" format="reference"/>
     <attr name="ic_action_cancel" format="reference"/>
     <attr name="ic_action_camera" format="reference"/>
@@ -56,12 +53,12 @@
     <attr name="fab_background_pressed" format="color" />
     <attr name="fab_plus" format="color" />
 
-    <declare-styleable name="DateAndTimePicker">
-      <attr name="shortcutLabels" format="reference"/>
+  <declare-styleable name="DateAndTimePicker">
+    <attr name="shortcutLabels" format="reference" />
   </declare-styleable>
 
-    <declare-styleable name="TimePreference">
-        <attr name="summary" format="string"/>
-    </declare-styleable>
+  <declare-styleable name="TimePreference">
+    <attr name="summary" format="string" />
+  </declare-styleable>
 
 </resources>

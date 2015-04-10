@@ -92,7 +92,6 @@
 	<string name="TEA_hideUntil_display">הסתר עד %s</string>
 	<string name="TEA_note_label">תיאור</string>
 	<string name="TEA_notes_empty">תיאור</string>
-	<string name="TEA_notes_hint">הזן את תיאור המשימה...</string>
 	<string name="TEA_estimatedDuration_label">כמה זמן תיקח המשימה?</string>
 	<string name="TEA_elapsedDuration_label">זמן שכבר הושקע במשימה</string>
 	<string name="TEA_menu_save">שמירת השינויים</string>
@@ -204,7 +203,6 @@
 (הגדרות-&gt;סינכרון וגיבוי-&gt;ניהול משימות ישנות-&gt;הסרת כל הנתונים) ושחזר את המשימות
 מגיבוי (הגדרות-&gt;סנכרון וגיבוי-&gt;גיבוי-&gt;יבא משימות).</string>
 	<string name="market_unavailable">לרוע המזל חנות היישומים אינה זמינה</string>
-	<string name="EPr_defaults_header">ברירות המחדל למשימה חדשה</string>
 	<string name="EPr_default_urgency_title">דחיפות ברירת המחדל</string>
 	<string name="EPr_default_importance_title">עדיפות מחדל</string>
 	<string name="EPr_default_hideUntil_title">ברירת מחדל לזמן הסתרה</string>
@@ -314,11 +312,6 @@
 	<string name="file_dir_dialog_ok">השתמש בתיקיה זו</string>
 	<string name="file_dir_dialog_default">אפס לברירת מחדל</string>
 	<string name="premium_speech_bubble_2">הזמן לשנה וחסוך !25%%</string>
-	<string name="TEA_reminders_group_label">הגדרות תזכורת</string>
-	<string name="TEA_reminder_label">הזכירי לי:</string>
-	<string name="TEA_reminder_due">כאשר הגיע מועד היעד</string>
-	<string name="TEA_reminder_overdue">כשעבר מועד היעד</string>
-	<string name="TEA_reminder_randomly">אקראי יחיד</string>
 	<string-array name="TEA_reminder_random">
 		<item>שעה</item>
 		<item>יום</item>
@@ -354,14 +347,6 @@
 	<string name="repeat_every">כל %d</string>
 	<string name="repeat_interval_prompt">אינטרוול חזרות</string>
 	<string name="repeat_dont">ללא חזרות</string>
-	<string-array name="repeat_interval_short">
-		<item>יום</item>
-		<item>שב\'</item>
-		<item>חד\'</item>
-		<item>שע\'</item>
-		<item>דק\'</item>
-		<item>שנ\'</item>
-	</string-array>
 	<string-array name="repeat_interval">
 		<item>יום/ימים</item>
 		<item>שבוע/(ות)</item>

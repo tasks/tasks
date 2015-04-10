@@ -63,7 +63,6 @@
 	<string name="TEA_hideUntil_label">Skjul frem til</string>
 	<string name="TEA_hideUntil_display">Skjul frem til: %s</string>
 	<string name="TEA_note_label">Notater</string>
-	<string name="TEA_notes_hint">Legg inn oppgavenotater...</string>
 	<string name="TEA_estimatedDuration_label">Hvor lang tid vil det ta?</string>
 	<string name="TEA_elapsedDuration_label">Tid brukt på oppgaven til nå</string>
 	<string name="TEA_menu_save">Lagre endringer</string>
@@ -99,7 +98,6 @@
       If you see this error regularly, we suggest you clear all
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
       your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
-	<string name="EPr_defaults_header">Standardinnstillinger for nye oppgaver</string>
 	<string name="EPr_default_urgency_title">Standardfrist</string>
 	<string name="EPr_default_importance_title">Standardviktighet</string>
 	<string name="EPr_default_hideUntil_title">Standard skjul frem til</string>
@@ -153,9 +151,6 @@
 	<string name="locale_notification">Du har $NUM som matcher: $FILTER</string>
 	<string name="file_browser_up">Opp</string>
 	<string name="file_browser_title">Velg en fil</string>
-	<string name="TEA_reminder_label">Minn meg på...</string>
-	<string name="TEA_reminder_due">...når oppgaven forfaller</string>
-	<string name="TEA_reminder_overdue">... når oppgaven har forfalt</string>
 	<string name="rmd_NoA_filter">Påminnelse!</string>
 	<string name="rmd_NoA_done">Allerede utført!</string>
 	<string name="rmd_NoA_snooze">Slumre</string>

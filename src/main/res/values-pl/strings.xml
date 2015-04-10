@@ -92,7 +92,6 @@
 	<string name="TEA_hideUntil_display">Ukryj do %s</string>
 	<string name="TEA_note_label">Opis</string>
 	<string name="TEA_notes_empty">Opis...</string>
-	<string name="TEA_notes_hint">Podaj opis zadania...</string>
 	<string name="TEA_estimatedDuration_label">Jak długo to zajmie?</string>
 	<string name="TEA_elapsedDuration_label">Czas dotychczas spędzony nad tym zadaniem</string>
 	<string name="TEA_menu_save">Zapisz zmiany</string>
@@ -207,7 +206,6 @@ Jeśli widzisz ten błąd często, sugerujemy wyczyszczenie
 wszystkich danych (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data)
 i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) Tasks.</string>
 	<string name="market_unavailable">Niestety sklep nie jest dostępny dla twojego systemu.</string>
-	<string name="EPr_defaults_header">Nowe zadanie (domyślnie)</string>
 	<string name="EPr_default_urgency_title">Termin końcowy (domyślnie)</string>
 	<string name="EPr_default_importance_title">Domyślny priorytet</string>
 	<string name="EPr_default_hideUntil_title">Ukrywanie zadania (domyślnie)</string>
@@ -317,11 +315,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="file_dir_dialog_ok">Użycie tego katalogu</string>
 	<string name="file_dir_dialog_default">Przywróć ustawienia domyślne</string>
 	<string name="premium_speech_bubble_2">Zamów na rok i oszczędź 25%%!</string>
-	<string name="TEA_reminders_group_label">Ustawienia przypomnień</string>
-	<string name="TEA_reminder_label">Przypomnij mi:</string>
-	<string name="TEA_reminder_due">W terminie</string>
-	<string name="TEA_reminder_overdue">Gdy zadanie jest zaległe</string>
-	<string name="TEA_reminder_randomly">Losowo raz</string>
 	<string-array name="TEA_reminder_random">
 		<item>na godzinę</item>
 		<item>dziennie</item>
@@ -358,14 +351,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="repeat_interval_prompt">Odstęp powtarzania</string>
 	<string name="repeat_never">Jednorazowo</string>
 	<string name="repeat_dont">Nie powtarzaj</string>
-	<string-array name="repeat_interval_short">
-		<item>d</item>
-		<item>tn</item>
-		<item>m-ąc</item>
-		<item>godz</item>
-		<item>min.</item>
-		<item>rok</item>
-	</string-array>
 	<string-array name="repeat_interval">
 		<item>Dzień/Dni</item>
 		<item>Tydzień/Tygodni(e)</item>

@@ -91,7 +91,6 @@
 	<string name="TEA_hideUntil_display">隱藏直到 %s</string>
 	<string name="TEA_note_label">描述</string>
 	<string name="TEA_notes_empty">描述...</string>
-	<string name="TEA_notes_hint">輸入工作描述...</string>
 	<string name="TEA_estimatedDuration_label">要花多久時間?</string>
 	<string name="TEA_elapsedDuration_label">已經用掉的時間</string>
 	<string name="TEA_menu_save">儲存變更</string>
@@ -194,7 +193,6 @@
 	<string name="DB_corrupted_title">數據庫已經受損</string>
 	<string name="DB_corrupted_body">啊喔！您有一個毀損的資料庫。如果您經常看見這個錯誤出現，我們建議您清除所有數據（在設置-&gt;同步和備份-&amp;gt；管理舊任務工作-&gt;清楚所有數據）並在Tasks備份中重新存入您的任務工作（設置-&gt;同步和備份-&gt;備份-&gt;導入任務工作）</string>
 	<string name="market_unavailable">非常抱歉，我們的軟件無法在您的系統中成功運行。</string>
-	<string name="EPr_defaults_header">工作預設值</string>
 	<string name="EPr_default_urgency_title">預設嚴重性</string>
 	<string name="EPr_default_importance_title">預設優先權</string>
 	<string name="EPr_default_hideUntil_title">預設隱藏直到...</string>
@@ -301,11 +299,6 @@
 	<string name="file_dir_dialog_ok">使用此目錄</string>
 	<string name="file_dir_dialog_default">重設為默認值</string>
 	<string name="premium_speech_bubble_2">購買一年的服務並且得到25%%的折扣</string>
-	<string name="TEA_reminders_group_label">提醒設置</string>
-	<string name="TEA_reminder_label">提醒我：</string>
-	<string name="TEA_reminder_due">當任務工作到期時</string>
-	<string name="TEA_reminder_overdue">當任務工作過期時</string>
-	<string name="TEA_reminder_randomly">隨機一次</string>
 	<string-array name="TEA_reminder_random">
 		<item>一個小時</item>
 		<item>一天</item>
@@ -341,14 +334,6 @@
 	<string name="repeat_every">每 %d</string>
 	<string name="repeat_interval_prompt">重複間隔</string>
 	<string name="repeat_dont">不重複</string>
-	<string-array name="repeat_interval_short">
-		<item>日</item>
-		<item>週</item>
-		<item>月</item>
-		<item>時</item>
-		<item>分</item>
-		<item>年</item>
-	</string-array>
 	<string-array name="repeat_interval">
 		<item>日</item>
 		<item>星期</item>

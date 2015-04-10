@@ -184,7 +184,6 @@
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
       your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
 	<string name="market_unavailable">Ne yazık ki market sisteminiz için kullanılabilir değil.</string>
-	<string name="EPr_defaults_header">Yeni Görev Öntanımlıları</string>
 	<string name="EPr_default_urgency_title">Öntanımlı Aciliyet</string>
 	<string name="EPr_default_hideUntil_title">Öntanımlı Gizlenme</string>
 	<string name="EPr_default_reminders_title">Öntanımlı Hatırlatmalar</string>
@@ -288,10 +287,6 @@
 	<string name="file_dir_dialog_ok">Bu dizini kullan</string>
 	<string name="file_dir_dialog_default">Öntanımlı değere dön</string>
 	<string name="premium_speech_bubble_2">Bir yıllık satın alın ve %%25 kâr yapın!</string>
-	<string name="TEA_reminder_label">Bana Hatırlat:</string>
-	<string name="TEA_reminder_due">Görev son tarihinde</string>
-	<string name="TEA_reminder_overdue">Görev son tarihi aşıldığında</string>
-	<string name="TEA_reminder_randomly">Bir kere gelişigüzel</string>
 	<string-array name="TEA_reminder_random">
 		<item>bir saat</item>
 		<item>bir gün</item>
@@ -327,14 +322,6 @@
 	<string name="repeat_every">Her %d</string>
 	<string name="repeat_interval_prompt">Yineleme Aralığı</string>
 	<string name="repeat_dont">Yineleme Yapma</string>
-	<string-array name="repeat_interval_short">
-		<item>gün</item>
-		<item>hafta</item>
-		<item>ay</item>
-		<item>sa</item>
-		<item>dk</item>
-		<item>yıl</item>
-	</string-array>
 	<string-array name="repeat_interval">
 		<item>Gün</item>
 		<item>Hafta</item>

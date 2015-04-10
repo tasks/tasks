@@ -92,7 +92,6 @@
 	<string name="TEA_hideUntil_display">Dölj tills %s</string>
 	<string name="TEA_note_label">Beskrivning</string>
 	<string name="TEA_notes_empty">Beskrivning</string>
-	<string name="TEA_notes_hint">Ange uppgiftsbeskrivning...</string>
 	<string name="TEA_estimatedDuration_label">Hur lång tid kommer det att ta?</string>
 	<string name="TEA_elapsedDuration_label">Tid redan spenderad på uppgiften</string>
 	<string name="TEA_menu_save">Spara ändringar</string>
@@ -203,7 +202,6 @@ Om du ser detta felmeddelande ofta, föreslår vi att du tömmer all data
 och återställer dina aktuella uppgifter från en backup
 (Inställningar-&gt;Synkronisering och backup-&gt;Backup-&gt;Viktiga uppgifter) i Tasks.</string>
 	<string name="market_unavailable">Tyvärr är inte denna funktion tillgänglig där du befinner dig.</string>
-	<string name="EPr_defaults_header">Standardinställningar för nya uppgifter</string>
 	<string name="EPr_default_urgency_title">Standardfrist</string>
 	<string name="EPr_default_importance_title">Standard prioritet</string>
 	<string name="EPr_default_hideUntil_title">Standard Dölj tills</string>
@@ -311,11 +309,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="file_dir_dialog_ok">Använd denna mapp</string>
 	<string name="file_dir_dialog_default">Återställ till standard</string>
 	<string name="premium_speech_bubble_2">Beställ för helår och spara 25%!</string>
-	<string name="TEA_reminders_group_label">Påminnelseinställningar</string>
-	<string name="TEA_reminder_label">Påminn mig:</string>
-	<string name="TEA_reminder_due">...när uppgiften förfaller</string>
-	<string name="TEA_reminder_overdue">...när uppgiften har förfallit</string>
-	<string name="TEA_reminder_randomly">En gång slumpmässigt</string>
 	<string-array name="TEA_reminder_random">
 		<item>en timme</item>
 		<item>ett dygn</item>
@@ -352,14 +345,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="repeat_interval_prompt">Upprepningsintervall</string>
 	<string name="repeat_never">Inte upprepande</string>
 	<string name="repeat_dont">Upprepa inte</string>
-	<string-array name="repeat_interval_short">
-		<item>d</item>
-		<item>v</item>
-		<item>mån</item>
-		<item>tim</item>
-		<item>min</item>
-		<item>år</item>
-	</string-array>
 	<string-array name="repeat_interval">
 		<item>Dag(ar)</item>
 		<item>Vecka (veckor)</item>

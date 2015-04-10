@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <!-- slide 32g: Preference Category: Defaults Title -->
-  <string name="EPr_defaults_header">New task defaults</string>
-
     <string name="task_defaults">Task defaults</string>
   <!-- slide 41f:  Preference: Default Urgency Title -->
   <string name="EPr_default_urgency_title">Default deadline</string>

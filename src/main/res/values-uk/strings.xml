@@ -95,7 +95,6 @@
 	<string name="TEA_hideUntil_display">Приховати до %s</string>
 	<string name="TEA_note_label">Опис</string>
 	<string name="TEA_notes_empty">Опис</string>
-	<string name="TEA_notes_hint">Ввести опис завдання...</string>
 	<string name="TEA_estimatedDuration_label">Як довго це триватиме?</string>
 	<string name="TEA_elapsedDuration_label">Час вже потрачео</string>
 	<string name="TEA_menu_save">Зберегти зміни</string>
@@ -212,7 +211,6 @@
  Очистити всі дані) і відновити завдання з резервно
 ї копії (Параметри-&gt; Синхронізація-&gt; Резервні копії-&gt; Імпортувати задачі)</string>
 	<string name="market_unavailable">Нажаль магазин недоступний для вашої системи.</string>
-	<string name="EPr_defaults_header">Параметри по замовчуванню для нових завдань</string>
 	<string name="EPr_default_urgency_title">Актуальність по замовчуванню</string>
 	<string name="EPr_default_importance_title">Пріоритет по замовчуванню</string>
 	<string name="EPr_default_hideUntil_title">Термін приховування за замовчуванням</string>
@@ -320,11 +318,6 @@
 	<string name="file_dir_dialog_ok">Використовувати цю папку</string>
 	<string name="file_dir_dialog_default">Скинути налаштування за замовчуванням</string>
 	<string name="premium_speech_bubble_2">Підпишіться на рік і заощаджуйте 25%%!</string>
-	<string name="TEA_reminders_group_label">Налаштування нагадувань</string>
-	<string name="TEA_reminder_label">Нагадати мені</string>
-	<string name="TEA_reminder_due">Коли настане термін виконання завдання</string>
-	<string name="TEA_reminder_overdue">Коли завдання прострочено</string>
-	<string name="TEA_reminder_randomly">Випадково раз</string>
 	<string-array name="TEA_reminder_random">
 		<item>година</item>
 		<item>дня</item>
@@ -361,14 +354,6 @@
 	<string name="repeat_interval_prompt">Інтервал повторення</string>
 	<string name="repeat_never">Не повторювати</string>
 	<string name="repeat_dont">Не повторювати</string>
-	<string-array name="repeat_interval_short">
-		<item>д.</item>
-		<item>тиж.</item>
-		<item>м.</item>
-		<item>год.</item>
-		<item>хв.</item>
-		<item>р.</item>
-	</string-array>
 	<string-array name="repeat_until_shortcuts">
 		<item>Forever</item>
 		<item>Specific Day</item>

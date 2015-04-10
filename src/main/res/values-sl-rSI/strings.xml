@@ -96,7 +96,6 @@
 	<string name="TEA_hideUntil_display">Skrij do %s</string>
 	<string name="TEA_note_label">Opis</string>
 	<string name="TEA_notes_empty">Opis...</string>
-	<string name="TEA_notes_hint">Vnesi opis opravka...</string>
 	<string name="TEA_estimatedDuration_label">Kako dolgo bo trajalo?</string>
 	<string name="TEA_elapsedDuration_label">Porabljen čas</string>
 	<string name="TEA_menu_save">Shrani spremembe</string>
@@ -208,7 +207,6 @@
 	<string name="DB_corrupted_title">Okvarjena baza podatkov</string>
 	<string name="DB_corrupted_body">O, ne! Zdi se, da imate okvarjeno bazo podatkov. Če se ta napaka pogosto pojavlja, vam predlagamo, da zbrišete vse podatke (Nastavitve-&gt;Usklajevanje in varnostna kopija-&gt; Upravljanje s preteklimi opravki-&gt;Zbriši vse podatke) in obnovite svoje opravke s pomočjo varnostne kopije aplikacije Opravki. (Nastavitve-&gt;Usklajevanje in varnostna kopija-&gt;Varnostna kopija-&gt;Uvozi opravke)</string>
 	<string name="market_unavailable">Žal trg ne podpira vašega sistema.</string>
-	<string name="EPr_defaults_header">Privzete nastavitve novih opravkov</string>
 	<string name="EPr_default_urgency_title">Privzeta dospelost</string>
 	<string name="EPr_default_importance_title">Privzeta dospelost</string>
 	<string name="EPr_default_hideUntil_title">Privzeto skrij do</string>
@@ -318,11 +316,6 @@
 	<string name="file_dir_dialog_ok">Uporabi to mapo</string>
 	<string name="file_dir_dialog_default">Ponastavi na privzeto</string>
 	<string name="premium_speech_bubble_2">Enoletna naročnina prihrani 25%!</string>
-	<string name="TEA_reminders_group_label">Nastavitve opomnika</string>
-	<string name="TEA_reminder_label">Opomni me</string>
-	<string name="TEA_reminder_due">Ko opravek dospe</string>
-	<string name="TEA_reminder_overdue">Po dospelosti opravka</string>
-	<string name="TEA_reminder_randomly">Naključno enkrat</string>
 	<string-array name="TEA_reminder_random">
 		<item>na uro</item>
 		<item>dan</item>
@@ -359,14 +352,6 @@
 	<string name="repeat_interval_prompt">Pogostost ponovitev</string>
 	<string name="repeat_never">Brez ponovitev</string>
 	<string name="repeat_dont">Ne ponovi</string>
-	<string-array name="repeat_interval_short">
-		<item>d</item>
-		<item>t</item>
-		<item>me</item>
-		<item>u</item>
-		<item>min</item>
-		<item>l</item>
-	</string-array>
 	<string-array name="repeat_interval">
 		<item>Dan/dni</item>
 		<item>V tednih</item>

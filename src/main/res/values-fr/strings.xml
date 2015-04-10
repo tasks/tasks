@@ -90,7 +90,6 @@
 	<string name="TEA_deadline_hint">Définir une date d\'échéance</string>
 	<string name="TEA_hideUntil_label">Masquer jusqu\'à</string>
 	<string name="TEA_hideUntil_display">Masquer jusqu\'à %s</string>
-	<string name="TEA_notes_hint">Décrire la tâche</string>
 	<string name="TEA_estimatedDuration_label">Combien de temps cela va-t-il prendre ?</string>
 	<string name="TEA_elapsedDuration_label">Temps déjà passé sur la tâche</string>
 	<string name="TEA_menu_save">Sauvegarder les modifications</string>
@@ -202,7 +201,6 @@
 	<string name="DB_corrupted_title">Base de donnée corrompue</string>
 	<string name="DB_corrupted_body">Oh oh ! On dirait que vous avez une base de données corrompues. Si vous voyez souvent cette erreur, nous vous suggérons d\'effacer toutes vos données (Paramètres-&gt;Synchronisation et sauvegarde-&gt;Gérer les anciennes tâches-&gt;Effacer toutes les données) et restaurer vos tâches d\'une sauvegarde (Paramètres-&gt;Synchronisation et sauvegarde-&gt;Sauvegarde-&gt;Importer des tâches) dans Tasks</string>
 	<string name="market_unavailable">Malheureusement le Play Store n\'est pas disponible sur votre système</string>
-	<string name="EPr_defaults_header">Valeurs par défaut pour une nouvelle tâche</string>
 	<string name="EPr_default_urgency_title">Échéance par défaut</string>
 	<string name="EPr_default_importance_title">Priorité par défaut</string>
 	<string name="EPr_default_hideUntil_title">Masquer par défaut jusqu\'à</string>
@@ -312,11 +310,6 @@
 	<string name="file_dir_dialog_ok">Utiliser ce dossier</string>
 	<string name="file_dir_dialog_default">Rétablir les valeurs par défaut</string>
 	<string name="premium_speech_bubble_2">Commandez pour un an et économisez 25%%!</string>
-	<string name="TEA_reminders_group_label">Paramètres de rappel</string>
-	<string name="TEA_reminder_label">Rappelle-moi</string>
-	<string name="TEA_reminder_due">... lorsque la tâche est échue</string>
-	<string name="TEA_reminder_overdue">... lorsque la tâche est en retard</string>
-	<string name="TEA_reminder_randomly">Une fois aléatoirement</string>
 	<string-array name="TEA_reminder_random">
 		<item>Une heure</item>
 		<item>Un jour</item>
@@ -353,14 +346,6 @@
 	<string name="repeat_interval_prompt">Interval de répétition</string>
 	<string name="repeat_never">Une fois seulement</string>
 	<string name="repeat_dont">Ne pas répéter</string>
-	<string-array name="repeat_interval_short">
-		<item>j</item>
-		<item>sem</item>
-		<item>mo</item>
-		<item>h</item>
-		<item>min</item>
-		<item>an</item>
-	</string-array>
 	<string-array name="repeat_interval">
 		<item>Jour(s)</item>
 		<item>Semaine(s)</item>

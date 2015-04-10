@@ -166,14 +166,6 @@
 	<string name="repeat_interval_prompt">Interval opakovania</string>
 	<string name="repeat_never">Neopakovať</string>
 	<string name="repeat_dont">Neopakovať</string>
-	<string-array name="repeat_interval_short">
-		<item>d</item>
-		<item>týžd.</item>
-		<item>mes.</item>
-		<item>hod.</item>
-		<item>min.</item>
-		<item>r</item>
-	</string-array>
 	<string-array name="repeat_interval">
 		<item>Deň</item>
 		<item>Týždeň</item>

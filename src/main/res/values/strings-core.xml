@@ -209,9 +209,6 @@
   <!-- slide 16c: Task note label -->
   <string name="TEA_notes_empty">Description...</string>
   
-  <!-- Task note hint -->
-  <string name="TEA_notes_hint">Enter task description...</string>
-  
   <!-- Estimated time label -->
   <string name="TEA_estimatedDuration_label">How long will it take?</string>
   

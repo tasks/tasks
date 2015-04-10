@@ -92,7 +92,6 @@
 	<string name="TEA_hideUntil_display">%s まで表示しない</string>
 	<string name="TEA_note_label">概要</string>
 	<string name="TEA_notes_empty">概要...</string>
-	<string name="TEA_notes_hint">タスクの概要を入力...</string>
 	<string name="TEA_estimatedDuration_label">所要時間は?</string>
 	<string name="TEA_elapsedDuration_label">既にタスクに費やした時間</string>
 	<string name="TEA_menu_save">変更の保存</string>
@@ -211,7 +210,6 @@
 (設定-&gt;同期およびバックアップ-&gt;古いタスクの管理-&gt;全てのデータをクリア) し,
 バックアップからタスクを復元 (設定-&gt;同期およびバックアップ-&gt;バックアップ-&gt;タスクをインポート) することを推奨します.</string>
 	<string name="market_unavailable">残念ながらあなたのシステムで Google Play は利用できません.</string>
-	<string name="EPr_defaults_header">タスクのデフォルト設定</string>
 	<string name="task_defaults">タスクのデフォルト</string>
 	<string name="EPr_default_urgency_title">期限</string>
 	<string name="EPr_default_importance_title">標準の優先順位</string>
@@ -321,11 +319,6 @@
 	<string name="file_dir_dialog_ok">このディレクトリを使用</string>
 	<string name="file_dir_dialog_default">デフォルトにリセット</string>
 	<string name="premium_speech_bubble_2">1 年注文すると 25% 節約できます!</string>
-	<string name="TEA_reminders_group_label">通知の設定</string>
-	<string name="TEA_reminder_label">通知するのは...</string>
-	<string name="TEA_reminder_due">何時がタスクの期限ですか？</string>
-	<string name="TEA_reminder_overdue">何時タスクが期限切れになりますか？</string>
-	<string name="TEA_reminder_randomly">ランダムに1回</string>
 	<string name="ring_once">1回通知音を鳴らす</string>
 	<string name="ring_five_times">5回通知音を鳴らす</string>
 	<string name="ring_nonstop">通知音を鳴らし続ける</string>
@@ -365,14 +358,6 @@
 	<string name="repeat_interval_prompt">繰り返し間隔</string>
 	<string name="repeat_never">繰り返しなし</string>
 	<string name="repeat_dont">繰り返ししない</string>
-	<string-array name="repeat_interval_short">
-		<item>日</item>
-		<item>週</item>
-		<item>月</item>
-		<item>時間</item>
-		<item>分</item>
-		<item>年</item>
-	</string-array>
 	<string-array name="repeat_interval">
 		<item>日毎</item>
 		<item>週毎</item>

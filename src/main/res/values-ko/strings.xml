@@ -95,7 +95,6 @@
 	<string name="TEA_hideUntil_display">%s 까지 숨기기</string>
 	<string name="TEA_note_label">설명</string>
 	<string name="TEA_notes_empty">설명</string>
-	<string name="TEA_notes_hint">일정 내용을 입력하세요</string>
 	<string name="TEA_estimatedDuration_label">일정 완료 예상 시간은?</string>
 	<string name="TEA_elapsedDuration_label">일정에 이미 소모한 시간</string>
 	<string name="TEA_menu_save">변경사항 저장</string>
@@ -210,7 +209,6 @@
 아스트리드의 백업에서 당신의 일정을 복구하시기 바랍니다. 
 (설정-&gt;동기화 &amp; 백업-&gt;백업-&gt;일정 불러오기)</string>
 	<string name="market_unavailable">이 기기에서 마켓을 사용할 수 없습니다.</string>
-	<string name="EPr_defaults_header">새 일정 기본값</string>
 	<string name="EPr_default_urgency_title">기본 중요도</string>
 	<string name="EPr_default_importance_title">기본 우선순위</string>
 	<string name="EPr_default_hideUntil_title">기본 숨기기 기간:</string>
@@ -320,11 +318,6 @@
 	<string name="file_dir_dialog_ok">이 디렉토리 사용</string>
 	<string name="file_dir_dialog_default">기본값으로 초기화</string>
 	<string name="premium_speech_bubble_2">1년 사용권 구매시 25%% 할인!</string>
-	<string name="TEA_reminders_group_label">알림 설정</string>
-	<string name="TEA_reminder_label">알려주세요:</string>
-	<string name="TEA_reminder_due">일정 마감일에</string>
-	<string name="TEA_reminder_overdue">일정 마감일이 지났을 때</string>
-	<string name="TEA_reminder_randomly">무작위로 한 번</string>
 	<string-array name="TEA_reminder_random">
 		<item>한 시간</item>
 		<item>하루</item>
@@ -361,14 +354,6 @@
 	<string name="repeat_interval_prompt">반복 주기</string>
 	<string name="repeat_never">반복하지 않기</string>
 	<string name="repeat_dont">반복하지 않기</string>
-	<string-array name="repeat_interval_short">
-		<item>일</item>
-		<item>주</item>
-		<item>월</item>
-		<item>시간</item>
-		<item>분</item>
-		<item>년</item>
-	</string-array>
 	<string-array name="repeat_interval">
 		<item>일마다</item>
 		<item>주마다</item>

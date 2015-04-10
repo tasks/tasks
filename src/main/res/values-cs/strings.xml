@@ -91,7 +91,6 @@
 	<string name="TEA_hideUntil_display">Skrýt až do %s</string>
 	<string name="TEA_note_label">Poznámky</string>
 	<string name="TEA_notes_empty">Popis ...</string>
-	<string name="TEA_notes_hint">Poznámky k úkolu...</string>
 	<string name="TEA_estimatedDuration_label">Kolik času asi zabere?</string>
 	<string name="TEA_elapsedDuration_label">Jak dlouho už na úkolu pracujete</string>
 	<string name="TEA_menu_save">Uložit změny</string>
@@ -200,7 +199,6 @@
 	<string name="DB_corrupted_title">Poškozená databáze</string>
 	<string name="DB_corrupted_body">OJ! Může být poškozená databáze. Zobrazuje-li se tato chyba znovu,  vymaž všechny údaje v (Nastavení-&gt;Synchronizace a zálohy-&gt;Správa starých úkolů-&gt;Vymazat vše) a obnov své úkoly ze zálohy (Nastavení-&gt;Synchronizace a zálohy-&gt;Zálohy-&gt;Import úkolů) v úkolech.</string>
 	<string name="market_unavailable">Bohužel na trhu není k dispozici pro váš systém.</string>
-	<string name="EPr_defaults_header">Nastavení nového úkolu</string>
 	<string name="EPr_default_urgency_title">Výchozí termín dokončení</string>
 	<string name="EPr_default_importance_title">Výchozí důležitost</string>
 	<string name="EPr_default_hideUntil_title">Výchozí Skrýt do</string>
@@ -308,11 +306,6 @@
 	<string name="file_dir_dialog_ok">Použít tento adresář</string>
 	<string name="file_dir_dialog_default">Obnovit výchozí nastavení</string>
 	<string name="premium_speech_bubble_2">Objednejte na rok a ušetříte 25%!</string>
-	<string name="TEA_reminders_group_label">Nastavení upomínek</string>
-	<string name="TEA_reminder_label">Upozorni mě...</string>
-	<string name="TEA_reminder_due">Při termínu</string>
-	<string name="TEA_reminder_overdue">Úkol po termínu</string>
-	<string name="TEA_reminder_randomly">Jednou náhodně</string>
 	<string-array name="TEA_reminder_random">
 		<item>hodina</item>
 		<item>den</item>
@@ -348,14 +341,6 @@
 	<string name="repeat_interval_prompt">Opakovací interval</string>
 	<string name="repeat_never">Bez opakování</string>
 	<string name="repeat_dont">Neopakujte</string>
-	<string-array name="repeat_interval_short">
-		<item>d</item>
-		<item>td</item>
-		<item>měs</item>
-		<item>h</item>
-		<item>min</item>
-		<item>rok</item>
-	</string-array>
 	<string-array name="repeat_interval">
 		<item>Dnů</item>
 		<item>Týdnů</item>

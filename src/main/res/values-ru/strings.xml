@@ -93,7 +93,6 @@
 	<string name="TEA_hideUntil_display">Скрыть до %s</string>
 	<string name="TEA_note_label">Описание</string>
 	<string name="TEA_notes_empty">Описание...</string>
-	<string name="TEA_notes_hint">Введите описание задачи...</string>
 	<string name="TEA_estimatedDuration_label">Как долго это продлится?</string>
 	<string name="TEA_elapsedDuration_label">Время уже потраченное на задачу</string>
 	<string name="TEA_menu_save">Сохранить изменения</string>
@@ -210,7 +209,6 @@
 все данные (Параметры-&gt;Синхронизация-&gt;Управление старыми задачами-&gt;Очистить все данные) и восстановить
 задачи из резервной копии (Параметры-&gt;Синхронизация-&gt;Резервные копии-&gt;Импортировать задачи)</string>
 	<string name="market_unavailable">К сожалению, этот магазин недоступен для вашей системы.</string>
-	<string name="EPr_defaults_header">Параметры по умолчанию для новых задач</string>
 	<string name="task_defaults">Параметры по умолчанию</string>
 	<string name="EPr_default_urgency_title">Актуальность по умолчанию</string>
 	<string name="EPr_default_importance_title">Приоритет по умолчанию</string>
@@ -320,11 +318,6 @@
 	<string name="file_dir_dialog_ok">Использовать эту папку</string>
 	<string name="file_dir_dialog_default">Сбросить настройки</string>
 	<string name="premium_speech_bubble_2">Подпишитесь на год и сэкономьте 25%%!</string>
-	<string name="TEA_reminders_group_label">Настройки напоминаний</string>
-	<string name="TEA_reminder_label">Напомнить мне</string>
-	<string name="TEA_reminder_due">При наступлении срока выполнения задания</string>
-	<string name="TEA_reminder_overdue">Когда задание просрочено</string>
-	<string name="TEA_reminder_randomly">Случайно один раз</string>
 	<string-array name="TEA_reminder_random">
 		<item>час</item>
 		<item>день</item>
@@ -361,14 +354,6 @@
 	<string name="repeat_interval_prompt">Интервал повтора</string>
 	<string name="repeat_never">Без повторений</string>
 	<string name="repeat_dont">Не повторять</string>
-	<string-array name="repeat_interval_short">
-		<item>д.</item>
-		<item>нед.</item>
-		<item>мес.</item>
-		<item>ч</item>
-		<item>мин</item>
-		<item>г.</item>
-	</string-array>
 	<string-array name="repeat_interval">
 		<item>День(дней)</item>
 		<item>Неделя(ль)</item>

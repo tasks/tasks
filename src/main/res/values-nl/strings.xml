@@ -92,7 +92,6 @@
 	<string name="TEA_hideUntil_display">Verberg tot %s</string>
 	<string name="TEA_note_label">Omschrijving</string>
 	<string name="TEA_notes_empty">Omschrijving...</string>
-	<string name="TEA_notes_hint">Voer taakomschrijving in</string>
 	<string name="TEA_estimatedDuration_label">Tijdsduur</string>
 	<string name="TEA_elapsedDuration_label">Bestede tijd tot nu toe</string>
 	<string name="TEA_menu_save">Wijzigingen opslaan</string>
@@ -205,7 +204,6 @@
 	<string name="DB_corrupted_title">Database Corrupt</string>
 	<string name="DB_corrupted_body">Oh oh! Het lijkt erop dat je een corrupte database hebt. Als je deze error vaker ziet raden we je aan alle data te verwijderen (Instellingen-&gt;Beheer Alle Taken-&gt;Wis alle data) en je taken uit een backup te herstellen (Instellingen-&gt;Backup-&gt;Importeer Taken) in Tasks.</string>
 	<string name="market_unavailable">Helaas is de Android Market niet beschikbaar voor jouw systeem.</string>
-	<string name="EPr_defaults_header">Basisinstellingen nieuwe taak</string>
 	<string name="EPr_default_urgency_title">Standaard prioriteit</string>
 	<string name="EPr_default_importance_title">Standaard prioriteit</string>
 	<string name="EPr_default_hideUntil_title">Standaard verbergen tot</string>
@@ -315,11 +313,6 @@
 	<string name="file_dir_dialog_ok">Gebruik deze directory.</string>
 	<string name="file_dir_dialog_default">Stel opnieuw in naar standaardinstellingen</string>
 	<string name="premium_speech_bubble_2">Bestel voor een jaar en bespaar 25%%!</string>
-	<string name="TEA_reminders_group_label">Instellingen herinneringen</string>
-	<string name="TEA_reminder_label">Herinneren:</string>
-	<string name="TEA_reminder_due">op einddatum taak</string>
-	<string name="TEA_reminder_overdue">op of na einddatum taak</string>
-	<string name="TEA_reminder_randomly">Willekeurig eenmalig</string>
 	<string-array name="TEA_reminder_random">
 		<item>een uur</item>
 		<item>een dag</item>
@@ -356,14 +349,6 @@
 	<string name="repeat_interval_prompt">Herhaal interval</string>
 	<string name="repeat_never">Niet herhalend</string>
 	<string name="repeat_dont">Niet herhalen</string>
-	<string-array name="repeat_interval_short">
-		<item>d</item>
-		<item>wk</item>
-		<item>ma</item>
-		<item>u</item>
-		<item>min</item>
-		<item>jr</item>
-	</string-array>
 	<string-array name="repeat_interval">
 		<item>Dag(en)</item>
 		<item>week/weken</item>

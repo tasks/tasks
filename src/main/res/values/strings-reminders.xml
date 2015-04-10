@@ -1,25 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <!-- Resources for built-in reminders plug-in -->
-    
-  <!-- =============================================== task edit activity == -->
-
-  <!-- Task Edit: Reminder group label -->  
-  <string name="TEA_reminders_group_label">Reminder settings</string>
-
-  <!-- Task Edit: Reminder header label -->  
-  <string name="TEA_reminder_label">Remind me</string>
-
-  <!-- Task Edit: Reminder @ deadline -->  
-  <string name="TEA_reminder_due">When task is due</string>
-
-  <!-- Task Edit: Reminder after deadline -->  
-  <string name="TEA_reminder_overdue">When task is overdue</string>
-
-  <!-- Task Edit: Reminder at random times (%s => time plural)-->
-  <string name="TEA_reminder_randomly">Randomly once</string>
-
   <!--  slide 45a: Task Edit: Reminder mode: ring once -->
   <string name="ring_once">Ring once</string>
 

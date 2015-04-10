@@ -17,7 +17,6 @@
 
         <item name="ic_action_add">@drawable/ic_action_add_light</item>
         <item name="ic_action_new_attachment">@drawable/ic_action_attachment_2</item>
-        <item name="ic_action_discard">@drawable/ic_action_discard</item>
         <item name="ic_action_save">@drawable/ic_action_save</item>
         <item name="ic_action_cancel">@drawable/ic_action_cancel</item>
         <item name="ic_action_camera">@drawable/ic_action_camera</item>
@@ -47,12 +46,10 @@
         <item name="asDueDateColor">#878787</item>
         <item name="asListDividerColor">#dddddd</item>
         <item name="asEditRowBackground">@drawable/task_edit_background_white</item>
-        <item name="asFilterSelectedIcon">@drawable/filter_selected_icon_black</item>
         <item name="asFilterRowSelected">@drawable/filter_row_selector</item>
         <item name="asTaskRowSelector">@drawable/task_row_bg_white</item>
         <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
         <item name="asAbBackgroundColor">#607d8b</item>
-        <item name="floatingActionButtonStroke">@android:color/transparent</item>
         <item name="importance_background_selected">@drawable/importance_background_selected</item>
         <item name="task_edit_divider">@color/task_edit_divider</item>
         <item name="drawer_text">@android:color/black</item>
@@ -87,7 +84,6 @@
         <item name="asTextColorHint">@android:color/darker_gray</item>
         <item name="asTextColorInverse">@android:color/black</item>
         <item name="asAbBackgroundColor">@android:color/black</item>
-        <item name="floatingActionButtonStroke">@android:color/white</item>
         <item name="drawer_text">@android:color/white</item>
         <item name="ic_action_settings">@drawable/ic_action_gear_white</item>
         <item name="asFilterRowSelected">@drawable/filter_row_selector_dark</item>

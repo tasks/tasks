@@ -93,7 +93,6 @@
 	<string name="TEA_hideUntil_display">Ocultar hasta %s</string>
 	<string name="TEA_note_label">Descripción</string>
 	<string name="TEA_notes_empty">Descripción...</string>
-	<string name="TEA_notes_hint">Introducir descripción de la tarea...</string>
 	<string name="TEA_estimatedDuration_label">¿Cuanto tiempo llevará?</string>
 	<string name="TEA_elapsedDuration_label">Tiempo ya empleado en la tarea</string>
 	<string name="TEA_menu_save">Guardar cambios</string>
@@ -205,7 +204,6 @@
 	<string name="DB_corrupted_title">Base de datos corrupta</string>
 	<string name="DB_corrupted_body">\"¡Oh-oh! Es posible que tu base de datos esté corrupta. Si ves éste error con frecuencia, te sugerimos que limpies toda la información  (Configuración-&gt;Sincronización y respaldos-&gt;Administrar tareas pasadas-&gt;Limpiar toda la información) y recuperar tus tareas de un respaldo (Configuración-&gt;Sincronización y respaldos-&gt;Respaldos-&gt;Importar tareas) en Tasks.\"</string>
 	<string name="market_unavailable">Desafortunadamente el Market no está disponible para tu sistema</string>
-	<string name="EPr_defaults_header">Configuración por defecto de nuevas tareas.</string>
 	<string name="EPr_default_urgency_title">Fecha límite por defecto</string>
 	<string name="EPr_default_importance_title">Prioridad predeterminada</string>
 	<string name="EPr_default_hideUntil_title">Ocultar por defecto hasta</string>
@@ -313,11 +311,6 @@
 	<string name="file_dir_dialog_ok">Usar este directorio</string>
 	<string name="file_dir_dialog_default">Restaurar a valores por defecto</string>
 	<string name="premium_speech_bubble_2">¡Ordena un año y ahorra un 25%%!</string>
-	<string name="TEA_reminders_group_label">Recordar configuración</string>
-	<string name="TEA_reminder_label">Recordarme:</string>
-	<string name="TEA_reminder_due">Cuando la tarea es finalizada</string>
-	<string name="TEA_reminder_overdue">Cuando la tarea está retrasada</string>
-	<string name="TEA_reminder_randomly">Aleatorio, una sola vez</string>
 	<string-array name="TEA_reminder_random">
 		<item>una hora</item>
 		<item>un día</item>
@@ -354,14 +347,6 @@
 	<string name="repeat_interval_prompt">Intervalo de repetición</string>
 	<string name="repeat_never">Sin repetir</string>
 	<string name="repeat_dont">No repetir</string>
-	<string-array name="repeat_interval_short">
-		<item>d</item>
-		<item>sem</item>
-		<item>mes</item>
-		<item>h</item>
-		<item>min</item>
-		<item>año</item>
-	</string-array>
 	<string-array name="repeat_interval">
 		<item>Día(s)</item>
 		<item>Semana(s)</item>

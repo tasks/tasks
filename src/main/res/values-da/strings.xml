@@ -70,7 +70,6 @@
 	<string name="TEA_hideUntil_label">Skjul indtil</string>
 	<string name="TEA_hideUntil_display">Skjul indtil %s</string>
 	<string name="TEA_note_label">Noter</string>
-	<string name="TEA_notes_hint">Indtast opgavenoter...</string>
 	<string name="TEA_estimatedDuration_label">Hvor lang tid tager det?</string>
 	<string name="TEA_elapsedDuration_label">Tid allerede brugt på denne opgave</string>
 	<string name="TEA_menu_save">Gem ændringer</string>
@@ -106,7 +105,6 @@
       If you see this error regularly, we suggest you clear all
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
       your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
-	<string name="EPr_defaults_header">Standard for nye opgaver</string>
 	<string name="EPr_default_urgency_title">Standard Deadline</string>
 	<string name="EPr_default_importance_title">Standard Vigtighed</string>
 	<string name="EPr_default_hideUntil_title">Standard Skjul Indtil</string>
@@ -161,8 +159,6 @@
 	<string name="gtasks_FEx_title">Google Opgaver: %s</string>
 	<string name="gtasks_GPr_header">Google Tasks (beta!)</string>
 	<string name="locale_notification">Du har $NUM der matcher: $FILTER</string>
-	<string name="TEA_reminder_due">når deadline er nået</string>
-	<string name="TEA_reminder_overdue">når deadline er overskredet</string>
 	<string-array name="TEA_reminder_random">
 		<item>en time</item>
 		<item>en dag</item>

@@ -182,7 +182,6 @@
 	<string name="DB_corrupted_body">Oh, oh! Pare che tu abbia un database danneggiato.
 Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dati (Impostazioni-&gt;Sincronizzazione e backup-&gt;Gestire tutti i dati-&gt;Cancellare tutti i dati) e ripristinare i tuoi task da un backup in Tasks (Impostazioni-&gt;Sincronizzazione e backup-&gt;Backup-&gt;Importa task).</string>
 	<string name="market_unavailable">Sfortunatamente il market non è disponibile sul tuo sistema.</string>
-	<string name="EPr_defaults_header">Nuove impostazioni predefinite attività</string>
 	<string name="EPr_default_urgency_title">Urgenza Predefinita</string>
 	<string name="EPr_default_hideUntil_title">Nascondi Fino Predefinito</string>
 	<string name="EPr_default_reminders_title">Promemoria predefiniti</string>
@@ -285,10 +284,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="file_dir_dialog_ok">Utilizza questa directory</string>
 	<string name="file_dir_dialog_default">Ripristino impostazioni iniziali</string>
 	<string name="premium_speech_bubble_2">Sottoscrivi 1 anno e risparmia il 25%%!</string>
-	<string name="TEA_reminder_label">Ricordamelo:</string>
-	<string name="TEA_reminder_due">Alla scadenza dell\'attività</string>
-	<string name="TEA_reminder_overdue">Quando l\'attività è in ritardo</string>
-	<string name="TEA_reminder_randomly">In modo casuale</string>
 	<string-array name="TEA_reminder_random">
 		<item>an hour</item>
 		<item>ogni giorno</item>

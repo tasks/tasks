@@ -91,7 +91,6 @@
 	<string name="TEA_hideUntil_display">Verbergen bis %s</string>
 	<string name="TEA_note_label">Beschreibung</string>
 	<string name="TEA_notes_empty">Beschreibung ...</string>
-	<string name="TEA_notes_hint">Aufgabenbeschreibung eingeben ...</string>
 	<string name="TEA_estimatedDuration_label">Wie lange wird es dauern?</string>
 	<string name="TEA_elapsedDuration_label">Zeit, die schon für die Aufgabe gebraucht wurde</string>
 	<string name="TEA_menu_save">Änderungen speichern</string>
@@ -207,7 +206,6 @@
 	<string name="DB_corrupted_title">Fehler in der Datenbank</string>
 	<string name="DB_corrupted_body">Oh-oh! Sieht aus aIs könnte deine Datenbank beschädigt sein. Falls Du diesen Fehler regelmäßig siehst, empfehlen wir, alle Daten zu löschen (Einstellungen-&gt;Synchronisation-&gt;Alte Aufgaben verwalten-&gt;Alle Daten löschen) und deine Aufgaben aus einem Backup in Tasks wiederherzustellen (Einstellungen-&gt;Synchronisation-&gt;Backups-&gt;-Backups verwalten&gt;Aufgaben importieren).</string>
 	<string name="market_unavailable">Leider ist der Market nicht für dein System verfügbar.</string>
-	<string name="EPr_defaults_header">Standardeinstellungen für neue Aufgaben</string>
 	<string name="task_defaults">Aufgabenstandards</string>
 	<string name="EPr_default_urgency_title">Standard Dringlichkeit</string>
 	<string name="EPr_default_importance_title">Standard Priorität</string>
@@ -316,11 +314,6 @@
 	<string name="file_dir_dialog_ok">Dieses Verzeichnis verwenden</string>
 	<string name="file_dir_dialog_default">Auf Standardeinstellungen zurücksetzen</string>
 	<string name="premium_speech_bubble_2">Bestelle für ein ganzes Jahr und spare 25%!</string>
-	<string name="TEA_reminders_group_label">Erinnerungs-Einstellungen</string>
-	<string name="TEA_reminder_label">Erinnere mich:</string>
-	<string name="TEA_reminder_due">Wenn Aufgabe fällig ist</string>
-	<string name="TEA_reminder_overdue">Wenn Aufgabe überfällig ist</string>
-	<string name="TEA_reminder_randomly">Einmal zufällig</string>
 	<string-array name="TEA_reminder_random">
 		<item>einer Stunde</item>
 		<item>einem Tag</item>
@@ -357,14 +350,6 @@
 	<string name="repeat_interval_prompt">Wiederholungsintervall</string>
 	<string name="repeat_never">Nicht wiederholen</string>
 	<string name="repeat_dont">Nicht wiederholen</string>
-	<string-array name="repeat_interval_short">
-		<item>t</item>
-		<item>w</item>
-		<item>M</item>
-		<item>Std</item>
-		<item>Min</item>
-		<item>Jahr</item>
-	</string-array>
 	<string-array name="repeat_interval">
 		<item>Tag(e)</item>
 		<item>Woche(n)</item>
