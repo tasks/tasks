@@ -322,8 +322,6 @@
 	<string name="file_err_copy">Грешка при копиране на файла за прикачване</string>
 	<string name="file_dir_dialog_ok">Използвай тази директория</string>
 	<string name="file_dir_dialog_default">Възстанови по подразбиране</string>
-	<string name="p_files_dir_desc">Прикачени файлове към задача са запазени в: %s</string>
-	<string name="p_files_dir_desc_default">Директория по подразбиране</string>
 	<string name="premium_speech_bubble_2">Поръчай една година и спести 25%!</string>
 	<string name="TEA_reminders_group_label">Настройки на напомняне</string>
 	<string name="TEA_reminder_label">Напомни ми</string>

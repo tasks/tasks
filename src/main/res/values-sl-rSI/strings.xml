@@ -317,8 +317,6 @@
 	<string name="file_err_copy">Napaka pri kopiranju datoteke za priponko</string>
 	<string name="file_dir_dialog_ok">Uporabi to mapo</string>
 	<string name="file_dir_dialog_default">Ponastavi na privzeto</string>
-	<string name="p_files_dir_desc">Priponke opravku shranjene v:%s</string>
-	<string name="p_files_dir_desc_default">Privzeta mapa</string>
 	<string name="premium_speech_bubble_2">Enoletna naročnina prihrani 25%!</string>
 	<string name="TEA_reminders_group_label">Nastavitve opomnika</string>
 	<string name="TEA_reminder_label">Opomni me</string>

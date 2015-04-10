@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.speech.tts.TextToSpeech;
-import android.text.TextUtils;
 
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.files.FileExplore;
@@ -15,6 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingPreferenceActivity;
+
+import java.io.File;
 
 import javax.inject.Inject;
 
@@ -99,10 +100,8 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
     }
 
     private void updateAttachmentDirectory() {
-        String dir = preferences.getStringValue(TaskAttachment.FILES_DIRECTORY_PREF);
-        findPreference(getString(R.string.p_files_dir)).setSummary(TextUtils.isEmpty(dir)
-                ? getString(R.string.p_files_dir_desc_default)
-                : dir);
+        File dir = preferences.getAttachmentsDirectory();
+        findPreference(getString(R.string.p_files_dir)).setSummary(dir.getAbsolutePath());
     }
 
     private void initializeCalendarReminderPreference() {

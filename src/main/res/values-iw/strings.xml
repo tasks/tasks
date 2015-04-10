@@ -313,8 +313,6 @@
 	<string name="file_err_copy">שגיאה בהעתקת הקובץ המצורף</string>
 	<string name="file_dir_dialog_ok">השתמש בתיקיה זו</string>
 	<string name="file_dir_dialog_default">אפס לברירת מחדל</string>
-	<string name="p_files_dir_desc">צְרוּפוֹת נשמרו בתיקיה %s</string>
-	<string name="p_files_dir_desc_default">תיקייית ברירת מחדל</string>
 	<string name="premium_speech_bubble_2">הזמן לשנה וחסוך !25%%</string>
 	<string name="TEA_reminders_group_label">הגדרות תזכורת</string>
 	<string name="TEA_reminder_label">הזכירי לי:</string>

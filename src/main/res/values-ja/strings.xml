@@ -320,8 +320,6 @@
 	<string name="file_err_copy">ファイル添付のコピー中にエラー</string>
 	<string name="file_dir_dialog_ok">このディレクトリを使用</string>
 	<string name="file_dir_dialog_default">デフォルトにリセット</string>
-	<string name="p_files_dir_desc">タスクの添付が %s に保存されました</string>
-	<string name="p_files_dir_desc_default">デフォルトディレクトリ</string>
 	<string name="premium_speech_bubble_2">1 年注文すると 25% 節約できます!</string>
 	<string name="TEA_reminders_group_label">通知の設定</string>
 	<string name="TEA_reminder_label">通知するのは...</string>

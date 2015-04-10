@@ -313,8 +313,6 @@
 	<string name="file_err_copy">Erro ao copiar o arquivo para o anexo</string>
 	<string name="file_dir_dialog_ok">Usar este diretório</string>
 	<string name="file_dir_dialog_default">Restaurar padrões</string>
-	<string name="p_files_dir_desc">Anexos da tarefa salvos em: %s</string>
-	<string name="p_files_dir_desc_default">Diretório padrão</string>
 	<string name="premium_speech_bubble_2">Contrate um ano e tenha 25%% de desconto</string>
 	<string name="TEA_reminders_group_label">Lembrar configurações</string>
 	<string name="TEA_reminder_label">Lembre me:</string>

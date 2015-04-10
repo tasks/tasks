@@ -312,8 +312,6 @@
 	<string name="file_err_copy">Error al copiar el archivo a adjuntar</string>
 	<string name="file_dir_dialog_ok">Usar este directorio</string>
 	<string name="file_dir_dialog_default">Restaurar a valores por defecto</string>
-	<string name="p_files_dir_desc">Archivos adjuntos de tareas guardados en: %s</string>
-	<string name="p_files_dir_desc_default">Directorio predeterminado</string>
 	<string name="premium_speech_bubble_2">¡Ordena un año y ahorra un 25%%!</string>
 	<string name="TEA_reminders_group_label">Recordar configuración</string>
 	<string name="TEA_reminder_label">Recordarme:</string>

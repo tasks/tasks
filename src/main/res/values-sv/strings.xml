@@ -310,8 +310,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="file_err_copy">Bifoga fil misslyckades: fel vid kopiering</string>
 	<string name="file_dir_dialog_ok">Använd denna mapp</string>
 	<string name="file_dir_dialog_default">Återställ till standard</string>
-	<string name="p_files_dir_desc">Uppgiftens bifogade filer sparades till: %s</string>
-	<string name="p_files_dir_desc_default">Standardmapp</string>
 	<string name="premium_speech_bubble_2">Beställ för helår och spara 25%!</string>
 	<string name="TEA_reminders_group_label">Påminnelseinställningar</string>
 	<string name="TEA_reminder_label">Påminn mig:</string>

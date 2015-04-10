@@ -312,8 +312,6 @@
 	<string name="file_err_copy">Σφάλμα αντιγραφής αρχείου προς επισύναψη</string>
 	<string name="file_dir_dialog_ok">Χρήση αυτού του φακέλου</string>
 	<string name="file_dir_dialog_default">Επαναφορά προεπιλογών</string>
-	<string name="p_files_dir_desc">Συνημμένα εργασιών σώθηκαν στο: %s</string>
-	<string name="p_files_dir_desc_default">Προεπιλεγμένος φάκελος</string>
 	<string name="premium_speech_bubble_2">Παραγγείλετε ένα χρόνο και εξοικονομήστε 25%!</string>
 	<string name="TEA_reminders_group_label">Ρυθμίσεις υπενθυμίσεων</string>
 	<string name="TEA_reminder_label">Υπενθύμισε μου </string>

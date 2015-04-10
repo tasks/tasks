@@ -31,10 +31,6 @@
     <string name="file_dir_dialog_ok">Use this directory</string>
     <string name="file_dir_dialog_default">Reset to default</string>
     
-    <!-- Description for file download directory preference. %s -> chosen directory -->
-    <string name="p_files_dir_desc">Task attachments saved to: %s</string>
-    <string name="p_files_dir_desc_default">Default directory</string>
-    
     <!-- in app billing -->
     
     <string name="premium_speech_bubble_2">Order one year and save 25%!</string>

@@ -300,8 +300,6 @@
 	<string name="file_err_copy">複製文件添加附件時出錯</string>
 	<string name="file_dir_dialog_ok">使用此目錄</string>
 	<string name="file_dir_dialog_default">重設為默認值</string>
-	<string name="p_files_dir_desc">將任務工作附件保存至：%s</string>
-	<string name="p_files_dir_desc_default">默認目錄</string>
 	<string name="premium_speech_bubble_2">購買一年的服務並且得到25%%的折扣</string>
 	<string name="TEA_reminders_group_label">提醒設置</string>
 	<string name="TEA_reminder_label">提醒我：</string>

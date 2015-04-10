@@ -316,8 +316,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="file_err_copy">Błąd kopiowania pliku do załącznika</string>
 	<string name="file_dir_dialog_ok">Użycie tego katalogu</string>
 	<string name="file_dir_dialog_default">Przywróć ustawienia domyślne</string>
-	<string name="p_files_dir_desc">Załącznik zadania zapisano w: %s</string>
-	<string name="p_files_dir_desc_default">Domyślny folder</string>
 	<string name="premium_speech_bubble_2">Zamów na rok i oszczędź 25%%!</string>
 	<string name="TEA_reminders_group_label">Ustawienia przypomnień</string>
 	<string name="TEA_reminder_label">Przypomnij mi:</string>

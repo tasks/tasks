@@ -179,7 +179,6 @@
 	<string name="file_add_sdcard">ارفق ملف من الذاكرة الخارجية</string>
 	<string name="file_dir_dialog_ok">استخدم هذا المسار</string>
 	<string name="file_dir_dialog_default">إعادة إلى الافتراضي</string>
-	<string name="p_files_dir_desc_default">المسار الافتراضي</string>
 	<string-array name="TEA_reminder_random">
 		<item>ساعه</item>
 		<item>يوم</item>

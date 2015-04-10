@@ -319,8 +319,6 @@
 	<string name="file_err_copy">첨부용 파일 복사 에러</string>
 	<string name="file_dir_dialog_ok">이 디렉토리 사용</string>
 	<string name="file_dir_dialog_default">기본값으로 초기화</string>
-	<string name="p_files_dir_desc">일정 첨부 파일 저장됨: %s</string>
-	<string name="p_files_dir_desc_default">기본 디렉토리</string>
 	<string name="premium_speech_bubble_2">1년 사용권 구매시 25%% 할인!</string>
 	<string name="TEA_reminders_group_label">알림 설정</string>
 	<string name="TEA_reminder_label">알려주세요:</string>

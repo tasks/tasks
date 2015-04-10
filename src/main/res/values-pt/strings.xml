@@ -317,8 +317,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="file_err_copy">Erro ao copiar o ficheiro como anexo</string>
 	<string name="file_dir_dialog_ok">Usar este diretório</string>
 	<string name="file_dir_dialog_default">Restaurar definições originais</string>
-	<string name="p_files_dir_desc">Anexos de tarefa gravadas em: %s</string>
-	<string name="p_files_dir_desc_default">Diretório predefinido</string>
 	<string name="premium_speech_bubble_2">Compre por um ano e poupe 25%!</string>
 	<string name="TEA_reminders_group_label">Definições do lembrete</string>
 	<string name="TEA_reminder_label">Lembrar-me</string>

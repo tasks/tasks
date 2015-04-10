@@ -307,8 +307,6 @@
 	<string name="file_err_copy">Chyba při kopírování souboru jako přílohy</string>
 	<string name="file_dir_dialog_ok">Použít tento adresář</string>
 	<string name="file_dir_dialog_default">Obnovit výchozí nastavení</string>
-	<string name="p_files_dir_desc">Příloha úkolu uložena do: %s</string>
-	<string name="p_files_dir_desc_default">Výchozí adresář</string>
 	<string name="premium_speech_bubble_2">Objednejte na rok a ušetříte 25%!</string>
 	<string name="TEA_reminders_group_label">Nastavení upomínek</string>
 	<string name="TEA_reminder_label">Upozorni mě...</string>

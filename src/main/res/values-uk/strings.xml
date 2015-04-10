@@ -319,8 +319,6 @@
 	<string name="file_err_copy">Помилка копіювання доданого файлу.</string>
 	<string name="file_dir_dialog_ok">Використовувати цю папку</string>
 	<string name="file_dir_dialog_default">Скинути налаштування за замовчуванням</string>
-	<string name="p_files_dir_desc">Прикріплення до задачі збережені в: %s</string>
-	<string name="p_files_dir_desc_default">Папка за замовчуванням</string>
 	<string name="premium_speech_bubble_2">Підпишіться на рік і заощаджуйте 25%%!</string>
 	<string name="TEA_reminders_group_label">Налаштування нагадувань</string>
 	<string name="TEA_reminder_label">Нагадати мені</string>

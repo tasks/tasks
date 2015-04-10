@@ -311,8 +311,6 @@
 	<string name="file_err_copy">Erreur lors de la copie du fichier à joindre</string>
 	<string name="file_dir_dialog_ok">Utiliser ce dossier</string>
 	<string name="file_dir_dialog_default">Rétablir les valeurs par défaut</string>
-	<string name="p_files_dir_desc">Les fichiers joints des tâches sont sauvegardés vers : %s</string>
-	<string name="p_files_dir_desc_default">Dossier par défaut</string>
 	<string name="premium_speech_bubble_2">Commandez pour un an et économisez 25%%!</string>
 	<string name="TEA_reminders_group_label">Paramètres de rappel</string>
 	<string name="TEA_reminder_label">Rappelle-moi</string>

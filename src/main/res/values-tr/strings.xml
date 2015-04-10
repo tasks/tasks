@@ -287,8 +287,6 @@
 	<string name="file_err_copy">Dosyanın ek olarak kopyalanmasında hata</string>
 	<string name="file_dir_dialog_ok">Bu dizini kullan</string>
 	<string name="file_dir_dialog_default">Öntanımlı değere dön</string>
-	<string name="p_files_dir_desc">Görev eklerinin kaydedildiği yer: %s</string>
-	<string name="p_files_dir_desc_default">Öntanımlı dizin</string>
 	<string name="premium_speech_bubble_2">Bir yıllık satın alın ve %%25 kâr yapın!</string>
 	<string name="TEA_reminder_label">Bana Hatırlat:</string>
 	<string name="TEA_reminder_due">Görev son tarihinde</string>

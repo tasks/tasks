@@ -265,8 +265,6 @@
 	<string name="file_err_copy">复制文件添加附件时出错</string>
 	<string name="file_dir_dialog_ok">使用此目录</string>
 	<string name="file_dir_dialog_default">重设为默认值</string>
-	<string name="p_files_dir_desc">将任务附件保存至：%s</string>
-	<string name="p_files_dir_desc_default">默认目录</string>
 	<string name="premium_speech_bubble_2">购买一年的服务并且得到25%%的折扣</string>
 	<string name="TEA_reminder_label">提醒我：</string>
 	<string name="TEA_reminder_due">当任务到期时</string>
