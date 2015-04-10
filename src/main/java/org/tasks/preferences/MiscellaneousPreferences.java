@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.speech.tts.TextToSpeech;
 
-import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.files.FileExplore;
 import com.todoroo.astrid.gcal.CalendarAlarmScheduler;
 import com.todoroo.astrid.voice.VoiceOutputAssistant;
@@ -55,7 +54,7 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
         if (requestCode == REQUEST_CODE_FILES_DIR && resultCode == RESULT_OK) {
             if (data != null) {
                 String dir = data.getStringExtra(FileExplore.RESULT_DIR_SELECTED);
-                preferences.setString(TaskAttachment.FILES_DIRECTORY_PREF, dir);
+                preferences.setString(R.string.p_attachment_dir, dir);
                 updateAttachmentDirectory();
             }
             return;
@@ -87,7 +86,7 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
     }
 
     private void initializeAttachmentDirectoryPreference() {
-        findPreference(getString(R.string.p_files_dir)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        findPreference(getString(R.string.p_attachment_dir)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference p) {
                 Intent filesDir = new Intent(MiscellaneousPreferences.this, FileExplore.class);
@@ -101,7 +100,7 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
 
     private void updateAttachmentDirectory() {
         File dir = preferences.getAttachmentsDirectory();
-        findPreference(getString(R.string.p_files_dir)).setSummary(dir.getAbsolutePath());
+        findPreference(getString(R.string.p_attachment_dir)).setSummary(dir.getAbsolutePath());
     }
 
     private void initializeCalendarReminderPreference() {

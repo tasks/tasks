@@ -27,8 +27,7 @@
 
     <Preference android:title="@string/backup_BPr_header">
         <intent
-            android:action="@string/backup_BPr_header"
-            android:targetClass="org.tasks.preferences.BasicPreferences"
+            android:targetClass="org.tasks.preferences.BackupPreferences"
             android:targetPackage="org.tasks" />
     </Preference>
 

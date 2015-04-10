@@ -52,7 +52,7 @@ public class TasksXmlExporter {
 
     // --- public interface
 
-    public static enum ExportType {
+    public enum ExportType {
         EXPORT_TYPE_SERVICE,
         EXPORT_TYPE_MANUAL,
         EXPORT_TYPE_ON_UPGRADE
@@ -100,11 +100,10 @@ public class TasksXmlExporter {
         this.preferences = preferences;
     }
 
-    public void exportTasks(final Context context, final ExportType exportType, File backupDirectoryOverride) {
+    public void exportTasks(final Context context, final ExportType exportType) {
         this.context = context;
         this.exportCount = 0;
-        this.backupDirectory = backupDirectoryOverride == null ?
-                BackupConstants.defaultExportDirectory() : backupDirectoryOverride;
+        this.backupDirectory = preferences.getBackupDirectory();
         this.latestSetVersionName = null;
 
         handler = exportType == ExportType.EXPORT_TYPE_MANUAL ? new Handler() : null;

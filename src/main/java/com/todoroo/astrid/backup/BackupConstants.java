@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.backup;
 
-import android.os.Environment;
-
-import java.io.File;
-
 /**
  * Constants for backup XML attributes and nodes.
  *
@@ -45,26 +41,9 @@ public class BackupConstants {
 
     public static final String XML_ENCODING = "utf-8";
 
-    public static final String ASTRID_DIR = "/astrid";
-
     public static final String EXPORT_FILE_NAME = "user.%s.xml";
 
     public static final String BACKUP_FILE_NAME = "auto.%s.xml";
 
     public static final String UPGRADE_FILE_NAME = "upgradefrom.%s.xml";
-
-    // --- methods
-
-    /**
-     * @return export directory for tasks, or null if no SD card
-     */
-    public static File defaultExportDirectory() {
-        String storageState = Environment.getExternalStorageState();
-        if (storageState.equals(Environment.MEDIA_MOUNTED)) {
-            String path = Environment.getExternalStorageDirectory().getAbsolutePath();
-            path = path + ASTRID_DIR;
-            return new File(path);
-        }
-        return null;
-    }
 }

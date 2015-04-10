@@ -11,6 +11,7 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import org.tasks.R;
 import org.tasks.preferences.Preferences;
 
 import java.io.File;
@@ -32,12 +33,6 @@ public class BackupServiceTests extends DatabaseTestCase {
     @Inject TaskDao taskDao;
     @Inject Preferences preferences;
 
-    BackupIntentService.BackupDirectorySetting setting = new BackupIntentService.BackupDirectorySetting() {
-        public File getBackupDirectory() {
-            return temporaryDirectory;
-        }
-    };
-
     @Override
     protected void setUp() {
         super.setUp();
@@ -52,6 +47,8 @@ public class BackupServiceTests extends DatabaseTestCase {
             throw new RuntimeException("Could not delete temp file: " + temporaryDirectory.getAbsolutePath());
         if (!(temporaryDirectory.mkdir()))
             throw new RuntimeException("Could not create temp directory: " + temporaryDirectory.getAbsolutePath());
+
+        preferences.setString(R.string.p_backup_dir, temporaryDirectory.getAbsolutePath());
 
         // make a temporary task
         Task task = new Task();
@@ -77,7 +74,6 @@ public class BackupServiceTests extends DatabaseTestCase {
 
         // create a backup
         BackupIntentService service = new BackupIntentService();
-        service.setBackupDirectorySetting(setting);
         service.testBackup(xmlExporter, preferences, getContext());
 
         AndroidUtilities.sleepDeep(BACKUP_WAIT_TIME);
@@ -116,7 +112,6 @@ public class BackupServiceTests extends DatabaseTestCase {
 
         // backup
         BackupIntentService service = new BackupIntentService();
-        service.setBackupDirectorySetting(setting);
         service.testBackup(xmlExporter, preferences, getContext());
 
         AndroidUtilities.sleepDeep(BACKUP_WAIT_TIME);

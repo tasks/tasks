@@ -210,7 +210,7 @@ public class StartupService {
             if(preferences.getCurrentVersion() >= UpgradeService.V3_0_0 &&
                     !context.getDatabasePath(database.getName()).exists()) {
                 // we didn't have a database! restore latest file
-                File directory = BackupConstants.defaultExportDirectory();
+                File directory = preferences.getBackupDirectory();
                 if(!directory.exists()) {
                     return;
                 }

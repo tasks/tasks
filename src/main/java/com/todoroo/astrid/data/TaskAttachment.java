@@ -82,9 +82,6 @@ public final class TaskAttachment extends RemoteModel {
     /** default directory for files on external storage */
     public static final String FILES_DIRECTORY_DEFAULT = "attachments"; //$NON-NLS-1$
 
-    /** preference key for some other download directory */
-    public static final String FILES_DIRECTORY_PREF = "custom_files_dir"; //$NON-NLS-1$
-
     /** Constants for file types */
     public static final String FILE_TYPE_AUDIO = "audio/"; //$NON-NLS-1$
     public static final String FILE_TYPE_IMAGE = "image/"; //$NON-NLS-1$

@@ -33,6 +33,7 @@ import org.tasks.activities.ExportTaskActivity;
 import org.tasks.activities.ImportTaskActivity;
 import org.tasks.activities.PurgeDeletedActivity;
 import org.tasks.preferences.AppearancePreferences;
+import org.tasks.preferences.BackupPreferences;
 import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.HelpAndFeedbackActivity;
 import org.tasks.preferences.MiscellaneousPreferences;
@@ -80,7 +81,8 @@ import dagger.Provides;
                 ClearGtaskDataActivity.class,
                 ReminderPreferences.class,
                 HelpAndFeedbackActivity.class,
-                AppearancePreferences.class
+                AppearancePreferences.class,
+                BackupPreferences.class
         })
 public class ActivityModule {
 

@@ -7,6 +7,10 @@
     android:title="@string/backup_BPr_header">
 
     <Preference
+        android:key="@string/p_backup_dir"
+        android:title="@string/backup_directory" />
+
+    <Preference
         android:key="@string/backup_BAc_import"
         android:title="@string/backup_BAc_import">
         <intent

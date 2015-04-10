@@ -292,7 +292,7 @@ public class Preferences {
 
     public File getAttachmentsDirectory() {
         File directory = null;
-        String customDir = getStringValue(TaskAttachment.FILES_DIRECTORY_PREF);
+        String customDir = getStringValue(R.string.p_attachment_dir);
         if (!TextUtils.isEmpty(customDir)) {
             directory = new File(customDir);
         }
@@ -342,5 +342,32 @@ public class Preferences {
             tries++;
         }
         return tempName + extension;
+    }
+
+    public File getBackupDirectory() {
+        File directory = null;
+        String customDir = getStringValue(R.string.p_backup_dir);
+        if (!TextUtils.isEmpty(customDir)) {
+            directory = new File(customDir);
+        }
+
+        if (directory == null || !directory.exists()) {
+            directory = defaultExportDirectory();
+        }
+
+        return directory;
+    }
+
+    /**
+     * @return export directory for tasks, or null if no SD card
+     */
+    private static File defaultExportDirectory() {
+        String storageState = Environment.getExternalStorageState();
+        if (storageState.equals(Environment.MEDIA_MOUNTED)) {
+            String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+            path = path + "/astrid";
+            return new File(path);
+        }
+        return null;
     }
 }

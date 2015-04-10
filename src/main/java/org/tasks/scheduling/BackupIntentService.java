@@ -2,7 +2,6 @@ package org.tasks.scheduling;
 
 import android.content.Context;
 
-import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.backup.TasksXmlExporter;
 
 import org.slf4j.Logger;
@@ -60,8 +59,7 @@ public class BackupIntentService extends MidnightIntentService {
         }
 
         try {
-            xmlExporter.exportTasks(context, TasksXmlExporter.ExportType.EXPORT_TYPE_SERVICE,
-                    backupDirectorySetting.getBackupDirectory());
+            xmlExporter.exportTasks(context, TasksXmlExporter.ExportType.EXPORT_TYPE_SERVICE);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
@@ -77,7 +75,7 @@ public class BackupIntentService extends MidnightIntentService {
                 return false;
             }
         };
-        File astridDir = backupDirectorySetting.getBackupDirectory();
+        File astridDir = preferences.getBackupDirectory();
         if(astridDir == null) {
             return;
         }
@@ -99,26 +97,5 @@ public class BackupIntentService extends MidnightIntentService {
                 log.info("Unable to delete: {}", files[i]);
             }
         }
-    }
-
-    /**
-     * Interface for setting where backups go
-     * @author Tim Su <tim@todoroo.com>
-     *
-     */
-    public interface BackupDirectorySetting {
-        public File getBackupDirectory();
-    }
-
-    private BackupDirectorySetting backupDirectorySetting = new BackupDirectorySetting() {
-        @Override
-        public File getBackupDirectory() {
-            return BackupConstants.defaultExportDirectory();
-        }
-    };
-
-    void setBackupDirectorySetting(
-            BackupDirectorySetting backupDirectorySetting) {
-        this.backupDirectorySetting = backupDirectorySetting;
     }
 }

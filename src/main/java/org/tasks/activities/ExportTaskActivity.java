@@ -15,6 +15,6 @@ public class ExportTaskActivity extends InjectingActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        xmlExporter.exportTasks(ExportTaskActivity.this, TasksXmlExporter.ExportType.EXPORT_TYPE_MANUAL, null);
+        xmlExporter.exportTasks(ExportTaskActivity.this, TasksXmlExporter.ExportType.EXPORT_TYPE_MANUAL);
     }
 }
