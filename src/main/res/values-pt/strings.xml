@@ -119,6 +119,8 @@
 		<item>Dia/hora especifica</item>
 	</string-array>
 	<string name="TEA_control_when">Quando</string>
+	<string name="TEA_control_repeat">Repetição</string>
+	<string name="TEA_control_gcal">Calendário</string>
 	<string name="TEA_control_importance">Prioridade</string>
 	<string name="TEA_control_lists">Listas</string>
 	<string name="TEA_control_notes">Descrição</string>
@@ -181,6 +183,7 @@
 	<string name="EPr_beastMode_hint">Personalize o ecrã de edição de tarefas arrastando a guia em cada linha</string>
 	<string name="EPr_fullTask_title">Mostrar título completo das tarefas</string>
 	<string name="EPr_show_task_edit_comments">Mostrar comentários na edição de tarefa</string>
+	<string name="task_list_options">Opções da lista de tarefas</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Hora do evento de calendário</string>
 	<string name="EPr_cal_end_at_due_time">Terminar evento do calendário na hora limite</string>
 	<string name="EPr_cal_start_at_due_time">Iniciar eventos de calendário na hora limite</string>
@@ -207,6 +210,7 @@ Se este erro ocorrer repetidamente sugerimos a eliminação dos dados em
 Definições-&gt;Sincronização e backup-&gt;Gerir tarefas antigas-&gt;Limpar todos os dados e o restauro
 das tarefas através de um backup em Definições-&gt;Sincronização e backup-&gt;Backup-&gt;Importar tarefas.</string>
 	<string name="market_unavailable">Infelizmente, a loja Google não está instalada no seu sistema.</string>
+	<string name="task_defaults">Predefinições</string>
 	<string name="EPr_default_urgency_title">Prazo predefinido</string>
 	<string name="EPr_default_importance_title">Prioridade predefinida</string>
 	<string name="EPr_default_hideUntil_title">Predefinição de ocultar até</string>
@@ -316,6 +320,9 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="file_dir_dialog_ok">Usar este diretório</string>
 	<string name="file_dir_dialog_default">Restaurar definições originais</string>
 	<string name="premium_speech_bubble_2">Compre por um ano e poupe 25%!</string>
+	<string name="ring_once">Tocar uma vez</string>
+	<string name="ring_five_times">Tocar 5 vezes</string>
+	<string name="ring_nonstop">Tocar incessantemente</string>
 	<string-array name="TEA_reminder_random">
 		<item>uma hora</item>
 		<item>um dia</item>
@@ -434,6 +441,44 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="sync_SPr_forget">Sair</string>
 	<string name="sync_SPr_forget_description">Remove todos os dados de sincronização</string>
 	<string name="sync_forget_confirm">Sair/limpar dados de sincronização?</string>
+	<string name="widget_hide_due_date">Ocultar data limite</string>
+	<string name="widget_hide_checkboxes">Ocultar caixa de seleção</string>
+	<string name="widget_hide_header">Ocultar cabeçalho</string>
+	<string name="widget_transparent_background">Fundo transparente</string>
+	<string name="notifications">Notificações</string>
+	<string name="silent">Silêncio</string>
+	<string name="sound">Som</string>
+	<string name="vibrate">Vibrar</string>
+	<string name="quiet_hours">Horas de silêncio</string>
+	<string name="attachment_directory">Diretório do anexo</string>
+	<string name="backup_directory">Diretório de backup</string>
+	<string name="debug_logging">Registo de depuração</string>
+	<string name="miscellaneous">Outras</string>
+	<string name="synchronization">Sincronização</string>
+	<string name="enabled">Ativo</string>
+	<string name="font_size">Tamanho da letra</string>
+	<string name="customize_edit_screen">Personalizar ecrã de edição</string>
+	<string name="source_code">Código fonte</string>
+	<string name="translations">Traduções</string>
+	<string name="report_an_issue">Reportar um erro</string>
+	<string name="help_and_feedback">Ajuda e comentários</string>
+	<string name="contact_developer">Contacte o programador</string>
+	<string name="rate_tasks">Avaliar o Tasks</string>
+	<string name="quiet_hours_summary">Sem som nem vibração nas horas de silêncio</string>
+	<string name="TLA_menu_donate">Donativos</string>
+	<string name="error">Erro</string>
+	<string name="select_amount">Selecione o valor</string>
+	<string name="notification_actions">Ações de notificação</string>
+	<string name="notification_actions_summary">Mostrar snooze e tarefas completas nas notificações</string>
+	<string name="add_reminder">Adicionar lembrete</string>
+	<string name="remove">Remover</string>
+	<string name="randomly_once">Uma vez aleatória</string>
+	<string name="randomly">Aleatoriamente</string>
+	<string name="pick_a_date_and_time">Escolha a data e a hora</string>
+	<string name="pick_a_location">Escolha o local</string>
+	<string name="type_a_location">Escreva o local</string>
+	<string name="when_overdue">Se data limite ultrapassada</string>
+	<string name="when_due">Na data limite</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>desativar</item>
 		<item>cada 15 minutos</item>

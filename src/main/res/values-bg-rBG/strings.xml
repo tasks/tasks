@@ -453,6 +453,7 @@
 	<string name="vibrate">Вибрация</string>
 	<string name="quiet_hours">Тихи часове</string>
 	<string name="attachment_directory">Директория за прикачени файлове</string>
+	<string name="backup_directory">Директория за резервни копия</string>
 	<string name="debug_logging">Логване на грешки за дебъгване</string>
 	<string name="miscellaneous">Разни</string>
 	<string name="synchronization">Синхронизация</string>

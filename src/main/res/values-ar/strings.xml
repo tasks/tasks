@@ -5,7 +5,11 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
+	<string name="actfm_picture_camera">التقط صورة</string>
+	<string name="actfm_picture_gallery">اختار من المعرض</string>
+	<string name="actfm_picture_clear">مسح الصورة</string>
 	<string name="TVA_add_comment">إضافة تعليق ...</string>
+	<string name="actfm_TVA_tag_label">قائمة</string>
 	<string name="actfm_TVA_tag_name_hint">ادخل اسم القائمة</string>
 	<string name="actfm_GAA_title">اختر حساب قوقل المراد استخدامة</string>
 	<string name="backup_BPr_header">النسخ الإحتياطي</string>
@@ -17,12 +21,21 @@
 	<string name="app_name">مهام</string>
 	<string name="read_permission_label">إذن المهام</string>
 	<string name="read_permission_desc">قراءة المهام، عرض فلتر المهمه</string>
+	<string name="write_permission_label">أخذ التصاريح</string>
+	<string name="write_permission_desc">إنشاء مهمه جديدة، تعديل مهمة مُنشأه</string>
 	<string name="DLG_delete_this_task_question">حذف هذه المهمه؟</string>
+	<string name="DLG_upgrading">ترقية المهام...</string>
+	<string name="DLG_hour_minutes">الوقت (ساعة : دقيقة)</string>
+	<string name="DLG_loading">تحميل...</string>
+	<string name="DLG_ok">حسنا</string>
 	<string name="DLG_cancel">الغي</string>
+	<string name="DLG_undo">تراجع</string>
 	<string name="WID_dateButtonUnset">اضغط لتعيين</string>
 	<string name="TLA_no_items">لا يوجد لديك مهام! \n هل تريد أن تضيف شيئا؟</string>
 	<string name="TLA_menu_sort">رتب</string>
 	<string name="TLA_menu_search">ابحث</string>
+	<string name="TLA_menu_settings">إعدادات</string>
+	<string name="TLA_quickadd_confirm_hide_helpers">لا تعرض التأكيدات المستقبلية</string>
 	<string name="TAd_actionEditTask">تعديل</string>
 	<string name="TAd_contextCopyTask">نسخ المهمه</string>
 	<string name="TAd_contextDeleteTask">حذف المهمة</string>
@@ -68,6 +81,7 @@
 	</string-array>
 	<string name="TEA_control_when">متى</string>
 	<string name="TEA_control_repeat">إعادة</string>
+	<string name="TEA_control_gcal">تقويم</string>
 	<string name="TEA_control_importance">الأولوية</string>
 	<string name="TEA_control_lists">القوائم</string>
 	<string name="TEA_control_notes">وصف</string>
@@ -108,12 +122,17 @@
 	<string name="EPr_manage_delete_completed_message">هل فعلا تريد حذف كل المهام المُتَممه؟</string>
 	<string name="EPr_manage_clear_all">حذف جميع المعلومات</string>
 	<string name="EPr_manage_delete_completed_gcal">حذف أحداث التقويم للمهام المُتَممه</string>
+	<string name="EPr_manage_delete_all_gcal">حذف جميع نشاطات التقويم للمهام</string>
 	<string name="EPr_manage_delete_all_gcal_message">هل فعلا تريد حذف جميع الأحداث للمهام ؟</string>
+	<string name="TWi_loading">تحميل...</string>
+	<string name="WCA_title">اختر المهمه للعرض...</string>
+	<string name="DB_corrupted_title">قاعدة بيانات متلفه</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
       If you see this error regularly, we suggest you clear all
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
       your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
 	<string name="task_defaults">افتراضيات المهمه</string>
+	<string name="EPr_default_urgency_title">الموعد الأخير الإفتراضي</string>
 	<string name="EPr_default_reminders_title">منبهات افتراضية</string>
 	<string name="EPr_default_addtocalendar_title">أضف إلى التقويم بشكل افتراضي</string>
 	<string name="EPr_default_reminders_mode_title">نوع رنين/اهتزاز افتراضي</string>
@@ -136,6 +155,7 @@
 		<item>أسبوع قبل الموعد</item>
 	</string-array>
 	<string name="BFE_Active">مهامي</string>
+	<string name="BFE_Recent">ما تم تعديله مؤخرا</string>
 	<string name="BFE_Saved_delete">حذف الفلتر</string>
 	<string name="CFA_universe_all">مهام نشطة</string>
 	<string name="CFA_type_add">أو</string>
@@ -189,6 +209,10 @@
 	<string name="rmd_NoA_filter">تذكير!</string>
 	<string name="rmd_NoA_done">اكمل</string>
 	<string name="rmd_NoA_snooze">غفوة</string>
+	<string name="rmd_NoA_dlg_title">منبه:</string>
+	<string name="rmd_EPr_quiet_hours_start_title">ابتداء ساعات الهدوء</string>
+	<string name="rmd_EPr_quiet_hours_end_title">إنتهاء ساعات الهدوء</string>
+	<string name="rmd_EPr_rmd_time_title">منبه افتراضي</string>
 	<string name="rmd_EPr_defaultRemind_title">منبه عشوائي</string>
 	<string-array name="EPr_reminder_random">
 		<item>إعطال</item>
@@ -257,11 +281,19 @@
 	<string name="sync_status_success">آخر تحيين:\n%s</string>
 	<string name="sync_SPr_interval_title">تحيين في الخلفية</string>
 	<string name="sync_SPr_forget">خروج</string>
+	<string name="sync_forget_confirm">تسجيل الخروج/ مسح معلومات المزامنه؟</string>
+	<string name="widget_hide_due_date">إخفاء تاريخ الإستحقاق</string>
+	<string name="widget_hide_checkboxes">إخفاء مربعات الاختيار</string>
+	<string name="widget_hide_header">إخفاء الجزء العلوي</string>
+	<string name="notifications">تنبيهات</string>
 	<string name="silent">الصمت</string>
 	<string name="sound">صوت</string>
 	<string name="vibrate">اهتزاز</string>
 	<string name="quiet_hours">الساعات الهادئة</string>
+	<string name="synchronization">التزامن</string>
+	<string name="enabled">تفعيل</string>
 	<string name="font_size">حجم الخط</string>
+	<string name="customize_edit_screen">تعديل الشاشه</string>
 	<string name="help_and_feedback">المساعدة والتقييم</string>
 	<string name="contact_developer">الاتصال بالمطورين</string>
 	<string name="rate_tasks">تقييم المهمات</string>
