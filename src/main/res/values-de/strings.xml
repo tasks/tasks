@@ -314,6 +314,9 @@
 	<string name="file_dir_dialog_ok">Dieses Verzeichnis verwenden</string>
 	<string name="file_dir_dialog_default">Auf Standardeinstellungen zurücksetzen</string>
 	<string name="premium_speech_bubble_2">Bestelle für ein ganzes Jahr und spare 25%!</string>
+	<string name="ring_once">Einmal klingeln</string>
+	<string name="ring_five_times">Fünfmal klingeln</string>
+	<string name="ring_nonstop">Ununterbrochen klingeln</string>
 	<string-array name="TEA_reminder_random">
 		<item>einer Stunde</item>
 		<item>einem Tag</item>
@@ -440,6 +443,7 @@
 	<string name="vibrate">Vibrieren</string>
 	<string name="quiet_hours">Ruhezeiten</string>
 	<string name="attachment_directory">Anhängeordner</string>
+	<string name="backup_directory">Sicherungsordner</string>
 	<string name="debug_logging">Debug Logging</string>
 	<string name="miscellaneous">Verschiedenes</string>
 	<string name="synchronization">Synchronisierung</string>
@@ -458,6 +462,15 @@
 	<string name="select_amount">Menge auswählen</string>
 	<string name="notification_actions">Benachrichtigunsaktionen</string>
 	<string name="notification_actions_summary">Zeige Snooze und Fertig Aktionen in Benachrichtigungen an</string>
+	<string name="add_reminder">Erinnerung hinzufügen</string>
+	<string name="remove">Entfernen</string>
+	<string name="randomly_once">Einmal zufällig</string>
+	<string name="randomly">Zufällig</string>
+	<string name="pick_a_date_and_time">Tag und Uhrzeit auswählen</string>
+	<string name="pick_a_location">Ort auswählen</string>
+	<string name="type_a_location">Ort festlegen</string>
+	<string name="when_overdue">Wenn überfällig</string>
+	<string name="when_due">Wenn fällig</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>deaktivieren</item>
 		<item>alle 15 Minuten</item>
