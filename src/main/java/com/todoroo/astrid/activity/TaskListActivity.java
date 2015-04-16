@@ -82,6 +82,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         navigationDrawer = getNavigationDrawerFragment();
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);

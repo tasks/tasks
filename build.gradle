@@ -30,7 +30,7 @@ android {
         versionCode 357
         versionName "4.7.9"
         minSdkVersion 7
-        targetSdkVersion 21
+        targetSdkVersion 22
     }
 
     signingConfigs {
@@ -85,8 +85,8 @@ dependencies {
 
     compile group: 'com.jakewharton', name: 'butterknife', version: '6.0.0'
 
-    compile group: 'com.android.support', name: 'support-v4', version: '21.0.3'
-    compile group: 'com.android.support', name: 'appcompat-v7', version: '21.0.3'
+    compile group: 'com.android.support', name: 'support-v4', version: '22.0.0'
+    compile group: 'com.android.support', name: 'appcompat-v7', version: '22.0.0'
 
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.7'
     compile group: 'joda-time', name: 'joda-time', version: '2.6', transitive: false
