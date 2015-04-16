@@ -5,16 +5,52 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
+	<string name="actfm_picture_camera">Odfotiť</string>
+	<string name="actfm_picture_gallery">Vybrať z galérie</string>
+	<string name="actfm_picture_clear">Vymazať obrázok</string>
+	<string name="TVA_add_comment">Komentovať...</string>
+	<string name="actfm_TVA_tag_label">Zoznam</string>
+	<string name="actfm_TVA_tag_name_hint">Potvrdiť názov zoznamu</string>
 	<string name="actfm_GAA_title">Vyber si Google účet, ktorý chceš použiť:</string>
 	<string name="backup_BAc_import">Importovať úlohy</string>
 	<string name="backup_BAc_export">Exportovať úlohy</string>
+	<string name="export_toast_no_tasks">Žiadne úlohy na exportovanie</string>
 	<string name="export_progress_title">Exportovanie...</string>
+	<string name="import_summary_title">Obnoviť zhrnutie</string>
+	<string name="import_progress_title">Importovanie...</string>
+	<string name="import_progress_read">Čítanie úloh %d...</string>
+	<string name="app_name">Úlohy</string>
+	<string name="write_permission_desc">Vytvoriť nové úlohy, upraviť existujúce úlohy</string>
+	<string name="DLG_delete_this_task_question">Vymazať túto úlohu?</string>
+	<string name="DLG_delete_this_item_question">Vymazať túto položku: %s?</string>
+	<string name="DLG_upgrading">Aktualizácia tvojich úloh...</string>
+	<string name="DLG_hour_minutes">Čas (hodiny : minúty)</string>
+	<string name="DLG_loading">Načítavanie...</string>
+	<string name="DLG_cancel">Zrušiť</string>
+	<string name="DLG_undo">Späť</string>
+	<string name="WID_dateButtonUnset">Klikni pre nastavenie</string>
+	<string name="TLA_menu_sort">Triediť</string>
+	<string name="TLA_menu_search">Hľadať</string>
+	<string name="TLA_custom">Vlastné</string>
+	<string name="TLA_quickadd_confirm_title">Povedal si, \"%s\"</string>
+	<string name="TLA_quickadd_confirm_speech_bubble_date">pre %s</string>
+	<string name="TLA_quickadd_confirm_hide_helpers">Nezobrazovať znovu toto potvrdenie</string>
+	<string name="TLA_repeat_scheduled_title">Nová opakujúca sa úloha %s</string>
+	<string name="TLA_repeat_scheduled_speech_bubble">Pripomeniem ti toto %s.</string>
 	<string-array name="TLA_priority_strings">
 		<item>Najvyššia priorita</item>
 		<item>Vysoká priorita</item>
 		<item>stredná priorita</item>
 		<item>nízka priorita</item>
 	</string-array>
+	<string name="TAd_hiddenFormat">%s [skryté]</string>
+	<string name="TAd_deletedFormat">%s [vymazané]</string>
+	<string name="TAd_completed">Dokončené\n%s</string>
+	<string name="TAd_actionEditTask">Upraviť</string>
+	<string name="TAd_contextCopyTask">Kopírovať úlohu</string>
+	<string name="TAd_contextDeleteTask">Vymazať úlohu</string>
+	<string name="TAd_contextUndeleteTask">Nevymazať úlohu</string>
+	<string name="TAd_contextPurgeTask">Vyčistiť úlohu</string>
 	<string name="SSD_hidden_title">Skryté úlohy</string>
 	<string name="SSD_completed">Zobraziť dokončené úlohy</string>
 	<string name="SSD_hidden">Zobraziť skryté úlohy</string>
@@ -27,6 +63,7 @@
 	<string name="SSD_sort_reverse">Zmeniť usporiadnanie</string>
 	<string name="SSD_save_temp">Len raz</string>
 	<string name="SSD_save_always">Vždy</string>
+	<string name="FSA_label">Zoznam alebo filter úloh</string>
 	<string name="FLA_context_shortcut">Vytvoriť ikonu na ploche</string>
 	<string name="FLA_shortcut_dialog_title">Vytvoriť skratku pracovnej plochy</string>
 	<string name="FLA_shortcut_dialog">Názov skratky:</string>
@@ -64,6 +101,7 @@
 		<item>Určitý deň/čas</item>
 	</string-array>
 	<string name="TEA_control_when">Kedy</string>
+	<string name="TEA_control_gcal">Kalendár</string>
 	<string name="TEA_control_importance">Priorita</string>
 	<string name="TEA_control_lists">Zoznamy</string>
 	<string name="TEA_control_notes">Popis</string>
@@ -113,17 +151,62 @@
 	<string name="EPr_appearance_header">Vzhľad</string>
 	<string name="EPr_filters_to_show_title">Filtre pre zobrazenie</string>
 	<string name="EPr_showSmartConfirmation_title">Zobrazovať potvrdenie chytrých pripomienok</string>
+	<string name="EPr_beastMode_reset">Obnoviť na predvolené</string>
 	<string name="EPr_fullTask_title">Zobraziť celý názov úlohy</string>
+	<string name="task_list_options">Nastavenia zoznamu úloh</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Čas udalosti kalendára</string>
+	<string name="EPr_manage_delete_completed">Vymazať dokončené úlohy</string>
+	<string name="EPr_manage_delete_completed_message">Naozaj chceš vymazať všetky dokončené úlohy?</string>
+	<string name="EPr_manage_delete_completed_status">Vymazané %d úlohy</string>
+	<string name="EPr_manage_purge_deleted">Zbaviť sa vymazaných úloh</string>
+	<string name="EPr_manage_purge_deleted_status">Vyčistené %d úlohy</string>
+	<string name="EPr_manage_clear_all">Vymazať všetky údaje</string>
+	<string name="EPr_manage_delete_completed_gcal">Vymazať udalosti kalendára pre dokončené úlohy</string>
+	<string name="EPr_manage_delete_completed_gcal_message">Naozaj chceš odstrániť všetky tvoje udalosti pre dokončené úlohy?</string>
+	<string name="EPr_manage_delete_completed_gcal_status">Vymazané %d udalosti kalendára</string>
+	<string name="EPr_manage_delete_all_gcal">Vymazať všetky udalosti kalendára pre úlohy</string>
+	<string name="EPr_manage_delete_all_gcal_message">Naozaj chceš vymazať všetky tvoje udalosti pre úlohy?</string>
+	<string name="EPr_manage_delete_all_gcal_status">Vymazané %d udalosti kalendára!</string>
+	<string name="TWi_loading">Načítavanie</string>
+	<string name="WCA_title">Vybrať úlohy na zobrazenie</string>
+	<string name="DB_corrupted_title">Poškodená databáza</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
       If you see this error regularly, we suggest you clear all
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
       your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
+	<string name="task_defaults">Predvoľby úloh</string>
+	<string name="EPr_default_importance_title">Predvolená priorita</string>
+	<string name="EPr_default_reminders_title">Predvolené pripomienky</string>
+	<string name="EPr_default_addtocalendar_title">Predvoliť pridanie do kalendára</string>
+	<string name="EPr_default_reminders_mode_title">Východzie vyzváňanie/vybrovanie</string>
 	<string-array name="EPr_default_importance">
 		<item>!!!(Najvyššie)</item>
 		<item>!!</item>
 		<item>!</item>
 		<item>o (Najnižšie)</item>	</string-array>
+	<string-array name="EPr_default_urgency">
+		<item>Žiaden termín</item>
+		<item>Today</item>
+		<item>Tomorrow</item>
+		<item>Day after tomorrow</item>
+		<item>Next week</item>
+	</string-array>
+	<string-array name="EPr_default_hideUntil">
+		<item>Neskrývať</item>
+		<item>Nastal termín úlohy</item>
+		<item>Deň pred termínom</item>
+		<item>Týždeň pred termínom</item>
+	</string-array>
+	<string-array name="EPr_default_reminders">
+		<item>Žiadne pripomienky v termíne</item>
+		<item>V termíne</item>
+		<item>When overdue</item>
+		<item>V termíne alebo po termíne</item>
+	</string-array>
+	<string name="BFE_Active">Moje úlohy</string>
+	<string name="BFE_Recent">Naposledy upravené</string>
+	<string name="BFE_Saved_delete">Vymazať filter</string>
+	<string name="CFA_filterName_hint">Pomenuj tento filter pre uloženie</string>
 	<string name="CFA_type_add">alebo</string>
 	<string name="CFA_type_subtract">nie</string>
 	<string name="CFA_type_intersect">tiež</string>
@@ -171,8 +254,11 @@
 	<string name="gtasks_error_accountNotFound">Účet %s sa nenašiel--prosím, odhlás sa a znovu prihlás v nastaveniach Úlohy Google.</string>
 	<string name="gtasks_error_authRefresh">Nedajú sa overiť Úlohy Google. Prosím, skontroluj si heslo účtu, alebo to skús znovu neskôr.</string>
 	<string name="locale_notification">Máš $NUM so značkou $FILTER</string>
+	<string name="audio_recording_title">Nahrávanie zvuku</string>
+	<string name="audio_stop_recording">Zastaviť nahrávanie</string>
 	<string name="search_market_audio_title">Nenájdený zvukový prehrávač</string>
 	<string name="file_type_unhandled_title">Aplikácia nebola nájdená</string>
+	<string name="file_browser_up">Vyššie</string>
 	<string name="file_browser_title">Vybrať súbor</string>
 	<string name="file_add_picture">Priložiť obrázok</string>
 	<string name="file_add_sdcard">Priložiť súbor z SD karty</string>
@@ -188,6 +274,13 @@
 		<item>mesiac</item>
 		<item>v dvoch mesiacoch</item>
 	</string-array>
+	<string name="rmd_NoA_filter">Pripomienka!</string>
+	<string name="rmd_NoA_done">Dokončené</string>
+	<string name="rmd_NoA_snooze">Odložiť</string>
+	<string name="rmd_NoA_dlg_title">Pripomienka:</string>
+	<string name="rmd_EPr_quiet_hours_start_title">Tiché hodiny začali</string>
+	<string name="rmd_EPr_quiet_hours_end_title">Tiché hodiny skončili</string>
+	<string name="rmd_EPr_rmd_time_title">Predvolená pripomienka</string>
 	<string name="rmd_EPr_defaultRemind_title">Náhodné pripomienky</string>
 	<string-array name="EPr_reminder_random">
 		<item>zablokovaný</item>
@@ -217,8 +310,8 @@
 		<item>Dnes</item>
 		<item>Zajtra</item>
 		<item>(deň  po)</item>
-		<item>Next Week</item>
-		<item>In Two Weeks</item>
+		<item>Nasledujúci týždeň</item>
+		<item>V dvoch týždňoch</item>
 		<item>Next Month</item>
 	</string-array>
 	<string name="repeat_until_title">Opakovať do...</string>
@@ -256,24 +349,55 @@
 	<string name="TEA_timer_comment_stopped">zastavená je táto úloha:</string>
 	<string name="TEA_timer_comment_spent">Strávený čas:</string>
 	<string name="EPr_voiceRemindersEnabled_title">Hlasové pripomienky</string>
+	<string name="widget_mini">Úlohy</string>
 	<string name="EPr_use_dark_theme">Tmavá téma</string>
 	<string name="delete_task">Vymazať úlohu</string>
 	<string name="voice_command_added_task">Pridaná úloha</string>
+	<string name="external_storage_unavailable">Nemožno získať prístup k externej pamäti</string>
 	<string name="navigation_drawer_open">Otvoriť zásuvku navigácie</string>
 	<string name="navigation_drawer_close">Zatvoriť zásuvku navigácie</string>
+	<plurals name="Ntasks">
+		<item quantity="one">1 úloha</item>
+		<item quantity="other">%d úlohy</item>
+	</plurals>
+	<string name="today">Dnes</string>
+	<string name="yesterday">Včera</string>
+	<string name="tmrw">Zajtra</string>
+	<string name="yest">Včera</string>
+	<string name="DLG_confirm_title">Potvrdiť?</string>
+	<string name="DLG_question_title">Otázka:</string>
+	<string name="DLG_information_title">Informácia</string>
+	<string name="DLG_wait">Prosím čakaj...</string>
+	<string name="sync_status_success">Posledná synchronizácia:\n%s</string>
+	<string name="sync_SPr_interval_title">Synchronizácia na pozadí</string>
+	<string name="sync_SPr_forget">Odhlásiť</string>
+	<string name="widget_hide_due_date">Skryť termín</string>
+	<string name="widget_transparent_background">Priesvitné pozadie</string>
+	<string name="notifications">Oznámenia</string>
+	<string name="silent">Tichý</string>
+	<string name="sound">Zvuk</string>
+	<string name="vibrate">Vybrácia</string>
+	<string name="quiet_hours">Tiché hodiny</string>
+	<string name="synchronization">Synchronizácia</string>
+	<string name="enabled">Povolené</string>
+	<string name="font_size">Veľkosť písma</string>
 	<string name="source_code">Zdrojový kód</string>
 	<string name="translations">Preklady</string>
 	<string name="report_an_issue">Nahlásiť problém</string>
 	<string name="help_and_feedback">Pomoc a spätná väzba</string>
 	<string name="contact_developer">Kontaktovať vývojára</string>
 	<string name="rate_tasks">Ohodnotiť Tasks</string>
+	<string name="quiet_hours_summary">Žiadne zvonenie alebo vibrovanie počas tichých hodín</string>
+	<string name="TLA_menu_donate">Darovať</string>
 	<string name="error">Chyba</string>
 	<string name="notification_actions_summary">Zobraziť odložené a dokončené akcie v notifikačnej lište</string>
 	<string name="add_reminder">Pridať pripomienku</string>
+	<string name="remove">Odstrániť</string>
 	<string name="randomly_once">Raz náhodne</string>
 	<string name="randomly">Náhodne</string>
 	<string name="pick_a_date_and_time">Vybrať dátum a čas</string>
 	<string name="pick_a_location">Vybrať lokalitu</string>
+	<string name="type_a_location">Typ lokalizácie</string>
 	<string name="when_overdue">Keď po termíne</string>
 	<string name="when_due">Keď v termíne</string>
 	<string-array name="sync_SPr_interval_entries">
