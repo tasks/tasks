@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
+    gradleVersion = '2.2.1'
 }
 
 buildscript {
