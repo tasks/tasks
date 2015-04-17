@@ -236,7 +236,7 @@
 	<string name="BFE_Saved_delete">Vymazať filter</string>
 	<string name="CFA_filterName_hint">Pomenuj tento filter pre uloženie</string>
 	<string name="CFA_universe_all">Aktívne úlohy</string>
-	<string name="CFA_type_add">%1$s\nti volal/-a o %2$s</string>
+	<string name="CFA_type_add">alebo</string>
 	<string name="CFA_type_subtract">nie</string>
 	<string name="CFA_type_intersect">tiež</string>
 	<string name="CFA_context_chain">%s má kritériá</string>

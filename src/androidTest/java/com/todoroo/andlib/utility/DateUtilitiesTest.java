@@ -97,7 +97,7 @@ public class DateUtilitiesTest extends AndroidTestCase {
 
     public void testGet24HourTime() {
         DateUtilities.is24HourOverride = true;
-        assertEquals("9:05", getTimeString(null, newDateTime(2014, 1, 4, 9, 5, 36)));
+        assertEquals("09:05", getTimeString(null, newDateTime(2014, 1, 4, 9, 5, 36)));
         assertEquals("13:00", getTimeString(null, newDateTime(2014, 1, 4, 13, 0, 1)));
     }
 
