@@ -35,7 +35,6 @@ import ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy;
 
 import static android.content.SharedPreferences.Editor;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
-import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
 
 public class Preferences {
 
@@ -61,7 +60,7 @@ public class Preferences {
     }
 
     public boolean quietHoursEnabled() {
-        return preLollipop() && getBoolean(R.string.p_rmd_enable_quiet, false);
+        return getBoolean(R.string.p_rmd_enable_quiet, false);
     }
 
     public boolean useDarkWidgetTheme(int widgetId) {
