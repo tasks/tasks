@@ -19,3 +19,8 @@ before_install:
   - emulator -avd test -no-skin -no-audio -no-window &
   - ./.wait_for_emulator.sh
   - adb shell input keyevent 82 &
+
+script:
+  - ./gradlew :lintGoogleplayDebug
+  - ./gradlew :connectedAndroidTestGoogleplayDebug
+
