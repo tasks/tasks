@@ -359,10 +359,13 @@ public class TaskDao {
 
         task.markSaved();
         boolean completionDateModified = values.containsKey(Task.COMPLETION_DATE.name);
+        boolean deletionDateModified = values.containsKey(Task.DELETION_DATE.name);
         if(completionDateModified && task.isCompleted()) {
             afterComplete(task);
+        } else if (deletionDateModified && task.isDeleted()) {
+            afterComplete(task);
         } else {
-            if (completionDateModified) {
+            if (completionDateModified || deletionDateModified) {
                 geofenceService.setupGeofences(task.getId());
             }
             if(values.containsKey(Task.DUE_DATE.name) ||
