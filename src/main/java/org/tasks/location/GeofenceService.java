@@ -53,6 +53,16 @@ public class GeofenceService {
         geofenceApi.register(getActiveGeofences());
     }
 
+    public void setupGeofences(long taskId) {
+        geofenceApi.register(getGeofencesForTask(taskId));
+    }
+
+    public void cancelGeofences(long taskId) {
+        for (Geofence geofence : getGeofences(taskId)) {
+            geofenceApi.cancel(geofence);
+        }
+    }
+
     public boolean synchronizeGeofences(final long taskId, Set<Geofence> geofences) {
         List<Metadata> metadata = newArrayList(transform(geofences, new Function<Geofence, Metadata>() {
             @Override
@@ -87,10 +97,6 @@ public class GeofenceService {
                 return new Geofence(metadata);
             }
         }));
-    }
-
-    private void setupGeofences(long taskId) {
-        geofenceApi.register(getGeofencesForTask(taskId));
     }
 
     private List<Geofence> getActiveGeofences() {

@@ -26,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.Broadcaster;
 import org.tasks.R;
+import org.tasks.location.GeofenceService;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
 
@@ -52,11 +53,13 @@ public class TaskDao {
     private final ReminderService reminderService;
     private final NotificationManager notificationManager;
     private final Preferences preferences;
+    private GeofenceService geofenceService;
 
     @Inject
 	public TaskDao(Database database, MetadataDao metadataDao, Broadcaster broadcaster,
                    ReminderService reminderService, NotificationManager notificationManager,
-                   Preferences preferences) {
+                   Preferences preferences, GeofenceService geofenceService) {
+        this.geofenceService = geofenceService;
         dao = new RemoteModelDao<>(database, Task.class);
         this.preferences = preferences;
         this.metadataDao = metadataDao;
@@ -355,9 +358,13 @@ public class TaskDao {
         }
 
         task.markSaved();
-        if(values.containsKey(Task.COMPLETION_DATE.name) && task.isCompleted()) {
+        boolean completionDateModified = values.containsKey(Task.COMPLETION_DATE.name);
+        if(completionDateModified && task.isCompleted()) {
             afterComplete(task);
         } else {
+            if (completionDateModified) {
+                geofenceService.setupGeofences(task.getId());
+            }
             if(values.containsKey(Task.DUE_DATE.name) ||
                     values.containsKey(Task.REMINDER_FLAGS.name) ||
                     values.containsKey(Task.REMINDER_PERIOD.name) ||
@@ -399,7 +406,9 @@ public class TaskDao {
      * Called after the task was just completed
      */
     private void afterComplete(Task task) {
-        notificationManager.cancel((int) task.getId());
+        long taskId = task.getId();
+        notificationManager.cancel(taskId);
+        geofenceService.cancelGeofences(taskId);
     }
 }
 
