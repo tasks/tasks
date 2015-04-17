@@ -95,7 +95,7 @@ public class LocationPickerDialog extends InjectingDialogFragment {
             if (places.getStatus().isSuccess()) {
                 final Place place = places.get(0);
                 LatLng latLng = place.getLatLng();
-                Geofence geofence = new Geofence(place.getName().toString(), latLng.latitude, latLng.longitude, 50);
+                Geofence geofence = new Geofence(place.getName().toString(), latLng.latitude, latLng.longitude, 150);
                 log.info("Picked {}", geofence);
                 onLocationPickedHandler.onLocationPicked(geofence);
                 dismiss();
