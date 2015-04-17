@@ -1,12 +1,16 @@
 package org.tasks.dialogs;
 
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 
-import org.tasks.location.LocationApi;
 import org.tasks.location.OnLocationPickedHandler;
 
 public class LocationPickerDialog {
-    public static void pickLocation(LocationApi locationApi, Fragment fragment, OnLocationPickedHandler onLocationPickedHandler) {
+
+    public LocationPickerDialog(OnLocationPickedHandler onLocationPickedHandler) {
+
+    }
+
+    public void show(FragmentManager childFragmentManager, String fragTagLocationPicker) {
 
     }
 }

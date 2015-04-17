@@ -80,7 +80,6 @@ import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.location.GeofenceService;
-import org.tasks.location.LocationApi;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.ResourceResolver;
@@ -174,7 +173,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Inject TagDataDao tagDataDao;
     @Inject ActFmCameraModule actFmCameraModule;
     @Inject GeofenceService geofenceService;
-    @Inject LocationApi locationApi;
     @Inject ResourceResolver resourceResolver;
 
     // --- UI components
@@ -383,7 +381,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controlSetMap.put(getString(R.string.TEA_ctrl_notes_pref),
                 notesControlSet);
 
-        ReminderControlSet reminderControlSet = new ReminderControlSet(locationApi, alarmService, geofenceService, this);
+        ReminderControlSet reminderControlSet = new ReminderControlSet(alarmService, geofenceService, this);
         controls.add(reminderControlSet);
         controlSetMap.put(getString(R.string.TEA_ctrl_reminders_pref), reminderControlSet);
 

@@ -2,8 +2,6 @@ package org.tasks.dialogs;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -24,29 +22,33 @@ import com.google.android.gms.maps.model.LatLng;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.location.Geofence;
-import org.tasks.location.LocationApi;
+import org.tasks.location.ManagedGoogleApi;
 import org.tasks.location.OnLocationPickedHandler;
 import org.tasks.location.PlaceAutocompleteAdapter;
 
-public class LocationPickerDialog extends DialogFragment {
+import javax.inject.Inject;
+
+public class LocationPickerDialog extends InjectingDialogFragment {
 
     private static final Logger log = LoggerFactory.getLogger(LocationPickerDialog.class);
 
-    private static final String FRAG_TAG_LOCATION_PICKER = "frag_tag_location_picker";
-    private LocationApi locationApi;
-    private FragmentActivity fragmentActivity;
-    private OnLocationPickedHandler onLocationPickedHandler;
     private PlaceAutocompleteAdapter mAdapter;
 
-    public static void pickLocation(LocationApi locationApi, Fragment fragment, OnLocationPickedHandler onLocationPickedHandler) {
-        LocationPickerDialog locationPickerDialog = new LocationPickerDialog();
-        locationPickerDialog.initialize(locationApi, fragment.getActivity(), onLocationPickedHandler);
-        locationPickerDialog.show(fragment.getChildFragmentManager(), FRAG_TAG_LOCATION_PICKER);
+    @Inject ManagedGoogleApi managedGoogleApi;
+    @Inject FragmentActivity fragmentActivity;
+    private OnLocationPickedHandler onLocationPickedHandler;
+
+    public LocationPickerDialog(OnLocationPickedHandler onLocationPickedHandler) {
+        this.onLocationPickedHandler = onLocationPickedHandler;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        managedGoogleApi.requestGeoData();
+        managedGoogleApi.connect();
+
         View layout = inflater.inflate(R.layout.location_picker_dialog, null);
         EditText addressEntry = (EditText) layout.findViewById(R.id.address_entry);
 
@@ -62,18 +64,12 @@ public class LocationPickerDialog extends DialogFragment {
             }
         });
 
-        mAdapter = new PlaceAutocompleteAdapter(locationApi, fragmentActivity, android.R.layout.simple_list_item_1);
+        mAdapter = new PlaceAutocompleteAdapter(managedGoogleApi, fragmentActivity, android.R.layout.simple_list_item_1);
         ListView list = (ListView) layout.findViewById(R.id.list);
         list.setAdapter(mAdapter);
         list.setOnItemClickListener(mAutocompleteClickListener);
 
         return layout;
-    }
-
-    public void initialize(LocationApi locationApi, FragmentActivity fragmentActivity, OnLocationPickedHandler onLocationPickedHandler) {
-        this.locationApi = locationApi;
-        this.fragmentActivity = fragmentActivity;
-        this.onLocationPickedHandler = onLocationPickedHandler;
     }
 
     private void error(String text) {
@@ -88,7 +84,7 @@ public class LocationPickerDialog extends DialogFragment {
             final PlaceAutocompleteAdapter.PlaceAutocomplete item = mAdapter.getItem(position);
             final String placeId = String.valueOf(item.placeId);
             log.info("Autocomplete item selected: " + item.description);
-            locationApi.getPlaceDetails(placeId, mUpdatePlaceDetailsCallback);
+            managedGoogleApi.getPlaceDetails(placeId, mUpdatePlaceDetailsCallback);
         }
     };
 

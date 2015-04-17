@@ -32,7 +32,6 @@ import org.tasks.dialogs.DateAndTimePickerDialog;
 import org.tasks.dialogs.LocationPickerDialog;
 import org.tasks.location.Geofence;
 import org.tasks.location.GeofenceService;
-import org.tasks.location.LocationApi;
 import org.tasks.location.OnLocationPickedHandler;
 
 import java.util.ArrayList;
@@ -52,6 +51,7 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
 public class ReminderControlSet extends TaskEditControlSetBase implements AdapterView.OnItemSelectedListener {
 
     private static final Logger log = LoggerFactory.getLogger(ReminderControlSet.class);
+    private static final String FRAG_TAG_LOCATION_PICKER = "frag_tag_location_picker";
 
     private Spinner mode;
     private Spinner addSpinner;
@@ -61,7 +61,6 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
     private LinearLayout alertContainer;
     private boolean whenDue;
     private boolean whenOverdue;
-    private LocationApi locationApi;
     private AlarmService alarmService;
     private GeofenceService geofenceService;
     private TaskEditFragment taskEditFragment;
@@ -69,9 +68,8 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
     private ArrayAdapter<String> remindAdapter;
 
 
-    public ReminderControlSet(LocationApi locationApi, AlarmService alarmService, GeofenceService geofenceService, TaskEditFragment taskEditFragment) {
+    public ReminderControlSet(AlarmService alarmService, GeofenceService geofenceService, TaskEditFragment taskEditFragment) {
         super(taskEditFragment.getActivity(), R.layout.control_set_reminders);
-        this.locationApi = locationApi;
         this.alarmService = alarmService;
         this.geofenceService = geofenceService;
         this.taskEditFragment = taskEditFragment;
@@ -381,12 +379,12 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
         } else if (selected.equals(taskEditFragment.getString(R.string.pick_a_date_and_time))) {
             addNewAlarm();
         } else if (selected.equals(taskEditFragment.getString(R.string.pick_a_location))) {
-            LocationPickerDialog.pickLocation(locationApi, taskEditFragment, new OnLocationPickedHandler() {
+            new LocationPickerDialog(new OnLocationPickedHandler() {
                 @Override
                 public void onLocationPicked(Geofence geofence) {
                     addGeolocationReminder(geofence);
                 }
-            });
+            }).show(taskEditFragment.getChildFragmentManager(), FRAG_TAG_LOCATION_PICKER);
         }
         if (position != 0) {
             updateSpinner();

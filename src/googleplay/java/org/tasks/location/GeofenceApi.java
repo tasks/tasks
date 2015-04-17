@@ -4,7 +4,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -25,19 +24,17 @@ import javax.inject.Inject;
 import static com.google.android.gms.location.Geofence.NEVER_EXPIRE;
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.newArrayList;
-import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 
 public class GeofenceApi {
 
     private static final Logger log = LoggerFactory.getLogger(GeofenceApi.class);
 
     private Context context;
-    private GoogleApiClientProvider googleApiClientProvider;
 
     @Inject
-    public GeofenceApi(@ForApplication Context context, GoogleApiClientProvider googleApiClientProvider) {
+    public GeofenceApi(@ForApplication Context context) {
         this.context = context;
-        this.googleApiClientProvider = googleApiClientProvider;
     }
 
     public void register(final List<Geofence> geofences) {
@@ -45,11 +42,11 @@ public class GeofenceApi {
             return;
         }
 
-        googleApiClientProvider.getApi(new GoogleApiClientProvider.withApi() {
+        newClient(new GoogleApi.GoogleApiClientConnectionHandler() {
             @Override
-            public void doWork(GoogleApiClient googleApiClient) {
+            public void onConnect(final GoogleApiClient client) {
                 PendingResult<Status> result = LocationServices.GeofencingApi.addGeofences(
-                        googleApiClient,
+                        client,
                         getRequests(geofences),
                         PendingIntent.getService(context, 0, new Intent(context, GeofenceTransitionsIntentService.class), PendingIntent.FLAG_UPDATE_CURRENT));
                 result.setResultCallback(new ResultCallback<Status>() {
@@ -60,24 +57,21 @@ public class GeofenceApi {
                         } else {
                             log.error("Failed to register {}", geofences);
                         }
+
+                        client.disconnect();
                     }
                 });
-            }
-
-            @Override
-            public void onConnectionFailed(ConnectionResult connectionResult) {
-                log.info("failed to register geofences");
             }
         });
     }
 
     public void cancel(final Geofence geofence) {
-        googleApiClientProvider.getApi(new GoogleApiClientProvider.withApi() {
+        newClient(new GoogleApi.GoogleApiClientConnectionHandler() {
             @Override
-            public void doWork(GoogleApiClient googleApiClient) {
+            public void onConnect(final GoogleApiClient client) {
                 LocationServices.GeofencingApi.removeGeofences(
-                        googleApiClient,
-                        asList(Long.toString(geofence.getMetadataId())))
+                        client,
+                        singletonList(Long.toString(geofence.getMetadataId())))
                         .setResultCallback(new ResultCallback<Status>() {
                             @Override
                             public void onResult(Status status) {
@@ -86,15 +80,18 @@ public class GeofenceApi {
                                 } else {
                                     log.error("Failed to remove {}", geofence);
                                 }
+
+                                client.disconnect();
                             }
                         });
             }
-
-            @Override
-            public void onConnectionFailed(ConnectionResult connectionResult) {
-                log.info("failed to cancel geofence");
-            }
         });
+    }
+
+    private void newClient(final GoogleApi.GoogleApiClientConnectionHandler handler) {
+        new GoogleApi(context)
+                .requestLocationServices()
+                .connect(handler);
     }
 
     private List<com.google.android.gms.location.Geofence> getRequests(List<Geofence> geofences) {

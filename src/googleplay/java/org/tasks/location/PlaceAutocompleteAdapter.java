@@ -20,13 +20,13 @@ public class PlaceAutocompleteAdapter
         extends ArrayAdapter<PlaceAutocompleteAdapter.PlaceAutocomplete> {
 
     private static final Logger log = LoggerFactory.getLogger(PlaceAutocompleteAdapter.class);
+    private final ManagedGoogleApi managedGoogleApi;
 
     private List<PlaceAutocomplete> mResultList = new ArrayList<>();
-    private LocationApi locationApi;
 
-    public PlaceAutocompleteAdapter(LocationApi locationApi, Context context, int resource) {
+    public PlaceAutocompleteAdapter(ManagedGoogleApi managedGoogleApi, Context context, int resource) {
         super(context, resource);
-        this.locationApi = locationApi;
+        this.managedGoogleApi = managedGoogleApi;
     }
 
     @Override
@@ -40,7 +40,7 @@ public class PlaceAutocompleteAdapter
     }
 
     public void getAutocomplete(CharSequence constraint) {
-        locationApi.getAutocompletePredictions(constraint.toString(), onResults);
+        managedGoogleApi.getAutocompletePredictions(constraint.toString(), onResults);
     }
 
     private ResultCallback<AutocompletePredictionBuffer> onResults = new ResultCallback<AutocompletePredictionBuffer>() {

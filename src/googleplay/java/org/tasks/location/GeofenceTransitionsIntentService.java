@@ -35,15 +35,23 @@ public class GeofenceTransitionsIntentService extends InjectingIntentService {
 
         int transitionType = geofencingEvent.getGeofenceTransition();
 
+        List<com.google.android.gms.location.Geofence> triggeringGeofences = geofencingEvent.getTriggeringGeofences();
+        log.info("Received geofence transition: {}, {}", transitionType, triggeringGeofences);
         if (transitionType == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER) {
-            List<com.google.android.gms.location.Geofence> triggeringGeofences = geofencingEvent.getTriggeringGeofences();
-            log.info("Received geofence transition: {}, {}", transitionType, triggeringGeofences);
             for (com.google.android.gms.location.Geofence triggerGeofence : triggeringGeofences) {
-                Geofence geofence = geofenceService.getGeofenceById(Long.parseLong(triggerGeofence.getRequestId()));
-                broadcaster.requestNotification(geofence.getMetadataId(), geofence.getTaskId());
+                triggerNotification(triggerGeofence);
             }
         } else {
             log.warn("invalid geofence transition type: {}", transitionType);
+        }
+    }
+
+    private void triggerNotification(com.google.android.gms.location.Geofence triggeringGeofence) {
+        try {
+            Geofence geofence = geofenceService.getGeofenceById(Long.parseLong(triggeringGeofence.getRequestId()));
+            broadcaster.requestNotification(geofence.getMetadataId(), geofence.getTaskId());
+        } catch(Exception e) {
+            log.error(e.getMessage(), e);
         }
     }
 }
