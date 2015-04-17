@@ -65,16 +65,7 @@
   
   <!-- Window title for displaying Custom Filter -->
   <string name="TLA_custom">Custom</string>
-  
-  <!-- Title for confirmation dialog after quick add markup -->
-  <string name="TLA_quickadd_confirm_title">You said, \"%s\"</string>
-  
-  <!-- Text for speech bubble in dialog after quick add markup -->
-  <!-- First string is task title, second is due date, third is priority -->
-  <string name="TLA_quickadd_confirm_speech_bubble">I created a task called \"%1$s\" %2$s at %3$s</string>
-  
-  <string name="TLA_quickadd_confirm_speech_bubble_date">for %s</string>
-  
+
   <string name="TLA_quickadd_confirm_hide_helpers">Don\'t display future confirmations</string>
   
   <!-- Title for alert on new repeating task. %s-> task title -->
@@ -83,15 +74,8 @@
   <!-- Speech bubble for when a new repeating task scheduled. %s->repeat interval -->
   <string name="TLA_repeat_scheduled_speech_bubble">I\'ll remind you about this %s.</string>
   
-  <string-array name="TLA_priority_strings">
-      <item>highest priority</item>
-      <item>high priority</item>
-      <item>medium priority</item>
-      <item>low priority</item>
-  </string-array>
-
   <!-- ====================================================== TaskAdapter == -->
-  
+
   <!-- Format string to indicate task is hidden (%s => task name) -->
   <string name="TAd_hiddenFormat">%s [hidden]</string>
   

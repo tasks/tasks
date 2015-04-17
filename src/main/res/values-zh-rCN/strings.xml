@@ -43,18 +43,9 @@
 	<string name="TLA_menu_search">搜索</string>
 	<string name="TLA_menu_settings">设置</string>
 	<string name="TLA_custom">自定义</string>
-	<string name="TLA_quickadd_confirm_title">你说到：“%s”</string>
-	<string name="TLA_quickadd_confirm_speech_bubble">我创建了一项叫做“%1$s”的任务，截止日期为 %2$s，优先级为 %3$s</string>
-	<string name="TLA_quickadd_confirm_speech_bubble_date">执行人为 %s</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">以后不显示确认</string>
 	<string name="TLA_repeat_scheduled_title">新的重复任务 %s</string>
 	<string name="TLA_repeat_scheduled_speech_bubble">我会在 %s 后提醒您这个任务的。</string>
-	<string-array name="TLA_priority_strings">
-		<item>最高优先级</item>
-		<item>高优先级</item>
-		<item>中等优先级</item>
-		<item>低优先级</item>
-	</string-array>
 	<string name="TAd_hiddenFormat">%s [已隐藏]</string>
 	<string name="TAd_deletedFormat">%s [已删除]</string>
 	<string name="TAd_completed">完成\n%s 项</string>

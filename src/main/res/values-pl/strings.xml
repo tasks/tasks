@@ -43,18 +43,9 @@
 	<string name="TLA_menu_search">Szukaj</string>
 	<string name="TLA_menu_settings">Ustawienia</string>
 	<string name="TLA_custom">Własny filtr</string>
-	<string name="TLA_quickadd_confirm_title">Powiedziałeś, \"%s\"</string>
-	<string name="TLA_quickadd_confirm_speech_bubble">Stworzyłem\\-am zadanie o nazwie \"%1$s\" %2$s at %3$s</string>
-	<string name="TLA_quickadd_confirm_speech_bubble_date">dla %s</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">Nie pokazuj notyfikacji w przyszłości</string>
 	<string name="TLA_repeat_scheduled_title">Nowe powtarzalne zadanie %s</string>
 	<string name="TLA_repeat_scheduled_speech_bubble">Przypominam Ci o %s.</string>
-	<string-array name="TLA_priority_strings">
-		<item>najwyższy priorytet</item>
-		<item>wysoki priorytet</item>
-		<item>średni priorytet</item>
-		<item>Niski priorytet</item>
-	</string-array>
 	<string name="TAd_hiddenFormat">%s [ukryte]</string>
 	<string name="TAd_deletedFormat">%s [usunięte]</string>
 	<string name="TAd_completed">Ukończono\n%s</string>

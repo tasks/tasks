@@ -32,17 +32,9 @@
 	<string name="TLA_menu_sort">Triediť</string>
 	<string name="TLA_menu_search">Hľadať</string>
 	<string name="TLA_custom">Vlastné</string>
-	<string name="TLA_quickadd_confirm_title">Povedal si, \"%s\"</string>
-	<string name="TLA_quickadd_confirm_speech_bubble_date">pre %s</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">Nezobrazovať znovu toto potvrdenie</string>
 	<string name="TLA_repeat_scheduled_title">Nová opakujúca sa úloha %s</string>
 	<string name="TLA_repeat_scheduled_speech_bubble">Pripomeniem ti toto %s.</string>
-	<string-array name="TLA_priority_strings">
-		<item>Najvyššia priorita</item>
-		<item>Vysoká priorita</item>
-		<item>stredná priorita</item>
-		<item>nízka priorita</item>
-	</string-array>
 	<string name="TAd_hiddenFormat">%s [skryté]</string>
 	<string name="TAd_deletedFormat">%s [vymazané]</string>
 	<string name="TAd_completed">Dokončené\n%s</string>

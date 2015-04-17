@@ -43,18 +43,9 @@
 	<string name="TLA_menu_search">Sök</string>
 	<string name="TLA_menu_settings">Inställningar</string>
 	<string name="TLA_custom">Egendefinierad</string>
-	<string name="TLA_quickadd_confirm_title">Du sa: \"%s\"</string>
-	<string name="TLA_quickadd_confirm_speech_bubble">Jag skapade en uppgift med namnet \"%1$s\" %2$s med %3$s</string>
-	<string name="TLA_quickadd_confirm_speech_bubble_date">för %s</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">Visa inte bekräftelser i fortsättningen</string>
 	<string name="TLA_repeat_scheduled_title">Ny återkommande uppgift %s</string>
 	<string name="TLA_repeat_scheduled_speech_bubble">Jag kommer att påminna dig om det här %s.</string>
-	<string-array name="TLA_priority_strings">
-		<item>högsta prioritet</item>
-		<item>hög prioritet</item>
-		<item>medelhög prioritet</item>
-		<item>låg prioritet</item>
-	</string-array>
 	<string name="TAd_hiddenFormat">%s [dold]</string>
 	<string name="TAd_deletedFormat">%s [raderad]</string>
 	<string name="TAd_completed">Avslutad\n%s</string>

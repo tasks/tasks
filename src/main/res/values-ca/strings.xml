@@ -42,18 +42,9 @@
 	<string name="TLA_menu_search">Cerca</string>
 	<string name="TLA_menu_settings">Paràmetres</string>
 	<string name="TLA_custom">Personalitzat</string>
-	<string name="TLA_quickadd_confirm_title">Heu dit «%s»</string>
-	<string name="TLA_quickadd_confirm_speech_bubble">He creat una tasca anomenada «%1$s» %2$s com a %3$s</string>
-	<string name="TLA_quickadd_confirm_speech_bubble_date">per a %s</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">No mostris confirmacions futures</string>
 	<string name="TLA_repeat_scheduled_title">Tasca periòdica nova %s</string>
 	<string name="TLA_repeat_scheduled_speech_bubble">En rebreu recordatoris %s.</string>
-	<string-array name="TLA_priority_strings">
-		<item>màxima prioritat</item>
-		<item>prioritat alta</item>
-		<item>prioritat mitjana</item>
-		<item>prioritat baixa</item>
-	</string-array>
 	<string name="TAd_hiddenFormat">%s [ocult]</string>
 	<string name="TAd_deletedFormat">%s [eliminat]</string>
 	<string name="TAd_completed">Acabat fa\n%s</string>

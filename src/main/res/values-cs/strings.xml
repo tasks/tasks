@@ -43,17 +43,9 @@
 	<string name="TLA_menu_search">Hledat</string>
 	<string name="TLA_menu_settings">Nastavení</string>
 	<string name="TLA_custom">Vlastní</string>
-	<string name="TLA_quickadd_confirm_title">Říkal jsi, že \"%s\"</string>
-	<string name="TLA_quickadd_confirm_speech_bubble">Vytvořila jsem úkol s názvem \"%1$s\", %3$s priorita, do %2$s</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">Nezobrazovat budoucí potvrzení</string>
 	<string name="TLA_repeat_scheduled_title">Nový opakující se úkol %s</string>
 	<string name="TLA_repeat_scheduled_speech_bubble">Připomenu Ti to %s.</string>
-	<string-array name="TLA_priority_strings">
-		<item>nejvyšší důležitost</item>
-		<item>vysoká důležitost</item>
-		<item>střední důležitost</item>
-		<item>nízká důležitost</item>
-	</string-array>
 	<string name="TAd_hiddenFormat">%s [skrytý]</string>
 	<string name="TAd_deletedFormat">%s [smazán]</string>
 	<string name="TAd_completed">Dokončeno\n%s</string>

@@ -47,18 +47,9 @@
 	<string name="TLA_menu_search">Търсене</string>
 	<string name="TLA_menu_settings">Настройки</string>
 	<string name="TLA_custom">Други</string>
-	<string name="TLA_quickadd_confirm_title">Ти каза, \"%s\"</string>
-	<string name="TLA_quickadd_confirm_speech_bubble">Създадох задача наречена \"%1$s\" %2$s на %3$s</string>
-	<string name="TLA_quickadd_confirm_speech_bubble_date">за %s</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">Не показвай бъдещи потвърждения</string>
 	<string name="TLA_repeat_scheduled_title">Нова повтаряща се задача %s</string>
 	<string name="TLA_repeat_scheduled_speech_bubble">Ще Ви напомня относно това %s.</string>
-	<string-array name="TLA_priority_strings">
-		<item>най-висок приоритет</item>
-		<item>висок приоритет</item>
-		<item>среден приоритет</item>
-		<item>нисък приоритет</item>
-	</string-array>
 	<string name="TAd_hiddenFormat">%s [скрито]</string>
 	<string name="TAd_deletedFormat">%s [изтрити]</string>
 	<string name="TAd_completed">Приключена\n%s</string>

@@ -44,18 +44,9 @@
 	<string name="TLA_menu_search">Procura</string>
 	<string name="TLA_menu_settings">Definições</string>
 	<string name="TLA_custom">Personalizado</string>
-	<string name="TLA_quickadd_confirm_title">Você disse \"%s\"</string>
-	<string name="TLA_quickadd_confirm_speech_bubble">Criada a tarefa \"%1$s\" %2$s em %3$s</string>
-	<string name="TLA_quickadd_confirm_speech_bubble_date">para %s</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">Não mostrar futuras confirmações</string>
 	<string name="TLA_repeat_scheduled_title">Nova tarefa recorrente %s</string>
 	<string name="TLA_repeat_scheduled_speech_bubble">Será lembrado sobre esta tarefa %s</string>
-	<string-array name="TLA_priority_strings">
-		<item>prioridade mais alta</item>
-		<item>prioridade alta</item>
-		<item>prioridade normal</item>
-		<item>prioridade baixa</item>
-	</string-array>
 	<string name="TAd_hiddenFormat">%s [oculta]</string>
 	<string name="TAd_deletedFormat">%s [eliminada]</string>
 	<string name="TAd_completed">Terminada\n%s</string>

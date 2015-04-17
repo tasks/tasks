@@ -79,9 +79,7 @@ public class QuickAddBar {
 
             fragment.loadTaskListContent();
             fragment.selectCustomId(task.getId());
-            if (task.getTransitory(TaskService.TRANS_QUICK_ADD_MARKUP) != null) {
-                showAlertForMarkupTask(activity, task, title);
-            } else if (!TextUtils.isEmpty(task.getRecurrence())) {
+            if (!TextUtils.isEmpty(task.getRecurrence())) {
                 showAlertForRepeatingTask(activity, task);
             }
             activity.onTaskListItemClicked(task.getId());
@@ -92,10 +90,6 @@ public class QuickAddBar {
             log.error(e.getMessage(), e);
         }
         return null;
-    }
-
-    private void showAlertForMarkupTask(AstridActivity activity, Task task, String originalText) {
-        dateChangedAlerts.showQuickAddMarkupDialog(activity, task, originalText);
     }
 
     private void showAlertForRepeatingTask(AstridActivity activity, Task task) {

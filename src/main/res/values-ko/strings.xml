@@ -47,18 +47,9 @@
 	<string name="TLA_menu_search">검색</string>
 	<string name="TLA_menu_settings">설정</string>
 	<string name="TLA_custom">사용자 설정</string>
-	<string name="TLA_quickadd_confirm_title">\"%s\" 라고 말했습니다</string>
-	<string name="TLA_quickadd_confirm_speech_bubble">기한이 %2$s 인 일정 \"%1$s\" 을 %3$s 에 만들었습니다</string>
-	<string name="TLA_quickadd_confirm_speech_bubble_date">%s</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">더 이상 확인을 하지 않습니다</string>
 	<string name="TLA_repeat_scheduled_title">새 반복 일정 %s</string>
 	<string name="TLA_repeat_scheduled_speech_bubble">이 일정을 %s마다 알려 주겠습니다.</string>
-	<string-array name="TLA_priority_strings">
-		<item>최우선 순위</item>
-		<item>높은 순위</item>
-		<item>보통 순위</item>
-		<item>낮은 순위</item>
-	</string-array>
 	<string name="TAd_hiddenFormat">%s [숨김]</string>
 	<string name="TAd_deletedFormat">%s [지움]</string>
 	<string name="TAd_completed">일정 완료\n%s</string>

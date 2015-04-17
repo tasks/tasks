@@ -51,8 +51,6 @@ public class TaskService {
 
     private static final Logger log = LoggerFactory.getLogger(TaskService.class);
 
-    public static final String TRANS_QUICK_ADD_MARKUP = "markup"; //$NON-NLS-1$
-
     public static final String TRANS_REPEAT_CHANGED = "repeat_changed"; //$NON-NLS-1$
 
     public static final String TRANS_EDIT_SAVE = "task-edit-save"; //$NON-NLS-1$
@@ -261,9 +259,8 @@ public class TaskService {
         }
 
         ArrayList<String> tags = new ArrayList<>();
-        boolean quickAddMarkup = false;
         try {
-            quickAddMarkup = parseQuickAddMarkup(task, tags);
+            parseQuickAddMarkup(task, tags);
         } catch (Throwable e) {
             log.error(e.getMessage(), e);
         }
@@ -292,9 +289,6 @@ public class TaskService {
         }
 
         quickAdd(task, tags);
-        if (quickAddMarkup) {
-            task.putTransitory(TRANS_QUICK_ADD_MARKUP, true);
-        }
 
         if (forMetadata != null && forMetadata.size() > 0) {
             Metadata metadata = new Metadata();

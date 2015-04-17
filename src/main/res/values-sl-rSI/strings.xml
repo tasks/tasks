@@ -47,18 +47,9 @@
 	<string name="TLA_menu_search">Iskanje</string>
 	<string name="TLA_menu_settings">Nastavitve</string>
 	<string name="TLA_custom">Po meri</string>
-	<string name="TLA_quickadd_confirm_title">Rekli ste, \"%s\"</string>
-	<string name="TLA_quickadd_confirm_speech_bubble">Ustvaril sem opravek imenovan \"%1$s\" %2$s at %3$s</string>
-	<string name="TLA_quickadd_confirm_speech_bubble_date">za %s</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">Prihodnjih potrditev ne prikazuj več</string>
 	<string name="TLA_repeat_scheduled_title">Nov ponavljajoči se opravek %s</string>
 	<string name="TLA_repeat_scheduled_speech_bubble">Opomnil te bom o tem %s.</string>
-	<string-array name="TLA_priority_strings">
-		<item>najvišja prioriteta</item>
-		<item>visoka prioriteta</item>
-		<item>srednja prioriteta</item>
-		<item>nizka prioriteta</item>
-	</string-array>
 	<string name="TAd_hiddenFormat">%s [skrit]</string>
 	<string name="TAd_deletedFormat">%s [zbrisan]</string>
 	<string name="TAd_completed">Opravljen\n%s</string>

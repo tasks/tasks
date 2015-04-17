@@ -44,18 +44,9 @@
 	<string name="TLA_menu_search">חיפוש</string>
 	<string name="TLA_menu_settings">הגדרות</string>
 	<string name="TLA_custom">מותאם אישית</string>
-	<string name="TLA_quickadd_confirm_title">אמרת ״%s״</string>
-	<string name="TLA_quickadd_confirm_speech_bubble">\"יצרתי את המשימה \'%1$s\' עם תאריך יעד \'%2$s\'  בעדיפות \'%3$s\'\"</string>
-	<string name="TLA_quickadd_confirm_speech_bubble_date">לתאריך יעד %s</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">אל תציג אישורים נוספים</string>
 	<string name="TLA_repeat_scheduled_title">משימה חוזרת חדשה %s</string>
 	<string name="TLA_repeat_scheduled_speech_bubble">\"אזכיר לך את  %s.\"</string>
-	<string-array name="TLA_priority_strings">
-		<item>עדיפות עליונה</item>
-		<item>עדיפות גבוהה</item>
-		<item>עדיפות בינונית</item>
-		<item>עדיפות נמוכה</item>
-	</string-array>
 	<string name="TAd_hiddenFormat">%s [מוסתרת]</string>
 	<string name="TAd_deletedFormat">%s [נמחקה]</string>
 	<string name="TAd_completed">הסתיימה\n%s</string>

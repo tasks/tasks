@@ -9,8 +9,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.text.Html;
-import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -25,7 +23,6 @@ import android.widget.TextView;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.repeats.RepeatTaskCompleteListener;
@@ -71,41 +68,6 @@ public class DateChangedAlerts {
     public DateChangedAlerts(@ForApplication Context context, ActivityPreferences preferences) {
         this.context = context;
         this.preferences = preferences;
-    }
-
-    public void showQuickAddMarkupDialog(final AstridActivity activity, Task task, String originalText) {
-        if (!preferences.getBoolean(PREF_SHOW_HELPERS, true)) {
-            return;
-        }
-
-        final Dialog d = new Dialog(activity, R.style.ReminderDialog);
-        final long taskId = task.getId();
-        d.setContentView(R.layout.astrid_reminder_view);
-
-        Button okButton = (Button) d.findViewById(R.id.reminder_complete);
-        okButton.setText(R.string.DLG_ok);
-
-        d.findViewById(R.id.reminder_snooze).setVisibility(View.GONE);
-        ((TextView) d.findViewById(R.id.reminder_title)).setText(activity.getString(R.string.TLA_quickadd_confirm_title, originalText));
-
-        Spanned speechBubbleText = constructSpeechBubbleTextForQuickAdd(activity, task);
-
-        ((TextView) d.findViewById(R.id.reminder_message)).setText(speechBubbleText, TextView.BufferType.SPANNABLE);
-
-        setupOkAndDismissButtons(d);
-        setupHideCheckbox(d);
-
-        d.findViewById(R.id.reminder_edit).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                d.dismiss();
-                activity.onTaskListItemClicked(taskId);
-            }
-        });
-
-        setupDialogLayoutParams(activity, d);
-        d.setOwnerActivity(activity);
-        d.show();
     }
 
     public void showRepeatChangedDialog(final Activity activity, Task task) {
@@ -263,38 +225,6 @@ public class DateChangedAlerts {
         }
         d.getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
 
-    }
-
-    private Spanned constructSpeechBubbleTextForQuickAdd(Context context, Task task) {
-        String[] priorityStrings = context.getResources().getStringArray(R.array.TLA_priority_strings);
-        int[] colorsArray = new int[] { R.color.importance_1, R.color.importance_2, R.color.importance_3, R.color.importance_4 };
-
-        String title = task.getTitle();
-        long date = task.getDueDate();
-
-        String dueString = "";
-        if (!TextUtils.isEmpty(task.getRecurrence())) {
-            dueString = getRecurrenceString(context, task);
-        }
-
-        if (TextUtils.isEmpty(dueString)) {
-            dueString = getRelativeDateAndTimeString(context, date);
-        }
-
-        if (!TextUtils.isEmpty(dueString)) {
-            dueString = context.getString(R.string.TLA_quickadd_confirm_speech_bubble_date, dueString);
-        }
-
-        int priority = task.getImportance();
-        if (priority >= priorityStrings.length) {
-            priority = priorityStrings.length - 1;
-        }
-        String priorityString = priorityStrings[priority];
-        int color = context.getResources().getColor(colorsArray[priority]) - 0xff000000;
-        priorityString = String.format("<font color=\"#%s\">%s</font>", Integer.toHexString(color), priorityString);
-
-        String fullString = context.getString(R.string.TLA_quickadd_confirm_speech_bubble, title, dueString, priorityString);
-        return Html.fromHtml(fullString);
     }
 
     private String constructSpeechBubbleTextForRepeat(Context context, Task task) {

@@ -44,18 +44,9 @@
 	<string name="TLA_menu_search">搜索</string>
 	<string name="TLA_menu_settings">設定</string>
 	<string name="TLA_custom">自訂</string>
-	<string name="TLA_quickadd_confirm_title">你說: \"%s\"</string>
-	<string name="TLA_quickadd_confirm_speech_bubble">我建立的「%1$s」%3$s 將於 %2$s 到期</string>
-	<string name="TLA_quickadd_confirm_speech_bubble_date">為 %s</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">不再詢問確認</string>
 	<string name="TLA_repeat_scheduled_title">新的重複任務工作 %s</string>
 	<string name="TLA_repeat_scheduled_speech_bubble">我會在%s 後提醒您這個任務工作的。</string>
-	<string-array name="TLA_priority_strings">
-		<item>最優先</item>
-		<item>優先</item>
-		<item>普通</item>
-		<item>低優先權</item>
-	</string-array>
 	<string name="TAd_hiddenFormat">%s [隱藏]</string>
 	<string name="TAd_deletedFormat">%s [刪除]</string>
 	<string name="TAd_completed">%s\n完成</string>

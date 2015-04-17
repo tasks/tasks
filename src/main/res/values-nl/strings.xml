@@ -43,18 +43,9 @@
 	<string name="TLA_menu_search">Zoek</string>
 	<string name="TLA_menu_settings">Instellingen</string>
 	<string name="TLA_custom">Aangepast</string>
-	<string name="TLA_quickadd_confirm_title">Jij zei, \"%s\"</string>
-	<string name="TLA_quickadd_confirm_speech_bubble">Ik heb een taak gemaakt genaamd \"%1$s\" %2$s op %3$s</string>
-	<string name="TLA_quickadd_confirm_speech_bubble_date">voor %s</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">Geen toekomstige bevestigingen weergeven</string>
 	<string name="TLA_repeat_scheduled_title">Nieuwe herhalende taak %s</string>
 	<string name="TLA_repeat_scheduled_speech_bubble">Ik herinner je hier aan %s</string>
-	<string-array name="TLA_priority_strings">
-		<item>hoogste prioriteit</item>
-		<item>hoge prioriteit</item>
-		<item>gemiddelde prioriteit</item>
-		<item>lage prioriteit</item>
-	</string-array>
 	<string name="TAd_hiddenFormat">%s [verborgen]</string>
 	<string name="TAd_deletedFormat">%s [verwijderd]</string>
 	<string name="TAd_completed">Afgerond\n%s</string>
