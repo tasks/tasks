@@ -10,6 +10,7 @@ android:
     - platform-tools-22
     - build-tools-22.0.1
     - extra-android-m2repository
+    - extra-google-m2repository
   licenses:
     - 'android-sdk-license-.+'
 
