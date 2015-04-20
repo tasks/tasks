@@ -46,7 +46,7 @@ public class GoogleApi implements GoogleApiClient.OnConnectionFailedListener, Go
 
     protected GoogleApi enableAutoManage(FragmentActivity fragmentActivity, GoogleApiClient.OnConnectionFailedListener onConnectionFailedListener) {
         enableAutoManage = true;
-        builder.enableAutoManage(fragmentActivity, 0, onConnectionFailedListener);
+        builder.enableAutoManage(fragmentActivity, hashCode(), onConnectionFailedListener);
         return this;
     }
 
