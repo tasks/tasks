@@ -100,7 +100,8 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
 
     private void updateAttachmentDirectory() {
         File dir = preferences.getAttachmentsDirectory();
-        findPreference(getString(R.string.p_attachment_dir)).setSummary(dir.getAbsolutePath());
+        String summary = dir == null ? "" : dir.getAbsolutePath();
+        findPreference(getString(R.string.p_attachment_dir)).setSummary(summary);
     }
 
     private void initializeCalendarReminderPreference() {

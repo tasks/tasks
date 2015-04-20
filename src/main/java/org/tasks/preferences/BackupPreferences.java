@@ -56,6 +56,7 @@ public class BackupPreferences extends InjectingPreferenceActivity {
 
     private void updateBackupDirectory() {
         File dir = preferences.getBackupDirectory();
-        findPreference(getString(R.string.p_backup_dir)).setSummary(dir.getAbsolutePath());
+        String summary = dir == null ? "" : dir.getAbsolutePath();
+        findPreference(getString(R.string.p_backup_dir)).setSummary(summary);
     }
 }
