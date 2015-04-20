@@ -39,10 +39,6 @@ public class GeofenceService {
         this.geofenceApi = geofenceApi;
     }
 
-    public Geofence getGeofenceById(long metadataId) {
-        return new Geofence(metadataDao.fetch(metadataId, Metadata.TASK, GeofenceFields.PLACE, GeofenceFields.LATITUDE, GeofenceFields.LONGITUDE, GeofenceFields.RADIUS));
-    }
-
     public List<Geofence> getGeofences(long taskId) {
         return toGeofences(metadataDao.toList(Query.select(
                 Metadata.PROPERTIES).where(MetadataCriteria.byTaskAndwithKey(

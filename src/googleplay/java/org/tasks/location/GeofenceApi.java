@@ -89,9 +89,7 @@ public class GeofenceApi {
     }
 
     private void newClient(final GoogleApi.GoogleApiClientConnectionHandler handler) {
-        new GoogleApi(context)
-                .requestLocationServices()
-                .connect(handler);
+        new GoogleApi(context).connect(handler);
     }
 
     private List<com.google.android.gms.location.Geofence> getRequests(List<Geofence> geofences) {

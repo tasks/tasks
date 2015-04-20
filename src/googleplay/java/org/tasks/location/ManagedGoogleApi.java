@@ -66,13 +66,12 @@ public class ManagedGoogleApi extends GoogleApi implements GoogleApi.GoogleApiCl
     }
 
     public void getPlaceDetails(final String placeId, final ResultCallback<PlaceBuffer> callback) {
-        Places.GeoDataApi.getPlaceById(googleApiClient, placeId)
-                .setResultCallback(new ResultCallback<PlaceBuffer>() {
-                    @Override
-                    public void onResult(PlaceBuffer places) {
-                        callback.onResult(places);
-                    }
-                }, 15, TimeUnit.SECONDS);
+        Places.GeoDataApi.getPlaceById(googleApiClient, placeId).setResultCallback(new ResultCallback<PlaceBuffer>() {
+            @Override
+            public void onResult(PlaceBuffer places) {
+                callback.onResult(places);
+            }
+        });
     }
 
     public void getAutocompletePredictions(final String constraint, final ResultCallback<AutocompletePredictionBuffer> callback) {
@@ -91,6 +90,7 @@ public class ManagedGoogleApi extends GoogleApi implements GoogleApi.GoogleApiCl
             Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
             return new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
         } catch (Exception e) {
+            log.error(e.getMessage(), e);
             return new LatLng(0, 0);
         }
     }

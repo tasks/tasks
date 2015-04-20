@@ -12,6 +12,7 @@
     <!-- location based reminders -->
     <!-- ************************ -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
 
     <uses-sdk tools:overrideLibrary="com.google.android.gms,com.google.android.gms.location,com.google.android.gms.maps" />
 

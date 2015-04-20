@@ -46,7 +46,6 @@ public class LocationPickerDialog extends InjectingDialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        managedGoogleApi.requestGeoData();
         managedGoogleApi.connect();
 
         View layout = inflater.inflate(R.layout.location_picker_dialog, null);

@@ -31,17 +31,9 @@ public class GoogleApi implements GoogleApiClient.OnConnectionFailedListener, Go
     @Inject
     public GoogleApi(@ForApplication Context context) {
         builder = new GoogleApiClient.Builder(context, this, this)
+                .addApi(LocationServices.API)
+                .addApi(Places.GEO_DATA_API)
                 .addConnectionCallbacks(this);
-    }
-
-    public GoogleApi requestLocationServices() {
-        builder.addApi(LocationServices.API);
-        return this;
-    }
-
-    public GoogleApi requestGeoData() {
-        builder.addApi(Places.GEO_DATA_API);
-        return this;
     }
 
     public void connect(final GoogleApiClientConnectionHandler googleApiClientConnectionHandler) {
