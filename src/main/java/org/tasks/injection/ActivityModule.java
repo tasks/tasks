@@ -35,7 +35,6 @@ import org.tasks.activities.PurgeDeletedActivity;
 import org.tasks.preferences.AppearancePreferences;
 import org.tasks.preferences.BackupPreferences;
 import org.tasks.preferences.BasicPreferences;
-import org.tasks.preferences.HelpAndFeedbackActivity;
 import org.tasks.preferences.MiscellaneousPreferences;
 import org.tasks.reminders.SnoozeActivity;
 import org.tasks.voice.VoiceCommandActivity;
@@ -80,7 +79,6 @@ import dagger.Provides;
                 DeleteAllCalendarEventsActivity.class,
                 ClearGtaskDataActivity.class,
                 ReminderPreferences.class,
-                HelpAndFeedbackActivity.class,
                 AppearancePreferences.class,
                 BackupPreferences.class
         })

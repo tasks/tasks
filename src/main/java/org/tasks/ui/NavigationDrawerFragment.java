@@ -45,7 +45,6 @@ import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.preferences.AppearancePreferences;
 import org.tasks.preferences.BasicPreferences;
-import org.tasks.preferences.HelpAndFeedbackActivity;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
@@ -143,13 +142,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
             public void onClick(View v) {
                 closeMenu();
                 startActivityForResult(new Intent(getActivity(), BasicPreferences.class), ACTIVITY_SETTINGS);
-            }
-        });
-        layout.findViewById(R.id.help_row).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                closeMenu();
-                startActivity(new Intent(getActivity(), HelpAndFeedbackActivity.class));
             }
         });
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
