@@ -6,9 +6,9 @@
 package com.todoroo.astrid.activity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.support.v7.app.AlertDialog;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +31,7 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastHoneycomb;
 public class SortSelectionActivity {
 
     public interface OnSortSelectedListener {
-        public void onSortSelected(boolean always, int flags, int sort);
+        void onSortSelected(boolean always, int flags, int sort);
     }
 
     /**

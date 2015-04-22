@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.calls;
 
-import android.app.AlertDialog;
 import android.content.ContentUris;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +13,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,7 +22,6 @@ import android.widget.TextView;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import org.tasks.preferences.BasicPreferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.SnoozeCallback;
 import com.todoroo.astrid.reminders.SnoozeDialog;
@@ -34,6 +33,7 @@ import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingActivity;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.ResourceResolver;
 
 import java.io.InputStream;

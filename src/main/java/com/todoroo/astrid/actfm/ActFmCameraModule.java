@@ -6,7 +6,6 @@
 package com.todoroo.astrid.actfm;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -45,7 +45,7 @@ public class ActFmCameraModule {
     private final Preferences preferences;
 
     public interface ClearImageCallback {
-        public void clearImage();
+        void clearImage();
     }
 
     @Inject

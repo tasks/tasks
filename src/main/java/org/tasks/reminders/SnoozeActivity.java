@@ -1,8 +1,8 @@
 package org.tasks.reminders;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.SnoozeCallback;

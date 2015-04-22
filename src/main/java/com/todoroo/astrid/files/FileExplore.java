@@ -6,14 +6,13 @@
 package com.todoroo.astrid.files;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -175,7 +174,7 @@ public class FileExplore extends Activity {
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		Dialog dialog;
-		AlertDialog.Builder builder = new Builder(this);
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
 		if (fileList == null) {
 			dialog = builder.create();

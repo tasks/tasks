@@ -5,10 +5,10 @@
  */
 package com.todoroo.astrid.ui;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -28,8 +28,8 @@ public class NumberPickerDialog extends AlertDialog implements OnClickListener {
         super(context);
         mCallback = callBack;
 
-        setButton(context.getText(android.R.string.ok), this);
-        setButton2(context.getText(android.R.string.cancel), (OnClickListener) null);
+        setButton(DialogInterface.BUTTON_POSITIVE, context.getText(android.R.string.ok), this);
+        setButton(DialogInterface.BUTTON_NEGATIVE, context.getText(android.R.string.cancel), (OnClickListener) null);
 
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
