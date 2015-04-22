@@ -23,12 +23,12 @@ import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.R;
-import org.tasks.injection.InjectingActionBarActivity;
+import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPreferences;
 
 import javax.inject.Inject;
 
-public class TagSettingsActivity extends InjectingActionBarActivity {
+public class TagSettingsActivity extends InjectingAppCompatActivity {
 
     public static final String TOKEN_NEW_FILTER = "newFilter"; //$NON-NLS-1$
 

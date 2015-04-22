@@ -48,7 +48,7 @@ import com.todoroo.astrid.data.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
-import org.tasks.injection.InjectingActionBarActivity;
+import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPreferences;
 
 import java.util.ArrayList;
@@ -66,7 +66,7 @@ import javax.inject.Inject;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class CustomFilterActivity extends InjectingActionBarActivity {
+public class CustomFilterActivity extends InjectingAppCompatActivity {
 
     private static final Logger log = LoggerFactory.getLogger(CustomFilterActivity.class);
 

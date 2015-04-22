@@ -1,11 +1,11 @@
 package org.tasks.injection;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import dagger.ObjectGraph;
 
-public class InjectingActionBarActivity extends ActionBarActivity implements Injector {
+public class InjectingAppCompatActivity extends AppCompatActivity implements Injector {
     private ObjectGraph objectGraph;
 
     @Override

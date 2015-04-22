@@ -31,7 +31,7 @@ import com.todoroo.astrid.ui.DateChangedAlerts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
-import org.tasks.injection.InjectingActionBarActivity;
+import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.ui.NavigationDrawerFragment;
 
 import javax.inject.Inject;
@@ -47,7 +47,7 @@ import javax.inject.Inject;
  * @author Arne
  *
  */
-public class AstridActivity extends InjectingActionBarActivity
+public class AstridActivity extends InjectingAppCompatActivity
     implements NavigationDrawerFragment.OnFilterItemClickedListener,
     TaskListFragment.OnTaskListItemClickedListener {
 
