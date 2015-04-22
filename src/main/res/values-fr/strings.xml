@@ -108,6 +108,8 @@
 		<item>Jour/horaire spécifique</item>
 	</string-array>
 	<string name="TEA_control_when">Quand</string>
+	<string name="TEA_control_repeat">Répéter</string>
+	<string name="TEA_control_gcal">Calendrier</string>
 	<string name="TEA_control_importance">Priorité</string>
 	<string name="TEA_control_lists">Listes</string>
 	<string name="TEA_control_files">Fichiers</string>
@@ -192,6 +194,7 @@
 	<string name="DB_corrupted_title">Base de donnée corrompue</string>
 	<string name="DB_corrupted_body">Oh oh ! On dirait que vous avez une base de données corrompues. Si vous voyez souvent cette erreur, nous vous suggérons d\'effacer toutes vos données (Paramètres-&gt;Synchronisation et sauvegarde-&gt;Gérer les anciennes tâches-&gt;Effacer toutes les données) et restaurer vos tâches d\'une sauvegarde (Paramètres-&gt;Synchronisation et sauvegarde-&gt;Sauvegarde-&gt;Importer des tâches) dans Tasks</string>
 	<string name="market_unavailable">Malheureusement le Play Store n\'est pas disponible sur votre système</string>
+	<string name="task_defaults">Valeurs par défaut</string>
 	<string name="EPr_default_urgency_title">Échéance par défaut</string>
 	<string name="EPr_default_importance_title">Priorité par défaut</string>
 	<string name="EPr_default_hideUntil_title">Masquer par défaut jusqu\'à</string>
@@ -301,6 +304,9 @@
 	<string name="file_dir_dialog_ok">Utiliser ce dossier</string>
 	<string name="file_dir_dialog_default">Rétablir les valeurs par défaut</string>
 	<string name="premium_speech_bubble_2">Commandez pour un an et économisez 25%%!</string>
+	<string name="ring_once">Sonner une fois</string>
+	<string name="ring_five_times">Sonner cinq fois</string>
+	<string name="ring_nonstop">Sonner en continu</string>
 	<string-array name="TEA_reminder_random">
 		<item>Une heure</item>
 		<item>Un jour</item>
@@ -419,7 +425,41 @@
 	<string name="sync_SPr_forget">Se déconnecter</string>
 	<string name="sync_SPr_forget_description">Purger toutes les données de synchronisation</string>
 	<string name="sync_forget_confirm">Se déconnecter/purger les données de synchronisation ?</string>
+	<string name="widget_hide_due_date">Cacher les échéances</string>
+	<string name="widget_hide_checkboxes">Cacher les cases à cocher</string>
+	<string name="widget_transparent_background">Fond transparent</string>
+	<string name="silent">Silencieux</string>
+	<string name="sound">Son</string>
+	<string name="vibrate">Vibrer</string>
+	<string name="quiet_hours">Heures de repos</string>
+	<string name="attachment_directory">Dossier pour les fichiers attachés</string>
+	<string name="backup_directory">Dossier de sauvegarde</string>
+	<string name="miscellaneous">Divers</string>
+	<string name="synchronization">Synchronisation</string>
+	<string name="enabled">Activé</string>
+	<string name="font_size">Taille de police</string>
+	<string name="customize_edit_screen">Personnaliser l\'écran d\'édition</string>
+	<string name="source_code">Code source</string>
+	<string name="translations">Traductions</string>
+	<string name="report_an_issue">Faire part d\'un problème</string>
+	<string name="help_and_feedback">Aide et retours</string>
+	<string name="contact_developer">Contacter le développeur</string>
+	<string name="rate_tasks">Noter Tasks</string>
+	<string name="quiet_hours_summary">Ni sonnerie ni vibreur pendant les heures de repos</string>
 	<string name="TLA_menu_donate">Remercier</string>
+	<string name="error">Erreur</string>
+	<string name="select_amount">Choisir le montant</string>
+	<string name="notification_actions">Actions dans les notifications</string>
+	<string name="notification_actions_summary">Afficher l\'option de rappel et indiquer qu\'une tâche est effectuée dans la notification</string>
+	<string name="add_reminder">Ajouter un rappel</string>
+	<string name="remove">Supprimer</string>
+	<string name="randomly_once">Une fois aléatoirement</string>
+	<string name="randomly">Aléatoirement</string>
+	<string name="pick_a_date_and_time">Choisir date et heure</string>
+	<string name="pick_a_location">Choisir une localisation</string>
+	<string name="type_a_location">Entrer une localisation</string>
+	<string name="when_overdue">En cas de retard</string>
+	<string name="when_due">A l\'échéance</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>désactiver</item>
 		<item>toutes les quinze minutes</item>

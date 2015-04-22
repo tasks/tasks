@@ -88,7 +88,7 @@
 	<string name="TEA_menu_save">Uložiť zmeny</string>
 	<string name="TEA_menu_discard_changes">Vymazať zmeny</string>
 	<string name="TEA_tab_activity">Aktivita</string>
-	<string name="TEA_timer_est">Cca. %s</string>
+	<string name="TEA_timer_est">Spolu %s</string>
 	<string name="TEA_timer_elap">Uplynulo %s</string>
 	<string-array name="TEA_urgency">
 		<item>Bez dátumu</item>
@@ -443,7 +443,7 @@
 	<string name="attachment_directory">Príloha adresára</string>
 	<string name="backup_directory">Zalóhovať adresár</string>
 	<string name="debug_logging">Zapisovať do denníka ladenia</string>
-	<string name="miscellaneous">Zmeiešané</string>
+	<string name="miscellaneous">Rôzne</string>
 	<string name="synchronization">Synchronizácia</string>
 	<string name="enabled">Povolené</string>
 	<string name="font_size">Veľkosť písma</string>
