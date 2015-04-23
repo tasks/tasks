@@ -25,7 +25,6 @@
 	<string name="DLG_error_sdcard">Нет доступа к папке:%s</string>
 	<string name="DLG_error_sdcard_general">Нет доступа к карте памяти!</string>
 	<string name="import_file_prompt">Выберите файл для восстановления</string>
-	<string name="app_name">Задачи</string>
 	<string name="read_permission_label">Право Tasks</string>
 	<string name="read_permission_desc">чтение и отображение фильтров задач</string>
 	<string name="write_permission_label">Право Tasks</string>
@@ -68,7 +67,6 @@
 	<string name="SSD_sort_reverse">Обратный порядок сортировки</string>
 	<string name="SSD_save_temp">Только один раз</string>
 	<string name="SSD_save_always">Всегда</string>
-	<string name="FSA_label">Список задач или фильтр</string>
 	<string name="FLA_context_shortcut">Создать ярлык на рабочем столе…</string>
 	<string name="FLA_shortcut_dialog_title">Создать ярлык</string>
 	<string name="FLA_shortcut_dialog">Имя ярлыка:</string>
@@ -407,7 +405,6 @@
 	<string name="EPr_voiceInputEnabled_title">Голосовой ввод</string>
 	<string name="EPr_voiceRemindersEnabled_title">Голосовые напоминания</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks должен произносить название задач во время напоминаний</string>
-	<string name="widget_mini">Задачи</string>
 	<string name="EPr_use_dark_theme">Тёмная тема</string>
 	<string name="delete_task">Удалить задачу</string>
 	<string name="voice_command_added_task">Добавленная задача</string>

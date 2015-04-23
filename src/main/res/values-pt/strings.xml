@@ -68,7 +68,6 @@
 	<string name="SSD_sort_reverse">Ordem Inversa</string>
 	<string name="SSD_save_temp">Só Uma Vez</string>
 	<string name="SSD_save_always">Sempre</string>
-	<string name="FSA_label">Lista e filtro de tarefas</string>
 	<string name="FLA_context_shortcut">Criar atalho no ecrã</string>
 	<string name="FLA_shortcut_dialog_title">Criar atalho</string>
 	<string name="FLA_shortcut_dialog">Nome do atalho:</string>
@@ -406,7 +405,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="EPr_voiceInputEnabled_title">Entrada por voz</string>
 	<string name="EPr_voiceRemindersEnabled_title">Lembretes de voz</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">O Tasks irá reproduzir o nome da tarefa durante os lembretes</string>
-	<string name="widget_mini">Tarefas</string>
 	<string name="EPr_use_dark_theme">Tema escuro</string>
 	<string name="delete_task">Eliminar tarefa</string>
 	<string name="voice_command_added_task">Tarefa adicionada</string>

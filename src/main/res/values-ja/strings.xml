@@ -25,7 +25,6 @@
 	<string name="DLG_error_sdcard">フォルダ %s を開けません</string>
 	<string name="DLG_error_sdcard_general">SDカードにアクセスできません</string>
 	<string name="import_file_prompt">復元に使うファイルを選択してください</string>
-	<string name="app_name">Tasksタスク</string>
 	<string name="read_permission_label">タスクの読み込み</string>
 	<string name="read_permission_desc">タスクの読み込みとフィルタの表示</string>
 	<string name="write_permission_label">タスクの読み込み</string>
@@ -67,7 +66,6 @@
 	<string name="SSD_sort_reverse">逆順</string>
 	<string name="SSD_save_temp">今回のみ</string>
 	<string name="SSD_save_always">設定の保存</string>
-	<string name="FSA_label">タスクリストまたはフィルター</string>
 	<string name="FLA_context_shortcut">ショートカットの作成</string>
 	<string name="FLA_shortcut_dialog_title">ショートカットを作る</string>
 	<string name="FLA_shortcut_dialog">ショートカットの名称</string>
@@ -406,7 +404,6 @@
 	<string name="EPr_voiceInputEnabled_title">音声入力</string>
 	<string name="EPr_voiceRemindersEnabled_title">音声リマインダー</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks はタスクリマインダーでタスク名を話します</string>
-	<string name="widget_mini">タスク</string>
 	<string name="EPr_use_dark_theme">ダークテーマ</string>
 	<string name="delete_task">タスクを削除</string>
 	<string name="voice_command_added_task">追加されたタスク</string>

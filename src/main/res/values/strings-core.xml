@@ -3,9 +3,6 @@
 
   <!-- ================================================== AndroidManifest == -->
 
-  <!-- slide 32k: Application Name (shown on home screen & in launcher) -->
-  <string name="app_name">Tasks</string>
-  
   <!-- permission title for READ_TASKS -->
   <string name="read_permission_label">Tasks Permission</string>
   
@@ -142,9 +139,6 @@
   <string name="SSD_save_always">Always</string>
   
   <!-- =============================================== FilterListActivity == -->
-  
-  <!-- Tasks Filter Shortcut -->    
-  <string name="FSA_label">Tasks List or Filter</string>
 
   <!-- Context Menu: Create Shortcut -->
   <string name="FLA_context_shortcut">Create Shortcut On Desktop</string>

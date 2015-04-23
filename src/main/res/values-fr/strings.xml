@@ -25,7 +25,6 @@
 	<string name="DLG_error_sdcard">Impossible d\'accéder au dossier : %s</string>
 	<string name="DLG_error_sdcard_general">Impossible d\'accéder à la carte SD !</string>
 	<string name="import_file_prompt">Choisissez un fichier à restaurer</string>
-	<string name="app_name">Tâches d\'Tasks</string>
 	<string name="read_permission_label">Permission d\'Tasks</string>
 	<string name="read_permission_desc">lire les tâches, afficher les filtres de tâches</string>
 	<string name="write_permission_label">Permission d\'Tasks</string>
@@ -67,7 +66,6 @@
 	<string name="SSD_sort_reverse">Tri inversé</string>
 	<string name="SSD_save_temp">Une fois seulement</string>
 	<string name="SSD_save_always">Toujours</string>
-	<string name="FSA_label">Liste ou filtre de tâche</string>
 	<string name="FLA_context_shortcut">Créer un raccourci sur le bureau</string>
 	<string name="FLA_shortcut_dialog_title">Créer un raccourci</string>
 	<string name="FLA_shortcut_dialog">Nom du raccourci :</string>
@@ -399,7 +397,6 @@
 	<string name="EPr_voiceInputEnabled_title">Entrée voix</string>
 	<string name="EPr_voiceRemindersEnabled_title">Rappels vocaux</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks donnera le nom de la tâche</string>
-	<string name="widget_mini">Tâches</string>
 	<string name="EPr_use_dark_theme">Thème foncé</string>
 	<string name="delete_task">Supprimer la tâche ? </string>
 	<string name="voice_command_added_task">Tâche ajoutée</string>

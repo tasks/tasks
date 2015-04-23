@@ -25,7 +25,6 @@
 	<string name="DLG_error_sdcard">Chyba v přístupu k adresáři: %s</string>
 	<string name="DLG_error_sdcard_general">Chyba v přístupu k SD kartě!</string>
 	<string name="import_file_prompt">Zvolte soubor k obnově</string>
-	<string name="app_name">Tasks Úkoly</string>
 	<string name="read_permission_label">Tasks Práva</string>
 	<string name="read_permission_desc">zobrazit úkoly, zobrazit filtry úkolů</string>
 	<string name="write_permission_label">Tasks Práva</string>
@@ -67,7 +66,6 @@
 	<string name="SSD_sort_reverse">Třídit</string>
 	<string name="SSD_save_temp">Pouze jednou</string>
 	<string name="SSD_save_always">Vždy</string>
-	<string name="FSA_label">Seznam úkolů nebo filtrování</string>
 	<string name="FLA_context_shortcut">Vytvořit zástupce na ploše</string>
 	<string name="FLA_shortcut_dialog_title">Vytvořit zástupce</string>
 	<string name="FLA_shortcut_dialog">Název zástupce:</string>
@@ -388,7 +386,6 @@
 	<string name="TEA_timer_comment_spent">Strávený čas:</string>
 	<string name="voice_create_prompt">Mluvte pro vytvoření úkolu</string>
 	<string name="EPr_voiceRemindersEnabled_title">Hlasové upomínky</string>
-	<string name="widget_mini">Úkoly</string>
 	<string name="EPr_use_dark_theme">Tmavé téma</string>
 	<string name="delete_task">Smazat úkol</string>
 	<string name="voice_command_added_task">Přidán úkol</string>

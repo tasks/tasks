@@ -28,7 +28,6 @@
 	<string name="DLG_error_sdcard">Немає доступу до папки: %s</string>
 	<string name="DLG_error_sdcard_general">Немає доступу до карти SD!</string>
 	<string name="import_file_prompt">Виберіть файл для відновлення</string>
-	<string name="app_name">Завдання</string>
 	<string name="read_permission_label">Дозволи Tasks</string>
 	<string name="read_permission_desc">читання і відображення фільтрів завдань</string>
 	<string name="write_permission_label">Дозволи Tasks</string>

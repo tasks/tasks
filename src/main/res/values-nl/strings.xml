@@ -25,7 +25,6 @@
 	<string name="DLG_error_sdcard">Toegang geweigerd tot map: %s</string>
 	<string name="DLG_error_sdcard_general">Toegang tot SD-kaart geweigerd!</string>
 	<string name="import_file_prompt">Selecteer een back-up om te herstellen</string>
-	<string name="app_name">Taken</string>
 	<string name="read_permission_label">Taak toestemmingen</string>
 	<string name="read_permission_desc">taken lezen, taakfilters weergeven</string>
 	<string name="write_permission_label">Taak toestemmingen</string>
@@ -67,7 +66,6 @@
 	<string name="SSD_sort_reverse">Omgekeerd sorteren</string>
 	<string name="SSD_save_temp">Eenmalig</string>
 	<string name="SSD_save_always">Altijd</string>
-	<string name="FSA_label">Takenlijst of Filter</string>
 	<string name="FLA_context_shortcut">Snelkoppeling op bureaublad maken</string>
 	<string name="FLA_shortcut_dialog_title">Snelkoppeling maken</string>
 	<string name="FLA_shortcut_dialog">Naam snelkoppeling:</string>
@@ -396,7 +394,6 @@
 	<string name="EPr_voiceInputEnabled_title">Spraakinvoer</string>
 	<string name="EPr_voiceRemindersEnabled_title">Gesproken herinneringen</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Bij herinneringen zullen de taaknamen uitgesproken worden</string>
-	<string name="widget_mini">Taken</string>
 	<string name="EPr_use_dark_theme">Donker thema</string>
 	<string name="delete_task">Verwijder taak</string>
 	<string name="voice_command_added_task">Toegevoegde taak</string>

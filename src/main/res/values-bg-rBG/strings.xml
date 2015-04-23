@@ -28,7 +28,6 @@
 	<string name="DLG_error_sdcard">Нямате достъп до папка: %s</string>
 	<string name="DLG_error_sdcard_general">SD картата не може да бъде достъпена!</string>
 	<string name="import_file_prompt">Изберете файл за възстановяване</string>
-	<string name="app_name">Задачи</string>
 	<string name="read_permission_label">Tasks Разрешение</string>
 	<string name="read_permission_desc">прочети задачи, покажи филтрите на задачата</string>
 	<string name="write_permission_label">Tasks Разрешение</string>
@@ -71,7 +70,6 @@
 	<string name="SSD_sort_reverse">В обратен ред</string>
 	<string name="SSD_save_temp">Само веднъж</string>
 	<string name="SSD_save_always">Винаги</string>
-	<string name="FSA_label">Списък със задачи или филътр</string>
 	<string name="FLA_context_shortcut">Създай пряк път на десктопа</string>
 	<string name="FLA_shortcut_dialog_title">Създай пряк път на десктопа</string>
 	<string name="FLA_shortcut_dialog">Име на прекия път:</string>
@@ -408,7 +406,6 @@
 	<string name="EPr_voiceInputEnabled_title">Гласово въвеждане</string>
 	<string name="EPr_voiceRemindersEnabled_title">Гласови напомняния</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks ще изтоваря имената на задачите по време на напомняния за задача</string>
-	<string name="widget_mini">Задачи</string>
 	<string name="EPr_use_dark_theme">Тъмна тема</string>
 	<string name="delete_task">Изтрий задача</string>
 	<string name="voice_command_added_task">Добавена задача</string>

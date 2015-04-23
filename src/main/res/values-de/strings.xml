@@ -24,7 +24,6 @@
 	<string name="DLG_error_sdcard">Ordner konnte nicht geöffnet werden: %s</string>
 	<string name="DLG_error_sdcard_general">Auf die SD-Karte konnte nicht zugegriffen werden!</string>
 	<string name="import_file_prompt">Wählen Sie eine Datei zum Wiederherstellen</string>
-	<string name="app_name">Tasks Aufgaben</string>
 	<string name="read_permission_label">Tasks Zugriffsrechte</string>
 	<string name="read_permission_desc">Aufgaben lesen, Aufgabenfilter anzeigen</string>
 	<string name="write_permission_label">Tasks Zugriffsrechte</string>
@@ -66,7 +65,6 @@
 	<string name="SSD_sort_reverse">Umgekehrte Sortierung</string>
 	<string name="SSD_save_temp">Einmalig</string>
 	<string name="SSD_save_always">Immer</string>
-	<string name="FSA_label">Aufgabenliste oder Filter</string>
 	<string name="FLA_context_shortcut">Verknüpfung auf dem Desktop erstellen</string>
 	<string name="FLA_shortcut_dialog_title">Desktop-Verküpfung erstellen</string>
 	<string name="FLA_shortcut_dialog">Name der Verknüpfung:</string>

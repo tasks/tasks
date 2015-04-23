@@ -25,7 +25,6 @@
 	<string name="DLG_error_sdcard">无法开启文件夹：%s</string>
 	<string name="DLG_error_sdcard_general">无法访问您的 SD 卡！</string>
 	<string name="import_file_prompt">选取要还原的文件</string>
-	<string name="app_name">清单小助理</string>
 	<string name="read_permission_label">清单小助理权限</string>
 	<string name="read_permission_desc">读取任务，显示任务过滤器</string>
 	<string name="write_permission_label">清单小助理权限</string>

@@ -25,7 +25,6 @@
 	<string name="DLG_error_sdcard">Brak dostępu do folderu: %s</string>
 	<string name="DLG_error_sdcard_general">Brak dostępu do Twojej karty SD!</string>
 	<string name="import_file_prompt">Wskaż plik do przywrócenia</string>
-	<string name="app_name">Zadania Tasks</string>
 	<string name="read_permission_label">Uprawnienia Tasks</string>
 	<string name="read_permission_desc">odczytuj zadania, pokaż filtr zadań</string>
 	<string name="write_permission_label">Zezwolenia Tasks</string>
@@ -67,7 +66,6 @@
 	<string name="SSD_sort_reverse">Odwrotna kolejność</string>
 	<string name="SSD_save_temp">Tylko teraz</string>
 	<string name="SSD_save_always">Zawsze</string>
-	<string name="FSA_label">Lista Zadań lub Filtr</string>
 	<string name="FLA_context_shortcut">Utwórz skrót na pulpicie</string>
 	<string name="FLA_shortcut_dialog_title">Utwórz skrót</string>
 	<string name="FLA_shortcut_dialog">Nazwa skrótu:</string>
@@ -399,7 +397,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="EPr_voiceInputEnabled_title">Polecenia głosowe</string>
 	<string name="EPr_voiceRemindersEnabled_title">Przypomnienia głosowe</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks będzie mówił nazwę zadania podczas przypomnienia</string>
-	<string name="widget_mini">Zadania</string>
 	<string name="EPr_use_dark_theme">Ciemny motyw</string>
 	<string name="delete_task">Usuń zadanie</string>
 	<string name="voice_command_added_task">Dodane zadanie</string>

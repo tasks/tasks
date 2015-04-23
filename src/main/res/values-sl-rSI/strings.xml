@@ -28,7 +28,6 @@
 	<string name="DLG_error_sdcard">Datoteka:%s ni dostopna</string>
 	<string name="DLG_error_sdcard_general">Tvoja SD kartica ni dostopna.</string>
 	<string name="import_file_prompt">Izberi datoteko za obnovo</string>
-	<string name="app_name">Opravki</string>
 	<string name="read_permission_label">Dovoljenje Opravkom</string>
 	<string name="read_permission_desc">preberi opravke, prikaži filtre opravka</string>
 	<string name="write_permission_label">Dovoljenje Opravkom</string>
@@ -71,7 +70,6 @@
 	<string name="SSD_sort_reverse">Razvrsti po obratnem vrstnem redu</string>
 	<string name="SSD_save_temp">Samo enkrat</string>
 	<string name="SSD_save_always">Vedno</string>
-	<string name="FSA_label">Seznam ali filter opravkov</string>
 	<string name="FLA_context_shortcut">Ustvari bližnjico na namizju</string>
 	<string name="FLA_shortcut_dialog_title">Ustvari bližnjico za namizje</string>
 	<string name="FLA_shortcut_dialog">Ime bližnjice:</string>
@@ -400,7 +398,6 @@
 	<string name="EPr_voiceInputEnabled_title">Vnos glasu</string>
 	<string name="EPr_voiceRemindersEnabled_title">Glasovni opomniki</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Aplikacija Opravki bo med opominjanjem glede opravkov izgovarjala nazive opravkov</string>
-	<string name="widget_mini">Opravki</string>
 	<string name="EPr_use_dark_theme">Temni videz</string>
 	<string name="delete_task">Zbriši opravek</string>
 	<plurals name="Ntasks">

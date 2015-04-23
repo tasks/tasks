@@ -25,7 +25,6 @@
 	<string name="DLG_error_sdcard">Mappåtkomst nekad: %s</string>
 	<string name="DLG_error_sdcard_general">SD-kort ej tillgängligt!</string>
 	<string name="import_file_prompt">Välj en fil att återställa</string>
-	<string name="app_name">Tasks Uppgifter</string>
 	<string name="read_permission_label">Tasks Tillstånd</string>
 	<string name="read_permission_desc">läs uppgifter, visa uppgiftsfilter</string>
 	<string name="write_permission_label">Tasks Tillstånd</string>
@@ -67,7 +66,6 @@
 	<string name="SSD_sort_reverse">Omvänd sortering</string>
 	<string name="SSD_save_temp">Bara en gång</string>
 	<string name="SSD_save_always">Alltid</string>
-	<string name="FSA_label">Uppgiftslista eller filter</string>
 	<string name="FLA_context_shortcut">Skapa genväg på skrivbordet</string>
 	<string name="FLA_shortcut_dialog_title">Skapa genväg</string>
 	<string name="FLA_shortcut_dialog">Genvägens namn:</string>
@@ -392,7 +390,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="EPr_voiceInputEnabled_title">Röstindata</string>
 	<string name="EPr_voiceRemindersEnabled_title">Röstpåminnelser</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks läser upp uppgifterna vid påminnelse</string>
-	<string name="widget_mini">Uppgifter</string>
 	<string name="delete_task">Radera uppgift</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 uppgift</item>

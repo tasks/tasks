@@ -25,7 +25,6 @@
 	<string name="DLG_error_sdcard">No se puede acceder a la carpeta: %s</string>
 	<string name="DLG_error_sdcard_general">¡No se pudo acceder a su tarjeta de memoria SD!</string>
 	<string name="import_file_prompt">Selecciona un archivo a restaurar</string>
-	<string name="app_name">Tareas de Tasks</string>
 	<string name="read_permission_label">Permisos de Tasks</string>
 	<string name="read_permission_desc">leer tareas, mostrar filtros de tareas</string>
 	<string name="write_permission_label">Permisos de Tasks</string>
@@ -68,7 +67,6 @@
 	<string name="SSD_sort_reverse">Invertir Orden</string>
 	<string name="SSD_save_temp">Sólo una vez</string>
 	<string name="SSD_save_always">Siempre</string>
-	<string name="FSA_label">Listar o Filtrar Tareas</string>
 	<string name="FLA_context_shortcut">Crear enlace en escritorio</string>
 	<string name="FLA_shortcut_dialog_title">Crear acceso directo</string>
 	<string name="FLA_shortcut_dialog">Nombre del acceso directo:</string>
@@ -395,7 +393,6 @@
 	<string name="EPr_voiceInputEnabled_title">Ingreso por voz</string>
 	<string name="EPr_voiceRemindersEnabled_title">Avisos de voz</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks dirá los nombres de las tareas durante los avisos</string>
-	<string name="widget_mini">Tareas</string>
 	<string name="EPr_use_dark_theme">Estilo oscuro</string>
 	<string name="delete_task">Eliminar tarea</string>
 	<string name="voice_command_added_task">Tarea agregada</string>

@@ -27,7 +27,6 @@
 	<string name="DLG_error_sdcard">Δεν υπάρχει πρόσβαση στον φάκελο: %s</string>
 	<string name="DLG_error_sdcard_general">Δεν υπάρχει πρόσβαση στην SD κάρτα!</string>
 	<string name="import_file_prompt">Επιλογή αρχείου για επαναφορά</string>
-	<string name="app_name">Εργασίες</string>
 	<string name="read_permission_label">Άδεια εργασιών</string>
 	<string name="read_permission_desc">Διάβασμα εργασιών, εμφάνιση φίλτρων εργασιών</string>
 	<string name="write_permission_label">Άδεια Εργασιών</string>
@@ -66,7 +65,6 @@
 	<string name="SSD_sort_reverse">Αντίστροφη ταξινόμηση</string>
 	<string name="SSD_save_temp">Μόνο μια φορά</string>
 	<string name="SSD_save_always">Πάντα</string>
-	<string name="FSA_label">Λίστα εργασιών ή Φίλτρο</string>
 	<string name="FLA_context_shortcut">Δημιουργία συντόμευσης στην Επιφάνεια Εργασίας</string>
 	<string name="FLA_shortcut_dialog_title">Δημιουργία συντόμευσης στην Επιφάνεια Εργασίας</string>
 	<string name="FLA_shortcut_dialog">Όνομα συντόμευσης:</string>
@@ -394,7 +392,6 @@
 	<string name="EPr_voiceInputEnabled_title">Εισαγωγή φωνής</string>
 	<string name="EPr_voiceRemindersEnabled_title">Φωνητικές υπενθυμίσεις</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Η εφαρμογή θα λέει να ονόματα των εργασιών κατά την διάρκεια των υπενθυμίσεων</string>
-	<string name="widget_mini">Εργασίες</string>
 	<string name="EPr_use_dark_theme">Σκοτεινό θέμα</string>
 	<string name="delete_task">Διαγραφή καθήκοντος</string>
 	<string name="voice_command_added_task">Η εργασία προστέθηκε</string>

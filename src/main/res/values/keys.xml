@@ -5,7 +5,10 @@
 -->
 <resources>
 
-    <string name="gapi_key">AIzaSyBXGYNWNQcfse4JS5gI9teTSKMzinWzL2M</string>
+  <string name="app_name">Tasks</string>
+  <string name="FSA_label">Tasks Shortcut</string>
+
+  <string name="gapi_key">AIzaSyBXGYNWNQcfse4JS5gI9teTSKMzinWzL2M</string>
 
   <!-- ======================================================== REMINDERS == -->
 

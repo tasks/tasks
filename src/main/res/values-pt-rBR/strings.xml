@@ -24,7 +24,6 @@
 	<string name="DLG_error_sdcard">Não foi possível acessar a pasta: %s</string>
 	<string name="DLG_error_sdcard_general">Não foi possível acessar seu cartão SD!</string>
 	<string name="import_file_prompt">Selecione um arquivo para ser restaurado</string>
-	<string name="app_name">Tarefas do Tasks</string>
 	<string name="read_permission_label">Permissões do Tasks</string>
 	<string name="read_permission_desc">ler tarefas, exibir filtros das tarefas</string>
 	<string name="write_permission_label">Permissões do Tasks</string>
@@ -67,7 +66,6 @@
 	<string name="SSD_sort_reverse">Ordenação reversa</string>
 	<string name="SSD_save_temp">Somente uma vez</string>
 	<string name="SSD_save_always">Sempre</string>
-	<string name="FSA_label">Lista ou Filtro de Tarefas</string>
 	<string name="FLA_context_shortcut">Criar atalho no desktop</string>
 	<string name="FLA_shortcut_dialog_title">Criar atalho</string>
 	<string name="FLA_shortcut_dialog">Nome do atalho</string>
@@ -396,7 +394,6 @@
 	<string name="EPr_voiceInputEnabled_title">Entrada de voz</string>
 	<string name="EPr_voiceRemindersEnabled_title">Lembretes de voz</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks irá falar o nome das tarefas durante os lembretes</string>
-	<string name="widget_mini">Tarefas</string>
 	<string name="EPr_use_dark_theme">Tema escuro</string>
 	<string name="delete_task">Excluir tarefa</string>
 	<string name="voice_command_added_task">Tarefa adicionada</string>

@@ -215,7 +215,7 @@
         <!-- widgets -->
         <receiver
             android:name="com.todoroo.astrid.widget.TasksWidget"
-            android:label="@string/widget_mini">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="com.todoroo.astrid.widget.TasksWidget.COMPLETE_TASK"/>

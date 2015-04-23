@@ -28,7 +28,6 @@
 	<string name="DLG_error_sdcard">폴더에 접근 불가: %s</string>
 	<string name="DLG_error_sdcard_general">SD 카드에 접근할 수 없습니다!</string>
 	<string name="import_file_prompt">복원할 파일을 선택하세요</string>
-	<string name="app_name">아스트리드 일정</string>
 	<string name="read_permission_label">아스트리드 권한</string>
 	<string name="read_permission_desc">일정 읽기, 일정 필터 보기</string>
 	<string name="write_permission_label">아스트리드 권한</string>
