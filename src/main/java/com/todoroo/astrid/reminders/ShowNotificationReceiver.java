@@ -12,7 +12,6 @@ import android.telephony.TelephonyManager;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceOutputAssistant;
 
@@ -57,7 +56,8 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
         showNotification(
                 context,
                 intent.getIntExtra(Notifications.EXTRAS_NOTIF_ID, 0),
-                intent.<Intent>getParcelableExtra(Notifications.EXTRAS_CUSTOM_INTENT),
+                intent.getLongExtra(NotificationFragment.TOKEN_ID, 0L),
+                intent.<PendingIntent>getParcelableExtra(Notifications.EXTRAS_CUSTOM_INTENT),
                 intent.getIntExtra(Notifications.EXTRAS_TYPE, 0),
                 intent.getStringExtra(Notifications.EXTRAS_TITLE),
                 intent.getStringExtra(Notifications.EXTRAS_TEXT),
@@ -104,7 +104,7 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
      *
      * @param ringTimes number of times to ring (-1 = nonstop)
      */
-    private void showNotification(Context context, int notificationId, final Intent intent, int type, String title,
+    private void showNotification(Context context, int notificationId, final long taskId, final PendingIntent pendingIntent, int type, String title,
                                   String text, int ringTimes) {
         // don't ring multiple times if random reminder
         if (type == ReminderService.TYPE_RANDOM) {
@@ -114,8 +114,6 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
         // quiet hours? unless alarm clock
         boolean quietHours = isQuietHours(preferences);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.notif_astrid)
                 .setTicker(title)
@@ -124,7 +122,6 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
                 .setContentText(text)
                 .setContentIntent(pendingIntent);
         if (preferences.useNotificationActions()) {
-            final long taskId = intent.getLongExtra(TaskListActivity.OPEN_TASK, 0L);
             PendingIntent completeIntent = PendingIntent.getBroadcast(context, notificationId, new Intent(context, CompleteTaskReceiver.class) {{
                 putExtra(CompleteTaskReceiver.TASK_ID, taskId);
             }}, PendingIntent.FLAG_UPDATE_CURRENT);

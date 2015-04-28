@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.reminders;
 
+import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -26,12 +27,11 @@ import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingBroadcastReceiver;
+import org.tasks.intents.TaskIntents;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
-
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
 
 public class Notifications extends InjectingBroadcastReceiver {
 
@@ -130,15 +130,15 @@ public class Notifications extends InjectingBroadcastReceiver {
 
         String text = context.getString(R.string.app_name);
 
-        Intent intent = preferences.useNotificationActions()
-                ? createEditIntent(id, task)
+        PendingIntent intent = preferences.useNotificationActions()
+                ? TaskIntents.getEditTaskPendingIntent(context, null, task.getId())
                 : createNotificationIntent(id, taskTitle);
 
         broadcaster.requestNotification((int) id, intent, type, taskTitle, text, ringTimes);
         return true;
     }
 
-    public Intent createNotificationIntent(final long id, final String taskTitle) {
+    private PendingIntent createNotificationIntent(final long id, final String taskTitle) {
         final FilterWithCustomIntent itemFilter = new FilterWithCustomIntent(context.getString(R.string.rmd_NoA_filter),
                 context.getString(R.string.rmd_NoA_filter),
                 new QueryTemplate().where(TaskCriteria.byId(id)),
@@ -148,21 +148,13 @@ public class Notifications extends InjectingBroadcastReceiver {
         customExtras.putString(EXTRAS_TITLE, taskTitle);
         itemFilter.customExtras = customExtras;
         itemFilter.customTaskList = new ComponentName(context, NotificationFragment.class);
-
-        return new Intent(context, TaskListActivity.class) {{
+        Intent intent = new Intent(context, TaskListActivity.class) {{
             setAction("NOTIFY" + id); //$NON-NLS-1$
             putExtra(TaskListFragment.TOKEN_FILTER, itemFilter);
             putExtra(NotificationFragment.TOKEN_ID, id);
             putExtra(EXTRAS_TITLE, taskTitle);
             setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         }};
-    }
-
-    public Intent createEditIntent(final long id, final Task task) {
-        return new Intent(context, TaskListActivity.class) {{
-            setAction("NOTIFY" + id);
-            putExtra(TaskListActivity.OPEN_TASK, task.getId());
-            setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        }};
+        return PendingIntent.getActivity(context, (int) id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 }

@@ -1,5 +1,6 @@
 package org.tasks;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
@@ -43,7 +44,7 @@ public class Broadcaster {
         }});
     }
 
-    public void requestNotification(final long taskId, final Intent intent, final int type,
+    public void requestNotification(final long taskId, final PendingIntent intent, final int type,
                                     final String title, final String text, final int ringTimes) {
         sendOrderedBroadcast(new Intent(BROADCAST_IN_APP_NOTIFY) {{
             putExtra(Notifications.EXTRAS_NOTIF_ID, (int) taskId);

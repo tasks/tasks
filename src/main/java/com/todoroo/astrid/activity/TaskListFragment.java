@@ -88,7 +88,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
-import static org.tasks.intents.NewTaskIntent.getNewTaskIntent;
+import static org.tasks.intents.TaskIntents.getNewTaskIntent;
 
 /**
  * Primary activity for the Bente application. Shows a list of upcoming tasks

@@ -27,7 +27,7 @@ import com.todoroo.astrid.widget.TasksWidget;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
 
 import org.tasks.R;
-import org.tasks.intents.NewTaskIntent;
+import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.Preferences;
 
@@ -132,7 +132,7 @@ public class WidgetHelper {
     }
 
     public PendingIntent getNewTaskIntent(Context context, Filter filter, int id) {
-        Intent intent = NewTaskIntent.getNewTaskIntent(context, filter);
+        Intent intent = TaskIntents.getNewTaskIntent(context, filter);
         intent.setFlags(flags);
         return PendingIntent.getActivity(context, -id, intent, 0);
     }

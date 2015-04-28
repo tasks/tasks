@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.reminders;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 
 import com.todoroo.andlib.utility.DateUtilities;
@@ -72,7 +73,7 @@ public class NotificationTests extends DatabaseTestCase {
 
         verify(broadcaster).requestNotification(
                 eq(task.getId()),
-                any(Intent.class),
+                any(PendingIntent.class),
                 eq(ReminderService.TYPE_DUE),
                 eq("rubberduck"),
                 eq("Tasks"),
