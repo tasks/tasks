@@ -160,7 +160,7 @@ public class TitleParserTest extends DatabaseTestCase {
 
 
    // ----------------Days begin----------------//
-    public void testDays() throws Exception{
+    public void disabled_testDays() throws Exception{
         Calendar today = Calendar.getInstance();
         Task task = new Task();
 

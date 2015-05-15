@@ -4,7 +4,7 @@
 
 [![Get it on Amazon App Store](https://images-na.ssl-images-amazon.com/images/G/01/AmazonMobileApps/amazon-apps-store-us-black.png)](https://www.amazon.com/gp/product/B00QHGTL7O/ref=mas_pm_tasks_astrid_to_do_list_clone)
 
-[![Build Status](https://travis-ci.org/abaker/tasks.svg?branch=master)](https://travis-ci.org/abaker/tasks)
+[![Build Status](https://travis-ci.org/tasks/tasks.svg?branch=master)](https://travis-ci.org/tasks/tasks) [![codecov.io](http://codecov.io/github/tasks/tasks/coverage.svg?branch=master)](http://codecov.io/github/tasks/tasks?branch=master)
 
 Visit the wiki to
 * [help with translations](https://github.com/abaker/tasks/wiki/Translations)
