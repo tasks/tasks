@@ -10,7 +10,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/asAbBackgroundColor"
         tasks:theme="@style/ActionBarThemeOverlay"
-        tasks:popupTheme="@style/ActionBarPopupThemeOverlay"
+        tasks:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         tasks:titleTextAppearance="@style/ActionBar.TitleText" />
 
     <View

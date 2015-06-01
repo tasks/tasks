@@ -12,7 +12,6 @@
     <color name="task_list_done">#ff777777</color>
     <color name="task_edit_deadline_gray">#888888</color>
     
-    <color name="blue_theme_color">#33b5e5</color>
     <color name="red_theme_color">#d90000</color>
     <color name="dark_blue_theme_color">#1f78b4</color>
     <color name="reminder_background">#262626</color>
