@@ -88,8 +88,7 @@ dependencies {
 
     compile group: 'com.jakewharton', name: 'butterknife', version: '6.0.0'
 
-    compile group: 'com.android.support', name: 'support-v4', version: '22.1.1'
-    compile group: 'com.android.support', name: 'appcompat-v7', version: '22.1.1'
+    compile group: 'com.android.support', name: 'design', version: '22.2.0'
 
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.7'
     compile group: 'joda-time', name: 'joda-time', version: '2.6', transitive: false
@@ -97,13 +96,11 @@ dependencies {
     compile group: 'com.rubiconproject.oss', name: 'jchronic', version: '0.2.6', transitive: false
     compile group: 'org.scala-saddle', name: 'google-rfc-2445', version: '20110304', transitive: false
 
-    compile group: 'net.i2p.android.ext', name: 'floatingactionbutton', version: '1.8.0'
-
     compile (group: 'com.github.flavienlaurent.datetimepicker', name: 'library', version: '0.0.2') {
         exclude group: 'com.android.support', module: 'support-v4'
     }
 
-    googleplayCompile group: 'com.google.android.gms', name: 'play-services-location', version: '7.3.0'
+    googleplayCompile group: 'com.google.android.gms', name: 'play-services-location', version: '7.5.0'
 
     compile(group: 'com.google.apis', name: 'google-api-services-tasks', version: 'v1-rev33-1.18.0-rc') {
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'

@@ -8,7 +8,7 @@
     <style name="Tasks" parent="AppThemeBase">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
-        <!--<item name="colorAccent">@android:color/holo_purple</item>-->
+        <item name="colorAccent">@color/primary</item>
 
         <item name="android:windowBackground">@android:color/white</item>
         <item name="asDueDateOverdueColor">#ee5555</item>
@@ -63,15 +63,13 @@
         <item name="ic_action_alarm">@drawable/ic_action_alarm</item>
         <item name="ic_action_reload">@drawable/ic_action_reload</item>
         <item name="ic_action_calendar_month">@drawable/ic_action_calendar_month</item>
-
-        <item name="fab_background">?attr/asAbBackgroundColor</item>
-        <item name="fab_background_pressed">#476472</item>
-        <item name="fab_plus">@android:color/white</item>
+        <item name="fab_icon">@drawable/ic_action_add_light</item>
     </style>
 
     <style name="Tasks.Dark">
         <item name="colorPrimary">@android:color/black</item>
         <item name="colorPrimaryDark">@android:color/black</item>
+        <item name="colorAccent">@android:color/white</item>
         <item name="android:windowBackground">@android:color/black</item>
         <item name="drawer_background">@color/drawer_background_dark</item>
         <item name="drawer_background_selected">@color/drawer_background_selected_dark</item>
@@ -99,10 +97,7 @@
         <item name="ic_action_calendar_month">@drawable/ic_action_calendar_month_white</item>
         <item name="ic_action_cancel">@drawable/ic_action_cancel_white</item>
         <item name="asDueDateColor">#c3c3c3</item>
-
-        <item name="fab_background">@android:color/white</item>
-        <item name="fab_background_pressed">#e6e6e6</item>
-        <item name="fab_plus">@android:color/black</item>
+        <item name="fab_icon">@drawable/ic_action_add_black</item>
     </style>
 
     <style name="TasksDialog" parent="@android:style/Theme.Dialog">
@@ -171,7 +166,7 @@
         <item name="android:background">#323331</item>
     </style>
     
-    <style name="ReminderDialog" parent="@android:style/Theme.Dialog">
+    <style name="ReminderDialog" parent="Theme.AppCompat.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@drawable/reminder_dialog_inset_background</item>

@@ -4,7 +4,6 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:id="@+id/taskListParent"
     android:background="?attr/asContentBackground"
     android:layout_width="fill_parent"
@@ -16,17 +15,14 @@
 
     <!-- Body goes here -->
 
-    <net.i2p.android.ext.floatingactionbutton.AddFloatingActionButton
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
+        android:src="?attr/fab_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        fab:fab_colorNormal="?attr/fab_background"
-        fab:fab_colorPressed="?attr/fab_background_pressed"
-        fab:fab_plusIconColor="?attr/fab_plus"
-        fab:fab_stroke_visible="false"
         android:layout_marginBottom="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginEnd="16dp" />

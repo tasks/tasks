@@ -48,9 +48,7 @@
     <attr name="drawer_text" format="color"/>
     <attr name="importance_background_selected" format="reference"/>
     <attr name="asFilterRowSelected" format="reference"/>
-    <attr name="fab_background" format="color" />
-    <attr name="fab_background_pressed" format="color" />
-    <attr name="fab_plus" format="color" />
+  <attr name="fab_icon" format="reference"/>
 
   <declare-styleable name="DateAndTimePicker">
     <attr name="shortcutLabels" format="reference" />
