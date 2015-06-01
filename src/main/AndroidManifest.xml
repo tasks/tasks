@@ -99,7 +99,6 @@
         android:theme="@style/Tasks"
         android:allowBackup="true"
         android:name=".Tasks"
-        android:hardwareAccelerated="false"
         android:manageSpaceActivity="com.todoroo.astrid.core.OldTaskPreferences">
 
         <!-- ====================================================== Activities = -->
