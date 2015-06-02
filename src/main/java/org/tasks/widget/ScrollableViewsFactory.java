@@ -112,7 +112,8 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
 
     @Override
     public long getItemId(int position) {
-        return getTask(position).getId();
+        Task task = getTask(position);
+        return task == null ? 0 : task.getId();
     }
 
     @Override
