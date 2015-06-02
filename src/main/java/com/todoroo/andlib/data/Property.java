@@ -124,13 +124,13 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
      *
      */
     public interface PropertyVisitor<RETURN, PARAMETER> {
-        public RETURN visitInteger(Property<Integer> property, PARAMETER data);
+        RETURN visitInteger(Property<Integer> property, PARAMETER data);
 
-        public RETURN visitLong(Property<Long> property, PARAMETER data);
+        RETURN visitLong(Property<Long> property, PARAMETER data);
 
-        public RETURN visitDouble(Property<Double> property, PARAMETER data);
+        RETURN visitDouble(Property<Double> property, PARAMETER data);
 
-        public RETURN visitString(Property<String> property, PARAMETER data);
+        RETURN visitString(Property<String> property, PARAMETER data);
     }
 
     // --- children

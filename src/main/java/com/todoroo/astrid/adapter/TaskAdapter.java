@@ -75,7 +75,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private static final Logger log = LoggerFactory.getLogger(TaskAdapter.class);
 
     public interface OnCompletedTaskListener {
-        public void onCompletedTask(Task item, boolean newState);
+        void onCompletedTask(Task item, boolean newState);
     }
 
     private static final StringProperty TAGS = new StringProperty(null, "group_concat(nullif(" + TaskListFragment.TAGS_METADATA_JOIN + "." + TaskToTagMetadata.TAG_NAME.name + ", '')"+ ", '  |  ')").as("tags");

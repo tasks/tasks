@@ -3,7 +3,7 @@ package org.tasks.injection;
 import android.app.IntentService;
 import android.content.Intent;
 
-public class InjectingIntentService extends IntentService {
+public abstract class InjectingIntentService extends IntentService {
 
     public InjectingIntentService(String name) {
         super(name);

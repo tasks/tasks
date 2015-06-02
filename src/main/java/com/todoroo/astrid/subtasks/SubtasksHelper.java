@@ -148,8 +148,8 @@ public class SubtasksHelper {
         return AstridOrderedListUpdater.serializeTree(tree);
     }
 
-    public static interface TreeRemapHelper<T> {
-        public T getKeyFromOldUuid(String uuid);
+    public interface TreeRemapHelper<T> {
+        T getKeyFromOldUuid(String uuid);
     }
 
     public static <T> void remapTree(Node root, HashMap<T, String> idMap, TreeRemapHelper<T> helper) {

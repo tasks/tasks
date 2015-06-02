@@ -241,7 +241,7 @@ public class AndroidUtilities {
     }
 
     public interface SerializedPut<T> {
-        public void put(T object, String key, char type, String value) throws NumberFormatException;
+        void put(T object, String key, char type, String value) throws NumberFormatException;
     }
 
     private static <T> void fromSerialized(String string, T object, SerializedPut<T> putter) {
@@ -292,19 +292,6 @@ public class AndroidUtilities {
             key = newKey;
         }
         return result;
-    }
-
-    /**
-     * Returns true if a and b or null or a.equals(b)
-     */
-    public static boolean equals(Object a, Object b) {
-        if(a == null && b == null) {
-            return true;
-        }
-        if(a == null) {
-            return false;
-        }
-        return a.equals(b);
     }
 
     /**

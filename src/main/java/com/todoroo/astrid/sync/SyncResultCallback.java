@@ -9,10 +9,10 @@ public interface SyncResultCallback {
     /**
      * Provider started sync
      */
-    public void started();
+    void started();
 
     /**
      * Provider finished sync
      */
-    public void finished();
+    void finished();
 }

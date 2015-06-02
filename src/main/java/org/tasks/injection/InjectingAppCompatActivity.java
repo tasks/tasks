@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import dagger.ObjectGraph;
 
-public class InjectingAppCompatActivity extends AppCompatActivity implements Injector {
+public abstract class InjectingAppCompatActivity extends AppCompatActivity implements Injector {
     private ObjectGraph objectGraph;
 
     @Override

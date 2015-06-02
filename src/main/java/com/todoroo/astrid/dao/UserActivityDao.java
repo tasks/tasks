@@ -20,11 +20,11 @@ public class UserActivityDao {
         dao = new RemoteModelDao<>(database, UserActivity.class);
     }
 
-    public boolean createNew(UserActivity item) {
+    public void createNew(UserActivity item) {
         if (!item.containsValue(UserActivity.CREATED_AT)) {
             item.setCreatedAt(DateUtilities.now());
         }
-        return dao.createNew(item);
+        dao.createNew(item);
     }
 
     public boolean saveExisting(UserActivity item) {

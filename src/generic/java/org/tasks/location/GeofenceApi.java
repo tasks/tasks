@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+@SuppressWarnings("EmptyMethod")
 public class GeofenceApi {
 
     @Inject

@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import dagger.ObjectGraph;
 
-public class InjectingActivity extends Activity implements Injector {
+public abstract class InjectingActivity extends Activity implements Injector {
     private ObjectGraph objectGraph;
 
     @Override

@@ -19,7 +19,7 @@ import org.tasks.preferences.ActivityPreferences;
 public class DateAndTimeDialog extends Dialog {
 
     public interface DateAndTimeDialogListener {
-        public void onDateAndTimeSelected(long date);
+        void onDateAndTimeSelected(long date);
     }
 
     private final DateAndTimePicker dateAndTimePicker;

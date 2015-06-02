@@ -384,7 +384,7 @@ public final class ReminderService  {
      * Interface for testing
      */
     public interface AlarmScheduler {
-        public void createAlarm(Context context, Task task, long time, int type);
+        void createAlarm(Context context, Task task, long time, int type);
     }
 
     public void setScheduler(AlarmScheduler scheduler) {

@@ -141,7 +141,7 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
         return alertItem;
     }
 
-    private View addAlarmRow(final View alertItem, String text, Long timestamp, final View.OnClickListener onRemove) {
+    private void addAlarmRow(final View alertItem, String text, Long timestamp, final View.OnClickListener onRemove) {
         alertItem.setTag(timestamp);
         TextView display = (TextView) alertItem.findViewById(R.id.alarm_string);
         display.setText(text);
@@ -156,7 +156,6 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
             }
         });
         updateSpinner();
-        return alertItem;
     }
 
     private void updateSpinner() {

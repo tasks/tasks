@@ -432,8 +432,8 @@ public class TouchListView extends ListView {
 	}
 
 	public interface GrabberClickListener {
-	    public void onClick(View v);
-	    public void onLongClick(View v);
+	    void onClick(View v);
+	    void onLongClick(View v);
 	}
 
 	public interface DropListener {

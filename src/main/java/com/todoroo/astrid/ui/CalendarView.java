@@ -73,7 +73,7 @@ public class CalendarView extends View {
 	private int currentHighlightDay = -1;
 
 	public interface OnSelectedDateListener {
-	    public void onSelectedDate(Date date);
+	    void onSelectedDate(Date date);
 	}
 	private OnSelectedDateListener onSelectedDateListener;
 

@@ -45,7 +45,6 @@ import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.preferences.AppearancePreferences;
 import org.tasks.preferences.BasicPreferences;
-import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
@@ -85,7 +84,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
     private int mCurrentSelectedPosition = 0;
 
     @Inject FilterCounter filterCounter;
-    @Inject Preferences preferences;
     @Inject FilterProvider filterProvider;
     @Inject @ForApplication Context context;
 
@@ -383,7 +381,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
     }
 
     public interface OnFilterItemClickedListener {
-        public boolean onFilterItemClicked(FilterListItem item);
+        boolean onFilterItemClicked(FilterListItem item);
     }
 
     public void clear() {
@@ -427,10 +425,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
         // also load sync actions
         getActivity().registerReceiver(refreshReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-    }
-
-    public void restoreLastSelected() {
-        selectItem(mCurrentSelectedPosition);
     }
 
     /**

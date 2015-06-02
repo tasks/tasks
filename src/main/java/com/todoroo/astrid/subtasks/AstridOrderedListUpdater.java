@@ -29,7 +29,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
     }
 
     public interface OrderedListNodeVisitor {
-        public void visitNode(Node node);
+        void visitNode(Node node);
     }
 
     public static class Node {

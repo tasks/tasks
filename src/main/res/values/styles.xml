@@ -204,10 +204,4 @@
         <item name="android:textSize">18sp</item>
     </style>
 
-    <style name="Widget"/>
-    <style name="Widget.Holo"/>
-    <style name="Widget.Holo.Light"/>
-    <style name="Widget.Holo.Light.CompoundButton"/>
-    <style name="Widget.Holo.Light.CompoundButton.Switch"/>
-
 </resources>

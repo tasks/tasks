@@ -17,7 +17,6 @@ import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.DatabaseUpdateListener;

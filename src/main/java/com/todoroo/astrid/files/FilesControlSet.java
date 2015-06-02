@@ -171,8 +171,8 @@ public class FilesControlSet extends PopupControlSet {
         }
     }
 
-    public static interface PlaybackExceptionHandler {
-        public void playbackFailed();
+    public interface PlaybackExceptionHandler {
+        void playbackFailed();
     }
 
     private static void play(String file, PlaybackExceptionHandler handler) {

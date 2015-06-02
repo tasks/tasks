@@ -37,7 +37,7 @@ public class AstridTimePicker extends LinearLayout {
     private boolean lastSelectionWasPm; // false for AM, true for PM
 
     public interface TimePickerEnabledChangedListener {
-        public void timePickerEnabledChanged(boolean hasTime);
+        void timePickerEnabledChanged(boolean hasTime);
     }
 
     public AstridTimePicker(Context context, AttributeSet attrs) {

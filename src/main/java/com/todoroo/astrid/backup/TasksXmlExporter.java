@@ -219,7 +219,7 @@ public class TasksXmlExporter {
         }
     }
 
-    private synchronized void serializeMetadata(Task task) throws IOException {
+    private synchronized void serializeMetadata(Task task) {
         metadataDao.byTask(task.getId(), new Callback<Metadata>() {
             @Override
             public void apply(Metadata metadata) {
@@ -296,11 +296,7 @@ public class TasksXmlExporter {
                 xml.attribute(null, property.name, valueString);
             } catch (UnsupportedOperationException e) {
                 // didn't read this value, do nothing
-            } catch (IllegalArgumentException e) {
-                throw new RuntimeException(e);
-            } catch (IllegalStateException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
+            } catch (IllegalArgumentException | IllegalStateException | IOException e) {
                 throw new RuntimeException(e);
             }
             return null;

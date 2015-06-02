@@ -209,7 +209,7 @@ public class TaskDao {
         }
     }
 
-    public boolean createNew(Task item) {
+    public void createNew(Task item) {
         if(!item.containsValue(Task.CREATION_DATE)) {
             item.setCreationDate(DateUtilities.now());
         }
@@ -230,12 +230,9 @@ public class TaskDao {
         setDefaultReminders(preferences, item);
 
         ContentValues values = item.getSetValues();
-        boolean result = dao.createNew(item);
-        if(result) {
+        if(dao.createNew(item)) {
             afterSave(item, values);
         }
-
-        return result;
     }
 
     public static void createDefaultHideUntil(Preferences preferences, Task item) {
@@ -260,21 +257,19 @@ public class TaskDao {
         }
     }
 
-    public boolean saveExisting(Task item) {
+    public void saveExisting(Task item) {
         ContentValues values = item.getSetValues();
         if(values == null || values.size() == 0) {
-            return false;
+            return;
         }
         if(!TaskApiDao.insignificantChange(values)) {
             if(!values.containsKey(Task.MODIFICATION_DATE.name)) {
                 item.setModificationDate(DateUtilities.now());
             }
         }
-        boolean result = dao.saveExisting(item);
-        if(result) {
+        if(dao.saveExisting(item)) {
             afterSave(item, values);
         }
-        return result;
     }
 
     private static final Property<?>[] SQL_CONSTRAINT_MERGE_PROPERTIES = new Property<?>[] {

@@ -195,10 +195,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         TaskListFragment newFragment;
         try {
             newFragment = (TaskListFragment) component.newInstance();
-        } catch (java.lang.InstantiationException e) {
-            log.error(e.getMessage(), e);
-            newFragment = new TaskListFragment();
-        } catch (IllegalAccessException e) {
+        } catch (java.lang.InstantiationException | IllegalAccessException e) {
             log.error(e.getMessage(), e);
             newFragment = new TaskListFragment();
         }
@@ -225,7 +222,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
      * does during the onAttach() callback
      */
     public interface OnTaskListItemClickedListener {
-        public void onTaskListItemClicked(long taskId);
+        void onTaskListItemClicked(long taskId);
     }
 
     @Override

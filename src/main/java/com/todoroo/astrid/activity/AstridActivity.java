@@ -47,7 +47,7 @@ import javax.inject.Inject;
  * @author Arne
  *
  */
-public class AstridActivity extends InjectingAppCompatActivity
+public abstract class AstridActivity extends InjectingAppCompatActivity
     implements NavigationDrawerFragment.OnFilterItemClickedListener,
     TaskListFragment.OnTaskListItemClickedListener {
 

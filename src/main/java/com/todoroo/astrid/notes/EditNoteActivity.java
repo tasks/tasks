@@ -91,8 +91,8 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     private final List<UpdatesChangedListener> listeners = new LinkedList<>();
 
     public interface UpdatesChangedListener {
-        public void updatesChanged();
-        public void commentAdded();
+        void updatesChanged();
+        void commentAdded();
     }
 
     public EditNoteActivity(

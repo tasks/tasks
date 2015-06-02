@@ -56,7 +56,6 @@ public class GtasksSyncV2Provider {
 
     public class SyncExceptionHandler {
         public void handleException(String tag, Exception e) {
-            getUtilities().setLastError(e.toString());
             log.error("{}: {}", tag, e.getMessage(), e);
         }
     }
@@ -64,7 +63,7 @@ public class GtasksSyncV2Provider {
     private final SyncExceptionHandler handler = new SyncExceptionHandler();
 
     private void finishSync(SyncResultCallback callback) {
-        getUtilities().recordSuccessfulSync();
+        gtasksPreferenceService.recordSuccessfulSync();
         callback.finished();
     }
 
@@ -109,10 +108,6 @@ public class GtasksSyncV2Provider {
 
     private String getName() {
         return context.getString(R.string.gtasks_GPr_header);
-    }
-
-    public GtasksPreferenceService getUtilities() {
-        return gtasksPreferenceService;
     }
 
     public void signOut() {

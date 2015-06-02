@@ -236,8 +236,8 @@ public class TaskService {
      * Parse quick add markup for the given task
      * @param tags an empty array to apply tags to
      */
-    boolean parseQuickAddMarkup(Task task, ArrayList<String> tags) {
-        return TitleParser.parse(tagService, task, tags);
+    void parseQuickAddMarkup(Task task, ArrayList<String> tags) {
+        TitleParser.parse(tagService, task, tags);
     }
 
     /**

@@ -22,7 +22,7 @@ abstract public class OrderedMetadataListUpdater<LIST> {
     private MetadataDao metadataDao;
 
     public interface OrderedListIterator {
-        public void processTask(long taskId, Metadata metadata);
+        void processTask(long taskId, Metadata metadata);
     }
 
     // --- abstract and empty
@@ -297,7 +297,7 @@ abstract public class OrderedMetadataListUpdater<LIST> {
     // --- task cascading operations
 
     public interface OrderedListNodeVisitor {
-        public void visitNode(Node node);
+        void visitNode(Node node);
     }
 
     /**

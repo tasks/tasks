@@ -32,10 +32,8 @@ public class DatabaseDao<TYPE extends AbstractModel> {
     private static final Logger log = LoggerFactory.getLogger(DatabaseDao.class);
 
     private final Class<TYPE> modelClass;
-
-    private Table table;
-
-    private Database database;
+    private final Table table;
+    private final Database database;
 
     public DatabaseDao(Database database, Class<TYPE> modelClass) {
         this.modelClass = modelClass;
@@ -56,7 +54,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
     // --- listeners
 
     public interface ModelUpdateListener<MTYPE> {
-        public void onModelUpdated(MTYPE model);
+        void onModelUpdated(MTYPE model);
     }
 
     private final ArrayList<ModelUpdateListener<TYPE>> listeners = new ArrayList<>();
@@ -214,7 +212,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
     }
 
     private interface DatabaseChangeOp {
-        public boolean makeChange();
+        boolean makeChange();
     }
 
     private boolean insertOrUpdateAndRecordChanges(TYPE item, DatabaseChangeOp op) {

@@ -36,7 +36,8 @@ public abstract class PopupControlSet extends TaskEditControlSetBase {
     final PopupDialogClickListener okListener = new PopupDialogClickListener() {
         @Override
         public boolean onClick(DialogInterface d, int which) {
-            return onOkClick();
+            onOkClick();
+            return true;
         }
     };
 
@@ -133,13 +134,8 @@ public abstract class PopupControlSet extends TaskEditControlSetBase {
         // Subclasses can override
     }
 
-    /**
-     * @return true if the dialog should be dismissed as the result of
-     * the click. Default is true.
-     */
-    protected boolean onOkClick() {
+    protected void onOkClick() {
         refreshDisplayView();
-        return true;
     }
 
     protected void onCancelClick() {

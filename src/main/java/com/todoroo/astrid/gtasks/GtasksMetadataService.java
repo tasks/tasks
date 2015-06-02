@@ -55,7 +55,7 @@ public final class GtasksMetadataService {
      * Clears metadata information. Used when user logs out of sync provider
      */
     public void clearMetadata() {
-        metadataDao.deleteWhere(Metadata.KEY.eq(getMetadataKey()));
+        metadataDao.deleteWhere(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY));
     }
 
     /**
@@ -64,7 +64,7 @@ public final class GtasksMetadataService {
     public void saveTaskAndMetadata(GtasksTaskContainer task) {
         task.prepareForSaving();
         taskDao.save(task.task);
-        synchronizeMetadata(task.task.getId(), task.metadata, getMetadataKey());
+        synchronizeMetadata(task.task.getId(), task.metadata, GtasksMetadata.METADATA_KEY);
     }
 
     /**
@@ -73,7 +73,7 @@ public final class GtasksMetadataService {
      */
     public Metadata getTaskMetadata(long taskId) {
         return metadataDao.getFirst(Query.select(Metadata.PROPERTIES).where(
-                MetadataCriteria.byTaskAndwithKey(taskId, getMetadataKey())));
+                MetadataCriteria.byTaskAndwithKey(taskId, GtasksMetadata.METADATA_KEY)));
     }
 
     /**
@@ -118,10 +118,6 @@ public final class GtasksMetadataService {
         }
     }
 
-    private String getMetadataKey() {
-        return GtasksMetadata.METADATA_KEY;
-    }
-
     public synchronized void findLocalMatch(GtasksTaskContainer remoteTask) {
         if(remoteTask.task.getId() != Task.NO_ID) {
             return;
@@ -141,7 +137,7 @@ public final class GtasksMetadataService {
 
     private Metadata getMetadataByGtaskId(String gtaskId) {
         return metadataDao.getFirst(Query.select(Metadata.PROPERTIES).where(Criterion.and(
-                Metadata.KEY.eq(getMetadataKey()),
+                Metadata.KEY.eq(GtasksMetadata.METADATA_KEY),
                 GtasksMetadata.ID.eq(gtaskId))));
     }
 

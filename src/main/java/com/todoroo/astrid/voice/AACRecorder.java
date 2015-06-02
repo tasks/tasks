@@ -19,7 +19,7 @@ public class AACRecorder {
     private AACRecorderCallbacks listener;
 
     public interface AACRecorderCallbacks {
-        public void encodingFinished();
+        void encodingFinished();
     }
 
     @TargetApi(Build.VERSION_CODES.GINGERBREAD_MR1)

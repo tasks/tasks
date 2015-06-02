@@ -426,8 +426,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         Class<?> openControl = (Class<?>) getActivity().getIntent().getSerializableExtra(TOKEN_OPEN_CONTROL);
 
-        for (int i = 0; i < itemOrder.length; i++) {
-            String item = itemOrder[i];
+        for (String item : itemOrder) {
             if (item.equals(hideAlwaysTrigger)) {
                 break; // As soon as we hit the hide section, we're done
             } else {
