@@ -82,6 +82,7 @@ import org.tasks.injection.InjectingFragment;
 import org.tasks.location.GeofenceService;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.DeviceInfo;
 import org.tasks.preferences.ResourceResolver;
 
 import java.io.File;
@@ -174,6 +175,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Inject ActFmCameraModule actFmCameraModule;
     @Inject GeofenceService geofenceService;
     @Inject ResourceResolver resourceResolver;
+    @Inject DeviceInfo deviceInfo;
 
     // --- UI components
 
@@ -712,31 +714,48 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 R.string.DLG_confirm_title).setMessage(
                         R.string.DLG_delete_this_task_question).setIcon(
                                 android.R.drawable.ic_dialog_alert).setPositiveButton(
-                                        android.R.string.ok, new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                TimerPlugin.updateTimer(notificationManager, taskService, getActivity(), model, false);
-                                                taskDeleter.delete(model);
-                                                shouldSaveState = false;
+                android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        TimerPlugin.updateTimer(notificationManager, taskService, getActivity(), model, false);
+                        taskDeleter.delete(model);
+                        shouldSaveState = false;
 
-                                                Activity a = getActivity();
-                                                if (a instanceof TaskEditActivity) {
-                                                    getActivity().setResult(Activity.RESULT_OK);
-                                                    getActivity().onBackPressed();
-                                                } else if (a instanceof TaskListActivity) {
-                                                    discardButtonClick();
-                                                    TaskListFragment tlf = ((TaskListActivity) a).getTaskListFragment();
-                                                    if (tlf != null) {
-                                                        tlf.refresh();
-                                                    }
-                                                }
-                                            }
-                                        }).setNegativeButton(android.R.string.cancel, null).show();
+                        Activity a = getActivity();
+                        if (a instanceof TaskEditActivity) {
+                            getActivity().setResult(Activity.RESULT_OK);
+                            getActivity().onBackPressed();
+                        } else if (a instanceof TaskListActivity) {
+                            discardButtonClick();
+                            TaskListFragment tlf = ((TaskListActivity) a).getTaskListFragment();
+                            if (tlf != null) {
+                                tlf.refresh();
+                            }
+                        }
+                    }
+                }).setNegativeButton(android.R.string.cancel, null).show();
     }
 
     private void startAttachFile() {
-        ArrayList<String> options = new ArrayList<>();
-        options.add(getString(R.string.file_add_picture));
+        final List<Runnable> runnables = new ArrayList<>();
+        List<String> options = new ArrayList<>();
+
+        if (deviceInfo.hasCamera() || deviceInfo.hasGallery()) {
+            runnables.add(new Runnable() {
+                @Override
+                public void run() {
+                    actFmCameraModule.showPictureLauncher(null);
+                }
+            });
+            options.add(getString(R.string.file_add_picture));
+        }
+        runnables.add(new Runnable() {
+            @Override
+            public void run() {
+                Intent attachFile = new Intent(getActivity(), FileExplore.class);
+                startActivityForResult(attachFile, REQUEST_CODE_ATTACH_FILE);
+            }
+        });
         options.add(getString(R.string.file_add_sdcard));
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
@@ -745,12 +764,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface d, int which) {
-                if(which == 0) {
-                    actFmCameraModule.showPictureLauncher(null);
-                } else if (which == 1) {
-                    Intent attachFile = new Intent(getActivity(), FileExplore.class);
-                    startActivityForResult(attachFile, REQUEST_CODE_ATTACH_FILE);
-                }
+                runnables.get(which).run();
             }
         };
 

@@ -1,9 +1,11 @@
 package org.tasks.preferences;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.provider.MediaStore;
 
 import com.google.api.client.repackaged.com.google.common.base.Joiner;
 
@@ -40,6 +42,16 @@ public class DeviceInfo {
         }
 
         return isPlayStoreAvailable;
+    }
+
+    public boolean hasCamera() {
+        return context.getPackageManager().queryIntentActivities(new Intent(MediaStore.ACTION_IMAGE_CAPTURE), 0).size() > 0;
+    }
+
+    public boolean hasGallery() {
+        return new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI) {{
+            setType("image/*");
+        }}.resolveActivity(context.getPackageManager()) != null;
     }
 
     public boolean supportsBilling() {

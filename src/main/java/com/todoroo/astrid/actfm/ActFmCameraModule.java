@@ -21,6 +21,7 @@ import android.widget.Toast;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.preferences.DeviceInfo;
 import org.tasks.preferences.Preferences;
 
 import java.io.File;
@@ -28,6 +29,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
@@ -43,64 +46,85 @@ public class ActFmCameraModule {
 
     private final Fragment fragment;
     private final Preferences preferences;
+    private DeviceInfo deviceInfo;
 
     public interface ClearImageCallback {
         void clearImage();
     }
 
     @Inject
-    public ActFmCameraModule(Fragment fragment, Preferences preferences) {
+    public ActFmCameraModule(Fragment fragment, Preferences preferences, DeviceInfo deviceInfo) {
         this.fragment = fragment;
         this.preferences = preferences;
+        this.deviceInfo = deviceInfo;
     }
 
     public void showPictureLauncher(final ClearImageCallback clearImageOption) {
-        ArrayList<String> options = new ArrayList<>();
+        final List<Runnable> runnables = new ArrayList<>();
+        List<String> options = new ArrayList<>();
 
-        final Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        PackageManager pm = fragment.getActivity().getPackageManager();
-        final boolean cameraAvailable = pm.queryIntentActivities(cameraIntent, 0).size() > 0;
-        if(cameraAvailable) {
-            options.add(fragment.getString(R.string.actfm_picture_camera));
-        }
-
-        options.add(fragment.getString(R.string.actfm_picture_gallery));
-
-        if (clearImageOption != null) {
-            options.add(fragment.getString(R.string.actfm_picture_clear));
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(fragment.getActivity(),
-                android.R.layout.simple_spinner_dropdown_item, options.toArray(new String[options.size()]));
-
-        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface d, int which) {
-                if(which == 0 && cameraAvailable) {
+        final boolean cameraAvailable = deviceInfo.hasCamera();
+        if (cameraAvailable) {
+            runnables.add(new Runnable() {
+                @Override
+                public void run() {
                     lastTempFile = getFilename(".jpeg");
                     if (lastTempFile == null) {
                         Toast.makeText(fragment.getActivity(), R.string.external_storage_unavailable, Toast.LENGTH_LONG).show();
-                        d.dismiss();
                     } else {
+                        final Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(lastTempFile));
                         fragment.startActivityForResult(cameraIntent, REQUEST_CODE_CAMERA);
                     }
-                } else if ((which == 1 && cameraAvailable) || (which == 0 && !cameraAvailable)) {
-                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                    intent.setType("image/*");
-                    fragment.startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI), REQUEST_CODE_PICTURE);
-                } else {
-                    if (clearImageOption != null) {
-                        clearImageOption.clearImage();
+                }
+            });
+            options.add(fragment.getString(R.string.actfm_picture_camera));
+        }
+
+        if (deviceInfo.hasGallery()) {
+            runnables.add(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI) {{
+                        setType("image/*");
+                    }};
+                    if (intent.resolveActivity(fragment.getActivity().getPackageManager()) != null) {
+                        fragment.startActivityForResult(intent, REQUEST_CODE_PICTURE);
                     }
                 }
-            }
-        };
+            });
+            options.add(fragment.getString(R.string.actfm_picture_gallery));
+        }
 
-        // show a menu of available options
-        new AlertDialog.Builder(fragment.getActivity())
-        .setAdapter(adapter, listener)
-        .show().setOwnerActivity(fragment.getActivity());
+        if (clearImageOption != null) {
+            runnables.add(new Runnable() {
+                @Override
+                public void run() {
+                    clearImageOption.clearImage();
+                }
+            });
+            options.add(fragment.getString(R.string.actfm_picture_clear));
+        }
+
+        if (runnables.size() == 1) {
+            runnables.get(0).run();
+        } else {
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(fragment.getActivity(),
+                    android.R.layout.simple_spinner_dropdown_item, options.toArray(new String[options.size()]));
+
+            DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface d, int which) {
+                    runnables.get(which).run();
+                    d.dismiss();
+                }
+            };
+
+            // show a menu of available options
+            new AlertDialog.Builder(fragment.getActivity())
+                    .setAdapter(adapter, listener)
+                    .show().setOwnerActivity(fragment.getActivity());
+        }
     }
 
     private File getFilename(String extension) {
