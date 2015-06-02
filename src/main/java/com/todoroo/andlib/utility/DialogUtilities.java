@@ -144,7 +144,7 @@ public class DialogUtilities {
                 dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
-                        if (!selectedOk[0]) {
+                        if (!selectedOk[0] && cancelListener != null) {
                             cancelListener.onClick(dialog, Dialog.BUTTON_NEGATIVE);
                         }
                     }
