@@ -29,6 +29,10 @@ public class CompleteTaskReceiver extends InjectingBroadcastReceiver {
         boolean flipState = intent.getBooleanExtra(TOGGLE_STATE, false);
         log.info("Completing {}", taskId);
         Task task = taskService.fetchById(taskId, Task.ID, Task.COMPLETION_DATE);
-        taskService.setComplete(task, !flipState || !task.isCompleted());
+        if (task != null) {
+            taskService.setComplete(task, !flipState || !task.isCompleted());
+        } else {
+            log.error("Could not find task with id {}", taskId);
+        }
     }
 }
