@@ -75,14 +75,16 @@ public class GCalHelper {
         createTaskEventIfEnabled(t, true);
     }
 
-    public String getDefaultCalendar() {
+    public boolean isDefaultCalendarSet() {
+        return getDefaultCalendar() != null && !getDefaultCalendar().equals("-1") && !getDefaultCalendar().equals("0");
+    }
+
+    private String getDefaultCalendar() {
         return preferences.getStringValue(R.string.gcal_p_default);
     }
 
     private void createTaskEventIfEnabled(Task t, boolean deleteEventIfExists) {
-        boolean gcalCreateEventEnabled = getDefaultCalendar() != null
-            && !getDefaultCalendar().equals("-1"); //$NON-NLS-1$
-        if (gcalCreateEventEnabled) {
+        if (isDefaultCalendarSet()) {
             ContentResolver cr = context.getContentResolver();
             Uri calendarUri = createTaskEvent(t, cr, new ContentValues(), deleteEventIfExists);
             if (calendarUri != null) {

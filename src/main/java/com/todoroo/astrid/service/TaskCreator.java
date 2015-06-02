@@ -40,9 +40,7 @@ public class TaskCreator {
     }
 
     public void addToCalendar(Task task, String title) {
-        boolean gcalCreateEventEnabled = gcalHelper.getDefaultCalendar() != null
-                && !gcalHelper.getDefaultCalendar().equals("-1") && task.hasDueDate(); //$NON-NLS-1$
-
+        boolean gcalCreateEventEnabled = gcalHelper.isDefaultCalendarSet() && task.hasDueDate(); //$NON-NLS-1$
         if (!TextUtils.isEmpty(title) && gcalCreateEventEnabled && TextUtils.isEmpty(task.getCalendarURI())) {
             Uri calendarUri = gcalHelper.createTaskEvent(task,
                     context.getContentResolver(), new ContentValues());

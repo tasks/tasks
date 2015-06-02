@@ -141,9 +141,7 @@ public class GCalControlSet extends TaskEditControlSetBase {
             return;
         }
 
-        boolean gcalCreateEventEnabled = gcal.getDefaultCalendar() != null &&
-                                        !gcal.getDefaultCalendar().equals("-1");
-        if ((gcalCreateEventEnabled || calendarSelector.getSelectedItemPosition() != 0) &&
+        if ((gcal.isDefaultCalendarSet() || calendarSelector.getSelectedItemPosition() != 0) &&
                 calendarUri == null) {
 
             try{
