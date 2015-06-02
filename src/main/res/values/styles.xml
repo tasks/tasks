@@ -29,7 +29,6 @@
         <item name="asToolbarSeparator">@android:color/transparent</item>
         <item name="asSeparatorBackground">#888888</item>
 
-        <item name="android:actionModeBackground">@color/primary</item>
         <item name="asContentBackground">@android:color/white</item>
         <item name="asEditBackground">@android:color/white</item>
         <item name="asTextColor">@android:color/black</item>
@@ -67,7 +66,6 @@
         <item name="drawer_background">@color/drawer_background_dark</item>
         <item name="drawer_background_selected">@color/drawer_background_selected_dark</item>
         <item name="asToolbarSeparator">@android:color/white</item>
-        <item name="android:actionModeBackground">@android:color/black</item>
         <item name="asContentBackground">@android:color/black</item>
         <item name="asEditBackground">@android:color/black</item>
         <item name="asTextColor">@android:color/white</item>
