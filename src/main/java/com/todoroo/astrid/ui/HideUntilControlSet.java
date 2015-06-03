@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.ui;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,12 +22,10 @@ import com.todoroo.astrid.helper.TaskEditControlSetBase;
 import org.joda.time.DateTime;
 import org.tasks.R;
 import org.tasks.activities.DateAndTimePickerActivity;
-import org.tasks.dialogs.DateAndTimePickerDialog;
 
 import java.util.Date;
 
 import static org.tasks.date.DateTimeUtils.newDate;
-import static org.tasks.date.DateTimeUtils.newDateTime;
 
 /**
  * Control set for specifying when a task should be hidden

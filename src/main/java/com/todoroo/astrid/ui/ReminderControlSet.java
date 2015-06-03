@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.ui;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,7 +29,7 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
-import org.tasks.dialogs.DateAndTimePickerDialog;
+import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.dialogs.LocationPickerDialog;
 import org.tasks.location.Geofence;
 import org.tasks.location.GeofenceService;
@@ -52,6 +53,8 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
 
     private static final Logger log = LoggerFactory.getLogger(ReminderControlSet.class);
     private static final String FRAG_TAG_LOCATION_PICKER = "frag_tag_location_picker";
+
+    public static final int REQUEST_NEW_ALARM = 12152;
 
     private Spinner mode;
     private Spinner addSpinner;
@@ -95,32 +98,24 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
     }
 
     private void addNewAlarm() {
-        pickNewAlarm(newDateTime().withMillisOfDay(0), new DateAndTimePickerDialog.OnDateTimePicked() {
-            @Override
-            public void onDateTimePicked(DateTime dateTime) {
-                addAlarmRow(dateTime.getMillis());
-            }
-        });
+        taskEditFragment.startActivityForResult(new Intent(taskEditFragment.getActivity(), DateAndTimePickerActivity.class) {{
+            putExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, newDateTime().withMillisOfDay(0).getMillis());
+        }}, REQUEST_NEW_ALARM);
     }
 
-    private void pickNewAlarm(DateTime initial, DateAndTimePickerDialog.OnDateTimePicked onDateTimePicked) {
-        DateAndTimePickerDialog.dateAndTimePickerDialog(taskEditFragment.getFragmentManager(),
-                taskEditFragment.getActivity(), initial, onDateTimePicked, null);
-    }
-
-    private void addAlarmRow(final Long timestamp) {
+    public void addAlarmRow(final Long timestamp) {
         final View alertItem = addAlarmRow(getDisplayString(timestamp), timestamp, null);
         TextView display = (TextView) alertItem.findViewById(R.id.alarm_string);
         display.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                pickNewAlarm(newDateTime(timestamp), new DateAndTimePickerDialog.OnDateTimePicked() {
-                    @Override
-                    public void onDateTimePicked(DateTime dateTime) {
-                        long millis = dateTime.getMillis();
-                        addAlarmRow(alertItem, getDisplayString(millis), millis, null);
-                    }
-                });
+//                pickNewAlarm(newDateTime(timestamp), new DateAndTimePickerDialog.OnDateTimePicked() {
+//                    @Override
+//                    public void onDateTimePicked(DateTime dateTime) {
+//                        long millis = dateTime.getMillis();
+//                        addAlarmRow(alertItem, getDisplayString(millis), millis, null);
+//                    }
+//                });
             }
         });
     }

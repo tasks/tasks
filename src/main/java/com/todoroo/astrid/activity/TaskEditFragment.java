@@ -79,8 +79,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.activities.DateAndTimePickerActivity;
-import org.tasks.activities.TimePickerActivity;
-import org.tasks.dialogs.DateAndTimePickerDialog;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.location.GeofenceService;
 import org.tasks.notifications.NotificationManager;
@@ -187,6 +185,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private TimerActionControlSet timerAction;
     private EditNoteActivity editNotes;
     private HideUntilControlSet hideUntilControls;
+    private ReminderControlSet reminderControlSet;
 
     @InjectView(R.id.title) EditText title;
     @InjectView(R.id.pager) ViewPager mPager;
@@ -387,7 +386,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controlSetMap.put(getString(R.string.TEA_ctrl_notes_pref),
                 notesControlSet);
 
-        ReminderControlSet reminderControlSet = new ReminderControlSet(alarmService, geofenceService, this);
+        reminderControlSet = new ReminderControlSet(alarmService, geofenceService, this);
         controls.add(reminderControlSet);
         controlSetMap.put(getString(R.string.TEA_ctrl_reminders_pref), reminderControlSet);
 
@@ -921,6 +920,13 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 log.error("Invalid timestamp");
             }
             return;
+        } else if (requestCode == ReminderControlSet.REQUEST_NEW_ALARM && resultCode == Activity.RESULT_OK) {
+            long timestamp = data.getLongExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, 0L);
+            if (timestamp > 0) {
+                reminderControlSet.addAlarmRow(timestamp);
+            } else {
+                log.error("Invalid timestamp");
+            }
         } else if (editNotes != null && editNotes.activityResult(requestCode, resultCode, data)) {
             return;
         } else if (requestCode == REQUEST_CODE_RECORD && resultCode == Activity.RESULT_OK) {
