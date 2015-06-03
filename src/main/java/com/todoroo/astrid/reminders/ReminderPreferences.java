@@ -49,8 +49,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
             public boolean onPreferenceClick(Preference ignored) {
                 final DateTime current = new DateTime().withMillisOfDay(preference.getMillisOfDay());
                 startActivityForResult(new Intent(ReminderPreferences.this, TimePickerActivity.class) {{
-                    putExtra(TimePickerActivity.EXTRA_HOURS, current.getHourOfDay());
-                    putExtra(TimePickerActivity.EXTRA_MINUTES, current.getMinuteOfHour());
+                    putExtra(TimePickerActivity.EXTRA_TIMESTAMP, current.getMillis());
                 }}, requestCode);
                 return true;
             }

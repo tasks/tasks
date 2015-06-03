@@ -14,6 +14,8 @@ public class MyDatePickerDialog extends DatePickerDialog {
 
     @Override
     public void onCancel(DialogInterface dialog) {
+        super.onCancel(dialog);
+
         if (listener != null) {
             listener.onDismiss(dialog);
         }

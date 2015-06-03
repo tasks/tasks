@@ -6,6 +6,7 @@
 package com.todoroo.astrid.ui;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -21,6 +22,7 @@ import com.todoroo.astrid.helper.TaskEditControlSetBase;
 
 import org.joda.time.DateTime;
 import org.tasks.R;
+import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.dialogs.DateAndTimePickerDialog;
 
 import java.util.Date;
@@ -40,6 +42,7 @@ public class HideUntilControlSet extends TaskEditControlSetBase implements OnIte
 
     private static final int SPECIFIC_DATE = -1;
     private static final int EXISTING_TIME_UNSET = -2;
+    public static final int REQUEST_HIDE_UNTIL = 11011;
 
     //private final CheckBox enabled;
     private Spinner spinner;
@@ -125,26 +128,20 @@ public class HideUntilControlSet extends TaskEditControlSetBase implements OnIte
             customDate = newDate(existingDate == EXISTING_TIME_UNSET ? DateUtilities.now() : existingDate);
             customDate.setSeconds(0);
 
-            DateAndTimePickerDialog.dateAndTimePickerDialog(taskEditFragment.getFragmentManager(), taskEditFragment.getActivity(), newDateTime(customDate), new DateAndTimePickerDialog.OnDateTimePicked() {
-                @Override
-                public void onDateTimePicked(DateTime dateTime) {
-                    customDate = dateTime.toDate();
-                    customDateFinished();
-                }
-            }, new DialogInterface.OnDismissListener() {
-                @Override
-                public void onDismiss(DialogInterface dialog) {
-                    spinner.setSelection(previousSetting);
-                    refreshDisplayView();
-                }
-            });
-
+            taskEditFragment.startActivityForResult(new Intent(taskEditFragment.getActivity(), DateAndTimePickerActivity.class) {{
+                putExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, customDate.getTime());
+            }}, REQUEST_HIDE_UNTIL);
             spinner.setSelection(previousSetting);
         } else {
             previousSetting = position;
         }
         selection = spinner.getSelectedItemPosition();
         refreshDisplayView();
+    }
+
+    public void setCustomDate(long timestamp) {
+        customDate = new DateTime(timestamp).toDate();
+        customDateFinished();
     }
 
     @Override

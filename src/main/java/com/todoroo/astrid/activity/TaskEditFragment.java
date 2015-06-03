@@ -78,6 +78,9 @@ import com.todoroo.astrid.utility.Flags;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.activities.DateAndTimePickerActivity;
+import org.tasks.activities.TimePickerActivity;
+import org.tasks.dialogs.DateAndTimePickerDialog;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.location.GeofenceService;
 import org.tasks.notifications.NotificationManager;
@@ -183,6 +186,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private FilesControlSet filesControlSet;
     private TimerActionControlSet timerAction;
     private EditNoteActivity editNotes;
+    private HideUntilControlSet hideUntilControls;
 
     @InjectView(R.id.title) EditText title;
     @InjectView(R.id.pager) ViewPager mPager;
@@ -387,7 +391,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controls.add(reminderControlSet);
         controlSetMap.put(getString(R.string.TEA_ctrl_reminders_pref), reminderControlSet);
 
-        HideUntilControlSet hideUntilControls = new HideUntilControlSet(this);
+        hideUntilControls = new HideUntilControlSet(this);
         controls.add(hideUntilControls);
         controlSetMap.put(getString(R.string.TEA_ctrl_hide_until_pref), hideUntilControls);
 
@@ -891,8 +895,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
         populateFields(getActivity().getIntent());
         if (isNewTask) {
             title.requestFocus();
@@ -909,7 +913,15 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             instantiateEditNotes();
         }
 
-        if (editNotes != null && editNotes.activityResult(requestCode, resultCode, data)) {
+        if (requestCode == HideUntilControlSet.REQUEST_HIDE_UNTIL && resultCode == Activity.RESULT_OK) {
+            long timestamp = data.getLongExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, 0L);
+            if (timestamp > 0) {
+                hideUntilControls.setCustomDate(timestamp);
+            } else {
+                log.error("Invalid timestamp");
+            }
+            return;
+        } else if (editNotes != null && editNotes.activityResult(requestCode, resultCode, data)) {
             return;
         } else if (requestCode == REQUEST_CODE_RECORD && resultCode == Activity.RESULT_OK) {
             String recordedAudioPath = data.getStringExtra(AACRecordingActivity.RESULT_OUTFILE);

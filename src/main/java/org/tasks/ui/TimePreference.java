@@ -12,8 +12,6 @@ import org.tasks.activities.TimePickerActivity;
 
 import java.text.DateFormat;
 
-import static org.tasks.date.DateTimeUtils.newDateTime;
-
 public class TimePreference extends Preference {
 
     private int millisOfDay;
@@ -49,9 +47,8 @@ public class TimePreference extends Preference {
     }
 
     public void handleTimePickerActivityIntent(Intent data) {
-        int hour = data.getIntExtra(TimePickerActivity.EXTRA_HOURS, 0);
-        int minute = data.getIntExtra(TimePickerActivity.EXTRA_MINUTES, 0);
-        int millisOfDay = newDateTime().withMillisOfDay(0).withHourOfDay(hour).withMinuteOfHour(minute).getMillisOfDay();
+        long timestamp = data.getLongExtra(TimePickerActivity.EXTRA_TIMESTAMP, 0L);
+        int millisOfDay = new DateTime(timestamp).getMillisOfDay();
         if (callChangeListener(millisOfDay)) {
             persistInt(millisOfDay);
             setMillisOfDay(millisOfDay);
