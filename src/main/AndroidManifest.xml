@@ -446,7 +446,9 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
-        <activity android:name="com.todoroo.astrid.files.FileExplore" />
+        <activity
+            android:name="com.todoroo.astrid.files.FileExplore"
+            android:theme="@style/Tasks.Dialog"/>
 
         <receiver android:name="com.todoroo.astrid.timers.TimerTaskCompleteListener">
             <intent-filter>

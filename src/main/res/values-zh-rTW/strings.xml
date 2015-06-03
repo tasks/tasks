@@ -279,7 +279,6 @@
 	<string name="search_market_ms_title">找不到微軟 Office</string>
 	<string name="file_type_unhandled">對不起！找不到應用程序處理這種文件類型。</string>
 	<string name="file_type_unhandled_title">找不到應用程序</string>
-	<string name="file_browser_up">向上</string>
 	<string name="file_browser_title">選擇一個文件</string>
 	<string name="dir_browser_title">選擇一個目錄</string>
 	<string name="file_browser_err_permissions">權限出錯！請確保您沒有阻止Tasks訪問SD 卡。</string>

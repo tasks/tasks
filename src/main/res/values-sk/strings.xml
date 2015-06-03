@@ -297,7 +297,6 @@
 	<string name="search_market_ms_title">Chýba prehliadač MS Office</string>
 	<string name="file_type_unhandled">Pre tento typ súboru nebola nájdená žiadna aplikácia</string>
 	<string name="file_type_unhandled_title">Aplikácia nebola nájdená</string>
-	<string name="file_browser_up">Vyššie</string>
 	<string name="file_browser_title">Vybrať súbor</string>
 	<string name="dir_browser_title">Vytvoriť zložku</string>
 	<string name="file_browser_err_permissions">Chyba oprávnenia! Prosím, uisti sa, či Tasks namá zablokovaný prístup k SD karte.</string>

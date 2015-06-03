@@ -148,7 +148,6 @@
 	<string name="gcal_GCP_default">Standardkalender</string>
 	<string name="CFC_gtasks_list_text">I liste: ?</string>
 	<string name="locale_notification">Du har $NUM som matcher: $FILTER</string>
-	<string name="file_browser_up">Opp</string>
 	<string name="file_browser_title">Velg en fil</string>
 	<string name="rmd_NoA_filter">Påminnelse!</string>
 	<string name="rmd_NoA_done">Allerede utført!</string>

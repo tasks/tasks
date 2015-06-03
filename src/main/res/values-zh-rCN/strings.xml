@@ -245,7 +245,6 @@
 	<string name="search_market_ms_title">找不到微软 Office</string>
 	<string name="file_type_unhandled">对不起！找不到应用程序处理这种文件类型。</string>
 	<string name="file_type_unhandled_title">找不到应用程序</string>
-	<string name="file_browser_up">向上</string>
 	<string name="file_browser_title">选择一个文件</string>
 	<string name="dir_browser_title">选择一个目录</string>
 	<string name="file_browser_err_permissions">权限出错！请确保您没有阻止清单小助理访问 SD 卡。</string>

@@ -286,7 +286,6 @@
 	<string name="search_market_ms_title">Chybí prohlížeč MS Office</string>
 	<string name="file_type_unhandled">Pro tento typ souborů nebyla nalezena žádná aplikace.</string>
 	<string name="file_type_unhandled_title">Chybí aplikace</string>
-	<string name="file_browser_up">O úroveň výš</string>
 	<string name="file_browser_title">Vybrat soubor</string>
 	<string name="dir_browser_title">Vytvořit složku</string>
 	<string name="file_browser_err_permissions">Chyba oprávnění! Ujistěte se prosím, že jste Tasks nezabránil v přístupu k SD kartě.</string>

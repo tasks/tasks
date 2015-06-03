@@ -300,7 +300,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="search_market_ms_title">Leitor de documentos MS Office não encontrado</string>
 	<string name="file_type_unhandled">Não foi encontrada qualquer aplicação para gerir ficheiros deste tipo.</string>
 	<string name="file_type_unhandled_title">Aplicação não encontrada</string>
-	<string name="file_browser_up">Subir</string>
 	<string name="file_browser_title">Escolha um ficheiro</string>
 	<string name="dir_browser_title">Escolha um diretório</string>
 	<string name="file_browser_err_permissions">Erro de permissões! Certifique-se que o Tasks tem permissões para aceder ao cartão SD:</string>

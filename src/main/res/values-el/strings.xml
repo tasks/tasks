@@ -290,7 +290,6 @@
 	<string name="search_market_ms_title">Δεν βρέθηκε αναγνώστης αρχείων MS Office.</string>
 	<string name="file_type_unhandled">Συγγνώμη! Δεν βρέθηκε εφαρμογή που να χειρίζεται τέτοιο τύπο αρχείου</string>
 	<string name="file_type_unhandled_title">Δεν βρέθηκε εφαρμογή</string>
-	<string name="file_browser_up">Πάνω</string>
 	<string name="file_browser_title">Επιλογή αρχείου</string>
 	<string name="dir_browser_title">Επιλογή φακέλου</string>
 	<string name="file_browser_err_permissions">Σφάλμα αδειών! Παρακαλώ σιγουρευτείτε ότι δεν έχετε μπλοκάρει την εφαρμογή από την πρόσβαση στην SD κάρτα σας.</string>

@@ -294,7 +294,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="search_market_ms_title">Nie znaleziono czytnika MS Office</string>
 	<string name="file_type_unhandled">Przepraszamy! Nie znaleziono aplikacji do obsługi tego typu pliku.</string>
 	<string name="file_type_unhandled_title">Nie znaleziono aplikacji</string>
-	<string name="file_browser_up">Do góry</string>
 	<string name="file_browser_title">Wybierz plik</string>
 	<string name="dir_browser_title">Wybierz katalog</string>
 	<string name="file_browser_err_permissions">Błąd dostępu! Proszę upewnić się, że Tasks nie ma zablokowanego dostępu do karty SD.</string>

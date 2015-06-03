@@ -19,8 +19,8 @@
     
     <string name="file_type_unhandled">Sorry! No application was found to handle this file type.</string>
     <string name="file_type_unhandled_title">No application found</string>
-    
-    <string name="file_browser_up">Up</string>
+
+    <string name="back">Back</string>
     <string name="file_browser_title">Choose a file</string>
     <string name="dir_browser_title">Choose a directory</string>
     <string name="file_browser_err_permissions">Permissions error! Please make sure you have not blocked Tasks from accessing the SD card.</string>

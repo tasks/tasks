@@ -295,7 +295,6 @@
 	<string name="search_market_ms_title">Ne najdem bralnika MS Office</string>
 	<string name="file_type_unhandled">Žal nobena aplikacija ne ustreza takim datotekam.</string>
 	<string name="file_type_unhandled_title">Ni ustrezne aplikacije</string>
-	<string name="file_browser_up">Gor</string>
 	<string name="file_browser_title">Izberite datoteko</string>
 	<string name="dir_browser_title">Izberite mapo</string>
 	<string name="file_browser_err_permissions">Napaka pri dovoljenjih! Prosimo, preverite, da niste preprečili aplikaciji Opravki dostopa do SD kartice.</string>

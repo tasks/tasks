@@ -292,7 +292,6 @@
 	<string name="search_market_ms_title">לא נמצא קורא לקבצי אופיס</string>
 	<string name="file_type_unhandled">\"מצטערת! לא מצאתי ישום שיכול  לטפל בקבצים מסוג זה\"</string>
 	<string name="file_type_unhandled_title">יישום לא נמצא</string>
-	<string name="file_browser_up">מעלה</string>
 	<string name="file_browser_title">בחר קובץ</string>
 	<string name="dir_browser_title">יש לבחור תיקייה</string>
 	<string name="file_browser_err_permissions">הרשאות לא מספיקות! אנא בדוק שלא חסמת את אסטריד מלגשת לכרטיס הזיכרון</string>

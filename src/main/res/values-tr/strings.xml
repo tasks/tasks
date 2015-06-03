@@ -267,7 +267,6 @@
 	<string name="search_market_ms_title">MS Office okuyucu bulunamadı</string>
 	<string name="file_type_unhandled">Üzgünüm! Bu dosya türünü destekleyen bir uygulama bulunamadı.</string>
 	<string name="file_type_unhandled_title">Uygulama bulunamadı</string>
-	<string name="file_browser_up">Yukarı</string>
 	<string name="file_browser_title">Bir dosya seçin</string>
 	<string name="dir_browser_title">Bir dizin seçin</string>
 	<string name="file_browser_err_permissions">İzin hatası! Tasks\'in SD kartınıza erişiminin engellenmediğinden emin olun lütfen.</string>

@@ -288,7 +288,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="search_market_ms_title">Ingen MS Office-läsare hittades</string>
 	<string name="file_type_unhandled">Tyvärr hittades ingen applikation för att hantera den här filtypen</string>
 	<string name="file_type_unhandled_title">Ingen passande applikation hittades</string>
-	<string name="file_browser_up">Upp</string>
 	<string name="file_browser_title">Välj en fil</string>
 	<string name="dir_browser_title">Välj sökväg</string>
 	<string name="file_browser_err_permissions">Behörighets fel! Vänligen kontrollera att du inte blockat Tasks från att komma åt SD-kortet.</string>

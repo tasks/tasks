@@ -300,7 +300,6 @@
 	<string name="search_market_ms_title">Не е намерен MS Office четец</string>
 	<string name="file_type_unhandled">Съжаляваме! Не е намерено приложение, което да работи с този тип файл.</string>
 	<string name="file_type_unhandled_title">Не е намерено приложение</string>
-	<string name="file_browser_up">Горе</string>
 	<string name="file_browser_title">Избери файл</string>
 	<string name="dir_browser_title">Избери директория</string>
 	<string name="file_browser_err_permissions">Грешка в Разрешения! Моля, проверете дали не сте блокирани Tasks от достъп до SD картата.</string>

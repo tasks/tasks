@@ -292,7 +292,6 @@
 	<string name="search_market_ms_title">Aucun lecteur MS Office n\'a été trouvé</string>
 	<string name="file_type_unhandled">Désolé ! Aucune application n\'a été trouvé pour gérer ce type de fichier.</string>
 	<string name="file_type_unhandled_title">Aucune application trouvée</string>
-	<string name="file_browser_up">Remonter</string>
 	<string name="file_browser_title">Choisissez un fichier</string>
 	<string name="dir_browser_title">Choisissez un dossier</string>
 	<string name="file_browser_err_permissions">Erreur de permissions ! Assurez-vous qu\'Tasks à le droit d\'accéder à la carte SD.</string>

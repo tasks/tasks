@@ -292,7 +292,6 @@
 	<string name="search_market_ms_title">Geen MS Office-lezer gevonden</string>
 	<string name="file_type_unhandled">Sorry! Er is geen applicatie gevonden die dit bestandtype ondersteunt.</string>
 	<string name="file_type_unhandled_title">Geen applicatie gevonden</string>
-	<string name="file_browser_up">Omhoog</string>
 	<string name="file_browser_title">Bestand kiezen</string>
 	<string name="dir_browser_title">Kies een directory</string>
 	<string name="file_browser_err_permissions">Bestandsrechtenfout! Let erop dat Tasks toegang heeft tot de SD-kaart.</string>

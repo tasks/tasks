@@ -303,7 +303,6 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	<string name="search_market_ms_title">MS 오피스 리더 없음</string>
 	<string name="file_type_unhandled">죄송하지만 이 파일 형식을 다룰 수 있는 프로그램이 없습니다.</string>
 	<string name="file_type_unhandled_title">프로그램이 없음</string>
-	<string name="file_browser_up">위로</string>
 	<string name="file_browser_title">파일 선택하기</string>
 	<string name="dir_browser_title">디렉토리 선택하기</string>
 	<string name="file_browser_err_permissions">권한 에러! Tasks가 SD 카드에 접근하는 것을 막지 않았는지 확인하세요.</string>

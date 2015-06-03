@@ -299,7 +299,6 @@
 	<string name="search_market_ms_title">Не найдена программа для просмотра файлов MS Office.</string>
 	<string name="file_type_unhandled">Извините! Не найдена программа для просмотра файлов этого типа.</string>
 	<string name="file_type_unhandled_title">Подходящая программа не найдена.</string>
-	<string name="file_browser_up">Вверх</string>
 	<string name="file_browser_title">Выбрать файл</string>
 	<string name="dir_browser_title">Выбрать папку</string>
 	<string name="file_browser_err_permissions">Ошибка доступа! Пожалуйста убедитесь, что Tasks имеет доступ к SD карте.</string>

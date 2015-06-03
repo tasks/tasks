@@ -290,7 +290,6 @@
 	<string name="search_market_ms_title">No se encontró lector para archivos de MS Office</string>
 	<string name="file_type_unhandled">Lo sentimos! No se encontró ninguna aplicación para abrir este tipo de archivo.</string>
 	<string name="file_type_unhandled_title">No se encontró ninguna aplicación</string>
-	<string name="file_browser_up">Arriba</string>
 	<string name="file_browser_title">Elija un archivo</string>
 	<string name="dir_browser_title">Elija un directorio</string>
 	<string name="file_browser_err_permissions">¡Permiso denegado! Por favor asegúrese permitir a Tasks el acceso a la tarjeta SD.</string>

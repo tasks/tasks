@@ -291,7 +291,6 @@
 	<string name="search_market_ms_title">Nenhum leitor MS Office encontrado</string>
 	<string name="file_type_unhandled">Desculpa! Nenhuma aplicação para manipular este tipo de arquivo foi encontrada.</string>
 	<string name="file_type_unhandled_title">Aplicação não encontrada</string>
-	<string name="file_browser_up">Subir</string>
 	<string name="file_browser_title">Escolha um arquivo</string>
 	<string name="dir_browser_title">Escolha um diretório</string>
 	<string name="file_browser_err_permissions">Erro de permissões! Certifique-se de que você não bloqueou o Tasks de acessar o cartão SD.</string>

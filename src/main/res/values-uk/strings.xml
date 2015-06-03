@@ -298,7 +298,6 @@
 	<string name="search_market_ms_title">Не знайдено програма для перегляду файлів MS Office.</string>
 	<string name="file_type_unhandled">Вибачте! Не знайдено програму для перегляду файлів цього типу.</string>
 	<string name="file_type_unhandled_title">Програму не знайдено</string>
-	<string name="file_browser_up">Нагору</string>
 	<string name="file_browser_title">Вибрати файл</string>
 	<string name="dir_browser_title">Вибрати каталог</string>
 	<string name="file_browser_err_permissions">Помилка доступу! Будь ласка переконайтеся, що ви не заблокували Tasks для доступу до SD карти.</string>

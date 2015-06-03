@@ -76,9 +76,8 @@ public class FileExplore extends Activity {
 		directoryMode = getIntent().getBooleanExtra(EXTRA_DIRECTORIES_SELECTABLE, false);
 
 		showDialog(DIALOG_LOAD_FILE);
-		upString = getString(R.string.file_browser_up);
+		upString = getString(R.string.back);
 		log.debug(path.getAbsolutePath());
-
 	}
 
 	private void loadFileList() {
@@ -110,21 +109,21 @@ public class FileExplore extends Activity {
 			String[] fList = path.list(filter);
 			fileList = new Item[fList.length];
 			for (int i = 0; i < fList.length; i++) {
-				fileList[i] = new Item(fList[i], R.drawable.file_icon);
+				fileList[i] = new Item(fList[i], R.drawable.ic_action_document);
 
 				// Convert into file path
 				File sel = new File(path, fList[i]);
 
 				// Set drawables
 				if (sel.isDirectory()) {
-					fileList[i].icon = R.drawable.directory_icon;
+					fileList[i].icon = R.drawable.ic_action_folder_closed;
 				}
 			}
 
 			if (!firstLvl) {
 				Item temp[] = new Item[fileList.length + 1];
                 System.arraycopy(fileList, 0, temp, 1, fileList.length);
-				temp[0] = new Item(upString, R.drawable.directory_up);
+				temp[0] = new Item(upString, R.drawable.ic_action_arrow_left);
 				fileList = temp;
 			}
 		} else {

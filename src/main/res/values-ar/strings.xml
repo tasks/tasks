@@ -190,7 +190,6 @@
 	<string name="search_market_pdf">لا يوجد قارئ ملف البي دي اف. هل تريد تحميل قارئ البي دي اف من سوق الاندوريد؟</string>
 	<string name="search_market_pdf_title">لا يوجد قارئ ل البي دي اف</string>
 	<string name="file_type_unhandled_title">لا يوجد برنامج</string>
-	<string name="file_browser_up">أعلى</string>
 	<string name="file_browser_title">أختر ملف</string>
 	<string name="dir_browser_title">أختار المسار</string>
 	<string name="file_add_picture">ارفق صورة</string>

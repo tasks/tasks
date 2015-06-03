@@ -265,7 +265,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="search_market_ms_title">Non è stato trovato nessun lettore di documenti MS Office</string>
 	<string name="file_type_unhandled">Spiacente! Non è stata trovata nessuna applicazione per gestire questo tipo di file</string>
 	<string name="file_type_unhandled_title">Spiacente! Non è stata trovata nessuna applicazione</string>
-	<string name="file_browser_up">Su</string>
 	<string name="file_browser_title">Scegli un file</string>
 	<string name="dir_browser_title">Scegli una cartella</string>
 	<string name="file_browser_err_permissions">Errore di autorizzazioni! Assicurati di non aver bloccato l\'accesso alla scheda SD da parte di Tasks</string>

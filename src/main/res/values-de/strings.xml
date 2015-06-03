@@ -293,7 +293,6 @@
 	<string name="search_market_ms_title">Es wurde kein Office-Reader gefunden</string>
 	<string name="file_type_unhandled">Tut mir leid! Dieser Dateityp kann nicht geöffnet werden.</string>
 	<string name="file_type_unhandled_title">Es wurde keine Anwendung gefunden</string>
-	<string name="file_browser_up">Nach oben</string>
 	<string name="file_browser_title">Wählen Sie eine Datei</string>
 	<string name="dir_browser_title">Wähle ein Verzeichnis</string>
 	<string name="file_browser_err_permissions">Konnte nicht auf die SD-Karte zugreifen. Bitte stellen Sie sicher, das sie den Zugriff auf sie SD Karte nicht eingeschränkt haben.</string>
