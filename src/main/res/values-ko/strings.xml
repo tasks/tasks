@@ -28,9 +28,9 @@
 	<string name="DLG_error_sdcard">폴더에 접근 불가: %s</string>
 	<string name="DLG_error_sdcard_general">SD 카드에 접근할 수 없습니다!</string>
 	<string name="import_file_prompt">복원할 파일을 선택하세요</string>
-	<string name="read_permission_label">아스트리드 권한</string>
+	<string name="read_permission_label">Tasks 권한</string>
 	<string name="read_permission_desc">일정 읽기, 일정 필터 보기</string>
-	<string name="write_permission_label">아스트리드 권한</string>
+	<string name="write_permission_label">Tasks 권한</string>
 	<string name="write_permission_desc">새 일정 생성하기, 기존 일정 편집하기</string>
 	<string name="DLG_delete_this_task_question">이 일정을 삭제할까요?</string>
 	<string name="DLG_delete_this_item_question">이 항목을 삭제할까요: %s?</string>
@@ -88,6 +88,7 @@
 	<string name="TEA_estimatedDuration_label">일정 완료 예상 시간은?</string>
 	<string name="TEA_elapsedDuration_label">일정에 이미 소모한 시간</string>
 	<string name="TEA_menu_save">변경사항 저장</string>
+	<string name="TEA_menu_discard_changes">변경 사항 취소</string>
 	<string name="TEA_tab_activity">활동 내역</string>
 	<string name="TEA_timer_est">동부표준시 %s</string>
 	<string name="TEA_timer_elap">경과 시간: %s</string>
@@ -111,6 +112,8 @@
 		<item>특정한 요일/시간</item>
 	</string-array>
 	<string name="TEA_control_when">언제</string>
+	<string name="TEA_control_repeat">반복</string>
+	<string name="TEA_control_gcal">달력</string>
 	<string name="TEA_control_importance">우선순위</string>
 	<string name="TEA_control_lists">목록</string>
 	<string name="TEA_control_notes">설명</string>
@@ -125,18 +128,18 @@
 	<string name="MCA_add_task">나중에 전화하기</string>
 	<string name="MCA_ignore">무시하기</string>
 	<string name="MCA_ignore_title">모든 부재중 전화를 무시할까요?</string>
-	<string name="MCA_ignore_body">부재중 전화를 몇 번 무시했습니다. 아스트리드의 부재중 전화 알림을 중지할까요?</string>
+	<string name="MCA_ignore_body">부재중 전화를 몇 번 무시했습니다. Tasks의 부재중 전화 알림을 중지할까요?</string>
 	<string name="MCA_ignore_all">모든 전화 무시하기</string>
 	<string name="MCA_ignore_this">이 전화만 무시하기</string>
 	<string name="MCA_missed_calls_pref_title">부재중 전화 처리</string>
-	<string name="MCA_missed_calls_pref_desc_enabled">아스트리드는 부재중 전화를 알려주고 회신할 수 있도록 알려줍니다</string>
+	<string name="MCA_missed_calls_pref_desc_enabled">Tasks는 부재중 전화 내역과 이를 회신할 수 있도록 알려줍니다</string>
 	<string name="MCA_task_title_name">%1$s 님에게 %2$s 에 다시 연락하세요</string>
 	<string name="MCA_task_title_no_name">%s 님에게 다시 연락하세요</string>
 	<string name="MCA_schedule_dialog_title">%s 님에게 다시 연락하세요...</string>
 	<string name="CRA_ignore">무시하기</string>
 	<string name="CRA_title">모임 목록이 필요하세요?</string>
 	<string name="CRA_ignore_title">모든 달력 이벤트를 무시할까요?</string>
-	<string name="CRA_ignore_body">몇몇의 달력 이벤트를 무시했습니다. 아스트리드가 그것을 물어보는 것을 중단할까요?</string>
+	<string name="CRA_ignore_body">당신은 몇몇의 달력 이벤트를 무시했습니다. Tasks가 이것을 더이상 알려드리지 않도록 할까요?</string>
 	<string name="CRA_ignore_all">모든 이벤트 무시하기</string>
 	<string name="CRA_ignore_this">이 이벤트만 무시하기</string>
 	<string name="CRA_speech_bubble_start">%s 가 곧 시작될 것 같습니다. 활동 아이템 목록을 만들까요?</string>
@@ -153,7 +156,7 @@
 	<string name="CRA_many_attendees">%1$s, %2$s, %3$d 님과 다른 분들이 참석 중입니다.</string>
 	<string name="CRA_invitation_prompt">초대할까요?</string>
 	<string name="CRA_calendar_reminders_pref_title">달력 도우미</string>
-	<string name="CRA_calendar_reminders_pref_desc_enabled">아스트리드는 다가오는 달력 이벤트를 알리고 당신이 준비하도록 할 것입니다</string>
+	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks는 다가오는 달력 이벤트를 알리고 당신이 준비하도록 할 것입니다</string>
 	<string name="CRA_share_list_title">목록을 공유할까요?</string>
 	<string name="CRA_invite_attendees">참석자 초대하기</string>
 	<string name="CRA_more_options">추가 설정</string>
@@ -173,6 +176,7 @@
 	<string name="EPr_beastMode_hint">각 줄의 왼쪽 손잡이를 끌어서 일정 편집 화면을 사용자 정의하기</string>
 	<string name="EPr_fullTask_title">전체 일정 제목 보기</string>
 	<string name="EPr_show_task_edit_comments">일정 편집에서 댓글 보기</string>
+	<string name="task_list_options">일정 목록 옵션</string>
 	<string name="EPr_cal_end_or_start_at_due_time">달력 이벤트 시간</string>
 	<string name="EPr_cal_end_at_due_time">설정한 시간에 달력 이벤트 종료</string>
 	<string name="EPr_cal_start_at_due_time">설정한 시간에 달력 이벤트 시작</string>
@@ -184,7 +188,7 @@
 	<string name="EPr_manage_purge_deleted_message">삭제한 일정을 모두 비울까요?\n\n비운 일정은 다시 살릴 수 없습니다!</string>
 	<string name="EPr_manage_purge_deleted_status">%d 일정을 비웠습니다!</string>
 	<string name="EPr_manage_clear_all">모든 자료 삭제하기</string>
-	<string name="EPr_manage_clear_all_message">아스트리드의 모든 일정과 설정을 삭제할까요?\n\n경고: 되돌릴 수 없음!</string>
+	<string name="EPr_manage_clear_all_message">Tasks의 모든 일정과 설정을 삭제할까요?\n\n경고: 되돌릴 수 없음!</string>
 	<string name="EPr_manage_delete_completed_gcal">완료한 일정의 달력 이벤트를 삭제하기</string>
 	<string name="EPr_manage_delete_completed_gcal_message">완료한 일정의 모든 이벤트를 정말 삭제할까요?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">%d 달력 이벤트를 삭제했습니다!</string>
@@ -196,9 +200,10 @@
 	<string name="DB_corrupted_title">손상된 데이터베이스</string>
 	<string name="DB_corrupted_body">데이터베이스가 손상된 것 같습니다. 이 에러 메시지가 주기적으로 나타나면, 
 자료를 모두 지우고 (설정-&gt;동기화 &amp; 백업-&gt;오래된 일정 관리-&gt;모든 자료 삭제) 
-아스트리드의 백업에서 당신의 일정을 복구하시기 바랍니다. 
+Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다. 
 (설정-&gt;동기화 &amp; 백업-&gt;백업-&gt;일정 불러오기)</string>
 	<string name="market_unavailable">이 기기에서 마켓을 사용할 수 없습니다.</string>
+	<string name="task_defaults">일정 기본값</string>
 	<string name="EPr_default_urgency_title">기본 중요도</string>
 	<string name="EPr_default_importance_title">기본 우선순위</string>
 	<string name="EPr_default_hideUntil_title">기본 숨기기 기간:</string>
@@ -283,7 +288,7 @@
 	<string name="gtasks_error_accountNotFound">%s 계정을 찾을 수 없습니다 - 로그아웃하고 구글 일정 설정에서 다시 로그인해 보세요.</string>
 	<string name="gtasks_error_authRefresh">구글 일정으로 인증할 수 없습니다. 계정 비밀번호를 확인하거나 나중에 다시 시도해 보세요.</string>
 	<string name="gtasks_error_accountManager">휴대폰 계정 관리자에서 에러가 발생했습니다. 로그아웃 후 구글 일정 설정에서 다시 로그인 해 주세요.</string>
-	<string name="gtasks_error_background_sync_auth">백그라운드에서 인증 에러가 발생했습니다. 아스트리드가 실행중일 때 동기화를 시작해 보세요.</string>
+	<string name="gtasks_error_background_sync_auth">백그라운드에서 인증 에러가 발생했습니다. Tasks가 실행중일 때 동기화를 시작해 보세요.</string>
 	<string name="locale_notification">$NUM 개의 일정이 일치합니다: $FILTER</string>
 	<string name="premium_attach_file">파일 첨부</string>
 	<string name="premium_record_audio">노트 기록</string>
@@ -301,13 +306,16 @@
 	<string name="file_browser_up">위로</string>
 	<string name="file_browser_title">파일 선택하기</string>
 	<string name="dir_browser_title">디렉토리 선택하기</string>
-	<string name="file_browser_err_permissions">권한 에러! 아스트리드가 SD 카드에 접근하는 것을 막지 않았는지 확인하세요.</string>
+	<string name="file_browser_err_permissions">권한 에러! Tasks가 SD 카드에 접근하는 것을 막지 않았는지 확인하세요.</string>
 	<string name="file_add_picture">그림 첨부하기</string>
 	<string name="file_add_sdcard">SD 카드에서 파일 첨부하기</string>
 	<string name="file_err_copy">첨부용 파일 복사 에러</string>
 	<string name="file_dir_dialog_ok">이 디렉토리 사용</string>
 	<string name="file_dir_dialog_default">기본값으로 초기화</string>
 	<string name="premium_speech_bubble_2">1년 사용권 구매시 25%% 할인!</string>
+	<string name="ring_once">한번 울림</string>
+	<string name="ring_five_times">다섯번 울림</string>
+	<string name="ring_nonstop">계속 울림</string>
 	<string-array name="TEA_reminder_random">
 		<item>한 시간</item>
 		<item>하루</item>
@@ -328,7 +336,7 @@
 	<string name="rmd_EPr_persistent_desc_true">알림은 반드시 개별적으로 봐야 지워집니다.</string>
 	<string name="rmd_EPr_persistent_desc_false">\"모두 지우기\" 버튼으로 알림을 일괄삭제합니다.</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">다중-링 알림의 최대 볼륨</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_true">아스트리드는 다중-링 알림을 최대 볼륨으로 출력합니다</string>
+	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks는 다중-링 알림을 최대 볼륨으로 출력합니다</string>
 	<string name="rmd_EPr_defaultRemind_title">랜덤 알림</string>
 	<string-array name="EPr_reminder_random">
 		<item>사용안함</item>
@@ -400,6 +408,12 @@
 	<string name="EPr_voiceInputEnabled_title">음성 입력</string>
 	<string name="EPr_voiceRemindersEnabled_title">음성 알림</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">일정 알림기간 동안 일정 이름을 직접 말해 줍니다</string>
+	<string name="EPr_use_dark_theme">어두운 색상 테마</string>
+	<string name="delete_task">일정 지우기</string>
+	<string name="voice_command_added_task">추가된 일정</string>
+	<string name="external_storage_unavailable">외부 저장소에 접근할 수 없음</string>
+	<string name="navigation_drawer_open">탐색 서랍 열기</string>
+	<string name="navigation_drawer_close">탐색 서랍 닫기</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 일정</item>
 		<item quantity="other">%d 일정</item>
@@ -419,6 +433,44 @@
 	<string name="sync_SPr_forget">로그아웃</string>
 	<string name="sync_SPr_forget_description">모든 동기화 자료 삭제</string>
 	<string name="sync_forget_confirm">로그아웃 / 모든 동기화 데이터 삭제?</string>
+	<string name="widget_hide_due_date">완료 예정일 숨기기</string>
+	<string name="widget_hide_checkboxes">체크박스 숨기기</string>
+	<string name="widget_hide_header">헤더 숨기기</string>
+	<string name="widget_transparent_background">투명한 배경</string>
+	<string name="notifications">알림</string>
+	<string name="silent">무음</string>
+	<string name="sound">소리</string>
+	<string name="vibrate">진동</string>
+	<string name="quiet_hours">무음 시간대</string>
+	<string name="attachment_directory">첨부파일 위치</string>
+	<string name="backup_directory">백업 위치</string>
+	<string name="debug_logging">디버그 기록</string>
+	<string name="miscellaneous">기타</string>
+	<string name="synchronization">동기화</string>
+	<string name="enabled">활성화됨</string>
+	<string name="font_size">글자 크기</string>
+	<string name="customize_edit_screen">일정 편집화면 레이아웃 설정하기</string>
+	<string name="source_code">소스 코드</string>
+	<string name="translations">번역</string>
+	<string name="report_an_issue">문제점 보고하기</string>
+	<string name="help_and_feedback">도움말 &amp; 피드백</string>
+	<string name="contact_developer">개발자와 연락</string>
+	<string name="rate_tasks">Tasks 평가하기</string>
+	<string name="quiet_hours_summary">무음 시간대에는 소리나 진동 해제</string>
+	<string name="TLA_menu_donate">기부하기</string>
+	<string name="error">오류</string>
+	<string name="select_amount">숫자 선택</string>
+	<string name="notification_actions">알림 동작</string>
+	<string name="notification_actions_summary">알림 항목에 알림 잠시 미루기와 일정 완료를 표시하기</string>
+	<string name="add_reminder">알림 추가</string>
+	<string name="remove">지우기</string>
+	<string name="randomly_once">무작위로 한 번</string>
+	<string name="randomly">무작위로</string>
+	<string name="pick_a_date_and_time">날짜와 시간 선택</string>
+	<string name="pick_a_location">위치 선택</string>
+	<string name="type_a_location">위치 입력</string>
+	<string name="when_overdue">일정 마감일이 지났을 때</string>
+	<string name="when_due">일정 마감일에</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>사용안함</item>
 		<item>15분마다</item>
