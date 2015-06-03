@@ -31,6 +31,7 @@ import org.tasks.activities.DeleteCompletedActivity;
 import org.tasks.activities.DeleteCompletedEventsActivity;
 import org.tasks.activities.ExportTaskActivity;
 import org.tasks.activities.ImportTaskActivity;
+import org.tasks.activities.LocationPickerActivity;
 import org.tasks.activities.PurgeDeletedActivity;
 import org.tasks.preferences.AppearancePreferences;
 import org.tasks.preferences.BackupPreferences;
@@ -80,7 +81,8 @@ import dagger.Provides;
                 ClearGtaskDataActivity.class,
                 ReminderPreferences.class,
                 AppearancePreferences.class,
-                BackupPreferences.class
+                BackupPreferences.class,
+                LocationPickerActivity.class
         })
 public class ActivityModule {
 

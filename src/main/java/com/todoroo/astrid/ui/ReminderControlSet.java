@@ -30,10 +30,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.activities.DateAndTimePickerActivity;
-import org.tasks.dialogs.LocationPickerDialog;
+import org.tasks.activities.LocationPickerActivity;
 import org.tasks.location.Geofence;
 import org.tasks.location.GeofenceService;
-import org.tasks.location.OnLocationPickedHandler;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -52,9 +51,9 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
 public class ReminderControlSet extends TaskEditControlSetBase implements AdapterView.OnItemSelectedListener {
 
     private static final Logger log = LoggerFactory.getLogger(ReminderControlSet.class);
-    private static final String FRAG_TAG_LOCATION_PICKER = "frag_tag_location_picker";
 
     public static final int REQUEST_NEW_ALARM = 12152;
+    public static final int REQUEST_LOCATION_REMINDER = 12153;
 
     private Spinner mode;
     private Spinner addSpinner;
@@ -373,12 +372,7 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
         } else if (selected.equals(taskEditFragment.getString(R.string.pick_a_date_and_time))) {
             addNewAlarm();
         } else if (selected.equals(taskEditFragment.getString(R.string.pick_a_location))) {
-            new LocationPickerDialog(new OnLocationPickedHandler() {
-                @Override
-                public void onLocationPicked(Geofence geofence) {
-                    addGeolocationReminder(geofence);
-                }
-            }).show(taskEditFragment.getChildFragmentManager(), FRAG_TAG_LOCATION_PICKER);
+            taskEditFragment.startActivityForResult(new Intent(taskEditFragment.getActivity(), LocationPickerActivity.class), REQUEST_LOCATION_REMINDER);
         }
         if (position != 0) {
             updateSpinner();

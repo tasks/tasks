@@ -1,5 +1,7 @@
 package org.tasks.dialogs;
 
+import android.content.DialogInterface;
+import android.content.IntentSender;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -14,6 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
@@ -24,29 +28,31 @@ import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.location.Geofence;
-import org.tasks.location.ManagedGoogleApi;
+import org.tasks.location.GoogleApi;
 import org.tasks.location.OnLocationPickedHandler;
 import org.tasks.location.PlaceAutocompleteAdapter;
 
 import javax.inject.Inject;
 
-public class LocationPickerDialog extends InjectingDialogFragment {
+public class LocationPickerDialog extends InjectingDialogFragment implements GoogleApiClient.OnConnectionFailedListener {
 
     private static final Logger log = LoggerFactory.getLogger(LocationPickerDialog.class);
+    private static final int RC_RESOLVE_GPS_ISSUE = 10009;
 
     private PlaceAutocompleteAdapter mAdapter;
 
-    @Inject ManagedGoogleApi managedGoogleApi;
     @Inject FragmentActivity fragmentActivity;
+    @Inject GoogleApi googleApi;
     private OnLocationPickedHandler onLocationPickedHandler;
+    private DialogInterface.OnCancelListener onCancelListener;
 
-    public LocationPickerDialog(OnLocationPickedHandler onLocationPickedHandler) {
+    public void setOnLocationPickedHandler(OnLocationPickedHandler onLocationPickedHandler) {
         this.onLocationPickedHandler = onLocationPickedHandler;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        managedGoogleApi.connect();
+        googleApi.connect(this);
 
         View layout = inflater.inflate(R.layout.location_picker_dialog, null);
         EditText addressEntry = (EditText) layout.findViewById(R.id.address_entry);
@@ -63,12 +69,19 @@ public class LocationPickerDialog extends InjectingDialogFragment {
             }
         });
 
-        mAdapter = new PlaceAutocompleteAdapter(managedGoogleApi, fragmentActivity, android.R.layout.simple_list_item_1);
+        mAdapter = new PlaceAutocompleteAdapter(googleApi, fragmentActivity, android.R.layout.simple_list_item_1);
         ListView list = (ListView) layout.findViewById(R.id.list);
         list.setAdapter(mAdapter);
         list.setOnItemClickListener(mAutocompleteClickListener);
 
         return layout;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        googleApi.disconnect();
     }
 
     private void error(String text) {
@@ -83,7 +96,7 @@ public class LocationPickerDialog extends InjectingDialogFragment {
             final PlaceAutocompleteAdapter.PlaceAutocomplete item = mAdapter.getItem(position);
             final String placeId = String.valueOf(item.placeId);
             log.info("Autocomplete item selected: " + item.description);
-            managedGoogleApi.getPlaceDetails(placeId, mUpdatePlaceDetailsCallback);
+            googleApi.getPlaceDetails(placeId, mUpdatePlaceDetailsCallback);
         }
     };
 
@@ -104,4 +117,33 @@ public class LocationPickerDialog extends InjectingDialogFragment {
             places.release();
         }
     };
+
+    public void setOnCancelListener(DialogInterface.OnCancelListener onCancelListener) {
+        this.onCancelListener = onCancelListener;
+    }
+
+    @Override
+    public void onCancel(DialogInterface dialog) {
+        super.onCancel(dialog);
+
+        if (onCancelListener != null) {
+            onCancelListener.onCancel(dialog);
+        }
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        if (connectionResult.hasResolution()) {
+            try {
+                connectionResult.startResolutionForResult(fragmentActivity, RC_RESOLVE_GPS_ISSUE);
+            } catch (IntentSender.SendIntentException e) {
+                log.error(e.getMessage(), e);
+            }
+        } else {
+            Toast.makeText(fragmentActivity, String.format("%s: %s\n%s",
+                    fragmentActivity.getString(R.string.app_name),
+                    fragmentActivity.getString(R.string.common_google_play_services_notification_ticker),
+                    connectionResult.getErrorCode()), Toast.LENGTH_LONG).show();
+        }
+    }
 }

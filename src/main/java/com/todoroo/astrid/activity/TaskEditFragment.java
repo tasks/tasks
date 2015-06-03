@@ -79,7 +79,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.activities.DateAndTimePickerActivity;
+import org.tasks.activities.LocationPickerActivity;
 import org.tasks.injection.InjectingFragment;
+import org.tasks.location.Geofence;
 import org.tasks.location.GeofenceService;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
@@ -926,6 +928,13 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 reminderControlSet.addAlarmRow(timestamp);
             } else {
                 log.error("Invalid timestamp");
+            }
+        } else if (requestCode == ReminderControlSet.REQUEST_LOCATION_REMINDER && resultCode == Activity.RESULT_OK) {
+            Geofence geofence = (Geofence) data.getSerializableExtra(LocationPickerActivity.EXTRA_GEOFENCE);
+            if (geofence != null) {
+                reminderControlSet.addGeolocationReminder(geofence);
+            } else {
+                log.error("Invalid geofence");
             }
         } else if (editNotes != null && editNotes.activityResult(requestCode, resultCode, data)) {
             return;

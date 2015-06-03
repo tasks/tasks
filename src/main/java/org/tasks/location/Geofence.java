@@ -2,7 +2,9 @@ package org.tasks.location;
 
 import com.todoroo.astrid.data.Metadata;
 
-public class Geofence {
+import java.io.Serializable;
+
+public class Geofence implements Serializable {
     private final String name;
     private final double latitude;
     private final double longitude;
