@@ -23,7 +23,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBXGYNWNQcfse4JS5gI9teTSKMzinWzL2M"/>
+            android:value="@string/gapi_key"/>
 
         <activity
             android:name=".activities.DonationActivity"

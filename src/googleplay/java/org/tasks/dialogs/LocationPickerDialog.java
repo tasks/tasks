@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.places.Place;
@@ -140,10 +141,9 @@ public class LocationPickerDialog extends InjectingDialogFragment implements Goo
                 log.error(e.getMessage(), e);
             }
         } else {
-            Toast.makeText(fragmentActivity, String.format("%s: %s\n%s",
-                    fragmentActivity.getString(R.string.app_name),
-                    fragmentActivity.getString(R.string.common_google_play_services_notification_ticker),
-                    connectionResult.getErrorCode()), Toast.LENGTH_LONG).show();
+            GooglePlayServicesUtil
+                    .getErrorDialog(connectionResult.getErrorCode(), fragmentActivity, RC_RESOLVE_GPS_ISSUE)
+                    .show();
         }
     }
 }
