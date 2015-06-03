@@ -10,7 +10,6 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="?attr/drawer_background"
-        android:listSelector="?attr/asFilterRowSelected"
         android:cacheColorHint="@android:color/transparent"
         android:choiceMode="singleChoice"
         android:divider="@android:color/transparent"
@@ -31,24 +30,20 @@
             android:layout_height="1px"
             android:background="?attr/asSeparatorBackground" />
 
-            <!-- filter name -->
-        <TextView
+        <Button
             android:id="@+id/settings_row"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:clickable="true"
-            android:longClickable="false"
-            android:background="?attr/asFilterRowSelected"
+            android:gravity="start|center_vertical"
+            android:drawableStart="?attr/ic_action_settings"
             android:drawableLeft="?attr/ic_action_settings"
-            android:paddingLeft="10dp"
             android:drawablePadding="10dp"
+            android:paddingLeft="10dp"
+            android:paddingStart="10dp"
             android:textAppearance="@style/TextAppearance.FLA_Filter"
-            android:checked="false"
-            android:lines="1"
-            android:singleLine="true"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:text="@string/TLA_menu_settings"/>
+            android:layout_gravity="start"
+            android:text="@string/TLA_menu_settings"
+            android:background="?android:attr/selectableItemBackground"/>
 
     </LinearLayout>
 

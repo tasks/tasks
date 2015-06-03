@@ -40,7 +40,6 @@
         <item name="asDueDateColor">#878787</item>
         <item name="asListDividerColor">#dddddd</item>
         <item name="asEditRowBackground">@drawable/task_edit_background_white</item>
-        <item name="asFilterRowSelected">@drawable/filter_row_selector</item>
         <item name="asTaskRowSelector">@drawable/task_row_bg_white</item>
         <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
         <item name="asAbBackgroundColor">#607d8b</item>
@@ -77,7 +76,6 @@
         <item name="asAbBackgroundColor">@android:color/black</item>
         <item name="drawer_text">@android:color/white</item>
         <item name="ic_action_settings">@drawable/ic_action_gear_white</item>
-        <item name="asFilterRowSelected">@drawable/filter_row_selector_dark</item>
         <item name="task_edit_divider">@color/task_edit_divider_dark</item>
         <item name="ic_action_attachment">@drawable/ic_action_attachment_2</item>
         <item name="ic_action_clock">@drawable/ic_action_clock_white</item>

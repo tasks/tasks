@@ -47,7 +47,6 @@
     <attr name="ic_action_calendar_month" format="reference"/>
     <attr name="drawer_text" format="color"/>
     <attr name="importance_background_selected" format="reference"/>
-    <attr name="asFilterRowSelected" format="reference"/>
   <attr name="fab_icon" format="reference"/>
 
   <declare-styleable name="DateAndTimePicker">
