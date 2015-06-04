@@ -1,11 +1,14 @@
 package org.tasks.dialogs;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.IntentSender;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AlertDialog;
 import android.view.ContextThemeWrapper;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -54,19 +57,30 @@ public class LocationPickerDialog extends InjectingDialogFragment implements Goo
         this.onLocationPickedHandler = onLocationPickedHandler;
     }
 
+    @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         googleApi.connect(this);
 
         Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.Tasks_Dialog);
-        LayoutInflater themedInflater = inflater.cloneInContext(contextThemeWrapper);
-        View layout = themedInflater.inflate(R.layout.location_picker_dialog, null);
-        AutoCompleteTextView addressEntry = (AutoCompleteTextView) layout.findViewById(R.id.address_entry);
-        addressEntry.setOnItemClickListener(mAutocompleteClickListener);
+        LayoutInflater themedInflater = getActivity().getLayoutInflater().cloneInContext(contextThemeWrapper);
+        View view = themedInflater.inflate(R.layout.location_picker_dialog, null);
+        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.address_entry);
+        autoCompleteTextView.setOnItemClickListener(mAutocompleteClickListener);
         mAdapter = new PlaceAutocompleteAdapter(googleApi, fragmentActivity, android.R.layout.simple_list_item_1);
-        addressEntry.setAdapter(mAdapter);
+        autoCompleteTextView.setAdapter(mAdapter);
 
-        return layout;
+        return new AlertDialog.Builder(getActivity())
+                .setView(view)
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (onCancelListener != null) {
+                            onCancelListener.onCancel(dialog);
+                        }
+                    }
+                })
+                .show();
     }
 
     @Override
