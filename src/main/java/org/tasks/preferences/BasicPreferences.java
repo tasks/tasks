@@ -33,7 +33,7 @@ public class BasicPreferences extends InjectingPreferenceActivity {
         });
 
         findPreference(getString(R.string.contact_developer)).setIntent(
-                new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "Alex Baker<baker.alex+tasks@gmail.com>", null)) {{
+                new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "Tasks Support <support@tasks.org>", null)) {{
                     putExtra(Intent.EXTRA_SUBJECT, "Tasks Feedback");
                     putExtra(Intent.EXTRA_TEXT, deviceInfo.getDebugInfo());
                 }});
