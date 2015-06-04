@@ -12,6 +12,8 @@
 
         <include layout="@layout/toolbar"/>
 
+        <include layout="@layout/toolbar_separator"/>
+
         <FrameLayout
             android:id="@+id/tasklist_fragment_container"
             android:background="?attr/asContentBackground"

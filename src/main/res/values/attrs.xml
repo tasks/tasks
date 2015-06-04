@@ -48,6 +48,7 @@
     <attr name="drawer_text" format="color"/>
     <attr name="importance_background_selected" format="reference"/>
   <attr name="fab_icon" format="reference"/>
+  <attr name="toolbarSeparatorHeight" format="dimension"/>
 
   <declare-styleable name="DateAndTimePicker">
     <attr name="shortcutLabels" format="reference" />

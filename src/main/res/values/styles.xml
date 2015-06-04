@@ -28,6 +28,7 @@
         <item name="drawer_background_selected">@color/drawer_background_selected</item>
         <item name="asDueDateCompletedColor">#ff777777</item>
         <item name="asToolbarSeparator">@android:color/transparent</item>
+        <item name="toolbarSeparatorHeight">0dp</item>
         <item name="asSeparatorBackground">#888888</item>
 
         <item name="android:actionModeBackground">@color/primary</item>
@@ -66,6 +67,7 @@
         <item name="android:windowBackground">@android:color/black</item>
         <item name="drawer_background">@color/drawer_background_dark</item>
         <item name="drawer_background_selected">@color/drawer_background_selected_dark</item>
+        <item name="toolbarSeparatorHeight">1px</item>
         <item name="asToolbarSeparator">@android:color/white</item>
         <item name="android:actionModeBackground">@android:color/black</item>
         <item name="asContentBackground">@android:color/black</item>

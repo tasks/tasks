@@ -1,21 +1,10 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="wrap_content"
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tasks="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:orientation="vertical">
-
-    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tasks="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/asAbBackgroundColor"
-        tasks:theme="@style/ActionBarThemeOverlay"
-        tasks:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        tasks:titleTextAppearance="@style/ActionBar.TitleText" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="?attr/asToolbarSeparator" />
-
-</LinearLayout>
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/asAbBackgroundColor"
+    android:elevation="4dp"
+    tasks:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    tasks:theme="@style/ActionBarThemeOverlay"
+    tasks:titleTextAppearance="@style/ActionBar.TitleText" />
