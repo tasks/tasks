@@ -14,14 +14,14 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 
-import org.tasks.preferences.ActivityPreferences;
+import org.tasks.R;
 
 public class TaskIntents {
 
     public static Intent getNewTaskIntent(Context context, Filter filter) {
         Intent intent;
-        boolean tablet = ActivityPreferences.isTabletSized(context);
-        if (tablet) {
+        boolean twoPaneLayout = context.getResources().getBoolean(R.bool.two_pane_layout);
+        if (twoPaneLayout) {
             intent = new Intent(context, TaskListActivity.class);
             intent.putExtra(TaskListActivity.OPEN_TASK, 0L);
         } else {
@@ -36,7 +36,7 @@ public class TaskIntents {
                 intent.putExtra(TaskEditFragment.TOKEN_VALUES, values);
                 intent.setAction("E" + values);
             }
-            if (tablet) {
+            if (twoPaneLayout) {
                 if (filter instanceof FilterWithCustomIntent) {
                     Bundle customExtras = ((FilterWithCustomIntent) filter).customExtras;
                     intent.putExtras(customExtras);
@@ -49,8 +49,8 @@ public class TaskIntents {
     }
 
     public static PendingIntent getEditTaskPendingIntent(Context context, final Filter filter, final long taskId) {
-        boolean tablet = ActivityPreferences.isTabletSized(context);
-        if (tablet) {
+        boolean twoPaneLayout = context.getResources().getBoolean(R.bool.two_pane_layout);
+        if (twoPaneLayout) {
             Intent intent = new Intent(context, TaskListActivity.class) {{
                 putExtra(TaskListActivity.OPEN_TASK, taskId);
                 if (filter != null && filter instanceof FilterWithCustomIntent) {

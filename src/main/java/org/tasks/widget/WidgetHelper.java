@@ -122,7 +122,7 @@ public class WidgetHelper {
 
     private PendingIntent getEditTaskIntent(Context context, Filter filter, int widgetId) {
         Intent intent = new Intent(context, TasksWidget.class);
-        if (ActivityPreferences.isTabletSized(context)) {
+        if (context.getResources().getBoolean(R.bool.two_pane_layout)) {
             if (filter != null && filter instanceof FilterWithCustomIntent) {
                 Bundle customExtras = ((FilterWithCustomIntent) filter).customExtras;
                 intent.putExtras(customExtras);

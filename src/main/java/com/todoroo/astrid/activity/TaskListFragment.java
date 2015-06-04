@@ -273,7 +273,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         parent.findViewById(R.id.fab).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ActivityPreferences.isTabletSized(context)) {
+                if (getResources().getBoolean(R.bool.two_pane_layout)) {
                     Task task = quickAddBar.quickAddTask();
                     onTaskListItemClicked(task.getId());
                 } else {
