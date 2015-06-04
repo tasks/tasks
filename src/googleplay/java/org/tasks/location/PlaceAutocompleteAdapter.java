@@ -49,8 +49,10 @@ public class PlaceAutocompleteAdapter
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
-                getAutocomplete(constraint);
                 FilterResults filterResults = new FilterResults();
+                if (constraint != null) {
+                    getAutocomplete(constraint);
+                }
                 filterResults.values = mResultList;
                 filterResults.count = mResultList.size();
                 return filterResults;
