@@ -9,15 +9,14 @@
     android:paddingTop="@dimen/vertical_page_margin"
     android:paddingBottom="@dimen/vertical_page_margin">
 
-    <EditText
+    <AutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="top"
         android:layout_gravity="top"
         android:inputType="textPostalAddress"
-        android:imeOptions="actionSearch"
+        android:imeOptions="flagNoExtractUi"
         android:hint="@string/type_a_location"
-        android:ems="10"
         android:id="@+id/address_entry" />
 
     <ImageView
@@ -25,10 +24,5 @@
         android:layout_height="wrap_content"
         android:src="@drawable/powered_by_google_light"
         android:layout_gravity="end"/>
-
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
 
 </LinearLayout>

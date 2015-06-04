@@ -1,16 +1,19 @@
 package org.tasks.dialogs;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.IntentSender;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.view.ContextThemeWrapper;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -55,25 +58,13 @@ public class LocationPickerDialog extends InjectingDialogFragment implements Goo
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         googleApi.connect(this);
 
-        View layout = inflater.inflate(R.layout.location_picker_dialog, null);
-        EditText addressEntry = (EditText) layout.findViewById(R.id.address_entry);
-
-        addressEntry.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    CharSequence search = v.getText();
-                    mAdapter.getAutocomplete(search);
-                    return true;
-                }
-                return false;
-            }
-        });
-
+        Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.Tasks_Dialog);
+        LayoutInflater themedInflater = inflater.cloneInContext(contextThemeWrapper);
+        View layout = themedInflater.inflate(R.layout.location_picker_dialog, null);
+        AutoCompleteTextView addressEntry = (AutoCompleteTextView) layout.findViewById(R.id.address_entry);
+        addressEntry.setOnItemClickListener(mAutocompleteClickListener);
         mAdapter = new PlaceAutocompleteAdapter(googleApi, fragmentActivity, android.R.layout.simple_list_item_1);
-        ListView list = (ListView) layout.findViewById(R.id.list);
-        list.setAdapter(mAdapter);
-        list.setOnItemClickListener(mAutocompleteClickListener);
+        addressEntry.setAdapter(mAdapter);
 
         return layout;
     }

@@ -106,7 +106,11 @@
         <item name="colorControlHighlight">#3fff</item>
     </style>
 
-    <style name="Tasks.Dialog" parent="@style/Theme.AppCompat.Light.Dialog"/>
+    <style name="Tasks.Dialog" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/primary</item>
+    </style>
 
     <!--================================================== General == -->
 

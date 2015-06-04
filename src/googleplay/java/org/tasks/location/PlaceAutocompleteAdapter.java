@@ -2,6 +2,7 @@ package org.tasks.location;
 
 import android.content.Context;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.ResultCallback;
@@ -41,6 +42,25 @@ public class PlaceAutocompleteAdapter
 
     public void getAutocomplete(CharSequence constraint) {
         googleApi.getAutocompletePredictions(constraint.toString(), onResults);
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                getAutocomplete(constraint);
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = mResultList;
+                filterResults.count = mResultList.size();
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+
+            }
+        };
     }
 
     private ResultCallback<AutocompletePredictionBuffer> onResults = new ResultCallback<AutocompletePredictionBuffer>() {
