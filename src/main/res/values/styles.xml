@@ -142,6 +142,9 @@
         <item name="android:smoothScrollbar">true</item>
     </style>
 
+    <style name="TaskListView" parent="ListView">
+    </style>
+
     <!-- =============================================== TaskEditActivity == -->
 
     <style name="TEA_Dialog" parent="Theme.AppCompat.Light.Dialog">

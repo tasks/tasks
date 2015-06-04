@@ -1,24 +1,13 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_weight="100">
+<org.tasks.ui.DraggableSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
 
-    <org.tasks.ui.DraggableSwipeRefreshLayout
-        android:id="@+id/swipe_layout"
+    <com.todoroo.astrid.ui.DraggableListView
+        android:id="@android:id/list"
+        style="@style/TaskListView"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="fill_parent"
+        android:drawSelectorOnTop="false"/>
 
-        <com.todoroo.astrid.ui.DraggableListView
-            android:id="@android:id/list"
-            style="@style/ListView"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:drawSelectorOnTop="false"
-            android:paddingBottom="104dp"
-            android:clipToPadding="false" />
-
-    </org.tasks.ui.DraggableSwipeRefreshLayout>
-
-    <include layout="@layout/task_list_swipe_layout_empty" />
-
-</RelativeLayout>
+</org.tasks.ui.DraggableSwipeRefreshLayout>

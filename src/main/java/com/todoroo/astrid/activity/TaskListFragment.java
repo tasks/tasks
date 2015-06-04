@@ -283,11 +283,11 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         });
         View body = getListBody(parent);
         listView = (SwipeRefreshLayout) body.findViewById(R.id.swipe_layout);
-        emptyView = (SwipeRefreshLayout) body.findViewById(R.id.swipe_layout_empty);
+        emptyView = (SwipeRefreshLayout) parent.findViewById(R.id.swipe_layout_empty);
         setupRefresh(listView);
         setupRefresh(emptyView);
         ((ListView) listView.findViewById(android.R.id.list)).setEmptyView(emptyView);
-        parent.addView(body, 0);
+        ((ViewGroup) parent.findViewById(R.id.task_list_body)).addView(body, 0);
         return parent;
     }
 
