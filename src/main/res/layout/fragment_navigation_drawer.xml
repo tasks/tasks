@@ -43,7 +43,7 @@
             android:textAppearance="@style/TextAppearance.FLA_Filter"
             android:layout_gravity="start"
             android:text="@string/TLA_menu_settings"
-            android:background="?android:attr/selectableItemBackground"/>
+            android:background="?attr/selectableItemBackground"/>
 
     </LinearLayout>
 
