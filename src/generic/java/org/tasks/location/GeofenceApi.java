@@ -19,4 +19,8 @@ public class GeofenceApi {
     public void cancel(Geofence geofence) {
 
     }
+
+    public void cancel(List<Geofence> geofences) {
+
+    }
 }

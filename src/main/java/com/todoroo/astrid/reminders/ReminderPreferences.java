@@ -17,7 +17,10 @@ import org.joda.time.DateTime;
 import org.tasks.R;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.injection.InjectingPreferenceActivity;
+import org.tasks.preferences.DeviceInfo;
 import org.tasks.ui.TimePreference;
+
+import javax.inject.Inject;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.preJellybean;
 
@@ -26,10 +29,19 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     private static final int REQUEST_QUIET_START = 10001;
     private static final int REQUEST_QUIET_END = 10002;
     private static final int REQUEST_DEFAULT_REMIND = 10003;
+    private static final String EXTRA_RESULT = "extra_result";
+
+    public static String RESET_GEOFENCES = "reset_geofences";
+    public static String TOGGLE_GEOFENCES = "toggle_geofences";
+    private Bundle result;
+
+    @Inject DeviceInfo deviceInfo;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        result = savedInstanceState == null ? new Bundle() : savedInstanceState.getBundle(EXTRA_RESULT);
 
         addPreferencesFromResource(R.xml.preferences_reminders);
 
@@ -37,10 +49,24 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
             getPreferenceScreen().removePreference(findPreference(getString(R.string.p_rmd_notif_actions_enabled)));
         }
 
+        if (deviceInfo.supportsLocationServices()) {
+            setExtraOnChange(R.string.p_geofence_radius, RESET_GEOFENCES);
+            setExtraOnChange(R.string.p_geofence_responsiveness, RESET_GEOFENCES);
+            setExtraOnChange(R.string.p_geofence_reminders_enabled, TOGGLE_GEOFENCES);
+        } else {
+            getPreferenceScreen().removePreference(findPreference(getString(R.string.geolocation_reminders)));
+        }
+
         initializeRingtonePreference();
         initializeTimePreference(getDefaultRemindTimePreference(), REQUEST_DEFAULT_REMIND);
         initializeTimePreference(getQuietStartPreference(), REQUEST_QUIET_START);
         initializeTimePreference(getQuietEndPreference(), REQUEST_QUIET_END);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBundle(EXTRA_RESULT, result);
     }
 
     private void initializeTimePreference(final TimePreference preference, final int requestCode) {
@@ -111,5 +137,16 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
 
     private TimePreference getTimePreference(int resId) {
         return (TimePreference) findPreference(getString(resId));
+    }
+
+    private void setExtraOnChange(int resId, final String extra) {
+        findPreference(getString(resId)).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                result.putBoolean(extra, true);
+                setResult(RESULT_OK, new Intent().putExtras(result));
+                return true;
+            }
+        });
     }
 }

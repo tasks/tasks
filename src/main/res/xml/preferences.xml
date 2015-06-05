@@ -5,11 +5,9 @@
         android:key="@string/EPr_appearance_header"
         android:title="@string/EPr_appearance_header" />
 
-    <Preference android:title="@string/notifications">
-        <intent
-            android:targetClass="com.todoroo.astrid.reminders.ReminderPreferences"
-            android:targetPackage="org.tasks" />
-    </Preference>
+    <Preference
+        android:key="@string/notifications"
+        android:title="@string/notifications" />
 
     <Preference android:title="@string/task_defaults">
         <intent

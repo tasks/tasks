@@ -6,6 +6,7 @@
 package com.todoroo.astrid.ui;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,6 +34,7 @@ import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.LocationPickerActivity;
 import org.tasks.location.Geofence;
 import org.tasks.location.GeofenceService;
+import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -66,15 +68,18 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
     private AlarmService alarmService;
     private GeofenceService geofenceService;
     private TaskEditFragment taskEditFragment;
+    private Preferences preferences;
     private List<String> spinnerOptions = new ArrayList<>();
     private ArrayAdapter<String> remindAdapter;
 
 
-    public ReminderControlSet(AlarmService alarmService, GeofenceService geofenceService, TaskEditFragment taskEditFragment) {
+    public ReminderControlSet(AlarmService alarmService, GeofenceService geofenceService,
+                              TaskEditFragment taskEditFragment, Preferences preferences) {
         super(taskEditFragment.getActivity(), R.layout.control_set_reminders);
         this.alarmService = alarmService;
         this.geofenceService = geofenceService;
         this.taskEditFragment = taskEditFragment;
+        this.preferences = preferences;
     }
 
     public int getValue() {
@@ -126,6 +131,10 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
             }
         });
         alertItem.setTag(geofence);
+        if (!preferences.geofencesEnabled()) {
+            TextView alarmString = (TextView) alertItem.findViewById(R.id.alarm_string);
+            alarmString.setPaintFlags(alarmString.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }
     }
 
     private View addAlarmRow(String text, Long timestamp, final OnClickListener onRemove) {
@@ -165,7 +174,7 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
         if (randomControlSet == null) {
             spinnerOptions.add(taskEditFragment.getString(R.string.randomly));
         }
-        if (taskEditFragment.getResources().getBoolean(R.bool.location_enabled)) {
+        if (preferences.geofencesEnabled()) {
             spinnerOptions.add(taskEditFragment.getString(R.string.pick_a_location));
         }
         spinnerOptions.add(taskEditFragment.getString(R.string.pick_a_date_and_time));

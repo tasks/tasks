@@ -1,5 +1,6 @@
 package org.tasks.preferences;
 
+import android.bluetooth.BluetoothClass;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -49,12 +50,14 @@ public class Preferences {
     private static final String FILE_APPENDER_NAME = "FILE";
 
     protected final Context context;
+    private DeviceInfo deviceInfo;
     private final SharedPreferences prefs;
     private final SharedPreferences publicPrefs;
 
     @Inject
-    public Preferences(@ForApplication Context context) {
+    public Preferences(@ForApplication Context context, DeviceInfo deviceInfo) {
         this.context = context;
+        this.deviceInfo = deviceInfo;
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
         publicPrefs = context.getSharedPreferences(AstridApiConstants.PUBLIC_PREFS, Context.MODE_WORLD_READABLE);
     }
@@ -66,6 +69,10 @@ public class Preferences {
     public boolean useDarkWidgetTheme(int widgetId) {
         boolean legacySetting = getBoolean(R.string.p_use_dark_theme_widget, false);
         return getBoolean(WidgetConfigActivity.PREF_DARK_THEME + widgetId, legacySetting);
+    }
+
+    public boolean geofencesEnabled() {
+        return deviceInfo.supportsLocationServices() && getBoolean(R.string.p_geofence_reminders_enabled, true);
     }
 
     public void clear() {

@@ -58,6 +58,10 @@ public class DeviceInfo {
         return context.getResources().getBoolean(R.bool.billing_enabled) && isPlayStoreAvailable();
     }
 
+    public boolean supportsLocationServices() {
+        return context.getResources().getBoolean(R.bool.location_enabled);
+    }
+
     public String getDebugInfo() {
         if (debugInfo == null) {
             debugInfo = buildDebugString();

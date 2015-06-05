@@ -103,6 +103,9 @@
     <string name="type_a_location">Type a location</string>
     <string name="when_overdue">When overdue</string>
     <string name="when_due">When due</string>
+    <string name="geofence_radius_title">Radius (meters)</string>
+    <string name="geofence_responsiveness_title">Response time (higher value conserves battery)</string>
+    <string name="geolocation_reminders">Geolocation Reminders</string>
 
     <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->

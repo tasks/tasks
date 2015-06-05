@@ -35,6 +35,7 @@ import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.reminders.ReminderPreferences;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,8 +44,10 @@ import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingFragment;
+import org.tasks.location.GeofenceService;
 import org.tasks.preferences.AppearancePreferences;
 import org.tasks.preferences.BasicPreferences;
+import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
@@ -86,6 +89,8 @@ public class NavigationDrawerFragment extends InjectingFragment {
     @Inject FilterCounter filterCounter;
     @Inject FilterProvider filterProvider;
     @Inject @ForApplication Context context;
+    @Inject GeofenceService geofenceService;
+    @Inject Preferences preferences;
 
     public NavigationDrawerFragment() {
     }
@@ -112,12 +117,22 @@ public class NavigationDrawerFragment extends InjectingFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == ACTIVITY_SETTINGS && resultCode == Activity.RESULT_OK) {
+        if (requestCode == ACTIVITY_SETTINGS && resultCode == Activity.RESULT_OK && data != null) {
+            if (data.getBooleanExtra(ReminderPreferences.TOGGLE_GEOFENCES, false)) {
+                if (preferences.geofencesEnabled()) {
+                    geofenceService.setupGeofences();
+                } else {
+                    geofenceService.cancelGeofences();
+                }
+            } else if (data.getBooleanExtra(ReminderPreferences.RESET_GEOFENCES, false)) {
+                geofenceService.setupGeofences();
+            }
+            if (data.getBooleanExtra(AppearancePreferences.FILTERS_CHANGED, false)) {
+                refresh();
+            }
             if (data.getBooleanExtra(AppearancePreferences.FORCE_REFRESH, false)) {
                 getActivity().finish();
                 getActivity().startActivity(getActivity().getIntent());
-            } else if (data.getBooleanExtra(AppearancePreferences.FILTERS_CHANGED, false)) {
-                refresh();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);

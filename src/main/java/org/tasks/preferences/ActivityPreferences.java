@@ -24,8 +24,8 @@ public class ActivityPreferences extends Preferences {
     private final Activity activity;
 
     @Inject
-    public ActivityPreferences(Activity activity) {
-        super(activity);
+    public ActivityPreferences(Activity activity, DeviceInfo deviceInfo) {
+        super(activity, deviceInfo);
         this.activity = activity;
     }
 
