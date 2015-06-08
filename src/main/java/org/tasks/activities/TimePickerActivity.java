@@ -23,6 +23,7 @@ public class TimePickerActivity extends FragmentActivity implements TimePickerDi
     public static final String EXTRA_TIMESTAMP = "extra_timestamp";
 
     private DateTime initial;
+    private boolean isChangingConfigurations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +54,15 @@ public class TimePickerActivity extends FragmentActivity implements TimePickerDi
     }
 
     @Override
+    public Object onRetainCustomNonConfigurationInstance() {
+        isChangingConfigurations = true;
+        return super.onRetainCustomNonConfigurationInstance();
+    }
+
+    @Override
     public void onDismiss(DialogInterface dialog) {
-        if (isChangingConfigurations()) {
+        if (isChangingConfigurations) {
+            isChangingConfigurations = false;
             return;
         }
         finish();
