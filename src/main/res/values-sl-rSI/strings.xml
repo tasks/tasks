@@ -315,7 +315,6 @@
 	<string name="rmd_NoA_filter">Opomnik!</string>
 	<string name="rmd_NoA_done">Končano</string>
 	<string name="rmd_NoA_snooze">Dremež</string>
-	<string name="rmd_NoA_dlg_title">Opomnik:</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Tihe ure se začnejo ob</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Tihe ure se končajo ob</string>
 	<string name="rmd_EPr_rmd_time_title">Privzeti opomnik ob</string>

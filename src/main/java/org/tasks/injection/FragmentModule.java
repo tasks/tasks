@@ -8,7 +8,6 @@ import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.gtasks.GtasksListFragment;
-import com.todoroo.astrid.reminders.NotificationFragment;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.ui.QuickAddBar;
@@ -24,7 +23,6 @@ import dagger.Provides;
         injects = {
                 TaskListFragment.class,
                 GtasksListFragment.class,
-                NotificationFragment.class,
                 SubtasksListFragment.class,
                 SubtasksTagListFragment.class,
                 TagViewFragment.class,

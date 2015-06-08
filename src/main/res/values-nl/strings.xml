@@ -312,7 +312,6 @@
 	<string name="rmd_NoA_filter">Herinnering!</string>
 	<string name="rmd_NoA_done">Reeds voltooid!</string>
 	<string name="rmd_NoA_snooze">Sluimeren...</string>
-	<string name="rmd_NoA_dlg_title">Herinnering:</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Rustperiode begint</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Rustperiode eindigt</string>
 	<string name="rmd_EPr_rmd_time_title">Standaard herinnering</string>

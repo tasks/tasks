@@ -48,24 +48,23 @@ public class TaskIntents {
         return intent;
     }
 
-    public static PendingIntent getEditTaskPendingIntent(Context context, final Filter filter, final long taskId) {
+    public static TaskStackBuilder getEditTaskStack(Context context, final Filter filter, final long taskId) {
+        TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(context);
         boolean twoPaneLayout = context.getResources().getBoolean(R.bool.two_pane_layout);
         if (twoPaneLayout) {
-            Intent intent = new Intent(context, TaskListActivity.class) {{
+            taskStackBuilder.addNextIntent(new Intent(context, TaskListActivity.class) {{
                 putExtra(TaskListActivity.OPEN_TASK, taskId);
                 if (filter != null && filter instanceof FilterWithCustomIntent) {
                     Bundle customExtras = ((FilterWithCustomIntent) filter).customExtras;
                     putExtras(customExtras);
                 }
-            }};
-            return PendingIntent.getActivity(context, (int) taskId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            }});
         } else {
-            TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(context);
             taskStackBuilder.addParentStack(TaskEditActivity.class);
             taskStackBuilder.addNextIntent(new Intent(context, TaskEditActivity.class) {{
                 putExtra(TaskEditFragment.TOKEN_ID, taskId);
             }});
-            return taskStackBuilder.getPendingIntent((int) taskId, PendingIntent.FLAG_UPDATE_CURRENT);
         }
+        return taskStackBuilder;
     }
 }

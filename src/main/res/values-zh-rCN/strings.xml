@@ -265,7 +265,6 @@
 	<string name="rmd_NoA_filter">提醒！</string>
 	<string name="rmd_NoA_done">已完成!</string>
 	<string name="rmd_NoA_snooze">晚点提醒...</string>
-	<string name="rmd_NoA_dlg_title">提醒：</string>
 	<string name="rmd_EPr_quiet_hours_start_title">静音开始时间</string>
 	<string name="rmd_EPr_quiet_hours_end_title">静音时间结束</string>
 	<string name="rmd_EPr_rmd_time_title">默认提示</string>

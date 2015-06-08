@@ -31,9 +31,6 @@
   <!-- Reminder: Snooze button (remind again later) -->
   <string name="rmd_NoA_snooze">Snooze</string>
 
-  <!-- Prefix for reminder dialog title -->
-  <string name="rmd_NoA_dlg_title">Reminder:</string>
-  
   <!-- ============================================= reminder preferences == -->
   
   <!-- Reminder Preference: Quiet Hours Start Title -->

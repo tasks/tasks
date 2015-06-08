@@ -320,7 +320,6 @@
 	<string name="rmd_NoA_filter">Pripomienka!</string>
 	<string name="rmd_NoA_done">Dokončené</string>
 	<string name="rmd_NoA_snooze">Odložiť</string>
-	<string name="rmd_NoA_dlg_title">Pripomienka:</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Tiché hodiny začali</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Tiché hodiny skončili</string>
 	<string name="rmd_EPr_rmd_time_title">Predvolená pripomienka</string>

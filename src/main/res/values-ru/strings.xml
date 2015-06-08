@@ -322,7 +322,6 @@
 	<string name="rmd_NoA_filter">Напоминание!</string>
 	<string name="rmd_NoA_done">Уже готово!</string>
 	<string name="rmd_NoA_snooze">Повтор</string>
-	<string name="rmd_NoA_dlg_title">Напоминания:</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Начало тихих часов</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Конец тихих часов</string>
 	<string name="rmd_EPr_rmd_time_title">Напоминание по умолчанию</string>

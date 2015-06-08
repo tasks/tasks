@@ -23,6 +23,7 @@ import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.CompleteTaskReceiver;
+import org.tasks.reminders.NotificationActivity;
 import org.tasks.reminders.SnoozeActivity;
 
 import java.util.concurrent.ExecutorService;
@@ -56,7 +57,7 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
         showNotification(
                 context,
                 intent.getIntExtra(Notifications.EXTRAS_NOTIF_ID, 0),
-                intent.getLongExtra(NotificationFragment.TOKEN_ID, 0L),
+                intent.getLongExtra(NotificationActivity.EXTRA_TASK_ID, 0L),
                 intent.<PendingIntent>getParcelableExtra(Notifications.EXTRAS_CUSTOM_INTENT),
                 intent.getIntExtra(Notifications.EXTRAS_TYPE, 0),
                 intent.getStringExtra(Notifications.EXTRAS_TITLE),
@@ -136,7 +137,6 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
         }
 
         Notification notification = builder.build();
-        notification.flags |= Notification.FLAG_AUTO_CANCEL;
         if (preferences.getBoolean(R.string.p_rmd_persistent, true)) {
             notification.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_SHOW_LIGHTS;
             notification.ledOffMS = 5000;

@@ -37,6 +37,7 @@ import org.tasks.preferences.AppearancePreferences;
 import org.tasks.preferences.BackupPreferences;
 import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.MiscellaneousPreferences;
+import org.tasks.reminders.NotificationActivity;
 import org.tasks.reminders.SnoozeActivity;
 import org.tasks.voice.VoiceCommandActivity;
 
@@ -82,7 +83,8 @@ import dagger.Provides;
                 ReminderPreferences.class,
                 AppearancePreferences.class,
                 BackupPreferences.class,
-                LocationPickerActivity.class
+                LocationPickerActivity.class,
+                NotificationActivity.class
         })
 public class ActivityModule {
 

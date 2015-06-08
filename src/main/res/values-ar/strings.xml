@@ -207,7 +207,6 @@
 	<string name="rmd_NoA_filter">تذكير!</string>
 	<string name="rmd_NoA_done">اكمل</string>
 	<string name="rmd_NoA_snooze">غفوة</string>
-	<string name="rmd_NoA_dlg_title">منبه:</string>
 	<string name="rmd_EPr_quiet_hours_start_title">ابتداء ساعات الهدوء</string>
 	<string name="rmd_EPr_quiet_hours_end_title">إنتهاء ساعات الهدوء</string>
 	<string name="rmd_EPr_rmd_time_title">منبه افتراضي</string>

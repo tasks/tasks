@@ -30,6 +30,8 @@ import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.intents.TaskIntents;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
+import org.tasks.reminders.NotificationActivity;
+import org.tasks.reminders.NotificationDialog;
 
 import javax.inject.Inject;
 
@@ -130,30 +132,18 @@ public class Notifications extends InjectingBroadcastReceiver {
 
         String text = context.getString(R.string.app_name);
 
-        PendingIntent intent = preferences.useNotificationActions()
-                ? TaskIntents.getEditTaskPendingIntent(context, null, task.getId())
-                : createNotificationIntent(id, taskTitle);
+        PendingIntent intent = createNotificationIntent(id, taskTitle);
 
         broadcaster.requestNotification((int) id, intent, type, taskTitle, text, ringTimes);
         return true;
     }
 
     private PendingIntent createNotificationIntent(final long id, final String taskTitle) {
-        final FilterWithCustomIntent itemFilter = new FilterWithCustomIntent(context.getString(R.string.rmd_NoA_filter),
-                context.getString(R.string.rmd_NoA_filter),
-                new QueryTemplate().where(TaskCriteria.byId(id)),
-                null);
-        Bundle customExtras = new Bundle();
-        customExtras.putLong(NotificationFragment.TOKEN_ID, id);
-        customExtras.putString(EXTRAS_TITLE, taskTitle);
-        itemFilter.customExtras = customExtras;
-        itemFilter.customTaskList = new ComponentName(context, NotificationFragment.class);
-        Intent intent = new Intent(context, TaskListActivity.class) {{
-            setAction("NOTIFY" + id); //$NON-NLS-1$
-            putExtra(TaskListFragment.TOKEN_FILTER, itemFilter);
-            putExtra(NotificationFragment.TOKEN_ID, id);
-            putExtra(EXTRAS_TITLE, taskTitle);
+        Intent intent = new Intent(context, NotificationActivity.class) {{
             setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            setAction("NOTIFY" + id); //$NON-NLS-1$
+            putExtra(NotificationActivity.EXTRA_TASK_ID, id);
+            putExtra(NotificationActivity.EXTRA_TITLE, taskTitle);
         }};
         return PendingIntent.getActivity(context, (int) id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }

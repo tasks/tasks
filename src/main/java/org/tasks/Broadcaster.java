@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.reminders.NotificationFragment;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.utility.Constants;
@@ -13,6 +12,7 @@ import com.todoroo.astrid.utility.Constants;
 import org.tasks.injection.ForApplication;
 import org.tasks.receivers.CompleteTaskReceiver;
 import org.tasks.receivers.FirstLaunchReceiver;
+import org.tasks.reminders.NotificationActivity;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -48,7 +48,7 @@ public class Broadcaster {
                                     final String title, final String text, final int ringTimes) {
         sendOrderedBroadcast(new Intent(BROADCAST_IN_APP_NOTIFY) {{
             putExtra(Notifications.EXTRAS_NOTIF_ID, (int) taskId);
-            putExtra(NotificationFragment.TOKEN_ID, taskId);
+            putExtra(NotificationActivity.EXTRA_TASK_ID, taskId);
             putExtra(Notifications.EXTRAS_CUSTOM_INTENT, intent);
             putExtra(Notifications.EXTRAS_TYPE, type);
             putExtra(Notifications.EXTRAS_TITLE, title);
