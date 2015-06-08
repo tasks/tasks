@@ -210,6 +210,11 @@ public class NavigationDrawerFragment extends InjectingFragment {
 
                 getActivity().supportInvalidateOptionsMenu(); // calls onPrepareOptionsMenu()
             }
+
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                super.onDrawerSlide(drawerView, 0);
+            }
         };
 
         // Defer code dependent on restoration of previous instance state.
