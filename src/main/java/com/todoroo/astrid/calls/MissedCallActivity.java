@@ -106,13 +106,11 @@ public class MissedCallActivity extends InjectingFragmentActivity {
     private TextView returnCallButton;
     private TextView callLaterButton;
     private TextView ignoreButton;
-    private View dismissButton;
     private View ignoreSettingsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preferences.applyTranslucentDialogTheme();
         startupService.onStartupApplication(this);
 
         setContentView(R.layout.missed_call_activity);
@@ -130,7 +128,6 @@ public class MissedCallActivity extends InjectingFragmentActivity {
         callLaterButton = (TextView) findViewById(R.id.call_later);
         ignoreButton = (TextView) findViewById(R.id.call_ignore);
         ignoreSettingsButton = findViewById(R.id.ignore_settings);
-        dismissButton = findViewById(R.id.dismiss);
         ((TextView) findViewById(R.id.reminder_title))
             .setText(getString(R.string.MCA_title,
                     TextUtils.isEmpty(name) ? number : name, timeString));
@@ -155,13 +152,10 @@ public class MissedCallActivity extends InjectingFragmentActivity {
         callLaterButton.setBackgroundColor(color);
 
         addListeners();
-
-        findViewById(R.id.missed_calls_speech_bubble).setVisibility(View.GONE);
     }
 
     private void addListeners() {
         ignoreButton.setOnClickListener(ignoreListener);
-        dismissButton.setOnClickListener(dismissListener);
 
         ignoreSettingsButton.setOnClickListener(new OnClickListener() {
             @Override

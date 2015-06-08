@@ -300,7 +300,10 @@
 
         <activity
             android:name="com.todoroo.astrid.calls.MissedCallActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+            android:theme="@style/Tasks.Dialog"
+            android:taskAffinity=""
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"/>
 
         <activity
             android:name=".reminders.SnoozeActivity"

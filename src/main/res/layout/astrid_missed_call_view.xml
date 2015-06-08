@@ -8,10 +8,7 @@
     android:id="@+id/reminder_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="10dip"
-    android:layout_marginRight="10dip"
-    android:orientation="vertical"
-    android:background="@drawable/reminder_dialog_background">
+    android:orientation="vertical">
     
     <LinearLayout
         android:layout_width="fill_parent"
@@ -37,16 +34,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="1dip"
             android:textSize="24sp"
-            android:textColor="@android:color/white"
             android:layout_weight="1"
             android:text="@string/MCA_title"/>
-        <ImageView
-            android:id="@+id/dismiss"
-            android:layout_width="25dip"
-            android:layout_height="25dip"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_menu_close"/>
-    
+
     </LinearLayout>
     
     
@@ -100,12 +90,5 @@
 	        android:scaleType="fitCenter"
 	        android:src="@drawable/single_gear"/>
     </RelativeLayout>
-
-    <FrameLayout
-        android:id="@+id/missed_calls_speech_bubble"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <include layout="@layout/astrid_speech_bubble" />
-    </FrameLayout>
 
 </LinearLayout>

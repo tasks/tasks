@@ -128,7 +128,7 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
                             missedCallIntent.putExtra(MissedCallActivity.EXTRA_NAME, name);
                             missedCallIntent.putExtra(MissedCallActivity.EXTRA_TIME, timeString);
                             missedCallIntent.putExtra(MissedCallActivity.EXTRA_CONTACT_ID, contactId);
-                            missedCallIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                            missedCallIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             context.startActivity(missedCallIntent);
                         }
                     } catch (Exception e) {

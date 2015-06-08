@@ -112,6 +112,7 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/primary</item>
+        <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
     </style>
 
     <!--================================================== General == -->
