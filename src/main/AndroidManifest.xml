@@ -304,7 +304,10 @@
 
         <activity
             android:name=".reminders.SnoozeActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+            android:theme="@style/Tasks.Dialog"
+            android:taskAffinity=""
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"/>
 
         <!-- tags -->
         <receiver android:name="com.todoroo.astrid.tags.TagCustomFilterCriteriaExposer">

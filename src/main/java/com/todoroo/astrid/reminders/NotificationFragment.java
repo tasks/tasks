@@ -60,7 +60,7 @@ public class NotificationFragment extends TaskListFragment {
                 public void onClick(View arg0) {
                     dismiss();
                     activity.startActivity(new Intent(activity, SnoozeActivity.class) {{
-                        putExtra(SnoozeActivity.TASK_ID, taskId);
+                        putExtra(SnoozeActivity.EXTRA_TASK_ID, taskId);
                     }});
                 }
             });

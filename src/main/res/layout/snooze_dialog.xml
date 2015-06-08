@@ -20,7 +20,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="5dip">
+    android:padding="16dp">
 
     <TimePicker android:id="@+id/timePicker"
         android:visibility="gone"
@@ -35,7 +35,7 @@
         <com.todoroo.astrid.ui.NumberPicker android:id="@+id/numberPicker"
             android:layout_weight="1"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
         
         <Spinner android:id="@+id/numberUnits"
             android:layout_weight="1"
