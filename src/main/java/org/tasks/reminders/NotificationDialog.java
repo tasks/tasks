@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.widget.ArrayAdapter;
 
@@ -36,42 +35,34 @@ public class NotificationDialog extends InjectingDialogFragment {
                 getString(R.string.rmd_NoA_snooze),
                 getString(R.string.rmd_NoA_done)
         ));
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Tasks_Dialog);
-        builder.setTitle(title);
-        builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case 0:
-                        TaskIntents
-                                .getEditTaskStack(getActivity(), null, taskId)
-                                .startActivities();
-                        notificationManager.cancel(taskId);
-                        dismiss();
-                        break;
-                    case 1:
-                         dismiss();
-                        startActivity(new Intent(getActivity(), SnoozeActivity.class) {{
-                            setFlags(FLAG_ACTIVITY_NEW_TASK);
-                            putExtra(SnoozeActivity.EXTRA_TASK_ID, taskId);
-                        }});
-                        break;
-                    case 2:
-                        broadcaster.completeTask(taskId);
-                        dismiss();
-                        break;
-                }
-            }
-        });
-        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (onDismissListener != null) {
-                    onDismissListener.onDismiss(dialog);
-                }
-            }
-        });
-        return builder.show();
+        return new AlertDialog.Builder(getActivity(), R.style.Tasks_Dialog)
+                .setTitle(title)
+                .setAdapter(adapter, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                TaskIntents
+                                        .getEditTaskStack(getActivity(), null, taskId)
+                                        .startActivities();
+                                notificationManager.cancel(taskId);
+                                dismiss();
+                                break;
+                            case 1:
+                                dismiss();
+                                startActivity(new Intent(getActivity(), SnoozeActivity.class) {{
+                                    setFlags(FLAG_ACTIVITY_NEW_TASK);
+                                    putExtra(SnoozeActivity.EXTRA_TASK_ID, taskId);
+                                }});
+                                break;
+                            case 2:
+                                broadcaster.completeTask(taskId);
+                                dismiss();
+                                break;
+                        }
+                    }
+                })
+                .show();
     }
 
     public void setOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
