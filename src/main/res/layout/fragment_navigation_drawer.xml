@@ -1,50 +1,57 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<org.tasks.ui.ScrimInsetsFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrim_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="?attr/drawer_background"
-        android:cacheColorHint="@android:color/transparent"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:fitsSystemWindows="true"
-        android:scrollbars="vertical"
-        android:scrollingCache="false"
-        tools:context=".NavigationDrawerFragment" />
+    android:fitsSystemWindows="true"
+    android:background="?attr/drawer_background"
+    app:insetForeground="#4000">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="?attr/drawer_background"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <View
+        <ListView
+            android:id="@android:id/list"
             android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="?attr/asSeparatorBackground" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/transparent"
+            android:scrollbars="vertical"
+            android:clipToPadding="false"
+            tools:context=".NavigationDrawerFragment" />
 
-        <Button
-            android:id="@+id/settings_row"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:gravity="start|center_vertical"
-            android:drawableStart="?attr/ic_action_settings"
-            android:drawableLeft="?attr/ic_action_settings"
-            android:drawablePadding="10dp"
-            android:paddingLeft="10dp"
-            android:paddingStart="10dp"
-            android:textAppearance="@style/TextAppearance.FLA_Filter"
-            android:layout_gravity="start"
-            android:text="@string/TLA_menu_settings"
-            android:background="?attr/selectableItemBackground"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="?attr/asSeparatorBackground" />
+
+            <Button
+                android:id="@+id/settings_row"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="start|center_vertical"
+                android:drawableStart="?attr/ic_action_settings"
+                android:drawableLeft="?attr/ic_action_settings"
+                android:drawablePadding="10dp"
+                android:paddingLeft="10dp"
+                android:paddingStart="10dp"
+                android:textAppearance="@style/TextAppearance.FLA_Filter"
+                android:layout_gravity="start"
+                android:text="@string/TLA_menu_settings"
+                android:background="?attr/selectableItemBackground" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</org.tasks.ui.ScrimInsetsFrameLayout>

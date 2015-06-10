@@ -21,6 +21,7 @@ import com.commonsware.cwac.tlv.TouchListView.DropListener;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingListActivity;
+import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
@@ -41,11 +42,12 @@ public class BeastModePreferences extends InjectingListActivity {
 
     private HashMap<String, String> prefsToDescriptions;
 
-    @Inject Preferences preferences;
+    @Inject ActivityPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        preferences.applyLightStatusBarColor();
         setContentView(R.layout.beast_mode_pref_activity);
         setTitle(R.string.EPr_beastMode_desc);
 

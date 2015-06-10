@@ -49,7 +49,7 @@ public class TagSettingsActivity extends InjectingAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preferences.applyTheme();
+        preferences.applyThemeAndStatusBarColor();
         setContentView(R.layout.tag_settings_activity);
 
         tagData = getIntent().getParcelableExtra(TagViewFragment.EXTRA_TAG_DATA);

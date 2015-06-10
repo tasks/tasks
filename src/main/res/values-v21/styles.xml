@@ -2,6 +2,7 @@
 <resources>
     <style name="AppThemeBase" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
     <style name="edit_text_style">

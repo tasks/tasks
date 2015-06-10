@@ -58,4 +58,8 @@
     <attr name="summary" format="string" />
   </declare-styleable>
 
+  <declare-styleable name="ScrimInsetsFrameLayout">
+    <attr name="insetForeground" format="reference|color" />
+  </declare-styleable>
+
 </resources>

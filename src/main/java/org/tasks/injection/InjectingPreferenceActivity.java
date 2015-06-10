@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import org.tasks.R;
+import org.tasks.preferences.ActivityPreferences;
+
+import javax.inject.Inject;
 
 import dagger.ObjectGraph;
 
@@ -16,6 +19,8 @@ public abstract class InjectingPreferenceActivity extends PreferenceActivity imp
     private ObjectGraph objectGraph;
 
     protected Toolbar toolbar;
+
+    @Inject ActivityPreferences activityPreferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,8 @@ public abstract class InjectingPreferenceActivity extends PreferenceActivity imp
                 finish();
             }
         });
+
+        activityPreferences.applyLightStatusBarColor();
     }
 
     @Override

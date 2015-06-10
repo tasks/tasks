@@ -28,7 +28,7 @@ public class TaskEditActivity extends AstridActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preferences.applyTheme();
+        preferences.applyThemeAndStatusBarColor();
 
         setContentView(R.layout.task_edit_wrapper_activity);
 

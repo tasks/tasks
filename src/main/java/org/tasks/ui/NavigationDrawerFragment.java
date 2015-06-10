@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
@@ -48,6 +49,8 @@ import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
+
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
 public class NavigationDrawerFragment extends InjectingFragment {
 
@@ -131,6 +134,14 @@ public class NavigationDrawerFragment extends InjectingFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        if (atLeastLollipop()) {
+            ((ScrimInsetsFrameLayout) layout.findViewById(R.id.scrim_layout)).setOnInsetsCallback(new ScrimInsetsFrameLayout.OnInsetsCallback() {
+                @Override
+                public void onInsetsChanged(Rect insets) {
+                    mDrawerListView.setPadding(0, insets.top, 0, 0);
+                }
+            });
+        }
         mDrawerListView = (ListView) layout.findViewById(android.R.id.list);
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
+import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
 
 @Singleton
 public class ActivityPreferences extends Preferences {
@@ -33,20 +34,30 @@ public class ActivityPreferences extends Preferences {
         return isTabletSized(context);
     }
 
+    public void applyThemeAndStatusBarColor() {
+        applyTheme();
+        applyStatusBarColor();
+    }
+
     public void applyTheme() {
+        applyTheme(isDarkTheme() ? R.style.Tasks_Dark : R.style.Tasks);
+    }
+
+    public void applyStatusBarColor() {
+        applyStatusBarColor(isDarkTheme() ? android.R.color.black : R.color.primary_dark);
+    }
+
+    public void applyLightStatusBarColor() {
+        applyStatusBarColor(R.color.primary_dark);
+    }
+
+    private void applyStatusBarColor(int color) {
+        if (preLollipop()) {
+            return;
+        }
         Window window = activity.getWindow();
         Resources resources = activity.getResources();
-        if (isDarkTheme()) {
-            if (atLeastLollipop()) {
-                window.setStatusBarColor(resources.getColor(android.R.color.black));
-            }
-            applyTheme(R.style.Tasks_Dark);
-        } else {
-            if (atLeastLollipop()) {
-                window.setStatusBarColor(resources.getColor(R.color.primary_dark));
-            }
-            applyTheme(R.style.Tasks);
-        }
+        window.setStatusBarColor(resources.getColor(color));
     }
 
     public void applyTranslucentDialogTheme() {
