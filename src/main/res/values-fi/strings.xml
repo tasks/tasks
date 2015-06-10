@@ -99,6 +99,4 @@
 	<string name="tag_new_list">Uusi Lista</string>
 	<string name="tag_no_title_error">Ole hyvä syötä ensin nimi tälle listalle!</string>
 	<string name="delete_task">Poista tehtävä</string>
-	<string name="navigation_drawer_open">Avaa navigointi laatikko</string>
-	<string name="navigation_drawer_close">Sulje navigointi laatikko</string>
 </resources>

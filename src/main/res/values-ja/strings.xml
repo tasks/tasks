@@ -406,8 +406,6 @@
 	<string name="delete_task">タスクを削除</string>
 	<string name="voice_command_added_task">追加されたタスク</string>
 	<string name="external_storage_unavailable">外部メモリーにアクセスできません</string>
-	<string name="navigation_drawer_open">ナビゲーションドロワーを開く</string>
-	<string name="navigation_drawer_close">ナビゲーションドロワーを閉じる</string>
 	<plurals name="Ntasks">
 		<item quantity="one">タスク 1 件</item>
 		<item quantity="other">タスク %d 件</item>

@@ -408,8 +408,6 @@
 	<string name="delete_task">Изтрий задача</string>
 	<string name="voice_command_added_task">Добавена задача</string>
 	<string name="external_storage_unavailable">Не може да достъпвате до външната памет</string>
-	<string name="navigation_drawer_open">Отвори панела за навигация</string>
-	<string name="navigation_drawer_close">Затвори панела за навигация</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 задача</item>
 		<item quantity="other">%d задачи</item>

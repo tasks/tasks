@@ -5,9 +5,6 @@
     <string name="voice_command_added_task">Added task</string>
     <string name="external_storage_unavailable">Cannot access external storage</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <!-- ==================================================== Generic Units == -->
 
     <plurals name="Ntasks">

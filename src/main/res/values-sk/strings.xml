@@ -405,8 +405,6 @@
 	<string name="delete_task">Vymazať úlohu</string>
 	<string name="voice_command_added_task">Pridaná úloha</string>
 	<string name="external_storage_unavailable">Nemožno získať prístup k externej pamäti</string>
-	<string name="navigation_drawer_open">Otvoriť zásuvku navigácie</string>
-	<string name="navigation_drawer_close">Zatvoriť zásuvku navigácie</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 úloha</item>
 		<item quantity="other">%d úlohy</item>

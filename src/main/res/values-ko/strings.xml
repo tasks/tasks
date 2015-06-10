@@ -410,8 +410,6 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	<string name="delete_task">일정 지우기</string>
 	<string name="voice_command_added_task">추가된 일정</string>
 	<string name="external_storage_unavailable">외부 저장소에 접근할 수 없음</string>
-	<string name="navigation_drawer_open">탐색 서랍 열기</string>
-	<string name="navigation_drawer_close">탐색 서랍 닫기</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 일정</item>
 		<item quantity="other">%d 일정</item>

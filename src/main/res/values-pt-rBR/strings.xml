@@ -396,8 +396,6 @@
 	<string name="delete_task">Excluir tarefa</string>
 	<string name="voice_command_added_task">Tarefa adicionada</string>
 	<string name="external_storage_unavailable">Não é possível acessar Cartão SD</string>
-	<string name="navigation_drawer_open">Abrir barra lateral</string>
-	<string name="navigation_drawer_close">Fechar barra lateral</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 tarefa</item>
 		<item quantity="other">%d tarefas</item>

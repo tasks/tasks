@@ -407,8 +407,6 @@
 	<string name="delete_task">Удалить задачу</string>
 	<string name="voice_command_added_task">Добавленная задача</string>
 	<string name="external_storage_unavailable">Не могу открыть внешний накопитель</string>
-	<string name="navigation_drawer_open">Открыть боковую панель</string>
-	<string name="navigation_drawer_close">Закрыть боковую панель</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 задача</item>
 		<item quantity="other">%d задач(а/и)</item>

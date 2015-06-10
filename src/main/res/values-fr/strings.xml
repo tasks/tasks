@@ -399,8 +399,6 @@
 	<string name="delete_task">Supprimer la tâche ? </string>
 	<string name="voice_command_added_task">Tâche ajoutée</string>
 	<string name="external_storage_unavailable">Impossible d\'accéder au stockage externe</string>
-	<string name="navigation_drawer_open">Ouvrir le panneau de navigation</string>
-	<string name="navigation_drawer_close">Fermer le panneau de navigation</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 tâche</item>
 		<item quantity="other">%d tâches</item>

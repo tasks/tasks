@@ -400,8 +400,6 @@
 	<string name="delete_task">Aufgabe löschen</string>
 	<string name="voice_command_added_task">Hinzugefügte Aufgabe</string>
 	<string name="external_storage_unavailable">Kein Zugriff auf externen Speicher</string>
-	<string name="navigation_drawer_open">Navigationsmenüpunkt öffnen</string>
-	<string name="navigation_drawer_close">Navigationsmenüpunkt schließen</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 Aufgabe</item>
 		<item quantity="other">%d Aufgaben</item>
