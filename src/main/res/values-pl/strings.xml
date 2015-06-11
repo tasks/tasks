@@ -266,7 +266,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="gcal_TEA_none_selected">Do kalendarza?</string>
 	<string name="gcal_completed_title">%s (ukończono)</string>
 	<string name="gcal_GCP_default">Domyślny kalendarz</string>
-	<string name="gtasks_FEx_title">Zadania Google: %s</string>
 	<string name="CFC_gtasks_list_text">Na liście: ?</string>
 	<string name="CFC_gtasks_list_name">Na liście GTasks...</string>
 	<string name="gtasks_GTA_clearing">Czyszczenie zakończonych zadań...</string>

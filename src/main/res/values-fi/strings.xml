@@ -69,7 +69,6 @@
 	<string name="gcal_TEA_none_selected">Kalenteriin?</string>
 	<string name="gcal_completed_title">%s (valmistunut)</string>
 	<string name="gcal_GCP_default">Oletus kalenteri</string>
-	<string name="gtasks_FEx_title">Google tehtävä: %s</string>
 	<string name="CFC_gtasks_list_text">Listalla: ?</string>
 	<string name="CFC_gtasks_list_name">Gtask lista...</string>
 	<string name="gtasks_GTA_clearing">Siivoa valmiit tehtävät...</string>

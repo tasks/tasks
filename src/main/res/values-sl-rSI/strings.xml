@@ -267,7 +267,6 @@
 	<string name="gcal_TEA_none_selected">Na koledar?</string>
 	<string name="gcal_completed_title">%s (končani)</string>
 	<string name="gcal_GCP_default">Privzeti koledar</string>
-	<string name="gtasks_FEx_title">Google Naloge: %s</string>
 	<string name="CFC_gtasks_list_text">V seznamu: ?</string>
 	<string name="CFC_gtasks_list_name">Na GNaloge seznamu...</string>
 	<string name="gtasks_GTA_clearing">Brišem dokončane opravke...</string>

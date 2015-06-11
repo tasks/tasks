@@ -272,7 +272,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="gcal_TEA_none_selected">Ao calendário?</string>
 	<string name="gcal_completed_title">%s (terminada)</string>
 	<string name="gcal_GCP_default">Calendário predefinido</string>
-	<string name="gtasks_FEx_title">Tarefas Google: %s</string>
 	<string name="CFC_gtasks_list_text">Na lista: ?</string>
 	<string name="CFC_gtasks_list_name">Na lista GTasks</string>
 	<string name="gtasks_GTA_clearing">Removendo tarefas terminadas</string>

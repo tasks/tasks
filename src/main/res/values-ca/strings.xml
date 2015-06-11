@@ -181,7 +181,6 @@
 	<string name="gcal_TEA_none_selected">Al calenari?</string>
 	<string name="gcal_completed_title">%s (completada)</string>
 	<string name="gcal_GCP_default">Calendari per defecte</string>
-	<string name="gtasks_FEx_title">Tasques de Google:%s</string>
 	<string name="gtasks_GTA_clearing">S\'estan netejant les tasques completades...</string>
 	<string name="gtasks_GTA_clear_completed">Neteja les tasques completades</string>
 	<string name="gtasks_GLA_authenticating">S\'està autenticant...</string>

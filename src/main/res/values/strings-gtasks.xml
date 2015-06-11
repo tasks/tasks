@@ -3,9 +3,6 @@
 
     <!-- ============================================================= UI == -->
 
-    <!-- filter title for GTasks lists (%s => list name) -->
-    <string name="gtasks_FEx_title">Google Tasks: %s</string>
-    
     <!-- short help title for Gtasks -->
     
     <string name="CFC_gtasks_list_text">In List: ?</string>

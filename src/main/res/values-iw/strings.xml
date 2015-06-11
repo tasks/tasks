@@ -264,7 +264,6 @@
 	<string name="gcal_TEA_none_selected">ליומן?</string>
 	<string name="gcal_completed_title">%s (בוצעה)</string>
 	<string name="gcal_GCP_default">ברירת מחדל ליומן</string>
-	<string name="gtasks_FEx_title">״משימות גוגל״: %s</string>
 	<string name="CFC_gtasks_list_text">ברשימה: ?</string>
 	<string name="CFC_gtasks_list_name">ברשימה של ״משימות גוגל״</string>
 	<string name="gtasks_GTA_clearing">מְסִירָה משימות שבוצעו...</string>

@@ -77,7 +77,7 @@ public class GtasksFilterExposer {
         values.put(GtasksMetadata.LIST_ID.name, list.getRemoteId());
         values.put(GtasksMetadata.ORDER.name, PermaSql.VALUE_NOW);
         FilterWithCustomIntent filter = new FilterWithCustomIntent(listName,
-                context.getString(R.string.gtasks_FEx_title, listName), new QueryTemplate().join(
+                listName, new QueryTemplate().join(
                 Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK))).where(Criterion.and(
                         MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
                         TaskCriteria.notDeleted(),

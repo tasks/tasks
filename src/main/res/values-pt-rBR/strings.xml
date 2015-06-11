@@ -263,7 +263,6 @@
 	<string name="gcal_TEA_none_selected">Para o calendário?</string>
 	<string name="gcal_completed_title">%s (concluído)</string>
 	<string name="gcal_GCP_default">Calendário padrão</string>
-	<string name="gtasks_FEx_title">Tarefas do Google: %s</string>
 	<string name="CFC_gtasks_list_text">Na lista: ?</string>
 	<string name="CFC_gtasks_list_name">No Google Tasks...</string>
 	<string name="gtasks_GTA_clearing">Limpando tarefas concluídas...</string>
