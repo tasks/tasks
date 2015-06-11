@@ -140,20 +140,8 @@
   
   <!-- =============================================== FilterListActivity == -->
 
-  <!-- Context Menu: Create Shortcut -->
-  <string name="FLA_context_shortcut">Create Shortcut On Desktop</string>
-  
-  <!-- slide 28c: Create Shortcut Dialog Title -->
-  <string name="FLA_shortcut_dialog_title">Create Desktop Shortcut</string>
-  
-  <!-- Create Shortcut Dialog (asks to name shortcut) -->    
-  <string name="FLA_shortcut_dialog">Name of shortcut:</string>
-  
   <!-- Search Filter name (%s => query) -->
   <string name="FLA_search_filter">Matching \'%s\'</string>
-  
-  <!-- Toast: created shortcut (%s => label) -->
-  <string name="FLA_toast_onCreateShortcut">Created Shortcut: %s</string>
   
   <!-- Menu: new filter -->
   <string name="FLA_new_filter">New Filter</string>

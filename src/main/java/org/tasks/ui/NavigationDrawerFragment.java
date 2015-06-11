@@ -3,32 +3,21 @@ package org.tasks.ui;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
 import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AlertDialog;
 import android.view.ContextMenu;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -42,7 +31,6 @@ import org.tasks.R;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
 import org.tasks.filters.NavigationDrawerAction;
-import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.location.GeofenceService;
 import org.tasks.preferences.AppearancePreferences;
@@ -60,7 +48,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
 
     public static final String TOKEN_LAST_SELECTED = "lastSelected"; //$NON-NLS-1$
 
-    private static final int CONTEXT_MENU_SHORTCUT = R.string.FLA_context_shortcut;
     private static final int CONTEXT_MENU_INTENT = Menu.FIRST + 4;
 
     public static final int REQUEST_CUSTOM_INTENT = 10;
@@ -83,7 +70,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
 
     @Inject FilterCounter filterCounter;
     @Inject FilterProvider filterProvider;
-    @Inject @ForApplication Context context;
     @Inject GeofenceService geofenceService;
     @Inject Preferences preferences;
 
@@ -236,16 +222,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case CONTEXT_MENU_SHORTCUT: {
-                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
-                final Intent shortcutIntent = item.getIntent();
-                FilterListItem filter = ((FilterAdapter.ViewHolder)info.targetView.getTag()).item;
-                if(filter instanceof Filter) {
-                    showCreateShortcutDialog(getActivity(), shortcutIntent, (Filter) filter);
-                }
-
-                return true;
-            }
             case CONTEXT_MENU_INTENT: {
                 Intent intent = item.getIntent();
                 getActivity().startActivityForResult(intent, REQUEST_CUSTOM_INTENT);
@@ -259,78 +235,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
             }
         }
         return false;
-    }
-
-    public static void showCreateShortcutDialog(final Activity activity, final Intent shortcutIntent,
-                                                final Filter filter) {
-        FrameLayout frameLayout = new FrameLayout(activity);
-        frameLayout.setPadding(10, 0, 10, 0);
-        final EditText editText = new EditText(activity);
-        if(filter.listingTitle == null) {
-            filter.listingTitle = ""; //$NON-NLS-1$
-        }
-        editText.setText(filter.listingTitle.
-                replaceAll("\\(\\d+\\)$", "").trim()); //$NON-NLS-1$ //$NON-NLS-2$
-        frameLayout.addView(editText, new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.FILL_PARENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT));
-
-        final Runnable createShortcut = new Runnable() {
-            @Override
-            public void run() {
-                String label = editText.getText().toString();
-                createShortcut(activity, shortcutIntent, label);
-            }
-        };
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId == EditorInfo.IME_NULL) {
-                    createShortcut.run();
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        new AlertDialog.Builder(activity)
-                .setTitle(R.string.FLA_shortcut_dialog_title)
-                .setMessage(R.string.FLA_shortcut_dialog)
-                .setView(frameLayout)
-                .setIcon(android.R.drawable.ic_dialog_info)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        createShortcut.run();
-                    }
-                })
-                .setNegativeButton(android.R.string.cancel, null)
-                .show().setOwnerActivity(activity);
-    }
-
-    public static Bitmap superImposeListIcon(Activity activity) {
-        return ((BitmapDrawable)activity.getResources().getDrawable(R.drawable.icon)).getBitmap();
-    }
-
-    /**
-     * Creates a shortcut on the user's home screen
-     */
-    private static void createShortcut(Activity activity, Intent shortcutIntent, String label) {
-        if(label.length() == 0) {
-            return;
-        }
-
-        Bitmap bitmap = superImposeListIcon(activity);
-
-        Intent createShortcutIntent = new Intent();
-        createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
-        createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, label);
-        createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON, bitmap);
-        createShortcutIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT"); //$NON-NLS-1$
-
-        activity.sendBroadcast(createShortcutIntent);
-        Toast.makeText(activity,
-                activity.getString(R.string.FLA_toast_onCreateShortcut, label), Toast.LENGTH_LONG).show();
     }
 
     public void closeMenu() {
@@ -368,14 +272,11 @@ public class NavigationDrawerFragment extends InjectingFragment {
         FilterListItem item = adapter.getItem(info.position);
 
         if (item instanceof Filter) {
-            MenuItem menuItem = menu.add(0, CONTEXT_MENU_SHORTCUT, 0, R.string.FLA_context_shortcut);
-            menuItem.setIntent(ShortcutActivity.createIntent(context, (Filter) item));
-
             for (int i = 0; i < item.contextMenuLabels.length; i++) {
                 if (item.contextMenuIntents.length <= i) {
                     break;
                 }
-                menuItem = menu.add(0, CONTEXT_MENU_INTENT, 0, item.contextMenuLabels[i]);
+                MenuItem menuItem = menu.add(0, CONTEXT_MENU_INTENT, 0, item.contextMenuLabels[i]);
                 menuItem.setIntent(item.contextMenuIntents[i]);
             }
 

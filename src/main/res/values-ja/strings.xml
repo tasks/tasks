@@ -66,11 +66,7 @@
 	<string name="SSD_sort_reverse">逆順</string>
 	<string name="SSD_save_temp">今回のみ</string>
 	<string name="SSD_save_always">設定の保存</string>
-	<string name="FLA_context_shortcut">ショートカットの作成</string>
-	<string name="FLA_shortcut_dialog_title">ショートカットを作る</string>
-	<string name="FLA_shortcut_dialog">ショートカットの名称</string>
 	<string name="FLA_search_filter">「%s」の検索結果</string>
-	<string name="FLA_toast_onCreateShortcut">ショートカット %s を作成しました</string>
 	<string name="FLA_new_filter">新しいフィルタ</string>
 	<string name="FLA_new_list">新しいリスト</string>
 	<string name="FLA_no_filter_selected">フィルターが選択されていません! フィルターかリストを選択してください.</string>

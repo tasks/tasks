@@ -63,11 +63,7 @@
 	<string name="SSD_sort_reverse">Inverti Ordinamento</string>
 	<string name="SSD_save_temp">Solo una Volta</string>
 	<string name="SSD_save_always">Sempre</string>
-	<string name="FLA_context_shortcut">Crea collegamento sul Desktop</string>
-	<string name="FLA_shortcut_dialog_title">Crea scorciatoia</string>
-	<string name="FLA_shortcut_dialog">Nome della scorciatoia:</string>
 	<string name="FLA_search_filter">Confrontando \'%s\'</string>
-	<string name="FLA_toast_onCreateShortcut">Creata Scorciatoia: %s</string>
 	<string name="FLA_new_filter">Nuovo Filtro</string>
 	<string name="FLA_new_list">Nuova lista</string>
 	<string name="FLA_no_filter_selected">Filtro non selezionato! Perfavore seleziona un filtro o una lista.</string>

@@ -67,11 +67,7 @@
 	<string name="SSD_sort_reverse">מיון בסדר הפוך</string>
 	<string name="SSD_save_temp">רק הפעם</string>
 	<string name="SSD_save_always">תמיד</string>
-	<string name="FLA_context_shortcut">יצירת קיצור על שולחן העבודה</string>
-	<string name="FLA_shortcut_dialog_title">יצירת קיצור על שולחן העבודה</string>
-	<string name="FLA_shortcut_dialog">שם הקיצור:</string>
 	<string name="FLA_search_filter">התאים ל\'%s\'</string>
-	<string name="FLA_toast_onCreateShortcut">נוצר קיצור: %s</string>
 	<string name="FLA_new_filter">מַסְנֵן חדש</string>
 	<string name="FLA_new_list">רשימה חדשה</string>
 	<string name="FLA_no_filter_selected">לא נבחר מַסְנֵן! אנא בחר מַסְנֵן או רשימה.</string>

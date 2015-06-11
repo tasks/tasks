@@ -66,11 +66,7 @@
 	<string name="SSD_sort_reverse">Omgekeerd sorteren</string>
 	<string name="SSD_save_temp">Eenmalig</string>
 	<string name="SSD_save_always">Altijd</string>
-	<string name="FLA_context_shortcut">Snelkoppeling op bureaublad maken</string>
-	<string name="FLA_shortcut_dialog_title">Snelkoppeling maken</string>
-	<string name="FLA_shortcut_dialog">Naam snelkoppeling:</string>
 	<string name="FLA_search_filter">Bevat \'%s\'</string>
-	<string name="FLA_toast_onCreateShortcut">Gemaakte snelkoppeling: %s</string>
 	<string name="FLA_new_filter">Nieuw Filter</string>
 	<string name="FLA_new_list">Nieuwe lijst</string>
 	<string name="FLA_no_filter_selected">Geen filter geselecteerd! Selecteer een filter of lijst.</string>

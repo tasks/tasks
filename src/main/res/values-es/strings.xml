@@ -67,11 +67,7 @@
 	<string name="SSD_sort_reverse">Invertir Orden</string>
 	<string name="SSD_save_temp">Sólo una vez</string>
 	<string name="SSD_save_always">Siempre</string>
-	<string name="FLA_context_shortcut">Crear enlace en escritorio</string>
-	<string name="FLA_shortcut_dialog_title">Crear acceso directo</string>
-	<string name="FLA_shortcut_dialog">Nombre del acceso directo:</string>
 	<string name="FLA_search_filter">Coincidencias con \'%s\'</string>
-	<string name="FLA_toast_onCreateShortcut">Acceso directo creado: %s</string>
 	<string name="FLA_new_filter">Nuevo filtro</string>
 	<string name="FLA_new_list">Nueva lista</string>
 	<string name="FLA_no_filter_selected">No hay filtro seleccionado! Por favor seleccione un filtro o lista.</string>

@@ -66,11 +66,7 @@
 	<string name="SSD_sort_reverse">Ordenação reversa</string>
 	<string name="SSD_save_temp">Somente uma vez</string>
 	<string name="SSD_save_always">Sempre</string>
-	<string name="FLA_context_shortcut">Criar atalho no desktop</string>
-	<string name="FLA_shortcut_dialog_title">Criar atalho</string>
-	<string name="FLA_shortcut_dialog">Nome do atalho</string>
 	<string name="FLA_search_filter">Encontradas para \'%s\'</string>
-	<string name="FLA_toast_onCreateShortcut">Atalho criado: %s</string>
 	<string name="FLA_new_filter">Novo Filtro</string>
 	<string name="FLA_new_list">Nova lista</string>
 	<string name="FLA_no_filter_selected">Sem filtro selecionado! Selecione um filtro ou lista.</string>

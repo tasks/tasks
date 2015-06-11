@@ -66,11 +66,7 @@
 	<string name="SSD_sort_reverse">反向排序</string>
 	<string name="SSD_save_temp">僅一次</string>
 	<string name="SSD_save_always">總是</string>
-	<string name="FLA_context_shortcut">在桌面建立捷徑</string>
-	<string name="FLA_shortcut_dialog_title">建立捷徑</string>
-	<string name="FLA_shortcut_dialog">捷徑名稱</string>
 	<string name="FLA_search_filter">比對 \'%s\'</string>
-	<string name="FLA_toast_onCreateShortcut">建立捷徑: %s</string>
 	<string name="FLA_new_filter">新建過濾器</string>
 	<string name="FLA_new_list">新建列表</string>
 	<string name="FLA_no_filter_selected">還沒有選定過濾器呢！請選擇一個過濾器或列表唄。</string>

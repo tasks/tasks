@@ -70,11 +70,7 @@
 	<string name="SSD_sort_reverse">В обратен ред</string>
 	<string name="SSD_save_temp">Само веднъж</string>
 	<string name="SSD_save_always">Винаги</string>
-	<string name="FLA_context_shortcut">Създай пряк път на десктопа</string>
-	<string name="FLA_shortcut_dialog_title">Създай пряк път на десктопа</string>
-	<string name="FLA_shortcut_dialog">Име на прекия път:</string>
 	<string name="FLA_search_filter">Съвпада с \'%s\'</string>
-	<string name="FLA_toast_onCreateShortcut">Създаден пряк път: %s</string>
 	<string name="FLA_new_filter">Нов филтър</string>
 	<string name="FLA_new_list">Нов списък</string>
 	<string name="FLA_no_filter_selected">Няма избран филтър! Моля изберете филтър или списък.</string>

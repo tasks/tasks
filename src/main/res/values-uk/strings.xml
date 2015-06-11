@@ -70,11 +70,7 @@
 	<string name="SSD_sort_reverse">Обернений порядок сортування</string>
 	<string name="SSD_save_temp">Тільки раз</string>
 	<string name="SSD_save_always">Завжди</string>
-	<string name="FLA_context_shortcut">Створити ярлик на стільниці</string>
-	<string name="FLA_shortcut_dialog_title">Створити ярлик на стільниці</string>
-	<string name="FLA_shortcut_dialog">Ім’я ярлика:</string>
 	<string name="FLA_search_filter">Відповідності до %s</string>
-	<string name="FLA_toast_onCreateShortcut">Створений Ярлик: %s</string>
 	<string name="FLA_new_filter">Новий фільтр</string>
 	<string name="FLA_new_list">Новий список</string>
 	<string name="FLA_no_filter_selected">Не вибраний жодний фільтр! Будь ласка, виберіть фільтр або список.</string>

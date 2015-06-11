@@ -5,9 +5,11 @@
  */
 package com.todoroo.astrid.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -62,7 +64,7 @@ public class FilterShortcutActivity extends InjectingListActivity {
             }
             Intent shortcutIntent = ShortcutActivity.createIntent(context, filter);
 
-            Bitmap bitmap = NavigationDrawerFragment.superImposeListIcon(FilterShortcutActivity.this);
+            Bitmap bitmap = superImposeListIcon(FilterShortcutActivity.this);
             Intent intent = new Intent();
             intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
             intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, filter.title);
@@ -72,6 +74,10 @@ public class FilterShortcutActivity extends InjectingListActivity {
             finish();
         }
    };
+
+    private static Bitmap superImposeListIcon(Activity activity) {
+        return ((BitmapDrawable)activity.getResources().getDrawable(R.drawable.icon)).getBitmap();
+    }
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {

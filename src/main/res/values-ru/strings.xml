@@ -67,11 +67,7 @@
 	<string name="SSD_sort_reverse">Обратный порядок сортировки</string>
 	<string name="SSD_save_temp">Только один раз</string>
 	<string name="SSD_save_always">Всегда</string>
-	<string name="FLA_context_shortcut">Создать ярлык на рабочем столе…</string>
-	<string name="FLA_shortcut_dialog_title">Создать ярлык</string>
-	<string name="FLA_shortcut_dialog">Имя ярлыка:</string>
 	<string name="FLA_search_filter">Соответствует \'%s\'</string>
-	<string name="FLA_toast_onCreateShortcut">Ярлык %s создан</string>
 	<string name="FLA_new_filter">Новый фильтр</string>
 	<string name="FLA_new_list">Новый список</string>
 	<string name="FLA_no_filter_selected">Фильтры не выбраны! Пожалуйста, выберите фильтр или список</string>

@@ -36,9 +36,6 @@
 	<string name="SSD_sort_reverse">จัดเรียงย้อนหลัง</string>
 	<string name="SSD_save_temp">ชั่วคราว</string>
 	<string name="SSD_save_always">ตลอดไป</string>
-	<string name="FLA_shortcut_dialog_title">สร้างทางลัด</string>
-	<string name="FLA_shortcut_dialog">ชื่อทางลัด:</string>
-	<string name="FLA_toast_onCreateShortcut">สร้างทางลัดแล้ว: %s</string>
 	<string name="TEA_title_hint">สรุปแผนงาน</string>
 	<string name="TEA_importance_label">ความสำคัญ</string>
 	<string name="TEA_note_label">บันทึกย่อ</string>

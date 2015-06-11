@@ -48,8 +48,6 @@
 	<string name="SSD_sort_modified">بواسطة التعديل الأخير</string>
 	<string name="SSD_save_temp">مره واحده فقط</string>
 	<string name="SSD_save_always">دائماً</string>
-	<string name="FLA_context_shortcut">إحداث اختصار في الصفحة الرئيسية</string>
-	<string name="FLA_shortcut_dialog">اسم الاختصار:</string>
 	<string name="FLA_new_list">قائمة جديدة</string>
 	<string name="FLA_no_filter_selected">لم يتم اختيار فلتر! ارجو اختيار فلتر او قائمة</string>
 	<string name="TEA_title_hint">اسم المهمة</string>
