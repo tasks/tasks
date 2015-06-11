@@ -17,15 +17,30 @@ import android.os.Parcelable;
  */
 abstract public class FilterListItem implements Parcelable {
 
+    public enum Type {
+        ITEM(0),
+        SUBHEADER(1),
+        SEPARATOR(2);
+
+        private int viewType;
+
+        Type(int viewType) {
+            this.viewType = viewType;
+        }
+
+        public int getViewType() {
+            return viewType;
+        }
+    }
+
+    public abstract Type getItemType();
+
     /**
      * Title of this item displayed on the Filters page
      */
     public String listingTitle = null;
 
-    /**
-     * Text Color. <code>0</code> => default color
-     */
-    public int color = 0;
+    public int icon = 0;
 
     /**
      * Context Menu labels. The context menu will be displayed when users
@@ -40,6 +55,11 @@ abstract public class FilterListItem implements Parcelable {
      */
     public Intent contextMenuIntents[] = new Intent[0];
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
     // --- parcelable helpers
 
     /**
@@ -48,7 +68,7 @@ abstract public class FilterListItem implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(listingTitle);
-        dest.writeInt(color);
+        dest.writeInt(icon);
 
         // write array lengths before arrays
         dest.writeStringArray(contextMenuLabels);
@@ -60,7 +80,7 @@ abstract public class FilterListItem implements Parcelable {
      */
     public void readFromParcel(Parcel source) {
         listingTitle = source.readString();
-        color = source.readInt();
+        icon = source.readInt();
 
         contextMenuLabels = source.createStringArray();
         contextMenuIntents = source.createTypedArray(Intent.CREATOR);

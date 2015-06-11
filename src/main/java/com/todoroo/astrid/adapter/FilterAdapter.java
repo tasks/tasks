@@ -10,12 +10,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,59 +23,47 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.api.FilterWithUpdate;
 
 import org.tasks.R;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
+import org.tasks.filters.NavigationDrawerAction;
+import org.tasks.filters.NavigationDrawerSubheader;
+import org.tasks.filters.NavigationDrawerSeparator;
+import org.tasks.preferences.BasicPreferences;
+
+import java.util.List;
 
 import static org.tasks.preferences.ResourceResolver.getData;
+import static org.tasks.preferences.ResourceResolver.getResource;
 
-public class FilterAdapter extends ArrayAdapter<Filter> {
+public class FilterAdapter extends ArrayAdapter<FilterListItem> {
 
-    // --- style constants
-
-    public int filterStyle = R.style.TextAppearance_FLA_Filter;
+    private static final int VIEW_TYPE_COUNT = FilterListItem.Type.values().length;
 
     // --- instance variables
 
+    public static final int REQUEST_SETTINGS = 10123;
+
     private final FilterProvider filterProvider;
     private final FilterCounter filterCounter;
-
-    /** parent activity */
     private final Activity activity;
-
-    /** owner listview */
-    private ListView listView;
-
-    /** display metrics for scaling icons */
-    private final DisplayMetrics metrics = new DisplayMetrics();
-
+    private final ListView listView;
+    private boolean navigationDrawer;
     private final FilterListUpdateReceiver filterListUpdateReceiver = new FilterListUpdateReceiver();
-
-    /** row layout to inflate */
-    private final int layout;
 
     /** layout inflater */
     private final LayoutInflater inflater;
 
-    /** whether to skip Filters that launch intents instead of being real filters */
-    private final boolean skipIntentFilters;
-
-    public FilterAdapter(FilterProvider filterProvider, FilterCounter filterCounter, Activity activity, ListView listView,
-            int rowLayout, boolean skipIntentFilters) {
+    public FilterAdapter(FilterProvider filterProvider, FilterCounter filterCounter, Activity activity, ListView listView, boolean navigationDrawer) {
         super(activity, 0);
         this.filterProvider = filterProvider;
         this.filterCounter = filterCounter;
         this.activity = activity;
         this.listView = listView;
-        this.layout = rowLayout;
-        this.skipIntentFilters = skipIntentFilters;
+        this.navigationDrawer = navigationDrawer;
 
-        inflater = (LayoutInflater) activity.getSystemService(
-                Context.LAYOUT_INFLATER_SERVICE);
-
-        activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -85,11 +72,16 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     }
 
     @Override
-    public void add(Filter item) {
+    public void add(FilterListItem item) {
+        if (getPosition(item) >= 0) {
+            return;
+        }
+
         super.add(item);
         // load sizes
-        filterCounter.registerFilter(item);
-        notifyDataSetChanged();
+        if (item instanceof Filter) {
+            filterCounter.registerFilter((Filter) item);
+        }
     }
 
     @Override
@@ -102,24 +94,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         });
     }
 
-    private void addOrLookup(Filter filter) {
-        int index = getPosition(filter);
-        if (index >= 0) {
-            Filter existing = getItem(index);
-            transferImageReferences(filter, existing);
-            return;
-        }
-        add(filter);
-    }
-
-    // Helper function: if a filter was created from serialized extras, it may not
-    // have the same image data we can get from the in-app broadcast
-    private void transferImageReferences(Filter from, Filter to) {
-        if (from instanceof FilterWithUpdate && to instanceof FilterWithUpdate) {
-            ((FilterWithUpdate) to).imageUrl = ((FilterWithUpdate) from).imageUrl;
-        }
-    }
-
     public void refreshFilterCount() {
         filterCounter.refreshFilterCounts(new Runnable() {
             @Override
@@ -129,20 +103,28 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         });
     }
 
-    public void setListView(ListView listView) {
-        this.listView = listView;
-    }
-
     /**
      * Create or reuse a view
      */
-    private View newView(View convertView, ViewGroup parent) {
+    private View newView(View convertView, ViewGroup parent, FilterListItem.Type viewType) {
         if(convertView == null) {
-            convertView = inflater.inflate(layout, parent, false);
             ViewHolder viewHolder = new ViewHolder();
+            switch(viewType) {
+                case ITEM:
+                    convertView = inflater.inflate(R.layout.filter_adapter_row, parent, false);
+                    viewHolder.name = (TextView)convertView.findViewById(R.id.name);
+                    viewHolder.icon = (ImageView) convertView.findViewById(R.id.icon);
+                    viewHolder.size = (TextView)convertView.findViewById(R.id.size);
+                    break;
+                case SEPARATOR:
+                    convertView = inflater.inflate(R.layout.filter_adapter_separator, parent, false);
+                    break;
+                case SUBHEADER:
+                    convertView = inflater.inflate(R.layout.filter_adapter_subheader, parent, false);
+                    viewHolder.name = (TextView) convertView.findViewById(R.id.subheader_text);
+                    break;
+            }
             viewHolder.view = convertView;
-            viewHolder.name = (TextView)convertView.findViewById(R.id.name);
-            viewHolder.size = (TextView)convertView.findViewById(R.id.size);
             convertView.setTag(viewHolder);
         }
         return convertView;
@@ -151,29 +133,55 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     public static class ViewHolder {
         public FilterListItem item;
         public TextView name;
+        public ImageView icon;
         public TextView size;
         public View view;
     }
 
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = newView(convertView, parent);
+        FilterListItem item = getItem(position);
+
+        convertView = newView(convertView, parent, item.getItemType());
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
         viewHolder.item = getItem(position);
-        populateView(viewHolder);
+        switch(item.getItemType()) {
+            case ITEM:
+                populateItem(viewHolder);
 
-        Filter selected = null;
-        if (activity instanceof AstridActivity) {
-            TaskListFragment tlf = ((AstridActivity) activity).getTaskListFragment();
-            selected = tlf.getFilter();
-        }
+                Filter selected = null;
+                if (activity instanceof AstridActivity) {
+                    TaskListFragment tlf = ((AstridActivity) activity).getTaskListFragment();
+                    selected = tlf.getFilter();
+                }
 
-        if (selected != null && selected.equals(viewHolder.item)) {
-            convertView.setBackgroundColor(getData(activity, R.attr.drawer_background_selected));
+                if (selected != null && selected.equals(viewHolder.item)) {
+                    convertView.setBackgroundColor(getData(activity, R.attr.drawer_background_selected));
+                }
+                break;
+            case SUBHEADER:
+                populateHeader(viewHolder);
+                break;
+            case SEPARATOR:
+                break;
         }
 
         return convertView;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return VIEW_TYPE_COUNT;
+    }
+
+    @Override
+    public boolean isEnabled(int position) {
+        return getItem(position).getItemType() == FilterListItem.Type.ITEM;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return getItem(position).getItemType().ordinal();
     }
 
     @Override
@@ -215,16 +223,39 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         }
     }
 
-    public void getLists() {
-        for (FilterListItem filter : filterProvider.getFilters()) {
-            if(skipIntentFilters && !(filter instanceof Filter)) {
-                continue;
-            }
-
-            if (filter instanceof Filter){
-                addOrLookup((Filter) filter);
-            }
+    public void addSubMenu(final int titleResource, List<Filter> filters) {
+        if (filters.size() > 0) {
+            add(new NavigationDrawerSubheader(activity.getResources().getString(titleResource)));
         }
+
+        for (FilterListItem filterListItem : filters) {
+            add(filterListItem);
+        }
+    }
+
+    public void populateList() {
+        clear();
+
+        add(filterProvider.getMyTasksFilter());
+
+        addSubMenu(R.string.filters, filterProvider.getFilters());
+
+        addSubMenu(R.string.tags, filterProvider.getTags());
+
+        addSubMenu(R.string.gtasks_GPr_header, filterProvider.getGoogleTaskFilters());
+
+        if (navigationDrawer) {
+            add(new NavigationDrawerSeparator());
+
+            add(new NavigationDrawerAction(
+                    activity.getResources().getString(R.string.TLA_menu_settings),
+                    getResource(activity, R.attr.ic_action_settings),
+                    new Intent(activity, BasicPreferences.class),
+                    REQUEST_SETTINGS));
+        }
+
+        notifyDataSetChanged();
+
         filterCounter.refreshFilterCounts(new Runnable() {
             @Override
             public void run() {
@@ -238,7 +269,8 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
      */
     public void registerRecevier() {
         activity.registerReceiver(filterListUpdateReceiver, new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-        getLists();
+
+        populateList();
 
         refreshFilterCount();
     }
@@ -254,45 +286,40 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
      * ================================================================ views
      * ====================================================================== */
 
-    private void populateView(ViewHolder viewHolder) {
+    private void populateItem(ViewHolder viewHolder) {
         FilterListItem filter = viewHolder.item;
         if(filter == null) {
             return;
         }
 
         viewHolder.view.setBackgroundResource(0);
-        viewHolder.name.setTextAppearance(activity, filterStyle);
-        viewHolder.name.setShadowLayer(0, 0, 0, 0);
+        int icon = filter.icon;
+        viewHolder.icon.setImageResource(icon);
+        viewHolder.icon.setVisibility(icon == 0 ? View.INVISIBLE : View.VISIBLE);
 
         String title = filter.listingTitle;
         if(!title.equals(viewHolder.name.getText())) {
             viewHolder.name.setText(title);
         }
 
-        int countInt;
+        int countInt = 0;
         if(filterCounter.containsKey(filter)) {
-            viewHolder.size.setVisibility(View.VISIBLE);
             countInt = filterCounter.get(filter);
             viewHolder.size.setText(Integer.toString(countInt));
-        } else {
-            viewHolder.size.setVisibility(View.GONE);
-            countInt = -1;
+        }
+        viewHolder.size.setVisibility(countInt > 0 ? View.VISIBLE : View.GONE);
+
+        if (selection == viewHolder.item) {
+            viewHolder.view.setBackgroundColor(getData(activity, R.attr.drawer_background_selected));
+        }
+    }
+
+    private void populateHeader(ViewHolder viewHolder) {
+        FilterListItem filter = viewHolder.item;
+        if (filter == null) {
+            return;
         }
 
-        if(countInt == 0) {
-            viewHolder.size.setVisibility(View.GONE);
-        }
-
-        viewHolder.name.getLayoutParams().height = (int) (58 * metrics.density);
-
-        if (filter.color != 0) {
-            viewHolder.name.setTextColor(filter.color);
-        }
-
-        // selection
-        if(selection == viewHolder.item) {
-            // TODO: convert to color
-            viewHolder.view.setBackgroundColor(Color.rgb(128, 230, 0));
-        }
+        viewHolder.name.setText(filter.listingTitle);
     }
 }

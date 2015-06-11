@@ -71,11 +71,7 @@ public class WidgetConfigActivity extends InjectingListActivity {
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-
-        // Set the result to CANCELED.  This will cause the widget host to cancel
-        // out of the widget placement if they press the back button.
-        setResult(RESULT_CANCELED);
-
+        preferences.applyLightStatusBarColor();
         // Set the view layout resource to use.
         setContentView(R.layout.widget_config_activity);
 
@@ -99,9 +95,7 @@ public class WidgetConfigActivity extends InjectingListActivity {
         }
 
         // set up ui
-        adapter = new FilterAdapter(filterProvider, filterCounter, this, getListView(),
-                R.layout.filter_adapter_row, true);
-        adapter.filterStyle = R.style.TextAppearance_FLA_Filter_Widget;
+        adapter = new FilterAdapter(filterProvider, filterCounter, this, getListView(), false);
         setListAdapter(adapter);
 
         Button button = (Button) findViewById(R.id.ok);
@@ -129,11 +123,10 @@ public class WidgetConfigActivity extends InjectingListActivity {
         });
     }
 
-
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        Filter item = adapter.getItem(position);
+        FilterListItem item = adapter.getItem(position);
         adapter.setSelection(item);
     }
 

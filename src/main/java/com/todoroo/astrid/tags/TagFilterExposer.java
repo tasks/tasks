@@ -19,9 +19,7 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
-import com.todoroo.astrid.api.FilterWithUpdate;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
@@ -54,8 +52,8 @@ public class TagFilterExposer {
         this.tagService = tagService;
     }
 
-    public List<FilterListItem> getFilters() {
-        ArrayList<FilterListItem> list = new ArrayList<>();
+    public List<Filter> getFilters() {
+        ArrayList<Filter> list = new ArrayList<>();
 
         list.addAll(filterFromTags(tagService.getTagList()));
 
@@ -75,7 +73,7 @@ public class TagFilterExposer {
         contentValues.put(TaskToTagMetadata.TAG_NAME.name, tag.getName());
         contentValues.put(TaskToTagMetadata.TAG_UUID.name, tag.getUuid());
 
-        FilterWithUpdate filter = new FilterWithUpdate(tag.getName(),
+        FilterWithCustomIntent filter = new FilterWithCustomIntent(tag.getName(),
                 title, tagTemplate,
                 contentValues);
 

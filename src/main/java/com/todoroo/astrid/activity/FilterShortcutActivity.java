@@ -16,6 +16,7 @@ import android.widget.ListView;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.FilterListItem;
 
 import org.tasks.R;
 import org.tasks.filters.FilterCounter;
@@ -39,18 +40,12 @@ public class FilterShortcutActivity extends InjectingListActivity {
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        preferences.applyTheme();
-
-        // Set the result to CANCELED unless a filter is selected.
-        setResult(RESULT_CANCELED);
-
+        preferences.applyLightStatusBarColor();
         // Set the view layout resource to use.
-        setContentView(R.layout.widget_config_activity);
+        setContentView(R.layout.filter_shortcut_activity);
 
         // set up ui
-        adapter = new FilterAdapter(filterProvider, filterCounter, this, getListView(),
-                R.layout.filter_adapter_row, true);
-        adapter.filterStyle = R.style.TextAppearance_FLA_Filter_Widget;
+        adapter = new FilterAdapter(filterProvider, filterCounter, this, getListView(), false);
         setListAdapter(adapter);
 
         Button button = (Button)findViewById(R.id.ok);
@@ -81,7 +76,7 @@ public class FilterShortcutActivity extends InjectingListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        Filter item = adapter.getItem(position);
+        FilterListItem item = adapter.getItem(position);
         adapter.setSelection(item);
     }
 

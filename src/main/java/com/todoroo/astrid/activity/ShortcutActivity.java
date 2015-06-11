@@ -16,7 +16,6 @@ import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
-import com.todoroo.astrid.api.FilterWithUpdate;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
@@ -54,9 +53,6 @@ public class ShortcutActivity extends Activity {
     /** token for passing a ComponentNameto launch */
     public static final String TOKEN_CUSTOM_CLASS = "class"; //$NON-NLS-1$
 
-    /** token for passing a image url*/
-    public static final String TOKEN_IMAGE_URL = "imageUrl"; //$NON-NLS-1$ TODO: Remove this
-
     /** List of the above constants for searching */
     private static final String[] CUSTOM_EXTRAS = {
         TOKEN_SINGLE_TASK,
@@ -64,8 +60,7 @@ public class ShortcutActivity extends Activity {
         TOKEN_FILTER_SQL,
         TOKEN_FILTER_VALUES,
         TOKEN_FILTER_VALUES_ITEM,
-        TOKEN_CUSTOM_CLASS,
-        TOKEN_IMAGE_URL
+        TOKEN_CUSTOM_CLASS
     };
 
     // --- implementation
@@ -128,14 +123,7 @@ public class ShortcutActivity extends Activity {
 
             Filter filter;
             if (extras.containsKey(TOKEN_CUSTOM_CLASS)) {
-                if (extras.containsKey(TOKEN_IMAGE_URL)) {
-                    filter = new FilterWithUpdate(title, title, sql, values);
-                    ((FilterWithUpdate) filter).imageUrl = extras.getString(TOKEN_IMAGE_URL);
-                }
-                else {
-                    filter = new FilterWithCustomIntent(title, title, sql, values);
-                }
-
+                filter = new FilterWithCustomIntent(title, title, sql, values);
                 Bundle customExtras = new Bundle();
                 Set<String> keys = extras.keySet();
                 for (String key : keys) {
@@ -172,12 +160,6 @@ public class ShortcutActivity extends Activity {
                 shortcutIntent.putExtras(customFilter.customExtras);
             }
             shortcutIntent.putExtra(TOKEN_CUSTOM_CLASS, customFilter.customTaskList.flattenToString());
-            if (filter instanceof FilterWithUpdate) {
-                FilterWithUpdate filterWithUpdate = (FilterWithUpdate) filter;
-                if (filterWithUpdate.imageUrl != null) {
-                    shortcutIntent.putExtra(TOKEN_IMAGE_URL, filterWithUpdate.imageUrl);
-                }
-            }
         }
 
         shortcutIntent.setAction(Intent.ACTION_VIEW);

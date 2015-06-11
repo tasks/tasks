@@ -41,11 +41,11 @@ import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
+import org.tasks.filters.NavigationDrawerAction;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.location.GeofenceService;
 import org.tasks.preferences.AppearancePreferences;
-import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
@@ -63,7 +63,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
     private static final int CONTEXT_MENU_SHORTCUT = R.string.FLA_context_shortcut;
     private static final int CONTEXT_MENU_INTENT = Menu.FIRST + 4;
 
-    public static final int ACTIVITY_SETTINGS = 1;
     public static final int REQUEST_CUSTOM_INTENT = 10;
     public static final int REQUEST_NEW_LIST = 4;
 
@@ -108,7 +107,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == ACTIVITY_SETTINGS && resultCode == Activity.RESULT_OK && data != null) {
+        if (requestCode == FilterAdapter.REQUEST_SETTINGS && resultCode == Activity.RESULT_OK && data != null) {
             if (data.getBooleanExtra(ReminderPreferences.TOGGLE_GEOFENCES, false)) {
                 if (preferences.geofencesEnabled()) {
                     geofenceService.setupGeofences();
@@ -131,8 +130,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         if (atLeastLollipop()) {
             ((ScrimInsetsFrameLayout) layout.findViewById(R.id.scrim_layout)).setOnInsetsCallback(new ScrimInsetsFrameLayout.OnInsetsCallback() {
@@ -149,19 +147,12 @@ public class NavigationDrawerFragment extends InjectingFragment {
                 selectItem(position);
             }
         });
-        layout.findViewById(R.id.settings_row).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                closeMenu();
-                startActivityForResult(new Intent(getActivity(), BasicPreferences.class), ACTIVITY_SETTINGS);
-            }
-        });
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return layout;
     }
 
     private void setUpList() {
-        adapter.setListView(mDrawerListView);
+        adapter = new FilterAdapter(filterProvider, filterCounter, getActivity(), mDrawerListView, true);
         mDrawerListView.setAdapter(adapter);
         registerForContextMenu(mDrawerListView);
     }
@@ -198,14 +189,19 @@ public class NavigationDrawerFragment extends InjectingFragment {
     }
 
     private void selectItem(int position) {
-        Filter item = adapter.getItem(position);
-        mCurrentSelectedPosition = position;
-        if (mDrawerListView != null) {
-            mDrawerListView.setItemChecked(position, true);
-        }
         closeMenu();
-        if (mCallbacks != null) {
-            mCallbacks.onFilterItemClicked(item);
+        FilterListItem item = adapter.getItem(position);
+        if (item instanceof Filter) {
+            mCurrentSelectedPosition = position;
+            if (mDrawerListView != null) {
+                mDrawerListView.setItemChecked(position, true);
+            }
+            if (mCallbacks != null) {
+                mCallbacks.onFilterItemClicked(item);
+            }
+        } else if (item instanceof NavigationDrawerAction) {
+            NavigationDrawerAction action = (NavigationDrawerAction) item;
+            startActivityForResult(action.intent, action.requestCode);
         }
     }
 
@@ -213,7 +209,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mCallbacks = (OnFilterItemClickedListener) activity;
-        adapter = new FilterAdapter(filterProvider, filterCounter, getActivity(), null, R.layout.filter_adapter_row, false);
     }
 
     @Override
@@ -359,29 +354,30 @@ public class NavigationDrawerFragment extends InjectingFragment {
     }
 
     public void refresh() {
-        adapter.clear();
-        adapter.getLists();
+        adapter.populateList();
     }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
 
-        Filter item = adapter.getItem(info.position);
+        FilterListItem item = adapter.getItem(info.position);
 
-        MenuItem menuItem = menu.add(0, CONTEXT_MENU_SHORTCUT, 0, R.string.FLA_context_shortcut);
-        menuItem.setIntent(ShortcutActivity.createIntent(context, item));
+        if (item instanceof Filter) {
+            MenuItem menuItem = menu.add(0, CONTEXT_MENU_SHORTCUT, 0, R.string.FLA_context_shortcut);
+            menuItem.setIntent(ShortcutActivity.createIntent(context, (Filter) item));
 
-        for(int i = 0; i < item.contextMenuLabels.length; i++) {
-            if(item.contextMenuIntents.length <= i) {
-                break;
+            for (int i = 0; i < item.contextMenuLabels.length; i++) {
+                if (item.contextMenuIntents.length <= i) {
+                    break;
+                }
+                menuItem = menu.add(0, CONTEXT_MENU_INTENT, 0, item.contextMenuLabels[i]);
+                menuItem.setIntent(item.contextMenuIntents[i]);
             }
-            menuItem = menu.add(0, CONTEXT_MENU_INTENT, 0, item.contextMenuLabels[i]);
-            menuItem.setIntent(item.contextMenuIntents[i]);
-        }
 
-        if(menu.size() > 0) {
-            menu.setHeaderTitle(item.listingTitle);
+            if (menu.size() > 0) {
+                menu.setHeaderTitle(item.listingTitle);
+            }
         }
     }
 

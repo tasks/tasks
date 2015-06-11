@@ -130,14 +130,6 @@ public class Filter extends FilterListItem {
 
     // --- parcelable
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -175,6 +167,11 @@ public class Filter extends FilterListItem {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public Type getItemType() {
+        return Type.ITEM;
     }
 
     /**

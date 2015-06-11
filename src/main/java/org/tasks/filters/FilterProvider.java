@@ -1,6 +1,6 @@
 package org.tasks.filters;
 
-import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.gtasks.GtasksFilterExposer;
@@ -31,13 +31,23 @@ public class FilterProvider {
         this.gtasksFilterExposer = gtasksFilterExposer;
     }
 
-    public List<? extends FilterListItem> getFilters() {
-        return new ArrayList<FilterListItem>() {{
+    public Filter getMyTasksFilter() {
+        return builtInFilterExposer.getMyTasksFilter();
+    }
+
+    public List<Filter> getFilters() {
+        return new ArrayList<Filter>() {{
             addAll(builtInFilterExposer.getFilters());
             addAll(timerFilterExposer.getFilters());
             addAll(customFilterExposer.getFilters());
-            addAll(tagFilterExposer.getFilters());
-            addAll(gtasksFilterExposer.getFilters());
         }};
+    }
+
+    public List<Filter> getTags() {
+        return tagFilterExposer.getFilters();
+    }
+
+    public List<Filter> getGoogleTaskFilters() {
+        return gtasksFilterExposer.getFilters();
     }
 }

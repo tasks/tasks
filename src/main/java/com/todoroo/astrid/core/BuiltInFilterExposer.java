@@ -15,7 +15,6 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -50,12 +49,15 @@ public final class BuiltInFilterExposer {
         this.preferences = preferences;
     }
 
-    public List<FilterListItem> getFilters() {
+    public Filter getMyTasksFilter() {
+        return getMyTasksFilter(context.getResources());
+    }
+
+    public List<Filter> getFilters() {
         Resources r = context.getResources();
         // core filters
-        List<FilterListItem> filters = new ArrayList<>(3);
+        List<Filter> filters = new ArrayList<>();
 
-        filters.add(getMyTasksFilter(r));
         if (preferences.getBoolean(R.string.p_show_today_filter, true)) {
             filters.add(getTodayFilter(r));
         }

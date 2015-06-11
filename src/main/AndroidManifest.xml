@@ -142,6 +142,7 @@
         <!-- Activity for selecting Android shortcut -->
         <activity
             android:name="com.todoroo.astrid.activity.FilterShortcutActivity"
+            android:theme="@style/Tasks"
             android:label="@string/FSA_label">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT" />
@@ -197,7 +198,9 @@
             android:theme="@style/Tasks" />
 
         <!-- Activity that configures widget -->
-        <activity android:name="com.todoroo.astrid.widget.WidgetConfigActivity">
+        <activity
+            android:name="com.todoroo.astrid.widget.WidgetConfigActivity"
+            android:theme="@style/Tasks">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
