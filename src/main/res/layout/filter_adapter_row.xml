@@ -17,8 +17,7 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:alpha="0.87"
-        android:src="?attr/ic_action_settings"
+        android:alpha="0.54"
         android:layout_width="56dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"

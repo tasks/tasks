@@ -36,6 +36,7 @@ import org.tasks.activities.PurgeDeletedActivity;
 import org.tasks.preferences.AppearancePreferences;
 import org.tasks.preferences.BackupPreferences;
 import org.tasks.preferences.BasicPreferences;
+import org.tasks.preferences.HelpAndFeedbackActivity;
 import org.tasks.preferences.MiscellaneousPreferences;
 import org.tasks.reminders.NotificationActivity;
 import org.tasks.reminders.SnoozeActivity;
@@ -84,7 +85,8 @@ import dagger.Provides;
                 AppearancePreferences.class,
                 BackupPreferences.class,
                 LocationPickerActivity.class,
-                NotificationActivity.class
+                NotificationActivity.class,
+                HelpAndFeedbackActivity.class
         })
 public class ActivityModule {
 

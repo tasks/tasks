@@ -7,6 +7,6 @@
 [![Build Status](https://travis-ci.org/tasks/tasks.svg?branch=master)](https://travis-ci.org/tasks/tasks) [![codecov.io](http://codecov.io/github/tasks/tasks/coverage.svg?branch=master)](http://codecov.io/github/tasks/tasks?branch=master)
 
 Visit the wiki to
-* [help with translations](https://github.com/abaker/tasks/wiki/Translations)
-* [become a beta tester](https://github.com/abaker/tasks/wiki/Beta-Testing)
-* [get started with development](https://github.com/abaker/tasks/wiki/Getting-Started-with-Development)
+* [help with translations](https://github.com/tasks/tasks/wiki/Translations)
+* [become a beta tester](https://github.com/tasks/tasks/wiki/Beta-Testing)
+* [get started with development](https://github.com/tasks/tasks/wiki/Getting-Started-with-Development)

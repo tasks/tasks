@@ -31,6 +31,7 @@ import org.tasks.filters.NavigationDrawerAction;
 import org.tasks.filters.NavigationDrawerSubheader;
 import org.tasks.filters.NavigationDrawerSeparator;
 import org.tasks.preferences.BasicPreferences;
+import org.tasks.preferences.HelpAndFeedbackActivity;
 
 import java.util.List;
 
@@ -252,6 +253,11 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
                     getResource(activity, R.attr.ic_action_settings),
                     new Intent(activity, BasicPreferences.class),
                     REQUEST_SETTINGS));
+            add(new NavigationDrawerAction(
+                    activity.getResources().getString(R.string.help_and_feedback),
+                    getResource(activity, R.attr.ic_action_help),
+                    new Intent(activity, HelpAndFeedbackActivity.class),
+                    0));
         }
 
         notifyDataSetChanged();

@@ -182,6 +182,12 @@
         </activity>
 
         <!-- Activity for preferences -->
+
+        <activity
+            android:name=".preferences.HelpAndFeedbackActivity"
+            android:label="@string/help_and_feedback"
+            android:theme="@style/Tasks" />
+
         <activity
             android:name=".preferences.BasicPreferences"
             android:label="@string/TLA_menu_settings"

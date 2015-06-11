@@ -18,7 +18,6 @@ public class BasicPreferences extends InjectingPreferenceActivity {
     private static final String EXTRA_RESULT = "extra_result";
     private static final int RC_PREFS = 10001;
 
-    @Inject DeviceInfo deviceInfo;
     private Bundle result;
 
     @Override
@@ -45,18 +44,6 @@ public class BasicPreferences extends InjectingPreferenceActivity {
                 return true;
             }
         });
-
-        findPreference(getString(R.string.contact_developer)).setIntent(
-                new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "Tasks Support <support@tasks.org>", null)) {{
-                    putExtra(Intent.EXTRA_SUBJECT, "Tasks Feedback");
-                    putExtra(Intent.EXTRA_TEXT, deviceInfo.getDebugInfo());
-                }});
-        if (!deviceInfo.supportsBilling()) {
-            remove(R.string.TLA_menu_donate);
-        }
-        if (!deviceInfo.isPlayStoreAvailable()) {
-            remove(R.string.rate_tasks);
-        }
     }
 
     @Override
@@ -77,9 +64,5 @@ public class BasicPreferences extends InjectingPreferenceActivity {
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
-    }
-
-    private void remove(int resId) {
-        getPreferenceScreen().removePreference(findPreference(getString(resId)));
     }
 }

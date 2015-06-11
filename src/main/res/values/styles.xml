@@ -58,6 +58,8 @@
         <item name="ic_action_reload">@drawable/ic_action_reload</item>
         <item name="ic_action_calendar_month">@drawable/ic_action_calendar_month</item>
         <item name="fab_icon">@drawable/ic_action_add_light</item>
+        <item name="ic_action_inbox">@drawable/ic_action_inbox</item>
+        <item name="ic_action_help">@drawable/ic_action_help</item>
     </style>
 
     <style name="Tasks.Dark">
@@ -92,6 +94,8 @@
         <item name="ic_action_cancel">@drawable/ic_action_cancel_white</item>
         <item name="asDueDateColor">#c3c3c3</item>
         <item name="fab_icon">@drawable/ic_action_add_black</item>
+        <item name="ic_action_inbox">@drawable/ic_action_inbox_white</item>
+        <item name="ic_action_help">@drawable/ic_action_help_white</item>
     </style>
 
     <style name="ActionBar.TitleText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">

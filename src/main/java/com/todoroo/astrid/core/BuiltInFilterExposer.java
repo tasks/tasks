@@ -26,6 +26,7 @@ import com.todoroo.astrid.tags.TaskToTagMetadata;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
+import org.tasks.preferences.ResourceResolver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,16 +42,20 @@ import javax.inject.Inject;
 public final class BuiltInFilterExposer {
 
     private final Preferences preferences;
+    private ResourceResolver resourceResolver;
     private final Context context;
 
     @Inject
-    public BuiltInFilterExposer(@ForApplication Context context, Preferences preferences) {
+    public BuiltInFilterExposer(ResourceResolver resourceResolver, @ForApplication Context context, Preferences preferences) {
+        this.resourceResolver = resourceResolver;
         this.context = context;
         this.preferences = preferences;
     }
 
     public Filter getMyTasksFilter() {
-        return getMyTasksFilter(context.getResources());
+        Filter myTasksFilter = getMyTasksFilter(context.getResources());
+        myTasksFilter.icon = resourceResolver.getResource(R.attr.ic_action_inbox);
+        return myTasksFilter;
     }
 
     public List<Filter> getFilters() {

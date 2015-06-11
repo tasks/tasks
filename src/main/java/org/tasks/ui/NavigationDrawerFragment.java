@@ -201,7 +201,11 @@ public class NavigationDrawerFragment extends InjectingFragment {
             }
         } else if (item instanceof NavigationDrawerAction) {
             NavigationDrawerAction action = (NavigationDrawerAction) item;
-            startActivityForResult(action.intent, action.requestCode);
+            if (action.requestCode > 0) {
+                startActivityForResult(action.intent, action.requestCode);
+            } else {
+                startActivity(action.intent);
+            }
         }
     }
 
