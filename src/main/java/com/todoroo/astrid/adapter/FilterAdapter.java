@@ -25,6 +25,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 
 import org.tasks.R;
+import org.tasks.activities.DonationActivity;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
 import org.tasks.filters.NavigationDrawerAction;
@@ -257,6 +258,11 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
                     activity.getResources().getString(R.string.help_and_feedback),
                     getResource(activity, R.attr.ic_action_help),
                     new Intent(activity, HelpAndFeedbackActivity.class),
+                    0));
+            add(new NavigationDrawerAction(
+                    activity.getResources().getString(R.string.TLA_menu_donate),
+                    getResource(activity, R.attr.ic_action_donate),
+                    new Intent(activity, DonationActivity.class),
                     0));
         }
 

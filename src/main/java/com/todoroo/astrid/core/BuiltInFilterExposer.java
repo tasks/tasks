@@ -64,13 +64,19 @@ public final class BuiltInFilterExposer {
         List<Filter> filters = new ArrayList<>();
 
         if (preferences.getBoolean(R.string.p_show_today_filter, true)) {
-            filters.add(getTodayFilter(r));
+            Filter todayFilter = getTodayFilter(r);
+            todayFilter.icon = resourceResolver.getResource(R.attr.ic_action_calendar_today);
+            filters.add(todayFilter);
         }
         if (preferences.getBoolean(R.string.p_show_recently_modified_filter, true)) {
-            filters.add(getRecentlyModifiedFilter(r));
+            Filter recentlyModifiedFilter = getRecentlyModifiedFilter(r);
+            recentlyModifiedFilter.icon = resourceResolver.getResource(R.attr.ic_action_history);
+            filters.add(recentlyModifiedFilter);
         }
         if (preferences.getBoolean(R.string.p_show_not_in_list_filter, true)) {
-            filters.add(getUncategorizedFilter(r));
+            Filter uncategorizedFilter = getUncategorizedFilter(r);
+            uncategorizedFilter.icon = resourceResolver.getResource(R.attr.ic_action_uncategorized);
+            filters.add(uncategorizedFilter);
         }
         // transmit filter list
         return filters;

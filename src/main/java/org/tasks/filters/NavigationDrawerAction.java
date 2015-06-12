@@ -67,19 +67,4 @@ public class NavigationDrawerAction extends FilterListItem {
             return new NavigationDrawerAction[size];
         }
     };
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        NavigationDrawerAction that = (NavigationDrawerAction) o;
-
-        return requestCode == that.requestCode;
-    }
-
-    @Override
-    public int hashCode() {
-        return requestCode;
-    }
 }
