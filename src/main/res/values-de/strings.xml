@@ -289,6 +289,7 @@
 	<string name="search_market_ms_title">Es wurde kein Office-Reader gefunden</string>
 	<string name="file_type_unhandled">Tut mir leid! Dieser Dateityp kann nicht geöffnet werden.</string>
 	<string name="file_type_unhandled_title">Es wurde keine Anwendung gefunden</string>
+	<string name="back">Zurück</string>
 	<string name="file_browser_title">Wählen Sie eine Datei</string>
 	<string name="dir_browser_title">Wähle ein Verzeichnis</string>
 	<string name="file_browser_err_permissions">Konnte nicht auf die SD-Karte zugreifen. Bitte stellen Sie sicher, das sie den Zugriff auf sie SD Karte nicht eingeschränkt haben.</string>
@@ -452,6 +453,9 @@
 	<string name="type_a_location">Ort festlegen</string>
 	<string name="when_overdue">Wenn überfällig</string>
 	<string name="when_due">Wenn fällig</string>
+	<string name="geofence_radius_title">Radius (Meter)</string>
+	<string name="geofence_responsiveness_title">Antwortzeit (Größere Werte sparen Akkuleistung)</string>
+	<string name="geolocation_reminders">Geo-/Ortsbasierte Erinnerungen</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>deaktivieren</item>
 		<item>alle 15 Minuten</item>

@@ -55,16 +55,16 @@
 	<string name="TAd_contextUndeleteTask">Restaurar Tarea</string>
 	<string name="TAd_contextPurgeTask">Purgar Tareas</string>
 	<string name="SSD_hidden_title">Tareas Ocultas</string>
-	<string name="SSD_completed">Mostrar Tareas Completadas</string>
-	<string name="SSD_hidden">Mostrar Tareas Ocultas</string>
-	<string name="SSD_deleted">Mostrar Tareas Eliminadas</string>
+	<string name="SSD_completed">Mostrar tareas completadas</string>
+	<string name="SSD_hidden">Mostrar tareas ocultas</string>
+	<string name="SSD_deleted">Mostrar tareas eliminadas</string>
 	<string name="SSD_sort_drag">Orden manual con subtareas</string>
 	<string name="SSD_sort_auto">Ordenación inteligente</string>
 	<string name="SSD_sort_alpha">Por título</string>
 	<string name="SSD_sort_due">Por fecha límite</string>
 	<string name="SSD_sort_importance">Por prioridad</string>
 	<string name="SSD_sort_modified">Por última modificación</string>
-	<string name="SSD_sort_reverse">Invertir Orden</string>
+	<string name="SSD_sort_reverse">Invertir orden</string>
 	<string name="SSD_save_temp">Sólo una vez</string>
 	<string name="SSD_save_always">Siempre</string>
 	<string name="FLA_search_filter">Coincidencias con \'%s\'</string>
@@ -104,6 +104,8 @@
 		<item>Día/Hora específicos</item>
 	</string-array>
 	<string name="TEA_control_when">Cuando</string>
+	<string name="TEA_control_repeat">Repetir</string>
+	<string name="TEA_control_gcal">Calendario</string>
 	<string name="TEA_control_importance">Prioridad</string>
 	<string name="TEA_control_lists">Listas</string>
 	<string name="TEA_control_notes">Descripción</string>
@@ -166,6 +168,7 @@
 	<string name="EPr_beastMode_hint">Personalice su pantalla de edición de tareas arrastrando el asa izquierda en cada fila</string>
 	<string name="EPr_fullTask_title">Mostrar completo el título de la tarea</string>
 	<string name="EPr_show_task_edit_comments">Mostrar comentarios durante la edición de tareas</string>
+	<string name="task_list_options">Opciones de la lista de tareas</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Momento del evento en calendario</string>
 	<string name="EPr_cal_end_at_due_time">Finalizar los eventos del calendario en su fecha de vencimiento</string>
 	<string name="EPr_cal_start_at_due_time">Iniciar los eventos del calendario en su fecha de vencimiento</string>
@@ -189,6 +192,7 @@
 	<string name="DB_corrupted_title">Base de datos corrupta</string>
 	<string name="DB_corrupted_body">\"¡Oh-oh! Es posible que tu base de datos esté corrupta. Si ves éste error con frecuencia, te sugerimos que limpies toda la información  (Configuración-&gt;Sincronización y respaldos-&gt;Administrar tareas pasadas-&gt;Limpiar toda la información) y recuperar tus tareas de un respaldo (Configuración-&gt;Sincronización y respaldos-&gt;Respaldos-&gt;Importar tareas) en Tasks.\"</string>
 	<string name="market_unavailable">Desafortunadamente el Market no está disponible para tu sistema</string>
+	<string name="task_defaults">Configuración por defecto de tareas</string>
 	<string name="EPr_default_urgency_title">Fecha límite por defecto</string>
 	<string name="EPr_default_importance_title">Prioridad predeterminada</string>
 	<string name="EPr_default_hideUntil_title">Ocultar por defecto hasta</string>
@@ -229,7 +233,7 @@
 	<string name="CFA_type_subtract">no</string>
 	<string name="CFA_type_intersect">también</string>
 	<string name="CFA_context_chain">%s cumple el criterio</string>
-	<string name="CFA_context_delete">Eliminar fila</string>
+	<string name="CFA_context_delete">Eliminar Fila</string>
 	<string name="CFA_help">Mantén presionado un ítem para ver opciones adicionales</string>
 	<string name="CFA_button_add">Añadir Criterio</string>
 	<string name="CFA_button_view">Ver</string>
@@ -286,6 +290,7 @@
 	<string name="search_market_ms_title">No se encontró lector para archivos de MS Office</string>
 	<string name="file_type_unhandled">Lo sentimos! No se encontró ninguna aplicación para abrir este tipo de archivo.</string>
 	<string name="file_type_unhandled_title">No se encontró ninguna aplicación</string>
+	<string name="back">Volver</string>
 	<string name="file_browser_title">Elija un archivo</string>
 	<string name="dir_browser_title">Elija un directorio</string>
 	<string name="file_browser_err_permissions">¡Permiso denegado! Por favor asegúrese permitir a Tasks el acceso a la tarjeta SD.</string>
@@ -295,6 +300,9 @@
 	<string name="file_dir_dialog_ok">Usar este directorio</string>
 	<string name="file_dir_dialog_default">Restaurar a valores por defecto</string>
 	<string name="premium_speech_bubble_2">¡Ordena un año y ahorra un 25%%!</string>
+	<string name="ring_once">Sonar una vez</string>
+	<string name="ring_five_times">Sonar cinco veces</string>
+	<string name="ring_nonstop">Sonar sin parar</string>
 	<string-array name="TEA_reminder_random">
 		<item>una hora</item>
 		<item>un día</item>
@@ -410,12 +418,48 @@
 	<string name="sync_SPr_forget">Cerrar sesión</string>
 	<string name="sync_SPr_forget_description">Limpia todos los datos de la sincronización</string>
 	<string name="sync_forget_confirm">Cerrar sesión/Limpiar datos de sincronización?</string>
+	<string name="widget_hide_due_date">Ocultar fechas de vencimiento</string>
+	<string name="widget_hide_checkboxes">Ocultar casillas de verificación</string>
+	<string name="widget_hide_header">Ocultar encabezado</string>
+	<string name="widget_transparent_background">Fondo transparente</string>
+	<string name="notifications">Notificaciones</string>
+	<string name="silent">Silencioso</string>
+	<string name="sound">Sonido</string>
+	<string name="vibrate">Vibrar</string>
+	<string name="quiet_hours">Horario en silencio</string>
+	<string name="attachment_directory">Directorio de archivos adjuntos</string>
+	<string name="backup_directory">Directorio de la copia de seguridad</string>
+	<string name="debug_logging">Registro de depuración</string>
+	<string name="miscellaneous">Miscelánea</string>
+	<string name="synchronization">Sincronización</string>
+	<string name="enabled">Habilitado</string>
+	<string name="font_size">Tamaño de la fuente</string>
+	<string name="customize_edit_screen">Personalizar la pantalla de edición de tareas</string>
 	<string name="source_code">Código fuente</string>
 	<string name="translations">Traducciones</string>
 	<string name="report_an_issue">Informa de un error</string>
 	<string name="help_and_feedback">Ayuda y valoraciones</string>
-	<string name="contact_developer">Contactar con el desarrollador </string>
+	<string name="contact_developer">Contactar al desarrollador</string>
+	<string name="rate_tasks">Valorar Tasks</string>
+	<string name="quiet_hours_summary">Sin sonido ni vibración durante el horario de silencio</string>
 	<string name="TLA_menu_donate">Donar</string>
+	<string name="select_amount">Elegir cantidad</string>
+	<string name="notification_actions">Acciones de notificación</string>
+	<string name="notification_actions_summary">Mostrar ¡Terminada! y Posponer  en la notificación</string>
+	<string name="add_reminder">Añadir recordatorio</string>
+	<string name="remove">Eliminar</string>
+	<string name="randomly_once">Aleatorio, una sola vez</string>
+	<string name="randomly">Aleatoriamente</string>
+	<string name="pick_a_date_and_time">Elegir fecha y hora</string>
+	<string name="pick_a_location">Elegir ubicación</string>
+	<string name="type_a_location">Escribe la ubicación</string>
+	<string name="when_overdue">Cuando atrasada</string>
+	<string name="when_due">Cuando vencimiento</string>
+	<string name="geofence_radius_title">Radio (metros)</string>
+	<string name="geofence_responsiveness_title">Tiempo de reacción (valores mayores conservan batería)</string>
+	<string name="geolocation_reminders">Recordatorios de Geolocalización</string>
+	<string name="tags">Etiquetas</string>
+	<string name="filters">Filtros</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>deshabilitar</item>
 		<item>cada quince minutos</item>
