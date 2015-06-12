@@ -42,8 +42,6 @@
 	<string name="TLA_menu_settings">Instellingen</string>
 	<string name="TLA_custom">Aangepast</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">Geen toekomstige bevestigingen weergeven</string>
-	<string name="TLA_repeat_scheduled_title">Nieuwe herhalende taak %s</string>
-	<string name="TLA_repeat_scheduled_speech_bubble">Ik herinner je hier aan %s</string>
 	<string name="TAd_hiddenFormat">%s [verborgen]</string>
 	<string name="TAd_deletedFormat">%s [verwijderd]</string>
 	<string name="TAd_completed">Afgerond\n%s</string>

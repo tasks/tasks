@@ -42,8 +42,6 @@
 	<string name="TLA_menu_settings">設定</string>
 	<string name="TLA_custom">自訂</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">不再詢問確認</string>
-	<string name="TLA_repeat_scheduled_title">新的重複任務工作 %s</string>
-	<string name="TLA_repeat_scheduled_speech_bubble">我會在%s 後提醒您這個任務工作的。</string>
 	<string name="TAd_hiddenFormat">%s [隱藏]</string>
 	<string name="TAd_deletedFormat">%s [刪除]</string>
 	<string name="TAd_completed">%s\n完成</string>

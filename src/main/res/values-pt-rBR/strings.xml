@@ -41,8 +41,6 @@
 	<string name="TLA_menu_settings">Configurações</string>
 	<string name="TLA_custom">Personalizar</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">Não mostrar confirmações futuras</string>
-	<string name="TLA_repeat_scheduled_title">Nova tarefa recorrente %s</string>
-	<string name="TLA_repeat_scheduled_speech_bubble">Irei te lembrar sobre isto %s.</string>
 	<string name="TAd_hiddenFormat">%s [oculta]</string>
 	<string name="TAd_deletedFormat">%s [excluída]</string>
 	<string name="TAd_completed">Concluída\n%s</string>

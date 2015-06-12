@@ -42,8 +42,6 @@
 	<string name="TLA_menu_settings">הגדרות</string>
 	<string name="TLA_custom">מותאם אישית</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">אל תציג אישורים נוספים</string>
-	<string name="TLA_repeat_scheduled_title">משימה חוזרת חדשה %s</string>
-	<string name="TLA_repeat_scheduled_speech_bubble">\"אזכיר לך את  %s.\"</string>
 	<string name="TAd_hiddenFormat">%s [מוסתרת]</string>
 	<string name="TAd_deletedFormat">%s [נמחקה]</string>
 	<string name="TAd_completed">הסתיימה\n%s</string>

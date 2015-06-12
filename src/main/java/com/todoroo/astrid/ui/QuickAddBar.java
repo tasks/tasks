@@ -5,10 +5,7 @@
  */
 package com.todoroo.astrid.ui;
 
-import android.text.TextUtils;
-
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.data.TagData;
@@ -35,7 +32,6 @@ public class QuickAddBar {
 
     @Inject TaskService taskService;
     @Inject TaskCreator taskCreator;
-    @Inject DateChangedAlerts dateChangedAlerts;
 
     private TaskListActivity activity;
     private TaskListFragment fragment;
@@ -79,9 +75,6 @@ public class QuickAddBar {
 
             fragment.loadTaskListContent();
             fragment.selectCustomId(task.getId());
-            if (!TextUtils.isEmpty(task.getRecurrence())) {
-                showAlertForRepeatingTask(activity, task);
-            }
             activity.onTaskListItemClicked(task.getId());
 
             fragment.onTaskCreated(task);
@@ -90,9 +83,5 @@ public class QuickAddBar {
             log.error(e.getMessage(), e);
         }
         return null;
-    }
-
-    private void showAlertForRepeatingTask(AstridActivity activity, Task task) {
-        dateChangedAlerts.showRepeatChangedDialog(activity, task);
     }
 }

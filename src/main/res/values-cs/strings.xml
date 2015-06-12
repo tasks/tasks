@@ -42,8 +42,6 @@
 	<string name="TLA_menu_settings">Nastavení</string>
 	<string name="TLA_custom">Vlastní</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">Nezobrazovat budoucí potvrzení</string>
-	<string name="TLA_repeat_scheduled_title">Nový opakující se úkol %s</string>
-	<string name="TLA_repeat_scheduled_speech_bubble">Připomenu Ti to %s.</string>
 	<string name="TAd_hiddenFormat">%s [skrytý]</string>
 	<string name="TAd_deletedFormat">%s [smazán]</string>
 	<string name="TAd_completed">Dokončeno\n%s</string>

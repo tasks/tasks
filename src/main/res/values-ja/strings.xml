@@ -42,8 +42,6 @@
 	<string name="TLA_menu_settings">設定</string>
 	<string name="TLA_custom">カスタムフィルタ</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">先の確認を表示しない</string>
-	<string name="TLA_repeat_scheduled_title">新しい繰り返しタスク %s</string>
-	<string name="TLA_repeat_scheduled_speech_bubble">この %s について通知します</string>
 	<string name="TAd_hiddenFormat">%s [非表示]</string>
 	<string name="TAd_deletedFormat">%s [削除済]</string>
 	<string name="TAd_completed">%s\nに完了</string>

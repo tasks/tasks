@@ -42,8 +42,6 @@
 	<string name="TLA_menu_settings">Ustawienia</string>
 	<string name="TLA_custom">Własny filtr</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">Nie pokazuj notyfikacji w przyszłości</string>
-	<string name="TLA_repeat_scheduled_title">Nowe powtarzalne zadanie %s</string>
-	<string name="TLA_repeat_scheduled_speech_bubble">Przypominam Ci o %s.</string>
 	<string name="TAd_hiddenFormat">%s [ukryte]</string>
 	<string name="TAd_deletedFormat">%s [usunięte]</string>
 	<string name="TAd_completed">Ukończono\n%s</string>

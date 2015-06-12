@@ -51,8 +51,6 @@ public class TaskService {
 
     private static final Logger log = LoggerFactory.getLogger(TaskService.class);
 
-    public static final String TRANS_REPEAT_CHANGED = "repeat_changed"; //$NON-NLS-1$
-
     public static final String TRANS_EDIT_SAVE = "task-edit-save"; //$NON-NLS-1$
 
     public static final String TRANS_REPEAT_COMPLETE = "repeat-complete"; //$NON-NLS-1$

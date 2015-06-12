@@ -45,8 +45,6 @@
 	<string name="TLA_menu_settings">Nastavitve</string>
 	<string name="TLA_custom">Po meri</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">Prihodnjih potrditev ne prikazuj več</string>
-	<string name="TLA_repeat_scheduled_title">Nov ponavljajoči se opravek %s</string>
-	<string name="TLA_repeat_scheduled_speech_bubble">Opomnil te bom o tem %s.</string>
 	<string name="TAd_hiddenFormat">%s [skrit]</string>
 	<string name="TAd_deletedFormat">%s [zbrisan]</string>
 	<string name="TAd_completed">Opravljen\n%s</string>

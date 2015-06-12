@@ -45,8 +45,6 @@
 	<string name="TLA_menu_settings">Настройки</string>
 	<string name="TLA_custom">Други</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">Не показвай бъдещи потвърждения</string>
-	<string name="TLA_repeat_scheduled_title">Нова повтаряща се задача %s</string>
-	<string name="TLA_repeat_scheduled_speech_bubble">Ще Ви напомня относно това %s.</string>
 	<string name="TAd_hiddenFormat">%s [скрито]</string>
 	<string name="TAd_deletedFormat">%s [изтрити]</string>
 	<string name="TAd_completed">Приключена\n%s</string>

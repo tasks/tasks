@@ -42,8 +42,6 @@
 	<string name="TLA_menu_settings">Inställningar</string>
 	<string name="TLA_custom">Egendefinierad</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">Visa inte bekräftelser i fortsättningen</string>
-	<string name="TLA_repeat_scheduled_title">Ny återkommande uppgift %s</string>
-	<string name="TLA_repeat_scheduled_speech_bubble">Jag kommer att påminna dig om det här %s.</string>
 	<string name="TAd_hiddenFormat">%s [dold]</string>
 	<string name="TAd_deletedFormat">%s [raderad]</string>
 	<string name="TAd_completed">Avslutad\n%s</string>

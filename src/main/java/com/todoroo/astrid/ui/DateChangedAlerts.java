@@ -20,8 +20,6 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
-import com.google.ical.values.Frequency;
-import com.google.ical.values.RRule;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
@@ -30,13 +28,9 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
 import com.todoroo.astrid.utility.Flags;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.ActivityPreferences;
-
-import java.text.ParseException;
 
 import javax.inject.Inject;
 
@@ -49,8 +43,6 @@ import static org.tasks.date.DateTimeUtils.newDate;
  *
  */
 public class DateChangedAlerts {
-
-    private static final Logger log = LoggerFactory.getLogger(DateChangedAlerts.class);
 
     /** Preference key for how many of these helper dialogs we've shown */
     private static final String PREF_NUM_HELPERS_SHOWN = "pref_num_date_helpers"; //$NON-NLS-1$
@@ -68,33 +60,6 @@ public class DateChangedAlerts {
     public DateChangedAlerts(@ForApplication Context context, ActivityPreferences preferences) {
         this.context = context;
         this.preferences = preferences;
-    }
-
-    public void showRepeatChangedDialog(final Activity activity, Task task) {
-        if (!preferences.getBoolean(PREF_SHOW_HELPERS, true)) {
-            return;
-        }
-
-        final Dialog d = new Dialog(activity, R.style.ReminderDialog);
-        d.setContentView(R.layout.astrid_reminder_view);
-
-        Button okButton = (Button) d.findViewById(R.id.reminder_complete);
-        okButton.setText(android.R.string.ok);
-
-        d.findViewById(R.id.reminder_snooze).setVisibility(View.GONE);
-        d.findViewById(R.id.reminder_edit).setVisibility(View.GONE);
-        ((TextView) d.findViewById(R.id.reminder_title)).setText(activity.getString(R.string.TLA_repeat_scheduled_title, task.getTitle()));
-
-        String speechBubbleText = constructSpeechBubbleTextForRepeat(activity, task);
-
-        ((TextView) d.findViewById(R.id.reminder_message)).setText(speechBubbleText);
-
-        setupOkAndDismissButtons(d);
-        setupHideCheckbox(d);
-
-        setupDialogLayoutParams(activity, d);
-        d.setOwnerActivity(activity);
-        d.show();
     }
 
     public void showRepeatTaskRescheduledDialog(final GCalHelper gcalHelper, final TaskService taskService, final Activity activity, final Task task,
@@ -227,11 +192,6 @@ public class DateChangedAlerts {
 
     }
 
-    private String constructSpeechBubbleTextForRepeat(Context context, Task task) {
-        String recurrence = getRecurrenceString(context, task);
-        return context.getString(R.string.TLA_repeat_scheduled_speech_bubble, recurrence);
-    }
-
     private String getRelativeDateAndTimeString(Context context, long date) {
         String dueString = date > 0 ? DateUtilities.getRelativeDay(context, date, false) : "";
         if(Task.hasDueTime(date)) {
@@ -239,46 +199,5 @@ public class DateChangedAlerts {
                     DateUtilities.getTimeString(context, newDate(date)));
         }
         return dueString;
-    }
-
-    private String getRecurrenceString(Context context, Task task) {
-        try {
-            RRule rrule = new RRule(task.sanitizedRecurrence());
-
-            String[] dateAbbrev = context.getResources().getStringArray(
-                    R.array.repeat_interval);
-            String frequency = "";
-            Frequency freq = rrule.getFreq();
-            switch(freq) {
-            case DAILY:
-                frequency = dateAbbrev[0].toLowerCase();
-                break;
-            case WEEKLY:
-                frequency = dateAbbrev[1].toLowerCase();
-                break;
-            case MONTHLY:
-                frequency = dateAbbrev[2].toLowerCase();
-                break;
-            case HOURLY:
-                frequency = dateAbbrev[3].toLowerCase();
-                break;
-            case MINUTELY:
-                frequency = dateAbbrev[4].toLowerCase();
-                break;
-            case YEARLY:
-                frequency = dateAbbrev[5].toLowerCase();
-            }
-
-            if (!TextUtils.isEmpty(frequency)) {
-                String date = String.format("%s %s", rrule.getInterval(), frequency); //$NON-NLS-1$
-                return String.format(context.getString(R.string.repeat_detail_duedate),
-                        date).toLowerCase(); // Every freq int
-            }
-
-        } catch (ParseException e) {
-            // Eh
-            log.error(e.getMessage(), e);
-        }
-        return "";
     }
 }

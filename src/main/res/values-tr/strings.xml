@@ -41,8 +41,6 @@
 	<string name="TLA_menu_settings">Ayarlar</string>
 	<string name="TLA_custom">Özel</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">İleriki doğrulamaları gösterme</string>
-	<string name="TLA_repeat_scheduled_title">Yinelenen görev: %s</string>
-	<string name="TLA_repeat_scheduled_speech_bubble">Bunu şu sıklıkta sana hatırlatacağım: %s.</string>
 	<string name="TAd_hiddenFormat">%s [gizli]</string>
 	<string name="TAd_deletedFormat">%s [silinmiş]</string>
 	<string name="TAd_completed">Bitti\n%s</string>

@@ -45,8 +45,6 @@
 	<string name="TLA_menu_settings">Налаштування</string>
 	<string name="TLA_custom">Користувальницький</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">Не показувати майбутніх підтверджень</string>
-	<string name="TLA_repeat_scheduled_title">Нове повторюване завдання %s</string>
-	<string name="TLA_repeat_scheduled_speech_bubble">Я нагадаю вам про це %s.</string>
 	<string name="TAd_hiddenFormat">%s [приховано]</string>
 	<string name="TAd_deletedFormat">%s [видалено]</string>
 	<string name="TAd_completed">Завершено\n%s</string>

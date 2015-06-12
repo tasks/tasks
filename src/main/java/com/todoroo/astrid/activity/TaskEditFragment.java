@@ -65,7 +65,6 @@ import com.todoroo.astrid.timers.TimerActionControlSet;
 import com.todoroo.astrid.timers.TimerControlSet;
 import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.ui.CheckableImageView;
-import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.DeadlineControlSet;
 import com.todoroo.astrid.ui.DescriptionControlSet;
 import com.todoroo.astrid.ui.EditTitleControlSet;
@@ -157,7 +156,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     public static final String OVERRIDE_FINISH_ANIM = "finishAnim"; //$NON-NLS-1$
 
     public static final String TOKEN_TAGS_CHANGED = "tags_changed";  //$NON-NLS-1$
-    public static final String TOKEN_NEW_REPEATING_TASK = "new_repeating"; //$NON-NLS-1$
 
     // --- services
 
@@ -173,7 +171,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Inject AlarmService alarmService;
     @Inject GCalHelper gcalHelper;
     @Inject ActivityPreferences preferences;
-    @Inject DateChangedAlerts dateChangedAlerts;
     @Inject TagDataDao tagDataDao;
     @Inject ActFmCameraModule actFmCameraModule;
     @Inject GeofenceService geofenceService;
@@ -608,14 +605,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         if (!onPause) {
             boolean taskEditActivity = (getActivity() instanceof TaskEditActivity);
-            boolean showRepeatAlert = model.getTransitory(TaskService.TRANS_REPEAT_CHANGED) != null
-                    && !TextUtils.isEmpty(model.getRecurrence());
 
             if (taskEditActivity) {
                 Intent data = new Intent();
-                if (showRepeatAlert) {
-                    data.putExtra(TOKEN_NEW_REPEATING_TASK, model);
-                }
                 data.putExtra(TOKEN_TAGS_CHANGED, tagsChanged);
                 getActivity().setResult(Activity.RESULT_OK, data);
 
@@ -623,9 +615,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 // Notify task list fragment in multi-column case
                 // since the activity isn't actually finishing
                 TaskListActivity tla = (TaskListActivity) getActivity();
-                if (showRepeatAlert) {
-                    dateChangedAlerts.showRepeatChangedDialog(tla, model);
-                }
 
                 if (tagsChanged) {
                     tla.tagsChanged();

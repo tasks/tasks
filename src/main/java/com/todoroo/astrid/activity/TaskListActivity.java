@@ -344,10 +344,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
             TaskListFragment tlf = getTaskListFragment();
             if (tlf != null) {
                 if (data != null) {
-                    if (data.getParcelableExtra(TaskEditFragment.TOKEN_NEW_REPEATING_TASK) != null) {
-                        Task repeating = data.getParcelableExtra(TaskEditFragment.TOKEN_NEW_REPEATING_TASK);
-                        dateChangedAlerts.showRepeatChangedDialog(this, repeating);
-                    }
                     if (data.getBooleanExtra(TaskEditFragment.TOKEN_TAGS_CHANGED, false)) {
                         tagsChanged(true);
                     }

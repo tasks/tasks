@@ -44,8 +44,6 @@
 	<string name="TLA_menu_settings">Ρυθμίσεις</string>
 	<string name="TLA_custom">Προσαρμοσμένο</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">Να μην εμφανίζονται μελλοντικές επιβεβαιώσεις</string>
-	<string name="TLA_repeat_scheduled_title">Νέα επαναλαμβανόμενη εργασία %s</string>
-	<string name="TLA_repeat_scheduled_speech_bubble">Θα σου υπενθυμίσω γι\' αυτό %s.</string>
 	<string name="TAd_hiddenFormat">%s [κρυφό]</string>
 	<string name="TAd_deletedFormat">%s [διαγράφηκε]</string>
 	<string name="TAd_actionEditTask">Επεξεργασία</string>

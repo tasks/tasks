@@ -42,8 +42,6 @@
 	<string name="TLA_menu_settings">Nastavenia</string>
 	<string name="TLA_custom">Vlastné</string>
 	<string name="TLA_quickadd_confirm_hide_helpers">Nezobrazovať znovu toto potvrdenie</string>
-	<string name="TLA_repeat_scheduled_title">Nová opakujúca sa úloha %s</string>
-	<string name="TLA_repeat_scheduled_speech_bubble">Pripomeniem ti toto %s.</string>
 	<string name="TAd_hiddenFormat">%s [skryté]</string>
 	<string name="TAd_deletedFormat">%s [vymazané]</string>
 	<string name="TAd_completed">Dokončené\n%s</string>
