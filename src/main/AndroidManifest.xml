@@ -309,23 +309,22 @@
 
         <activity
             android:name="com.todoroo.astrid.calls.MissedCallActivity"
-            android:theme="@style/Tasks.Dialog"
-            android:taskAffinity=""
             android:excludeFromRecents="true"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:taskAffinity=""
+            android:theme="@style/Tasks.Dialog" />
 
         <activity
             android:name=".reminders.SnoozeActivity"
-            android:theme="@style/Tasks.Dialog"
-            android:taskAffinity=""
             android:excludeFromRecents="true"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:taskAffinity=""
+            android:theme="@style/Tasks.Dialog" />
 
         <activity
             android:name=".reminders.NotificationActivity"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
-            android:noHistory="true"
             android:taskAffinity=""
             android:theme="@style/Tasks.Dialog" />
 
