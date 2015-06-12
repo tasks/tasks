@@ -34,8 +34,6 @@
 	<string name="DLG_upgrading">Görevleriniz güncelleniyor...</string>
 	<string name="DLG_hour_minutes">Zaman (saat : dakika)</string>
 	<string name="DLG_loading">Yükleniyor...</string>
-	<string name="DLG_ok">Tamam</string>
-	<string name="DLG_cancel">Vazgeç</string>
 	<string name="DLG_undo">Geri al</string>
 	<string name="WID_dateButtonUnset">Ayar İçin Dokun</string>
 	<string name="TLA_no_items">Hiç göreviniz yok! \n Bir şeyler eklemek nasıl olur?</string>

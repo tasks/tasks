@@ -30,13 +30,13 @@
 		        android:layout_width="fill_parent"
 		        android:layout_height="50dip"
 		        android:layout_weight="1"
-		        android:text="@string/DLG_ok"/>
+		        android:text="@android:string/ok"/>
 		    <Button
 		        android:id="@+id/cancel"
 		        android:layout_width="fill_parent"
 		        android:layout_height="50dip"
 		        android:layout_weight="1"
-		        android:text="@string/DLG_cancel"/>
+		        android:text="@android:string/cancel"/>
 		</LinearLayout>
 	</LinearLayout>
 </ScrollView>

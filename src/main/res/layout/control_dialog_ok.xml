@@ -15,4 +15,4 @@
 	    android:textStyle="bold"
 	    android:textColor="@android:color/black"
 	    android:layout_alignParentBottom="true"
-	    android:text="@string/DLG_ok"/>
+	    android:text="@android:string/ok"/>

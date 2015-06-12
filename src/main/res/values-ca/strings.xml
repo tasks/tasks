@@ -32,8 +32,6 @@
 	<string name="DLG_upgrading">S\'estan actualitzant les vostres tasques...</string>
 	<string name="DLG_hour_minutes">Temps (hores : minuts)</string>
 	<string name="DLG_loading">S\'està carregant…</string>
-	<string name="DLG_ok">Accepta</string>
-	<string name="DLG_cancel">Cancel·la</string>
 	<string name="DLG_undo">Desfés</string>
 	<string name="WID_dateButtonUnset">Prem per establir</string>
 	<string name="TLA_no_items">No teniu tasques! \n Voleu afegir alguna cosa?</string>

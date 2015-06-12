@@ -33,11 +33,6 @@
   <string name="DLG_loading">Loading...</string>
   
   <!-- Dialog - dismiss -->
-
-  <!-- slide 20d -->
-  <string name="DLG_ok">OK</string>
-  <!-- slide 36g -->
-  <string name="DLG_cancel">Cancel</string>
   
   <string name="DLG_undo">Undo</string>
   

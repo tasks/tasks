@@ -36,8 +36,6 @@
 	<string name="DLG_upgrading">Αναβάθμιση των εργασιών σας...</string>
 	<string name="DLG_hour_minutes">Ώρα (ώρες : λεπτά)</string>
 	<string name="DLG_loading">Φόρτωση...</string>
-	<string name="DLG_ok">ΟΚ</string>
-	<string name="DLG_cancel">Ακύρωση</string>
 	<string name="DLG_undo">Αναίρεση</string>
 	<string name="WID_dateButtonUnset">Κλικ για καθορισμό</string>
 	<string name="TLA_no_items">Δεν έχεις εργασίες! \n Θέλεις να προσθέσεις κάτι:</string>

@@ -36,7 +36,6 @@
 	<string name="DLG_upgrading">Atualização de tarefas...</string>
 	<string name="DLG_hour_minutes">Tempo (horas:minutos)</string>
 	<string name="DLG_loading">Carregando...</string>
-	<string name="DLG_cancel">Cancelar</string>
 	<string name="DLG_undo">Anular</string>
 	<string name="WID_dateButtonUnset">Clique para definir</string>
 	<string name="TLA_no_items">Não existem tarefas!\nQuer adicionar uma?</string>

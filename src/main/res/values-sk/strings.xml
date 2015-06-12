@@ -34,7 +34,6 @@
 	<string name="DLG_upgrading">Aktualizácia tvojich úloh...</string>
 	<string name="DLG_hour_minutes">Čas (hodiny : minúty)</string>
 	<string name="DLG_loading">Načítavanie...</string>
-	<string name="DLG_cancel">Zrušiť</string>
 	<string name="DLG_undo">Späť</string>
 	<string name="WID_dateButtonUnset">Klikni pre nastavenie</string>
 	<string name="TLA_no_items">Nemáš žiadne úlohy! \n Chceš niečo pridať?</string>

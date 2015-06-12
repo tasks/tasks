@@ -34,7 +34,6 @@
 	<string name="DLG_upgrading">Mise à jour de vos tâches…</string>
 	<string name="DLG_hour_minutes">Temps (heures : minutes)</string>
 	<string name="DLG_loading">Chargement…</string>
-	<string name="DLG_cancel">Annuler</string>
 	<string name="DLG_undo">Annuler Action</string>
 	<string name="WID_dateButtonUnset">Cliquez pour définir</string>
 	<string name="TLA_no_items">Aucune tâche ! \n Voulez-vous en créer une ?</string>

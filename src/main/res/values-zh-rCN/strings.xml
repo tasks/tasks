@@ -34,8 +34,6 @@
 	<string name="DLG_upgrading">升级您的任务...</string>
 	<string name="DLG_hour_minutes">时间（小时:分钟）</string>
 	<string name="DLG_loading">载入中...</string>
-	<string name="DLG_ok">确定(O)</string>
-	<string name="DLG_cancel">取消</string>
 	<string name="DLG_undo">撤消</string>
 	<string name="WID_dateButtonUnset">点选</string>
 	<string name="TLA_no_items">你没有任务</string>

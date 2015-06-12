@@ -37,8 +37,6 @@
 	<string name="DLG_upgrading">Обновяване на твоите задачи...</string>
 	<string name="DLG_hour_minutes">Време (часове: минути)</string>
 	<string name="DLG_loading">Зареждане...</string>
-	<string name="DLG_ok">ОК</string>
-	<string name="DLG_cancel">Отказ</string>
 	<string name="DLG_undo">Върни</string>
 	<string name="WID_dateButtonUnset">Кликнете, за да зададете</string>
 	<string name="TLA_no_items">Вие нямате задачи! \n Искате ли да добавите нещо?</string>

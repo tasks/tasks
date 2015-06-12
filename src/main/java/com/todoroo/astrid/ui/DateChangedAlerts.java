@@ -79,7 +79,7 @@ public class DateChangedAlerts {
         d.setContentView(R.layout.astrid_reminder_view);
 
         Button okButton = (Button) d.findViewById(R.id.reminder_complete);
-        okButton.setText(R.string.DLG_ok);
+        okButton.setText(android.R.string.ok);
 
         d.findViewById(R.id.reminder_snooze).setVisibility(View.GONE);
         d.findViewById(R.id.reminder_edit).setVisibility(View.GONE);
@@ -134,7 +134,7 @@ public class DateChangedAlerts {
             });
         }
 
-        okButton.setText(R.string.DLG_ok);
+        okButton.setText(android.R.string.ok);
         undoButton.setText(R.string.DLG_undo);
 
         int titleResource = lastTime ? R.string.repeat_rescheduling_dialog_title_last_time : R.string.repeat_rescheduling_dialog_title;

@@ -37,8 +37,6 @@
 	<string name="DLG_upgrading">Nadgrajujem tvoje opravke...</string>
 	<string name="DLG_hour_minutes">Čas (ure : minute)</string>
 	<string name="DLG_loading">Nalagam...</string>
-	<string name="DLG_ok">V redu</string>
-	<string name="DLG_cancel">Prekliči</string>
 	<string name="DLG_undo">Razveljavi</string>
 	<string name="WID_dateButtonUnset">Klikni za nastavitev</string>
 	<string name="TLA_no_items">Nimate zabeleženih opravkov!\n Dodava kakega?</string>
