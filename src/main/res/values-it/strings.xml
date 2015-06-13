@@ -273,7 +273,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 		<item>ogni mese</item>
 		<item>ogni due mesi</item>
 	</string-array>
-	<string name="rmd_NoA_filter">Promemoria!</string>
 	<string name="rmd_NoA_done">Completata</string>
 	<string name="rmd_NoA_snooze">Rimanda...</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Ora inizio silenzio</string>

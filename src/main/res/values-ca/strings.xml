@@ -175,7 +175,6 @@
 	<string name="gtasks_GTA_clear_completed">Neteja les tasques completades</string>
 	<string name="gtasks_GLA_authenticating">S\'està autenticant...</string>
 	<string name="locale_notification">Té $NUM coincidència: $FILTER</string>
-	<string name="rmd_NoA_filter">¡Recordatori!</string>
 	<string name="rmd_NoA_done">Acabat</string>
 	<string name="rmd_NoA_snooze">Adorm</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Inici de Silenci</string>

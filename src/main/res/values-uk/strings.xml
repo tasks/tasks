@@ -305,7 +305,6 @@
 		<item>місяця</item>
 		<item>на проязі 2-х місяців</item>
 	</string-array>
-	<string name="rmd_NoA_filter">Нагадування!</string>
 	<string name="rmd_NoA_done">Виконано!</string>
 	<string name="rmd_NoA_snooze">Відкласти</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Тихі години стартують</string>

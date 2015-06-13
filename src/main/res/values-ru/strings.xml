@@ -308,7 +308,6 @@
 		<item>месяц</item>
 		<item>в два месяца</item>
 	</string-array>
-	<string name="rmd_NoA_filter">Напоминание!</string>
 	<string name="rmd_NoA_done">Уже готово!</string>
 	<string name="rmd_NoA_snooze">Повтор</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Начало тихих часов</string>

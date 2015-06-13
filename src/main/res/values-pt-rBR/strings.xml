@@ -297,7 +297,6 @@
 		<item>a cada mês</item>
 		<item>a cada dois meses</item>
 	</string-array>
-	<string name="rmd_NoA_filter">Lembrete!</string>
 	<string name="rmd_NoA_done">Concluída</string>
 	<string name="rmd_NoA_snooze">Adiar</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Começam as horas calmas</string>

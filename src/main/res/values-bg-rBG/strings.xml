@@ -310,7 +310,6 @@
 		<item>месец</item>
 		<item>за два месеца</item>
 	</string-array>
-	<string name="rmd_NoA_filter">Напомняне!</string>
 	<string name="rmd_NoA_done">Завършен</string>
 	<string name="rmd_NoA_snooze">Отложи</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Тихи часове начало</string>

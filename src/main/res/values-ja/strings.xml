@@ -310,7 +310,6 @@
 		<item>1か月</item>
 		<item>2か月以内</item>
 	</string-array>
-	<string name="rmd_NoA_filter">お知らせ</string>
 	<string name="rmd_NoA_done">既に完了しています!</string>
 	<string name="rmd_NoA_snooze">スヌーズ</string>
 	<string name="rmd_EPr_quiet_hours_start_title">消音時間の始まり</string>

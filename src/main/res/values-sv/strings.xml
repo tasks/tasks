@@ -295,7 +295,6 @@ och återställer dina aktuella uppgifter från en backup
 		<item>en månad</item>
 		<item>två månader</item>
 	</string-array>
-	<string name="rmd_NoA_filter">Påminnelse!</string>
 	<string name="rmd_NoA_done">Redan klar!</string>
 	<string name="rmd_NoA_snooze">Vänta...</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Tyst period börjar</string>

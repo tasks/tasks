@@ -305,7 +305,6 @@
 		<item>un mes</item>
 		<item>en dos meses</item>
 	</string-array>
-	<string name="rmd_NoA_filter">¡Aviso!</string>
 	<string name="rmd_NoA_done">¡Terminada!</string>
 	<string name="rmd_NoA_snooze">Posponer</string>
 	<string name="rmd_EPr_quiet_hours_start_title">El horario en silencio empieza</string>

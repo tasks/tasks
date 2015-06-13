@@ -312,7 +312,6 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 		<item>한달</item>
 		<item>두달</item>
 	</string-array>
-	<string name="rmd_NoA_filter">알림!</string>
 	<string name="rmd_NoA_done">완료</string>
 	<string name="rmd_NoA_snooze">알림 잠시 미루기</string>
 	<string name="rmd_EPr_quiet_hours_start_title">알림 꺼짐 시작 시간</string>

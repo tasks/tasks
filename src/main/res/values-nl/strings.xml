@@ -299,7 +299,6 @@
 		<item>een maand</item>
 		<item>over twee maanden</item>
 	</string-array>
-	<string name="rmd_NoA_filter">Herinnering!</string>
 	<string name="rmd_NoA_done">Reeds voltooid!</string>
 	<string name="rmd_NoA_snooze">Sluimeren...</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Rustperiode begint</string>

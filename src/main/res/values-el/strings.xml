@@ -296,7 +296,6 @@
 		<item>εναν μήνα</item>
 		<item>σε δύο μήνες</item>
 	</string-array>
-	<string name="rmd_NoA_filter">Υπενθύμιση!</string>
 	<string name="rmd_NoA_done">Ολοκληρωμένο</string>
 	<string name="rmd_NoA_snooze">Αναβολή</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Ξεκίνησε η ώρα ησυχίας </string>

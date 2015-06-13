@@ -252,7 +252,6 @@
 		<item>一个月</item>
 		<item>两个月内</item>
 	</string-array>
-	<string name="rmd_NoA_filter">提醒！</string>
 	<string name="rmd_NoA_done">已完成!</string>
 	<string name="rmd_NoA_snooze">晚点提醒...</string>
 	<string name="rmd_EPr_quiet_hours_start_title">静音开始时间</string>

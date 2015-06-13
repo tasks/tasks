@@ -273,7 +273,6 @@
 		<item>bir ay</item>
 		<item>iki ay içinde</item>
 	</string-array>
-	<string name="rmd_NoA_filter">Hatırlatıcı!</string>
 	<string name="rmd_NoA_done">Tamamlandı</string>
 	<string name="rmd_NoA_snooze">Ertele</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Sessiz saatlerin başlangıcı</string>

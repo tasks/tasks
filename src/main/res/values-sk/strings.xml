@@ -307,7 +307,6 @@
 		<item>mesiac</item>
 		<item>v dvoch mesiacoch</item>
 	</string-array>
-	<string name="rmd_NoA_filter">Pripomienka!</string>
 	<string name="rmd_NoA_done">Dokončené</string>
 	<string name="rmd_NoA_snooze">Odložiť</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Tiché hodiny začali</string>

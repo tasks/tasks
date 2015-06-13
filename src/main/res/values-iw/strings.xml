@@ -298,7 +298,6 @@
 		<item>חודש</item>
 		<item>חדשיים</item>
 	</string-array>
-	<string name="rmd_NoA_filter">תזכורת!</string>
 	<string name="rmd_NoA_done">בוצעה</string>
 	<string name="rmd_NoA_snooze">השתק</string>
 	<string name="rmd_EPr_quiet_hours_start_title">תחילת שעות השקט</string>

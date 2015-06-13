@@ -301,7 +301,6 @@
 		<item>na mesec</item>
 		<item>na dva meseca</item>
 	</string-array>
-	<string name="rmd_NoA_filter">Opomnik!</string>
 	<string name="rmd_NoA_done">Končano</string>
 	<string name="rmd_NoA_snooze">Dremež</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Tihe ure se začnejo ob</string>

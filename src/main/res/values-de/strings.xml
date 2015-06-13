@@ -305,7 +305,6 @@
 		<item>einem Monat</item>
 		<item>in 2 Monaten</item>
 	</string-array>
-	<string name="rmd_NoA_filter">Erinnerung!</string>
 	<string name="rmd_NoA_done">Abgeschlossen</string>
 	<string name="rmd_NoA_snooze">Schlummern</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Stille Stunden beginnen.</string>
