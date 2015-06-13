@@ -97,14 +97,6 @@ public class AstridApiConstants {
     public static final String BROADCAST_EVENT_TASK_REPEATED = BuildConfig.APPLICATION_ID + ".TASK_REPEATED";
 
     /**
-     * Action name for broadcast intent notifying that a repeating task has passed its repeat_until value
-     * <li> EXTRAS_TASK_ID id of the task
-     * <li> EXTRAS_OLD_DUE_DATE task old due date (could be 0)
-     * <li> EXTRAS_NEW_DUE_DATE task new due date (will not be 0)
-     */
-    public static final String BROADCAST_EVENT_TASK_REPEAT_FINISHED = BuildConfig.APPLICATION_ID + ".TASK_REPEAT_FINISHED";
-
-    /**
      * Action name for broadcast intent notifying that tag was deleted
      */
     public static final String BROADCAST_EVENT_TAG_DELETED = BuildConfig.APPLICATION_ID + ".TAG_DELETED";

@@ -31,11 +31,6 @@
         android:title="@string/EPr_cal_end_or_start_at_due_time"
         android:defaultValue="true"/>
 
-    <com.todoroo.astrid.ui.MultilineCheckboxPreference
-        android:defaultValue="true"
-        android:key="@string/p_showSmartConfirmation_key"
-        android:title="@string/EPr_showSmartConfirmation_title" />
-
     <CheckBoxPreference
         android:key="@string/p_debug_logging"
         android:title="@string/debug_logging" />

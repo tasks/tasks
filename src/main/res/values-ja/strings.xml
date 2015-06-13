@@ -41,7 +41,6 @@
 	<string name="TLA_menu_search">検索</string>
 	<string name="TLA_menu_settings">設定</string>
 	<string name="TLA_custom">カスタムフィルタ</string>
-	<string name="TLA_quickadd_confirm_hide_helpers">先の確認を表示しない</string>
 	<string name="TAd_hiddenFormat">%s [非表示]</string>
 	<string name="TAd_deletedFormat">%s [削除済]</string>
 	<string name="TAd_completed">%s\nに完了</string>
@@ -156,7 +155,6 @@
 	<string name="EPr_deactivated">非アクティブ化されました</string>
 	<string name="EPr_appearance_header">外観</string>
 	<string name="EPr_filters_to_show_title">表示のフィルター</string>
-	<string name="EPr_showSmartConfirmation_title">スマート通知用の確認を表示</string>
 	<string name="EPr_edit_screen_options">編集画面オプション</string>
 	<string name="EPr_time_increment">5 分増加</string>
 	<string name="EPr_show_timer_shortcut">タイマーのショートカットを表示</string>
@@ -358,7 +356,6 @@
 		<item>来月</item>
 	</string-array>
 	<string name="repeat_until_title">繰り返し期限...</string>
-	<string name="repeat_keep_going">続ける</string>
 	<string-array name="repeat_type">
 		<item>期限から</item>
 		<item>完了日から</item>
@@ -368,11 +365,6 @@
 	<string name="repeat_detail_duedate_until">%1$s 毎\n%2$s まで</string>
 	<string name="repeat_forever">永久に繰り返す</string>
 	<string name="repeat_until">%s まで繰り返す</string>
-	<string name="repeat_rescheduling_dialog_title">タスク \"%s\" のスケジュール変更中</string>
-	<string name="repeat_rescheduling_dialog_title_last_time">繰り返しタスク \"%s\" が完了しました</string>
-	<string name="repeat_rescheduling_dialog_bubble">%1$s この繰り返しタスクを %2$s から %3$s にスケジュール変更します</string>
-	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s この繰り返しタスクを %2$s にスケジュール変更します</string>
-	<string name="repeat_rescheduling_dialog_bubble_last_time">%1$s まで繰り返しがありましたが,すべて完了しました. %2$s</string>
 	<string name="TEA_tags_label_long">リストに追加</string>
 	<string name="TEA_tag_hint">新しいリスト</string>
 	<string name="tag_new_list">新しいリスト</string>

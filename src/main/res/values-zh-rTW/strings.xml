@@ -41,7 +41,6 @@
 	<string name="TLA_menu_search">搜索</string>
 	<string name="TLA_menu_settings">設定</string>
 	<string name="TLA_custom">自訂</string>
-	<string name="TLA_quickadd_confirm_hide_helpers">不再詢問確認</string>
 	<string name="TAd_hiddenFormat">%s [隱藏]</string>
 	<string name="TAd_deletedFormat">%s [刪除]</string>
 	<string name="TAd_completed">%s\n完成</string>
@@ -150,7 +149,6 @@
 	<string name="EPr_title">Tasks: 偏好</string>
 	<string name="EPr_deactivated">禁用</string>
 	<string name="EPr_appearance_header">外觀</string>
-	<string name="EPr_showSmartConfirmation_title">在智能提示上顯示確認消息</string>
 	<string name="EPr_edit_screen_options">編輯畫面選項</string>
 	<string name="EPr_beastMode_desc">自定義設定菜單屏幕</string>
 	<string name="EPr_beastMode_reset">恢復默認值</string>
@@ -332,7 +330,6 @@
 		<item>下個月</item>
 	</string-array>
 	<string name="repeat_until_title">重複到……</string>
-	<string name="repeat_keep_going">繼續下去</string>
 	<string-array name="repeat_type">
 		<item>自到期日</item>
 		<item>自完成日</item>
@@ -342,11 +339,6 @@
 	<string name="repeat_detail_duedate_until">每隔 %1$s\n直到 %2$s</string>
 	<string name="repeat_forever">永遠重複</string>
 	<string name="repeat_until">重複到 %s</string>
-	<string name="repeat_rescheduling_dialog_title">重新安排“%s”這項任務工作</string>
-	<string name="repeat_rescheduling_dialog_title_last_time">已經完成“%s”這項重複任務工作</string>
-	<string name="repeat_rescheduling_dialog_bubble">%1$s 我已經重新安排了這項重複任務工作，截止日期由%2$s 變成%3$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s 我已經重新安排了這項重複任務工作，截止日期為%2$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_last_time">您設置了這項任務工作重複到%1$s，現在您已經圓滿完成。%2$s</string>
 	<string name="TEA_tags_label_long">加入至列表</string>
 	<string name="TEA_tag_hint">新建列表</string>
 	<string name="tag_new_list">新建列表</string>

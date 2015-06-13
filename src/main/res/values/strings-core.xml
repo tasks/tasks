@@ -58,8 +58,6 @@
   <!-- Window title for displaying Custom Filter -->
   <string name="TLA_custom">Custom</string>
 
-  <string name="TLA_quickadd_confirm_hide_helpers">Don\'t display future confirmations</string>
-  
   <!-- ====================================================== TaskAdapter == -->
 
   <!-- Format string to indicate task is hidden (%s => task name) -->
@@ -369,9 +367,6 @@
 
   <!-- Preference: Filters to show pref screen title -->
   <string name="EPr_filters_to_show_title">Filters to show</string>
-  
-  <!-- slide 32a: Preference: Show confirmation for smart reminders -->
-  <string name="EPr_showSmartConfirmation_title">Show confirmation for smart reminders</string>
   
   <!-- Edit screen preference category -->
   <string name="EPr_edit_screen_options">Edit screen options</string>

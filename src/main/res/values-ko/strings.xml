@@ -44,7 +44,6 @@
 	<string name="TLA_menu_search">검색</string>
 	<string name="TLA_menu_settings">설정</string>
 	<string name="TLA_custom">사용자 설정</string>
-	<string name="TLA_quickadd_confirm_hide_helpers">더 이상 확인을 하지 않습니다</string>
 	<string name="TAd_hiddenFormat">%s [숨김]</string>
 	<string name="TAd_deletedFormat">%s [지움]</string>
 	<string name="TAd_completed">일정 완료\n%s</string>
@@ -159,7 +158,6 @@
 	<string name="EPr_deactivated">비활성화됨</string>
 	<string name="EPr_appearance_header">보기 설정</string>
 	<string name="EPr_filters_to_show_title">표시할 필터</string>
-	<string name="EPr_showSmartConfirmation_title">스마트 알림시 확인하기</string>
 	<string name="EPr_edit_screen_options">화면 설정 편집하기</string>
 	<string name="EPr_time_increment">5분 증가</string>
 	<string name="EPr_show_timer_shortcut">타이머 바로가기 보기</string>
@@ -360,7 +358,6 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 		<item>다음 달</item>
 	</string-array>
 	<string name="repeat_until_title">다음까지 반복하기...</string>
-	<string name="repeat_keep_going">계속하기</string>
 	<string-array name="repeat_type">
 		<item>마감일로부터</item>
 		<item>완료일로부터</item>
@@ -369,11 +366,6 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	<string name="repeat_detail_duedate_until">매 %1$s 마다\n%2$s 까지</string>
 	<string name="repeat_forever">영원히 반복하기</string>
 	<string name="repeat_until">%s 까지 반복</string>
-	<string name="repeat_rescheduling_dialog_title">\"%s\" 일정 변경하기</string>
-	<string name="repeat_rescheduling_dialog_title_last_time">반복 일정 \"%s\" 을 완료했습니다</string>
-	<string name="repeat_rescheduling_dialog_bubble">%1$s 이 반복 일정을 %2$s 에서 %3$s 로 변경했습니다</string>
-	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s 이 반복 일정을 %2$s 로 변경했습니다</string>
-	<string name="repeat_rescheduling_dialog_bubble_last_time">이 반복 일정은 %1$s 까지였는데 지금 다 끝냈습니다. %2$s</string>
 	<string name="TEA_tags_label_long">목록에 추가하기</string>
 	<string name="TEA_tag_hint">새 목록</string>
 	<string name="tag_new_list">새 목록</string>

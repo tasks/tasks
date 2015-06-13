@@ -41,7 +41,6 @@
 	<string name="TLA_menu_search">Szukaj</string>
 	<string name="TLA_menu_settings">Ustawienia</string>
 	<string name="TLA_custom">Własny filtr</string>
-	<string name="TLA_quickadd_confirm_hide_helpers">Nie pokazuj notyfikacji w przyszłości</string>
 	<string name="TAd_hiddenFormat">%s [ukryte]</string>
 	<string name="TAd_deletedFormat">%s [usunięte]</string>
 	<string name="TAd_completed">Ukończono\n%s</string>
@@ -153,7 +152,6 @@
 	<string name="EPr_deactivated">niekatywny</string>
 	<string name="EPr_appearance_header">Wygląd</string>
 	<string name="EPr_filters_to_show_title">Pokazywane filtry</string>
-	<string name="EPr_showSmartConfirmation_title">Pokaż potwierdzenie dla inteligentnych powiadomień</string>
 	<string name="EPr_edit_screen_options">Edytuj ustawienia ekranu</string>
 	<string name="EPr_time_increment">Krok co 5-minut</string>
 	<string name="EPr_show_timer_shortcut">Pokaż skrót minutnika</string>
@@ -349,7 +347,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 		<item>Przyszły miesiąc</item>
 	</string-array>
 	<string name="repeat_until_title">Powtarzaj do...</string>
-	<string name="repeat_keep_going">Kontynuuj</string>
 	<string-array name="repeat_type">
 		<item>od planowanego terminu</item>
 		<item>od daty ukończenia</item>
@@ -359,11 +356,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="repeat_detail_duedate_until">Co %1$s\ndo %2$s</string>
 	<string name="repeat_forever">Powtarzaj bez końca</string>
 	<string name="repeat_until">Powtarzaj do %s</string>
-	<string name="repeat_rescheduling_dialog_title">Przekładanie zadania \"%s\"</string>
-	<string name="repeat_rescheduling_dialog_title_last_time">Ukończono powtarzane zadanie \"%s\"</string>
-	<string name="repeat_rescheduling_dialog_bubble">%1$s Przełożyłem to powtarzalne zadanie z %2$s na %3$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s Przełożyłem to powtarzalne zadanie na %2$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_last_time">To było powtarzane do %1$s, a teraz jest już zakończone. %2$s</string>
 	<string name="TEA_tags_label_long">Dodaj do list</string>
 	<string name="TEA_tag_hint">Nowa lista</string>
 	<string name="tag_new_list">Nowa lista</string>

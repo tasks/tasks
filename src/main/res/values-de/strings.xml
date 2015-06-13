@@ -40,7 +40,6 @@
 	<string name="TLA_menu_search">Suchen</string>
 	<string name="TLA_menu_settings">Einstellungen</string>
 	<string name="TLA_custom">Benutzerdefiniert</string>
-	<string name="TLA_quickadd_confirm_hide_helpers">In Zukunft nicht mehr nach Bestätigungen fragen</string>
 	<string name="TAd_hiddenFormat">%s [versteckt]</string>
 	<string name="TAd_deletedFormat">%s [gelöscht]</string>
 	<string name="TAd_completed">Abgeschlossen\n%s</string>
@@ -155,7 +154,6 @@
 	<string name="EPr_deactivated">deaktiviert</string>
 	<string name="EPr_appearance_header">Erscheinungsbild</string>
 	<string name="EPr_filters_to_show_title">Angezeigte Filter</string>
-	<string name="EPr_showSmartConfirmation_title">Bestätigung für Smart-Erinnerungen anzeigen</string>
 	<string name="EPr_edit_screen_options">Bildschirmeinstellungen bearbeiten</string>
 	<string name="EPr_time_increment">5 Minuten Steigerung</string>
 	<string name="EPr_show_timer_shortcut">Verknüpfung zu Timer anzeigen</string>
@@ -353,7 +351,6 @@
 		<item>Nächster Monat</item>
 	</string-array>
 	<string name="repeat_until_title">Wiederhole bis...</string>
-	<string name="repeat_keep_going">Fortfahren</string>
 	<string-array name="repeat_type">
 		<item>bei Fälligkeit</item>
 		<item>bei Erledigung</item>
@@ -363,11 +360,6 @@
 	<string name="repeat_detail_duedate_until">Jede(n) %1$s\nbis %2$s</string>
 	<string name="repeat_forever">Endlos wiederholen</string>
 	<string name="repeat_until">Wiederhole bis %s</string>
-	<string name="repeat_rescheduling_dialog_title">Aufgabe \"%s\" erneut planen</string>
-	<string name="repeat_rescheduling_dialog_title_last_time">Sie haben die sich wiederholende Aufgabe \"%s\" erledigt</string>
-	<string name="repeat_rescheduling_dialog_bubble">%1$s Ich habe die Wiederholungsaufgabe neu terminiert von %2$s auf %3$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s wurde auf %2$s verschoben</string>
-	<string name="repeat_rescheduling_dialog_bubble_last_time">Diese Aufgabe wurde bis %1$s wiederholt, jetzt sind Sie fertig. %2$s</string>
 	<string name="TEA_tags_label_long">Zur Liste hinzufügen</string>
 	<string name="TEA_tag_hint">Wähle eine Liste</string>
 	<string name="tag_new_list">Neue Liste</string>

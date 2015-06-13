@@ -44,7 +44,6 @@
 	<string name="TLA_menu_search">Търсене</string>
 	<string name="TLA_menu_settings">Настройки</string>
 	<string name="TLA_custom">Други</string>
-	<string name="TLA_quickadd_confirm_hide_helpers">Не показвай бъдещи потвърждения</string>
 	<string name="TAd_hiddenFormat">%s [скрито]</string>
 	<string name="TAd_deletedFormat">%s [изтрити]</string>
 	<string name="TAd_completed">Приключена\n%s</string>
@@ -158,7 +157,6 @@
 	<string name="EPr_deactivated">деактивирано</string>
 	<string name="EPr_appearance_header">Изглед</string>
 	<string name="EPr_filters_to_show_title">Филтри за показване</string>
-	<string name="EPr_showSmartConfirmation_title">Покажи потвърждение за умни напомняния</string>
 	<string name="EPr_edit_screen_options">Редактиране на опциите екрана</string>
 	<string name="EPr_time_increment">5 минути нарастване</string>
 	<string name="EPr_show_timer_shortcut">Покажи прекия път към таймера</string>
@@ -358,7 +356,6 @@
 		<item>Следващия месец</item>
 	</string-array>
 	<string name="repeat_until_title">Повтаряй до...</string>
-	<string name="repeat_keep_going">Продължавай</string>
 	<string-array name="repeat_type">
 		<item>от краен срок</item>
 		<item>от датата на завършване</item>
@@ -368,11 +365,6 @@
 	<string name="repeat_detail_duedate_until">Всеки %1$s\nдо %2$s</string>
 	<string name="repeat_forever">Повтаряй завинаги</string>
 	<string name="repeat_until">Повтаряй до %s</string>
-	<string name="repeat_rescheduling_dialog_title">Пренасрочване на задача \"%s\"</string>
-	<string name="repeat_rescheduling_dialog_title_last_time">Приключена повтаряща се задача \"%s\"</string>
-	<string name="repeat_rescheduling_dialog_bubble">%1$s Вие пренасрочихте тази повтаряща се задача от %2$s на %3$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s  Вие пренасрочихте тази повтаряща се задача на %2$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_last_time">Това се повтаряше до %1$s, и сега всичките неща са завършени. %2$s</string>
 	<string name="TEA_tags_label_long">Добави към списъци</string>
 	<string name="TEA_tag_hint">Нов списък</string>
 	<string name="tag_new_list">Нов списък</string>

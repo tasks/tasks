@@ -32,7 +32,6 @@
 	<string name="TLA_menu_sort">رتب</string>
 	<string name="TLA_menu_search">ابحث</string>
 	<string name="TLA_menu_settings">إعدادات</string>
-	<string name="TLA_quickadd_confirm_hide_helpers">لا تعرض التأكيدات المستقبلية</string>
 	<string name="TAd_actionEditTask">تعديل</string>
 	<string name="TAd_contextCopyTask">نسخ المهمه</string>
 	<string name="TAd_contextDeleteTask">حذف المهمة</string>
@@ -105,7 +104,6 @@
 	<string name="CRA_dont_invite">لا شكرا.</string>
 	<string name="CRA_list_created_title">أنشئت القائمة</string>
 	<string name="EPr_appearance_header">ظهور</string>
-	<string name="EPr_showSmartConfirmation_title">إظهار التأكيد للمنبه الذكي</string>
 	<string name="EPr_edit_screen_options">تعديل خيارات الشاشه</string>
 	<string name="EPr_time_increment">٥ دقائق إضافية</string>
 	<string name="EPr_show_timer_shortcut">إظهار إختصار المنبه</string>
@@ -235,7 +233,6 @@
 		<item>خلال أسبوعين</item>
 		<item>الشهر القادم</item>
 	</string-array>
-	<string name="repeat_keep_going">أكمل</string>
 	<string-array name="repeat_type">
 		<item>من تاريخ الموعد</item>
 		<item>من تاريخ الاتمام</item>

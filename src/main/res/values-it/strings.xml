@@ -40,7 +40,6 @@
 	<string name="TLA_menu_search">Cerca</string>
 	<string name="TLA_menu_settings">Impostazioni</string>
 	<string name="TLA_custom">Personalizzato</string>
-	<string name="TLA_quickadd_confirm_hide_helpers">Non mostrare conferme future</string>
 	<string name="TAd_hiddenFormat">%s [Nascosto]</string>
 	<string name="TAd_deletedFormat">%s [eliminato]</string>
 	<string name="TAd_completed">Terminata\n%s</string>
@@ -141,7 +140,6 @@
 	<string name="EPr_title">Tasks: Preferenze</string>
 	<string name="EPr_deactivated">disattivato</string>
 	<string name="EPr_appearance_header">Aspetto</string>
-	<string name="EPr_showSmartConfirmation_title">Mostra conferma per promemoria rapidi</string>
 	<string name="EPr_beastMode_desc">Personalizza il layout della schermata di modifica attività</string>
 	<string name="EPr_beastMode_reset">Ripristina predefiniti</string>
 	<string name="EPr_fullTask_title">Visualizza titolo completo dell\'attività</string>
@@ -320,7 +318,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 		<item>Mese Successivo</item>
 	</string-array>
 	<string name="repeat_until_title">Ripeti fino a...</string>
-	<string name="repeat_keep_going">Continua</string>
 	<string-array name="repeat_type">
 		<item>dalla data di scadenza</item>
 		<item>dalla data di completamento</item>
@@ -330,11 +327,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="repeat_detail_duedate_until">Ogni %1$s\nfino %2$s</string>
 	<string name="repeat_forever">Ripeti all\'infinito</string>
 	<string name="repeat_until">Ripeti fino %s</string>
-	<string name="repeat_rescheduling_dialog_title">Ripianifica attività \"%s\"</string>
-	<string name="repeat_rescheduling_dialog_title_last_time">Attività ricorrente completata \"%s\"</string>
-	<string name="repeat_rescheduling_dialog_bubble">%1$s Ho ri-pianificato questa attività ricorrente da %2$s a %3$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s Ho ri-pianificato questa attività ricorrente a %2$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_last_time">Avevi questa ricorrenza fino %1$s, ed ora hai fatto tutto. %2$s</string>
 	<string name="TEA_tag_hint">Nuova lista</string>
 	<string name="tag_new_list">Nuova lista</string>
 	<string name="tag_no_title_error">Per cortesia, prima inserisci un nome per questa lista</string>

@@ -101,8 +101,6 @@
     <item>48</item>
   </string-array>
   
-  <string name="p_showSmartConfirmation_key">showSmartConfirmation</string>
-
   <string name="p_fullTaskTitle">fullTaskTitle</string>
   
   <string name="p_time_increment">p_time_increment</string>

@@ -184,13 +184,11 @@
 		<item>Next Month</item>
 	</string-array>
 	<string name="repeat_until_title">Gentag indtil...</string>
-	<string name="repeat_keep_going">Fortsæt vedvarende</string>
 	<string name="repeat_detail_byday">$I på $D</string>
 	<string name="repeat_detail_duedate">Hver %s</string>
 	<string name="repeat_detail_duedate_until">Hver %1$s\nindtil %2$s</string>
 	<string name="repeat_forever">Gentag uendeligt</string>
 	<string name="repeat_until">Gentag indtil %s</string>
-	<string name="repeat_rescheduling_dialog_title">Skemalægger opgaven \"%s\" påny </string>
 	<string name="TEA_tag_hint">Ny liste</string>
 	<string name="tag_new_list">Ny liste</string>
 	<string name="tag_no_title_error">Start venligst med at give denne liste et navn!</string>

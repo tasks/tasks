@@ -41,7 +41,6 @@
 	<string name="TLA_menu_search">Buscar</string>
 	<string name="TLA_menu_settings">Configuración</string>
 	<string name="TLA_custom">Personalizar</string>
-	<string name="TLA_quickadd_confirm_hide_helpers">No mostrar futuras confirmaciones</string>
 	<string name="TAd_hiddenFormat">%s [oculto]</string>
 	<string name="TAd_deletedFormat">%s [borrado]</string>
 	<string name="TAd_completed">Terminado\n%s</string>
@@ -155,7 +154,6 @@
 	<string name="EPr_deactivated">desactivada</string>
 	<string name="EPr_appearance_header">Apariencia</string>
 	<string name="EPr_filters_to_show_title">Filtros a mostrar</string>
-	<string name="EPr_showSmartConfirmation_title">Mostrar confirmación para recordatorios inteligentes</string>
 	<string name="EPr_edit_screen_options">Editar opciones de pantalla</string>
 	<string name="EPr_time_increment">Incrementos de 5 minutos</string>
 	<string name="EPr_show_timer_shortcut">Mostrar atajo del temporizador</string>
@@ -353,7 +351,6 @@
 		<item>Próximo mes</item>
 	</string-array>
 	<string name="repeat_until_title">Repetir hasta...</string>
-	<string name="repeat_keep_going">Continúe</string>
 	<string-array name="repeat_type">
 		<item>desde la fecha de vencimiento</item>
 		<item>Desde la fecha de finalización</item>
@@ -363,11 +360,6 @@
 	<string name="repeat_detail_duedate_until">Cada %1$s\nhasta %2$s</string>
 	<string name="repeat_forever">Repetir por siempre</string>
 	<string name="repeat_until">Repetir hasta %s</string>
-	<string name="repeat_rescheduling_dialog_title">Reprogramar tarea \"%s\"</string>
-	<string name="repeat_rescheduling_dialog_title_last_time">Tarea recurrente \"%s\" terminada</string>
-	<string name="repeat_rescheduling_dialog_bubble">%1$s he reprogramado esta tarea recurrente de %2$s a %3$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s He reprogramado esta tarea recurrente para %2$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_last_time">Tenía esta tarea recurrente programada hasta %1$s, y ya la ha terminado. %2$s</string>
 	<string name="TEA_tags_label_long">Añadir a listas</string>
 	<string name="TEA_tag_hint">Nueva lista</string>
 	<string name="tag_new_list">Nueva lista</string>

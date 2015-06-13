@@ -5,28 +5,19 @@
  */
 package com.todoroo.astrid.activity;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.view.WindowManager.BadTokenException;
 
-import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.service.StartupService;
-import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
-import com.todoroo.astrid.ui.DateChangedAlerts;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,8 +51,6 @@ public abstract class AstridActivity extends InjectingAppCompatActivity
 
     protected int fragmentLayout = LAYOUT_SINGLE;
 
-    private final RepeatConfirmationReceiver repeatConfirmationReceiver = new RepeatConfirmationReceiver();
-
     public TaskListFragment getTaskListFragment() {
         return (TaskListFragment) getSupportFragmentManager()
                 .findFragmentByTag(TaskListFragment.TAG_TASKLIST_FRAGMENT);
@@ -72,10 +61,7 @@ public abstract class AstridActivity extends InjectingAppCompatActivity
                 .findFragmentByTag(TaskEditFragment.TAG_TASKEDIT_FRAGMENT);
     }
 
-    @Inject TaskService taskService;
     @Inject StartupService startupService;
-    @Inject GCalHelper gcalHelper;
-    @Inject DateChangedAlerts dateChangedAlerts;
     @Inject SubtasksHelper subtasksHelper;
 
     @Override
@@ -83,23 +69,6 @@ public abstract class AstridActivity extends InjectingAppCompatActivity
         super.onCreate(savedInstanceState);
 
         startupService.onStartupApplication(this);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        android.content.IntentFilter repeatFilter = new android.content.IntentFilter(
-                AstridApiConstants.BROADCAST_EVENT_TASK_REPEATED);
-        repeatFilter.addAction(AstridApiConstants.BROADCAST_EVENT_TASK_REPEAT_FINISHED);
-        registerReceiver(repeatConfirmationReceiver, repeatFilter);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        AndroidUtilities.tryUnregisterReceiver(this, repeatConfirmationReceiver);
     }
 
     /**
@@ -249,45 +218,5 @@ public abstract class AstridActivity extends InjectingAppCompatActivity
             return;
         }
         super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    private class RepeatConfirmationReceiver extends BroadcastReceiver {
-        private final Property<?>[] REPEAT_RESCHEDULED_PROPERTIES =
-                new Property<?>[] {
-                        Task.ID,
-                        Task.TITLE,
-                        Task.DUE_DATE,
-                        Task.HIDE_UNTIL,
-                        Task.REPEAT_UNTIL
-                };
-
-        @Override
-        public void onReceive(Context context, final Intent intent) {
-            long taskId = intent.getLongExtra(
-                    AstridApiConstants.EXTRAS_TASK_ID, 0);
-
-            if (taskId > 0) {
-                long oldDueDate = intent.getLongExtra(
-                        AstridApiConstants.EXTRAS_OLD_DUE_DATE, 0);
-                long newDueDate = intent.getLongExtra(
-                        AstridApiConstants.EXTRAS_NEW_DUE_DATE, 0);
-                Task task = taskService.fetchById(taskId, REPEAT_RESCHEDULED_PROPERTIES);
-
-                try {
-                    boolean lastTime = AstridApiConstants.BROADCAST_EVENT_TASK_REPEAT_FINISHED.equals(intent.getAction());
-                    dateChangedAlerts.showRepeatTaskRescheduledDialog(
-                            gcalHelper, taskService, AstridActivity.this, task, oldDueDate, newDueDate, lastTime);
-
-                } catch (BadTokenException e) { // Activity not running when tried to show dialog--rebroadcast
-                    log.error(e.getMessage(), e);
-                    new Thread() {
-                        @Override
-                        public void run() {
-                            sendBroadcast(intent);
-                        }
-                    }.start();
-                }
-            }
-        }
     }
 }

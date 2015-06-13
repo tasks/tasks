@@ -19,6 +19,7 @@ import org.tasks.receivers.FirstLaunchReceiver;
 import org.tasks.receivers.MyPackageReplacedReceiver;
 import org.tasks.receivers.PackageReplacedReceiver;
 import org.tasks.receivers.RefreshReceiver;
+import org.tasks.receivers.RepeatConfirmationReceiver;
 
 import dagger.Module;
 
@@ -41,7 +42,8 @@ import dagger.Module;
                 MyPackageReplacedReceiver.class,
                 PackageReplacedReceiver.class,
                 RefreshReceiver.class,
-                CompleteTaskReceiver.class
+                CompleteTaskReceiver.class,
+                RepeatConfirmationReceiver.class
         })
 public class BroadcastModule {
 }

@@ -43,7 +43,6 @@
 	<string name="TLA_menu_search">Αναζήτηση</string>
 	<string name="TLA_menu_settings">Ρυθμίσεις</string>
 	<string name="TLA_custom">Προσαρμοσμένο</string>
-	<string name="TLA_quickadd_confirm_hide_helpers">Να μην εμφανίζονται μελλοντικές επιβεβαιώσεις</string>
 	<string name="TAd_hiddenFormat">%s [κρυφό]</string>
 	<string name="TAd_deletedFormat">%s [διαγράφηκε]</string>
 	<string name="TAd_actionEditTask">Επεξεργασία</string>
@@ -152,7 +151,6 @@
 	<string name="EPr_deactivated">απενεργοποιημένο</string>
 	<string name="EPr_appearance_header">Εμφάνιση</string>
 	<string name="EPr_filters_to_show_title">Φίλτρα για εμφάνιση</string>
-	<string name="EPr_showSmartConfirmation_title">Εμφάνιση επιβεβαίωσης για έξυπνες ειδοποιήσεις</string>
 	<string name="EPr_edit_screen_options">Επεξεργασία επιλογών εμφάνισης</string>
 	<string name="EPr_time_increment">5λεπτα διαστήματα</string>
 	<string name="EPr_show_timer_shortcut">Εμφάνιση συντόμευσης χρονομέτρου</string>
@@ -343,7 +341,6 @@
 		<item>Τον επόμενο μήνα</item>
 	</string-array>
 	<string name="repeat_until_title">Επανάληψη εως ότου</string>
-	<string name="repeat_keep_going">Συνέχιση</string>
 	<string-array name="repeat_type">
 		<item>απο την ημερομηνία λήξης</item>
 		<item>απο την ημερομηνία ολοκλήρωσης </item>
@@ -353,11 +350,6 @@
 	<string name="repeat_detail_duedate_until">Κάθε %1$s\nμέχρι %2$s</string>
 	<string name="repeat_forever">Επανάληψη επ\'αορίστου</string>
 	<string name="repeat_until">Επανάληψη μέχρι %s</string>
-	<string name="repeat_rescheduling_dialog_title">Επανακαθορισμός εργασίας\"%s\"</string>
-	<string name="repeat_rescheduling_dialog_title_last_time">Ολοκληρώθηκε η επαναλαμβανόμενη εργασία \"%s\"</string>
-	<string name="repeat_rescheduling_dialog_bubble">%1$s επαναπρογραμμάτισα αυτό την επαναλαμβανόμενη εργασία για τις  %2$s σε %3$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s επαναπρογραμμάτισα αυτή την επαναλαμβανόμενη εργασία για τις %2$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_last_time">Το είχες  επαναλαμβανόμενο  μέχρι της %1$s, και τώρα είναι εντάξει. %2$s</string>
 	<string name="TEA_tags_label_long">Προσθήκη στις λίστες</string>
 	<string name="TEA_tag_hint">Νέα λίστα</string>
 	<string name="tag_new_list">Νέα λίστα</string>

@@ -44,7 +44,6 @@
 	<string name="TLA_menu_search">Iskanje</string>
 	<string name="TLA_menu_settings">Nastavitve</string>
 	<string name="TLA_custom">Po meri</string>
-	<string name="TLA_quickadd_confirm_hide_helpers">Prihodnjih potrditev ne prikazuj več</string>
 	<string name="TAd_hiddenFormat">%s [skrit]</string>
 	<string name="TAd_deletedFormat">%s [zbrisan]</string>
 	<string name="TAd_completed">Opravljen\n%s</string>
@@ -156,7 +155,6 @@
 	<string name="EPr_deactivated">deaktivirano</string>
 	<string name="EPr_appearance_header">Izgled</string>
 	<string name="EPr_filters_to_show_title">Filtri za prikaz</string>
-	<string name="EPr_showSmartConfirmation_title">Pokaži potrditev za pametne opomnike</string>
 	<string name="EPr_edit_screen_options">Uredi možnosti zaslona</string>
 	<string name="EPr_time_increment">5-minutni podaljški</string>
 	<string name="EPr_show_timer_shortcut">Prikaži bližnjico za štoparico</string>
@@ -349,7 +347,6 @@
 		<item>Naslednji mesec</item>
 	</string-array>
 	<string name="repeat_until_title">Ponavljaj, dokler ...</string>
-	<string name="repeat_keep_going">Nadaljuj</string>
 	<string-array name="repeat_type">
 		<item>od datuma dospelosti</item>
 		<item>od datuma dokončanja</item>
@@ -359,11 +356,6 @@
 	<string name="repeat_detail_duedate_until">Vsak %1$s\n do  %2$s</string>
 	<string name="repeat_forever">Ponavljaj do preklica</string>
 	<string name="repeat_until">Ponavljaj do %s</string>
-	<string name="repeat_rescheduling_dialog_title">Spremenjen čas opravka \"%s\"</string>
-	<string name="repeat_rescheduling_dialog_title_last_time">Dokončani ponavljajoči se opravek \"%s\"</string>
-	<string name="repeat_rescheduling_dialog_bubble">%1$s Spremenil sem čas tega ponavljajočega se opravka s/z %2$s na %3$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s Spremenil sem čas tega ponavljajočega se opravka na %2$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_last_time">Ta se je ponavljal do %1$s, sedaj je dokončan. %2$s</string>
 	<string name="TEA_tags_label_long">Dodaj na sezname</string>
 	<string name="TEA_tag_hint">Nov seznam</string>
 	<string name="tag_new_list">Nov seznam</string>

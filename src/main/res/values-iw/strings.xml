@@ -41,7 +41,6 @@
 	<string name="TLA_menu_search">חיפוש</string>
 	<string name="TLA_menu_settings">הגדרות</string>
 	<string name="TLA_custom">מותאם אישית</string>
-	<string name="TLA_quickadd_confirm_hide_helpers">אל תציג אישורים נוספים</string>
 	<string name="TAd_hiddenFormat">%s [מוסתרת]</string>
 	<string name="TAd_deletedFormat">%s [נמחקה]</string>
 	<string name="TAd_completed">הסתיימה\n%s</string>
@@ -152,7 +151,6 @@
 	<string name="EPr_deactivated">מופסק</string>
 	<string name="EPr_appearance_header">חזות</string>
 	<string name="EPr_filters_to_show_title">אילו מַסְנְנִים להציג</string>
-	<string name="EPr_showSmartConfirmation_title">הצג אישור על תזכורות חכמות</string>
 	<string name="EPr_edit_screen_options">עריכת אפשרויות מסך</string>
 	<string name="EPr_time_increment">צעדים של 5 דקות</string>
 	<string name="EPr_beastMode_desc">התאם אישית את מסך עריכת משימה</string>
@@ -345,7 +343,6 @@
 		<item>החודש הבא</item>
 	</string-array>
 	<string name="repeat_until_title">חזור עד...</string>
-	<string name="repeat_keep_going">המשך</string>
 	<string-array name="repeat_type">
 		<item>מתאריך היעד</item>
 		<item>מהיום שהמשימה הושלמה</item>
@@ -355,11 +352,6 @@
 	<string name="repeat_detail_duedate_until">כל %1$s\nעד %2$s</string>
 	<string name="repeat_forever">חזור לנצח</string>
 	<string name="repeat_until">חזרה עד %s</string>
-	<string name="repeat_rescheduling_dialog_title">תזמון מחדש של משימה «%s\»</string>
-	<string name="repeat_rescheduling_dialog_title_last_time">«%s» משימה חוזרת בוצעה:</string>
-	<string name="repeat_rescheduling_dialog_bubble">%1$s תיזמנתי מחדש משימה חוזרת זו מ־%2$s ל־%3$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s תזמנתי מחדש משימה חוזרת זו ל־%2$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_last_time">משימה זו חזרה עד %1$s, וכעת כל החזרות הסתיימו. %2$s</string>
 	<string name="TEA_tags_label_long">הוסף לרשימות</string>
 	<string name="TEA_tag_hint">רשימה חדשה</string>
 	<string name="tag_new_list">רשימה חדשה</string>

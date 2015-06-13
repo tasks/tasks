@@ -41,7 +41,6 @@
 	<string name="TLA_menu_search">Zoek</string>
 	<string name="TLA_menu_settings">Instellingen</string>
 	<string name="TLA_custom">Aangepast</string>
-	<string name="TLA_quickadd_confirm_hide_helpers">Geen toekomstige bevestigingen weergeven</string>
 	<string name="TAd_hiddenFormat">%s [verborgen]</string>
 	<string name="TAd_deletedFormat">%s [verwijderd]</string>
 	<string name="TAd_completed">Afgerond\n%s</string>
@@ -154,7 +153,6 @@
 	<string name="EPr_deactivated">uitgeschakeld</string>
 	<string name="EPr_appearance_header">Uiterlijk</string>
 	<string name="EPr_filters_to_show_title">Te tonen filters</string>
-	<string name="EPr_showSmartConfirmation_title">Laat bevestiging zien voor slimme herinneringen</string>
 	<string name="EPr_edit_screen_options">Scherm opties bewerken</string>
 	<string name="EPr_time_increment">stappen van 5 minuten</string>
 	<string name="EPr_show_timer_shortcut">Toon timer snelkoppeling</string>
@@ -347,7 +345,6 @@
 		<item>Volgende maand</item>
 	</string-array>
 	<string name="repeat_until_title">Herhalen tot...</string>
-	<string name="repeat_keep_going">Doorlopend</string>
 	<string-array name="repeat_type">
 		<item>vanaf einddatum</item>
 		<item>vanaf datum voltooid</item>
@@ -357,11 +354,6 @@
 	<string name="repeat_detail_duedate_until">Elke %1$s\ntot %2$s</string>
 	<string name="repeat_forever">Altijd herhalen</string>
 	<string name="repeat_until">Herhalen tot %s</string>
-	<string name="repeat_rescheduling_dialog_title">Verplaatsen taak \"%s\"</string>
-	<string name="repeat_rescheduling_dialog_title_last_time">Herhalende taak \"%s\" voltooid</string>
-	<string name="repeat_rescheduling_dialog_bubble">%1$s Ik heb deze herhalende taak verzet van %2$s naar %3$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s Ik heb deze herhalende taak opnieuw ingepland op %2$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_last_time">Deze taak herhaalde zichzelf tot %1$s. Nu ben je klaar. %2$s</string>
 	<string name="TEA_tags_label_long">Voeg toe aan lijsten</string>
 	<string name="TEA_tag_hint">Nieuwe lijst</string>
 	<string name="tag_new_list">Nieuwe lijst</string>

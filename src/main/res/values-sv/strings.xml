@@ -41,7 +41,6 @@
 	<string name="TLA_menu_search">Sök</string>
 	<string name="TLA_menu_settings">Inställningar</string>
 	<string name="TLA_custom">Egendefinierad</string>
-	<string name="TLA_quickadd_confirm_hide_helpers">Visa inte bekräftelser i fortsättningen</string>
 	<string name="TAd_hiddenFormat">%s [dold]</string>
 	<string name="TAd_deletedFormat">%s [raderad]</string>
 	<string name="TAd_completed">Avslutad\n%s</string>
@@ -153,7 +152,6 @@
 	<string name="EPr_deactivated">inaktiverad</string>
 	<string name="EPr_appearance_header">Utseende</string>
 	<string name="EPr_filters_to_show_title">Filter att visa</string>
-	<string name="EPr_showSmartConfirmation_title">Visa bekräftelse vid smarta påminnelser</string>
 	<string name="EPr_edit_screen_options">Ändra skärminställningar</string>
 	<string name="EPr_time_increment">5 minuters steg</string>
 	<string name="EPr_beastMode_desc">Ställ in layouten för uppgiftsredigeringsrutan</string>
@@ -343,7 +341,6 @@ och återställer dina aktuella uppgifter från en backup
 		<item>Nästa månad</item>
 	</string-array>
 	<string name="repeat_until_title">Repetera tills...</string>
-	<string name="repeat_keep_going">Fortsätt</string>
 	<string-array name="repeat_type">
 		<item>från förfallodatumet</item>
 		<item>från avslutningsdatumet</item>
@@ -353,11 +350,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="repeat_detail_duedate_until">Varje %1$s\ntill %2$s </string>
 	<string name="repeat_forever">Repetera oändligt</string>
 	<string name="repeat_until">Repetera till %s</string>
-	<string name="repeat_rescheduling_dialog_title">Ändrar tid för uppgiften \"%s\"</string>
-	<string name="repeat_rescheduling_dialog_title_last_time">Avklarade återkommande uppgift \"%s\"</string>
-	<string name="repeat_rescheduling_dialog_bubble">%1$s Återkommande uppgift ändrad från %2$s till %3$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s Jag har bokat om den här återkommande uppgiften till %2$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_last_time">Du upprepade denna till %1$s, Nu är du helt färdig. %2$s</string>
 	<string name="TEA_tags_label_long">Lägg till på listor</string>
 	<string name="TEA_tag_hint">Ny lista</string>
 	<string name="tag_new_list">Ny lista</string>

@@ -41,7 +41,6 @@
 	<string name="TLA_menu_search">Rechercher</string>
 	<string name="TLA_menu_settings">Paramètres</string>
 	<string name="TLA_custom">Personnalisé</string>
-	<string name="TLA_quickadd_confirm_hide_helpers">Ne pas afficher de confirmations futures</string>
 	<string name="TAd_hiddenFormat">%s [masqué(e)]</string>
 	<string name="TAd_deletedFormat">%s [supprimé(e)]</string>
 	<string name="TAd_completed">Accomplie\n%s</string>
@@ -153,7 +152,6 @@
 	<string name="EPr_deactivated">désactivé</string>
 	<string name="EPr_appearance_header">Apparence</string>
 	<string name="EPr_filters_to_show_title">Filtres à afficher</string>
-	<string name="EPr_showSmartConfirmation_title">Montrer une confirmation pour les rappels intelligents</string>
 	<string name="EPr_edit_screen_options">Edition des options d\'affichage</string>
 	<string name="EPr_time_increment">Incrément de 5 minutes</string>
 	<string name="EPr_show_timer_shortcut">Afficher le raccourci de minuterie</string>
@@ -350,7 +348,6 @@
 		<item>Mois suivant</item>
 	</string-array>
 	<string name="repeat_until_title">Répéter jusqu\'à...</string>
-	<string name="repeat_keep_going">Continuer</string>
 	<string-array name="repeat_type">
 		<item>à partir de la date due</item>
 		<item>à partir de la date d\'achèvement</item>
@@ -360,11 +357,6 @@
 	<string name="repeat_detail_duedate_until">Tous les %1$s jusqu\'à %2$s</string>
 	<string name="repeat_forever">Répéter indéfiniment</string>
 	<string name="repeat_until">Répéter jusqu\'à %s</string>
-	<string name="repeat_rescheduling_dialog_title">Reprogrammer la tâche \"%s\"</string>
-	<string name="repeat_rescheduling_dialog_title_last_time">Fin des répétitions pour la tâche \"%s\"</string>
-	<string name="repeat_rescheduling_dialog_bubble">%1$s J\'ai reprogrammé la tâche répétitive de %2$s à %3$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s J\'ai reprogrammé la tâche répétitive jusqu\'à %2$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_last_time">Cette tâche est répétée depuis %1$s, et c\'est maintenant fini. %2$s</string>
 	<string name="TEA_tags_label_long">Ajouter à la liste</string>
 	<string name="TEA_tag_hint">Nouvelle liste</string>
 	<string name="tag_new_list">Nouvelle liste</string>

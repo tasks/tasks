@@ -40,7 +40,6 @@
 	<string name="TLA_menu_search">Ara</string>
 	<string name="TLA_menu_settings">Ayarlar</string>
 	<string name="TLA_custom">Özel</string>
-	<string name="TLA_quickadd_confirm_hide_helpers">İleriki doğrulamaları gösterme</string>
 	<string name="TAd_hiddenFormat">%s [gizli]</string>
 	<string name="TAd_deletedFormat">%s [silinmiş]</string>
 	<string name="TAd_completed">Bitti\n%s</string>
@@ -139,7 +138,6 @@
 	<string name="EPr_title">Tasks: Ayarlar</string>
 	<string name="EPr_deactivated">devre dışı</string>
 	<string name="EPr_appearance_header">Görünüm</string>
-	<string name="EPr_showSmartConfirmation_title">Akıllı hatırlatıcılar için doğrulamayı göster</string>
 	<string name="EPr_beastMode_desc">Görev Düzenleme Ekranı yerleşimini özelleştir</string>
 	<string name="EPr_beastMode_reset">Varsayılanlara sıfırla</string>
 	<string name="EPr_fullTask_title">Tüm görev başlığını göster</string>
@@ -320,7 +318,6 @@
 		<item>Gelecek Ay</item>
 	</string-array>
 	<string name="repeat_until_title">Bu kadar yinele...</string>
-	<string name="repeat_keep_going">Bekleme yapma</string>
 	<string-array name="repeat_type">
 		<item>son tarihten itibaren</item>
 		<item>tamamlanma tarihinden itibaren</item>
@@ -330,11 +327,6 @@
 	<string name="repeat_detail_duedate_until">Her %1$s\n%2$s \'e kadar</string>
 	<string name="repeat_forever">Sürekli yinele</string>
 	<string name="repeat_until">%s\'e kadar yinele</string>
-	<string name="repeat_rescheduling_dialog_title">Görev zamanı güncelleniyor: \"%s\"</string>
-	<string name="repeat_rescheduling_dialog_title_last_time">Yinelenen görev bitti: \"%s\"</string>
-	<string name="repeat_rescheduling_dialog_bubble">%1$s bu yinelenen görev zamanını güncelledim: %2$s &gt;&gt; %3$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s Bu yinelenen görevi yeniden zamanladım: %2$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_last_time">Bu yinelemeyi %1$s tarihine kadar alacaksınız, ve şimdi işiniz bitti. %2$s</string>
 	<string name="TEA_tag_hint">Yeni liste</string>
 	<string name="tag_new_list">Yeni Liste</string>
 	<string name="tag_no_title_error">Lütfen bu liste için isim girin!</string>

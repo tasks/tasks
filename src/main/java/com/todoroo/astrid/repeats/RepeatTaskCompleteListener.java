@@ -82,11 +82,6 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
 
             boolean repeatFinished = repeatUntil > 0 && newDueDate >= repeatUntil;
             if (repeatFinished) {
-                Intent repeatFinishedIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_REPEAT_FINISHED);
-                repeatFinishedIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
-                repeatFinishedIntent.putExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, oldDueDate);
-                repeatFinishedIntent.putExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, newDueDate);
-                context.sendOrderedBroadcast(repeatFinishedIntent, null);
                 return;
             }
 

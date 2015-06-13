@@ -40,7 +40,6 @@
 	<string name="TLA_menu_search">Buscar</string>
 	<string name="TLA_menu_settings">Configurações</string>
 	<string name="TLA_custom">Personalizar</string>
-	<string name="TLA_quickadd_confirm_hide_helpers">Não mostrar confirmações futuras</string>
 	<string name="TAd_hiddenFormat">%s [oculta]</string>
 	<string name="TAd_deletedFormat">%s [excluída]</string>
 	<string name="TAd_completed">Concluída\n%s</string>
@@ -152,7 +151,6 @@
 	<string name="EPr_deactivated">desativado</string>
 	<string name="EPr_appearance_header">Aparência</string>
 	<string name="EPr_filters_to_show_title">Filtros a mostrar</string>
-	<string name="EPr_showSmartConfirmation_title">Mostrar confirmação para lembretes espertos</string>
 	<string name="EPr_edit_screen_options">Editar opções da tela</string>
 	<string name="EPr_time_increment">Incrementos de 5 minutos</string>
 	<string name="EPr_show_timer_shortcut">Exibir atalho para temporizador</string>
@@ -345,7 +343,6 @@
 		<item>Próximo mês</item>
 	</string-array>
 	<string name="repeat_until_title">Repetir até...</string>
-	<string name="repeat_keep_going">Continue</string>
 	<string-array name="repeat_type">
 		<item>à partir do dia do prazo final</item>
 		<item>à partir do dia de realização</item>
@@ -355,11 +352,6 @@
 	<string name="repeat_detail_duedate_until">Todo %1$s\naté %2$s</string>
 	<string name="repeat_forever">Repetir para sempre</string>
 	<string name="repeat_until">Repetir até %s</string>
-	<string name="repeat_rescheduling_dialog_title">Reagendando tarefa \"%s\"</string>
-	<string name="repeat_rescheduling_dialog_title_last_time">Tarefa repetida concluída \"%s\"</string>
-	<string name="repeat_rescheduling_dialog_bubble">\"%1$s,  reagendei esta tarefa recorrente de %2$s para %3$s\"</string>
-	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s Eu reagendei esta tarefa recorrente para %2$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_last_time">Você estava repetindo isto até %1$s e agora você concluíu. %2$s</string>
 	<string name="TEA_tags_label_long">Adicionar às listas</string>
 	<string name="TEA_tag_hint">Nova lista</string>
 	<string name="tag_new_list">Nova lista</string>

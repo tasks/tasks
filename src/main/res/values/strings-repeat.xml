@@ -40,8 +40,6 @@
   
   <string name="repeat_until_title">Repeat until...</string>
   
-  <string name="repeat_keep_going">Keep going</string>
-  
   <string-array name="repeat_type">
     <!-- slide 20c: repeat type (date to repeat from) -->
     <item>from due date</item>
@@ -63,20 +61,7 @@
 
   <!-- text for button when repeating task until specified date (%s -> date string) -->
   <string name="repeat_until">Repeat until %s</string>
-  
-  <!-- text for confirmation dialog after repeating a task (%s -> task title)-->
-  <string name="repeat_rescheduling_dialog_title">Rescheduling task \"%s\"</string>
 
-  <!-- text for confirmation dialog after repeating a task for the last time (%s -> task title)-->
-  <string name="repeat_rescheduling_dialog_title_last_time">Completed repeating task \"%s\"</string>
-      
-  <!-- text for when a repeating task was rescheduled (%1$s -> encouragment string, %2$s -> old due date, %3$s -> new due date)-->  
-  <string name="repeat_rescheduling_dialog_bubble">%1$s I\'ve rescheduled this repeating task from %2$s to %3$s</string>
-  
-  <!-- text for when a repeating task was rescheduled but didn't have a due date yet, (%1$s -> encouragement string, %2$s -> new due date) -->
-  <string name="repeat_rescheduling_dialog_bubble_no_date">%1$s I\'ve rescheduled this repeating task to %2$s</string>
-  
-  <!-- text for when a repeating task was rescheduled for the last time (%1$s -> repeat end date, %2$s -> encouragement string)-->
-  <string name="repeat_rescheduling_dialog_bubble_last_time">You had this repeating until %1$s, and now you\'re all done. %2$s</string>
+  <string name="repeat_snackbar">%1$s rescheduled for %2$s</string>
 
 </resources>

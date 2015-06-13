@@ -43,7 +43,6 @@
 	<string name="TLA_menu_search">Procura</string>
 	<string name="TLA_menu_settings">Definições</string>
 	<string name="TLA_custom">Personalizado</string>
-	<string name="TLA_quickadd_confirm_hide_helpers">Não mostrar futuras confirmações</string>
 	<string name="TAd_hiddenFormat">%s [oculta]</string>
 	<string name="TAd_deletedFormat">%s [eliminada]</string>
 	<string name="TAd_completed">Terminada\n%s</string>
@@ -157,7 +156,6 @@
 	<string name="EPr_deactivated">desativada</string>
 	<string name="EPr_appearance_header">Aspeto</string>
 	<string name="EPr_filters_to_show_title">Filtros a mostrar</string>
-	<string name="EPr_showSmartConfirmation_title">Mostrar confirmação para lembretes inteligentes</string>
 	<string name="EPr_edit_screen_options">Opções do ecrã de edição</string>
 	<string name="EPr_time_increment">Incrementos de 5 minutos</string>
 	<string name="EPr_show_timer_shortcut">Mostrar atalho do temporizador</string>
@@ -357,7 +355,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 		<item>Próximo mês</item>
 	</string-array>
 	<string name="repeat_until_title">Repetir até...</string>
-	<string name="repeat_keep_going">Manter em curso</string>
 	<string-array name="repeat_type">
 		<item>da data limite</item>
 		<item>desde a data de conclusão</item>
@@ -367,11 +364,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="repeat_detail_duedate_until">Cada %1$s\naté %2$s</string>
 	<string name="repeat_forever">Repetir eternamente</string>
 	<string name="repeat_until">Repetir até %s</string>
-	<string name="repeat_rescheduling_dialog_title">Reagendamento da tarefa %s</string>
-	<string name="repeat_rescheduling_dialog_title_last_time">Terminada a tarefa recorrente %s</string>
-	<string name="repeat_rescheduling_dialog_bubble">%1$s Tarefa recorrente reagendada desde %2$s até %3$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s Tarefa recorrente reagendada para %2$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_last_time">Esta tarefa repetirá até %1$s, após o que será terminada. %2$s</string>
 	<string name="TEA_tags_label_long">Adicionar às listas</string>
 	<string name="TEA_tag_hint">Nova lista</string>
 	<string name="tag_new_list">Nova lista</string>

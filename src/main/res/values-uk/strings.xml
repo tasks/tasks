@@ -44,7 +44,6 @@
 	<string name="TLA_menu_search">Пошук</string>
 	<string name="TLA_menu_settings">Налаштування</string>
 	<string name="TLA_custom">Користувальницький</string>
-	<string name="TLA_quickadd_confirm_hide_helpers">Не показувати майбутніх підтверджень</string>
 	<string name="TAd_hiddenFormat">%s [приховано]</string>
 	<string name="TAd_deletedFormat">%s [видалено]</string>
 	<string name="TAd_completed">Завершено\n%s</string>
@@ -156,7 +155,6 @@
 	<string name="EPr_deactivated">деактивовані</string>
 	<string name="EPr_appearance_header">Інтерфейс</string>
 	<string name="EPr_filters_to_show_title">Показати фільтри</string>
-	<string name="EPr_showSmartConfirmation_title">Показати підтвердження для розумного нагадування</string>
 	<string name="EPr_edit_screen_options">Редагувати налаштування екрану</string>
 	<string name="EPr_time_increment">Крок 5 хвилин</string>
 	<string name="EPr_show_timer_shortcut">Показати ярлик таймера</string>
@@ -345,17 +343,11 @@
 		<item>Next Month</item>
 	</string-array>
 	<string name="repeat_until_title">Повторювати поки...</string>
-	<string name="repeat_keep_going">Продовжуйте</string>
 	<string name="repeat_detail_byday">$I кожен $D</string>
 	<string name="repeat_detail_duedate">З інтервалом в %s</string>
 	<string name="repeat_detail_duedate_until">Кожні %1$s\nпоки %2$s</string>
 	<string name="repeat_forever">Повторювати завжди</string>
 	<string name="repeat_until">Повторювати до %s</string>
-	<string name="repeat_rescheduling_dialog_title">Перепланування завдання \"%s\"</string>
-	<string name="repeat_rescheduling_dialog_title_last_time">Припинити повторювати завдання \"%s\"</string>
-	<string name="repeat_rescheduling_dialog_bubble">%1$s я перепланував це повторюване завдання з %2$s до %3$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s я перепланував це повторюване завдання до %2$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_last_time">Виповинні були повторювати це до %1$s, тепер повторення закінчилось. %2$s</string>
 	<string name="TEA_tags_label_long">Додати до списку</string>
 	<string name="TEA_tag_hint">Новий список</string>
 	<string name="tag_new_list">Новий список</string>

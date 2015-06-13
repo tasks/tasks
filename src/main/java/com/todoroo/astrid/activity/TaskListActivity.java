@@ -7,6 +7,7 @@ package com.todoroo.astrid.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -46,6 +47,7 @@ import com.todoroo.astrid.voice.VoiceInputAssistant;
 
 import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.receivers.RepeatConfirmationReceiver;
 import org.tasks.ui.NavigationDrawerFragment;
 
 import javax.inject.Inject;
@@ -60,6 +62,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject VoiceInputAssistant voiceInputAssistant;
 
+    private final RepeatConfirmationReceiver repeatConfirmationReceiver = new RepeatConfirmationReceiver(this);
     private NavigationDrawerFragment navigationDrawer;
 
     public static final String TOKEN_SWITCH_TO_FILTER = "newListCreated"; //$NON-NLS-1$
@@ -134,7 +137,17 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     protected void onResume() {
         super.onResume();
 
+        registerReceiver(
+                repeatConfirmationReceiver,
+                new IntentFilter(AstridApiConstants.BROADCAST_EVENT_TASK_REPEATED));
         getTaskListFragment().setSyncOngoing(gtasksPreferenceService.isOngoing());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        AndroidUtilities.tryUnregisterReceiver(this, repeatConfirmationReceiver);
     }
 
     @Override

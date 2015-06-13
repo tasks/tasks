@@ -40,7 +40,6 @@
 	<string name="TLA_menu_search">搜索</string>
 	<string name="TLA_menu_settings">设置</string>
 	<string name="TLA_custom">自定义</string>
-	<string name="TLA_quickadd_confirm_hide_helpers">以后不显示确认</string>
 	<string name="TAd_hiddenFormat">%s [已隐藏]</string>
 	<string name="TAd_deletedFormat">%s [已删除]</string>
 	<string name="TAd_completed">完成\n%s 项</string>
@@ -122,7 +121,6 @@
 	<string name="EPr_title">清单小助理：设置</string>
 	<string name="EPr_deactivated">禁用</string>
 	<string name="EPr_appearance_header">外观</string>
-	<string name="EPr_showSmartConfirmation_title">显示智能提示确认消息</string>
 	<string name="EPr_beastMode_desc">自定义设定菜单屏幕</string>
 	<string name="EPr_beastMode_reset">恢复默认值</string>
 	<string name="EPr_fullTask_title">显示完整的任务标题</string>
@@ -299,7 +297,6 @@
 		<item>下个月</item>
 	</string-array>
 	<string name="repeat_until_title">重复到……</string>
-	<string name="repeat_keep_going">继续下去</string>
 	<string-array name="repeat_type">
 		<item>自到期日</item>
 		<item>自完成日</item>
@@ -309,11 +306,6 @@
 	<string name="repeat_detail_duedate_until">每隔 %1$s\n直到 %2$s</string>
 	<string name="repeat_forever">永远重复</string>
 	<string name="repeat_until">重复到 %s</string>
-	<string name="repeat_rescheduling_dialog_title">重新安排“%s”这项任务</string>
-	<string name="repeat_rescheduling_dialog_title_last_time">已经完成“%s”这项重复任务</string>
-	<string name="repeat_rescheduling_dialog_bubble">%1$s 我已经重新安排了这项重复任务，截止日期由 %2$s 变成 %3$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_no_date">%1$s 我已经重新安排了这项重复任务，截止日期为 %2$s</string>
-	<string name="repeat_rescheduling_dialog_bubble_last_time">您设置了这项任务重复到 %1$s，现在您已经圆满完成。%2$s</string>
 	<string name="TEA_tag_hint">新建列表</string>
 	<string name="tag_new_list">新建列表</string>
 	<string name="tag_no_title_error">请先为此列表键入一个名称！</string>
