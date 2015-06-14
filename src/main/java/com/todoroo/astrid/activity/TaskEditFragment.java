@@ -79,6 +79,7 @@ import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.LocationPickerActivity;
+import org.tasks.activities.TimePickerActivity;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.location.Geofence;
 import org.tasks.location.GeofenceService;
@@ -904,7 +905,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
 
         if (requestCode == HideUntilControlSet.REQUEST_HIDE_UNTIL && resultCode == Activity.RESULT_OK) {
-            long timestamp = data.getLongExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, 0L);
+            long timestamp = data.getLongExtra(TimePickerActivity.EXTRA_TIMESTAMP, 0L);
             if (timestamp > 0) {
                 hideUntilControls.setCustomDate(timestamp);
             } else {
@@ -912,7 +913,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             }
             return;
         } else if (requestCode == ReminderControlSet.REQUEST_NEW_ALARM && resultCode == Activity.RESULT_OK) {
-            long timestamp = data.getLongExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, 0L);
+            long timestamp = data.getLongExtra(TimePickerActivity.EXTRA_TIMESTAMP, 0L);
             if (timestamp > 0) {
                 reminderControlSet.addAlarmRow(timestamp);
             } else {

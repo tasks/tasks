@@ -20,13 +20,4 @@ public class MyTimePickerDialog extends TimePickerDialog {
             listener.onDismiss(dialog);
         }
     }
-
-    @Override
-    public void onCancel(DialogInterface dialog) {
-        super.onCancel(dialog);
-
-        if (listener != null) {
-            listener.onDismiss(dialog);
-        }
-    }
 }

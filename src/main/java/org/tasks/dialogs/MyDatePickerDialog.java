@@ -6,9 +6,9 @@ import com.fourmob.datetimepicker.date.DatePickerDialog;
 
 public class MyDatePickerDialog extends DatePickerDialog {
 
-    private DialogInterface.OnDismissListener listener;
+    private DialogInterface.OnCancelListener listener;
 
-    public void setOnDismissListener(DialogInterface.OnDismissListener listener) {
+    public void setOnCancelListener(DialogInterface.OnCancelListener listener) {
         this.listener = listener;
     }
 
@@ -17,7 +17,7 @@ public class MyDatePickerDialog extends DatePickerDialog {
         super.onCancel(dialog);
 
         if (listener != null) {
-            listener.onDismiss(dialog);
+            listener.onCancel(dialog);
         }
     }
 }

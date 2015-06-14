@@ -222,6 +222,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
             if (result.get()) {
                 onModelUpdated(item);
                 item.markSaved();
+                log.debug("{} {}", op, item);
             }
         }
         return result.get();
@@ -247,6 +248,11 @@ public class DatabaseDao<TYPE extends AbstractModel> {
                 }
                 return result;
             }
+
+            @Override
+            public String toString() {
+                return "INSERT";
+            }
         };
         return insertOrUpdateAndRecordChanges(item, insert);
     }
@@ -268,6 +274,11 @@ public class DatabaseDao<TYPE extends AbstractModel> {
             public boolean makeChange() {
                 return database.update(table.name, values,
                         AbstractModel.ID_PROPERTY.eq(item.getId()).toString()) > 0;
+            }
+
+            @Override
+            public String toString() {
+                return "UPDATE";
             }
         };
         return insertOrUpdateAndRecordChanges(item, update);

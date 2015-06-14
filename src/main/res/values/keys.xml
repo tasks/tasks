@@ -10,6 +10,11 @@
 
   <string name="gapi_key">AIzaSyBXGYNWNQcfse4JS5gI9teTSKMzinWzL2M</string>
 
+  <string name="p_date_shortcut_morning">date_shortcut_morning</string>
+  <string name="p_date_shortcut_afternoon">date_shortcut_afternoon</string>
+  <string name="p_date_shortcut_evening">date_shortcut_evening</string>
+  <string name="p_date_shortcut_night">date_shortcut_night</string>
+
   <!-- ======================================================== REMINDERS == -->
 
     <string name="p_attachment_dir">custom_files_dir</string>

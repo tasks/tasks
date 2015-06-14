@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentActivity;
 
 import org.tasks.dialogs.LocationPickerDialog;
 import org.tasks.reminders.NotificationDialog;
+import org.tasks.reminders.SnoozeDialog;
 
 import dagger.Module;
 import dagger.Provides;
@@ -12,7 +13,8 @@ import dagger.Provides;
 @Module(addsTo = TasksModule.class,
         injects = {
                 LocationPickerDialog.class,
-                NotificationDialog.class
+                NotificationDialog.class,
+                SnoozeDialog.class
         },
         library = true)
 public class DialogFragmentModule {

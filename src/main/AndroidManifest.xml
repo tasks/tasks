@@ -109,7 +109,8 @@
 
         <activity
             android:name=".activities.DateAndTimePickerActivity"
-            android:theme="@style/Tasks.Dialog" />
+            android:theme="@style/Tasks.Dialog"
+            android:taskAffinity="" />
 
         <activity
             android:name=".activities.LocationPickerActivity"
