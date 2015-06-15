@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <org.tasks.ui.TimePreference
+        android:defaultValue="@integer/default_morning"
+        android:key="@string/p_date_shortcut_morning"
+        android:title="@string/date_shortcut_morning" />
+
+    <org.tasks.ui.TimePreference
+        android:defaultValue="@integer/default_afternoon"
+        android:key="@string/p_date_shortcut_afternoon"
+        android:title="@string/date_shortcut_afternoon" />
+
+    <org.tasks.ui.TimePreference
+        android:defaultValue="@integer/default_evening"
+        android:key="@string/p_date_shortcut_evening"
+        android:title="@string/date_shortcut_evening" />
+
+    <org.tasks.ui.TimePreference
+        android:defaultValue="@integer/default_night"
+        android:key="@string/p_date_shortcut_night"
+        android:title="@string/date_shortcut_night" />
+
+
+</PreferenceScreen>

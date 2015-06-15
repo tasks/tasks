@@ -44,7 +44,7 @@ public class SnoozeDialog extends InjectingDialogFragment {
     }
 
     private void add(int resId, DateTime dateTime) {
-        adapter.add(getString(resId, getTimeString(context, dateTime.toDate())));
+        adapter.add(String.format("%s (%s)", getString(resId), getTimeString(context, dateTime.toDate())));
         snoozeTimes.add(dateTime.getMillis());
     }
 

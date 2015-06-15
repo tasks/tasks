@@ -105,13 +105,16 @@
     <string name="geolocation_reminders">Geolocation Reminders</string>
     <string name="tags">Tags</string>
     <string name="filters">Filters</string>
+    <string name="date_shortcuts">Date shortcuts</string>
     <string name="date_shortcut_hour">For an hour</string>
-    <string name="date_shortcut_morning">Morning (%s)</string>
-    <string name="date_shortcut_afternoon">Afternoon (%s)</string>
-    <string name="date_shortcut_evening">Evening (%s)</string>
-    <string name="date_shortcut_night">Night (%s)</string>
-    <string name="date_shortcut_tomorrow_morning">Tomorrow morning (%s)</string>
-    <string name="date_shortcut_tomorrow_afternoon">Tomorrow afternoon (%s)</string>
+    <string name="date_shortcut_morning">Morning</string>
+    <string name="date_shortcut_afternoon">Afternoon</string>
+    <string name="date_shortcut_evening">Evening</string>
+    <string name="date_shortcut_night">Night</string>
+    <string name="date_shortcut_tomorrow_morning">Tomorrow morning</string>
+    <string name="date_shortcut_tomorrow_afternoon">Tomorrow afternoon</string>
+    <string name="date_shortcut_must_come_before">%1$s must come before %2$s</string>
+    <string name="date_shortcut_must_come_after">%1$s must come after %2$s</string>
 
     <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->

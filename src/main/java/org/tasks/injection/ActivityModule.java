@@ -36,6 +36,7 @@ import org.tasks.activities.PurgeDeletedActivity;
 import org.tasks.preferences.AppearancePreferences;
 import org.tasks.preferences.BackupPreferences;
 import org.tasks.preferences.BasicPreferences;
+import org.tasks.preferences.DateShortcutPreferences;
 import org.tasks.preferences.HelpAndFeedbackActivity;
 import org.tasks.preferences.MiscellaneousPreferences;
 import org.tasks.reminders.NotificationActivity;
@@ -86,7 +87,8 @@ import dagger.Provides;
                 BackupPreferences.class,
                 LocationPickerActivity.class,
                 NotificationActivity.class,
-                HelpAndFeedbackActivity.class
+                HelpAndFeedbackActivity.class,
+                DateShortcutPreferences.class
         })
 public class ActivityModule {
 

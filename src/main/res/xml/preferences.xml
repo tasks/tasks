@@ -15,6 +15,12 @@
             android:targetPackage="org.tasks" />
     </Preference>
 
+    <Preference android:title="@string/date_shortcuts">
+        <intent
+            android:targetClass="org.tasks.preferences.DateShortcutPreferences"
+            android:targetPackage="org.tasks" />
+    </Preference>
+
     <Preference
         android:key="@string/synchronization"
         android:title="@string/synchronization">
