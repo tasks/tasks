@@ -10,6 +10,8 @@ import com.todoroo.astrid.reminders.SnoozeCallback;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 
+import org.joda.time.DateTime;
+import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.injection.InjectingFragmentActivity;
 import org.tasks.notifications.NotificationManager;
@@ -19,6 +21,8 @@ import javax.inject.Inject;
 public class SnoozeActivity extends InjectingFragmentActivity implements SnoozeCallback, DialogInterface.OnCancelListener {
 
     private static final String FRAG_TAG_SNOOZE_DIALOG = "frag_tag_snooze_dialog";
+    private static final String EXTRA_PICKING_DATE_TIME = "extra_picking_date_time";
+    private static final int REQUEST_DATE_TIME = 10101;
 
     public static final String EXTRA_TASK_ID = "id";
 
@@ -27,10 +31,20 @@ public class SnoozeActivity extends InjectingFragmentActivity implements SnoozeC
     @Inject NotificationManager notificationManager;
 
     private long taskId;
+    private boolean pickingDateTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        taskId = getIntent().getLongExtra(EXTRA_TASK_ID, 0L);
+
+        if (savedInstanceState != null) {
+            pickingDateTime = savedInstanceState.getBoolean(EXTRA_PICKING_DATE_TIME, false);
+            if (pickingDateTime) {
+                return;
+            }
+        }
 
         startupService.onStartupApplication(this);
 
@@ -40,7 +54,6 @@ public class SnoozeActivity extends InjectingFragmentActivity implements SnoozeC
             fragmentByTag = new SnoozeDialog();
             fragmentByTag.show(supportFragmentManager, FRAG_TAG_SNOOZE_DIALOG);
         }
-        taskId = getIntent().getLongExtra(EXTRA_TASK_ID, 0L);
         fragmentByTag.setOnCancelListener(this);
         fragmentByTag.setSnoozeCallback(this);
     }
@@ -57,19 +70,33 @@ public class SnoozeActivity extends InjectingFragmentActivity implements SnoozeC
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(EXTRA_PICKING_DATE_TIME, pickingDateTime);
+    }
+
+    @Override
+    public void pickDateTime() {
+        pickingDateTime = true;
+
+        startActivityForResult(new Intent(this, DateAndTimePickerActivity.class) {{
+            putExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, new DateTime().plusMinutes(30).getMillis());
+        }}, REQUEST_DATE_TIME);
+    }
+
+    @Override
     public void onCancel(DialogInterface dialog) {
         finish();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SnoozeDialog.REQUEST_DATE_TIME) {
+        if (requestCode == REQUEST_DATE_TIME) {
             if (resultCode == RESULT_OK && data != null) {
                 snoozeForTime(data.getLongExtra(TimePickerActivity.EXTRA_TIMESTAMP, 0L));
             } else {
                 finish();
             }
-            overridePendingTransition(0, 0);
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }

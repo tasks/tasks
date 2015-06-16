@@ -3,7 +3,6 @@ package org.tasks.reminders;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -13,7 +12,6 @@ import com.todoroo.astrid.reminders.SnoozeCallback;
 
 import org.joda.time.DateTime;
 import org.tasks.R;
-import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.preferences.Preferences;
@@ -27,8 +25,6 @@ import javax.inject.Inject;
 import static com.todoroo.andlib.utility.DateUtilities.getTimeString;
 
 public class SnoozeDialog extends InjectingDialogFragment {
-
-    public static final int REQUEST_DATE_TIME = 10101;
 
     @Inject Preferences preferences;
     @Inject @ForApplication Context context;
@@ -97,9 +93,7 @@ public class SnoozeDialog extends InjectingDialogFragment {
                                 break;
                             case 3:
                                 dialog.dismiss();
-                                getActivity().startActivityForResult(new Intent(context, DateAndTimePickerActivity.class) {{
-                                    putExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, new DateTime().plusMinutes(30).getMillis());
-                                }}, REQUEST_DATE_TIME);
+                                snoozeCallback.pickDateTime();
                                 break;
                         }
                     }

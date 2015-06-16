@@ -9,4 +9,6 @@ public interface SnoozeCallback {
 
     void snoozeForTime(long time);
 
+    void pickDateTime();
+
 }
