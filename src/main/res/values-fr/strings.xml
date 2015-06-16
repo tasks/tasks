@@ -120,7 +120,6 @@
 	<string name="MCA_missed_calls_pref_desc_enabled">Atrid vous avertira en cas d\'appels manqués et vous proposera de rappeler.</string>
 	<string name="MCA_task_title_name">Rappeler %1$s au %2$s</string>
 	<string name="MCA_task_title_no_name">Rappeler %s</string>
-	<string name="MCA_schedule_dialog_title">Rappeler %s dans...</string>
 	<string name="CRA_ignore">Ignorer</string>
 	<string name="CRA_title">Besoin d\'une liste de réunion ? </string>
 	<string name="CRA_ignore_title">Ignorer tous les événements du calendrier ? </string>

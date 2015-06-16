@@ -121,7 +121,6 @@
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks Vás upozorní na zmeškané hovory a připomene Vám, abyste zavolal zpět</string>
 	<string name="MCA_task_title_name">Zavolat %1$s zpět v %2$s</string>
 	<string name="MCA_task_title_no_name">Zavolat %s zpět</string>
-	<string name="MCA_schedule_dialog_title">Zavolat %s zpět...</string>
 	<string name="CRA_ignore">Ignorovat</string>
 	<string name="CRA_title">Potřebujete seznam schůze?</string>
 	<string name="CRA_ignore_title">Ignorovat všechny události v kalendáři?</string>

@@ -112,7 +112,6 @@
 	<string name="MCA_ignore_this">Ignora només aquesta trucada</string>
 	<string name="MCA_task_title_name">Retorna la trucada a en/na %1$s a %2$s</string>
 	<string name="MCA_task_title_no_name">Retorna la trucada a %s</string>
-	<string name="MCA_schedule_dialog_title">Retorna la trucada a %s en...</string>
 	<string name="EPr_title">Tasks: Paràmetres</string>
 	<string name="EPr_deactivated">desactivat</string>
 	<string name="EPr_appearance_header">Aparença</string>

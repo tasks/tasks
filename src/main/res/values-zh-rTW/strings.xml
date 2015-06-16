@@ -118,7 +118,6 @@
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks 會向您報告未接電話，還會提供回電的提醒</string>
 	<string name="MCA_task_title_name">請回電給 %1$s，電話是 %2$s</string>
 	<string name="MCA_task_title_no_name">請回電給 %s</string>
-	<string name="MCA_schedule_dialog_title">請給 %s 回個電話過去……</string>
 	<string name="CRA_ignore">忽略</string>
 	<string name="CRA_title">需要一個會議列表嗎？</string>
 	<string name="CRA_ignore_title">要忽略所有月曆上的事件嗎？</string>

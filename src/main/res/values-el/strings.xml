@@ -119,7 +119,6 @@
 	<string name="MCA_missed_calls_pref_desc_enabled">Η εφαρμογή θα σας ενημερώσει για αναπάντητες κλήσεις και θα σας υπενθυμίσει για να τις απαντήσετε μετά</string>
 	<string name="MCA_task_title_name">Ξανακαλέστε %1$s στίς %2$s</string>
 	<string name="MCA_task_title_no_name">Ξανακαλέστε %s</string>
-	<string name="MCA_schedule_dialog_title">Ξανακαλέστε %s σε...</string>
 	<string name="CRA_ignore">Αγνοήστε</string>
 	<string name="CRA_title">Χρειάζεστε λίστα για συνάντηση?</string>
 	<string name="CRA_ignore_title">Αγνόησή όλων των γεγονότων ημερολογίου;</string>

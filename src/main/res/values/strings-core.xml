@@ -271,9 +271,6 @@
   <!-- Missed call: task title no name (%s -> number)-->
   <string name="MCA_task_title_no_name">Call %s back</string>
   
-  <!-- Missed call: schedule dialog title (%s -> name or number)-->
-  <string name="MCA_schedule_dialog_title">Call %s back in...</string>
-  
   <!-- ======================================= Calendar reminder activity == -->
   
   <!-- Calendar remindeer ignore button -->

@@ -120,7 +120,6 @@
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks meddelar dig om missade samtal och ger dig möjligheten att få påminnelse om att ringa tillbaka</string>
 	<string name="MCA_task_title_name">Ring %1$s tillbaka kl %2$s</string>
 	<string name="MCA_task_title_no_name">Ring %s tillbaka</string>
-	<string name="MCA_schedule_dialog_title">Ring %s tillbaka om...</string>
 	<string name="CRA_ignore">Ignorera</string>
 	<string name="CRA_title">Behöver du en lista över möten?</string>
 	<string name="CRA_ignore_title">Ignorera alla händelser i kalender?</string>

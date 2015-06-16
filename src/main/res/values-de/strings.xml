@@ -122,7 +122,6 @@
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks wird Sie über versäumte Anrufe informieren und an Rückrufe erinnern</string>
 	<string name="MCA_task_title_name">%1$s unter %2$s zurückrufen</string>
 	<string name="MCA_task_title_no_name">%s zurückrufen</string>
-	<string name="MCA_schedule_dialog_title">%s zurückrufen in ...</string>
 	<string name="CRA_ignore">Ablehnen</string>
 	<string name="CRA_title">Willst Du eine Besprechungsliste erstellen?</string>
 	<string name="CRA_ignore_title">Alle Kalendertermine ablehnen?</string>

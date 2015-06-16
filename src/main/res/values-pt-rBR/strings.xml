@@ -119,7 +119,6 @@
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks notificará sobre chamadas perdidas e oferecerá para lhe lembrar para ligar de volta</string>
 	<string name="MCA_task_title_name">Retornar ligação de %1$s às %2$s</string>
 	<string name="MCA_task_title_no_name">Retornar ligação de %s</string>
-	<string name="MCA_schedule_dialog_title">Retornar ligação de %s em ...</string>
 	<string name="CRA_ignore">Ignorar</string>
 	<string name="CRA_title">Precisa de uma lista de reuniões?</string>
 	<string name="CRA_ignore_title">Ignorar todos os eventos do calendário?</string>

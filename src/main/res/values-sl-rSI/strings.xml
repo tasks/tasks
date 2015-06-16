@@ -123,7 +123,6 @@
 	<string name="MCA_missed_calls_pref_desc_enabled">Aplikacija Opravki vas bo obvestila o zgrešenih klicih in ponudila opomnik za vrnitev klicev</string>
 	<string name="MCA_task_title_name">%1$s pokliči nazaj ob %2$s</string>
 	<string name="MCA_task_title_no_name">Vrni klic %s </string>
-	<string name="MCA_schedule_dialog_title">Pokliči nazaj %s čez...</string>
 	<string name="CRA_ignore">Ignoriraj</string>
 	<string name="CRA_title">Potrebujete seznam sestankov?</string>
 	<string name="CRA_ignore_title">Naj ignoriram vse dogodke na koledarju?</string>

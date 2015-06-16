@@ -125,7 +125,6 @@
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks ще ви уведомява за пропуснати повиквания и ще предлага да напомни да се обадите</string>
 	<string name="MCA_task_title_name">Обади се на %1$s на %2$s</string>
 	<string name="MCA_task_title_no_name">Обади се на %s </string>
-	<string name="MCA_schedule_dialog_title">Обади се на %s в...</string>
 	<string name="CRA_ignore">Игнорирай</string>
 	<string name="CRA_title">Нуждаете се от списък за среща?</string>
 	<string name="CRA_ignore_title">Игнориране на всички събития в календара?</string>

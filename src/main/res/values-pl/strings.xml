@@ -120,7 +120,6 @@
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks będzie powiadamiał Cię o nieodebranych połączeniach i przypomni Ci o oddzwonieniu.</string>
 	<string name="MCA_task_title_name">Oddzwoń do %1$s o %2$s</string>
 	<string name="MCA_task_title_no_name">Oddzwoń do %s</string>
-	<string name="MCA_schedule_dialog_title">Oddzwoń do %s za...</string>
 	<string name="CRA_ignore">Ignoruj</string>
 	<string name="CRA_title">Czy potrzebujesz listy spotkań?</string>
 	<string name="CRA_ignore_title">Ignorować wszystke wydarzenia w kalendarzu?</string>

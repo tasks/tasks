@@ -109,7 +109,6 @@
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks ti notificherà per le chiamate perse e ti offrirà di ricordarti di richiamare</string>
 	<string name="MCA_task_title_name">Richiama %1$s al %2$s</string>
 	<string name="MCA_task_title_no_name">Richiama %s</string>
-	<string name="MCA_schedule_dialog_title">Richiama %s tra...</string>
 	<string name="CRA_ignore">Ignora</string>
 	<string name="CRA_title">Hai bisogno di una lista per le riunioni?</string>
 	<string name="CRA_ignore_title">Ignora tutti gli eventi del calendario?</string>

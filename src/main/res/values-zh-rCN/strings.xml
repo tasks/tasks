@@ -108,7 +108,6 @@
 	<string name="MCA_missed_calls_pref_desc_enabled">清单小助理会向您报告未接电话，还会提供回电的提醒</string>
 	<string name="MCA_task_title_name">请回电给 %1$s，电话是 %2$s</string>
 	<string name="MCA_task_title_no_name">请回电给 %s</string>
-	<string name="MCA_schedule_dialog_title">请给 %s 回个电话过去……</string>
 	<string name="CRA_ignore">忽略</string>
 	<string name="CRA_title">需要会议列表？</string>
 	<string name="CRA_ignore_title">忽略所有日历事件？</string>

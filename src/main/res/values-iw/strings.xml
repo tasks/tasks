@@ -119,7 +119,6 @@
 	<string name="MCA_missed_calls_pref_desc_enabled">אסטריד תודיע לך על שיחות שלא נענו, ותציע להזכיר לך להחזיר שיחה.</string>
 	<string name="MCA_task_title_name">\"החזר שיחה ל־%1$s  ב־%2$s\"</string>
 	<string name="MCA_task_title_no_name">החזר שיחה ל־%s</string>
-	<string name="MCA_schedule_dialog_title">החזר שיחה ל־%s ב...</string>
 	<string name="CRA_ignore">התעלם</string>
 	<string name="CRA_title">צריך רשימה לפגישה?</string>
 	<string name="CRA_ignore_title">להתעלם מכל אירועי היומן?</string>

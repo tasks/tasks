@@ -22,8 +22,6 @@ import android.widget.TextView;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.reminders.SnoozeCallback;
-import com.todoroo.astrid.reminders.SnoozeDialog;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 
@@ -31,6 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingFragmentActivity;
+import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.ResourceResolver;
@@ -52,7 +51,6 @@ public class MissedCallActivity extends InjectingFragmentActivity {
 
     // Prompt user to ignore all missed calls after this many ignore presses
     private static final int IGNORE_PROMPT_COUNT = 3;
-    private static final String FRAG_TAG_SNOOZE_DIALOG = "frag_tag_snooze_dialog";
 
     @Inject StartupService startupService;
     @Inject TaskService taskService;
@@ -180,34 +178,15 @@ public class MissedCallActivity extends InjectingFragmentActivity {
         callLaterButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String taskTitle;
-                String dialogTitle;
-                if (TextUtils.isEmpty(name)) {
-                    taskTitle = getString(R.string.MCA_task_title_no_name, number);
-                    dialogTitle = getString(R.string.MCA_schedule_dialog_title, number);
-                } else {
-                    taskTitle = getString(R.string.MCA_task_title_name, name, number);
-                    dialogTitle = getString(R.string.MCA_schedule_dialog_title, name);
-                }
-                SnoozeDialog snoozeDialog = new SnoozeDialog();
-                snoozeDialog.setTitle(dialogTitle);
-                snoozeDialog.setSnoozeCallback(new SnoozeCallback() {
-                    @Override
-                    public void snoozeForTime(long time) {
-                        Task newTask = new Task();
-                        newTask.setTitle(taskTitle);
-                        newTask.setDueDate(time);
-                        taskService.save(newTask);
-                        finish();
-                    }
-                });
-                snoozeDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        finish();
-                    }
-                });
-                snoozeDialog.show(getSupportFragmentManager(), FRAG_TAG_SNOOZE_DIALOG);
+                Task task = new Task() {{
+                    setTitle(TextUtils.isEmpty(name)
+                            ? getString(R.string.MCA_task_title_no_name, number)
+                            : getString(R.string.MCA_task_title_name, name, number));
+                }};
+                taskService.save(task);
+                TaskIntents
+                        .getEditTaskStack(MissedCallActivity.this, null, task.getId())
+                        .startActivities();
             }
         });
     }

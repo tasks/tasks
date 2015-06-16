@@ -123,7 +123,6 @@
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks буде повідомляти вас про пропущені дзвінки і запропонує вам передзвонити</string>
 	<string name="MCA_task_title_name">Перетелефонувати  %1$s о %2$s</string>
 	<string name="MCA_task_title_no_name">Перетелефонувати %s </string>
-	<string name="MCA_schedule_dialog_title">Перетелефонувати  %s через...</string>
 	<string name="CRA_ignore">Ігнорувати</string>
 	<string name="CRA_title">Потрібен список для зустрічі?</string>
 	<string name="CRA_ignore_title">Ігнорувати всі події календаря?</string>

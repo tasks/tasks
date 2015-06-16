@@ -121,7 +121,6 @@
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks zal gemiste oproepen laten zien en een herinnering weergeven om terug te bellen</string>
 	<string name="MCA_task_title_name">Bel %1$s terug op %2$s</string>
 	<string name="MCA_task_title_no_name">Bel %s terug</string>
-	<string name="MCA_schedule_dialog_title">Bel %s terug over...</string>
 	<string name="CRA_ignore">Negeren</string>
 	<string name="CRA_title">Heb je een bijeenkomst lijst nodig? </string>
 	<string name="CRA_ignore_title">Alle agenda gebeurtenissen negeren? </string>

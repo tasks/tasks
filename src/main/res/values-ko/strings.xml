@@ -126,7 +126,6 @@
 	<string name="MCA_missed_calls_pref_desc_enabled">Tasks는 부재중 전화 내역과 이를 회신할 수 있도록 알려줍니다</string>
 	<string name="MCA_task_title_name">%1$s 님에게 %2$s 에 다시 연락하세요</string>
 	<string name="MCA_task_title_no_name">%s 님에게 다시 연락하세요</string>
-	<string name="MCA_schedule_dialog_title">%s 님에게 다시 연락하세요...</string>
 	<string name="CRA_ignore">무시하기</string>
 	<string name="CRA_title">모임 목록이 필요하세요?</string>
 	<string name="CRA_ignore_title">모든 달력 이벤트를 무시할까요?</string>
