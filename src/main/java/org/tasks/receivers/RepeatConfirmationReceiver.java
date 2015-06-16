@@ -74,6 +74,7 @@ public class RepeatConfirmationReceiver extends InjectingBroadcastReceiver {
         String snackbarText = activity.getString(R.string.repeat_snackbar, task.getTitle(), dueDateString);
 
         Snackbar.make(view, snackbarText, Snackbar.LENGTH_LONG)
+                .setActionTextColor(activity.getResources().getColor(R.color.snackbar_undo))
                 .setAction(R.string.DLG_undo, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

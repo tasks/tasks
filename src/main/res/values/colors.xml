@@ -43,5 +43,7 @@
     <color name="importance_5">#ff505050</color>
     <color name="importance_6">#ff202020</color>
 
+    <color name="snackbar_undo">#f4b400</color>
+
 </resources>
 
