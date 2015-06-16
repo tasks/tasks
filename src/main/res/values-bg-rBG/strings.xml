@@ -289,6 +289,7 @@
 	<string name="search_market_ms_title">Не е намерен MS Office четец</string>
 	<string name="file_type_unhandled">Съжаляваме! Не е намерено приложение, което да работи с този тип файл.</string>
 	<string name="file_type_unhandled_title">Не е намерено приложение</string>
+	<string name="back">Назад</string>
 	<string name="file_browser_title">Избери файл</string>
 	<string name="dir_browser_title">Избери директория</string>
 	<string name="file_browser_err_permissions">Грешка в Разрешения! Моля, проверете дали не сте блокирани Tasks от достъп до SD картата.</string>
@@ -363,6 +364,7 @@
 	<string name="repeat_detail_duedate_until">Всеки %1$s\nдо %2$s</string>
 	<string name="repeat_forever">Повтаряй завинаги</string>
 	<string name="repeat_until">Повтаряй до %s</string>
+	<string name="repeat_snackbar">%1$s е насрочено за %2$s</string>
 	<string name="TEA_tags_label_long">Добави към списъци</string>
 	<string name="TEA_tag_hint">Нов списък</string>
 	<string name="tag_new_list">Нов списък</string>
@@ -447,6 +449,11 @@
 	<string name="type_a_location">Въведи местоположение</string>
 	<string name="when_overdue">След крайния срок</string>
 	<string name="when_due">При краен срок</string>
+	<string name="geofence_radius_title">Радиус (метри)</string>
+	<string name="geofence_responsiveness_title">Време за отговор (по-голяма стойност запазва батерията)</string>
+	<string name="geolocation_reminders">Напомняния за геолокация</string>
+	<string name="tags">Тагове</string>
+	<string name="filters">Филтри</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>изключено</item>
 		<item>на всеки 15 минути</item>

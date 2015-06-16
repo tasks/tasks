@@ -287,6 +287,7 @@
 	<string name="search_market_ms_title">Не найдена программа для просмотра файлов MS Office.</string>
 	<string name="file_type_unhandled">Извините! Не найдена программа для просмотра файлов этого типа.</string>
 	<string name="file_type_unhandled_title">Подходящая программа не найдена.</string>
+	<string name="back">Назад</string>
 	<string name="file_browser_title">Выбрать файл</string>
 	<string name="dir_browser_title">Выбрать папку</string>
 	<string name="file_browser_err_permissions">Ошибка доступа! Пожалуйста убедитесь, что Tasks имеет доступ к SD карте.</string>
@@ -423,7 +424,7 @@
 	<string name="synchronization">Синхронизация</string>
 	<string name="enabled">Показывать уведомления</string>
 	<string name="font_size">Размер шрифта</string>
-	<string name="customize_edit_screen">Порядок полей в задаче</string>
+	<string name="customize_edit_screen">Порядок полей в задаче...</string>
 	<string name="source_code">Исходный код</string>
 	<string name="translations">Язык интерфейса</string>
 	<string name="report_an_issue">Сообщить о проблеме</string>
@@ -445,6 +446,11 @@
 	<string name="type_a_location">Введите рвсположение</string>
 	<string name="when_overdue">Когда просрочено</string>
 	<string name="when_due">В срок</string>
+	<string name="geofence_radius_title">Радиус (в метрах)</string>
+	<string name="geofence_responsiveness_title">Период отслеживания (чем выше, тем меньше расход батареи)</string>
+	<string name="geolocation_reminders">Напоминания по местонахождению</string>
+	<string name="tags">Списки</string>
+	<string name="filters">Фильтры</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>отключить</item>
 		<item>каждые 15 минут</item>
