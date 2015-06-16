@@ -15,6 +15,7 @@ import com.todoroo.astrid.data.StoreObject;
 
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
+import org.tasks.preferences.ResourceResolver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +33,12 @@ public final class CustomFilterExposer {
     static final String TOKEN_FILTER_ID = "id"; //$NON-NLS-1$
 
     private final StoreObjectDao storeObjectDao;
+    private ResourceResolver resourceResolver;
     private final Context context;
 
     @Inject
-    public CustomFilterExposer(@ForApplication Context context, StoreObjectDao storeObjectDao) {
+    public CustomFilterExposer(ResourceResolver resourceResolver, @ForApplication Context context, StoreObjectDao storeObjectDao) {
+        this.resourceResolver = resourceResolver;
         this.context = context;
         this.storeObjectDao = storeObjectDao;
     }
@@ -43,11 +46,13 @@ public final class CustomFilterExposer {
     public List<Filter> getFilters() {
         final List<Filter> list = new ArrayList<>();
 
+        final int filter = resourceResolver.getResource(R.attr.ic_action_filter);
+
         storeObjectDao.getSavedFilters(new Callback<StoreObject>() {
             @Override
             public void apply(StoreObject savedFilter) {
                 Filter f = SavedFilter.load(savedFilter);
-
+                f.icon = filter;
                 Intent deleteIntent = new Intent(context, DeleteFilterActivity.class);
                 deleteIntent.putExtra(TOKEN_FILTER_ID, savedFilter.getId());
                 f.contextMenuLabels = new String[] { context.getString(R.string.BFE_Saved_delete) };
