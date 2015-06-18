@@ -3,7 +3,6 @@ package org.tasks.injection;
 import android.app.Activity;
 
 import com.todoroo.astrid.actfm.TagSettingsActivity;
-import com.todoroo.astrid.actfm.TagSettingsActivityTablet;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.activity.FilterShortcutActivity;
 import com.todoroo.astrid.activity.ShareLinkActivity;
@@ -54,7 +53,6 @@ import dagger.Provides;
                 TaskEditActivity.class,
                 ShareLinkActivity.class,
                 TagSettingsActivity.class,
-                TagSettingsActivityTablet.class,
                 CustomFilterActivity.class,
                 MissedCallActivity.class,
                 CalendarAlarmListCreator.class,

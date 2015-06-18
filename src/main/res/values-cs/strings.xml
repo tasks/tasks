@@ -64,7 +64,6 @@
 	<string name="SSD_save_always">Vždy</string>
 	<string name="FLA_search_filter">Hledanému \'%s\' odpovídá:</string>
 	<string name="FLA_new_filter">Nový Filtr</string>
-	<string name="FLA_new_list">Nový seznam</string>
 	<string name="FLA_no_filter_selected">Není vybrán žádný filtr! Vyberte prosím filtr nebo seznam.</string>
 	<string name="TEA_title_hint">Souhrn úkolu</string>
 	<string name="TEA_importance_label">Důležitost</string>

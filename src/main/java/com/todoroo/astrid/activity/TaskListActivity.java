@@ -25,13 +25,11 @@ import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
-import com.todoroo.astrid.actfm.TagSettingsActivityTablet;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
-import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.core.DeleteFilterActivity;
 import com.todoroo.astrid.core.SavedFilter;
 import com.todoroo.astrid.dao.TagDataDao;
@@ -261,18 +259,10 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
 
     private void newListFromLaunch() {
         Intent thisIntent = getIntent();
-        Intent newTagIntent = newTagDialog();
+        Intent newTagIntent = new Intent(this, TagSettingsActivity.class);
         newTagIntent.putExtra(TagSettingsActivity.TOKEN_AUTOPOPULATE_NAME, thisIntent.getStringExtra(TOKEN_CREATE_NEW_LIST_NAME));
         thisIntent.removeExtra(TOKEN_CREATE_NEW_LIST_NAME);
         startActivityForResult(newTagIntent, NavigationDrawerFragment.REQUEST_NEW_LIST);
-    }
-
-    /**
-     * Create new tag data
-     */
-    private Intent newTagDialog() {
-        Class<?> settingsComponent = preferences.useTabletLayout() ? TagSettingsActivityTablet.class : TagSettingsActivity.class;
-        return new Intent(this, settingsComponent);
     }
 
     @Override
@@ -445,16 +435,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 AlertDialog dialog = SortSelectionActivity.createDialog(
                         this, tlf.hasDraggableOption(), preferences, tlf, tlf.getSortFlags(), tlf.getSort());
                 dialog.show();
-                return true;
-            case R.id.menu_new_filter:
-                Intent intent = new Intent(this, CustomFilterActivity.class);
-                startActivityForResult(intent, TaskListFragment.ACTIVITY_REQUEST_NEW_FILTER);
-                return true;
-            case R.id.menu_new_list:
-                startActivityForResult(newTagDialog(), NavigationDrawerFragment.REQUEST_NEW_LIST);
-                if (!preferences.useTabletLayout()) {
-                    AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_left_in, R.anim.slide_left_out);
-                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

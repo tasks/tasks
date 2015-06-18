@@ -64,7 +64,6 @@
 	<string name="SSD_save_always">Vždy</string>
 	<string name="FLA_search_filter">Zodpovedá \'%s\'</string>
 	<string name="FLA_new_filter">Nový filter</string>
-	<string name="FLA_new_list">Nový zoznam</string>
 	<string name="FLA_no_filter_selected">Nieje vybraný filter! Prosím, zvoľ si filter, alebo zoznam.</string>
 	<string name="TEA_title_hint">Názov úlohy</string>
 	<string name="TEA_importance_label">Priorita</string>

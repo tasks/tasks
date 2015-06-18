@@ -61,7 +61,6 @@
 	<string name="SSD_save_always">Sempre</string>
 	<string name="FLA_search_filter">Confrontando \'%s\'</string>
 	<string name="FLA_new_filter">Nuovo Filtro</string>
-	<string name="FLA_new_list">Nuova lista</string>
 	<string name="FLA_no_filter_selected">Filtro non selezionato! Perfavore seleziona un filtro o una lista.</string>
 	<string name="TEA_importance_label">Priorità</string>
 	<string name="TEA_note_label">Descrizione</string>

@@ -64,7 +64,6 @@
 	<string name="SSD_save_always">Altijd</string>
 	<string name="FLA_search_filter">Bevat \'%s\'</string>
 	<string name="FLA_new_filter">Nieuw Filter</string>
-	<string name="FLA_new_list">Nieuwe lijst</string>
 	<string name="FLA_no_filter_selected">Geen filter geselecteerd! Selecteer een filter of lijst.</string>
 	<string name="TEA_title_hint">Taak naam</string>
 	<string name="TEA_importance_label">Prioriteit</string>

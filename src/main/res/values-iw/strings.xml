@@ -64,7 +64,6 @@
 	<string name="SSD_save_always">תמיד</string>
 	<string name="FLA_search_filter">התאים ל\'%s\'</string>
 	<string name="FLA_new_filter">מַסְנֵן חדש</string>
-	<string name="FLA_new_list">רשימה חדשה</string>
 	<string name="FLA_no_filter_selected">לא נבחר מַסְנֵן! אנא בחר מַסְנֵן או רשימה.</string>
 	<string name="TEA_title_hint">שם המשימה</string>
 	<string name="TEA_importance_label">עדיפות</string>

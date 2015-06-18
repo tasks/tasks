@@ -18,11 +18,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.core.CustomFilterActivity;
 
 import org.tasks.R;
 import org.tasks.activities.DonationActivity;
@@ -33,6 +35,7 @@ import org.tasks.filters.NavigationDrawerSubheader;
 import org.tasks.filters.NavigationDrawerSeparator;
 import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.HelpAndFeedbackActivity;
+import org.tasks.ui.NavigationDrawerFragment;
 
 import java.util.List;
 
@@ -226,9 +229,11 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     }
 
     public void addSubMenu(final int titleResource, List<Filter> filters) {
-        if (filters.size() > 0) {
-            add(new NavigationDrawerSubheader(activity.getResources().getString(titleResource)));
+        if (filters.isEmpty()) {
+            return;
         }
+
+        add(new NavigationDrawerSubheader(activity.getResources().getString(titleResource)));
 
         for (FilterListItem filterListItem : filters) {
             add(filterListItem);
@@ -247,6 +252,20 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
         addSubMenu(R.string.gtasks_GPr_header, filterProvider.getGoogleTaskFilters());
 
         if (navigationDrawer) {
+            add(new NavigationDrawerSeparator());
+
+            add(new NavigationDrawerAction(
+                    activity.getResources().getString(R.string.new_tag),
+                    getResource(activity, R.attr.ic_action_new_tag),
+                    new Intent(activity, TagSettingsActivity.class),
+                    NavigationDrawerFragment.REQUEST_NEW_LIST));
+
+            add(new NavigationDrawerAction(
+                    activity.getResources().getString(R.string.FLA_new_filter),
+                    getResource(activity, R.attr.ic_action_new_tag),
+                    new Intent(activity, CustomFilterActivity.class),
+                    TaskListFragment.ACTIVITY_REQUEST_NEW_FILTER));
+
             add(new NavigationDrawerSeparator());
 
             add(new NavigationDrawerAction(

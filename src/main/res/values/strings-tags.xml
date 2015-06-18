@@ -13,6 +13,8 @@
   
   <!-- slide 25a: Dialog: new list -->
   <string name="tag_new_list">New List</string>
+
+  <string name="new_tag">New tag</string>
   
   <!-- Dialog: task created without title -->
   <string name="tag_no_title_error">Please enter a name for this list first!</string>

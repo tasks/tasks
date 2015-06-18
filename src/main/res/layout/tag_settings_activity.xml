@@ -1,60 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/settings"
-    android:background="?attr/asEditBackground"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_weight="100"
-    android:padding="10dip"
-    android:paddingTop="0dip" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/asContentBackground"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <include layout="@layout/toolbar" />
+
+    <include layout="@layout/toolbar_separator"/>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/settings"
+        android:background="?attr/asEditBackground"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:layout_height="0dp"
+        android:layout_weight="100"
+        android:padding="10dip"
+        android:paddingTop="0dip" >
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="5dip"
-            android:paddingTop="5dip" >
+            android:orientation="vertical" >
 
-            <!-- picture -->
-
-            <TextView
-                android:id="@+id/tag_label"
-                style="@style/TextAppearance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:text="@string/actfm_TVA_tag_label" />
-
-            <LinearLayout
-                android:background="?attr/asEditRowBackground"
+            <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tag_label"
-                android:layout_marginTop="14dip"
-                android:padding="10dip"
-                android:paddingBottom="14dip" >
+                android:paddingBottom="5dip"
+                android:paddingTop="5dip" >
 
-                <EditText
-                    android:id="@+id/tag_name"
-                    android:textColor="@android:color/black"
+                <!-- picture -->
+
+                <TextView
+                    android:id="@+id/tag_label"
+                    style="@style/TextAppearance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/actfm_TVA_tag_label" />
+
+                <LinearLayout
+                    android:background="?attr/asEditRowBackground"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:background="#00000000"
-                    android:hint="@string/actfm_TVA_tag_name_hint"
-                    android:singleLine="true"
-                    android:inputType="textCapSentences"
-                    android:imeOptions="flagNoExtractUi"
-                    android:textSize="15sp" />
-            </LinearLayout>
-        </RelativeLayout>
-    </LinearLayout>
-</ScrollView>
+                    android:layout_below="@id/tag_label"
+                    android:layout_marginTop="14dip"
+                    android:padding="10dip"
+                    android:paddingBottom="14dip" >
+
+                    <EditText
+                        android:id="@+id/tag_name"
+                        android:textColor="@android:color/black"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:hint="@string/actfm_TVA_tag_name_hint"
+                        android:singleLine="true"
+                        android:inputType="textCapSentences"
+                        android:imeOptions="flagNoExtractUi"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

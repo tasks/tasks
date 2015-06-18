@@ -23,12 +23,4 @@
         android:title="@string/gtasks_GTA_clear_completed"
         android:visible="false"
         tasks:showAsAction="never" />
-    <item
-        android:id="@+id/menu_new_list"
-        android:title="@string/FLA_new_list"
-        tasks:showAsAction="never" />
-    <item
-        android:id="@+id/menu_new_filter"
-        android:title="@string/FLA_new_filter"
-        tasks:showAsAction="never" />
 </menu>

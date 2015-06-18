@@ -62,7 +62,6 @@
 	<string name="SSD_save_always">Πάντα</string>
 	<string name="FLA_search_filter">Ταιριάζουν \'%s\'</string>
 	<string name="FLA_new_filter">Νέο φίλτρο</string>
-	<string name="FLA_new_list">Νέα λίστα</string>
 	<string name="FLA_no_filter_selected">Δεν επιλέχθηκε φίλτρο! Παρακαλώ επιλέξτε ενα φίλτρο η μια λίστα</string>
 	<string name="TEA_title_hint">Όνομα καθήκοντος</string>
 	<string name="TEA_importance_label">Προτεραιότητα</string>

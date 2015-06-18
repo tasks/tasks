@@ -62,7 +62,6 @@
 	<string name="SSD_save_always">Sempre</string>
 	<string name="FLA_search_filter">Coincidència \'%s\'</string>
 	<string name="FLA_new_filter">Filtre nou</string>
-	<string name="FLA_new_list">Llista nova</string>
 	<string name="FLA_no_filter_selected">No heu seleccionat cap filtre. Seleccioneu un filtre o una llista.</string>
 	<string name="TEA_title_hint">Resum de la tasca</string>
 	<string name="TEA_importance_label">Importància</string>

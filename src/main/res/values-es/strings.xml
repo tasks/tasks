@@ -64,7 +64,6 @@
 	<string name="SSD_save_always">Siempre</string>
 	<string name="FLA_search_filter">Coincidencias con \'%s\'</string>
 	<string name="FLA_new_filter">Nuevo filtro</string>
-	<string name="FLA_new_list">Nueva lista</string>
 	<string name="FLA_no_filter_selected">No hay filtro seleccionado! Por favor seleccione un filtro o lista.</string>
 	<string name="TEA_title_hint">Nombre de la tarea</string>
 	<string name="TEA_importance_label">Prioridad</string>

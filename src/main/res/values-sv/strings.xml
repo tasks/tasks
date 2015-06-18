@@ -64,7 +64,6 @@
 	<string name="SSD_save_always">Alltid</string>
 	<string name="FLA_search_filter">Matchar \'%s\'</string>
 	<string name="FLA_new_filter">Nytt filter</string>
-	<string name="FLA_new_list">Ny lista</string>
 	<string name="FLA_no_filter_selected">Inget filter valt! Välj ett filter eller en lista.</string>
 	<string name="TEA_title_hint">Uppgiftsnamn</string>
 	<string name="TEA_importance_label">Prioritet</string>

@@ -64,7 +64,6 @@
 	<string name="SSD_save_always">Toujours</string>
 	<string name="FLA_search_filter">Correspondant \'%s\'</string>
 	<string name="FLA_new_filter">Nouveau filtre</string>
-	<string name="FLA_new_list">Nouvelle liste</string>
 	<string name="FLA_no_filter_selected">Aucun filtre sélectionné ! Veuillez sélectionner un filtre ou une liste.</string>
 	<string name="TEA_title_hint">Nom de la tâche</string>
 	<string name="TEA_importance_label">Priorité</string>

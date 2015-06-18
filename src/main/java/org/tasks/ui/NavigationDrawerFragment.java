@@ -18,6 +18,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.todoroo.astrid.actfm.TagSettingsActivity;
+import com.todoroo.astrid.activity.AstridActivity;
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -110,6 +113,19 @@ public class NavigationDrawerFragment extends InjectingFragment {
                 getActivity().finish();
                 getActivity().startActivity(getActivity().getIntent());
             }
+        } else if ((requestCode == NavigationDrawerFragment.REQUEST_NEW_LIST ||
+                requestCode == TaskListFragment.ACTIVITY_REQUEST_NEW_FILTER) &&
+                resultCode == Activity.RESULT_OK) {
+            if(data == null) {
+                return;
+            }
+
+            Filter newList = data.getParcelableExtra(TagSettingsActivity.TOKEN_NEW_FILTER);
+            if (newList != null) {
+                getActivity().getIntent().putExtra(TaskListActivity.TOKEN_SWITCH_TO_FILTER, newList);
+                clear();
+            }
+
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }

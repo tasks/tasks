@@ -133,9 +133,6 @@
   <!-- Menu: new filter -->
   <string name="FLA_new_filter">New Filter</string>
   
-  <!-- slide 10e: Button: new list -->
-  <string name="FLA_new_list">New List</string>
-  
   <!-- Alert when creating a shortcut without selecting a filter -->
   <string name="FLA_no_filter_selected">No filter selected! Please select a filter or list.</string>
   

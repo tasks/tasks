@@ -63,7 +63,6 @@
 	<string name="SSD_save_always">總是</string>
 	<string name="FLA_search_filter">比對 \'%s\'</string>
 	<string name="FLA_new_filter">新建過濾器</string>
-	<string name="FLA_new_list">新建列表</string>
 	<string name="FLA_no_filter_selected">還沒有選定過濾器呢！請選擇一個過濾器或列表唄。</string>
 	<string name="TEA_title_hint">工作名稱</string>
 	<string name="TEA_importance_label">優先權</string>

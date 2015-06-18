@@ -57,7 +57,6 @@
 	<string name="SSD_save_always">Altid</string>
 	<string name="FLA_search_filter">Matcher \'%s\'</string>
 	<string name="FLA_new_filter">Nyt filter</string>
-	<string name="FLA_new_list">Ny liste</string>
 	<string name="FLA_no_filter_selected">Der er ikke valgt et filter! Vælg venligst et filter eller en liste.</string>
 	<string name="TEA_title_hint">Opgave Overskrift</string>
 	<string name="TEA_importance_label">Vigtighed</string>

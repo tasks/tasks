@@ -67,7 +67,6 @@
 	<string name="SSD_save_always">Завжди</string>
 	<string name="FLA_search_filter">Відповідності до %s</string>
 	<string name="FLA_new_filter">Новий фільтр</string>
-	<string name="FLA_new_list">Новий список</string>
 	<string name="FLA_no_filter_selected">Не вибраний жодний фільтр! Будь ласка, виберіть фільтр або список.</string>
 	<string name="TEA_title_hint">Ім\'я завдання</string>
 	<string name="TEA_importance_label">Пріоритет</string>

@@ -64,7 +64,6 @@
 	<string name="SSD_save_always">Zawsze</string>
 	<string name="FLA_search_filter">Pasujących do: %s</string>
 	<string name="FLA_new_filter">Nowy filtr</string>
-	<string name="FLA_new_list">Nowa lista</string>
 	<string name="FLA_no_filter_selected">Nie wybraon filtra! Wybierz filtr lub listę.</string>
 	<string name="TEA_title_hint">Tytuł zadania</string>
 	<string name="TEA_importance_label">Priorytet</string>

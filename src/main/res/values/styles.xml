@@ -67,6 +67,7 @@
         <item name="ic_action_label">@drawable/ic_label_black_24dp</item>
         <item name="ic_action_filter">@drawable/ic_filter_list_black_24dp</item>
         <item name="ic_action_cloud">@drawable/ic_cloud_queue_black_24dp</item>
+        <item name="ic_action_new_tag">@drawable/ic_add_black_24dp</item>
     </style>
 
     <style name="Tasks.Dark">
@@ -110,6 +111,7 @@
         <item name="ic_action_label">@drawable/ic_label_white_24dp</item>
         <item name="ic_action_filter">@drawable/ic_filter_list_white_24dp</item>
         <item name="ic_action_cloud">@drawable/ic_cloud_queue_white_24dp</item>
+        <item name="ic_action_new_tag">@drawable/ic_add_white_24dp</item>
     </style>
 
     <style name="ActionBar.TitleText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">

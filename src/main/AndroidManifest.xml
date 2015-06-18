@@ -375,11 +375,6 @@
             android:name="com.todoroo.astrid.actfm.TagSettingsActivity"
             android:windowSoftInputMode="stateHidden" />
 
-        <activity
-            android:name="com.todoroo.astrid.actfm.TagSettingsActivityTablet"
-            android:windowSoftInputMode="stateHidden"
-            android:theme="@style/Tasks.Dialog" />
-
         <!-- gtasks -->
         <activity
             android:name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity"

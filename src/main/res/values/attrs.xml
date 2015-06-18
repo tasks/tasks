@@ -57,6 +57,7 @@
     <attr name="toolbarSeparatorHeight" format="dimension" />
     <attr name="ic_action_filter" format="reference"/>
     <attr name="ic_action_cloud" format="reference"/>
+    <attr name="ic_action_new_tag" format="reference"/>
 
     <declare-styleable name="DateAndTimePicker">
         <attr name="shortcutLabels" format="reference" />
