@@ -9,8 +9,6 @@
 	<string name="actfm_picture_gallery">갤러리에서 가져오기</string>
 	<string name="actfm_picture_clear">사진 제거하기</string>
 	<string name="TVA_add_comment">댓글 쓰기...</string>
-	<string name="actfm_TVA_tag_label">목록</string>
-	<string name="actfm_TVA_tag_name_hint">목록 이름을 입력하세요</string>
 	<string name="actfm_GAA_title">사용하려는 구글 계정을 선택해 주십시오:</string>
 	<string name="backup_BPr_header">백업</string>
 	<string name="backup_BAc_import">일정 가져오기</string>
@@ -364,18 +362,8 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	<string name="repeat_forever">영원히 반복하기</string>
 	<string name="repeat_until">%s 까지 반복</string>
 	<string name="TEA_tags_label_long">목록에 추가하기</string>
-	<string name="TEA_tag_hint">새 목록</string>
-	<string name="tag_new_list">새 목록</string>
 	<string name="tag_no_title_error">이 목록의 이름을 먼저 입력하세요!</string>
 	<string name="tag_FEx_untagged">미분류 일정</string>
-	<string name="tag_cm_rename">목록 이름 바꾸기</string>
-	<string name="tag_cm_delete">목록 지우기</string>
-	<string name="DLG_delete_this_tag_question">이 목록을 삭제할까요: %s? (일정은 삭제 안됨)</string>
-	<string name="DLG_rename_this_tag_header">목록 %s 의 이름을 바꾸기:</string>
-	<string name="TEA_no_tags_modified">변경 사항이 없습니다</string>
-	<string name="TEA_tags_deleted">삭제한 목록 %1$s 은 %2$d 일정에 영향을 미칩니다</string>
-	<string name="TEA_tags_renamed">%3$d 일정의 %1$s 의 이름을 %2$s 로 변경했습니다</string>
-	<string name="tag_settings_title">목록 설정</string>
 	<string name="TPl_notification">%s 동안 타이머 작동함!</string>
 	<string name="TFE_workingOn">기한이 정해진 일정</string>
 	<string name="TEA_timer_controls">타이머</string>

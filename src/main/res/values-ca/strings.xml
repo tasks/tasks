@@ -9,8 +9,6 @@
 	<string name="actfm_picture_gallery">Tria una imatge de la galeria</string>
 	<string name="actfm_picture_clear">Neteja la selecció d\'imatge</string>
 	<string name="TVA_add_comment">Afegiu un comentari...</string>
-	<string name="actfm_TVA_tag_label">Llista</string>
-	<string name="actfm_TVA_tag_name_hint">Escriviu el nom de la llista</string>
 	<string name="actfm_GAA_title">Trieu el compte de Google que vulgueu utilitzar:</string>
 	<string name="backup_BPr_header">Còpies de seguretat</string>
 	<string name="backup_BAc_import">Importa tasques</string>
@@ -201,12 +199,7 @@
 	<string name="repeat_detail_duedate_until">Cada %1$s\nfins %2$s</string>
 	<string name="repeat_forever">Repeteix indefinidament</string>
 	<string name="repeat_until">Repeteix fins %s</string>
-	<string name="TEA_tag_hint">Llista nova</string>
-	<string name="tag_new_list">Llista nova</string>
 	<string name="tag_FEx_untagged">A cap llista</string>
-	<string name="tag_cm_delete">Suprimeix la llista</string>
-	<string name="DLG_delete_this_tag_question">Voleu suprimir aquesta llista: %s? (no se suprimirà cap tasca.)</string>
-	<string name="tag_settings_title">Paràmetres:</string>
 	<string name="TPl_notification">Temporitzadors actius per %s!</string>
 	<string name="TFE_workingOn">Tasques sent cronometrades</string>
 	<string name="TEA_timer_comment_started">inici d\'aquesta tasca:</string>

@@ -9,8 +9,6 @@
 	<string name="actfm_picture_gallery">Завантажити з Галереї</string>
 	<string name="actfm_picture_clear">Очистити</string>
 	<string name="TVA_add_comment">Додати коментар</string>
-	<string name="actfm_TVA_tag_label">Список</string>
-	<string name="actfm_TVA_tag_name_hint">Введіть назву списку</string>
 	<string name="actfm_GAA_title">Виберіть обліковий запис Google для використання:</string>
 	<string name="backup_BPr_header">Резервні копії</string>
 	<string name="backup_BAc_import">Імпортувати завдання</string>
@@ -346,16 +344,8 @@
 	<string name="repeat_forever">Повторювати завжди</string>
 	<string name="repeat_until">Повторювати до %s</string>
 	<string name="TEA_tags_label_long">Додати до списку</string>
-	<string name="TEA_tag_hint">Новий список</string>
-	<string name="tag_new_list">Новий список</string>
 	<string name="tag_no_title_error">Введіть назву списку спочатку!</string>
 	<string name="tag_FEx_untagged">Без категорії</string>
-	<string name="tag_cm_rename">Переіменувати список</string>
-	<string name="tag_cm_delete">Видалити список</string>
-	<string name="DLG_delete_this_tag_question">Видалити цей список: %s? (Завдання не будуть видалені.)</string>
-	<string name="DLG_rename_this_tag_header">Переіменувати список %s на :</string>
-	<string name="TEA_no_tags_modified">Змін не зроблено</string>
-	<string name="TEA_tags_deleted">Список %1$s був видалений, разом з %2$d завданнями</string>
 	<string name="TPl_notification">Для %s діють таймери!</string>
 	<string name="TEA_timer_controls">Таймер</string>
 	<string name="voice_create_prompt">Горовіть щоб створити завдання</string>

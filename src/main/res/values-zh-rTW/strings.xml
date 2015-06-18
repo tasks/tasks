@@ -9,8 +9,6 @@
 	<string name="actfm_picture_gallery">從圖庫選擇</string>
 	<string name="actfm_picture_clear">清除圖片</string>
 	<string name="TVA_add_comment">添加評論</string>
-	<string name="actfm_TVA_tag_label">列表名稱：</string>
-	<string name="actfm_TVA_tag_name_hint">添加列表名稱</string>
 	<string name="actfm_GAA_title">選擇您要使用的Google帳戶：</string>
 	<string name="backup_BPr_header">備份</string>
 	<string name="backup_BAc_import">匯入工作</string>
@@ -337,18 +335,8 @@
 	<string name="repeat_forever">永遠重複</string>
 	<string name="repeat_until">重複到 %s</string>
 	<string name="TEA_tags_label_long">加入至列表</string>
-	<string name="TEA_tag_hint">新建列表</string>
-	<string name="tag_new_list">新建列表</string>
 	<string name="tag_no_title_error">請先為此列表鍵入一個名稱！</string>
 	<string name="tag_FEx_untagged">未分類</string>
-	<string name="tag_cm_rename">重命名列表</string>
-	<string name="tag_cm_delete">刪除列表</string>
-	<string name="DLG_delete_this_tag_question">刪除列表%s 嗎？(不會刪除任務工作。)</string>
-	<string name="DLG_rename_this_tag_header">重命名列表 %s 為：</string>
-	<string name="TEA_no_tags_modified">沒有變更</string>
-	<string name="TEA_tags_deleted">列表%1$s 已刪除，影響了%2$d 項任務工作</string>
-	<string name="TEA_tags_renamed">%3$d 項任務工作由%1$s 重命名為%2$s。</string>
-	<string name="tag_settings_title">設置：</string>
 	<string name="TPl_notification">秒錶啟動了 %s！</string>
 	<string name="TFE_workingOn">任務工作已開始計時</string>
 	<string name="TEA_timer_comment_started">已經開始了這項任務工作：</string>

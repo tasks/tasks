@@ -167,6 +167,8 @@
 
   <!-- Menu: Save -->    
   <string name="TEA_menu_save">Save Changes</string>
+
+  <string name="save">Save</string>
   
   <!-- Menu: Don't Save -->
   <string name="TEA_menu_discard_changes">Discard changes</string>

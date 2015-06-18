@@ -168,11 +168,6 @@
 	</string-array>
 	<string name="repeat_detail_byday">$I på $D</string>
 	<string name="repeat_detail_duedate">Hver %s</string>
-	<string name="TEA_tag_hint">Ny liste</string>
-	<string name="tag_new_list">Ny liste</string>
-	<string name="tag_cm_delete">Slett liste</string>
-	<string name="TEA_no_tags_modified">Ingen endringer gjort</string>
-	<string name="tag_settings_title">Settings:</string>
 	<string name="TPl_notification">Tidtaker aktiv for %s!</string>
 	<string name="TFE_workingOn">Oppgaver med tidtaker</string>
 	<string name="voice_create_prompt">Snakk for å skape en oppgave</string>

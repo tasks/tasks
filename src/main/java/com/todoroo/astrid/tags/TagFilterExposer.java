@@ -5,11 +5,9 @@
  */
 package com.todoroo.astrid.tags;
 
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
@@ -80,15 +78,6 @@ public class TagFilterExposer {
                 title, tagTemplate,
                 contentValues);
 
-        filter.contextMenuLabels = new String[] {
-            context.getString(R.string.tag_cm_rename),
-            context.getString(R.string.tag_cm_delete)
-        };
-        filter.contextMenuIntents = new Intent[] {
-                newTagIntent(context, RenameTagActivity.class, tag, tag.getUuid()),
-                newTagIntent(context, DeleteTagActivity.class, tag, tag.getUuid())
-        };
-
         filter.customTaskList = new ComponentName(context, TagViewFragment.class);
         Bundle extras = new Bundle();
         extras.putString(TagViewFragment.EXTRA_TAG_NAME, tag.getName());
@@ -101,13 +90,6 @@ public class TagFilterExposer {
     /** Create a filter from tag data object */
     public static FilterWithCustomIntent filterFromTagData(Context context, TagData tagData) {
         return filterFromTag(context, tagData, TaskCriteria.activeAndVisible());
-    }
-
-    private static Intent newTagIntent(Context context, Class<? extends Activity> activity, TagData tag, String uuid) {
-        Intent ret = new Intent(context, activity);
-        ret.putExtra(TAG, tag.getName());
-        ret.putExtra(TagViewFragment.EXTRA_TAG_UUID, uuid);
-        return ret;
     }
 
     private List<Filter> filterFromTags(List<TagData> tags) {

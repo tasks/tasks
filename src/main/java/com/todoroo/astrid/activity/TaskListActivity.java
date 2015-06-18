@@ -60,6 +60,8 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject VoiceInputAssistant voiceInputAssistant;
 
+    private static final int REQUEST_EDIT_TAG = 11543;
+
     private final RepeatConfirmationReceiver repeatConfirmationReceiver = new RepeatConfirmationReceiver(this);
     private NavigationDrawerFragment navigationDrawer;
 
@@ -154,6 +156,8 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         if (tlf instanceof GtasksListFragment) {
             menu.findItem(R.id.menu_clear_completed).setVisible(true);
             menu.findItem(R.id.menu_sort).setVisible(false);
+        } else if(tlf instanceof TagViewFragment) {
+            menu.findItem(R.id.menu_tag_settings).setVisible(true);
         }
         menu.findItem(R.id.menu_voice_add).setVisible(voiceInputAvailable(this));
         final MenuItem item = menu.findItem(R.id.menu_search);
@@ -350,45 +354,47 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 }
                 tlf.refresh();
             }
+        } else if (requestCode == REQUEST_EDIT_TAG) {
+            if (resultCode == RESULT_OK) {
+                String action = data.getAction();
+                String uuid = data.getStringExtra(TagViewFragment.EXTRA_TAG_UUID);
+                TaskListFragment tlf = getTaskListFragment();
+                if (AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED.equals(action)) {
+                    if (tlf != null) {
+                        TagData td = tlf.getActiveTagData();
+                        if (td != null && td.getUuid().equals(uuid)) {
+                            td = tagDataDao.fetch(uuid, TagData.PROPERTIES);
+                            if (td != null) {
+                                Filter filter = TagFilterExposer.filterFromTagData(this, td);
+                                getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, filter);
+                            }
+                        } else {
+                            tlf.refresh();
+                        }
+                    }
+                } else if (AstridApiConstants.BROADCAST_EVENT_TAG_DELETED.equals(action)) {
+                    if (tlf != null) {
+                        TagData tagData = tlf.getActiveTagData();
+                        String activeUuid = RemoteModel.NO_UUID;
+                        if (tagData != null) {
+                            activeUuid = tagData.getUuid();
+                        }
+                        if (activeUuid.equals(uuid)) {
+                            getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, BuiltInFilterExposer.getMyTasksFilter(getResources())); // Handle in onPostResume()
+                            navigationDrawer.clear(); // Should auto refresh
+                        } else {
+                            tlf.refresh();
+                        }
+                    }
+                }
+
+                navigationDrawer.refresh();
+            }
         } else if (requestCode == NavigationDrawerFragment.REQUEST_CUSTOM_INTENT && resultCode == RESULT_OK && data != null) {
-            // Tag renamed or deleted
             String action = data.getAction();
-            String uuid = data.getStringExtra(TagViewFragment.EXTRA_TAG_UUID);
             TaskListFragment tlf = getTaskListFragment();
 
-            if (AstridApiConstants.BROADCAST_EVENT_TAG_DELETED.equals(action)) {
-                if (tlf != null) {
-                    TagData tagData = tlf.getActiveTagData();
-                    String activeUuid = RemoteModel.NO_UUID;
-                    if (tagData != null) {
-                        activeUuid = tagData.getUuid();
-                    }
-
-                    if (activeUuid.equals(uuid)) {
-                        getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, BuiltInFilterExposer.getMyTasksFilter(getResources())); // Handle in onPostResume()
-                        navigationDrawer.clear(); // Should auto refresh
-                    } else {
-                        tlf.refresh();
-                    }
-                }
-
-                navigationDrawer.refresh();
-            } else if (AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED.equals(action)) {
-                if (tlf != null) {
-                    TagData td = tlf.getActiveTagData();
-                    if (td != null && td.getUuid().equals(uuid)) {
-                        td = tagDataDao.fetch(uuid, TagData.PROPERTIES);
-                        if (td != null) {
-                            Filter filter = TagFilterExposer.filterFromTagData(this, td);
-                            getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, filter);
-                        }
-                    } else {
-                        tlf.refresh();
-                    }
-                }
-
-                navigationDrawer.refresh();
-            } else if (AstridApiConstants.BROADCAST_EVENT_FILTER_DELETED.equals(action)) {
+            if (AstridApiConstants.BROADCAST_EVENT_FILTER_DELETED.equals(action)) {
                 StoreObject storeObject = (StoreObject) data.getExtras().get(DeleteFilterActivity.TOKEN_STORE_OBJECT);
                 Filter filter = SavedFilter.load(storeObject);
                 if (tlf.getFilter().equals(filter)) {
@@ -435,6 +441,11 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 AlertDialog dialog = SortSelectionActivity.createDialog(
                         this, tlf.hasDraggableOption(), preferences, tlf, tlf.getSortFlags(), tlf.getSort());
                 dialog.show();
+                return true;
+            case R.id.menu_tag_settings:
+                startActivityForResult(new Intent(this, TagSettingsActivity.class) {{
+                    putExtra(TagViewFragment.EXTRA_TAG_DATA, getTaskListFragment().getActiveTagData());
+                }}, REQUEST_EDIT_TAG);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -115,6 +115,10 @@
     <string name="date_shortcut_tomorrow_afternoon">Tomorrow afternoon</string>
     <string name="date_shortcut_must_come_before">%1$s must come before %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s must come after %2$s</string>
+    <string name="discard_changes">Discard changes?</string>
+    <string name="discard">Discard</string>
+    <string name="tag_settings">Tag Settings</string>
+    <string name="delete">Delete</string>
 
     <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->

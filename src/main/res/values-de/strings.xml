@@ -9,8 +9,6 @@
 	<string name="actfm_picture_gallery">Aus Galerie wählen</string>
 	<string name="actfm_picture_clear">Bild entfernen</string>
 	<string name="TVA_add_comment">Kommentar hinzufügen …</string>
-	<string name="actfm_TVA_tag_label">Liste</string>
-	<string name="actfm_TVA_tag_name_hint">Vergebe einen Listennamen</string>
 	<string name="actfm_GAA_title">Wählen Sie den zu verwendenden Google-Account aus:</string>
 	<string name="backup_BAc_import">Aufgaben importieren</string>
 	<string name="backup_BAc_export">Aufgaben exportieren</string>
@@ -358,18 +356,8 @@
 	<string name="repeat_forever">Endlos wiederholen</string>
 	<string name="repeat_until">Wiederhole bis %s</string>
 	<string name="TEA_tags_label_long">Zur Liste hinzufügen</string>
-	<string name="TEA_tag_hint">Wähle eine Liste</string>
-	<string name="tag_new_list">Neue Liste</string>
 	<string name="tag_no_title_error">Bitte gib zuerst einen Namen für die Liste ein!</string>
 	<string name="tag_FEx_untagged">Nicht kategorisiert</string>
-	<string name="tag_cm_rename">Liste umbenennen</string>
-	<string name="tag_cm_delete">Liste löschen</string>
-	<string name="DLG_delete_this_tag_question">Diese Liste löschen: %s ? (Es werden keine Aufgaben werden gelöscht.)</string>
-	<string name="DLG_rename_this_tag_header">Die Liste %s umbnennen nach:</string>
-	<string name="TEA_no_tags_modified">Es wurden keine Änderungen vorgenommen</string>
-	<string name="TEA_tags_deleted">Löschen der Liste %1$s beeinflusste %2$d Aufgaben</string>
-	<string name="TEA_tags_renamed">%1$s umbennant nach %2$s für %3$d Aufgaben</string>
-	<string name="tag_settings_title">Listeneinstellungen</string>
 	<string name="TPl_notification">Timer ist aktiv für %s!</string>
 	<string name="TFE_workingOn">Zeitlich festgelegte Aufgaben</string>
 	<string name="TEA_timer_comment_started">Aufgabe begonnen:</string>

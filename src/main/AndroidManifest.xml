@@ -350,12 +350,6 @@
         <activity
             android:name="com.todoroo.astrid.core.DeleteFilterActivity"
             android:theme="@style/Tasks.Dialog" />
-        <activity
-            android:name="com.todoroo.astrid.tags.DeleteTagActivity"
-            android:theme="@style/Tasks.Dialog" />
-        <activity
-            android:name="com.todoroo.astrid.tags.RenameTagActivity"
-            android:theme="@style/Tasks.Dialog" />
 
         <!-- alarms -->
         <receiver android:name="com.todoroo.astrid.alarms.AlarmTaskRepeatListener">

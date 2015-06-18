@@ -9,8 +9,6 @@
 	<string name="actfm_picture_gallery">Välj från galleri</string>
 	<string name="actfm_picture_clear">Rensa bild</string>
 	<string name="TVA_add_comment">Lägg till en kommentar...</string>
-	<string name="actfm_TVA_tag_label">Lista</string>
-	<string name="actfm_TVA_tag_name_hint">Ange listnamn</string>
 	<string name="actfm_GAA_title">Välj vilket Googlekonto du vill använda:</string>
 	<string name="backup_BPr_header">Säkerhetskopior</string>
 	<string name="backup_BAc_import">Importera uppgifter</string>
@@ -348,18 +346,8 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="repeat_forever">Repetera oändligt</string>
 	<string name="repeat_until">Repetera till %s</string>
 	<string name="TEA_tags_label_long">Lägg till på listor</string>
-	<string name="TEA_tag_hint">Ny lista</string>
-	<string name="tag_new_list">Ny lista</string>
 	<string name="tag_no_title_error">Ange först ett namn på listan!</string>
 	<string name="tag_FEx_untagged">Ingen kategori</string>
-	<string name="tag_cm_rename">Byt namn på listan</string>
-	<string name="tag_cm_delete">Radera listan</string>
-	<string name="DLG_delete_this_tag_question">Radera listan %s? (Inga uppgifter raderas.)</string>
-	<string name="DLG_rename_this_tag_header">Byt namn på listan %s till:</string>
-	<string name="TEA_no_tags_modified">Inga ändringar gjordes</string>
-	<string name="TEA_tags_deleted">Listan %1$s raderad. Det påverkar %2$d uppgifter</string>
-	<string name="TEA_tags_renamed">Bytte namn på %1$s till %2$s för %3$d uppgifter</string>
-	<string name="tag_settings_title">Settings:</string>
 	<string name="TPl_notification">Tidtagarur aktivt för %s!</string>
 	<string name="TFE_workingOn">Uppgifter med tidtagning</string>
 	<string name="TEA_timer_comment_started">påbörjade uppgiften:</string>

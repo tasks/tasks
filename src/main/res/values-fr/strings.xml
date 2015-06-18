@@ -9,8 +9,6 @@
 	<string name="actfm_picture_gallery">Choisir depuis la galerie</string>
 	<string name="actfm_picture_clear">Supprimer l\'image</string>
 	<string name="TVA_add_comment">Ajouter un commentaire</string>
-	<string name="actfm_TVA_tag_label">Nom de la liste :</string>
-	<string name="actfm_TVA_tag_name_hint">Entrez un nom de liste</string>
 	<string name="actfm_GAA_title">Sélectionnez le compte Google que vous voulez utiliser :</string>
 	<string name="backup_BPr_header">Sauvegardes</string>
 	<string name="backup_BAc_import">Importer des tâches</string>
@@ -355,18 +353,8 @@
 	<string name="repeat_forever">Répéter indéfiniment</string>
 	<string name="repeat_until">Répéter jusqu\'à %s</string>
 	<string name="TEA_tags_label_long">Ajouter à la liste</string>
-	<string name="TEA_tag_hint">Nouvelle liste</string>
-	<string name="tag_new_list">Nouvelle liste</string>
 	<string name="tag_no_title_error">Veuillez d\'abord entrer un nom pour cette liste.</string>
 	<string name="tag_FEx_untagged">Non classé</string>
-	<string name="tag_cm_rename">Renommer la liste</string>
-	<string name="tag_cm_delete">Supprimer la liste</string>
-	<string name="DLG_delete_this_tag_question">Supprimer cette liste : %s ? (Aucune tâche ne sera supprimée.)</string>
-	<string name="DLG_rename_this_tag_header">Renommer la liste %s en:</string>
-	<string name="TEA_no_tags_modified">Aucun changement effectué</string>
-	<string name="TEA_tags_deleted">La liste %1$s a été supprimée, affectant %2$d tâches</string>
-	<string name="TEA_tags_renamed">%1$s renommé en %2$s pour %3$d tâches</string>
-	<string name="tag_settings_title">Settings:</string>
 	<string name="TPl_notification">Chronomètre actif pour %s !</string>
 	<string name="TFE_workingOn">Tâches chronométrées</string>
 	<string name="TEA_timer_comment_started">Cette tâche est commencée :</string>

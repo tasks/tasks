@@ -19,7 +19,7 @@
     android:layout_height="wrap_content">
     
     <AutoCompleteTextView android:id="@+id/text1"
-        android:hint="@string/TEA_tag_hint"
+        android:hint="@string/new_tag"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"

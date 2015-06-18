@@ -9,8 +9,6 @@
 	<string name="actfm_picture_gallery">Kies uit de Galerij</string>
 	<string name="actfm_picture_clear">Verwijder Foto</string>
 	<string name="TVA_add_comment">Voeg een opmerking toe</string>
-	<string name="actfm_TVA_tag_label">Lijst</string>
-	<string name="actfm_TVA_tag_name_hint">Geef de lijst een naam</string>
 	<string name="actfm_GAA_title">Selecteer de Google account die je wil gebruiken:</string>
 	<string name="backup_BPr_header">Back-ups</string>
 	<string name="backup_BAc_import">Taken importeren</string>
@@ -352,18 +350,8 @@
 	<string name="repeat_forever">Altijd herhalen</string>
 	<string name="repeat_until">Herhalen tot %s</string>
 	<string name="TEA_tags_label_long">Voeg toe aan lijsten</string>
-	<string name="TEA_tag_hint">Nieuwe lijst</string>
-	<string name="tag_new_list">Nieuwe lijst</string>
 	<string name="tag_no_title_error">Voer a.u.b. eerst een naam in voor deze lijst!</string>
 	<string name="tag_FEx_untagged">Niet gecategoriseerd</string>
-	<string name="tag_cm_rename">Lijst hernoemen</string>
-	<string name="tag_cm_delete">Lijst verwijderen</string>
-	<string name="DLG_delete_this_tag_question">De lijst %s verwijderen? (Taken blijven behouden.)</string>
-	<string name="DLG_rename_this_tag_header">De lijst %s hernoemen naar:</string>
-	<string name="TEA_no_tags_modified">Niets gewijzigd</string>
-	<string name="TEA_tags_deleted">De lijst %1$s is verwijderd, van invloed op %2$d taken</string>
-	<string name="TEA_tags_renamed">Taak %1$s hernoemd naar %2$s voor %3$d taken</string>
-	<string name="tag_settings_title">Lijst instellingen</string>
 	<string name="TPl_notification">Timers ingeschakeld voor %s!</string>
 	<string name="TFE_workingOn">Taken met timer</string>
 	<string name="TEA_timer_comment_started">taak begonnen:</string>

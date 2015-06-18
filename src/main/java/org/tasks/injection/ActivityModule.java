@@ -19,8 +19,6 @@ import com.todoroo.astrid.gcal.CalendarReminderActivity;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.reminders.ReminderPreferences;
-import com.todoroo.astrid.tags.DeleteTagActivity;
-import com.todoroo.astrid.tags.RenameTagActivity;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
 
 import org.tasks.activities.ClearAllDataActivity;
@@ -58,8 +56,6 @@ import dagger.Provides;
                 CalendarAlarmListCreator.class,
                 DeleteFilterActivity.class,
                 CalendarReminderActivity.class,
-                DeleteTagActivity.class,
-                RenameTagActivity.class,
                 VoiceCommandActivity.class,
                 GtasksLoginActivity.class,
                 WidgetConfigActivity.class,

@@ -23,4 +23,9 @@
         android:title="@string/gtasks_GTA_clear_completed"
         android:visible="false"
         tasks:showAsAction="never" />
+    <item
+        android:id="@+id/menu_tag_settings"
+        android:title="@string/tag_settings"
+        android:visible="false"
+        tasks:showAsAction="never" />
 </menu>

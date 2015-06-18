@@ -9,8 +9,6 @@
 	<string name="actfm_picture_gallery">Izberi iz Galerije</string>
 	<string name="actfm_picture_clear">Zbriši fotografijo</string>
 	<string name="TVA_add_comment">Dodaj komentar...</string>
-	<string name="actfm_TVA_tag_label">Seznam</string>
-	<string name="actfm_TVA_tag_name_hint">Vnesi ime seznama</string>
 	<string name="actfm_GAA_title">Izberite želeni Google račun:</string>
 	<string name="backup_BPr_header">Varnostne kopije</string>
 	<string name="backup_BAc_import">Uvozi opravke</string>
@@ -354,18 +352,8 @@
 	<string name="repeat_forever">Ponavljaj do preklica</string>
 	<string name="repeat_until">Ponavljaj do %s</string>
 	<string name="TEA_tags_label_long">Dodaj na sezname</string>
-	<string name="TEA_tag_hint">Nov seznam</string>
-	<string name="tag_new_list">Nov seznam</string>
 	<string name="tag_no_title_error">Prosimo, vnesite naziv tega seznama najprej!</string>
 	<string name="tag_FEx_untagged">Nerazvrščen</string>
-	<string name="tag_cm_rename">Preimenuj seznam</string>
-	<string name="tag_cm_delete">Zbriši seznam</string>
-	<string name="DLG_delete_this_tag_question">Zbrišem ta seznam:%s? (Posamezni opravki ne bodo zbrisani.)</string>
-	<string name="DLG_rename_this_tag_header">Preimenuj seznam %s v:</string>
-	<string name="TEA_no_tags_modified">Brez narejenih sprememb</string>
-	<string name="TEA_tags_deleted">Seznam %1$s je bil zbrisan, kar je vplivalo na naslednje število opravkov %2$d </string>
-	<string name="TEA_tags_renamed">Preimenoval %1$s v %2$s za%3$d opravkov</string>
-	<string name="tag_settings_title">Nastavitve seznamov</string>
 	<string name="TPl_notification">Merilniki časa aktivni za %s!</string>
 	<string name="TFE_workingOn">Opravki katerim se meri čas</string>
 	<string name="TEA_timer_controls">Merilnik časa</string>

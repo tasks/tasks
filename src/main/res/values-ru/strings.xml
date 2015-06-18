@@ -9,8 +9,6 @@
 	<string name="actfm_picture_gallery">Взять из галереи</string>
 	<string name="actfm_picture_clear">Убрать изображение</string>
 	<string name="TVA_add_comment">Добавить комментарий...</string>
-	<string name="actfm_TVA_tag_label">Список</string>
-	<string name="actfm_TVA_tag_name_hint">Введите имя списка</string>
 	<string name="actfm_GAA_title">Выберите аккаунт Google, который вы хотите использовать:</string>
 	<string name="backup_BPr_header">Резервные копии</string>
 	<string name="backup_BAc_import">Импортировать задачи</string>
@@ -362,18 +360,8 @@
 	<string name="repeat_forever">Повторять всегда</string>
 	<string name="repeat_until">Повторять до %s</string>
 	<string name="TEA_tags_label_long">Добавить в список</string>
-	<string name="TEA_tag_hint">Новый список</string>
-	<string name="tag_new_list">Новый список</string>
 	<string name="tag_no_title_error">Пожалуйста, для начала введите название списка!</string>
 	<string name="tag_FEx_untagged">Без категории</string>
-	<string name="tag_cm_rename">Переименовать список</string>
-	<string name="tag_cm_delete">Удалить список</string>
-	<string name="DLG_delete_this_tag_question">Удалить этот список: %s? (Задачи не будут удалены.)</string>
-	<string name="DLG_rename_this_tag_header">Переименовать список %s в:</string>
-	<string name="TEA_no_tags_modified">Без изменений</string>
-	<string name="TEA_tags_deleted">Список %1$s был удален, затронуло %2$d задач</string>
-	<string name="TEA_tags_renamed">Переименовано %1$s в %2$s для %3$d задач</string>
-	<string name="tag_settings_title">Настройки</string>
 	<string name="TPl_notification">Для %s действуют таймеры!</string>
 	<string name="TFE_workingOn">Задачи для замера времени</string>
 	<string name="TEA_timer_controls">Таймер</string>

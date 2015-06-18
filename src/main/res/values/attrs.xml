@@ -21,6 +21,7 @@
     <attr name="asDueDateCompletedColor" format="color" />
     <attr name="asSeparatorBackground" format="color" />
     <attr name="asToolbarSeparator" format="color" />
+    <attr name="asSeparator" format="color" />
     <attr name="asListDividerColor" format="color" />
     <attr name="asThemeTextColor" format="color" />
     <attr name="asEditTextBackground" format="reference" />
@@ -55,9 +56,11 @@
     <attr name="importance_background_selected" format="reference" />
     <attr name="fab_icon" format="reference" />
     <attr name="toolbarSeparatorHeight" format="dimension" />
+    <attr name="separatorHeight" format="dimension" />
     <attr name="ic_action_filter" format="reference"/>
     <attr name="ic_action_cloud" format="reference"/>
     <attr name="ic_action_new_tag" format="reference"/>
+    <attr name="ic_action_discard" format="reference" />
 
     <declare-styleable name="DateAndTimePicker">
         <attr name="shortcutLabels" format="reference" />

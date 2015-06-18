@@ -17,7 +17,7 @@
 
         <item name="ic_action_add">@drawable/ic_action_add_light</item>
         <item name="ic_action_new_attachment">@drawable/ic_action_attachment_2</item>
-        <item name="ic_action_save">@drawable/ic_action_save</item>
+        <item name="ic_action_save">@drawable/ic_save_white_24dp</item>
         <item name="ic_action_cancel">@drawable/ic_action_cancel</item>
         <item name="ic_action_camera">@drawable/ic_action_camera</item>
         <item name="ic_action_mic">@drawable/ic_action_mic</item>
@@ -28,7 +28,9 @@
         <item name="drawer_background_selected">@color/drawer_background_selected</item>
         <item name="asDueDateCompletedColor">#ff777777</item>
         <item name="asToolbarSeparator">@android:color/transparent</item>
+        <item name="asSeparator">?attr/asSeparatorBackground</item>
         <item name="toolbarSeparatorHeight">0dp</item>
+        <item name="separatorHeight">1px</item>
         <item name="asSeparatorBackground">#888888</item>
 
         <item name="android:actionModeBackground">@color/primary</item>
@@ -68,6 +70,7 @@
         <item name="ic_action_filter">@drawable/ic_filter_list_black_24dp</item>
         <item name="ic_action_cloud">@drawable/ic_cloud_queue_black_24dp</item>
         <item name="ic_action_new_tag">@drawable/ic_add_black_24dp</item>
+        <item name="ic_action_discard">@drawable/ic_close_white_24dp</item>
     </style>
 
     <style name="Tasks.Dark">
@@ -79,6 +82,7 @@
         <item name="drawer_background_selected">@color/drawer_background_selected_dark</item>
         <item name="toolbarSeparatorHeight">1px</item>
         <item name="asToolbarSeparator">@android:color/white</item>
+        <item name="asSeparator">?attr/asToolbarSeparator</item>
         <item name="android:actionModeBackground">@android:color/black</item>
         <item name="asContentBackground">@android:color/black</item>
         <item name="asEditBackground">@android:color/black</item>

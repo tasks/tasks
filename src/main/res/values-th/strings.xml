@@ -107,7 +107,6 @@
 		<item>In Two Weeks</item>
 		<item>Next Month</item>
 	</string-array>
-	<string name="tag_settings_title">Settings:</string>
 	<string name="today">วันนี้</string>
 	<string name="tomorrow">พรุ่งนี้</string>
 	<string name="yesterday">เมื่อวาน</string>

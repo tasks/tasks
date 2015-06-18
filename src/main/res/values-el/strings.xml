@@ -8,8 +8,6 @@
 	<string name="actfm_picture_camera">Τράβα φωτογραφία</string>
 	<string name="actfm_picture_clear">Καθαρή εικόνα</string>
 	<string name="TVA_add_comment">Προσθήκη σχόλιου...</string>
-	<string name="actfm_TVA_tag_label">Λίστα</string>
-	<string name="actfm_TVA_tag_name_hint">Εισάγετε ένα όνομα για την λίστα</string>
 	<string name="actfm_GAA_title">Επιλέξτε τον λογαριασμό Google που θέλετε να χρησιμοποιήσετε:</string>
 	<string name="backup_BPr_header">Αντίγραφα ασφαλείας</string>
 	<string name="backup_BAc_import">Εισαγωγή εργασιών</string>
@@ -348,18 +346,8 @@
 	<string name="repeat_forever">Επανάληψη επ\'αορίστου</string>
 	<string name="repeat_until">Επανάληψη μέχρι %s</string>
 	<string name="TEA_tags_label_long">Προσθήκη στις λίστες</string>
-	<string name="TEA_tag_hint">Νέα λίστα</string>
-	<string name="tag_new_list">Νέα λίστα</string>
 	<string name="tag_no_title_error">Παρακαλώ εισάγετε ενα όνομα για την λίστα πρώτα!</string>
 	<string name="tag_FEx_untagged">Μη κατηγοριοποιημένο</string>
-	<string name="tag_cm_rename">Μετονομασία λίστας</string>
-	<string name="tag_cm_delete">Διαγραφή λίστας</string>
-	<string name="DLG_delete_this_tag_question">Διαγραφή της λίστας: %s; (δεν θα διαγραφούν οι εργασίες.)</string>
-	<string name="DLG_rename_this_tag_header">Μετονομασία της λίστας %s σε:</string>
-	<string name="TEA_no_tags_modified">Δεν έγιναν αλλαγές</string>
-	<string name="TEA_tags_deleted">Η λίστα %1$s διαγράφτηκε, επηρεάζοντας %2$d εργασίες</string>
-	<string name="TEA_tags_renamed">Μετονομασία %1$s σε %2$s για %3$d εργασίες</string>
-	<string name="tag_settings_title">Ρυθμίσεις λίστας</string>
 	<string name="TPl_notification">Χρονοδιακόπτες ενεργοί για %s!</string>
 	<string name="TFE_workingOn">Καθήκοντα με χρονικό όριο</string>
 	<string name="TEA_timer_controls">Χρονοδιακόπτης</string>

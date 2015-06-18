@@ -9,7 +9,6 @@
 	<string name="actfm_picture_gallery">Vælg fra galleri</string>
 	<string name="actfm_picture_clear">Ryd markering</string>
 	<string name="TVA_add_comment">Tilføj en kommentar</string>
-	<string name="actfm_TVA_tag_label">Listenavn</string>
 	<string name="actfm_GAA_title">Vælg den Google-konto du vil anvende:</string>
 	<string name="backup_BPr_header">Backup</string>
 	<string name="backup_BAc_import">Importér opgaver</string>
@@ -187,16 +186,7 @@
 	<string name="repeat_detail_duedate_until">Hver %1$s\nindtil %2$s</string>
 	<string name="repeat_forever">Gentag uendeligt</string>
 	<string name="repeat_until">Gentag indtil %s</string>
-	<string name="TEA_tag_hint">Ny liste</string>
-	<string name="tag_new_list">Ny liste</string>
 	<string name="tag_no_title_error">Start venligst med at give denne liste et navn!</string>
-	<string name="tag_cm_rename">Omdøb liste</string>
-	<string name="tag_cm_delete">Slet liste</string>
-	<string name="DLG_rename_this_tag_header">Omdøb listen %s til:</string>
-	<string name="TEA_no_tags_modified">Der er ikke foretaget ændringer</string>
-	<string name="TEA_tags_deleted">Listen %1$s blev slettet, påvirker %2$d opgaver</string>
-	<string name="TEA_tags_renamed">Omdøbte %1$s med %2$s for %3$d opgaver</string>
-	<string name="tag_settings_title">Indstillinger for lister</string>
 	<string name="delete_task">Slet opgave</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 opgave</item>

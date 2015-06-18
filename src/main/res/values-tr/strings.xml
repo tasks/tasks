@@ -9,8 +9,6 @@
 	<string name="actfm_picture_gallery">Galeriden Seç</string>
 	<string name="actfm_picture_clear">Resmi sil</string>
 	<string name="TVA_add_comment">Yorum Gir</string>
-	<string name="actfm_TVA_tag_label">Liste İsmi:</string>
-	<string name="actfm_TVA_tag_name_hint">Liste adı girin</string>
 	<string name="actfm_GAA_title">Kullanmak istediğiniz Google hesabını seçin:</string>
 	<string name="backup_BPr_header">Yedekler</string>
 	<string name="backup_BAc_import">Görevleri İçe Aktar</string>
@@ -324,17 +322,7 @@
 	<string name="repeat_detail_duedate_until">Her %1$s\n%2$s \'e kadar</string>
 	<string name="repeat_forever">Sürekli yinele</string>
 	<string name="repeat_until">%s\'e kadar yinele</string>
-	<string name="TEA_tag_hint">Yeni liste</string>
-	<string name="tag_new_list">Yeni Liste</string>
 	<string name="tag_no_title_error">Lütfen bu liste için isim girin!</string>
-	<string name="tag_cm_rename">Listeyi yeniden adlandır</string>
-	<string name="tag_cm_delete">Listeyi Sil</string>
-	<string name="DLG_delete_this_tag_question">Bu Listeyi Sil: %s? (Hiçbir görev silinmeyecektir.)</string>
-	<string name="DLG_rename_this_tag_header">%s listesini şu isimle adlandır:</string>
-	<string name="TEA_no_tags_modified">Hiç değişiklik yapılmadı</string>
-	<string name="TEA_tags_deleted">%1$s listesi, %2$d görevlerini etkileyecek şekilde silindi</string>
-	<string name="TEA_tags_renamed">%1$s yeniden %3$d görevleri için %2$s olarak isimlendirildi.</string>
-	<string name="tag_settings_title">Liste Ayarları:</string>
 	<string name="TPl_notification">%s için kronometre etkin!</string>
 	<string name="TFE_workingOn">Zaman Ölçümü Olan Görevler</string>
 	<string name="TEA_timer_comment_started">başlanan görev:</string>

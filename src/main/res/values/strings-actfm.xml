@@ -17,12 +17,10 @@
   <!-- Tag View Activity: Add Comment hint -->    
   <string name="TVA_add_comment">Add a comment...</string>
 
-  <!-- Tag Settings: tag name label -->
-  <string name="actfm_TVA_tag_label">List</string>
+  <string name="name">Name</string>
 
-  <!-- slide 25d: Tag Settings: list name hint -->
-  <string name="actfm_TVA_tag_name_hint">Enter list name</string>
-      
+  <string name="enter_tag_name">Enter tag name</string>
+
   <!-- ========================================= sharing login activity == -->
 
   <!-- share login: Google Auth title -->

@@ -9,8 +9,6 @@
 	<string name="actfm_picture_gallery">Escolher da galeria</string>
 	<string name="actfm_picture_clear">Limpar imagem</string>
 	<string name="TVA_add_comment">Adicionar um comentário...</string>
-	<string name="actfm_TVA_tag_label">Lista</string>
-	<string name="actfm_TVA_tag_name_hint">Escreva o nome da lista</string>
 	<string name="actfm_GAA_title">Escolha a conta Google a utilizar:</string>
 	<string name="backup_BAc_import">Importar tarefas</string>
 	<string name="backup_BAc_export">Exportar tarefas</string>
@@ -362,18 +360,8 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="repeat_forever">Repetir eternamente</string>
 	<string name="repeat_until">Repetir até %s</string>
 	<string name="TEA_tags_label_long">Adicionar às listas</string>
-	<string name="TEA_tag_hint">Nova lista</string>
-	<string name="tag_new_list">Nova lista</string>
 	<string name="tag_no_title_error">Introduza o nome para esta lista!</string>
 	<string name="tag_FEx_untagged">Sem categoria</string>
-	<string name="tag_cm_rename">Mudar nome da lista</string>
-	<string name="tag_cm_delete">Eliminar lista</string>
-	<string name="DLG_delete_this_tag_question">Eliminar a lista: %s? (Tarefas não serão eliminadas)</string>
-	<string name="DLG_rename_this_tag_header">Mudar nome da lista %s para:</string>
-	<string name="TEA_no_tags_modified">Nenhuma alteração efetuada</string>
-	<string name="TEA_tags_deleted">A lista %1$s foi eliminada e afeta %2$d tarefas</string>
-	<string name="TEA_tags_renamed">%1$s renomeado para %2$s em %3$d tarefas</string>
-	<string name="tag_settings_title">Definições de lista</string>
 	<string name="TPl_notification">Temporizador ativo para %s!</string>
 	<string name="TFE_workingOn">Tarefas monitorizadas</string>
 	<string name="TEA_timer_controls">Temporizador</string>
