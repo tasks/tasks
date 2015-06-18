@@ -31,7 +31,6 @@
 	<string name="DLG_delete_this_item_question">Usunąć element: %s?</string>
 	<string name="DLG_upgrading">Uaktualniam Twoje zadania...</string>
 	<string name="DLG_hour_minutes">Czas (godziny : minuty)</string>
-	<string name="DLG_loading">Ładowanie...</string>
 	<string name="DLG_undo">Cofnij</string>
 	<string name="WID_dateButtonUnset">Kliknij, aby ustawić</string>
 	<string name="TLA_no_items">Brak zadań!</string>

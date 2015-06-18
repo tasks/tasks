@@ -30,7 +30,6 @@
 	<string name="DLG_delete_this_item_question">Dieses Element löschen: %s?</string>
 	<string name="DLG_upgrading">Ihre Aufgaben werden aktualisiert …</string>
 	<string name="DLG_hour_minutes">Zeit (Stunden : Minuten)</string>
-	<string name="DLG_loading">Ladevorgang…</string>
 	<string name="DLG_undo">Rückgängig</string>
 	<string name="WID_dateButtonUnset">Klicken zur Bestätigung</string>
 	<string name="TLA_no_items">Sie haben keine Aufgaben! \n Möchten Sie welche hinzufügen?</string>

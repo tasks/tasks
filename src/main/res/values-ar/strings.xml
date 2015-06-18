@@ -23,7 +23,6 @@
 	<string name="DLG_delete_this_task_question">حذف هذه المهمه؟</string>
 	<string name="DLG_upgrading">ترقية المهام...</string>
 	<string name="DLG_hour_minutes">الوقت (ساعة : دقيقة)</string>
-	<string name="DLG_loading">تحميل...</string>
 	<string name="DLG_undo">تراجع</string>
 	<string name="WID_dateButtonUnset">اضغط لتعيين</string>
 	<string name="TLA_no_items">لا يوجد لديك مهام! \n هل تريد أن تضيف شيئا؟</string>

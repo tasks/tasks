@@ -28,10 +28,7 @@
   
   <!-- Title for dialog selecting a time (hours and minutes) -->
   <string name="DLG_hour_minutes">Time (hours : minutes)</string>
-  
-  <!-- Dialog - loading -->
-  <string name="DLG_loading">Loading...</string>
-  
+
   <!-- Dialog - dismiss -->
   
   <string name="DLG_undo">Undo</string>

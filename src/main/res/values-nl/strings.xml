@@ -31,7 +31,6 @@
 	<string name="DLG_delete_this_item_question">Dit item verwijderen: %s?</string>
 	<string name="DLG_upgrading">Taken bijwerken...</string>
 	<string name="DLG_hour_minutes">Tijd (uren : minuten)</string>
-	<string name="DLG_loading">Laden…</string>
 	<string name="DLG_undo">Ongedaan Maken</string>
 	<string name="WID_dateButtonUnset">Klikken om in te stellen</string>
 	<string name="TLA_no_items">U heeft geen taken! \n Taak toevoegen?</string>

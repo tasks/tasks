@@ -26,7 +26,6 @@
 	<string name="DLG_delete_this_item_question">Slett følgende: %s?</string>
 	<string name="DLG_upgrading">Oppgraderer oppgavene dine...</string>
 	<string name="DLG_hour_minutes">Tid (timer : minutter)</string>
-	<string name="DLG_loading">Laster ...</string>
 	<string name="WID_dateButtonUnset">Klikk for å sette</string>
 	<string name="TLA_menu_sort">Sorter &amp; Skjult</string>
 	<string name="TLA_menu_settings">Innstillinger</string>

@@ -34,7 +34,6 @@
 	<string name="DLG_delete_this_item_question">Видалити цей пункт: %s?</string>
 	<string name="DLG_upgrading">Оновлення ваших завдань...</string>
 	<string name="DLG_hour_minutes">Час (години : хвилини)</string>
-	<string name="DLG_loading">Завантаження...</string>
 	<string name="DLG_undo">Відмінити</string>
 	<string name="WID_dateButtonUnset">Натисніть для установки</string>
 	<string name="TLA_no_items">У Вас немає завдань! \n Бажаєте щось додати?</string>

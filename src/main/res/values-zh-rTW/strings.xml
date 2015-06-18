@@ -31,7 +31,6 @@
 	<string name="DLG_delete_this_item_question">刪除此項目: %s?</string>
 	<string name="DLG_upgrading">升級您的工作...</string>
 	<string name="DLG_hour_minutes">時間 (小時:分鐘)</string>
-	<string name="DLG_loading">載入中...</string>
 	<string name="DLG_undo">撤消</string>
 	<string name="WID_dateButtonUnset">點選</string>
 	<string name="TLA_no_items">無工作!</string>

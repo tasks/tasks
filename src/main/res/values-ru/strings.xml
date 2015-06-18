@@ -31,7 +31,6 @@
 	<string name="DLG_delete_this_item_question">Удалить этот элемент: %s?</string>
 	<string name="DLG_upgrading">Обновление ваших задач…</string>
 	<string name="DLG_hour_minutes">Время (час : мин)</string>
-	<string name="DLG_loading">Загрузка...</string>
 	<string name="DLG_undo">Отмена</string>
 	<string name="WID_dateButtonUnset">Нажмите для установки</string>
 	<string name="TLA_no_items">Нет задач! \n Добавить?</string>

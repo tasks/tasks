@@ -11,7 +11,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -78,8 +77,6 @@ public class GtasksListFragment extends SubtasksListFragment {
     }
 
     private void refreshData(final boolean manual) {
-        ((TextView) emptyView.findViewById(R.id.empty_text)).setText(R.string.DLG_loading);
-
         syncService.synchronizeList(list, new IndeterminateProgressBarSyncResultCallback(gtasksPreferenceService, getActivity(), new Runnable() {
             @Override
             public void run() {
@@ -88,7 +85,6 @@ public class GtasksListFragment extends SubtasksListFragment {
                 } else {
                     refresh();
                 }
-                ((TextView)emptyView.findViewById(R.id.empty_text)).setText(R.string.TLA_no_items);
             }
         }));
     }
