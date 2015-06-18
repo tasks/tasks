@@ -13,11 +13,6 @@ import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.TagData;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingActivity;
 import org.tasks.preferences.ActivityPreferences;
@@ -28,8 +23,6 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 public class CalendarAlarmListCreator extends InjectingActivity {
-
-    private static final Logger log = LoggerFactory.getLogger(CalendarAlarmListCreator.class);
 
     public static final String TOKEN_LIST_NAME = "listName"; //$NON-NLS-1$
 
@@ -138,7 +131,6 @@ public class CalendarAlarmListCreator extends InjectingActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CalendarAlarmListCreator.this, TaskListActivity.class);
                 intent.putExtra(TaskListActivity.TOKEN_CREATE_NEW_LIST_NAME, tagName);
-                intent.putExtra(TaskListActivity.TOKEN_CREATE_NEW_LIST_MEMBERS, buildMembersArray().toString());
                 intent.putExtra(TaskListActivity.TOKEN_CREATE_NEW_LIST, true);
                 startActivity(intent);
                 dismissWithAnimation();
@@ -164,20 +156,6 @@ public class CalendarAlarmListCreator extends InjectingActivity {
             }
 
         }
-    }
-
-    private JSONArray buildMembersArray() {
-        JSONArray array = new JSONArray();
-        for (String email : emails) {
-            JSONObject member = new JSONObject();
-            try {
-                member.put("email", email); //$NON-NLS-1$
-                array.put(member);
-            } catch (JSONException e) {
-                log.error(e.getMessage(), e);
-            }
-        }
-        return array;
     }
 
     private String getDisplayName(int index) {

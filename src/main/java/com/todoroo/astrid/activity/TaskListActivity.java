@@ -69,7 +69,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
 
     /** For indicating the new list screen should be launched at fragment setup time */
     public static final String TOKEN_CREATE_NEW_LIST = "createNewList"; //$NON-NLS-1$
-    public static final String TOKEN_CREATE_NEW_LIST_MEMBERS = "newListMembers"; //$NON-NLS-1$
     public static final String TOKEN_CREATE_NEW_LIST_NAME = "newListName"; //$NON-NLS-1$
 
     public static final String OPEN_TASK = "openTask"; //$NON-NLS-1$
@@ -263,9 +262,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     private void newListFromLaunch() {
         Intent thisIntent = getIntent();
         Intent newTagIntent = newTagDialog();
-        newTagIntent.putExtra(TagSettingsActivity.TOKEN_AUTOPOPULATE_MEMBERS, thisIntent.getStringExtra(TOKEN_CREATE_NEW_LIST_MEMBERS));
         newTagIntent.putExtra(TagSettingsActivity.TOKEN_AUTOPOPULATE_NAME, thisIntent.getStringExtra(TOKEN_CREATE_NEW_LIST_NAME));
-        thisIntent.removeExtra(TOKEN_CREATE_NEW_LIST_MEMBERS);
         thisIntent.removeExtra(TOKEN_CREATE_NEW_LIST_NAME);
         startActivityForResult(newTagIntent, NavigationDrawerFragment.REQUEST_NEW_LIST);
     }

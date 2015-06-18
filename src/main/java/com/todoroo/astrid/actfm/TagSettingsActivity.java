@@ -32,8 +32,6 @@ public class TagSettingsActivity extends InjectingAppCompatActivity {
 
     public static final String TOKEN_NEW_FILTER = "newFilter"; //$NON-NLS-1$
 
-    public static final String TOKEN_AUTOPOPULATE_MEMBERS = "autopopulateMembers"; //$NON-NLS-1$
-
     public static final String TOKEN_AUTOPOPULATE_NAME = "autopopulateName"; //$NON-NLS-1$
 
     private TagData tagData;
@@ -71,11 +69,6 @@ public class TagSettingsActivity extends InjectingAppCompatActivity {
         tagName = (EditText) findViewById(R.id.tag_name);
 
         refreshSettingsPage();
-
-        String autopopulateMembers = getIntent().getStringExtra(TOKEN_AUTOPOPULATE_MEMBERS);
-        if (!TextUtils.isEmpty(autopopulateMembers)) {
-            getIntent().removeExtra(TOKEN_AUTOPOPULATE_MEMBERS);
-        }
 
         String autopopulateName = getIntent().getStringExtra(TOKEN_AUTOPOPULATE_NAME);
         if (!TextUtils.isEmpty(autopopulateName)) {
