@@ -71,6 +71,7 @@
         <item name="ic_action_cloud">@drawable/ic_cloud_queue_black_24dp</item>
         <item name="ic_action_new_tag">@drawable/ic_add_black_24dp</item>
         <item name="ic_action_discard">@drawable/ic_close_white_24dp</item>
+        <item name="ic_action_delete">@drawable/ic_delete_white_24dp</item>
     </style>
 
     <style name="Tasks.Dark">

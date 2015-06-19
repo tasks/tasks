@@ -14,18 +14,14 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.tags.TagFilterExposer;
@@ -40,7 +36,6 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnClick;
 
 import static android.text.TextUtils.isEmpty;
 
@@ -59,7 +54,6 @@ public class TagSettingsActivity extends InjectingAppCompatActivity {
 
     @InjectView(R.id.tag_name) EditText tagName;
     @InjectView(R.id.toolbar) Toolbar toolbar;
-    @InjectView(R.id.delete_container) LinearLayout deleteContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,22 +62,22 @@ public class TagSettingsActivity extends InjectingAppCompatActivity {
         setContentView(R.layout.tag_settings_activity);
         ButterKnife.inject(this);
 
-        setSupportActionBar(toolbar);
-        ActionBar supportActionBar = getSupportActionBar();
-        if (supportActionBar != null) {
-            supportActionBar.setDisplayHomeAsUpEnabled(true);
-            supportActionBar.setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
-        }
-
         tagData = getIntent().getParcelableExtra(TagViewFragment.EXTRA_TAG_DATA);
         if (tagData == null) {
             isNewTag = true;
             tagData = new TagData();
             tagData.setUUID(UUIDHelper.newUUID());
-            deleteContainer.setVisibility(View.GONE);
         }
 
-        refreshSettingsPage();
+        setSupportActionBar(toolbar);
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar != null) {
+            supportActionBar.setDisplayHomeAsUpEnabled(true);
+            supportActionBar.setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
+            supportActionBar.setTitle(isNewTag ? getString(R.string.new_tag) : tagData.getName());
+        }
+
+        tagName.setText(tagData.getName());
 
         String autopopulateName = getIntent().getStringExtra(TOKEN_AUTOPOPULATE_NAME);
         if (!isEmpty(autopopulateName)) {
@@ -135,16 +129,12 @@ public class TagSettingsActivity extends InjectingAppCompatActivity {
         AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_right_in, R.anim.slide_right_out);
     }
 
-    private void refreshSettingsPage() {
-        tagName.setText(tagData.getName());
-        getSupportActionBar().setTitle(isNewTag
-                ? getString(R.string.new_tag)
-                : tagData.getName());
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.tag_settings_activity, menu);
+        if (isNewTag) {
+            menu.findItem(R.id.delete).setVisible(false);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -162,11 +152,14 @@ public class TagSettingsActivity extends InjectingAppCompatActivity {
             case R.id.menu_save:
                 save();
                 break;
+            case R.id.delete:
+                deleteTag();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick(R.id.delete) void deleteTag() {
+    private void deleteTag() {
         new AlertDialog.Builder(this, R.style.Tasks_Dialog)
                 .setMessage(getString(R.string.delete_tag_confirmation, tagData.getName()))
                 .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {

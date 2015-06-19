@@ -61,6 +61,7 @@
     <attr name="ic_action_cloud" format="reference"/>
     <attr name="ic_action_new_tag" format="reference"/>
     <attr name="ic_action_discard" format="reference" />
+    <attr name="ic_action_delete" format="reference" />
 
     <declare-styleable name="DateAndTimePicker">
         <attr name="shortcutLabels" format="reference" />

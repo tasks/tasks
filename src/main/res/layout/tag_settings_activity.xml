@@ -47,27 +47,6 @@
                     android:textSize="15sp" />
             </RelativeLayout>
         </ScrollView>
-
-        <LinearLayout
-            android:id="@+id/delete_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:orientation="vertical">
-
-            <include layout="@layout/separator"/>
-
-            <Button
-                android:id="@+id/delete"
-                android:textColor="?attr/asTextColor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/delete"
-                android:background="?attr/selectableItemBackground"/>
-
-            <include layout="@layout/toolbar_separator"/>
-
-        </LinearLayout>
     </FrameLayout>
 
 </LinearLayout>
