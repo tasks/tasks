@@ -88,7 +88,7 @@
 	        android:padding="4dip"
 	        android:background="@android:color/transparent"
 	        android:scaleType="fitCenter"
-	        android:src="@drawable/single_gear"/>
+	        android:src="@drawable/ic_settings_white_24dp"/>
     </RelativeLayout>
 
 </LinearLayout>

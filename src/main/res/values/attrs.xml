@@ -27,13 +27,7 @@
     <attr name="asEditTextBackground" format="reference" />
     <attr name="asAbBackgroundColor" format="color" />
     <attr name="asTaskRowSelector" format="reference" />
-    <attr name="ic_action_add" format="reference" />
-    <attr name="ic_action_new_attachment" format="reference" />
-    <attr name="ic_action_save" format="reference" />
     <attr name="ic_action_cancel" format="reference" />
-    <attr name="ic_action_camera" format="reference" />
-    <attr name="ic_action_mic" format="reference" />
-    <attr name="ic_action_search" format="reference" />
     <attr name="ic_action_settings" format="reference" />
     <attr name="ic_action_attachment" format="reference" />
     <attr name="ic_action_clock" format="reference" />
@@ -42,7 +36,7 @@
     <attr name="ic_action_list" format="reference" />
     <attr name="ic_action_box" format="reference" />
     <attr name="ic_action_bell" format="reference" />
-    <attr name="ic_action_alarm" format="reference" />
+    <attr name="ic_timer" format="reference" />
     <attr name="ic_action_reload" format="reference" />
     <attr name="ic_action_calendar_month" format="reference" />
     <attr name="ic_action_calendar_today" format="reference" />
@@ -61,7 +55,6 @@
     <attr name="ic_action_cloud" format="reference"/>
     <attr name="ic_action_new_tag" format="reference"/>
     <attr name="ic_action_discard" format="reference" />
-    <attr name="ic_action_delete" format="reference" />
 
     <declare-styleable name="DateAndTimePicker">
         <attr name="shortcutLabels" format="reference" />

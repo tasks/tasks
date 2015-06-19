@@ -6,18 +6,19 @@
     <item
         android:id="@+id/menu_voice_add"
         android:title="@string/EPr_voiceInputEnabled_title"
-        android:icon="?attr/ic_action_mic"
+        android:icon="@drawable/ic_mic_white_24dp"
         tasks:showAsAction="ifRoom"/>
     <item
         android:id="@+id/menu_search"
         android:title="@string/TLA_menu_search"
-        android:icon="?attr/ic_action_search"
+        android:icon="@drawable/ic_search_white_24dp"
         tasks:showAsAction="ifRoom|collapseActionView"
         tasks:actionViewClass="android.support.v7.widget.SearchView"/>
     <item
         android:id="@+id/menu_sort"
         android:title="@string/TLA_menu_sort"
-        tasks:showAsAction="never" />
+        android:icon="@drawable/ic_sort_white_24dp"
+        tasks:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_clear_completed"
         android:title="@string/gtasks_GTA_clear_completed"

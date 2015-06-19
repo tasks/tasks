@@ -132,8 +132,8 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
                 putExtra(SnoozeActivity.EXTRA_TASK_ID, taskId);
             }}, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            builder.addAction(R.drawable.ic_action_tick_white, context.getResources().getString(R.string.rmd_NoA_done), completeIntent)
-                    .addAction(R.drawable.ic_action_alarm_white, context.getResources().getString(R.string.rmd_NoA_snooze), snoozePendingIntent);
+            builder.addAction(R.drawable.ic_check_white_24dp, context.getResources().getString(R.string.rmd_NoA_done), completeIntent)
+                    .addAction(R.drawable.ic_snooze_white_24dp, context.getResources().getString(R.string.rmd_NoA_snooze), snoozePendingIntent);
         }
 
         Notification notification = builder.build();

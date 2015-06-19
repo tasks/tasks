@@ -88,7 +88,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         ActionBar supportActionBar = getSupportActionBar();
         if (supportActionBar != null) {
             supportActionBar.setDisplayHomeAsUpEnabled(true);
-            supportActionBar.setHomeAsUpIndicator(R.drawable.ic_drawer);
+            toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
         }
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

@@ -78,7 +78,7 @@
             android:paddingBottom="2dip"
             android:scaleType="centerInside"
             android:background="@android:color/transparent"
-            android:src="?attr/ic_action_camera" />
+            android:src="@drawable/ic_camera_alt_white_24dp" />
 
         <!-- Quick Add Task -->
 
@@ -142,7 +142,7 @@
             android:layout_marginLeft="3dip"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:src="?attr/ic_action_add"
+            android:src="@drawable/ic_add_white_24dp"
             android:scaleType="center"
             android:visibility="gone" />
     </LinearLayout>

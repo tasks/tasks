@@ -39,7 +39,7 @@ public abstract class InjectingPreferenceActivity extends PreferenceActivity imp
 
         toolbar = (Toolbar) toolbarContainer.findViewById(R.id.toolbar);
         toolbar.setTitle(getTitle());
-        toolbar.setNavigationIcon(R.drawable.ic_up);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

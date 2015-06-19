@@ -9,7 +9,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:padding="@dimen/task_edit_drawable_padding" />
+        android:alpha="@dimen/drawer_icon_alpha"
+        android:paddingTop="@dimen/task_edit_drawable_padding_top_bottom"
+        android:paddingBottom="@dimen/task_edit_drawable_padding_top_bottom"
+        android:paddingLeft="@dimen/task_edit_drawable_padding_left_right"
+        android:paddingStart="@dimen/task_edit_drawable_padding_left_right"
+        android:paddingRight="@dimen/task_edit_drawable_padding_left_right"
+        android:paddingEnd="@dimen/task_edit_drawable_padding_left_right" />
 
     <LinearLayout
         android:layout_width="fill_parent"

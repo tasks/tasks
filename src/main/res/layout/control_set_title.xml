@@ -19,8 +19,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:paddingRight="@dimen/task_edit_drawable_padding"
-        android:paddingEnd="@dimen/task_edit_drawable_padding"
+        android:paddingRight="@dimen/task_edit_drawable_padding_left_right"
+        android:paddingEnd="@dimen/task_edit_drawable_padding_left_right"
         android:scaleType="center"
         android:src="@drawable/btn_check" />
 

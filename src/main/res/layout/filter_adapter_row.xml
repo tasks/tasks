@@ -17,7 +17,7 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:alpha="0.54"
+        android:alpha="@dimen/drawer_icon_alpha"
         android:layout_width="56dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -31,7 +31,7 @@
         android:layout_toRightOf="@id/icon"
         android:layout_toEndOf="@id/icon"
         android:fontFamily="@string/font_fontFamily_medium"
-        android:alpha="0.87"
+        android:alpha="@dimen/drawer_text_alpha"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:checked="false"
@@ -47,7 +47,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:fontFamily="@string/font_fontFamily_medium"
-        android:alpha="0.54"
+        android:alpha="@dimen/drawer_icon_alpha"
         android:layout_marginRight="5dip"
         android:layout_marginEnd="5dip"
         android:layout_centerVertical="true"

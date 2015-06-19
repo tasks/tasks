@@ -118,13 +118,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         R.drawable.check_box_checked_4,
     };
 
-    public static final int[] IMPORTANCE_RESOURCES_LARGE = new int[] {
-        R.drawable.check_box_large_1,
-        R.drawable.check_box_large_2,
-        R.drawable.check_box_large_3,
-        R.drawable.check_box_large_4,
-    };
-
     public static final int[] IMPORTANCE_REPEAT_RESOURCES = new int[] {
         R.drawable.check_box_repeat_1,
         R.drawable.check_box_repeat_2,
@@ -141,7 +134,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     public static final Drawable[] IMPORTANCE_DRAWABLES = new Drawable[IMPORTANCE_RESOURCES.length];
     public static final Drawable[] IMPORTANCE_DRAWABLES_CHECKED = new Drawable[IMPORTANCE_RESOURCES_CHECKED.length];
-    private static final Drawable[] IMPORTANCE_DRAWABLES_LARGE = new Drawable[IMPORTANCE_RESOURCES_LARGE.length];
     public static final Drawable[] IMPORTANCE_REPEAT_DRAWABLES = new Drawable[IMPORTANCE_REPEAT_RESOURCES.length];
     public static final Drawable[] IMPORTANCE_REPEAT_DRAWABLES_CHECKED = new Drawable[IMPORTANCE_REPEAT_RESOURCES_CHECKED.length];
 
@@ -198,7 +190,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         preloadDrawables(IMPORTANCE_RESOURCES, IMPORTANCE_DRAWABLES);
         preloadDrawables(IMPORTANCE_RESOURCES_CHECKED, IMPORTANCE_DRAWABLES_CHECKED);
-        preloadDrawables(IMPORTANCE_RESOURCES_LARGE, IMPORTANCE_DRAWABLES_LARGE);
         preloadDrawables(IMPORTANCE_REPEAT_RESOURCES, IMPORTANCE_REPEAT_DRAWABLES);
         preloadDrawables(IMPORTANCE_REPEAT_RESOURCES_CHECKED, IMPORTANCE_REPEAT_DRAWABLES_CHECKED);
     }

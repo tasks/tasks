@@ -10,6 +10,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
@@ -109,21 +110,21 @@ public class FileExplore extends Activity {
 			String[] fList = path.list(filter);
 			fileList = new Item[fList.length];
 			for (int i = 0; i < fList.length; i++) {
-				fileList[i] = new Item(fList[i], R.drawable.ic_action_document);
+				fileList[i] = new Item(fList[i], R.drawable.ic_insert_drive_file_black_24dp);
 
 				// Convert into file path
 				File sel = new File(path, fList[i]);
 
 				// Set drawables
 				if (sel.isDirectory()) {
-					fileList[i].icon = R.drawable.ic_action_folder_closed;
+					fileList[i].icon = R.drawable.ic_folder_black_24dp;
 				}
 			}
 
 			if (!firstLvl) {
 				Item temp[] = new Item[fileList.length + 1];
                 System.arraycopy(fileList, 0, temp, 1, fileList.length);
-				temp[0] = new Item(upString, R.drawable.ic_action_arrow_left);
+				temp[0] = new Item(upString, R.drawable.ic_arrow_back_black_24dp);
 				fileList = temp;
 			}
 		} else {
@@ -143,10 +144,16 @@ public class FileExplore extends Activity {
 				// put the image on the text view
 				textView.setCompoundDrawablesWithIntrinsicBounds(
 						fileList[position].icon, 0, 0, 0);
+				for (Drawable drawable : textView.getCompoundDrawables()) {
+					if (drawable != null) {
+						drawable.setAlpha(138);
+					}
+				}
 
 				// add margin between image and text (support various screen
 				// densities)
 				int dp5 = (int) (5 * getResources().getDisplayMetrics().density + 0.5f);
+
 				textView.setCompoundDrawablePadding(dp5);
 
 				return view;

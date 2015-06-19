@@ -39,6 +39,7 @@ public class TaskEditActivity extends AstridActivity {
             ActionBar actionBar = getSupportActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(false);
+            toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         }
 	}
 

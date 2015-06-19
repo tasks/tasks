@@ -41,7 +41,7 @@
         android:id="@+id/remove_file"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_menu_close"
+        android:src="?attr/ic_action_cancel"
         android:layout_marginLeft="-5dip"
         android:layout_marginRight="5dip"
         android:visibility="gone" />
