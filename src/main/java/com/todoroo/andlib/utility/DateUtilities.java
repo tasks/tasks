@@ -196,10 +196,6 @@ public class DateUtilities {
         return getDateString(date) + " " + getTimeString(context, date);
     }
 
-    public static String getRelativeDay(Context context, long date) {
-        return DateUtilities.getRelativeDay(context, date, true);
-    }
-
     /**
      * @return yesterday, today, tomorrow, or null
      */
@@ -208,15 +204,15 @@ public class DateUtilities {
         long input = clearTime(newDate(date));
 
         if(today == input) {
-            return context.getString(R.string.today).toLowerCase();
+            return context.getString(R.string.today);
         }
 
         if(today + ONE_DAY == input) {
-            return context.getString(abbreviated ? R.string.tmrw : R.string.tomorrow).toLowerCase();
+            return context.getString(abbreviated ? R.string.tmrw : R.string.tomorrow);
         }
 
         if(today == input + ONE_DAY) {
-            return context.getString(abbreviated ? R.string.yest : R.string.yesterday).toLowerCase();
+            return context.getString(abbreviated ? R.string.yest : R.string.yesterday);
         }
 
         if(today + abbreviationLimit >= input && today - abbreviationLimit <= input) {

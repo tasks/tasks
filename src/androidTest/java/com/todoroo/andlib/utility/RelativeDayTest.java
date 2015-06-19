@@ -30,15 +30,15 @@ public class RelativeDayTest extends AndroidTestCase {
     }
 
     public void testRelativeDayIsToday() {
-        checkRelativeDay(now(), "today", "today");
+        checkRelativeDay(now(), "Today", "Today");
     }
 
     public void testRelativeDayIsTomorrow() {
-        checkRelativeDay(now().plusDays(1), "tomorrow", "tmrw");
+        checkRelativeDay(now().plusDays(1), "Tomorrow", "Tmrw");
     }
 
     public void testRelativeDayIsYesterday() {
-        checkRelativeDay(now().minusDays(1), "yesterday", "yest");
+        checkRelativeDay(now().minusDays(1), "Yesterday", "Yest");
     }
 
     public void testRelativeDayTwo() {
@@ -61,6 +61,6 @@ public class RelativeDayTest extends AndroidTestCase {
 
     private void checkRelativeDay(DateTime now, String full, String abbreviated) {
         assertEquals(full, getRelativeDay(getContext(), now.getMillis(), false));
-        assertEquals(abbreviated, getRelativeDay(getContext(), now.getMillis()));
+        assertEquals(abbreviated, getRelativeDay(getContext(), now.getMillis(), true));
     }
 }
