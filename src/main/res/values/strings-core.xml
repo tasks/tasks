@@ -49,9 +49,6 @@
   <!-- Menu: Settings -->
   <string name="TLA_menu_settings">Settings</string>
   
-  <!-- Window title for displaying Custom Filter -->
-  <string name="TLA_custom">Custom</string>
-
   <!-- ====================================================== TaskAdapter == -->
 
   <!-- Format string to indicate task is hidden (%s => task name) -->

@@ -38,7 +38,6 @@
 	<string name="TLA_menu_sort">Ταξινόμηση</string>
 	<string name="TLA_menu_search">Αναζήτηση</string>
 	<string name="TLA_menu_settings">Ρυθμίσεις</string>
-	<string name="TLA_custom">Προσαρμοσμένο</string>
 	<string name="TAd_hiddenFormat">%s [κρυφό]</string>
 	<string name="TAd_deletedFormat">%s [διαγράφηκε]</string>
 	<string name="TAd_actionEditTask">Επεξεργασία</string>

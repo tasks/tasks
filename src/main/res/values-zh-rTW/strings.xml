@@ -36,7 +36,6 @@
 	<string name="TLA_menu_sort">排序</string>
 	<string name="TLA_menu_search">搜索</string>
 	<string name="TLA_menu_settings">設定</string>
-	<string name="TLA_custom">自訂</string>
 	<string name="TAd_hiddenFormat">%s [隱藏]</string>
 	<string name="TAd_deletedFormat">%s [刪除]</string>
 	<string name="TAd_completed">%s\n完成</string>

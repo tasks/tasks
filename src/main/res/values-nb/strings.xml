@@ -28,7 +28,6 @@
 	<string name="WID_dateButtonUnset">Klikk for å sette</string>
 	<string name="TLA_menu_sort">Sorter &amp; Skjult</string>
 	<string name="TLA_menu_settings">Innstillinger</string>
-	<string name="TLA_custom">Egendefinert</string>
 	<string name="TAd_hiddenFormat">%s [skjult]</string>
 	<string name="TAd_deletedFormat">%s [slettet]</string>
 	<string name="TAd_actionEditTask">Rediger</string>

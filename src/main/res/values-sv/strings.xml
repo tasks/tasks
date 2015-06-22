@@ -36,7 +36,6 @@
 	<string name="TLA_menu_sort">Sortera</string>
 	<string name="TLA_menu_search">Sök</string>
 	<string name="TLA_menu_settings">Inställningar</string>
-	<string name="TLA_custom">Egendefinierad</string>
 	<string name="TAd_hiddenFormat">%s [dold]</string>
 	<string name="TAd_deletedFormat">%s [raderad]</string>
 	<string name="TAd_completed">Avslutad\n%s</string>

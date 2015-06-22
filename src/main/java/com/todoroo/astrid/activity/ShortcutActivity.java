@@ -12,13 +12,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
-import com.todoroo.astrid.data.Task;
-
-import org.tasks.R;
 
 import java.util.Map.Entry;
 import java.util.Set;
@@ -34,18 +30,11 @@ public class ShortcutActivity extends Activity {
 
     // --- constants
 
-    /** token for passing a task id through extras for viewing a single task */
-    public static final String TOKEN_SINGLE_TASK = "id"; //$NON-NLS-1$
-
     /** token for passing a {@link Filter}'s title through extras */
     public static final String TOKEN_FILTER_TITLE = "title"; //$NON-NLS-1$
 
     /** token for passing a {@link Filter}'s sql through extras */
     public static final String TOKEN_FILTER_SQL = "sql"; //$NON-NLS-1$
-
-    /** token for passing a {@link Filter}'s values for new tasks through extras as string */
-    @Deprecated
-    public static final String TOKEN_FILTER_VALUES = "v4nt"; //$NON-NLS-1$
 
     /** token for passing a {@link Filter}'s values for new tasks through extras as exploded ContentValues */
     public static final String TOKEN_FILTER_VALUES_ITEM = "v4ntp_"; //$NON-NLS-1$
@@ -55,10 +44,8 @@ public class ShortcutActivity extends Activity {
 
     /** List of the above constants for searching */
     private static final String[] CUSTOM_EXTRAS = {
-        TOKEN_SINGLE_TASK,
         TOKEN_FILTER_TITLE,
         TOKEN_FILTER_SQL,
-        TOKEN_FILTER_VALUES,
         TOKEN_FILTER_VALUES_ITEM,
         TOKEN_CUSTOM_CLASS
     };
@@ -93,31 +80,26 @@ public class ShortcutActivity extends Activity {
             String title = extras.getString(TOKEN_FILTER_TITLE);
             String sql = extras.getString(TOKEN_FILTER_SQL);
             sql = sql.replace("tasks.userId=0", "1"); // TODO: replace dirty hack for missing column
-            ContentValues values;
-            if(extras.containsKey(TOKEN_FILTER_VALUES)) {
-                values = AndroidUtilities.contentValuesFromString(extras.getString(TOKEN_FILTER_VALUES));
-            } else {
-                values = new ContentValues();
-                for(String key : extras.keySet()) {
-                    if(!key.startsWith(TOKEN_FILTER_VALUES_ITEM)) {
-                        continue;
-                    }
+            ContentValues values = new ContentValues();
+            for(String key : extras.keySet()) {
+                if(!key.startsWith(TOKEN_FILTER_VALUES_ITEM)) {
+                    continue;
+                }
 
-                    Object value = extras.get(key);
-                    key = key.substring(TOKEN_FILTER_VALUES_ITEM.length());
+                Object value = extras.get(key);
+                key = key.substring(TOKEN_FILTER_VALUES_ITEM.length());
 
-                    // assume one of the big 4...
-                    if(value instanceof String) {
-                        values.put(key, (String) value);
-                    } else if(value instanceof Integer) {
-                        values.put(key, (Integer) value);
-                    } else if(value instanceof Double) {
-                        values.put(key, (Double) value);
-                    } else if(value instanceof Long) {
-                        values.put(key, (Long) value);
-                    } else {
-                        throw new IllegalStateException("Unsupported bundle type " + value.getClass()); //$NON-NLS-1$
-                    }
+                // assume one of the big 4...
+                if(value instanceof String) {
+                    values.put(key, (String) value);
+                } else if(value instanceof Integer) {
+                    values.put(key, (Integer) value);
+                } else if(value instanceof Double) {
+                    values.put(key, (Double) value);
+                } else if(value instanceof Long) {
+                    values.put(key, (Long) value);
+                } else {
+                    throw new IllegalStateException("Unsupported bundle type " + value.getClass()); //$NON-NLS-1$
                 }
             }
 
@@ -138,13 +120,6 @@ public class ShortcutActivity extends Activity {
                 filter = new Filter(title, sql, values);
             }
             taskListIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
-        } else if(extras != null && extras.containsKey(TOKEN_SINGLE_TASK)) {
-            Filter filter = new Filter(getString(R.string.TLA_custom),
-                    new QueryTemplate().where(Task.ID.eq(extras.getLong(TOKEN_SINGLE_TASK, -1))), null);
-
-            taskListIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            taskListIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
-            startActivity(taskListIntent);
         }
 
         startActivity(taskListIntent);

@@ -35,7 +35,6 @@
 	<string name="TLA_no_items">你没有任务</string>
 	<string name="TLA_menu_search">搜索</string>
 	<string name="TLA_menu_settings">设置</string>
-	<string name="TLA_custom">自定义</string>
 	<string name="TAd_hiddenFormat">%s [已隐藏]</string>
 	<string name="TAd_deletedFormat">%s [已删除]</string>
 	<string name="TAd_completed">完成\n%s 项</string>

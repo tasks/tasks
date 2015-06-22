@@ -36,7 +36,6 @@
 	<string name="TLA_menu_sort">מיון</string>
 	<string name="TLA_menu_search">חיפוש</string>
 	<string name="TLA_menu_settings">הגדרות</string>
-	<string name="TLA_custom">מותאם אישית</string>
 	<string name="TAd_hiddenFormat">%s [מוסתרת]</string>
 	<string name="TAd_deletedFormat">%s [נמחקה]</string>
 	<string name="TAd_completed">הסתיימה\n%s</string>

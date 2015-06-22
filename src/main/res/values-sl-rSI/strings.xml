@@ -39,7 +39,6 @@
 	<string name="TLA_menu_sort">Razvrsti</string>
 	<string name="TLA_menu_search">Iskanje</string>
 	<string name="TLA_menu_settings">Nastavitve</string>
-	<string name="TLA_custom">Po meri</string>
 	<string name="TAd_hiddenFormat">%s [skrit]</string>
 	<string name="TAd_deletedFormat">%s [zbrisan]</string>
 	<string name="TAd_completed">Opravljen\n%s</string>

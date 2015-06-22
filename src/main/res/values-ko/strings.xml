@@ -39,7 +39,6 @@
 	<string name="TLA_menu_sort">정렬</string>
 	<string name="TLA_menu_search">검색</string>
 	<string name="TLA_menu_settings">설정</string>
-	<string name="TLA_custom">사용자 설정</string>
 	<string name="TAd_hiddenFormat">%s [숨김]</string>
 	<string name="TAd_deletedFormat">%s [지움]</string>
 	<string name="TAd_completed">일정 완료\n%s</string>

@@ -39,7 +39,6 @@
 	<string name="TLA_menu_sort">Сортувати</string>
 	<string name="TLA_menu_search">Пошук</string>
 	<string name="TLA_menu_settings">Налаштування</string>
-	<string name="TLA_custom">Користувальницький</string>
 	<string name="TAd_hiddenFormat">%s [приховано]</string>
 	<string name="TAd_deletedFormat">%s [видалено]</string>
 	<string name="TAd_completed">Завершено\n%s</string>

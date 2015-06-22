@@ -35,7 +35,6 @@
 	<string name="TLA_menu_sort">Sortieren</string>
 	<string name="TLA_menu_search">Suchen</string>
 	<string name="TLA_menu_settings">Einstellungen</string>
-	<string name="TLA_custom">Benutzerdefiniert</string>
 	<string name="TAd_hiddenFormat">%s [versteckt]</string>
 	<string name="TAd_deletedFormat">%s [gelöscht]</string>
 	<string name="TAd_completed">Abgeschlossen\n%s</string>

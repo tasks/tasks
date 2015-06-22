@@ -36,7 +36,6 @@
 	<string name="TLA_menu_sort">Třídit</string>
 	<string name="TLA_menu_search">Hledat</string>
 	<string name="TLA_menu_settings">Nastavení</string>
-	<string name="TLA_custom">Vlastní</string>
 	<string name="TAd_hiddenFormat">%s [skrytý]</string>
 	<string name="TAd_deletedFormat">%s [smazán]</string>
 	<string name="TAd_completed">Dokončeno\n%s</string>

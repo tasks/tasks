@@ -36,7 +36,6 @@
 	<string name="TLA_menu_sort">ソート</string>
 	<string name="TLA_menu_search">検索</string>
 	<string name="TLA_menu_settings">設定</string>
-	<string name="TLA_custom">カスタムフィルタ</string>
 	<string name="TAd_hiddenFormat">%s [非表示]</string>
 	<string name="TAd_deletedFormat">%s [削除済]</string>
 	<string name="TAd_completed">%s\nに完了</string>

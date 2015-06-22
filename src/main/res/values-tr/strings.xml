@@ -35,7 +35,6 @@
 	<string name="TLA_no_items">Hiç göreviniz yok! \n Bir şeyler eklemek nasıl olur?</string>
 	<string name="TLA_menu_search">Ara</string>
 	<string name="TLA_menu_settings">Ayarlar</string>
-	<string name="TLA_custom">Özel</string>
 	<string name="TAd_hiddenFormat">%s [gizli]</string>
 	<string name="TAd_deletedFormat">%s [silinmiş]</string>
 	<string name="TAd_completed">Bitti\n%s</string>

@@ -39,7 +39,6 @@
 	<string name="TLA_menu_sort">Сортирай</string>
 	<string name="TLA_menu_search">Търсене</string>
 	<string name="TLA_menu_settings">Настройки</string>
-	<string name="TLA_custom">Други</string>
 	<string name="TAd_hiddenFormat">%s [скрито]</string>
 	<string name="TAd_deletedFormat">%s [изтрити]</string>
 	<string name="TAd_completed">Приключена\n%s</string>
