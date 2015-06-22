@@ -31,7 +31,6 @@
 	<string name="write_permission_label">Дозволи Tasks</string>
 	<string name="write_permission_desc">створення нових завдань, редагування існуючих завдань</string>
 	<string name="DLG_delete_this_task_question">Видалити цю задачу?</string>
-	<string name="DLG_delete_this_item_question">Видалити цей пункт: %s?</string>
 	<string name="DLG_upgrading">Оновлення ваших завдань...</string>
 	<string name="DLG_hour_minutes">Час (години : хвилини)</string>
 	<string name="DLG_undo">Відмінити</string>
@@ -219,7 +218,6 @@
 	</string-array>
 	<string name="BFE_Active">Мої завдання</string>
 	<string name="BFE_Recent">Недавно змінені</string>
-	<string name="BFE_Saved_delete">Видалити фільтр</string>
 	<string name="CFA_filterName_hint">Задайте ім\'я фільтра для його збереження ...</string>
 	<string name="CFA_universe_all">Активні завдання</string>
 	<string name="CFA_type_add">або</string>

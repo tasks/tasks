@@ -67,7 +67,7 @@ public class FilterShortcutActivity extends InjectingListActivity {
             Bitmap bitmap = superImposeListIcon(FilterShortcutActivity.this);
             Intent intent = new Intent();
             intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
-            intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, filter.title);
+            intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, filter.listingTitle);
             intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, bitmap);
             intent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
             setResult(RESULT_OK, intent);

@@ -123,7 +123,7 @@ public class ShortcutActivity extends Activity {
 
             Filter filter;
             if (extras.containsKey(TOKEN_CUSTOM_CLASS)) {
-                filter = new FilterWithCustomIntent(title, title, sql, values);
+                filter = new FilterWithCustomIntent(title, sql, values);
                 Bundle customExtras = new Bundle();
                 Set<String> keys = extras.keySet();
                 for (String key : keys) {
@@ -135,11 +135,11 @@ public class ShortcutActivity extends Activity {
                 ((FilterWithCustomIntent) filter).customExtras = customExtras; // Something
                 ((FilterWithCustomIntent) filter).customTaskList = ComponentName.unflattenFromString(extras.getString(TOKEN_CUSTOM_CLASS));
             } else {
-                filter = new Filter(title, title, sql, values);
+                filter = new Filter(title, sql, values);
             }
             taskListIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
         } else if(extras != null && extras.containsKey(TOKEN_SINGLE_TASK)) {
-            Filter filter = new Filter(getString(R.string.TLA_custom), getString(R.string.TLA_custom),
+            Filter filter = new Filter(getString(R.string.TLA_custom),
                     new QueryTemplate().where(Task.ID.eq(extras.getLong(TOKEN_SINGLE_TASK, -1))), null);
 
             taskListIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -164,7 +164,7 @@ public class ShortcutActivity extends Activity {
 
         shortcutIntent.setAction(Intent.ACTION_VIEW);
         shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_TITLE,
-                filter.title);
+                filter.listingTitle);
         shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_SQL,
                 filter.getSqlQuery());
         if (filter.valuesForNewTasks != null) {

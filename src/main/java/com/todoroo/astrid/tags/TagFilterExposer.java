@@ -74,9 +74,7 @@ public class TagFilterExposer {
         contentValues.put(TaskToTagMetadata.TAG_NAME.name, tag.getName());
         contentValues.put(TaskToTagMetadata.TAG_UUID.name, tag.getUuid());
 
-        FilterWithCustomIntent filter = new FilterWithCustomIntent(tag.getName(),
-                title, tagTemplate,
-                contentValues);
+        FilterWithCustomIntent filter = new FilterWithCustomIntent(title, tagTemplate, contentValues);
 
         filter.customTaskList = new ComponentName(context, TagViewFragment.class);
         Bundle extras = new Bundle();

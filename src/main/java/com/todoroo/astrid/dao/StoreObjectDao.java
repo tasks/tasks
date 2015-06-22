@@ -57,12 +57,16 @@ public class StoreObjectDao {
         }));
     }
 
-    public void persist(StoreObject storeObject) {
-        dao.persist(storeObject);
+    public boolean persist(StoreObject storeObject) {
+        return dao.persist(storeObject);
     }
 
     public void persist(GtasksList list) {
         persist(list.getStoreObject());
+    }
+
+    public void update(StoreObject storeObject) {
+        dao.saveExisting(storeObject);
     }
 
     public List<StoreObject> getByType(String type) {

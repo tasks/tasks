@@ -28,7 +28,6 @@
 	<string name="write_permission_label">タスクの読み込み</string>
 	<string name="write_permission_desc">タスクの作成、編集</string>
 	<string name="DLG_delete_this_task_question">このタスクを削除しますか?</string>
-	<string name="DLG_delete_this_item_question">項目 %s を削除しますか?</string>
 	<string name="DLG_upgrading">タスクを更新しています</string>
 	<string name="DLG_hour_minutes">時間 (時:分)</string>
 	<string name="DLG_undo">動作を取り消す</string>
@@ -219,7 +218,6 @@
 	</string-array>
 	<string name="BFE_Active">私のタスク</string>
 	<string name="BFE_Recent">最近編集したタスク</string>
-	<string name="BFE_Saved_delete">フィルタの削除</string>
 	<string name="CFA_filterName_hint">フィルタの名称</string>
 	<string name="CFA_universe_all">進行中のタスク</string>
 	<string name="CFA_type_add">または</string>

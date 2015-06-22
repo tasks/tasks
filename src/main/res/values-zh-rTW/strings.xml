@@ -28,7 +28,6 @@
 	<string name="write_permission_label">Tasks 權限</string>
 	<string name="write_permission_desc">建立新工作, 修改現行工作</string>
 	<string name="DLG_delete_this_task_question">確認刪除?</string>
-	<string name="DLG_delete_this_item_question">刪除此項目: %s?</string>
 	<string name="DLG_upgrading">升級您的工作...</string>
 	<string name="DLG_hour_minutes">時間 (小時:分鐘)</string>
 	<string name="DLG_undo">撤消</string>
@@ -201,7 +200,6 @@
 	</string-array>
 	<string name="BFE_Active">我的工作</string>
 	<string name="BFE_Recent">最近修改過</string>
-	<string name="BFE_Saved_delete">刪除篩選</string>
 	<string name="CFA_filterName_hint">命名篩選並儲存...</string>
 	<string name="CFA_universe_all">進行中的工作</string>
 	<string name="CFA_type_add">或</string>

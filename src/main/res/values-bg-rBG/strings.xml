@@ -31,7 +31,6 @@
 	<string name="write_permission_label">Tasks Разрешение</string>
 	<string name="write_permission_desc">създаване на нови задачи, редактиране на съществуващи задачи</string>
 	<string name="DLG_delete_this_task_question">Изтриване на тази задача?</string>
-	<string name="DLG_delete_this_item_question">Изтриване на този елемент: %s?</string>
 	<string name="DLG_upgrading">Обновяване на твоите задачи...</string>
 	<string name="DLG_hour_minutes">Време (часове: минути)</string>
 	<string name="DLG_undo">Върни</string>
@@ -221,7 +220,6 @@
 	</string-array>
 	<string name="BFE_Active">Моите задачи</string>
 	<string name="BFE_Recent">Наскоро променени</string>
-	<string name="BFE_Saved_delete">Изтрий филътр</string>
 	<string name="CFA_filterName_hint">Именувайте този филтър, за да го запазите...</string>
 	<string name="CFA_universe_all">Активни Задачи</string>
 	<string name="CFA_type_add">или</string>

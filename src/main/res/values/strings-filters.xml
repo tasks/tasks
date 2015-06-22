@@ -9,9 +9,6 @@
     <!-- slide 10b: Recently Modified -->
     <string name="BFE_Recent">Recently Modified</string>
     
-    <!-- Saved Filters Context Menu: delete -->
-    <string name="BFE_Saved_delete">Delete Filter</string>
-
     <!-- =========================================== CustomFilterActivity == -->
     
     <!-- slide 30e: Filter Name edit box hint (if user types here, filter will be saved) -->

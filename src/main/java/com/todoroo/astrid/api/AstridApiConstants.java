@@ -108,4 +108,5 @@ public class AstridApiConstants {
 
     public static final String BROADCAST_EVENT_FILTER_DELETED = BuildConfig.APPLICATION_ID + ".FILTER_DELETED";
 
+    public static final String BROADCAST_EVENT_FILTER_RENAMED = BuildConfig.APPLICATION_ID + ".FILTER_RENAMED";
 }

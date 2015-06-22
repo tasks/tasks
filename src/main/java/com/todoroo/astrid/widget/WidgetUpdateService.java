@@ -119,7 +119,7 @@ public class WidgetUpdateService extends InjectingService {
             if (filter.isTagFilter()) {
                 ((FilterWithCustomIntent) filter).customTaskList = new ComponentName(context, TagViewFragment.class); // In case legacy widget was created with subtasks fragment
             }
-            views.setTextViewText(R.id.widget_title, filter.title);
+            views.setTextViewText(R.id.widget_title, filter.listingTitle);
             views.removeAllViews(R.id.taskbody);
 
             int flags = preferences.getSortFlags();

@@ -86,7 +86,7 @@ public final class BuiltInFilterExposer {
      * Build inbox filter
      */
     public static Filter getMyTasksFilter(Resources r) {
-        return new Filter(r.getString(R.string.BFE_Active), r.getString(R.string.BFE_Active),
+        return new Filter(r.getString(R.string.BFE_Active),
                 new QueryTemplate().where(
                         Criterion.and(TaskCriteria.activeAndVisible(),
                                 Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(
@@ -100,7 +100,6 @@ public final class BuiltInFilterExposer {
         ContentValues todayValues = new ContentValues();
         todayValues.put(Task.DUE_DATE.name, PermaSql.VALUE_NOON);
         return new Filter(todayTitle,
-                todayTitle,
                 new QueryTemplate().where(
                         Criterion.and(TaskCriteria.activeAndVisible(),
                                 Task.DUE_DATE.gt(0),
@@ -110,7 +109,6 @@ public final class BuiltInFilterExposer {
 
     private static Filter getRecentlyModifiedFilter(Resources r) {
         return new Filter(r.getString(R.string.BFE_Recent),
-                r.getString(R.string.BFE_Recent),
                 new QueryTemplate().where(
                         Criterion.all).orderBy(
                         Order.desc(Task.MODIFICATION_DATE)).limit(15),
@@ -119,7 +117,6 @@ public final class BuiltInFilterExposer {
 
     private static Filter getUncategorizedFilter(Resources r) {
         return new Filter(r.getString(R.string.tag_FEx_untagged),
-                r.getString(R.string.tag_FEx_untagged),
                 new QueryTemplate().where(Criterion.and(
                         Criterion.not(Task.UUID.in(Query.select(TaskToTagMetadata.TASK_UUID).from(Metadata.TABLE)
                                 .where(Criterion.and(MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY), Metadata.DELETION_DATE.eq(0))))),

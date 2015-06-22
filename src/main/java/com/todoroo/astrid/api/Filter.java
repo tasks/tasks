@@ -33,14 +33,6 @@ public class Filter extends FilterListItem {
     // --- instance variables
 
     /**
-     * Expanded title of this filter. This is displayed at the top
-     * of the screen when user is viewing this filter.
-     * <p>
-     * e.g "Tasks With Notes"
-     */
-    public String title;
-
-    /**
      * {@link PermaSql} query for this filter. The query will be appended to the select
      * statement after "<code>SELECT fields FROM table %s</code>". It is
      * recommended that you use a {@link QueryTemplate} to construct your
@@ -75,15 +67,11 @@ public class Filter extends FilterListItem {
      * Utility constructor for creating a Filter object
      * @param listingTitle
      *            Title of this item as displayed on the lists page, e.g. Inbox
-     * @param title
-     *            Expanded title of this filter when user is viewing this
-     *            filter, e.g. Inbox (20 tasks)
      * @param sqlQuery
      *            SQL query for this list (see {@link #sqlQuery} for examples).
      */
-    public Filter(String listingTitle, String title,
-            QueryTemplate sqlQuery, ContentValues valuesForNewTasks) {
-        this(listingTitle, title, sqlQuery == null ? null : sqlQuery.toString(),
+    public Filter(String listingTitle, QueryTemplate sqlQuery, ContentValues valuesForNewTasks) {
+        this(listingTitle, sqlQuery == null ? null : sqlQuery.toString(),
                 valuesForNewTasks);
     }
 
@@ -91,16 +79,11 @@ public class Filter extends FilterListItem {
      * Utility constructor for creating a Filter object
      * @param listingTitle
      *            Title of this item as displayed on the lists page, e.g. Inbox
-     * @param title
-     *            Expanded title of this filter when user is viewing this
-     *            filter, e.g. Inbox (20 tasks)
      * @param sqlQuery
      *            SQL query for this list (see {@link #sqlQuery} for examples).
      */
-    public Filter(String listingTitle, String title,
-            String sqlQuery, ContentValues valuesForNewTasks) {
+    public Filter(String listingTitle, String sqlQuery, ContentValues valuesForNewTasks) {
         this.listingTitle = listingTitle;
-        this.title = title;
         this.sqlQuery = sqlQuery;
         this.filterOverride = null;
         this.valuesForNewTasks = valuesForNewTasks;
@@ -136,7 +119,7 @@ public class Filter extends FilterListItem {
         int result = 1;
         result = prime * result
                 + ((sqlQuery == null) ? 0 : sqlQuery.hashCode());
-        result = prime * result + ((title == null) ? 0 : title.hashCode());
+        result = prime * result + ((listingTitle == null) ? 0 : listingTitle.hashCode());
         return result;
     }
 
@@ -159,11 +142,11 @@ public class Filter extends FilterListItem {
         } else if (!sqlQuery.equals(other.sqlQuery)) {
             return false;
         }
-        if (title == null) {
-            if (other.title != null) {
+        if (listingTitle == null) {
+            if (other.listingTitle != null) {
                 return false;
             }
-        } else if (!title.equals(other.title)) {
+        } else if (!listingTitle.equals(other.listingTitle)) {
             return false;
         }
         return true;
@@ -180,7 +163,6 @@ public class Filter extends FilterListItem {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
-        dest.writeString(title);
         dest.writeString(sqlQuery);
         dest.writeParcelable(valuesForNewTasks, 0);
     }
@@ -188,7 +170,6 @@ public class Filter extends FilterListItem {
     @Override
     public void readFromParcel(Parcel source) {
         super.readFromParcel(source);
-        title = source.readString();
         sqlQuery = source.readString();
         valuesForNewTasks = source.readParcelable(ContentValues.class.getClassLoader());
     }
@@ -223,6 +204,6 @@ public class Filter extends FilterListItem {
 
     @Override
     public String toString() {
-        return title;
+        return listingTitle;
     }
 }

@@ -28,7 +28,6 @@
 	<string name="write_permission_label">Tasks Tillstånd</string>
 	<string name="write_permission_desc">skapa nya uppgifter, redigera existerande uppgifter</string>
 	<string name="DLG_delete_this_task_question">Radera denna uppgift?</string>
-	<string name="DLG_delete_this_item_question">Radera följande: %s?</string>
 	<string name="DLG_upgrading">Uppgraderar dina uppgifter...</string>
 	<string name="DLG_hour_minutes">Tid (timmar : minuter)</string>
 	<string name="DLG_undo">Ångra</string>
@@ -210,7 +209,6 @@ och återställer dina aktuella uppgifter från en backup
 	</string-array>
 	<string name="BFE_Active">Mina Uppgifter</string>
 	<string name="BFE_Recent">Nyligen ändrade</string>
-	<string name="BFE_Saved_delete">Radera filter</string>
 	<string name="CFA_filterName_hint">Spara detta filter genom att ge det ett namn</string>
 	<string name="CFA_universe_all">Aktiva uppgifter</string>
 	<string name="CFA_type_add">eller</string>

@@ -26,7 +26,6 @@
 	<string name="write_permission_label">Permís de l\'Tasks</string>
 	<string name="write_permission_desc">crear noves tasques, editar tasques existents</string>
 	<string name="DLG_delete_this_task_question">Voleu suprimir aquesta tasca?</string>
-	<string name="DLG_delete_this_item_question">Voleu suprimir aquest element: %s?</string>
 	<string name="DLG_upgrading">S\'estan actualitzant les vostres tasques...</string>
 	<string name="DLG_hour_minutes">Temps (hores : minuts)</string>
 	<string name="DLG_undo">Desfés</string>
@@ -131,7 +130,6 @@
 	</string-array>
 	<string name="BFE_Active">Tasques actives</string>
 	<string name="BFE_Recent">Modificades fa poc</string>
-	<string name="BFE_Saved_delete">Esborra el filtre</string>
 	<string name="CFA_filterName_hint">Dona nom al filtre per desar-lo...</string>
 	<string name="CFA_universe_all">Tasques actives</string>
 	<string name="CFA_type_add">o</string>

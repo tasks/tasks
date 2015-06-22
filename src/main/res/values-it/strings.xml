@@ -28,7 +28,6 @@
 	<string name="write_permission_label">Permessi Tasks</string>
 	<string name="write_permission_desc">crea nuove attività, modifica le attività esistenti</string>
 	<string name="DLG_delete_this_task_question">Eliminare questa attività?</string>
-	<string name="DLG_delete_this_item_question">Cancella questo articolo: %s?</string>
 	<string name="DLG_upgrading">Aggiornare le attività ...</string>
 	<string name="DLG_hour_minutes">Tempo (ore : minuti)</string>
 	<string name="DLG_undo">Annulla l\'ultima azione</string>
@@ -191,7 +190,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	</string-array>
 	<string name="BFE_Active">Le mie attività</string>
 	<string name="BFE_Recent">Modificate di recente</string>
-	<string name="BFE_Saved_delete">Cancella Filtro</string>
 	<string name="CFA_filterName_hint">Dai un nome al filtro per salvarlo...</string>
 	<string name="CFA_universe_all">Attività in corso</string>
 	<string name="CFA_type_add">o</string>

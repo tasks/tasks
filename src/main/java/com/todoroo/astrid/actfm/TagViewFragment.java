@@ -135,7 +135,7 @@ public class TagViewFragment extends TaskListFragment {
         extras.putParcelable(TOKEN_FILTER, filter);
         Activity activity = getActivity();
         if (activity instanceof TaskListActivity) {
-            ((TaskListActivity) activity).setListsTitle(filter.title);
+            ((TaskListActivity) activity).setListsTitle(filter.listingTitle);
             NavigationDrawerFragment navigationDrawer = ((TaskListActivity) activity).getNavigationDrawerFragment();
             if (navigationDrawer != null) {
                 navigationDrawer.clear();

@@ -20,9 +20,6 @@
   <!-- question for deleting tasks -->
   <string name="DLG_delete_this_task_question">Delete this task?</string>
 
-  <!-- question for deleting items (%s => item name) -->
-  <string name="DLG_delete_this_item_question">Delete this item: %s?</string>
-    
   <!-- Progress dialog shown when upgrading -->
   <string name="DLG_upgrading">Upgrading your tasks...</string>
   

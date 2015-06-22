@@ -23,7 +23,6 @@
 	<string name="write_permission_label">Tasks Tillatelse</string>
 	<string name="write_permission_desc">opprett nye oppgaver, rediger eksisterende oppgaver</string>
 	<string name="DLG_delete_this_task_question">Slett denne oppgaven?</string>
-	<string name="DLG_delete_this_item_question">Slett følgende: %s?</string>
 	<string name="DLG_upgrading">Oppgraderer oppgavene dine...</string>
 	<string name="DLG_hour_minutes">Tid (timer : minutter)</string>
 	<string name="WID_dateButtonUnset">Klikk for å sette</string>
@@ -104,7 +103,6 @@
 	</string-array>
 	<string name="BFE_Active">Aktive oppgaver</string>
 	<string name="BFE_Recent">Nylig endret</string>
-	<string name="BFE_Saved_delete">Slett filter</string>
 	<string name="CFA_filterName_hint">Lagre dette filteret ved å gi det et navn...</string>
 	<string name="CFA_universe_all">Aktive oppgaver</string>
 	<string name="CFA_type_add">eller</string>

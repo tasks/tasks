@@ -35,6 +35,7 @@ import com.todoroo.andlib.sql.UnaryCriterion;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.CustomFilterCriterion;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.MultipleSelectCriterion;
@@ -43,6 +44,7 @@ import com.todoroo.astrid.api.TextInputCriterion;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 
 import org.slf4j.Logger;
@@ -417,17 +419,18 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
         }
 
         String title;
+        StoreObject storeObject = null;
         if(filterName.getText().length() > 0) {
             // persist saved filter
             title = filterName.getText().toString().trim();
-            SavedFilter.persist(storeObjectDao, adapter, title, sql.toString(), values);
+            storeObject = SavedFilter.persist(storeObjectDao, adapter, title, sql.toString(), values);
         } else {
             // temporary
             title = suggestedTitle.toString();
         }
 
         // view
-        Filter filter = new Filter(title, title, sql.toString(), values);
+        Filter filter = new CustomFilter(title, sql.toString(), values, storeObject == null ? -1L : storeObject.getId());
         setResult(RESULT_OK, new Intent().putExtra(TagSettingsActivity.TOKEN_NEW_FILTER, filter));
         finish();
     }

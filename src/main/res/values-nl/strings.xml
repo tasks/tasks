@@ -28,7 +28,6 @@
 	<string name="write_permission_label">Taak toestemmingen</string>
 	<string name="write_permission_desc">nieuwe taken maken, bestaande wijzigen</string>
 	<string name="DLG_delete_this_task_question">Taak verwijderen?</string>
-	<string name="DLG_delete_this_item_question">Dit item verwijderen: %s?</string>
 	<string name="DLG_upgrading">Taken bijwerken...</string>
 	<string name="DLG_hour_minutes">Tijd (uren : minuten)</string>
 	<string name="DLG_undo">Ongedaan Maken</string>
@@ -212,7 +211,6 @@
 	</string-array>
 	<string name="BFE_Active">Mijn taken</string>
 	<string name="BFE_Recent">Onlangs aangepast</string>
-	<string name="BFE_Saved_delete">Filter verwijderen</string>
 	<string name="CFA_filterName_hint">Naam geven om op te slaan...</string>
 	<string name="CFA_universe_all">Actieve taken</string>
 	<string name="CFA_type_add">of</string>

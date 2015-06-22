@@ -347,10 +347,6 @@
             android:name="com.todoroo.astrid.core.CustomFilterActivity"
             android:theme="@style/Tasks.Dialog"/>
 
-        <activity
-            android:name="com.todoroo.astrid.core.DeleteFilterActivity"
-            android:theme="@style/Tasks.Dialog" />
-
         <!-- alarms -->
         <receiver android:name="com.todoroo.astrid.alarms.AlarmTaskRepeatListener">
             <intent-filter>
@@ -367,6 +363,10 @@
 
         <activity
             android:name="com.todoroo.astrid.actfm.TagSettingsActivity"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name="com.todoroo.astrid.actfm.FilterSettingsActivity"
             android:windowSoftInputMode="stateHidden" />
 
         <!-- gtasks -->

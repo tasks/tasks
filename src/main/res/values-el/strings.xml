@@ -30,7 +30,6 @@
 	<string name="write_permission_label">Άδεια Εργασιών</string>
 	<string name="write_permission_desc">δημιουργία νέων εργασιών, επεξεργασία εργασιών</string>
 	<string name="DLG_delete_this_task_question">Διαγραφή εργασίας;</string>
-	<string name="DLG_delete_this_item_question">Διαγραφή του αντικειμένου: %s?</string>
 	<string name="DLG_upgrading">Αναβάθμιση των εργασιών σας...</string>
 	<string name="DLG_hour_minutes">Ώρα (ώρες : λεπτά)</string>
 	<string name="DLG_undo">Αναίρεση</string>
@@ -211,7 +210,6 @@
 		<item>Όταν λήξει</item>
 		<item>Στην λήξη η και μετά</item>
 	</string-array>
-	<string name="BFE_Saved_delete">Διαγραφή φίλτρου</string>
 	<string name="CFA_type_add">ή</string>
 	<string name="CFA_type_subtract">μή</string>
 	<string name="CFA_type_intersect">επίσης</string>

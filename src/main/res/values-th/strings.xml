@@ -17,7 +17,6 @@
 	<string name="read_permission_desc">อ่านแผนงาน, แสดงตัวกรองแผนงาน</string>
 	<string name="write_permission_desc">สร้างแผนงานใหม่, แก้ไขแผนงานเดิม</string>
 	<string name="DLG_delete_this_task_question">ลบงานนี้?</string>
-	<string name="DLG_delete_this_item_question">ลบรายการนี้: %s?</string>
 	<string name="DLG_hour_minutes">เวลา (ชั่วโมง : นาที)</string>
 	<string name="WID_dateButtonUnset">คลิก เพื่อตั้งค่า</string>
 	<string name="TLA_no_items">ไม่มีแผนงานใดๆ !</string>
@@ -67,7 +66,6 @@
 	</string-array>
 	<string name="BFE_Active">แผนงานตอนนี้</string>
 	<string name="BFE_Recent">เพิ่งถูกแก้ไข</string>
-	<string name="BFE_Saved_delete">ลบตัวกรอง</string>
 	<string name="CFA_filterName_hint">ตั้งชื่อตัวกรองเพื่อบันทึก...</string>
 	<string name="CFA_universe_all">แผนงานตอนนี้</string>
 	<string name="CFA_type_add">หรือ</string>

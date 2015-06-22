@@ -27,7 +27,6 @@
 	<string name="write_permission_label">Permissões do Tasks</string>
 	<string name="write_permission_desc">criar novas tarefas, editar tarefas existentes</string>
 	<string name="DLG_delete_this_task_question">Excluir esta tarefa?</string>
-	<string name="DLG_delete_this_item_question">Excluir este item: %s?</string>
 	<string name="DLG_upgrading">Atualizando suas tarefas...</string>
 	<string name="DLG_hour_minutes">Horário (horas:minutos)</string>
 	<string name="DLG_undo">Desfazer</string>
@@ -210,7 +209,6 @@
 	</string-array>
 	<string name="BFE_Active">Minhas Tarefas</string>
 	<string name="BFE_Recent">Modificadas recentemente</string>
-	<string name="BFE_Saved_delete">Excluir Filtro</string>
 	<string name="CFA_filterName_hint">Nome do filtro a salvar...</string>
 	<string name="CFA_universe_all">Tarefas ativas</string>
 	<string name="CFA_type_add">OU</string>

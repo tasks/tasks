@@ -1,32 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tasks="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/menu_voice_add"
         android:title="@string/EPr_voiceInputEnabled_title"
         android:icon="@drawable/ic_mic_white_24dp"
-        tasks:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/menu_search"
         android:title="@string/TLA_menu_search"
         android:icon="@drawable/ic_search_white_24dp"
-        tasks:showAsAction="ifRoom|collapseActionView"
-        tasks:actionViewClass="android.support.v7.widget.SearchView"/>
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="android.support.v7.widget.SearchView"/>
     <item
         android:id="@+id/menu_sort"
         android:title="@string/TLA_menu_sort"
         android:icon="@drawable/ic_sort_white_24dp"
-        tasks:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_clear_completed"
         android:title="@string/gtasks_GTA_clear_completed"
         android:visible="false"
-        tasks:showAsAction="never" />
+        app:showAsAction="never" />
     <item
         android:id="@+id/menu_tag_settings"
         android:title="@string/tag_settings"
         android:visible="false"
-        tasks:showAsAction="never" />
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_filter_settings"
+        android:title="@string/filter_settings"
+        android:visible="false"
+        app:showAsAction="never" />
 </menu>

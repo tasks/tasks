@@ -158,7 +158,7 @@ public class WidgetConfigActivity extends InjectingListActivity {
             if(values != null) {
                 contentValuesString = AndroidUtilities.contentValuesToSerializedString(values);
             }
-            title = ((Filter)filterListItem).title;
+            title = ((Filter)filterListItem).listingTitle;
         }
 
         preferences.setString(WidgetConfigActivity.PREF_TITLE + mAppWidgetId, title);

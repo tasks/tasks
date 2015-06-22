@@ -24,17 +24,16 @@ import android.view.View;
 import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.astrid.actfm.FilterSettingsActivity;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
-import com.todoroo.astrid.core.DeleteFilterActivity;
-import com.todoroo.astrid.core.SavedFilter;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.RemoteModel;
-import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListFragment;
@@ -61,6 +60,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     @Inject VoiceInputAssistant voiceInputAssistant;
 
     private static final int REQUEST_EDIT_TAG = 11543;
+    private static final int REQUEST_EDIT_FILTER = 11544;
 
     private final RepeatConfirmationReceiver repeatConfirmationReceiver = new RepeatConfirmationReceiver(this);
     private NavigationDrawerFragment navigationDrawer;
@@ -123,7 +123,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         setupTasklistFragmentWithFilter(savedFilter, extras);
 
         if (savedFilter != null) {
-            setListsTitle(savedFilter.title);
+            setListsTitle(savedFilter.listingTitle);
         }
     }
 
@@ -158,6 +158,8 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
             menu.findItem(R.id.menu_sort).setVisible(false);
         } else if(tlf instanceof TagViewFragment) {
             menu.findItem(R.id.menu_tag_settings).setVisible(true);
+        } else if(tlf.getFilter() instanceof CustomFilter && ((CustomFilter) tlf.getFilter()).getId() > 0) {
+            menu.findItem(R.id.menu_filter_settings).setVisible(true);
         }
         menu.findItem(R.id.menu_voice_add).setVisible(voiceInputAvailable(this));
         final MenuItem item = menu.findItem(R.id.menu_search);
@@ -167,7 +169,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
             public boolean onQueryTextSubmit(String query) {
                 query = query.trim();
                 String title = getString(R.string.FLA_search_filter, query);
-                Filter savedFilter = new Filter(title, title,
+                Filter savedFilter = new Filter(title,
                         new QueryTemplate().where(Task.TITLE.like(
                                 "%" + //$NON-NLS-1$
                                         query + "%")), //$NON-NLS-1$
@@ -282,7 +284,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     }
 
     public void setSelectedItem(Filter item) {
-        getSupportActionBar().setTitle(item.title);
+        getSupportActionBar().setTitle(item.listingTitle);
     }
 
     @Override
@@ -342,6 +344,8 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, newList); // Handle in onPostResume()
                 navigationDrawer.clear();
             }
+
+            navigationDrawer.refresh();
         } else if (requestCode == TaskListFragment.ACTIVITY_EDIT_TASK && resultCode != Activity.RESULT_CANCELED) {
             // Handle switch to assigned filter when it comes from TaskEditActivity finishing
             // For cases when we're in a multi-frame layout, the TaskEditFragment will notify us here directly
@@ -390,16 +394,16 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
 
                 navigationDrawer.refresh();
             }
-        } else if (requestCode == NavigationDrawerFragment.REQUEST_CUSTOM_INTENT && resultCode == RESULT_OK && data != null) {
-            String action = data.getAction();
-            TaskListFragment tlf = getTaskListFragment();
-
-            if (AstridApiConstants.BROADCAST_EVENT_FILTER_DELETED.equals(action)) {
-                StoreObject storeObject = (StoreObject) data.getExtras().get(DeleteFilterActivity.TOKEN_STORE_OBJECT);
-                Filter filter = SavedFilter.load(storeObject);
-                if (tlf.getFilter().equals(filter)) {
-                    getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, BuiltInFilterExposer.getMyTasksFilter(getResources())); // Handle in onPostResume()
+        } else if (requestCode == REQUEST_EDIT_FILTER) {
+            if (resultCode == RESULT_OK) {
+                String action = data.getAction();
+                if (AstridApiConstants.BROADCAST_EVENT_FILTER_RENAMED.equals(action)) {
+                    CustomFilter customFilter = data.getParcelableExtra(FilterSettingsActivity.TOKEN_FILTER);
+                    getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, customFilter);
+                } else if(AstridApiConstants.BROADCAST_EVENT_FILTER_DELETED.equals(action)) {
+                    getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, BuiltInFilterExposer.getMyTasksFilter(getResources()));
                 }
+
                 navigationDrawer.refresh();
             }
         }
@@ -432,7 +436,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        TaskListFragment tlf = getTaskListFragment();
+        final TaskListFragment tlf = getTaskListFragment();
         switch(item.getItemId()) {
             case R.id.menu_voice_add:
                 voiceInputAssistant.startVoiceRecognitionActivity(R.string.voice_create_prompt);
@@ -447,6 +451,10 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                     putExtra(TagViewFragment.EXTRA_TAG_DATA, getTaskListFragment().getActiveTagData());
                 }}, REQUEST_EDIT_TAG);
                 return true;
+            case R.id.menu_filter_settings:
+                startActivityForResult(new Intent(this, FilterSettingsActivity.class) {{
+                    putExtra(FilterSettingsActivity.TOKEN_FILTER, tlf.getFilter());
+                }}, REQUEST_EDIT_FILTER);
             default:
                 return super.onOptionsItemSelected(item);
         }

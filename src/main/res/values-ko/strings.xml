@@ -31,7 +31,6 @@
 	<string name="write_permission_label">Tasks 권한</string>
 	<string name="write_permission_desc">새 일정 생성하기, 기존 일정 편집하기</string>
 	<string name="DLG_delete_this_task_question">이 일정을 삭제할까요?</string>
-	<string name="DLG_delete_this_item_question">이 항목을 삭제할까요: %s?</string>
 	<string name="DLG_upgrading">일정 업그레이드 중...</string>
 	<string name="DLG_hour_minutes">시간 (시 : 분)</string>
 	<string name="DLG_undo">실행 취소</string>
@@ -222,7 +221,6 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	</string-array>
 	<string name="BFE_Active">나의 일정</string>
 	<string name="BFE_Recent">최근에 수정한 일정</string>
-	<string name="BFE_Saved_delete">필터 삭제</string>
 	<string name="CFA_filterName_hint">저장할 필터 이름을 정하세요...</string>
 	<string name="CFA_universe_all">실행중인 일정</string>
 	<string name="CFA_type_add">또는</string>

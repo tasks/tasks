@@ -28,7 +28,6 @@
 	<string name="write_permission_label">Tasks Práva</string>
 	<string name="write_permission_desc">vytvořit nové úkoly, upravit existující úkoly</string>
 	<string name="DLG_delete_this_task_question">Smazat tento úkol?</string>
-	<string name="DLG_delete_this_item_question">Smazat tuto položku: %s?</string>
 	<string name="DLG_upgrading">Obnovování vašich úkolů...</string>
 	<string name="DLG_hour_minutes">Čas (hodin : minut)</string>
 	<string name="DLG_undo">Vrátit změny</string>
@@ -208,7 +207,6 @@
 	</string-array>
 	<string name="BFE_Active">Aktivní úkoly</string>
 	<string name="BFE_Recent">Nedávno upravené</string>
-	<string name="BFE_Saved_delete">Smazat filtr</string>
 	<string name="CFA_filterName_hint">Pojmenujte tento filtr pro jeho uložení</string>
 	<string name="CFA_universe_all">Aktivní úkoly</string>
 	<string name="CFA_type_add">nebo</string>

@@ -28,7 +28,6 @@
 	<string name="write_permission_label">Permisos de Tasks</string>
 	<string name="write_permission_desc">crear nuevas tareas, editar tareas existentes</string>
 	<string name="DLG_delete_this_task_question">¿Borrar esta tarea?</string>
-	<string name="DLG_delete_this_item_question">¿Eliminar este elemento: %s?</string>
 	<string name="DLG_upgrading">Actualizando sus tareas....</string>
 	<string name="DLG_hour_minutes">Tiempo (horas : minutos)</string>
 	<string name="DLG_undo">Deshacer</string>
@@ -215,7 +214,6 @@
 	</string-array>
 	<string name="BFE_Active">Mis Tareas</string>
 	<string name="BFE_Recent">Recién modificadas</string>
-	<string name="BFE_Saved_delete">Borrar filtro</string>
 	<string name="CFA_filterName_hint">Da nombre al filtro para grabarlo...</string>
 	<string name="CFA_universe_all">Tareas activas</string>
 	<string name="CFA_type_add">o</string>

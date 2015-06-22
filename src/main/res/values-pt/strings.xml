@@ -30,7 +30,6 @@
 	<string name="write_permission_label">Permissões do Tasks</string>
 	<string name="write_permission_desc">criar novas tarefas, editar tarefas existentes</string>
 	<string name="DLG_delete_this_task_question">Remover esta tarefa?</string>
-	<string name="DLG_delete_this_item_question">Remover este item: %s?</string>
 	<string name="DLG_upgrading">Atualização de tarefas...</string>
 	<string name="DLG_hour_minutes">Tempo (horas:minutos)</string>
 	<string name="DLG_undo">Anular</string>
@@ -220,7 +219,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	</string-array>
 	<string name="BFE_Active">Minhas tarefas</string>
 	<string name="BFE_Recent">Alteradas recentemente</string>
-	<string name="BFE_Saved_delete">Eliminar filtro</string>
 	<string name="CFA_filterName_hint">Nome do filtro...</string>
 	<string name="CFA_universe_all">Tarefas ativas</string>
 	<string name="CFA_type_add">ou</string>

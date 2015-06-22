@@ -10,6 +10,7 @@ import android.text.TextUtils;
 
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.CustomFilterActivity.CriterionInstance;
 import com.todoroo.astrid.dao.StoreObjectDao;
@@ -47,11 +48,11 @@ public class SavedFilter {
     /**
      * Save a filter
      */
-    public static void persist(StoreObjectDao dao, CustomFilterAdapter adapter, String title,
+    public static StoreObject persist(StoreObjectDao dao, CustomFilterAdapter adapter, String title,
             String sql, ContentValues values) {
 
         if(title == null || title.length() == 0) {
-            return;
+            return null;
         }
 
         // if filter of this name exists, edit it
@@ -74,7 +75,11 @@ public class SavedFilter {
         String filters = serializeFilters(adapter);
         storeObject.setValue(FILTERS, filters);
 
-        dao.persist(storeObject);
+        if (dao.persist(storeObject)) {
+            return storeObject;
+        }
+
+        return null;
     }
 
     /**
@@ -110,7 +115,7 @@ public class SavedFilter {
     /**
      * Read filter from store
      */
-    public static Filter load(StoreObject savedFilter) {
+    public static CustomFilter load(StoreObject savedFilter) {
         String title = savedFilter.getValue(NAME);
         String sql = savedFilter.getValue(SQL);
         String values = savedFilter.getValue(VALUES);
@@ -122,7 +127,7 @@ public class SavedFilter {
 
         sql = sql.replace("tasks.userId=0", "1"); // TODO: replace dirty hack for missing column
 
-        return new Filter(title, title, sql, contentValues);
+        return new CustomFilter(title, sql, contentValues, savedFilter.getId());
     }
 
 }

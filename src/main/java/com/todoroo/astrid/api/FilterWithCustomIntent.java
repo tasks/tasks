@@ -35,14 +35,12 @@ public class FilterWithCustomIntent extends Filter {
         super();
     }
 
-    public FilterWithCustomIntent(String listingTitle, String title,
-            QueryTemplate sqlQuery, ContentValues valuesForNewTasks) {
-        super(listingTitle, title, sqlQuery, valuesForNewTasks);
+    public FilterWithCustomIntent(String listingTitle, QueryTemplate sqlQuery, ContentValues valuesForNewTasks) {
+        super(listingTitle, sqlQuery, valuesForNewTasks);
     }
 
-    public FilterWithCustomIntent(String listingTitle, String title,
-            String sqlQuery, ContentValues valuesForNewTasks) {
-        super(listingTitle, title, sqlQuery, valuesForNewTasks);
+    public FilterWithCustomIntent(String listingTitle, String sqlQuery, ContentValues valuesForNewTasks) {
+        super(listingTitle, sqlQuery, valuesForNewTasks);
     }
 
     public Intent getCustomIntent() {

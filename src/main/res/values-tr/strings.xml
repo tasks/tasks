@@ -28,7 +28,6 @@
 	<string name="write_permission_label">Tasks İzni</string>
 	<string name="write_permission_desc">yeni görevler oluştur, mevcut görevleri düzenle</string>
 	<string name="DLG_delete_this_task_question">Bu görev silinsin mi?</string>
-	<string name="DLG_delete_this_item_question">Öğe silinsin mi: %s?</string>
 	<string name="DLG_upgrading">Görevleriniz güncelleniyor...</string>
 	<string name="DLG_hour_minutes">Zaman (saat : dakika)</string>
 	<string name="DLG_undo">Geri al</string>
@@ -190,7 +189,6 @@
 		<item>Son tarihte ya da aşıldığında</item>
 	</string-array>
 	<string name="BFE_Recent">Yakında Değiştirilenler</string>
-	<string name="BFE_Saved_delete">Süzgeci Sil</string>
 	<string name="CFA_filterName_hint">Süzgeci kaydetmek için ad yazın...</string>
 	<string name="CFA_universe_all">Etkin Görevler</string>
 	<string name="CFA_type_add">ya da</string>

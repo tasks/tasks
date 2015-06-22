@@ -2,6 +2,7 @@ package org.tasks.injection;
 
 import android.app.Activity;
 
+import com.todoroo.astrid.actfm.FilterSettingsActivity;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.activity.FilterShortcutActivity;
@@ -11,7 +12,6 @@ import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.calls.MissedCallActivity;
 import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.core.DefaultsPreferences;
-import com.todoroo.astrid.core.DeleteFilterActivity;
 import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.files.AACRecordingActivity;
 import com.todoroo.astrid.gcal.CalendarAlarmListCreator;
@@ -51,10 +51,10 @@ import dagger.Provides;
                 TaskEditActivity.class,
                 ShareLinkActivity.class,
                 TagSettingsActivity.class,
+                FilterSettingsActivity.class,
                 CustomFilterActivity.class,
                 MissedCallActivity.class,
                 CalendarAlarmListCreator.class,
-                DeleteFilterActivity.class,
                 CalendarReminderActivity.class,
                 VoiceCommandActivity.class,
                 GtasksLoginActivity.class,

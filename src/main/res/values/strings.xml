@@ -119,6 +119,7 @@
     <string name="discard">Discard</string>
     <string name="tag_settings">Tag Settings</string>
     <string name="delete">Delete</string>
+    <string name="filter_settings">Filter Settings</string>
 
     <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->

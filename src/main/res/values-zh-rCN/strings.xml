@@ -28,7 +28,6 @@
 	<string name="write_permission_label">清单小助理权限</string>
 	<string name="write_permission_desc">创建新任务，修改现有任务</string>
 	<string name="DLG_delete_this_task_question">确认删除？</string>
-	<string name="DLG_delete_this_item_question">删除此项目：%s？</string>
 	<string name="DLG_upgrading">升级您的任务...</string>
 	<string name="DLG_hour_minutes">时间（小时:分钟）</string>
 	<string name="DLG_undo">撤消</string>
@@ -170,7 +169,6 @@
 		<item>截止期限或过期时</item>
 	</string-array>
 	<string name="BFE_Recent">最近修改过的</string>
-	<string name="BFE_Saved_delete">删除筛选</string>
 	<string name="CFA_filterName_hint">命名筛选并保存...</string>
 	<string name="CFA_universe_all">进行中的任务</string>
 	<string name="CFA_type_add">或</string>

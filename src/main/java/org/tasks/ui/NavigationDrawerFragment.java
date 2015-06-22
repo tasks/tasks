@@ -9,17 +9,13 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.todoroo.astrid.actfm.TagSettingsActivity;
-import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.FilterAdapter;
@@ -51,9 +47,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
 
     public static final String TOKEN_LAST_SELECTED = "lastSelected"; //$NON-NLS-1$
 
-    private static final int CONTEXT_MENU_INTENT = Menu.FIRST + 4;
-
-    public static final int REQUEST_CUSTOM_INTENT = 10;
     public static final int REQUEST_NEW_LIST = 4;
 
     public FilterAdapter adapter = null;
@@ -229,30 +222,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
         outState.putInt(TOKEN_LAST_SELECTED, mCurrentSelectedPosition);
     }
 
-    @Override
-    public boolean onContextItemSelected(android.view.MenuItem item) {
-        // called when context menu appears
-        return onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case CONTEXT_MENU_INTENT: {
-                Intent intent = item.getIntent();
-                getActivity().startActivityForResult(intent, REQUEST_CUSTOM_INTENT);
-                return true;
-            }
-            default: {
-                TaskListFragment tasklist = (TaskListFragment) getActivity().getSupportFragmentManager().findFragmentByTag(TaskListFragment.TAG_TASKLIST_FRAGMENT);
-                if (tasklist != null && tasklist.isInLayout()) {
-                    return tasklist.onOptionsItemSelected(item);
-                }
-            }
-        }
-        return false;
-    }
-
     public void closeMenu() {
         if (mDrawerLayout != null) {
             mDrawerLayout.closeDrawer(mFragmentContainerView);
@@ -279,27 +248,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
 
     public void refresh() {
         adapter.populateList();
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-
-        FilterListItem item = adapter.getItem(info.position);
-
-        if (item instanceof Filter) {
-            for (int i = 0; i < item.contextMenuLabels.length; i++) {
-                if (item.contextMenuIntents.length <= i) {
-                    break;
-                }
-                MenuItem menuItem = menu.add(0, CONTEXT_MENU_INTENT, 0, item.contextMenuLabels[i]);
-                menuItem.setIntent(item.contextMenuIntents[i]);
-            }
-
-            if (menu.size() > 0) {
-                menu.setHeaderTitle(item.listingTitle);
-            }
-        }
     }
 
     @Override

@@ -55,7 +55,6 @@ public final class TimerFilterExposer {
         ContentValues values = new ContentValues();
         values.put(Task.TIMER_START.name, Filter.VALUE_NOW);
         return new Filter(r.getString(R.string.TFE_workingOn),
-                r.getString(R.string.TFE_workingOn),
                 new QueryTemplate().where(Task.TIMER_START.gt(0)),
                 values);
     }

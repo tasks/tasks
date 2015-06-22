@@ -28,7 +28,6 @@
 	<string name="write_permission_label">Право Tasks</string>
 	<string name="write_permission_desc">создание новых и редактирование существующих задач</string>
 	<string name="DLG_delete_this_task_question">Удалить эту задачу?</string>
-	<string name="DLG_delete_this_item_question">Удалить этот элемент: %s?</string>
 	<string name="DLG_upgrading">Обновление ваших задач…</string>
 	<string name="DLG_hour_minutes">Время (час : мин)</string>
 	<string name="DLG_undo">Отмена</string>
@@ -219,7 +218,6 @@
 	</string-array>
 	<string name="BFE_Active">Мои задачи</string>
 	<string name="BFE_Recent">Недавно изменённые</string>
-	<string name="BFE_Saved_delete">Удалить фильтр</string>
 	<string name="CFA_filterName_hint">Задайте имя фильтра для его сохранения…</string>
 	<string name="CFA_universe_all">Активные задачи</string>
 	<string name="CFA_type_add">или</string>

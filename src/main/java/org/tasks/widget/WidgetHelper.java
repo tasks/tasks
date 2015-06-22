@@ -77,7 +77,7 @@ public class WidgetHelper {
             remoteViews.setInt(R.id.list_view, "setBackgroundColor", android.R.color.transparent);
             remoteViews.setInt(R.id.empty_view, "setBackgroundColor", android.R.color.transparent);
         }
-        remoteViews.setTextViewText(R.id.widget_title, filter.title);
+        remoteViews.setTextViewText(R.id.widget_title, filter.listingTitle);
         remoteViews.setRemoteAdapter(R.id.list_view, rvIntent);
         remoteViews.setEmptyView(R.id.list_view, R.id.empty_view);
         PendingIntent listIntent = getListIntent(context, filter, id);
@@ -148,7 +148,7 @@ public class WidgetHelper {
         }
         String title = preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
         if (title != null) {
-            filter.title = title;
+            filter.listingTitle = title;
         }
         String contentValues = preferences.getStringValue(WidgetConfigActivity.PREF_VALUES + widgetId);
         if (contentValues != null) {
@@ -159,7 +159,7 @@ public class WidgetHelper {
                 + widgetId);
         if (customComponent != null) {
             ComponentName component = ComponentName.unflattenFromString(customComponent);
-            filter = new FilterWithCustomIntent(filter.title, filter.title, filter.getSqlQuery(), filter.valuesForNewTasks);
+            filter = new FilterWithCustomIntent(filter.listingTitle, filter.getSqlQuery(), filter.valuesForNewTasks);
             ((FilterWithCustomIntent) filter).customTaskList = component;
             String serializedExtras = preferences.getStringValue(WidgetConfigActivity.PREF_CUSTOM_EXTRAS
                     + widgetId);
@@ -171,10 +171,10 @@ public class WidgetHelper {
         TagData tagData;
         if (id > 0) {
             tagData = tagDataDao.fetch(id, TagData.ID, TagData.NAME, TagData.UUID);
-            if (tagData != null && !tagData.getName().equals(filter.title)) { // Tag has been renamed; rebuild filter
+            if (tagData != null && !tagData.getName().equals(filter.listingTitle)) { // Tag has been renamed; rebuild filter
                 filter = TagFilterExposer.filterFromTagData(context, tagData);
                 preferences.setString(WidgetConfigActivity.PREF_SQL + widgetId, filter.getSqlQuery());
-                preferences.setString(WidgetConfigActivity.PREF_TITLE + widgetId, filter.title);
+                preferences.setString(WidgetConfigActivity.PREF_TITLE + widgetId, filter.listingTitle);
                 ContentValues newTaskValues = filter.valuesForNewTasks;
                 String contentValuesString = null;
                 if (newTaskValues != null) {
@@ -190,7 +190,7 @@ public class WidgetHelper {
                 }
             }
         } else {
-            tagData = tagDataDao.getTagByName(filter.title, TagData.ID);
+            tagData = tagDataDao.getTagByName(filter.listingTitle, TagData.ID);
             if (tagData != null) {
                 preferences.setLong(WidgetConfigActivity.PREF_TAG_ID + widgetId, tagData.getId());
             }
