@@ -55,8 +55,6 @@
 	<string name="SSD_sort_importance">Efter prioritet</string>
 	<string name="SSD_sort_modified">Efter senaste ändringen</string>
 	<string name="SSD_sort_reverse">Omvänd sortering</string>
-	<string name="SSD_save_temp">Bara en gång</string>
-	<string name="SSD_save_always">Alltid</string>
 	<string name="FLA_search_filter">Matchar \'%s\'</string>
 	<string name="FLA_new_filter">Nytt filter</string>
 	<string name="FLA_no_filter_selected">Inget filter valt! Välj ett filter eller en lista.</string>

@@ -52,8 +52,6 @@
 	<string name="SSD_sort_due">Per scadenza</string>
 	<string name="SSD_sort_modified">Per Ultima Modifica</string>
 	<string name="SSD_sort_reverse">Inverti Ordinamento</string>
-	<string name="SSD_save_temp">Solo una Volta</string>
-	<string name="SSD_save_always">Sempre</string>
 	<string name="FLA_search_filter">Confrontando \'%s\'</string>
 	<string name="FLA_new_filter">Nuovo Filtro</string>
 	<string name="FLA_no_filter_selected">Filtro non selezionato! Perfavore seleziona un filtro o una lista.</string>

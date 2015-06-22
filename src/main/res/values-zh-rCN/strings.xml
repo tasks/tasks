@@ -52,8 +52,6 @@
 	<string name="SSD_sort_due">按到期日</string>
 	<string name="SSD_sort_modified">按最后修改</string>
 	<string name="SSD_sort_reverse">反向排序</string>
-	<string name="SSD_save_temp">仅一次</string>
-	<string name="SSD_save_always">总是</string>
 	<string name="FLA_search_filter">比对 \'%s\'</string>
 	<string name="FLA_new_filter">新建过滤器</string>
 	<string name="FLA_no_filter_selected">还没有选定过滤器呢！请选择一个过滤器或列表呗。</string>

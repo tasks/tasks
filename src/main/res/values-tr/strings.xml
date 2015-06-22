@@ -52,8 +52,6 @@
 	<string name="SSD_sort_due">Bitiş Tarihine Göre</string>
 	<string name="SSD_sort_modified">Son Değiştirme Tarihine Göre</string>
 	<string name="SSD_sort_reverse">Sıralamayı Tersine Çevir</string>
-	<string name="SSD_save_temp">Bir Kereye Mahsus</string>
-	<string name="SSD_save_always">Her zaman</string>
 	<string name="FLA_search_filter">\'%s\' ile eşleşenler</string>
 	<string name="FLA_new_filter">Yeni Filtre</string>
 	<string name="FLA_no_filter_selected">Süzgeç seçilmemiş! Lütfen bir süzgeç ya da liste seçin.</string>

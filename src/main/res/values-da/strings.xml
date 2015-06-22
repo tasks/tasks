@@ -49,8 +49,6 @@
 	<string name="SSD_sort_importance">Efter vigtighed</string>
 	<string name="SSD_sort_modified">Efter senest ændret</string>
 	<string name="SSD_sort_reverse">Omvendt sortering</string>
-	<string name="SSD_save_temp">Kun en gang</string>
-	<string name="SSD_save_always">Altid</string>
 	<string name="FLA_search_filter">Matcher \'%s\'</string>
 	<string name="FLA_new_filter">Nyt filter</string>
 	<string name="FLA_no_filter_selected">Der er ikke valgt et filter! Vælg venligst et filter eller en liste.</string>

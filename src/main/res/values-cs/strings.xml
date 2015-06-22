@@ -55,8 +55,6 @@
 	<string name="SSD_sort_importance">Podle důležitosti</string>
 	<string name="SSD_sort_modified">Podle naposled upraveného</string>
 	<string name="SSD_sort_reverse">Třídit</string>
-	<string name="SSD_save_temp">Pouze jednou</string>
-	<string name="SSD_save_always">Vždy</string>
 	<string name="FLA_search_filter">Hledanému \'%s\' odpovídá:</string>
 	<string name="FLA_new_filter">Nový Filtr</string>
 	<string name="FLA_no_filter_selected">Není vybrán žádný filtr! Vyberte prosím filtr nebo seznam.</string>

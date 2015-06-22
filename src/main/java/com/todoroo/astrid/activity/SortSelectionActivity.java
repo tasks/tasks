@@ -31,7 +31,7 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastHoneycomb;
 public class SortSelectionActivity {
 
     public interface OnSortSelectedListener {
-        void onSortSelected(boolean always, int flags, int sort);
+        void onSortSelected(int flags, int sort);
     }
 
     /**
@@ -92,10 +92,12 @@ public class SortSelectionActivity {
         AlertDialog dialog = builder.
             setTitle(R.string.TLA_menu_sort).
             setView(body).
-            setPositiveButton(R.string.SSD_save_always,
-                    new DialogOkListener(body, listener, true)).
-            setNegativeButton(R.string.SSD_save_temp,
-                    new DialogOkListener(body, listener, false)).
+            setPositiveButton(R.string.TLA_menu_sort, new DialogOkListener(body, listener)).
+                setNegativeButton(android.R.string.cancel, new OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                }).
             create();
         dialog.setOwnerActivity(activity);
         return dialog;
@@ -109,13 +111,11 @@ public class SortSelectionActivity {
 
     private static class DialogOkListener implements OnClickListener {
         private final OnSortSelectedListener listener;
-        private final boolean always;
         private final View body;
 
-        public DialogOkListener(View body, OnSortSelectedListener listener, boolean always) {
+        public DialogOkListener(View body, OnSortSelectedListener listener) {
             this.body = body;
             this.listener = listener;
-            this.always = always;
         }
 
         @Override
@@ -148,7 +148,7 @@ public class SortSelectionActivity {
                 sort = SortHelper.SORT_AUTO;
             }
 
-            listener.onSortSelected(always, flags, sort);
+            listener.onSortSelected(flags, sort);
         }
     }
 }

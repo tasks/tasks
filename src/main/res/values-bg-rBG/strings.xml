@@ -58,8 +58,6 @@
 	<string name="SSD_sort_importance">По приоритет</string>
 	<string name="SSD_sort_modified">По последна промяна</string>
 	<string name="SSD_sort_reverse">В обратен ред</string>
-	<string name="SSD_save_temp">Само веднъж</string>
-	<string name="SSD_save_always">Винаги</string>
 	<string name="FLA_search_filter">Съвпада с \'%s\'</string>
 	<string name="FLA_new_filter">Нов филтър</string>
 	<string name="FLA_no_filter_selected">Няма избран филтър! Моля изберете филтър или списък.</string>

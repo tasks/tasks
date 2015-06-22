@@ -909,18 +909,16 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     }
 
     @Override
-    public void onSortSelected(boolean always, int flags, int sort) {
+    public void onSortSelected(int flags, int sort) {
         boolean manualSettingChanged = SortHelper.isManualSort(sortFlags) !=
             SortHelper.isManualSort(flags);
 
         sortFlags = flags;
         sortSort = sort;
 
-        if (always) {
-            preferences.setSortFlags(flags);
-            preferences.setSortMode(sort);
-            TasksWidget.updateWidgets(context);
-        }
+        preferences.setSortFlags(flags);
+        preferences.setSortMode(sort);
+        TasksWidget.updateWidgets(context);
 
         try {
             if(manualSettingChanged) {

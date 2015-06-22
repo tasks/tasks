@@ -53,8 +53,6 @@
 	<string name="SSD_sort_importance">Κατά προτεραιότητα</string>
 	<string name="SSD_sort_modified">Με βάση τελευταία τροποποίηση</string>
 	<string name="SSD_sort_reverse">Αντίστροφη ταξινόμηση</string>
-	<string name="SSD_save_temp">Μόνο μια φορά</string>
-	<string name="SSD_save_always">Πάντα</string>
 	<string name="FLA_search_filter">Ταιριάζουν \'%s\'</string>
 	<string name="FLA_new_filter">Νέο φίλτρο</string>
 	<string name="FLA_no_filter_selected">Δεν επιλέχθηκε φίλτρο! Παρακαλώ επιλέξτε ενα φίλτρο η μια λίστα</string>

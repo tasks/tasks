@@ -55,8 +55,6 @@
 	<string name="SSD_sort_importance">Por prioridad</string>
 	<string name="SSD_sort_modified">Por última modificación</string>
 	<string name="SSD_sort_reverse">Invertir orden</string>
-	<string name="SSD_save_temp">Sólo una vez</string>
-	<string name="SSD_save_always">Siempre</string>
 	<string name="FLA_search_filter">Coincidencias con \'%s\'</string>
 	<string name="FLA_new_filter">Nuevo filtro</string>
 	<string name="FLA_no_filter_selected">No hay filtro seleccionado! Por favor seleccione un filtro o lista.</string>

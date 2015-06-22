@@ -110,12 +110,6 @@
   <!-- slide 23g: Sort Selection: reverse -->
   <string name="SSD_sort_reverse">Reverse sort</string>
   
-  <!-- slide 23j: Sort Button: sort temporarily -->
-  <string name="SSD_save_temp">Just once</string>
-  
-  <!-- slide 23i: Sort Button: sort permanently -->
-  <string name="SSD_save_always">Always</string>
-  
   <!-- =============================================== FilterListActivity == -->
 
   <!-- Search Filter name (%s => query) -->

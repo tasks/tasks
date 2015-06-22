@@ -55,8 +55,6 @@
 	<string name="SSD_sort_importance">Podľa priority</string>
 	<string name="SSD_sort_modified">Podľa úpravy</string>
 	<string name="SSD_sort_reverse">Zmeniť usporiadnanie</string>
-	<string name="SSD_save_temp">Len raz</string>
-	<string name="SSD_save_always">Vždy</string>
 	<string name="FLA_search_filter">Zodpovedá \'%s\'</string>
 	<string name="FLA_new_filter">Nový filter</string>
 	<string name="FLA_no_filter_selected">Nieje vybraný filter! Prosím, zvoľ si filter, alebo zoznam.</string>
