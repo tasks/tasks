@@ -145,8 +145,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     protected final AtomicReference<String> sqlQueryTemplate = new AtomicReference<>();
     protected SyncActionHelper syncActionHelper;
     protected Filter filter;
-    protected int sortFlags;
-    protected int sortSort;
     protected QuickAddBar quickAddBar = new QuickAddBar();
 
     private Timer backgroundTimer;
@@ -447,10 +445,6 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
                 return false;
             }
         });
-
-        sortFlags = preferences.getSortFlags();
-        sortSort = preferences.getSortMode();
-        sortFlags = SortHelper.setManualSort(sortFlags, isDraggable());
     }
 
     public void transitionForTaskEdit() {
@@ -695,7 +689,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
                 + filter.getSqlQuery();
 
         sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(
-                preferences, joinedQuery, sortFlags, sortSort));
+                preferences, joinedQuery, getSortFlags(), preferences.getSortMode()));
 
         String groupedQuery;
         if (sqlQueryTemplate.get().contains("GROUP BY")) {
@@ -901,20 +895,13 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     }
 
     public int getSortFlags() {
-        return sortFlags;
-    }
-
-    public int getSort() {
-        return sortSort;
+        return SortHelper.setManualSort(preferences.getSortFlags(), isDraggable());
     }
 
     @Override
     public void onSortSelected(int flags, int sort) {
-        boolean manualSettingChanged = SortHelper.isManualSort(sortFlags) !=
-            SortHelper.isManualSort(flags);
-
-        sortFlags = flags;
-        sortSort = sort;
+        boolean wasManualSort = SortHelper.isManualSort(getSortFlags());
+        boolean manualSettingChanged = wasManualSort != SortHelper.isManualSort(flags);
 
         preferences.setSortFlags(flags);
         preferences.setSortMode(sort);
@@ -922,7 +909,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
 
         try {
             if(manualSettingChanged) {
-                toggleDragDrop(SortHelper.isManualSort(sortFlags));
+                toggleDragDrop(!wasManualSort);
             } else {
                 setUpTaskList();
             }
