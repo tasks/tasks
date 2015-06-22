@@ -695,7 +695,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
                 + filter.getSqlQuery();
 
         sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(
-                joinedQuery, sortFlags, sortSort));
+                preferences, joinedQuery, sortFlags, sortSort));
 
         String groupedQuery;
         if (sqlQueryTemplate.get().contains("GROUP BY")) {

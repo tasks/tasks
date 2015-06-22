@@ -85,11 +85,6 @@
         android:layout_height="wrap_content"
         android:text="@string/SSD_completed" />
         
-      <CheckBox android:id="@+id/deleted"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/SSD_deleted" />
-          
     </LinearLayout>
 
 </ScrollView>

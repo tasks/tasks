@@ -53,9 +53,6 @@ public class SortSelectionActivity {
         if((flags & SortHelper.FLAG_SHOW_HIDDEN) > 0) {
             ((CheckBox) body.findViewById(R.id.hidden)).setChecked(true);
         }
-        if((flags & SortHelper.FLAG_SHOW_DELETED) > 0) {
-            ((CheckBox) body.findViewById(R.id.deleted)).setChecked(true);
-        }
 
         if(!showDragDrop) {
             body.findViewById(R.id.sort_drag).setVisibility(View.GONE);
@@ -134,9 +131,6 @@ public class SortSelectionActivity {
             }
             if(((CheckBox)body.findViewById(R.id.hidden)).isChecked()) {
                 flags |= SortHelper.FLAG_SHOW_HIDDEN;
-            }
-            if(((CheckBox)body.findViewById(R.id.deleted)).isChecked()) {
-                flags |= SortHelper.FLAG_SHOW_DELETED;
             }
             if(((RadioButton)body.findViewById(R.id.sort_drag)).isChecked()) {
                 flags |= SortHelper.FLAG_DRAG_DROP;

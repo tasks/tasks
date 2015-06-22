@@ -124,7 +124,7 @@ public class WidgetUpdateService extends InjectingService {
 
             int flags = preferences.getSortFlags();
             int sort = preferences.getSortMode();
-            String query = SortHelper.adjustQueryForFlagsAndSort(
+            String query = SortHelper.adjustQueryForFlagsAndSort(preferences,
                     filter.getSqlQuery(), flags, sort).replaceAll("LIMIT \\d+", "") + " LIMIT " + numberOfTasks;
 
             String tagName = preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);

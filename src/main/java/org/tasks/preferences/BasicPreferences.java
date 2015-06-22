@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 
+import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.reminders.ReminderPreferences;
 
 import org.tasks.R;
@@ -30,17 +31,16 @@ public class BasicPreferences extends InjectingPreferenceActivity {
         if (!getResources().getBoolean(R.bool.sync_enabled)) {
             getPreferenceScreen().removePreference(findPreference(getString(R.string.synchronization)));
         }
-        findPreference(getString(R.string.EPr_appearance_header)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        setupActivity(R.string.EPr_appearance_header, AppearancePreferences.class);
+        setupActivity(R.string.notifications, ReminderPreferences.class);
+        setupActivity(R.string.EPr_manage_header, OldTaskPreferences.class);
+    }
+
+    private void setupActivity(int key, final Class<?> target) {
+        findPreference(getString(key)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                startActivityForResult(new Intent(BasicPreferences.this, AppearancePreferences.class), RC_PREFS);
-                return true;
-            }
-        });
-        findPreference(getString(R.string.notifications)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                startActivityForResult(new Intent(BasicPreferences.this, ReminderPreferences.class), RC_PREFS);
+                startActivityForResult(new Intent(BasicPreferences.this, target), RC_PREFS);
                 return true;
             }
         });

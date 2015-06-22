@@ -12,6 +12,9 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
 
+import org.tasks.R;
+import org.tasks.preferences.Preferences;
+
 /**
  * Helpers for sorting a list of tasks
  *
@@ -23,6 +26,8 @@ public class SortHelper {
     public static final int FLAG_REVERSE_SORT = 1;
     public static final int FLAG_SHOW_COMPLETED = 1 << 1;
     public static final int FLAG_SHOW_HIDDEN = 1 << 2;
+    @SuppressWarnings("UnusedDeclaration")
+    @Deprecated
     public static final int FLAG_SHOW_DELETED = 1 << 3;
     public static final int FLAG_DRAG_DROP = 1 << 4;
     @SuppressWarnings("UnusedDeclaration")
@@ -39,7 +44,7 @@ public class SortHelper {
     /**
      * Takes a SQL query, and if there isn't already an order, creates an order.
      */
-    public static String adjustQueryForFlagsAndSort(String originalSql, int flags, int sort) {
+    public static String adjustQueryForFlagsAndSort(Preferences preferences, String originalSql, int flags, int sort) {
         // sort
         if(originalSql == null) {
             originalSql = "";
@@ -65,7 +70,7 @@ public class SortHelper {
             originalSql = originalSql.replace(TaskCriteria.isVisible().toString(),
                     Criterion.all.toString());
         }
-        if((flags & FLAG_SHOW_DELETED) > 0) {
+        if (preferences.getBoolean(R.string.p_show_deleted_tasks, false)) {
             originalSql = originalSql.replace(Task.DELETION_DATE.eq(0).toString(),
                     Criterion.all.toString());
         }

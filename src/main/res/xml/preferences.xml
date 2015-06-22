@@ -35,11 +35,9 @@
             android:targetPackage="org.tasks" />
     </Preference>
 
-    <Preference android:title="@string/EPr_manage_header">
-        <intent
-            android:targetClass="com.todoroo.astrid.core.OldTaskPreferences"
-            android:targetPackage="org.tasks" />
-    </Preference>
+    <Preference
+        android:key="@string/EPr_manage_header"
+        android:title="@string/EPr_manage_header" />
 
     <Preference android:title="@string/miscellaneous">
         <intent
