@@ -122,10 +122,9 @@ public class WidgetUpdateService extends InjectingService {
             views.setTextViewText(R.id.widget_title, filter.listingTitle);
             views.removeAllViews(R.id.taskbody);
 
-            int flags = preferences.getSortFlags();
             int sort = preferences.getSortMode();
             String query = SortHelper.adjustQueryForFlagsAndSort(preferences,
-                    filter.getSqlQuery(), flags, sort).replaceAll("LIMIT \\d+", "") + " LIMIT " + numberOfTasks;
+                    filter.getSqlQuery(), sort).replaceAll("LIMIT \\d+", "") + " LIMIT " + numberOfTasks;
 
             String tagName = preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
             boolean showDueDates = preferences.getBoolean(WidgetConfigActivity.PREF_SHOW_DUE_DATE + widgetId, false);

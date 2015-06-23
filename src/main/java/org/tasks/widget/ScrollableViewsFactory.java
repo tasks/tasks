@@ -197,14 +197,13 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
     }
 
     private String getQuery() {
-        int flags = preferences.getSortFlags();
         int sort = preferences.getSortMode();
         if(sort == 0) {
             sort = SortHelper.SORT_WIDGET;
         }
 
         String query = SortHelper.adjustQueryForFlagsAndSort(preferences,
-                filter.getSqlQuery(), flags, sort).replaceAll("LIMIT \\d+", "");
+                filter.getSqlQuery(), sort).replaceAll("LIMIT \\d+", "");
 
         String tagName = preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
 

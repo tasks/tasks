@@ -23,28 +23,6 @@ import org.tasks.preferences.Preferences;
  */
 public class SortHelper {
 
-    @SuppressWarnings("UnusedDeclaration")
-    @Deprecated
-    public static final int FLAG_REVERSE_SORT = 1;
-
-    @SuppressWarnings("UnusedDeclaration")
-    @Deprecated
-    public static final int FLAG_SHOW_COMPLETED = 1 << 1;
-
-    @SuppressWarnings("UnusedDeclaration")
-    @Deprecated
-    public static final int FLAG_SHOW_HIDDEN = 1 << 2;
-
-    @SuppressWarnings("UnusedDeclaration")
-    @Deprecated
-    public static final int FLAG_SHOW_DELETED = 1 << 3;
-
-    public static final int FLAG_DRAG_DROP = 1 << 4;
-
-    @SuppressWarnings("UnusedDeclaration")
-    @Deprecated
-    private static final int FLAG_SHOW_RECENTLY_COMPLETED = 1 << 5;
-
     public static final int SORT_AUTO = 0;
     public static final int SORT_ALPHA = 1;
     public static final int SORT_DUE = 2;
@@ -55,7 +33,7 @@ public class SortHelper {
     /**
      * Takes a SQL query, and if there isn't already an order, creates an order.
      */
-    public static String adjustQueryForFlagsAndSort(Preferences preferences, String originalSql, int flags, int sort) {
+    public static String adjustQueryForFlagsAndSort(Preferences preferences, String originalSql, int sort) {
         // sort
         if(originalSql == null) {
             originalSql = "";
@@ -87,18 +65,6 @@ public class SortHelper {
         }
 
         return originalSql;
-    }
-
-    public static boolean isManualSort(int flags) {
-        return (flags & FLAG_DRAG_DROP) > 0;
-    }
-
-    public static int setManualSort(int flags, boolean status) {
-        flags = (flags & ~FLAG_DRAG_DROP);
-        if(status) {
-            flags |= FLAG_DRAG_DROP;
-        }
-        return flags;
     }
 
     public static Order orderForSortType(int sortType) {

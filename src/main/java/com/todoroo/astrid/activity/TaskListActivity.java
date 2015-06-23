@@ -244,7 +244,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     public void setupTasklistFragmentWithFilter(Filter filter, Bundle extras) {
         Class<?> customTaskList = null;
 
-        if (subtasksHelper.shouldUseSubtasksFragmentForFilter(filter)) {
+        if (subtasksHelper.shouldUseSubtasksFragmentForFilter(filter, getTaskListFragment().isDraggable())) {
             customTaskList = SubtasksHelper.subtasksClassForFilter(filter);
         }
 

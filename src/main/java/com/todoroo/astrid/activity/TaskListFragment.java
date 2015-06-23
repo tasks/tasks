@@ -688,9 +688,8 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
                 + Join.left(TaskAttachment.TABLE.as(FILE_METADATA_JOIN), Task.UUID.eq(Field.field(FILE_METADATA_JOIN + "." + TaskAttachment.TASK_UUID.name)))
                 + filter.getSqlQuery();
 
-        int sortFlags = SortHelper.setManualSort(preferences.getSortFlags(), isDraggable());
         sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(
-                preferences, joinedQuery, sortFlags, preferences.getSortMode()));
+                preferences, joinedQuery, preferences.getSortMode()));
 
         String groupedQuery;
         if (sqlQueryTemplate.get().contains("GROUP BY")) {
@@ -896,17 +895,12 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
     }
 
     @Override
-    public void onSortSelected(int flags, int sort) {
-        boolean wasManualSort = SortHelper.isManualSort(preferences.getSortFlags());
-        boolean manualSettingChanged = wasManualSort != SortHelper.isManualSort(flags);
-
-        preferences.setSortFlags(flags);
-        preferences.setSortMode(sort);
+    public void onSortSelected(boolean manualSettingChanged) {
         TasksWidget.updateWidgets(context);
 
         try {
             if(manualSettingChanged) {
-                toggleDragDrop(!wasManualSort);
+                toggleDragDrop(preferences.getBoolean(R.string.p_manual_sort, false));
             } else {
                 setUpTaskList();
             }

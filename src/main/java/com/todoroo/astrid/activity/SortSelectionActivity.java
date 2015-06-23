@@ -32,7 +32,7 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastHoneycomb;
 public class SortSelectionActivity {
 
     public interface OnSortSelectedListener {
-        void onSortSelected(int flags, int sort);
+        void onSortSelected(boolean manualSettingChanged);
     }
 
     /**
@@ -40,7 +40,6 @@ public class SortSelectionActivity {
      */
     public static AlertDialog createDialog(Activity activity, boolean showDragDrop, ActivityPreferences activityPreferences,
             OnSortSelectedListener listener) {
-        int flags = activityPreferences.getSortFlags();
         int editDialogTheme = activityPreferences.getEditDialogTheme();
         ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(activity, editDialogTheme);
         LayoutInflater themedInflater = activity.getLayoutInflater().cloneInContext(contextThemeWrapper);
@@ -54,7 +53,7 @@ public class SortSelectionActivity {
             body.findViewById(R.id.sort_drag).setVisibility(View.GONE);
         }
 
-        if(showDragDrop && (flags & SortHelper.FLAG_DRAG_DROP) > 0) {
+        if(showDragDrop && activityPreferences.getBoolean(R.string.p_manual_sort, false)) {
             ((RadioButton) body.findViewById(R.id.sort_drag)).setChecked(true);
         } else {
             switch(activityPreferences.getSortMode()) {
@@ -118,14 +117,12 @@ public class SortSelectionActivity {
 
         @Override
         public void onClick(DialogInterface view, int button) {
-            int flags = 0;
             int sort;
 
+            boolean wasManual = preferences.getBoolean(R.string.p_manual_sort, false);
+            boolean isManual = ((RadioButton) body.findViewById(R.id.sort_drag)).isChecked();
+            preferences.setBoolean(R.string.p_manual_sort, isManual);
             preferences.setBoolean(R.string.p_reverse_sort, ((CheckBox) body.findViewById(R.id.reverse)).isChecked());
-
-            if(((RadioButton)body.findViewById(R.id.sort_drag)).isChecked()) {
-                flags |= SortHelper.FLAG_DRAG_DROP;
-            }
 
             if(((RadioButton)body.findViewById(R.id.sort_alpha)).isChecked()) {
                 sort = SortHelper.SORT_ALPHA;
@@ -139,7 +136,9 @@ public class SortSelectionActivity {
                 sort = SortHelper.SORT_AUTO;
             }
 
-            listener.onSortSelected(flags, sort);
+            preferences.setSortMode(sort);
+
+            listener.onSortSelected(wasManual != isManual);
         }
     }
 }

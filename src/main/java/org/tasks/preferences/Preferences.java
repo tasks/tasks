@@ -1,6 +1,5 @@
 package org.tasks.preferences;
 
-import android.bluetooth.BluetoothClass;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -44,7 +43,6 @@ public class Preferences {
     private static final String P_CURRENT_VERSION = "cv"; //$NON-NLS-1$
     private static final String P_CURRENT_VERSION_NAME = "cvname"; //$NON-NLS-1$
 
-    private static final String PREF_SORT_FLAGS = "sort_flags"; //$NON-NLS-1$
     private static final String PREF_SORT_SORT = "sort_sort"; //$NON-NLS-1$
 
     private static final String FILE_APPENDER_NAME = "FILE";
@@ -216,16 +214,8 @@ public class Preferences {
         setString(P_CURRENT_VERSION_NAME, versionName);
     }
 
-    public int getSortFlags() {
-        return publicPrefs.getInt(PREF_SORT_FLAGS, 0);
-    }
-
     public int getSortMode() {
         return publicPrefs.getInt(PREF_SORT_SORT, SortHelper.SORT_AUTO);
-    }
-
-    public void setSortFlags(int value) {
-        setPublicPref(PREF_SORT_FLAGS, value);
     }
 
     public void setSortMode(int value) {

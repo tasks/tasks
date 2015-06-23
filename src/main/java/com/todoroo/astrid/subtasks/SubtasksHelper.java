@@ -22,6 +22,7 @@ import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 
@@ -50,10 +51,9 @@ public class SubtasksHelper {
         this.taskListMetadataDao = taskListMetadataDao;
     }
 
-    public boolean shouldUseSubtasksFragmentForFilter(Filter filter) {
+    public boolean shouldUseSubtasksFragmentForFilter(Filter filter, boolean isDraggable) {
         if(filter == null || BuiltInFilterExposer.isInbox(context, filter) || BuiltInFilterExposer.isTodayFilter(context, filter) || filter.isTagFilter()) {
-            int sortFlags = preferences.getSortFlags();
-            if(SortHelper.isManualSort(sortFlags)) {
+            if(isDraggable && preferences.getBoolean(R.string.p_manual_sort, false)) {
                 return true;
             }
         }
@@ -68,7 +68,7 @@ public class SubtasksHelper {
     }
 
     public String applySubtasksToWidgetFilter(Filter filter, String query, String tagName, int limit) {
-        if (shouldUseSubtasksFragmentForFilter(filter)) {
+        if (shouldUseSubtasksFragmentForFilter(filter, true)) {
             // care for manual ordering
             TagData tagData = tagDataDao.getTagByName(tagName, TagData.UUID, TagData.TAG_ORDERING);
             TaskListMetadata tlm = null;
