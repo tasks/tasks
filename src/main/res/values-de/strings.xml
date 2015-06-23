@@ -43,9 +43,6 @@
 	<string name="TAd_contextDeleteTask">Aufgabe löschen</string>
 	<string name="TAd_contextUndeleteTask">Aufgabe wiederherstellen</string>
 	<string name="TAd_contextPurgeTask">Aufgabe endgültig löschen</string>
-	<string name="SSD_hidden_title">Versteckte Aufgaben</string>
-	<string name="SSD_completed">Erledigte Aufgaben anzeigen</string>
-	<string name="SSD_hidden">Versteckte Aufgaben anzeigen</string>
 	<string name="SSD_deleted">Gelöschte Aufgaben anzeigen</string>
 	<string name="SSD_sort_drag">Manuelle Sortierung mit Unteraufgaben</string>
 	<string name="SSD_sort_auto">Smarte Sortierung</string>

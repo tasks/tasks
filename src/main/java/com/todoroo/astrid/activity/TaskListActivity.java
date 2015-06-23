@@ -153,9 +153,19 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.task_list_activity, menu);
         TaskListFragment tlf = getTaskListFragment();
+        MenuItem hidden = menu.findItem(R.id.menu_show_hidden);
+        if (preferences.getBoolean(R.string.p_show_hidden_tasks, false)) {
+            hidden.setChecked(true);
+        }
+        MenuItem completed = menu.findItem(R.id.menu_show_completed);
+        if (preferences.getBoolean(R.string.p_show_completed_tasks, false)) {
+            completed.setChecked(true);
+        }
         if (tlf instanceof GtasksListFragment) {
             menu.findItem(R.id.menu_clear_completed).setVisible(true);
             menu.findItem(R.id.menu_sort).setVisible(false);
+            hidden.setVisible(false);
+            completed.setVisible(false);
         } else if(tlf instanceof TagViewFragment) {
             menu.findItem(R.id.menu_tag_settings).setVisible(true);
         } else if(tlf.getFilter() instanceof CustomFilter && ((CustomFilter) tlf.getFilter()).getId() > 0) {
@@ -443,13 +453,23 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 return true;
             case R.id.menu_sort:
                 AlertDialog dialog = SortSelectionActivity.createDialog(
-                        this, tlf.hasDraggableOption(), preferences, tlf, tlf.getSortFlags(), preferences.getSortMode());
+                        this, tlf.hasDraggableOption(), preferences, tlf, preferences.getSortFlags(), preferences.getSortMode());
                 dialog.show();
                 return true;
             case R.id.menu_tag_settings:
                 startActivityForResult(new Intent(this, TagSettingsActivity.class) {{
                     putExtra(TagViewFragment.EXTRA_TAG_DATA, getTaskListFragment().getActiveTagData());
                 }}, REQUEST_EDIT_TAG);
+                return true;
+            case R.id.menu_show_hidden:
+                item.setChecked(!item.isChecked());
+                preferences.setBoolean(R.string.p_show_hidden_tasks, item.isChecked());
+                tlf.reconstructCursor();
+                return true;
+            case R.id.menu_show_completed:
+                item.setChecked(!item.isChecked());
+                preferences.setBoolean(R.string.p_show_completed_tasks, item.isChecked());
+                tlf.reconstructCursor();
                 return true;
             case R.id.menu_filter_settings:
                 startActivityForResult(new Intent(this, FilterSettingsActivity.class) {{

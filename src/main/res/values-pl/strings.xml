@@ -44,9 +44,6 @@
 	<string name="TAd_contextDeleteTask">Usuń zadanie</string>
 	<string name="TAd_contextUndeleteTask">Przywrócone zadanie</string>
 	<string name="TAd_contextPurgeTask">Trwale usuń zadanie</string>
-	<string name="SSD_hidden_title">Ukryte zadania</string>
-	<string name="SSD_completed">Pokaż ukończone zadania</string>
-	<string name="SSD_hidden">Pokaż ukryte zadania</string>
 	<string name="SSD_deleted">Pokaż usunięte zadania</string>
 	<string name="SSD_sort_drag">Ręczne z podzadaniami</string>
 	<string name="SSD_sort_auto">Automatyczne</string>

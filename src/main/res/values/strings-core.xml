@@ -77,16 +77,7 @@
   
   <!-- ============================================== SortSelectionDialog == -->
   
-  <!-- slide 23h:  Hidden: title -->
-  <string name="SSD_hidden_title">Hidden Tasks</string>
-  
-  <!-- Hidden Task Selection: show completed tasks -->    
-  <string name="SSD_completed">Show completed tasks</string>
-  
-  <!-- Hidden Task Selection: show hidden tasks -->    
-  <string name="SSD_hidden">Show hidden tasks</string>
-  
-  <!-- Hidden Task Selection: show deleted tasks -->    
+  <!-- Hidden Task Selection: show deleted tasks -->
   <string name="SSD_deleted">Show deleted tasks</string>
   
   <!-- Sort Selection: drag with subtasks -->

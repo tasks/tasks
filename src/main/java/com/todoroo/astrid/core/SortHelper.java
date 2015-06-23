@@ -24,12 +24,21 @@ import org.tasks.preferences.Preferences;
 public class SortHelper {
 
     public static final int FLAG_REVERSE_SORT = 1;
+
+    @SuppressWarnings("UnusedDeclaration")
+    @Deprecated
     public static final int FLAG_SHOW_COMPLETED = 1 << 1;
+
+    @SuppressWarnings("UnusedDeclaration")
+    @Deprecated
     public static final int FLAG_SHOW_HIDDEN = 1 << 2;
+
     @SuppressWarnings("UnusedDeclaration")
     @Deprecated
     public static final int FLAG_SHOW_DELETED = 1 << 3;
+
     public static final int FLAG_DRAG_DROP = 1 << 4;
+
     @SuppressWarnings("UnusedDeclaration")
     @Deprecated
     private static final int FLAG_SHOW_RECENTLY_COMPLETED = 1 << 5;
@@ -59,14 +68,14 @@ public class SortHelper {
         }
 
         // flags
-        if((flags & FLAG_SHOW_COMPLETED) > 0) {
+        if (preferences.getBoolean(R.string.p_show_completed_tasks, false)) {
             originalSql = originalSql.replace(Task.COMPLETION_DATE.eq(0).toString(),
                     Criterion.all.toString());
         } else {
             originalSql = originalSql.replace(Task.COMPLETION_DATE.eq(0).toString(),
                     Criterion.or(Task.COMPLETION_DATE.lte(0), Task.COMPLETION_DATE.gt(DateUtilities.now() - 60000)).toString());
         }
-        if((flags & FLAG_SHOW_HIDDEN) > 0) {
+        if (preferences.getBoolean(R.string.p_show_hidden_tasks, false)) {
             originalSql = originalSql.replace(TaskCriteria.isVisible().toString(),
                     Criterion.all.toString());
         }

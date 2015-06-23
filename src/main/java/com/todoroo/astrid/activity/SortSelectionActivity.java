@@ -19,6 +19,7 @@ import com.todoroo.astrid.core.SortHelper;
 
 import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.Preferences;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastHoneycomb;
 
@@ -46,12 +47,6 @@ public class SortSelectionActivity {
 
         if((flags & SortHelper.FLAG_REVERSE_SORT) > 0) {
             ((CheckBox) body.findViewById(R.id.reverse)).setChecked(true);
-        }
-        if((flags & SortHelper.FLAG_SHOW_COMPLETED) > 0) {
-            ((CheckBox) body.findViewById(R.id.completed)).setChecked(true);
-        }
-        if((flags & SortHelper.FLAG_SHOW_HIDDEN) > 0) {
-            ((CheckBox) body.findViewById(R.id.hidden)).setChecked(true);
         }
 
         if(!showDragDrop) {
@@ -125,12 +120,6 @@ public class SortSelectionActivity {
 
             if(((CheckBox)body.findViewById(R.id.reverse)).isChecked()) {
                 flags |= SortHelper.FLAG_REVERSE_SORT;
-            }
-            if(((CheckBox)body.findViewById(R.id.completed)).isChecked()) {
-                flags |= SortHelper.FLAG_SHOW_COMPLETED;
-            }
-            if(((CheckBox)body.findViewById(R.id.hidden)).isChecked()) {
-                flags |= SortHelper.FLAG_SHOW_HIDDEN;
             }
             if(((RadioButton)body.findViewById(R.id.sort_drag)).isChecked()) {
                 flags |= SortHelper.FLAG_DRAG_DROP;

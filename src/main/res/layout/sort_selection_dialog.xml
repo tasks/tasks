@@ -58,33 +58,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/SSD_sort_reverse" />
-            
-      <!-- hidden task status -->
-      
-      <View
-          android:id="@+id/TEA_Separator"
-          android:background="?android:attr/listDivider"
-          android:layout_width="fill_parent"
-          android:layout_height="1px" />
 
-      <TextView
-          style="@style/TextAppearance"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:paddingTop="10dip"
-          android:paddingLeft="10dip"
-          android:text="@string/SSD_hidden_title" />
-        
-      <CheckBox android:id="@+id/hidden"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/SSD_hidden" />
-      
-      <CheckBox android:id="@+id/completed"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/SSD_completed" />
-        
     </LinearLayout>
 
 </ScrollView>

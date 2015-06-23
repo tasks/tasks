@@ -44,9 +44,6 @@
 	<string name="TAd_contextDeleteTask">Smazat úkol</string>
 	<string name="TAd_contextUndeleteTask">Obnovit úkol</string>
 	<string name="TAd_contextPurgeTask">Smazat úkol</string>
-	<string name="SSD_hidden_title">Skryté úkoly</string>
-	<string name="SSD_completed">Ukázat dokončené úkoly</string>
-	<string name="SSD_hidden">Ukázat skryté úkoly</string>
 	<string name="SSD_deleted">Ukázat smazané úkoly</string>
 	<string name="SSD_sort_drag">Ručně nebo s podúkoly</string>
 	<string name="SSD_sort_auto">Chytré třídění</string>

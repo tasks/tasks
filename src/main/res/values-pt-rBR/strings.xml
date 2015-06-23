@@ -43,9 +43,6 @@
 	<string name="TAd_contextDeleteTask">Excluir tarefa</string>
 	<string name="TAd_contextUndeleteTask">Restaurar tarefa</string>
 	<string name="TAd_contextPurgeTask">Destruir tarefa</string>
-	<string name="SSD_hidden_title">Tarefas ocultas</string>
-	<string name="SSD_completed">Exibir tarefas terminadas</string>
-	<string name="SSD_hidden">Exibir tarefas ocultas</string>
 	<string name="SSD_deleted">Exibir tarefas excluídas</string>
 	<string name="SSD_sort_drag">Ordem manual com subtarefas</string>
 	<string name="SSD_sort_auto">Ordenação inteligente Tasks</string>

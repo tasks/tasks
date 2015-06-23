@@ -43,9 +43,6 @@
 	<string name="TAd_contextDeleteTask">Elimina attività</string>
 	<string name="TAd_contextUndeleteTask">Ripristina Attività</string>
 	<string name="TAd_contextPurgeTask">Elimina Attività</string>
-	<string name="SSD_hidden_title">Attività Nascoste</string>
-	<string name="SSD_completed">Mostra Attività Collegate</string>
-	<string name="SSD_hidden">Mostra Attività Nascoste</string>
 	<string name="SSD_deleted">Mostra Attività Cancellate</string>
 	<string name="SSD_sort_auto">Ordinamento Intelligente</string>
 	<string name="SSD_sort_alpha">Per Titotlo</string>

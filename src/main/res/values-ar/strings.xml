@@ -33,9 +33,6 @@
 	<string name="TAd_contextCopyTask">نسخ المهمه</string>
 	<string name="TAd_contextDeleteTask">حذف المهمة</string>
 	<string name="TAd_contextUndeleteTask">الغاء حذف المهمة</string>
-	<string name="SSD_hidden_title">المهمات المخفية</string>
-	<string name="SSD_completed">عرض المهام المنجزه</string>
-	<string name="SSD_hidden">عرض المهام المخفيه</string>
 	<string name="SSD_deleted">عرض المهام المحذوفة</string>
 	<string name="SSD_sort_auto">الترتيب الذكي</string>
 	<string name="SSD_sort_alpha">بالعنوان</string>

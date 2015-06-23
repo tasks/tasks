@@ -1,7 +1,6 @@
 package org.tasks.widget;
 
 import android.annotation.TargetApi;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -13,12 +12,10 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
@@ -190,7 +187,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
     }
 
     private TodorooCursor<Task> getCursor() {
-        String query = getQuery(context);
+        String query = getQuery();
         return taskService.fetchFiltered(query, null, Task.ID, Task.TITLE, Task.DUE_DATE, Task.COMPLETION_DATE, Task.IMPORTANCE, Task.RECURRENCE);
     }
 
@@ -199,11 +196,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
         return new Task(cursor);
     }
 
-    private String getQuery(Context context) {
-        if (filter.isTagFilter()) {
-            ((FilterWithCustomIntent) filter).customTaskList = new ComponentName(context, TagViewFragment.class); // In case legacy widget was created with subtasks fragment
-        }
-
+    private String getQuery() {
         int flags = preferences.getSortFlags();
         int sort = preferences.getSortMode();
         if(sort == 0) {

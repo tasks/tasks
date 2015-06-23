@@ -47,9 +47,6 @@
 	<string name="TAd_contextDeleteTask">일정 지우기</string>
 	<string name="TAd_contextUndeleteTask">일정 복구하기</string>
 	<string name="TAd_contextPurgeTask">일정 비우기</string>
-	<string name="SSD_hidden_title">숨긴 일정</string>
-	<string name="SSD_completed">완료한 일정 보기</string>
-	<string name="SSD_hidden">숨긴 일정 보기</string>
 	<string name="SSD_deleted">지운 일정 보기</string>
 	<string name="SSD_sort_drag">수동 정렬 (하위일정 포함)</string>
 	<string name="SSD_sort_auto">Tasks 스마트 정렬</string>

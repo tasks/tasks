@@ -44,9 +44,6 @@
 	<string name="TAd_contextDeleteTask">Vymazať úlohu</string>
 	<string name="TAd_contextUndeleteTask">Nevymazať úlohu</string>
 	<string name="TAd_contextPurgeTask">Vyčistiť úlohu</string>
-	<string name="SSD_hidden_title">Skryté úlohy</string>
-	<string name="SSD_completed">Zobraziť dokončené úlohy</string>
-	<string name="SSD_hidden">Zobraziť skryté úlohy</string>
 	<string name="SSD_deleted">Zobraziť vymazané úlohy</string>
 	<string name="SSD_sort_drag">Ručne alebo s pdúlohami</string>
 	<string name="SSD_sort_auto">Chytré triedenie</string>

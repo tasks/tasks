@@ -44,9 +44,6 @@
 	<string name="TAd_contextDeleteTask">Supprimer la tâche</string>
 	<string name="TAd_contextUndeleteTask">Récupérer la tâche</string>
 	<string name="TAd_contextPurgeTask">Purger la tâche</string>
-	<string name="SSD_hidden_title">Tâches masquées</string>
-	<string name="SSD_completed">Afficher les tâches complétées</string>
-	<string name="SSD_hidden">Afficher les tâches cachées</string>
 	<string name="SSD_deleted">Afficher les tâches supprimées</string>
 	<string name="SSD_sort_drag">Ordonner manuellement avec les sous-tâches</string>
 	<string name="SSD_sort_auto">Tri intelligent Tasks</string>

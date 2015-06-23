@@ -43,9 +43,6 @@
 	<string name="TAd_contextDeleteTask">删除任务</string>
 	<string name="TAd_contextUndeleteTask">未删除任务</string>
 	<string name="TAd_contextPurgeTask">清除任务</string>
-	<string name="SSD_hidden_title">隐藏任务</string>
-	<string name="SSD_completed">显示已完成任务</string>
-	<string name="SSD_hidden">显示隐藏的任务</string>
 	<string name="SSD_deleted">显示已删除任务</string>
 	<string name="SSD_sort_auto">清单小助理智能排序</string>
 	<string name="SSD_sort_alpha">按标题</string>

@@ -19,6 +19,17 @@
         android:title="@string/TLA_menu_sort"
         android:icon="@drawable/ic_sort_white_24dp"
         app:showAsAction="ifRoom" />
+    <group
+        android:checkableBehavior="all">
+        <item
+            android:id="@+id/menu_show_hidden"
+            android:title="@string/show_hidden"
+            android:checkable="true"/>
+        <item
+            android:id="@+id/menu_show_completed"
+            android:title="@string/show_completed"
+            android:checkable="true" />
+    </group>
     <item
         android:id="@+id/menu_clear_completed"
         android:title="@string/gtasks_GTA_clear_completed"

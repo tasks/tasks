@@ -47,9 +47,6 @@
 	<string name="TAd_contextDeleteTask">Zbriši opravek</string>
 	<string name="TAd_contextUndeleteTask">Razveljavi izbris opravka</string>
 	<string name="TAd_contextPurgeTask">Očisti opravek</string>
-	<string name="SSD_hidden_title">Skriti opravki</string>
-	<string name="SSD_completed">Prikaži dokončane opravke</string>
-	<string name="SSD_hidden">Prikaži skrite opravke</string>
 	<string name="SSD_deleted">Prikaži zbrisane opravke</string>
 	<string name="SSD_sort_drag">Ročna nastavitev s podopravki</string>
 	<string name="SSD_sort_auto">Pametno razvrščanje</string>

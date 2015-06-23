@@ -44,9 +44,6 @@
 	<string name="TAd_contextDeleteTask">タスクを削除</string>
 	<string name="TAd_contextUndeleteTask">元に戻す</string>
 	<string name="TAd_contextPurgeTask">タスクを削除</string>
-	<string name="SSD_hidden_title">非表示のタスク</string>
-	<string name="SSD_completed">完了タスクの表示</string>
-	<string name="SSD_hidden">非表示タスクの表示</string>
 	<string name="SSD_deleted">削除済タスクの表示</string>
 	<string name="SSD_sort_drag">サブタスクの手動設定順</string>
 	<string name="SSD_sort_auto">自動</string>

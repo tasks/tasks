@@ -44,9 +44,6 @@
 	<string name="TAd_contextDeleteTask">Удалить задачу</string>
 	<string name="TAd_contextUndeleteTask">Отменить удаление задачи</string>
 	<string name="TAd_contextPurgeTask">Очистить задачу</string>
-	<string name="SSD_hidden_title">Скрытые задачи</string>
-	<string name="SSD_completed">Показать завершённые задачи</string>
-	<string name="SSD_hidden">Показать скрытые задачи</string>
 	<string name="SSD_deleted">Показать удалённые задачи</string>
 	<string name="SSD_sort_drag">Ручная сортировка с подзадачами</string>
 	<string name="SSD_sort_auto">Умная сортировка</string>

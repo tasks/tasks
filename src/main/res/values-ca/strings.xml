@@ -42,9 +42,6 @@
 	<string name="TAd_contextDeleteTask">Suprimeix la tasca</string>
 	<string name="TAd_contextUndeleteTask">Recupera la tasca</string>
 	<string name="TAd_contextPurgeTask">Purgar tasques</string>
-	<string name="SSD_hidden_title">Tasques ocultes</string>
-	<string name="SSD_completed">Mostra les tasques completades</string>
-	<string name="SSD_hidden">Mostra les tasques ocultes</string>
 	<string name="SSD_deleted">Mostra les tasques suprimides</string>
 	<string name="SSD_sort_drag">Ordre manual amb subtasques</string>
 	<string name="SSD_sort_auto">Classificació intel·ligent Tasks</string>

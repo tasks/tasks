@@ -44,9 +44,6 @@
 	<string name="TAd_contextDeleteTask">Taak wissen</string>
 	<string name="TAd_contextUndeleteTask">Taak herstellen</string>
 	<string name="TAd_contextPurgeTask">Taak opruimen</string>
-	<string name="SSD_hidden_title">Verborgen Taken</string>
-	<string name="SSD_completed">Voltooide taken weergeven</string>
-	<string name="SSD_hidden">Verborgen taken weergeven</string>
 	<string name="SSD_deleted">Verwijderde taken weergeven</string>
 	<string name="SSD_sort_drag">Handmatige volgorde met subtaken</string>
 	<string name="SSD_sort_auto">Slim Sorteren</string>

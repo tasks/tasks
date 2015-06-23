@@ -35,9 +35,6 @@
 	<string name="TAd_contextDeleteTask">Slett oppgave</string>
 	<string name="TAd_contextUndeleteTask">Gjenopprett slettet oppgave</string>
 	<string name="TAd_contextPurgeTask">Rens ut oppgave</string>
-	<string name="SSD_hidden_title">Skjulte oppgaver</string>
-	<string name="SSD_completed">Vis fullførte oppgaver</string>
-	<string name="SSD_hidden">Vis skjulte oppgaver</string>
 	<string name="SSD_deleted">Vis slettede oppgaver</string>
 	<string name="SSD_sort_auto">Tasks intelligent sortering</string>
 	<string name="SSD_sort_alpha">Etter tittel</string>

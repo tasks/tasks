@@ -43,9 +43,6 @@
 	<string name="TAd_contextDeleteTask">Görevi Sil</string>
 	<string name="TAd_contextUndeleteTask">Görevi Kurtar</string>
 	<string name="TAd_contextPurgeTask">Görevi Temizle</string>
-	<string name="SSD_hidden_title">Gizli Görevler</string>
-	<string name="SSD_completed">Tamamlanan Görevleri Göster</string>
-	<string name="SSD_hidden">Gizli Görevleri Göster</string>
 	<string name="SSD_deleted">Silinmiş Görevleri Göster</string>
 	<string name="SSD_sort_auto">Tasks Akıllı Sıralama</string>
 	<string name="SSD_sort_alpha">Başlığa göre</string>

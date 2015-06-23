@@ -243,6 +243,8 @@
   <string name="p_geofence_responsiveness">geofence_responsiveness</string>
   <string name="p_geofence_reminders_enabled">geofence_reminders_enabled</string>
   <string name="p_show_deleted_tasks">show_deleted_tasks</string>
+  <string name="p_show_hidden_tasks">show_hidden_tasks</string>
+  <string name="p_show_completed_tasks">show_completed_tasks</string>
 
   <string-array name="TEA_control_sets_prefs">
         <item>@string/TEA_ctrl_when_pref</item>

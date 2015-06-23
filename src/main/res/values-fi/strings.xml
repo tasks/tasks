@@ -6,9 +6,6 @@
 <!-- ************************************************************** -->
 <resources>
 	<string name="actfm_GAA_title">Valitse mitä Google tiliä haluat käyttää:</string>
-	<string name="SSD_hidden_title">Piilota tehtävät</string>
-	<string name="SSD_completed">Näytä valmiit tehtävät</string>
-	<string name="SSD_hidden">Näytä piilotetut tehtävät</string>
 	<string name="SSD_deleted">Näytä poistetut tehtävät</string>
 	<string name="SSD_sort_drag">Manuaalinen järjestys osatehtäviin</string>
 	<string name="SSD_sort_auto">Älykäs sorttaus</string>

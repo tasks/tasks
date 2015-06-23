@@ -44,9 +44,6 @@
 	<string name="TAd_contextDeleteTask">מַחֲקֵי משימה</string>
 	<string name="TAd_contextUndeleteTask">בטלי מחיקת משימה</string>
 	<string name="TAd_contextPurgeTask">אַיֵּן משימה</string>
-	<string name="SSD_hidden_title">משימות מוסתרות</string>
-	<string name="SSD_completed">הצג משימות שבוצעו</string>
-	<string name="SSD_hidden">הצג משימות מוסתרות</string>
 	<string name="SSD_deleted">הצג משימות שנמחקו</string>
 	<string name="SSD_sort_drag">סידור ידני עם תתי-משימות</string>
 	<string name="SSD_sort_auto">Tasks מיון חכם</string>

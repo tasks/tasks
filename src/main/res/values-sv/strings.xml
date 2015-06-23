@@ -44,9 +44,6 @@
 	<string name="TAd_contextDeleteTask">Radera uppgift</string>
 	<string name="TAd_contextUndeleteTask">Återställ raderad uppgift</string>
 	<string name="TAd_contextPurgeTask">Rensa uppgift</string>
-	<string name="SSD_hidden_title">Dolda uppgifter</string>
-	<string name="SSD_completed">Visa avslutade uppgifter</string>
-	<string name="SSD_hidden">Visa dolda uppgifter</string>
 	<string name="SSD_deleted">Visa raderade uppgifter</string>
 	<string name="SSD_sort_drag">Manuell sortering med underuppgifter</string>
 	<string name="SSD_sort_auto">Tasks intelligent sortering</string>
