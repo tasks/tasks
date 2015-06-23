@@ -13,7 +13,6 @@ import android.view.View;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.service.StartupService;
@@ -39,8 +38,7 @@ import javax.inject.Inject;
  *
  */
 public abstract class AstridActivity extends InjectingAppCompatActivity
-    implements NavigationDrawerFragment.OnFilterItemClickedListener,
-    TaskListFragment.OnTaskListItemClickedListener {
+    implements TaskListFragment.OnTaskListItemClickedListener {
 
     private static final Logger log = LoggerFactory.getLogger(AstridActivity.class);
 
@@ -71,33 +69,6 @@ public abstract class AstridActivity extends InjectingAppCompatActivity
         startupService.onStartupApplication(this);
     }
 
-    /**
-     * Handles items being clicked from the filterlist-fragment. Return true if item is handled.
-     */
-    @Override
-    public boolean onFilterItemClicked(FilterListItem item) {
-        if (this instanceof TaskListActivity && (item instanceof Filter) ) {
-            ((TaskListActivity) this).setSelectedItem((Filter) item);
-        }
-        // If showing both fragments, directly update the tasklist-fragment
-        Intent intent = getIntent();
-
-        if(item instanceof Filter) {
-            Filter filter = (Filter)item;
-
-            Bundle extras = configureIntentAndExtrasWithFilter(intent, filter);
-            if (fragmentLayout == LAYOUT_DOUBLE && getTaskEditFragment() != null) {
-                onBackPressed(); // remove the task edit fragment when switching between lists
-            }
-            setupTasklistFragmentWithFilter(filter, extras);
-
-            // no animation for dualpane-layout
-            AndroidUtilities.callOverridePendingTransition(this, 0, 0);
-            return true;
-        }
-        return false;
-    }
-
     protected Bundle configureIntentAndExtrasWithFilter(Intent intent, Filter filter) {
         if(filter instanceof FilterWithCustomIntent) {
             int lastSelectedList = intent.getIntExtra(NavigationDrawerFragment.TOKEN_LAST_SELECTED, 0);
@@ -124,16 +95,6 @@ public abstract class AstridActivity extends InjectingAppCompatActivity
         if (fragmentLayout == LAYOUT_DOUBLE) {
             findViewById(R.id.taskedit_fragment_container).setVisibility(View.VISIBLE);
         }
-    }
-
-    public void setupTasklistFragmentWithFilter(Filter filter, Bundle extras) {
-        Class<?> customTaskList = null;
-
-        if (subtasksHelper.shouldUseSubtasksFragmentForFilter(filter)) {
-            customTaskList = SubtasksHelper.subtasksClassForFilter(filter);
-        }
-
-        setupTasklistFragmentWithFilterAndCustomTaskList(filter, extras, customTaskList);
     }
 
     public void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Bundle extras, Class<?> customTaskList) {

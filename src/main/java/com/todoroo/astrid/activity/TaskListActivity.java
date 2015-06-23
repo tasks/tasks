@@ -37,6 +37,7 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListFragment;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
+import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
@@ -218,7 +219,36 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
             onBackPressed();
         }
 
-        return super.onFilterItemClicked(item);
+        if ((item instanceof Filter)) {
+            setSelectedItem((Filter) item);
+        }
+        // If showing both fragments, directly update the tasklist-fragment
+        Intent intent = getIntent();
+
+        if(item instanceof Filter) {
+            Filter filter = (Filter)item;
+
+            Bundle extras = configureIntentAndExtrasWithFilter(intent, filter);
+            if (fragmentLayout == LAYOUT_DOUBLE && getTaskEditFragment() != null) {
+                onBackPressed(); // remove the task edit fragment when switching between lists
+            }
+            setupTasklistFragmentWithFilter(filter, extras);
+
+            // no animation for dualpane-layout
+            AndroidUtilities.callOverridePendingTransition(this, 0, 0);
+            return true;
+        }
+        return false;
+    }
+
+    public void setupTasklistFragmentWithFilter(Filter filter, Bundle extras) {
+        Class<?> customTaskList = null;
+
+        if (subtasksHelper.shouldUseSubtasksFragmentForFilter(filter)) {
+            customTaskList = SubtasksHelper.subtasksClassForFilter(filter);
+        }
+
+        setupTasklistFragmentWithFilterAndCustomTaskList(filter, extras, customTaskList);
     }
 
     @Override
@@ -488,9 +518,5 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
             }
         }
         return super.onKeyDown(keyCode, event);
-    }
-
-    public boolean isDrawerOpen() {
-        return navigationDrawer.isDrawerOpen();
     }
 }
