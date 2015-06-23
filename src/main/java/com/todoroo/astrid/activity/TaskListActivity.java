@@ -9,6 +9,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v4.widget.DrawerLayout;
@@ -38,11 +40,17 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListFragment;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
+import com.todoroo.astrid.subtasks.SubtasksListFragment;
+import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
+import com.todoroo.astrid.widget.TasksWidget;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.activities.SortActivity;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.receivers.RepeatConfirmationReceiver;
 import org.tasks.ui.NavigationDrawerFragment;
@@ -54,6 +62,8 @@ import static org.tasks.ui.NavigationDrawerFragment.OnFilterItemClickedListener;
 
 public class TaskListActivity extends AstridActivity implements OnPageChangeListener, OnFilterItemClickedListener {
 
+    private static final Logger log = LoggerFactory.getLogger(TaskListActivity.class);
+
     @Inject TagDataDao tagDataDao;
     @Inject ActivityPreferences preferences;
     @Inject GtasksPreferenceService gtasksPreferenceService;
@@ -61,6 +71,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
 
     private static final int REQUEST_EDIT_TAG = 11543;
     private static final int REQUEST_EDIT_FILTER = 11544;
+    private static final int REQUEST_SORT = 11545;
 
     private final RepeatConfirmationReceiver repeatConfirmationReceiver = new RepeatConfirmationReceiver(this);
     private NavigationDrawerFragment navigationDrawer;
@@ -164,13 +175,19 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         if (tlf instanceof GtasksListFragment) {
             menu.findItem(R.id.menu_clear_completed).setVisible(true);
             menu.findItem(R.id.menu_sort).setVisible(false);
-            hidden.setVisible(false);
-            completed.setVisible(false);
+            completed.setChecked(true);
+            completed.setEnabled(false);
         } else if(tlf instanceof TagViewFragment) {
             menu.findItem(R.id.menu_tag_settings).setVisible(true);
         } else if(tlf.getFilter() instanceof CustomFilter && ((CustomFilter) tlf.getFilter()).getId() > 0) {
             menu.findItem(R.id.menu_filter_settings).setVisible(true);
         }
+
+        if (tlf instanceof SubtasksTagListFragment || tlf instanceof SubtasksListFragment) {
+            hidden.setChecked(true);
+            hidden.setEnabled(false);
+        }
+
         menu.findItem(R.id.menu_voice_add).setVisible(voiceInputAvailable(this));
         final MenuItem item = menu.findItem(R.id.menu_search);
         final SearchView actionView = (SearchView) MenuItemCompat.getActionView(item);
@@ -244,11 +261,28 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     public void setupTasklistFragmentWithFilter(Filter filter, Bundle extras) {
         Class<?> customTaskList = null;
 
-        if (subtasksHelper.shouldUseSubtasksFragmentForFilter(filter, getTaskListFragment().isDraggable())) {
+        if (subtasksHelper.shouldUseSubtasksFragmentForFilter(filter)) {
             customTaskList = SubtasksHelper.subtasksClassForFilter(filter);
         }
 
-        setupTasklistFragmentWithFilterAndCustomTaskList(filter, extras, customTaskList);
+        TaskListFragment newFragment = TaskListFragment.instantiateWithFilterAndExtras(filter, extras, customTaskList);
+
+        try {
+            FragmentManager manager = getSupportFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.tasklist_fragment_container, newFragment,
+                    TaskListFragment.TAG_TASKLIST_FRAGMENT);
+            transaction.commit();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    getSupportFragmentManager().executePendingTransactions();
+                }
+            });
+        } catch (Exception e) {
+            // Don't worry about it
+            log.error(e.getMessage(), e);
+        }
     }
 
     @Override
@@ -445,6 +479,16 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
 
                 navigationDrawer.refresh();
             }
+        } else if (requestCode == REQUEST_SORT) {
+            if (resultCode == RESULT_OK && data != null) {
+                TasksWidget.updateWidgets(this);
+
+                if (data.hasExtra(SortActivity.EXTRA_TOGGLE_MANUAL)) {
+                    getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, getTaskListFragment().getFilter());
+                } else {
+                    getTaskListFragment().setUpTaskList();
+                }
+            }
         }
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -481,9 +525,9 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 voiceInputAssistant.startVoiceRecognitionActivity(R.string.voice_create_prompt);
                 return true;
             case R.id.menu_sort:
-                SortSelectionActivity
-                        .createDialog(this, tlf.hasDraggableOption(), preferences, tlf)
-                        .show();
+                startActivityForResult(new Intent(this, SortActivity.class) {{
+                    putExtra(SortActivity.EXTRA_MANUAL_ENABLED, tlf.hasDraggableOption());
+                }}, REQUEST_SORT);
                 return true;
             case R.id.menu_tag_settings:
                 startActivityForResult(new Intent(this, TagSettingsActivity.class) {{

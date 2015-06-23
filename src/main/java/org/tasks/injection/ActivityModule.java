@@ -30,6 +30,7 @@ import org.tasks.activities.ExportTaskActivity;
 import org.tasks.activities.ImportTaskActivity;
 import org.tasks.activities.LocationPickerActivity;
 import org.tasks.activities.PurgeDeletedActivity;
+import org.tasks.activities.SortActivity;
 import org.tasks.preferences.AppearancePreferences;
 import org.tasks.preferences.BackupPreferences;
 import org.tasks.preferences.BasicPreferences;
@@ -82,7 +83,8 @@ import dagger.Provides;
                 LocationPickerActivity.class,
                 NotificationActivity.class,
                 HelpAndFeedbackActivity.class,
-                DateShortcutPreferences.class
+                DateShortcutPreferences.class,
+                SortActivity.class
         })
 public class ActivityModule {
 

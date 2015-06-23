@@ -40,7 +40,6 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.activity.SortSelectionActivity.OnSortSelectedListener;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
 import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
@@ -70,7 +69,6 @@ import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.utility.Flags;
-import com.todoroo.astrid.widget.TasksWidget;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -97,7 +95,7 @@ import static org.tasks.intents.TaskIntents.getNewTaskIntent;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TaskListFragment extends InjectingListFragment implements OnSortSelectedListener, SwipeRefreshLayout.OnRefreshListener {
+public class TaskListFragment extends InjectingListFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private static final Logger log = LoggerFactory.getLogger(TaskListFragment.class);
 
@@ -874,39 +872,7 @@ public class TaskListFragment extends InjectingListFragment implements OnSortSel
         mListener.onTaskListItemClicked(taskId);
     }
 
-    protected void toggleDragDrop(boolean newState) {
-        extras.putParcelable(TOKEN_FILTER, filter);
-        if(newState) {
-            ((AstridActivity) getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(filter,
-                    extras, SubtasksListFragment.class);
-        } else {
-            filter.setFilterQueryOverride(null);
-            ((AstridActivity)getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(filter,
-                    extras, TaskListFragment.class);
-        }
-    }
-
-    protected boolean isDraggable() {
-        return false;
-    }
-
     protected boolean hasDraggableOption() {
         return isInbox || isTodayFilter;
-    }
-
-    @Override
-    public void onSortSelected(boolean manualSettingChanged) {
-        TasksWidget.updateWidgets(context);
-
-        try {
-            if(manualSettingChanged) {
-                toggleDragDrop(preferences.getBoolean(R.string.p_manual_sort, false));
-            } else {
-                setUpTaskList();
-            }
-        } catch (IllegalStateException e) {
-            log.error(e.getMessage(), e);
-            // TODO: Fragment got detached somehow (rare)
-        }
     }
 }

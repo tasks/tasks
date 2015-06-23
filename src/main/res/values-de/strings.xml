@@ -50,7 +50,6 @@
 	<string name="SSD_sort_due">Nach Fälligkeit</string>
 	<string name="SSD_sort_importance">Nach Priorität</string>
 	<string name="SSD_sort_modified">Nach letzter Änderung</string>
-	<string name="SSD_sort_reverse">Umgekehrte Sortierung</string>
 	<string name="FLA_search_filter">Übereinstimmung mit %s</string>
 	<string name="FLA_new_filter">Neuer Filter</string>
 	<string name="FLA_no_filter_selected">Kein Filter ausgewählt! Bitte Filter oder Liste auswählen.</string>

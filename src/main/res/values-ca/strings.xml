@@ -49,7 +49,6 @@
 	<string name="SSD_sort_due">Per data de venciment</string>
 	<string name="SSD_sort_importance">Per importància</string>
 	<string name="SSD_sort_modified">Per darrera modificació</string>
-	<string name="SSD_sort_reverse">Ordenació inversa</string>
 	<string name="FLA_search_filter">Coincidència \'%s\'</string>
 	<string name="FLA_new_filter">Filtre nou</string>
 	<string name="FLA_no_filter_selected">No heu seleccionat cap filtre. Seleccioneu un filtre o una llista.</string>

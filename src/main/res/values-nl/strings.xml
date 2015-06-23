@@ -51,7 +51,6 @@
 	<string name="SSD_sort_due">Op einddatum</string>
 	<string name="SSD_sort_importance">Op prioriteit</string>
 	<string name="SSD_sort_modified">Op datum gewijzigd</string>
-	<string name="SSD_sort_reverse">Omgekeerd sorteren</string>
 	<string name="FLA_search_filter">Bevat \'%s\'</string>
 	<string name="FLA_new_filter">Nieuw Filter</string>
 	<string name="FLA_no_filter_selected">Geen filter geselecteerd! Selecteer een filter of lijst.</string>

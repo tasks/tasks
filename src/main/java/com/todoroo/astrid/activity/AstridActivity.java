@@ -7,7 +7,6 @@ package com.todoroo.astrid.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
@@ -18,8 +17,6 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.ui.NavigationDrawerFragment;
@@ -39,8 +36,6 @@ import javax.inject.Inject;
  */
 public abstract class AstridActivity extends InjectingAppCompatActivity
     implements TaskListFragment.OnTaskListItemClickedListener {
-
-    private static final Logger log = LoggerFactory.getLogger(AstridActivity.class);
 
     public static final int LAYOUT_SINGLE = 0;
     public static final int LAYOUT_DOUBLE = 1;
@@ -94,27 +89,6 @@ public abstract class AstridActivity extends InjectingAppCompatActivity
 
         if (fragmentLayout == LAYOUT_DOUBLE) {
             findViewById(R.id.taskedit_fragment_container).setVisibility(View.VISIBLE);
-        }
-    }
-
-    public void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Bundle extras, Class<?> customTaskList) {
-        TaskListFragment newFragment = TaskListFragment.instantiateWithFilterAndExtras(filter, extras, customTaskList);
-
-        try {
-            FragmentManager manager = getSupportFragmentManager();
-            FragmentTransaction transaction = manager.beginTransaction();
-            transaction.replace(R.id.tasklist_fragment_container, newFragment,
-                    TaskListFragment.TAG_TASKLIST_FRAGMENT);
-            transaction.commit();
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    getSupportFragmentManager().executePendingTransactions();
-                }
-            });
-        } catch (Exception e) {
-            // Don't worry about it
-            log.error(e.getMessage(), e);
         }
     }
 

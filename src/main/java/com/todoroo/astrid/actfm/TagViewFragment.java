@@ -6,24 +6,18 @@
 package com.todoroo.astrid.actfm;
 
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
-import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.utility.Flags;
 
-import org.tasks.R;
 import org.tasks.ui.NavigationDrawerFragment;
 
 import javax.inject.Inject;
@@ -157,24 +151,6 @@ public class TagViewFragment extends TaskListFragment {
     @Override
     protected boolean hasDraggableOption() {
         return tagData != null;
-    }
-
-    @Override
-    protected void toggleDragDrop(boolean newState) {
-        Class<?> customComponent;
-
-        if(newState) {
-            customComponent = SubtasksTagListFragment.class;
-        } else {
-            filter.setFilterQueryOverride(null);
-            customComponent = TagViewFragment.class;
-        }
-
-        ((FilterWithCustomIntent) filter).customTaskList = new ComponentName(getActivity(), customComponent);
-
-        extras.putParcelable(TOKEN_FILTER, filter);
-        ((AstridActivity)getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(filter,
-                extras, customComponent);
     }
 
     @Override

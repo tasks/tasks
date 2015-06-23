@@ -116,6 +116,10 @@
             android:name=".activities.LocationPickerActivity"
             android:theme="@style/Tasks.Dialog" />
 
+        <activity
+            android:name=".activities.SortActivity"
+            android:theme="@style/Tasks.Dialog" />
+
         <!-- Activity that displays task list -->
         <activity
             android:name="com.todoroo.astrid.activity.TaskListActivity"

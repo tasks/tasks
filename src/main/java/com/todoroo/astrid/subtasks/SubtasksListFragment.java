@@ -92,11 +92,6 @@ public class SubtasksListFragment extends TaskListFragment {
     }
 
     @Override
-    protected boolean isDraggable() {
-        return true;
-    }
-
-    @Override
     public void onTaskCreated(Task task) {
         super.onTaskCreated(task);
         helper.onCreateTask(task);

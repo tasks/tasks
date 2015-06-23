@@ -54,7 +54,6 @@
 	<string name="SSD_sort_due">Po datumu roka</string>
 	<string name="SSD_sort_importance">Po prioriteti</string>
 	<string name="SSD_sort_modified">Po zadnjih spremembah</string>
-	<string name="SSD_sort_reverse">Razvrsti po obratnem vrstnem redu</string>
 	<string name="FLA_search_filter">Ujemanje za \'%s\'</string>
 	<string name="FLA_new_filter">Nov filter</string>
 	<string name="FLA_no_filter_selected">Noben filter ni izbran. Izberite filter ali seznam.</string>

@@ -98,9 +98,6 @@
   <!-- slide 23f: Sort Selection: sort by modified date -->
   <string name="SSD_sort_modified">By last modified</string>
   
-  <!-- slide 23g: Sort Selection: reverse -->
-  <string name="SSD_sort_reverse">Reverse sort</string>
-  
   <!-- =============================================== FilterListActivity == -->
 
   <!-- Search Filter name (%s => query) -->

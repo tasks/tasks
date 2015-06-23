@@ -51,7 +51,6 @@
 	<string name="SSD_sort_due">По намеченному сроку</string>
 	<string name="SSD_sort_importance">По приоритету</string>
 	<string name="SSD_sort_modified">Последние изменённые</string>
-	<string name="SSD_sort_reverse">Обратный порядок сортировки</string>
 	<string name="FLA_search_filter">Соответствует \'%s\'</string>
 	<string name="FLA_new_filter">Новый фильтр</string>
 	<string name="FLA_no_filter_selected">Фильтры не выбраны! Пожалуйста, выберите фильтр или список</string>

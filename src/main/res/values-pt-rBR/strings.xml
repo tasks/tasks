@@ -50,7 +50,6 @@
 	<string name="SSD_sort_due">Por data de vencimento</string>
 	<string name="SSD_sort_importance">Por prioridade</string>
 	<string name="SSD_sort_modified">Por data de modificação</string>
-	<string name="SSD_sort_reverse">Ordenação reversa</string>
 	<string name="FLA_search_filter">Encontradas para \'%s\'</string>
 	<string name="FLA_new_filter">Novo Filtro</string>
 	<string name="FLA_no_filter_selected">Sem filtro selecionado! Selecione um filtro ou lista.</string>

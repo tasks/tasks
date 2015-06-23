@@ -9,7 +9,6 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
-import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
@@ -51,9 +50,9 @@ public class SubtasksHelper {
         this.taskListMetadataDao = taskListMetadataDao;
     }
 
-    public boolean shouldUseSubtasksFragmentForFilter(Filter filter, boolean isDraggable) {
+    public boolean shouldUseSubtasksFragmentForFilter(Filter filter) {
         if(filter == null || BuiltInFilterExposer.isInbox(context, filter) || BuiltInFilterExposer.isTodayFilter(context, filter) || filter.isTagFilter()) {
-            if(isDraggable && preferences.getBoolean(R.string.p_manual_sort, false)) {
+            if(preferences.getBoolean(R.string.p_manual_sort, false)) {
                 return true;
             }
         }
@@ -68,7 +67,7 @@ public class SubtasksHelper {
     }
 
     public String applySubtasksToWidgetFilter(Filter filter, String query, String tagName, int limit) {
-        if (shouldUseSubtasksFragmentForFilter(filter, true)) {
+        if (shouldUseSubtasksFragmentForFilter(filter)) {
             // care for manual ordering
             TagData tagData = tagDataDao.getTagByName(tagName, TagData.UUID, TagData.TAG_ORDERING);
             TaskListMetadata tlm = null;

@@ -54,7 +54,6 @@
 	<string name="SSD_sort_due">마감일 순서</string>
 	<string name="SSD_sort_importance">우선순위 순서로</string>
 	<string name="SSD_sort_modified">최종 수정일 순서</string>
-	<string name="SSD_sort_reverse">역순 정렬</string>
 	<string name="FLA_search_filter">\'%s\' 검색 중</string>
 	<string name="FLA_new_filter">새 필터</string>
 	<string name="FLA_no_filter_selected">필터를 선택하지 않았습니다! 필터나 목록을 선택하세요.</string>
