@@ -13,7 +13,6 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -452,9 +451,9 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 voiceInputAssistant.startVoiceRecognitionActivity(R.string.voice_create_prompt);
                 return true;
             case R.id.menu_sort:
-                AlertDialog dialog = SortSelectionActivity.createDialog(
-                        this, tlf.hasDraggableOption(), preferences, tlf, preferences.getSortFlags(), preferences.getSortMode());
-                dialog.show();
+                SortSelectionActivity
+                        .createDialog(this, tlf.hasDraggableOption(), preferences, tlf)
+                        .show();
                 return true;
             case R.id.menu_tag_settings:
                 startActivityForResult(new Intent(this, TagSettingsActivity.class) {{

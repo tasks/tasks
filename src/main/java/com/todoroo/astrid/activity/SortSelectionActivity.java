@@ -39,13 +39,14 @@ public class SortSelectionActivity {
      * Create the dialog
      */
     public static AlertDialog createDialog(Activity activity, boolean showDragDrop, ActivityPreferences activityPreferences,
-            OnSortSelectedListener listener, int flags, int sort) {
+            OnSortSelectedListener listener) {
+        int flags = activityPreferences.getSortFlags();
         int editDialogTheme = activityPreferences.getEditDialogTheme();
         ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(activity, editDialogTheme);
         LayoutInflater themedInflater = activity.getLayoutInflater().cloneInContext(contextThemeWrapper);
         View body = themedInflater.inflate(R.layout.sort_selection_dialog, null);
 
-        if((flags & SortHelper.FLAG_REVERSE_SORT) > 0) {
+        if (activityPreferences.getBoolean(R.string.p_reverse_sort, false)) {
             ((CheckBox) body.findViewById(R.id.reverse)).setChecked(true);
         }
 
@@ -56,7 +57,7 @@ public class SortSelectionActivity {
         if(showDragDrop && (flags & SortHelper.FLAG_DRAG_DROP) > 0) {
             ((RadioButton) body.findViewById(R.id.sort_drag)).setChecked(true);
         } else {
-            switch(sort) {
+            switch(activityPreferences.getSortMode()) {
             case SortHelper.SORT_ALPHA:
                 ((RadioButton)body.findViewById(R.id.sort_alpha)).setChecked(true);
                 break;
@@ -87,7 +88,7 @@ public class SortSelectionActivity {
         AlertDialog dialog = builder.
             setTitle(R.string.TLA_menu_sort).
             setView(body).
-            setPositiveButton(R.string.TLA_menu_sort, new DialogOkListener(body, listener)).
+            setPositiveButton(R.string.TLA_menu_sort, new DialogOkListener(activityPreferences, body, listener)).
                 setNegativeButton(android.R.string.cancel, new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -106,9 +107,11 @@ public class SortSelectionActivity {
 
     private static class DialogOkListener implements OnClickListener {
         private final OnSortSelectedListener listener;
+        private Preferences preferences;
         private final View body;
 
-        public DialogOkListener(View body, OnSortSelectedListener listener) {
+        public DialogOkListener(Preferences preferences, View body, OnSortSelectedListener listener) {
+            this.preferences = preferences;
             this.body = body;
             this.listener = listener;
         }
@@ -118,9 +121,8 @@ public class SortSelectionActivity {
             int flags = 0;
             int sort;
 
-            if(((CheckBox)body.findViewById(R.id.reverse)).isChecked()) {
-                flags |= SortHelper.FLAG_REVERSE_SORT;
-            }
+            preferences.setBoolean(R.string.p_reverse_sort, ((CheckBox) body.findViewById(R.id.reverse)).isChecked());
+
             if(((RadioButton)body.findViewById(R.id.sort_drag)).isChecked()) {
                 flags |= SortHelper.FLAG_DRAG_DROP;
             }

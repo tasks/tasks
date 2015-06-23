@@ -23,6 +23,8 @@ import org.tasks.preferences.Preferences;
  */
 public class SortHelper {
 
+    @SuppressWarnings("UnusedDeclaration")
+    @Deprecated
     public static final int FLAG_REVERSE_SORT = 1;
 
     @SuppressWarnings("UnusedDeclaration")
@@ -61,7 +63,7 @@ public class SortHelper {
         if(!originalSql.toUpperCase().contains("ORDER BY")) {
             Order order = orderForSortType(sort);
 
-            if((flags & FLAG_REVERSE_SORT) > 0) {
+            if (preferences.getBoolean(R.string.p_reverse_sort, false)) {
                 order = order.reverse();
             }
             originalSql += " ORDER BY " + order;
