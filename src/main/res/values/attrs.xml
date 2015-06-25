@@ -46,7 +46,6 @@
     <attr name="ic_action_help" format="reference" />
     <attr name="ic_action_inbox" format="reference" />
     <attr name="ic_action_donate" format="reference" />
-    <attr name="drawer_text" format="color" />
     <attr name="importance_background_selected" format="reference" />
     <attr name="fab_icon" format="reference" />
     <attr name="toolbarSeparatorHeight" format="dimension" />

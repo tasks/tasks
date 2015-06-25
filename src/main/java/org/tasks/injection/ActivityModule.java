@@ -27,6 +27,7 @@ import org.tasks.activities.DeleteAllCalendarEventsActivity;
 import org.tasks.activities.DeleteCompletedActivity;
 import org.tasks.activities.DeleteCompletedEventsActivity;
 import org.tasks.activities.ExportTaskActivity;
+import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.activities.ImportTaskActivity;
 import org.tasks.activities.LocationPickerActivity;
 import org.tasks.activities.PurgeDeletedActivity;
@@ -84,7 +85,8 @@ import dagger.Provides;
                 NotificationActivity.class,
                 HelpAndFeedbackActivity.class,
                 DateShortcutPreferences.class,
-                SortActivity.class
+                SortActivity.class,
+                FilterSelectionActivity.class
         })
 public class ActivityModule {
 
