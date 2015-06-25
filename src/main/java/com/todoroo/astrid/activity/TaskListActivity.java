@@ -538,11 +538,13 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 item.setChecked(!item.isChecked());
                 preferences.setBoolean(R.string.p_show_hidden_tasks, item.isChecked());
                 tlf.reconstructCursor();
+                TasksWidget.updateWidgets(this);
                 return true;
             case R.id.menu_show_completed:
                 item.setChecked(!item.isChecked());
                 preferences.setBoolean(R.string.p_show_completed_tasks, item.isChecked());
                 tlf.reconstructCursor();
+                TasksWidget.updateWidgets(this);
                 return true;
             case R.id.menu_filter_settings:
                 startActivityForResult(new Intent(this, FilterSettingsActivity.class) {{
