@@ -6,19 +6,12 @@
 package com.todoroo.astrid.reminders;
 
 import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.activity.TaskListActivity;
-import com.todoroo.astrid.activity.TaskListFragment;
-import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 
 import org.slf4j.Logger;
@@ -27,11 +20,8 @@ import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingBroadcastReceiver;
-import org.tasks.intents.TaskIntents;
 import org.tasks.notifications.NotificationManager;
-import org.tasks.preferences.Preferences;
 import org.tasks.reminders.NotificationActivity;
-import org.tasks.reminders.NotificationDialog;
 
 import javax.inject.Inject;
 
@@ -62,7 +52,6 @@ public class Notifications extends InjectingBroadcastReceiver {
     @Inject @ForApplication Context context;
     @Inject NotificationManager notificationManager;
     @Inject Broadcaster broadcaster;
-    @Inject Preferences preferences;
 
     @Override
     public void onReceive(Context context, Intent intent) {

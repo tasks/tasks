@@ -6,10 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 
 import com.todoroo.astrid.adapter.FilterAdapter;
-import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.api.Filter;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
@@ -20,6 +18,7 @@ import javax.inject.Inject;
 public class FilterSelectionActivity extends InjectingFragmentActivity {
 
     public static final String EXTRA_FILTER_NAME = "extra_filter_name";
+    public static final String EXTRA_FILTER_SQL = "extra_filter_query";
 
     @Inject FilterProvider filterProvider;
     @Inject FilterCounter filterCounter;
@@ -35,16 +34,17 @@ public class FilterSelectionActivity extends InjectingFragmentActivity {
                 .setSingleChoiceItems(filterAdapter, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        final FilterListItem selectedFilter = filterAdapter.getItem(which);
+                        final Filter selectedFilter = (Filter) filterAdapter.getItem(which);
                         setResult(RESULT_OK, new Intent() {{
                             putExtra(EXTRA_FILTER_NAME, selectedFilter.listingTitle);
+                            putExtra(EXTRA_FILTER_SQL, selectedFilter.getSqlQuery());
                         }});
-                        finish();
+                        dialog.dismiss();
                     }
                 })
-                .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
-                    public void onCancel(DialogInterface dialog) {
+                    public void onDismiss(DialogInterface dialog) {
                         finish();
                     }
                 })
