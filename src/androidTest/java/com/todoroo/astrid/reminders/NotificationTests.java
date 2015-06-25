@@ -5,7 +5,7 @@
  */
 package com.todoroo.astrid.reminders;
 
-import android.content.Intent;
+import android.app.Notification;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
@@ -23,6 +23,8 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -42,17 +44,9 @@ public class NotificationTests extends DatabaseTestCase {
         public Broadcaster getBroadcaster() {
             return mock(Broadcaster.class);
         }
-
-        @Singleton
-        @Provides
-        public Notifier getNotifier() {
-            return mock(Notifier.class);
-        }
     }
 
     @Inject TaskDao taskDao;
-    @Inject
-    NotificationReceiver notificationReceiver;
     @Inject NotificationManager notificationManager;
     @Inject Broadcaster broadcaster;
     @Inject Notifier notifier;
@@ -63,7 +57,6 @@ public class NotificationTests extends DatabaseTestCase {
 
         verifyNoMoreInteractions(notificationManager);
         verifyNoMoreInteractions(broadcaster);
-        verifyNoMoreInteractions(notifier);
     }
 
     public void testAlarmToNotification() {
@@ -71,14 +64,10 @@ public class NotificationTests extends DatabaseTestCase {
             setTitle("rubberduck");
             setDueDate(DateUtilities.now() - DateUtilities.ONE_DAY);
         }};
+
         taskDao.persist(task);
 
-        notificationReceiver.handle(new Intent() {{
-            putExtra(NotificationReceiver.ID_KEY, task.getId());
-            putExtra(NotificationReceiver.EXTRAS_TYPE, ReminderService.TYPE_DUE);
-        }});
-
-        verify(notifier).triggerTaskNotification(task.getId(), ReminderService.TYPE_DUE);
+        notifier.triggerTaskNotification(task.getId(), ReminderService.TYPE_DUE);
     }
 
     public void testDeletedTaskDoesntTriggerNotification() {
@@ -88,10 +77,7 @@ public class NotificationTests extends DatabaseTestCase {
         }};
         taskDao.persist(task);
 
-        notificationReceiver.handle(new Intent() {{
-            putExtra(NotificationReceiver.ID_KEY, task.getId());
-            putExtra(NotificationReceiver.EXTRAS_TYPE, ReminderService.TYPE_DUE);
-        }});
+        notifier.triggerTaskNotification(task.getId(),ReminderService.TYPE_DUE);
 
         verify(notificationManager).cancel((int) task.getId());
     }
@@ -103,10 +89,7 @@ public class NotificationTests extends DatabaseTestCase {
         }};
         taskDao.persist(task);
 
-        notificationReceiver.handle(new Intent() {{
-            putExtra(NotificationReceiver.ID_KEY, task.getId());
-            putExtra(NotificationReceiver.EXTRAS_TYPE, ReminderService.TYPE_DUE);
-        }});
+        notifier.triggerTaskNotification(task.getId(), ReminderService.TYPE_DUE);
 
         verify(notificationManager).cancel((int) task.getId());
     }
