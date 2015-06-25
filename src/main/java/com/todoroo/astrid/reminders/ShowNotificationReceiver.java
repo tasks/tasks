@@ -5,10 +5,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.AudioManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
-import android.telephony.TelephonyManager;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -20,7 +18,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingBroadcastReceiver;
+import org.tasks.notifications.AudioManager;
 import org.tasks.notifications.NotificationManager;
+import org.tasks.notifications.TelephonyManager;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.CompleteTaskReceiver;
 import org.tasks.reminders.NotificationActivity;
@@ -47,8 +47,10 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
     private static long lastNotificationSound = 0L;
 
     @Inject NotificationManager notificationManager;
+    @Inject TelephonyManager telephonyManager;
     @Inject Preferences preferences;
     @Inject VoiceOutputAssistant voiceOutputAssistant;
+    @Inject AudioManager audioManager;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -146,12 +148,6 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
             notification.defaults = Notification.DEFAULT_LIGHTS;
         }
 
-        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-
-        // detect call state
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        int callState = tm.getCallState();
-
         boolean voiceReminder = preferences.getBoolean(R.string.p_voiceRemindersEnabled, false);
 
         // if multi-ring is activated and the setting p_rmd_maxvolume allows it, set up the flags for insistent
@@ -159,12 +155,11 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
         // will actually pay attention to the alarm
         boolean maxOutVolumeForMultipleRingReminders = preferences.getBoolean(R.string.p_rmd_maxvolume, true);
         // remember it to set it to the old value after the alarm
-        int previousAlarmVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+        int previousAlarmVolume = audioManager.getAlarmVolume();
         if (ringTimes != 1 && (type != ReminderService.TYPE_RANDOM)) {
-            notification.audioStreamType = AudioManager.STREAM_ALARM;
+            notification.audioStreamType = android.media.AudioManager.STREAM_ALARM;
             if (maxOutVolumeForMultipleRingReminders) {
-                audioManager.setStreamVolume(AudioManager.STREAM_ALARM,
-                        audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM), 0);
+                audioManager.setMaxAlarmVolume();
             }
 
             // insistent rings until notification is disabled
@@ -174,14 +169,14 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
             }
 
         } else {
-            notification.audioStreamType = AudioManager.STREAM_NOTIFICATION;
+            notification.audioStreamType = android.media.AudioManager.STREAM_NOTIFICATION;
         }
 
         boolean soundIntervalOk = checkLastNotificationSound();
 
-        if (!quietHours && callState == TelephonyManager.CALL_STATE_IDLE) {
+        if (!quietHours && telephonyManager.callStateIdle()) {
             String notificationPreference = preferences.getStringValue(R.string.p_rmd_ringtone);
-            if (audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) == 0) {
+            if (audioManager.notificationsMuted()) {
                 notification.sound = null;
                 voiceReminder = false;
             } else if (notificationPreference != null) {
@@ -201,7 +196,7 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
             notification.vibrate = null;
         }
 
-        if (quietHours || callState != TelephonyManager.CALL_STATE_IDLE) {
+        if (quietHours || !telephonyManager.callStateIdle()) {
             notification.sound = null;
             notification.vibrate = null;
             voiceReminder = false;
@@ -252,14 +247,14 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
                 AndroidUtilities.sleepDeep(2000);
                 for (int i = 0; i < 50; i++) {
                     AndroidUtilities.sleepDeep(500);
-                    if (audioManager.getMode() != AudioManager.MODE_RINGTONE) {
+                    if (!audioManager.isRingtoneMode()) {
                         break;
                     }
                 }
                 try {
                     // first reset the Alarm-volume to the value before it was eventually maxed out
                     if (maxOutVolumeForMultipleRingReminders) {
-                        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, previousAlarmVolume, 0);
+                        audioManager.setAlarmVolume(previousAlarmVolume);
                     }
                     if (voiceReminder) {
                         voiceOutputAssistant.speak(text);
