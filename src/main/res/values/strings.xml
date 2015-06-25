@@ -124,6 +124,7 @@
     <string name="show_hidden">Show hidden</string>
     <string name="show_completed">Show completed</string>
     <string name="reverse">Reverse</string>
+    <string name="task_count">%s Tasks</string>
 
     <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->

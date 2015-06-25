@@ -1,46 +1,105 @@
 package org.tasks;
 
+import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
+import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 
+import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.ReminderService;
-import com.todoroo.astrid.reminders.TaskNotificationIntentService;
+import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.utility.Flags;
+import com.todoroo.astrid.voice.VoiceOutputAssistant;
 
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.injection.ForApplication;
+import org.tasks.notifications.AudioManager;
 import org.tasks.notifications.NotificationManager;
+import org.tasks.notifications.TelephonyManager;
+import org.tasks.preferences.Preferences;
+import org.tasks.receivers.CompleteTaskReceiver;
 import org.tasks.reminders.NotificationActivity;
+import org.tasks.reminders.SnoozeActivity;
 
 import javax.inject.Inject;
+
+import static org.tasks.date.DateTimeUtils.currentTimeMillis;
 
 public class Notifier {
 
     private static final Logger log = LoggerFactory.getLogger(Notifier.class);
 
-    private Context context;
-    private TaskDao taskDao;
-    private NotificationManager notificationManager;
+    private static long lastNotificationSound = 0L;
+
+    private final Context context;
+    private final TaskDao taskDao;
+    private final NotificationManager notificationManager;
+    private final TaskService taskService;
+    private final TelephonyManager telephonyManager;
+    private final AudioManager audioManager;
+    private final VoiceOutputAssistant voiceOutputAssistant;
+    private Preferences preferences;
 
     @Inject
-    public Notifier(@ForApplication Context context, TaskDao taskDao, NotificationManager notificationManager) {
+    public Notifier(@ForApplication Context context, TaskDao taskDao,
+                    NotificationManager notificationManager, TaskService taskService,
+                    TelephonyManager telephonyManager, AudioManager audioManager,
+                    VoiceOutputAssistant voiceOutputAssistant, Preferences preferences) {
         this.context = context;
         this.taskDao = taskDao;
         this.notificationManager = notificationManager;
+        this.taskService = taskService;
+        this.telephonyManager = telephonyManager;
+        this.audioManager = audioManager;
+        this.voiceOutputAssistant = voiceOutputAssistant;
+        this.preferences = preferences;
+    }
+
+    public void triggerFilterNotification(String title, String query) {
+        TodorooCursor<Task> taskTodorooCursor = null;
+        int count;
+        try {
+            taskTodorooCursor = taskService.fetchFiltered(query, null, Task.ID);
+            if (taskTodorooCursor == null) {
+                return;
+            }
+            count = taskTodorooCursor.getCount();
+            if (count == 0) {
+                return;
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return;
+        } finally {
+            if (taskTodorooCursor != null) {
+                taskTodorooCursor.close();
+            }
+        }
+
+        String subtitle = context.getString(R.string.task_count, count);
+
+        showFilterNotification(title, subtitle, query);
     }
 
     public void triggerTaskNotification(long id, int type) {
-        if (!showTaskNotification(id, type)) {
+        if (!showNotification(id, type)) {
             notificationManager.cancel(id);
         }
     }
 
-    private boolean showTaskNotification(final long id, final int type) {
+    private boolean showNotification(final long id, final int type) {
         Task task;
         try {
             task = taskDao.fetch(id, Task.ID, Task.TITLE, Task.HIDE_UNTIL, Task.COMPLETION_DATE,
@@ -66,7 +125,7 @@ public class Notifier {
 
         // it's hidden - don't sound, don't delete
         if (task.isHidden() && type == ReminderService.TYPE_RANDOM) {
-            return true;
+            return false;
         }
 
         // task due date was changed, but alarm wasn't rescheduled
@@ -74,7 +133,7 @@ public class Notifier {
                 !task.hasDueTime() && task.getDueDate() - DateUtilities.now() > DateUtilities.ONE_DAY;
         if ((type == ReminderService.TYPE_DUE || type == ReminderService.TYPE_OVERDUE) &&
                 (!task.hasDueDate() || dueInFuture)) {
-            return true;
+            return false;
         }
 
         // read properties
@@ -96,16 +155,200 @@ public class Notifier {
             putExtra(NotificationActivity.EXTRA_TITLE, taskTitle);
         }};
 
-        context.startService(new Intent(context, TaskNotificationIntentService.class) {{
-            putExtra(TaskNotificationIntentService.EXTRAS_NOTIF_ID, (int) id);
-            putExtra(TaskNotificationIntentService.EXTRA_TASK_ID, id);
-            putExtra(TaskNotificationIntentService.EXTRAS_CUSTOM_INTENT, PendingIntent.getActivity(context, (int) id, intent, PendingIntent.FLAG_UPDATE_CURRENT));
-            putExtra(TaskNotificationIntentService.EXTRAS_TYPE, type);
-            putExtra(TaskNotificationIntentService.EXTRAS_TITLE, taskTitle);
-            putExtra(TaskNotificationIntentService.EXTRAS_TEXT, text);
-            putExtra(TaskNotificationIntentService.EXTRAS_RING_TIMES, ringTimes);
-        }});
+        showTaskNotification(
+                (int) id,
+                id,
+                PendingIntent.getActivity(context, (int) id, intent, PendingIntent.FLAG_UPDATE_CURRENT),
+                type,
+                taskTitle,
+                text,
+                ringTimes);
 
         return true;
+    }
+
+    private void showFilterNotification(final String title, String subtitle, final String query) {
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, (title + query).hashCode(), new Intent(context, TaskListActivity.class) {{
+            setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_MULTIPLE_TASK);
+            putExtra(TaskListActivity.TOKEN_SWITCH_TO_FILTER, new Filter(title, query, null));
+        }}, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+                .setSmallIcon(R.drawable.notif_astrid)
+                .setTicker(title)
+                .setWhen(System.currentTimeMillis())
+                .setContentTitle(title)
+                .setContentText(subtitle)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+        Notification notification = builder.build();
+
+        activateNotification(1, (title + query).hashCode(), notification, "Poop");
+    }
+
+    /**
+     * Shows an Astrid notification. Pulls in ring tone and quiet hour settings
+     * from preferences. You can make it say anything you like.
+     *
+     * @param ringTimes number of times to ring (-1 = nonstop)
+     */
+    private void showTaskNotification(int notificationId, final long taskId, final PendingIntent pendingIntent, int type, String title,
+                                     String text, int ringTimes) {
+        // don't ring multiple times if random reminder
+        if (type == ReminderService.TYPE_RANDOM) {
+            ringTimes = 1;
+        }
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+                .setSmallIcon(R.drawable.notif_astrid)
+                .setTicker(title)
+                .setWhen(System.currentTimeMillis())
+                .setContentTitle(title)
+                .setContentText(text)
+                .setContentIntent(pendingIntent);
+        if (preferences.useNotificationActions()) {
+            PendingIntent completeIntent = PendingIntent.getBroadcast(context, notificationId, new Intent(context, CompleteTaskReceiver.class) {{
+                putExtra(CompleteTaskReceiver.TASK_ID, taskId);
+            }}, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            PendingIntent snoozePendingIntent = PendingIntent.getActivity(context, notificationId, new Intent(context, SnoozeActivity.class) {{
+                setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                putExtra(SnoozeActivity.EXTRA_TASK_ID, taskId);
+            }}, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            builder.addAction(R.drawable.ic_check_white_24dp, context.getResources().getString(R.string.rmd_NoA_done), completeIntent)
+                    .addAction(R.drawable.ic_snooze_white_24dp, context.getResources().getString(R.string.rmd_NoA_snooze), snoozePendingIntent);
+        }
+
+        Notification notification = builder.build();
+
+        activateNotification(ringTimes, notificationId, notification, text);
+    }
+
+    private void activateNotification(int ringTimes, int notificationId, Notification notification, String text) {
+        if (preferences.getBoolean(R.string.p_rmd_persistent, true)) {
+            notification.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_SHOW_LIGHTS;
+            notification.ledOffMS = 5000;
+            notification.ledOnMS = 700;
+            notification.ledARGB = Color.YELLOW;
+        } else {
+            notification.defaults = Notification.DEFAULT_LIGHTS;
+        }
+
+        boolean voiceReminder = preferences.getBoolean(R.string.p_voiceRemindersEnabled, false);
+
+        // if multi-ring is activated and the setting p_rmd_maxvolume allows it, set up the flags for insistent
+        // notification, and increase the volume to full volume, so the user
+        // will actually pay attention to the alarm
+        boolean maxOutVolumeForMultipleRingReminders = preferences.getBoolean(R.string.p_rmd_maxvolume, true);
+        // remember it to set it to the old value after the alarm
+        int previousAlarmVolume = audioManager.getAlarmVolume();
+        if (ringTimes != 1) {
+            notification.audioStreamType = android.media.AudioManager.STREAM_ALARM;
+            if (maxOutVolumeForMultipleRingReminders) {
+                audioManager.setMaxAlarmVolume();
+            }
+
+            // insistent rings until notification is disabled
+            if (ringTimes < 0) {
+                notification.flags |= Notification.FLAG_INSISTENT;
+                voiceReminder = false;
+            }
+
+        } else {
+            notification.audioStreamType = android.media.AudioManager.STREAM_NOTIFICATION;
+        }
+
+        boolean soundIntervalOk = checkLastNotificationSound();
+
+        if (!isQuietHours(preferences) && telephonyManager.callStateIdle()) {
+            String notificationPreference = preferences.getStringValue(R.string.p_rmd_ringtone);
+            if (audioManager.notificationsMuted()) {
+                notification.sound = null;
+                voiceReminder = false;
+            } else if (notificationPreference != null) {
+                if (notificationPreference.length() > 0 && soundIntervalOk) {
+                    notification.sound = Uri.parse(notificationPreference);
+                } else {
+                    notification.sound = null;
+                }
+            } else if (soundIntervalOk) {
+                notification.defaults |= Notification.DEFAULT_SOUND;
+            }
+        }
+
+        if (preferences.getBoolean(R.string.p_rmd_vibrate, true) && soundIntervalOk) {
+            notification.vibrate = new long[]{0, 1000, 500, 1000, 500, 1000};
+        } else {
+            notification.vibrate = null;
+        }
+
+        if (isQuietHours(preferences) || !telephonyManager.callStateIdle()) {
+            notification.sound = null;
+            notification.vibrate = null;
+            voiceReminder = false;
+        }
+
+        for (int i = 0; i < Math.max(ringTimes, 1); i++) {
+            notificationManager.notify(notificationId, notification);
+            AndroidUtilities.sleepDeep(500);
+        }
+        Flags.set(Flags.REFRESH); // Forces a reload when app launches
+        if (voiceReminder || maxOutVolumeForMultipleRingReminders) {
+            AndroidUtilities.sleepDeep(2000);
+            for (int i = 0; i < 50; i++) {
+                AndroidUtilities.sleepDeep(500);
+                if (!audioManager.isRingtoneMode()) {
+                    break;
+                }
+            }
+            try {
+                // first reset the Alarm-volume to the value before it was eventually maxed out
+                if (maxOutVolumeForMultipleRingReminders) {
+                    audioManager.setAlarmVolume(previousAlarmVolume);
+                }
+                if (voiceReminder) {
+                    voiceOutputAssistant.speak(text);
+                }
+            } catch (VerifyError e) {
+                // unavailable
+                log.error(e.getMessage(), e);
+            }
+        }
+    }
+
+    /**
+     * @return true if notification should sound
+     */
+    private static boolean checkLastNotificationSound() {
+        long now = DateUtilities.now();
+        if (now - lastNotificationSound > 10000) {
+            lastNotificationSound = now;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return whether we're in quiet hours
+     */
+    static boolean isQuietHours(Preferences preferences) {
+        boolean quietHoursEnabled = preferences.quietHoursEnabled();
+        if (quietHoursEnabled) {
+            long quietHoursStart = new DateTime().withMillisOfDay(preferences.getInt(R.string.p_rmd_quietStart)).getMillis();
+            long quietHoursEnd = new DateTime().withMillisOfDay(preferences.getInt(R.string.p_rmd_quietEnd)).getMillis();
+            long now = currentTimeMillis();
+            if (quietHoursStart <= quietHoursEnd) {
+                if (now >= quietHoursStart && now < quietHoursEnd) {
+                    return true;
+                }
+            } else { // wrap across 24/hour boundary
+                if (now >= quietHoursStart || now < quietHoursEnd) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

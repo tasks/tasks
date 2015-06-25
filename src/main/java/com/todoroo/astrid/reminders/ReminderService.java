@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
+import org.tasks.receivers.TaskNotificationReceiver;
 
 import java.util.Date;
 import java.util.Random;
@@ -404,11 +405,11 @@ public final class ReminderService  {
             if(task.getId() == Task.NO_ID) {
                 return;
             }
-            Intent intent = new Intent(context, NotificationReceiver.class);
+            Intent intent = new Intent(context, TaskNotificationReceiver.class);
             intent.setType(Long.toString(task.getId()));
             intent.setAction(Integer.toString(type));
-            intent.putExtra(NotificationReceiver.ID_KEY, task.getId());
-            intent.putExtra(NotificationReceiver.EXTRAS_TYPE, type);
+            intent.putExtra(TaskNotificationReceiver.ID_KEY, task.getId());
+            intent.putExtra(TaskNotificationReceiver.EXTRAS_TYPE, type);
 
             // calculate the unique requestCode as a combination of the task-id and alarm-type:
             // concatenate id+type to keep the combo unique

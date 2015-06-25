@@ -22,11 +22,11 @@ import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.reminders.NotificationReceiver;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.service.SynchronizeMetadataCallback;
 
 import org.tasks.injection.ForApplication;
+import org.tasks.receivers.TaskNotificationReceiver;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -130,10 +130,10 @@ public class AlarmService {
     }
 
     private PendingIntent pendingIntentForAlarm(Metadata alarm, long taskId) {
-        Intent intent = new Intent(context, NotificationReceiver.class);
+        Intent intent = new Intent(context, TaskNotificationReceiver.class);
         intent.setAction("ALARM" + alarm.getId()); //$NON-NLS-1$
-        intent.putExtra(NotificationReceiver.ID_KEY, taskId);
-        intent.putExtra(NotificationReceiver.EXTRAS_TYPE, ReminderService.TYPE_ALARM);
+        intent.putExtra(TaskNotificationReceiver.ID_KEY, taskId);
+        intent.putExtra(TaskNotificationReceiver.EXTRAS_TYPE, ReminderService.TYPE_ALARM);
 
         return PendingIntent.getBroadcast(context, (int)alarm.getId(),
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);

@@ -233,7 +233,11 @@
 
         <!-- ======================================================= Receivers = -->
 
-        <receiver android:name="com.todoroo.astrid.reminders.NotificationReceiver" />
+        <receiver android:name=".receivers.TaskNotificationReceiver" />
+
+        <receiver
+            android:name=".receivers.ListNotificationReceiver"
+            android:exported="true" />
 
         <receiver android:name=".receivers.RefreshReceiver" />
 
@@ -542,9 +546,6 @@
             android:exported="false" />
         <service
             android:name=".scheduling.ReminderSchedulerIntentService"
-            android:exported="false" />
-        <service
-            android:name="com.todoroo.astrid.reminders.TaskNotificationIntentService"
             android:exported="false" />
 
         <!-- Uses Library -->

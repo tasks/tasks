@@ -1,6 +1,5 @@
 package org.tasks.intents;
 
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
