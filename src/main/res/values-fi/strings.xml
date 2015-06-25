@@ -81,4 +81,7 @@
 	<string name="TEA_tags_label_long">Lisää listaan</string>
 	<string name="tag_no_title_error">Ole hyvä syötä ensin nimi tälle listalle!</string>
 	<string name="delete_task">Poista tehtävä</string>
+	<string name="source_code">Lähdekoodi</string>
+	<string name="show_hidden">Näytä piilotetut</string>
+	<string name="show_completed">Näytä valmiit</string>
 </resources>

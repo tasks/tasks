@@ -345,6 +345,7 @@
 	<string name="repeat_detail_duedate_until">Cada %1$s\nhasta %2$s</string>
 	<string name="repeat_forever">Repetir por siempre</string>
 	<string name="repeat_until">Repetir hasta %s</string>
+	<string name="repeat_snackbar">%1$s He reprogramado esta tarea recurrente para %2$s</string>
 	<string name="TEA_tags_label_long">Añadir a listas</string>
 	<string name="tag_no_title_error">Por favor, ¡introduce un nombre para la primera lista!</string>
 	<string name="tag_FEx_untagged">Sin Categoría</string>
@@ -403,7 +404,7 @@
 	<string name="report_an_issue">Informa de un error</string>
 	<string name="help_and_feedback">Ayuda y valoraciones</string>
 	<string name="contact_developer">Contactar al desarrollador</string>
-	<string name="rate_tasks">Valorar Tasks</string>
+	<string name="rate_tasks">Calificar a Tasks</string>
 	<string name="quiet_hours_summary">Sin sonido ni vibración durante el horario de silencio</string>
 	<string name="TLA_menu_donate">Donar</string>
 	<string name="select_amount">Elegir cantidad</string>
@@ -423,6 +424,16 @@
 	<string name="geolocation_reminders">Recordatorios de Geolocalización</string>
 	<string name="tags">Etiquetas</string>
 	<string name="filters">Filtros</string>
+	<string name="date_shortcuts">Atajos para fechas</string>
+	<string name="date_shortcut_hour">Por una hora</string>
+	<string name="date_shortcut_morning">Mañana</string>
+	<string name="date_shortcut_afternoon">Tarde</string>
+	<string name="date_shortcut_evening">Atardecer</string>
+	<string name="date_shortcut_night">Noche</string>
+	<string name="date_shortcut_tomorrow_morning">Mañana a la mañana</string>
+	<string name="date_shortcut_tomorrow_afternoon">Mañana a la tarde</string>
+	<string name="date_shortcut_must_come_before">%1$s debe venir antes de %2$s</string>
+	<string name="date_shortcut_must_come_after">%1$s debe venir después de %2$s</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>deshabilitar</item>
 		<item>cada quince minutos</item>

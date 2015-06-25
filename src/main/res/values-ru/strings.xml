@@ -428,6 +428,14 @@
 	<string name="geolocation_reminders">Напоминания по местонахождению</string>
 	<string name="tags">Списки</string>
 	<string name="filters">Фильтры</string>
+	<string name="date_shortcuts">Метки по времени</string>
+	<string name="date_shortcut_hour">На час</string>
+	<string name="date_shortcut_morning">Утро</string>
+	<string name="date_shortcut_afternoon">После обеда</string>
+	<string name="date_shortcut_evening">Вечер</string>
+	<string name="date_shortcut_night">Ночь</string>
+	<string name="date_shortcut_tomorrow_morning">Завтра утром</string>
+	<string name="date_shortcut_tomorrow_afternoon">Завтра после обеда</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>отключить</item>
 		<item>каждые 15 минут</item>

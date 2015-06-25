@@ -9,6 +9,8 @@
 	<string name="actfm_picture_gallery">Изберете от Галерия</string>
 	<string name="actfm_picture_clear">Изчисти Картинка</string>
 	<string name="TVA_add_comment">Добави коментар...</string>
+	<string name="name">Име</string>
+	<string name="enter_tag_name">Въведете име на тага</string>
 	<string name="actfm_GAA_title">Изберете Google акаунт, който искате да използвате:</string>
 	<string name="backup_BPr_header">Резервни копия</string>
 	<string name="backup_BAc_import">Импортиране на задачи</string>
@@ -67,6 +69,7 @@
 	<string name="TEA_estimatedDuration_label">Колко време ще отнеме?</string>
 	<string name="TEA_elapsedDuration_label">Време, което вече е отделено</string>
 	<string name="TEA_menu_save">Запази промените</string>
+	<string name="save">Запази</string>
 	<string name="TEA_menu_discard_changes">Откажи промените</string>
 	<string name="TEA_timer_est">Приблизително %s</string>
 	<string name="TEA_timer_elap">Изминали %s</string>
@@ -353,8 +356,10 @@
 	<string name="repeat_until">Повтаряй до %s</string>
 	<string name="repeat_snackbar">%1$s е насрочено за %2$s</string>
 	<string name="TEA_tags_label_long">Добави към списъци</string>
+	<string name="new_tag">Нов таг</string>
 	<string name="tag_no_title_error">Моля, първо въведете име за този списък!</string>
 	<string name="tag_FEx_untagged">Без категория</string>
+	<string name="delete_tag_confirmation">Изтрий %s?</string>
 	<string name="TPl_notification">Таймерите са Активни за %s!</string>
 	<string name="TFE_workingOn">Tasks за отмерване на време</string>
 	<string name="TEA_timer_controls">Таймер</string>
@@ -431,6 +436,25 @@
 	<string name="geolocation_reminders">Напомняния за геолокация</string>
 	<string name="tags">Тагове</string>
 	<string name="filters">Филтри</string>
+	<string name="date_shortcuts">Дати - бърз достъп</string>
+	<string name="date_shortcut_hour">За час</string>
+	<string name="date_shortcut_morning">Сутрин</string>
+	<string name="date_shortcut_afternoon">Следобед</string>
+	<string name="date_shortcut_evening">Вечер</string>
+	<string name="date_shortcut_night">През нощта</string>
+	<string name="date_shortcut_tomorrow_morning">Утре сутринта</string>
+	<string name="date_shortcut_tomorrow_afternoon">Утре следобед</string>
+	<string name="date_shortcut_must_come_before">%1$s трябва да дойде преди %2$s</string>
+	<string name="date_shortcut_must_come_after">%1$s трябва да дойде след %2$s</string>
+	<string name="discard_changes">Откажи промените</string>
+	<string name="discard">Откажи</string>
+	<string name="tag_settings">Настройки на тага</string>
+	<string name="delete">Изтрий</string>
+	<string name="filter_settings">Настройки на филтъра</string>
+	<string name="deprecated_setting">Тази настройка ще бъде премахната при следващо обновление</string>
+	<string name="show_hidden">Покажи скрити</string>
+	<string name="show_completed">Покажи завършени</string>
+	<string name="reverse">Обратно</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>изключено</item>
 		<item>на всеки 15 минути</item>

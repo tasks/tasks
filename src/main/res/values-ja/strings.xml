@@ -9,6 +9,8 @@
 	<string name="actfm_picture_gallery">ギャラリーから選択</string>
 	<string name="actfm_picture_clear">写真を削除</string>
 	<string name="TVA_add_comment">コメントする</string>
+	<string name="name">名前</string>
+	<string name="enter_tag_name">タグ名を入力してください</string>
 	<string name="actfm_GAA_title">使用したいGoogleアカウントを選択してください:</string>
 	<string name="backup_BPr_header">バックアップ</string>
 	<string name="backup_BAc_import">タスクのインポート</string>
@@ -64,6 +66,7 @@
 	<string name="TEA_estimatedDuration_label">所要時間は?</string>
 	<string name="TEA_elapsedDuration_label">既にタスクに費やした時間</string>
 	<string name="TEA_menu_save">変更の保存</string>
+	<string name="save">保存</string>
 	<string name="TEA_menu_discard_changes">変更を保存しない</string>
 	<string name="TEA_tab_activity">活動</string>
 	<string name="TEA_timer_est">予定 %s</string>
@@ -350,9 +353,12 @@
 	<string name="repeat_detail_duedate_until">%1$s 毎\n%2$s まで</string>
 	<string name="repeat_forever">永久に繰り返す</string>
 	<string name="repeat_until">%s まで繰り返す</string>
+	<string name="repeat_snackbar">%1$s を %2$s にスケジュール変更しました</string>
 	<string name="TEA_tags_label_long">リストに追加</string>
+	<string name="new_tag">新しいタグ</string>
 	<string name="tag_no_title_error">まずリスト名を記入してください!</string>
 	<string name="tag_FEx_untagged">未分類</string>
+	<string name="delete_tag_confirmation">%s を削除しますか?</string>
 	<string name="TPl_notification">%s のタイマーがアクティブです</string>
 	<string name="TFE_workingOn">タスクの予定時間です</string>
 	<string name="TEA_timer_controls">タイマー</string>
@@ -429,6 +435,25 @@
 	<string name="geolocation_reminders">位置情報リマインダー</string>
 	<string name="tags">タグ</string>
 	<string name="filters">フィルター</string>
+	<string name="date_shortcuts">日付のショートカット</string>
+	<string name="date_shortcut_hour">1時間</string>
+	<string name="date_shortcut_morning">朝</string>
+	<string name="date_shortcut_afternoon">昼</string>
+	<string name="date_shortcut_evening">夕方</string>
+	<string name="date_shortcut_night">夜</string>
+	<string name="date_shortcut_tomorrow_morning">明日の朝</string>
+	<string name="date_shortcut_tomorrow_afternoon">明日の昼</string>
+	<string name="date_shortcut_must_come_before">%1$s は %2$s の前に来る必要があります</string>
+	<string name="date_shortcut_must_come_after">%1$s は %2$s の後に来る必要があります</string>
+	<string name="discard_changes">変更を破棄しますか?</string>
+	<string name="discard">破棄</string>
+	<string name="tag_settings">タグ設定</string>
+	<string name="delete">削除</string>
+	<string name="filter_settings">フィルター設定</string>
+	<string name="deprecated_setting">この設定は将来のアップデートで削除されます</string>
+	<string name="show_hidden">非表示を表示</string>
+	<string name="show_completed">完了を表示</string>
+	<string name="reverse">逆順</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>無効</item>
 		<item>15分毎</item>
