@@ -5,10 +5,12 @@ import android.content.Intent;
 import com.google.android.gms.location.GeofencingEvent;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.reminders.ReminderService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.Broadcaster;
+import org.tasks.Notifier;
 import org.tasks.injection.InjectingIntentService;
 
 import java.util.List;
@@ -19,8 +21,8 @@ public class GeofenceTransitionsIntentService extends InjectingIntentService {
 
     private static final Logger log = LoggerFactory.getLogger(GeofenceTransitionsIntentService.class);
 
-    @Inject Broadcaster broadcaster;
     @Inject MetadataDao metadataDao;
+    @Inject Notifier notifier;
 
     public GeofenceTransitionsIntentService() {
         super(GeofenceTransitionsIntentService.class.getSimpleName());
@@ -53,7 +55,7 @@ public class GeofenceTransitionsIntentService extends InjectingIntentService {
         try {
             Metadata fetch = metadataDao.fetch(Long.parseLong(requestId), Metadata.TASK, GeofenceFields.PLACE, GeofenceFields.LATITUDE, GeofenceFields.LONGITUDE, GeofenceFields.RADIUS);
             Geofence geofence = new Geofence(fetch);
-            broadcaster.requestNotification(geofence.getMetadataId(), geofence.getTaskId());
+            notifier.triggerTaskNotification(geofence.getTaskId(), ReminderService.TYPE_ALARM);
         } catch(Exception e) {
             log.error(String.format("Error triggering geofence %s: %s", requestId, e.getMessage()), e);
         }

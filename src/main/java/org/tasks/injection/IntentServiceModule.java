@@ -1,5 +1,7 @@
 package org.tasks.injection;
 
+import com.todoroo.astrid.reminders.TaskNotificationIntentService;
+
 import org.tasks.location.GeofenceTransitionsIntentService;
 import org.tasks.scheduling.*;
 
@@ -13,7 +15,8 @@ import dagger.Module;
                 MidnightRefreshService.class,
                 RefreshSchedulerIntentService.class,
                 ReminderSchedulerIntentService.class,
-                GeofenceTransitionsIntentService.class
+                GeofenceTransitionsIntentService.class,
+                TaskNotificationIntentService.class
         })
 public class IntentServiceModule {
 }

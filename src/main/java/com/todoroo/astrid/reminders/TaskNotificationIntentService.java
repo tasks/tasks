@@ -17,17 +17,14 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
-import org.tasks.injection.InjectingBroadcastReceiver;
+import org.tasks.injection.ForApplication;
+import org.tasks.injection.InjectingIntentService;
 import org.tasks.notifications.AudioManager;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.notifications.TelephonyManager;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.CompleteTaskReceiver;
-import org.tasks.reminders.NotificationActivity;
 import org.tasks.reminders.SnoozeActivity;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
@@ -39,32 +36,51 @@ import static org.tasks.date.DateTimeUtils.currentTimeMillis;
  *
  * @author Sam
  */
-public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
+public class TaskNotificationIntentService extends InjectingIntentService {
 
-    private static final Logger log = LoggerFactory.getLogger(ShowNotificationReceiver.class);
+    private static final Logger log = LoggerFactory.getLogger(TaskNotificationIntentService.class);
 
-    private static ExecutorService singleThreadVoicePool = Executors.newSingleThreadExecutor();
     private static long lastNotificationSound = 0L;
+
+    /**
+     * Action name for broadcast intent notifying that task was created from repeating template
+     */
+    public static final String EXTRAS_CUSTOM_INTENT = "intent"; //$NON-NLS-1$
+    public static final String EXTRAS_NOTIF_ID = "notifId"; //$NON-NLS-1$
+
+    /**
+     * notification type extra
+     */
+    public static final String EXTRAS_TITLE = "title"; //$NON-NLS-1$
+    public static final String EXTRAS_TEXT = "text"; //$NON-NLS-1$
+    public static final String EXTRAS_RING_TIMES = "ringTimes"; //$NON-NLS-1$
+    public static final String EXTRA_TASK_ID = "extra_task_id";
+    public static final String EXTRAS_TYPE = "type"; //$NON-NLS-1$
 
     @Inject NotificationManager notificationManager;
     @Inject TelephonyManager telephonyManager;
     @Inject Preferences preferences;
     @Inject VoiceOutputAssistant voiceOutputAssistant;
     @Inject AudioManager audioManager;
+    @Inject @ForApplication Context context;
+
+    public TaskNotificationIntentService() {
+        super(TaskNotificationIntentService.class.getSimpleName());
+    }
 
     @Override
-    public void onReceive(Context context, Intent intent) {
-        super.onReceive(context, intent);
+    protected void onHandleIntent(Intent intent) {
+        super.onHandleIntent(intent);
 
         showNotification(
                 context,
-                intent.getIntExtra(Notifications.EXTRAS_NOTIF_ID, 0),
-                intent.getLongExtra(NotificationActivity.EXTRA_TASK_ID, 0L),
-                intent.<PendingIntent>getParcelableExtra(Notifications.EXTRAS_CUSTOM_INTENT),
-                intent.getIntExtra(Notifications.EXTRAS_TYPE, 0),
-                intent.getStringExtra(Notifications.EXTRAS_TITLE),
-                intent.getStringExtra(Notifications.EXTRAS_TEXT),
-                intent.getIntExtra(Notifications.EXTRAS_RING_TIMES, 1));
+                intent.getIntExtra(EXTRAS_NOTIF_ID, 0),
+                intent.getLongExtra(EXTRA_TASK_ID, 0L),
+                intent.<PendingIntent>getParcelableExtra(EXTRAS_CUSTOM_INTENT),
+                intent.getIntExtra(EXTRAS_TYPE, 0),
+                intent.getStringExtra(EXTRAS_TITLE),
+                intent.getStringExtra(EXTRAS_TEXT),
+                intent.getIntExtra(EXTRAS_RING_TIMES, 1));
     }
 
     /**
@@ -156,7 +172,7 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
         boolean maxOutVolumeForMultipleRingReminders = preferences.getBoolean(R.string.p_rmd_maxvolume, true);
         // remember it to set it to the old value after the alarm
         int previousAlarmVolume = audioManager.getAlarmVolume();
-        if (ringTimes != 1 && (type != ReminderService.TYPE_RANDOM)) {
+        if (ringTimes != 1) {
             notification.audioStreamType = android.media.AudioManager.STREAM_ALARM;
             if (maxOutVolumeForMultipleRingReminders) {
                 audioManager.setMaxAlarmVolume();
@@ -202,67 +218,30 @@ public class ShowNotificationReceiver extends InjectingBroadcastReceiver {
             voiceReminder = false;
         }
 
-        singleThreadVoicePool.submit(new NotificationRunnable(ringTimes, notificationId, notification, voiceReminder,
-                maxOutVolumeForMultipleRingReminders, audioManager, previousAlarmVolume, title,
-                notificationManager, voiceOutputAssistant));
-    }
-
-    private static class NotificationRunnable implements Runnable {
-        private final int ringTimes;
-        private final int notificationId;
-        private final Notification notification;
-        private final boolean voiceReminder;
-        private final boolean maxOutVolumeForMultipleRingReminders;
-        private final AudioManager audioManager;
-        private final int previousAlarmVolume;
-        private final String text;
-        private NotificationManager notificationManager;
-        private final VoiceOutputAssistant voiceOutputAssistant;
-
-        public NotificationRunnable(int ringTimes, int notificationId, Notification notification,
-                                    boolean voiceReminder, boolean maxOutVolume,
-                                    AudioManager audioManager, int previousAlarmVolume,
-                                    String text, NotificationManager notificationManager,
-                                    VoiceOutputAssistant voiceOutputAssistant) {
-            this.ringTimes = ringTimes;
-            this.notificationId = notificationId;
-            this.notification = notification;
-            this.voiceReminder = voiceReminder;
-            this.maxOutVolumeForMultipleRingReminders = maxOutVolume;
-            this.audioManager = audioManager;
-            this.previousAlarmVolume = previousAlarmVolume;
-            this.text = text;
-            this.notificationManager = notificationManager;
-            this.voiceOutputAssistant = voiceOutputAssistant;
+        for (int i = 0; i < Math.max(ringTimes, 1); i++) {
+            notificationManager.notify(notificationId, notification);
+            AndroidUtilities.sleepDeep(500);
         }
-
-        @Override
-        public void run() {
-            for (int i = 0; i < Math.max(ringTimes, 1); i++) {
-                notificationManager.notify(notificationId, notification);
+        Flags.set(Flags.REFRESH); // Forces a reload when app launches
+        if (voiceReminder || maxOutVolumeForMultipleRingReminders) {
+            AndroidUtilities.sleepDeep(2000);
+            for (int i = 0; i < 50; i++) {
                 AndroidUtilities.sleepDeep(500);
+                if (!audioManager.isRingtoneMode()) {
+                    break;
+                }
             }
-            Flags.set(Flags.REFRESH); // Forces a reload when app launches
-            if (voiceReminder || maxOutVolumeForMultipleRingReminders) {
-                AndroidUtilities.sleepDeep(2000);
-                for (int i = 0; i < 50; i++) {
-                    AndroidUtilities.sleepDeep(500);
-                    if (!audioManager.isRingtoneMode()) {
-                        break;
-                    }
+            try {
+                // first reset the Alarm-volume to the value before it was eventually maxed out
+                if (maxOutVolumeForMultipleRingReminders) {
+                    audioManager.setAlarmVolume(previousAlarmVolume);
                 }
-                try {
-                    // first reset the Alarm-volume to the value before it was eventually maxed out
-                    if (maxOutVolumeForMultipleRingReminders) {
-                        audioManager.setAlarmVolume(previousAlarmVolume);
-                    }
-                    if (voiceReminder) {
-                        voiceOutputAssistant.speak(text);
-                    }
-                } catch (VerifyError e) {
-                    // unavailable
-                    log.error(e.getMessage(), e);
+                if (voiceReminder) {
+                    voiceOutputAssistant.speak(text);
                 }
+            } catch (VerifyError e) {
+                // unavailable
+                log.error(e.getMessage(), e);
             }
         }
     }

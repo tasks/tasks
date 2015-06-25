@@ -404,11 +404,11 @@ public final class ReminderService  {
             if(task.getId() == Task.NO_ID) {
                 return;
             }
-            Intent intent = new Intent(context, Notifications.class);
+            Intent intent = new Intent(context, NotificationReceiver.class);
             intent.setType(Long.toString(task.getId()));
             intent.setAction(Integer.toString(type));
-            intent.putExtra(Notifications.ID_KEY, task.getId());
-            intent.putExtra(Notifications.EXTRAS_TYPE, type);
+            intent.putExtra(NotificationReceiver.ID_KEY, task.getId());
+            intent.putExtra(NotificationReceiver.EXTRAS_TYPE, type);
 
             // calculate the unique requestCode as a combination of the task-id and alarm-type:
             // concatenate id+type to keep the combo unique

@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.reminders;
 
-import android.app.PendingIntent;
 import android.content.Intent;
 
 import com.todoroo.andlib.utility.DateUtilities;
@@ -14,6 +13,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
 import org.tasks.Broadcaster;
+import org.tasks.Notifier;
 import org.tasks.injection.TestModule;
 import org.tasks.notifications.NotificationManager;
 
@@ -23,8 +23,6 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -44,12 +42,20 @@ public class NotificationTests extends DatabaseTestCase {
         public Broadcaster getBroadcaster() {
             return mock(Broadcaster.class);
         }
+
+        @Singleton
+        @Provides
+        public Notifier getNotifier() {
+            return mock(Notifier.class);
+        }
     }
 
     @Inject TaskDao taskDao;
-    @Inject Notifications notifications;
+    @Inject
+    NotificationReceiver notificationReceiver;
     @Inject NotificationManager notificationManager;
     @Inject Broadcaster broadcaster;
+    @Inject Notifier notifier;
 
     @Override
     protected void tearDown() {
@@ -57,6 +63,7 @@ public class NotificationTests extends DatabaseTestCase {
 
         verifyNoMoreInteractions(notificationManager);
         verifyNoMoreInteractions(broadcaster);
+        verifyNoMoreInteractions(notifier);
     }
 
     public void testAlarmToNotification() {
@@ -66,18 +73,12 @@ public class NotificationTests extends DatabaseTestCase {
         }};
         taskDao.persist(task);
 
-        notifications.handle(new Intent() {{
-            putExtra(Notifications.ID_KEY, task.getId());
-            putExtra(Notifications.EXTRAS_TYPE, ReminderService.TYPE_DUE);
+        notificationReceiver.handle(new Intent() {{
+            putExtra(NotificationReceiver.ID_KEY, task.getId());
+            putExtra(NotificationReceiver.EXTRAS_TYPE, ReminderService.TYPE_DUE);
         }});
 
-        verify(broadcaster).requestNotification(
-                eq(task.getId()),
-                any(PendingIntent.class),
-                eq(ReminderService.TYPE_DUE),
-                eq("rubberduck"),
-                eq("Tasks"),
-                eq(1));
+        verify(notifier).triggerTaskNotification(task.getId(), ReminderService.TYPE_DUE);
     }
 
     public void testDeletedTaskDoesntTriggerNotification() {
@@ -87,9 +88,9 @@ public class NotificationTests extends DatabaseTestCase {
         }};
         taskDao.persist(task);
 
-        notifications.handle(new Intent() {{
-            putExtra(Notifications.ID_KEY, task.getId());
-            putExtra(Notifications.EXTRAS_TYPE, ReminderService.TYPE_DUE);
+        notificationReceiver.handle(new Intent() {{
+            putExtra(NotificationReceiver.ID_KEY, task.getId());
+            putExtra(NotificationReceiver.EXTRAS_TYPE, ReminderService.TYPE_DUE);
         }});
 
         verify(notificationManager).cancel((int) task.getId());
@@ -102,9 +103,9 @@ public class NotificationTests extends DatabaseTestCase {
         }};
         taskDao.persist(task);
 
-        notifications.handle(new Intent() {{
-            putExtra(Notifications.ID_KEY, task.getId());
-            putExtra(Notifications.EXTRAS_TYPE, ReminderService.TYPE_DUE);
+        notificationReceiver.handle(new Intent() {{
+            putExtra(NotificationReceiver.ID_KEY, task.getId());
+            putExtra(NotificationReceiver.EXTRAS_TYPE, ReminderService.TYPE_DUE);
         }});
 
         verify(notificationManager).cancel((int) task.getId());
@@ -115,14 +116,14 @@ public class NotificationTests extends DatabaseTestCase {
 //        task.setTitle("rubberduck");
 //        taskDao.persist(task);
 //        Intent intent = new Intent();
-//        intent.putExtra(Notifications.ID_KEY, task.getId());
+//        intent.putExtra(NotificationReceiver.ID_KEY, task.getId());
 //
 //        int hour = newDate().getHours();
 //        Preferences.setStringFromInteger(R.string.p_rmd_quietStart, hour - 1);
 //        Preferences.setStringFromInteger(R.string.p_rmd_quietEnd, hour + 1);
 //
 //        // due date notification has vibrate
-//        Notifications.setNotificationManager(new TestNotificationManager() {
+//        NotificationReceiver.setNotificationManager(new TestNotificationManager() {
 //            public void notify(int id, Notification notification) {
 //                assertNull(notification.sound);
 //                assertTrue((notification.defaults & Notification.DEFAULT_SOUND) == 0);
@@ -130,11 +131,11 @@ public class NotificationTests extends DatabaseTestCase {
 //                assertTrue(notification.vibrate.length > 0);
 //            }
 //        });
-//        intent.putExtra(Notifications.EXTRAS_TYPE, ReminderService.TYPE_DUE);
-//        notifications.onReceive(getContext(), intent);
+//        intent.putExtra(NotificationReceiver.EXTRAS_TYPE, ReminderService.TYPE_DUE);
+//        notificationReceiver.onReceive(getContext(), intent);
 //
 //        // random notification does not
-//        Notifications.setNotificationManager(new TestNotificationManager() {
+//        NotificationReceiver.setNotificationManager(new TestNotificationManager() {
 //            public void notify(int id, Notification notification) {
 //                assertNull(notification.sound);
 //                assertTrue((notification.defaults & Notification.DEFAULT_SOUND) == 0);
@@ -142,34 +143,34 @@ public class NotificationTests extends DatabaseTestCase {
 //                        notification.vibrate.length == 0);
 //            }
 //        });
-//        intent.removeExtra(Notifications.EXTRAS_TYPE);
-//        intent.putExtra(Notifications.EXTRAS_TYPE, ReminderService.TYPE_RANDOM);
-//        notifications.onReceive(getContext(), intent);
+//        intent.removeExtra(NotificationReceiver.EXTRAS_TYPE);
+//        intent.putExtra(NotificationReceiver.EXTRAS_TYPE, ReminderService.TYPE_RANDOM);
+//        notificationReceiver.onReceive(getContext(), intent);
 //
 //        // wrapping works
 //        Preferences.setStringFromInteger(R.string.p_rmd_quietStart, hour + 2);
 //        Preferences.setStringFromInteger(R.string.p_rmd_quietEnd, hour + 1);
 //
-//        Notifications.setNotificationManager(new TestNotificationManager() {
+//        NotificationReceiver.setNotificationManager(new TestNotificationManager() {
 //            public void notify(int id, Notification notification) {
 //                assertNull(notification.sound);
 //                assertTrue((notification.defaults & Notification.DEFAULT_SOUND) == 0);
 //            }
 //        });
-//        intent.removeExtra(Notifications.EXTRAS_TYPE);
-//        intent.putExtra(Notifications.EXTRAS_TYPE, ReminderService.TYPE_DUE);
-//        notifications.onReceive(getContext(), intent);
+//        intent.removeExtra(NotificationReceiver.EXTRAS_TYPE);
+//        intent.putExtra(NotificationReceiver.EXTRAS_TYPE, ReminderService.TYPE_DUE);
+//        notificationReceiver.onReceive(getContext(), intent);
 //
 //        // nonstop notification still sounds
 //        task.setReminderFlags(Task.NOTIFY_MODE_NONSTOP);
 //        taskDao.persist(task);
-//        Notifications.setNotificationManager(new TestNotificationManager() {
+//        NotificationReceiver.setNotificationManager(new TestNotificationManager() {
 //            public void notify(int id, Notification notification) {
 //                assertTrue(notification.sound != null ||
 //                        (notification.defaults & Notification.DEFAULT_SOUND) > 0);
 //            }
 //        });
-//        notifications.onReceive(getContext(), intent);
+//        notificationReceiver.onReceive(getContext(), intent);
 //    }
 
     @Override

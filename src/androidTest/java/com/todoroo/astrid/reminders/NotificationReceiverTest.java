@@ -9,11 +9,11 @@ import org.tasks.preferences.Preferences;
 
 import java.util.concurrent.TimeUnit;
 
-import static com.todoroo.astrid.reminders.ShowNotificationReceiver.isQuietHours;
+import static com.todoroo.astrid.reminders.TaskNotificationIntentService.isQuietHours;
 import static org.tasks.Freeze.freezeAt;
 import static org.tasks.Freeze.thaw;
 
-public class NotificationsTest extends AndroidTestCase {
+public class NotificationReceiverTest extends AndroidTestCase {
 
     @SuppressLint("NewApi")
     private static final int MILLIS_PER_HOUR = (int) TimeUnit.HOURS.toMillis(1);

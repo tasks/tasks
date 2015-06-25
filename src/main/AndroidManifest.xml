@@ -233,15 +233,9 @@
 
         <!-- ======================================================= Receivers = -->
 
-        <receiver android:name="com.todoroo.astrid.reminders.Notifications" />
+        <receiver android:name="com.todoroo.astrid.reminders.NotificationReceiver" />
 
         <receiver android:name=".receivers.RefreshReceiver" />
-
-        <receiver android:name="com.todoroo.astrid.reminders.ShowNotificationReceiver">
-            <intent-filter>
-                <action android:name="org.tasks.IN_APP_NOTIFY" />
-            </intent-filter>
-        </receiver>
 
         <!-- widgets -->
         <receiver
@@ -548,6 +542,9 @@
             android:exported="false" />
         <service
             android:name=".scheduling.ReminderSchedulerIntentService"
+            android:exported="false" />
+        <service
+            android:name="com.todoroo.astrid.reminders.TaskNotificationIntentService"
             android:exported="false" />
 
         <!-- Uses Library -->
