@@ -133,27 +133,26 @@
   <string name="TEA_notes_empty">Description...</string>
   
   <!-- Estimated time label -->
-  <string name="TEA_estimatedDuration_label">How long will it take?</string>
-  
-  <!-- Elapsed time label -->
-  <string name="TEA_elapsedDuration_label">Time already spent</string>
+    <string name="TEA_estimatedDuration_label">Estimated time</string>
 
-  <!-- Menu: Save -->    
-  <string name="TEA_menu_save">Save Changes</string>
+    <string name="TEA_remainingDuration_label">Time left:</string>
 
-  <string name="save">Save</string>
+    <!-- Menu: Save -->
+    <string name="TEA_menu_save">Save Changes</string>
+
+    <string name="save">Save</string>
   
-  <!-- Menu: Don't Save -->
+    <!-- Menu: Don't Save -->
   <string name="TEA_menu_discard_changes">Discard changes</string>
   
   <!-- slide 15b: Task edit tab: activity -->
   <string name="TEA_tab_activity">Activity</string>
-  
-  <string name="TEA_timer_est">Est. %s</string>
 
-  <string name="TEA_timer_elap">Elapsed %s</string>
-  
-  <string-array name="TEA_urgency">
+    <string name="TEA_timer_elap">Elapsed %s</string>
+
+    <string name="TEA_timer_remain">Left %s</string>
+
+    <string-array name="TEA_urgency">
       <!-- slide 19: urgency: labels for edit page. item #4 -> auto filled -->
       <item>No date</item>
       <item>Specific day</item>

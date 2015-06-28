@@ -23,13 +23,13 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingAppCompatActivity;
+import org.tasks.helper.UUIDHelper;
 import org.tasks.preferences.ActivityPreferences;
 
 import javax.inject.Inject;

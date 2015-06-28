@@ -23,9 +23,11 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
+import com.todoroo.astrid.dao.TaskTimeLogDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskTimeLog;
 import com.todoroo.astrid.service.TaskService;
 
 import org.slf4j.Logger;
@@ -63,10 +65,11 @@ public class TasksXmlExporter {
     private final TagDataDao tagDataDao;
     private final MetadataDao metadataDao;
     private final TaskService taskService;
+    private final TaskTimeLogDao taskTimeLogDao;
     private final Preferences preferences;
 
     // 3 is started on Version 4.6.10
-    private static final int FORMAT = 3;
+    private static final int FORMAT = 4;
     private Context context;
     private int exportCount = 0;
     private XmlSerializer xml;
@@ -93,9 +96,10 @@ public class TasksXmlExporter {
     }
 
     @Inject
-    public TasksXmlExporter(TagDataDao tagDataDao, MetadataDao metadataDao, TaskService taskService, Preferences preferences) {
+    public TasksXmlExporter(TagDataDao tagDataDao, MetadataDao metadataDao, TaskTimeLogDao taskTimeLogDao, TaskService taskService, Preferences preferences) {
         this.tagDataDao = tagDataDao;
         this.metadataDao = metadataDao;
+        this.taskTimeLogDao = taskTimeLogDao;
         this.taskService = taskService;
         this.preferences = preferences;
     }
@@ -211,12 +215,28 @@ public class TasksXmlExporter {
                 xml.startTag(null, BackupConstants.TASK_TAG);
                 serializeModel(task, Task.PROPERTIES, Task.ID);
                 serializeMetadata(task);
+                serializeTimeLogs(task);
                 xml.endTag(null, BackupConstants.TASK_TAG);
                 this.exportCount++;
             }
         } finally {
             cursor.close();
         }
+    }
+
+    private void serializeTimeLogs(Task task) {
+        taskTimeLogDao.byTask(task.getId(), new Callback<TaskTimeLog>() {
+            @Override
+            public void apply(TaskTimeLog timeLog) {
+                try {
+                    xml.startTag(null, BackupConstants.TIMELOG_TAG);
+                    serializeModel(timeLog, TaskTimeLog.PROPERTIES, TaskTimeLog.ID, TaskTimeLog.TASK_ID);
+                    xml.endTag(null, BackupConstants.TIMELOG_TAG);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 
     private synchronized void serializeMetadata(Task task) {

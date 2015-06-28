@@ -65,11 +65,9 @@
 	<string name="TEA_note_label">설명</string>
 	<string name="TEA_notes_empty">설명</string>
 	<string name="TEA_estimatedDuration_label">일정 완료 예상 시간은?</string>
-	<string name="TEA_elapsedDuration_label">일정에 이미 소모한 시간</string>
 	<string name="TEA_menu_save">변경사항 저장</string>
 	<string name="TEA_menu_discard_changes">변경 사항 취소</string>
 	<string name="TEA_tab_activity">활동 내역</string>
-	<string name="TEA_timer_est">동부표준시 %s</string>
 	<string name="TEA_timer_elap">경과 시간: %s</string>
 	<string-array name="TEA_urgency">
 		<item>기한 없음</item>

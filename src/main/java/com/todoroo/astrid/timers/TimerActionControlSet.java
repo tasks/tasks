@@ -17,11 +17,13 @@ import android.widget.LinearLayout;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskTimeLog;
 import com.todoroo.astrid.helper.TaskEditControlSetBase;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
 import org.tasks.notifications.NotificationManager;
+import org.tasks.timelog.TimeLogService;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -33,7 +35,7 @@ public class TimerActionControlSet extends TaskEditControlSetBase {
     private boolean timerActive;
     private final List<TimerActionListener> listeners = new LinkedList<>();
 
-    public TimerActionControlSet(final NotificationManager notificationManager, final TaskService taskService, final Activity activity, View parent) {
+    public TimerActionControlSet(final NotificationManager notificationManager, final TaskService taskService, final TimeLogService timeLogService, final Activity activity, View parent) {
         super(activity, -1);
 
         LinearLayout timerContainer = (LinearLayout) parent.findViewById(R.id.timer_container);
@@ -42,14 +44,14 @@ public class TimerActionControlSet extends TaskEditControlSetBase {
             @Override
             public void onClick(View v) {
                 if (timerActive) {
-                    TimerPlugin.updateTimer(notificationManager, taskService, activity, model, false);
+                    TaskTimeLog timeLog = TimerPlugin.updateTimer(notificationManager, taskService, timeLogService, activity, model, false);
 
                     for (TimerActionListener listener : listeners) {
-                        listener.timerStopped(model);
+                        listener.timerStopped(model, timeLog);
                     }
                     chronometer.stop();
                 } else {
-                    TimerPlugin.updateTimer(notificationManager, taskService, activity, model, true);
+                    TimerPlugin.updateTimer(notificationManager, taskService, timeLogService, activity, model, true);
                     for (TimerActionListener listener : listeners) {
                         listener.timerStarted(model);
                     }
@@ -118,7 +120,7 @@ public class TimerActionControlSet extends TaskEditControlSetBase {
     }
 
     public interface TimerActionListener {
-        void timerStopped(Task task);
+        void timerStopped(Task task, TaskTimeLog timeLog);
         void timerStarted(Task task);
     }
 

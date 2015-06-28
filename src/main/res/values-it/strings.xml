@@ -54,7 +54,6 @@
 	<string name="TEA_importance_label">Priorità</string>
 	<string name="TEA_note_label">Descrizione</string>
 	<string name="TEA_estimatedDuration_label">Quanto tempo impiegherà?</string>
-	<string name="TEA_elapsedDuration_label">Tempo già speso per l\'attività</string>
 	<string name="TEA_menu_save">Salva le modifiche</string>
 	<string name="TEA_tab_activity">Attività</string>
 	<string-array name="TEA_urgency">

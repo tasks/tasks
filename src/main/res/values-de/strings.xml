@@ -61,11 +61,9 @@
 	<string name="TEA_note_label">Beschreibung</string>
 	<string name="TEA_notes_empty">Beschreibung ...</string>
 	<string name="TEA_estimatedDuration_label">Wie lange wird es dauern?</string>
-	<string name="TEA_elapsedDuration_label">Zeit, die schon für die Aufgabe gebraucht wurde</string>
 	<string name="TEA_menu_save">Änderungen speichern</string>
 	<string name="TEA_menu_discard_changes">Änderungen verwerfen</string>
 	<string name="TEA_tab_activity">Aktivität</string>
-	<string name="TEA_timer_est">Geschätzt %s</string>
 	<string name="TEA_timer_elap">%s verstrichen</string>
 	<string-array name="TEA_urgency">
 		<item>Kein Datum</item>

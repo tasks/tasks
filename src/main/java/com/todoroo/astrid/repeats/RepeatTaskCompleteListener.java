@@ -107,6 +107,7 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
         task.setCompletionDate(0L);
         task.setDueDate(newDueDate);
         task.setHideUntil(hideUntil);
+        task.setRemainingSeconds(task.getEstimatedSeconds());
         task.putTransitory(TaskService.TRANS_REPEAT_COMPLETE, true);
 
         ContentResolver cr = context.getContentResolver();

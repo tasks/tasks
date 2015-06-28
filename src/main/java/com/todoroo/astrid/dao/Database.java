@@ -25,6 +25,7 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskListMetadata;
+import com.todoroo.astrid.data.TaskTimeLog;
 import com.todoroo.astrid.data.UserActivity;
 
 import org.slf4j.Logger;
@@ -46,7 +47,7 @@ import javax.inject.Singleton;
 public class Database {
 
     private static final Logger log = LoggerFactory.getLogger(Database.class);
-    private static final int VERSION = 35;
+    private static final int VERSION = 36;
     private static final String NAME = "database";
     private static final Table[] TABLES =  new Table[] {
             Task.TABLE,
@@ -56,6 +57,7 @@ public class Database {
             UserActivity.TABLE,
             TaskAttachment.TABLE,
             TaskListMetadata.TABLE,
+            TaskTimeLog.TABLE
     };
 
     private final ArrayList<DatabaseUpdateListener> listeners = new ArrayList<>();
@@ -114,6 +116,12 @@ public class Database {
     private boolean onUpgrade(int oldVersion, int newVersion) {
         SqlConstructorVisitor visitor = new SqlConstructorVisitor();
         switch(oldVersion) {
+            case 35:
+                tryExecSQL(addColumnSql(Task.TABLE, Task.REMAINING_SECONDS, visitor, "0"));
+                database.execSQL(createTableSql(visitor, TaskTimeLog.TABLE.name, TaskTimeLog.PROPERTIES));
+                TaskTimeLogDao.migrateLoggedTime(database);
+
+                return true;
         }
 
         return false;

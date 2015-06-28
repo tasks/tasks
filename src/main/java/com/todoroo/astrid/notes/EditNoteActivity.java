@@ -47,7 +47,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.timers.TimerActionControlSet.TimerActionListener;
 
 import org.json.JSONObject;
 import org.tasks.R;
@@ -59,11 +58,10 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.tasks.date.DateTimeUtils.newDate;
 import static org.tasks.files.FileHelper.getPathFromUri;
 import static org.tasks.files.ImageHelper.sampleBitmap;
 
-public class EditNoteActivity extends LinearLayout implements TimerActionListener {
+public class EditNoteActivity extends LinearLayout {
 
     private Task task;
 
@@ -458,28 +456,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     public void addListener(UpdatesChangedListener listener) {
         listeners.add(listener);
-    }
-
-    @Override
-    public void timerStarted(Task t) {
-        addComment(String.format("%s %s",  //$NON-NLS-1$
-                getContext().getString(R.string.TEA_timer_comment_started),
-                DateUtilities.getTimeString(getContext(), newDate())),
-                UserActivity.ACTION_TASK_COMMENT,
-                t.getUuid(),
-                false);
-    }
-
-    @Override
-    public void timerStopped(Task t) {
-        String elapsedTime = DateUtils.formatElapsedTime(t.getElapsedSeconds());
-        addComment(String.format("%s %s\n%s %s", //$NON-NLS-1$
-                getContext().getString(R.string.TEA_timer_comment_stopped),
-                DateUtilities.getTimeString(getContext(), newDate()),
-                getContext().getString(R.string.TEA_timer_comment_spent),
-                elapsedTime), UserActivity.ACTION_TASK_COMMENT,
-                t.getUuid(),
-                false);
     }
 
     /*

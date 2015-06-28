@@ -2,7 +2,8 @@ package com.todoroo.astrid.dao;
 
 import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.astrid.data.RemoteModel;
-import com.todoroo.astrid.helper.UUIDHelper;
+
+import org.tasks.helper.UUIDHelper;
 
 /**
  * This class is meant to be subclassed for daos whose models

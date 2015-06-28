@@ -205,6 +205,10 @@ public class DateAndTimePicker extends LinearLayout {
         }
     }
 
+    public boolean hasTime() {
+        return timePicker.hasTime();
+    }
+
     private void updateShortcutView(Date date) {
         for (int i = 0; i < dateShortcuts.getChildCount(); i++) {
             View child = dateShortcuts.getChildAt(i);
@@ -259,6 +263,10 @@ public class DateAndTimePicker extends LinearLayout {
             }
         }
         return displayString.toString();
+    }
+
+    public static String getDisplayString(Context context, long forDate) {
+        return getDisplayString(context, forDate, false, false);
     }
 
 }

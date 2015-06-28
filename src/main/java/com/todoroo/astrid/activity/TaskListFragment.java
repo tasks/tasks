@@ -78,6 +78,7 @@ import org.tasks.injection.InjectingListFragment;
 import org.tasks.injection.Injector;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.timelog.TimeLogService;
 import org.tasks.ui.NavigationDrawerFragment;
 
 import java.util.Timer;
@@ -126,6 +127,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     // --- instance variables
 
     @Inject TaskService taskService;
+    @Inject TimeLogService timeLogService;
     @Inject TaskListMetadataDao taskListMetadataDao;
     @Inject SyncV2Service syncService;
     @Inject TaskDeleter taskDeleter;
@@ -790,7 +792,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
                 }
             }
         }
-        TimerPlugin.updateTimer(notificationManager, taskService, context, task, false);
+        TimerPlugin.updateTimer(notificationManager, taskService, timeLogService, context, task, false);
     }
 
     public void refreshFilterCount() {
@@ -848,7 +850,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
             itemId = item.getGroupId();
             Task task = new Task();
             task.setId(itemId);
-            TimerPlugin.updateTimer(notificationManager, taskService, getActivity(), task, false);
+            TimerPlugin.updateTimer(notificationManager, taskService, timeLogService, getActivity(), task, false);
             taskDeleter.purge(itemId);
             loadTaskListContent();
             return true;

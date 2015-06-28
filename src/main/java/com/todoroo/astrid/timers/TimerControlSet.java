@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskTimeLog;
 import com.todoroo.astrid.helper.TaskEditControlSetBase;
 import com.todoroo.astrid.timers.TimerActionControlSet.TimerActionListener;
 import com.todoroo.astrid.ui.PopupControlSet;
@@ -20,6 +21,10 @@ import com.todoroo.astrid.ui.TimeDurationControlSet;
 
 import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.timelog.TimeLogService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Control Set for managing repeats
@@ -27,26 +32,34 @@ import org.tasks.preferences.ActivityPreferences;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TimerControlSet extends PopupControlSet implements TimerActionListener {
+public class TimerControlSet extends PopupControlSet implements TimerActionListener, TimeLogControlSet.OnTimeSpentChangeListener {
 
-    TimeDurationTaskEditControlSet estimated, elapsed;
+    TimeDurationTaskEditControlSet estimated, remaining;
     private final TextView displayEdit;
 
-    public TimerControlSet(ActivityPreferences preferences, final Activity activity) {
-        super(preferences, activity, R.layout.control_set_timers_dialog, R.layout.control_set_timers, R.string.TEA_timer_controls);
+    private TimeLogControlSet timeLogControlSet;
+    private TimeLogService timeLogService;
+
+    public TimerControlSet(ActivityPreferences preferences, final Activity activity, int viewLayout, int displayViewLayout, int title, TimeLogService timeLogService) {
+        super(preferences, activity, viewLayout, displayViewLayout, title);
+        this.timeLogService = timeLogService;
 
         displayEdit = (TextView) getView().findViewById(R.id.display_row_edit);
         displayEdit.setText(R.string.TEA_timer_controls);
         displayEdit.setTextColor(unsetColor);
 
-        estimated = new TimeDurationTaskEditControlSet(activity, getDialogView(), Task.ESTIMATED_SECONDS,R.id.estimatedDuration);
-        elapsed = new TimeDurationTaskEditControlSet(activity, getDialogView(), Task.ELAPSED_SECONDS, R.id.elapsedDuration);
+        estimated = new TimeDurationTaskEditControlSet(activity, getDialogView(), Task.ESTIMATED_SECONDS, R.id.estimatedDurationLayout, R.string.TEA_estimatedDuration_label);
+        remaining = new TimeDurationTaskEditControlSet(activity, getDialogView(), Task.REMAINING_SECONDS, R.id.remainingDurationLayout, R.string.TEA_remainingDuration_label);
+        estimated.setTimeDurationChangeListener(new EstimatedTimeListener());
+
+        timeLogControlSet = new TimeLogControlSet(activity, getDialogView(), preferences, timeLogService, this);
     }
 
     @Override
     protected void readFromTaskOnInitialize() {
         estimated.readFromTask(model);
-        elapsed.readFromTask(model);
+        remaining.readFromTask(model);
+        timeLogControlSet.readFromTask(model);
     }
 
     @Override
@@ -58,13 +71,26 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
     protected void writeToModelAfterInitialized(Task task) {
         if (initialized) {
             estimated.writeToModel(task);
-            elapsed.writeToModel(task);
+            remaining.writeToModel(task);
+            timeLogControlSet.writeToModel(task);
         }
     }
 
     @Override
     public int getIcon() {
         return R.attr.ic_timer;
+    }
+
+    @Override
+    public void timeSpentChanged(int fromInSeconds, int toInSeconds) {
+        model.setElapsedSeconds((int) toInSeconds);
+        model.lowerRemainingSeconds(toInSeconds - fromInSeconds);
+        remaining.readFromTaskOnInitialize();
+    }
+
+    private void setRemainingTime(int remainingSeconds) {
+        model.setRemainingSeconds(remainingSeconds);
+        remaining.readFromTaskOnInitialize();
     }
 
     // --- TimeDurationTaskEditControlSet
@@ -78,10 +104,10 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
         private final TimeDurationControlSet controlSet;
         private final IntegerProperty property;
 
-        public TimeDurationTaskEditControlSet(Activity activity, View v, IntegerProperty property, int timeButtonId) {
+        public TimeDurationTaskEditControlSet(Activity activity, View v, IntegerProperty property, int timeButtonId, int labelId) {
             super(activity, -1);
             this.property = property;
-            this.controlSet = new TimeDurationControlSet(activity, v, property, timeButtonId);
+            this.controlSet = new TimeDurationControlSet(activity, v, property, timeButtonId, labelId);
         }
 
         @Override
@@ -97,7 +123,7 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
 
         @Override
         protected void writeToModelAfterInitialized(Task task) {
-            task.setValue(property, controlSet.getTimeDurationInSeconds());
+            task.setValue(property, getTimeDurationInSeconds());
         }
 
         public String getDisplayString() {
@@ -112,30 +138,30 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
         public int getIcon() {
             return -1;
         }
+        
+        public int getTimeDurationInSeconds() {
+            return controlSet.getTimeDurationInSeconds();
+        }
+
+        public void setTimeDurationChangeListener(TimeDurationControlSet.TimeDurationChangeListener timeDurationChangeListener) {
+            controlSet.setTimeDurationChangeListener(timeDurationChangeListener);
+        }
     }
 
     @Override
     protected void refreshDisplayView() {
-        String est = estimated.getDisplayString();
-        if (!TextUtils.isEmpty(est)) {
-            est = activity.getString(R.string.TEA_timer_est, est);
+        int spent = timeLogControlSet.getTimeSpent();
+        int remaining = this.remaining.getTimeDurationInSeconds();
+
+        List<String> toJoin = new ArrayList<>();
+        if (spent > 0) {
+            toJoin.add(activity.getString(R.string.TEA_timer_elap, DateUtils.formatElapsedTime(spent)));
         }
-        String elap = elapsed.getDisplayString();
-        if (!TextUtils.isEmpty(elap)) {
-            elap = activity.getString(R.string.TEA_timer_elap, elap);
+        if (remaining > 0) {
+            toJoin.add(activity.getString(R.string.TEA_timer_remain, DateUtils.formatElapsedTime(remaining)));
         }
 
-        String toDisplay;
-
-        if (!TextUtils.isEmpty(est) && !TextUtils.isEmpty(elap)) {
-            toDisplay = est + ", " + elap; //$NON-NLS-1$
-        } else if (!TextUtils.isEmpty(est)) {
-            toDisplay = est;
-        } else if (!TextUtils.isEmpty(elap)) {
-            toDisplay = elap;
-        } else {
-            toDisplay = null;
-        }
+        String toDisplay = TextUtils.join(", ", toJoin);
 
         if (!TextUtils.isEmpty(toDisplay)) {
             displayEdit.setText(toDisplay);
@@ -147,12 +173,23 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
     }
 
     @Override
-    public void timerStopped(Task task) {
-        elapsed.readFromTask(task);
+    public void timerStopped(Task task, TaskTimeLog timeLog) {
+        timeLogControlSet.timerStopped(task, timeLog);
+        remaining.readFromTaskOnInitialize();
+        refreshDisplayView();
+//        elapsed.readFromTask(task);
     }
 
     @Override
     public void timerStarted(Task task) {
     }
 
+    private class EstimatedTimeListener implements TimeDurationControlSet.TimeDurationChangeListener {
+        @Override
+        public void timeDurationChanged(int newDurationInSeconds) {
+            int elapsedSeconds = model.getElapsedSeconds();
+            int timeLeft = newDurationInSeconds - elapsedSeconds;
+            setRemainingTime(timeLeft);
+        }
+    }
 }
