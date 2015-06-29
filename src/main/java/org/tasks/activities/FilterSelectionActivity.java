@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 
@@ -19,6 +20,7 @@ public class FilterSelectionActivity extends InjectingFragmentActivity {
 
     public static final String EXTRA_FILTER_NAME = "extra_filter_name";
     public static final String EXTRA_FILTER_SQL = "extra_filter_query";
+    public static final String EXTRA_FILTER_VALUES = "extra_filter_values";
 
     @Inject FilterProvider filterProvider;
     @Inject FilterCounter filterCounter;
@@ -38,6 +40,9 @@ public class FilterSelectionActivity extends InjectingFragmentActivity {
                         setResult(RESULT_OK, new Intent() {{
                             putExtra(EXTRA_FILTER_NAME, selectedFilter.listingTitle);
                             putExtra(EXTRA_FILTER_SQL, selectedFilter.getSqlQuery());
+                            if (selectedFilter.valuesForNewTasks != null) {
+                                putExtra(EXTRA_FILTER_VALUES, AndroidUtilities.contentValuesToSerializedString(selectedFilter.valuesForNewTasks));
+                            }
                         }});
                         dialog.dismiss();
                     }

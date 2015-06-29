@@ -67,7 +67,7 @@ public class Notifier {
         this.preferences = preferences;
     }
 
-    public void triggerFilterNotification(String title, String query) {
+    public void triggerFilterNotification(String title, String query, String valuesForNewTasks) {
         TodorooCursor<Task> taskTodorooCursor = null;
         int count;
         try {
@@ -90,7 +90,7 @@ public class Notifier {
 
         String subtitle = context.getString(R.string.task_count, count);
 
-        showFilterNotification(title, subtitle, query);
+        showFilterNotification(title, subtitle, query, valuesForNewTasks);
     }
 
     public void triggerTaskNotification(long id, int type) {
@@ -167,10 +167,10 @@ public class Notifier {
         return true;
     }
 
-    private void showFilterNotification(final String title, String subtitle, final String query) {
+    private void showFilterNotification(final String title, String subtitle, final String query, final String valuesForNewTasks) {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, (title + query).hashCode(), new Intent(context, TaskListActivity.class) {{
             setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_MULTIPLE_TASK);
-            putExtra(TaskListActivity.TOKEN_SWITCH_TO_FILTER, new Filter(title, query, null));
+            putExtra(TaskListActivity.TOKEN_SWITCH_TO_FILTER, new Filter(title, query, AndroidUtilities.contentValuesFromSerializedString(valuesForNewTasks)));
         }}, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)

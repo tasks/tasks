@@ -21,6 +21,7 @@ public class ListNotificationReceiver extends InjectingBroadcastReceiver {
 
     public static final String EXTRA_FILTER_TITLE = "extra_filter_title";
     public static final String EXTRA_FILTER_QUERY = "extra_filter_query";
+    public static final String EXTRA_FILTER_VALUES = "extra_filter_values";
 
     @Inject Notifier notifier;
 
@@ -35,7 +36,8 @@ public class ListNotificationReceiver extends InjectingBroadcastReceiver {
             public void run() {
                 notifier.triggerFilterNotification(
                         intent.getStringExtra(EXTRA_FILTER_TITLE),
-                        intent.getStringExtra(EXTRA_FILTER_QUERY));
+                        intent.getStringExtra(EXTRA_FILTER_QUERY),
+                        intent.getStringExtra(EXTRA_FILTER_VALUES));
             }
         });
     }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/get_plugins">
+
+        <Preference
+            android:title="Tasker/Locale">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="market://details?id=org.tasks.locale" />
+        </Preference>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

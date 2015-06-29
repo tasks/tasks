@@ -31,6 +31,9 @@ public class BasicPreferences extends InjectingPreferenceActivity {
         if (!getResources().getBoolean(R.bool.sync_enabled)) {
             getPreferenceScreen().removePreference(findPreference(getString(R.string.synchronization)));
         }
+        if (getResources().getBoolean(R.bool.tasker_available)) {
+            addPreferencesFromResource(R.xml.preferences_addons);
+        }
         setupActivity(R.string.EPr_appearance_header, AppearancePreferences.class);
         setupActivity(R.string.notifications, ReminderPreferences.class);
         setupActivity(R.string.EPr_manage_header, OldTaskPreferences.class);
