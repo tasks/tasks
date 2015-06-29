@@ -77,7 +77,6 @@ public class MissedCallActivity extends InjectingFragmentActivity {
                         getString(R.string.MCA_ignore_body),
                         R.string.MCA_ignore_all,
                         R.string.MCA_ignore_this,
-                        0,
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

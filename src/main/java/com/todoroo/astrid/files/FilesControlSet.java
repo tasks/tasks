@@ -19,6 +19,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -30,7 +31,6 @@ import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.ui.PopupControlSet;
-import com.todoroo.astrid.utility.Constants;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -230,42 +230,8 @@ public class FilesControlSet extends PopupControlSet {
             activity.startActivity(intent);
         } catch (ActivityNotFoundException e) {
             log.error(e.getMessage(), e);
-            handleActivityNotFound(type);
+            Toast.makeText(activity, R.string.file_type_unhandled, Toast.LENGTH_LONG).show();
         }
-    }
-
-    private void handleActivityNotFound(String fileType) {
-        if (fileType.startsWith(TaskAttachment.FILE_TYPE_AUDIO)) {
-            searchMarket("com.clov4r.android.nil", R.string.search_market_audio_title, R.string.search_market_audio); //$NON-NLS-1$
-        } else if (fileType.equals(TaskAttachment.FILE_TYPE_PDF)) {
-            searchMarket("com.adobe.reader", R.string.search_market_pdf_title, R.string.search_market_pdf); //$NON-NLS-1$
-        } else if (AndroidUtilities.indexOf(TaskAttachment.MS_FILETYPES, fileType) >= 0) {
-            searchMarket("com.dataviz.docstogo", R.string.search_market_ms_title, R.string.search_market_ms); //$NON-NLS-1$
-        } else {
-            DialogUtilities.okDialog(activity, activity.getString(R.string.file_type_unhandled_title),
-                    0, activity.getString(R.string.file_type_unhandled));
-        }
-    }
-
-    private void searchMarket(final String packageName, int title, int body) {
-        DialogUtilities.okCancelDialog(activity, activity.getString(title),
-                activity.getString(body), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface d, int which) {
-                Intent marketIntent = Constants.MARKET_STRATEGY.generateMarketLink(packageName);
-                try {
-                    if (marketIntent == null) {
-                        throw new ActivityNotFoundException("No market link supplied"); //$NON-NLS-1$
-                    }
-                    activity.startActivity(marketIntent);
-                } catch (ActivityNotFoundException anf) {
-                    log.error(anf.getMessage(), anf);
-                    DialogUtilities.okDialog(activity,
-                            activity.getString(R.string.market_unavailable),
-                            null);
-                }
-            }
-        });
     }
 
     private void setUpFileRow(TaskAttachment m, View row, LinearLayout parent, LayoutParams lp) {

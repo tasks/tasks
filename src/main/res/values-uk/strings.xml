@@ -177,7 +177,6 @@
  Синхронізація-&gt; Управління старими завданнями-&gt;
  Очистити всі дані) і відновити завдання з резервно
 ї копії (Параметри-&gt; Синхронізація-&gt; Резервні копії-&gt; Імпортувати задачі)</string>
-	<string name="market_unavailable">Нажаль магазин недоступний для вашої системи.</string>
 	<string name="EPr_default_urgency_title">Актуальність по замовчуванню</string>
 	<string name="EPr_default_importance_title">Пріоритет по замовчуванню</string>
 	<string name="EPr_default_hideUntil_title">Термін приховування за замовчуванням</string>
@@ -266,14 +265,7 @@
 	<string name="premium_remove_file_confirm">Ви впевнені? Це не може бути скасовано.</string>
 	<string name="audio_recording_title">Запис аудіо</string>
 	<string name="audio_stop_recording">Зупинити запис</string>
-	<string name="search_market_audio">Не знайдене програвач для цього типу аудіо. Хочете завантажити його з Play Market?</string>
-	<string name="search_market_audio_title">Не знайдено погравача</string>
-	<string name="search_market_pdf">Не знайдено програма для перегляду PDF файлів. Хочете завантажити її з Android Play Market?</string>
-	<string name="search_market_pdf_title">Не знайдено програма для перегляду PDF</string>
-	<string name="search_market_ms">Не знайдено програма для перегляду файлів MS Office. Хочете завантажити її з Android Play Market? </string>
-	<string name="search_market_ms_title">Не знайдено програма для перегляду файлів MS Office.</string>
 	<string name="file_type_unhandled">Вибачте! Не знайдено програму для перегляду файлів цього типу.</string>
-	<string name="file_type_unhandled_title">Програму не знайдено</string>
 	<string name="file_browser_title">Вибрати файл</string>
 	<string name="dir_browser_title">Вибрати каталог</string>
 	<string name="file_browser_err_permissions">Помилка доступу! Будь ласка переконайтеся, що ви не заблокували Tasks для доступу до SD карти.</string>
@@ -353,7 +345,6 @@
 	<string name="tmrw">Завт.</string>
 	<string name="yest">Вчор.</string>
 	<string name="DLG_confirm_title">Підтверджуєте?</string>
-	<string name="DLG_question_title">Питання:</string>
 	<string name="DLG_information_title">Інформація</string>
 	<string name="DLG_error">На жаль, схоже, сталася помилка! Ось що вийшло:\n\n%s</string>
 	<string name="DLG_wait">Будь ласка, зачекайте...</string>

@@ -174,7 +174,6 @@
 	<string name="WCA_title">Aufgaben zum Anzeigen wählen …</string>
 	<string name="DB_corrupted_title">Fehler in der Datenbank</string>
 	<string name="DB_corrupted_body">Oh-oh! Sieht aus aIs könnte deine Datenbank beschädigt sein. Falls Du diesen Fehler regelmäßig siehst, empfehlen wir, alle Daten zu löschen (Einstellungen-&gt;Synchronisation-&gt;Alte Aufgaben verwalten-&gt;Alle Daten löschen) und deine Aufgaben aus einem Backup in Tasks wiederherzustellen (Einstellungen-&gt;Synchronisation-&gt;Backups-&gt;-Backups verwalten&gt;Aufgaben importieren).</string>
-	<string name="market_unavailable">Leider ist der Market nicht für dein System verfügbar.</string>
 	<string name="task_defaults">Aufgabenstandards</string>
 	<string name="EPr_default_urgency_title">Standard Dringlichkeit</string>
 	<string name="EPr_default_importance_title">Standard Priorität</string>
@@ -264,14 +263,7 @@
 	<string name="premium_remove_file_confirm">Sind Sie sicher? Das kann nicht rückgängig gemacht werden</string>
 	<string name="audio_recording_title">Audio aufnehmen</string>
 	<string name="audio_stop_recording">Aufnahme stoppen</string>
-	<string name="search_market_audio">Dieser Dateityp kann nicht geöffnet werden. Möchten Sie einen Audio-Player von Google Play herunterladen?</string>
-	<string name="search_market_audio_title">Es wurde kein Audio-Player gefunden</string>
-	<string name="search_market_pdf">Dieser Dateityp kann nicht geöffnet werden. Möchten Sie einen PDF-Reader von Google Play herunterladen?</string>
-	<string name="search_market_pdf_title">Es wurde kein PDF-Reader gefunden</string>
-	<string name="search_market_ms">Dieser Dateityp kann nicht geöffnet werden. Möchten Sie einen Office-Reader von Google Play herunterladen?</string>
-	<string name="search_market_ms_title">Es wurde kein Office-Reader gefunden</string>
 	<string name="file_type_unhandled">Tut mir leid! Dieser Dateityp kann nicht geöffnet werden.</string>
-	<string name="file_type_unhandled_title">Es wurde keine Anwendung gefunden</string>
 	<string name="back">Zurück</string>
 	<string name="file_browser_title">Wählen Sie eine Datei</string>
 	<string name="dir_browser_title">Wähle ein Verzeichnis</string>
@@ -376,7 +368,6 @@
 	<string name="tmrw">Morg.</string>
 	<string name="yest">Gest.</string>
 	<string name="DLG_confirm_title">Bestätigen?</string>
-	<string name="DLG_question_title">Frage:</string>
 	<string name="DLG_error">Ups, sieht aus, als ob ein Fehler aufgetreten ist! Folgendes ist passiert:\n\n%s</string>
 	<string name="DLG_wait">Bitte warten...</string>
 	<string name="sync_status_success">Letzte Synchronisierung:\n%s</string>

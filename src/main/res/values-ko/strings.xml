@@ -179,7 +179,6 @@
 자료를 모두 지우고 (설정-&gt;동기화 &amp; 백업-&gt;오래된 일정 관리-&gt;모든 자료 삭제) 
 Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다. 
 (설정-&gt;동기화 &amp; 백업-&gt;백업-&gt;일정 불러오기)</string>
-	<string name="market_unavailable">이 기기에서 마켓을 사용할 수 없습니다.</string>
 	<string name="task_defaults">일정 기본값</string>
 	<string name="EPr_default_urgency_title">기본 중요도</string>
 	<string name="EPr_default_importance_title">기본 우선순위</string>
@@ -270,14 +269,7 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	<string name="premium_remove_file_confirm">정말입니까? 되돌릴 수 없습니다</string>
 	<string name="audio_recording_title">오디오 녹음 중</string>
 	<string name="audio_stop_recording">녹음 중단</string>
-	<string name="search_market_audio">이런 형식의 오디오를 다룰 수 있는 재생기가 없습니다. 안드로이드 마켓에서 다운로드할까요?</string>
-	<string name="search_market_audio_title">오디오 재생기 없음</string>
-	<string name="search_market_pdf">PDF 리더가 없습니다. 안드로이드 마켓에서 PDF 리더를 다운로드할까요?</string>
-	<string name="search_market_pdf_title">PDF 리더 없음</string>
-	<string name="search_market_ms">MS 오피스 리더가 없습니다. 안드로이드 마켓에서 MS 오피스 리더를 다운로드할까요?</string>
-	<string name="search_market_ms_title">MS 오피스 리더 없음</string>
 	<string name="file_type_unhandled">죄송하지만 이 파일 형식을 다룰 수 있는 프로그램이 없습니다.</string>
-	<string name="file_type_unhandled_title">프로그램이 없음</string>
 	<string name="file_browser_title">파일 선택하기</string>
 	<string name="dir_browser_title">디렉토리 선택하기</string>
 	<string name="file_browser_err_permissions">권한 에러! Tasks가 SD 카드에 접근하는 것을 막지 않았는지 확인하세요.</string>
@@ -378,7 +370,6 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	<string name="tmrw">내일</string>
 	<string name="yest">어제</string>
 	<string name="DLG_confirm_title">확인?</string>
-	<string name="DLG_question_title">질문:</string>
 	<string name="DLG_information_title">정보</string>
 	<string name="DLG_error">에러가 발생한 것 같습니다! 발생한 에러는 다음과 같습니다:\n\n%s</string>
 	<string name="DLG_wait">잠시 기다리세요...</string>

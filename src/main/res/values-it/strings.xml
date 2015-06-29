@@ -150,7 +150,6 @@
 	<string name="DB_corrupted_title">Database corrotto</string>
 	<string name="DB_corrupted_body">Oh, oh! Pare che tu abbia un database danneggiato.
 Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dati (Impostazioni-&gt;Sincronizzazione e backup-&gt;Gestire tutti i dati-&gt;Cancellare tutti i dati) e ripristinare i tuoi task da un backup in Tasks (Impostazioni-&gt;Sincronizzazione e backup-&gt;Backup-&gt;Importa task).</string>
-	<string name="market_unavailable">Sfortunatamente il market non è disponibile sul tuo sistema.</string>
 	<string name="EPr_default_urgency_title">Urgenza Predefinita</string>
 	<string name="EPr_default_hideUntil_title">Nascondi Fino Predefinito</string>
 	<string name="EPr_default_reminders_title">Promemoria predefiniti</string>
@@ -234,14 +233,7 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="premium_remove_file_confirm">Se sicuro? Non può essere eseguito</string>
 	<string name="audio_recording_title">Registrazione Audio</string>
 	<string name="audio_stop_recording">Fine Registrazione</string>
-	<string name="search_market_audio">Non è stato trovato nessun lettore per quel tipo di audio. Vuoi scaricarne uno da Android Market?</string>
-	<string name="search_market_audio_title">Non è stato trovato nessun riproduttore audio</string>
-	<string name="search_market_pdf">Non è stato trovato nessun lettore di file PDF. Vuoi scaricare un lettore di file PDF da Google Play (Android Market)?</string>
-	<string name="search_market_pdf_title">Non è stato trovato nessun lettore di file PDF</string>
-	<string name="search_market_ms">Non è stato trovato nessun lettore di file MS Office. Vuoi scaricarne uno da Android Market?</string>
-	<string name="search_market_ms_title">Non è stato trovato nessun lettore di documenti MS Office</string>
 	<string name="file_type_unhandled">Spiacente! Non è stata trovata nessuna applicazione per gestire questo tipo di file</string>
-	<string name="file_type_unhandled_title">Spiacente! Non è stata trovata nessuna applicazione</string>
 	<string name="file_browser_title">Scegli un file</string>
 	<string name="dir_browser_title">Scegli una cartella</string>
 	<string name="file_browser_err_permissions">Errore di autorizzazioni! Assicurati di non aver bloccato l\'accesso alla scheda SD da parte di Tasks</string>
@@ -332,7 +324,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="tmrw">Domani</string>
 	<string name="yest">Ieri</string>
 	<string name="DLG_confirm_title">Confermi?</string>
-	<string name="DLG_question_title">Domanda:</string>
 	<string name="DLG_information_title">Informazione</string>
 	<string name="DLG_error">Oops, sembra che ci sia stato un errore! E\' successo questo:\n\n%s</string>
 	<string name="DLG_wait">Attendi...</string>

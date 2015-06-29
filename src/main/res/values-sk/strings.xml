@@ -174,7 +174,6 @@
 	<string name="DB_corrupted_title">Poškodená databáza</string>
 	<string name="DB_corrupted_body">Oh nie! Zdá sa, že máš poškodenú databázu. Ak sa ti táto chyba zobrazuje stále, vymaž všetky údaje
 (Nastavenia-&gt;Synchronizáca a zálohy-&gt;Spravovať staré úlohy-&gt;Vymazať všetky údaje) a obnov svoje údaje zo zálohy (Nastavenia-&gt;Synchronizácie a zálohy-&gt;Záloha-&gt;Importovať úlohy) v Tasks.</string>
-	<string name="market_unavailable">Žiaľ, tvoje zariadenie nepodporuje Google Play.</string>
 	<string name="task_defaults">Predvoľby úloh</string>
 	<string name="EPr_default_urgency_title">Predvolený termín dokončenia</string>
 	<string name="EPr_default_importance_title">Predvolená priorita</string>
@@ -265,14 +264,7 @@
 	<string name="premium_remove_file_confirm">Naozaj? Nedá sa vrátiť</string>
 	<string name="audio_recording_title">Nahrávanie zvuku</string>
 	<string name="audio_stop_recording">Zastaviť nahrávanie</string>
-	<string name="search_market_audio">Nenašiel sa vhodný prehrávač zvuku. Chceš stiahnuť audio prehrávač z Google Play?</string>
-	<string name="search_market_audio_title">Nenájdený zvukový prehrávač</string>
-	<string name="search_market_pdf">Prehliadač PDF nenájdený. Chcete stiahnuť prehliadač PDF z Google Play?</string>
-	<string name="search_market_pdf_title">Chýba prehliadač PDF</string>
-	<string name="search_market_ms">Prehliadač MS Office nenájdený. Chceš stiahnuť prehliadač MS Office z Google Play?</string>
-	<string name="search_market_ms_title">Chýba prehliadač MS Office</string>
 	<string name="file_type_unhandled">Pre tento typ súboru nebola nájdená žiadna aplikácia</string>
-	<string name="file_type_unhandled_title">Aplikácia nebola nájdená</string>
 	<string name="file_browser_title">Vybrať súbor</string>
 	<string name="dir_browser_title">Vytvoriť zložku</string>
 	<string name="file_browser_err_permissions">Chyba oprávnenia! Prosím, uisti sa, či Tasks namá zablokovaný prístup k SD karte.</string>
@@ -374,7 +366,6 @@
 	<string name="tmrw">Zajtra</string>
 	<string name="yest">Včera</string>
 	<string name="DLG_confirm_title">Potvrdiť?</string>
-	<string name="DLG_question_title">Otázka:</string>
 	<string name="DLG_information_title">Informácia</string>
 	<string name="DLG_error">Ups, zdá sa, že sa vyskytla chyba! Tu je čo sa stalo:\n\n%s</string>
 	<string name="DLG_wait">Prosím čakaj...</string>

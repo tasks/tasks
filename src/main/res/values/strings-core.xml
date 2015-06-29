@@ -408,7 +408,5 @@
       If you see this error regularly, we suggest you clear all
       data (Settings->Sync and backup->Manage old tasks->Clear all data) and restore
       your tasks from a backup (Settings->Sync and backup->Backup->Import tasks) in Tasks.</string>
-      
-  <string name="market_unavailable">Unfortunately the market is not available for your system.</string>
-  
+
 </resources>

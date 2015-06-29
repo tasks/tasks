@@ -150,7 +150,6 @@
       If you see this error regularly, we suggest you clear all
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
       your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
-	<string name="market_unavailable">Ne yazık ki market sisteminiz için kullanılabilir değil.</string>
 	<string name="EPr_default_urgency_title">Öntanımlı Aciliyet</string>
 	<string name="EPr_default_hideUntil_title">Öntanımlı Gizlenme</string>
 	<string name="EPr_default_reminders_title">Öntanımlı Hatırlatmalar</string>
@@ -234,14 +233,7 @@
 	<string name="premium_remove_file_confirm">Emin misiniz? Geri döndürülemez</string>
 	<string name="audio_recording_title">Ses Kaydediliyor</string>
 	<string name="audio_stop_recording">Kaydı Durdur</string>
-	<string name="search_market_audio">Bu ses türünü çalan bir oynatıcı bulunamadı. Google Play\'den bir ses yürütücüsü indirmek iste misiniz?</string>
-	<string name="search_market_audio_title">Ses oynatıcı bulunamadı</string>
-	<string name="search_market_pdf">PDF okuyucu bulunamadı. Google Play\'den bir PDF okuyucu indirmek iste misiniz?</string>
-	<string name="search_market_pdf_title">PDF okuyucu bulunamadı</string>
-	<string name="search_market_ms">MS Office okuyucu bulunamadı. Google Play\'den bir MS Office okuyucu indirmek iste misiniz?</string>
-	<string name="search_market_ms_title">MS Office okuyucu bulunamadı</string>
 	<string name="file_type_unhandled">Üzgünüm! Bu dosya türünü destekleyen bir uygulama bulunamadı.</string>
-	<string name="file_type_unhandled_title">Uygulama bulunamadı</string>
 	<string name="file_browser_title">Bir dosya seçin</string>
 	<string name="dir_browser_title">Bir dizin seçin</string>
 	<string name="file_browser_err_permissions">İzin hatası! Tasks\'in SD kartınıza erişiminin engellenmediğinden emin olun lütfen.</string>
@@ -332,7 +324,6 @@
 	<string name="tmrw">Yarın</string>
 	<string name="yest">Dün</string>
 	<string name="DLG_confirm_title">Onayla?</string>
-	<string name="DLG_question_title">Soru:</string>
 	<string name="DLG_information_title">Bilgi</string>
 	<string name="DLG_error">Oops, bir sorun meydana geldi! Olan şu:\n\n%s</string>
 	<string name="DLG_wait">Lütfen bekleyin...</string>

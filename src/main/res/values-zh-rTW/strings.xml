@@ -159,7 +159,6 @@
 	<string name="WCA_title">選擇工作顯示...</string>
 	<string name="DB_corrupted_title">數據庫已經受損</string>
 	<string name="DB_corrupted_body">啊喔！您有一個毀損的資料庫。如果您經常看見這個錯誤出現，我們建議您清除所有數據（在設置-&gt;同步和備份-&amp;gt；管理舊任務工作-&gt;清楚所有數據）並在Tasks備份中重新存入您的任務工作（設置-&gt;同步和備份-&gt;備份-&gt;導入任務工作）</string>
-	<string name="market_unavailable">非常抱歉，我們的軟件無法在您的系統中成功運行。</string>
 	<string name="EPr_default_urgency_title">預設嚴重性</string>
 	<string name="EPr_default_importance_title">預設優先權</string>
 	<string name="EPr_default_hideUntil_title">預設隱藏直到...</string>
@@ -246,14 +245,7 @@
 	<string name="premium_remove_file_confirm">您確定嗎？無法恢復的喔</string>
 	<string name="audio_recording_title">正在錄製音頻</string>
 	<string name="audio_stop_recording">停止錄製</string>
-	<string name="search_market_audio">找不到播放器來處理這種音頻類型。您想從安卓市場上下載一個音頻播放器嗎？</string>
-	<string name="search_market_audio_title">找不到音頻播放器</string>
-	<string name="search_market_pdf">找不到PDF 閱讀器。您想從安卓市場上下載一個PDF 閱讀器嗎？</string>
-	<string name="search_market_pdf_title">找不到 PDF 閱讀器</string>
-	<string name="search_market_ms">找不到微軟Office 閱讀器。您想從安卓市場上下載一個微軟Office 閱讀器嗎？</string>
-	<string name="search_market_ms_title">找不到微軟 Office</string>
 	<string name="file_type_unhandled">對不起！找不到應用程序處理這種文件類型。</string>
-	<string name="file_type_unhandled_title">找不到應用程序</string>
 	<string name="file_browser_title">選擇一個文件</string>
 	<string name="dir_browser_title">選擇一個目錄</string>
 	<string name="file_browser_err_permissions">權限出錯！請確保您沒有阻止Tasks訪問SD 卡。</string>
@@ -348,7 +340,6 @@
 	<string name="tmrw">明天</string>
 	<string name="yest">昨天</string>
 	<string name="DLG_confirm_title">確認?</string>
-	<string name="DLG_question_title">問題：</string>
 	<string name="DLG_information_title">資訊</string>
 	<string name="DLG_error">糟糕，發生錯誤！狀況是:\n\n%s</string>
 	<string name="DLG_wait">請稍候...</string>

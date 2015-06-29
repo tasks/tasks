@@ -762,18 +762,17 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
 
     /** Show a dialog box and delete the task specified */
     private void deleteTask(final Task task) {
-        new AlertDialog.Builder(getActivity()).setTitle(
-                R.string.DLG_confirm_title).setMessage(
-                R.string.DLG_delete_this_task_question).setIcon(
-                android.R.drawable.ic_dialog_alert).setPositiveButton(
-                android.R.string.ok, new DialogInterface.OnClickListener() {
+        new AlertDialog.Builder(getActivity())
+                .setMessage(R.string.DLG_delete_this_task_question)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         onTaskDelete(task);
                         taskDeleter.delete(task);
                         loadTaskListContent();
                     }
-                }).setNegativeButton(android.R.string.cancel, null).show();
+                })
+                .setNegativeButton(android.R.string.cancel, null).show();
     }
 
     public void onTaskCreated(Task task) {

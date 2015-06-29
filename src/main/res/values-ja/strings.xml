@@ -179,7 +179,6 @@
 このエラーが何度も表示される場合, データのクリア
 (設定-&gt;同期およびバックアップ-&gt;古いタスクの管理-&gt;全てのデータをクリア) し,
 バックアップからタスクを復元 (設定-&gt;同期およびバックアップ-&gt;バックアップ-&gt;タスクをインポート) することを推奨します.</string>
-	<string name="market_unavailable">残念ながらあなたのシステムで Google Play は利用できません.</string>
 	<string name="task_defaults">タスクのデフォルト</string>
 	<string name="EPr_default_urgency_title">期限</string>
 	<string name="EPr_default_importance_title">標準の優先順位</string>
@@ -270,14 +269,7 @@
 	<string name="premium_remove_file_confirm">よろしいですか? 取り消しできません</string>
 	<string name="audio_recording_title">音声を録音中</string>
 	<string name="audio_stop_recording">録音を停止</string>
-	<string name="search_market_audio">そのオーディオ形式を再生するプレイヤーがありません. Google Play からオーディオプレイヤーをダウンロードしますか?</string>
-	<string name="search_market_audio_title">オーディオプレイヤーがありません</string>
-	<string name="search_market_pdf">PDF リーダーがありません. PDF リーダーを Google Play からダウンロードしますか?</string>
-	<string name="search_market_pdf_title">PDF リーダーがありません</string>
-	<string name="search_market_ms">MS Office リーダーがありません. Google Play から MS Office リーダーをダウンロードしますか?</string>
-	<string name="search_market_ms_title">MS Office リーダーがありません</string>
 	<string name="file_type_unhandled">申し訳ありません! このファイル形式を扱うアプリケーションがありません.</string>
-	<string name="file_type_unhandled_title">アプリケーションがありません</string>
 	<string name="back">戻る</string>
 	<string name="file_browser_title">ファイルを選択</string>
 	<string name="dir_browser_title">ディレクトリを選択</string>
@@ -383,7 +375,6 @@
 	<string name="tmrw">明日</string>
 	<string name="yest">昨日</string>
 	<string name="DLG_confirm_title">確認</string>
-	<string name="DLG_question_title">確認</string>
 	<string name="DLG_information_title">インフォメーション</string>
 	<string name="DLG_error">エラーが発生しました! 発生した内容\n\n%s</string>
 	<string name="DLG_wait">お待ちください</string>

@@ -705,11 +705,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     }
 
     protected void deleteButtonClick() {
-        new AlertDialog.Builder(getActivity()).setTitle(
-                R.string.DLG_confirm_title).setMessage(
-                        R.string.DLG_delete_this_task_question).setIcon(
-                                android.R.drawable.ic_dialog_alert).setPositiveButton(
-                android.R.string.ok, new DialogInterface.OnClickListener() {
+        new AlertDialog.Builder(getActivity())
+                .setMessage(R.string.DLG_delete_this_task_question)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         TimerPlugin.updateTimer(notificationManager, taskService, getActivity(), model, false);
@@ -728,7 +726,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                             }
                         }
                     }
-                }).setNegativeButton(android.R.string.cancel, null).show();
+                })
+                .setNegativeButton(android.R.string.cancel, null).show();
     }
 
     private void startAttachFile() {

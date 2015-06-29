@@ -181,7 +181,6 @@
 Ако виждате тази грешка редовно, ние ви предлагаме да изчистите всички
 данни (Настройки-&gt;Синхронизиране и резервни копия-&gt;Управление на стари задачи-&gt;Изчисти всички данни) 
 и да възстановите вашите задачи от резервно копие Настройки-&gt;Синхронизиране и резервни копия-&gt;Импортиране на задачи) в Tasks.</string>
-	<string name="market_unavailable">За съжаление маркет не е достъпен за вашата система.</string>
 	<string name="task_defaults">Настройки по подразбиране</string>
 	<string name="EPr_default_urgency_title">Краен срок по подразбиране</string>
 	<string name="EPr_default_importance_title">Приоритет по подразбиране</string>
@@ -271,14 +270,7 @@
 	<string name="premium_remove_file_confirm">Сигурни ли сте? Не може да бъде отменено</string>
 	<string name="audio_recording_title">Записване на Аудио</string>
 	<string name="audio_stop_recording">Спри Записването</string>
-	<string name="search_market_audio"> Не е намерен плейър, който да работи с този тип аудио. Бихте ли искали да изтеглите аудио плейър от Android Market?</string>
-	<string name="search_market_audio_title">Не е намерен аудио плейър</string>
-	<string name="search_market_pdf">Не е намерен PDF четец. Бихте ли искали да си изтеглите PDF четец от Android Market?</string>
-	<string name="search_market_pdf_title">Не е намерен четец за PDF</string>
-	<string name="search_market_ms">Не е намерен MS Office четец. Бихте ли искали да си изтеглите MS Office четец от Android Market?</string>
-	<string name="search_market_ms_title">Не е намерен MS Office четец</string>
 	<string name="file_type_unhandled">Съжаляваме! Не е намерено приложение, което да работи с този тип файл.</string>
-	<string name="file_type_unhandled_title">Не е намерено приложение</string>
 	<string name="back">Назад</string>
 	<string name="file_browser_title">Избери файл</string>
 	<string name="dir_browser_title">Избери директория</string>
@@ -384,7 +376,6 @@
 	<string name="tmrw">Утре</string>
 	<string name="yest">Вчера</string>
 	<string name="DLG_confirm_title">Потвърждавате?</string>
-	<string name="DLG_question_title">Въпрос:</string>
 	<string name="DLG_information_title">Информация</string>
 	<string name="DLG_error">Ами сега, изглежда е станала грешка! Ето какво се случи:\n\n%s</string>
 	<string name="DLG_wait">Моля, изчакайте...</string>

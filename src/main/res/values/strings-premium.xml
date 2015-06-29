@@ -8,17 +8,7 @@
     <string name="audio_recording_title">Recording Audio</string>
     <string name="audio_stop_recording">Stop Recording</string>
 
-    <string name="search_market_audio">No player found to handle that audio type. Would you like to download an audio player from the Android Market?</string>
-    <string name="search_market_audio_title">No audio player found</string>
-
-    <string name="search_market_pdf">No PDF reader was found. Would you like to download a PDF reader from the Android Market?</string>
-    <string name="search_market_pdf_title">No PDF reader found</string>
-
-    <string name="search_market_ms">No MS Office reader was found. Would you like to download an MS Office reader from the Android Market?</string>
-    <string name="search_market_ms_title">No MS Office reader found</string>
-    
     <string name="file_type_unhandled">Sorry! No application was found to handle this file type.</string>
-    <string name="file_type_unhandled_title">No application found</string>
 
     <string name="back">Back</string>
     <string name="file_browser_title">Choose a file</string>

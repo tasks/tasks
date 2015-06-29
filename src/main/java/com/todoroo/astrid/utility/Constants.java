@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.utility;
 
-import com.todoroo.astrid.service.MarketStrategy;
-
 public final class Constants {
 
     // --- general application constants
@@ -15,11 +13,6 @@ public final class Constants {
      * Application Package
      */
     public static final String PACKAGE = "org.tasks";
-
-    /**
-     * Market selection strategy
-     */
-    public static final MarketStrategy MARKET_STRATEGY = new MarketStrategy.AndroidMarketStrategy();
 
     // --- notification id's
 

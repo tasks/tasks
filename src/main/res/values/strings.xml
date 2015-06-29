@@ -34,9 +34,6 @@
     <!-- confirmation dialog title -->
     <string name="DLG_confirm_title">Confirm?</string>
 
-    <!-- question dialog title -->
-    <string name="DLG_question_title">Question:</string>
-
     <!-- information dialog title -->
     <string name="DLG_information_title">Information</string>
 

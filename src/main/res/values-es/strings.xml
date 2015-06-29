@@ -175,7 +175,6 @@
 	<string name="WCA_title">Seleccione las tareas que ver...</string>
 	<string name="DB_corrupted_title">Base de datos corrupta</string>
 	<string name="DB_corrupted_body">\"¡Oh-oh! Es posible que tu base de datos esté corrupta. Si ves éste error con frecuencia, te sugerimos que limpies toda la información  (Configuración-&gt;Sincronización y respaldos-&gt;Administrar tareas pasadas-&gt;Limpiar toda la información) y recuperar tus tareas de un respaldo (Configuración-&gt;Sincronización y respaldos-&gt;Respaldos-&gt;Importar tareas) en Tasks.\"</string>
-	<string name="market_unavailable">Desafortunadamente el Market no está disponible para tu sistema</string>
 	<string name="task_defaults">Configuración por defecto de tareas</string>
 	<string name="EPr_default_urgency_title">Fecha límite por defecto</string>
 	<string name="EPr_default_importance_title">Prioridad predeterminada</string>
@@ -265,14 +264,7 @@
 	<string name="premium_remove_file_confirm">Está seguro? No se puede deshacer</string>
 	<string name="audio_recording_title">Grabando Audio</string>
 	<string name="audio_stop_recording">Detener grabación</string>
-	<string name="search_market_audio">No se ha encontrado programa para reproducir ese tipo de audio. ¿Te gustaría descargar un reproductor de audio desde el Android Market?</string>
-	<string name="search_market_audio_title">No se encontró reproductor de audio</string>
-	<string name="search_market_pdf">No se encontró lector de archivos PDF. ¿Desea descargar uno de Android Market?</string>
-	<string name="search_market_pdf_title">No se encontró lector de archivos PDF</string>
-	<string name="search_market_ms">No se encontró lector de archivos MS Office. ¿Desea descargar uno de Android Market?</string>
-	<string name="search_market_ms_title">No se encontró lector para archivos de MS Office</string>
 	<string name="file_type_unhandled">Lo sentimos! No se encontró ninguna aplicación para abrir este tipo de archivo.</string>
-	<string name="file_type_unhandled_title">No se encontró ninguna aplicación</string>
 	<string name="back">Volver</string>
 	<string name="file_browser_title">Elija un archivo</string>
 	<string name="dir_browser_title">Elija un directorio</string>
@@ -378,7 +370,6 @@
 	<string name="tmrw">Mñna</string>
 	<string name="yest">Ayer</string>
 	<string name="DLG_confirm_title">¿Confirmar?</string>
-	<string name="DLG_question_title">Pregunta:</string>
 	<string name="DLG_information_title">Información</string>
 	<string name="DLG_error">¡Uy, parece que ocurró un error! Esto es lo que pasó:\n\n%s</string>
 	<string name="DLG_wait">Por favor, espere...</string>

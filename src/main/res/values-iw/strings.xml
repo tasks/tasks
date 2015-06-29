@@ -169,7 +169,6 @@
 אם אתה נתקל השגיאה זאת האופן תדיר, אנו מציעים שתמחק את כל הנתונים
 (הגדרות-&gt;סינכרון וגיבוי-&gt;ניהול משימות ישנות-&gt;הסרת כל הנתונים) ושחזר את המשימות
 מגיבוי (הגדרות-&gt;סנכרון וגיבוי-&gt;גיבוי-&gt;יבא משימות).</string>
-	<string name="market_unavailable">לרוע המזל חנות היישומים אינה זמינה</string>
 	<string name="EPr_default_urgency_title">דחיפות ברירת המחדל</string>
 	<string name="EPr_default_importance_title">עדיפות מחדל</string>
 	<string name="EPr_default_hideUntil_title">ברירת מחדל לזמן הסתרה</string>
@@ -259,14 +258,7 @@
 	<string name="premium_remove_file_confirm">בטוח? לא ניתן לבטל את הפעולה</string>
 	<string name="audio_recording_title">מקליטה שֵׁמַע</string>
 	<string name="audio_stop_recording">הפסק הקלטה</string>
-	<string name="search_market_audio">לא מצאתי נגן לסוג זה של קובץ שֵׁמַע. הֲתִּרְצֶה להוריד נגן מחנות גוגל?</string>
-	<string name="search_market_audio_title">לא נמצא נגן לקבצי שֵׁמַע</string>
-	<string name="search_market_pdf">לא מצאתי קורא קבצי PDF. הֲתִּרְצֶה להוריד קורא קבצי PDF מחנות היישומים?</string>
-	<string name="search_market_pdf_title">לא מצאתי קורא לקבצי PDF</string>
-	<string name="search_market_ms">לא מצאתי קורא לקבצי אופיס. הֲתִּרְצֶה להוריד קורא קבצי אופיס מחנות היישומים</string>
-	<string name="search_market_ms_title">לא נמצא קורא לקבצי אופיס</string>
 	<string name="file_type_unhandled">\"מצטערת! לא מצאתי ישום שיכול  לטפל בקבצים מסוג זה\"</string>
-	<string name="file_type_unhandled_title">יישום לא נמצא</string>
 	<string name="file_browser_title">בחר קובץ</string>
 	<string name="dir_browser_title">יש לבחור תיקייה</string>
 	<string name="file_browser_err_permissions">הרשאות לא מספיקות! אנא בדוק שלא חסמת את אסטריד מלגשת לכרטיס הזיכרון</string>
@@ -360,7 +352,6 @@
 	<string name="tmrw">מחר</string>
 	<string name="yest">אתמול</string>
 	<string name="DLG_confirm_title">האם לאשר?</string>
-	<string name="DLG_question_title">שאלה:</string>
 	<string name="DLG_information_title">פרטים</string>
 	<string name="DLG_error">אוּפְּס, נראה שארעה שגיאה! הנה מה שקה:\n\n%s</string>
 	<string name="DLG_wait">אנא המתן...</string>

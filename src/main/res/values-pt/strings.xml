@@ -177,7 +177,6 @@
 Se este erro ocorrer repetidamente sugerimos a eliminação dos dados em
 Definições-&gt;Sincronização e backup-&gt;Gerir tarefas antigas-&gt;Limpar todos os dados e o restauro
 das tarefas através de um backup em Definições-&gt;Sincronização e backup-&gt;Backup-&gt;Importar tarefas.</string>
-	<string name="market_unavailable">Infelizmente, a loja Google não está instalada no seu sistema.</string>
 	<string name="task_defaults">Predefinições</string>
 	<string name="EPr_default_urgency_title">Prazo predefinido</string>
 	<string name="EPr_default_importance_title">Prioridade predefinida</string>
@@ -268,14 +267,7 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="premium_remove_file_confirm">Tem a certeza? A ação não pode ser anulada!</string>
 	<string name="audio_recording_title">Gravação áudio</string>
 	<string name="audio_stop_recording">Parar gravação</string>
-	<string name="search_market_audio">Não foi encontrado um reprodutor para gerir este tipo de áudio. Gostaria de transferir um reprodutor na loja Google?</string>
-	<string name="search_market_audio_title">Reprodutor áudio não encontrado</string>
-	<string name="search_market_pdf">Nenhum leitor PDF encontrado. Gostaria de transferir um leitor de PDF na loja Google?</string>
-	<string name="search_market_pdf_title">Leitor PDF não encontrado</string>
-	<string name="search_market_ms">Nenhum leitor de documento MS Office encontrado. Gostaria de transferir um leitor MS Office na loja Google?</string>
-	<string name="search_market_ms_title">Leitor de documentos MS Office não encontrado</string>
 	<string name="file_type_unhandled">Não foi encontrada qualquer aplicação para gerir ficheiros deste tipo.</string>
-	<string name="file_type_unhandled_title">Aplicação não encontrada</string>
 	<string name="file_browser_title">Escolha um ficheiro</string>
 	<string name="dir_browser_title">Escolha um diretório</string>
 	<string name="file_browser_err_permissions">Erro de permissões! Certifique-se que o Tasks tem permissões para aceder ao cartão SD:</string>
@@ -376,7 +368,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="tmrw">Amanhã</string>
 	<string name="yest">Ontem</string>
 	<string name="DLG_confirm_title">Confirma?</string>
-	<string name="DLG_question_title">Pergunta:</string>
 	<string name="DLG_information_title">Informação</string>
 	<string name="DLG_error">Parece que ocorreu um erro! Isto foi o que aconteceu:\n\n%s</string>
 	<string name="DLG_wait">Por favor aguarde...</string>

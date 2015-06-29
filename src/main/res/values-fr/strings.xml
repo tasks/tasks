@@ -173,7 +173,6 @@
 	<string name="WCA_title">Sélectionnez les tâches à afficher…</string>
 	<string name="DB_corrupted_title">Base de donnée corrompue</string>
 	<string name="DB_corrupted_body">Oh oh ! On dirait que vous avez une base de données corrompues. Si vous voyez souvent cette erreur, nous vous suggérons d\'effacer toutes vos données (Paramètres-&gt;Synchronisation et sauvegarde-&gt;Gérer les anciennes tâches-&gt;Effacer toutes les données) et restaurer vos tâches d\'une sauvegarde (Paramètres-&gt;Synchronisation et sauvegarde-&gt;Sauvegarde-&gt;Importer des tâches) dans Tasks</string>
-	<string name="market_unavailable">Malheureusement le Play Store n\'est pas disponible sur votre système</string>
 	<string name="task_defaults">Valeurs par défaut</string>
 	<string name="EPr_default_urgency_title">Échéance par défaut</string>
 	<string name="EPr_default_importance_title">Priorité par défaut</string>
@@ -264,14 +263,7 @@
 	<string name="premium_remove_file_confirm">Êtes-vous certain(e)? Cette opération est irréversible</string>
 	<string name="audio_recording_title">Enregistrement Audio</string>
 	<string name="audio_stop_recording">Arrêter l\'enregistrement</string>
-	<string name="search_market_audio">Aucun lecteur supporte ce format audio. Voulez-vous télécharger un lecteur audio du Play Store?</string>
-	<string name="search_market_audio_title">Aucun lecteur audio trouvé</string>
-	<string name="search_market_pdf">Aucun logiciel permettant de lire les fichiers PDF n\'a été trouvé. Souhaitez vous en télécharger un à partir de Android Market ?</string>
-	<string name="search_market_pdf_title">Aucun logiciel permettant de lire les fichiers PDF trouvé</string>
-	<string name="search_market_ms">Aucun logiciel permettant de lire les fichiers MS Office n\'a été trouvé. Souhaitez vous en télécharger un à partir de Android Market ?</string>
-	<string name="search_market_ms_title">Aucun lecteur MS Office n\'a été trouvé</string>
 	<string name="file_type_unhandled">Désolé ! Aucune application n\'a été trouvé pour gérer ce type de fichier.</string>
-	<string name="file_type_unhandled_title">Aucune application trouvée</string>
 	<string name="back">Retour</string>
 	<string name="file_browser_title">Choisissez un fichier</string>
 	<string name="dir_browser_title">Choisissez un dossier</string>
@@ -374,7 +366,6 @@
 	<string name="tmrw">Demain</string>
 	<string name="yest">Hier</string>
 	<string name="DLG_confirm_title">Confirmer ?</string>
-	<string name="DLG_question_title">Question :</string>
 	<string name="DLG_information_title">Informations</string>
 	<string name="DLG_error">Oups, une erreur est survenue ! Voici ce qu\'il s\'est passé :\n\n%s</string>
 	<string name="DLG_wait">Veuillez patienter...</string>

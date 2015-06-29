@@ -173,7 +173,6 @@
 	<string name="tomorrow">I morgen</string>
 	<string name="yesterday">I går</string>
 	<string name="DLG_confirm_title">Bekreft?</string>
-	<string name="DLG_question_title">Spørsmål:</string>
 	<string name="DLG_information_title">Informasjon</string>
 	<string name="DLG_error">Oi, det oppstod en feil! Dette skjedde:\n\n%s</string>
 	<string name="DLG_wait">Vennligst vent...</string>

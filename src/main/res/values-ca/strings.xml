@@ -203,7 +203,6 @@
 	<string name="tomorrow">Demà</string>
 	<string name="yesterday">Ahir</string>
 	<string name="DLG_confirm_title">Confirmar?</string>
-	<string name="DLG_question_title">Pregunta:</string>
 	<string name="DLG_information_title">Informació</string>
 	<string name="DLG_error">¡Ui, sembla que hi ha hagut un problema! Això es el que ha passat:\n\n%s</string>
 	<string name="DLG_wait">Si us plau, espera...</string>

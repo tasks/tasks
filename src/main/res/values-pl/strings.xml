@@ -172,7 +172,6 @@
 Jeśli widzisz ten błąd często, sugerujemy wyczyszczenie 
 wszystkich danych (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data)
 i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) Tasks.</string>
-	<string name="market_unavailable">Niestety sklep nie jest dostępny dla twojego systemu.</string>
 	<string name="EPr_default_urgency_title">Termin końcowy (domyślnie)</string>
 	<string name="EPr_default_importance_title">Domyślny priorytet</string>
 	<string name="EPr_default_hideUntil_title">Ukrywanie zadania (domyślnie)</string>
@@ -262,14 +261,7 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="premium_remove_file_confirm">Jesteś pewny? Tych zmian nie można odwrócić</string>
 	<string name="audio_recording_title">Nagrywanie dźwięku</string>
 	<string name="audio_stop_recording">Zakończ nagrywanie</string>
-	<string name="search_market_audio">Nie znaleziono odtwarzacza, który byłby w stanie odtworzyć ten plik. Czy chciałbyś pobrać odtwarzacz z Android Market?</string>
-	<string name="search_market_audio_title">Nie znaleziono odtwarzacza</string>
-	<string name="search_market_pdf">Nie znaleziono czytnika PDF. Czy chciałbyć pobrać czytnik z Android Market?</string>
-	<string name="search_market_pdf_title">Nie znaleziono czytnika PDF</string>
-	<string name="search_market_ms">Nie znaleziono czytnika MS Office. Czy chcesz ściągnąć czytnik z Android Market?</string>
-	<string name="search_market_ms_title">Nie znaleziono czytnika MS Office</string>
 	<string name="file_type_unhandled">Przepraszamy! Nie znaleziono aplikacji do obsługi tego typu pliku.</string>
-	<string name="file_type_unhandled_title">Nie znaleziono aplikacji</string>
 	<string name="file_browser_title">Wybierz plik</string>
 	<string name="dir_browser_title">Wybierz katalog</string>
 	<string name="file_browser_err_permissions">Błąd dostępu! Proszę upewnić się, że Tasks nie ma zablokowanego dostępu do karty SD.</string>
@@ -368,7 +360,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="tmrw">jtr</string>
 	<string name="yest">wcz</string>
 	<string name="DLG_confirm_title">Potwierdzić?</string>
-	<string name="DLG_question_title">Pytanie:</string>
 	<string name="DLG_information_title">Informacja</string>
 	<string name="DLG_error">Ups! Wygląda na to, że wystąpił jakiś błąd! Oto, co się stało:\n\n%s</string>
 	<string name="DLG_wait">Proszę czekać...</string>

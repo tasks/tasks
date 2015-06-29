@@ -168,7 +168,6 @@ Om du ser detta felmeddelande ofta, föreslår vi att du tömmer all data
 (Inställningar-&gt;Synkronisering och backup-&gt;Hantera gamla uppgifter-&gt;Töm all data)
 och återställer dina aktuella uppgifter från en backup
 (Inställningar-&gt;Synkronisering och backup-&gt;Backup-&gt;Viktiga uppgifter) i Tasks.</string>
-	<string name="market_unavailable">Tyvärr är inte denna funktion tillgänglig där du befinner dig.</string>
 	<string name="EPr_default_urgency_title">Standardfrist</string>
 	<string name="EPr_default_importance_title">Standard prioritet</string>
 	<string name="EPr_default_hideUntil_title">Standard Dölj tills</string>
@@ -256,14 +255,7 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="premium_remove_file_confirm">Är du säker? Detta kan inte ångras</string>
 	<string name="audio_recording_title">Spelar in ljud</string>
 	<string name="audio_stop_recording">Avsluta inspelning</string>
-	<string name="search_market_audio">Ingen spelare hittades för denna ljudtyp. Skulle du vilja ladda ned en ljudspelare från Google Play?</string>
-	<string name="search_market_audio_title">Ingen ljudspelare hittades</string>
-	<string name="search_market_pdf">Ingen PDF-läsare hittades. Skulle du vilja ladda ned en från Google Play?</string>
-	<string name="search_market_pdf_title">Ingen PDF-läsare hittades</string>
-	<string name="search_market_ms">Ingen MS Office-läsare hittades. Skulle du vilja ladda ned en från Google Play?</string>
-	<string name="search_market_ms_title">Ingen MS Office-läsare hittades</string>
 	<string name="file_type_unhandled">Tyvärr hittades ingen applikation för att hantera den här filtypen</string>
-	<string name="file_type_unhandled_title">Ingen passande applikation hittades</string>
 	<string name="file_browser_title">Välj en fil</string>
 	<string name="dir_browser_title">Välj sökväg</string>
 	<string name="file_browser_err_permissions">Behörighets fel! Vänligen kontrollera att du inte blockat Tasks från att komma åt SD-kortet.</string>
@@ -358,7 +350,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="tmrw">imorn</string>
 	<string name="yest">Igår</string>
 	<string name="DLG_confirm_title">Bekräfta?</string>
-	<string name="DLG_question_title">Fråga:</string>
 	<string name="DLG_error">Oj, det uppstod ett fel! Detta hände:\n\n%s</string>
 	<string name="DLG_wait">Var god vänta...</string>
 	<string name="sync_status_success">Synkroniserades senast:\n%s</string>

@@ -130,7 +130,6 @@
 	<string name="WCA_title">选择任务以显示...</string>
 	<string name="DB_corrupted_title">数据库已经受损</string>
 	<string name="DB_corrupted_body">啊喔！您有一个毁损的资料库。如果您经常看见这个错误出现，我们建议您清除所有数据（在设置-&gt;同步和备份-&amp;gt；管理旧任务-&gt;清楚所有数据）并在清单小助理备份中重新存入您的任务（设置-&gt;同步和备份-&gt;备份-&gt;导入任务）</string>
-	<string name="market_unavailable">非常抱歉，我们的软件无法在您的系统中成功运行。</string>
 	<string name="EPr_default_urgency_title">默认截止期</string>
 	<string name="EPr_default_hideUntil_title">默认隐藏直到</string>
 	<string name="EPr_default_reminders_title">默认提醒</string>
@@ -213,14 +212,7 @@
 	<string name="premium_remove_file_confirm">您确定吗？无法恢复的喔</string>
 	<string name="audio_recording_title">正在录制音频</string>
 	<string name="audio_stop_recording">停止录制</string>
-	<string name="search_market_audio">找不到播放器来处理这种音频类型。您想从安卓市场上下载一个音频播放器吗？</string>
-	<string name="search_market_audio_title">找不到音频播放器</string>
-	<string name="search_market_pdf">找不到 PDF 阅读器。您想从安卓市场上下载一个PDF 阅读器吗？</string>
-	<string name="search_market_pdf_title">找不到 PDF 阅读器</string>
-	<string name="search_market_ms">找不到微软 Office 阅读器。您想从安卓市场上下载一个微软 Office 阅读器吗？</string>
-	<string name="search_market_ms_title">找不到微软 Office</string>
 	<string name="file_type_unhandled">对不起！找不到应用程序处理这种文件类型。</string>
-	<string name="file_type_unhandled_title">找不到应用程序</string>
 	<string name="file_browser_title">选择一个文件</string>
 	<string name="dir_browser_title">选择一个目录</string>
 	<string name="file_browser_err_permissions">权限出错！请确保您没有阻止清单小助理访问 SD 卡。</string>
@@ -311,7 +303,6 @@
 	<string name="tmrw">明天</string>
 	<string name="yest">昨天</string>
 	<string name="DLG_confirm_title">确认?</string>
-	<string name="DLG_question_title">问题：</string>
 	<string name="DLG_information_title">信息</string>
 	<string name="DLG_error">糟糕，发生错误！状况是:\n\n%s</string>
 	<string name="DLG_wait">请稍候...</string>

@@ -172,7 +172,6 @@
 	<string name="WCA_title">Izberi in prikaži opravke...</string>
 	<string name="DB_corrupted_title">Okvarjena baza podatkov</string>
 	<string name="DB_corrupted_body">O, ne! Zdi se, da imate okvarjeno bazo podatkov. Če se ta napaka pogosto pojavlja, vam predlagamo, da zbrišete vse podatke (Nastavitve-&gt;Usklajevanje in varnostna kopija-&gt; Upravljanje s preteklimi opravki-&gt;Zbriši vse podatke) in obnovite svoje opravke s pomočjo varnostne kopije aplikacije Opravki. (Nastavitve-&gt;Usklajevanje in varnostna kopija-&gt;Varnostna kopija-&gt;Uvozi opravke)</string>
-	<string name="market_unavailable">Žal trg ne podpira vašega sistema.</string>
 	<string name="EPr_default_urgency_title">Privzeta dospelost</string>
 	<string name="EPr_default_importance_title">Privzeta dospelost</string>
 	<string name="EPr_default_hideUntil_title">Privzeto skrij do</string>
@@ -262,14 +261,7 @@
 	<string name="premium_remove_file_confirm">Ste prepričani? Tega ni mogoče razveljaviti</string>
 	<string name="audio_recording_title">Snemam zvok</string>
 	<string name="audio_stop_recording">Prekini snemanje</string>
-	<string name="search_market_audio">Ni ustreznega predvajalnika. Želite naložiti predvajalnik zvoka z Android tržnice?</string>
-	<string name="search_market_audio_title">Nisem našel predvajalnika zvoka</string>
-	<string name="search_market_pdf">Ne najdem PDF bralnika. Ga želite naložiti z Android tržnice?</string>
-	<string name="search_market_pdf_title">Ne najdem PDF bralnika</string>
-	<string name="search_market_ms">Ne najdem bralnika MS Office. Ga želite naložiti z Android tržnice?</string>
-	<string name="search_market_ms_title">Ne najdem bralnika MS Office</string>
 	<string name="file_type_unhandled">Žal nobena aplikacija ne ustreza takim datotekam.</string>
-	<string name="file_type_unhandled_title">Ni ustrezne aplikacije</string>
 	<string name="file_browser_title">Izberite datoteko</string>
 	<string name="dir_browser_title">Izberite mapo</string>
 	<string name="file_browser_err_permissions">Napaka pri dovoljenjih! Prosimo, preverite, da niste preprečili aplikaciji Opravki dostopa do SD kartice.</string>
@@ -366,7 +358,6 @@
 	<string name="tmrw">Jutr</string>
 	<string name="yest">Včer</string>
 	<string name="DLG_confirm_title">Potrdi?</string>
-	<string name="DLG_question_title">Vprašanje:</string>
 	<string name="DLG_information_title">Informacija</string>
 	<string name="DLG_error">Ups, zdi se, da je prišlo do napake! Tole se je zgodilo:\n\n%s</string>
 	<string name="DLG_wait">Prosimo, počakajte...</string>

@@ -176,7 +176,6 @@
 Если вы получаете эту ошибку регулярно, рекомендуется стереть
 все данные (Параметры-&gt;Синхронизация-&gt;Управление старыми задачами-&gt;Очистить все данные) и восстановить
 задачи из резервной копии (Параметры-&gt;Синхронизация-&gt;Резервные копии-&gt;Импортировать задачи)</string>
-	<string name="market_unavailable">К сожалению, этот магазин недоступен для вашей системы.</string>
 	<string name="task_defaults">Параметры по умолчанию</string>
 	<string name="EPr_default_urgency_title">Актуальность по умолчанию</string>
 	<string name="EPr_default_importance_title">Приоритет по умолчанию</string>
@@ -266,14 +265,7 @@
 	<string name="premium_remove_file_confirm">Вы уверены? Это действия нельзя отменить.</string>
 	<string name="audio_recording_title">Запись голоса.</string>
 	<string name="audio_stop_recording">Остановить запись</string>
-	<string name="search_market_audio">Не найден проигрыватель для этого типа аудио. Хотите скачать его с Google Play?</string>
-	<string name="search_market_audio_title">Проигрыватель аудиофайлов не найден.</string>
-	<string name="search_market_pdf">Не найдена программа для просмотра PDF файлов. Хотите скачать её с Google Play?</string>
-	<string name="search_market_pdf_title">Не найдена программа для просмотра PDF файлов.</string>
-	<string name="search_market_ms">Не найдена программа для просмотра файлов MS Office. Хотите скачать её с Google Play?</string>
-	<string name="search_market_ms_title">Не найдена программа для просмотра файлов MS Office.</string>
 	<string name="file_type_unhandled">Извините! Не найдена программа для просмотра файлов этого типа.</string>
-	<string name="file_type_unhandled_title">Подходящая программа не найдена.</string>
 	<string name="back">Назад</string>
 	<string name="file_browser_title">Выбрать файл</string>
 	<string name="dir_browser_title">Выбрать папку</string>
@@ -376,7 +368,6 @@
 	<string name="tmrw">Завт</string>
 	<string name="yest">Вчера</string>
 	<string name="DLG_confirm_title">Подтвердить?</string>
-	<string name="DLG_question_title">Вопрос:</string>
 	<string name="DLG_information_title">Информация</string>
 	<string name="DLG_error">Ой, похоже произошла ошибка! Подробности ниже:\n\n%s</string>
 	<string name="DLG_wait">Пожалуйста, подождите…</string>

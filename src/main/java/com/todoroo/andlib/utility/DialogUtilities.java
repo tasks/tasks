@@ -11,7 +11,6 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
-import android.view.View;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,31 +19,6 @@ import org.tasks.R;
 public class DialogUtilities {
 
     private static final Logger log = LoggerFactory.getLogger(DialogUtilities.class);
-
-    /**
-     * Displays a dialog box with a EditText and an ok / cancel
-     */
-    public static void viewDialog(final Activity activity, final String text,
-            final View view, final DialogInterface.OnClickListener okListener,
-            final DialogInterface.OnClickListener cancelListener) {
-        if(activity.isFinishing()) {
-            return;
-        }
-
-        tryOnUiThread(activity, new Runnable() {
-            @Override
-            public void run() {
-                new AlertDialog.Builder(activity)
-                .setTitle(R.string.DLG_question_title)
-                .setMessage(text)
-                .setView(view)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton(android.R.string.ok, okListener)
-                .setNegativeButton(android.R.string.cancel, cancelListener)
-                .show().setOwnerActivity(activity);
-            }
-        });
-    }
 
     /**
      * Displays a dialog box with an OK button
@@ -61,7 +35,6 @@ public class DialogUtilities {
                 new AlertDialog.Builder(activity)
                 .setTitle(R.string.DLG_information_title)
                 .setMessage(text)
-                .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton(android.R.string.ok, okListener)
                 .show().setOwnerActivity(activity);
             }
@@ -91,22 +64,13 @@ public class DialogUtilities {
     }
 
     /**
-     * Displays a dialog box with OK and Cancel buttons and custom title
-     */
-    public static void okCancelDialog(final Activity activity, final String title,
-            final String text, final DialogInterface.OnClickListener okListener) {
-
-        okCancelCustomDialog(activity, title, text, android.R.string.ok, android.R.string.cancel, android.R.drawable.ic_dialog_alert, okListener, null);
-    }
-
-    /**
      * Displays a dialog box with OK and Cancel buttons
      */
     public static void okCancelDialog(final Activity activity, final String text,
             final DialogInterface.OnClickListener okListener,
             final DialogInterface.OnClickListener cancelListener) {
 
-        okCancelCustomDialog(activity, activity.getString(R.string.DLG_confirm_title), text, android.R.string.ok, android.R.string.cancel, android.R.drawable.ic_dialog_alert, okListener, cancelListener);
+        okCancelCustomDialog(activity, activity.getString(R.string.DLG_confirm_title), text, android.R.string.ok, android.R.string.cancel, okListener, cancelListener);
 
     }
 
@@ -116,7 +80,6 @@ public class DialogUtilities {
 
     public static void okCancelCustomDialog(final Activity activity, final String title, final String text,
             final int okTitleId, final int cancelTitleId,
-            final int icon,
             final DialogInterface.OnClickListener okListener,
             final DialogInterface.OnClickListener cancelListener) {
         if(activity.isFinishing()) {
@@ -128,10 +91,8 @@ public class DialogUtilities {
             @Override
             public void run() {
                 AlertDialog dialog = new AlertDialog.Builder(activity)
-                        .setTitle(R.string.DLG_confirm_title)
                         .setMessage(text)
                         .setTitle(title)
-                        .setIcon(icon)
                         .setPositiveButton(okTitleId, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

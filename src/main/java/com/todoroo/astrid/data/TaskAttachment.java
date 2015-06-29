@@ -85,20 +85,6 @@ public final class TaskAttachment extends RemoteModel {
     /** Constants for file types */
     public static final String FILE_TYPE_AUDIO = "audio/"; //$NON-NLS-1$
     public static final String FILE_TYPE_IMAGE = "image/"; //$NON-NLS-1$
-    public static final String FILE_TYPE_PDF = "application/pdf"; //$NON-NLS-1$
-
-    public static final String FILE_TYPE_DOC = "application/msword";  //$NON-NLS-1$
-    public static final String FILE_TYPE_DOCX = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";  //$NON-NLS-1$
-    public static final String FILE_TYPE_PPT = "application/vnd.ms-powerpoint";  //$NON-NLS-1$
-    public static final String FILE_TYPE_PPTX = "application/vnd.openxmlformats-officedocument.presentationml.presentation";  //$NON-NLS-1$
-    public static final String FILE_TYPE_XLS = "application/vnd.ms-excel"; //$NON-NLS-1$
-    public static final String FILE_TYPE_XLSX = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"; //$NON-NLS-1$
-
-    public static final String[] MS_FILETYPES = {
-        FILE_TYPE_DOC, FILE_TYPE_DOCX,
-        FILE_TYPE_XLS, FILE_TYPE_XLSX,
-        FILE_TYPE_PPT, FILE_TYPE_PPTX,
-    };
 
     public static final String FILE_TYPE_OTHER = "application/octet-stream";  //$NON-NLS-1$
 
