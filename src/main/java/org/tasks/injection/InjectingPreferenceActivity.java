@@ -27,6 +27,8 @@ public abstract class InjectingPreferenceActivity extends PreferenceActivity imp
         objectGraph = ((Injector) getApplication()).getObjectGraph().plus(new ActivityModule(this));
         inject(this);
 
+        activityPreferences.applyThemeAndStatusBarColor();
+
         super.onCreate(savedInstanceState);
 
         ViewGroup root = (ViewGroup) findViewById(android.R.id.content);
@@ -46,8 +48,6 @@ public abstract class InjectingPreferenceActivity extends PreferenceActivity imp
                 finish();
             }
         });
-
-        activityPreferences.applyLightStatusBarColor();
     }
 
     @Override

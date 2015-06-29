@@ -2,114 +2,6 @@
 
     <!-- ========================================================== General  -->
 
-    <style name="AppThemeBase" parent="Theme.AppCompat.Light.NoActionBar">
-    </style>
-
-    <style name="Tasks" parent="AppThemeBase">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorAccent">@color/primary</item>
-
-        <item name="android:windowBackground">@android:color/white</item>
-        <item name="asDueDateOverdueColor">#ee5555</item>
-        <item name="asEditTextBackground">@null</item>
-        <item name="windowActionModeOverlay">true</item>
-
-        <item name="ic_action_cancel">@drawable/ic_close_black_24dp</item>
-        <item name="ic_action_settings">@drawable/ic_settings_black_24dp</item>
-
-        <item name="drawer_background">@color/drawer_background</item>
-        <item name="drawer_background_selected">@color/drawer_background_selected</item>
-        <item name="asDueDateCompletedColor">#ff777777</item>
-        <item name="asToolbarSeparator">@android:color/transparent</item>
-        <item name="asSeparator">?attr/asSeparatorBackground</item>
-        <item name="toolbarSeparatorHeight">0dp</item>
-        <item name="separatorHeight">1px</item>
-        <item name="asSeparatorBackground">#888888</item>
-
-        <item name="android:actionModeBackground">@color/primary</item>
-        <item name="asContentBackground">@android:color/white</item>
-        <item name="asEditBackground">@android:color/white</item>
-        <item name="asTextColor">@android:color/black</item>
-        <item name="asTextColorHint">@android:color/darker_gray</item>
-        <item name="asTextColorInverse">@android:color/white</item>
-        <item name="asDetailsColor">#6666aa</item>
-        <item name="asDueDateColor">#878787</item>
-        <item name="asListDividerColor">#dddddd</item>
-        <item name="asEditRowBackground">@drawable/task_edit_background_white</item>
-        <item name="asTaskRowSelector">@drawable/task_row_bg_white</item>
-        <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
-        <item name="asAbBackgroundColor">#607d8b</item>
-        <item name="importance_background_selected">@drawable/importance_background_selected</item>
-        <item name="task_edit_divider">@color/task_edit_divider</item>
-        <item name="ic_action_attachment">@drawable/ic_attachment_black_24dp</item>
-        <item name="ic_action_clock">@drawable/ic_schedule_black_24dp</item>
-        <item name="ic_action_flag">@drawable/ic_flag_black_24dp</item>
-        <item name="ic_action_tags">@drawable/ic_label_black_24dp</item>
-        <item name="ic_action_list">@drawable/ic_event_note_black_24dp</item>
-        <item name="ic_action_box">@drawable/ic_visibility_off_black_24dp</item>
-        <item name="ic_action_bell">@drawable/ic_notifications_black_24dp</item>
-        <item name="ic_timer">@drawable/ic_timer_black_24dp</item>
-        <item name="ic_action_reload">@drawable/ic_repeat_black_24dp</item>
-        <item name="ic_action_calendar_month">@drawable/ic_event_black_24dp</item>
-        <item name="fab_icon">@drawable/ic_add_white_24dp</item>
-        <item name="ic_action_inbox">@drawable/ic_inbox_black_24dp</item>
-        <item name="ic_action_help">@drawable/ic_help_black_24dp</item>
-        <item name="ic_action_donate">@drawable/ic_attach_money_black_24dp</item>
-        <item name="ic_action_calendar_today">@drawable/ic_today_black_24dp</item>
-        <item name="ic_action_history">@drawable/ic_history_black_24dp</item>
-        <item name="ic_action_uncategorized">@drawable/ic_label_outline_black_24dp</item>
-        <item name="ic_action_label">@drawable/ic_label_black_24dp</item>
-        <item name="ic_action_filter">@drawable/ic_filter_list_black_24dp</item>
-        <item name="ic_action_cloud">@drawable/ic_cloud_queue_black_24dp</item>
-        <item name="ic_action_new_tag">@drawable/ic_add_black_24dp</item>
-        <item name="ic_action_discard">@drawable/ic_close_white_24dp</item>
-    </style>
-
-    <style name="Tasks.Dark">
-        <item name="colorPrimary">@android:color/black</item>
-        <item name="colorPrimaryDark">@android:color/black</item>
-        <item name="colorAccent">@android:color/white</item>
-        <item name="android:windowBackground">@android:color/black</item>
-        <item name="drawer_background">@color/drawer_background_dark</item>
-        <item name="drawer_background_selected">@color/drawer_background_selected_dark</item>
-        <item name="toolbarSeparatorHeight">1px</item>
-        <item name="asToolbarSeparator">@android:color/white</item>
-        <item name="asSeparator">?attr/asToolbarSeparator</item>
-        <item name="android:actionModeBackground">@android:color/black</item>
-        <item name="asContentBackground">@android:color/black</item>
-        <item name="asEditBackground">@android:color/black</item>
-        <item name="asTextColor">@android:color/white</item>
-        <item name="asTextColorHint">@android:color/darker_gray</item>
-        <item name="asTextColorInverse">@android:color/black</item>
-        <item name="asAbBackgroundColor">@android:color/black</item>
-        <item name="ic_action_settings">@drawable/ic_settings_white_24dp</item>
-        <item name="task_edit_divider">@color/task_edit_divider_dark</item>
-        <item name="ic_action_attachment">@drawable/ic_attachment_white_24dp</item>
-        <item name="ic_action_clock">@drawable/ic_schedule_white_24dp</item>
-        <item name="ic_action_flag">@drawable/ic_flag_white_24dp</item>
-        <item name="ic_action_tags">@drawable/ic_label_white_24dp</item>
-        <item name="ic_action_list">@drawable/ic_event_note_white_24dp</item>
-        <item name="ic_action_box">@drawable/ic_visibility_off_white_24dp</item>
-        <item name="ic_action_bell">@drawable/ic_notifications_white_24dp</item>
-        <item name="ic_timer">@drawable/ic_timer_white_24dp</item>
-        <item name="ic_action_reload">@drawable/ic_repeat_white_24dp</item>
-        <item name="ic_action_calendar_month">@drawable/ic_event_white_24dp</item>
-        <item name="ic_action_cancel">@drawable/ic_close_white_24dp</item>
-        <item name="asDueDateColor">#c3c3c3</item>
-        <item name="fab_icon">@drawable/ic_add_black_24dp</item>
-        <item name="ic_action_inbox">@drawable/ic_inbox_white_24dp</item>
-        <item name="ic_action_help">@drawable/ic_help_white_24dp</item>
-        <item name="ic_action_donate">@drawable/ic_attach_money_white_24dp</item>
-        <item name="ic_action_calendar_today">@drawable/ic_today_white_24dp</item>
-        <item name="ic_action_history">@drawable/ic_history_white_24dp</item>
-        <item name="ic_action_uncategorized">@drawable/ic_label_outline_white_24dp</item>
-        <item name="ic_action_label">@drawable/ic_label_white_24dp</item>
-        <item name="ic_action_filter">@drawable/ic_filter_list_white_24dp</item>
-        <item name="ic_action_cloud">@drawable/ic_cloud_queue_white_24dp</item>
-        <item name="ic_action_new_tag">@drawable/ic_add_white_24dp</item>
-    </style>
-
     <style name="ActionBar.TitleText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor">#fff</item>
     </style>
@@ -122,22 +14,6 @@
         <item name="android:textColorPrimary">#fff</item>
         <item name="colorControlNormal">#fff</item>
         <item name="colorControlHighlight">#3fff</item>
-    </style>
-
-    <style name="Tasks.Dialog" parent="@style/Theme.AppCompat.Light.Dialog">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorAccent">@color/primary</item>
-        <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
-        <item name="asTextColor">@android:color/black</item>
-        <item name="asListDividerColor">#dddddd</item>
-        <item name="ic_action_inbox">@drawable/ic_inbox_black_24dp</item>
-        <item name="ic_action_calendar_today">@drawable/ic_today_black_24dp</item>
-        <item name="ic_action_history">@drawable/ic_history_black_24dp</item>
-        <item name="ic_action_uncategorized">@drawable/ic_label_outline_black_24dp</item>
-        <item name="ic_action_label">@drawable/ic_label_black_24dp</item>
-        <item name="ic_action_filter">@drawable/ic_filter_list_black_24dp</item>
-        <item name="ic_action_cloud">@drawable/ic_cloud_queue_black_24dp</item>
     </style>
 
     <!--================================================== General == -->

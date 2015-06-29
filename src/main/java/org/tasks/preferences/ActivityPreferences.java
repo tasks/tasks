@@ -13,7 +13,6 @@ import org.tasks.R;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
 
 @Singleton
@@ -40,7 +39,7 @@ public class ActivityPreferences extends Preferences {
     }
 
     public void applyTheme() {
-        applyTheme(isDarkTheme() ? R.style.Tasks_Dark : R.style.Tasks);
+        applyTheme(isDarkTheme() ? R.style.TasksDark : R.style.Tasks);
     }
 
     public void applyStatusBarColor() {
