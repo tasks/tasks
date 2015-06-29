@@ -9,6 +9,8 @@
 	<string name="actfm_picture_gallery">Elegir de la galería</string>
 	<string name="actfm_picture_clear">Borrar imagen</string>
 	<string name="TVA_add_comment">Añadir un comentario...</string>
+	<string name="name">Nombre</string>
+	<string name="enter_tag_name">Ingrese nombre de etiqueta</string>
 	<string name="actfm_GAA_title">Seleccione la cuenta de Google que desea usar:</string>
 	<string name="backup_BPr_header">Copias de seguridad</string>
 	<string name="backup_BAc_import">Importar tareas</string>
@@ -64,6 +66,7 @@
 	<string name="TEA_estimatedDuration_label">¿Cuanto tiempo llevará?</string>
 	<string name="TEA_elapsedDuration_label">Tiempo ya empleado en la tarea</string>
 	<string name="TEA_menu_save">Guardar cambios</string>
+	<string name="save">Guardar</string>
 	<string name="TEA_menu_discard_changes">Descartar cambios</string>
 	<string name="TEA_tab_activity">Actividad</string>
 	<string name="TEA_timer_elap">Transcurrido %s</string>
@@ -347,8 +350,10 @@
 	<string name="repeat_until">Repetir hasta %s</string>
 	<string name="repeat_snackbar">%1$s He reprogramado esta tarea recurrente para %2$s</string>
 	<string name="TEA_tags_label_long">Añadir a listas</string>
+	<string name="new_tag">Nueva Etiqueta</string>
 	<string name="tag_no_title_error">Por favor, ¡introduce un nombre para la primera lista!</string>
 	<string name="tag_FEx_untagged">Sin Categoría</string>
+	<string name="delete_tag_confirmation">¿Eliminar %s?</string>
 	<string name="TPl_notification">Temporizadores activos para %s!</string>
 	<string name="TFE_workingOn">Tareas que se están cronometrando</string>
 	<string name="TEA_timer_controls">Temporizador</string>
@@ -434,6 +439,16 @@
 	<string name="date_shortcut_tomorrow_afternoon">Mañana a la tarde</string>
 	<string name="date_shortcut_must_come_before">%1$s debe venir antes de %2$s</string>
 	<string name="date_shortcut_must_come_after">%1$s debe venir después de %2$s</string>
+	<string name="discard_changes">¿Descartar cambios?</string>
+	<string name="discard">Descartar</string>
+	<string name="tag_settings">Configuración de Etiquetas</string>
+	<string name="delete">Eliminar</string>
+	<string name="filter_settings">Configuración de Filtros</string>
+	<string name="deprecated_setting">Esta opción se eliminará en una actualización futura</string>
+	<string name="show_hidden">Mostrar oculto</string>
+	<string name="show_completed">Mostrar completado</string>
+	<string name="reverse">Invertir</string>
+	<string name="task_count">%s Tareas</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>deshabilitar</item>
 		<item>cada quince minutos</item>

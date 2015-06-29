@@ -454,6 +454,7 @@
 	<string name="show_hidden">非表示を表示</string>
 	<string name="show_completed">完了を表示</string>
 	<string name="reverse">逆順</string>
+	<string name="task_count">%s タスク</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>無効</item>
 		<item>15分毎</item>

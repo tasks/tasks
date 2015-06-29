@@ -455,6 +455,7 @@
 	<string name="show_hidden">Покажи скрити</string>
 	<string name="show_completed">Покажи завършени</string>
 	<string name="reverse">Обратно</string>
+	<string name="task_count">%s Задачи</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>изключено</item>
 		<item>на всеки 15 минути</item>

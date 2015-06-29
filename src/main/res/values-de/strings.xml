@@ -9,6 +9,7 @@
 	<string name="actfm_picture_gallery">Aus Galerie wählen</string>
 	<string name="actfm_picture_clear">Bild entfernen</string>
 	<string name="TVA_add_comment">Kommentar hinzufügen …</string>
+	<string name="enter_tag_name">Schlagwort eingeben</string>
 	<string name="actfm_GAA_title">Wählen Sie den zu verwendenden Google-Account aus:</string>
 	<string name="backup_BAc_import">Aufgaben importieren</string>
 	<string name="backup_BAc_export">Aufgaben exportieren</string>
@@ -63,6 +64,7 @@
 	<string name="TEA_estimatedDuration_label">Wie lange wird es dauern?</string>
 	<string name="TEA_elapsedDuration_label">Zeit, die schon für die Aufgabe gebraucht wurde</string>
 	<string name="TEA_menu_save">Änderungen speichern</string>
+	<string name="save">Speichern</string>
 	<string name="TEA_menu_discard_changes">Änderungen verwerfen</string>
 	<string name="TEA_tab_activity">Aktivität</string>
 	<string name="TEA_timer_est">Geschätzt %s</string>
@@ -345,9 +347,12 @@
 	<string name="repeat_detail_duedate_until">Jede(n) %1$s\nbis %2$s</string>
 	<string name="repeat_forever">Endlos wiederholen</string>
 	<string name="repeat_until">Wiederhole bis %s</string>
+	<string name="repeat_snackbar">%1$s verschoben um %2$s</string>
 	<string name="TEA_tags_label_long">Zur Liste hinzufügen</string>
+	<string name="new_tag">Neues Schlagwort</string>
 	<string name="tag_no_title_error">Bitte gib zuerst einen Namen für die Liste ein!</string>
 	<string name="tag_FEx_untagged">Nicht kategorisiert</string>
+	<string name="delete_tag_confirmation">%s löschen?</string>
 	<string name="TPl_notification">Timer ist aktiv für %s!</string>
 	<string name="TFE_workingOn">Zeitlich festgelegte Aufgaben</string>
 	<string name="TEA_timer_comment_started">Aufgabe begonnen:</string>
@@ -420,6 +425,28 @@
 	<string name="geofence_radius_title">Radius (Meter)</string>
 	<string name="geofence_responsiveness_title">Antwortzeit (Größere Werte sparen Akkuleistung)</string>
 	<string name="geolocation_reminders">Geo-/Ortsbasierte Erinnerungen</string>
+	<string name="tags">Schlagworte</string>
+	<string name="filters">Filter</string>
+	<string name="date_shortcuts">Datumsabkürzungen</string>
+	<string name="date_shortcut_hour">Für eine Stunde</string>
+	<string name="date_shortcut_morning">Morgen</string>
+	<string name="date_shortcut_afternoon">Nachmittag</string>
+	<string name="date_shortcut_evening">Abend</string>
+	<string name="date_shortcut_night">Nacht</string>
+	<string name="date_shortcut_tomorrow_morning">Morgenfrüh</string>
+	<string name="date_shortcut_tomorrow_afternoon">Morgennachmittag</string>
+	<string name="date_shortcut_must_come_before">%1$s muss vor %2$s kommen</string>
+	<string name="date_shortcut_must_come_after">%1$s muss nach %2$s kommen</string>
+	<string name="discard_changes">Änderungen verwerfen?</string>
+	<string name="discard">Verwerfen</string>
+	<string name="tag_settings">Schlagwort Einstellungen</string>
+	<string name="delete">Löschen</string>
+	<string name="filter_settings">Filter Einstellungen</string>
+	<string name="deprecated_setting">Diese Einstellung wird in einem zukünftigen Update entfernt</string>
+	<string name="show_hidden">Ausgeblendet anzeigen</string>
+	<string name="show_completed">Erledigt anzeigen</string>
+	<string name="reverse">Rückgangig</string>
+	<string name="task_count">%s Aufgaben</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>deaktivieren</item>
 		<item>alle 15 Minuten</item>
