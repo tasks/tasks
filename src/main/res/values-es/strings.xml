@@ -105,7 +105,6 @@
 	<string name="MCA_return_call">Llamar ahora</string>
 	<string name="MCA_add_task">Llamar luego</string>
 	<string name="MCA_ignore">Ignorar</string>
-	<string name="MCA_ignore_title">Ignorar todas las llamadas perdidas?</string>
 	<string name="MCA_ignore_body">Ha ignorado varias llamadas perdidas. ¿Quiere que Tasks deje de preguntarle sobre ellas?</string>
 	<string name="MCA_ignore_all">Ignorar todas las llamadas</string>
 	<string name="MCA_ignore_this">Ignorar solamente esta llamada</string>
@@ -115,7 +114,6 @@
 	<string name="MCA_task_title_no_name">Devolver la llamada a %s</string>
 	<string name="CRA_ignore">Ignorar</string>
 	<string name="CRA_title">¿Necesita una lista de reuniones?</string>
-	<string name="CRA_ignore_title">¿Ignorar todos los eventos del calendario?</string>
 	<string name="CRA_ignore_body">Ha ignorado varios eventos de calendario. ¿Debe Tasks dejar de preguntarle sobre ellos?</string>
 	<string name="CRA_ignore_all">Ignorar todos los eventos</string>
 	<string name="CRA_ignore_this">Ignorar solo este evento</string>
@@ -123,7 +121,6 @@
 	<string name="CRA_speech_bubble_end">Parece que acaba de terminar %s. ¿Quiere crear una lista de acciones?</string>
 	<string name="CRA_create_list">Crear lista</string>
 	<string name="CRA_postpone">Quizá después</string>
-	<string name="CRA_list_exists_title">La lista ya existe</string>
 	<string name="CRA_list_exists_body">Ya hay una lista llamada %s. ¿Quiere usar la lista actual o crear una nueva para el evento?</string>
 	<string name="CRA_create_new">Crear nuevo</string>
 	<string name="CRA_use_existing">Usar existente</string>
@@ -369,7 +366,6 @@
 	<string name="yesterday">Ayer</string>
 	<string name="tmrw">Mñna</string>
 	<string name="yest">Ayer</string>
-	<string name="DLG_confirm_title">¿Confirmar?</string>
 	<string name="DLG_information_title">Información</string>
 	<string name="DLG_error">¡Uy, parece que ocurró un error! Esto es lo que pasó:\n\n%s</string>
 	<string name="DLG_wait">Por favor, espere...</string>

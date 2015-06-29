@@ -101,7 +101,6 @@
 	<string name="MCA_return_call">Bel nu</string>
 	<string name="MCA_add_task">Bel later</string>
 	<string name="MCA_ignore">Negeren</string>
-	<string name="MCA_ignore_title">Alle gemiste oproepen negeren?</string>
 	<string name="MCA_ignore_body">Je hebt alle gemiste oproepen genegeerd. Moet Tasks je er niet meer naar vragen?</string>
 	<string name="MCA_ignore_all">Negeer alle oproepen</string>
 	<string name="MCA_ignore_this">Negeer alleen deze oproep</string>
@@ -111,7 +110,6 @@
 	<string name="MCA_task_title_no_name">Bel %s terug</string>
 	<string name="CRA_ignore">Negeren</string>
 	<string name="CRA_title">Heb je een bijeenkomst lijst nodig? </string>
-	<string name="CRA_ignore_title">Alle agenda gebeurtenissen negeren? </string>
 	<string name="CRA_ignore_body">Je hebt meerdere agenda gebeurtenissen genegeerd. Moet Tasks je er niet meer naar vragen?</string>
 	<string name="CRA_ignore_all">Negeer alle gebeurtenissen. </string>
 	<string name="CRA_ignore_this">Negeer alleen deze gebeurtenis.</string>
@@ -119,7 +117,6 @@
 	<string name="CRA_speech_bubble_end">Zo te zien heb je juist %s voltooid. Wil je een actiepuntenlijst maken?</string>
 	<string name="CRA_create_list">Maak een lijst</string>
 	<string name="CRA_postpone">Misschien naderhand</string>
-	<string name="CRA_list_exists_title">Lijst bestaat al. </string>
 	<string name="CRA_list_exists_body">Een lijst met de naam %s bestaat al. Wil je de bestaande lijst gebruiken of een nieuwe maken voor deze gebeurtenis?</string>
 	<string name="CRA_create_new">Maak een nieuwe. </string>
 	<string name="CRA_use_existing">Gebruik bestaande</string>
@@ -356,7 +353,6 @@
 	<string name="yesterday">Gisteren</string>
 	<string name="tmrw">mrgn</string>
 	<string name="yest">gisteren</string>
-	<string name="DLG_confirm_title">OK?</string>
 	<string name="DLG_information_title">Informatie</string>
 	<string name="DLG_error">Er is een fout opgetreden:\n\n%s</string>
 	<string name="DLG_wait">Even geduld a.u.b.</string>

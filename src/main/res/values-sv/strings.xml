@@ -100,7 +100,6 @@
 	<string name="MCA_return_call">Ring nu</string>
 	<string name="MCA_add_task">Ring senare</string>
 	<string name="MCA_ignore">Ignorera</string>
-	<string name="MCA_ignore_title">Ignorera alla missade samtal?</string>
 	<string name="MCA_ignore_body">Du har ignorerat flera missade samtal. Vill du att Tasks slutar fråga dig om dem?</string>
 	<string name="MCA_ignore_all">Ignorera alla samtal</string>
 	<string name="MCA_ignore_this">Ignorera endast detta samtal</string>
@@ -110,7 +109,6 @@
 	<string name="MCA_task_title_no_name">Ring %s tillbaka</string>
 	<string name="CRA_ignore">Ignorera</string>
 	<string name="CRA_title">Behöver du en lista över möten?</string>
-	<string name="CRA_ignore_title">Ignorera alla händelser i kalender?</string>
 	<string name="CRA_ignore_body">Du har ignorerat flera kalenderhändelser. Vill du att Tasks slutar fråga dig om dem?</string>
 	<string name="CRA_ignore_all">Ignorera alla händelser</string>
 	<string name="CRA_ignore_this">Ignorera endast denna händelse</string>
@@ -118,7 +116,6 @@
 	<string name="CRA_speech_bubble_end">Det verkar som du just slutfört %s. Vill du skapa en lista för saker att göra?</string>
 	<string name="CRA_create_list">Skapa lista</string>
 	<string name="CRA_postpone">Kanske senare</string>
-	<string name="CRA_list_exists_title">Listan finns redan</string>
 	<string name="CRA_list_exists_body">En lista med namnet %s finns redan. Vill du använda den existerande listan eller skapa en ny för denna händelse?</string>
 	<string name="CRA_create_new">Skapa ny</string>
 	<string name="CRA_use_existing">Använd befintlig</string>
@@ -349,7 +346,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="yesterday">Igår</string>
 	<string name="tmrw">imorn</string>
 	<string name="yest">Igår</string>
-	<string name="DLG_confirm_title">Bekräfta?</string>
 	<string name="DLG_error">Oj, det uppstod ett fel! Detta hände:\n\n%s</string>
 	<string name="DLG_wait">Var god vänta...</string>
 	<string name="sync_status_success">Synkroniserades senast:\n%s</string>

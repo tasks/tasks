@@ -106,7 +106,6 @@
 	<string name="MCA_return_call">지금 전화하기</string>
 	<string name="MCA_add_task">나중에 전화하기</string>
 	<string name="MCA_ignore">무시하기</string>
-	<string name="MCA_ignore_title">모든 부재중 전화를 무시할까요?</string>
 	<string name="MCA_ignore_body">부재중 전화를 몇 번 무시했습니다. Tasks의 부재중 전화 알림을 중지할까요?</string>
 	<string name="MCA_ignore_all">모든 전화 무시하기</string>
 	<string name="MCA_ignore_this">이 전화만 무시하기</string>
@@ -116,7 +115,6 @@
 	<string name="MCA_task_title_no_name">%s 님에게 다시 연락하세요</string>
 	<string name="CRA_ignore">무시하기</string>
 	<string name="CRA_title">모임 목록이 필요하세요?</string>
-	<string name="CRA_ignore_title">모든 달력 이벤트를 무시할까요?</string>
 	<string name="CRA_ignore_body">당신은 몇몇의 달력 이벤트를 무시했습니다. Tasks가 이것을 더이상 알려드리지 않도록 할까요?</string>
 	<string name="CRA_ignore_all">모든 이벤트 무시하기</string>
 	<string name="CRA_ignore_this">이 이벤트만 무시하기</string>
@@ -124,7 +122,6 @@
 	<string name="CRA_speech_bubble_end">%s 를 방금 마치신 것 같습니다. 활동 아이템 목록을 만들까요?</string>
 	<string name="CRA_create_list">목록 만들기</string>
 	<string name="CRA_postpone">연기하기</string>
-	<string name="CRA_list_exists_title">목록이 이미 있습니다</string>
 	<string name="CRA_list_exists_body">%s 이름의 목록이 이미 있습니다. 이 이벤트를 위해 새로운 목록을 만들까요?</string>
 	<string name="CRA_create_new">새 목록 만들기</string>
 	<string name="CRA_use_existing">기존 목록 사용</string>
@@ -369,7 +366,6 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	<string name="yesterday">어제</string>
 	<string name="tmrw">내일</string>
 	<string name="yest">어제</string>
-	<string name="DLG_confirm_title">확인?</string>
 	<string name="DLG_information_title">정보</string>
 	<string name="DLG_error">에러가 발생한 것 같습니다! 발생한 에러는 다음과 같습니다:\n\n%s</string>
 	<string name="DLG_wait">잠시 기다리세요...</string>

@@ -31,9 +31,6 @@
 
     <!-- ================================================== Generic Dialogs == -->
 
-    <!-- confirmation dialog title -->
-    <string name="DLG_confirm_title">Confirm?</string>
-
     <!-- information dialog title -->
     <string name="DLG_information_title">Information</string>
 

@@ -89,7 +89,6 @@
 	<string name="MCA_return_call">Chiama ora</string>
 	<string name="MCA_add_task">Chiama più tardi</string>
 	<string name="MCA_ignore">Ignora</string>
-	<string name="MCA_ignore_title">Ignorare tutte le chiamate perse?</string>
 	<string name="MCA_ignore_body">Tu hai ignorato varie chiamate perse. Tasks dovrebbe smettere di chiedere a riguardo?</string>
 	<string name="MCA_ignore_all">Ignora tutte le chiamate</string>
 	<string name="MCA_ignore_this">Ignora solo questa chiamata</string>
@@ -99,7 +98,6 @@
 	<string name="MCA_task_title_no_name">Richiama %s</string>
 	<string name="CRA_ignore">Ignora</string>
 	<string name="CRA_title">Hai bisogno di una lista per le riunioni?</string>
-	<string name="CRA_ignore_title">Ignora tutti gli eventi del calendario?</string>
 	<string name="CRA_ignore_body">Tu hai ignorato varie chiamate perse. Tasks dovrebbe smettere di chiedere a riguardo?</string>
 	<string name="CRA_ignore_all">Ignora tutti gli eventi</string>
 	<string name="CRA_ignore_this">Ignora solo questo evento</string>
@@ -107,7 +105,6 @@
 	<string name="CRA_speech_bubble_end">Sembra che tu abbia appena terminato %s. Vuoi creare una lista per le azioni?</string>
 	<string name="CRA_create_list">Crea la lista</string>
 	<string name="CRA_postpone">Forse in seguito</string>
-	<string name="CRA_list_exists_title">La lista è già esistente</string>
 	<string name="CRA_list_exists_body">Una lista chiamata %s è già esistente. Vuoi usare la lista esistente o crearne una nuova per questo evento?</string>
 	<string name="CRA_create_new">Crea nuovo</string>
 	<string name="CRA_use_existing">Usa l\'esistente</string>
@@ -323,7 +320,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="yesterday">Ieri</string>
 	<string name="tmrw">Domani</string>
 	<string name="yest">Ieri</string>
-	<string name="DLG_confirm_title">Confermi?</string>
 	<string name="DLG_information_title">Informazione</string>
 	<string name="DLG_error">Oops, sembra che ci sia stato un errore! E\' successo questo:\n\n%s</string>
 	<string name="DLG_wait">Attendi...</string>

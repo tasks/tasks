@@ -763,7 +763,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     /** Show a dialog box and delete the task specified */
     private void deleteTask(final Task task) {
         new AlertDialog.Builder(getActivity())
-                .setMessage(R.string.DLG_delete_this_task_question)
+                .setMessage(getString(R.string.delete_tag_confirmation, task.getTitle()))
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -828,7 +828,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
             return true;
         case CONTEXT_MENU_DELETE_TASK_ID: {
             itemId = item.getGroupId();
-            Task task = taskService.fetchById(itemId, Task.ID, Task.UUID);
+            Task task = taskService.fetchById(itemId, Task.ID, Task.TITLE, Task.UUID);
             if (task != null) {
                 deleteTask(task);
             }

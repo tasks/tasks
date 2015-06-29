@@ -30,7 +30,6 @@ public class ClearGtaskDataActivity extends InjectingActivity {
                 }, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        setResult(RESULT_CANCELED);
                         finish();
                     }
                 }

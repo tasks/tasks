@@ -88,7 +88,6 @@
 	<string name="MCA_return_call">Şimdi ara</string>
 	<string name="MCA_add_task">Sonra ara</string>
 	<string name="MCA_ignore">Yoksay</string>
-	<string name="MCA_ignore_title">Tüm çağrıları yoksay?</string>
 	<string name="MCA_ignore_body">Birkaç çağrıyı yoksaydınız. Tasks bunlar hakkında soru sormayı kessin mi?</string>
 	<string name="MCA_ignore_all">Tüm çağrıları yoksay</string>
 	<string name="MCA_ignore_this">Yalnızca bu çağrıyı yoksay</string>
@@ -98,7 +97,6 @@
 	<string name="MCA_task_title_no_name">%s kişisini geri ara</string>
 	<string name="CRA_ignore">Yoksay</string>
 	<string name="CRA_title">Bir toplantı listesine mi ihtiyacınız var?</string>
-	<string name="CRA_ignore_title">Tüm takvim etkinlikleri yok sayılsın mı?</string>
 	<string name="CRA_ignore_body">Bir kaç tane takvim etkinliğini yok saydınız. Tasks\'in size bunlar hakkında sormayı kesmesini ister misiniz?</string>
 	<string name="CRA_ignore_all">Tüm etkinlikleri yoksay</string>
 	<string name="CRA_ignore_this">Sadece bu etkinliği yok say</string>
@@ -106,7 +104,6 @@
 	<string name="CRA_speech_bubble_end">%s bitmiş gibi gözüküyor. Bir liste hazırlamak ister misiniz?</string>
 	<string name="CRA_create_list">Liste oluştur</string>
 	<string name="CRA_postpone">Belki daha sonra</string>
-	<string name="CRA_list_exists_title">Liste zaten bulunuyor</string>
 	<string name="CRA_list_exists_body">%s isimli bir liste bulunmakta. Var olan listeyi kullanmak mı yoksa yeni bir liste yapmak mı istersiniz?</string>
 	<string name="CRA_create_new">Yeni oluştur</string>
 	<string name="CRA_use_existing">Var olanı kullan</string>
@@ -323,7 +320,6 @@
 	<string name="yesterday">Dün</string>
 	<string name="tmrw">Yarın</string>
 	<string name="yest">Dün</string>
-	<string name="DLG_confirm_title">Onayla?</string>
 	<string name="DLG_information_title">Bilgi</string>
 	<string name="DLG_error">Oops, bir sorun meydana geldi! Olan şu:\n\n%s</string>
 	<string name="DLG_wait">Lütfen bekleyin...</string>

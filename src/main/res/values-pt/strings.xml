@@ -104,7 +104,6 @@
 	<string name="MCA_return_call">Chamar agora</string>
 	<string name="MCA_add_task">Chamar mais tarde</string>
 	<string name="MCA_ignore">Ignorar</string>
-	<string name="MCA_ignore_title">Ignorar chamadas perdidas?</string>
 	<string name="MCA_ignore_body">Você ignorou várias chamadas perdidas. Pretende que o Tasks não o notifique novamente?</string>
 	<string name="MCA_ignore_all">Ignorar todas as chamadas</string>
 	<string name="MCA_ignore_this">Ignorar apenas esta chamada</string>
@@ -114,7 +113,6 @@
 	<string name="MCA_task_title_no_name">Ligar a %s</string>
 	<string name="CRA_ignore">Ignorar</string>
 	<string name="CRA_title">Precisa de uma lista de encontros?</string>
-	<string name="CRA_ignore_title">Ignorar todos os eventos do calendário?</string>
 	<string name="CRA_ignore_body">Você ignorou vários eventos de calendário. Pretende que o Tasks não o notifique novamente?</string>
 	<string name="CRA_ignore_all">Ignorar todos os eventos</string>
 	<string name="CRA_ignore_this">Ignorar apenas este evento</string>
@@ -122,7 +120,6 @@
 	<string name="CRA_speech_bubble_end">Parece que %s está terminada. Quer criar uma lista para os itens da ação?</string>
 	<string name="CRA_create_list">Criar lista</string>
 	<string name="CRA_postpone">Mais tarde</string>
-	<string name="CRA_list_exists_title">Lista existente</string>
 	<string name="CRA_list_exists_body">Já existe uma lista com o nome %s. Pretende utilizar a lista existente ou criar uma para este evento?</string>
 	<string name="CRA_create_new">Criar nova</string>
 	<string name="CRA_use_existing">Usar existente</string>
@@ -367,7 +364,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="yesterday">Ontem</string>
 	<string name="tmrw">Amanhã</string>
 	<string name="yest">Ontem</string>
-	<string name="DLG_confirm_title">Confirma?</string>
 	<string name="DLG_information_title">Informação</string>
 	<string name="DLG_error">Parece que ocorreu um erro! Isto foi o que aconteceu:\n\n%s</string>
 	<string name="DLG_wait">Por favor aguarde...</string>

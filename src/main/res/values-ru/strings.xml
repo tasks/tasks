@@ -103,7 +103,6 @@
 	<string name="MCA_return_call">Позвонить сейчас</string>
 	<string name="MCA_add_task">Позвонить позже</string>
 	<string name="MCA_ignore">Игнорировать</string>
-	<string name="MCA_ignore_title">Игнорировать все пропущенные звонки?</string>
 	<string name="MCA_ignore_body">Вы проигнорировали несколько пропущенных звонков. Больше не спрашивать про них?</string>
 	<string name="MCA_ignore_all">Игнорировать все звонки</string>
 	<string name="MCA_ignore_this">Игнорировать только этот звонок</string>
@@ -113,7 +112,6 @@
 	<string name="MCA_task_title_no_name">Перезвонить %s</string>
 	<string name="CRA_ignore">Игнорировать</string>
 	<string name="CRA_title">Необходим список встреч?</string>
-	<string name="CRA_ignore_title">Пропустить все события календаря?</string>
 	<string name="CRA_ignore_body">Вы пропустили несколько событий календаря. Tasks не следует больше спрашивать Вас о них?</string>
 	<string name="CRA_ignore_all">Пропустить все события</string>
 	<string name="CRA_ignore_this">Пропустить только это событие</string>
@@ -121,7 +119,6 @@
 	<string name="CRA_speech_bubble_end">Похоже Вы только что завершили %s. Хотите создать список для пунктов события?</string>
 	<string name="CRA_create_list">Создать список</string>
 	<string name="CRA_postpone">Возможно позднее</string>
-	<string name="CRA_list_exists_title">Такой список уже существует</string>
 	<string name="CRA_list_exists_body">Список с именем %s уже есть. Хотите ли вы использовать имеющийся или создать новый список для этого события?</string>
 	<string name="CRA_create_new">Создать новый</string>
 	<string name="CRA_use_existing">Воспользоваться имеющимся</string>
@@ -367,7 +364,6 @@
 	<string name="yesterday">Вчера</string>
 	<string name="tmrw">Завт</string>
 	<string name="yest">Вчера</string>
-	<string name="DLG_confirm_title">Подтвердить?</string>
 	<string name="DLG_information_title">Информация</string>
 	<string name="DLG_error">Ой, похоже произошла ошибка! Подробности ниже:\n\n%s</string>
 	<string name="DLG_wait">Пожалуйста, подождите…</string>

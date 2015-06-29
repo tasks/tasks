@@ -103,7 +103,6 @@
 	<string name="MCA_return_call">Зателефонувати зараз</string>
 	<string name="MCA_add_task">Зателефонувати пізніше</string>
 	<string name="MCA_ignore">Ігнорувати</string>
-	<string name="MCA_ignore_title">Ігнорувати всі пропущені дзвіники?</string>
 	<string name="MCA_ignore_body">Ви проігнорували декілька пропущених дзвінків. Більше не запитувати про них?</string>
 	<string name="MCA_ignore_all">Ігнорувати всі дзвінки</string>
 	<string name="MCA_ignore_this">Ігнорувати лише цей дзвінок</string>
@@ -113,7 +112,6 @@
 	<string name="MCA_task_title_no_name">Перетелефонувати %s </string>
 	<string name="CRA_ignore">Ігнорувати</string>
 	<string name="CRA_title">Потрібен список для зустрічі?</string>
-	<string name="CRA_ignore_title">Ігнорувати всі події календаря?</string>
 	<string name="CRA_ignore_body">Ви проігнорували декілька календарних подій. Більше не запитувати про них?</string>
 	<string name="CRA_ignore_all">Ігнорувати всі події</string>
 	<string name="CRA_ignore_this">Ігнорувати лише цю подію</string>
@@ -121,7 +119,6 @@
 	<string name="CRA_speech_bubble_end">Схоже Ви щойно закінчили %s. Бажаєте створити список дій?</string>
 	<string name="CRA_create_list">Створити список</string>
 	<string name="CRA_postpone">Може згодом </string>
-	<string name="CRA_list_exists_title">Список вже існує</string>
 	<string name="CRA_list_exists_body">Список %s вже існує. Бажаєте використовувати наявний список для цієї події, чи сторити новий?</string>
 	<string name="CRA_create_new">Створити новий</string>
 	<string name="CRA_use_existing">Використати наявний</string>
@@ -344,7 +341,6 @@
 	<string name="yesterday">Вчора</string>
 	<string name="tmrw">Завт.</string>
 	<string name="yest">Вчор.</string>
-	<string name="DLG_confirm_title">Підтверджуєте?</string>
 	<string name="DLG_information_title">Інформація</string>
 	<string name="DLG_error">На жаль, схоже, сталася помилка! Ось що вийшло:\n\n%s</string>
 	<string name="DLG_wait">Будь ласка, зачекайте...</string>

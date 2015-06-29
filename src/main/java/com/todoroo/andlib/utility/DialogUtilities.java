@@ -15,10 +15,19 @@ import android.support.v7.app.AlertDialog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.preferences.ActivityPreferences;
+
+import javax.inject.Inject;
 
 public class DialogUtilities {
 
     private static final Logger log = LoggerFactory.getLogger(DialogUtilities.class);
+    private ActivityPreferences activityPreferences;
+
+    @Inject
+    public DialogUtilities(ActivityPreferences activityPreferences) {
+        this.activityPreferences = activityPreferences;
+    }
 
     /**
      * Displays a dialog box with an OK button
@@ -70,7 +79,7 @@ public class DialogUtilities {
             final DialogInterface.OnClickListener okListener,
             final DialogInterface.OnClickListener cancelListener) {
 
-        okCancelCustomDialog(activity, activity.getString(R.string.DLG_confirm_title), text, android.R.string.ok, android.R.string.cancel, okListener, cancelListener);
+        okCancelCustomDialog(activity, text, android.R.string.ok, android.R.string.cancel, okListener, cancelListener);
 
     }
 
@@ -78,7 +87,7 @@ public class DialogUtilities {
     * Displays a dialog box with custom titled OK and cancel button titles
     */
 
-    public static void okCancelCustomDialog(final Activity activity, final String title, final String text,
+    public static void okCancelCustomDialog(final Activity activity, final String text,
             final int okTitleId, final int cancelTitleId,
             final DialogInterface.OnClickListener okListener,
             final DialogInterface.OnClickListener cancelListener) {
@@ -92,7 +101,6 @@ public class DialogUtilities {
             public void run() {
                 AlertDialog dialog = new AlertDialog.Builder(activity)
                         .setMessage(text)
-                        .setTitle(title)
                         .setPositiveButton(okTitleId, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

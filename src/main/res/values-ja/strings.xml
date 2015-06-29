@@ -106,7 +106,6 @@
 	<string name="MCA_return_call">いますぐ呼び出し</string>
 	<string name="MCA_add_task">後で呼び出し</string>
 	<string name="MCA_ignore">無視する</string>
-	<string name="MCA_ignore_title">応答しなかった呼び出しをすべて無視しますか?</string>
 	<string name="MCA_ignore_body">いくつかの応答しなかった呼び出しを無視しました. その報告を停止しますか?</string>
 	<string name="MCA_ignore_all">すべての呼び出しを無視する</string>
 	<string name="MCA_ignore_this">この呼び出しのみ無視する</string>
@@ -116,7 +115,6 @@
 	<string name="MCA_task_title_no_name">%s に折り返し連絡</string>
 	<string name="CRA_ignore">無視する</string>
 	<string name="CRA_title">ミーティングリストが必要ですか?</string>
-	<string name="CRA_ignore_title">すべてのカレンダーイベントを無視しますか?</string>
 	<string name="CRA_ignore_body">いくつかのカレンダーイベントを無視しました. その報告を停止しますか?</string>
 	<string name="CRA_ignore_all">すべてのイベントを無視する</string>
 	<string name="CRA_ignore_this">このイベントのみ無視する</string>
@@ -124,7 +122,6 @@
 	<string name="CRA_speech_bubble_end">%s は完了したようです. アクションアイテムのリストを作成しますか?</string>
 	<string name="CRA_create_list">リストを作成</string>
 	<string name="CRA_postpone">事後のようです</string>
-	<string name="CRA_list_exists_title">リストはすでに存在します</string>
 	<string name="CRA_list_exists_body">%s という名称のリストはすでに存在します. 存在するリストを使用しますか, それともこのイベント用に新しいリストを作成しますか?</string>
 	<string name="CRA_create_new">新しく作成</string>
 	<string name="CRA_use_existing">既存を使用</string>
@@ -374,7 +371,6 @@
 	<string name="yesterday">昨日</string>
 	<string name="tmrw">明日</string>
 	<string name="yest">昨日</string>
-	<string name="DLG_confirm_title">確認</string>
 	<string name="DLG_information_title">インフォメーション</string>
 	<string name="DLG_error">エラーが発生しました! 発生した内容\n\n%s</string>
 	<string name="DLG_wait">お待ちください</string>

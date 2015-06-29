@@ -99,7 +99,6 @@
 	<string name="MCA_return_call">Κάλεσε τώρα</string>
 	<string name="MCA_add_task">Κάλεσε αργότερα</string>
 	<string name="MCA_ignore">Αγνοήστε</string>
-	<string name="MCA_ignore_title">Αγνόησή όλων των χαμένων κλήσεων;</string>
 	<string name="MCA_ignore_body">Αγνοήσατε αρκετές κλήσεις. Να σταματήσουμε να ρωτάμε για αυτές;</string>
 	<string name="MCA_ignore_all">Αγνόηση όλων των χαμένων κλησεων</string>
 	<string name="MCA_ignore_this">Άγνόηση μόνο αυτής της κλήσης</string>
@@ -109,7 +108,6 @@
 	<string name="MCA_task_title_no_name">Ξανακαλέστε %s</string>
 	<string name="CRA_ignore">Αγνοήστε</string>
 	<string name="CRA_title">Χρειάζεστε λίστα για συνάντηση?</string>
-	<string name="CRA_ignore_title">Αγνόησή όλων των γεγονότων ημερολογίου;</string>
 	<string name="CRA_ignore_body">Αγνοήσατε αρκετές κλήσεις. Να σταματήσουμε να ρωτάμε για αυτές;</string>
 	<string name="CRA_ignore_all">Αγνόηση όλων των γεγονότων</string>
 	<string name="CRA_ignore_this">Αγνόηση μόνο αυτού του γεγονότος</string>
@@ -117,7 +115,6 @@
 	<string name="CRA_speech_bubble_end">Φαίνεται ότι τελείωσες με το %s.Θέλεις να δημιουργήσω μια λίστα με τα ενεργά αντικείμενα;</string>
 	<string name="CRA_create_list">Δημιουργία λίστας</string>
 	<string name="CRA_postpone">Ίσως αργότερα</string>
-	<string name="CRA_list_exists_title">Η λίστα υπάρχει ήδη</string>
 	<string name="CRA_list_exists_body">Η λίστα με το όνομα  %s υπάρχει ήδη. Θα χρησιμοποιήσεις την υπάρχον λίστα ή να κάνω καινούργια για αυτό το γεγονός;</string>
 	<string name="CRA_create_new">Δημιουργία νέας</string>
 	<string name="CRA_use_existing">Χρήση υπάρχουσας</string>
@@ -349,7 +346,6 @@
 	<string name="yesterday">Χθές</string>
 	<string name="tmrw">Αύριο</string>
 	<string name="yest">Χθές</string>
-	<string name="DLG_confirm_title">Επιβεβαίωση</string>
 	<string name="DLG_information_title">Πληροφορίες</string>
 	<string name="DLG_error">Ωπ, προέκυψε σφάλμα!! Νά τι έγινε :\n\n%s</string>
 	<string name="DLG_wait">Παρακαλώ περιμένετε...</string>

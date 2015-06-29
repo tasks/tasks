@@ -108,7 +108,6 @@
 	<string name="MCA_return_call">Обади се сега</string>
 	<string name="MCA_add_task">Обади се по-късно</string>
 	<string name="MCA_ignore">Игнорирай</string>
-	<string name="MCA_ignore_title">Игнориране на всички пропуснати обаждания?</string>
 	<string name="MCA_ignore_body">Вие пренебрегнахте няколко пропуснати повиквания. Трябва ли Tasks да спре да пита за тях?</string>
 	<string name="MCA_ignore_all">Игнорирай всички обаждания</string>
 	<string name="MCA_ignore_this">Игнорирай само това обаждане</string>
@@ -118,7 +117,6 @@
 	<string name="MCA_task_title_no_name">Обади се на %s </string>
 	<string name="CRA_ignore">Игнорирай</string>
 	<string name="CRA_title">Нуждаете се от списък за среща?</string>
-	<string name="CRA_ignore_title">Игнориране на всички събития в календара?</string>
 	<string name="CRA_ignore_body">Вие пренебрегнахте няколко събития в календара. Трябва ли Tasks да спре да пита за тях?</string>
 	<string name="CRA_ignore_all">Игнорирай всички събития</string>
 	<string name="CRA_ignore_this">Игнорирай само това събитие</string>
@@ -126,7 +124,6 @@
 	<string name="CRA_speech_bubble_end">Изглежда, че току-що сте завършили %s. Искате ли да създадете списък с действия?</string>
 	<string name="CRA_create_list">Създай списък</string>
 	<string name="CRA_postpone">Може би по-късно</string>
-	<string name="CRA_list_exists_title">Списъкът вече съществува</string>
 	<string name="CRA_list_exists_body">Списък с име %s вече съществува. Искате ли да използвате съществуващия списък или да създадете нов за това събитие?</string>
 	<string name="CRA_create_new">Създай нова</string>
 	<string name="CRA_use_existing">Използвайте съществуващата</string>
@@ -375,7 +372,6 @@
 	<string name="yesterday">Вчера</string>
 	<string name="tmrw">Утре</string>
 	<string name="yest">Вчера</string>
-	<string name="DLG_confirm_title">Потвърждавате?</string>
 	<string name="DLG_information_title">Информация</string>
 	<string name="DLG_error">Ами сега, изглежда е станала грешка! Ето какво се случи:\n\n%s</string>
 	<string name="DLG_wait">Моля, изчакайте...</string>

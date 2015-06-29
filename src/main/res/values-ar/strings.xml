@@ -76,17 +76,14 @@
 	<string name="MCA_return_call">اتصل الان</string>
 	<string name="MCA_add_task">اتصل لاحقاً</string>
 	<string name="MCA_ignore">تجاهل</string>
-	<string name="MCA_ignore_title">تجاهل جميع المكالمات الفائتة؟</string>
 	<string name="MCA_ignore_all">تجاهل جميع المكالمات</string>
 	<string name="MCA_ignore_this">تجاهل هذه المكالمة فقط</string>
 	<string name="CRA_ignore">تجاهل</string>
 	<string name="CRA_title">تريد قائمة للمقابلات؟</string>
-	<string name="CRA_ignore_title">تجاهل جميع أنشطة التقويم؟</string>
 	<string name="CRA_ignore_all">تجاهل جميع الأحداث</string>
 	<string name="CRA_ignore_this">تجاهل هذا الحدث فقط</string>
 	<string name="CRA_create_list">إنشاء قائمة</string>
 	<string name="CRA_postpone">من المحتمل لاحقاً</string>
-	<string name="CRA_list_exists_title">القائمة موجودة مسبقاً</string>
 	<string name="CRA_create_new">إنشاء جديد</string>
 	<string name="CRA_invitation_prompt">تريد دعوتهم؟</string>
 	<string name="CRA_calendar_reminders_pref_desc_enabled">المهام سوف تذكرك في الاحداث القادمة وسوف تحثك لتكون جاهزاً.</string>
@@ -242,7 +239,6 @@
 	<string name="yesterday">أمس</string>
 	<string name="tmrw">غدا</string>
 	<string name="yest">أمس</string>
-	<string name="DLG_confirm_title">أكّد</string>
 	<string name="DLG_information_title">معلومة</string>
 	<string name="DLG_wait">إنتظر من فضلك...</string>
 	<string name="sync_status_success">آخر تحيين:\n%s</string>

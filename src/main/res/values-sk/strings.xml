@@ -103,7 +103,6 @@
 	<string name="MCA_return_call">Volať teraz</string>
 	<string name="MCA_add_task">Volať neskôr</string>
 	<string name="MCA_ignore">Ignorovať</string>
-	<string name="MCA_ignore_title">Ignorovať všetky zmeškané hovory?</string>
 	<string name="MCA_ignore_body">Ignoroval si niekoľko zmeškaných hovorov. Chceš aby sa Tasks prestali na ne pýtať?</string>
 	<string name="MCA_ignore_all">Ignorovať všetky hovory</string>
 	<string name="MCA_ignore_this">Ignorovať iba tento hovor</string>
@@ -113,7 +112,6 @@
 	<string name="MCA_task_title_no_name">Zavolať %s späť</string>
 	<string name="CRA_ignore">Ignorovať</string>
 	<string name="CRA_title">Potrebuješ zoznam na stretnutie?</string>
-	<string name="CRA_ignore_title">Ignorovať všetky udalosti kalendára?</string>
 	<string name="CRA_ignore_body">Ignoroval si niekoľko zmeškaných hovorov. Chceš, aby sa Tasks prestali na ne pýtať?</string>
 	<string name="CRA_ignore_all">Ignorovať všetky udalosti</string>
 	<string name="CRA_ignore_this">Ignorovať túto udalosť</string>
@@ -121,7 +119,6 @@
 	<string name="CRA_speech_bubble_end">Zdá sa, že si skončil s %s. Chceš vytvoriť zoznam pre tieto položky?</string>
 	<string name="CRA_create_list">Vytvoriť zoznam</string>
 	<string name="CRA_postpone">Možno neskôr</string>
-	<string name="CRA_list_exists_title">Zoznam už existuje</string>
 	<string name="CRA_list_exists_body">Zoznam s názvom %s už existuje. Chceš použiť existujúci zoznam, alebo vytvoriť nový pre túto udalosť?</string>
 	<string name="CRA_create_new">Vytvoriť nový</string>
 	<string name="CRA_use_existing">Použiť existujúci</string>
@@ -365,7 +362,6 @@
 	<string name="yesterday">Včera</string>
 	<string name="tmrw">Zajtra</string>
 	<string name="yest">Včera</string>
-	<string name="DLG_confirm_title">Potvrdiť?</string>
 	<string name="DLG_information_title">Informácia</string>
 	<string name="DLG_error">Ups, zdá sa, že sa vyskytla chyba! Tu je čo sa stalo:\n\n%s</string>
 	<string name="DLG_wait">Prosím čakaj...</string>

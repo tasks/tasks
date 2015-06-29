@@ -88,7 +88,6 @@
 	<string name="MCA_return_call">现在回电</string>
 	<string name="MCA_add_task">稍后回电</string>
 	<string name="MCA_ignore">忽略</string>
-	<string name="MCA_ignore_title">忽略所有未接电话吗？</string>
 	<string name="MCA_ignore_body">您已经忽略了几个未接电话。对于这些电话，清单小助理是否应该不再询问您呢？</string>
 	<string name="MCA_ignore_all">忽略所有来电</string>
 	<string name="MCA_ignore_this">只忽略这个来电</string>
@@ -98,13 +97,11 @@
 	<string name="MCA_task_title_no_name">请回电给 %s</string>
 	<string name="CRA_ignore">忽略</string>
 	<string name="CRA_title">需要会议列表？</string>
-	<string name="CRA_ignore_title">忽略所有日历事件？</string>
 	<string name="CRA_ignore_body">您已经忽略了几个日历事件。对于这些事件，清单小助理是否应该不再询问您呢？</string>
 	<string name="CRA_ignore_all">忽略所有事件</string>
 	<string name="CRA_ignore_this">只忽略该事件</string>
 	<string name="CRA_create_list">创建列表</string>
 	<string name="CRA_postpone">也许以后</string>
-	<string name="CRA_list_exists_title">列表已存在</string>
 	<string name="EPr_title">清单小助理：设置</string>
 	<string name="EPr_deactivated">禁用</string>
 	<string name="EPr_appearance_header">外观</string>
@@ -302,7 +299,6 @@
 	<string name="yesterday">昨天</string>
 	<string name="tmrw">明天</string>
 	<string name="yest">昨天</string>
-	<string name="DLG_confirm_title">确认?</string>
 	<string name="DLG_information_title">信息</string>
 	<string name="DLG_error">糟糕，发生错误！状况是:\n\n%s</string>
 	<string name="DLG_wait">请稍候...</string>

@@ -82,7 +82,6 @@ public class CalendarReminderActivity extends InjectingActivity {
             ignorePresses++;
             if (ignorePresses == IGNORE_PROMPT_COUNT) {
                 DialogUtilities.okCancelCustomDialog(CalendarReminderActivity.this,
-                        getString(R.string.CRA_ignore_title),
                         getString(R.string.CRA_ignore_body),
                         R.string.CRA_ignore_all,
                         R.string.CRA_ignore_this,
@@ -191,7 +190,6 @@ public class CalendarReminderActivity extends InjectingActivity {
 
     private void listExists(final TagData tag) {
         DialogUtilities.okCancelCustomDialog(this,
-            getString(R.string.CRA_list_exists_title),
             getString(R.string.CRA_list_exists_body, tag.getName()),
             R.string.CRA_create_new,
             R.string.CRA_use_existing,

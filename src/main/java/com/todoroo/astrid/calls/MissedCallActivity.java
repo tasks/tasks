@@ -73,7 +73,6 @@ public class MissedCallActivity extends InjectingFragmentActivity {
             ignorePresses++;
             if (ignorePresses == IGNORE_PROMPT_COUNT) {
                 DialogUtilities.okCancelCustomDialog(MissedCallActivity.this,
-                        getString(R.string.MCA_ignore_title),
                         getString(R.string.MCA_ignore_body),
                         R.string.MCA_ignore_all,
                         R.string.MCA_ignore_this,

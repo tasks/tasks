@@ -103,7 +103,6 @@
 	<string name="MCA_return_call">Kliči zdaj</string>
 	<string name="MCA_add_task">Kliči kasneje</string>
 	<string name="MCA_ignore">Ignoriraj</string>
-	<string name="MCA_ignore_title">Ignoriram vse zgrešene klice?</string>
 	<string name="MCA_ignore_body">Ignorirali ste številne zgrešene klice. Naj vas aplikacija Opravki neha spraševati o zgrešenih klicih?</string>
 	<string name="MCA_ignore_all">Ignoriraj vse klice</string>
 	<string name="MCA_ignore_this">Ignoriraj samo ta klic</string>
@@ -113,7 +112,6 @@
 	<string name="MCA_task_title_no_name">Vrni klic %s </string>
 	<string name="CRA_ignore">Ignoriraj</string>
 	<string name="CRA_title">Potrebujete seznam sestankov?</string>
-	<string name="CRA_ignore_title">Naj ignoriram vse dogodke na koledarju?</string>
 	<string name="CRA_ignore_body">Ignorirali ste številne dogodke na koledarju. Naj vas aplikacija Opravki neha spraševati o njih?</string>
 	<string name="CRA_ignore_all">Naj ignoriram vse dogodke?</string>
 	<string name="CRA_ignore_this">Ignoriraj samo ta dogodek</string>
@@ -121,7 +119,6 @@
 	<string name="CRA_speech_bubble_end">Zdi se, da ste ravno končali %s. Želite ustvariti seznam izvedbenih opravil?</string>
 	<string name="CRA_create_list">Ustvari seznam</string>
 	<string name="CRA_postpone">Mogoče kasneje</string>
-	<string name="CRA_list_exists_title">Seznam že obstaja</string>
 	<string name="CRA_list_exists_body">Seznam z nazivom %s že obstaja. Želite uporabiti obstoječ seznam ali za ta dogodek ustvariti novega?</string>
 	<string name="CRA_create_new">Ustvari novega</string>
 	<string name="CRA_use_existing">Uporabi obstoječe</string>
@@ -357,7 +354,6 @@
 	<string name="yesterday">Včeraj</string>
 	<string name="tmrw">Jutr</string>
 	<string name="yest">Včer</string>
-	<string name="DLG_confirm_title">Potrdi?</string>
 	<string name="DLG_information_title">Informacija</string>
 	<string name="DLG_error">Ups, zdi se, da je prišlo do napake! Tole se je zgodilo:\n\n%s</string>
 	<string name="DLG_wait">Prosimo, počakajte...</string>

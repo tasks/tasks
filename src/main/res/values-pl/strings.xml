@@ -100,7 +100,6 @@
 	<string name="MCA_return_call">Zadzwoń teraz</string>
 	<string name="MCA_add_task">Zadzwoń później</string>
 	<string name="MCA_ignore">Ignoruj</string>
-	<string name="MCA_ignore_title">Zignorować wszystkie nieodebrane połączenia?</string>
 	<string name="MCA_ignore_body">Zignorowano kilka nieodebranych połączeń. Czy Tasks ma Cię już więcej o nie nie pytać?</string>
 	<string name="MCA_ignore_all">Zignoruj wszystkie połączenia.</string>
 	<string name="MCA_ignore_this">Zignoruj tylko to połączenie.</string>
@@ -110,7 +109,6 @@
 	<string name="MCA_task_title_no_name">Oddzwoń do %s</string>
 	<string name="CRA_ignore">Ignoruj</string>
 	<string name="CRA_title">Czy potrzebujesz listy spotkań?</string>
-	<string name="CRA_ignore_title">Ignorować wszystke wydarzenia w kalendarzu?</string>
 	<string name="CRA_ignore_body">Zignorowałeś kilka wydarzeń z kalendarza. Czy Tasks powinien przestać cię o nie pytać?</string>
 	<string name="CRA_ignore_all">Ignoruj wszystkie wydarzenia</string>
 	<string name="CRA_ignore_this">Ignoruj tylko to wydarzenie</string>
@@ -118,7 +116,6 @@
 	<string name="CRA_speech_bubble_end">Wygląda na to, że ukończyłeś %s. Czy chcesz stworzyć listę dla aktywnych pozycji?</string>
 	<string name="CRA_create_list">Utwórz listę</string>
 	<string name="CRA_postpone">Może później</string>
-	<string name="CRA_list_exists_title">Lista już istnieje</string>
 	<string name="CRA_list_exists_body">Lista o nazwie %s już istnieje. Czy chcesz skorzystać z istniejącej listy, czy stworzyć nową dla tego wydarzenia?</string>
 	<string name="CRA_create_new">Stwórz nową</string>
 	<string name="CRA_use_existing">Użyj istniejącej</string>
@@ -359,7 +356,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="yesterday">Wczoraj</string>
 	<string name="tmrw">jtr</string>
 	<string name="yest">wcz</string>
-	<string name="DLG_confirm_title">Potwierdzić?</string>
 	<string name="DLG_information_title">Informacja</string>
 	<string name="DLG_error">Ups! Wygląda na to, że wystąpił jakiś błąd! Oto, co się stało:\n\n%s</string>
 	<string name="DLG_wait">Proszę czekać...</string>

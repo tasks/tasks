@@ -98,7 +98,6 @@
 	<string name="MCA_return_call">現在回電</string>
 	<string name="MCA_add_task">稍後回電</string>
 	<string name="MCA_ignore">忽略</string>
-	<string name="MCA_ignore_title">忽略所有未接電話嗎？</string>
 	<string name="MCA_ignore_body">您已經忽略了幾個未接電話。對於這些電話，Tasks 是否應該不再詢問您呢？</string>
 	<string name="MCA_ignore_all">忽略所有來電</string>
 	<string name="MCA_ignore_this">只忽略這個來電</string>
@@ -108,7 +107,6 @@
 	<string name="MCA_task_title_no_name">請回電給 %s</string>
 	<string name="CRA_ignore">忽略</string>
 	<string name="CRA_title">需要一個會議列表嗎？</string>
-	<string name="CRA_ignore_title">要忽略所有月曆上的事件嗎？</string>
 	<string name="CRA_ignore_body">您已經忽略了好幾個月曆上的事件， 之後 Tasks 是不是不要再詢問您了呢？</string>
 	<string name="CRA_ignore_all">要忽略所有的事件嗎？</string>
 	<string name="CRA_ignore_this">只忽略這個事件</string>
@@ -116,7 +114,6 @@
 	<string name="CRA_speech_bubble_end">看來你才剛剛結束%s。您想要為行動事項建立一個新的列表嗎？</string>
 	<string name="CRA_create_list">新增清單</string>
 	<string name="CRA_postpone">也許等下再說吧。</string>
-	<string name="CRA_list_exists_title">此列表已經存在</string>
 	<string name="CRA_list_exists_body">有個叫%s的列表已經存在喔！您希望要用這個已經存在的列表還是為這個事件建立一個新的？</string>
 	<string name="CRA_create_new">新增</string>
 	<string name="CRA_use_existing">就用原來的。</string>
@@ -339,7 +336,6 @@
 	<string name="yesterday">昨天</string>
 	<string name="tmrw">明天</string>
 	<string name="yest">昨天</string>
-	<string name="DLG_confirm_title">確認?</string>
 	<string name="DLG_information_title">資訊</string>
 	<string name="DLG_error">糟糕，發生錯誤！狀況是:\n\n%s</string>
 	<string name="DLG_wait">請稍候...</string>

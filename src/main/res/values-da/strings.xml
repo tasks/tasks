@@ -185,7 +185,6 @@
 	<string name="today">I dag</string>
 	<string name="tomorrow">I morgen</string>
 	<string name="yesterday">I går</string>
-	<string name="DLG_confirm_title">Bekræft?</string>
 	<string name="DLG_wait">Vent venligst...</string>
 	<string name="sync_SPr_interval_title">Baggrunds Synk</string>
 	<string name="sync_SPr_forget">Log af</string>
