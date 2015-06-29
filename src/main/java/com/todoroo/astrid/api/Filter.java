@@ -163,6 +163,7 @@ public class Filter extends FilterListItem {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
+        dest.writeString(""); // old title
         dest.writeString(sqlQuery);
         dest.writeParcelable(valuesForNewTasks, 0);
     }
@@ -170,6 +171,7 @@ public class Filter extends FilterListItem {
     @Override
     public void readFromParcel(Parcel source) {
         super.readFromParcel(source);
+        source.readString(); // old title
         sqlQuery = source.readString();
         valuesForNewTasks = source.readParcelable(ContentValues.class.getClassLoader());
     }
