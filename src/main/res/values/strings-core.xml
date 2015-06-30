@@ -392,8 +392,6 @@
 
   <!-- ============================================================= Misc == -->
 
-  <string name="DB_corrupted_title">Corrupted Database</string>
-  
   <string name="DB_corrupted_body">
       Uh oh! It looks like you may have a corrupted database. 
       If you see this error regularly, we suggest you clear all

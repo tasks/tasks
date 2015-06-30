@@ -17,7 +17,6 @@ import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -73,6 +72,7 @@ import com.todoroo.astrid.utility.Flags;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingListFragment;
 import org.tasks.injection.Injector;
@@ -136,6 +136,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     @Inject TaskAttachmentDao taskAttachmentDao;
     @Inject Injector injector;
     @Inject GtasksPreferenceService gtasksPreferenceService;
+    @Inject DialogBuilder dialogBuilder;
 
     protected Resources resources;
     protected TaskAdapter taskAdapter = null;
@@ -762,8 +763,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
 
     /** Show a dialog box and delete the task specified */
     private void deleteTask(final Task task) {
-        new AlertDialog.Builder(getActivity())
-                .setMessage(getString(R.string.delete_tag_confirmation, task.getTitle()))
+        dialogBuilder.newMessageDialog(R.string.delete_tag_confirmation, task.getTitle())
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -772,7 +772,8 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
                         loadTaskListContent();
                     }
                 })
-                .setNegativeButton(android.R.string.cancel, null).show();
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
     }
 
     public void onTaskCreated(Task task) {

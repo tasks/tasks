@@ -5,14 +5,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
-import android.widget.ArrayAdapter;
 
 import org.tasks.Broadcaster;
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.intents.TaskIntents;
 import org.tasks.notifications.NotificationManager;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -22,6 +23,7 @@ public class NotificationDialog extends InjectingDialogFragment {
 
     @Inject NotificationManager notificationManager;
     @Inject Broadcaster broadcaster;
+    @Inject DialogBuilder dialogBuilder;
 
     private long taskId;
     private String title;
@@ -30,14 +32,14 @@ public class NotificationDialog extends InjectingDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, asList(
+        List<String> items = asList(
                 getString(R.string.TAd_actionEditTask),
                 getString(R.string.rmd_NoA_snooze),
-                getString(R.string.rmd_NoA_done)
-        ));
-        return new AlertDialog.Builder(getActivity(), R.style.Tasks_Dialog)
+                getString(R.string.rmd_NoA_done));
+
+        return dialogBuilder.newDialog()
                 .setTitle(title)
-                .setAdapter(adapter, new DialogInterface.OnClickListener() {
+                .setItems(items.toArray(new String[items.size()]), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {

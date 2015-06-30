@@ -154,7 +154,6 @@
 	<string name="EPr_manage_delete_all_gcal_status">已經刪除了 %d 個日曆事件了！</string>
 	<string name="TWi_loading">載入中...</string>
 	<string name="WCA_title">選擇工作顯示...</string>
-	<string name="DB_corrupted_title">數據庫已經受損</string>
 	<string name="DB_corrupted_body">啊喔！您有一個毀損的資料庫。如果您經常看見這個錯誤出現，我們建議您清除所有數據（在設置-&gt;同步和備份-&amp;gt；管理舊任務工作-&gt;清楚所有數據）並在Tasks備份中重新存入您的任務工作（設置-&gt;同步和備份-&gt;備份-&gt;導入任務工作）</string>
 	<string name="EPr_default_urgency_title">預設嚴重性</string>
 	<string name="EPr_default_importance_title">預設優先權</string>
@@ -336,7 +335,6 @@
 	<string name="yesterday">昨天</string>
 	<string name="tmrw">明天</string>
 	<string name="yest">昨天</string>
-	<string name="DLG_information_title">資訊</string>
 	<string name="DLG_error">糟糕，發生錯誤！狀況是:\n\n%s</string>
 	<string name="DLG_wait">請稍候...</string>
 	<string name="sync_status_success">上次同步：\n%s</string>

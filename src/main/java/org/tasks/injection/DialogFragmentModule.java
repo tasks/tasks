@@ -1,5 +1,6 @@
 package org.tasks.injection;
 
+import android.app.Activity;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 
@@ -26,6 +27,11 @@ public class DialogFragmentModule {
 
     @Provides
     public FragmentActivity getFragmentActivity() {
+        return dialogFragment.getActivity();
+    }
+
+    @Provides
+    public Activity getActivity() {
         return dialogFragment.getActivity();
     }
 }

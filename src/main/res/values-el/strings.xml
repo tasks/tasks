@@ -163,7 +163,6 @@
 	<string name="EPr_manage_delete_all_gcal_status">Διαγράφτηκαν %d γεγονότα ημερολογίου!</string>
 	<string name="TWi_loading">Φόρτωση...</string>
 	<string name="WCA_title">Επιλογή εργασιών για προβολή...</string>
-	<string name="DB_corrupted_title">Κατεστραμμένη βάση δεδομένων</string>
 	<string name="DB_corrupted_body">Ωχ! Μοιάζει να έχετε μια κατεστραμμένη βάση δεδομένων.
 Εάν βλέπετε αυτό το σφάλμα τακτικά, σας προτείνουμε καθαρισμό όλων των
 δεδομένων (Ρυθμίσεις-&gt; Sync και Backup-&gt; Διαχείριση παλιά tasks-&gt; Διαγραφή όλων των δεδομένων) και να αποκαταστήσει
@@ -346,7 +345,6 @@
 	<string name="yesterday">Χθές</string>
 	<string name="tmrw">Αύριο</string>
 	<string name="yest">Χθές</string>
-	<string name="DLG_information_title">Πληροφορίες</string>
 	<string name="DLG_error">Ωπ, προέκυψε σφάλμα!! Νά τι έγινε :\n\n%s</string>
 	<string name="DLG_wait">Παρακαλώ περιμένετε...</string>
 	<string name="sync_status_success">Τελευταίος συγχρονισμός:\n%s</string>

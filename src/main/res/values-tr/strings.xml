@@ -142,7 +142,6 @@
 	<string name="EPr_manage_delete_all_gcal_status">%d takvim olayı silindi!</string>
 	<string name="TWi_loading">Yükleniyor...</string>
 	<string name="WCA_title">Görüntülenecek görevi seç...</string>
-	<string name="DB_corrupted_title">Bozuk Veritabanı</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
       If you see this error regularly, we suggest you clear all
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
@@ -320,7 +319,6 @@
 	<string name="yesterday">Dün</string>
 	<string name="tmrw">Yarın</string>
 	<string name="yest">Dün</string>
-	<string name="DLG_information_title">Bilgi</string>
 	<string name="DLG_error">Oops, bir sorun meydana geldi! Olan şu:\n\n%s</string>
 	<string name="DLG_wait">Lütfen bekleyin...</string>
 	<string name="sync_status_success">Son Senk.\n%s</string>

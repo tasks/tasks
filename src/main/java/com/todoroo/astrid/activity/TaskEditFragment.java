@@ -14,7 +14,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -77,9 +76,9 @@ import com.todoroo.astrid.utility.Flags;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
-import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.LocationPickerActivity;
 import org.tasks.activities.TimePickerActivity;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.location.Geofence;
 import org.tasks.location.GeofenceService;
@@ -177,6 +176,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Inject GeofenceService geofenceService;
     @Inject ResourceResolver resourceResolver;
     @Inject DeviceInfo deviceInfo;
+    @Inject DialogBuilder dialogBuilder;
 
     // --- UI components
 
@@ -705,8 +705,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     }
 
     protected void deleteButtonClick() {
-        new AlertDialog.Builder(getActivity())
-                .setMessage(R.string.DLG_delete_this_task_question)
+        dialogBuilder.newMessageDialog(R.string.DLG_delete_this_task_question)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -727,7 +726,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                         }
                     }
                 })
-                .setNegativeButton(android.R.string.cancel, null).show();
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
     }
 
     private void startAttachFile() {
@@ -763,9 +763,10 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         };
 
         // show a menu of available options
-        new AlertDialog.Builder(getActivity())
-        .setAdapter(adapter, listener)
-        .show().setOwnerActivity(getActivity());
+        dialogBuilder.newDialog()
+                .setAdapter(adapter, listener)
+                .show()
+                .setOwnerActivity(getActivity());
     }
 
     private void startRecordingAudio() {

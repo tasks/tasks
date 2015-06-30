@@ -16,7 +16,6 @@ import android.preference.PreferenceManager;
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.DatabaseUpdateListener;
@@ -37,6 +36,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.Broadcaster;
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.Preferences;
 
 import java.io.File;
@@ -68,6 +68,7 @@ public class StartupService {
     private final CalendarAlarmScheduler calendarAlarmScheduler;
     private final TaskDeleter taskDeleter;
     private Broadcaster broadcaster;
+    private DialogBuilder dialogBuilder;
 
     @Inject
     public StartupService(UpgradeService upgradeService, TagDataDao tagDataDao, Database database,
@@ -75,7 +76,7 @@ public class StartupService {
                           GtasksSyncService gtasksSyncService, MetadataDao metadataDao,
                           Preferences preferences, TasksXmlImporter xmlImporter,
                           CalendarAlarmScheduler calendarAlarmScheduler, TaskDeleter taskDeleter,
-                          Broadcaster broadcaster) {
+                          Broadcaster broadcaster, DialogBuilder dialogBuilder) {
         this.upgradeService = upgradeService;
         this.tagDataDao = tagDataDao;
         this.database = database;
@@ -87,6 +88,7 @@ public class StartupService {
         this.calendarAlarmScheduler = calendarAlarmScheduler;
         this.taskDeleter = taskDeleter;
         this.broadcaster = broadcaster;
+        this.dialogBuilder = dialogBuilder;
     }
 
     /**
@@ -111,7 +113,10 @@ public class StartupService {
         try {
             database.openForWriting();
         } catch (SQLiteException e) {
-            handleSQLiteError(activity, e);
+            log.error(e.getMessage(), e);
+            dialogBuilder.newMessageDialog(R.string.DB_corrupted_body)
+                    .setPositiveButton(android.R.string.ok, null)
+                    .show();
             return;
         }
 
@@ -194,11 +199,6 @@ public class StartupService {
                 }
             }
         });
-    }
-
-    public static void handleSQLiteError(Activity activity, final SQLiteException e) {
-        log.error(e.getMessage(), e);
-        DialogUtilities.okDialog(activity, activity.getString(R.string.DB_corrupted_title), 0, activity.getString(R.string.DB_corrupted_body));
     }
 
     /**

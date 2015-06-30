@@ -2,7 +2,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="@dimen/horizontal_page_margin"
     android:paddingRight="@dimen/horizontal_page_margin"
@@ -10,7 +10,7 @@
     android:paddingBottom="@dimen/vertical_page_margin">
 
     <AutoCompleteTextView
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="top"
         android:layout_gravity="top"

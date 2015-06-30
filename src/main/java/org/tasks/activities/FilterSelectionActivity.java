@@ -3,16 +3,16 @@ package org.tasks.activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 
-import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
 import org.tasks.injection.InjectingFragmentActivity;
+import org.tasks.preferences.ActivityPreferences;
 
 import javax.inject.Inject;
 
@@ -24,15 +24,19 @@ public class FilterSelectionActivity extends InjectingFragmentActivity {
 
     @Inject FilterProvider filterProvider;
     @Inject FilterCounter filterCounter;
+    @Inject DialogBuilder dialogBuilder;
+    @Inject ActivityPreferences activityPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        activityPreferences.applyDialogTheme();
+
         final FilterAdapter filterAdapter = new FilterAdapter(filterProvider, filterCounter, this, null, false);
         filterAdapter.populateList();
 
-        new AlertDialog.Builder(this, R.style.Tasks_Dialog)
+        dialogBuilder.newDialog()
                 .setSingleChoiceItems(filterAdapter, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

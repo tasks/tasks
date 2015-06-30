@@ -67,7 +67,7 @@
         <item name="ic_action_discard">@drawable/ic_close_white_24dp</item>
     </style>
 
-    <style name="Tasks.Dialog" parent="@style/Theme.AppCompat.Light.Dialog">
+    <style name="TasksDialog" parent="@style/Theme.AppCompat.Light.Dialog">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/primary</item>
@@ -81,6 +81,9 @@
         <item name="ic_action_label">@drawable/ic_label_black_24dp</item>
         <item name="ic_action_filter">@drawable/ic_filter_list_black_24dp</item>
         <item name="ic_action_cloud">@drawable/ic_cloud_queue_black_24dp</item>
+        <item name="ic_arrow_back">@drawable/ic_arrow_back_black_24dp</item>
+        <item name="ic_folder">@drawable/ic_folder_black_24dp</item>
+        <item name="ic_file">@drawable/ic_insert_drive_file_black_24dp</item>
     </style>
 
 </resources>

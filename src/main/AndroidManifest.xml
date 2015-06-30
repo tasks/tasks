@@ -105,25 +105,25 @@
 
         <activity
             android:name=".activities.TimePickerActivity"
-            android:theme="@style/Tasks.Dialog" />
+            android:theme="@style/TasksDialog" />
 
         <activity
             android:name=".activities.DateAndTimePickerActivity"
-            android:theme="@style/Tasks.Dialog"
+            android:theme="@style/TasksDialog"
             android:taskAffinity="" />
 
         <activity
             android:name=".activities.LocationPickerActivity"
-            android:theme="@style/Tasks.Dialog" />
+            android:theme="@style/TasksDialog" />
 
         <activity
             android:name=".activities.SortActivity"
-            android:theme="@style/Tasks.Dialog" />
+            android:theme="@style/TasksDialog" />
 
         <activity
             android:name=".activities.FilterSelectionActivity"
             android:exported="true"
-            android:theme="@style/Tasks.Dialog" />
+            android:theme="@style/TasksDialog" />
 
         <!-- Activity that displays task list -->
         <activity
@@ -325,21 +325,21 @@
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
             android:taskAffinity=""
-            android:theme="@style/Tasks.Dialog" />
+            android:theme="@style/TasksDialog" />
 
         <activity
             android:name=".reminders.SnoozeActivity"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
             android:taskAffinity=""
-            android:theme="@style/Tasks.Dialog" />
+            android:theme="@style/TasksDialog" />
 
         <activity
             android:name=".reminders.NotificationActivity"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
             android:taskAffinity=""
-            android:theme="@style/Tasks.Dialog" />
+            android:theme="@style/TasksDialog" />
 
         <!-- tags -->
         <receiver android:name="com.todoroo.astrid.tags.TagCustomFilterCriteriaExposer">
@@ -352,7 +352,7 @@
         <!-- custom filters -->
         <activity
             android:name="com.todoroo.astrid.core.CustomFilterActivity"
-            android:theme="@style/Tasks.Dialog"/>
+            android:theme="@style/TasksDialog"/>
 
         <!-- alarms -->
         <receiver android:name="com.todoroo.astrid.alarms.AlarmTaskRepeatListener">
@@ -396,7 +396,7 @@
 
         <activity
             android:name=".activities.ClearGtaskDataActivity"
-            android:theme="@style/Tasks.Dialog" />
+            android:theme="@style/TasksDialog" />
 
         <!-- repeats -->
 
@@ -444,19 +444,19 @@
 
         <activity
             android:name=".activities.ClearAllDataActivity"
-            android:theme="@style/Tasks.Dialog" />
+            android:theme="@style/TasksDialog" />
         <activity
             android:name=".activities.PurgeDeletedActivity"
-            android:theme="@style/Tasks.Dialog" />
+            android:theme="@style/TasksDialog" />
         <activity
             android:name=".activities.DeleteCompletedActivity"
-            android:theme="@style/Tasks.Dialog" />
+            android:theme="@style/TasksDialog" />
         <activity
             android:name=".activities.DeleteCompletedEventsActivity"
-            android:theme="@style/Tasks.Dialog" />
+            android:theme="@style/TasksDialog" />
         <activity
             android:name=".activities.DeleteAllCalendarEventsActivity"
-            android:theme="@style/Tasks.Dialog" />
+            android:theme="@style/TasksDialog" />
 
         <!-- backup -->
 
@@ -476,7 +476,7 @@
 
         <activity
             android:name="com.todoroo.astrid.files.FileExplore"
-            android:theme="@style/Tasks.Dialog"/>
+            android:theme="@style/TasksDialog"/>
 
         <receiver android:name="com.todoroo.astrid.timers.TimerTaskCompleteListener">
             <intent-filter>

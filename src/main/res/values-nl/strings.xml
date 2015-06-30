@@ -165,7 +165,6 @@
 	<string name="EPr_manage_delete_all_gcal_status">%d agenda-items verwijderd!</string>
 	<string name="TWi_loading">Laden…</string>
 	<string name="WCA_title">Selecteer weer te geven taken...</string>
-	<string name="DB_corrupted_title">Database Corrupt</string>
 	<string name="DB_corrupted_body">Oh oh! Het lijkt erop dat je een corrupte database hebt. Als je deze error vaker ziet raden we je aan alle data te verwijderen (Instellingen-&gt;Beheer Alle Taken-&gt;Wis alle data) en je taken uit een backup te herstellen (Instellingen-&gt;Backup-&gt;Importeer Taken) in Tasks.</string>
 	<string name="EPr_default_urgency_title">Standaard prioriteit</string>
 	<string name="EPr_default_importance_title">Standaard prioriteit</string>
@@ -353,7 +352,6 @@
 	<string name="yesterday">Gisteren</string>
 	<string name="tmrw">mrgn</string>
 	<string name="yest">gisteren</string>
-	<string name="DLG_information_title">Informatie</string>
 	<string name="DLG_error">Er is een fout opgetreden:\n\n%s</string>
 	<string name="DLG_wait">Even geduld a.u.b.</string>
 	<string name="sync_status_success">Vorige:\n%s</string>

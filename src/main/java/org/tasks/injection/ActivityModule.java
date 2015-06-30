@@ -14,6 +14,7 @@ import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.core.DefaultsPreferences;
 import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.files.AACRecordingActivity;
+import com.todoroo.astrid.files.FileExplore;
 import com.todoroo.astrid.gcal.CalendarAlarmListCreator;
 import com.todoroo.astrid.gcal.CalendarReminderActivity;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
@@ -26,6 +27,7 @@ import org.tasks.activities.ClearGtaskDataActivity;
 import org.tasks.activities.DeleteAllCalendarEventsActivity;
 import org.tasks.activities.DeleteCompletedActivity;
 import org.tasks.activities.DeleteCompletedEventsActivity;
+import org.tasks.activities.DonationActivity;
 import org.tasks.activities.ExportTaskActivity;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.activities.ImportTaskActivity;
@@ -86,7 +88,9 @@ import dagger.Provides;
                 HelpAndFeedbackActivity.class,
                 DateShortcutPreferences.class,
                 SortActivity.class,
-                FilterSelectionActivity.class
+                FilterSelectionActivity.class,
+                FileExplore.class,
+                DonationActivity.class
         })
 public class ActivityModule {
 

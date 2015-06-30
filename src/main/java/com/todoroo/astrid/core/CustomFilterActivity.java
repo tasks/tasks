@@ -50,6 +50,7 @@ import com.todoroo.astrid.data.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPreferences;
 
@@ -151,6 +152,7 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
     @Inject Database database;
     @Inject StoreObjectDao storeObjectDao;
     @Inject ActivityPreferences preferences;
+    @Inject DialogBuilder dialogBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,7 +175,7 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
         filterName = (TextView)findViewById(R.id.filterName);
         List<CriterionInstance> startingCriteria = new ArrayList<>();
         startingCriteria.add(getStartingUniverse());
-        adapter = new CustomFilterAdapter(this, startingCriteria);
+        adapter = new CustomFilterAdapter(this, dialogBuilder, startingCriteria);
         listView.setAdapter(adapter);
         updateList();
 

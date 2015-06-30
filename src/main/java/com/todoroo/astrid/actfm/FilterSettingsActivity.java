@@ -10,7 +10,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +22,7 @@ import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.dao.StoreObjectDao;
 
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPreferences;
 
@@ -41,6 +41,7 @@ public class FilterSettingsActivity extends InjectingAppCompatActivity {
 
     @Inject ActivityPreferences preferences;
     @Inject StoreObjectDao storeObjectDao;
+    @Inject DialogBuilder dialogBuilder;
 
     @InjectView(R.id.tag_name) EditText filterName;
     @InjectView(R.id.toolbar) Toolbar toolbar;
@@ -119,8 +120,7 @@ public class FilterSettingsActivity extends InjectingAppCompatActivity {
     }
 
     private void deleteTag() {
-        new AlertDialog.Builder(this, R.style.Tasks_Dialog)
-                .setMessage(getString(R.string.delete_tag_confirmation, filter.listingTitle))
+        dialogBuilder.newMessageDialog(R.string.delete_tag_confirmation, filter.listingTitle)
                 .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -129,11 +129,7 @@ public class FilterSettingsActivity extends InjectingAppCompatActivity {
                         finish();
                     }
                 })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                })
+                .setNegativeButton(android.R.string.cancel, null)
                 .show();
     }
 
@@ -142,20 +138,14 @@ public class FilterSettingsActivity extends InjectingAppCompatActivity {
         if (filter.listingTitle.equals(tagName)) {
             finish();
         } else {
-            new AlertDialog.Builder(this, R.style.Tasks_Dialog)
-                    .setMessage(R.string.discard_changes)
+            dialogBuilder.newMessageDialog(R.string.discard_changes)
                     .setPositiveButton(R.string.discard, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
                         }
                     })
-                    .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    })
+                    .setNegativeButton(android.R.string.cancel, null)
                     .show();
         }
     }

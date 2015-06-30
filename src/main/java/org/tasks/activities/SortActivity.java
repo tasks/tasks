@@ -13,6 +13,7 @@ import com.todoroo.astrid.core.SortHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.InjectingFragmentActivity;
 import org.tasks.preferences.Preferences;
 
@@ -28,6 +29,7 @@ public class SortActivity extends InjectingFragmentActivity {
     public static final String EXTRA_TOGGLE_MANUAL = "extra_toggle_manual";
 
     @Inject Preferences preferences;
+    @Inject DialogBuilder dialogBuilder;
 
     private boolean manualEnabled;
     private AlertDialog alertDialog;
@@ -60,7 +62,7 @@ public class SortActivity extends InjectingFragmentActivity {
             selectedIndex -= 1;
         }
 
-        alertDialog = new AlertDialog.Builder(this, R.style.Tasks_Dialog)
+        alertDialog = dialogBuilder.newDialog()
                 .setSingleChoiceItems(adapter, selectedIndex, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

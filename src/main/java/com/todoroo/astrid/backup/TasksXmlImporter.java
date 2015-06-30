@@ -12,7 +12,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Handler;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.WindowManager.BadTokenException;
 
@@ -35,6 +34,7 @@ import com.todoroo.astrid.tags.TaskToTagMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -51,6 +51,7 @@ public class TasksXmlImporter {
     private final TagDataDao tagDataDao;
     private final MetadataDao metadataDao;
     private final TaskService taskService;
+    private final DialogBuilder dialogBuilder;
 
     private Context context;
     private Handler handler;
@@ -72,10 +73,12 @@ public class TasksXmlImporter {
     }
 
     @Inject
-    public TasksXmlImporter(TagDataDao tagDataDao, MetadataDao metadataDao, TaskService taskService) {
+    public TasksXmlImporter(TagDataDao tagDataDao, MetadataDao metadataDao, TaskService taskService,
+                            DialogBuilder dialogBuilder) {
         this.tagDataDao = tagDataDao;
         this.metadataDao = metadataDao;
         this.taskService = taskService;
+        this.dialogBuilder = dialogBuilder;
     }
 
     /**
@@ -160,18 +163,16 @@ public class TasksXmlImporter {
     }
 
     private void showSummary() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(R.string.import_summary_title);
         Resources r = context.getResources();
-        String message = context.getString(R.string.import_summary_message,
-                input,
-                r.getQuantityString(R.plurals.Ntasks, taskCount, taskCount),
-                r.getQuantityString(R.plurals.Ntasks, importCount, importCount),
-                r.getQuantityString(R.plurals.Ntasks, skipCount, skipCount),
-                r.getQuantityString(R.plurals.Ntasks, errorCount, errorCount));
-        builder.setMessage(message);
-        builder.setPositiveButton(context.getString(android.R.string.ok),
-                new DialogInterface.OnClickListener() {
+        dialogBuilder.newDialog()
+                .setTitle(R.string.import_summary_title)
+                .setMessage(context.getString(R.string.import_summary_message,
+                        input,
+                        r.getQuantityString(R.plurals.Ntasks, taskCount, taskCount),
+                        r.getQuantityString(R.plurals.Ntasks, importCount, importCount),
+                        r.getQuantityString(R.plurals.Ntasks, skipCount, skipCount),
+                        r.getQuantityString(R.plurals.Ntasks, errorCount, errorCount)))
+                .setPositiveButton(context.getString(android.R.string.ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
@@ -179,9 +180,8 @@ public class TasksXmlImporter {
                             handler.post(runAfterImport);
                         }
                     }
-        });
-
-        builder.show();
+                })
+                .show();
     }
 
     // --- importers

@@ -31,6 +31,7 @@ import org.tasks.location.Geofence;
 import org.tasks.location.GoogleApi;
 import org.tasks.location.OnLocationPickedHandler;
 import org.tasks.location.PlaceAutocompleteAdapter;
+import org.tasks.preferences.ActivityPreferences;
 
 import javax.inject.Inject;
 
@@ -43,6 +44,9 @@ public class LocationPickerDialog extends InjectingDialogFragment implements Goo
 
     @Inject FragmentActivity fragmentActivity;
     @Inject GoogleApi googleApi;
+    @Inject DialogBuilder dialogBuilder;
+    @Inject ActivityPreferences activityPreferences;
+
     private OnLocationPickedHandler onLocationPickedHandler;
     private DialogInterface.OnCancelListener onCancelListener;
 
@@ -53,17 +57,18 @@ public class LocationPickerDialog extends InjectingDialogFragment implements Goo
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        activityPreferences.applyTheme();
+
         googleApi.connect(this);
 
-        Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.Tasks_Dialog);
-        LayoutInflater themedInflater = getActivity().getLayoutInflater().cloneInContext(contextThemeWrapper);
-        View view = themedInflater.inflate(R.layout.location_picker_dialog, null);
+        LayoutInflater layoutInflater = getActivity().getLayoutInflater();
+        View view = layoutInflater.inflate(R.layout.location_picker_dialog, null);
         AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.address_entry);
         autoCompleteTextView.setOnItemClickListener(mAutocompleteClickListener);
         mAdapter = new PlaceAutocompleteAdapter(googleApi, fragmentActivity, android.R.layout.simple_list_item_1);
         autoCompleteTextView.setAdapter(mAdapter);
 
-        return new AlertDialog.Builder(getActivity())
+        return dialogBuilder.newDialog()
                 .setView(view)
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override

@@ -20,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
@@ -28,6 +27,7 @@ import com.todoroo.astrid.service.TaskService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.InjectingFragmentActivity;
 import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.ActivityPreferences;
@@ -56,6 +56,7 @@ public class MissedCallActivity extends InjectingFragmentActivity {
     @Inject TaskService taskService;
     @Inject ActivityPreferences preferences;
     @Inject ResourceResolver resourceResolver;
+    @Inject DialogBuilder dialogBuilder;
 
     private final OnClickListener dismissListener = new OnClickListener() {
         @Override
@@ -72,23 +73,21 @@ public class MissedCallActivity extends InjectingFragmentActivity {
             int ignorePresses = preferences.getInt(PREF_IGNORE_PRESSES, 0);
             ignorePresses++;
             if (ignorePresses == IGNORE_PROMPT_COUNT) {
-                DialogUtilities.okCancelCustomDialog(MissedCallActivity.this,
-                        getString(R.string.MCA_ignore_body),
-                        R.string.MCA_ignore_all,
-                        R.string.MCA_ignore_this,
-                        new DialogInterface.OnClickListener() {
+                dialogBuilder.newMessageDialog(R.string.MCA_ignore_body)
+                        .setPositiveButton(R.string.MCA_ignore_all, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 preferences.setBoolean(R.string.p_field_missed_calls, false);
                                 dismissListener.onClick(v);
                             }
-                        },
-                        new DialogInterface.OnClickListener() {
+                        })
+                        .setNegativeButton(R.string.MCA_ignore_this, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dismissListener.onClick(v);
                             }
-                        });
+                        })
+                        .show();
             } else {
                 dismissListener.onClick(v);
             }

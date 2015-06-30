@@ -1,10 +1,8 @@
 package org.tasks.activities;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
 import org.slf4j.Logger;
@@ -15,13 +13,17 @@ import org.tasks.billing.IabHelper;
 import org.tasks.billing.IabResult;
 import org.tasks.billing.Inventory;
 import org.tasks.billing.Purchase;
+import org.tasks.dialogs.DialogBuilder;
+import org.tasks.injection.InjectingActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DonationActivity extends Activity implements IabHelper.OnIabSetupFinishedListener,
+import javax.inject.Inject;
+
+public class DonationActivity extends InjectingActivity implements IabHelper.OnIabSetupFinishedListener,
         IabHelper.QueryInventoryFinishedListener, IabHelper.OnIabPurchaseFinishedListener,
         IabHelper.OnConsumeFinishedListener, IabHelper.OnConsumeMultiFinishedListener {
 
@@ -32,6 +34,8 @@ public class DonationActivity extends Activity implements IabHelper.OnIabSetupFi
     private IabHelper iabHelper;
     private Inventory inventory;
     private boolean itemSelected;
+
+    @Inject DialogBuilder dialogBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +48,7 @@ public class DonationActivity extends Activity implements IabHelper.OnIabSetupFi
         iabHelper.startSetup(this);
 
         final String[] donationValues = getValues();
-        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+        dialogBuilder.newDialog()
                 .setTitle(R.string.select_amount)
                 .setItems(donationValues, new DialogInterface.OnClickListener() {
                     @Override
@@ -59,17 +63,16 @@ public class DonationActivity extends Activity implements IabHelper.OnIabSetupFi
                             error(getString(R.string.error));
                         }
                     }
-                });
-        AlertDialog donationAmount = builder.show();
-        donationAmount.setOwnerActivity(this);
-        donationAmount.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                if (!itemSelected) {
-                    finish();
-                }
-            }
-        });
+                })
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        if (!itemSelected) {
+                            finish();
+                        }
+                    }
+                })
+                .show();
     }
 
     private void initiateDonation(int amount) {

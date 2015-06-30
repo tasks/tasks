@@ -42,6 +42,10 @@ public class ActivityPreferences extends Preferences {
         applyTheme(isDarkTheme() ? R.style.TasksDark : R.style.Tasks);
     }
 
+    public void applyDialogTheme() {
+        applyTheme(isDarkTheme() ? R.style.TasksDialogDark : R.style.TasksDialog);
+    }
+
     public void applyStatusBarColor() {
         applyStatusBarColor(isDarkTheme() ? android.R.color.black : R.color.primary_dark);
     }
@@ -66,6 +70,14 @@ public class ActivityPreferences extends Preferences {
     private void applyTheme(int theme) {
         activity.setTheme(theme);
         activity.getWindow().setFormat(PixelFormat.RGBA_8888);
+    }
+
+    public int getTheme() {
+        return isDarkTheme() ? R.style.TasksDark : R.style.Tasks;
+    }
+
+    public int getDialogTheme() {
+        return isDarkTheme() ? R.style.TasksDialogDark : R.style.TasksDialog;
     }
 
     public int getEditDialogTheme() {

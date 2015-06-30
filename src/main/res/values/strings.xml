@@ -31,9 +31,6 @@
 
     <!-- ================================================== Generic Dialogs == -->
 
-    <!-- information dialog title -->
-    <string name="DLG_information_title">Information</string>
-
     <!-- error dialog (%s => error message)-->
     <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s</string>
 

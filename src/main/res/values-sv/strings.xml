@@ -159,7 +159,6 @@
 	<string name="EPr_manage_delete_all_gcal_status">%d kalenderhändelser raderade!</string>
 	<string name="TWi_loading">Laddar...</string>
 	<string name="WCA_title">Välj uppgifter att se på...</string>
-	<string name="DB_corrupted_title">Korrupt databas</string>
 	<string name="DB_corrupted_body">Oj! Det verkar som din databas är skadad.
 Om du ser detta felmeddelande ofta, föreslår vi att du tömmer all data
 (Inställningar-&gt;Synkronisering och backup-&gt;Hantera gamla uppgifter-&gt;Töm all data)

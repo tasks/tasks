@@ -168,7 +168,6 @@
 	<string name="EPr_manage_delete_all_gcal_status">Vymazané %d udalosti kalendára!</string>
 	<string name="TWi_loading">Načítavanie</string>
 	<string name="WCA_title">Vybrať úlohy na zobrazenie</string>
-	<string name="DB_corrupted_title">Poškodená databáza</string>
 	<string name="DB_corrupted_body">Oh nie! Zdá sa, že máš poškodenú databázu. Ak sa ti táto chyba zobrazuje stále, vymaž všetky údaje
 (Nastavenia-&gt;Synchronizáca a zálohy-&gt;Spravovať staré úlohy-&gt;Vymazať všetky údaje) a obnov svoje údaje zo zálohy (Nastavenia-&gt;Synchronizácie a zálohy-&gt;Záloha-&gt;Importovať úlohy) v Tasks.</string>
 	<string name="task_defaults">Predvoľby úloh</string>
@@ -362,7 +361,6 @@
 	<string name="yesterday">Včera</string>
 	<string name="tmrw">Zajtra</string>
 	<string name="yest">Včera</string>
-	<string name="DLG_information_title">Informácia</string>
 	<string name="DLG_error">Ups, zdá sa, že sa vyskytla chyba! Tu je čo sa stalo:\n\n%s</string>
 	<string name="DLG_wait">Prosím čakaj...</string>
 	<string name="sync_status_success">Posledná synchronizácia:\n%s</string>

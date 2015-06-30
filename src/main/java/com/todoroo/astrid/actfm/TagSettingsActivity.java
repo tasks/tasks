@@ -10,7 +10,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +28,7 @@ import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPreferences;
 
@@ -51,6 +51,7 @@ public class TagSettingsActivity extends InjectingAppCompatActivity {
     @Inject TagDataDao tagDataDao;
     @Inject ActivityPreferences preferences;
     @Inject MetadataDao metadataDao;
+    @Inject DialogBuilder dialogBuilder;
 
     @InjectView(R.id.tag_name) EditText tagName;
     @InjectView(R.id.toolbar) Toolbar toolbar;
@@ -160,8 +161,7 @@ public class TagSettingsActivity extends InjectingAppCompatActivity {
     }
 
     private void deleteTag() {
-        new AlertDialog.Builder(this, R.style.Tasks_Dialog)
-                .setMessage(getString(R.string.delete_tag_confirmation, tagData.getName()))
+        dialogBuilder.newMessageDialog(R.string.delete_tag_confirmation, tagData.getName())
                 .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -174,11 +174,7 @@ public class TagSettingsActivity extends InjectingAppCompatActivity {
                         finish();
                     }
                 })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                })
+                .setNegativeButton(android.R.string.cancel, null)
                 .show();
     }
 
@@ -188,20 +184,14 @@ public class TagSettingsActivity extends InjectingAppCompatActivity {
                 (!isNewTag && tagData.getName().equals(tagName))) {
             finish();
         } else {
-            new AlertDialog.Builder(this, R.style.Tasks_Dialog)
-                    .setMessage(R.string.discard_changes)
+            dialogBuilder.newMessageDialog(R.string.discard_changes)
                     .setPositiveButton(R.string.discard, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
                         }
                     })
-                    .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    })
+                    .setNegativeButton(android.R.string.cancel, null)
                     .show();
         }
     }

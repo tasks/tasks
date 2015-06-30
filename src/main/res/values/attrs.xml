@@ -55,6 +55,9 @@
     <attr name="ic_action_new_tag" format="reference"/>
     <attr name="ic_action_discard" format="reference" />
     <attr name="popup_theme" format="reference" />
+    <attr name="ic_arrow_back" format="reference" />
+    <attr name="ic_folder" format="reference" />
+    <attr name="ic_file" format="reference" />
 
     <declare-styleable name="DateAndTimePicker">
         <attr name="shortcutLabels" format="reference" />

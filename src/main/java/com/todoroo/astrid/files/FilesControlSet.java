@@ -24,7 +24,6 @@ import android.widget.Toast;
 import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
@@ -35,6 +34,7 @@ import com.todoroo.astrid.ui.PopupControlSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.ActivityPreferences;
 
 import java.io.File;
@@ -48,10 +48,13 @@ public class FilesControlSet extends PopupControlSet {
     private final LinearLayout fileDisplayList;
     private final LayoutInflater inflater;
     private final TaskAttachmentDao taskAttachmentDao;
+    private final DialogBuilder dialogBuilder;
 
-    public FilesControlSet(ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao, Activity activity) {
+    public FilesControlSet(ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao,
+                           Activity activity) {
         super(preferences, activity, R.layout.control_set_files_dialog, R.layout.control_set_files, R.string.TEA_control_files);
         this.taskAttachmentDao = taskAttachmentDao;
+        this.dialogBuilder = new DialogBuilder(activity, preferences);
         fileDisplayList = (LinearLayout) getView().findViewById(R.id.files_list);
         inflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
     }
@@ -145,27 +148,29 @@ public class FilesControlSet extends PopupControlSet {
             clearFile.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DialogUtilities.okCancelDialog(activity, activity.getString(R.string.premium_remove_file_confirm),
-                            new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface d, int which) {
-                            if (RemoteModel.isValidUuid(m.getUUID())) {
-                                // TODO: delete
-                                m.setDeletedAt(DateUtilities.now());
-                                taskAttachmentDao.saveExisting(m);
-                            } else {
-                                taskAttachmentDao.delete(m.getId());
-                            }
+                    dialogBuilder.newMessageDialog(R.string.premium_remove_file_confirm)
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if (RemoteModel.isValidUuid(m.getUUID())) {
+                                        // TODO: delete
+                                        m.setDeletedAt(DateUtilities.now());
+                                        taskAttachmentDao.saveExisting(m);
+                                    } else {
+                                        taskAttachmentDao.delete(m.getId());
+                                    }
 
-                            if (m.containsNonNullValue(TaskAttachment.FILE_PATH)) {
-                                File f = new File(m.getFilePath());
-                                f.delete();
-                            }
-                            files.remove(m);
-                            refreshDisplayView();
-                            finalList.removeView(fileRow);
-                        }
-                    }, null);
+                                    if (m.containsNonNullValue(TaskAttachment.FILE_PATH)) {
+                                        File f = new File(m.getFilePath());
+                                        f.delete();
+                                    }
+                                    files.remove(m);
+                                    refreshDisplayView();
+                                    finalList.removeView(fileRow);
+                                }
+                            })
+                            .setNegativeButton(android.R.string.cancel, null)
+                            .show();
                 }
             });
         }

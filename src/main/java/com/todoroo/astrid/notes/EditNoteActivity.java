@@ -50,6 +50,8 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.timers.TimerActionControlSet.TimerActionListener;
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
 
@@ -64,6 +66,8 @@ import static org.tasks.files.FileHelper.getPathFromUri;
 import static org.tasks.files.ImageHelper.sampleBitmap;
 
 public class EditNoteActivity extends LinearLayout implements TimerActionListener {
+
+    private static final Logger log = LoggerFactory.getLogger(EditNoteActivity.class);
 
     private Task task;
 
@@ -132,7 +136,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         try {
             fetchTask(t);
         } catch (SQLiteException e) {
-            StartupService.handleSQLiteError(fragment.getActivity(), e);
+            log.error(e.getMessage(), e);
         }
         if(task == null) {
             return;

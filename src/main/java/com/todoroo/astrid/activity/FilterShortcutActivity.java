@@ -15,18 +15,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingListActivity;
 import org.tasks.preferences.ActivityPreferences;
-import org.tasks.ui.NavigationDrawerFragment;
 
 import javax.inject.Inject;
 
@@ -36,6 +35,7 @@ public class FilterShortcutActivity extends InjectingListActivity {
     @Inject ActivityPreferences preferences;
     @Inject FilterProvider filterProvider;
     @Inject @ForApplication Context context;
+    @Inject DialogBuilder dialogBuilder;
 
     private FilterAdapter adapter = null;
 
@@ -59,7 +59,9 @@ public class FilterShortcutActivity extends InjectingListActivity {
         public void onClick(View v) {
             Filter filter = (Filter) adapter.getSelection();
             if (filter == null) {
-                DialogUtilities.okDialog(FilterShortcutActivity.this, getString(R.string.FLA_no_filter_selected), null);
+                dialogBuilder.newMessageDialog(R.string.FLA_no_filter_selected)
+                        .setPositiveButton(android.R.string.ok, null)
+                        .show();
                 return;
             }
             Intent shortcutIntent = ShortcutActivity.createIntent(context, filter);

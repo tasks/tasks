@@ -107,7 +107,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">هل فعلا تريد حذف جميع الأحداث للمهام ؟</string>
 	<string name="TWi_loading">تحميل...</string>
 	<string name="WCA_title">اختر المهمه للعرض...</string>
-	<string name="DB_corrupted_title">قاعدة بيانات متلفه</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
       If you see this error regularly, we suggest you clear all
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
@@ -239,7 +238,6 @@
 	<string name="yesterday">أمس</string>
 	<string name="tmrw">غدا</string>
 	<string name="yest">أمس</string>
-	<string name="DLG_information_title">معلومة</string>
 	<string name="DLG_wait">إنتظر من فضلك...</string>
 	<string name="sync_status_success">آخر تحيين:\n%s</string>
 	<string name="sync_SPr_interval_title">تحيين في الخلفية</string>

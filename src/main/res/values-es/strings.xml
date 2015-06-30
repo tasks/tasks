@@ -170,7 +170,6 @@
 	<string name="EPr_manage_delete_all_gcal_status">¡Borrados %d eventos del calendario!</string>
 	<string name="TWi_loading">Cargando…</string>
 	<string name="WCA_title">Seleccione las tareas que ver...</string>
-	<string name="DB_corrupted_title">Base de datos corrupta</string>
 	<string name="DB_corrupted_body">\"¡Oh-oh! Es posible que tu base de datos esté corrupta. Si ves éste error con frecuencia, te sugerimos que limpies toda la información  (Configuración-&gt;Sincronización y respaldos-&gt;Administrar tareas pasadas-&gt;Limpiar toda la información) y recuperar tus tareas de un respaldo (Configuración-&gt;Sincronización y respaldos-&gt;Respaldos-&gt;Importar tareas) en Tasks.\"</string>
 	<string name="task_defaults">Configuración por defecto de tareas</string>
 	<string name="EPr_default_urgency_title">Fecha límite por defecto</string>
@@ -366,7 +365,6 @@
 	<string name="yesterday">Ayer</string>
 	<string name="tmrw">Mñna</string>
 	<string name="yest">Ayer</string>
-	<string name="DLG_information_title">Información</string>
 	<string name="DLG_error">¡Uy, parece que ocurró un error! Esto es lo que pasó:\n\n%s</string>
 	<string name="DLG_wait">Por favor, espere...</string>
 	<string name="sync_status_success">Ultima sincronización:\n%s</string>

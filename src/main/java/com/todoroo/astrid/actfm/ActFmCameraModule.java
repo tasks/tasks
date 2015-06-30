@@ -9,11 +9,9 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -21,6 +19,7 @@ import android.widget.Toast;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.DeviceInfo;
 import org.tasks.preferences.Preferences;
 
@@ -30,7 +29,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
@@ -47,16 +45,18 @@ public class ActFmCameraModule {
     private final Fragment fragment;
     private final Preferences preferences;
     private DeviceInfo deviceInfo;
+    private DialogBuilder dialogBuilder;
 
     public interface ClearImageCallback {
         void clearImage();
     }
 
     @Inject
-    public ActFmCameraModule(Fragment fragment, Preferences preferences, DeviceInfo deviceInfo) {
+    public ActFmCameraModule(Fragment fragment, Preferences preferences, DeviceInfo deviceInfo, DialogBuilder dialogBuilder) {
         this.fragment = fragment;
         this.preferences = preferences;
         this.deviceInfo = deviceInfo;
+        this.dialogBuilder = dialogBuilder;
     }
 
     public void showPictureLauncher(final ClearImageCallback clearImageOption) {
@@ -121,7 +121,7 @@ public class ActFmCameraModule {
             };
 
             // show a menu of available options
-            new AlertDialog.Builder(fragment.getActivity())
+            dialogBuilder.newDialog()
                     .setAdapter(adapter, listener)
                     .show().setOwnerActivity(fragment.getActivity());
         }

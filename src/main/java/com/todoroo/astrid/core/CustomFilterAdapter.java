@@ -25,6 +25,7 @@ import com.todoroo.astrid.api.TextInputCriterion;
 import com.todoroo.astrid.core.CustomFilterActivity.CriterionInstance;
 
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
 
 import java.util.List;
 
@@ -37,11 +38,13 @@ import java.util.List;
 public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
 
     private final CustomFilterActivity activity;
+    private DialogBuilder dialogBuilder;
     private final LayoutInflater inflater;
 
-    public CustomFilterAdapter(CustomFilterActivity activity, List<CriterionInstance> objects) {
+    public CustomFilterAdapter(CustomFilterActivity activity, DialogBuilder dialogBuilder, List<CriterionInstance> objects) {
         super(activity, R.id.name, objects);
         this.activity = activity;
+        this.dialogBuilder = dialogBuilder;
         inflater = (LayoutInflater) activity.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -107,8 +110,8 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
      * Show options menu for the given criterioninstance
      */
     public void showOptionsFor(final CriterionInstance item, final Runnable onComplete) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(activity).
-            setTitle(item.criterion.name);
+        AlertDialog.Builder dialog = dialogBuilder.newDialog()
+                .setTitle(item.criterion.name);
 
         if(item.criterion instanceof MultipleSelectCriterion) {
             MultipleSelectCriterion multiSelectCriterion = (MultipleSelectCriterion) item.criterion;

@@ -167,7 +167,6 @@
 	<string name="EPr_manage_delete_all_gcal_status">Видалено %d календарних подій!</string>
 	<string name="TWi_loading">Завантаження...</string>
 	<string name="WCA_title">Виберіть завдання для перегляду...</string>
-	<string name="DB_corrupted_title">Пошкоджена база данних</string>
 	<string name="DB_corrupted_body">Ой! Схоже, ваша база даних пошкоджена. 
 Якщо ви отримуєте цю помилку регулярно,
  рекомендується стерти всі дані (Параметри-&gt;
@@ -341,7 +340,6 @@
 	<string name="yesterday">Вчора</string>
 	<string name="tmrw">Завт.</string>
 	<string name="yest">Вчор.</string>
-	<string name="DLG_information_title">Інформація</string>
 	<string name="DLG_error">На жаль, схоже, сталася помилка! Ось що вийшло:\n\n%s</string>
 	<string name="DLG_wait">Будь ласка, зачекайте...</string>
 	<string name="sync_status_success">Остання синхр.:\n%s</string>

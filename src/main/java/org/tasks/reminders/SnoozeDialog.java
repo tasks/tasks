@@ -5,13 +5,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
-import android.widget.ArrayAdapter;
 
 import com.todoroo.astrid.reminders.SnoozeCallback;
 
 import org.joda.time.DateTime;
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.preferences.Preferences;
@@ -28,26 +27,26 @@ public class SnoozeDialog extends InjectingDialogFragment {
 
     @Inject Preferences preferences;
     @Inject @ForApplication Context context;
+    @Inject DialogBuilder dialogBuilder;
 
     private DateTime now = new DateTime();
     private SnoozeCallback snoozeCallback;
     private DialogInterface.OnCancelListener onCancelListener;
     private List<Long> snoozeTimes = new ArrayList<>();
-    private ArrayAdapter<String> adapter;
+    private List<String> items = new ArrayList<>();
 
     private DateTime getDateTimeShortcut(int resId, long def) {
         return now.withMillisOfDay(preferences.getInt(getString(resId), (int) def));
     }
 
     private void add(int resId, DateTime dateTime) {
-        adapter.add(String.format("%s (%s)", getString(resId), getTimeString(context, dateTime.toDate())));
+        items.add(String.format("%s (%s)", getString(resId), getTimeString(context, dateTime.toDate())));
         snoozeTimes.add(dateTime.getMillis());
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1);
         DateTime morning = getDateTimeShortcut(R.string.p_date_shortcut_morning, TimeUnit.HOURS.toMillis(9));
         DateTime afternoon = getDateTimeShortcut(R.string.p_date_shortcut_afternoon, TimeUnit.HOURS.toMillis(13));
         DateTime evening = getDateTimeShortcut(R.string.p_date_shortcut_evening, TimeUnit.HOURS.toMillis(17));
@@ -55,7 +54,7 @@ public class SnoozeDialog extends InjectingDialogFragment {
         DateTime tomorrowMorning = morning.plusDays(1);
         DateTime tomorrowAfternoon = afternoon.plusDays(1);
 
-        adapter.add(getString(R.string.date_shortcut_hour));
+        items.add(getString(R.string.date_shortcut_hour));
         snoozeTimes.add(0L);
         
         DateTime hourCutoff = new DateTime().plusMinutes(75);
@@ -76,11 +75,11 @@ public class SnoozeDialog extends InjectingDialogFragment {
             add(R.string.date_shortcut_tomorrow_morning, tomorrowMorning);
             add(R.string.date_shortcut_tomorrow_afternoon, tomorrowAfternoon);
         }
-        adapter.add(getString(R.string.pick_a_date_and_time));
+        items.add(getString(R.string.pick_a_date_and_time));
 
-        return new AlertDialog.Builder(getActivity(), R.style.Tasks_Dialog)
+        return dialogBuilder.newDialog()
                 .setTitle(R.string.rmd_NoA_snooze)
-                .setAdapter(adapter, new DialogInterface.OnClickListener() {
+                .setItems(items.toArray(new String[items.size()]), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {

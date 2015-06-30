@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.ui;
 
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.data.TagData;
@@ -16,6 +15,7 @@ import com.todoroo.astrid.service.TaskService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.Injector;
 
 import javax.inject.Inject;
@@ -32,6 +32,7 @@ public class QuickAddBar {
 
     @Inject TaskService taskService;
     @Inject TaskCreator taskCreator;
+    @Inject DialogBuilder dialogBuilder;
 
     private TaskListActivity activity;
     private TaskListFragment fragment;
@@ -55,7 +56,9 @@ public class QuickAddBar {
         TagData tagData = fragment.getActiveTagData();
         if(tagData != null && (!tagData.containsNonNullValue(TagData.NAME) ||
                 tagData.getName().length() == 0)) {
-            DialogUtilities.okDialog(activity, activity.getString(R.string.tag_no_title_error), null);
+            dialogBuilder.newMessageDialog(R.string.tag_no_title_error)
+                    .setPositiveButton(android.R.string.ok, null)
+                    .show();
             return null;
         }
 

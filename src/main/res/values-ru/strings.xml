@@ -168,7 +168,6 @@
 	<string name="EPr_manage_delete_all_gcal_status">Удалено %d календарных событий!</string>
 	<string name="TWi_loading">Загрузка...</string>
 	<string name="WCA_title">Выберите задачи для просмотра…</string>
-	<string name="DB_corrupted_title">Поврежденная база данных</string>
 	<string name="DB_corrupted_body">Упс! Похоже, ваша база данных повреждена.
 Если вы получаете эту ошибку регулярно, рекомендуется стереть
 все данные (Параметры-&gt;Синхронизация-&gt;Управление старыми задачами-&gt;Очистить все данные) и восстановить
@@ -364,7 +363,6 @@
 	<string name="yesterday">Вчера</string>
 	<string name="tmrw">Завт</string>
 	<string name="yest">Вчера</string>
-	<string name="DLG_information_title">Информация</string>
 	<string name="DLG_error">Ой, похоже произошла ошибка! Подробности ниже:\n\n%s</string>
 	<string name="DLG_wait">Пожалуйста, подождите…</string>
 	<string name="sync_status_success">Последняя синхронизация\n%s</string>

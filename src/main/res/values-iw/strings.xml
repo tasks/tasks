@@ -161,7 +161,6 @@
 	<string name="EPr_manage_delete_all_gcal_status">%d אירועי יומן נמחקו</string>
 	<string name="TWi_loading">טוענת...</string>
 	<string name="WCA_title">בחר משימות להצגה...</string>
-	<string name="DB_corrupted_title">בסיס נתונים פגום</string>
 	<string name="DB_corrupted_body">הו לא! נראה כי בסיס הנתונים אינו תקין.
 אם אתה נתקל השגיאה זאת האופן תדיר, אנו מציעים שתמחק את כל הנתונים
 (הגדרות-&gt;סינכרון וגיבוי-&gt;ניהול משימות ישנות-&gt;הסרת כל הנתונים) ושחזר את המשימות
@@ -348,7 +347,6 @@
 	<string name="yesterday">אתמול</string>
 	<string name="tmrw">מחר</string>
 	<string name="yest">אתמול</string>
-	<string name="DLG_information_title">פרטים</string>
 	<string name="DLG_error">אוּפְּס, נראה שארעה שגיאה! הנה מה שקה:\n\n%s</string>
 	<string name="DLG_wait">אנא המתן...</string>
 	<string name="sync_status_success">סנכרון אחרון:\n%s</string>

@@ -168,7 +168,6 @@
 	<string name="EPr_manage_delete_all_gcal_status">%d événements du calendrier ont été supprimés!</string>
 	<string name="TWi_loading">Chargement…</string>
 	<string name="WCA_title">Sélectionnez les tâches à afficher…</string>
-	<string name="DB_corrupted_title">Base de donnée corrompue</string>
 	<string name="DB_corrupted_body">Oh oh ! On dirait que vous avez une base de données corrompues. Si vous voyez souvent cette erreur, nous vous suggérons d\'effacer toutes vos données (Paramètres-&gt;Synchronisation et sauvegarde-&gt;Gérer les anciennes tâches-&gt;Effacer toutes les données) et restaurer vos tâches d\'une sauvegarde (Paramètres-&gt;Synchronisation et sauvegarde-&gt;Sauvegarde-&gt;Importer des tâches) dans Tasks</string>
 	<string name="task_defaults">Valeurs par défaut</string>
 	<string name="EPr_default_urgency_title">Échéance par défaut</string>
@@ -362,7 +361,6 @@
 	<string name="yesterday">Hier</string>
 	<string name="tmrw">Demain</string>
 	<string name="yest">Hier</string>
-	<string name="DLG_information_title">Informations</string>
 	<string name="DLG_error">Oups, une erreur est survenue ! Voici ce qu\'il s\'est passé :\n\n%s</string>
 	<string name="DLG_wait">Veuillez patienter...</string>
 	<string name="sync_status_success">Dernière synchro. :\n%s</string>

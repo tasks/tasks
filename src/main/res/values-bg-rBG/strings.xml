@@ -173,7 +173,6 @@
 	<string name="EPr_manage_delete_all_gcal_status">Изтрити %d събития от календара!</string>
 	<string name="TWi_loading">Зареждане...</string>
 	<string name="WCA_title">Изберете задачи за показване...</string>
-	<string name="DB_corrupted_title">Развалена База от данни</string>
 	<string name="DB_corrupted_body">Ами сега! Изглежда, че базата от данни е развалена.
 Ако виждате тази грешка редовно, ние ви предлагаме да изчистите всички
 данни (Настройки-&gt;Синхронизиране и резервни копия-&gt;Управление на стари задачи-&gt;Изчисти всички данни) 
@@ -372,7 +371,6 @@
 	<string name="yesterday">Вчера</string>
 	<string name="tmrw">Утре</string>
 	<string name="yest">Вчера</string>
-	<string name="DLG_information_title">Информация</string>
 	<string name="DLG_error">Ами сега, изглежда е станала грешка! Ето какво се случи:\n\n%s</string>
 	<string name="DLG_wait">Моля, изчакайте...</string>
 	<string name="sync_status_success">Последна синхронизация:\n%s</string>

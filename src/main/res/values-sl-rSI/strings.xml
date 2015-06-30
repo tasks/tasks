@@ -167,7 +167,6 @@
 	<string name="EPr_manage_delete_all_gcal_status">Število zbrisanih dogodkov na koledarju: %d </string>
 	<string name="TWi_loading">Nalagam...</string>
 	<string name="WCA_title">Izberi in prikaži opravke...</string>
-	<string name="DB_corrupted_title">Okvarjena baza podatkov</string>
 	<string name="DB_corrupted_body">O, ne! Zdi se, da imate okvarjeno bazo podatkov. Če se ta napaka pogosto pojavlja, vam predlagamo, da zbrišete vse podatke (Nastavitve-&gt;Usklajevanje in varnostna kopija-&gt; Upravljanje s preteklimi opravki-&gt;Zbriši vse podatke) in obnovite svoje opravke s pomočjo varnostne kopije aplikacije Opravki. (Nastavitve-&gt;Usklajevanje in varnostna kopija-&gt;Varnostna kopija-&gt;Uvozi opravke)</string>
 	<string name="EPr_default_urgency_title">Privzeta dospelost</string>
 	<string name="EPr_default_importance_title">Privzeta dospelost</string>
@@ -354,7 +353,6 @@
 	<string name="yesterday">Včeraj</string>
 	<string name="tmrw">Jutr</string>
 	<string name="yest">Včer</string>
-	<string name="DLG_information_title">Informacija</string>
 	<string name="DLG_error">Ups, zdi se, da je prišlo do napake! Tole se je zgodilo:\n\n%s</string>
 	<string name="DLG_wait">Prosimo, počakajte...</string>
 	<string name="sync_status_success">Najnovejše usklajevanje:\n%s</string>

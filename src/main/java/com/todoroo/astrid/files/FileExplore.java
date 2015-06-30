@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.files;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
@@ -19,52 +18,56 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
-
-import com.todoroo.andlib.utility.DialogUtilities;
+import android.widget.Toast;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
+import org.tasks.injection.InjectingActivity;
+import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.ResourceResolver;
 
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 /**
  * Based on the Android-File-Explore project by Manish Burman
  * https://github.com/mburman/Android-File-Explore
  *
  */
-public class FileExplore extends Activity {
+public class FileExplore extends InjectingActivity {
 
     private static final Logger log = LoggerFactory.getLogger(FileExplore.class);
 
-	// Stores names of traversed directories
-	ArrayList<String> str = new ArrayList<>();
-
-	// Check if the first level of the directory structure is the one showing
-	private Boolean firstLvl = true;
+	private static final int DIALOG_LOAD_FILE = 1000;
 
 	public static final String RESULT_FILE_SELECTED = "fileSelected"; //$NON-NLS-1$
-
 	public static final String RESULT_DIR_SELECTED = "dirSelected"; //$NON-NLS-1$
-
 	public static final String EXTRA_DIRECTORIES_SELECTABLE = "directoriesSelectable"; //$NON-NLS-1$
+
+	ArrayList<String> str = new ArrayList<>(); // Stores names of traversed directories
+	private Boolean firstLvl = true; // Check if the first level of the directory structure is the one showing
+
+	@Inject DialogBuilder dialogBuilder;
+	@Inject ActivityPreferences activityPreferences;
+	@Inject ResourceResolver resourceResolver;
 
 	private Item[] fileList;
 	private File path;
 	private String chosenFile;
-	private static final int DIALOG_LOAD_FILE = 1000;
 	private String upString;
-
 	private boolean directoryMode;
-
 	private ListAdapter adapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-
 		super.onCreate(savedInstanceState);
+
+		activityPreferences.applyDialogTheme();
 
 		if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
             path = new File(Environment.getExternalStorageDirectory().toString());
@@ -86,12 +89,7 @@ public class FileExplore extends Activity {
 			path.mkdirs();
 		} catch (SecurityException e) {
             log.error(e.getMessage(), e);
-		    DialogUtilities.okDialog(this, getString(R.string.file_browser_err_permissions), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    finish();
-                }
-            });
+			Toast.makeText(this, R.string.file_browser_err_permissions, Toast.LENGTH_LONG).show();
 		}
 
 		// Checks whether path exists
@@ -110,21 +108,21 @@ public class FileExplore extends Activity {
 			String[] fList = path.list(filter);
 			fileList = new Item[fList.length];
 			for (int i = 0; i < fList.length; i++) {
-				fileList[i] = new Item(fList[i], R.drawable.ic_insert_drive_file_black_24dp);
+				fileList[i] = new Item(fList[i], resourceResolver.getResource(R.attr.ic_file));
 
 				// Convert into file path
 				File sel = new File(path, fList[i]);
 
 				// Set drawables
 				if (sel.isDirectory()) {
-					fileList[i].icon = R.drawable.ic_folder_black_24dp;
+					fileList[i].icon = resourceResolver.getResource(R.attr.ic_folder);
 				}
 			}
 
 			if (!firstLvl) {
 				Item temp[] = new Item[fileList.length + 1];
                 System.arraycopy(fileList, 0, temp, 1, fileList.length);
-				temp[0] = new Item(upString, R.drawable.ic_arrow_back_black_24dp);
+				temp[0] = new Item(upString, resourceResolver.getResource(R.attr.ic_arrow_back));
 				fileList = temp;
 			}
 		} else {
@@ -180,7 +178,7 @@ public class FileExplore extends Activity {
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		Dialog dialog;
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		AlertDialog.Builder builder = dialogBuilder.newDialog();
 
 		if (fileList == null) {
 			dialog = builder.create();

@@ -1,19 +1,19 @@
 package org.tasks.activities;
 
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.InjectingActivity;
+import org.tasks.ui.ProgressDialogAsyncTask;
 
 import javax.inject.Inject;
 
@@ -21,23 +21,20 @@ public class DeleteCompletedEventsActivity extends InjectingActivity {
 
     @Inject TaskService taskService;
     @Inject GCalHelper gcalHelper;
-
-    private ProgressDialog pd;
+    @Inject DialogBuilder dialogBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        DialogUtilities.okCancelDialog(
-                this,
-                getResources().getString(
-                        R.string.EPr_manage_delete_completed_gcal_message),
-                new DialogInterface.OnClickListener() {
+        dialogBuilder.newMessageDialog(R.string.EPr_manage_delete_completed_gcal_message)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        pd = DialogUtilities.runWithProgressDialog(DeleteCompletedEventsActivity.this, new Runnable() {
+                        new ProgressDialogAsyncTask(DeleteCompletedEventsActivity.this, dialogBuilder) {
+
                             @Override
-                            public void run() {
+                            protected Integer doInBackground(Void... params) {
                                 int deletedEventCount = 0;
                                 TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.CALENDAR_URI).where(
                                         Criterion.and(Task.COMPLETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull())));
@@ -60,31 +57,22 @@ public class DeleteCompletedEventsActivity extends InjectingActivity {
                                 taskService.update(
                                         Criterion.and(Task.COMPLETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull()),
                                         template);
-                                showResult(R.string.EPr_manage_delete_completed_gcal_status, deletedEventCount);
+                                return deletedEventCount;
                             }
-                        });
+
+                            @Override
+                            protected int getResultResource() {
+                                return R.string.EPr_manage_delete_completed_gcal_status;
+                            }
+                        }.execute();
                     }
-                }, new DialogInterface.OnClickListener() {
+                })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
                     }
-                });
-    }
-
-    @Override
-    protected void onPause() {
-        DialogUtilities.dismissDialog(this, pd);
-
-        super.onPause();
-    }
-
-    private void showResult(int resourceText, int result) {
-        DialogUtilities.okDialog(this, getString(resourceText, result), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        });
+                })
+                .show();
     }
 }

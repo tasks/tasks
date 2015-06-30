@@ -171,7 +171,6 @@
 	<string name="EPr_manage_delete_all_gcal_status">%d 달력 이벤트를 삭제했습니다!</string>
 	<string name="TWi_loading">로드 중…</string>
 	<string name="WCA_title">열람할 일정 선택...</string>
-	<string name="DB_corrupted_title">손상된 데이터베이스</string>
 	<string name="DB_corrupted_body">데이터베이스가 손상된 것 같습니다. 이 에러 메시지가 주기적으로 나타나면, 
 자료를 모두 지우고 (설정-&gt;동기화 &amp; 백업-&gt;오래된 일정 관리-&gt;모든 자료 삭제) 
 Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다. 
@@ -366,7 +365,6 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	<string name="yesterday">어제</string>
 	<string name="tmrw">내일</string>
 	<string name="yest">어제</string>
-	<string name="DLG_information_title">정보</string>
 	<string name="DLG_error">에러가 발생한 것 같습니다! 발생한 에러는 다음과 같습니다:\n\n%s</string>
 	<string name="DLG_wait">잠시 기다리세요...</string>
 	<string name="sync_status_success">마지막 동기화: \n%s</string>

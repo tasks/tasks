@@ -67,4 +67,23 @@
         <item name="ic_action_discard">@drawable/ic_close_white_24dp</item>
     </style>
 
+    <style name="TasksDialogDark" parent="@style/Theme.AppCompat.Dialog">
+        <item name="colorPrimary">@android:color/black</item>
+        <item name="colorPrimaryDark">@android:color/black</item>
+        <item name="colorAccent">@android:color/white</item>
+        <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
+        <item name="asTextColor">@android:color/white</item>
+        <item name="asListDividerColor">#dddddd</item>
+        <item name="ic_action_inbox">@drawable/ic_inbox_white_24dp</item>
+        <item name="ic_action_calendar_today">@drawable/ic_today_white_24dp</item>
+        <item name="ic_action_history">@drawable/ic_history_white_24dp</item>
+        <item name="ic_action_uncategorized">@drawable/ic_label_outline_white_24dp</item>
+        <item name="ic_action_label">@drawable/ic_label_white_24dp</item>
+        <item name="ic_action_filter">@drawable/ic_filter_list_white_24dp</item>
+        <item name="ic_action_cloud">@drawable/ic_cloud_queue_white_24dp</item>
+        <item name="ic_arrow_back">@drawable/ic_arrow_back_white_24dp</item>
+        <item name="ic_folder">@drawable/ic_folder_white_24dp</item>
+        <item name="ic_file">@drawable/ic_insert_drive_file_white_24dp</item>
+    </style>
+
 </resources>
