@@ -1,7 +1,6 @@
 package org.tasks.injection;
 
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,18 +8,20 @@ import android.widget.LinearLayout;
 
 import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.AppCompatPreferenceActivity;
 
 import javax.inject.Inject;
 
 import dagger.ObjectGraph;
 
-public abstract class InjectingPreferenceActivity extends PreferenceActivity implements Injector {
+public abstract class InjectingPreferenceActivity extends AppCompatPreferenceActivity implements Injector {
 
     private ObjectGraph objectGraph;
 
     protected Toolbar toolbar;
 
-    @Inject ActivityPreferences activityPreferences;
+    @Inject
+    ActivityPreferences activityPreferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

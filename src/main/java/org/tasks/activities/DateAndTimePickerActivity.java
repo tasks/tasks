@@ -67,6 +67,6 @@ public class DateAndTimePickerActivity extends FragmentActivity implements DateP
 
     @Override
     public void onCancel(DialogInterface dialog) {
-        finishAffinity();
+        finish();
     }
 }
