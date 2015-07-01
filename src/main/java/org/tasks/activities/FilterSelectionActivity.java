@@ -11,12 +11,12 @@ import com.todoroo.astrid.api.Filter;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
-import org.tasks.injection.InjectingFragmentActivity;
+import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPreferences;
 
 import javax.inject.Inject;
 
-public class FilterSelectionActivity extends InjectingFragmentActivity {
+public class FilterSelectionActivity extends InjectingAppCompatActivity {
 
     public static final String EXTRA_FILTER_NAME = "extra_filter_name";
     public static final String EXTRA_FILTER_SQL = "extra_filter_query";

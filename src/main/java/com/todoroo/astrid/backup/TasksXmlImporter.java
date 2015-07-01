@@ -91,9 +91,7 @@ public class TasksXmlImporter {
         this.runAfterImport = runAfterImport;
 
         handler = new Handler();
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setIcon(android.R.drawable.ic_dialog_info);
-        progressDialog.setTitle(R.string.import_progress_title);
+        progressDialog = dialogBuilder.newProgressDialog();
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setCancelable(false);
         progressDialog.setIndeterminate(true);

@@ -27,7 +27,7 @@
 
         <activity
             android:name=".activities.DonationActivity"
-            android:theme="@style/TasksDialog" />
+            android:theme="@style/TranslucentDialog" />
 
         <service android:name=".location.GeofenceTransitionsIntentService"/>
 

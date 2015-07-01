@@ -15,13 +15,11 @@
 	<string name="backup_BAc_export">Експорт завдань</string>
 	<string name="export_toast">Резервні копії %1$s для %2$s.</string>
 	<string name="export_toast_no_tasks">Відсутні завдання для експорту.</string>
-	<string name="export_progress_title">Експортування</string>
 	<string name="import_summary_title">Відновити підсумок</string>
 	<string name="import_summary_message">Файл %1$s містяться %2$s.\n\n
 %3$s імпортовані,\n
 %4$s вже існують\n
 %5$s були помилки\n</string>
-	<string name="import_progress_title">Імпортування...</string>
 	<string name="import_progress_read">Читання завдання %d...</string>
 	<string name="DLG_error_sdcard">Немає доступу до папки: %s</string>
 	<string name="DLG_error_sdcard_general">Немає доступу до карти SD!</string>

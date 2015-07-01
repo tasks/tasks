@@ -15,10 +15,8 @@
 	<string name="backup_BAc_export">Görevleri Dışa Aktar</string>
 	<string name="export_toast">%1$s şuraya yedeklendi: %2$s.</string>
 	<string name="export_toast_no_tasks">Dışa Aktarılacak Görev Yok.</string>
-	<string name="export_progress_title">Dışa Aktarılıyor...</string>
 	<string name="import_summary_title">Geri Alma Özeti</string>
 	<string name="import_summary_message">%1$s dosyası %2$s dosyasını kapsadı.\n\n %3$s içeri aktarıldı, \n %4$s zaten mevcut\n %5$s hatalar mevcut\n</string>
-	<string name="import_progress_title">İçe Aktarılıyor...</string>
 	<string name="import_progress_read">%d görev okunuyor..</string>
 	<string name="DLG_error_sdcard">%s dizinine erişilemedi.</string>
 	<string name="DLG_error_sdcard_general">Hafıza kartına erişemiyorum!</string>

@@ -10,6 +10,9 @@ import org.tasks.dialogs.LocationPickerDialog;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.location.Geofence;
 import org.tasks.location.OnLocationPickedHandler;
+import org.tasks.preferences.ActivityPreferences;
+
+import javax.inject.Inject;
 
 public class LocationPickerActivity extends InjectingAppCompatActivity implements OnLocationPickedHandler, DialogInterface.OnCancelListener {
 
@@ -17,9 +20,13 @@ public class LocationPickerActivity extends InjectingAppCompatActivity implement
 
     public static final String EXTRA_GEOFENCE = "extra_geofence";
 
+    @Inject ActivityPreferences activityPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        activityPreferences.applyDialogTheme();
 
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         LocationPickerDialog dialog = (LocationPickerDialog) supportFragmentManager.findFragmentByTag(FRAG_TAG_LOCATION_PICKER);

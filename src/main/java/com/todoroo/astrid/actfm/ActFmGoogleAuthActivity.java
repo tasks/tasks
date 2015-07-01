@@ -27,10 +27,14 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
+import org.tasks.injection.InjectingListActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
 
 /**
  * This activity allows users to sign in or log in to Google Tasks
@@ -39,7 +43,7 @@ import java.util.concurrent.TimeUnit;
  * @author Sam Bosley
  *
  */
-public class ActFmGoogleAuthActivity extends ListActivity {
+public class ActFmGoogleAuthActivity extends InjectingListActivity {
 
     private static final Logger log = LoggerFactory.getLogger(ActFmGoogleAuthActivity.class);
 
@@ -58,6 +62,8 @@ public class ActFmGoogleAuthActivity extends ListActivity {
 
     private boolean onSuccess = false;
     private boolean dismissDialog = false;
+
+    @Inject DialogBuilder dialogBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +99,7 @@ public class ActFmGoogleAuthActivity extends ListActivity {
         super.onListItemClick(l, v, position, id);
         int offsetPosition = position - 1; // Subtract 1 because apparently android counts the header view as part of the adapter.
         if (offsetPosition >= 0 && offsetPosition < nameArray.length) {
-            final ProgressDialog pd = DialogUtilities.progressDialog(this, this.getString(R.string.gtasks_GLA_authenticating));
+            final ProgressDialog pd = dialogBuilder.newProgressDialog(R.string.gtasks_GLA_authenticating);
             pd.show();
             final Account a = accountManager.getAccountByName(nameArray[position - 1]);
             accountName = a.name;
@@ -166,7 +172,7 @@ public class ActFmGoogleAuthActivity extends ListActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == REQUEST_AUTHENTICATE && resultCode == RESULT_OK){
-            final ProgressDialog pd = DialogUtilities.progressDialog(this, this.getString(R.string.gtasks_GLA_authenticating));
+            final ProgressDialog pd = dialogBuilder.newProgressDialog(R.string.gtasks_GLA_authenticating);
             pd.show();
             final Account a = accountManager.getAccountByName(accountName);
             getAuthToken(a, pd);
@@ -174,5 +180,4 @@ public class ActFmGoogleAuthActivity extends ListActivity {
             onAuthCancel();
         }
     }
-
 }

@@ -3,17 +3,16 @@ package org.tasks.activities;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.dao.Database;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.injection.InjectingActivity;
+import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
-public class ClearAllDataActivity extends InjectingActivity {
+public class ClearAllDataActivity extends InjectingAppCompatActivity {
 
     @Inject Database database;
     @Inject Preferences preferences;

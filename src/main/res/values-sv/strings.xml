@@ -15,10 +15,8 @@
 	<string name="backup_BAc_export">Exportera uppgifter</string>
 	<string name="export_toast">Säkerhetskopierade %1$s till %2$s.</string>
 	<string name="export_toast_no_tasks">Inga uppgifter att exportera</string>
-	<string name="export_progress_title">Exporterar...</string>
 	<string name="import_summary_title">Återställningssammanfattning</string>
 	<string name="import_summary_message">Filen %1$s innehöll %2$s.\n\n %3$s importerade,\n %4$s existerar redan\n %5$s hade fel\n</string>
-	<string name="import_progress_title">Importerar...</string>
 	<string name="import_progress_read">Läser uppgift %d...</string>
 	<string name="DLG_error_sdcard">Mappåtkomst nekad: %s</string>
 	<string name="DLG_error_sdcard_general">SD-kort ej tillgängligt!</string>

@@ -8,13 +8,14 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
+
+import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.BasicPreferences;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.TagData;
 
 import org.tasks.R;
-import org.tasks.injection.InjectingActivity;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.ResourceResolver;
 
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-public class CalendarAlarmListCreator extends InjectingActivity {
+public class CalendarAlarmListCreator extends InjectingAppCompatActivity {
 
     public static final String TOKEN_LIST_NAME = "listName"; //$NON-NLS-1$
 

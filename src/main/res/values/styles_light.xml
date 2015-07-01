@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="LightBase" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="LightBase" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
 
     <style name="Tasks" parent="LightBase">
@@ -68,6 +68,8 @@
     </style>
 
     <style name="TasksDialog" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="android:minWidth">@dimen/dialog_width</item>
+        <item name="android:maxWidth">@dimen/dialog_width</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/primary</item>

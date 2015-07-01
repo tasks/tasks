@@ -14,9 +14,7 @@
 	<string name="backup_BAc_import">Importa tasques</string>
 	<string name="backup_BAc_export">Exporta tasques</string>
 	<string name="export_toast_no_tasks">Sense tasques que exportar</string>
-	<string name="export_progress_title">S\'està exportant...</string>
 	<string name="import_summary_title">Resum de Restauració</string>
-	<string name="import_progress_title">S\'està important...</string>
 	<string name="import_progress_read">S\'està llegint la tasca %d</string>
 	<string name="DLG_error_sdcard">No es pot accedir a la carpeta: %s</string>
 	<string name="DLG_error_sdcard_general">No s\'ha pogut accedir a la targeta SD.</string>

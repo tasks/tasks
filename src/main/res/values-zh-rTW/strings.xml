@@ -15,10 +15,8 @@
 	<string name="backup_BAc_export">匯出工作</string>
 	<string name="export_toast">備份 %1$s 至 %2$s.</string>
 	<string name="export_toast_no_tasks">沒有工作需匯出</string>
-	<string name="export_progress_title">匯出中...</string>
 	<string name="import_summary_title">還原摘要</string>
 	<string name="import_summary_message">檔案 %1$s 已包含 %2$s.\n\n %3$s 已匯入,\n %4$s 已存在\n %5$s 有問題\n</string>
-	<string name="import_progress_title">匯入中...</string>
 	<string name="import_progress_read">讀取工作 %d...</string>
 	<string name="DLG_error_sdcard">無法開啟資料夾: %s</string>
 	<string name="DLG_error_sdcard_general">無法存取您的SD卡!</string>

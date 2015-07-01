@@ -15,10 +15,8 @@
 	<string name="backup_BAc_export">Экспортировать задачи</string>
 	<string name="export_toast">Восстановлено %1$s в %2$s.</string>
 	<string name="export_toast_no_tasks">Нет задач для экспорта.</string>
-	<string name="export_progress_title">Экспортирование…</string>
 	<string name="import_summary_title">Итог восстановления</string>
 	<string name="import_summary_message">Файл %1$s содержал %2$s.\n\n %3$s импортировано,\n %4$s существовало\n %5$s с ошибками\n</string>
-	<string name="import_progress_title">Импортирование…</string>
 	<string name="import_progress_read">Чтение задачи %d…</string>
 	<string name="DLG_error_sdcard">Нет доступа к папке:%s</string>
 	<string name="DLG_error_sdcard_general">Нет доступа к карте памяти!</string>

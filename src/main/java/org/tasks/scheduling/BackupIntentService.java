@@ -59,7 +59,7 @@ public class BackupIntentService extends MidnightIntentService {
         }
 
         try {
-            xmlExporter.exportTasks(context, TasksXmlExporter.ExportType.EXPORT_TYPE_SERVICE);
+            xmlExporter.exportTasks(context, TasksXmlExporter.ExportType.EXPORT_TYPE_SERVICE, null);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }

@@ -31,6 +31,7 @@ import com.todoroo.astrid.service.TaskService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.Preferences;
 import org.xmlpull.v1.XmlSerializer;
 
@@ -93,24 +94,23 @@ public class TasksXmlExporter {
     }
 
     @Inject
-    public TasksXmlExporter(TagDataDao tagDataDao, MetadataDao metadataDao, TaskService taskService, Preferences preferences) {
+    public TasksXmlExporter(TagDataDao tagDataDao, MetadataDao metadataDao, TaskService taskService,
+                            Preferences preferences) {
         this.tagDataDao = tagDataDao;
         this.metadataDao = metadataDao;
         this.taskService = taskService;
         this.preferences = preferences;
     }
 
-    public void exportTasks(final Context context, final ExportType exportType) {
+    public void exportTasks(final Context context, final ExportType exportType, DialogBuilder dialogBuilder) {
         this.context = context;
         this.exportCount = 0;
         this.backupDirectory = preferences.getBackupDirectory();
         this.latestSetVersionName = null;
 
         handler = exportType == ExportType.EXPORT_TYPE_MANUAL ? new Handler() : null;
-        progressDialog = new ProgressDialog(context);
         if(exportType == ExportType.EXPORT_TYPE_MANUAL) {
-            progressDialog.setIcon(android.R.drawable.ic_dialog_info);
-            progressDialog.setTitle(R.string.export_progress_title);
+            progressDialog = dialogBuilder.newProgressDialog();
             progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             progressDialog.setProgress(0);
             progressDialog.setCancelable(false);
@@ -119,6 +119,8 @@ public class TasksXmlExporter {
             if(context instanceof Activity) {
                 progressDialog.setOwnerActivity((Activity) context);
             }
+        } else {
+            progressDialog = new ProgressDialog(context);
         }
 
         new Thread(new Runnable() {

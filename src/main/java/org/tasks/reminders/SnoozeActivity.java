@@ -13,12 +13,12 @@ import com.todoroo.astrid.service.TaskService;
 import org.joda.time.DateTime;
 import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.TimePickerActivity;
-import org.tasks.injection.InjectingFragmentActivity;
+import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.notifications.NotificationManager;
 
 import javax.inject.Inject;
 
-public class SnoozeActivity extends InjectingFragmentActivity implements SnoozeCallback, DialogInterface.OnCancelListener {
+public class SnoozeActivity extends InjectingAppCompatActivity implements SnoozeCallback, DialogInterface.OnCancelListener {
 
     private static final String FRAG_TAG_SNOOZE_DIALOG = "frag_tag_snooze_dialog";
     private static final String EXTRA_PICKING_DATE_TIME = "extra_picking_date_time";

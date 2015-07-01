@@ -14,12 +14,12 @@ import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.injection.InjectingActivity;
+import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.ui.ProgressDialogAsyncTask;
 
 import javax.inject.Inject;
 
-public class PurgeDeletedActivity extends InjectingActivity {
+public class PurgeDeletedActivity extends InjectingAppCompatActivity {
 
     @Inject TaskService taskService;
     @Inject TaskDeleter taskDeleter;

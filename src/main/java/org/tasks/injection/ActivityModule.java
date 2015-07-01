@@ -2,6 +2,7 @@ package org.tasks.injection;
 
 import android.app.Activity;
 
+import com.todoroo.astrid.actfm.ActFmGoogleAuthActivity;
 import com.todoroo.astrid.actfm.FilterSettingsActivity;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.activity.BeastModePreferences;
@@ -20,6 +21,7 @@ import com.todoroo.astrid.gcal.CalendarReminderActivity;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.reminders.ReminderPreferences;
+import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
 
 import org.tasks.activities.ClearAllDataActivity;
@@ -90,7 +92,9 @@ import dagger.Provides;
                 SortActivity.class,
                 FilterSelectionActivity.class,
                 FileExplore.class,
-                DonationActivity.class
+                DonationActivity.class,
+                ActFmGoogleAuthActivity.class,
+                UpgradeService.UpgradeActivity.class
         })
 public class ActivityModule {
 

@@ -14,13 +14,11 @@
 	<string name="backup_BAc_export">Εξαγωγή εργασιών</string>
 	<string name="export_toast">Αποθηκεύση ασφαλείας %1$s στο %2$s.</string>
 	<string name="export_toast_no_tasks">Δεν υπάρχουν εργασίες για εξαγωγή</string>
-	<string name="export_progress_title">Εξαγωγή...</string>
 	<string name="import_summary_title">Σύνοψη επαναφοράς</string>
 	<string name="import_summary_message">Αρχείο %1$s περιέχεται %2$s.\n\n
 %3$s καταχωρήθηκε,\n
 %4$s υπάρχει ήδηt\n
 %5$s έχει σφάλματα\n</string>
-	<string name="import_progress_title">Εισαγωγή...</string>
 	<string name="import_progress_read">Ανάγνωση εργασίας %d...</string>
 	<string name="DLG_error_sdcard">Δεν υπάρχει πρόσβαση στον φάκελο: %s</string>
 	<string name="DLG_error_sdcard_general">Δεν υπάρχει πρόσβαση στην SD κάρτα!</string>

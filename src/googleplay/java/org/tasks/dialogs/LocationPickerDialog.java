@@ -57,7 +57,7 @@ public class LocationPickerDialog extends InjectingDialogFragment implements Goo
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        activityPreferences.applyTheme();
+        activityPreferences.applyDialogTheme();
 
         googleApi.connect(this);
 

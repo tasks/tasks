@@ -24,7 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.injection.InjectingActivity;
+import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.ResourceResolver;
 
@@ -39,7 +39,7 @@ import javax.inject.Inject;
  * https://github.com/mburman/Android-File-Explore
  *
  */
-public class FileExplore extends InjectingActivity {
+public class FileExplore extends InjectingAppCompatActivity {
 
     private static final Logger log = LoggerFactory.getLogger(FileExplore.class);
 

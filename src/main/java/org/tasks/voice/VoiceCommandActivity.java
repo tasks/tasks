@@ -9,11 +9,11 @@ import com.todoroo.astrid.service.TaskCreator;
 
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
-import org.tasks.injection.InjectingActivity;
+import org.tasks.injection.InjectingAppCompatActivity;
 
 import javax.inject.Inject;
 
-public class VoiceCommandActivity extends InjectingActivity {
+public class VoiceCommandActivity extends InjectingAppCompatActivity {
 
     @Inject TaskCreator taskCreator;
     @Inject @ForApplication Context context;

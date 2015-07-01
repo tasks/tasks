@@ -15,10 +15,8 @@
 	<string name="backup_BAc_export">ייצוא משימות</string>
 	<string name="export_toast">בוצע גיבוי של %1$s אל %2$s.</string>
 	<string name="export_toast_no_tasks">אין משימות לייצוא.</string>
-	<string name="export_progress_title">מייצאת...</string>
 	<string name="import_summary_title">סיכום פעולת השחזור</string>
 	<string name="import_summary_message">\"הקובץ \' %1$s\' הכיל  %2$s משימות: \n\n %3$s יובאו,\n %4$s היו קיימות כבר,\nוב־%5$s היו שגיאות.\n\"</string>
-	<string name="import_progress_title">מייבאת...</string>
 	<string name="import_progress_read">קוראת משימה %d...</string>
 	<string name="DLG_error_sdcard">לא ניתן לגשת לתיקיה: %s</string>
 	<string name="DLG_error_sdcard_general">לא ניתן לגשת לכרטיס ה־SD שלך!</string>

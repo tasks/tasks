@@ -3,6 +3,7 @@
     <dimen name="navigation_drawer_width">260dp</dimen>
     <dimen name="navigation_drawer_horizontal_margins">16dp</dimen>
     <dimen name="widget_margin">8dp</dimen>
+    <dimen name="dialog_width">300dp</dimen>
 
     <dimen name="task_edit_title_padding_top_bottom">18dp</dimen>
     <dimen name="task_edit_padding_top_bottom">9dp</dimen>

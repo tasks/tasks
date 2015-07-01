@@ -42,10 +42,10 @@ public class NNumberPickerDialog extends AlertDialog implements OnClickListener 
      * @param separators text separating the spinners. whole array, or individual
      *        elements can be null
      */
-    public NNumberPickerDialog(Context context, OnNNumberPickedListener callBack,
+    public NNumberPickerDialog(Context context, int theme, OnNNumberPickedListener callBack,
             String title, int[] initialValue, int[] incrementBy, int[] start,
             int[] end, String[] separators) {
-        super(context);
+        super(context, theme);
         mCallback = callBack;
 
         setButton(DialogInterface.BUTTON_POSITIVE, context.getText(android.R.string.ok), this);

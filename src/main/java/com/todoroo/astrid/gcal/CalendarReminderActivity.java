@@ -15,6 +15,7 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.BasicPreferences;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
@@ -25,7 +26,6 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 
 import org.tasks.R;
-import org.tasks.injection.InjectingActivity;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.ResourceResolver;
 
@@ -33,7 +33,7 @@ import javax.inject.Inject;
 
 import static org.tasks.date.DateTimeUtils.newDate;
 
-public class CalendarReminderActivity extends InjectingActivity {
+public class CalendarReminderActivity extends InjectingAppCompatActivity {
 
     public static final String TOKEN_NAMES = "names";
     public static final String TOKEN_EMAILS = "emails";

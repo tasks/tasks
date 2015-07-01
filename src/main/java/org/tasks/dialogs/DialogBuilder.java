@@ -10,7 +10,7 @@ import org.tasks.preferences.ActivityPreferences;
 import javax.inject.Inject;
 
 public class DialogBuilder {
-    private Activity activity;
+    private final Activity activity;
     private final ActivityPreferences activityPreferences;
 
     @Inject
@@ -32,8 +32,14 @@ public class DialogBuilder {
     }
 
     public ProgressDialog newProgressDialog() {
-        ProgressDialog dialog = new ProgressDialog(activity, activityPreferences.getDialogTheme());
-        dialog.setMessage(activity.getString(R.string.DLG_wait));
+        return new ProgressDialog(activity, activityPreferences.getDialogTheme());
+    }
+
+    public ProgressDialog newProgressDialog(int messageId) {
+        ProgressDialog dialog = newProgressDialog();
+        dialog.setIndeterminate(true);
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setMessage(activity.getString(messageId));
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
         return dialog;

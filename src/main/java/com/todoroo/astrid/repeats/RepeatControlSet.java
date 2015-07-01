@@ -119,7 +119,7 @@ public class RepeatControlSet extends PopupControlSet {
             dialogValue = 1;
         }
 
-        new NumberPickerDialog(activity, new OnNumberPickedListener() {
+        new NumberPickerDialog(activity, preferences.getDialogTheme(), new OnNumberPickedListener() {
             @Override
             public void onNumberPicked(int number) {
                 setRepeatValue(number);

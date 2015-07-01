@@ -17,13 +17,11 @@
 	<string name="backup_BAc_export">Експортиране на задачи</string>
 	<string name="export_toast">Създадено е резервно копие %1$s на %2$s.</string>
 	<string name="export_toast_no_tasks">Няма задачи за експортиране</string>
-	<string name="export_progress_title">Експортиране...</string>
 	<string name="import_summary_title">Възстановяване на описанието</string>
 	<string name="import_summary_message">Файлът %1$s съдържа %2$s.\n\n
 %3$s импортирани,\n
 %4$s вече съществуват\n
 %5$s имат грешки\n</string>
-	<string name="import_progress_title">Импортиране...</string>
 	<string name="import_progress_read">Прочитане на задачи %d...</string>
 	<string name="DLG_error_sdcard">Нямате достъп до папка: %s</string>
 	<string name="DLG_error_sdcard_general">SD картата не може да бъде достъпена!</string>

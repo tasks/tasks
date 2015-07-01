@@ -29,6 +29,7 @@ import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.InjectingListActivity;
 
 import java.io.IOException;
@@ -52,6 +53,7 @@ public class GtasksLoginActivity extends InjectingListActivity {
     private static final Logger log = LoggerFactory.getLogger(GtasksLoginActivity.class);
 
     @Inject GtasksPreferenceService gtasksPreferenceService;
+    @Inject DialogBuilder dialogBuilder;
 
     private GoogleAccountManager accountManager;
     private String[] nameArray;
@@ -114,7 +116,7 @@ public class GtasksLoginActivity extends InjectingListActivity {
     }
 
     private void getAuthToken(Account account) {
-        final ProgressDialog pd = DialogUtilities.progressDialog(this, this.getString(R.string.gtasks_GLA_authenticating));
+        final ProgressDialog pd = dialogBuilder.newProgressDialog(R.string.gtasks_GLA_authenticating);
         pd.show();
         accountName = account.name;
         getAuthToken(account, pd);
@@ -173,7 +175,7 @@ public class GtasksLoginActivity extends InjectingListActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == REQUEST_AUTHENTICATE && resultCode == RESULT_OK){
-            final ProgressDialog pd = DialogUtilities.progressDialog(this, this.getString(R.string.gtasks_GLA_authenticating));
+            final ProgressDialog pd = dialogBuilder.newProgressDialog(R.string.gtasks_GLA_authenticating);
             pd.show();
             final Account a = accountManager.getAccountByName(accountName);
             getAuthToken(a, pd);

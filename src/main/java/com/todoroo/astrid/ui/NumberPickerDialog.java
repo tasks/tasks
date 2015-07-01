@@ -23,9 +23,9 @@ public class NumberPickerDialog extends AlertDialog implements OnClickListener {
     private final NumberPicker           mPicker;
     private final OnNumberPickedListener mCallback;
 
-    public NumberPickerDialog(Context context, OnNumberPickedListener callBack,
+    public NumberPickerDialog(Context context, int theme, OnNumberPickedListener callBack,
             String title, int initialValue, int incrementBy, int start, int end) {
-        super(context);
+        super(context, theme);
         mCallback = callBack;
 
         setButton(DialogInterface.BUTTON_POSITIVE, context.getText(android.R.string.ok), this);

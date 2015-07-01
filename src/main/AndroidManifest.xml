@@ -105,25 +105,25 @@
 
         <activity
             android:name=".activities.TimePickerActivity"
-            android:theme="@style/TasksDialog" />
+            android:theme="@style/Theme.AppCompat.Dialog" />
 
         <activity
             android:name=".activities.DateAndTimePickerActivity"
-            android:theme="@style/TasksDialog"
+            android:theme="@style/Theme.AppCompat.Dialog"
             android:taskAffinity="" />
 
         <activity
             android:name=".activities.LocationPickerActivity"
-            android:theme="@style/TasksDialog" />
+            android:theme="@style/TranslucentDialog" />
 
         <activity
             android:name=".activities.SortActivity"
-            android:theme="@style/TasksDialog" />
+            android:theme="@style/TranslucentDialog" />
 
         <activity
             android:name=".activities.FilterSelectionActivity"
             android:exported="true"
-            android:theme="@style/TasksDialog" />
+            android:theme="@style/TranslucentDialog" />
 
         <!-- Activity that displays task list -->
         <activity
@@ -325,21 +325,21 @@
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
             android:taskAffinity=""
-            android:theme="@style/TasksDialog" />
+            android:theme="@style/TranslucentDialog" />
 
         <activity
             android:name=".reminders.SnoozeActivity"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
             android:taskAffinity=""
-            android:theme="@style/TasksDialog" />
+            android:theme="@style/TranslucentDialog" />
 
         <activity
             android:name=".reminders.NotificationActivity"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
             android:taskAffinity=""
-            android:theme="@style/TasksDialog" />
+            android:theme="@style/TranslucentDialog" />
 
         <!-- tags -->
         <receiver android:name="com.todoroo.astrid.tags.TagCustomFilterCriteriaExposer">
@@ -396,7 +396,7 @@
 
         <activity
             android:name=".activities.ClearGtaskDataActivity"
-            android:theme="@style/TasksDialog" />
+            android:theme="@style/TranslucentDialog" />
 
         <!-- repeats -->
 
@@ -428,7 +428,7 @@
 
         <activity
             android:name="com.todoroo.astrid.gcal.CalendarReminderActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+            android:theme="@style/TranslucentDialog"/>
 
         <activity
             android:name="com.todoroo.astrid.gcal.CalendarAlarmListCreator"
@@ -444,39 +444,39 @@
 
         <activity
             android:name=".activities.ClearAllDataActivity"
-            android:theme="@style/TasksDialog" />
+            android:theme="@style/TranslucentDialog" />
         <activity
             android:name=".activities.PurgeDeletedActivity"
-            android:theme="@style/TasksDialog" />
+            android:theme="@style/TranslucentDialog" />
         <activity
             android:name=".activities.DeleteCompletedActivity"
-            android:theme="@style/TasksDialog" />
+            android:theme="@style/TranslucentDialog" />
         <activity
             android:name=".activities.DeleteCompletedEventsActivity"
-            android:theme="@style/TasksDialog" />
+            android:theme="@style/TranslucentDialog" />
         <activity
             android:name=".activities.DeleteAllCalendarEventsActivity"
-            android:theme="@style/TasksDialog" />
+            android:theme="@style/TranslucentDialog" />
 
         <!-- backup -->
 
         <activity
             android:name="org.tasks.activities.ExportTaskActivity"
-            android:theme="@style/ReminderDialog" />
+            android:theme="@style/TranslucentDialog" />
         <activity
             android:name="org.tasks.activities.ImportTaskActivity"
-            android:theme="@style/ReminderDialog" />
+            android:theme="@style/TranslucentDialog" />
 
         <!-- premium -->
         <activity
             android:name="com.todoroo.astrid.files.AACRecordingActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@style/TranslucentDialog" />
 
         <activity
             android:name="com.todoroo.astrid.files.FileExplore"
-            android:theme="@style/TasksDialog"/>
+            android:theme="@style/TranslucentDialog"/>
 
         <receiver android:name="com.todoroo.astrid.timers.TimerTaskCompleteListener">
             <intent-filter>

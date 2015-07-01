@@ -16,6 +16,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.ui.NNumberPickerDialog.OnNNumberPickedListener;
 
 import org.tasks.R;
+import org.tasks.preferences.ActivityPreferences;
 
 public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnClickListener {
 
@@ -26,11 +27,13 @@ public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnC
     private NNumberPickerDialog dialog = null;
     private Task model;
     private final IntegerProperty property;
+    private ActivityPreferences activityPreferences;
 
     public TimeDurationControlSet(Activity activity, View view, IntegerProperty property,
-            int timeButtonId) {
+            int timeButtonId, ActivityPreferences activityPreferences) {
         this.activity = activity;
         this.property = property;
+        this.activityPreferences = activityPreferences;
 
         timeButton = (TextView)view.findViewById(timeButtonId);
         ((View) timeButton.getParent()).setOnClickListener(this);
@@ -78,7 +81,7 @@ public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnC
     @Override
     public void onClick(View v) {
         if(dialog == null) {
-            dialog = new NNumberPickerDialog(activity, this,
+            dialog = new NNumberPickerDialog(activity, activityPreferences.getDialogTheme(), this,
                     activity.getResources().getString(R.string.DLG_hour_minutes),
                     new int[] {0, 0}, new int[] {1, 5}, new int[] {0, 0},
                     new int[] {999, 59}, new String[] {":", null});

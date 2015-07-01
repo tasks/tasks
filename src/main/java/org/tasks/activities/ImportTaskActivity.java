@@ -9,15 +9,17 @@ import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.utility.Flags;
 
 import org.tasks.R;
-import org.tasks.injection.InjectingActivity;
+import org.tasks.injection.InjectingAppCompatActivity;
+import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
-public class ImportTaskActivity extends InjectingActivity {
+public class ImportTaskActivity extends InjectingAppCompatActivity {
 
     @Inject TasksXmlImporter xmlImporter;
-    @Inject Preferences preferences;
+    @Inject
+    ActivityPreferences preferences;
 
     private boolean initiatedImport;
 
@@ -25,7 +27,7 @@ public class ImportTaskActivity extends InjectingActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AlertDialog filePicker =
-                new FilePickerBuilder(this, R.string.import_file_prompt, preferences.getBackupDirectory())
+                new FilePickerBuilder(this, R.string.import_file_prompt, preferences.getBackupDirectory(), preferences.getDialogTheme())
                         .setOnFilePickedListener(new FilePickerBuilder.OnFilePickedListener() {
                             @Override
                             public void onFilePicked(String filePath) {

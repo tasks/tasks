@@ -15,10 +15,8 @@
 	<string name="backup_BAc_export">Eksportér opgaver</string>
 	<string name="export_toast">Sikkerhedskopierede %1$s til %2$s.</string>
 	<string name="export_toast_no_tasks">Ingen opgaver at eksportere</string>
-	<string name="export_progress_title">Eksporterer...</string>
 	<string name="import_summary_title">Opsummering af gendannelse</string>
 	<string name="import_summary_message">Filen %1$s indeholdt %2$s.\n\n %3$s importeret,\n %4$s findes allerede\n %5$s indeholdt fejl\n</string>
-	<string name="import_progress_title">Importerer...</string>
 	<string name="import_progress_read">Læser opgave %d...</string>
 	<string name="DLG_error_sdcard">Kan ikke få adgang til mappen: %s</string>
 	<string name="DLG_error_sdcard_general">Kan ikke få adgang til dig SD-kort!</string>

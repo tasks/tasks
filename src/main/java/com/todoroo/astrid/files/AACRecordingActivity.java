@@ -15,14 +15,14 @@ import com.todoroo.astrid.voice.AACRecorder;
 import com.todoroo.astrid.voice.AACRecorder.AACRecorderCallbacks;
 
 import org.tasks.R;
-import org.tasks.injection.InjectingActivity;
+import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
 
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
-public class AACRecordingActivity extends InjectingActivity implements AACRecorderCallbacks {
+public class AACRecordingActivity extends InjectingAppCompatActivity implements AACRecorderCallbacks {
 
     public static final String RESULT_OUTFILE = "outfile"; //$NON-NLS-1$
     public static final String RESULT_FILENAME = "filename";  //$NON-NLS-1$

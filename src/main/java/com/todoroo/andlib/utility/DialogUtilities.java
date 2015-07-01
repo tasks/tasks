@@ -23,11 +23,7 @@ public class DialogUtilities {
      * Displays a progress dialog. Must be run on the UI thread
      */
     public static ProgressDialog progressDialog(Activity context, String text) {
-        return progressDialog(context, text, R.style.TasksDialog);
-    }
-
-    private static ProgressDialog progressDialog(Activity context, String text, int theme) {
-        ProgressDialog dialog = new ProgressDialog(context, theme);
+        ProgressDialog dialog = new ProgressDialog(context, R.style.TasksDialog);
         dialog.setIndeterminate(true);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setMessage(text);

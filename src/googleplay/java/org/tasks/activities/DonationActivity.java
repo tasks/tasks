@@ -14,7 +14,7 @@ import org.tasks.billing.IabResult;
 import org.tasks.billing.Inventory;
 import org.tasks.billing.Purchase;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.injection.InjectingActivity;
+import org.tasks.injection.InjectingAppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 
-public class DonationActivity extends InjectingActivity implements IabHelper.OnIabSetupFinishedListener,
+public class DonationActivity extends InjectingAppCompatActivity implements IabHelper.OnIabSetupFinishedListener,
         IabHelper.QueryInventoryFinishedListener, IabHelper.OnIabPurchaseFinishedListener,
         IabHelper.OnConsumeFinishedListener, IabHelper.OnConsumeMultiFinishedListener {
 

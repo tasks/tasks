@@ -14,10 +14,8 @@
 	<string name="backup_BAc_export">Exportar tarefas</string>
 	<string name="export_toast">Backups feitos: de %1$s para %2$s.</string>
 	<string name="export_toast_no_tasks">Nenhuma tarefa a exportar</string>
-	<string name="export_progress_title">Exportando...</string>
 	<string name="import_summary_title">Sumário da restauração</string>
 	<string name="import_summary_message">Arquivo %1$s contendo %2$s.\n\n %3$s importada(s),\n %4$s já existia(m)\n %5$s tinha(m) erro(s)\n</string>
-	<string name="import_progress_title">Importando...</string>
 	<string name="import_progress_read">Lendo tarefa %d...</string>
 	<string name="DLG_error_sdcard">Não foi possível acessar a pasta: %s</string>
 	<string name="DLG_error_sdcard_general">Não foi possível acessar seu cartão SD!</string>

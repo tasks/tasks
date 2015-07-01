@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 import com.todoroo.astrid.core.SortHelper;
@@ -14,14 +13,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.injection.InjectingFragmentActivity;
+import org.tasks.injection.InjectingAppCompatActivity;
+import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.Preferences;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
-public class SortActivity extends InjectingFragmentActivity {
+public class SortActivity extends InjectingAppCompatActivity {
 
     private static final Logger log = LoggerFactory.getLogger(SortActivity.class);
 
@@ -30,6 +33,7 @@ public class SortActivity extends InjectingFragmentActivity {
 
     @Inject Preferences preferences;
     @Inject DialogBuilder dialogBuilder;
+    @Inject ActivityPreferences activityPreferences;
 
     private boolean manualEnabled;
     private AlertDialog alertDialog;
@@ -39,19 +43,21 @@ public class SortActivity extends InjectingFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        activityPreferences.applyDialogTheme();
+
         manualEnabled = getIntent().getBooleanExtra(EXTRA_MANUAL_ENABLED, false);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice);
+        List<String> items = new ArrayList<>();
 
         if (manualEnabled) {
-            adapter.add(getString(R.string.SSD_sort_drag));
+            items.add(getString(R.string.SSD_sort_drag));
         }
 
-        adapter.add(getString(R.string.SSD_sort_auto));
-        adapter.add(getString(R.string.SSD_sort_due));
-        adapter.add(getString(R.string.SSD_sort_importance));
-        adapter.add(getString(R.string.SSD_sort_alpha));
-        adapter.add(getString(R.string.SSD_sort_modified));
+        items.add(getString(R.string.SSD_sort_auto));
+        items.add(getString(R.string.SSD_sort_due));
+        items.add(getString(R.string.SSD_sort_importance));
+        items.add(getString(R.string.SSD_sort_alpha));
+        items.add(getString(R.string.SSD_sort_modified));
 
         selectedIndex = getIndex(preferences.getSortMode());
         if (manualEnabled) {
@@ -63,7 +69,7 @@ public class SortActivity extends InjectingFragmentActivity {
         }
 
         alertDialog = dialogBuilder.newDialog()
-                .setSingleChoiceItems(adapter, selectedIndex, new DialogInterface.OnClickListener() {
+                .setSingleChoiceItems(items.toArray(new String[items.size()]), selectedIndex, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         selectedIndex = which;

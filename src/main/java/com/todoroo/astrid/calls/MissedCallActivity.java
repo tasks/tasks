@@ -28,7 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.injection.InjectingFragmentActivity;
+import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.BasicPreferences;
@@ -38,7 +38,7 @@ import java.io.InputStream;
 
 import javax.inject.Inject;
 
-public class MissedCallActivity extends InjectingFragmentActivity {
+public class MissedCallActivity extends InjectingAppCompatActivity {
 
     private static final Logger log = LoggerFactory.getLogger(MissedCallActivity.class);
 

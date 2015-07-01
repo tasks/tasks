@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 
 public abstract class ProgressDialogAsyncTask extends AsyncTask<Void, Void, Integer> {
@@ -20,7 +21,7 @@ public abstract class ProgressDialogAsyncTask extends AsyncTask<Void, Void, Inte
 
     @Override
     protected void onPreExecute() {
-        progressDialog = dialogBuilder.newProgressDialog();
+        progressDialog = dialogBuilder.newProgressDialog(R.string.DLG_wait);
         progressDialog.show();
     }
 

@@ -15,6 +15,8 @@ import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
+import org.tasks.injection.InjectingAppCompatActivity;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -44,20 +46,21 @@ public final class UpgradeService {
         }
     }
 
-    public static class UpgradeActivity extends Activity {
+    public static class UpgradeActivity extends InjectingAppCompatActivity {
         private ProgressDialog dialog;
 
         public static final String TOKEN_FROM_VERSION = "from_version"; //$NON-NLS-1$
         private int from;
         private boolean finished = false;
 
+        @Inject DialogBuilder dialogBuilder;
+
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             from = getIntent().getIntExtra(TOKEN_FROM_VERSION, -1);
             if (from > 0) {
-                dialog = DialogUtilities.progressDialog(this,
-                        getString(R.string.DLG_upgrading));
+                dialog = dialogBuilder.newProgressDialog(R.string.DLG_upgrading);
                 new Thread() {
                     @Override
                     public void run() {

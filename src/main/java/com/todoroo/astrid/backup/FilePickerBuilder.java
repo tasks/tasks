@@ -31,8 +31,8 @@ public class FilePickerBuilder extends AlertDialog.Builder implements DialogInte
     private String[] files;
     private FilenameFilter filter;
 
-    public FilePickerBuilder(Context ctx, int titleRes, File path) {
-        super(ctx);
+    public FilePickerBuilder(Context ctx, int titleRes, File path, int theme) {
+        super(ctx, theme);
         filter = new FilenameFilter() {
             @Override
             public boolean accept(File dir, String s) {

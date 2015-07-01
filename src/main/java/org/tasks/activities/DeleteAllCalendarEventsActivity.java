@@ -11,12 +11,12 @@ import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.injection.InjectingActivity;
+import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.ui.ProgressDialogAsyncTask;
 
 import javax.inject.Inject;
 
-public class DeleteAllCalendarEventsActivity extends InjectingActivity {
+public class DeleteAllCalendarEventsActivity extends InjectingAppCompatActivity {
 
     @Inject TaskService taskService;
     @Inject GCalHelper gcalHelper;

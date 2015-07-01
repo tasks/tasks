@@ -15,10 +15,8 @@
 	<string name="backup_BAc_export">Aufgaben exportieren</string>
 	<string name="export_toast">Gesichert von %1$s bis %2$s.</string>
 	<string name="export_toast_no_tasks">Keine Aufgaben zu exportieren.</string>
-	<string name="export_progress_title">Es wird exportiert …</string>
 	<string name="import_summary_title">Zusammenfassung wiederherstellen</string>
 	<string name="import_summary_message">Datei %1$s enthielt %2$s Aufgaben.\n\n %3$s wurden importiert,\n %4$s waren schon vorhanden (übersprungen)\n %5$s waren fehlerhaft\n</string>
-	<string name="import_progress_title">Es wird importiert …</string>
 	<string name="import_progress_read">Aufgabe %d wird gelesen …</string>
 	<string name="DLG_error_sdcard">Ordner konnte nicht geöffnet werden: %s</string>
 	<string name="DLG_error_sdcard_general">Auf die SD-Karte konnte nicht zugegriffen werden!</string>

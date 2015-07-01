@@ -17,10 +17,8 @@
 	<string name="backup_BAc_export">Exportar tareas</string>
 	<string name="export_toast">Respaldadas %1$s de %2$s.</string>
 	<string name="export_toast_no_tasks">No hay tareas para exportar</string>
-	<string name="export_progress_title">Exportando...</string>
 	<string name="import_summary_title">Resumen de restauración</string>
 	<string name="import_summary_message">El fichero %1$s contenia %2$s.\n\n %3$s importadas\n %4$s ya existian\n %5$s tenian errores\n</string>
-	<string name="import_progress_title">Importando...</string>
 	<string name="import_progress_read">Leyendo tarea %d...</string>
 	<string name="DLG_error_sdcard">No se puede acceder a la carpeta: %s</string>
 	<string name="DLG_error_sdcard_general">¡No se pudo acceder a su tarjeta de memoria SD!</string>

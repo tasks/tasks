@@ -3,16 +3,15 @@ package org.tasks.activities;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.injection.InjectingActivity;
+import org.tasks.injection.InjectingAppCompatActivity;
 
 import javax.inject.Inject;
 
-public class ClearGtaskDataActivity extends InjectingActivity {
+public class ClearGtaskDataActivity extends InjectingAppCompatActivity {
 
     @Inject GtasksSyncV2Provider gtasksSyncV2Provider;
     @Inject DialogBuilder dialogBuilder;

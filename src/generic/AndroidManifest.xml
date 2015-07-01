@@ -6,7 +6,7 @@
 
         <activity
             android:name=".activities.DonationActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@style/TranslucentDialog" />
 
     </application>
 

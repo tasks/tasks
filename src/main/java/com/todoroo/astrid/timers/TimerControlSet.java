@@ -31,9 +31,11 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
 
     TimeDurationTaskEditControlSet estimated, elapsed;
     private final TextView displayEdit;
+    private ActivityPreferences preferences;
 
     public TimerControlSet(ActivityPreferences preferences, final Activity activity) {
         super(preferences, activity, R.layout.control_set_timers_dialog, R.layout.control_set_timers, R.string.TEA_timer_controls);
+        this.preferences = preferences;
 
         displayEdit = (TextView) getView().findViewById(R.id.display_row_edit);
         displayEdit.setText(R.string.TEA_timer_controls);
@@ -81,7 +83,7 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
         public TimeDurationTaskEditControlSet(Activity activity, View v, IntegerProperty property, int timeButtonId) {
             super(activity, -1);
             this.property = property;
-            this.controlSet = new TimeDurationControlSet(activity, v, property, timeButtonId);
+            this.controlSet = new TimeDurationControlSet(activity, v, property, timeButtonId, preferences);
         }
 
         @Override
