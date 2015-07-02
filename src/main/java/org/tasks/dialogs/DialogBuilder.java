@@ -2,9 +2,11 @@ package org.tasks.dialogs;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AlertDialog;
 
-import org.tasks.R;
+import com.todoroo.andlib.utility.AndroidUtilities;
+
 import org.tasks.preferences.ActivityPreferences;
 
 import javax.inject.Inject;
@@ -23,16 +25,16 @@ public class DialogBuilder {
         return new AlertDialog.Builder(activity, activityPreferences.getDialogTheme());
     }
 
-    public AlertDialog.Builder newMessageDialog(String message) {
-        return newDialog().setMessage(message);
-    }
-
     public AlertDialog.Builder newMessageDialog(int message, Object... formatArgs) {
-        return newMessageDialog(activity.getString(message, formatArgs));
+        return newDialog().setMessage(activity.getString(message, formatArgs));
     }
 
     public ProgressDialog newProgressDialog() {
-        return new ProgressDialog(activity, activityPreferences.getDialogTheme());
+        ProgressDialog progressDialog = new ProgressDialog(activity, activityPreferences.getDialogTheme());
+        if (AndroidUtilities.preLollipop()) {
+            progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.R.color.transparent));
+        }
+        return progressDialog;
     }
 
     public ProgressDialog newProgressDialog(int messageId) {

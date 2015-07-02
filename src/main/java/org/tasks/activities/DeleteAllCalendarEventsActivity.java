@@ -63,9 +63,10 @@ public class DeleteAllCalendarEventsActivity extends InjectingAppCompatActivity 
                         }.execute();
                     }
                 })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                .setNegativeButton(android.R.string.cancel, null)
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onDismiss(DialogInterface dialog) {
                         finish();
                     }
                 })

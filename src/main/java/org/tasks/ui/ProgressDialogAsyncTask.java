@@ -32,8 +32,6 @@ public abstract class ProgressDialogAsyncTask extends AsyncTask<Void, Void, Inte
         }
 
         Toast.makeText(activity, activity.getString(getResultResource(), integer), Toast.LENGTH_LONG).show();
-
-        activity.finish();
     }
 
     protected abstract int getResultResource();

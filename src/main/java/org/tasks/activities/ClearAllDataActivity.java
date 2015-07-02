@@ -31,9 +31,10 @@ public class ClearAllDataActivity extends InjectingAppCompatActivity {
                         System.exit(0);
                     }
                 })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                .setNegativeButton(android.R.string.cancel, null)
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onDismiss(DialogInterface dialog) {
                         finish();
                     }
                 })

@@ -107,10 +107,8 @@ public class GtasksListFragment extends SubtasksListFragment {
     }
 
     private void clearCompletedTasks() {
-        final ProgressDialog pd = dialogBuilder.newProgressDialog(R.string.gtasks_GTA_clearing);
         final TodorooCursor<Task> tasks = taskService.fetchFiltered(filter.getSqlQuery(),
                 null, Task.ID, Task.COMPLETION_DATE);
-        pd.show();
 
         new AsyncTask<Void, Void, Void>() {
 

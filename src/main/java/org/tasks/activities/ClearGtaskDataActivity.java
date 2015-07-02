@@ -26,12 +26,12 @@ public class ClearGtaskDataActivity extends InjectingAppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         gtasksSyncV2Provider.signOut();
                         setResult(RESULT_OK);
-                        finish();
                     }
                 })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                .setNegativeButton(android.R.string.cancel, null)
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onDismiss(DialogInterface dialog) {
                         finish();
                     }
                 })
