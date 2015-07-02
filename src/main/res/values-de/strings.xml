@@ -425,6 +425,7 @@
 	<string name="show_completed">Erledigt anzeigen</string>
 	<string name="reverse">Rückgangig</string>
 	<string name="task_count">%s Aufgaben</string>
+	<string name="get_plugins">Finde Plug-Ins</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>deaktivieren</item>
 		<item>alle 15 Minuten</item>

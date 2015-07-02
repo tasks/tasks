@@ -9,10 +9,12 @@
 	<string name="actfm_picture_gallery">Scegli dalla Galleria</string>
 	<string name="actfm_picture_clear">Deseleziona Immagine</string>
 	<string name="TVA_add_comment">Aggiungi un commento...</string>
+	<string name="name">Nome</string>
+	<string name="enter_tag_name">Digita nome etichetta </string>
 	<string name="actfm_GAA_title">Seleziona l\'account Google che vuoi utilizzare:</string>
 	<string name="backup_BPr_header">Salvataggi</string>
-	<string name="backup_BAc_import">Importa compiti</string>
-	<string name="backup_BAc_export">Esporta compiti</string>
+	<string name="backup_BAc_import">Importa attività</string>
+	<string name="backup_BAc_export">Esporta attività</string>
 	<string name="export_toast">Backup di %1$s su %2$s eseguito.</string>
 	<string name="export_toast_no_tasks">Nessun compito da esportare.</string>
 	<string name="import_summary_title">Ripristina sommario</string>
@@ -31,6 +33,7 @@
 	<string name="DLG_undo">Annulla l\'ultima azione</string>
 	<string name="WID_dateButtonUnset">Clicca per Impostare</string>
 	<string name="TLA_no_items">Nessuna Attività!</string>
+	<string name="TLA_menu_sort">Ordinamento</string>
 	<string name="TLA_menu_search">Cerca</string>
 	<string name="TLA_menu_settings">Impostazioni</string>
 	<string name="TAd_hiddenFormat">%s [Nascosto]</string>
@@ -42,21 +45,32 @@
 	<string name="TAd_contextUndeleteTask">Ripristina Attività</string>
 	<string name="TAd_contextPurgeTask">Elimina Attività</string>
 	<string name="SSD_deleted">Mostra Attività Cancellate</string>
+	<string name="SSD_sort_drag">Ordinamento manuale con attività correlate</string>
 	<string name="SSD_sort_auto">Ordinamento Intelligente</string>
 	<string name="SSD_sort_alpha">Per Titotlo</string>
 	<string name="SSD_sort_due">Per scadenza</string>
+	<string name="SSD_sort_importance">Per priorità</string>
 	<string name="SSD_sort_modified">Per Ultima Modifica</string>
-	<string name="FLA_search_filter">Confrontando \'%s\'</string>
+	<string name="FLA_search_filter">Uguale a  \'%s\'</string>
 	<string name="FLA_new_filter">Nuovo Filtro</string>
 	<string name="FLA_no_filter_selected">Filtro non selezionato! Perfavore seleziona un filtro o una lista.</string>
+	<string name="TEA_title_hint">Memo attività</string>
 	<string name="TEA_importance_label">Priorità</string>
+	<string name="TEA_deadline_hint">Imposta data di scadenza</string>
+	<string name="TEA_hideUntil_label">Nascondi fino al</string>
+	<string name="TEA_hideUntil_display">Nascondi fino al %s</string>
 	<string name="TEA_note_label">Descrizione</string>
+	<string name="TEA_notes_empty">Descrizione...</string>
 	<string name="TEA_estimatedDuration_label">Quanto tempo impiegherà?</string>
 	<string name="TEA_elapsedDuration_label">Tempo già speso per l\'attività</string>
 	<string name="TEA_menu_save">Salva le modifiche</string>
+	<string name="save">Salva</string>
+	<string name="TEA_menu_discard_changes">Annulla modifiche</string>
 	<string name="TEA_tab_activity">Attività</string>
+	<string name="TEA_timer_est">Stima %s</string>
+	<string name="TEA_timer_elap">Trascorso %s</string>
 	<string-array name="TEA_urgency">
-		<item>No date</item>
+		<item>Senza data</item>
 		<item>Giorno specifico</item>
 		<item>Oggi</item>
 		<item>Domani</item>
@@ -65,24 +79,27 @@
 		<item>Ogni due settimane</item>
 		<item>Mese successivo</item>
 	</string-array>
-	<string name="TEA_no_time">Nessuna ora</string>
+	<string name="TEA_no_time">Senza ora</string>
 	<string-array name="TEA_hideUntil">
-		<item>Never</item>
+		<item>Mai</item>
 		<item>Data di scadenza</item>
-		<item>Due time</item>
-		<item>Day before due</item>
-		<item>Week before due</item>
-		<item>Giorno/Tempo Specifici</item>
+		<item>Ora scadenza</item>
+		<item>Giorni alla scadenza</item>
+		<item>Settimane alla scadenza</item>
+		<item>Giorno/Ora Specifici</item>
 	</string-array>
 	<string name="TEA_control_when">Quando</string>
+	<string name="TEA_control_repeat">Ripeti</string>
+	<string name="TEA_control_gcal">Calendario</string>
 	<string name="TEA_control_importance">Priorità</string>
 	<string name="TEA_control_lists">Liste</string>
 	<string name="TEA_control_notes">Descrizione</string>
+	<string name="TEA_control_files">File</string>
 	<string name="TEA_control_reminders">Promemoria</string>
 	<string name="TEA_control_timer">Regolazioni Tempo</string>
 	<string name="TEA_control_hidden_section">----Nascondi Sempre----</string>
 	<string name="hide_until_prompt">Mostra nella mia lista</string>
-	<string name="TEA_load_more">Caricane di più...</string>
+	<string name="TEA_load_more">Caricane altri...</string>
 	<string name="MCA_return_call">Chiama ora</string>
 	<string name="MCA_add_task">Chiama più tardi</string>
 	<string name="MCA_ignore">Ignora</string>
@@ -90,23 +107,23 @@
 	<string name="MCA_task_title_no_name">Richiama %s</string>
 	<string name="CRA_ignore">Ignora</string>
 	<string name="CRA_title">Hai bisogno di una lista per le riunioni?</string>
-	<string name="CRA_ignore_body">Tu hai ignorato varie chiamate perse. Tasks dovrebbe smettere di chiedere a riguardo?</string>
+	<string name="CRA_ignore_body">Hai ignorato diverse chiamate perse. Vuoi che Tasks smetta di notificartele?</string>
 	<string name="CRA_ignore_all">Ignora tutti gli eventi</string>
 	<string name="CRA_ignore_this">Ignora solo questo evento</string>
-	<string name="CRA_speech_bubble_start">Sembra che %s stia per iniziare. Vuoi creare una lista per le azioni?</string>
-	<string name="CRA_speech_bubble_end">Sembra che tu abbia appena terminato %s. Vuoi creare una lista per le azioni?</string>
+	<string name="CRA_speech_bubble_start">Sembra che %s stia per iniziare. Vuoi creare una lista di azioni da intraprendere?</string>
+	<string name="CRA_speech_bubble_end">Sembra che tu abbia appena terminato %s. Vuoi creare una lista delle azioni da intraprendere?</string>
 	<string name="CRA_create_list">Crea la lista</string>
 	<string name="CRA_postpone">Forse in seguito</string>
-	<string name="CRA_list_exists_body">Una lista chiamata %s è già esistente. Vuoi usare la lista esistente o crearne una nuova per questo evento?</string>
+	<string name="CRA_list_exists_body">La lista %s esiste già. Vuoi usare la lista esistente o desideri crearne una nuova per questo evento?</string>
 	<string name="CRA_create_new">Crea nuovo</string>
 	<string name="CRA_use_existing">Usa l\'esistente</string>
 	<string name="CRA_created_list_dialog">Ho creato una lista chiamata %s</string>
-	<string name="CRA_one_attendee">%s è in attesa</string>
-	<string name="CRA_two_attendees">%1$s e %2$s sono in attesa.</string>
-	<string name="CRA_many_attendees">%1$s, %2$s, e %3$d altre sono in attesa.</string>
+	<string name="CRA_one_attendee">%s è presente.</string>
+	<string name="CRA_two_attendees">%1$s e %2$s sono presenti.</string>
+	<string name="CRA_many_attendees">%1$s, %2$s, e %3$d sono presenti.</string>
 	<string name="CRA_invitation_prompt">Vuoi invitarli?</string>
 	<string name="CRA_calendar_reminders_pref_title">Assistente del Calendario</string>
-	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks ti avviserà dei prossimi eventi sul calendario e ti chiederà di prepararti a questi</string>
+	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks non ti avviserà dei prossimi eventi in calendario</string>
 	<string name="CRA_share_list_title">Condividi la lista?</string>
 	<string name="CRA_invite_attendees">Invita partecipanti</string>
 	<string name="CRA_more_options">Più opzioni</string>
@@ -116,9 +133,19 @@
 	<string name="EPr_title">Tasks: Preferenze</string>
 	<string name="EPr_deactivated">disattivato</string>
 	<string name="EPr_appearance_header">Aspetto</string>
+	<string name="EPr_filters_to_show_title">Filtri da visualizzare</string>
+	<string name="EPr_edit_screen_options">Modifica opzioni schermo</string>
+	<string name="EPr_time_increment">Ogni 5 minuti</string>
+	<string name="EPr_show_timer_shortcut">Mostra scorciatoia timer</string>
 	<string name="EPr_beastMode_desc">Personalizza il layout della schermata di modifica attività</string>
 	<string name="EPr_beastMode_reset">Ripristina predefiniti</string>
+	<string name="EPr_beastMode_hint">Personalizza la schermata di modifica attività trascinando l’indicatore a sinistra di ogni riga</string>
 	<string name="EPr_fullTask_title">Visualizza titolo completo dell\'attività</string>
+	<string name="EPr_show_task_edit_comments">Mostra i commenti in modifica</string>
+	<string name="task_list_options">Opzioni elenco attività</string>
+	<string name="EPr_cal_end_or_start_at_due_time">Ora calendario eventi</string>
+	<string name="EPr_cal_end_at_due_time">Calendario eventi fino alla scadenza</string>
+	<string name="EPr_cal_start_at_due_time">Calendario eventi dalla scadenza</string>
 	<string name="EPr_manage_header">Gestisci compiti vecchi</string>
 	<string name="EPr_manage_delete_completed">Elimina i compiti completati</string>
 	<string name="EPr_manage_delete_completed_message">Vuoi davvero eliminare tutti i compiti completati?</string>
@@ -138,7 +165,9 @@
 	<string name="WCA_title">Seleziona le attività da visualizzare...</string>
 	<string name="DB_corrupted_body">Oh, oh! Pare che tu abbia un database danneggiato.
 Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dati (Impostazioni-&gt;Sincronizzazione e backup-&gt;Gestire tutti i dati-&gt;Cancellare tutti i dati) e ripristinare i tuoi task da un backup in Tasks (Impostazioni-&gt;Sincronizzazione e backup-&gt;Backup-&gt;Importa task).</string>
+	<string name="task_defaults">Imp. predefinite attività</string>
 	<string name="EPr_default_urgency_title">Urgenza Predefinita</string>
+	<string name="EPr_default_importance_title">Priorità predefinita</string>
 	<string name="EPr_default_hideUntil_title">Nascondi Fino Predefinito</string>
 	<string name="EPr_default_reminders_title">Promemoria predefiniti</string>
 	<string name="EPr_default_addtocalendar_title">Aggiungi automaticamente al calendario</string>
@@ -166,7 +195,7 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 		<item>Nessun promemoria scadenza</item>
 		<item>Alla scadenza</item>
 		<item>Quando è scaduta</item>
-		<item>Alla scadenza o quando scaduto</item>
+		<item>Alla scadenza o già scaduta</item>
 	</string-array>
 	<string name="BFE_Active">Le mie attività</string>
 	<string name="BFE_Recent">Modificate di recente</string>
@@ -177,9 +206,10 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="CFA_type_intersect">anche</string>
 	<string name="CFA_context_chain">%s ha dei criteri</string>
 	<string name="CFA_context_delete">Cancella Riga</string>
+	<string name="CFA_help">Pressione lunga per accedere alle opzioni aggiuntive</string>
 	<string name="CFA_button_add">Aggiungi Criteri</string>
 	<string name="CFA_button_view">Visualizza</string>
-	<string name="CFA_button_save">Salva &amp; Visualizzazione</string>
+	<string name="CFA_button_save">Salva &amp; Visualizza</string>
 	<string name="CFC_dueBefore_text">Entro: ?</string>
 	<string name="CFC_dueBefore_name">Entro...</string>
 	<string-array name="CFC_dueBefore_entries">
@@ -191,6 +221,8 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 		<item>Prossima Settimana</item>
 		<item>Mese successivo</item>
 	</string-array>
+	<string name="CFC_importance_text">Almeno per priorità ?</string>
+	<string name="CFC_importance_name">Priorità...</string>
 	<string name="CFC_tag_text">Lista: ?</string>
 	<string name="CFC_tag_name">Lista..</string>
 	<string name="CFC_tag_contains_name">Lista il cui nome contiene...</string>
@@ -201,6 +233,7 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="gcal_TEA_addToCalendar_label">Aggiungi al Calendario</string>
 	<string name="gcal_TEA_showCalendar_label">Apri Calendario Eventi</string>
 	<string name="gcal_TEA_nocal">Non aggiungere</string>
+	<string name="gcal_TEA_none_selected">Sul calendario?</string>
 	<string name="gcal_completed_title">%s (completato)</string>
 	<string name="gcal_GCP_default">Calendario Predefinito</string>
 	<string name="CFC_gtasks_list_text">Nella lista: ?</string>
@@ -211,6 +244,7 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="gtasks_GLA_authenticating">Autenticazione...</string>
 	<string name="gtasks_GLA_errorAuth">Errore di autenticazione! Per favore controlla i tuoi username e password nell\'account manager del tuo telefono.</string>
 	<string name="gtasks_GLA_errorIOAuth">Ci scusiamo per il disagio, abbiamo dei problemi a comunicare con i server di Google. Per favore riprovare più tardi.</string>
+	<string name="gtasks_GPr_header">Attività Google</string>
 	<string name="gtasks_error_accountNotFound">Account %s non trovato--per favore fai logout e di nuovo login dalla configurazione di Google Tasks.</string>
 	<string name="gtasks_error_authRefresh">Impossibile autenticarsi con Google Tasks. Per favore verifica la tua password o ritenta più tardi.</string>
 	<string name="gtasks_error_accountManager">Account non trovato--per favore fai logout e di nuovo login dalla configurazione di Google Tasks.</string>
@@ -222,6 +256,7 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="audio_recording_title">Registrazione Audio</string>
 	<string name="audio_stop_recording">Fine Registrazione</string>
 	<string name="file_type_unhandled">Spiacente! Non è stata trovata nessuna applicazione per gestire questo tipo di file</string>
+	<string name="back">Indietro</string>
 	<string name="file_browser_title">Scegli un file</string>
 	<string name="dir_browser_title">Scegli una cartella</string>
 	<string name="file_browser_err_permissions">Errore di autorizzazioni! Assicurati di non aver bloccato l\'accesso alla scheda SD da parte di Tasks</string>
@@ -231,8 +266,11 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="file_dir_dialog_ok">Utilizza questa directory</string>
 	<string name="file_dir_dialog_default">Ripristino impostazioni iniziali</string>
 	<string name="premium_speech_bubble_2">Sottoscrivi 1 anno e risparmia il 25%%!</string>
+	<string name="ring_once">Suona una volta</string>
+	<string name="ring_five_times">Suona cinque volte</string>
+	<string name="ring_nonstop">Suono continuo</string>
 	<string-array name="TEA_reminder_random">
-		<item>an hour</item>
+		<item>un\'ora</item>
 		<item>ogni giorno</item>
 		<item>ogni settimana</item>
 		<item>ogni due settimane</item>
@@ -260,9 +298,10 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 		<item>mensilmente</item>
 		<item>bi-mensilmente</item>
 	</string-array>
-	<string name="repeat_enabled">Ripeti</string>
+	<string name="repeat_enabled">Ripetizioni</string>
 	<string name="repeat_every">Ogni %d</string>
 	<string name="repeat_interval_prompt">Intervallo di ripetizione</string>
+	<string name="repeat_never">Non ricorrente</string>
 	<string name="repeat_dont">Non ripetere</string>
 	<string-array name="repeat_interval">
 		<item>Giorno(i)</item>
@@ -273,11 +312,11 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 		<item>Anno(i)</item>
 	</string-array>
 	<string-array name="repeat_until_shortcuts">
-		<item>Forever</item>
-		<item>Specific Day</item>
+		<item>Per sempre</item>
+		<item>Giorno specifico</item>
 		<item>Oggi</item>
 		<item>Domani</item>
-		<item>(day after)</item>
+		<item>(giorno dopo)</item>
 		<item>Settimana Successiva</item>
 		<item>Ogni Due Settimane</item>
 		<item>Mese Successivo</item>
@@ -292,16 +331,25 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="repeat_detail_duedate_until">Ogni %1$s\nfino %2$s</string>
 	<string name="repeat_forever">Ripeti all\'infinito</string>
 	<string name="repeat_until">Ripeti fino %s</string>
+	<string name="repeat_snackbar">%1$s ripianificata per %2$s</string>
+	<string name="TEA_tags_label_long">Aggiungi alle liste</string>
+	<string name="new_tag">Nuova etichetta</string>
 	<string name="tag_no_title_error">Per cortesia, prima inserisci un nome per questa lista</string>
+	<string name="tag_FEx_untagged">Non classificato</string>
+	<string name="delete_tag_confirmation">Elimino %s?</string>
 	<string name="TPl_notification">Timer attivi per %s!</string>
 	<string name="TFE_workingOn">Attività cronometrate</string>
-	<string name="TEA_timer_comment_started">inizio attività</string>
-	<string name="TEA_timer_comment_stopped">fine attività</string>
+	<string name="TEA_timer_comment_started">attività iniziata:</string>
+	<string name="TEA_timer_comment_stopped">attività terminata:</string>
 	<string name="TEA_timer_comment_spent">Tempo speso:</string>
 	<string name="voice_create_prompt">Parla per creare un\'attività</string>
 	<string name="EPr_voiceInputEnabled_title">Voce</string>
 	<string name="EPr_voiceRemindersEnabled_title">Promemoria vocali</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks pronuncerà il nome dell\'attività durante i promemoria</string>
+	<string name="EPr_use_dark_theme">Tema scuro</string>
+	<string name="delete_task">Elimina attività</string>
+	<string name="voice_command_added_task">Attività aggiunta</string>
+	<string name="external_storage_unavailable">Non posso accedere alla memoria esterna</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 attività</item>
 		<item quantity="other">%d attività</item>
@@ -318,6 +366,69 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="sync_SPr_forget">Esci</string>
 	<string name="sync_SPr_forget_description">Cancella tutti i dati di sincronizzazione</string>
 	<string name="sync_forget_confirm">Esci / cancella i file di sincronizzazione?</string>
+	<string name="widget_hide_due_date">Nascondi scadenze</string>
+	<string name="widget_hide_checkboxes">Nascondi caselle di spunta</string>
+	<string name="widget_hide_header">Nascondi intestazione</string>
+	<string name="widget_transparent_background">Sfondo trasparente</string>
+	<string name="notifications">Notifiche</string>
+	<string name="silent">Silente</string>
+	<string name="sound">Sonoro</string>
+	<string name="vibrate">Vibrazione</string>
+	<string name="quiet_hours">Ore di quiete</string>
+	<string name="attachment_directory">Cartella allegati</string>
+	<string name="backup_directory">Cartella di Backup</string>
+	<string name="miscellaneous">Miscellanea</string>
+	<string name="synchronization">Sincronizzazione</string>
+	<string name="enabled">Abilitata</string>
+	<string name="font_size">Dimensione Carattere</string>
+	<string name="customize_edit_screen">Personalizza schermata di modifica</string>
+	<string name="source_code">Codice sorgente</string>
+	<string name="translations">Traduzioni</string>
+	<string name="report_an_issue">Segnala un problema</string>
+	<string name="help_and_feedback">Aiuto &amp; Suggerimenti</string>
+	<string name="contact_developer">Contatta lo sviluppatore</string>
+	<string name="rate_tasks">Attività</string>
+	<string name="quiet_hours_summary">Durante le ore di quiete né audio né vibrazione </string>
+	<string name="TLA_menu_donate">Dona</string>
+	<string name="error">Errore</string>
+	<string name="select_amount">Seleziona quantità</string>
+	<string name="notification_actions">Modalità di notifica</string>
+	<string name="notification_actions_summary">Mostra allarme e completa le azioni in notifica</string>
+	<string name="add_reminder">Aggiungi promemoria</string>
+	<string name="remove">Elimina</string>
+	<string name="randomly_once">In modo casuale</string>
+	<string name="randomly">Casualmente</string>
+	<string name="pick_a_date_and_time">Scegli data e ora</string>
+	<string name="pick_a_location">Seleziona una posizione</string>
+	<string name="type_a_location">Inserisci posizione</string>
+	<string name="when_overdue">Quando scaduta</string>
+	<string name="when_due">Alla scadenza</string>
+	<string name="geofence_radius_title">Raggio (metri)</string>
+	<string name="geofence_responsiveness_title">Tempo di risposta (valore elevato preserva batteria)</string>
+	<string name="geolocation_reminders">Promemoria Geolocalizzazione</string>
+	<string name="tags">Etichette</string>
+	<string name="filters">Filtri</string>
+	<string name="date_shortcuts">Scorciatoie data</string>
+	<string name="date_shortcut_hour">Per un\'ora</string>
+	<string name="date_shortcut_morning">Mattina</string>
+	<string name="date_shortcut_afternoon">Pomeriggio</string>
+	<string name="date_shortcut_evening">Sera</string>
+	<string name="date_shortcut_night">Notte</string>
+	<string name="date_shortcut_tomorrow_morning">Domani mattina</string>
+	<string name="date_shortcut_tomorrow_afternoon">Domani pomeriggio</string>
+	<string name="date_shortcut_must_come_before">%1$s deve precedere %2$s</string>
+	<string name="date_shortcut_must_come_after">%1$s deve essere successiva a %2$s</string>
+	<string name="discard_changes">Annullo le modifiche?</string>
+	<string name="discard">Abbandona</string>
+	<string name="tag_settings">Imposta etichetta</string>
+	<string name="delete">Elimina</string>
+	<string name="filter_settings">Preferenze di filtro</string>
+	<string name="deprecated_setting">L\'impostazione non sarà presente nel prossimo aggiornamento</string>
+	<string name="show_hidden">Mostra nascosti</string>
+	<string name="show_completed">Mostra completate</string>
+	<string name="reverse">Contrario</string>
+	<string name="task_count">%s Attività</string>
+	<string name="get_plugins">Carica Plug-in</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>disabilita</item>
 		<item>ogni quindici minuti</item>
