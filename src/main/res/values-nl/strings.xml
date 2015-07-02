@@ -95,15 +95,9 @@
 	<string name="TEA_control_hidden_section">----Altijd Verbergen----</string>
 	<string name="hide_until_prompt">Laat zien in mijn lijst</string>
 	<string name="TEA_load_more">Laad meer...</string>
-	<string name="MCA_title">%1$s\nheeft gebeld op (%2$s)</string>
 	<string name="MCA_return_call">Bel nu</string>
 	<string name="MCA_add_task">Bel later</string>
 	<string name="MCA_ignore">Negeren</string>
-	<string name="MCA_ignore_body">Je hebt alle gemiste oproepen genegeerd. Moet Tasks je er niet meer naar vragen?</string>
-	<string name="MCA_ignore_all">Negeer alle oproepen</string>
-	<string name="MCA_ignore_this">Negeer alleen deze oproep</string>
-	<string name="MCA_missed_calls_pref_title">Veld gemiste oproepen</string>
-	<string name="MCA_missed_calls_pref_desc_enabled">Tasks zal gemiste oproepen laten zien en een herinnering weergeven om terug te bellen</string>
 	<string name="MCA_task_title_name">Bel %1$s terug op %2$s</string>
 	<string name="MCA_task_title_no_name">Bel %s terug</string>
 	<string name="CRA_ignore">Negeren</string>

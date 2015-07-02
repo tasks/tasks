@@ -100,15 +100,9 @@
 	<string name="TEA_control_hidden_section">----항상 숨김----</string>
 	<string name="hide_until_prompt">내 목록에 표시</string>
 	<string name="TEA_load_more">더 불러오기...</string>
-	<string name="MCA_title">%1$s\n받은 시간: %2$s</string>
 	<string name="MCA_return_call">지금 전화하기</string>
 	<string name="MCA_add_task">나중에 전화하기</string>
 	<string name="MCA_ignore">무시하기</string>
-	<string name="MCA_ignore_body">부재중 전화를 몇 번 무시했습니다. Tasks의 부재중 전화 알림을 중지할까요?</string>
-	<string name="MCA_ignore_all">모든 전화 무시하기</string>
-	<string name="MCA_ignore_this">이 전화만 무시하기</string>
-	<string name="MCA_missed_calls_pref_title">부재중 전화 처리</string>
-	<string name="MCA_missed_calls_pref_desc_enabled">Tasks는 부재중 전화 내역과 이를 회신할 수 있도록 알려줍니다</string>
 	<string name="MCA_task_title_name">%1$s 님에게 %2$s 에 다시 연락하세요</string>
 	<string name="MCA_task_title_no_name">%s 님에게 다시 연락하세요</string>
 	<string name="CRA_ignore">무시하기</string>

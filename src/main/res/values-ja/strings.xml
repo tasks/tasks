@@ -100,15 +100,9 @@
 	<string name="TEA_control_hidden_section">----常に隠す----</string>
 	<string name="hide_until_prompt">私のリストに表示</string>
 	<string name="TEA_load_more">さらに読み込む...</string>
-	<string name="MCA_title">%1$s\n%2$s に呼び出しがありました</string>
 	<string name="MCA_return_call">いますぐ呼び出し</string>
 	<string name="MCA_add_task">後で呼び出し</string>
 	<string name="MCA_ignore">無視する</string>
-	<string name="MCA_ignore_body">いくつかの応答しなかった呼び出しを無視しました. その報告を停止しますか?</string>
-	<string name="MCA_ignore_all">すべての呼び出しを無視する</string>
-	<string name="MCA_ignore_this">この呼び出しのみ無視する</string>
-	<string name="MCA_missed_calls_pref_title">応答しなかった呼び出しの項目</string>
-	<string name="MCA_missed_calls_pref_desc_enabled">Tasks は応答しなかった呼び出しを通知して折り返し連絡するようにリマインドします</string>
 	<string name="MCA_task_title_name">%1$s に %2$s 折り返し連絡</string>
 	<string name="MCA_task_title_no_name">%s に折り返し連絡</string>
 	<string name="CRA_ignore">無視する</string>

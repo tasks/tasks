@@ -2,11 +2,16 @@ package org.tasks;
 
 import android.app.Notification;
 import android.app.PendingIntent;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
+import android.provider.ContactsContract;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.media.MediaDescriptionCompatApi21;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.data.TodorooCursor;
@@ -30,11 +35,15 @@ import org.tasks.notifications.NotificationManager;
 import org.tasks.notifications.TelephonyManager;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.CompleteTaskReceiver;
+import org.tasks.reminders.MissedCallActivity;
 import org.tasks.reminders.NotificationActivity;
 import org.tasks.reminders.SnoozeActivity;
 
+import java.io.InputStream;
+
 import javax.inject.Inject;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
 import static org.tasks.date.DateTimeUtils.currentTimeMillis;
 
 public class Notifier {
@@ -67,7 +76,67 @@ public class Notifier {
         this.preferences = preferences;
     }
 
-    public void triggerFilterNotification(String title, String query, String valuesForNewTasks) {
+    public void triggerMissedCallNotification(final String name, final String number, long contactId) {
+        final String title = context.getString(R.string.missed_call, TextUtils.isEmpty(name) ? number : name);
+
+        Intent missedCallDialog = new Intent(context, MissedCallActivity.class) {{
+            setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            putExtra(MissedCallActivity.EXTRA_NUMBER, number);
+            putExtra(MissedCallActivity.EXTRA_NAME, name);
+            putExtra(MissedCallActivity.EXTRA_TITLE, title);
+        }};
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+                .setSmallIcon(R.drawable.notif_astrid)
+                .setTicker(title)
+                .setContentTitle(title)
+                .setContentText(context.getString(R.string.app_name))
+                .setWhen(System.currentTimeMillis())
+                .setContentIntent(PendingIntent.getActivity(context, missedCallDialog.hashCode(), missedCallDialog, PendingIntent.FLAG_UPDATE_CURRENT));
+
+        Bitmap contactImage = getContactImage(contactId);
+        if (contactImage != null) {
+            builder.setLargeIcon(contactImage);
+        }
+
+        if (preferences.useNotificationActions()) {
+            Intent callNow = new Intent(context, MissedCallActivity.class) {{
+                setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                putExtra(MissedCallActivity.EXTRA_NUMBER, number);
+                putExtra(MissedCallActivity.EXTRA_NAME, name);
+                putExtra(MissedCallActivity.EXTRA_TITLE, title);
+                putExtra(MissedCallActivity.EXTRA_CALL_NOW, true);
+            }};
+            Intent callLater = new Intent(context, MissedCallActivity.class) {{
+                setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                putExtra(MissedCallActivity.EXTRA_NUMBER, number);
+                putExtra(MissedCallActivity.EXTRA_NAME, name);
+                putExtra(MissedCallActivity.EXTRA_TITLE, title);
+                putExtra(MissedCallActivity.EXTRA_CALL_LATER, true);
+            }};
+            builder
+                    .addAction(R.drawable.ic_phone_white_24dp, context.getString(R.string.MCA_return_call), PendingIntent.getActivity(context, callNow.hashCode(), callNow, PendingIntent.FLAG_UPDATE_CURRENT))
+                    .addAction(R.drawable.ic_add_white_24dp, context.getString(R.string.MCA_add_task), PendingIntent.getActivity(context, callLater.hashCode(), callLater, PendingIntent.FLAG_UPDATE_CURRENT));
+        }
+
+        activateNotification(1, number.hashCode(), builder.build(), null);
+    }
+
+    private Bitmap getContactImage(long contactId) {
+        Bitmap b = null;
+        if (contactId >= 0) {
+            Uri uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, contactId);
+            InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(context.getContentResolver(), uri);
+            try {
+                b = BitmapFactory.decodeStream(input);
+            } catch (OutOfMemoryError e) {
+                log.error(e.getMessage(), e);
+            }
+        }
+        return b;
+    }
+
+    public void triggerFilterNotification(final String title, final String query, final String valuesForNewTasks) {
         TodorooCursor<Task> taskTodorooCursor = null;
         int count;
         try {
@@ -90,7 +159,22 @@ public class Notifier {
 
         String subtitle = context.getString(R.string.task_count, count);
 
-        showFilterNotification(title, subtitle, query, valuesForNewTasks);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, (title + query).hashCode(), new Intent(context, TaskListActivity.class) {{
+            setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_MULTIPLE_TASK);
+            putExtra(TaskListActivity.TOKEN_SWITCH_TO_FILTER, new Filter(title, query, AndroidUtilities.contentValuesFromSerializedString(valuesForNewTasks)));
+        }}, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Notification notification = new NotificationCompat.Builder(context)
+                .setSmallIcon(R.drawable.notif_astrid)
+                .setTicker(title)
+                .setWhen(System.currentTimeMillis())
+                .setContentTitle(title)
+                .setContentText(subtitle)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+                .build();
+
+        activateNotification(1, (title + query).hashCode(), notification, null);
     }
 
     public void triggerTaskNotification(long id, int type) {
@@ -155,75 +239,36 @@ public class Notifier {
             putExtra(NotificationActivity.EXTRA_TITLE, taskTitle);
         }};
 
-        showTaskNotification(
-                (int) id,
-                id,
-                PendingIntent.getActivity(context, (int) id, intent, PendingIntent.FLAG_UPDATE_CURRENT),
-                type,
-                taskTitle,
-                text,
-                ringTimes);
-
-        return true;
-    }
-
-    private void showFilterNotification(final String title, String subtitle, final String query, final String valuesForNewTasks) {
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, (title + query).hashCode(), new Intent(context, TaskListActivity.class) {{
-            setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_MULTIPLE_TASK);
-            putExtra(TaskListActivity.TOKEN_SWITCH_TO_FILTER, new Filter(title, query, AndroidUtilities.contentValuesFromSerializedString(valuesForNewTasks)));
-        }}, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.notif_astrid)
-                .setTicker(title)
-                .setWhen(System.currentTimeMillis())
-                .setContentTitle(title)
-                .setContentText(subtitle)
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true);
-
-        Notification notification = builder.build();
-
-        activateNotification(1, (title + query).hashCode(), notification, "Poop");
-    }
-
-    /**
-     * Shows an Astrid notification. Pulls in ring tone and quiet hour settings
-     * from preferences. You can make it say anything you like.
-     *
-     * @param ringTimes number of times to ring (-1 = nonstop)
-     */
-    private void showTaskNotification(int notificationId, final long taskId, final PendingIntent pendingIntent, int type, String title,
-                                     String text, int ringTimes) {
+        int ringTimes1 = ringTimes;
         // don't ring multiple times if random reminder
         if (type == ReminderService.TYPE_RANDOM) {
-            ringTimes = 1;
+            ringTimes1 = 1;
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.notif_astrid)
-                .setTicker(title)
+                .setTicker(taskTitle)
                 .setWhen(System.currentTimeMillis())
-                .setContentTitle(title)
+                .setContentTitle(taskTitle)
                 .setContentText(text)
-                .setContentIntent(pendingIntent);
+                .setContentIntent(PendingIntent.getActivity(context, (int) id, intent, PendingIntent.FLAG_UPDATE_CURRENT));
         if (preferences.useNotificationActions()) {
-            PendingIntent completeIntent = PendingIntent.getBroadcast(context, notificationId, new Intent(context, CompleteTaskReceiver.class) {{
-                putExtra(CompleteTaskReceiver.TASK_ID, taskId);
+            PendingIntent completeIntent = PendingIntent.getBroadcast(context, (int) id, new Intent(context, CompleteTaskReceiver.class) {{
+                putExtra(CompleteTaskReceiver.TASK_ID, id);
             }}, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            PendingIntent snoozePendingIntent = PendingIntent.getActivity(context, notificationId, new Intent(context, SnoozeActivity.class) {{
+            PendingIntent snoozePendingIntent = PendingIntent.getActivity(context, (int) id, new Intent(context, SnoozeActivity.class) {{
                 setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                putExtra(SnoozeActivity.EXTRA_TASK_ID, taskId);
+                putExtra(SnoozeActivity.EXTRA_TASK_ID, id);
             }}, PendingIntent.FLAG_UPDATE_CURRENT);
 
             builder.addAction(R.drawable.ic_check_white_24dp, context.getResources().getString(R.string.rmd_NoA_done), completeIntent)
                     .addAction(R.drawable.ic_snooze_white_24dp, context.getResources().getString(R.string.rmd_NoA_snooze), snoozePendingIntent);
         }
 
-        Notification notification = builder.build();
+        activateNotification(ringTimes1, (int) id, builder.build(), text);
 
-        activateNotification(ringTimes, notificationId, notification, text);
+        return true;
     }
 
     private void activateNotification(int ringTimes, int notificationId, Notification notification, String text) {
@@ -236,7 +281,7 @@ public class Notifier {
             notification.defaults = Notification.DEFAULT_LIGHTS;
         }
 
-        boolean voiceReminder = preferences.getBoolean(R.string.p_voiceRemindersEnabled, false);
+        boolean voiceReminder = preferences.getBoolean(R.string.p_voiceRemindersEnabled, false) && !isNullOrEmpty(text);
 
         // if multi-ring is activated and the setting p_rmd_maxvolume allows it, set up the flags for insistent
         // notification, and increase the volume to full volume, so the user

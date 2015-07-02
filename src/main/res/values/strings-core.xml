@@ -207,8 +207,7 @@
   
   <!-- ===================================================== MissedCallActivity == -->
   
-  <!-- Missed call: return call (%1$s -> caller, %2$s -> time of call)-->
-  <string name="MCA_title"> %1$s\ncalled at %2$s</string>
+  <string name="missed_call">Missed call from %s</string>
 
   <!-- Missed call: return call -->
   <string name="MCA_return_call">Call now</string>
@@ -218,21 +217,8 @@
 
   <!-- Missed call: return call -->
   <string name="MCA_ignore">Ignore</string>
-  
-  <!-- Missed call: dialog to ignore all missed calls body -->
-  <string name="MCA_ignore_body">You\'ve ignored several missed calls. Should Tasks stop asking you about them?</string>
 
-  <!-- Missed call: dialog to ignore all missed calls ignore all button -->
-  <string name="MCA_ignore_all">Ignore all calls</string>
-
-  <!-- Missed call: dialog to ignore all missed calls ignore just this button -->
-  <string name="MCA_ignore_this">Ignore this call only</string>
-
-  <!-- Missed call: preference title -->
-  <string name="MCA_missed_calls_pref_title">Field missed calls</string>
-
-  <!-- slide 49c: Missed call: preference description -->
-  <string name="MCA_missed_calls_pref_desc_enabled">Tasks will notify you about missed calls and offer to remind you to call back</string>
+  <string name="missed_calls">Missed Calls</string>
 
   <!-- Missed call: task title with name (%1$s -> name, %2$s -> number)-->
   <string name="MCA_task_title_name">Call %1$s back at %2$s</string>

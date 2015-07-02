@@ -97,15 +97,9 @@
 	<string name="TEA_control_hidden_section">Всегда скрывать</string>
 	<string name="hide_until_prompt">Показать в моем листе</string>
 	<string name="TEA_load_more">Загрузить больше...</string>
-	<string name="MCA_title">%1$s\nзвонил(а) в %2$s</string>
 	<string name="MCA_return_call">Позвонить сейчас</string>
 	<string name="MCA_add_task">Позвонить позже</string>
 	<string name="MCA_ignore">Игнорировать</string>
-	<string name="MCA_ignore_body">Вы проигнорировали несколько пропущенных звонков. Больше не спрашивать про них?</string>
-	<string name="MCA_ignore_all">Игнорировать все звонки</string>
-	<string name="MCA_ignore_this">Игнорировать только этот звонок</string>
-	<string name="MCA_missed_calls_pref_title">Пропущенные звонки</string>
-	<string name="MCA_missed_calls_pref_desc_enabled">Tasks будет уведомлять вас о пропущенных звонках и предложит вам перезвонить</string>
 	<string name="MCA_task_title_name">Перезвонить %1$s в %2$s</string>
 	<string name="MCA_task_title_no_name">Перезвонить %s</string>
 	<string name="CRA_ignore">Игнорировать</string>

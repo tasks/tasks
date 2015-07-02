@@ -321,7 +321,7 @@
             android:theme="@style/Tasks"/>
 
         <activity
-            android:name="com.todoroo.astrid.calls.MissedCallActivity"
+            android:name=".reminders.MissedCallActivity"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
             android:taskAffinity=""

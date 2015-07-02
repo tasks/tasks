@@ -98,15 +98,9 @@
 	<string name="TEA_control_hidden_section">----Immer Verbergen----</string>
 	<string name="hide_until_prompt">Anzeigen in meiner Liste</string>
 	<string name="TEA_load_more">Weitere laden …</string>
-	<string name="MCA_title">%1$s hat um %2$s angerufen</string>
 	<string name="MCA_return_call">Jetzt anrufen</string>
 	<string name="MCA_add_task">Später anrufen</string>
 	<string name="MCA_ignore">Ignorieren</string>
-	<string name="MCA_ignore_body">Sie haben mehrere versäumte Anrufe ignoriert. Soll Tasks nicht mehr danach fragen?</string>
-	<string name="MCA_ignore_all">Alle Anrufe ignorieren</string>
-	<string name="MCA_ignore_this">Nur diesen Anruf ignorieren</string>
-	<string name="MCA_missed_calls_pref_title">Verpasste Anrufe</string>
-	<string name="MCA_missed_calls_pref_desc_enabled">Tasks wird Sie über versäumte Anrufe informieren und an Rückrufe erinnern</string>
 	<string name="MCA_task_title_name">%1$s unter %2$s zurückrufen</string>
 	<string name="MCA_task_title_no_name">%s zurückrufen</string>
 	<string name="CRA_ignore">Ablehnen</string>

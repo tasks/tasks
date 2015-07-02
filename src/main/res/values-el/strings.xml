@@ -93,15 +93,9 @@
 	<string name="TEA_control_hidden_section">-----Απόκρυψη πάντα-----</string>
 	<string name="hide_until_prompt">Εμφάνιση στην λίστα μου</string>
 	<string name="TEA_load_more">Φόρτωση περισσότερων</string>
-	<string name="MCA_title">%1$s\nκάλεσε στίς %2$s</string>
 	<string name="MCA_return_call">Κάλεσε τώρα</string>
 	<string name="MCA_add_task">Κάλεσε αργότερα</string>
 	<string name="MCA_ignore">Αγνοήστε</string>
-	<string name="MCA_ignore_body">Αγνοήσατε αρκετές κλήσεις. Να σταματήσουμε να ρωτάμε για αυτές;</string>
-	<string name="MCA_ignore_all">Αγνόηση όλων των χαμένων κλησεων</string>
-	<string name="MCA_ignore_this">Άγνόηση μόνο αυτής της κλήσης</string>
-	<string name="MCA_missed_calls_pref_title">Πεδίο αναπάντητων κλήσεων</string>
-	<string name="MCA_missed_calls_pref_desc_enabled">Η εφαρμογή θα σας ενημερώσει για αναπάντητες κλήσεις και θα σας υπενθυμίσει για να τις απαντήσετε μετά</string>
 	<string name="MCA_task_title_name">Ξανακαλέστε %1$s στίς %2$s</string>
 	<string name="MCA_task_title_no_name">Ξανακαλέστε %s</string>
 	<string name="CRA_ignore">Αγνοήστε</string>

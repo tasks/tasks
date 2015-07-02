@@ -99,15 +99,9 @@
 	<string name="TEA_control_hidden_section">---Ocultar Siempre---</string>
 	<string name="hide_until_prompt">Mostrar en mi lista</string>
 	<string name="TEA_load_more">Cargar mas...</string>
-	<string name="MCA_title">%1$s\nllamó a las %2$s</string>
 	<string name="MCA_return_call">Llamar ahora</string>
 	<string name="MCA_add_task">Llamar luego</string>
 	<string name="MCA_ignore">Ignorar</string>
-	<string name="MCA_ignore_body">Ha ignorado varias llamadas perdidas. ¿Quiere que Tasks deje de preguntarle sobre ellas?</string>
-	<string name="MCA_ignore_all">Ignorar todas las llamadas</string>
-	<string name="MCA_ignore_this">Ignorar solamente esta llamada</string>
-	<string name="MCA_missed_calls_pref_title">Campo de llamadas perdidas</string>
-	<string name="MCA_missed_calls_pref_desc_enabled">Tasks le notificará de las llamadas perdidas y le recordará que devuelva la llamada.</string>
 	<string name="MCA_task_title_name">Devolver la llamada a %1$s al %2$s</string>
 	<string name="MCA_task_title_no_name">Devolver la llamada a %s</string>
 	<string name="CRA_ignore">Ignorar</string>

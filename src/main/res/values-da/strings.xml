@@ -74,7 +74,6 @@
 	<string name="TEA_control_hidden_section">----Skjul altid----</string>
 	<string name="hide_until_prompt">Vis i min liste</string>
 	<string name="TEA_load_more">Indlæs flere...</string>
-	<string name="MCA_title">%1$s\ncalled at %2$s</string>
 	<string name="CRA_ignore_all">Ignorér alle begivenheder</string>
 	<string name="CRA_ignore_this">Ignorér kun denne begivenhed</string>
 	<string name="CRA_dont_invite">Nej tak</string>

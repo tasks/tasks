@@ -97,15 +97,9 @@
 	<string name="TEA_control_hidden_section">---- Toujours masquer ----</string>
 	<string name="hide_until_prompt">Montrer dans ma liste</string>
 	<string name="TEA_load_more">Charger plus...</string>
-	<string name="MCA_title">\"%1$s\na appelé à  %2$s\"</string>
 	<string name="MCA_return_call">Appeler maintenant</string>
 	<string name="MCA_add_task">Appeler plus tard</string>
 	<string name="MCA_ignore">Ignorer</string>
-	<string name="MCA_ignore_body">Vous avez ignoré plusieurs appels manqués. Tasks doit-il arrêter de vous questionner à ce propos?</string>
-	<string name="MCA_ignore_all">Ignorer tous les appels</string>
-	<string name="MCA_ignore_this">Ignorer cet appel seulement</string>
-	<string name="MCA_missed_calls_pref_title">Champ des appels manqués.</string>
-	<string name="MCA_missed_calls_pref_desc_enabled">Atrid vous avertira en cas d\'appels manqués et vous proposera de rappeler.</string>
 	<string name="MCA_task_title_name">Rappeler %1$s au %2$s</string>
 	<string name="MCA_task_title_no_name">Rappeler %s</string>
 	<string name="CRA_ignore">Ignorer</string>

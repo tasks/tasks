@@ -74,8 +74,6 @@
 	<string name="MCA_return_call">اتصل الان</string>
 	<string name="MCA_add_task">اتصل لاحقاً</string>
 	<string name="MCA_ignore">تجاهل</string>
-	<string name="MCA_ignore_all">تجاهل جميع المكالمات</string>
-	<string name="MCA_ignore_this">تجاهل هذه المكالمة فقط</string>
 	<string name="CRA_ignore">تجاهل</string>
 	<string name="CRA_title">تريد قائمة للمقابلات؟</string>
 	<string name="CRA_ignore_all">تجاهل جميع الأحداث</string>

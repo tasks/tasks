@@ -94,15 +94,9 @@
 	<string name="TEA_control_hidden_section">----Zawsze Ukryte----</string>
 	<string name="hide_until_prompt">Pokaż na mojej liście</string>
 	<string name="TEA_load_more">Wczytaj więcej...</string>
-	<string name="MCA_title">%1$s\ndzwonił\\-a o %2$s</string>
 	<string name="MCA_return_call">Zadzwoń teraz</string>
 	<string name="MCA_add_task">Zadzwoń później</string>
 	<string name="MCA_ignore">Ignoruj</string>
-	<string name="MCA_ignore_body">Zignorowano kilka nieodebranych połączeń. Czy Tasks ma Cię już więcej o nie nie pytać?</string>
-	<string name="MCA_ignore_all">Zignoruj wszystkie połączenia.</string>
-	<string name="MCA_ignore_this">Zignoruj tylko to połączenie.</string>
-	<string name="MCA_missed_calls_pref_title">Obszar nieodebranych połączeń</string>
-	<string name="MCA_missed_calls_pref_desc_enabled">Tasks będzie powiadamiał Cię o nieodebranych połączeniach i przypomni Ci o oddzwonieniu.</string>
 	<string name="MCA_task_title_name">Oddzwoń do %1$s o %2$s</string>
 	<string name="MCA_task_title_no_name">Oddzwoń do %s</string>
 	<string name="CRA_ignore">Ignoruj</string>

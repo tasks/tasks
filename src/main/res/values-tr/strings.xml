@@ -82,15 +82,9 @@
 	<string name="TEA_control_hidden_section">----Her Zaman Gizle----</string>
 	<string name="hide_until_prompt">Listemde göster</string>
 	<string name="TEA_load_more">Daha yükle...</string>
-	<string name="MCA_title">%1$s aradı\nzamanı: %2$s</string>
 	<string name="MCA_return_call">Şimdi ara</string>
 	<string name="MCA_add_task">Sonra ara</string>
 	<string name="MCA_ignore">Yoksay</string>
-	<string name="MCA_ignore_body">Birkaç çağrıyı yoksaydınız. Tasks bunlar hakkında soru sormayı kessin mi?</string>
-	<string name="MCA_ignore_all">Tüm çağrıları yoksay</string>
-	<string name="MCA_ignore_this">Yalnızca bu çağrıyı yoksay</string>
-	<string name="MCA_missed_calls_pref_title">Cevapsız çağrı alanı</string>
-	<string name="MCA_missed_calls_pref_desc_enabled">Tasks cevapsız çağrıları size bildirecek ve geri aramanız için hatırlatacak</string>
 	<string name="MCA_task_title_name">%1$s kişisini geri ara: %2$s</string>
 	<string name="MCA_task_title_no_name">%s kişisini geri ara</string>
 	<string name="CRA_ignore">Yoksay</string>

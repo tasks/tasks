@@ -102,15 +102,9 @@
 	<string name="TEA_control_hidden_section">----Винаги скрито----</string>
 	<string name="hide_until_prompt">Покажи в моят списък</string>
 	<string name="TEA_load_more">Зареди повече...</string>
-	<string name="MCA_title">%1$s\n се обади на %2$s</string>
 	<string name="MCA_return_call">Обади се сега</string>
 	<string name="MCA_add_task">Обади се по-късно</string>
 	<string name="MCA_ignore">Игнорирай</string>
-	<string name="MCA_ignore_body">Вие пренебрегнахте няколко пропуснати повиквания. Трябва ли Tasks да спре да пита за тях?</string>
-	<string name="MCA_ignore_all">Игнорирай всички обаждания</string>
-	<string name="MCA_ignore_this">Игнорирай само това обаждане</string>
-	<string name="MCA_missed_calls_pref_title">Пропуснати обаждания</string>
-	<string name="MCA_missed_calls_pref_desc_enabled">Tasks ще ви уведомява за пропуснати повиквания и ще предлага да напомни да се обадите</string>
 	<string name="MCA_task_title_name">Обади се на %1$s на %2$s</string>
 	<string name="MCA_task_title_no_name">Обади се на %s </string>
 	<string name="CRA_ignore">Игнорирай</string>

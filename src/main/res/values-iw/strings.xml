@@ -93,15 +93,9 @@
 	<string name="TEA_control_hidden_section">----מוסתר תמיד----</string>
 	<string name="hide_until_prompt">הצג ברשימה שלי</string>
 	<string name="TEA_load_more">טען עוד...</string>
-	<string name="MCA_title">%1$s \nהתקשר ב־%2$s</string>
 	<string name="MCA_return_call">התקשר כעת</string>
 	<string name="MCA_add_task">התקשר מאוחר יותר</string>
 	<string name="MCA_ignore">התעלם</string>
-	<string name="MCA_ignore_body">התעלמת ממספר שיחות שלא נענו. האם עלי לחדול מלהזכיר שיחות שלא נענו?</string>
-	<string name="MCA_ignore_all">התעלם מכל השיחות</string>
-	<string name="MCA_ignore_this">התעלם משיחה זו בלבד</string>
-	<string name="MCA_missed_calls_pref_title">תייק שיחות שלא נענו</string>
-	<string name="MCA_missed_calls_pref_desc_enabled">אסטריד תודיע לך על שיחות שלא נענו, ותציע להזכיר לך להחזיר שיחה.</string>
 	<string name="MCA_task_title_name">\"החזר שיחה ל־%1$s  ב־%2$s\"</string>
 	<string name="MCA_task_title_no_name">החזר שיחה ל־%s</string>
 	<string name="CRA_ignore">התעלם</string>

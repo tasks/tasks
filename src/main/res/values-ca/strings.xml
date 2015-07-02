@@ -89,12 +89,9 @@
 	<string name="TEA_control_hidden_section">----Oculta-ho sempre----</string>
 	<string name="hide_until_prompt">Mostra a la meva llista</string>
 	<string name="TEA_load_more">Carrega més...</string>
-	<string name="MCA_title">En/na %1$s\nha trucat a les %2$s</string>
 	<string name="MCA_return_call">Truca ara</string>
 	<string name="MCA_add_task">Truca després</string>
 	<string name="MCA_ignore">Ignora</string>
-	<string name="MCA_ignore_all">Ignora totes les trucades</string>
-	<string name="MCA_ignore_this">Ignora només aquesta trucada</string>
 	<string name="MCA_task_title_name">Retorna la trucada a en/na %1$s a %2$s</string>
 	<string name="MCA_task_title_no_name">Retorna la trucada a %s</string>
 	<string name="EPr_title">Tasks: Paràmetres</string>

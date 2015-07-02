@@ -97,15 +97,9 @@
 	<string name="TEA_control_hidden_section">----Skryť vždy----</string>
 	<string name="hide_until_prompt">Zobraziť v mojom zozname</string>
 	<string name="TEA_load_more">Načítať viac</string>
-	<string name="MCA_title">%1$s\nti volal/-a o %2$s</string>
 	<string name="MCA_return_call">Volať teraz</string>
 	<string name="MCA_add_task">Volať neskôr</string>
 	<string name="MCA_ignore">Ignorovať</string>
-	<string name="MCA_ignore_body">Ignoroval si niekoľko zmeškaných hovorov. Chceš aby sa Tasks prestali na ne pýtať?</string>
-	<string name="MCA_ignore_all">Ignorovať všetky hovory</string>
-	<string name="MCA_ignore_this">Ignorovať iba tento hovor</string>
-	<string name="MCA_missed_calls_pref_title">Zachytiť zmeškané hovory</string>
-	<string name="MCA_missed_calls_pref_desc_enabled">Tasks ťa upozorní na zmeškané hovory a ponúkne ti pripomienku na zavolanie späť</string>
 	<string name="MCA_task_title_name">Zavolať %1$s späť o %2$s</string>
 	<string name="MCA_task_title_no_name">Zavolať %s späť</string>
 	<string name="CRA_ignore">Ignorovať</string>

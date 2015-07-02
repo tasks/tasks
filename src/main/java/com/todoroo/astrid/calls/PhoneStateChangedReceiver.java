@@ -19,13 +19,11 @@ import com.todoroo.andlib.utility.DateUtilities;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tasks.R;
+import org.tasks.Notifier;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
-
-import static org.tasks.date.DateTimeUtils.newDate;
 
 public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
 
@@ -36,12 +34,13 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
     private static final long WAIT_BEFORE_READ_LOG = 3000L;
 
     @Inject Preferences preferences;
+    @Inject Notifier notifier;
 
     @Override
     public void onReceive(final Context context, Intent intent) {
         super.onReceive(context, intent);
 
-        if (!preferences.getBoolean(R.string.p_field_missed_calls, false)) {
+        if (!preferences.fieldMissedPhoneCalls()) {
             preferences.clear(PREF_LAST_INCOMING_NUMBER);
             return;
         }
@@ -119,17 +118,9 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
                             int nameIndex = calls.getColumnIndex(Calls.CACHED_NAME);
                             String name = calls.getString(nameIndex);
 
-                            String timeString = DateUtilities.getTimeString(context, newDate(date));
-
                             long contactId = getContactIdFromNumber(context, number);
 
-                            Intent missedCallIntent = new Intent(context, MissedCallActivity.class);
-                            missedCallIntent.putExtra(MissedCallActivity.EXTRA_NUMBER, number);
-                            missedCallIntent.putExtra(MissedCallActivity.EXTRA_NAME, name);
-                            missedCallIntent.putExtra(MissedCallActivity.EXTRA_TIME, timeString);
-                            missedCallIntent.putExtra(MissedCallActivity.EXTRA_CONTACT_ID, contactId);
-                            missedCallIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            context.startActivity(missedCallIntent);
+                            notifier.triggerMissedCallNotification(name, number, contactId);
                         }
                     } catch (Exception e) {
                         log.error(e.getMessage(), e);

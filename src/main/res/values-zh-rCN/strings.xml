@@ -82,15 +82,9 @@
 	<string name="TEA_control_hidden_section">----始终隐藏----</string>
 	<string name="hide_until_prompt">在我的列表中显示</string>
 	<string name="TEA_load_more">加载更多……</string>
-	<string name="MCA_title">%1$s\n在 %2$s 给您打过电话</string>
 	<string name="MCA_return_call">现在回电</string>
 	<string name="MCA_add_task">稍后回电</string>
 	<string name="MCA_ignore">忽略</string>
-	<string name="MCA_ignore_body">您已经忽略了几个未接电话。对于这些电话，清单小助理是否应该不再询问您呢？</string>
-	<string name="MCA_ignore_all">忽略所有来电</string>
-	<string name="MCA_ignore_this">只忽略这个来电</string>
-	<string name="MCA_missed_calls_pref_title">及时回复未接电话</string>
-	<string name="MCA_missed_calls_pref_desc_enabled">清单小助理会向您报告未接电话，还会提供回电的提醒</string>
 	<string name="MCA_task_title_name">请回电给 %1$s，电话是 %2$s</string>
 	<string name="MCA_task_title_no_name">请回电给 %s</string>
 	<string name="CRA_ignore">忽略</string>

@@ -38,6 +38,11 @@
         android:summaryOff="@string/rmd_EPr_persistent_desc_false"
         android:summaryOn="@string/rmd_EPr_persistent_desc_true"
         android:title="@string/rmd_EPr_persistent_title" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:dependency="@string/p_rmd_enabled"
+        android:key="@string/p_field_missed_calls"
+        android:title="@string/missed_calls" />
     <org.tasks.ui.TimePreference
         android:defaultValue="@integer/default_remind_time"
         android:dependency="@string/p_rmd_enabled"

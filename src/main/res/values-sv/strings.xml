@@ -94,15 +94,9 @@
 	<string name="TEA_control_hidden_section">----Göm alltid----</string>
 	<string name="hide_until_prompt">Visa i min lista</string>
 	<string name="TEA_load_more">Ladda mer...</string>
-	<string name="MCA_title">%1$s\nringde kl %2$s</string>
 	<string name="MCA_return_call">Ring nu</string>
 	<string name="MCA_add_task">Ring senare</string>
 	<string name="MCA_ignore">Ignorera</string>
-	<string name="MCA_ignore_body">Du har ignorerat flera missade samtal. Vill du att Tasks slutar fråga dig om dem?</string>
-	<string name="MCA_ignore_all">Ignorera alla samtal</string>
-	<string name="MCA_ignore_this">Ignorera endast detta samtal</string>
-	<string name="MCA_missed_calls_pref_title">Fält missade samtal</string>
-	<string name="MCA_missed_calls_pref_desc_enabled">Tasks meddelar dig om missade samtal och ger dig möjligheten att få påminnelse om att ringa tillbaka</string>
 	<string name="MCA_task_title_name">Ring %1$s tillbaka kl %2$s</string>
 	<string name="MCA_task_title_no_name">Ring %s tillbaka</string>
 	<string name="CRA_ignore">Ignorera</string>

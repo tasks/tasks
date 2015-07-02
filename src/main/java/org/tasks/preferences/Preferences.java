@@ -150,6 +150,14 @@ public class Preferences {
         }
     }
 
+    public boolean notificationsEnabled() {
+        return getBoolean(R.string.p_rmd_enabled, true);
+    }
+
+    public boolean fieldMissedPhoneCalls() {
+        return getBoolean(R.string.p_field_missed_calls, true) && notificationsEnabled();
+    }
+
     public boolean getBoolean(int keyResources, boolean defValue) {
         return getBoolean(context.getString(keyResources), defValue);
     }

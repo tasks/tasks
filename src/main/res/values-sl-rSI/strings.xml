@@ -97,15 +97,9 @@
 	<string name="TEA_control_hidden_section">----Vedno skrij----</string>
 	<string name="hide_until_prompt">Pokaži v mojem seznamu</string>
 	<string name="TEA_load_more">Naloži še...</string>
-	<string name="MCA_title">%1$s\nbil klican ob%2$s</string>
 	<string name="MCA_return_call">Kliči zdaj</string>
 	<string name="MCA_add_task">Kliči kasneje</string>
 	<string name="MCA_ignore">Ignoriraj</string>
-	<string name="MCA_ignore_body">Ignorirali ste številne zgrešene klice. Naj vas aplikacija Opravki neha spraševati o zgrešenih klicih?</string>
-	<string name="MCA_ignore_all">Ignoriraj vse klice</string>
-	<string name="MCA_ignore_this">Ignoriraj samo ta klic</string>
-	<string name="MCA_missed_calls_pref_title">Zabeleži zgrešene klice</string>
-	<string name="MCA_missed_calls_pref_desc_enabled">Aplikacija Opravki vas bo obvestila o zgrešenih klicih in ponudila opomnik za vrnitev klicev</string>
 	<string name="MCA_task_title_name">%1$s pokliči nazaj ob %2$s</string>
 	<string name="MCA_task_title_no_name">Vrni klic %s </string>
 	<string name="CRA_ignore">Ignoriraj</string>
