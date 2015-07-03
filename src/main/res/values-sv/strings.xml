@@ -58,7 +58,6 @@
 	<string name="TEA_hideUntil_label">Dölj tills</string>
 	<string name="TEA_hideUntil_display">Dölj tills %s</string>
 	<string name="TEA_note_label">Beskrivning</string>
-	<string name="TEA_notes_empty">Beskrivning</string>
 	<string name="TEA_estimatedDuration_label">Hur lång tid kommer det att ta?</string>
 	<string name="TEA_elapsedDuration_label">Tid redan spenderad på uppgiften</string>
 	<string name="TEA_menu_save">Spara ändringar</string>

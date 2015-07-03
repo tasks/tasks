@@ -60,7 +60,6 @@
 	<string name="TEA_hideUntil_label">非表示の期限</string>
 	<string name="TEA_hideUntil_display">%s まで表示しない</string>
 	<string name="TEA_note_label">概要</string>
-	<string name="TEA_notes_empty">概要...</string>
 	<string name="TEA_estimatedDuration_label">所要時間は?</string>
 	<string name="TEA_elapsedDuration_label">既にタスクに費やした時間</string>
 	<string name="TEA_menu_save">変更の保存</string>

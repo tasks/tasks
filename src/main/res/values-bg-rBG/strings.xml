@@ -63,7 +63,6 @@
 	<string name="TEA_hideUntil_label">Скрий до</string>
 	<string name="TEA_hideUntil_display">Скрий до %s</string>
 	<string name="TEA_note_label">Описание</string>
-	<string name="TEA_notes_empty">Описание...</string>
 	<string name="TEA_estimatedDuration_label">Колко време ще отнеме?</string>
 	<string name="TEA_elapsedDuration_label">Време, което вече е отделено</string>
 	<string name="TEA_menu_save">Запази промените</string>

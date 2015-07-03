@@ -57,7 +57,6 @@
 	<string name="TEA_hideUntil_label">隱藏直到</string>
 	<string name="TEA_hideUntil_display">隱藏直到 %s</string>
 	<string name="TEA_note_label">描述</string>
-	<string name="TEA_notes_empty">描述...</string>
 	<string name="TEA_estimatedDuration_label">要花多久時間?</string>
 	<string name="TEA_elapsedDuration_label">已經用掉的時間</string>
 	<string name="TEA_menu_save">儲存變更</string>

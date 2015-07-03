@@ -58,7 +58,6 @@
 	<string name="TEA_hideUntil_label">Verbergen bis</string>
 	<string name="TEA_hideUntil_display">Verbergen bis %s</string>
 	<string name="TEA_note_label">Beschreibung</string>
-	<string name="TEA_notes_empty">Beschreibung ...</string>
 	<string name="TEA_estimatedDuration_label">Wie lange wird es dauern?</string>
 	<string name="TEA_elapsedDuration_label">Zeit, die schon für die Aufgabe gebraucht wurde</string>
 	<string name="TEA_menu_save">Änderungen speichern</string>

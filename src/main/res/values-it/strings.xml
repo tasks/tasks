@@ -60,7 +60,6 @@
 	<string name="TEA_hideUntil_label">Nascondi fino al</string>
 	<string name="TEA_hideUntil_display">Nascondi fino al %s</string>
 	<string name="TEA_note_label">Descrizione</string>
-	<string name="TEA_notes_empty">Descrizione...</string>
 	<string name="TEA_estimatedDuration_label">Quanto tempo impiegherà?</string>
 	<string name="TEA_elapsedDuration_label">Tempo già speso per l\'attività</string>
 	<string name="TEA_menu_save">Salva le modifiche</string>

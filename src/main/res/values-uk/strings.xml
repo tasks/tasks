@@ -61,7 +61,6 @@
 	<string name="TEA_hideUntil_label">Приховати до</string>
 	<string name="TEA_hideUntil_display">Приховати до %s</string>
 	<string name="TEA_note_label">Опис</string>
-	<string name="TEA_notes_empty">Опис</string>
 	<string name="TEA_estimatedDuration_label">Як довго це триватиме?</string>
 	<string name="TEA_elapsedDuration_label">Час вже потрачео</string>
 	<string name="TEA_menu_save">Зберегти зміни</string>

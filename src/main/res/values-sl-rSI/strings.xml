@@ -61,7 +61,6 @@
 	<string name="TEA_hideUntil_label">Skrij do</string>
 	<string name="TEA_hideUntil_display">Skrij do %s</string>
 	<string name="TEA_note_label">Opis</string>
-	<string name="TEA_notes_empty">Opis...</string>
 	<string name="TEA_estimatedDuration_label">Kako dolgo bo trajalo?</string>
 	<string name="TEA_elapsedDuration_label">Porabljen čas</string>
 	<string name="TEA_menu_save">Shrani spremembe</string>

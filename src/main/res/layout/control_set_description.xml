@@ -7,7 +7,7 @@
     android:paddingRight="@dimen/task_edit_padding_right"
     android:paddingEnd="@dimen/task_edit_padding_right"
     android:scrollbars="vertical"
-    android:hint="@string/TEA_notes_empty"
+    android:hint="@string/TEA_note_label"
     android:textColorHint="?attr/asTextColorHint"
     android:textSize="@dimen/task_edit_text_size"
     android:inputType="textCapSentences|textMultiLine"

@@ -61,7 +61,6 @@
 	<string name="TEA_hideUntil_label">숨기기 기간:</string>
 	<string name="TEA_hideUntil_display">%s 까지 숨기기</string>
 	<string name="TEA_note_label">설명</string>
-	<string name="TEA_notes_empty">설명</string>
 	<string name="TEA_estimatedDuration_label">일정 완료 예상 시간은?</string>
 	<string name="TEA_elapsedDuration_label">일정에 이미 소모한 시간</string>
 	<string name="TEA_menu_save">변경사항 저장</string>

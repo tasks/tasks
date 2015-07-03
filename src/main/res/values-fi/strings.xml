@@ -22,7 +22,6 @@
 	<string name="TEA_hideUntil_label">Piilota kunnes</string>
 	<string name="TEA_hideUntil_display">Piilota kunnes %s</string>
 	<string name="TEA_note_label">Kuvaus</string>
-	<string name="TEA_notes_empty">Kuvaus...</string>
 	<string name="TEA_estimatedDuration_label">Kuinka pitkään se kestää?</string>
 	<string name="TEA_elapsedDuration_label">Aika on jo käytetty</string>
 	<string name="TEA_menu_save">Tallenna muutokset</string>

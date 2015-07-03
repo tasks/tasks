@@ -58,7 +58,6 @@
 	<string name="TEA_hideUntil_label">הסתרה עד</string>
 	<string name="TEA_hideUntil_display">הסתר עד %s</string>
 	<string name="TEA_note_label">תיאור</string>
-	<string name="TEA_notes_empty">תיאור</string>
 	<string name="TEA_estimatedDuration_label">כמה זמן תיקח המשימה?</string>
 	<string name="TEA_elapsedDuration_label">זמן שכבר הושקע במשימה</string>
 	<string name="TEA_menu_save">שמירת השינויים</string>

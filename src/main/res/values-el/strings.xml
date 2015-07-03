@@ -56,7 +56,6 @@
 	<string name="TEA_hideUntil_label">Απόκρυψη μέχρι</string>
 	<string name="TEA_hideUntil_display">Απόκρυψη μέχρι %s</string>
 	<string name="TEA_note_label">Περιγραφή</string>
-	<string name="TEA_notes_empty">Περιγραφή...</string>
 	<string name="TEA_estimatedDuration_label">Πόσο θα διαρκέσει?</string>
 	<string name="TEA_elapsedDuration_label">Χρόνος που ήδη πέρασε</string>
 	<string name="TEA_menu_save">Αποθήκευση αλλαγών</string>

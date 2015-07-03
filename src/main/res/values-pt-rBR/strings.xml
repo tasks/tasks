@@ -57,7 +57,6 @@
 	<string name="TEA_hideUntil_label">Ocultar até</string>
 	<string name="TEA_hideUntil_display">Esconder até %s</string>
 	<string name="TEA_note_label">Descrição</string>
-	<string name="TEA_notes_empty">Descrição...</string>
 	<string name="TEA_estimatedDuration_label">Quanto tempo isto vai levar?</string>
 	<string name="TEA_elapsedDuration_label">Tempo já gasto na tarefa</string>
 	<string name="TEA_menu_save">Salvar alterações</string>
