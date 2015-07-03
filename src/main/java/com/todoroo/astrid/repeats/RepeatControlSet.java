@@ -8,6 +8,7 @@ package com.todoroo.astrid.repeats;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -37,6 +38,7 @@ import com.todoroo.astrid.ui.PopupControlSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.ActivityPreferences;
 
 import java.text.DateFormatSymbols;
@@ -93,8 +95,8 @@ public class RepeatControlSet extends PopupControlSet {
 
     // --- implementation
 
-    public RepeatControlSet(ActivityPreferences preferences, Activity activity) {
-        super(preferences, activity, R.layout.control_set_repeat, R.layout.control_set_repeat_display, R.string.repeat_enabled);
+    public RepeatControlSet(ActivityPreferences preferences, Activity activity, DialogBuilder dialogBuilder) {
+        super(preferences, activity, R.layout.control_set_repeat, R.layout.control_set_repeat_display, R.string.repeat_enabled, dialogBuilder);
     }
 
     /** Set up the repeat value button */
@@ -399,7 +401,6 @@ public class RepeatControlSet extends PopupControlSet {
 
     @Override
     protected Dialog buildDialog(String title, final PopupDialogClickListener okListener, final DialogInterface.OnCancelListener cancelListener) {
-
         PopupDialogClickListener doRepeatButton = new PopupDialogClickListener() {
             @Override
             public boolean onClick(DialogInterface d, int which) {
@@ -411,22 +412,25 @@ public class RepeatControlSet extends PopupControlSet {
                 return okListener.onClick(d, which);
             }
         };
-        final Dialog d = super.buildDialog(title, doRepeatButton, cancelListener);
 
-        View.OnClickListener dontRepeatButton = new View.OnClickListener() {
+        return super.buildDialog(title, doRepeatButton, cancelListener);
+    }
+
+    @Override
+    protected void additionalDialogSetup(AlertDialog.Builder builder) {
+        super.additionalDialogSetup(builder);
+
+        builder.setNeutralButton(R.string.repeat_dont, new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(DialogInterface dialog, int which) {
                 doRepeat = false;
                 refreshDisplayView();
-                DialogUtilities.dismissDialog(activity, d);
+                dialog.dismiss();
 
                 for (RepeatChangedListener l : listeners) {
                     l.repeatChanged(doRepeat);
                 }
             }
-        };
-        getDialogView().findViewById(R.id.edit_dont_repeat).setOnClickListener(dontRepeatButton);
-
-        return d;
+        });
     }
 }

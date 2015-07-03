@@ -54,6 +54,7 @@ import com.todoroo.astrid.ui.CheckableImageView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.ActivityPreferences;
 
 import java.util.Collections;
@@ -145,6 +146,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     protected final Context context;
     protected final TaskListFragment fragment;
+    private DialogBuilder dialogBuilder;
     protected final Resources resources;
     protected final HashMap<Object, Boolean> completedItems = new HashMap<>(0);
     protected OnCompletedTaskListener onCompletedTaskListener = null;
@@ -164,7 +166,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private final Map<Long, TaskAction> taskActionLoader = Collections.synchronizedMap(new HashMap<Long, TaskAction>());
 
     public TaskAdapter(Context context, ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao, TaskService taskService, TaskListFragment fragment,
-            Cursor c, AtomicReference<String> query, OnCompletedTaskListener onCompletedTaskListener) {
+            Cursor c, AtomicReference<String> query, OnCompletedTaskListener onCompletedTaskListener, DialogBuilder dialogBuilder) {
         super(context, c, false);
         this.preferences = preferences;
         this.taskAttachmentDao = taskAttachmentDao;
@@ -172,6 +174,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         this.context = context;
         this.query = query;
         this.fragment = fragment;
+        this.dialogBuilder = dialogBuilder;
         this.resources = fragment.getResources();
         this.onCompletedTaskListener = onCompletedTaskListener;
         inflater = (LayoutInflater) fragment.getActivity().getSystemService(
@@ -450,39 +453,15 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             return;
         }
 
-        int theme = preferences.getEditDialogTheme();
-        final Dialog dialog = new Dialog(fragment.getActivity(), theme);
-        dialog.setTitle(R.string.TEA_note_label);
-        View notesView = LayoutInflater.from(fragment.getActivity()).inflate(R.layout.notes_view_dialog, null);
-        dialog.setContentView(notesView, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-
-        notesView.findViewById(R.id.edit_dlg_ok).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        final TextView notesField = (TextView) notesView.findViewById(R.id.notes);
-        notesField.setText(notes);
-
-        LayoutParams params = dialog.getWindow().getAttributes();
-        params.width = LayoutParams.FILL_PARENT;
-        params.height = LayoutParams.WRAP_CONTENT;
-        Configuration config = fragment.getResources().getConfiguration();
-        int size = config.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-        if (atLeastGingerbread() && size == Configuration.SCREENLAYOUT_SIZE_XLARGE) {
-            DisplayMetrics metrics = fragment.getResources().getDisplayMetrics();
-            params.width = metrics.widthPixels / 2;
-        }
-        dialog.getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
-
-        dialog.show();
+        dialogBuilder.newDialog()
+                .setMessage(notes)
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
     }
 
     private void showFilesDialog(Task task) {
         FilesControlSet filesControlSet = new FilesControlSet(preferences, taskAttachmentDao,
-                fragment.getActivity());
+                fragment.getActivity(), dialogBuilder);
         filesControlSet.readFromTask(task);
         filesControlSet.getView().performClick();
     }

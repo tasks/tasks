@@ -51,12 +51,6 @@
 	          	  android:orientation="vertical"/>
 
 		  </LinearLayout>
-		  <View
-	          android:id="@+id/TEA_Separator"
-	          android:layout_width="fill_parent"
-	          android:layout_height="1px"
-	          android:layout_marginTop="1dip"
-              android:background="?android:attr/listDivider" />
 		</LinearLayout>
 	</ScrollView>
 </merge>

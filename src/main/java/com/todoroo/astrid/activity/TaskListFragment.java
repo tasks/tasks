@@ -627,7 +627,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
                     @Override
                     public void onCompletedTask(Task item, boolean newState) {
                     }
-                });
+                }, dialogBuilder);
     }
 
     public static final String TAGS_METADATA_JOIN = "for_tags"; //$NON-NLS-1$

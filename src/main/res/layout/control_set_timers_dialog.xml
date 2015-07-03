@@ -61,7 +61,6 @@
              android:paddingLeft="10dip"
              android:textColor="?attr/asThemeTextColor" />
     </LinearLayout>
-    <include layout="@layout/control_dialog_ok"/>
-  
+
 </LinearLayout>
 

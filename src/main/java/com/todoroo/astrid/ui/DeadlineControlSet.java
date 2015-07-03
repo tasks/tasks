@@ -7,29 +7,23 @@ package com.todoroo.astrid.ui;
 
 import android.app.Activity;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.ActivityPreferences;
 
 public class DeadlineControlSet extends PopupControlSet {
 
     private DateAndTimePicker dateAndTimePicker;
 
-    public DeadlineControlSet(ActivityPreferences preferences, Activity activity) {
-        super(preferences, activity, R.layout.control_set_deadline_dialog, R.layout.control_set_deadline, 0);
+    public DeadlineControlSet(ActivityPreferences preferences, Activity activity, DialogBuilder dialogBuilder) {
+        super(preferences, activity, R.layout.control_set_deadline_dialog, R.layout.control_set_deadline, 0, dialogBuilder);
     }
 
     @Override
@@ -63,23 +57,6 @@ public class DeadlineControlSet extends PopupControlSet {
         dateAndTimePicker = (DateAndTimePicker) getDialogView().findViewById(R.id.date_and_time);
         LinearLayout body = (LinearLayout) getDialogView().findViewById(R.id.datetime_body);
         body.setGravity(Gravity.CENTER_HORIZONTAL);
-        Button okButton = (Button) LayoutInflater.from(activity).inflate(R.layout.control_dialog_ok, null);
-        DisplayMetrics metrics = activity.getResources().getDisplayMetrics();
-        LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, (int) (45 * metrics.density));
-        body.addView(okButton, params);
-    }
-
-    @Override
-    protected void setupOkButton(View view) {
-        super.setupOkButton(view);
-        Button okButton = (Button) view.findViewById(R.id.edit_dlg_ok);
-        okButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onOkClick();
-                DialogUtilities.dismissDialog(DeadlineControlSet.this.activity, DeadlineControlSet.this.dialog);
-            }
-        });
     }
 
     @Override

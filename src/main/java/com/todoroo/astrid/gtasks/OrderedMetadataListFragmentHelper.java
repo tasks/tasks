@@ -35,6 +35,7 @@ import com.todoroo.astrid.ui.DraggableListView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.ActivityPreferences;
 
 import java.util.ArrayList;
@@ -50,6 +51,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
 
     private final DisplayMetrics metrics = new DisplayMetrics();
     private final OrderedMetadataListUpdater<LIST> updater;
+    private DialogBuilder dialogBuilder;
     private final TaskListFragment fragment;
 
     private final ActivityPreferences preferences;
@@ -61,13 +63,17 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
 
     private LIST list;
 
-    public OrderedMetadataListFragmentHelper(ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao, TaskService taskService, MetadataDao metadataDao, TaskListFragment fragment, OrderedMetadataListUpdater<LIST> updater) {
+    public OrderedMetadataListFragmentHelper(ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao,
+                                             TaskService taskService, MetadataDao metadataDao,
+                                             TaskListFragment fragment, OrderedMetadataListUpdater<LIST> updater,
+                                             DialogBuilder dialogBuilder) {
         this.preferences = preferences;
         this.taskAttachmentDao = taskAttachmentDao;
         this.taskService = taskService;
         this.metadataDao = metadataDao;
         this.fragment = fragment;
         this.updater = updater;
+        this.dialogBuilder = dialogBuilder;
     }
 
     // --- ui component setup
@@ -182,7 +188,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
     public TaskAdapter createTaskAdapter(Context context, TodorooCursor<Task> cursor,
             AtomicReference<String> sqlQueryTemplate) {
 
-        taskAdapter = new DraggableTaskAdapter(context, preferences, fragment, cursor, sqlQueryTemplate);
+        taskAdapter = new DraggableTaskAdapter(context, preferences, fragment, cursor, sqlQueryTemplate, dialogBuilder);
 
         taskAdapter.addOnCompletedTaskListener(new OnCompletedTaskListener() {
             @Override
@@ -197,8 +203,8 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
     private final class DraggableTaskAdapter extends TaskAdapter {
 
         private DraggableTaskAdapter(Context context, ActivityPreferences preferences, TaskListFragment activity,
-                Cursor c, AtomicReference<String> query) {
-            super(context, preferences, taskAttachmentDao, taskService, activity, c, query, null);
+                Cursor c, AtomicReference<String> query, DialogBuilder dialogBuilder) {
+            super(context, preferences, taskAttachmentDao, taskService, activity, c, query, null, dialogBuilder);
         }
 
         @Override

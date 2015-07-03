@@ -8,11 +8,11 @@ package com.todoroo.astrid.ui;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.view.Window;
 import android.widget.Button;
 
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -20,13 +20,15 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSetBase;
 
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.ActivityPreferences;
 
 public abstract class PopupControlSet extends TaskEditControlSetBase {
 
     protected final View displayView;
     protected final ActivityPreferences preferences;
-    protected Dialog dialog;
+    private DialogBuilder dialogBuilder;
+    protected AlertDialog dialog;
     private final String titleString;
 
     public interface PopupDialogClickListener {
@@ -48,9 +50,11 @@ public abstract class PopupControlSet extends TaskEditControlSetBase {
         }
     };
 
-    public PopupControlSet(ActivityPreferences preferences, Activity activity, int viewLayout, int taskEditViewLayout, final int title) {
+    public PopupControlSet(ActivityPreferences preferences, Activity activity, int viewLayout,
+                           int taskEditViewLayout, final int title, DialogBuilder dialogBuilder) {
         super(activity, viewLayout, false);
         this.preferences = preferences;
+        this.dialogBuilder = dialogBuilder;
         if (taskEditViewLayout != -1) {
             this.displayView = inflateWithTemplate(taskEditViewLayout);
         } else {
@@ -74,46 +78,20 @@ public abstract class PopupControlSet extends TaskEditControlSetBase {
     }
 
     protected Dialog buildDialog(String title, final PopupDialogClickListener okClickListener, DialogInterface.OnCancelListener cancelClickListener) {
-        dialog = new Dialog(activity, preferences.getEditDialogTheme());
-        if (title.length() == 0) {
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        } else {
-            dialog.setTitle(title);
-        }
-
-        View v = getDialogView();
-
-        dialog.setContentView(v, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-        Button dismiss = (Button) v.findViewById(R.id.edit_dlg_ok);
-        if (dismiss != null) {
-            dismiss.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (okClickListener.onClick(dialog, 0)) {
-                        DialogUtilities.dismissDialog(activity, dialog);
+        AlertDialog.Builder builder = dialogBuilder.newDialog()
+                .setView(getDialogView())
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (okClickListener.onClick(dialog, 0)) {
+                            dialog.dismiss();
+                        }
                     }
-                }
-            });
-        }
+                })
+                .setOnCancelListener(cancelClickListener);
 
-        LayoutParams params = dialog.getWindow().getAttributes();
-        params.width = LayoutParams.FILL_PARENT;
-        params.height = LayoutParams.WRAP_CONTENT;
-
-        if (ActivityPreferences.isTabletSized(activity)) {
-            DisplayMetrics metrics = activity.getResources().getDisplayMetrics();
-            if ((metrics.widthPixels / metrics.density) >= ActivityPreferences.MIN_TABLET_HEIGHT) {
-                params.width = (3 * metrics.widthPixels) / 5;
-            } else if ((metrics.widthPixels / metrics.density) >= ActivityPreferences.MIN_TABLET_WIDTH) {
-                params.width = (4 * metrics.widthPixels) / 5;
-            }
-        }
-
-        dialog.getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
-
-        dialog.setOnCancelListener(cancelClickListener);
-        dialog.setOwnerActivity(PopupControlSet.this.activity);
-        additionalDialogSetup();
+        additionalDialogSetup(builder);
+        dialog = builder.show();
         return dialog;
     }
 
@@ -129,7 +107,7 @@ public abstract class PopupControlSet extends TaskEditControlSetBase {
         };
     }
 
-    protected void additionalDialogSetup() {
+    protected void additionalDialogSetup(AlertDialog.Builder builder) {
         // Will be called after dialog is set up.
         // Subclasses can override
     }

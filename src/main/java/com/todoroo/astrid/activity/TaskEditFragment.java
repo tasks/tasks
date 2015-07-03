@@ -351,11 +351,11 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         timerAction = new TimerActionControlSet(notificationManager, taskService, getActivity(), getView());
         controls.add(timerAction);
 
-        TagsControlSet tagsControlSet = new TagsControlSet(metadataDao, tagDataDao, preferences, tagService, getActivity());
+        TagsControlSet tagsControlSet = new TagsControlSet(metadataDao, tagDataDao, preferences, tagService, getActivity(), dialogBuilder);
         controls.add(tagsControlSet);
         controlSetMap.put(getString(R.string.TEA_ctrl_lists_pref), tagsControlSet);
 
-        RepeatControlSet repeatControls = new RepeatControlSet(preferences, getActivity());
+        RepeatControlSet repeatControls = new RepeatControlSet(preferences, getActivity(), dialogBuilder);
         controlSetMap.put(getString(R.string.TEA_ctrl_repeat_pref), repeatControls);
 
         GCalControlSet gcalControl = new GCalControlSet(gcalHelper, getActivity());
@@ -367,7 +367,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         // deadline control, because
         // otherwise the correct date may not be written to the calendar event.
         // Order matters!
-        DeadlineControlSet deadlineControl = new DeadlineControlSet(preferences, getActivity());
+        DeadlineControlSet deadlineControl = new DeadlineControlSet(preferences, getActivity(), dialogBuilder);
         controlSetMap.put(getString(R.string.TEA_ctrl_when_pref), deadlineControl);
         controls.add(repeatControls);
 
@@ -397,12 +397,12 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         // TODO: Fix the fact that hideUntil doesn't update accordingly with date changes when lazy loaded. Until then, don't lazy load.
         hideUntilControls.getView();
 
-        TimerControlSet timerControl = new TimerControlSet(preferences, getActivity());
+        TimerControlSet timerControl = new TimerControlSet(preferences, getActivity(), dialogBuilder);
         timerAction.addListener(timerControl);
         controls.add(timerControl);
         controlSetMap.put(getString(R.string.TEA_ctrl_timer_pref), timerControl);
 
-        filesControlSet = new FilesControlSet(preferences, taskAttachmentDao, getActivity());
+        filesControlSet = new FilesControlSet(preferences, taskAttachmentDao, getActivity(), dialogBuilder);
         controls.add(filesControlSet);
         controlSetMap.put(getString(R.string.TEA_ctrl_files_pref), filesControlSet);
 

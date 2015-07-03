@@ -48,23 +48,10 @@
         android:gravity="center"/>
   </LinearLayout>  
   
-  <LinearLayout
-      android:layout_width="fill_parent"
+  <Button android:id="@+id/repeatUntil"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:orientation="horizontal">
-      <Button android:id="@+id/repeatUntil"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content" 
-          android:layout_weight="1"/>
-        <Button
-          android:id="@+id/edit_dont_repeat"
-          android:text="@string/repeat_dont"        
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:layout_weight="1"/>
-      
-  </LinearLayout>
-  
-  <include layout="@layout/control_dialog_ok" />
+      android:layout_weight="1"/>
+
 </LinearLayout>
 

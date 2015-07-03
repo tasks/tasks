@@ -33,6 +33,5 @@
       android:layout_marginLeft="3dip"
       android:layout_marginRight="3dip"
       android:layout_weight="100"/>
-  <include layout="@layout/control_dialog_ok"/>
-    
+
 </LinearLayout>
