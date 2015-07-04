@@ -296,17 +296,6 @@
 		<item>Minuto(s)</item>
 		<item>Ano(s)</item>
 	</string-array>
-	<string-array name="repeat_until_shortcuts">
-		<item>Para sempre</item>
-		<item>Dia Específico</item>
-		<item>Hoje</item>
-		<item>Amanhã</item>
-		<item>(depois de amanhã)</item>
-		<item>Próxima semana</item>
-		<item>Em Duas Semanas</item>
-		<item>Próximo mês</item>
-	</string-array>
-	<string name="repeat_until_title">Repetir até...</string>
 	<string-array name="repeat_type">
 		<item>à partir do dia do prazo final</item>
 		<item>à partir do dia de realização</item>

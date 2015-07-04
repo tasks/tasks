@@ -311,17 +311,6 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 		<item>분마다</item>
 		<item>년마다</item>
 	</string-array>
-	<string-array name="repeat_until_shortcuts">
-		<item>영원히</item>
-		<item>특정일</item>
-		<item>오늘</item>
-		<item>내일</item>
-		<item>(며칠 후)</item>
-		<item>다음 주</item>
-		<item>2주에</item>
-		<item>다음 달</item>
-	</string-array>
-	<string name="repeat_until_title">다음까지 반복하기...</string>
 	<string-array name="repeat_type">
 		<item>마감일로부터</item>
 		<item>완료일로부터</item>

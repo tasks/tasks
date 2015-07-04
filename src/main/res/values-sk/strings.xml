@@ -306,17 +306,6 @@
 		<item>Minúta</item>
 		<item>Rok</item>
 	</string-array>
-	<string-array name="repeat_until_shortcuts">
-		<item>Navždy</item>
-		<item>Konkrétny deň</item>
-		<item>Dnes</item>
-		<item>Zajtra</item>
-		<item>(deň  po)</item>
-		<item>Nasledujúci týždeň</item>
-		<item>V dvoch týždňoch</item>
-		<item>Nasledujúci mesiac</item>
-	</string-array>
-	<string name="repeat_until_title">Opakovať do...</string>
 	<string-array name="repeat_type">
 		<item>od dátumu ukončenia</item>
 		<item>od dátumu dokončenia</item>

@@ -24,6 +24,7 @@ import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Flags;
 
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.injection.InjectingBroadcastReceiver;
@@ -39,6 +40,7 @@ import java.util.TimeZone;
 import javax.inject.Inject;
 
 import static org.tasks.date.DateTimeUtils.newDate;
+import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.date.DateTimeUtils.newDateUtc;
 
 public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
@@ -80,8 +82,7 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
             long oldDueDate = task.getDueDate();
             long repeatUntil = task.getRepeatUntil();
 
-            boolean repeatFinished = repeatUntil > 0 && newDueDate >= repeatUntil;
-            if (repeatFinished) {
+            if (repeatFinished(newDueDate, repeatUntil)) {
                 return;
             }
 
@@ -95,6 +96,12 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
             context.sendOrderedBroadcast(broadcastIntent, null);
             Flags.set(Flags.REFRESH);
         }
+    }
+
+    static boolean repeatFinished(long newDueDate, long repeatUntil) {
+        return repeatUntil > 0 && newDateTime(repeatUntil).getMillisOfDay() == 0
+                ? newDateTime(newDueDate).withMillisOfDay(0).isAfter(repeatUntil)
+                : newDueDate >= repeatUntil;
     }
 
     public static void rescheduleTask(Context context, GCalHelper gcalHelper, TaskService taskService, Task task, long newDueDate) {

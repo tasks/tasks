@@ -296,17 +296,6 @@
 		<item>דקה/דקות</item>
 		<item>שנה/שנים</item>
 	</string-array>
-	<string-array name="repeat_until_shortcuts">
-		<item>לנצח</item>
-		<item>תאריך מסויים</item>
-		<item>היום</item>
-		<item>מחר</item>
-		<item>(יום אחרי)</item>
-		<item>שבוע הבא</item>
-		<item>שבועיים</item>
-		<item>החודש הבא</item>
-	</string-array>
-	<string name="repeat_until_title">חזור עד...</string>
 	<string-array name="repeat_type">
 		<item>מתאריך היעד</item>
 		<item>מהיום שהמשימה הושלמה</item>

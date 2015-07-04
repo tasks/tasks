@@ -272,17 +272,6 @@
 		<item>Dakika</item>
 		<item>Yıl</item>
 	</string-array>
-	<string-array name="repeat_until_shortcuts">
-		<item>Sürekli</item>
-		<item>Belirli Gün</item>
-		<item>Bugün</item>
-		<item>Yarın</item>
-		<item>(ertesi gün)</item>
-		<item>Gelecek Hafta</item>
-		<item>2 Hafta İçinde</item>
-		<item>Gelecek Ay</item>
-	</string-array>
-	<string name="repeat_until_title">Bu kadar yinele...</string>
 	<string-array name="repeat_type">
 		<item>son tarihten itibaren</item>
 		<item>tamamlanma tarihinden itibaren</item>

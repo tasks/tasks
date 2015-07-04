@@ -72,7 +72,6 @@
 	<string name="repeat_interval_prompt">Toistoväli</string>
 	<string name="repeat_never">Ei toistuva</string>
 	<string name="repeat_dont">Älä toista</string>
-	<string name="repeat_until_title">Toista kunnes...</string>
 	<string name="repeat_detail_duedate">Joka %s</string>
 	<string name="repeat_detail_duedate_until">Joka %1$s\nkunnes %2$s</string>
 	<string name="repeat_forever">Toista loputtomiin</string>

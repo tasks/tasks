@@ -1,57 +1,67 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<?xml version="1.0" encoding="utf-8"?><!--
 ** Copyright (c) 2012 Todoroo Inc
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<LinearLayout 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:orientation="vertical"
     android:paddingLeft="5dip"
-    android:paddingRight="5dip"
-    android:orientation="vertical">
-      
-  <LinearLayout android:id="@+id/repeatContainer"
-      android:orientation="vertical"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:layout_weight="100">
-      
+    android:paddingRight="5dip">
+
     <LinearLayout
-        android:orientation="horizontal"
+        android:id="@+id/repeatContainer"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        
-      <Button android:id="@+id/repeatValue"
-          android:layout_weight="1"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content" />
-          
-      <Spinner android:id="@+id/repeatInterval"
-          android:layout_weight="1"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content" 
-          android:prompt="@string/repeat_interval_prompt"/>
-          
+        android:layout_height="0dp"
+        android:layout_weight="100"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/repeatValue"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Spinner
+                android:id="@+id/repeatInterval"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:prompt="@string/repeat_interval_prompt" />
+
+        </LinearLayout>
+
+        <Spinner
+            android:id="@+id/repeatType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp" />
+
+        <LinearLayout
+            android:id="@+id/repeatDayOfWeekContainer"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp" />
     </LinearLayout>
-    
+
     <Spinner
-        android:id="@+id/repeatType"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/>
-    
-    <LinearLayout android:id="@+id/repeatDayOfWeekContainer"
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
-        android:gravity="center"/>
-  </LinearLayout>  
-  
-  <Button android:id="@+id/repeatUntil"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_weight="1"/>
+        android:id="@+id/repeat_until"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp" />
 
 </LinearLayout>
 

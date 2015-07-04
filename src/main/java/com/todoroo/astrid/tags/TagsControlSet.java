@@ -6,6 +6,7 @@
 package com.todoroo.astrid.tags;
 
 import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -72,7 +73,7 @@ public final class TagsControlSet extends PopupControlSet {
     private final TagDataDao tagDataDao;
     private final TagService tagService;
 
-    public TagsControlSet(MetadataDao metadataDao, TagDataDao tagDataDao, ActivityPreferences preferences, TagService tagService, Activity activity, DialogBuilder dialogBuilder) {
+    public TagsControlSet(MetadataDao metadataDao, TagDataDao tagDataDao, ActivityPreferences preferences, TagService tagService, FragmentActivity activity, DialogBuilder dialogBuilder) {
         super(preferences, activity, R.layout.control_set_tag_list, R.layout.control_set_tags, R.string.TEA_tags_label_long, dialogBuilder);
         this.metadataDao = metadataDao;
         this.tagDataDao = tagDataDao;

@@ -5,12 +5,13 @@
  */
 package com.todoroo.astrid.repeats;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -22,23 +23,23 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.fourmob.datetimepicker.date.DatePickerDialog;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.Weekday;
 import com.google.ical.values.WeekdayNum;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.ui.DateAndTimeDialog;
-import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
 import com.todoroo.astrid.ui.DateAndTimePicker;
 import com.todoroo.astrid.ui.NumberPickerDialog;
 import com.todoroo.astrid.ui.NumberPickerDialog.OnNumberPickedListener;
 import com.todoroo.astrid.ui.PopupControlSet;
 
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.dialogs.MyDatePickerDialog;
 import org.tasks.preferences.ActivityPreferences;
 
 import java.text.DateFormatSymbols;
@@ -49,6 +50,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static org.tasks.date.DateTimeUtils.newDate;
+import static org.tasks.date.DateTimeUtils.newDateTime;
 
 /**
  * Control Set for managing repeats
@@ -59,6 +61,8 @@ import static org.tasks.date.DateTimeUtils.newDate;
 public class RepeatControlSet extends PopupControlSet {
 
     private static final Logger log = LoggerFactory.getLogger(RepeatControlSet.class);
+
+    private static final String FRAG_TAG_REPEAT_UNTIL = "frag_tag_repeat_until";
 
     // --- spinner constants
 
@@ -77,7 +81,9 @@ public class RepeatControlSet extends PopupControlSet {
     private Button value;
     private Spinner interval;
     private Spinner type;
-    private Button repeatUntil;
+    private Spinner repeatUntil;
+    private ArrayAdapter<String> repeatUntilAdapter;
+    private final List<String> repeatUntilOptions = new ArrayList<>();
     private LinearLayout daysOfWeekContainer;
     private final CompoundButton[] daysOfWeek = new CompoundButton[7];
 
@@ -95,7 +101,7 @@ public class RepeatControlSet extends PopupControlSet {
 
     // --- implementation
 
-    public RepeatControlSet(ActivityPreferences preferences, Activity activity, DialogBuilder dialogBuilder) {
+    public RepeatControlSet(ActivityPreferences preferences, FragmentActivity activity, DialogBuilder dialogBuilder) {
         super(preferences, activity, R.layout.control_set_repeat, R.layout.control_set_repeat_display, R.string.repeat_enabled, dialogBuilder);
     }
 
@@ -107,12 +113,7 @@ public class RepeatControlSet extends PopupControlSet {
 
     private void setRepeatUntilValue(long newValue) {
         repeatUntilValue = newValue;
-
-        if (newValue == 0) {
-            repeatUntil.setText(activity.getString(R.string.repeat_forever));
-        } else {
-            repeatUntil.setText(activity.getString(R.string.repeat_until, DateAndTimePicker.getDisplayString(activity, newValue, false, false)));
-        }
+        updateRepeatUntilOptions();
     }
 
     protected void repeatValueClick() {
@@ -131,15 +132,21 @@ public class RepeatControlSet extends PopupControlSet {
     }
 
     private void repeatUntilClick() {
-        DateAndTimeDialog d = new DateAndTimeDialog(preferences, activity, repeatUntilValue,
-                R.layout.repeat_until_dialog, R.string.repeat_until_title);
-        d.setDateAndTimeDialogListener(new DateAndTimeDialogListener() {
+        MyDatePickerDialog dialog = new MyDatePickerDialog();
+        DateTime initial = newDateTime();
+        dialog.initialize(new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateAndTimeSelected(long date) {
-                setRepeatUntilValue(date);
+            public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
+                setRepeatUntilValue(new DateTime(year, month + 1, day, 0, 0, 0, 0).getMillis());
+            }
+        }, initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth(), false);
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                setRepeatUntilValue(repeatUntilValue);
             }
         });
-        d.show();
+        dialog.show(activity.getSupportFragmentManager(), FRAG_TAG_REPEAT_UNTIL);
     }
 
     public void addListener(RepeatChangedListener listener) {
@@ -251,17 +258,21 @@ public class RepeatControlSet extends PopupControlSet {
 
     @Override
     protected void afterInflate() {
-        value = (Button) getDialogView().findViewById(R.id.repeatValue);
-        interval = (Spinner) getDialogView().findViewById(R.id.repeatInterval);
-        interval.setAdapter(new ArrayAdapter<String>(activity, R.layout.simple_spinner_item, activity.getResources().getStringArray(R.array.repeat_interval)) {{
+        View dialogView = getDialogView();
+        value = (Button) dialogView.findViewById(R.id.repeatValue);
+        interval = (Spinner) dialogView.findViewById(R.id.repeatInterval);
+        interval.setAdapter(new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, activity.getResources().getStringArray(R.array.repeat_interval)) {{
             setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         }});
-        type = (Spinner) getDialogView().findViewById(R.id.repeatType);
-        type.setAdapter(new ArrayAdapter<String>(activity, R.layout.simple_spinner_item, activity.getResources().getStringArray(R.array.repeat_type)) {{
+        type = (Spinner) dialogView.findViewById(R.id.repeatType);
+        type.setAdapter(new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, activity.getResources().getStringArray(R.array.repeat_type)) {{
             setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         }});
-        daysOfWeekContainer = (LinearLayout) getDialogView().findViewById(R.id.repeatDayOfWeekContainer);
-        repeatUntil = (Button) getDialogView().findViewById(R.id.repeatUntil);
+        daysOfWeekContainer = (LinearLayout) dialogView.findViewById(R.id.repeatDayOfWeekContainer);
+        repeatUntil = (Spinner) dialogView.findViewById(R.id.repeat_until);
+        repeatUntilAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, repeatUntilOptions);
+        repeatUntilAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        repeatUntil.setAdapter(repeatUntilAdapter);
         setRepeatValue(1);
         setRepeatUntilValue(0);
 
@@ -312,12 +323,30 @@ public class RepeatControlSet extends PopupControlSet {
             }
         });
 
-        repeatUntil.setOnClickListener(new View.OnClickListener() {
+        repeatUntil.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                repeatUntilClick();
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (repeatUntilOptions.size() == 2) {
+                    if (i == 0) {
+                        setRepeatUntilValue(0);
+                    } else {
+                        repeatUntilClick();
+                    }
+                } else {
+                    if (i == 1) {
+                        setRepeatUntilValue(0);
+                    } else if (i == 2) {
+                        repeatUntilClick();
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                //
             }
         });
+
         daysOfWeekContainer.setVisibility(View.GONE);
     }
 
@@ -432,5 +461,16 @@ public class RepeatControlSet extends PopupControlSet {
                 }
             }
         });
+    }
+
+    private void updateRepeatUntilOptions() {
+        repeatUntilOptions.clear();
+        if (repeatUntilValue > 0) {
+            repeatUntilOptions.add(activity.getString(R.string.repeat_until, DateAndTimePicker.getDisplayString(activity, repeatUntilValue, false, false)));
+        }
+        repeatUntilOptions.add(activity.getString(R.string.repeat_forever));
+        repeatUntilOptions.add(activity.getString(R.string.repeat_until, "").trim());
+        repeatUntilAdapter.notifyDataSetChanged();
+        repeatUntil.setSelection(0);
     }
 }

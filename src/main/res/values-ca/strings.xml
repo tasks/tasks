@@ -167,17 +167,6 @@
 	<string name="repeat_every">Cada %d</string>
 	<string name="repeat_interval_prompt">Interval de Repecitiò</string>
 	<string name="repeat_never">Sense repetir</string>
-	<string-array name="repeat_until_shortcuts">
-		<item>Forever</item>
-		<item>Specific Day</item>
-		<item>Avui</item>
-		<item>Demà</item>
-		<item>(day after)</item>
-		<item>La setmana que ve</item>
-		<item>In Two Weeks</item>
-		<item>El mes que ve</item>
-	</string-array>
-	<string name="repeat_until_title">Repetir fins...</string>
 	<string name="repeat_detail_byday">$I en $D</string>
 	<string name="repeat_detail_duedate">Cada %s</string>
 	<string name="repeat_detail_duedate_until">Cada %1$s\nfins %2$s</string>

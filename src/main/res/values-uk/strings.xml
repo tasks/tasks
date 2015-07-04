@@ -296,17 +296,6 @@
 	<string name="repeat_interval_prompt">Інтервал повторення</string>
 	<string name="repeat_never">Не повторювати</string>
 	<string name="repeat_dont">Не повторювати</string>
-	<string-array name="repeat_until_shortcuts">
-		<item>Forever</item>
-		<item>Specific Day</item>
-		<item>Сьогодні</item>
-		<item>Завтра</item>
-		<item>(day after)</item>
-		<item>Next Week</item>
-		<item>In Two Weeks</item>
-		<item>Next Month</item>
-	</string-array>
-	<string name="repeat_until_title">Повторювати поки...</string>
 	<string name="repeat_detail_byday">$I кожен $D</string>
 	<string name="repeat_detail_duedate">З інтервалом в %s</string>
 	<string name="repeat_detail_duedate_until">Кожні %1$s\nпоки %2$s</string>

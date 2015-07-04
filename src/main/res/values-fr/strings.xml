@@ -307,17 +307,6 @@
 		<item>Minute(s)</item>
 		<item>Année(s)</item>
 	</string-array>
-	<string-array name="repeat_until_shortcuts">
-		<item>Indéfiniment</item>
-		<item>Jour précis</item>
-		<item>Aujourd\'hui</item>
-		<item>Demain</item>
-		<item>(jour d\'après)</item>
-		<item>Semaine Prochaine</item>
-		<item>Dans deux semaines</item>
-		<item>Mois suivant</item>
-	</string-array>
-	<string name="repeat_until_title">Répéter jusqu\'à...</string>
 	<string-array name="repeat_type">
 		<item>à partir de la date due</item>
 		<item>à partir de la date d\'achèvement</item>

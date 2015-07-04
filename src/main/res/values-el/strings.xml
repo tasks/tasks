@@ -294,17 +294,6 @@
 		<item>Λεπτό(ά)</item>
 		<item>Χρόνος(ια)</item>
 	</string-array>
-	<string-array name="repeat_until_shortcuts">
-		<item>Επ\'αόριστον</item>
-		<item>Συγκεκριμένη ημέρα</item>
-		<item>Σήμερα</item>
-		<item>Αύριο</item>
-		<item>(μεθαύριο)</item>
-		<item>Την επόμενη εβδομάδα</item>
-		<item>Σε δύο εβδομάδες</item>
-		<item>Τον επόμενο μήνα</item>
-	</string-array>
-	<string name="repeat_until_title">Επανάληψη εως ότου</string>
 	<string-array name="repeat_type">
 		<item>απο την ημερομηνία λήξης</item>
 		<item>απο την ημερομηνία ολοκλήρωσης </item>

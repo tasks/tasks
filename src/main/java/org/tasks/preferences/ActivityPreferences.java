@@ -80,10 +80,6 @@ public class ActivityPreferences extends Preferences {
         return isDarkTheme() ? R.style.TasksDialogDark : R.style.TasksDialog;
     }
 
-    public int getEditDialogTheme() {
-        return isDarkTheme() ? R.style.TEA_Dialog_Dark : R.style.TEA_Dialog;
-    }
-
     public boolean isDarkTheme() {
         return getBoolean(R.string.p_use_dark_theme, false);
     }

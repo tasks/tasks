@@ -298,17 +298,6 @@
 		<item>Minu(u)t(en)</item>
 		<item>Ja(a)r(en)</item>
 	</string-array>
-	<string-array name="repeat_until_shortcuts">
-		<item>Altijd</item>
-		<item>Specifieke dag</item>
-		<item>Vandaag</item>
-		<item>Morgen</item>
-		<item>(volgende dag)</item>
-		<item>Volgende week</item>
-		<item>Binnen twee weken</item>
-		<item>Volgende maand</item>
-	</string-array>
-	<string name="repeat_until_title">Herhalen tot...</string>
 	<string-array name="repeat_type">
 		<item>vanaf einddatum</item>
 		<item>vanaf datum voltooid</item>

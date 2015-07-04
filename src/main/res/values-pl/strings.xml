@@ -300,17 +300,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 		<item>Minut(a/y)</item>
 		<item>Rok/lata</item>
 	</string-array>
-	<string-array name="repeat_until_shortcuts">
-		<item>Zawsze</item>
-		<item>Konkretny dzień</item>
-		<item>Dzisiaj</item>
-		<item>Jutro</item>
-		<item>(pojutrze)</item>
-		<item>Następny tydzień</item>
-		<item>W ciągu dwóch tygodni</item>
-		<item>Przyszły miesiąc</item>
-	</string-array>
-	<string name="repeat_until_title">Powtarzaj do...</string>
 	<string-array name="repeat_type">
 		<item>od planowanego terminu</item>
 		<item>od daty ukończenia</item>

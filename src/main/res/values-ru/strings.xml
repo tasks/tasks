@@ -308,17 +308,6 @@
 		<item>Минута(ы)</item>
 		<item>Лет (Года)</item>
 	</string-array>
-	<string-array name="repeat_until_shortcuts">
-		<item>Всегда</item>
-		<item>Определённый день</item>
-		<item>Сегодня</item>
-		<item>Завтра</item>
-		<item>(день спустя)</item>
-		<item>На следующей неделе</item>
-		<item>В течении двух недель</item>
-		<item>Следующий месяц</item>
-	</string-array>
-	<string name="repeat_until_title">Повторять до ...</string>
 	<string-array name="repeat_type">
 		<item>с намеченного времени</item>
 		<item>со времени завершения</item>

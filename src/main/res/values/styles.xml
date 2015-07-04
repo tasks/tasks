@@ -56,18 +56,6 @@
     <style name="TaskListView" parent="ListView">
     </style>
 
-    <!-- =============================================== TaskEditActivity == -->
-
-    <style name="TEA_Dialog" parent="Theme.AppCompat.Light.Dialog">
-        <item name="asTextColor">@android:color/black</item>
-        <item name="android:windowNoTitle">true</item>
-    </style>
-
-    <style name="TEA_Dialog_Dark" parent="Theme.AppCompat.Dialog">
-        <item name="asTextColor">@android:color/white</item>
-        <item name="android:windowNoTitle">true</item>
-    </style>
-
     <!-- ==================================================== TaskAdapter == -->
 
     <style name="TextAppearance.TAd_ItemTitle">

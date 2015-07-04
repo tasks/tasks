@@ -5,17 +5,12 @@
  */
 package com.todoroo.astrid.helper;
 
-import android.app.Activity;
-import android.content.res.ColorStateList;
-import android.content.res.Resources.Theme;
-import android.util.TypedValue;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.ui.EditDialogOkBackground;
 
 import org.tasks.R;
 
@@ -28,7 +23,7 @@ import static org.tasks.preferences.ResourceResolver.getData;
  */
 public abstract class TaskEditControlSetBase implements TaskEditControlSet {
 
-    protected final Activity activity;
+    protected final FragmentActivity activity;
     private final int viewLayout;
     private boolean useTemplate;
     private View view;
@@ -37,11 +32,11 @@ public abstract class TaskEditControlSetBase implements TaskEditControlSet {
     protected final int themeColor;
     protected final int unsetColor;
 
-    public TaskEditControlSetBase(Activity activity, int viewLayout) {
+    public TaskEditControlSetBase(FragmentActivity activity, int viewLayout) {
         this(activity, viewLayout, true);
     }
 
-    public TaskEditControlSetBase(Activity activity, int viewLayout, boolean useTemplate) {
+    public TaskEditControlSetBase(FragmentActivity activity, int viewLayout, boolean useTemplate) {
         this.activity = activity;
         this.viewLayout = viewLayout;
         this.useTemplate = useTemplate;

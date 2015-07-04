@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +52,7 @@ public class FilesControlSet extends PopupControlSet {
     private final DialogBuilder dialogBuilder;
 
     public FilesControlSet(ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao,
-                           Activity activity, DialogBuilder dialogBuilder) {
+                           FragmentActivity activity, DialogBuilder dialogBuilder) {
         super(preferences, activity, R.layout.control_set_files_dialog, R.layout.control_set_files, R.string.TEA_control_files, dialogBuilder);
         this.taskAttachmentDao = taskAttachmentDao;
         this.dialogBuilder = new DialogBuilder(activity, preferences);

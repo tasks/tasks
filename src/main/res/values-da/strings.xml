@@ -157,17 +157,6 @@
 	<string name="repeat_interval_prompt">Interval for gentagelse</string>
 	<string name="repeat_never">Gentages ikke</string>
 	<string name="repeat_dont">Gentag ikke</string>
-	<string-array name="repeat_until_shortcuts">
-		<item>Forever</item>
-		<item>Specific Day</item>
-		<item>I dag</item>
-		<item>I morgen</item>
-		<item>(day after)</item>
-		<item>Next Week</item>
-		<item>In Two Weeks</item>
-		<item>Next Month</item>
-	</string-array>
-	<string name="repeat_until_title">Gentag indtil...</string>
 	<string name="repeat_detail_byday">$I på $D</string>
 	<string name="repeat_detail_duedate">Hver %s</string>
 	<string name="repeat_detail_duedate_until">Hver %1$s\nindtil %2$s</string>

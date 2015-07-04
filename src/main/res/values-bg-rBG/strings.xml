@@ -313,17 +313,6 @@
 		<item>Минута(и)</item>
 		<item>Година(и)</item>
 	</string-array>
-	<string-array name="repeat_until_shortcuts">
-		<item>Завинаги</item>
-		<item>Определен ден</item>
-		<item>Днес</item>
-		<item>Утре</item>
-		<item>(ден след)</item>
-		<item>Следваща седмица</item>
-		<item>За две седмици</item>
-		<item>Следващия месец</item>
-	</string-array>
-	<string name="repeat_until_title">Повтаряй до...</string>
 	<string-array name="repeat_type">
 		<item>от краен срок</item>
 		<item>от датата на завършване</item>

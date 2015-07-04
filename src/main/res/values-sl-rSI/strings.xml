@@ -300,17 +300,6 @@
 		<item>V minutah</item>
 		<item>Let/o /i /a</item>
 	</string-array>
-	<string-array name="repeat_until_shortcuts">
-		<item>Do preklica</item>
-		<item>Določen dan</item>
-		<item>Danes</item>
-		<item>Jutri</item>
-		<item>(dan kasneje)</item>
-		<item>Naslednji teden</item>
-		<item>V roku dveh tednov</item>
-		<item>Naslednji mesec</item>
-	</string-array>
-	<string name="repeat_until_title">Ponavljaj, dokler ...</string>
 	<string-array name="repeat_type">
 		<item>od datuma dospelosti</item>
 		<item>od datuma dokončanja</item>

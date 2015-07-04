@@ -293,17 +293,6 @@
 		<item>Minuta(-y)</item>
 		<item>Rok(y)</item>
 	</string-array>
-	<string-array name="repeat_until_shortcuts">
-		<item>Vždy</item>
-		<item>Určitý den</item>
-		<item>Dnes</item>
-		<item>Zítra</item>
-		<item>(den poté)</item>
-		<item>Příští týden</item>
-		<item>Za dva týdny</item>
-		<item>Příští měsíc</item>
-	</string-array>
-	<string name="repeat_until_title">Opakuje dokud ...</string>
 	<string-array name="repeat_type">
 		<item>od data splnění</item>
 		<item>od data dokončení</item>

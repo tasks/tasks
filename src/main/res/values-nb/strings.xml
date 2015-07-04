@@ -144,16 +144,6 @@
 	<string name="repeat_every">Hver %d</string>
 	<string name="repeat_interval_prompt">Gjentakelsesintervall</string>
 	<string name="repeat_dont">Ikke gjenta</string>
-	<string-array name="repeat_until_shortcuts">
-		<item>Forever</item>
-		<item>Specific Day</item>
-		<item>I dag</item>
-		<item>I morgen</item>
-		<item>(day after)</item>
-		<item>Next Week</item>
-		<item>In Two Weeks</item>
-		<item>Next Month</item>
-	</string-array>
 	<string name="repeat_detail_byday">$I på $D</string>
 	<string name="repeat_detail_duedate">Hver %s</string>
 	<string name="TPl_notification">Tidtaker aktiv for %s!</string>

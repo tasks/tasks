@@ -5,7 +5,7 @@
  */
 package com.todoroo.astrid.ui;
 
-import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.widget.LinearLayout;
@@ -22,7 +22,7 @@ public class DeadlineControlSet extends PopupControlSet {
 
     private DateAndTimePicker dateAndTimePicker;
 
-    public DeadlineControlSet(ActivityPreferences preferences, Activity activity, DialogBuilder dialogBuilder) {
+    public DeadlineControlSet(ActivityPreferences preferences, FragmentActivity activity, DialogBuilder dialogBuilder) {
         super(preferences, activity, R.layout.control_set_deadline_dialog, R.layout.control_set_deadline, 0, dialogBuilder);
     }
 

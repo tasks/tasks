@@ -308,17 +308,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 		<item>Minuto(s)</item>
 		<item>Ano(s)</item>
 	</string-array>
-	<string-array name="repeat_until_shortcuts">
-		<item>Eternamente</item>
-		<item>Dia concreto</item>
-		<item>Hoje</item>
-		<item>Amanhã</item>
-		<item>(dia antes)</item>
-		<item>Próxima semana</item>
-		<item>Em duas semanas</item>
-		<item>Próximo mês</item>
-	</string-array>
-	<string name="repeat_until_title">Repetir até...</string>
 	<string-array name="repeat_type">
 		<item>da data limite</item>
 		<item>desde a data de conclusão</item>

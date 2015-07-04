@@ -86,16 +86,6 @@
 	<string name="rmd_NoA_done">เสร็จเรียบร้อยแล้ว!</string>
 	<string name="rmd_NoA_snooze">หลับ..</string>
 	<string name="repeat_enabled">การเกิดซ้ำ</string>
-	<string-array name="repeat_until_shortcuts">
-		<item>Forever</item>
-		<item>Specific Day</item>
-		<item>วันนี้</item>
-		<item>พรุ่งนี้</item>
-		<item>(day after)</item>
-		<item>Next Week</item>
-		<item>In Two Weeks</item>
-		<item>Next Month</item>
-	</string-array>
 	<string name="today">วันนี้</string>
 	<string name="tomorrow">พรุ่งนี้</string>
 	<string name="yesterday">เมื่อวาน</string>

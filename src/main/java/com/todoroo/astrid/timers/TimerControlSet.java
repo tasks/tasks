@@ -5,7 +5,7 @@
  */
 package com.todoroo.astrid.timers;
 
-import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.view.View;
@@ -34,7 +34,7 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
     private final TextView displayEdit;
     private ActivityPreferences preferences;
 
-    public TimerControlSet(ActivityPreferences preferences, final Activity activity, DialogBuilder dialogBuilder) {
+    public TimerControlSet(ActivityPreferences preferences, final FragmentActivity activity, DialogBuilder dialogBuilder) {
         super(preferences, activity, R.layout.control_set_timers_dialog, R.layout.control_set_timers, R.string.TEA_timer_controls, dialogBuilder);
         this.preferences = preferences;
 
@@ -81,7 +81,7 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
         private final TimeDurationControlSet controlSet;
         private final IntegerProperty property;
 
-        public TimeDurationTaskEditControlSet(Activity activity, View v, IntegerProperty property, int timeButtonId) {
+        public TimeDurationTaskEditControlSet(FragmentActivity activity, View v, IntegerProperty property, int timeButtonId) {
             super(activity, -1);
             this.property = property;
             this.controlSet = new TimeDurationControlSet(activity, v, property, timeButtonId, preferences);

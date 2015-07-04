@@ -312,17 +312,6 @@
 		<item>分</item>
 		<item>年</item>
 	</string-array>
-	<string-array name="repeat_until_shortcuts">
-		<item>永久に</item>
-		<item>指定した日</item>
-		<item>今日</item>
-		<item>明日</item>
-		<item>(日後)</item>
-		<item>来週</item>
-		<item>2週間以内</item>
-		<item>来月</item>
-	</string-array>
-	<string name="repeat_until_title">繰り返し期限...</string>
 	<string-array name="repeat_type">
 		<item>期限から</item>
 		<item>完了日から</item>

@@ -27,19 +27,6 @@
     <item>Year(s)</item>
   </string-array>
 
-  <string-array name="repeat_until_shortcuts">
-      <item>Forever</item>
-      <item>Specific Day</item>
-      <item>Today</item>
-      <item>Tomorrow</item>
-      <item>(day after)</item>
-      <item>Next Week</item>
-      <item>In Two Weeks</item>
-      <item>Next Month</item>
-  </string-array>
-  
-  <string name="repeat_until_title">Repeat until...</string>
-  
   <string-array name="repeat_type">
     <!-- slide 20c: repeat type (date to repeat from) -->
     <item>from due date</item>

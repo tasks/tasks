@@ -294,17 +294,6 @@ och återställer dina aktuella uppgifter från en backup
 		<item>Minut(er)</item>
 		<item>År</item>
 	</string-array>
-	<string-array name="repeat_until_shortcuts">
-		<item>Forever</item>
-		<item>Specifik dag</item>
-		<item>Idag</item>
-		<item>Imorgon</item>
-		<item>(i övermorgon)</item>
-		<item>Nästa Vecka</item>
-		<item>Om två veckor</item>
-		<item>Nästa månad</item>
-	</string-array>
-	<string name="repeat_until_title">Repetera tills...</string>
 	<string-array name="repeat_type">
 		<item>från förfallodatumet</item>
 		<item>från avslutningsdatumet</item>

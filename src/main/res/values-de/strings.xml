@@ -306,17 +306,6 @@
 		<item>Minute(n)</item>
 		<item>Jahr(e)</item>
 	</string-array>
-	<string-array name="repeat_until_shortcuts">
-		<item>Für immer</item>
-		<item>Bestimmter Tag</item>
-		<item>Heute</item>
-		<item>Morgen</item>
-		<item>(Tag danach)</item>
-		<item>Nächste Woche</item>
-		<item>In zwei Wochen</item>
-		<item>Nächster Monat</item>
-	</string-array>
-	<string name="repeat_until_title">Wiederhole bis...</string>
 	<string-array name="repeat_type">
 		<item>bei Fälligkeit</item>
 		<item>bei Erledigung</item>

@@ -5,12 +5,12 @@
  */
 package com.todoroo.astrid.gcal;
 
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -53,7 +53,7 @@ public class GCalControlSet extends TaskEditControlSetBase {
     private Spinner calendarSelector;
     private TextView calendar;
 
-    public GCalControlSet(GCalHelper gcal, final Activity activity) {
+    public GCalControlSet(GCalHelper gcal, final FragmentActivity activity) {
         super(activity, R.layout.control_set_gcal_display);
         this.gcal = gcal;
         this.calendars = gcal.getCalendars();

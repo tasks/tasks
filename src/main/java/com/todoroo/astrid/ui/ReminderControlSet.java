@@ -196,7 +196,7 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
         });
         addSpinner = (Spinner) getView().findViewById(R.id.alarms_add_spinner);
         addSpinner.setOnItemSelectedListener(ReminderControlSet.this);
-        remindAdapter = new ArrayAdapter<String>(activity, R.layout.simple_spinner_item, spinnerOptions) {
+        remindAdapter = new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, spinnerOptions) {
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 View v;

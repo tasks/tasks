@@ -283,17 +283,6 @@
 		<item>分鐘</item>
 		<item>年</item>
 	</string-array>
-	<string-array name="repeat_until_shortcuts">
-		<item>永遠重複</item>
-		<item>具體的一天</item>
-		<item>今天</item>
-		<item>明天</item>
-		<item>（後天）</item>
-		<item>下星期</item>
-		<item>兩星期內</item>
-		<item>下個月</item>
-	</string-array>
-	<string name="repeat_until_title">重複到……</string>
 	<string-array name="repeat_type">
 		<item>自到期日</item>
 		<item>自完成日</item>

@@ -199,16 +199,6 @@
 		<item>دقائق</item>
 		<item>سنين</item>
 	</string-array>
-	<string-array name="repeat_until_shortcuts">
-		<item>للأبد</item>
-		<item>يوم محدد</item>
-		<item>اليوم</item>
-		<item>غدا</item>
-		<item>(day after)</item>
-		<item>الأسبوع القادم</item>
-		<item>خلال أسبوعين</item>
-		<item>الشهر القادم</item>
-	</string-array>
 	<string-array name="repeat_type">
 		<item>من تاريخ الموعد</item>
 		<item>من تاريخ الاتمام</item>

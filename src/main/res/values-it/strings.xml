@@ -310,17 +310,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 		<item>Minuto(i)</item>
 		<item>Anno(i)</item>
 	</string-array>
-	<string-array name="repeat_until_shortcuts">
-		<item>Per sempre</item>
-		<item>Giorno specifico</item>
-		<item>Oggi</item>
-		<item>Domani</item>
-		<item>(giorno dopo)</item>
-		<item>Settimana Successiva</item>
-		<item>Ogni Due Settimane</item>
-		<item>Mese Successivo</item>
-	</string-array>
-	<string name="repeat_until_title">Ripeti fino a...</string>
 	<string-array name="repeat_type">
 		<item>dalla data di scadenza</item>
 		<item>dalla data di completamento</item>
