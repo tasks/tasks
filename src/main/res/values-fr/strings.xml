@@ -100,6 +100,7 @@
 	<string name="MCA_return_call">Appeler maintenant</string>
 	<string name="MCA_add_task">Appeler plus tard</string>
 	<string name="MCA_ignore">Ignorer</string>
+	<string name="missed_calls">Appels manqués</string>
 	<string name="MCA_task_title_name">Rappeler %1$s au %2$s</string>
 	<string name="MCA_task_title_no_name">Rappeler %s</string>
 	<string name="CRA_ignore">Ignorer</string>

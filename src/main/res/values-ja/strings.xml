@@ -99,9 +99,11 @@
 	<string name="TEA_control_hidden_section">----常に隠す----</string>
 	<string name="hide_until_prompt">私のリストに表示</string>
 	<string name="TEA_load_more">さらに読み込む...</string>
+	<string name="missed_call">%s から不在着信</string>
 	<string name="MCA_return_call">いますぐ呼び出し</string>
 	<string name="MCA_add_task">後で呼び出し</string>
 	<string name="MCA_ignore">無視する</string>
+	<string name="missed_calls">不在着信</string>
 	<string name="MCA_task_title_name">%1$s に %2$s 折り返し連絡</string>
 	<string name="MCA_task_title_no_name">%s に折り返し連絡</string>
 	<string name="CRA_ignore">無視する</string>
@@ -130,7 +132,7 @@
 	<string name="CRA_list_created_title">リストが作成されました!</string>
 	<string name="CRA_default_list_name">アクションアイテム: %s</string>
 	<string name="EPr_title">Tasks: 設定</string>
-	<string name="EPr_deactivated">非アクティブ化されました</string>
+	<string name="EPr_deactivated">アクティブにしない</string>
 	<string name="EPr_appearance_header">外観</string>
 	<string name="EPr_filters_to_show_title">表示のフィルター</string>
 	<string name="EPr_edit_screen_options">編集画面オプション</string>

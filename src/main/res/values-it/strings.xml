@@ -99,9 +99,11 @@
 	<string name="TEA_control_hidden_section">----Nascondi Sempre----</string>
 	<string name="hide_until_prompt">Mostra nella mia lista</string>
 	<string name="TEA_load_more">Caricane altri...</string>
+	<string name="missed_call">Chiamate perse da %s</string>
 	<string name="MCA_return_call">Chiama ora</string>
 	<string name="MCA_add_task">Chiama più tardi</string>
 	<string name="MCA_ignore">Ignora</string>
+	<string name="missed_calls">Chiamate perse</string>
 	<string name="MCA_task_title_name">Richiama %1$s al %2$s</string>
 	<string name="MCA_task_title_no_name">Richiama %s</string>
 	<string name="CRA_ignore">Ignora</string>
@@ -412,7 +414,7 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="delete">Elimina</string>
 	<string name="filter_settings">Preferenze di filtro</string>
 	<string name="deprecated_setting">L\'impostazione non sarà presente nel prossimo aggiornamento</string>
-	<string name="show_hidden">Mostra nascosti</string>
+	<string name="show_hidden">Mostra nascoste</string>
 	<string name="show_completed">Mostra completate</string>
 	<string name="reverse">Contrario</string>
 	<string name="task_count">%s Attività</string>

@@ -96,9 +96,11 @@
 	<string name="TEA_control_hidden_section">Всегда скрывать</string>
 	<string name="hide_until_prompt">Показать в моем листе</string>
 	<string name="TEA_load_more">Загрузить больше...</string>
+	<string name="missed_call">Пропущенный звонок от %s</string>
 	<string name="MCA_return_call">Позвонить сейчас</string>
 	<string name="MCA_add_task">Позвонить позже</string>
 	<string name="MCA_ignore">Игнорировать</string>
+	<string name="missed_calls">Пропущенные звонки</string>
 	<string name="MCA_task_title_name">Перезвонить %1$s в %2$s</string>
 	<string name="MCA_task_title_no_name">Перезвонить %s</string>
 	<string name="CRA_ignore">Игнорировать</string>
@@ -317,9 +319,11 @@
 	<string name="repeat_detail_duedate_until">\"Каждые  %1$s до %2$s\"</string>
 	<string name="repeat_forever">Повторять всегда</string>
 	<string name="repeat_until">Повторять до %s</string>
+	<string name="repeat_snackbar">%1$s перенесено на %2$s</string>
 	<string name="TEA_tags_label_long">Добавить в список</string>
 	<string name="tag_no_title_error">Пожалуйста, для начала введите название списка!</string>
 	<string name="tag_FEx_untagged">Без категории</string>
+	<string name="delete_tag_confirmation">Удалить %s?</string>
 	<string name="TPl_notification">Для %s действуют таймеры!</string>
 	<string name="TFE_workingOn">Задачи для замера времени</string>
 	<string name="TEA_timer_controls">Таймер</string>
@@ -394,13 +398,21 @@
 	<string name="tags">Списки</string>
 	<string name="filters">Фильтры</string>
 	<string name="date_shortcuts">Метки по времени</string>
-	<string name="date_shortcut_hour">На час</string>
+	<string name="date_shortcut_hour">Через час</string>
 	<string name="date_shortcut_morning">Утро</string>
 	<string name="date_shortcut_afternoon">После обеда</string>
-	<string name="date_shortcut_evening">Вечер</string>
+	<string name="date_shortcut_evening">Вечером</string>
 	<string name="date_shortcut_night">Ночь</string>
 	<string name="date_shortcut_tomorrow_morning">Завтра утром</string>
 	<string name="date_shortcut_tomorrow_afternoon">Завтра после обеда</string>
+	<string name="discard_changes">Отменить изменения?</string>
+	<string name="tag_settings">Настройки тегов</string>
+	<string name="filter_settings">Настройки фильтра</string>
+	<string name="deprecated_setting">Эта настройка будет удалено в следующем обновлении</string>
+	<string name="show_hidden">Показать скрытые</string>
+	<string name="show_completed">Показать выполненные</string>
+	<string name="reverse">В обратном порядке</string>
+	<string name="get_plugins">Получить Plug-ins</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>отключить</item>
 		<item>каждые 15 минут</item>
