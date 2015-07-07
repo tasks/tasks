@@ -224,8 +224,6 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
                     model.setCompletionDate(completionDate);
                     taskService.update(Task.UUID.eq(taskId), model);
                     model.clear();
-
-                    taskAdapter.getCompletedItems().put(taskId, false);
                 }
                 taskAdapter.notifyDataSetInvalidated();
             }
@@ -240,8 +238,6 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
                 model.setCompletionDate(completionDate);
                 taskService.update(Task.UUID.eq(uuid), model);
                 model.clear();
-
-                taskAdapter.getCompletedItems().put(node.uuid, true);
                 chained.add(node.uuid);
             }
         });
@@ -268,7 +264,6 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
                 recurring.close();
             }
 
-
             chainedCompletions.put(itemId, chained);
             taskAdapter.notifyDataSetInvalidated();
         }
@@ -284,11 +279,11 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
     }
 
     @Override
-    public void onCreateTask(Task task) {
-        updater.onCreateTask(list, getFilter(), task.getUuid());
+    public void onCreateTask(long id, String uuid) {
+        updater.onCreateTask(list, getFilter(), uuid);
         fragment.reconstructCursor();
         fragment.loadTaskListContent();
-        fragment.selectCustomId(task.getId());
+        fragment.selectCustomId(id);
     }
 
     @Override
@@ -296,6 +291,4 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         updater.onDeleteTask(list, getFilter(), task.getUuid());
         taskAdapter.notifyDataSetInvalidated();
     }
-
-
 }

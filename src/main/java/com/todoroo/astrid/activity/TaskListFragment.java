@@ -580,9 +580,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
      * broadcast. Subclasses should override this.
      */
     protected void refresh() {
-        if (taskAdapter != null) {
-            taskAdapter.flushCaches();
-        }
         TaskEditFragment taskEditFragment = ((AstridActivity) getActivity()).getTaskEditFragment();
         Task model = taskEditFragment == null ? null : taskEditFragment.model;
         taskDeleter.deleteTasksWithEmptyTitles(model == null ? null : model.getId());
@@ -608,7 +605,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
         Cursor taskCursor = taskAdapter.getCursor();
 
         taskCursor.requery();
-        taskAdapter.flushCaches();
         taskAdapter.notifyDataSetChanged();
 
         if (getView() != null) { // This was happening sometimes
@@ -776,7 +772,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
                 .show();
     }
 
-    public void onTaskCreated(Task task) {
+    public void onTaskCreated(long id, String uuid) {
     }
 
     protected void onTaskDelete(Task task) {

@@ -234,8 +234,6 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
                     model.setCompletionDate(completionDate);
                     taskService.save(model);
                     model.clear();
-
-                    taskAdapter.getCompletedItems().put(taskId, false);
                 }
                 taskAdapter.notifyDataSetInvalidated();
             }
@@ -259,7 +257,6 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
                 taskService.save(model);
                 model.clear();
 
-                taskAdapter.getCompletedItems().put(node.taskId, true);
                 chained.add(node.taskId);
             }
         });
@@ -275,7 +272,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
     }
 
     @Override
-    public void onCreateTask(Task task) {
+    public void onCreateTask(long id, String uuid) {
         //
     }
 

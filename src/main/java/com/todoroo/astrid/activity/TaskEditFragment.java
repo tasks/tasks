@@ -122,6 +122,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
      * Task ID
      */
     public static final String TOKEN_ID = "id"; //$NON-NLS-1$
+    public static final String TOKEN_UUID = "uuid";
 
     /**
      * Content Values to set
@@ -610,6 +611,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             if (taskEditActivity) {
                 Intent data = new Intent();
                 data.putExtra(TOKEN_TAGS_CHANGED, tagsChanged);
+                data.putExtra(TOKEN_ID, model.getId());
+                data.putExtra(TOKEN_UUID, model.getUuid());
                 getActivity().setResult(Activity.RESULT_OK, data);
 
             } else {
@@ -621,6 +624,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                     tla.tagsChanged();
                 }
                 tla.refreshTaskList();
+                if (isNewTask) {
+                    tla.getTaskListFragment().onTaskCreated(model.getId(), model.getUuid());
+                }
             }
 
             removeExtrasFromIntent(getActivity().getIntent());

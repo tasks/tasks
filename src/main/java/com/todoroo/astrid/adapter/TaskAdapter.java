@@ -148,7 +148,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     protected final TaskListFragment fragment;
     private DialogBuilder dialogBuilder;
     protected final Resources resources;
-    protected final HashMap<Object, Boolean> completedItems = new HashMap<>(0);
     protected OnCompletedTaskListener onCompletedTaskListener = null;
     protected final int resource = R.layout.task_adapter_row_simple;
     protected final LayoutInflater inflater;
@@ -489,21 +488,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     }
 
     /* ======================================================================
-     * ============================================================== add-ons
-     * ====================================================================== */
-
-    /**
-     * Called to tell the cache to be cleared
-     */
-    public void flushCaches() {
-        completedItems.clear();
-    }
-
-    public HashMap<Object, Boolean> getCompletedItems() {
-        return completedItems;
-    }
-
-    /* ======================================================================
      * ======================================================= event handlers
      * ====================================================================== */
 
@@ -550,15 +534,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         if (activity == null) {
             return;
         }
-        // show item as completed if it was recently checked
-        Boolean value = completedItems.get(task.getUuid());
-        if (value == null) {
-            value = completedItems.get(task.getId());
-        }
-        if(value != null) {
-            task.setCompletionDate(
-                    value ? DateUtilities.now() : 0);
-        }
+
         boolean state = task.isCompleted();
 
         TextView name = viewHolder.nameView;
@@ -677,7 +653,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 onCompletedTaskListener.onCompletedTask(task, newState);
             }
 
-            completedItems.put(task.getUuid(), newState);
             taskService.setComplete(task, newState);
         }
     }

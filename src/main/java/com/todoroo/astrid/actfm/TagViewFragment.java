@@ -152,10 +152,4 @@ public class TagViewFragment extends TaskListFragment {
     protected boolean hasDraggableOption() {
         return tagData != null;
     }
-
-    @Override
-    protected void refresh() {
-        loadTaskListContent();
-        setSyncOngoing(false);
-    }
 }

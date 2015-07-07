@@ -430,6 +430,11 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                     }
                 }
                 tlf.refresh();
+                if (data != null) {
+                    tlf.onTaskCreated(
+                            data.getLongExtra(TaskEditFragment.TOKEN_ID, 0L),
+                            data.getStringExtra(TaskEditFragment.TOKEN_UUID));
+                }
             }
         } else if (requestCode == REQUEST_EDIT_TAG) {
             if (resultCode == RESULT_OK) {

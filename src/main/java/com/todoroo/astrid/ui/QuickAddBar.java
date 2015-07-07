@@ -80,7 +80,7 @@ public class QuickAddBar {
             fragment.selectCustomId(task.getId());
             activity.onTaskListItemClicked(task.getId());
 
-            fragment.onTaskCreated(task);
+            fragment.onTaskCreated(task.getId(), task.getUUID());
             return task;
         } catch (Exception e) {
             log.error(e.getMessage(), e);

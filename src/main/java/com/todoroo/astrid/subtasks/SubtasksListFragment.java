@@ -94,9 +94,8 @@ public class SubtasksListFragment extends TaskListFragment {
     }
 
     @Override
-    public void onTaskCreated(Task task) {
-        super.onTaskCreated(task);
-        helper.onCreateTask(task);
+    public void onTaskCreated(long id, String uuid) {
+        helper.onCreateTask(id, uuid);
     }
 
     @Override
@@ -112,9 +111,7 @@ public class SubtasksListFragment extends TaskListFragment {
 
     @Override
     protected void refresh() {
+        super.refresh();
         initializeTaskListMetadata();
-        setUpTaskList();
-        setSyncOngoing(false);
     }
-
 }
