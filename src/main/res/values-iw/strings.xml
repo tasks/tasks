@@ -54,7 +54,7 @@
 	<string name="FLA_no_filter_selected">לא נבחר מַסְנֵן! אנא בחר מַסְנֵן או רשימה.</string>
 	<string name="TEA_title_hint">שם המשימה</string>
 	<string name="TEA_importance_label">עדיפות</string>
-	<string name="TEA_deadline_hint">קבע מועד יעד</string>
+	<string name="TEA_no_date">ללא תאריך</string>
 	<string name="TEA_hideUntil_label">הסתרה עד</string>
 	<string name="TEA_hideUntil_display">הסתר עד %s</string>
 	<string name="TEA_note_label">תיאור</string>
@@ -63,16 +63,6 @@
 	<string name="TEA_menu_save">שמירת השינויים</string>
 	<string name="TEA_tab_activity">פעילות</string>
 	<string name="TEA_timer_elap">זמן שעבר %s</string>
-	<string-array name="TEA_urgency">
-		<item>ללא תאריך</item>
-		<item>יום מסוים</item>
-		<item>היום</item>
-		<item>מחר</item>
-		<item>(ביום שלאחר)</item>
-		<item>בשבוע הבא</item>
-		<item>בתוך שבועיים</item>
-		<item>בחודש הבא</item>
-	</string-array>
 	<string name="TEA_no_time">ללא שעה מסויימת</string>
 	<string-array name="TEA_hideUntil">
 		<item>אף פעם</item>

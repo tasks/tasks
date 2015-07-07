@@ -64,6 +64,22 @@ public class Preferences {
         return getBoolean(R.string.p_rmd_enable_quiet, false);
     }
 
+    public int getDateShortcutMorning() {
+        return getInt(R.string.p_date_shortcut_morning, context.getResources().getInteger(R.integer.default_morning));
+    }
+
+    public int getDateShortcutAfternoon() {
+        return getInt(R.string.p_date_shortcut_afternoon, context.getResources().getInteger(R.integer.default_afternoon));
+    }
+
+    public int getDateShortcutEvening() {
+        return getInt(R.string.p_date_shortcut_evening, context.getResources().getInteger(R.integer.default_evening));
+    }
+
+    public int getDateShortcutNight() {
+        return getInt(R.string.p_date_shortcut_night, context.getResources().getInteger(R.integer.default_night));
+    }
+
     public boolean useDarkWidgetTheme(int widgetId) {
         boolean legacySetting = getBoolean(R.string.p_use_dark_theme_widget, false);
         return getBoolean(WidgetConfigActivity.PREF_DARK_THEME + widgetId, legacySetting);

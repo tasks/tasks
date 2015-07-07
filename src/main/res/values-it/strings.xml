@@ -56,7 +56,7 @@
 	<string name="FLA_no_filter_selected">Filtro non selezionato! Perfavore seleziona un filtro o una lista.</string>
 	<string name="TEA_title_hint">Memo attività</string>
 	<string name="TEA_importance_label">Priorità</string>
-	<string name="TEA_deadline_hint">Imposta data di scadenza</string>
+	<string name="TEA_no_date">Senza data</string>
 	<string name="TEA_hideUntil_label">Nascondi fino al</string>
 	<string name="TEA_hideUntil_display">Nascondi fino al %s</string>
 	<string name="TEA_note_label">Descrizione</string>
@@ -68,16 +68,6 @@
 	<string name="TEA_tab_activity">Attività</string>
 	<string name="TEA_timer_est">Stima %s</string>
 	<string name="TEA_timer_elap">Trascorso %s</string>
-	<string-array name="TEA_urgency">
-		<item>Senza data</item>
-		<item>Giorno specifico</item>
-		<item>Oggi</item>
-		<item>Domani</item>
-		<item>(giorno dopo)</item>
-		<item>Settimana successiva</item>
-		<item>Ogni due settimane</item>
-		<item>Mese successivo</item>
-	</string-array>
 	<string name="TEA_no_time">Senza ora</string>
 	<string-array name="TEA_hideUntil">
 		<item>Mai</item>

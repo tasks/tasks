@@ -21,5 +21,4 @@
         android:key="@string/p_date_shortcut_night"
         android:title="@string/date_shortcut_night" />
 
-
 </PreferenceScreen>

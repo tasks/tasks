@@ -117,8 +117,7 @@
   <!-- Task importance label -->
   <string name="TEA_importance_label">Priority</string>
   
-  <!-- Task due date hint -->
-  <string name="TEA_deadline_hint">Set due date</string>
+  <string name="TEA_no_date">No date</string>
   
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">Hide until</string>
@@ -149,21 +148,9 @@
   <string name="TEA_timer_est">Est. %s</string>
 
   <string name="TEA_timer_elap">Elapsed %s</string>
-  
-  <string-array name="TEA_urgency">
-      <!-- slide 19: urgency: labels for edit page. item #4 -> auto filled -->
-      <item>No date</item>
-      <item>Specific day</item>
-      <item>Today</item>
-      <item>Tomorrow</item>
-      <item>(day after)</item>
-      <item>Next week</item>
-      <item>In two weeks</item>
-      <item>Next month</item>
-  </string-array>
-  
+
   <string name="TEA_no_time">No time</string>
-      
+
   <string-array name="TEA_hideUntil">
       <!-- hideUntil: labels for edit page. -->
       <item>Never</item>

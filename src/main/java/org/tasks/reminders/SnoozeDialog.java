@@ -17,7 +17,6 @@ import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -35,10 +34,6 @@ public class SnoozeDialog extends InjectingDialogFragment {
     private List<Long> snoozeTimes = new ArrayList<>();
     private List<String> items = new ArrayList<>();
 
-    private DateTime getDateTimeShortcut(int resId, long def) {
-        return now.withMillisOfDay(preferences.getInt(getString(resId), (int) def));
-    }
-
     private void add(int resId, DateTime dateTime) {
         items.add(String.format("%s (%s)", getString(resId), getTimeString(context, dateTime.toDate())));
         snoozeTimes.add(dateTime.getMillis());
@@ -47,10 +42,10 @@ public class SnoozeDialog extends InjectingDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        DateTime morning = getDateTimeShortcut(R.string.p_date_shortcut_morning, TimeUnit.HOURS.toMillis(9));
-        DateTime afternoon = getDateTimeShortcut(R.string.p_date_shortcut_afternoon, TimeUnit.HOURS.toMillis(13));
-        DateTime evening = getDateTimeShortcut(R.string.p_date_shortcut_evening, TimeUnit.HOURS.toMillis(17));
-        DateTime night = getDateTimeShortcut(R.string.p_date_shortcut_night, TimeUnit.HOURS.toMillis(20));
+        DateTime morning = now.withMillisOfDay(preferences.getDateShortcutMorning());
+        DateTime afternoon = now.withMillisOfDay(preferences.getDateShortcutAfternoon());
+        DateTime evening = now.withMillisOfDay(preferences.getDateShortcutEvening());
+        DateTime night = now.withMillisOfDay(preferences.getDateShortcutNight());
         DateTime tomorrowMorning = morning.plusDays(1);
         DateTime tomorrowAfternoon = afternoon.plusDays(1);
 

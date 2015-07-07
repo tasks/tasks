@@ -50,16 +50,6 @@
 	<string name="TEA_elapsedDuration_label">Tid brukt på oppgaven til nå</string>
 	<string name="TEA_menu_save">Lagre endringer</string>
 	<string name="TEA_menu_discard_changes">Forkast endringer</string>
-	<string-array name="TEA_urgency">
-		<item>No date</item>
-		<item>Specific day</item>
-		<item>I dag</item>
-		<item>I morgen</item>
-		<item>(day after)</item>
-		<item>Next week</item>
-		<item>In two weeks</item>
-		<item>Next month</item>
-	</string-array>
 	<string name="TEA_control_importance">Viktighet</string>
 	<string name="TEA_control_lists">Lister</string>
 	<string name="TEA_control_notes">Notater</string>

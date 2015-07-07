@@ -54,7 +54,7 @@
 	<string name="FLA_no_filter_selected">Nieje vybraný filter! Prosím, zvoľ si filter, alebo zoznam.</string>
 	<string name="TEA_title_hint">Názov úlohy</string>
 	<string name="TEA_importance_label">Priorita</string>
-	<string name="TEA_deadline_hint">Nastaviť dátum splatnosti</string>
+	<string name="TEA_no_date">Bez dátumu</string>
 	<string name="TEA_hideUntil_label">Skryť do</string>
 	<string name="TEA_hideUntil_display">Skryť do %s</string>
 	<string name="TEA_note_label">Popis</string>
@@ -65,16 +65,6 @@
 	<string name="TEA_tab_activity">Aktivita</string>
 	<string name="TEA_timer_est">Spolu %s</string>
 	<string name="TEA_timer_elap">Uplynulo %s</string>
-	<string-array name="TEA_urgency">
-		<item>Bez dátumu</item>
-		<item>Konkrétny deň</item>
-		<item>Dnes</item>
-		<item>Zajtra</item>
-		<item>(deň po)</item>
-		<item>Nasledujúci týždeň</item>
-		<item>V dvoch týždňoch</item>
-		<item>Nasledujúci mesiac</item>
-	</string-array>
 	<string name="TEA_no_time">Bez času</string>
 	<string-array name="TEA_hideUntil">
 		<item>Nikdy</item>

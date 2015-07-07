@@ -57,7 +57,7 @@
 	<string name="FLA_no_filter_selected">Не вибраний жодний фільтр! Будь ласка, виберіть фільтр або список.</string>
 	<string name="TEA_title_hint">Ім\'я завдання</string>
 	<string name="TEA_importance_label">Пріоритет</string>
-	<string name="TEA_deadline_hint">Встановити кінцеву дату</string>
+	<string name="TEA_no_date">Немає дати</string>
 	<string name="TEA_hideUntil_label">Приховати до</string>
 	<string name="TEA_hideUntil_display">Приховати до %s</string>
 	<string name="TEA_note_label">Опис</string>
@@ -67,16 +67,6 @@
 	<string name="TEA_tab_activity">Активність</string>
 	<string name="TEA_timer_est">Зал. %s</string>
 	<string name="TEA_timer_elap">Час, що минув %s</string>
-	<string-array name="TEA_urgency">
-		<item>Немає дати</item>
-		<item>Вказати день</item>
-		<item>Сьогодні</item>
-		<item>Завтра</item>
-		<item>(день після)</item>
-		<item>Наступного тижня</item>
-		<item>На протязі 2-х тижнів</item>
-		<item>Наступного місяця</item>
-	</string-array>
 	<string name="TEA_no_time">Без часу</string>
 	<string-array name="TEA_hideUntil">
 		<item>Ніколи</item>

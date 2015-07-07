@@ -56,7 +56,7 @@
 	<string name="FLA_no_filter_selected">No hay filtro seleccionado! Por favor seleccione un filtro o lista.</string>
 	<string name="TEA_title_hint">Nombre de la tarea</string>
 	<string name="TEA_importance_label">Prioridad</string>
-	<string name="TEA_deadline_hint">Establecer fecha de vencimiento</string>
+	<string name="TEA_no_date">Sin fecha</string>
 	<string name="TEA_hideUntil_label">Ocultar hasta</string>
 	<string name="TEA_hideUntil_display">Ocultar hasta %s</string>
 	<string name="TEA_note_label">Descripción</string>
@@ -67,16 +67,6 @@
 	<string name="TEA_menu_discard_changes">Descartar cambios</string>
 	<string name="TEA_tab_activity">Actividad</string>
 	<string name="TEA_timer_elap">Transcurrido %s</string>
-	<string-array name="TEA_urgency">
-		<item>Sin fecha</item>
-		<item>Día específico</item>
-		<item>Hoy</item>
-		<item>Mañana</item>
-		<item>(día siguiente)</item>
-		<item>Semana siguiente</item>
-		<item>en dos semanas</item>
-		<item>Mes siguiente</item>
-	</string-array>
 	<string name="TEA_no_time">Sin horario</string>
 	<string-array name="TEA_hideUntil">
 		<item>Nunca</item>

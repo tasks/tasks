@@ -64,7 +64,6 @@ import com.todoroo.astrid.timers.TimerActionControlSet;
 import com.todoroo.astrid.timers.TimerControlSet;
 import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.ui.CheckableImageView;
-import com.todoroo.astrid.ui.DeadlineControlSet;
 import com.todoroo.astrid.ui.DescriptionControlSet;
 import com.todoroo.astrid.ui.EditTitleControlSet;
 import com.todoroo.astrid.ui.HideUntilControlSet;
@@ -86,6 +85,7 @@ import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.DeviceInfo;
 import org.tasks.preferences.ResourceResolver;
+import org.tasks.ui.DeadlineControlSet;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -368,7 +368,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         // deadline control, because
         // otherwise the correct date may not be written to the calendar event.
         // Order matters!
-        DeadlineControlSet deadlineControl = new DeadlineControlSet(preferences, getActivity(), dialogBuilder);
+        DeadlineControlSet deadlineControl = new DeadlineControlSet(getActivity(), preferences);
         controlSetMap.put(getString(R.string.TEA_ctrl_when_pref), deadlineControl);
         controls.add(repeatControls);
 

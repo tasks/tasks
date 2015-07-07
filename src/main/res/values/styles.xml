@@ -11,6 +11,11 @@
 
     <!-- ========================================================== General  -->
 
+    <style name="SpinnerNoPadding" parent="Widget.AppCompat.TextView.SpinnerItem">
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+    </style>
+
     <style name="ActionBar.TitleText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor">#fff</item>
     </style>

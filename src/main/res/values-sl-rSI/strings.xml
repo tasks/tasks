@@ -57,7 +57,7 @@
 	<string name="FLA_no_filter_selected">Noben filter ni izbran. Izberite filter ali seznam.</string>
 	<string name="TEA_title_hint">Poimenovanje opravka</string>
 	<string name="TEA_importance_label">Prioriteta</string>
-	<string name="TEA_deadline_hint">Nastavi datum dospelosti</string>
+	<string name="TEA_no_date">Brez datuma</string>
 	<string name="TEA_hideUntil_label">Skrij do</string>
 	<string name="TEA_hideUntil_display">Skrij do %s</string>
 	<string name="TEA_note_label">Opis</string>
@@ -67,16 +67,6 @@
 	<string name="TEA_tab_activity">Dejavnost</string>
 	<string name="TEA_timer_est">Cca. %s</string>
 	<string name="TEA_timer_elap">%s je potekel</string>
-	<string-array name="TEA_urgency">
-		<item>Brez datuma</item>
-		<item>Določen dan</item>
-		<item>Danes</item>
-		<item>Jutri</item>
-		<item>(dan kasneje)</item>
-		<item>Naslednji teden</item>
-		<item>V roku dveh tednov</item>
-		<item>Naslednji mesec</item>
-	</string-array>
 	<string name="TEA_no_time">Čas ni določen</string>
 	<string-array name="TEA_hideUntil">
 		<item>Nikoli</item>

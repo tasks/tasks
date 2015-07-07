@@ -54,7 +54,7 @@
 	<string name="FLA_no_filter_selected">Není vybrán žádný filtr! Vyberte prosím filtr nebo seznam.</string>
 	<string name="TEA_title_hint">Souhrn úkolu</string>
 	<string name="TEA_importance_label">Důležitost</string>
-	<string name="TEA_deadline_hint">Termín dokončení</string>
+	<string name="TEA_no_date">Bez termínu</string>
 	<string name="TEA_hideUntil_label">Skrýt až do</string>
 	<string name="TEA_hideUntil_display">Skrýt až do %s</string>
 	<string name="TEA_note_label">Poznámky</string>
@@ -65,16 +65,6 @@
 	<string name="TEA_tab_activity">Činnost</string>
 	<string name="TEA_timer_est">Zal. %s</string>
 	<string name="TEA_timer_elap">Uplynutí %s</string>
-	<string-array name="TEA_urgency">
-		<item>Bez termínu</item>
-		<item>Určitý den</item>
-		<item>Dnes</item>
-		<item>Zítra</item>
-		<item>(den po)</item>
-		<item>Příští týden</item>
-		<item>Za dva týdny</item>
-		<item>Příští měsíc</item>
-	</string-array>
 	<string name="TEA_no_time">Bez času</string>
 	<string-array name="TEA_hideUntil">
 		<item>Vždy</item>

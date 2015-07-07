@@ -65,6 +65,8 @@
         <item name="ic_action_cloud">@drawable/ic_cloud_queue_black_24dp</item>
         <item name="ic_action_new_tag">@drawable/ic_add_black_24dp</item>
         <item name="ic_action_discard">@drawable/ic_close_white_24dp</item>
+        <item name="textfield_underline">@drawable/textfield_underline_black</item>
+        <item name="android:spinnerItemStyle">@style/SpinnerNoPadding</item>
     </style>
 
     <style name="TasksDialog" parent="@style/Theme.AppCompat.Light.Dialog">

@@ -54,7 +54,7 @@
 	<string name="FLA_no_filter_selected">Фильтры не выбраны! Пожалуйста, выберите фильтр или список</string>
 	<string name="TEA_title_hint">Имя задачи</string>
 	<string name="TEA_importance_label">Приоритет</string>
-	<string name="TEA_deadline_hint">Установить дату выполнения</string>
+	<string name="TEA_no_date">Без даты</string>
 	<string name="TEA_hideUntil_label">Скрыть до</string>
 	<string name="TEA_hideUntil_display">Скрыть до %s</string>
 	<string name="TEA_note_label">Описание</string>
@@ -65,16 +65,6 @@
 	<string name="TEA_tab_activity">Действия</string>
 	<string name="TEA_timer_est">Ост. %s</string>
 	<string name="TEA_timer_elap">Прошло %s</string>
-	<string-array name="TEA_urgency">
-		<item>Без даты</item>
-		<item>Конкретный день</item>
-		<item>Сегодня</item>
-		<item>Завтра</item>
-		<item>(день спустя)</item>
-		<item>Следующая неделя</item>
-		<item>В течение пары недель</item>
-		<item>Следующий месяц</item>
-	</string-array>
 	<string name="TEA_no_time">Без времени</string>
 	<string-array name="TEA_hideUntil">
 		<item>Никогда</item>

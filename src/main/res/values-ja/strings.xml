@@ -56,7 +56,7 @@
 	<string name="FLA_no_filter_selected">フィルターが選択されていません! フィルターかリストを選択してください.</string>
 	<string name="TEA_title_hint">タスク名</string>
 	<string name="TEA_importance_label">優先順位</string>
-	<string name="TEA_deadline_hint">期日を設定</string>
+	<string name="TEA_no_date">日付なし</string>
 	<string name="TEA_hideUntil_label">非表示の期限</string>
 	<string name="TEA_hideUntil_display">%s まで表示しない</string>
 	<string name="TEA_note_label">概要</string>
@@ -68,16 +68,6 @@
 	<string name="TEA_tab_activity">活動</string>
 	<string name="TEA_timer_est">予定 %s</string>
 	<string name="TEA_timer_elap">経過時間 %s</string>
-	<string-array name="TEA_urgency">
-		<item>日付なし</item>
-		<item>指定した日から</item>
-		<item>今日</item>
-		<item>明日</item>
-		<item>日後</item>
-		<item>来週</item>
-		<item>2週間以内</item>
-		<item>来月</item>
-	</string-array>
 	<string name="TEA_no_time">時間がありません</string>
 	<string-array name="TEA_hideUntil">
 		<item>しない</item>

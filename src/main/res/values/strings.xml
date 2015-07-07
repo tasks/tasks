@@ -20,6 +20,8 @@
     <!-- tomorrow -->
     <string name="tomorrow">Tomorrow</string>
 
+    <string name="next">Next %s</string>
+
     <!-- yesterday -->
     <string name="yesterday">Yesterday</string>
 
@@ -86,6 +88,8 @@
     <string name="remove">Remove</string>
     <string name="randomly_once">Randomly once</string>
     <string name="randomly">Randomly</string>
+    <string name="pick_a_date">Pick a date</string>
+    <string name="pick_a_time">Pick a time</string>
     <string name="pick_a_date_and_time">Pick a date and time</string>
     <string name="pick_a_location">Pick a location</string>
     <string name="type_a_location">Type a location</string>

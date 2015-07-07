@@ -26,6 +26,7 @@ import static com.todoroo.astrid.data.Task.hasDueTime;
 import static org.tasks.Freeze.freezeAt;
 import static org.tasks.Freeze.thaw;
 import static org.tasks.date.DateTimeUtils.currentTimeMillis;
+import static org.tasks.date.DateTimeUtils.newDateTime;
 
 public class TaskTest extends AndroidTestCase {
 
@@ -110,6 +111,17 @@ public class TaskTest extends AndroidTestCase {
 
     public void testDoesHaveDueTime() {
         assertTrue(hasDueTime(1388516076000L));
+    }
+
+    public void testNoDueTime() {
+        assertFalse(hasDueTime(newDateTime().withMillisOfDay(0).getMillis()));
+        assertFalse(hasDueTime(newDateTime().withMillisOfDay(60000).getMillis()));
+    }
+
+    public void testHasDueTime() {
+        assertTrue(hasDueTime(newDateTime().withMillisOfDay(1).getMillis()));
+        assertTrue(hasDueTime(newDateTime().withMillisOfDay(1000).getMillis()));
+        assertTrue(hasDueTime(newDateTime().withMillisOfDay(59999).getMillis()));
     }
 
     public void testDoesNotHaveDueTime() {

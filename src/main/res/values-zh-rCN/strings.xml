@@ -54,16 +54,6 @@
 	<string name="TEA_elapsedDuration_label">已用于任务的时间</string>
 	<string name="TEA_menu_save">保存更改</string>
 	<string name="TEA_tab_activity">活动</string>
-	<string-array name="TEA_urgency">
-		<item>No date</item>
-		<item>指定哪天</item>
-		<item>今天</item>
-		<item>明天</item>
-		<item>（天之后）</item>
-		<item>下周</item>
-		<item>两周之内</item>
-		<item>下个月</item>
-	</string-array>
 	<string name="TEA_no_time">没有时间</string>
 	<string-array name="TEA_hideUntil">
 		<item>Never</item>

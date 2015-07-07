@@ -53,7 +53,6 @@
 	<string name="FLA_no_filter_selected">還沒有選定過濾器呢！請選擇一個過濾器或列表唄。</string>
 	<string name="TEA_title_hint">工作名稱</string>
 	<string name="TEA_importance_label">優先權</string>
-	<string name="TEA_deadline_hint">設定到期日</string>
 	<string name="TEA_hideUntil_label">隱藏直到</string>
 	<string name="TEA_hideUntil_display">隱藏直到 %s</string>
 	<string name="TEA_note_label">描述</string>
@@ -62,16 +61,6 @@
 	<string name="TEA_menu_save">儲存變更</string>
 	<string name="TEA_tab_activity">活動</string>
 	<string name="TEA_timer_elap">已經過 %s</string>
-	<string-array name="TEA_urgency">
-		<item>No date</item>
-		<item>指定哪天</item>
-		<item>今天</item>
-		<item>明天</item>
-		<item>(天之後)</item>
-		<item>下週</item>
-		<item>兩週之內</item>
-		<item>下個月</item>
-	</string-array>
 	<string name="TEA_no_time">沒有時間</string>
 	<string-array name="TEA_hideUntil">
 		<item>Never</item>

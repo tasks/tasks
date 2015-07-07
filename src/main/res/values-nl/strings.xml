@@ -54,7 +54,7 @@
 	<string name="FLA_no_filter_selected">Geen filter geselecteerd! Selecteer een filter of lijst.</string>
 	<string name="TEA_title_hint">Taak naam</string>
 	<string name="TEA_importance_label">Prioriteit</string>
-	<string name="TEA_deadline_hint">Stel de einddatum in</string>
+	<string name="TEA_no_date">Geen datum</string>
 	<string name="TEA_hideUntil_label">Verbergen tot</string>
 	<string name="TEA_hideUntil_display">Verberg tot %s</string>
 	<string name="TEA_note_label">Omschrijving</string>
@@ -65,16 +65,6 @@
 	<string name="TEA_tab_activity">Activiteit</string>
 	<string name="TEA_timer_est">Gesch. %s</string>
 	<string name="TEA_timer_elap">Verstreken %s</string>
-	<string-array name="TEA_urgency">
-		<item>Geen datum</item>
-		<item>Specifieke dag</item>
-		<item>Vandaag</item>
-		<item>Morgen</item>
-		<item>(volgende dag)</item>
-		<item>Volgende week</item>
-		<item>Binnen 2 weken</item>
-		<item>Volgende maand</item>
-	</string-array>
 	<string name="TEA_no_time">Geen tijd</string>
 	<string-array name="TEA_hideUntil">
 		<item>Nooit</item>

@@ -52,7 +52,7 @@
 	<string name="FLA_no_filter_selected">No heu seleccionat cap filtre. Seleccioneu un filtre o una llista.</string>
 	<string name="TEA_title_hint">Resum de la tasca</string>
 	<string name="TEA_importance_label">Importància</string>
-	<string name="TEA_deadline_hint">Establir data de venciment</string>
+	<string name="TEA_no_date">Sense venciment</string>
 	<string name="TEA_hideUntil_label">Mostra la tasca</string>
 	<string name="TEA_note_label">Notes</string>
 	<string name="TEA_estimatedDuration_label">Quant temps us portarà?</string>
@@ -60,16 +60,6 @@
 	<string name="TEA_menu_save">Desa els canvis</string>
 	<string name="TEA_menu_discard_changes">Descartar canvis</string>
 	<string name="TEA_tab_activity">Activitat</string>
-	<string-array name="TEA_urgency">
-		<item>Sense venciment</item>
-		<item>Dia concret</item>
-		<item>Avui</item>
-		<item>Demà</item>
-		<item>(demà passat)</item>
-		<item>La setmana que ve</item>
-		<item>D\'aquí a dues setmanes</item>
-		<item>El mes que ve</item>
-	</string-array>
 	<string name="TEA_no_time">cap hora</string>
 	<string-array name="TEA_hideUntil">
 		<item>Sempre</item>

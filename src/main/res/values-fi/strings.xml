@@ -18,7 +18,6 @@
 	<string name="FLA_no_filter_selected">Suodatinta ei valittu! Valitse suodatin tai lista.</string>
 	<string name="TEA_title_hint">Tehtävän nimi</string>
 	<string name="TEA_importance_label">Etusija</string>
-	<string name="TEA_deadline_hint">Aseta eräpäivä</string>
 	<string name="TEA_hideUntil_label">Piilota kunnes</string>
 	<string name="TEA_hideUntil_display">Piilota kunnes %s</string>
 	<string name="TEA_note_label">Kuvaus</string>

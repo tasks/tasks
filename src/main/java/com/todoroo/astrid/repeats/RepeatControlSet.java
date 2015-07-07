@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -28,8 +27,8 @@ import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.Weekday;
 import com.google.ical.values.WeekdayNum;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.ui.DateAndTimePicker;
 import com.todoroo.astrid.ui.NumberPickerDialog;
 import com.todoroo.astrid.ui.NumberPickerDialog.OnNumberPickedListener;
 import com.todoroo.astrid.ui.PopupControlSet;
@@ -422,7 +421,7 @@ public class RepeatControlSet extends PopupControlSet {
                     arrayResource);
         String date = String.format("%s %s", repeatValue, dates[intervalValue]); //$NON-NLS-1$
         if (repeatUntilValue > 0) {
-            return activity.getString(R.string.repeat_detail_duedate_until, date, DateAndTimePicker.getDisplayString(activity, repeatUntilValue, true, true));
+            return activity.getString(R.string.repeat_detail_duedate_until, date, getDisplayString());
         } else {
             return activity.getString(R.string.repeat_detail_duedate, date); // Every freq int
         }
@@ -466,11 +465,24 @@ public class RepeatControlSet extends PopupControlSet {
     private void updateRepeatUntilOptions() {
         repeatUntilOptions.clear();
         if (repeatUntilValue > 0) {
-            repeatUntilOptions.add(activity.getString(R.string.repeat_until, DateAndTimePicker.getDisplayString(activity, repeatUntilValue, false, false)));
+            repeatUntilOptions.add(activity.getString(R.string.repeat_until, getDisplayString()));
         }
         repeatUntilOptions.add(activity.getString(R.string.repeat_forever));
         repeatUntilOptions.add(activity.getString(R.string.repeat_until, "").trim());
         repeatUntilAdapter.notifyDataSetChanged();
         repeatUntil.setSelection(0);
+    }
+
+    private String getDisplayString() {
+        StringBuilder displayString = new StringBuilder();
+        Date d = newDate(repeatUntilValue);
+        if (d.getTime() > 0) {
+            displayString.append(DateUtilities.getDateStringHideYear(d));
+            if (Task.hasDueTime(repeatUntilValue)) {
+                displayString.append(", "); //$NON-NLS-1$ //$NON-NLS-2$
+                displayString.append(DateUtilities.getTimeString(activity, d));
+            }
+        }
+        return displayString.toString();
     }
 }

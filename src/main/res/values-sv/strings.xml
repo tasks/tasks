@@ -54,7 +54,7 @@
 	<string name="FLA_no_filter_selected">Inget filter valt! Välj ett filter eller en lista.</string>
 	<string name="TEA_title_hint">Uppgiftsnamn</string>
 	<string name="TEA_importance_label">Prioritet</string>
-	<string name="TEA_deadline_hint">Ange förfallodatum</string>
+	<string name="TEA_no_date">Inget datum</string>
 	<string name="TEA_hideUntil_label">Dölj tills</string>
 	<string name="TEA_hideUntil_display">Dölj tills %s</string>
 	<string name="TEA_note_label">Beskrivning</string>
@@ -64,16 +64,6 @@
 	<string name="TEA_tab_activity">Aktivitet</string>
 	<string name="TEA_timer_est">Ung. %s</string>
 	<string name="TEA_timer_elap">Förfluten %s</string>
-	<string-array name="TEA_urgency">
-		<item>Inget datum</item>
-		<item>Specifik dag</item>
-		<item>Idag</item>
-		<item>Imorgon</item>
-		<item>(dagen efter)</item>
-		<item>Nästa vecka</item>
-		<item>Om två veckor</item>
-		<item>Nästa månad</item>
-	</string-array>
 	<string name="TEA_no_time">Ingen tid</string>
 	<string-array name="TEA_hideUntil">
 		<item>Aldrig</item>

@@ -52,7 +52,7 @@
 	<string name="FLA_no_filter_selected">Δεν επιλέχθηκε φίλτρο! Παρακαλώ επιλέξτε ενα φίλτρο η μια λίστα</string>
 	<string name="TEA_title_hint">Όνομα καθήκοντος</string>
 	<string name="TEA_importance_label">Προτεραιότητα</string>
-	<string name="TEA_deadline_hint">Ορισμός ημερομηνίας λήξης</string>
+	<string name="TEA_no_date">Χωρίς ημερομηνία</string>
 	<string name="TEA_hideUntil_label">Απόκρυψη μέχρι</string>
 	<string name="TEA_hideUntil_display">Απόκρυψη μέχρι %s</string>
 	<string name="TEA_note_label">Περιγραφή</string>
@@ -63,16 +63,6 @@
 	<string name="TEA_tab_activity">Δραστηριότητα</string>
 	<string name="TEA_timer_est">Εκτιμώμενο %s</string>
 	<string name="TEA_timer_elap">Πέρασε %s</string>
-	<string-array name="TEA_urgency">
-		<item>Χωρίς ημερομηνία</item>
-		<item>Συγκεκριμένη ημέρα</item>
-		<item>Σήμερα</item>
-		<item>Αύριο</item>
-		<item>(μεθαύριο)</item>
-		<item>Επόμενη εβδομάδα</item>
-		<item>Σε δύο εβδομάδες</item>
-		<item>Επόμενος μήνας</item>
-	</string-array>
 	<string name="TEA_no_time">Χωρίς ώρα</string>
 	<string-array name="TEA_hideUntil">
 		<item>Ποτέ</item>

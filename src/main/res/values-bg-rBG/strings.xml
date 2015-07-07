@@ -59,7 +59,7 @@
 	<string name="FLA_no_filter_selected">Няма избран филтър! Моля изберете филтър или списък.</string>
 	<string name="TEA_title_hint">Име на задачата</string>
 	<string name="TEA_importance_label">Приоритет</string>
-	<string name="TEA_deadline_hint">Задаване на краен срок</string>
+	<string name="TEA_no_date">Без дата</string>
 	<string name="TEA_hideUntil_label">Скрий до</string>
 	<string name="TEA_hideUntil_display">Скрий до %s</string>
 	<string name="TEA_note_label">Описание</string>
@@ -70,16 +70,6 @@
 	<string name="TEA_menu_discard_changes">Откажи промените</string>
 	<string name="TEA_timer_est">Приблизително %s</string>
 	<string name="TEA_timer_elap">Изминали %s</string>
-	<string-array name="TEA_urgency">
-		<item>Без дата</item>
-		<item>Определен ден</item>
-		<item>Днес</item>
-		<item>Утре</item>
-		<item>(ден след)</item>
-		<item>Следваща седмица</item>
-		<item>за две седмици</item>
-		<item>Следващия месец</item>
-	</string-array>
 	<string name="TEA_no_time">Без време</string>
 	<string-array name="TEA_hideUntil">
 		<item>Никога</item>

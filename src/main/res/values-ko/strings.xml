@@ -57,7 +57,7 @@
 	<string name="FLA_no_filter_selected">필터를 선택하지 않았습니다! 필터나 목록을 선택하세요.</string>
 	<string name="TEA_title_hint">일정 이름</string>
 	<string name="TEA_importance_label">우선순위</string>
-	<string name="TEA_deadline_hint">마감일 설정</string>
+	<string name="TEA_no_date">기한 없음</string>
 	<string name="TEA_hideUntil_label">숨기기 기간:</string>
 	<string name="TEA_hideUntil_display">%s 까지 숨기기</string>
 	<string name="TEA_note_label">설명</string>
@@ -68,16 +68,6 @@
 	<string name="TEA_tab_activity">활동 내역</string>
 	<string name="TEA_timer_est">동부표준시 %s</string>
 	<string name="TEA_timer_elap">경과 시간: %s</string>
-	<string-array name="TEA_urgency">
-		<item>기한 없음</item>
-		<item>특정한 날짜</item>
-		<item>오늘</item>
-		<item>내일</item>
-		<item>(며칠 후)</item>
-		<item>다음 주</item>
-		<item>2주</item>
-		<item>다음 달</item>
-	</string-array>
 	<string name="TEA_no_time">시한 없음</string>
 	<string-array name="TEA_hideUntil">
 		<item>사용안함</item>

@@ -54,16 +54,6 @@
 	<string name="TEA_elapsedDuration_label">Görev üzerinde çalışılan zaman</string>
 	<string name="TEA_menu_save">Değişiklikleri Kaydet</string>
 	<string name="TEA_tab_activity">Etkinlik</string>
-	<string-array name="TEA_urgency">
-		<item>No date</item>
-		<item>Belirli gün</item>
-		<item>Bugün</item>
-		<item>Yarın</item>
-		<item>(ertesi gün)</item>
-		<item>Gelecek hafta</item>
-		<item>İki hafta içinde</item>
-		<item>Gelecek ay</item>
-	</string-array>
 	<string name="TEA_no_time">Zaman yok</string>
 	<string-array name="TEA_hideUntil">
 		<item>Never</item>

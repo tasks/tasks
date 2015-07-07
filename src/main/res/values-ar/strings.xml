@@ -37,22 +37,11 @@
 	<string name="SSD_sort_modified">بواسطة التعديل الأخير</string>
 	<string name="FLA_no_filter_selected">لم يتم اختيار فلتر! ارجو اختيار فلتر او قائمة</string>
 	<string name="TEA_title_hint">اسم المهمة</string>
-	<string name="TEA_deadline_hint">تعيين تاريخ الاستحقاق</string>
 	<string name="TEA_hideUntil_label">إخفاء حتى...</string>
 	<string name="TEA_note_label">وصف</string>
 	<string name="TEA_estimatedDuration_label">كم من الوقت ستأخذ؟</string>
 	<string name="TEA_menu_save">حفظ التغيرات</string>
 	<string name="TEA_tab_activity">نشاط</string>
-	<string-array name="TEA_urgency">
-		<item>No date</item>
-		<item>يوم محدد</item>
-		<item>اليوم</item>
-		<item>غدا</item>
-		<item>(اليوم القادم)</item>
-		<item>الأسبوع القادم</item>
-		<item>خلال أسبوعين</item>
-		<item>الشهر القادم</item>
-	</string-array>
 	<string-array name="TEA_hideUntil">
 		<item>قط</item>
 		<item>التاريخ المحدد</item>

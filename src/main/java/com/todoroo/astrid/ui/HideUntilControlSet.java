@@ -255,5 +255,4 @@ public class HideUntilControlSet extends TaskEditControlSetBase implements OnIte
         long value = task.createHideUntil(item.setting, item.date);
         task.setHideUntil(value);
     }
-
 }
