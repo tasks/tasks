@@ -118,7 +118,6 @@
 	<string name="EPr_appearance_header">Wygląd</string>
 	<string name="EPr_filters_to_show_title">Pokazywane filtry</string>
 	<string name="EPr_edit_screen_options">Edytuj ustawienia ekranu</string>
-	<string name="EPr_time_increment">Krok co 5-minut</string>
 	<string name="EPr_show_timer_shortcut">Pokaż skrót minutnika</string>
 	<string name="EPr_beastMode_desc">Dostosuj układ strony edycji zadania</string>
 	<string name="EPr_beastMode_reset">Przywróć domyślne</string>

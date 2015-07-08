@@ -117,7 +117,6 @@
 	<string name="EPr_appearance_header">Εμφάνιση</string>
 	<string name="EPr_filters_to_show_title">Φίλτρα για εμφάνιση</string>
 	<string name="EPr_edit_screen_options">Επεξεργασία επιλογών εμφάνισης</string>
-	<string name="EPr_time_increment">5λεπτα διαστήματα</string>
 	<string name="EPr_show_timer_shortcut">Εμφάνιση συντόμευσης χρονομέτρου</string>
 	<string name="EPr_beastMode_desc">Προσαρμόστε τη διάταξη της οθόνης επεξεργασίας της εργασίας</string>
 	<string name="EPr_beastMode_reset">Επαναφορά προεπιλογών</string>

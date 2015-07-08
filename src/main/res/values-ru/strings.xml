@@ -123,7 +123,6 @@
 	<string name="EPr_appearance_header">Интерфейс</string>
 	<string name="EPr_filters_to_show_title">Показать фильтры</string>
 	<string name="EPr_edit_screen_options">Редактировать настройки экрана</string>
-	<string name="EPr_time_increment">Шаг 5 минут</string>
 	<string name="EPr_show_timer_shortcut">Показать вкладку таймера</string>
 	<string name="EPr_beastMode_desc">Настроить внешний вид экрана правки задачи</string>
 	<string name="EPr_beastMode_reset">Настройки по умолчанию</string>

@@ -118,7 +118,6 @@
 	<string name="EPr_appearance_header">Vzhled</string>
 	<string name="EPr_filters_to_show_title">Filtry pro zobrazení</string>
 	<string name="EPr_edit_screen_options">Možnosti úprav zobrazení</string>
-	<string name="EPr_time_increment">Posunout o 5 minut</string>
 	<string name="EPr_beastMode_reset">Obnovit výchozí hodnoty</string>
 	<string name="EPr_fullTask_title">Zobrazit úplný název úkolu</string>
 	<string name="EPr_show_task_edit_comments">Zobrazit komentáře při úpravě úkolu</string>

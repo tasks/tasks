@@ -35,11 +35,6 @@
             android:title="@string/EPr_show_task_edit_comments" />
 
         <com.todoroo.astrid.ui.MultilineCheckboxPreference
-            android:defaultValue="true"
-            android:key="@string/p_time_increment"
-            android:title="@string/EPr_time_increment" />
-
-        <com.todoroo.astrid.ui.MultilineCheckboxPreference
             android:defaultValue="false"
             android:key="@string/p_show_timer_shortcut"
             android:title="@string/EPr_show_timer_shortcut" />

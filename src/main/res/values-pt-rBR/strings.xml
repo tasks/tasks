@@ -117,7 +117,6 @@
 	<string name="EPr_appearance_header">Aparência</string>
 	<string name="EPr_filters_to_show_title">Filtros a mostrar</string>
 	<string name="EPr_edit_screen_options">Editar opções da tela</string>
-	<string name="EPr_time_increment">Incrementos de 5 minutos</string>
 	<string name="EPr_show_timer_shortcut">Exibir atalho para temporizador</string>
 	<string name="EPr_beastMode_desc">Personalize o layout da tela de edição</string>
 	<string name="EPr_beastMode_reset">Restaurar valores padrão</string>

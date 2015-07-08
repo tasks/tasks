@@ -77,7 +77,6 @@
 	<string name="CRA_list_created_title">أنشئت القائمة</string>
 	<string name="EPr_appearance_header">ظهور</string>
 	<string name="EPr_edit_screen_options">تعديل خيارات الشاشه</string>
-	<string name="EPr_time_increment">٥ دقائق إضافية</string>
 	<string name="EPr_show_timer_shortcut">إظهار إختصار المنبه</string>
 	<string name="EPr_beastMode_reset">الإعادة إلى الإفتراضي</string>
 	<string name="EPr_fullTask_title">إظهار عنوان المهمه</string>

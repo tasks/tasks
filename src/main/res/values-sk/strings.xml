@@ -121,7 +121,6 @@
 	<string name="EPr_appearance_header">Vzhľad</string>
 	<string name="EPr_filters_to_show_title">Filtre pre zobrazenie</string>
 	<string name="EPr_edit_screen_options">Možnosti úprav zobrazenia</string>
-	<string name="EPr_time_increment">Posunúť o 5 minút</string>
 	<string name="EPr_show_timer_shortcut">Zobraziť skratku časovača</string>
 	<string name="EPr_beastMode_desc">Prispôsobiť rozvrhnutie zobrazenia úpravy úloh</string>
 	<string name="EPr_beastMode_reset">Obnoviť na predvolené</string>

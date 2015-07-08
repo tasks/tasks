@@ -123,7 +123,6 @@
 	<string name="EPr_appearance_header">Apparence</string>
 	<string name="EPr_filters_to_show_title">Filtres à afficher</string>
 	<string name="EPr_edit_screen_options">Edition des options d\'affichage</string>
-	<string name="EPr_time_increment">Incrément de 5 minutes</string>
 	<string name="EPr_show_timer_shortcut">Afficher le raccourci de minuterie</string>
 	<string name="EPr_beastMode_desc">Personnaliser la disposition de l\'écran d\'édition de tâche</string>
 	<string name="EPr_beastMode_reset">Rétablir les valeurs par défaut</string>

@@ -122,7 +122,6 @@
 	<string name="EPr_appearance_header">Aspeto</string>
 	<string name="EPr_filters_to_show_title">Filtros a mostrar</string>
 	<string name="EPr_edit_screen_options">Opções do ecrã de edição</string>
-	<string name="EPr_time_increment">Incrementos de 5 minutos</string>
 	<string name="EPr_show_timer_shortcut">Mostrar atalho do temporizador</string>
 	<string name="EPr_beastMode_desc">Personalizar o esquema do ecrã de edição de tarefas</string>
 	<string name="EPr_beastMode_reset">Restaurar definições originas</string>

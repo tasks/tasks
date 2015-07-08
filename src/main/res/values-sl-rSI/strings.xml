@@ -121,7 +121,6 @@
 	<string name="EPr_appearance_header">Izgled</string>
 	<string name="EPr_filters_to_show_title">Filtri za prikaz</string>
 	<string name="EPr_edit_screen_options">Uredi možnosti zaslona</string>
-	<string name="EPr_time_increment">5-minutni podaljški</string>
 	<string name="EPr_show_timer_shortcut">Prikaži bližnjico za štoparico</string>
 	<string name="EPr_beastMode_desc">Po meri postavi stran za urejevanje opravkov </string>
 	<string name="EPr_beastMode_reset">Povrni privzeto nastavitev</string>

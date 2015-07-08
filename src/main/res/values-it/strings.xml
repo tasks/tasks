@@ -126,7 +126,6 @@
 	<string name="EPr_appearance_header">Aspetto</string>
 	<string name="EPr_filters_to_show_title">Filtri da visualizzare</string>
 	<string name="EPr_edit_screen_options">Modifica opzioni schermo</string>
-	<string name="EPr_time_increment">Ogni 5 minuti</string>
 	<string name="EPr_show_timer_shortcut">Mostra scorciatoia timer</string>
 	<string name="EPr_beastMode_desc">Personalizza il layout della schermata di modifica attività</string>
 	<string name="EPr_beastMode_reset">Ripristina predefiniti</string>

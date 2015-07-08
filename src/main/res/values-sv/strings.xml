@@ -118,7 +118,6 @@
 	<string name="EPr_appearance_header">Utseende</string>
 	<string name="EPr_filters_to_show_title">Filter att visa</string>
 	<string name="EPr_edit_screen_options">Ändra skärminställningar</string>
-	<string name="EPr_time_increment">5 minuters steg</string>
 	<string name="EPr_beastMode_desc">Ställ in layouten för uppgiftsredigeringsrutan</string>
 	<string name="EPr_beastMode_reset">Återställ till standardvärden</string>
 	<string name="EPr_fullTask_title">Visa hela namnet på uppgiften</string>

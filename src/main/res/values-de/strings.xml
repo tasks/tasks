@@ -124,7 +124,6 @@
 	<string name="EPr_appearance_header">Erscheinungsbild</string>
 	<string name="EPr_filters_to_show_title">Angezeigte Filter</string>
 	<string name="EPr_edit_screen_options">Bildschirmeinstellungen bearbeiten</string>
-	<string name="EPr_time_increment">5 Minuten Steigerung</string>
 	<string name="EPr_show_timer_shortcut">Verknüpfung zu Timer anzeigen</string>
 	<string name="EPr_beastMode_desc">Erscheinungsbild Aufgabenseite anpassen</string>
 	<string name="EPr_beastMode_reset">Auf Standardeinstellungen zurücksetzen</string>

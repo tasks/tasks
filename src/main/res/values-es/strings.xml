@@ -123,7 +123,6 @@
 	<string name="EPr_appearance_header">Apariencia</string>
 	<string name="EPr_filters_to_show_title">Filtros a mostrar</string>
 	<string name="EPr_edit_screen_options">Editar opciones de pantalla</string>
-	<string name="EPr_time_increment">Incrementos de 5 minutos</string>
 	<string name="EPr_show_timer_shortcut">Mostrar atajo del temporizador</string>
 	<string name="EPr_beastMode_desc">Personalizar la disposición de la pantalla de edición de tareas</string>
 	<string name="EPr_beastMode_reset">Restablecer valores predeterminados</string>
