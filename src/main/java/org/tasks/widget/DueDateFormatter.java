@@ -36,7 +36,7 @@ public class DueDateFormatter {
             row.setTextViewText(R.id.dueDate, task.isCompleted()
                     ? resources.getString(R.string.TAd_completed, formatDate(task.getCompletionDate()))
                     : formatDate(task.getDueDate()));
-            row.setTextColor(R.id.dueDate, task.isOverdue() ? resources.getColor(R.color.task_list_overdue) : textColor);
+            row.setTextColor(R.id.dueDate, task.isOverdue() ? resources.getColor(R.color.overdue) : textColor);
         } else {
             row.setViewVisibility(R.id.dueDate, View.GONE);
         }

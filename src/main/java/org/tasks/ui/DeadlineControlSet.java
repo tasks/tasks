@@ -32,6 +32,8 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastHoneycomb;
 import static java.util.Arrays.asList;
 import static org.tasks.date.DateTimeUtils.newDate;
 import static org.tasks.date.DateTimeUtils.newDateTime;
+import static org.tasks.preferences.ResourceResolver.getData;
+import static org.tasks.preferences.ResourceResolver.getResource;
 
 public class DeadlineControlSet extends TaskEditControlSetBase {
 
@@ -169,9 +171,30 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
                 TextView tv = (TextView) LayoutInflater.from(activity).inflate(android.R.layout.simple_spinner_item, parent, false);
                 tv.setText(dueDateOptions.get(selectedItemPosition));
                 if (atLeastHoneycomb()) {
-                    dueDateSpinner.setAlpha(date == 0 ? 0.5f : 1f);
+                    if (date == 0) {
+                        dueDateSpinner.setAlpha(0.5f);
+                        dueDateSpinner.setBackgroundResource(getResource(activity, R.attr.textfield_underline));
+                    } else {
+                        dueDateSpinner.setAlpha(1.0f);
+                        if (date < newDateTime().withMillisOfDay(0).getMillis()) {
+                            dueDateSpinner.setBackground(activity.getResources().getDrawable(R.drawable.textfield_underline_red, activity.getTheme()));
+                            tv.setTextColor(activity.getResources().getColor(R.color.overdue));
+                        } else {
+                            dueDateSpinner.setBackgroundResource(getResource(activity, R.attr.textfield_underline));
+                            tv.setTextColor(themeColor);
+                        }
+                    }
                 } else {
-                    tv.setTextColor(date == 0 ? unsetColor : themeColor);
+                    if (date == 0) {
+                        dueDateSpinner.setBackgroundResource(getResource(activity, R.attr.textfield_underline));
+                        tv.setTextColor(unsetColor);
+                    } else if (date < newDateTime().withMillisOfDay(0).getMillis()) {
+                        dueDateSpinner.setBackground(activity.getResources().getDrawable(R.drawable.textfield_underline_red, activity.getTheme()));
+                        tv.setTextColor(activity.getResources().getColor(R.color.overdue));
+                    } else {
+                        dueDateSpinner.setBackgroundResource(getResource(activity, R.attr.textfield_underline));
+                        tv.setTextColor(themeColor);
+                    }
                 }
                 return tv;
             }
@@ -208,6 +231,33 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
                 }
                 TextView tv = (TextView) LayoutInflater.from(activity).inflate(android.R.layout.simple_spinner_item, parent, false);
                 tv.setText(dueTimeOptions.get(selectedItemPosition));
+                if (atLeastHoneycomb()) {
+                    if (time == -1) {
+                        dueTimeSpinner.setAlpha(0.5f);
+                        dueTimeSpinner.setBackgroundResource(getResource(activity, R.attr.textfield_underline));
+                    } else {
+                        dueTimeSpinner.setAlpha(1.0f);
+                        if (newDateTime(date).withMillisOfDay(time).isBeforeNow()) {
+                            dueTimeSpinner.setBackground(activity.getResources().getDrawable(R.drawable.textfield_underline_red, activity.getTheme()));
+                            tv.setTextColor(activity.getResources().getColor(R.color.overdue));
+                        } else {
+                            dueTimeSpinner.setBackgroundResource(getResource(activity, R.attr.textfield_underline));
+                            tv.setTextColor(themeColor);
+                        }
+                    }
+                } else {
+                    if (time == -1) {
+                        dueTimeSpinner.setBackgroundResource(getResource(activity, R.attr.textfield_underline));
+                        tv.setTextColor(unsetColor);
+                    } else if (newDateTime(date).withMillisOfDay(time).isBeforeNow()) {
+                        dueTimeSpinner.setBackground(activity.getResources().getDrawable(R.drawable.textfield_underline_red, activity.getTheme()));
+                        tv.setTextColor(activity.getResources().getColor(R.color.overdue));
+                    } else {
+                        dueTimeSpinner.setBackgroundResource(getResource(activity, R.attr.textfield_underline));
+                        tv.setTextColor(themeColor);
+                    }
+                }
+
                 if (atLeastHoneycomb()) {
                     dueTimeSpinner.setAlpha(time == -1 ? 0.5f : 1.0f);
                 } else {

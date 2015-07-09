@@ -150,7 +150,7 @@ public class WidgetUpdateService extends InjectingService {
                 if (showDueDates) {
                     dueDateFormatter.formatDueDate(row, task, textColor);
                 } else if(task.hasDueDate() && task.isOverdue()) {
-                    textColor = r.getColor(R.color.task_list_overdue);
+                    textColor = r.getColor(R.color.overdue);
                 }
 
                 row.setTextViewText(R.id.text, textContent);

@@ -13,12 +13,12 @@ import org.tasks.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 import static org.tasks.date.DateTimeUtils.currentTimeMillis;
 import static org.tasks.date.DateTimeUtils.newDate;
+import static org.tasks.date.DateTimeUtils.newDateTime;
 
 
 public class DateUtilities {
@@ -226,14 +226,8 @@ public class DateUtilities {
         return d.getDate() == new DateTime(d).dayOfMonth().getMaximumValue();
     }
 
-    private static final Calendar calendar = Calendar.getInstance();
     public static long getStartOfDay(long time) {
-        calendar.setTimeInMillis(time);
-        calendar.set(Calendar.HOUR, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        return calendar.getTimeInMillis();
+        return newDateTime(time).withMillisOfDay(0).getMillis();
     }
 
     static long clearTime(Date date) {

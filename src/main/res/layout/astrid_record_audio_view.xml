@@ -57,7 +57,7 @@
         android:layout_marginRight="10dip"
         android:layout_marginBottom="10dip"
         android:textColor="@android:color/white"
-        android:background="@color/red_theme_color"
+        android:background="@color/overdue"
         android:textSize="24sp"
         android:gravity="center"
         android:text="@string/audio_stop_recording"/>

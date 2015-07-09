@@ -81,7 +81,7 @@
     </style>
     
     <style name="TextAppearance.TAd_ItemDueDate_Overdue" parent="TextAppearance.TAd_ItemDueDate">
-        <item name="android:textColor">?attr/asDueDateOverdueColor</item>
+        <item name="android:textColor">@color/overdue</item>
     </style>
     
     <style name="TextAppearance.TAd_ItemDueDate_Completed" parent="TextAppearance.TAd_ItemDueDate">

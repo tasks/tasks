@@ -50,7 +50,6 @@
         <item name="ic_action_cloud">@drawable/ic_cloud_queue_white_24dp</item>
         <item name="ic_action_new_tag">@drawable/ic_add_white_24dp</item>
 
-        <item name="asDueDateOverdueColor">#ee5555</item>
         <item name="asEditTextBackground">@null</item>
         <item name="windowActionModeOverlay">true</item>
 

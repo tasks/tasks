@@ -12,7 +12,6 @@
         <item name="popup_theme">@style/ThemeOverlay.AppCompat.Light</item>
 
         <item name="android:windowBackground">@android:color/white</item>
-        <item name="asDueDateOverdueColor">#ee5555</item>
         <item name="asEditTextBackground">@null</item>
         <item name="windowActionModeOverlay">true</item>
 

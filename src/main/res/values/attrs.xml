@@ -17,7 +17,6 @@
     <attr name="asTextColorHint" format="color" />
     <attr name="asDetailsColor" format="color" />
     <attr name="asDueDateColor" format="color" />
-    <attr name="asDueDateOverdueColor" format="color" />
     <attr name="asDueDateCompletedColor" format="color" />
     <attr name="asSeparatorBackground" format="color" />
     <attr name="asToolbarSeparator" format="color" />
