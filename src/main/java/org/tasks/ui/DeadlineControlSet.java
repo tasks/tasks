@@ -360,7 +360,12 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
             date = dateTime.withMillisOfDay(0).getMillis();
             if (Task.hasDueTime(dateTime.getMillis())) {
                 setTime(dateTime.getMillisOfDay());
+            } else {
+                time = -1;
             }
+        } else {
+            date = 0;
+            time = -1;
         }
         refreshDisplayView();
     }
