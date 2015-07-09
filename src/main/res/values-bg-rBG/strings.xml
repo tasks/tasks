@@ -339,6 +339,7 @@
 	</plurals>
 	<string name="today">Днес</string>
 	<string name="tomorrow">Утре</string>
+	<string name="next">Следващ %s</string>
 	<string name="yesterday">Вчера</string>
 	<string name="tmrw">Утре</string>
 	<string name="yest">Вчера</string>
@@ -382,6 +383,8 @@
 	<string name="remove">Изтрий</string>
 	<string name="randomly_once">Произволно веднъж</string>
 	<string name="randomly">Произволно</string>
+	<string name="pick_a_date">Избери дата</string>
+	<string name="pick_a_time">Избери време</string>
 	<string name="pick_a_date_and_time">Избери дата и време</string>
 	<string name="pick_a_location">Избери местоположение</string>
 	<string name="type_a_location">Въведи местоположение</string>

@@ -338,6 +338,7 @@
 	</plurals>
 	<string name="today">今日</string>
 	<string name="tomorrow">明日</string>
+	<string name="next">次の %s</string>
 	<string name="yesterday">昨日</string>
 	<string name="tmrw">明日</string>
 	<string name="yest">昨日</string>
@@ -381,6 +382,8 @@
 	<string name="remove">削除</string>
 	<string name="randomly_once">1回ランダムに</string>
 	<string name="randomly">ランダムに</string>
+	<string name="pick_a_date">日付を選択</string>
+	<string name="pick_a_time">時間を選択</string>
 	<string name="pick_a_date_and_time">日付と時間を選択</string>
 	<string name="pick_a_location">場所を選択</string>
 	<string name="type_a_location">場所を入力</string>

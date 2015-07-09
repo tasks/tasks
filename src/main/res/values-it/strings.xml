@@ -335,6 +335,7 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	</plurals>
 	<string name="today">Oggi</string>
 	<string name="tomorrow">Domani</string>
+	<string name="next">Prossimo %s</string>
 	<string name="yesterday">Ieri</string>
 	<string name="tmrw">Domani</string>
 	<string name="yest">Ieri</string>
@@ -377,6 +378,8 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="remove">Elimina</string>
 	<string name="randomly_once">In modo casuale</string>
 	<string name="randomly">Casualmente</string>
+	<string name="pick_a_date">Scegli una data</string>
+	<string name="pick_a_time">Scegli un\'ora</string>
 	<string name="pick_a_date_and_time">Scegli data e ora</string>
 	<string name="pick_a_location">Seleziona una posizione</string>
 	<string name="type_a_location">Inserisci posizione</string>
