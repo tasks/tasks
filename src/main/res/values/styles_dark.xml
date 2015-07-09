@@ -66,6 +66,7 @@
         <item name="ic_action_discard">@drawable/ic_close_white_24dp</item>
         <item name="textfield_underline">@drawable/textfield_underline_white</item>
         <item name="android:spinnerItemStyle">@style/SpinnerNoPadding</item>
+        <item name="ic_cancel">@drawable/ic_cancel_white_24dp</item>
     </style>
 
     <style name="TasksDialogDark" parent="@style/Theme.AppCompat.Dialog">
