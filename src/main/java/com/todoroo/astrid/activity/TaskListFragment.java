@@ -63,6 +63,7 @@ import com.todoroo.astrid.service.TaskDuplicator;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
+import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.subtasks.SubtasksUpdater;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.timers.TimerPlugin;
@@ -319,23 +320,25 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
             getListView().setItemsCanFocus(false);
         }
 
-        if (!(this instanceof SubtasksListFragment)) {
-            getListView().setOnItemClickListener(new OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view,
-                                        int position, long id) {
-                    if (taskAdapter != null) {
-                        TodorooCursor<Task> cursor = (TodorooCursor<Task>) taskAdapter.getItem(position);
-                        Task task = new Task(cursor);
-                        if (task.isDeleted()) {
-                            return;
-                        }
-
-                        onTaskListItemClicked(id);
-                    }
-                }
-            });
+        if ((this instanceof SubtasksListFragment) || (this instanceof SubtasksTagListFragment)) {
+            return;
         }
+
+        getListView().setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                if (taskAdapter != null) {
+                    TodorooCursor<Task> cursor = (TodorooCursor<Task>) taskAdapter.getItem(position);
+                    Task task = new Task(cursor);
+                    if (task.isDeleted()) {
+                        return;
+                    }
+
+                    onTaskListItemClicked(id);
+                }
+            }
+        });
     }
 
     /**
