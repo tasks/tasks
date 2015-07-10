@@ -75,7 +75,6 @@
 	</string-array>
 	<string name="TEA_control_when">Kiedy</string>
 	<string name="TEA_control_importance">Priorytet</string>
-	<string name="TEA_control_lists">Listy</string>
 	<string name="TEA_control_notes">Opis</string>
 	<string name="TEA_control_files">Pliki</string>
 	<string name="TEA_control_reminders">Przypomnienia</string>

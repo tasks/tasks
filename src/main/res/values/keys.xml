@@ -207,7 +207,7 @@
       <item>@string/TEA_control_when</item>
       <item>@string/TEA_control_repeat</item>
       <item>@string/TEA_control_importance</item>
-      <item>@string/TEA_control_lists</item>
+      <item>@string/tags</item>
       <item>@string/TEA_control_reminders</item>
       <item>@string/TEA_control_files</item>
       <item>@string/TEA_control_notes</item>

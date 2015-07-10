@@ -76,7 +76,6 @@
 	</string-array>
 	<string name="TEA_control_when">Wanneer</string>
 	<string name="TEA_control_importance">Prioriteit</string>
-	<string name="TEA_control_lists">Lijsten</string>
 	<string name="TEA_control_notes">Omschrijving</string>
 	<string name="TEA_control_files">Bestanden</string>
 	<string name="TEA_control_reminders">Herinneringen</string>

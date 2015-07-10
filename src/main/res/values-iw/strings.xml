@@ -74,7 +74,6 @@
 	</string-array>
 	<string name="TEA_control_when">מתי</string>
 	<string name="TEA_control_importance">עדיפות</string>
-	<string name="TEA_control_lists">רשימות</string>
 	<string name="TEA_control_notes">תיאור</string>
 	<string name="TEA_control_files">קבצים</string>
 	<string name="TEA_control_reminders">תזכורות</string>

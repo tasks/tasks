@@ -64,7 +64,6 @@
 		<item>指定日期/时间</item>
 	</string-array>
 	<string name="TEA_control_when">时间</string>
-	<string name="TEA_control_lists">列表</string>
 	<string name="TEA_control_notes">描述</string>
 	<string name="TEA_control_files">文件</string>
 	<string name="TEA_control_reminders">提醒</string>

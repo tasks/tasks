@@ -71,7 +71,6 @@
 	</string-array>
 	<string name="TEA_control_when">Quan</string>
 	<string name="TEA_control_importance">Importància</string>
-	<string name="TEA_control_lists">Llistes</string>
 	<string name="TEA_control_notes">Notes</string>
 	<string name="TEA_control_files">Fitxers</string>
 	<string name="TEA_control_reminders">Recordatoris</string>

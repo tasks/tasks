@@ -78,7 +78,6 @@
 	</string-array>
 	<string name="TEA_control_when">Коли</string>
 	<string name="TEA_control_importance">Пріоритет</string>
-	<string name="TEA_control_lists">Списки</string>
 	<string name="TEA_control_notes">Опис</string>
 	<string name="TEA_control_files">Файли</string>
 	<string name="TEA_control_reminders">Нагадування</string>

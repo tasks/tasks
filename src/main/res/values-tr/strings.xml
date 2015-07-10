@@ -64,7 +64,6 @@
 		<item>Belirli Gün/Zamanda</item>
 	</string-array>
 	<string name="TEA_control_when">Ne Zaman</string>
-	<string name="TEA_control_lists">Listeler</string>
 	<string name="TEA_control_notes">Açıklama</string>
 	<string name="TEA_control_files">Dosyalar</string>
 	<string name="TEA_control_reminders">Hatırlatmalar</string>

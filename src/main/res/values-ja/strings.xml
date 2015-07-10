@@ -81,7 +81,6 @@
 	<string name="TEA_control_repeat">繰り返し</string>
 	<string name="TEA_control_gcal">カレンダー</string>
 	<string name="TEA_control_importance">優先順位</string>
-	<string name="TEA_control_lists">リスト</string>
 	<string name="TEA_control_notes">概要</string>
 	<string name="TEA_control_files">ファイル</string>
 	<string name="TEA_control_reminders">リマインダー</string>

@@ -74,7 +74,6 @@
 	</string-array>
 	<string name="TEA_control_when">Όταν</string>
 	<string name="TEA_control_importance">Προτεραιότητα</string>
-	<string name="TEA_control_lists">Λίστες</string>
 	<string name="TEA_control_notes">Περιγραφή</string>
 	<string name="TEA_control_files">Αρχεία</string>
 	<string name="TEA_control_reminders">Υπενθυμίσεις</string>

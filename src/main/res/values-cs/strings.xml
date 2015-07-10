@@ -76,7 +76,6 @@
 	</string-array>
 	<string name="TEA_control_when">Kdy</string>
 	<string name="TEA_control_importance">Důležitost</string>
-	<string name="TEA_control_lists">Seznamy</string>
 	<string name="TEA_control_notes">Poznámky</string>
 	<string name="TEA_control_files">Soubory</string>
 	<string name="TEA_control_reminders">Upomínky</string>

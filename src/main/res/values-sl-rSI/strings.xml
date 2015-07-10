@@ -78,7 +78,6 @@
 	</string-array>
 	<string name="TEA_control_when">Kdaj</string>
 	<string name="TEA_control_importance">Prioriteta</string>
-	<string name="TEA_control_lists">Seznami</string>
 	<string name="TEA_control_notes">Opis</string>
 	<string name="TEA_control_files">Datoteke</string>
 	<string name="TEA_control_reminders">Opomniki</string>

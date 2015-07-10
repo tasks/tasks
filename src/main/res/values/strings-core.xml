@@ -169,8 +169,6 @@
     <string name="TEA_control_gcal">Calendar</string>
   <!-- slide 16a/35c -->
   <string name="TEA_control_importance">Priority</string>  
-  <!-- slide 16b/35d -->
-  <string name="TEA_control_lists">Lists</string>  
   <!-- slide 16c/35e -->
   <string name="TEA_control_notes">Description</string>  
   

@@ -75,7 +75,6 @@
 	</string-array>
 	<string name="TEA_control_when">När</string>
 	<string name="TEA_control_importance">Prioritet</string>
-	<string name="TEA_control_lists">Listor</string>
 	<string name="TEA_control_notes">Beskrivning</string>
 	<string name="TEA_control_files">Filer</string>
 	<string name="TEA_control_reminders">Påminnelser</string>

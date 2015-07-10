@@ -81,7 +81,6 @@
 	<string name="TEA_control_repeat">반복</string>
 	<string name="TEA_control_gcal">달력</string>
 	<string name="TEA_control_importance">우선순위</string>
-	<string name="TEA_control_lists">목록</string>
 	<string name="TEA_control_notes">설명</string>
 	<string name="TEA_control_files">파일</string>
 	<string name="TEA_control_reminders">일정 알림</string>

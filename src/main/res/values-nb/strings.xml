@@ -51,7 +51,6 @@
 	<string name="TEA_menu_save">Lagre endringer</string>
 	<string name="TEA_menu_discard_changes">Forkast endringer</string>
 	<string name="TEA_control_importance">Viktighet</string>
-	<string name="TEA_control_lists">Lister</string>
 	<string name="TEA_control_notes">Notater</string>
 	<string name="TEA_control_files">Filer</string>
 	<string name="TEA_control_reminders">Påminnelser</string>

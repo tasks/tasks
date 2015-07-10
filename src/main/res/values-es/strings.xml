@@ -80,7 +80,6 @@
 	<string name="TEA_control_repeat">Repetir</string>
 	<string name="TEA_control_gcal">Calendario</string>
 	<string name="TEA_control_importance">Prioridad</string>
-	<string name="TEA_control_lists">Listas</string>
 	<string name="TEA_control_notes">Descripción</string>
 	<string name="TEA_control_files">Archivos</string>
 	<string name="TEA_control_reminders">Recordatorios</string>

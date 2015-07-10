@@ -83,7 +83,6 @@
 	<string name="TEA_control_repeat">Повторение</string>
 	<string name="TEA_control_gcal">Календар</string>
 	<string name="TEA_control_importance">Приоритет</string>
-	<string name="TEA_control_lists">Списъци</string>
 	<string name="TEA_control_notes">Описание</string>
 	<string name="TEA_control_files">Файлове</string>
 	<string name="TEA_control_reminders">Напомняния</string>

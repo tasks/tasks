@@ -79,7 +79,6 @@
 	<string name="TEA_control_repeat">Wiederholen</string>
 	<string name="TEA_control_gcal">Kalender</string>
 	<string name="TEA_control_importance">Priorität</string>
-	<string name="TEA_control_lists">Listen</string>
 	<string name="TEA_control_notes">Beschreibung</string>
 	<string name="TEA_control_files">Dateien</string>
 	<string name="TEA_control_reminders">Erinnerungen</string>
