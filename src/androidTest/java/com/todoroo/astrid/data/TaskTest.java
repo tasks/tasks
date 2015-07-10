@@ -213,6 +213,16 @@ public class TaskTest extends AndroidTestCase {
             Task task = new Task();
             task.setValue(DUE_DATE, dueDate.getMillis());
             assertFalse(task.hasDueTime());
+            assertFalse(task.isOverdue());
+        }});
+    }
+
+    public void testTaskWithNoDueTimeIsOverdue() {
+        final DateTime dueDate = new DateTime().withMillisOfDay(0);
+        freezeAt(dueDate.plusDays(1)).thawAfter(new Snippet() {{
+            Task task = new Task();
+            task.setValue(DUE_DATE, dueDate.getMillis());
+            assertFalse(task.hasDueTime());
             assertTrue(task.isOverdue());
         }});
     }
