@@ -583,9 +583,14 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
      * broadcast. Subclasses should override this.
      */
     protected void refresh() {
-        TaskEditFragment taskEditFragment = ((AstridActivity) getActivity()).getTaskEditFragment();
-        Task model = taskEditFragment == null ? null : taskEditFragment.model;
-        taskDeleter.deleteTasksWithEmptyTitles(model == null ? null : model.getId());
+        try {
+            AstridActivity astridActivity = (AstridActivity) getActivity();
+            TaskEditFragment taskEditFragment = astridActivity == null ? null : astridActivity.getTaskEditFragment();
+            Task model = taskEditFragment == null ? null : taskEditFragment.model;
+            taskDeleter.deleteTasksWithEmptyTitles(model == null ? null : model.getId());
+        } catch(Exception e) {
+            log.error(e.getMessage(), e);
+        }
         loadTaskListContent();
         setSyncOngoing(false);
     }

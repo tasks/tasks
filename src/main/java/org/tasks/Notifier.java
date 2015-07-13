@@ -224,7 +224,7 @@ public class Notifier {
         final String taskTitle = task.getTitle();
         boolean nonstopMode = task.isNotifyModeNonstop();
         boolean ringFiveMode = task.isNotifyModeFive();
-        final int ringTimes = nonstopMode ? -1 : (ringFiveMode ? 5 : 1);
+        int ringTimes = nonstopMode ? -1 : (ringFiveMode ? 5 : 1);
 
         // update last reminder time
         task.setReminderLast(DateUtilities.now());
@@ -239,10 +239,9 @@ public class Notifier {
             putExtra(NotificationActivity.EXTRA_TITLE, taskTitle);
         }};
 
-        int ringTimes1 = ringTimes;
         // don't ring multiple times if random reminder
         if (type == ReminderService.TYPE_RANDOM) {
-            ringTimes1 = 1;
+            ringTimes = 1;
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
@@ -266,7 +265,7 @@ public class Notifier {
                     .addAction(R.drawable.ic_snooze_white_24dp, context.getResources().getString(R.string.rmd_NoA_snooze), snoozePendingIntent);
         }
 
-        activateNotification(ringTimes1, (int) id, builder.build(), text);
+        activateNotification(ringTimes, (int) id, builder.build(), taskTitle);
 
         return true;
     }
