@@ -118,7 +118,7 @@ public class SortHelper {
     }
 
     private static String adjustedDueDateFunction() {
-        return "(CASE WHEN (" + Task.DUE_DATE.name + " / 1000) % 60 > 0" + " THEN " + Task.DUE_DATE.name + " ELSE " + "(" + Task.DUE_DATE.name + " + " + (DateUtilities.ONE_HOUR * 11 + DateUtilities.ONE_MINUTE * 59) + ") END)";
+        return "(CASE WHEN (" + Task.DUE_DATE.name + " / 60000) > 0" + " THEN " + Task.DUE_DATE.name + " ELSE " + "(" + Task.DUE_DATE.name + " + " + (DateUtilities.ONE_HOUR * 11 + DateUtilities.ONE_MINUTE * 59) + ") END)";
     }
 
 }

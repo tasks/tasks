@@ -425,7 +425,10 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
     protected void writeToModelAfterInitialized(Task task) {
         DateTime dateTime = newDateTime(date);
         if (time >= 0) {
-            dateTime = dateTime.withMillisOfDay(time + 1);
+            dateTime = dateTime
+                    .withMillisOfDay(time)
+                    .withSecondOfMinute(1)
+                    .withMillisOfSecond(0);
         }
         long millis = dateTime.getMillis();
         if (millis != task.getDueDate()) {
