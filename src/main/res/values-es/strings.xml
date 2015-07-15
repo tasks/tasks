@@ -168,7 +168,7 @@
 		<item>Hoy</item>
 		<item>Mañana</item>
 		<item>Pasado mañana</item>
-		<item>Próxima semana</item>
+		<item>Semana siguiente</item>
 	</string-array>
 	<string-array name="EPr_default_hideUntil">
 		<item>No ocultar</item>

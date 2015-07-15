@@ -9,6 +9,7 @@
 	<string name="actfm_picture_gallery">Взять из галереи</string>
 	<string name="actfm_picture_clear">Убрать изображение</string>
 	<string name="TVA_add_comment">Добавить комментарий...</string>
+	<string name="name">Тег:</string>
 	<string name="actfm_GAA_title">Выберите аккаунт Google, который вы хотите использовать:</string>
 	<string name="backup_BPr_header">Резервные копии</string>
 	<string name="backup_BAc_import">Импортировать задачи</string>
@@ -110,7 +111,7 @@
 	<string name="CRA_many_attendees">%1$s, %2$s, и еще %3$d примут участие.</string>
 	<string name="CRA_invitation_prompt">Пригласить?</string>
 	<string name="CRA_calendar_reminders_pref_title">Ассистент календаря</string>
-	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks будет напоминать вам о предстоящих событиях в календаре и напомнит вам подготовиться к ним</string>
+	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks будет напоминать вам о предстоящих событиях в календаре и поможет вам подготовиться к ним</string>
 	<string name="CRA_share_list_title">Поделиться этим списком?</string>
 	<string name="CRA_invite_attendees">Пригласить участников</string>
 	<string name="CRA_more_options">Дополнительные настройки</string>
@@ -161,17 +162,17 @@
 	<string name="EPr_default_addtocalendar_title">Добавлять в календарь по умолчанию</string>
 	<string name="EPr_default_reminders_mode_title">Тип звонка/вибрации по умолчанию</string>
 	<string-array name="EPr_default_importance">
-		<item>!!! (Высшая)</item>
+		<item>!!! (Высший)</item>
 		<item>!!</item>
 		<item>!</item>
-		<item>o (Низшая)</item>
+		<item>o (Низший)</item>
 	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>Без срока выполнения</item>
 		<item>Сегодня</item>
 		<item>Завтра</item>
 		<item>Через день</item>
-		<item>Через неделю</item>
+		<item>Следующая неделя</item>
 	</string-array>
 	<string-array name="EPr_default_hideUntil">
 		<item>Не скрывать</item>
@@ -274,7 +275,7 @@
 	<string name="rmd_EPr_persistent_desc_true">Каждое уведомление должно быть просмотрено перед очисткой</string>
 	<string name="rmd_EPr_persistent_desc_false">Уведомления можно очистить кнопкой \"Очистить все\"</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Максимальная громкость для многоразовых напоминаний</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks будет максимизировать громкость для многоразовых напоминаний</string>
+	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks будет увеличивать громкость для многоразовых напоминаний</string>
 	<string name="rmd_EPr_defaultRemind_title">Случайные напоминания</string>
 	<string-array name="EPr_reminder_random">
 		<item>отключено</item>
@@ -309,9 +310,10 @@
 	<string name="repeat_until">Повторять до %s</string>
 	<string name="repeat_snackbar">%1$s перенесено на %2$s</string>
 	<string name="TEA_tags_label_long">Добавить в список</string>
+	<string name="new_tag">Новый тег</string>
 	<string name="tag_no_title_error">Пожалуйста, для начала введите название списка!</string>
-	<string name="tag_FEx_untagged">Без категории</string>
-	<string name="delete_tag_confirmation">Удалить %s?</string>
+	<string name="tag_FEx_untagged">Без тега</string>
+	<string name="delete_tag_confirmation">Delete «%s»?</string>
 	<string name="TPl_notification">Для %s действуют таймеры!</string>
 	<string name="TFE_workingOn">Задачи для замера времени</string>
 	<string name="TEA_timer_controls">Таймер</string>
@@ -332,6 +334,7 @@
 	</plurals>
 	<string name="today">Сегодня</string>
 	<string name="tomorrow">Завтра</string>
+	<string name="next">Следующ. %s</string>
 	<string name="yesterday">Вчера</string>
 	<string name="tmrw">Завт</string>
 	<string name="yest">Вчера</string>
@@ -350,7 +353,7 @@
 	<string name="silent">Без звука</string>
 	<string name="sound">Звук</string>
 	<string name="vibrate">Вибрация</string>
-	<string name="quiet_hours">Тихие часы</string>
+	<string name="quiet_hours">Тихие часы:</string>
 	<string name="attachment_directory">Путь к вложениям</string>
 	<string name="backup_directory">Папка резервных копий</string>
 	<string name="debug_logging">Разрешить лог отладки</string>
@@ -375,6 +378,8 @@
 	<string name="remove">Удалить</string>
 	<string name="randomly_once">Случайно один раз</string>
 	<string name="randomly">Случайно</string>
+	<string name="pick_a_date">Дата</string>
+	<string name="pick_a_time">Время</string>
 	<string name="pick_a_date_and_time">Дата и время</string>
 	<string name="pick_a_location">По местонахождению</string>
 	<string name="type_a_location">Введите рвсположение</string>
@@ -382,24 +387,25 @@
 	<string name="when_due">В срок</string>
 	<string name="geofence_radius_title">Радиус (в метрах)</string>
 	<string name="geofence_responsiveness_title">Период отслеживания (чем выше, тем меньше расход батареи)</string>
-	<string name="geolocation_reminders">Напоминания по местонахождению</string>
+	<string name="geolocation_reminders">Напоминания по местонахождению:</string>
 	<string name="tags">Списки</string>
 	<string name="filters">Фильтры</string>
 	<string name="date_shortcuts">Метки по времени</string>
 	<string name="date_shortcut_hour">Через час</string>
 	<string name="date_shortcut_morning">Утро</string>
-	<string name="date_shortcut_afternoon">После обеда</string>
-	<string name="date_shortcut_evening">Вечером</string>
+	<string name="date_shortcut_afternoon">Обед</string>
+	<string name="date_shortcut_evening">Вечер</string>
 	<string name="date_shortcut_night">Ночь</string>
 	<string name="date_shortcut_tomorrow_morning">Завтра утром</string>
 	<string name="date_shortcut_tomorrow_afternoon">Завтра после обеда</string>
 	<string name="discard_changes">Отменить изменения?</string>
 	<string name="tag_settings">Настройки тегов</string>
+	<string name="delete">Удалить</string>
 	<string name="filter_settings">Настройки фильтра</string>
 	<string name="deprecated_setting">Эта настройка будет удалено в следующем обновлении</string>
 	<string name="show_hidden">Показать скрытые</string>
 	<string name="show_completed">Показать выполненные</string>
-	<string name="reverse">В обратном порядке</string>
+	<string name="reverse"> Реверс</string>
 	<string name="get_plugins">Получить Plug-ins</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>отключить</item>

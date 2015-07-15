@@ -164,7 +164,7 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 		<item>Dzisiaj</item>
 		<item>Jutro</item>
 		<item>Pojutrze</item>
-		<item>W przyszłym tygodniu</item>
+		<item>Przyszły tydzień</item>
 	</string-array>
 	<string-array name="EPr_default_hideUntil">
 		<item>Nie ukrywaj</item>

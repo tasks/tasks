@@ -172,7 +172,7 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 		<item>Oggi</item>
 		<item>Domani</item>
 		<item>Dopodomani</item>
-		<item>Prossima Settimana</item>
+		<item>Settimana successiva</item>
 	</string-array>
 	<string-array name="EPr_default_hideUntil">
 		<item>Non nascondere</item>

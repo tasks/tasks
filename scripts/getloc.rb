@@ -15,7 +15,8 @@ require 'clean_translations'
 PROJECT_NAME='tasks_android'
 LANGUAGE_MAP = {
     "el" => "grk",
-    "sk" => "sk-SK"
+    "sk" => "sk-SK",
+    "hu" => "hu-HU"
 }
 
 # Converts astrid language codes to GetLocalization language codes (which don't use -r)

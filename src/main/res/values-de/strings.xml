@@ -330,6 +330,7 @@
 	</plurals>
 	<string name="today">Heute</string>
 	<string name="tomorrow">Morgen</string>
+	<string name="next">Nächster %s</string>
 	<string name="yesterday">Gestern</string>
 	<string name="tmrw">Morg.</string>
 	<string name="yest">Gest.</string>
@@ -373,6 +374,8 @@
 	<string name="remove">Entfernen</string>
 	<string name="randomly_once">Einmal zufällig</string>
 	<string name="randomly">Zufällig</string>
+	<string name="pick_a_date">Datum auswählen</string>
+	<string name="pick_a_time">Uhrzeit auswählen</string>
 	<string name="pick_a_date_and_time">Tag und Uhrzeit auswählen</string>
 	<string name="pick_a_location">Ort auswählen</string>
 	<string name="type_a_location">Ort festlegen</string>

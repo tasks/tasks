@@ -86,6 +86,7 @@
 	<string name="TEA_control_hidden_section">---- Toujours masquer ----</string>
 	<string name="hide_until_prompt">Montrer dans ma liste</string>
 	<string name="TEA_load_more">Charger plus...</string>
+	<string name="missed_call">Appel manqué de %s</string>
 	<string name="MCA_return_call">Appeler maintenant</string>
 	<string name="MCA_add_task">Appeler plus tard</string>
 	<string name="MCA_ignore">Ignorer</string>
@@ -309,6 +310,7 @@
 	<string name="new_tag">Nouveau tag</string>
 	<string name="tag_no_title_error">Veuillez d\'abord entrer un nom pour cette liste.</string>
 	<string name="tag_FEx_untagged">Non classé</string>
+	<string name="delete_tag_confirmation">Effacer %s ?</string>
 	<string name="TPl_notification">Chronomètre actif pour %s !</string>
 	<string name="TFE_workingOn">Tâches chronométrées</string>
 	<string name="TEA_timer_comment_started">Cette tâche est commencée :</string>
@@ -369,6 +371,8 @@
 	<string name="remove">Supprimer</string>
 	<string name="randomly_once">Une fois aléatoirement</string>
 	<string name="randomly">Aléatoirement</string>
+	<string name="pick_a_date">Choisir une date</string>
+	<string name="pick_a_time">Choisir une heure</string>
 	<string name="pick_a_date_and_time">Choisir date et heure</string>
 	<string name="pick_a_location">Choisir une localisation</string>
 	<string name="type_a_location">Entrer une localisation</string>
