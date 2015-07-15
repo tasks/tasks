@@ -338,7 +338,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
             countInt = filterCounter.get(filter);
             viewHolder.size.setText(Integer.toString(countInt));
         }
-        viewHolder.size.setVisibility(countInt > 0 ? View.VISIBLE : View.GONE);
+        viewHolder.size.setVisibility(countInt > 0 ? View.VISIBLE : View.INVISIBLE);
 
         if (selection == viewHolder.item) {
             viewHolder.view.setBackgroundColor(getData(activity, R.attr.drawer_background_selected));
