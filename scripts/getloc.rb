@@ -16,7 +16,8 @@ PROJECT_NAME='tasks_android'
 LANGUAGE_MAP = {
     "el" => "grk",
     "sk" => "sk-SK",
-    "hu" => "hu-HU"
+    "hu" => "hu-HU",
+    "fa" => "pes-IR"
 }
 
 # Converts astrid language codes to GetLocalization language codes (which don't use -r)
