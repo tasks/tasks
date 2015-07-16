@@ -75,7 +75,6 @@
         android:layout_weight="100"
         android:listSelector="?attr/selectableItemBackground"
         android:drawSelectorOnTop="true"
-        android:divider="@android:color/transparent"
         android:cacheColorHint="@android:color/transparent"
         android:scrollingCache="false"
         android:scrollbars="vertical"/>

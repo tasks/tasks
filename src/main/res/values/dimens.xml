@@ -5,6 +5,9 @@
     <dimen name="widget_margin">8dp</dimen>
     <dimen name="dialog_width">300dp</dimen>
 
+    <dimen name="task_list_footer_height">96dp</dimen>
+    <dimen name="task_list_fab_margin">0dp</dimen>
+
     <dimen name="task_edit_title_padding_top_bottom">18dp</dimen>
     <dimen name="task_edit_padding_top_bottom">9dp</dimen>
     <dimen name="task_edit_double_padding_top_bottom">18dp</dimen>

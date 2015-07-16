@@ -289,6 +289,15 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
         return parent;
     }
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        ListView listView = getListView();
+        View footer = getActivity().getLayoutInflater().inflate(R.layout.task_list_footer, listView, false);
+        listView.addFooterView(footer, null, false);
+    }
+
     private void setupRefresh(SwipeRefreshLayout layout) {
         layout.setOnRefreshListener(this);
         layout.setColorScheme(

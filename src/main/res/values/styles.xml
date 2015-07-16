@@ -49,16 +49,17 @@
     </style>
 
     <!--=============================================== TaskListActivity == -->
-    
+
     <style name="ListView">
-        <item name="android:divider">?attr/asListDividerColor</item>
-        <item name="android:dividerHeight">1px</item>
+        <item name="android:divider">@android:color/transparent</item>
+        <item name="android:dividerHeight">0px</item>
         <item name="android:scrollbars">vertical</item>
         <item name="android:cacheColorHint">#00000000</item>
         <item name="android:smoothScrollbar">true</item>
     </style>
 
     <style name="TaskListView" parent="ListView">
+        <item name="android:scrollingCache">false</item>
     </style>
 
     <!-- ==================================================== TaskAdapter == -->

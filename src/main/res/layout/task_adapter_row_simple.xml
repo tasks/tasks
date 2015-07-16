@@ -8,7 +8,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="?attr/asTaskRowSelector"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
 	<RelativeLayout 
 	    android:id="@+id/rowBody"
@@ -122,5 +122,10 @@
 	        android:visibility="gone" />
 	
 	</RelativeLayout>
+
+	<View
+		android:layout_width="fill_parent"
+		android:layout_height="1px"
+		android:background="?attr/asListDividerColor" />
 
 </LinearLayout>

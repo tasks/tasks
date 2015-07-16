@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="TaskListView" parent="ListView">
-        <item name="android:paddingBottom">90dp</item>
-        <item name="android:clipToPadding">false</item>
-    </style>
+
+    <style name="TaskListView" parent="ListView" />
+
 </resources>
