@@ -365,7 +365,7 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
         return (dateTime.getYear() == newDateTime().getYear()
                 ? DateUtilities.getLongDateStringHideYear(d)
                 : DateUtilities.getLongDateString(d)) +
-                ", " + DateUtilities.getTimeString(activity, d);
+                ", " + DateUtilities.getTimeString(activity, dateTime);
     }
 
     @Override

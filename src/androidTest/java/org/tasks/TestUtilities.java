@@ -14,8 +14,4 @@ public class TestUtilities {
             mockitoInitialized = true;
         }
     }
-
-    public static Date newDateTime(int year, int month, int day, int hour, int minute, int second) {
-        return new Date(year - 1900, month - 1, day, hour, minute, second);
-    }
 }

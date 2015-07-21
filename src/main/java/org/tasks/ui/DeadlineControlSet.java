@@ -102,7 +102,7 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
 
     private String getTimeHint(int millisOfDay) {
         DateTime dateTime = newDateTime().withMillisOfDay(millisOfDay);
-        return DateUtilities.getTimeString(activity, dateTime.toDate());
+        return DateUtilities.getTimeString(activity, dateTime);
     }
 
     private void refreshDisplayView() {
@@ -150,7 +150,7 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
             } else if (compareTime == dateShortcutNight) {
                 dueTimeOptions.set(0, nightString);
             } else {
-                dueTimeOptions.set(0, DateUtilities.getTimeString(activity, newDateTime().withMillisOfDay(time).toDate()));
+                dueTimeOptions.set(0, DateUtilities.getTimeString(activity, newDateTime().withMillisOfDay(time)));
             }
         }
         dueTimeAdapter.notifyDataSetChanged();

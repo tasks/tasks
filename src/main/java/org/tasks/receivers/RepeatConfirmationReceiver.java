@@ -96,7 +96,7 @@ public class RepeatConfirmationReceiver extends InjectingBroadcastReceiver {
         if (Task.hasDueTime(date)) {
             // TODO: localize this
             dueString = String.format("%s at %s", dueString, //$NON-NLS-1$
-                    DateUtilities.getTimeString(context, newDate(date)));
+                    DateUtilities.getTimeString(context, date));
         }
         return dueString;
     }

@@ -51,7 +51,7 @@ public class DueDateFormatter {
         String string = DateUtilities.getRelativeDay(context, date, false);
         if (Task.hasDueTime(date)) {
             string = String.format(formatString, string, //$NON-NLS-1$
-                    DateUtilities.getTimeString(context, newDate(date)));
+                    DateUtilities.getTimeString(context, date));
         }
 
         dateCache.put(date, string);

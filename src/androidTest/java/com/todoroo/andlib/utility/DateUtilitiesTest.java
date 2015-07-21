@@ -16,7 +16,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import static com.todoroo.andlib.utility.DateUtilities.addCalendarMonthsToUnixtime;
-import static com.todoroo.andlib.utility.DateUtilities.clearTime;
 import static com.todoroo.andlib.utility.DateUtilities.getDateString;
 import static com.todoroo.andlib.utility.DateUtilities.getDateStringHideYear;
 import static com.todoroo.andlib.utility.DateUtilities.getStartOfDay;
@@ -26,7 +25,6 @@ import static com.todoroo.andlib.utility.DateUtilities.getWeekdayShort;
 import static com.todoroo.andlib.utility.DateUtilities.isEndOfMonth;
 import static com.todoroo.andlib.utility.DateUtilities.oneMonthFromNow;
 import static org.tasks.Freeze.freezeAt;
-import static org.tasks.TestUtilities.newDateTime;
 import static org.tasks.date.DateTimeUtils.newDate;
 
 public class DateUtilitiesTest extends AndroidTestCase {
@@ -70,13 +68,13 @@ public class DateUtilitiesTest extends AndroidTestCase {
                 DateUtilities.is24HourOverride = false;
                 for (int i = 0; i < 24; i++) {
                     d.setHours(i);
-                    DateUtilities.getTimeString(getContext(), d);
+                    getTimeString(getContext(), new DateTime(d));
                 }
 
                 DateUtilities.is24HourOverride = true;
                 for (int i = 0; i < 24; i++) {
                     d.setHours(i);
-                    DateUtilities.getTimeString(getContext(), d);
+                    getTimeString(getContext(), new DateTime(d));
                 }
             }
         });
@@ -97,23 +95,23 @@ public class DateUtilitiesTest extends AndroidTestCase {
 
     public void testGet24HourTime() {
         DateUtilities.is24HourOverride = true;
-        assertEquals("09:05", getTimeString(null, newDateTime(2014, 1, 4, 9, 5, 36)));
-        assertEquals("13:00", getTimeString(null, newDateTime(2014, 1, 4, 13, 0, 1)));
+        assertEquals("09:05", getTimeString(null, new DateTime(2014, 1, 4, 9, 5, 36)));
+        assertEquals("13:00", getTimeString(null, new DateTime(2014, 1, 4, 13, 0, 1)));
     }
 
     public void testGetTime() {
         DateUtilities.is24HourOverride = false;
-        assertEquals("9:05 AM", getTimeString(null, newDateTime(2014, 1, 4, 9, 5, 36)));
-        assertEquals("1:05 PM", getTimeString(null, newDateTime(2014, 1, 4, 13, 5, 36)));
+        assertEquals("9:05 AM", getTimeString(null, new DateTime(2014, 1, 4, 9, 5, 36)));
+        assertEquals("1:05 PM", getTimeString(null, new DateTime(2014, 1, 4, 13, 5, 36)));
     }
 
     public void testGetTimeWithNoMinutes() {
         DateUtilities.is24HourOverride = false;
-        assertEquals("1 PM", getTimeString(null, newDateTime(2014, 1, 4, 13, 0, 59))); // derp?
+        assertEquals("1 PM", getTimeString(null, new DateTime(2014, 1, 4, 13, 0, 59))); // derp?
     }
 
     public void testGetDateStringWithYear() {
-        assertEquals("Jan 4, 2014", getDateString(newDateTime(2014, 1, 4, 0, 0, 0)));
+        assertEquals("Jan 4, 2014", getDateString(new DateTime(2014, 1, 4, 0, 0, 0).toDate()));
     }
 
     public void testGetDateStringHidingYear() {
@@ -171,13 +169,6 @@ public class DateUtilitiesTest extends AndroidTestCase {
         freezeAt(now).thawAfter(new Snippet() {{
             assertEquals(expected, oneMonthFromNow());
         }});
-    }
-
-    public void testClearTimeFromDate() {
-        DateTime now = new DateTime(2014, 1, 3, 10, 34, 32, 98);
-        assertEquals(
-                now.withMillisOfDay(0).getMillis(),
-                clearTime(new Date(now.getMillis())));
     }
 
     public void testShouldGetStartOfDay() {

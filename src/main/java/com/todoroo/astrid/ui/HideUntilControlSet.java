@@ -26,6 +26,7 @@ import org.tasks.activities.DateAndTimePickerActivity;
 import java.util.Date;
 
 import static org.tasks.date.DateTimeUtils.newDate;
+import static org.tasks.date.DateTimeUtils.newDateTime;
 
 /**
  * Control set for specifying when a task should be hidden
@@ -104,7 +105,7 @@ public class HideUntilControlSet extends TaskEditControlSetBase implements OnIte
                         Task.HIDE_UNTIL_SPECIFIC_DAY, specificDate);
                 existingDate = specificDate;
             } else {
-                updated[0] = new HideUntilValue(DateUtilities.getDateStringWithTime(activity, newDate(specificDate)),
+                updated[0] = new HideUntilValue(DateUtilities.getDateStringWithTime(activity, newDateTime(specificDate)),
                         Task.HIDE_UNTIL_SPECIFIC_DAY_TIME, specificDate);
                 existingDate = specificDate;
             }

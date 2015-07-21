@@ -14,12 +14,13 @@ import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 
+import org.joda.time.DateTime;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import static org.tasks.TestUtilities.newDateTime;
 import static org.tasks.date.DateTimeUtils.newDate;
 
 public class AdvancedRepeatTest extends AndroidTestCase {
@@ -46,7 +47,7 @@ public class AdvancedRepeatTest extends AndroidTestCase {
         buildRRule(1, Frequency.DAILY);
 
         // test specific day & time
-        long dayWithTime = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, newDateTime(2010, 8, 1, 10, 4, 0).getTime());
+        long dayWithTime = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, new DateTime(2010, 8, 1, 10, 4, 0).getMillis());
         task.setDueDate(dayWithTime);
 
         long nextDayWithTime = dayWithTime + DateUtilities.ONE_DAY;
@@ -58,7 +59,7 @@ public class AdvancedRepeatTest extends AndroidTestCase {
         buildRRule(1, Frequency.DAILY);
 
         // test specific day & time
-        long dayWithTime = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, newDateTime(2010, 8, 1, 10, 4, 0).getTime());
+        long dayWithTime = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, new DateTime(2010, 8, 1, 10, 4, 0).getMillis());
         task.setDueDate(dayWithTime);
 
         Date todayWithTime = newDate();

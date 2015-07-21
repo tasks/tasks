@@ -62,6 +62,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static org.tasks.date.DateTimeUtils.newDate;
+import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.files.FileHelper.getPathFromUri;
 import static org.tasks.files.ImageHelper.sampleBitmap;
 
@@ -468,7 +469,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     public void timerStarted(Task t) {
         addComment(String.format("%s %s",  //$NON-NLS-1$
                 getContext().getString(R.string.TEA_timer_comment_started),
-                DateUtilities.getTimeString(getContext(), newDate())),
+                DateUtilities.getTimeString(getContext(), newDateTime())),
                 UserActivity.ACTION_TASK_COMMENT,
                 t.getUuid(),
                 false);
@@ -479,7 +480,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         String elapsedTime = DateUtils.formatElapsedTime(t.getElapsedSeconds());
         addComment(String.format("%s %s\n%s %s", //$NON-NLS-1$
                 getContext().getString(R.string.TEA_timer_comment_stopped),
-                DateUtilities.getTimeString(getContext(), newDate()),
+                DateUtilities.getTimeString(getContext(), newDateTime()),
                 getContext().getString(R.string.TEA_timer_comment_spent),
                 elapsedTime), UserActivity.ACTION_TASK_COMMENT,
                 t.getUuid(),

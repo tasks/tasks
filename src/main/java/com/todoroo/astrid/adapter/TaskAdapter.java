@@ -6,10 +6,8 @@
 package com.todoroo.astrid.adapter;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.app.PendingIntent.CanceledException;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Paint;
@@ -22,7 +20,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.CursorAdapter;
@@ -61,9 +58,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
-
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastGingerbread;
-import static org.tasks.date.DateTimeUtils.newDate;
 
 /**
  * Adapter for displaying a user's tasks as a list
@@ -480,7 +474,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         String string = DateUtilities.getRelativeDay(fragment.getActivity(), date, true);
         if(Task.hasDueTime(date)) {
             string = String.format(formatString, string, //$NON-NLS-1$
-                    DateUtilities.getTimeString(fragment.getActivity(), newDate(date)));
+                    DateUtilities.getTimeString(fragment.getActivity(), date));
         }
 
         dateCache.put(date, string);

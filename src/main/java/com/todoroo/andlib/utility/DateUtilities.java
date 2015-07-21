@@ -80,21 +80,20 @@ public class DateUtilities {
         return DateFormat.is24HourFormat(context);
     }
 
-    /**
-     * @param context android context
-     * @param date time to format
-     * @return time, with hours and minutes
-     */
-    public static String getTimeString(Context context, Date date) {
+    public static String getTimeString(Context context, long timestamp) {
+        return getTimeString(context, newDateTime(timestamp));
+    }
+
+    public static String getTimeString(Context context, DateTime date) {
         String value;
         if (is24HourFormat(context)) {
             value = "HH:mm";
-        } else if (date.getMinutes() == 0){
+        } else if (date.getMinuteOfHour() == 0){
             value = "h a";
         } else {
             value = "h:mm a";
         }
-        return new SimpleDateFormat(value).format(date);
+        return date.toString(value);
     }
 
     /* Returns true if search string is in sortedValues */
@@ -189,19 +188,20 @@ public class DateUtilities {
         return new SimpleDateFormat("EEE").format(date);
     }
 
-    /**
-     * @return date with time at the end
-     */
-    public static String getDateStringWithTime(Context context, Date date) {
-        return getDateString(date) + " " + getTimeString(context, date);
+    public static String getDateStringWithTime(Context context, long timestamp) {
+        return getDateStringWithTime(context, newDateTime(timestamp));
+    }
+
+    public static String getDateStringWithTime(Context context, DateTime date) {
+        return getDateString(date.toDate()) + " " + getTimeString(context, date);
     }
 
     /**
      * @return yesterday, today, tomorrow, or null
      */
     public static String getRelativeDay(Context context, long date, boolean abbreviated) {
-        long today = clearTime(newDate());
-        long input = clearTime(newDate(date));
+        long today = getStartOfDay(currentTimeMillis());
+        long input = getStartOfDay(date);
 
         if(today == input) {
             return context.getString(R.string.today);
@@ -228,13 +228,5 @@ public class DateUtilities {
 
     public static long getStartOfDay(long time) {
         return newDateTime(time).withMillisOfDay(0).getMillis();
-    }
-
-    static long clearTime(Date date) {
-        date.setTime(date.getTime() / 1000L * 1000);
-        date.setHours(0);
-        date.setMinutes(0);
-        date.setSeconds(0);
-        return date.getTime();
     }
 }

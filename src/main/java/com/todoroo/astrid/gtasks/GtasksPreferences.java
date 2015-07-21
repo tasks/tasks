@@ -53,7 +53,7 @@ public class GtasksPreferences extends InjectingPreferenceActivity {
         if (gtasksPreferenceService.getLastSyncDate() > 0) {
             gtaskPreference.setSummary(getString(R.string.sync_status_success,
                     DateUtilities.getDateStringWithTime(GtasksPreferences.this,
-                            newDate(gtasksPreferenceService.getLastSyncDate()))));
+                            gtasksPreferenceService.getLastSyncDate())));
         }
         findPreference(getString(R.string.sync_SPr_forget_key)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override

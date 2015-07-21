@@ -480,7 +480,7 @@ public class RepeatControlSet extends PopupControlSet {
             displayString.append(DateUtilities.getDateStringHideYear(d));
             if (Task.hasDueTime(repeatUntilValue)) {
                 displayString.append(", "); //$NON-NLS-1$ //$NON-NLS-2$
-                displayString.append(DateUtilities.getTimeString(activity, d));
+                displayString.append(DateUtilities.getTimeString(activity, repeatUntilValue));
             }
         }
         return displayString.toString();
