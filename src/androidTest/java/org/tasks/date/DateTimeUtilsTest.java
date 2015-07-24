@@ -43,4 +43,8 @@ public class DateTimeUtilsTest extends AndroidTestCase {
         Date actual = newDateUtc(utc.getYear(), utc.getMonthOfYear(), utc.getDayOfMonth(), utc.getHourOfDay(), utc.getMinuteOfHour(), utc.getSecondOfMinute());
         assertEquals(utc.getMillis(), actual.getTime());
     }
+
+    public void testIllegalInstant() {
+        new DateTime(2015, 7, 24, 0, 0, 0, 0, DateTimeZone.forID("Africa/Cairo"));
+    }
 }
