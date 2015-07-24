@@ -9,6 +9,8 @@
 	<string name="actfm_picture_gallery">Escolher da galeria</string>
 	<string name="actfm_picture_clear">Limpar imagem</string>
 	<string name="TVA_add_comment">Adicionar um comentário...</string>
+	<string name="name">Nome</string>
+	<string name="enter_tag_name">Digite o nome da etiqueta</string>
 	<string name="actfm_GAA_title">Escolha a conta Google a utilizar:</string>
 	<string name="backup_BAc_import">Importar tarefas</string>
 	<string name="backup_BAc_export">Exportar tarefas</string>
@@ -63,6 +65,7 @@
 	<string name="TEA_estimatedDuration_label">Quanto tempo irá durar?</string>
 	<string name="TEA_elapsedDuration_label">Tempo já gasto</string>
 	<string name="TEA_menu_save">Gravar alterações</string>
+	<string name="save">Guardar</string>
 	<string name="TEA_menu_discard_changes">Rejeitar alterações</string>
 	<string name="TEA_tab_activity">Atividade</string>
 	<string name="TEA_timer_elap">Decorrido %s</string>
@@ -86,9 +89,11 @@
 	<string name="TEA_control_hidden_section">----Ocultar sempre----</string>
 	<string name="hide_until_prompt">Mostrar na minha lista</string>
 	<string name="TEA_load_more">Carregar mais...</string>
+	<string name="missed_call">Chamada perdida de %s</string>
 	<string name="MCA_return_call">Chamar agora</string>
 	<string name="MCA_add_task">Chamar mais tarde</string>
 	<string name="MCA_ignore">Ignorar</string>
+	<string name="missed_calls">Chamadas perdidas</string>
 	<string name="MCA_task_title_name">Ligar a %1$s às %2$s</string>
 	<string name="MCA_task_title_no_name">Ligar a %s</string>
 	<string name="CRA_ignore">Ignorar</string>
@@ -191,7 +196,7 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="CFA_type_add">ou</string>
 	<string name="CFA_type_subtract">não</string>
 	<string name="CFA_type_intersect">também</string>
-	<string name="CFA_context_chain">%s tem critério</string>
+	<string name="CFA_context_chain">%s tem critérios</string>
 	<string name="CFA_context_delete">Eliminar linha</string>
 	<string name="CFA_help">Clique longo nos itens para mais opções</string>
 	<string name="CFA_button_add">Adicionar critério</string>
@@ -243,6 +248,7 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="audio_recording_title">Gravação áudio</string>
 	<string name="audio_stop_recording">Parar gravação</string>
 	<string name="file_type_unhandled">Não foi encontrada qualquer aplicação para gerir ficheiros deste tipo.</string>
+	<string name="back">Recuar</string>
 	<string name="file_browser_title">Escolha um ficheiro</string>
 	<string name="dir_browser_title">Escolha um diretório</string>
 	<string name="file_browser_err_permissions">Erro de permissões! Certifique-se que o Tasks tem permissões para aceder ao cartão SD:</string>
@@ -305,9 +311,12 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="repeat_detail_duedate_until">Cada %1$s\naté %2$s</string>
 	<string name="repeat_forever">Repetir eternamente</string>
 	<string name="repeat_until">Repetir até %s</string>
+	<string name="repeat_snackbar">%1$s agendada para %2$s</string>
 	<string name="TEA_tags_label_long">Adicionar às listas</string>
+	<string name="new_tag">Nova etiqueta</string>
 	<string name="tag_no_title_error">Introduza o nome para esta lista!</string>
 	<string name="tag_FEx_untagged">Sem categoria</string>
+	<string name="delete_tag_confirmation">Apagar %s?</string>
 	<string name="TPl_notification">Temporizador ativo para %s!</string>
 	<string name="TFE_workingOn">Tarefas monitorizadas</string>
 	<string name="TEA_timer_controls">Temporizador</string>
@@ -328,6 +337,7 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	</plurals>
 	<string name="today">Hoje</string>
 	<string name="tomorrow">Amanhã</string>
+	<string name="next">%s seguinte</string>
 	<string name="yesterday">Ontem</string>
 	<string name="tmrw">Amanhã</string>
 	<string name="yest">Ontem</string>
@@ -371,11 +381,39 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="remove">Remover</string>
 	<string name="randomly_once">Uma vez aleatória</string>
 	<string name="randomly">Aleatoriamente</string>
+	<string name="pick_a_date">Escolha a data</string>
+	<string name="pick_a_time">Escolha a hora</string>
 	<string name="pick_a_date_and_time">Escolha a data e a hora</string>
 	<string name="pick_a_location">Escolha o local</string>
 	<string name="type_a_location">Escreva o local</string>
 	<string name="when_overdue">Se data limite ultrapassada</string>
 	<string name="when_due">Na data limite</string>
+	<string name="geofence_radius_title">Raio (metros)</string>
+	<string name="geofence_responsiveness_title">Tempo de resposta (valores maiores poupam bateria)</string>
+	<string name="geolocation_reminders">Lembretes de geolocalização</string>
+	<string name="tags">Etiquetas</string>
+	<string name="filters">Filtros</string>
+	<string name="date_shortcuts">Atalhos de data</string>
+	<string name="date_shortcut_hour">Por uma hora</string>
+	<string name="date_shortcut_morning">Manhã</string>
+	<string name="date_shortcut_afternoon">Tarde</string>
+	<string name="date_shortcut_evening">Fim de dia</string>
+	<string name="date_shortcut_night">Noite</string>
+	<string name="date_shortcut_tomorrow_morning">Amanhã de manhã</string>
+	<string name="date_shortcut_tomorrow_afternoon">Amanhã à tarde</string>
+	<string name="date_shortcut_must_come_before">%1$s tem que ser antes de %2$s</string>
+	<string name="date_shortcut_must_come_after">%1$s tem que ser depois de %2$s</string>
+	<string name="discard_changes">Descartar alterações?</string>
+	<string name="discard">Descartar</string>
+	<string name="tag_settings">Definições de etiquetas</string>
+	<string name="delete">Apagar</string>
+	<string name="filter_settings">Definições de filtro</string>
+	<string name="deprecated_setting">Esta opção será removida no futuro</string>
+	<string name="show_hidden">Mostrar ocultas</string>
+	<string name="show_completed">Mostrar terminadas</string>
+	<string name="reverse">Reverter</string>
+	<string name="task_count">%s tarefas</string>
+	<string name="get_plugins">Obter extras</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>desativar</item>
 		<item>cada 15 minutos</item>

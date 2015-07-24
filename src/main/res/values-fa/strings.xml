@@ -13,61 +13,175 @@
 	<string name="SSD_sort_due">براساس تاریخ موعود</string>
 	<string name="SSD_sort_importance">براساس اولیت</string>
 	<string name="SSD_sort_modified">براساس آخرین تغییرات</string>
-	<string name="FLA_search_filter">تطبیق</string>
 	<string name="FLA_new_filter">فیلتر جدید</string>
 	<string name="FLA_no_filter_selected">فیلتری انتخاب نشده! لطفا یک فیلتر یا یک لیست انتخاب کنید</string>
 	<string name="TEA_title_hint">نام وظیفه</string>
 	<string name="TEA_importance_label">اولویت</string>
+	<string name="TEA_no_date">بدون تاریخ</string>
 	<string name="TEA_hideUntil_label">مخفی تا</string>
 	<string name="TEA_note_label">توضیحات</string>
 	<string name="TEA_estimatedDuration_label">این چقدر طول میکشد ؟</string>
+	<string name="TEA_elapsedDuration_label">زمان سپری شده</string>
+	<string name="TEA_menu_save">ذخیره تغییرات</string>
 	<string name="TEA_menu_discard_changes">رد تغییرات</string>
+	<string name="TEA_tab_activity">فعالیت</string>
+	<string name="TEA_no_time">بدون زمان</string>
+	<string-array name="TEA_hideUntil">
+		<item>هرگز</item>
+		<item>تاریخ موعود</item>
+		<item>زمان موعود</item>
+		<item>Day before due</item>
+		<item>هفته قبل از موعود</item>
+		<item>روز یا زمان خاص</item>
+	</string-array>
+	<string name="TEA_control_when">زمانی که</string>
+	<string name="TEA_control_importance">اولیت</string>
+	<string name="TEA_control_notes">توضیحات</string>
+	<string name="TEA_control_files">فایل ها</string>
+	<string name="TEA_control_reminders">یادآوری ها</string>
+	<string name="TEA_control_timer">کنترل تایمر</string>
+	<string name="hide_until_prompt">نمایش در لیست من</string>
+	<string name="TEA_load_more">بارگزاری بیشتر</string>
+	<string name="MCA_return_call">اکنون تماس بگیر</string>
+	<string name="MCA_add_task">بعدا تماس بگیر</string>
+	<string name="MCA_ignore">رد کردن</string>
+	<string name="missed_calls">تماس های از دست داده</string>
+	<string name="CRA_ignore">رد کردن</string>
+	<string name="CRA_title">نیاز به لیست ملاقات دارید ؟</string>
+	<string name="CRA_ignore_all">نادیده گرفتن تمام رویداد ها</string>
+	<string name="CRA_ignore_this">فقط نادیده گرفتن این رویداد</string>
+	<string name="CRA_create_list">ساخت لیست</string>
+	<string name="CRA_postpone">شاید یعدا</string>
+	<string name="CRA_create_new">ساخت جدید</string>
+	<string name="CRA_use_existing">استفاده از فعلی</string>
+	<string name="CRA_invitation_prompt">میخواهید آن هارا دعوت کنید؟</string>
+	<string name="CRA_calendar_reminders_pref_title">دستیار تقویم</string>
+	<string name="CRA_share_list_title">منتشرکردن لیست؟</string>
+	<string name="CRA_invite_attendees">دعوت از شرکت کنندگان</string>
+	<string name="CRA_more_options">گزینه های بیشتر</string>
+	<string name="CRA_dont_invite">خیر ممنون</string>
+	<string name="CRA_list_created_title">لیست ساخته شد!</string>
+	<string name="EPr_title">تنظیمات</string>
+	<string name="EPr_deactivated">غیر فعال شده</string>
+	<string name="EPr_appearance_header">ظاهر</string>
+	<string name="EPr_fullTask_title">نمایش عنوان کامل وظیفه</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
       If you see this error regularly, we suggest you clear all
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
       your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
+	<string-array name="EPr_default_urgency">
+		<item>بدون موعود</item>
+		<item>امروز</item>
+		<item>فردا</item>
+		<item>پس فردا</item>
+		<item>هفته بعد</item>
+	</string-array>
+	<string-array name="EPr_default_hideUntil">
+		<item>مخفی نکن</item>
+		<item>موعود وظیفه رسیده</item>
+		<item>روز قبل از موعود</item>
+		<item>هفته قبل از موعود</item>
+	</string-array>
+	<string-array name="EPr_default_reminders">
+		<item>بدون یادآور موعود</item>
+		<item>At deadline</item>
+		<item>When overdue</item>
+		<item>At deadline or overdue</item>
+	</string-array>
 	<string name="CFA_type_add">یا</string>
+	<string name="CFA_type_subtract">نه</string>
 	<string name="CFA_type_intersect">همچنین</string>
 	<string name="CFA_context_delete">حذف سطر</string>
 	<string name="CFA_help">لمس طولانی روی انتخاب برای گزینه های بیشتر</string>
 	<string name="CFA_button_add">اضافه کردن محتوا</string>
 	<string name="CFA_button_view">نمایش</string>
 	<string name="CFA_button_save">ذخیره و نمایش</string>
-	<string name="CFC_dueBefore_text">موعود براساس:‌ ؟</string>
 	<string name="CFC_dueBefore_name">موعود بر اساس</string>
+	<string-array name="CFC_dueBefore_entries">
+		<item>No Due Date</item>
+		<item>دیروز</item>
+		<item>امروز</item>
+		<item>فردا</item>
+		<item>Day After Tomorrow</item>
+		<item>Next Week</item>
+		<item>ماه بعد</item>
+	</string-array>
+	<string name="CFC_importance_text">اولویت در آخر؟</string>
 	<string name="CFC_importance_name">اولویت</string>
-	<string name="CFC_tag_text">لیست</string>
 	<string name="CFC_tag_name">لیست</string>
 	<string name="CFC_tag_contains_name">لیست نام ها شامل میشود</string>
 	<string name="CFC_tag_contains_text">لیست نام شامل میشود ؟</string>
 	<string name="CFC_title_contains_name">عنوان شامل</string>
-	<string name="CFC_title_contains_text">عنوان شامل</string>
 	<string name="gcal_TEA_error">خطا در اضافه کردن وظیفه به تقویم</string>
 	<string name="gcal_TEA_addToCalendar_label">اضاقه به تقویم</string>
 	<string name="gcal_TEA_showCalendar_label">بازکردن رویداد تقویم</string>
 	<string name="gcal_TEA_nocal">اضافه نکن</string>
 	<string name="gcal_TEA_none_selected">به تقویم؟</string>
-	<string name="gcal_completed_title">(انجام شده)</string>
 	<string name="gcal_GCP_default">تقویم پیش فرض</string>
 	<string name="gtasks_GTA_clearing">در حال حذف وظایف تکمیل شده</string>
 	<string name="gtasks_GTA_clear_completed">حذف انجام شد</string>
+	<string name="gtasks_GLA_noaccounts">اکانت گوگلی برای همگام سازی موجود نیست</string>
+	<string name="gtasks_GLA_authenticating">اعتبارسنجی...</string>
+	<string name="gtasks_GLA_errorAuth">خطای اعتبارسنجی! لطفا نام کاربری و رمزعبور خود را در تنظیمات گوشی تان بررسی نمایید</string>
+	<string name="gtasks_GLA_errorIOAuth">پوزش، ارتباط با سرورهای گوگل میسر نشد. لطفا دوباره تلاش نمایید.</string>
+	<string name="gtasks_GPr_header">وظایف گوگل</string>
+	<string name="premium_record_audio">ذخیره یادداشت</string>
+	<string name="back">عقب</string>
+	<string-array name="TEA_reminder_random">
+		<item>یک ساعت</item>
+		<item>یک روز</item>
+		<item>یک هفته</item>
+		<item>دو هفته آینده</item>
+		<item>a month</item>
+		<item>in two months</item>
+	</string-array>
 	<string name="rmd_EPr_defaultRemind_title">یادآوری های تصادفی</string>
+	<string-array name="EPr_reminder_random">
+		<item>disabled</item>
+		<item>هر ساعت</item>
+		<item>هر روز</item>
+		<item>هر هفته</item>
+		<item>یک هفته در میان</item>
+		<item>هر ماه</item>
+		<item>یک ماه درمیان</item>
+	</string-array>
 	<string name="repeat_enabled">تکرارها</string>
-	<string name="repeat_every">هر </string>
 	<string name="repeat_interval_prompt">دوره تکرار</string>
 	<string name="repeat_never">بدون تکرار</string>
 	<string name="repeat_dont">تکرار نشود</string>
-	<string name="repeat_detail_duedate">هر</string>
+	<string-array name="repeat_interval">
+		<item>روز(ها)</item>
+		<item>هفته(ها)</item>
+		<item>ماه(ها)</item>
+		<item>ساعت(ها)</item>
+		<item>دقیقه(ها)</item>
+		<item>سال(ها)</item>
+	</string-array>
 	<string name="repeat_forever">تکرار بینهایت</string>
+	<string name="TEA_tags_label_long">اضافه به لیست</string>
+	<string name="tag_no_title_error">لطفا ابتدا یک نام برای لیست انتخاب نمایید</string>
+	<string name="tag_FEx_untagged">دسته بندی نشده</string>
+	<string name="TEA_timer_controls">تایمر</string>
+	<string name="TEA_timer_comment_started">این وظیفه شروع شده:</string>
+	<string name="TEA_timer_comment_stopped">این وظیفه متوقف شده:</string>
+	<string name="TEA_timer_comment_spent">زمان سپری شده:</string>
+	<string name="EPr_voiceRemindersEnabled_title">یادآور صوتی</string>
+	<string name="EPr_use_dark_theme">تم تاریک</string>
 	<string name="delete_task">حذف وظیفه</string>
+	<string name="voice_command_added_task">وظیفه اضافه شده</string>
 	<string name="source_code">کد مبدا</string>
 	<string name="translations">ترجمه ها</string>
 	<string name="report_an_issue">گزارش یک مطلب</string>
 	<string name="help_and_feedback">کمک و بازخورد</string>
 	<string name="contact_developer">تماس با توسعه دهنده</string>
 	<string name="rate_tasks">ارزیابی وظیفه</string>
+	<string name="pick_a_date">یک تاریخ انتخاب کنید</string>
+	<string name="pick_a_time">یک زمان انتخاب کنید</string>
+	<string name="tags">برچسب ها</string>
+	<string name="filters">فیلترها</string>
 	<string name="filter_settings">تنظیمات فیلتر</string>
 	<string name="deprecated_setting">این تنظیم در نسخه بروزرسانی بعدی حذف خواهد شد</string>
 	<string name="show_hidden">نمایش مخفی ها</string>
 	<string name="show_completed">نمایش انجام شده ها</string>
+	<string name="reverse">برعکس</string>
 </resources>
