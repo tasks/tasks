@@ -30,7 +30,7 @@
 		<item>هرگز</item>
 		<item>تاریخ موعود</item>
 		<item>زمان موعود</item>
-		<item>Day before due</item>
+		<item>روز قبل از موعود</item>
 		<item>هفته قبل از موعود</item>
 		<item>روز یا زمان خاص</item>
 	</string-array>
@@ -64,6 +64,8 @@
 	<string name="EPr_title">تنظیمات</string>
 	<string name="EPr_deactivated">غیر فعال شده</string>
 	<string name="EPr_appearance_header">ظاهر</string>
+	<string name="EPr_show_timer_shortcut">نمایش میانبر تایمر</string>
+	<string name="EPr_beastMode_reset">برگرداندن به پیش فرض</string>
 	<string name="EPr_fullTask_title">نمایش عنوان کامل وظیفه</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
       If you see this error regularly, we suggest you clear all
@@ -84,11 +86,11 @@
 	</string-array>
 	<string-array name="EPr_default_reminders">
 		<item>بدون یادآور موعود</item>
-		<item>At deadline</item>
+		<item>روز موعود</item>
 		<item>When overdue</item>
 		<item>At deadline or overdue</item>
 	</string-array>
-	<string name="CFA_type_add">یا</string>
+	<string name="CFA_type_add">يا</string>
 	<string name="CFA_type_subtract">نه</string>
 	<string name="CFA_type_intersect">همچنین</string>
 	<string name="CFA_context_delete">حذف سطر</string>
@@ -98,12 +100,12 @@
 	<string name="CFA_button_save">ذخیره و نمایش</string>
 	<string name="CFC_dueBefore_name">موعود بر اساس</string>
 	<string-array name="CFC_dueBefore_entries">
-		<item>No Due Date</item>
+		<item>بدون موعود</item>
 		<item>دیروز</item>
 		<item>امروز</item>
 		<item>فردا</item>
 		<item>Day After Tomorrow</item>
-		<item>Next Week</item>
+		<item>هفته بعد</item>
 		<item>ماه بعد</item>
 	</string-array>
 	<string name="CFC_importance_text">اولویت در آخر؟</string>
@@ -125,14 +127,16 @@
 	<string name="gtasks_GLA_errorAuth">خطای اعتبارسنجی! لطفا نام کاربری و رمزعبور خود را در تنظیمات گوشی تان بررسی نمایید</string>
 	<string name="gtasks_GLA_errorIOAuth">پوزش، ارتباط با سرورهای گوگل میسر نشد. لطفا دوباره تلاش نمایید.</string>
 	<string name="gtasks_GPr_header">وظایف گوگل</string>
+	<string name="premium_attach_file">الصاق یک فایل</string>
 	<string name="premium_record_audio">ذخیره یادداشت</string>
+	<string name="audio_stop_recording">توقف ضبط</string>
 	<string name="back">عقب</string>
 	<string-array name="TEA_reminder_random">
 		<item>یک ساعت</item>
 		<item>یک روز</item>
 		<item>یک هفته</item>
 		<item>دو هفته آینده</item>
-		<item>a month</item>
+		<item>یک ماه</item>
 		<item>in two months</item>
 	</string-array>
 	<string name="rmd_EPr_defaultRemind_title">یادآوری های تصادفی</string>
@@ -165,6 +169,7 @@
 	<string name="TEA_timer_comment_started">این وظیفه شروع شده:</string>
 	<string name="TEA_timer_comment_stopped">این وظیفه متوقف شده:</string>
 	<string name="TEA_timer_comment_spent">زمان سپری شده:</string>
+	<string name="EPr_voiceInputEnabled_title">ورودی صدا</string>
 	<string name="EPr_voiceRemindersEnabled_title">یادآور صوتی</string>
 	<string name="EPr_use_dark_theme">تم تاریک</string>
 	<string name="delete_task">حذف وظیفه</string>

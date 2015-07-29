@@ -10,6 +10,7 @@
 	<string name="actfm_picture_clear">Убрать изображение</string>
 	<string name="TVA_add_comment">Добавить комментарий...</string>
 	<string name="name">Тег:</string>
+	<string name="enter_tag_name">Введите название тега</string>
 	<string name="actfm_GAA_title">Выберите аккаунт Google, который вы хотите использовать:</string>
 	<string name="backup_BPr_header">Резервные копии</string>
 	<string name="backup_BAc_import">Импортировать задачи</string>
@@ -62,6 +63,7 @@
 	<string name="TEA_estimatedDuration_label">Как долго это продлится?</string>
 	<string name="TEA_elapsedDuration_label">Время уже потраченное на задачу</string>
 	<string name="TEA_menu_save">Сохранить изменения</string>
+	<string name="save">Сохранить </string>
 	<string name="TEA_menu_discard_changes">Отменить изменения?</string>
 	<string name="TEA_tab_activity">Действия</string>
 	<string name="TEA_timer_est">Ост. %s</string>
@@ -399,6 +401,7 @@
 	<string name="date_shortcut_tomorrow_morning">Завтра утром</string>
 	<string name="date_shortcut_tomorrow_afternoon">Завтра после обеда</string>
 	<string name="discard_changes">Отменить изменения?</string>
+	<string name="discard">Не сохранять</string>
 	<string name="tag_settings">Настройки тегов</string>
 	<string name="delete">Удалить</string>
 	<string name="filter_settings">Настройки фильтра</string>
@@ -406,6 +409,7 @@
 	<string name="show_hidden">Показать скрытые</string>
 	<string name="show_completed">Показать выполненные</string>
 	<string name="reverse"> Реверс</string>
+	<string name="task_count">%s задач</string>
 	<string name="get_plugins">Получить Plug-ins</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>отключить</item>
