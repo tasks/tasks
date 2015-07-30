@@ -1,6 +1,5 @@
 package org.tasks.reminders;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,7 +16,7 @@ import org.tasks.notifications.NotificationManager;
 
 import javax.inject.Inject;
 
-public class MissedCallActivity extends InjectingAppCompatActivity implements DialogInterface.OnDismissListener, MissedCallDialog.MissedCallHandler {
+public class MissedCallActivity extends InjectingAppCompatActivity implements MissedCallDialog.MissedCallHandler {
 
     private static final String FRAG_TAG_MISSED_CALL_FRAGMENT = "frag_tag_missed_call_fragment";
 
@@ -37,8 +36,17 @@ public class MissedCallActivity extends InjectingAppCompatActivity implements Di
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intent = getIntent();
+        setup(getIntent());
+    }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        setup(intent);
+    }
+
+    private void setup(Intent intent) {
         name = intent.getStringExtra(EXTRA_NAME);
         number = intent.getStringExtra(EXTRA_NUMBER);
 
@@ -51,15 +59,14 @@ public class MissedCallActivity extends InjectingAppCompatActivity implements Di
             MissedCallDialog fragment = (MissedCallDialog) supportFragmentManager.findFragmentByTag(FRAG_TAG_MISSED_CALL_FRAGMENT);
             if (fragment == null) {
                 fragment = new MissedCallDialog();
-                fragment.setTitle(intent.getStringExtra(EXTRA_TITLE));
                 fragment.show(supportFragmentManager, FRAG_TAG_MISSED_CALL_FRAGMENT);
             }
-            fragment.setOnDismissListener(this);
+            fragment.setTitle(intent.getStringExtra(EXTRA_TITLE));
         }
     }
 
     @Override
-    public void onDismiss(DialogInterface dialog) {
+    public void dismiss() {
         finish();
     }
 

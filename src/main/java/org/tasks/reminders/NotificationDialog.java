@@ -2,16 +2,12 @@ package org.tasks.reminders;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.InjectingDialogFragment;
-import org.tasks.intents.TaskIntents;
-import org.tasks.notifications.NotificationManager;
 
 import java.util.List;
 
@@ -21,13 +17,20 @@ import static java.util.Arrays.asList;
 
 public class NotificationDialog extends InjectingDialogFragment {
 
-    @Inject NotificationManager notificationManager;
-    @Inject Broadcaster broadcaster;
+    public interface NotificationHandler {
+        void edit();
+
+        void snooze();
+
+        void complete();
+
+        void dismiss();
+    }
+
     @Inject DialogBuilder dialogBuilder;
 
-    private long taskId;
     private String title;
-    private DialogInterface.OnDismissListener onDismissListener;
+    private NotificationHandler handler;
 
     @NonNull
     @Override
@@ -37,6 +40,8 @@ public class NotificationDialog extends InjectingDialogFragment {
                 getString(R.string.rmd_NoA_snooze),
                 getString(R.string.rmd_NoA_done));
 
+        handler = (NotificationHandler) getActivity();
+
         return dialogBuilder.newDialog()
                 .setTitle(title)
                 .setItems(items.toArray(new String[items.size()]), new DialogInterface.OnClickListener() {
@@ -44,22 +49,13 @@ public class NotificationDialog extends InjectingDialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case 0:
-                                TaskIntents
-                                        .getEditTaskStack(getActivity(), null, taskId)
-                                        .startActivities();
-                                notificationManager.cancel(taskId);
-                                dismiss();
+                                handler.edit();
                                 break;
                             case 1:
-                                dismiss();
-                                startActivity(new Intent(getActivity(), SnoozeActivity.class) {{
-                                    setFlags(FLAG_ACTIVITY_NEW_TASK);
-                                    putExtra(SnoozeActivity.EXTRA_TASK_ID, taskId);
-                                }});
+                                handler.snooze();
                                 break;
                             case 2:
-                                broadcaster.completeTask(taskId);
-                                dismiss();
+                                handler.complete();
                                 break;
                         }
                     }
@@ -67,22 +63,16 @@ public class NotificationDialog extends InjectingDialogFragment {
                 .show();
     }
 
-    public void setOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
-        this.onDismissListener = onDismissListener;
-    }
-
     @Override
     public void onDismiss(DialogInterface dialog) {
-        if (onDismissListener != null) {
-            onDismissListener.onDismiss(dialog);
-        }
+        handler.dismiss();
     }
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public void setTaskId(long taskId) {
-        this.taskId = taskId;
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            dialog.setTitle(title);
+        }
     }
 }

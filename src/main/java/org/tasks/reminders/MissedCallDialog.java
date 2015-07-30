@@ -23,14 +23,13 @@ public class MissedCallDialog extends InjectingDialogFragment {
         void callLater();
 
         void ignore();
+
+        void dismiss();
     }
 
     @Inject DialogBuilder dialogBuilder;
-
-    private DialogInterface.OnDismissListener onDismissListener;
     private String title;
-
-    MissedCallHandler handler;
+    private MissedCallHandler handler;
 
     @NonNull
     @Override
@@ -56,24 +55,23 @@ public class MissedCallDialog extends InjectingDialogFragment {
                                 break;
                             default:
                                 handler.ignore();
+                                break;
                         }
                     }
                 })
                 .show();
     }
 
-    public void setOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
-        this.onDismissListener = onDismissListener;
-    }
-
     @Override
     public void onDismiss(DialogInterface dialog) {
-        if (onDismissListener != null) {
-            onDismissListener.onDismiss(dialog);
-        }
+        handler.dismiss();
     }
 
     public void setTitle(String title) {
         this.title = title;
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            dialog.setTitle(title);
+        }
     }
 }

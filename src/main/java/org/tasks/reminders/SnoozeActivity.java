@@ -37,7 +37,18 @@ public class SnoozeActivity extends InjectingAppCompatActivity implements Snooze
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        taskId = getIntent().getLongExtra(EXTRA_TASK_ID, 0L);
+        setup(getIntent(), savedInstanceState);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        setup(intent, null);
+    }
+
+    private void setup(Intent intent, Bundle savedInstanceState) {
+        taskId = intent.getLongExtra(EXTRA_TASK_ID, 0L);
 
         if (savedInstanceState != null) {
             pickingDateTime = savedInstanceState.getBoolean(EXTRA_PICKING_DATE_TIME, false);
