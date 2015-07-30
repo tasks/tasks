@@ -5,7 +5,11 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
+	<string name="name">نام</string>
 	<string name="actfm_GAA_title">انتخاب اکانت گوگلی که میخواهید استفاده کنید</string>
+	<string name="backup_BAc_export">خرجی از وظایف</string>
+	<string name="TAd_actionEditTask">ویرایش</string>
+	<string name="TAd_contextCopyTask">کپی وظایف</string>
 	<string name="SSD_deleted">نمایش وظایف حذف شده</string>
 	<string name="SSD_sort_drag">چینش دستی بهمراه زیروظایف</string>
 	<string name="SSD_sort_auto">چینش هوشمندانه</string>
@@ -23,6 +27,7 @@
 	<string name="TEA_estimatedDuration_label">این چقدر طول میکشد ؟</string>
 	<string name="TEA_elapsedDuration_label">زمان سپری شده</string>
 	<string name="TEA_menu_save">ذخیره تغییرات</string>
+	<string name="save">ذخیره</string>
 	<string name="TEA_menu_discard_changes">رد تغییرات</string>
 	<string name="TEA_tab_activity">فعالیت</string>
 	<string name="TEA_no_time">بدون زمان</string>
@@ -90,6 +95,7 @@
 		<item>When overdue</item>
 		<item>At deadline or overdue</item>
 	</string-array>
+	<string name="BFE_Recent">اخیرا ویرایش شده</string>
 	<string name="CFA_type_add">يا</string>
 	<string name="CFA_type_subtract">نه</string>
 	<string name="CFA_type_intersect">همچنین</string>
@@ -131,6 +137,10 @@
 	<string name="premium_record_audio">ذخیره یادداشت</string>
 	<string name="audio_stop_recording">توقف ضبط</string>
 	<string name="back">عقب</string>
+	<string name="file_browser_title">انتخاب یک فایل</string>
+	<string name="ring_once">یک بار زنگ بزن</string>
+	<string name="ring_five_times">پنج بار زنگ بزن</string>
+	<string name="ring_nonstop">بدون توقف زنگ بزن</string>
 	<string-array name="TEA_reminder_random">
 		<item>یک ساعت</item>
 		<item>یک روز</item>
@@ -139,9 +149,10 @@
 		<item>یک ماه</item>
 		<item>in two months</item>
 	</string-array>
+	<string name="rmd_NoA_done">کامل</string>
 	<string name="rmd_EPr_defaultRemind_title">یادآوری های تصادفی</string>
 	<string-array name="EPr_reminder_random">
-		<item>disabled</item>
+		<item>غیرفعال شده</item>
 		<item>هر ساعت</item>
 		<item>هر روز</item>
 		<item>هر هفته</item>
@@ -161,8 +172,13 @@
 		<item>دقیقه(ها)</item>
 		<item>سال(ها)</item>
 	</string-array>
+	<string-array name="repeat_type">
+		<item>from due date</item>
+		<item>از تاریخ اتمام</item>
+	</string-array>
 	<string name="repeat_forever">تکرار بینهایت</string>
 	<string name="TEA_tags_label_long">اضافه به لیست</string>
+	<string name="new_tag">تگ جدید</string>
 	<string name="tag_no_title_error">لطفا ابتدا یک نام برای لیست انتخاب نمایید</string>
 	<string name="tag_FEx_untagged">دسته بندی نشده</string>
 	<string name="TEA_timer_controls">تایمر</string>
@@ -174,19 +190,51 @@
 	<string name="EPr_use_dark_theme">تم تاریک</string>
 	<string name="delete_task">حذف وظیفه</string>
 	<string name="voice_command_added_task">وظیفه اضافه شده</string>
+	<string name="today">امروز</string>
+	<string name="tomorrow">فردا</string>
+	<string name="tmrw">فردا</string>
+	<string name="yest">دیروز</string>
+	<string name="DLG_wait">لطفا منتظر بمانید...</string>
+	<string name="sync_SPr_forget">خروج از حساب کاربری</string>
+	<string name="vibrate">ویبره</string>
 	<string name="source_code">کد مبدا</string>
 	<string name="translations">ترجمه ها</string>
 	<string name="report_an_issue">گزارش یک مطلب</string>
 	<string name="help_and_feedback">کمک و بازخورد</string>
 	<string name="contact_developer">تماس با توسعه دهنده</string>
 	<string name="rate_tasks">ارزیابی وظیفه</string>
+	<string name="TLA_menu_donate">کمک مالی</string>
+	<string name="error">خطا</string>
+	<string name="select_amount">انتخاب مقدار</string>
+	<string name="add_reminder">اضافه کردن یادآورد</string>
+	<string name="randomly">به طور تصادفی</string>
 	<string name="pick_a_date">یک تاریخ انتخاب کنید</string>
 	<string name="pick_a_time">یک زمان انتخاب کنید</string>
+	<string name="pick_a_date_and_time">انتخاب یک تاریخ و زمان</string>
 	<string name="tags">برچسب ها</string>
 	<string name="filters">فیلترها</string>
+	<string name="date_shortcut_hour">برای یک ساعت</string>
+	<string name="date_shortcut_morning">صبح</string>
+	<string name="date_shortcut_afternoon">بعدازظهر</string>
+	<string name="date_shortcut_evening">عصر</string>
+	<string name="date_shortcut_night">شب</string>
+	<string name="date_shortcut_tomorrow_morning">فردا صبح</string>
+	<string name="delete">حذف</string>
 	<string name="filter_settings">تنظیمات فیلتر</string>
 	<string name="deprecated_setting">این تنظیم در نسخه بروزرسانی بعدی حذف خواهد شد</string>
 	<string name="show_hidden">نمایش مخفی ها</string>
 	<string name="show_completed">نمایش انجام شده ها</string>
 	<string name="reverse">برعکس</string>
+	<string-array name="sync_SPr_interval_entries">
+		<item>غیرفعال</item>
+		<item>every fifteen minutes</item>
+		<item>every thirty minutes</item>
+		<item>هر ساعت</item>
+		<item>every three hours</item>
+		<item>every six hours</item>
+		<item>every twelve hours</item>
+		<item>هر روز</item>
+		<item>every three days</item>
+		<item>هر هفته</item>
+	</string-array>
 </resources>
