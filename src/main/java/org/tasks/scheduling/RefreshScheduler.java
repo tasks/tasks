@@ -1,6 +1,5 @@
 package org.tasks.scheduling;
 
-import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +26,7 @@ public class RefreshScheduler {
 
     private final TaskDao taskDao;
     private final Context context;
+    private final AlarmManager alarmManager;
 
     private static final Property<?>[] REFRESH_PROPERTIES = new Property<?>[]{
             Task.DUE_DATE,
@@ -34,9 +34,10 @@ public class RefreshScheduler {
     };
 
     @Inject
-    public RefreshScheduler(TaskDao taskDao, @ForApplication Context context) {
+    public RefreshScheduler(TaskDao taskDao, @ForApplication Context context, AlarmManager alarmManager) {
         this.taskDao = taskDao;
         this.context = context;
+        this.alarmManager = alarmManager;
     }
 
     public void scheduleApplicationRefreshes() {
@@ -71,9 +72,8 @@ public class RefreshScheduler {
         dueDate += 1000; // this is ghetto
         Intent intent = new Intent(context, RefreshReceiver.class);
         intent.setAction(Long.toString(dueDate));
-        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, FLAG_UPDATE_CURRENT);
-        am.set(AlarmManager.RTC, dueDate, pendingIntent);
+        alarmManager.noWakeup(dueDate, pendingIntent);
     }
 
     private TodorooCursor<Task> getTasks() {

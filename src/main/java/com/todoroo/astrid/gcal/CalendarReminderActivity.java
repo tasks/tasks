@@ -1,6 +1,5 @@
 package com.todoroo.astrid.gcal;
 
-import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -28,6 +27,7 @@ import com.todoroo.astrid.tags.TagFilterExposer;
 import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.ResourceResolver;
+import org.tasks.scheduling.AlarmManager;
 
 import javax.inject.Inject;
 
@@ -54,6 +54,7 @@ public class CalendarReminderActivity extends InjectingAppCompatActivity {
     @Inject ActivityPreferences preferences;
     @Inject ResourceResolver resourceResolver;
     @Inject DialogBuilder dialogBuilder;
+    @Inject AlarmManager alarmManager;
 
     private String eventName;
     private long startTime;
@@ -224,8 +225,6 @@ public class CalendarReminderActivity extends InjectingAppCompatActivity {
     }
 
     private void postpone() {
-        AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
         Intent eventAlarm = new Intent(this, CalendarAlarmReceiver.class);
         eventAlarm.setAction(CalendarAlarmReceiver.BROADCAST_CALENDAR_REMINDER);
         eventAlarm.setData(Uri.parse(CalendarAlarmScheduler.URI_PREFIX_POSTPONE + "://" + eventId));
@@ -233,10 +232,10 @@ public class CalendarReminderActivity extends InjectingAppCompatActivity {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this,
                 CalendarAlarmReceiver.REQUEST_CODE_CAL_REMINDER, eventAlarm, 0);
 
-        am.cancel(pendingIntent);
+        alarmManager.cancel(pendingIntent);
 
         long alarmTime = endTime + DateUtilities.ONE_MINUTE * 5;
-        am.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+        alarmManager.wakeup(alarmTime, pendingIntent);
         dismissButton.performClick();
     }
 

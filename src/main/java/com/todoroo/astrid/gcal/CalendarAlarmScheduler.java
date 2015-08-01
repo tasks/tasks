@@ -1,6 +1,5 @@
 package com.todoroo.astrid.gcal;
 
-import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -12,6 +11,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
+import org.tasks.scheduling.AlarmManager;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -23,10 +23,12 @@ public class CalendarAlarmScheduler {
     public static final String URI_PREFIX_POSTPONE = "cal-postpone";
 
     private final Preferences preferences;
+    private AlarmManager alarmManager;
 
     @Inject
-    public CalendarAlarmScheduler(Preferences preferences) {
+    public CalendarAlarmScheduler(Preferences preferences, AlarmManager alarmManager) {
         this.preferences = preferences;
+        this.alarmManager = alarmManager;
     }
 
     public void scheduleCalendarAlarms(final Context context, boolean force) {
@@ -50,7 +52,6 @@ public class CalendarAlarmScheduler {
 
         long now = DateUtilities.now();
 
-        AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Cursor events = cr.query(Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_EVENTS),
                 new String[] { Calendars.ID_COLUMN_NAME, Calendars.EVENTS_DTSTART_COL },
                 Calendars.EVENTS_DTSTART_COL + " > ? AND " + Calendars.EVENTS_DTSTART_COL + " < ?",
@@ -73,10 +74,10 @@ public class CalendarAlarmScheduler {
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
                             CalendarAlarmReceiver.REQUEST_CODE_CAL_REMINDER, eventAlarm, 0);
 
-                    am.cancel(pendingIntent);
+                    alarmManager.cancel(pendingIntent);
 
                     long alarmTime = start - DateUtilities.ONE_MINUTE * 15;
-                    am.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                    alarmManager.wakeup(alarmTime, pendingIntent);
                 }
             }
 
@@ -84,8 +85,8 @@ public class CalendarAlarmScheduler {
             Intent rescheduleAlarm = new Intent(CalendarStartupReceiver.BROADCAST_RESCHEDULE_CAL_ALARMS);
             PendingIntent pendingReschedule = PendingIntent.getBroadcast(context, 0,
                     rescheduleAlarm, 0);
-            am.cancel(pendingReschedule);
-            am.set(AlarmManager.RTC, DateUtilities.now() + DateUtilities.ONE_HOUR * 12, pendingReschedule);
+            alarmManager.cancel(pendingReschedule);
+            alarmManager.noWakeup(DateUtilities.now() + DateUtilities.ONE_HOUR * 12, pendingReschedule);
         } finally {
             if (events != null) {
                 events.close();

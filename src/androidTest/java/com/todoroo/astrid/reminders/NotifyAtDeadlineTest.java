@@ -9,10 +9,12 @@ import org.joda.time.DateTime;
 import org.tasks.Freeze;
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
+import org.tasks.scheduling.AlarmManager;
 
 import java.util.concurrent.TimeUnit;
 
 import static com.todoroo.astrid.reminders.ReminderService.NO_ALARM;
+import static org.mockito.Mockito.mock;
 import static org.tasks.Freeze.freezeAt;
 import static org.tasks.Freeze.thaw;
 import static org.tasks.date.DateTimeUtils.newDate;
@@ -33,7 +35,7 @@ public class NotifyAtDeadlineTest extends AndroidTestCase {
     @Override
     public void setUp() {
         preferences = new Preferences(getContext(), null);
-        reminderService = new ReminderService(getContext(), preferences);
+        reminderService = new ReminderService(getContext(), preferences, mock(AlarmManager.class));
         freezeAt(new DateTime(2014, 1, 24, 17, 23, 37));
     }
 

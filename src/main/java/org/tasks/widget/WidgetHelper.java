@@ -1,7 +1,6 @@
 package org.tasks.widget;
 
 import android.annotation.TargetApi;
-import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
@@ -28,8 +27,8 @@ import com.todoroo.astrid.widget.WidgetConfigActivity;
 
 import org.tasks.R;
 import org.tasks.intents.TaskIntents;
-import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.Preferences;
+import org.tasks.scheduling.AlarmManager;
 
 import java.util.concurrent.TimeUnit;
 
@@ -46,19 +45,20 @@ public class WidgetHelper {
 
     private final TagDataDao tagDataDao;
     private final Preferences preferences;
+    private AlarmManager alarmManager;
 
     @Inject
-    public WidgetHelper(TagDataDao tagDataDao, Preferences preferences) {
+    public WidgetHelper(TagDataDao tagDataDao, Preferences preferences, AlarmManager alarmManager) {
         this.tagDataDao = tagDataDao;
         this.preferences = preferences;
+        this.alarmManager = alarmManager;
     }
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     public RemoteViews createScrollableWidget(Context context, int id) {
-        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, ScrollableWidgetUpdateService.class);
         PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        am.setInexactRepeating(AlarmManager.RTC, 0, TimeUnit.MINUTES.toMillis(30), pendingIntent);
+        alarmManager.setInexactRepeating(TimeUnit.MINUTES.toMillis(30), pendingIntent);
 
         Filter filter = getFilter(context, id);
         Intent rvIntent = new Intent(context, ScrollableWidgetUpdateService.class);

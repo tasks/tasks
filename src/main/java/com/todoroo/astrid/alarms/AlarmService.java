@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.alarms;
 
-import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
@@ -27,6 +26,7 @@ import com.todoroo.astrid.service.SynchronizeMetadataCallback;
 
 import org.tasks.injection.ForApplication;
 import org.tasks.receivers.TaskNotificationReceiver;
+import org.tasks.scheduling.AlarmManager;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -50,6 +50,7 @@ public class AlarmService {
 
     private final MetadataDao metadataDao;
     private final Context context;
+    private final AlarmManager alarmManager;
     private final Callback<Metadata> scheduleAlarm = new Callback<Metadata>() {
         @Override
         public void apply(Metadata alarm) {
@@ -58,9 +59,10 @@ public class AlarmService {
     };
 
     @Inject
-    public AlarmService(MetadataDao metadataDao, @ForApplication Context context) {
+    public AlarmService(MetadataDao metadataDao, @ForApplication Context context, AlarmManager alarmManager) {
         this.metadataDao = metadataDao;
         this.context = context;
+        this.alarmManager = alarmManager;
     }
 
     public void getAlarms(long taskId, Callback<Metadata> callback) {
@@ -83,14 +85,12 @@ public class AlarmService {
             metadata.add(item);
         }
 
-        final AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-
         boolean changed = synchronizeMetadata(taskId, metadata, new SynchronizeMetadataCallback() {
             @Override
             public void beforeDeleteMetadata(Metadata m) {
                 // Cancel the alarm before the metadata is deleted
                 PendingIntent pendingIntent = pendingIntentForAlarm(m, taskId);
-                am.cancel(pendingIntent);
+                alarmManager.cancel(pendingIntent);
             }
         });
 
@@ -149,14 +149,13 @@ public class AlarmService {
 
         long taskId = alarm.getTask();
 
-        AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = pendingIntentForAlarm(alarm, taskId);
 
         long time = alarm.getValue(AlarmFields.TIME);
         if(time == 0 || time == NO_ALARM) {
-            am.cancel(pendingIntent);
+            alarmManager.cancel(pendingIntent);
         } else if(time > DateUtilities.now()) {
-            am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+            alarmManager.wakeup(time, pendingIntent);
         }
     }
 

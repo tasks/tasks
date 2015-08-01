@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.reminders;
 
-import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +25,7 @@ import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.TaskNotificationReceiver;
+import org.tasks.scheduling.AlarmManager;
 
 import java.util.Random;
 
@@ -76,16 +76,17 @@ public final class ReminderService  {
 
     // --- instance variables
 
-    private AlarmScheduler scheduler = new ReminderAlarmScheduler();
+    private AlarmScheduler scheduler;
 
     private long now = -1; // For tracking when reminders might be scheduled all at once
     private Context context;
     private Preferences preferences;
 
     @Inject
-    ReminderService(@ForApplication Context context, Preferences preferences) {
+    ReminderService(@ForApplication Context context, Preferences preferences, AlarmManager alarmManager) {
         this.context = context;
         this.preferences = preferences;
+        scheduler = new ReminderAlarmScheduler(alarmManager);
     }
 
     private static final int MILLIS_PER_HOUR = 60 * 60 * 1000;
@@ -397,6 +398,12 @@ public final class ReminderService  {
     }
 
     private static class ReminderAlarmScheduler implements AlarmScheduler {
+        private final AlarmManager alarmManager;
+
+        public ReminderAlarmScheduler(AlarmManager alarmManager) {
+            this.alarmManager = alarmManager;
+        }
+
         /**
          * Create an alarm for the given task at the given type
          */
@@ -421,18 +428,17 @@ public final class ReminderService  {
                 log.error(e.getMessage(), e);
                 requestCode = type;
             }
-            AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode,
                     intent, 0);
 
             if (time == 0 || time == NO_ALARM) {
-                am.cancel(pendingIntent);
+                alarmManager.cancel(pendingIntent);
             } else {
                 if(time < DateUtilities.now()) {
                     time = DateUtilities.now() + 5000L;
                 }
 
-                am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+                alarmManager.wakeup(time, pendingIntent);
             }
         }
     }
