@@ -31,7 +31,7 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        activityPreferences.applyDialogTheme();
+        activityPreferences.applyTheme();
 
         final FilterAdapter filterAdapter = new FilterAdapter(filterProvider, filterCounter, this, null, false);
         filterAdapter.populateList();
