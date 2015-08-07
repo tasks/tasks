@@ -5,11 +5,22 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
+	<string name="actfm_picture_camera">گرفتن عکس</string>
+	<string name="actfm_picture_gallery">انتخاب از گالری</string>
+	<string name="actfm_picture_clear">پاک کردن عکس</string>
+	<string name="TVA_add_comment">اضافه کردن نظر</string>
 	<string name="name">نام</string>
 	<string name="actfm_GAA_title">انتخاب اکانت گوگلی که میخواهید استفاده کنید</string>
 	<string name="backup_BAc_export">خرجی از وظایف</string>
+	<string name="DLG_delete_this_task_question">حذف این وظیفه</string>
+	<string name="DLG_undo">بازگرداندن</string>
+	<string name="TLA_menu_sort">چینش</string>
+	<string name="TLA_menu_search">جست و جو</string>
+	<string name="TLA_menu_settings">تنظیمات</string>
 	<string name="TAd_actionEditTask">ویرایش</string>
 	<string name="TAd_contextCopyTask">کپی وظایف</string>
+	<string name="TAd_contextDeleteTask">حذف وظیفه</string>
+	<string name="TAd_contextUndeleteTask">بازگرداندن وظیفه حذف شده</string>
 	<string name="SSD_deleted">نمایش وظایف حذف شده</string>
 	<string name="SSD_sort_drag">چینش دستی بهمراه زیروظایف</string>
 	<string name="SSD_sort_auto">چینش هوشمندانه</string>
@@ -40,6 +51,7 @@
 		<item>روز یا زمان خاص</item>
 	</string-array>
 	<string name="TEA_control_when">زمانی که</string>
+	<string name="TEA_control_gcal">تقویم</string>
 	<string name="TEA_control_importance">اولیت</string>
 	<string name="TEA_control_notes">توضیحات</string>
 	<string name="TEA_control_files">فایل ها</string>
@@ -72,6 +84,10 @@
 	<string name="EPr_show_timer_shortcut">نمایش میانبر تایمر</string>
 	<string name="EPr_beastMode_reset">برگرداندن به پیش فرض</string>
 	<string name="EPr_fullTask_title">نمایش عنوان کامل وظیفه</string>
+	<string name="task_list_options">اختیارات لیست وظیفه</string>
+	<string name="EPr_manage_clear_all">پاک کردن تمام داده ها</string>
+	<string name="TWi_loading">در حال بارگیری...</string>
+	<string name="WCA_title">انتخاب وظیفه جهت نمایش</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
       If you see this error regularly, we suggest you clear all
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
@@ -95,7 +111,10 @@
 		<item>When overdue</item>
 		<item>At deadline or overdue</item>
 	</string-array>
+	<string name="BFE_Active">وظایف من</string>
 	<string name="BFE_Recent">اخیرا ویرایش شده</string>
+	<string name="CFA_filterName_hint">نامگذاری این فیلتر برای ذخیره کردن</string>
+	<string name="CFA_universe_all">وظایف فعال</string>
 	<string name="CFA_type_add">يا</string>
 	<string name="CFA_type_subtract">نه</string>
 	<string name="CFA_type_intersect">همچنین</string>
@@ -135,9 +154,11 @@
 	<string name="gtasks_GPr_header">وظایف گوگل</string>
 	<string name="premium_attach_file">الصاق یک فایل</string>
 	<string name="premium_record_audio">ذخیره یادداشت</string>
+	<string name="audio_recording_title">ضبط صدا</string>
 	<string name="audio_stop_recording">توقف ضبط</string>
 	<string name="back">عقب</string>
 	<string name="file_browser_title">انتخاب یک فایل</string>
+	<string name="file_dir_dialog_default">بازگرداندن به پیش فرض</string>
 	<string name="ring_once">یک بار زنگ بزن</string>
 	<string name="ring_five_times">پنج بار زنگ بزن</string>
 	<string name="ring_nonstop">بدون توقف زنگ بزن</string>
@@ -147,9 +168,11 @@
 		<item>یک هفته</item>
 		<item>دو هفته آینده</item>
 		<item>یک ماه</item>
-		<item>in two months</item>
+		<item>در دو ماه</item>
 	</string-array>
 	<string name="rmd_NoA_done">کامل</string>
+	<string name="rmd_EPr_quiet_hours_start_title">شروع ساعات خلوتی</string>
+	<string name="rmd_EPr_quiet_hours_end_title">پایان ساعات خلوتی</string>
 	<string name="rmd_EPr_defaultRemind_title">یادآوری های تصادفی</string>
 	<string-array name="EPr_reminder_random">
 		<item>غیرفعال شده</item>
@@ -190,13 +213,24 @@
 	<string name="EPr_use_dark_theme">تم تاریک</string>
 	<string name="delete_task">حذف وظیفه</string>
 	<string name="voice_command_added_task">وظیفه اضافه شده</string>
+	<plurals name="Ntasks">
+		<item quantity="one">۱ وظیفه</item>
+		<item quantity="other">%d tasks</item>
+	</plurals>
 	<string name="today">امروز</string>
 	<string name="tomorrow">فردا</string>
+	<string name="yesterday">فردا بعد از ظهر</string>
 	<string name="tmrw">فردا</string>
 	<string name="yest">دیروز</string>
 	<string name="DLG_wait">لطفا منتظر بمانید...</string>
 	<string name="sync_SPr_forget">خروج از حساب کاربری</string>
+	<string name="widget_hide_header">مخفی کردن سربرگ</string>
+	<string name="widget_transparent_background">پیش زمینه شفاف</string>
+	<string name="notifications">اعلان ها</string>
+	<string name="sound">صدا</string>
 	<string name="vibrate">ویبره</string>
+	<string name="enabled">فعال شده</string>
+	<string name="font_size">اندازه فونت</string>
 	<string name="source_code">کد مبدا</string>
 	<string name="translations">ترجمه ها</string>
 	<string name="report_an_issue">گزارش یک مطلب</string>
@@ -207,10 +241,12 @@
 	<string name="error">خطا</string>
 	<string name="select_amount">انتخاب مقدار</string>
 	<string name="add_reminder">اضافه کردن یادآورد</string>
+	<string name="remove">حذف</string>
 	<string name="randomly">به طور تصادفی</string>
 	<string name="pick_a_date">یک تاریخ انتخاب کنید</string>
 	<string name="pick_a_time">یک زمان انتخاب کنید</string>
 	<string name="pick_a_date_and_time">انتخاب یک تاریخ و زمان</string>
+	<string name="pick_a_location">انتخاب یک موقعیت</string>
 	<string name="tags">برچسب ها</string>
 	<string name="filters">فیلترها</string>
 	<string name="date_shortcut_hour">برای یک ساعت</string>
@@ -228,13 +264,13 @@
 	<string-array name="sync_SPr_interval_entries">
 		<item>غیرفعال</item>
 		<item>every fifteen minutes</item>
-		<item>every thirty minutes</item>
+		<item>هر سی دقیقه</item>
 		<item>هر ساعت</item>
-		<item>every three hours</item>
-		<item>every six hours</item>
-		<item>every twelve hours</item>
+		<item>هر سه ساعت</item>
+		<item>هر شش ساعت</item>
+		<item>هر دوازده ساعت</item>
 		<item>هر روز</item>
-		<item>every three days</item>
+		<item>هر سه روز</item>
 		<item>هر هفته</item>
 	</string-array>
 </resources>
