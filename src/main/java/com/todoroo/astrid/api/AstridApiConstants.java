@@ -46,11 +46,6 @@ public class AstridApiConstants {
     public static final String EXTRAS_TASK_ID = "task";
 
     /**
-     * Extras name for a response item broadcast to astrid
-     */
-    public static final String EXTRAS_RESPONSE = "response";
-
-    /**
      * Extras name for old task due date
      */
     public static final String EXTRAS_OLD_DUE_DATE= "oldDueDate";
@@ -59,21 +54,6 @@ public class AstridApiConstants {
      * Extras name for new task due date
      */
     public static final String EXTRAS_NEW_DUE_DATE = "newDueDate";
-
-    // -- Custom criteria API
-
-    /**
-     * Action name for a broadcast intent requesting custom filter criteria (e.g. "Due by, Tagged, Tag contains", etc.)
-     */
-    public static final String BROADCAST_REQUEST_CUSTOM_FILTER_CRITERIA = BuildConfig.APPLICATION_ID + ".REQUEST_CUSTOM_FILTER_CRITERIA";
-
-
-    /**
-     * Action name for broadcast intent sending custom filter criteria back to Astrid
-     * <li> EXTRAS_ADDON you add-on identifier
-     * <li> EXTRAS_RESPONSE an array of {@link CustomFilterCriterion} </li>
-     */
-    public static final String BROADCAST_SEND_CUSTOM_FILTER_CRITERIA = BuildConfig.APPLICATION_ID + ".SEND_CUSTOM_FILTER_CRITERIA";
 
     // --- Events API
 

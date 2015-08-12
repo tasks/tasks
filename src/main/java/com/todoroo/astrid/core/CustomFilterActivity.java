@@ -5,17 +5,10 @@
  */
 package com.todoroo.astrid.core;
 
-import android.content.BroadcastReceiver;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.res.Resources;
 import android.database.Cursor;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.v7.app.ActionBar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.ContextMenu;
@@ -28,13 +21,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.todoroo.andlib.data.Property.CountProperty;
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.UnaryCriterion;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.CustomFilterCriterion;
 import com.todoroo.astrid.api.Filter;
@@ -47,18 +37,14 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.filters.FilterCriteriaProvider;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPreferences;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.inject.Inject;
@@ -71,11 +57,6 @@ import javax.inject.Inject;
  */
 public class CustomFilterActivity extends InjectingAppCompatActivity {
 
-    private static final Logger log = LoggerFactory.getLogger(CustomFilterActivity.class);
-
-    private static final String IDENTIFIER_TITLE = "title"; //$NON-NLS-1$
-    private static final String IDENTIFIER_IMPORTANCE = "importance"; //$NON-NLS-1$
-    private static final String IDENTIFIER_DUEDATE = "dueDate"; //$NON-NLS-1$
     private static final String IDENTIFIER_UNIVERSE = "active"; //$NON-NLS-1$
 
     static final int MENU_GROUP_FILTER = 0;
@@ -143,9 +124,6 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
     private TextView filterName;
 
     private CustomFilterAdapter adapter;
-    private final Map<String,CustomFilterCriterion> criteria = Collections.synchronizedMap(new LinkedHashMap<String,CustomFilterCriterion>());
-
-    private final FilterCriteriaReceiver filterCriteriaReceiver = new FilterCriteriaReceiver();
 
     // --- activity
 
@@ -153,16 +131,13 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
     @Inject StoreObjectDao storeObjectDao;
     @Inject ActivityPreferences preferences;
     @Inject DialogBuilder dialogBuilder;
+    @Inject FilterCriteriaProvider filterCriteriaProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preferences.applyTheme();
 
-        ActionBar ab = getSupportActionBar();
-        if (ab != null) {
-            ab.setDisplayHomeAsUpEnabled(true);
-        }
+        preferences.applyTheme();
 
         setContentView(R.layout.custom_filter_activity);
         setTitle(R.string.FLA_new_filter);
@@ -170,7 +145,6 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
         listView = (ListView) findViewById(android.R.id.list);
 
         database.openForReading();
-        populateCriteria();
 
         filterName = (TextView)findViewById(R.id.filterName);
         List<CriterionInstance> startingCriteria = new ArrayList<>();
@@ -180,100 +154,6 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
         updateList();
 
         setUpListeners();
-    }
-
-    /**
-     * Populate criteria list with built in and plugin criteria. The request is sent to every application
-     * registered to listen for this broadcast. Each plugin can then add criteria to this activity.
-     */
-    private void populateCriteria() {
-        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_CUSTOM_FILTER_CRITERIA);
-        sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
-
-        Resources r = getResources();
-
-        // built in criteria: due date
-        {
-            String[] entryValues = new String[] {
-                    "0",
-                    PermaSql.VALUE_EOD_YESTERDAY,
-                    PermaSql.VALUE_EOD,
-                    PermaSql.VALUE_EOD_TOMORROW,
-                    PermaSql.VALUE_EOD_DAY_AFTER,
-                    PermaSql.VALUE_EOD_NEXT_WEEK,
-                    PermaSql.VALUE_EOD_NEXT_MONTH,
-            };
-            ContentValues values = new ContentValues();
-            values.put(Task.DUE_DATE.name, "?");
-            CustomFilterCriterion criterion = new MultipleSelectCriterion(
-                    IDENTIFIER_DUEDATE,
-                    getString(R.string.CFC_dueBefore_text),
-                    Query.select(Task.ID).from(Task.TABLE).where(
-                            Criterion.and(
-                                    TaskCriteria.activeAndVisible(),
-                                    Criterion.or(
-                                            Field.field("?").eq(0),
-                                            Task.DUE_DATE.gt(0)),
-                                    Task.DUE_DATE.lte("?"))).toString(),
-                    values, r.getStringArray(R.array.CFC_dueBefore_entries),
-                    entryValues, ((BitmapDrawable)r.getDrawable(R.drawable.tango_calendar)).getBitmap(),
-                    getString(R.string.CFC_dueBefore_name));
-            criteria.put(IDENTIFIER_DUEDATE, criterion);
-        }
-
-        // built in criteria: importance
-        {
-            String[] entryValues = new String[] {
-                            Integer.toString(Task.IMPORTANCE_DO_OR_DIE),
-                            Integer.toString(Task.IMPORTANCE_MUST_DO),
-                            Integer.toString(Task.IMPORTANCE_SHOULD_DO),
-                            Integer.toString(Task.IMPORTANCE_NONE),
-                    };
-            String[] entries = new String[] {
-                    "!!!", "!!", "!", "o"
-            };
-            ContentValues values = new ContentValues();
-            values.put(Task.IMPORTANCE.name, "?");
-            CustomFilterCriterion criterion = new MultipleSelectCriterion(
-                    IDENTIFIER_IMPORTANCE,
-                    getString(R.string.CFC_importance_text),
-                    Query.select(Task.ID).from(Task.TABLE).where(
-                            Criterion.and(TaskCriteria.activeAndVisible(),
-                                    Task.IMPORTANCE.lte("?"))).toString(),
-                    values, entries,
-                    entryValues, ((BitmapDrawable)r.getDrawable(R.drawable.tango_warning)).getBitmap(),
-                    getString(R.string.CFC_importance_name));
-            criteria.put(IDENTIFIER_IMPORTANCE, criterion);
-        }
-
-        // built in criteria: title containing X
-        {
-            ContentValues values = new ContentValues();
-            values.put(Task.TITLE.name, "?");
-            CustomFilterCriterion criterion = new TextInputCriterion(
-                    IDENTIFIER_TITLE,
-                    getString(R.string.CFC_title_contains_text),
-                    Query.select(Task.ID).from(Task.TABLE).where(
-                            Criterion.and(TaskCriteria.activeAndVisible(),
-                                    Task.TITLE.like("%?%"))).toString(),
-                        getString(R.string.CFC_title_contains_name), "",
-                        ((BitmapDrawable)r.getDrawable(R.drawable.tango_alpha)).getBitmap(),
-                        getString(R.string.CFC_title_contains_name));
-            criteria.put(IDENTIFIER_TITLE, criterion);
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        registerReceiver(filterCriteriaReceiver, new IntentFilter(AstridApiConstants.BROADCAST_SEND_CUSTOM_FILTER_CRITERIA));
-        populateCriteria();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        unregisterReceiver(filterCriteriaReceiver);
     }
 
     private CriterionInstance getStartingUniverse() {
@@ -335,13 +215,8 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
                 }
 
                 int i = 0;
-                for (CustomFilterCriterion item : criteria.values()) {
-                    try {
-                        menu.add(CustomFilterActivity.MENU_GROUP_FILTER,
-                                i, 0, item.name);
-                    } catch (NullPointerException e) {
-                        throw new NullPointerException("One of the criteria is null. Criteria: " + criteria); //$NON-NLS-1$
-                    }
+                for (CustomFilterCriterion item : filterCriteriaProvider.getAll()) {
+                    menu.add(CustomFilterActivity.MENU_GROUP_FILTER, i, 0, item.name);
                     i++;
                 }
             }
@@ -495,17 +370,6 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
         adapter.notifyDataSetInvalidated();
     }
 
-    private <V> V getNth(int index, Map<?,V> map) {
-        int i = 0;
-        for (V v : map.values()) {
-            if (i == index) {
-                return v;
-            }
-            i++;
-        }
-        throw new IllegalArgumentException("out of bounds");
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -519,7 +383,7 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
     public boolean onContextItemSelected(android.view.MenuItem item) {
         if(item.getGroupId() == MENU_GROUP_FILTER) {
             // give an initial value for the row before adding it
-            CustomFilterCriterion criterion = getNth(item.getItemId(), criteria);
+            CustomFilterCriterion criterion = filterCriteriaProvider.getAll().get(item.getItemId());
             final CriterionInstance instance = new CriterionInstance();
             instance.criterion = criterion;
             adapter.showOptionsFor(instance, new Runnable() {
@@ -547,21 +411,5 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
         }
 
         return super.onContextItemSelected(item);
-    }
-
-    public class FilterCriteriaReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            try {
-                final Parcelable[] filters = intent.getExtras().
-                    getParcelableArray(AstridApiConstants.EXTRAS_RESPONSE);
-                for (Parcelable filter : filters) {
-                    CustomFilterCriterion filterCriterion = (CustomFilterCriterion) filter;
-                    criteria.put(filterCriterion.identifier, filterCriterion);
-                }
-            } catch (Exception e) {
-                log.error(e.getMessage(), e);
-            }
-        }
     }
 }

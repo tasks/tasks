@@ -342,12 +342,6 @@
             android:theme="@style/TranslucentDialog" />
 
         <!-- tags -->
-        <receiver android:name="com.todoroo.astrid.tags.TagCustomFilterCriteriaExposer">
-            <intent-filter>
-                <action android:name="org.tasks.REQUEST_CUSTOM_FILTER_CRITERIA" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
 
         <!-- custom filters -->
         <activity
@@ -381,13 +375,6 @@
             android:name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity"
             android:theme="@style/Tasks"
             android:configChanges="orientation|keyboardHidden" />
-
-        <receiver android:name="com.todoroo.astrid.gtasks.GtasksCustomFilterCriteriaExposer">
-            <intent-filter>
-                <action android:name="org.tasks.REQUEST_CUSTOM_FILTER_CRITERIA" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
 
         <activity
             android:name="com.todoroo.astrid.gtasks.GtasksPreferences"
