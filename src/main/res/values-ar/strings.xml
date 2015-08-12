@@ -123,8 +123,6 @@
 	<string name="CFA_type_subtract">ليس</string>
 	<string name="CFA_type_intersect">أيضا</string>
 	<string name="CFA_context_delete">حذف الصف</string>
-	<string name="CFA_button_view">عرض</string>
-	<string name="CFA_button_save">حفظ وعرض</string>
 	<string-array name="CFC_dueBefore_entries">
 		<item>No Due Date</item>
 		<item>أمس</item>

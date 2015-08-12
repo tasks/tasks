@@ -9,32 +9,44 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="?attr/asContentBackground">
-    
-    <!-- Filter Name -->
-    <EditText android:id="@+id/filterName"
+
+    <include layout="@layout/toolbar" />
+
+    <include layout="@layout/toolbar_separator" />
+
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dip"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:layout_marginBottom="15dip"
-        android:layout_weight="1"
-        android:background="@null"
-        android:hint="@string/CFA_filterName_hint"
-        android:textColor="?attr/asTextColor"
-        android:textColorHint="?attr/asTextColorHint"
-        android:capitalize="sentences" />
-    
-    <View 
-        android:layout_height="1px"
-        android:layout_width="fill_parent"
-        android:background="#e9e9e9"/>
-    
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tag_label"
+            style="@style/TextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="@string/name" />
+
+        <EditText
+            android:id="@+id/tag_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tag_label"
+            android:layout_marginTop="16dp"
+            android:background="#00000000"
+            android:hint="@string/enter_filter_name"
+            android:imeOptions="flagNoExtractUi"
+            android:inputType="textCapSentences"
+            android:singleLine="true"
+            android:textColor="?attr/asTextColorHint"
+            android:textColorHint="?attr/asTextColorHint"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
     <!-- List -->
     <ListView android:id="@android:id/list"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="100"
+        android:layout_height="wrap_content"
         android:scrollbars="vertical"
         android:cacheColorHint="#00000000"/>
     
@@ -42,7 +54,6 @@
     <TextView android:id="@+id/help"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:gravity="center"
         android:paddingLeft="5dip"
         android:text="@string/CFA_help"
@@ -58,28 +69,14 @@
       android:baselineAligned="false">
       
       <Button android:id="@+id/add"
-        android:layout_width="fill_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingTop="10dip"
         android:paddingBottom="10dip"
         android:layout_marginRight="3dip"
         android:layout_weight="1"
-        android:text="@string/CFA_button_add"
-        android:background="?attr/asThemeTextColor"
-        android:textColor="?attr/asContentBackground" />
-        
-      <Button
-        android:id="@+id/saveAndView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:paddingTop="10dip"
-        android:paddingBottom="10dip"
-        android:layout_marginLeft="3dip"
-        android:text="@string/CFA_button_view"
-        android:background="?attr/asThemeTextColor"
-        android:textColor="?attr/asContentBackground" />
-        
+        android:text="@string/CFA_button_add" />
+
     </LinearLayout>
     
 </LinearLayout>

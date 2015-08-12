@@ -4,48 +4,62 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="55dip"
-    android:background="@android:drawable/list_selector_background"
+    android:background="?attr/selectableItemBackground"
     android:paddingLeft="4dip"
+    android:paddingStart="4dip"
     android:paddingRight="6dip"
+    android:paddingEnd="6dip"
     android:orientation="horizontal">
-        
-    <!-- filter intersection type icon -->
-    <ImageView android:id="@+id/type"
-        android:layout_width="32dip"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:paddingLeft="5dip" 
-        android:paddingRight="5dip" 
-        android:scaleType="center"/>
-        
-    <!-- filter icon -->
-    <ImageView android:id="@+id/icon"
-        android:layout_width="32dip"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:paddingLeft="5dip" 
-        android:paddingRight="5dip"
-        android:visibility="gone"/>
-            
-    <!-- filter text -->
-    <TextView android:id="@+id/name"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="100"
+
+    <TextView
+        android:id="@+id/filter"
         android:paddingLeft="5dip"
-        android:textSize="18sp" 
-        android:gravity="center_vertical"
-        style="@style/TextAppearance"/>
-        
-    <!-- filter graphic -->
-    <com.todoroo.astrid.core.FilterView android:id="@+id/filter"
-        android:layout_width="64px"
+        android:paddingRight="5dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:gravity="center_vertical|end"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:paddingLeft="5dip" 
-        android:paddingRight="5dip"/>
-                    
-</LinearLayout>
+        android:layout_toLeftOf="@id/filter"
+        android:layout_toStartOf="@id/filter"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:gravity="center_vertical|start"
+        android:orientation="horizontal">
+
+        <!-- filter intersection type icon -->
+        <ImageView android:id="@+id/type"
+            android:layout_width="32dip"
+            android:layout_height="fill_parent"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"
+            android:scaleType="center"/>
+
+        <!-- filter icon -->
+        <ImageView android:id="@+id/icon"
+            android:layout_width="32dip"
+            android:layout_height="fill_parent"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"
+            android:visibility="gone"/>
+
+        <!-- filter text -->
+        <TextView android:id="@+id/name"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingLeft="5dip"
+            android:paddingStart="5dip"
+            android:textSize="18sp"
+            android:gravity="center_vertical"
+            style="@style/TextAppearance"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

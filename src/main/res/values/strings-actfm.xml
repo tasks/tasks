@@ -20,6 +20,7 @@
   <string name="name">Name</string>
 
   <string name="enter_tag_name">Enter tag name</string>
+  <string name="enter_filter_name">Enter filter name</string>
 
   <!-- ========================================= sharing login activity == -->
 

@@ -180,7 +180,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	</string-array>
 	<string name="BFE_Active">Moje zadania</string>
 	<string name="BFE_Recent">Niedawno zmodyfikowane</string>
-	<string name="CFA_filterName_hint">Nazwij filtr w celu zapisania...</string>
 	<string name="CFA_universe_all">Aktywne zadania</string>
 	<string name="CFA_type_add">albo</string>
 	<string name="CFA_type_subtract">brak</string>
@@ -189,8 +188,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="CFA_context_delete">Usuń kryterium</string>
 	<string name="CFA_help">Przytrzymaj dłużej na obiekcie dla dodatkowych opcji</string>
 	<string name="CFA_button_add">Dodaj kryterium</string>
-	<string name="CFA_button_view">Wyświetl</string>
-	<string name="CFA_button_save">Zapisz &amp; wyświetl</string>
 	<string name="CFC_dueBefore_text">Termin wykonania: ?</string>
 	<string name="CFC_dueBefore_name">Termin wykonania...</string>
 	<string-array name="CFC_dueBefore_entries">

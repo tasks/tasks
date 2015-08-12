@@ -138,7 +138,6 @@
 		<item>截止期限或过期时</item>
 	</string-array>
 	<string name="BFE_Recent">最近修改过的</string>
-	<string name="CFA_filterName_hint">命名筛选并保存...</string>
 	<string name="CFA_universe_all">进行中的任务</string>
 	<string name="CFA_type_add">或</string>
 	<string name="CFA_type_subtract">非</string>
@@ -146,8 +145,6 @@
 	<string name="CFA_context_chain">%s 含条件</string>
 	<string name="CFA_context_delete">删除列</string>
 	<string name="CFA_button_add">添加条件</string>
-	<string name="CFA_button_view">查看</string>
-	<string name="CFA_button_save">保存 &amp; 查看</string>
 	<string name="CFC_dueBefore_text">期限: ?</string>
 	<string name="CFC_dueBefore_name">期限...</string>
 	<string-array name="CFC_dueBefore_entries">

@@ -192,7 +192,6 @@
 	</string-array>
 	<string name="BFE_Active">Моите задачи</string>
 	<string name="BFE_Recent">Наскоро променени</string>
-	<string name="CFA_filterName_hint">Именувайте този филтър, за да го запазите...</string>
 	<string name="CFA_universe_all">Активни Задачи</string>
 	<string name="CFA_type_add">или</string>
 	<string name="CFA_type_subtract">не</string>
@@ -201,8 +200,6 @@
 	<string name="CFA_context_delete">Изтрий реда</string>
 	<string name="CFA_help">Дълго докосване върху елементите за допълнителни опции</string>
 	<string name="CFA_button_add">Добави Критерий</string>
-	<string name="CFA_button_view">Изглед</string>
-	<string name="CFA_button_save">Запази и Покажи</string>
 	<string name="CFC_dueBefore_text">Краен срок: ?</string>
 	<string name="CFC_dueBefore_name">Краен срок...</string>
 	<string-array name="CFC_dueBefore_entries">

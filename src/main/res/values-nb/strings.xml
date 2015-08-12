@@ -83,7 +83,6 @@
 	</string-array>
 	<string name="BFE_Active">Aktive oppgaver</string>
 	<string name="BFE_Recent">Nylig endret</string>
-	<string name="CFA_filterName_hint">Lagre dette filteret ved å gi det et navn...</string>
 	<string name="CFA_universe_all">Aktive oppgaver</string>
 	<string name="CFA_type_add">eller</string>
 	<string name="CFA_type_intersect">også</string>
@@ -91,8 +90,6 @@
 	<string name="CFA_context_delete">Slett rad</string>
 	<string name="CFA_help">Denne skjermen lar deg lage nye filtre. Legg til kriterier ved hjelp av knappene under. Klikk eller klikk og hold på et kriterium for å gjøre innstillinger og klikk til slutt på \"Vis\"!</string>
 	<string name="CFA_button_add">Legg til kriterium</string>
-	<string name="CFA_button_view">Vis</string>
-	<string name="CFA_button_save">Lagre &amp; vis</string>
 	<string name="CFC_dueBefore_text">Forfaller innen: ?</string>
 	<string name="CFC_dueBefore_name">Forfaller innen...</string>
 	<string-array name="CFC_dueBefore_entries">

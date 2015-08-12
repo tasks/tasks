@@ -48,15 +48,12 @@
 	</string-array>
 	<string name="BFE_Active">แผนงานตอนนี้</string>
 	<string name="BFE_Recent">เพิ่งถูกแก้ไข</string>
-	<string name="CFA_filterName_hint">ตั้งชื่อตัวกรองเพื่อบันทึก...</string>
 	<string name="CFA_universe_all">แผนงานตอนนี้</string>
 	<string name="CFA_type_add">หรือ</string>
 	<string name="CFA_type_subtract">ไม่ใช่</string>
 	<string name="CFA_type_intersect">รวมถึง</string>
 	<string name="CFA_context_delete">ลบแถว</string>
 	<string name="CFA_button_add">เพิ่มข้อกำหนด</string>
-	<string name="CFA_button_view">เปิดดู</string>
-	<string name="CFA_button_save">บันทึก &amp; เปิดดู</string>
 	<string-array name="CFC_dueBefore_entries">
 		<item>No Due Date</item>
 		<item>เมื่อวาน</item>

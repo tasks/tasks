@@ -3,7 +3,6 @@ package org.tasks.filters;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.drawable.BitmapDrawable;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.sql.Criterion;
@@ -17,7 +16,6 @@ import com.todoroo.astrid.api.TextInputCriterion;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksList;
@@ -44,12 +42,6 @@ public class FilterCriteriaProvider {
     private static final String IDENTIFIER_GTASKS = "gtaskslist"; //$NON-NLS-1$
     private static final String IDENTIFIER_TAG_IS = "tag_is"; //$NON-NLS-1$
     private static final String IDENTIFIER_TAG_CONTAINS = "tag_contains"; //$NON-NLS-1$
-    private static int[] default_tag_images = new int[] {
-            R.drawable.default_list_0,
-            R.drawable.default_list_1,
-            R.drawable.default_list_2,
-            R.drawable.default_list_3
-    };
 
     private Context context;
     private TagService tagService;
@@ -103,7 +95,7 @@ public class FilterCriteriaProvider {
                         MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY),
                         TaskToTagMetadata.TAG_NAME.eq("?"), Metadata.DELETION_DATE.eq(0))).toString(),
                 values, tagNames, tagNames,
-                ((BitmapDrawable)r.getDrawable(getDefaultImageIDForTag(RemoteModel.NO_UUID))).getBitmap(),
+                null,
                 context.getString(R.string.CFC_tag_name));
     }
 
@@ -117,7 +109,7 @@ public class FilterCriteriaProvider {
                         MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY),
                         TaskToTagMetadata.TAG_NAME.like("%?%"), Metadata.DELETION_DATE.eq(0))).toString(),
                 context.getString(R.string.CFC_tag_contains_name), "",
-                ((BitmapDrawable)r.getDrawable(getDefaultImageIDForTag(RemoteModel.NO_UUID))).getBitmap(),
+                null,
                 context.getString(R.string.CFC_tag_contains_name));
     }
 
@@ -144,7 +136,7 @@ public class FilterCriteriaProvider {
                                         Task.DUE_DATE.gt(0)),
                                 Task.DUE_DATE.lte("?"))).toString(),
                 values, r.getStringArray(R.array.CFC_dueBefore_entries),
-                entryValues, ((BitmapDrawable)r.getDrawable(R.drawable.tango_calendar)).getBitmap(),
+                entryValues, null,
                 r.getString(R.string.CFC_dueBefore_name));
     }
 
@@ -167,7 +159,7 @@ public class FilterCriteriaProvider {
                         Criterion.and(TaskDao.TaskCriteria.activeAndVisible(),
                                 Task.IMPORTANCE.lte("?"))).toString(),
                 values, entries,
-                entryValues, ((BitmapDrawable)r.getDrawable(R.drawable.tango_warning)).getBitmap(),
+                entryValues, null,
                 r.getString(R.string.CFC_importance_name));
     }
 
@@ -181,7 +173,7 @@ public class FilterCriteriaProvider {
                         Criterion.and(TaskDao.TaskCriteria.activeAndVisible(),
                                 Task.TITLE.like("%?%"))).toString(),
                 r.getString(R.string.CFC_title_contains_name), "",
-                ((BitmapDrawable)r.getDrawable(R.drawable.tango_alpha)).getBitmap(),
+                null,
                 r.getString(R.string.CFC_title_contains_name));
     }
 
@@ -213,15 +205,7 @@ public class FilterCriteriaProvider {
                 values,
                 listNames,
                 listIds,
-                ((BitmapDrawable)r.getDrawable(R.drawable.gtasks_icon)).getBitmap(),
+                null,
                 context.getString(R.string.CFC_gtasks_list_name));
-    }
-
-    private static int getDefaultImageIDForTag(String nameOrUUID) {
-        if (RemoteModel.NO_UUID.equals(nameOrUUID)) {
-            int random = (int)(Math.random()*4);
-            return default_tag_images[random];
-        }
-        return default_tag_images[(Math.abs(nameOrUUID.hashCode()))%4];
     }
 }

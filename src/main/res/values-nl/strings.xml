@@ -178,7 +178,6 @@
 	</string-array>
 	<string name="BFE_Active">Mijn taken</string>
 	<string name="BFE_Recent">Onlangs aangepast</string>
-	<string name="CFA_filterName_hint">Naam geven om op te slaan...</string>
 	<string name="CFA_universe_all">Actieve taken</string>
 	<string name="CFA_type_add">of</string>
 	<string name="CFA_type_subtract">niet</string>
@@ -187,8 +186,6 @@
 	<string name="CFA_context_delete">Regel verwijderen</string>
 	<string name="CFA_help">Lang drukken op items voor extra opties</string>
 	<string name="CFA_button_add">Criteria toevoegen</string>
-	<string name="CFA_button_view">Weergeven</string>
-	<string name="CFA_button_save">Bewaren &amp; Weergeven</string>
 	<string name="CFC_dueBefore_text">Einddatum: ?</string>
 	<string name="CFC_dueBefore_name">Einddatum...</string>
 	<string-array name="CFC_dueBefore_entries">

@@ -184,8 +184,6 @@
 	<string name="CFA_context_delete">Διαγραφή σειράς</string>
 	<string name="CFA_help">Αργό πάτημα σε αντικείμενα για επιπλέον επιλογές</string>
 	<string name="CFA_button_add">Προσθέστε κριτήριο</string>
-	<string name="CFA_button_view">Προβολή</string>
-	<string name="CFA_button_save">Αποθήκευση και προβολή</string>
 	<string name="CFC_dueBefore_text">Λήγει στίς: ?</string>
 	<string name="CFC_dueBefore_name">Λήγει στίς...</string>
 	<string-array name="CFC_dueBefore_entries">

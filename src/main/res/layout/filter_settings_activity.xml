@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/asContentBackground"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <include layout="@layout/toolbar_separator" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tag_label"
+                    style="@style/TextAppearance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/name" />
+
+                <EditText
+                    android:id="@+id/tag_name"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tag_label"
+                    android:layout_marginTop="16dp"
+                    android:background="#00000000"
+                    android:hint="@string/enter_tag_name"
+                    android:imeOptions="flagNoExtractUi"
+                    android:inputType="textCapSentences"
+                    android:singleLine="true"
+                    android:textColor="?attr/asTextColorHint"
+                    android:textColorHint="?attr/asTextColorHint"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+        </ScrollView>
+    </FrameLayout>
+
+</LinearLayout>

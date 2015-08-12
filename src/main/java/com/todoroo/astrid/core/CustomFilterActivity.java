@@ -6,19 +6,22 @@
 package com.todoroo.astrid.core;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnCreateContextMenuListener;
-import android.widget.Button;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.sql.Query;
@@ -48,6 +51,11 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import javax.inject.Inject;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
+import static android.text.TextUtils.isEmpty;
 
 /**
  * Activity that allows users to build custom filters
@@ -83,7 +91,7 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
         /** type of join */
         public int type = TYPE_INTERSECT;
 
-        /** statistics for {@link FilterView} */
+        /** statistics for filter count */
         public int start, end, max;
 
         public String getTitleFromCriterion() {
@@ -121,7 +129,6 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
     }
 
     private ListView listView;
-    private TextView filterName;
 
     private CustomFilterAdapter adapter;
 
@@ -133,20 +140,30 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
     @Inject DialogBuilder dialogBuilder;
     @Inject FilterCriteriaProvider filterCriteriaProvider;
 
+    @InjectView(R.id.tag_name) EditText filterName;
+    @InjectView(R.id.toolbar) Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        preferences.applyTheme();
+        preferences.applyThemeAndStatusBarColor();
 
         setContentView(R.layout.custom_filter_activity);
-        setTitle(R.string.FLA_new_filter);
+        ButterKnife.inject(this);
+
+        setSupportActionBar(toolbar);
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar != null) {
+            supportActionBar.setDisplayHomeAsUpEnabled(true);
+            supportActionBar.setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
+            supportActionBar.setTitle(R.string.FLA_new_filter);
+        }
 
         listView = (ListView) findViewById(android.R.id.list);
 
         database.openForReading();
 
-        filterName = (TextView)findViewById(R.id.filterName);
         List<CriterionInstance> startingCriteria = new ArrayList<>();
         startingCriteria.add(getStartingUniverse());
         adapter = new CustomFilterAdapter(this, dialogBuilder, startingCriteria);
@@ -173,35 +190,6 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
             }
         });
 
-        final Button saveAndView = ((Button)findViewById(R.id.saveAndView));
-        saveAndView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveAndView();
-            }
-        });
-
-        filterName.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(s.length() == 0) {
-                    saveAndView.setText(R.string.CFA_button_view);
-                } else {
-                    saveAndView.setText(R.string.CFA_button_save);
-                }
-            }
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                    int after) {
-                //
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                    int count) {
-                //
-            }
-        });
-
         listView.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
             @Override
             public void onCreateContextMenu(ContextMenu menu, View v,
@@ -225,10 +213,10 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
 
     @Override
     public void finish() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(filterName.getWindowToken(), 0);
         super.finish();
-        if (!preferences.useTabletLayout()) {
-            AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_right_in, R.anim.slide_right_out);
-        }
+        AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_right_in, R.anim.slide_right_out);
     }
 
 
@@ -247,8 +235,13 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
     }
 
     void saveAndView() {
+        String title = filterName.getText().toString().trim();
+
+        if (isEmpty(title)) {
+            return;
+        }
+
         StringBuilder sql = new StringBuilder(" WHERE ");
-        StringBuilder suggestedTitle = new StringBuilder();
         ContentValues values = new ContentValues();
         for(int i = 0; i < adapter.getCount(); i++) {
             CriterionInstance instance = adapter.getItem(i);
@@ -257,22 +250,15 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
                 value = "";
             }
 
-            String title = instance.getTitleFromCriterion();
-
             switch(instance.type) {
             case CriterionInstance.TYPE_ADD:
                 sql.append("OR ");
-                suggestedTitle.append(getString(R.string.CFA_type_add)).append(' ').
-                    append(title).append(' ');
                 break;
             case CriterionInstance.TYPE_SUBTRACT:
                 sql.append("AND NOT ");
-                suggestedTitle.append(getString(R.string.CFA_type_subtract)).append(' ').
-                    append(title).append(' ');
                 break;
             case CriterionInstance.TYPE_INTERSECT:
                 sql.append("AND ");
-                suggestedTitle.append(title).append(' ');
                 break;
             case CriterionInstance.TYPE_UNIVERSE:
             }
@@ -295,19 +281,8 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
             }
         }
 
-        String title;
-        StoreObject storeObject = null;
-        if(filterName.getText().length() > 0) {
-            // persist saved filter
-            title = filterName.getText().toString().trim();
-            storeObject = SavedFilter.persist(storeObjectDao, adapter, title, sql.toString(), values);
-        } else {
-            // temporary
-            title = suggestedTitle.toString();
-        }
-
-        // view
-        Filter filter = new CustomFilter(title, sql.toString(), values, storeObject == null ? -1L : storeObject.getId());
+        StoreObject storeObject = SavedFilter.persist(storeObjectDao, adapter, title, sql.toString(), values);
+        Filter filter = new CustomFilter(title, sql.toString(), values, storeObject.getId());
         setResult(RESULT_OK, new Intent().putExtra(TagSettingsActivity.TOKEN_NEW_FILTER, filter));
         finish();
     }
@@ -371,12 +346,44 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.tag_settings_activity, menu);
+        menu.findItem(R.id.delete).setVisible(false);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                discard();
+                break;
+            case R.id.menu_save:
+                saveAndView();
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        discard();
+    }
+
+    private void discard() {
+        if (filterName.getText().toString().trim().isEmpty() && adapter.getCount() <= 1) {
+            finish();
+        } else {
+            dialogBuilder.newMessageDialog(R.string.discard_changes)
+                    .setPositiveButton(R.string.discard, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .show();
+        }
     }
 
     @Override

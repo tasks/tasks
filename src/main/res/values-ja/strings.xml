@@ -190,7 +190,6 @@
 	</string-array>
 	<string name="BFE_Active">私のタスク</string>
 	<string name="BFE_Recent">最近編集したタスク</string>
-	<string name="CFA_filterName_hint">フィルタの名称</string>
 	<string name="CFA_universe_all">進行中のタスク</string>
 	<string name="CFA_type_add">または</string>
 	<string name="CFA_type_subtract">除外</string>
@@ -199,8 +198,6 @@
 	<string name="CFA_context_delete">条件の削除</string>
 	<string name="CFA_help">アイテムを長押しして追加オプション</string>
 	<string name="CFA_button_add">条件の追加</string>
-	<string name="CFA_button_view">見る</string>
-	<string name="CFA_button_save">保存と表示</string>
 	<string name="CFC_dueBefore_text">期限: ?</string>
 	<string name="CFC_dueBefore_name">期限</string>
 	<string-array name="CFC_dueBefore_entries">

@@ -158,7 +158,6 @@
 		<item>Son tarihte ya da aşıldığında</item>
 	</string-array>
 	<string name="BFE_Recent">Yakında Değiştirilenler</string>
-	<string name="CFA_filterName_hint">Süzgeci kaydetmek için ad yazın...</string>
 	<string name="CFA_universe_all">Etkin Görevler</string>
 	<string name="CFA_type_add">ya da</string>
 	<string name="CFA_type_subtract">değil</string>
@@ -166,8 +165,6 @@
 	<string name="CFA_context_chain">%s ölçütüne sahip</string>
 	<string name="CFA_context_delete">Satırı Sil</string>
 	<string name="CFA_button_add">Ölçüt Ekle</string>
-	<string name="CFA_button_view">Görüntüle</string>
-	<string name="CFA_button_save">Kaydet &amp; Görüntüle</string>
 	<string name="CFC_dueBefore_text">Şu tarihte: ?</string>
 	<string name="CFC_dueBefore_name">Şu tarihte...</string>
 	<string-array name="CFC_dueBefore_entries">

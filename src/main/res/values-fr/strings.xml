@@ -185,7 +185,6 @@
 	</string-array>
 	<string name="BFE_Active">Mes tâches</string>
 	<string name="BFE_Recent">Récemment modifié</string>
-	<string name="CFA_filterName_hint">Donnez un nom à ce filtre pour le sauver...</string>
 	<string name="CFA_universe_all">Tâches actives</string>
 	<string name="CFA_type_add">ou</string>
 	<string name="CFA_type_subtract">non</string>
@@ -194,8 +193,6 @@
 	<string name="CFA_context_delete">Supprimer la ligne</string>
 	<string name="CFA_help">Appuyer longuement pour des options additionnelles</string>
 	<string name="CFA_button_add">Ajouter un critère</string>
-	<string name="CFA_button_view">Affichage</string>
-	<string name="CFA_button_save">Sauver &amp; Voir</string>
 	<string name="CFC_dueBefore_text">Échue le : ?</string>
 	<string name="CFC_dueBefore_name">Échue le...</string>
 	<string-array name="CFC_dueBefore_entries">

@@ -50,7 +50,7 @@ public class FilterSettingsActivity extends InjectingAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         preferences.applyThemeAndStatusBarColor();
-        setContentView(R.layout.tag_settings_activity);
+        setContentView(R.layout.filter_settings_activity);
         ButterKnife.inject(this);
 
         filter = getIntent().getParcelableExtra(TOKEN_FILTER);

@@ -113,7 +113,6 @@
 	</string-array>
 	<string name="BFE_Active">وظایف من</string>
 	<string name="BFE_Recent">اخیرا ویرایش شده</string>
-	<string name="CFA_filterName_hint">نامگذاری این فیلتر برای ذخیره کردن</string>
 	<string name="CFA_universe_all">وظایف فعال</string>
 	<string name="CFA_type_add">يا</string>
 	<string name="CFA_type_subtract">نه</string>
@@ -121,8 +120,6 @@
 	<string name="CFA_context_delete">حذف سطر</string>
 	<string name="CFA_help">لمس طولانی روی انتخاب برای گزینه های بیشتر</string>
 	<string name="CFA_button_add">اضافه کردن محتوا</string>
-	<string name="CFA_button_view">نمایش</string>
-	<string name="CFA_button_save">ذخیره و نمایش</string>
 	<string name="CFC_dueBefore_name">موعود بر اساس</string>
 	<string-array name="CFC_dueBefore_entries">
 		<item>بدون موعود</item>

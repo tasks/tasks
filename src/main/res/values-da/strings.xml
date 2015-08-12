@@ -87,7 +87,6 @@
 	</string-array>
 	<string name="BFE_Active">Aktive opgaver</string>
 	<string name="BFE_Recent">Senest ændrede</string>
-	<string name="CFA_filterName_hint">Navngiv dette filter for at gemme det...</string>
 	<string name="CFA_universe_all">Aktive opgaver</string>
 	<string name="CFA_type_add">eller</string>
 	<string name="CFA_type_subtract">ikke</string>
@@ -96,8 +95,6 @@
 	<string name="CFA_context_delete">Slet række</string>
 	<string name="CFA_help">Denne skærm lader dig oprette et nyt filter. Tilføj kriterier ved hjælp af knappen nedenfor, tryk kort eller langt på dem for at justere, og tryk derefter \"Vis\"!</string>
 	<string name="CFA_button_add">Tilføj kriterier</string>
-	<string name="CFA_button_view">Vis</string>
-	<string name="CFA_button_save">Gem &amp; vis</string>
 	<string name="CFC_dueBefore_text">Deadline: ?</string>
 	<string name="CFC_dueBefore_name">Deadline...</string>
 	<string-array name="CFC_dueBefore_entries">

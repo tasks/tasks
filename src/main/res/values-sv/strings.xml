@@ -176,7 +176,6 @@ och återställer dina aktuella uppgifter från en backup
 	</string-array>
 	<string name="BFE_Active">Mina Uppgifter</string>
 	<string name="BFE_Recent">Nyligen ändrade</string>
-	<string name="CFA_filterName_hint">Spara detta filter genom att ge det ett namn</string>
 	<string name="CFA_universe_all">Aktiva uppgifter</string>
 	<string name="CFA_type_add">eller</string>
 	<string name="CFA_type_subtract">inte</string>
@@ -184,8 +183,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="CFA_context_chain">%s har kriterier</string>
 	<string name="CFA_context_delete">Radera rad</string>
 	<string name="CFA_button_add">Lägg till kriterium</string>
-	<string name="CFA_button_view">Visa</string>
-	<string name="CFA_button_save">Spara &amp; visa</string>
 	<string name="CFC_dueBefore_text">Förfaller innan: ?</string>
 	<string name="CFC_dueBefore_name">Förfaller innan...</string>
 	<string-array name="CFC_dueBefore_entries">

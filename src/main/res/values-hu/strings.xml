@@ -58,7 +58,6 @@
 		<item>Következő hét</item>
 	</string-array>
 	<string name="BFE_Recent">Nemrég módosítva</string>
-	<string name="CFA_filterName_hint">Adj nevet a szűrőnek a mentéshez...</string>
 	<string name="CFA_universe_all">Aktív feladatok</string>
 	<string name="CFA_type_add">vagy</string>
 	<string name="CFA_type_subtract">nem</string>
@@ -67,8 +66,6 @@
 	<string name="CFA_context_delete">Sor törlése</string>
 	<string name="CFA_help">Érintsd meg hosszan az elemet további lehetőségekért</string>
 	<string name="CFA_button_add">Kritérium hozzáadása</string>
-	<string name="CFA_button_view">Nézet</string>
-	<string name="CFA_button_save">Mentés &amp; megtekintés</string>
 	<string name="CFC_dueBefore_text">Határidő: ?</string>
 	<string name="CFC_dueBefore_name">Határidő</string>
 	<string-array name="CFC_dueBefore_entries">

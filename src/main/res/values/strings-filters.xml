@@ -11,9 +11,6 @@
     
     <!-- =========================================== CustomFilterActivity == -->
     
-    <!-- slide 30e: Filter Name edit box hint (if user types here, filter will be saved) -->
-    <string name="CFA_filterName_hint">Name this filter to save it...</string>
-    
     <!-- slide 30a: Filter Starting Universe: all tasks -->
     <string name="CFA_universe_all">Active Tasks</string>
     
@@ -37,12 +34,6 @@
     
     <!-- slide 30c: Filter Button: add new -->
     <string name="CFA_button_add">Add Criteria</string>
-    
-    <!-- slide 30f: Filter Button: view without saving -->
-    <string name="CFA_button_view">View</string>
-    
-    <!-- Filter Button: save & view filter -->
-    <string name="CFA_button_save">Save &amp; View</string>
 
     <!-- =========================================== CustomFilterCriteria == -->
         

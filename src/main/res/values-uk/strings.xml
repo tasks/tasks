@@ -185,7 +185,6 @@
 	</string-array>
 	<string name="BFE_Active">Мої завдання</string>
 	<string name="BFE_Recent">Недавно змінені</string>
-	<string name="CFA_filterName_hint">Задайте ім\'я фільтра для його збереження ...</string>
 	<string name="CFA_universe_all">Активні завдання</string>
 	<string name="CFA_type_add">або</string>
 	<string name="CFA_type_subtract">не</string>
@@ -194,8 +193,6 @@
 	<string name="CFA_context_delete">Видалити стрічку</string>
 	<string name="CFA_help">Довгий тап на пункт для додаткових опцій</string>
 	<string name="CFA_button_add">Додати критерій</string>
-	<string name="CFA_button_view">Вигляд</string>
-	<string name="CFA_button_save">Зберегти і подивитись</string>
 	<string name="CFC_dueBefore_text">Кінцевий термін: ?</string>
 	<string name="CFC_dueBefore_name">Кінцевий термін...</string>
 	<string-array name="CFC_dueBefore_entries">

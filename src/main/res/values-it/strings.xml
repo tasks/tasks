@@ -188,7 +188,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	</string-array>
 	<string name="BFE_Active">Le mie attività</string>
 	<string name="BFE_Recent">Modificate di recente</string>
-	<string name="CFA_filterName_hint">Dai un nome al filtro per salvarlo...</string>
 	<string name="CFA_universe_all">Attività in corso</string>
 	<string name="CFA_type_add">o</string>
 	<string name="CFA_type_subtract">non</string>
@@ -197,8 +196,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="CFA_context_delete">Cancella Riga</string>
 	<string name="CFA_help">Pressione lunga per accedere alle opzioni aggiuntive</string>
 	<string name="CFA_button_add">Aggiungi Criteri</string>
-	<string name="CFA_button_view">Visualizza</string>
-	<string name="CFA_button_save">Salva &amp; Visualizza</string>
 	<string name="CFC_dueBefore_text">Entro: ?</string>
 	<string name="CFC_dueBefore_name">Entro...</string>
 	<string-array name="CFC_dueBefore_entries">

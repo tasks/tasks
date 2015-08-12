@@ -177,7 +177,6 @@
 	</string-array>
 	<string name="BFE_Active">המשימות שלי</string>
 	<string name="BFE_Recent">עודכנו לאחרונה</string>
-	<string name="CFA_filterName_hint">בחר שם לַמַּסְנֵן כדי לשמור אותו...</string>
 	<string name="CFA_universe_all">משימות פעילות</string>
 	<string name="CFA_type_add">או</string>
 	<string name="CFA_type_subtract">לא</string>
@@ -186,8 +185,6 @@
 	<string name="CFA_context_delete">מַחֲקִי שורה</string>
 	<string name="CFA_help">לחיצה ארוכה על פריטים כדי לקבל אפשרויות נוספות</string>
 	<string name="CFA_button_add">הוסף קריטריון</string>
-	<string name="CFA_button_view">הצג</string>
-	<string name="CFA_button_save">שמור והצג</string>
 	<string name="CFC_dueBefore_text">למתי: ?</string>
 	<string name="CFC_dueBefore_name">למתי...</string>
 	<string-array name="CFC_dueBefore_entries">

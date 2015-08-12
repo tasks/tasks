@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.core;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.support.v7.app.AlertDialog;
@@ -45,8 +44,7 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
         super(activity, R.id.name, objects);
         this.activity = activity;
         this.dialogBuilder = dialogBuilder;
-        inflater = (LayoutInflater) activity.getSystemService(
-                Context.LAYOUT_INFLATER_SERVICE);
+        inflater = activity.getLayoutInflater();
     }
 
     // --- view event handling
@@ -82,10 +80,6 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
         int index = getPosition(viewHolder.item);
 
         menu.setHeaderTitle(viewHolder.name.getText());
-        if(viewHolder.icon.getVisibility() == View.VISIBLE) {
-            menu.setHeaderIcon(viewHolder.icon.getDrawable());
-        }
-
 
         MenuItem item = menu.add(CustomFilterActivity.MENU_GROUP_CONTEXT_TYPE, CriterionInstance.TYPE_INTERSECT, index,
                 activity.getString(R.string.CFA_context_chain,
@@ -161,9 +155,8 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
             convertView = inflater.inflate(R.layout.custom_filter_row, parent, false);
             ViewHolder viewHolder = new ViewHolder();
             viewHolder.type = (ImageView) convertView.findViewById(R.id.type);
-            viewHolder.icon = (ImageView) convertView.findViewById(R.id.icon);
             viewHolder.name= (TextView) convertView.findViewById(R.id.name);
-            viewHolder.filterView = (FilterView) convertView.findViewById(R.id.filter);
+            viewHolder.filterCount = (TextView) convertView.findViewById(R.id.filter);
             convertView.setTag(viewHolder);
         }
 
@@ -181,9 +174,8 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
     private class ViewHolder {
         public CriterionInstance item;
         public ImageView type;
-        public ImageView icon;
         public TextView name;
-        public FilterView filterView;
+        public TextView filterCount;
     }
 
     private void initializeView(View convertView) {
@@ -208,17 +200,8 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
             break;
         }
 
-        viewHolder.icon.setVisibility(item.criterion.icon == null ? View.GONE :
-            View.VISIBLE);
-        if(item.criterion.icon != null) {
-            viewHolder.icon.setImageBitmap(item.criterion.icon);
-        }
-
         viewHolder.name.setText(title);
-
-        viewHolder.filterView.setMax(item.max);
-        viewHolder.filterView.setStart(item.start);
-        viewHolder.filterView.setEnd(item.end);
+        viewHolder.filterCount.setText(Integer.toString(item.end));
     }
 
 

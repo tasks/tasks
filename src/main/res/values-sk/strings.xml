@@ -183,7 +183,6 @@
 	</string-array>
 	<string name="BFE_Active">Moje úlohy</string>
 	<string name="BFE_Recent">Naposledy upravené</string>
-	<string name="CFA_filterName_hint">Pomenuj tento filter pre uloženie</string>
 	<string name="CFA_universe_all">Aktívne úlohy</string>
 	<string name="CFA_type_add">alebo</string>
 	<string name="CFA_type_subtract">nie</string>
@@ -192,8 +191,6 @@
 	<string name="CFA_context_delete">Vymazať riadok</string>
 	<string name="CFA_help">Dlhšie stlačte na položku pre viac možnosti</string>
 	<string name="CFA_button_add">Pridať kritériá</string>
-	<string name="CFA_button_view">Zobraziť</string>
-	<string name="CFA_button_save">Uložiť a zobraziť</string>
 	<string name="CFC_dueBefore_text">Podľa termínu: ?</string>
 	<string name="CFC_dueBefore_name">Podľa termínu...</string>
 	<string-array name="CFC_dueBefore_entries">

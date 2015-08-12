@@ -174,7 +174,6 @@
 	</string-array>
 	<string name="BFE_Active">Aktivní úkoly</string>
 	<string name="BFE_Recent">Nedávno upravené</string>
-	<string name="CFA_filterName_hint">Pojmenujte tento filtr pro jeho uložení</string>
 	<string name="CFA_universe_all">Aktivní úkoly</string>
 	<string name="CFA_type_add">nebo</string>
 	<string name="CFA_type_subtract">ne</string>
@@ -183,8 +182,6 @@
 	<string name="CFA_context_delete">Odstranit řádek</string>
 	<string name="CFA_help">Zde můžete vytvořit vlastní filtry. Tlačítkem níže přidejte kritéria. Krátkým, nebo dlouhým stiskem je upravíte. Poté zvolte \"Zobrazit\"!</string>
 	<string name="CFA_button_add">Přidat podmínku</string>
-	<string name="CFA_button_view">Zobrazit</string>
-	<string name="CFA_button_save">Uložit &amp; Zobrazit</string>
 	<string name="CFC_dueBefore_text">Podle termínu: ?</string>
 	<string name="CFC_dueBefore_name">Podle termínu...</string>
 	<string-array name="CFC_dueBefore_entries">
