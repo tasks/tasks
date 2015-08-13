@@ -204,10 +204,6 @@
 	</string-array>
 	<string name="CFC_importance_text">Najnižšia priorita ?</string>
 	<string name="CFC_importance_name">Priorita...</string>
-	<string name="CFC_tag_text">Zoznam: ?</string>
-	<string name="CFC_tag_name">Zoznam...</string>
-	<string name="CFC_tag_contains_name">Názov zoznamu obsahuje...</string>
-	<string name="CFC_tag_contains_text">Názov zoznamu obsahuje...</string>
 	<string name="CFC_title_contains_name">Názov obsahuje...</string>
 	<string name="CFC_title_contains_text">Zoznam obsahuje: ?</string>
 	<string name="gcal_TEA_error">Chyba pridania úlohy do kalendára!</string>

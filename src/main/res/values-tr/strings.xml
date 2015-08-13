@@ -176,10 +176,6 @@
 		<item>Gelecek Hafta</item>
 		<item>Gelecek Ay</item>
 	</string-array>
-	<string name="CFC_tag_text">Liste:?</string>
-	<string name="CFC_tag_name">Liste...</string>
-	<string name="CFC_tag_contains_name">Liste isminde şu olan:</string>
-	<string name="CFC_tag_contains_text">Liste isminde şu olan:?</string>
 	<string name="CFC_title_contains_name">Başlık şunu içersin...</string>
 	<string name="CFC_title_contains_text">Başlık şunu içersin:?</string>
 	<string name="gcal_TEA_error">Takvime görev eklenmesinde hata!</string>

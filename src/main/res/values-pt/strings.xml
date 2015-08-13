@@ -212,10 +212,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	</string-array>
 	<string name="CFC_importance_text">Prioridade mínima?</string>
 	<string name="CFC_importance_name">Importância...</string>
-	<string name="CFC_tag_text">Lista: ?</string>
-	<string name="CFC_tag_name">Lista...</string>
-	<string name="CFC_tag_contains_name">Nome da lista contém...</string>
-	<string name="CFC_tag_contains_text">Nome da lista contém: ?</string>
 	<string name="CFC_title_contains_name">Título contém...</string>
 	<string name="CFC_title_contains_text">Título contém: ?</string>
 	<string name="gcal_TEA_error">Erro ao adicionar tarefa ao calendário!</string>

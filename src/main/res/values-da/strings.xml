@@ -108,10 +108,6 @@
 	</string-array>
 	<string name="CFC_importance_text">Vigtighed mindst ?</string>
 	<string name="CFC_importance_name">Vigtighed...</string>
-	<string name="CFC_tag_text">Liste: ?</string>
-	<string name="CFC_tag_name">Liste...</string>
-	<string name="CFC_tag_contains_name">Listenavn indeholder...</string>
-	<string name="CFC_tag_contains_text">Listenavnet indeholder: ?</string>
 	<string name="CFC_title_contains_name">Titel indeholder...</string>
 	<string name="CFC_title_contains_text">Titel indeholder: ?</string>
 	<string name="gcal_TEA_error">Fejl ved tilføjelse af opgave til kalender!</string>

@@ -195,10 +195,6 @@
 	</string-array>
 	<string name="CFC_importance_text">Alespoň důležitost?</string>
 	<string name="CFC_importance_name">Důležitost...</string>
-	<string name="CFC_tag_text">Seznam: ?</string>
-	<string name="CFC_tag_name">Seznam...</string>
-	<string name="CFC_tag_contains_name">Jméno seznamu obsahuje...</string>
-	<string name="CFC_tag_contains_text">Jméno seznamu obsahuje: ?</string>
 	<string name="CFC_title_contains_name">Název obsahuje...</string>
 	<string name="CFC_title_contains_text">Obsahuje název: ?</string>
 	<string name="gcal_TEA_error">Chyba při přidávání úkolu do kalendáře!</string>

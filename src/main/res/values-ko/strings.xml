@@ -209,10 +209,6 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	</string-array>
 	<string name="CFC_importance_text">최소 우선순위?</string>
 	<string name="CFC_importance_name">우선순위...</string>
-	<string name="CFC_tag_text">목록: ?</string>
-	<string name="CFC_tag_name">목록...</string>
-	<string name="CFC_tag_contains_name">목록이름이 다음을 포함...</string>
-	<string name="CFC_tag_contains_text">목록이름이 다음을 포함: ?</string>
 	<string name="CFC_title_contains_name">제목이 다음을 포함...</string>
 	<string name="CFC_title_contains_text">제목이 다음을 포함: ?</string>
 	<string name="gcal_TEA_error">달력에 일정 추가 실패!</string>

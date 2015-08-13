@@ -209,10 +209,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	</string-array>
 	<string name="CFC_importance_text">Almeno per priorità ?</string>
 	<string name="CFC_importance_name">Priorità...</string>
-	<string name="CFC_tag_text">Lista: ?</string>
-	<string name="CFC_tag_name">Lista..</string>
-	<string name="CFC_tag_contains_name">Lista il cui nome contiene...</string>
-	<string name="CFC_tag_contains_text">Lista il cui nome contiene: ?</string>
 	<string name="CFC_title_contains_name">Il titolo contiene...</string>
 	<string name="CFC_title_contains_text">Il titolo contiene: ?</string>
 	<string name="gcal_TEA_error">Errore durante l\'aggiunta dell\'attività al calendario!</string>

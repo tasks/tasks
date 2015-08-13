@@ -186,10 +186,6 @@
 		<item>下週</item>
 		<item>下個月</item>
 	</string-array>
-	<string name="CFC_tag_text">列表：?</string>
-	<string name="CFC_tag_name">列表...</string>
-	<string name="CFC_tag_contains_name">列表名包含...</string>
-	<string name="CFC_tag_contains_text">列表名包含：?</string>
 	<string name="CFC_title_contains_name">主旨含...</string>
 	<string name="CFC_title_contains_text">主旨含: ?</string>
 	<string name="gcal_TEA_error">工作加入行事曆錯誤</string>

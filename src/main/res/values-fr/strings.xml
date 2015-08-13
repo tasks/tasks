@@ -206,10 +206,6 @@
 	</string-array>
 	<string name="CFC_importance_text">Priorité au dernier ?</string>
 	<string name="CFC_importance_name">Priorité...</string>
-	<string name="CFC_tag_text">Liste : ?</string>
-	<string name="CFC_tag_name">Liste...</string>
-	<string name="CFC_tag_contains_name">Nom de liste contient...</string>
-	<string name="CFC_tag_contains_text">Nom de liste contient : ?</string>
 	<string name="CFC_title_contains_name">Titre contient...</string>
 	<string name="CFC_title_contains_text">Titre contient: ?</string>
 	<string name="gcal_TEA_error">Erreur d\'ajout de tâche à l\'agenda !</string>

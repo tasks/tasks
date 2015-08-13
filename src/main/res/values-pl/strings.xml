@@ -201,10 +201,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	</string-array>
 	<string name="CFC_importance_text">Priorytet przynajmniej?</string>
 	<string name="CFC_importance_name">Priorytet...</string>
-	<string name="CFC_tag_text">Lista: ?</string>
-	<string name="CFC_tag_name">Lista...</string>
-	<string name="CFC_tag_contains_name">Nazwa listy zawiera...</string>
-	<string name="CFC_tag_contains_text">Nazwa listy zawiera: ?</string>
 	<string name="CFC_title_contains_name">Tytuł zawiera...</string>
 	<string name="CFC_title_contains_text">Tytuł zawiera: ?</string>
 	<string name="gcal_TEA_error">Błąd podczas dodawania zadania do kalendarza!</string>

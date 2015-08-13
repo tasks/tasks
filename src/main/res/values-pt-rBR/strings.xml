@@ -197,10 +197,6 @@
 	</string-array>
 	<string name="CFC_importance_text">Pelo menos por prioridade?</string>
 	<string name="CFC_importance_name">Prioridade...</string>
-	<string name="CFC_tag_text">Lista: ?</string>
-	<string name="CFC_tag_name">Lista...</string>
-	<string name="CFC_tag_contains_name">Nome da lista contém...</string>
-	<string name="CFC_tag_contains_text">Nome da lista contém: ?</string>
 	<string name="CFC_title_contains_name">Título...</string>
 	<string name="CFC_title_contains_text">Título contêm: ?</string>
 	<string name="gcal_TEA_error">Erro ao inserir a tarefa no calendário!</string>

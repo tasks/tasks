@@ -211,10 +211,6 @@
 	</string-array>
 	<string name="CFC_importance_text">Приоритет меньшего?</string>
 	<string name="CFC_importance_name">Приоритет...</string>
-	<string name="CFC_tag_text">Список: ?</string>
-	<string name="CFC_tag_name">Список...</string>
-	<string name="CFC_tag_contains_name">Название списка содержит...</string>
-	<string name="CFC_tag_contains_text">Название списка содержит...</string>
 	<string name="CFC_title_contains_name">Название содержит...</string>
 	<string name="CFC_title_contains_text">Название содержит: ?</string>
 	<string name="gcal_TEA_error">Ошибка при добавлении задачи в календарь!</string>

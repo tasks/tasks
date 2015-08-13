@@ -201,10 +201,6 @@
 	</string-array>
 	<string name="CFC_importance_text">Prioriteta namanj ?</string>
 	<string name="CFC_importance_name">Prioriteta ...</string>
-	<string name="CFC_tag_text">Seznam: ?</string>
-	<string name="CFC_tag_name">Seznam ...</string>
-	<string name="CFC_tag_contains_name">Ime seznama vsebuje ...</string>
-	<string name="CFC_tag_contains_text">Ime seznama vsebuje: ?</string>
 	<string name="CFC_title_contains_name">Naslov vsebuje ...</string>
 	<string name="CFC_title_contains_text">Naslov vsebuje: ?</string>
 	<string name="gcal_TEA_error">Napaka pri dodajanju opravila!</string>

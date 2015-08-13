@@ -197,10 +197,6 @@
 	</string-array>
 	<string name="CFC_importance_text">Προτεραιότητα τουλάχιστον ?</string>
 	<string name="CFC_importance_name">Προτεραιότητα..</string>
-	<string name="CFC_tag_text">Λίστα: ?</string>
-	<string name="CFC_tag_name">Λίστα...</string>
-	<string name="CFC_tag_contains_name">Η λίστα ονομάτων περιέχει...</string>
-	<string name="CFC_tag_contains_text">Η λίστα ονομάτων περιέχει: ?</string>
 	<string name="CFC_title_contains_name">Ο τίτλος περιέχει...</string>
 	<string name="CFC_title_contains_text">Ο τίτλος περιέχει: ?</string>
 	<string name="gcal_TEA_error">Σφάλμα πρόσθεσης καθήκοντος στο ημερολόγιο!</string>

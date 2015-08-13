@@ -199,10 +199,6 @@
 	</string-array>
 	<string name="CFC_importance_text">Prioriteit ten minste ?</string>
 	<string name="CFC_importance_name">Prioriteit...</string>
-	<string name="CFC_tag_text">Lijst: ?</string>
-	<string name="CFC_tag_name">Lijst...</string>
-	<string name="CFC_tag_contains_name">Lijstnaam bevat...</string>
-	<string name="CFC_tag_contains_text">Lijstnaam bevat: ?</string>
 	<string name="CFC_title_contains_name">Naam bevat...</string>
 	<string name="CFC_title_contains_text">Naam bevat: ?</string>
 	<string name="gcal_TEA_error">Fout bij toevoegen taak aan agenda!</string>

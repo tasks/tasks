@@ -79,10 +79,6 @@
 	</string-array>
 	<string name="CFC_importance_text">Prioritás legalább ?</string>
 	<string name="CFC_importance_name">Prioritás...</string>
-	<string name="CFC_tag_text">Lista: ?</string>
-	<string name="CFC_tag_name">Lista...</string>
-	<string name="CFC_tag_contains_name">A listanév tartalmazza ezt:</string>
-	<string name="CFC_tag_contains_text">A listanév tartalmazza ezt: ?</string>
 	<string name="CFC_title_contains_name">A név tartalmazza ezt..</string>
 	<string name="CFC_title_contains_text">A név tartalmazza ezt: ?</string>
 	<string name="gcal_TEA_error">Nem sikerült a feladat hozzáadása a naptárhoz!</string>

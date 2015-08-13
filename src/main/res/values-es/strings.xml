@@ -207,10 +207,6 @@
 	</string-array>
 	<string name="CFC_importance_text">¿Prioridad mínima?</string>
 	<string name="CFC_importance_name">Prioridad...</string>
-	<string name="CFC_tag_text">Lista: ?</string>
-	<string name="CFC_tag_name">Lista...</string>
-	<string name="CFC_tag_contains_name">El nombre de la lista contiene...</string>
-	<string name="CFC_tag_contains_text">El nombre de la lista contiene: ?</string>
 	<string name="CFC_title_contains_name">Título contiene...</string>
 	<string name="CFC_title_contains_text">Título contiene: ?</string>
 	<string name="gcal_TEA_error">¡Ocurrió un error al agregar la tarea al calendario!</string>

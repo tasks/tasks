@@ -206,10 +206,6 @@
 	</string-array>
 	<string name="CFC_importance_text">Пріоритет?</string>
 	<string name="CFC_importance_name">Пріоритет</string>
-	<string name="CFC_tag_text">Список: ?</string>
-	<string name="CFC_tag_name">Список...</string>
-	<string name="CFC_tag_contains_name">Ім\'я списку містить...</string>
-	<string name="CFC_tag_contains_text">Ім\'я списку містить: ?</string>
 	<string name="CFC_title_contains_name">Заголовок містить...</string>
 	<string name="CFC_title_contains_text">Заголовок містить: ?</string>
 	<string name="gcal_TEA_error">Помилка при додаванні завдання в календар!</string>

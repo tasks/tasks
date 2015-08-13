@@ -213,10 +213,6 @@
 	</string-array>
 	<string name="CFC_importance_text">С приоритет поне ?</string>
 	<string name="CFC_importance_name">Приоритет</string>
-	<string name="CFC_tag_text">Списък: ?</string>
-	<string name="CFC_tag_name">Списък...</string>
-	<string name="CFC_tag_contains_name">Името на списъка съдържа ...</string>
-	<string name="CFC_tag_contains_text">Покажи имена съдържащи: ?</string>
 	<string name="CFC_title_contains_name">Имена съдържащи...</string>
 	<string name="CFC_title_contains_text">Името съдържа: ?</string>
 	<string name="gcal_TEA_error">Грешка при добавяне на задачата към каледнара!</string>

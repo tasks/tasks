@@ -198,10 +198,6 @@
 	</string-array>
 	<string name="CFC_importance_text">עדיפות לפחות?</string>
 	<string name="CFC_importance_name">עדיפות</string>
-	<string name="CFC_tag_text">רשימה: ?</string>
-	<string name="CFC_tag_name">רשימה.</string>
-	<string name="CFC_tag_contains_name">שם הרשימה מכיל...</string>
-	<string name="CFC_tag_contains_text">שם הרשימה מכיל: ?</string>
 	<string name="CFC_title_contains_name">כותרת מכילה...</string>
 	<string name="CFC_title_contains_text">כותרת מכילה: ?</string>
 	<string name="gcal_TEA_error">שגיאה בהוספת המשימה ליומן!</string>

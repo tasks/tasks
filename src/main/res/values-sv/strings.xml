@@ -195,10 +195,6 @@ och återställer dina aktuella uppgifter från en backup
 		<item>Nästa månad</item>
 	</string-array>
 	<string name="CFC_importance_name">Prioritet...</string>
-	<string name="CFC_tag_text">Lista: ?</string>
-	<string name="CFC_tag_name">Lista...</string>
-	<string name="CFC_tag_contains_name">Namnet på listan innehåller...</string>
-	<string name="CFC_tag_contains_text">Namnet på listan innehåller: ?</string>
 	<string name="CFC_title_contains_name">Titeln innehåller...</string>
 	<string name="CFC_title_contains_text">Titeln innehåller: ?</string>
 	<string name="gcal_TEA_error">Misslyckades med att lägga uppgift till kalender!</string>

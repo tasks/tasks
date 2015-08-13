@@ -58,14 +58,14 @@
     <string name="CFC_importance_name">Priority...</string>        
     
     <!-- Criteria: tag - display text (? -> user input) -->
-    <string name="CFC_tag_text">List: ?</string>
+    <string name="CFC_tag_text">Tag: ?</string>
     <!-- Criteria: tag - name of criteria -->
-    <string name="CFC_tag_name">List...</string>
+    <string name="CFC_tag_name">Tag...</string>
     
     <!-- Criteria: tag_contains - name of criteria -->
-    <string name="CFC_tag_contains_name">List name contains...</string>
+    <string name="CFC_tag_contains_name">Tag name contains...</string>
     <!-- Criteria: tag_contains - text (? -> user input) -->
-    <string name="CFC_tag_contains_text">List name contains: ?</string>
+    <string name="CFC_tag_contains_text">Tag name contains: ?</string>
     
     <!-- Criteria: title_contains - name of criteria -->
     <string name="CFC_title_contains_name">Title contains...</string>

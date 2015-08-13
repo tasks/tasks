@@ -132,9 +132,6 @@
 	</string-array>
 	<string name="CFC_importance_text">اولویت در آخر؟</string>
 	<string name="CFC_importance_name">اولویت</string>
-	<string name="CFC_tag_name">لیست</string>
-	<string name="CFC_tag_contains_name">لیست نام ها شامل میشود</string>
-	<string name="CFC_tag_contains_text">لیست نام شامل میشود ؟</string>
 	<string name="CFC_title_contains_name">عنوان شامل</string>
 	<string name="gcal_TEA_error">خطا در اضافه کردن وظیفه به تقویم</string>
 	<string name="gcal_TEA_addToCalendar_label">اضاقه به تقویم</string>

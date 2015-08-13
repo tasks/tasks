@@ -132,7 +132,6 @@
 		<item>الإسبوع القادم</item>
 		<item>الشهر القادم</item>
 	</string-array>
-	<string name="CFC_tag_name">قائمة...</string>
 	<string name="CFC_title_contains_name">العنوان يحتوي على..</string>
 	<string name="gcal_TEA_nocal">لا تضيف</string>
 	<string name="gtasks_GTA_clearing">حذف المهام المنتهية...</string>

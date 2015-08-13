@@ -132,7 +132,7 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
             frameLayout.addView(editText, new FrameLayout.LayoutParams(
                     FrameLayout.LayoutParams.FILL_PARENT,
                     FrameLayout.LayoutParams.WRAP_CONTENT));
-            dialog.setMessage(textInCriterion.prompt).setView(frameLayout).
+            dialog.setView(frameLayout).
                 setPositiveButton(android.R.string.ok, new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
