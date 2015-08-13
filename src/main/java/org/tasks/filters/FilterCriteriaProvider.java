@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
 
+import com.google.common.base.Function;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
@@ -30,9 +31,12 @@ import org.tasks.injection.ForApplication;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
+import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Sets.newLinkedHashSet;
 
 public class FilterCriteriaProvider {
 
@@ -77,12 +81,15 @@ public class FilterCriteriaProvider {
     }
 
     private CustomFilterCriterion getTagFilter() {
-        TagData[] tags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE,
-                TaskDao.TaskCriteria.activeAndVisible());
-        String[] tagNames = new String[tags.length];
-        for(int i = 0; i < tags.length; i++) {
-            tagNames[i] = tags[i].getName();
-        }
+        // TODO: adding to hash set because duplicate tag name bug hasn't been fixed yet
+        List<String> tags = newArrayList(newLinkedHashSet(transform(tagService.getTagList(), new Function<TagData, String>() {
+            @Nullable
+            @Override
+            public String apply(TagData tagData) {
+                return tagData.getName();
+            }
+        })));
+        String[] tagNames = tags.toArray(new String[tags.size()]);
         ContentValues values = new ContentValues();
         values.put(Metadata.KEY.name, TaskToTagMetadata.KEY);
         values.put(TaskToTagMetadata.TAG_NAME.name, "?");
