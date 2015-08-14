@@ -112,8 +112,27 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationDrawer.setUp(drawerLayout);
 
-        initializeFragments();
+        View editFragment = findViewById(R.id.taskedit_fragment_container);
 
+        if(editFragment != null) {
+            fragmentLayout = LAYOUT_DOUBLE;
+        } else {
+            fragmentLayout = LAYOUT_SINGLE;
+        }
+
+        readIntent();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        setIntent(intent);
+
+        readIntent();
+    }
+
+    private void readIntent() {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             extras = (Bundle) extras.clone();
@@ -216,16 +235,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
 
     protected Filter getDefaultFilter() {
         return BuiltInFilterExposer.getMyTasksFilter(getResources());
-    }
-
-    protected void initializeFragments() {
-        View editFragment = findViewById(R.id.taskedit_fragment_container);
-
-        if(editFragment != null) {
-            fragmentLayout = LAYOUT_DOUBLE;
-        } else {
-            fragmentLayout = LAYOUT_SINGLE;
-        }
     }
 
     @Override

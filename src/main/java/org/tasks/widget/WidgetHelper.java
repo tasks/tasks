@@ -35,13 +35,14 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.content.Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 @Singleton
 public class WidgetHelper {
 
-    public static int flags = FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_MULTIPLE_TASK;
+    public static int flags = FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TOP;
 
     private final TagDataDao tagDataDao;
     private final Preferences preferences;
@@ -105,7 +106,7 @@ public class WidgetHelper {
             Bundle extras = AndroidUtilities.bundleFromSerializedString(serializedExtras);
             listIntent.putExtras(extras);
         }
-        listIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        listIntent.setFlags(flags);
         if (filter != null) {
             listIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
             listIntent.setAction("L" + widgetId + filter.getSqlQuery());

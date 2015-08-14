@@ -56,20 +56,25 @@ public class ShortcutActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        launchTaskList(getIntent());
+        launchTaskList();
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
-        launchTaskList(intent);
+        setIntent(intent);
+
+        launchTaskList();
     }
 
-    private void launchTaskList(Intent intent) {
+    private void launchTaskList() {
+        Intent intent = getIntent();
+
         Bundle extras = intent.getExtras();
 
         Intent taskListIntent = new Intent(this, TaskListActivity.class);
+        taskListIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         if(extras != null && extras.containsKey(TOKEN_CUSTOM_CLASS)) {
             taskListIntent.putExtras(intent.getExtras());

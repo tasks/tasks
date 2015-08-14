@@ -128,7 +128,8 @@
         <!-- Activity that displays task list -->
         <activity
             android:name="com.todoroo.astrid.activity.TaskListActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize">
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:launchMode="singleTask" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -141,8 +142,7 @@
 
         <!-- Activity launched from shortcut -->
         <activity
-            android:name="com.todoroo.astrid.activity.ShortcutActivity"
-            android:clearTaskOnLaunch="true">
+            android:name="com.todoroo.astrid.activity.ShortcutActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -161,6 +161,7 @@
         </activity>
 
         <!-- Activity launched from ShareLink menu item -->
+        <!-- TODO: clearTaskOnLaunch probable cause of #275 -->
         <activity
             android:name="com.todoroo.astrid.activity.ShareLinkActivity"
             android:clearTaskOnLaunch="true">
