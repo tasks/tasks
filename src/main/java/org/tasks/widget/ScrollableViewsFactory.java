@@ -14,6 +14,7 @@ import android.widget.RemoteViewsService;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.SortHelper;
@@ -165,6 +166,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
 
             Intent editIntent = new Intent();
             editIntent.setAction(TasksWidget.EDIT_TASK);
+            editIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
             editIntent.putExtra(TaskEditFragment.TOKEN_ID, task.getId());
             editIntent.putExtra(TaskListActivity.OPEN_TASK, task.getId());
             row.setOnClickFillInIntent(R.id.text, editIntent);

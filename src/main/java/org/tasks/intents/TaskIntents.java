@@ -63,6 +63,9 @@ public class TaskIntents {
             taskStackBuilder.addNextIntent(new Intent(context, TaskEditActivity.class) {{
                 putExtra(TaskEditFragment.TOKEN_ID, taskId);
             }});
+            if (filter != null) {
+                taskStackBuilder.editIntentAt(0).putExtra(TaskListFragment.TOKEN_FILTER, filter);
+            }
         }
         return taskStackBuilder;
     }

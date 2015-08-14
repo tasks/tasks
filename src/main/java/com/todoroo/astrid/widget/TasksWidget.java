@@ -11,24 +11,26 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.support.v4.app.TaskStackBuilder;
 
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
-import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.TaskListFragment;
+import com.todoroo.astrid.api.Filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.injection.InjectingAppWidgetProvider;
-import org.tasks.preferences.ActivityPreferences;
+import org.tasks.intents.TaskIntents;
 import org.tasks.widget.WidgetHelper;
 
 import javax.inject.Inject;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.preIceCreamSandwich;
 import static com.todoroo.astrid.api.AstridApiConstants.BROADCAST_EVENT_REFRESH;
+import static org.tasks.intents.TaskIntents.getEditTaskStack;
 
 public class TasksWidget extends InjectingAppWidgetProvider {
 
@@ -52,15 +54,11 @@ public class TasksWidget extends InjectingAppWidgetProvider {
                 broadcaster.toggleCompletedState(intent.getLongExtra(TaskEditFragment.TOKEN_ID, 0));
                 break;
             case EDIT_TASK:
-                if (context.getResources().getBoolean(R.bool.two_pane_layout)) {
-                    intent.setClass(context, TaskListActivity.class);
-                } else {
-                    intent.setClass(context, TaskEditActivity.class);
-                }
-                intent.setFlags(WidgetHelper.flags);
-                intent.putExtra(TaskEditFragment.OVERRIDE_FINISH_ANIM, false);
-                context.startActivity(intent);
-
+                getEditTaskStack(
+                        context,
+                        (Filter) intent.getParcelableExtra(TaskListFragment.TOKEN_FILTER),
+                        intent.getLongExtra(TaskEditFragment.TOKEN_ID, 0))
+                        .startActivities();
                 break;
             case BROADCAST_EVENT_REFRESH:
                 updateWidgets(context);
