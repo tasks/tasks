@@ -423,18 +423,13 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
 
     @Override
     protected void writeToModelAfterInitialized(Task task) {
-        DateTime dateTime = newDateTime(date);
-        if (time >= 0) {
-            dateTime = dateTime
-                    .withMillisOfDay(time)
-                    .withSecondOfMinute(1)
-                    .withMillisOfSecond(0);
-        }
-        long millis = dateTime.getMillis();
-        if (millis != task.getDueDate()) {
+        long dueDate = time >= 0
+                ? Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, newDateTime(date).withMillisOfDay(time).getMillis())
+                : Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, date);
+        if (dueDate != task.getDueDate()) {
             task.setReminderSnooze(0L);
         }
-        task.setDueDate(millis);
+        task.setDueDate(dueDate);
     }
 
     @Override

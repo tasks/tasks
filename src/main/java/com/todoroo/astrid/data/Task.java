@@ -18,12 +18,14 @@ import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
 
+import org.joda.time.DateTime;
 import org.tasks.BuildConfig;
 import org.tasks.R;
 
 import java.util.Date;
 
 import static org.tasks.date.DateTimeUtils.newDate;
+import static org.tasks.date.DateTimeUtils.newDateTime;
 
 /**
  * Data Model which represents a task users need to accomplish.
@@ -314,15 +316,16 @@ public class Task extends RemoteModel {
             return date;
         }
 
-        Date dueDate = newDate(date / 1000L * 1000L); // get rid of millis
+        DateTime dueDate = newDateTime(date).withMillisOfSecond(0);
         if(setting != URGENCY_SPECIFIC_DAY_TIME) {
-            dueDate.setHours(12);
-            dueDate.setMinutes(0);
-            dueDate.setSeconds(0); // Seconds == 0 means no due time
+            dueDate = dueDate
+                    .withHourOfDay(12)
+                    .withMinuteOfHour(0)
+                    .withSecondOfMinute(0); // Seconds == 0 means no due time
         } else {
-            dueDate.setSeconds(1); // Seconds > 0 means due time exists
+            dueDate = dueDate.withSecondOfMinute(1); // Seconds > 0 means due time exists
         }
-        return dueDate.getTime();
+        return dueDate.getMillis();
     }
 
     /**
