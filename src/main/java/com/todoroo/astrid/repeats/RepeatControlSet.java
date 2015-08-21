@@ -132,7 +132,7 @@ public class RepeatControlSet extends PopupControlSet {
 
     private void repeatUntilClick() {
         MyDatePickerDialog dialog = new MyDatePickerDialog();
-        DateTime initial = newDateTime();
+        DateTime initial = repeatUntilValue > 0 ? newDateTime(repeatUntilValue) : newDateTime();
         dialog.initialize(new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {

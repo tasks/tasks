@@ -311,12 +311,13 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
                         break;
                     case 4:
                         MyDatePickerDialog dialog = new MyDatePickerDialog();
+                        DateTime initial = date > 0 ? newDateTime(date) : today;
                         dialog.initialize(new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
                                 setDate(new DateTime(year, month + 1, day, 0, 0, 0, 0).getMillis());
                             }
-                        }, today.getYear(), today.getMonthOfYear() - 1, today.getDayOfMonth(), false);
+                        }, initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth(), false);
                         dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                             @Override
                             public void onCancel(DialogInterface dialog) {
@@ -357,12 +358,19 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
                         break;
                     case 6:
                         MyTimePickerDialog dialog = new MyTimePickerDialog();
+                        int initialHours = 0;
+                        int initialMinutes = 0;
+                        if (time >= 0) {
+                            DateTime initial = newDateTime(date).withMillisOfDay(time);
+                            initialHours = initial.getHourOfDay();
+                            initialMinutes = initial.getMinuteOfHour();
+                        }
                         dialog.initialize(new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(RadialPickerLayout radialPickerLayout, int hour, int minute) {
                                 setTime((int) TimeUnit.HOURS.toMillis(hour) + (int) TimeUnit.MINUTES.toMillis(minute));
                             }
-                        }, 0, 0, DateFormat.is24HourFormat(activity), false);
+                        }, initialHours, initialMinutes, DateFormat.is24HourFormat(activity), false);
                         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                             @Override
                             public void onDismiss(DialogInterface dialog) {
