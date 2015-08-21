@@ -11,6 +11,7 @@
 	<string name="TVA_add_comment">Adicionar um comentário...</string>
 	<string name="name">Nome</string>
 	<string name="enter_tag_name">Digite o nome da etiqueta</string>
+	<string name="enter_filter_name">Introduza o nome do fitro</string>
 	<string name="actfm_GAA_title">Escolha a conta Google a utilizar:</string>
 	<string name="backup_BAc_import">Importar tarefas</string>
 	<string name="backup_BAc_export">Exportar tarefas</string>
@@ -212,6 +213,10 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	</string-array>
 	<string name="CFC_importance_text">Prioridade mínima?</string>
 	<string name="CFC_importance_name">Importância...</string>
+	<string name="CFC_tag_text">Etiqueta: ?</string>
+	<string name="CFC_tag_name">Etiqueta...</string>
+	<string name="CFC_tag_contains_name">Nome da etiqueta contém...</string>
+	<string name="CFC_tag_contains_text">Nome da etiqueta contém: ?</string>
 	<string name="CFC_title_contains_name">Título contém...</string>
 	<string name="CFC_title_contains_text">Título contém: ?</string>
 	<string name="gcal_TEA_error">Erro ao adicionar tarefa ao calendário!</string>

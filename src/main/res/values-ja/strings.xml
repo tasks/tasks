@@ -11,6 +11,7 @@
 	<string name="TVA_add_comment">コメントする</string>
 	<string name="name">名前</string>
 	<string name="enter_tag_name">タグ名を入力してください</string>
+	<string name="enter_filter_name">フィルター名を入力</string>
 	<string name="actfm_GAA_title">使用したいGoogleアカウントを選択してください:</string>
 	<string name="backup_BPr_header">バックアップ</string>
 	<string name="backup_BAc_import">タスクのインポート</string>
@@ -211,6 +212,10 @@
 	</string-array>
 	<string name="CFC_importance_text">優先順位は少なくとも ?</string>
 	<string name="CFC_importance_name">優先順位...</string>
+	<string name="CFC_tag_text">タグ: ?</string>
+	<string name="CFC_tag_name">タグ...</string>
+	<string name="CFC_tag_contains_name">タグ名に含む...</string>
+	<string name="CFC_tag_contains_text">タグ名に含む: ?</string>
 	<string name="CFC_title_contains_name">タイトル中の語句</string>
 	<string name="CFC_title_contains_text">タイトルに ? を含む</string>
 	<string name="gcal_TEA_error">カレンダーへの登録に失敗しました</string>

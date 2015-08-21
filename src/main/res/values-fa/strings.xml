@@ -10,8 +10,11 @@
 	<string name="actfm_picture_clear">پاک کردن عکس</string>
 	<string name="TVA_add_comment">اضافه کردن نظر</string>
 	<string name="name">نام</string>
+	<string name="enter_tag_name">نام تگ را وارد کنید</string>
 	<string name="actfm_GAA_title">انتخاب اکانت گوگلی که میخواهید استفاده کنید</string>
+	<string name="backup_BPr_header">پشتیبان ها</string>
 	<string name="backup_BAc_export">خرجی از وظایف</string>
+	<string name="export_toast_no_tasks">خروجی از وظایف</string>
 	<string name="DLG_delete_this_task_question">حذف این وظیفه</string>
 	<string name="DLG_undo">بازگرداندن</string>
 	<string name="TLA_menu_sort">چینش</string>
@@ -81,7 +84,10 @@
 	<string name="EPr_title">تنظیمات</string>
 	<string name="EPr_deactivated">غیر فعال شده</string>
 	<string name="EPr_appearance_header">ظاهر</string>
+	<string name="EPr_filters_to_show_title">فیلترها برای نمایش</string>
+	<string name="EPr_edit_screen_options">ویرایش تنظیمات صفحه</string>
 	<string name="EPr_show_timer_shortcut">نمایش میانبر تایمر</string>
+	<string name="EPr_beastMode_desc">شخصی سازی قالب صفحه ویرایش وظیفه</string>
 	<string name="EPr_beastMode_reset">برگرداندن به پیش فرض</string>
 	<string name="EPr_fullTask_title">نمایش عنوان کامل وظیفه</string>
 	<string name="task_list_options">اختیارات لیست وظیفه</string>
@@ -108,8 +114,8 @@
 	<string-array name="EPr_default_reminders">
 		<item>بدون یادآور موعود</item>
 		<item>روز موعود</item>
-		<item>When overdue</item>
-		<item>At deadline or overdue</item>
+		<item>پس از موعود</item>
+		<item>در روز موعد یا پس از موعود</item>
 	</string-array>
 	<string name="BFE_Active">وظایف من</string>
 	<string name="BFE_Recent">اخیرا ویرایش شده</string>
@@ -126,7 +132,7 @@
 		<item>دیروز</item>
 		<item>امروز</item>
 		<item>فردا</item>
-		<item>Day After Tomorrow</item>
+		<item>پس فردا</item>
 		<item>هفته بعد</item>
 		<item>ماه بعد</item>
 	</string-array>
@@ -148,10 +154,13 @@
 	<string name="gtasks_GPr_header">وظایف گوگل</string>
 	<string name="premium_attach_file">الصاق یک فایل</string>
 	<string name="premium_record_audio">ذخیره یادداشت</string>
+	<string name="premium_remove_file_confirm">آیا مطمن هستید؟ قادر به برگرداندن نخواهید بود</string>
 	<string name="audio_recording_title">ضبط صدا</string>
 	<string name="audio_stop_recording">توقف ضبط</string>
 	<string name="back">عقب</string>
 	<string name="file_browser_title">انتخاب یک فایل</string>
+	<string name="dir_browser_title">یک پوشه انتخاب کنید</string>
+	<string name="file_dir_dialog_ok">استفاده از این پوشه</string>
 	<string name="file_dir_dialog_default">بازگرداندن به پیش فرض</string>
 	<string name="ring_once">یک بار زنگ بزن</string>
 	<string name="ring_five_times">پنج بار زنگ بزن</string>
@@ -190,7 +199,7 @@
 		<item>سال(ها)</item>
 	</string-array>
 	<string-array name="repeat_type">
-		<item>from due date</item>
+		<item>از روز موعود</item>
 		<item>از تاریخ اتمام</item>
 	</string-array>
 	<string name="repeat_forever">تکرار بینهایت</string>
@@ -202,6 +211,7 @@
 	<string name="TEA_timer_comment_started">این وظیفه شروع شده:</string>
 	<string name="TEA_timer_comment_stopped">این وظیفه متوقف شده:</string>
 	<string name="TEA_timer_comment_spent">زمان سپری شده:</string>
+	<string name="voice_create_prompt">برای ایجاد یک وظیفه صحبت کنید</string>
 	<string name="EPr_voiceInputEnabled_title">ورودی صدا</string>
 	<string name="EPr_voiceRemindersEnabled_title">یادآور صوتی</string>
 	<string name="EPr_use_dark_theme">تم تاریک</string>
@@ -223,6 +233,7 @@
 	<string name="notifications">اعلان ها</string>
 	<string name="sound">صدا</string>
 	<string name="vibrate">ویبره</string>
+	<string name="backup_directory">پشتیبان گیری از پوشه</string>
 	<string name="enabled">فعال شده</string>
 	<string name="font_size">اندازه فونت</string>
 	<string name="source_code">کد مبدا</string>
@@ -236,11 +247,14 @@
 	<string name="select_amount">انتخاب مقدار</string>
 	<string name="add_reminder">اضافه کردن یادآورد</string>
 	<string name="remove">حذف</string>
+	<string name="randomly_once">به طور تصادفی یک دفعه</string>
 	<string name="randomly">به طور تصادفی</string>
 	<string name="pick_a_date">یک تاریخ انتخاب کنید</string>
 	<string name="pick_a_time">یک زمان انتخاب کنید</string>
 	<string name="pick_a_date_and_time">انتخاب یک تاریخ و زمان</string>
 	<string name="pick_a_location">انتخاب یک موقعیت</string>
+	<string name="when_overdue">پس از موعود</string>
+	<string name="when_due">روز موعود</string>
 	<string name="tags">برچسب ها</string>
 	<string name="filters">فیلترها</string>
 	<string name="date_shortcut_hour">برای یک ساعت</string>
@@ -249,6 +263,9 @@
 	<string name="date_shortcut_evening">عصر</string>
 	<string name="date_shortcut_night">شب</string>
 	<string name="date_shortcut_tomorrow_morning">فردا صبح</string>
+	<string name="discard_changes">چشم پوشی از تغییرات؟</string>
+	<string name="discard">چشم پوشی</string>
+	<string name="tag_settings">تنظیمات تگ</string>
 	<string name="delete">حذف</string>
 	<string name="filter_settings">تنظیمات فیلتر</string>
 	<string name="deprecated_setting">این تنظیم در نسخه بروزرسانی بعدی حذف خواهد شد</string>

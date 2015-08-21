@@ -392,6 +392,7 @@
 	<string name="deprecated_setting">Ce paramètre sera supprimé lors d\'une prochaine mise à jour</string>
 	<string name="show_hidden">Afficher les tâches cachées</string>
 	<string name="show_completed">Afficher les tâches terminées</string>
+	<string name="get_plugins">Obtenir des plugins</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>désactiver</item>
 		<item>toutes les quinze minutes</item>
