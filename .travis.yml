@@ -22,7 +22,7 @@ before_install:
 
 script:
   - ./gradlew :lintGoogleplayDebug
-  - ./gradlew :createGoogleplayDebugCoverageReport
+  - ./gradlew :createGoogleplayDebugAndroidTestCoverageReport
 
 after_success:
   - mv build/reports/coverage/googleplay/debug/report.xml build/reports/coverage/googleplay/debug/coverage.xml
