@@ -10,6 +10,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.support.v7.app.NotificationCompat;
 
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -72,15 +73,16 @@ public class TimerPlugin {
             String appName = r.getString(R.string.app_name);
             String text = r.getString(R.string.TPl_notification,
                     r.getQuantityString(R.plurals.Ntasks, count, count));
-            Notification notification = new Notification(
-                    R.drawable.timers_notification, text, System.currentTimeMillis());
-            notification.setLatestEventInfo(context, appName,
-                    text, pendingIntent);
-            notification.flags |= Notification.FLAG_ONGOING_EVENT | Notification.FLAG_NO_CLEAR;
-            notification.flags &= ~Notification.FLAG_AUTO_CANCEL;
-
+            Notification notification = new NotificationCompat.Builder(context)
+                    .setContentIntent(pendingIntent)
+                    .setContentTitle(appName)
+                    .setContentText(text)
+                    .setWhen(System.currentTimeMillis())
+                    .setSmallIcon(R.drawable.timers_notification)
+                    .setAutoCancel(false)
+                    .setOngoing(true)
+                    .build();
             notificationManager.notify(Constants.NOTIFICATION_TIMER, notification);
         }
     }
-
 }
