@@ -11,6 +11,7 @@
 	<string name="TVA_add_comment">Ajouter un commentaire</string>
 	<string name="name">Nom</string>
 	<string name="enter_tag_name">Entrer le nom du tag</string>
+	<string name="enter_filter_name">Entrer le nom du filtre</string>
 	<string name="actfm_GAA_title">Sélectionnez le compte Google que vous voulez utiliser :</string>
 	<string name="backup_BPr_header">Sauvegardes</string>
 	<string name="backup_BAc_import">Importer des tâches</string>
@@ -206,6 +207,8 @@
 	</string-array>
 	<string name="CFC_importance_text">Priorité au dernier ?</string>
 	<string name="CFC_importance_name">Priorité...</string>
+	<string name="CFC_tag_contains_name">Le nom du tag contient ...</string>
+	<string name="CFC_tag_contains_text">Le nom du tag contient: ?</string>
 	<string name="CFC_title_contains_name">Titre contient...</string>
 	<string name="CFC_title_contains_text">Titre contient: ?</string>
 	<string name="gcal_TEA_error">Erreur d\'ajout de tâche à l\'agenda !</string>
@@ -299,6 +302,7 @@
 	<string name="repeat_detail_duedate_until">Tous les %1$s jusqu\'à %2$s</string>
 	<string name="repeat_forever">Répéter indéfiniment</string>
 	<string name="repeat_until">Répéter jusqu\'à %s</string>
+	<string name="repeat_snackbar">%1$s replanifiée à %2$s</string>
 	<string name="TEA_tags_label_long">Ajouter à la liste</string>
 	<string name="new_tag">Nouveau tag</string>
 	<string name="tag_no_title_error">Veuillez d\'abord entrer un nom pour cette liste.</string>
@@ -384,6 +388,8 @@
 	<string name="date_shortcut_night">Nuit</string>
 	<string name="date_shortcut_tomorrow_morning">Demain matin</string>
 	<string name="date_shortcut_tomorrow_afternoon">Demain après-midi</string>
+	<string name="date_shortcut_must_come_before">%1$s doit venir avant %2$s</string>
+	<string name="date_shortcut_must_come_after">%1$s doit venir après %2$s</string>
 	<string name="discard_changes">Annuler les modifications</string>
 	<string name="discard">Annuler</string>
 	<string name="tag_settings">Paramètres des tags</string>
@@ -392,6 +398,7 @@
 	<string name="deprecated_setting">Ce paramètre sera supprimé lors d\'une prochaine mise à jour</string>
 	<string name="show_hidden">Afficher les tâches cachées</string>
 	<string name="show_completed">Afficher les tâches terminées</string>
+	<string name="task_count">%s Tâches</string>
 	<string name="get_plugins">Obtenir des plugins</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>désactiver</item>

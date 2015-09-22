@@ -11,6 +11,7 @@
 	<string name="TVA_add_comment">Добавить комментарий...</string>
 	<string name="name">Тег:</string>
 	<string name="enter_tag_name">Введите название тега</string>
+	<string name="enter_filter_name">Введите имя фильтра</string>
 	<string name="actfm_GAA_title">Выберите аккаунт Google, который вы хотите использовать:</string>
 	<string name="backup_BPr_header">Резервные копии</string>
 	<string name="backup_BAc_import">Импортировать задачи</string>
@@ -71,11 +72,11 @@
 	<string name="TEA_no_time">Без времени</string>
 	<string-array name="TEA_hideUntil">
 		<item>Никогда</item>
-		<item>Дата выполнения</item>
-		<item>Срок</item>
-		<item>За день до намеченного срока</item>
-		<item>Неделя до намеченного срока</item>
-		<item>Определённый день/время</item>
+		<item>Намеченная дата</item>
+		<item>Намеченное время</item>
+		<item>Сутки до намеченной даты</item>
+		<item>Неделя до намеченной даты</item>
+		<item>Определённая дата/время</item>
 	</string-array>
 	<string name="TEA_control_when">Когда</string>
 	<string name="TEA_control_repeat">Повторение</string>
@@ -211,6 +212,10 @@
 	</string-array>
 	<string name="CFC_importance_text">Приоритет меньшего?</string>
 	<string name="CFC_importance_name">Приоритет...</string>
+	<string name="CFC_tag_text">Тег: ? </string>
+	<string name="CFC_tag_name">Тег...</string>
+	<string name="CFC_tag_contains_name">Название тега содержит... </string>
+	<string name="CFC_tag_contains_text">Название тега содержит: ?</string>
 	<string name="CFC_title_contains_name">Название содержит...</string>
 	<string name="CFC_title_contains_text">Название содержит: ?</string>
 	<string name="gcal_TEA_error">Ошибка при добавлении задачи в календарь!</string>
@@ -308,7 +313,7 @@
 	<string name="new_tag">Новый тег</string>
 	<string name="tag_no_title_error">Пожалуйста, для начала введите название списка!</string>
 	<string name="tag_FEx_untagged">Без тега</string>
-	<string name="delete_tag_confirmation">Delete «%s»?</string>
+	<string name="delete_tag_confirmation">Удалить %s?</string>
 	<string name="TPl_notification">Для %s действуют таймеры!</string>
 	<string name="TFE_workingOn">Задачи для замера времени</string>
 	<string name="TEA_timer_controls">Таймер</string>
@@ -393,17 +398,19 @@
 	<string name="date_shortcut_night">Ночь</string>
 	<string name="date_shortcut_tomorrow_morning">Завтра утром</string>
 	<string name="date_shortcut_tomorrow_afternoon">Завтра после обеда</string>
+	<string name="date_shortcut_must_come_before">%1$s должно идти перед %2$s</string>
+	<string name="date_shortcut_must_come_after">%1$s должно идти после %2$s</string>
 	<string name="discard_changes">Отменить изменения?</string>
 	<string name="discard">Не сохранять</string>
 	<string name="tag_settings">Настройки тегов</string>
 	<string name="delete">Удалить</string>
 	<string name="filter_settings">Настройки фильтра</string>
-	<string name="deprecated_setting">Эта настройка будет удалено в следующем обновлении</string>
+	<string name="deprecated_setting">Эта настройка будет удалена в следующем обновлении</string>
 	<string name="show_hidden">Показать скрытые</string>
 	<string name="show_completed">Показать выполненные</string>
 	<string name="reverse"> Реверс</string>
 	<string name="task_count">%s задач</string>
-	<string name="get_plugins">Получить Plug-ins</string>
+	<string name="get_plugins">Получить плагины</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>отключить</item>
 		<item>каждые 15 минут</item>

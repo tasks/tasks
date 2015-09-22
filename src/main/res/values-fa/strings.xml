@@ -11,12 +11,15 @@
 	<string name="TVA_add_comment">اضافه کردن نظر</string>
 	<string name="name">نام</string>
 	<string name="enter_tag_name">نام تگ را وارد کنید</string>
+	<string name="enter_filter_name">نام فیلتر را وارد نمایید</string>
 	<string name="actfm_GAA_title">انتخاب اکانت گوگلی که میخواهید استفاده کنید</string>
 	<string name="backup_BPr_header">پشتیبان ها</string>
 	<string name="backup_BAc_export">خرجی از وظایف</string>
 	<string name="export_toast_no_tasks">خروجی از وظایف</string>
+	<string name="import_summary_title">بازگرداندن خلاصه</string>
 	<string name="DLG_delete_this_task_question">حذف این وظیفه</string>
 	<string name="DLG_undo">بازگرداندن</string>
+	<string name="WID_dateButtonUnset">کلیک برای تنظیم</string>
 	<string name="TLA_menu_sort">چینش</string>
 	<string name="TLA_menu_search">جست و جو</string>
 	<string name="TLA_menu_settings">تنظیمات</string>
@@ -54,12 +57,14 @@
 		<item>روز یا زمان خاص</item>
 	</string-array>
 	<string name="TEA_control_when">زمانی که</string>
+	<string name="TEA_control_repeat">تکرار</string>
 	<string name="TEA_control_gcal">تقویم</string>
 	<string name="TEA_control_importance">اولیت</string>
 	<string name="TEA_control_notes">توضیحات</string>
 	<string name="TEA_control_files">فایل ها</string>
 	<string name="TEA_control_reminders">یادآوری ها</string>
 	<string name="TEA_control_timer">کنترل تایمر</string>
+	<string name="TEA_control_hidden_section">----همیشه مخفی----</string>
 	<string name="hide_until_prompt">نمایش در لیست من</string>
 	<string name="TEA_load_more">بارگزاری بیشتر</string>
 	<string name="MCA_return_call">اکنون تماس بگیر</string>
@@ -91,6 +96,9 @@
 	<string name="EPr_beastMode_reset">برگرداندن به پیش فرض</string>
 	<string name="EPr_fullTask_title">نمایش عنوان کامل وظیفه</string>
 	<string name="task_list_options">اختیارات لیست وظیفه</string>
+	<string name="EPr_cal_end_or_start_at_due_time">زمان رویداد تقویم</string>
+	<string name="EPr_cal_end_at_due_time">اتمام رویدادهای تقویم در موعود</string>
+	<string name="EPr_cal_start_at_due_time">شروع رویدادهای تقویم در موعود</string>
 	<string name="EPr_manage_clear_all">پاک کردن تمام داده ها</string>
 	<string name="TWi_loading">در حال بارگیری...</string>
 	<string name="WCA_title">انتخاب وظیفه جهت نمایش</string>
@@ -98,6 +106,13 @@
       If you see this error regularly, we suggest you clear all
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
       your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
+	<string name="task_defaults">پیش فرض های وظیفه</string>
+	<string name="EPr_default_urgency_title">موعود پیش فرض</string>
+	<string-array name="EPr_default_importance">
+		<item>!!! (بالاترین)</item>
+		<item>!!</item>
+		<item>!</item>
+		<item>o (Lowest)</item>	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>بدون موعود</item>
 		<item>امروز</item>
@@ -157,9 +172,14 @@
 	<string name="premium_remove_file_confirm">آیا مطمن هستید؟ قادر به برگرداندن نخواهید بود</string>
 	<string name="audio_recording_title">ضبط صدا</string>
 	<string name="audio_stop_recording">توقف ضبط</string>
+	<string name="file_type_unhandled">پوزش! هیچ برنامه ای برای بازکردن این فایل پیدا نشد.</string>
 	<string name="back">عقب</string>
 	<string name="file_browser_title">انتخاب یک فایل</string>
 	<string name="dir_browser_title">یک پوشه انتخاب کنید</string>
+	<string name="file_browser_err_permissions">خطای دسترسی! لطفا مطمن شوید تسکس را از دسترسی به حافظه خارجی منع نکرده اید.</string>
+	<string name="file_add_picture">الصاق یک تصویر</string>
+	<string name="file_add_sdcard">الصاق یک فایل از حافظه خارجی</string>
+	<string name="file_err_copy">خطای کپی فایل برای ضمیمه</string>
 	<string name="file_dir_dialog_ok">استفاده از این پوشه</string>
 	<string name="file_dir_dialog_default">بازگرداندن به پیش فرض</string>
 	<string name="ring_once">یک بار زنگ بزن</string>
@@ -176,6 +196,7 @@
 	<string name="rmd_NoA_done">کامل</string>
 	<string name="rmd_EPr_quiet_hours_start_title">شروع ساعات خلوتی</string>
 	<string name="rmd_EPr_quiet_hours_end_title">پایان ساعات خلوتی</string>
+	<string name="rmd_EPr_rmd_time_title">یادآور پیش فرض</string>
 	<string name="rmd_EPr_defaultRemind_title">یادآوری های تصادفی</string>
 	<string-array name="EPr_reminder_random">
 		<item>غیرفعال شده</item>
@@ -207,6 +228,7 @@
 	<string name="new_tag">تگ جدید</string>
 	<string name="tag_no_title_error">لطفا ابتدا یک نام برای لیست انتخاب نمایید</string>
 	<string name="tag_FEx_untagged">دسته بندی نشده</string>
+	<string name="TFE_workingOn">وظایف زمانبندی شده</string>
 	<string name="TEA_timer_controls">تایمر</string>
 	<string name="TEA_timer_comment_started">این وظیفه شروع شده:</string>
 	<string name="TEA_timer_comment_stopped">این وظیفه متوقف شده:</string>
@@ -217,6 +239,7 @@
 	<string name="EPr_use_dark_theme">تم تاریک</string>
 	<string name="delete_task">حذف وظیفه</string>
 	<string name="voice_command_added_task">وظیفه اضافه شده</string>
+	<string name="external_storage_unavailable">عدم امکان دسترسی به حافظه خارجی</string>
 	<plurals name="Ntasks">
 		<item quantity="one">۱ وظیفه</item>
 		<item quantity="other">%d tasks</item>
@@ -231,9 +254,12 @@
 	<string name="widget_hide_header">مخفی کردن سربرگ</string>
 	<string name="widget_transparent_background">پیش زمینه شفاف</string>
 	<string name="notifications">اعلان ها</string>
+	<string name="silent">سکوت</string>
 	<string name="sound">صدا</string>
 	<string name="vibrate">ویبره</string>
+	<string name="quiet_hours">ساعات سکوت</string>
 	<string name="backup_directory">پشتیبان گیری از پوشه</string>
+	<string name="miscellaneous">سایر</string>
 	<string name="enabled">فعال شده</string>
 	<string name="font_size">اندازه فونت</string>
 	<string name="source_code">کد مبدا</string>
@@ -242,6 +268,7 @@
 	<string name="help_and_feedback">کمک و بازخورد</string>
 	<string name="contact_developer">تماس با توسعه دهنده</string>
 	<string name="rate_tasks">ارزیابی وظیفه</string>
+	<string name="quiet_hours_summary">خاموش کردن صدا و ویبره هنگام ساعات سکوت</string>
 	<string name="TLA_menu_donate">کمک مالی</string>
 	<string name="error">خطا</string>
 	<string name="select_amount">انتخاب مقدار</string>
@@ -255,6 +282,8 @@
 	<string name="pick_a_location">انتخاب یک موقعیت</string>
 	<string name="when_overdue">پس از موعود</string>
 	<string name="when_due">روز موعود</string>
+	<string name="geofence_radius_title">شعاع (متر)</string>
+	<string name="geofence_responsiveness_title">زمان پاسخگویی (مقدار بالاتر مصرف کمتر باتری)</string>
 	<string name="tags">برچسب ها</string>
 	<string name="filters">فیلترها</string>
 	<string name="date_shortcut_hour">برای یک ساعت</string>
@@ -263,6 +292,7 @@
 	<string name="date_shortcut_evening">عصر</string>
 	<string name="date_shortcut_night">شب</string>
 	<string name="date_shortcut_tomorrow_morning">فردا صبح</string>
+	<string name="date_shortcut_tomorrow_afternoon">فردا بعداز ظهر</string>
 	<string name="discard_changes">چشم پوشی از تغییرات؟</string>
 	<string name="discard">چشم پوشی</string>
 	<string name="tag_settings">تنظیمات تگ</string>
@@ -274,7 +304,7 @@
 	<string name="reverse">برعکس</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>غیرفعال</item>
-		<item>every fifteen minutes</item>
+		<item>هر پانزده دقیقه</item>
 		<item>هر سی دقیقه</item>
 		<item>هر ساعت</item>
 		<item>هر سه ساعت</item>

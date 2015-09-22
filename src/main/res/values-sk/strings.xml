@@ -9,6 +9,8 @@
 	<string name="actfm_picture_gallery">Vybrať z galérie</string>
 	<string name="actfm_picture_clear">Vymazať obrázok</string>
 	<string name="TVA_add_comment">Komentovať...</string>
+	<string name="name">Názov</string>
+	<string name="enter_tag_name">Potvrdiť názov tagu</string>
 	<string name="actfm_GAA_title">Vyber si Google účet, ktorý chceš použiť:</string>
 	<string name="backup_BPr_header">Zálohy</string>
 	<string name="backup_BAc_import">Importovať úlohy</string>
@@ -61,6 +63,7 @@
 	<string name="TEA_estimatedDuration_label">Ako dlho to bude trvať?</string>
 	<string name="TEA_elapsedDuration_label">Ako dlho už pracujete na úlohe</string>
 	<string name="TEA_menu_save">Uložiť zmeny</string>
+	<string name="save">Uložiť</string>
 	<string name="TEA_menu_discard_changes">Vymazať zmeny</string>
 	<string name="TEA_tab_activity">Aktivita</string>
 	<string name="TEA_timer_est">Spolu %s</string>
@@ -85,9 +88,11 @@
 	<string name="TEA_control_hidden_section">----Skryť vždy----</string>
 	<string name="hide_until_prompt">Zobraziť v mojom zozname</string>
 	<string name="TEA_load_more">Načítať viac</string>
+	<string name="missed_call">Zmeškaný hovor od %s</string>
 	<string name="MCA_return_call">Volať teraz</string>
 	<string name="MCA_add_task">Volať neskôr</string>
 	<string name="MCA_ignore">Ignorovať</string>
+	<string name="missed_calls">Zmeškané hovory</string>
 	<string name="MCA_task_title_name">Zavolať %1$s späť o %2$s</string>
 	<string name="MCA_task_title_no_name">Zavolať %s späť</string>
 	<string name="CRA_ignore">Ignorovať</string>
@@ -233,6 +238,7 @@
 	<string name="audio_recording_title">Nahrávanie zvuku</string>
 	<string name="audio_stop_recording">Zastaviť nahrávanie</string>
 	<string name="file_type_unhandled">Pre tento typ súboru nebola nájdená žiadna aplikácia</string>
+	<string name="back">Späť</string>
 	<string name="file_browser_title">Vybrať súbor</string>
 	<string name="dir_browser_title">Vytvoriť zložku</string>
 	<string name="file_browser_err_permissions">Chyba oprávnenia! Prosím, uisti sa, či Tasks namá zablokovaný prístup k SD karte.</string>
@@ -296,9 +302,12 @@
 	<string name="repeat_detail_duedate_until">Každý %1$s\ndo %2$s</string>
 	<string name="repeat_forever">Opakovať donekonečna</string>
 	<string name="repeat_until">Opakovať do %s</string>
+	<string name="repeat_snackbar">%1$s preplánované na %2$s</string>
 	<string name="TEA_tags_label_long">Pridať do zoznamov</string>
+	<string name="new_tag">Nasledujúci tag</string>
 	<string name="tag_no_title_error">Prosím, uveďte najprv názov pre tento zoznam!</string>
 	<string name="tag_FEx_untagged">Nezaradené</string>
+	<string name="delete_tag_confirmation">Vymazať %s?</string>
 	<string name="TPl_notification">Časovač aktívny pre %s!</string>
 	<string name="TFE_workingOn">Úlohy sú načasované</string>
 	<string name="TEA_timer_controls">Časovač</string>
@@ -362,17 +371,33 @@
 	<string name="remove">Odstrániť</string>
 	<string name="randomly_once">Raz náhodne</string>
 	<string name="randomly">Náhodne</string>
+	<string name="pick_a_date">Vybrať dátum</string>
+	<string name="pick_a_time">Vybrať čas</string>
 	<string name="pick_a_date_and_time">Vybrať dátum a čas</string>
 	<string name="pick_a_location">Vybrať lokalitu</string>
 	<string name="type_a_location">Typ lokalizácie</string>
 	<string name="when_overdue">Keď po termíne</string>
 	<string name="when_due">Keď v termíne</string>
+	<string name="geofence_radius_title">Okruh (v metroch)</string>
+	<string name="geofence_responsiveness_title">Doba odozvy (vyššia hodnota šetrí batériu)</string>
+	<string name="geolocation_reminders">Pripomienky polohy</string>
+	<string name="tags">Tagy</string>
+	<string name="filters">Filtre</string>
+	<string name="date_shortcut_hour">Za hodinu</string>
+	<string name="date_shortcut_tomorrow_morning">Zajtra ráno</string>
+	<string name="date_shortcut_tomorrow_afternoon">Zajtra poobede</string>
+	<string name="filter_settings">Nastavenie filtra</string>
+	<string name="deprecated_setting">Toto nastavenie bude nabudúce odstránené</string>
+	<string name="show_hidden">Zobraziť skryté</string>
+	<string name="show_completed">Zobraziť dokončené</string>
+	<string name="task_count">%s úlohy</string>
+	<string name="get_plugins">Získať Plug-in</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>zakázať</item>
 		<item>každých pätnásť minút</item>
 		<item>každú tretiu minútu</item>
 		<item>každú hodinu</item>
-		<item>K´každé tri hodiny</item>
+		<item>každé tri hodiny</item>
 		<item>každých šesť hodín</item>
 		<item>každých dvanásť hodín</item>
 		<item>každý deň</item>

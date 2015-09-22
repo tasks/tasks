@@ -9,6 +9,9 @@
 	<string name="actfm_picture_gallery">Kies uit de Galerij</string>
 	<string name="actfm_picture_clear">Verwijder Foto</string>
 	<string name="TVA_add_comment">Voeg een opmerking toe</string>
+	<string name="name">Naam</string>
+	<string name="enter_tag_name">Noteer label naam</string>
+	<string name="enter_filter_name">Vul een filter naam in</string>
 	<string name="actfm_GAA_title">Selecteer de Google account die je wil gebruiken:</string>
 	<string name="backup_BPr_header">Back-ups</string>
 	<string name="backup_BAc_import">Taken importeren</string>
@@ -61,6 +64,7 @@
 	<string name="TEA_estimatedDuration_label">Tijdsduur</string>
 	<string name="TEA_elapsedDuration_label">Bestede tijd tot nu toe</string>
 	<string name="TEA_menu_save">Wijzigingen opslaan</string>
+	<string name="save">Opslaan</string>
 	<string name="TEA_menu_discard_changes">Negeer veranderingen</string>
 	<string name="TEA_tab_activity">Activiteit</string>
 	<string name="TEA_timer_est">Gesch. %s</string>
@@ -75,6 +79,8 @@
 		<item>Specifieke dag/tijd</item>
 	</string-array>
 	<string name="TEA_control_when">Wanneer</string>
+	<string name="TEA_control_repeat">Herhaal</string>
+	<string name="TEA_control_gcal">Kalender</string>
 	<string name="TEA_control_importance">Prioriteit</string>
 	<string name="TEA_control_notes">Omschrijving</string>
 	<string name="TEA_control_files">Bestanden</string>
@@ -83,9 +89,11 @@
 	<string name="TEA_control_hidden_section">----Altijd Verbergen----</string>
 	<string name="hide_until_prompt">Laat zien in mijn lijst</string>
 	<string name="TEA_load_more">Laad meer...</string>
+	<string name="missed_call">Gemiste oproepen van %s</string>
 	<string name="MCA_return_call">Bel nu</string>
 	<string name="MCA_add_task">Bel later</string>
 	<string name="MCA_ignore">Negeren</string>
+	<string name="missed_calls">Gemiste oproepen</string>
 	<string name="MCA_task_title_name">Bel %1$s terug op %2$s</string>
 	<string name="MCA_task_title_no_name">Bel %s terug</string>
 	<string name="CRA_ignore">Negeren</string>
@@ -124,6 +132,7 @@
 	<string name="EPr_beastMode_hint">Pas uw taak bewerken scherm aan door de linker handle van elke rij te verslepen</string>
 	<string name="EPr_fullTask_title">Laat volledige taak titel zien</string>
 	<string name="EPr_show_task_edit_comments">Toon opmerkingen in taak bewerken</string>
+	<string name="task_list_options">Takenlijst opties</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Agenda item tijd</string>
 	<string name="EPr_cal_end_at_due_time">Agenda item op tijd afronden</string>
 	<string name="EPr_cal_start_at_due_time">Agenda item op tijd starten</string>
@@ -145,6 +154,7 @@
 	<string name="TWi_loading">Laden…</string>
 	<string name="WCA_title">Selecteer weer te geven taken...</string>
 	<string name="DB_corrupted_body">Oh oh! Het lijkt erop dat je een corrupte database hebt. Als je deze error vaker ziet raden we je aan alle data te verwijderen (Instellingen-&gt;Beheer Alle Taken-&gt;Wis alle data) en je taken uit een backup te herstellen (Instellingen-&gt;Backup-&gt;Importeer Taken) in Tasks.</string>
+	<string name="task_defaults">Basisinstellingen nieuwe taak</string>
 	<string name="EPr_default_urgency_title">Standaard prioriteit</string>
 	<string name="EPr_default_importance_title">Standaard prioriteit</string>
 	<string name="EPr_default_hideUntil_title">Standaard verbergen tot</string>
@@ -199,6 +209,10 @@
 	</string-array>
 	<string name="CFC_importance_text">Prioriteit ten minste ?</string>
 	<string name="CFC_importance_name">Prioriteit...</string>
+	<string name="CFC_tag_text">Label: ?</string>
+	<string name="CFC_tag_name">Label...</string>
+	<string name="CFC_tag_contains_name">Label naam bevat...</string>
+	<string name="CFC_tag_contains_text">Label naam bevat: ?</string>
 	<string name="CFC_title_contains_name">Naam bevat...</string>
 	<string name="CFC_title_contains_text">Naam bevat: ?</string>
 	<string name="gcal_TEA_error">Fout bij toevoegen taak aan agenda!</string>
@@ -228,6 +242,7 @@
 	<string name="audio_recording_title">Bezig met opname</string>
 	<string name="audio_stop_recording">Opname stoppen</string>
 	<string name="file_type_unhandled">Sorry! Er is geen applicatie gevonden die dit bestandtype ondersteunt.</string>
+	<string name="back">Terug</string>
 	<string name="file_browser_title">Bestand kiezen</string>
 	<string name="dir_browser_title">Kies een directory</string>
 	<string name="file_browser_err_permissions">Bestandsrechtenfout! Let erop dat Tasks toegang heeft tot de SD-kaart.</string>
@@ -237,6 +252,9 @@
 	<string name="file_dir_dialog_ok">Gebruik deze directory.</string>
 	<string name="file_dir_dialog_default">Stel opnieuw in naar standaardinstellingen</string>
 	<string name="premium_speech_bubble_2">Bestel voor een jaar en bespaar 25%%!</string>
+	<string name="ring_once">Ring eenmalig</string>
+	<string name="ring_five_times">Ring vijf keer</string>
+	<string name="ring_nonstop">Ring continue</string>
 	<string-array name="TEA_reminder_random">
 		<item>een uur</item>
 		<item>een dag</item>
@@ -288,9 +306,12 @@
 	<string name="repeat_detail_duedate_until">Elke %1$s\ntot %2$s</string>
 	<string name="repeat_forever">Altijd herhalen</string>
 	<string name="repeat_until">Herhalen tot %s</string>
+	<string name="repeat_snackbar">%1$s opnieuw ingepland op %2$s</string>
 	<string name="TEA_tags_label_long">Voeg toe aan lijsten</string>
+	<string name="new_tag">Nieuwe Label</string>
 	<string name="tag_no_title_error">Voer a.u.b. eerst een naam in voor deze lijst!</string>
 	<string name="tag_FEx_untagged">Niet gecategoriseerd</string>
+	<string name="delete_tag_confirmation">Verwijder %s?</string>
 	<string name="TPl_notification">Timers ingeschakeld voor %s!</string>
 	<string name="TFE_workingOn">Taken met timer</string>
 	<string name="TEA_timer_comment_started">taak begonnen:</string>
@@ -310,6 +331,7 @@
 	</plurals>
 	<string name="today">Vandaag</string>
 	<string name="tomorrow">Morgen</string>
+	<string name="next">Volgende %s</string>
 	<string name="yesterday">Gisteren</string>
 	<string name="tmrw">mrgn</string>
 	<string name="yest">gisteren</string>
@@ -320,7 +342,69 @@
 	<string name="sync_SPr_forget">Afmelden</string>
 	<string name="sync_SPr_forget_description">Alle synchronisatie gegevens verwijderen</string>
 	<string name="sync_forget_confirm">Afmelden / synchronisatie gegevens verwijderen?</string>
+	<string name="widget_hide_due_date">Verberg deadlines</string>
+	<string name="widget_hide_checkboxes">Verberg vinkboxjes</string>
+	<string name="widget_hide_header">Verberg header</string>
+	<string name="widget_transparent_background">Transparante achtergrond</string>
+	<string name="notifications">Notificaties</string>
+	<string name="silent">Stil</string>
+	<string name="sound">Geluid</string>
+	<string name="vibrate">Trillen</string>
+	<string name="quiet_hours">Rustperiode</string>
+	<string name="attachment_directory">Bijlage directory</string>
+	<string name="debug_logging">Fouten loggen</string>
+	<string name="miscellaneous">Diversen</string>
+	<string name="synchronization">Synchronisatie</string>
+	<string name="enabled">Actief</string>
+	<string name="font_size">Font grootte</string>
+	<string name="customize_edit_screen">Edit scherm aanpassen</string>
+	<string name="source_code">Bron code</string>
+	<string name="translations">Vertalingen</string>
+	<string name="report_an_issue">Meld een probleem</string>
+	<string name="help_and_feedback">Help &amp; Terugkoppeling</string>
+	<string name="contact_developer">Contact ontwikkelaar</string>
+	<string name="rate_tasks">Beoordeel Taken</string>
+	<string name="quiet_hours_summary">Geen geluid of trillen tijdens stillen uren</string>
 	<string name="TLA_menu_donate">Doneer</string>
+	<string name="error">Fout</string>
+	<string name="select_amount">Selecteer aantal</string>
+	<string name="notification_actions">Notificatie Acties</string>
+	<string name="notification_actions_summary">Toon snooze en voltooide acties in een melding</string>
+	<string name="add_reminder">Voeg herinnering toe</string>
+	<string name="remove">Verwijder</string>
+	<string name="randomly_once">Willekeurig eenmalig</string>
+	<string name="randomly">Willekeurig</string>
+	<string name="pick_a_date">Kies een datum</string>
+	<string name="pick_a_time">Kies een tijd</string>
+	<string name="pick_a_date_and_time">Kies een datum en tijd</string>
+	<string name="pick_a_location">Kies een locatie</string>
+	<string name="type_a_location">Type een locatie</string>
+	<string name="when_overdue">Na de einddatum</string>
+	<string name="when_due">Op de eindtijd</string>
+	<string name="geofence_responsiveness_title">Antwoord tijd (hogere waarde verbruikt meer batterij)</string>
+	<string name="geolocation_reminders">Geolocatie Herinneringen</string>
+	<string name="tags">Labels</string>
+	<string name="date_shortcuts">Datum snelkoppelingen</string>
+	<string name="date_shortcut_hour">Voor een uur</string>
+	<string name="date_shortcut_morning">Morgen</string>
+	<string name="date_shortcut_afternoon">Middag</string>
+	<string name="date_shortcut_evening">Avond</string>
+	<string name="date_shortcut_night">Nacht</string>
+	<string name="date_shortcut_tomorrow_morning">Morgen ochtend</string>
+	<string name="date_shortcut_tomorrow_afternoon">Morgen middag</string>
+	<string name="date_shortcut_must_come_before">%1$s moet voor %2$s komen</string>
+	<string name="date_shortcut_must_come_after">%1$s moet na %2$s komen</string>
+	<string name="discard_changes">Negeer veranderingen?</string>
+	<string name="discard">Negeer</string>
+	<string name="tag_settings">Label Instellingen</string>
+	<string name="delete">Verwijder</string>
+	<string name="filter_settings">Filter instellingen</string>
+	<string name="deprecated_setting">Deze instelling wordt verwijderd in een toekomstige versie</string>
+	<string name="show_hidden">Toon verborgen</string>
+	<string name="show_completed">Toon voltooide</string>
+	<string name="reverse">Omgekeerde</string>
+	<string name="task_count">%s Taken</string>
+	<string name="get_plugins">Plug-ins ophalen</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>uitschakelen</item>
 		<item>elke 15 min.</item>
