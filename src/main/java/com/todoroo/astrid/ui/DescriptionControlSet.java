@@ -38,6 +38,6 @@ public class DescriptionControlSet extends TaskEditControlSetBase {
 
     @Override
     public int getIcon() {
-        return R.drawable.ic_event_note_black_24dp;
+        return R.drawable.ic_event_note_24dp;
     }
 }

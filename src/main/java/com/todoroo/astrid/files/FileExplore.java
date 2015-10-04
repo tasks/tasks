@@ -107,21 +107,21 @@ public class FileExplore extends InjectingAppCompatActivity {
 			String[] fList = path.list(filter);
 			fileList = new Item[fList.length];
 			for (int i = 0; i < fList.length; i++) {
-				fileList[i] = new Item(fList[i], R.drawable.ic_insert_drive_file_black_24dp);
+				fileList[i] = new Item(fList[i], R.drawable.ic_insert_drive_file_24dp);
 
 				// Convert into file path
 				File sel = new File(path, fList[i]);
 
 				// Set drawables
 				if (sel.isDirectory()) {
-					fileList[i].icon = R.drawable.ic_folder_black_24dp;
+					fileList[i].icon = R.drawable.ic_folder_24dp;
 				}
 			}
 
 			if (!firstLvl) {
 				Item temp[] = new Item[fileList.length + 1];
                 System.arraycopy(fileList, 0, temp, 1, fileList.length);
-				temp[0] = new Item(upString, R.drawable.ic_arrow_back_black_24dp);
+				temp[0] = new Item(upString, R.drawable.ic_arrow_back_24dp);
 				fileList = temp;
 			}
 		} else {
@@ -140,7 +140,7 @@ public class FileExplore extends InjectingAppCompatActivity {
 
 				// put the image on the text view
 				int icon = fileList[position].icon;
-				Drawable drawable = getResources().getDrawable(icon, getTheme());
+				Drawable drawable = getResources().getDrawable(icon);
 				if (activityPreferences.isDarkTheme()) {
 					Drawable wrapDrawable = DrawableCompat.wrap(drawable);
 					DrawableCompat.setTint(wrapDrawable, getResources().getColor(android.R.color.white));

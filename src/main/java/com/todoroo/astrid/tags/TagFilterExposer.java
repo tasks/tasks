@@ -89,7 +89,7 @@ public class TagFilterExposer {
 
         List<Filter> filters = new ArrayList<>();
 
-        int label = R.drawable.ic_label_black_24dp;
+        int label = R.drawable.ic_label_24dp;
 
         for (TagData tag : tags) {
             Filter f = constructFilter(context, tag);

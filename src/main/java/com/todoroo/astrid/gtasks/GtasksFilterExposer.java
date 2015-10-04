@@ -62,7 +62,7 @@ public class GtasksFilterExposer {
             return emptyList();
         }
 
-        int cloud = R.drawable.ic_cloud_queue_black_24dp;
+        int cloud = R.drawable.ic_cloud_queue_24dp;
 
         List<Filter> listFilters = newArrayList();
         for (GtasksList list : gtasksListService.getLists()) {

@@ -133,7 +133,7 @@ public class ImportanceControlSet extends TaskEditControlSetBase {
 
     @Override
     public int getIcon() {
-        return R.drawable.ic_flag_black_24dp;
+        return R.drawable.ic_flag_24dp;
     }
 
     // Same as above because we need the setImportance listeners to fire even in

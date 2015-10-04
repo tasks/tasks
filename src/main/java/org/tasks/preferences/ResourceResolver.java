@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
+@Deprecated
 public class ResourceResolver {
 
     private final Activity activity;

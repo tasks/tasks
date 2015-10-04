@@ -95,7 +95,7 @@ public class WidgetConfigActivity extends InjectingListActivity {
         }
 
         // set up ui
-        adapter = new FilterAdapter(filterProvider, filterCounter, this, getListView(), false, preferences);
+        adapter = new FilterAdapter(filterProvider, filterCounter, this, getListView(), false);
         setListAdapter(adapter);
 
         Button button = (Button) findViewById(R.id.ok);

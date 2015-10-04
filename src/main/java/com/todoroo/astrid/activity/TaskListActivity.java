@@ -8,9 +8,11 @@ package com.todoroo.astrid.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v4.widget.DrawerLayout;
@@ -53,6 +55,7 @@ import org.tasks.R;
 import org.tasks.activities.SortActivity;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.receivers.RepeatConfirmationReceiver;
+import org.tasks.ui.MenuColorizer;
 import org.tasks.ui.NavigationDrawerFragment;
 
 import javax.inject.Inject;
@@ -99,7 +102,9 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         ActionBar supportActionBar = getSupportActionBar();
         if (supportActionBar != null) {
             supportActionBar.setDisplayHomeAsUpEnabled(true);
-            toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
+            Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_menu_24dp));
+            DrawableCompat.setTint(drawable, getResources().getColor(android.R.color.white));
+            toolbar.setNavigationIcon(drawable);
         }
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,6 +187,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.task_list_activity, menu);
+        MenuColorizer.colorMenu(this, menu, getResources().getColor(android.R.color.white));
         TaskListFragment tlf = getTaskListFragment();
         MenuItem hidden = menu.findItem(R.id.menu_show_hidden);
         if (preferences.getBoolean(R.string.p_show_hidden_tasks, false)) {

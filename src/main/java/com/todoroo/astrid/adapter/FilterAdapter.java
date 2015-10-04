@@ -10,8 +10,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.drawable.Drawable;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +33,6 @@ import org.tasks.filters.FilterProvider;
 import org.tasks.filters.NavigationDrawerAction;
 import org.tasks.filters.NavigationDrawerSeparator;
 import org.tasks.filters.NavigationDrawerSubheader;
-import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.HelpAndFeedbackActivity;
 import org.tasks.ui.NavigationDrawerFragment;
@@ -57,21 +54,19 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     private final Activity activity;
     private final ListView listView;
     private boolean navigationDrawer;
-    private ActivityPreferences activityPreferences;
     private final FilterListUpdateReceiver filterListUpdateReceiver = new FilterListUpdateReceiver();
 
     /** layout inflater */
     private final LayoutInflater inflater;
 
     public FilterAdapter(FilterProvider filterProvider, FilterCounter filterCounter, Activity activity,
-                         ListView listView, boolean navigationDrawer, ActivityPreferences activityPreferences) {
+                         ListView listView, boolean navigationDrawer) {
         super(activity, 0);
         this.filterProvider = filterProvider;
         this.filterCounter = filterCounter;
         this.activity = activity;
         this.listView = listView;
         this.navigationDrawer = navigationDrawer;
-        this.activityPreferences = activityPreferences;
 
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -261,13 +256,13 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
 
             add(new NavigationDrawerAction(
                     activity.getResources().getString(R.string.new_tag),
-                    R.drawable.ic_add_black_24dp,
+                    R.drawable.ic_add_24dp,
                     new Intent(activity, TagSettingsActivity.class),
                     NavigationDrawerFragment.REQUEST_NEW_LIST));
 
             add(new NavigationDrawerAction(
                     activity.getResources().getString(R.string.FLA_new_filter),
-                    R.drawable.ic_add_black_24dp,
+                    R.drawable.ic_add_24dp,
                     new Intent(activity, CustomFilterActivity.class),
                     TaskListFragment.ACTIVITY_REQUEST_NEW_FILTER));
 
@@ -275,17 +270,17 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
 
             add(new NavigationDrawerAction(
                     activity.getResources().getString(R.string.TLA_menu_settings),
-                    R.drawable.ic_settings_black_24dp,
+                    R.drawable.ic_settings_24dp,
                     new Intent(activity, BasicPreferences.class),
                     REQUEST_SETTINGS));
             add(new NavigationDrawerAction(
                     activity.getResources().getString(R.string.help_and_feedback),
-                    R.drawable.ic_help_black_24dp,
+                    R.drawable.ic_help_24dp,
                     new Intent(activity, HelpAndFeedbackActivity.class),
                     0));
             add(new NavigationDrawerAction(
                     activity.getResources().getString(R.string.TLA_menu_donate),
-                    R.drawable.ic_attach_money_black_24dp,
+                    R.drawable.ic_attach_money_24dp,
                     new Intent(activity, DonationActivity.class),
                     0));
         }
@@ -330,18 +325,8 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
 
         viewHolder.view.setBackgroundResource(0);
         int icon = filter.icon;
-        if (icon == 0) {
-            viewHolder.icon.setVisibility(View.INVISIBLE);
-        } else {
-            Drawable drawable = activity.getResources().getDrawable(icon, activity.getTheme());
-            if (activityPreferences.isDarkTheme()) {
-                Drawable wrapDrawable = DrawableCompat.wrap(drawable);
-                DrawableCompat.setTint(wrapDrawable, activity.getResources().getColor(android.R.color.white));
-                drawable = wrapDrawable;
-            }
-            viewHolder.icon.setImageDrawable(drawable);
-            viewHolder.icon.setVisibility(View.VISIBLE);
-        }
+        viewHolder.icon.setImageResource(icon);
+        viewHolder.icon.setVisibility(icon == 0 ? View.INVISIBLE : View.VISIBLE);
 
         String title = filter.listingTitle;
         if(!title.equals(viewHolder.name.getText())) {

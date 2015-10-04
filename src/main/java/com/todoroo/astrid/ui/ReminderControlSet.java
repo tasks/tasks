@@ -394,6 +394,6 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
 
     @Override
     public int getIcon() {
-        return R.drawable.ic_notifications_black_24dp;
+        return R.drawable.ic_notifications_24dp;
     }
 }

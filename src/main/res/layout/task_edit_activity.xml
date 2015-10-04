@@ -142,7 +142,8 @@
             android:layout_marginLeft="3dip"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_add_white_24dp"
+            android:tint="@android:color/white"
+            android:src="@drawable/ic_add_24dp"
             android:scaleType="center"
             android:visibility="gone" />
     </LinearLayout>

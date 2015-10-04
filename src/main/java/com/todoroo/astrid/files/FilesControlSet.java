@@ -80,7 +80,7 @@ public class FilesControlSet extends PopupControlSet {
 
     @Override
     public int getIcon() {
-        return R.drawable.ic_attachment_black_24dp;
+        return R.drawable.ic_attachment_24dp;
     }
 
     public void refreshMetadata() {

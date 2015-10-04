@@ -10,7 +10,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
@@ -45,6 +47,7 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.filters.FilterCriteriaProvider;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.ui.MenuColorizer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -156,7 +159,9 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
         ActionBar supportActionBar = getSupportActionBar();
         if (supportActionBar != null) {
             supportActionBar.setDisplayHomeAsUpEnabled(true);
-            supportActionBar.setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
+            Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_close_24dp));
+            DrawableCompat.setTint(drawable, getResources().getColor(android.R.color.white));
+            supportActionBar.setHomeAsUpIndicator(drawable);
             supportActionBar.setTitle(R.string.FLA_new_filter);
         }
 
@@ -348,6 +353,7 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.tag_settings_activity, menu);
+        MenuColorizer.colorMenu(this, menu, getResources().getColor(android.R.color.white));
         menu.findItem(R.id.delete).setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }

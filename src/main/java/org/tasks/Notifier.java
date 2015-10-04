@@ -11,7 +11,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.media.MediaDescriptionCompatApi21;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.data.TodorooCursor;

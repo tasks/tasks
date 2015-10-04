@@ -41,7 +41,8 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingStart="10dp"
-        android:src="?attr/ic_cancel"
+        android:src="@drawable/ic_cancel_24dp"
+        android:tint="?attr/icon_tint"
         android:visibility="gone" />
 
 </LinearLayout>

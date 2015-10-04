@@ -232,7 +232,7 @@ public class HideUntilControlSet extends TaskEditControlSetBase implements OnIte
 
     @Override
     public int getIcon() {
-        return R.drawable.ic_visibility_off_black_24dp;
+        return R.drawable.ic_visibility_off_24dp;
     }
 
     @Override

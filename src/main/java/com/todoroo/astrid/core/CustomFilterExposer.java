@@ -30,7 +30,7 @@ public final class CustomFilterExposer {
     public List<Filter> getFilters() {
         final List<Filter> list = new ArrayList<>();
 
-        final int filter = R.drawable.ic_filter_list_black_24dp;
+        final int filter = R.drawable.ic_filter_list_24dp;
 
         storeObjectDao.getSavedFilters(new Callback<StoreObject>() {
             @Override

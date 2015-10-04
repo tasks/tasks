@@ -33,7 +33,7 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
 
         activityPreferences.applyTheme();
 
-        final FilterAdapter filterAdapter = new FilterAdapter(filterProvider, filterCounter, this, null, false, activityPreferences);
+        final FilterAdapter filterAdapter = new FilterAdapter(filterProvider, filterCounter, this, null, false);
         filterAdapter.populateList();
 
         dialogBuilder.newDialog()

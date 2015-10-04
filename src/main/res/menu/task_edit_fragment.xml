@@ -5,18 +5,18 @@
     <item
         android:id="@+id/menu_save"
         android:title="@string/TEA_menu_save"
-        android:icon="@drawable/ic_save_white_24dp"
+        android:icon="@drawable/ic_save_24dp"
         android:visible="false"
         tasks:showAsAction="ifRoom"/>
     <item
         android:id="@+id/menu_attach"
         android:title="@string/premium_attach_file"
-        android:icon="@drawable/ic_attachment_white_24dp"
+        android:icon="@drawable/ic_attachment_24dp"
         tasks:showAsAction="ifRoom"/>
     <item
         android:id="@+id/menu_record_note"
         android:title="@string/premium_record_audio"
-        android:icon="@drawable/ic_mic_white_24dp"
+        android:icon="@drawable/ic_mic_24dp"
         tasks:showAsAction="ifRoom"/>
     <item
         android:id="@+id/menu_discard"

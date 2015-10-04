@@ -6,18 +6,18 @@
     <item
         android:id="@+id/menu_voice_add"
         android:title="@string/EPr_voiceInputEnabled_title"
-        android:icon="@drawable/ic_mic_white_24dp"
+        android:icon="@drawable/ic_mic_24dp"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/menu_search"
         android:title="@string/TLA_menu_search"
-        android:icon="@drawable/ic_search_white_24dp"
+        android:icon="@drawable/ic_search_24dp"
         app:showAsAction="ifRoom|collapseActionView"
         app:actionViewClass="android.support.v7.widget.SearchView"/>
     <item
         android:id="@+id/menu_sort"
         android:title="@string/TLA_menu_sort"
-        android:icon="@drawable/ic_sort_white_24dp"
+        android:icon="@drawable/ic_sort_24dp"
         app:showAsAction="ifRoom" />
     <group
         android:checkableBehavior="all">

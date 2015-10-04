@@ -33,8 +33,8 @@ import org.tasks.filters.FilterProvider;
 import org.tasks.filters.NavigationDrawerAction;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.location.GeofenceService;
-import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.AppearancePreferences;
+import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
@@ -68,7 +68,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
     @Inject FilterCounter filterCounter;
     @Inject FilterProvider filterProvider;
     @Inject GeofenceService geofenceService;
-    @Inject ActivityPreferences preferences;
+    @Inject Preferences preferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -151,7 +151,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
     }
 
     private void setUpList() {
-        adapter = new FilterAdapter(filterProvider, filterCounter, getActivity(), mDrawerListView, true, preferences);
+        adapter = new FilterAdapter(filterProvider, filterCounter, getActivity(), mDrawerListView, true);
         mDrawerListView.setAdapter(adapter);
         registerForContextMenu(mDrawerListView);
     }

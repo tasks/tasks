@@ -5,8 +5,10 @@
  */
 package com.todoroo.astrid.activity;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -18,9 +20,14 @@ import org.tasks.preferences.ActivityPreferences;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 public class TaskEditActivity extends AstridActivity {
 
     @Inject ActivityPreferences preferences;
+
+    @InjectView(R.id.toolbar) Toolbar toolbar;
 
     /**
 	 * @see android.app.Activity#onCreate(Bundle)
@@ -31,15 +38,16 @@ public class TaskEditActivity extends AstridActivity {
         preferences.applyThemeAndStatusBarColor();
 
         setContentView(R.layout.task_edit_wrapper_activity);
+        ButterKnife.inject(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-
-            ActionBar actionBar = getSupportActionBar();
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowTitleEnabled(false);
-            toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        setSupportActionBar(toolbar);
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar != null) {
+            supportActionBar.setDisplayHomeAsUpEnabled(true);
+            supportActionBar.setDisplayShowTitleEnabled(false);
+            Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_arrow_back_24dp));
+            DrawableCompat.setTint(drawable, getResources().getColor(android.R.color.white));
+            supportActionBar.setHomeAsUpIndicator(drawable);
         }
 	}
 

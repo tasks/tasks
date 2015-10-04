@@ -10,11 +10,9 @@ import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -87,6 +85,7 @@ import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.DeviceInfo;
 import org.tasks.ui.DeadlineControlSet;
+import org.tasks.ui.MenuColorizer;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -446,11 +445,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 if (controlSet != null) {
                     ImageView icon = (ImageView) controlSet.findViewById(R.id.icon);
                     if (icon != null) {
-                        Drawable drawable = getResources().getDrawable(curr.getIcon());
-                        if (preferences.isDarkTheme()) {
-                            drawable = whiteTint(drawable);
-                        }
-                        icon.setImageDrawable(drawable);
+                        icon.setImageResource(curr.getIcon());
                     }
                     basicControls.addView(controlSet);
                 }
@@ -462,12 +457,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
 
         getActivity().getIntent().removeExtra(TOKEN_OPEN_CONTROL);
-    }
-
-    private Drawable whiteTint(Drawable drawable) {
-        Drawable wrapDrawable = DrawableCompat.wrap(drawable);
-        DrawableCompat.setTint(wrapDrawable, getResources().getColor(android.R.color.white));
-        return wrapDrawable;
     }
 
     /**
@@ -877,6 +866,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.task_edit_fragment, menu);
+        MenuColorizer.colorMenu(getActivity(), menu, getResources().getColor(android.R.color.white));
         if (preGingerbreadMR1()) {
             // media recorder aac support requires api level 10
             // approximately 1% of current installs are using api level 7-9

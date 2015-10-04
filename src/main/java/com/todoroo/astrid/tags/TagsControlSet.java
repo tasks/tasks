@@ -5,16 +5,13 @@
  */
 package com.todoroo.astrid.tags;
 
-import android.app.Activity;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -252,7 +249,7 @@ public final class TagsControlSet extends PopupControlSet {
 
     @Override
     public int getIcon() {
-        return R.drawable.ic_label_black_24dp;
+        return R.drawable.ic_label_24dp;
     }
 
     @Override
