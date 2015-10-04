@@ -19,7 +19,6 @@
         <item name="asSeparator">?attr/asToolbarSeparator</item>
         <item name="android:actionModeBackground">@android:color/black</item>
         <item name="asContentBackground">@android:color/black</item>
-        <item name="asEditBackground">@android:color/black</item>
         <item name="asTextColor">@android:color/white</item>
         <item name="asTextColorHint">@android:color/darker_gray</item>
         <item name="asTextColorInverse">@android:color/black</item>
@@ -38,11 +37,8 @@
 
         <item name="asDetailsColor">#6666aa</item>
         <item name="asListDividerColor">#dddddd</item>
-        <item name="asEditRowBackground">@drawable/task_edit_background_white</item>
-        <item name="asTaskRowSelector">@drawable/task_row_bg_white</item>
         <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
         <item name="importance_background_selected">@drawable/importance_background_selected</item>
-        <item name="ic_action_discard">@drawable/ic_close_white_24dp</item>
         <item name="textfield_underline">@drawable/textfield_underline_white</item>
         <item name="android:spinnerItemStyle">@style/SpinnerNoPadding</item>
         <item name="ic_cancel">@drawable/ic_cancel_white_24dp</item>

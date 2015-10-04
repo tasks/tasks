@@ -13,7 +13,7 @@
 
     <ScrollView
         android:id="@+id/edit_scroll"
-        android:background="?attr/asEditBackground"
+        android:background="?attr/asContentBackground"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="100" >

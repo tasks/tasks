@@ -143,7 +143,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private DialogBuilder dialogBuilder;
     protected final Resources resources;
     protected OnCompletedTaskListener onCompletedTaskListener = null;
-    protected final int resource = R.layout.task_adapter_row_simple;
     protected final LayoutInflater inflater;
     private int fontSize;
     private final ScaleAnimation scaleAnimation;
@@ -230,7 +229,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     /** Creates a new view for use in the list view */
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        ViewGroup view = (ViewGroup)inflater.inflate(resource, parent, false);
+        ViewGroup view = (ViewGroup)inflater.inflate(R.layout.task_adapter_row_simple, parent, false);
 
         // create view holder
         ViewHolder viewHolder = new ViewHolder();
