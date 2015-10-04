@@ -371,7 +371,7 @@ public class Preferences {
             directory = new File(customDir);
         }
 
-        if (directory == null || !directory.exists()) {
+        if (directory == null || !directory.exists()) { // When no customer directory backup is found, a new one is instantiated with a default root path
             directory = defaultExportDirectory();
         }
 

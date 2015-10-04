@@ -70,7 +70,7 @@ public class FileExplore extends InjectingAppCompatActivity {
 		activityPreferences.applyDialogTheme();
 
 		if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-            path = new File(Environment.getExternalStorageDirectory().toString());
+            path = new File(Environment.getExternalStorageDirectory().getAbsolutePath());
         } else {
             path = Environment.getRootDirectory();
         }
@@ -125,7 +125,8 @@ public class FileExplore extends InjectingAppCompatActivity {
 				temp[0] = new Item(upString, resourceResolver.getResource(R.attr.ic_arrow_back));
 				fileList = temp;
 			}
-		} else {
+		}
+        else {
 			log.error("path {} does not exist", path); //$NON-NLS-1$
 		}
 

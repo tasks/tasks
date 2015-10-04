@@ -157,6 +157,41 @@ public class TasksXmlExporter {
         }).start();
     }
 
+    private String setupFile(File directory, ExportType exportType) throws IOException {
+        if (directory != null) {
+            // Check for /sdcard/astrid directory. If it doesn't exist, make it.
+            if (directory.exists() ) { //|| directory.mkdir()
+                String fileName;
+                switch(exportType) {
+                    case EXPORT_TYPE_SERVICE:
+                        fileName = String.format(BackupConstants.BACKUP_FILE_NAME, getDateForExport());
+                        break;
+                    case EXPORT_TYPE_MANUAL:
+                        fileName = String.format(BackupConstants.EXPORT_FILE_NAME, getDateForExport());
+                        break;
+                    case EXPORT_TYPE_ON_UPGRADE:
+                        fileName = String.format(BackupConstants.UPGRADE_FILE_NAME, latestSetVersionName);
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Invalid export type"); //$NON-NLS-1$
+                }
+                return directory.getAbsolutePath() + File.separator + fileName;
+            } else {
+                // Unable to make the /sdcard/astrid directory.
+                throw new IOException(context.getString(R.string.DLG_error_sdcard,
+                        directory.getAbsolutePath()));
+            }
+        } else {
+            // Unable to access the sdcard because it's not in the mounted state.
+            throw new IOException(context.getString(R.string.DLG_error_sdcard_general));
+        }
+    }
+
+    private static String getDateForExport() {
+        DateFormat df = new SimpleDateFormat("yyMMdd-HHmm");
+        return df.format(newDate());
+    }
+
 
     private void doTasksExport(String output) throws IOException {
         File xmlFile = new File(output);
@@ -343,38 +378,5 @@ public class TasksXmlExporter {
      * @return output file name
      * @throws IOException
      */
-    private String setupFile(File directory, ExportType exportType) throws IOException {
-        if (directory != null) {
-            // Check for /sdcard/astrid directory. If it doesn't exist, make it.
-            if (directory.exists() || directory.mkdir()) {
-                String fileName;
-                switch(exportType) {
-                case EXPORT_TYPE_SERVICE:
-                    fileName = String.format(BackupConstants.BACKUP_FILE_NAME, getDateForExport());
-                    break;
-                case EXPORT_TYPE_MANUAL:
-                    fileName = String.format(BackupConstants.EXPORT_FILE_NAME, getDateForExport());
-                    break;
-                case EXPORT_TYPE_ON_UPGRADE:
-                    fileName = String.format(BackupConstants.UPGRADE_FILE_NAME, latestSetVersionName);
-                    break;
-                default:
-                     throw new IllegalArgumentException("Invalid export type"); //$NON-NLS-1$
-                }
-                return directory.getAbsolutePath() + File.separator + fileName;
-            } else {
-                // Unable to make the /sdcard/astrid directory.
-                throw new IOException(context.getString(R.string.DLG_error_sdcard,
-                        directory.getAbsolutePath()));
-            }
-        } else {
-            // Unable to access the sdcard because it's not in the mounted state.
-            throw new IOException(context.getString(R.string.DLG_error_sdcard_general));
-        }
-    }
 
-    private static String getDateForExport() {
-        DateFormat df = new SimpleDateFormat("yyMMdd-HHmm");
-        return df.format(newDate());
-    }
 }
