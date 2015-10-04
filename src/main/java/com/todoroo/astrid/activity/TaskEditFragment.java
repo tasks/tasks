@@ -10,9 +10,11 @@ import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -84,7 +86,6 @@ import org.tasks.location.GeofenceService;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.DeviceInfo;
-import org.tasks.preferences.ResourceResolver;
 import org.tasks.ui.DeadlineControlSet;
 
 import java.io.File;
@@ -175,7 +176,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Inject TagDataDao tagDataDao;
     @Inject ActFmCameraModule actFmCameraModule;
     @Inject GeofenceService geofenceService;
-    @Inject ResourceResolver resourceResolver;
     @Inject DeviceInfo deviceInfo;
     @Inject DialogBuilder dialogBuilder;
 
@@ -446,7 +446,11 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 if (controlSet != null) {
                     ImageView icon = (ImageView) controlSet.findViewById(R.id.icon);
                     if (icon != null) {
-                        icon.setImageResource(resourceResolver.getResource(curr.getIcon()));
+                        Drawable drawable = getResources().getDrawable(curr.getIcon());
+                        if (preferences.isDarkTheme()) {
+                            drawable = whiteTint(drawable);
+                        }
+                        icon.setImageDrawable(drawable);
                     }
                     basicControls.addView(controlSet);
                 }
@@ -458,6 +462,12 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
 
         getActivity().getIntent().removeExtra(TOKEN_OPEN_CONTROL);
+    }
+
+    private Drawable whiteTint(Drawable drawable) {
+        Drawable wrapDrawable = DrawableCompat.wrap(drawable);
+        DrawableCompat.setTint(wrapDrawable, getResources().getColor(android.R.color.white));
+        return wrapDrawable;
     }
 
     /**

@@ -252,7 +252,7 @@ public final class TagsControlSet extends PopupControlSet {
 
     @Override
     public int getIcon() {
-        return R.attr.ic_action_tags;
+        return R.drawable.ic_label_black_24dp;
     }
 
     @Override

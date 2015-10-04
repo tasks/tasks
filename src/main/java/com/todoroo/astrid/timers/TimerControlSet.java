@@ -67,7 +67,7 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
 
     @Override
     public int getIcon() {
-        return R.attr.ic_timer;
+        return R.drawable.ic_timer_black_24dp;
     }
 
     // --- TimeDurationTaskEditControlSet

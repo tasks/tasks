@@ -42,16 +42,6 @@
         <item name="asAbBackgroundColor">#607d8b</item>
         <item name="importance_background_selected">@drawable/importance_background_selected</item>
         <item name="task_edit_divider">@color/task_edit_divider</item>
-        <item name="ic_action_attachment">@drawable/ic_attachment_black_24dp</item>
-        <item name="ic_action_clock">@drawable/ic_schedule_black_24dp</item>
-        <item name="ic_action_flag">@drawable/ic_flag_black_24dp</item>
-        <item name="ic_action_tags">@drawable/ic_label_black_24dp</item>
-        <item name="ic_action_list">@drawable/ic_event_note_black_24dp</item>
-        <item name="ic_action_box">@drawable/ic_visibility_off_black_24dp</item>
-        <item name="ic_action_bell">@drawable/ic_notifications_black_24dp</item>
-        <item name="ic_timer">@drawable/ic_timer_black_24dp</item>
-        <item name="ic_action_reload">@drawable/ic_repeat_black_24dp</item>
-        <item name="ic_action_calendar_month">@drawable/ic_event_black_24dp</item>
         <item name="fab_icon">@drawable/ic_add_white_24dp</item>
         <item name="ic_action_inbox">@drawable/ic_inbox_black_24dp</item>
         <item name="ic_action_help">@drawable/ic_help_black_24dp</item>

@@ -451,6 +451,6 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
 
     @Override
     public int getIcon() {
-        return R.attr.ic_action_clock;
+        return R.drawable.ic_schedule_black_24dp;
     }
 }

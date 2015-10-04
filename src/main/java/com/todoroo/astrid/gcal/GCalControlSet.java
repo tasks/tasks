@@ -247,6 +247,6 @@ public class GCalControlSet extends TaskEditControlSetBase {
 
     @Override
     public int getIcon() {
-        return R.attr.ic_action_calendar_month;
+        return R.drawable.ic_event_black_24dp;
     }
 }

@@ -201,7 +201,7 @@ public class RepeatControlSet extends PopupControlSet {
 
     @Override
     public int getIcon() {
-        return R.attr.ic_action_reload;
+        return R.drawable.ic_repeat_black_24dp;
     }
 
     @Override
