@@ -26,14 +26,13 @@ import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
-import org.tasks.preferences.ResourceResolver;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static java.util.Collections.*;
+import static java.util.Collections.emptyList;
 
 /**
  * Exposes filters based on lists
@@ -45,14 +44,12 @@ public class GtasksFilterExposer {
 
     private final GtasksListService gtasksListService;
     private final GtasksPreferenceService gtasksPreferenceService;
-    private ResourceResolver resourceResolver;
     private final Context context;
     private final GtasksMetadata gtasksMetadata;
 
     @Inject
-    public GtasksFilterExposer(ResourceResolver resourceResolver, @ForApplication Context context, GtasksListService gtasksListService,
+    public GtasksFilterExposer(@ForApplication Context context, GtasksListService gtasksListService,
                                GtasksPreferenceService gtasksPreferenceService, GtasksMetadata gtasksMetadata) {
-        this.resourceResolver = resourceResolver;
         this.context = context;
         this.gtasksListService = gtasksListService;
         this.gtasksPreferenceService = gtasksPreferenceService;
@@ -65,7 +62,7 @@ public class GtasksFilterExposer {
             return emptyList();
         }
 
-        int cloud = resourceResolver.getResource(R.attr.ic_action_cloud);
+        int cloud = R.drawable.ic_cloud_queue_black_24dp;
 
         List<Filter> listFilters = newArrayList();
         for (GtasksList list : gtasksListService.getLists()) {

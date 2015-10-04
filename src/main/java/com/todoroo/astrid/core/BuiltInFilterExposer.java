@@ -26,7 +26,6 @@ import com.todoroo.astrid.tags.TaskToTagMetadata;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
-import org.tasks.preferences.ResourceResolver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,19 +41,17 @@ import javax.inject.Inject;
 public final class BuiltInFilterExposer {
 
     private final Preferences preferences;
-    private ResourceResolver resourceResolver;
     private final Context context;
 
     @Inject
-    public BuiltInFilterExposer(ResourceResolver resourceResolver, @ForApplication Context context, Preferences preferences) {
-        this.resourceResolver = resourceResolver;
+    public BuiltInFilterExposer(@ForApplication Context context, Preferences preferences) {
         this.context = context;
         this.preferences = preferences;
     }
 
     public Filter getMyTasksFilter() {
         Filter myTasksFilter = getMyTasksFilter(context.getResources());
-        myTasksFilter.icon = resourceResolver.getResource(R.attr.ic_action_inbox);
+        myTasksFilter.icon = R.drawable.ic_inbox_black_24dp;
         return myTasksFilter;
     }
 
@@ -65,17 +62,17 @@ public final class BuiltInFilterExposer {
 
         if (preferences.getBoolean(R.string.p_show_today_filter, true)) {
             Filter todayFilter = getTodayFilter(r);
-            todayFilter.icon = resourceResolver.getResource(R.attr.ic_action_calendar_today);
+            todayFilter.icon = R.drawable.ic_today_black_24dp;
             filters.add(todayFilter);
         }
         if (preferences.getBoolean(R.string.p_show_recently_modified_filter, true)) {
             Filter recentlyModifiedFilter = getRecentlyModifiedFilter(r);
-            recentlyModifiedFilter.icon = resourceResolver.getResource(R.attr.ic_action_history);
+            recentlyModifiedFilter.icon = R.drawable.ic_history_black_24dp;
             filters.add(recentlyModifiedFilter);
         }
         if (preferences.getBoolean(R.string.p_show_not_in_list_filter, true)) {
             Filter uncategorizedFilter = getUncategorizedFilter(r);
-            uncategorizedFilter.icon = resourceResolver.getResource(R.attr.ic_action_uncategorized);
+            uncategorizedFilter.icon = R.drawable.ic_label_outline_black_24dp;
             filters.add(uncategorizedFilter);
         }
         // transmit filter list

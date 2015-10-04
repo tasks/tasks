@@ -25,7 +25,6 @@ import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
-import org.tasks.preferences.ResourceResolver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,15 +39,11 @@ import javax.inject.Inject;
  */
 public class TagFilterExposer {
 
-    public static final String TAG = "tag"; //$NON-NLS-1$
-
     private final TagService tagService;
-    private ResourceResolver resourceResolver;
     private final Context context;
 
     @Inject
-    public TagFilterExposer(ResourceResolver resourceResolver, @ForApplication Context context, TagService tagService) {
-        this.resourceResolver = resourceResolver;
+    public TagFilterExposer(@ForApplication Context context, TagService tagService) {
         this.context = context;
         this.tagService = tagService;
     }
@@ -94,7 +89,7 @@ public class TagFilterExposer {
 
         List<Filter> filters = new ArrayList<>();
 
-        int label = resourceResolver.getResource(R.attr.ic_action_label);
+        int label = R.drawable.ic_label_black_24dp;
 
         for (TagData tag : tags) {
             Filter f = constructFilter(context, tag);

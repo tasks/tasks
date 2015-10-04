@@ -12,7 +12,6 @@ import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.data.StoreObject;
 
 import org.tasks.R;
-import org.tasks.preferences.ResourceResolver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,18 +21,16 @@ import javax.inject.Inject;
 public final class CustomFilterExposer {
 
     private final StoreObjectDao storeObjectDao;
-    private ResourceResolver resourceResolver;
 
     @Inject
-    public CustomFilterExposer(ResourceResolver resourceResolver, StoreObjectDao storeObjectDao) {
-        this.resourceResolver = resourceResolver;
+    public CustomFilterExposer(StoreObjectDao storeObjectDao) {
         this.storeObjectDao = storeObjectDao;
     }
 
     public List<Filter> getFilters() {
         final List<Filter> list = new ArrayList<>();
 
-        final int filter = resourceResolver.getResource(R.attr.ic_action_filter);
+        final int filter = R.drawable.ic_filter_list_black_24dp;
 
         storeObjectDao.getSavedFilters(new Callback<StoreObject>() {
             @Override

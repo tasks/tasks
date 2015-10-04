@@ -33,8 +33,8 @@ import org.tasks.filters.FilterProvider;
 import org.tasks.filters.NavigationDrawerAction;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.location.GeofenceService;
+import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.AppearancePreferences;
-import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
@@ -68,7 +68,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
     @Inject FilterCounter filterCounter;
     @Inject FilterProvider filterProvider;
     @Inject GeofenceService geofenceService;
-    @Inject Preferences preferences;
+    @Inject ActivityPreferences preferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -108,6 +108,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
                     data.getBooleanExtra(OldTaskPreferences.TOGGLE_DELETED, false)) {
                 getActivity().finish();
                 getActivity().startActivity(getActivity().getIntent());
+                refresh();
             }
         } else if ((requestCode == NavigationDrawerFragment.REQUEST_NEW_LIST ||
                 requestCode == TaskListFragment.ACTIVITY_REQUEST_NEW_FILTER) &&
@@ -150,7 +151,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
     }
 
     private void setUpList() {
-        adapter = new FilterAdapter(filterProvider, filterCounter, getActivity(), mDrawerListView, true);
+        adapter = new FilterAdapter(filterProvider, filterCounter, getActivity(), mDrawerListView, true, preferences);
         mDrawerListView.setAdapter(adapter);
         registerForContextMenu(mDrawerListView);
     }
