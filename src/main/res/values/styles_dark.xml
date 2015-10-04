@@ -57,9 +57,6 @@
         <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
         <item name="asTextColor">@android:color/white</item>
         <item name="asListDividerColor">#dddddd</item>
-        <item name="ic_arrow_back">@drawable/ic_arrow_back_white_24dp</item>
-        <item name="ic_folder">@drawable/ic_folder_white_24dp</item>
-        <item name="ic_file">@drawable/ic_insert_drive_file_white_24dp</item>
     </style>
 
 </resources>

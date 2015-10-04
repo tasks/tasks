@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,6 @@ import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPreferences;
-import org.tasks.preferences.ResourceResolver;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -54,7 +54,6 @@ public class FileExplore extends InjectingAppCompatActivity {
 
 	@Inject DialogBuilder dialogBuilder;
 	@Inject ActivityPreferences activityPreferences;
-	@Inject ResourceResolver resourceResolver;
 
 	private Item[] fileList;
 	private File path;
@@ -108,21 +107,21 @@ public class FileExplore extends InjectingAppCompatActivity {
 			String[] fList = path.list(filter);
 			fileList = new Item[fList.length];
 			for (int i = 0; i < fList.length; i++) {
-				fileList[i] = new Item(fList[i], resourceResolver.getResource(R.attr.ic_file));
+				fileList[i] = new Item(fList[i], R.drawable.ic_insert_drive_file_black_24dp);
 
 				// Convert into file path
 				File sel = new File(path, fList[i]);
 
 				// Set drawables
 				if (sel.isDirectory()) {
-					fileList[i].icon = resourceResolver.getResource(R.attr.ic_folder);
+					fileList[i].icon = R.drawable.ic_folder_black_24dp;
 				}
 			}
 
 			if (!firstLvl) {
 				Item temp[] = new Item[fileList.length + 1];
                 System.arraycopy(fileList, 0, temp, 1, fileList.length);
-				temp[0] = new Item(upString, resourceResolver.getResource(R.attr.ic_arrow_back));
+				temp[0] = new Item(upString, R.drawable.ic_arrow_back_black_24dp);
 				fileList = temp;
 			}
 		} else {
@@ -140,13 +139,17 @@ public class FileExplore extends InjectingAppCompatActivity {
 						.findViewById(android.R.id.text1);
 
 				// put the image on the text view
-				textView.setCompoundDrawablesWithIntrinsicBounds(
-						fileList[position].icon, 0, 0, 0);
-				for (Drawable drawable : textView.getCompoundDrawables()) {
-					if (drawable != null) {
-						drawable.setAlpha(138);
-					}
+				int icon = fileList[position].icon;
+				Drawable drawable = getResources().getDrawable(icon, getTheme());
+				if (activityPreferences.isDarkTheme()) {
+					Drawable wrapDrawable = DrawableCompat.wrap(drawable);
+					DrawableCompat.setTint(wrapDrawable, getResources().getColor(android.R.color.white));
+					drawable = wrapDrawable;
 				}
+				if (drawable != null) {
+					drawable.setAlpha(138);
+				}
+				textView.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
 
 				// add margin between image and text (support various screen
 				// densities)
