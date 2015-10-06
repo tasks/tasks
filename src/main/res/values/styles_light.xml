@@ -38,7 +38,6 @@
         <item name="fab_tint">@android:color/white</item>
         <item name="importance_background_selected">@drawable/importance_background_selected</item>
         <item name="task_edit_divider">@color/task_edit_divider</item>
-        <item name="textfield_underline">@drawable/textfield_underline_black</item>
         <item name="android:spinnerItemStyle">@style/SpinnerNoPadding</item>
     </style>
 

@@ -39,7 +39,6 @@
         <item name="asListDividerColor">#dddddd</item>
         <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
         <item name="importance_background_selected">@drawable/importance_background_selected</item>
-        <item name="textfield_underline">@drawable/textfield_underline_white</item>
         <item name="android:spinnerItemStyle">@style/SpinnerNoPadding</item>
     </style>
 

@@ -29,7 +29,6 @@
     <attr name="toolbarSeparatorHeight" format="dimension" />
     <attr name="separatorHeight" format="dimension" />
     <attr name="popup_theme" format="reference" />
-    <attr name="textfield_underline" format="reference" />
 
     <declare-styleable name="DateAndTimePicker">
         <attr name="shortcutLabels" format="reference" />
