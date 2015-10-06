@@ -5,7 +5,7 @@ import android.test.AndroidTestCase;
 
 import com.todoroo.astrid.data.Task;
 
-import org.joda.time.DateTime;
+import org.tasks.time.DateTime;
 import org.tasks.Freeze;
 import org.tasks.R;
 import org.tasks.preferences.Preferences;

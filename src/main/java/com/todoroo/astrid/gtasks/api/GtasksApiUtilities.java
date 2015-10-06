@@ -48,7 +48,7 @@ public class GtasksApiUtilities {
         date.setMinutes(0);
         date.setSeconds(0);
         date.setTime(date.getTime() - date.getTimezoneOffset() * 60000);
-        return new DateTime(date, TimeZone.getTimeZone("UTC"));
+        return new DateTime(date, TimeZone.getTimeZone("GMT"));
     }
 
     //Adjust for google's rounding

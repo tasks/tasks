@@ -9,7 +9,7 @@ import android.content.res.Configuration;
 import android.test.AndroidTestCase;
 import android.util.DisplayMetrics;
 
-import org.joda.time.DateTime;
+import org.tasks.time.DateTime;
 import org.tasks.Snippet;
 
 import java.util.Date;
@@ -195,7 +195,7 @@ public class DateUtilitiesTest extends AndroidTestCase {
 
     public void testNotTheEndOfTheMonth() {
         for (int month = 1; month <= 12; month++) {
-            int lastDay = new DateTime(2014, month, 1, 0, 0, 0, 0).dayOfMonth().getMaximumValue();
+            int lastDay = new DateTime(2014, month, 1, 0, 0, 0, 0).getNumberOfDaysInMonth();
             for (int day = 1; day < lastDay; day++) {
                 assertFalse(isEndOfMonth(newDate(2014, month, day)));
             }

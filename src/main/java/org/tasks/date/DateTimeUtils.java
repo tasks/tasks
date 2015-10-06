@@ -1,13 +1,13 @@
 package org.tasks.date;
 
-import org.joda.time.DateTime;
+import org.tasks.time.DateTime;
 
 import java.util.Date;
 
 public class DateTimeUtils {
 
     public static long currentTimeMillis() {
-        return org.joda.time.DateTimeUtils.currentTimeMillis();
+        return org.tasks.time.DateTimeUtils.currentTimeMillis();
     }
 
     public static Date newDate() {

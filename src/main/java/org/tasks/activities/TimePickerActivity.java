@@ -10,7 +10,7 @@ import android.text.format.DateFormat;
 import com.sleepbot.datetimepicker.time.RadialPickerLayout;
 import com.sleepbot.datetimepicker.time.TimePickerDialog;
 
-import org.joda.time.DateTime;
+import org.tasks.time.DateTime;
 import org.tasks.dialogs.MyTimePickerDialog;
 
 import static org.tasks.date.DateTimeUtils.currentTimeMillis;

@@ -2,11 +2,11 @@ package org.tasks.date;
 
 import android.test.AndroidTestCase;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.tasks.Snippet;
+import org.tasks.time.DateTime;
 
 import java.util.Date;
+import java.util.TimeZone;
 
 import static org.tasks.Freeze.freezeAt;
 import static org.tasks.date.DateTimeUtils.currentTimeMillis;
@@ -39,12 +39,12 @@ public class DateTimeUtilsTest extends AndroidTestCase {
     }
 
     public void testCreateNewUtcDate() {
-        DateTime utc = now.toDateTime(DateTimeZone.UTC);
+        DateTime utc = now.toUTC();
         Date actual = newDateUtc(utc.getYear(), utc.getMonthOfYear(), utc.getDayOfMonth(), utc.getHourOfDay(), utc.getMinuteOfHour(), utc.getSecondOfMinute());
         assertEquals(utc.getMillis(), actual.getTime());
     }
 
     public void testIllegalInstant() {
-        new DateTime(2015, 7, 24, 0, 0, 0, 0, DateTimeZone.forID("Africa/Cairo"));
+        new DateTime(2015, 7, 24, 0, 0, 0, 0, TimeZone.getTimeZone("Africa/Cairo"));
     }
 }

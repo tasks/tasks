@@ -8,7 +8,7 @@ package com.todoroo.andlib.utility;
 import android.content.Context;
 import android.text.format.DateFormat;
 
-import org.joda.time.DateTime;
+import org.tasks.time.DateTime;
 import org.tasks.R;
 
 import java.text.SimpleDateFormat;
@@ -223,7 +223,7 @@ public class DateUtilities {
     }
 
     public static boolean isEndOfMonth(Date d) {
-        return d.getDate() == new DateTime(d).dayOfMonth().getMaximumValue();
+        return d.getDate() == new DateTime(d).getNumberOfDaysInMonth();
     }
 
     public static long getStartOfDay(long time) {

@@ -6,7 +6,7 @@ import android.content.res.TypedArray;
 import android.preference.Preference;
 import android.util.AttributeSet;
 
-import org.joda.time.DateTime;
+import org.tasks.time.DateTime;
 import org.tasks.R;
 import org.tasks.activities.TimePickerActivity;
 

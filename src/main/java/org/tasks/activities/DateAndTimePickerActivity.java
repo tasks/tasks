@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentManager;
 
 import com.fourmob.datetimepicker.date.DatePickerDialog;
 
-import org.joda.time.DateTime;
+import org.tasks.time.DateTime;
 import org.tasks.dialogs.MyDatePickerDialog;
 
 import static org.tasks.date.DateTimeUtils.currentTimeMillis;

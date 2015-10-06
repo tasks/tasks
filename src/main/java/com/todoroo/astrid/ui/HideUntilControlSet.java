@@ -19,7 +19,7 @@ import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSetBase;
 
-import org.joda.time.DateTime;
+import org.tasks.time.DateTime;
 import org.tasks.R;
 import org.tasks.activities.DateAndTimePickerActivity;
 

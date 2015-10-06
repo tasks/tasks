@@ -7,7 +7,7 @@ import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.todoroo.astrid.data.Task;
 
-import org.joda.time.DateTime;
+import org.tasks.time.DateTime;
 
 import java.text.ParseException;
 

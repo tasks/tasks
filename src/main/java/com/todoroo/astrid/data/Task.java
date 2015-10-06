@@ -18,7 +18,7 @@ import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
 
-import org.joda.time.DateTime;
+import org.tasks.time.DateTime;
 import org.tasks.BuildConfig;
 import org.tasks.R;
 

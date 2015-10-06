@@ -2,8 +2,7 @@ package com.todoroo.astrid.gtasks.api;
 
 import android.test.AndroidTestCase;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
+import org.tasks.time.DateTime;
 
 import java.util.Locale;
 import java.util.TimeZone;
@@ -16,18 +15,18 @@ import static com.todoroo.astrid.gtasks.api.GtasksApiUtilities.unixTimeToGtasksD
 public class GtasksApiUtilitiesTest extends AndroidTestCase {
 
     private static final Locale defaultLocale = Locale.getDefault();
-    private static final DateTimeZone defaultDateTimeZone = DateTimeZone.getDefault();
+    private static final TimeZone defaultDateTimeZone = TimeZone.getDefault();
 
     @Override
     public void setUp() {
         Locale.setDefault(Locale.US);
-        DateTimeZone.setDefault(DateTimeZone.forID("America/Chicago"));
+        TimeZone.setDefault(TimeZone.getTimeZone("America/Chicago"));
     }
 
     @Override
     public void tearDown() {
         Locale.setDefault(defaultLocale);
-        DateTimeZone.setDefault(defaultDateTimeZone);
+        TimeZone.setDefault(defaultDateTimeZone);
     }
 
     public void testConvertUnixToGoogleCompletionTime() {
@@ -45,14 +44,14 @@ public class GtasksApiUtilitiesTest extends AndroidTestCase {
         DateTime now = new DateTime(2014, 1, 8, 8, 53, 20, 109);
 
         assertEquals(
-                new DateTime(2014, 1, 8, 0, 0, 0, 0, DateTimeZone.UTC).getMillis(),
+                new DateTime(2014, 1, 8, 0, 0, 0, 0, TimeZone.getTimeZone("GMT")).getMillis(),
                 unixTimeToGtasksDueDate(now.getMillis()).getValue());
     }
 
     public void disabled_testConvertGoogleDueDateToUnixTime() {
         com.google.api.client.util.DateTime googleDueDate =
                 new com.google.api.client.util.DateTime(
-                        new DateTime(2014, 1, 8, 0, 0, 0, 0).toDate(), TimeZone.getTimeZone("UTC"));
+                        new DateTime(2014, 1, 8, 0, 0, 0, 0).toDate(), TimeZone.getTimeZone("GMT"));
 
         assertEquals(
                 new DateTime(2014, 1, 8, 6, 0, 0, 0).getMillis(),

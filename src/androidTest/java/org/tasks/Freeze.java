@@ -1,7 +1,7 @@
 package org.tasks;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeUtils;
+import org.tasks.time.DateTime;
+import org.tasks.time.DateTimeUtils;
 
 import java.util.Date;
 

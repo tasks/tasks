@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.widget.Toast;
 
-import org.joda.time.DateTime;
+import org.tasks.time.DateTime;
 import org.tasks.R;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.injection.InjectingPreferenceActivity;

@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
 
 import com.todoroo.astrid.reminders.SnoozeCallback;
 
-import org.joda.time.DateTime;
+import org.tasks.time.DateTime;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForApplication;

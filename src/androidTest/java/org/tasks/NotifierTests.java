@@ -3,7 +3,7 @@ package org.tasks;
 import android.annotation.SuppressLint;
 import android.test.AndroidTestCase;
 
-import org.joda.time.DateTime;
+import org.tasks.time.DateTime;
 import org.tasks.preferences.Preferences;
 
 import java.util.concurrent.TimeUnit;

@@ -2,7 +2,7 @@ package com.todoroo.astrid.data;
 
 import android.test.AndroidTestCase;
 
-import org.joda.time.DateTime;
+import org.tasks.time.DateTime;
 import org.tasks.Snippet;
 
 import java.util.ArrayList;

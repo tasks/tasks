@@ -2,12 +2,12 @@ package com.todoroo.andlib.utility;
 
 import android.test.AndroidTestCase;
 
-import org.joda.time.DateTime;
+import org.tasks.time.DateTime;
 
 import java.util.Locale;
 
 import static com.todoroo.andlib.utility.DateUtilities.getRelativeDay;
-import static org.joda.time.DateTime.now;
+import static org.tasks.time.DateTime.now;
 import static org.tasks.Freeze.freezeAt;
 import static org.tasks.Freeze.thaw;
 

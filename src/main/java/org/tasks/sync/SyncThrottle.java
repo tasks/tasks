@@ -1,6 +1,6 @@
 package org.tasks.sync;
 
-import org.joda.time.DateTime;
+import org.tasks.time.DateTime;
 
 import java.util.HashMap;
 import java.util.Map;

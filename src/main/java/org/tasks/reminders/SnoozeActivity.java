@@ -10,7 +10,7 @@ import com.todoroo.astrid.reminders.SnoozeCallback;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 
-import org.joda.time.DateTime;
+import org.tasks.time.DateTime;
 import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.injection.InjectingAppCompatActivity;

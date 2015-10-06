@@ -14,7 +14,7 @@ import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 
-import org.joda.time.DateTime;
+import org.tasks.time.DateTime;
 
 import java.text.ParseException;
 import java.util.ArrayList;
