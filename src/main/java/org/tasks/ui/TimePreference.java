@@ -6,11 +6,11 @@ import android.content.res.TypedArray;
 import android.preference.Preference;
 import android.util.AttributeSet;
 
-import org.tasks.time.DateTime;
+import com.todoroo.andlib.utility.DateUtilities;
+
 import org.tasks.R;
 import org.tasks.activities.TimePickerActivity;
-
-import java.text.DateFormat;
+import org.tasks.time.DateTime;
 
 public class TimePreference extends Preference {
 
@@ -57,7 +57,7 @@ public class TimePreference extends Preference {
 
     private void setMillisOfDay(int millisOfDay) {
         this.millisOfDay = millisOfDay;
-        String setting = DateFormat.getTimeInstance(DateFormat.SHORT).format(new DateTime().withMillisOfDay(millisOfDay).toDate());
+        String setting = DateUtilities.getTimeString(getContext(), new DateTime().withMillisOfDay(millisOfDay));
         setSummary(summary == null ? setting : String.format(summary, setting));
     }
 }

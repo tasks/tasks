@@ -15,7 +15,7 @@ import static com.natpryce.makeiteasy.MakeItEasy.with;
 import static java.util.Arrays.asList;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
-import static org.tasks.date.DateTimeUtils.currentTimeMillis;
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 import static org.tasks.makers.GtaskListMaker.LAST_SYNC;
 import static org.tasks.makers.GtaskListMaker.NAME;
 import static org.tasks.makers.GtaskListMaker.REMOTE_ID;

@@ -17,7 +17,7 @@ import javax.inject.Inject;
 import static org.tasks.Freeze.freezeClock;
 import static org.tasks.RemoteModelHelpers.asQueryProperties;
 import static org.tasks.RemoteModelHelpers.compareRemoteModel;
-import static org.tasks.date.DateTimeUtils.currentTimeMillis;
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 public class TaskTest extends InjectingTestCase {
 

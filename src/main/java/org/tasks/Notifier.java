@@ -43,7 +43,7 @@ import java.io.InputStream;
 import javax.inject.Inject;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
-import static org.tasks.date.DateTimeUtils.currentTimeMillis;
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 public class Notifier {
 

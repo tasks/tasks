@@ -8,7 +8,7 @@ import com.natpryce.makeiteasy.PropertyLookup;
 import com.natpryce.makeiteasy.PropertyValue;
 
 import static com.natpryce.makeiteasy.Property.newProperty;
-import static org.tasks.date.DateTimeUtils.currentTimeMillis;
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 import static org.tasks.makers.Maker.make;
 
 public class RemoteGtaskListMaker {

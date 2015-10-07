@@ -1,7 +1,6 @@
 package com.todoroo.astrid.gcal;
 
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -12,10 +11,6 @@ import android.widget.TextView;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-
-import org.tasks.dialogs.DialogBuilder;
-import org.tasks.injection.InjectingAppCompatActivity;
-import org.tasks.preferences.BasicPreferences;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
@@ -25,13 +20,16 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
+import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.ResourceResolver;
 import org.tasks.scheduling.AlarmManager;
 
 import javax.inject.Inject;
 
-import static org.tasks.date.DateTimeUtils.newDate;
+import static org.tasks.date.DateTimeUtils.newDateTime;
 
 public class CalendarReminderActivity extends InjectingAppCompatActivity {
 
@@ -195,7 +193,7 @@ public class CalendarReminderActivity extends InjectingAppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         createNewList(tag.getName() + " "
-                                + DateUtilities.getDateStringHideYear(newDate(startTime)));
+                                + DateUtilities.getDateStringHideYear(newDateTime(startTime)));
                     }
                 })
                 .setNegativeButton(R.string.CRA_use_existing, new DialogInterface.OnClickListener() {

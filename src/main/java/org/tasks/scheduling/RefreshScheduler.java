@@ -19,7 +19,7 @@ import javax.inject.Singleton;
 
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 import static com.todoroo.andlib.utility.DateUtilities.ONE_MINUTE;
-import static org.tasks.date.DateTimeUtils.currentTimeMillis;
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 @Singleton
 public class RefreshScheduler {

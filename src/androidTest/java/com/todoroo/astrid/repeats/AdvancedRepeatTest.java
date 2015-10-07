@@ -19,9 +19,9 @@ import org.tasks.time.DateTime;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 import static org.tasks.date.DateTimeUtils.newDate;
+import static org.tasks.date.DateTimeUtils.newDateTime;
 
 public class AdvancedRepeatTest extends AndroidTestCase {
 
@@ -62,11 +62,11 @@ public class AdvancedRepeatTest extends AndroidTestCase {
         long dayWithTime = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, new DateTime(2010, 8, 1, 10, 4, 0).getMillis());
         task.setDueDate(dayWithTime);
 
-        Date todayWithTime = newDate();
-        todayWithTime.setHours(10);
-        todayWithTime.setMinutes(4);
-        todayWithTime.setSeconds(1);
-        long nextDayWithTimeLong = todayWithTime.getTime();
+        DateTime todayWithTime = newDateTime()
+                .withHourOfDay(10)
+                .withMinuteOfHour(4)
+                .withSecondOfMinute(1);
+        long nextDayWithTimeLong = todayWithTime.getMillis();
         nextDayWithTimeLong += DateUtilities.ONE_DAY;
         nextDayWithTimeLong = nextDayWithTimeLong / 1000L * 1000;
 

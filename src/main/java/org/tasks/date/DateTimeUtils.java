@@ -3,16 +3,9 @@ package org.tasks.date;
 import org.tasks.time.DateTime;
 
 import java.util.Date;
+import java.util.TimeZone;
 
 public class DateTimeUtils {
-
-    public static long currentTimeMillis() {
-        return org.tasks.time.DateTimeUtils.currentTimeMillis();
-    }
-
-    public static Date newDate() {
-        return newDate(currentTimeMillis());
-    }
 
     public static Date newDate(long date) {
         return new Date(date);
@@ -22,8 +15,8 @@ public class DateTimeUtils {
         return new Date(year - 1900, month - 1, day);
     }
 
-    public static Date newDateUtc(int year, int month, int day, int hour, int minute, int second) {
-        return newDate(Date.UTC(year - 1900, month - 1, day, hour, minute, second));
+    public static DateTime newDateUtc(int year, int month, int day, int hour, int minute, int second) {
+        return new DateTime(year, month, day, hour, minute, second, 0, TimeZone.getTimeZone("GMT"));
     }
 
     public static DateTime newDateTime() {
@@ -36,9 +29,5 @@ public class DateTimeUtils {
 
     public static DateTime newDateTime(long timestamp) {
         return new DateTime(timestamp);
-    }
-
-    public static String printTimestamp(long timestamp) {
-        return new Date(timestamp).toString();
     }
 }

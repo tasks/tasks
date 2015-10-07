@@ -20,11 +20,11 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSetBase;
 
-import org.tasks.time.DateTime;
 import org.tasks.R;
 import org.tasks.dialogs.MyDatePickerDialog;
 import org.tasks.dialogs.MyTimePickerDialog;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,6 @@ import java.util.concurrent.TimeUnit;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastHoneycomb;
 import static java.util.Arrays.asList;
-import static org.tasks.date.DateTimeUtils.newDate;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 public class DeadlineControlSet extends TaskEditControlSetBase {
@@ -127,7 +126,7 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
             } else if (date == today.plusWeeks(1).getMillis()) {
                 dueDateOptions.set(0, nextWeekString);
             } else {
-                dueDateOptions.set(0, DateUtilities.getLongDateStringHideYear(newDate(date)));
+                dueDateOptions.set(0, DateUtilities.getLongDateStringHideYear(newDateTime(date)));
             }
         }
         dueDateOptions.set(3, nextWeekString);

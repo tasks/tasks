@@ -16,12 +16,10 @@ import org.tasks.preferences.Preferences;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 import javax.inject.Inject;
 
-import static org.tasks.date.DateTimeUtils.newDate;
+import static org.tasks.date.DateTimeUtils.newDateTime;
 
 public class BackupServiceTests extends DatabaseTestCase {
 
@@ -97,8 +95,7 @@ public class BackupServiceTests extends DatabaseTestCase {
 
         // create some backup files
         for (int i = 0; i < 10; i++) {
-            DateFormat df = new SimpleDateFormat("MMdd-HHmm");
-            String name = String.format("auto.%02d%s.xml", i, df.format(newDate()));
+            String name = String.format("auto.%02d%s.xml", i, newDateTime().toString("MMdd-HHmm"));
             File tempFile = new File(temporaryDirectory, name);
             tempFile.createNewFile();
         }

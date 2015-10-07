@@ -19,7 +19,7 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static org.tasks.date.DateTimeUtils.printTimestamp;
+import static org.tasks.time.DateTimeUtils.printTimestamp;
 
 public class GtasksListService {
 

@@ -11,7 +11,7 @@ import com.fourmob.datetimepicker.date.DatePickerDialog;
 import org.tasks.time.DateTime;
 import org.tasks.dialogs.MyDatePickerDialog;
 
-import static org.tasks.date.DateTimeUtils.currentTimeMillis;
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 public class DateAndTimePickerActivity extends FragmentActivity implements DatePickerDialog.OnDateSetListener, DialogInterface.OnCancelListener {
 

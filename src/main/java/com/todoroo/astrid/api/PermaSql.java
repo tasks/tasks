@@ -7,9 +7,7 @@ package com.todoroo.astrid.api;
 
 import com.todoroo.andlib.utility.DateUtilities;
 
-import java.util.Date;
-
-import static org.tasks.date.DateTimeUtils.newDate;
+import static org.tasks.date.DateTimeUtils.newDateTime;
 
 /**
  * PermaSql allows for creating SQL statements that can be saved and used
@@ -81,11 +79,12 @@ public final class PermaSql {
     }
 
     private static String replaceEodValues(String value) {
-        Date date = newDate();
-        date.setHours(23);
-        date.setMinutes(59);
-        date.setSeconds(59);
-        long time = date.getTime() / 1000l * 1000l; // chop milliseconds off
+        long time = newDateTime()
+                .withHourOfDay(23)
+                .withMinuteOfHour(59)
+                .withSecondOfMinute(59)
+                .withMillisOfSecond(0)
+                .getMillis();
         value = value.replace(VALUE_EOD_YESTERDAY, Long.toString(time - DateUtilities.ONE_DAY));
         value = value.replace(VALUE_EOD, Long.toString(time));
         value = value.replace(VALUE_EOD_TOMORROW, Long.toString(time + DateUtilities.ONE_DAY));
@@ -96,11 +95,12 @@ public final class PermaSql {
     }
 
     private static String replaceNoonValues(String value) {
-        Date date = newDate();
-        date.setHours(12);
-        date.setMinutes(0);
-        date.setSeconds(0);
-        long time = date.getTime() / 1000l * 1000l; // chop milliseconds off
+        long time = newDateTime()
+                .withHourOfDay(12)
+                .withMinuteOfHour(0)
+                .withSecondOfMinute(0)
+                .withMillisOfSecond(0)
+                .getMillis();
         value = value.replace(VALUE_NOON_YESTERDAY, Long.toString(time - DateUtilities.ONE_DAY));
         value = value.replace(VALUE_NOON, Long.toString(time));
         value = value.replace(VALUE_NOON_TOMORROW, Long.toString(time + DateUtilities.ONE_DAY));

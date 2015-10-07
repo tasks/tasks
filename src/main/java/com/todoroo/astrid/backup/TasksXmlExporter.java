@@ -38,12 +38,10 @@ import org.xmlpull.v1.XmlSerializer;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 import javax.inject.Inject;
 
-import static org.tasks.date.DateTimeUtils.newDate;
+import static org.tasks.date.DateTimeUtils.newDateTime;
 
 public class TasksXmlExporter {
 
@@ -374,7 +372,6 @@ public class TasksXmlExporter {
     }
 
     private static String getDateForExport() {
-        DateFormat df = new SimpleDateFormat("yyMMdd-HHmm");
-        return df.format(newDate());
+        return newDateTime().toString("yyMMdd-HHmm");
     }
 }

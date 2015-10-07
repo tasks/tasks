@@ -101,7 +101,7 @@ public class HideUntilControlSet extends TaskEditControlSetBase implements OnIte
             System.arraycopy(values, 0, updated, 1, values.length);
             Date hideUntilAsDate = newDate(specificDate);
             if(hideUntilAsDate.getHours() == 0 && hideUntilAsDate.getMinutes() == 0 && hideUntilAsDate.getSeconds() == 0) {
-                updated[0] = new HideUntilValue(DateUtilities.getDateString(newDate(specificDate)),
+                updated[0] = new HideUntilValue(DateUtilities.getDateString(newDateTime(specificDate)),
                         Task.HIDE_UNTIL_SPECIFIC_DAY, specificDate);
                 existingDate = specificDate;
             } else {
@@ -123,11 +123,12 @@ public class HideUntilControlSet extends TaskEditControlSetBase implements OnIte
         // ... at conclusion of dialog, update our list
         HideUntilValue item = adapter.getItem(position);
         if(item.date == SPECIFIC_DATE) {
-            customDate = newDate(existingDate == EXISTING_TIME_UNSET ? DateUtilities.now() : existingDate);
-            customDate.setSeconds(0);
+            customDate =
+                    newDateTime(existingDate == EXISTING_TIME_UNSET ? DateUtilities.now() : existingDate)
+                            .withSecondOfMinute(0);
 
             taskEditFragment.startActivityForResult(new Intent(taskEditFragment.getActivity(), DateAndTimePickerActivity.class) {{
-                putExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, customDate.getTime());
+                putExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, customDate.getMillis());
             }}, REQUEST_HIDE_UNTIL);
             spinner.setSelection(previousSetting);
         } else {
@@ -138,7 +139,7 @@ public class HideUntilControlSet extends TaskEditControlSetBase implements OnIte
     }
 
     public void setCustomDate(long timestamp) {
-        customDate = new DateTime(timestamp).toDate();
+        customDate = new DateTime(timestamp);
         customDateFinished();
     }
 
@@ -147,10 +148,10 @@ public class HideUntilControlSet extends TaskEditControlSetBase implements OnIte
         // ignore
     }
 
-    Date customDate;
+    DateTime customDate;
 
     private void customDateFinished() {
-        HideUntilValue[] list = createHideUntilList(customDate.getTime());
+        HideUntilValue[] list = createHideUntilList(customDate.getMillis());
         adapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);

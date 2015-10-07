@@ -11,9 +11,9 @@ import org.tasks.preferences.Preferences;
 import javax.inject.Inject;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
-import static org.tasks.date.DateTimeUtils.currentTimeMillis;
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 import static org.tasks.date.DateTimeUtils.newDateTime;
-import static org.tasks.date.DateTimeUtils.printTimestamp;
+import static org.tasks.time.DateTimeUtils.printTimestamp;
 
 public abstract class MidnightIntentService extends InjectingIntentService {
 

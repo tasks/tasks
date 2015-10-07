@@ -12,15 +12,14 @@ import android.test.AndroidTestCase;
 import android.util.DisplayMetrics;
 
 import org.tasks.R;
+import org.tasks.time.DateTime;
 
 import java.lang.reflect.Field;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import static org.tasks.date.DateTimeUtils.newDate;
+import static org.tasks.date.DateTimeUtils.newDateTime;
 
 /**
  * Tests translations for consistency with the default values. You must
@@ -225,7 +224,7 @@ abstract public class TranslationTests extends AndroidTestCase {
 
         final StringBuilder failures = new StringBuilder();
         final int[] dateStrings = getDateFormatStrings();
-        final Date date = newDate();
+        final DateTime date = newDateTime();
 
         forEachLocale(new Runnable() {
             public void run() {
@@ -234,7 +233,7 @@ abstract public class TranslationTests extends AndroidTestCase {
                     try {
                         String string = r.getString(dateString);
                         try {
-                            new SimpleDateFormat(string).format(date);
+                            date.toString(string);
                         } catch (Exception e) {
                             String name = r.getResourceName(dateString);
                             failures.append(String.format("%s: invalid format string '%s': %s\n",

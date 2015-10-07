@@ -26,7 +26,6 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSetBase;
 
-import org.tasks.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
@@ -35,9 +34,9 @@ import org.tasks.activities.LocationPickerActivity;
 import org.tasks.location.Geofence;
 import org.tasks.location.GeofenceService;
 import org.tasks.preferences.Preferences;
+import org.tasks.time.DateTime;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -361,10 +360,9 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
 
     private String getDisplayString(long forDate) {
         DateTime dateTime = newDateTime(forDate);
-        Date d = dateTime.toDate();
         return (dateTime.getYear() == newDateTime().getYear()
-                ? DateUtilities.getLongDateStringHideYear(d)
-                : DateUtilities.getLongDateString(d)) +
+                ? DateUtilities.getLongDateStringHideYear(dateTime)
+                : DateUtilities.getLongDateString(dateTime)) +
                 ", " + DateUtilities.getTimeString(activity, dateTime);
     }
 

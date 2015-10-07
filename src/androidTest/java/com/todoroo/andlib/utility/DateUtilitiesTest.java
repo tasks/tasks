@@ -9,10 +9,9 @@ import android.content.res.Configuration;
 import android.test.AndroidTestCase;
 import android.util.DisplayMetrics;
 
-import org.tasks.time.DateTime;
 import org.tasks.Snippet;
+import org.tasks.time.DateTime;
 
-import java.util.Date;
 import java.util.Locale;
 
 import static com.todoroo.andlib.utility.DateUtilities.addCalendarMonthsToUnixtime;
@@ -22,10 +21,10 @@ import static com.todoroo.andlib.utility.DateUtilities.getStartOfDay;
 import static com.todoroo.andlib.utility.DateUtilities.getTimeString;
 import static com.todoroo.andlib.utility.DateUtilities.getWeekday;
 import static com.todoroo.andlib.utility.DateUtilities.getWeekdayShort;
-import static com.todoroo.andlib.utility.DateUtilities.isEndOfMonth;
 import static com.todoroo.andlib.utility.DateUtilities.oneMonthFromNow;
 import static org.tasks.Freeze.freezeAt;
 import static org.tasks.date.DateTimeUtils.newDate;
+import static org.tasks.date.DateTimeUtils.newDateTime;
 
 public class DateUtilitiesTest extends AndroidTestCase {
 
@@ -63,18 +62,18 @@ public class DateUtilitiesTest extends AndroidTestCase {
     public void testTimeString() {
         forEachLocale(new Runnable() {
             public void run() {
-                Date d = newDate();
+                DateTime d = newDateTime();
 
                 DateUtilities.is24HourOverride = false;
                 for (int i = 0; i < 24; i++) {
-                    d.setHours(i);
-                    getTimeString(getContext(), new DateTime(d));
+                    d = d.withHourOfDay(i);
+                    getTimeString(getContext(), d);
                 }
 
                 DateUtilities.is24HourOverride = true;
                 for (int i = 0; i < 24; i++) {
-                    d.setHours(i);
-                    getTimeString(getContext(), new DateTime(d));
+                    d = d.withHourOfDay(i);
+                    getTimeString(getContext(), d);
                 }
             }
         });
@@ -83,10 +82,10 @@ public class DateUtilitiesTest extends AndroidTestCase {
     public void testDateString() {
         forEachLocale(new Runnable() {
             public void run() {
-                Date d = newDate();
+                DateTime d = newDateTime();
 
                 for (int i = 0; i < 12; i++) {
-                    d.setMonth(i);
+                    d = d.withMonthOfYear(i);
                     getDateString(d);
                 }
             }
@@ -111,18 +110,18 @@ public class DateUtilitiesTest extends AndroidTestCase {
     }
 
     public void testGetDateStringWithYear() {
-        assertEquals("Jan 4, 2014", getDateString(new DateTime(2014, 1, 4, 0, 0, 0).toDate()));
+        assertEquals("Jan 4, 2014", getDateString(new DateTime(2014, 1, 4, 0, 0, 0)));
     }
 
     public void testGetDateStringHidingYear() {
         freezeAt(newDate(2014, 1, 1)).thawAfter(new Snippet() {{
-            assertEquals("Jan 1", getDateStringHideYear(newDate()));
+            assertEquals("Jan 1", getDateStringHideYear(newDateTime()));
         }});
     }
 
     public void testGetDateStringWithDifferentYear() {
         freezeAt(newDate(2013, 12, 31)).thawAfter(new Snippet() {{
-            assertEquals("Jan 1\n2014", getDateStringHideYear(newDate(2014, 1, 1)));
+            assertEquals("Jan 1\n2014", getDateStringHideYear(new DateTime(2014, 1, 1, 0, 0, 0)));
         }});
     }
 
@@ -176,35 +175,6 @@ public class DateUtilitiesTest extends AndroidTestCase {
         assertEquals(
                 now.withMillisOfDay(0).getMillis(),
                 getStartOfDay(now.getMillis()));
-    }
-
-    public void testCheckEndOfMonth() {
-        assertTrue(isEndOfMonth(newDate(2014, 1, 31)));
-        assertTrue(isEndOfMonth(newDate(2014, 2, 28)));
-        assertTrue(isEndOfMonth(newDate(2014, 3, 31)));
-        assertTrue(isEndOfMonth(newDate(2014, 4, 30)));
-        assertTrue(isEndOfMonth(newDate(2014, 5, 31)));
-        assertTrue(isEndOfMonth(newDate(2014, 6, 30)));
-        assertTrue(isEndOfMonth(newDate(2014, 7, 31)));
-        assertTrue(isEndOfMonth(newDate(2014, 8, 31)));
-        assertTrue(isEndOfMonth(newDate(2014, 9, 30)));
-        assertTrue(isEndOfMonth(newDate(2014, 10, 31)));
-        assertTrue(isEndOfMonth(newDate(2014, 11, 30)));
-        assertTrue(isEndOfMonth(newDate(2014, 12, 31)));
-    }
-
-    public void testNotTheEndOfTheMonth() {
-        for (int month = 1; month <= 12; month++) {
-            int lastDay = new DateTime(2014, month, 1, 0, 0, 0, 0).getNumberOfDaysInMonth();
-            for (int day = 1; day < lastDay; day++) {
-                assertFalse(isEndOfMonth(newDate(2014, month, day)));
-            }
-        }
-    }
-
-    public void testCheckEndOfMonthDuringLeapYear() {
-        assertFalse(isEndOfMonth(newDate(2016, 2, 28)));
-        assertTrue(isEndOfMonth(newDate(2016, 2, 29)));
     }
 
     public void testGetWeekdayLongString() {

@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 
-import static org.tasks.date.DateTimeUtils.currentTimeMillis;
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 import static org.tasks.date.DateTimeUtils.newDate;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
@@ -103,20 +103,20 @@ public class DateUtilities {
     }
 
 
-    public static String getLongDateString(Date date) {
-        return getDateString(new SimpleDateFormat("MMMM"), date);
+    public static String getLongDateString(DateTime date) {
+        return getDateString("MMMM", date);
     }
 
     /**
      * @param date date to format
      * @return date, with month, day, and year
      */
-    public static String getDateString(Date date) {
-        return getDateString(new SimpleDateFormat("MMM"), date);
+    public static String getDateString(DateTime date) {
+        return getDateString("MMM", date);
     }
 
-    private static String getDateString(SimpleDateFormat simpleDateFormat, Date date) {
-        String month = simpleDateFormat.format(date);
+    private static String getDateString(String simpleDateFormat, DateTime date) {
+        String month = date.toString(simpleDateFormat);
         String value;
         String standardDate;
         Locale locale = Locale.getDefault();
@@ -128,29 +128,29 @@ public class DateUtilities {
         }
         value += ", yyyy";
         if (arrayBinaryContains(locale.getLanguage(), "ja", "zh")){
-            standardDate = new SimpleDateFormat(value).format(date).replace("#", month).replace("$", "\u65E5"); //$NON-NLS-1$
+            standardDate = date.toString(value).replace("#", month).replace("$", "\u65E5"); //$NON-NLS-1$
         }else if ("ko".equals(Locale.getDefault().getLanguage())){
-            standardDate = new SimpleDateFormat(value).format(date).replace("#", month).replace("$", "\uC77C"); //$NON-NLS-1$
+            standardDate = date.toString(value).replace("#", month).replace("$", "\uC77C"); //$NON-NLS-1$
         }else{
-            standardDate = new SimpleDateFormat(value).format(date).replace("#", month).replace("$", "");
+            standardDate = date.toString(value).replace("#", month).replace("$", "");
         }
         return standardDate;
     }
 
-    public static String getLongDateStringHideYear(Date date) {
-        return getDateStringHideYear(new SimpleDateFormat("MMMM"), date);
+    public static String getLongDateStringHideYear(DateTime date) {
+        return getDateStringHideYear("MMMM", date);
     }
 
     /**
      * @param date date to format
      * @return date, with month, day, and year
      */
-    public static String getDateStringHideYear(Date date) {
-        return getDateStringHideYear(new SimpleDateFormat("MMM"), date);
+    public static String getDateStringHideYear(DateTime date) {
+        return getDateStringHideYear("MMM", date);
     }
 
-    private static String getDateStringHideYear(SimpleDateFormat simpleDateFormat, Date date) {
-        String month = simpleDateFormat.format(date);
+    private static String getDateStringHideYear(String simpleDateFormat, DateTime date) {
+        String month = date.toString(simpleDateFormat);
         String value;
         Locale locale = Locale.getDefault();
         if (arrayBinaryContains(locale.getLanguage(), "ja", "ko", "zh")
@@ -160,17 +160,17 @@ public class DateUtilities {
             value = "d '#'";
         }
 
-        if (date.getYear() !=  (newDate()).getYear()) {
+        if (date.getYear() !=  (newDateTime()).getYear()) {
             value = value + "\nyyyy";
         }
         if (arrayBinaryContains(locale.getLanguage(), "ja", "zh")) //$NON-NLS-1$
         {
-            return new SimpleDateFormat(value).format(date).replace("#", month) + "\u65E5"; //$NON-NLS-1$
+            return date.toString(value).replace("#", month) + "\u65E5"; //$NON-NLS-1$
         } else if ("ko".equals(Locale.getDefault().getLanguage())) //$NON-NLS-1$
         {
-            return new SimpleDateFormat(value).format(date).replace("#", month) + "\uC77C"; //$NON-NLS-1$
+            return date.toString(value).replace("#", month) + "\uC77C"; //$NON-NLS-1$
         } else {
-            return new SimpleDateFormat(value).format(date).replace("#", month);
+            return date.toString(value).replace("#", month);
         }
     }
 
@@ -193,7 +193,7 @@ public class DateUtilities {
     }
 
     public static String getDateStringWithTime(Context context, DateTime date) {
-        return getDateString(date.toDate()) + " " + getTimeString(context, date);
+        return getDateString(date) + " " + getTimeString(context, date);
     }
 
     /**
@@ -219,11 +219,7 @@ public class DateUtilities {
             return abbreviated ? DateUtilities.getWeekdayShort(newDate(date)) : DateUtilities.getWeekday(newDate(date));
         }
 
-        return DateUtilities.getDateStringHideYear(newDate(date));
-    }
-
-    public static boolean isEndOfMonth(Date d) {
-        return d.getDate() == new DateTime(d).getNumberOfDaysInMonth();
+        return DateUtilities.getDateStringHideYear(newDateTime(date));
     }
 
     public static long getStartOfDay(long time) {

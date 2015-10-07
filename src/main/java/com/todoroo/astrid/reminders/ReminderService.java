@@ -32,7 +32,7 @@ import java.util.Random;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import static org.tasks.date.DateTimeUtils.currentTimeMillis;
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 /**

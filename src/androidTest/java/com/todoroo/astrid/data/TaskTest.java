@@ -25,7 +25,7 @@ import static com.todoroo.astrid.data.Task.createDueDate;
 import static com.todoroo.astrid.data.Task.hasDueTime;
 import static org.tasks.Freeze.freezeAt;
 import static org.tasks.Freeze.thaw;
-import static org.tasks.date.DateTimeUtils.currentTimeMillis;
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 public class TaskTest extends AndroidTestCase {

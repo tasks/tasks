@@ -4,6 +4,7 @@ import android.test.AndroidTestCase;
 
 import org.tasks.time.DateTime;
 
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -51,7 +52,7 @@ public class GtasksApiUtilitiesTest extends AndroidTestCase {
     public void disabled_testConvertGoogleDueDateToUnixTime() {
         com.google.api.client.util.DateTime googleDueDate =
                 new com.google.api.client.util.DateTime(
-                        new DateTime(2014, 1, 8, 0, 0, 0, 0).toDate(), TimeZone.getTimeZone("GMT"));
+                        new Date(new DateTime(2014, 1, 8, 0, 0, 0, 0).getMillis()), TimeZone.getTimeZone("GMT"));
 
         assertEquals(
                 new DateTime(2014, 1, 8, 6, 0, 0, 0).getMillis(),

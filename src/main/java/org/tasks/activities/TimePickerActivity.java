@@ -13,7 +13,7 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog;
 import org.tasks.time.DateTime;
 import org.tasks.dialogs.MyTimePickerDialog;
 
-import static org.tasks.date.DateTimeUtils.currentTimeMillis;
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 
 public class TimePickerActivity extends FragmentActivity implements TimePickerDialog.OnTimeSetListener, DialogInterface.OnDismissListener {

@@ -50,6 +50,36 @@ public class DateTimeTest extends AndroidTestCase {
         assertEquals(43, new DateTime(2015, 10, 5, 2, 43, 48).getMinuteOfHour());
     }
 
+    public void testIsEndOfMonth() {
+        assertTrue(new DateTime(2014, 1, 31, 0, 0, 0).isLastDayOfMonth());
+        assertTrue(new DateTime(2014, 2, 28, 0, 0, 0).isLastDayOfMonth());
+        assertTrue(new DateTime(2014, 3, 31, 0, 0, 0).isLastDayOfMonth());
+        assertTrue(new DateTime(2014, 4, 30, 0, 0, 0).isLastDayOfMonth());
+        assertTrue(new DateTime(2014, 5, 31, 0, 0, 0).isLastDayOfMonth());
+        assertTrue(new DateTime(2014, 6, 30, 0, 0, 0).isLastDayOfMonth());
+        assertTrue(new DateTime(2014, 7, 31, 0, 0, 0).isLastDayOfMonth());
+        assertTrue(new DateTime(2014, 8, 31, 0, 0, 0).isLastDayOfMonth());
+        assertTrue(new DateTime(2014, 9, 30, 0, 0, 0).isLastDayOfMonth());
+        assertTrue(new DateTime(2014, 10, 31, 0, 0, 0).isLastDayOfMonth());
+        assertTrue(new DateTime(2014, 11, 30, 0, 0, 0).isLastDayOfMonth());
+        assertTrue(new DateTime(2014, 12, 31, 0, 0, 0).isLastDayOfMonth());
+    }
+
+    public void testNotTheEndOfTheMonth() {
+        for (int month = 1; month <= 12; month++) {
+            int lastDay = new DateTime(2014, month, 1, 0, 0, 0, 0).getNumberOfDaysInMonth();
+            for (int day = 1; day < lastDay; day++) {
+                assertFalse(new DateTime(2014, month, day, 0, 0, 0).isLastDayOfMonth());
+            }
+        }
+    }
+
+    public void testCheckEndOfMonthDuringLeapYear() {
+        assertFalse(new DateTime(2016, 2, 28, 0, 0, 0).isLastDayOfMonth());
+        assertTrue(new DateTime(2016, 2, 29, 0, 0, 0).isLastDayOfMonth());
+    }
+
+
     public void testNumberOfDaysInMonth() {
         assertEquals(31, new DateTime(2015, 1, 5, 9, 45, 34).getNumberOfDaysInMonth());
         assertEquals(28, new DateTime(2015, 2, 5, 9, 45, 34).getNumberOfDaysInMonth());

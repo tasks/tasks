@@ -1,5 +1,7 @@
 package org.tasks.time;
 
+import java.util.Date;
+
 public class DateTimeUtils {
 
     private static final SystemMillisProvider SYSTEM_MILLIS_PROVIDER = new SystemMillisProvider();
@@ -15,5 +17,9 @@ public class DateTimeUtils {
 
     public static void setCurrentMillisSystem() {
         MILLIS_PROVIDER = SYSTEM_MILLIS_PROVIDER;
+    }
+
+    public static String printTimestamp(long timestamp) {
+        return new Date(timestamp).toString();
     }
 }

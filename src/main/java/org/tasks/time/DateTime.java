@@ -2,7 +2,6 @@ package org.tasks.time;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
@@ -10,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 public class DateTime {
 
     private static final int MAX_MILLIS_PER_DAY = (int) TimeUnit.DAYS.toMillis(1);
+    private static final TimeZone UTC = TimeZone.getTimeZone("GMT");
 
     private final TimeZone timeZone;
     private final long timestamp;
@@ -36,10 +36,6 @@ public class DateTime {
 
     public DateTime() {
         this(DateTimeUtils.currentTimeMillis());
-    }
-
-    public DateTime(Date d) {
-        this(d.getTime());
     }
 
     public DateTime(long timestamp) {
@@ -92,8 +88,8 @@ public class DateTime {
         return getCalendar().get(Calendar.MINUTE);
     }
 
-    @Deprecated public Date toDate() {
-        return new Date(timestamp);
+    public boolean isLastDayOfMonth() {
+        return getDayOfMonth() == getNumberOfDaysInMonth();
     }
 
     public int getNumberOfDaysInMonth() {
@@ -181,10 +177,18 @@ public class DateTime {
     }
 
     public DateTime toUTC() {
-        Calendar local = getCalendar();
-        Calendar utc = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
-        utc.setTimeInMillis(local.getTimeInMillis());
-        return new DateTime(utc);
+        return toTimeZone(UTC);
+    }
+
+    public DateTime toLocal() {
+        return toTimeZone(TimeZone.getDefault());
+    }
+
+    private DateTime toTimeZone(TimeZone timeZone) {
+        Calendar current = getCalendar();
+        Calendar target = new GregorianCalendar(timeZone);
+        target.setTimeInMillis(current.getTimeInMillis());
+        return new DateTime(target);
     }
 
     public int getSecondOfMinute() {

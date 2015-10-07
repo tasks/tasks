@@ -5,7 +5,7 @@ import org.tasks.time.DateTimeUtils;
 
 import java.util.Date;
 
-import static org.tasks.date.DateTimeUtils.currentTimeMillis;
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 public class Freeze {
 
