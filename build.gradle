@@ -92,7 +92,6 @@ dependencies {
     compile group: 'com.android.support', name: 'design', version: '22.2.1'
 
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.7'
-    compile group: 'joda-time', name: 'joda-time', version: '2.8.1', transitive: false
 
     compile group: 'com.rubiconproject.oss', name: 'jchronic', version: '0.2.6', transitive: false
     compile group: 'org.scala-saddle', name: 'google-rfc-2445', version: '20110304', transitive: false

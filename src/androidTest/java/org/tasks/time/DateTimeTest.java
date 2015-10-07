@@ -176,6 +176,10 @@ public class DateTimeTest extends AndroidTestCase {
         assertEquals(
                 new DateTime(2015, 11, 6, 16, 19, 16),
                 new DateTime(2015, 12, 4, 16, 19, 16).minusDays(28));
+
+        assertEquals(
+                new DateTime(2015, 11, 6, 16, 19, 16),
+                new DateTime(2015, 11, 7, 16, 19, 16).minusDays(1));
     }
 
     public void testGetSecondOfMinute() {
