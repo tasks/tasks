@@ -23,6 +23,8 @@ import com.todoroo.astrid.utility.Constants;
 import org.tasks.R;
 import org.tasks.notifications.NotificationManager;
 
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
+
 public class TimerPlugin {
 
     /**
@@ -77,7 +79,7 @@ public class TimerPlugin {
                     .setContentIntent(pendingIntent)
                     .setContentTitle(appName)
                     .setContentText(text)
-                    .setWhen(System.currentTimeMillis())
+                    .setWhen(currentTimeMillis())
                     .setSmallIcon(R.drawable.timers_notification)
                     .setAutoCancel(false)
                     .setOngoing(true)

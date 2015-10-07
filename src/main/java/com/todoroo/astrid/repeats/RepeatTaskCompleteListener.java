@@ -30,7 +30,6 @@ import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.time.DateTime;
 
 import java.text.ParseException;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -142,17 +141,16 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
         List<WeekdayNum> byDay = rrule.getByDay();
         long newDate = original.getMillis();
         newDate += DateUtilities.ONE_WEEK * (rrule.getInterval() - 1);
-        Calendar date = Calendar.getInstance();
-        date.setTimeInMillis(newDate);
+        DateTime date = new DateTime(newDate);
 
         Collections.sort(byDay, weekdayCompare);
         WeekdayNum next = findNextWeekday(byDay, date);
 
         do {
-            date.add(Calendar.DATE, 1);
-        } while (date.get(Calendar.DAY_OF_WEEK) != next.wday.javaDayNum);
+            date = date.plusDays(1);
+        } while (date.getDayOfWeek() != next.wday.javaDayNum);
 
-        long time = date.getTimeInMillis();
+        long time = date.getMillis();
         if(hasDueTime) {
             return Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, time);
         } else {
@@ -162,14 +160,12 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
 
     private static long handleMonthlyRepeat(DateTime original, DateValue startDateAsDV, boolean hasDueTime, RRule rrule) {
         if (original.isLastDayOfMonth()) {
-            Calendar cal = Calendar.getInstance();
-            cal.setTimeInMillis(original.getMillis());
-
             int interval = rrule.getInterval();
 
-            cal.add(Calendar.MONTH, interval);
-            cal.set(Calendar.DATE, cal.getActualMaximum(Calendar.DATE));
-            long time = cal.getTimeInMillis();
+            DateTime newDateTime = original.plusMonths(interval);
+            long time = newDateTime
+                    .withDayOfMonth(newDateTime.getNumberOfDaysInMonth())
+                    .getMillis();
             if (hasDueTime) {
                 return Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, time);
             } else {
@@ -188,10 +184,10 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
 
     };
 
-    private static WeekdayNum findNextWeekday(List<WeekdayNum> byDay, Calendar date) {
+    private static WeekdayNum findNextWeekday(List<WeekdayNum> byDay, DateTime date) {
         WeekdayNum next = byDay.get(0);
         for (WeekdayNum weekday : byDay) {
-            if (weekday.wday.javaDayNum > date.get(Calendar.DAY_OF_WEEK)) {
+            if (weekday.wday.javaDayNum > date.getDayOfWeek()) {
                 return weekday;
             }
         }
@@ -240,7 +236,7 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
             newDueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, date.getMillis());
         } else {
             newDueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY,
-                    newDate(nextDate.year(), nextDate.month(), nextDate.day()).getTime());
+                    newDate(nextDate.year(), nextDate.month(), nextDate.day()).getMillis());
         }
         return newDueDate;
     }

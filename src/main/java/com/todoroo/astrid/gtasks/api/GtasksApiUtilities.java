@@ -13,8 +13,6 @@ import org.slf4j.LoggerFactory;
 import java.util.Date;
 import java.util.TimeZone;
 
-import static org.tasks.date.DateTimeUtils.newDate;
-
 public class GtasksApiUtilities {
 
     private static final Logger log = LoggerFactory.getLogger(GtasksApiUtilities.class);
@@ -23,7 +21,7 @@ public class GtasksApiUtilities {
         if (time < 0) {
             return null;
         }
-        return new DateTime(newDate(time), TimeZone.getDefault());
+        return new DateTime(new Date(time), TimeZone.getDefault());
     }
 
     public static long gtasksCompletedTimeToUnixTime(DateTime gtasksCompletedTime) {
@@ -43,7 +41,7 @@ public class GtasksApiUtilities {
         if (time < 0) {
             return null;
         }
-        Date date = newDate(time / 1000 * 1000);
+        Date date = new Date(time / 1000 * 1000);
         date.setHours(0);
         date.setMinutes(0);
         date.setSeconds(0);
@@ -58,8 +56,8 @@ public class GtasksApiUtilities {
         }
         try {
             long utcTime = gtasksDueTime.getValue(); //DateTime.parseRfc3339(gtasksDueTime).value;
-            Date date = newDate(utcTime);
-            Date returnDate = newDate(date.getTime() + date.getTimezoneOffset() * 60000);
+            Date date = new Date(utcTime);
+            Date returnDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
             return returnDate.getTime();
         } catch (NumberFormatException e) {
             log.error(e.getMessage(), e);

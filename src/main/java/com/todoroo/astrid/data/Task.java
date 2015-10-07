@@ -18,13 +18,10 @@ import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
 
-import org.tasks.time.DateTime;
 import org.tasks.BuildConfig;
 import org.tasks.R;
+import org.tasks.time.DateTime;
 
-import java.util.Date;
-
-import static org.tasks.date.DateTimeUtils.newDate;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 /**
@@ -364,15 +361,16 @@ public class Task extends RemoteModel {
             return date;
         }
 
-        Date hideUntil = newDate(date / 1000L * 1000L); // get rid of millis
+        DateTime hideUntil = newDateTime(date).withMillisOfSecond(0); // get rid of millis
         if(setting != HIDE_UNTIL_SPECIFIC_DAY_TIME && setting != HIDE_UNTIL_DUE_TIME) {
-            hideUntil.setHours(0);
-            hideUntil.setMinutes(0);
-            hideUntil.setSeconds(0);
+            hideUntil = hideUntil
+                    .withHourOfDay(0)
+                    .withMinuteOfHour(0)
+                    .withSecondOfMinute(0);
         } else {
-            hideUntil.setSeconds(1);
+            hideUntil = hideUntil.withSecondOfMinute(1);
         }
-        return hideUntil.getTime();
+        return hideUntil.getMillis();
     }
 
     /**

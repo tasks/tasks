@@ -8,17 +8,14 @@ package com.todoroo.andlib.utility;
 import android.content.Context;
 import android.text.format.DateFormat;
 
-import org.tasks.time.DateTime;
 import org.tasks.R;
+import org.tasks.time.DateTime;
 
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Locale;
 
-import static org.tasks.time.DateTimeUtils.currentTimeMillis;
-import static org.tasks.date.DateTimeUtils.newDate;
 import static org.tasks.date.DateTimeUtils.newDateTime;
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 
 public class DateUtilities {
@@ -177,15 +174,15 @@ public class DateUtilities {
     /**
      * @return weekday
      */
-    public static String getWeekday(Date date) {
-        return new SimpleDateFormat("EEEE").format(date);
+    public static String getWeekday(DateTime date) {
+        return date.toString("EEEE");
     }
 
     /**
      * @return weekday
      */
-    public static String getWeekdayShort(Date date) {
-        return new SimpleDateFormat("EEE").format(date);
+    public static String getWeekdayShort(DateTime date) {
+        return date.toString("EEE");
     }
 
     public static String getDateStringWithTime(Context context, long timestamp) {
@@ -216,7 +213,7 @@ public class DateUtilities {
         }
 
         if(today + abbreviationLimit >= input && today - abbreviationLimit <= input) {
-            return abbreviated ? DateUtilities.getWeekdayShort(newDate(date)) : DateUtilities.getWeekday(newDate(date));
+            return abbreviated ? DateUtilities.getWeekdayShort(newDateTime(date)) : DateUtilities.getWeekday(newDateTime(date));
         }
 
         return DateUtilities.getDateStringHideYear(newDateTime(date));

@@ -3,18 +3,12 @@ package org.tasks;
 import org.tasks.time.DateTime;
 import org.tasks.time.DateTimeUtils;
 
-import java.util.Date;
-
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 public class Freeze {
 
     public static Freeze freezeClock() {
         return freezeAt(currentTimeMillis());
-    }
-
-    public static Freeze freezeAt(Date date) {
-        return freezeAt(date.getTime());
     }
 
     public static Freeze freezeAt(DateTime dateTime) {

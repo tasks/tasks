@@ -20,7 +20,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import static org.tasks.date.DateTimeUtils.newDate;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 public class AdvancedRepeatTest extends AndroidTestCase {
@@ -227,7 +226,7 @@ public class AdvancedRepeatTest extends AndroidTestCase {
     }
 
     public static void assertDateTimeEquals(long date, long other) {
-        assertEquals("Expected: " + newDate(date) + ", Actual: " + newDate(other),
+        assertEquals("Expected: " + newDateTime(date) + ", Actual: " + newDateTime(other),
                 date, other);
     }
 

@@ -20,6 +20,7 @@ import java.io.IOException;
 import javax.inject.Inject;
 
 import static org.tasks.date.DateTimeUtils.newDateTime;
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 public class BackupServiceTests extends DatabaseTestCase {
 
@@ -102,7 +103,7 @@ public class BackupServiceTests extends DatabaseTestCase {
 
         // make one really old
         File[] files = temporaryDirectory.listFiles();
-        files[4].setLastModified(System.currentTimeMillis() - 20000);
+        files[4].setLastModified(currentTimeMillis() - 20000);
 
         // assert files created
         assertEquals(11, files.length);

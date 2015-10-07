@@ -18,7 +18,7 @@ import javax.inject.Inject;
 
 import static org.tasks.Freeze.freezeClock;
 import static org.tasks.Freeze.thaw;
-import static org.tasks.date.DateTimeUtils.newDate;
+import static org.tasks.date.DateTimeUtils.newDateTime;
 
 public class ReminderServiceTest extends InjectingTestCase {
 
@@ -233,7 +233,7 @@ public class ReminderServiceTest extends InjectingTestCase {
         public void createAlarm(Context context, Task task, long time, int type) {
             if(time == 0 || time == Long.MAX_VALUE)
                 return;
-            fail("created alarm, no alarm expected (" + type + ": " + newDate(time));
+            fail("created alarm, no alarm expected (" + type + ": " + newDateTime(time));
         }
     }
 

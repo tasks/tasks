@@ -80,6 +80,10 @@ public class DateTime {
         return getCalendar().get(Calendar.DATE);
     }
 
+    public int getDayOfWeek() {
+        return getCalendar().get(Calendar.DAY_OF_WEEK);
+    }
+
     public DateTime plusDays(int interval) {
         return add(Calendar.DATE, interval);
     }
@@ -169,7 +173,7 @@ public class DateTime {
     }
 
     public DateTime minusMillis(int millis) {
-        return subtract(Calendar.MILLISECOND, millis);
+        return new DateTime(timestamp - millis, timeZone);
     }
 
     public DateTime minusDays(int days) {
@@ -246,5 +250,13 @@ public class DateTime {
     @Override
     public String toString() {
         return toString("yyyy-MM-dd HH:mm:ss.SSSZ");
+    }
+
+    public int getTimezoneOffset() {
+        return timeZone.getOffset(timestamp);
+    }
+
+    public DateTime plusMillis(int millis) {
+        return new DateTime(timestamp + millis, timeZone);
     }
 }

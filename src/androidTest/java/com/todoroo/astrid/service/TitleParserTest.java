@@ -14,14 +14,14 @@ import com.todoroo.astrid.utility.TitleParser;
 
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
+import org.tasks.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 import javax.inject.Inject;
 
-import static org.tasks.date.DateTimeUtils.newDate;
+import static org.tasks.date.DateTimeUtils.newDateTime;
 
 public class TitleParserTest extends DatabaseTestCase {
 
@@ -66,9 +66,9 @@ public class TitleParserTest extends DatabaseTestCase {
       for (int i = 0; i < 23; i++) {
           String testTitle = "Jog on " + titleMonthStrings[i] + " 12.";
           insertTitleAddTask(testTitle, task);
-          Date date = newDate(task.getDueDate());
-          assertEquals(date.getMonth(), i/2);
-          assertEquals(date.getDate(), 12);
+          DateTime date = newDateTime(task.getDueDate());
+          assertEquals(date.getMonthOfYear(), i/2 + 1);
+          assertEquals(date.getDayOfMonth(), 12);
       }
   }
 
@@ -77,10 +77,10 @@ public class TitleParserTest extends DatabaseTestCase {
       for (int i = 1; i < 13; i++) {
           String testTitle = "Jog on " + i + "/12/13";
           insertTitleAddTask(testTitle, task);
-          Date date = newDate(task.getDueDate());
-          assertEquals(date.getMonth(), i-1);
-          assertEquals(date.getDate(), 12);
-          assertEquals(date.getYear(), 113);
+          DateTime date = newDateTime(task.getDueDate());
+          assertEquals(date.getMonthOfYear(), i);
+          assertEquals(date.getDayOfMonth(), 12);
+          assertEquals(date.getYear(), 2013);
       }
   }
 
@@ -88,36 +88,36 @@ public class TitleParserTest extends DatabaseTestCase {
       Task task = new Task();
       String testTitle = "Jog on 23:21.";
       insertTitleAddTask(testTitle, task);
-      Date date = newDate(task.getDueDate());
-      assertEquals(date.getMinutes(), 21);
-      assertEquals(date.getHours(), 23);
+      DateTime date = newDateTime(task.getDueDate());
+      assertEquals(date.getHourOfDay(), 23);
+      assertEquals(date.getMinuteOfHour(), 21);
   }
 
   public void test_AM_PM() {
       Task task = new Task();
       String testTitle = "Jog at 8:33 PM.";
       insertTitleAddTask(testTitle, task);
-      Date date = newDate(task.getDueDate());
-      assertEquals(date.getMinutes(), 33);
-      assertEquals(date.getHours(), 20);
+      DateTime date = newDateTime(task.getDueDate());
+      assertEquals(date.getHourOfDay(), 20);
+      assertEquals(date.getMinuteOfHour(), 33);
   }
 
   public void test_at_hour() {
       Task task = new Task();
       String testTitle = "Jog at 8 PM.";
       insertTitleAddTask(testTitle, task);
-      Date date = newDate(task.getDueDate());
-      assertEquals(date.getMinutes(), 0);
-      assertEquals(date.getHours(), 20);
+      DateTime date = newDateTime(task.getDueDate());
+      assertEquals(date.getHourOfDay(), 20);
+      assertEquals(date.getMinuteOfHour(), 0);
   }
 
   public void test_oclock_AM() {
       Task task = new Task();
       String testTitle = "Jog at 8 o'clock AM.";
       insertTitleAddTask(testTitle, task);
-      Date date = newDate(task.getDueDate());
-      assertEquals(date.getMinutes(), 0);
-      assertEquals(date.getHours(), 8);
+      DateTime date = newDateTime(task.getDueDate());
+      assertEquals(date.getHourOfDay(), 8);
+      assertEquals(date.getMinuteOfHour(), 0);
   }
 
   public void test_several_forms_of_eight() {
@@ -129,9 +129,9 @@ public class TitleParserTest extends DatabaseTestCase {
       };
       for (String testTitle: testTitles) {
           insertTitleAddTask(testTitle, task);
-          Date date = newDate(task.getDueDate());
-          assertEquals(date.getMinutes(), 0);
-          assertEquals(date.getHours(), 8);
+          DateTime date = newDateTime(task.getDueDate());
+          assertEquals(date.getHourOfDay(), 8);
+          assertEquals(date.getMinuteOfHour(), 0);
       }
   }
 
@@ -146,9 +146,9 @@ public class TitleParserTest extends DatabaseTestCase {
       };
       for (String testTitle: testTitles) {
           insertTitleAddTask(testTitle, task);
-          Date date = newDate(task.getDueDate());
-          assertEquals(date.getMinutes(), 30);
-          assertEquals(date.getHours(), 12);
+          DateTime date = newDateTime(task.getDueDate());
+          assertEquals(date.getHourOfDay(), 12);
+          assertEquals(date.getMinuteOfHour(), 30);
       }
   }
 
@@ -167,16 +167,16 @@ public class TitleParserTest extends DatabaseTestCase {
         String title = "Jog today";
         task.setTitle(title);
         taskService.createWithValues(task, null, title);
-        Date date = newDate(task.getDueDate());
-        assertEquals(date.getDay()+1, today.get(Calendar.DAY_OF_WEEK));
+        DateTime date = newDateTime(task.getDueDate());
+        assertEquals(date.getDayOfMonth(), today.get(Calendar.DAY_OF_WEEK));
         //Calendar starts 1-6, date.getDay() starts at 0
 
         task = new Task();
         title = "Jog tomorrow";
         task.setTitle(title);
         taskService.createWithValues(task, null, title);
-        date = newDate(task.getDueDate());
-        assertEquals((date.getDay()+1) % 7, (today.get(Calendar.DAY_OF_WEEK)+1) % 7);
+        date = newDateTime(task.getDueDate());
+        assertEquals((date.getDayOfWeek()) % 7, (today.get(Calendar.DAY_OF_WEEK)+1) % 7);
 
         String[] days = {
                 "sunday",
@@ -202,15 +202,15 @@ public class TitleParserTest extends DatabaseTestCase {
             title = "Jog "+ days[i];
             task.setTitle(title);
             taskService.createWithValues(task, null, title);
-            date = newDate(task.getDueDate());
-            assertEquals(date.getDay(), i);
+            date = newDateTime(task.getDueDate());
+            assertEquals(date.getDayOfWeek(), i);
 
             task = new Task();
             title = "Jog "+ abrevDays[i];
             task.setTitle(title);
             taskService.createWithValues(task, null, title);
-            date = newDate(task.getDueDate());
-            assertEquals(date.getDay(), i);
+            date = newDateTime(task.getDueDate());
+            assertEquals(date.getDayOfWeek(), i);
         }
 
         }

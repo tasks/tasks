@@ -23,15 +23,15 @@ import com.todoroo.astrid.test.DatabaseTestCase;
 
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
+import org.tasks.time.DateTime;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import static org.tasks.date.DateTimeUtils.newDate;
+import static org.tasks.date.DateTimeUtils.newDateTime;
 
 public class NewRepeatTests extends DatabaseTestCase {
 
@@ -73,12 +73,12 @@ public class NewRepeatTests extends DatabaseTestCase {
     }
 
     protected void assertTimesMatch(long expectedTime, long newDueDate) {
-        assertTrue(String.format("Expected %s, was %s", newDate(expectedTime), newDate(newDueDate)),
+        assertTrue(String.format("Expected %s, was %s", newDateTime(expectedTime), newDateTime(newDueDate)),
                 Math.abs(expectedTime - newDueDate) < 5000);
     }
 
     protected void assertTimesWithinOneHour(long expectedTime, long newDueDate) {
-        assertTrue(String.format("Expected %s, was %s", newDate(expectedTime), newDate(newDueDate)),
+        assertTrue(String.format("Expected %s, was %s", newDateTime(expectedTime), newDateTime(newDueDate)),
                 Math.abs(expectedTime - newDueDate) <= DateUtilities.ONE_HOUR);
     }
 
@@ -102,9 +102,8 @@ public class NewRepeatTests extends DatabaseTestCase {
         Task t = new Task();
         t.setTitle(title);
         long dueDate = DateUtilities.now() + DateUtilities.ONE_DAY * 3;
-        Date adjustDate = newDate(dueDate);
-        adjustDate.setSeconds(1);
-        dueDate = adjustDate.getTime();
+        DateTime adjustDate = newDateTime(dueDate).withSecondOfMinute(1);
+        dueDate = adjustDate.getMillis();
         dueDate = (dueDate / 1000L) * 1000L; // Strip milliseconds
 
         t.setDueDate(dueDate);
@@ -126,7 +125,7 @@ public class NewRepeatTests extends DatabaseTestCase {
         t = taskDao.fetch(t.getId(), Task.PROPERTIES); // Refetch
 
         long completionDate = setCompletionDate(completeBefore, t, dueDate);
-        System.err.println("Completion date: " + newDate(completionDate));
+        System.err.println("Completion date: " + newDateTime(completionDate));
 
         waitAndSync();
 
@@ -163,8 +162,8 @@ public class NewRepeatTests extends DatabaseTestCase {
         }
 
         Weekday[] allWeekdays = Weekday.values();
-        Date date = newDate(result);
-        Weekday start = allWeekdays[date.getDay()];
+        DateTime date = newDateTime(result);
+        Weekday start = allWeekdays[date.getDayOfWeek()];
         int i;
         for (i = 0; i < allWeekdays.length; i++) {
             if (start == allWeekdays[i]) break;
@@ -213,21 +212,22 @@ public class NewRepeatTests extends DatabaseTestCase {
         } else if (frequency.equals(Frequency.WEEKLY)) {
             expectedTime = computeWeeklyCaseDueDate(fromDate, rrule, fromCompletion);
         } else if (frequency.equals(Frequency.MONTHLY)) {
-            Date originalDate = newDate(expectedTime);
+            DateTime originalDate = newDateTime(expectedTime);
             for (int i = 0; i < interval; i++) {
-                int month = originalDate.getMonth();
+                int month = originalDate.getMonthOfYear();
                 if (month == 11) { // Roll over the year and set the month to January
-                    originalDate.setYear(originalDate.getYear() + 1);
-                    originalDate.setMonth(0);
+                    originalDate = originalDate
+                            .withYear(originalDate.getYear() + 1)
+                            .withMonthOfYear(1);
                 } else {
-                    originalDate.setMonth(originalDate.getMonth() + 1);
+                    originalDate = originalDate.withMonthOfYear(originalDate.getMonthOfYear() + 1);
                 }
             }
-            expectedTime = originalDate.getTime();
+            expectedTime = originalDate.getMillis();
         } else if (frequency.equals(Frequency.YEARLY)) {
-            Date originalCompleteDate = newDate(expectedTime);
-            originalCompleteDate.setYear(originalCompleteDate.getYear() + interval);
-            expectedTime = originalCompleteDate.getTime();
+            DateTime originalCompleteDate = newDateTime(expectedTime);
+            originalCompleteDate = originalCompleteDate.withYear(originalCompleteDate.getYear() + interval);
+            expectedTime = originalCompleteDate.getMillis();
         }
         return expectedTime;
     }

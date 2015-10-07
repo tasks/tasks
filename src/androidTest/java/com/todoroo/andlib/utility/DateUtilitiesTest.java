@@ -198,15 +198,15 @@ public class DateUtilitiesTest extends AndroidTestCase {
     }
 
     public void testAddMonthsToTimestamp() {
-        assertEquals(newDate(2014, 1, 1).getTime(), addCalendarMonthsToUnixtime(newDate(2013, 12, 1).getTime(), 1));
-        assertEquals(newDate(2014, 12, 31).getTime(), addCalendarMonthsToUnixtime(newDate(2013, 12, 31).getTime(), 12));
+        assertEquals(newDate(2014, 1, 1).getMillis(), addCalendarMonthsToUnixtime(newDate(2013, 12, 1).getMillis(), 1));
+        assertEquals(newDate(2014, 12, 31).getMillis(), addCalendarMonthsToUnixtime(newDate(2013, 12, 31).getMillis(), 12));
     }
 
     public void testAddMonthsWithLessDays() {
-        assertEquals(newDate(2014, 3, 3).getTime(), addCalendarMonthsToUnixtime(newDate(2013, 12, 31).getTime(), 2));
+        assertEquals(newDate(2014, 3, 3).getMillis(), addCalendarMonthsToUnixtime(newDate(2013, 12, 31).getMillis(), 2));
     }
 
     public void testAddMonthsWithMoreDays() {
-        assertEquals(newDate(2014, 1, 30).getTime(), addCalendarMonthsToUnixtime(newDate(2013, 11, 30).getTime(), 2));
+        assertEquals(newDate(2014, 1, 30).getMillis(), addCalendarMonthsToUnixtime(newDate(2013, 11, 30).getMillis(), 2));
     }
 }

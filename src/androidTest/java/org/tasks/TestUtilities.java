@@ -2,8 +2,6 @@ package org.tasks;
 
 import android.content.Context;
 
-import java.util.Date;
-
 public class TestUtilities {
     private static boolean mockitoInitialized;
 

@@ -5,11 +5,9 @@ import android.test.AndroidTestCase;
 import org.tasks.Snippet;
 import org.tasks.time.DateTime;
 
-import java.util.Date;
 import java.util.TimeZone;
 
 import static org.tasks.Freeze.freezeAt;
-import static org.tasks.date.DateTimeUtils.newDate;
 import static org.tasks.date.DateTimeUtils.newDateUtc;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
@@ -21,10 +19,6 @@ public class DateTimeUtilsTest extends AndroidTestCase {
         freezeAt(now).thawAfter(new Snippet() {{
             assertEquals(now.getMillis(), currentTimeMillis());
         }});
-    }
-
-    public void testCreateNewDate() {
-        assertEquals(new Date(114, 0, 1), newDate(2014, 1, 1));
     }
 
     public void testCreateNewUtcDate() {

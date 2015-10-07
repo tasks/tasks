@@ -25,7 +25,7 @@ public class NotifyAtDeadlineTest extends AndroidTestCase {
     private static final int MILLIS_PER_HOUR = (int) TimeUnit.HOURS.toMillis(1);
 
     private final Task dueAtNoon = new Task() {{
-        setDueDate(Task.URGENCY_SPECIFIC_DAY, newDate(2014, 1, 27).getTime());
+        setDueDate(Task.URGENCY_SPECIFIC_DAY, newDate(2014, 1, 27).getMillis());
         setReminderFlags(Task.NOTIFY_AT_DEADLINE);
     }};
 
@@ -69,7 +69,7 @@ public class NotifyAtDeadlineTest extends AndroidTestCase {
 
     public void testDontNotifyMoreThanOncePerDay() {
         Task task = new Task() {{
-            setDueDate(newDate(2014, 1, 23).getTime());
+            setDueDate(newDate(2014, 1, 23).getMillis());
             setReminderFlags(Task.NOTIFY_AT_DEADLINE);
             setReminderLast(new DateTime(2014, 1, 23, 17, 23, 37).getMillis());
         }};
@@ -93,7 +93,7 @@ public class NotifyAtDeadlineTest extends AndroidTestCase {
         Freeze.freezeAt(new DateTime(2014, 1, 27, 9, 13, 37, 501));
         preferences.setInt(R.string.p_rmd_time, 8 * MILLIS_PER_HOUR);
         Task task = new Task() {{
-            setDueDate(Task.URGENCY_SPECIFIC_DAY, newDate(2014, 1, 27).getTime());
+            setDueDate(Task.URGENCY_SPECIFIC_DAY, newDate(2014, 1, 27).getMillis());
             setReminderFlags(Task.NOTIFY_AT_DEADLINE);
         }};
         assertEquals(
@@ -106,7 +106,7 @@ public class NotifyAtDeadlineTest extends AndroidTestCase {
         Freeze.freezeAt(new DateTime(2014, 1, 27, 11, 13, 37, 501));
         preferences.setInt(R.string.p_rmd_time, 8 * MILLIS_PER_HOUR);
         Task task = new Task() {{
-            setDueDate(Task.URGENCY_SPECIFIC_DAY, newDate(2014, 1, 27).getTime());
+            setDueDate(Task.URGENCY_SPECIFIC_DAY, newDate(2014, 1, 27).getMillis());
             setReminderFlags(Task.NOTIFY_AT_DEADLINE);
         }};
         assertEquals(
@@ -119,7 +119,7 @@ public class NotifyAtDeadlineTest extends AndroidTestCase {
         Freeze.freezeAt(new DateTime(2014, 1, 27, 1, 53, 37, 509));
         preferences.setInt(R.string.p_rmd_time, MILLIS_PER_HOUR);
         Task task = new Task() {{
-            setDueDate(Task.URGENCY_SPECIFIC_DAY, newDate(2014, 1, 27).getTime());
+            setDueDate(Task.URGENCY_SPECIFIC_DAY, newDate(2014, 1, 27).getMillis());
             setReminderFlags(Task.NOTIFY_AT_DEADLINE);
         }};
         assertEquals(

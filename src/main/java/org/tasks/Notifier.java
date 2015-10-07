@@ -25,7 +25,6 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceOutputAssistant;
 
-import org.tasks.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.injection.ForApplication;
@@ -37,6 +36,7 @@ import org.tasks.receivers.CompleteTaskReceiver;
 import org.tasks.reminders.MissedCallActivity;
 import org.tasks.reminders.NotificationActivity;
 import org.tasks.reminders.SnoozeActivity;
+import org.tasks.time.DateTime;
 
 import java.io.InputStream;
 
@@ -90,7 +90,7 @@ public class Notifier {
                 .setTicker(title)
                 .setContentTitle(title)
                 .setContentText(context.getString(R.string.app_name))
-                .setWhen(System.currentTimeMillis())
+                .setWhen(currentTimeMillis())
                 .setContentIntent(PendingIntent.getActivity(context, missedCallDialog.hashCode(), missedCallDialog, PendingIntent.FLAG_UPDATE_CURRENT));
 
         Bitmap contactImage = getContactImage(contactId);
@@ -166,7 +166,7 @@ public class Notifier {
         Notification notification = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.notif_astrid)
                 .setTicker(title)
-                .setWhen(System.currentTimeMillis())
+                .setWhen(currentTimeMillis())
                 .setContentTitle(title)
                 .setContentText(subtitle)
                 .setContentIntent(pendingIntent)
@@ -246,7 +246,7 @@ public class Notifier {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.notif_astrid)
                 .setTicker(taskTitle)
-                .setWhen(System.currentTimeMillis())
+                .setWhen(currentTimeMillis())
                 .setContentTitle(taskTitle)
                 .setContentText(text)
                 .setContentIntent(PendingIntent.getActivity(context, (int) id, intent, PendingIntent.FLAG_UPDATE_CURRENT));

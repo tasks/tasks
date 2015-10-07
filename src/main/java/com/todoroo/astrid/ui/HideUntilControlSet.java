@@ -19,13 +19,10 @@ import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSetBase;
 
-import org.tasks.time.DateTime;
 import org.tasks.R;
 import org.tasks.activities.DateAndTimePickerActivity;
+import org.tasks.time.DateTime;
 
-import java.util.Date;
-
-import static org.tasks.date.DateTimeUtils.newDate;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 /**
@@ -99,8 +96,8 @@ public class HideUntilControlSet extends TaskEditControlSetBase implements OnIte
         if(specificDate > 0) {
             HideUntilValue[] updated = new HideUntilValue[values.length + 1];
             System.arraycopy(values, 0, updated, 1, values.length);
-            Date hideUntilAsDate = newDate(specificDate);
-            if(hideUntilAsDate.getHours() == 0 && hideUntilAsDate.getMinutes() == 0 && hideUntilAsDate.getSeconds() == 0) {
+            DateTime hideUntilAsDate = newDateTime(specificDate);
+            if(hideUntilAsDate.getHourOfDay() == 0 && hideUntilAsDate.getMinuteOfHour() == 0 && hideUntilAsDate.getSecondOfMinute() == 0) {
                 updated[0] = new HideUntilValue(DateUtilities.getDateString(newDateTime(specificDate)),
                         Task.HIDE_UNTIL_SPECIFIC_DAY, specificDate);
                 existingDate = specificDate;
@@ -198,11 +195,11 @@ public class HideUntilControlSet extends TaskEditControlSetBase implements OnIte
     public void readFromTask(Task task) {
         long date = task.getHideUntil();
 
-        Date dueDay = newDate(task.getDueDate()/1000L*1000L);
-
-        dueDay.setHours(0);
-        dueDay.setMinutes(0);
-        dueDay.setSeconds(0);
+        DateTime dueDay = newDateTime(task.getDueDate())
+                .withHourOfDay(0)
+                .withMinuteOfHour(0)
+                .withSecondOfMinute(0)
+                .withMillisOfSecond(0);
 
         // For the hide until due case, we need the time component
         long dueTime = task.getDueDate()/1000L*1000L;
@@ -210,16 +207,16 @@ public class HideUntilControlSet extends TaskEditControlSetBase implements OnIte
         if(date == 0) {
             selection = 0;
             date = 0;
-        } else if(date == dueDay.getTime()) {
+        } else if(date == dueDay.getMillis()) {
             selection = 1;
             date = 0;
         } else if (date == dueTime){
             selection = 2;
             date = 0;
-        } else if(date + DateUtilities.ONE_DAY == dueDay.getTime()) {
+        } else if(date + DateUtilities.ONE_DAY == dueDay.getMillis()) {
             selection = 3;
             date = 0;
-        } else if(date + DateUtilities.ONE_WEEK == dueDay.getTime()) {
+        } else if(date + DateUtilities.ONE_WEEK == dueDay.getMillis()) {
             selection = 4;
             date = 0;
         }

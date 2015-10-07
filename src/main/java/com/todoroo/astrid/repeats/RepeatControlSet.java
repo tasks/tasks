@@ -33,22 +33,20 @@ import com.todoroo.astrid.ui.NumberPickerDialog;
 import com.todoroo.astrid.ui.NumberPickerDialog.OnNumberPickedListener;
 import com.todoroo.astrid.ui.PopupControlSet;
 
-import org.tasks.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.MyDatePickerDialog;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.time.DateTime;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.tasks.date.DateTimeUtils.newDate;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 /**
@@ -206,11 +204,11 @@ public class RepeatControlSet extends PopupControlSet {
 
     @Override
     protected void readFromTaskOnInitialize() {
-        Date date;
+        DateTime date;
         if(model.getDueDate() != 0) {
-            date = newDate(model.getDueDate());
+            date = newDateTime(model.getDueDate());
 
-            int dayOfWeek = date.getDay();
+            int dayOfWeek = date.getDayOfWeek();
             for(int i = 0; i < 7; i++) {
                 daysOfWeek[i].setChecked(i == dayOfWeek);
             }
