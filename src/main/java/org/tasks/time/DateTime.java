@@ -30,10 +30,6 @@ public class DateTime {
         this.timeZone = timeZone;
     }
 
-    public static DateTime now() {
-        return new DateTime();
-    }
-
     public DateTime() {
         this(DateTimeUtils.currentTimeMillis());
     }
@@ -70,10 +66,16 @@ public class DateTime {
         return timestamp;
     }
 
-    public DateTime plusMonths(int interval) {
-        Calendar calendar = getCalendar();
-        calendar.add(Calendar.MONTH, interval);
-        return new DateTime(calendar);
+    public int getMillisOfDay() {
+        return (int) (timestamp - withMillisOfDay(0).getMillis());
+    }
+
+    public int getYear() {
+        return getCalendar().get(Calendar.YEAR);
+    }
+
+    public int getMonthOfYear() {
+        return getCalendar().get(Calendar.MONTH) + 1;
     }
 
     public int getDayOfMonth() {
@@ -84,24 +86,28 @@ public class DateTime {
         return getCalendar().get(Calendar.DAY_OF_WEEK);
     }
 
-    public DateTime plusDays(int interval) {
-        return add(Calendar.DATE, interval);
+    public int getHourOfDay() {
+        return getCalendar().get(Calendar.HOUR_OF_DAY);
     }
 
     public int getMinuteOfHour() {
         return getCalendar().get(Calendar.MINUTE);
     }
 
-    public boolean isLastDayOfMonth() {
-        return getDayOfMonth() == getNumberOfDaysInMonth();
+    public int getSecondOfMinute() {
+        return getCalendar().get(Calendar.SECOND);
     }
 
-    public int getNumberOfDaysInMonth() {
-        return getCalendar().getActualMaximum(Calendar.DAY_OF_MONTH);
+    public DateTime withYear(int year) {
+        return with(Calendar.YEAR, year);
     }
 
-    public DateTime withMillisOfSecond(int millisOfSecond) {
-        return with(Calendar.MILLISECOND, millisOfSecond);
+    public DateTime withMonthOfYear(int monthOfYear) {
+        return with(Calendar.MONTH, monthOfYear - 1);
+    }
+
+    public DateTime withDayOfMonth(int dayOfMonth) {
+        return with(Calendar.DAY_OF_MONTH, dayOfMonth);
     }
 
     public DateTime withHourOfDay(int hourOfDay) {
@@ -116,68 +122,54 @@ public class DateTime {
         return with(Calendar.SECOND, secondOfMinute);
     }
 
-    public int getYear() {
-        return getCalendar().get(Calendar.YEAR);
+    public DateTime withMillisOfSecond(int millisOfSecond) {
+        return with(Calendar.MILLISECOND, millisOfSecond);
     }
 
-    public DateTime minusMinutes(int minutes) {
-        return subtract(Calendar.MINUTE, minutes);
-    }
-
-    public boolean isBefore(DateTime dateTime) {
-        return timestamp < dateTime.getMillis();
-    }
-
-    public int getMillisOfDay() {
-        return (int) (timestamp - withMillisOfDay(0).getMillis());
-    }
-
-    public int getMonthOfYear() {
-        return getCalendar().get(Calendar.MONTH) + 1;
-    }
-
-    public boolean isAfter(DateTime dateTime) {
-        return timestamp > dateTime.getMillis();
-    }
-
-    public DateTime withYear(int year) {
-        return with(Calendar.YEAR, year);
-    }
-
-    public DateTime withMonthOfYear(int monthOfYear) {
-        return with(Calendar.MONTH, monthOfYear - 1);
-    }
-
-    public int getHourOfDay() {
-        return getCalendar().get(Calendar.HOUR_OF_DAY);
-    }
-
-    public DateTime withDayOfMonth(int dayOfMonth) {
-        return with(Calendar.DAY_OF_MONTH, dayOfMonth);
-    }
-
-    public DateTime plusMinutes(int minutes) {
-        return add(Calendar.MINUTE, minutes);
-    }
-
-    public DateTime plusHours(int hours) {
-        return add(Calendar.HOUR_OF_DAY, hours);
+    public DateTime plusMonths(int interval) {
+        Calendar calendar = getCalendar();
+        calendar.add(Calendar.MONTH, interval);
+        return new DateTime(calendar);
     }
 
     public DateTime plusWeeks(int weeks) {
         return add(Calendar.WEEK_OF_MONTH, weeks);
     }
 
-    public boolean isBeforeNow() {
-        return timestamp < DateTimeUtils.currentTimeMillis();
+    public DateTime plusDays(int interval) {
+        return add(Calendar.DATE, interval);
+    }
+
+    public DateTime plusHours(int hours) {
+        return add(Calendar.HOUR_OF_DAY, hours);
+    }
+
+    public DateTime plusMinutes(int minutes) {
+        return add(Calendar.MINUTE, minutes);
+    }
+
+    public DateTime minusDays(int days) {
+        return subtract(Calendar.DATE, days);
+    }
+
+    public DateTime minusMinutes(int minutes) {
+        return subtract(Calendar.MINUTE, minutes);
     }
 
     public DateTime minusMillis(int millis) {
         return new DateTime(timestamp - millis, timeZone);
     }
 
-    public DateTime minusDays(int days) {
-        return subtract(Calendar.DATE, days);
+    public boolean isAfter(DateTime dateTime) {
+        return timestamp > dateTime.getMillis();
+    }
+
+    public boolean isBeforeNow() {
+        return timestamp < DateTimeUtils.currentTimeMillis();
+    }
+
+    public boolean isBefore(DateTime dateTime) {
+        return timestamp < dateTime.getMillis();
     }
 
     public DateTime toUTC() {
@@ -188,15 +180,19 @@ public class DateTime {
         return toTimeZone(TimeZone.getDefault());
     }
 
+    public boolean isLastDayOfMonth() {
+        return getDayOfMonth() == getNumberOfDaysInMonth();
+    }
+
+    public int getNumberOfDaysInMonth() {
+        return getCalendar().getActualMaximum(Calendar.DAY_OF_MONTH);
+    }
+
     private DateTime toTimeZone(TimeZone timeZone) {
         Calendar current = getCalendar();
         Calendar target = new GregorianCalendar(timeZone);
         target.setTimeInMillis(current.getTimeInMillis());
         return new DateTime(target);
-    }
-
-    public int getSecondOfMinute() {
-        return getCalendar().get(Calendar.SECOND);
     }
 
     private DateTime with(int field, int value) {
@@ -250,13 +246,5 @@ public class DateTime {
     @Override
     public String toString() {
         return toString("yyyy-MM-dd HH:mm:ss.SSSZ");
-    }
-
-    public int getTimezoneOffset() {
-        return timeZone.getOffset(timestamp);
-    }
-
-    public DateTime plusMillis(int millis) {
-        return new DateTime(timestamp + millis, timeZone);
     }
 }

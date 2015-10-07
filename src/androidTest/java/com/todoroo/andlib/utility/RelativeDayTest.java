@@ -7,7 +7,6 @@ import org.tasks.time.DateTime;
 import java.util.Locale;
 
 import static com.todoroo.andlib.utility.DateUtilities.getRelativeDay;
-import static org.tasks.time.DateTime.now;
 import static org.tasks.Freeze.freezeAt;
 import static org.tasks.Freeze.thaw;
 
@@ -30,33 +29,33 @@ public class RelativeDayTest extends AndroidTestCase {
     }
 
     public void testRelativeDayIsToday() {
-        checkRelativeDay(now(), "Today", "Today");
+        checkRelativeDay(new DateTime(), "Today", "Today");
     }
 
     public void testRelativeDayIsTomorrow() {
-        checkRelativeDay(now().plusDays(1), "Tomorrow", "Tmrw");
+        checkRelativeDay(new DateTime().plusDays(1), "Tomorrow", "Tmrw");
     }
 
     public void testRelativeDayIsYesterday() {
-        checkRelativeDay(now().minusDays(1), "Yesterday", "Yest");
+        checkRelativeDay(new DateTime().minusDays(1), "Yesterday", "Yest");
     }
 
     public void testRelativeDayTwo() {
-        checkRelativeDay(now().minusDays(2), "Sunday", "Sun");
-        checkRelativeDay(now().plusDays(2), "Thursday", "Thu");
+        checkRelativeDay(new DateTime().minusDays(2), "Sunday", "Sun");
+        checkRelativeDay(new DateTime().plusDays(2), "Thursday", "Thu");
     }
 
     public void testRelativeDaySix() {
-        checkRelativeDay(now().minusDays(6), "Wednesday", "Wed");
-        checkRelativeDay(now().plusDays(6), "Monday", "Mon");
+        checkRelativeDay(new DateTime().minusDays(6), "Wednesday", "Wed");
+        checkRelativeDay(new DateTime().plusDays(6), "Monday", "Mon");
     }
 
     public void testRelativeDayOneWeek() {
-        checkRelativeDay(now().minusDays(7), "Dec 24", "Dec 24");
+        checkRelativeDay(new DateTime().minusDays(7), "Dec 24", "Dec 24");
     }
 
     public void testRelativeDayOneWeekNextYear() {
-        checkRelativeDay(now().plusDays(7), "Jan 7\n2014", "Jan 7\n2014");
+        checkRelativeDay(new DateTime().plusDays(7), "Jan 7\n2014", "Jan 7\n2014");
     }
 
     private void checkRelativeDay(DateTime now, String full, String abbreviated) {
