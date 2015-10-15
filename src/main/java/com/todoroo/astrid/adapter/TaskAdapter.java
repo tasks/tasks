@@ -54,9 +54,7 @@ import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.ActivityPreferences;
 
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -154,8 +152,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     protected final DisplayMetrics displayMetrics;
 
     protected final int minRowHeight;
-
-    private final Map<Long, TaskAction> taskActionLoader = Collections.synchronizedMap(new HashMap<Long, TaskAction>());
 
     public TaskAdapter(Context context, ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao, TaskService taskService, TaskListFragment fragment,
             Cursor c, AtomicReference<String> query, OnCompletedTaskListener onCompletedTaskListener,
@@ -374,13 +370,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         if (task.isCompleted()) {
             return null;
         }
-        if (taskActionLoader.containsKey(task.getId())) {
-            return taskActionLoader.get(task.getId());
-        } else {
-            TaskAction action = LinkActionExposer.getActionsForTask(context, task, hasFiles, hasNotes);
-            taskActionLoader.put(task.getId(), action);
-            return action;
-        }
+        return LinkActionExposer.getActionsForTask(context, task, hasFiles, hasNotes);
     }
 
     public void onClick(View v) {
