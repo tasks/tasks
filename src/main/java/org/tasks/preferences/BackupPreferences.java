@@ -64,15 +64,16 @@ public class BackupPreferences extends InjectingPreferenceActivity {
 
                 startActivityForResult(intent, PICKFILE_RESULT_CODE); */
 
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                //----------------------------------------------------------------
+                /*Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath()
                         + "/myFolder/");
                 intent.setDataAndType(uri, "text/xml");
-                startActivity(Intent.createChooser(intent, "Open folder"));
+                startActivity(Intent.createChooser(intent, "Open folder")); */
 
-                //Intent filesDir = new Intent(BackupPreferences.this, FileExplore.class);
-                //filesDir.putExtra(FileExplore.EXTRA_DIRECTORIES_SELECTABLE, true);
-                //startActivityForResult(filesDir, REQUEST_CODE_BACKUP_DIR);
+                Intent filesDir = new Intent(BackupPreferences.this, FileExplore.class);
+                filesDir.putExtra(FileExplore.EXTRA_DIRECTORIES_SELECTABLE, true);
+                startActivityForResult(filesDir, REQUEST_CODE_BACKUP_DIR);
                 return true;
             }
         });

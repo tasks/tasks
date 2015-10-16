@@ -27,6 +27,7 @@ public class FilterCounter {
     // nothing to do (corePoolSize == 0, which makes it available for garbage collection), and will wake itself up
     // if new filters are queued (obviously it cannot be garbage collected if it is possible for new filters to
     // be added).
+
     private final ExecutorService executorService;
 
     private final Map<Filter, Integer> filterCounts = new ConcurrentHashMap<>();

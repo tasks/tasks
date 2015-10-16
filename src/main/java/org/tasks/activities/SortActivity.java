@@ -58,6 +58,7 @@ public class SortActivity extends InjectingAppCompatActivity {
         items.add(getString(R.string.SSD_sort_importance));
         items.add(getString(R.string.SSD_sort_alpha));
         items.add(getString(R.string.SSD_sort_modified));
+        items.add("By start date");
 
         selectedIndex = getIndex(preferences.getSortMode());
         if (manualEnabled) {
@@ -149,6 +150,8 @@ public class SortActivity extends InjectingAppCompatActivity {
                 return 4;
             case SortHelper.SORT_MODIFIED:
                 return 5;
+            case SortHelper.SORT_START:
+                return 6;
         }
 
         log.error("Invalid sort mode: {}", sortMode);
@@ -167,6 +170,8 @@ public class SortActivity extends InjectingAppCompatActivity {
                 return SortHelper.SORT_ALPHA;
             case 5:
                 return SortHelper.SORT_MODIFIED;
+            case 6:
+                return SortHelper.SORT_START;
         }
 
         log.error("Invalid sort mode: {}", index);

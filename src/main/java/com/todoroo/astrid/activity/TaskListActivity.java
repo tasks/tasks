@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.todoroo.andlib.data.Callback;
+import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.FilterSettingsActivity;
@@ -216,11 +217,22 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 query = query.trim();
                 String title = getString(R.string.FLA_search_filter, query);
                 Filter savedFilter = new Filter(title,
-                        new QueryTemplate().where(Task.TITLE.like(
-                                "%" + //$NON-NLS-1$
-                                        query + "%")), //$NON-NLS-1$
-                        null);
+                                                new QueryTemplate().where
+                                                                    (Criterion.or(Task.NOTES.
+                                                                                    like (
+                                                                                              "%" + //$NON-NLS-1$
+                                                                                              query + "%"
+                                                                                         ),
+                                                                                    Task.TITLE.
+                                                                                     like (
+                                                                                              "%" + //$NON-NLS-1$
+                                                                                              query + "%"
+                                                                                          )
+                                                                                  )
+                                                                    ),null);
+
                 onFilterItemClicked(savedFilter);
+
                 MenuItemCompat.collapseActionView(item);
                 return true;
             }
@@ -264,6 +276,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
             AndroidUtilities.callOverridePendingTransition(this, 0, 0);
             return true;
         }
+
         return false;
     }
 
@@ -304,6 +317,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 container.setVisibility(View.VISIBLE);
             }
         }
+
     }
 
     @Override
@@ -343,6 +357,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         if (getIntent().getBooleanExtra(TOKEN_CREATE_NEW_LIST, false)) {
             newListFromLaunch();
         }
+
     }
 
     private void newListFromLaunch() {
@@ -359,6 +374,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
             getIntent().putExtra(OPEN_TASK, taskId);
         }
         super.onTaskListItemClicked(taskId);
+
     }
 
     public void setListsTitle(String title) {

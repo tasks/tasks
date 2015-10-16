@@ -61,6 +61,10 @@ public class Task extends RemoteModel {
     public static final LongProperty DUE_DATE = new LongProperty(
             TABLE, "dueDate", Property.PROP_FLAG_DATE);
 
+    /** Unixtime Task starts, 0 if not set */
+    public static final LongProperty START_DATE = new LongProperty(
+            TABLE, "startDate", Property.PROP_FLAG_DATE);
+
     /** Unixtime Task should be hidden until, 0 if not set */
     public static final LongProperty HIDE_UNTIL = new LongProperty(
             TABLE, "hideUntil", Property.PROP_FLAG_DATE);

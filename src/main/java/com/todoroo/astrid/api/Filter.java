@@ -75,6 +75,8 @@ public class Filter extends FilterListItem {
                 valuesForNewTasks);
     }
 
+
+
     /**
      * Utility constructor for creating a Filter object
      * @param listingTitle
