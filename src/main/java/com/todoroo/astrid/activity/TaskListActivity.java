@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.todoroo.andlib.data.Callback;
+import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.FilterSettingsActivity;
@@ -222,10 +223,20 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
                 query = query.trim();
                 String title = getString(R.string.FLA_search_filter, query);
                 Filter savedFilter = new Filter(title,
-                        new QueryTemplate().where(Task.TITLE.like(
-                                "%" + //$NON-NLS-1$
-                                        query + "%")), //$NON-NLS-1$
-                        null);
+                                                new QueryTemplate().where
+                                                                    (Criterion.or(Task.NOTES.
+                                                                                    like (
+                                                                                              "%" + //$NON-NLS-1$
+                                                                                              query + "%"
+                                                                                         ),
+                                                                                    Task.TITLE.
+                                                                                     like (
+                                                                                              "%" + //$NON-NLS-1$
+                                                                                              query + "%"
+                                                                                          )
+                                                                                  )
+                                                                    ),null);
+
                 onFilterItemClicked(savedFilter);
                 MenuItemCompat.collapseActionView(item);
                 return true;
