@@ -29,5 +29,7 @@ public class DateTimeUtilsTest extends AndroidTestCase {
 
     public void testIllegalInstant() {
         new DateTime(2015, 7, 24, 0, 0, 0, 0, TimeZone.getTimeZone("Africa/Cairo"));
+        new DateTime(2015, 10, 18, 0, 0, 0, 0, TimeZone.getTimeZone("America/Sao_Paulo"));
+        new DateTime(2015, 10, 4, 0, 0, 0, 0, TimeZone.getTimeZone("America/Asuncion"));
     }
 }

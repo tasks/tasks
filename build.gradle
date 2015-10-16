@@ -28,8 +28,8 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        versionCode 375
-        versionName "4.7.19"
+        versionCode 376
+        versionName "4.7.20"
         minSdkVersion 7
         targetSdkVersion 22
     }
