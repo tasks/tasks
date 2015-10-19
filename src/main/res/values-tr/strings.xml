@@ -101,7 +101,6 @@
 	<string name="CRA_dont_invite">Hayır teşekkürler</string>
 	<string name="CRA_list_created_title">Liste oluşturuldu!</string>
 	<string name="EPr_title">Tasks: Ayarlar</string>
-	<string name="EPr_deactivated">devre dışı</string>
 	<string name="EPr_appearance_header">Görünüm</string>
 	<string name="EPr_beastMode_desc">Görev Düzenleme Ekranı yerleşimini özelleştir</string>
 	<string name="EPr_beastMode_reset">Varsayılanlara sıfırla</string>
@@ -181,9 +180,7 @@
 	<string name="gcal_TEA_error">Takvime görev eklenmesinde hata!</string>
 	<string name="gcal_TEA_addToCalendar_label">Takvime Ekle</string>
 	<string name="gcal_TEA_showCalendar_label">Takvim Olayı Aç</string>
-	<string name="gcal_TEA_nocal">Ekleme</string>
 	<string name="gcal_completed_title">%s (tamamlandı)</string>
-	<string name="gcal_GCP_default">Öntanımlı Takvim</string>
 	<string name="CFC_gtasks_list_text">Liste içinde: ?</string>
 	<string name="CFC_gtasks_list_name">Gtasks Listesi içinde...</string>
 	<string name="gtasks_GTA_clearing">Tamamlanan görevler temizleniyor...</string>

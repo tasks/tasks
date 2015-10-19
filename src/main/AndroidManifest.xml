@@ -415,6 +415,10 @@
         </receiver>
 
         <activity
+            android:name=".activities.CalendarSelectionActivity"
+            android:theme="@style/TranslucentDialog" />
+
+        <activity
             android:name="com.todoroo.astrid.gcal.CalendarReminderActivity"
             android:theme="@style/TranslucentDialog"/>
 

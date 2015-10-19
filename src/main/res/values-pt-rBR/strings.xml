@@ -112,7 +112,6 @@
 	<string name="CRA_list_created_title">Lista criada!</string>
 	<string name="CRA_default_list_name">Itens de ação: %s</string>
 	<string name="EPr_title">Tasks: Configurações</string>
-	<string name="EPr_deactivated">desativado</string>
 	<string name="EPr_appearance_header">Aparência</string>
 	<string name="EPr_filters_to_show_title">Filtros a mostrar</string>
 	<string name="EPr_edit_screen_options">Editar opções da tela</string>
@@ -202,10 +201,7 @@
 	<string name="gcal_TEA_error">Erro ao inserir a tarefa no calendário!</string>
 	<string name="gcal_TEA_addToCalendar_label">Inserir no calendário</string>
 	<string name="gcal_TEA_showCalendar_label">Abrir evento no calendário</string>
-	<string name="gcal_TEA_nocal">Não adicionar</string>
-	<string name="gcal_TEA_none_selected">Para o calendário?</string>
 	<string name="gcal_completed_title">%s (concluído)</string>
-	<string name="gcal_GCP_default">Calendário padrão</string>
 	<string name="CFC_gtasks_list_text">Na lista: ?</string>
 	<string name="CFC_gtasks_list_name">No Google Tasks...</string>
 	<string name="gtasks_GTA_clearing">Limpando tarefas concluídas...</string>

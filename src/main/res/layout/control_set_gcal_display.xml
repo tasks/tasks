@@ -8,18 +8,38 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/calendar_display_which"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:gravity="start"
-        android:textColor="?attr/asThemeTextColor"
-        android:textSize="@dimen/task_edit_text_size" />
+        android:orientation="horizontal"
+        android:layout_weight="100">
 
-    <Spinner
-        android:id="@+id/calendars"
-        android:layout_width="0dip"
-        android:layout_height="0dip" />
+        <TextView
+            android:id="@+id/calendar_display_which"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:gravity="start"
+            android:textColor="?attr/asThemeTextColor"
+            android:textSize="@dimen/task_edit_text_size" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/clear_calendar"
+        android:src="@drawable/ic_cancel_24dp"
+        android:tint="?attr/icon_tint"
+        android:layout_gravity="center"
+        android:contentDescription="@android:string/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:alpha="@dimen/drawer_icon_alpha"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingEnd="10dp" />
 
 </LinearLayout>

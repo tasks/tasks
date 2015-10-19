@@ -84,10 +84,7 @@
 	<string name="gcal_TEA_error">Nem sikerült a feladat hozzáadása a naptárhoz!</string>
 	<string name="gcal_TEA_addToCalendar_label">Hozzáadás a naptárhoz</string>
 	<string name="gcal_TEA_showCalendar_label">Naptáresemény megnyitása</string>
-	<string name="gcal_TEA_nocal">Ne legyen hozzáadva</string>
-	<string name="gcal_TEA_none_selected">Naptárhoz?</string>
 	<string name="gcal_completed_title">%s (befejezve)</string>
-	<string name="gcal_GCP_default">Alapértelmezett naptár</string>
 	<string name="gtasks_GTA_clearing">Befejezett feladatok törlése...</string>
 	<string name="gtasks_GTA_clear_completed">Törlés befejezve</string>
 	<string name="gtasks_GLA_noaccounts">Nincs elérhető Google fiók a szinkronizáláshoz.</string>

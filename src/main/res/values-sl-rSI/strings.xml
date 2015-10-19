@@ -116,7 +116,6 @@
 	<string name="CRA_list_created_title">Seznam ustvarjen!</string>
 	<string name="CRA_default_list_name">Število izvedbenih opravil: %s</string>
 	<string name="EPr_title">Nastavitve</string>
-	<string name="EPr_deactivated">deaktivirano</string>
 	<string name="EPr_appearance_header">Izgled</string>
 	<string name="EPr_filters_to_show_title">Filtri za prikaz</string>
 	<string name="EPr_edit_screen_options">Uredi možnosti zaslona</string>
@@ -206,10 +205,7 @@
 	<string name="gcal_TEA_error">Napaka pri dodajanju opravila!</string>
 	<string name="gcal_TEA_addToCalendar_label">Dodaj v koledar</string>
 	<string name="gcal_TEA_showCalendar_label">Odpri dogodek v koledarju</string>
-	<string name="gcal_TEA_nocal">Ne dodaj</string>
-	<string name="gcal_TEA_none_selected">Na koledar?</string>
 	<string name="gcal_completed_title">%s (končani)</string>
-	<string name="gcal_GCP_default">Privzeti koledar</string>
 	<string name="CFC_gtasks_list_text">V seznamu: ?</string>
 	<string name="CFC_gtasks_list_name">Na GNaloge seznamu...</string>
 	<string name="gtasks_GTA_clearing">Brišem dokončane opravke...</string>

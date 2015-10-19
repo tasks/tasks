@@ -12,22 +12,15 @@
 
   <!-- slide 21c: Label for adding task to calendar -->
   <string name="gcal_TEA_addToCalendar_label">Add to Calendar</string>
-  
+
+  <string name="choose_calendar">Choose Calendar</string>
+
   <!-- Label when calendar event already exists -->
   <string name="gcal_TEA_showCalendar_label">Open Calendar Event</string>
-  
-  <!-- No calendar label (don't add option) -->
-  <string name="gcal_TEA_nocal">Don\'t add</string>
-  
-  <string name="gcal_TEA_none_selected">To calendar?</string>
   
   <!-- ======================================================== Calendars == -->
   
   <!-- Calendar event name when task is completed (%s => task title) -->
   <string name="gcal_completed_title">%s (completed)</string>
-
-  <!-- System Default Calendar (displayed if we can't figure out calendars)  -->
-  <string name="gcal_GCP_default">Default Calendar</string>
-
 
 </resources>

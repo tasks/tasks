@@ -75,6 +75,7 @@ import com.todoroo.astrid.utility.Flags;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.activities.CalendarSelectionDialog;
 import org.tasks.activities.LocationPickerActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.dialogs.DialogBuilder;
@@ -150,7 +151,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     public static final int REQUEST_CODE_RECORD = 30;
     public static final int REQUEST_CODE_ATTACH_FILE = 40;
-    public static final int REQUEST_CODE_BEAST_MODE = 50;
 
     // --- result codes
 
@@ -186,6 +186,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private EditNoteActivity editNotes;
     private HideUntilControlSet hideUntilControls;
     private ReminderControlSet reminderControlSet;
+    private GCalControlSet gcalControl;
 
     @InjectView(R.id.title) EditText title;
     @InjectView(R.id.pager) ViewPager mPager;
@@ -358,7 +359,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         RepeatControlSet repeatControls = new RepeatControlSet(preferences, getActivity(), dialogBuilder);
         controlSetMap.put(getString(R.string.TEA_ctrl_repeat_pref), repeatControls);
 
-        GCalControlSet gcalControl = new GCalControlSet(gcalHelper, getActivity());
+        gcalControl = new GCalControlSet(gcalHelper, preferences, this);
         controlSetMap.put(getString(R.string.TEA_ctrl_gcal), gcalControl);
 
         // The deadline control set contains the repeat controls and the
@@ -406,7 +407,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controls.add(filesControlSet);
         controlSetMap.put(getString(R.string.TEA_ctrl_files_pref), filesControlSet);
 
-        loadEditPageOrder(false);
+        loadEditPageOrder();
 
         if (!showEditComments) {
             commentsBar.setVisibility(View.GONE);
@@ -419,11 +420,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         new TaskEditBackgroundLoader().start();
     }
 
-    private void loadEditPageOrder(boolean removeViews) {
-        if (removeViews) {
-            basicControls.removeAllViews();
-        }
-
+    private void loadEditPageOrder() {
         ArrayList<String> controlOrder = BeastModePreferences.constructOrderedControlList(preferences, getActivity());
         String[] itemOrder = controlOrder.toArray(new String[controlOrder.size()]);
 
@@ -935,10 +932,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             createNewFileAttachment(recordedAudioPath, recordedAudioName, TaskAttachment.FILE_TYPE_AUDIO + "m4a"); //$NON-NLS-1$
         } else if (requestCode == REQUEST_CODE_ATTACH_FILE && resultCode == Activity.RESULT_OK) {
             attachFile(data.getStringExtra(FileExplore.RESULT_FILE_SELECTED));
-        } else if (requestCode == REQUEST_CODE_BEAST_MODE) {
-            loadEditPageOrder(true);
-            new TaskEditBackgroundLoader().start();
-            return;
         }
 
         actFmCameraModule.activityResult(requestCode, resultCode, data, new CameraResultCallback() {

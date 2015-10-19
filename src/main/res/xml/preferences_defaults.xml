@@ -41,10 +41,9 @@
         android:entryValues="@array/EPr_default_reminders_mode_values"
         android:key="@string/p_default_reminders_mode_key"
         android:title="@string/EPr_default_reminders_mode_title" />
-    <com.todoroo.astrid.ui.MultilineListPreference
+    <Preference
         android:defaultValue="-1"
-        android:entries="@array/EPr_default_addtocalendar"
-        android:entryValues="@array/EPr_default_addtocalendar_values"
         android:key="@string/gcal_p_default"
-        android:title="@string/EPr_default_addtocalendar_title" />
+        android:title="@string/EPr_default_addtocalendar_title"
+        android:summary="@string/none"/>
 </PreferenceScreen>

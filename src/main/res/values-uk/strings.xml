@@ -116,7 +116,6 @@
 	<string name="CRA_list_created_title">Список створений!</string>
 	<string name="CRA_default_list_name">Список дій: %s</string>
 	<string name="EPr_title">Налаштування</string>
-	<string name="EPr_deactivated">деактивовані</string>
 	<string name="EPr_appearance_header">Інтерфейс</string>
 	<string name="EPr_filters_to_show_title">Показати фільтри</string>
 	<string name="EPr_edit_screen_options">Редагувати налаштування екрану</string>
@@ -211,10 +210,7 @@
 	<string name="gcal_TEA_error">Помилка при додаванні завдання в календар!</string>
 	<string name="gcal_TEA_addToCalendar_label">Додати до календаря</string>
 	<string name="gcal_TEA_showCalendar_label">Відкрити календарну подію</string>
-	<string name="gcal_TEA_nocal">Не додавати</string>
-	<string name="gcal_TEA_none_selected">До календаря?</string>
 	<string name="gcal_completed_title">%s (завершено)</string>
-	<string name="gcal_GCP_default">Календар по замовчуванню</string>
 	<string name="CFC_gtasks_list_text">В списку: ?</string>
 	<string name="CFC_gtasks_list_name">В GTasks списку...</string>
 	<string name="gtasks_GTA_clearing">Очищення виконаних завдань</string>

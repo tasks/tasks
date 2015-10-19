@@ -23,6 +23,8 @@ import com.todoroo.astrid.reminders.ReminderPreferences;
 import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
 
+import org.tasks.activities.CalendarSelectionActivity;
+import org.tasks.activities.CalendarSelectionDialog;
 import org.tasks.activities.ClearAllDataActivity;
 import org.tasks.activities.ClearGtaskDataActivity;
 import org.tasks.activities.DeleteAllCalendarEventsActivity;
@@ -94,7 +96,8 @@ import dagger.Provides;
                 FileExplore.class,
                 DonationActivity.class,
                 ActFmGoogleAuthActivity.class,
-                UpgradeService.UpgradeActivity.class
+                UpgradeService.UpgradeActivity.class,
+                CalendarSelectionActivity.class
         })
 public class ActivityModule {
 

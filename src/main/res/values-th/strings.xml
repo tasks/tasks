@@ -69,7 +69,6 @@
 	<string name="CFC_title_contains_text">ชื่อที่มีคำว่า: ?</string>
 	<string name="gcal_TEA_showCalendar_label">เปิดเหตุการณ์ปฏิทิน</string>
 	<string name="gcal_completed_title">%s (เสร็จสิ้นแล้ว)</string>
-	<string name="gcal_GCP_default">ปฏิธินตั้งต้น</string>
 	<string name="rmd_NoA_done">เสร็จเรียบร้อยแล้ว!</string>
 	<string name="rmd_NoA_snooze">หลับ..</string>
 	<string name="repeat_enabled">การเกิดซ้ำ</string>

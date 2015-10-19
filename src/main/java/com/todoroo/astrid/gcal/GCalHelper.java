@@ -8,7 +8,6 @@ package com.todoroo.astrid.gcal;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
 import android.net.Uri;
@@ -25,6 +24,8 @@ import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TimeZone;
 
 import javax.inject.Inject;
@@ -75,16 +76,8 @@ public class GCalHelper {
         createTaskEventIfEnabled(t, true);
     }
 
-    public boolean isDefaultCalendarSet() {
-        return getDefaultCalendar() != null && !getDefaultCalendar().equals("-1") && !getDefaultCalendar().equals("0");
-    }
-
-    private String getDefaultCalendar() {
-        return preferences.getStringValue(R.string.gcal_p_default);
-    }
-
     private void createTaskEventIfEnabled(Task t, boolean deleteEventIfExists) {
-        if (isDefaultCalendarSet()) {
+        if (preferences.isDefaultCalendarSet()) {
             ContentResolver cr = context.getContentResolver();
             Uri calendarUri = createTaskEvent(t, cr, new ContentValues(), deleteEventIfExists);
             if (calendarUri != null) {
@@ -116,7 +109,7 @@ public class GCalHelper {
             boolean valuesContainCalendarId = (values.containsKey(CALENDAR_ID_COLUMN) &&
                     !TextUtils.isEmpty(values.getAsString(CALENDAR_ID_COLUMN)));
             if (!valuesContainCalendarId) {
-                String calendarId = getDefaultCalendar();
+                String calendarId = preferences.getDefaultCalendar();
                 if (!TextUtils.isEmpty(calendarId)) {
                     values.put("calendar_id", calendarId);
                 }
@@ -157,7 +150,7 @@ public class GCalHelper {
     }
 
     private static String getCalendarId(Uri uri, ContentResolver cr) {
-        Cursor calendar = cr.query(uri, new String[] { CALENDAR_ID_COLUMN }, null, null, null);
+        Cursor calendar = cr.query(uri, new String[]{CALENDAR_ID_COLUMN}, null, null, null);
         try {
             calendar.moveToFirst();
             return calendar.getString(0);
@@ -253,71 +246,31 @@ public class GCalHelper {
         }
     }
 
-    public static class CalendarResult {
-        /** calendar names */
-        public String[] calendars;
-
-        /** calendar ids. null entry -> use default */
-        public String[] calendarIds;
-
-        /** default selection index */
-        public int defaultIndex = -1;
-    }
-
     /**
      * Appends all user-modifiable calendars to listPreference.
      */
-    public CalendarResult getCalendars() {
+    public List<AndroidCalendar> getCalendars() {
         ContentResolver cr = context.getContentResolver();
-        Resources r = context.getResources();
 
         Cursor c = cr.query(getCalendarContentUri(Calendars.CALENDAR_CONTENT_CALENDARS), Calendars.CALENDARS_PROJECTION,
                 Calendars.CALENDARS_WHERE, null, Calendars.CALENDARS_SORT);
         try {
-            // Fetch the current setting. Invalid calendar id will
-            // be changed to default value.
-            String defaultSetting = getDefaultCalendar();
-
-            CalendarResult result = new CalendarResult();
+            List<AndroidCalendar> calendars = new ArrayList<>();
 
             if (c == null || c.getCount() == 0) {
                 // Something went wrong when querying calendars. Only offer them
                 // the system default choice
-                result.calendars = new String[] {
-                        r.getString(R.string.gcal_GCP_default) };
-                result.calendarIds = new String[] { null };
-                result.defaultIndex = 0;
-                return result;
+                return calendars;
             }
 
-            int calendarCount = c.getCount();
-
-            result.calendars = new String[calendarCount];
-            result.calendarIds = new String[calendarCount];
-
-            // Iterate calendars one by one, and fill up the list preference
-            int row = 0;
             int idColumn = c.getColumnIndex(Calendars.ID_COLUMN_NAME);
             int nameColumn = c.getColumnIndex(Calendars.CALENDARS_DISPLAY_COL);
             while (c.moveToNext()) {
                 String id = c.getString(idColumn);
                 String name = c.getString(nameColumn);
-                result.calendars[row] = name;
-                result.calendarIds[row] = id;
-
-                // We found currently selected calendar
-                if (defaultSetting != null && defaultSetting.equals(id)) {
-                    result.defaultIndex = row;
-                }
-
-                row++;
+                calendars.add(new AndroidCalendar(id, name));
             }
-
-            if (result.defaultIndex >= calendarCount) {
-                result.defaultIndex = 0;
-            }
-
-            return result;
+            return calendars;
         } finally {
             if(c != null) {
                 c.close();

@@ -62,7 +62,6 @@
 	<string name="CRA_more_options">Flere alternativer</string>
 	<string name="CRA_dont_invite">Nei takk</string>
 	<string name="EPr_title">Tasks: Innstillinger</string>
-	<string name="EPr_deactivated">deaktivert</string>
 	<string name="EPr_appearance_header">Utseende</string>
 	<string name="TWi_loading">Laster ...</string>
 	<string name="WCA_title">Velg oppgaver å se på</string>
@@ -108,9 +107,7 @@
 	<string name="gcal_TEA_error">Klarte ikke å legge oppgave til kalender!</string>
 	<string name="gcal_TEA_addToCalendar_label">Legg til i kalender</string>
 	<string name="gcal_TEA_showCalendar_label">Åpne kalenderhendelse</string>
-	<string name="gcal_TEA_nocal">Ikke legg til</string>
 	<string name="gcal_completed_title">%s (fullført)</string>
-	<string name="gcal_GCP_default">Standardkalender</string>
 	<string name="CFC_gtasks_list_text">I liste: ?</string>
 	<string name="locale_notification">Du har $NUM som matcher: $FILTER</string>
 	<string name="file_browser_title">Velg en fil</string>

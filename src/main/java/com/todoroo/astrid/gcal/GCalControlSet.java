@@ -10,26 +10,24 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSetBase;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
-
-import java.util.ArrayList;
-import java.util.Collections;
+import org.tasks.activities.CalendarSelectionDialog;
+import org.tasks.preferences.Preferences;
+import org.tasks.reminders.SnoozeDialog;
 
 /**
  * Control Set for managing repeats
@@ -37,62 +35,58 @@ import java.util.Collections;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class GCalControlSet extends TaskEditControlSetBase {
+public class GCalControlSet extends TaskEditControlSetBase implements CalendarSelectionDialog.CalendarSelectionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GCalControlSet.class);
-    private static final int title = R.string.gcal_TEA_addToCalendar_label;
+    private static final String FRAG_TAG_CALENDAR_SELECTION = "frag_tag_calendar_selection";
 
     // --- instance variables
 
     private final GCalHelper gcal;
+    private Preferences preferences;
+    private final TaskEditFragment taskEditFragment;
 
     private Uri calendarUri = null;
 
-    private final GCalHelper.CalendarResult calendars;
     private boolean hasEvent = false;
-    private Spinner calendarSelector;
     private TextView calendar;
+    private ImageView cancelButton;
+    private String calendarId;
+    private String calendarName;
 
-    public GCalControlSet(GCalHelper gcal, final FragmentActivity activity) {
-        super(activity, R.layout.control_set_gcal_display);
+    public GCalControlSet(GCalHelper gcal, Preferences preferences, TaskEditFragment taskEditFragment) {
+        super(taskEditFragment.getActivity(), R.layout.control_set_gcal_display);
         this.gcal = gcal;
-        this.calendars = gcal.getCalendars();
+        this.preferences = preferences;
+        this.taskEditFragment = taskEditFragment;
     }
 
     @Override
     protected void afterInflate() {
-        calendarSelector = (Spinner) getView().findViewById(R.id.calendars);
-        calendar = (TextView) getView().findViewById(R.id.calendar_display_which);
+        View view = getView();
+        calendar = (TextView) view.findViewById(R.id.calendar_display_which);
+        cancelButton = (ImageView) view.findViewById(R.id.clear_calendar);
         calendar.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!hasEvent) {
-                    calendarSelector.performClick();
-                } else {
+                if (hasEvent) {
                     viewCalendarEvent();
+                } else {
+                    FragmentManager fragmentManager = taskEditFragment.getFragmentManager();
+                    CalendarSelectionDialog fragmentByTag = (CalendarSelectionDialog) fragmentManager.findFragmentByTag(FRAG_TAG_CALENDAR_SELECTION);
+                    if (fragmentByTag == null) {
+                        fragmentByTag = new CalendarSelectionDialog();
+                        fragmentByTag.show(fragmentManager, FRAG_TAG_CALENDAR_SELECTION);
+                    }
+                    fragmentByTag.setCalendarSelectionHandler(GCalControlSet.this);
                 }
             }
         });
-        ArrayList<String> items = new ArrayList<>();
-        Collections.addAll(items, calendars.calendars);
-        items.add(0, activity.getString(R.string.gcal_TEA_nocal));
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(activity,
-                android.R.layout.simple_spinner_item, items.toArray(new String[items.size()]));
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        calendarSelector.setPromptId(title);
-        calendarSelector.setAdapter(adapter);
-        resetCalendarSelector();
-        calendarSelector.setOnItemSelectedListener(new OnItemSelectedListener() {
+        cancelButton.setOnClickListener(new OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+            public void onClick(View v) {
+                clearEvent();
                 refreshDisplayView();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                //nothing
             }
         });
     }
@@ -111,28 +105,28 @@ public class GCalControlSet extends TaskEditControlSetBase {
                     boolean deleted = cursor.getCount() == 0;
 
                     if(deleted) {
-                        calendarUri = null;
-                        return;
+                        clearEvent();
+                        hasEvent = false;
+                    } else {
+                        hasEvent = true;
                     }
                 } finally {
                     cursor.close();
                 }
-
-                hasEvent = true;
             } catch (Exception e) {
                 log.error("unable-to-parse-calendar: " + model.getCalendarURI(), e);
             }
         } else {
             hasEvent = false;
-            calendarUri = null;
+            clearEvent();
         }
         refreshDisplayView();
     }
 
-    public void resetCalendarSelector() {
-        if (calendarSelector != null) {
-            calendarSelector.setSelection(calendars.defaultIndex + 1); // plus 1 for the no selection item
-        }
+    private void clearEvent() {
+        calendarId = null;
+        calendarUri = null;
+        calendarName = null;
     }
 
     @Override
@@ -141,21 +135,17 @@ public class GCalControlSet extends TaskEditControlSetBase {
             return;
         }
 
-        if ((gcal.isDefaultCalendarSet() || calendarSelector.getSelectedItemPosition() != 0) &&
-                calendarUri == null) {
-
+        if ((preferences.isDefaultCalendarSet() || calendarId != null) && calendarUri == null) {
             try{
                 ContentResolver cr = activity.getContentResolver();
 
                 ContentValues values = new ContentValues();
-                String calendarId = calendars.calendarIds[calendarSelector.getSelectedItemPosition() - 1];
                 values.put("calendar_id", calendarId);
-
                 calendarUri = gcal.createTaskEvent(task, cr, values);
                 if(calendarUri != null) {
                     task.setCalendarUri(calendarUri.toString());
 
-                    if (calendarSelector.getSelectedItemPosition() != 0 && !hasEvent) {
+                    if (!hasEvent) {
                         // pop up the new event
                         Intent intent = new Intent(Intent.ACTION_VIEW, calendarUri);
                         intent.putExtra("beginTime", values.getAsLong("dtstart"));
@@ -197,7 +187,7 @@ public class GCalControlSet extends TaskEditControlSetBase {
         }
 
         ContentResolver cr = activity.getContentResolver();
-        Intent intent = new Intent(Intent.ACTION_EDIT, calendarUri);
+        Intent intent = new Intent(Intent.ACTION_VIEW, calendarUri);
         Cursor cursor = cr.query(calendarUri, new String[] { "dtstart", "dtend" },
                 null, null, null);
         try {
@@ -226,21 +216,22 @@ public class GCalControlSet extends TaskEditControlSetBase {
         if (initialized) {
             if (hasEvent) {
                 calendar.setText(R.string.gcal_TEA_showCalendar_label);
-            } else if (calendarSelector.getSelectedItemPosition() != 0) {
-                calendar.setText((String)calendarSelector.getSelectedItem());
+                cancelButton.setVisibility(View.GONE);
+            } else if (calendarName != null) {
+                calendar.setText(calendarName);
+                cancelButton.setVisibility(View.VISIBLE);
             } else {
                 calendar.setTextColor(unsetColor);
-                calendar.setText(R.string.gcal_TEA_none_selected);
+                calendar.setText(R.string.gcal_TEA_addToCalendar_label);
+                cancelButton.setVisibility(View.GONE);
             }
         } else {
-            int index = calendars.defaultIndex;
-            if (!TextUtils.isEmpty(model.getCalendarURI())) {
-                calendar.setText(R.string.gcal_TEA_showCalendar_label);
-            } else if (index >= 0 && index < calendars.calendars.length) {
-                calendar.setText(calendars.calendars[index]);
-            } else {
+            cancelButton.setVisibility(View.GONE);
+            if (TextUtils.isEmpty(model.getCalendarURI())) {
                 calendar.setTextColor(unsetColor);
-                calendar.setText(R.string.gcal_TEA_none_selected);
+                calendar.setText(R.string.gcal_TEA_addToCalendar_label);
+            } else {
+                calendar.setText(R.string.gcal_TEA_showCalendar_label);
             }
         }
     }
@@ -248,5 +239,17 @@ public class GCalControlSet extends TaskEditControlSetBase {
     @Override
     public int getIcon() {
         return R.drawable.ic_event_24dp;
+    }
+
+    @Override
+    public void selectedCalendar(AndroidCalendar androidCalendar) {
+        this.calendarId = androidCalendar.getId();
+        this.calendarName = androidCalendar.getName();
+        refreshDisplayView();
+    }
+
+    @Override
+    public void dismiss() {
+
     }
 }

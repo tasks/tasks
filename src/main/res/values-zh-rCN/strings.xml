@@ -84,7 +84,6 @@
 	<string name="CRA_create_list">创建列表</string>
 	<string name="CRA_postpone">也许以后</string>
 	<string name="EPr_title">清单小助理：设置</string>
-	<string name="EPr_deactivated">禁用</string>
 	<string name="EPr_appearance_header">外观</string>
 	<string name="EPr_beastMode_desc">自定义设定菜单屏幕</string>
 	<string name="EPr_beastMode_reset">恢复默认值</string>
@@ -161,9 +160,7 @@
 	<string name="gcal_TEA_error">添加任务到日历时失败！</string>
 	<string name="gcal_TEA_addToCalendar_label">建立日程表事件</string>
 	<string name="gcal_TEA_showCalendar_label">打开日程表事件</string>
-	<string name="gcal_TEA_nocal">不要添加</string>
 	<string name="gcal_completed_title">%s (已完成)</string>
-	<string name="gcal_GCP_default">默认日程表</string>
 	<string name="CFC_gtasks_list_text">列表内容: ?</string>
 	<string name="CFC_gtasks_list_name">在Google任务列表中...</string>
 	<string name="gtasks_GTA_clearing">正在清除已完成任务……</string>

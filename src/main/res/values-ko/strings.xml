@@ -119,7 +119,6 @@
 	<string name="CRA_list_created_title">목록을 만들었습니다!</string>
 	<string name="CRA_default_list_name">활동 아이템: %s</string>
 	<string name="EPr_title">설정</string>
-	<string name="EPr_deactivated">비활성화됨</string>
 	<string name="EPr_appearance_header">보기 설정</string>
 	<string name="EPr_filters_to_show_title">표시할 필터</string>
 	<string name="EPr_edit_screen_options">화면 설정 편집하기</string>
@@ -214,10 +213,7 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	<string name="gcal_TEA_error">달력에 일정 추가 실패!</string>
 	<string name="gcal_TEA_addToCalendar_label">달력에 일정 추가하기</string>
 	<string name="gcal_TEA_showCalendar_label">달력 이벤트 열기</string>
-	<string name="gcal_TEA_nocal">추가하지 않기</string>
-	<string name="gcal_TEA_none_selected">달력에?</string>
 	<string name="gcal_completed_title">%s (완료)</string>
-	<string name="gcal_GCP_default">기본 달력</string>
 	<string name="CFC_gtasks_list_text">목록에: ?</string>
 	<string name="CFC_gtasks_list_name">GTasks 목록에...</string>
 	<string name="gtasks_GTA_clearing">완료한 일정을 삭제하는 중...</string>

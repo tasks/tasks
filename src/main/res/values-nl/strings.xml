@@ -122,7 +122,6 @@
 	<string name="CRA_list_created_title">Lijst gemaakt!</string>
 	<string name="CRA_default_list_name">Actie-items: %s</string>
 	<string name="EPr_title">Tasks: Instellingen</string>
-	<string name="EPr_deactivated">uitgeschakeld</string>
 	<string name="EPr_appearance_header">Uiterlijk</string>
 	<string name="EPr_filters_to_show_title">Te tonen filters</string>
 	<string name="EPr_edit_screen_options">Scherm opties bewerken</string>
@@ -218,10 +217,7 @@
 	<string name="gcal_TEA_error">Fout bij toevoegen taak aan agenda!</string>
 	<string name="gcal_TEA_addToCalendar_label">Toevoegen aan Agenda</string>
 	<string name="gcal_TEA_showCalendar_label">Gebeurtenis openen</string>
-	<string name="gcal_TEA_nocal">Niet toevoegen</string>
-	<string name="gcal_TEA_none_selected">Naar agenda?</string>
 	<string name="gcal_completed_title">%s (voltooid)</string>
-	<string name="gcal_GCP_default">Standaard agenda</string>
 	<string name="CFC_gtasks_list_text">In lijst: ?</string>
 	<string name="CFC_gtasks_list_name">In GTasks lijst...</string>
 	<string name="gtasks_GTA_clearing">Verwijderen voltooide taken...</string>

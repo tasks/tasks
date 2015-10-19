@@ -120,7 +120,6 @@
 	<string name="CRA_list_created_title">Lista creada</string>
 	<string name="CRA_default_list_name">Acciones: %s</string>
 	<string name="EPr_title">Tasks: Preferencias</string>
-	<string name="EPr_deactivated">desactivada</string>
 	<string name="EPr_appearance_header">Apariencia</string>
 	<string name="EPr_filters_to_show_title">Filtros a mostrar</string>
 	<string name="EPr_edit_screen_options">Editar opciones de pantalla</string>
@@ -212,10 +211,7 @@
 	<string name="gcal_TEA_error">¡Ocurrió un error al agregar la tarea al calendario!</string>
 	<string name="gcal_TEA_addToCalendar_label">Agregar al calendario</string>
 	<string name="gcal_TEA_showCalendar_label">Abrir evento del calendario</string>
-	<string name="gcal_TEA_nocal">No agregar</string>
-	<string name="gcal_TEA_none_selected">¿Al calendario?</string>
 	<string name="gcal_completed_title">%s (completado)</string>
-	<string name="gcal_GCP_default">Calendario predeterminado</string>
 	<string name="CFC_gtasks_list_text">En la Lista: ?</string>
 	<string name="CFC_gtasks_list_name">en la Lista GTasks...</string>
 	<string name="gtasks_GTA_clearing">Limpiando tareas completadas...</string>

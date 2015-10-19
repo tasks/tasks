@@ -287,8 +287,7 @@
   <!-- slide 31g: Preference Window Title -->
   <string name="EPr_title">Settings</string>
   
-  <!-- slide 46a -->
-  <string name="EPr_deactivated">deactivated</string>
+  <string name="none">None</string>
 
   <!-- slide 30i: Preference Category: Appearance Title -->
   <string name="EPr_appearance_header">Appearance</string>

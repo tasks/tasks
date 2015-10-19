@@ -119,7 +119,6 @@
 	<string name="CRA_list_created_title">Liste erstellt</string>
 	<string name="CRA_default_list_name">Einzelaufgaben: %s</string>
 	<string name="EPr_title">Tasks: Einstellungen</string>
-	<string name="EPr_deactivated">deaktiviert</string>
 	<string name="EPr_appearance_header">Erscheinungsbild</string>
 	<string name="EPr_filters_to_show_title">Angezeigte Filter</string>
 	<string name="EPr_edit_screen_options">Bildschirmeinstellungen bearbeiten</string>
@@ -211,10 +210,7 @@
 	<string name="gcal_TEA_error">Fehler beim Hinzufügen der Aufgabe zum Kalender!</string>
 	<string name="gcal_TEA_addToCalendar_label">In Kalender eintragen</string>
 	<string name="gcal_TEA_showCalendar_label">Öffne Kalendereintrag</string>
-	<string name="gcal_TEA_nocal">Nicht eintragen</string>
-	<string name="gcal_TEA_none_selected">In den Kalender?</string>
 	<string name="gcal_completed_title">%s (abgeschlossen)</string>
-	<string name="gcal_GCP_default">Standardkalender</string>
 	<string name="CFC_gtasks_list_text">In der Liste: ?</string>
 	<string name="CFC_gtasks_list_name">In GTasks-Liste …</string>
 	<string name="gtasks_GTA_clearing">Erledigte Aufgaben werden entfernt …</string>

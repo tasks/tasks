@@ -113,7 +113,6 @@
 	<string name="CRA_list_created_title">Lista utworzona!</string>
 	<string name="CRA_default_list_name">Wydarzenia aktywne: %s</string>
 	<string name="EPr_title">Tasks: Właściwości</string>
-	<string name="EPr_deactivated">niekatywny</string>
 	<string name="EPr_appearance_header">Wygląd</string>
 	<string name="EPr_filters_to_show_title">Pokazywane filtry</string>
 	<string name="EPr_edit_screen_options">Edytuj ustawienia ekranu</string>
@@ -206,10 +205,7 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="gcal_TEA_error">Błąd podczas dodawania zadania do kalendarza!</string>
 	<string name="gcal_TEA_addToCalendar_label">Dodaj do kalendarza</string>
 	<string name="gcal_TEA_showCalendar_label">Otwórz zdarzenie kalendarza</string>
-	<string name="gcal_TEA_nocal">Nie dodawaj</string>
-	<string name="gcal_TEA_none_selected">Do kalendarza?</string>
 	<string name="gcal_completed_title">%s (ukończono)</string>
-	<string name="gcal_GCP_default">Domyślny kalendarz</string>
 	<string name="CFC_gtasks_list_text">Na liście: ?</string>
 	<string name="CFC_gtasks_list_name">Na liście GTasks...</string>
 	<string name="gtasks_GTA_clearing">Czyszczenie zakończonych zadań...</string>

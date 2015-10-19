@@ -85,6 +85,15 @@ public class Preferences {
         return getBoolean(WidgetConfigActivity.PREF_DARK_THEME + widgetId, legacySetting);
     }
 
+    public boolean isDefaultCalendarSet() {
+        String defaultCalendar = getDefaultCalendar();
+        return defaultCalendar != null && !defaultCalendar.equals("-1") && !defaultCalendar.equals("0");
+    }
+
+    public String getDefaultCalendar() {
+        return getStringValue(R.string.gcal_p_default);
+    }
+
     public boolean geofencesEnabled() {
         return deviceInfo.supportsLocationServices() && getBoolean(R.string.p_geofence_reminders_enabled, true);
     }
