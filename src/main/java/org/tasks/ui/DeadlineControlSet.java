@@ -184,26 +184,26 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
                 if (atLeastHoneycomb()) {
                     if (date == 0) {
                         dueDateSpinner.setAlpha(0.5f);
-                        dueDateSpinner.setBackground(getThemedUnderline());
+                        dueDateSpinner.setBackgroundDrawable(getThemedUnderline());
                     } else {
                         dueDateSpinner.setAlpha(1.0f);
                         if (date < newDateTime().withMillisOfDay(0).getMillis()) {
-                            dueDateSpinner.setBackground(getRedUnderline());
+                            dueDateSpinner.setBackgroundDrawable(getRedUnderline());
                             tv.setTextColor(activity.getResources().getColor(R.color.overdue));
                         } else {
-                            dueDateSpinner.setBackground(getThemedUnderline());
+                            dueDateSpinner.setBackgroundDrawable(getThemedUnderline());
                             tv.setTextColor(themeColor);
                         }
                     }
                 } else {
                     if (date == 0) {
-                        dueDateSpinner.setBackground(getThemedUnderline());
+                        dueDateSpinner.setBackgroundDrawable(getThemedUnderline());
                         tv.setTextColor(unsetColor);
                     } else if (date < newDateTime().withMillisOfDay(0).getMillis()) {
-                        dueDateSpinner.setBackground(getRedUnderline());
+                        dueDateSpinner.setBackgroundDrawable(getRedUnderline());
                         tv.setTextColor(activity.getResources().getColor(R.color.overdue));
                     } else {
-                        dueDateSpinner.setBackground(getThemedUnderline());
+                        dueDateSpinner.setBackgroundDrawable(getThemedUnderline());
                         tv.setTextColor(themeColor);
                     }
                 }
@@ -245,26 +245,26 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
                 if (atLeastHoneycomb()) {
                     if (time == -1) {
                         dueTimeSpinner.setAlpha(0.5f);
-                        dueTimeSpinner.setBackground(getThemedUnderline());
+                        dueTimeSpinner.setBackgroundDrawable(getThemedUnderline());
                     } else {
                         dueTimeSpinner.setAlpha(1.0f);
                         if (newDateTime(date).withMillisOfDay(time).isBeforeNow()) {
-                            dueTimeSpinner.setBackground(getRedUnderline());
+                            dueTimeSpinner.setBackgroundDrawable(getRedUnderline());
                             tv.setTextColor(activity.getResources().getColor(R.color.overdue));
                         } else {
-                            dueTimeSpinner.setBackground(getThemedUnderline());
+                            dueTimeSpinner.setBackgroundDrawable(getThemedUnderline());
                             tv.setTextColor(themeColor);
                         }
                     }
                 } else {
                     if (time == -1) {
-                        dueTimeSpinner.setBackground(getThemedUnderline());
+                        dueTimeSpinner.setBackgroundDrawable(getThemedUnderline());
                         tv.setTextColor(unsetColor);
                     } else if (newDateTime(date).withMillisOfDay(time).isBeforeNow()) {
-                        dueTimeSpinner.setBackground(getRedUnderline());
+                        dueTimeSpinner.setBackgroundDrawable(getRedUnderline());
                         tv.setTextColor(activity.getResources().getColor(R.color.overdue));
                     } else {
-                        dueTimeSpinner.setBackground(getThemedUnderline());
+                        dueTimeSpinner.setBackgroundDrawable(getThemedUnderline());
                         tv.setTextColor(themeColor);
                     }
                 }
