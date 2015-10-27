@@ -63,7 +63,12 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
                     }
                 });
         if (enableNone) {
-            builder.setNeutralButton(R.string.none, new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            }).setNeutralButton(R.string.none, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     handler.selectedCalendar(AndroidCalendar.NONE);
