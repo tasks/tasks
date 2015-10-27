@@ -122,6 +122,7 @@
 	<string name="CRA_list_created_title">リストが作成されました!</string>
 	<string name="CRA_default_list_name">アクションアイテム: %s</string>
 	<string name="EPr_title">Tasks: 設定</string>
+	<string name="none">なし</string>
 	<string name="EPr_appearance_header">外観</string>
 	<string name="EPr_filters_to_show_title">表示のフィルター</string>
 	<string name="EPr_edit_screen_options">編集画面オプション</string>
@@ -219,6 +220,7 @@
 	<string name="CFC_title_contains_text">タイトルに ? を含む</string>
 	<string name="gcal_TEA_error">カレンダーへの登録に失敗しました</string>
 	<string name="gcal_TEA_addToCalendar_label">カレンダーに登録</string>
+	<string name="choose_calendar">カレンダーを選択</string>
 	<string name="gcal_TEA_showCalendar_label">カレンダーのイベントを開く</string>
 	<string name="gcal_completed_title">%s（完了）</string>
 	<string name="CFC_gtasks_list_text">リストにありますか ?</string>

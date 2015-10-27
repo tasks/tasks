@@ -219,6 +219,7 @@
 	<string name="CFC_title_contains_text">Название содержит: ?</string>
 	<string name="gcal_TEA_error">Ошибка при добавлении задачи в календарь!</string>
 	<string name="gcal_TEA_addToCalendar_label">Добавить в календарь</string>
+	<string name="choose_calendar">Выберите календарь</string>
 	<string name="gcal_TEA_showCalendar_label">Открыть событие календаря</string>
 	<string name="gcal_completed_title">%s (выполнено)</string>
 	<string name="CFC_gtasks_list_text">В Списке: ?</string>
