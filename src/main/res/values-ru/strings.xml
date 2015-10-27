@@ -142,8 +142,6 @@
 	<string name="EPr_manage_purge_deleted">Очистить удаленные задачи?</string>
 	<string name="EPr_manage_purge_deleted_message">Действительно хотите убрать все удалённые задачи?\n\nЭта операция необратима!</string>
 	<string name="EPr_manage_purge_deleted_status">Убрано %d задач!</string>
-	<string name="EPr_manage_clear_all">Очистить все данные</string>
-	<string name="EPr_manage_clear_all_message">\"Удалить  все задачи и настройки в Tasks?\n\nВнимание: действие необратимо!\"</string>
 	<string name="EPr_manage_delete_completed_gcal">Удалить календарные события для завершенных задач</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Вы уверены, что хотите удалить все ваши события для завершенных задач?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">Удалено %d календарных событий!</string>

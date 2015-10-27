@@ -140,8 +140,6 @@
 	<string name="EPr_manage_purge_deleted">Purger les tâches supprimées</string>
 	<string name="EPr_manage_purge_deleted_message">Voulez vous vraiment purger toutes vos tâches supprimées ?\n\nCes tâches seront perdues pour toujours !</string>
 	<string name="EPr_manage_purge_deleted_status">%d tâches purgées!</string>
-	<string name="EPr_manage_clear_all">Effacer toutes les données</string>
-	<string name="EPr_manage_clear_all_message">Supprimer toutes les tâches et configuration?\n\nAttention: cela est irréversible!</string>
 	<string name="EPr_manage_delete_completed_gcal">Supprimer les entrées de calendrier des tâches terminées</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Voulez-vous réellement supprimer tous les événements pour les tâches complétées?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">%d événements du calendrier ont été supprimés!</string>

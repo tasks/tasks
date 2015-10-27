@@ -142,8 +142,6 @@
 	<string name="EPr_manage_purge_deleted">Verwijderde taken opruimen</string>
 	<string name="EPr_manage_purge_deleted_message">Alle verwijderde taken werkelijk opschonen?\n\nDeze taken zijn dan definitief verwijderd!</string>
 	<string name="EPr_manage_purge_deleted_status">%d verwijderde taken opgeruimd!</string>
-	<string name="EPr_manage_clear_all">Wis Alle Gegevens</string>
-	<string name="EPr_manage_clear_all_message">Verwijder alle taken en instellingen in Tasks?\n\nWaarschuwing: kan niet ongedaan gemaakt worden!</string>
 	<string name="EPr_manage_delete_completed_gcal">Verwijder Agenda-items voor voltooide taken</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Weet je zeker dat je alle gebeurtenissen voor voltooide taken wil verwijderen?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">%d agenda-items verwijderd!</string>

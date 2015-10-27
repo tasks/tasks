@@ -143,8 +143,6 @@
 	<string name="EPr_manage_purge_deleted">削除済のタスクを消去</string>
 	<string name="EPr_manage_purge_deleted_message">削除済のタスクをすべて消去してもよろしいですか?\n\nこれらのタスクは永久になくなります!</string>
 	<string name="EPr_manage_purge_deleted_status">%d タスクを消去しました!</string>
-	<string name="EPr_manage_clear_all">データをすべてクリア</string>
-	<string name="EPr_manage_clear_all_message">Tasks のすべてのタスクとタスクの設定を削除しますか?\n\n警告: 取り消しできません!</string>
 	<string name="EPr_manage_delete_completed_gcal">完了したタスクのカレンダーイベントを削除</string>
 	<string name="EPr_manage_delete_completed_gcal_message">完了したタスクのイベントをすべて削除してもよろしいですか?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">%d カレンダーイベントが削除されました!</string>

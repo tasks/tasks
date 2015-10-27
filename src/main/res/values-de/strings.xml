@@ -139,8 +139,6 @@
 	<string name="EPr_manage_purge_deleted">Gelöschte Aufgaben endgültig löschen</string>
 	<string name="EPr_manage_purge_deleted_message">Willst du wirklich alle gelöschten Aufgaben bereinigen?\n\nDiese Aufgaben werden für immer gelöscht bleiben!</string>
 	<string name="EPr_manage_purge_deleted_status">%d Aufgaben bereinigt!</string>
-	<string name="EPr_manage_clear_all">Alle Daten löschen</string>
-	<string name="EPr_manage_clear_all_message">Alle Aufgaben und Einstellungen von Tasks löschen?\n\nWarnung: Dies kann nicht rückgängig gemacht werden!</string>
 	<string name="EPr_manage_delete_completed_gcal">Lösche Kalendereinträge von erledigten Aufgaben</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Möchtest du wirklich alle deine Kalendereinträge von erledigen Aufgaben löschen?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">%d Kalendereinträge gelöscht!</string>

@@ -135,8 +135,6 @@
 	<string name="EPr_manage_purge_deleted">Popolnoma odstrani zbrisane opravke</string>
 	<string name="EPr_manage_purge_deleted_message">Ste prepričani, da želite popolnoma odstraniti vse zbrisane opravke?\n\nTega ukaza ne bo mogoče razveljaviti! </string>
 	<string name="EPr_manage_purge_deleted_status">Število popolnoma odstranjenih opravkov: %d </string>
-	<string name="EPr_manage_clear_all">Zbriši vse podatke</string>
-	<string name="EPr_manage_clear_all_message">Zbriši vse opravke in nastavitve v aplikaciji Opravki?\n\nPozor: ukaza ni mogoče razveljaviti!</string>
 	<string name="EPr_manage_delete_completed_gcal">Zbriši dokončane opravke s koledarja dogodkov</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Ste prepričani, da želite zbrisati vse dokončane opravke iz vaših dogodkov?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">Število zbrisanih dogodkov na koledarju: %d </string>

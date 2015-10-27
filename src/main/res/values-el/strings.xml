@@ -131,8 +131,6 @@
 	<string name="EPr_manage_purge_deleted">Εκκαθάριση διεγραμμένων εργασιών</string>
 	<string name="EPr_manage_purge_deleted_message">Θέλετε πραγματικά να καθαρίσετε όλες τις διαγραμμένες εργασίες;\n\nΑυτές οι εργασίες θα χαθούν για πάντα!</string>
 	<string name="EPr_manage_purge_deleted_status">Εκκαθαρίστηκαν %d εργασίες!</string>
-	<string name="EPr_manage_clear_all">Εκκαθάριση όλων των δεδομένων</string>
-	<string name="EPr_manage_clear_all_message">Διαγραφή όλων των εργασιών και των ρυθμίσεων της εφαρμογής;\n\nΠροσοχή: είναι μη αναστρέψιμο!</string>
 	<string name="EPr_manage_delete_completed_gcal">Διαγραφή των γεγονότων ημερολογίου για ολοκληρωμένες εργασίες</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Σίγουρα θέλεις τη διαγραφή όλων των γεγονότων για τις ολοκληρωμένες εργασίες;</string>
 	<string name="EPr_manage_delete_completed_gcal_status">Διαγράφτηκαν %d γεγονότα ημερολογίου!</string>

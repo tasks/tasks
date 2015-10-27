@@ -95,8 +95,6 @@
 	<string name="EPr_manage_purge_deleted">清除已删除任务</string>
 	<string name="EPr_manage_purge_deleted_message">您真的要清楚所有已删除任务吗？ \n\n 这些任务将会被彻底永久删除！</string>
 	<string name="EPr_manage_purge_deleted_status">清除了 %d 个任务！</string>
-	<string name="EPr_manage_clear_all">清除所有数据</string>
-	<string name="EPr_manage_clear_all_message">要删除清单小助理中所有任务和设置吗？\n\n系统提醒：无法还原的喔！</string>
 	<string name="EPr_manage_delete_completed_gcal">删除日程表中已完成任务</string>
 	<string name="EPr_manage_delete_completed_gcal_message">您真的想删除您所有的事件中已经完成的任务吗？</string>
 	<string name="EPr_manage_delete_completed_gcal_status">已经删除 %d 个日历事件了！</string>

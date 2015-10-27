@@ -334,8 +334,10 @@
   <string name="EPr_manage_purge_deleted_message">Do you really want to purge all your deleted tasks?\n\nThese tasks will be gone forever!</string>
   <string name="EPr_manage_purge_deleted_status">Purged %d tasks!</string>
   <!-- slide 47h-->
-  <string name="EPr_manage_clear_all">Clear all data</string>
-  <string name="EPr_manage_clear_all_message">Delete all tasks and settings in Tasks?\n\nWarning: can\'t be undone!</string>
+  <string name="EPr_reset_preferences">Reset preferences</string>
+  <string name="EPr_reset_preferences_warning">Preferences will be reset to default values</string>
+  <string name="EPr_delete_task_data">Delete task data</string>
+  <string name="EPr_delete_task_data_warning">All tasks will be permanently deleted</string>
 
   <!-- slide 47f -->
   <string name="EPr_manage_delete_completed_gcal">Delete calendar events for completed tasks</string>

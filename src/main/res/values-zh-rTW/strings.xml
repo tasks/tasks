@@ -122,8 +122,6 @@
 	<string name="EPr_manage_purge_deleted">清除已刪除任務工作</string>
 	<string name="EPr_manage_purge_deleted_message">您真的要清楚所有已刪除任務工作嗎？ \n\n 這些任務工作將會被徹底永久刪除！</string>
 	<string name="EPr_manage_purge_deleted_status">清除了 %d 個任務工作！</string>
-	<string name="EPr_manage_clear_all">清除所有數據</string>
-	<string name="EPr_manage_clear_all_message">刪除所有Tasks任務和設置\n\n警告：不可復原！</string>
 	<string name="EPr_manage_delete_completed_gcal">刪除日程表中已完成任務工作</string>
 	<string name="EPr_manage_delete_completed_gcal_message">您真的想刪除您所有的事件中已經完成的任務工作嗎？</string>
 	<string name="EPr_manage_delete_completed_gcal_status">清除%d個日曆事件!</string>

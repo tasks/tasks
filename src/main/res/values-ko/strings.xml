@@ -139,8 +139,6 @@
 	<string name="EPr_manage_purge_deleted">삭제한 일정을 비우기</string>
 	<string name="EPr_manage_purge_deleted_message">삭제한 일정을 모두 비울까요?\n\n비운 일정은 다시 살릴 수 없습니다!</string>
 	<string name="EPr_manage_purge_deleted_status">%d 일정을 비웠습니다!</string>
-	<string name="EPr_manage_clear_all">모든 자료 삭제하기</string>
-	<string name="EPr_manage_clear_all_message">Tasks의 모든 일정과 설정을 삭제할까요?\n\n경고: 되돌릴 수 없음!</string>
 	<string name="EPr_manage_delete_completed_gcal">완료한 일정의 달력 이벤트를 삭제하기</string>
 	<string name="EPr_manage_delete_completed_gcal_message">완료한 일정의 모든 이벤트를 정말 삭제할까요?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">%d 달력 이벤트를 삭제했습니다!</string>

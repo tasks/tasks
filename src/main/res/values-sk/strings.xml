@@ -141,8 +141,6 @@
 	<string name="EPr_manage_purge_deleted">Zbaviť sa vymazaných úloh</string>
 	<string name="EPr_manage_purge_deleted_message">Naozaj chceš vyhodiť všetky tvoje vymazané úlohy?\n\nTieto budú vymazané navždy!</string>
 	<string name="EPr_manage_purge_deleted_status">Vyčistené %d úlohy</string>
-	<string name="EPr_manage_clear_all">Vymazať všetky údaje</string>
-	<string name="EPr_manage_clear_all_message">Vymazať všetky úlohy a nastavenia v Tasks?\n\nPozor: nedá sa vrátiť späť!</string>
 	<string name="EPr_manage_delete_completed_gcal">Vymazať udalosti kalendára pre dokončené úlohy</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Naozaj chceš odstrániť všetky tvoje udalosti pre dokončené úlohy?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">Vymazané %d udalosti kalendára</string>

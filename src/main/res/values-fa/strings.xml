@@ -98,7 +98,6 @@
 	<string name="EPr_cal_end_or_start_at_due_time">زمان رویداد تقویم</string>
 	<string name="EPr_cal_end_at_due_time">اتمام رویدادهای تقویم در موعود</string>
 	<string name="EPr_cal_start_at_due_time">شروع رویدادهای تقویم در موعود</string>
-	<string name="EPr_manage_clear_all">پاک کردن تمام داده ها</string>
 	<string name="TWi_loading">در حال بارگیری...</string>
 	<string name="WCA_title">انتخاب وظیفه جهت نمایش</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 

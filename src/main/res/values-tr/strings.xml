@@ -112,8 +112,6 @@
 	<string name="EPr_manage_purge_deleted">Silinen Görevleri Temizle</string>
 	<string name="EPr_manage_purge_deleted_message">Tüm silinen görevleri temizlemek istediğine emin misin?\n\nBu görevler tamamen silinecek!</string>
 	<string name="EPr_manage_purge_deleted_status">%d görev temizlendi!</string>
-	<string name="EPr_manage_clear_all">Tüm Veriyi Temizle</string>
-	<string name="EPr_manage_clear_all_message">Tasks ayarları ve tüm görevler silinsin mi?\n\nUyarı: geri alınamaz!</string>
 	<string name="EPr_manage_delete_completed_gcal">Tamamlanan görevler için Takvim olaylarını sil</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Tamamlanmış görevlerden bütün olayları silmek istediğinize emin misiniz?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">%d takvim olayı silindi!</string>

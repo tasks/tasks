@@ -36,6 +36,7 @@ import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.activities.ImportTaskActivity;
 import org.tasks.activities.LocationPickerActivity;
 import org.tasks.activities.PurgeDeletedActivity;
+import org.tasks.activities.ResetPreferencesActivity;
 import org.tasks.activities.SortActivity;
 import org.tasks.preferences.AppearancePreferences;
 import org.tasks.preferences.BackupPreferences;
@@ -79,6 +80,7 @@ import dagger.Provides;
                 ImportTaskActivity.class,
                 ExportTaskActivity.class,
                 ClearAllDataActivity.class,
+                ResetPreferencesActivity.class,
                 PurgeDeletedActivity.class,
                 DeleteCompletedActivity.class,
                 DeleteCompletedEventsActivity.class,

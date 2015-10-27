@@ -132,8 +132,6 @@
 	<string name="EPr_manage_purge_deleted">Skasuj usunięte zadania</string>
 	<string name="EPr_manage_purge_deleted_message">Czy na pewno chcesz, aby oczyścić wszystkie usunięte zadania?\n\n Te zadania znikną na zawsze!</string>
 	<string name="EPr_manage_purge_deleted_status">Oczyszczone %d zadań!</string>
-	<string name="EPr_manage_clear_all">Usuń wszystkie dane</string>
-	<string name="EPr_manage_clear_all_message">Usunąć z Tasks wszystkie zadania i ustawienia?\n\nUwaga: tego nie da się cofnąć!</string>
 	<string name="EPr_manage_delete_completed_gcal">Usuń wydarzenia kalendarza dla zakończonych zadań</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Na pewno chcesz usunąć wszystkie wydarzenia dla zakończonych zadań?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">Usunięto %d wydarzeń kalendarza!</string>

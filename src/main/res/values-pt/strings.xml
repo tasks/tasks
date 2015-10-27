@@ -143,8 +143,6 @@
 	<string name="EPr_manage_purge_deleted">Remover tarefas eliminadas</string>
 	<string name="EPr_manage_purge_deleted_message">Quer mesmo remover todas as tarefas eliminadas?\n\nNunca mais as conseguirá recuperar!</string>
 	<string name="EPr_manage_purge_deleted_status">%d tarefas removidas!</string>
-	<string name="EPr_manage_clear_all">Limpar todos os dados</string>
-	<string name="EPr_manage_clear_all_message">Eliminar tarefas e definições do Tasks?\n\nNão pode anular esta operação!</string>
 	<string name="EPr_manage_delete_completed_gcal">Eliminar eventos de calendário das tarefas terminadas</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Quer mesmo eliminar os eventos das tarefas terminadas?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">%d eventos de calendário eliminados!</string>

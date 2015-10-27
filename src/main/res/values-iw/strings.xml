@@ -129,8 +129,6 @@
 	<string name="EPr_manage_purge_deleted">אַיְּנִי משימות שנמחקו</string>
 	<string name="EPr_manage_purge_deleted_message">האם אתה בטוח שברצונך לְאַיֵּן את כל המשימות שנמחקו?</string>
 	<string name="EPr_manage_purge_deleted_status">%d משימות אֻיְּנוּ!</string>
-	<string name="EPr_manage_clear_all">הָסִירִי את כל הנתונים</string>
-	<string name="EPr_manage_clear_all_message">למחוק את כל המשימות ואת כל ההגדרות?\nאזהרה: לא ניתן לבטל פעולה זו!</string>
 	<string name="EPr_manage_delete_completed_gcal">מחקי אירועי יומן בעבור משימות שבוצעו</string>
 	<string name="EPr_manage_delete_completed_gcal_message">האם אתה בטוח שברצונך למחוק את כל אירועי היומן של משימות שבוצעו?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">%d אירועי יומן נמחקו!</string>

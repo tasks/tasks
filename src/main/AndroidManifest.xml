@@ -438,6 +438,9 @@
             android:name=".activities.ClearAllDataActivity"
             android:theme="@style/TranslucentDialog" />
         <activity
+            android:name=".activities.ResetPreferencesActivity"
+            android:theme="@style/TranslucentDialog" />
+        <activity
             android:name=".activities.PurgeDeletedActivity"
             android:theme="@style/TranslucentDialog" />
         <activity

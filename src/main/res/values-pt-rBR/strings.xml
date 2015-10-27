@@ -131,8 +131,6 @@
 	<string name="EPr_manage_purge_deleted">Remover tarefas excluídas</string>
 	<string name="EPr_manage_purge_deleted_message">Você realmente deseja remover todas as suas tarefas excluídas?\n\nEstas tarefas serão removidas para sempre!</string>
 	<string name="EPr_manage_purge_deleted_status">Tarefas %d removidas!</string>
-	<string name="EPr_manage_clear_all">Limpar tudo!</string>
-	<string name="EPr_manage_clear_all_message">Limpar todas as tarefas e configurações do Tasks?\n\nCuidado: não pode ser desfeito!</string>
 	<string name="EPr_manage_delete_completed_gcal">Apaga eventos do calendário para tarefas concluídas</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Você quer mesmo apagar todos os seus eventos de tarefas concluídas?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">%d eventos de agenda apagados!</string>

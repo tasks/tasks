@@ -45,8 +45,16 @@
     </com.todoroo.astrid.ui.MultilinePreference>
 
     <Preference
-        android:key="@string/EPr_manage_clear_all"
-        android:title="@string/EPr_manage_clear_all">
+        android:key="@string/EPr_reset_preferences"
+        android:title="@string/EPr_reset_preferences">
+        <intent
+            android:targetClass="org.tasks.activities.ResetPreferencesActivity"
+            android:targetPackage="org.tasks" />
+    </Preference>
+
+    <Preference
+        android:key="@string/EPr_delete_task_data"
+        android:title="@string/EPr_delete_task_data">
         <intent
             android:targetClass="org.tasks.activities.ClearAllDataActivity"
             android:targetPackage="org.tasks" />

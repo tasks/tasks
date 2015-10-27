@@ -141,8 +141,6 @@
 	<string name="EPr_manage_purge_deleted">Elimina definitivamente i compiti eliminati</string>
 	<string name="EPr_manage_purge_deleted_message">Vuoi davvero eliminare definitivamente i compiti eliminati?\n\nQuesti compiti saranno persi per sempre!</string>
 	<string name="EPr_manage_purge_deleted_status">Rimosse %d attività!</string>
-	<string name="EPr_manage_clear_all">Elimina tutti i dati</string>
-	<string name="EPr_manage_clear_all_message">Elimina tutti i programmi e tutte le impostazioni in Tasks?\n\nWarning: non può essere annullato!</string>
 	<string name="EPr_manage_delete_completed_gcal">Elimina gli eventi del calendario in programmi completati</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Vuoi davvero eliminare tutti gli eventi in programmi completati?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">Eliminato il %d degli eventi del calendario!</string>
