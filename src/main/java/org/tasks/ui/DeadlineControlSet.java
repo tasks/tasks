@@ -114,7 +114,7 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
     }
 
     private void updateDueDateOptions() {
-        DateTime today = newDateTime().withMillisOfDay(0);
+        DateTime today = newDateTime().startOfDay();
         String nextWeekString = activity.getString(R.string.next, today.plusWeeks(1).toString("EEEE"));
         if (date == 0) {
             dueDateOptions.set(0, activity.getString(R.string.TEA_no_date));
@@ -187,7 +187,7 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
                         dueDateSpinner.setBackgroundDrawable(getThemedUnderline());
                     } else {
                         dueDateSpinner.setAlpha(1.0f);
-                        if (date < newDateTime().withMillisOfDay(0).getMillis()) {
+                        if (date < newDateTime().startOfDay().getMillis()) {
                             dueDateSpinner.setBackgroundDrawable(getRedUnderline());
                             tv.setTextColor(activity.getResources().getColor(R.color.overdue));
                         } else {
@@ -199,7 +199,7 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
                     if (date == 0) {
                         dueDateSpinner.setBackgroundDrawable(getThemedUnderline());
                         tv.setTextColor(unsetColor);
-                    } else if (date < newDateTime().withMillisOfDay(0).getMillis()) {
+                    } else if (date < newDateTime().startOfDay().getMillis()) {
                         dueDateSpinner.setBackgroundDrawable(getRedUnderline());
                         tv.setTextColor(activity.getResources().getColor(R.color.overdue));
                     } else {
@@ -298,7 +298,7 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
         dueDateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                DateTime today = newDateTime().withMillisOfDay(0);
+                DateTime today = newDateTime().startOfDay();
                 switch (position) {
                     case 0:
                         return;
@@ -421,7 +421,7 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
             if (dateTime.isBeforeNow()) {
                 dateTime = dateTime.plusDays(1);
             }
-            date = dateTime.withMillisOfDay(0).getMillis();
+            date = dateTime.startOfDay().getMillis();
         }
 
         refreshDisplayView();
@@ -432,7 +432,7 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
         Long dueDate = model.getDueDate();
         if (dueDate > 0) {
             DateTime dateTime = newDateTime(dueDate);
-            date = dateTime.withMillisOfDay(0).getMillis();
+            date = dateTime.startOfDay().getMillis();
             if (Task.hasDueTime(dateTime.getMillis())) {
                 setTime(dateTime.getMillisOfDay());
             } else {

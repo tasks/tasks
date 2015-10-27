@@ -173,7 +173,7 @@ public class DateUtilitiesTest extends AndroidTestCase {
     public void testShouldGetStartOfDay() {
         DateTime now = new DateTime(2014, 1, 3, 10, 41, 41, 520);
         assertEquals(
-                now.withMillisOfDay(0).getMillis(),
+                now.startOfDay().getMillis(),
                 getStartOfDay(now.getMillis()));
     }
 

@@ -50,7 +50,7 @@ public abstract class MidnightIntentService extends InjectingIntentService {
     }
 
     private static long nextMidnight(long timestamp) {
-        return newDateTime(timestamp).withMillisOfDay(0).plusDays(1).getMillis();
+        return newDateTime(timestamp).startOfDay().plusDays(1).getMillis();
     }
 
     abstract void run();

@@ -46,7 +46,7 @@ public class TimePickerActivity extends FragmentActivity implements TimePickerDi
     public void onTimeSet(RadialPickerLayout radialPickerLayout, final int hours, final int minutes) {
         setResult(RESULT_OK, new Intent() {{
             putExtra(EXTRA_TIMESTAMP, initial
-                    .withMillisOfDay(0)
+                    .startOfDay()
                     .withHourOfDay(hours)
                     .withMinuteOfHour(minutes)
                     .getMillis());

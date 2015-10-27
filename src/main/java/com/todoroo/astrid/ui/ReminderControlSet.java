@@ -102,7 +102,7 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
 
     private void addNewAlarm() {
         taskEditFragment.startActivityForResult(new Intent(taskEditFragment.getActivity(), DateAndTimePickerActivity.class) {{
-            putExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, newDateTime().withMillisOfDay(0).getMillis());
+            putExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, newDateTime().startOfDay().getMillis());
         }}, REQUEST_NEW_ALARM);
     }
 

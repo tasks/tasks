@@ -97,7 +97,7 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
     }
 
     static boolean repeatFinished(long newDueDate, long repeatUntil) {
-        return repeatUntil > 0 && newDateTime(newDueDate).withMillisOfDay(0).isAfter(newDateTime(repeatUntil).withMillisOfDay(0));
+        return repeatUntil > 0 && newDateTime(newDueDate).startOfDay().isAfter(newDateTime(repeatUntil).startOfDay());
     }
 
     public static void rescheduleTask(Context context, GCalHelper gcalHelper, TaskService taskService, Task task, long newDueDate) {

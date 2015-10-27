@@ -6,6 +6,7 @@ import org.tasks.Freeze;
 import org.tasks.Snippet;
 
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 public class DateTimeTest extends AndroidTestCase {
     public void testGetMillisOfDay() {
@@ -16,6 +17,55 @@ public class DateTimeTest extends AndroidTestCase {
         assertEquals(
                 new DateTime(2015, 10, 6, 2, 0, 48, 412),
                 new DateTime(2015, 10, 6, 0, 0, 0, 0).withMillisOfDay(7248412));
+    }
+
+    public void testWithMillisOfDayDuringDST() {
+        TimeZone def = TimeZone.getDefault();
+        try {
+            TimeZone.setDefault(TimeZone.getTimeZone("America/Chicago"));
+            assertEquals(2, new DateTime(2015, 10, 31, 2, 0, 0).withMillisOfDay((int) TimeUnit.HOURS.toMillis(2)).getHourOfDay());
+        } finally {
+            TimeZone.setDefault(def);
+        }
+    }
+
+    public void testWithMillisOfDayAfterDST() {
+        TimeZone def = TimeZone.getDefault();
+        try {
+            TimeZone.setDefault(TimeZone.getTimeZone("America/Chicago"));
+            assertEquals(2, new DateTime(2015, 11, 2, 2, 0, 0).withMillisOfDay((int) TimeUnit.HOURS.toMillis(2)).getHourOfDay());
+        } finally {
+            TimeZone.setDefault(def);
+        }
+    }
+
+    public void testWithMillisOfDayStartDST() {
+        TimeZone def = TimeZone.getDefault();
+        try {
+            TimeZone.setDefault(TimeZone.getTimeZone("America/Chicago"));
+            assertEquals(1, new DateTime(2015, 3, 8, 0, 0, 0).withMillisOfDay((int) TimeUnit.HOURS.toMillis(1)).getHourOfDay());
+            assertEquals(3, new DateTime(2015, 3, 8, 0, 0, 0).withMillisOfDay((int) TimeUnit.HOURS.toMillis(2)).getHourOfDay());
+            assertEquals(3, new DateTime(2015, 3, 8, 0, 0, 0).withMillisOfDay((int) TimeUnit.HOURS.toMillis(3)).getHourOfDay());
+            assertEquals(4, new DateTime(2015, 3, 8, 0, 0, 0).withMillisOfDay((int) TimeUnit.HOURS.toMillis(4)).getHourOfDay());
+
+            assertEquals(
+                    new DateTime(2015, 3, 8, 0, 0, 0).withMillisOfDay((int) TimeUnit.HOURS.toMillis(2)).getMillis(),
+                    new DateTime(2015, 3, 8, 0, 0, 0).withMillisOfDay((int) TimeUnit.HOURS.toMillis(3)).getMillis());
+        } finally {
+            TimeZone.setDefault(def);
+        }
+    }
+
+    public void testWithMillisOfDayEndDST() {
+        TimeZone def = TimeZone.getDefault();
+        try {
+            TimeZone.setDefault(TimeZone.getTimeZone("America/Chicago"));
+            assertEquals(1, new DateTime(2015, 11, 1, 0, 0, 0).withMillisOfDay((int) TimeUnit.HOURS.toMillis(1)).getHourOfDay());
+            assertEquals(2, new DateTime(2015, 11, 1, 0, 0, 0).withMillisOfDay((int) TimeUnit.HOURS.toMillis(2)).getHourOfDay());
+            assertEquals(3, new DateTime(2015, 11, 1, 0, 0, 0).withMillisOfDay((int) TimeUnit.HOURS.toMillis(3)).getHourOfDay());
+        } finally {
+            TimeZone.setDefault(def);
+        }
     }
 
     public void testPlusMonths() {

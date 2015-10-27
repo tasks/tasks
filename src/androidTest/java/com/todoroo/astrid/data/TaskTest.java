@@ -114,7 +114,7 @@ public class TaskTest extends AndroidTestCase {
     }
 
     public void testNoDueTime() {
-        assertFalse(hasDueTime(newDateTime().withMillisOfDay(0).getMillis()));
+        assertFalse(hasDueTime(newDateTime().startOfDay().getMillis()));
         assertFalse(hasDueTime(newDateTime().withMillisOfDay(60000).getMillis()));
     }
 
@@ -198,7 +198,7 @@ public class TaskTest extends AndroidTestCase {
     }
 
     public void testTaskNotOverdueBeforeNoonOnDueDate() {
-        final DateTime dueDate = new DateTime().withMillisOfDay(0);
+        final DateTime dueDate = new DateTime().startOfDay();
         freezeAt(dueDate.plusHours(12).minusMillis(1)).thawAfter(new Snippet() {{
             Task task = new Task();
             task.setValue(DUE_DATE, dueDate.getMillis());
@@ -208,7 +208,7 @@ public class TaskTest extends AndroidTestCase {
     }
 
     public void testTaskOverdueAtNoonOnDueDate() {
-        final DateTime dueDate = new DateTime().withMillisOfDay(0);
+        final DateTime dueDate = new DateTime().startOfDay();
         freezeAt(dueDate.plusHours(12)).thawAfter(new Snippet() {{
             Task task = new Task();
             task.setValue(DUE_DATE, dueDate.getMillis());
@@ -218,7 +218,7 @@ public class TaskTest extends AndroidTestCase {
     }
 
     public void testTaskWithNoDueTimeIsOverdue() {
-        final DateTime dueDate = new DateTime().withMillisOfDay(0);
+        final DateTime dueDate = new DateTime().startOfDay();
         freezeAt(dueDate.plusDays(1)).thawAfter(new Snippet() {{
             Task task = new Task();
             task.setValue(DUE_DATE, dueDate.getMillis());

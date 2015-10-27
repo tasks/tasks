@@ -33,7 +33,7 @@ public class TimePreference extends Preference {
     @Override
     public void onSetInitialValue(boolean restoreValue, Object defaultValue) {
         if (restoreValue) {
-            int noon = new DateTime().withMillisOfDay(0).withHourOfDay(12).getMillisOfDay();
+            int noon = new DateTime().startOfDay().withHourOfDay(12).getMillisOfDay();
             millisOfDay = getPersistedInt(noon);
         } else {
             millisOfDay = Integer.parseInt((String) defaultValue);

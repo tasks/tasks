@@ -10,6 +10,9 @@ public class DateTime {
 
     private static final int MAX_MILLIS_PER_DAY = (int) TimeUnit.DAYS.toMillis(1);
     private static final TimeZone UTC = TimeZone.getTimeZone("GMT");
+    private static final int MILLIS_PER_HOUR = (int) TimeUnit.HOURS.toMillis(1);
+    private static final int MILLIS_PER_MINUTE = (int) TimeUnit.MINUTES.toMillis(1);
+    private static final int MILLIS_PER_SECOND = (int) TimeUnit.SECONDS.toMillis(1);
 
     private final TimeZone timeZone;
     private final long timestamp;
@@ -47,19 +50,35 @@ public class DateTime {
         this(calendar.getTimeInMillis(), calendar.getTimeZone());
     }
 
+    private DateTime setTime(int hours, int minutes, int seconds, int milliseconds) {
+        Calendar calendar = getCalendar();
+        calendar.set(Calendar.HOUR_OF_DAY, hours);
+        calendar.set(Calendar.MINUTE, minutes);
+        calendar.set(Calendar.SECOND, seconds);
+        calendar.set(Calendar.MILLISECOND, milliseconds);
+        return new DateTime(calendar);
+    }
+
     public DateTime startOfDay() {
-        return withHourOfDay(0)
-                .withMinuteOfHour(0)
-                .withSecondOfMinute(0)
-                .withMillisOfSecond(0);
+        Calendar calendar = getCalendar();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return new DateTime(calendar);
     }
 
     public DateTime withMillisOfDay(int millisOfDay) {
-        if (millisOfDay >= MAX_MILLIS_PER_DAY) {
+        if (millisOfDay >= MAX_MILLIS_PER_DAY || millisOfDay < 0) {
             throw new RuntimeException("Illegal millis of day: " + millisOfDay);
         }
-
-        return new DateTime(startOfDay().getMillis() + millisOfDay, timeZone);
+        int hours = millisOfDay / MILLIS_PER_HOUR;
+        millisOfDay %= MILLIS_PER_HOUR;
+        int minutes = millisOfDay / MILLIS_PER_MINUTE;
+        millisOfDay %= MILLIS_PER_MINUTE;
+        int seconds = millisOfDay / MILLIS_PER_SECOND;
+        millisOfDay %= MILLIS_PER_SECOND;
+        return startOfDay().setTime(hours, minutes, seconds, millisOfDay);
     }
 
     public long getMillis() {
@@ -67,7 +86,13 @@ public class DateTime {
     }
 
     public int getMillisOfDay() {
-        return (int) (timestamp - withMillisOfDay(0).getMillis());
+        Calendar calendar = getCalendar();
+        long millisOfDay =
+                calendar.get(Calendar.MILLISECOND) +
+                        TimeUnit.SECONDS.toMillis(calendar.get(Calendar.SECOND)) +
+                        TimeUnit.MINUTES.toMillis(calendar.get(Calendar.MINUTE)) +
+                        TimeUnit.HOURS.toMillis(calendar.get(Calendar.HOUR_OF_DAY));
+        return (int) millisOfDay;
     }
 
     public int getYear() {

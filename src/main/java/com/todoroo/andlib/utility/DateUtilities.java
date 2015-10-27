@@ -220,6 +220,6 @@ public class DateUtilities {
     }
 
     public static long getStartOfDay(long time) {
-        return newDateTime(time).withMillisOfDay(0).getMillis();
+        return newDateTime(time).startOfDay().getMillis();
     }
 }
