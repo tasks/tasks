@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 public class DateTime {
 
-    private static final int MAX_MILLIS_PER_DAY = (int) TimeUnit.DAYS.toMillis(1);
+    public static final int MAX_MILLIS_PER_DAY = (int) TimeUnit.DAYS.toMillis(1) - 1;
     private static final TimeZone UTC = TimeZone.getTimeZone("GMT");
     private static final int MILLIS_PER_HOUR = (int) TimeUnit.HOURS.toMillis(1);
     private static final int MILLIS_PER_MINUTE = (int) TimeUnit.MINUTES.toMillis(1);
@@ -69,7 +69,7 @@ public class DateTime {
     }
 
     public DateTime withMillisOfDay(int millisOfDay) {
-        if (millisOfDay >= MAX_MILLIS_PER_DAY || millisOfDay < 0) {
+        if (millisOfDay > MAX_MILLIS_PER_DAY || millisOfDay < 0) {
             throw new RuntimeException("Illegal millis of day: " + millisOfDay);
         }
         int hours = millisOfDay / MILLIS_PER_HOUR;

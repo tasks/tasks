@@ -65,19 +65,25 @@ public class Preferences {
     }
 
     public int getDateShortcutMorning() {
-        return getInt(R.string.p_date_shortcut_morning, context.getResources().getInteger(R.integer.default_morning));
+        return getMillisPerDayPref(R.string.p_date_shortcut_morning, R.integer.default_morning);
     }
 
     public int getDateShortcutAfternoon() {
-        return getInt(R.string.p_date_shortcut_afternoon, context.getResources().getInteger(R.integer.default_afternoon));
+        return getMillisPerDayPref(R.string.p_date_shortcut_afternoon, R.integer.default_afternoon);
     }
 
     public int getDateShortcutEvening() {
-        return getInt(R.string.p_date_shortcut_evening, context.getResources().getInteger(R.integer.default_evening));
+        return getMillisPerDayPref(R.string.p_date_shortcut_evening, R.integer.default_evening);
     }
 
     public int getDateShortcutNight() {
-        return getInt(R.string.p_date_shortcut_night, context.getResources().getInteger(R.integer.default_night));
+        return getMillisPerDayPref(R.string.p_date_shortcut_night, R.integer.default_night);
+    }
+
+    private int getMillisPerDayPref(int resId, int defResId) {
+        int defaultValue = context.getResources().getInteger(defResId);
+        int setting = getInt(resId, defaultValue);
+        return setting < 0 || setting > DateTime.MAX_MILLIS_PER_DAY ? defaultValue : setting;
     }
 
     public boolean useDarkWidgetTheme(int widgetId) {
