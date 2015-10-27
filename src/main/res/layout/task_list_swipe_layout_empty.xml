@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:clickable="true"
-            android:drawableTop="@drawable/icon"
+            android:drawableTop="@mipmap/ic_launcher"
             android:gravity="center"
             android:textColor="?attr/asTextColor"
             android:text="@string/TLA_no_items" />

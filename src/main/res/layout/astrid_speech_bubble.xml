@@ -19,7 +19,7 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_marginBottom="5dip"
-	        android:src="@drawable/icon"
+	        android:src="@mipmap/ic_launcher"
 	        android:scaleType="fitCenter"
 	        android:layout_alignParentLeft="true"/>
 	    
