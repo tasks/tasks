@@ -75,7 +75,6 @@ import com.todoroo.astrid.utility.Flags;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
-import org.tasks.activities.CalendarSelectionDialog;
 import org.tasks.activities.LocationPickerActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.dialogs.DialogBuilder;
@@ -96,8 +95,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.preGingerbreadMR1;
 import static org.tasks.files.FileHelper.getPathFromUri;
@@ -188,14 +187,14 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private ReminderControlSet reminderControlSet;
     private GCalControlSet gcalControl;
 
-    @InjectView(R.id.title) EditText title;
-    @InjectView(R.id.pager) ViewPager mPager;
-    @InjectView(R.id.updatesFooter) View commentsBar;
-    @InjectView(R.id.completeBox) CheckableImageView checkbox;
-    @InjectView(R.id.timer_container) LinearLayout timerShortcut;
-    @InjectView(R.id.basic_controls) LinearLayout basicControls;
-    @InjectView(R.id.edit_scroll) ScrollView scrollView;
-    @InjectView(R.id.commentField) EditText commentField;
+    @Bind(R.id.title) EditText title;
+    @Bind(R.id.pager) ViewPager mPager;
+    @Bind(R.id.updatesFooter) View commentsBar;
+    @Bind(R.id.completeBox) CheckableImageView checkbox;
+    @Bind(R.id.timer_container) LinearLayout timerShortcut;
+    @Bind(R.id.basic_controls) LinearLayout basicControls;
+    @Bind(R.id.edit_scroll) ScrollView scrollView;
+    @Bind(R.id.commentField) EditText commentField;
 
     private final List<TaskEditControlSet> controls = Collections.synchronizedList(new ArrayList<TaskEditControlSet>());
 
@@ -255,7 +254,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.task_edit_activity, container, false);
-        ButterKnife.inject(this, view);
+        ButterKnife.bind(this, view);
         return view;
     }
 

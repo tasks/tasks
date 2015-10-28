@@ -55,8 +55,8 @@ import java.util.Map.Entry;
 
 import javax.inject.Inject;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 import static android.text.TextUtils.isEmpty;
 
@@ -143,8 +143,8 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
     @Inject DialogBuilder dialogBuilder;
     @Inject FilterCriteriaProvider filterCriteriaProvider;
 
-    @InjectView(R.id.tag_name) EditText filterName;
-    @InjectView(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.tag_name) EditText filterName;
+    @Bind(R.id.toolbar) Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,7 +153,7 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
         preferences.applyThemeAndStatusBarColor();
 
         setContentView(R.layout.custom_filter_activity);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
         ActionBar supportActionBar = getSupportActionBar();

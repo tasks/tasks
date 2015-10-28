@@ -31,8 +31,8 @@ import org.tasks.ui.MenuColorizer;
 
 import javax.inject.Inject;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 import static android.text.TextUtils.isEmpty;
 
@@ -46,15 +46,15 @@ public class FilterSettingsActivity extends InjectingAppCompatActivity {
     @Inject StoreObjectDao storeObjectDao;
     @Inject DialogBuilder dialogBuilder;
 
-    @InjectView(R.id.tag_name) EditText filterName;
-    @InjectView(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.tag_name) EditText filterName;
+    @Bind(R.id.toolbar) Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         preferences.applyThemeAndStatusBarColor();
         setContentView(R.layout.filter_settings_activity);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         filter = getIntent().getParcelableExtra(TOKEN_FILTER);
 

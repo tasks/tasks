@@ -20,14 +20,14 @@ import org.tasks.preferences.ActivityPreferences;
 
 import javax.inject.Inject;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class TaskEditActivity extends AstridActivity {
 
     @Inject ActivityPreferences preferences;
 
-    @InjectView(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.toolbar) Toolbar toolbar;
 
     /**
 	 * @see android.app.Activity#onCreate(Bundle)
@@ -38,7 +38,7 @@ public class TaskEditActivity extends AstridActivity {
         preferences.applyThemeAndStatusBarColor();
 
         setContentView(R.layout.task_edit_wrapper_activity);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
         ActionBar supportActionBar = getSupportActionBar();
