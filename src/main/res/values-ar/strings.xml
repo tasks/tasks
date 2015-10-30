@@ -9,7 +9,6 @@
 	<string name="actfm_picture_gallery">اختار من المعرض</string>
 	<string name="actfm_picture_clear">مسح الصورة</string>
 	<string name="TVA_add_comment">إضافة تعليق ...</string>
-	<string name="actfm_GAA_title">اختر حساب قوقل المراد استخدامة</string>
 	<string name="backup_BPr_header">النسخ الإحتياطي</string>
 	<string name="backup_BAc_import">إستيراد مهام</string>
 	<string name="export_toast_no_tasks">لا يوجد مهام للتصدير.</string>

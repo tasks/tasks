@@ -24,8 +24,7 @@
 
   <!-- ========================================= sharing login activity == -->
 
-  <!-- share login: Google Auth title -->
-  <string name="actfm_GAA_title">Select the Google account you want to use:</string>
+  <string name="choose_google_account">Choose Google Account</string>
 
 </resources>
 

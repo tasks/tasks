@@ -5,6 +5,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 
 import org.tasks.activities.CalendarSelectionDialog;
+import org.tasks.dialogs.AccountSelectionDialog;
 import org.tasks.dialogs.LocationPickerDialog;
 import org.tasks.reminders.MissedCallDialog;
 import org.tasks.reminders.NotificationDialog;
@@ -19,7 +20,8 @@ import dagger.Provides;
                 NotificationDialog.class,
                 SnoozeDialog.class,
                 MissedCallDialog.class,
-                CalendarSelectionDialog.class
+                CalendarSelectionDialog.class,
+                AccountSelectionDialog.class
         },
         library = true)
 public class DialogFragmentModule {

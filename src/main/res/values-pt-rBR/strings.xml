@@ -9,7 +9,6 @@
 	<string name="actfm_picture_gallery">Selecionar da galeria</string>
 	<string name="actfm_picture_clear">Limpar imagem</string>
 	<string name="TVA_add_comment">Comentar...</string>
-	<string name="actfm_GAA_title">Selecione a conta do Google que deseja usar:</string>
 	<string name="backup_BAc_import">Importar tarefas</string>
 	<string name="backup_BAc_export">Exportar tarefas</string>
 	<string name="export_toast">Backups feitos: de %1$s para %2$s.</string>

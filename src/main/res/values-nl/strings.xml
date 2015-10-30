@@ -12,7 +12,6 @@
 	<string name="name">Naam</string>
 	<string name="enter_tag_name">Noteer label naam</string>
 	<string name="enter_filter_name">Vul een filter naam in</string>
-	<string name="actfm_GAA_title">Selecteer de Google account die je wil gebruiken:</string>
 	<string name="backup_BPr_header">Back-ups</string>
 	<string name="backup_BAc_import">Taken importeren</string>
 	<string name="backup_BAc_export">Taken exporteren</string>

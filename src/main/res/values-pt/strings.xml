@@ -12,7 +12,6 @@
 	<string name="name">Nome</string>
 	<string name="enter_tag_name">Digite o nome da etiqueta</string>
 	<string name="enter_filter_name">Introduza o nome do fitro</string>
-	<string name="actfm_GAA_title">Escolha a conta Google a utilizar:</string>
 	<string name="backup_BAc_import">Importar tarefas</string>
 	<string name="backup_BAc_export">Exportar tarefas</string>
 	<string name="export_toast">Backup de %1$s para %2$s.</string>

@@ -358,10 +358,6 @@
         </receiver>
 
         <!-- actfm -->
-        <activity
-            android:name="com.todoroo.astrid.actfm.ActFmGoogleAuthActivity"
-            android:theme="@style/Tasks"
-            android:configChanges="orientation|keyboardHidden" />
 
         <activity
             android:name="com.todoroo.astrid.actfm.TagSettingsActivity"
@@ -374,8 +370,7 @@
         <!-- gtasks -->
         <activity
             android:name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity"
-            android:theme="@style/Tasks"
-            android:configChanges="orientation|keyboardHidden" />
+            android:theme="@style/TranslucentDialog" />
 
         <activity
             android:name="com.todoroo.astrid.gtasks.GtasksPreferences"

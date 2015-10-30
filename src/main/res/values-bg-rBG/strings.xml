@@ -12,7 +12,6 @@
 	<string name="name">Име</string>
 	<string name="enter_tag_name">Въведете име на тага</string>
 	<string name="enter_filter_name">Въведете име на филтъра</string>
-	<string name="actfm_GAA_title">Изберете Google акаунт, който искате да използвате:</string>
 	<string name="backup_BPr_header">Резервни копия</string>
 	<string name="backup_BAc_import">Импортиране на задачи</string>
 	<string name="backup_BAc_export">Експортиране на задачи</string>

@@ -12,7 +12,6 @@
 	<string name="name">名前</string>
 	<string name="enter_tag_name">タグ名を入力してください</string>
 	<string name="enter_filter_name">フィルター名を入力</string>
-	<string name="actfm_GAA_title">使用したいGoogleアカウントを選択してください:</string>
 	<string name="backup_BPr_header">バックアップ</string>
 	<string name="backup_BAc_import">タスクのインポート</string>
 	<string name="backup_BAc_export">タスクのエクスポート</string>

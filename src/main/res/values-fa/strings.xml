@@ -12,7 +12,6 @@
 	<string name="name">نام</string>
 	<string name="enter_tag_name">نام تگ را وارد کنید</string>
 	<string name="enter_filter_name">نام فیلتر را وارد نمایید</string>
-	<string name="actfm_GAA_title">انتخاب اکانت گوگلی که میخواهید استفاده کنید</string>
 	<string name="backup_BPr_header">پشتیبان ها</string>
 	<string name="backup_BAc_export">خرجی از وظایف</string>
 	<string name="export_toast_no_tasks">خروجی از وظایف</string>

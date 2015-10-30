@@ -12,7 +12,6 @@
 	<string name="name">Nom</string>
 	<string name="enter_tag_name">Entrer le nom du tag</string>
 	<string name="enter_filter_name">Entrer le nom du filtre</string>
-	<string name="actfm_GAA_title">Sélectionnez le compte Google que vous voulez utiliser :</string>
 	<string name="backup_BPr_header">Sauvegardes</string>
 	<string name="backup_BAc_import">Importer des tâches</string>
 	<string name="backup_BAc_export">Exporter des tâches</string>

@@ -8,7 +8,6 @@
 	<string name="actfm_picture_camera">Τράβα φωτογραφία</string>
 	<string name="actfm_picture_clear">Καθαρή εικόνα</string>
 	<string name="TVA_add_comment">Προσθήκη σχόλιου...</string>
-	<string name="actfm_GAA_title">Επιλέξτε τον λογαριασμό Google που θέλετε να χρησιμοποιήσετε:</string>
 	<string name="backup_BPr_header">Αντίγραφα ασφαλείας</string>
 	<string name="backup_BAc_import">Εισαγωγή εργασιών</string>
 	<string name="backup_BAc_export">Εξαγωγή εργασιών</string>

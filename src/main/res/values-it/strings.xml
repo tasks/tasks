@@ -11,7 +11,6 @@
 	<string name="TVA_add_comment">Aggiungi un commento...</string>
 	<string name="name">Nome</string>
 	<string name="enter_tag_name">Digita nome etichetta </string>
-	<string name="actfm_GAA_title">Seleziona l\'account Google che vuoi utilizzare:</string>
 	<string name="backup_BPr_header">Salvataggi</string>
 	<string name="backup_BAc_import">Importa attività</string>
 	<string name="backup_BAc_export">Esporta attività</string>

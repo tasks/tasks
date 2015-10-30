@@ -2,7 +2,6 @@ package org.tasks.injection;
 
 import android.app.Activity;
 
-import com.todoroo.astrid.actfm.ActFmGoogleAuthActivity;
 import com.todoroo.astrid.actfm.FilterSettingsActivity;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.activity.BeastModePreferences;
@@ -24,7 +23,6 @@ import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
 
 import org.tasks.activities.CalendarSelectionActivity;
-import org.tasks.activities.CalendarSelectionDialog;
 import org.tasks.activities.ClearAllDataActivity;
 import org.tasks.activities.ClearGtaskDataActivity;
 import org.tasks.activities.DeleteAllCalendarEventsActivity;
@@ -97,7 +95,6 @@ import dagger.Provides;
                 FilterSelectionActivity.class,
                 FileExplore.class,
                 DonationActivity.class,
-                ActFmGoogleAuthActivity.class,
                 UpgradeService.UpgradeActivity.class,
                 CalendarSelectionActivity.class
         })

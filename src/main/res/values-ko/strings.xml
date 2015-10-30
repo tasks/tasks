@@ -9,7 +9,6 @@
 	<string name="actfm_picture_gallery">갤러리에서 가져오기</string>
 	<string name="actfm_picture_clear">사진 제거하기</string>
 	<string name="TVA_add_comment">댓글 쓰기...</string>
-	<string name="actfm_GAA_title">사용하려는 구글 계정을 선택해 주십시오:</string>
 	<string name="backup_BPr_header">백업</string>
 	<string name="backup_BAc_import">일정 가져오기</string>
 	<string name="backup_BAc_export">일정 내보내기</string>
