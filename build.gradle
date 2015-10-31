@@ -68,7 +68,9 @@ android {
 
     productFlavors {
         generic
-        googleplay
+        googleplay {
+            minSdkVersion 9
+        }
     }
 }
 
