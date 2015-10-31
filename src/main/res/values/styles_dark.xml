@@ -43,8 +43,8 @@
     </style>
 
     <style name="TasksDialogDark" parent="@style/Theme.AppCompat.Dialog">
-        <item name="android:minWidth">@dimen/dialog_width</item>
-        <item name="android:maxWidth">@dimen/dialog_width</item>
+        <item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
+        <item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
         <item name="colorPrimary">@android:color/black</item>
         <item name="colorPrimaryDark">@android:color/black</item>
         <item name="colorAccent">@android:color/white</item>
