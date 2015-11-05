@@ -106,6 +106,9 @@ public final class TagsControlSet extends PopupControlSet {
 
         LinkedHashSet<String> tags = getTagSet();
         for (String tag : tags) {
+            if (tag.trim().length() == 0) {
+                continue;
+            }
             if (builder.length() != 0) {
                 builder.append(", "); //$NON-NLS-1$
             }
@@ -334,6 +337,9 @@ public final class TagsControlSet extends PopupControlSet {
         });
 
         for (String tag : tags) {
+            if (tag.trim().length() == 0) {
+                continue;
+            }
             TagData tagData = tagDataDao.getTagByName(tag, TagData.NAME, TagData.UUID);
             if (tagData == null) {
                 tagData = new TagData();

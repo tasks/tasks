@@ -685,7 +685,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         shouldSaveState = false;
 
         // abandon editing in this case
-        if (title.getText().length() == 0 || TextUtils.isEmpty(model.getTitle())) {
+        if (title.getText().toString().trim().length() == 0 || TextUtils.isEmpty(model.getTitle())) {
             if (isNewTask) {
                 TimerPlugin.updateTimer(notificationManager, taskService, getActivity(), model, false);
                 taskDeleter.delete(model);
@@ -761,7 +761,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             deleteButtonClick();
             return true;
         case android.R.id.home:
-            if (title.getText().length() == 0) {
+            if (title.getText().toString().trim().length() == 0) {
                 discardButtonClick();
             } else {
                 saveButtonClick();
