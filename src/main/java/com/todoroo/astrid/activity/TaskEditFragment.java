@@ -113,6 +113,7 @@ import static org.tasks.files.FileHelper.getPathFromUri;
  * @author timsu
  *
  */
+
 public final class TaskEditFragment extends InjectingFragment implements
 ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
