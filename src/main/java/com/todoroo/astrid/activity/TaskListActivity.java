@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.facebook.FacebookSdk;
 import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -92,6 +93,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        FacebookSdk.sdkInitialize(getApplicationContext());
         super.onCreate(savedInstanceState);
         preferences.applyTheme();
 

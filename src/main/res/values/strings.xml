@@ -3,6 +3,8 @@
     <string name="EPr_use_dark_theme">Dark theme</string>
     <string name="delete_task">Delete task</string>
     <string name="voice_command_added_task">Added task</string>
+    <string name="facebook_app_id">468398076676060</string>
+    <string name="share_task">Share task</string>
     <string name="external_storage_unavailable">Cannot access external storage</string>
 
     <!-- ==================================================== Generic Units == -->

@@ -1,0 +1,2 @@
+configurations.create("default")
+artifacts.add("default", file('facebook-android-sdk-4.7.0.aar'))
