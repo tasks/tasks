@@ -87,6 +87,9 @@ android.applicationVariants.all { variant ->
 
 dependencies {
     provided group: 'com.squareup.dagger', name: 'dagger-compiler', version: '1.2.2'
+
+    compile files ('libs/commons-codec-1.10.jar')
+
     compile group: 'com.squareup.dagger', name: 'dagger', version: '1.2.2'
 
     compile group: 'com.jakewharton', name: 'butterknife', version: '7.0.1'
