@@ -121,6 +121,8 @@
     <string name="reverse">Reverse</string>
     <string name="task_count">%s Tasks</string>
     <string name="get_plugins">Get Plug-ins</string>
+    <string name="no_application_found">No application found to open attachment</string>
+    <string name="add_attachment">Add attachment</string>
 
     <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->

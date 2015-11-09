@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <string name="premium_attach_file">Attach a file</string>
     <string name="premium_record_audio">Record a note</string>
     <string name="premium_remove_file_confirm">Are you sure? Cannot be undone</string>
     

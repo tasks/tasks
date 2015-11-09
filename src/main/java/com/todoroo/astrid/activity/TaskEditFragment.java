@@ -26,8 +26,6 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewParent;
 import android.view.WindowManager;
-import android.webkit.MimeTypeMap;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -402,7 +400,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controls.add(timerControl);
         controlSetMap.put(getString(R.string.TEA_ctrl_timer_pref), timerControl);
 
-        filesControlSet = new FilesControlSet(preferences, taskAttachmentDao, getActivity(), dialogBuilder);
+        filesControlSet = new FilesControlSet(preferences, taskAttachmentDao, this, deviceInfo, actFmCameraModule);
         controls.add(filesControlSet);
         controlSetMap.put(getString(R.string.TEA_ctrl_files_pref), filesControlSet);
 
@@ -560,9 +558,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         loadItem(intent);
 
         synchronized (controls) {
-            if (!taskAttachmentDao.taskHasAttachments(model.getUuid())) {
-                filesControlSet.getView().setVisibility(View.GONE);
-            }
             for (TaskEditControlSet controlSet : controls) {
                 controlSet.readFromTask(model);
             }
@@ -731,80 +726,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 .show();
     }
 
-    private void startAttachFile() {
-        final List<Runnable> runnables = new ArrayList<>();
-        List<String> options = new ArrayList<>();
-
-        if (deviceInfo.hasCamera() || deviceInfo.hasGallery()) {
-            runnables.add(new Runnable() {
-                @Override
-                public void run() {
-                    actFmCameraModule.showPictureLauncher(null);
-                }
-            });
-            options.add(getString(R.string.file_add_picture));
-        }
-        runnables.add(new Runnable() {
-            @Override
-            public void run() {
-                Intent attachFile = new Intent(getActivity(), FileExplore.class);
-                startActivityForResult(attachFile, REQUEST_CODE_ATTACH_FILE);
-            }
-        });
-        options.add(getString(R.string.file_add_sdcard));
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_spinner_dropdown_item, options.toArray(new String[options.size()]));
-
-        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface d, int which) {
-                runnables.get(which).run();
-            }
-        };
-
-        // show a menu of available options
-        dialogBuilder.newDialog()
-                .setAdapter(adapter, listener)
-                .show()
-                .setOwnerActivity(getActivity());
-    }
-
     private void startRecordingAudio() {
         Intent recordAudio = new Intent(getActivity(), AACRecordingActivity.class);
         startActivityForResult(recordAudio, REQUEST_CODE_RECORD);
-    }
-
-    private void attachFile(String file) {
-        File src = new File(file);
-        if (!src.exists()) {
-            Toast.makeText(getActivity(), R.string.file_err_copy, Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        File dst = new File(preferences.getAttachmentsDirectory() + File.separator + src.getName());
-        try {
-            AndroidUtilities.copyFile(src, dst);
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            Toast.makeText(getActivity(), R.string.file_err_copy, Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        String path = dst.getAbsolutePath();
-        String name = dst.getName();
-        String extension = AndroidUtilities.getFileExtension(name);
-
-        String type = TaskAttachment.FILE_TYPE_OTHER;
-        if (!TextUtils.isEmpty(extension)) {
-            MimeTypeMap map = MimeTypeMap.getSingleton();
-            String guessedType = map.getMimeTypeFromExtension(extension);
-            if (!TextUtils.isEmpty(guessedType)) {
-                type = guessedType;
-            }
-        }
-
-        createNewFileAttachment(path, name, type);
     }
 
     private void attachImage(Uri uri) {
@@ -812,18 +736,11 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             String path = getPathFromUri(getActivity(), uri);
             File file = new File(path);
             String extension = path.substring(path.lastIndexOf('.') + 1);
-            createNewFileAttachment(path, file.getName(), TaskAttachment.FILE_TYPE_IMAGE + extension);
+            filesControlSet.createNewFileAttachment(path, file.getName(), TaskAttachment.FILE_TYPE_IMAGE + extension);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             Toast.makeText(getActivity(), R.string.file_err_copy, Toast.LENGTH_LONG).show();
         }
-    }
-
-    private void createNewFileAttachment(String path, String fileName, String fileType) {
-        TaskAttachment attachment = TaskAttachment.createNewAttachment(model.getUuid(), path, fileName, fileType);
-        taskAttachmentDao.createNew(attachment);
-        filesControlSet.refreshMetadata();
-        filesControlSet.getView().setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -836,9 +753,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             return true;
         case R.id.menu_discard:
             discardButtonClick();
-            return true;
-        case R.id.menu_attach:
-            startAttachFile();
             return true;
         case R.id.menu_record_note:
             startRecordingAudio();
@@ -928,11 +842,10 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         } else if (requestCode == REQUEST_CODE_RECORD && resultCode == Activity.RESULT_OK) {
             String recordedAudioPath = data.getStringExtra(AACRecordingActivity.RESULT_OUTFILE);
             String recordedAudioName = data.getStringExtra(AACRecordingActivity.RESULT_FILENAME);
-            createNewFileAttachment(recordedAudioPath, recordedAudioName, TaskAttachment.FILE_TYPE_AUDIO + "m4a"); //$NON-NLS-1$
+            filesControlSet.createNewFileAttachment(recordedAudioPath, recordedAudioName, TaskAttachment.FILE_TYPE_AUDIO + "m4a"); //$NON-NLS-1$
         } else if (requestCode == REQUEST_CODE_ATTACH_FILE && resultCode == Activity.RESULT_OK) {
-            attachFile(data.getStringExtra(FileExplore.RESULT_FILE_SELECTED));
+            filesControlSet.attachFile(data.getStringExtra(FileExplore.RESULT_FILE_SELECTED));
         }
-
         actFmCameraModule.activityResult(requestCode, resultCode, data, new CameraResultCallback() {
             @Override
             public void handleCameraResult(Uri uri) {

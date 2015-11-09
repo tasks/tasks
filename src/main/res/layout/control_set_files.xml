@@ -4,11 +4,32 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/files_list"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:gravity="start"
-    android:orientation="vertical"
-    android:paddingRight="@dimen/task_edit_padding_right"
-    android:paddingEnd="@dimen/task_edit_padding_right" />
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/attachment_container"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="start"
+        android:layout_weight="50"
+        android:gravity="start"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/add_attachment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_attachment"
+            android:textColor="?attr/asTextColorHint"
+            android:textSize="@dimen/task_edit_text_size" />
+
+    </LinearLayout>
+
+</LinearLayout>

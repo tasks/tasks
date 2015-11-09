@@ -158,7 +158,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private final Map<Long, TaskAction> taskActionLoader = Collections.synchronizedMap(new HashMap<Long, TaskAction>());
 
     public TaskAdapter(Context context, ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao, TaskService taskService, TaskListFragment fragment,
-            Cursor c, AtomicReference<String> query, OnCompletedTaskListener onCompletedTaskListener, DialogBuilder dialogBuilder) {
+            Cursor c, AtomicReference<String> query, OnCompletedTaskListener onCompletedTaskListener,
+                       DialogBuilder dialogBuilder) {
         super(context, c, false);
         this.preferences = preferences;
         this.taskAttachmentDao = taskAttachmentDao;
@@ -452,8 +453,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     }
 
     private void showFilesDialog(Task task) {
-        FilesControlSet filesControlSet = new FilesControlSet(preferences, taskAttachmentDao,
-                fragment.getActivity(), dialogBuilder);
+        FilesControlSet filesControlSet = new FilesControlSet(
+                preferences, taskAttachmentDao,
+                fragment, null, null);
+        filesControlSet.hideAddAttachmentButton();
         filesControlSet.readFromTask(task);
         filesControlSet.getView().performClick();
     }

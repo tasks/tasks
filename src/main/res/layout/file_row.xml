@@ -4,46 +4,33 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:orientation="horizontal">
+    android:paddingBottom="@dimen/task_edit_double_padding_top_bottom"
+    android:layout_marginBottom="@dimen/task_edit_double_padding_top_bottom">
 
     <TextView
+        style="@android:style/TextAppearance"
         android:id="@+id/file_text"
         android:layout_width="fill_parent"
-        android:layout_height="40dip"
-        android:layout_marginTop="5dip"
-        android:layout_marginBottom="5dip"
-        android:layout_marginLeft="10dip"
-        android:paddingRight="5dip"
-        android:paddingLeft="3dip"
-        android:layout_weight="1"
-        android:textColor="?attr/asThemeTextColor"
-        android:gravity="left|center_vertical"
-        android:textSize="@dimen/task_edit_text_size" />
-
-    <TextView
-        android:id="@+id/file_type"
-        android:minWidth="37dip"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/file_type_background"
-        android:layout_marginLeft="5dip"
-        android:layout_marginRight="5dip"
-        android:paddingLeft="4dip"
-        android:paddingRight="4dip"
-        android:gravity="center"
-        android:textColor="?attr/asTextColorInverse"
-        android:textSize="@dimen/task_edit_text_size" />
+        android:layout_weight="100"
+        android:textColor="?attr/asTextColor" />
 
     <ImageView
         android:id="@+id/remove_file"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:tint="?attr/icon_tint"
-        android:src="@drawable/ic_close_24dp"
-        android:layout_marginLeft="-5dip"
-        android:layout_marginRight="5dip"
-        android:visibility="gone" />
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:alpha="@dimen/drawer_icon_alpha"
+        android:paddingEnd="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingStart="10dp"
+        android:src="@drawable/ic_cancel_24dp"
+        android:tint="?attr/icon_tint" />
 </LinearLayout>

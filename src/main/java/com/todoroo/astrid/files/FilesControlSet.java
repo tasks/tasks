@@ -11,71 +11,104 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.MimeTypeMap;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.actfm.ActFmCameraModule;
+import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
-import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
-import com.todoroo.astrid.ui.PopupControlSet;
+import com.todoroo.astrid.helper.TaskEditControlSetBase;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.DeviceInfo;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
-public class FilesControlSet extends PopupControlSet {
+public class FilesControlSet extends TaskEditControlSetBase {
 
     private static final Logger log = LoggerFactory.getLogger(FilesControlSet.class);
 
     private final ArrayList<TaskAttachment> files = new ArrayList<>();
-    private final LinearLayout fileDisplayList;
     private final LayoutInflater inflater;
+    private ActivityPreferences preferences;
     private final TaskAttachmentDao taskAttachmentDao;
+    private final Fragment fragment;
+    private final DeviceInfo deviceInfo;
+    private final ActFmCameraModule actFmCameraModule;
     private final DialogBuilder dialogBuilder;
+    private LinearLayout attachmentContainer;
+    private TextView addAttachment;
 
     public FilesControlSet(ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao,
-                           FragmentActivity activity, DialogBuilder dialogBuilder) {
-        super(preferences, activity, R.layout.control_set_files_dialog, R.layout.control_set_files, R.string.TEA_control_files, dialogBuilder);
+                           Fragment fragment, DeviceInfo deviceInfo, ActFmCameraModule actFmCameraModule) {
+        super(fragment.getActivity(), R.layout.control_set_files);
+        this.preferences = preferences;
         this.taskAttachmentDao = taskAttachmentDao;
+        this.fragment = fragment;
+        this.deviceInfo = deviceInfo;
+        this.actFmCameraModule = actFmCameraModule;
         this.dialogBuilder = new DialogBuilder(activity, preferences);
-        fileDisplayList = (LinearLayout) getView().findViewById(R.id.files_list);
         inflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
     }
 
-    @Override
-    protected void refreshDisplayView() {
-        fileDisplayList.removeAllViews();
-        for (final TaskAttachment m : files) {
-            View fileRow = inflater.inflate(R.layout.file_display_row, null);
-            LayoutParams lp = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-            setUpFileRow(m, fileRow, fileDisplayList, lp);
-        }
+    private void addAttachment(TaskAttachment taskAttachment) {
+        View fileRow = inflater.inflate(R.layout.file_row, null);
+        fileRow.setTag(taskAttachment);
+        attachmentContainer.addView(fileRow);
+        addAttachment(taskAttachment, fileRow);
     }
 
-    @Override
-    public void readFromTask(Task task) {
-        super.readFromTask(task);
-
-        refreshMetadata();
-        refreshDisplayView();
+    private void addAttachment(final TaskAttachment taskAttachment, final View fileRow) {
+        TextView nameView = (TextView) fileRow.findViewById(R.id.file_text);
+        nameView.setTextColor(themeColor);
+        String name = taskAttachment.getName();
+        nameView.setText(name);
+        nameView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFile(taskAttachment);
+            }
+        });
+        View clearFile = fileRow.findViewById(R.id.remove_file);
+        clearFile.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogBuilder.newMessageDialog(R.string.premium_remove_file_confirm)
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                taskAttachmentDao.delete(taskAttachment.getId());
+                                if (taskAttachment.containsNonNullValue(TaskAttachment.FILE_PATH)) {
+                                    File f = new File(taskAttachment.getFilePath());
+                                    f.delete();
+                                }
+                                files.remove(taskAttachment);
+                                attachmentContainer.removeView(fileRow);
+                            }
+                        })
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .show();
+            }
+        });
     }
 
     @Override
@@ -112,12 +145,18 @@ public class FilesControlSet extends PopupControlSet {
                     i--;
                 }
             }
-
         }
     }
 
     @Override
     protected void readFromTaskOnInitialize() {
+        attachmentContainer.removeAllViews();
+        taskAttachmentDao.getAttachments(model.getUuid(), new Callback<TaskAttachment>() {
+            @Override
+            public void apply(TaskAttachment entry) {
+                addAttachment(entry);
+            }
+        });
     }
 
     @Override
@@ -127,54 +166,18 @@ public class FilesControlSet extends PopupControlSet {
 
     @Override
     protected void afterInflate() {
-        LinearLayout fileList = (LinearLayout) getDialogView().findViewById(R.id.files_list);
-        final LinearLayout finalList = fileList;
-        fileList.removeAllViews();
-        LayoutParams lp = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-        for (final TaskAttachment m : files) {
-            final View fileRow = inflater.inflate(R.layout.file_row, null);
+        attachmentContainer = (LinearLayout) getView().findViewById(R.id.attachment_container);
+        addAttachment = (TextView) getView().findViewById(R.id.add_attachment);
+        addAttachment.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                startAttachFile();
+            }
+        });
+    }
 
-            setUpFileRow(m, fileRow, fileList, lp);
-            View name = fileRow.findViewById(R.id.file_text);
-            View clearFile = fileRow.findViewById(R.id.remove_file);
-
-            name.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showFile(m);
-                }
-            });
-
-            clearFile.setVisibility(View.VISIBLE);
-            clearFile.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialogBuilder.newMessageDialog(R.string.premium_remove_file_confirm)
-                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    if (RemoteModel.isValidUuid(m.getUUID())) {
-                                        // TODO: delete
-                                        m.setDeletedAt(DateUtilities.now());
-                                        taskAttachmentDao.saveExisting(m);
-                                    } else {
-                                        taskAttachmentDao.delete(m.getId());
-                                    }
-
-                                    if (m.containsNonNullValue(TaskAttachment.FILE_PATH)) {
-                                        File f = new File(m.getFilePath());
-                                        f.delete();
-                                    }
-                                    files.remove(m);
-                                    refreshDisplayView();
-                                    finalList.removeView(fileRow);
-                                }
-                            })
-                            .setNegativeButton(android.R.string.cancel, null)
-                            .show();
-                }
-            });
-        }
+    public void hideAddAttachmentButton() {
+        addAttachment.setVisibility(View.GONE);
     }
 
     public interface PlaybackExceptionHandler {
@@ -206,9 +209,14 @@ public class FilesControlSet extends PopupControlSet {
                 }
             });
         } else if (fileType.startsWith(TaskAttachment.FILE_TYPE_IMAGE)) {
-            activity.startActivity(new Intent(Intent.ACTION_VIEW) {{
-                setDataAndType(Uri.fromFile(new File(filePath)), fileType);
-            }});
+            try {
+                activity.startActivity(new Intent(Intent.ACTION_VIEW) {{
+                    setDataAndType(Uri.fromFile(new File(filePath)), fileType);
+                }});
+            } catch(ActivityNotFoundException e) {
+                log.error(e.getMessage(), e);
+                Toast.makeText(activity, R.string.no_application_found, Toast.LENGTH_SHORT).show();
+            }
         } else {
             String useType = fileType;
             if (fileType.equals(TaskAttachment.FILE_TYPE_OTHER)) {
@@ -240,37 +248,83 @@ public class FilesControlSet extends PopupControlSet {
         }
     }
 
-    private void setUpFileRow(TaskAttachment m, View row, LinearLayout parent, LayoutParams lp) {
-        TextView nameView = (TextView) row.findViewById(R.id.file_text);
-        nameView.setTextColor(themeColor);
-        TextView typeView = (TextView) row.findViewById(R.id.file_type);
-        String name = getNameString(m);
-        String type = getTypeString(m.getName());
-        nameView.setText(name);
+    private void startAttachFile() {
+        final List<Runnable> runnables = new ArrayList<>();
+        List<String> options = new ArrayList<>();
 
-        if (TextUtils.isEmpty(type)) {
-            typeView.setVisibility(View.GONE);
-        } else {
-            typeView.setText(type);
+        if (deviceInfo.hasCamera() || deviceInfo.hasGallery()) {
+            runnables.add(new Runnable() {
+                @Override
+                public void run() {
+                    actFmCameraModule.showPictureLauncher(null);
+                }
+            });
+            options.add(activity.getString(R.string.file_add_picture));
         }
+        runnables.add(new Runnable() {
+            @Override
+            public void run() {
+                Intent attachFile = new Intent(activity, FileExplore.class);
+                fragment.startActivityForResult(attachFile, TaskEditFragment.REQUEST_CODE_ATTACH_FILE);
+            }
+        });
+        options.add(activity.getString(R.string.file_add_sdcard));
 
-        parent.addView(row, lp);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                activity,
+                android.R.layout.simple_spinner_dropdown_item,
+                options.toArray(new String[options.size()]));
+
+        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface d, int which) {
+                runnables.get(which).run();
+            }
+        };
+
+        // show a menu of available options
+        dialogBuilder.newDialog()
+                .setAdapter(adapter, listener)
+                .show()
+                .setOwnerActivity(activity);
     }
 
-    private String getNameString(TaskAttachment metadata) {
-        String name = metadata.getName();
-        int extension = name.lastIndexOf('.');
-        if (extension < 0) {
-            return name;
+    public void attachFile(String file) {
+        File src = new File(file);
+        if (!src.exists()) {
+            Toast.makeText(activity, R.string.file_err_copy, Toast.LENGTH_LONG).show();
+            return;
         }
-        return name.substring(0, extension);
+
+        File dst = new File(preferences.getAttachmentsDirectory() + File.separator + src.getName());
+        try {
+            AndroidUtilities.copyFile(src, dst);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            Toast.makeText(activity, R.string.file_err_copy, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        String path = dst.getAbsolutePath();
+        String name = dst.getName();
+        String extension = AndroidUtilities.getFileExtension(name);
+
+        String type = TaskAttachment.FILE_TYPE_OTHER;
+        if (!TextUtils.isEmpty(extension)) {
+            MimeTypeMap map = MimeTypeMap.getSingleton();
+            String guessedType = map.getMimeTypeFromExtension(extension);
+            if (!TextUtils.isEmpty(guessedType)) {
+                type = guessedType;
+            }
+        }
+
+        createNewFileAttachment(path, name, type);
     }
 
-    private String getTypeString(String name) {
-        int extension = name.lastIndexOf('.');
-        if (extension < 0 || extension + 1 >= name.length()) {
-            return "";
-        }
-        return name.substring(extension + 1).toUpperCase();
+    public void createNewFileAttachment(String path, String fileName, String fileType) {
+        TaskAttachment attachment = TaskAttachment.createNewAttachment(model.getUuid(), path, fileName, fileType);
+        taskAttachmentDao.createNew(attachment);
+        refreshMetadata();
+        addAttachment(attachment);
     }
 }
