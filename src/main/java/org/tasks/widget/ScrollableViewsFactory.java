@@ -138,6 +138,9 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
     public RemoteViews buildUpdate(int position) {
         try {
             Task task = getTask(position);
+            if (task == null) {
+                return null;
+            }
 
             String textContent;
             Resources r = context.getResources();
@@ -194,8 +197,12 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
     }
 
     private Task getTask(int position) {
-        cursor.moveToPosition(position);
-        return new Task(cursor);
+        if (position < cursor.getCount()) {
+            cursor.moveToPosition(position);
+            return new Task(cursor);
+        }
+        log.warn("requested task at position {}, cursor count is {}", position, cursor.getCount());
+        return null;
     }
 
     private String getQuery() {
