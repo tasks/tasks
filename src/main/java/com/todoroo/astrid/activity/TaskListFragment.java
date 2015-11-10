@@ -333,7 +333,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
             return;
         }
 
-        getListView().setOnItemClickListener(new OnItemClickListener() {
+        getListView().setOnItemClickListener(new OnItemClickListener() { // after the tasks have been loaded
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {

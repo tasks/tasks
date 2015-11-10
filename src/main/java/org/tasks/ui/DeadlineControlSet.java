@@ -1,5 +1,6 @@
 package org.tasks.ui;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.support.v4.app.FragmentActivity;
 import android.text.format.DateFormat;
@@ -38,8 +39,8 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
 
     private static final String FRAG_TAG_PICK_A_DATE = "frag_tag_pick_a_date";
     private static final String FRAG_TAG_PICK_A_TIME = "frag_tag_pick_a_time";
-
-    private final List<String> dueDateOptions = new ArrayList<>();
+    private final List<String> DateOptions = new ArrayList<>();
+    private final List<String> startDateOptions = new ArrayList<>();
     private final List<String> dueTimeOptions = new ArrayList<>();
     private final List<String> dueTimeHint;
     private final int dateShortcutMorning;
@@ -53,19 +54,23 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
     private final String noTimeString;
     private final String todayString;
     private final String tomorrowString;
+    private boolean isStart = false;
 
     private FragmentActivity activity;
-    private Spinner dueDateSpinner;
-    private Spinner dueTimeSpinner;
+    private Spinner DateSpinner;
+    private Spinner TimeSpinner;
     private View clearButton;
-    private ArrayAdapter<String> dueDateAdapter;
-    private ArrayAdapter<String> dueTimeAdapter;
-    private long date = 0;
+    private ArrayAdapter<String> DateAdapter;
+    private ArrayAdapter<String> startDateAdapter;
+    private ArrayAdapter<String> TimeAdapter;
+    public static long date = 0;
+    private static long startDate = 0;
     private int time = -1;
 
-    public DeadlineControlSet(FragmentActivity activity, Preferences preferences) {
+    public DeadlineControlSet(FragmentActivity activity, Preferences preferences, boolean isStart) {
         super(activity, R.layout.control_set_deadline);
         this.activity = activity;
+        this.isStart  = isStart;
         dateShortcutMorning = preferences.getDateShortcutMorning();
         dateShortcutAfternoon = preferences.getDateShortcutAfternoon();
         dateShortcutEvening = preferences.getDateShortcutEvening();
@@ -81,10 +86,10 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
         eveningString = activity.getString(R.string.date_shortcut_evening);
         afternoonString = activity.getString(R.string.date_shortcut_afternoon);
         morningString = activity.getString(R.string.date_shortcut_morning);
-        noTimeString = activity.getString(R.string.TEA_no_time);
+        noTimeString = isStart ? activity.getString(R.string.TEA_start_time) : activity.getString(R.string.TEA_due_time);
         todayString = activity.getString(R.string.today);
         tomorrowString = activity.getString(R.string.tomorrow);
-        dueDateOptions.addAll(asList(
+        DateOptions.addAll(asList(
                 "",
                 todayString,
                 tomorrowString,
@@ -105,6 +110,10 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
         return DateUtilities.getTimeString(activity, dateTime);
     }
 
+    public long returnDate()
+    {
+        return date;
+    }
     private void refreshDisplayView() {
         updateDueDateOptions();
         updateDueTimeOptions();
@@ -115,23 +124,37 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
         DateTime today = newDateTime().withMillisOfDay(0);
         String nextWeekString = activity.getString(R.string.next, today.plusWeeks(1).toString("EEEE"));
         if (date == 0) {
-            dueDateOptions.set(0, activity.getString(R.string.TEA_no_date));
-        } else {
-            if (date == today.getMillis()) {
-                dueDateOptions.set(0, todayString);
-            } else if (date == today.plusDays(1).getMillis()) {
-                dueDateOptions.set(0, tomorrowString);
-            } else if (date == today.plusWeeks(1).getMillis()) {
-                dueDateOptions.set(0, nextWeekString);
-            } else {
-                dueDateOptions.set(0, DateUtilities.getLongDateStringHideYear(newDate(date)));
-            }
+            if(isStart)
+                DateOptions.set(0, activity.getString(R.string.TEA_start_date)) ;
+            else
+                DateOptions.set(0, activity.getString(R.string.TEA_due_date));
         }
-        dueDateOptions.set(3, nextWeekString);
-        dueDateAdapter.notifyDataSetChanged();
-        dueDateSpinner.setSelection(0);
+        else {
+            if (date == today.getMillis()) {
+                DateOptions.set(0, todayString);
+            } else if (date == today.plusDays(1).getMillis()) {
+                DateOptions.set(0, tomorrowString);
+            } else if (date == today.plusWeeks(1).getMillis()) {
+                DateOptions.set(0, nextWeekString);
+            } else {
+                DateOptions.set(0, DateUtilities.getLongDateStringHideYear(newDate(date)));
+            }
+
+        }
+        DateOptions.set(3, nextWeekString);
+        DateAdapter.notifyDataSetChanged();
+        DateSpinner.setSelection(0);
+
     }
 
+    public int CompareDates(long startDate, long dueDate)
+    {
+        if(startDate >= date)
+            return -1;
+        else
+            return 0;
+
+    }
     private void updateDueTimeOptions() {
         if (time == -1) {
             dueTimeOptions.set(0, noTimeString);
@@ -153,8 +176,8 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
                 dueTimeOptions.set(0, DateUtilities.getTimeString(activity, newDateTime().withMillisOfDay(time)));
             }
         }
-        dueTimeAdapter.notifyDataSetChanged();
-        dueTimeSpinner.setSelection(0);
+        TimeAdapter.notifyDataSetChanged();
+        TimeSpinner.setSelection(0);
     }
 
     @Override
@@ -169,8 +192,8 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
                 refreshDisplayView();
             }
         });
-        dueDateSpinner = (Spinner) view.findViewById(R.id.due_date);
-        dueDateAdapter = new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, dueDateOptions) {
+        DateSpinner = (Spinner) view.findViewById(R.id.due_date);
+        DateAdapter = new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, DateOptions) {
             @Override
             public View getView(final int position, final View convertView, final ViewGroup parent) {
                 int selectedItemPosition = position;
@@ -178,30 +201,30 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
                     selectedItemPosition = ((AdapterView) parent).getSelectedItemPosition();
                 }
                 TextView tv = (TextView) LayoutInflater.from(activity).inflate(android.R.layout.simple_spinner_item, parent, false);
-                tv.setText(dueDateOptions.get(selectedItemPosition));
+                tv.setText(DateOptions.get(selectedItemPosition));
                 if (atLeastHoneycomb()) {
                     if (date == 0) {
-                        dueDateSpinner.setAlpha(0.5f);
-                        dueDateSpinner.setBackgroundResource(getResource(activity, R.attr.textfield_underline));
+                        DateSpinner.setAlpha(0.5f);
+                        DateSpinner.setBackgroundResource(getResource(activity, R.attr.textfield_underline));
                     } else {
-                        dueDateSpinner.setAlpha(1.0f);
+                        DateSpinner.setAlpha(1.0f);
                         if (date < newDateTime().withMillisOfDay(0).getMillis()) {
-                            dueDateSpinner.setBackgroundResource(R.drawable.textfield_underline_red);
+                            DateSpinner.setBackgroundResource(R.drawable.textfield_underline_red);
                             tv.setTextColor(activity.getResources().getColor(R.color.overdue));
                         } else {
-                            dueDateSpinner.setBackgroundResource(getResource(activity, R.attr.textfield_underline));
+                            DateSpinner.setBackgroundResource(getResource(activity, R.attr.textfield_underline));
                             tv.setTextColor(themeColor);
                         }
                     }
                 } else {
                     if (date == 0) {
-                        dueDateSpinner.setBackgroundResource(getResource(activity, R.attr.textfield_underline));
+                        DateSpinner.setBackgroundResource(getResource(activity, R.attr.textfield_underline));
                         tv.setTextColor(unsetColor);
                     } else if (date < newDateTime().withMillisOfDay(0).getMillis()) {
-                        dueDateSpinner.setBackgroundResource(R.drawable.textfield_underline_red);
+                        DateSpinner.setBackgroundResource(R.drawable.textfield_underline_red);
                         tv.setTextColor(activity.getResources().getColor(R.color.overdue));
                     } else {
-                        dueDateSpinner.setBackgroundResource(getResource(activity, R.attr.textfield_underline));
+                        DateSpinner.setBackgroundResource(getResource(activity, R.attr.textfield_underline));
                         tv.setTextColor(themeColor);
                     }
                 }
@@ -219,7 +242,7 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
                     v = tv;
                 } else {
                     TextView tv = (TextView) LayoutInflater.from(activity).inflate(android.R.layout.simple_spinner_dropdown_item, parent, false);
-                    tv.setText(dueDateOptions.get(position));
+                    tv.setText(DateOptions.get(position));
                     tv.setTextColor(themeColor);
                     v = tv;
                 }
@@ -228,10 +251,10 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
                 return v;
             }
         };
-        dueDateSpinner.setAdapter(dueDateAdapter);
+        DateSpinner.setAdapter(DateAdapter);
 
-        dueTimeSpinner = (Spinner) view.findViewById(R.id.due_time);
-        dueTimeAdapter = new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, dueTimeOptions) {
+        TimeSpinner = (Spinner) view.findViewById(R.id.due_time);
+        TimeAdapter = new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, dueTimeOptions) {
             @Override
             public View getView(final int position, final View convertView, final ViewGroup parent) {
                 int selectedItemPosition = position;
@@ -242,27 +265,27 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
                 tv.setText(dueTimeOptions.get(selectedItemPosition));
                 if (atLeastHoneycomb()) {
                     if (time == -1) {
-                        dueTimeSpinner.setAlpha(0.5f);
-                        dueTimeSpinner.setBackgroundResource(getResource(activity, R.attr.textfield_underline));
+                        TimeSpinner.setAlpha(0.5f);
+                        TimeSpinner.setBackgroundResource(getResource(activity, R.attr.textfield_underline));
                     } else {
-                        dueTimeSpinner.setAlpha(1.0f);
+                        TimeSpinner.setAlpha(1.0f);
                         if (newDateTime(date).withMillisOfDay(time).isBeforeNow()) {
-                            dueTimeSpinner.setBackgroundResource(R.drawable.textfield_underline_red);
+                            TimeSpinner.setBackgroundResource(R.drawable.textfield_underline_red);
                             tv.setTextColor(activity.getResources().getColor(R.color.overdue));
                         } else {
-                            dueTimeSpinner.setBackgroundResource(getResource(activity, R.attr.textfield_underline));
+                            TimeSpinner.setBackgroundResource(getResource(activity, R.attr.textfield_underline));
                             tv.setTextColor(themeColor);
                         }
                     }
                 } else {
                     if (time == -1) {
-                        dueTimeSpinner.setBackgroundResource(getResource(activity, R.attr.textfield_underline));
+                        TimeSpinner.setBackgroundResource(getResource(activity, R.attr.textfield_underline));
                         tv.setTextColor(unsetColor);
                     } else if (newDateTime(date).withMillisOfDay(time).isBeforeNow()) {
-                        dueTimeSpinner.setBackgroundResource(R.drawable.textfield_underline_red);
+                        TimeSpinner.setBackgroundResource(R.drawable.textfield_underline_red);
                         tv.setTextColor(activity.getResources().getColor(R.color.overdue));
                     } else {
-                        dueTimeSpinner.setBackgroundResource(getResource(activity, R.attr.textfield_underline));
+                        TimeSpinner.setBackgroundResource(getResource(activity, R.attr.textfield_underline));
                         tv.setTextColor(themeColor);
                     }
                 }
@@ -291,42 +314,45 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
                 return v;
             }
         };
-        dueTimeSpinner.setAdapter(dueTimeAdapter);
+        TimeSpinner.setAdapter(TimeAdapter);
 
-        dueDateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        DateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 DateTime today = newDateTime().withMillisOfDay(0);
-                switch (position) {
-                    case 0:
-                        return;
-                    case 1:
-                        setDate(today.getMillis());
-                        break;
-                    case 2:
-                        setDate(today.plusDays(1).getMillis());
-                        break;
-                    case 3:
-                        setDate(today.plusWeeks(1).getMillis());
-                        break;
-                    case 4:
-                        MyDatePickerDialog dialog = new MyDatePickerDialog();
-                        DateTime initial = date > 0 ? newDateTime(date) : today;
-                        dialog.initialize(new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
-                                setDate(new DateTime(year, month + 1, day, 0, 0, 0, 0).getMillis());
-                            }
-                        }, initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth(), false);
-                        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                            @Override
-                            public void onCancel(DialogInterface dialog) {
-                                refreshDisplayView();
-                            }
-                        });
-                        dialog.show(activity.getSupportFragmentManager(), FRAG_TAG_PICK_A_DATE);
-                        break;
-                }
+
+
+                    switch (position) {
+                        case 0:
+                            return;
+                        case 1:
+                            setDate(today.getMillis());
+                            break;
+                        case 2:
+                            setDate(today.plusDays(1).getMillis());
+                            break;
+                        case 3:
+                            setDate(today.plusWeeks(1).getMillis());
+                            break;
+                        case 4:
+                            MyDatePickerDialog dialog = new MyDatePickerDialog();
+                            DateTime initial = date > 0 ? newDateTime(date) : today;
+                            dialog.initialize(new DatePickerDialog.OnDateSetListener() {
+                                @Override
+                                public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
+                                    setDate(new DateTime(year, month + 1, day, 0, 0, 0, 0).getMillis());
+                                }
+                            }, initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth(), false);
+                            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                                @Override
+                                public void onCancel(DialogInterface dialog) {
+                                    refreshDisplayView();
+                                }
+                            });
+                            dialog.show(activity.getSupportFragmentManager(), FRAG_TAG_PICK_A_DATE);
+                            break;
+                    }
+
             }
 
             @Override
@@ -335,7 +361,7 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
             }
         });
 
-        dueTimeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        TimeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
@@ -390,11 +416,40 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
     }
 
     private void setDate(long millis) {
-        date = millis;
-        if (date == 0) {
-            time = -1;
+
+       /* int result = 0;
+
+        if(!isStart){
+            if(startDate!= 0)
+            {
+                result = CompareDates(startDate, date);
+            }
         }
-        refreshDisplayView();
+        else
+        {
+            startDate = date;
+        }
+        if(result != -1) {*/
+
+            date = millis;
+            if (date == 0) {
+                time = -1;
+            }
+            refreshDisplayView();
+       /* }
+        else
+        {
+            final AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this.activity);
+            dlgAlert.setPositiveButton("Ok",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dlgAlert.setMessage("Cannot set a due date with a value less than the start date");
+                            dlgAlert.setCancelable(true);
+                            dlgAlert.create().show();
+
+                        }
+                    });
+        }*/
     }
 
     private void setTime(int millisOfDay) {

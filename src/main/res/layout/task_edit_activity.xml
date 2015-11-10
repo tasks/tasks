@@ -103,6 +103,7 @@
             android:paddingLeft="10dip"
             android:textSize="16sp" />
 
+
         <!-- Extended Add Button -->
 
         <LinearLayout
@@ -133,6 +134,7 @@
                 android:textColor="?attr/asThemeTextColor"
                 android:textSize="10sp"
                 android:visibility="visible" />
+
         </LinearLayout>
 
         <ImageButton

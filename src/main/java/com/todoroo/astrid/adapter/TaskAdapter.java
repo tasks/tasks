@@ -85,6 +85,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Task.UUID,
         Task.TITLE,
         Task.IMPORTANCE,
+        Task.START_DATE,
         Task.DUE_DATE,
         Task.COMPLETION_DATE,
         Task.MODIFICATION_DATE,
@@ -239,6 +240,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         viewHolder.rowBody = (ViewGroup)view.findViewById(R.id.rowBody);
         viewHolder.nameView = (TextView)view.findViewById(R.id.title);
         viewHolder.completeBox = (CheckableImageView)view.findViewById(R.id.completeBox);
+        viewHolder.startDate = (TextView)view.findViewById(R.id.startDate);
         viewHolder.dueDate = (TextView)view.findViewById(R.id.dueDate);
         viewHolder.tagsView = (TextView)view.findViewById(R.id.tagsDisplay);
         viewHolder.details1 = (TextView)view.findViewById(R.id.details1);
@@ -310,6 +312,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public ViewGroup rowBody;
         public TextView nameView;
         public CheckableImageView completeBox;
+        public TextView startDate;
         public TextView dueDate;
         public TextView tagsView;
         public TextView details1, details2;

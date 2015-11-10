@@ -117,7 +117,9 @@
   <!-- Task importance label -->
   <string name="TEA_importance_label">Priority</string>
   
-  <string name="TEA_no_date">No date</string>
+  <string name="TEA_start_date">Start date</string>
+
+  <string name="TEA_due_date">Due date</string>
   
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">Hide until</string>
@@ -149,7 +151,9 @@
 
   <string name="TEA_timer_elap">Elapsed %s</string>
 
-  <string name="TEA_no_time">No time</string>
+  <string name="TEA_start_time">Start time</string>
+
+  <string name="TEA_due_time">Due time</string>
 
   <string-array name="TEA_hideUntil">
       <!-- hideUntil: labels for edit page. -->

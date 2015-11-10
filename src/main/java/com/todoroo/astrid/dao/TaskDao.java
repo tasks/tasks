@@ -277,6 +277,7 @@ public class TaskDao {
         Task.UUID,
         Task.TITLE,
         Task.IMPORTANCE,
+        Task.START_DATE,
         Task.DUE_DATE,
         Task.CREATION_DATE,
         Task.DELETION_DATE,

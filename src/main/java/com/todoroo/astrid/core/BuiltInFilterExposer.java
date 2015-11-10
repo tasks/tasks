@@ -115,6 +115,19 @@ public final class BuiltInFilterExposer {
                 null);
     }
 
+    private static Filter getTimeRemainingFilter(Resources r)
+    {
+        String todayTitle = AndroidUtilities.capitalize(r.getString(R.string.today));
+        ContentValues todayValues = new ContentValues();
+        todayValues.put(Task.ESTIMATED_SECONDS.name, PermaSql.Value_EOD_Hours);
+        return new Filter(todayTitle,
+                new QueryTemplate().where(
+                        Criterion.and(TaskCriteria.activeAndVisible(),
+                                Task.DUE_DATE.gt(0),
+                                Task.DUE_DATE.lte(PermaSql.Value_EOD_Hours))),
+                todayValues);
+
+    }
     private static Filter getUncategorizedFilter(Resources r) {
         return new Filter(r.getString(R.string.tag_FEx_untagged),
                 new QueryTemplate().where(Criterion.and(

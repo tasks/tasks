@@ -23,6 +23,7 @@ public final class PermaSql {
 
     // --- placeholder strings
 
+    public static final String Value_EOD_Hours = "Hour()";
     /** value to be replaced with the current time as long */
     public static final String VALUE_NOW = "NOW()"; //$NON-NLS-1$
 
@@ -69,7 +70,8 @@ public final class PermaSql {
         }
         if(value.contains(VALUE_EOD) || value.contains(VALUE_EOD_DAY_AFTER) ||
                 value.contains(VALUE_EOD_NEXT_WEEK) || value.contains(VALUE_EOD_TOMORROW) ||
-                value.contains(VALUE_EOD_YESTERDAY) || value.contains(VALUE_EOD_NEXT_MONTH)) {
+                value.contains(VALUE_EOD_YESTERDAY) || value.contains(VALUE_EOD_NEXT_MONTH) ||
+                value.contains(Value_EOD_Hours)) {
             value = replaceEodValues(value);
         }
         if(value.contains(VALUE_NOON) || value.contains(VALUE_NOON_DAY_AFTER) ||
@@ -92,6 +94,7 @@ public final class PermaSql {
         value = value.replace(VALUE_EOD_DAY_AFTER, Long.toString(time + 2 * DateUtilities.ONE_DAY));
         value = value.replace(VALUE_EOD_NEXT_WEEK, Long.toString(time + 7 * DateUtilities.ONE_DAY));
         value = value.replace(VALUE_EOD_NEXT_MONTH, Long.toString(time + 30 * DateUtilities.ONE_DAY));
+        value = value.replace(Value_EOD_Hours, Long.toString(time + (DateUtilities.ONE_HOUR)));
         return value;
     }
 

@@ -29,7 +29,7 @@ public class SortHelper {
     public static final int SORT_IMPORTANCE = 3;
     public static final int SORT_MODIFIED = 4;
     public static final int SORT_WIDGET = 5;
-    public static final int SORT_START = 6;
+
 
     /**
      * Takes a SQL query, and if there isn't already an order, creates an order.
@@ -79,11 +79,7 @@ public class SortHelper {
                     Functions.now()  + "*2", adjustedDueDateFunction()) + "+" + Task.IMPORTANCE +
                     "+3*" + Task.COMPLETION_DATE);
             break;
-       /* case SORT_START:
-             order = Order.asc(Functions.caseStatement(Task.START_DATE.eq(0),
-                     Functions.now()  + "*2", adjustedDueDateFunction()) + "+" + Task.IMPORTANCE +
-                     "+3*" + Task.COMPLETION_DATE);
-                break; */
+
         case SORT_IMPORTANCE:
             order = Order.asc(Task.IMPORTANCE + "*" + (2*DateUtilities.now()) + //$NON-NLS-1$
                     "+" + Functions.caseStatement(Task.DUE_DATE.eq(0), //$NON-NLS-1$

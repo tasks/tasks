@@ -131,6 +131,11 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     public static final String TOKEN_OPEN_CONTROL = "open_control"; //$NON-NLS-1$
 
+    public  DeadlineControlSet startControl;
+
+    public  DeadlineControlSet deadlineControl;
+
+
     /**
      * Task in progress (during orientation change)
      */
@@ -183,7 +188,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     private final HashMap<String, TaskEditControlSet> controlSetMap = new HashMap<>();
     private FilesControlSet filesControlSet;
-    private TimerActionControlSet timerAction;
+    private TimerActionControlSet TimerAction;
+    private TimerActionControlSet startTimerAction;
     private EditNoteActivity editNotes;
     private HideUntilControlSet hideUntilControls;
     private ReminderControlSet reminderControlSet;
@@ -196,6 +202,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @InjectView(R.id.basic_controls) LinearLayout basicControls;
     @InjectView(R.id.edit_scroll) ScrollView scrollView;
     @InjectView(R.id.commentField) EditText commentField;
+
 
     private final List<TaskEditControlSet> controls = Collections.synchronizedList(new ArrayList<TaskEditControlSet>());
 
@@ -306,9 +313,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             editNotes.loadViewForTaskID(idParam);
         }
 
-        if (timerAction != null && editNotes != null) {
-            timerAction.removeListener(editNotes);
-            timerAction.addListener(editNotes);
+        if (TimerAction != null && editNotes != null) {
+            TimerAction.removeListener(editNotes);
+            TimerAction.addListener(editNotes);
         }
 
         if (editNotes != null) {
@@ -340,6 +347,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     }
 
     /** Initialize UI components */
+
     private void setUpUIComponents() {
         // populate control set
         EditTitleControlSet editTitle = new EditTitleControlSet(
@@ -349,12 +357,13 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 checkbox);
         controls.add(editTitle);
 
-        timerAction = new TimerActionControlSet(notificationManager, taskService, getActivity(), getView());
-        controls.add(timerAction);
+        TimerAction = new TimerActionControlSet(notificationManager, taskService, getActivity(), getView());
+        controls.add(TimerAction);
 
-        TagsControlSet tagsControlSet = new TagsControlSet(metadataDao, tagDataDao, preferences, tagService, getActivity(), dialogBuilder);
-        controls.add(tagsControlSet);
-        controlSetMap.put(getString(R.string.TEA_ctrl_lists_pref), tagsControlSet);
+
+        TagsControlSet TagsControlSet = new TagsControlSet(metadataDao, tagDataDao, preferences, tagService, getActivity(), dialogBuilder);
+        controls.add(TagsControlSet);
+        controlSetMap.put(getString(R.string.TEA_ctrl_lists_pref), TagsControlSet);
 
         RepeatControlSet repeatControls = new RepeatControlSet(preferences, getActivity(), dialogBuilder);
         controlSetMap.put(getString(R.string.TEA_ctrl_repeat_pref), repeatControls);
@@ -368,11 +377,18 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         // deadline control, because
         // otherwise the correct date may not be written to the calendar event.
         // Order matters!
-        DeadlineControlSet deadlineControl = new DeadlineControlSet(getActivity(), preferences);
-        controlSetMap.put(getString(R.string.TEA_ctrl_when_pref), deadlineControl);
-        controls.add(repeatControls);
 
+        startControl = new DeadlineControlSet(getActivity(), preferences, true);
+        controlSetMap.put(getString(R.string.TEA_ctrl_when_pref), startControl);
+
+
+        deadlineControl = new DeadlineControlSet(getActivity(), preferences, false);
+        controlSetMap.put(getString(R.string.TEA_ctrl_until_pref), deadlineControl);
+
+        controls.add(repeatControls);
         repeatControls.addListener(editTitle);
+
+        controls.add(startControl);
         controls.add(deadlineControl);
         controls.add(gcalControl);
 
@@ -398,10 +414,11 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         // TODO: Fix the fact that hideUntil doesn't update accordingly with date changes when lazy loaded. Until then, don't lazy load.
         hideUntilControls.getView();
 
-        TimerControlSet timerControl = new TimerControlSet(preferences, getActivity(), dialogBuilder);
-        timerAction.addListener(timerControl);
-        controls.add(timerControl);
-        controlSetMap.put(getString(R.string.TEA_ctrl_timer_pref), timerControl);
+        TimerControlSet dueTimerControl = new TimerControlSet(preferences, getActivity(), dialogBuilder);
+        TimerAction.addListener(dueTimerControl);
+        controls.add(dueTimerControl);
+        controlSetMap.put(getString(R.string.TEA_ctrl_timer_pref), dueTimerControl);
+
 
         filesControlSet = new FilesControlSet(preferences, taskAttachmentDao, getActivity(), dialogBuilder);
         controls.add(filesControlSet);
@@ -419,6 +436,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         // Load task data in background
         new TaskEditBackgroundLoader().start();
     }
+
 
     private void loadEditPageOrder(boolean removeViews) {
         if (removeViews) {

@@ -57,13 +57,14 @@ public class Task extends RemoteModel {
     public static final IntegerProperty IMPORTANCE = new IntegerProperty(
             TABLE, "importance");
 
+    public static final LongProperty START_DATE = new LongProperty(
+            TABLE, "startDate", Property.PROP_FLAG_DATE);
+
+
     /** Unixtime Task is due, 0 if not set */
     public static final LongProperty DUE_DATE = new LongProperty(
             TABLE, "dueDate", Property.PROP_FLAG_DATE);
 
-    /** Unixtime Task starts, 0 if not set */
-    public static final LongProperty START_DATE = new LongProperty(
-            TABLE, "startDate", Property.PROP_FLAG_DATE);
 
     /** Unixtime Task should be hidden until, 0 if not set */
     public static final LongProperty HIDE_UNTIL = new LongProperty(
@@ -178,6 +179,7 @@ public class Task extends RemoteModel {
 
     static {
         defaultValues.put(TITLE.name, "");
+        defaultValues.put(START_DATE.name, 0L);
         defaultValues.put(DUE_DATE.name, 0L);
         defaultValues.put(HIDE_UNTIL.name, 0);
         defaultValues.put(COMPLETION_DATE.name, 0);
@@ -247,6 +249,11 @@ public class Task extends RemoteModel {
         return getValue(HIDE_UNTIL) > DateUtilities.now();
     }
 
+    /** checks whether task has started */
+    public boolean hasStartDate() {
+        return getValue(START_DATE) > 0;
+    }
+
     /** Checks whether task is done. Requires DUE_DATE */
     public boolean hasDueDate() {
         return getValue(DUE_DATE) > 0;
@@ -283,6 +290,7 @@ public class Task extends RemoteModel {
      * @param customDate
      *            if specific day or day & time is set, this value
      */
+
     public static long createDueDate(int setting, long customDate) {
         long date;
 
@@ -331,7 +339,54 @@ public class Task extends RemoteModel {
         }
         return dueDate.getMillis();
     }
+    private static long urgentStartDate;
+    public static long createStartDate(int setting, long customDate) {
 
+        switch(setting) {
+            case URGENCY_NONE:
+                urgentStartDate = 0;
+                break;
+            case URGENCY_TODAY:
+                urgentStartDate = DateUtilities.now();
+                break;
+            case URGENCY_TOMORROW:
+                urgentStartDate = DateUtilities.now() + DateUtilities.ONE_DAY;
+                break;
+            case URGENCY_DAY_AFTER:
+                urgentStartDate = DateUtilities.now() + 2 * DateUtilities.ONE_DAY;
+                break;
+            case URGENCY_NEXT_WEEK:
+                urgentStartDate = DateUtilities.now() + DateUtilities.ONE_WEEK;
+                break;
+            case URGENCY_IN_TWO_WEEKS:
+                urgentStartDate = DateUtilities.now() + 2 * DateUtilities.ONE_WEEK;
+                break;
+            case URGENCY_NEXT_MONTH:
+                urgentStartDate = DateUtilities.oneMonthFromNow();
+                break;
+            case URGENCY_SPECIFIC_DAY:
+            case URGENCY_SPECIFIC_DAY_TIME:
+                urgentStartDate = customDate;
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown setting " + setting);
+        }
+
+        if(urgentStartDate <= 0) {
+            return urgentStartDate;
+        }
+
+        DateTime startDate = newDateTime(urgentStartDate).withMillisOfSecond(0);
+        if(setting != URGENCY_SPECIFIC_DAY_TIME) {
+            startDate = startDate
+                    .withHourOfDay(12)
+                    .withMinuteOfHour(0)
+                    .withSecondOfMinute(0); // Seconds == 0 means no due time
+        } else {
+            startDate = startDate.withSecondOfMinute(1); // Seconds > 0 means due time exists
+        }
+        return startDate.getMillis();
+    }
     /**
      * Create hide until for this task.
      *
@@ -379,6 +434,19 @@ public class Task extends RemoteModel {
         return hideUntil.getTime();
     }
 
+    /* Checks whether this start date has a due time or only a date */
+    public boolean hasStartTime() { return hasStartDate() && hasStartTime(getStartDate());}
+
+
+    public Long getStartDate() {
+        return getValue(START_DATE);
+    }
+
+
+    public static boolean hasStartTime(long startDate) {
+        return startDate > 0 && (startDate % 60000 > 0);
+    }
+
     /**
      * Checks whether this due date has a due time or only a date
      */
@@ -401,6 +469,8 @@ public class Task extends RemoteModel {
         return getRecurrence().replaceAll("BYDAY=;", "").replaceAll(";?FROM=[^;]*", "");  //$NON-NLS-1$//$NON-NLS-2$
     }
 
+
+
     /**
      * Checks whether provided due date has a due time or only a date
      */
@@ -410,6 +480,14 @@ public class Task extends RemoteModel {
 
     public Long getDueDate() {
         return getValue(DUE_DATE);
+    }
+
+    public void setStartDate(int setting, long time) {
+        setStartDate(createDueDate(setting, time));
+    }
+
+    public void setStartDate(Long dueDate) {
+        setValue(DUE_DATE, dueDate);
     }
 
     public void setDueDate(int setting, long time) {
