@@ -11,6 +11,14 @@
         android:title="@string/backup_directory" />
 
     <Preference
+        android:key="@string/p_backup_cyc"
+        android:title="@string/backup_cycle" >
+        <intent
+            android:targetClass="org.tasks.activities.BackupCycleActivity"
+            android:targetPackage="org.tasks" />
+    </Preference>
+
+    <Preference
         android:key="@string/backup_BAc_import"
         android:title="@string/backup_BAc_import">
         <intent

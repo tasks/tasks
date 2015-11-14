@@ -18,6 +18,7 @@
   <!-- ======================================================== REMINDERS == -->
 
     <string name="p_attachment_dir">custom_files_dir</string>
+  <string name = "p_backup_cyc">p_backup_cyc</string>
   <string name="p_backup_dir">p_backup_dir</string>
     <string name="p_rmd_enabled">notif_enabled</string>
   <!-- boolean : whether to enable quiet hours or not -->

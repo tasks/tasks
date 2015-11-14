@@ -23,6 +23,7 @@ import com.todoroo.astrid.reminders.ReminderPreferences;
 import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
 
+import org.tasks.activities.BackupCycleActivity;
 import org.tasks.activities.ClearAllDataActivity;
 import org.tasks.activities.ClearGtaskDataActivity;
 import org.tasks.activities.DeleteAllCalendarEventsActivity;
@@ -74,6 +75,7 @@ import dagger.Provides;
                 AACRecordingActivity.class,
                 SnoozeActivity.class,
                 MiscellaneousPreferences.class,
+                BackupCycleActivity.class,
                 ImportTaskActivity.class,
                 ExportTaskActivity.class,
                 ClearAllDataActivity.class,
@@ -98,15 +100,15 @@ import dagger.Provides;
         })
 public class ActivityModule {
 
-    private final Activity activity;
+        private final Activity activity;
 
-    public ActivityModule(Activity activity) {
-        this.activity = activity;
-    }
+        public ActivityModule(Activity activity) {
+                this.activity = activity;
+        }
 
-    @Singleton
-    @Provides
-    public Activity getActivity() {
-        return activity;
-    }
+        @Singleton
+        @Provides
+        public Activity getActivity() {
+                return activity;
+        }
 }

@@ -66,6 +66,7 @@
     <string name="quiet_hours">Quiet hours</string>
     <string name="attachment_directory">Attachment directory</string>
     <string name="backup_directory">Backup directory</string>
+    <string name="backup_cycle">Backup cycle</string>
     <string name="debug_logging">Debug logging</string>
     <string name="miscellaneous">Miscellaneous</string>
     <string name="synchronization">Synchronization</string>
