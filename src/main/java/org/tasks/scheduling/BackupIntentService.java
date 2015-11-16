@@ -20,7 +20,7 @@ public class BackupIntentService extends MidnightIntentService {
     private static final Logger log = LoggerFactory.getLogger(BackupIntentService.class);
 
     public static final String BACKUP_FILE_NAME_REGEX = "auto\\.[-\\d]+\\.xml"; //$NON-NLS-1$
-    private static final int DAYS_TO_KEEP_BACKUP = 7;
+    private static final int DAYS_TO_KEEP_BACKUP = 6;
 
     @Inject TasksXmlExporter xmlExporter;
     @Inject Preferences preferences;

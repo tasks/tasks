@@ -5,8 +5,10 @@ import android.content.Intent;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tasks.R;
 import org.tasks.injection.InjectingIntentService;
 import org.tasks.preferences.Preferences;
+import android.preference.Preference;
 
 import javax.inject.Inject;
 
@@ -20,6 +22,7 @@ public abstract class MidnightIntentService extends InjectingIntentService {
     private static final Logger log = LoggerFactory.getLogger(MidnightIntentService.class);
 
     private static final long PADDING = SECONDS.toMillis(1);
+    private static Preferences preference;
 
     @Inject Preferences preferences;
     @Inject AlarmManager alarmManager;
@@ -50,7 +53,8 @@ public abstract class MidnightIntentService extends InjectingIntentService {
     }
 
     private static long nextMidnight(long timestamp) {
-        return newDateTime(timestamp).withMillisOfDay(0).plusDays(1).getMillis();
+        int cyc = Integer.valueOf(preference.getStringValue(R.string.p_backup_cyc)).intValue();
+        return newDateTime(timestamp).withMillisOfDay(0).plusDays(cyc).getMillis();
     }
 
     abstract void run();
