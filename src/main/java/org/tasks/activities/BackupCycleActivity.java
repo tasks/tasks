@@ -33,7 +33,7 @@ public class BackupCycleActivity extends InjectingAppCompatActivity {
                             which = 7;
                         }
                         preferences.setString(R.string.p_backup_cyc, String.valueOf(which++));
-
+                        finish();
 
                     }
                 })
