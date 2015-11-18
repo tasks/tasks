@@ -225,7 +225,6 @@
 	<string name="gtasks_error_accountManager">Chyba v tvojom mobilnom správcovi účtov. Prosím odhlás sa a znovu prihlás späť z Google Tasks nastavení.</string>
 	<string name="gtasks_error_background_sync_auth">Chyba pri overení pravosti na pozadí. Prosím, skús spustiť synchronizáciu kým je zapnutý Tasks.</string>
 	<string name="locale_notification">Máš $NUM so značkou $FILTER</string>
-	<string name="premium_attach_file">Priložiť súbor</string>
 	<string name="premium_record_audio">Nahrať poznámku</string>
 	<string name="premium_remove_file_confirm">Naozaj? Nedá sa vrátiť</string>
 	<string name="audio_recording_title">Nahrávanie zvuku</string>

@@ -12,6 +12,7 @@
 	<string name="name">Naam</string>
 	<string name="enter_tag_name">Noteer label naam</string>
 	<string name="enter_filter_name">Vul een filter naam in</string>
+	<string name="choose_google_account">Kies Google Account</string>
 	<string name="backup_BPr_header">Back-ups</string>
 	<string name="backup_BAc_import">Taken importeren</string>
 	<string name="backup_BAc_export">Taken exporteren</string>
@@ -121,6 +122,7 @@
 	<string name="CRA_list_created_title">Lijst gemaakt!</string>
 	<string name="CRA_default_list_name">Actie-items: %s</string>
 	<string name="EPr_title">Tasks: Instellingen</string>
+	<string name="none">Geen</string>
 	<string name="EPr_appearance_header">Uiterlijk</string>
 	<string name="EPr_filters_to_show_title">Te tonen filters</string>
 	<string name="EPr_edit_screen_options">Scherm opties bewerken</string>
@@ -141,6 +143,10 @@
 	<string name="EPr_manage_purge_deleted">Verwijderde taken opruimen</string>
 	<string name="EPr_manage_purge_deleted_message">Alle verwijderde taken werkelijk opschonen?\n\nDeze taken zijn dan definitief verwijderd!</string>
 	<string name="EPr_manage_purge_deleted_status">%d verwijderde taken opgeruimd!</string>
+	<string name="EPr_reset_preferences">Reset Instellingen</string>
+	<string name="EPr_reset_preferences_warning">Instellingen worden gereset naar de standaard waardes</string>
+	<string name="EPr_delete_task_data">Verwijder taak data</string>
+	<string name="EPr_delete_task_data_warning">Alle taken worden permanent verwijderd</string>
 	<string name="EPr_manage_delete_completed_gcal">Verwijder Agenda-items voor voltooide taken</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Weet je zeker dat je alle gebeurtenissen voor voltooide taken wil verwijderen?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">%d agenda-items verwijderd!</string>
@@ -213,6 +219,7 @@
 	<string name="CFC_title_contains_text">Naam bevat: ?</string>
 	<string name="gcal_TEA_error">Fout bij toevoegen taak aan agenda!</string>
 	<string name="gcal_TEA_addToCalendar_label">Toevoegen aan Agenda</string>
+	<string name="choose_calendar">Kies kalendar</string>
 	<string name="gcal_TEA_showCalendar_label">Gebeurtenis openen</string>
 	<string name="gcal_completed_title">%s (voltooid)</string>
 	<string name="CFC_gtasks_list_text">In lijst: ?</string>
@@ -229,7 +236,6 @@
 	<string name="gtasks_error_accountManager">Error in uw telefoon account manager. Log uit en log opnieuw in vanuit de Google Task instellingen.</string>
 	<string name="gtasks_error_background_sync_auth">Error authenticatie op achtergrond bezig. Probeer alstublieft een synchronisatie te starten wanneer Tasks is gestart.</string>
 	<string name="locale_notification">Er zijn $NUM taken voor: $FILTER</string>
-	<string name="premium_attach_file">Een bestand bijvoegen</string>
 	<string name="premium_record_audio">Een notitie opnemen</string>
 	<string name="premium_remove_file_confirm">Weet je het zeker? Dit kan niet ongedaan gemaakt worden</string>
 	<string name="audio_recording_title">Bezig met opname</string>

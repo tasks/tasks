@@ -217,7 +217,6 @@
 	<string name="gtasks_error_accountManager">Napaka pri upravitelju računov na vašem telefonu. Prosimo, odjavite se, nato pa ponovno prijavite skozi nastavitve Google Nalog.</string>
 	<string name="gtasks_error_background_sync_auth">Napaka pri overjanju v ozadju. Prosimo, poskusite začeti z usklajevanjem med delovanjem aplikacije Opravki.</string>
 	<string name="locale_notification">$NUM jih ustreza: $FILTER</string>
-	<string name="premium_attach_file">Pripni datoteko</string>
 	<string name="premium_record_audio">Posnemi opombo</string>
 	<string name="premium_remove_file_confirm">Ste prepričani? Tega ni mogoče razveljaviti</string>
 	<string name="audio_recording_title">Snemam zvok</string>

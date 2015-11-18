@@ -11,6 +11,8 @@
 	<string name="TVA_add_comment">Aggiungi un commento...</string>
 	<string name="name">Nome</string>
 	<string name="enter_tag_name">Digita nome etichetta </string>
+	<string name="enter_filter_name">Introduci il nome filtro</string>
+	<string name="choose_google_account">Scegli l\'account Google</string>
 	<string name="backup_BPr_header">Salvataggi</string>
 	<string name="backup_BAc_import">Importa attività</string>
 	<string name="backup_BAc_export">Esporta attività</string>
@@ -120,6 +122,7 @@
 	<string name="CRA_list_created_title">Lista creata!</string>
 	<string name="CRA_default_list_name">Azioni: %s</string>
 	<string name="EPr_title">Tasks: Preferenze</string>
+	<string name="none">Nessuna</string>
 	<string name="EPr_appearance_header">Aspetto</string>
 	<string name="EPr_filters_to_show_title">Filtri da visualizzare</string>
 	<string name="EPr_edit_screen_options">Modifica opzioni schermo</string>
@@ -140,6 +143,10 @@
 	<string name="EPr_manage_purge_deleted">Elimina definitivamente i compiti eliminati</string>
 	<string name="EPr_manage_purge_deleted_message">Vuoi davvero eliminare definitivamente i compiti eliminati?\n\nQuesti compiti saranno persi per sempre!</string>
 	<string name="EPr_manage_purge_deleted_status">Rimosse %d attività!</string>
+	<string name="EPr_reset_preferences">Ripristina preferenze</string>
+	<string name="EPr_reset_preferences_warning">Le preferenze saranno riportate al valore predefinito</string>
+	<string name="EPr_delete_task_data">Elimina attività</string>
+	<string name="EPr_delete_task_data_warning">Tutte le attività saranno cancellate</string>
 	<string name="EPr_manage_delete_completed_gcal">Elimina gli eventi del calendario in programmi completati</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Vuoi davvero eliminare tutti gli eventi in programmi completati?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">Eliminato il %d degli eventi del calendario!</string>
@@ -205,10 +212,13 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	</string-array>
 	<string name="CFC_importance_text">Almeno per priorità ?</string>
 	<string name="CFC_importance_name">Priorità...</string>
+	<string name="CFC_tag_contains_name">Il nome Tag contiene...</string>
+	<string name="CFC_tag_contains_text">Il nome Tag contiene: ?</string>
 	<string name="CFC_title_contains_name">Il titolo contiene...</string>
 	<string name="CFC_title_contains_text">Il titolo contiene: ?</string>
 	<string name="gcal_TEA_error">Errore durante l\'aggiunta dell\'attività al calendario!</string>
 	<string name="gcal_TEA_addToCalendar_label">Aggiungi al Calendario</string>
+	<string name="choose_calendar">Scegli calendario</string>
 	<string name="gcal_TEA_showCalendar_label">Apri Calendario Eventi</string>
 	<string name="gcal_completed_title">%s (completato)</string>
 	<string name="CFC_gtasks_list_text">Nella lista: ?</string>
@@ -225,7 +235,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="gtasks_error_accountManager">Account non trovato--per favore fai logout e di nuovo login dalla configurazione di Google Tasks.</string>
 	<string name="gtasks_error_background_sync_auth">Errore di autenticazione in background. Per favore prova ad avviare una sincronizzazione durante l\'esecuzione di Tasks.</string>
 	<string name="locale_notification">Hai $NUM corrispondenti: $FILTER</string>
-	<string name="premium_attach_file">Allega un file</string>
 	<string name="premium_record_audio">Registra una nota</string>
 	<string name="premium_remove_file_confirm">Se sicuro? Non può essere eseguito</string>
 	<string name="audio_recording_title">Registrazione Audio</string>

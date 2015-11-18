@@ -171,7 +171,6 @@
 	<string name="gtasks_error_accountManager">您手机的帐户管理器出错了。请退出，然后从 Google Tasks设置中重新登录。</string>
 	<string name="gtasks_error_background_sync_auth">后台验证出错了。请在清单小助理运行时尝试启动同步。</string>
 	<string name="locale_notification">您有 $NUM 符合: $FILTER</string>
-	<string name="premium_attach_file">附上一份文件</string>
 	<string name="premium_record_audio">录制一条便笺</string>
 	<string name="premium_remove_file_confirm">您确定吗？无法恢复的喔</string>
 	<string name="audio_recording_title">正在录制音频</string>

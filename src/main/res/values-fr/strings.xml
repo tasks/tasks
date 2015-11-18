@@ -225,7 +225,6 @@
 	<string name="gtasks_error_accountManager">Une erreur est apparue dans le gestionnaire de comptes de votre téléphone. Veuillez vous deconnecter de votre compte Google Task puis vous reconnecter.</string>
 	<string name="gtasks_error_background_sync_auth">\"Erreur d\'authentification en arrière plan.  Réessayez de vous synchroniser quand Tasks est lancé.\"</string>
 	<string name="locale_notification">Vous avez $NUM correspondant(s) : $FILTER</string>
-	<string name="premium_attach_file">Joindre un fichier</string>
 	<string name="premium_record_audio">Enregistrer un commentaire</string>
 	<string name="premium_remove_file_confirm">Êtes-vous certain(e)? Cette opération est irréversible</string>
 	<string name="audio_recording_title">Enregistrement Audio</string>

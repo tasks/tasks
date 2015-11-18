@@ -222,7 +222,6 @@
 	<string name="gtasks_error_accountManager">Error en el administrador de cuentas de tu teléfono. Por favor reinicia sesión desde la configuración de Google Tasks.</string>
 	<string name="gtasks_error_background_sync_auth">Error al autenticarse en un segundo plano. Por favor, intente iniciar la sincronización mientras Tasks está ejecutándose.</string>
 	<string name="locale_notification">Tiene $NUM que coincide con: $FILTER</string>
-	<string name="premium_attach_file">Adjuntar un archivo</string>
 	<string name="premium_record_audio">Grabar una nota</string>
 	<string name="premium_remove_file_confirm">Está seguro? No se puede deshacer</string>
 	<string name="audio_recording_title">Grabando Audio</string>

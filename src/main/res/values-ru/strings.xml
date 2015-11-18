@@ -12,10 +12,11 @@
 	<string name="name">Тег:</string>
 	<string name="enter_tag_name">Введите название тега</string>
 	<string name="enter_filter_name">Введите имя фильтра</string>
+	<string name="choose_google_account">Выберите аккаунт Google</string>
 	<string name="backup_BPr_header">Резервные копии</string>
 	<string name="backup_BAc_import">Импортировать задачи</string>
 	<string name="backup_BAc_export">Экспортировать задачи</string>
-	<string name="export_toast">Восстановлено %1$s в %2$s.</string>
+	<string name="export_toast">Сохранено %1$s в %2$s.</string>
 	<string name="export_toast_no_tasks">Нет задач для экспорта.</string>
 	<string name="import_summary_title">Итог восстановления</string>
 	<string name="import_summary_message">Файл %1$s содержал %2$s.\n\n %3$s импортировано,\n %4$s существовало\n %5$s с ошибками\n</string>
@@ -121,6 +122,7 @@
 	<string name="CRA_list_created_title">Список создан!</string>
 	<string name="CRA_default_list_name">Пункты события: %s</string>
 	<string name="EPr_title">Tasks: Настройки</string>
+	<string name="none">Пусто</string>
 	<string name="EPr_appearance_header">Интерфейс</string>
 	<string name="EPr_filters_to_show_title">Показать фильтры</string>
 	<string name="EPr_edit_screen_options">Редактировать настройки экрана</string>
@@ -141,6 +143,10 @@
 	<string name="EPr_manage_purge_deleted">Очистить удаленные задачи?</string>
 	<string name="EPr_manage_purge_deleted_message">Действительно хотите убрать все удалённые задачи?\n\nЭта операция необратима!</string>
 	<string name="EPr_manage_purge_deleted_status">Убрано %d задач!</string>
+	<string name="EPr_reset_preferences">Сбросить настройки</string>
+	<string name="EPr_reset_preferences_warning">Настройки будут сброшены в первоначальное состояние</string>
+	<string name="EPr_delete_task_data">Удалить данные задачи</string>
+	<string name="EPr_delete_task_data_warning">Все задачи будут окончательно удалены</string>
 	<string name="EPr_manage_delete_completed_gcal">Удалить календарные события для завершенных задач</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Вы уверены, что хотите удалить все ваши события для завершенных задач?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">Удалено %d календарных событий!</string>
@@ -232,7 +238,6 @@
 	<string name="gtasks_error_accountManager">Ошибка в менеджере учетных записей вашего телефона. Пожалуйста, выйдите и войдите снова в настройках Google Tasks.</string>
 	<string name="gtasks_error_background_sync_auth">Ошибка фоновой авторизации. Пожалуйста, попробуйте синхронизироваться вручную.</string>
 	<string name="locale_notification">Число соответствий для  $FILTER: $NUM</string>
-	<string name="premium_attach_file">Прикрепить файл</string>
 	<string name="premium_record_audio">Записать заметку</string>
 	<string name="premium_remove_file_confirm">Вы уверены? Это действия нельзя отменить.</string>
 	<string name="audio_recording_title">Запись голоса.</string>

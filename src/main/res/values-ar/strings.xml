@@ -137,7 +137,6 @@
 	<string name="gtasks_GLA_errorIOAuth">عذرا، لم نتمكن من الاتصال مع خادم قوقل. أعد المحاولة مرة أخرى لاحقا.</string>
 	<string name="gtasks_GPr_header">مهام قوقل</string>
 	<string name="gtasks_error_accountManager">خطأ من اعدادات هاتفك. يرجى تسجيل الخروج ثم الدخول مره اخرى من اعدادات المهام لقوقل</string>
-	<string name="premium_attach_file">إرفاق ملف</string>
 	<string name="premium_record_audio">تسجيل ملاحظة</string>
 	<string name="premium_remove_file_confirm">هل أنت متأكد؟ لن تستطيع العودة</string>
 	<string name="audio_recording_title">تسجيل صوت</string>

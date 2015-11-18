@@ -211,7 +211,6 @@
 	<string name="gtasks_error_accountManager">Chyba nastavení účtu ve Vašem telefonu. Prosím odhlašte se a znovu přihlašte v nastavení úkolů Google.</string>
 	<string name="gtasks_error_background_sync_auth">Chyba ověření pravosti na pozadí. Prosím, zkuste znovu spustit synchronizaci úkolů.</string>
 	<string name="locale_notification">Máš $NUM se značkou $FILTER</string>
-	<string name="premium_attach_file">Přiložit soubor</string>
 	<string name="premium_record_audio">Nahrát poznámku</string>
 	<string name="premium_remove_file_confirm">Skutečně? Nebude cesty zpět</string>
 	<string name="audio_recording_title">Nahrávám zvuk</string>

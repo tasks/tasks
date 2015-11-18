@@ -9,6 +9,10 @@
 	<string name="actfm_picture_gallery">갤러리에서 가져오기</string>
 	<string name="actfm_picture_clear">사진 제거하기</string>
 	<string name="TVA_add_comment">댓글 쓰기...</string>
+	<string name="name">이름</string>
+	<string name="enter_tag_name">태그 이름 입력</string>
+	<string name="enter_filter_name">필터 이름 입력</string>
+	<string name="choose_google_account">구글 계정 선택</string>
 	<string name="backup_BPr_header">백업</string>
 	<string name="backup_BAc_import">일정 가져오기</string>
 	<string name="backup_BAc_export">일정 내보내기</string>
@@ -63,6 +67,7 @@
 	<string name="TEA_estimatedDuration_label">일정 완료 예상 시간은?</string>
 	<string name="TEA_elapsedDuration_label">일정에 이미 소모한 시간</string>
 	<string name="TEA_menu_save">변경사항 저장</string>
+	<string name="save">저장</string>
 	<string name="TEA_menu_discard_changes">변경 사항 취소</string>
 	<string name="TEA_tab_activity">활동 내역</string>
 	<string name="TEA_timer_est">동부표준시 %s</string>
@@ -87,9 +92,11 @@
 	<string name="TEA_control_hidden_section">----항상 숨김----</string>
 	<string name="hide_until_prompt">내 목록에 표시</string>
 	<string name="TEA_load_more">더 불러오기...</string>
+	<string name="missed_call">%s (으)로부터의 부재중 전화</string>
 	<string name="MCA_return_call">지금 전화하기</string>
 	<string name="MCA_add_task">나중에 전화하기</string>
 	<string name="MCA_ignore">무시하기</string>
+	<string name="missed_calls">부재중 전화</string>
 	<string name="MCA_task_title_name">%1$s 님에게 %2$s 에 다시 연락하세요</string>
 	<string name="MCA_task_title_no_name">%s 님에게 다시 연락하세요</string>
 	<string name="CRA_ignore">무시하기</string>
@@ -118,6 +125,7 @@
 	<string name="CRA_list_created_title">목록을 만들었습니다!</string>
 	<string name="CRA_default_list_name">활동 아이템: %s</string>
 	<string name="EPr_title">설정</string>
+	<string name="none">없음</string>
 	<string name="EPr_appearance_header">보기 설정</string>
 	<string name="EPr_filters_to_show_title">표시할 필터</string>
 	<string name="EPr_edit_screen_options">화면 설정 편집하기</string>
@@ -138,6 +146,10 @@
 	<string name="EPr_manage_purge_deleted">삭제한 일정을 비우기</string>
 	<string name="EPr_manage_purge_deleted_message">삭제한 일정을 모두 비울까요?\n\n비운 일정은 다시 살릴 수 없습니다!</string>
 	<string name="EPr_manage_purge_deleted_status">%d 일정을 비웠습니다!</string>
+	<string name="EPr_reset_preferences">설정 초기화</string>
+	<string name="EPr_reset_preferences_warning">설정이 기본값으로 초기화될 것입니다</string>
+	<string name="EPr_delete_task_data">일정 데이터 지우기</string>
+	<string name="EPr_delete_task_data_warning">모든 일정이 영구적으로 삭제될 것입니다</string>
 	<string name="EPr_manage_delete_completed_gcal">완료한 일정의 달력 이벤트를 삭제하기</string>
 	<string name="EPr_manage_delete_completed_gcal_message">완료한 일정의 모든 이벤트를 정말 삭제할까요?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">%d 달력 이벤트를 삭제했습니다!</string>
@@ -205,10 +217,15 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	</string-array>
 	<string name="CFC_importance_text">최소 우선순위?</string>
 	<string name="CFC_importance_name">우선순위...</string>
+	<string name="CFC_tag_text">태그: ?</string>
+	<string name="CFC_tag_name">태그...</string>
+	<string name="CFC_tag_contains_name">태그 이름이 다음을 포함...</string>
+	<string name="CFC_tag_contains_text">태그 이름이 다음을 포함: ?</string>
 	<string name="CFC_title_contains_name">제목이 다음을 포함...</string>
 	<string name="CFC_title_contains_text">제목이 다음을 포함: ?</string>
 	<string name="gcal_TEA_error">달력에 일정 추가 실패!</string>
 	<string name="gcal_TEA_addToCalendar_label">달력에 일정 추가하기</string>
+	<string name="choose_calendar">달력 선택</string>
 	<string name="gcal_TEA_showCalendar_label">달력 이벤트 열기</string>
 	<string name="gcal_completed_title">%s (완료)</string>
 	<string name="CFC_gtasks_list_text">목록에: ?</string>
@@ -225,12 +242,12 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	<string name="gtasks_error_accountManager">휴대폰 계정 관리자에서 에러가 발생했습니다. 로그아웃 후 구글 일정 설정에서 다시 로그인 해 주세요.</string>
 	<string name="gtasks_error_background_sync_auth">백그라운드에서 인증 에러가 발생했습니다. Tasks가 실행중일 때 동기화를 시작해 보세요.</string>
 	<string name="locale_notification">$NUM 개의 일정이 일치합니다: $FILTER</string>
-	<string name="premium_attach_file">파일 첨부</string>
 	<string name="premium_record_audio">노트 기록</string>
 	<string name="premium_remove_file_confirm">정말입니까? 되돌릴 수 없습니다</string>
 	<string name="audio_recording_title">오디오 녹음 중</string>
 	<string name="audio_stop_recording">녹음 중단</string>
 	<string name="file_type_unhandled">죄송하지만 이 파일 형식을 다룰 수 있는 프로그램이 없습니다.</string>
+	<string name="back">뒤로</string>
 	<string name="file_browser_title">파일 선택하기</string>
 	<string name="dir_browser_title">디렉토리 선택하기</string>
 	<string name="file_browser_err_permissions">권한 에러! Tasks가 SD 카드에 접근하는 것을 막지 않았는지 확인하세요.</string>
@@ -293,9 +310,12 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	<string name="repeat_detail_duedate_until">매 %1$s 마다\n%2$s 까지</string>
 	<string name="repeat_forever">영원히 반복하기</string>
 	<string name="repeat_until">%s 까지 반복</string>
+	<string name="repeat_snackbar">%1$s 이 %2$s 로 변경되었습니다</string>
 	<string name="TEA_tags_label_long">목록에 추가하기</string>
+	<string name="new_tag">새 태그</string>
 	<string name="tag_no_title_error">이 목록의 이름을 먼저 입력하세요!</string>
 	<string name="tag_FEx_untagged">미분류 일정</string>
+	<string name="delete_tag_confirmation">%s 삭제할까요?</string>
 	<string name="TPl_notification">%s 동안 타이머 작동함!</string>
 	<string name="TFE_workingOn">기한이 정해진 일정</string>
 	<string name="TEA_timer_controls">타이머</string>
@@ -316,6 +336,7 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	</plurals>
 	<string name="today">오늘</string>
 	<string name="tomorrow">내일</string>
+	<string name="next">다음 %s</string>
 	<string name="yesterday">어제</string>
 	<string name="tmrw">내일</string>
 	<string name="yest">어제</string>
@@ -359,11 +380,39 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	<string name="remove">지우기</string>
 	<string name="randomly_once">무작위로 한 번</string>
 	<string name="randomly">무작위로</string>
+	<string name="pick_a_date">날짜 선택</string>
+	<string name="pick_a_time">시간 선택</string>
 	<string name="pick_a_date_and_time">날짜와 시간 선택</string>
 	<string name="pick_a_location">위치 선택</string>
 	<string name="type_a_location">위치 입력</string>
 	<string name="when_overdue">일정 마감일이 지났을 때</string>
 	<string name="when_due">일정 마감일에</string>
+	<string name="geofence_radius_title">반경 (미터 단위)</string>
+	<string name="geofence_responsiveness_title">반응 속도 (높은 수치일수록 배터리 절약)</string>
+	<string name="geolocation_reminders">위치정보 알림</string>
+	<string name="tags">태그</string>
+	<string name="filters">필터</string>
+	<string name="date_shortcuts">날짜 바로가기</string>
+	<string name="date_shortcut_hour">한 시간동안</string>
+	<string name="date_shortcut_morning">아침</string>
+	<string name="date_shortcut_afternoon">오후</string>
+	<string name="date_shortcut_evening">저녁</string>
+	<string name="date_shortcut_night">밤</string>
+	<string name="date_shortcut_tomorrow_morning">내일 아침</string>
+	<string name="date_shortcut_tomorrow_afternoon">내일 오후</string>
+	<string name="date_shortcut_must_come_before">%1$s 는 %2$s 보다 이전에 위치해야 합니다</string>
+	<string name="date_shortcut_must_come_after">%1$s 는 %2$s 보다 이후에 위치해야 합니다</string>
+	<string name="discard_changes">변경 사항을 취소할까요?</string>
+	<string name="discard">버리기</string>
+	<string name="tag_settings">태그 설정</string>
+	<string name="delete">삭제</string>
+	<string name="filter_settings">필터 설정</string>
+	<string name="deprecated_setting">이 설정은 추후 업데이트시 삭제될 예정입니다</string>
+	<string name="show_hidden">숨겨진 일정 표시</string>
+	<string name="show_completed">완료된 일정 표시</string>
+	<string name="reverse">반전</string>
+	<string name="task_count">%s 일정</string>
+	<string name="get_plugins">플러그인 받기</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>사용안함</item>
 		<item>15분마다</item>

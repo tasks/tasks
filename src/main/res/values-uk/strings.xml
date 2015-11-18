@@ -221,7 +221,6 @@
 	<string name="gtasks_error_accountManager">Помилка в менеджері акаунтів вашого телефону, ласка вийдіть і увійдіть знову в налаштуваннях Google Tasks</string>
 	<string name="gtasks_error_background_sync_auth">Не вдалося пройти аутентифікацію у фоні. Будь ласка, попробуйте при запущеному Tasks.</string>
 	<string name="locale_notification">Число відповідностей $FILTER: $NUM</string>
-	<string name="premium_attach_file">Прикріпити файл</string>
 	<string name="premium_record_audio">Записати замітку</string>
 	<string name="premium_remove_file_confirm">Ви впевнені? Це не може бути скасовано.</string>
 	<string name="audio_recording_title">Запис аудіо</string>

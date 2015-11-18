@@ -12,6 +12,7 @@
 	<string name="name">Име</string>
 	<string name="enter_tag_name">Въведете име на тага</string>
 	<string name="enter_filter_name">Въведете име на филтъра</string>
+	<string name="choose_google_account">Изберете Google Account</string>
 	<string name="backup_BPr_header">Резервни копия</string>
 	<string name="backup_BAc_import">Импортиране на задачи</string>
 	<string name="backup_BAc_export">Експортиране на задачи</string>
@@ -123,6 +124,7 @@
 	<string name="CRA_list_created_title">Списъкът създаден</string>
 	<string name="CRA_default_list_name">Действия: %s</string>
 	<string name="EPr_title">Настройки</string>
+	<string name="none">Нищо</string>
 	<string name="EPr_appearance_header">Изглед</string>
 	<string name="EPr_filters_to_show_title">Филтри за показване</string>
 	<string name="EPr_edit_screen_options">Редактиране на опциите екрана</string>
@@ -143,6 +145,10 @@
 	<string name="EPr_manage_purge_deleted">Изчистване на изтритите задачи</string>
 	<string name="EPr_manage_purge_deleted_message">Наистина ли искате да изчистите всичките си приключени задачи?\n\nТези задачи ще изчезнат завинаги!</string>
 	<string name="EPr_manage_purge_deleted_status">Изчистени %d задачи!</string>
+	<string name="EPr_reset_preferences">Анулиране на настройки</string>
+	<string name="EPr_reset_preferences_warning">Настройките ще бъдат възстановени до стойности по подразбиране</string>
+	<string name="EPr_delete_task_data">Изтриване на данните</string>
+	<string name="EPr_delete_task_data_warning">Всички задачи ще бъдат изтрити за постоянно</string>
 	<string name="EPr_manage_delete_completed_gcal">Изтрий събитията в календара за приключени задачи</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Наистина ли искате да изтриете всичките си събития за изпълнени задачи?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">Изтрити %d събития от календара!</string>
@@ -218,6 +224,7 @@
 	<string name="CFC_title_contains_text">Името съдържа: ?</string>
 	<string name="gcal_TEA_error">Грешка при добавяне на задачата към каледнара!</string>
 	<string name="gcal_TEA_addToCalendar_label">Добави към календара</string>
+	<string name="choose_calendar">Избери календар</string>
 	<string name="gcal_TEA_showCalendar_label">Добави събитие към календара</string>
 	<string name="gcal_completed_title">%s (завършено)</string>
 	<string name="CFC_gtasks_list_text">В списък: ?</string>
@@ -233,7 +240,6 @@
 	<string name="gtasks_error_accountManager">Грешка в мениджъра на акаунти във вашия телефон. Моля за излезнете и да влезнете пак от настройките на Google Tasks.</string>
 	<string name="gtasks_error_background_sync_auth">Грешка при удостоверяване във фонов режим. Моля, опитайте се да започване синхронизация, докато Tasks се изпълнява.</string>
 	<string name="locale_notification">Вие имате $NUM съвпадения: $FILTER</string>
-	<string name="premium_attach_file">Прикачи файл</string>
 	<string name="premium_record_audio">Запис на бележка</string>
 	<string name="premium_remove_file_confirm">Сигурни ли сте? Не може да бъде отменено</string>
 	<string name="audio_recording_title">Записване на Аудио</string>

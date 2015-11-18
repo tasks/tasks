@@ -221,7 +221,6 @@
 	<string name="gtasks_error_accountManager">Fehler in den</string>
 	<string name="gtasks_error_background_sync_auth">Fehler bei der Hintergrundauthentifizierung. Starte eine Synchronisation in der App.</string>
 	<string name="locale_notification">Du hast $NUM Übereinstimmungen mit: $FILTER</string>
-	<string name="premium_attach_file">Datei anhängen</string>
 	<string name="premium_record_audio">Notiz aufzeichnen</string>
 	<string name="premium_remove_file_confirm">Sind Sie sicher? Das kann nicht rückgängig gemacht werden</string>
 	<string name="audio_recording_title">Audio aufnehmen</string>

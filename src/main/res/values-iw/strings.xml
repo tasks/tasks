@@ -214,7 +214,6 @@
 	<string name="gtasks_error_accountManager">מנהל החשבונות של הטלפון שלך נתקל בשגיאה. אנא התנתק והתחבר מתוך הגדרות ״משימות גוגל״.</string>
 	<string name="gtasks_error_background_sync_auth">האימות המתבצע ברקע נכשל. אנא נסה להתחיל את הסינכרון בזמן שאסטריד פועלת.</string>
 	<string name="locale_notification">יש לך $NUM המתאימים: $FILTER</string>
-	<string name="premium_attach_file">צרף קובץ</string>
 	<string name="premium_record_audio">הקלד הערה</string>
 	<string name="premium_remove_file_confirm">בטוח? לא ניתן לבטל את הפעולה</string>
 	<string name="audio_recording_title">מקליטה שֵׁמַע</string>

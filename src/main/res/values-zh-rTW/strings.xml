@@ -202,7 +202,6 @@
 	<string name="gtasks_error_accountManager">您手機的帳戶管理器出錯了。請退出，然後從Google 工作表設置中重新登陸。</string>
 	<string name="gtasks_error_background_sync_auth">後台驗證出錯了。請在Tasks 運行時嘗試啟動同步。</string>
 	<string name="locale_notification">您有 $NUM 符合: $FILTER</string>
-	<string name="premium_attach_file">附上一份文件</string>
 	<string name="premium_record_audio">錄製一條便箋</string>
 	<string name="premium_remove_file_confirm">您確定嗎？無法恢復的喔</string>
 	<string name="audio_recording_title">正在錄製音頻</string>

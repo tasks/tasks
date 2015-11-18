@@ -213,7 +213,6 @@
 	<string name="gtasks_error_accountManager">Σφάλμα στον διαχειριστή επαφών της συσκευής σας. Παρακαλώ αποσυνδεθείτε και συνδεθείτε ξανά απο τις ρυθμίσεις του Google Tasks.</string>
 	<string name="gtasks_error_background_sync_auth">Σφάλμα αυθεντικοποίησης στο παρασκήνιο. Παρακαλώ δοκιμάστε να συγχρονίσετε όσο τρέχει η εφαρμογή.</string>
 	<string name="locale_notification">Έχεις $NUM να ταιριάζει: $FILTER</string>
-	<string name="premium_attach_file">Επισύναψη αρχείου</string>
 	<string name="premium_record_audio">Ηχογράφηση σημείωσης</string>
 	<string name="premium_remove_file_confirm">Είστε σίγουρος; Δεν μπορεί να ακυρωθεί</string>
 	<string name="audio_recording_title">Εγγραφή Ήχου</string>

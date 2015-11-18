@@ -211,7 +211,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="gtasks_error_accountManager">Fel i din telefons kontohantering. Logga ut och in på nytt i inställningarna för Google Uppgifter.</string>
 	<string name="gtasks_error_background_sync_auth">Autentisering i bakgrunden misslyckades. Vänligen försök starta en synkronisering medan Tasks körs.</string>
 	<string name="locale_notification">Du har $NUM som matchar: $FILTER</string>
-	<string name="premium_attach_file">Bifoga fil</string>
 	<string name="premium_record_audio">Spela in en anteckning</string>
 	<string name="premium_remove_file_confirm">Är du säker? Detta kan inte ångras</string>
 	<string name="audio_recording_title">Spelar in ljud</string>
