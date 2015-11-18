@@ -53,12 +53,10 @@ public abstract class MidnightIntentService extends InjectingIntentService {
     }
 
     private static long nextMidnight(long timestamp) {
-        int cyc;
-        if (preference.getStringValue(R.string.p_backup_cyc) == null)
-            cyc = 1;
-        else
-            cyc = Integer.valueOf(preference.getStringValue(R.string.p_backup_cyc)).intValue();
-        return newDateTime(timestamp).withMillisOfDay(0).plusDays(cyc).getMillis();
+        String cyc = preference.getStringValue(R.string.p_backup_cyc);
+        if (cyc.isEmpty())
+            cyc = "1";
+        return newDateTime(timestamp).withMillisOfDay(0).plusDays(Integer.valueOf(cyc).intValue()).getMillis();
     }
 
     abstract void run();
