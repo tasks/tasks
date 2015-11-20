@@ -10,7 +10,7 @@
     <Preference android:title="@string/documentation">
         <intent
             android:action="android.intent.action.VIEW"
-            android:data="https://youtu.be/kOT6zwcf19Q" />
+            android:data="https://tasks2015.wordpress.com/2015/11/20/tasks-user-documentation/" />
     </Preference>
 
     <Preference android:title="@string/source_code">
