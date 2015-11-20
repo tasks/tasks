@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <Preference android:title="@string/tutorial">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://youtu.be/kOT6zwcf19Q" />
+    </Preference>
+
+    <Preference android:title="@string/documentation">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://youtu.be/kOT6zwcf19Q" />
+    </Preference>
+
     <Preference android:title="@string/source_code">
         <intent
             android:action="android.intent.action.VIEW"
