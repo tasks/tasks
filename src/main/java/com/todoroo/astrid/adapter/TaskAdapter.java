@@ -275,7 +275,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         ViewHolder viewHolder = ((ViewHolder)view.getTag());
 
         viewHolder.tagsString = cursor.get(TAGS);
-        viewHolder.hasFiles = cursor.get(FILE_ID_PROPERTY) > 0;
+
+        //alexeyhere
+        //viewHolder.hasFiles = cursor.get(FILE_ID_PROPERTY) > 0;
+        viewHolder.hasFiles = taskAttachmentDao.taskHasAttachments(new Task(cursor).getUuid());
+
         viewHolder.hasNotes = cursor.get(HAS_NOTES_PROPERTY) > 0;
 
         // TODO: see if this is a performance issue
@@ -363,6 +367,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 taskAction.setVisibility(View.VISIBLE);
                 taskAction.setImageDrawable(action.icon);
                 taskAction.setTag(action);
+
+                //alexeyhere
+                taskActionLoader.remove(task.getId());
             } else {
                 taskAction.setVisibility(View.GONE);
                 taskAction.setTag(null);
@@ -378,8 +385,13 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             return taskActionLoader.get(task.getId());
         } else {
             TaskAction action = LinkActionExposer.getActionsForTask(context, task, hasFiles, hasNotes);
-            taskActionLoader.put(task.getId(), action);
-            return action;
+
+            //alexeyhere
+            if (action != null) {
+                taskActionLoader.put(task.getId(), action);
+                return action;
+            }
+            return null;
         }
     }
 
