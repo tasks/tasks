@@ -72,6 +72,8 @@
     <string name="enabled">Enabled</string>
     <string name="font_size">Font size</string>
     <string name="customize_edit_screen">Customize edit screen</string>
+    <string name="tutorial">Tutorial</string>
+    <string name="documentation">Blog</string>
     <string name="source_code">Source code</string>
     <string name="translations">Translations</string>
     <string name="report_an_issue">Report an issue</string>
