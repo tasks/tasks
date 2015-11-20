@@ -123,6 +123,10 @@
     <string name="get_plugins">Get Plug-ins</string>
     <string name="no_application_found">No application found to open attachment</string>
     <string name="add_attachment">Add attachment</string>
+    <string name="high_priority">High</string>
+    <string name="default_priority">Default</string>
+    <string name="low_priority">Low</string>
+    <string name="notification_priority">Notification Priority</string>
 
     <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->

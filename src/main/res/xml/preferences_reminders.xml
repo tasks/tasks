@@ -12,6 +12,13 @@
         android:defaultValue="true"
         android:key="@string/p_rmd_enabled"
         android:title="@string/enabled" />
+    <com.todoroo.astrid.ui.MultilineListPreference
+        android:defaultValue="1"
+        android:dependency="@string/p_rmd_enabled"
+        android:entries="@array/notification_priority_entries"
+        android:entryValues="@array/notification_priority_values"
+        android:key="@string/p_notification_priority"
+        android:title="@string/notification_priority" />
     <CheckBoxPreference
         android:defaultValue="true"
         android:dependency="@string/p_rmd_enabled"

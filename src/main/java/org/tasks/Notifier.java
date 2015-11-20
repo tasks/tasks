@@ -43,6 +43,7 @@ import java.io.InputStream;
 import javax.inject.Inject;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 public class Notifier {
@@ -58,7 +59,7 @@ public class Notifier {
     private final TelephonyManager telephonyManager;
     private final AudioManager audioManager;
     private final VoiceOutputAssistant voiceOutputAssistant;
-    private Preferences preferences;
+    private final Preferences preferences;
 
     @Inject
     public Notifier(@ForApplication Context context, TaskDao taskDao,
@@ -277,6 +278,20 @@ public class Notifier {
             notification.ledARGB = Color.YELLOW;
         } else {
             notification.defaults = Notification.DEFAULT_LIGHTS;
+        }
+
+        if (atLeastJellybean()) {
+            switch (preferences.getNotificationPriority()) {
+                case 0:
+                    notification.priority = NotificationCompat.PRIORITY_DEFAULT;
+                    break;
+                case -1:
+                    notification.priority = NotificationCompat.PRIORITY_LOW;
+                    break;
+                default:
+                    notification.priority = NotificationCompat.PRIORITY_HIGH;
+                    break;
+            }
         }
 
         boolean voiceReminder = preferences.getBoolean(R.string.p_voiceRemindersEnabled, false) && !isNullOrEmpty(text);

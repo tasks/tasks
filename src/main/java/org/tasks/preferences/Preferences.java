@@ -96,6 +96,10 @@ public class Preferences {
         return defaultCalendar != null && !defaultCalendar.equals("-1") && !defaultCalendar.equals("0");
     }
 
+    public int getNotificationPriority() {
+        return getInt(R.string.p_notification_priority, 1);
+    }
+
     public String getDefaultCalendar() {
         return getStringValue(R.string.gcal_p_default);
     }

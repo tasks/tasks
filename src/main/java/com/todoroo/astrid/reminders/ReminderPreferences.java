@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
 
 import org.tasks.time.DateTime;
 import org.tasks.R;
@@ -45,8 +46,10 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
 
         addPreferencesFromResource(R.xml.preferences_reminders);
 
+        PreferenceScreen preferenceScreen = getPreferenceScreen();
         if (preJellybean()) {
-            getPreferenceScreen().removePreference(findPreference(getString(R.string.p_rmd_notif_actions_enabled)));
+            preferenceScreen.removePreference(findPreference(getString(R.string.p_rmd_notif_actions_enabled)));
+            preferenceScreen.removePreference(findPreference(getString(R.string.p_notification_priority)));
         }
 
         if (deviceInfo.supportsLocationServices()) {
@@ -54,7 +57,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
             setExtraOnChange(R.string.p_geofence_responsiveness, RESET_GEOFENCES);
             setExtraOnChange(R.string.p_geofence_reminders_enabled, TOGGLE_GEOFENCES);
         } else {
-            getPreferenceScreen().removePreference(findPreference(getString(R.string.geolocation_reminders)));
+            preferenceScreen.removePreference(findPreference(getString(R.string.geolocation_reminders)));
         }
 
         initializeRingtonePreference();
