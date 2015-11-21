@@ -97,7 +97,7 @@ public class Preferences {
     }
 
     public int getNotificationPriority() {
-        return getInt(R.string.p_notification_priority, 1);
+        return getIntegerFromString(R.string.p_notification_priority, 1);
     }
 
     public String getDefaultCalendar() {
