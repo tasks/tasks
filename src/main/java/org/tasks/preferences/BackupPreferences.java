@@ -34,6 +34,7 @@ public class BackupPreferences extends InjectingPreferenceActivity {
             if (data != null) {
                 String dir = data.getStringExtra(FileExplore.RESULT_DIR_SELECTED);
                 preferences.setString(R.string.p_backup_dir, dir);
+                preferences.setString(R.string.p_backup_cyc,"1");
                 updateBackupDirectory();
             }
         } else {
