@@ -122,6 +122,10 @@
     <string name="reverse">Reverse</string>
     <string name="task_count">%s Tasks</string>
     <string name="get_plugins">Get Plug-ins</string>
+    <string name="dev_mode_title">Developer Mode Set</string>
+    <string name="dev_mode_on">A mockup demo database will be imported </string>
+    <string name="dev_mode_off">All the task will be delete permanently </string>
+    <string name="dev_mode_on_succ">A mockup demo database imported </string>
 
     <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->

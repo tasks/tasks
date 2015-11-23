@@ -41,6 +41,9 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 import javax.inject.Inject;
 
@@ -117,10 +120,18 @@ public class TasksXmlImporter {
         }).start();
     }
 
+
     private void performImport() throws IOException, XmlPullParserException {
         XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
         XmlPullParser xpp = factory.newPullParser();
-        xpp.setInput(new FileReader(input));
+
+        if (input.equals("dev_mode")){
+            InputStream is = this.context.getResources().openRawResource (R.raw.developer_mode);
+            Reader in = new InputStreamReader(is);
+            xpp.setInput(in) ;
+        }
+        else
+            xpp.setInput(new FileReader(input));
 
         try {
             while (xpp.next() != XmlPullParser.END_DOCUMENT) {

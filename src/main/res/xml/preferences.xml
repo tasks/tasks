@@ -45,4 +45,13 @@
             android:targetPackage="org.tasks" />
     </Preference>
 
+    <Preference
+        android:key="@string/dev_mode_set"
+        android:title="@string/develop_mode"
+        android:summary="Import a demo database">
+        <intent
+            android:targetClass="org.tasks.preferences.DeveloperModePreferences"
+            android:targetPackage="org.tasks" />
+    </Preference>
+
 </PreferenceScreen>

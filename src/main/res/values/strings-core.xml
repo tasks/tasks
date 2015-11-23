@@ -364,4 +364,7 @@
       data (Settings->Sync and backup->Manage old tasks->Clear all data) and restore
       your tasks from a backup (Settings->Sync and backup->Backup->Import tasks) in Tasks.</string>
 
+  <!-- ============================================================= Dev_mode == -->
+  <string name="develop_mode">Developer mode</string>
+
 </resources>

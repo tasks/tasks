@@ -342,6 +342,11 @@
             android:taskAffinity=""
             android:theme="@style/TranslucentDialog" />
 
+        <activity
+            android:name=".preferences.DeveloperModePreferences"
+            android:label="@string/develop_mode"
+            android:theme="@style/Tasks" />
+
         <!-- tags -->
 
         <!-- custom filters -->
@@ -448,7 +453,7 @@
 
         <!-- backup -->
         <activity
-                android:name="org.tasks.activities.BackupCycleActivity"
+            android:name="org.tasks.activities.BackupCycleActivity"
             android:theme="@style/TranslucentDialog" />
         <activity
             android:name="org.tasks.activities.ExportTaskActivity"
