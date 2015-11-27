@@ -100,6 +100,19 @@
         android:allowBackup="true"
         android:name=".Tasks"
         android:manageSpaceActivity="com.todoroo.astrid.core.OldTaskPreferences">
+        <!--&lt;!&ndash; ======================================================分享Facebook = &ndash;&gt;-->
+        <!--&lt;!&ndash;<provider&ndash;&gt;-->
+        <!--&lt;!&ndash;android:name="com.facebook.FacebookContentProvider"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:authorities="com.facebook.app.FacebookContentProvider468398076676060"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:exported="true" />&ndash;&gt;-->
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+
+        <activity
+        android:name="com.facebook.FacebookActivity"
+        android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <!-- ====================================================== Activities = -->
 

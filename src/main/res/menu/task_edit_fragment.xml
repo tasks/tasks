@@ -26,4 +26,8 @@
         android:id="@+id/menu_delete"
         android:title="@string/delete_task"
         tasks:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_share"
+        android:title="@string/share_task"
+        tasks:showAsAction="never"/>
 </menu>

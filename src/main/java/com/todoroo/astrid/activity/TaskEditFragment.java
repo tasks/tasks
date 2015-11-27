@@ -35,6 +35,10 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.facebook.share.model.ShareOpenGraphAction;
+import com.facebook.share.model.ShareOpenGraphContent;
+import com.facebook.share.model.ShareOpenGraphObject;
+import com.facebook.share.widget.ShareDialog;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.ActFmCameraModule;
@@ -109,12 +113,15 @@ import static org.tasks.files.FileHelper.getPathFromUri;
  * @author timsu
  *
  */
+
 public final class TaskEditFragment extends InjectingFragment implements
 ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     private static final Logger log = LoggerFactory.getLogger(TaskEditFragment.class);
 
     public static final String TAG_TASKEDIT_FRAGMENT = "taskedit_fragment"; //$NON-NLS-1$
+
+    private ShareDialog shareDialog;
 
     // --- bundle tokens
 
@@ -736,6 +743,38 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 .show();
     }
 
+    protected void shareButtonClick() {
+        //  callbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog(TaskEditFragment.this);
+        // Create an object
+//        String description;
+//        if(model.getNotes() == null) {
+//            description = "None";
+//        }else{
+//            description = model.getNotes();
+//        }
+        ShareOpenGraphObject object = new ShareOpenGraphObject.Builder()
+                .putString("og:type", "zhangzhenyu:task")
+                .putString("og:title", model.getTitle())
+                .putString("og:description", model.getNotes())
+                .putString("og:url", "https://play.google.com/store/apps/details?id=org.tasks")
+                        //   .putString("books:isbn", "0-553-57340-3")
+                .build();
+        // Create an action
+        ShareOpenGraphAction action = new ShareOpenGraphAction.Builder()
+                .setActionType("zhangzhenyu:share")
+                .putObject("task", object)
+                .build();
+        // Create the content
+        ShareOpenGraphContent content = new ShareOpenGraphContent.Builder()
+                .setPreviewPropertyName("task")
+                .setAction(action)
+                .build();
+        ShareDialog.show(TaskEditFragment.this, content);
+
+
+    }
+
     private void startAttachFile() {
         final List<Runnable> runnables = new ArrayList<>();
         List<String> options = new ArrayList<>();
@@ -851,6 +890,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         case R.id.menu_delete:
             deleteButtonClick();
             return true;
+        case R.id.menu_share:
+                shareButtonClick();
+                return true;
         case android.R.id.home:
             //if (title.getText().length() == 0) {
             if (title.getText().toString().trim().length() == 0) {   //alexeyhere2
