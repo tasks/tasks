@@ -28,9 +28,7 @@ import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
-import com.todoroo.astrid.gtasks.api.GoogleTasksException;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
-import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 
@@ -55,8 +53,8 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
 public class GtasksSyncV2Provider {
 
     public class SyncExceptionHandler {
-        public void handleException(String tag, Exception e) {
-            log.error("{}: {}", tag, e.getMessage(), e);
+        public void handleException(Exception e) {
+            log.error(e.getMessage(), e);
         }
     }
 
@@ -83,15 +81,15 @@ public class GtasksSyncV2Provider {
     private final GtasksTaskListUpdater gtasksTaskListUpdater;
     private final Context context;
     private final Preferences preferences;
-    private final GtasksTokenValidator gtasksTokenValidator;
     private final GtasksMetadata gtasksMetadataFactory;
     private final SyncExecutor executor;
+    private final GtasksInvoker gtasksInvoker;
 
     @Inject
     public GtasksSyncV2Provider(TaskService taskService, StoreObjectDao storeObjectDao, GtasksPreferenceService gtasksPreferenceService,
                                 GtasksSyncService gtasksSyncService, GtasksListService gtasksListService, GtasksMetadataService gtasksMetadataService,
                                 GtasksTaskListUpdater gtasksTaskListUpdater, @ForApplication Context context, Preferences preferences,
-                                GtasksTokenValidator gtasksTokenValidator, GtasksMetadata gtasksMetadata, SyncExecutor executor) {
+                                GtasksMetadata gtasksMetadata, SyncExecutor executor, GtasksInvoker gtasksInvoker) {
         this.taskService = taskService;
         this.storeObjectDao = storeObjectDao;
         this.gtasksPreferenceService = gtasksPreferenceService;
@@ -101,9 +99,9 @@ public class GtasksSyncV2Provider {
         this.gtasksTaskListUpdater = gtasksTaskListUpdater;
         this.context = context;
         this.preferences = preferences;
-        this.gtasksTokenValidator = gtasksTokenValidator;
         this.gtasksMetadataFactory = gtasksMetadata;
         this.executor = executor;
+        this.gtasksInvoker = gtasksInvoker;
     }
 
     private String getName() {
@@ -112,7 +110,6 @@ public class GtasksSyncV2Provider {
 
     public void signOut() {
         gtasksPreferenceService.clearLastSyncDate();
-        gtasksPreferenceService.setToken(null);
         gtasksPreferenceService.setUserName(null);
         gtasksMetadataService.clearMetadata();
     }
@@ -128,14 +125,12 @@ public class GtasksSyncV2Provider {
                 callback.started();
 
                 try {
-                    String authToken = getValidatedAuthToken();
-                    final GtasksInvoker invoker = new GtasksInvoker(context, gtasksTokenValidator, authToken);
                     TaskLists remoteLists = null;
                     try {
-                        remoteLists = invoker.allGtaskLists();
+                        remoteLists = gtasksInvoker.allGtaskLists();
                         gtasksListService.updateLists(remoteLists);
                     } catch (IOException e) {
-                        handler.handleException("gtasks-sync=io", e); //$NON-NLS-1$
+                        handler.handleException(e);
                     }
 
                     if (remoteLists == null) {
@@ -156,16 +151,16 @@ public class GtasksSyncV2Provider {
                         executor.execute(callback, new Runnable() {
                             @Override
                             public void run() {
-                                synchronizeListHelper(list, invoker, handler);
+                                synchronizeListHelper(list, gtasksInvoker, handler);
                                 if (finisher.decrementAndGet() == 0) {
-                                    pushUpdated(invoker);
+                                    pushUpdated(gtasksInvoker);
                                     finishSync(callback);
                                 }
                             }
                         });
                     }
-                } catch(Exception e) {
-                    handler.handleException("gtasks-sync=io", e); //$NON-NLS-1$
+                } catch (Exception e) {
+                    handler.handleException(e);
                     callback.finished();
                 }
             }
@@ -186,7 +181,7 @@ public class GtasksSyncV2Provider {
                 try {
                     gtasksSyncService.pushTaskOnSave(task, task.getMergedValues(), invoker);
                 } catch (IOException e) {
-                    handler.handleException("gtasks-sync-io", e); //$NON-NLS-1$
+                    handler.handleException(e);
                 }
             }
         } finally {
@@ -201,29 +196,13 @@ public class GtasksSyncV2Provider {
                 callback.started();
 
                 try {
-                    String authToken = getValidatedAuthToken();
                     gtasksSyncService.waitUntilEmpty();
-                    final GtasksInvoker service = new GtasksInvoker(context, gtasksTokenValidator, authToken);
-                    synchronizeListHelper(gtasksList, service, null);
+                    synchronizeListHelper(gtasksList, gtasksInvoker, null);
                 } finally {
                     callback.finished();
                 }
             }
         });
-    }
-
-    private String getValidatedAuthToken() {
-        String authToken = gtasksPreferenceService.getToken();
-        try {
-            authToken = gtasksTokenValidator.validateAuthToken(context, authToken);
-            if (authToken != null) {
-                gtasksPreferenceService.setToken(authToken);
-            }
-        } catch (GoogleTasksException e) {
-            log.error(e.getMessage(), e);
-            authToken = null;
-        }
-        return authToken;
     }
 
     private synchronized void synchronizeListHelper(GtasksList list, GtasksInvoker invoker,
@@ -266,7 +245,7 @@ public class GtasksSyncV2Provider {
             }
         } catch (IOException e) {
             if (errorHandler != null) {
-                errorHandler.handleException("gtasks-sync-io", e); //$NON-NLS-1$
+                errorHandler.handleException(e);
             } else {
                 log.error(e.getMessage(), e);
             }

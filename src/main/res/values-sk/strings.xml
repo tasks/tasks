@@ -217,13 +217,9 @@
 	<string name="gtasks_GTA_clear_completed">Vymazať dokončené</string>
 	<string name="gtasks_GLA_noaccounts">Nieje k dispozícii synchronizácia Google účtu.</string>
 	<string name="gtasks_GLA_authenticating">Overovanie...</string>
-	<string name="gtasks_GLA_errorAuth">Chyba pri overovaní! Prosím, skontroluj meno používateľa a heslo v tvojom mobilnom manažéri účtov.</string>
 	<string name="gtasks_GLA_errorIOAuth">Prepáč, nastal problém v komunikácii s Google serverom. Prosím, skús to znovu neskôr.</string>
 	<string name="gtasks_GPr_header">Úlohy Google</string>
 	<string name="gtasks_error_accountNotFound">Účet %s sa nenašiel--prosím, odhlás sa a znovu prihlás v nastaveniach Úlohy Google.</string>
-	<string name="gtasks_error_authRefresh">Nedajú sa overiť Úlohy Google. Prosím, skontroluj si heslo účtu, alebo to skús znovu neskôr.</string>
-	<string name="gtasks_error_accountManager">Chyba v tvojom mobilnom správcovi účtov. Prosím odhlás sa a znovu prihlás späť z Google Tasks nastavení.</string>
-	<string name="gtasks_error_background_sync_auth">Chyba pri overení pravosti na pozadí. Prosím, skús spustiť synchronizáciu kým je zapnutý Tasks.</string>
 	<string name="locale_notification">Máš $NUM so značkou $FILTER</string>
 	<string name="premium_record_audio">Nahrať poznámku</string>
 	<string name="premium_remove_file_confirm">Naozaj? Nedá sa vrátiť</string>

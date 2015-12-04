@@ -52,7 +52,6 @@
 	<string name="gtasks_GTA_clear_completed">Poista valmiit</string>
 	<string name="gtasks_GLA_noaccounts">Google tiliä ei ole saatavissa synkronointia varten.</string>
 	<string name="gtasks_GLA_authenticating">Todennetaan...</string>
-	<string name="gtasks_GLA_errorAuth">Todennus epäonnistui! Tarkista käyttjätunnus ja salasana puhelimesi tilinhallinata sovellukseta</string>
 	<string name="gtasks_GLA_errorIOAuth">Valitettavasti meillä on yhteysongelmia Google palvelimiin.  Ole hyvä ja yritä myöhemmin uudestaa.</string>
 	<string name="gtasks_GPr_header">Google tehtävät</string>
 	<string name="rmd_EPr_defaultRemind_title">Satunnainen muistutus</string>

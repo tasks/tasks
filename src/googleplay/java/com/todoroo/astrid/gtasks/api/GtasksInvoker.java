@@ -2,25 +2,29 @@ package com.todoroo.astrid.gtasks.api;
 
 import android.content.Context;
 
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpRequestInitializer;
+import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.http.HttpResponseException;
+import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.GenericJson;
-import com.google.api.client.json.gson.GsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.tasks.Tasks;
 import com.google.api.services.tasks.TasksRequest;
+import com.google.api.services.tasks.TasksScopes;
 import com.google.api.services.tasks.model.Task;
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
-import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
+import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tasks.R;
+import org.tasks.AccountManager;
+import org.tasks.BuildConfig;
+import org.tasks.injection.ForApplication;
 
 import java.io.IOException;
+import java.util.Collections;
+
+import javax.inject.Inject;
 
 /**
  * Wrapper around the official Google Tasks API to simplify common operations. In the case
@@ -32,45 +36,28 @@ public class GtasksInvoker {
 
     private static final Logger log = LoggerFactory.getLogger(GtasksInvoker.class);
 
-    private final Context context;
-    private final GtasksTokenValidator gtasksTokenValidator;
+    private AccountManager accountManager;
+    private final GoogleAccountCredential credential;
     private Tasks service;
-    private GoogleCredential credential = new GoogleCredential();
-    private String token;
 
-    private final String key;
-
-    public static final String AUTH_TOKEN_TYPE = "Manage your tasks"; //"oauth2:https://www.googleapis.com/auth/tasks";
-
-    public GtasksInvoker(Context context, GtasksTokenValidator gtasksTokenValidator, String authToken) {
-        this.context = context;
-        this.gtasksTokenValidator = gtasksTokenValidator;
-        this.token = authToken;
-
-        key = context.getString(R.string.gapi_key);
-        credential.setAccessToken(authToken);
-        HttpRequestInitializer httpRequestInitializer = new HttpRequestInitializer() {
-            @Override
-            public void initialize(HttpRequest request) throws IOException {
-                credential.initialize(request);
-                request.setReadTimeout(0); // infinite
-            }
-        };
-        service = new Tasks.Builder(AndroidHttp.newCompatibleTransport(), new GsonFactory(), httpRequestInitializer)
-                .setApplicationName("Tasks")
+    @Inject
+    public GtasksInvoker(@ForApplication Context context, GtasksPreferenceService preferenceService, AccountManager accountManager) {
+        this.accountManager = accountManager;
+        credential = GoogleAccountCredential.usingOAuth2(context, Collections.singletonList(TasksScopes.TASKS))
+                .setSelectedAccountName(preferenceService.getUserName());
+        service = new Tasks.Builder(new NetHttpTransport(), new JacksonFactory(), credential)
+                .setApplicationName(String.format("Tasks/%s", BuildConfig.VERSION_NAME))
                 .build();
     }
 
     //If we get a 401 or 403, try revalidating the auth token before bailing
     private synchronized void handleException(IOException e) throws IOException {
+        log.error(e.getMessage(), e);
         if (e instanceof HttpResponseException) {
             HttpResponseException h = (HttpResponseException) e;
             int statusCode = h.getStatusCode();
             if (statusCode == 401 || statusCode == 403) {
-                token = gtasksTokenValidator.validateAuthToken(context, token);
-                if (token != null) {
-                    credential.setAccessToken(token);
-                }
+                accountManager.clearToken(credential);
             } else if (statusCode == 400 || statusCode == 500) {
                 throw h;
             } else if (statusCode == 404) {
@@ -79,23 +66,7 @@ public class GtasksInvoker {
                 log.error(statusCode + ": " + h.getStatusMessage(), e);
             }
             // 503 errors are generally either 1) quota limit reached or 2) problems on Google's end
-        } else {
-            log.error(e.getMessage(), e);
         }
-    }
-
-    /**
-     * A simple service query that will throw an exception if anything goes wrong.
-     * Useful for checking if token needs revalidating or if there are network problems--
-     * no exception means all is well
-     *
-     * @throws IOException
-     */
-    public void ping() throws IOException {
-        service.tasklists()
-                .get("@default")
-                .setKey(key)
-                .execute();
     }
 
     public TaskLists allGtaskLists() throws IOException {
@@ -152,14 +123,10 @@ public class GtasksInvoker {
         log.debug("{} request: {}", caller, request);
         T response;
         try {
-            response = request
-                    .setKey(key)
-                    .execute();
+            response = request.execute();
         } catch (IOException e) {
             handleException(e);
-            response = request
-                    .setKey(key)
-                    .execute();
+            response = request.execute();
         }
         log.debug("{} response: {}", caller, prettyPrint(response));
         return response;

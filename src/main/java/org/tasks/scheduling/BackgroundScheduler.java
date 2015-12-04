@@ -3,6 +3,7 @@ package org.tasks.scheduling;
 import android.content.Context;
 import android.content.Intent;
 
+import org.tasks.R;
 import org.tasks.injection.ForApplication;
 
 import javax.inject.Inject;
@@ -21,7 +22,10 @@ public class BackgroundScheduler {
         context.startService(new Intent(context, ReminderSchedulerIntentService.class));
         scheduleBackupService();
         scheduleMidnightRefresh();
-        scheduleGtaskSync();
+
+        if (context.getResources().getBoolean(R.bool.sync_enabled)) {
+            scheduleGtaskSync();
+        }
     }
 
     public void scheduleBackupService() {

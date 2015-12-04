@@ -5,8 +5,12 @@
  */
 package com.todoroo.astrid.gtasks;
 
+import android.content.Context;
+
 import com.todoroo.andlib.utility.DateUtilities;
 
+import org.tasks.R;
+import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
@@ -21,6 +25,7 @@ import javax.inject.Singleton;
 @Singleton
 public class GtasksPreferenceService {
 
+    private Context context;
     private final Preferences preferences;
 
     public static final String IDENTIFIER = "gtasks"; //$NON-NLS-1$
@@ -29,7 +34,8 @@ public class GtasksPreferenceService {
     private static final String PREF_USER_NAME = IDENTIFIER + "_user"; //$NON-NLS-1$
 
     @Inject
-    public GtasksPreferenceService(Preferences preferences) {
+    public GtasksPreferenceService(@ForApplication Context context, Preferences preferences) {
+        this.context = context;
         this.preferences = preferences;
     }
 
@@ -59,17 +65,8 @@ public class GtasksPreferenceService {
      * @return true if we have a token for this user, false otherwise
      */
     public boolean isLoggedIn() {
-        return preferences.getStringValue(IDENTIFIER + PREF_TOKEN) != null;
-    }
-
-    /** authentication token, or null if doesn't exist */
-    public String getToken() {
-        return preferences.getStringValue(IDENTIFIER + PREF_TOKEN);
-    }
-
-    /** Sets the authentication token. Set to null to clear. */
-    public void setToken(String setting) {
-        preferences.setString(IDENTIFIER + PREF_TOKEN, setting);
+        return context.getResources().getBoolean(R.bool.sync_enabled) &&
+                preferences.getStringValue(IDENTIFIER + PREF_TOKEN) != null;
     }
 
     /** @return Last Successful Sync Date, or 0 */

@@ -231,13 +231,9 @@
 	<string name="gtasks_GTA_clear_completed">クリアが完了しました</string>
 	<string name="gtasks_GLA_noaccounts">同期するために有効な Google アカウントがありません.</string>
 	<string name="gtasks_GLA_authenticating">認証中...</string>
-	<string name="gtasks_GLA_errorAuth">認証エラー! 電話のアカウント管理でユーザー名とパスワードを確認してください</string>
 	<string name="gtasks_GLA_errorIOAuth">すみません、Googleのサーバとの通信で問題が発生しました。しばらくしてから再度やり直してください。</string>
 	<string name="gtasks_GPr_header">Google Tasks (ベータ版!)</string>
 	<string name="gtasks_error_accountNotFound">アカウント %s が見つかりません--ログアウトして再度 Google Tasks 設定にログインしてください.</string>
-	<string name="gtasks_error_authRefresh">Google Tasks で認証できません. アカウントのパスワードを確認するか後で再度実行してください.</string>
-	<string name="gtasks_error_accountManager">電話のアカウント管理にエラーがあります. ログアウトして再度 Google Tasks 設定にログインしてください.</string>
-	<string name="gtasks_error_background_sync_auth">バックグラウンドでの認証中にエラー. タスクの実行中に同期を開始してください.</string>
 	<string name="locale_notification">$FILTER の検索結果: $NUM 件</string>
 	<string name="premium_record_audio">注釈を記録</string>
 	<string name="premium_remove_file_confirm">よろしいですか? 取り消しできません</string>

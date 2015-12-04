@@ -31,7 +31,6 @@ import org.tasks.injection.ForApplication;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import static com.google.common.collect.Iterables.transform;
@@ -83,7 +82,6 @@ public class FilterCriteriaProvider {
     private CustomFilterCriterion getTagFilter() {
         // TODO: adding to hash set because duplicate tag name bug hasn't been fixed yet
         List<String> tags = newArrayList(newLinkedHashSet(transform(tagService.getTagList(), new Function<TagData, String>() {
-            @Nullable
             @Override
             public String apply(TagData tagData) {
                 return tagData.getName();

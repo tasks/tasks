@@ -5,12 +5,14 @@
  */
 package com.todoroo.astrid.gtasks;
 
+import android.content.Context;
+
 import org.tasks.preferences.Preferences;
 
 public class GtasksTestPreferenceService extends GtasksPreferenceService {
 
-    public GtasksTestPreferenceService(Preferences preferences) {
-        super(preferences);
+    public GtasksTestPreferenceService(Context context, Preferences preferences) {
+        super(context, preferences);
     }
 
     @Override

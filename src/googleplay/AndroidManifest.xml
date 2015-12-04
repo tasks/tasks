@@ -13,6 +13,16 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
 
+    <!-- **************** -->
+    <!-- google task sync -->
+    <!-- **************** -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="com.google.android.googleapps.permission.GOOGLE_AUTH" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <application>
 
         <meta-data android:name="com.google.android.gms.version"
@@ -27,6 +37,23 @@
             android:theme="@style/TranslucentDialog" />
 
         <service android:name=".location.GeofenceTransitionsIntentService"/>
+
+        <activity
+            android:name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity"
+            android:theme="@style/TranslucentDialog" />
+
+        <activity
+            android:name="com.todoroo.astrid.gtasks.GtasksPreferences"
+            android:label="@string/synchronization"
+            android:theme="@style/Tasks" />
+
+        <activity
+            android:name=".activities.ClearGtaskDataActivity"
+            android:theme="@style/TranslucentDialog" />
+
+        <service
+            android:name=".scheduling.GtasksBackgroundService"
+            android:exported="false" />
 
     </application>
 

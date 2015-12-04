@@ -68,10 +68,9 @@ public class GtasksLoginActivity extends InjectingAppCompatActivity implements A
     }
 
     private void getAuthToken(String a, final ProgressDialog pd) {
-        accountManager.getAuthToken(a, new AccountManager.AuthResultHandler() {
+        accountManager.getAuthToken(this, a, new AccountManager.AuthResultHandler() {
             @Override
             public void authenticationSuccessful(String accountName, String authToken) {
-                gtasksPreferenceService.setToken(authToken);
                 gtasksPreferenceService.setUserName(accountName);
                 setResult(RESULT_OK);
                 finish();
@@ -91,12 +90,10 @@ public class GtasksLoginActivity extends InjectingAppCompatActivity implements A
         });
     }
 
-    private static final int REQUEST_AUTHENTICATE = 0;
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUEST_AUTHENTICATE && resultCode == RESULT_OK){
+        if(requestCode == AccountManager.REQUEST_AUTHORIZATION && resultCode == RESULT_OK){
             final ProgressDialog pd = dialogBuilder.newProgressDialog(R.string.gtasks_GLA_authenticating);
             pd.show();
             getAuthToken(accountName, pd);

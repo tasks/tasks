@@ -17,7 +17,6 @@ import org.tasks.injection.InjectingDialogFragment;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import static com.google.common.collect.Lists.transform;
@@ -43,7 +42,6 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final List<AndroidCalendar> calendars = gCalHelper.getCalendars();
         List<String> calendarNames = transform(calendars, new Function<AndroidCalendar, String>() {
-            @Nullable
             @Override
             public String apply(AndroidCalendar androidCalendar) {
                 return androidCalendar.getName();

@@ -209,13 +209,9 @@
 	<string name="gtasks_GTA_clear_completed">Zbriši dokončano</string>
 	<string name="gtasks_GLA_noaccounts">Ne morem se uskladiti z neobstoječimi Google računi.</string>
 	<string name="gtasks_GLA_authenticating">Avtentikacija v teku ...</string>
-	<string name="gtasks_GLA_errorAuth">Napaka pri avtentikaciji! Prosimo preverite svoje uporabniško ime in geslo</string>
 	<string name="gtasks_GLA_errorIOAuth">Žal smo imeli težave pri povezovanju z Google strežniki. Prosimo, poskusite ponovno kasneje.</string>
 	<string name="gtasks_GPr_header">Google Naloge</string>
 	<string name="gtasks_error_accountNotFound">Račun %s ni najden--prosimo odjavite se, nato pa ponovno prijavite skozi nastavitve Google Nalog.</string>
-	<string name="gtasks_error_authRefresh">Avtentikacija v Google Naloge ni uspela. Prosimo, preverite geslo svojega računa in poskusite ponovno kasneje.</string>
-	<string name="gtasks_error_accountManager">Napaka pri upravitelju računov na vašem telefonu. Prosimo, odjavite se, nato pa ponovno prijavite skozi nastavitve Google Nalog.</string>
-	<string name="gtasks_error_background_sync_auth">Napaka pri overjanju v ozadju. Prosimo, poskusite začeti z usklajevanjem med delovanjem aplikacije Opravki.</string>
 	<string name="locale_notification">$NUM jih ustreza: $FILTER</string>
 	<string name="premium_record_audio">Posnemi opombo</string>
 	<string name="premium_remove_file_confirm">Ste prepričani? Tega ni mogoče razveljaviti</string>

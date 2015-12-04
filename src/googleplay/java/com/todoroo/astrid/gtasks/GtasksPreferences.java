@@ -20,8 +20,6 @@ import org.tasks.scheduling.BackgroundScheduler;
 
 import javax.inject.Inject;
 
-import static org.tasks.date.DateTimeUtils.newDate;
-
 public class GtasksPreferences extends InjectingPreferenceActivity {
 
     private static final int REQUEST_LOGIN = 0;
@@ -45,7 +43,6 @@ public class GtasksPreferences extends InjectingPreferenceActivity {
                     startActivityForResult(new Intent(GtasksPreferences.this, GtasksLoginActivity.class), REQUEST_LOGIN);
                 } else {
                     gtasksPreferenceService.stopOngoing();
-                    gtasksPreferenceService.setToken(null);
                 }
                 return true;
             }

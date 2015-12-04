@@ -203,13 +203,9 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="gtasks_GTA_clear_completed">Rensa bort färdiga</string>
 	<string name="gtasks_GLA_noaccounts">Inga tillgängliga Googlekonton att synkronisera med.</string>
 	<string name="gtasks_GLA_authenticating">Autentiserar...</string>
-	<string name="gtasks_GLA_errorAuth">Autentisering misslyckad! Kontrollera ditt användarnamn och lösenord i kontoinställningarna i din telefon</string>
 	<string name="gtasks_GLA_errorIOAuth">Vi hade problem med förbindelsen till Googles servrar. Försök igen senare.</string>
 	<string name="gtasks_GPr_header">Google Uppgifter</string>
 	<string name="gtasks_error_accountNotFound">Kontot %s kunde inte hittas. Logga ut och in på nytt i inställningarna för Google Uppgifter.</string>
-	<string name="gtasks_error_authRefresh">Kunde inte autentisera med Google Uppgifter. Kontrollera ditt lösenord och försök igen.</string>
-	<string name="gtasks_error_accountManager">Fel i din telefons kontohantering. Logga ut och in på nytt i inställningarna för Google Uppgifter.</string>
-	<string name="gtasks_error_background_sync_auth">Autentisering i bakgrunden misslyckades. Vänligen försök starta en synkronisering medan Tasks körs.</string>
 	<string name="locale_notification">Du har $NUM som matchar: $FILTER</string>
 	<string name="premium_record_audio">Spela in en anteckning</string>
 	<string name="premium_remove_file_confirm">Är du säker? Detta kan inte ångras</string>

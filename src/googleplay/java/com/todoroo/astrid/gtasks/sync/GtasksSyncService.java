@@ -6,7 +6,6 @@
 package com.todoroo.astrid.gtasks.sync;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
@@ -25,12 +24,10 @@ import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.HttpNotFoundException;
 import com.todoroo.astrid.gtasks.api.MoveRequest;
-import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 import com.todoroo.astrid.service.TaskService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tasks.injection.ForApplication;
 
 import java.io.IOException;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -46,26 +43,24 @@ public class GtasksSyncService {
 
     private static final String DEFAULT_LIST = "@default"; //$NON-NLS-1$
 
-    private Context context;
     private final MetadataDao metadataDao;
     private final GtasksMetadataService gtasksMetadataService;
     private final TaskDao taskDao;
     private final GtasksPreferenceService gtasksPreferenceService;
-    private final GtasksTokenValidator gtasksTokenValidator;
     private final GtasksMetadata gtasksMetadataFactory;
+    private GtasksInvoker gtasksInvoker;
     private final LinkedBlockingQueue<SyncOnSaveOperation> operationQueue = new LinkedBlockingQueue<>();
 
     @Inject
-    public GtasksSyncService(@ForApplication Context context, MetadataDao metadataDao, GtasksMetadataService gtasksMetadataService,
+    public GtasksSyncService(MetadataDao metadataDao, GtasksMetadataService gtasksMetadataService,
                              TaskDao taskDao, GtasksPreferenceService gtasksPreferenceService,
-                             GtasksTokenValidator gtasksTokenValidator, GtasksMetadata gtasksMetadataFactory) {
-        this.context = context;
+                             GtasksMetadata gtasksMetadataFactory, GtasksInvoker gtasksInvoker) {
         this.metadataDao = metadataDao;
         this.gtasksMetadataService = gtasksMetadataService;
         this.taskDao = taskDao;
         this.gtasksPreferenceService = gtasksPreferenceService;
-        this.gtasksTokenValidator = gtasksTokenValidator;
         this.gtasksMetadataFactory = gtasksMetadataFactory;
+        this.gtasksInvoker = gtasksInvoker;
     }
 
     private abstract class SyncOnSaveOperation {
@@ -159,8 +154,7 @@ public class GtasksSyncService {
                     continue;
                 }
                 try {
-                    GtasksInvoker invoker = new GtasksInvoker(context, gtasksTokenValidator, gtasksPreferenceService.getToken());
-                    op.op(invoker);
+                    op.op(gtasksInvoker);
                 } catch (IOException e) {
                     log.error(e.getMessage(), e);
                 }

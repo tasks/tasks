@@ -194,13 +194,9 @@
 	<string name="gtasks_GTA_clear_completed">清除已完成項</string>
 	<string name="gtasks_GLA_noaccounts">沒有可用的Google帳戶同步。</string>
 	<string name="gtasks_GLA_authenticating">正在認證...</string>
-	<string name="gtasks_GLA_errorAuth">驗證出錯！請在您手機的帳戶管理器中檢查您的用戶名和密碼</string>
 	<string name="gtasks_GLA_errorIOAuth">對不起，我們在與Google 服務器通訊時遇到了問題。請稍後再嘗試。</string>
 	<string name="gtasks_GPr_header">Google Tasks (測試中!)</string>
 	<string name="gtasks_error_accountNotFound">找不到帳戶%s——請退出，然後從Google 工作表設置中重新登錄。</string>
-	<string name="gtasks_error_authRefresh">無法用Google 工作表驗證。請檢查您的帳戶密碼或者稍後再嘗試。</string>
-	<string name="gtasks_error_accountManager">您手機的帳戶管理器出錯了。請退出，然後從Google 工作表設置中重新登陸。</string>
-	<string name="gtasks_error_background_sync_auth">後台驗證出錯了。請在Tasks 運行時嘗試啟動同步。</string>
 	<string name="locale_notification">您有 $NUM 符合: $FILTER</string>
 	<string name="premium_record_audio">錄製一條便箋</string>
 	<string name="premium_remove_file_confirm">您確定嗎？無法恢復的喔</string>

@@ -25,7 +25,7 @@ android {
     }
 
     compileSdkVersion 22
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "22.0.1"
 
     defaultConfig {
         versionCode 379
@@ -102,15 +102,12 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-v4'
     }
 
-    googleplayCompile group: 'com.google.android.gms', name: 'play-services-location', version: '7.5.0'
+    googleplayCompile group: 'com.google.android.gms', name: 'play-services-location', version: '8.3.0'
 
-    compile(group: 'com.google.apis', name: 'google-api-services-tasks', version: 'v1-rev33-1.18.0-rc') {
+    googleplayCompile(group: 'com.google.apis', name: 'google-api-services-tasks', version: 'v1-rev41-1.21.0') {
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
     }
-    compile(group: 'com.google.api-client', name: 'google-api-client-android', version: '1.18.0-rc') {
-        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
-    }
-    compile(group: 'com.google.http-client', name: 'google-http-client-gson', version: '1.18.0-rc') {
+    googleplayCompile(group: 'com.google.api-client', name: 'google-api-client-android', version: '1.21.0') {
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
     }
     compile group: 'com.google.guava', name: 'guava-jdk5', version: '13.0'

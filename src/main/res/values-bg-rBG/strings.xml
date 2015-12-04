@@ -233,12 +233,8 @@
 	<string name="gtasks_GTA_clear_completed">Изчисти Завършени</string>
 	<string name="gtasks_GLA_noaccounts">Няма налични Google акаунти за синхронизация.</string>
 	<string name="gtasks_GLA_authenticating">Удостоверява се...</string>
-	<string name="gtasks_GLA_errorAuth">Грешка при удостоверяване! Моля, проверете потребителското си име и парола в акаунт мениджъра на телефона си</string>
 	<string name="gtasks_GLA_errorIOAuth">Съжаляваме, ние имахме проблем с комуникацията със сървърите на Google. Моля, опитайте отново по-късно.</string>
 	<string name="gtasks_error_accountNotFound">Акаунт %s не е намерен-моля да излезнете и да влязнете отново от настройките на Google Tasks.</string>
-	<string name="gtasks_error_authRefresh">Не може да се удостовери с Google Tasks. Моля, проверете паролата на профила си или опитате отново по-късно.</string>
-	<string name="gtasks_error_accountManager">Грешка в мениджъра на акаунти във вашия телефон. Моля за излезнете и да влезнете пак от настройките на Google Tasks.</string>
-	<string name="gtasks_error_background_sync_auth">Грешка при удостоверяване във фонов режим. Моля, опитайте се да започване синхронизация, докато Tasks се изпълнява.</string>
 	<string name="locale_notification">Вие имате $NUM съвпадения: $FILTER</string>
 	<string name="premium_record_audio">Запис на бележка</string>
 	<string name="premium_remove_file_confirm">Сигурни ли сте? Не може да бъде отменено</string>

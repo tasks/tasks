@@ -214,12 +214,8 @@
 	<string name="gtasks_GTA_clear_completed">Entferne erledigte Aufgaben</string>
 	<string name="gtasks_GLA_noaccounts">Keine Google-Accounts zum synchronisieren verfügbar.</string>
 	<string name="gtasks_GLA_authenticating">Authentifizierung ...</string>
-	<string name="gtasks_GLA_errorAuth">Anmeldefehler! Bitte Benutzername und Passwort in den Kontoeinstellungen des Telefons prüfen</string>
 	<string name="gtasks_GLA_errorIOAuth">Entschuldigung, während der Kommunikation mit den Google-Servern ist ein Problem aufgetreten. Bitte versuchen Sie es später noch einmal.</string>
 	<string name="gtasks_error_accountNotFound">Konto %s nicht gefunden. Bitte ausloggen und erneut einloggen über die Einstellungen von Google Tasks.</string>
-	<string name="gtasks_error_authRefresh">Anmeldung bei Google Tasks nicht möglich. Bitte Passwort prüfen oder später erneut versuchen.</string>
-	<string name="gtasks_error_accountManager">Fehler in den</string>
-	<string name="gtasks_error_background_sync_auth">Fehler bei der Hintergrundauthentifizierung. Starte eine Synchronisation in der App.</string>
 	<string name="locale_notification">Du hast $NUM Übereinstimmungen mit: $FILTER</string>
 	<string name="premium_record_audio">Notiz aufzeichnen</string>
 	<string name="premium_remove_file_confirm">Sind Sie sicher? Das kann nicht rückgängig gemacht werden</string>

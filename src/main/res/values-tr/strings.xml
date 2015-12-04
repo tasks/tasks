@@ -184,13 +184,9 @@
 	<string name="gtasks_GTA_clear_completed">Tamamlanları Temizle</string>
 	<string name="gtasks_GLA_noaccounts">Eşleştirilecek Google hesabı mevcut değil.</string>
 	<string name="gtasks_GLA_authenticating">Kimlik doğrulanıyor...</string>
-	<string name="gtasks_GLA_errorAuth">Giriş başarısız! Lütfen kullanıcı ismi ve parolanızı telefondaki hesap yöneticisinden denetleyin</string>
 	<string name="gtasks_GLA_errorIOAuth">Üzgünüm, Google sunucuları ile bağlanmakta sıkıntı yaşıyoruz. Lütfen daha sonra yeniden deneyin.</string>
 	<string name="gtasks_GPr_header">Google Görevleri (Beta!)</string>
 	<string name="gtasks_error_accountNotFound">%s hesabı bulunamadı--lütfen çıkış yapıp Google Görev ayarlarından tekrar giriş yapın.</string>
-	<string name="gtasks_error_authRefresh">Google Görevlere giriş başarısız. Lütfen hesap parolanızı kontrol edip tekrar deneyin.</string>
-	<string name="gtasks_error_accountManager">Telefon hesap yöneticisinde hata oluştu. Lütfen çıkış yapıp Google Görevler Ayarlarından tekrar giriş yapın.</string>
-	<string name="gtasks_error_background_sync_auth">Artalanda kimlik doğrulama hatası. Lütfen Tasks çalışırken bir eşlemeyi sıfırlamayı deneyin.</string>
 	<string name="locale_notification">$FILTER konumunda $NUM var</string>
 	<string name="premium_record_audio">Bir not kaydet</string>
 	<string name="premium_remove_file_confirm">Emin misiniz? Geri döndürülemez</string>
