@@ -21,9 +21,7 @@
 	<string name="DLG_error_sdcard_general">Brak dostępu do Twojej karty SD!</string>
 	<string name="import_file_prompt">Wskaż plik do przywrócenia</string>
 	<string name="read_permission_label">Uprawnienia Tasks</string>
-	<string name="read_permission_desc">odczytuj zadania, pokaż filtr zadań</string>
 	<string name="write_permission_label">Zezwolenia Tasks</string>
-	<string name="write_permission_desc">twórz nowe zadania, edytuj bieżące zadania</string>
 	<string name="DLG_delete_this_task_question">Usunąć to zadanie?</string>
 	<string name="DLG_upgrading">Uaktualniam Twoje zadania...</string>
 	<string name="DLG_hour_minutes">Czas (godziny : minuty)</string>

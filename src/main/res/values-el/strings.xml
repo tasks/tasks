@@ -23,9 +23,7 @@
 	<string name="DLG_error_sdcard_general">Δεν υπάρχει πρόσβαση στην SD κάρτα!</string>
 	<string name="import_file_prompt">Επιλογή αρχείου για επαναφορά</string>
 	<string name="read_permission_label">Άδεια εργασιών</string>
-	<string name="read_permission_desc">Διάβασμα εργασιών, εμφάνιση φίλτρων εργασιών</string>
 	<string name="write_permission_label">Άδεια Εργασιών</string>
-	<string name="write_permission_desc">δημιουργία νέων εργασιών, επεξεργασία εργασιών</string>
 	<string name="DLG_delete_this_task_question">Διαγραφή εργασίας;</string>
 	<string name="DLG_upgrading">Αναβάθμιση των εργασιών σας...</string>
 	<string name="DLG_hour_minutes">Ώρα (ώρες : λεπτά)</string>

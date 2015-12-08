@@ -14,9 +14,7 @@
 	<string name="export_toast_no_tasks">لا يوجد مهام للتصدير.</string>
 	<string name="import_summary_title"> إستعادة المُلخَّص</string>
 	<string name="read_permission_label">إذن المهام</string>
-	<string name="read_permission_desc">قراءة المهام، عرض فلتر المهمه</string>
 	<string name="write_permission_label">أخذ التصاريح</string>
-	<string name="write_permission_desc">إنشاء مهمه جديدة، تعديل مهمة مُنشأه</string>
 	<string name="DLG_delete_this_task_question">حذف هذه المهمه؟</string>
 	<string name="DLG_upgrading">ترقية المهام...</string>
 	<string name="DLG_hour_minutes">الوقت (ساعة : دقيقة)</string>

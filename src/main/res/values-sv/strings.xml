@@ -21,9 +21,7 @@
 	<string name="DLG_error_sdcard_general">SD-kort ej tillgängligt!</string>
 	<string name="import_file_prompt">Välj en fil att återställa</string>
 	<string name="read_permission_label">Tasks Tillstånd</string>
-	<string name="read_permission_desc">läs uppgifter, visa uppgiftsfilter</string>
 	<string name="write_permission_label">Tasks Tillstånd</string>
-	<string name="write_permission_desc">skapa nya uppgifter, redigera existerande uppgifter</string>
 	<string name="DLG_delete_this_task_question">Radera denna uppgift?</string>
 	<string name="DLG_upgrading">Uppgraderar dina uppgifter...</string>
 	<string name="DLG_hour_minutes">Tid (timmar : minuter)</string>

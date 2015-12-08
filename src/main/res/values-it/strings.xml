@@ -25,9 +25,7 @@
 	<string name="DLG_error_sdcard_general">Impossibile accedere alla scheda SD!</string>
 	<string name="import_file_prompt">Seleziona un file da ripristinare</string>
 	<string name="read_permission_label">Permessi Tasks</string>
-	<string name="read_permission_desc">vedere i compiti, mostrare i filtri</string>
 	<string name="write_permission_label">Permessi Tasks</string>
-	<string name="write_permission_desc">crea nuove attività, modifica le attività esistenti</string>
 	<string name="DLG_delete_this_task_question">Eliminare questa attività?</string>
 	<string name="DLG_upgrading">Aggiornare le attività ...</string>
 	<string name="DLG_hour_minutes">Tempo (ore : minuti)</string>

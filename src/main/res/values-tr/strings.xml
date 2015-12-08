@@ -21,9 +21,7 @@
 	<string name="DLG_error_sdcard_general">Hafıza kartına erişemiyorum!</string>
 	<string name="import_file_prompt">Geri Alınacak Bir Dosya Seçin</string>
 	<string name="read_permission_label">Tasks İzni</string>
-	<string name="read_permission_desc">görevlere gözat, görev süzgeçlerini görüntüle</string>
 	<string name="write_permission_label">Tasks İzni</string>
-	<string name="write_permission_desc">yeni görevler oluştur, mevcut görevleri düzenle</string>
 	<string name="DLG_delete_this_task_question">Bu görev silinsin mi?</string>
 	<string name="DLG_upgrading">Görevleriniz güncelleniyor...</string>
 	<string name="DLG_hour_minutes">Zaman (saat : dakika)</string>

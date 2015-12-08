@@ -15,6 +15,9 @@
   <string name="p_date_shortcut_evening">date_shortcut_evening</string>
   <string name="p_date_shortcut_night">date_shortcut_night</string>
 
+  <string name="write_permission_desc">create new tasks, edit existing tasks</string>
+  <string name="read_permission_desc">read tasks, display task filters</string>
+
   <!-- ======================================================== REMINDERS == -->
 
     <string name="p_attachment_dir">custom_files_dir</string>

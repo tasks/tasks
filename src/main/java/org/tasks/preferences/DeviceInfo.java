@@ -54,10 +54,6 @@ public class DeviceInfo {
         }}.resolveActivity(context.getPackageManager()) != null;
     }
 
-    public boolean supportsBilling() {
-        return context.getResources().getBoolean(R.bool.billing_enabled) && isPlayStoreAvailable();
-    }
-
     public boolean supportsLocationServices() {
         return context.getResources().getBoolean(R.bool.location_enabled);
     }

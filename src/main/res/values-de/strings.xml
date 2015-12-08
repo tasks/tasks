@@ -21,9 +21,7 @@
 	<string name="DLG_error_sdcard_general">Auf die SD-Karte konnte nicht zugegriffen werden!</string>
 	<string name="import_file_prompt">Wählen Sie eine Datei zum Wiederherstellen</string>
 	<string name="read_permission_label">Tasks Zugriffsrechte</string>
-	<string name="read_permission_desc">Aufgaben lesen, Aufgabenfilter anzeigen</string>
 	<string name="write_permission_label">Tasks Zugriffsrechte</string>
-	<string name="write_permission_desc">Aufgaben erstellen, existierende Aufgaben bearbeiten</string>
 	<string name="DLG_delete_this_task_question">Diese Aufgabe löschen?</string>
 	<string name="DLG_upgrading">Ihre Aufgaben werden aktualisiert …</string>
 	<string name="DLG_hour_minutes">Zeit (Stunden : Minuten)</string>

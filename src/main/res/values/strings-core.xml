@@ -6,15 +6,9 @@
   <!-- permission title for READ_TASKS -->
   <string name="read_permission_label">Tasks Permission</string>
   
-  <!-- permission description for READ_TASKS -->
-  <string name="read_permission_desc">read tasks, display task filters</string>
-  
   <!-- permission title for READ_TASKS -->
   <string name="write_permission_label">Tasks Permission</string>
-  
-  <!-- permission description for READ_TASKS -->
-  <string name="write_permission_desc">create new tasks, edit existing tasks</string>
-  
+
   <!-- ================================================== Generic Dialogs == -->
     
   <!-- question for deleting tasks -->

@@ -17,9 +17,7 @@
 	<string name="DLG_error_sdcard_general">Ditt SD-kort er ikke tilgjengelig!</string>
 	<string name="import_file_prompt">Velg fil å gjenopprette</string>
 	<string name="read_permission_label">Tasks Tillatelse</string>
-	<string name="read_permission_desc">les oppgaver, vis oppgavefiltre</string>
 	<string name="write_permission_label">Tasks Tillatelse</string>
-	<string name="write_permission_desc">opprett nye oppgaver, rediger eksisterende oppgaver</string>
 	<string name="DLG_delete_this_task_question">Slett denne oppgaven?</string>
 	<string name="DLG_upgrading">Oppgraderer oppgavene dine...</string>
 	<string name="DLG_hour_minutes">Tid (timer : minutter)</string>

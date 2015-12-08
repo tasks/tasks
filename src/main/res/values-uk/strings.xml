@@ -24,9 +24,7 @@
 	<string name="DLG_error_sdcard_general">Немає доступу до карти SD!</string>
 	<string name="import_file_prompt">Виберіть файл для відновлення</string>
 	<string name="read_permission_label">Дозволи Tasks</string>
-	<string name="read_permission_desc">читання і відображення фільтрів завдань</string>
 	<string name="write_permission_label">Дозволи Tasks</string>
-	<string name="write_permission_desc">створення нових завдань, редагування існуючих завдань</string>
 	<string name="DLG_delete_this_task_question">Видалити цю задачу?</string>
 	<string name="DLG_upgrading">Оновлення ваших завдань...</string>
 	<string name="DLG_hour_minutes">Час (години : хвилини)</string>

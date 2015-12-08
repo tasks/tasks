@@ -21,9 +21,7 @@
 	<string name="DLG_error_sdcard_general">无法访问您的 SD 卡！</string>
 	<string name="import_file_prompt">选取要还原的文件</string>
 	<string name="read_permission_label">清单小助理权限</string>
-	<string name="read_permission_desc">读取任务，显示任务过滤器</string>
 	<string name="write_permission_label">清单小助理权限</string>
-	<string name="write_permission_desc">创建新任务，修改现有任务</string>
 	<string name="DLG_delete_this_task_question">确认删除？</string>
 	<string name="DLG_upgrading">升级您的任务...</string>
 	<string name="DLG_hour_minutes">时间（小时:分钟）</string>

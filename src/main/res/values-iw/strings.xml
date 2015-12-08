@@ -21,9 +21,7 @@
 	<string name="DLG_error_sdcard_general">לא ניתן לגשת לכרטיס ה־SD שלך!</string>
 	<string name="import_file_prompt">נא לבחור קובץ לשחזור</string>
 	<string name="read_permission_label">הרשאות אסטריד</string>
-	<string name="read_permission_desc">קריאת משימות, הצגת מַסְנְנֵי משימות</string>
 	<string name="write_permission_label">הרשאות אסטריד</string>
-	<string name="write_permission_desc">יצירת משימות חדשות, עריכת משימות קיימות.</string>
 	<string name="DLG_delete_this_task_question">למחוק משימה זו?</string>
 	<string name="DLG_upgrading">משדרגת את משימותיך...</string>
 	<string name="DLG_hour_minutes">זמן (שעות : דקות)</string>

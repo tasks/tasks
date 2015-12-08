@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <bool name="billing_enabled">true</bool>
-    <bool name="tasker_available">true</bool>
-</resources>

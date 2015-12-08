@@ -28,9 +28,7 @@
 	<string name="DLG_error_sdcard_general">SD картата не може да бъде достъпена!</string>
 	<string name="import_file_prompt">Изберете файл за възстановяване</string>
 	<string name="read_permission_label">Tasks Разрешение</string>
-	<string name="read_permission_desc">прочети задачи, покажи филтрите на задачата</string>
 	<string name="write_permission_label">Tasks Разрешение</string>
-	<string name="write_permission_desc">създаване на нови задачи, редактиране на съществуващи задачи</string>
 	<string name="DLG_delete_this_task_question">Изтриване на тази задача?</string>
 	<string name="DLG_upgrading">Обновяване на твоите задачи...</string>
 	<string name="DLG_hour_minutes">Време (часове: минути)</string>

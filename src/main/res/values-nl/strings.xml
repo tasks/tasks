@@ -25,9 +25,7 @@
 	<string name="DLG_error_sdcard_general">Toegang tot SD-kaart geweigerd!</string>
 	<string name="import_file_prompt">Selecteer een back-up om te herstellen</string>
 	<string name="read_permission_label">Taak toestemmingen</string>
-	<string name="read_permission_desc">taken lezen, taakfilters weergeven</string>
 	<string name="write_permission_label">Taak toestemmingen</string>
-	<string name="write_permission_desc">nieuwe taken maken, bestaande wijzigen</string>
 	<string name="DLG_delete_this_task_question">Taak verwijderen?</string>
 	<string name="DLG_upgrading">Taken bijwerken...</string>
 	<string name="DLG_hour_minutes">Tijd (uren : minuten)</string>

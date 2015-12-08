@@ -24,9 +24,7 @@
 	<string name="DLG_error_sdcard_general">Impossible d\'accéder à la carte SD !</string>
 	<string name="import_file_prompt">Choisissez un fichier à restaurer</string>
 	<string name="read_permission_label">Permission d\'Tasks</string>
-	<string name="read_permission_desc">lire les tâches, afficher les filtres de tâches</string>
 	<string name="write_permission_label">Permission d\'Tasks</string>
-	<string name="write_permission_desc">créer de nouvelles tâches, modifier les tâches existantes</string>
 	<string name="DLG_delete_this_task_question">Supprimer cette tâche ?</string>
 	<string name="DLG_upgrading">Mise à jour de vos tâches…</string>
 	<string name="DLG_hour_minutes">Temps (heures : minutes)</string>

@@ -12,8 +12,6 @@
 	<string name="import_progress_read">กำลังอ่านแผนงาน %d...</string>
 	<string name="DLG_error_sdcard">ไม่สามารถเข้าถึงแฟ้ม: %s</string>
 	<string name="DLG_error_sdcard_general">ไม่สามารถเข้าถึง SD Card ได้!</string>
-	<string name="read_permission_desc">อ่านแผนงาน, แสดงตัวกรองแผนงาน</string>
-	<string name="write_permission_desc">สร้างแผนงานใหม่, แก้ไขแผนงานเดิม</string>
 	<string name="DLG_delete_this_task_question">ลบงานนี้?</string>
 	<string name="DLG_hour_minutes">เวลา (ชั่วโมง : นาที)</string>
 	<string name="WID_dateButtonUnset">คลิก เพื่อตั้งค่า</string>

@@ -25,9 +25,7 @@
 	<string name="DLG_error_sdcard_general">SDカードにアクセスできません</string>
 	<string name="import_file_prompt">復元に使うファイルを選択してください</string>
 	<string name="read_permission_label">タスクの読み込み</string>
-	<string name="read_permission_desc">タスクの読み込みとフィルタの表示</string>
 	<string name="write_permission_label">タスクの読み込み</string>
-	<string name="write_permission_desc">タスクの作成、編集</string>
 	<string name="DLG_delete_this_task_question">このタスクを削除しますか?</string>
 	<string name="DLG_upgrading">タスクを更新しています</string>
 	<string name="DLG_hour_minutes">時間 (時:分)</string>

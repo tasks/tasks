@@ -25,9 +25,7 @@
 	<string name="DLG_error_sdcard_general">Нет доступа к карте памяти!</string>
 	<string name="import_file_prompt">Выберите файл для восстановления</string>
 	<string name="read_permission_label">Право Tasks</string>
-	<string name="read_permission_desc">чтение и отображение фильтров задач</string>
 	<string name="write_permission_label">Право Tasks</string>
-	<string name="write_permission_desc">создание новых и редактирование существующих задач</string>
 	<string name="DLG_delete_this_task_question">Удалить эту задачу?</string>
 	<string name="DLG_upgrading">Обновление ваших задач…</string>
 	<string name="DLG_hour_minutes">Время (час : мин)</string>

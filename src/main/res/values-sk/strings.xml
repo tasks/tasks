@@ -23,9 +23,7 @@
 	<string name="DLG_error_sdcard_general">Chyba v prístupe k SD karte!</string>
 	<string name="import_file_prompt">Vybrať súbor k obnove</string>
 	<string name="read_permission_label">Tasks povolenia</string>
-	<string name="read_permission_desc">zobraziť úlohy, zobraziť filtre úloh</string>
 	<string name="write_permission_label">Tasks povolenia</string>
-	<string name="write_permission_desc">Vytvoriť nové úlohy, upraviť existujúce úlohy</string>
 	<string name="DLG_delete_this_task_question">Vymazať túto úlohu?</string>
 	<string name="DLG_upgrading">Aktualizácia tvojich úloh...</string>
 	<string name="DLG_hour_minutes">Čas (hodiny : minúty)</string>

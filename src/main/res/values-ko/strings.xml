@@ -28,9 +28,7 @@
 	<string name="DLG_error_sdcard_general">SD 카드에 접근할 수 없습니다!</string>
 	<string name="import_file_prompt">복원할 파일을 선택하세요</string>
 	<string name="read_permission_label">Tasks 권한</string>
-	<string name="read_permission_desc">일정 읽기, 일정 필터 보기</string>
 	<string name="write_permission_label">Tasks 권한</string>
-	<string name="write_permission_desc">새 일정 생성하기, 기존 일정 편집하기</string>
 	<string name="DLG_delete_this_task_question">이 일정을 삭제할까요?</string>
 	<string name="DLG_upgrading">일정 업그레이드 중...</string>
 	<string name="DLG_hour_minutes">시간 (시 : 분)</string>
