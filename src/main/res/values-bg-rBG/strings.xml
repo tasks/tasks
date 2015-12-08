@@ -408,6 +408,12 @@
 	<string name="reverse">Обратно</string>
 	<string name="task_count">%s Задачи</string>
 	<string name="get_plugins">Изтегляне на Plug-in</string>
+	<string name="no_application_found">Не е намерено приложение за отваряне на прикачения файл</string>
+	<string name="add_attachment">Добавяне на прикачен файл</string>
+	<string name="high_priority">Висок</string>
+	<string name="default_priority">По подразбиране</string>
+	<string name="low_priority">Нисък</string>
+	<string name="notification_priority">Приоритет на уведомления</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>изключено</item>
 		<item>на всеки 15 минути</item>

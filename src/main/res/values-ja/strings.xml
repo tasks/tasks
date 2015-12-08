@@ -407,6 +407,12 @@
 	<string name="reverse">逆順</string>
 	<string name="task_count">%s タスク</string>
 	<string name="get_plugins">プラグインを入手</string>
+	<string name="no_application_found">添付ファイルを開くアプリケーションが見つかりません</string>
+	<string name="add_attachment">添付ファイルを追加</string>
+	<string name="high_priority">高</string>
+	<string name="default_priority">デフォルト</string>
+	<string name="low_priority">低</string>
+	<string name="notification_priority">通知優先度</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>無効</item>
 		<item>15分毎</item>

@@ -401,6 +401,12 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="reverse">Contrario</string>
 	<string name="task_count">%s Attività</string>
 	<string name="get_plugins">Carica Plug-in</string>
+	<string name="no_application_found">Nessuna applicazione in grado di aprire l\'allegato </string>
+	<string name="add_attachment">Aggiungi allegato</string>
+	<string name="high_priority">Alta</string>
+	<string name="default_priority">Predefinita</string>
+	<string name="low_priority">Bassa</string>
+	<string name="notification_priority">Priorità avvisi</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>disabilita</item>
 		<item>ogni quindici minuti</item>

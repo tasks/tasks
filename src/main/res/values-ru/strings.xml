@@ -406,6 +406,12 @@
 	<string name="reverse"> Реверс</string>
 	<string name="task_count">%s задач</string>
 	<string name="get_plugins">Получить плагины</string>
+	<string name="no_application_found">Не найдено приложение, позволяющее открыть прикреплённый файл</string>
+	<string name="add_attachment">Прикрепить файл</string>
+	<string name="high_priority">Высокая</string>
+	<string name="default_priority">По умолчанию</string>
+	<string name="low_priority">Низкая</string>
+	<string name="notification_priority">Приоритет уведомлений</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>отключить</item>
 		<item>каждые 15 минут</item>
