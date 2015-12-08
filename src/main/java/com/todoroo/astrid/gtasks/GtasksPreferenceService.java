@@ -55,8 +55,6 @@ public class GtasksPreferenceService {
         preferences.setString(PREF_USER_NAME, userName);
     }
 
-    protected static final String PREF_TOKEN = "_token"; //$NON-NLS-1$
-
     protected static final String PREF_LAST_SYNC = "_last_sync"; //$NON-NLS-1$
 
     protected static final String PREF_ONGOING = "_ongoing"; //$NON-NLS-1$
@@ -66,7 +64,7 @@ public class GtasksPreferenceService {
      */
     public boolean isLoggedIn() {
         return context.getResources().getBoolean(R.bool.sync_enabled) &&
-                preferences.getStringValue(IDENTIFIER + PREF_TOKEN) != null;
+                preferences.getStringValue(PREF_USER_NAME) != null;
     }
 
     /** @return Last Successful Sync Date, or 0 */
