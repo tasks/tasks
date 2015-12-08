@@ -43,7 +43,6 @@
 	<string name="TAd_contextDeleteTask">Удалить задачу</string>
 	<string name="TAd_contextUndeleteTask">Отменить удаление задачи</string>
 	<string name="TAd_contextPurgeTask">Очистить задачу</string>
-	<string name="SSD_deleted">Показать удалённые задачи</string>
 	<string name="SSD_sort_drag">Ручная сортировка с подзадачами</string>
 	<string name="SSD_sort_auto">Умная сортировка</string>
 	<string name="SSD_sort_alpha">По названию</string>
@@ -398,7 +397,6 @@
 	<string name="tag_settings">Настройки тегов</string>
 	<string name="delete">Удалить</string>
 	<string name="filter_settings">Настройки фильтра</string>
-	<string name="deprecated_setting">Эта настройка будет удалена в следующем обновлении</string>
 	<string name="show_hidden">Показать скрытые</string>
 	<string name="show_completed">Показать выполненные</string>
 	<string name="reverse"> Реверс</string>

@@ -43,7 +43,6 @@
 	<string name="TAd_contextDeleteTask">Taak wissen</string>
 	<string name="TAd_contextUndeleteTask">Taak herstellen</string>
 	<string name="TAd_contextPurgeTask">Taak opruimen</string>
-	<string name="SSD_deleted">Verwijderde taken weergeven</string>
 	<string name="SSD_sort_drag">Handmatige volgorde met subtaken</string>
 	<string name="SSD_sort_auto">Slim Sorteren</string>
 	<string name="SSD_sort_alpha">Op titel</string>
@@ -392,7 +391,6 @@
 	<string name="tag_settings">Label Instellingen</string>
 	<string name="delete">Verwijder</string>
 	<string name="filter_settings">Filter instellingen</string>
-	<string name="deprecated_setting">Deze instelling wordt verwijderd in een toekomstige versie</string>
 	<string name="show_hidden">Toon verborgen</string>
 	<string name="show_completed">Toon voltooide</string>
 	<string name="reverse">Omgekeerde</string>

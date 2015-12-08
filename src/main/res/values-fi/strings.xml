@@ -5,7 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
-	<string name="SSD_deleted">Näytä poistetut tehtävät</string>
 	<string name="SSD_sort_drag">Manuaalinen järjestys osatehtäviin</string>
 	<string name="SSD_sort_auto">Älykäs sorttaus</string>
 	<string name="SSD_sort_alpha">Otsikoittain</string>

@@ -41,7 +41,6 @@
 	<string name="TAd_contextDeleteTask">Vymazať úlohu</string>
 	<string name="TAd_contextUndeleteTask">Nevymazať úlohu</string>
 	<string name="TAd_contextPurgeTask">Vyčistiť úlohu</string>
-	<string name="SSD_deleted">Zobraziť vymazané úlohy</string>
 	<string name="SSD_sort_drag">Ručne alebo s pdúlohami</string>
 	<string name="SSD_sort_auto">Chytré triedenie</string>
 	<string name="SSD_sort_alpha">Podľa názvu</string>
@@ -373,7 +372,6 @@
 	<string name="date_shortcut_tomorrow_morning">Zajtra ráno</string>
 	<string name="date_shortcut_tomorrow_afternoon">Zajtra poobede</string>
 	<string name="filter_settings">Nastavenie filtra</string>
-	<string name="deprecated_setting">Toto nastavenie bude nabudúce odstránené</string>
 	<string name="show_hidden">Zobraziť skryté</string>
 	<string name="show_completed">Zobraziť dokončené</string>
 	<string name="task_count">%s úlohy</string>

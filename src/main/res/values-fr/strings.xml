@@ -42,7 +42,6 @@
 	<string name="TAd_contextDeleteTask">Supprimer la tâche</string>
 	<string name="TAd_contextUndeleteTask">Récupérer la tâche</string>
 	<string name="TAd_contextPurgeTask">Purger la tâche</string>
-	<string name="SSD_deleted">Afficher les tâches supprimées</string>
 	<string name="SSD_sort_drag">Ordonner manuellement avec les sous-tâches</string>
 	<string name="SSD_sort_auto">Tri intelligent Tasks</string>
 	<string name="SSD_sort_alpha">Par Titre</string>
@@ -381,7 +380,6 @@
 	<string name="tag_settings">Paramètres des tags</string>
 	<string name="delete">Effacer</string>
 	<string name="filter_settings">Paramètres du filtre</string>
-	<string name="deprecated_setting">Ce paramètre sera supprimé lors d\'une prochaine mise à jour</string>
 	<string name="show_hidden">Afficher les tâches cachées</string>
 	<string name="show_completed">Afficher les tâches terminées</string>
 	<string name="task_count">%s Tâches</string>

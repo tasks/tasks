@@ -39,7 +39,6 @@
 	<string name="TAd_contextDeleteTask">刪除任務工作</string>
 	<string name="TAd_contextUndeleteTask">還原工作刪除</string>
 	<string name="TAd_contextPurgeTask">清除工作</string>
-	<string name="SSD_deleted">顯示已刪除工作</string>
 	<string name="SSD_sort_auto">Tasks智慧排序</string>
 	<string name="SSD_sort_alpha">依主旨</string>
 	<string name="SSD_sort_due">依到期日</string>

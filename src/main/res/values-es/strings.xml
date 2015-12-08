@@ -41,7 +41,6 @@
 	<string name="TAd_contextDeleteTask">Eliminar tarea</string>
 	<string name="TAd_contextUndeleteTask">Restaurar Tarea</string>
 	<string name="TAd_contextPurgeTask">Purgar Tareas</string>
-	<string name="SSD_deleted">Mostrar tareas eliminadas</string>
 	<string name="SSD_sort_drag">Orden manual con subtareas</string>
 	<string name="SSD_sort_auto">Ordenación inteligente</string>
 	<string name="SSD_sort_alpha">Por título</string>
@@ -381,7 +380,6 @@
 	<string name="tag_settings">Configuración de Etiquetas</string>
 	<string name="delete">Eliminar</string>
 	<string name="filter_settings">Configuración de Filtros</string>
-	<string name="deprecated_setting">Esta opción se eliminará en una actualización futura</string>
 	<string name="show_hidden">Mostrar oculto</string>
 	<string name="show_completed">Mostrar completado</string>
 	<string name="reverse">Invertir</string>

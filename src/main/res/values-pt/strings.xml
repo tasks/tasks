@@ -44,7 +44,6 @@
 	<string name="TAd_contextDeleteTask">Eliminar tarefa</string>
 	<string name="TAd_contextUndeleteTask">Recuperar tarefa</string>
 	<string name="TAd_contextPurgeTask">Remover tarefa</string>
-	<string name="SSD_deleted">Mostrar tarefas apagadas</string>
 	<string name="SSD_sort_drag">Ordem manual com subtarefas</string>
 	<string name="SSD_sort_auto">Ordenação Inteligente Tasks</string>
 	<string name="SSD_sort_alpha">Por Título</string>
@@ -392,7 +391,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="tag_settings">Definições de etiquetas</string>
 	<string name="delete">Apagar</string>
 	<string name="filter_settings">Definições de filtro</string>
-	<string name="deprecated_setting">Esta opção será removida no futuro</string>
 	<string name="show_hidden">Mostrar ocultas</string>
 	<string name="show_completed">Mostrar terminadas</string>
 	<string name="reverse">Reverter</string>

@@ -22,7 +22,6 @@ import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.reminders.ReminderPreferences;
 
 import org.slf4j.Logger;
@@ -104,8 +103,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
             if (data.getBooleanExtra(AppearancePreferences.FILTERS_CHANGED, false)) {
                 refresh();
             }
-            if (data.getBooleanExtra(AppearancePreferences.FORCE_REFRESH, false) ||
-                    data.getBooleanExtra(OldTaskPreferences.TOGGLE_DELETED, false)) {
+            if (data.getBooleanExtra(AppearancePreferences.FORCE_REFRESH, false)) {
                 getActivity().finish();
                 getActivity().startActivity(getActivity().getIntent());
                 refresh();

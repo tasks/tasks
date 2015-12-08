@@ -16,7 +16,6 @@
 	<string name="TAd_contextDeleteTask">Feladat törlése</string>
 	<string name="TAd_contextUndeleteTask">Feladat törlésének visszavonása</string>
 	<string name="TAd_contextPurgeTask">Feladat eltávolítása</string>
-	<string name="SSD_deleted">Törölt feladatok mutatása</string>
 	<string name="SSD_sort_drag">Manuális sorrend részfeladatokkal</string>
 	<string name="SSD_sort_auto">Intelligens rendezés</string>
 	<string name="SSD_sort_alpha">Név alapján</string>
@@ -143,7 +142,6 @@
 	<string name="date_shortcut_tomorrow_morning">Holnap reggel</string>
 	<string name="date_shortcut_tomorrow_afternoon">Holnap délután</string>
 	<string name="filter_settings">Szűrő beállítások</string>
-	<string name="deprecated_setting">Ez a beállítás el lesz távolítva egy későbbi frissítésben</string>
 	<string name="show_hidden">Rejtettek mutatása</string>
 	<string name="show_completed">Befejezettek mutatása</string>
 	<string name="task_count">%s feladatok</string>

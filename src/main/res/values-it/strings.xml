@@ -43,7 +43,6 @@
 	<string name="TAd_contextDeleteTask">Elimina attività</string>
 	<string name="TAd_contextUndeleteTask">Ripristina Attività</string>
 	<string name="TAd_contextPurgeTask">Elimina Attività</string>
-	<string name="SSD_deleted">Mostra Attività Cancellate</string>
 	<string name="SSD_sort_drag">Ordinamento manuale con attività correlate</string>
 	<string name="SSD_sort_auto">Ordinamento Intelligente</string>
 	<string name="SSD_sort_alpha">Per Titotlo</string>
@@ -393,7 +392,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="tag_settings">Imposta etichetta</string>
 	<string name="delete">Elimina</string>
 	<string name="filter_settings">Preferenze di filtro</string>
-	<string name="deprecated_setting">L\'impostazione non sarà presente nel prossimo aggiornamento</string>
 	<string name="show_hidden">Mostra nascoste</string>
 	<string name="show_completed">Mostra completate</string>
 	<string name="reverse">Contrario</string>

@@ -26,7 +26,6 @@
 	<string name="TAd_contextCopyTask">کپی وظایف</string>
 	<string name="TAd_contextDeleteTask">حذف وظیفه</string>
 	<string name="TAd_contextUndeleteTask">بازگرداندن وظیفه حذف شده</string>
-	<string name="SSD_deleted">نمایش وظایف حذف شده</string>
 	<string name="SSD_sort_drag">چینش دستی بهمراه زیروظایف</string>
 	<string name="SSD_sort_auto">چینش هوشمندانه</string>
 	<string name="SSD_sort_alpha">براساس موضوع</string>
@@ -290,7 +289,6 @@
 	<string name="tag_settings">تنظیمات تگ</string>
 	<string name="delete">حذف</string>
 	<string name="filter_settings">تنظیمات فیلتر</string>
-	<string name="deprecated_setting">این تنظیم در نسخه بروزرسانی بعدی حذف خواهد شد</string>
 	<string name="show_hidden">نمایش مخفی ها</string>
 	<string name="show_completed">نمایش انجام شده ها</string>
 	<string name="reverse">برعکس</string>

@@ -46,7 +46,6 @@
 	<string name="TAd_contextDeleteTask">일정 지우기</string>
 	<string name="TAd_contextUndeleteTask">일정 복구하기</string>
 	<string name="TAd_contextPurgeTask">일정 비우기</string>
-	<string name="SSD_deleted">지운 일정 보기</string>
 	<string name="SSD_sort_drag">수동 정렬 (하위일정 포함)</string>
 	<string name="SSD_sort_auto">Tasks 스마트 정렬</string>
 	<string name="SSD_sort_alpha">제목 순서</string>
@@ -401,7 +400,6 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	<string name="tag_settings">태그 설정</string>
 	<string name="delete">삭제</string>
 	<string name="filter_settings">필터 설정</string>
-	<string name="deprecated_setting">이 설정은 추후 업데이트시 삭제될 예정입니다</string>
 	<string name="show_hidden">숨겨진 일정 표시</string>
 	<string name="show_completed">완료된 일정 표시</string>
 	<string name="reverse">반전</string>

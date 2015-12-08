@@ -238,7 +238,6 @@
   <string name="p_geofence_radius">geolocation_radius</string>
   <string name="p_geofence_responsiveness">geofence_responsiveness</string>
   <string name="p_geofence_reminders_enabled">geofence_reminders_enabled</string>
-  <string name="p_show_deleted_tasks">show_deleted_tasks</string>
   <string name="p_show_hidden_tasks">show_hidden_tasks</string>
   <string name="p_show_completed_tasks">show_completed_tasks</string>
   <string name="p_reverse_sort">reverse_sort</string>

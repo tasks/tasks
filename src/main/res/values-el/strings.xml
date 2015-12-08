@@ -37,7 +37,6 @@
 	<string name="TAd_deletedFormat">%s [διαγράφηκε]</string>
 	<string name="TAd_actionEditTask">Επεξεργασία</string>
 	<string name="TAd_contextCopyTask">Αντιγραφή εργασίας</string>
-	<string name="SSD_deleted">Εμφάνιση διεγραμμένων καθηκόντων</string>
 	<string name="SSD_sort_drag">Χειροκίνητη κατάταξη με υποκαθήκοντα</string>
 	<string name="SSD_sort_auto">Έξυπνη ταξινόμηση</string>
 	<string name="SSD_sort_alpha">Με βάση τον τίτλο</string>

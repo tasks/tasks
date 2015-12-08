@@ -71,9 +71,6 @@
   
   <!-- ============================================== SortSelectionDialog == -->
   
-  <!-- Hidden Task Selection: show deleted tasks -->
-  <string name="SSD_deleted">Show deleted tasks</string>
-  
   <!-- Sort Selection: drag with subtasks -->
   <string name="SSD_sort_drag">Manual order with subtasks</string>
   

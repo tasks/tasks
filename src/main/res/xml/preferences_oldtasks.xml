@@ -6,12 +6,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/EPr_manage_header">
 
-    <com.todoroo.astrid.ui.MultilineCheckboxPreference
-        android:defaultValue="false"
-        android:key="@string/p_show_deleted_tasks"
-        android:summary="@string/deprecated_setting"
-        android:title="@string/SSD_deleted" />
-
     <com.todoroo.astrid.ui.MultilinePreference
         android:key="@string/EPr_manage_delete_completed"
         android:title="@string/EPr_manage_delete_completed">

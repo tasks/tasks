@@ -115,7 +115,6 @@
     <string name="tag_settings">Tag Settings</string>
     <string name="delete">Delete</string>
     <string name="filter_settings">Filter Settings</string>
-    <string name="deprecated_setting">This setting will be removed in a future update</string>
     <string name="show_hidden">Show hidden</string>
     <string name="show_completed">Show completed</string>
     <string name="reverse">Reverse</string>

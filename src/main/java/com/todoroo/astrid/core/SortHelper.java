@@ -59,10 +59,6 @@ public class SortHelper {
             originalSql = originalSql.replace(TaskCriteria.isVisible().toString(),
                     Criterion.all.toString());
         }
-        if (preferences.getBoolean(R.string.p_show_deleted_tasks, false)) {
-            originalSql = originalSql.replace(Task.DELETION_DATE.eq(0).toString(),
-                    Criterion.all.toString());
-        }
 
         return originalSql;
     }
