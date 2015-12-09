@@ -52,6 +52,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.txt'
             signingConfig signingConfigs.release
         }
+        // https://code.google.com/p/android/issues/detail?id=123771
+        debuggable.initWith(buildTypes.debug)
+        debuggable {
+            testCoverageEnabled false
+        }
     }
 
     if (project.hasProperty('keyAlias') &&
