@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.util.Collections;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Wrapper around the official Google Tasks API to simplify common operations. In the case
@@ -32,6 +33,7 @@ import javax.inject.Inject;
  *
  * @author Sam Bosley
  */
+@Singleton
 public class GtasksInvoker {
 
     private static final Logger log = LoggerFactory.getLogger(GtasksInvoker.class);
@@ -43,11 +45,15 @@ public class GtasksInvoker {
     @Inject
     public GtasksInvoker(@ForApplication Context context, GtasksPreferenceService preferenceService, AccountManager accountManager) {
         this.accountManager = accountManager;
-        credential = GoogleAccountCredential.usingOAuth2(context, Collections.singletonList(TasksScopes.TASKS))
-                .setSelectedAccountName(preferenceService.getUserName());
+        credential = GoogleAccountCredential.usingOAuth2(context, Collections.singletonList(TasksScopes.TASKS));
+        setUserName(preferenceService.getUserName());
         service = new Tasks.Builder(new NetHttpTransport(), new JacksonFactory(), credential)
                 .setApplicationName(String.format("Tasks/%s", BuildConfig.VERSION_NAME))
                 .build();
+    }
+
+    public void setUserName(String username) {
+        credential.setSelectedAccountName(username);
     }
 
     //If we get a 401 or 403, try revalidating the auth token before bailing
@@ -118,7 +124,7 @@ public class GtasksInvoker {
                 .delete(listId, taskId));
     }
 
-    private <T> T execute(TasksRequest<T> request) throws IOException {
+    private synchronized <T> T execute(TasksRequest<T> request) throws IOException {
         String caller = getCaller();
         log.debug("{} request: {}", caller, request);
         T response;

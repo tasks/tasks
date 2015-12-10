@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
+import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 
 import org.tasks.AccountManager;
 import org.tasks.R;
@@ -36,6 +37,7 @@ public class GtasksLoginActivity extends InjectingAppCompatActivity implements A
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject DialogBuilder dialogBuilder;
     @Inject AccountManager accountManager;
+    @Inject GtasksInvoker gtasksInvoker;
 
     private String accountName;
 
@@ -72,6 +74,7 @@ public class GtasksLoginActivity extends InjectingAppCompatActivity implements A
             @Override
             public void authenticationSuccessful(String accountName, String authToken) {
                 gtasksPreferenceService.setUserName(accountName);
+                gtasksInvoker.setUserName(accountName);
                 setResult(RESULT_OK);
                 finish();
                 DialogUtilities.dismissDialog(GtasksLoginActivity.this, pd);
