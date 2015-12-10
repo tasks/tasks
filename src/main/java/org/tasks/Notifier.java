@@ -337,7 +337,7 @@ public class Notifier {
         }
 
         if (preferences.getBoolean(R.string.p_rmd_vibrate, true) && soundIntervalOk) {
-            notification.vibrate = new long[]{0, 1000, 500, 1000, 500, 1000};
+            notification.vibrate = preferences.getVibrationPattern();
         } else {
             notification.vibrate = null;
         }

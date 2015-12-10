@@ -328,7 +328,6 @@
 	<string name="notifications">Notificaciones</string>
 	<string name="silent">Silencioso</string>
 	<string name="sound">Sonido</string>
-	<string name="vibrate">Vibrar</string>
 	<string name="quiet_hours">Horario en silencio</string>
 	<string name="attachment_directory">Directorio de archivos adjuntos</string>
 	<string name="backup_directory">Directorio de la copia de seguridad</string>

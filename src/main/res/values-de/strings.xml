@@ -326,7 +326,6 @@
 	<string name="notifications">Benachrichtigungen</string>
 	<string name="silent">Ton Aus</string>
 	<string name="sound">Ton</string>
-	<string name="vibrate">Vibrieren</string>
 	<string name="quiet_hours">Ruhezeiten</string>
 	<string name="attachment_directory">Anhängeordner</string>
 	<string name="backup_directory">Sicherungsordner</string>

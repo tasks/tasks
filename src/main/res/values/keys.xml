@@ -43,7 +43,10 @@
   
   <!-- whether to vibrate phone when reminder fires -->
   <string name="p_rmd_vibrate">notif_vibrate</string>
-  
+  <string name="p_vibrate_count">vibrate_count</string>
+  <string name="p_vibrate_duration">vibrate_duration</string>
+  <string name="p_vibrate_pause">vibrate_pause</string>
+
   <!-- ringtone to use for notifications -->
   <string name="p_rmd_ringtone">notification_ringtone</string>
   
@@ -275,5 +278,9 @@
     <item>0</item>
     <item>-1</item>
   </string-array>
+
+  <string name="default_vibration_count">3</string>
+  <string name="default_vibration_duration">1000</string>
+  <string name="default_vibration_pause">500</string>
 
 </resources>

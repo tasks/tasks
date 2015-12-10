@@ -330,7 +330,6 @@
 	<string name="notifications">Oznámenia</string>
 	<string name="silent">Tichý</string>
 	<string name="sound">Zvuk</string>
-	<string name="vibrate">Vybrácia</string>
 	<string name="quiet_hours">Tiché hodiny</string>
 	<string name="attachment_directory">Príloha adresára</string>
 	<string name="backup_directory">Zalóhovať adresár</string>

@@ -341,7 +341,6 @@
 	<string name="notifications">Notificaties</string>
 	<string name="silent">Stil</string>
 	<string name="sound">Geluid</string>
-	<string name="vibrate">Trillen</string>
 	<string name="quiet_hours">Rustperiode</string>
 	<string name="attachment_directory">Bijlage directory</string>
 	<string name="debug_logging">Fouten loggen</string>

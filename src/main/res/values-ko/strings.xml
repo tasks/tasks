@@ -347,7 +347,6 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	<string name="notifications">알림</string>
 	<string name="silent">무음</string>
 	<string name="sound">소리</string>
-	<string name="vibrate">진동</string>
 	<string name="quiet_hours">무음 시간대</string>
 	<string name="attachment_directory">첨부파일 위치</string>
 	<string name="backup_directory">백업 위치</string>

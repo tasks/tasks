@@ -340,7 +340,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="notifications">Notifiche</string>
 	<string name="silent">Silente</string>
 	<string name="sound">Sonoro</string>
-	<string name="vibrate">Vibrazione</string>
 	<string name="quiet_hours">Ore di quiete</string>
 	<string name="attachment_directory">Cartella allegati</string>
 	<string name="backup_directory">Cartella di Backup</string>

@@ -338,7 +338,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="notifications">Notificações</string>
 	<string name="silent">Silêncio</string>
 	<string name="sound">Som</string>
-	<string name="vibrate">Vibrar</string>
 	<string name="quiet_hours">Horas de silêncio</string>
 	<string name="attachment_directory">Diretório do anexo</string>
 	<string name="backup_directory">Diretório de backup</string>

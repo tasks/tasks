@@ -345,7 +345,6 @@
 	<string name="notifications">通知</string>
 	<string name="silent">サイレント</string>
 	<string name="sound">サウンド</string>
-	<string name="vibrate">振動</string>
 	<string name="quiet_hours">消音時間</string>
 	<string name="attachment_directory">添付ディレクトリ</string>
 	<string name="backup_directory">ディレクトリをバックアップ</string>

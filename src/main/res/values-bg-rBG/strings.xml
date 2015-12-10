@@ -346,7 +346,6 @@
 	<string name="notifications">Уведомления</string>
 	<string name="silent">Безшумен</string>
 	<string name="sound">Звук</string>
-	<string name="vibrate">Вибрация</string>
 	<string name="quiet_hours">Тихи часове</string>
 	<string name="attachment_directory">Директория за прикачени файлове</string>
 	<string name="backup_directory">Директория за резервни копия</string>

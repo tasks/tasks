@@ -247,7 +247,6 @@
 	<string name="notifications">اعلان ها</string>
 	<string name="silent">سکوت</string>
 	<string name="sound">صدا</string>
-	<string name="vibrate">ویبره</string>
 	<string name="quiet_hours">ساعات سکوت</string>
 	<string name="backup_directory">پشتیبان گیری از پوشه</string>
 	<string name="miscellaneous">سایر</string>

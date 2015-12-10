@@ -329,7 +329,6 @@
 	<string name="widget_transparent_background">Fond transparent</string>
 	<string name="silent">Silencieux</string>
 	<string name="sound">Son</string>
-	<string name="vibrate">Vibrer</string>
 	<string name="quiet_hours">Heures de repos</string>
 	<string name="attachment_directory">Dossier pour les fichiers attachés</string>
 	<string name="backup_directory">Dossier de sauvegarde</string>

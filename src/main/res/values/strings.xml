@@ -62,7 +62,7 @@
     <string name="notifications">Notifications</string>
     <string name="silent">Silent</string>
     <string name="sound">Sound</string>
-    <string name="vibrate">Vibrate</string>
+    <string name="vibrations">Vibrations</string>
     <string name="quiet_hours">Quiet hours</string>
     <string name="attachment_directory">Attachment directory</string>
     <string name="backup_directory">Backup directory</string>
@@ -126,6 +126,9 @@
     <string name="default_priority">Default</string>
     <string name="low_priority">Low</string>
     <string name="notification_priority">Notification Priority</string>
+    <string name="vibration_count">Number of vibrations</string>
+    <string name="vibration_duration">Length of each vibration (milliseconds)</string>
+    <string name="vibration_pause">Pause between vibrations (milliseconds)</string>
 
     <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->

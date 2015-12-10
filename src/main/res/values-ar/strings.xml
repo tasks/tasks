@@ -210,7 +210,6 @@
 	<string name="notifications">تنبيهات</string>
 	<string name="silent">الصمت</string>
 	<string name="sound">صوت</string>
-	<string name="vibrate">اهتزاز</string>
 	<string name="quiet_hours">الساعات الهادئة</string>
 	<string name="synchronization">التزامن</string>
 	<string name="enabled">تفعيل</string>
