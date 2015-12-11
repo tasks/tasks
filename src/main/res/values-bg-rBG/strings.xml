@@ -232,7 +232,6 @@
 	<string name="gtasks_GLA_authenticating">Удостоверява се...</string>
 	<string name="gtasks_GLA_errorIOAuth">Съжаляваме, ние имахме проблем с комуникацията със сървърите на Google. Моля, опитайте отново по-късно.</string>
 	<string name="gtasks_error_accountNotFound">Акаунт %s не е намерен-моля да излезнете и да влязнете отново от настройките на Google Tasks.</string>
-	<string name="locale_notification">Вие имате $NUM съвпадения: $FILTER</string>
 	<string name="premium_record_audio">Запис на бележка</string>
 	<string name="premium_remove_file_confirm">Сигурни ли сте? Не може да бъде отменено</string>
 	<string name="audio_recording_title">Записване на Аудио</string>
@@ -297,7 +296,6 @@
 		<item>от краен срок</item>
 		<item>от датата на завършване</item>
 	</string-array>
-	<string name="repeat_detail_byday">$I на $D</string>
 	<string name="repeat_detail_duedate">Всеки %s</string>
 	<string name="repeat_detail_duedate_until">Всеки %1$s\nдо %2$s</string>
 	<string name="repeat_forever">Повтаряй завинаги</string>

@@ -184,7 +184,6 @@
 	<string name="gtasks_GLA_errorIOAuth">Üzgünüm, Google sunucuları ile bağlanmakta sıkıntı yaşıyoruz. Lütfen daha sonra yeniden deneyin.</string>
 	<string name="gtasks_GPr_header">Google Görevleri (Beta!)</string>
 	<string name="gtasks_error_accountNotFound">%s hesabı bulunamadı--lütfen çıkış yapıp Google Görev ayarlarından tekrar giriş yapın.</string>
-	<string name="locale_notification">$FILTER konumunda $NUM var</string>
 	<string name="premium_record_audio">Bir not kaydet</string>
 	<string name="premium_remove_file_confirm">Emin misiniz? Geri döndürülemez</string>
 	<string name="audio_recording_title">Ses Kaydediliyor</string>
@@ -244,7 +243,6 @@
 		<item>son tarihten itibaren</item>
 		<item>tamamlanma tarihinden itibaren</item>
 	</string-array>
-	<string name="repeat_detail_byday">$I gün: $D</string>
 	<string name="repeat_detail_duedate">Her %s</string>
 	<string name="repeat_detail_duedate_until">Her %1$s\n%2$s \'e kadar</string>
 	<string name="repeat_forever">Sürekli yinele</string>

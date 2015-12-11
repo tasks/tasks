@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-  <!-- Locale Notification text -->
-  <string name="locale_notification">You have $NUM matching: $FILTER</string>     
-      
-</resources>

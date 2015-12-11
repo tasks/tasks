@@ -217,7 +217,6 @@
 	<string name="gtasks_GLA_errorIOAuth">Prepáč, nastal problém v komunikácii s Google serverom. Prosím, skús to znovu neskôr.</string>
 	<string name="gtasks_GPr_header">Úlohy Google</string>
 	<string name="gtasks_error_accountNotFound">Účet %s sa nenašiel--prosím, odhlás sa a znovu prihlás v nastaveniach Úlohy Google.</string>
-	<string name="locale_notification">Máš $NUM so značkou $FILTER</string>
 	<string name="premium_record_audio">Nahrať poznámku</string>
 	<string name="premium_remove_file_confirm">Naozaj? Nedá sa vrátiť</string>
 	<string name="audio_recording_title">Nahrávanie zvuku</string>
@@ -282,7 +281,6 @@
 		<item>od dátumu ukončenia</item>
 		<item>od dátumu dokončenia</item>
 	</string-array>
-	<string name="repeat_detail_byday">$I na $D</string>
 	<string name="repeat_detail_duedate">Každý %s</string>
 	<string name="repeat_detail_duedate_until">Každý %1$s\ndo %2$s</string>
 	<string name="repeat_forever">Opakovať donekonečna</string>

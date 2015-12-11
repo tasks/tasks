@@ -230,7 +230,6 @@
 	<string name="gtasks_GLA_authenticating">Авторизация...</string>
 	<string name="gtasks_GLA_errorIOAuth">При обращении к серверам Google возникли проблемы. Пожалуйста, попробуйте позже.</string>
 	<string name="gtasks_error_accountNotFound">Учетная запись %s не найдена--пожалуйста, выйдите и войдите снова через настройки Google Tasks.</string>
-	<string name="locale_notification">Число соответствий для  $FILTER: $NUM</string>
 	<string name="premium_record_audio">Записать заметку</string>
 	<string name="premium_remove_file_confirm">Вы уверены? Это действия нельзя отменить.</string>
 	<string name="audio_recording_title">Запись голоса.</string>
@@ -295,7 +294,6 @@
 		<item>с намеченного времени</item>
 		<item>со времени завершения</item>
 	</string-array>
-	<string name="repeat_detail_byday">$I каждый $D</string>
 	<string name="repeat_detail_duedate">С интервалом %s</string>
 	<string name="repeat_detail_duedate_until">\"Каждые  %1$s до %2$s\"</string>
 	<string name="repeat_forever">Повторять всегда</string>

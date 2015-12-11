@@ -203,7 +203,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="gtasks_GLA_errorIOAuth">Vi hade problem med förbindelsen till Googles servrar. Försök igen senare.</string>
 	<string name="gtasks_GPr_header">Google Uppgifter</string>
 	<string name="gtasks_error_accountNotFound">Kontot %s kunde inte hittas. Logga ut och in på nytt i inställningarna för Google Uppgifter.</string>
-	<string name="locale_notification">Du har $NUM som matchar: $FILTER</string>
 	<string name="premium_record_audio">Spela in en anteckning</string>
 	<string name="premium_remove_file_confirm">Är du säker? Detta kan inte ångras</string>
 	<string name="audio_recording_title">Spelar in ljud</string>
@@ -264,7 +263,6 @@ och återställer dina aktuella uppgifter från en backup
 		<item>från förfallodatumet</item>
 		<item>från avslutningsdatumet</item>
 	</string-array>
-	<string name="repeat_detail_byday">$I på $D</string>
 	<string name="repeat_detail_duedate">Varje %s</string>
 	<string name="repeat_detail_duedate_until">Varje %1$s\ntill %2$s </string>
 	<string name="repeat_forever">Repetera oändligt</string>

@@ -213,7 +213,6 @@
 	<string name="gtasks_GLA_authenticating">Authentifizierung ...</string>
 	<string name="gtasks_GLA_errorIOAuth">Entschuldigung, während der Kommunikation mit den Google-Servern ist ein Problem aufgetreten. Bitte versuchen Sie es später noch einmal.</string>
 	<string name="gtasks_error_accountNotFound">Konto %s nicht gefunden. Bitte ausloggen und erneut einloggen über die Einstellungen von Google Tasks.</string>
-	<string name="locale_notification">Du hast $NUM Übereinstimmungen mit: $FILTER</string>
 	<string name="premium_record_audio">Notiz aufzeichnen</string>
 	<string name="premium_remove_file_confirm">Sind Sie sicher? Das kann nicht rückgängig gemacht werden</string>
 	<string name="audio_recording_title">Audio aufnehmen</string>
@@ -278,7 +277,6 @@
 		<item>bei Fälligkeit</item>
 		<item>bei Erledigung</item>
 	</string-array>
-	<string name="repeat_detail_byday">$D jede $I</string>
 	<string name="repeat_detail_duedate">Jede(n) %s</string>
 	<string name="repeat_detail_duedate_until">Jede(n) %1$s\nbis %2$s</string>
 	<string name="repeat_forever">Endlos wiederholen</string>

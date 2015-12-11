@@ -55,8 +55,6 @@ public class AstridTranslationTest extends TranslationTests {
 
         forEachLocale(new Runnable() {
             public void run() {
-                contains(r, R.string.locale_notification, failures, "$NUM", "$FILTER");
-                contains(r, R.string.repeat_detail_byday, failures, "$I", "$D");
                 contains(r, R.string.CFC_tag_text, failures, "?");
                 contains(r, R.string.CFC_title_contains_text, failures, "?");
                 contains(r, R.string.CFC_dueBefore_text, failures, "?");

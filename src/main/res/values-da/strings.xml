@@ -111,7 +111,6 @@
 	<string name="gcal_TEA_showCalendar_label">Åbn kalender-begivenhed</string>
 	<string name="gcal_completed_title">%s (fuldført)</string>
 	<string name="gtasks_GPr_header">Google Tasks (beta!)</string>
-	<string name="locale_notification">Du har $NUM der matcher: $FILTER</string>
 	<string-array name="TEA_reminder_random">
 		<item>en time</item>
 		<item>en dag</item>
@@ -131,7 +130,6 @@
 	<string name="repeat_interval_prompt">Interval for gentagelse</string>
 	<string name="repeat_never">Gentages ikke</string>
 	<string name="repeat_dont">Gentag ikke</string>
-	<string name="repeat_detail_byday">$I på $D</string>
 	<string name="repeat_detail_duedate">Hver %s</string>
 	<string name="repeat_detail_duedate_until">Hver %1$s\nindtil %2$s</string>
 	<string name="repeat_forever">Gentag uendeligt</string>

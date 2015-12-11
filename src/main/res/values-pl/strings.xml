@@ -209,7 +209,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="gtasks_GLA_errorIOAuth">Przepraszamy, mieliśmy problem z porozumieniem się z serwerami Google. Prosimy spróbować ponownie.</string>
 	<string name="gtasks_GPr_header">Zadania Google</string>
 	<string name="gtasks_error_accountNotFound">Nie znaleziono konta %s --proszę wyloguj się i zaloguj ponownie w ustawieniach Google Zadań.</string>
-	<string name="locale_notification">Masz $NUM pasujących: $FILTER</string>
 	<string name="premium_record_audio">Nagraj notatkę</string>
 	<string name="premium_remove_file_confirm">Jesteś pewny? Tych zmian nie można odwrócić</string>
 	<string name="audio_recording_title">Nagrywanie dźwięku</string>
@@ -270,7 +269,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 		<item>od planowanego terminu</item>
 		<item>od daty ukończenia</item>
 	</string-array>
-	<string name="repeat_detail_byday">$I w $D</string>
 	<string name="repeat_detail_duedate">Każdy %s</string>
 	<string name="repeat_detail_duedate_until">Co %1$s\ndo %2$s</string>
 	<string name="repeat_forever">Powtarzaj bez końca</string>

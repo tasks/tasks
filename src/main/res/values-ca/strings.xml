@@ -130,7 +130,6 @@
 	<string name="gtasks_GTA_clearing">S\'estan netejant les tasques completades...</string>
 	<string name="gtasks_GTA_clear_completed">Neteja les tasques completades</string>
 	<string name="gtasks_GLA_authenticating">S\'està autenticant...</string>
-	<string name="locale_notification">Té $NUM coincidència: $FILTER</string>
 	<string name="rmd_NoA_done">Acabat</string>
 	<string name="rmd_NoA_snooze">Adorm</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Inici de Silenci</string>
@@ -143,7 +142,6 @@
 	<string name="repeat_every">Cada %d</string>
 	<string name="repeat_interval_prompt">Interval de Repecitiò</string>
 	<string name="repeat_never">Sense repetir</string>
-	<string name="repeat_detail_byday">$I en $D</string>
 	<string name="repeat_detail_duedate">Cada %s</string>
 	<string name="repeat_detail_duedate_until">Cada %1$s\nfins %2$s</string>
 	<string name="repeat_forever">Repeteix indefinidament</string>
