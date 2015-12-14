@@ -72,7 +72,7 @@ public class DeviceInfo {
                     "",
                     "----------",
                     "Tasks: " + BuildConfig.VERSION_NAME + " (" + BuildConfig.FLAVOR + " build " + BuildConfig.VERSION_CODE + ")",
-                    "Android: " + Build.VERSION.RELEASE,
+                    "Android: " + Build.VERSION.RELEASE + " (" + Build.DISPLAY + ")",
                     "Model: " + Build.MANUFACTURER + " " + Build.MODEL,
                     "Product: " + Build.PRODUCT + " (" + Build.DEVICE + ")",
                     "Kernel: " + System.getProperty("os.version") + " (" + Build.VERSION.INCREMENTAL + ")",
