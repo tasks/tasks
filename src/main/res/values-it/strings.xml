@@ -338,6 +338,7 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="notifications">Notifiche</string>
 	<string name="silent">Silente</string>
 	<string name="sound">Sonoro</string>
+	<string name="vibrations">Vibrazioni</string>
 	<string name="quiet_hours">Ore di quiete</string>
 	<string name="attachment_directory">Cartella allegati</string>
 	<string name="backup_directory">Cartella di Backup</string>
@@ -400,6 +401,9 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="default_priority">Predefinita</string>
 	<string name="low_priority">Bassa</string>
 	<string name="notification_priority">Priorità avvisi</string>
+	<string name="vibration_count">Numero di vibrazioni</string>
+	<string name="vibration_duration">Durata di ogni vibrazione (millisecondi)</string>
+	<string name="vibration_pause">Durata intervallo vibrazioni (millisecondi)</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>disabilita</item>
 		<item>ogni quindici minuti</item>

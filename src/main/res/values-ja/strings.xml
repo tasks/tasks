@@ -343,6 +343,7 @@
 	<string name="notifications">通知</string>
 	<string name="silent">サイレント</string>
 	<string name="sound">サウンド</string>
+	<string name="vibrations">振動</string>
 	<string name="quiet_hours">消音時間</string>
 	<string name="attachment_directory">添付ディレクトリ</string>
 	<string name="backup_directory">ディレクトリをバックアップ</string>
@@ -406,6 +407,9 @@
 	<string name="default_priority">デフォルト</string>
 	<string name="low_priority">低</string>
 	<string name="notification_priority">通知優先度</string>
+	<string name="vibration_count">振動の数</string>
+	<string name="vibration_duration">それぞれの振動の長さ (ミリ秒)</string>
+	<string name="vibration_pause">振動の間のポーズ (ミリ秒)</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>無効</item>
 		<item>15分毎</item>

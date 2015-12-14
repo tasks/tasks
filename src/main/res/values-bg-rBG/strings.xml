@@ -344,6 +344,7 @@
 	<string name="notifications">Уведомления</string>
 	<string name="silent">Безшумен</string>
 	<string name="sound">Звук</string>
+	<string name="vibrations">Вибрации</string>
 	<string name="quiet_hours">Тихи часове</string>
 	<string name="attachment_directory">Директория за прикачени файлове</string>
 	<string name="backup_directory">Директория за резервни копия</string>
@@ -407,6 +408,9 @@
 	<string name="default_priority">По подразбиране</string>
 	<string name="low_priority">Нисък</string>
 	<string name="notification_priority">Приоритет на уведомления</string>
+	<string name="vibration_count">Брой вибрации</string>
+	<string name="vibration_duration">Продължителност на всяка вибрация (милисекунди)</string>
+	<string name="vibration_pause">Пауза между вибрациите (милисекунди)</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>изключено</item>
 		<item>на всеки 15 минути</item>

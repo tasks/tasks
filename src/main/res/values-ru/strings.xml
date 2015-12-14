@@ -342,6 +342,7 @@
 	<string name="notifications">Уведомления</string>
 	<string name="silent">Без звука</string>
 	<string name="sound">Звук</string>
+	<string name="vibrations">Вибро</string>
 	<string name="quiet_hours">Тихие часы:</string>
 	<string name="attachment_directory">Путь к вложениям</string>
 	<string name="backup_directory">Папка резервных копий</string>
@@ -405,6 +406,9 @@
 	<string name="default_priority">По умолчанию</string>
 	<string name="low_priority">Низкая</string>
 	<string name="notification_priority">Приоритет уведомлений</string>
+	<string name="vibration_count">Количество вибраций</string>
+	<string name="vibration_duration">Продолжительность каждой вибрации (миллисекунды)</string>
+	<string name="vibration_pause">Пауза между вибрациями (миллисекунды)</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>отключить</item>
 		<item>каждые 15 минут</item>
