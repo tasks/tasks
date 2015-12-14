@@ -5,8 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
-	<string name="actfm_picture_camera">Zrób zdjęcie</string>
-	<string name="actfm_picture_gallery">Wybierz z galerii</string>
 	<string name="actfm_picture_clear">Usuń obrazek</string>
 	<string name="TVA_add_comment">Dodaj komentarz...</string>
 	<string name="backup_BPr_header">Kopie zapasowe</string>
@@ -217,8 +215,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="file_browser_title">Wybierz plik</string>
 	<string name="dir_browser_title">Wybierz katalog</string>
 	<string name="file_browser_err_permissions">Błąd dostępu! Proszę upewnić się, że Tasks nie ma zablokowanego dostępu do karty SD.</string>
-	<string name="file_add_picture">Dodaj obrazek</string>
-	<string name="file_add_sdcard">Dodaj plik z karty SD</string>
 	<string name="file_err_copy">Błąd kopiowania pliku do załącznika</string>
 	<string name="file_dir_dialog_ok">Użycie tego katalogu</string>
 	<string name="file_dir_dialog_default">Przywróć ustawienia domyślne</string>

@@ -5,8 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
-	<string name="actfm_picture_camera">사진 찍기</string>
-	<string name="actfm_picture_gallery">갤러리에서 가져오기</string>
 	<string name="actfm_picture_clear">사진 제거하기</string>
 	<string name="TVA_add_comment">댓글 쓰기...</string>
 	<string name="name">이름</string>
@@ -243,8 +241,6 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	<string name="file_browser_title">파일 선택하기</string>
 	<string name="dir_browser_title">디렉토리 선택하기</string>
 	<string name="file_browser_err_permissions">권한 에러! Tasks가 SD 카드에 접근하는 것을 막지 않았는지 확인하세요.</string>
-	<string name="file_add_picture">그림 첨부하기</string>
-	<string name="file_add_sdcard">SD 카드에서 파일 첨부하기</string>
 	<string name="file_err_copy">첨부용 파일 복사 에러</string>
 	<string name="file_dir_dialog_ok">이 디렉토리 사용</string>
 	<string name="file_dir_dialog_default">기본값으로 초기화</string>

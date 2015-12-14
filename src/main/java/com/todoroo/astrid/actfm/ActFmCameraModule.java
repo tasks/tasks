@@ -6,13 +6,11 @@
 package com.todoroo.astrid.actfm;
 
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
@@ -24,9 +22,7 @@ import org.tasks.preferences.DeviceInfo;
 import org.tasks.preferences.Preferences;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -38,7 +34,6 @@ public class ActFmCameraModule {
     private static final Logger log = LoggerFactory.getLogger(ActFmCameraModule.class);
 
     protected static final int REQUEST_CODE_CAMERA = 1;
-    protected static final int REQUEST_CODE_PICTURE = 2;
 
     private static File lastTempFile = null;
 
@@ -78,22 +73,7 @@ public class ActFmCameraModule {
                     }
                 }
             });
-            options.add(fragment.getString(R.string.actfm_picture_camera));
-        }
-
-        if (deviceInfo.hasGallery()) {
-            runnables.add(new Runnable() {
-                @Override
-                public void run() {
-                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI) {{
-                        setType("image/*");
-                    }};
-                    if (intent.resolveActivity(fragment.getActivity().getPackageManager()) != null) {
-                        fragment.startActivityForResult(intent, REQUEST_CODE_PICTURE);
-                    }
-                }
-            });
-            options.add(fragment.getString(R.string.actfm_picture_gallery));
+            options.add(fragment.getString(R.string.take_a_picture));
         }
 
         if (clearImageOption != null) {
@@ -160,33 +140,7 @@ public class ActFmCameraModule {
                 cameraResult.handleCameraResult(uri);
             }
             return true;
-        } else if(requestCode == ActFmCameraModule.REQUEST_CODE_PICTURE && resultCode == Activity.RESULT_OK) {
-            Uri uri = data.getData();
-            ContentResolver contentResolver = fragment.getActivity().getContentResolver();
-            MimeTypeMap mime = MimeTypeMap.getSingleton();
-            String extension = mime.getExtensionFromMimeType(contentResolver.getType(uri));
-            File tempFile = getFilename(extension);
-            log.debug("Writing {} to {}", uri, tempFile);
-            try {
-                InputStream inputStream = fragment.getActivity().getContentResolver().openInputStream(uri);
-                copyFile(inputStream, tempFile.getPath());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            fragment.getActivity().setResult(Activity.RESULT_OK);
-            cameraResult.handleCameraResult(Uri.fromFile(tempFile));
-            return true;
         }
         return false;
-    }
-
-    private static void copyFile(InputStream inputStream, String to) throws IOException {
-        FileOutputStream fos = new FileOutputStream(to);
-        byte[] buf = new byte[1024];
-        int len;
-        while ((len = inputStream.read(buf)) != -1) {
-            fos.write(buf, 0, len);
-        }
-        fos.close();
     }
 }

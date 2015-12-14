@@ -5,8 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
-	<string name="actfm_picture_camera">Odfotiť</string>
-	<string name="actfm_picture_gallery">Vybrať z galérie</string>
 	<string name="actfm_picture_clear">Vymazať obrázok</string>
 	<string name="TVA_add_comment">Komentovať...</string>
 	<string name="name">Názov</string>
@@ -226,8 +224,6 @@
 	<string name="file_browser_title">Vybrať súbor</string>
 	<string name="dir_browser_title">Vytvoriť zložku</string>
 	<string name="file_browser_err_permissions">Chyba oprávnenia! Prosím, uisti sa, či Tasks namá zablokovaný prístup k SD karte.</string>
-	<string name="file_add_picture">Priložiť obrázok</string>
-	<string name="file_add_sdcard">Priložiť súbor z SD karty</string>
 	<string name="file_err_copy">Chyba pri kopírovaní súboru do prílohy</string>
 	<string name="file_dir_dialog_ok">Použiť tento adresár</string>
 	<string name="file_dir_dialog_default">Obnoviť predvolené</string>

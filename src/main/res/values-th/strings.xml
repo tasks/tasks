@@ -5,8 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
-	<string name="actfm_picture_camera">ถ่ายภาพ</string>
-	<string name="actfm_picture_gallery">เลือกจากคลังภาพ</string>
 	<string name="actfm_picture_clear">ล้างภาพ</string>
 	<string name="backup_BPr_header">สำรองข้อมูล</string>
 	<string name="import_progress_read">กำลังอ่านแผนงาน %d...</string>

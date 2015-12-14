@@ -5,8 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
-	<string name="actfm_picture_camera">Bild aufnehmen</string>
-	<string name="actfm_picture_gallery">Aus Galerie wählen</string>
 	<string name="actfm_picture_clear">Bild entfernen</string>
 	<string name="TVA_add_comment">Kommentar hinzufügen …</string>
 	<string name="enter_tag_name">Schlagwort eingeben</string>
@@ -222,8 +220,6 @@
 	<string name="file_browser_title">Wählen Sie eine Datei</string>
 	<string name="dir_browser_title">Wähle ein Verzeichnis</string>
 	<string name="file_browser_err_permissions">Konnte nicht auf die SD-Karte zugreifen. Bitte stellen Sie sicher, das sie den Zugriff auf sie SD Karte nicht eingeschränkt haben.</string>
-	<string name="file_add_picture">Ein Bild anhängen</string>
-	<string name="file_add_sdcard">Eine Datei von der SD-Karte anhängen</string>
 	<string name="file_err_copy">Fehler beim Kopieren der anzuhängenden Datei</string>
 	<string name="file_dir_dialog_ok">Dieses Verzeichnis verwenden</string>
 	<string name="file_dir_dialog_default">Auf Standardeinstellungen zurücksetzen</string>

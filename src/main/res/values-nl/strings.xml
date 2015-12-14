@@ -5,8 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
-	<string name="actfm_picture_camera">Maak een Foto</string>
-	<string name="actfm_picture_gallery">Kies uit de Galerij</string>
 	<string name="actfm_picture_clear">Verwijder Foto</string>
 	<string name="TVA_add_comment">Voeg een opmerking toe</string>
 	<string name="name">Naam</string>
@@ -237,8 +235,6 @@
 	<string name="file_browser_title">Bestand kiezen</string>
 	<string name="dir_browser_title">Kies een directory</string>
 	<string name="file_browser_err_permissions">Bestandsrechtenfout! Let erop dat Tasks toegang heeft tot de SD-kaart.</string>
-	<string name="file_add_picture">Afbeelding toevoegen</string>
-	<string name="file_add_sdcard">Bestand toevoegen vanaf SD-kaart</string>
 	<string name="file_err_copy">Fout bij kopiëren toe te voegen bestand</string>
 	<string name="file_dir_dialog_ok">Gebruik deze directory.</string>
 	<string name="file_dir_dialog_default">Stel opnieuw in naar standaardinstellingen</string>

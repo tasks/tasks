@@ -13,8 +13,6 @@
     <string name="file_browser_title">Choose a file</string>
     <string name="dir_browser_title">Choose a directory</string>
     <string name="file_browser_err_permissions">Permissions error! Please make sure you have not blocked Tasks from accessing the SD card.</string>
-    <string name="file_add_picture">Attach a picture</string>
-    <string name="file_add_sdcard">Attach a file from your SD card</string>
     <string name="file_err_copy">Error copying file for attachment</string>
 
     <string name="file_dir_dialog_ok">Use this directory</string>

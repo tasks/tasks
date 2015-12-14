@@ -5,8 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
-	<string name="actfm_picture_camera">Сделать снимок</string>
-	<string name="actfm_picture_gallery">Взять из галереи</string>
 	<string name="actfm_picture_clear">Убрать изображение</string>
 	<string name="TVA_add_comment">Добавить комментарий...</string>
 	<string name="name">Тег:</string>
@@ -239,8 +237,6 @@
 	<string name="file_browser_title">Выбрать файл</string>
 	<string name="dir_browser_title">Выбрать папку</string>
 	<string name="file_browser_err_permissions">Ошибка доступа! Пожалуйста убедитесь, что Tasks имеет доступ к SD карте.</string>
-	<string name="file_add_picture">Прикрепите изображение</string>
-	<string name="file_add_sdcard">Прикрепите файл с  карты памяти SD.</string>
 	<string name="file_err_copy">Ошибка копирования прикрепляемого файла.</string>
 	<string name="file_dir_dialog_ok">Использовать эту папку</string>
 	<string name="file_dir_dialog_default">Сбросить настройки</string>

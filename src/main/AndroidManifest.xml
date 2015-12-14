@@ -116,6 +116,10 @@
             android:exported="true"
             android:theme="@style/TranslucentDialog" />
 
+        <activity
+            android:name=".activities.AddAttachmentActivity"
+            android:theme="@style/TranslucentDialog" />
+
         <!-- Activity that displays task list -->
         <activity
             android:name="com.todoroo.astrid.activity.TaskListActivity"

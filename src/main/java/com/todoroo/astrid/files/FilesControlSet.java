@@ -17,14 +17,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.MimeTypeMap;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.actfm.ActFmCameraModule;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.data.SyncFlags;
@@ -35,13 +33,12 @@ import com.todoroo.astrid.helper.TaskEditControlSetBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.activities.AddAttachmentActivity;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.ActivityPreferences;
-import org.tasks.preferences.DeviceInfo;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 public class FilesControlSet extends TaskEditControlSetBase {
 
@@ -49,23 +46,17 @@ public class FilesControlSet extends TaskEditControlSetBase {
 
     private final ArrayList<TaskAttachment> files = new ArrayList<>();
     private final LayoutInflater inflater;
-    private ActivityPreferences preferences;
     private final TaskAttachmentDao taskAttachmentDao;
     private final Fragment fragment;
-    private final DeviceInfo deviceInfo;
-    private final ActFmCameraModule actFmCameraModule;
     private final DialogBuilder dialogBuilder;
     private LinearLayout attachmentContainer;
     private TextView addAttachment;
 
     public FilesControlSet(ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao,
-                           Fragment fragment, DeviceInfo deviceInfo, ActFmCameraModule actFmCameraModule) {
+                           Fragment fragment) {
         super(fragment.getActivity(), R.layout.control_set_files);
-        this.preferences = preferences;
         this.taskAttachmentDao = taskAttachmentDao;
         this.fragment = fragment;
-        this.deviceInfo = deviceInfo;
-        this.actFmCameraModule = actFmCameraModule;
         this.dialogBuilder = new DialogBuilder(activity, preferences);
         inflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
     }
@@ -171,7 +162,7 @@ public class FilesControlSet extends TaskEditControlSetBase {
         addAttachment.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                startAttachFile();
+                fragment.startActivityForResult(new Intent(activity, AddAttachmentActivity.class), TaskEditFragment.REQUEST_ADD_ATTACHMENT);
             }
         });
     }
@@ -246,79 +237,6 @@ public class FilesControlSet extends TaskEditControlSetBase {
             log.error(e.getMessage(), e);
             Toast.makeText(activity, R.string.file_type_unhandled, Toast.LENGTH_LONG).show();
         }
-    }
-
-    private void startAttachFile() {
-        final List<Runnable> runnables = new ArrayList<>();
-        List<String> options = new ArrayList<>();
-
-        if (deviceInfo.hasCamera() || deviceInfo.hasGallery()) {
-            runnables.add(new Runnable() {
-                @Override
-                public void run() {
-                    actFmCameraModule.showPictureLauncher(null);
-                }
-            });
-            options.add(activity.getString(R.string.file_add_picture));
-        }
-        runnables.add(new Runnable() {
-            @Override
-            public void run() {
-                Intent attachFile = new Intent(activity, FileExplore.class);
-                fragment.startActivityForResult(attachFile, TaskEditFragment.REQUEST_CODE_ATTACH_FILE);
-            }
-        });
-        options.add(activity.getString(R.string.file_add_sdcard));
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                activity,
-                android.R.layout.simple_spinner_dropdown_item,
-                options.toArray(new String[options.size()]));
-
-        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface d, int which) {
-                runnables.get(which).run();
-            }
-        };
-
-        // show a menu of available options
-        dialogBuilder.newDialog()
-                .setAdapter(adapter, listener)
-                .show()
-                .setOwnerActivity(activity);
-    }
-
-    public void attachFile(String file) {
-        File src = new File(file);
-        if (!src.exists()) {
-            Toast.makeText(activity, R.string.file_err_copy, Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        File dst = new File(preferences.getAttachmentsDirectory() + File.separator + src.getName());
-        try {
-            AndroidUtilities.copyFile(src, dst);
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            Toast.makeText(activity, R.string.file_err_copy, Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        String path = dst.getAbsolutePath();
-        String name = dst.getName();
-        String extension = AndroidUtilities.getFileExtension(name);
-
-        String type = TaskAttachment.FILE_TYPE_OTHER;
-        if (!TextUtils.isEmpty(extension)) {
-            MimeTypeMap map = MimeTypeMap.getSingleton();
-            String guessedType = map.getMimeTypeFromExtension(extension);
-            if (!TextUtils.isEmpty(guessedType)) {
-                type = guessedType;
-            }
-        }
-
-        createNewFileAttachment(path, name, type);
     }
 
     public void createNewFileAttachment(String path, String fileName, String fileType) {

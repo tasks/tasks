@@ -5,8 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
-	<string name="actfm_picture_camera">Tag et billede</string>
-	<string name="actfm_picture_gallery">Vælg fra galleri</string>
 	<string name="actfm_picture_clear">Ryd markering</string>
 	<string name="TVA_add_comment">Tilføj en kommentar</string>
 	<string name="backup_BPr_header">Backup</string>

@@ -5,8 +5,6 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
-	<string name="actfm_picture_camera">Направете снимка</string>
-	<string name="actfm_picture_gallery">Изберете от Галерия</string>
 	<string name="actfm_picture_clear">Изчисти Картинка</string>
 	<string name="TVA_add_comment">Добави коментар...</string>
 	<string name="name">Име</string>
@@ -241,8 +239,6 @@
 	<string name="file_browser_title">Избери файл</string>
 	<string name="dir_browser_title">Избери директория</string>
 	<string name="file_browser_err_permissions">Грешка в Разрешения! Моля, проверете дали не сте блокирани Tasks от достъп до SD картата.</string>
-	<string name="file_add_picture">Прикачи снимка</string>
-	<string name="file_add_sdcard">Прикачи файл от SD карта</string>
 	<string name="file_err_copy">Грешка при копиране на файла за прикачване</string>
 	<string name="file_dir_dialog_ok">Използвай тази директория</string>
 	<string name="file_dir_dialog_default">Възстанови по подразбиране</string>

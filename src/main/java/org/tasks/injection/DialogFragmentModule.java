@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 
+import org.tasks.activities.AddAttachmentActivity;
 import org.tasks.activities.CalendarSelectionDialog;
 import org.tasks.dialogs.AccountSelectionDialog;
+import org.tasks.dialogs.AddAttachmentDialog;
 import org.tasks.dialogs.LocationPickerDialog;
 import org.tasks.reminders.MissedCallDialog;
 import org.tasks.reminders.NotificationDialog;
@@ -21,7 +23,8 @@ import dagger.Provides;
                 SnoozeDialog.class,
                 MissedCallDialog.class,
                 CalendarSelectionDialog.class,
-                AccountSelectionDialog.class
+                AccountSelectionDialog.class,
+                AddAttachmentDialog.class
         },
         library = true)
 public class DialogFragmentModule {

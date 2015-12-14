@@ -47,7 +47,6 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.files.AACRecordingActivity;
-import com.todoroo.astrid.files.FileExplore;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.gcal.GCalControlSet;
 import com.todoroo.astrid.gcal.GCalHelper;
@@ -73,6 +72,7 @@ import com.todoroo.astrid.utility.Flags;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
+import org.tasks.activities.AddAttachmentActivity;
 import org.tasks.activities.LocationPickerActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.dialogs.DialogBuilder;
@@ -81,7 +81,6 @@ import org.tasks.location.Geofence;
 import org.tasks.location.GeofenceService;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
-import org.tasks.preferences.DeviceInfo;
 import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.MenuColorizer;
 
@@ -147,7 +146,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     // --- request codes
 
     public static final int REQUEST_CODE_RECORD = 30;
-    public static final int REQUEST_CODE_ATTACH_FILE = 40;
+    public static final int REQUEST_ADD_ATTACHMENT = 50;
 
     // --- result codes
 
@@ -172,7 +171,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Inject TagDataDao tagDataDao;
     @Inject ActFmCameraModule actFmCameraModule;
     @Inject GeofenceService geofenceService;
-    @Inject DeviceInfo deviceInfo;
     @Inject DialogBuilder dialogBuilder;
 
     // --- UI components
@@ -400,7 +398,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controls.add(timerControl);
         controlSetMap.put(getString(R.string.TEA_ctrl_timer_pref), timerControl);
 
-        filesControlSet = new FilesControlSet(preferences, taskAttachmentDao, this, deviceInfo, actFmCameraModule);
+        filesControlSet = new FilesControlSet(preferences, taskAttachmentDao, this);
         controls.add(filesControlSet);
         controlSetMap.put(getString(R.string.TEA_ctrl_files_pref), filesControlSet);
 
@@ -843,8 +841,11 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             String recordedAudioPath = data.getStringExtra(AACRecordingActivity.RESULT_OUTFILE);
             String recordedAudioName = data.getStringExtra(AACRecordingActivity.RESULT_FILENAME);
             filesControlSet.createNewFileAttachment(recordedAudioPath, recordedAudioName, TaskAttachment.FILE_TYPE_AUDIO + "m4a"); //$NON-NLS-1$
-        } else if (requestCode == REQUEST_CODE_ATTACH_FILE && resultCode == Activity.RESULT_OK) {
-            filesControlSet.attachFile(data.getStringExtra(FileExplore.RESULT_FILE_SELECTED));
+        } else if (requestCode == REQUEST_ADD_ATTACHMENT && resultCode == Activity.RESULT_OK) {
+            String path = data.getStringExtra(AddAttachmentActivity.EXTRA_PATH);
+            File file = new File(path);
+            String extension = path.substring(path.lastIndexOf('.') + 1);
+            filesControlSet.createNewFileAttachment(path, file.getName(), TaskAttachment.FILE_TYPE_IMAGE + extension);
         }
         actFmCameraModule.activityResult(requestCode, resultCode, data, new CameraResultCallback() {
             @Override
