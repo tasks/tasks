@@ -9,14 +9,20 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.data.TaskAttachment;
 
+import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.InjectingAppCompatActivity;
+import org.tasks.preferences.Preferences;
+
+import java.io.File;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -24,7 +30,8 @@ import javax.inject.Singleton;
 @Singleton
 public final class UpgradeService {
 
-    public static final int V4_6_5 = 306;
+    public static final int CURRENT = BuildConfig.VERSION_CODE;
+    public static final int V4_8_0 = 376;
     public static final int V3_0_0 = 136;
 
     @Inject
@@ -37,9 +44,7 @@ public final class UpgradeService {
      * show users a change log.
      */
     public void performUpgrade(final Activity context, final int from) {
-        int maxWithUpgrade = V4_6_5;
-
-        if(from < maxWithUpgrade) {
+        if(from < CURRENT) {
             Intent upgrade = new Intent(context, UpgradeActivity.class);
             upgrade.putExtra(UpgradeActivity.TOKEN_FROM_VERSION, from);
             context.startActivityForResult(upgrade, 0);
@@ -54,6 +59,7 @@ public final class UpgradeService {
         private boolean finished = false;
 
         @Inject DialogBuilder dialogBuilder;
+        @Inject Preferences preferences;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +72,9 @@ public final class UpgradeService {
                     public void run() {
                         //noinspection EmptyTryBlock
                         try {
-
+                            if (from < V4_8_0) {
+                                performMarshmallowMigration();
+                            }
                         } finally {
                             finished = true;
                             DialogUtilities.dismissDialog(UpgradeActivity.this, dialog);
@@ -87,6 +95,31 @@ public final class UpgradeService {
             // Don't allow the back button to finish this activity before things are done
             if (finished) {
                 super.onBackPressed();
+            }
+        }
+
+        private void performMarshmallowMigration() {
+            // preserve pre-marshmallow default attachment and backup locations
+            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+                if (!preferences.isStringValueSet(R.string.p_backup_dir)) {
+                    String directory = String.format("%s/astrid",
+                            Environment.getExternalStorageDirectory());
+                    File file = new File(directory);
+                    if (file.exists() && file.isDirectory()) {
+                        preferences.setString(R.string.p_backup_dir, directory);
+                    }
+                }
+
+                if (!preferences.isStringValueSet(R.string.p_attachment_dir)) {
+                    String directory = String.format("%s/Android/data/%s/files/%s",
+                            Environment.getExternalStorageDirectory(),
+                            BuildConfig.APPLICATION_ID,
+                            TaskAttachment.FILES_DIRECTORY_DEFAULT);
+                    File file = new File(directory);
+                    if (file.exists() && file.isDirectory()) {
+                        preferences.setString(R.string.p_attachment_dir, directory);
+                    }
+                }
             }
         }
     }

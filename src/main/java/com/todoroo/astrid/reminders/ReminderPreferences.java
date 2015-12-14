@@ -6,14 +6,18 @@
 package com.todoroo.astrid.reminders;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 
+import org.tasks.preferences.PermissionChecker;
+import org.tasks.preferences.PermissionRequestor;
 import org.tasks.time.DateTime;
 import org.tasks.R;
 import org.tasks.activities.TimePickerActivity;
@@ -37,6 +41,10 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     private Bundle result;
 
     @Inject DeviceInfo deviceInfo;
+    @Inject PermissionRequestor permissionRequestor;
+    @Inject PermissionChecker permissionChecker;
+
+    private CheckBoxPreference fieldMissedCalls;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,10 +68,33 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
             preferenceScreen.removePreference(findPreference(getString(R.string.geolocation_reminders)));
         }
 
+        fieldMissedCalls = (CheckBoxPreference) findPreference(getString(R.string.p_field_missed_calls));
+        fieldMissedCalls.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                return newValue != null && (!(boolean) newValue || permissionRequestor.requestMissedCallPermissions());
+            }
+        });
+        fieldMissedCalls.setChecked(fieldMissedCalls.isChecked() && permissionChecker.canAccessMissedCallPermissions());
+
         initializeRingtonePreference();
         initializeTimePreference(getDefaultRemindTimePreference(), REQUEST_DEFAULT_REMIND);
         initializeTimePreference(getQuietStartPreference(), REQUEST_QUIET_START);
         initializeTimePreference(getQuietEndPreference(), REQUEST_QUIET_END);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == PermissionRequestor.REQUEST_CONTACTS) {
+            for (int grantResult : grantResults) {
+                if (grantResult != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+            }
+            fieldMissedCalls.setChecked(true);
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 
     @Override

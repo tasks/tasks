@@ -1,18 +1,20 @@
 package org.tasks.preferences;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.speech.tts.TextToSpeech;
 
 import com.todoroo.astrid.files.FileExplore;
-import com.todoroo.astrid.gcal.CalendarAlarmScheduler;
 import com.todoroo.astrid.voice.VoiceOutputAssistant;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingPreferenceActivity;
+import org.tasks.scheduling.BackgroundScheduler;
 
 import java.io.File;
 
@@ -25,8 +27,12 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
     private static final int REQUEST_CODE_TTS_CHECK = 2534;
 
     @Inject Preferences preferences;
-    @Inject CalendarAlarmScheduler calendarAlarmScheduler;
     @Inject VoiceOutputAssistant voiceOutputAssistant;
+    @Inject PermissionRequestor permissionRequestor;
+    @Inject PermissionChecker permissionChecker;
+    @Inject BackgroundScheduler backgroundScheduler;
+
+    private CheckBoxPreference calendarReminderPreference;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,13 +40,7 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
 
         addPreferencesFromResource(R.xml.preferences_misc);
 
-        findPreference(getString(R.string.p_debug_logging)).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                preferences.setupLogger((boolean) newValue);
-                return true;
-            }
-        });
+        calendarReminderPreference = (CheckBoxPreference) findPreference(getString(R.string.p_calendar_reminders));
 
         initializeAttachmentDirectoryPreference();
         initializeCalendarReminderPreference();
@@ -103,16 +103,24 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
     }
 
     private void initializeCalendarReminderPreference() {
-        Preference calendarReminderPreference = findPreference(getString(R.string.p_calendar_reminders));
+        CheckBoxPreference calendarReminderPreference = (CheckBoxPreference) findPreference(getString(R.string.p_calendar_reminders));
         calendarReminderPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                if (newValue != null && ((Boolean) newValue)) {
-                    calendarAlarmScheduler.scheduleCalendarAlarms(MiscellaneousPreferences.this, true);
+                if (newValue == null) {
+                    return false;
                 }
-                return true;
+                if (!(Boolean) newValue) {
+                    return true;
+                }
+                if (permissionRequestor.requestCalendarPermissions()) {
+                    backgroundScheduler.scheduleCalendarNotifications();
+                    return true;
+                }
+                return false;
             }
         });
+        calendarReminderPreference.setChecked(calendarReminderPreference.isChecked() && permissionChecker.canAccessCalendars());
     }
 
     private void initializeVoiceReminderPreference() {
@@ -136,5 +144,16 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
                 return true;
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == PermissionRequestor.REQUEST_CALENDAR) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                calendarReminderPreference.setChecked(true);
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 }

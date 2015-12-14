@@ -16,7 +16,7 @@
         android:key="@string/p_calendar_reminders"
         android:summary="@string/CRA_calendar_reminders_pref_desc_enabled"
         android:title="@string/CRA_calendar_reminders_pref_title"
-        android:defaultValue="true"/>
+        android:defaultValue="false"/>
 
     <CheckBoxPreference
         android:key="@string/p_end_at_deadline"
@@ -25,7 +25,4 @@
         android:title="@string/EPr_cal_end_or_start_at_due_time"
         android:defaultValue="true"/>
 
-    <CheckBoxPreference
-        android:key="@string/p_debug_logging"
-        android:title="@string/debug_logging" />
 </PreferenceScreen>

@@ -16,7 +16,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingBroadcastReceiver;
+import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
+import org.tasks.scheduling.CalendarNotificationIntentService;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -43,6 +45,7 @@ public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
     };
 
     @Inject Preferences preferences;
+    @Inject PermissionChecker permissionChecker;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -51,6 +54,11 @@ public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
         if (!preferences.getBoolean(R.string.p_calendar_reminders, true)) {
             return;
         }
+
+        if (!permissionChecker.canAccessCalendars()) {
+            return;
+        }
+
         try {
             Uri data = intent.getData();
             if (data == null) {
@@ -65,7 +73,7 @@ public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
                 return;
             }
             long eventId = Long.parseLong(uriString.substring(pathIndex));
-            boolean fromPostpone = CalendarAlarmScheduler.URI_PREFIX_POSTPONE.equals(data.getScheme());
+            boolean fromPostpone = CalendarNotificationIntentService.URI_PREFIX_POSTPONE.equals(data.getScheme());
             if (eventId > 0) {
                 showCalReminder(context, eventId, fromPostpone);
             }

@@ -3,7 +3,6 @@ package org.tasks.injection;
 import com.todoroo.astrid.alarms.AlarmTaskRepeatListener;
 import com.todoroo.astrid.calls.PhoneStateChangedReceiver;
 import com.todoroo.astrid.gcal.CalendarAlarmReceiver;
-import com.todoroo.astrid.gcal.CalendarStartupReceiver;
 import com.todoroo.astrid.gcal.GCalTaskCompleteListener;
 import com.todoroo.astrid.repeats.RepeatTaskCompleteListener;
 import com.todoroo.astrid.timers.TimerTaskCompleteListener;
@@ -32,7 +31,6 @@ import dagger.Module;
                 AlarmTaskRepeatListener.class,
                 PhoneStateChangedReceiver.class,
                 CalendarAlarmReceiver.class,
-                CalendarStartupReceiver.class,
                 BootCompletedReceiver.class,
                 FirstLaunchReceiver.class,
                 MyPackageReplacedReceiver.class,

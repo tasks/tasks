@@ -13,7 +13,8 @@ import dagger.Module;
                 MidnightRefreshService.class,
                 RefreshSchedulerIntentService.class,
                 ReminderSchedulerIntentService.class,
-                GeofenceTransitionsIntentService.class
+                GeofenceTransitionsIntentService.class,
+                CalendarNotificationIntentService.class
         })
 public class IntentServiceModule {
 }

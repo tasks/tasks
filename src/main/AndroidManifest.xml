@@ -379,17 +379,6 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name="com.todoroo.astrid.gcal.CalendarStartupReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="org.tasks.SCHEDULE_CAL_REMINDERS" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
-
         <activity
             android:name=".activities.CalendarSelectionActivity"
             android:theme="@style/TranslucentDialog" />
@@ -514,6 +503,9 @@
             android:exported="false" />
         <service
             android:name=".scheduling.ReminderSchedulerIntentService"
+            android:exported="false" />
+        <service
+            android:name=".scheduling.CalendarNotificationIntentService"
             android:exported="false" />
 
         <!-- Uses Library -->

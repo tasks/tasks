@@ -26,6 +26,7 @@ import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.ResourceResolver;
 import org.tasks.scheduling.AlarmManager;
+import org.tasks.scheduling.CalendarNotificationIntentService;
 
 import javax.inject.Inject;
 
@@ -225,7 +226,7 @@ public class CalendarReminderActivity extends InjectingAppCompatActivity {
     private void postpone() {
         Intent eventAlarm = new Intent(this, CalendarAlarmReceiver.class);
         eventAlarm.setAction(CalendarAlarmReceiver.BROADCAST_CALENDAR_REMINDER);
-        eventAlarm.setData(Uri.parse(CalendarAlarmScheduler.URI_PREFIX_POSTPONE + "://" + eventId));
+        eventAlarm.setData(Uri.parse(CalendarNotificationIntentService.URI_PREFIX_POSTPONE + "://" + eventId));
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this,
                 CalendarAlarmReceiver.REQUEST_CODE_CAL_REMINDER, eventAlarm, 0);

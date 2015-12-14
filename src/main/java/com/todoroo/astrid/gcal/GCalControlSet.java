@@ -26,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.activities.CalendarSelectionDialog;
+import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
 import org.tasks.reminders.SnoozeDialog;
 
@@ -45,6 +46,7 @@ public class GCalControlSet extends TaskEditControlSetBase implements CalendarSe
     private final GCalHelper gcal;
     private Preferences preferences;
     private final TaskEditFragment taskEditFragment;
+    private PermissionRequestor permissionRequestor;
 
     private Uri calendarUri = null;
 
@@ -54,11 +56,13 @@ public class GCalControlSet extends TaskEditControlSetBase implements CalendarSe
     private String calendarId;
     private String calendarName;
 
-    public GCalControlSet(GCalHelper gcal, Preferences preferences, TaskEditFragment taskEditFragment) {
+    public GCalControlSet(GCalHelper gcal, Preferences preferences,
+                          TaskEditFragment taskEditFragment, PermissionRequestor permissionRequestor) {
         super(taskEditFragment.getActivity(), R.layout.control_set_gcal_display);
         this.gcal = gcal;
         this.preferences = preferences;
         this.taskEditFragment = taskEditFragment;
+        this.permissionRequestor = permissionRequestor;
     }
 
     @Override
@@ -72,13 +76,12 @@ public class GCalControlSet extends TaskEditControlSetBase implements CalendarSe
                 if (hasEvent) {
                     viewCalendarEvent();
                 } else {
-                    FragmentManager fragmentManager = taskEditFragment.getFragmentManager();
-                    CalendarSelectionDialog fragmentByTag = (CalendarSelectionDialog) fragmentManager.findFragmentByTag(FRAG_TAG_CALENDAR_SELECTION);
-                    if (fragmentByTag == null) {
-                        fragmentByTag = new CalendarSelectionDialog();
-                        fragmentByTag.show(fragmentManager, FRAG_TAG_CALENDAR_SELECTION);
+                    // TODO: show calendar selection if permission has just been granted
+                    // can't do this now because the app saves state when TEA is paused,
+                    // which triggers calendar creation if there is a default add to calendar.
+                    if (permissionRequestor.requestCalendarPermissions()) {
+                        showCalendarSelectionDialog();
                     }
-                    fragmentByTag.setCalendarSelectionHandler(GCalControlSet.this);
                 }
             }
         });
@@ -89,6 +92,16 @@ public class GCalControlSet extends TaskEditControlSetBase implements CalendarSe
                 refreshDisplayView();
             }
         });
+    }
+
+    public void showCalendarSelectionDialog() {
+        FragmentManager fragmentManager = taskEditFragment.getFragmentManager();
+        CalendarSelectionDialog fragmentByTag = (CalendarSelectionDialog) fragmentManager.findFragmentByTag(FRAG_TAG_CALENDAR_SELECTION);
+        if (fragmentByTag == null) {
+            fragmentByTag = new CalendarSelectionDialog();
+            fragmentByTag.show(fragmentManager, FRAG_TAG_CALENDAR_SELECTION);
+        }
+        fragmentByTag.setCalendarSelectionHandler(GCalControlSet.this);
     }
 
     @Override

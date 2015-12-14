@@ -81,6 +81,7 @@ import org.tasks.location.Geofence;
 import org.tasks.location.GeofenceService;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.PermissionRequestor;
 import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.MenuColorizer;
 
@@ -172,6 +173,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Inject ActFmCameraModule actFmCameraModule;
     @Inject GeofenceService geofenceService;
     @Inject DialogBuilder dialogBuilder;
+    @Inject PermissionRequestor permissionRequestor;
 
     // --- UI components
 
@@ -354,7 +356,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         RepeatControlSet repeatControls = new RepeatControlSet(preferences, getActivity(), dialogBuilder);
         controlSetMap.put(getString(R.string.TEA_ctrl_repeat_pref), repeatControls);
 
-        gcalControl = new GCalControlSet(gcalHelper, preferences, this);
+        gcalControl = new GCalControlSet(gcalHelper, preferences, this, permissionRequestor);
         controlSetMap.put(getString(R.string.TEA_ctrl_gcal), gcalControl);
 
         // The deadline control set contains the repeat controls and the
@@ -382,7 +384,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controlSetMap.put(getString(R.string.TEA_ctrl_notes_pref),
                 notesControlSet);
 
-        reminderControlSet = new ReminderControlSet(alarmService, geofenceService, this, preferences);
+        reminderControlSet = new ReminderControlSet(alarmService, geofenceService, this, preferences, permissionRequestor);
         controls.add(reminderControlSet);
         controlSetMap.put(getString(R.string.TEA_ctrl_reminders_pref), reminderControlSet);
 

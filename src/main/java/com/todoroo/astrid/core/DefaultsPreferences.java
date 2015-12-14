@@ -6,6 +6,7 @@
 package com.todoroo.astrid.core;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.Preference;
 
@@ -15,6 +16,8 @@ import com.todoroo.astrid.gcal.GCalHelper;
 import org.tasks.R;
 import org.tasks.activities.CalendarSelectionActivity;
 import org.tasks.injection.InjectingPreferenceActivity;
+import org.tasks.preferences.PermissionChecker;
+import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
 
 import java.util.List;
@@ -33,6 +36,8 @@ public class DefaultsPreferences extends InjectingPreferenceActivity {
 
     @Inject Preferences preferences;
     @Inject GCalHelper calendarHelper;
+    @Inject PermissionChecker permissionChecker;
+    @Inject PermissionRequestor permissionRequester;
     private Preference defaultCalendarPref;
 
     @Override
@@ -45,7 +50,9 @@ public class DefaultsPreferences extends InjectingPreferenceActivity {
         defaultCalendarPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                startActivityForResult(new Intent(DefaultsPreferences.this, CalendarSelectionActivity.class), REQUEST_CALENDAR_SELECTION);
+                if (permissionRequester.requestCalendarPermissions()) {
+                    startCalendarSelectionActivity();
+                }
                 return false;
             }
         });
@@ -53,14 +60,31 @@ public class DefaultsPreferences extends InjectingPreferenceActivity {
     }
 
     private void setCalendarSummary(String calendarId) {
-        List<AndroidCalendar> calendars = calendarHelper.getCalendars();
-        for (AndroidCalendar calendar : calendars) {
-            if (calendar.getId().equals(calendarId)) {
-                defaultCalendarPref.setSummary(calendar.getName());
-                return;
+        if (permissionChecker.canAccessCalendars()) {
+            List<AndroidCalendar> calendars = calendarHelper.getCalendars();
+            for (AndroidCalendar calendar : calendars) {
+                if (calendar.getId().equals(calendarId)) {
+                    defaultCalendarPref.setSummary(calendar.getName());
+                    return;
+                }
             }
         }
         defaultCalendarPref.setSummary(getString(R.string.none));
+    }
+
+    private void startCalendarSelectionActivity() {
+        startActivityForResult(new Intent(DefaultsPreferences.this, CalendarSelectionActivity.class), REQUEST_CALENDAR_SELECTION);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == PermissionRequestor.REQUEST_CALENDAR) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startCalendarSelectionActivity();
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 
     @Override

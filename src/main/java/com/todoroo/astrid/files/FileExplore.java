@@ -9,6 +9,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
@@ -27,6 +28,7 @@ import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.PermissionRequestor;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -54,6 +56,7 @@ public class FileExplore extends InjectingAppCompatActivity {
 
 	@Inject DialogBuilder dialogBuilder;
 	@Inject ActivityPreferences activityPreferences;
+	@Inject PermissionRequestor permissionRequestor;
 
 	private Item[] fileList;
 	private File path;
@@ -66,13 +69,19 @@ public class FileExplore extends InjectingAppCompatActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		if (permissionRequestor.requestFileWritePermission()) {
+			showDialog();
+		}
+	}
+
+	private void showDialog() {
 		activityPreferences.applyDialogTheme();
 
 		if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-            path = new File(Environment.getExternalStorageDirectory().toString());
-        } else {
-            path = Environment.getRootDirectory();
-        }
+			path = new File(Environment.getExternalStorageDirectory().toString());
+		} else {
+			path = Environment.getRootDirectory();
+		}
 
 		loadFileList();
 
@@ -81,6 +90,19 @@ public class FileExplore extends InjectingAppCompatActivity {
 		showDialog(DIALOG_LOAD_FILE);
 		upString = getString(R.string.back);
 		log.debug(path.getAbsolutePath());
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+		if (requestCode == PermissionRequestor.REQUEST_FILE_WRITE) {
+			if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+				showDialog();
+			} else {
+				finish();
+			}
+		} else {
+			super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+		}
 	}
 
 	private void loadFileList() {

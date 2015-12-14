@@ -31,4 +31,8 @@
         android:key="@string/contact_developer"
         android:title="@string/contact_developer" />
 
+    <CheckBoxPreference
+        android:key="@string/p_debug_logging"
+        android:title="@string/debug_logging" />
+
 </PreferenceScreen>

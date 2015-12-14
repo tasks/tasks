@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
+import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
 
 import java.util.List;
@@ -35,15 +36,17 @@ public class GeofenceApi {
 
     private Context context;
     private Preferences preferences;
+    private PermissionChecker permissionChecker;
 
     @Inject
-    public GeofenceApi(@ForApplication Context context, Preferences preferences) {
+    public GeofenceApi(@ForApplication Context context, Preferences preferences, PermissionChecker permissionChecker) {
         this.context = context;
         this.preferences = preferences;
+        this.permissionChecker = permissionChecker;
     }
 
     public void register(final List<Geofence> geofences) {
-        if (geofences.isEmpty() || !preferences.geofencesEnabled()) {
+        if (geofences.isEmpty() || !preferences.geofencesEnabled() || !permissionChecker.canAccessLocation()) {
             return;
         }
 
@@ -75,7 +78,7 @@ public class GeofenceApi {
     }
 
     public void cancel(final List<Geofence> geofences) {
-        if (geofences.isEmpty()) {
+        if (geofences.isEmpty() || !permissionChecker.canAccessLocation()) {
             return;
         }
 

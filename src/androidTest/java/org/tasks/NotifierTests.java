@@ -23,7 +23,7 @@ public class NotifierTests extends AndroidTestCase {
 
     @Override
     public void setUp() {
-        preferences = new Preferences(getContext(), null);
+        preferences = new Preferences(getContext(), null, null);
         preferences.clear();
         preferences.setBoolean(R.string.p_rmd_enable_quiet, true);
         freezeAt(now);

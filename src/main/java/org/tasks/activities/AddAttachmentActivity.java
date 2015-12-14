@@ -1,5 +1,6 @@
 package org.tasks.activities;
 
+import android.content.ClipData;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,12 +8,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
-import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.files.FileExplore;
 
 import org.slf4j.Logger;
@@ -29,6 +28,8 @@ import java.io.InputStream;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
+
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
 public class AddAttachmentActivity extends InjectingAppCompatActivity implements DialogInterface.OnCancelListener, AddAttachmentDialog.AddAttachmentCallback {
 
@@ -69,11 +70,15 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity implements
         if (lastTempFile == null) {
             Toast.makeText(this, R.string.external_storage_unavailable, Toast.LENGTH_LONG).show();
         } else {
-            startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE) {{
-                addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(lastTempFile));
-            }}, REQUEST_CAMERA);
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            Uri uri = Uri.fromFile(lastTempFile);
+            intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+            if (atLeastLollipop()) {
+                intent.setClipData(ClipData.newRawUri(null, uri));
+            }
+            startActivityForResult(intent, REQUEST_CAMERA);
         }
     }
 

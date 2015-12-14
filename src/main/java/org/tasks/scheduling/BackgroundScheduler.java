@@ -22,7 +22,7 @@ public class BackgroundScheduler {
         context.startService(new Intent(context, ReminderSchedulerIntentService.class));
         scheduleBackupService();
         scheduleMidnightRefresh();
-
+        scheduleCalendarNotifications();
         if (context.getResources().getBoolean(R.bool.sync_enabled)) {
             scheduleGtaskSync();
         }
@@ -38,5 +38,9 @@ public class BackgroundScheduler {
 
     public void scheduleGtaskSync() {
         context.startService(new Intent(context, GtasksBackgroundService.class));
+    }
+
+    public void scheduleCalendarNotifications() {
+        context.startService(new Intent(context, CalendarNotificationIntentService.class));
     }
 }

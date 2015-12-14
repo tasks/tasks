@@ -49,6 +49,7 @@ public class LocationPickerDialog extends InjectingDialogFragment implements Goo
 
     private OnLocationPickedHandler onLocationPickedHandler;
     private DialogInterface.OnCancelListener onCancelListener;
+    private boolean resolvingError;
 
     public void setOnLocationPickedHandler(OnLocationPickedHandler onLocationPickedHandler) {
         this.onLocationPickedHandler = onLocationPickedHandler;
@@ -137,13 +138,18 @@ public class LocationPickerDialog extends InjectingDialogFragment implements Goo
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        if (connectionResult.hasResolution()) {
+        if (resolvingError) {
+            log.info("Ignoring {}, already resolving error", connectionResult);
+        } else  if (connectionResult.hasResolution()) {
             try {
+                resolvingError = true;
                 connectionResult.startResolutionForResult(fragmentActivity, RC_RESOLVE_GPS_ISSUE);
             } catch (IntentSender.SendIntentException e) {
                 log.error(e.getMessage(), e);
+                googleApi.connect(this);
             }
         } else {
+            resolvingError = true;
             GooglePlayServicesUtil
                     .getErrorDialog(connectionResult.getErrorCode(), fragmentActivity, RC_RESOLVE_GPS_ISSUE)
                     .show();

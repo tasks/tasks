@@ -33,6 +33,7 @@ import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.LocationPickerActivity;
 import org.tasks.location.Geofence;
 import org.tasks.location.GeofenceService;
+import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
 
@@ -68,17 +69,20 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
     private GeofenceService geofenceService;
     private TaskEditFragment taskEditFragment;
     private Preferences preferences;
+    private PermissionRequestor permissionRequestor;
     private List<String> spinnerOptions = new ArrayList<>();
     private ArrayAdapter<String> remindAdapter;
 
 
     public ReminderControlSet(AlarmService alarmService, GeofenceService geofenceService,
-                              TaskEditFragment taskEditFragment, Preferences preferences) {
+                              TaskEditFragment taskEditFragment, Preferences preferences,
+                              PermissionRequestor permissionRequestor) {
         super(taskEditFragment.getActivity(), R.layout.control_set_reminders);
         this.alarmService = alarmService;
         this.geofenceService = geofenceService;
         this.taskEditFragment = taskEditFragment;
         this.preferences = preferences;
+        this.permissionRequestor = permissionRequestor;
     }
 
     public int getValue() {
@@ -240,7 +244,7 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
-                    int position, long id) {
+                                       int position, long id) {
                 modeDisplay.setText(modeAdapter.getItem(position));
             }
 
@@ -379,11 +383,17 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
         } else if (selected.equals(taskEditFragment.getString(R.string.pick_a_date_and_time))) {
             addNewAlarm();
         } else if (selected.equals(taskEditFragment.getString(R.string.pick_a_location))) {
-            taskEditFragment.startActivityForResult(new Intent(taskEditFragment.getActivity(), LocationPickerActivity.class), REQUEST_LOCATION_REMINDER);
+            if (permissionRequestor.requestFineLocation()) {
+                pickLocation();
+            }
         }
         if (position != 0) {
             updateSpinner();
         }
+    }
+
+    public void pickLocation() {
+        taskEditFragment.startActivityForResult(new Intent(taskEditFragment.getActivity(), LocationPickerActivity.class), REQUEST_LOCATION_REMINDER);
     }
 
     @Override

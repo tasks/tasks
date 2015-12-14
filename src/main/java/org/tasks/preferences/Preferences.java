@@ -15,11 +15,11 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
 
-import org.tasks.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
+import org.tasks.time.DateTime;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -51,14 +51,16 @@ public class Preferences {
     private static final String FILE_APPENDER_NAME = "FILE";
 
     protected final Context context;
-    private DeviceInfo deviceInfo;
+    private final DeviceInfo deviceInfo;
+    private final PermissionChecker permissionChecker;
     private final SharedPreferences prefs;
     private final SharedPreferences publicPrefs;
 
     @Inject
-    public Preferences(@ForApplication Context context, DeviceInfo deviceInfo) {
+    public Preferences(@ForApplication Context context, DeviceInfo deviceInfo, PermissionChecker permissionChecker) {
         this.context = context;
         this.deviceInfo = deviceInfo;
+        this.permissionChecker = permissionChecker;
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
         publicPrefs = context.getSharedPreferences(AstridApiConstants.PUBLIC_PREFS, Context.MODE_WORLD_READABLE);
     }
@@ -140,6 +142,10 @@ public class Preferences {
         return prefs.getString(context.getResources().getString(keyResource), null);
     }
 
+    public boolean isStringValueSet(int keyResource) {
+        return !TextUtils.isEmpty(getStringValue(keyResource));
+    }
+
     public int getDefaultReminders() {
         return getIntegerFromString(R.string.p_default_reminders_key, Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE);
     }
@@ -193,7 +199,9 @@ public class Preferences {
     }
 
     public boolean fieldMissedPhoneCalls() {
-        return getBoolean(R.string.p_field_missed_calls, true) && notificationsEnabled();
+        return getBoolean(R.string.p_field_missed_calls, true) &&
+                notificationsEnabled() &&
+                permissionChecker.canAccessMissedCallPermissions();
     }
 
     public boolean getBoolean(int keyResources, boolean defValue) {
@@ -278,7 +286,9 @@ public class Preferences {
     }
 
     public void setupLogger() {
-        setupLogger(getBoolean(R.string.p_debug_logging, false));
+        if (permissionChecker.canWriteToExternalStorage()) {
+            setupLogger(getBoolean(R.string.p_debug_logging, false));
+        }
     }
 
     public void setupLogger(boolean enableDebugLogging) {
@@ -335,27 +345,27 @@ public class Preferences {
     public File getAttachmentsDirectory() {
         File directory = null;
         String customDir = getStringValue(R.string.p_attachment_dir);
-        if (!TextUtils.isEmpty(customDir)) {
+        if (permissionChecker.canWriteToExternalStorage() && !TextUtils.isEmpty(customDir)) {
             directory = new File(customDir);
         }
 
         if (directory == null || !directory.exists()) {
-            directory = getExternalFilesDir(TaskAttachment.FILES_DIRECTORY_DEFAULT);
+            directory = getDefaultFileLocation(TaskAttachment.FILES_DIRECTORY_DEFAULT);
         }
 
         return directory;
     }
 
-    private File getExternalFilesDir(String type) {
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            String directory = String.format("%s/Android/data/%s/files/%s", Environment.getExternalStorageDirectory(), context.getPackageName(), type);
-            File file = new File(directory);
-            if (file.isDirectory() || file.mkdirs()) {
-                return file;
-            }
+    private File getDefaultFileLocation(String type) {
+        File externalFilesDir = context.getExternalFilesDir(null);
+        if (externalFilesDir == null) {
+            return null;
         }
-
-        return null;
+        String path = String.format("%s/%s",
+                externalFilesDir.getAbsolutePath(),
+                type);
+        File file = new File(path);
+        return file.isDirectory() || file.mkdirs() ? file : null;
     }
 
     public String getNewAudioAttachmentPath(AtomicReference<String> nameReference) {
@@ -389,12 +399,12 @@ public class Preferences {
     public File getBackupDirectory() {
         File directory = null;
         String customDir = getStringValue(R.string.p_backup_dir);
-        if (!TextUtils.isEmpty(customDir)) {
+        if (permissionChecker.canWriteToExternalStorage() && !TextUtils.isEmpty(customDir)) {
             directory = new File(customDir);
         }
 
         if (directory == null || !directory.exists()) {
-            directory = defaultExportDirectory();
+            directory = getDefaultFileLocation("backups");
         }
 
         return directory;

@@ -38,14 +38,17 @@ public abstract class RecurringIntervalIntentService extends InjectingIntentServ
             return;
         }
 
-        long lastRun = preferences.getLong(getLastRunPreference(), 0);
+        String lastRunPreference = getLastRunPreference();
+        long lastRun = lastRunPreference != null ? preferences.getLong(lastRunPreference, 0) : 0;
         long now = currentTimeMillis();
         long nextRun = lastRun + interval;
 
-        if (nextRun < now + PADDING) {
+        if (lastRunPreference == null || nextRun < now + PADDING) {
             nextRun = now + interval;
             log.debug("running now [nextRun={}]", printTimestamp(nextRun));
-            preferences.setLong(getLastRunPreference(), now);
+            if (lastRunPreference != null) {
+                preferences.setLong(lastRunPreference, now);
+            }
             run();
         } else {
             log.debug("will run at {} [lastRun={}]", printTimestamp(nextRun), printTimestamp(lastRun));

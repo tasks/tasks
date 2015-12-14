@@ -6,7 +6,6 @@ task wrapper(type: Wrapper) {
 
 buildscript {
     repositories {
-        mavenCentral()
         jcenter()
     }
 
@@ -16,7 +15,7 @@ buildscript {
 }
 
 repositories {
-    mavenCentral()
+    jcenter()
 }
 
 android {
@@ -24,14 +23,14 @@ android {
         lintConfig file("lint.xml")
     }
 
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
 
     defaultConfig {
         versionCode 379
         versionName "4.7.22"
         minSdkVersion 9
-        targetSdkVersion 22
+        targetSdkVersion 23
     }
 
     signingConfigs {
@@ -94,7 +93,7 @@ dependencies {
 
     compile group: 'com.jakewharton', name: 'butterknife', version: '7.0.1'
 
-    compile group: 'com.android.support', name: 'design', version: '22.2.1'
+    compile group: 'com.android.support', name: 'design', version: '23.1.1'
 
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.7'
 
@@ -113,6 +112,7 @@ dependencies {
     googleplayCompile(group: 'com.google.api-client', name: 'google-api-client-android', version: '1.21.0') {
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
     }
+
     compile group: 'com.google.guava', name: 'guava-jdk5', version: '13.0'
 
     compile group: 'com.github.tony19', name: 'logback-android-classic', version: '1.1.1-2'

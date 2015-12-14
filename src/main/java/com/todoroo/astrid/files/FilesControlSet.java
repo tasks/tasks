@@ -7,6 +7,7 @@ package com.todoroo.astrid.files;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -39,6 +40,8 @@ import org.tasks.preferences.ActivityPreferences;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
 public class FilesControlSet extends TaskEditControlSetBase {
 
@@ -201,9 +204,15 @@ public class FilesControlSet extends TaskEditControlSetBase {
             });
         } else if (fileType.startsWith(TaskAttachment.FILE_TYPE_IMAGE)) {
             try {
-                activity.startActivity(new Intent(Intent.ACTION_VIEW) {{
-                    setDataAndType(Uri.fromFile(new File(filePath)), fileType);
-                }});
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                Uri uri = Uri.fromFile(new File(filePath));
+                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                intent.setDataAndType(uri, TaskAttachment.FILE_TYPE_IMAGE + "*");
+                if (atLeastLollipop()) {
+                    intent.setClipData(ClipData.newRawUri(null, uri));
+                }
+                activity.startActivity(intent);
             } catch(ActivityNotFoundException e) {
                 log.error(e.getMessage(), e);
                 Toast.makeText(activity, R.string.no_application_found, Toast.LENGTH_SHORT).show();
@@ -232,6 +241,7 @@ public class FilesControlSet extends TaskEditControlSetBase {
         try {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setDataAndType(Uri.fromFile(new File(file)), type);
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             activity.startActivity(intent);
         } catch (ActivityNotFoundException e) {
             log.error(e.getMessage(), e);

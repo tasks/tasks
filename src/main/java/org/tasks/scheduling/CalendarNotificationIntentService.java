@@ -1,4 +1,4 @@
-package com.todoroo.astrid.gcal;
+package org.tasks.scheduling;
 
 import android.app.PendingIntent;
 import android.content.ContentResolver;
@@ -8,46 +8,34 @@ import android.database.Cursor;
 import android.net.Uri;
 
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.gcal.CalendarAlarmReceiver;
+import com.todoroo.astrid.gcal.Calendars;
 
 import org.tasks.R;
+import org.tasks.injection.ForApplication;
+import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
-import org.tasks.scheduling.AlarmManager;
+
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
-@Singleton
-public class CalendarAlarmScheduler {
+public class CalendarNotificationIntentService extends RecurringIntervalIntentService {
 
     public static final String URI_PREFIX = "cal-reminder";
     public static final String URI_PREFIX_POSTPONE = "cal-postpone";
 
-    private final Preferences preferences;
-    private AlarmManager alarmManager;
+    @Inject Preferences preferences;
+    @Inject PermissionChecker permissionChecker;
+    @Inject @ForApplication Context context;
+    @Inject AlarmManager alarmManager;
 
-    @Inject
-    public CalendarAlarmScheduler(Preferences preferences, AlarmManager alarmManager) {
-        this.preferences = preferences;
-        this.alarmManager = alarmManager;
+    public CalendarNotificationIntentService() {
+        super(CalendarNotificationIntentService.class.getSimpleName());
     }
 
-    public void scheduleCalendarAlarms(final Context context, boolean force) {
-        if (!preferences.getBoolean(R.string.p_calendar_reminders, true) && !force) {
-            return;
-        }
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                scheduleAllCalendarAlarms(context);
-            }
-        }).start();
-    }
-
-    private void scheduleAllCalendarAlarms(Context context) {
-        if (!preferences.getBoolean(R.string.p_calendar_reminders, true)) {
-            return;
-        }
-
+    @Override
+    void run() {
         ContentResolver cr = context.getContentResolver();
 
         long now = DateUtilities.now();
@@ -80,17 +68,22 @@ public class CalendarAlarmScheduler {
                     alarmManager.wakeup(alarmTime, pendingIntent);
                 }
             }
-
-            // Schedule alarm to recheck and reschedule calendar alarms in 12 hours
-            Intent rescheduleAlarm = new Intent(CalendarStartupReceiver.BROADCAST_RESCHEDULE_CAL_ALARMS);
-            PendingIntent pendingReschedule = PendingIntent.getBroadcast(context, 0,
-                    rescheduleAlarm, 0);
-            alarmManager.cancel(pendingReschedule);
-            alarmManager.noWakeup(DateUtilities.now() + DateUtilities.ONE_HOUR * 12, pendingReschedule);
         } finally {
             if (events != null) {
                 events.close();
             }
         }
+    }
+
+    @Override
+    long intervalMillis() {
+        return preferences.getBoolean(R.string.p_calendar_reminders, false) && permissionChecker.canAccessCalendars()
+                ? TimeUnit.HOURS.toMillis(12)
+                : 0;
+    }
+
+    @Override
+    String getLastRunPreference() {
+        return null;
     }
 }

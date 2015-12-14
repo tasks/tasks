@@ -152,9 +152,7 @@ public class DateTime {
     }
 
     public DateTime plusMonths(int interval) {
-        Calendar calendar = getCalendar();
-        calendar.add(Calendar.MONTH, interval);
-        return new DateTime(calendar);
+        return add(Calendar.MONTH, interval);
     }
 
     public DateTime plusWeeks(int weeks) {
