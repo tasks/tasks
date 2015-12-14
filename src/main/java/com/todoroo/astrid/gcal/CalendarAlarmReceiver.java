@@ -24,8 +24,6 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.preFroyo;
-
 public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
 
     private static final Logger log = LoggerFactory.getLogger(CalendarAlarmReceiver.class);
@@ -80,10 +78,6 @@ public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
     private void showCalReminder(Context context, long eventId, boolean fromPostpone) {
         ContentResolver cr = context.getContentResolver();
         Uri eventUri = Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_EVENTS);
-
-        if (preFroyo()) {
-            return;
-        }
 
         String[] eventArg = new String[] { Long.toString(eventId) };
         Cursor event = cr.query(eventUri,

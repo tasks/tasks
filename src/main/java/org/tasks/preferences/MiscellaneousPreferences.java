@@ -18,8 +18,6 @@ import java.io.File;
 
 import javax.inject.Inject;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.preFroyo;
-
 public class MiscellaneousPreferences extends InjectingPreferenceActivity {
 
     private static final Logger log = LoggerFactory.getLogger(MiscellaneousPreferences.class);
@@ -106,19 +104,15 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
 
     private void initializeCalendarReminderPreference() {
         Preference calendarReminderPreference = findPreference(getString(R.string.p_calendar_reminders));
-        if (preFroyo()) {
-            getPreferenceScreen().removePreference(calendarReminderPreference);
-        } else {
-            calendarReminderPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    if (newValue != null && ((Boolean) newValue)) {
-                        calendarAlarmScheduler.scheduleCalendarAlarms(MiscellaneousPreferences.this, true);
-                    }
-                    return true;
+        calendarReminderPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                if (newValue != null && ((Boolean) newValue)) {
+                    calendarAlarmScheduler.scheduleCalendarAlarms(MiscellaneousPreferences.this, true);
                 }
-            });
-        }
+                return true;
+            }
+        });
     }
 
     private void initializeVoiceReminderPreference() {

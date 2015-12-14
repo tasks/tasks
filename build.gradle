@@ -30,7 +30,7 @@ android {
     defaultConfig {
         versionCode 379
         versionName "4.7.22"
-        minSdkVersion 7
+        minSdkVersion 9
         targetSdkVersion 22
     }
 
@@ -73,9 +73,7 @@ android {
 
     productFlavors {
         generic
-        googleplay {
-            minSdkVersion 9
-        }
+        googleplay
     }
 }
 

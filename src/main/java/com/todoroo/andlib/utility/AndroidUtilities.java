@@ -334,10 +334,6 @@ public class AndroidUtilities {
         }
     }
 
-    public static boolean preFroyo() {
-        return !atLeastFroyo();
-    }
-
     public static boolean preGingerbreadMR1() {
         return !atLeastGingerbreadMR1();
     }
@@ -356,14 +352,6 @@ public class AndroidUtilities {
 
     public static boolean preLollipop() {
         return !atLeastLollipop();
-    }
-
-    public static boolean atLeastFroyo() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO;
-    }
-
-    public static boolean atLeastGingerbread() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD;
     }
 
     public static boolean atLeastGingerbreadMR1() {

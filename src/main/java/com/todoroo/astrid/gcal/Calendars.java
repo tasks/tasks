@@ -12,7 +12,6 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 
 import javax.inject.Singleton;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastFroyo;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastIceCreamSandwich;
 
 @Singleton
@@ -55,11 +54,7 @@ public class Calendars {
 	        return getIcsUri(table);
 	    }
 
-	    if(atLeastFroyo()) {
-            return Uri.parse("content://com.android.calendar/" + table);
-        } else {
-            return Uri.parse("content://calendar/" + table);
-        }
+		return Uri.parse("content://com.android.calendar/" + table);
 	}
 
 	private static Uri getIcsUri(String table) {
