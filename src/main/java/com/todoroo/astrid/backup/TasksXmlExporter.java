@@ -168,7 +168,7 @@ public class TasksXmlExporter {
 
         xml.startTag(null, BackupConstants.ASTRID_TAG);
         xml.attribute(null, BackupConstants.ASTRID_ATTR_VERSION,
-                Integer.toString(preferences.getCurrentVersion()));
+                Integer.toString(preferences.getLastSetVersion()));
         xml.attribute(null, BackupConstants.ASTRID_ATTR_FORMAT,
                 Integer.toString(FORMAT));
 

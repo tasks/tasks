@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.activity;
 
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
@@ -15,6 +14,8 @@ import android.os.Bundle;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
+
+import org.tasks.injection.InjectingAppCompatActivity;
 
 import java.util.Map.Entry;
 import java.util.Set;
@@ -26,7 +27,7 @@ import java.util.Set;
  * @author timsu
  *
  */
-public class ShortcutActivity extends Activity {
+public class ShortcutActivity extends InjectingAppCompatActivity {
 
     // --- constants
 

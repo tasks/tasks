@@ -18,6 +18,7 @@ import com.todoroo.astrid.data.TaskAttachment;
 
 import org.tasks.BuildConfig;
 import org.tasks.R;
+import org.tasks.activities.PrivacyActivity;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
@@ -70,7 +71,6 @@ public final class UpgradeService {
                 new Thread() {
                     @Override
                     public void run() {
-                        //noinspection EmptyTryBlock
                         try {
                             if (from < V4_8_0) {
                                 performMarshmallowMigration();
@@ -99,7 +99,7 @@ public final class UpgradeService {
         }
 
         private void performMarshmallowMigration() {
-            // preserve pre-marshmallow default attachment and backup locations
+            // preserve pre-marshmallow default backup location
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                 if (!preferences.isStringValueSet(R.string.p_backup_dir)) {
                     String directory = String.format("%s/astrid",
@@ -109,18 +109,9 @@ public final class UpgradeService {
                         preferences.setString(R.string.p_backup_dir, directory);
                     }
                 }
-
-                if (!preferences.isStringValueSet(R.string.p_attachment_dir)) {
-                    String directory = String.format("%s/Android/data/%s/files/%s",
-                            Environment.getExternalStorageDirectory(),
-                            BuildConfig.APPLICATION_ID,
-                            TaskAttachment.FILES_DIRECTORY_DEFAULT);
-                    File file = new File(directory);
-                    if (file.exists() && file.isDirectory()) {
-                        preferences.setString(R.string.p_attachment_dir, directory);
-                    }
-                }
             }
+            // notify existing users of analytics
+            startActivity(new Intent(this, PrivacyActivity.class));
         }
     }
 }

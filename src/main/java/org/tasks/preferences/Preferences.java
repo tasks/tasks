@@ -44,7 +44,6 @@ public class Preferences {
     private static final Logger log = LoggerFactory.getLogger(Preferences.class);
 
     private static final String P_CURRENT_VERSION = "cv"; //$NON-NLS-1$
-    private static final String P_CURRENT_VERSION_NAME = "cvname"; //$NON-NLS-1$
 
     private static final String PREF_SORT_SORT = "sort_sort"; //$NON-NLS-1$
 
@@ -99,6 +98,14 @@ public class Preferences {
     public boolean isDefaultCalendarSet() {
         String defaultCalendar = getDefaultCalendar();
         return defaultCalendar != null && !defaultCalendar.equals("-1") && !defaultCalendar.equals("0");
+    }
+
+    public void setTrackingEnabled(boolean enabled) {
+        setBoolean(R.string.p_collect_statistics, enabled);
+    }
+
+    public boolean isTrackingEnabled() {
+        return getBoolean(R.string.p_collect_statistics, true);
     }
 
     public int getNotificationPriority() {
@@ -256,16 +263,12 @@ public class Preferences {
         editor.commit();
     }
 
-    public int getCurrentVersion() {
+    public int getLastSetVersion() {
         return getInt(P_CURRENT_VERSION, 0);
     }
 
     public void setCurrentVersion(int version) {
         setInt(P_CURRENT_VERSION, version);
-    }
-
-    public void setCurrentVersionName(String versionName) {
-        setString(P_CURRENT_VERSION_NAME, versionName);
     }
 
     public int getSortMode() {

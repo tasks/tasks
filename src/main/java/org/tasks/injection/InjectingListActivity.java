@@ -3,10 +3,16 @@ package org.tasks.injection;
 import android.app.ListActivity;
 import android.os.Bundle;
 
+import org.tasks.analytics.Tracker;
+
+import javax.inject.Inject;
+
 import dagger.ObjectGraph;
 
 public abstract class InjectingListActivity extends ListActivity implements Injector {
     private ObjectGraph objectGraph;
+
+    @Inject Tracker tracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,5 +30,12 @@ public abstract class InjectingListActivity extends ListActivity implements Inje
     @Override
     public ObjectGraph getObjectGraph() {
         return objectGraph;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        tracker.showScreen(getClass().getSimpleName());
     }
 }

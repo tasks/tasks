@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import org.tasks.R;
+import org.tasks.analytics.Tracker;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.AppCompatPreferenceActivity;
 
@@ -22,8 +23,8 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
 
     protected Toolbar toolbar;
 
-    @Inject
-    ActivityPreferences activityPreferences;
+    @Inject ActivityPreferences activityPreferences;
+    @Inject Tracker tracker;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,5 +64,12 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
     @Override
     public ObjectGraph getObjectGraph() {
         return objectGraph;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        tracker.showScreen(getClass().getSimpleName());
     }
 }

@@ -7,6 +7,7 @@ import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.activity.FilterShortcutActivity;
 import com.todoroo.astrid.activity.ShareLinkActivity;
+import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.core.CustomFilterActivity;
@@ -34,6 +35,7 @@ import org.tasks.activities.ExportTaskActivity;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.activities.ImportTaskActivity;
 import org.tasks.activities.LocationPickerActivity;
+import org.tasks.activities.PrivacyActivity;
 import org.tasks.activities.PurgeDeletedActivity;
 import org.tasks.activities.ResetPreferencesActivity;
 import org.tasks.activities.SortActivity;
@@ -98,7 +100,9 @@ import dagger.Provides;
                 DonationActivity.class,
                 UpgradeService.UpgradeActivity.class,
                 CalendarSelectionActivity.class,
-                AddAttachmentActivity.class
+                AddAttachmentActivity.class,
+                ShortcutActivity.class,
+                PrivacyActivity.class
         })
 public class ActivityModule {
 

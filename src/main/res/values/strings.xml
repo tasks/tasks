@@ -134,6 +134,10 @@
     <string name="pick_from_storage">Pick from storage</string>
     <string name="privacy">Privacy</string>
     <string name="privacy_policy">Privacy policy</string>
+    <string name="send_anonymous_statistics">Improve Tasks</string>
+    <string name="send_anonymous_statistics_summary">Send anonymous usage statistics and crash reports to help improve Tasks. No personal data will be collected.</string>
+    <string name="opt_out">Opt-out</string>
+    <string name="change_setting_anytime">You can change this setting at any time.</string>
 
     <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->

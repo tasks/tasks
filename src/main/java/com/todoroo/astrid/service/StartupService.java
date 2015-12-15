@@ -117,13 +117,12 @@ public class StartupService {
         // read current version
         int latestSetVersion = 0;
         try {
-            latestSetVersion = preferences.getCurrentVersion();
+            latestSetVersion = preferences.getLastSetVersion();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
 
         int version = BuildConfig.VERSION_CODE;
-        String versionName = BuildConfig.VERSION_NAME;
 
         log.info("Astrid Startup. {} => {}", latestSetVersion, version);
 
@@ -131,12 +130,11 @@ public class StartupService {
 
         // invoke upgrade service
         boolean justUpgraded = latestSetVersion != version;
-        if(justUpgraded && version > 0) {
+        if(justUpgraded) {
             if(latestSetVersion > 0) {
                 upgradeService.performUpgrade(activity, latestSetVersion);
             }
             preferences.setCurrentVersion(version);
-            preferences.setCurrentVersionName(versionName);
         }
 
         initializeDatabaseListeners();
@@ -189,7 +187,7 @@ public class StartupService {
      */
     private void databaseRestoreIfEmpty(Context context) {
         try {
-            if(preferences.getCurrentVersion() >= UpgradeService.V3_0_0 &&
+            if(preferences.getLastSetVersion() >= UpgradeService.V3_0_0 &&
                     !context.getDatabasePath(database.getName()).exists()) {
                 // we didn't have a database! restore latest file
                 File directory = preferences.getBackupDirectory();

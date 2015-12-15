@@ -27,8 +27,8 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        versionCode 379
-        versionName "4.7.22"
+        versionCode 380
+        versionName "4.8.0"
         minSdkVersion 9
         targetSdkVersion 23
     }
@@ -105,6 +105,7 @@ dependencies {
     }
 
     googleplayCompile 'com.google.android.gms:play-services-location:8.3.0'
+    googleplayCompile 'com.google.android.gms:play-services-analytics:8.3.0'
     googleplayCompile('com.google.apis:google-api-services-tasks:v1-rev41-1.21.0') {
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
     }

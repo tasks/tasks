@@ -18,6 +18,7 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.tags.TagService;
 
+import org.tasks.analytics.Tracker;
 import org.tasks.filters.FilterCounter;
 import org.tasks.injection.InjectingApplication;
 import org.tasks.preferences.Preferences;
@@ -51,11 +52,14 @@ public class Tasks extends InjectingApplication {
     @Inject RefreshScheduler refreshScheduler;
     @Inject SyncThrottle syncThrottle;
     @Inject Preferences preferences;
+    @Inject Tracker tracker;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
         preferences.setupLogger();
+
+        tracker.setTrackingEnabled(preferences.isTrackingEnabled());
     }
 }
