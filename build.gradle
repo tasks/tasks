@@ -88,38 +88,40 @@ android.applicationVariants.all { variant ->
 }
 
 dependencies {
-    provided group: 'com.squareup.dagger', name: 'dagger-compiler', version: '1.2.2'
-    compile group: 'com.squareup.dagger', name: 'dagger', version: '1.2.2'
+    provided 'com.squareup.dagger:dagger-compiler:1.2.2'
+    compile 'com.squareup.dagger:dagger:1.2.2'
 
-    compile group: 'com.jakewharton', name: 'butterknife', version: '7.0.1'
-
-    compile group: 'com.android.support', name: 'design', version: '23.1.1'
-
-    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.7'
-
-    compile group: 'com.rubiconproject.oss', name: 'jchronic', version: '0.2.6', transitive: false
-    compile group: 'org.scala-saddle', name: 'google-rfc-2445', version: '20110304', transitive: false
-
-    compile (group: 'com.github.flavienlaurent.datetimepicker', name: 'library', version: '0.0.2') {
+    compile 'com.android.support:design:23.1.1'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.google.guava:guava-jdk5:13.0'
+    compile ('com.rubiconproject.oss:jchronic:0.2.6') {
+        transitive = false
+    }
+    compile ('org.scala-saddle:google-rfc-2445:20110304') {
+        transitive = false
+    }
+    compile ('com.github.flavienlaurent.datetimepicker:library:0.0.2') {
         exclude group: 'com.android.support', module: 'support-v4'
     }
 
-    googleplayCompile group: 'com.google.android.gms', name: 'play-services-location', version: '8.3.0'
-
-    googleplayCompile(group: 'com.google.apis', name: 'google-api-services-tasks', version: 'v1-rev41-1.21.0') {
+    googleplayCompile 'com.google.android.gms:play-services-location:8.3.0'
+    googleplayCompile('com.google.apis:google-api-services-tasks:v1-rev41-1.21.0') {
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
     }
-    googleplayCompile(group: 'com.google.api-client', name: 'google-api-client-android', version: '1.21.0') {
+    googleplayCompile('com.google.api-client:google-api-client-android:1.21.0') {
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
     }
 
-    compile group: 'com.google.guava', name: 'guava-jdk5', version: '13.0'
+    compile 'org.slf4j:slf4j-api:1.7.7'
+    compile 'com.github.tony19:logback-android-classic:1.1.1-2'
+    apk 'com.github.tony19:logback-android-core:1.1.1-2'
 
-    compile group: 'com.github.tony19', name: 'logback-android-classic', version: '1.1.1-2'
-    apk group: 'com.github.tony19', name: 'logback-android-core', version: '1.1.1-2'
-
-    androidTestCompile group: 'org.mockito', name: 'mockito-core', version: '1.9.5', transitive: false
-    androidTestCompile group: 'com.google.dexmaker', name: 'dexmaker', version: '1.1'
-    androidTestCompile group: 'com.google.dexmaker', name: 'dexmaker-mockito', version: '1.1'
-    androidTestCompile group: 'com.natpryce', name: 'make-it-easy', version: '3.1.0', transitive: false
+    androidTestCompile ('org.mockito:mockito-core:1.9.5') {
+        transitive = false
+    }
+    androidTestCompile 'com.google.dexmaker:dexmaker:1.1'
+    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.1'
+    androidTestCompile ('com.natpryce:make-it-easy:3.1.0') {
+        transitive = false
+    }
 }
