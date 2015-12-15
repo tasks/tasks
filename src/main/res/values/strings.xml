@@ -132,6 +132,8 @@
     <string name="take_a_picture">Take a picture</string>
     <string name="pick_from_gallery">Pick from gallery</string>
     <string name="pick_from_storage">Pick from storage</string>
+    <string name="privacy">Privacy</string>
+    <string name="privacy_policy">Privacy policy</string>
 
     <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->
