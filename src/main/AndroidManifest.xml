@@ -219,11 +219,6 @@
         </activity>
 
         <activity
-            android:name="com.todoroo.astrid.service.UpdateScreenFlow"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Dialog" />
-
-        <activity
             android:name="com.todoroo.astrid.service.UpgradeService$UpgradeActivity"
             android:screenOrientation="portrait" />
 
