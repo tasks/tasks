@@ -218,7 +218,6 @@
 
     <string name="p_use_dark_theme">use_dark_theme</string>
     <string name="p_use_dark_theme_widget">use_dark_theme_widget</string>
-    <string name="p_debug_logging">debug_logging</string>
 
     <string name="TEA_ctrl_title_pref">TEA_ctrl_title_pref</string> <!-- Deprecated -->
     <string name="TEA_ctrl_when_pref">TEA_ctrl_when_pref</string>

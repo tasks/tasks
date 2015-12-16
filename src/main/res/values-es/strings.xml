@@ -325,7 +325,6 @@
 	<string name="quiet_hours">Horario en silencio</string>
 	<string name="attachment_directory">Directorio de archivos adjuntos</string>
 	<string name="backup_directory">Directorio de la copia de seguridad</string>
-	<string name="debug_logging">Registro de depuración</string>
 	<string name="miscellaneous">Miscelánea</string>
 	<string name="synchronization">Sincronización</string>
 	<string name="enabled">Habilitado</string>

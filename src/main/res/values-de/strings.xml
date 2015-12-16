@@ -323,7 +323,6 @@
 	<string name="quiet_hours">Ruhezeiten</string>
 	<string name="attachment_directory">Anhängeordner</string>
 	<string name="backup_directory">Sicherungsordner</string>
-	<string name="debug_logging">Debug Logging</string>
 	<string name="miscellaneous">Verschiedenes</string>
 	<string name="synchronization">Synchronisierung</string>
 	<string name="enabled">Aktiviert</string>

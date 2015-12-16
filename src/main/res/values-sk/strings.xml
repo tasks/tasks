@@ -327,7 +327,6 @@
 	<string name="quiet_hours">Tiché hodiny</string>
 	<string name="attachment_directory">Príloha adresára</string>
 	<string name="backup_directory">Zalóhovať adresár</string>
-	<string name="debug_logging">Zapisovať do denníka ladenia</string>
 	<string name="miscellaneous">Rôzne</string>
 	<string name="synchronization">Synchronizácia</string>
 	<string name="enabled">Povolené</string>

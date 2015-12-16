@@ -343,7 +343,6 @@
 	<string name="quiet_hours">消音時間</string>
 	<string name="attachment_directory">添付ディレクトリ</string>
 	<string name="backup_directory">ディレクトリをバックアップ</string>
-	<string name="debug_logging">デバッグログ</string>
 	<string name="miscellaneous">その他</string>
 	<string name="synchronization">同期</string>
 	<string name="enabled">有効</string>

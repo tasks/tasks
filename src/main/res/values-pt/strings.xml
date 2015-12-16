@@ -335,7 +335,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="quiet_hours">Horas de silêncio</string>
 	<string name="attachment_directory">Diretório do anexo</string>
 	<string name="backup_directory">Diretório de backup</string>
-	<string name="debug_logging">Registo de depuração</string>
 	<string name="miscellaneous">Outras</string>
 	<string name="synchronization">Sincronização</string>
 	<string name="enabled">Ativo</string>

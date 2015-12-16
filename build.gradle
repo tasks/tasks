@@ -82,7 +82,7 @@ dependencies {
 
     compile 'com.android.support:design:23.1.1'
     compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.google.guava:guava-jdk5:13.0'
+    compile 'com.google.guava:guava-jdk5:17.0'
     compile ('com.rubiconproject.oss:jchronic:0.2.6') {
         transitive = false
     }
@@ -102,9 +102,7 @@ dependencies {
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
     }
 
-    compile 'org.slf4j:slf4j-api:1.7.7'
-    compile 'com.github.tony19:logback-android-classic:1.1.1-2'
-    apk 'com.github.tony19:logback-android-core:1.1.1-2'
+    compile 'org.slf4j:slf4j-android:1.7.13'
 
     androidTestCompile ('org.mockito:mockito-core:1.9.5') {
         transitive = false

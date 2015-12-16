@@ -1,11 +1,8 @@
 package org.tasks.preferences;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
-import android.preference.Preference;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingPreferenceActivity;
@@ -16,10 +13,6 @@ public class HelpAndFeedbackActivity extends InjectingPreferenceActivity {
 
     @Inject DeviceInfo deviceInfo;
     @Inject Preferences preferences;
-    @Inject PermissionChecker permissionChecker;
-    @Inject PermissionRequestor permissionRequestor;
-
-    private CheckBoxPreference debugLogging;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,38 +27,6 @@ public class HelpAndFeedbackActivity extends InjectingPreferenceActivity {
                 }});
         if (!deviceInfo.isPlayStoreAvailable()) {
             remove(R.string.rate_tasks);
-        }
-
-        debugLogging = (CheckBoxPreference) findPreference(getString(R.string.p_debug_logging));
-        debugLogging.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                if (newValue != null && (boolean) newValue) {
-                    if (permissionRequestor.requestFileWritePermission()) {
-                        enableDebugLogging(true);
-                    }
-                } else {
-                    enableDebugLogging(false);
-                }
-                return true;
-            }
-        });
-        enableDebugLogging(
-                preferences.getBoolean(R.string.p_debug_logging, false) &&
-                permissionChecker.canWriteToExternalStorage());
-    }
-
-    private void enableDebugLogging(boolean enabled) {
-        debugLogging.setChecked(enabled);
-        preferences.setupLogger(enabled);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == PermissionRequestor.REQUEST_FILE_WRITE) {
-            enableDebugLogging(grantResults[0] == PackageManager.PERMISSION_GRANTED);
-        } else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 

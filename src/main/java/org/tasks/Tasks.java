@@ -56,8 +56,6 @@ public class Tasks extends InjectingApplication {
     public void onCreate() {
         super.onCreate();
 
-        preferences.setupLogger();
-
         tracker.setTrackingEnabled(preferences.isTrackingEnabled());
     }
 }

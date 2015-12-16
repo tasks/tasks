@@ -337,7 +337,6 @@
 	<string name="sound">Geluid</string>
 	<string name="quiet_hours">Rustperiode</string>
 	<string name="attachment_directory">Bijlage directory</string>
-	<string name="debug_logging">Fouten loggen</string>
 	<string name="miscellaneous">Diversen</string>
 	<string name="synchronization">Synchronisatie</string>
 	<string name="enabled">Actief</string>
