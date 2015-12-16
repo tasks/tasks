@@ -223,7 +223,7 @@
         </activity>
 
         <activity
-            android:name="com.todoroo.astrid.service.UpgradeService$UpgradeActivity"
+            android:name="com.todoroo.astrid.service.UpgradeActivity"
             android:screenOrientation="portrait" />
 
         <!-- ======================================================= Receivers = -->

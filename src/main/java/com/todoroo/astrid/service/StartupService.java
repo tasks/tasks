@@ -8,6 +8,7 @@ package com.todoroo.astrid.service;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.preference.PreferenceManager;
 
@@ -54,7 +55,6 @@ public class StartupService {
 
     // --- application startup
 
-    private final UpgradeService upgradeService;
     private final TagDataDao tagDataDao;
     private final Database database;
     private final GtasksPreferenceService gtasksPreferenceService;
@@ -67,12 +67,10 @@ public class StartupService {
     private DialogBuilder dialogBuilder;
 
     @Inject
-    public StartupService(UpgradeService upgradeService, TagDataDao tagDataDao, Database database,
-                          GtasksPreferenceService gtasksPreferenceService,
+    public StartupService(TagDataDao tagDataDao, Database database, GtasksPreferenceService gtasksPreferenceService,
                           GtasksSyncService gtasksSyncService, MetadataDao metadataDao,
                           Preferences preferences, TasksXmlImporter xmlImporter,
                           TaskDeleter taskDeleter, Broadcaster broadcaster, DialogBuilder dialogBuilder) {
-        this.upgradeService = upgradeService;
         this.tagDataDao = tagDataDao;
         this.database = database;
         this.gtasksPreferenceService = gtasksPreferenceService;
@@ -115,26 +113,21 @@ public class StartupService {
         }
 
         // read current version
-        int latestSetVersion = 0;
-        try {
-            latestSetVersion = preferences.getLastSetVersion();
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
+        final int lastVersion = preferences.getLastSetVersion();
+        int currentVersion = BuildConfig.VERSION_CODE;
 
-        int version = BuildConfig.VERSION_CODE;
-
-        log.info("Astrid Startup. {} => {}", latestSetVersion, version);
+        log.info("Astrid Startup. {} => {}", lastVersion, currentVersion);
 
         databaseRestoreIfEmpty(activity);
 
         // invoke upgrade service
-        boolean justUpgraded = latestSetVersion != version;
-        if(justUpgraded) {
-            if(latestSetVersion > 0) {
-                upgradeService.performUpgrade(activity, latestSetVersion);
+        if(lastVersion != currentVersion) {
+            if(lastVersion > 0) {
+                activity.startActivityForResult(new Intent(activity, UpgradeActivity.class) {{
+                    putExtra(UpgradeActivity.TOKEN_FROM_VERSION, lastVersion);
+                }}, 0);
             }
-            preferences.setCurrentVersion(version);
+            preferences.setCurrentVersion(currentVersion);
         }
 
         initializeDatabaseListeners();
@@ -156,7 +149,7 @@ public class StartupService {
             preferences.setDefaults();
         }
 
-        if (latestSetVersion == 0) {
+        if (lastVersion == 0) {
             broadcaster.firstLaunch();
         }
 
@@ -187,7 +180,7 @@ public class StartupService {
      */
     private void databaseRestoreIfEmpty(Context context) {
         try {
-            if(preferences.getLastSetVersion() >= UpgradeService.V3_0_0 &&
+            if(preferences.getLastSetVersion() > UpgradeActivity.V3_0_0 &&
                     !context.getDatabasePath(database.getName()).exists()) {
                 // we didn't have a database! restore latest file
                 File directory = preferences.getBackupDirectory();

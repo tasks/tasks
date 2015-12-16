@@ -20,7 +20,7 @@ import com.todoroo.astrid.gcal.CalendarReminderActivity;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.reminders.ReminderPreferences;
-import com.todoroo.astrid.service.UpgradeService;
+import com.todoroo.astrid.service.UpgradeActivity;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
 
 import org.tasks.activities.AddAttachmentActivity;
@@ -98,7 +98,7 @@ import dagger.Provides;
                 FilterSelectionActivity.class,
                 FileExplore.class,
                 DonationActivity.class,
-                UpgradeService.UpgradeActivity.class,
+                UpgradeActivity.class,
                 CalendarSelectionActivity.class,
                 AddAttachmentActivity.class,
                 ShortcutActivity.class,
