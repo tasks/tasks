@@ -405,6 +405,14 @@
 	<string name="vibration_count">振動の数</string>
 	<string name="vibration_duration">それぞれの振動の長さ (ミリ秒)</string>
 	<string name="vibration_pause">振動の間のポーズ (ミリ秒)</string>
+	<string name="take_a_picture">写真を撮影</string>
+	<string name="pick_from_gallery">ギャラリーから選択</string>
+	<string name="pick_from_storage">ストレージから選択</string>
+	<string name="privacy">プライバシー</string>
+	<string name="privacy_policy">プライバシーポリシー</string>
+	<string name="send_anonymous_statistics">Tasks を改善</string>
+	<string name="send_anonymous_statistics_summary">Tasks を改善するために、匿名で使用状況データとクラッシュレポートを送信します。個人情報は収集されません。</string>
+	<string name="opt_out">拒否</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>無効</item>
 		<item>15分毎</item>

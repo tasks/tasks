@@ -22,8 +22,8 @@
 	<string name="DLG_error_sdcard">Нет доступа к папке:%s</string>
 	<string name="DLG_error_sdcard_general">Нет доступа к карте памяти!</string>
 	<string name="import_file_prompt">Выберите файл для восстановления</string>
-	<string name="read_permission_label">Право Tasks</string>
-	<string name="write_permission_label">Право Tasks</string>
+	<string name="read_permission_label">Разрешения Tasks</string>
+	<string name="write_permission_label">Разрешения Tasks</string>
 	<string name="DLG_delete_this_task_question">Удалить эту задачу?</string>
 	<string name="DLG_upgrading">Обновление ваших задач…</string>
 	<string name="DLG_hour_minutes">Время (час : мин)</string>
@@ -33,9 +33,9 @@
 	<string name="TLA_menu_sort">Сортировка</string>
 	<string name="TLA_menu_search">Поиск</string>
 	<string name="TLA_menu_settings">Настройки</string>
-	<string name="TAd_hiddenFormat">%s [скрыта]</string>
-	<string name="TAd_deletedFormat">%s [удалена]</string>
-	<string name="TAd_completed">Завершена\n%s</string>
+	<string name="TAd_hiddenFormat">%s [скрыто]</string>
+	<string name="TAd_deletedFormat">%s [удалено]</string>
+	<string name="TAd_completed">Завершено\n%s</string>
 	<string name="TAd_actionEditTask">Редактировать</string>
 	<string name="TAd_contextCopyTask">Копировать задачу</string>
 	<string name="TAd_contextDeleteTask">Удалить задачу</string>
@@ -56,7 +56,7 @@
 	<string name="TEA_hideUntil_label">Скрыть до</string>
 	<string name="TEA_hideUntil_display">Скрыть до %s</string>
 	<string name="TEA_note_label">Описание</string>
-	<string name="TEA_estimatedDuration_label">Как долго это продлится?</string>
+	<string name="TEA_estimatedDuration_label">Сколько времени это займёт?</string>
 	<string name="TEA_elapsedDuration_label">Время уже потраченное на задачу</string>
 	<string name="TEA_menu_save">Сохранить изменения</string>
 	<string name="save">Сохранить </string>
@@ -124,7 +124,7 @@
 	<string name="EPr_show_timer_shortcut">Показать вкладку таймера</string>
 	<string name="EPr_beastMode_desc">Настроить внешний вид экрана правки задачи</string>
 	<string name="EPr_beastMode_reset">Настройки по умолчанию</string>
-	<string name="EPr_beastMode_hint">Настройте экран редактирования задачи, перетаскивая элементы ниже</string>
+	<string name="EPr_beastMode_hint">Настройте экран редактирования задачи, перетаскивая элементы</string>
 	<string name="EPr_fullTask_title">Показывать полное название задачи</string>
 	<string name="EPr_show_task_edit_comments">Показывать комментарии в редакторе задачи</string>
 	<string name="task_list_options">Настройка списка задач</string>
@@ -404,6 +404,15 @@
 	<string name="vibration_count">Количество вибраций</string>
 	<string name="vibration_duration">Продолжительность каждой вибрации (миллисекунды)</string>
 	<string name="vibration_pause">Пауза между вибрациями (миллисекунды)</string>
+	<string name="take_a_picture">Выбрать изображение</string>
+	<string name="pick_from_gallery">Выбрать из галереи</string>
+	<string name="pick_from_storage">Выбрать с диска</string>
+	<string name="privacy">Конфиденциальность</string>
+	<string name="privacy_policy">Политика конфиденциальности</string>
+	<string name="send_anonymous_statistics">Улучшить Tasks</string>
+	<string name="send_anonymous_statistics_summary">Высылать анонимную статистику и отчёты об ошибках, чтобы помочь улучшить Tasks. Персональная информация собираться не будет.</string>
+	<string name="anonymous_usage_blurb">Собрана анонимная статистика использования</string>
+	<string name="opt_out">Отказаться</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>отключить</item>
 		<item>каждые 15 минут</item>

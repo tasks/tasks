@@ -400,6 +400,9 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="vibration_count">Numero di vibrazioni</string>
 	<string name="vibration_duration">Durata di ogni vibrazione (millisecondi)</string>
 	<string name="vibration_pause">Durata intervallo vibrazioni (millisecondi)</string>
+	<string name="take_a_picture">Scatta un foto</string>
+	<string name="pick_from_gallery">Scegli dalla libreria</string>
+	<string name="pick_from_storage">Scegli dalla memoria</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>disabilita</item>
 		<item>ogni quindici minuti</item>
