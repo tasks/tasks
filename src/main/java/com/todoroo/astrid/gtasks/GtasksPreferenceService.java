@@ -11,6 +11,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
+import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
@@ -27,6 +28,7 @@ public class GtasksPreferenceService {
 
     private Context context;
     private final Preferences preferences;
+    private PermissionChecker permissionChecker;
 
     public static final String IDENTIFIER = "gtasks"; //$NON-NLS-1$
 
@@ -34,9 +36,11 @@ public class GtasksPreferenceService {
     private static final String PREF_USER_NAME = IDENTIFIER + "_user"; //$NON-NLS-1$
 
     @Inject
-    public GtasksPreferenceService(@ForApplication Context context, Preferences preferences) {
+    public GtasksPreferenceService(@ForApplication Context context, Preferences preferences,
+                                   PermissionChecker permissionChecker) {
         this.context = context;
         this.preferences = preferences;
+        this.permissionChecker = permissionChecker;
     }
 
     public String getDefaultList() {
@@ -64,7 +68,8 @@ public class GtasksPreferenceService {
      */
     public boolean isLoggedIn() {
         return context.getResources().getBoolean(R.bool.sync_enabled) &&
-                preferences.getStringValue(PREF_USER_NAME) != null;
+                preferences.getStringValue(PREF_USER_NAME) != null &&
+                permissionChecker.canAccessAccounts();
     }
 
     /** @return Last Successful Sync Date, or 0 */
