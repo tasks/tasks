@@ -5,5 +5,5 @@
     <bool name="at_least_honeycomb_mr1">false</bool>
     <bool name="sync_enabled">false</bool>
     <bool name="location_enabled">false</bool>
-    <bool name="tasker_available">false</bool>
+    <bool name="google_play_store_available">false</bool>
 </resources>

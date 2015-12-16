@@ -12,7 +12,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import static com.google.api.client.util.Lists.newArrayList;
+import static com.google.common.collect.Lists.newArrayList;
 
 public class AddAttachmentDialog extends InjectingDialogFragment {
 

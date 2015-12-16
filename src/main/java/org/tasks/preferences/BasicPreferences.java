@@ -2,7 +2,6 @@ package org.tasks.preferences;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 
@@ -10,6 +9,7 @@ import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.reminders.ReminderPreferences;
 
 import org.tasks.R;
+import org.tasks.analytics.Tracker;
 import org.tasks.injection.InjectingPreferenceActivity;
 
 import javax.inject.Inject;
@@ -21,6 +21,8 @@ public class BasicPreferences extends InjectingPreferenceActivity {
 
     private Bundle result;
 
+    @Inject Tracker tracker;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,8 +33,20 @@ public class BasicPreferences extends InjectingPreferenceActivity {
         if (!getResources().getBoolean(R.bool.sync_enabled)) {
             getPreferenceScreen().removePreference(findPreference(getString(R.string.synchronization)));
         }
-        if (getResources().getBoolean(R.bool.tasker_available)) {
+        if (getResources().getBoolean(R.bool.google_play_store_available)) {
             addPreferencesFromResource(R.xml.preferences_addons);
+            addPreferencesFromResource(R.xml.preferences_privacy);
+
+            findPreference(getString(R.string.p_collect_statistics)).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    if (newValue != null) {
+                        tracker.setTrackingEnabled((boolean) newValue);
+                        return true;
+                    }
+                    return false;
+                }
+            });
         }
         setupActivity(R.string.EPr_appearance_header, AppearancePreferences.class);
         setupActivity(R.string.notifications, ReminderPreferences.class);

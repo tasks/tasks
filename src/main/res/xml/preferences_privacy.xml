@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/privacy">
+
+        <Preference android:title="@string/privacy_policy">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="http://tasks.org/privacy.html" />
+        </Preference>
+
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:defaultValue="true"
+            android:key="@string/p_collect_statistics"
+            android:summary="@string/send_anonymous_statistics_summary"
+            android:title="@string/send_anonymous_statistics" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -2,5 +2,5 @@
 <resources>
     <bool name="sync_enabled">true</bool>
     <bool name="location_enabled">true</bool>
-    <bool name="tasker_available">true</bool>
+    <bool name="google_play_store_available">true</bool>
 </resources>
