@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.billing.IabHelper;
@@ -23,11 +21,11 @@ import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 public class DonationActivity extends InjectingAppCompatActivity implements IabHelper.OnIabSetupFinishedListener,
         IabHelper.QueryInventoryFinishedListener, IabHelper.OnIabPurchaseFinishedListener,
         IabHelper.OnConsumeFinishedListener, IabHelper.OnConsumeMultiFinishedListener {
-
-    private static final Logger log = LoggerFactory.getLogger(DonationActivity.class);
 
     private static final int RC_REQUEST = 10001;
 
@@ -42,7 +40,7 @@ public class DonationActivity extends InjectingAppCompatActivity implements IabH
         super.onCreate(savedInstanceState);
 
         iabHelper = new IabHelper(this, getString(R.string.gp_key));
-        if (log.isDebugEnabled()) {
+        if (BuildConfig.DEBUG) {
             iabHelper.enableDebugLogging(true, BuildConfig.APPLICATION_ID);
         }
         iabHelper.startSetup(this);
@@ -118,7 +116,7 @@ public class DonationActivity extends InjectingAppCompatActivity implements IabH
         }
 
         if (result.isSuccess()) {
-            log.debug("IAB setup successful");
+            Timber.d("IAB setup successful");
             iabHelper.queryInventoryAsync(this);
         } else {
             error(result.getMessage());
@@ -131,7 +129,7 @@ public class DonationActivity extends InjectingAppCompatActivity implements IabH
             return;
         }
         if (result.isFailure()) {
-            log.error("Query inventory failed: {}", result);
+            Timber.e("Query inventory failed: %s", result);
         } else {
             this.inventory = inventory;
             iabHelper.consumeAsync(inventory.getAllPurchases(), this);
@@ -139,7 +137,7 @@ public class DonationActivity extends InjectingAppCompatActivity implements IabH
     }
 
     private void error(String message) {
-        log.error(message);
+        Timber.e(message);
         Toast.makeText(DonationActivity.this, message, Toast.LENGTH_LONG).show();
         finish();
     }
@@ -151,7 +149,7 @@ public class DonationActivity extends InjectingAppCompatActivity implements IabH
         }
 
         if (result.isSuccess()) {
-            log.debug("Purchased {}", purchase);
+            Timber.d("Purchased %s", purchase);
             iabHelper.consumeAsync(purchase, this);
         } else {
             error(result.getMessage());
@@ -161,9 +159,9 @@ public class DonationActivity extends InjectingAppCompatActivity implements IabH
     @Override
     public void onConsumeFinished(Purchase purchase, IabResult result) {
         if (result.isSuccess()) {
-            log.debug("Consumed {}", purchase);
+            Timber.d("Consumed %s", purchase);
         } else {
-            log.error("Error consuming {}: {}", purchase, result);
+            Timber.e("Error consuming %s: %s", purchase, result);
         }
         finish();
     }
@@ -171,7 +169,7 @@ public class DonationActivity extends InjectingAppCompatActivity implements IabH
     @Override
     public void onConsumeMultiFinished(List<Purchase> purchases, List<IabResult> results) {
         for (int i = 0 ; i < purchases.size() && i < results.size() ; i++) {
-            log.debug("Consume {}: {}", purchases.get(i), results.get(i));
+            Timber.d("Consume %s: %s", purchases.get(i), results.get(i));
         }
     }
 
@@ -183,7 +181,7 @@ public class DonationActivity extends InjectingAppCompatActivity implements IabH
                     : resultCode == RESULT_CANCELED
                     ? "RESULT_CANCELED"
                     : Integer.toString(resultCode);
-            log.debug("onActivityResult(RC_REQUEST, {}, {})", resultString, data);
+            Timber.d("onActivityResult(RC_REQUEST, %s, %s)", resultString, data);
             finish();
         } else {
             super.onActivityResult(requestCode, resultCode, data);

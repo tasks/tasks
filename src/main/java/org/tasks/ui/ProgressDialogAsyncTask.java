@@ -5,14 +5,12 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 
-public abstract class ProgressDialogAsyncTask extends AsyncTask<Void, Void, Integer> {
+import timber.log.Timber;
 
-    private static final Logger log = LoggerFactory.getLogger(ProgressDialogAsyncTask.class);
+public abstract class ProgressDialogAsyncTask extends AsyncTask<Void, Void, Integer> {
 
     ProgressDialog progressDialog;
     private Activity activity;
@@ -35,7 +33,7 @@ public abstract class ProgressDialogAsyncTask extends AsyncTask<Void, Void, Inte
             try {
                 progressDialog.dismiss();
             } catch (Exception e) {
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
             }
         }
 

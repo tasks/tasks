@@ -11,16 +11,14 @@ import android.support.v7.app.AlertDialog;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 
 import java.io.File;
 import java.io.FilenameFilter;
 
-public class FilePickerBuilder extends AlertDialog.Builder implements DialogInterface.OnClickListener {
+import timber.log.Timber;
 
-    private static final Logger log = LoggerFactory.getLogger(FilePickerBuilder.class);
+public class FilePickerBuilder extends AlertDialog.Builder implements DialogInterface.OnClickListener {
 
     public interface OnFilePickedListener {
         void onFilePicked(String filePath);
@@ -62,7 +60,7 @@ public class FilePickerBuilder extends AlertDialog.Builder implements DialogInte
 
             setItems(files, this);
         } else {
-            log.error("Cannot access sdcard.");
+            Timber.e("Cannot access sdcard.");
             setMessage(R.string.DLG_error_sdcard + "sdcard");
         }
     }

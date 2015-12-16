@@ -19,8 +19,6 @@ import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
@@ -31,9 +29,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class SubtasksHelper {
+import timber.log.Timber;
 
-    private static final Logger log = LoggerFactory.getLogger(SubtasksHelper.class);
+public class SubtasksHelper {
 
     private final Context context;
     private final Preferences preferences;
@@ -117,7 +115,7 @@ public class SubtasksHelper {
                     ids.add(Long.parseLong(idString));
                 }
             } catch (NumberFormatException e) {
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
             }
         }
         return ids;
@@ -176,7 +174,7 @@ public class SubtasksHelper {
                 try {
                     localId = Long.parseLong(uuid);
                 } catch (NumberFormatException e) {
-                    log.error(e.getMessage(), e);
+                    Timber.e(e, e.getMessage());
                 }
                 return localId;
             }

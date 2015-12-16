@@ -18,8 +18,6 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
@@ -30,13 +28,13 @@ import java.util.TimeZone;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastIceCreamSandwich;
 import static com.todoroo.andlib.utility.AndroidUtilities.preIceCreamSandwich;
 import static com.todoroo.astrid.gcal.Calendars.getCalendarContentUri;
 
 public class GCalHelper {
-
-    private static final Logger log = LoggerFactory.getLogger(GCalHelper.class);
 
     /** If task has no estimated time, how early to set a task in calendar (seconds)*/
     private static final long DEFAULT_CAL_TIME = DateUtilities.ONE_HOUR;
@@ -124,7 +122,7 @@ public class GCalHelper {
 
         } catch (Exception e) {
             // won't work on emulator
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
         }
 
         return null;
@@ -155,7 +153,7 @@ public class GCalHelper {
             calendar.moveToFirst();
             return calendar.getString(0);
         } catch (CursorIndexOutOfBoundsException e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             return null;
         } finally  {
             calendar.close();
@@ -195,7 +193,7 @@ public class GCalHelper {
 
                 task.setCalendarUri( "");
             } catch (Exception e) {
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
             }
         }
 

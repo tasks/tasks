@@ -24,8 +24,6 @@ import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Flags;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.time.DateTime;
 
@@ -37,13 +35,13 @@ import java.util.TimeZone;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 import static org.tasks.date.DateTimeUtils.newDate;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.date.DateTimeUtils.newDateUtc;
 
 public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
-
-    private static final Logger log = LoggerFactory.getLogger(RepeatTaskCompleteListener.class);
 
     @Inject TaskService taskService;
     @Inject GCalHelper gcalHelper;
@@ -73,7 +71,7 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
                     return;
                 }
             } catch (ParseException e) {
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
                 return;
             }
 

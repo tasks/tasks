@@ -28,8 +28,6 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.Preferences;
@@ -41,11 +39,11 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 public class TasksXmlExporter {
-
-    private static final Logger log = LoggerFactory.getLogger(TasksXmlExporter.class);
 
     public static final String PREF_BACKUP_LAST_DATE = "backupDate"; //$NON-NLS-1$
 
@@ -139,7 +137,7 @@ public class TasksXmlExporter {
                         onFinishExport(output);
                     }
                 } catch (IOException e) {
-                    log.error(e.getMessage(), e);
+                    Timber.e(e, e.getMessage());
                 } finally {
                     post(new Runnable() {
                         @Override
@@ -248,7 +246,7 @@ public class TasksXmlExporter {
             try {
                 property.accept(xmlWritingVisitor, model);
             } catch (Exception e) {
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
             }
         }
     }
@@ -266,7 +264,7 @@ public class TasksXmlExporter {
                 xml.attribute(null, property.name, valueString);
             } catch (UnsupportedOperationException e) {
                 // didn't read this value, do nothing
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
             } catch (IllegalArgumentException | IOException | IllegalStateException e) {
                 throw new RuntimeException(e);
             }
@@ -281,7 +279,7 @@ public class TasksXmlExporter {
                 xml.attribute(null, property.name, valueString);
             } catch (UnsupportedOperationException e) {
                 // didn't read this value, do nothing
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
             } catch (IllegalArgumentException | IOException | IllegalStateException e) {
                 throw new RuntimeException(e);
             }
@@ -312,7 +310,7 @@ public class TasksXmlExporter {
                 xml.attribute(null, property.name, value);
             } catch (UnsupportedOperationException e) {
                 // didn't read this value, do nothing
-                log.trace(e.getMessage(), e);
+                Timber.v(e, e.getMessage());
             } catch (IllegalArgumentException | IOException | IllegalStateException e) {
                 throw new RuntimeException(e);
             }

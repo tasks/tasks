@@ -14,9 +14,6 @@ import com.mdimension.jchronic.Chronic;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.tags.TagService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -25,9 +22,9 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TitleParser {
+import timber.log.Timber;
 
-    private static final Logger log = LoggerFactory.getLogger(TitleParser.class);
+public class TitleParser {
 
     public static boolean parse(TagService tagService, Task task, ArrayList<String> tags) {
         boolean markup;
@@ -453,7 +450,7 @@ public class TitleParser {
                     interval = Integer.parseInt(intervalStr);
                 } catch (NumberFormatException e) {
                     // Ah well
-                    log.error(e.getMessage(), e);
+                    Timber.e(e, e.getMessage());
                 }
             }
         }

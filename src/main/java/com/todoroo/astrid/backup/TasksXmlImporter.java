@@ -31,8 +31,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.xmlpull.v1.XmlPullParser;
@@ -44,9 +42,9 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
-public class TasksXmlImporter {
+import timber.log.Timber;
 
-    private static final Logger log = LoggerFactory.getLogger(TasksXmlImporter.class);
+public class TasksXmlImporter {
 
     private final TagDataDao tagDataDao;
     private final MetadataDao metadataDao;
@@ -102,7 +100,7 @@ public class TasksXmlImporter {
             }
         } catch (BadTokenException e) {
             // Running from a unit test or some such thing
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
         }
 
         new Thread(new Runnable() {
@@ -111,7 +109,7 @@ public class TasksXmlImporter {
                 try {
                     performImport();
                 } catch (IOException | XmlPullParserException e) {
-                    log.error(e.getMessage(), e);
+                    Timber.e(e, e.getMessage());
                 }
             }
         }).start();
@@ -214,7 +212,7 @@ public class TasksXmlImporter {
                     }
                 } catch (Exception e) {
                     errorCount++;
-                    log.error(e.getMessage(), e);
+                    Timber.e(e, e.getMessage());
                 }
             }
         }
@@ -305,7 +303,7 @@ public class TasksXmlImporter {
                 try {
                     property.accept(xmlReadingVisitor, model);
                 } catch (Exception e) {
-                    log.error(e.getMessage(), e);
+                    Timber.e(e, e.getMessage());
                 }
             }
         }
@@ -385,7 +383,7 @@ public class TasksXmlImporter {
                     }
                 } catch (Exception e) {
                     errorCount++;
-                    log.error(e.getMessage(), e);
+                    Timber.e(e, e.getMessage());
                 }
             }
         }

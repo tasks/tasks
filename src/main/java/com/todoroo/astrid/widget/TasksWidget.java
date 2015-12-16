@@ -11,30 +11,26 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.support.v4.app.TaskStackBuilder;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.Filter;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.injection.InjectingAppWidgetProvider;
-import org.tasks.intents.TaskIntents;
 import org.tasks.widget.WidgetHelper;
 
 import javax.inject.Inject;
+
+import timber.log.Timber;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.preIceCreamSandwich;
 import static com.todoroo.astrid.api.AstridApiConstants.BROADCAST_EVENT_REFRESH;
 import static org.tasks.intents.TaskIntents.getEditTaskStack;
 
 public class TasksWidget extends InjectingAppWidgetProvider {
-
-    private static final Logger log = LoggerFactory.getLogger(TasksWidget.class);
 
     @Inject Broadcaster broadcaster;
     @Inject WidgetHelper widgetHelper;
@@ -82,7 +78,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
                 }
             }
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
         }
     }
 

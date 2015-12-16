@@ -12,12 +12,11 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.Database;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import timber.log.Timber;
 
 /**
  * DAO for reading data from an instance of {@link Database}. If you
@@ -28,8 +27,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *
  */
 public class DatabaseDao<TYPE extends AbstractModel> {
-
-    private static final Logger log = LoggerFactory.getLogger(DatabaseDao.class);
 
     private final Class<TYPE> modelClass;
     private final Table table;
@@ -167,7 +164,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      * @return # of deleted items
      */
     public int deleteWhere(Criterion where) {
-        log.debug("deleteWhere({})", where);
+        Timber.d("deleteWhere(%s)", where);
         return database.delete(table.name,
                 where.toString(), null);
     }
@@ -222,7 +219,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
             if (result.get()) {
                 onModelUpdated(item);
                 item.markSaved();
-                log.debug("{} {}", op, item);
+                Timber.d("%s %s", op, item);
             }
         }
         return result.get();

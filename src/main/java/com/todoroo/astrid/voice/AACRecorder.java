@@ -4,14 +4,11 @@ import android.annotation.TargetApi;
 import android.media.MediaRecorder;
 import android.os.Build;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 
-public class AACRecorder {
+import timber.log.Timber;
 
-    private static final Logger log = LoggerFactory.getLogger(AACRecorder.class);
+public class AACRecorder {
 
     private MediaRecorder mediaRecorder;
 
@@ -36,13 +33,13 @@ public class AACRecorder {
             setOnErrorListener(new OnErrorListener() {
                 @Override
                 public void onError(MediaRecorder mr, int what, int extra) {
-                    log.error("mediaRecorder.onError(mr, {}, {})", what, extra);
+                    Timber.e("mediaRecorder.onError(mr, %s, %s)", what, extra);
                 }
             });
             setOnInfoListener(new OnInfoListener() {
                 @Override
                 public void onInfo(MediaRecorder mr, int what, int extra) {
-                    log.info("mediaRecorder.onInfo(mr, {}, {})", what, extra);
+                    Timber.i("mediaRecorder.onInfo(mr, %s, %s)", what, extra);
                 }
             });
         }};

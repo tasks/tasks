@@ -9,8 +9,6 @@ import android.widget.Button;
 
 import com.todoroo.astrid.core.SortHelper;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.InjectingAppCompatActivity;
@@ -22,11 +20,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
 public class SortActivity extends InjectingAppCompatActivity {
-
-    private static final Logger log = LoggerFactory.getLogger(SortActivity.class);
 
     public static final String EXTRA_MANUAL_ENABLED = "extra_manual_enabled";
     public static final String EXTRA_TOGGLE_MANUAL = "extra_toggle_manual";
@@ -151,7 +149,7 @@ public class SortActivity extends InjectingAppCompatActivity {
                 return 5;
         }
 
-        log.error("Invalid sort mode: {}", sortMode);
+        Timber.e("Invalid sort mode: %s", sortMode);
         return 1;
     }
 
@@ -169,7 +167,7 @@ public class SortActivity extends InjectingAppCompatActivity {
                 return SortHelper.SORT_MODIFIED;
         }
 
-        log.error("Invalid sort mode: {}", index);
+        Timber.e("Invalid sort mode: %s", index);
         return SortHelper.SORT_ALPHA;
     }
 }

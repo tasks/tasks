@@ -17,17 +17,15 @@ import android.text.TextUtils;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.Notifier;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
-public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
+import timber.log.Timber;
 
-    private static final Logger log = LoggerFactory.getLogger(PhoneStateChangedReceiver.class);
+public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
 
     private static final String PREF_LAST_INCOMING_NUMBER = "last_incoming_number";
 
@@ -76,7 +74,7 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
                             Calls.DATE + " DESC"
                             );
                     } catch (Exception e) { // Sometimes database is locked, retry once
-                        log.error(e.getMessage(), e);
+                        Timber.e(e, e.getMessage());
                         AndroidUtilities.sleepDeep(300L);
                         try {
                             calls = context.getContentResolver().query(
@@ -87,7 +85,7 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
                                     Calls.DATE + " DESC"
                                     );
                         } catch (Exception e2) {
-                            log.error(e2.getMessage(), e2);
+                            Timber.e(e2, e2.getMessage());
                             calls = null;
                         }
                     }
@@ -123,7 +121,7 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
                             notifier.triggerMissedCallNotification(name, number, contactId);
                         }
                     } catch (Exception e) {
-                        log.error(e.getMessage(), e);
+                        Timber.e(e, e.getMessage());
                     } finally {
                         if (calls != null) {
                             calls.close();

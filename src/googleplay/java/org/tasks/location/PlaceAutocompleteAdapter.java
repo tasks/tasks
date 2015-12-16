@@ -10,17 +10,15 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.AutocompletePrediction;
 import com.google.android.gms.location.places.AutocompletePredictionBuffer;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import timber.log.Timber;
+
 public class PlaceAutocompleteAdapter
         extends ArrayAdapter<PlaceAutocompleteAdapter.PlaceAutocomplete> {
 
-    private static final Logger log = LoggerFactory.getLogger(PlaceAutocompleteAdapter.class);
     private final GoogleApi googleApi;
 
     private List<PlaceAutocomplete> mResultList = new ArrayList<>();
@@ -72,13 +70,12 @@ public class PlaceAutocompleteAdapter
             if (!status.isSuccess()) {
                 Toast.makeText(getContext(), "Error contacting API: " + status.toString(),
                         Toast.LENGTH_SHORT).show();
-                log.error("Error getting autocomplete prediction API call: " + status.toString());
+                Timber.e("Error getting autocomplete prediction API call: %s", status.toString());
                 autocompletePredictions.release();
                 return;
             }
 
-            log.info("Query completed. Received " + autocompletePredictions.getCount()
-                    + " predictions.");
+            Timber.i("Query completed. Received %s predictions", autocompletePredictions.getCount());
 
             Iterator<AutocompletePrediction> iterator = autocompletePredictions.iterator();
             List<PlaceAutocomplete> resultList = new ArrayList<>(autocompletePredictions.getCount());

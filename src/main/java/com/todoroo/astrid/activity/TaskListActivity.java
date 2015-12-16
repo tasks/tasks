@@ -50,8 +50,6 @@ import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 import com.todoroo.astrid.widget.TasksWidget;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.activities.SortActivity;
 import org.tasks.preferences.ActivityPreferences;
@@ -61,12 +59,12 @@ import org.tasks.ui.NavigationDrawerFragment;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 import static com.todoroo.astrid.voice.VoiceInputAssistant.voiceInputAvailable;
 import static org.tasks.ui.NavigationDrawerFragment.OnFilterItemClickedListener;
 
 public class TaskListActivity extends AstridActivity implements OnPageChangeListener, OnFilterItemClickedListener {
-
-    private static final Logger log = LoggerFactory.getLogger(TaskListActivity.class);
 
     @Inject TagDataDao tagDataDao;
     @Inject ActivityPreferences preferences;
@@ -307,7 +305,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
             });
         } catch (Exception e) {
             // Don't worry about it
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
         }
     }
 

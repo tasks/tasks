@@ -22,8 +22,6 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.InjectingAppCompatActivity;
@@ -36,14 +34,14 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 /**
  * Based on the Android-File-Explore project by Manish Burman
  * https://github.com/mburman/Android-File-Explore
  *
  */
 public class FileExplore extends InjectingAppCompatActivity {
-
-    private static final Logger log = LoggerFactory.getLogger(FileExplore.class);
 
 	private static final int DIALOG_LOAD_FILE = 1000;
 
@@ -89,7 +87,7 @@ public class FileExplore extends InjectingAppCompatActivity {
 
 		showDialog(DIALOG_LOAD_FILE);
 		upString = getString(R.string.back);
-		log.debug(path.getAbsolutePath());
+		Timber.d(path.getAbsolutePath());
 	}
 
 	@Override
@@ -109,7 +107,7 @@ public class FileExplore extends InjectingAppCompatActivity {
 		try {
 			path.mkdirs();
 		} catch (SecurityException e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
 			Toast.makeText(this, R.string.file_browser_err_permissions, Toast.LENGTH_LONG).show();
 		}
 
@@ -147,7 +145,7 @@ public class FileExplore extends InjectingAppCompatActivity {
 				fileList = temp;
 			}
 		} else {
-			log.error("path {} does not exist", path); //$NON-NLS-1$
+			Timber.e("path %s does not exist", path); //$NON-NLS-1$
 		}
 
 		adapter = new ArrayAdapter<Item>(this,

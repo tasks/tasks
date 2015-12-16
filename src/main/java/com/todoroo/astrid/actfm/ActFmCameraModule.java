@@ -14,8 +14,6 @@ import android.support.v4.app.Fragment;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.DeviceInfo;
@@ -29,9 +27,9 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
-public class ActFmCameraModule {
+import timber.log.Timber;
 
-    private static final Logger log = LoggerFactory.getLogger(ActFmCameraModule.class);
+public class ActFmCameraModule {
 
     protected static final int REQUEST_CODE_CAMERA = 1;
 
@@ -121,7 +119,7 @@ public class ActFmCameraModule {
             }
             return file;
         } catch (IOException e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
         }
         return null;
     }

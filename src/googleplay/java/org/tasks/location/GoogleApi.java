@@ -14,17 +14,15 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.injection.ForApplication;
 
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-public class GoogleApi implements GoogleApiClient.ConnectionCallbacks {
+import timber.log.Timber;
 
-    private static final Logger log = LoggerFactory.getLogger(GoogleApi.class);
+public class GoogleApi implements GoogleApiClient.ConnectionCallbacks {
 
     private GoogleApiClient.Builder builder;
     private GoogleApiClient googleApiClient;
@@ -67,7 +65,7 @@ public class GoogleApi implements GoogleApiClient.ConnectionCallbacks {
             Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
             return new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             return new LatLng(0, 0);
         }
     }
@@ -76,7 +74,7 @@ public class GoogleApi implements GoogleApiClient.ConnectionCallbacks {
         connect(googleApiClientConnectionHandler, new GoogleApiClient.OnConnectionFailedListener() {
             @Override
             public void onConnectionFailed(ConnectionResult connectionResult) {
-                log.error("onConnectionFailed({})", connectionResult);
+                Timber.e("onConnectionFailed(%s)", connectionResult);
             }
         });
     }
@@ -85,7 +83,7 @@ public class GoogleApi implements GoogleApiClient.ConnectionCallbacks {
         connect(new GoogleApiClientConnectionHandler() {
             @Override
             public void onConnect(GoogleApiClient client) {
-                log.info("onConnect({})", client);
+                Timber.i("onConnect(%s)", client);
             }
         }, onConnectionFailedListener);
     }
@@ -104,12 +102,12 @@ public class GoogleApi implements GoogleApiClient.ConnectionCallbacks {
 
     @Override
     public void onConnected(Bundle bundle) {
-        log.info("onConnected(Bundle)");
+        Timber.i("onConnected(Bundle)");
         googleApiClientConnectionHandler.onConnect(googleApiClient);
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-        log.info("onConnectionSuspended({})", i);
+        Timber.i("onConnectionSuspended(%s)", i);
     }
 }

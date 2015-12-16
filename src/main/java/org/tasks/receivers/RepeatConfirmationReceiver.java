@@ -14,18 +14,14 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Flags;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingBroadcastReceiver;
 
 import javax.inject.Inject;
 
-import static org.tasks.date.DateTimeUtils.newDate;
+import timber.log.Timber;
 
 public class RepeatConfirmationReceiver extends InjectingBroadcastReceiver {
-
-    private static final Logger log = LoggerFactory.getLogger(RepeatConfirmationReceiver.class);
 
     private final Property<?>[] REPEAT_RESCHEDULED_PROPERTIES =
             new Property<?>[]{
@@ -58,7 +54,7 @@ public class RepeatConfirmationReceiver extends InjectingBroadcastReceiver {
             try {
                 showSnackbar(activity.findViewById(R.id.task_list_body), task, oldDueDate, newDueDate);
             } catch (WindowManager.BadTokenException e) { // Activity not running when tried to show dialog--rebroadcast
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
                 new Thread() {
                     @Override
                     public void run() {

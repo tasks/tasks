@@ -33,8 +33,6 @@ import com.todoroo.astrid.ui.NumberPickerDialog;
 import com.todoroo.astrid.ui.NumberPickerDialog.OnNumberPickedListener;
 import com.todoroo.astrid.ui.PopupControlSet;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.MyDatePickerDialog;
@@ -47,6 +45,8 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
+import timber.log.Timber;
+
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 /**
@@ -56,8 +56,6 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
  *
  */
 public class RepeatControlSet extends PopupControlSet {
-
-    private static final Logger log = LoggerFactory.getLogger(RepeatControlSet.class);
 
     private static final String FRAG_TAG_REPEAT_UNTIL = "frag_tag_repeat_until";
 
@@ -185,12 +183,12 @@ public class RepeatControlSet extends PopupControlSet {
                     intervalValue = INTERVAL_YEARS;
                     break;
                 default:
-                    log.error("repeat-unhandled-rule", new Exception("Unhandled rrule frequency: " + recurrence));
+                    Timber.e(new Exception("Unhandled rrule frequency: " + recurrence), "repeat-unhandled-rule");
                 }
             } catch (Exception e) {
                 // invalid RRULE
                 recurrence = ""; //$NON-NLS-1$
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
             }
         }
         doRepeat = recurrence.length() > 0;
@@ -238,7 +236,7 @@ public class RepeatControlSet extends PopupControlSet {
             } catch (Exception e) {
                 // invalid RRULE
                 recurrence = ""; //$NON-NLS-1$
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
             }
         }
         doRepeat = recurrence.length() > 0;

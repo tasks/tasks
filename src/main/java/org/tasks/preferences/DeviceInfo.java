@@ -9,8 +9,6 @@ import android.provider.MediaStore;
 
 import com.google.common.base.Joiner;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
@@ -20,12 +18,12 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import timber.log.Timber;
+
 import static java.util.Arrays.asList;
 
 @Singleton
 public class DeviceInfo {
-
-    private static final Logger log = LoggerFactory.getLogger(DeviceInfo.class);
 
     private Context context;
     private Boolean isPlayStoreAvailable;
@@ -80,7 +78,7 @@ public class DeviceInfo {
                     ""
             ));
         } catch(Exception e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
         }
         return "";
     }
@@ -95,7 +93,7 @@ public class DeviceInfo {
                 }
             }
         } catch(Exception e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
         }
         return false;
     }

@@ -13,8 +13,6 @@ import com.google.api.services.tasks.TasksScopes;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.injection.ForApplication;
 
 import java.io.IOException;
@@ -22,6 +20,8 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
+
+import timber.log.Timber;
 
 import static com.google.common.collect.Iterables.tryFind;
 import static com.google.common.collect.Lists.transform;
@@ -32,11 +32,11 @@ public class AccountManager {
     public void clearToken(GoogleAccountCredential credential) throws IOException {
         try {
             String token = credential.getToken();
-            log.debug("Invalidating {}", token);
+            Timber.d("Invalidating %s", token);
             GoogleAuthUtil.clearToken(context, token);
             GoogleAuthUtil.getTokenWithNotification(context, credential.getSelectedAccount(), "oauth2:" + TasksScopes.TASKS, null);
         } catch (GoogleAuthException e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             throw new IOException(e);
         }
     }
@@ -45,8 +45,6 @@ public class AccountManager {
         void authenticationSuccessful(String accountName, String authToken);
         void authenticationFailed(String message);
     }
-
-    private static final Logger log = LoggerFactory.getLogger(AccountManager.class);
 
     public static final int REQUEST_AUTHORIZATION = 10987;
 
@@ -89,10 +87,10 @@ public class AccountManager {
                         try {
                             handler.authenticationSuccessful(accountName, GoogleAuthUtil.getToken(activity, account, "oauth2:" + TasksScopes.TASKS, null));
                         } catch(UserRecoverableAuthException e) {
-                            log.error(e.getMessage(), e);
+                            Timber.e(e, e.getMessage());
                             activity.startActivityForResult(e.getIntent(), REQUEST_AUTHORIZATION);
                         } catch(GoogleAuthException | IOException e) {
-                            log.error(e.getMessage(), e);
+                            Timber.e(e, e.getMessage());
                             handler.authenticationFailed(context.getString(R.string.gtasks_GLA_errorIOAuth));
                         }
                     }

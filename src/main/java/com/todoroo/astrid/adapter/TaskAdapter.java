@@ -48,14 +48,14 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.ui.CheckableImageView;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.ActivityPreferences;
 
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicReference;
+
+import timber.log.Timber;
 
 /**
  * Adapter for displaying a user's tasks as a list
@@ -64,8 +64,6 @@ import java.util.concurrent.atomic.AtomicReference;
  *
  */
 public class TaskAdapter extends CursorAdapter implements Filterable {
-
-    private static final Logger log = LoggerFactory.getLogger(TaskAdapter.class);
 
     public interface OnCompletedTaskListener {
         void onCompletedTask(Task item, boolean newState);
@@ -418,7 +416,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                             action.intent.send();
                         } catch (CanceledException e) {
                             // Oh well
-                            log.error(e.getMessage(), e);
+                            Timber.e(e, e.getMessage());
                         }
                     }
                 }

@@ -70,8 +70,6 @@ import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.utility.Flags;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
@@ -87,6 +85,8 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 import static org.tasks.intents.TaskIntents.getNewTaskIntent;
 
 /**
@@ -97,8 +97,6 @@ import static org.tasks.intents.TaskIntents.getNewTaskIntent;
  *
  */
 public class TaskListFragment extends InjectingListFragment implements SwipeRefreshLayout.OnRefreshListener {
-
-    private static final Logger log = LoggerFactory.getLogger(TaskListFragment.class);
 
     public static final String TAG_TASKLIST_FRAGMENT = "tasklist_fragment"; //$NON-NLS-1$
 
@@ -183,7 +181,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
                 component = Class.forName(((FilterWithCustomIntent) filter).customTaskList.getClassName());
             } catch (Exception e) {
                 // Invalid
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
             }
         }
         if (component == null) {
@@ -194,7 +192,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
         try {
             newFragment = (TaskListFragment) component.newInstance();
         } catch (java.lang.InstantiationException | IllegalAccessException e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             newFragment = new TaskListFragment();
         }
         Bundle args = new Bundle();
@@ -479,7 +477,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
                             refresh();
                         } catch (IllegalStateException e) {
                             // view may have been destroyed
-                            log.error(e.getMessage(), e);
+                            Timber.e(e, e.getMessage());
                         }
                     }
                 });
@@ -598,7 +596,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
             Task model = taskEditFragment == null ? null : taskEditFragment.model;
             taskDeleter.deleteTasksWithEmptyTitles(model == null ? null : model.getId());
         } catch(Exception e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
         }
         loadTaskListContent();
         setSyncOngoing(false);
@@ -723,7 +721,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
             // by a strange bug, but there seems to not be any negative side effect.
             // For now, we'll suppress the error
             // See http://astrid.com/home#tags-7tsoi/task-1119pk
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             return null;
         }
     }

@@ -25,8 +25,6 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceOutputAssistant;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.injection.ForApplication;
 import org.tasks.notifications.AudioManager;
 import org.tasks.notifications.NotificationManager;
@@ -42,13 +40,13 @@ import java.io.InputStream;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 public class Notifier {
-
-    private static final Logger log = LoggerFactory.getLogger(Notifier.class);
 
     private static long lastNotificationSound = 0L;
 
@@ -130,7 +128,7 @@ public class Notifier {
             try {
                 b = BitmapFactory.decodeStream(input);
             } catch (OutOfMemoryError e) {
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
             }
         }
         return b;
@@ -149,7 +147,7 @@ public class Notifier {
                 return;
             }
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             return;
         } finally {
             if (taskTodorooCursor != null) {
@@ -193,7 +191,7 @@ public class Notifier {
             }
 
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             return false;
         }
 
@@ -371,7 +369,7 @@ public class Notifier {
                 }
             } catch (VerifyError e) {
                 // unavailable
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
             }
         }
     }

@@ -22,13 +22,12 @@ import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSetBase;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.activities.CalendarSelectionDialog;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
-import org.tasks.reminders.SnoozeDialog;
+
+import timber.log.Timber;
 
 /**
  * Control Set for managing repeats
@@ -38,7 +37,6 @@ import org.tasks.reminders.SnoozeDialog;
  */
 public class GCalControlSet extends TaskEditControlSetBase implements CalendarSelectionDialog.CalendarSelectionHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(GCalControlSet.class);
     private static final String FRAG_TAG_CALENDAR_SELECTION = "frag_tag_calendar_selection";
 
     // --- instance variables
@@ -127,7 +125,7 @@ public class GCalControlSet extends TaskEditControlSetBase implements CalendarSe
                     cursor.close();
                 }
             } catch (Exception e) {
-                log.error("unable-to-parse-calendar: " + model.getCalendarURI(), e);
+                Timber.e(e, "unable-to-parse-calendar: %s", model.getCalendarURI());
             }
         } else {
             hasEvent = false;
@@ -168,7 +166,7 @@ public class GCalControlSet extends TaskEditControlSetBase implements CalendarSe
                 }
 
             } catch (Exception e) {
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
             }
         } else if(calendarUri != null) {
             try {
@@ -189,7 +187,7 @@ public class GCalControlSet extends TaskEditControlSetBase implements CalendarSe
                 ContentResolver cr = activity.getContentResolver();
                 cr.update(calendarUri, updateValues, null, null);
             } catch (Exception e) {
-                log.error("unable-to-update-calendar: " + task.getCalendarURI(), e);
+                Timber.e(e, "unable-to-update-calendar: %s", task.getCalendarURI());
             }
         }
     }
@@ -215,7 +213,7 @@ public class GCalControlSet extends TaskEditControlSetBase implements CalendarSe
             intent.putExtra("endTime", cursor.getLong(1));
 
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             Toast.makeText(activity, R.string.gcal_TEA_error, Toast.LENGTH_LONG).show();
         } finally {
             cursor.close();

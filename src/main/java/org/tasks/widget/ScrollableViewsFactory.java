@@ -26,15 +26,13 @@ import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.widget.TasksWidget;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
 
+import timber.log.Timber;
+
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
-
-    private static final Logger log = LoggerFactory.getLogger(ScrollableViewsFactory.class);
 
     private final Database database;
     private final TaskService taskService;
@@ -185,7 +183,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
 
             return row;
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
         }
 
         return null;
@@ -201,7 +199,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             cursor.moveToPosition(position);
             return new Task(cursor);
         }
-        log.warn("requested task at position {}, cursor count is {}", position, cursor.getCount());
+        Timber.w("requested task at position %s, cursor count is %s", position, cursor.getCount());
         return null;
     }
 

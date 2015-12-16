@@ -3,8 +3,6 @@ package org.tasks.scheduling;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
@@ -12,11 +10,11 @@ import org.tasks.sync.RecordSyncStatusCallback;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class GtasksBackgroundService extends RecurringIntervalIntentService {
-
-    private static final Logger log = LoggerFactory.getLogger(GtasksBackgroundService.class);
 
     @Inject Preferences preferences;
     @Inject GtasksPreferenceService gtasksPreferenceService;
@@ -30,7 +28,7 @@ public class GtasksBackgroundService extends RecurringIntervalIntentService {
     @Override
     void run() {
         if (gtasksPreferenceService.isOngoing()) {
-            log.debug("aborting: sync ongoing");
+            Timber.d("aborting: sync ongoing");
             return;
         }
         if(gtasksPreferenceService.isLoggedIn() && gtasksSyncV2Provider.isActive()) {
@@ -43,7 +41,7 @@ public class GtasksBackgroundService extends RecurringIntervalIntentService {
         try {
             return SECONDS.toMillis(preferences.getIntegerFromString(R.string.gtasks_GPr_interval_key, 0));
         } catch(Exception e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             preferences.setString(R.string.gtasks_GPr_interval_key, "0");
             return 0;
         }

@@ -27,14 +27,14 @@ import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.data.UserActivity;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.injection.ForApplication;
 
 import java.util.ArrayList;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import timber.log.Timber;
 
 /**
  * Database wrapper
@@ -45,7 +45,6 @@ import javax.inject.Singleton;
 @Singleton
 public class Database {
 
-    private static final Logger log = LoggerFactory.getLogger(Database.class);
     private static final int VERSION = 35;
     private static final String NAME = "database";
     private static final Table[] TABLES =  new Table[] {
@@ -123,7 +122,7 @@ public class Database {
         try {
             database.execSQL(sql);
         } catch (SQLiteException e) {
-            log.error("SQL Error: " + sql, e);
+            Timber.e(e, "SQL Error: " + sql);
         }
     }
 
@@ -150,7 +149,7 @@ public class Database {
             database.execSQL(sql);
         } catch (SQLiteException e) {
             // ignored, column already exists
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
         }
     }
 
@@ -203,15 +202,15 @@ public class Database {
         try {
             database = helper.getWritableDatabase();
         } catch (NullPointerException e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             throw new IllegalStateException(e);
         } catch (final RuntimeException original) {
-            log.error(original.getMessage(), original);
+            Timber.e(original, original.getMessage());
             try {
                 // provide read-only database
                 openForReading();
             } catch (Exception readException) {
-                log.error(readException.getMessage(), readException);
+                Timber.e(readException, readException.getMessage());
                 // throw original write exception
                 throw original;
             }
@@ -270,7 +269,7 @@ public class Database {
         } catch (SQLiteConstraintException e) { // Throw these exceptions
             throw e;
         } catch (Exception e) { // Suppress others
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             result = -1;
         }
         onDatabaseUpdated();
@@ -333,7 +332,7 @@ public class Database {
          */
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            log.info("Upgrading database from version {} to {}.", oldVersion, newVersion);
+            Timber.i("Upgrading database from version %s to %s", oldVersion, newVersion);
 
             database = db;
             try {
@@ -346,7 +345,7 @@ public class Database {
                             "from " + oldVersion + " to " + newVersion);
                 }
             } catch (Exception e) {
-                log.error("database-upgrade-{}-{}-{}", getName(), oldVersion, newVersion, e);
+                Timber.e(e, "database-upgrade-%s-%s-%s", getName(), oldVersion, newVersion);
             }
         }
     }

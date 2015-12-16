@@ -31,8 +31,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.helper.TaskEditControlSetBase;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.activities.AddAttachmentActivity;
 import org.tasks.dialogs.DialogBuilder;
@@ -41,11 +39,11 @@ import org.tasks.preferences.ActivityPreferences;
 import java.io.File;
 import java.util.ArrayList;
 
+import timber.log.Timber;
+
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
 public class FilesControlSet extends TaskEditControlSetBase {
-
-    private static final Logger log = LoggerFactory.getLogger(FilesControlSet.class);
 
     private final ArrayList<TaskAttachment> files = new ArrayList<>();
     private final LayoutInflater inflater;
@@ -186,7 +184,7 @@ public class FilesControlSet extends TaskEditControlSetBase {
             mediaPlayer.prepare();
             mediaPlayer.start();
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             handler.playbackFailed();
         }
     }
@@ -214,7 +212,7 @@ public class FilesControlSet extends TaskEditControlSetBase {
                 }
                 activity.startActivity(intent);
             } catch(ActivityNotFoundException e) {
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
                 Toast.makeText(activity, R.string.no_application_found, Toast.LENGTH_SHORT).show();
             }
         } else {
@@ -244,7 +242,7 @@ public class FilesControlSet extends TaskEditControlSetBase {
             intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             activity.startActivity(intent);
         } catch (ActivityNotFoundException e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             Toast.makeText(activity, R.string.file_type_unhandled, Toast.LENGTH_LONG).show();
         }
     }

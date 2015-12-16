@@ -12,8 +12,6 @@ import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.common.base.Function;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.PermissionChecker;
@@ -22,8 +20,9 @@ import org.tasks.preferences.Preferences;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import javax.annotation.Nullable;
 import javax.inject.Inject;
+
+import timber.log.Timber;
 
 import static com.google.android.gms.location.Geofence.NEVER_EXPIRE;
 import static com.google.common.collect.Iterables.transform;
@@ -31,8 +30,6 @@ import static com.google.common.collect.Lists.newArrayList;
 import static java.util.Collections.singletonList;
 
 public class GeofenceApi {
-
-    private static final Logger log = LoggerFactory.getLogger(GeofenceApi.class);
 
     private Context context;
     private Preferences preferences;
@@ -61,9 +58,9 @@ public class GeofenceApi {
                     @Override
                     public void onResult(Status status) {
                         if (status.isSuccess()) {
-                            log.info("Registered {}", geofences);
+                            Timber.i("Registered %s", geofences);
                         } else {
-                            log.error("Failed to register {}", geofences);
+                            Timber.e("Failed to register %s", geofences);
                         }
 
                         client.disconnect();
@@ -97,9 +94,9 @@ public class GeofenceApi {
                             @Override
                             public void onResult(Status status) {
                                 if (status.isSuccess()) {
-                                    log.info("Removed {}", geofences);
+                                    Timber.i("Removed %s", geofences);
                                 } else {
-                                    log.error("Failed to remove {}", geofences);
+                                    Timber.e("Failed to remove %s", geofences);
                                 }
 
                                 client.disconnect();

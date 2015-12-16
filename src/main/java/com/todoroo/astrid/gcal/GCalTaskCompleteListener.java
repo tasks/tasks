@@ -16,16 +16,14 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingBroadcastReceiver;
 
 import javax.inject.Inject;
 
-public class GCalTaskCompleteListener extends InjectingBroadcastReceiver {
+import timber.log.Timber;
 
-    private static final Logger log = LoggerFactory.getLogger(GCalTaskCompleteListener.class);
+public class GCalTaskCompleteListener extends InjectingBroadcastReceiver {
 
     @Inject TaskService taskService;
 
@@ -53,7 +51,7 @@ public class GCalTaskCompleteListener extends InjectingBroadcastReceiver {
                         task.getTitle()));
                 cr.update(Uri.parse(calendarUri), values, null, null);
             } catch (Exception e) {
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
             }
         }
     }

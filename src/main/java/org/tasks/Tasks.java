@@ -1,5 +1,7 @@
 package org.tasks;
 
+import android.util.Log;
+
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.StoreObjectDao;
@@ -25,6 +27,8 @@ import org.tasks.scheduling.RefreshScheduler;
 import org.tasks.sync.SyncThrottle;
 
 import javax.inject.Inject;
+
+import timber.log.Timber;
 
 @SuppressWarnings("UnusedDeclaration")
 public class Tasks extends InjectingApplication {
@@ -56,6 +60,34 @@ public class Tasks extends InjectingApplication {
     public void onCreate() {
         super.onCreate();
 
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        } else {
+            Timber.plant(new ErrorReportingTree());
+        }
+
         tracker.setTrackingEnabled(preferences.isTrackingEnabled());
+    }
+
+    private static class ErrorReportingTree extends Timber.Tree {
+        @Override
+        protected void log(int priority, String tag, String message, Throwable t) {
+            if (priority < Log.WARN) {
+                return;
+            }
+            if (priority == Log.ERROR) {
+                if (t == null) {
+                    Log.e(tag, message);
+                } else {
+                    Log.e(tag, message, t);
+                }
+            } else if(priority == Log.WARN) {
+                if (t == null) {
+                    Log.w(tag, message);
+                } else {
+                    Log.w(tag, message, t);
+                }
+            }
+        }
     }
 }

@@ -7,9 +7,6 @@ import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.reminders.ReminderService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.tasks.Broadcaster;
 import org.tasks.Notifier;
 import org.tasks.injection.InjectingIntentService;
 
@@ -17,9 +14,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class GeofenceTransitionsIntentService extends InjectingIntentService {
+import timber.log.Timber;
 
-    private static final Logger log = LoggerFactory.getLogger(GeofenceTransitionsIntentService.class);
+public class GeofenceTransitionsIntentService extends InjectingIntentService {
 
     @Inject MetadataDao metadataDao;
     @Inject Notifier notifier;
@@ -33,20 +30,20 @@ public class GeofenceTransitionsIntentService extends InjectingIntentService {
 
         GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
         if (geofencingEvent.hasError()) {
-            log.error("geofence error code {}", geofencingEvent.getErrorCode());
+            Timber.e("geofence error code %s", geofencingEvent.getErrorCode());
             return;
         }
 
         int transitionType = geofencingEvent.getGeofenceTransition();
 
         List<com.google.android.gms.location.Geofence> triggeringGeofences = geofencingEvent.getTriggeringGeofences();
-        log.info("Received geofence transition: {}, {}", transitionType, triggeringGeofences);
+        Timber.i("Received geofence transition: %s, %s", transitionType, triggeringGeofences);
         if (transitionType == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER) {
             for (com.google.android.gms.location.Geofence triggerGeofence : triggeringGeofences) {
                 triggerNotification(triggerGeofence);
             }
         } else {
-            log.warn("invalid geofence transition type: {}", transitionType);
+            Timber.w("invalid geofence transition type: %s", transitionType);
         }
     }
 
@@ -57,7 +54,7 @@ public class GeofenceTransitionsIntentService extends InjectingIntentService {
             Geofence geofence = new Geofence(fetch);
             notifier.triggerTaskNotification(geofence.getTaskId(), ReminderService.TYPE_ALARM);
         } catch(Exception e) {
-            log.error(String.format("Error triggering geofence %s: %s", requestId, e.getMessage()), e);
+            Timber.e(e, "Error triggering geofence %s: %s", requestId, e.getMessage());
         }
     }
 }

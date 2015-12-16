@@ -21,8 +21,6 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.utility.Constants;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingService;
 import org.tasks.preferences.Preferences;
@@ -31,9 +29,9 @@ import org.tasks.widget.WidgetHelper;
 
 import javax.inject.Inject;
 
-public class WidgetUpdateService extends InjectingService {
+import timber.log.Timber;
 
-    private static final Logger log = LoggerFactory.getLogger(WidgetUpdateService.class);
+public class WidgetUpdateService extends InjectingService {
 
     private static final int NUM_VISIBLE_TASKS = 25;
 
@@ -80,7 +78,7 @@ public class WidgetUpdateService extends InjectingService {
                 }
             } catch (RuntimeException e) {
                 // "System server dead" was sometimes thrown here by the OS. Abort if that happens
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
             }
         } else {
             RemoteViews updateViews = buildUpdate(this, extrasId);
@@ -171,7 +169,7 @@ public class WidgetUpdateService extends InjectingService {
             }
 
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
         } finally {
             if(cursor != null) {
                 cursor.close();

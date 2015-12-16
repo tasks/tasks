@@ -14,8 +14,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.time.DateTime;
@@ -27,12 +25,12 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 import static android.content.SharedPreferences.Editor;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
 
 public class Preferences {
-
-    private static final Logger log = LoggerFactory.getLogger(Preferences.class);
 
     private static final String P_CURRENT_VERSION = "cv"; //$NON-NLS-1$
 
@@ -156,7 +154,7 @@ public class Preferences {
         try {
             return Integer.parseInt(value);
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             return defaultValue;
         }
     }
@@ -181,7 +179,7 @@ public class Preferences {
         try {
             return prefs.getBoolean(key, defValue);
         } catch (ClassCastException e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             return defValue;
         }
     }

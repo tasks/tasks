@@ -24,8 +24,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.injection.InjectingContentProvider;
 
 import java.math.BigInteger;
@@ -35,6 +33,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.inject.Inject;
 
 import dagger.Lazy;
+import timber.log.Timber;
 
 /**
  * This is the legacy Astrid task provider. While it will continue to be
@@ -47,8 +46,6 @@ import dagger.Lazy;
  *
  */
 public class Astrid2TaskProvider extends InjectingContentProvider {
-
-    private static final Logger log = LoggerFactory.getLogger(Astrid2TaskProvider.class);
 
 	public static final String AUTHORITY = "org.tasks.tasksprovider";
 
@@ -139,7 +136,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
         try {
             m = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             return -1;
         }
 
@@ -261,7 +258,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 		try {
 		    context.getContentResolver().notifyChange(CONTENT_URI, null);
 		} catch (Exception e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
 		}
 	}
 

@@ -1,14 +1,11 @@
 package org.tasks.dialogs;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.IntentSender;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AlertDialog;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,8 +20,6 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.maps.model.LatLng;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.location.Geofence;
@@ -35,9 +30,10 @@ import org.tasks.preferences.ActivityPreferences;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 public class LocationPickerDialog extends InjectingDialogFragment implements GoogleApiClient.OnConnectionFailedListener {
 
-    private static final Logger log = LoggerFactory.getLogger(LocationPickerDialog.class);
     private static final int RC_RESOLVE_GPS_ISSUE = 10009;
 
     private PlaceAutocompleteAdapter mAdapter;
@@ -90,7 +86,7 @@ public class LocationPickerDialog extends InjectingDialogFragment implements Goo
     }
 
     private void error(String text) {
-        log.error(text);
+        Timber.e(text);
         Toast.makeText(fragmentActivity, text, Toast.LENGTH_LONG).show();
     }
 
@@ -100,7 +96,7 @@ public class LocationPickerDialog extends InjectingDialogFragment implements Goo
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             final PlaceAutocompleteAdapter.PlaceAutocomplete item = mAdapter.getItem(position);
             final String placeId = String.valueOf(item.placeId);
-            log.info("Autocomplete item selected: " + item.description);
+            Timber.i("Autocomplete item selected: %s", item.description);
             googleApi.getPlaceDetails(placeId, mUpdatePlaceDetailsCallback);
         }
     };
@@ -113,7 +109,7 @@ public class LocationPickerDialog extends InjectingDialogFragment implements Goo
                 final Place place = places.get(0);
                 LatLng latLng = place.getLatLng();
                 Geofence geofence = new Geofence(place.getName().toString(), latLng.latitude, latLng.longitude, activityPreferences.getIntegerFromString(R.string.p_geofence_radius, 250));
-                log.info("Picked {}", geofence);
+                Timber.i("Picked %s", geofence);
                 onLocationPickedHandler.onLocationPicked(geofence);
                 dismiss();
             } else {
@@ -139,13 +135,13 @@ public class LocationPickerDialog extends InjectingDialogFragment implements Goo
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
         if (resolvingError) {
-            log.info("Ignoring {}, already resolving error", connectionResult);
+            Timber.i("Ignoring %s, already resolving error", connectionResult);
         } else  if (connectionResult.hasResolution()) {
             try {
                 resolvingError = true;
                 connectionResult.startResolutionForResult(fragmentActivity, RC_RESOLVE_GPS_ISSUE);
             } catch (IntentSender.SendIntentException e) {
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
                 googleApi.connect(this);
             }
         } else {

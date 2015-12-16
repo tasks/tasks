@@ -5,15 +5,13 @@ import android.content.Intent;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.reminders.ReminderService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.injection.InjectingIntentService;
 
 import javax.inject.Inject;
 
-public class ReminderSchedulerIntentService extends InjectingIntentService {
+import timber.log.Timber;
 
-    private static final Logger log = LoggerFactory.getLogger(ReminderSchedulerIntentService.class);
+public class ReminderSchedulerIntentService extends InjectingIntentService {
 
     @Inject ReminderService reminderService;
     @Inject TaskDao taskDao;
@@ -26,7 +24,7 @@ public class ReminderSchedulerIntentService extends InjectingIntentService {
     protected void onHandleIntent(Intent intent) {
         super.onHandleIntent(intent);
 
-        log.debug("onHandleIntent({})", intent);
+        Timber.d("onHandleIntent(%s)", intent);
 
         reminderService.scheduleAllAlarms(taskDao);
     }

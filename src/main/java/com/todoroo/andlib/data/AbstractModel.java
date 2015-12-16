@@ -14,9 +14,6 @@ import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.utility.AndroidUtilities;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -24,6 +21,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map.Entry;
+
+import timber.log.Timber;
 
 import static com.todoroo.andlib.data.Property.DoubleProperty;
 
@@ -38,8 +37,6 @@ import static com.todoroo.andlib.data.Property.DoubleProperty;
  *
  */
 public abstract class AbstractModel implements Parcelable, Cloneable {
-
-    private static final Logger log = LoggerFactory.getLogger(AbstractModel.class);
 
     private static final ContentValuesSavingVisitor saver = new ContentValuesSavingVisitor();
 
@@ -191,7 +188,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
                 saver.save(property, values, cursor.get(property));
             } catch (IllegalArgumentException e) {
                 // underlying cursor may have changed, suppress
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
             }
         }
     }
@@ -226,7 +223,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
             }
             return (TYPE) value;
         } catch (NumberFormatException e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             return (TYPE) getDefaultValues().get(property.name);
         }
     }

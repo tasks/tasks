@@ -15,10 +15,10 @@ import com.todoroo.andlib.data.TodorooCursor;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
+
+import timber.log.Timber;
 
 /**
  * A model that is synchronized to a remote server and has a remote id
@@ -36,8 +36,6 @@ abstract public class RemoteModel extends AbstractModel {
         super(cursor);
     }
 
-    private static final Logger log = LoggerFactory.getLogger(RemoteModel.class);
-
     /** remote id property common to all remote models */
     public static final String UUID_PROPERTY_NAME = "remoteId"; //$NON-NLS-1$
 
@@ -52,7 +50,7 @@ abstract public class RemoteModel extends AbstractModel {
             long value = Long.parseLong(uuid);
             return value > 0;
         } catch (NumberFormatException e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             return isUuidEmpty(uuid);
         }
     }
@@ -91,7 +89,7 @@ abstract public class RemoteModel extends AbstractModel {
                     put("uri", uri.toString());
                 }};
             } catch (JSONException e) {
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
             }
             return null;
         }
@@ -113,7 +111,7 @@ abstract public class RemoteModel extends AbstractModel {
                 }
                 return null;
             } catch (JSONException e) {
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
                 return null;
             }
         }

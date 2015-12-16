@@ -3,8 +3,6 @@ package org.tasks.receivers;
 import android.content.Context;
 import android.content.Intent;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.Notifier;
 import org.tasks.injection.InjectingBroadcastReceiver;
 
@@ -13,9 +11,9 @@ import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
-public class ListNotificationReceiver extends InjectingBroadcastReceiver {
+import timber.log.Timber;
 
-    private static final Logger log = LoggerFactory.getLogger(ListNotificationReceiver.class);
+public class ListNotificationReceiver extends InjectingBroadcastReceiver {
 
     private static ExecutorService executorService = Executors.newSingleThreadExecutor();
 
@@ -29,7 +27,7 @@ public class ListNotificationReceiver extends InjectingBroadcastReceiver {
     public void onReceive(Context context, final Intent intent) {
         super.onReceive(context, intent);
 
-        log.info("onReceive({}, {}", context, intent);
+        Timber.i("onReceive(%s, %s)", context, intent);
 
         executorService.execute(new Runnable() {
             @Override

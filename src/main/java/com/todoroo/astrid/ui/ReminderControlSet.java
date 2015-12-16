@@ -26,8 +26,6 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSetBase;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.LocationPickerActivity;
@@ -42,6 +40,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import timber.log.Timber;
+
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 /**
@@ -51,8 +51,6 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
  *
  */
 public class ReminderControlSet extends TaskEditControlSetBase implements AdapterView.OnItemSelectedListener {
-
-    private static final Logger log = LoggerFactory.getLogger(ReminderControlSet.class);
 
     public static final int REQUEST_NEW_ALARM = 12152;
     public static final int REQUEST_LOCATION_REMINDER = 12153;
@@ -350,7 +348,7 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
             } else if (tag instanceof Geofence) {
                 geofences.add((Geofence) tag);
             } else {
-                log.error("Unexpected tag: {}", tag);
+                Timber.e("Unexpected tag: %s", tag);
             }
         }
 
@@ -372,7 +370,7 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        log.info("onItemSelected({}, {}, {}, {})", parent, view, position, id);
+        Timber.i("onItemSelected(%s, %s, %s, %s)", parent, view, position, id);
         String selected = spinnerOptions.get(position);
         if (selected.equals(taskEditFragment.getString(R.string.when_due))) {
             addDue();

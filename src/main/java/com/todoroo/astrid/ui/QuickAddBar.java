@@ -12,13 +12,13 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.Injector;
 
 import javax.inject.Inject;
+
+import timber.log.Timber;
 
 /**
  * Quick Add Bar lets you add tasks.
@@ -27,8 +27,6 @@ import javax.inject.Inject;
  *
  */
 public class QuickAddBar {
-
-    private static final Logger log = LoggerFactory.getLogger(QuickAddBar.class);
 
     @Inject TaskService taskService;
     @Inject TaskCreator taskCreator;
@@ -83,7 +81,7 @@ public class QuickAddBar {
             fragment.onTaskCreated(task.getId(), task.getUUID());
             return task;
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
         }
         return null;
     }

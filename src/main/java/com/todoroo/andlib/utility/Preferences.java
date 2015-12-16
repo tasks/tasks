@@ -9,8 +9,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import timber.log.Timber;
 
 /**
  * Helper class for reading and writing SharedPreferences
@@ -20,8 +19,6 @@ import org.slf4j.LoggerFactory;
  */
 @Deprecated
 public class Preferences {
-
-    private static final Logger log = LoggerFactory.getLogger(Preferences.class);
 
     private static SharedPreferences preferences = null;
 
@@ -39,7 +36,7 @@ public class Preferences {
             preferences.edit().commit();
 
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             String alternate = "preferences" + android.os.Process.myUid(); //$NON-NLS-1$
             preferences = context.getSharedPreferences(alternate, Context.MODE_PRIVATE);
         }
@@ -51,7 +48,7 @@ public class Preferences {
         try {
             return getPrefs(context).getBoolean(context.getString(keyResources), defValue);
         } catch (ClassCastException e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             return defValue;
         }
     }

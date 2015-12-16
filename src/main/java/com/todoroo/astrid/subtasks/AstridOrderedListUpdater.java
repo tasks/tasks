@@ -8,8 +8,6 @@ import com.todoroo.astrid.service.TaskService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,9 +15,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public abstract class AstridOrderedListUpdater<LIST> {
+import timber.log.Timber;
 
-    private static final Logger log = LoggerFactory.getLogger(AstridOrderedListUpdater.class);
+public abstract class AstridOrderedListUpdater<LIST> {
 
     private final TaskService taskService;
 
@@ -395,7 +393,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
             JSONArray tree = new JSONArray(serializedTree);
             recursivelyBuildChildren(root, tree, callback);
         } catch (JSONException e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
         }
         return root;
     }

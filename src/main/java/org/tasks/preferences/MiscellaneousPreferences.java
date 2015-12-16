@@ -10,8 +10,6 @@ import android.speech.tts.TextToSpeech;
 import com.todoroo.astrid.files.FileExplore;
 import com.todoroo.astrid.voice.VoiceOutputAssistant;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.scheduling.BackgroundScheduler;
@@ -20,9 +18,10 @@ import java.io.File;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 public class MiscellaneousPreferences extends InjectingPreferenceActivity {
 
-    private static final Logger log = LoggerFactory.getLogger(MiscellaneousPreferences.class);
     private static final int REQUEST_CODE_FILES_DIR = 2;
     private static final int REQUEST_CODE_TTS_CHECK = 2534;
 
@@ -71,7 +70,7 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
             }
         } catch (VerifyError e) {
             // unavailable
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -137,7 +136,7 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
                         voiceOutputAssistant.shutdown();
                     }
                 } catch (VerifyError e) {
-                    log.error(e.getMessage(), e);
+                    Timber.e(e, e.getMessage());
                     preference.setEnabled(false);
                     preferences.setBoolean(preference.getKey(), false);
                 }

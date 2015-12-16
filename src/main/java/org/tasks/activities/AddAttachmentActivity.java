@@ -14,8 +14,6 @@ import android.widget.Toast;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.files.FileExplore;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.dialogs.AddAttachmentDialog;
 import org.tasks.injection.InjectingAppCompatActivity;
@@ -29,11 +27,12 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
 public class AddAttachmentActivity extends InjectingAppCompatActivity implements DialogInterface.OnCancelListener, AddAttachmentDialog.AddAttachmentCallback {
 
-    private static final Logger log = LoggerFactory.getLogger(AddAttachmentActivity.class);
     private static final String FRAG_TAG_ATTACHMENT_DIALOG = "frag_tag_attachment_dialog";
     private static final int REQUEST_CAMERA = 12120;
     private static final int REQUEST_GALLERY = 12121;
@@ -102,7 +101,7 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity implements
         if (requestCode == REQUEST_CAMERA) {
             if (resultCode == RESULT_OK) {
                 if (lastTempFile != null) {
-                    log.info("Saved {}", lastTempFile.getAbsolutePath());
+                    Timber.i("Saved %s", lastTempFile.getAbsolutePath());
                     setResult(RESULT_OK, new Intent() {{
                         putExtra(EXTRA_PATH, lastTempFile.getAbsolutePath());
                     }});
@@ -117,7 +116,7 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity implements
                 MimeTypeMap mime = MimeTypeMap.getSingleton();
                 String extension = mime.getExtensionFromMimeType(contentResolver.getType(uri));
                 final File tempFile = getFilename(extension);
-                log.info("Writing {} to {}", uri, tempFile);
+                Timber.i("Writing %s to %s", uri, tempFile);
                 try {
                     InputStream inputStream = contentResolver.openInputStream(uri);
                     copyFile(inputStream, tempFile.getPath());
@@ -134,7 +133,7 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity implements
                 String path = data.getStringExtra(FileExplore.RESULT_FILE_SELECTED);
                 final String destination = copyToAttachmentDirectory(path);
                 if (destination != null) {
-                    log.info("Copied {} to {}", path, destination);
+                    Timber.i("Copied %s to %s", path, destination);
                     setResult(RESULT_OK, new Intent() {{
                         putExtra(EXTRA_PATH, destination);
                     }});
@@ -160,7 +159,7 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity implements
             }
             return file;
         } catch (IOException e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
         }
         return null;
     }
@@ -186,7 +185,7 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity implements
         try {
             AndroidUtilities.copyFile(src, dst);
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             Toast.makeText(this, R.string.file_err_copy, Toast.LENGTH_LONG).show();
             return null;
         }

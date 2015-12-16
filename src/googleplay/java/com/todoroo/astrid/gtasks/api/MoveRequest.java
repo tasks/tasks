@@ -7,18 +7,16 @@ package com.todoroo.astrid.gtasks.api;
 
 import com.google.api.services.tasks.model.Task;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
+
+import timber.log.Timber;
+
 /**
  * Encapsulates a request to the api to change the ordering on the given task
  * @author Sam Bosley
  *
  */
 public class MoveRequest {
-
-    private static final Logger log = LoggerFactory.getLogger(MoveRequest.class);
 
     private final GtasksInvoker service;
     private String taskId;
@@ -38,7 +36,7 @@ public class MoveRequest {
         try {
             return executePush();
         } catch (IOException e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             recover();
             return executePush();
         }

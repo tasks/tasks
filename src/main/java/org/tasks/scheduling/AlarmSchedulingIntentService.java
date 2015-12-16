@@ -4,16 +4,14 @@ import android.content.Intent;
 
 import com.todoroo.astrid.alarms.AlarmService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.injection.InjectingIntentService;
 import org.tasks.location.GeofenceService;
 
 import javax.inject.Inject;
 
-public class AlarmSchedulingIntentService extends InjectingIntentService {
+import timber.log.Timber;
 
-    private static final Logger log = LoggerFactory.getLogger(AlarmSchedulingIntentService.class);
+public class AlarmSchedulingIntentService extends InjectingIntentService {
 
     @Inject AlarmService alarmService;
     @Inject GeofenceService geofenceService;
@@ -26,7 +24,7 @@ public class AlarmSchedulingIntentService extends InjectingIntentService {
     protected void onHandleIntent(Intent intent) {
         super.onHandleIntent(intent);
 
-        log.debug("onHandleIntent({})", intent);
+        Timber.d("onHandleIntent(%s)", intent);
 
         alarmService.scheduleAllAlarms();
         geofenceService.setupGeofences();

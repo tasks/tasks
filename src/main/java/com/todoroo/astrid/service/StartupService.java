@@ -33,8 +33,6 @@ import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.provider.Astrid3ContentProvider;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.Broadcaster;
 import org.tasks.BuildConfig;
 import org.tasks.R;
@@ -48,6 +46,8 @@ import java.io.File;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import timber.log.Timber;
+
 /**
  * Service which handles jobs that need to be run when Astrid starts up.
  *
@@ -56,8 +56,6 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class StartupService {
-
-    private static final Logger log = LoggerFactory.getLogger(StartupService.class);
 
     // --- application startup
 
@@ -114,7 +112,7 @@ public class StartupService {
         try {
             database.openForWriting();
         } catch (SQLiteException e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             dialogBuilder.newMessageDialog(R.string.DB_corrupted_body)
                     .setPositiveButton(android.R.string.ok, null)
                     .show();
@@ -125,7 +123,7 @@ public class StartupService {
         final int lastVersion = preferences.getLastSetVersion();
         int currentVersion = BuildConfig.VERSION_CODE;
 
-        log.info("Astrid Startup. {} => {}", lastVersion, currentVersion);
+        Timber.i("Astrid Startup. %s => %s", lastVersion, currentVersion);
 
         databaseRestoreIfEmpty(activity);
 
@@ -173,7 +171,7 @@ public class StartupService {
                                         })
                                         .show();
                             } catch (Exception e) {
-                                log.error(e.getMessage(), e);
+                                Timber.e(e, e.getMessage());
                                 tracker.reportException(e);
                             }
                         }
@@ -231,7 +229,7 @@ public class StartupService {
                 }
             }
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
         }
     }
 }

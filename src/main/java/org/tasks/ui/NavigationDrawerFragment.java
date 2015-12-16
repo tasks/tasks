@@ -24,8 +24,6 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.reminders.ReminderPreferences;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
@@ -37,11 +35,11 @@ import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
 public class NavigationDrawerFragment extends InjectingFragment {
-
-    private static final Logger log = LoggerFactory.getLogger(NavigationDrawerFragment.class);
 
     public static final int FRAGMENT_NAVIGATION_DRAWER = R.id.navigation_drawer;
 
@@ -181,7 +179,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
             getActivity().unregisterReceiver(refreshReceiver);
         } catch (IllegalArgumentException e) {
             // Might not have fully initialized
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
         }
     }
 

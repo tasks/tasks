@@ -8,8 +8,6 @@ import android.media.AudioManager;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.injection.ForApplication;
 
 import java.util.HashMap;
@@ -18,13 +16,13 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 /**
  * @author Arne Jans
  *
  */
 public class VoiceOutputAssistant implements OnInitListener {
-
-    private static final Logger log = LoggerFactory.getLogger(VoiceOutputAssistant.class);
 
     private final Context context;
 
@@ -44,18 +42,18 @@ public class VoiceOutputAssistant implements OnInitListener {
     public void initTTS() {
         if(mTts == null) {
             mTts = new TextToSpeech(context, this);
-            log.debug("Inititalized {}", mTts);
+            Timber.d("Inititalized %s", mTts);
         }
     }
 
     public void speak(String textToSpeak) {
         if (mTts != null && isTTSInitialized) {
             final String id = UUID.randomUUID().toString();
-            log.debug("{}: {} ({})", mTts, textToSpeak, id);
+            Timber.d("%s: %s (%s)", mTts, textToSpeak, id);
             mTts.setOnUtteranceCompletedListener(new TextToSpeech.OnUtteranceCompletedListener() {
                 @Override
                 public void onUtteranceCompleted(String utteranceId) {
-                    log.debug("{}: onUtteranceCompleted {}", utteranceId);
+                    Timber.d("%s: onUtteranceCompleted %s", utteranceId);
                     if(utteranceId.equals(id)) {
                         shutdown();
                     }
@@ -80,9 +78,9 @@ public class VoiceOutputAssistant implements OnInitListener {
             // Try this someday for some interesting results.
             // int result mTts.setLanguage(Locale.FRANCE);
             if (result == TextToSpeech.LANG_MISSING_DATA) {
-                log.error("Language data missing");
+                Timber.e("Language data missing");
             } else if(result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                log.error("Language not supported");
+                Timber.e("Language not supported");
             } else {
                 // Check the documentation for other possible result codes.
                 // For example, the language may be available for the locale,
@@ -99,7 +97,7 @@ public class VoiceOutputAssistant implements OnInitListener {
                 }
             }
         } else {
-            log.error("Could not initialize TextToSpeech.");
+            Timber.e("Could not initialize TextToSpeech.");
         }
     }
 
@@ -107,11 +105,11 @@ public class VoiceOutputAssistant implements OnInitListener {
         if (mTts != null && isTTSInitialized) {
             try {
                 mTts.shutdown();
-                log.debug("Shutdown {}", mTts);
+                Timber.d("Shutdown %s", mTts);
                 mTts = null;
                 isTTSInitialized = false;
             } catch(VerifyError e) {
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
             }
         }
     }

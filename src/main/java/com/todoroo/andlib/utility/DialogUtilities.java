@@ -9,12 +9,9 @@ package com.todoroo.andlib.utility;
 import android.app.Activity;
 import android.app.Dialog;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import timber.log.Timber;
 
 public class DialogUtilities {
-
-    private static final Logger log = LoggerFactory.getLogger(DialogUtilities.class);
 
     /**
      * Dismiss a dialog off the UI thread
@@ -30,7 +27,7 @@ public class DialogUtilities {
                 try {
                     dialog.dismiss();
                 } catch(Exception e) {
-                    log.error(e.getMessage(), e);
+                    Timber.e(e, e.getMessage());
                 }
             }
         });

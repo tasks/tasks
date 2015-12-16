@@ -26,8 +26,6 @@ import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.TitleParser;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.Broadcaster;
 import org.tasks.filters.FilterCounter;
 import org.tasks.scheduling.RefreshScheduler;
@@ -39,6 +37,8 @@ import java.util.Map.Entry;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import timber.log.Timber;
+
 
 /**
  * Service layer for {@link Task}-centered activities.
@@ -48,8 +48,6 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class TaskService {
-
-    private static final Logger log = LoggerFactory.getLogger(TaskService.class);
 
     public static final String TRANS_EDIT_SAVE = "task-edit-save"; //$NON-NLS-1$
 
@@ -260,7 +258,7 @@ public class TaskService {
         try {
             parseQuickAddMarkup(task, tags);
         } catch (Throwable e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
         }
 
         ContentValues forMetadata = null;

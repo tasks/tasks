@@ -26,9 +26,6 @@ import com.todoroo.astrid.gtasks.api.HttpNotFoundException;
 import com.todoroo.astrid.gtasks.api.MoveRequest;
 import com.todoroo.astrid.service.TaskService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.Semaphore;
@@ -36,10 +33,10 @@ import java.util.concurrent.Semaphore;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import timber.log.Timber;
+
 @Singleton
 public class GtasksSyncService {
-
-    private static final Logger log = LoggerFactory.getLogger(GtasksSyncService.class);
 
     private static final String DEFAULT_LIST = "@default"; //$NON-NLS-1$
 
@@ -150,13 +147,13 @@ public class GtasksSyncService {
                 try {
                     op = queue.take();
                 } catch (InterruptedException e) {
-                    log.error(e.getMessage(), e);
+                    Timber.e(e, e.getMessage());
                     continue;
                 }
                 try {
                     op.op(gtasksInvoker);
                 } catch (IOException e) {
-                    log.error(e.getMessage(), e);
+                    Timber.e(e, e.getMessage());
                 }
             }
         }
@@ -169,7 +166,7 @@ public class GtasksSyncService {
             sema.acquire();
         } catch (InterruptedException e) {
             // Ignored
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
         }
     }
 
@@ -286,7 +283,7 @@ public class GtasksSyncService {
             try {
                 invoker.updateGtask(listId, remoteModel);
             } catch(HttpNotFoundException e) {
-                log.error("Received 404 response, deleting {}", gtasksMetadata);
+                Timber.e("Received 404 response, deleting %s", gtasksMetadata);
                 metadataDao.delete(gtasksMetadata.getId());
                 return;
             }

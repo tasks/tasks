@@ -5,19 +5,17 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.injection.ForApplication;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 import static java.util.Arrays.asList;
 
 public class PermissionChecker {
-
-    private static final Logger log = LoggerFactory.getLogger(PermissionChecker.class);
 
     private final Context context;
 
@@ -58,7 +56,7 @@ public class PermissionChecker {
     private boolean checkPermissions(List<String> permissions) {
         for (String permission : permissions) {
             if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
-                log.warn("Request for {} denied", permission);
+                Timber.w("Request for %s denied", permission);
                 return false;
             }
         }

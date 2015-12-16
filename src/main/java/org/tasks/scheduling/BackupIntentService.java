@@ -4,8 +4,6 @@ import android.content.Context;
 
 import com.todoroo.astrid.backup.TasksXmlExporter;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.preferences.Preferences;
 
 import java.io.File;
@@ -15,9 +13,9 @@ import java.util.Comparator;
 
 import javax.inject.Inject;
 
-public class BackupIntentService extends MidnightIntentService {
+import timber.log.Timber;
 
-    private static final Logger log = LoggerFactory.getLogger(BackupIntentService.class);
+public class BackupIntentService extends MidnightIntentService {
 
     public static final String BACKUP_FILE_NAME_REGEX = "auto\\.[-\\d]+\\.xml"; //$NON-NLS-1$
     private static final int DAYS_TO_KEEP_BACKUP = 7;
@@ -55,13 +53,13 @@ public class BackupIntentService extends MidnightIntentService {
         try {
             deleteOldBackups();
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
         }
 
         try {
             xmlExporter.exportTasks(context, TasksXmlExporter.ExportType.EXPORT_TYPE_SERVICE, null);
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
         }
     }
 
@@ -94,7 +92,7 @@ public class BackupIntentService extends MidnightIntentService {
         });
         for(int i = DAYS_TO_KEEP_BACKUP; i < files.length; i++) {
             if(!files[i].delete()) {
-                log.info("Unable to delete: {}", files[i]);
+                Timber.i("Unable to delete: %s", files[i]);
             }
         }
     }

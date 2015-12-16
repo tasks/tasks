@@ -19,9 +19,6 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,10 +28,10 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import timber.log.Timber;
+
 @Singleton
 public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<GtasksList> {
-
-    private static final Logger log = LoggerFactory.getLogger(GtasksTaskListUpdater.class);
 
     /** map of task -> parent task */
     final HashMap<Long, Long> parents = new HashMap<>();
@@ -202,7 +199,7 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<GtasksList
                     parents.put(taskId, parent);
                     siblings.put(taskId, sibling);
                 } catch (Exception e) {
-                    log.error(e.getMessage(), e);
+                    Timber.e(e, e.getMessage());
                 }
 
                 previousTask.set(taskId);

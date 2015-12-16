@@ -4,12 +4,9 @@ import android.support.v4.app.FragmentActivity;
 
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import timber.log.Timber;
 
 public class IndeterminateProgressBarSyncResultCallback extends RecordSyncStatusCallback {
-
-    private static final Logger log = LoggerFactory.getLogger(IndeterminateProgressBarSyncResultCallback.class);
 
     private final FragmentActivity activity;
     private Runnable onFinished;
@@ -31,7 +28,7 @@ public class IndeterminateProgressBarSyncResultCallback extends RecordSyncStatus
                 try {
                     onFinished.run();
                 } catch (IllegalStateException e) {
-                    log.error(e.getMessage(), e);
+                    Timber.e(e, e.getMessage());
                 }
             }
         });

@@ -9,21 +9,18 @@ import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
 import com.todoroo.astrid.dao.StoreObjectDao;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 import static com.google.common.collect.Lists.newArrayList;
 import static org.tasks.time.DateTimeUtils.printTimestamp;
 
 public class GtasksListService {
-
-    private static final Logger log = LoggerFactory.getLogger(GtasksListService.class);
 
     private final StoreObjectDao storeObjectDao;
 
@@ -64,7 +61,7 @@ public class GtasksListService {
 
             String title = remote.getTitle();
             if(local == null) {
-                log.debug("Adding new gtask list {}", title);
+                Timber.d("Adding new gtask list %s", title);
                 local = new GtasksList(id);
             }
 
@@ -89,9 +86,9 @@ public class GtasksListService {
             long lastUpdate = remoteList.getUpdated().getValue();
             if (lastSync < lastUpdate) {
                 listsToUpdate.add(localList);
-                log.debug("{} out of date [local={}] [remote={}]", listName, printTimestamp(lastSync), printTimestamp(lastUpdate));
+                Timber.d("%s out of date [local=%s] [remote=%s]", listName, printTimestamp(lastSync), printTimestamp(lastUpdate));
             } else {
-                log.debug("{} up to date", listName);
+                Timber.d("%s up to date", listName);
             }
         }
         return listsToUpdate;

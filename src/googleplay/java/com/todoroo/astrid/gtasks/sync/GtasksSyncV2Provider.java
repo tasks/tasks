@@ -32,8 +32,6 @@ import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
@@ -47,6 +45,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import timber.log.Timber;
+
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 @Singleton
@@ -54,7 +54,7 @@ public class GtasksSyncV2Provider {
 
     public class SyncExceptionHandler {
         public void handleException(Exception e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
         }
     }
 
@@ -69,8 +69,6 @@ public class GtasksSyncV2Provider {
     public String toString() {
         return getName();
     }
-
-    private static final Logger log = LoggerFactory.getLogger(GtasksSyncV2Provider.class);
 
     private final TaskService taskService;
     private final StoreObjectDao storeObjectDao;
@@ -247,7 +245,7 @@ public class GtasksSyncV2Provider {
             if (errorHandler != null) {
                 errorHandler.handleException(e);
             } else {
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
             }
         }
     }

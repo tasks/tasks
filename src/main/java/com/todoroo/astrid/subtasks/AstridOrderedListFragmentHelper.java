@@ -28,8 +28,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.ui.DraggableListView;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.ActivityPreferences;
@@ -40,9 +38,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmentHelperInterface<LIST> {
+import timber.log.Timber;
 
-    private static final Logger log = LoggerFactory.getLogger(AstridOrderedListFragmentHelper.class);
+public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmentHelperInterface<LIST> {
 
     private final DisplayMetrics metrics = new DisplayMetrics();
     private final AstridOrderedListUpdater<LIST> updater;
@@ -117,7 +115,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
                     updater.moveTo(list, getFilter(), targetTaskId, destinationTaskId);
                 }
             } catch (Exception e) {
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
             }
 
             fragment.reconstructCursor();
@@ -144,7 +142,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
             try {
                 updater.indent(list, getFilter(), targetTaskId, delta);
             } catch (Exception e) {
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
             }
 
             fragment.reconstructCursor();

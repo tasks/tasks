@@ -69,8 +69,6 @@ import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.ui.ReminderControlSet;
 import com.todoroo.astrid.utility.Flags;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.activities.AddAttachmentActivity;
 import org.tasks.activities.LocationPickerActivity;
@@ -95,6 +93,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.preGingerbreadMR1;
 import static org.tasks.files.FileHelper.getPathFromUri;
@@ -109,8 +108,6 @@ import static org.tasks.files.FileHelper.getPathFromUri;
  */
 public final class TaskEditFragment extends InjectingFragment implements
 ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
-
-    private static final Logger log = LoggerFactory.getLogger(TaskEditFragment.class);
 
     public static final String TAG_TASKEDIT_FRAGMENT = "taskedit_fragment"; //$NON-NLS-1$
 
@@ -518,7 +515,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 }
             } catch (Exception e) {
                 // oops, can't serialize
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
             }
             model = taskService.createWithValues(values, null);
             getActivity().getIntent().putExtra(TOKEN_ID, model.getId());
@@ -533,7 +530,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         setIsNewTask(model.getTitle().length() == 0);
 
         if (model == null) {
-            log.error("task-edit-no-task", new NullPointerException("model"));
+            Timber.e(new NullPointerException("model"), "task-edit-no-task");
             getActivity().onBackPressed();
             return;
         }
@@ -738,7 +735,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             String extension = path.substring(path.lastIndexOf('.') + 1);
             filesControlSet.createNewFileAttachment(path, file.getName(), TaskAttachment.FILE_TYPE_IMAGE + extension);
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             Toast.makeText(getActivity(), R.string.file_err_copy, Toast.LENGTH_LONG).show();
         }
     }
@@ -820,7 +817,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             if (timestamp > 0) {
                 hideUntilControls.setCustomDate(timestamp);
             } else {
-                log.error("Invalid timestamp");
+                Timber.e("Invalid timestamp");
             }
             return;
         } else if (requestCode == ReminderControlSet.REQUEST_NEW_ALARM && resultCode == Activity.RESULT_OK) {
@@ -828,14 +825,14 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             if (timestamp > 0) {
                 reminderControlSet.addAlarmRow(timestamp);
             } else {
-                log.error("Invalid timestamp");
+                Timber.e("Invalid timestamp");
             }
         } else if (requestCode == ReminderControlSet.REQUEST_LOCATION_REMINDER && resultCode == Activity.RESULT_OK) {
             Geofence geofence = (Geofence) data.getSerializableExtra(LocationPickerActivity.EXTRA_GEOFENCE);
             if (geofence != null) {
                 reminderControlSet.addGeolocationReminder(geofence);
             } else {
-                log.error("Invalid geofence");
+                Timber.e("Invalid geofence");
             }
         } else if (editNotes != null && editNotes.activityResult(requestCode, resultCode, data)) {
             return;

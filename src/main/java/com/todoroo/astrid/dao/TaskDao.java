@@ -22,8 +22,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.reminders.ReminderService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.location.GeofenceService;
@@ -35,6 +33,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import timber.log.Timber;
+
 /**
  * Data Access layer for {@link Task}-related operations.
  *
@@ -43,8 +43,6 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class TaskDao {
-
-    private static final Logger log = LoggerFactory.getLogger(TaskDao.class);
 
     private final RemoteModelDao<Task> dao;
 
@@ -191,7 +189,7 @@ public class TaskDao {
             try {
                 createNew(task);
             } catch (SQLiteConstraintException e) {
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
                 handleSQLiteConstraintException(task); // Tried to create task with remote id that already exists
             }
         } else {
@@ -289,7 +287,7 @@ public class TaskDao {
         try {
             saveExisting(item);
         } catch (SQLiteConstraintException e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             String uuid = item.getUUID();
             TodorooCursor<Task> tasksWithUUID = dao.query(Query.select(
                     SQL_CONSTRAINT_MERGE_PROPERTIES).where(

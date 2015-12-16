@@ -15,8 +15,6 @@ import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.AccountManager;
 import org.tasks.BuildConfig;
 import org.tasks.injection.ForApplication;
@@ -27,6 +25,8 @@ import java.util.Collections;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import timber.log.Timber;
+
 /**
  * Wrapper around the official Google Tasks API to simplify common operations. In the case
  * of an exception, each request is tried twice in case of a timeout.
@@ -35,8 +35,6 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class GtasksInvoker {
-
-    private static final Logger log = LoggerFactory.getLogger(GtasksInvoker.class);
 
     private AccountManager accountManager;
     private final GoogleAccountCredential credential;
@@ -58,7 +56,7 @@ public class GtasksInvoker {
 
     //If we get a 401 or 403, try revalidating the auth token before bailing
     private synchronized void handleException(IOException e) throws IOException {
-        log.error(e.getMessage(), e);
+        Timber.e(e, e.getMessage());
         if (e instanceof HttpResponseException) {
             HttpResponseException h = (HttpResponseException) e;
             int statusCode = h.getStatusCode();
@@ -69,7 +67,7 @@ public class GtasksInvoker {
             } else if (statusCode == 404) {
                 throw new HttpNotFoundException(h);
             } else {
-                log.error(statusCode + ": " + h.getStatusMessage(), e);
+                Timber.e(e, "%s: %s", statusCode, h.getStatusMessage());
             }
             // 503 errors are generally either 1) quota limit reached or 2) problems on Google's end
         }
@@ -126,7 +124,7 @@ public class GtasksInvoker {
 
     private synchronized <T> T execute(TasksRequest<T> request) throws IOException {
         String caller = getCaller();
-        log.debug("{} request: {}", caller, request);
+        Timber.d("%s request: %s", caller, request);
         T response;
         try {
             response = request.execute();
@@ -134,23 +132,25 @@ public class GtasksInvoker {
             handleException(e);
             response = request.execute();
         }
-        log.debug("{} response: {}", caller, prettyPrint(response));
+        Timber.d("%s response: %s", caller, prettyPrint(response));
         return response;
     }
 
     private <T> Object prettyPrint(T object) throws IOException {
-        if (log.isDebugEnabled() && object instanceof GenericJson) {
-            return ((GenericJson) object).toPrettyString();
+        if (BuildConfig.DEBUG) {
+            if (object instanceof GenericJson) {
+                return ((GenericJson) object).toPrettyString();
+            }
         }
         return object;
     }
 
     private String getCaller() {
-        if (log.isDebugEnabled()) {
+        if (BuildConfig.DEBUG) {
             try {
                 return Thread.currentThread().getStackTrace()[4].getMethodName();
             } catch (Exception e) {
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
             }
         }
         return "";

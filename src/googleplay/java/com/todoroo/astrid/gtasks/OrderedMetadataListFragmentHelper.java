@@ -32,8 +32,6 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.OrderedListFragmentHelperInterface;
 import com.todoroo.astrid.ui.DraggableListView;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.ActivityPreferences;
@@ -45,9 +43,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragmentHelperInterface<LIST> {
+import timber.log.Timber;
 
-    private static final Logger log = LoggerFactory.getLogger(OrderedMetadataListFragmentHelper.class);
+public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragmentHelperInterface<LIST> {
 
     private final DisplayMetrics metrics = new DisplayMetrics();
     private final OrderedMetadataListUpdater<LIST> updater;
@@ -131,7 +129,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
                     updater.moveTo(list, targetTaskId, destinationTaskId);
                 }
             } catch (Exception e) {
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
             }
 
             fragment.loadTaskListContent();
@@ -157,7 +155,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
             try {
                 updater.indent(list, targetTaskId, delta);
             } catch (Exception e) {
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
             }
             fragment.loadTaskListContent();
         }

@@ -7,15 +7,12 @@ package com.todoroo.astrid.gtasks.api;
 
 import com.google.api.client.util.DateTime;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.Date;
 import java.util.TimeZone;
 
-public class GtasksApiUtilities {
+import timber.log.Timber;
 
-    private static final Logger log = LoggerFactory.getLogger(GtasksApiUtilities.class);
+public class GtasksApiUtilities {
 
     public static DateTime unixTimeToGtasksCompletionTime(long time) {
         if (time < 0) {
@@ -60,7 +57,7 @@ public class GtasksApiUtilities {
             Date returnDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
             return returnDate.getTime();
         } catch (NumberFormatException e) {
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             return 0;
         }
     }

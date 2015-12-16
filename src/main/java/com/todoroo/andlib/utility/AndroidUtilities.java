@@ -18,9 +18,6 @@ import android.view.View.OnTouchListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -31,6 +28,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Map.Entry;
 
+import timber.log.Timber;
+
 /**
  * Android Utility Classes
  *
@@ -38,8 +37,6 @@ import java.util.Map.Entry;
  *
  */
 public class AndroidUtilities {
-
-    private static final Logger log = LoggerFactory.getLogger(AndroidUtilities.class);
 
     public static final String SEPARATOR_ESCAPE = "!PIPE!"; //$NON-NLS-1$
     public static final String SERIALIZATION_SEPARATOR = "|"; //$NON-NLS-1$
@@ -255,10 +252,10 @@ public class AndroidUtilities {
                 } catch (NumberFormatException e) {
                     // failed parse to number
                     putter.put(object, key, 's', value);
-                    log.error(e.getMessage(), e);
+                    Timber.e(e, e.getMessage());
                 }
             } catch (IndexOutOfBoundsException e) {
-                log.error(e.getMessage(), e);
+                Timber.e(e, e.getMessage());
             }
         }
     }
@@ -437,7 +434,7 @@ public class AndroidUtilities {
             activity.unregisterReceiver(receiver);
         } catch (IllegalArgumentException e) {
             // Receiver wasn't registered for some reason
-            log.error(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
         }
     }
 

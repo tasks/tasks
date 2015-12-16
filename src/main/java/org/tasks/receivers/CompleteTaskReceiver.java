@@ -6,15 +6,13 @@ import android.content.Intent;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tasks.injection.InjectingBroadcastReceiver;
 
 import javax.inject.Inject;
 
-public class CompleteTaskReceiver extends InjectingBroadcastReceiver {
+import timber.log.Timber;
 
-    private static final Logger log = LoggerFactory.getLogger(CompleteTaskReceiver.class);
+public class CompleteTaskReceiver extends InjectingBroadcastReceiver {
 
     public static final String TASK_ID = "id";
     public static final String TOGGLE_STATE = "flip_state";
@@ -27,12 +25,12 @@ public class CompleteTaskReceiver extends InjectingBroadcastReceiver {
 
         long taskId = intent.getLongExtra(TASK_ID, 0);
         boolean flipState = intent.getBooleanExtra(TOGGLE_STATE, false);
-        log.info("Completing {}", taskId);
+        Timber.i("Completing %s", taskId);
         Task task = taskService.fetchById(taskId, Task.ID, Task.COMPLETION_DATE);
         if (task != null) {
             taskService.setComplete(task, !flipState || !task.isCompleted());
         } else {
-            log.error("Could not find task with id {}", taskId);
+            Timber.e("Could not find task with id %s", taskId);
         }
     }
 }
