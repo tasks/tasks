@@ -15,7 +15,6 @@ import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 
 import org.tasks.R;
-import org.tasks.activities.PrivacyActivity;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
@@ -86,7 +85,5 @@ public class UpgradeActivity extends InjectingAppCompatActivity {
                 }
             }
         }
-        // notify existing users of analytics
-        startActivity(new Intent(this, PrivacyActivity.class));
     }
 }

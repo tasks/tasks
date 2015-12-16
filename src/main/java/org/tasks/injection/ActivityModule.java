@@ -35,7 +35,6 @@ import org.tasks.activities.ExportTaskActivity;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.activities.ImportTaskActivity;
 import org.tasks.activities.LocationPickerActivity;
-import org.tasks.activities.PrivacyActivity;
 import org.tasks.activities.PurgeDeletedActivity;
 import org.tasks.activities.ResetPreferencesActivity;
 import org.tasks.activities.SortActivity;
@@ -101,8 +100,7 @@ import dagger.Provides;
                 UpgradeActivity.class,
                 CalendarSelectionActivity.class,
                 AddAttachmentActivity.class,
-                ShortcutActivity.class,
-                PrivacyActivity.class
+                ShortcutActivity.class
         })
 public class ActivityModule {
 

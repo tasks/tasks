@@ -2,5 +2,4 @@
 <resources>
     <string name="ga_trackingId">UA-43015607-3</string>
     <bool name="ga_reportUncaughtExceptions">true</bool>
-    <integer name="ga_sessionTimeout">300</integer>
 </resources>

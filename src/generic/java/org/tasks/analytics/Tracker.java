@@ -16,4 +16,8 @@ public class Tracker {
     public void setTrackingEnabled(boolean enabled) {
 
     }
+
+    public void reportException(Exception e) {
+
+    }
 }

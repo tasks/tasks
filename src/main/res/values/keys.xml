@@ -281,5 +281,6 @@
   <string name="default_vibration_duration">1000</string>
   <string name="default_vibration_pause">500</string>
   <string name="p_collect_statistics">collect_statistics</string>
+  <string name="p_collect_statistics_notification">collect_statistics_notification</string>
 
 </resources>

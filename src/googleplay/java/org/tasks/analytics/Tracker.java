@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.StandardExceptionParser;
 
 import org.tasks.BuildConfig;
 import org.tasks.R;
@@ -17,11 +18,14 @@ public class Tracker {
 
     private final GoogleAnalytics analytics;
     private final com.google.android.gms.analytics.Tracker tracker;
+    private final StandardExceptionParser exceptionParser;
 
     @Inject
     public Tracker(@ForApplication Context context) {
         analytics = GoogleAnalytics.getInstance(context);
         tracker = analytics.newTracker(R.xml.analytics);
+        tracker.setAppVersion(Integer.toString(BuildConfig.VERSION_CODE));
+        exceptionParser = new StandardExceptionParser(context, null);
         if (BuildConfig.DEBUG) {
             analytics.setDryRun(true);
         }
@@ -34,5 +38,12 @@ public class Tracker {
 
     public void setTrackingEnabled(boolean enabled) {
         analytics.setAppOptOut(!enabled);
+    }
+
+    public void reportException(Exception e) {
+        tracker.send(new HitBuilders.ExceptionBuilder()
+                .setDescription(exceptionParser.getDescription(Thread.currentThread().getName(), e))
+                .setFatal(false)
+                .build());
     }
 }
