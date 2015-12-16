@@ -8,8 +8,6 @@
   <string name="app_name">Tasks</string>
   <string name="FSA_label">Tasks Shortcut</string>
 
-  <string name="gapi_key">AIzaSyBXGYNWNQcfse4JS5gI9teTSKMzinWzL2M</string>
-
   <string name="p_date_shortcut_morning">date_shortcut_morning</string>
   <string name="p_date_shortcut_afternoon">date_shortcut_afternoon</string>
   <string name="p_date_shortcut_evening">date_shortcut_evening</string>
