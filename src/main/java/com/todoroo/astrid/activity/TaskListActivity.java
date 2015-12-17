@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -31,6 +32,7 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.FilterSettingsActivity;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.actfm.TagViewFragment;
+import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
@@ -52,7 +54,9 @@ import com.todoroo.astrid.widget.TasksWidget;
 
 import org.tasks.R;
 import org.tasks.activities.SortActivity;
+import org.tasks.analytics.Tracker;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.BasicPreferences;
 import org.tasks.receivers.RepeatConfirmationReceiver;
 import org.tasks.ui.MenuColorizer;
 import org.tasks.ui.NavigationDrawerFragment;
@@ -71,6 +75,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject VoiceInputAssistant voiceInputAssistant;
     @Inject BuiltInFilters builtInFilters;
+    @Inject Tracker tracker;
 
     private static final int REQUEST_EDIT_TAG = 11543;
     private static final int REQUEST_EDIT_FILTER = 11544;
@@ -149,17 +154,13 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
 
         Filter savedFilter = getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER);
         if (savedFilter == null) {
-            savedFilter = getDefaultFilter();
+            savedFilter = builtInFilters.getMyTasks();
             extras.putAll(configureIntentAndExtrasWithFilter(getIntent(), savedFilter));
         }
 
         extras.putParcelable(TaskListFragment.TOKEN_FILTER, savedFilter);
-
         setupTasklistFragmentWithFilter(savedFilter, extras);
-
-        if (savedFilter != null) {
-            setListsTitle(savedFilter.listingTitle);
-        }
+        setListsTitle(savedFilter.listingTitle);
     }
 
     public NavigationDrawerFragment getNavigationDrawerFragment() {
@@ -204,8 +205,11 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
             completed.setEnabled(false);
         } else if(tlf instanceof TagViewFragment) {
             menu.findItem(R.id.menu_tag_settings).setVisible(true);
-        } else if(tlf.getFilter() instanceof CustomFilter && ((CustomFilter) tlf.getFilter()).getId() > 0) {
-            menu.findItem(R.id.menu_filter_settings).setVisible(true);
+        } else {
+            Filter filter = tlf.getFilter();
+            if(filter != null && filter instanceof CustomFilter && ((CustomFilter) filter).getId() > 0) {
+                menu.findItem(R.id.menu_filter_settings).setVisible(true);
+            }
         }
 
         if (tlf instanceof SubtasksTagListFragment || tlf instanceof SubtasksListFragment) {
@@ -247,10 +251,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
             }
         });
         return true;
-    }
-
-    protected Filter getDefaultFilter() {
-        return builtInFilters.getMyTasks();
     }
 
     @Override
@@ -295,8 +295,7 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
         try {
             FragmentManager manager = getSupportFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
-            transaction.replace(R.id.tasklist_fragment_container, newFragment,
-                    TaskListFragment.TAG_TASKLIST_FRAGMENT);
+            transaction.replace(R.id.tasklist_fragment_container, newFragment, TaskListFragment.TAG_TASKLIST_FRAGMENT);
             transaction.commit();
             runOnUiThread(new Runnable() {
                 @Override
@@ -358,6 +357,33 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
 
         if (getIntent().getBooleanExtra(TOKEN_CREATE_NEW_LIST, false)) {
             newListFromLaunch();
+        }
+
+        if (getResources().getBoolean(R.bool.google_play_store_available) &&
+                !preferences.getBoolean(R.string.p_collect_statistics_notification, false)) {
+            try {
+                View taskList = findViewById(R.id.task_list_coordinator);
+                String text = getString(R.string.anonymous_usage_blurb);
+                //noinspection ResourceType
+                Snackbar.make(taskList, text, 10000)
+                        .setActionTextColor(getResources().getColor(R.color.snackbar_undo))
+                        .setCallback(new Snackbar.Callback() {
+                            @Override
+                            public void onDismissed(Snackbar snackbar, int event) {
+                                preferences.setBoolean(R.string.p_collect_statistics_notification, true);
+                            }
+                        })
+                        .setAction(R.string.opt_out, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                startActivityForResult(new Intent(TaskListActivity.this, BasicPreferences.class), FilterAdapter.REQUEST_SETTINGS);
+                            }
+                        })
+                        .show();
+            } catch (Exception e) {
+                Timber.e(e, e.getMessage());
+                tracker.reportException(e);
+            }
         }
     }
 

@@ -52,7 +52,7 @@ public class RepeatConfirmationReceiver extends InjectingBroadcastReceiver {
             Task task = taskService.fetchById(taskId, REPEAT_RESCHEDULED_PROPERTIES);
 
             try {
-                showSnackbar(activity.findViewById(R.id.task_list_body), task, oldDueDate, newDueDate);
+                showSnackbar(activity.findViewById(R.id.task_list_coordinator), task, oldDueDate, newDueDate);
             } catch (WindowManager.BadTokenException e) { // Activity not running when tried to show dialog--rebroadcast
                 Timber.e(e, e.getMessage());
                 new Thread() {

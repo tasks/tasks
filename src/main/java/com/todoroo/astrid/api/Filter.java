@@ -206,6 +206,10 @@ public class Filter extends FilterListItem {
 
     @Override
     public String toString() {
-        return listingTitle;
+        return "Filter{" +
+                "sqlQuery='" + sqlQuery + '\'' +
+                ", filterOverride='" + filterOverride + '\'' +
+                ", valuesForNewTasks=" + valuesForNewTasks +
+                '}';
     }
 }

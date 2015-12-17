@@ -10,15 +10,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
-import android.preference.PreferenceManager;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.activity.TaskListActivity;
-import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.dao.Database;
@@ -37,9 +32,7 @@ import com.todoroo.astrid.tags.TaskToTagMetadata;
 import org.tasks.Broadcaster;
 import org.tasks.BuildConfig;
 import org.tasks.R;
-import org.tasks.analytics.Tracker;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.Preferences;
 
 import java.io.File;
@@ -68,16 +61,14 @@ public class StartupService {
     private final Preferences preferences;
     private final TasksXmlImporter xmlImporter;
     private final TaskDeleter taskDeleter;
-    private Broadcaster broadcaster;
-    private DialogBuilder dialogBuilder;
-    private Tracker tracker;
+    private final Broadcaster broadcaster;
+    private final DialogBuilder dialogBuilder;
 
     @Inject
     public StartupService(TagDataDao tagDataDao, Database database, GtasksPreferenceService gtasksPreferenceService,
                           GtasksSyncService gtasksSyncService, MetadataDao metadataDao,
                           Preferences preferences, TasksXmlImporter xmlImporter,
-                          TaskDeleter taskDeleter, Broadcaster broadcaster, DialogBuilder dialogBuilder,
-                          Tracker tracker) {
+                          TaskDeleter taskDeleter, Broadcaster broadcaster, DialogBuilder dialogBuilder) {
         this.tagDataDao = tagDataDao;
         this.database = database;
         this.gtasksPreferenceService = gtasksPreferenceService;
@@ -88,7 +79,6 @@ public class StartupService {
         this.taskDeleter = taskDeleter;
         this.broadcaster = broadcaster;
         this.dialogBuilder = dialogBuilder;
-        this.tracker = tracker;
     }
 
     /**
@@ -151,34 +141,6 @@ public class StartupService {
                 gtasksPreferenceService.stopOngoing();
 
                 gtasksSyncService.initialize();
-
-                if (activity.getResources().getBoolean(R.bool.google_play_store_available) &&
-                        !preferences.getBoolean(R.string.p_collect_statistics_notification, false) &&
-                        activity instanceof TaskListActivity) {
-                    preferences.setBoolean(R.string.p_collect_statistics_notification, true);
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                View taskList = activity.findViewById(R.id.task_list_body);
-                                String text = activity.getString(R.string.anonymous_usage_blurb);
-                                //noinspection ResourceType
-                                Snackbar.make(taskList, text, 10000)
-                                        .setActionTextColor(activity.getResources().getColor(R.color.snackbar_undo))
-                                        .setAction(R.string.opt_out, new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                activity.startActivityForResult(new Intent(activity, BasicPreferences.class), FilterAdapter.REQUEST_SETTINGS);
-                                            }
-                                        })
-                                        .show();
-                            } catch (Exception e) {
-                                Timber.e(e, e.getMessage());
-                                tracker.reportException(e);
-                            }
-                        }
-                    });
-                }
             }
         }).start();
 
