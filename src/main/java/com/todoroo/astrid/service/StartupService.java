@@ -134,6 +134,7 @@ public class StartupService {
                     putExtra(UpgradeActivity.TOKEN_FROM_VERSION, lastVersion);
                 }}, 0);
             }
+            preferences.setDefaults();
             preferences.setCurrentVersion(currentVersion);
         }
 
@@ -179,10 +180,6 @@ public class StartupService {
                 }
             }
         }).start();
-
-        if (!preferences.getBoolean(PreferenceManager.KEY_HAS_SET_DEFAULT_VALUES, false)) {
-            preferences.setDefaults();
-        }
 
         if (lastVersion == 0) {
             broadcaster.firstLaunch();
