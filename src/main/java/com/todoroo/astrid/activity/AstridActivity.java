@@ -15,6 +15,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.service.StartupService;
+import com.todoroo.astrid.service.UpgradeActivity;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 
 import org.tasks.R;
@@ -22,6 +23,8 @@ import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.ui.NavigationDrawerFragment;
 
 import javax.inject.Inject;
+
+import timber.log.Timber;
 
 /**
  * This wrapper activity contains all the glue-code to handle the callbacks between the different
@@ -40,7 +43,7 @@ public abstract class AstridActivity extends InjectingAppCompatActivity
     public static final int LAYOUT_SINGLE = 0;
     public static final int LAYOUT_DOUBLE = 1;
 
-    public static final int RESULT_RESTART_ACTIVITY = 50;
+    public static final int REQUEST_UPGRADE = 505;
 
     protected int fragmentLayout = LAYOUT_SINGLE;
 
@@ -147,11 +150,14 @@ public abstract class AstridActivity extends InjectingAppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_RESTART_ACTIVITY) {
-            finish();
-            startActivity(getIntent());
-            return;
+        if (requestCode == REQUEST_UPGRADE && resultCode == RESULT_OK) {
+            if (data != null && data.getBooleanExtra(UpgradeActivity.EXTRA_RESTART, false)) {
+                Timber.w("Upgrade requires restart");
+                finish();
+                startActivity(getIntent());
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 }

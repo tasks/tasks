@@ -27,6 +27,8 @@ public class UpgradeActivity extends InjectingAppCompatActivity {
 
     public static final String TOKEN_FROM_VERSION = "from_version"; //$NON-NLS-1$
 
+    public static final String EXTRA_RESTART = "extra_restart";
+
     public static final int V4_8_0 = 380;
     public static final int V3_0_0 = 136;
 
@@ -46,6 +48,7 @@ public class UpgradeActivity extends InjectingAppCompatActivity {
             new Thread() {
                 @Override
                 public void run() {
+                    boolean restartRequired = false;
                     try {
                         if (from < V4_8_0) {
                             performMarshmallowMigration();
@@ -54,7 +57,9 @@ public class UpgradeActivity extends InjectingAppCompatActivity {
                         finished = true;
                         DialogUtilities.dismissDialog(UpgradeActivity.this, dialog);
                         sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-                        setResult(AstridActivity.RESULT_RESTART_ACTIVITY);
+                        Intent data = new Intent();
+                        data.putExtra(EXTRA_RESTART, restartRequired);
+                        setResult(RESULT_OK, data);
                         finish();
                     }
                 }
