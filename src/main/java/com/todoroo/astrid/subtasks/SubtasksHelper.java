@@ -1,6 +1,5 @@
 package com.todoroo.astrid.subtasks;
 
-import android.content.Context;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.data.Property;
@@ -8,7 +7,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.core.BuiltInFilterExposer;
+import com.todoroo.astrid.core.BuiltInFilters;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
@@ -20,7 +19,6 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
 
 import org.tasks.R;
-import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
@@ -33,23 +31,24 @@ import timber.log.Timber;
 
 public class SubtasksHelper {
 
-    private final Context context;
     private final Preferences preferences;
     private final TaskService taskService;
     private final TagDataDao tagDataDao;
     private final TaskListMetadataDao taskListMetadataDao;
+    private BuiltInFilters builtInFilters;
 
     @Inject
-    public SubtasksHelper(@ForApplication Context context, Preferences preferences, TaskService taskService, TagDataDao tagDataDao, TaskListMetadataDao taskListMetadataDao) {
-        this.context = context;
+    public SubtasksHelper(Preferences preferences, TaskService taskService, TagDataDao tagDataDao,
+                          TaskListMetadataDao taskListMetadataDao, BuiltInFilters builtInFilters) {
         this.preferences = preferences;
         this.taskService = taskService;
         this.tagDataDao = tagDataDao;
         this.taskListMetadataDao = taskListMetadataDao;
+        this.builtInFilters = builtInFilters;
     }
 
     public boolean shouldUseSubtasksFragmentForFilter(Filter filter) {
-        if(filter == null || BuiltInFilterExposer.isInbox(context, filter) || BuiltInFilterExposer.isTodayFilter(context, filter) || filter.isTagFilter()) {
+        if(filter == null || builtInFilters.isMyTasksFilter(filter) || builtInFilters.isTodayFilter(filter) || filter.isTagFilter()) {
             if(preferences.getBoolean(R.string.p_manual_sort, false)) {
                 return true;
             }
@@ -71,9 +70,9 @@ public class SubtasksHelper {
             TaskListMetadata tlm = null;
             if (tagData != null) {
                 tlm = taskListMetadataDao.fetchByTagId(tagData.getUuid(), TaskListMetadata.TASK_IDS);
-            } else if (BuiltInFilterExposer.isInbox(context, filter)) {
+            } else if (builtInFilters.isMyTasksFilter(filter)) {
                 tlm = taskListMetadataDao.fetchByTagId(TaskListMetadata.FILTER_ID_ALL, TaskListMetadata.TASK_IDS);
-            } else if (BuiltInFilterExposer.isTodayFilter(context, filter)) {
+            } else if (builtInFilters.isTodayFilter(filter)) {
                 tlm = taskListMetadataDao.fetchByTagId(TaskListMetadata.FILTER_ID_TODAY, TaskListMetadata.TASK_IDS);
             }
 

@@ -1,7 +1,7 @@
 package com.todoroo.astrid.subtasks;
 
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.core.BuiltInFilterExposer;
+import com.todoroo.astrid.core.BuiltInFilters;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
@@ -23,6 +23,7 @@ public class SubtasksTestCase extends DatabaseTestCase {
     @Inject TaskListMetadataDao taskListMetadataDao;
     @Inject TaskService taskService;
     @Inject Preferences preferences;
+    @Inject BuiltInFilters builtInFilters;
 
     protected SubtasksUpdater<TaskListMetadata> updater;
     protected Filter filter;
@@ -41,7 +42,7 @@ public class SubtasksTestCase extends DatabaseTestCase {
     @Override
     protected void setUp() {
         super.setUp();
-        filter = BuiltInFilterExposer.getMyTasksFilter(getContext().getResources());
+        filter = builtInFilters.getMyTasks();
         preferences.clear(SubtasksUpdater.ACTIVE_TASKS_ORDER);
         updater = new SubtasksFilterUpdater(taskListMetadataDao, taskService);
     }

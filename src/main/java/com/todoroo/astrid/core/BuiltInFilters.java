@@ -31,58 +31,58 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
-/**
- * Exposes Astrid's built in filters to the NavigationDrawerFragment
- *
- * @author Tim Su <tim@todoroo.com>
- *
- */
-public final class BuiltInFilterExposer {
+@Singleton
+public final class BuiltInFilters {
 
-    private final Preferences preferences;
-    private final Context context;
+    private final Filter myTasks;
+    private final Filter today;
+    private final Filter recentlyModified;
+    private final Filter uncategorized;
 
     @Inject
-    public BuiltInFilterExposer(@ForApplication Context context, Preferences preferences) {
-        this.context = context;
-        this.preferences = preferences;
+    public BuiltInFilters(@ForApplication Context context) {
+        Resources resources = context.getResources();
+
+        myTasks = getMyTasksFilter(resources);
+        myTasks.icon = R.drawable.ic_inbox_24dp;
+
+        today = getTodayFilter(resources);
+        today.icon = R.drawable.ic_today_24dp;
+
+        recentlyModified = getRecentlyModifiedFilter(resources);
+        recentlyModified.icon = R.drawable.ic_history_24dp;
+
+        uncategorized = getUncategorizedFilter(resources);
+        uncategorized.icon = R.drawable.ic_label_outline_24dp;
     }
 
-    public Filter getMyTasksFilter() {
-        Filter myTasksFilter = getMyTasksFilter(context.getResources());
-        myTasksFilter.icon = R.drawable.ic_inbox_24dp;
-        return myTasksFilter;
+    public Filter getMyTasks() {
+        return myTasks;
     }
 
-    public List<Filter> getFilters() {
-        Resources r = context.getResources();
-        // core filters
-        List<Filter> filters = new ArrayList<>();
-
-        if (preferences.getBoolean(R.string.p_show_today_filter, true)) {
-            Filter todayFilter = getTodayFilter(r);
-            todayFilter.icon = R.drawable.ic_today_24dp;
-            filters.add(todayFilter);
-        }
-        if (preferences.getBoolean(R.string.p_show_recently_modified_filter, true)) {
-            Filter recentlyModifiedFilter = getRecentlyModifiedFilter(r);
-            recentlyModifiedFilter.icon = R.drawable.ic_history_24dp;
-            filters.add(recentlyModifiedFilter);
-        }
-        if (preferences.getBoolean(R.string.p_show_not_in_list_filter, true)) {
-            Filter uncategorizedFilter = getUncategorizedFilter(r);
-            uncategorizedFilter.icon = R.drawable.ic_label_outline_24dp;
-            filters.add(uncategorizedFilter);
-        }
-        // transmit filter list
-        return filters;
+    public Filter getToday() {
+        return today;
     }
 
-    /**
-     * Build inbox filter
-     */
-    public static Filter getMyTasksFilter(Resources r) {
+    public Filter getRecentlyModified() {
+        return recentlyModified;
+    }
+
+    public Filter getUncategorized() {
+        return uncategorized;
+    }
+
+    public boolean isMyTasksFilter(Filter filter) {
+        return myTasks.equals(filter);
+    }
+
+    public boolean isTodayFilter(Filter filter) {
+        return today.equals(filter);
+    }
+
+    private static Filter getMyTasksFilter(Resources r) {
         return new Filter(r.getString(R.string.BFE_Active),
                 new QueryTemplate().where(
                         Criterion.and(TaskCriteria.activeAndVisible(),
@@ -120,16 +120,5 @@ public final class BuiltInFilterExposer {
                         TaskCriteria.isActive(),
                         TaskCriteria.isVisible())),
                 null);
-    }
-
-    /**
-     * Is this the inbox?
-     */
-    public static boolean isInbox(Context context, Filter filter) {
-        return (filter != null && filter.equals(getMyTasksFilter(context.getResources())));
-    }
-
-    public static boolean isTodayFilter(Context context, Filter filter) {
-        return (filter != null && filter.equals(getTodayFilter(context.getResources())));
     }
 }
